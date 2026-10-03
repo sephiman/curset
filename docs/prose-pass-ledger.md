@@ -1,5 +1,13 @@
 # Prose pass 1.2 — full pass ledger
 
+## Session summary — 2026-10-04 (session 6, final) — read this first
+
+**The pass is complete.** All 44 lessons are done. The final step is done: exercise and figure YAML, glossary,
+READMEs and fixtures, the scoped blacklist sweep (80 of the 230 introduced openings changed), the regeneration
+(nothing to recapture), the full suites and the local CI. Results, the CI checklist, the files to commit and the
+manual-review list are in "Closing" at the end of this ledger.
+
+
 ## Session summary — 2026-10-03 (session 6) — read this first
 
 **Final step: items 1–4 done.** Exercise YAML, figure YAML, glossary «dialecto» ×10, READMEs and fixtures. Details
@@ -3272,7 +3280,7 @@ pairs unchanged.
 | 13 | A signal that cannot answer that is the same claim without a mechanism that m34 took apart in the crowd's dialect, wearing a different costume, and it is answered the same way: if no observation would contradict it, it predicts nothing. | A signal that cannot answer that is the same claim without a mechanism that m34 took apart in the crowd's vocabulary, wearing a different costume. It is answered the same way: if no observation would contradict it, it predicts nothing. |
 | 14 | That makes nobody a fraud — a business can be honest and still have its incentives — but it is a fact, and it is a fact you already know how to read, because it is the same old question applied to a person instead of to a level. And the whole of that ecosystem is built on the psychology m26 describes: the hurry, the FOMO, someone else's streak seen up close and your own seen from far away. | That makes nobody a fraud — a business can be honest and still have its incentives — but it is a fact. You already know how to read it, because it is the same old question applied to a person instead of to a level. And the whole of that ecosystem is built on the psychology m26 describes: the FOMO, someone else's streak seen up close and your own seen from far away. |
 
-## Final step — exercise and figure YAML, glossary, blacklist sweep, tests, CI (**steps 1–4 done; next: step 5**)
+## Final step — exercise and figure YAML, glossary, blacklist sweep, tests, CI (**done — see "Closing" below**)
 
 **Where it stands (end of session 5).** Every lesson is done. The final step has not started; nothing in
 `content/exercises/` or `content/figures/` has been touched. Steps, in your order: (2) exercise + figure YAML, the
@@ -3588,3 +3596,233 @@ logging lesson, before and after. Then come steps 6–9.
 | `m34-ex-1.yaml` | dialecto −4, zona de origen −2 | — |
 | `m34-ex-3.yaml` | bolsa(liq) −1, dialecto −10, escalera −2, ladder/staircase −2, pool/pocket −1, repisa/estante −1, shelf −1, zona de origen −9 | dialecto ×1 |
 | `m34-ex-4.yaml` | concurrido −2, dialecto −12 | — |
+
+### Step 5 — blacklist-opener sweep (session 6, done)
+
+**Scope (your rule).** The sweep covers only sentences the pass wrote or rewrote, and leaves original prose alone
+even when it opens with a listed phrasing.
+- **In scope:** a sentence that appears in an "after" column of either ledger, or that is not in the pre-pass text
+  (`eecbf11`). The second test catches the session-3 sweep edits, which postdate their table rows.
+- **Change:** only an opening that reads as a tic, meaning an announcer, or a connector that adds nothing. «Es… /
+  Son…» / "It is… / They are…" stating a fact stays. «Así que / Por eso» / "So / That is why" stay where they carry
+  real cause and effect.
+
+**Counts.**
+- Candidates: 573 sentence openings matched the blacklist.
+- In scope: 365. Of those, 135 keep the author's original opening (the pass changed something later in the
+  sentence) and stay. The other 230 have an opening the pass introduced, and each was read.
+- **Changed: 80 openings (41 ES, 39 EN).** The other 150 stay: plain «Es… / It is…» facts, causal
+  «Así que / So / Por eso / That is why», and the sentences already varied in session 3.
+
+**Most frequent fixes:**
+- 59 sentence-initial «Y…» / "And…" joining separate statements: the connector is dropped, or the sentence gets its
+  own subject («La misma regularidad explica…», «Supón también que…»);
+- the announcer forms «Eso te permite / Eso desincentiva / Eso la convierte / Eso deja / Eso también es su límite» /
+  "That lets / That discourages / That makes / That leaves / That is also its limit": the subject is named instead
+  («El pago desincentiva…», «Esa memoria la convierte…», "Here lies its limit too");
+- «Para eso sirve…» ×2;
+- «También explica / También significa / También por qué…» / "It also explains / It also means" ×3, plus one
+  fragment «Y con el funding…» / "And for funding…" → «Lo mismo vale para el funding…» / "The same goes for
+  funding…".
+
+**Checks.** Every touched lesson passed the per-lesson check against `HEAD` (numbers, absolutes, italics, bold,
+guards). The regeneration then showed:
+- text diff 0, block inventory OK, exercise refs OK;
+- glossary-link and lesson-ref pairs unchanged against `HEAD`;
+- generation goldens identical to the session baseline;
+- coupling + glossary tests: 235 passed.
+
+| Lesson | Lang | Before (opening) | After |
+|---|---|---|---|
+| m01-l1 | ES | Y "alguien seguirá queriendo esto" es lo único | "Alguien seguirá queriendo esto" es lo único |
+| m01-l1 | ES | Así que la cifra titular de market cap es de 2000 | La cifra titular de market cap es de 2000 |
+| m01-l1 | EN | And "someone will still want this" is the only | "Someone will still want this" is the only |
+| m01-l1 | EN | So the headline market cap is 2 billion USD. | The headline market cap is 2 billion USD. |
+| m02-l1 | ES | Y hay un conjunto distinto de riesgos: | Hay un conjunto distinto de riesgos: |
+| m02-l1 | EN | And there is a different set of risks: | There is a different set of risks: |
+| m02-l1 | EN | And no company can help you if | No company can help you either if |
+| m03-l1 | ES | Así que una vela "diaria" abarca | Una vela "diaria" abarca |
+| m03-l1 | EN | So a "daily" candle spans | A "daily" candle spans |
+| m03-l2 | ES | Eso la convierte en parte en una profecía autocumplida: | Esa memoria la convierte en parte en una profecía autocumplida: |
+| m03-l2 | ES | Y pondera por temporalidad. | Pondera por temporalidad. |
+| m03-l2 | EN | That makes it partly self-fulfilling: | That memory makes it partly self-fulfilling: |
+| m03-l2 | EN | And weight by timeframe. | Weight by timeframe. |
+| m04-l1 | ES | Eso te permite ponerte corto con la misma facilidad que largo. | Puedes ponerte corto con la misma facilidad que largo. |
+| m04-l1 | ES | Y con la escasa liquidez de las madrugadas | Con la escasa liquidez de las madrugadas |
+| m04-l1 | EN | That lets you go short as easily as long. | You can go short as easily as long. |
+| m04-l1 | EN | And the thin liquidity of late nights | The thin liquidity of late nights |
+| m05-l1 | ES | Y una posición cerrada con pérdida no se recupera | Una posición cerrada con pérdida no se recupera |
+| m05-l1 | EN | And a position closed at a loss can't recover | A position closed at a loss can't recover |
+| m07-l1 | ES | Y cobra más al que la *consume*: | Cobra más al que la *consume*: |
+| m07-l1 | ES | Eso desincentiva a los longs y empuja | El pago desincentiva a los longs y empuja |
+| m07-l1 | EN | And it charges more to the trader who *consumes* it: | It charges more to the trader who *consumes* it: |
+| m07-l1 | EN | That discourages longs and pulls | The payment discourages longs and pulls |
+| m08-l2 | ES | Eso también es su límite: | Ahí está también su límite: |
+| m08-l2 | ES | Y el apalancamiento amontona stops | El apalancamiento amontona stops |
+| m08-l2 | EN | That is also its limit: | Here lies its limit too: |
+| m08-l2 | EN | And leverage stacks stops | Leverage stacks stops |
+| m09-l1 | ES | También significa que un «markup» que sale de un spring puede no ser más que un short squeeze: | Un «markup» que sale de un spring puede además no ser más que un short squeeze: |
+| m09-l1 | EN | It also means a "markup" out of a spring can be nothing more than a short squeeze: | A "markup" out of a spring can also be nothing more than a short squeeze: |
+| m13-l1 | ES | Y llega lo bastante profundo | Llega lo bastante profundo |
+| m13-l1 | ES | Y que además está encima de un soporte antiguo de la semana pasada. | Supón también que está encima de un soporte antiguo de la semana pasada. |
+| m13-l1 | EN | And it goes deep enough | It goes deep enough |
+| m13-l1 | EN | And it also sits right on an old support zone from last week. | Suppose too that it sits right on an old support zone from last week. |
+| m14-l1 | ES | Y es lo más parecido que tienes | Es lo más parecido que tienes |
+| m14-l1 | ES | Y la participación se apaga antes que el precio: | La participación se apaga antes que el precio: |
+| m14-l1 | EN | And it is the closest thing you have | It is the closest thing you have |
+| m14-l1 | EN | And participation fades before price does | Participation fades before price does |
+| m15-l1 | ES | Y la enseña diciendo su debilidad | La enseña diciendo su debilidad |
+| m15-l1 | ES | Eso deja un cúmulo de stops en un sitio conocido, | Los stops forman así un cúmulo en un sitio conocido, |
+| m15-l1 | ES | Y la línea te da obedientemente la razón. | La línea te da obedientemente la razón. |
+| m15-l1 | ES | Y si no puedes trazar una que sobreviva | Si no puedes trazar una que sobreviva |
+| m15-l1 | EN | And it teaches it with the weakness | It teaches it with the weakness |
+| m15-l1 | EN | That leaves a stop cluster at a known place, | The stops form a cluster at a known place, |
+| m15-l1 | EN | And the line obediently agrees with you. | The line obediently agrees with you. |
+| m15-l1 | EN | And if you cannot draw one that survives | If you cannot draw one that survives |
+| m15-l2 | ES | Y dice algo real: | Dice algo real: |
+| m15-l2 | EN | And it says something real: | It says something real: |
+| m16-l1 | ES | Y explica que «lleva tres semanas en calma» | La misma regularidad explica que «lleva tres semanas en calma» |
+| m16-l1 | ES | Y con el funding, que te dice | Lo mismo vale para el funding, que te dice |
+| m16-l1 | EN | And it explains why "it has been calm | The same regularity explains why "it has been calm |
+| m16-l1 | EN | And for funding, which tells you | The same goes for funding, which tells you |
+| m18-l1 | ES | Y quedan muchos largos tardíos | Quedan muchos largos tardíos |
+| m18-l1 | EN | And there are a lot of nervous late longs | There are a lot of nervous late longs |
+| m19-l1 | ES | Y el posicionamiento saturado es posicionamiento | El posicionamiento saturado es posicionamiento |
+| m19-l1 | ES | Y un bloque grande de esos largos | Un bloque grande de esos largos |
+| m19-l1 | ES | Y espera que la base se derrumbe | Espera que la base se derrumbe |
+| m19-l1 | ES | También por qué lo de «casi sin riesgo» esconde | Muestra además por qué lo de «casi sin riesgo» esconde |
+| m19-l1 | EN | And a large block of those longs | A large block of those longs |
+| m19-l1 | EN | And expect the basis to collapse | Expect the basis to collapse |
+| m19-l1 | EN | And why "nearly risk-free" hides | It shows as well why "nearly risk-free" hides |
+| m19-l2 | ES | También explica cómo, cuando el lado saturado | Explica además cómo, cuando el lado saturado |
+| m19-l2 | ES | Y si no distingues en qué fase estás, | Si no distingues en qué fase estás, |
+| m19-l2 | EN | It also explains how, when the crowded side | It explains as well how, when the crowded side |
+| m19-l2 | EN | And if you cannot tell which phase you are in, | If you cannot tell which phase you are in, |
+| m21-l1 | ES | Y no es gratis: el capital queda inmovilizado | Tampoco es gratis: el capital queda inmovilizado |
+| m21-l1 | ES | Y la operación se comprime a sí misma. | La operación se comprime a sí misma. |
+| m21-l1 | EN | And it is not free: the capital is locked | Nor is it free: the capital is locked |
+| m21-l1 | EN | And the trade compresses itself. | The trade compresses itself. |
+| m22-l1 | ES | Para eso sirve el límite de pérdida diaria del módulo del plan de trading (m27-l1). | El límite de pérdida diaria del módulo del plan de trading (m27-l1) existe para eso. |
+| m22-l1 | ES | Para eso sirve el apalancamiento: la *misma* posición | El apalancamiento sirve para esto: la *misma* posición |
+| m22-l1 | ES | Y una posición que cerró el exchange | Una posición que cerró el exchange |
+| m22-l1 | EN | And a position the exchange closed | A position the exchange closed |
+| m23-l2 | ES | Y lo que termina una interrupción | Lo que termina una interrupción |
+| m23-l2 | ES | Y como el tamaño sale de la distancia al stop | Como el tamaño sale de la distancia al stop |
+| m23-l2 | EN | And the thing that ends an interruption | The thing that ends an interruption |
+| m23-l2 | EN | And since size comes from stop distance | Since size comes from stop distance |
+| m24-l1 | ES | Y nunca asumas que una orden de mercado | Nunca asumas que una orden de mercado |
+| m24-l1 | EN | And never assume a market order | Never assume a market order |
+| m34-l1 | ES | Y no decide una mecha —decide el cuerpo | No decide una mecha —decide el cuerpo |
+| m34-l1 | EN | And a wick does not decide it: what decides | A wick does not decide it: what decides |
+
+## Closing — prose pass 1.2 (2026-10-04)
+
+### Lessons done
+All 44 lessons (m01-l1 … m35-l1), ES and EN, each reviewed as its own pass and regenerated with zero golden diff.
+- The pilot (m08-l1, m27-l1) is in `docs/prose-pilot-ledger.md`.
+- Every other lesson has its own section above, with before/after tables.
+- Committed by you as fbe5735, 5bdb083, f4937e1/0b3f02c, e160d34, ac227fb and ba3bd5c. The session-6 blacklist sweep
+  is not committed yet.
+
+### Terms replaced
+The coined terms in the inventory's two tables were replaced everywhere: lessons, summaries, titles, glossary,
+exercise YAML, figure captions, interface labels and READMEs. The replacements are listed in "Decisions in force"
+and in "Final step → Progress — session 6".
+
+Changes with structural effect:
+- `g-overrun` removed;
+- `g-origin-zone` → `g-order-block` (the old alias deleted);
+- the m34 titles «El dialecto SMC…» / "The SMC dialect…" → «La terminología SMC…» / "SMC terminology…";
+- the answer and chart labels in `frontend/src/i18n/{en,es}.json` ("Order block respected / failed", band "Order
+  block", "Engulfing at a level", "Same form away from any level", level "Level");
+- the alias example in `content/README.md`.
+
+### Recaptures
+**None.** No golden or fingerprint changed at any point in the pass:
+- the generation goldens are identical to the session baseline after every lesson, after the YAML step and after the
+  sweep;
+- the 84 exercise-mode goldens and 6 numerics pins pass (`verify_golden_stability.py` exits 0, which it does only
+  when all 90 committed fingerprints hold);
+- the bundle content fingerprint changes with every content edit (now
+  `c417c64d30123defb273a9052d0bd698372f5be7c755d8d1c5ae3219740686a5`), but it is computed at export time and is not
+  committed or asserted anywhere.
+
+### Test results (final state, 2026-10-04, exactly the `ci.yml` commands)
+- **Backend:**
+  - `uv sync --frozen` OK;
+  - `uv run ruff check .`: all checks passed;
+  - `uv run mypy src`: no issues in 85 source files;
+  - `uv run pytest`: **1300 passed, 20 skipped**.
+- **Frontend:**
+  - `npm ci` OK (npm prints an audit notice; it does not fail the job);
+  - `npm run build` OK (the existing >500 kB chunk warning only);
+  - `npm test`: **458 passed, 1 skipped** (42 files passed, 1 skipped).
+- **Goldens:** `export_generation_goldens.py` identical to the baseline. `verify_golden_stability.py` exit 0 (Python
+  3.14.7, numpy 2.5.1, OpenBLAS 0.3.33 Haswell; for the cross-machine digest, compare on a second
+  microarchitecture as the script says).
+- **Bundle export:** `export_bundle.py`, format version 2. 98 files plus the manifest; 7 blocks, 35 modules, 44
+  lessons, 147 exercises, 34 figures, 254 glossary terms. Text diff 0, block inventory OK, exercise refs OK (242
+  marks), glossary and block checks 0 differing in both locales.
+- **Coupling + glossary tests:** 235 passed.
+
+### CI checklist
+- **What CI runs** (`.github/workflows/ci.yml`, on push to `main` and on pull requests, clean checkout on Ubuntu):
+  - backend: `uv sync --frozen`, `ruff check .`, `mypy src`, `pytest` (Testcontainers Postgres on the runner's
+    Docker);
+  - frontend: `npm ci`, `npm run build`, `npm test`.
+- **Versions:** CI pins Python 3.14 through uv and Node 26 through `setup-node`. Local was Python 3.14.7 and Node
+  v26.10.0 / npm 12.2.0, so they match.
+- **Caches:** uv (keyed on `backend/uv.lock`) and npm (keyed on `frontend/package-lock.json`). Neither lockfile
+  changed in this pass, so the caches are valid.
+- **Untracked files:** none. The checkout is clean, so a green local run means a green CI once the files below are
+  committed.
+- **What CI does not run:** the bundle export, the generation-golden export and the stability script. They ran here
+  and are green. The glossary-link and lesson-ref reports are checked inside `npm test` (the frontend report tests
+  compare against the committed `.txt` files), which is why they must be committed with the lessons.
+
+**Files that must be in the next commit (49).**
+- 44 lesson files from the session-6 blacklist sweep (`content/es/lessons/` and `content/en/lessons/` for
+  each of: m01-l1, m02-l1, m03-l1, m03-l2, m04-l1, m05-l1, m07-l1, m08-l2, m09-l1, m13-l1, m14-l1, m15-l1, m15-l2, m16-l1, m18-l1, m19-l1, m19-l2, m21-l1, m22-l1, m23-l2, m24-l1, m34-l1);
+- `content/glossary-links.en.txt`, `content/glossary-links.es.txt`, `content/lesson-refs.en.txt`, `content/lesson-refs.es.txt`, `docs/prose-pass-ledger.md`.
+
+No golden, fixture, test or i18n file is pending: those went in with ac227fb (`backend/tests/test_content_api.py`)
+and ba3bd5c (the i18n bundles, `bands.test.tsx`, `exercises.test.ts`, the two glossary fixtures, both READMEs,
+`course.yaml`, `glossary.yaml`, exercise and figure YAML).
+
+### Manual-review list
+These are the places where judgement replaced a mechanical rule. Each is worth a reader's eye.
+1. **Sweep rewrites that gave a sentence a new subject** (the other sweep changes only dropped «Y» / "And"):
+   - m13-l1 «Supón también que está encima…» / "Suppose too that it sits…";
+   - m16-l1 «La misma regularidad explica…» and «Lo mismo vale para el funding…»;
+   - m19-l1 «Muestra además por qué…» / "It shows as well why…";
+   - m19-l2 «Explica además cómo…»;
+   - m22-l1 «El límite de pérdida diaria… existe para eso» and «El apalancamiento sirve para esto:»;
+   - m08-l2 "Here lies its limit too:";
+   - m03-l2 «Esa memoria la convierte…».
+2. **ES gender agreement after a noun swap:**
+   - m19-ex-5 (repisa/bolsa → cúmulo: «situado», «barrerlo», «los cúmulos… aleatorios»);
+   - m34-ex-1 («son el **order block**, una zona, y el precio ha vuelto a ella», which keeps the later «la zona»
+     references valid);
+   - m34-l1's warning note («Trátalo», «"mitigado"»);
+   - m05-ex-3 («umbral… por encima del cual»).
+3. **The m18 module summary** «como aviso y no como señal de timing» / "as a warning rather than a timing signal":
+   reworded rather than term-swapped, because «extremo de sentimiento» there read as a tautology.
+4. **`level.shelf` → "Level" / «Nivel»**: generic. If the m19 sweep chart should say more, «Soporte barrido» /
+   "Swept support" is the alternative.
+5. **Verb forms kept on purpose:**
+   - «asoma» / "pokes" (prose and exercises; the decision covered the noun only);
+   - "overrun / arrollar / atropellar" as a verb;
+   - ES «pinchazo / pincha» in m09-ex-6 while EN "stab" became "dip";
+   - ES «flujo real y forzado» in m21-l2.
+6. **Plain senses kept:** «firma / signature» outside m10, «una sesión concurrida» (busy), «ritmo» in m26 and in
+   «ritmo de avance», "depth / price ladder" and «escalera de profundidad» (DOM), «bolsa de valores», "directive
+   dialect" (the markdown parser) in the root README, and the figure id `fig-m34-origin-zone` and band key `origin`.
+7. **Blacklisted openers left in place:**
+   - 208 are in original prose (out of scope by your rule);
+   - 135 are in pass-rewritten sentences whose opening is the author's;
+   - 150 were introduced by the pass but read as plain statements or real cause and effect.
+   - The blacklist in `docs/prose-voice.md` still applies to future editing.
+8. **Carried from earlier sessions:**
+   - the confirmed triads kept for their only links (m30-l1, m33-l1, m35-l1);
+   - «escalera» as a career ladder in the m35-l1 headings.
+
