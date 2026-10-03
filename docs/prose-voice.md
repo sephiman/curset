@@ -58,3 +58,15 @@ algo siquiera", reads as a calque, so it is a near miss and is not pasted here.
 ## Blacklist from previous runs
 (phrasings the editor itself introduced; filled from the ledger after
 each run)
+
+Run of 2026-10-03 (P1 pilot m08-l1, m27-l1; full pass m01-l1 … m08-l2). All of these are what splitting a
+long sentence at a colon or semicolon produces. None is wrong once; each became a tic. Vary where the split
+falls, or keep the noun ("El cierre es el precio…"), rather than reaching for these:
+
+- «Es + noun phrase…» as the opener of a split-off sentence («Es la ruptura que…», «Es la regla de m26…», «Es
+  este:») / EN "It is… / That is…" (6 ES, 7 EN in the pilot alone).
+- «Eso + verb…» as a split opener («Eso te permite…», «Eso desincentiva…», «Eso la convierte…», «Eso también
+  es su límite») / EN "That lets… / That discourages… / That makes it…".
+- «Son los… / Son…» / EN "They are the…" as a split opener.
+- «Por eso…» and «Así, … / Así que…» as the connector that replaces a cut «, así que» / EN "That is why… /
+  So…" at sentence start.

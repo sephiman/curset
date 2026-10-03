@@ -217,15 +217,15 @@ blocks:
           Leverage changes exactly one thing: how much notional you control per dollar of margin. It does
           not raise the expected return of a trade — the price still has to move the same direction by the
           same amount — it scales gains and losses symmetrically and moves your liquidation closer to entry,
-          until at 50× the whole cushion is about 2% of price. Initial margin is the price of admission and
-          maintenance margin the eviction line; isolated margin caps the damage at the stake you chose,
+          until at 50× the whole cushion is about 2% of price. Initial margin is what it costs to open and
+          maintenance margin the liquidation threshold; isolated margin caps the damage at the stake you chose,
           while cross margin quietly puts the entire balance behind the position.
         es: >-
           El apalancamiento cambia exactamente una cosa: cuánto nocional controlas por cada dólar de margen.
           No aumenta el rendimiento esperado de una operación —el precio sigue teniendo que moverse en la
           misma dirección y la misma cantidad—: escala ganancias y pérdidas de forma simétrica y acerca tu
           liquidación a la entrada, hasta que a 50× todo el colchón es en torno al 2% del precio. El margen
-          inicial es el precio de entrada y el de mantenimiento el umbral de liquidación forzosa; el margen
+          inicial es lo que pagas para abrir y el de mantenimiento el umbral de liquidación; el margen
           aislado limita el daño a la cantidad que elegiste, mientras que el cruzado pone sin avisar todo el
           saldo detrás de la posición.
       exercises:
@@ -335,15 +335,15 @@ blocks:
         es: Estructura de precio
       summary:
         en: >-
-          Support and resistance are shelves of resting orders that memory leaves behind, which is why they
-          are zones a few candles wide rather than lines. A breakout is genuine only once a body closes
+          Support and resistance are resting orders that memory leaves behind, which is why they are
+          zones a few candles wide rather than lines. A breakout is genuine only once a body closes
           beyond the level and holds — often retesting it in role reversal — while a fakeout pokes through
           the orders piled just past the level and closes back inside. The swing sequence says who is
           winning without asking an indicator: HH/HL up, LH/LL down, and the first swing to violate it is a
           change of character, which is a question about control rather than an answer.
         es: >-
-          Los soportes y las resistencias son estantes de órdenes en reposo que deja la memoria, y por eso
-          son zonas de unas cuantas velas de ancho y no líneas. Una ruptura solo es genuina cuando un cuerpo
+          Los soportes y las resistencias son órdenes en reposo que deja la memoria, y por eso son
+          zonas de unas cuantas velas de ancho y no líneas. Una ruptura solo es genuina cuando un cuerpo
           cierra más allá del nivel y aguanta —a menudo retesteándolo por inversión de roles—, mientras que
           un fakeout asoma por las órdenes apiladas justo pasado el nivel y cierra de vuelta dentro. La
           secuencia de swings dice quién va ganando sin preguntarle a ningún indicador: HH/HL arriba, LH/LL
@@ -365,17 +365,17 @@ blocks:
       summary:
         en: >-
           A candle is the footprint of order flow, and almost all of it reduces to two mechanics: a
-          rejection — a long wick pushed to a price and thrown back — and an overrun, an engulfing body that
+          rejection — a long wick pushed to a price and thrown back — and an engulfing, a body that
           steamrolled the one before it. A third category matters just as much: the doji and the small-range
           candle carry no message at all. Location is 90% of the signal, so the same hammer is information
-          at a defended level and noise in open space — there are not sixty patterns, there are two
+          at a defended level and noise away from any level — there are not sixty patterns, there are two
           mechanics wearing sixty names.
         es: >-
           Una vela es la huella del flujo de órdenes, y casi todo se reduce a dos mecánicas: un rechazo —una
-          mecha larga empujada hasta un precio y devuelta— y un overrun, un cuerpo envolvente que arrolla al
+          mecha larga empujada hasta un precio y devuelta— y una envolvente, un cuerpo que arrolla al
           anterior. Una tercera categoría importa igual: el doji y la vela de rango pequeño no llevan
           mensaje alguno. La ubicación es el 90 % de la señal, así que el mismo martillo es información en
-          un nivel defendido y ruido en espacio abierto: no hay sesenta patrones, hay dos mecánicas con
+          un nivel defendido y ruido lejos de cualquier nivel: no hay sesenta patrones, hay dos mecánicas con
           sesenta nombres.
       exercises:
       - id: m08-ex-5
@@ -1409,7 +1409,7 @@ blocks:
       es: El plan de trading
     summary:
       en: 'Assemble structure, confluence, sizing, execution and expectancy into one repeatable process: a complete trade from context to record, the daily stop that ends a losing day, plus the journal, validation and the step to real money.'
-      es: 'Reúne estructura, confluencia, dimensionamiento, ejecución y esperanza en un proceso repetible: una operación completa del contexto al registro, el freno diario que termina un día perdedor, más el diario, la validación y el paso al dinero real.'
+      es: 'Reúne estructura, confluencia, dimensionamiento, ejecución y esperanza en un proceso repetible: una operación completa del contexto al registro, el límite de pérdida diaria que termina un día perdedor, más el diario, la validación y el paso al dinero real.'
     assumes:
     - m08
     - m22
@@ -1439,8 +1439,8 @@ blocks:
           tolerable. El tamaño llega el último, desde el stop —presupuesto de riesgo ÷ distancia del stop—,
           y con la posición viva la habilidad más difícil es no hacer casi nada, moviendo el stop a
           break-even solo con un test estructural y nunca en contra de la operación. Un segundo límite,
-          separado, cierra el día: un freno diario fijado en el plan antes del día malo, que no te consulta
-          cuando menos capaz eres de responder.
+          separado, cierra el día: un límite de pérdida diaria fijado en el plan antes del día malo, que no
+          te consulta cuando menos capaz eres de responder.
       exercises:
       - id: m27-ex-1
         key: m24-ex-1
