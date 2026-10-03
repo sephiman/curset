@@ -70,3 +70,13 @@ falls, or keep the noun ("El cierre es el precio…"), rather than reaching for 
 - «Son los… / Son…» / EN "They are the…" as a split opener.
 - «Por eso…» and «Así, … / Así que…» as the connector that replaces a cut «, así que» / EN "That is why… /
   So…" at sentence start.
+
+Run of 2026-10-03, session 3 (m21-l1 … m24-l1). The same split tics came back, plus these:
+
+- «Y + clause» as the opener of a split-off sentence («Y una posición que cerró el exchange…», «Y nunca asumas…»,
+  «Y como el tamaño sale…», «Y lo que termina una interrupción…») / EN "And…" (5+ each).
+- «También es / También explica…» / EN "It is also… / It also explains…" to carry the second half of a cut
+  sentence.
+- «Esa es la razón (práctica) para…» / EN "That is the (practical / whole) reason to…" as a split opener.
+- «Para eso sirve…» / EN "That is what… is for" (3).
+
