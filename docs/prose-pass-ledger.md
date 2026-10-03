@@ -1,5 +1,28 @@
 # Prose pass 1.2 — full pass ledger
 
+## Session summary — 2026-10-03 (session 5) — read this first
+
+**Lessons: all done.** This session finished m32-l1, m33-l1, m34-l1 and m35-l1 (and the m31-l1 «combustible»
+check). Every lesson from m01-l1 to m35-l1 is `done` in both locales. Next comes the final step (section
+"Final step" at the end of this ledger).
+
+**State at stop.**
+- Link and lesson-ref pairs: identical to `HEAD` e160d34.
+- Goldens: zero diff against the session baseline. Text diff 0. Coupling + glossary tests 235 passed.
+- `test_content_api.py`: 15 passed (it pins the new m34 ES title).
+- Full suites on this state: backend `pytest` **1300 passed, 20 skipped**; frontend `vitest` **458 passed, 1
+  skipped**.
+
+**Next session starts at the final step, item 2.** The scan, the files outside content that carry the same terms,
+and the sweep scope are in "Final step" at the end.
+
+**Decisions this session (revert if you disagree):**
+- `g-origin-zone` → `g-order-block` (the old alias entry deleted);
+- «dialecto» → «terminología SMC» in titles and body;
+- m35-l1 «el dialecto de la masa» → «el vocabulario de la masa» (to keep `g-crowd` and avoid a new `g-smc` link);
+- triads kept whole where every item holds a link: m33-l1 S001 (`g-cvd`), m35-l1 S023 (`g-indicator`, `g-setup`).
+
+
 ## Session summary — 2026-10-03 (session 4) — read this first
 
 **Status.** Done through **m31-l1**. This session (after the three session-4 corrections below): **m25-l1, m26-l1,
@@ -12,13 +35,13 @@ come the final exercise + figure YAML step and the blacklist-opener sweep. Nothi
 - The full suites were last run at the end of session 3 (1300 / 458 passed). They were not rerun for these seven
   lessons, so rerun them next session.
 
-**Decisions taken this session (revert if you disagree):**
+**Decisions taken this session (all four confirmed by you at the start of session 5: «caída breve» / "brief dip", the kept `g-trend` and «m14» sentences, «escalera de profundidad» as the DOM term, EN "an engulfing candle"):**
 - «estocada» / "stab" → «caída breve» / "brief dip". The inventory proposed «ruptura breve» / "brief break";
   in ES that added a `g-breakout` link, and a spring is not a breakout.
 - «yo del momento» → «tú en caliente» / "you in a hot state" (with «tu versión en frío / en caliente» where both
   halves appear).
 - «lente» → «lectura independiente» / "independent read"; «una capa más cerca» → «medida sobre las operaciones
-  ejecutadas»; «combustible» (m31-l1) → «lo que consumió».
+  ejecutadas»; «combustible» (m31-l1) → «la liquidez en reposo que esa compra consumió» (named in session 5).
 - Triad items kept because they hold a link or a token: m30-l1 «tiene tendencia» (`g-trend`), m30-l1 S037 (the
   «m14» token).
 - «escalera de profundidad / de precios» (m29-l1, m31-l1) stays: it is the standard DOM ladder, not the coined
@@ -2866,8 +2889,11 @@ identical, link and ref pairs unchanged.
 Inventory: ES 41 / EN 36. Long sentences (lesson body) ES 14 → 3, EN 7 → 4. Regenerated: text diff 0, goldens
 identical, link and ref pairs unchanged.
 
-- **Coined term:** «el libro es el combustible que consumió» / "the book is the fuel it consumed" → «el libro es lo que
-  consumió» / "the book is what it consumed".
+- **Coined term:** «el libro es el combustible que consumió» / "the book is the fuel it consumed" → «el libro es la
+  liquidez en reposo que esa compra consumió» / "the book is the resting liquidity that buy consumed".
+  - Session 5 check (your request): the first version, «lo que consumió» / "what it consumed", left the subject
+    (the market buy) and the object (the resting liquidity) implicit. Both are now named, which is the inventory's
+    sense («el libro / la liquidez en reposo»).
 - **Fixed:**
   - announcers: S004 «Una cosa que conviene dejar clara antes de nada:»; S067 lead-in to the closing note,
     shortened;
@@ -2925,4 +2951,416 @@ identical, link and ref pairs unchanged.
 | 12 | Why there is no exercise here: a depth ladder is that instantaneous, price-indexed snapshot described above, and every chart this course generates is a time series. | Why there is no exercise here: a depth ladder is that instantaneous, price-indexed snapshot described above. Every chart this course generates is a time series. |
 | 13 | Some version of that sentence is the single most common order-book mistake: seeing large size resting below and treating it as a guaranteed floor, leaning on it, or worse, moving a stop under it. Walls get pulled, and they get pulled precisely when they would have been tested. | Some version of that sentence is the single most common order-book mistake: seeing large size resting below and treating it as a guaranteed floor or, worse, moving a stop under it. Walls get pulled, and they get pulled when they would have been tested. |
 | 14 | Depth tells you what it currently costs to move price, not where price is going — a thin ask side means up is cheap *today*, not that up is coming. Everything resting there is revocable, and a good deal of what matters (icebergs, orders held off-screen by algorithms) is not in the book at all. Which leaves the release, where understanding the mechanism pays off mostly as the discipline to do nothing: | Depth tells you what it currently costs to move price, not where price is going. A thin ask side means up is cheap *today*, not that up is coming. Everything resting there is revocable, and a good deal of what matters (icebergs, orders held off-screen by algorithms) is not in the book. At the release, understanding the mechanism mostly serves to make you do nothing: |
+
+
+## m32-l1 — La prima entre exchanges — **done**
+
+Inventory: ES 22 / EN 19. Long sentences (lesson body) ES 9 → 2, EN 5 → 0. Regenerated: text diff 0, goldens
+identical, link and ref pairs unchanged.
+
+- No coined terms in this lesson. «una bolsa de capital / de compradores» is the plain «pool», not the stop-cluster
+  «bolsa».
+- **Fixed:**
+  - fillers: «Y ojo:» / "Notably,", «genuinamente», «simplemente», «exactamente»;
+  - S047 «el cuadro honesto no es…» → «el arbitraje no elimina las primas: las topa en el coste de hacerlo»;
+  - S038 closer trimmed to «Lo saturado es frágil.»;
+  - the S044 triad (drops «restringido»);
+  - long sentences split;
+  - S050 «que es exactamente lo que hace el cálculo de abajo» → «como en el cálculo de abajo».
+- **Left alone:**
+  - S018 restate: it holds the «900» and «1,5 %» tokens (cutting it failed the number check);
+  - S024 (the italic *información* point);
+  - S046 (aside-only after the split);
+  - summary S051–S053.
+
+#### Before / after
+
+**ES** — 8 changed passages
+
+| # | Before | After |
+|---:|---|---|
+| 1 | m19 te enseñó la base: el hueco entre un perpetuo y su propio precio spot, y cómo una prima sostenida se lee como un posicionamiento apalancado saturado y no como un pronóstico. | m19 te enseñó la base: el hueco entre un perpetuo y su propio precio spot. Allí, una prima sostenida se lee como un posicionamiento apalancado saturado y no como un pronóstico. |
+| 2 | Esto es lo que quiere decir la gente cuando dice que el capital está "entrando por" un exchange concreto, algo habitual cuando el flujo institucional o minorista de un país llega antes que el de los demás. | Esto es lo que quiere decir la gente cuando dice que el capital está "entrando por" un exchange concreto. Pasa a menudo cuando el flujo institucional o minorista de un país llega antes que el de los demás. |
+| 3 | Y ojo: el mismo exchange puede mostrar las dos a la vez —una prima estructural de fricción con picos de demanda encima—, y por eso lo que importa es el *cambio* de la prima, no su nivel. | El mismo exchange puede mostrar las dos a la vez —una prima estructural de fricción con picos de demanda encima—. Lo que importa, por tanto, es el *cambio* de la prima, no su nivel. |
+| 4 | Si ese exchange representa una bolsa de capital distinta, eso es información genuinamente temprana: el flujo tiene que aparecer en algún lado antes de aparecer en todos. | Si ese exchange representa una bolsa de capital distinta, eso es información temprana: el flujo tiene que aparecer en algún lado antes de aparecer en todos. |
+| 5 | Una prima que pasó semanas al 3 % y cae al 0,2 % te está diciendo que el comprador local ansioso ha terminado, o que la barrera que la sostenía acaba de abrirse. | Una prima que pasó semanas al 3 % y cae al 0,2 % dice una de dos cosas: el comprador local ansioso ha terminado, o la barrera que la sostenía acaba de abrirse. |
+| 6 | Lo saturado es frágil, aquí como en todo el resto de este curso. | Lo saturado es frágil. |
+| 7 | Eso pone un suelo: por debajo del coste aproximado de la ida y vuelta, ninguna prima merece arbitrarse, así que las primas pequeñas simplemente persisten. - **Controles de capital y límites bancarios.** En algunas jurisdicciones mover el tramo *fiat* está restringido, es lento o está topado. Esta es la grande: es la razón de que las primas sostenidas más famosas hayan aparecido históricamente en exchanges de países con controles de capital estrictos, y de que puedan durar meses en lugar de minutos. - **El capital ya tiene que estar colocado.** La versión eficiente de la operación necesita inventario en los dos exchanges a la vez, lo que significa inmovilizar capital por adelantado y aceptar el riesgo de contraparte de los dos exchanges (el "not your keys" de m02). Así que el cuadro honesto no es "el arbitraje elimina las primas", sino "el arbitraje las topa en el coste de hacerlo"; y donde ese coste es alto, el tope es alto. | Eso pone un suelo: por debajo del coste aproximado de la ida y vuelta, ninguna prima merece arbitrarse, así que las primas pequeñas persisten. - **Controles de capital y límites bancarios.** En algunas jurisdicciones mover el tramo *fiat* es lento o está topado. Esta es la grande. Explica que las primas sostenidas más famosas hayan aparecido históricamente en exchanges de países con controles de capital estrictos, y que puedan durar meses en lugar de minutos. - **El capital ya tiene que estar colocado.** La versión eficiente de la operación necesita inventario en los dos exchanges a la vez: capital inmovilizado por adelantado y el riesgo de contraparte de los dos exchanges (el "not your keys" de m02). Así que el arbitraje no elimina las primas: las topa en el coste de hacerlo. Donde ese coste es alto, el tope es alto. |
+| 8 | Varias plataformas de datos publican índices de prima entre exchanges de forma continua; el más conocido es la prima de Coinbase (BTC spot en Coinbase contra una referencia global, muy vigilada como aproximación del flujo institucional estadounidense), y la veterana prima del mercado coreano, a la que suele llamarse "prima kimchi", es el caso de manual del tipo impulsado por fricción. Esos son ejemplos de dónde se mide el concepto, no el concepto en sí, y por eso este módulo se llama *prima entre exchanges* y no lleva el nombre del índice de ningún exchange concreto. Puedes calcularla tú mismo con dos fuentes de precio, que es exactamente lo que hace el cálculo de abajo. | Varias plataformas de datos publican índices de prima entre exchanges de forma continua. El más conocido es la prima de Coinbase (BTC spot en Coinbase contra una referencia global, muy vigilada como aproximación del flujo institucional estadounidense). La veterana prima del mercado coreano, a la que suele llamarse "prima kimchi", es el caso de manual del tipo impulsado por fricción. Esos son ejemplos de dónde se mide el concepto, no el concepto en sí. Este módulo se llama, por eso, *prima entre exchanges* y no lleva el nombre del índice de ningún exchange concreto. Puedes calcularla tú mismo con dos fuentes de precio, como en el cálculo de abajo. |
+
+**EN** — 8 changed passages
+
+| # | Before | After |
+|---:|---|---|
+| 1 | m19 taught you the basis: the gap between a perpetual and its own spot price, and how a sustained premium reads as crowded leveraged positioning rather than as a forecast. | m19 taught you the basis: the gap between a perpetual and its own spot price. There, a sustained premium reads as crowded leveraged positioning rather than as a forecast. |
+| 2 | This is what people mean when they say capital is "entering through" a particular venue — often the case when one country's institutional or retail flow arrives before everyone else's. | This is what people mean when they say capital is "entering through" a particular venue. It often happens when one country's institutional or retail flow arrives before everyone else's. |
+| 3 | Notably, the same venue can show both at once — a structural friction premium with demand-driven spikes on top of it, which is why what matters is the premium's *change*, not its level. | The same venue can show both at once: a structural friction premium with demand-driven spikes on top of it. What matters, then, is the premium's *change*, not its level. |
+| 4 | If the venue represents a distinct pool of capital, that is genuinely early information — the flow has to show up somewhere before it shows up everywhere. | If the venue represents a distinct pool of capital, that is early information — the flow has to show up somewhere before it shows up everywhere. |
+| 5 | A premium that spent weeks at 3% and falls to 0.2% is telling you the eager local buyer is done, or that the barrier which sustained it just opened. | A premium that spent weeks at 3% and falls to 0.2% says one of two things: the eager local buyer is done, or the barrier which sustained it just opened. |
+| 6 | Crowded is fragile, here as everywhere else in this course. | Crowded is fragile. |
+| 7 | These set a floor: below roughly the round-trip cost, no premium is worth arbitraging, so small premiums simply persist. - **Capital controls and banking limits.** In some jurisdictions moving the *fiat* leg is restricted, slow, or capped. This is the big one — it is why the most famous sustained premiums have historically appeared on venues in countries with tight capital controls, and why they can last months rather than minutes. - **Capital already has to be in place.** The efficient version of the trade needs inventory on both venues simultaneously, which means tying up capital in advance and accepting the counterparty risk of both exchanges (m02's "not your keys"). So the honest picture is not "arbitrage eliminates premiums" but "arbitrage caps them at the cost of doing it" — and where that cost is high, the cap is high. | These set a floor: below roughly the round-trip cost, no premium is worth arbitraging, so small premiums persist. - **Capital controls and banking limits.** In some jurisdictions moving the *fiat* leg is slow or capped. This is the big one. It explains why the most famous sustained premiums have historically appeared on venues in countries with tight capital controls, and why they can last months rather than minutes. - **Capital already has to be in place.** The efficient version of the trade needs inventory on both venues simultaneously: capital tied up in advance and the counterparty risk of both exchanges (m02's "not your keys"). So arbitrage does not eliminate premiums: it caps them at the cost of doing it. Where that cost is high, the cap is high. |
+| 8 | Several data sites publish cross-venue premium indices continuously; the best known is the Coinbase premium (spot BTC on Coinbase against a global reference, widely watched as a proxy for US institutional flow), and the long-running Korean-market premium usually referred to as the "Kimchi premium" is the textbook case of the friction-driven kind. Those are examples of where the concept is measured, not the concept itself — which is why this module is called *premium between venues* rather than named after any one exchange's index. You can compute it yourself from two price feeds, which is exactly what the calculation below does. | Several data sites publish cross-venue premium indices continuously. The best known is the Coinbase premium (spot BTC on Coinbase against a global reference, widely watched as a proxy for US institutional flow). The long-running Korean-market premium usually referred to as the "Kimchi premium" is the textbook case of the friction-driven kind. Those are examples of where the concept is measured, not the concept itself. This module is therefore called *premium between venues* rather than named after any one exchange's index. You can compute it yourself from two price feeds, as in the calculation below. |
+
+
+## m33-l1 — Gráficos de footprint y perfil de volumen — **done**
+
+Inventory: ES 33 / EN 29. Long sentences (lesson body) ES 15 → 4, EN 11 → 3. Regenerated: text diff 0, goldens
+identical, link and ref pairs unchanged.
+
+- No coined terms in this lesson.
+- **Fixed:**
+  - fillers: «Fíjate en que» / "Notice", «honesta», «en absoluto», «honestos», «exactamente», «genuinamente»,
+    «genuina»;
+  - closers: S004 (the «se explica más abajo» pointer), S015 (drops «la resolución más fina de todo el bloque»),
+    S046 «Resolución no es certeza.», S052 (keeps «no un atajo que se lo salte», drops the noise restatement);
+  - the S047 announcer («Merece nombrar…» → «Hay dos versiones concretas…»);
+  - S026 «honestos pero a ojo» → «trazados a ojo»;
+  - long sentences split.
+- **Changed from the proposal:** the S001 triad is kept whole: «un valor de CVD por periodo» holds the lesson's only
+  `g-cvd` link (cutting it failed the link check).
+- **Left alone:**
+  - S045 (the three failure causes);
+  - S049 «es material de m26» (a lesson ref);
+  - S020 and S037 (aside-only);
+  - the `:::note` («Dicho claramente…», «como es debido»: `::` blocks are out of scope);
+  - summary S053–S055.
+#### Before / after
+
+**ES** — 14 changed passages
+
+| # | Before | After |
+|---:|---|---|
+| 1 | Este último módulo del bloque va de las dos herramientas que giran esa idea —organizan el volumen por precio en lugar de por tiempo— y de ser claros contigo sobre lo que este curso puede y no puede generar para que practiques. | Este último módulo del bloque va de las dos herramientas que giran esa idea —organizan el volumen por precio en lugar de por tiempo—. Te dice además con claridad lo que este curso puede y no puede generar para que practiques. |
+| 2 | La razón se explica más abajo en lugar de dejarse como un hueco. | *(deleted)* |
+| 3 | En lugar de un cuerpo y dos mechas, cada nivel de precio *dentro* del rango de esa vela recibe una fila, y cada fila muestra cuánto se negoció ahí, normalmente separado en volumen de compra taker y volumen de venta taker a ese precio exacto. | En lugar de un cuerpo y dos mechas, cada nivel de precio *dentro* del rango de esa vela recibe una fila. Cada fila muestra cuánto se negoció ahí, normalmente separado en volumen de compra taker y volumen de venta taker a ese precio exacto. |
+| 4 | Eso se lee como una historia concreta y no como una forma: los compradores empujaron hacia arriba y, en 60.100, se toparon con una venta fuerte que se comió la mayor parte del esfuerzo. Fíjate en que esto es el delta de m29, pero resuelto por nivel de precio en vez de sumado a lo largo del periodo: la resolución más fina de todo el bloque. | Eso se lee como una historia concreta y no como una forma. Los compradores empujaron hacia arriba y, en 60.100, se toparon con una venta fuerte que se comió la mayor parte del esfuerzo. El delta de m29 queda aquí resuelto por nivel de precio en vez de sumado a lo largo del periodo. |
+| 5 | Esa es la razón honesta de que aquí no haya ejercicio para él: nada más en este curso produce datos de distribución-dentro-de-una-barra, y la visualización no es en absoluto una serie temporal. | Esa es la razón de que aquí no haya ejercicio para él: nada más en este curso produce datos de distribución-dentro-de-una-barra, y la visualización no es una serie temporal. |
+| 6 | m03 y m08 enseñaban los niveles como sitios donde el precio ha reaccionado, trazados a partir de máximos y mínimos: honestos pero a ojo, y vulnerables a la crítica de que siempre puedes encontrar una línea que encaje. | m03 y m08 enseñaban los niveles como sitios donde el precio ha reaccionado, trazados a ojo a partir de máximos y mínimos. Eran vulnerables a la crítica de que siempre puedes encontrar una línea que encaje. |
+| 7 | Un nodo de volumen alto es un precio en el que coincidieron muchos participantes y, por tanto, uno que probablemente defiendan o vuelvan a trabajar; un nodo de volumen bajo es un precio que el mercado rechazó rápido, y el precio suele atravesar esos huecos deprisa porque ahí hay poco historial de interés. | Un nodo de volumen alto es un precio en el que coincidieron muchos participantes y, por tanto, uno que probablemente defiendan o vuelvan a trabajar. Un nodo de volumen bajo es un precio que el mercado rechazó rápido, y el precio suele atravesar esos huecos deprisa porque ahí hay poco historial de interés. |
+| 8 | Te da una razón para un nivel más allá de "parece un nivel", que es exactamente lo que pedía la advertencia de m08 sobre trazar líneas que encajen con tu sesgo. | Te da una razón para un nivel más allá de "parece un nivel", que es lo que pedía la advertencia de m08 sobre trazar líneas que encajen con tu sesgo. |
+| 9 | Un nivel con volumen detrás sigue siendo solo un nivel: te dice dónde una reacción es *más probable*, no que vaya a ocurrir, y no elimina la necesidad de confirmación, de stop ni de dimensionamiento. | Un nivel con volumen detrás sigue siendo solo un nivel. Te dice dónde una reacción es *más probable*, no que vaya a ocurrir, y no elimina la necesidad de confirmación, de stop ni de dimensionamiento. |
+| 10 | - El perfil de volumen es el más accesible de los dos y está ampliamente disponible: TradingView incluye perfil de volumen de rango fijo y de sesión (las variantes más avanzadas están en los planes de pago), y casi cualquier plataforma de gráficos serios trae alguna versión. - Los gráficos de footprint son de especialista. | - El perfil de volumen es el más accesible de los dos y está ampliamente disponible. TradingView incluye perfil de volumen de rango fijo y de sesión (las variantes más avanzadas están en los planes de pago), y casi cualquier plataforma de gráficos serios trae alguna versión. - Los gráficos de footprint son de especialista. |
+| 11 | El POC de la sesión de ayer, dibujado en el gráfico de hoy, es un nivel genuinamente útil y probarlo no te cuesta nada. | El POC de la sesión de ayer, dibujado en el gráfico de hoy, es un nivel útil y probarlo no te cuesta nada. |
+| 12 | El flujo de órdenes, el libro, los footprints: cada uno es una mejora genuina de resolución, y ninguno convierte una probabilidad en una garantía. | El flujo de órdenes, el libro, los footprints: cada uno es una mejora de resolución, y ninguno convierte una probabilidad en una garantía. |
+| 13 | Resolución no es certeza. Merece nombrar dos versiones concretas, porque las dos son las herramientas de este módulo vueltas contra su dueño. Tratar el POC como un imán que hay que tocar es la primera: "el precio siempre vuelve al POC" es folclore, y un nodo de volumen alto no es más que un precio con un historial de acuerdo, lo que hace una reacción ahí más probable que en un precio al azar: una probabilidad, no una cita. | Hay dos versiones concretas, y las dos vuelven las herramientas de este módulo contra su dueño. Tratar el POC como un imán que hay que tocar es la primera. "El precio siempre vuelve al POC" es folclore: un nodo de volumen alto no es más que un precio con un historial de acuerdo, lo que hace una reacción ahí más probable que en un precio al azar. Una probabilidad, no una cita. |
+| 14 | En la resolución más fina, la mayor parte de lo que ves es ruido: un único nivel de precio marcando 310 vendidos contra 120 comprados es un momento de una vela, e incontables desequilibrios así se resuelven en nada. Leer footprint es una habilidad profesional construida encima de todo lo de este curso, no un atajo que se lo salte; y cuanto más granular es el dato, mayor es la proporción de ruido frente a señal. | En la resolución más fina, la mayor parte de lo que ves es ruido. Un único nivel de precio marcando 310 vendidos contra 120 comprados es un momento de una vela, e incontables desequilibrios así se resuelven en nada. Leer footprint es una habilidad profesional construida encima de todo lo de este curso, no un atajo que se lo salte. |
+
+**EN** — 14 changed passages
+
+| # | Before | After |
+|---:|---|---|
+| 1 | This last module of the block is about the two tools that rotate that idea — they organise volume by price instead of by time — and about being straight with you regarding what this course can and cannot generate for you to practise on. | This last module of the block is about the two tools that rotate that idea — they organise volume by price instead of by time. It tells you plainly, as well, what this course can and cannot generate for you to practise on. |
+| 2 | The reason is explained below rather than left as a gap. | *(deleted)* |
+| 3 | Instead of one body and two wicks, each price level *within* that candle's range gets a row, and each row shows how much traded there — usually split into taker buy volume and taker sell volume at that exact price. | Instead of one body and two wicks, each price level *within* that candle's range gets a row. Each row shows how much traded there — usually split into taker buy volume and taker sell volume at that exact price. |
+| 4 | That reads as a specific story rather than a shape: buyers pushed up, and at 60,100 they ran into heavy selling that ate most of the effort. Notice this is the delta of m29, but resolved by price level rather than summed over the period — the finest resolution in this block. | That reads as a specific story rather than a shape. Buyers pushed up, and at 60,100 they ran into heavy selling that ate most of the effort. m29's delta is resolved here by price level rather than summed over the period. |
+| 5 | That is the honest reason there is no exercise for it here: nothing else in this course produces distribution-within-a-bar data, and the visualisation is not a time series at all. | That is the reason there is no exercise for it here: nothing else in this course produces distribution-within-a-bar data, and the visualisation is not a time series. |
+| 6 | m03 and m08 taught levels as places price has reacted to — drawn from highs and lows, honest but eyeballed, and vulnerable to the criticism that you can always find a line that fits. | m03 and m08 taught levels as places price has reacted to — eyeballed from highs and lows. They were vulnerable to the criticism that you can always find a line that fits. |
+| 7 | A high-volume node is a price many participants agreed on and therefore one they are likely to defend or re-engage with; a low-volume node is a price the market rejected quickly, and price often traverses such gaps fast because there is little history of interest there. | A high-volume node is a price many participants agreed on and therefore one they are likely to defend or re-engage with. A low-volume node is a price the market rejected quickly, and price often traverses such gaps fast because there is little history of interest there. |
+| 8 | It gives you a reason for a level beyond "it looks like one" — which is precisely what m08's warning about drawing lines to fit your bias was asking for. | It gives you a reason for a level beyond "it looks like one" — which is what m08's warning about drawing lines to fit your bias was asking for. |
+| 9 | A level with volume behind it is still only a level: it tells you where a reaction is *more likely*, not that one will happen, and it does not remove the need for confirmation, a stop, or sizing. | A level with volume behind it is still only a level. It tells you where a reaction is *more likely*, not that one will happen, and it does not remove the need for confirmation, a stop, or sizing. |
+| 10 | - Volume profile is the more accessible of the two and is widely available: TradingView includes fixed-range and session volume profile (the more advanced variants sit behind paid tiers), and most serious charting platforms ship some version. - Footprint charts are specialist. | - Volume profile is the more accessible of the two and is widely available. TradingView includes fixed-range and session volume profile (the more advanced variants sit behind paid tiers), and most serious charting platforms ship some version. - Footprint charts are specialist. |
+| 11 | The POC of yesterday's session, drawn on today's chart, is a genuinely useful level and costs you nothing to try. | The POC of yesterday's session, drawn on today's chart, is a useful level and costs you nothing to try. |
+| 12 | Order flow, the book, footprints: each is a genuine upgrade in resolution, and none of them converts a probability into a guarantee. | Order flow, the book, footprints: each is an upgrade in resolution, and none of them converts a probability into a guarantee. |
+| 13 | Resolution is not certainty. Two specific versions are worth naming, because both are this module's tools turned against their owner. Treating the POC as a magnet that must be hit is the first: "price always returns to the POC" is folklore, and a high-volume node is only a price with a history of agreement, which makes a reaction there more likely than at a random price — a probability, not an appointment. | There are two specific versions, and both turn this module's tools against their owner. Treating the POC as a magnet that must be hit is the first. "Price always returns to the POC" is folklore: a high-volume node is only a price with a history of agreement, which makes a reaction there more likely than at a random price. A probability, not an appointment. |
+| 14 | At the finest resolution most of what you see is noise: a single price level printing 310 sold against 120 bought is one moment of one candle, and countless such imbalances resolve into nothing. Footprint reading is a professional skill built on top of everything in this course, not a shortcut around it — and the more granular the data, the higher the ratio of noise to signal. | At the finest resolution most of what you see is noise. A single price level printing 310 sold against 120 bought is one moment of one candle, and countless such imbalances resolve into nothing. Footprint reading is a professional skill built on top of everything in this course, not a shortcut around it. |
+
+
+## m34-l1 — La terminología SMC — **done**
+
+Inventory: ES 65 / EN 62. Long sentences (lesson body) ES 23 → 12, EN 18 → 7 (the remaining ones are mostly the
+vocabulary lists and quoted claims). Regenerated: text diff 0, goldens identical, link and ref pairs unchanged
+(several first marks moved to later sentences; every (lesson, term) pair holds).
+
+- **Coined terms:**
+  - «dialecto» / "dialect" → «terminología SMC» / "SMC terminology". This covers the lesson body, the module title and
+    the lesson title (`course.yaml`, both locales), and the H1 heading.
+  - «zona de origen (del impulso)» / "(the impulse's) origin zone" → «order block», the name the lesson maps.
+    - S018 no longer coins it: «aquí la llamamos la zona de origen del impulso, que es lo que es» is gone.
+    - The H2 is now «Las velas de las que arranca un impulso (el «order block»)» / "The candles an impulse sets off
+      from (the "order block")", describing the thing, as the FVG heading does.
+    - In the warning note «Una zona de origen… Trátala… "mitigada"» → «Un order block… Trátalo… "mitigado"»
+      (agreement follows the noun).
+  - **`g-origin-zone` renamed:** the entry is now `g-order-block` (en/es «order block», same definition, same
+    origin). The old `g-order-block` alias that pointed at it is deleted, because it would have aliased itself.
+    Nothing else referenced either id; the link reports' "never linked in the book" list now shows `g-order-block`
+    only.
+  - «la escalera» ×5 / "the ladder" → «la secuencia de máximos y mínimos (más altos)» / "the sequence of (higher)
+    highs and (higher) lows", m08-l1's wording, in the body, the vocabulary map and the summary («las dos rupturas
+    de la escalera de m08-l1» → «…de la secuencia de máximos y mínimos de m08-l1»). S057 drops «donde vive la
+    escalera».
+  - «las bolsas de liquidez» / "liquidity pools" → «los cúmulos de stops» / "stop clusters"; «una bolsa de stops» /
+    "a pocket of resting stops" → «un cúmulo de stops» / "a cluster of resting stops" (m19-l2's term).
+  - «concurrida» → «saturada» (EN "crowded" stays).
+  - «una mecha asomando» / "a wick poking through" → «no decide una mecha» / "a wick does not decide it" (the
+    «asomo» / "poke" decision).
+  - Module summary: «la zona de origen de un impulso… la escalera de estructura» / "an impulse's origin zone… the
+    structure ladder" → «las velas de las que arranca un impulso… la secuencia de máximos y mínimos» / "the candles
+    an impulse sets off from… the sequence of highs and lows".
+- **Test changed with the title:** `backend/tests/test_content_api.py` pins the ES lesson title, so it now expects
+  «La terminología SMC (order blocks, FVG, BOS)». Run: 15 passed.
+- **Fixed:**
+  - fillers: «exactamente» ×2, «palabra por palabra», «Fíjate en… honesta» (→ «Esa idea tiene dos matices»),
+    «Ojo con la palabra:», «claramente», «perfectamente», «honesta»;
+  - closers: S003 (split), S009 (the last-section pointer), S100 «Eso es todo el efecto que hay…»;
+  - the S076 triad (drops «discutirlo»);
+  - long sentences split.
+- **Left alone:**
+  - S006 «Lo que falta no es mecánica: es el diccionario.» (introduces «diccionario», which the vocabulary map
+    uses);
+  - S081 (the m29/m33 boundary sentence, a lesson ref);
+  - S005 and S073 (a list and a quoted claim);
+  - figure ids `fig-m34-origin-zone` and the band label `origin` (identity).
+- **Outside the lesson, for the final step:**
+  - the i18n strings «Zona de origen (respetada / fallida)» / "Origin zone (respected / failed)", shown as exercise
+    answers;
+  - `README.md` and `content/README.md` mentions («SMC dialect», "origin zone", "m08-l1's shelf");
+  - the glossary's «dialecto SMC» definitions;
+  - code comments and identifiers (`origin_zone.py`, band label `origin`) stay: they are identity, not reader text.
+#### Before / after
+
+**ES** — 25 changed passages
+
+| # | Before | After |
+|---:|---|---|
+| 1 | # El dialecto SMC (order blocks, FVG, BOS) | # La terminología SMC (order blocks, FVG, BOS) |
+| 2 | El smart money del nombre es la afirmación misma: que existe una clase identificable de participantes institucionales que mueve el precio deliberadamente contra todos los demás, y que estos patrones son las huellas que deja; es la afirmación que esta lección acaba desmontando. | El smart money del nombre es la afirmación misma: que existe una clase identificable de participantes institucionales que mueve el precio deliberadamente contra todos los demás, y que estos patrones son las huellas que deja. Esta lección acaba desmontando esa afirmación. |
+| 3 | Casi toda la sustancia ya está enseñada, con otros nombres: las bolsas de liquidez y los barridos en m19-l2, el spring y la absorción en m09, el cambio de carácter en m08-l1, la inversión de roles y los soportes como *zonas* también en m08-l1, el vacío de liquidez en m08-l2. | Casi toda la sustancia ya está enseñada, con otros nombres: los cúmulos de stops y los barridos en m19-l2, el spring y la absorción en m09, el cambio de carácter en m08-l1, la inversión de roles y los soportes como *zonas* también en m08-l1, el vacío de liquidez en m08-l2. |
+| 4 | Así que esta lección hace con el léxico SMC exactamente lo que m08-l2 hizo con los patrones de vela japoneses: mapea cada nombre sobre una mecánica más una ubicación, nunca como señal por sí sola. Y adopta la misma postura que m13 con Fibonacci y m10-l1 con la media de 200: merece la pena entender este dialecto porque la masa lo habla, no porque prediga. Esas dos cosas no son lo mismo, y la diferencia es el tema de la última sección. ## La zona de origen de un impulso (el «order block») | Así que esta lección hace con el léxico SMC lo que m08-l2 hizo con los patrones de vela japoneses. Mapea cada nombre sobre una mecánica más una ubicación, nunca como señal por sí sola. Y adopta la misma postura que m13 con Fibonacci y m10-l1 con la media de 200: merece la pena entender esta terminología porque la masa la habla, no porque prediga. ## Las velas de las que arranca un impulso (el «order block») |
+| 5 | Eso es, palabra por palabra, el comprador que absorbe dentro del rango de m09. | Eso es el comprador que absorbe dentro del rango de m09. |
+| 6 | A esa zona el dialecto la llama order block; aquí la llamamos la zona de origen del impulso, que es lo que es. Fíjate en dos cosas que hacen honesta esa frase. La primera: es una inferencia, no una observación. Nadie anuncia nada y el libro de órdenes no muestra nada; lo que se razona es que un tamaño capaz de mover el precio así difícilmente cupo en un solo precio. La segunda: es una zona, como todo soporte en este curso (m08-l1), porque está definida por los extremos de unas velas y porque la reacción se espera *en algún punto dentro de ella*. | A esa zona la terminología SMC la llama order block. Esa idea tiene dos matices. El primero: es una inferencia, no una observación. Nadie anuncia nada y el libro de órdenes no muestra nada. Lo que se razona es que un tamaño capaz de mover el precio así difícilmente cupo en un solo precio. El segundo: es una zona, como todo soporte en este curso (m08-l1). Está definida por los extremos de unas velas, y la reacción se espera *en algún punto dentro de ella*. |
+| 7 | Sin un cierre limpio más allá del máximo que el mercado venía respetando, no hay impulso que haya roto nada, y las velas anteriores son un retroceso corriente de los que toda tendencia está llena. Este es el error que más caro sale del dialecto entero: dibujar la zona primero y no comprobar nunca la estructura, con lo que se puede encontrar una zona en cualquier gráfico. | Sin un cierre limpio más allá del máximo que el mercado venía respetando, no hay impulso que haya roto nada. Las velas anteriores son entonces un retroceso corriente de los que toda tendencia está llena. Este es el error que más caro sale de toda la terminología SMC: dibujar la zona primero y no comprobar nunca la estructura, con lo que se puede encontrar una zona en cualquier gráfico. |
+| 8 | Las últimas velas bajistas antes del impulso van de 1.810 a 1.855: esa banda sombreada es la zona de origen. | Las últimas velas bajistas antes del impulso van de 1.810 a 1.855: esa banda sombreada es el order block. |
+| 9 | Y no es una mecha asomando —decide el cuerpo, como en m08-l1—: el impulso continúa y deja cierres hasta 2.045, más de un 4 % por encima del máximo que ha roto. | Y no decide una mecha —decide el cuerpo, como en m08-l1—: el impulso continúa y deja cierres hasta 2.045, más de un 4 % por encima del máximo que ha roto. |
+| 10 | m08-l2 ya te avisó de este fenómeno desde el otro extremo: una mecha muy larga impresa en un libro fino de fin de semana es un vacío de liquidez, un trecho por el que casi nada se negoció, y hay que desconfiar de ella. | m08-l2 ya te avisó de este fenómeno desde el otro extremo. Una mecha muy larga impresa en un libro fino de fin de semana es un vacío de liquidez, un trecho por el que casi nada se negoció, y hay que desconfiar de ella. |
+| 11 | Lo que m08-l2 dejó fuera es que el mismo vacío, cuando un movimiento rápido lo deja *detrás*, es una zona, y que el precio vuelve a ella lo bastante a menudo para merecer un nombre. | Lo que m08-l2 dejó fuera es que el mismo vacío, cuando un movimiento rápido lo deja *detrás*, es una zona. El precio vuelve a ella lo bastante a menudo para merecer un nombre. |
+| 12 | Al otro lado de ese tramo quedaron órdenes que querían operar y no pudieron, y quien se subió al movimiento lo hizo sin la referencia de precio que da un rango negociado. | Al otro lado de ese tramo quedaron órdenes que querían operar y no pudieron. Quien se subió al movimiento lo hizo sin la referencia de precio que da un rango negociado. |
+| 13 | Ojo con la palabra: a menudo, no siempre. | A menudo, no siempre. |
+| 14 | El máximo de la vela anterior está en 27.100 y el mínimo de la siguiente en 28.000, así que ese tramo de unos 900 puntos —la banda sombreada— se cruzó dentro de esa única barra. Durante el resto de la ventana el precio se queda claramente por encima y el hueco sigue abierto; el tramo final es la vuelta a por él, con la mecha entrando hasta 27.320. | El máximo de la vela anterior está en 27.100 y el mínimo de la siguiente en 28.000. Ese tramo de unos 900 puntos —la banda sombreada— se cruzó dentro de esa única barra. Durante el resto de la ventana el precio se queda por encima y el hueco sigue abierto. El tramo final es la vuelta a por él, con la mecha entrando hasta 27.320. |
+| 15 | No es un hueco de sesión: los mercados tradicionales cierran y abren con salto, y el cripto funciona 24/7 (m10-l1), así que esto es siempre un desequilibrio *dentro* de una serie continua. | No es un hueco de sesión. Los mercados tradicionales cierran y abren con salto, y el cripto funciona 24/7 (m10-l1), así que esto es siempre un desequilibrio *dentro* de una serie continua. |
+| 16 | m08-l1 te enseñó la escalera —máximos y mínimos más altos— y le puso nombre a la ruptura que la termina: el cambio de carácter, CHoCH, el primer mínimo más bajo en una tendencia alcista. | m08-l1 te enseñó la secuencia de máximos y mínimos más altos y le puso nombre a la ruptura que la termina: el cambio de carácter, CHoCH, el primer mínimo más bajo en una tendencia alcista. |
+| 17 | Una escalera, dos clases de ruptura: la que continúa la secuencia y la que la rompe. El segundo acrónimo añade una palabra, no una idea; ahora m08-l1 también lo nombra, donde vive la escalera. | Una misma secuencia, dos clases de ruptura: la que la continúa y la que la rompe. El segundo acrónimo añade una palabra, no una idea; ahora m08-l1 también lo nombra. |
+| 18 | - **Order block** — la zona de origen de un impulso: las últimas velas contrarias antes del movimiento que rompió la estructura. | - **Order block** — las últimas velas contrarias antes del movimiento que rompió la estructura. |
+| 19 | *m08-l2*, el vacío de liquidez, ahora enseñado también como zona. - **Liquidity grab / sweep** — un barrido de una bolsa de stops en reposo, con recuperación inmediata del nivel. *m19-l2*, y las mechas de caza de stops de *m08-l1*. - **BOS / CHoCH** — las dos rupturas de la escalera: la que continúa la secuencia y la que la termina. | *m08-l2*, el vacío de liquidez, ahora enseñado también como zona. - **Liquidity grab / sweep** — un barrido de un cúmulo de stops en reposo, con recuperación inmediata del nivel. *m19-l2*, y las mechas de caza de stops de *m08-l1*. - **BOS / CHoCH** — las dos rupturas de la secuencia de máximos y mínimos: la que la continúa y la que la termina. |
+| 20 | Donde esto se convierte en numerología es en las bandas con decimales, del tipo "la entrada óptima está en el 0,705–0,79": m13 ya zanjó que ningún mecanismo obliga a un mercado a respetar una proporción, y que lo único que tienen esos niveles a favor es que mucha gente los vigila. | Donde esto se convierte en numerología es en las bandas con decimales, del tipo "la entrada óptima está en el 0,705–0,79". m13 ya zanjó que ningún mecanismo obliga a un mercado a respetar una proporción, y que lo único que tienen esos niveles a favor es que mucha gente los vigila. |
+| 21 | Aquí es donde este dialecto se separa de lo que este curso está dispuesto a afirmar, y conviene ver exactamente en qué punto. | Aquí la terminología SMC se separa de lo que este curso está dispuesto a afirmar. |
+| 22 | Puedes discutirlo, comprobarlo y equivocarte con él. | Puedes comprobarlo y equivocarte con él. |
+| 23 | El dialecto está especialmente expuesto: las zonas son bandas, las bandas se pueden mover un poco, y todo impulso tiene velas antes, así que a posteriori siempre se encuentra una cerca de una reacción. | La terminología SMC está especialmente expuesta: las zonas son bandas, las bandas se pueden mover un poco, y todo impulso tiene velas antes. A posteriori siempre se encuentra una cerca de una reacción. |
+| 24 | El dialecto no se gana una excepción; se gana la misma prueba. 4. | La terminología SMC no se gana una excepción; se gana la misma prueba. 4. |
+| 25 | Un stop más allá del extremo lejano de una zona es un stop estructural perfectamente razonable; un stop ampliado para que la zona "tenga margen" es m26. Y quédate con la razón honesta por la que merecía la pena leer esto: la mitad de lo que se escribe sobre gráficos está escrito en este dialecto, y no poder leerlo es una desventaja sin ninguna ventaja. Que mucha gente vigile las mismas zonas hace que se acumulen órdenes a su alrededor, y ese efecto es real —igual que el del 0,618 y el de la media de 200—, pero funciona mientras la zona esté concurrida, no porque el nombre acierte. Eso es todo el efecto que hay, y también su fecha de caducidad. | Un stop más allá del extremo lejano de una zona es un stop estructural razonable; un stop ampliado para que la zona "tenga margen" es m26. Y quédate con la razón por la que merecía la pena leer esto: la mitad de lo que se escribe sobre gráficos usa esta terminología, y no poder leerla es una desventaja sin ninguna ventaja. Que mucha gente vigile las mismas zonas hace que se acumulen órdenes a su alrededor, y ese efecto es real —igual que el del 0,618 y el de la media de 200—. Funciona mientras la zona esté saturada, no porque el nombre acierte. |
+
+**EN** — 26 changed passages
+
+| # | Before | After |
+|---:|---|---|
+| 1 | # The SMC dialect (order blocks, FVG, BOS) | # SMC terminology (order blocks, FVG, BOS) |
+| 2 | The smart money in that name is itself the claim: that an identifiable class of institutional participants moves price deliberately against everyone else, and that these patterns are the footprints it leaves — the claim this lesson ends up dismantling. | The smart money in that name is itself the claim: that an identifiable class of institutional participants moves price deliberately against everyone else, and that these patterns are the footprints it leaves. This lesson ends up dismantling that claim. |
+| 3 | Almost all of the substance is already taught, under other names: liquidity pools and sweeps in m19-l2, the spring and absorption in m09, the change of character in m08-l1, role reversal and support-as-a-*zone* also in m08-l1, the liquidity void in m08-l2. | Almost all of the substance is already taught, under other names: stop clusters and sweeps in m19-l2, the spring and absorption in m09, the change of character in m08-l1, role reversal and support-as-a-*zone* also in m08-l1, the liquidity void in m08-l2. |
+| 4 | So this lesson does to the SMC lexicon exactly what m08-l2 did to the named Japanese candle patterns: it maps each name onto a mechanic plus a location, never as a standalone signal. And it takes the same stance m13 takes towards Fibonacci and m10-l1 towards the 200-day average: this dialect is worth understanding because the crowd speaks it, not because it predicts. Those are not the same claim, and the difference is what the last section is about. ## The origin zone of an impulse (the "order block") | So this lesson does to the SMC lexicon what m08-l2 did to the named Japanese candle patterns. It maps each name onto a mechanic plus a location, never as a standalone signal. And it takes the same stance m13 takes towards Fibonacci and m10-l1 towards the 200-day average: this terminology is worth understanding because the crowd speaks it, not because it predicts. ## The candles an impulse sets off from (the "order block") |
+| 5 | That is, word for word, m09's buyer absorbing inside the range. | That is m09's buyer absorbing inside the range. |
+| 6 | The dialect calls that area an order block; here we call it the impulse's origin zone, which is what it is. Notice two things that keep that sentence honest. | SMC terminology calls that area an order block. That idea comes with two caveats. |
+| 7 | Nobody announces anything and the order book shows nothing; what is being reasoned is that size capable of moving price like that was unlikely to fit at a single price. Second, it is a zone, like every support in this course (m08-l1), because it is defined by the extremes of a handful of candles and because the reaction is expected *somewhere inside it*. | Nobody announces anything and the order book shows nothing. What is being reasoned is that size capable of moving price like that was unlikely to fit at a single price. Second, it is a zone, like every support in this course (m08-l1). It is defined by the extremes of a handful of candles, and the reaction is expected *somewhere inside it*. |
+| 8 | Without a clean close beyond the high the market had been respecting, there is no impulse that broke anything, and the candles before it are an ordinary pullback of the kind every trend is full of. This is the costliest error in the whole dialect: the zone gets drawn first and the structure is never checked, which means a zone can be found on any chart at all. | Without a clean close beyond the high the market had been respecting, there is no impulse that broke anything. The candles before it are then an ordinary pullback of the kind every trend is full of. This is the costliest error in all of SMC terminology: the zone gets drawn first and the structure is never checked, which means a zone can be found on any chart at all. |
+| 9 | The last down candles before the impulse run from 1,810 to 1,855: that shaded band is the origin zone. | The last down candles before the impulse run from 1,810 to 1,855: that shaded band is the order block. |
+| 10 | And it is not a wick poking through: what decides is the body, as in m08-l1, and the impulse goes on to close as high as 2,045, more than 4% clear of the high it broke. | And a wick does not decide it: what decides is the body, as in m08-l1, and the impulse goes on to close as high as 2,045, more than 4% clear of the high it broke. |
+| 11 | m08-l2 already warned you about this phenomenon from the other end: a very long wick printed in a thin weekend book is a liquidity void, a stretch almost nothing traded through, and it should be distrusted. | m08-l2 already warned you about this phenomenon from the other end. A very long wick printed in a thin weekend book is a liquidity void, a stretch almost nothing traded through, and it should be distrusted. |
+| 12 | What m08-l2 left out is that the same emptiness, when a fast move leaves it *behind*, is a zone, and that price returns to it often enough to be worth a name. | What m08-l2 left out is that the same emptiness, when a fast move leaves it *behind*, is a zone. Price returns to it often enough to be worth a name. |
+| 13 | On the far side of that span sat orders that wanted to trade and could not, and whoever joined the move did so without the price reference a traded range provides. | On the far side of that span sat orders that wanted to trade and could not. Whoever joined the move did so without the price reference a traded range provides. |
+| 14 | Mind the word: often, not always. | Often, not always. |
+| 15 | The previous candle's high is 27,100 and the next candle's low is 28,000, so that roughly 900-point span — the shaded band — was crossed inside that one bar. For the rest of the window price stays clearly above it and the gap stays open; the closing stretch is it coming back for it, the wick reaching down to 27,320. | The previous candle's high is 27,100 and the next candle's low is 28,000. That roughly 900-point span — the shaded band — was crossed inside that one bar. For the rest of the window price stays above it and the gap stays open. The closing stretch is it coming back for it, the wick reaching down to 27,320. |
+| 16 | It is not a session gap: traditional markets close and reopen with a jump, and crypto runs 24/7 (m10-l1), so this is always an imbalance *inside* a continuous series. | It is not a session gap. Traditional markets close and reopen with a jump, and crypto runs 24/7 (m10-l1), so this is always an imbalance *inside* a continuous series. |
+| 17 | m08-l1 taught you the ladder — higher highs and higher lows — and named the break that ends it: the change of character, CHoCH, the first lower low in an uptrend. | m08-l1 taught you the sequence of higher highs and higher lows and named the break that ends it: the change of character, CHoCH, the first lower low in an uptrend. |
+| 18 | One ladder, two kinds of break: the one that continues the sequence and the one that ends it. The second acronym adds a word, not an idea — and m08-l1 now names it too, where the ladder lives. | One sequence, two kinds of break: the one that continues it and the one that ends it. The second acronym adds a word, not an idea — and m08-l1 now names it too. |
+| 19 | - **Order block** — the impulse's origin zone: the last opposing candles before the move that broke structure. | - **Order block** — the last opposing candles before the move that broke structure. |
+| 20 | *m08-l2*'s liquidity void, now taught as a zone as well. - **Liquidity grab / sweep** — a sweep of a pocket of resting stops, with the level reclaimed immediately. *m19-l2*, and *m08-l1*'s stop-hunting wicks. - **BOS / CHoCH** — the two breaks of the ladder: the one that continues the sequence and the one that ends it. | *m08-l2*'s liquidity void, now taught as a zone as well. - **Liquidity grab / sweep** — a sweep of a cluster of resting stops, with the level reclaimed immediately. *m19-l2*, and *m08-l1*'s stop-hunting wicks. - **BOS / CHoCH** — the two breaks of the sequence of highs and lows: the one that continues it and the one that ends it. |
+| 21 | Where this tips into numerology is the bands with decimal places, the "optimal trade entry is the 0.705–0.79 retracement" kind: m13 already settled that no mechanism forces a market to respect a ratio, and that all such a level has going for it is that plenty of people watch it. | Where this tips into numerology is the bands with decimal places, the "optimal trade entry is the 0.705–0.79 retracement" kind. m13 already settled that no mechanism forces a market to respect a ratio, and that all such a level has going for it is that plenty of people watch it. |
+| 22 | This is where the dialect parts company with what this course is willing to assert, and it is worth seeing exactly at which point. | Here SMC terminology parts company with what this course is willing to assert. |
+| 23 | You can argue with it, check it, and be wrong about it. | You can check it and be wrong about it. |
+| 24 | The dialect is unusually exposed to this: zones are bands, bands can be nudged, and every impulse has candles before it, so a hindsight reader will always find one near a reaction. | SMC terminology is unusually exposed to this: zones are bands, bands can be nudged, and every impulse has candles before it. A hindsight reader will always find one near a reaction. |
+| 25 | The dialect gets no exception; it gets the same test. 4. | SMC terminology gets no exception; it gets the same test. 4. |
+| 26 | A stop beyond a zone's far edge is a perfectly sensible structural stop; a stop widened so the zone has "room to work" is m26. And keep the honest reason this was worth reading: half of what is written about charts is written in this dialect, and being unable to read it is a handicap with no upside. Plenty of people watching the same zones does make orders pile up around them, and that effect is real — as real as the 0.618 and the 200-day average — but it works while the zone is crowded, not because the name is right. That is the whole of the effect, and also its expiry date. | A stop beyond a zone's far edge is a sensible structural stop; a stop widened so the zone has "room to work" is m26. And keep the reason this was worth reading: half of what is written about charts uses this terminology, and being unable to read it is a handicap with no upside. Plenty of people watching the same zones does make orders pile up around them, and that effect is real — as real as the 0.618 and the 200-day average. It works while the zone is crowded, not because the name is right. |
+
+
+## m35-l1 — Después de este curso — **done**
+
+Inventory: ES 44 / EN 44. Long sentences (lesson body) ES 17 → 7, EN 16 → 7 (the rest are the six definition
+items of the quantitative list, each led by its aside). Regenerated: text diff 0, goldens identical, link and ref
+pairs unchanged.
+
+- **Coined terms:**
+  - «flujo forzado» / "forced flow" → «compras y ventas forzadas» / "forced buying and selling" (as in m21-l2, which
+    this sentence quotes);
+  - «el dialecto de la masa» / "the crowd's dialect" → «el vocabulario de la masa» / "the crowd's vocabulary".
+    «Terminología SMC» was tried first: it dropped the lesson's only `g-crowd` mark and added a `g-smc` one.
+- **Fixed:**
+  - announcers: S011 «Y ahora el límite, con la misma franqueza.», S022 «Y ahora el aviso que protege todo lo
+    anterior…», S024 «Fíjate en lo que eso es en realidad:», S036 «La honestidad que importa aquí:», S043 «Queda una
+    cosa por decir…»;
+  - fillers «justo» ×2, «exactamente», «de verdad»;
+  - closers S003, S013 (drops «lo que separa a quien llegará a mil operaciones…»), S026, S028;
+  - the «Sabes…» ×4 frame (S005 now opens «Dimensionas…»);
+  - triads S037 (drops «datos») and S052 (drops «la prisa»);
+  - the ladder/building rotation: «edificios distintos», «otro edificio, con su propia planta baja» → «empieza desde
+    abajo», so the section keeps one image, the ladder its headings use;
+  - «añadir mandos» → «añade parámetros»;
+  - long sentences split.
+- **Changed from the proposal:** the S023 triad («otro patrón, otro indicador, otro setup con nombre propio») is kept
+  whole. Each item holds the lesson's only mark for its term (`g-indicator`, `g-setup`); the regeneration lost one
+  each time an item was dropped.
+- **Left alone:**
+  - the headings «Las dos escaleras…», «La escalera cuantitativa», «La escalera de los otros instrumentos»: a career
+    ladder, not the coined structure «escalera», and headings change only for coined terms;
+  - S010 «Las técnicas caducan…; el criterio no.»;
+  - S054, the course's closing line;
+  - S039 (aside-only);
+  - the quantitative list items;
+  - the `:::note` («Lo decimos claramente»);
+  - summary S055–S057.
+#### Before / after
+
+**ES** — 14 changed passages
+
+| # | Before | After |
+|---:|---|---|
+| 1 | Sin inflar nada: un curso que exagera lo que ha enseñado deja mal preparado para lo primero que pasa después de terminarlo. | *(deleted)* |
+| 2 | Sabes leer un gráfico por mecanismos en lugar de por formas: qué órdenes hay en reposo en un nivel y por qué se acumulan ahí, qué le hace la venta forzada a un libro fino, qué esconde una vela cuando la miras como el agregado que es. Sabes dimensionar una posición desde la distancia al stop y no desde el apalancamiento (m22), lo que significa que sabes cuánto puedes perder antes de abrirla y que ese número lo eliges tú. | Sabes leer un gráfico por mecanismos en lugar de por formas. Ves qué órdenes hay en reposo en un nivel y por qué se acumulan ahí, qué le hace la venta forzada a un libro fino, qué esconde una vela cuando la miras como el agregado que es. Dimensionas una posición desde la distancia al stop y no desde el apalancamiento (m22): sabes cuánto puedes perder antes de abrirla, y ese número lo eliges tú. |
+| 3 | Es la pregunta que este curso ha repetido en cada módulo —qué órdenes hay ahí, quién las puso, qué las obliga a ejecutarse— y es la única que seguirá sirviendo con material que este curso no cubre, incluido el que se escriba el año que viene. | Es la pregunta que este curso ha repetido en cada módulo: qué órdenes hay ahí, quién las puso, qué las obliga a ejecutarse. Seguirá sirviendo con material que este curso no cubre, incluido el que se escriba el año que viene. |
+| 4 | Y ahora el límite, con la misma franqueza. El curso no te ha dado experiencia, y no puede dártela: saber cómo se comporta un libro fino a las 3 de la madrugada de un domingo no es lo mismo que haber tenido una posición abierta a esa hora. Lo que sí te ha dado este curso es el criterio para acumular esa experiencia sin arruinarte mientras la acumulas —el tamaño que sobrevive a una racha mala, el stop decidido antes de la entrada, el diario que convierte una operación en un dato en vez de en un recuerdo—, y eso es justo lo que separa a quien llegará a mil operaciones de quien se queda en veinte. | El curso no te ha dado experiencia, y no puede dártela. Saber cómo se comporta un libro fino a las 3 de la madrugada de un domingo no es lo mismo que haber tenido una posición abierta a esa hora. Lo que sí te ha dado este curso es el criterio para acumular esa experiencia sin arruinarte mientras la acumulas: el tamaño que sobrevive a una racha mala, el stop decidido antes de la entrada, el diario que convierte una operación en un dato en vez de en un recuerdo. |
+| 5 | El diario que m27-l2 te hizo empezar es lo único que convierte horas de pantalla en muestra, y la muestra es exactamente lo que m28 exigía para poder decir algo de tu sistema. | El diario que m27-l2 te hizo empezar es lo único que convierte horas de pantalla en muestra. La muestra es lo que m28 exigía para poder decir algo de tu sistema. |
+| 6 | La app te deja desmarcar una lección ya completada justo para esto, sin perder nada de lo que llevas hecho. Y ahora el aviso que protege todo lo anterior, porque es el error clásico del día después de terminar un curso: la tentación es buscar más tácticas. | La app te deja desmarcar una lección ya completada para esto, sin perder nada de lo que llevas hecho. El error clásico del día después de terminar un curso es buscar más tácticas. |
+| 7 | Fíjate en lo que eso es en realidad: añadir mandos a un sistema cuya muestra no ha crecido. Es el sobreajuste de m28 en versión humana —la misma operación de ajustar el ruido, hecha con la carrera de uno en lugar de con una hoja de cálculo— y tiene el mismo síntoma: cada racha mala produce una regla nueva, y así ninguna regla llega a acumular las operaciones que harían falta para saber si servía. Más tácticas sobre la misma muestra no es más sistema; es menos. | Cada uno añade parámetros a un sistema cuya muestra no ha crecido. Es el sobreajuste de m28 en versión humana: la misma operación de ajustar el ruido, hecha con la carrera de uno en lugar de con una hoja de cálculo. Tiene el mismo síntoma: cada racha mala produce una regla nueva, y ninguna regla llega a acumular las operaciones que harían falta para saber si servía. |
+| 8 | Si en algún momento quieres subir un escalón de verdad, hay dos escaleras, y este curso no es el primer peldaño de ninguna: son edificios distintos. Nombrarlas es más útil que fingir que no están ahí. | Si en algún momento quieres subir un escalón, hay dos escaleras, y este curso no es el primer peldaño de ninguna. |
+| 9 | La honestidad que importa aquí: es otra profesión. Donde este curso puso ojos y proceso, esa escalera pone código, estadística y datos, y los tres se aprenden aparte. No es el nivel dos de esto: es otro edificio, con su propia planta baja. | Es otra profesión. Donde este curso puso ojos y proceso, esa escalera pone código y estadística, y los dos se aprenden aparte. No es el nivel dos de esto: empieza desde abajo. |
+| 10 | m21-l2 ya las nombró —los vencimientos grandes concentran flujo forzado en el perpetuo— y allí mismo declaró la frontera: la mecánica de una opción, cómo se dimensiona una cobertura y por qué cambia al moverse el precio, es un segundo curso y no una nota al pie de este. | m21-l2 ya las nombró —los vencimientos grandes concentran compras y ventas forzadas en el perpetuo— y allí mismo declaró la frontera. La mecánica de una opción, cómo se dimensiona una cobertura y por qué cambia al moverse el precio, es un segundo curso y no una nota al pie de este. |
+| 11 | Lo que cambia al pasar de un instrumento a otro es la forma en que se gana y se pierde dinero; lo que no cambia es que hay que saber, antes de abrir, cuánto puedes perder y qué te haría cerrar. | Lo que cambia al pasar de un instrumento a otro es la forma en que se gana y se pierde dinero. Lo que no cambia es que hay que saber, antes de abrir, cuánto puedes perder y qué te haría cerrar. |
+| 12 | Queda una cosa por decir, y hace falta el mismo día que termines el curso. Ahí fuera hay un ecosistema entero esperándote: grupos de señales, canales VIP, gente que se ofrece a operar tu cuenta y el curso que sí promete, el que pone el win rate que este curso se ha negado a poner en ninguna lección. | Ahí fuera hay un ecosistema entero esperándote: grupos de señales, canales VIP, gente que se ofrece a operar tu cuenta y el curso que sí promete. Ese curso pone el win rate que este se ha negado a poner en ninguna lección. |
+| 13 | Una señal que no puede contestar eso es la misma afirmación sin mecanismo que m34 desmontó en el dialecto de la masa, con otro disfraz, y se responde igual: si ninguna observación la contradice, no predice nada. | Una señal que no puede contestar eso es la misma afirmación sin mecanismo que m34 desmontó en el vocabulario de la masa, con otro disfraz. Se responde igual: si ninguna observación la contradice, no predice nada. |
+| 14 | Eso no convierte a nadie en un estafador —un negocio puede ser honesto y tener sus incentivos igual—, pero es un dato, y es un dato que ya sabes leer, porque es la misma pregunta de siempre aplicada a una persona en vez de a un nivel. Y todo ese ecosistema está construido sobre la psicología que describe m26: la prisa, el FOMO, la racha ajena vista de cerca y la propia vista de lejos. | Eso no convierte a nadie en un estafador —un negocio puede ser honesto y tener sus incentivos igual—, pero es un dato. Ya sabes leerlo, porque es la misma pregunta de siempre aplicada a una persona en vez de a un nivel. Y todo ese ecosistema está construido sobre la psicología que describe m26: el FOMO, la racha ajena vista de cerca y la propia vista de lejos. |
+
+**EN** — 14 changed passages
+
+| # | Before | After |
+|---:|---|---|
+| 1 | Without inflating any of it: a course that overstates what it taught leaves you badly prepared for the first thing that happens after you finish it. | *(deleted)* |
+| 2 | You can read a chart by mechanism rather than by shape: which orders are resting at a level and why they pile up there, what forced selling does to a thin book, what a candle hides when you look at it as the aggregate it is. You can size a position from the distance to the stop rather than from the leverage (m22), which means you know what you can lose before you open it, and that the number is one you choose. | You can read a chart by mechanism rather than by shape. You see which orders are resting at a level and why they pile up there, what forced selling does to a thin book, what a candle hides when you look at it as the aggregate it is. You size a position from the distance to the stop rather than from the leverage (m22): you know what you can lose before you open it, and the number is one you choose. |
+| 3 | It is the question this course has repeated in every module — which orders are there, who put them there, what forces them to fill — and it is the only one that keeps working on material this course does not cover, including material written next year. | It is the question this course has repeated in every module: which orders are there, who put them there, what forces them to fill. It will keep working on material this course does not cover, including material written next year. |
+| 4 | And now the limit, with the same frankness. The course has not given you experience, and it cannot: knowing how a thin book behaves at 3 a.m. on a Sunday is not the same as having had a position open at that hour. What this course has given you is the criteria to accumulate that experience without ruining yourself while you accumulate it — a size that survives a bad streak, a stop decided before the entry, a journal that turns a trade into a data point instead of a memory — and that is exactly what separates someone who will reach a thousand trades from someone who stops at twenty. | The course has not given you experience, and it cannot. Knowing how a thin book behaves at 3 a.m. on a Sunday is not the same as having had a position open at that hour. What this course has given you is the criteria to accumulate that experience without ruining yourself while you accumulate it: a size that survives a bad streak, a stop decided before the entry, a journal that turns a trade into a data point instead of a memory. |
+| 5 | The journal m27-l2 made you start is the only thing that turns screen time into sample, and sample is exactly what m28 demanded before anything could be said about your system. | The journal m27-l2 made you start is the only thing that turns screen time into sample. Sample is what m28 demanded before anything could be said about your system. |
+| 6 | The app lets you un-mark a completed lesson for exactly this, without losing anything else you have done. And now the warning that protects everything above, because it is the classic mistake of the day after finishing a course: the temptation is to look for more tactics. | The app lets you un-mark a completed lesson for this, without losing anything else you have done. The classic mistake of the day after finishing a course is to look for more tactics. |
+| 7 | Notice what that actually is: adding knobs to a system whose sample has not grown. It is m28's overfitting in human form — the same act of fitting the noise, performed with a career instead of a spreadsheet — and it has the same symptom: every bad streak produces a new rule, so no rule ever accumulates the trades it would take to know whether it helped. More tactics over the same sample is not more system; it is less. | Each one adds parameters to a system whose sample has not grown. It is m28's overfitting in human form: the same act of fitting the noise, performed with a career instead of a spreadsheet. It has the same symptom: every bad streak produces a new rule, and no rule ever accumulates the trades it would take to know whether it helped. |
+| 8 | If at some point you want to climb a genuine step up, there are two ladders, and this course is the first rung of neither: they are different buildings. Naming them is more use than pretending they are not there. | If at some point you want to climb a step up, there are two ladders, and this course is the first rung of neither. |
+| 9 | The honesty that matters here: it is another profession. Where this course put eyes and process, that ladder puts code, statistics and data, and all three are learned elsewhere. It is not level two of this: it is another building, with its own ground floor. | It is another profession. Where this course put eyes and process, that ladder puts code and statistics, and both are learned elsewhere. It is not level two of this: it starts from the bottom. |
+| 10 | m21-l2 already named them — large expiries concentrate forced flow into the perpetual — and declared the frontier in the same breath: the mechanics of an option, how a hedge is sized and why it changes as price moves, are a second course and not a footnote in this one. | m21-l2 already named them — large expiries concentrate forced buying and selling into the perpetual — and declared the frontier in the same breath. The mechanics of an option, how a hedge is sized and why it changes as price moves, are a second course and not a footnote in this one. |
+| 11 | What changes from one instrument to another is the shape of how money is made and lost; what does not change is that you have to know, before you open, what you can lose and what would make you close. | What changes from one instrument to another is the shape of how money is made and lost. What does not change is that you have to know, before you open, what you can lose and what would make you close. |
+| 12 | One thing is left to say, and it is needed the same day you finish the course. Out there is an entire ecosystem waiting for you: signal groups, VIP channels, people offering to trade your account, and the course that does promise — the one that puts a number on the win rate this course has refused to put in any lesson. | Out there is an entire ecosystem waiting for you: signal groups, VIP channels, people offering to trade your account, and the course that does promise. That course puts a number on the win rate this one has refused to put in any lesson. |
+| 13 | A signal that cannot answer that is the same claim without a mechanism that m34 took apart in the crowd's dialect, wearing a different costume, and it is answered the same way: if no observation would contradict it, it predicts nothing. | A signal that cannot answer that is the same claim without a mechanism that m34 took apart in the crowd's vocabulary, wearing a different costume. It is answered the same way: if no observation would contradict it, it predicts nothing. |
+| 14 | That makes nobody a fraud — a business can be honest and still have its incentives — but it is a fact, and it is a fact you already know how to read, because it is the same old question applied to a person instead of to a level. And the whole of that ecosystem is built on the psychology m26 describes: the hurry, the FOMO, someone else's streak seen up close and your own seen from far away. | That makes nobody a fraud — a business can be honest and still have its incentives — but it is a fact. You already know how to read it, because it is the same old question applied to a person instead of to a level. And the whole of that ecosystem is built on the psychology m26 describes: the FOMO, someone else's streak seen up close and your own seen from far away. |
+
+## Final step — exercise and figure YAML, glossary, blacklist sweep, tests, CI (**not started**)
+
+**Where it stands (end of session 5).** Every lesson is done. The final step has not started; nothing in
+`content/exercises/` or `content/figures/` has been touched. Steps, in your order: (2) exercise + figure YAML, the
+glossary's SMC entries, the blacklist-opener sweep, the recapture list; (3) full tests, goldens, stability check,
+bundle export; (4) CI read and local CI run; (5) the closing section of this ledger.
+
+**Scan of exercise and figure YAML (session 5, for step 2).** A regex scan for every term in the inventory's two
+coined-term tables, ES and EN, over `content/exercises/*.yaml`, `content/figures/*.yaml` and
+`content/figure-coupling.yaml`, skipping YAML comments. It found 415 matching lines in 71 files. Not every hit is
+reader text: some are identifiers or choice keys (`overrun_at_level`, `open_space`, band label `origin`, file names
+like `origin_zone`), and some are the plain sense of a common word («ritmo», «firma», "toll", "burn", "stab"). Each
+needs reading before it changes. Identifiers and choice keys stay (they are identity, and goldens key on them).
+Hits per file:
+
+| File | Terms (lines) |
+|---|---|
+| `fig-m03-trend-vs-range.yaml` | escalera ×1, ladder/staircase ×1 |
+| `fig-m08-breakout-vs-fakeout.yaml` | asomo ×1, poke ×1 |
+| `fig-m08-market-structure.yaml` | ladder/staircase ×2, escalera ×3 |
+| `fig-m08-rejection-vs-open-space.yaml` | espacio abierto ×2 |
+| `fig-m08-reversal-forms.yaml` | overrun ×2 |
+| `fig-m10-ema-signatures.yaml` | firma ×3 |
+| `fig-m15-channel.yaml` | ritmo ×4 |
+| `fig-m19-liquidity-sweep.yaml` | repisa/estante ×1, shelf ×1 |
+| `fig-m34-imbalance.yaml` | dialecto ×2 |
+| `fig-m34-origin-zone.yaml` | dialecto ×2 |
+| `figure-coupling.yaml` | poke ×1, shelf ×5 |
+| `m02-ex-1.yaml` | firma ×4 |
+| `m02-ex-3.yaml` | arder/burn ×1 |
+| `m03-ex-4.yaml` | asomo ×1, poke ×1 |
+| `m03-ex-6.yaml` | asomo ×2, firma ×2, poke ×2 |
+| `m04-ex-3.yaml` | estocada/stab ×1, tether/amarre/correa ×4 |
+| `m04-ex-4.yaml` | tether/amarre/correa ×5 |
+| `m05-ex-1.yaml` | admission/eviction ×1 |
+| `m05-ex-3.yaml` | admission/eviction ×4 |
+| `m05-ex-4.yaml` | riesgo por acierto ×2 |
+| `m06-ex-1.yaml` | admission/eviction ×1 |
+| `m07-ex-1.yaml` | admission/eviction ×1 |
+| `m07-ex-2.yaml` | admission/eviction ×1 |
+| `m08-ex-1.yaml` | asomo ×1, poke ×2 |
+| `m08-ex-3.yaml` | escalera ×1, ladder/staircase ×3 |
+| `m08-ex-4.yaml` | combustible ×1, concurrido ×1, fuel ×1, ir de compras ×1, overrun ×1, asomo ×6, firma ×6, poke ×9 |
+| `m08-ex-5.yaml` | espacio abierto ×4, overrun ×4 |
+| `m08-ex-6.yaml` | overrun ×11, espacio abierto ×4 |
+| `m08-ex-7.yaml` | espacio abierto ×12, overrun ×8 |
+| `m09-ex-4.yaml` | asomo ×1, lens ×1, lente ×1, poke ×1 |
+| `m09-ex-6.yaml` | arder/burn ×1, poke ×1, estocada/stab ×6 |
+| `m10-ex-4.yaml` | admission/eviction ×1 |
+| `m11-ex-5.yaml` | bache ×2 |
+| `m12-ex-4.yaml` | admission/eviction ×1 |
+| `m13-ex-4.yaml` | espacio abierto ×2, shelf ×2 |
+| `m14-ex-4.yaml` | lens ×1, lente ×1, combustible ×2, firma ×2, fuel ×2 |
+| `m15-ex-2.yaml` | ritmo ×2 |
+| `m15-ex-3.yaml` | repisa/estante ×1, shelf ×1, bolsa(liq) ×2, concurrido ×2, pool/pocket ×2, ritmo ×6 |
+| `m15-ex-4.yaml` | concurrido ×1, ritmo ×5 |
+| `m15-ex-7.yaml` | ritmo ×2 |
+| `m16-ex-3.yaml` | squeeze de liquidez ×6 |
+| `m17-ex-3.yaml` | escalera ×1, ladder/staircase ×1 |
+| `m17-ex-4.yaml` | combustible ×1, fuel ×1, repisa/estante ×1, shelf ×2 |
+| `m18-ex-1.yaml` | firma ×2 |
+| `m18-ex-3.yaml` | zona contraria ×2 |
+| `m18-ex-4.yaml` | zona contraria ×9 |
+| `m19-ex-3.yaml` | bolsa(liq) ×1, flujo forzado ×1, forced flow ×1, pool/pocket ×1, concurrido ×2, firma ×2, tether/amarre/correa ×4 |
+| `m19-ex-4.yaml` | repisa/estante ×1, shelf ×1, combustible ×2, cosecha ×2, arder/burn ×3, fuel ×3 |
+| `m19-ex-5.yaml` | repisa/estante ×11, shelf ×12, combustible ×1, fuel ×1, ir de compras ×1, bolsa(liq) ×3, poke ×5 |
+| `m19-ex-6.yaml` | concurrido ×10, bolsa(liq) ×2, shelf ×2, combustible ×3, flujo forzado ×3, fuel ×4, forced flow ×5 |
+| `m21-ex-1.yaml` | concurrido ×1 |
+| `m22-ex-4.yaml` | trajes/costumes ×4 |
+| `m22-ex-5.yaml` | trajes/costumes ×3 |
+| `m22-ex-6.yaml` | trajes/costumes ×4 |
+| `m23-ex-2.yaml` | peaje/toll ×8 |
+| `m23-ex-3.yaml` | bolsa(liq) ×1, poke ×1, firma ×2 |
+| `m23-ex-4.yaml` | peaje/toll ×2 |
+| `m23-ex-8.yaml` | poke ×1 |
+| `m23-ex-9.yaml` | ir de compras ×5 |
+| `m25-ex-4.yaml` | peaje/toll ×2 |
+| `m26-ex-1.yaml` | ritmo ×2 |
+| `m27-ex-1.yaml` | freno diario ×4 |
+| `m27-ex-3.yaml` | freno diario ×1, marco macro/micro ×2 |
+| `m27-ex-5.yaml` | ladder/staircase ×1 |
+| `m30-ex-2.yaml` | lens ×1, lente ×1, estocada/stab ×2 |
+| `m30-ex-3.yaml` | lens ×1, lente ×1, estocada/stab ×2 |
+| `m31-ex-1.yaml` | combustible ×1, escalera ×1, fuel ×1, ladder/staircase ×1, firma ×4 |
+| `m32-ex-3.yaml` | tether/amarre/correa ×1 |
+| `m34-ex-1.yaml` | zona de origen ×2, dialecto ×4 |
+| `m34-ex-3.yaml` | dialecto ×11, bolsa(liq) ×1, pool/pocket ×1, repisa/estante ×1, shelf ×1, escalera ×2, ladder/staircase ×2, zona de origen ×9 |
+| `m34-ex-4.yaml` | dialecto ×12, concurrido ×2 |
+
+**Also found outside exercises and figures (same step):**
+- `frontend/src/i18n/{en,es}.json`: «Zona de origen», «Zona de origen respetada / fallida» / "Origin zone",
+  "Origin zone respected / failed". These are the m34 `pattern_chart` answer labels, so they are exercise text in
+  practice. `frontend/src/components/charts/bands.test.tsx` and `frontend/src/lib/pdf/exercises.test.ts` assert those
+  strings, so the tests move with them.
+- `content/glossary.yaml`: «dialecto SMC» / "SMC dialect" in the premium/discount definitions and the block comment.
+  The brief counts «dialecto» ×10 in the SMC entries.
+- `README.md` (root) and `content/README.md`: «SMC dialect», "origin zone", "m08-l1's shelf of resting orders", and
+  the alias example `order block` → `origin zone` (now invalid, because `g-origin-zone` is renamed).
+- Test fixtures `frontend/src/features/glossary/{GlossaryPage,TermPopover}.test.tsx` use "El dialecto SMC" / "The
+  SMC dialect" as a mock `originTitle`. Mock data, so they pass either way; update for consistency.
+- Code comments and docstrings in `backend/.../patterns/*.py`, `figures.py` and `CandleChart.tsx` say "SMC dialect" /
+  "origin zone". They are not reader text; leave them unless you want them aligned.
+- Already done with m34-l1: `backend/tests/test_content_api.py` now expects the new ES title.
+
+**Blacklist sweep (step 2, item 3).** Not started. The blacklist in `docs/prose-voice.md` now lists: split openers
+«Es…», «Eso + verb», «Son…», «Por eso…», «Así,… / Así que…», «Y…», «También es / También explica…», «Esa es la
+razón…», «Para eso sirve…», and the EN equivalents. Sentence-initial «Y…» / "And…" is the most frequent and is
+also old text. The sweep rewords only the opening, and logs each change.
 

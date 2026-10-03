@@ -93,7 +93,7 @@ async def test_course_export_carries_both_languages_by_default(content_client: A
     # ...and the two languages really are different text, not one copied into both slots.
     m34 = next(lesson for lesson in lessons if lesson["id"] == "m34-l1")
     assert m34["markdown"]["en"] != m34["markdown"]["es"]
-    assert m34["title"]["es"] == "El dialecto SMC (order blocks, FVG, BOS)"
+    assert m34["title"]["es"] == "La terminología SMC (order blocks, FVG, BOS)"
 
     dl = await content_client.get("/api/course/export?download=true")
     assert 'filename="tradeschool-course-all.json"' in dl.headers.get("content-disposition", "")
