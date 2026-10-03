@@ -47,8 +47,12 @@ After m35-l1 comes the final exercise + figure YAML step. Nothing is committed.
   - Those sentences now read as in the files. The before/after tables of m21-l1, m21-l2, m22-l1, m23-l1 and m23-l2
     show the version before this sweep.
 
-**Found, not fixed (from session 2, still open):** m20-l1 ES gender slips («un oferta máxima» ×3, «el oferta
-circulante»).
+**Session 4 corrections, applied before m25-l1:**
+1. m20-l1 ES gender slips fixed (approved): «un oferta máxima» ×3 → «una oferta máxima»; «Busca el oferta
+   circulante, total y máximo» → «Busca la oferta circulante, total y máxima». No other change to those sentences.
+2. The final step now also sweeps every done lesson, ES and EN, for sentences that open with a blacklisted phrasing
+   (including «Y…» / "And…"). Only the opening is reworded, and each change is logged.
+3. In the final step's figure captions, "overrun" becomes «una vela envolvente», not «una envolvente».
 
 
 ## Session summary — 2026-10-03 (session 1) — read this first
@@ -141,6 +145,13 @@ the margin cushion (standard), and the other names were folded into it.
 
 ## Exercise and figure terms to fix (final step)
 
+**Added in session 4:**
+- **Blacklist opener sweep.** Sweep every done lesson, ES and EN, for sentences that open with a phrasing on the
+  `docs/prose-voice.md` blacklist (including «Y…» / "And…"). Reword only the opening, and log each one (lesson,
+  before, after) in the final-step section.
+- **Overrun in figure captions.** In figure captions, "overrun" becomes «una vela envolvente» (the noun is needed in
+  Spanish), not «una envolvente».
+
 **Scope (session 2, at your request):** the final, separate step covers **exercise YAML** (prompts, options,
 explanations) **and figure YAML** (captions in `content/figures/*.yaml`, plus any coupling note in
 `content/figure-coupling.yaml` not already fixed with its lesson). It uses the same replacements as the prose,
@@ -189,7 +200,7 @@ fixes them all; the rows below are only what I noticed during the lesson pass. A
 
 | Where | Term | Replacement |
 |---|---|---|
-| `content/figures/fig-m08-reversal-forms.yaml` (caption, ES and EN) | «—un overrun—» / "— an overrun." | «—una envolvente—» / "— an engulfing." |
+| `content/figures/fig-m08-reversal-forms.yaml` (caption, ES and EN) | «—un overrun—» / "— an overrun." | «—una vela envolvente—» / "— an engulfing candle." (session 4: the noun is needed in ES; EN mirrors) |
 | `content/figures/fig-m08-rejection-vs-open-space.yaml` (caption, ES and EN) | «en espacio abierto» / "in open space" | «lejos de cualquier nivel» / "away from any level" |
 
 Identifiers are never renamed: the figure id `fig-m08-rejection-vs-open-space`, and the exercise keys
@@ -1834,9 +1845,9 @@ identical, link and ref pairs unchanged.
   un viento en contra.**» stays, because labels are structure.
 - **Left alone:** S026 (restate, but it holds a «nunca»); S056 «El precio cae por la aritmética de la oferta, no por
   nada que el patrón hiciera mal.» (the cause in the worked example).
-- **Found, not fixed (outside the hit sentences):** four ES gender slips, «un oferta máxima» ×3 and «Busca el oferta
-  circulante, total y máximo» (item 1 of the closing list). They should be «una oferta máxima» and «la oferta
-  circulante, total y máxima». They are like the round-7 typo fixes, for you to approve.
+- **Fixed later (session 4, approved):** four ES gender slips outside the hit sentences. «un oferta máxima» ×3 →
+  «una oferta máxima», and «Busca el oferta circulante, total y máximo» → «Busca la oferta circulante, total y
+  máxima» (item 1 of the closing list). Typo-class only.
 
 #### Before / after
 
