@@ -166,17 +166,17 @@ variants:
   - id: daily-stop-scenario
     prompt:
       en: "Your plan says: risk 1% per trade (100 USDT on a 10,000 USDT account) and a daily stop at −2% (200 USDT). Today you have taken two full stop-outs, so you are −200 USDT. An hour later a textbook setup appears. What does the plan say you do?"
-      es: "Tu plan dice: arriesgar el 1% por operación (100 USDT en una cuenta de 10.000 USDT) y un freno diario en −2% (200 USDT). Hoy has encajado dos stops completos, así que estás en −200 USDT. Una hora después aparece un setup de manual. ¿Qué dice el plan que hagas?"
+      es: "Tu plan dice: arriesgar el 1% por operación (100 USDT en una cuenta de 10.000 USDT) y un límite de pérdida diaria en −2% (200 USDT). Hoy has encajado dos stops completos, así que estás en −200 USDT. Una hora después aparece un setup de manual. ¿Qué dice el plan que hagas?"
     options:
       - id: a
         text:
           en: "Take it at normal size — the daily stop only caps oversized positions."
-          es: "Tomarla al tamaño normal: el freno solo limita posiciones sobredimensionadas."
+          es: "Tomarla al tamaño normal: el límite diario solo limita posiciones sobredimensionadas."
       - id: b
         correct: true
         text:
           en: "Stop for the day: the daily limit is already hit, whatever this setup looks like."
-          es: "Parar por hoy: el freno diario ya está alcanzado, parezca lo que parezca."
+          es: "Parar por hoy: el límite de pérdida diaria ya está alcanzado, parezca lo que parezca."
       - id: c
         text:
           en: "Take it at double size — a quality setup is the fastest way back to even."
@@ -184,15 +184,15 @@ variants:
       - id: d
         text:
           en: "Take it after moving the daily stop to −4% so the risk fits the budget."
-          es: "Tomarla tras mover el freno a −4% para que el riesgo entre en el presupuesto."
+          es: "Tomarla tras mover el límite diario a −4% para que el riesgo entre en el presupuesto."
     explanation:
       en: "The daily stop is not a suggestion and it does not judge setups: once realised PnL hits −X% you close the charts regardless of what is on screen. Its whole value is that it does not consult you at the moment you are least able to answer, and 'but this one is high quality' is exactly the argument it exists to overrule."
-      es: "El freno diario no es una sugerencia y no juzga setups: cuando el PnL realizado toca el −X%, cierras los gráficos sin importar lo que haya en pantalla. Todo su valor es que no te consulta en el momento en que menos capaz eres de responder, y «pero esta es de calidad» es justo el argumento que existe para desautorizar."
+      es: "El límite de pérdida diaria no es una sugerencia y no juzga setups: cuando el PnL realizado toca el −X%, cierras los gráficos sin importar lo que haya en pantalla. Todo su valor es que no te consulta en el momento en que menos capaz eres de responder, y «pero esta es de calidad» es justo el argumento que existe para desautorizar."
   - id: daily-stop-adjust-tf
     kind: true_false
     prompt:
       en: "The X in your daily stop is a personal number, but it is chosen in the plan before a losing day and never edited during one."
-      es: "La X de tu freno diario es un número personal, pero se elige en el plan antes de un día perdedor y nunca se edita durante él."
+      es: "La X de tu límite de pérdida diaria es un número personal, pero se elige en el plan antes de un día perdedor y nunca se edita durante él."
     answer: true
     explanation:
       en: "Editing the limit while you are down is the override the rule was built to prevent: the person who just lost 3% is the least qualified person to decide how much more they may lose."

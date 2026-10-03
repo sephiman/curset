@@ -120,8 +120,8 @@ variants:
       es: "El margen de mantenimiento es mayor que el margen inicial que aportaste para abrir la posición."
     answer: false
     explanation:
-      en: "It's the other way round. Maintenance margin is a small fraction of the notional, well below the initial margin — it's the eviction line your equity must stay above, not the price of admission."
-      es: "Es al revés. El margen de mantenimiento es una fracción pequeña del nocional, muy por debajo del margen inicial: es la línea de desahucio por encima de la que debe permanecer tu capital, no el precio de entrada."
+      en: "It's the other way round. Maintenance margin is a small fraction of the notional, well below the initial margin — it's the liquidation threshold your equity must stay above, not what it costs to open."
+      es: "Es al revés. El margen de mantenimiento es una fracción pequeña del nocional, muy por debajo del margen inicial: es el umbral de liquidación por encima del cual debe permanecer tu capital, no lo que pagas para abrir."
   - id: gap-breathing-room
     prompt:
       en: "What does the gap between your initial margin and the maintenance-margin level represent?"
@@ -170,8 +170,8 @@ variants:
           en: "About 1,900 USDT — roughly a 9.5% adverse move on the notional."
           es: "Unos 1.900 USDT: un movimiento adverso de en torno al 9,5% sobre el nocional."
     explanation:
-      en: "Initial margin is the price of admission; maintenance margin is the eviction line. Maintenance here is 0.5% of 20,000 = 100 USDT, so you are closed when equity falls from 2,000 to that floor — a loss of about 1,900, which is 1,900/20,000 ≈ 9.5% of the notional. Measuring the move against your deposit instead of the notional is the mistake that makes leverage feel safer than it is."
-      es: "El margen inicial es el precio de la entrada; el de mantenimiento es la línea de desahucio. Aquí el mantenimiento es el 0,5% de 20.000 = 100 USDT, así que te cierran cuando el capital cae de 2.000 a ese suelo: una pérdida de unos 1.900, que es 1.900/20.000 ≈ 9,5% del nocional. Medir el movimiento contra tu depósito en vez de contra el nocional es el error que hace que el apalancamiento parezca más seguro de lo que es."
+      en: "Initial margin is what it costs to open; maintenance margin is the liquidation threshold. Maintenance here is 0.5% of 20,000 = 100 USDT, so you are closed when equity falls from 2,000 to that floor — a loss of about 1,900, which is 1,900/20,000 ≈ 9.5% of the notional. Measuring the move against your deposit instead of the notional is the mistake that makes leverage feel safer than it is."
+      es: "El margen inicial es lo que pagas para abrir; el de mantenimiento es el umbral de liquidación. Aquí el mantenimiento es el 0,5% de 20.000 = 100 USDT, así que te cierran cuando el capital cae de 2.000 a ese suelo: una pérdida de unos 1.900, que es 1.900/20.000 ≈ 9,5% del nocional. Medir el movimiento contra tu depósito en vez de contra el nocional es el error que hace que el apalancamiento parezca más seguro de lo que es."
   - id: maintenance-facts
     kind: multi_select
     prompt:
@@ -202,8 +202,8 @@ variants:
           en: "It rises a little each day you keep the position open."
           es: "Sube un poco cada día que mantienes la posición abierta."
     explanation:
-      en: "Maintenance sits well below initial margin and does not drift with time — it is the exchange's safety buffer, not a second deposit and not a holding charge. The exchange is protecting itself from being left with the bill, and that is the whole reason the eviction line exists where it does."
-      es: "El mantenimiento está bien por debajo del margen inicial y no se mueve con el tiempo: es el colchón de seguridad del exchange, no un segundo depósito ni un cargo por mantener. El exchange se protege de quedarse con la factura, y esa es toda la razón de que la línea de desahucio esté donde está."
+      en: "Maintenance sits well below initial margin and does not drift with time — it is the exchange's safety buffer, not a second deposit and not a holding charge. The exchange is protecting itself from being left with the bill, and that is the whole reason the liquidation threshold sits where it does."
+      es: "El mantenimiento está bien por debajo del margen inicial y no se mueve con el tiempo: es el colchón de seguridad del exchange, no un segundo depósito ni un cargo por mantener. El exchange se protege de quedarse con la factura, y esa es toda la razón de que el umbral de liquidación esté donde está."
   - id: equity-path
     kind: ordering
     prompt:

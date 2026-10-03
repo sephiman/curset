@@ -76,7 +76,7 @@ variants:
           en: "Funding rate"
           es: "Tasa de funding"
         right:
-          en: "A periodic payment moved directly between longs and shorts to tether the perp to spot."
+          en: "A periodic payment moved directly between longs and shorts to keep the perp near spot."
           es: "Un pago periódico que se mueve directamente entre largos y cortos para amarrar el perp al spot."
       - id: notional
         left:
@@ -100,12 +100,12 @@ variants:
   - id: no-expiry-myth
     kind: true_false
     prompt:
-      en: "A perpetual future has no expiry date at all, which is exactly why funding exists to tether it to spot."
+      en: "A perpetual future has no expiry date at all, which is exactly why funding exists to keep it near spot."
       es: "Un futuro perpetuo no tiene ninguna fecha de vencimiento, y precisamente por eso existe el funding para amarrarlo al spot."
     answer: true
     explanation:
-      en: "True. A dated future settles on a set day, and that settlement is what drags its price back to spot. A perp just keeps running, so it needs a different tether — the periodic payment between longs and shorts."
-      es: "Cierto. Un futuro con fecha vence un día fijado, y esa liquidación es lo que arrastra su precio hacia el spot. Un perp simplemente sigue corriendo, así que necesita otro amarre: el pago periódico entre largos y cortos."
+      en: "True. A dated future settles on a set day, and that settlement is what drags its price back to spot. A perp just keeps running, so it needs something else to keep it near spot — the periodic payment between longs and shorts."
+      es: "Cierto. Un futuro con fecha vence un día fijado, y esa liquidación es lo que arrastra su precio hacia el spot. Un perp simplemente sigue corriendo, así que necesita otra cosa que lo mantenga cerca del spot: el pago periódico entre largos y cortos."
   - id: short-without-borrowing
     prompt:
       en: "To open a short on a BTC perpetual, what do you have to do with real BTC first?"

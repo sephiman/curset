@@ -251,15 +251,15 @@ describe("a chart question", () => {
   it("prints the captured chart above its localized choices", () => {
     const printed = texts(exerciseBlock(exercise, labels, chart));
     expect(printed).toContain("PNG");
-    expect(printed).toContain("Origin zone respected"); // never the raw injector label
+    expect(printed).toContain("Order block respected"); // never the raw injector label
     expect(printed).toContain("No zone — nothing broke structure");
   });
 
   it("is answered by the resolution, anchored to the printed chart's own prices", () => {
     expect(answerLines(exercise, labels)).toEqual([
-      "Origin zone respected",
+      "Order block respected",
       "Origin — 106.94 · 26/03/2024",
-      "Origin zone — 106.90 … 108.20",
+      "Order block — 106.90 … 108.20",
     ]);
   });
 

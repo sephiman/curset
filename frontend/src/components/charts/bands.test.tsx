@@ -51,7 +51,7 @@ vi.mock("react-i18next", () => ({
     i18n: { resolvedLanguage: "es" },
     t: (key: string, opts?: { defaultValue?: string }) =>
       key === "band.origin"
-        ? "Zona de origen"
+        ? "Order block"
         : key === "band.imbalance"
           ? "Desequilibrio"
           : (opts?.defaultValue ?? key),
@@ -166,6 +166,6 @@ describe("shaded price bands", () => {
         bands={[originBand, { low: 12.0, high: 12.8, label: "imbalance", kind: "imbalance" }]}
       />,
     );
-    expect(baselineCalls().map((b) => b.title)).toEqual(["Zona de origen", "Desequilibrio"]);
+    expect(baselineCalls().map((b) => b.title)).toEqual(["Order block", "Desequilibrio"]);
   });
 });

@@ -1,5 +1,22 @@
 # Prose pass 1.2 — full pass ledger
 
+## Session summary — 2026-10-03 (session 6) — read this first
+
+**Final step: items 1–4 done.** Exercise YAML, figure YAML, glossary «dialecto» ×10, READMEs and fixtures. Details
+are in "Final step → Progress — session 6" at the end of this ledger.
+
+**State at stop.**
+- Link and lesson-ref pairs unchanged; generation goldens identical; golden/fingerprint tests 343 passed; coupling
+  and glossary 235 passed; affected frontend tests 47 passed.
+- **Recapture list empty so far.**
+- The full suites have not been rerun since session 5. They are in step 7.
+
+**Next session starts at step 5**, the blacklist-opener sweep (573 candidates, counted in the same section). Then
+step 6 (regenerate and recapture), 7 (full suites, goldens, `verify_golden_stability.py`, bundle export format 2), 8
+(run the CI commands locally: `ruff check .`, `mypy src`, `pytest`, `npm ci`, `npm run build`, `npm test`), 9 (closing
+section).
+
+
 ## Session summary — 2026-10-03 (session 5) — read this first
 
 **Lessons: all done.** This session finished m32-l1, m33-l1, m34-l1 and m35-l1 (and the m31-l1 «combustible»
@@ -3255,7 +3272,7 @@ pairs unchanged.
 | 13 | A signal that cannot answer that is the same claim without a mechanism that m34 took apart in the crowd's dialect, wearing a different costume, and it is answered the same way: if no observation would contradict it, it predicts nothing. | A signal that cannot answer that is the same claim without a mechanism that m34 took apart in the crowd's vocabulary, wearing a different costume. It is answered the same way: if no observation would contradict it, it predicts nothing. |
 | 14 | That makes nobody a fraud — a business can be honest and still have its incentives — but it is a fact, and it is a fact you already know how to read, because it is the same old question applied to a person instead of to a level. And the whole of that ecosystem is built on the psychology m26 describes: the hurry, the FOMO, someone else's streak seen up close and your own seen from far away. | That makes nobody a fraud — a business can be honest and still have its incentives — but it is a fact. You already know how to read it, because it is the same old question applied to a person instead of to a level. And the whole of that ecosystem is built on the psychology m26 describes: the FOMO, someone else's streak seen up close and your own seen from far away. |
 
-## Final step — exercise and figure YAML, glossary, blacklist sweep, tests, CI (**not started**)
+## Final step — exercise and figure YAML, glossary, blacklist sweep, tests, CI (**steps 1–4 done; next: step 5**)
 
 **Where it stands (end of session 5).** Every lesson is done. The final step has not started; nothing in
 `content/exercises/` or `content/figures/` has been touched. Steps, in your order: (2) exercise + figure YAML, the
@@ -3364,3 +3381,210 @@ Hits per file:
 razón…», «Para eso sirve…», and the EN equivalents. Sentence-initial «Y…» / "And…" is the most frequent and is
 also old text. The sweep rewords only the opening, and logs each change.
 
+### Progress — session 6
+
+**Confirmed by you at the start of session 6:**
+- «el vocabulario de la masa» in m35-l1;
+- the triads kept for their only links;
+- the `test_content_api.py` title change (it goes in the same commit as the content).
+
+**Rule applied to every hit:** change only text a reader sees. Identifiers, keys, band labels, figure ids, answer
+keys and plain uses of common words stay. Verb forms stay where the prose kept them:
+- «asoma» / "pokes" still appear in m08-l1, so only the noun «el asomo» / "the poke" changed;
+- «firma» / "signature" was a coined term only in the m10 moving-average sense; «la firma de un fakeout» is plain.
+
+**Step 1 — exercise YAML (done).** 59 files changed (exercise and figure YAML together: 330 lines). The scan went from
+415 matching lines to 92, and every one of the 92 was read and kept. Replacements follow the prose:
+- «estocada» / "stab" (spring) → «caída breve» / "brief dip";
+- «asomo» / "poke" (noun) → «la primera vela que cruza el nivel» / "the first candle through the level", or «falsa
+  ruptura» / "false break" where that is what it was;
+- «espacio abierto» / "open space" → «lejos de cualquier nivel» / "away from any level";
+- "overrun" / «atropello» (noun) → «envolvente» / "engulfing" (the plain verb "overrun / arrollar" stays);
+- «repisa / estante / plataforma» / "shelf" → «nivel» / "level" (S/R sense) or «cúmulo (de stops / de precios de
+  liquidación)» / "cluster" (stop sense);
+- «bolsa» / "pool, pocket" (stop sense) → «cúmulo» / "cluster", or «reserva» / "reserve" for the finite supply of
+  trapped positions;
+- «combustible» / "fuel" → «participación» / "participation" (m14), or «las órdenes (forzadas) que pueden alimentar
+  una cascada» / "the orders that can feed a cascade" (m19);
+- "burn" (m19) → «cascada de liquidaciones» / "liquidation cascade";
+- «flujo forzado» / "forced flow" → «flujo de liquidaciones» / "liquidation flow";
+- «concurrido» → «saturado» (EN "crowded" stays; «una sesión concurrida» = a busy session, plain, stays);
+- «amarre / correa / ancla» / "tether, anchor" → «mantener cerca del spot» / "keep near spot", or «convergencia» /
+  "convergence" (m04-l1's wording);
+- "price of admission / eviction line", «línea de desahucio» → «lo que pagas para abrir» / "what it costs to open",
+  «umbral de liquidación» / "liquidation threshold";
+- «riesgo por acierto» → «riesgo por operación»; «bache de momentum» → «cambio de momentum a corto plazo»;
+- «cosechar» / "harvest" → «barrer» / "sweep";
+- «ritmo» / "rhythm" (m15 sense) → «avance» / "advance" or «ritmo de avance» / "rate of advance";
+- «squeeze de liquidez» → «short squeeze»; «zona contraria» → «extremo de sentimiento» / "sentiment extreme";
+- «trajes» / "costumes" → «repartida en N posiciones» / "split across N positions";
+- «peaje» / "toll" → «comisiones y spread» / "fees and spread";
+- «ir de compras» / "timeframe shopping" → «buscar la temporalidad que te dé la razón» / "looking for the timeframe
+  that agrees";
+- «freno diario» → «límite de pérdida diaria» («el freno» alone → «el límite diario»);
+- «marco macro / micro» → «temporalidad superior / inferior»;
+- «lente» / "lens" → «lectura (independiente)» / "(independent) read", or «una forma de leer el gráfico»;
+- «escalera» / "ladder, staircase" (HH/HL sense) → «secuencia (de máximos y mínimos)» / "sequence", or «estructura»;
+- «zona de origen» / "origin zone" → «order block»;
+- «dialecto» / "dialect" → «terminología SMC» / "SMC terminology";
+- the logged rows: m27-ex-1/3 «freno diario», m04-ex-3/4 and m19-ex-3 "tether", m05-ex-3 admission/eviction,
+  m31-ex-1 «combustible» (named as in m31-l1: «la liquidez en reposo que esa orden consumió»).
+
+**Answer and chart labels (step 1, `frontend/src/i18n/{en,es}.json`):**
+- `choices.overrun_at_level` → "Engulfing at a level → informative" / «Envolvente en un nivel → informativo».
+- `choices.open_space` → "Same form away from any level → noise" / «La misma forma lejos de cualquier nivel → ruido».
+- `choices.zone_respected` / `zone_failed` → "Order block respected / failed" / «Order block respetado / fallido».
+- `band.origin` → "Order block" in both locales.
+- `level.shelf` → "Level" / «Nivel» (the swept support in the m19 liquidity-sweep chart; the key stays).
+- Tests updated with them: `frontend/src/components/charts/bands.test.tsx` (×2) and
+  `frontend/src/lib/pdf/exercises.test.ts` (×3). Run: 47 passed with the glossary tests.
+
+**Step 2 — figure YAML (done).** Captions changed in:
+- `fig-m03-trend-vs-range`: «escalera» / "staircase" → «secuencia» / "sequence";
+- `fig-m08-breakout-vs-fakeout`: EN "pokes" → "pushes"; ES «asoma» stays (verb);
+- `fig-m08-market-structure`: «escalera» ×3 / "staircase, ladder" ×3 → «secuencia» / "sequence";
+- `fig-m08-rejection-vs-open-space`: «espacio abierto» / "open space" → «lejos de cualquier nivel» / "away from any
+  level";
+- `fig-m08-reversal-forms`: "an overrun" → "an engulfing candle", «un overrun» → «una vela envolvente» (your
+  decision);
+- `fig-m10-ema-signatures`: «firmas» / "signatures" → «lecturas» / "reads" (the id stays);
+- `fig-m15-channel`: «ritmo» / "rhythm" → «avance» / "advance";
+- `fig-m19-liquidity-sweep`: «La bolsa bajo una repisa, tomada» / "The pool below a shelf, taken" → «El cúmulo de
+  stops bajo un nivel, tomado» / "The stop cluster below a level, taken";
+- `fig-m34-imbalance` and `fig-m34-origin-zone`: «dialecto» → «terminología SMC». `marked "origin"` → `marked "Order
+  block"`, which is what the band label now prints.
+
+`figure-coupling.yaml` hits are YAML comments and the anchor id `level:shelf`, so they stay.
+
+**Step 3 — glossary (done).** «dialecto» ×10 → «terminología SMC» / "SMC terminology":
+- 8 in definitions: `g-smc`, `g-fair-value-gap`, `g-premium` (SMC sense) and `g-discount`, ES and EN;
+- 2 in block comments.
+
+Two summaries carried coined terms and changed too:
+- the m09 lesson summary, EN "a stab below support" → "a brief dip below support";
+- the m18 module summary «como zona contraria» / "as a contrarian zone" → «como aviso y no como señal de timing» /
+  "as a warning rather than a timing signal".
+
+**Step 4 — READMEs and fixtures (done).**
+- `README.md`: «SMC dialect» → "SMC terminology" (×5), "origin zone" → "order block" (×5), "shelf" → "level / stop
+  cluster" (×3), "ladder / staircase" → "sequence" (×3), "EMA signatures" → "EMA reads",
+  "rejection/overrun/indecision" → "rejection/engulfing/indecision", and the export example title. "directive
+  dialect" (the markdown parser) and "depth ladder" (DOM) stay.
+- `content/README.md`: the alias example `order block` → `origin zone` is now `liquidity grab` → `sweep` (a real
+  alias). "a shelf drawn at 25911.85" → "a level drawn at 25911.85".
+- Fixtures: `GlossaryPage.test.tsx` and `TermPopover.test.tsx` (`originTitle` → the new m34 titles).
+
+**Regeneration after steps 1–4.**
+- Glossary-link and lesson-ref pairs: unchanged against `HEAD`. Text diff 0, block inventory OK, exercise refs OK
+  (242 marks). Coupling and glossary tests: 235 passed.
+- Generation goldens (`export_generation_goldens.py`): identical to the session baseline.
+- Golden and fingerprint tests: 343 passed (`test_generation_goldens`, `test_golden_exercise_mode`,
+  `test_generation_config_freeze`, `test_export_bundle`, `test_chart_annotations`, `test_chart_bands`,
+  `test_export_contracts_to_android`, `test_generation_numerics`).
+- **Recapture list: empty so far.** No golden or fingerprint changed. The goldens hash generation parameters and
+  answers, not prose. The bundle fingerprint printed by `export_bundle.py` moved (content changed), but it is not
+  committed or asserted anywhere.
+
+**CI (read in session 6, for step 8).** `.github/workflows/ci.yml` has two jobs, on push to `main` and on pull
+requests:
+- **backend** (Ubuntu): `actions/checkout@v7`; `astral-sh/setup-uv@v7` with a uv cache keyed on `backend/uv.lock`;
+  Python 3.14 pinned by the project. It runs `uv sync --frozen`, `uv run ruff check .`, `uv run mypy src` and `uv run
+  pytest` (Testcontainers Postgres on the runner's Docker).
+- **frontend** (Ubuntu): `actions/checkout@v7`; `actions/setup-node@v7` with Node 26 and an npm cache keyed on
+  `frontend/package-lock.json`. It runs `npm ci`, `npm run build` and `npm test`.
+- It is a clean checkout, so untracked files are not seen. Everything the tests read must be committed.
+
+**Step 5 — blacklist-opener sweep (next).** A scan of the 88 lesson files (body prose only; headings, `::`
+directives, `:::` notes, tables and blockquotes excluded) finds 573 sentence openings that match the blacklist:
+
+| ES opener | count | EN opener | count |
+|---|---:|---|---:|
+| «Y…» | 64 | "And…" | 62 |
+| «Es + noun phrase…» | 63 | "It is… / That is…" | 153 |
+| «Así,… / Así que…» | 56 | "That is why… / So…" | 81 |
+| «Eso + verb…» | 38 | "That + verb…" | 8 |
+| «Por eso…» | 18 | "They are…" | 15 |
+| «Son…» | 6 | "It is also / It also…" | 3 |
+| «También es / explica…» | 2 | | |
+| «Esa es la razón…» | 2 | | |
+| «Para eso sirve…» | 2 | | |
+
+Many are original prose, and some are not tics at all (for example a «Es…» that opens a definition, or "So"
+closing an argument). The sweep reads each one and rewords only the opening where it reads as the blacklisted tic,
+logging lesson, before and after. Then come steps 6–9.
+
+#### Exercise and figure YAML: matching lines per file, before → after
+
+| File | Lines changed, by term | Kept (identifier, plain sense, verb form) |
+|---|---|---|
+| `fig-m03-trend-vs-range.yaml` | escalera −1, ladder/staircase −1 | — |
+| `fig-m08-breakout-vs-fakeout.yaml` | poke −1 | asomo ×1 |
+| `fig-m08-market-structure.yaml` | escalera −3, ladder/staircase −2 | — |
+| `fig-m08-rejection-vs-open-space.yaml` | espacio abierto −2 | — |
+| `fig-m08-reversal-forms.yaml` | overrun −2 | — |
+| `fig-m10-ema-signatures.yaml` | firma −2 | firma ×1 |
+| `fig-m15-channel.yaml` | ritmo −4 | — |
+| `fig-m19-liquidity-sweep.yaml` | repisa/estante −1, shelf −1 | — |
+| `fig-m34-imbalance.yaml` | dialecto −2 | — |
+| `fig-m34-origin-zone.yaml` | dialecto −2 | — |
+| `figure-coupling.yaml` | — | poke ×1, shelf ×5 |
+| `m02-ex-1.yaml` | — | firma ×4 |
+| `m02-ex-3.yaml` | — | arder/burn ×1 |
+| `m03-ex-4.yaml` | asomo −1, poke −1 | — |
+| `m03-ex-6.yaml` | — | asomo ×2, firma ×2, poke ×2 |
+| `m04-ex-3.yaml` | tether/amarre/correa −4 | estocada/stab ×1 |
+| `m04-ex-4.yaml` | tether/amarre/correa −5 | — |
+| `m05-ex-1.yaml` | — | admission/eviction ×1 |
+| `m05-ex-3.yaml` | admission/eviction −4 | — |
+| `m05-ex-4.yaml` | riesgo por acierto −2 | — |
+| `m06-ex-1.yaml` | — | admission/eviction ×1 |
+| `m07-ex-1.yaml` | — | admission/eviction ×1 |
+| `m07-ex-2.yaml` | — | admission/eviction ×1 |
+| `m08-ex-1.yaml` | — | asomo ×1, poke ×2 |
+| `m08-ex-3.yaml` | escalera −1, ladder/staircase −2 | ladder/staircase ×1 |
+| `m08-ex-4.yaml` | asomo −2, combustible −1, fuel −1, poke −3 | asomo ×4, concurrido ×1, firma ×6, ir de compras ×1, overrun ×1, poke ×6 |
+| `m08-ex-5.yaml` | espacio abierto −4, overrun −2 | overrun ×2 |
+| `m08-ex-6.yaml` | espacio abierto −4, overrun −8 | overrun ×3 |
+| `m08-ex-7.yaml` | espacio abierto −12, overrun −7 | overrun ×1 |
+| `m09-ex-4.yaml` | lens −1, lente −1 | asomo ×1, poke ×1 |
+| `m09-ex-6.yaml` | estocada/stab −6, poke −1 | arder/burn ×1 |
+| `m10-ex-4.yaml` | — | admission/eviction ×1 |
+| `m11-ex-5.yaml` | bache −2 | — |
+| `m12-ex-4.yaml` | — | admission/eviction ×1 |
+| `m13-ex-4.yaml` | espacio abierto −2, shelf −2 | — |
+| `m14-ex-4.yaml` | combustible −2, fuel −2, lens −1, lente −1 | firma ×2 |
+| `m15-ex-2.yaml` | ritmo −1 | ritmo ×1 |
+| `m15-ex-3.yaml` | bolsa(liq) −2, concurrido −2, pool/pocket −2, repisa/estante −1, ritmo −3, shelf −1 | ritmo ×3 |
+| `m15-ex-4.yaml` | concurrido −1, ritmo −3 | ritmo ×2 |
+| `m15-ex-7.yaml` | ritmo −2 | — |
+| `m16-ex-3.yaml` | squeeze de liquidez −6 | — |
+| `m17-ex-3.yaml` | escalera −1, ladder/staircase −1 | — |
+| `m17-ex-4.yaml` | combustible −1, fuel −1, repisa/estante −1, shelf −1 | shelf ×1 |
+| `m18-ex-1.yaml` | — | firma ×2 |
+| `m18-ex-3.yaml` | zona contraria −2 | — |
+| `m18-ex-4.yaml` | zona contraria −9 | — |
+| `m19-ex-3.yaml` | bolsa(liq) −1, concurrido −2, flujo forzado −1, forced flow −1, pool/pocket −1, tether/amarre/correa −4 | firma ×2 |
+| `m19-ex-4.yaml` | arder/burn −3, combustible −2, cosecha −2, fuel −2, repisa/estante −1, shelf −1 | fuel ×1 |
+| `m19-ex-5.yaml` | bolsa(liq) −3, combustible −1, fuel −1, repisa/estante −11, shelf −12 | ir de compras ×1, poke ×5 |
+| `m19-ex-6.yaml` | bolsa(liq) −2, combustible −3, concurrido −10, flujo forzado −3, forced flow −5, fuel −3, shelf −2 | fuel ×1 |
+| `m21-ex-1.yaml` | concurrido −1 | — |
+| `m22-ex-4.yaml` | trajes/costumes −4 | — |
+| `m22-ex-5.yaml` | trajes/costumes −3 | — |
+| `m22-ex-6.yaml` | trajes/costumes −4 | — |
+| `m23-ex-2.yaml` | peaje/toll −7 | peaje/toll ×1 |
+| `m23-ex-3.yaml` | bolsa(liq) −1, poke −1 | firma ×2 |
+| `m23-ex-4.yaml` | peaje/toll −2 | — |
+| `m23-ex-8.yaml` | poke −1 | — |
+| `m23-ex-9.yaml` | ir de compras −4 | ir de compras ×1 |
+| `m25-ex-4.yaml` | peaje/toll −2 | — |
+| `m26-ex-1.yaml` | — | ritmo ×2 |
+| `m27-ex-1.yaml` | freno diario −4 | — |
+| `m27-ex-3.yaml` | freno diario −1, marco macro/micro −2 | — |
+| `m27-ex-5.yaml` | ladder/staircase −1 | — |
+| `m30-ex-2.yaml` | estocada/stab −2, lens −1, lente −1 | — |
+| `m30-ex-3.yaml` | estocada/stab −2, lens −1, lente −1 | — |
+| `m31-ex-1.yaml` | combustible −1, fuel −1 | escalera ×1, firma ×4, ladder/staircase ×1 |
+| `m32-ex-3.yaml` | tether/amarre/correa −1 | — |
+| `m34-ex-1.yaml` | dialecto −4, zona de origen −2 | — |
+| `m34-ex-3.yaml` | bolsa(liq) −1, dialecto −10, escalera −2, ladder/staircase −2, pool/pocket −1, repisa/estante −1, shelf −1, zona de origen −9 | dialecto ×1 |
+| `m34-ex-4.yaml` | concurrido −2, dialecto −12 | — |

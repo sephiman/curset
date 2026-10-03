@@ -87,8 +87,8 @@ variants:
       es: "Cierto: los clústeres atraen el precio y añaden volatilidad, no lo repelen. Por eso un mapa de clústeres es un mapa de dónde el mercado suele volverse violento, no un conjunto de niveles que contengan el precio."
   - id: cluster-tiers
     prompt:
-      en: "Longs opened at 60,000 at 100×, 50× and 20×, with a 0.5% maintenance margin, have liquidation prices of 59,700, 59,100 and 57,300 respectively. Price wicks down to 59,000 and recovers. Which clusters did that wick harvest?"
-      es: "Largos abiertos en 60.000 a 100×, 50× y 20×, con un margen de mantenimiento del 0,5%, tienen precios de liquidación de 59.700, 59.100 y 57.300 respectivamente. El precio hace una mecha hasta 59.000 y se recupera. ¿Qué clústeres cosechó esa mecha?"
+      en: "Longs opened at 60,000 at 100×, 50× and 20×, with a 0.5% maintenance margin, have liquidation prices of 59,700, 59,100 and 57,300 respectively. Price wicks down to 59,000 and recovers. Which clusters did that wick sweep?"
+      es: "Largos abiertos en 60.000 a 100×, 50× y 20×, con un margen de mantenimiento del 0,5%, tienen precios de liquidación de 59.700, 59.100 y 57.300 respectivamente. El precio hace una mecha hasta 59.000 y se recupera. ¿Qué clústeres barrió esa mecha?"
     options:
       - id: a
         text:
@@ -138,8 +138,8 @@ variants:
           en: "A price zone that acts like a magnet for volatile moves"
           es: "Una zona de precio que actúa como un imán para los movimientos violentos"
     explanation:
-      en: "A short squeeze is forced buying (shorts buying to close) cascading up; a long squeeze is forced selling (longs selling to close) cascading down; a liquidation cluster is the pool of would-be forced closes near one price that draws price toward it and turns volatile."
-      es: "Un short squeeze es compra forzada (cortos que compran para cerrar) en cascada hacia arriba; un long squeeze es venta forzada (largos que venden para cerrar) en cascada hacia abajo; un clúster de liquidaciones es la bolsa de cierres forzosos potenciales cerca de un mismo precio que atrae el precio hacia sí y lo vuelve volátil."
+      en: "A short squeeze is forced buying (shorts buying to close) cascading up; a long squeeze is forced selling (longs selling to close) cascading down; a liquidation cluster is the set of would-be forced closes near one price that draws price toward it and turns volatile."
+      es: "Un short squeeze es compra forzada (cortos que compran para cerrar) en cascada hacia arriba; un long squeeze es venta forzada (largos que venden para cerrar) en cascada hacia abajo; un clúster de liquidaciones es el conjunto de cierres forzosos potenciales cerca de un mismo precio que atrae el precio hacia sí y lo vuelve volátil."
   - id: squeeze-fuel-signs
     kind: multi_select
     prompt:
@@ -170,8 +170,8 @@ variants:
           en: "The cluster tells you which direction the day will end."
           es: "El grupo te dice en qué dirección terminará el día."
     explanation:
-      en: "One-sided funding, rising open interest on that side, and a fat cluster below it are three views of the same loaded fuel. What none of them does is predict the spark or the outcome: the data shows you a market primed to burn, never when it lights or which way it runs."
-      es: "Un funding unilateral, un interés abierto creciente en ese lado y un grupo denso debajo son tres vistas del mismo combustible cargado. Lo que ninguno hace es predecir la chispa ni el resultado: los datos te muestran un mercado listo para arder, nunca cuándo prende ni hacia dónde corre."
+      en: "One-sided funding, rising open interest on that side, and a fat cluster below it are three views of the same build-up of forced orders. What none of them does is predict the trigger or the outcome: the data shows you a market primed for a liquidation cascade, never when it starts or which way it runs."
+      es: "Un funding unilateral, un interés abierto creciente en ese lado y un grupo denso debajo son tres vistas de la misma acumulación de órdenes forzadas. Lo que ninguno hace es predecir el disparo ni el resultado: los datos te muestran un mercado listo para una cascada de liquidaciones, nunca cuándo empieza ni hacia dónde corre."
   - id: cluster-not-target
     prompt:
       en: "How should a liquidation map be used?"
@@ -195,8 +195,8 @@ variants:
           en: "As the place to park your own stop, where the liquidity is deepest."
           es: "Como el sitio donde poner tu propio stop, donde la liquidez es mayor."
     explanation:
-      en: "A cluster tells you where it may get violent, not which way the day ends: none of this predicts direction — it maps the fuel and shows you where the market tends to burn it. Clusters attract rather than repel, so they are the opposite of levels that hold. And keep your own stops outside the obvious pool, beyond the level rather than one tick inside it."
-      es: "Un grupo te dice dónde puede volverse violento, no en qué dirección termina el día: nada de esto predice la dirección, cartografía el combustible y te muestra dónde suele quemarlo el mercado. Los grupos atraen en vez de repeler, así que son lo contrario de niveles que contienen. Y mantén tus propios stops fuera del grupo obvio, más allá del nivel y no un tick por dentro."
+      en: "A cluster tells you where it may get violent, not which way the day ends: none of this predicts direction — it maps the orders that can feed a cascade and shows you where the market tends to trigger them. Clusters attract rather than repel, so they are the opposite of levels that hold. And keep your own stops outside the obvious cluster, beyond the level rather than one tick inside it."
+      es: "Un grupo te dice dónde puede volverse violento, no en qué dirección termina el día: nada de esto predice la dirección, cartografía las órdenes que pueden alimentar una cascada y te muestra dónde suele dispararlas el mercado. Los grupos atraen en vez de repeler, así que son lo contrario de niveles que contienen. Y mantén tus propios stops fuera del grupo obvio, más allá del nivel y no un tick por dentro."
   - id: leverage-density
     prompt:
       en: "Why do liquidation clusters in crypto go off on such small moves?"
@@ -220,5 +220,5 @@ variants:
           en: "Because funding is charged three times a day, and that moves the price."
           es: "Porque el funding se cobra tres veces al día, y eso mueve el precio."
     explanation:
-      en: "A roughly 1% wick can liquidate a 100× position, so the trigger needs almost nothing — and the higher the leverage on offer, the denser the shelf sitting immediately under price. Dense clusters plus no closing bell plus thin books is the whole reason cascades are worse here: they fire at 3am, run unopposed, and overshoot because there was nothing there to absorb them."
-      es: "Una mecha de en torno al 1% puede liquidar una posición a 100×, así que el disparador casi no necesita nada, y cuanto mayor es el apalancamiento ofrecido, más densa es la repisa que queda justo debajo del precio. Grupos densos, sin campana de cierre y libros finos: esa es toda la razón de que las cascadas sean peores aquí. Se disparan a las 3 de la madrugada, corren sin oposición y se exceden porque no había nada que las absorbiera."
+      en: "A roughly 1% wick can liquidate a 100× position, so the trigger needs almost nothing — and the higher the leverage on offer, the denser the liquidation cluster sitting immediately under price. Dense clusters plus no closing bell plus thin books is the whole reason cascades are worse here: they fire at 3am, run unopposed, and overshoot because there was nothing there to absorb them."
+      es: "Una mecha de en torno al 1% puede liquidar una posición a 100×, así que el disparador casi no necesita nada, y cuanto mayor es el apalancamiento ofrecido, más denso es el cúmulo de precios de liquidación que queda justo debajo del precio. Grupos densos, sin campana de cierre y libros finos: esa es toda la razón de que las cascadas sean peores aquí. Se disparan a las 3 de la madrugada, corren sin oposición y se exceden porque no había nada que las absorbiera."

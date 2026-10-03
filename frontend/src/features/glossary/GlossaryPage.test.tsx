@@ -26,7 +26,7 @@ const GLOSSARY: Glossary = {
       id: "g-choch",
       term: "CHoCH",
       origin: "m34-l1",
-      originTitle: "El dialecto SMC",
+      originTitle: "La terminología SMC",
       aliasOf: { id: "g-change-of-character", term: "cambio de carácter" },
     },
     {

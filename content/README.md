@@ -51,7 +51,7 @@ the loader rejects a collision.
 Three shapes: a plain `definition`; `senses` for a term the course genuinely uses in more than one
 sense (`premium` has three), optionally under a lead `definition` for the "one mechanic, several
 instruments" case (`absorption`); and `alias_of` for a second name the course uses for something it
-already defines (`CHoCH` → `change of character`, `order block` → `origin zone`), which defers the
+already defines (`CHoCH` → `change of character`, `liquidity grab` → `sweep`), which defers the
 definition rather than repeating it.
 
 The hard rule is that **the glossary never coins**: startup fails if a term does not appear in the
@@ -208,7 +208,7 @@ the structural groundwork so that day is additive, not a migration of ids.
 
 Where a lesson teaches with worked numbers beside a generated figure, **the figure is the source of
 truth.** Figures keep their frozen seeds and exact generated prices; the prose quotes rounded,
-human-readable approximations of those values ("cerca de 25.900" for a shelf drawn at 25911.85),
+human-readable approximations of those values ("cerca de 25.900" for a level drawn at 25911.85),
 introduced as approximations (*cerca de*, *en torno a*, `~`). Any arithmetic the prose performs on
 them — widths, distances, ratios — is recomputed from the adapted numbers, and `es/` and `en/` always
 adapt together in the same change.

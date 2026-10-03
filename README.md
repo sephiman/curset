@@ -112,7 +112,7 @@ Open <http://localhost:5173>, register an account, and review the full course:
   depth ladder and a footprint are an instant snapshot and a distribution-inside-a-bar, not the time
   series this engine builds — the lesson **says so and names the real tools** instead of faking a
   chart, the same honest-frontier stance as m08's candle-pattern dictionary. The block closes with
-  **the SMC dialect** (m34, below) — the lexicon that renames everything the block just taught.
+  **SMC terminology** (m34, below) — the lexicon that renames everything the block just taught.
 - **The rest of the classic canon, with its weak spots named** (block C, m15–m16): the two modules that
   close the technical-analysis block. **m15** is diagonal geometry — trendlines, channels, wedges and
   triangles — and it is taught with the honest problem stated in the prose rather than in a footnote:
@@ -128,23 +128,23 @@ Open <http://localhost:5173>, register an account, and review the full course:
   envelopes above it* rather than as a signal. It also carries a **mandatory disambiguation**: the
   volatility squeeze here and m19-l2's liquidity squeeze are unrelated mechanisms sharing a word, and
   the glossary entry for `squeeze` is a homonym with numbered senses because of it.
-- **The SMC dialect, mapped onto mechanics** (m34, block F's closing module — a block of its own until
+- **SMC terminology, mapped onto mechanics** (m34, block F's closing module — a block of its own until
   the 2026-08-10 merge, which is where the block-g letter now free for the epilogue came from; its
   whole thesis is mapping SMC vocabulary onto the mechanics block F just taught, so it reads as F's
   coda): learners arrive from fintwit knowing *order block*, *FVG*, *BOS*, *liquidity grab*,
   *premium/discount* — vocabulary the course never named though
   it already taught most of the substance. This closing module does for that lexicon what m08-l2's candle
   dictionary does for named candle patterns: each term is mapped onto a mechanic plus a location, never
-  as a standalone signal. An **order block** is the origin zone of an impulse — m08-l1's shelf of resting
-  orders and m09's absorbing buyer, renamed — and it only exists once a close has broken structure, which
+  as a standalone signal. An **order block** is the last opposing candles an impulse set off from — m08-l1's zone of
+  resting orders and m09's absorbing buyer, renamed — and it only exists once a close has broken structure, which
   is the step that makes the difference between a zone and an ordinary pullback. An **FVG** is a span
   crossed inside one candle, which is m08-l2's *liquidity void* taught as a zone rather than only as a
-  warning. **BOS** is the twin m08-l1 never named (the break that *continues* the ladder, against the
-  CHoCH that ends it), and m08-l1 now names it where the ladder lives. **Premium/discount** is a range
+  warning. **BOS** is the twin m08-l1 never named (the break that *continues* the sequence of highs and
+  lows, against the CHoCH that ends it), and m08-l1 now names it too. **Premium/discount** is a range
   midline and is deflated to exactly that. The **honest boundary is load-bearing**: no engineered-intent
   narratives, because "smart money did this" is contradicted by no observation and so predicts nothing;
   no zones fitted in hindsight; no retracement numerology past what m13 already allows. The stance is
-  that the dialect is worth reading because the crowd speaks it, not because it predicts — the same
+  that the terminology is worth reading because the crowd speaks it, not because it predicts — the same
   focal-point logic m13 and m10-l1 use, with the same expiry date.
 - **The coda: an epilogue that hands back the pen** (m35, *After this book* — block G, the one block
   in the course that holds a single module on purpose, because an epilogue is an island by nature).
@@ -180,7 +180,7 @@ Open <http://localhost:5173>, register an account, and review the full course:
   taught in m10-l1 as exactly that, with the mechanism m13 gives Fibonacci levels: enough people
   watch the same line that resting orders pile up around it, so it works while it is crowded rather
   than because the number is right. What the parameters change is the **horizon a signal talks
-  about**, never how it is read — the three EMA signatures (order, slope, price relative to the pair)
+  about**, never how it is read — the three EMA reads (order, slope, price relative to the pair)
   are self-similar across timeframes, which is why m23's style ↔ timeframe choice picks the periods
   as a side effect.
 - **Exercise variety:** quizzes in five sub-kinds (single-choice, true/false, multi-select, ordering,
@@ -192,8 +192,8 @@ Open <http://localhost:5173>, register an account, and review the full course:
   moving averages, oscillator readings, **MACD crossovers** (signal-line vs zero-line vs whipsaw in a
   range), Fibonacci, volume, open interest, **CVD divergence** (price makes a new extreme; does the
   aggression underneath refuse to follow it, or make its own with it?), **candle reactions**
-  (rejection/overrun/indecision, where location is 90% of the signal), and the two **zone** reads of the
-  SMC dialect — did the return hold the impulse's origin zone, fail it, or was there no zone because
+  (rejection/engulfing/indecision, where location is 90% of the signal), and the two **zone** reads of the
+  SMC terminology — did the return hold the order block, fail it, or was there no zone because
   nothing broke structure; and is an imbalance still open, already filled, or absent because the
   candles overlap. Every detection chart is
   guarded by a statistical anti-leak
@@ -243,11 +243,11 @@ Open <http://localhost:5173>, register an account, and review the full course:
 - **Markers are held to the same standard:** a label reading "HH" on a bar that is not the higher high
   teaches the wrong reading off a chart that looks fine, so every annotation is checked against the
   geometry it names — the marked bar is the extreme of its own swing, a CHoCH is *the first* lower low,
-  the sweep marker is the only bar that traded below the shelf, an "order unfilled" marker sits on a bar
+  the sweep marker is the only bar that traded below the level, an "order unfilled" marker sits on a bar
   the limit never reached.
-- **Zones are drawn as zones, and withheld from the question:** an origin zone and an imbalance are
+- **Zones are drawn as zones, and withheld from the question:** an order block and an imbalance are
   bands, not lines, so they render as a shaded **`Band`** — a filled region between two planted prices,
-  in the same high-contrast neutral the `plan` lines use, because an origin zone can be demand or supply
+  in the same high-contrast neutral the `plan` lines use, because an order block can be demand or supply
   and a coloured band would assert a direction the lesson refuses. A band is **ground truth**: the
   exercise asks the learner to *find* the zone, so shading it on the question would be the answer, and it
   reaches the client only through grading (revealed on the same chart, once answered) and through lesson
@@ -273,7 +273,7 @@ Open <http://localhost:5173>, register an account, and review the full course:
   from a frozen seed (so each illustration is stable), reusing the exact chart renderer students see,
   with the pattern annotated and its resolution shown. Multi-panel and mobile-responsive; served by
   `GET /api/figures/{id}` (auth + locale-aware, cached). 34 figures across the course, including the
-  labelled HH/HL staircase and the swing that breaks it (m08), a liquidity sweep read as a shelf being
+  labelled HH/HL sequence and the swing that breaks it (m08), a liquidity sweep read as a stop cluster being
   taken (m19) and as a liquidation wick (m06), a stop-limit that gaps past its own limit and never fills
   (m24), and one complete trade with its level, entry, stop and target drawn (m27). Every reference is
   checked to resolve in both languages, and no spec may sit unembedded.
@@ -343,7 +343,7 @@ Open <http://localhost:5173>, register an account, and review the full course:
   box accepts any chart exercise, e.g. `m12-ex-1` (divergences), `m08-ex-1` (fakeouts),
   `m09-ex-1` (Wyckoff), `m10-ex-1` (moving averages), `m11-ex-1` (RSI), `m11-ex-5` (MACD crossovers),
   `m13-ex-1` (Fibonacci), `m14-ex-1` (volume), `m19-ex-1` (open interest), `m30-ex-1` (CVD
-  divergence), `m34-ex-1` (origin zones) and `m34-ex-2` (imbalances) — the last two draw their
+  divergence), `m34-ex-1` (order blocks) and `m34-ex-2` (imbalances) — the last two draw their
   ground-truth **zone**, which the exercise itself withholds; CSV export per seed on each
   card.
 
@@ -411,8 +411,8 @@ nginx needs no change: `try_files $uri /index.html` already serves any depth.
 
 A bookmark from before the one-time 2026-08-10 renumbering (see `content/README.md`) does *not*
 redirect: the permutation reused sixteen ids outright, and append-only growth has since re-issued the
-four it vacated (`m31`–`m34` now hold the order book, the venue premium, footprint and the SMC
-dialect), so every old id names a live page and the URL cannot say which era it was bookmarked in. A
+four it vacated (`m31`–`m34` now hold the order book, the venue premium, footprint and SMC
+terminology), so every old id names a live page and the URL cannot say which era it was bookmarked in. A
 display id always resolves to its current holder. Per-id redirects were removed for that reason and
 must not come back: the route is a static segment, so it would shadow the live module.
 
@@ -463,7 +463,7 @@ The two shapes are discriminated by their top-level key, so a consumer never has
 {"locales": ["en", "es"],
  "blocks": [{"id": "block-f", "title": {"en": "Order flow and microstructure", "es": "Flujo de órdenes y microestructura"},
    "modules": [{"id": "m34", "title": {…}, "summary": {…},
-     "lessons": [{"id": "m34-l1", "title": {…}, "summary": {…}, "markdown": {"en": "# The SMC…", "es": "# El dialecto…"}}]}]}]}
+     "lessons": [{"id": "m34-l1", "title": {…}, "summary": {…}, "markdown": {"en": "# SMC terminology…", "es": "# La terminología…"}}]}]}]}
 
 // lang=es  ->  plain strings, one language
 {"locale": "es", "blocks": [{"id": "block-f", "title": "Flujo de órdenes y microestructura", "modules": [{…}]}]}

@@ -55,7 +55,7 @@ const CHOCH: GlossaryEntry = {
   id: "g-choch",
   term: "CHoCH",
   origin: "m34-l1",
-  originTitle: "The SMC dialect",
+  originTitle: "SMC terminology",
   aliasOf: { id: "g-funding", term: "funding" },
 };
 
