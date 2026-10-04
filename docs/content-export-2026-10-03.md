@@ -1,13 +1,15 @@
 # Content export — 2026-10-03 (run 2026-10-04)
 
 **Outcome: exported.** The bundle (format 2) is in `dist/bundle/`, with fingerprint
-**`a49624d8719c9831d828d6dfe31e751522e1a307e0854d4e55bbfb2063c16e95`**. The contracts in
-`dist/contracts/` were regenerated and are byte-identical to round 7.
+**`7a9fae8205c6503c9685e467bf56307b5c7711081ff8ae86af454bc70bd7d633`**. The answer-label and
+chart-label catalogs are in `dist/i18n/` (section 7). The contracts in `dist/contracts/` were
+regenerated and are byte-identical to round 7.
 
 The first run of this session stopped at the suite: two lessons had broken lists. With authorisation,
 the breaks were fixed with markers and whitespace only, and a committed check now catches that class
 (section 2.2). Then the full suite ran green and the export went ahead. A follow-up aligned EN m09-l2's
-body with its summary and re-exported (section 2.4). Nothing is committed (section 6.4).
+body with its summary and re-exported (section 2.4). A second follow-up fixed a decimal comma in EN
+m27-l1, added the label catalogs to the export and re-exported (section 2.5).
 
 - Tree: HEAD `bdc11d0` ("bundle prepared", which holds the list repair, the new check and the reports),
   plus the uncommitted EN m09-l2 change listed in section 6.4.
@@ -208,6 +210,39 @@ Out of scope and left as they are: four plain-verb uses of "stab" for price acti
 the matching `exercises/m04-ex-3.yaml:193`. They describe a candle moving through a price, not the
 spring.
 
+### 2.5 Follow-up: EN m27-l1 decimal, and the label catalogs
+
+The Android import showed five label entries per locale out of date: m34 exercise 1, m08 exercise 5
+(ES), the m34 figure and the ES "shelf" level. The app's `ExerciseStrings.kt` and `ChartStrings.kt`
+are hand copies of the web's i18n files, which changed in the same export. The web's i18n text was
+already right and is unchanged. The fix on this side is to export those entries, so the app can import
+them instead of keeping copies (section 7). The stale copies are fixed in the Android repo.
+
+| Line | Before | After |
+| --- | --- | --- |
+| `en/m27-l1.md:48` | it is the 0,618 retracement of the last leg | it is the 0.618 retracement of the last leg |
+
+The other comma-grouped numbers in EN lessons (`60,000`, `30,500`, …) are thousands separators and stay.
+
+Re-export:
+- **Only `ast/en/m27-l1.json` moved in the bundle**, with `manifest.json` (its hash and the
+  fingerprint). The fingerprint went from `a49624d8…` to **`7a9fae82…`**. The token counts did not
+  change (EN prose 71392): "0,618" and "0.618" are one token each.
+- New, outside the bundle: the four files in `dist/i18n/`.
+- `--verify-only`: exit 0, text diff 0, 88 ASTs, 242 marks, the fingerprint verified against 98 files,
+  and the label catalogs match the i18n source.
+
+Checks after the change:
+- The EN glossary-link golden failed on its first run: two rows quote the m27-l1 sentence (m24-l1
+  `g-resistance` and `g-support`, by key). Regenerated with
+  `UPDATE_GLOSSARY_LINKS=1 npx vitest run src/lib/glossary/report.test.ts`. Only the quoted context
+  moved ("0,618" → "0.618"); every (lesson, term) row is identical. The other three reports did not move.
+- Backend `pytest`: **1305 passed, 20 skipped** (1300 before, plus the 5 tests in
+  `tests/test_label_catalogs.py`).
+- Frontend `vitest run`: **508 passed, 1 skipped**.
+- `verify_golden_stability.py`: exit 0.
+- `ruff check` and `mypy` are clean on the new and changed backend files.
+
 ---
 
 ## 3. Bundle per-file comparison (`dist/bundle` vs the round-7 export)
@@ -264,8 +299,9 @@ section "The Android bundle and the port's contracts":
 | `dist/contracts/generation-goldens/` | `export_generation_goldens.py` | **no**: byte-identical | **yes** |
 | `dist/contracts/prng-vectors/` | `export_prng_vectors.py` | **no**: byte-identical (code-only input) | **yes** |
 | `dist/contracts/libm-parity/` | `export_libm_parity.py` | **no**: byte-identical (copies committed artifacts) | **yes** |
+| `dist/i18n/` (section 7) | `export_bundle.py` | new | **yes** |
 | bundle format version | `export_bundle.py` | **no**, still **2**: no shape change, so `bundle-format-changelog.md` needs no entry | n/a |
-| `EXPORT_MANIFEST.json` + the copy into the Android repo | `export_contracts_to_android.py --target …` | n/a | **no**. It is a separate, deliberate transfer into `~/IdeaProjects/tradeschool-android`, and it records whether this repo's tree was dirty (it is, see section 6.4) |
+| `EXPORT_MANIFEST.json` + the copy into the Android repo (`bundle/`, `contracts/`, `i18n/`) | `export_contracts_to_android.py --target …` | n/a | **no**. It is a separate, deliberate transfer into `~/IdeaProjects/tradeschool-android`, and it records whether this repo's tree was dirty (it is, see section 6.4) |
 
 ---
 
@@ -274,7 +310,7 @@ section "The Android bundle and the port's contracts":
 Written to `/home/juanjo/PycharmProjects/tradeschool/dist/` on 2026-10-04 08:37–08:38, from `backend/`:
 
 ```bash
-uv run python scripts/export_bundle.py                    # -> dist/bundle/  (format 2, fingerprint a49624d8…)
+uv run python scripts/export_bundle.py                    # -> dist/bundle/ (format 2, fingerprint 7a9fae82…) + dist/i18n/
 uv run python scripts/export_bundle.py --verify-only      # exit 0
 uv run python scripts/export_generation_goldens.py        # -> dist/contracts/generation-goldens/
 uv run python scripts/export_prng_vectors.py              # -> dist/contracts/prng-vectors/
@@ -284,7 +320,8 @@ uv run python scripts/verify_golden_stability.py          # exit 0, 90/90
 
 All six exited 0. The bundle export and `--verify-only` were rerun after the m09-l2 follow-up, and both
 exited 0. The contract exporters and the stability script were not rerun: a lesson body is not one of
-their inputs, and `dist/contracts/` is still byte-identical to round 7. The transfer to the app is the next step, and it was not run:
+their inputs, and `dist/contracts/` is still byte-identical to round 7. The bundle export and
+`--verify-only` were rerun again after the m27-l1 follow-up (09:45), and both exited 0. The transfer to the app is the next step, and it was not run:
 `uv run python scripts/export_contracts_to_android.py --target ~/IdeaProjects/tradeschool-android`.
 
 ---
@@ -344,18 +381,82 @@ format version is still 2, and the changelog needs no entry. The Android repo it
 
 ### 6.4 State of the tree
 
-**Not clean, by one export input.** HEAD is `bdc11d0` ("bundle prepared"). That commit holds this
-session's list repair, the four regenerated reports, the list-shape check, the README paragraph and the
-first version of this doc. The current `dist/bundle` (fingerprint `a49624d8…`) was exported from
-`bdc11d0` **plus** these uncommitted changes:
+**Not clean.** HEAD is `6fa5a19` ("bundle prepared"), which holds the m09-l2 follow-up. The current
+`dist/bundle` (fingerprint `7a9fae82…`) and `dist/i18n/` were exported from `6fa5a19` **plus** these
+uncommitted changes:
 
 ```
- M content/en/lessons/m09-l2.md        "stab" → "brief dip" / "dip" (section 2.4)
+ M README.md                           dist/i18n/ paragraph
+ M backend/README.md                   dist/i18n/ in the exporter list
+ M backend/scripts/export_bundle.py    writes and verifies dist/i18n/
+ M backend/scripts/export_contracts_to_android.py   delivers i18n/ as well
+ M backend/tests/test_export_contracts_to_android.py
+?? backend/scripts/label_catalogs.py   builds the catalogs
+?? backend/tests/test_label_catalogs.py
+ M content/en/lessons/m27-l1.md        "0,618" → "0.618" (section 2.5)
+ M content/glossary-links.en.txt       the same sentence, quoted in two rows (not an export input)
  M docs/content-export-2026-10-03.md   this file (not an export input)
 ```
 
-**Fingerprint `a49624d8…` cannot be reproduced from `bdc11d0`.** `bdc11d0` alone exports `109ff2c3…`.
-Committing `content/en/lessons/m09-l2.md` exactly as it is makes the export reproducible. The four
-report goldens did not change with it, so they are already correct in `bdc11d0`.
+**Fingerprint `7a9fae82…` cannot be reproduced from `6fa5a19`**, which exports `a49624d8…`. Commit
+`content/en/lessons/m27-l1.md` exactly as it is to make the export reproducible.
 `export_contracts_to_android.py` records a dirty tree and lists its paths, so commit before running the
 transfer.
+
+---
+
+## 7. Label catalogs: `dist/i18n/`
+
+`export_bundle.py` writes these beside the bundle, in the same run (`backend/scripts/label_catalogs.py`
+builds them):
+
+```
+dist/
+├── bundle/                       the course (fingerprinted, format 2)
+└── i18n/
+    ├── exercise-labels.en.json
+    ├── exercise-labels.es.json
+    ├── chart-labels.en.json
+    └── chart-labels.es.json
+```
+
+| File | i18n namespaces (`frontend/src/i18n/{en,es}.json`) | Replaces in the app |
+| --- | --- | --- |
+| `exercise-labels.<locale>.json` | `chartLabel`, `divergence` (58 + 5 = 63 keys) | `ExerciseStrings.kt`'s chart labels and divergences |
+| `chart-labels.<locale>.json` | `band`, `candle`, `chartMarker`, `diagonal`, `level`, `overlay` (52 keys) | `ChartStrings.kt`'s maps and candle parts |
+
+Format:
+- One JSON object per file: flat `"namespace.key": "text"`, the same dotted path i18next resolves
+  (`band.origin`, `chartLabel.zone_respected`). The namespace stays in the key because the same key
+  can exist in two namespaces (`band.origin` and `chartMarker.origin` say different things).
+- The bundle's one serialization (`canonical_bytes`): keys sorted, no whitespace, UTF-8 unescaped, one
+  trailing newline. The same input always gives the same bytes.
+- Text is copied verbatim, `{{…}}` placeholders included.
+- The two locales of a catalog have the same keys. A key present in only one locale, a missing
+  namespace or a non-string value fails the export (exit 2, `BUNDLE EXPORT FAILED`) before anything is
+  written.
+
+What it leaves out:
+- `exercise.*` UI copy: the app adapts it rather than transcribing it.
+- `ChartStrings.kt`'s `openInterestPane`, `cumulativeVolumeDeltaPane`, `expandChart`, `closeChart` and
+  `zoomHint`: these have no i18n entry on the web.
+
+The files are **not** in the bundle's manifest or fingerprint. A label change does not move the
+fingerprint, so the app must not rely on it to detect one. The transfer's `EXPORT_MANIFEST.json` does
+list their digests (below). `--verify-only` checks that `dist/i18n/`
+still matches the i18n source.
+
+**Delivery.** `export_contracts_to_android.py` copies `dist/i18n/` with `bundle/` and `contracts/`.
+It lands at the Android repo's root, next to the other two:
+
+```
+~/IdeaProjects/tradeschool-android/
+├── bundle/
+├── contracts/
+├── i18n/                         exercise-labels.{en,es}.json, chart-labels.{en,es}.json
+└── EXPORT_MANIFEST.json          lists every i18n/ file with its sha256; counts.i18n = 4
+```
+
+Like the other two directories, `i18n/` is replaced rather than merged, so a catalog an older export
+left behind does not survive. A `dist/` with no `i18n/` stops the whole delivery (`DELIVERY REFUSED`),
+so the app cannot receive a new bundle beside old labels. The transfer was not run in this session.

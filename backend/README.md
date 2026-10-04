@@ -73,7 +73,7 @@ they write to the repo root's git-ignored `dist/`. Full reasoning in
 `phase-w2-bundle-and-contracts.md`.
 
 ```bash
-uv run python scripts/export_bundle.py               # dist/bundle/ — the course as the app reads it
+uv run python scripts/export_bundle.py               # dist/bundle/ — the course as the app reads it, + dist/i18n/
 uv run python scripts/export_bundle.py --verify-only # re-check a bundle without rewriting it
 uv run python scripts/export_bundle.py --skip-ast    # the Python half only (no node/npm needed)
 uv run python scripts/export_prng_vectors.py         # dist/contracts/prng-vectors/
@@ -88,6 +88,8 @@ uv run python scripts/export_contracts_to_android.py --target <path>
   about which words a reader may tap. It refuses to write a bundle whose ASTs leave `BLOCK_INVENTORY`
   (the closed set of node kinds the app can render) or whose text does not match the web's, word
   multiset for word multiset, per locale.
+  Beside the bundle it writes `dist/i18n/`, the answer-label and chart-label catalogs from
+  `frontend/src/i18n/` (`scripts/label_catalogs.py`), and refuses a key that only one locale has.
 * `export_prng_vectors.py` writes the two random streams per primitive — NumPy's PCG64 for the charts,
   CPython's Mersenne Twister for the exercise machinery — including the `has_uint32` buffer semantics
   and, per `normal()` draw, which ziggurat path produced it (measured, not inferred).
@@ -95,5 +97,5 @@ uv run python scripts/export_contracts_to_android.py --target <path>
   line's first 16 hex digits are the committed fingerprint where one exists. It instruments the three
   retry loops to find the seeds that go round more than once, and pins how a double becomes text.
 * `export_contracts_to_android.py` is the only sanctioned transfer path. It never creates the target,
-  refuses one that is not a git repo, replaces `bundle/`+`contracts/` rather than merging, touches
+  refuses one that is not a git repo, replaces `bundle/`+`contracts/`+`i18n/` rather than merging, touches
   nothing else, and records the source commit with a dirty flag listing every uncommitted path.

@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Copy `dist/bundle` and `dist/contracts` into the Android repository, with a provenance manifest.
+"""Copy `dist/bundle`, `dist/contracts` and `dist/i18n` into the Android repo, with a provenance manifest.
 
 Phase W2, and the ONLY sanctioned transfer path between the two repositories. Not because copying is
 hard, but because the failure mode of an ad-hoc `cp -r` is quiet: a half-updated bundle, or a set of
@@ -12,9 +12,9 @@ file with its sha256, and when. That is enough to answer "which content is this 
 without asking anyone.
 
 What it refuses. It never creates the target and never touches anything in it outside `bundle/`,
-`contracts/` and the manifest — that repository is somebody's working tree with its own history. It
+`contracts/`, `i18n/` and the manifest — that repository is somebody's working tree with its own history. It
 refuses a target that is not a git repository, because pinning a source commit against a destination
-nobody can identify is not provenance. And it REPLACES the two directories rather than merging into
+nobody can identify is not provenance. And it REPLACES the three directories rather than merging into
 them: a lesson left behind by an earlier export is a bundle shipping two versions of a page.
 
 The dirty flag is the load-bearing honesty. An export taken from a working tree with uncommitted
@@ -41,9 +41,9 @@ _BACKEND = Path(__file__).resolve().parent.parent
 REPO = _BACKEND.parent
 DEFAULT_SOURCE = REPO / "dist"
 
-#: The two directories that cross the repository boundary, and nothing else. Named here so the
+#: The three directories that cross the repository boundary, and nothing else. Named here so the
 #: "touches nothing outside these" promise is one list rather than a habit.
-DELIVERED_DIRS = ("bundle", "contracts")
+DELIVERED_DIRS = ("bundle", "contracts", "i18n")
 
 #: Every contract directory that must exist before a delivery, and the script that produces it.
 #: Without this, forgetting one exporter ships a `contracts/` that looks complete: the Android repo
@@ -130,7 +130,7 @@ def _delivered_files(target: Path) -> dict[str, str]:
 
 
 def deliver(source: Path, target: Path, *, now: str | None = None) -> dict[str, Any]:
-    """Copy the two directories and write the manifest. Returns the manifest it wrote."""
+    """Copy the delivered directories and write the manifest. Returns the manifest it wrote."""
     if not target.exists():
         raise DeliveryError(
             f"the target {target} does not exist. This script does not create it: the Android "

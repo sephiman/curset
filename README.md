@@ -864,11 +864,16 @@ here. Four commands build all of it; the reasoning is in `phase-w2-bundle-and-co
 
 ```bash
 cd backend
-uv run python scripts/export_bundle.py                    # -> dist/bundle/       (~4 s)
+uv run python scripts/export_bundle.py                    # -> dist/bundle/ + dist/i18n/  (~4 s)
 uv run python scripts/export_prng_vectors.py              # -> dist/contracts/prng-vectors/
 uv run python scripts/export_generation_goldens.py        # -> dist/contracts/generation-goldens/  (~32 s)
 uv run python scripts/export_contracts_to_android.py --target /path/to/tradeschool-android
 ```
+
+The same export writes `dist/i18n/{exercise,chart}-labels.{en,es}.json`: the web's answer-label
+(`chartLabel.*`, `divergence.*`) and chart-label (`band`, `candle`, `chartMarker`, `diagonal`, `level`,
+`overlay`) i18n entries, flat and sorted, so the app imports them instead of keeping hand copies. A key
+present in only one locale fails the export. They sit outside the bundle and its fingerprint.
 
 `dist/` is git-ignored: these are build outputs, and the copy that gets committed is the one in the
 Android repository, next to an `EXPORT_MANIFEST.json` saying which commit of this repo produced it.

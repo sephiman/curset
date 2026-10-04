@@ -7,9 +7,9 @@ nobody can reconstruct three weeks later when a golden disagrees. So there is on
 an `EXPORT_MANIFEST.json` recording exactly which commit of this repo produced what, and it is
 deliberately narrow about the target directory:
 
-  * it never creates the target, and never touches anything in it outside `bundle/`, `contracts/` and
-    the manifest — the Android repo is somebody's working tree, with its own history;
-  * it REPLACES those two directories rather than merging into them, because a stale lesson left
+  * it never creates the target, and never touches anything in it outside `bundle/`, `contracts/`,
+    `i18n/` and the manifest — the Android repo is somebody's working tree, with its own history;
+  * it REPLACES those three directories rather than merging into them, because a stale lesson left
     behind by a previous export is a bundle shipping two versions of a page;
   * it refuses a target that is not a git repository, since the whole point of the manifest is to pin
     a source commit against a destination commit.
@@ -50,7 +50,7 @@ def _git(repo: Path, *args: str) -> None:
 
 @pytest.fixture
 def source(tmp_path: Path) -> Path:
-    """A miniature `dist/` — the two delivered directories and a bundle manifest with a fingerprint."""
+    """A miniature `dist/` — the delivered directories and a bundle manifest with a fingerprint."""
     dist = tmp_path / "dist"
     (dist / "bundle" / "ast" / "es").mkdir(parents=True)
     (dist / "bundle" / "ast" / "es" / "m01-l1.json").write_text('{"ast":{}}\n', encoding="utf-8")
@@ -63,6 +63,8 @@ def source(tmp_path: Path) -> Path:
         directory.mkdir(parents=True)
         (directory / "README.md").write_text(f"# {name}\n", encoding="utf-8")
     (dist / "contracts" / "prng-vectors" / "seedsequence.tsv").write_text("seed\n0\n", encoding="utf-8")
+    (dist / "i18n").mkdir()
+    (dist / "i18n" / "chart-labels.en.json").write_text('{"band.origin":"Order block"}\n', encoding="utf-8")
     return dist
 
 
@@ -98,16 +100,25 @@ def test_a_missing_source_stops(target: Path, tmp_path: Path) -> None:
         deliver(tmp_path / "empty-dist", target)
 
 
-def test_the_two_directories_and_the_manifest_are_delivered(source: Path, target: Path) -> None:
+def test_a_missing_label_catalog_directory_stops_the_whole_delivery(source: Path, target: Path) -> None:
+    """Without it the app would keep importing the labels of an older export beside a newer bundle."""
+    shutil.rmtree(source / "i18n")
+    with pytest.raises(DeliveryError, match="i18n"):
+        deliver(source, target)
+    assert not (target / "bundle").exists(), "nothing may be delivered from an incomplete dist/"
+
+
+def test_the_delivered_directories_and_the_manifest_are_delivered(source: Path, target: Path) -> None:
     manifest = deliver(source, target)
     for name in DELIVERED_DIRS:
         assert (target / name).is_dir(), name
     assert (target / "bundle" / "ast" / "es" / "m01-l1.json").read_text() == '{"ast":{}}\n'
+    assert (target / "i18n" / "chart-labels.en.json").read_text() == '{"band.origin":"Order block"}\n'
     assert (target / MANIFEST_NAME).exists()
     assert json.loads((target / MANIFEST_NAME).read_text()) == manifest
 
 
-def test_nothing_outside_the_two_directories_and_the_manifest_is_touched(
+def test_nothing_outside_the_delivered_directories_and_the_manifest_is_touched(
     source: Path, target: Path
 ) -> None:
     before = {
@@ -146,7 +157,8 @@ def test_the_manifest_records_provenance_that_can_be_checked(source: Path, targe
         assert path.is_file(), relative
         assert hashlib.sha256(path.read_bytes()).hexdigest() == digest, relative
     assert MANIFEST_NAME not in manifest["files"], "the manifest cannot digest itself"
-    assert set(manifest["counts"]) == {"bundle", "contracts"}
+    assert set(manifest["counts"]) == {"bundle", "contracts", "i18n"}
+    assert "i18n/chart-labels.en.json" in manifest["files"]
 
 
 def test_a_dirty_source_tree_is_declared_and_its_files_listed(source: Path, target: Path) -> None:

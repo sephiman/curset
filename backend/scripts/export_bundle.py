@@ -55,12 +55,13 @@ from pathlib import Path
 from typing import Any
 
 _BACKEND = Path(__file__).resolve().parent.parent
-for _extra in (_BACKEND / "src",):
+for _extra in (_BACKEND, _BACKEND / "src"):
     if str(_extra) not in sys.path:
         sys.path.insert(0, str(_extra))
 
 from pydantic import BaseModel  # noqa: E402
 
+from scripts.label_catalogs import LabelCatalog, LabelCatalogError, build_label_catalogs  # noqa: E402
 from tradeschool.content.registry import CourseRegistry, _theory_only, load_registry  # noqa: E402
 from tradeschool.content.schema import LOCALES  # noqa: E402
 from tradeschool.exercises.calculation import (  # noqa: E402
@@ -74,6 +75,7 @@ REPO = _BACKEND.parent
 CONTENT_DIR = REPO / "content"
 FRONTEND_DIR = REPO / "frontend"
 DEFAULT_OUT = REPO / "dist" / "bundle"
+I18N_DIR = FRONTEND_DIR / "src" / "i18n"
 
 #: Bumped when the bundle's SHAPE changes in a way a shipped app would misread. Content changes move
 #: the fingerprint, not this: an app pins the format it can parse and the fingerprint it last saw.
@@ -90,6 +92,12 @@ BUNDLE_FORMAT_VERSION = 2
 #: inside `dist/bundle` crosses into the Android repository.
 def diff_report_path(out: Path) -> Path:
     return out.parent / "reports" / "bundle-text-diff.json"
+
+
+#: The label catalogs sit beside the bundle, not in it: they are not content, so they stay out of the
+#: fingerprint, but they come from the same export so the app never pairs new prompts with old labels.
+def label_catalogs_dir(out: Path) -> Path:
+    return out.parent / "i18n"
 
 
 #: Where the TypeScript half writes the resolved references it finds in exercise prose. Named here
@@ -653,6 +661,30 @@ def _bundle_files(out: Path) -> dict[str, str]:
     }
 
 
+def _write_label_catalogs(out: Path, catalogs: dict[str, LabelCatalog]) -> None:
+    target = label_catalogs_dir(out)
+    if target.exists():
+        shutil.rmtree(target)
+    for name, entries in catalogs.items():
+        _write(target, name, entries)
+
+
+def _check_label_catalogs(out: Path, catalogs: dict[str, LabelCatalog]) -> None:
+    target = label_catalogs_dir(out)
+    stale = sorted(
+        name
+        for name, entries in catalogs.items()
+        if not (target / name).exists() or (target / name).read_bytes() != canonical_bytes(entries)
+    )
+    extra = (
+        sorted(path.name for path in target.glob("*.json") if path.name not in catalogs)
+        if target.exists()
+        else []
+    )
+    if stale or extra:
+        raise BundleError(f"{target} does not match the i18n source: stale {stale}, extra {extra}")
+
+
 def _run_ast_export(out: Path, *, verify: bool, emit: bool = True) -> None:
     ast_input = out / ".ast-input.json"
     report = diff_report_path(out)
@@ -777,6 +809,7 @@ def main(argv: list[str] | None = None) -> int:
     out: Path = args.out
     started = time.monotonic()
     registry = load_content_registry(args.content)
+    label_catalogs = build_label_catalogs(I18N_DIR, LOCALES)
 
     if args.verify_only:
         if not (out / "manifest.json").exists():
@@ -796,6 +829,8 @@ def main(argv: list[str] | None = None) -> int:
             ]
             raise BundleError(f"the bundle no longer matches its manifest: {drift[:10]}")
         print(f"fingerprint       {manifest['contentFingerprint']}  (verified against {len(current)} files)")
+        _check_label_catalogs(out, label_catalogs)
+        print(f"label catalogs    OK  ({len(label_catalogs)} files in {label_catalogs_dir(out)})")
         (out / ".ast-input.json").unlink(missing_ok=True)
         return 0
 
@@ -830,6 +865,7 @@ def main(argv: list[str] | None = None) -> int:
     files = _bundle_files(out)
     manifest = build_manifest(registry, files=files)
     _write(out, "manifest.json", manifest)
+    _write_label_catalogs(out, label_catalogs)
 
     counts = manifest["counts"]
     print()
@@ -845,6 +881,7 @@ def main(argv: list[str] | None = None) -> int:
         f"{counts['glossaryTerms']} glossary terms"
     )
     print(f"locales           {', '.join(LOCALES)}")
+    print(f"label catalogs    {len(label_catalogs)} files -> {label_catalogs_dir(out)}")
     print(f"elapsed           {time.monotonic() - started:.1f}s")
     return 0
 
@@ -852,6 +889,6 @@ def main(argv: list[str] | None = None) -> int:
 if __name__ == "__main__":
     try:
         raise SystemExit(main())
-    except BundleError as error:
+    except (BundleError, LabelCatalogError) as error:
         print(f"\nBUNDLE EXPORT FAILED\n{error}", file=sys.stderr)
         raise SystemExit(2) from None
