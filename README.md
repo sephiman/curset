@@ -570,6 +570,12 @@ both axes in permanent **key** space; its suite also asserts **zero dangling ref
 id-shaped mention in every lesson must name a module or lesson that exists, in both locales,
 mention for mention — which is a prose-integrity guard the course never had before.
 
+Beside it, `src/lib/refs/listShape.test.ts` guards list structure. ES and EN must have the same number
+of list items, nested items and numbered items in every lesson, and no `2.`, `-` or `*` may sit in the
+middle of a sentence. A re-wrap that pulls a marker off the start of its line turns the item into
+literal text in the previous paragraph, and the bundle's text checks cannot see it, because the bundle
+and the rendered page carry the same damage.
+
 Auth (session cookie) is required, like the rest of the content API. The registry is built **once at
 startup**, so newly authored content needs a backend restart before it appears in an export.
 
