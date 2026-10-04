@@ -37,8 +37,14 @@ class DerivativesInjector(PatternInjector):
         # so price carries no information about the label.
         g = float(rng.uniform(0.14, 0.22))
         price_pts = [
-            (0.00, 0.00), (0.16, 0.22 * g), (0.28, 0.15 * g), (0.44, 0.48 * g), (0.58, 0.42 * g),
-            (0.74, 0.78 * g), (0.86, 0.72 * g), (1.00, g),
+            (0.00, 0.00),
+            (0.16, 0.22 * g),
+            (0.28, 0.15 * g),
+            (0.44, 0.48 * g),
+            (0.58, 0.42 * g),
+            (0.74, 0.78 * g),
+            (0.86, 0.72 * g),
+            (1.00, g),
         ]
         close_visible = base * np.exp(shape_from_points(price_pts, n) + bounded_noise(rng, n, amp=0.014))
         apply_ambient_tail(rng, close_visible)
@@ -58,5 +64,8 @@ class DerivativesInjector(PatternInjector):
         oi_full = np.concatenate([np.full(WARMUP, oi_visible[0]), oi_visible])
 
         return PatternResult(
-            close_full=close_full, warmup=WARMUP, label=target, oi_full=oi_full,
+            close_full=close_full,
+            warmup=WARMUP,
+            label=target,
+            oi_full=oi_full,
         )

@@ -63,8 +63,20 @@ _PREMIUM_ASIDE = LocalizedText(
 #: Every phrase above, so a guard can enumerate them rather than restate them (see
 #: `tests/test_exercise_numbers.py::test_no_worked_solution_prose_reaches_an_es_reader_in_english`).
 LOCALIZED_PROSE: tuple[LocalizedText, ...] = (
-    _PAYS, _RECEIVES, _NO_TRANSFER, _MILLION, _MILLION_USD, _FDV_ASIDE, _UNITS, _PER_TRADE,
-    _NET_BUYING, _NET_SELLING, _BALANCED_FLOW, _TOTAL_VOLUME, _ABSOLUTE_GAP, _PREMIUM_ASIDE,
+    _PAYS,
+    _RECEIVES,
+    _NO_TRANSFER,
+    _MILLION,
+    _MILLION_USD,
+    _FDV_ASIDE,
+    _UNITS,
+    _PER_TRADE,
+    _NET_BUYING,
+    _NET_SELLING,
+    _BALANCED_FLOW,
+    _TOTAL_VOLUME,
+    _ABSOLUTE_GAP,
+    _PREMIUM_ASIDE,
 )
 
 
@@ -475,8 +487,14 @@ def _style_net_compute(p: FormulaParams) -> Decimal:
     notional, gp, fr = _dec(p["notional"]), _dec(p["gross_pct"]), _dec(p["fee_rate"])
     gross = notional * gp
     base_fee = fr * notional * 2  # one round-trip = taker fee on the open and the close fill
-    cost = _style_cost(str(p["style"]), base_fee, notional, _dec(p["funding_rate"]),
-                       _dec(p["funding_intervals"]), _dec(p["round_trips"]))
+    cost = _style_cost(
+        str(p["style"]),
+        base_fee,
+        notional,
+        _dec(p["funding_rate"]),
+        _dec(p["funding_intervals"]),
+        _dec(p["round_trips"]),
+    )
     return gross - cost
 
 
@@ -499,8 +517,11 @@ def _style_net_explain(p: FormulaParams, result: Decimal, locale: str) -> list[s
         cost_line = f"cost = one round-trip fee = fee×notional×2 = {fmt(cost)}"
     # Three rates in one prompt, so they convert together rather than three lines deep: funding is
     # named even for the styles that pay none, so the reader sees WHY their cost line has no funding.
-    rates = [_as_fraction("move", gp, locale), _as_fraction("fee_rate", fr, locale),
-             _as_fraction("funding_rate", fundr, locale)]
+    rates = [
+        _as_fraction("move", gp, locale),
+        _as_fraction("fee_rate", fr, locale),
+        _as_fraction("funding_rate", fundr, locale),
+    ]
     return [
         "   ".join(rates),
         f"gross = notional × move = {fmt(notional)} × {fmt(gp)} = {fmt(gross)}   [{style}]",
@@ -624,8 +645,15 @@ FORMULAS: dict[str, Formula] = {
     ),
     "style_net_result": Formula(
         id="style_net_result",
-        arg_names=("notional", "gross_pct", "style", "fee_rate", "round_trips",
-                   "funding_rate", "funding_intervals"),
+        arg_names=(
+            "notional",
+            "gross_pct",
+            "style",
+            "fee_rate",
+            "round_trips",
+            "funding_rate",
+            "funding_intervals",
+        ),
         percent_args=("gross_pct", "fee_rate", "funding_rate"),
         compute=_style_net_compute,
         explain=_style_net_explain,

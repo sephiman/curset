@@ -55,7 +55,11 @@ class WyckoffInjector(PatternInjector):
     # Phase fractions (of the visible window) matching the shape built below. Used ONLY by lesson
     # figures to label phases A-E; never touches build()/exercise output (the golden test guards it).
     _PHASES: ClassVar[tuple[tuple[str, float], ...]] = (
-        ("A", 0.14), ("B", 0.45), ("C", _EVENT_F), ("D", 0.86), ("E", 0.97),
+        ("A", 0.14),
+        ("B", 0.45),
+        ("C", _EVENT_F),
+        ("D", 0.86),
+        ("E", 0.97),
     )
 
     def figure_annotations(self, target: str, n: int) -> list[Annotation]:
@@ -79,8 +83,17 @@ class WyckoffInjector(PatternInjector):
             # chart) — the drawn box did not contain the price.
             edge = bound - _TEST
             pts = [
-                (0.00, 0.00), (0.10, edge), (0.20, -edge), (0.30, edge), (0.40, -edge),
-                (0.50, edge), (0.60, -edge), (0.70, edge), (0.80, -edge), (0.90, edge), (1.00, 0.0),
+                (0.00, 0.00),
+                (0.10, edge),
+                (0.20, -edge),
+                (0.30, edge),
+                (0.40, -edge),
+                (0.50, edge),
+                (0.60, -edge),
+                (0.70, edge),
+                (0.80, -edge),
+                (0.90, edge),
+                (1.00, 0.0),
             ]
             shape = shape_from_points(pts, n)
             close_visible = base * np.exp(shape + bounded_noise(rng, n, amp=_NOISE))
@@ -124,17 +137,20 @@ class WyckoffInjector(PatternInjector):
         # of 0.008, so the texture alone could carry a close through the UNBROKEN bound: a range that
         # quietly breaks the side the label says held.
         pts = [
-            (0.00, -0.02 * s),          # prior trend starts on the opposite side of the range
-            (0.12, 0.03 * s),           # trending into the range
-            (0.22, near + s * _TEST),   # enter range (interior, just inside the near bound)
-            (0.30, far - s * _TEST),    # to the far bound (interior)
-            (0.40, near + s * _TEST), (0.50, far - s * _TEST), (0.60, near + s * _TEST),
-            (0.68, far - s * _TEST),    # in range just before the event
+            (0.00, -0.02 * s),  # prior trend starts on the opposite side of the range
+            (0.12, 0.03 * s),  # trending into the range
+            (0.22, near + s * _TEST),  # enter range (interior, just inside the near bound)
+            (0.30, far - s * _TEST),  # to the far bound (interior)
+            (0.40, near + s * _TEST),
+            (0.50, far - s * _TEST),
+            (0.60, near + s * _TEST),
+            (0.68, far - s * _TEST),  # in range just before the event
             (_EVENT_F, far + s * 0.035),  # SPRING / UPTHRUST: break beyond the far bound
-            (0.79, mid),                # recover back inside the range
+            (0.79, mid),  # recover back inside the range
             # Hold mid-range, far enough inside the near bound that the ambient tail cannot drift
             # through it and print a break the label never claimed.
-            (0.86, near + s * _HOLD_IN), (1.00, near + s * _HOLD_IN),
+            (0.86, near + s * _HOLD_IN),
+            (1.00, near + s * _HOLD_IN),
         ]
         shape = shape_from_points(pts, n)
         close_visible = base * np.exp(shape + bounded_noise(rng, n, amp=_NOISE))
@@ -162,8 +178,7 @@ class WyckoffInjector(PatternInjector):
             for f in (0.22, 0.40, 0.60)
         )
         far_tests = tuple(
-            WARMUP + resolve_swing(close_visible, int(f * n), _swing_of(far_kind))
-            for f in (0.30, 0.50, 0.68)
+            WARMUP + resolve_swing(close_visible, int(f * n), _swing_of(far_kind)) for f in (0.30, 0.50, 0.68)
         )
         # Once price is INSIDE the range the near bound holds — that it was never breached is half the
         # schematic. It is only guarded from the range entry on: the prior trend legitimately starts on
@@ -181,9 +196,7 @@ class WyckoffInjector(PatternInjector):
             annotations=[Annotation(index=event_idx, kind=event_kind, label=event_label)],
             levels=levels,
             level_guards=[
-                LevelGuard(
-                    near_price, near_kind, tests=near_tests, no_breach=((range_in, len(close_full)),)
-                ),
+                LevelGuard(near_price, near_kind, tests=near_tests, no_breach=((range_in, len(close_full)),)),
                 LevelGuard(
                     far_price,
                     far_kind,

@@ -12,7 +12,8 @@ grading stays server-side, so what the statistics measure is unchanged.)
 
 - **License:** AGPL-3.0-only
 - **Backend:** Python 3.14 · FastAPI · SQLAlchemy 2 (async) · Alembic · Pydantic v2 · fastapi-users
-  (username identity, cookie + database strategy, Argon2, no JWT) · slowapi · NumPy · `decimal.Decimal`
+  (username identity, cookie + database strategy, Argon2, no JWT) · stdlib `smtplib` (optional email
+  verification + password reset) · slowapi · NumPy · `decimal.Decimal`
   for every financial formula · pytest + testcontainers (real Postgres)
 - **Frontend:** React 19 · TypeScript (strict) · Vite · react-router · TanStack Query · axios · Tailwind ·
   react-i18next · lightweight-charts · react-markdown (+ remark-gfm and a block-only directive
@@ -801,10 +802,29 @@ charts with the production renderer, which is where a theme pass over the figure
 
 ## Accounts
 
-Accounts are **username + password** — no email is collected (self-hosted, no SMTP, no notifications).
-Usernames are 3–32 characters (lowercase letters, numbers, `-`, `_`) and case-insensitive.
+Accounts are **username + password**; you always sign in with the username. Usernames are 3–32
+characters (lowercase letters, numbers, `-`, `_`) and case-insensitive.
 
-Because there is no email, password reset is an **admin action** on the server rather than self-service:
+An **email is optional** — at registration or later on the **Account** page (`/account`, from the
+avatar menu) — and is used for one thing: resetting a forgotten password. The flow follows
+crypto-ambush's:
+
+- Setting or changing the address leaves it **unverified** and mails a 48-hour link to it
+  (`/verify-email?token=…`). A link for an address the user has since replaced stops working.
+- An address is unique **only once verified** (a partial unique index on `lower(email)`), so typing
+  someone else's address blocks nobody; verifying one already verified elsewhere answers
+  `409 EMAIL_ALREADY_USED`.
+- **Forgot your password?** on the login card mails a 60-minute single-use link
+  (`/reset-password?token=…`) — only to a *verified* address, and the request answers `202` whether or
+  not the address matched. Using it signs the account out everywhere.
+- Tokens are 256-bit, stored only as SHA-256 hashes (`email_token`), and only the newest link per
+  purpose works. Mail endpoints are rate limited per IP (`MAIL_RATE_LIMIT`) and send at most one link
+  per account per minute.
+
+Mail is **all-or-none**: set `SMTP_HOST`, `SMTP_USERNAME`, `SMTP_PASSWORD` and `MAIL_FROM` (Gmail with
+an app password; see `.env.example`) plus `APP_PUBLIC_URL`, the origin the mailed links point at.
+Without them `GET /api/auth/features` reports `{"mail": false}`, the UI hides the reset link, the mail
+endpoints answer 404, and the admin reset stays the way back in:
 
 ```bash
 cd backend

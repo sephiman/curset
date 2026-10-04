@@ -86,9 +86,7 @@ class FixtureChartGenerator(ExerciseGenerator):
         }
         return GeneratedInstance(prompt=config.prompt.get(locale), payload=payload)
 
-    def grade(
-        self, config: BaseModel, seed: int, answer: Mapping[str, object], locale: str
-    ) -> GradeResult:
+    def grade(self, config: BaseModel, seed: int, answer: Mapping[str, object], locale: str) -> GradeResult:
         assert isinstance(config, FixtureChartConfig)
         chosen = answer.get("divergence")
         if not isinstance(chosen, str):

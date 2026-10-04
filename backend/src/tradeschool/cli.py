@@ -44,9 +44,7 @@ def _cmd_reset_password(username: str) -> int:
         try:
             async with get_sessionmaker()() as session:
                 user = (
-                    await session.scalars(
-                        select(User).where(func.lower(User.username) == lookup)
-                    )
+                    await session.scalars(select(User).where(func.lower(User.username) == lookup))
                 ).first()
                 if user is None:
                     print(f"No user with username {lookup!r}.", file=sys.stderr)

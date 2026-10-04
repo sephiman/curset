@@ -118,9 +118,16 @@ def _chart_rows(
         f = gen.full_data(config, seed)
         s = f.series
         cols: dict[str, list[Any]] = {
-            "time": s.time, "open": s.open, "high": s.high, "low": s.low, "close": s.close,
-            "volume": s.volume, "rsi": f.rsi, "macd": f.macd_line,
-            "macd_signal": f.macd_signal, "macd_hist": f.macd_hist,
+            "time": s.time,
+            "open": s.open,
+            "high": s.high,
+            "low": s.low,
+            "close": s.close,
+            "volume": s.volume,
+            "rsi": f.rsi,
+            "macd": f.macd_line,
+            "macd_signal": f.macd_signal,
+            "macd_hist": f.macd_hist,
         }
         ground: dict[str, object] = {"divergence": f.target.value, "swing1": f.swing1, "swing2": f.swing2}
         return cols, f.warmup, ground, config.indicator
@@ -130,16 +137,21 @@ def _chart_rows(
         pf = pgen.full_data(config, seed)
         ps = pf.series
         pcols: dict[str, list[Any]] = {
-            "time": ps.time, "open": ps.open, "high": ps.high, "low": ps.low, "close": ps.close,
-            "volume": ps.volume, "rsi": pf.rsi, "macd": pf.macd_line,
-            "macd_signal": pf.macd_signal, "macd_hist": pf.macd_hist,
+            "time": ps.time,
+            "open": ps.open,
+            "high": ps.high,
+            "low": ps.low,
+            "close": ps.close,
+            "volume": ps.volume,
+            "rsi": pf.rsi,
+            "macd": pf.macd_line,
+            "macd_signal": pf.macd_signal,
+            "macd_hist": pf.macd_hist,
         }
         pcols.update({f"overlay_{k}": v for k, v in pf.overlays.items()})  # e.g. overlay_ema50
         if pf.oi:
             pcols["oi"] = pf.oi  # open-interest series (m19 derivatives)
-        pground: dict[str, object] = {
-            "label": pf.label, "annotations": pf.annotations, "levels": pf.levels
-        }
+        pground: dict[str, object] = {"label": pf.label, "annotations": pf.annotations, "levels": pf.levels}
         return pcols, pf.warmup, pground, pf.indicator
 
     data = _instance_for(registry, exercise_id, seed, lang)
@@ -149,9 +161,15 @@ def _chart_rows(
     sd = cast("dict[str, Any]", payload["series"])
     macd = cast("dict[str, Any]", payload.get("macd") or {})
     cols = {
-        "time": sd["time"], "open": sd["open"], "high": sd["high"], "low": sd["low"],
-        "close": sd["close"], "volume": sd["volume"], "rsi": payload.get("rsi") or [],
-        "macd": macd.get("line", []), "macd_signal": macd.get("signal", []),
+        "time": sd["time"],
+        "open": sd["open"],
+        "high": sd["high"],
+        "low": sd["low"],
+        "close": sd["close"],
+        "volume": sd["volume"],
+        "rsi": payload.get("rsi") or [],
+        "macd": macd.get("line", []),
+        "macd_signal": macd.get("signal", []),
         "macd_hist": macd.get("hist", []),
     }
     return cols, 0, data["groundTruth"], str(payload.get("indicator", "rsi"))
@@ -174,13 +192,21 @@ async def dev_chart_data(
 
     if fmt == "json":
         rows = [
-            {"rowIndex": i, "visible": i >= warmup, "visibleIndex": (i - warmup) if i >= warmup else None,
-             **{k: cols[k][i] if i < len(cols[k]) else None for k in keys}}
+            {
+                "rowIndex": i,
+                "visible": i >= warmup,
+                "visibleIndex": (i - warmup) if i >= warmup else None,
+                **{k: cols[k][i] if i < len(cols[k]) else None for k in keys},
+            }
             for i in range(n)
         ]
         return {
-            "exerciseId": exercise_id, "seed": seed, "indicator": indicator, "warmup": warmup,
-            "groundTruth": ground, "rows": rows,
+            "exerciseId": exercise_id,
+            "seed": seed,
+            "indicator": indicator,
+            "warmup": warmup,
+            "groundTruth": ground,
+            "rows": rows,
         }
 
     buf = io.StringIO()

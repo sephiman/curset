@@ -7,14 +7,15 @@ Revision ID: c7d9e1f3a5b7
 Revises: 1386dd39f51f
 Create Date: 2026-07-22 20:00:00.000000
 """
+
 from __future__ import annotations
 
 from collections.abc import Sequence
 
 from alembic import op
 
-revision: str = 'c7d9e1f3a5b7'
-down_revision: str | None = '1386dd39f51f'
+revision: str = "c7d9e1f3a5b7"
+down_revision: str | None = "1386dd39f51f"
 branch_labels: str | Sequence[str] | None = None
 depends_on: str | Sequence[str] | None = None
 

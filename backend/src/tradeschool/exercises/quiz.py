@@ -161,26 +161,20 @@ class QuizGenerator(ExerciseGenerator):
             pass  # the claim is the prompt; the client renders True/False
         elif v.kind is QuizKind.ORDERING:
             order = _shuffled(len(v.items), seed, 0)
-            payload["items"] = [
-                {"id": v.items[i].id, "text": v.items[i].text.get(locale)} for i in order
-            ]
+            payload["items"] = [{"id": v.items[i].id, "text": v.items[i].text.get(locale)} for i in order]
         elif v.kind is QuizKind.MATCHING:
             lorder = _shuffled(len(v.pairs), seed, 1)
             rorder = _shuffled(len(v.pairs), seed, 2)
             payload["lefts"] = [
-                {"id": f"l{slot}", "text": v.pairs[i].left.get(locale)}
-                for slot, i in enumerate(lorder)
+                {"id": f"l{slot}", "text": v.pairs[i].left.get(locale)} for slot, i in enumerate(lorder)
             ]
             payload["rights"] = [
-                {"id": f"r{slot}", "text": v.pairs[i].right.get(locale)}
-                for slot, i in enumerate(rorder)
+                {"id": f"r{slot}", "text": v.pairs[i].right.get(locale)} for slot, i in enumerate(rorder)
             ]
 
         return GeneratedInstance(prompt=v.prompt.get(locale), payload=payload)
 
-    def grade(
-        self, config: BaseModel, seed: int, answer: Mapping[str, object], locale: str
-    ) -> GradeResult:
+    def grade(self, config: BaseModel, seed: int, answer: Mapping[str, object], locale: str) -> GradeResult:
         assert isinstance(config, QuizConfig)
         v = self._variant(config, seed)
         explanation = v.explanation.get(locale) if v.explanation else None

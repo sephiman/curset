@@ -24,6 +24,8 @@ services:
       SESSION_MAX_AGE: ${SESSION_MAX_AGE:-2592000}
       LOGIN_RATE_LIMIT: ${LOGIN_RATE_LIMIT:-10/minute}
       REGISTER_RATE_LIMIT: ${REGISTER_RATE_LIMIT:-5/minute}
+      MAIL_RATE_LIMIT: ${MAIL_RATE_LIMIT:-5/minute;20/hour}
+      # SMTP_* / MAIL_FROM / APP_PUBLIC_URL come through env_file only, so secrets never sit here.
       DEFAULT_LOCALE: ${DEFAULT_LOCALE:-en}
       DEV_MODE: ${DEV_MODE:-false}
       RUN_MIGRATIONS_ON_STARTUP: ${RUN_MIGRATIONS_ON_STARTUP:-true}

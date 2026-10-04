@@ -115,9 +115,7 @@ async def _load_owned(
     return exam
 
 
-async def _open_sessions(
-    session: AsyncSession, user_id: uuid.UUID, course_id: str
-) -> list[ExamSession]:
+async def _open_sessions(session: AsyncSession, user_id: uuid.UUID, course_id: str) -> list[ExamSession]:
     rows = await session.scalars(
         select(ExamSession)
         .where(
@@ -196,6 +194,7 @@ def _build_view(
     # by moved under it. Attempts store the permanent key, so the frozen list survives a renumbering.
     frozen = _frozen_order(session_obj)
     if frozen is not None:
+
         def sort_key(a: Attempt) -> int:
             return frozen.get(a.exercise_id, len(frozen))
     else:
@@ -477,9 +476,7 @@ async def submit_exam(
     return _build_view(exam, registry, await _attempts_of(session, exam_id), locale, reveal=True)
 
 
-async def abandon_exam(
-    session: AsyncSession, user_id: uuid.UUID, exam_id: uuid.UUID, course_id: str
-) -> None:
+async def abandon_exam(session: AsyncSession, user_id: uuid.UUID, exam_id: uuid.UUID, course_id: str) -> None:
     exam = await _load_owned(session, user_id, exam_id, course_id)
     if exam.rules.get("status") == "open":
         await _abandon(session, exam)
@@ -500,9 +497,7 @@ async def review_exam(
     return _build_view(exam, registry, await _attempts_of(session, exam_id), locale, reveal=True)
 
 
-async def exam_history(
-    session: AsyncSession, user_id: uuid.UUID, course_id: str
-) -> list[ExamSession]:
+async def exam_history(session: AsyncSession, user_id: uuid.UUID, course_id: str) -> list[ExamSession]:
     """Submitted sessions, newest first (abandoned/open excluded — they count toward nothing)."""
     rows = await session.scalars(
         select(ExamSession)

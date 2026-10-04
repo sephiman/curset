@@ -97,11 +97,7 @@ class Manifest(BaseModel):
         return [(m, lesson) for _, m in self.iter_modules() for lesson in m.lessons]
 
     def iter_exercises(self) -> list[tuple[ManifestModule, ManifestLesson, ManifestExercise]]:
-        return [
-            (m, lesson, ex)
-            for m, lesson in self.iter_lessons()
-            for ex in lesson.exercises
-        ]
+        return [(m, lesson, ex) for m, lesson in self.iter_lessons() for ex in lesson.exercises]
 
     def module_ids(self) -> set[str]:
         return {m.id for _, m in self.iter_modules()}
@@ -143,9 +139,7 @@ class Manifest(BaseModel):
         for _, module in self.iter_modules():
             for dep in module.assumes:
                 if dep not in module_ids:
-                    raise ValueError(
-                        f"module {module.id!r} assumes unknown module {dep!r}"
-                    )
+                    raise ValueError(f"module {module.id!r} assumes unknown module {dep!r}")
                 if dep == module.id:
                     raise ValueError(f"module {module.id!r} cannot assume itself")
         return self

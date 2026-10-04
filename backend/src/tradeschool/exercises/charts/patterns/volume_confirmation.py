@@ -75,7 +75,9 @@ class VolumeConfirmationInjector(PatternInjector):
             (0.61, inside(j(0.048, 0.060))),
             *test_at(_TEST_F[2]),  # the last touch before the break
             (0.77, inside(j(0.016, 0.024))),
-            (_DECIDE, gap + 0.026), (_HOLD, gap + _HOLD_D), (1.00, gap + _HOLD_D),
+            (_DECIDE, gap + 0.026),
+            (_HOLD, gap + _HOLD_D),
+            (1.00, gap + _HOLD_D),
         ]
         shape = shape_from_points([(f, sign * y) for f, y in pts], n)
         close_visible = base * np.exp(shape + bounded_noise(rng, n, amp=_NOISE))

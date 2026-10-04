@@ -66,7 +66,8 @@ class LiquiditySweepInjector(PatternInjector):
             return [(f - _PLATEAU, 0.006), (f + _PLATEAU, 0.006)]
 
         pts: list[tuple[float, float]] = [
-            (0.00, 0.055), (0.10, 0.030),
+            (0.00, 0.055),
+            (0.10, 0.030),
             *hold(_HOLD_F[0]),
             (0.34, 0.040),
             *hold(_HOLD_F[1]),

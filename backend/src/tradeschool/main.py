@@ -16,6 +16,7 @@ from starlette.responses import JSONResponse
 
 from tradeschool import health
 from tradeschool.attempts.router import router as attempts_router
+from tradeschool.auth.mail import build_mailer
 from tradeschool.auth.router import router as auth_router
 from tradeschool.config import Settings, get_settings
 from tradeschool.content.router import course_router
@@ -71,6 +72,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         openapi_url="/api/openapi.json" if settings.dev_mode else None,
     )
     app.state.settings = settings
+    app.state.mailer = build_mailer(settings)
 
     # Rate limiting (slowapi). The limiter is a shared singleton; toggle it per app.
     limiter.enabled = settings.rate_limit_enabled
@@ -95,9 +97,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     api.include_router(scoped)
     # Included with the prefix rather than nested: the course tree's own path is "", and FastAPI
     # rejects an empty path under an empty include-prefix.
-    api.include_router(
-        course_router, prefix="/courses/{course}", dependencies=[Depends(current_course)]
-    )
+    api.include_router(course_router, prefix="/courses/{course}", dependencies=[Depends(current_course)])
 
     # The alias is for clients we do not control; ours use the scoped URLs. Hidden from the schema
     # so /api/docs shows one canonical URL per endpoint (and so operation ids stay unique).
@@ -131,9 +131,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         if request.scope.get("route") is not None and _is_alias(request.url.path):
             slug = request.app.state.registry.manifest.course.id
             response.headers["Deprecation"] = "true"
-            response.headers["Link"] = (
-                f'<{_canonical_path(request.url.path, slug)}>; rel="successor-version"'
-            )
+            response.headers["Link"] = f'<{_canonical_path(request.url.path, slug)}>; rel="successor-version"'
         return response
 
     return app

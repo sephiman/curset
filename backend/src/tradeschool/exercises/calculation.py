@@ -206,9 +206,7 @@ class CalculationGenerator(ExerciseGenerator):
             },
         )
 
-    def grade(
-        self, config: BaseModel, seed: int, answer: Mapping[str, object], locale: str
-    ) -> GradeResult:
+    def grade(self, config: BaseModel, seed: int, answer: Mapping[str, object], locale: str) -> GradeResult:
         assert isinstance(config, CalculationConfig)
         chosen = answer.get("optionId")
         if not isinstance(chosen, str):
@@ -266,9 +264,7 @@ MISTAKE_TRANSLATIONS_ES: dict[str, str] = {
     "use the wrong side (flip the sign)": "usar el lado equivocado (invertir el signo)",
     "count two funding intervals": "contar dos intervalos de financiación",
     "count only half an interval": "contar solo medio intervalo",
-    "compute the margin for only half the position": (
-        "calcular el margen de solo media posición"
-    ),
+    "compute the margin for only half the position": ("calcular el margen de solo media posición"),
     "divide by leverage minus one": "dividir entre apalancamiento menos uno",
     "divide by leverage plus one": "dividir entre apalancamiento más uno",
     "take the gross move only (forget fees)": "tomar solo el movimiento bruto (olvidar las comisiones)",
@@ -319,4 +315,3 @@ MISTAKE_TRANSLATIONS_ES: dict[str, str] = {
 
 def _translate_mistake_es(mistake: str) -> str:
     return MISTAKE_TRANSLATIONS_ES.get(mistake, mistake)
-

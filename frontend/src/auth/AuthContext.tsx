@@ -7,9 +7,11 @@ interface AuthContextValue {
   user: Me | null;
   loading: boolean;
   login: (username: string, password: string) => Promise<void>;
-  register: (username: string, password: string, locale: Locale) => Promise<void>;
+  register: (username: string, password: string, locale: Locale, email: string | null) => Promise<void>;
   logout: () => Promise<void>;
   setLocale: (locale: Locale) => Promise<void>;
+  setEmail: (email: string | null) => Promise<void>;
+  refresh: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
@@ -52,8 +54,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   );
 
   const register = useCallback(
-    async (username: string, password: string, locale: Locale) => {
-      await authApi.register(username, password, locale);
+    async (username: string, password: string, locale: Locale, email: string | null) => {
+      await authApi.register(username, password, locale, email);
       const me = await authApi.login(username, password);
       setUser(me);
       applyUserLocale(me);
@@ -77,9 +79,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     [i18n, user],
   );
 
+  const setEmail = useCallback(async (email: string | null) => {
+    setUser(await authApi.updateEmail(email));
+  }, []);
+
+  // After a change made outside this tab's session, such as opening a verification link.
+  const refresh = useCallback(async () => {
+    try {
+      setUser(await authApi.getMe());
+    } catch {
+      setUser(null);
+    }
+  }, []);
+
   const value = useMemo<AuthContextValue>(
-    () => ({ user, loading, login, register, logout, setLocale }),
-    [user, loading, login, register, logout, setLocale],
+    () => ({ user, loading, login, register, logout, setLocale, setEmail, refresh }),
+    [user, loading, login, register, logout, setLocale, setEmail, refresh],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

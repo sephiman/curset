@@ -59,9 +59,7 @@ class UserManager(UUIDIDMixin, BaseUserManager[User, uuid.UUID]):  # type: ignor
 
     async def validate_password(self, password: str, user: object = None) -> None:
         if len(password) < MIN_PASSWORD_LENGTH:
-            raise InvalidPasswordException(
-                f"Password must be at least {MIN_PASSWORD_LENGTH} characters."
-            )
+            raise InvalidPasswordException(f"Password must be at least {MIN_PASSWORD_LENGTH} characters.")
 
     async def on_after_register(self, user: User, request: Request | None = None) -> None:
         logger.info("User registered: %s", user.id)

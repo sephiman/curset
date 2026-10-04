@@ -73,7 +73,7 @@ def format_param(value: object, locale: str, *, percent: bool = False) -> str:
     """
     try:
         number = Decimal(str(value))
-    except (InvalidOperation, ValueError):
+    except InvalidOperation, ValueError:
         return str(value)
     if not number.is_finite():
         return str(value)

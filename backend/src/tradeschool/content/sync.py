@@ -31,8 +31,7 @@ class SyncSummary:
 
     def __str__(self) -> str:
         return (
-            f"Course sync: {self.inserted} inserted, {self.updated} updated, "
-            f"{self.deactivated} deactivated."
+            f"Course sync: {self.inserted} inserted, {self.updated} updated, {self.deactivated} deactivated."
         )
 
 

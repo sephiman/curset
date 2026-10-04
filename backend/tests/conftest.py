@@ -5,6 +5,7 @@ from __future__ import annotations
 
 from collections.abc import AsyncGenerator, Generator
 from contextlib import asynccontextmanager
+from dataclasses import dataclass, field
 
 import pytest
 import pytest_asyncio
@@ -29,9 +30,7 @@ _PASSWORD = "tradeschool"
 
 @pytest.fixture(scope="session")
 def postgres_container() -> Generator[PostgresContainer]:
-    with PostgresContainer(
-        "postgres:17-alpine", username=_USER, password=_PASSWORD, dbname=_DB
-    ) as pg:
+    with PostgresContainer("postgres:17-alpine", username=_USER, password=_PASSWORD, dbname=_DB) as pg:
         yield pg
 
 
@@ -71,9 +70,31 @@ async def _truncate_all() -> None:
         await session.commit()
 
 
+@dataclass(frozen=True)
+class SentMail:
+    to: str
+    subject: str
+    body: str
+
+
+@dataclass
+class RecordingMailer:
+    """Stands in for SMTP, the one thing in the mail flows that leaves the machine."""
+
+    enabled: bool = True
+    outbox: list[SentMail] = field(default_factory=list)
+
+    def send(self, to: str, subject: str, body: str) -> None:
+        self.outbox.append(SentMail(to, subject, body))
+
+
 @asynccontextmanager
-async def _build_client(settings: Settings, reconcile_content: bool = False) -> AsyncGenerator[AsyncClient]:
+async def _build_client(
+    settings: Settings, reconcile_content: bool = False, mailer: RecordingMailer | None = None
+) -> AsyncGenerator[AsyncClient]:
     app = create_app(settings)
+    if mailer is not None:
+        app.state.mailer = mailer
     async with LifespanManager(app):
         await _truncate_all()
         if reconcile_content:
@@ -90,6 +111,20 @@ async def _build_client(settings: Settings, reconcile_content: bool = False) -> 
 @pytest_asyncio.fixture
 async def client(settings: Settings, _migrated: bool) -> AsyncGenerator[AsyncClient]:
     async with _build_client(settings) as http:
+        yield http
+
+
+@pytest.fixture
+def mailer() -> RecordingMailer:
+    return RecordingMailer()
+
+
+@pytest_asyncio.fixture
+async def mail_client(
+    settings: Settings, _migrated: bool, mailer: RecordingMailer
+) -> AsyncGenerator[AsyncClient]:
+    """Client whose outgoing mail lands in the `mailer` fixture's outbox."""
+    async with _build_client(settings, mailer=mailer) as http:
         yield http
 
 

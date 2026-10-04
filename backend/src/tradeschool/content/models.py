@@ -86,12 +86,8 @@ class Exercise(SkeletonModel):
 class LessonCompletion(Base):
     __tablename__ = "lesson_completions"
 
-    user_id: Mapped[uuid.UUID] = mapped_column(
-        ForeignKey("user.id", ondelete="cascade"), primary_key=True
-    )
-    lesson_id: Mapped[str] = mapped_column(
-        ForeignKey("lessons.id", ondelete="cascade"), primary_key=True
-    )
+    user_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("user.id", ondelete="cascade"), primary_key=True)
+    lesson_id: Mapped[str] = mapped_column(ForeignKey("lessons.id", ondelete="cascade"), primary_key=True)
     completed_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), nullable=False, server_default=func.now()
     )

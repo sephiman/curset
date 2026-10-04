@@ -35,9 +35,18 @@ class OscillatorReadingInjector(PatternInjector):
             # counter-moves keep it off the 100 peg (round-3 credibility). Negate for oversold.
             g = float(rng.uniform(0.20, 0.30))
             pts = [
-                (0.00, 0.00), (0.16, jig(0.02)), (0.32, 0.03 + jig(0.01)), (0.46, 0.01 + jig(0.01)),
-                (0.56, 0.20 * g), (0.64, 0.10 * g), (0.72, 0.40 * g), (0.80, 0.30 * g),
-                (0.88, 0.62 * g), (0.94, 0.52 * g), (0.98, 0.85 * g), (1.00, g),
+                (0.00, 0.00),
+                (0.16, jig(0.02)),
+                (0.32, 0.03 + jig(0.01)),
+                (0.46, 0.01 + jig(0.01)),
+                (0.56, 0.20 * g),
+                (0.64, 0.10 * g),
+                (0.72, 0.40 * g),
+                (0.80, 0.30 * g),
+                (0.88, 0.62 * g),
+                (0.94, 0.52 * g),
+                (0.98, 0.85 * g),
+                (1.00, g),
             ]
             sign = 1.0 if target == "overbought" else -1.0
             shape = shape_from_points([(f, sign * y) for f, y in pts], n)
@@ -47,8 +56,16 @@ class OscillatorReadingInjector(PatternInjector):
             # scale-invariant, so what matters is that up and down moves stay balanced in every
             # window; a correlated walk would create local runs that lean the reading, so use IID.
             pts = [
-                (0.00, 0.00), (0.10, 0.012), (0.20, -0.012), (0.30, 0.012), (0.40, -0.012),
-                (0.50, 0.012), (0.60, -0.012), (0.70, 0.012), (0.80, -0.012), (0.90, 0.012),
+                (0.00, 0.00),
+                (0.10, 0.012),
+                (0.20, -0.012),
+                (0.30, 0.012),
+                (0.40, -0.012),
+                (0.50, 0.012),
+                (0.60, -0.012),
+                (0.70, 0.012),
+                (0.80, -0.012),
+                (0.90, 0.012),
                 (1.00, -0.004),
             ]
             shape = shape_from_points(pts, n)

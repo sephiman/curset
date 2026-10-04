@@ -54,9 +54,11 @@ _OUTCOME = 0.080  # how far the outcome travels from the zone — the SAME dista
 # The shared opening: the range, its two tests of the high, and the dip that becomes the zone.
 _PREFIX: tuple[tuple[float, float], ...] = (
     (0.00, 0.030),
-    (0.08, _PRIOR_HIGH), (0.14, _PRIOR_HIGH),  # first test of the high (a plateau, so it reads as one)
+    (0.08, _PRIOR_HIGH),
+    (0.14, _PRIOR_HIGH),  # first test of the high (a plateau, so it reads as one)
     (0.22, 0.008),
-    (0.30, _PRIOR_HIGH), (0.36, _PRIOR_HIGH),  # second test: now it is structure, not an accident
+    (0.30, _PRIOR_HIGH),
+    (0.36, _PRIOR_HIGH),  # second test: now it is structure, not an accident
     (0.44, 0.002),
     (0.47, -0.005),  # the dip: the last opposing candles before the move
     (0.50, 0.003),
@@ -64,19 +66,31 @@ _PREFIX: tuple[tuple[float, float], ...] = (
 # Per label: the rally out of the zone, the return, and the outcome.
 _LEGS: dict[str, tuple[tuple[float, float], ...]] = {
     "zone_respected": (
-        (0.60, 0.080), (0.66, _IMPULSE_TOP), (0.72, 0.098),
+        (0.60, 0.080),
+        (0.66, _IMPULSE_TOP),
+        (0.72, 0.098),
         (0.80, _RETEST),
-        (0.87, 0.032), (0.94, 0.062), (1.00, _OUTCOME),
+        (0.87, 0.032),
+        (0.94, 0.062),
+        (1.00, _OUTCOME),
     ),
     "zone_failed": (
-        (0.60, 0.080), (0.66, _IMPULSE_TOP), (0.72, 0.098),
+        (0.60, 0.080),
+        (0.66, _IMPULSE_TOP),
+        (0.72, 0.098),
         (0.80, _RETEST),
-        (0.87, -0.045), (0.94, -0.068), (1.00, -_OUTCOME),
+        (0.87, -0.045),
+        (0.94, -0.068),
+        (1.00, -_OUTCOME),
     ),
     "no_zone": (
-        (0.60, 0.016), (0.66, _FAILED_TOP), (0.72, 0.014),
+        (0.60, 0.016),
+        (0.66, _FAILED_TOP),
+        (0.72, 0.014),
         (0.80, _RETEST),
-        (0.87, 0.014), (0.94, 0.020), (1.00, 0.026),
+        (0.87, 0.014),
+        (0.94, 0.020),
+        (1.00, 0.026),
     ),
 }
 _ORIGIN_F = 0.47  # where the dip bottoms, as a window fraction

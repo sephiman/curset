@@ -66,9 +66,7 @@ class _ExerciseRoll:
 async def _answered(session: AsyncSession, user_id: uuid.UUID | None) -> list[Attempt]:
     # Practice only: exam attempts (exam_session_id set) never touch practice statistics — first-attempt
     # accuracy, costliest sections and the global "where everyone struggles" all exclude them (§isolation).
-    stmt = select(Attempt).where(
-        Attempt.state == AttemptState.ANSWERED, Attempt.exam_session_id.is_(None)
-    )
+    stmt = select(Attempt).where(Attempt.state == AttemptState.ANSWERED, Attempt.exam_session_id.is_(None))
     if user_id is not None:
         stmt = stmt.where(Attempt.user_id == user_id)
     stmt = stmt.order_by(Attempt.created_at.asc(), Attempt.id.asc())
@@ -269,7 +267,7 @@ async def global_stats(session: AsyncSession, registry: CourseRegistry, locale: 
             for exercise_id, agg in by_exercise.items()
             if len(exercise_learners[exercise_id]) >= MIN_LEARNERS_FOR_GLOBAL
         ),
-        key=lambda d: (d["firstAttemptAccuracy"] if d["firstAttemptAccuracy"] is not None else 1.0),
+        key=lambda d: d["firstAttemptAccuracy"] if d["firstAttemptAccuracy"] is not None else 1.0,
     )
     module_rows = sorted(
         (
@@ -284,7 +282,7 @@ async def global_stats(session: AsyncSession, registry: CourseRegistry, locale: 
             for mid, agg in by_module.items()
             if len(module_learners[mid]) >= MIN_LEARNERS_FOR_GLOBAL
         ),
-        key=lambda d: (d["firstAttemptAccuracy"] if d["firstAttemptAccuracy"] is not None else 1.0),
+        key=lambda d: d["firstAttemptAccuracy"] if d["firstAttemptAccuracy"] is not None else 1.0,
     )
     return {
         # Sent rather than hardcoded client-side so the copy explaining the gate cannot drift away

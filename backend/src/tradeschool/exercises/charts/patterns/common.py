@@ -139,9 +139,7 @@ def append_linear_continuation(
 LEVEL_GRAZE = 0.0008
 
 
-def clamp_close_inside(
-    close: Floats, price: float, kind: str, start: int = 0, inset: float = 0.0015
-) -> None:
+def clamp_close_inside(close: Floats, price: float, kind: str, start: int = 0, inset: float = 0.0015) -> None:
     """Hold a close path on the inside of a level from `start` on.
 
     `LevelGuard` moves only wicks, so a never-breached level needs the close path bounded too —
@@ -171,9 +169,7 @@ def apply_level_guards(series: Series, guards: Iterable[LevelGuard]) -> None:
             edge[j] = round(max(edge[j], reach) if up else min(edge[j], reach), 2)
         for lo, hi in g.no_breach:
             for j in range(max(0, lo), min(hi, len(edge))):
-                body = (
-                    max(series.open[j], series.close[j]) if up else min(series.open[j], series.close[j])
-                )
+                body = max(series.open[j], series.close[j]) if up else min(series.open[j], series.close[j])
                 limit = max(g.price, body) if up else min(g.price, body)
                 edge[j] = round(min(edge[j], limit) if up else max(edge[j], limit), 2)
 

@@ -4,11 +4,13 @@ import { useTranslation } from "react-i18next";
 import { apiErrorMessage } from "@/api/client";
 import { useAuth } from "@/auth/AuthContext";
 import { AuthCard } from "@/auth/AuthCard";
+import { useMailFeature } from "@/auth/useMailFeature";
 import { Button, Input, Label } from "@/components/ui/primitives";
 
 export function LoginPage() {
   const { t } = useTranslation();
   const { user, login } = useAuth();
+  const mail = useMailFeature();
   const navigate = useNavigate();
   const location = useLocation();
   const next = new URLSearchParams(location.search).get("next") ?? "/";
@@ -44,6 +46,11 @@ export function LoginPage() {
         <div>
           <Label htmlFor="password">{t("auth.password")}</Label>
           <Input id="password" type="password" autoComplete="current-password" required value={password} onChange={(e) => setPassword(e.target.value)} />
+          {mail && (
+            <Link to="/forgot-password" className="mt-1 inline-block text-xs font-medium text-primary hover:underline">
+              {t("auth.forgotPassword")}
+            </Link>
+          )}
         </div>
         {error && <p className="text-sm text-red-600 dark:text-red-400">{error}</p>}
         <Button type="submit" disabled={busy} className="w-full">

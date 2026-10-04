@@ -82,6 +82,14 @@ export function AccountMenu({ user }: { user: Me }) {
             <div className="px-1">
               <p className="text-xs text-gray-500 dark:text-gray-400">{t("auth.signedInAs")}</p>
               <p className="truncate font-semibold">{user.username}</p>
+              <NavLink
+                to="/account"
+                role="menuitem"
+                onClick={() => setOpen(false)}
+                className="mt-1 inline-block text-sm font-medium text-primary hover:underline"
+              >
+                {t("account.title")}
+              </NavLink>
             </div>
 
             <div className="border-t border-border pt-3 dark:border-gray-800 oled:border-oled-line">

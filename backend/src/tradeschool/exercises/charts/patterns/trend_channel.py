@@ -117,8 +117,10 @@ def _osc_points(target: str, hold_osc: float) -> list[tuple[float, float]]:
     # The channel labels decide at the PARALLEL (osc 1), so their hold is measured from there.
     if target == "channel_intact":
         return [
-            *pre, *_visit(_DECIDE, 1.0 - _TOUCH_OSC),
-            (_HOLD, 1.0 - hold_osc), (1.00, 1.0 - hold_osc),
+            *pre,
+            *_visit(_DECIDE, 1.0 - _TOUCH_OSC),
+            (_HOLD, 1.0 - hold_osc),
+            (1.00, 1.0 - hold_osc),
         ]
     if target == "channel_broken":  # accelerates out through the far edge
         return [*pre, *_visit(_DECIDE, 1.20), (_HOLD, 1.0 + hold_osc), (1.00, 1.0 + hold_osc)]
@@ -229,9 +231,7 @@ class TrendChannelInjector(PatternInjector):
             WARMUP + int(_DECIDE * n) + half,
             # The decision is read off the edge it happens at: the far edge for the two labels that
             # end at the parallel, the anchor for everything that ends at the line itself.
-            ("high" if rising else "low")
-            if target in ("channel_intact", "channel_broken")
-            else pivot,
+            ("high" if rising else "low") if target in ("channel_intact", "channel_broken") else pivot,
         )
         # One bar may carry only one marker (`test_chart_annotations.py`), and two neighbouring visits
         # can resolve to the same candle. The decision wins, then the earliest touch.

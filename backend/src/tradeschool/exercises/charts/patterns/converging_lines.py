@@ -107,9 +107,7 @@ def _visit(f: float, osc: float) -> list[tuple[float, float]]:
     return [(f - _PLATEAU, osc), (f + _PLATEAU, osc)]
 
 
-def _osc_points(
-    target: str, hold_osc: float, edge: Callable[[float], float]
-) -> list[tuple[float, float]]:
+def _osc_points(target: str, hold_osc: float, edge: Callable[[float], float]) -> list[tuple[float, float]]:
     """Where price sits BETWEEN the lines: 0 on the lower one, 1 on the upper. Same coil for all."""
     coil: list[tuple[float, float]] = []
     for i, f in enumerate(_SWING_F):
@@ -160,9 +158,7 @@ class ConvergingLinesInjector(PatternInjector):
         # would leave every resolution label holding well inside the ambient tail's reach.
         hold_osc = _HOLD_D * base / float(span[int(_HOLD * n)])
         osc = shape_from_points(
-            _osc_points(
-                target, hold_osc, lambda f: _EDGE_D * base / float(span[min(int(f * n), n - 1)])
-            ),
+            _osc_points(target, hold_osc, lambda f: _EDGE_D * base / float(span[min(int(f * n), n - 1)])),
             n,
         )
         close_visible = (lower + osc * span) * np.exp(bounded_noise(rng, n, amp=_NOISE))
@@ -177,14 +173,20 @@ class ConvergingLinesInjector(PatternInjector):
         iu, il = int(_SWING_F[0] * n), int(_SWING_F[1] * n)
         diagonals = [
             Diagonal(
-                start=WARMUP + iu, end=WARMUP + i1,
-                start_price=round(float(upper[iu]), 2), end_price=round(float(upper[i1]), 2),
-                label="upper", kind="resistance",
+                start=WARMUP + iu,
+                end=WARMUP + i1,
+                start_price=round(float(upper[iu]), 2),
+                end_price=round(float(upper[i1]), 2),
+                label="upper",
+                kind="resistance",
             ),
             Diagonal(
-                start=WARMUP + il, end=WARMUP + i1,
-                start_price=round(float(lower[il]), 2), end_price=round(float(lower[i1]), 2),
-                label="lower", kind="support",
+                start=WARMUP + il,
+                end=WARMUP + i1,
+                start_price=round(float(lower[il]), 2),
+                end_price=round(float(lower[i1]), 2),
+                label="lower",
+                kind="support",
             ),
         ]
 

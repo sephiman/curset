@@ -41,9 +41,19 @@ class Settings(BaseSettings):
     login_rate_limit: str = "10/minute"
     register_rate_limit: str = "5/minute"
 
-    # Secret for fastapi-users reset/verify token flows (unused in v1 — no such endpoints —
-    # but BaseUserManager requires a value).
+    # Unused: reset/verify links are our own DB-stored tokens, but BaseUserManager requires a value.
     auth_secret: str = "change-me"
+
+    # --- Mail (Gmail SMTP with an app password). All four of host/username/password/from or none;
+    # without them there is no password reset and no email verification. ---
+    smtp_host: str = ""
+    smtp_port: int = 587
+    smtp_username: str = ""
+    smtp_password: str = ""
+    mail_from: str = ""
+    # Mailed links are built from this, never from request headers.
+    app_public_url: str = "http://localhost:5173"
+    mail_rate_limit: str = "5/minute;20/hour"
 
     # --- Content / manifest ---
     content_dir: Path = _default_content_dir()

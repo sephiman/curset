@@ -42,8 +42,18 @@ _BASE_VOLUME = 1000.0
 # minor pullbacks inside each leg so no run is monotonic, and dead flat after the second swing so the
 # candles that follow carry no confirmation move.
 _PROFILE: tuple[tuple[float, float], ...] = (
-    (0.00, 0.000), (0.15, 0.010), (0.25, 0.030), (0.34, 0.090), (0.42, 0.150), (0.46, 0.170),
-    (0.54, 0.120), (0.62, 0.140), (0.70, 0.155), (0.78, 0.175), (0.86, 0.195), (0.90, 0.205),
+    (0.00, 0.000),
+    (0.15, 0.010),
+    (0.25, 0.030),
+    (0.34, 0.090),
+    (0.42, 0.150),
+    (0.46, 0.170),
+    (0.54, 0.120),
+    (0.62, 0.140),
+    (0.70, 0.155),
+    (0.78, 0.175),
+    (0.86, 0.195),
+    (0.90, 0.205),
     (1.00, 0.205),
 )
 _F1, _F2 = 0.46, 0.90  # window-fractions of the two swings
@@ -121,8 +131,8 @@ class CvdDivergenceInjector(PatternInjector):
         i1, i2 = int(_F1 * n), int(_F2 * n)
 
         def attempt(amp: float) -> tuple[Floats, Floats, Floats, int, int] | None:
-            close_visible = base * np.exp(shape + bounded_noise(rng, n, amp=amp)) if amp > 0 else (
-                base * np.exp(shape)
+            close_visible = (
+                base * np.exp(shape + bounded_noise(rng, n, amp=amp)) if amp > 0 else (base * np.exp(shape))
             )
             apply_ambient_tail(rng, close_visible)
             close_full = with_warmup(rng, close_visible)

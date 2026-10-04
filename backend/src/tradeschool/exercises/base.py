@@ -56,7 +56,5 @@ class ExerciseGenerator(ABC):
         """Instantiate the exercise for display. Must NOT include the solution."""
 
     @abstractmethod
-    def grade(
-        self, config: BaseModel, seed: int, answer: Mapping[str, object], locale: str
-    ) -> GradeResult:
+    def grade(self, config: BaseModel, seed: int, answer: Mapping[str, object], locale: str) -> GradeResult:
         """Evaluate an answer against the seed-instantiated scenario; returns the solution."""

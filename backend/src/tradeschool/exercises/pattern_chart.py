@@ -129,15 +129,16 @@ def _full(config: PatternChartConfig, seed: int) -> FullPatternChart:
         levels=[{"price": lv.price, "label": lv.label, "kind": lv.kind} for lv in result.levels],
         diagonals=[
             {
-                "start": d.start - w, "end": d.end - w,
-                "start_price": d.start_price, "end_price": d.end_price,
-                "label": d.label, "kind": d.kind,
+                "start": d.start - w,
+                "end": d.end - w,
+                "start_price": d.start_price,
+                "end_price": d.end_price,
+                "label": d.label,
+                "kind": d.kind,
             }
             for d in result.diagonals
         ],
-        bands=[
-            {"low": b.low, "high": b.high, "label": b.label, "kind": b.kind} for b in result.bands
-        ],
+        bands=[{"low": b.low, "high": b.high, "label": b.label, "kind": b.kind} for b in result.bands],
         annotations=[
             {"index": a.index - w, "kind": a.kind, "label": a.label}
             for a in result.annotations
@@ -153,8 +154,12 @@ def _instantiate(
     w = f.warmup
     s = f.series
     series = Series(
-        time=s.time[w:], open=s.open[w:], high=s.high[w:], low=s.low[w:],
-        close=s.close[w:], volume=s.volume[w:],
+        time=s.time[w:],
+        open=s.open[w:],
+        high=s.high[w:],
+        low=s.low[w:],
+        close=s.close[w:],
+        volume=s.volume[w:],
     )
     payload: dict[str, object] = {
         "series": asdict(series),
@@ -189,8 +194,14 @@ def _instantiate(
         k = w // f.context.ratio
         payload["context"] = {
             "series": asdict(
-                Series(time=c.time[k:], open=c.open[k:], high=c.high[k:], low=c.low[k:],
-                       close=c.close[k:], volume=c.volume[k:])
+                Series(
+                    time=c.time[k:],
+                    open=c.open[k:],
+                    high=c.high[k:],
+                    low=c.low[k:],
+                    close=c.close[k:],
+                    volume=c.volume[k:],
+                )
             ),
             "position": f.context.position,
         }
@@ -212,9 +223,7 @@ class PatternChartGenerator(ExerciseGenerator):
         _, _, payload = _instantiate(config, seed)
         return GeneratedInstance(prompt=config.prompt.get(locale), payload=payload)
 
-    def grade(
-        self, config: BaseModel, seed: int, answer: Mapping[str, object], locale: str
-    ) -> GradeResult:
+    def grade(self, config: BaseModel, seed: int, answer: Mapping[str, object], locale: str) -> GradeResult:
         assert isinstance(config, PatternChartConfig)
         chosen = answer.get("label")
         if not isinstance(chosen, str):

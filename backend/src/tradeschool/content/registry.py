@@ -296,9 +296,7 @@ class CourseRegistry:
             "locales": list(LOCALES),
             "blocks": self._export_blocks(
                 lambda text: {loc: text.get(loc) for loc in LOCALES},
-                lambda lesson_id: {
-                    loc: _theory_only(self.markdown[loc][lesson_id]) for loc in LOCALES
-                },
+                lambda lesson_id: {loc: _theory_only(self.markdown[loc][lesson_id]) for loc in LOCALES},
             ),
             "glossary": {loc: self.glossary_entries(loc) for loc in LOCALES},
         }
@@ -324,9 +322,7 @@ class CourseRegistry:
         if term.match is not None and term.match.get(locale) is not None:
             entry["match"] = term.match.get(locale)
         if term.excluded_lessons(locale):
-            entry["linkExcept"] = [
-                self.lesson_id_for_key(key) for key in term.excluded_lessons(locale)
-            ]
+            entry["linkExcept"] = [self.lesson_id_for_key(key) for key in term.excluded_lessons(locale)]
         if term.alias_of is not None:
             target = next(t for t in self.glossary.terms if t.id == term.alias_of)
             entry["aliasOf"] = {"id": target.id, "term": target.term(locale)}
@@ -376,9 +372,7 @@ class CourseRegistry:
             "id": module.id,
             "title": module.title.get(locale),
             "summary": module.summary.get(locale),
-            "assumes": [
-                {"id": dep, "title": self.module_title(dep, locale)} for dep in module.assumes
-            ],
+            "assumes": [{"id": dep, "title": self.module_title(dep, locale)} for dep in module.assumes],
             "unmetPrereqs": [
                 {"id": dep, "title": self.module_title(dep, locale)}
                 for dep in self.unmet_prereqs(module_id, completed_lesson_ids)
@@ -495,10 +489,7 @@ def _check_summaries_never_coin(
     """
     offences: list[str] = []
     for locale in LOCALES:
-        terms = [
-            (term.id, " ".join(term.term(locale).split()).split(" (")[0])
-            for term in glossary.terms
-        ]
+        terms = [(term.id, " ".join(term.term(locale).split()).split(" (")[0]) for term in glossary.terms]
         for _module, lesson in manifest.iter_lessons():
             summary = " ".join(lesson.summary.get(locale).split())
             prose = " ".join(markdown[locale][lesson.id].split()).casefold()

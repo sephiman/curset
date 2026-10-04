@@ -12,7 +12,9 @@ src/tradeschool/
   main.py       app factory + lifespan (migrate + manifest sync)
   config.py     pydantic-settings
   db.py         async SQLAlchemy engine/session
-  auth/         fastapi-users (cookie + database strategy, Argon2), rate limiting
+  auth/         fastapi-users (cookie + database strategy, Argon2), rate limiting, optional email:
+                mail.py (SMTP, all-or-none), email_tokens.py (hashed single-use links),
+                email_verification.py, password_reset.py
   content/      manifest + content registry loader, validation, reconciliation, CLI sync,
                 print_export.py (the printed book's frozen exercise instances + their answer key —
                 the one place a solution leaves the server before a learner has answered)

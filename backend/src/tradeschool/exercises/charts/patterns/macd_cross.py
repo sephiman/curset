@@ -50,10 +50,15 @@ class MacdCrossInjector(PatternInjector):
             # never swap order, so the zero line is never touched.
             g = float(rng.uniform(0.26, 0.36))  # total log move across the window
             pts = [
-                (0.00, 0.00), (0.20, 0.22 * g + jig(0.008)), (0.30, 0.20 * g + jig(0.008)),
-                (0.46, 0.40 * g + jig(0.008)), (0.54, 0.38 * g),
-                (0.68, 0.68 * g), (0.76, 0.62 * g),
-                (0.88, 0.78 * g), (1.00, g),
+                (0.00, 0.00),
+                (0.20, 0.22 * g + jig(0.008)),
+                (0.30, 0.20 * g + jig(0.008)),
+                (0.46, 0.40 * g + jig(0.008)),
+                (0.54, 0.38 * g),
+                (0.68, 0.68 * g),
+                (0.76, 0.62 * g),
+                (0.88, 0.78 * g),
+                (1.00, g),
             ]
             amp, drift = 0.012, sign * _WARM_DRIFT
         elif target == "zero_cross":
@@ -63,9 +68,16 @@ class MacdCrossInjector(PatternInjector):
             # the window on the other side of it.
             d = float(rng.uniform(0.22, 0.32))
             pts = [
-                (0.00, 0.00), (0.16, -0.32 * d), (0.24, -0.29 * d),
-                (0.46, -0.58 * d), (0.53, -0.55 * d), (0.70, -0.66 * d),
-                (0.80, -0.50 * d), (0.90, -0.24 * d), (0.96, -0.06 * d), (1.00, 0.04 * d),
+                (0.00, 0.00),
+                (0.16, -0.32 * d),
+                (0.24, -0.29 * d),
+                (0.46, -0.58 * d),
+                (0.53, -0.55 * d),
+                (0.70, -0.66 * d),
+                (0.80, -0.50 * d),
+                (0.90, -0.24 * d),
+                (0.96, -0.06 * d),
+                (1.00, 0.04 * d),
             ]
             amp, drift = 0.012, -sign * _WARM_DRIFT  # the warm-up continues the PRIOR trend
         else:  # whipsaw — a flat range whose swings are short enough relative to the 12/26 EMAs that

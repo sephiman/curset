@@ -51,9 +51,7 @@ def rsi(close: Floats, period: int = 14) -> Floats:
     return out
 
 
-def macd(
-    close: Floats, fast: int = 12, slow: int = 26, signal: int = 9
-) -> tuple[Floats, Floats, Floats]:
+def macd(close: Floats, fast: int = 12, slow: int = 26, signal: int = 9) -> tuple[Floats, Floats, Floats]:
     macd_line = ema(close, fast) - ema(close, slow)
     signal_line = ema(macd_line, signal)
     return macd_line, signal_line, macd_line - signal_line

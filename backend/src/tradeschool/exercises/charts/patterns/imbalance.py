@@ -51,7 +51,11 @@ _NOISE = 0.003
 # an early bar's high poked above `_GAP_LOW` and sat inside the published zone — which would have the chart
 # show a "span almost nothing traded in" that the range had, in part, already traded in.
 _PRE: tuple[tuple[float, float], ...] = (
-    (0.00, -0.002), (0.12, -0.010), (0.24, -0.001), (0.36, -0.006), (_IMPULSE_F, 0.000),
+    (0.00, -0.002),
+    (0.12, -0.010),
+    (0.24, -0.001),
+    (0.36, -0.006),
+    (_IMPULSE_F, 0.000),
 )
 # After the move. For the two planted labels these are offsets from the PRE level and the `_JUMP` step is
 # added on top, so the ABSOLUTE offset of each point is its value + 0.055 — the comment on each line gives
@@ -75,7 +79,12 @@ _POST: dict[str, tuple[tuple[float, float], ...]] = {
     ),
     # The same size of move, walked up over several OVERLAPPING candles, so no span is crossed in one bar.
     "no_imbalance": (
-        (0.455, 0.028), (0.47, 0.055), (0.56, 0.078), (0.68, 0.062), (0.78, 0.048), (1.00, 0.060),
+        (0.455, 0.028),
+        (0.47, 0.055),
+        (0.56, 0.078),
+        (0.68, 0.062),
+        (0.78, 0.048),
+        (1.00, 0.060),
     ),
 }
 # A three-candle gap has to be worth a name before a chart may claim one, and `no_imbalance` has to be
@@ -143,9 +152,7 @@ class ImbalanceInjector(PatternInjector):
             # body sits above the span, the undrawn `LevelGuard` below can do its half of the job: it
             # clamps a stray WICK back to the gap's upper edge, which it could not do while a body was
             # already inside (`apply_level_guards` never moves a wick past its own candle's body).
-            clamp_close_inside(
-                close_visible, base * float(np.exp(_GAP_HIGH)), "support", start=g + 2
-            )
+            clamp_close_inside(close_visible, base * float(np.exp(_GAP_HIGH)), "support", start=g + 2)
         close_full = with_warmup(rng, close_visible)
         if planted:
             # Hold every close before the impulse under the zone's floor. The designed range already sits

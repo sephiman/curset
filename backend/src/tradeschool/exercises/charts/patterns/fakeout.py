@@ -105,8 +105,10 @@ class FakeoutInjector(PatternInjector):
             pts += [(_DECIDE, gap + 0.026), (_HOLD, gap + _HOLD_D), (1.00, gap + _HOLD_D)]
         elif target == "false_break":  # pokes beyond, then closes back inside and holds inside
             pts += [
-                (_DECIDE, gap + 0.013), (0.84, gap + 0.011),
-                (_HOLD, inside(_HOLD_D)), (1.00, inside(_HOLD_D)),
+                (_DECIDE, gap + 0.013),
+                (0.84, gap + 0.011),
+                (_HOLD, inside(_HOLD_D)),
+                (1.00, inside(_HOLD_D)),
             ]
         elif target == "no_break":  # tests the level closer than ever before, and is rejected below
             pts += [(_DECIDE, inside(0.007)), (_HOLD, inside(_HOLD_D)), (1.00, inside(_HOLD_D))]

@@ -7,6 +7,7 @@ from typing import Annotated
 
 from fastapi import Depends, Request
 
+from tradeschool.auth.mail import Mailer
 from tradeschool.config import Settings
 from tradeschool.content.registry import CourseRegistry
 from tradeschool.errors import AppError
@@ -16,6 +17,12 @@ def app_settings(request: Request) -> Settings:
     """The Settings bound to the running app (tests inject their own)."""
     settings: Settings = request.app.state.settings
     return settings
+
+
+def app_mailer(request: Request) -> Mailer:
+    """The Mailer bound to the running app (tests swap in a recording one)."""
+    mailer: Mailer = request.app.state.mailer
+    return mailer
 
 
 def current_course(request: Request) -> str:

@@ -33,8 +33,11 @@ _DIVERGENCE = RsiDivergenceInjector()
 _DIR_SIGN = {"up": 1.0, "down": -1.0, "flat": 0.0}
 # Default resolution direction for a divergence figure (regular = reversal, hidden = continuation).
 _DIVERGENCE_DIR = {
-    "bullish_regular": 1.0, "bullish_hidden": 1.0,
-    "bearish_regular": -1.0, "bearish_hidden": -1.0, "none": 0.0,
+    "bullish_regular": 1.0,
+    "bullish_hidden": 1.0,
+    "bearish_regular": -1.0,
+    "bearish_hidden": -1.0,
+    "none": 0.0,
 }
 # Default resolution direction for pattern figures whose direction is unambiguous from the label.
 # Side/impulse-dependent injectors (fakeout, fibonacci, volume_confirmation, derivatives, macd_cross)
@@ -253,17 +256,24 @@ def _panel_payload(panel: FigurePanel) -> dict[str, object]:
     # PAST the bars that drew it, so a figure re-anchors every diagonal to its own right edge.
     diagonals = [
         {
-            "start": d.start - w, "end": d.end - w,
-            "start_price": d.start_price, "end_price": d.end_price,
-            "label": d.label, "kind": d.kind,
+            "start": d.start - w,
+            "end": d.end - w,
+            "start_price": d.start_price,
+            "end_price": d.end_price,
+            "label": d.label,
+            "kind": d.kind,
         }
         for d in (extend_diagonal(raw, len(series.close) - 1) for raw in diagonals_raw)
     ]
 
     payload: dict[str, object] = {
         "series": {
-            "time": series.time[w:], "open": series.open[w:], "high": series.high[w:],
-            "low": series.low[w:], "close": series.close[w:], "volume": series.volume[w:],
+            "time": series.time[w:],
+            "open": series.open[w:],
+            "high": series.high[w:],
+            "low": series.low[w:],
+            "close": series.close[w:],
+            "volume": series.volume[w:],
         },
         "rsi": _round(rsi(close_full), 2)[w:],
         "macd": {"line": _round(line, 4)[w:], "signal": _round(signal, 4)[w:], "hist": _round(hist, 4)[w:]},
@@ -286,8 +296,12 @@ def _panel_payload(panel: FigurePanel) -> dict[str, object]:
         c, k = context.series, w // context.ratio
         payload["context"] = {
             "series": {
-                "time": c.time[k:], "open": c.open[k:], "high": c.high[k:],
-                "low": c.low[k:], "close": c.close[k:], "volume": c.volume[k:],
+                "time": c.time[k:],
+                "open": c.open[k:],
+                "high": c.high[k:],
+                "low": c.low[k:],
+                "close": c.close[k:],
+                "volume": c.volume[k:],
             },
             "position": context.position,
         }

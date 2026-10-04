@@ -10,6 +10,7 @@ Revision ID: f6a7b8c9d0e1
 Revises: e5f6a7b8c9d0
 Create Date: 2026-08-08 00:00:00.000000
 """
+
 from __future__ import annotations
 
 from collections.abc import Sequence
@@ -31,9 +32,7 @@ def upgrade() -> None:
     op.add_column("exam_sessions", sa.Column("course_id", sa.String(), nullable=True))
     op.execute(sa.text("UPDATE exam_sessions SET course_id = :id").bindparams(id=COURSE_ID))
     op.alter_column("exam_sessions", "course_id", nullable=False)
-    op.create_index(
-        op.f("ix_exam_sessions_course_id"), "exam_sessions", ["course_id"], unique=False
-    )
+    op.create_index(op.f("ix_exam_sessions_course_id"), "exam_sessions", ["course_id"], unique=False)
     op.create_foreign_key(
         op.f("fk_exam_sessions_course_id_courses"),
         "exam_sessions",
@@ -44,8 +43,6 @@ def upgrade() -> None:
 
 
 def downgrade() -> None:
-    op.drop_constraint(
-        op.f("fk_exam_sessions_course_id_courses"), "exam_sessions", type_="foreignkey"
-    )
+    op.drop_constraint(op.f("fk_exam_sessions_course_id_courses"), "exam_sessions", type_="foreignkey")
     op.drop_index(op.f("ix_exam_sessions_course_id"), table_name="exam_sessions")
     op.drop_column("exam_sessions", "course_id")

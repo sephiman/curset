@@ -7,6 +7,7 @@ Revision ID: e5f6a7b8c9d0
 Revises: d4e5f6a7b8c9
 Create Date: 2026-07-24 00:00:00.000000
 """
+
 from __future__ import annotations
 
 from collections.abc import Sequence
@@ -31,16 +32,18 @@ def upgrade() -> None:
         sa.PrimaryKeyConstraint("id", name=op.f("pk_courses")),
     )
     # The single existing course. Reconciliation keeps it in sync from here on.
-    op.execute(sa.text("INSERT INTO courses (id, active, order_index) VALUES (:id, true, 1)").bindparams(id=COURSE_ID))
+    op.execute(
+        sa.text("INSERT INTO courses (id, active, order_index) VALUES (:id, true, 1)").bindparams(
+            id=COURSE_ID
+        )
+    )
 
     for table in ("blocks", "modules"):
         op.add_column(table, sa.Column("course_id", sa.String(), nullable=True))
         op.execute(sa.text(f"UPDATE {table} SET course_id = :id").bindparams(id=COURSE_ID))
         op.alter_column(table, "course_id", nullable=False)
         op.create_index(op.f(f"ix_{table}_course_id"), table, ["course_id"], unique=False)
-        op.create_foreign_key(
-            op.f(f"fk_{table}_course_id_courses"), table, "courses", ["course_id"], ["id"]
-        )
+        op.create_foreign_key(op.f(f"fk_{table}_course_id_courses"), table, "courses", ["course_id"], ["id"])
 
 
 def downgrade() -> None:

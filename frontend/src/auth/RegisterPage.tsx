@@ -17,6 +17,7 @@ export function RegisterPage() {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
@@ -37,7 +38,7 @@ export function RegisterPage() {
     setBusy(true);
     try {
       const locale = (i18n.resolvedLanguage === "es" ? "es" : "en") as Locale;
-      await register(uname, password, locale);
+      await register(uname, password, locale, email.trim() || null);
       navigate("/", { replace: true });
     } catch (err) {
       setError(apiErrorMessage(err, t));
@@ -58,6 +59,11 @@ export function RegisterPage() {
           <Label htmlFor="password">{t("auth.password")}</Label>
           <Input id="password" type="password" autoComplete="new-password" required minLength={MIN_PASSWORD} value={password} onChange={(e) => setPassword(e.target.value)} />
           <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">{t("auth.passwordHint", { count: MIN_PASSWORD })}</p>
+        </div>
+        <div>
+          <Label htmlFor="email">{t("auth.emailOptional")}</Label>
+          <Input id="email" type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">{t("account.emailHint")}</p>
         </div>
         {error && <p className="text-sm text-red-600 dark:text-red-400">{error}</p>}
         <Button type="submit" disabled={busy} className="w-full">

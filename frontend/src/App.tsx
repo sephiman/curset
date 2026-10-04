@@ -2,9 +2,13 @@ import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { AppShell } from "@/components/layout/AppShell";
 import { coursePath, HOME_PATH } from "@/components/layout/nav";
 import { ToastHost } from "@/components/ui/ToastHost";
+import { ForgotPasswordPage } from "@/auth/ForgotPasswordPage";
 import { LoginPage } from "@/auth/LoginPage";
 import { RegisterPage } from "@/auth/RegisterPage";
 import { RequireAuth } from "@/auth/RequireAuth";
+import { ResetPasswordPage } from "@/auth/ResetPasswordPage";
+import { VerifyEmailPage } from "@/auth/VerifyEmailPage";
+import { AccountPage } from "@/features/account/AccountPage";
 import { CoursePage } from "@/features/course/CoursePage";
 import { ModulePage } from "@/features/course/ModulePage";
 import { LessonPage } from "@/features/course/LessonPage";
@@ -34,6 +38,10 @@ export default function App() {
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        {/* Mailed links land here, signed in or not. */}
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="/reset-password" element={<ResetPasswordPage />} />
+        <Route path="/verify-email" element={<VerifyEmailPage />} />
         <Route
           path="/*"
           element={
@@ -53,6 +61,8 @@ export default function App() {
                   <Route path={coursePath("/exams")} element={<ExamPage />} />
                   <Route path={coursePath("/exams/:examId")} element={<ExamRunner />} />
                   <Route path={coursePath("/exams/:examId/review")} element={<ExamReview />} />
+
+                  <Route path="/account" element={<AccountPage />} />
 
                   {/* Bookmarks from before the scoping. Redirect rather than serve, so the address
                       bar corrects itself and there is one URL per page. */}

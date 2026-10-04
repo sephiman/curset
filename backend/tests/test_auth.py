@@ -24,7 +24,8 @@ async def test_register_returns_user_with_locale(client: AsyncClient) -> None:
     assert body["locale"] == "es"
     assert "id" in body
     assert "password" not in body and "hashed_password" not in body
-    assert "email" not in body
+    assert body["email"] is None
+    assert body["email_verified"] is False
 
 
 async def test_register_normalizes_username_case(client: AsyncClient) -> None:

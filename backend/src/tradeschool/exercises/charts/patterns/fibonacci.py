@@ -52,13 +52,19 @@ class FibonacciInjector(PatternInjector):
         span = e_off - p_off  # signed distance from swing end to the pullback extreme
 
         pts = [
-            (0.00, 0.00), (0.12, 0.25 * e_off), (0.28, 0.56 * e_off), (0.42, 0.90 * e_off),
-            (_SWING_F, e_off),                     # swing end (impulse complete)
-            (0.60, e_off - 0.40 * span),           # pulling back
+            (0.00, 0.00),
+            (0.12, 0.25 * e_off),
+            (0.28, 0.56 * e_off),
+            (0.42, 0.90 * e_off),
+            (_SWING_F, e_off),  # swing end (impulse complete)
+            (0.60, e_off - 0.40 * span),  # pulling back
             # A short plateau AT the pullback extreme so the 3-window smoothing does not lift it away
             # from the labelled fib level.
-            (0.76, p_off), (_PULLBACK_F, p_off), (0.84, p_off),
-            (0.90, p_off + 0.15 * span), (1.00, p_off + 0.12 * span),
+            (0.76, p_off),
+            (_PULLBACK_F, p_off),
+            (0.84, p_off),
+            (0.90, p_off + 0.15 * span),
+            (1.00, p_off + 0.12 * span),
         ]
         shape = shape_from_points(pts, n)
         close_visible = base * np.exp(shape + bounded_noise(rng, n, amp=0.008))
@@ -76,10 +82,16 @@ class FibonacciInjector(PatternInjector):
             warmup=WARMUP,
             label=target,
             annotations=[
-                Annotation(WARMUP + resolve_swing(close_visible, int(_SWING_F * n), swing_kind_end),
-                           swing_kind_end, "swing"),
-                Annotation(WARMUP + resolve_swing(close_visible, int(_PULLBACK_F * n), swing_kind_pull),
-                           swing_kind_pull, "pullback"),
+                Annotation(
+                    WARMUP + resolve_swing(close_visible, int(_SWING_F * n), swing_kind_end),
+                    swing_kind_end,
+                    "swing",
+                ),
+                Annotation(
+                    WARMUP + resolve_swing(close_visible, int(_PULLBACK_F * n), swing_kind_pull),
+                    swing_kind_pull,
+                    "pullback",
+                ),
             ],
             levels=levels,
         )

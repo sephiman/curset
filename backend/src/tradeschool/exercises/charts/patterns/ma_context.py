@@ -41,18 +41,28 @@ class MaContextInjector(PatternInjector):
             g = float(rng.uniform(0.18, 0.30))  # total log move across the window
             # A staircase: legs up with shallower pullbacks, so MAs trail below a rising price.
             pts = [
-                (0.00, 0.00), (0.16, 0.28 * g + jig(0.01)), (0.28, 0.18 * g + jig(0.01)),
-                (0.44, 0.52 * g + jig(0.01)), (0.58, 0.44 * g + jig(0.01)),
-                (0.74, 0.78 * g + jig(0.01)), (0.86, 0.72 * g + jig(0.01)), (1.00, g),
+                (0.00, 0.00),
+                (0.16, 0.28 * g + jig(0.01)),
+                (0.28, 0.18 * g + jig(0.01)),
+                (0.44, 0.52 * g + jig(0.01)),
+                (0.58, 0.44 * g + jig(0.01)),
+                (0.74, 0.78 * g + jig(0.01)),
+                (0.86, 0.72 * g + jig(0.01)),
+                (1.00, g),
             ]
             sign = 1.0 if target == "uptrend" else -1.0
             pts = [(f, sign * y) for f, y in pts]
             amp = 0.02
         else:  # range: flat net drift, MAs intertwine
             pts = [
-                (0.00, 0.00), (0.14, 0.05 + jig(0.01)), (0.30, -0.045 + jig(0.01)),
-                (0.46, 0.04 + jig(0.01)), (0.62, -0.05 + jig(0.01)), (0.78, 0.045 + jig(0.01)),
-                (0.90, -0.02 + jig(0.01)), (1.00, 0.00),
+                (0.00, 0.00),
+                (0.14, 0.05 + jig(0.01)),
+                (0.30, -0.045 + jig(0.01)),
+                (0.46, 0.04 + jig(0.01)),
+                (0.62, -0.05 + jig(0.01)),
+                (0.78, 0.045 + jig(0.01)),
+                (0.90, -0.02 + jig(0.01)),
+                (1.00, 0.00),
             ]
             amp = 0.022
 

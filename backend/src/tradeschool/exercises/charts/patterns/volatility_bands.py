@@ -171,8 +171,6 @@ class VolatilityBandsInjector(PatternInjector):
         """Recompute the envelopes over the EXTENDED series — see `figures._panel_payload`."""
         return {k: v.tolist() for k, v in _envelopes(series).items()}
 
-    def figure_momentum(
-        self, close_full: np.ndarray, series: Series
-    ) -> tuple[np.ndarray, np.ndarray]:
+    def figure_momentum(self, close_full: np.ndarray, series: Series) -> tuple[np.ndarray, np.ndarray]:
         """...and the pane with them, so the squeeze row keeps reading the bars actually drawn."""
         return _pane(series)

@@ -7,6 +7,7 @@ Revision ID: d4e5f6a7b8c9
 Revises: c7d9e1f3a5b7
 Create Date: 2026-07-24 00:00:00.000000
 """
+
 from __future__ import annotations
 
 import re
@@ -45,9 +46,7 @@ def upgrade() -> None:
             name = f"{base[: 32 - len(suffix)]}{suffix}"
             i += 1
         taken.add(name)
-        bind.execute(
-            sa.text('UPDATE "user" SET username = :u WHERE id = :id'), {"u": name, "id": row.id}
-        )
+        bind.execute(sa.text('UPDATE "user" SET username = :u WHERE id = :id'), {"u": name, "id": row.id})
 
     op.alter_column("user", "username", nullable=False)
     # Case-insensitive uniqueness (and the identity lookup) live on this expression index.
@@ -64,9 +63,7 @@ def downgrade() -> None:
     bind = op.get_bind()
     op.add_column("user", sa.Column("email", sa.String(length=320), nullable=True))
     # Original emails are unrecoverable; synthesize a unique, obviously-fake placeholder.
-    bind.execute(
-        sa.text("UPDATE \"user\" SET email = username || '@example.invalid' WHERE email IS NULL")
-    )
+    bind.execute(sa.text("UPDATE \"user\" SET email = username || '@example.invalid' WHERE email IS NULL"))
     op.alter_column("user", "email", nullable=False)
     op.create_index(op.f("ix_user_email"), "user", ["email"], unique=True)
     op.drop_index("ix_user_username_lower", table_name="user")

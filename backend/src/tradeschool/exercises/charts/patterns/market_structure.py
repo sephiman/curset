@@ -118,9 +118,7 @@ class MarketStructureInjector(PatternInjector):
                 continue
             kind = "high" if label == "HH" else "low"  # HL and CHoCH are both lows
             lo, hi = swing_window(i, frac)
-            annotations.append(
-                Annotation(index=candle_extreme(series, lo, hi, kind), kind=kind, label=label)
-            )
+            annotations.append(Annotation(index=candle_extreme(series, lo, hi, kind), kind=kind, label=label))
 
         return PatternResult(
             close_full=close_full,

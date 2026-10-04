@@ -67,8 +67,13 @@ class StopLimitGapInjector(PatternInjector):
         # The approach is built over its OWN window so the slice is never interpolated into: price
         # wanders above the trigger and comes down to just above it.
         pts = [
-            (0.00, 0.055), (0.18, 0.042), (0.34, 0.050), (0.52, 0.030), (0.70, 0.036),
-            (0.88, 0.020), (1.00, _APPROACH_END),
+            (0.00, 0.055),
+            (0.18, 0.042),
+            (0.34, 0.050),
+            (0.52, 0.030),
+            (0.70, 0.036),
+            (0.88, 0.020),
+            (1.00, _APPROACH_END),
         ]
         approach = base * np.exp(shape_from_points(pts, s) + bounded_noise(rng, s, amp=_NOISE))
 
@@ -111,8 +116,9 @@ class StopLimitGapInjector(PatternInjector):
             label=target,
             annotations=[
                 Annotation(index=s_full, kind="low", label="gap"),
-                Annotation(index=min(s_full + _UNFILLED_AT, len(close_full) - 1), kind="high",
-                           label="unfilled"),
+                Annotation(
+                    index=min(s_full + _UNFILLED_AT, len(close_full) - 1), kind="high", label="unfilled"
+                ),
             ],
             levels=[
                 Level(price=trigger_price, label="trigger", kind="plan"),

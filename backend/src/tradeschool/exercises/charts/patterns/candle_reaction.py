@@ -126,17 +126,23 @@ class CandleReactionInjector(PatternInjector):
             # established before the reaction arrives, and a single prior touch is a coincidence — the
             # second is what makes the line a level the learner can judge the reaction against.
             pts = [
-                (0.00, 0.0), (0.12, sign * 0.010),
+                (0.00, 0.0),
+                (0.12, sign * 0.010),
                 (_TOUCH_F[0], sign * (_GAP - 0.006)),  # first touch of the level
-                (0.48, -sign * 0.006),                 # away from it, so each touch reads as a test
+                (0.48, -sign * 0.006),  # away from it, so each touch reads as a test
                 (_TOUCH_F[1], sign * (_GAP - 0.006)),  # second touch
-                (0.82, sign * 0.006), (0.90, approach_end),
+                (0.82, sign * 0.006),
+                (0.90, approach_end),
             ]
         else:  # open space / non-information: no level, gentle wander around the midline
             approach_end = float(rng.uniform(-0.008, 0.008))
             pts = [
-                (0.00, 0.0), (0.18, 0.012), (0.36, -0.010), (0.54, 0.008),
-                (0.72, -0.006), (0.90, approach_end),
+                (0.00, 0.0),
+                (0.18, 0.012),
+                (0.36, -0.010),
+                (0.54, 0.008),
+                (0.72, -0.006),
+                (0.90, approach_end),
             ]
         shape = shape_from_points(pts, n)
         close_visible = base * np.exp(shape)
@@ -195,10 +201,7 @@ class CandleReactionInjector(PatternInjector):
                     # Both prior touches and the last approach bar must reach the line, so it is drawn
                     # where price has actually been rather than in empty space.
                     tests=(
-                        *(
-                            WARMUP + resolve_swing(close_visible, int(f * n), touch_kind)
-                            for f in _TOUCH_F
-                        ),
+                        *(WARMUP + resolve_swing(close_visible, int(f * n), touch_kind) for f in _TOUCH_F),
                         full_k0 - 1,
                     ),
                     # Before the reaction, the level holds — that is the premise the reaction is read

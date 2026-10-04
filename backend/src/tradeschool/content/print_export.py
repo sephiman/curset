@@ -76,9 +76,7 @@ def _series(payload: Mapping[str, object]) -> Mapping[str, Sequence[float]]:
     return cast(Mapping[str, Sequence[float]], series)
 
 
-def _anchor(
-    series: Mapping[str, Sequence[float]], index: int, kind: str, label: str
-) -> dict[str, object]:
+def _anchor(series: Mapping[str, Sequence[float]], index: int, kind: str, label: str) -> dict[str, object]:
     """One ground-truth bar, priced from the PRINTED series — the answer's link to the printed chart."""
     closes = series["close"]
     if not 0 <= index < len(closes):
@@ -93,9 +91,7 @@ def _anchor(
     }
 
 
-def _zones(
-    series: Mapping[str, Sequence[float]], bands: object
-) -> list[dict[str, object]]:
+def _zones(series: Mapping[str, Sequence[float]], bands: object) -> list[dict[str, object]]:
     """Shaded ground-truth zones (m34), checked to name prices the printed chart actually reaches.
 
     A band lives in price space and is absent from the payload, so it cannot be indexed out of the
@@ -113,15 +109,11 @@ def _zones(
             raise PrintExerciseError(
                 f"ground-truth zone {low}..{high} outside the printed range {floor}..{ceiling}"
             )
-        out.append(
-            {"low": low, "high": high, "kind": band.get("kind", ""), "label": band.get("label", "")}
-        )
+        out.append({"low": low, "high": high, "kind": band.get("kind", ""), "label": band.get("label", "")})
     return out
 
 
-def _quiz_answer(
-    payload: Mapping[str, object], result: GradeResult, _config: BaseModel
-) -> dict[str, object]:
+def _quiz_answer(payload: Mapping[str, object], result: GradeResult, _config: BaseModel) -> dict[str, object]:
     revealed = revealed_mapping(result)
     kind = str(payload.get("kind", "single_choice"))
     answer: dict[str, object] = {"kind": kind}
@@ -219,9 +211,7 @@ CHART_TYPES = frozenset(
 # --- building ------------------------------------------------------------------------------------
 
 
-def build_print_exercise(
-    registry: CourseRegistry, exercise_id: str, locale: str
-) -> dict[str, object]:
+def build_print_exercise(registry: CourseRegistry, exercise_id: str, locale: str) -> dict[str, object]:
     """One exercise as it will be printed: the frozen instance, and the answer to it.
 
     Raises ``PrintExerciseError`` with a reader-facing reason for anything that cannot be printed.

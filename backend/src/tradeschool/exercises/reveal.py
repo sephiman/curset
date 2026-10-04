@@ -98,9 +98,7 @@ def reveal(
     submission = submission_for(first.correct_answer)
     verified = generator.grade(config, seed, submission, locale)
     if not verified.correct:
-        raise RevealError(
-            f"the revealed answer {submission!r} does not grade as correct for seed {seed}"
-        )
+        raise RevealError(f"the revealed answer {submission!r} does not grade as correct for seed {seed}")
     return Revealed(submission=submission, result=verified)
 
 
