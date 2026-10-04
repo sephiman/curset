@@ -1,15 +1,16 @@
 # Content export — 2026-10-03 (run 2026-10-04)
 
 **Outcome: exported.** The bundle (format 2) is in `dist/bundle/`, with fingerprint
-**`109ff2c3f3b6c143cffaeef826027b31a5d5ae0aaf9763a997a40255282931d9`**. The contracts in
+**`a49624d8719c9831d828d6dfe31e751522e1a307e0854d4e55bbfb2063c16e95`**. The contracts in
 `dist/contracts/` were regenerated and are byte-identical to round 7.
 
 The first run of this session stopped at the suite: two lessons had broken lists. With authorisation,
 the breaks were fixed with markers and whitespace only, and a committed check now catches that class
-(section 2.2). Then the full suite ran green and the export went ahead. Nothing is committed (section
-6.4).
+(section 2.2). Then the full suite ran green and the export went ahead. A follow-up aligned EN m09-l2's
+body with its summary and re-exported (section 2.4). Nothing is committed (section 6.4).
 
-- Tree: HEAD `e8e9f26` ("final cleanup"), plus the uncommitted files listed in section 6.4.
+- Tree: HEAD `bdc11d0` ("bundle prepared", which holds the list repair, the new check and the reports),
+  plus the uncommitted EN m09-l2 change listed in section 6.4.
 - Baseline: `eecbf11` ("Round 7 of improvements"). It is the last commit whose handoff records a bundle
   export (`docs/content-round-7-handoff.md`, fingerprint `9e7facd5f0a3502d…`). A copy of that export
   was taken before anything was overwritten, and every comparison below is against it.
@@ -47,7 +48,7 @@ None was changed in this session.
 
 | Summary | Commit | Change | Ledger entry | Why one locale only | Other locale needs it? |
 | --- | --- | --- | --- | --- | --- |
-| m09-l2, EN | `ba3bd5c` | "a stab below support" → "a brief dip below support" | `prose-pass-ledger.md:3472` (final step, session 6: "the m09 lesson summary, EN…"); the decision itself is at `:64` («estocada» / "stab" → «caída breve» / "brief dip") | the ES summary never had «estocada». It says «pinchazo», the word its own lesson uses (`es/m09-l2.md:20, 58, 132`) | **ES: no.** **But EN is now inconsistent with itself:** the EN lesson body still says "stab" four times (`en/m09-l2.md:20, 55, 57, 122`, incl. "stab-and-recovery"), and the summary, which describes that lesson, says "brief dip". Either the EN lesson takes the decision too, or the summary goes back to "stab". That is your call |
+| m09-l2, EN | `ba3bd5c` | "a stab below support" → "a brief dip below support" | `prose-pass-ledger.md:3472` (final step, session 6: "the m09 lesson summary, EN…"); the decision itself is at `:64` («estocada» / "stab" → «caída breve» / "brief dip") | the ES summary never had «estocada». It says «pinchazo», the word its own lesson uses (`es/m09-l2.md:20, 58, 132`) | **ES: no.** The EN lesson body still said "stab" four times, against its own summary. **Resolved by your decision: the body now follows the summary** (section 2.4) |
 | m21-l1, ES | `0b3f02c` | «un carry concurrido» → «un carry saturado» | `prose-pass-ledger.md:1985`: "«carry concurrido» → «carry saturado» (body and summary). EN "crowded carry" stays, because it is the standard English term" | «concurrido» was a coined ES term (decisions table, `:221`); "crowded" is standard EN | **No** |
 | m27-l1, ES | `fbe5735` (pilot) | «un freno diario fijado» → «un límite de pérdida diaria fijado» | `prose-pilot-ledger.md:14` | «freno diario» was a coined ES term; EN "daily stop" is the standard term and `g-daily-stop`'s EN form (`prose-pilot-ledger.md:13`) | **No** |
 | module m27, ES | `fbe5735` | «el freno diario que termina…» → «el límite de pérdida diaria que termina…» | `prose-pass-ledger.md:262` | same as m27-l1 | **No** |
@@ -138,13 +139,13 @@ The root `README.md` gained one paragraph about this guard, next to the lesson-r
 
 | Check | Result |
 | --- | --- |
-| backend `pytest` (whole suite, Docker up) | **1300 passed, 20 skipped**, exit 0. No backend test reads the four regenerated report files, so this run covers the final tree |
-| frontend `vitest run` (whole suite) | **508 passed, 1 skipped** (`src/lib/pdf/emit.test.ts`, opt-in), exit 0. That is round 7's 458 plus the 50 new list-shape cases |
+| backend `pytest` (whole suite, Docker up) | **1300 passed, 20 skipped**, exit 0. Rerun after the m09-l2 follow-up: **1300 passed, 20 skipped** again |
+| frontend `vitest run` (whole suite) | **508 passed, 1 skipped** (`src/lib/pdf/emit.test.ts`, opt-in), exit 0. That is round 7's 458 plus the 50 new list-shape cases. Rerun after the m09-l2 follow-up: the same |
 | glossary-link report test | pass, both locales |
 | cross-reference check (`lib/refs/report.test.ts`) | pass, both locales: 228 references each, 0 dangling, no self-links, locale parity |
 | list structure (`lib/refs/listShape.test.ts`) | pass: 44 lessons in parity, 0 stray markers in either locale |
 | figure/prose coupling (`test_figure_prose_coupling.py`) | pass (inside pytest) |
-| `export_bundle.py --verify-only` (on `dist/bundle`) | **exit 0**: text diff 0 (prose and glossary multisets, all 88 lessons block for block), block inventory OK (88 ASTs), exercise refs OK (242 marks), fingerprint `109ff2c3…` verified against 98 files |
+| `export_bundle.py --verify-only` (on `dist/bundle`) | **exit 0**: text diff 0 (prose and glossary multisets, all 88 lessons block for block), block inventory OK (88 ASTs), exercise refs OK (242 marks), fingerprint `109ff2c3…` verified against 98 files. After the m09-l2 follow-up: fingerprint `a49624d8…`, exit 0 again |
 | `verify_golden_stability.py` | **exit 0**: 90 committed fingerprints hold (84 golden + 6 pinned). Digest `f0ae701b30569a03…`; see the note below |
 | glossary-term presence ((lesson, term) pairs vs `eecbf11`) | moved; every move is explained in the table below. Identical to HEAD |
 | lead-in / emphasis rules (round-5 classifier, re-run) | pass: ES 491 and EN 496 bold spans, the same totals as round 5. No lesson gained a bold span that is neither a lead-in nor its kept emphasis. The other differences from `eecbf11` are wording inside existing spans |
@@ -174,6 +175,38 @@ Round 7 recorded `6999679392b682a2…`. This machine prints `f0ae701b…`, and i
 over the `eecbf11` content tree (`CONTENT_DIR=<git archive eecbf11 content>`). So no content edit
 moved it. The difference is environmental: Python 3.14.7, numpy 2.5.1, SIMD X86_V3. The 90 committed
 pins hold, and that is what the exit code certifies. The digest is not committed anywhere.
+
+### 2.4 Follow-up: EN m09-l2 aligned with its summary
+
+The decision was «estocada» / "stab" → «caída breve» / "brief dip" (`prose-pass-ledger.md:64`). It
+reached the EN m09-l2 summary in `ba3bd5c`, but not the EN lesson body. On instruction, the body now
+follows the summary. ES is unchanged: its lesson and its summary both use «pinchazo».
+
+| Line | Before | After |
+| --- | --- | --- |
+| `en/m09-l2.md:20` | …the churn, the stab below support that recovers… | …the churn, the brief dip below support that recovers… |
+| `en/m09-l2.md:55` | price stabs *below* support | price dips *below* support (the next sentence already says it snaps back within three or four candles) |
+| `en/m09-l2.md:57` | That stab-and-recovery is the spring | That dip-and-recovery is the spring (the brevity is stated just before) |
+| `en/m09-l2.md:122` | A stab below support that keeps falling… | A brief dip below support that keeps falling… (the summary's own wording) |
+
+Every other word is untouched. "a brief dip below support" is the form m29-l1 and m30-l1 already use.
+
+Checks after the change:
+- "dip" is not a glossary match form, and no guard phrase or coupling note quotes "stab".
+- The four reports were regenerated and are **byte-identical**: no mark or reference sits near these
+  words.
+- The list check passes 50 / 50.
+- Vitest: 508 passed, 1 skipped. Pytest: 1300 passed, 20 skipped.
+
+Re-export:
+- **Only `ast/en/m09-l2.json` moved**, and the fingerprint went from `109ff2c3…` to **`a49624d8…`**.
+- EN prose tokens rose by exactly 2 (71390 → 71392), the two added "brief".
+- reading-seconds.json and every other manifest field are unchanged.
+
+Out of scope and left as they are: four plain-verb uses of "stab" for price action elsewhere —
+`en/m04-l1.md:55` ("stabbed straight through the level"), `en/m04-l1.md:107`, `en/m06-l1.md:122`, and
+the matching `exercises/m04-ex-3.yaml:193`. They describe a candle moving through a price, not the
+spring.
 
 ---
 
@@ -241,7 +274,7 @@ section "The Android bundle and the port's contracts":
 Written to `/home/juanjo/PycharmProjects/tradeschool/dist/` on 2026-10-04 08:37–08:38, from `backend/`:
 
 ```bash
-uv run python scripts/export_bundle.py                    # -> dist/bundle/  (format 2, fingerprint 109ff2c3…)
+uv run python scripts/export_bundle.py                    # -> dist/bundle/  (format 2, fingerprint a49624d8…)
 uv run python scripts/export_bundle.py --verify-only      # exit 0
 uv run python scripts/export_generation_goldens.py        # -> dist/contracts/generation-goldens/
 uv run python scripts/export_prng_vectors.py              # -> dist/contracts/prng-vectors/
@@ -249,7 +282,9 @@ uv run python scripts/export_libm_parity.py               # -> dist/contracts/li
 uv run python scripts/verify_golden_stability.py          # exit 0, 90/90
 ```
 
-All six exited 0. The transfer to the app is the next step, and it was not run:
+All six exited 0. The bundle export and `--verify-only` were rerun after the m09-l2 follow-up, and both
+exited 0. The contract exporters and the stability script were not rerun: a lesson body is not one of
+their inputs, and `dist/contracts/` is still byte-identical to round 7. The transfer to the app is the next step, and it was not run:
 `uv run python scripts/export_contracts_to_android.py --target ~/IdeaProjects/tradeschool-android`.
 
 ---
@@ -289,7 +324,7 @@ fig-m19-liquidity-sweep, fig-m34-imbalance, fig-m34-origin-zone.
 
 | Bundle file(s) that moved | Source cause |
 | --- | --- |
-| `ast/{en,es}/*.json` (88) | the 88 lesson files (prose pass; m22-l1 and m23-l1 also this session's list repair) |
+| `ast/{en,es}/*.json` (88) | the 88 lesson files (prose pass; m22-l1 and m23-l1 also this session's list repair; EN m09-l2 also the "stab" alignment) |
 | `ast/index.json` | the per-locale node census changed with the lessons |
 | `manifest.json` | the 44 `course.yaml` fields, the term count and the fingerprint |
 | `glossary/glossary.{en,es}.json` | `glossary.yaml` |
@@ -309,27 +344,18 @@ format version is still 2, and the changelog needs no entry. The Android repo it
 
 ### 6.4 State of the tree
 
-**Not clean.** HEAD is `e8e9f26acb7c2119a21cf7e23b2de04162d6898e`, and the export was taken from HEAD
-**plus** these uncommitted changes, all from this session:
+**Not clean, by one export input.** HEAD is `bdc11d0` ("bundle prepared"). That commit holds this
+session's list repair, the four regenerated reports, the list-shape check, the README paragraph and the
+first version of this doc. The current `dist/bundle` (fingerprint `a49624d8…`) was exported from
+`bdc11d0` **plus** these uncommitted changes:
 
 ```
- M content/en/lessons/m22-l1.md        list repair (markers and whitespace only)
- M content/en/lessons/m23-l1.md        list repair
- M content/es/lessons/m22-l1.md        list repair
- M content/es/lessons/m23-l1.md        list repair
- M content/glossary-links.en.txt       regenerated, context column only
- M content/glossary-links.es.txt       regenerated, context column only
- M content/lesson-refs.en.txt          regenerated, context column only
- M content/lesson-refs.es.txt          regenerated, context column only
- M README.md                           the list-shape guard paragraph
-?? frontend/src/lib/refs/listShape.ts
-?? frontend/src/lib/refs/listShape.test.ts
-?? docs/content-export-2026-10-03.md   this file
+ M content/en/lessons/m09-l2.md        "stab" → "brief dip" / "dip" (section 2.4)
+ M docs/content-export-2026-10-03.md   this file (not an export input)
 ```
 
-**Fingerprint `109ff2c3…` cannot be reproduced from `e8e9f26`.** HEAD alone exports `c417c64d…`, the
-broken lists. The first eight files are export inputs: four are read directly, and the four report
-goldens pin the annotator. Committing those eight files exactly as they are makes the export
-reproducible. The other four files are not export inputs, so they do not affect the fingerprint.
-`export_contracts_to_android.py` would record this tree as dirty and list these paths, so commit
-before running the transfer.
+**Fingerprint `a49624d8…` cannot be reproduced from `bdc11d0`.** `bdc11d0` alone exports `109ff2c3…`.
+Committing `content/en/lessons/m09-l2.md` exactly as it is makes the export reproducible. The four
+report goldens did not change with it, so they are already correct in `bdc11d0`.
+`export_contracts_to_android.py` records a dirty tree and lists its paths, so commit before running the
+transfer.
