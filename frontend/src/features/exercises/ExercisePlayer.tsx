@@ -11,6 +11,8 @@ import { ChartExercise } from "@/features/exercises/ChartExercise";
 import { QuizExercise } from "@/features/exercises/QuizExercise";
 import { Prose } from "@/lib/markdown";
 import { cn } from "@/lib/cn";
+import { useCourse } from "@/features/courses/CourseContext";
+import { ReportQuestion } from "@/features/reports/ReportQuestion";
 
 const CHART_TYPES: ReadonlySet<ExerciseType> = new Set([
   "synthetic_chart",
@@ -30,11 +32,12 @@ export function ExercisePlayer({
 }) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
+  const { scope } = useCourse();
   const [instance, setInstance] = useState<AttemptInstance | null>(null);
   const [result, setResult] = useState<GradeResponse | null>(null);
 
   const start = useMutation({
-    mutationFn: () => createAttempt(exerciseId),
+    mutationFn: () => createAttempt(scope, exerciseId),
     meta: { silentSuccess: true },
     onSuccess: (inst) => {
       setResult(null);
@@ -43,11 +46,11 @@ export function ExercisePlayer({
   });
 
   const answer = useMutation({
-    mutationFn: (a: Answer) => answerAttempt(instance!.attemptId, a),
+    mutationFn: (a: Answer) => answerAttempt(scope, instance!.attemptId, a),
     meta: { silentSuccess: true },
     onSuccess: (res) => {
       setResult(res);
-      void queryClient.invalidateQueries({ queryKey: ["attempts", exerciseId] });
+      void queryClient.invalidateQueries({ queryKey: ["attempts", scope.slug, exerciseId] });
     },
   });
 
@@ -106,9 +109,13 @@ export function ExercisePlayer({
             />
           )}
           {result && (
-            <Button className="mt-4" variant="secondary" onClick={() => start.mutate()} disabled={start.isPending}>
-              {t("exercise.tryAgain")}
-            </Button>
+            <div className="mt-4 flex flex-wrap items-start gap-3">
+              <Button variant="secondary" onClick={() => start.mutate()} disabled={start.isPending}>
+                {t("exercise.tryAgain")}
+              </Button>
+              {/* Multiple choice only, and only once answered: the report must never be a way to ask. */}
+              {instance.type === "quiz" && <ReportQuestion key={instance.attemptId} attemptId={instance.attemptId} />}
+            </div>
           )}
         </div>
       )}

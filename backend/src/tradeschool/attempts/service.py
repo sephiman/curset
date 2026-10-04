@@ -69,6 +69,7 @@ async def open_attempt(
         update(Attempt)
         .where(
             Attempt.user_id == user_id,
+            Attempt.course_id == registry.slug,
             Attempt.exercise_id == exercise_key,
             Attempt.state == AttemptState.OPEN,
             Attempt.exam_session_id.is_(None),
@@ -77,6 +78,7 @@ async def open_attempt(
     )
     attempt = Attempt(
         user_id=user_id,
+        course_id=registry.slug,
         exercise_id=exercise_key,
         seed=seed,
         instance_snapshot={
@@ -94,9 +96,12 @@ async def open_attempt(
     )
 
 
-async def _load_owned(session: AsyncSession, user_id: uuid.UUID, attempt_id: uuid.UUID) -> Attempt:
+async def load_owned(
+    session: AsyncSession, registry: CourseRegistry, user_id: uuid.UUID, attempt_id: uuid.UUID
+) -> Attempt:
+    """The user's attempt IN this course; another course's attempt 404s exactly like an unknown id."""
     attempt = await session.get(Attempt, attempt_id)
-    if attempt is None or attempt.user_id != user_id:
+    if attempt is None or attempt.user_id != user_id or attempt.course_id != registry.slug:
         raise AppError("ATTEMPT_NOT_FOUND", "No such attempt.", status_code=404)
     return attempt
 
@@ -109,7 +114,7 @@ async def submit_answer(
     answer: Mapping[str, object],
     locale: str,
 ) -> tuple[Attempt, GradeResult]:
-    attempt = await _load_owned(session, user_id, attempt_id)
+    attempt = await load_owned(session, registry, user_id, attempt_id)
     if attempt.state != AttemptState.OPEN:
         raise AppError("ATTEMPT_ALREADY_RESOLVED", "This attempt is already resolved.", status_code=409)
 
@@ -144,7 +149,7 @@ async def review_attempt(
     attempt_id: uuid.UUID,
     locale: str,
 ) -> AttemptReview:
-    attempt = await _load_owned(session, user_id, attempt_id)
+    attempt = await load_owned(session, registry, user_id, attempt_id)
     display_id = _display_id(registry, attempt)
     exercise_type, config = _resolve(registry, display_id)
     generator = get_generator(exercise_type)
@@ -174,6 +179,7 @@ async def user_attempts(
         select(Attempt)
         .where(
             Attempt.user_id == user_id,
+            Attempt.course_id == registry.slug,
             Attempt.exercise_id == exercise_key,
             Attempt.exam_session_id.is_(None),
         )

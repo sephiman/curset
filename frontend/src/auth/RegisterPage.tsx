@@ -6,6 +6,7 @@ import { apiErrorMessage } from "@/api/client";
 import { useAuth } from "@/auth/AuthContext";
 import { AuthCard } from "@/auth/AuthCard";
 import { Button, Input, Label } from "@/components/ui/primitives";
+import { CourseChoices } from "@/features/courses/CourseChoices";
 
 const MIN_PASSWORD = 8;
 const USERNAME_RE = /^[a-z0-9_-]{3,32}$/;
@@ -18,16 +19,18 @@ export function RegisterPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  // Sign-up asks for the account first, then which courses interest the learner (R5.4).
+  const [step, setStep] = useState<"account" | "courses">("account");
+  const [courses, setCourses] = useState<string[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
   if (user) return <Navigate to="/" replace />;
 
-  async function onSubmit(e: FormEvent) {
+  function onAccountSubmit(e: FormEvent) {
     e.preventDefault();
     setError(null);
-    const uname = username.trim().toLowerCase();
-    if (!USERNAME_RE.test(uname)) {
+    if (!USERNAME_RE.test(username.trim().toLowerCase())) {
       setError(t("auth.usernameInvalid"));
       return;
     }
@@ -35,10 +38,16 @@ export function RegisterPage() {
       setError(t("auth.passwordTooShort", { count: MIN_PASSWORD }));
       return;
     }
+    setStep("courses");
+  }
+
+  async function onSubmit(e: FormEvent) {
+    e.preventDefault();
+    setError(null);
     setBusy(true);
     try {
       const locale = (i18n.resolvedLanguage === "es" ? "es" : "en") as Locale;
-      await register(uname, password, locale, email.trim() || null);
+      await register(username.trim().toLowerCase(), password, locale, email.trim() || null, courses);
       navigate("/", { replace: true });
     } catch (err) {
       setError(apiErrorMessage(err, t));
@@ -49,7 +58,19 @@ export function RegisterPage() {
 
   return (
     <AuthCard title={t("auth.registerTitle")}>
-      <form onSubmit={onSubmit} className="space-y-4">
+      {step === "courses" ? (
+        <form onSubmit={onSubmit} className="space-y-4">
+          <CourseChoices chosen={courses} onChange={setCourses} />
+          {error && <p className="text-sm text-red-600 dark:text-red-400">{error}</p>}
+          <Button type="submit" disabled={busy} className="w-full">
+            {busy ? t("common.loading") : t("auth.registerAction")}
+          </Button>
+          <Button variant="ghost" className="w-full" onClick={() => setStep("account")} disabled={busy}>
+            {t("common.back")}
+          </Button>
+        </form>
+      ) : (
+      <form onSubmit={onAccountSubmit} className="space-y-4">
         <div>
           <Label htmlFor="username">{t("auth.username")}</Label>
           <Input id="username" type="text" autoComplete="username" autoCapitalize="none" spellCheck={false} required minLength={3} maxLength={32} value={username} onChange={(e) => setUsername(e.target.value)} />
@@ -66,10 +87,11 @@ export function RegisterPage() {
           <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">{t("account.emailHint")}</p>
         </div>
         {error && <p className="text-sm text-red-600 dark:text-red-400">{error}</p>}
-        <Button type="submit" disabled={busy} className="w-full">
-          {busy ? t("common.loading") : t("auth.registerAction")}
+        <Button type="submit" className="w-full">
+          {t("common.continue")}
         </Button>
       </form>
+      )}
       <p className="mt-4 text-center text-sm text-gray-500 dark:text-gray-400">
         {t("auth.haveAccount")}{" "}
         <Link to="/login" className="font-medium text-primary hover:underline">

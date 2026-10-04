@@ -9,7 +9,8 @@ import { AttemptResult } from "@/features/exercises/AttemptResult";
 import { ChartExercise } from "@/features/exercises/ChartExercise";
 import { cn } from "@/lib/cn";
 import { Prose } from "@/lib/markdown";
-import { coursePath } from "@/components/layout/nav";
+import { scopeKey, useCourse } from "@/features/courses/CourseContext";
+import { ReportQuestion } from "@/features/reports/ReportQuestion";
 import { ProseReferenceHost } from "@/features/references/ProseReferenceHost";
 
 const CHART_TYPES: ReadonlySet<ExerciseType> = new Set(["synthetic_chart", "fixture_chart", "pattern_chart"]);
@@ -59,10 +60,11 @@ export function ExamReview() {
   const { t, i18n } = useTranslation();
   const lang = i18n.resolvedLanguage;
   const { examId = "" } = useParams();
+  const { scope, path } = useCourse();
 
   const { data: exam, isLoading, isError } = useQuery({
-    queryKey: ["exam", examId, "review", lang],
-    queryFn: () => reviewExam(examId),
+    queryKey: ["exam", ...scopeKey(scope), examId, "review"],
+    queryFn: () => reviewExam(scope, examId),
     retry: false,
   });
 
@@ -77,7 +79,7 @@ export function ExamReview() {
     return (
       <div className="py-16 text-center text-gray-500">
         <p>{t("exam.notFound")}</p>
-        <Link to={coursePath("/exams")} className="text-sm text-primary hover:underline">
+        <Link to={path("/exams")} className="text-sm text-primary hover:underline">
           ← {t("nav.exams")}
         </Link>
       </div>
@@ -91,7 +93,7 @@ export function ExamReview() {
     <ProseReferenceHost>
     <div className="mx-auto max-w-2xl space-y-6">
       <div>
-        <Link to={coursePath("/exams")} className="text-sm text-primary hover:underline">
+        <Link to={path("/exams")} className="text-sm text-primary hover:underline">
           ← {t("nav.exams")}
         </Link>
         <h1 className="mt-2 text-2xl font-bold">{scopeName}</h1>
@@ -171,6 +173,11 @@ export function ExamReview() {
               <div className="mt-2">
                 <Prose markdown={q.prompt} />
               </div>
+              {q.type === "quiz" && (
+                <div className="mt-2 flex flex-wrap gap-3">
+                  <ReportQuestion attemptId={q.attemptId} />
+                </div>
+              )}
               <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">
                 <span className="font-medium">{t("exam.yourAnswer")}:</span>{" "}
                 <span className={cn(q.unanswered && "text-gray-400 italic dark:text-gray-500")}>

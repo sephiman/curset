@@ -7,6 +7,7 @@ import { useAuth } from "@/auth/AuthContext";
 import { useMailFeature } from "@/auth/useMailFeature";
 import { Badge, Button, Card, Input, Label } from "@/components/ui/primitives";
 import { showToast } from "@/lib/toastBus";
+import { CourseSettings } from "@/features/courses/CourseSettings";
 
 function EmailStatus({ user, mail }: { user: Me; mail: boolean | undefined }) {
   const { t } = useTranslation();
@@ -108,6 +109,7 @@ export function AccountPage() {
         <EmailForm key={user.email ?? ""} user={user} />
         <EmailStatus user={user} mail={mail} />
       </Card>
+      <CourseSettings />
     </div>
   );
 }

@@ -37,6 +37,7 @@ from scripts.export_bundle import (  # noqa: E402
     CALLOUT_TONES,
     LEAF_SLOTS,
     MAX_HEADING_DEPTH,
+    BundleError,
     build_ast_input,
     build_error_phrases,
     build_exercise_configs,
@@ -531,3 +532,10 @@ def test_the_exercise_prose_paths_resolve_against_the_exported_config(registry: 
             for index in (i for i in indexes.rstrip("]").split("][") if i):
                 config = config[int(index)]
         assert config == entry["text"], f"{entry['exerciseId']} {entry['path']}"
+
+
+def test_only_the_crypto_futures_course_is_ever_bundled() -> None:
+    """The Android app is that one course: asked to bundle another, the tool refuses."""
+    other = Path(__file__).resolve().parent / "fixtures" / "content" / "fixture-oposiciones"
+    with pytest.raises(BundleError, match="only 'crypto-futures' is exported"):
+        load_content_registry(other)

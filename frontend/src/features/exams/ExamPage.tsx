@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { getCourse, type CourseBlock } from "@/api/course";
+import type { CourseBlock } from "@/api/course";
 import {
   examHistory,
   getOpenExams,
@@ -12,7 +12,8 @@ import {
 } from "@/api/exams";
 import { Badge, Button, Card, Spinner } from "@/components/ui/primitives";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
-import { coursePath } from "@/components/layout/nav";
+import { scopeKey, useCourse } from "@/features/courses/CourseContext";
+import { useCourseTree } from "@/features/course/queries";
 
 function pct(score: number | null): string {
   return score == null ? "—" : `${Math.round(score * 100)}%`;
@@ -29,15 +30,24 @@ export function ExamPage() {
   const navigate = useNavigate();
   const qc = useQueryClient();
 
-  const { data: open } = useQuery({ queryKey: ["exam", "open", lang], queryFn: getOpenExams });
-  const { data: course } = useQuery({ queryKey: ["course", lang], queryFn: getCourse });
-  const { data: history, isLoading } = useQuery({ queryKey: ["exam", "history", lang], queryFn: examHistory });
+  const { scope: courseScope, path } = useCourse();
+
+  const { data: open } = useQuery({
+    queryKey: ["exam", ...scopeKey(courseScope), "open"],
+    queryFn: () => getOpenExams(courseScope),
+  });
+  const { data: course } = useCourseTree();
+  const { data: history, isLoading } = useQuery({
+    queryKey: ["exam", ...scopeKey(courseScope), "history"],
+    queryFn: () => examHistory(courseScope),
+  });
 
   const start = useMutation({
-    mutationFn: ({ scope, blockId }: { scope: ExamScope; blockId?: string }) => startExam(scope, blockId),
+    mutationFn: ({ scope, blockId }: { scope: ExamScope; blockId?: string }) =>
+      startExam(courseScope, scope, blockId),
     onSuccess: (s: ExamSession) => {
-      void qc.invalidateQueries({ queryKey: ["exam"] });
-      navigate(coursePath(`/exams/${s.id}`));
+      void qc.invalidateQueries({ queryKey: ["exam", courseScope.slug] });
+      navigate(path(`/exams/${s.id}`));
     },
   });
 
@@ -83,7 +93,7 @@ export function ExamPage() {
           }}
           onCancel={() => {
             setPending(null);
-            navigate(coursePath(`/exams/${doomed.id}`));
+            navigate(path(`/exams/${doomed.id}`));
           }}
           // Escape and the backdrop mean "I did not mean to press that", not "take me to the exam".
           onDismiss={() => setPending(null)}
@@ -112,7 +122,7 @@ export function ExamPage() {
               {scopeName(sitting.scope, sitting.blockTitle)}
             </p>
           </div>
-          <Button onClick={() => navigate(coursePath(`/exams/${sitting.id}`))}>{t("exam.resume")}</Button>
+          <Button onClick={() => navigate(path(`/exams/${sitting.id}`))}>{t("exam.resume")}</Button>
         </Card>
       ))}
 
@@ -161,7 +171,7 @@ export function ExamPage() {
         ) : (
           <div className="space-y-2">
             {history.map((h) => (
-              <Link key={h.id} to={coursePath(`/exams/${h.id}/review`)} className="block">
+              <Link key={h.id} to={path(`/exams/${h.id}/review`)} className="block">
                 <Card className="flex items-center justify-between gap-3 p-3 hover:border-primary">
                   <div className="min-w-0">
                     <p className="truncate text-sm font-medium">{scopeName(h.scope, h.blockTitle)}</p>

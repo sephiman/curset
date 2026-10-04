@@ -1,17 +1,19 @@
 <!-- SPDX-License-Identifier: AGPL-3.0-only -->
 # Course content
 
-The canonical source of the course. Structure lives in the manifest; prose and generator configs
+The canonical source of every course: one directory per course, `content/<slug>/`, all with the same
+structure and run through the same pipeline. Nothing is shared between courses — no glossary, no
+lesson, no exercise. Inside a course, structure lives in the manifest; prose and generator configs
 live in parallel trees, all keyed by stable IDs.
 
 ```
+<slug>/
 course.yaml           the manifest: course → blocks → modules → lessons → exercises (order = list position)
-en/lessons/*.md       lesson prose (English)      — one file per lesson id
-es/lessons/*.md       lesson prose (Spanish)      — one file per lesson id
+<lang>/lessons/*.md   lesson prose, one tree per language the course declares — one file per lesson id
 exercises/*.yaml      generator config per exercise id (server-generated + server-graded)
-figures/*.yaml        lesson figure specs embedded via ::figure{id=…}
-figure-coupling.yaml  which lesson numbers are approximations of which figure's generated values
-glossary.yaml         the bilingual term list: one or two sentences per term, plus its origin lesson
+figures/*.yaml        lesson figure specs embedded via ::figure{id=…}           (courses with figures only)
+figure-coupling.yaml  which lesson numbers approximate which figure's values  (courses with figures only)
+glossary.yaml         the term list: one or two sentences per term, plus its origin lesson
 glossary-links.*.txt  GENERATED, reviewed, frozen: every term occurrence the annotator marks, per locale
 lesson-refs.*.txt     GENERATED, reviewed, frozen: every mXX / mXX-lN mention in lesson prose and the
                       module/lesson it links to, per locale — zero dangling, asserted in suite
@@ -45,7 +47,7 @@ one, the app needs a renderer for it first. See `phase-w2-bundle-and-contracts.m
 
 `glossary.yaml` **refers, it does not teach.** Every entry distils the lesson that teaches the term
 into one or two sentences and points back at it; anything longer belongs in the lesson. Glossary ids
-join the same permanent, globally-unique namespace as everything above (`g-funding`, `g-premium`), and
+join the same permanent namespace as everything else in the course (`g-funding`, `g-premium`), and
 the loader rejects a collision.
 
 Three shapes: a plain `definition`; `senses` for a term the course genuinely uses in more than one
@@ -115,18 +117,35 @@ mention. Regenerate with:
 cd frontend && UPDATE_LESSON_REFS=1 npx vitest run src/lib/refs/report.test.ts
 ```
 
-The manifest's root is a single **course** (`course: { id, title, subtitle, description }`); its blocks
-follow at the top level. There is one course today — `crypto-futures` — and the structure is ready for
-more. `subtitle` is the book's short name: the cover, the app header and the PDF's document properties
+The manifest's root is a single **course**; its blocks follow at the top level:
+
+```yaml
+course:
+  id: crypto-futures          # the slug: permanent, and the name of this directory
+  title: {en: …, es: …}       # one value per language the course declares, no more, no fewer
+  subtitle: {en: …, es: …}
+  description: {en: …, es: …}
+  languages: [en, es]         # [es] for a Spanish-only course; the first is the fallback
+  status: published           # draft: loaded and checked, never served to users
+  exercise_types: [quiz, calculation, synthetic_chart, pattern_chart]
+```
+
+Every localized text in the course — manifest, exercises, figures, glossary — must carry exactly the
+declared languages. A Spanish-only course has no `en/` tree, and the loader rejects an English string
+left in it. Its ES/EN parity checks simply do not apply. A course without figures (the oposiciones
+courses are multiple-choice only) has no `figures/`, no `figure-coupling.yaml` and no `figures.tsv`,
+and the loader rejects one that carries them. `subtitle` is the book's short name: the cover, the app header and the PDF's document properties
 print the full title, and the PDF's running footer prints the subtitle, which fits on one line.
 
 ## ID convention (read before adding content)
 
-**Content IDs are globally unique across the entire repository** — not per-course. The manifest
-validator rejects any duplicate id at any level (course, block, module, lesson, exercise), and figure
-ids share the same namespace. Since 2026-08-10 every module, lesson, exercise and figure also carries
-a permanent **`key`** in that same namespace — and it is the key, not the id, that reconciliation,
-progress/attempts data, print seeds and glossary origins hang off.
+**Content IDs are unique inside their course** — another course may use `m01`, `m01-l1` or
+`g-funding` for something else. The manifest validator rejects any duplicate id at any level inside a
+course (course, block, module, lesson, exercise), and figure and glossary ids share that course's
+namespace. Since 2026-08-10 every module, lesson, exercise and figure also carries a permanent
+**`key`** in that same namespace — and it is the key, not the id, that reconciliation,
+progress/attempts data, print seeds and glossary origins hang off. The database keys every row by
+`(course, key)`.
 
 Rules:
 
@@ -141,12 +160,10 @@ Rules:
   block (or as a new block) and takes the next free number; if a future module's position is ever
   load-bearing enough to break numeric order, say why in the manifest — the key layer means no data
   moves either way, but the badge cost is real and the comment is the price.
-- **Existing un-prefixed ids and keys belong to `crypto-futures` forever** — never reuse one for
-  something else.
-- **Any future course must namespace all of its ids** with a short course prefix, e.g. a spot-trading
-  course uses `spot-m01`, `spot-m01-l1`, `spot-m01-ex-3`, `fig-spot-m01-…`, `spot-block-a`. This keeps
-  the global namespace collision-free without ever touching the crypto-futures ids.
-- The course id itself is also globally unique (`crypto-futures`, `spot`, …) and is likewise permanent.
+- **A key belongs to its course forever** — never reuse one for something else inside that course.
+- **A new course starts its own namespace** at `block-a`, `m01`, `m01-l1`, `m01-ex-1`, `g-…`; no
+  prefix is needed, because every reference to a module, lesson, term or figure implies its course.
+- The course slug itself is unique across the repository (it is a directory name) and is permanent.
 - The id-versus-position licence still covers ids out of sequence *inside* a lesson (`m19-ex-4`, with
   the reason on file in the manifest).
 
@@ -170,19 +187,15 @@ full module map (lessons, exercises and `fig-*` ids followed their module):
 …and m27→m31, m28→m32, m29→m33, m30→m34. This was the LAST renumbering: the `key` layer exists so a
 future reorder is a pure display change, and ids are permanent from here on regardless.
 
-### Ids are globally unique — confirmed, and permanent
+### Ids are unique per course (since 2026-10-04)
 
-The rule above is the decision, restated because course-scoped URLs are an obvious moment to reopen
-it: **content ids are unique across the whole repository, not per course.** A second course
-self-namespaces (`spot-m01`, `g-spot-funding`) rather than relying on its directory to disambiguate.
-
-The reason it cannot change now: `attempts.exercise_id` and `lesson_completions.lesson_id` store the
-bare key. Per-course uniqueness would mean adding a course column to every key reference and migrating
-existing learner progress — for no gain, since the namespace has room for every course we will write.
-
-The one place a course id IS stored alongside is `exam_sessions.course_id`, which exists so a
-course-scoped by-id route can answer "does this exam belong to this course?" as a field comparison
-rather than by joining through the exam's attempts.
+Until a second course existed the rule was "ids are globally unique, and a second course
+self-namespaces (`spot-m01`)". The multi-course platform (Curset) reversed it: a course is a complete,
+independent unit, and its authors should not have to prefix every id. The cost was paid once, in
+migration `c3d4e5f6a7b8`: every skeleton table's primary key became `(course_id, id)`, and
+`attempts`, `lesson_completions` and `exam_sessions` carry their course. The existing rows all
+belonged to `crypto-futures` and kept their keys, so no seed, printed instance or learner's progress
+moved.
 
 ### What a second course would touch
 

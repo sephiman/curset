@@ -20,8 +20,14 @@ export async function login(username: string, password: string): Promise<Me> {
   return data;
 }
 
-export async function register(username: string, password: string, locale: Locale, email: string | null): Promise<Me> {
-  const { data } = await apiClient.post<Me>("/auth/register", { username, password, locale, email });
+export async function register(
+  username: string,
+  password: string,
+  locale: Locale,
+  email: string | null,
+  courses: string[],
+): Promise<Me> {
+  const { data } = await apiClient.post<Me>("/auth/register", { username, password, locale, email, courses });
   return data;
 }
 

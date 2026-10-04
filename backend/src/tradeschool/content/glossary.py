@@ -3,13 +3,13 @@
 
 from __future__ import annotations
 
-import unicodedata
 from pathlib import Path
 from typing import Self
 
 import yaml
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
+from tradeschool.content.collation import alphabetical_key
 from tradeschool.content.schema import LocalizedText
 
 
@@ -19,7 +19,7 @@ def _plain(text: LocalizedText, where: str) -> None:
     The PDF prints them verbatim into a pdfmake text node and the app renders them as a string, so
     `*emphasis*` would reach the reader as literal asterisks on both surfaces.
     """
-    for locale in ("en", "es"):
+    for locale in sorted(text.languages()):
         value = text.get(locale)
         for markup in ("*", "_`", "`"):
             if markup in value:
@@ -93,8 +93,9 @@ class LocaleLessons(BaseModel):
 class GlossaryTerm(BaseModel):
     model_config = ConfigDict(extra="forbid")
     id: str
-    en: str
-    es: str
+    # Only the languages the course declares; the registry checks the set.
+    en: str | None = None
+    es: str | None = None
     # Omitted only by a pure homonym, where there is no single teaching lesson and each sense
     # carries its own origin instead.
     origin: str | None = None
@@ -107,7 +108,13 @@ class GlossaryTerm(BaseModel):
     link_except: list[str] | LocaleLessons = Field(default_factory=list)
 
     def term(self, locale: str) -> str:
-        return self.es if locale == "es" else self.en
+        value = self.es if locale == "es" else self.en
+        if value is None:
+            raise LookupError(f"glossary {self.id!r} has no {locale!r} term")
+        return value
+
+    def languages(self) -> set[str]:
+        return {locale for locale in ("en", "es") if getattr(self, locale) is not None}
 
     def origins(self) -> list[str]:
         """Every lesson this entry points back at — its own, or one per sense."""
@@ -176,14 +183,7 @@ class Glossary(BaseModel):
 
     def sorted_terms(self, locale: str) -> list[GlossaryTerm]:
         """Alphabetical in `locale`, accent-insensitive — the two locales sort differently by design."""
-        return sorted(self.terms, key=lambda t: _sort_key(t.term(locale)))
-
-
-def _sort_key(value: str) -> str:
-    """Fold case and accents so `emisión` sorts with `e`, not after `z`."""
-    lowered = value.casefold()
-    stripped = unicodedata.normalize("NFD", lowered)
-    return "".join(c for c in stripped if unicodedata.category(c) != "Mn")
+        return sorted(self.terms, key=lambda t: alphabetical_key(t.term(locale)))
 
 
 def load_glossary(content_dir: Path, lesson_keys: set[str], taken_ids: set[str]) -> Glossary:

@@ -20,8 +20,8 @@ from tradeschool.attempts.models import Attempt
 from tradeschool.auth.backend import current_active_user
 from tradeschool.auth.models import User
 from tradeschool.content.registry import CourseRegistry
-from tradeschool.content.router import get_registry
 from tradeschool.db import get_async_session
+from tradeschool.deps import get_registry
 from tradeschool.errors import AppError
 from tradeschool.exercises.pattern_chart import PatternChartConfig, PatternChartGenerator
 from tradeschool.exercises.registry import get_generator
@@ -245,7 +245,11 @@ async def dev_attempts(
         return []
     rows = await session.scalars(
         select(Attempt)
-        .where(Attempt.user_id == user.id, Attempt.exercise_id == exercise_key)
+        .where(
+            Attempt.user_id == user.id,
+            Attempt.course_id == registry.slug,
+            Attempt.exercise_id == exercise_key,
+        )
         .order_by(Attempt.created_at.desc())
     )
     return [

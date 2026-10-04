@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Error envelope {code, message, fields?}, matching `ApiError` so the UI localises by `errors.<code>`."""
+"""Error envelope {code, message, fields?, ...extra}, matching `ApiError` so the UI localises by code."""
 
 from __future__ import annotations
 
@@ -20,16 +20,24 @@ class AppError(Exception):
         *,
         status_code: int = status.HTTP_400_BAD_REQUEST,
         fields: dict[str, str] | None = None,
+        extra: dict[str, object] | None = None,
     ) -> None:
         super().__init__(message)
         self.code = code
         self.message = message
         self.status_code = status_code
         self.fields = fields
+        # Machine-readable context the client needs to word the error (e.g. a course's languages).
+        self.extra = extra
 
 
-def _envelope(code: str, message: str, fields: dict[str, str] | None = None) -> dict[str, object]:
-    body: dict[str, object] = {"code": code, "message": message}
+def _envelope(
+    code: str,
+    message: str,
+    fields: dict[str, str] | None = None,
+    extra: dict[str, object] | None = None,
+) -> dict[str, object]:
+    body: dict[str, object] = {**(extra or {}), "code": code, "message": message}
     if fields:
         body["fields"] = fields
     return body
@@ -54,7 +62,7 @@ def register_exception_handlers(app: FastAPI) -> None:
     async def _app_error(_: Request, exc: AppError) -> JSONResponse:
         return JSONResponse(
             status_code=exc.status_code,
-            content=_envelope(exc.code, exc.message, exc.fields),
+            content=_envelope(exc.code, exc.message, exc.fields, exc.extra),
         )
 
     @app.exception_handler(RequestValidationError)

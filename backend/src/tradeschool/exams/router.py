@@ -6,15 +6,14 @@ from __future__ import annotations
 import uuid
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from tradeschool.auth.backend import current_active_user
 from tradeschool.auth.models import User
 from tradeschool.content.registry import CourseRegistry
-from tradeschool.content.router import get_registry
 from tradeschool.db import get_async_session
-from tradeschool.deps import CourseId
+from tradeschool.deps import CourseId, ReadingLocale, get_registry
 from tradeschool.exams import service
 from tradeschool.exams.schemas import (
     ExamAnswerRequest,
@@ -25,14 +24,6 @@ from tradeschool.exams.schemas import (
 
 router = APIRouter(tags=["exams"], prefix="/exams")
 
-LangQuery = Annotated[str | None, Query(pattern="^(en|es)$")]
-
-
-def _locale(lang: str | None, user: User) -> str:
-    if lang in ("en", "es"):
-        return lang
-    return user.locale if user.locale in ("en", "es") else "en"
-
 
 @router.post("", response_model=ExamSessionOut, status_code=201)
 async def start_exam(
@@ -41,10 +32,10 @@ async def start_exam(
     session: Annotated[AsyncSession, Depends(get_async_session)],
     registry: Annotated[CourseRegistry, Depends(get_registry)],
     course: CourseId,
-    lang: LangQuery = None,
+    locale: ReadingLocale,
 ) -> ExamSessionOut:
     view = await service.start_exam(
-        session, registry, user.id, course, payload.scope, payload.blockId, _locale(lang, user)
+        session, registry, user.id, course, payload.scope, payload.blockId, locale
     )
     return ExamSessionOut.build(view)
 
@@ -59,9 +50,9 @@ async def open_exams(
     session: Annotated[AsyncSession, Depends(get_async_session)],
     registry: Annotated[CourseRegistry, Depends(get_registry)],
     course: CourseId,
-    lang: LangQuery = None,
+    locale: ReadingLocale,
 ) -> list[ExamSessionOut]:
-    views = await service.open_exams(session, registry, user.id, course, _locale(lang, user))
+    views = await service.open_exams(session, registry, user.id, course, locale)
     return [ExamSessionOut.build(view) for view in views]
 
 
@@ -71,10 +62,10 @@ async def exam_history(
     session: Annotated[AsyncSession, Depends(get_async_session)],
     registry: Annotated[CourseRegistry, Depends(get_registry)],
     course: CourseId,
-    lang: LangQuery = None,
+    locale: ReadingLocale,
 ) -> list[ExamHistoryItem]:
     sessions = await service.exam_history(session, user.id, course)
-    return [ExamHistoryItem.build(s, registry, _locale(lang, user)) for s in sessions]
+    return [ExamHistoryItem.build(s, registry, locale) for s in sessions]
 
 
 @router.get("/{exam_id}", response_model=ExamSessionOut)
@@ -84,9 +75,9 @@ async def render_exam(
     session: Annotated[AsyncSession, Depends(get_async_session)],
     registry: Annotated[CourseRegistry, Depends(get_registry)],
     course: CourseId,
-    lang: LangQuery = None,
+    locale: ReadingLocale,
 ) -> ExamSessionOut:
-    view = await service.render_exam(session, registry, user.id, exam_id, course, _locale(lang, user))
+    view = await service.render_exam(session, registry, user.id, exam_id, course, locale)
     return ExamSessionOut.build(view)
 
 
@@ -109,9 +100,9 @@ async def submit_exam(
     session: Annotated[AsyncSession, Depends(get_async_session)],
     registry: Annotated[CourseRegistry, Depends(get_registry)],
     course: CourseId,
-    lang: LangQuery = None,
+    locale: ReadingLocale,
 ) -> ExamSessionOut:
-    view = await service.submit_exam(session, registry, user.id, exam_id, course, _locale(lang, user))
+    view = await service.submit_exam(session, registry, user.id, exam_id, course, locale)
     return ExamSessionOut.build(view)
 
 
@@ -122,9 +113,9 @@ async def review_exam(
     session: Annotated[AsyncSession, Depends(get_async_session)],
     registry: Annotated[CourseRegistry, Depends(get_registry)],
     course: CourseId,
-    lang: LangQuery = None,
+    locale: ReadingLocale,
 ) -> ExamSessionOut:
-    view = await service.review_exam(session, registry, user.id, exam_id, course, _locale(lang, user))
+    view = await service.review_exam(session, registry, user.id, exam_id, course, locale)
     return ExamSessionOut.build(view)
 
 

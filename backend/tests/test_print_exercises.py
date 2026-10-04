@@ -32,6 +32,8 @@ from tradeschool.exercises.registry import get_generator
 from tradeschool.exercises.reveal import RevealError, dummy_answer, reveal
 from tradeschool.exercises.types import ExerciseType
 
+API = "/api/courses/crypto-futures"
+
 CREDS = {"username": "printer", "password": "correcthorse"}
 
 _registry: CourseRegistry | None = None
@@ -41,7 +43,7 @@ _built: dict[str, dict[str, Any]] = {}
 def registry() -> CourseRegistry:
     global _registry
     if _registry is None:
-        _registry = load_registry(get_settings().content_dir)
+        _registry = load_registry(get_settings().content_dir / "crypto-futures")
     return _registry
 
 
@@ -336,25 +338,25 @@ async def _auth(client: AsyncClient) -> None:
 
 
 async def test_print_endpoint_requires_auth(content_client: AsyncClient) -> None:
-    assert (await content_client.get("/api/course/print/exercises")).status_code == 401
+    assert (await content_client.get(f"{API}/print/exercises")).status_code == 401
 
 
 async def test_print_endpoint_serves_the_built_document(content_client: AsyncClient) -> None:
     await _auth(content_client)
     for locale in LOCALES:
-        response = await content_client.get(f"/api/course/print/exercises?lang={locale}")
+        response = await content_client.get(f"{API}/print/exercises?lang={locale}")
         assert response.status_code == 200
         doc = response.json()
         assert doc["locale"] == locale
         assert json.dumps(doc, sort_keys=True) == json.dumps(built(locale), sort_keys=True)
         # Cached per locale: the second call is the same document, not a second generation.
-        assert (await content_client.get(f"/api/course/print/exercises?lang={locale}")).json() == doc
+        assert (await content_client.get(f"{API}/print/exercises?lang={locale}")).json() == doc
 
 
 async def test_the_theory_export_is_unchanged_by_all_this(content_client: AsyncClient) -> None:
     """The archive endpoint stays theory-only — the answer key is a separate door."""
     await _auth(content_client)
-    doc = (await content_client.get("/api/course/export?lang=en")).json()
+    doc = (await content_client.get(f"{API}/export?lang=en")).json()
     text = json.dumps(doc)
     assert "::exercise" not in text
     assert not [eid for eid in manifest_exercise_ids() if eid in text]

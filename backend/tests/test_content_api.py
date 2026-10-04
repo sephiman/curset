@@ -9,6 +9,8 @@ from httpx import AsyncClient
 from tradeschool.config import get_settings
 from tradeschool.content.registry import load_registry
 
+API = "/api/courses/crypto-futures"
+
 CREDS = {"username": "student", "password": "correcthorse"}
 
 
@@ -26,14 +28,14 @@ def _module(course: dict[str, Any], module_id: str) -> dict[str, Any]:
 
 
 async def test_course_requires_auth(content_client: AsyncClient) -> None:
-    assert (await content_client.get("/api/course")).status_code == 401
+    assert (await content_client.get(f"{API}")).status_code == 401
 
 
 async def test_course_export_theory_only(content_client: AsyncClient) -> None:
-    assert (await content_client.get("/api/course/export")).status_code == 401  # requires a login
+    assert (await content_client.get(f"{API}/export")).status_code == 401  # requires a login
     await _auth(content_client)
 
-    data = (await content_client.get("/api/course/export?lang=en")).json()
+    data = (await content_client.get(f"{API}/export?lang=en")).json()
     assert data["locale"] == "en"
     assert len(data["blocks"]) == 7  # block-g is the epilogue, appended 2026-08-23
     modules = [m for b in data["blocks"] for m in b["modules"]]
@@ -56,20 +58,20 @@ async def test_course_export_theory_only(content_client: AsyncClient) -> None:
     assert "divergence" in m12["markdown"].lower() and ":::note" in m12["markdown"]
 
     # Spanish export is localized.
-    es = (await content_client.get("/api/course/export?lang=es")).json()
+    es = (await content_client.get(f"{API}/export?lang=es")).json()
     assert es["locale"] == "es"
     assert _module(es, "m18")["title"] == "Sentimiento de masas"
 
     # Download flag serves it as a file attachment, named for what is inside it.
-    dl = await content_client.get("/api/course/export?lang=es&download=true")
-    assert 'filename="tradeschool-course-es.json"' in dl.headers.get("content-disposition", "")
+    dl = await content_client.get(f"{API}/export?lang=es&download=true")
+    assert 'filename="curset-crypto-futures-es.json"' in dl.headers.get("content-disposition", "")
 
 
 async def test_course_export_carries_both_languages_by_default(content_client: AsyncClient) -> None:
     """No `lang` means BOTH languages, not the reader's own."""
     await _auth(content_client)
-    default = (await content_client.get("/api/course/export")).json()
-    explicit = (await content_client.get("/api/course/export?lang=all")).json()
+    default = (await content_client.get(f"{API}/export")).json()
+    explicit = (await content_client.get(f"{API}/export?lang=all")).json()
     assert default == explicit, "an absent lang and lang=all must be the same document"
 
     assert default["locales"] == ["en", "es"]
@@ -82,7 +84,7 @@ async def test_course_export_carries_both_languages_by_default(content_client: A
 
     # Every localized field is paired, and each side matches the single-locale document exactly.
     for locale in ("en", "es"):
-        single = (await content_client.get(f"/api/course/export?lang={locale}")).json()
+        single = (await content_client.get(f"{API}/export?lang={locale}")).json()
         assert single["locale"] == locale
         assert [b["title"][locale] for b in default["blocks"]] == [b["title"] for b in single["blocks"]]
         single_modules = [m for b in single["blocks"] for m in b["modules"]]
@@ -95,8 +97,8 @@ async def test_course_export_carries_both_languages_by_default(content_client: A
     assert m34["markdown"]["en"] != m34["markdown"]["es"]
     assert m34["title"]["es"] == "La terminología SMC (order blocks, FVG, BOS)"
 
-    dl = await content_client.get("/api/course/export?download=true")
-    assert 'filename="tradeschool-course-all.json"' in dl.headers.get("content-disposition", "")
+    dl = await content_client.get(f"{API}/export?download=true")
+    assert 'filename="curset-crypto-futures-all.json"' in dl.headers.get("content-disposition", "")
 
 
 async def test_export_is_complete_against_the_manifest(content_client: AsyncClient) -> None:
@@ -107,7 +109,7 @@ async def test_export_is_complete_against_the_manifest(content_client: AsyncClie
     theory — and that absence is asserted, so wanting them later announces itself here.
     """
     await _auth(content_client)
-    manifest = load_registry(get_settings().content_dir).manifest
+    manifest = load_registry(get_settings().content_dir / "crypto-futures").manifest
     want_blocks = [b.id for b in manifest.blocks]
     want_modules = [m.id for _, m in manifest.iter_modules()]
     want_lessons = [lesson.id for _, lesson in manifest.iter_lessons()]
@@ -115,8 +117,8 @@ async def test_export_is_complete_against_the_manifest(content_client: AsyncClie
     assert want_blocks and want_modules and want_lessons and want_exercises  # the manifest is not empty
 
     for query in ("", "?lang=all", "?lang=en", "?lang=es"):
-        doc = (await content_client.get(f"/api/course/export{query}")).json()
-        where = f"/api/course/export{query or ' (no lang)'}"
+        doc = (await content_client.get(f"{API}/export{query}")).json()
+        where = f"{API}/export{query or ' (no lang)'}"
         blocks = doc["blocks"]
         modules = [m for b in blocks for m in b["modules"]]
         lessons = [lesson for m in modules for lesson in m["lessons"]]
@@ -142,12 +144,12 @@ async def test_export_is_complete_against_the_manifest(content_client: AsyncClie
 
 async def test_course_export_rejects_an_unknown_language(content_client: AsyncClient) -> None:
     await _auth(content_client)
-    assert (await content_client.get("/api/course/export?lang=fr")).status_code == 422
+    assert (await content_client.get(f"{API}/export?lang=fr")).status_code == 422
 
 
 async def test_course_tree_shape(content_client: AsyncClient) -> None:
     await _auth(content_client)
-    course = (await content_client.get("/api/course")).json()
+    course = (await content_client.get(f"{API}")).json()
     assert [b["id"] for b in course["blocks"]] == [
         "block-a", "block-b", "block-c", "block-d", "block-e", "block-f", "block-g",
     ]
@@ -172,18 +174,18 @@ async def test_course_tree_shape(content_client: AsyncClient) -> None:
 
 async def test_lesson_localized_and_has_exercises(content_client: AsyncClient) -> None:
     await _auth(content_client)
-    en = (await content_client.get("/api/lessons/m01-l1?lang=en")).json()
+    en = (await content_client.get(f"{API}/lessons/m01-l1?lang=en")).json()
     assert "crypto" in en["markdown"].lower()
     assert [e["id"] for e in en["exercises"]] == ["m01-ex-1", "m01-ex-2"]
     assert en["exercises"][0]["type"] == "quiz"
 
-    es = (await content_client.get("/api/lessons/m01-l1?lang=es")).json()
+    es = (await content_client.get(f"{API}/lessons/m01-l1?lang=es")).json()
     assert "cripto" in es["markdown"].lower()
 
 
 async def test_missing_lesson_404(content_client: AsyncClient) -> None:
     await _auth(content_client)
-    resp = await content_client.get("/api/lessons/does-not-exist")
+    resp = await content_client.get(f"{API}/lessons/does-not-exist")
     assert resp.status_code == 404
     assert resp.json()["code"] == "LESSON_NOT_FOUND"
 
@@ -191,13 +193,13 @@ async def test_missing_lesson_404(content_client: AsyncClient) -> None:
 async def test_complete_updates_progress_and_clears_prereq(content_client: AsyncClient) -> None:
     await _auth(content_client)
     # m02 assumes m01; before completing anything the notice is present.
-    before = (await content_client.get("/api/course")).json()
+    before = (await content_client.get(f"{API}")).json()
     assert _module(before, "m02")["unmetPrereqs"] == ["m01"]
 
-    done = await content_client.post("/api/lessons/m01-l1/complete")
+    done = await content_client.post(f"{API}/lessons/m01-l1/complete")
     assert done.status_code == 200 and done.json()["completed"] is True
 
-    after = (await content_client.get("/api/course")).json()
+    after = (await content_client.get(f"{API}")).json()
     assert _module(after, "m01")["lessonsCompleted"] == 1
     # Touching m01 clears the advisory prereq on m02.
     assert _module(after, "m02")["unmetPrereqs"] == []
@@ -205,46 +207,46 @@ async def test_complete_updates_progress_and_clears_prereq(content_client: Async
 
 async def test_progress_is_language_independent(content_client: AsyncClient) -> None:
     await _auth(content_client)
-    await content_client.post("/api/lessons/m01-l1/complete")
-    es_course = (await content_client.get("/api/course?lang=es")).json()
+    await content_client.post(f"{API}/lessons/m01-l1/complete")
+    es_course = (await content_client.get(f"{API}?lang=es")).json()
     assert _module(es_course, "m01")["lessonsCompleted"] == 1
 
 
 async def test_complete_is_idempotent(content_client: AsyncClient) -> None:
     await _auth(content_client)
-    assert (await content_client.post("/api/lessons/m01-l1/complete")).status_code == 200
-    assert (await content_client.post("/api/lessons/m01-l1/complete")).status_code == 200
-    course = (await content_client.get("/api/course")).json()
+    assert (await content_client.post(f"{API}/lessons/m01-l1/complete")).status_code == 200
+    assert (await content_client.post(f"{API}/lessons/m01-l1/complete")).status_code == 200
+    course = (await content_client.get(f"{API}")).json()
     assert _module(course, "m01")["lessonsCompleted"] == 1
 
 
 async def test_uncomplete_reverses_the_mark_and_restores_the_prereq(content_client: AsyncClient) -> None:
     """DELETE is the POST's exact inverse: progress, the advisory prereq and the lesson flag all revert."""
     await _auth(content_client)
-    await content_client.post("/api/lessons/m01-l1/complete")
+    await content_client.post(f"{API}/lessons/m01-l1/complete")
 
-    undone = await content_client.delete("/api/lessons/m01-l1/complete")
+    undone = await content_client.delete(f"{API}/lessons/m01-l1/complete")
     assert undone.status_code == 200 and undone.json()["completed"] is False
 
-    course = (await content_client.get("/api/course")).json()
+    course = (await content_client.get(f"{API}")).json()
     assert _module(course, "m01")["lessonsCompleted"] == 0
     # The advisory notice on m02 returns with the mark gone — unmet again, exactly as before.
     assert _module(course, "m02")["unmetPrereqs"] == ["m01"]
-    lesson = (await content_client.get("/api/lessons/m01-l1")).json()
+    lesson = (await content_client.get(f"{API}/lessons/m01-l1")).json()
     assert lesson["completed"] is False
 
 
 async def test_uncomplete_is_idempotent_and_checks_the_lesson_exists(content_client: AsyncClient) -> None:
     await _auth(content_client)
     # Unmarking a lesson that was never marked is a no-op, not an error — the state is the answer.
-    assert (await content_client.delete("/api/lessons/m01-l1/complete")).status_code == 200
-    assert (await content_client.delete("/api/lessons/m01-l1/complete")).status_code == 200
-    assert (await content_client.delete("/api/lessons/nope-l1/complete")).status_code == 404
+    assert (await content_client.delete(f"{API}/lessons/m01-l1/complete")).status_code == 200
+    assert (await content_client.delete(f"{API}/lessons/m01-l1/complete")).status_code == 200
+    assert (await content_client.delete(f"{API}/lessons/nope-l1/complete")).status_code == 404
 
 
 async def test_module_detail_prereqs(content_client: AsyncClient) -> None:
     await _auth(content_client)
-    detail = (await content_client.get("/api/modules/m06?lang=en")).json()
+    detail = (await content_client.get(f"{API}/modules/m06?lang=en")).json()
     assert detail["id"] == "m06"
     assert [a["id"] for a in detail["assumes"]] == ["m05"]
     assert [p["id"] for p in detail["unmetPrereqs"]] == ["m05"]
@@ -260,18 +262,18 @@ async def test_glossary_endpoint_serves_entries_at_its_real_path(
     `glossary_entries()` directly and the frontend test mocked the client — so the URL itself was the
     one thing never exercised. This asserts the path.
     """
-    assert (await content_client.get("/api/glossary")).status_code == 401
+    assert (await content_client.get(f"{API}/glossary")).status_code == 401
     # The mis-remembered path must stay a 404, so a future rename cannot quietly resurrect it.
     assert (await content_client.get("/api/content/glossary")).status_code == 404
     await _auth(content_client)
 
-    response = await content_client.get("/api/glossary?lang=es")
+    response = await content_client.get(f"{API}/glossary?lang=es")
     assert response.status_code == 200
     data = response.json()
     assert data["locale"] == "es"
     assert len(data["terms"]) > 0
 
-    registry = load_registry(get_settings().content_dir)
+    registry = load_registry(get_settings().content_dir / "crypto-futures")
     assert [t["term"] for t in data["terms"]] == [
         e["term"] for e in registry.glossary_entries("es")
     ]

@@ -72,7 +72,9 @@ from tradeschool.exercises.types import ExerciseType  # noqa: E402
 
 #: The repo root, and the two trees this script bridges.
 REPO = _BACKEND.parent
-CONTENT_DIR = REPO / "content"
+#: The Android app is the crypto-futures course and nothing else: no other course is ever bundled.
+BUNDLED_COURSE = "crypto-futures"
+CONTENT_DIR = REPO / "content" / BUNDLED_COURSE
 FRONTEND_DIR = REPO / "frontend"
 DEFAULT_OUT = REPO / "dist" / "bundle"
 I18N_DIR = FRONTEND_DIR / "src" / "i18n"
@@ -255,7 +257,10 @@ def content_fingerprint(files: dict[str, str]) -> str:
 
 def load_content_registry(content_dir: Path = CONTENT_DIR) -> CourseRegistry:
     """The registry this backend builds at startup, with the same validation and no second reader."""
-    return load_registry(content_dir)
+    registry = load_registry(content_dir)
+    if registry.slug != BUNDLED_COURSE:
+        raise BundleError(f"only {BUNDLED_COURSE!r} is exported to the Android bundle, not {registry.slug!r}")
+    return registry
 
 
 def _localized(text: Any) -> dict[str, str]:

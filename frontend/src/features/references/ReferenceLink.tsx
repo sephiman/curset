@@ -6,7 +6,7 @@ import {
   POPOVER_TITLE_ID,
   usePopover,
 } from "@/features/glossary/TermPopover";
-import { coursePath } from "@/components/layout/nav";
+import { useCourse } from "@/features/courses/CourseContext";
 import type { RefTarget } from "@/lib/refs/registry";
 import { cn } from "@/lib/cn";
 
@@ -31,6 +31,7 @@ const GO_ACTION = "data-reference-go";
 
 function ReferenceCard({ target }: { target: RefTarget }) {
   const { t } = useTranslation();
+  const { path } = useCourse();
   const isLesson = target.kind === "lesson";
   return (
     <>
@@ -61,7 +62,7 @@ function ReferenceCard({ target }: { target: RefTarget }) {
       <p className="mt-3">
         <Link
           {...{ [GO_ACTION]: "" }}
-          to={coursePath(target.path)}
+          to={path(target.path)}
           className="font-medium text-primary hover:underline focus:outline-none focus-visible:rounded-xs focus-visible:ring-2 focus-visible:ring-primary"
         >
           {t(isLesson ? "reference.goToLesson" : "reference.goToModule")} →
@@ -79,6 +80,7 @@ export function ReferenceLink({
   children: ReactNode;
 }) {
   const popover = usePopover();
+  const { path } = useCourse();
   const ref = useRef<HTMLAnchorElement>(null);
   const held = useRef(false);
   // Set while this component is handing focus back after a dismissal, so the `focus` that lands on
@@ -115,7 +117,7 @@ export function ReferenceLink({
   return (
     <Link
       ref={ref}
-      to={coursePath(target.path)}
+      to={path(target.path)}
       data-reference-id={target.id}
       aria-describedby={
         popover?.shownKey === key && !pinned ? POPOVER_PANEL_ID : undefined

@@ -4,14 +4,15 @@ import { useTranslation } from "react-i18next";
 import { getModule } from "@/api/course";
 import { formatReadingTime, remainingSeconds } from "@/features/course/readingTime";
 import { Badge, Card, Spinner } from "@/components/ui/primitives";
-import { coursePath, HOME_PATH } from "@/components/layout/nav";
+import { scopeKey, useCourse } from "@/features/courses/CourseContext";
 
 export function ModulePage() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const { moduleId = "" } = useParams();
+  const { scope, path } = useCourse();
   const { data: module, isLoading } = useQuery({
-    queryKey: ["module", moduleId, i18n.resolvedLanguage],
-    queryFn: () => getModule(moduleId),
+    queryKey: ["module", ...scopeKey(scope), moduleId],
+    queryFn: () => getModule(scope, moduleId),
   });
 
   if (isLoading || !module) {
@@ -29,7 +30,7 @@ export function ModulePage() {
   return (
     <div className="space-y-6">
       <div>
-        <Link to={HOME_PATH} className="text-sm text-primary hover:underline">
+        <Link to={path()} className="text-sm text-primary hover:underline">
           ← {t("nav.course")}
         </Link>
         <h1 className="mt-2 text-2xl font-bold">{module.title}</h1>
@@ -47,7 +48,7 @@ export function ModulePage() {
 
       <div className="space-y-2">
         {module.lessons.map((lesson) => (
-          <Link key={lesson.id} to={coursePath(`/lessons/${lesson.id}`)} className="block">
+          <Link key={lesson.id} to={path(`/lessons/${lesson.id}`)} className="block">
             <Card className="flex items-center justify-between gap-3 p-4 hover:border-primary">
               <span className="font-medium">{lesson.title}</span>
               {/* Each row carries the lesson's OWN full estimate — the same number its page shows, and

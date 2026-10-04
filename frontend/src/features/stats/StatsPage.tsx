@@ -6,7 +6,7 @@ import type { TFunction } from "i18next";
 import { getGlobalStats, getMeStats, type ModuleStat, type ReviewTarget } from "@/api/stats";
 import { Card, MiniBar, Spinner } from "@/components/ui/primitives";
 import { MIN_N_FOR_PERCENT, partitionModules, rate, rateShort } from "@/features/stats/format";
-import { coursePath } from "@/components/layout/nav";
+import { scopeKey, useCourse } from "@/features/courses/CourseContext";
 
 /** A census over a known total (lessons marked, exercises passed) — exact, so never a fraction. */
 function censusPct(value: number | null): string {
@@ -40,6 +40,7 @@ const MAX_REVIEW_LINKS = 4;
 /** Links from "you struggle here" to the exercise inside its lesson — the ordinary practice player. */
 function ReviewLinks({ moduleId, targets }: { moduleId: string; targets: ReviewTarget[] }) {
   const { t } = useTranslation();
+  const { path } = useCourse();
   if (targets.length === 0) return null;
   const shown = targets.slice(0, MAX_REVIEW_LINKS);
   const extra = targets.length - shown.length;
@@ -48,7 +49,7 @@ function ReviewLinks({ moduleId, targets }: { moduleId: string; targets: ReviewT
       {shown.map((r) => (
         <Link
           key={r.exerciseId}
-          to={r.lessonId ? `/lessons/${r.lessonId}#ex-${r.exerciseId}` : `/modules/${moduleId}`}
+          to={path(r.lessonId ? `/lessons/${r.lessonId}#ex-${r.exerciseId}` : `/modules/${moduleId}`)}
           title={t(r.passed ? "stats.reviewSolved" : "stats.reviewPending")}
           className={
             r.passed
@@ -60,7 +61,7 @@ function ReviewLinks({ moduleId, targets }: { moduleId: string; targets: ReviewT
         </Link>
       ))}
       {extra > 0 && (
-        <Link to={coursePath(`/modules/${moduleId}`)} className="text-xs text-primary hover:underline">
+        <Link to={path(`/modules/${moduleId}`)} className="text-xs text-primary hover:underline">
           {t("stats.reviewMore", { extra })}
         </Link>
       )}
@@ -96,12 +97,12 @@ function ModuleRow({ m }: { m: ModuleStat }) {
 const TABLE_COLUMNS = 6;
 
 export function StatsPage() {
-  const { t, i18n } = useTranslation();
-  const lang = i18n.resolvedLanguage;
-  // Keyed by locale like every other page: module titles come back localized, so a language switch
-  // has to refetch or the table keeps rendering the previous language's titles.
-  const me = useQuery({ queryKey: ["stats", "me", lang], queryFn: getMeStats });
-  const global = useQuery({ queryKey: ["stats", "global", lang], queryFn: getGlobalStats });
+  const { t } = useTranslation();
+  const { scope } = useCourse();
+  // Keyed by course and reading language like every other page: module titles come back localized,
+  // so a language switch has to refetch or the table keeps rendering the previous language's titles.
+  const me = useQuery({ queryKey: ["stats", "me", ...scopeKey(scope)], queryFn: () => getMeStats(scope) });
+  const global = useQuery({ queryKey: ["stats", "global", ...scopeKey(scope)], queryFn: () => getGlobalStats(scope) });
   const [showUntouched, setShowUntouched] = useState(false);
 
   if (me.isLoading || !me.data) {

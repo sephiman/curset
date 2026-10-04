@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import { MemoryRouter } from "react-router-dom";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { buildRefRegistry } from "@/lib/refs/registry";
+import { InCourse } from "@/test/course";
 
 /**
  * A lesson reference on screen: a real link, titled on hover, silent on touch.
@@ -66,7 +67,7 @@ function mount(node: ReactElement): void {
   host = document.createElement("div");
   document.body.appendChild(host);
   act(() => {
-    createRoot(host).render(node);
+    createRoot(host).render(<InCourse>{node}</InCourse>);
   });
 }
 

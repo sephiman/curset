@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""In-memory course registry: the manifest plus loaded lesson markdown, with localized query
-helpers used by the content endpoints. Built once at startup from `content/`.
+"""In-memory course registries: per course, the manifest plus loaded lesson markdown, with localized
+query helpers used by the content endpoints. Built once at startup from `content/<slug>/`.
 """
 
 from __future__ import annotations
@@ -18,12 +18,14 @@ from tradeschool.content.glossary import Glossary, GlossaryTerm, load_glossary
 from tradeschool.content.reading import estimate_seconds
 from tradeschool.content.schema import (
     LOCALES,
+    CourseStatus,
     LocalizedText,
     Manifest,
     ManifestBlock,
     ManifestExercise,
     ManifestLesson,
     ManifestModule,
+    missing_languages,
     parse_manifest,
 )
 from tradeschool.exercises.figures import FigureSpec, load_figures
@@ -81,6 +83,24 @@ class CourseRegistry:
     _lesson_ids: dict[str, str] = field(default_factory=dict)
     _exercise_keys: dict[str, str] = field(default_factory=dict)
     _exercise_ids: dict[str, str] = field(default_factory=dict)
+
+    @property
+    def slug(self) -> str:
+        return self.manifest.course.id
+
+    @property
+    def languages(self) -> list[str]:
+        """The course's reading languages, in its declared preference order."""
+        return list(self.manifest.course.languages)
+
+    @property
+    def published(self) -> bool:
+        return self.manifest.course.status is CourseStatus.PUBLISHED
+
+    @property
+    def has_figures(self) -> bool:
+        """False for a test-only course: every figure step skips it and says "no figures"."""
+        return bool(self.figures)
 
     def get_exercise_config(self, exercise_id: str) -> tuple[ExerciseType, BaseModel] | None:
         return self.exercise_configs.get(exercise_id)
@@ -287,18 +307,19 @@ class CourseRegistry:
             "glossary": self.glossary_entries(locale),
         }
 
-    def course_export_bilingual(self) -> dict[str, object]:
-        """The same document with BOTH languages, every localized field as `{"en": …, "es": …}`.
+    def course_export_all(self) -> dict[str, object]:
+        """The same document in EVERY language the course declares, each field as `{locale: …}`.
 
         Discriminated by the key: this carries `locales`, the single-locale document carries `locale`.
         """
+        languages = self.languages
         return {
-            "locales": list(LOCALES),
+            "locales": languages,
             "blocks": self._export_blocks(
-                lambda text: {loc: text.get(loc) for loc in LOCALES},
-                lambda lesson_id: {loc: _theory_only(self.markdown[loc][lesson_id]) for loc in LOCALES},
+                lambda text: {loc: text.get(loc) for loc in languages},
+                lambda lesson_id: {loc: _theory_only(self.markdown[loc][lesson_id]) for loc in languages},
             ),
-            "glossary": {loc: self.glossary_entries(loc) for loc in LOCALES},
+            "glossary": {loc: self.glossary_entries(loc) for loc in languages},
         }
 
     # --- glossary ---
@@ -425,14 +446,21 @@ def _load_exercise_configs(
 
 
 def load_registry(content_dir: Path) -> CourseRegistry:
+    """One course, from its own directory `content/<slug>/`."""
     manifest_path = content_dir / "course.yaml"
     if not manifest_path.exists():
         raise ContentError(f"manifest not found: {manifest_path}")
     manifest = parse_manifest(manifest_path)
+    if manifest.course.id != content_dir.name:
+        raise ContentError(f"course id {manifest.course.id!r} must match its directory {content_dir.name!r}")
+    languages = list(manifest.course.languages)
+    for locale in set(LOCALES) - set(languages):
+        if (content_dir / locale).exists():
+            raise ContentError(f"{content_dir / locale} exists but the course does not declare {locale!r}")
 
-    markdown: dict[str, dict[str, str]] = {locale: {} for locale in LOCALES}
+    markdown: dict[str, dict[str, str]] = {locale: {} for locale in languages}
     for _, lesson in manifest.iter_lessons():
-        for locale in LOCALES:
+        for locale in languages:
             path = _lesson_path(content_dir, locale, lesson.id)
             if not path.exists():
                 raise ContentError(f"missing {locale} lesson file for {lesson.id!r}: {path}")
@@ -443,6 +471,7 @@ def load_registry(content_dir: Path) -> CourseRegistry:
 
     exercise_configs = _load_exercise_configs(content_dir, manifest)
     figures = load_figures(content_dir)
+    _check_figure_files(content_dir, figures)
 
     # Glossary origins/exclusions are lesson KEYS; glossary ids must be free of ids AND keys.
     lesson_keys = {lesson.key for _, lesson in manifest.iter_lessons()}
@@ -459,6 +488,7 @@ def load_registry(content_dir: Path) -> CourseRegistry:
         | {spec.key for spec in figures.values()}
     )
     glossary = load_glossary(content_dir, lesson_keys, taken_ids)
+    _check_languages(manifest, exercise_configs, figures, glossary)
     _check_glossary_never_coins(glossary, markdown)
     _check_summaries_never_coin(manifest, glossary, markdown)
 
@@ -469,6 +499,38 @@ def load_registry(content_dir: Path) -> CourseRegistry:
         figures=figures,
         glossary=glossary,
     )
+
+
+def _check_figure_files(content_dir: Path, figures: dict[str, FigureSpec]) -> None:
+    """A course without figures carries none of the files that only make sense with them."""
+    if figures:
+        return
+    stray = [name for name in ("figure-coupling.yaml", "figures.tsv") if (content_dir / name).exists()]
+    if stray:
+        raise ContentError(f"{content_dir.name} has no figures but carries {', '.join(stray)}")
+
+
+def _check_languages(
+    manifest: Manifest,
+    exercise_configs: dict[str, tuple[ExerciseType, BaseModel]],
+    figures: dict[str, FigureSpec],
+    glossary: Glossary,
+) -> None:
+    """Every localized text carries exactly the course's languages: no gap, no stray translation."""
+    languages: set[str] = set(manifest.course.languages)
+    offences = [f"manifest: {where}" for where in missing_languages(manifest, languages)]
+    for exercise_id, (_, config) in exercise_configs.items():
+        offences += [f"exercise {exercise_id}: {where}" for where in missing_languages(config, languages)]
+    for figure_id, spec in figures.items():
+        offences += [f"figure {figure_id}: {where}" for where in missing_languages(spec, languages)]
+    for term in glossary.terms:
+        if term.languages() != languages:
+            offences.append(f"glossary {term.id}: term has {sorted(term.languages())}")
+        offences += [f"glossary {term.id}: {where}" for where in missing_languages(term, languages)]
+    if offences:
+        raise ContentError(
+            f"course {manifest.course.id!r} declares {sorted(languages)}, but: " + "; ".join(offences)
+        )
 
 
 def _check_summaries_never_coin(
@@ -488,7 +550,7 @@ def _check_summaries_never_coin(
     and in the direction where a false hit costs nothing.
     """
     offences: list[str] = []
-    for locale in LOCALES:
+    for locale in markdown:
         terms = [(term.id, " ".join(term.term(locale).split()).split(" (")[0]) for term in glossary.terms]
         for _module, lesson in manifest.iter_lessons():
             summary = " ".join(lesson.summary.get(locale).split())
@@ -517,7 +579,7 @@ def _check_glossary_never_coins(glossary: Glossary, markdown: dict[str, dict[str
     }
     missing: list[str] = []
     for term in glossary.terms:
-        for locale in LOCALES:
+        for locale in markdown:
             needle = " ".join(term.term(locale).split()).casefold()
             # Parenthetical glosses in the term itself ("open interest (OI)") are display sugar;
             # match on the head, which is what the prose actually writes.
@@ -529,3 +591,37 @@ def _check_glossary_never_coins(glossary: Glossary, markdown: dict[str, dict[str
             "glossary terms that never appear in that locale's prose (the glossary never coins): "
             + ", ".join(missing)
         )
+
+
+@dataclass(frozen=True)
+class Catalog:
+    """Every course under `content/`, by slug. Drafts are loaded (so they are verified) but never served."""
+
+    courses: dict[str, CourseRegistry]
+
+    def get(self, slug: str) -> CourseRegistry | None:
+        return self.courses.get(slug)
+
+    def published(self) -> list[CourseRegistry]:
+        return [course for course in self.courses.values() if course.published]
+
+    def published_slugs(self) -> set[str]:
+        return {course.slug for course in self.published()}
+
+
+def course_dirs(content_root: Path) -> list[Path]:
+    return sorted(path.parent for path in content_root.glob("*/course.yaml"))
+
+
+def load_catalog(content_root: Path) -> Catalog:
+    """Load and validate every course; a course that does not validate fails startup, named."""
+    courses: dict[str, CourseRegistry] = {}
+    for course_dir in course_dirs(content_root):
+        try:
+            registry = load_registry(course_dir)
+        except (ContentError, ValidationError, ValueError) as exc:
+            raise ContentError(f"course {course_dir.name!r} does not validate: {exc}") from exc
+        courses[registry.slug] = registry
+    if not courses:
+        raise ContentError(f"no course found under {content_root}")
+    return Catalog(courses=courses)

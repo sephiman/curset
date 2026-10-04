@@ -20,18 +20,10 @@ from tradeschool.attempts.schemas import (
 from tradeschool.auth.backend import current_active_user
 from tradeschool.auth.models import User
 from tradeschool.content.registry import CourseRegistry
-from tradeschool.content.router import get_registry
 from tradeschool.db import get_async_session
+from tradeschool.deps import ReadingLocale, get_registry
 
 router = APIRouter(tags=["attempts"])
-
-LangQuery = Annotated[str | None, Query(pattern="^(en|es)$")]
-
-
-def _resolve_locale(lang: str | None, user: User) -> str:
-    if lang in ("en", "es"):
-        return lang
-    return user.locale if user.locale in ("en", "es") else "en"
 
 
 @router.post("/exercises/{exercise_id}/attempts", response_model=AttemptInstance, status_code=201)
@@ -40,9 +32,9 @@ async def create_attempt(
     user: Annotated[User, Depends(current_active_user)],
     session: Annotated[AsyncSession, Depends(get_async_session)],
     registry: Annotated[CourseRegistry, Depends(get_registry)],
-    lang: LangQuery = None,
+    locale: ReadingLocale,
 ) -> AttemptInstance:
-    opened = await service.open_attempt(session, registry, user.id, exercise_id, _resolve_locale(lang, user))
+    opened = await service.open_attempt(session, registry, user.id, exercise_id, locale)
     return AttemptInstance.from_opened(opened)
 
 
@@ -53,10 +45,10 @@ async def answer_attempt(
     user: Annotated[User, Depends(current_active_user)],
     session: Annotated[AsyncSession, Depends(get_async_session)],
     registry: Annotated[CourseRegistry, Depends(get_registry)],
-    lang: LangQuery = None,
+    locale: ReadingLocale,
 ) -> GradeResponse:
     attempt, result = await service.submit_answer(
-        session, registry, user.id, attempt_id, payload.answer, _resolve_locale(lang, user)
+        session, registry, user.id, attempt_id, payload.answer, locale
     )
     return GradeResponse.build(attempt, result)
 
@@ -67,9 +59,9 @@ async def review_attempt(
     user: Annotated[User, Depends(current_active_user)],
     session: Annotated[AsyncSession, Depends(get_async_session)],
     registry: Annotated[CourseRegistry, Depends(get_registry)],
-    lang: LangQuery = None,
+    locale: ReadingLocale,
 ) -> AttemptReviewResponse:
-    review = await service.review_attempt(session, registry, user.id, attempt_id, _resolve_locale(lang, user))
+    review = await service.review_attempt(session, registry, user.id, attempt_id, locale)
     return AttemptReviewResponse.build(review)
 
 

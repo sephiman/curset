@@ -36,7 +36,7 @@ from tradeschool.exercises.pattern_chart import PatternChartConfig, PatternChart
 
 _SEEDS = 250
 _N = 130
-_CONTENT = Path(__file__).resolve().parents[2] / "content"
+_CONTENT = Path(__file__).resolve().parents[2] / "content" / "crypto-futures"
 #: Named as well as discovered — see the same note in `test_chart_bands.py`.
 _PANE_INJECTORS = {"volatility_bands"}
 

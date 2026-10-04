@@ -47,7 +47,7 @@ _CORROBORATED = _BARRIER | {"fib"}
 # named here rather than discovered so that an injector which silently stops publishing its
 # support/resistance cannot slip through the tests below by looking like this case.
 _ORDER_LINE_ONLY = {"stop_limit_gap"}
-_CONTENT = Path(__file__).resolve().parents[2] / "content"
+_CONTENT = Path(__file__).resolve().parents[2] / "content" / "crypto-futures"
 
 
 def _config(injector: str, targets: list[str], n: int = _N) -> PatternChartConfig:

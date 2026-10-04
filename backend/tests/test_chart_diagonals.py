@@ -36,7 +36,7 @@ from tradeschool.exercises.pattern_chart import (
 _SEEDS = 300  # the noise that decides whether a visit lands on the line is a draw, per bar
 _N = 130
 _KINDS = {"support", "resistance"}  # a diagonal always has an inside; there is no `fib` case
-_CONTENT = Path(__file__).resolve().parents[2] / "content"
+_CONTENT = Path(__file__).resolve().parents[2] / "content" / "crypto-futures"
 #: Injectors that draw a diagonal. Named as well as discovered, so one that silently STOPS drawing
 #: cannot make every parametrised suite below vacuous by looking like it never did.
 _DIAGONAL_INJECTORS = {"trend_channel", "converging_lines"}

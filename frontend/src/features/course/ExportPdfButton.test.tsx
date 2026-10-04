@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import en from "@/i18n/en.json";
 import type { GenerateProgress } from "@/lib/pdf/generate";
+import { InCourse } from "@/test/course";
 
 /** What the reader sees while the PDF is being made: a named phase, and a failure that stays on screen. */
 
@@ -47,7 +48,11 @@ function mount(node: ReactElement): void {
   document.body.appendChild(host);
   const client = new QueryClient({ defaultOptions: { mutations: { retry: false } } });
   act(() => {
-    createRoot(host).render(<QueryClientProvider client={client}>{node}</QueryClientProvider>);
+    createRoot(host).render(
+      <QueryClientProvider client={client}>
+        <InCourse>{node}</InCourse>
+      </QueryClientProvider>,
+    );
   });
 }
 

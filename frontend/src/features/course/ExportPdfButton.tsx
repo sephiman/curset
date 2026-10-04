@@ -6,22 +6,28 @@ import { Button, Spinner } from "@/components/ui/primitives";
 import type { PdfLabels } from "@/lib/pdf/document";
 import { downloadPdf, generateCoursePdf, type GenerateProgress } from "@/lib/pdf/generate";
 import { pdfLabels } from "@/lib/pdf/labels";
+import i18n from "@/i18n";
+import { useCourse } from "@/features/courses/CourseContext";
 
 /**
- * The whole course as one printable PDF, in the language being browsed.
+ * The whole course as one printable PDF, in its reading language.
  *
  * Slow enough to report phases rather than spin, and a failure stays on the page. Every printed word is
  * resolved here and handed over as `labels`, which keeps `lib/pdf/` free of i18next.
  */
 export function ExportPdfButton({ course }: { course: CourseMeta }) {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [progress, setProgress] = useState<GenerateProgress | null>(null);
-  const locale = i18n.resolvedLanguage === "es" ? "es" : "en";
+  const { scope } = useCourse();
+  // The book is printed in the course's reading language, labels and all — a printed page has no
+  // interface around it, so its words follow the content (R4.5).
+  const locale = scope.lang;
+  const print = i18n.getFixedT(locale);
 
   const labels: PdfLabels = pdfLabels(
-    t,
-    t("course.pdfGenerated", {
-      language: t("course.pdfLanguage"),
+    print,
+    print("course.pdfGenerated", {
+      language: print("course.pdfLanguage"),
       date: new Date().toLocaleDateString(locale === "es" ? "es-ES" : "en-GB"),
     }),
   );
@@ -32,7 +38,7 @@ export function ExportPdfButton({ course }: { course: CourseMeta }) {
     meta: { silentSuccess: true, silentError: true },
     mutationFn: async () => {
       const generated = await generateCoursePdf({
-        locale,
+        scope,
         courseId: course.id,
         courseTitle: course.title,
         courseSubtitle: course.subtitle,

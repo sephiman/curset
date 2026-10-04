@@ -7,31 +7,40 @@ import { FONT_DIR, PRINT_FONT_FILES } from "@/lib/pdf/fonts";
 import { testPng } from "@/test/png";
 
 /**
- * The REAL course, read straight off `content/`, so the completeness tests cannot drift from it: no
- * counts and no id literals, like the backend's export test.
+ * The REAL crypto-futures course, read straight off `content/crypto-futures/`, so the completeness
+ * tests cannot drift from it: no counts and no id literals, like the backend's export test. Its
+ * goldens (glossary links, lesson references) live in the same directory and cover its two languages.
  */
 
+/** The course these suites check: the one course with figures, charts and two languages today. */
+export const COURSE_SLUG = "crypto-futures";
+
 /** Found by walking up, so the tests work from `frontend/` or from the repo root. */
-function findContentDir(): string {
+function findRepoRoot(): string {
   let dir = process.cwd();
   for (let up = 0; up < 6; up++) {
-    const candidate = resolve(dir, "content");
-    if (existsSync(resolve(candidate, "course.yaml"))) return candidate;
+    if (existsSync(resolve(dir, "content", COURSE_SLUG, "course.yaml"))) return dir;
     const parent = dirname(dir);
     if (parent === dir) break;
     dir = parent;
   }
-  throw new Error(`content/course.yaml not found above ${process.cwd()}`);
+  throw new Error(`content/${COURSE_SLUG}/course.yaml not found above ${process.cwd()}`);
 }
 
-const CONTENT = `${findContentDir()}/`;
+const REPO = findRepoRoot();
+const CONTENT = `${resolve(REPO, "content", COURSE_SLUG)}/`;
 
-/** The content tree, for the fixtures that read more of it than this module does. */
+/** Where the real courses live, one directory each. */
+export const CONTENT_ROOT = resolve(REPO, "content");
+/** The backend's test courses: a Spanish-only, figureless one among them, which proves the iteration. */
+export const FIXTURE_CONTENT_ROOT = resolve(REPO, "backend", "tests", "fixtures", "content");
+
+/** The course's content tree, for the fixtures that read more of it than this module does. */
 export const CONTENT_DIR = CONTENT;
 
 /** The print font as absolute paths, by pdfmake vfs file name. */
 export function printFontPaths(): Record<string, string> {
-  const dir = resolve(CONTENT, "..", "frontend", "src", FONT_DIR);
+  const dir = resolve(REPO, "frontend", "src", FONT_DIR);
   return Object.fromEntries(PRINT_FONT_FILES.map((file) => [file, resolve(dir, file)]));
 }
 
@@ -79,7 +88,14 @@ export interface ManifestBlock {
 }
 
 export interface Manifest {
-  course: { id: string; title: LocalizedText; subtitle: LocalizedText; description: LocalizedText };
+  course: {
+    id: string;
+    title: LocalizedText;
+    subtitle: LocalizedText;
+    description: LocalizedText;
+    languages: Locale[];
+    status: "draft" | "published";
+  };
   blocks: ManifestBlock[];
 }
 
@@ -87,23 +103,96 @@ export type Locale = keyof LocalizedText;
 
 export const LOCALES: Locale[] = ["en", "es"];
 
-let manifest: Manifest | null = null;
+/**
+ * One course read straight off its directory. Every reader is scoped to it, and only the languages
+ * the course declares are ever asked for — a Spanish-only course has no `en/` tree to read.
+ */
+export interface CourseContent {
+  slug: string;
+  dir: string;
+  languages: Locale[];
+  manifest(): Manifest;
+  lessonMarkdown(locale: Locale, lessonId: string): string;
+  modules(): ManifestModule[];
+  lessons(): ManifestLesson[];
+  refModules(locale: Locale): ReturnType<typeof refModulesOf>;
+  glossary(locale: Locale, space?: "display" | "key"): GlossaryEntry[];
+  /** Every `::figure{id=…}` occurrence, in reading order (repeats kept). */
+  figureDirectives(locale: Locale): string[];
+  /**
+   * The course as `/courses/{course}/export?lang=…` serves it, but with the markdown deliberately RAW
+   * where the real endpoint pre-strips it — so "no exercise reached the PDF" holds even with the
+   * upstream stripping gone.
+   */
+  courseExport(locale: Locale): CourseExport;
+}
+
+export function courseContent(dir: string): CourseContent {
+  const base = dir.endsWith("/") ? dir : `${dir}/`;
+  let cached: Manifest | null = null;
+  const manifest = (): Manifest => {
+    cached ??= yaml.load(readFileSync(`${base}course.yaml`, "utf8")) as Manifest;
+    return cached;
+  };
+  const modules = () => manifest().blocks.flatMap((block) => block.modules);
+  const lessons = () => modules().flatMap((module) => module.lessons ?? []);
+  const lessonMarkdown = (locale: Locale, lessonId: string) =>
+    readFileSync(`${base}${locale}/lessons/${lessonId}.md`, "utf8");
+  return {
+    slug: manifest().course.id,
+    dir: base,
+    languages: manifest().course.languages,
+    manifest,
+    lessonMarkdown,
+    modules,
+    lessons,
+    refModules: (locale) => refModulesOf(modules(), locale),
+    glossary: (locale, space = "display") => glossaryOf(base, lessons(), locale, space),
+    courseExport: (locale) => exportOf(manifest(), lessonMarkdown, glossaryOf(base, lessons(), locale, "display"), locale),
+    figureDirectives: (locale) =>
+      lessons().flatMap((lesson) =>
+        [...lessonMarkdown(locale, lesson.id).matchAll(/^::figure\{id=([^}\s]+)[^}]*\}\s*$/gm)].map(
+          (match) => match[1],
+        ),
+      ),
+  };
+}
+
+/** The published courses under `root`, by slug. */
+export function publishedCourses(root: string): CourseContent[] {
+  return readdirSync(root, { withFileTypes: true })
+    .filter((entry) => entry.isDirectory() && existsSync(resolve(root, entry.name, "course.yaml")))
+    .map((entry) => courseContent(resolve(root, entry.name)))
+    .filter((course) => course.manifest().course.status === "published")
+    .sort((a, b) => a.slug.localeCompare(b.slug));
+}
+
+/**
+ * The courses the golden suites run over: every published course, plus the published test fixtures,
+ * whose Spanish-only course shows a one-language, figureless course passing the same suites.
+ */
+export const GOLDEN_COURSES: CourseContent[] = [
+  ...publishedCourses(CONTENT_ROOT),
+  ...publishedCourses(FIXTURE_CONTENT_ROOT),
+];
+
+/** The course the crypto-only suites (PDF, Android bundle) read: the one with figures and charts. */
+const CRYPTO = courseContent(CONTENT);
 
 export function readManifest(): Manifest {
-  manifest ??= yaml.load(readFileSync(`${CONTENT}course.yaml`, "utf8")) as Manifest;
-  return manifest;
+  return CRYPTO.manifest();
 }
 
 export function lessonMarkdown(locale: Locale, lessonId: string): string {
-  return readFileSync(`${CONTENT}${locale}/lessons/${lessonId}.md`, "utf8");
+  return CRYPTO.lessonMarkdown(locale, lessonId);
 }
 
 export function manifestModules(): ManifestModule[] {
-  return readManifest().blocks.flatMap((block) => block.modules);
+  return CRYPTO.modules();
 }
 
 export function manifestLessons(): ManifestLesson[] {
-  return manifestModules().flatMap((module) => module.lessons ?? []);
+  return CRYPTO.lessons();
 }
 
 export function manifestExerciseIds(): string[] {
@@ -111,8 +200,8 @@ export function manifestExerciseIds(): string[] {
 }
 
 /** The manifest as the reference registry reads it: display ids to resolve, permanent keys to report. */
-export function refModulesFromManifest(locale: Locale) {
-  return manifestModules().map((module) => ({
+function refModulesOf(modules: ManifestModule[], locale: Locale) {
+  return modules.map((module) => ({
     id: module.id,
     key: module.key ?? module.id,
     title: module.title[locale],
@@ -122,6 +211,10 @@ export function refModulesFromManifest(locale: Locale) {
       title: lesson.title[locale],
     })),
   }));
+}
+
+export function refModulesFromManifest(locale: Locale) {
+  return CRYPTO.refModules(locale);
 }
 
 /** The permanent key of one exercise (= its id unless the manifest pins an older one). */
@@ -134,10 +227,6 @@ export function exerciseKey(exerciseId: string): string {
 }
 
 /**
- * The course as `/course/export?lang=…` serves it, but with the markdown deliberately RAW where the real
- * endpoint pre-strips it — so "no exercise reached the PDF" holds even with the upstream stripping gone.
- */
-/**
  * The real `glossary.yaml`, shaped as the export serves it, so the PDF tests print the real terms.
  *
  * Lesson refs in the yaml (`origin`, `link_except`) are permanent lesson KEYS; the API renders them
@@ -145,7 +234,16 @@ export function exerciseKey(exerciseId: string): string {
  * so a display renumbering cannot move its lesson axis.
  */
 export function glossaryFromContent(locale: Locale, space: "display" | "key" = "display"): GlossaryEntry[] {
-  const path = resolve(CONTENT, "glossary.yaml");
+  return CRYPTO.glossary(locale, space);
+}
+
+function glossaryOf(
+  base: string,
+  lessons: ManifestLesson[],
+  locale: Locale,
+  space: "display" | "key",
+): GlossaryEntry[] {
+  const path = resolve(base, "glossary.yaml");
   if (!existsSync(path)) return [];
   const raw = yaml.load(readFileSync(path, "utf8")) as {
     terms: {
@@ -170,8 +268,8 @@ export function glossaryFromContent(locale: Locale, space: "display" | "key" = "
     return value as T;
   };
   const byId = new Map(raw.terms.map((term) => [term.id, term]));
-  const keyToId = new Map(manifestLessons().map((lesson) => [lesson.key ?? lesson.id, lesson.id]));
-  const titles = new Map(manifestLessons().map((lesson) => [lesson.id, lesson.title[locale]]));
+  const keyToId = new Map(lessons.map((lesson) => [lesson.key ?? lesson.id, lesson.id]));
+  const titles = new Map(lessons.map((lesson) => [lesson.id, lesson.title[locale]]));
   const lessonRef = (key: string): string => (space === "key" ? key : (keyToId.get(key) ?? key));
   const titleOf = (key: string): string | null => titles.get(keyToId.get(key) ?? key) ?? null;
   return raw.terms.map((term) => {
@@ -204,11 +302,16 @@ export function glossaryFromContent(locale: Locale, space: "display" | "key" = "
   });
 }
 
-export function courseExportFromContent(locale: Locale): CourseExport {
+function exportOf(
+  manifest: Manifest,
+  lessonMarkdown: (locale: Locale, lessonId: string) => string,
+  glossary: GlossaryEntry[],
+  locale: Locale,
+): CourseExport {
   return {
     locale,
-    glossary: glossaryFromContent(locale),
-    blocks: readManifest().blocks.map((block) => ({
+    glossary,
+    blocks: manifest.blocks.map((block) => ({
       id: block.id,
       title: block.title[locale],
       modules: block.modules.map((module) => ({
@@ -223,6 +326,10 @@ export function courseExportFromContent(locale: Locale): CourseExport {
       })),
     })),
   };
+}
+
+export function courseExportFromContent(locale: Locale): CourseExport {
+  return CRYPTO.courseExport(locale);
 }
 
 /** Every distinct character in the authored course: both languages, plus manifest and figure specs. */
@@ -243,11 +350,7 @@ export function contentCharacters(): Set<string> {
 
 /** Every `::figure{id=…}` occurrence across the course, in reading order (repeats kept). */
 export function figureDirectives(locale: Locale): string[] {
-  return manifestLessons().flatMap((lesson) =>
-    [...lessonMarkdown(locale, lesson.id).matchAll(/^::figure\{id=([^}\s]+)[^}]*\}\s*$/gm)].map(
-      (match) => match[1],
-    ),
-  );
+  return CRYPTO.figureDirectives(locale);
 }
 
 /** A stand-in bitmap the size a real capture produces (760×300 CSS px at the print scale). */

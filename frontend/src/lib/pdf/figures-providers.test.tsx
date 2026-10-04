@@ -43,9 +43,10 @@ vi.mock("lightweight-charts", () => ({
 }));
 
 const getFigure = vi.fn<(id: string) => Promise<FigureData>>();
-vi.mock("@/api/course", () => ({ getFigure: (id: string) => getFigure(id) }));
+vi.mock("@/api/course", () => ({ getFigure: (_scope: unknown, id: string) => getFigure(id) }));
 
 const { captureFigures } = await import("@/lib/pdf/figures");
+const SCOPE = { slug: "crypto-futures", lang: "en" } as const;
 
 beforeEach(() => {
   created.length = 0;
@@ -72,13 +73,13 @@ describe("the real chart component inside the capture harness", () => {
   });
 
   it("renders with only the harness's providers — no ThemeProvider, no router, no query client", async () => {
-    const captured = await captureFigures(["fig-real"]);
+    const captured = await captureFigures(SCOPE, ["fig-real"]);
     expect(captured.get("fig-real")?.panels).toEqual(["data:image/png;base64,REAL-COMPONENT"]);
     expect(screenshots).toBe(1);
   });
 
   it("hands the library the LIGHT palette, whatever the reader is browsing in", async () => {
-    await captureFigures(["fig-real"]);
+    await captureFigures(SCOPE, ["fig-real"]);
     // `palette(false)`: the light branch of the component's own colours, not a prop echoed back.
     expect(created[0].layout?.textColor).toBe("#6b7280");
   });

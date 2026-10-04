@@ -1,4 +1,4 @@
-import { apiClient, COURSE_PATH } from "@/api/client";
+import { apiClient, courseUrl, inReadingLanguage, type CourseScope } from "@/api/client";
 // Type-only, so the pair `exercises.ts` -> `course.ts` -> `exercises.ts` never becomes a runtime cycle:
 // a printed exercise carries exactly the payload an attempt would, and describing it twice would let
 // the page and the screen drift apart.
@@ -93,27 +93,27 @@ export interface ModuleDetail {
   lessons: { id: string; order: number; title: string; completed: boolean; readingSeconds: number }[];
 }
 
-export async function getCourse(): Promise<Course> {
-  const { data } = await apiClient.get<Course>(COURSE_PATH);
+export async function getCourse(scope: CourseScope): Promise<Course> {
+  const { data } = await apiClient.get<Course>(courseUrl(scope), inReadingLanguage(scope));
   return data;
 }
 
-export async function getLesson(lessonId: string): Promise<LessonDetail> {
-  const { data } = await apiClient.get<LessonDetail>(`${COURSE_PATH}/lessons/${lessonId}`);
+export async function getLesson(scope: CourseScope, lessonId: string): Promise<LessonDetail> {
+  const { data } = await apiClient.get<LessonDetail>(courseUrl(scope, `/lessons/${lessonId}`), inReadingLanguage(scope));
   return data;
 }
 
-export async function completeLesson(lessonId: string): Promise<void> {
-  await apiClient.post(`${COURSE_PATH}/lessons/${lessonId}/complete`);
+export async function completeLesson(scope: CourseScope, lessonId: string): Promise<void> {
+  await apiClient.post(courseUrl(scope, `/lessons/${lessonId}/complete`));
 }
 
 /** The exact inverse: unmark a lesson, e.g. to re-read it with the "continue" flow intact. */
-export async function uncompleteLesson(lessonId: string): Promise<void> {
-  await apiClient.delete(`${COURSE_PATH}/lessons/${lessonId}/complete`);
+export async function uncompleteLesson(scope: CourseScope, lessonId: string): Promise<void> {
+  await apiClient.delete(courseUrl(scope, `/lessons/${lessonId}/complete`));
 }
 
-export async function getModule(moduleId: string): Promise<ModuleDetail> {
-  const { data } = await apiClient.get<ModuleDetail>(`${COURSE_PATH}/modules/${moduleId}`);
+export async function getModule(scope: CourseScope, moduleId: string): Promise<ModuleDetail> {
+  const { data } = await apiClient.get<ModuleDetail>(courseUrl(scope, `/modules/${moduleId}`), inReadingLanguage(scope));
   return data;
 }
 
@@ -168,8 +168,8 @@ export interface Glossary {
   terms: GlossaryEntry[];
 }
 
-export async function getGlossary(locale: string): Promise<Glossary> {
-  const { data } = await apiClient.get<Glossary>(`${COURSE_PATH}/glossary`, { params: { lang: locale } });
+export async function getGlossary(scope: CourseScope): Promise<Glossary> {
+  const { data } = await apiClient.get<Glossary>(courseUrl(scope, "/glossary"), inReadingLanguage(scope));
   return data;
 }
 
@@ -181,8 +181,8 @@ export interface CourseExport {
 }
 
 /** The single-locale export document. `lang` must be explicit — omitting it returns the bilingual one. */
-export async function getCourseExport(locale: string): Promise<CourseExport> {
-  const { data } = await apiClient.get<CourseExport>(`${COURSE_PATH}/export`, { params: { lang: locale } });
+export async function getCourseExport(scope: CourseScope): Promise<CourseExport> {
+  const { data } = await apiClient.get<CourseExport>(courseUrl(scope, "/export"), inReadingLanguage(scope));
   return data;
 }
 
@@ -261,10 +261,8 @@ export interface PrintExercises {
   excluded: PrintExclusion[];
 }
 
-export async function getPrintExercises(locale: string): Promise<PrintExercises> {
-  const { data } = await apiClient.get<PrintExercises>(`${COURSE_PATH}/print/exercises`, {
-    params: { lang: locale },
-  });
+export async function getPrintExercises(scope: CourseScope): Promise<PrintExercises> {
+  const { data } = await apiClient.get<PrintExercises>(courseUrl(scope, "/print/exercises"), inReadingLanguage(scope));
   return data;
 }
 
@@ -300,7 +298,7 @@ export interface FigureData {
   panels?: FigurePanel[];
 }
 
-export async function getFigure(figureId: string): Promise<FigureData> {
-  const { data } = await apiClient.get<FigureData>(`${COURSE_PATH}/figures/${figureId}`);
+export async function getFigure(scope: CourseScope, figureId: string): Promise<FigureData> {
+  const { data } = await apiClient.get<FigureData>(courseUrl(scope, `/figures/${figureId}`), inReadingLanguage(scope));
   return data;
 }

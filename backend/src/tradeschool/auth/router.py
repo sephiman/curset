@@ -34,8 +34,10 @@ from tradeschool.auth.schemas import (
     UserUpdate,
 )
 from tradeschool.config import Settings, get_settings
+from tradeschool.content.registry import Catalog
 from tradeschool.db import get_async_session
-from tradeschool.deps import app_mailer, app_settings
+from tradeschool.deps import app_catalog, app_mailer, app_settings
+from tradeschool.enrollment.service import enroll_at_signup
 from tradeschool.errors import AppError
 from tradeschool.ratelimit import limiter
 
@@ -78,7 +80,11 @@ async def register(
     session: Annotated[AsyncSession, Depends(get_async_session)],
     mailer: Annotated[Mailer, Depends(app_mailer)],
     settings: Annotated[Settings, Depends(app_settings)],
+    catalog: Annotated[Catalog, Depends(app_catalog)],
 ) -> UserRead:
+    unknown = sorted(set(payload.courses) - catalog.published_slugs())
+    if unknown:
+        raise AppError("COURSE_NOT_FOUND", f"No course {unknown[0]!r}.", status_code=404)
     if payload.email is not None:
         await email_verification.ensure_available(session, payload.email)
     try:
@@ -87,6 +93,7 @@ async def register(
         raise AppError("USER_ALREADY_EXISTS", "That username is already taken.", status_code=400) from exc
     except InvalidPasswordException as exc:
         raise _invalid_password(exc) from exc
+    await enroll_at_signup(session, catalog, user.id, user.locale, payload.courses)
     if payload.email is not None:
         user = await email_verification.change_email(
             session, user, payload.email, mailer=mailer, public_url=settings.app_public_url

@@ -1,14 +1,19 @@
 import { type ReactNode } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "@/auth/AuthContext";
 import { AccountMenu } from "@/components/layout/AccountMenu";
-import { HOME_PATH, NAV_ITEMS } from "@/components/layout/nav";
+import { Logo } from "@/components/layout/Logo";
+import { HOME_PATH } from "@/components/layout/nav";
+import { useNavItems } from "@/features/courses/useNavItems";
 import { cn } from "@/lib/cn";
 
 export function AppShell({ children }: { children: ReactNode }) {
   const { t } = useTranslation();
   const { user } = useAuth();
+  const navItems = useNavItems();
+  // Home is the Course tab: the selected course's root, or the "no course" page when there is none.
+  const home = navItems.find((item) => item.tab === "course")?.to ?? HOME_PATH;
 
   return (
     <div className="flex min-h-full flex-col">
@@ -23,30 +28,29 @@ export function AppShell({ children }: { children: ReactNode }) {
                 with no `replace` prop: react-router replaces only when the target already IS the
                 current location, so clicking it on the course page adds no history entry while
                 clicking it on a lesson leaves that lesson for Back to return to. The accessible name
-                keeps the visible text inside it ("TradeSchool — home"), which is what lets someone
-                driving by voice say what they can read. */}
+                keeps the name the logo shows ("Curset — home"), which is what lets someone driving by
+                voice say what they can read; the image itself is then decorative. */}
             <Link
-              to={HOME_PATH}
+              to={home}
               aria-label={t("nav.homeLabel", { name: t("app.name") })}
-              className="shrink-0 rounded-md text-lg font-semibold text-primary transition-opacity hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-1 dark:focus:ring-offset-gray-900 oled:focus:ring-offset-oled-bg"
+              className="inline-flex shrink-0 rounded-md transition-opacity hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-1 dark:focus:ring-offset-gray-900 oled:focus:ring-offset-oled-bg"
             >
-              {t("app.name")}
+              <Logo decorative />
             </Link>
             {user && (
               <nav className="hidden items-center gap-4 text-sm sm:flex">
-                {NAV_ITEMS.map(({ to, labelKey }) => (
-                  <NavLink
-                    key={to}
+                {navItems.map(({ tab, to, labelKey, current }) => (
+                  <Link
+                    key={tab}
                     to={to}
-                    className={({ isActive }) =>
-                      cn(
-                        "hover:text-primary",
-                        isActive ? "font-medium text-primary" : "text-gray-600 dark:text-gray-300",
-                      )
-                    }
+                    aria-current={current ? "page" : undefined}
+                    className={cn(
+                      "hover:text-primary",
+                      current ? "font-medium text-primary" : "text-gray-600 dark:text-gray-300",
+                    )}
                   >
                     {t(labelKey)}
-                  </NavLink>
+                  </Link>
                 ))}
               </nav>
             )}

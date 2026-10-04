@@ -12,9 +12,17 @@ import {
   type LayoutNode,
   type OversizedBlock,
 } from "@/lib/pdf/pagination";
-import { generateCoursePdf, type GenerateProgress, type GeneratedPdf } from "@/lib/pdf/generate";
+import {
+  generateCoursePdf,
+  NO_CHARTS,
+  NO_FIGURES,
+  type GenerateProgress,
+  type GeneratedPdf,
+} from "@/lib/pdf/generate";
 import {
   courseExportFromContent,
+  FIXTURE_CONTENT_ROOT,
+  courseContent,
   figureDirectives,
   manifestExerciseIds,
   manifestLessons,
@@ -75,7 +83,7 @@ async function generate(
   const pdfmake = await nodePdfMake();
   const exercises = printed ?? printExercisesFromContent(locale);
   const generated = await generateCoursePdf({
-    locale,
+    scope: { slug: course.id, lang: locale },
     courseId: course.id,
     courseTitle: course.title[locale],
     courseSubtitle: course.subtitle[locale],
@@ -83,7 +91,7 @@ async function generate(
     labels: testPdfLabels(locale),
     date: new Date(2026, 7, 3),
     onProgress: (p) => progress.push(p),
-    fetchExport: async (lang) => courseExportFromContent(lang as Locale),
+    fetchExport: async (scope) => courseExportFromContent(scope.lang),
     fetchExercises: async () => exercises,
     captureAll: async (ids, onProgress) => {
       onProgress?.({ done: new Set(ids).size, total: new Set(ids).size });
@@ -127,7 +135,7 @@ describe.each(LOCALES)("the generated PDF (%s)", (locale) => {
 
   it("is named for the course, the language and the day", async () => {
     const { generated } = await generateOnce(locale);
-    expect(generated.filename).toBe(`tradeschool-crypto-futures-${locale}-2026-08-03.pdf`);
+    expect(generated.filename).toBe(`curset-crypto-futures-${locale}-2026-08-03.pdf`);
   }, 300_000);
 
   it("reports each phase of the work, both capture phases counted", async () => {
@@ -354,12 +362,12 @@ describe.each(LOCALES)("the printed pages (%s)", (locale) => {
       const next = found[index + 1];
       // The page a section starts on already carries its name...
       expect(footerTitle(doc, section.page), `first page of ${section.title}`).toBe(
-        `${course.subtitle[locale]} · ${section.title}`,
+        `Curset · ${course.subtitle[locale]} · ${section.title}`,
       );
       // ...and it keeps it to the last page before the next one begins.
       const last = next ? next.page - 1 : section.page;
       expect(footerTitle(doc, last), `last page of ${section.title}`).toBe(
-        `${course.subtitle[locale]} · ${section.title}`,
+        `Curset · ${course.subtitle[locale]} · ${section.title}`,
       );
       // The page before a section starts belongs to whatever came before, never to it.
       expect(footerTitle(doc, section.page - 1)).not.toContain(section.title);
@@ -374,7 +382,7 @@ describe.each(LOCALES)("the printed pages (%s)", (locale) => {
     expect(footerTitle(doc, 1)).toBe(""); // the cover carries no footer at all
     for (let page = 2; page < firstBlockPage; page++) {
       expect(footerTitle(doc, page), `page ${page} precedes the first block`).toBe(
-        course.subtitle[locale],
+        `Curset · ${course.subtitle[locale]}`,
       );
     }
   }, 600_000);
@@ -424,7 +432,7 @@ describe("pagination in the produced file", () => {
   it("gives every lesson a page of its own, however short the lesson is", async () => {
     const pdfmake = await nodePdfMake();
     const { blob } = await generateCoursePdf({
-      locale: "en",
+      scope: { slug: "tiny", lang: "en" },
       courseId: "tiny",
       courseTitle: "T",
       courseSubtitle: "S",
@@ -454,4 +462,44 @@ describe("the generated PDF", () => {
       new RegExp(`figure ${dropped} was not rendered`),
     );
   }, 300_000);
+});
+
+describe("a course without figures (the Spanish-only test course)", () => {
+  const course = courseContent(`${FIXTURE_CONTENT_ROOT}/fixture-oposiciones`);
+
+  it("prints with no capture phase at all, and says so instead of reporting 0 of 0", async () => {
+    const pdfmake = await nodePdfMake();
+    const progress: GenerateProgress[] = [];
+    const skipped: string[] = [];
+    const meta = course.manifest().course;
+    const generated = await generateCoursePdf({
+      scope: { slug: course.slug, lang: "es" },
+      courseId: course.slug,
+      courseTitle: meta.title.es,
+      courseSubtitle: meta.subtitle.es,
+      courseDescription: meta.description.es,
+      labels: testPdfLabels("es"),
+      date: new Date(2026, 9, 4),
+      onProgress: (p) => progress.push(p),
+      onSkipped: (line) => skipped.push(line),
+      fetchExport: async (scope) => course.courseExport(scope.lang),
+      // Its one quiz prints without a chart; a chart-less print set is what this course hands over.
+      fetchExercises: async () => ({ locale: "es", lessons: [], excluded: [] }),
+      captureAll: async () => {
+        throw new Error("a course without figures must never reach figure capture");
+      },
+      captureCharts: async () => {
+        throw new Error("a course without exercise charts must never reach chart capture");
+      },
+      renderPdf: async (definition) =>
+        new Blob([new Uint8Array(await pdfmake.createPdf(definition).getBuffer())]),
+    });
+
+    expect(course.languages).toEqual(["es"]);
+    expect(course.figureDirectives("es")).toEqual([]);
+    expect(progress.map((p) => p.phase)).toEqual(["export", "exercises", "typeset"]);
+    expect(skipped).toEqual([`fixture-oposiciones: ${NO_FIGURES}`, `fixture-oposiciones: ${NO_CHARTS}`]);
+    expect(generated.filename).toBe("curset-fixture-oposiciones-es-2026-10-04.pdf");
+    expect(pageCount(new Uint8Array(await generated.blob.arrayBuffer()))).toBeGreaterThan(1);
+  }, 120_000);
 });

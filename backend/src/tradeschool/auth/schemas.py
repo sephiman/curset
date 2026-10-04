@@ -52,6 +52,8 @@ class UserCreate(BaseModel):
     password: str
     locale: Locale = "en"
     email: str | None = None
+    #: The courses ticked on the sign-up screen; none is a valid answer.
+    courses: list[str] = Field(default_factory=list)
 
     @field_validator("username")
     @classmethod

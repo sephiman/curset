@@ -22,6 +22,8 @@ from tradeschool.content.reading import (
 )
 from tradeschool.content.registry import load_registry
 
+API = "/api/courses/crypto-futures"
+
 CREDS = {"username": "student", "password": "correcthorse"}
 
 # A lesson with one of everything the stripper has to see through. The prose words are counted below,
@@ -106,7 +108,7 @@ def test_adding_a_figure_moves_the_estimate_by_exactly_figure_seconds() -> None:
 
 def test_estimates_are_per_locale_and_differ_between_es_and_en() -> None:
     """ES and EN estimate differently, and both nonzero — a locale at 0 would show no time at all."""
-    registry = load_registry(get_settings().content_dir)
+    registry = load_registry(get_settings().content_dir / "crypto-futures")
     en = registry.lesson_reading_seconds("m34-l1", "en")
     es = registry.lesson_reading_seconds("m34-l1", "es")
     assert en > 0 and es > 0
@@ -120,7 +122,7 @@ def test_estimates_are_per_locale_and_differ_between_es_and_en() -> None:
 
 def test_real_lessons_are_estimated_from_their_own_words_and_figures() -> None:
     """The registry's stored number is a pure function of that locale's markdown."""
-    registry = load_registry(get_settings().content_dir)
+    registry = load_registry(get_settings().content_dir / "crypto-futures")
     for locale in ("en", "es"):
         for _, lesson in registry.manifest.iter_lessons():
             body = registry.markdown[locale][lesson.id]
@@ -131,11 +133,11 @@ async def test_every_view_serves_the_same_per_lesson_seconds(content_client: Asy
     """Course, module and lesson payloads all carry `readingSeconds`, and they agree."""
     await _auth(content_client)
 
-    course = (await content_client.get("/api/course?lang=en")).json()
+    course = (await content_client.get(f"{API}?lang=en")).json()
     lessons = _lessons(course)
     assert lessons and all(lesson["readingSeconds"] > 0 for lesson in lessons)
 
-    module = (await content_client.get("/api/modules/m08?lang=en")).json()
+    module = (await content_client.get(f"{API}/modules/m08?lang=en")).json()
     missing = [x["id"] for x in module["lessons"] if "readingSeconds" not in x]
     assert missing == [], f"the module view serves lessons with no estimate: {missing}"
     from_course = {
@@ -147,12 +149,12 @@ async def test_every_view_serves_the_same_per_lesson_seconds(content_client: Asy
     assert len(from_course) == 2, "m08 carries two lessons — the case a module total is a real sum"
 
     for lesson_id, seconds in from_course.items():
-        detail = (await content_client.get(f"/api/lessons/{lesson_id}?lang=en")).json()
+        detail = (await content_client.get(f"{API}/lessons/{lesson_id}?lang=en")).json()
         assert detail["readingSeconds"] == seconds
 
     # ...and the localized payload carries the localized estimate.
-    es = (await content_client.get("/api/lessons/m34-l1?lang=es")).json()
-    en = (await content_client.get("/api/lessons/m34-l1?lang=en")).json()
+    es = (await content_client.get(f"{API}/lessons/m34-l1?lang=es")).json()
+    en = (await content_client.get(f"{API}/lessons/m34-l1?lang=en")).json()
     assert es["readingSeconds"] > 0 and es["readingSeconds"] != en["readingSeconds"]
 
 
@@ -164,7 +166,7 @@ async def test_the_export_carries_no_reading_estimate(content_client: AsyncClien
     """
     await _auth(content_client)
     for query in ("", "?lang=en"):
-        data = (await content_client.get(f"/api/course/export{query}")).json()
+        data = (await content_client.get(f"{API}/export{query}")).json()
         modules = [m for block in data["blocks"] for m in block["modules"]]
         lessons = [lesson for m in modules for lesson in m["lessons"]]
         assert len(lessons) == 44

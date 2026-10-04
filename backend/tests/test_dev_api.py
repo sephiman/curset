@@ -1,9 +1,11 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Dev-only endpoints: the exact URL shapes /api/dev/attempts (with seed) and /api/dev/charts/data."""
+"""Dev-only endpoints: the exact URL shapes `…/dev/attempts` (with seed) and `…/dev/charts/data`."""
 
 from __future__ import annotations
 
 from httpx import AsyncClient
+
+API = "/api/courses/crypto-futures"
 
 CREDS = {"username": "devuser", "password": "correcthorse"}
 
@@ -15,8 +17,8 @@ async def _auth(client: AsyncClient) -> None:
 
 async def test_dev_attempts_includes_seed(content_client: AsyncClient) -> None:
     await _auth(content_client)
-    await content_client.post("/api/exercises/m12-ex-1/attempts")
-    resp = await content_client.get("/api/dev/attempts?exercise_id=m12-ex-1")
+    await content_client.post(f"{API}/exercises/m12-ex-1/attempts")
+    resp = await content_client.get(f"{API}/dev/attempts?exercise_id=m12-ex-1")
     assert resp.status_code == 200
     rows = resp.json()
     assert len(rows) == 1
@@ -25,7 +27,7 @@ async def test_dev_attempts_includes_seed(content_client: AsyncClient) -> None:
 
 async def test_dev_chart_data_json_includes_warmup_and_reproduces(content_client: AsyncClient) -> None:
     await _auth(content_client)
-    resp = await content_client.get("/api/dev/charts/data?exercise_id=m12-ex-1&seed=5&fmt=json")
+    resp = await content_client.get(f"{API}/dev/charts/data?exercise_id=m12-ex-1&seed=5&fmt=json")
     assert resp.status_code == 200
     data = resp.json()
     assert data["warmup"] > 0 and len(data["rows"]) == data["warmup"] + 120
@@ -38,7 +40,7 @@ async def test_dev_chart_data_json_includes_warmup_and_reproduces(content_client
 
 async def test_dev_chart_data_csv(content_client: AsyncClient) -> None:
     await _auth(content_client)
-    resp = await content_client.get("/api/dev/charts/data?exercise_id=m12-ex-1&seed=5&fmt=csv")
+    resp = await content_client.get(f"{API}/dev/charts/data?exercise_id=m12-ex-1&seed=5&fmt=csv")
     assert resp.status_code == 200
     assert resp.headers["content-type"].startswith("text/csv")
     header = resp.text.splitlines()[0]
@@ -47,7 +49,7 @@ async def test_dev_chart_data_csv(content_client: AsyncClient) -> None:
 
 async def test_dev_instances_pattern_chart(content_client: AsyncClient) -> None:
     await _auth(content_client)
-    resp = await content_client.get("/api/dev/instances?exercise_id=m08-ex-1&count=5")
+    resp = await content_client.get(f"{API}/dev/instances?exercise_id=m08-ex-1&count=5")
     assert resp.status_code == 200
     data = resp.json()
     assert data["type"] == "pattern_chart" and len(data["items"]) == 5
@@ -58,7 +60,7 @@ async def test_dev_instances_pattern_chart(content_client: AsyncClient) -> None:
 
 async def test_dev_chart_data_pattern_oi_reproduces(content_client: AsyncClient) -> None:
     await _auth(content_client)
-    resp = await content_client.get("/api/dev/charts/data?exercise_id=m19-ex-1&seed=3&fmt=json")
+    resp = await content_client.get(f"{API}/dev/charts/data?exercise_id=m19-ex-1&seed=3&fmt=json")
     assert resp.status_code == 200
     data = resp.json()
     assert data["indicator"] == "oi" and data["warmup"] > 0
@@ -68,7 +70,7 @@ async def test_dev_chart_data_pattern_oi_reproduces(content_client: AsyncClient)
 
 
 async def test_dev_endpoints_require_auth(content_client: AsyncClient) -> None:
-    assert (await content_client.get("/api/dev/attempts?exercise_id=m12-ex-1")).status_code == 401
+    assert (await content_client.get(f"{API}/dev/attempts?exercise_id=m12-ex-1")).status_code == 401
     assert (
-        await content_client.get("/api/dev/charts/data?exercise_id=m12-ex-1&seed=1")
+        await content_client.get(f"{API}/dev/charts/data?exercise_id=m12-ex-1&seed=1")
     ).status_code == 401

@@ -27,7 +27,7 @@ from tradeschool.exercises.pattern_chart import PatternChartConfig, PatternChart
 _SEEDS = 300  # the wick that decides a pivot is a random draw, so a handful of seeds proves nothing
 _N = 130
 _KINDS = {"high", "low", "marker"}  # what the frontend maps to arrow-down / arrow-up / neutral dot
-_CONTENT = Path(__file__).resolve().parents[2] / "content"
+_CONTENT = Path(__file__).resolve().parents[2] / "content" / "crypto-futures"
 
 Payload = dict[str, object]
 Annotations = list[dict[str, object]]

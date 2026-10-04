@@ -1,6 +1,7 @@
 import { type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { LanguageControl, ThemeControl, ThemeCycleButton } from "@/components/layout/controls";
+import { Logo } from "@/components/layout/Logo";
 import { Card } from "@/components/ui/primitives";
 
 /** Centered card for the login and register screens. */
@@ -10,7 +11,9 @@ export function AuthCard({ title, children }: { title: string; children: ReactNo
     <div className="flex min-h-screen flex-col items-center justify-center px-4 py-10">
       <div className="w-full max-w-sm">
         <div className="mb-6 text-center">
-          <div className="text-2xl font-bold text-primary">{t("app.name")}</div>
+          <h2 className="flex justify-center">
+            <Logo className="h-14" />
+          </h2>
           <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{t("app.tagline")}</p>
         </div>
         <Card className="p-6">

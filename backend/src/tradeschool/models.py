@@ -8,6 +8,8 @@ from tradeschool.attempts import models as _attempt_models  # noqa: F401
 from tradeschool.auth import models as _auth_models  # noqa: F401
 from tradeschool.content import models as _content_models  # noqa: F401
 from tradeschool.db import Base
+from tradeschool.enrollment import models as _enrollment_models  # noqa: F401
 from tradeschool.exams import models as _exam_models  # noqa: F401
+from tradeschool.reports import models as _report_models  # noqa: F401
 
 __all__ = ["Base"]

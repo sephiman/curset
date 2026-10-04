@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { getGlossary, type GlossaryEntry } from "@/api/course";
+import type { GlossaryEntry } from "@/api/course";
 import { sortGlossary } from "@/lib/glossary";
 import { Card, Input, Spinner } from "@/components/ui/primitives";
-import { coursePath } from "@/components/layout/nav";
+import { useCourse } from "@/features/courses/CourseContext";
+import { useCourseGlossary } from "@/features/course/queries";
 
 /**
  * The glossary: every term the course defines, alphabetical in the reader's locale.
@@ -36,11 +36,12 @@ function matches(entry: GlossaryEntry, needle: string): boolean {
 
 function OriginLink({ origin, title }: { origin: string | null; title: string | null }) {
   const { t } = useTranslation();
+  const { path } = useCourse();
   if (!origin) return null;
   return (
     <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
       {t("glossary.originLabel")}{" "}
-      <Link to={coursePath(`/lessons/${origin}`)} className="text-primary hover:underline">
+      <Link to={path(`/lessons/${origin}`)} className="text-primary hover:underline">
         <span className="tabular-nums">{origin.toUpperCase()}</span>
         {title ? ` · ${title}` : ""}
       </Link>
@@ -85,15 +86,13 @@ function Entry({ entry }: { entry: GlossaryEntry }) {
 }
 
 export function GlossaryPage() {
-  const { t, i18n } = useTranslation();
-  const locale = i18n.resolvedLanguage ?? "en";
+  const { t } = useTranslation();
+  const { scope } = useCourse();
+  const locale = scope.lang;
   const { hash } = useLocation();
   const [query, setQuery] = useState("");
 
-  const { data, isPending, isError } = useQuery({
-    queryKey: ["glossary", locale],
-    queryFn: () => getGlossary(locale),
-  });
+  const { data, isPending, isError } = useCourseGlossary();
 
   // The server already sorts, but the page re-sorts through the shared collator so that the screen
   // and the PDF are guaranteed to agree — Intl.Collator is the single source of the order.

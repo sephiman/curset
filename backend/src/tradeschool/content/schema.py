@@ -6,24 +6,42 @@ The canonical structure and order; prose and generator configs live elsewhere, l
 
 from __future__ import annotations
 
+from collections.abc import Iterator
+from enum import StrEnum
 from pathlib import Path
-from typing import Self
+from typing import Literal, Self
 
 import yaml
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from tradeschool.exercises.types import ExerciseType
 
+#: Every language the platform can serve; a course declares the subset it is written in.
 LOCALES = ("en", "es")
+Locale = Literal["en", "es"]
 
 
 class LocalizedText(BaseModel):
+    """Text in the languages its course declares; which ones must be present is checked per course."""
+
     model_config = ConfigDict(extra="forbid")
-    en: str
-    es: str
+    en: str | None = None
+    es: str | None = None
+
+    @model_validator(mode="after")
+    def _not_empty(self) -> Self:
+        if self.en is None and self.es is None:
+            raise ValueError("localized text needs at least one language")
+        return self
 
     def get(self, locale: str) -> str:
-        return self.es if locale == "es" else self.en
+        value = self.es if locale == "es" else self.en
+        if value is None:
+            raise LookupError(f"no {locale!r} text in {self!r}")
+        return value
+
+    def languages(self) -> set[str]:
+        return {locale for locale in LOCALES if getattr(self, locale) is not None}
 
 
 class KeyedEntity(BaseModel):
@@ -73,15 +91,34 @@ class ManifestBlock(BaseModel):
     modules: list[ManifestModule] = Field(default_factory=list)
 
 
+class CourseStatus(StrEnum):
+    #: Loaded and verified by the pipeline, never offered to users.
+    DRAFT = "draft"
+    PUBLISHED = "published"
+
+
 class ManifestCourse(BaseModel):
     """The root course entity; its blocks live at the manifest's top level."""
 
     model_config = ConfigDict(extra="forbid")
+    #: The course's permanent slug, equal to its directory under `content/`.
     id: str
     title: LocalizedText
     #: The book's short name, for surfaces the full title is too long for (the PDF's running footer).
     subtitle: LocalizedText
     description: LocalizedText
+    #: The languages the course is written in, in preference order: the first is the fallback reading
+    #: language for an account whose language the course lacks.
+    languages: list[Locale] = Field(min_length=1)
+    status: CourseStatus
+    #: The exercise kinds this course uses; an exercise of any other kind is a manifest error.
+    exercise_types: list[ExerciseType] = Field(min_length=1)
+
+    @model_validator(mode="after")
+    def _distinct_languages(self) -> Self:
+        if len(set(self.languages)) != len(self.languages):
+            raise ValueError(f"course {self.id!r}: duplicate language in {self.languages}")
+        return self
 
 
 class Manifest(BaseModel):
@@ -105,8 +142,7 @@ class Manifest(BaseModel):
     @model_validator(mode="after")
     def _validate_structure(self) -> Self:
         seen: set[str] = set()
-        # IDs are globally unique across every level, course id included — a future course must
-        # namespace its ids (e.g. spot-m01); see content/README.md.
+        # IDs are unique across every level of ONE course; another course may reuse any of them.
         for level in (
             [self.course.id],
             [b.id for b in self.blocks],
@@ -135,6 +171,14 @@ class Manifest(BaseModel):
                     raise ValueError(f"duplicate stable key: {key!r}")
                 seen_keys.add(key)
 
+        declared = set(self.course.exercise_types)
+        for _, _, exercise in self.iter_exercises():
+            if exercise.type not in declared:
+                raise ValueError(
+                    f"exercise {exercise.id!r} is a {exercise.type.value}, which course "
+                    f"{self.course.id!r} does not declare in exercise_types"
+                )
+
         module_ids = self.module_ids()
         for _, module in self.iter_modules():
             for dep in module.assumes:
@@ -143,6 +187,23 @@ class Manifest(BaseModel):
                 if dep == module.id:
                     raise ValueError(f"module {module.id!r} cannot assume itself")
         return self
+
+
+def missing_languages(node: object, languages: set[str], path: str = "") -> Iterator[str]:
+    """Where a localized text lacks one of `languages` or carries one the course does not declare."""
+    if isinstance(node, LocalizedText):
+        if node.languages() != languages:
+            yield f"{path or '<root>'} has {sorted(node.languages())}"
+        return
+    if isinstance(node, BaseModel):
+        for name in type(node).model_fields:
+            yield from missing_languages(getattr(node, name), languages, f"{path}.{name}" if path else name)
+    elif isinstance(node, list | tuple):
+        for index, item in enumerate(node):
+            yield from missing_languages(item, languages, f"{path}[{index}]")
+    elif isinstance(node, dict):
+        for key, item in node.items():
+            yield from missing_languages(item, languages, f"{path}.{key}")
 
 
 def parse_manifest(path: Path) -> Manifest:

@@ -9,7 +9,9 @@ from httpx import AsyncClient
 
 from tradeschool.exercises.figures import build_figure, load_figures
 
-CONTENT = Path(__file__).resolve().parents[2] / "content"
+API = "/api/courses/crypto-futures"
+
+CONTENT = Path(__file__).resolve().parents[2] / "content" / "crypto-futures"
 CREDS = {"username": "figviewer", "password": "correcthorse"}
 
 
@@ -39,15 +41,15 @@ def test_figure_builds_with_resolution_and_localized_caption() -> None:
 
 
 async def test_figure_endpoint_auth_cache_and_404(content_client: AsyncClient) -> None:
-    assert (await content_client.get("/api/figures/fig-m12-bearish-regular")).status_code == 401
+    assert (await content_client.get(f"{API}/figures/fig-m12-bearish-regular")).status_code == 401
     await _auth(content_client)
 
-    resp = await content_client.get("/api/figures/fig-m12-bearish-regular?lang=es")
+    resp = await content_client.get(f"{API}/figures/fig-m12-bearish-regular?lang=es")
     assert resp.status_code == 200
     body = resp.json()
     assert body["id"] == "fig-m12-bearish-regular" and body["kind"] == "chart" and body["panels"]
     # Second call returns the same cached object.
-    again = (await content_client.get("/api/figures/fig-m12-bearish-regular?lang=es")).json()
+    again = (await content_client.get(f"{API}/figures/fig-m12-bearish-regular?lang=es")).json()
     assert again == body
 
-    assert (await content_client.get("/api/figures/ghost")).status_code == 404
+    assert (await content_client.get(f"{API}/figures/ghost")).status_code == 404

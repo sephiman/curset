@@ -52,12 +52,19 @@ class Mailer(Protocol):
 
     def send(self, to: str, subject: str, body: str) -> None: ...
 
+    def deliver(self, to: str, subject: str, body: str) -> bool:
+        """Send now, blocking, and say whether the server accepted it — for mail that is retried."""
+        ...
+
 
 class DisabledMailer:
     enabled = False
 
     def send(self, to: str, subject: str, body: str) -> None:
         logger.info("mail disabled, dropped %r", subject)
+
+    def deliver(self, to: str, subject: str, body: str) -> bool:
+        return False
 
 
 class SmtpMailer:
@@ -69,10 +76,10 @@ class SmtpMailer:
     def send(self, to: str, subject: str, body: str) -> None:
         # Off the request: the response time must not tell whether a mail went out.
         threading.Thread(
-            target=self._deliver, args=(to, subject, body), daemon=True, name="tradeschool-mail"
+            target=self.deliver, args=(to, subject, body), daemon=True, name="tradeschool-mail"
         ).start()
 
-    def _deliver(self, to: str, subject: str, body: str) -> None:
+    def deliver(self, to: str, subject: str, body: str) -> bool:
         message = EmailMessage()
         message["From"] = self._settings.sender
         message["To"] = to
@@ -85,6 +92,8 @@ class SmtpMailer:
                 smtp.send_message(message)
         except Exception as exc:
             logger.warning("mail %r failed: %s", subject, exc)
+            return False
+        return True
 
 
 def build_mailer(settings: Settings) -> Mailer:

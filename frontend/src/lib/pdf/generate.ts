@@ -1,4 +1,5 @@
 import type { TDocumentDefinitions } from "pdfmake/interfaces";
+import type { CourseScope } from "@/api/client";
 import {
   getCourseExport,
   getPrintExercises,
@@ -11,11 +12,12 @@ import type { OversizedBlock } from "@/lib/pdf/pagination";
 import { captureFigures } from "@/lib/pdf/figures";
 import { figureIds } from "@/lib/pdf/markdown";
 import { loadPdfMake } from "@/lib/pdf/runtime";
+import { PLATFORM_NAME } from "@/lib/platform";
 
 /**
- * Generate the course PDF in the locale being browsed: export + exercises, capture figures and charts
- * off-screen, typeset. Each phase reports progress. Any failure propagates — a partial course is not a
- * smaller PDF, it is a wrong one.
+ * Generate the course PDF in its reading language: export + exercises, capture figures and charts
+ * off-screen, typeset. Each phase reports progress; a course with no figures or charts has no capture
+ * phase at all. Any failure propagates — a partial course is not a smaller PDF, it is a wrong one.
  */
 
 export type GeneratePhase = "export" | "exercises" | "figures" | "charts" | "typeset";
@@ -33,7 +35,8 @@ export interface GeneratedPdf {
 }
 
 export interface GenerateCoursePdfOptions {
-  locale: string;
+  /** The course and the language it is printed in. */
+  scope: CourseScope;
   /** For the cover and the filename — the course page already has all four. */
   courseId: string;
   courseTitle: string;
@@ -46,11 +49,13 @@ export interface GenerateCoursePdfOptions {
   onProgress?: (progress: GenerateProgress) => void;
   /** Reports what could not be printed. Defaults to the console; an exclusion is never silent. */
   onExcluded?: (excluded: PrintExercises["excluded"]) => void;
+  /** Names a capture phase the course has nothing for ("no figures"). Defaults to the console. */
+  onSkipped?: (line: string) => void;
   /** Reports boxes too tall for any page, which therefore had to break. Defaults to the console. */
   onOversizedBlocks?: (blocks: OversizedBlock[]) => void;
   /** Seams, so the orchestration is testable without a canvas or a server. */
-  fetchExport?: (locale: string) => Promise<CourseExport>;
-  fetchExercises?: (locale: string) => Promise<PrintExercises>;
+  fetchExport?: (scope: CourseScope) => Promise<CourseExport>;
+  fetchExercises?: (scope: CourseScope) => Promise<PrintExercises>;
   captureAll?: (
     ids: string[],
     onProgress?: (p: { done: number; total: number }) => void,
@@ -68,9 +73,9 @@ function isoDay(date: Date): string {
   return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
 }
 
-/** Course slug + locale + date, so a folder of exports sorts and reads sensibly. */
+/** Platform + course slug + locale + date, so a folder of exports sorts and reads sensibly. */
 export function pdfFilename(courseId: string, locale: string, date: Date): string {
-  return `tradeschool-${courseId}-${locale}-${isoDay(date)}.pdf`;
+  return `${PLATFORM_NAME.toLowerCase()}-${courseId}-${locale}-${isoDay(date)}.pdf`;
 }
 
 /** Names the boxes taller than a page. Not a failure — the book is still complete. */
@@ -81,6 +86,14 @@ function reportOversized(blocks: OversizedBlock[]): void {
         `one. Shorten it, or split it in two.`,
     );
   }
+}
+
+/** The lines a course without figures or charts gets in place of their capture phases. */
+export const NO_FIGURES = "no figures";
+export const NO_CHARTS = "no exercise charts";
+
+function reportSkipped(line: string): void {
+  console.info(`PDF export: ${line}`);
 }
 
 /** The default report for what could not be printed: named, one line each, never a silent drop. */
@@ -96,29 +109,38 @@ function reportExcluded(excluded: PrintExercises["excluded"]): void {
 export async function generateCoursePdf(o: GenerateCoursePdfOptions): Promise<GeneratedPdf> {
   const fetchExport = o.fetchExport ?? getCourseExport;
   const fetchExercises = o.fetchExercises ?? getPrintExercises;
-  const captureAll = o.captureAll ?? captureFigures;
+  const captureAll = o.captureAll ?? ((ids, onProgress) => captureFigures(o.scope, ids, onProgress));
   const captureCharts = o.captureCharts ?? captureExerciseCharts;
 
   o.onProgress?.({ phase: "export", done: 0, total: 0 });
-  const exported = await fetchExport(o.locale);
+  const exported = await fetchExport(o.scope);
 
   o.onProgress?.({ phase: "exercises", done: 0, total: 0 });
-  const exercises = await fetchExercises(o.locale);
+  const exercises = await fetchExercises(o.scope);
   (o.onExcluded ?? reportExcluded)(exercises.excluded);
 
   const ids = exported.blocks.flatMap((block) =>
     block.modules.flatMap((module) => module.lessons.flatMap((lesson) => figureIds(lesson.markdown))),
   );
-  o.onProgress?.({ phase: "figures", done: 0, total: new Set(ids).size });
-  const figures = await captureAll(ids, ({ done, total }) =>
-    o.onProgress?.({ phase: "figures", done, total }),
-  );
+  // A course without figures (a test-only course) skips the phase and says so, rather than reporting
+  // 0 of 0 or failing.
+  const skipped = o.onSkipped ?? reportSkipped;
+  let figures = new Map<string, CapturedFigure>();
+  if (ids.length === 0) skipped(`${o.scope.slug}: ${NO_FIGURES}`);
+  else {
+    o.onProgress?.({ phase: "figures", done: 0, total: new Set(ids).size });
+    figures = await captureAll(ids, ({ done, total }) => o.onProgress?.({ phase: "figures", done, total }));
+  }
 
   const charts = chartExercises(exercises);
-  o.onProgress?.({ phase: "charts", done: 0, total: charts.length });
-  const exerciseCharts = await captureCharts(charts, ({ done, total }) =>
-    o.onProgress?.({ phase: "charts", done, total }),
-  );
+  let exerciseCharts = new Map<string, string>();
+  if (charts.length === 0) skipped(`${o.scope.slug}: ${NO_CHARTS}`);
+  else {
+    o.onProgress?.({ phase: "charts", done: 0, total: charts.length });
+    exerciseCharts = await captureCharts(charts, ({ done, total }) =>
+      o.onProgress?.({ phase: "charts", done, total }),
+    );
+  }
 
   o.onProgress?.({ phase: "typeset", done: 0, total: 0 });
   // Filled while the typesetter paginates, so it is only complete once the document is rendered.
@@ -146,7 +168,7 @@ export async function generateCoursePdf(o: GenerateCoursePdfOptions): Promise<Ge
   await renderPdf(definition);
   const blob = await renderPdf(definition);
   if (oversized.length > 0) (o.onOversizedBlocks ?? reportOversized)(oversized);
-  return { blob, filename: pdfFilename(o.courseId, o.locale, o.date) };
+  return { blob, filename: pdfFilename(o.courseId, o.scope.lang, o.date) };
 }
 
 /** Hand the finished document to the browser under its own name. */

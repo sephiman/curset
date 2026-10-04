@@ -36,14 +36,14 @@ describe.runIf(OUT)("emit a PDF for review", () => {
       const course = readManifest().course;
       const exercises = printExercisesFromContent(LOCALE);
       const generated = await generateCoursePdf({
-        locale: LOCALE,
+        scope: { slug: course.id, lang: LOCALE },
         courseId: course.id,
         courseTitle: course.title[LOCALE],
         courseSubtitle: course.subtitle[LOCALE],
         courseDescription: course.description[LOCALE],
         labels: testPdfLabels(LOCALE),
         date: new Date(2026, 7, 8),
-        fetchExport: async (lang) => courseExportFromContent(lang as Locale),
+        fetchExport: async (scope) => courseExportFromContent(scope.lang),
         fetchExercises: async () => exercises,
         // Figures and exercise charts need a canvas, so these are the same stand-in bitmaps the
         // render suite uses: the prose, the glossary and the pagination are the real ones.

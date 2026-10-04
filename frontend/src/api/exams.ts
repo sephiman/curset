@@ -1,4 +1,4 @@
-import { apiClient, COURSE_PATH } from "@/api/client";
+import { apiClient, courseUrl, inReadingLanguage, type CourseScope } from "@/api/client";
 import type { ExerciseType } from "@/api/course";
 import type { Answer, AttemptPayload } from "@/api/exercises";
 
@@ -74,8 +74,12 @@ export interface ExamHistoryItem {
   total: number;
 }
 
-export async function startExam(scope: ExamScope, blockId?: string): Promise<ExamSession> {
-  const { data } = await apiClient.post<ExamSession>(`${COURSE_PATH}/exams`, { scope, blockId: blockId ?? null });
+export async function startExam(course: CourseScope, scope: ExamScope, blockId?: string): Promise<ExamSession> {
+  const { data } = await apiClient.post<ExamSession>(
+    courseUrl(course, "/exams"),
+    { scope, blockId: blockId ?? null },
+    inReadingLanguage(course),
+  );
   return data;
 }
 
@@ -86,35 +90,44 @@ export async function startExam(scope: ExamScope, blockId?: string): Promise<Exa
  * open one of the same scope, so a global and a block exam can be open at once — and the older of the
  * two then had no route in the UI that could reach it, to resume or to abandon.
  */
-export async function getOpenExams(): Promise<ExamSession[]> {
-  const { data } = await apiClient.get<ExamSession[]>(`${COURSE_PATH}/exams/open`);
+export async function getOpenExams(course: CourseScope): Promise<ExamSession[]> {
+  const { data } = await apiClient.get<ExamSession[]>(courseUrl(course, "/exams/open"), inReadingLanguage(course));
   return data;
 }
 
-export async function getExam(examId: string): Promise<ExamSession> {
-  const { data } = await apiClient.get<ExamSession>(`${COURSE_PATH}/exams/${examId}`);
+export async function getExam(course: CourseScope, examId: string): Promise<ExamSession> {
+  const { data } = await apiClient.get<ExamSession>(courseUrl(course, `/exams/${examId}`), inReadingLanguage(course));
   return data;
 }
 
-export async function answerExamQuestion(examId: string, attemptId: string, answer: Answer): Promise<void> {
-  await apiClient.post(`${COURSE_PATH}/exams/${examId}/questions/${attemptId}/answer`, { answer });
+export async function answerExamQuestion(
+  course: CourseScope,
+  examId: string,
+  attemptId: string,
+  answer: Answer,
+): Promise<void> {
+  await apiClient.post(courseUrl(course, `/exams/${examId}/questions/${attemptId}/answer`), { answer });
 }
 
-export async function submitExam(examId: string): Promise<ExamSession> {
-  const { data } = await apiClient.post<ExamSession>(`${COURSE_PATH}/exams/${examId}/submit`, {});
+export async function submitExam(course: CourseScope, examId: string): Promise<ExamSession> {
+  const { data } = await apiClient.post<ExamSession>(
+    courseUrl(course, `/exams/${examId}/submit`),
+    {},
+    inReadingLanguage(course),
+  );
   return data;
 }
 
-export async function reviewExam(examId: string): Promise<ExamSession> {
-  const { data } = await apiClient.get<ExamSession>(`${COURSE_PATH}/exams/${examId}/review`);
+export async function reviewExam(course: CourseScope, examId: string): Promise<ExamSession> {
+  const { data } = await apiClient.get<ExamSession>(courseUrl(course, `/exams/${examId}/review`), inReadingLanguage(course));
   return data;
 }
 
-export async function abandonExam(examId: string): Promise<void> {
-  await apiClient.post(`${COURSE_PATH}/exams/${examId}/abandon`, {});
+export async function abandonExam(course: CourseScope, examId: string): Promise<void> {
+  await apiClient.post(courseUrl(course, `/exams/${examId}/abandon`), {});
 }
 
-export async function examHistory(): Promise<ExamHistoryItem[]> {
-  const { data } = await apiClient.get<ExamHistoryItem[]>(`${COURSE_PATH}/exams`);
+export async function examHistory(course: CourseScope): Promise<ExamHistoryItem[]> {
+  const { data } = await apiClient.get<ExamHistoryItem[]>(courseUrl(course, "/exams"), inReadingLanguage(course));
   return data;
 }

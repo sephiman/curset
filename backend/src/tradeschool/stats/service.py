@@ -63,10 +63,15 @@ class _ExerciseRoll:
             self.attempts_to_success = self.answered
 
 
-async def _answered(session: AsyncSession, user_id: uuid.UUID | None) -> list[Attempt]:
+async def _answered(session: AsyncSession, course_id: str, user_id: uuid.UUID | None) -> list[Attempt]:
     # Practice only: exam attempts (exam_session_id set) never touch practice statistics — first-attempt
     # accuracy, costliest sections and the global "where everyone struggles" all exclude them (§isolation).
-    stmt = select(Attempt).where(Attempt.state == AttemptState.ANSWERED, Attempt.exam_session_id.is_(None))
+    # One course only: every number on the page is about the course being viewed (R8.4).
+    stmt = select(Attempt).where(
+        Attempt.course_id == course_id,
+        Attempt.state == AttemptState.ANSWERED,
+        Attempt.exam_session_id.is_(None),
+    )
     if user_id is not None:
         stmt = stmt.where(Attempt.user_id == user_id)
     stmt = stmt.order_by(Attempt.created_at.asc(), Attempt.id.asc())
@@ -97,11 +102,13 @@ def _avg(values: list[int]) -> float | None:
 async def me_stats(
     session: AsyncSession, registry: CourseRegistry, user_id: uuid.UUID, locale: str
 ) -> dict[str, object]:
-    rolls = _roll_by_exercise(await _answered(session, user_id))
+    rolls = _roll_by_exercise(await _answered(session, registry.slug, user_id))
     passed = {key for key, roll in rolls.items() if roll.correct > 0}  # exercise KEYS
 
     completed_rows = await session.scalars(
-        select(LessonCompletion.lesson_id).where(LessonCompletion.user_id == user_id)
+        select(LessonCompletion.lesson_id).where(
+            LessonCompletion.user_id == user_id, LessonCompletion.course_id == registry.slug
+        )
     )
     completed_lessons = set(completed_rows.all())  # lesson KEYS
 
@@ -225,7 +232,7 @@ async def me_stats(
 
 
 async def global_stats(session: AsyncSession, registry: CourseRegistry, locale: str) -> dict[str, object]:
-    attempts = await _answered(session, None)
+    attempts = await _answered(session, registry.slug, None)
 
     # earliest answered attempt per (user, exercise) — the first-attempt population.
     first_seen: dict[tuple[uuid.UUID, str], bool] = {}

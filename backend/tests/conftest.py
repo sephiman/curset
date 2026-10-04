@@ -6,6 +6,7 @@ from __future__ import annotations
 from collections.abc import AsyncGenerator, Generator
 from contextlib import asynccontextmanager
 from dataclasses import dataclass, field
+from pathlib import Path
 
 import pytest
 import pytest_asyncio
@@ -83,9 +84,17 @@ class RecordingMailer:
 
     enabled: bool = True
     outbox: list[SentMail] = field(default_factory=list)
+    # While True the "server" refuses every blocking delivery, as an unreachable SMTP host would.
+    refusing: bool = False
 
     def send(self, to: str, subject: str, body: str) -> None:
         self.outbox.append(SentMail(to, subject, body))
+
+    def deliver(self, to: str, subject: str, body: str) -> bool:
+        if self.refusing:
+            return False
+        self.outbox.append(SentMail(to, subject, body))
+        return True
 
 
 @asynccontextmanager
@@ -99,10 +108,10 @@ async def _build_client(
         await _truncate_all()
         if reconcile_content:
             # Reconcile AFTER truncation so the skeleton survives for FK-backed progress writes.
-            from tradeschool.content.sync import reconcile
+            from tradeschool.content.sync import reconcile_catalog
 
             async with get_sessionmaker()() as db:
-                await reconcile(app.state.registry.manifest, db)
+                await reconcile_catalog(app.state.catalog, db)
         transport = ASGITransport(app=app)
         async with AsyncClient(transport=transport, base_url="http://test") as http:
             yield http
@@ -135,6 +144,29 @@ async def content_client(settings: Settings, _migrated: bool) -> AsyncGenerator[
         yield http
 
 
+REPO_CONTENT = Path(__file__).resolve().parents[2] / "content"
+FIXTURE_CONTENT = Path(__file__).resolve().parent / "fixtures" / "content"
+REPORT_ADDRESS = "reports@curset.test"
+
+
+@pytest.fixture(scope="session")
+def multi_course_settings(settings: Settings, tmp_path_factory: pytest.TempPathFactory) -> Settings:
+    """The real crypto-futures course next to the fixture courses (a Spanish-only one and a draft)."""
+    root = tmp_path_factory.mktemp("content")
+    for course in [REPO_CONTENT / "crypto-futures", *sorted(FIXTURE_CONTENT.iterdir())]:
+        (root / course.name).symlink_to(course, target_is_directory=True)
+    return settings.model_copy(update={"content_dir": root, "report_email_to": REPORT_ADDRESS})
+
+
+@pytest_asyncio.fixture
+async def multi_client(
+    multi_course_settings: Settings, _migrated: bool, mailer: RecordingMailer
+) -> AsyncGenerator[AsyncClient]:
+    """Several courses reconciled into the DB, report mail landing in the `mailer` outbox."""
+    async with _build_client(multi_course_settings, reconcile_content=True, mailer=mailer) as http:
+        yield http
+
+
 @pytest_asyncio.fixture
 async def rl_client(settings: Settings, _migrated: bool) -> AsyncGenerator[AsyncClient]:
     """Client with rate limiting enabled (fresh limiter storage) for the throttling test."""
@@ -149,3 +181,12 @@ async def session(client: AsyncClient) -> AsyncGenerator[AsyncSession]:
     """A live DB session bound to the same engine the app uses (for seeding/asserting)."""
     async with get_sessionmaker()() as db:
         yield db
+
+
+def pytest_terminal_summary(terminalreporter: pytest.TerminalReporter) -> None:
+    """Each figure step's verdict per course, so a course without figures is named, not silent."""
+    from pipeline_courses import figure_step_line, pipeline_courses
+
+    terminalreporter.section("figure steps per course")
+    for course in pipeline_courses():
+        terminalreporter.write_line(figure_step_line(course))

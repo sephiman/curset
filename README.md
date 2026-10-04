@@ -1,11 +1,15 @@
 <!-- SPDX-License-Identifier: AGPL-3.0-only -->
-# TradeSchool
+# Curset
 
-Interactive crypto-futures trading academy — self-hosted, multi-user, from absolute zero to trading
-with proper risk management. Third app in the **Sephilabs** ecosystem, and its **Python reference app**.
+A self-hosted, multi-user, multi-course web platform. Third app in the **Sephilabs** ecosystem, and
+its **Python reference app**. It serves several unrelated courses side by side; each user activates the
+ones that interest them and switches between them. The first course is **crypto-futures**, an
+interactive crypto-futures trading academy from absolute zero to trading with proper risk management.
+That course keeps the name **TradeSchool**, which is also the name of the Android app built from it.
+The code, the packages and the database keep the original `tradeschool` identifiers.
 
-Content is bilingual (ES + EN); progress is honest information, never a reward — no streaks, points or
-badges. Exercises are **generated and graded on the server**, so a solution never reaches the client
+A course is written in one language or in two (ES + EN); progress is honest information, never a
+reward — no streaks, points or badges. Exercises are **generated and graded on the server**, so a solution never reaches the client
 before you answer: statistics are trustworthy by construction. (The one deliberate exception is the
 printed book's answer key — see [the print endpoint](#the-printed-exercises-and-the-one-endpoint-that-reveals-solutions);
 grading stays server-side, so what the statistics measure is unchanged.)
@@ -28,11 +32,12 @@ grading stays server-side, so what the statistics measure is unchanged.)
 backend/    FastAPI service (see backend/README.md)
 frontend/   React SPA served by nginx, /api proxied to the backend
             (course PDF export lives in frontend/src/lib/pdf/ — see "Printing the course")
-content/    course.yaml manifest (course → blocks → modules → lessons → exercises) + es/ and en/
-            content trees + figures + figure-coupling.yaml (the lesson numbers that are rounded
-            values of a figure's generated output) + glossary.yaml (the bilingual term list, which
-            refers into the lessons and never coins); see content/README.md for the stable-ID /
-            namespacing convention, the worked-numbers-follow-the-figure rule and the doc-comment rule
+content/    one directory per course, content/<slug>/: its course.yaml manifest (course → blocks →
+            modules → lessons → exercises) + one content tree per language it declares + figures +
+            figure-coupling.yaml (the lesson numbers that are rounded values of a figure's generated
+            output) + glossary.yaml (the term list, which refers into the lessons and never coins) +
+            its frozen goldens; see content/README.md for the stable-ID convention, the
+            worked-numbers-follow-the-figure rule and the doc-comment rule
 docs/       the bundle format changelog and its app-side consumption spec, plus what a check
             turned out not to be able to say and what was added instead
 docker-compose.yml  .env.example  LICENSE
@@ -358,57 +363,56 @@ Everything whose data belongs to a course hangs off the course:
 /api/courses/{course}/print/exercises      the printed exercises + answer key
 /api/courses/{course}/glossary             the glossary
 /api/courses/{course}/lessons/{id}         …/complete (POST marks, DELETE unmarks), /modules/{id}, /figures/{id}
-/api/courses/{course}/exams                …/current, /{exam_id}, /{exam_id}/submit, …
+/api/courses/{course}/exams                …/open, /{exam_id}, /{exam_id}/submit, …
 /api/courses/{course}/attempts             …/{attempt_id}, /exercises/{id}/attempts
+/api/courses/{course}/attempts/{id}/report "Report this question" (see Courses, languages and reports)
 /api/courses/{course}/stats/me             …/stats/global (anonymous aggregate, within the course)
 ```
 
-`{course}` is a permanent slug — today `crypto-futures`, the same id the manifest and the PDF
-filename already use. It joins the stable-identifier namespace in `content/README.md`: chosen once,
-never renamed. An unknown slug is a clean `404 COURSE_NOT_FOUND`, resolved *before* the resource is
-looked up, so a wrong course plus a wrong lesson reports the course miss.
+`{course}` is a permanent slug — `crypto-futures` for the crypto course. It is the course's
+directory under `content/`, chosen once and never renamed. An unknown slug, or a `draft` course,
+is a clean `404 COURSE_NOT_FOUND`. The slug is resolved *before* the resource is looked up, so a
+wrong course plus a wrong lesson reports the course miss.
 
-Genuinely global endpoints stay unscoped: `/api/auth/*` (an account is not per-course), `/api/health`,
-`/api/version`, and the dev-gated `/api/dev/*`.
+Every content endpoint takes `?lang=` as the course's **reading language**. Without it, the server
+uses the user's choice for that course, then the account language if the course has it, then the
+course's first language. A language the course does not declare is
+`404 LANGUAGE_NOT_AVAILABLE` with `"available": ["es"]` in the body: never the other language's
+content, never an empty response.
 
-**Deprecated aliases.** Every pre-scoping URL still works — `/api/course`, `/api/course/export`,
-`/api/glossary`, `/api/lessons/{id}`, `/api/exams`, `/api/stats/me`, … — and **serves directly rather
-than redirecting**, so payloads are byte-identical and a POST is not at the mercy of a client's
-redirect handling. Alias responses carry RFC 8594 headers naming the successor:
+Global endpoints:
 
 ```
-Deprecation: true
-Link: </api/courses/crypto-futures/glossary>; rel="successor-version"
+/api/auth/*                 the account
+/api/courses                the catalogue of published courses (public: sign-up lists it)
+/api/me/courses             GET/PUT: active courses, the selected course, reading language per course
+/api/health, /api/version
 ```
 
-They are hidden from `/api/docs`, so the schema teaches only canonical URLs. They exist for clients
-we do not control; **our own frontend and PDF pipeline use the scoped URLs exclusively**, enforced by
-`frontend/src/api/urls.test.ts`. Removal point is the day a second course lands, which is when an
-unscoped URL stops having an unambiguous answer.
-
-One router serves both mounts: `current_course` reads the slug off `request.path_params`, returning
-the single course when the segment is absent. That is also why the alias is marked in middleware
-rather than with `deprecated=True` — the two mounts share one route object, so per-mount metadata has
-nowhere to live on it.
+The unscoped aliases (`/api/course`, `/api/glossary`, `/api/lessons/{id}`, …) were removed when the
+second course arrived, because an unscoped URL no longer has an unambiguous answer.
+`frontend/src/api/urls.test.ts` checks that every course-owned call is built by `courseUrl()`.
 
 ### Page URLs carry the course too
 
 The SPA mirrors the API, so the address bar always says which course you are in:
 
 ```
-/courses/{course}                    the course page (home)
+/courses/{course}                    the course page
 /courses/{course}/lessons/{id}       …/modules/{id}, /glossary, /stats
 /courses/{course}/exams              …/{examId}, /{examId}/review
 ```
 
-Routes are declared with the **literal** slug via `coursePath()` in `components/layout/nav.ts`, not a
-`:course` param. The API client targets one course, so a route matching any slug would render
-`/courses/anything/glossary` full of this course's content — a URL that lies. The param arrives with
-the threading, the day a second course does.
+`/courses/:course/*` is one route (`features/courses/CourseRoute.tsx`). It checks the slug against
+the catalogue and the user's active courses, selects the course, and gives every page below it the
+course and its reading language through `useCourse()`. An unknown or inactive slug shows the "no
+course" page with a notice; an inactive one also gets a button to activate it.
 
-Pre-scoping page URLs redirect (`/glossary` → `/courses/crypto-futures/glossary`, query string kept),
-so old bookmarks land and the address bar corrects itself. `App.routes.test.tsx` pins that table.
-nginx needs no change: `try_files $uri /index.html` already serves any depth.
+The course-less addresses `/`, `/course`, `/glossary`, `/stats`, `/exams/…` and pre-scoping bookmarks
+(`/lessons/{id}`, `/modules/{id}`) go to the same page under the **selected** course, query string
+and fragment kept. With no active course they show that tab's "no course" page.
+`App.routes.test.tsx` covers both cases. nginx needs no change: `try_files $uri /index.html` already
+serves any depth.
 
 A bookmark from before the one-time 2026-08-10 renumbering (see `content/README.md`) does *not*
 redirect: the permutation reused sixteen ids outright, and append-only growth has since re-issued the
@@ -454,7 +458,7 @@ archive; `lang` is how you ask for less.
 GET /api/courses/{course}/export                  # both languages (the default) — see the shape below
 GET /api/courses/{course}/export?lang=all         # the same document, asked for explicitly
 GET /api/courses/{course}/export?lang=es          # one language (en|es), as plain strings
-GET /api/courses/{course}/export?download=true    # attachment (tradeschool-course-all.json, or -es/-en)
+GET /api/courses/{course}/export?download=true    # attachment (curset-<course>-all.json, or -es/-en)
 ```
 
 The two shapes are discriminated by their top-level key, so a consumer never has to guess:
@@ -612,7 +616,7 @@ Three properties make it a *book* rather than a dump:
 ## Printing the course (PDF)
 
 **Export PDF**, next to the course-page header, produces the whole course as one print-ready document
-in the language being browsed — cover, table of contents with page numbers, block and module headings
+in the course's reading language — cover, table of contents with page numbers, block and module headings
 with their summaries, every lesson's prose, callouts and figures, **the lesson's exercises after its
 prose, and an answer key at the back**, and it is **navigable**: bookmarks, a clickable contents, term
 links into the glossary and exercise ↔ answer cross-links (see below). ~261 pages (EN) / ~274 (ES):
@@ -620,7 +624,9 @@ links into the glossary and exercise ↔ answer cross-links (see below). ~261 pa
 and the answer key is a table-of-contents entry with a resolved page number. The running footer carries the course **subtitle** (`course.subtitle`, the book's short name — the full title would wrap), the
 **top-level section the page belongs to** (the block, or the answer key) and the page number, so a page
 found loose still says where it came from; the cover and the contents precede the first block and name
-no section. The file is named `tradeschool-<course>-<locale>-<YYYY-MM-DD>.pdf`.
+no section. The footer starts with the platform name: `Curset · <subtitle> · <section>`. The file is named `curset-<course>-<locale>-<YYYY-MM-DD>.pdf`. The book is
+printed in the course's reading language, labels included. A course without figures or charts skips
+the capture phases entirely instead of reporting "0 of 0".
 
 ### Navigating the book
 
@@ -769,6 +775,13 @@ each chart answer's prices against the published series, and asserts two builds 
 
 ## Themes
 
+**Logo.** The header and the auth card show the Curset wordmark, an open book with a rising arrow,
+"Curset" and *a Sephimandev app* in small type. There is one artwork per resolved theme
+(`frontend/src/assets/brand/curset-logo-{light,dark,oled}.png`), following TradeLog and SharedLedger.
+The browser tab uses `curset-icon-{light,dark}.png`, picked by the system colour scheme. The SVGs
+beside them are the sources; `frontend/scripts/render-brand.sh` re-renders the PNGs (needs
+`rsvg-convert` and the Noto Sans font).
+
 Four choices — **Light**, **Dark**, **OLED**, **System** — in the avatar menu and in the auth-card
 footer (which collapses to an icon that cycles the same four on phone widths). The preference is
 stored in `localStorage`, not on the server, so it applies before the first request and is re-applied
@@ -800,13 +813,49 @@ freezes the light and dark tables and asserts the OLED delta touches those four 
 The dev-only chart gallery at `/dev/charts` renders every figure and a sweep of generated exercise
 charts with the production renderer, which is where a theme pass over the figures is done.
 
+## Courses, languages and reports
+
+**Courses.** Each directory `content/<slug>/` is one course, loaded at startup. A course that does not
+validate stops startup, and the error names it. `course.yaml` declares the course's `languages` (`[es]`
+or `[en, es]`, first = fallback), its `status` (`draft` courses are loaded and checked but never served)
+and its `exercise_types`. Module, lesson, exercise and glossary ids are unique **inside** a course
+only: the database keys every skeleton row by `(course_id, id)`, and every attempt and lesson
+completion carries its course. An attempt, an exam or a statistic therefore never shows up in another
+course.
+
+**Active and selected courses.** At sign-up, after username and password, the learner ticks the
+courses that interest them. None is ticked by default, and continuing with none is fine. Account →
+**Courses** lists every published course with a switch. Turning a course off hides it everywhere and
+deletes nothing: its progress, attempts and open exams come back when it is turned on again. One
+course is *selected* at a time, server-side. Its dropdown sits on the Course and Exams tabs (only with
+two or more active courses; otherwise the title shows), and Glossary and Progress follow it.
+Turning off the viewed course moves to the next active one alphabetically. With none active, the four
+tabs each show a one-line page with a button to the Courses section.
+
+**Two languages.** The interface language is the account's. A course is *read* in one of its own
+languages: the account's if the course has it, otherwise its first. The header's ES ↔ EN switch carries
+the viewed course along when it has the language and leaves it alone when it does not ("Spanish only"
+shows under the course title). A two-language course also has its own reading-language selector,
+remembered per user and per course.
+
+**Report this question.** Every answered multiple-choice question (practice — just answered or
+reopened from the attempt history — or the review of a submitted exam; never an exam in progress,
+never the PDF) has a red **Report this question** button beside **Try again** that opens one text box
+(5–1,000 characters). The server fills in the course, module, lesson, exercise, variant, seed,
+reading language, the answer as shown, the correct answer as shown, the user, the time and a link back
+to the exercise. It stores the report in `question_reports` and then mails it to `REPORT_EMAIL_TO`. A mail the
+server does not accept stays pending and is retried every 15 minutes. Limits: one report per attempt,
+ten per user per day (`429 REPORT_LIMIT_REACHED`). Reports never touch attempts, progress or
+statistics.
+
 ## Accounts
 
 Accounts are **username + password**; you always sign in with the username. Usernames are 3–32
 characters (lowercase letters, numbers, `-`, `_`) and case-insensitive.
 
 An **email is optional** — at registration or later on the **Account** page (`/account`, from the
-avatar menu) — and is used for one thing: resetting a forgotten password. The flow follows
+avatar menu) — and is used for one thing: resetting a forgotten password. (Question reports are mailed
+to the team's address, not the learner's.) The flow follows
 crypto-ambush's:
 
 - Setting or changing the address leaves it **unverified** and mails a 48-hour link to it
@@ -881,6 +930,17 @@ hand-written `exp`/`log` and why `np.polyfit` and the one `@` are gone, is in
 The native Android app (`tradeschool-android`) reads the course from a **bundle** instead of calling
 this backend, and its Kotlin generators are verified against **contract artifacts** exported from
 here. Four commands build all of it; the reasoning is in `phase-w2-bundle-and-contracts.md`.
+
+The bundle is the **crypto-futures course** and nothing else: `export_bundle.py` refuses any other
+course. `dist/contracts/` (generation goldens, PRNG vectors, libm parity and their fingerprints) stays
+where it is. Those files describe the **generators** — the seeded chart and calculation engines the Kotlin
+port has to reproduce — not a course. They read crypto-futures' figures and exercise configs because
+that is the only course with generators. A test-only course (multiple choice, no figures) adds nothing
+to them, so a change in another course can never move a contract. The per-course goldens
+(`glossary-links.*.txt`, `lesson-refs.*.txt`) live inside each course's directory, one per language it
+declares. The content suites run over every published course, and each figure step names a course with
+none: `pytest` ends with a `figure steps per course` section (`fixture-oposiciones: no figures`), and
+the PDF export logs `<course>: no figures` / `no exercise charts` instead of a capture phase.
 
 ```bash
 cd backend

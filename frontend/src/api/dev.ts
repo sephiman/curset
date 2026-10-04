@@ -1,4 +1,4 @@
-import { apiClient } from "@/api/client";
+import { apiClient, courseUrl, type CourseScope } from "@/api/client";
 import type { AttemptPayload, PriceLevelPayload } from "@/api/exercises";
 
 /** Divergence exercises grade to {divergence, swing1, swing2}. */
@@ -32,15 +32,15 @@ export interface GalleryResponse {
   items: GalleryItem[];
 }
 
-export async function getDevInstances(exerciseId: string, count: number): Promise<GalleryResponse> {
-  const { data } = await apiClient.get<GalleryResponse>("/dev/instances", {
-    params: { exercise_id: exerciseId, count },
+export async function getDevInstances(scope: CourseScope, exerciseId: string, count: number): Promise<GalleryResponse> {
+  const { data } = await apiClient.get<GalleryResponse>(courseUrl(scope, "/dev/instances"), {
+    params: { exercise_id: exerciseId, count, lang: scope.lang },
   });
   return data;
 }
 
 /** Every lesson-figure id (dev-only), for reviewing the whole figure set in one place. */
-export async function getDevFigures(): Promise<string[]> {
-  const { data } = await apiClient.get<string[]>("/dev/figures");
+export async function getDevFigures(scope: CourseScope): Promise<string[]> {
+  const { data } = await apiClient.get<string[]>(courseUrl(scope, "/dev/figures"));
   return data;
 }

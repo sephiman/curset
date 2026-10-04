@@ -3,58 +3,69 @@
 
 The FIGURE is the source of truth and the prose rounds it, which couples prose to generator output: a
 reseed silently strands every number beside the chart, and nothing crashes.
-`content/figure-coupling.yaml` declares the coupling; this checks it both ways — the figure moved, and
-the prose moved (per-locale number formatting, both content trees). `identical_through` holds
-same-seed panels equal bar by bar, and guarded exceptions must keep their generated-instance lead-in.
+Each course's `figure-coupling.yaml` declares the coupling; this checks it both ways — the figure moved,
+and the prose moved (per-locale number formatting, every content tree the course has). `identical_through`
+holds same-seed panels equal bar by bar, and guarded exceptions must keep their generated-instance
+lead-in. Every pipeline course is covered; one without figures is recorded as "no figures".
 """
 
 from __future__ import annotations
 
 import re
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
 import pytest
 import yaml
 
-from tradeschool.exercises.figures import build_figure, load_figures
+from pipeline_courses import NO_FIGURES, course_dir, figure_step_line, pipeline_courses
+from tradeschool.content.registry import CourseRegistry
+from tradeschool.exercises.figures import FigureSpec, build_figure
 
-CONTENT = Path(__file__).resolve().parents[2] / "content"
-MANIFEST = CONTENT / "figure-coupling.yaml"
-LOCALES = ("es", "en")
 _DEFAULT_TOL = 0.01  # a human rounding lands well inside 1%; a moved figure lands well outside it
 
 _SERIES_KEYS = ("open", "high", "low", "close", "volume")
 _PANE_KEYS = ("rsi", "oi", "cvd")
 
 
-def _manifest() -> dict[str, Any]:
-    with MANIFEST.open(encoding="utf-8") as fh:
+@dataclass(frozen=True)
+class Coupling:
+    """One course's coupling manifest, with what it needs to check it."""
+
+    slug: str
+    content: Path
+    locales: tuple[str, ...]
+    figures: dict[str, FigureSpec]
+    coupled: dict[str, Any]
+    exceptions: dict[str, Any]
+
+    def built(self, figure_id: str) -> dict[str, Any]:
+        return build_figure(self.figures[figure_id], self.locales[0])
+
+    def panel(self, figure_id: str, index: int) -> dict[str, Any]:
+        panels = self.built(figure_id)["panels"]
+        assert isinstance(panels, list)
+        panel = panels[index]
+        assert isinstance(panel, dict)
+        return panel
+
+    def lesson_text(self, lesson_id: str, locale: str) -> str:
+        return (self.content / locale / "lessons" / f"{lesson_id}.md").read_text(encoding="utf-8")
+
+
+def _coupling(course: CourseRegistry) -> Coupling:
+    content = course_dir(course)
+    with (content / "figure-coupling.yaml").open(encoding="utf-8") as fh:
         raw = yaml.safe_load(fh)
     assert isinstance(raw, dict)
-    return raw
+    return Coupling(
+        course.slug, content, tuple(course.languages), course.figures, raw["figures"], raw["exceptions"]
+    )
 
 
-_MANIFEST = _manifest()
-_FIGURES = load_figures(CONTENT)
-_COUPLED: dict[str, Any] = _MANIFEST["figures"]
-_EXCEPTIONS: dict[str, Any] = _MANIFEST["exceptions"]
-
-
-def _built(figure_id: str) -> dict[str, Any]:
-    return build_figure(_FIGURES[figure_id], "en")
-
-
-def _panel(figure_id: str, index: int) -> dict[str, Any]:
-    panels = _built(figure_id)["panels"]
-    assert isinstance(panels, list)
-    panel = panels[index]
-    assert isinstance(panel, dict)
-    return panel
-
-
-def _lesson_text(lesson_id: str, locale: str) -> str:
-    return (CONTENT / locale / "lessons" / f"{lesson_id}.md").read_text(encoding="utf-8")
+_WITH_FIGURES = [_coupling(course) for course in pipeline_courses() if course.has_figures]
+_WITHOUT_FIGURES = [course for course in pipeline_courses() if not course.has_figures]
 
 
 def _resolve(panel: dict[str, Any], what: str, spec: dict[str, Any]) -> float:
@@ -122,38 +133,70 @@ def _localized(number: float, locale: str) -> str:
     return grouped.replace(",", ".") if locale == "es" else grouped
 
 
-def _anchors() -> list[tuple[str, dict[str, Any], dict[str, Any]]]:
-    return [(fid, spec, anchor) for fid, spec in _COUPLED.items() for anchor in spec["anchors"]]
+def _anchors() -> list[tuple[Coupling, str, dict[str, Any], dict[str, Any]]]:
+    return [
+        (course, fid, spec, anchor)
+        for course in _WITH_FIGURES
+        for fid, spec in course.coupled.items()
+        for anchor in spec["anchors"]
+    ]
+
+
+def _figures(which: str, keep: Any = lambda spec: True) -> list[tuple[Coupling, str]]:
+    return [
+        (course, fid)
+        for course in _WITH_FIGURES
+        for fid in sorted(getattr(course, which))
+        if keep(getattr(course, which)[fid])
+    ]
+
+
+def _param_id(value: object) -> str:
+    if isinstance(value, Coupling):
+        return value.slug
+    return value if isinstance(value, str) else ""
 
 
 def _ident(figure_id: str, anchor: dict[str, Any]) -> str:
     return f"{figure_id}[panel {anchor.get('panel', 0)}] {anchor['what']}"
 
 
+# --- a course without figures is named, never failed and never an empty pass ----------------------
+
+
+@pytest.mark.parametrize("course", _WITHOUT_FIGURES, ids=lambda course: course.slug)
+def test_a_course_without_figures_is_recorded_as_no_figures(course: CourseRegistry) -> None:
+    assert not (course_dir(course) / "figure-coupling.yaml").exists()
+    assert figure_step_line(course) == f"{course.slug}: {NO_FIGURES}"
+
+
+def test_the_pipeline_covers_a_course_with_figures_and_one_without() -> None:
+    """Both branches run in this suite, or the "no figures" line is only ever a claim."""
+    assert _WITH_FIGURES and _WITHOUT_FIGURES
+
+
 # --- the manifest describes reality ---------------------------------------------------------------
 
 
-@pytest.mark.parametrize("figure_id", sorted({*_COUPLED, *_EXCEPTIONS}))
-def test_every_declared_figure_exists_and_its_lessons_embed_it(figure_id: str) -> None:
-    assert figure_id in _FIGURES, f"figure-coupling.yaml names an unknown figure {figure_id!r}"
-    spec = _COUPLED.get(figure_id) or _EXCEPTIONS[figure_id]
+@pytest.mark.parametrize(("course", "figure_id"), _figures("coupled") + _figures("exceptions"), ids=_param_id)
+def test_every_declared_figure_exists_and_its_lessons_embed_it(course: Coupling, figure_id: str) -> None:
+    assert figure_id in course.figures, f"figure-coupling.yaml names an unknown figure {figure_id!r}"
+    spec = course.coupled.get(figure_id) or course.exceptions[figure_id]
     directive = f"::figure{{id={figure_id}}}"
     for lesson_id in spec["lessons"]:
-        for locale in LOCALES:
-            body = _lesson_text(lesson_id, locale)
+        for locale in course.locales:
+            body = course.lesson_text(lesson_id, locale)
             assert directive in body, f"{locale}/{lesson_id} does not embed {figure_id}"
 
 
 # --- 1. the figure has not moved out from under the prose -----------------------------------------
 
 
-@pytest.mark.parametrize(
-    ("figure_id", "spec", "anchor"), _anchors(), ids=lambda v: v if isinstance(v, str) else ""
-)
+@pytest.mark.parametrize(("course", "figure_id", "spec", "anchor"), _anchors(), ids=_param_id)
 def test_prose_number_still_approximates_the_generated_value(
-    figure_id: str, spec: dict[str, Any], anchor: dict[str, Any]
+    course: Coupling, figure_id: str, spec: dict[str, Any], anchor: dict[str, Any]
 ) -> None:
-    panel = _panel(figure_id, anchor.get("panel", 0))
+    panel = course.panel(figure_id, anchor.get("panel", 0))
     actual = _resolve(panel, anchor["what"], spec)
     stale = (
         f"{_ident(figure_id, anchor)} is now {actual:.2f}. The figure moved out from under the prose "
@@ -182,11 +225,9 @@ def test_prose_number_still_approximates_the_generated_value(
 # --- 2. the prose still prints the number it is pinned to -----------------------------------------
 
 
-@pytest.mark.parametrize(
-    ("figure_id", "spec", "anchor"), _anchors(), ids=lambda v: v if isinstance(v, str) else ""
-)
+@pytest.mark.parametrize(("course", "figure_id", "spec", "anchor"), _anchors(), ids=_param_id)
 def test_every_coupled_number_appears_in_every_lesson_that_quotes_it(
-    figure_id: str, spec: dict[str, Any], anchor: dict[str, Any]
+    course: Coupling, figure_id: str, spec: dict[str, Any], anchor: dict[str, Any]
 ) -> None:
     if not anchor.get("in_prose", True) or "prose" not in anchor:
         # One reason per skipped anchor: the three shapes that are checked by VALUE and deliberately
@@ -204,9 +245,9 @@ def test_every_coupled_number_appears_in_every_lesson_that_quotes_it(
     # every phase), and demanding the whole chart from the lesson that needs two numbers would push
     # the other five into it just to satisfy a test.
     for lesson_id in anchor.get("lessons", spec["lessons"]):
-        for locale in LOCALES:
+        for locale in course.locales:
             wanted = _localized(float(anchor["prose"]), locale)
-            body = _lesson_text(lesson_id, locale)
+            body = course.lesson_text(lesson_id, locale)
             # Bounded so 2.125 does not match inside 2.1250 or 2.125,50 — but a number ending a
             # sentence ("...se queda en 29.350.") still counts, so the trailing separator is only
             # rejected when a digit follows it.
@@ -221,14 +262,14 @@ def test_every_coupled_number_appears_in_every_lesson_that_quotes_it(
 
 
 @pytest.mark.parametrize(
-    "figure_id", sorted(fid for fid, spec in _COUPLED.items() if "identical_through" in spec)
+    ("course", "figure_id"), _figures("coupled", lambda spec: "identical_through" in spec), ids=_param_id
 )
-def test_panels_that_share_a_seed_render_the_same_candles(figure_id: str) -> None:
-    spec = _COUPLED[figure_id]
+def test_panels_that_share_a_seed_render_the_same_candles(course: Coupling, figure_id: str) -> None:
+    spec = course.coupled[figure_id]
     through = spec["identical_through"]
-    first = _panel(figure_id, 0)["series"]
-    for index in range(1, len(_built(figure_id)["panels"])):
-        other = _panel(figure_id, index)["series"]
+    first = course.panel(figure_id, 0)["series"]
+    for index in range(1, len(course.built(figure_id)["panels"])):
+        other = course.panel(figure_id, index)["series"]
         for key in ("open", "high", "low", "close"):
             assert first[key][: through + 1] == other[key][: through + 1], (
                 f"{figure_id}: panels 0 and {index} diverge in {key} before bar {through}, but "
@@ -240,13 +281,13 @@ def test_panels_that_share_a_seed_render_the_same_candles(figure_id: str) -> Non
 # --- 4. figures the prose does NOT adapt to keep their lead-in ------------------------------------
 
 
-@pytest.mark.parametrize("figure_id", sorted(_EXCEPTIONS))
-def test_exception_figures_keep_their_generated_instance_lead_in(figure_id: str) -> None:
-    spec = _EXCEPTIONS[figure_id]
+@pytest.mark.parametrize(("course", "figure_id"), _figures("exceptions"), ids=_param_id)
+def test_exception_figures_keep_their_generated_instance_lead_in(course: Coupling, figure_id: str) -> None:
+    spec = course.exceptions[figure_id]
     for lesson_id in spec["lessons"]:
-        for locale in LOCALES:
+        for locale in course.locales:
             phrase = spec["guard_phrase"][locale]
-            body = _lesson_text(lesson_id, locale)
+            body = course.lesson_text(lesson_id, locale)
             assert phrase.lower() in body.lower(), (
                 f"{locale}/{lesson_id} lost the '{phrase}' lead-in for {figure_id}. That figure is a "
                 f"declared exception — its prose keeps its own numbers — so the reader has to be told "

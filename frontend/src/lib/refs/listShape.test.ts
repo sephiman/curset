@@ -1,7 +1,7 @@
 // @vitest-environment node
 import { describe, expect, it } from "vitest";
 import { listShape, parseLesson, strayMarkers } from "@/lib/refs/listShape";
-import { lessonMarkdown, manifestLessons, LOCALES } from "@/test/courseContent";
+import { GOLDEN_COURSES } from "@/test/courseContent";
 
 // Both shapes are the real damage a re-wrap did to m23-l1 and m22-l1 (EN), trimmed.
 const MERGED_ITEM = `1. **Weight a signal by the session it printed in.** It often deserves
@@ -37,17 +37,18 @@ describe("list shape", () => {
   });
 });
 
-describe("every lesson's lists", () => {
-  const lessons = manifestLessons().map((lesson) => lesson.id);
+describe.each(GOLDEN_COURSES.map((course) => [course.slug, course] as const))("%s: every lesson's lists", (_name, course) => {
+  const lessons = course.lessons().map((lesson) => lesson.id);
 
-  it.each(lessons)("%s has the same list structure in both locales", (lessonId) => {
-    const [en, es] = LOCALES.map((locale) => listShape(parseLesson(lessonMarkdown(locale, lessonId))));
-    expect(es, "a list item exists in one locale and not the other").toEqual(en);
+  // List parity binds two-language courses only; a Spanish-only course has no `en/` tree to compare.
+  it.runIf(course.languages.length > 1).each(lessons)("%s has the same list structure in every locale", (lessonId) => {
+    const [first, ...rest] = course.languages.map((locale) => listShape(parseLesson(course.lessonMarkdown(locale, lessonId))));
+    for (const other of rest) expect(other, "a list item exists in one locale and not the other").toEqual(first);
   });
 
-  it.each(LOCALES)("carry no list marker in the middle of a sentence (%s)", (locale) => {
+  it.each(course.languages)("carry no list marker in the middle of a sentence (%s)", (locale) => {
     const hits = lessons.flatMap((lessonId) =>
-      strayMarkers(parseLesson(lessonMarkdown(locale, lessonId))).map(
+      strayMarkers(parseLesson(course.lessonMarkdown(locale, lessonId))).map(
         (m) => `${lessonId}:${m.line} «${m.marker}» …${m.context}…`,
       ),
     );

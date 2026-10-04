@@ -3,6 +3,7 @@ import { createRoot, type Root as ReactRoot } from "react-dom/client";
 import { I18nextProvider } from "react-i18next";
 import type { IChartApi } from "lightweight-charts";
 import i18n from "@/i18n";
+import type { CourseScope } from "@/api/client";
 import { getFigure, type FigureData, type FigurePanel } from "@/api/course";
 import { CandleAnatomy } from "@/components/charts/CandleAnatomy";
 import { CandleChart, type SwingMarker } from "@/components/charts/CandleChart";
@@ -315,6 +316,7 @@ export function withPrintPixelRatio<T>(run: () => Promise<T>): Promise<T> {
 
 /** Draw every figure the export needs, keyed by id. Ids repeat across lessons; each is drawn once. */
 export async function captureFigures(
+  scope: CourseScope,
   figureIds: string[],
   onProgress?: (progress: CaptureProgress) => void,
 ): Promise<Map<string, CapturedFigure>> {
@@ -325,7 +327,7 @@ export async function captureFigures(
       onProgress?.({ done: index, total: unique.length });
       let data: FigureData;
       try {
-        data = await getFigure(id);
+        data = await getFigure(scope, id);
       } catch (cause) {
         throw new Error(`figure ${id} could not be loaded`, { cause });
       }

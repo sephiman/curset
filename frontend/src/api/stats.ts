@@ -1,4 +1,4 @@
-import { apiClient, COURSE_PATH } from "@/api/client";
+import { apiClient, courseUrl, inReadingLanguage, type CourseScope } from "@/api/client";
 
 export interface Coverage {
   publishedModules: number;
@@ -108,12 +108,12 @@ export interface GlobalStats {
   modules: GlobalModule[];
 }
 
-export async function getMeStats(): Promise<MeStats> {
-  const { data } = await apiClient.get<MeStats>(`${COURSE_PATH}/stats/me`);
+export async function getMeStats(scope: CourseScope): Promise<MeStats> {
+  const { data } = await apiClient.get<MeStats>(courseUrl(scope, "/stats/me"), inReadingLanguage(scope));
   return data;
 }
 
-export async function getGlobalStats(): Promise<GlobalStats> {
-  const { data } = await apiClient.get<GlobalStats>(`${COURSE_PATH}/stats/global`);
+export async function getGlobalStats(scope: CourseScope): Promise<GlobalStats> {
+  const { data } = await apiClient.get<GlobalStats>(courseUrl(scope, "/stats/global"), inReadingLanguage(scope));
   return data;
 }

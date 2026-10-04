@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import { MemoryRouter } from "react-router-dom";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import en from "@/i18n/en.json";
+import { InCourse } from "@/test/course";
 
 /**
  * Starting an exam when one is already open.
@@ -48,7 +49,7 @@ const navigate = vi.fn();
 
 vi.mock("@tanstack/react-query", () => ({
   useQuery: ({ queryKey }: { queryKey: unknown[] }) => {
-    const which = queryKey[1];
+    const which = queryKey.at(-1);
     if (which === "open") return { data: openSittings, isLoading: false };
     if (which === "history") return { data: [], isLoading: false };
     return { data: COURSE, isLoading: false };
@@ -85,7 +86,7 @@ function mount(node: ReactElement): void {
   host = document.createElement("div");
   document.body.appendChild(host);
   act(() => {
-    createRoot(host).render(node);
+    createRoot(host).render(<InCourse>{node}</InCourse>);
   });
 }
 

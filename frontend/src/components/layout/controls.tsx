@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import type { Locale } from "@/api/auth";
 import { useAuth } from "@/auth/AuthContext";
+import { useFollowInterfaceLanguage } from "@/features/courses/useCourses";
 import { useTheme, type ThemePreference } from "@/lib/theme";
 import { cn } from "@/lib/cn";
 
@@ -51,16 +52,22 @@ export function Segmented<T extends string>({
   );
 }
 
-/** EN/ES segmented control; signed in it also persists the preference (AuthContext.setLocale). */
+/**
+ * EN/ES segmented control; signed in it also persists the preference (AuthContext.setLocale). The
+ * selected course follows it into the new language when the course has it, and stays where it was
+ * when it does not (R4.3).
+ */
 export function LanguageControl({ block }: { block?: boolean }) {
   const { t, i18n } = useTranslation();
   const { setLocale } = useAuth();
+  const followInterfaceLanguage = useFollowInterfaceLanguage();
   const lang: Locale = i18n.resolvedLanguage === "es" ? "es" : "en";
   return (
     <Segmented<Locale>
       ariaLabel={t("common.language")}
       value={lang}
-      onChange={(v) => void setLocale(v)}
+      // After the account has the new language: the server derives every unchosen reading language from it.
+      onChange={(v) => void setLocale(v).then(() => followInterfaceLanguage(v))}
       block={block}
       options={[
         { value: "en", label: "EN" },

@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Course navigation, lesson view and lesson completion. All content is localized to the
-requested language (query `lang`, else the user's locale); progress is language-independent.
+"""Course navigation, lesson view and lesson completion. All content is served in the course's
+reading language (query `lang`, else the user's choice for the course); progress is language-independent.
 """
 
 from __future__ import annotations
@@ -21,52 +21,43 @@ from tradeschool.auth.models import User
 from tradeschool.content.models import LessonCompletion
 from tradeschool.content.print_export import build_print_exercises
 from tradeschool.content.registry import CourseRegistry
-from tradeschool.content.schema import LOCALES
 from tradeschool.db import get_async_session
+from tradeschool.deps import ReadingLocale, get_registry, language_not_available
 from tradeschool.errors import AppError
 from tradeschool.exercises.figures import build_figure
 
 router = APIRouter(tags=["content"])
-# The course itself and its whole-document exports. Split out because these are the routes whose path
-# DIFFERS between the two mounts: canonically they hang off the course (/courses/{course}/export),
-# while the deprecated alias restores today's /api/course/export by mounting this router at /course.
+# The course itself and its whole-document exports, whose paths hang off the course root
+# (/courses/{course}, /courses/{course}/export) rather than off a sub-resource.
 course_router = APIRouter(tags=["content"])
 
-LangQuery = Annotated[str | None, Query(pattern="^(en|es)$")]
 # The export alone also takes `all`, and treats an absent `lang` as `all`: it is the one endpoint whose
-# job is to hand over the whole course rather than to render it for the reader in front of it, and the
-# course exists in two languages. Everywhere else an absent `lang` still means "the user's locale".
+# job is to hand over the whole course rather than to render it for the reader in front of it.
+# Everywhere else an absent `lang` means "the user's reading language for this course".
 ExportLangQuery = Annotated[str | None, Query(pattern="^(en|es|all)$")]
-
-
-def get_registry(request: Request) -> CourseRegistry:
-    registry: CourseRegistry = request.app.state.registry
-    return registry
-
-
-def _resolve_locale(lang: str | None, user: User) -> str:
-    if lang in LOCALES:
-        return lang
-    if user.locale in LOCALES:
-        return user.locale
-    return "en"
 
 
 async def _completed_lesson_ids(
     session: AsyncSession, registry: CourseRegistry, user_id: uuid.UUID
 ) -> set[str]:
-    """Completed lessons as DISPLAY ids — the rows store permanent keys."""
+    """Completed lessons of THIS course as DISPLAY ids — the rows store permanent keys."""
     rows = await session.scalars(
-        select(LessonCompletion.lesson_id).where(LessonCompletion.user_id == user_id)
+        select(LessonCompletion.lesson_id).where(
+            LessonCompletion.user_id == user_id, LessonCompletion.course_id == registry.slug
+        )
     )
     return {display for key in rows.all() if (display := registry.lesson_id_for_key(key))}
 
 
-async def _has_any_attempt(session: AsyncSession, user_id: uuid.UUID) -> bool:
+async def _has_any_attempt(session: AsyncSession, course_id: str, user_id: uuid.UUID) -> bool:
     """Whether the user has begun the course — a *practice* attempt (exams are a separate lane)."""
     row = await session.scalar(
         select(Attempt.exercise_id)
-        .where(Attempt.user_id == user_id, Attempt.exam_session_id.is_(None))
+        .where(
+            Attempt.user_id == user_id,
+            Attempt.course_id == course_id,
+            Attempt.exam_session_id.is_(None),
+        )
         .limit(1)
     )
     return row is not None
@@ -80,6 +71,7 @@ async def _passed_exercise_ids(
         select(Attempt.exercise_id)
         .where(
             Attempt.user_id == user_id,
+            Attempt.course_id == registry.slug,
             Attempt.state == AttemptState.ANSWERED,
             Attempt.is_correct.is_(True),
             Attempt.exam_session_id.is_(None),
@@ -99,15 +91,15 @@ async def get_course(
     user: Annotated[User, Depends(current_active_user)],
     session: Annotated[AsyncSession, Depends(get_async_session)],
     registry: Annotated[CourseRegistry, Depends(get_registry)],
-    lang: LangQuery = None,
+    locale: ReadingLocale,
 ) -> dict[str, object]:
-    locale = _resolve_locale(lang, user)
     completed = await _completed_lesson_ids(session, registry, user.id)
     passed = await _passed_exercise_ids(session, registry, user.id)
     # `started` drives the course page's Continue CTA (hidden for a fresh account).
-    started = bool(completed) or await _has_any_attempt(session, user.id)
+    started = bool(completed) or await _has_any_attempt(session, registry.slug, user.id)
     return {
         "locale": locale,
+        "languages": registry.languages,
         "started": started,
         "course": registry.course_meta(locale),
         "blocks": registry.course_tree(locale, completed, passed),
@@ -118,13 +110,12 @@ async def get_course(
 async def get_glossary(
     user: Annotated[User, Depends(current_active_user)],
     registry: Annotated[CourseRegistry, Depends(get_registry)],
-    lang: LangQuery = None,
+    locale: ReadingLocale,
 ) -> dict[str, object]:
-    """Every glossary entry, alphabetical in the resolved locale.
+    """Every glossary entry of the course, alphabetical in the reading language.
 
     The two locales sort differently on purpose — an entry is looked up by the word the reader met.
     """
-    locale = _resolve_locale(lang, user)
     return {"locale": locale, "terms": registry.glossary_entries(locale)}
 
 
@@ -137,13 +128,16 @@ async def export_course(
 ) -> JSONResponse:
     """The whole course as one JSON document — prose only, exercises stripped.
 
-    Both languages by default, under a `locales` key; name a `lang` for one, under `locale`.
+    Every language the course declares by default, under a `locales` key; name a `lang` for one,
+    under `locale`.
     """
-    bilingual = lang in (None, "all")
-    data = registry.course_export_bilingual() if bilingual else registry.course_export(str(lang))
-    suffix = "all" if bilingual else str(lang)
+    every = lang in (None, "all")
+    if not every and lang not in registry.languages:
+        raise language_not_available(registry, str(lang))
+    data = registry.course_export_all() if every else registry.course_export(str(lang))
+    suffix = "all" if every else str(lang)
     headers = (
-        {"Content-Disposition": f'attachment; filename="tradeschool-course-{suffix}.json"'}
+        {"Content-Disposition": f'attachment; filename="curset-{registry.slug}-{suffix}.json"'}
         if download
         else {}
     )
@@ -155,21 +149,21 @@ async def export_print_exercises(
     request: Request,
     user: Annotated[User, Depends(current_active_user)],
     registry: Annotated[CourseRegistry, Depends(get_registry)],
-    lang: LangQuery = None,
+    locale: ReadingLocale,
 ) -> dict[str, object]:
     """Every exercise as it is PRINTED — one frozen instance each, **with its answer**.
 
     This endpoint reveals solutions, deliberately: an answer key is the solutions in the reader's
     hands by definition. Grading stays server-side, so attempt scoring is unaffected. Single-locale,
-    deterministic per ``print_seed(exercise key)``, cached per locale.
+    deterministic per ``print_seed(exercise key)``, cached per (course, locale).
     """
-    locale = _resolve_locale(lang, user)
     if not hasattr(request.app.state, "print_cache"):
         request.app.state.print_cache = {}
-    cache: dict[str, dict[str, object]] = request.app.state.print_cache
-    if locale not in cache:
-        cache[locale] = build_print_exercises(registry, locale)
-    return cache[locale]
+    cache: dict[tuple[str, str], dict[str, object]] = request.app.state.print_cache
+    key = (registry.slug, locale)
+    if key not in cache:
+        cache[key] = build_print_exercises(registry, locale)
+    return cache[key]
 
 
 @router.get("/figures/{figure_id}")
@@ -178,17 +172,16 @@ async def get_figure(
     request: Request,
     user: Annotated[User, Depends(current_active_user)],
     registry: Annotated[CourseRegistry, Depends(get_registry)],
-    lang: LangQuery = None,
+    locale: ReadingLocale,
 ) -> dict[str, object]:
-    """A lesson figure's chart data + caption. Frozen seed, so it is cached per (figure, locale)."""
-    locale = _resolve_locale(lang, user)
+    """A lesson figure's chart data + caption. Frozen seed, so it is cached per (course, figure, locale)."""
     spec = registry.figures.get(figure_id)
     if spec is None:
         raise AppError("FIGURE_NOT_FOUND", f"No figure {figure_id!r}.", status_code=404)
     if not hasattr(request.app.state, "figure_cache"):
         request.app.state.figure_cache = {}
-    cache: dict[tuple[str, str], dict[str, object]] = request.app.state.figure_cache
-    key = (figure_id, locale)
+    cache: dict[tuple[str, str, str], dict[str, object]] = request.app.state.figure_cache
+    key = (registry.slug, figure_id, locale)
     if key not in cache:
         cache[key] = build_figure(spec, locale)
     return cache[key]
@@ -200,9 +193,8 @@ async def get_lesson(
     user: Annotated[User, Depends(current_active_user)],
     session: Annotated[AsyncSession, Depends(get_async_session)],
     registry: Annotated[CourseRegistry, Depends(get_registry)],
-    lang: LangQuery = None,
+    locale: ReadingLocale,
 ) -> dict[str, object]:
-    locale = _resolve_locale(lang, user)
     completed = await _completed_lesson_ids(session, registry, user.id)
     detail = registry.lesson_detail(lesson_id, locale, completed)
     if detail is None:
@@ -217,13 +209,13 @@ async def complete_lesson(
     session: Annotated[AsyncSession, Depends(get_async_session)],
     registry: Annotated[CourseRegistry, Depends(get_registry)],
 ) -> CompleteResponse:
-    if registry.lesson_detail(lesson_id, "en", set()) is None:
+    if registry.lesson_detail(lesson_id, registry.languages[0], set()) is None:
         raise AppError("LESSON_NOT_FOUND", f"No lesson {lesson_id!r}.", status_code=404)
     await session.execute(
         pg_insert(LessonCompletion)
         # The row stores the permanent key, so a display renumbering never orphans a completion.
-        .values(user_id=user.id, lesson_id=registry.lesson_key(lesson_id))
-        .on_conflict_do_nothing(index_elements=["user_id", "lesson_id"])
+        .values(user_id=user.id, course_id=registry.slug, lesson_id=registry.lesson_key(lesson_id))
+        .on_conflict_do_nothing(index_elements=["user_id", "course_id", "lesson_id"])
     )
     await session.commit()
     return CompleteResponse(lessonId=lesson_id, completed=True)
@@ -237,11 +229,12 @@ async def uncomplete_lesson(
     registry: Annotated[CourseRegistry, Depends(get_registry)],
 ) -> CompleteResponse:
     """Undo a completion mark. Idempotent, like its POST twin — unmarking twice is not an error."""
-    if registry.lesson_detail(lesson_id, "en", set()) is None:
+    if registry.lesson_detail(lesson_id, registry.languages[0], set()) is None:
         raise AppError("LESSON_NOT_FOUND", f"No lesson {lesson_id!r}.", status_code=404)
     await session.execute(
         delete(LessonCompletion).where(
             LessonCompletion.user_id == user.id,
+            LessonCompletion.course_id == registry.slug,
             LessonCompletion.lesson_id == registry.lesson_key(lesson_id),
         )
     )
@@ -255,9 +248,8 @@ async def get_module(
     user: Annotated[User, Depends(current_active_user)],
     session: Annotated[AsyncSession, Depends(get_async_session)],
     registry: Annotated[CourseRegistry, Depends(get_registry)],
-    lang: LangQuery = None,
+    locale: ReadingLocale,
 ) -> dict[str, object]:
-    locale = _resolve_locale(lang, user)
     completed = await _completed_lesson_ids(session, registry, user.id)
     detail = registry.module_detail(module_id, locale, completed)
     if detail is None:

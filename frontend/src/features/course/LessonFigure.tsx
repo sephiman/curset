@@ -1,11 +1,11 @@
 import { type ReactNode } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useTranslation } from "react-i18next";
 import { getFigure, type FigurePanel } from "@/api/course";
 import { CandleAnatomy } from "@/components/charts/CandleAnatomy";
 import { CandleChart, type SwingMarker } from "@/components/charts/CandleChart";
 import { FramedChart, PAIRED_HEIGHT } from "@/components/charts/FramedChart";
 import { Spinner } from "@/components/ui/primitives";
+import { scopeKey, useCourse } from "@/features/courses/CourseContext";
 
 // Hand-drawn SVG figures, keyed by the spec's `svg` name.
 const SVG_FIGURES: Record<string, () => ReactNode> = {
@@ -22,8 +22,8 @@ function toMarkers(annotations: FigurePanel["annotations"]): SwingMarker[] {
 
 /** A figure embedded via `::figure{id=...}`: frozen seed, non-interactive, shows the resolution. */
 export function LessonFigure({ id }: { id: string }) {
-  const { i18n } = useTranslation();
-  const { data } = useQuery({ queryKey: ["figure", id, i18n.resolvedLanguage], queryFn: () => getFigure(id) });
+  const { scope } = useCourse();
+  const { data } = useQuery({ queryKey: ["figure", ...scopeKey(scope), id], queryFn: () => getFigure(scope, id) });
 
   if (!data) {
     return (

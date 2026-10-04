@@ -21,7 +21,7 @@ from tradeschool.exams.service import QUESTION_ORDER, _build_view, _canonical_or
 
 
 def _registry() -> CourseRegistry:
-    return load_registry(get_settings().content_dir)
+    return load_registry(get_settings().content_dir / "crypto-futures")
 
 
 def _one_exercise_per_module(registry: CourseRegistry) -> list[str]:

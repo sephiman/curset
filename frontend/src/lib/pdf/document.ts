@@ -16,6 +16,7 @@ import { lessonToContent, type MarkdownRenderers } from "@/lib/pdf/markdown";
 import { DEST, keepTogether, printedId, withId, type OversizedBlock } from "@/lib/pdf/pagination";
 import { createSectionTracker, SECTION_ID, type SectionTracker } from "@/lib/pdf/sections";
 import { DEFAULT_STYLE, PAGE, PRINT_FONT, PRINT_STYLES, panelWidth } from "@/lib/pdf/page";
+import { PLATFORM_NAME } from "@/lib/platform";
 
 /**
  * The course as a print document: a pure function of (identity, theory export, figures, exercises).
@@ -154,12 +155,12 @@ function renderers(figures: Map<string, CapturedFigure>): MarkdownRenderers {
 }
 
 /**
- * The footer's left side: the book, plus the current section once the first block has started.
- *
- * The book is its subtitle, not its full title — one line at footer size, on every page.
+ * The footer's left side: the platform and the book, plus the current section once the first block
+ * has started. The book is its subtitle, not its full title — one line at footer size, on every page.
  */
 export function runningTitle(courseSubtitle: string, section: string | undefined): string {
-  return section ? `${courseSubtitle} · ${section}` : courseSubtitle;
+  const book = `${PLATFORM_NAME} · ${courseSubtitle}`;
+  return section ? `${book} · ${section}` : book;
 }
 
 /** The captured chart for one exercise, or a stop — a chartless question is unanswerable. */
@@ -317,7 +318,7 @@ export function buildCourseDocument(o: BuildCourseDocumentOptions): TDocumentDef
       title: o.courseTitle,
       subject: o.courseDescription,
       author: COURSE_AUTHOR,
-      creator: "TradeSchool",
+      creator: PLATFORM_NAME,
     },
     pageSize: PAGE.size,
     pageMargins: PAGE.margins,

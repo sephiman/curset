@@ -8,6 +8,8 @@ import { AttemptResult } from "@/features/exercises/AttemptResult";
 import { formatDateTime } from "@/lib/dates";
 import { Prose } from "@/lib/markdown";
 import { cn } from "@/lib/cn";
+import { scopeKey, useCourse } from "@/features/courses/CourseContext";
+import { ReportQuestion } from "@/features/reports/ReportQuestion";
 
 const DIVERGENCE_TYPES = new Set(["synthetic_chart", "fixture_chart"]);
 const CHART_TYPES = new Set([...DIVERGENCE_TYPES, "pattern_chart"]);
@@ -27,15 +29,16 @@ function reviewCorrectAnswer(review: AttemptReview, t: (k: string) => string): u
 
 export function AttemptHistory({ exerciseId }: { exerciseId: string }) {
   const { t } = useTranslation();
+  const { scope } = useCourse();
   const [selected, setSelected] = useState<string | null>(null);
 
   const { data: attempts } = useQuery({
-    queryKey: ["attempts", exerciseId],
-    queryFn: () => listAttempts(exerciseId),
+    queryKey: ["attempts", scope.slug, exerciseId],
+    queryFn: () => listAttempts(scope, exerciseId),
   });
   const { data: review } = useQuery({
-    queryKey: ["attempt", selected],
-    queryFn: () => getAttempt(selected as string),
+    queryKey: ["attempt", ...scopeKey(scope), selected],
+    queryFn: () => getAttempt(scope, selected as string),
     enabled: selected != null,
   });
 
@@ -96,6 +99,12 @@ export function AttemptHistory({ exerciseId }: { exerciseId: string }) {
             solutionSteps={review.solutionSteps}
             explanation={review.explanation}
           />
+          {/* A past answer is on screen here too, so the question can be reported from it. */}
+          {review.type === "quiz" && review.state === "answered" && (
+            <div className="mt-3 flex flex-wrap gap-3">
+              <ReportQuestion key={review.attemptId} attemptId={review.attemptId} />
+            </div>
+          )}
         </div>
       )}
     </details>

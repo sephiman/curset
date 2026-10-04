@@ -11,21 +11,21 @@ import { ChartExercise } from "@/features/exercises/ChartExercise";
 import { QuizExercise } from "@/features/exercises/QuizExercise";
 import { cn } from "@/lib/cn";
 import { Prose } from "@/lib/markdown";
-import { coursePath } from "@/components/layout/nav";
+import { scopeKey, useCourse } from "@/features/courses/CourseContext";
 import { ProseReferenceHost } from "@/features/references/ProseReferenceHost";
 
 const CHART_TYPES: ReadonlySet<ExerciseType> = new Set(["synthetic_chart", "fixture_chart", "pattern_chart"]);
 
 export function ExamRunner() {
-  const { t, i18n } = useTranslation();
-  const lang = i18n.resolvedLanguage;
+  const { t } = useTranslation();
   const { examId = "" } = useParams();
   const navigate = useNavigate();
   const qc = useQueryClient();
+  const { scope, path } = useCourse();
 
   const { data: exam, isLoading, isError } = useQuery({
-    queryKey: ["exam", examId, lang],
-    queryFn: () => getExam(examId),
+    queryKey: ["exam", ...scopeKey(scope), examId],
+    queryFn: () => getExam(scope, examId),
     retry: false,
   });
 
@@ -44,26 +44,26 @@ export function ExamRunner() {
 
   // A closed/unknown session can't be run — send the learner back to the landing.
   useEffect(() => {
-    if (isError) navigate(coursePath("/exams"), { replace: true });
+    if (isError) navigate(path("/exams"), { replace: true });
   }, [isError, navigate]);
 
   const answerMut = useMutation({
     mutationFn: ({ attemptId, answer }: { attemptId: string; answer: Answer }) =>
-      answerExamQuestion(examId, attemptId, answer),
+      answerExamQuestion(scope, examId, attemptId, answer),
     meta: { silentSuccess: true },
   });
   const submit = useMutation({
-    mutationFn: () => submitExam(examId),
+    mutationFn: () => submitExam(scope, examId),
     onSuccess: () => {
-      void qc.invalidateQueries({ queryKey: ["exam"] });
-      navigate(coursePath(`/exams/${examId}/review`), { replace: true });
+      void qc.invalidateQueries({ queryKey: ["exam", scope.slug] });
+      navigate(path(`/exams/${examId}/review`), { replace: true });
     },
   });
   const abandon = useMutation({
-    mutationFn: () => abandonExam(examId),
+    mutationFn: () => abandonExam(scope, examId),
     onSuccess: () => {
-      void qc.invalidateQueries({ queryKey: ["exam"] });
-      navigate(coursePath("/exams"), { replace: true });
+      void qc.invalidateQueries({ queryKey: ["exam", scope.slug] });
+      navigate(path("/exams"), { replace: true });
     },
   });
 

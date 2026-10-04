@@ -63,9 +63,10 @@ vi.mock("@/components/charts/CandleChart", () => ({
 }));
 
 const getFigure = vi.fn<(id: string) => Promise<FigureData>>();
-vi.mock("@/api/course", () => ({ getFigure: (id: string) => getFigure(id) }));
+vi.mock("@/api/course", () => ({ getFigure: (_scope: unknown, id: string) => getFigure(id) }));
 
 const { captureFigures } = await import("@/lib/pdf/figures");
+const SCOPE = { slug: "crypto-futures", lang: "en" } as const;
 
 function panel(indicator: FigurePanel["indicator"]): FigurePanel {
   return {
@@ -92,7 +93,7 @@ describe("capturing a chart figure", () => {
       panels: [panel("none"), panel("rsi"), panel("macd")],
     });
 
-    const captured = await captureFigures(["fig-m10-ema-signatures"]);
+    const captured = await captureFigures(SCOPE, ["fig-m10-ema-signatures"]);
 
     const figure = captured.get("fig-m10-ema-signatures");
     expect(figure?.caption).toBe("Three signatures of the same average");
@@ -109,7 +110,7 @@ describe("capturing a chart figure", () => {
 
   it("draws at print resolution on a real off-screen stage", async () => {
     getFigure.mockResolvedValue({ id: "f", kind: "chart", caption: "c", panels: [panel("none")] });
-    await captureFigures(["f"]);
+    await captureFigures(SCOPE, ["f"]);
     // Doubled while drawing: a 760px stage yields a 1520px bitmap, ~230 dpi on the page.
     expect(rendered[0].pixelRatioWhenDrawn).toBe(2);
     // Off-screen but still laid out — `display:none` would give the chart zero width to measure.
@@ -125,7 +126,7 @@ describe("capturing a chart figure", () => {
   it("hands the page back exactly as it found it", async () => {
     const pixelRatio = window.devicePixelRatio;
     getFigure.mockResolvedValue({ id: "f", kind: "chart", caption: "c", panels: [panel("none")] });
-    await captureFigures(["f"]);
+    await captureFigures(SCOPE, ["f"]);
     expect(window.devicePixelRatio).toBe(pixelRatio);
     expect(document.body.children).toHaveLength(0);
   });
@@ -134,7 +135,7 @@ describe("capturing a chart figure", () => {
     // Printed, a tiny bitmap is a smear; handed to the typesetter, it can hang it outright.
     bitmap = { width: 1, height: 1 };
     getFigure.mockResolvedValue({ id: "fig-tiny", kind: "chart", caption: "c", panels: [panel("none")] });
-    await expect(captureFigures(["fig-tiny"])).rejects.toThrowError(
+    await expect(captureFigures(SCOPE, ["fig-tiny"])).rejects.toThrowError(
       /figure fig-tiny: bitmap is 1×1, too small to print/,
     );
     expect(document.body.children).toHaveLength(0); // and still cleans up
@@ -144,7 +145,7 @@ describe("capturing a chart figure", () => {
     // The shipped bug's shape. Reporting a timeout sends you to performance, not to the real stack.
     failOnRender = new Error("useTheme must be used within a ThemeProvider");
     getFigure.mockResolvedValue({ id: "fig-broken", kind: "chart", caption: "c", panels: [panel("none")] });
-    await expect(captureFigures(["fig-broken"])).rejects.toThrowError(
+    await expect(captureFigures(SCOPE, ["fig-broken"])).rejects.toThrowError(
       /figure fig-broken failed to render: useTheme must be used within a ThemeProvider/,
     );
     expect(document.body.children).toHaveLength(0);
@@ -152,7 +153,7 @@ describe("capturing a chart figure", () => {
 
   it("draws a figure used by two lessons once", async () => {
     getFigure.mockResolvedValue({ id: "f", kind: "chart", caption: "c", panels: [panel("none")] });
-    const captured = await captureFigures(["f", "f", "f"]);
+    const captured = await captureFigures(SCOPE, ["f", "f", "f"]);
     expect(getFigure).toHaveBeenCalledTimes(1);
     expect(rendered).toHaveLength(1);
     expect(captured.size).toBe(1);

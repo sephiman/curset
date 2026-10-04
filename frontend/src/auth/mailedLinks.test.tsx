@@ -13,6 +13,7 @@ const refresh = vi.fn(async () => {});
 
 vi.mock("@/api/auth", () => api);
 vi.mock("@/auth/AuthContext", () => ({ useAuth: () => ({ user: null, refresh }) }));
+vi.mock("@/components/layout/Logo", () => ({ Logo: () => null }));
 vi.mock("@/components/layout/controls", () => ({
   LanguageControl: () => null,
   ThemeControl: () => null,

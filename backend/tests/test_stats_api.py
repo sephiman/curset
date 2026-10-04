@@ -12,6 +12,8 @@ from tradeschool.db import get_sessionmaker
 from tradeschool.exercises.base import rng_for
 from tradeschool.exercises.quiz import QuizConfig, QuizKind, QuizVariant, _shuffled
 
+API = "/api/courses/crypto-futures"
+
 
 def quiz_answer(variant: QuizVariant, seed: int, correct: bool) -> dict[str, object]:
     """Build a genuinely correct or wrong answer for whatever sub-kind the seed selected."""
@@ -51,14 +53,14 @@ async def _seed_of(attempt_id: str) -> int:
 
 
 async def _answer_quiz(client: AsyncClient, settings: Settings, exercise_id: str, correct: bool) -> None:
-    registry = load_registry(settings.content_dir)
+    registry = load_registry(settings.content_dir / "crypto-futures")
     _, config = registry.get_exercise_config(exercise_id)
     assert isinstance(config, QuizConfig)
-    opened = (await client.post(f"/api/exercises/{exercise_id}/attempts")).json()
+    opened = (await client.post(f"{API}/exercises/{exercise_id}/attempts")).json()
     seed = await _seed_of(opened["attemptId"])
     variant = rng_for(seed).choice(config.variants)
     answer = quiz_answer(variant, seed, correct)
-    await client.post(f"/api/attempts/{opened['attemptId']}/answer", json={"answer": answer})
+    await client.post(f"{API}/attempts/{opened['attemptId']}/answer", json={"answer": answer})
 
 
 async def test_me_stats_reading_and_mastery_are_separate(
@@ -69,9 +71,9 @@ async def test_me_stats_reading_and_mastery_are_separate(
     await _answer_quiz(content_client, settings, "m01-ex-1", correct=False)
     await _answer_quiz(content_client, settings, "m01-ex-1", correct=True)
     await _answer_quiz(content_client, settings, "m01-ex-2", correct=True)
-    await content_client.post("/api/lessons/m01-l1/complete")
+    await content_client.post(f"{API}/lessons/m01-l1/complete")
 
-    stats = (await content_client.get("/api/stats/me")).json()
+    stats = (await content_client.get(f"{API}/stats/me")).json()
 
     # Exercise (mastery) dimension.
     assert stats["exercise"]["answered"] == 3
@@ -109,14 +111,14 @@ async def test_costliest_sections_need_more_than_one_exercise(
     await _answer_quiz(content_client, settings, "m03-ex-1", correct=False)
     await _answer_quiz(content_client, settings, "m03-ex-2", correct=True)
 
-    stats = (await content_client.get("/api/stats/me")).json()
+    stats = (await content_client.get(f"{API}/stats/me")).json()
     m03 = next(m for m in stats["modules"] if m["id"] == "m03")
     # The module row still reports the failure honestly — only the *ranking* is withheld.
     assert m03["exercisesFailed"] == 1
     assert "m03" not in [c["moduleId"] for c in stats["costliestSections"]]
 
     await _answer_quiz(content_client, settings, "m03-ex-3", correct=True)
-    stats = (await content_client.get("/api/stats/me")).json()
+    stats = (await content_client.get(f"{API}/stats/me")).json()
     assert "m03" in [c["moduleId"] for c in stats["costliestSections"]]
 
 
@@ -131,7 +133,7 @@ async def test_failed_exercises_carry_their_lesson_for_review(
     await _answer_quiz(content_client, settings, "m03-ex-5", correct=False)
     await _answer_quiz(content_client, settings, "m03-ex-2", correct=True)
 
-    stats = (await content_client.get("/api/stats/me")).json()
+    stats = (await content_client.get(f"{API}/stats/me")).json()
     m03 = next(m for m in stats["modules"] if m["id"] == "m03")
     assert m03["toReview"] == [
         {"exerciseId": "m03-ex-1", "lessonId": "m03-l1", "incorrect": 1, "passed": True},
@@ -157,7 +159,7 @@ async def test_global_stats_are_anonymous_and_worst_first(
 
     # Two learners is below the gate: at this size "aggregated" is a fiction, because either one can
     # subtract themselves from the row and read the other's result. Nothing is published.
-    glob = (await content_client.get("/api/stats/global")).json()
+    glob = (await content_client.get(f"{API}/stats/global")).json()
     assert glob["thresholds"]["minLearners"] == 3
     assert glob["exercises"] == []
     assert glob["modules"] == []
@@ -166,7 +168,7 @@ async def test_global_stats_are_anonymous_and_worst_first(
     await _login(content_client, "userthree")
     await _answer_quiz(content_client, settings, "m01-ex-1", correct=True)  # user3 first attempt right
 
-    glob = (await content_client.get("/api/stats/global")).json()
+    glob = (await content_client.get(f"{API}/stats/global")).json()
     ex = next(e for e in glob["exercises"] if e["exerciseId"] == "m01-ex-1")
     assert ex["learners"] == 3
     assert ex["firstSeen"] == 3
@@ -183,14 +185,14 @@ async def test_global_learner_count_is_people_not_observations(
     for exercise_id in ("m03-ex-1", "m03-ex-2", "m03-ex-3"):
         await _answer_quiz(content_client, settings, exercise_id, correct=False)
 
-    glob = (await content_client.get("/api/stats/global")).json()
+    glob = (await content_client.get(f"{API}/stats/global")).json()
     # Three observations from one person: still one learner, so still nothing to publish.
     assert glob["modules"] == []
 
 
 async def test_me_stats_empty_for_new_user(content_client: AsyncClient) -> None:
     await _login(content_client, "freshuser")
-    stats = (await content_client.get("/api/stats/me")).json()
+    stats = (await content_client.get(f"{API}/stats/me")).json()
     assert stats["exercise"]["answered"] == 0
     assert stats["exercise"]["accuracy"] is None
     assert stats["reading"]["lessonsCompleted"] == 0

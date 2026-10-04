@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import type { Me } from "@/api/auth";
 import { useAuth } from "@/auth/AuthContext";
 import { LanguageControl, ThemeControl } from "@/components/layout/controls";
-import { NAV_ITEMS } from "@/components/layout/nav";
+import { useNavItems } from "@/features/courses/useNavItems";
 import { cn } from "@/lib/cn";
 
 function initials(username: string): string {
@@ -15,6 +15,7 @@ function initials(username: string): string {
 export function AccountMenu({ user }: { user: Me }) {
   const { t } = useTranslation();
   const { logout } = useAuth();
+  const navItems = useNavItems();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -59,22 +60,21 @@ export function AccountMenu({ user }: { user: Me }) {
           {/* Primary nav, only when it was collapsed out of the header (< sm). Active page keeps its
               highlight here. Same single menu on mobile — nav, divider, then account controls. */}
           <nav className="mb-3 flex flex-col border-b border-border pb-3 sm:hidden dark:border-gray-800 oled:border-oled-line">
-            {NAV_ITEMS.map(({ to, labelKey }) => (
-              <NavLink
-                key={to}
+            {navItems.map(({ tab, to, labelKey, current }) => (
+              <Link
+                key={tab}
                 to={to}
+                aria-current={current ? "page" : undefined}
                 onClick={() => setOpen(false)}
-                className={({ isActive }) =>
-                  cn(
-                    "rounded-md px-2 py-1.5 text-sm transition-colors",
-                    isActive
-                      ? "bg-primary/10 font-medium text-primary"
-                      : "text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800 oled:hover:bg-oled-hover",
-                  )
-                }
+                className={cn(
+                  "rounded-md px-2 py-1.5 text-sm transition-colors",
+                  current
+                    ? "bg-primary/10 font-medium text-primary"
+                    : "text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800 oled:hover:bg-oled-hover",
+                )}
               >
                 {t(labelKey)}
-              </NavLink>
+              </Link>
             ))}
           </nav>
 

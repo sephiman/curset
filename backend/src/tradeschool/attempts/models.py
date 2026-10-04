@@ -7,7 +7,7 @@ import uuid
 from datetime import datetime
 from enum import StrEnum
 
-from sqlalchemy import BigInteger, Boolean, DateTime, Enum, ForeignKey, func
+from sqlalchemy import BigInteger, Boolean, DateTime, Enum, ForeignKey, ForeignKeyConstraint, String, func
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -22,10 +22,15 @@ class AttemptState(StrEnum):
 
 class Attempt(Base):
     __tablename__ = "attempts"
+    __table_args__ = (
+        ForeignKeyConstraint(["course_id", "exercise_id"], ["exercises.course_id", "exercises.id"]),
+    )
 
     id: Mapped[uuid.UUID] = mapped_column(primary_key=True, default=uuid.uuid4)
     user_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("user.id", ondelete="cascade"), index=True)
-    exercise_id: Mapped[str] = mapped_column(ForeignKey("exercises.id"), index=True)
+    # Every attempt belongs to one course, so no attempt can surface in another course's numbers.
+    course_id: Mapped[str] = mapped_column(String, index=True)
+    exercise_id: Mapped[str] = mapped_column(String, index=True)
     # The seed fully determines the instantiated scenario (§3.2): any attempt is exactly replayable.
     seed: Mapped[int] = mapped_column(BigInteger, nullable=False)
     # Cached public instance for fast history rendering (regenerable from the seed).

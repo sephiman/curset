@@ -9,6 +9,7 @@ from tradeschool.attempts.models import Attempt, AttemptState
 from tradeschool.auth.models import User
 from tradeschool.content.models import Block, Exercise, Lesson, LessonCompletion, Module
 from tradeschool.content.schema import (
+    CourseStatus,
     LocalizedText,
     Manifest,
     ManifestBlock,
@@ -37,7 +38,13 @@ def _lesson(lesson_id: str, with_exercise: bool = False) -> ManifestLesson:
 def _manifest(modules: list[ManifestModule]) -> Manifest:
     return Manifest(
         course=ManifestCourse(
-            id="c1", title=_t("Course 1"), subtitle=_t("Course 1"), description=_t("A test course.")
+            id="c1",
+            title=_t("Course 1"),
+            subtitle=_t("Course 1"),
+            description=_t("A test course."),
+            languages=["en", "es"],
+            status=CourseStatus.PUBLISHED,
+            exercise_types=[ExerciseType.QUIZ],
         ),
         blocks=[ManifestBlock(id="b1", title=_t("Block 1"), modules=modules)],
     )
@@ -53,14 +60,14 @@ async def test_reconcile_inserts_skeleton(session: AsyncSession) -> None:
     summary = await reconcile(manifest, session)
     assert summary.inserted == 1 + 1 + 2 + 1 + 1  # course + block + 2 modules + 1 lesson + 1 exercise
 
-    block = await session.get(Block, "b1")
+    block = await session.get(Block, {"course_id": "c1", "id": "b1"})
     assert block.active is True and block.course_id == "c1"
-    assert (await session.get(Module, "mA")).course_id == "c1"
-    m_a = await session.get(Module, "mA")
-    m_b = await session.get(Module, "mB")
+    assert (await session.get(Module, {"course_id": "c1", "id": "mA"})).course_id == "c1"
+    m_a = await session.get(Module, {"course_id": "c1", "id": "mA"})
+    m_b = await session.get(Module, {"course_id": "c1", "id": "mB"})
     assert m_a.order_index == 1 and m_b.order_index == 2
     assert m_b.assumes == ["mA"]
-    ex = await session.get(Exercise, "lA-ex")
+    ex = await session.get(Exercise, {"course_id": "c1", "id": "lA-ex"})
     assert ex.type == ExerciseType.QUIZ and ex.lesson_id == "lA" and ex.module_id == "mA"
 
 
@@ -85,7 +92,7 @@ async def test_reconcile_reorder_add_remove_preserves_progress(session: AsyncSes
     )
     session.add(user)
     await session.flush()
-    session.add(LessonCompletion(user_id=user.id, lesson_id="lB"))
+    session.add(LessonCompletion(user_id=user.id, course_id="c1", lesson_id="lB"))
     await session.commit()
 
     # v2: mB removed; mA kept but moved after a new mC.
@@ -97,14 +104,14 @@ async def test_reconcile_reorder_add_remove_preserves_progress(session: AsyncSes
     )
     await reconcile(v2, session)
 
-    m_c = await session.get(Module, "mC")
-    m_a = await session.get(Module, "mA")
-    m_b = await session.get(Module, "mB")
+    m_c = await session.get(Module, {"course_id": "c1", "id": "mC"})
+    m_a = await session.get(Module, {"course_id": "c1", "id": "mA"})
+    m_b = await session.get(Module, {"course_id": "c1", "id": "mB"})
     assert m_c.active is True and m_c.order_index == 1
     assert m_a.active is True and m_a.order_index == 2
     # Removed content is inactivated, never deleted (§4.2).
     assert m_b.active is False
-    assert (await session.get(Lesson, "lB")).active is False
+    assert (await session.get(Lesson, {"course_id": "c1", "id": "lB"})).active is False
 
     # Historical progress survives the reorganization.
     completions = (await session.scalars(select(LessonCompletion))).all()
@@ -126,7 +133,7 @@ async def test_reconcile_moves_exercise_between_lessons_keeping_attempts(
         ],
     )
     await reconcile(_manifest([module]), session)
-    assert (await session.get(Exercise, "shared-ex")).lesson_id == "lA"
+    assert (await session.get(Exercise, {"course_id": "c1", "id": "shared-ex"})).lesson_id == "lA"
 
     user = User(
         username="ylearner",
@@ -141,6 +148,7 @@ async def test_reconcile_moves_exercise_between_lessons_keeping_attempts(
     session.add(
         Attempt(
             user_id=user.id,
+            course_id="c1",
             exercise_id="shared-ex",
             seed=7,
             instance_snapshot={"prompt": "p"},
@@ -167,7 +175,7 @@ async def test_reconcile_moves_exercise_between_lessons_keeping_attempts(
     )
     await reconcile(_manifest([moved]), session)
 
-    row = await session.get(Exercise, "shared-ex")
+    row = await session.get(Exercise, {"course_id": "c1", "id": "shared-ex"})
     assert row.active is True  # re-homed, not removed
     assert row.lesson_id == "lB" and row.module_id == "mA"
     assert row.order_index == 2  # order is a plain attribute, so an out-of-sequence id is fine
@@ -180,10 +188,10 @@ async def test_reconcile_reactivates_returned_content(session: AsyncSession) -> 
     v1 = _manifest([ManifestModule(id="mA", title=_t("A"), summary=_t("a"))])
     await reconcile(v1, session)
     await reconcile(_manifest([]), session)
-    assert (await session.get(Module, "mA")).active is False
+    assert (await session.get(Module, {"course_id": "c1", "id": "mA"})).active is False
     # The same id reappearing flips it back to active.
     await reconcile(v1, session)
-    assert (await session.get(Module, "mA")).active is True
+    assert (await session.get(Module, {"course_id": "c1", "id": "mA"})).active is True
 
 
 #: Columns removed from the ORM model on purpose. The physical column may still exist (see the note in

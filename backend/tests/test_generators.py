@@ -318,7 +318,7 @@ def test_quiz_variant_selection_is_deterministic() -> None:
 
 # --- retired fields ------------------------------------------------------------------------------
 
-_CONTENT = Path(__file__).resolve().parents[2] / "content"
+_CONTENT = Path(__file__).resolve().parents[2] / "content" / "crypto-futures"
 
 #: Fields the schema once carried and no longer accepts. Both halves are asserted — the schema
 #: rejects it AND no content file ships it — because otherwise "removed" just means "ignored".

@@ -71,7 +71,7 @@ def _cmd_reset_password(username: str) -> int:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(prog="tradeschool", description="TradeSchool management CLI")
+    parser = argparse.ArgumentParser(prog="tradeschool", description="Curset management CLI")
     sub = parser.add_subparsers(dest="command", required=True)
     sub.add_parser("migrate", help="Apply database migrations (alembic upgrade head)")
     sub.add_parser("sync", help="Reconcile the course manifest into the database")

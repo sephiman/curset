@@ -13,6 +13,8 @@ from tradeschool.exercises.base import rng_for
 from tradeschool.exercises.calculation import CalculationConfig, _mc_options
 from tradeschool.exercises.quiz import QuizConfig, QuizKind, QuizVariant, _shuffled
 
+API = "/api/courses/crypto-futures"
+
 CREDS = {"username": "solver", "password": "correcthorse"}
 
 
@@ -56,7 +58,7 @@ async def test_open_attempt_hides_solution(content_client: AsyncClient) -> None:
     import json
 
     await _auth(content_client)
-    resp = await content_client.post("/api/exercises/m01-ex-1/attempts")
+    resp = await content_client.post(f"{API}/exercises/m01-ex-1/attempts")
     assert resp.status_code == 201
     body = resp.json()
     assert body["type"] == "quiz" and body["state"] == "open" and body["prompt"]
@@ -81,17 +83,17 @@ async def test_open_attempt_hides_solution(content_client: AsyncClient) -> None:
 
 async def test_quiz_correct_and_wrong_paths(content_client: AsyncClient, settings: Settings) -> None:
     await _auth(content_client)
-    registry = load_registry(settings.content_dir)
+    registry = load_registry(settings.content_dir / "crypto-futures")
     _, config = registry.get_exercise_config("m01-ex-1")
     assert isinstance(config, QuizConfig)
 
-    opened = (await content_client.post("/api/exercises/m01-ex-1/attempts")).json()
+    opened = (await content_client.post(f"{API}/exercises/m01-ex-1/attempts")).json()
     seed = await _seed_of(opened["attemptId"])
     variant = rng_for(seed).choice(config.variants)
 
     graded = (
         await content_client.post(
-            f"/api/attempts/{opened['attemptId']}/answer",
+            f"{API}/attempts/{opened['attemptId']}/answer",
             json={"answer": quiz_answer(variant, seed, correct=True)},
         )
     ).json()
@@ -99,12 +101,12 @@ async def test_quiz_correct_and_wrong_paths(content_client: AsyncClient, setting
     assert graded["explanation"]
 
     # A fresh attempt answered wrong (kind-aware, since the seed may pick any sub-kind).
-    opened2 = (await content_client.post("/api/exercises/m01-ex-1/attempts")).json()
+    opened2 = (await content_client.post(f"{API}/exercises/m01-ex-1/attempts")).json()
     seed2 = await _seed_of(opened2["attemptId"])
     variant2 = rng_for(seed2).choice(config.variants)
     wrong = (
         await content_client.post(
-            f"/api/attempts/{opened2['attemptId']}/answer",
+            f"{API}/attempts/{opened2['attemptId']}/answer",
             json={"answer": quiz_answer(variant2, seed2, correct=False)},
         )
     ).json()
@@ -115,18 +117,18 @@ async def test_calculation_correct_path_with_solution(
     content_client: AsyncClient, settings: Settings
 ) -> None:
     await _auth(content_client)
-    registry = load_registry(settings.content_dir)
+    registry = load_registry(settings.content_dir / "crypto-futures")
     _, config = registry.get_exercise_config("m06-ex-1")
     assert isinstance(config, CalculationConfig)
 
-    opened = (await content_client.post("/api/exercises/m06-ex-1/attempts")).json()
+    opened = (await content_client.post(f"{API}/exercises/m06-ex-1/attempts")).json()
     assert opened["type"] == "calculation" and opened["payload"]["kind"] == "multiple_choice"
     seed = await _seed_of(opened["attemptId"])
     _p, _e, _opts, correct_id, _d = _mc_options(config, seed)
 
     graded = (
         await content_client.post(
-            f"/api/attempts/{opened['attemptId']}/answer", json={"answer": {"optionId": correct_id}}
+            f"{API}/attempts/{opened['attemptId']}/answer", json={"answer": {"optionId": correct_id}}
         )
     ).json()
     assert graded["correct"] is True
@@ -136,24 +138,24 @@ async def test_calculation_correct_path_with_solution(
 
 async def test_answer_is_single_shot(content_client: AsyncClient, settings: Settings) -> None:
     await _auth(content_client)
-    _, config = load_registry(settings.content_dir).get_exercise_config("m01-ex-1")
+    _, config = load_registry(settings.content_dir / "crypto-futures").get_exercise_config("m01-ex-1")
     assert isinstance(config, QuizConfig)
-    opened = (await content_client.post("/api/exercises/m01-ex-1/attempts")).json()
+    opened = (await content_client.post(f"{API}/exercises/m01-ex-1/attempts")).json()
     seed = await _seed_of(opened["attemptId"])
     variant = rng_for(seed).choice(config.variants)
     ans = {"answer": quiz_answer(variant, seed, correct=True)}
-    first = await content_client.post(f"/api/attempts/{opened['attemptId']}/answer", json=ans)
+    first = await content_client.post(f"{API}/attempts/{opened['attemptId']}/answer", json=ans)
     assert first.status_code == 200
-    again = await content_client.post(f"/api/attempts/{opened['attemptId']}/answer", json=ans)
+    again = await content_client.post(f"{API}/attempts/{opened['attemptId']}/answer", json=ans)
     assert again.status_code == 409
     assert again.json()["code"] == "ATTEMPT_ALREADY_RESOLVED"
 
 
 async def test_opening_new_attempt_abandons_prior_unanswered(content_client: AsyncClient) -> None:
     await _auth(content_client)
-    first = (await content_client.post("/api/exercises/m01-ex-1/attempts")).json()
-    await content_client.post("/api/exercises/m01-ex-1/attempts")  # opening again abandons the first
-    listing = (await content_client.get("/api/attempts?exercise_id=m01-ex-1")).json()
+    first = (await content_client.post(f"{API}/exercises/m01-ex-1/attempts")).json()
+    await content_client.post(f"{API}/exercises/m01-ex-1/attempts")  # opening again abandons the first
+    listing = (await content_client.get(f"{API}/attempts?exercise_id=m01-ex-1")).json()
     states = {a["attemptId"]: a["state"] for a in listing}
     assert states[first["attemptId"]] == "abandoned"
 
@@ -162,14 +164,14 @@ async def test_review_replays_from_seed_and_reveals_solution(
     content_client: AsyncClient, settings: Settings
 ) -> None:
     await _auth(content_client)
-    _, config = load_registry(settings.content_dir).get_exercise_config("m01-ex-1")
+    _, config = load_registry(settings.content_dir / "crypto-futures").get_exercise_config("m01-ex-1")
     assert isinstance(config, QuizConfig)
-    opened = (await content_client.post("/api/exercises/m01-ex-1/attempts")).json()
+    opened = (await content_client.post(f"{API}/exercises/m01-ex-1/attempts")).json()
     seed = await _seed_of(opened["attemptId"])
     variant = rng_for(seed).choice(config.variants)
     ans = quiz_answer(variant, seed, correct=True)
-    await content_client.post(f"/api/attempts/{opened['attemptId']}/answer", json={"answer": ans})
-    review = (await content_client.get(f"/api/attempts/{opened['attemptId']}")).json()
+    await content_client.post(f"{API}/attempts/{opened['attemptId']}/answer", json={"answer": ans})
+    review = (await content_client.get(f"{API}/attempts/{opened['attemptId']}")).json()
     assert review["state"] == "answered"
     assert review["prompt"] == opened["prompt"]  # same scenario, replayed from the seed
     assert review["givenAnswer"] == ans
@@ -180,11 +182,11 @@ async def test_synthetic_chart_flow(content_client: AsyncClient, settings: Setti
     from tradeschool.exercises.synthetic_chart import SyntheticChartConfig, SyntheticChartGenerator
 
     await _auth(content_client)
-    registry = load_registry(settings.content_dir)
+    registry = load_registry(settings.content_dir / "crypto-futures")
     _, config = registry.get_exercise_config("m12-ex-1")
     assert isinstance(config, SyntheticChartConfig)
 
-    opened = (await content_client.post("/api/exercises/m12-ex-1/attempts")).json()
+    opened = (await content_client.post(f"{API}/exercises/m12-ex-1/attempts")).json()
     assert opened["type"] == "synthetic_chart"
     payload = opened["payload"]
     assert "series" in payload and "rsi" in payload and "choices" in payload
@@ -197,7 +199,7 @@ async def test_synthetic_chart_flow(content_client: AsyncClient, settings: Setti
 
     graded = (
         await content_client.post(
-            f"/api/attempts/{opened['attemptId']}/answer", json={"answer": {"divergence": correct_choice}}
+            f"{API}/attempts/{opened['attemptId']}/answer", json={"answer": {"divergence": correct_choice}}
         )
     ).json()
     assert graded["correct"] is True
@@ -208,11 +210,11 @@ async def test_pattern_chart_flow(content_client: AsyncClient, settings: Setting
     from tradeschool.exercises.pattern_chart import PatternChartConfig, PatternChartGenerator
 
     await _auth(content_client)
-    registry = load_registry(settings.content_dir)
+    registry = load_registry(settings.content_dir / "crypto-futures")
     _, config = registry.get_exercise_config("m08-ex-1")  # fakeout injector
     assert isinstance(config, PatternChartConfig)
 
-    opened = (await content_client.post("/api/exercises/m08-ex-1/attempts")).json()
+    opened = (await content_client.post(f"{API}/exercises/m08-ex-1/attempts")).json()
     assert opened["type"] == "pattern_chart"
     payload = opened["payload"]
     assert "series" in payload and "choices" in payload
@@ -225,7 +227,7 @@ async def test_pattern_chart_flow(content_client: AsyncClient, settings: Setting
 
     graded = (
         await content_client.post(
-            f"/api/attempts/{opened['attemptId']}/answer", json={"answer": {"label": correct_label}}
+            f"{API}/attempts/{opened['attemptId']}/answer", json={"answer": {"label": correct_label}}
         )
     ).json()
     assert graded["correct"] is True
@@ -234,16 +236,16 @@ async def test_pattern_chart_flow(content_client: AsyncClient, settings: Setting
 
 async def test_unknown_exercise_is_404(content_client: AsyncClient) -> None:
     await _auth(content_client)
-    unknown = await content_client.post("/api/exercises/ghost/attempts")
+    unknown = await content_client.post(f"{API}/exercises/ghost/attempts")
     assert unknown.status_code == 404
     assert unknown.json()["code"] == "EXERCISE_NOT_FOUND"
 
 
 async def test_attempts_require_auth(content_client: AsyncClient) -> None:
-    assert (await content_client.post("/api/exercises/m01-ex-1/attempts")).status_code == 401
+    assert (await content_client.post(f"{API}/exercises/m01-ex-1/attempts")).status_code == 401
 
 
 async def test_cannot_touch_others_attempt(content_client: AsyncClient) -> None:
     await _auth(content_client)
     fake = uuid.uuid4()
-    assert (await content_client.get(f"/api/attempts/{fake}")).status_code == 404
+    assert (await content_client.get(f"{API}/attempts/{fake}")).status_code == 404

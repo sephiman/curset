@@ -101,13 +101,13 @@ describe("a tracker that has seen nothing", () => {
 });
 
 describe("what the footer prints on the left", () => {
-  it("is the book, then where in it the reader is", () => {
+  it("is the platform and the book, then where in it the reader is", () => {
     expect(runningTitle("La guía de iniciación", "Fundamentos")).toBe(
-      "La guía de iniciación · Fundamentos",
+      "Curset · La guía de iniciación · Fundamentos",
     );
   });
 
-  it("is the book alone before the first block", () => {
-    expect(runningTitle("The Beginner's Guide", undefined)).toBe("The Beginner's Guide");
+  it("is the platform and the book alone before the first block", () => {
+    expect(runningTitle("The Beginner's Guide", undefined)).toBe("Curset · The Beginner's Guide");
   });
 });

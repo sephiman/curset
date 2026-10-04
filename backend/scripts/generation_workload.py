@@ -40,7 +40,8 @@ from tradeschool.exercises.synthetic_chart import SyntheticChartGenerator  # noq
 from tradeschool.exercises.synthetic_chart import _instantiate as divergence_instantiate  # noqa: E402
 
 #: The repo's `content/` tree, for the frozen figure specs (the backend sits one level below it).
-CONTENT_DIR = _BACKEND.parent / "content"
+# The generation goldens are the crypto-futures course's: no other course has generators or figures.
+CONTENT_DIR = _BACKEND.parent / "content" / "crypto-futures"
 
 #: Probe seeds, fixed forever. A range, not a hand-picked list: the generators are seed-deterministic,
 #: so consecutive seeds are as independent as scattered ones.

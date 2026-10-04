@@ -13,6 +13,10 @@ import { FramedChart, PAIRED_HEIGHT } from "@/components/charts/FramedChart";
 import { divergenceMarkers, patternBands, patternMarkers } from "@/components/charts/markers";
 import { Badge, Button, Card, Input, Select, Spinner } from "@/components/ui/primitives";
 import { LessonFigure } from "@/features/course/LessonFigure";
+import { scopeKey, useCourse } from "@/features/courses/CourseContext";
+
+/** The only course with chart generators; `/dev/charts` lands on it. */
+export const GALLERY_COURSE = "crypto-futures";
 
 // One per render primitive the gallery exists to eyeball: divergence panes, the CVD pane, m34's
 // shaded zones, m15's sloped lines (single and channel), m16's envelopes + momentum pane and m23-l2's
@@ -44,16 +48,18 @@ export function ChartGallery() {
   const [draft, setDraft] = useState("");
   const [count, setCount] = useState(24);
 
+  const { scope } = useCourse();
+
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["dev-instances", exerciseId, count],
-    queryFn: () => getDevInstances(exerciseId, count),
+    queryKey: ["dev-instances", ...scopeKey(scope), exerciseId, count],
+    queryFn: () => getDevInstances(scope, exerciseId, count),
     retry: false,
     meta: { silentError: true }, // handled inline below, not via a toast
   });
 
   const { data: figureIds } = useQuery({
-    queryKey: ["dev-figures"],
-    queryFn: getDevFigures,
+    queryKey: ["dev-figures", scope.slug],
+    queryFn: () => getDevFigures(scope),
     retry: false,
     meta: { silentError: true },
   });

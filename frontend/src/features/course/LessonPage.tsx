@@ -2,7 +2,7 @@ import { useEffect, useMemo } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { completeLesson, getCourse, getGlossary, getLesson, uncompleteLesson, type ExerciseType } from "@/api/course";
+import { completeLesson, getLesson, uncompleteLesson, type ExerciseType } from "@/api/course";
 import { listAttempts } from "@/api/exercises";
 import { Badge, Button, Spinner } from "@/components/ui/primitives";
 import { ExercisePlayer } from "@/features/exercises/ExercisePlayer";
@@ -15,31 +15,27 @@ import { buildRefRegistry, refModulesFromCourse } from "@/lib/refs/registry";
 import { currentAndNext, flattenLessons, stepLabel } from "@/features/course/courseNav";
 import { formatReadingTime } from "@/features/course/readingTime";
 import { LessonMarkdown } from "@/lib/markdown";
+import { scopeKey, useCourse } from "@/features/courses/CourseContext";
+import { useCourseGlossary, useCourseTree } from "@/features/course/queries";
 
 export function LessonPage() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const { lessonId = "" } = useParams();
   const { hash } = useLocation();
   const queryClient = useQueryClient();
-  const lang = i18n.resolvedLanguage;
+  const { scope, path } = useCourse();
+  const lang = scope.lang;
 
   const { data: lesson, isLoading } = useQuery({
-    queryKey: ["lesson", lessonId, lang],
-    queryFn: () => getLesson(lessonId),
+    queryKey: ["lesson", ...scopeKey(scope), lessonId],
+    queryFn: () => getLesson(scope, lessonId),
   });
-  const { data: course } = useQuery({ queryKey: ["course", lang], queryFn: getCourse });
+  const { data: course } = useCourseTree();
   // One fetch for the whole session, cached across lessons: the definitions the tooltips show, and
   // the term list the annotator matches on. A lesson still renders while it is in flight — the prose
   // simply has no marks yet.
-  const { data: glossary } = useQuery({
-    queryKey: ["glossary", lang],
-    queryFn: () => getGlossary(lang ?? "en"),
-    staleTime: Infinity,
-  });
-  const terms = useMemo(
-    () => (glossary ? buildTermIndex(glossary.terms, lang ?? "en") : []),
-    [glossary, lang],
-  );
+  const { data: glossary } = useCourseGlossary();
+  const terms = useMemo(() => (glossary ? buildTermIndex(glossary.terms, lang) : []), [glossary, lang]);
   const entriesById = useMemo(
     () => new Map((glossary?.terms ?? []).map((entry) => [entry.id, entry])),
     [glossary],
@@ -59,20 +55,20 @@ export function LessonPage() {
   );
 
   const complete = useMutation({
-    mutationFn: () => completeLesson(lessonId),
+    mutationFn: () => completeLesson(scope, lessonId),
     meta: { successMessage: "course.markedComplete" },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ["lesson", lessonId] });
-      void queryClient.invalidateQueries({ queryKey: ["course"] });
+      void queryClient.invalidateQueries({ queryKey: ["lesson", scope.slug] });
+      void queryClient.invalidateQueries({ queryKey: ["course", scope.slug] });
     },
   });
 
   const uncomplete = useMutation({
-    mutationFn: () => uncompleteLesson(lessonId),
+    mutationFn: () => uncompleteLesson(scope, lessonId),
     meta: { successMessage: "course.markedIncomplete" },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ["lesson", lessonId] });
-      void queryClient.invalidateQueries({ queryKey: ["course"] });
+      void queryClient.invalidateQueries({ queryKey: ["lesson", scope.slug] });
+      void queryClient.invalidateQueries({ queryKey: ["course", scope.slug] });
     },
   });
 
@@ -100,7 +96,7 @@ export function LessonPage() {
   async function onMarkComplete() {
     const ids = lesson?.exercises.map((e) => e.id) ?? [];
     if (ids.length > 0) {
-      const lists = await Promise.all(ids.map((id) => listAttempts(id)));
+      const lists = await Promise.all(ids.map((id) => listAttempts(scope, id)));
       const anyUntried = lists.some((l) => l.length === 0);
       if (anyUntried && !window.confirm(t("course.markCompleteConfirm"))) return;
     }
@@ -117,14 +113,14 @@ export function LessonPage() {
 
   // Single-lesson modules skip their page, so "back" returns to the course, not the skipped module.
   const singleLesson = !nav?.current || nav.current.lessonsTotal <= 1;
-  const backTo = singleLesson ? "/course" : `/modules/${lesson.moduleId}`;
+  const backTo = singleLesson ? path() : path(`/modules/${lesson.moduleId}`);
   const backLabel = singleLesson ? t("nav.course") : lesson.moduleTitle;
   // The next step is the next lesson in canonical order (across modules); on the last, the Progress page.
   const nextStep = !nav
     ? null
     : nav.next
-      ? { to: `/lessons/${nav.next.lessonId}`, label: stepLabel(nav.next, lesson.moduleId) }
-      : { to: "/stats", label: t("nav.progress") };
+      ? { to: path(`/lessons/${nav.next.lessonId}`), label: stepLabel(nav.next, lesson.moduleId) }
+      : { to: path("/stats"), label: t("nav.progress") };
 
   // A lesson is atomic, so it shows its OWN full estimate — "remaining" is meaningless inside one, and
   // a lesson already marked read still tells you what re-reading it costs.

@@ -42,7 +42,7 @@ def _flat(markdown: str) -> str:
 def _reused_values() -> list[float]:
     """Entry (the figure's shelf), the 10x liquidation derived from it, and the cascade wick."""
     coupling = yaml.safe_load(
-        (get_settings().content_dir / "figure-coupling.yaml").read_text(encoding="utf-8")
+        (get_settings().content_dir / "crypto-futures" / "figure-coupling.yaml").read_text(encoding="utf-8")
     )
     anchors = {
         a["what"]: a["prose"]
@@ -55,7 +55,7 @@ def _reused_values() -> list[float]:
 
 @pytest.mark.parametrize("locale", LOCALES)
 def test_m04_reuse_block_quotes_m06s_current_numbers(locale: str) -> None:
-    registry = load_registry(Path(get_settings().content_dir))
+    registry = load_registry(Path(get_settings().content_dir / "crypto-futures"))
     source = _flat(registry.markdown[locale]["m06-l1"])
     reuse = _flat(registry.markdown[locale]["m04-l1"])
     for value in _reused_values():

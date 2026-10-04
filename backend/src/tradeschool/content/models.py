@@ -3,7 +3,8 @@
 
 Structural facts only; progress references these rows, never content (§8). Since 2026-08-10 the
 `id` column of every skeleton table stores the entity's permanent KEY — equal to the display id at
-creation, never renamed afterwards — so display ids can be renumbered without touching a row.
+creation, never renamed afterwards — so display ids can be renumbered without touching a row. Keys
+are unique only inside a course, so below the course every primary key is `(course_id, id)`.
 """
 
 from __future__ import annotations
@@ -11,7 +12,7 @@ from __future__ import annotations
 import uuid
 from datetime import datetime
 
-from sqlalchemy import Boolean, DateTime, Enum, ForeignKey, Integer, String, func
+from sqlalchemy import Boolean, DateTime, Enum, ForeignKey, ForeignKeyConstraint, Integer, String, func
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -29,6 +30,14 @@ class SkeletonModel(Base):
     active: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True, server_default="true")
 
 
+class CourseOwnedModel(SkeletonModel):
+    """A skeleton table below the course: its key is unique only together with the course."""
+
+    __abstract__ = True
+
+    course_id: Mapped[str] = mapped_column(ForeignKey("courses.id"), primary_key=True, index=True)
+
+
 class Course(SkeletonModel):
     """The root course a block/module tree belongs to; its localized labels live in the registry."""
 
@@ -37,35 +46,39 @@ class Course(SkeletonModel):
     order_index: Mapped[int] = mapped_column(Integer, nullable=False, default=1, server_default="1")
 
 
-class Block(SkeletonModel):
+class Block(CourseOwnedModel):
     __tablename__ = "blocks"
 
-    course_id: Mapped[str] = mapped_column(ForeignKey("courses.id"), nullable=False, index=True)
     order_index: Mapped[int] = mapped_column(Integer, nullable=False)
 
 
-class Module(SkeletonModel):
+class Module(CourseOwnedModel):
     __tablename__ = "modules"
+    __table_args__ = (ForeignKeyConstraint(["course_id", "block_id"], ["blocks.course_id", "blocks.id"]),)
 
-    course_id: Mapped[str] = mapped_column(ForeignKey("courses.id"), nullable=False, index=True)
-    block_id: Mapped[str] = mapped_column(ForeignKey("blocks.id"), nullable=False, index=True)
+    block_id: Mapped[str] = mapped_column(String, nullable=False, index=True)
     order_index: Mapped[int] = mapped_column(Integer, nullable=False)
     # Advisory prerequisites (module ids). Informative, never a gate (§4.3).
     assumes: Mapped[list[str]] = mapped_column(JSONB, nullable=False, default=list, server_default="[]")
 
 
-class Lesson(SkeletonModel):
+class Lesson(CourseOwnedModel):
     __tablename__ = "lessons"
+    __table_args__ = (ForeignKeyConstraint(["course_id", "module_id"], ["modules.course_id", "modules.id"]),)
 
-    module_id: Mapped[str] = mapped_column(ForeignKey("modules.id"), nullable=False, index=True)
+    module_id: Mapped[str] = mapped_column(String, nullable=False, index=True)
     order_index: Mapped[int] = mapped_column(Integer, nullable=False)
 
 
-class Exercise(SkeletonModel):
+class Exercise(CourseOwnedModel):
     __tablename__ = "exercises"
+    __table_args__ = (
+        ForeignKeyConstraint(["course_id", "module_id"], ["modules.course_id", "modules.id"]),
+        ForeignKeyConstraint(["course_id", "lesson_id"], ["lessons.course_id", "lessons.id"]),
+    )
 
-    module_id: Mapped[str] = mapped_column(ForeignKey("modules.id"), nullable=False, index=True)
-    lesson_id: Mapped[str | None] = mapped_column(ForeignKey("lessons.id"), nullable=True, index=True)
+    module_id: Mapped[str] = mapped_column(String, nullable=False, index=True)
+    lesson_id: Mapped[str | None] = mapped_column(String, nullable=True, index=True)
     type: Mapped[ExerciseType] = mapped_column(
         Enum(ExerciseType, name="exercise_type", native_enum=True), nullable=False
     )
@@ -85,9 +98,15 @@ class Exercise(SkeletonModel):
 
 class LessonCompletion(Base):
     __tablename__ = "lesson_completions"
+    __table_args__ = (
+        ForeignKeyConstraint(
+            ["course_id", "lesson_id"], ["lessons.course_id", "lessons.id"], ondelete="cascade"
+        ),
+    )
 
     user_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("user.id", ondelete="cascade"), primary_key=True)
-    lesson_id: Mapped[str] = mapped_column(ForeignKey("lessons.id", ondelete="cascade"), primary_key=True)
+    course_id: Mapped[str] = mapped_column(String, primary_key=True)
+    lesson_id: Mapped[str] = mapped_column(String, primary_key=True)
     completed_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), nullable=False, server_default=func.now()
     )

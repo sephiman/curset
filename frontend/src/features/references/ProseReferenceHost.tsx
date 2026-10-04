@@ -1,7 +1,5 @@
 import { useMemo, type ReactNode } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { useTranslation } from "react-i18next";
-import { getCourse } from "@/api/course";
+import { useCourseTree } from "@/features/course/queries";
 import { TermPopoverHost } from "@/features/glossary/TermPopover";
 import { ReferenceProvider } from "@/features/references/ReferenceProvider";
 import { buildRefRegistry, refModulesFromCourse } from "@/lib/refs/registry";
@@ -19,11 +17,7 @@ import { buildRefRegistry, refModulesFromCourse } from "@/lib/refs/registry";
 const NO_GLOSSARY = new Map();
 
 export function ProseReferenceHost({ children }: { children: ReactNode }) {
-  const { i18n } = useTranslation();
-  const { data: course } = useQuery({
-    queryKey: ["course", i18n.resolvedLanguage],
-    queryFn: getCourse,
-  });
+  const { data: course } = useCourseTree();
   const registry = useMemo(
     () => (course ? buildRefRegistry(refModulesFromCourse(course)) : null),
     [course],

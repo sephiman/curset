@@ -57,7 +57,7 @@ def _states(number: str, text: str) -> bool:
 
 
 def _calculations() -> list[tuple[str, CalculationConfig]]:
-    registry = load_registry(get_settings().content_dir)
+    registry = load_registry(get_settings().content_dir / "crypto-futures")
     out: list[tuple[str, CalculationConfig]] = []
     for _module, _lesson, exercise in registry.manifest.iter_exercises():
         resolved = registry.get_exercise_config(exercise.id)

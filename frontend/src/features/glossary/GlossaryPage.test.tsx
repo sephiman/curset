@@ -5,6 +5,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import es from "@/i18n/es.json";
 import type { Glossary } from "@/api/course";
 import { coursePath } from "@/components/layout/nav";
+import { InCourse, TEST_COURSE } from "@/test/course";
 
 /**
  * What the glossary page owes the reader, asserted on the rendered DOM rather than on the data:
@@ -82,7 +83,7 @@ function mount(node: ReactElement): void {
   host = document.createElement("div");
   document.body.appendChild(host);
   act(() => {
-    createRoot(host).render(node);
+    createRoot(host).render(<InCourse>{node}</InCourse>);
   });
 }
 
@@ -123,7 +124,7 @@ describe("arriving from a term's tooltip", () => {
     };
     document.body.innerHTML = "";
     mount(
-      <MemoryRouter initialEntries={[`${coursePath("/glossary")}#g-premium`]}>
+      <MemoryRouter initialEntries={[`${coursePath(TEST_COURSE.slug, "/glossary")}#g-premium`]}>
         <GlossaryPage />
       </MemoryRouter>,
     );
@@ -140,7 +141,7 @@ describe("the glossary page", () => {
     const found = links(card("cambio de carácter"));
     expect(found).toContainEqual({
       text: "M08-L1 · Estructura de precio",
-      href: coursePath("/lessons/m08-l1"),
+      href: coursePath(TEST_COURSE.slug, "/lessons/m08-l1"),
     });
   });
 
@@ -161,8 +162,8 @@ describe("the glossary page", () => {
     expect(text).toContain("1. Perpetuo sobre el spot.");
     expect(text).toContain("2. Entre plataformas.");
     const found = links(entry).map((l) => l.href);
-    expect(found).toContain(coursePath("/lessons/m19-l1"));
-    expect(found).toContain(coursePath("/lessons/m32-l1"));
+    expect(found).toContain(coursePath(TEST_COURSE.slug, "/lessons/m19-l1"));
+    expect(found).toContain(coursePath(TEST_COURSE.slug, "/lessons/m32-l1"));
   });
 
   it("gives every entry an anchor id, so an alias pointer has somewhere to land", () => {

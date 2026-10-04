@@ -9,7 +9,7 @@ import yaml from "js-yaml";
 import type { Root, RootContent } from "mdast";
 import type {} from "mdast-util-directive";
 import { remarkBlockDirectives } from "@/lib/directives";
-import { CONTENT_DIR, LOCALES, lessonMarkdown, manifestLessons } from "@/test/courseContent";
+import { GOLDEN_COURSES, type CourseContent } from "@/test/courseContent";
 
 /**
  * The course's markdown dialect has BLOCK directives and no inline ones.
@@ -65,20 +65,20 @@ describe("the lesson dialect", () => {
 });
 
 /** Every markdown string a surface renders through the dialect: lesson prose and exercise prompts. */
-function renderedStrings(): { where: string; markdown: string }[] {
-  const strings = LOCALES.flatMap((locale) =>
-    manifestLessons().map((lesson) => ({
+function renderedStrings(course: CourseContent): { where: string; markdown: string }[] {
+  const strings = course.languages.flatMap((locale) =>
+    course.lessons().map((lesson) => ({
       where: `${locale}/lessons/${lesson.id}.md`,
-      markdown: lessonMarkdown(locale, lesson.id),
+      markdown: course.lessonMarkdown(locale, lesson.id),
     })),
   );
-  const dir = resolve(CONTENT_DIR, "exercises");
+  const dir = resolve(course.dir, "exercises");
   for (const file of readdirSync(dir).filter((name) => name.endsWith(".yaml")).sort()) {
     const doc = yaml.load(readFileSync(resolve(dir, file), "utf8")) as {
       variants?: { id: string; prompt?: Record<string, string> }[];
     };
     for (const variant of doc.variants ?? []) {
-      for (const locale of LOCALES) {
+      for (const locale of course.languages) {
         const prompt = variant.prompt?.[locale];
         if (prompt) strings.push({ where: `exercises/${file} ${variant.id} (${locale})`, markdown: prompt });
       }
@@ -87,13 +87,14 @@ function renderedStrings(): { where: string; markdown: string }[] {
   return strings;
 }
 
-describe("the authored course", () => {
+describe.each(GOLDEN_COURSES.map((course) => [course.slug, course] as const))("the authored course %s", (slug, course) => {
   it("has nothing the parser swallows", () => {
     // A prose-integrity guard, like the reference report's zero-dangling assertion: no authored
     // string may contain a sequence the dialect drops instead of printing.
-    const strings = renderedStrings();
-    // A floor, not a fingerprint: an empty walk would "pass" against nothing.
-    expect(strings.length).toBeGreaterThan(80);
+    const strings = renderedStrings(course);
+    // A floor, not a fingerprint: an empty walk would "pass" against nothing. The large course has
+    // a real one; any course has at least its lessons.
+    expect(strings.length).toBeGreaterThan(slug === "crypto-futures" ? 80 : course.lessons().length - 1);
     const swallowed = strings.flatMap(({ where, markdown }) =>
       textDirectives(markdown).map((eaten) => `${where}: ${eaten}`),
     );

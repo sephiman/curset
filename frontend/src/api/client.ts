@@ -1,5 +1,6 @@
 import axios, { type AxiosError } from "axios";
 import i18n from "@/i18n";
+import type { Locale } from "@/api/auth";
 
 // Cookie auth uses fastapi-users cookie transport with SameSite=Lax, which blocks cross-site
 // state-changing requests at the browser — so no XSRF double-submit token is needed. We only
@@ -10,10 +11,8 @@ export const apiClient = axios.create({
   headers: { "Content-Type": "application/json" },
 });
 
-// Serve every request in the active UI language: the backend's content endpoints resolve locale from
-// `?lang`. Without this the content followed the user's registration locale and ignored the switcher.
-// Explicit per-call `lang` params still win. (React-query keys also include the locale, so a switch
-// refetches rather than showing stale cache.)
+// Default every request to the interface language (the catalogue's titles, for one). Course content
+// overrides it with the course's reading language through `inReadingLanguage`.
 apiClient.interceptors.request.use((config) => {
   const lang = i18n.resolvedLanguage?.startsWith("es") ? "es" : "en";
   config.params = { lang, ...(config.params ?? {}) };
@@ -39,11 +38,22 @@ export function apiErrorMessage(err: unknown, t: (key: string, fallback: string)
 }
 
 /**
- * The course every course-owned URL hangs off.
+ * The course a request is about and the language its content is read in.
  *
- * One course exists today, and its slug is a permanent identifier (see content/README.md) — the same
- * id the manifest and the PDF filename already use. The unscoped URLs still work as deprecated
- * aliases for clients we do not control; ours never use them.
+ * Every course-owned call takes one: the slug picks the course, `lang` is the course's reading
+ * language — which is not always the interface's, since a course may exist in Spanish only.
  */
-export const COURSE_SLUG = "crypto-futures";
-export const COURSE_PATH = `/courses/${COURSE_SLUG}`;
+export interface CourseScope {
+  slug: string;
+  lang: Locale;
+}
+
+/** A course-owned endpoint. The ONE way such a URL is built, so none can forget its course. */
+export function courseUrl(scope: CourseScope, rest = ""): string {
+  return `/courses/${encodeURIComponent(scope.slug)}${rest}`;
+}
+
+/** Request config carrying the reading language, which wins over the interceptor's interface one. */
+export function inReadingLanguage(scope: CourseScope, params: Record<string, unknown> = {}) {
+  return { params: { ...params, lang: scope.lang } };
+}

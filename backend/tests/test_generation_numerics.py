@@ -237,7 +237,7 @@ def current_pins() -> dict[str, str]:
         out[f"figure:{key}"] = _fp(build_figure(spec, "en")["panels"])
 
     figure_id = _PINNED_CONTENT_FIGURE[0]
-    spec = load_figures(Path(__file__).resolve().parents[2] / "content")[figure_id]
+    spec = load_figures(Path(__file__).resolve().parents[2] / "content" / "crypto-futures")[figure_id]
     out[f"content:{figure_id}"] = _fp(build_figure(spec, "en")["panels"])
     return out
 

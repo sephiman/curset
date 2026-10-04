@@ -1,6 +1,6 @@
-import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { AppShell } from "@/components/layout/AppShell";
-import { coursePath, HOME_PATH } from "@/components/layout/nav";
+import { coursePath } from "@/components/layout/nav";
 import { ToastHost } from "@/components/ui/ToastHost";
 import { ForgotPasswordPage } from "@/auth/ForgotPasswordPage";
 import { LoginPage } from "@/auth/LoginPage";
@@ -12,25 +12,31 @@ import { AccountPage } from "@/features/account/AccountPage";
 import { CoursePage } from "@/features/course/CoursePage";
 import { ModulePage } from "@/features/course/ModulePage";
 import { LessonPage } from "@/features/course/LessonPage";
+import { CourseRoutes } from "@/features/courses/CourseRoute";
+import { SelectedCourseRedirect } from "@/features/courses/SelectedCourseRedirect";
 import { GlossaryPage } from "@/features/glossary/GlossaryPage";
 import { StatsPage } from "@/features/stats/StatsPage";
 import { ExamPage } from "@/features/exams/ExamPage";
 import { ExamRunner } from "@/features/exams/ExamRunner";
 import { ExamReview } from "@/features/exams/ExamReview";
-import { ChartGallery } from "@/features/dev/ChartGallery";
+import { ChartGallery, GALLERY_COURSE } from "@/features/dev/ChartGallery";
 
 /**
- * A pre-scoping URL a learner may have bookmarked, sent to its course-scoped equivalent.
- *
- * One component covers every legacy path because the rewrite is mechanical: the old path becomes the
- * remainder under the course. `/course` is the exception — it maps to the course root, not to
- * `/courses/{slug}/course`.
+ * The pages of one course, relative to `/courses/:course`. A display id names its CURRENT holder, so
+ * no content id is ever a static route here — it would shadow the live page that now owns the id.
  */
-function LegacyCourseRedirect() {
-  const { pathname, search } = useLocation();
-  const rest = pathname === "/course" ? "" : pathname;
-  return <Navigate to={`${coursePath(rest)}${search}`} replace />;
-}
+const COURSE_PAGES = [
+  { path: "", element: <CoursePage /> },
+  { path: "modules/:moduleId", element: <ModulePage /> },
+  { path: "lessons/:lessonId", element: <LessonPage /> },
+  { path: "glossary", element: <GlossaryPage /> },
+  { path: "stats", element: <StatsPage /> },
+  { path: "exams", element: <ExamPage /> },
+  { path: "exams/:examId", element: <ExamRunner /> },
+  { path: "exams/:examId/review", element: <ExamReview /> },
+  // Unadvertised review route; its data comes from the DEV_MODE-gated dev endpoints.
+  { path: "dev/charts", element: <ChartGallery /> },
+];
 
 export default function App() {
   return (
@@ -48,34 +54,21 @@ export default function App() {
             <RequireAuth>
               <AppShell>
                 <Routes>
-                  <Route path="/" element={<Navigate to={HOME_PATH} replace />} />
-
-                  {/* Course-scoped pages: the address bar names the course you are in. */}
-                  <Route path={HOME_PATH} element={<CoursePage />} />
-                  {/* A display id names its CURRENT holder, so never redirect one here — a static
-                      segment outranks these params and would shadow the live page. */}
-                  <Route path={coursePath("/modules/:moduleId")} element={<ModulePage />} />
-                  <Route path={coursePath("/lessons/:lessonId")} element={<LessonPage />} />
-                  <Route path={coursePath("/glossary")} element={<GlossaryPage />} />
-                  <Route path={coursePath("/stats")} element={<StatsPage />} />
-                  <Route path={coursePath("/exams")} element={<ExamPage />} />
-                  <Route path={coursePath("/exams/:examId")} element={<ExamRunner />} />
-                  <Route path={coursePath("/exams/:examId/review")} element={<ExamReview />} />
-
+                  <Route path="/courses/:course/*" element={<CourseRoutes pages={COURSE_PAGES} />} />
                   <Route path="/account" element={<AccountPage />} />
 
-                  {/* Bookmarks from before the scoping. Redirect rather than serve, so the address
-                      bar corrects itself and there is one URL per page. */}
-                  <Route path="/course" element={<LegacyCourseRedirect />} />
-                  <Route path="/modules/:moduleId" element={<LegacyCourseRedirect />} />
-                  <Route path="/lessons/:lessonId" element={<LegacyCourseRedirect />} />
-                  <Route path="/glossary" element={<LegacyCourseRedirect />} />
-                  <Route path="/stats" element={<LegacyCourseRedirect />} />
-                  <Route path="/exams/*" element={<LegacyCourseRedirect />} />
+                  {/* Course-less addresses — the home, each tab, and bookmarks from before the URLs
+                      named a course — resolve to the selected course, or to the tab's "no course" page. */}
+                  <Route path="/" element={<SelectedCourseRedirect tab="course" />} />
+                  <Route path="/course" element={<SelectedCourseRedirect tab="course" />} />
+                  <Route path="/modules/:moduleId" element={<SelectedCourseRedirect tab="course" />} />
+                  <Route path="/lessons/:lessonId" element={<SelectedCourseRedirect tab="course" />} />
+                  <Route path="/glossary" element={<SelectedCourseRedirect tab="glossary" />} />
+                  <Route path="/stats" element={<SelectedCourseRedirect tab="progress" />} />
+                  <Route path="/exams/*" element={<SelectedCourseRedirect tab="exams" />} />
 
-                  {/* Unadvertised review route; its data comes from the DEV_MODE-gated /api/dev endpoint. */}
-                  <Route path="/dev/charts" element={<ChartGallery />} />
-                  <Route path="*" element={<Navigate to={HOME_PATH} replace />} />
+                  <Route path="/dev/charts" element={<Navigate to={coursePath(GALLERY_COURSE, "/dev/charts")} replace />} />
+                  <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>
               </AppShell>
             </RequireAuth>

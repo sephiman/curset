@@ -1,4 +1,4 @@
-import { apiClient, COURSE_PATH } from "@/api/client";
+import { apiClient, courseUrl, inReadingLanguage, type CourseScope } from "@/api/client";
 import type { ExerciseType } from "@/api/course";
 
 export type AttemptState = "open" | "answered" | "abandoned";
@@ -131,22 +131,33 @@ export type Answer =
 /** Deferred-grading mode (exams): answer-capture only, no submit button or feedback. */
 export type Deferred = { value: Answer | null; onChange: (answer: Answer) => void };
 
-export async function createAttempt(exerciseId: string): Promise<AttemptInstance> {
-  const { data } = await apiClient.post<AttemptInstance>(`${COURSE_PATH}/exercises/${exerciseId}/attempts`);
+export async function createAttempt(scope: CourseScope, exerciseId: string): Promise<AttemptInstance> {
+  const { data } = await apiClient.post<AttemptInstance>(
+    courseUrl(scope, `/exercises/${exerciseId}/attempts`),
+    undefined,
+    inReadingLanguage(scope),
+  );
   return data;
 }
 
-export async function answerAttempt(attemptId: string, answer: Answer): Promise<GradeResponse> {
-  const { data } = await apiClient.post<GradeResponse>(`${COURSE_PATH}/attempts/${attemptId}/answer`, { answer });
+export async function answerAttempt(scope: CourseScope, attemptId: string, answer: Answer): Promise<GradeResponse> {
+  const { data } = await apiClient.post<GradeResponse>(
+    courseUrl(scope, `/attempts/${attemptId}/answer`),
+    { answer },
+    inReadingLanguage(scope),
+  );
   return data;
 }
 
-export async function getAttempt(attemptId: string): Promise<AttemptReview> {
-  const { data } = await apiClient.get<AttemptReview>(`${COURSE_PATH}/attempts/${attemptId}`);
+export async function getAttempt(scope: CourseScope, attemptId: string): Promise<AttemptReview> {
+  const { data } = await apiClient.get<AttemptReview>(courseUrl(scope, `/attempts/${attemptId}`), inReadingLanguage(scope));
   return data;
 }
 
-export async function listAttempts(exerciseId: string): Promise<AttemptSummary[]> {
-  const { data } = await apiClient.get<AttemptSummary[]>(`${COURSE_PATH}/attempts`, { params: { exercise_id: exerciseId } });
+export async function listAttempts(scope: CourseScope, exerciseId: string): Promise<AttemptSummary[]> {
+  const { data } = await apiClient.get<AttemptSummary[]>(
+    courseUrl(scope, "/attempts"),
+    inReadingLanguage(scope, { exercise_id: exerciseId }),
+  );
   return data;
 }

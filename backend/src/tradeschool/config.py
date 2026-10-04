@@ -54,6 +54,8 @@ class Settings(BaseSettings):
     # Mailed links are built from this, never from request headers.
     app_public_url: str = "http://localhost:5173"
     mail_rate_limit: str = "5/minute;20/hour"
+    # Where "Report this question" mails go; empty = reports are only stored.
+    report_email_to: str = ""
 
     # --- Content / manifest ---
     content_dir: Path = _default_content_dir()

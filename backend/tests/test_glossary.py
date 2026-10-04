@@ -31,7 +31,7 @@ def _def(s: str = "d") -> LocalizedText:
 
 def test_real_glossary_loads_and_every_origin_is_a_real_lesson() -> None:
     """Origins are permanent lesson KEYS (rendered as display ids by the registry)."""
-    registry = load_registry(get_settings().content_dir)
+    registry = load_registry(get_settings().content_dir / "crypto-futures")
     lesson_keys = {lesson.key for _, lesson in registry.manifest.iter_lessons()}
     assert registry.glossary.terms, "glossary is empty"
     for term in registry.glossary.terms:
@@ -42,7 +42,7 @@ def test_real_glossary_loads_and_every_origin_is_a_real_lesson() -> None:
 
 
 def test_glossary_ids_do_not_collide_with_any_other_stable_id() -> None:
-    registry = load_registry(get_settings().content_dir)
+    registry = load_registry(get_settings().content_dir / "crypto-futures")
     manifest = registry.manifest
     taken = (
         {manifest.course.id}
@@ -62,7 +62,7 @@ def test_glossary_ids_do_not_collide_with_any_other_stable_id() -> None:
 
 @pytest.mark.parametrize("locale", LOCALES)
 def test_every_entry_renders_in_both_locales(locale: str) -> None:
-    registry = load_registry(get_settings().content_dir)
+    registry = load_registry(get_settings().content_dir / "crypto-futures")
     entries = registry.glossary_entries(locale)
     assert len(entries) == len(registry.glossary.terms)
     for entry in entries:
@@ -77,16 +77,16 @@ def test_every_entry_renders_in_both_locales(locale: str) -> None:
 
 @pytest.mark.parametrize("locale", LOCALES)
 def test_entries_are_alphabetical_in_that_locale(locale: str) -> None:
-    from tradeschool.content.glossary import _sort_key
+    from tradeschool.content.collation import alphabetical_key as _sort_key
 
-    registry = load_registry(get_settings().content_dir)
+    registry = load_registry(get_settings().content_dir / "crypto-futures")
     terms = [str(e["term"]) for e in registry.glossary_entries(locale)]
     assert terms == sorted(terms, key=_sort_key)
 
 
 def test_the_two_locales_do_not_share_one_order() -> None:
     """ES sorts `apalancamiento` near the top where EN sorts `leverage` mid-list. That is the design."""
-    registry = load_registry(get_settings().content_dir)
+    registry = load_registry(get_settings().content_dir / "crypto-futures")
     es = [e["id"] for e in registry.glossary_entries("es")]
     en = [e["id"] for e in registry.glossary_entries("en")]
     assert set(es) == set(en)
@@ -94,17 +94,17 @@ def test_the_two_locales_do_not_share_one_order() -> None:
 
 
 def test_accented_terms_sort_with_their_base_letter() -> None:
-    from tradeschool.content.glossary import _sort_key
+    from tradeschool.content.collation import alphabetical_key as _sort_key
 
     # `emisión` must land under E, not after Z.
     assert _sort_key("emisión") < _sort_key("envolvente") < _sort_key("esperanza")
 
 
 def test_export_carries_the_glossary_in_both_shapes() -> None:
-    registry = load_registry(get_settings().content_dir)
+    registry = load_registry(get_settings().content_dir / "crypto-futures")
     single = registry.course_export("es")
     assert [e["term"] for e in single["glossary"]] == [e["term"] for e in registry.glossary_entries("es")]
-    bilingual = registry.course_export_bilingual()
+    bilingual = registry.course_export_all()
     assert set(bilingual["glossary"]) == set(LOCALES)
     assert bilingual["glossary"]["en"] != bilingual["glossary"]["es"]
 
@@ -151,7 +151,7 @@ def test_an_entry_links_by_default_and_says_so_by_omission() -> None:
     term = GlossaryTerm(id="g-a", en="a", es="a", origin="m01-l1", definition=_def())
     assert term.link is True
     assert term.match is None and term.link_except == []
-    registry = load_registry(get_settings().content_dir)
+    registry = load_registry(get_settings().content_dir / "crypto-futures")
     plain = next(e for e in registry.glossary_entries("en") if e["id"] == "g-blockchain")
     assert "link" not in plain and "linkExcept" not in plain
 
@@ -231,7 +231,7 @@ def test_link_except_must_name_lessons_that_exist(tmp_path: Path) -> None:
 
 
 def test_the_annotation_fields_reach_the_payload_per_locale() -> None:
-    registry = load_registry(get_settings().content_dir)
+    registry = load_registry(get_settings().content_dir / "crypto-futures")
     registry.glossary.terms.append(
         GlossaryTerm(
             id="g-test-only",
@@ -270,7 +270,7 @@ def test_origins_collects_the_entry_and_every_sense() -> None:
 
 def test_every_authored_exclusion_names_a_real_lesson() -> None:
     """`link_except` names lessons by permanent KEY, like `origin`."""
-    registry = load_registry(get_settings().content_dir)
+    registry = load_registry(get_settings().content_dir / "crypto-futures")
     lesson_keys = {lesson.key for _, lesson in registry.manifest.iter_lessons()}
     for term in registry.glossary.terms:
         for excluded in term.all_excluded_lessons():
@@ -322,7 +322,7 @@ def test_definitions_must_be_plain_text_not_markdown() -> None:
 
 
 def test_the_real_glossary_carries_no_markup() -> None:
-    registry = load_registry(get_settings().content_dir)
+    registry = load_registry(get_settings().content_dir / "crypto-futures")
     for term in registry.glossary.terms:
         for locale in LOCALES:
             texts = [

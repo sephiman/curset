@@ -1,56 +1,44 @@
 import { readFileSync, readdirSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
-import { COURSE_PATH, COURSE_SLUG } from "@/api/client";
+import { courseUrl } from "@/api/client";
 
 /**
- * Aliases are for clients we do not control. Ours use the canonical course-scoped URLs, and this is
- * the grep-level gate that keeps it that way — the backend's `test_course_scoped_urls.py` is the
- * other half.
+ * Every course-owned request names its course. The unscoped aliases are gone from the backend
+ * (`test_course_scoped_urls.py`); this is the grep-level gate that no caller builds one by hand.
  */
 
 const API_DIR = resolve(__dirname);
-/** Endpoints that are genuinely global: an account is not per-course, dev tooling is not a surface. */
-const GLOBAL = ["/auth", "/dev"];
-/** First segment of every course-owned endpoint, as the router mounts them. */
+/** Endpoints that are genuinely global: the account, and the catalogue and choices that pick a course. */
+const GLOBAL = ['"/auth', '"/courses"', '"/me/courses"'];
 /** An actual request — `apiClient.interceptors.…` is configuration, not a call. */
 const HTTP_CALL = /apiClient\.(get|post|put|patch|delete)[<(]/;
-const COURSE_OWNED =
-  /["`]\/(course|courses|lessons|modules|figures|glossary|exams|stats|attempts|exercises|export|print)\b/;
 
-function apiSources(): { file: string; body: string }[] {
+function apiCalls(): { file: string; call: string }[] {
   return readdirSync(API_DIR)
     .filter((f) => f.endsWith(".ts") && !f.endsWith(".test.ts"))
-    .map((f) => ({ file: f, body: readFileSync(resolve(API_DIR, f), "utf8") }));
+    .flatMap((file) => {
+      const body = readFileSync(resolve(API_DIR, file), "utf8");
+      // A call may wrap its arguments over several lines; read up to its closing parenthesis.
+      return [...body.matchAll(/apiClient\.(?:get|post|put|patch|delete)[<(][\s\S]*?\);/g)].map((m) => ({
+        file,
+        call: m[0].replace(/\s+/g, " "),
+      }));
+    });
 }
 
-describe("internal callers use the canonical scoped URLs", () => {
-  it("the slug is the manifest's permanent course id", () => {
-    expect(COURSE_SLUG).toBe("crypto-futures");
-    expect(COURSE_PATH).toBe("/courses/crypto-futures");
+describe("course-owned requests name their course", () => {
+  it("builds the scoped URL from the slug", () => {
+    expect(courseUrl({ slug: "crypto-futures", lang: "es" }, "/glossary")).toBe("/courses/crypto-futures/glossary");
   });
 
-  it("no api module calls a course-owned endpoint on its unscoped alias", () => {
-    const offenders: string[] = [];
-    for (const { file, body } of apiSources()) {
-      for (const line of body.split("\n")) {
-        if (!HTTP_CALL.test(line)) continue;
-        if (GLOBAL.some((g) => line.includes(g))) continue;
-        // A course-owned URL must be built from COURSE_PATH, never written as a bare path.
-        if (COURSE_OWNED.test(line) && !line.includes("COURSE_PATH")) {
-          offenders.push(`${file}: ${line.trim()}`);
-        }
-      }
-    }
+  it("every call that is not global goes through courseUrl", () => {
+    const calls = apiCalls().filter(({ call }) => HTTP_CALL.test(call));
+    expect(calls.length).toBeGreaterThan(20);
+    const offenders = calls
+      .filter(({ call }) => !GLOBAL.some((g) => call.includes(g)))
+      .filter(({ call }) => !call.includes("courseUrl("))
+      .map(({ file, call }) => `${file}: ${call}`);
     expect(offenders).toEqual([]);
-  });
-
-  it("every course-owned call is built from the one constant", () => {
-    const calls = apiSources()
-      .flatMap(({ body }) => body.split("\n"))
-      .filter((l) => HTTP_CALL.test(l))
-      .filter((l) => !GLOBAL.some((g) => l.includes(g)));
-    expect(calls.length).toBeGreaterThan(15);
-    expect(calls.every((l) => l.includes("COURSE_PATH"))).toBe(true);
   });
 });

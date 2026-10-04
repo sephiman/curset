@@ -5,6 +5,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import en from "@/i18n/en.json";
 import type { GlossaryEntry } from "@/api/course";
 import { buildTermIndex } from "@/lib/glossary/terms";
+import { InCourse } from "@/test/course";
 
 /**
  * The marked term on screen: hovered with a mouse, tapped on a touch screen, reachable by keyboard.
@@ -69,7 +70,7 @@ function mount(node: ReactElement): void {
   host = document.createElement("div");
   document.body.appendChild(host);
   act(() => {
-    createRoot(host).render(node);
+    createRoot(host).render(<InCourse>{node}</InCourse>);
   });
 }
 

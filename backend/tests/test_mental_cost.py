@@ -181,7 +181,7 @@ def _chain(formula_id: str, p: dict[str, object]) -> list[tuple[str, Fraction]]:
 def _manifest() -> dict[str, str]:
     """display id -> permanent key, for every exercise in the manifest."""
     course = yaml.safe_load(
-        (get_settings().content_dir / "course.yaml").read_text(encoding="utf-8")
+        (get_settings().content_dir / "crypto-futures" / "course.yaml").read_text(encoding="utf-8")
     )
     out: dict[str, str] = {}
     for block in course["blocks"]:
@@ -195,7 +195,7 @@ def _manifest() -> dict[str, str]:
 def _calculation_exercises() -> list[tuple[str, str, CalculationConfig]]:
     keys = _manifest()
     found = []
-    for path in sorted((get_settings().content_dir / "exercises").glob("*.yaml")):
+    for path in sorted((get_settings().content_dir / "crypto-futures" / "exercises").glob("*.yaml")):
         raw = yaml.safe_load(path.read_text(encoding="utf-8"))
         if raw.get("type") == "calculation":
             found.append((path.stem, keys[path.stem], CalculationConfig.model_validate(raw)))
@@ -277,7 +277,7 @@ def test_exemptions_name_live_content() -> None:
         display = by_key.get(key)
         assert display, f"exempt calculation key {key!r} is not in the manifest"
         raw = yaml.safe_load(
-            (get_settings().content_dir / "exercises" / f"{display}.yaml").read_text(
+            (get_settings().content_dir / "crypto-futures" / "exercises" / f"{display}.yaml").read_text(
                 encoding="utf-8"
             )
         )
@@ -286,7 +286,7 @@ def test_exemptions_name_live_content() -> None:
         display = by_key.get(key)
         assert display, f"exempt quiz key {key!r} is not in the manifest"
         raw = yaml.safe_load(
-            (get_settings().content_dir / "exercises" / f"{display}.yaml").read_text(
+            (get_settings().content_dir / "crypto-futures" / "exercises" / f"{display}.yaml").read_text(
                 encoding="utf-8"
             )
         )

@@ -267,4 +267,4 @@ async def test_reset_rejects_a_weak_password_and_keeps_the_link(
 
 async def test_mail_follows_the_user_locale(mail_client: AsyncClient, mailer: RecordingMailer) -> None:
     await _signed_in(mail_client, email=EMAIL, locale="es")
-    assert mailer.outbox[0].subject == "Confirma tu correo de TradeSchool"
+    assert mailer.outbox[0].subject == "Confirma tu correo de Curset"

@@ -68,7 +68,7 @@ Statistic = Callable[[tuple[int, ...], frozenset[int]], float]
 
 def _variants(kind: QuizKind) -> list[tuple[str, QuizVariant]]:
     """Every quiz variant of one sub-kind in the real course, tagged with its exercise id."""
-    registry = load_registry(get_settings().content_dir)
+    registry = load_registry(get_settings().content_dir / "crypto-futures")
     out: list[tuple[str, QuizVariant]] = []
     for _module, _lesson, exercise in registry.manifest.iter_exercises():
         resolved = registry.get_exercise_config(exercise.id)
@@ -212,7 +212,7 @@ def test_the_answer_is_authored_into_every_slot_equally(locale: str) -> None:
 def test_the_generator_deals_the_answer_to_every_slot_equally() -> None:
     """What a learner actually sees. The source order above is only the deck; this is the deal, and
     it must stay a deal — a shuffle quietly reduced to identity would restore the source's bias."""
-    registry = load_registry(get_settings().content_dir)
+    registry = load_registry(get_settings().content_dir / "crypto-futures")
     generator = get_generator(ExerciseType.QUIZ)
     seeds = rng_for(20260809)
     rows: list[Answered] = []
@@ -310,7 +310,7 @@ def _chart_draws(seeds: int) -> list[tuple[str, PatternChartConfig, list[tuple[l
     this.
     """
     if seeds not in _CHART_DRAWS:
-        registry = load_registry(get_settings().content_dir)
+        registry = load_registry(get_settings().content_dir / "crypto-futures")
         generator = get_generator(ExerciseType.PATTERN_CHART)
         stream = rng_for(20260809)
         out: list[tuple[str, PatternChartConfig, list[tuple[list[str], str]]]] = []

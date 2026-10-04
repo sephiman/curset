@@ -11,6 +11,7 @@ from pydantic import ValidationError
 from tradeschool.config import get_settings
 from tradeschool.content.registry import load_registry
 from tradeschool.content.schema import (
+    CourseStatus,
     LocalizedText,
     Manifest,
     ManifestBlock,
@@ -18,6 +19,7 @@ from tradeschool.content.schema import (
     ManifestLesson,
     ManifestModule,
 )
+from tradeschool.exercises.types import ExerciseType
 
 _FIGURE_REF = re.compile(r"::figure\{id=([^}\s]+)\}")
 # Injectors that exist only to draw lesson figures. A figure SHOWS the resolution; an exercise must cut
@@ -30,11 +32,19 @@ def _t(s: str) -> LocalizedText:
 
 
 def _course() -> ManifestCourse:
-    return ManifestCourse(id="c1", title=_t("Course"), subtitle=_t("Course"), description=_t("desc"))
+    return ManifestCourse(
+        id="c1",
+        title=_t("Course"),
+        subtitle=_t("Course"),
+        description=_t("desc"),
+        languages=["en", "es"],
+        status=CourseStatus.PUBLISHED,
+        exercise_types=[ExerciseType.QUIZ],
+    )
 
 
 def test_real_manifest_loads_and_lessons_have_both_languages() -> None:
-    registry = load_registry(get_settings().content_dir)
+    registry = load_registry(get_settings().content_dir / "crypto-futures")
     # The single course today owns all existing content under a stable id.
     assert registry.manifest.course.id == "crypto-futures"
     assert registry.manifest.course.title.en and registry.manifest.course.description.es
@@ -80,7 +90,7 @@ def test_real_manifest_loads_and_lessons_have_both_languages() -> None:
 
 def test_every_exercise_resolves_to_the_lesson_it_lives_on() -> None:
     """Every exercise resolves to its LESSON — the `m08-ex-5` → `m08` prefix is wrong for half of m08."""
-    registry = load_registry(get_settings().content_dir)
+    registry = load_registry(get_settings().content_dir / "crypto-futures")
     for _, lesson, exercise in registry.manifest.iter_exercises():
         assert registry.exercise_lesson_id(exercise.id) == lesson.id
     assert registry.exercise_lesson_id("m08-ex-1") == "m08-l1"
@@ -90,7 +100,7 @@ def test_every_exercise_resolves_to_the_lesson_it_lives_on() -> None:
 
 def test_all_phase1_exercises_are_playable() -> None:
     # Every exercise declared in the manifest must have a valid, loaded generator config.
-    registry = load_registry(get_settings().content_dir)
+    registry = load_registry(get_settings().content_dir / "crypto-futures")
     for _, _, exercise in registry.manifest.iter_exercises():
         assert registry.get_exercise_config(exercise.id) is not None, f"{exercise.id} not playable"
 
@@ -100,7 +110,7 @@ def test_every_figure_reference_resolves_and_no_spec_is_orphaned() -> None:
 
     A directive is a plain string in prose, so a typo produces a permanently spinning placeholder.
     """
-    registry = load_registry(get_settings().content_dir)
+    registry = load_registry(get_settings().content_dir / "crypto-futures")
     referenced: dict[str, set[str]] = {}
     for locale, lessons in registry.markdown.items():
         for lesson_id, body in lessons.items():
@@ -119,7 +129,7 @@ def test_every_figure_reference_resolves_and_no_spec_is_orphaned() -> None:
 
 def test_figure_only_injectors_are_never_used_by_an_exercise() -> None:
     """No exercise config selects a figure-only injector: those resolve their scenario on screen."""
-    registry = load_registry(get_settings().content_dir)
+    registry = load_registry(get_settings().content_dir / "crypto-futures")
     for _, _, exercise in registry.manifest.iter_exercises():
         config = registry.get_exercise_config(exercise.id)
         injector = getattr(config, "injector", None)
@@ -164,7 +174,7 @@ def test_unknown_assumes_rejected() -> None:
 
 def test_every_lesson_carries_a_summary_in_both_locales() -> None:
     """A summary is required content, not an optional decoration — the app has a slot for it."""
-    registry = load_registry(get_settings().content_dir)
+    registry = load_registry(get_settings().content_dir / "crypto-futures")
     for _module, lesson in registry.manifest.iter_lessons():
         for locale in ("en", "es"):
             summary = lesson.summary.get(locale)
@@ -186,7 +196,7 @@ def test_a_summary_never_coins_a_term_its_own_lesson_does_not_use() -> None:
     """
     from tradeschool.content.registry import _check_summaries_never_coin
 
-    registry = load_registry(get_settings().content_dir)
+    registry = load_registry(get_settings().content_dir / "crypto-futures")
     # The real course passes; this is the assertion the content itself has to keep meeting.
     _check_summaries_never_coin(registry.manifest, registry.glossary, registry.markdown)
 
@@ -201,7 +211,7 @@ def test_the_summary_guard_fires_on_a_term_the_lesson_never_uses() -> None:
 
     def _manifest(lesson: ManifestLesson) -> Manifest:
         return Manifest(
-            course=ManifestCourse(id="c", title=_t("t"), subtitle=_t("s"), description=_t("d")),
+            course=_course(),
             blocks=[
                 ManifestBlock(
                     id="block-a",
@@ -246,7 +256,7 @@ def test_the_summary_guard_does_not_fire_on_a_substring_or_an_inflection() -> No
 
     def _manifest(lesson: ManifestLesson) -> Manifest:
         return Manifest(
-            course=ManifestCourse(id="c", title=_t("t"), subtitle=_t("s"), description=_t("d")),
+            course=_course(),
             blocks=[
                 ManifestBlock(
                     id="block-a",

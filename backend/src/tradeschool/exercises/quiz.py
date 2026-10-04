@@ -144,12 +144,13 @@ class QuizGenerator(ExerciseGenerator):
     def parse_config(self, raw: Mapping[str, object]) -> QuizConfig:
         return QuizConfig.model_validate(dict(raw))
 
-    def _variant(self, config: QuizConfig, seed: int) -> QuizVariant:
+    def variant(self, config: QuizConfig, seed: int) -> QuizVariant:
+        """The variant a seed selects; a question report names it."""
         return rng_for(seed).choice(config.variants)
 
     def generate(self, config: BaseModel, seed: int, locale: str) -> GeneratedInstance:
         assert isinstance(config, QuizConfig)
-        v = self._variant(config, seed)
+        v = self.variant(config, seed)
         payload: dict[str, object] = {"kind": v.kind.value}
 
         if v.kind in (QuizKind.SINGLE_CHOICE, QuizKind.MULTI_SELECT):
@@ -176,7 +177,7 @@ class QuizGenerator(ExerciseGenerator):
 
     def grade(self, config: BaseModel, seed: int, answer: Mapping[str, object], locale: str) -> GradeResult:
         assert isinstance(config, QuizConfig)
-        v = self._variant(config, seed)
+        v = self.variant(config, seed)
         explanation = v.explanation.get(locale) if v.explanation else None
 
         if v.kind is QuizKind.SINGLE_CHOICE:

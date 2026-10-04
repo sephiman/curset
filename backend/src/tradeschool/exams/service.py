@@ -311,6 +311,7 @@ async def start_exam(
         session.add(
             Attempt(
                 user_id=user_id,
+                course_id=course_id,
                 exercise_id=exercise_key,  # rows store the permanent key
                 seed=seed,
                 instance_snapshot={

@@ -7,7 +7,13 @@ interface AuthContextValue {
   user: Me | null;
   loading: boolean;
   login: (username: string, password: string) => Promise<void>;
-  register: (username: string, password: string, locale: Locale, email: string | null) => Promise<void>;
+  register: (
+    username: string,
+    password: string,
+    locale: Locale,
+    email: string | null,
+    courses: string[],
+  ) => Promise<void>;
   logout: () => Promise<void>;
   setLocale: (locale: Locale) => Promise<void>;
   setEmail: (email: string | null) => Promise<void>;
@@ -54,8 +60,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   );
 
   const register = useCallback(
-    async (username: string, password: string, locale: Locale, email: string | null) => {
-      await authApi.register(username, password, locale, email);
+    async (username: string, password: string, locale: Locale, email: string | null, courses: string[]) => {
+      await authApi.register(username, password, locale, email, courses);
       const me = await authApi.login(username, password);
       setUser(me);
       applyUserLocale(me);

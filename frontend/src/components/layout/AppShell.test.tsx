@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import { createMemoryRouter, Outlet, RouterProvider } from "react-router-dom";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import en from "@/i18n/en.json";
-import { coursePath, HOME_PATH } from "@/components/layout/nav";
+import { coursePath } from "@/components/layout/nav";
 
 /**
  * The header wordmark as the way back to the course from any depth.
@@ -18,6 +18,19 @@ const USER = { username: "juanjo", locale: "en" as const };
 vi.mock("@/auth/AuthContext", () => ({
   useAuth: () => ({ user: USER, logout: async () => {} }),
 }));
+
+// The header draws the artwork for the resolved theme; pinned here, since jsdom has no matchMedia.
+vi.mock("@/lib/theme", () => ({ useTheme: () => ({ theme: "light", resolvedTheme: "light", setTheme: () => {} }) }));
+
+vi.mock("@/features/courses/useCourses", () => ({
+  useMyCourses: () => ({
+    data: { active: ["crypto-futures"], selected: "crypto-futures", readingLanguages: { "crypto-futures": "en" } },
+  }),
+  useFollowInterfaceLanguage: () => () => {},
+}));
+
+/** Home is the selected course's root. */
+const HOME_PATH = coursePath("crypto-futures");
 
 /** The real EN catalog, interpolated: the test asserts the strings a reader actually sees. */
 function translate(key: string, params?: Record<string, unknown>): string {
@@ -60,7 +73,7 @@ function mountAt(entry: string): ReturnType<typeof createMemoryRouter> {
         ),
         children: [
           { path: HOME_PATH.slice(1), element: <CoursePageProbe /> },
-          { path: `${coursePath("/lessons")}/:lessonId`.slice(1), element: <p>lesson page</p> },
+          { path: `${coursePath("crypto-futures", "/lessons")}/:lessonId`.slice(1), element: <p>lesson page</p> },
         ],
       },
     ],
@@ -100,7 +113,7 @@ beforeEach(() => {
 
 describe("the header wordmark", () => {
   it("takes a reader from a deep page back to the start of the course", () => {
-    const router = mountAt(coursePath("/lessons/m09-l2"));
+    const router = mountAt(coursePath("crypto-futures", "/lessons/m09-l2"));
     expect(host.textContent).toContain("lesson page");
 
     click(logo());
@@ -110,12 +123,12 @@ describe("the header wordmark", () => {
   });
 
   it("navigates client-side, without handing the click to the browser", () => {
-    mountAt(coursePath("/lessons/m09-l2"));
+    mountAt(coursePath("crypto-futures", "/lessons/m09-l2"));
     expect(click(logo()).defaultPrevented).toBe(true);
   });
 
   it("leaves the lesson on the stack, so Back returns to it", () => {
-    const router = mountAt(coursePath("/lessons/m09-l2"));
+    const router = mountAt(coursePath("crypto-futures", "/lessons/m09-l2"));
     click(logo());
     expect(router.state.historyAction).toBe("PUSH");
   });
@@ -145,18 +158,20 @@ describe("the header wordmark", () => {
     expect(el.tagName).toBe("A");
     expect(el.hasAttribute("tabindex")).toBe(false);
     const label = el.getAttribute("aria-label") ?? "";
-    expect(label).toBe("TradeSchool — home");
-    // WCAG 2.5.3: the accessible name contains the visible text, so "TradeSchool" spoken at a voice
-    // control matches the word on screen.
-    expect(label).toContain((el.textContent ?? "").trim());
+    expect(label).toBe("Curset — home");
+    // WCAG 2.5.3: the accessible name contains the name the logo shows, so "Curset" spoken at a voice
+    // control matches the word on screen. The image is decorative, so the name is not read twice.
+    const image = el.querySelector("img");
+    expect(image?.getAttribute("alt")).toBe("");
+    expect(label).toContain("Curset");
   });
 
-  it("keeps the wordmark's own type, adding only interaction affordances", () => {
+  it("shows the theme's logo artwork, adding only interaction affordances around it", () => {
     mountAt(HOME_PATH);
     const classes = logo().className.split(/\s+/);
-    // No layout shift: the wordmark reads exactly as it did as an inert span…
-    expect(classes).toEqual(expect.arrayContaining(["shrink-0", "text-lg", "font-semibold", "text-primary"]));
-    // …and gains no box of its own around it.
+    expect(logo().querySelector("img")?.getAttribute("src")).toContain("curset-logo-light");
+    expect(classes).toEqual(expect.arrayContaining(["shrink-0"]));
+    // The link gains no box of its own around the artwork.
     expect(classes.filter((c) => /^-?[pm][xytrbl]?-/.test(c))).toEqual([]);
     // Hover and focus are visible, and the focus ring's offset works on the dark header too.
     expect(classes).toEqual(

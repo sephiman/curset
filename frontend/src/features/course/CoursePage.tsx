@@ -1,8 +1,7 @@
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { getCourse, type CourseBlock, type CourseModule } from "@/api/course";
+import type { CourseBlock, CourseModule } from "@/api/course";
 import { ExportPdfButton } from "@/features/course/ExportPdfButton";
 import { flattenLessons, resumeTarget, stepLabel } from "@/features/course/courseNav";
 import {
@@ -14,7 +13,8 @@ import {
 } from "@/features/course/readingTime";
 import { Badge, Card, Spinner } from "@/components/ui/primitives";
 import { cn } from "@/lib/cn";
-import { coursePath } from "@/components/layout/nav";
+import { useCourse } from "@/features/courses/CourseContext";
+import { useCourseTree } from "@/features/course/queries";
 
 function isComplete(m: CourseModule): boolean {
   return m.hasContent && m.lessonsTotal > 0 && m.lessonsCompleted >= m.lessonsTotal;
@@ -29,6 +29,7 @@ function BlockReadingTime({ block }: { block: CourseBlock }) {
 
 function ModuleCard({ module, suggested }: { module: CourseModule; suggested: boolean }) {
   const { t } = useTranslation();
+  const { path } = useCourse();
   const complete = isComplete(module);
   // Advisory prereqs are soft: muted text, and never shown once the module is done.
   const showPrereqs = module.unmetPrereqs.length > 0 && !complete;
@@ -80,8 +81,8 @@ function ModuleCard({ module, suggested }: { module: CourseModule; suggested: bo
   // The module page is kept for the (data-model-supported) multi-lesson case.
   const target =
     module.lessonsTotal === 1 && module.lessons[0]
-      ? `/lessons/${module.lessons[0].id}`
-      : `/modules/${module.id}`;
+      ? path(`/lessons/${module.lessons[0].id}`)
+      : path(`/modules/${module.id}`);
 
   return module.hasContent ? (
     <Link to={target} className="block">
@@ -93,12 +94,9 @@ function ModuleCard({ module, suggested }: { module: CourseModule; suggested: bo
 }
 
 export function CoursePage() {
-  const { t, i18n } = useTranslation();
-  // Locale in the key so switching language refetches (and caches) per-locale rather than showing stale content.
-  const { data: course, isLoading } = useQuery({
-    queryKey: ["course", i18n.resolvedLanguage],
-    queryFn: getCourse,
-  });
+  const { t } = useTranslation();
+  const { path, scope } = useCourse();
+  const { data: course, isLoading } = useCourseTree();
 
   // Suggested next = the first module in canonical order that isn't fully completed, whether or not
   // its content is published yet. It always points somewhere until the whole course is done.
@@ -168,7 +166,9 @@ export function CoursePage() {
     <div className="space-y-8">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold">{course.course.title}</h1>
+          <h1 className="text-2xl font-bold" lang={scope.lang}>
+            {course.course.title}
+          </h1>
           <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{course.course.description}</p>
           {headerMeta.length > 0 && (
             <p className="mt-2 text-xs font-medium text-gray-500 dark:text-gray-400">
@@ -181,7 +181,7 @@ export function CoursePage() {
         </div>
       </div>
       {course.started && resume && (
-        <Link to={coursePath(`/lessons/${resume.lessonId}`)} className="block">
+        <Link to={path(`/lessons/${resume.lessonId}`)} className="block">
           <Card className="flex items-center justify-between gap-3 border-primary bg-primary/5 p-4 transition-colors hover:bg-primary/10 dark:bg-primary/10 dark:hover:bg-primary/20">
             <span className="font-medium text-primary">{t("course.continue", { step: stepLabel(resume) })}</span>
             <span aria-hidden className="text-primary">→</span>

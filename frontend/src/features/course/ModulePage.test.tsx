@@ -4,6 +4,7 @@ import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import en from "@/i18n/en.json";
 import { coursePath } from "@/components/layout/nav";
+import { InCourse, TEST_COURSE } from "@/test/course";
 
 /**
  * What a multi-lesson module page owes the reader: EACH ROW carries its own full estimate, not just the
@@ -53,12 +54,12 @@ function mount(node: ReactElement): void {
   host = document.createElement("div");
   document.body.appendChild(host);
   act(() => {
-    createRoot(host).render(node);
+    createRoot(host).render(<InCourse>{node}</InCourse>);
   });
 }
 
 function rowText(): string[] {
-  return [...host.querySelectorAll(`a[href^='${coursePath("/lessons/")}']`)].map((row) =>
+  return [...host.querySelectorAll(`a[href^='${coursePath(TEST_COURSE.slug, "/lessons/")}']`)].map((row) =>
     (row.textContent ?? "").replace(/\s+/g, " ").trim(),
   );
 }
@@ -66,9 +67,9 @@ function rowText(): string[] {
 beforeEach(() => {
   document.body.innerHTML = "";
   mount(
-    <MemoryRouter initialEntries={[coursePath("/modules/m09")]}>
+    <MemoryRouter initialEntries={[coursePath(TEST_COURSE.slug, "/modules/m09")]}>
       <Routes>
-        <Route path={coursePath("/modules/:moduleId")} element={<ModulePage />} />
+        <Route path={coursePath(TEST_COURSE.slug, "/modules/:moduleId")} element={<ModulePage />} />
       </Routes>
     </MemoryRouter>,
   );

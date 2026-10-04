@@ -11,7 +11,7 @@ import {
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import type { GlossaryEntry } from "@/api/course";
-import { coursePath } from "@/components/layout/nav";
+import { useCourse } from "@/features/courses/CourseContext";
 import { cn } from "@/lib/cn";
 
 /**
@@ -80,10 +80,11 @@ function place(anchor: DOMRect): { left: number; top?: number; bottom?: number }
 
 function OriginLink({ origin, title }: { origin: string | null; title: string | null }) {
   const { t } = useTranslation();
+  const { path } = useCourse();
   if (!origin) return null;
   return (
     <Link
-      to={coursePath(`/lessons/${origin}`)}
+      to={path(`/lessons/${origin}`)}
       className="text-primary hover:underline"
     >
       {t("glossary.originLabel")} <span className="tabular-nums">{origin.toUpperCase()}</span>
@@ -95,6 +96,7 @@ function OriginLink({ origin, title }: { origin: string | null; title: string | 
 /** The definition itself: a single sense, or a homonym's numbered senses with their own origins. */
 function TermCard({ entry, entries }: { entry: GlossaryEntry; entries: Map<string, GlossaryEntry> }) {
   const { t } = useTranslation();
+  const { path } = useCourse();
   // An alias owns no words: the canonical entry it points at does, and that is what a reader needs
   // here rather than a second hop.
   const canonical = entry.aliasOf ? entries.get(entry.aliasOf.id) : undefined;
@@ -122,7 +124,7 @@ function TermCard({ entry, entries }: { entry: GlossaryEntry; entries: Map<strin
       <p className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-xs text-gray-500 dark:text-gray-400">
         <OriginLink origin={defining.origin} title={defining.originTitle} />
         <Link
-          to={coursePath(`/glossary#${defining.id}`)}
+          to={path(`/glossary#${defining.id}`)}
           className="text-primary hover:underline"
         >
           {t("glossary.fullEntry")}

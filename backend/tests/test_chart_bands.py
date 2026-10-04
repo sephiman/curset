@@ -29,7 +29,7 @@ from tradeschool.exercises.pattern_chart import (
 _SEEDS = 300  # per label — a zone's edges are candle extremes, so the defect is distributional
 _N = 130
 _KINDS = {"origin", "imbalance"}  # every kind the frontend has a colour and a title for
-_CONTENT = Path(__file__).resolve().parents[2] / "content"
+_CONTENT = Path(__file__).resolve().parents[2] / "content" / "crypto-futures"
 # Injectors that plant a zone. Named rather than only discovered, so an injector that silently STOPS
 # publishing its band cannot make the discovered suites below vacuous by looking like it never had one.
 _BAND_INJECTORS = {"origin_zone", "imbalance"}

@@ -5,6 +5,8 @@ from __future__ import annotations
 
 from httpx import AsyncClient
 
+API = "/api/courses/crypto-futures"
+
 CREDS = {"username": "examtaker", "password": "correcthorse"}
 
 
@@ -14,7 +16,7 @@ async def _auth(client: AsyncClient) -> None:
 
 
 async def _module_order(client: AsyncClient, *, examinable_only: bool = False) -> list[str]:
-    course = (await client.get("/api/course")).json()
+    course = (await client.get(f"{API}")).json()
     return [
         m["id"]
         for b in course["blocks"]
@@ -25,7 +27,7 @@ async def _module_order(client: AsyncClient, *, examinable_only: bool = False) -
 
 async def test_global_exam_covers_every_module_in_order(content_client: AsyncClient) -> None:
     await _auth(content_client)
-    exam = (await content_client.post("/api/exams", json={"scope": "global"})).json()
+    exam = (await content_client.post(f"{API}/exams", json={"scope": "global"})).json()
     assert exam["scope"] == "global"
     assert exam["status"] == "open"
 
@@ -47,7 +49,7 @@ async def test_global_exam_covers_every_module_in_order(content_client: AsyncCli
 
 async def test_block_exam_scopes_to_one_block(content_client: AsyncClient) -> None:
     await _auth(content_client)
-    exam = (await content_client.post("/api/exams", json={"scope": "block", "blockId": "block-a"})).json()
+    exam = (await content_client.post(f"{API}/exams", json={"scope": "block", "blockId": "block-a"})).json()
     assert exam["scope"] == "block" and exam["blockId"] == "block-a"
     assert {q["blockId"] for q in exam["questions"]} == {"block-a"}
     assert len(exam["questions"]) >= 1
@@ -63,11 +65,11 @@ async def test_a_block_exam_scores_per_block_and_reveals_unanswered(content_clie
     question now sampled under its new block.
     """
     await _auth(content_client)
-    exam = (await content_client.post("/api/exams", json={"scope": "block", "blockId": "block-f"})).json()
+    exam = (await content_client.post(f"{API}/exams", json={"scope": "block", "blockId": "block-f"})).json()
     assert exam["scope"] == "block" and exam["blockId"] == "block-f"
     assert [q["moduleId"] for q in exam["questions"]] == ["m29", "m30", "m31", "m32", "m33", "m34"]
 
-    submitted = (await content_client.post(f"/api/exams/{exam['id']}/submit")).json()
+    submitted = (await content_client.post(f"{API}/exams/{exam['id']}/submit")).json()
     result = submitted["result"]
     assert result["total"] == 6
     assert result["blocks"] == [
@@ -80,7 +82,7 @@ async def test_a_block_exam_scores_per_block_and_reveals_unanswered(content_clie
 async def test_global_exam_discovers_a_newly_added_module(content_client: AsyncClient) -> None:
     """A new module joins the global exam by being registered — there is no exam-side list to update."""
     await _auth(content_client)
-    exam = (await content_client.post("/api/exams", json={"scope": "global"})).json()
+    exam = (await content_client.post(f"{API}/exams", json={"scope": "global"})).json()
     m34 = [q for q in exam["questions"] if q["moduleId"] == "m34"]
     assert len(m34) == 1, "the global exam did not pick up m34"
     assert m34[0]["blockId"] == "block-f"  # block-g merged into block-f, 2026-08-10
@@ -91,30 +93,30 @@ async def test_global_exam_discovers_a_newly_added_module(content_client: AsyncC
 async def test_a_block_with_no_exercises_cannot_be_examined(content_client: AsyncClient) -> None:
     """The epilogue block is real content with nothing to grade: 409 EXAM_EMPTY, not an empty exam."""
     await _auth(content_client)
-    resp = await content_client.post("/api/exams", json={"scope": "block", "blockId": "block-g"})
+    resp = await content_client.post(f"{API}/exams", json={"scope": "block", "blockId": "block-g"})
     assert resp.status_code == 409
     assert resp.json()["code"] == "EXAM_EMPTY"
 
 
 async def test_bad_block_scope_rejected(content_client: AsyncClient) -> None:
     await _auth(content_client)
-    resp = await content_client.post("/api/exams", json={"scope": "block", "blockId": "ghost"})
+    resp = await content_client.post(f"{API}/exams", json={"scope": "block", "blockId": "ghost"})
     assert resp.status_code == 400
     assert resp.json()["code"] == "EXAM_BAD_SCOPE"
 
 
 async def test_answer_is_deferred_and_resumable(content_client: AsyncClient) -> None:
     await _auth(content_client)
-    exam = (await content_client.post("/api/exams", json={"scope": "block", "blockId": "block-a"})).json()
+    exam = (await content_client.post(f"{API}/exams", json={"scope": "block", "blockId": "block-a"})).json()
     q0 = exam["questions"][0]
     # Answer one question — accepted, no feedback returned.
     r = await content_client.post(
-        f"/api/exams/{exam['id']}/questions/{q0['attemptId']}/answer", json={"answer": {"optionId": "o0"}}
+        f"{API}/exams/{exam['id']}/questions/{q0['attemptId']}/answer", json={"answer": {"optionId": "o0"}}
     )
     assert r.status_code == 204
 
     # Resume: the open session comes back with the stored answer and still no solution.
-    current = (await content_client.get("/api/exams/open")).json()[0]
+    current = (await content_client.get(f"{API}/exams/open")).json()[0]
     assert current is not None and current["id"] == exam["id"]
     resumed_q0 = next(q for q in current["questions"] if q["attemptId"] == q0["attemptId"])
     assert resumed_q0["answered"] is True
@@ -124,12 +126,12 @@ async def test_answer_is_deferred_and_resumable(content_client: AsyncClient) -> 
 
 async def test_submit_reveals_solutions_and_flags_unanswered(content_client: AsyncClient) -> None:
     await _auth(content_client)
-    exam = (await content_client.post("/api/exams", json={"scope": "block", "blockId": "block-a"})).json()
+    exam = (await content_client.post(f"{API}/exams", json={"scope": "block", "blockId": "block-a"})).json()
     q0 = exam["questions"][0]
     await content_client.post(
-        f"/api/exams/{exam['id']}/questions/{q0['attemptId']}/answer", json={"answer": {"optionId": "o0"}}
+        f"{API}/exams/{exam['id']}/questions/{q0['attemptId']}/answer", json={"answer": {"optionId": "o0"}}
     )
-    submitted = (await content_client.post(f"/api/exams/{exam['id']}/submit", json={})).json()
+    submitted = (await content_client.post(f"{API}/exams/{exam['id']}/submit", json={})).json()
 
     assert submitted["status"] == "submitted"
     result = submitted["result"]
@@ -148,10 +150,10 @@ async def test_submit_reveals_solutions_and_flags_unanswered(content_client: Asy
 
 async def test_review_reproduces_exactly(content_client: AsyncClient) -> None:
     await _auth(content_client)
-    exam = (await content_client.post("/api/exams", json={"scope": "block", "blockId": "block-a"})).json()
-    await content_client.post(f"/api/exams/{exam['id']}/submit", json={})
-    first = (await content_client.get(f"/api/exams/{exam['id']}/review")).json()
-    second = (await content_client.get(f"/api/exams/{exam['id']}/review")).json()
+    exam = (await content_client.post(f"{API}/exams", json={"scope": "block", "blockId": "block-a"})).json()
+    await content_client.post(f"{API}/exams/{exam['id']}/submit", json={})
+    first = (await content_client.get(f"{API}/exams/{exam['id']}/review")).json()
+    second = (await content_client.get(f"{API}/exams/{exam['id']}/review")).json()
     # Seeds persist per attempt → the review is byte-stable across reloads.
     assert first == second
     assert all(q["correctAnswer"] is not None for q in first["questions"])
@@ -159,26 +161,26 @@ async def test_review_reproduces_exactly(content_client: AsyncClient) -> None:
 
 async def test_same_scope_restart_abandons_prior(content_client: AsyncClient) -> None:
     await _auth(content_client)
-    first = (await content_client.post("/api/exams", json={"scope": "global"})).json()
-    second = (await content_client.post("/api/exams", json={"scope": "global"})).json()
+    first = (await content_client.post(f"{API}/exams", json={"scope": "global"})).json()
+    second = (await content_client.post(f"{API}/exams", json={"scope": "global"})).json()
     assert first["id"] != second["id"]
 
     # Only one sitting is open; the prior one of the same scope was abandoned.
-    current = (await content_client.get("/api/exams/open")).json()[0]
+    current = (await content_client.get(f"{API}/exams/open")).json()[0]
     assert current["id"] == second["id"]
     # Abandoned sessions count toward nothing — history stays empty until something is submitted.
-    assert (await content_client.get("/api/exams")).json() == []
+    assert (await content_client.get(f"{API}/exams")).json() == []
 
     # The abandoned one can't be rendered as in-progress.
-    stale = await content_client.get(f"/api/exams/{first['id']}")
+    stale = await content_client.get(f"{API}/exams/{first['id']}")
     assert stale.status_code == 409
 
 
 async def test_history_lists_submitted_only(content_client: AsyncClient) -> None:
     await _auth(content_client)
-    exam = (await content_client.post("/api/exams", json={"scope": "block", "blockId": "block-a"})).json()
-    await content_client.post(f"/api/exams/{exam['id']}/submit", json={})
-    history = (await content_client.get("/api/exams")).json()
+    exam = (await content_client.post(f"{API}/exams", json={"scope": "block", "blockId": "block-a"})).json()
+    await content_client.post(f"{API}/exams/{exam['id']}/submit", json={})
+    history = (await content_client.get(f"{API}/exams")).json()
     assert len(history) == 1
     row = history[0]
     assert row["id"] == exam["id"] and row["scope"] == "block" and row["blockId"] == "block-a"
@@ -187,10 +189,10 @@ async def test_history_lists_submitted_only(content_client: AsyncClient) -> None
 
 async def _practice_once(client: AsyncClient, exercise_id: str) -> None:
     """One full practice attempt (answered) to build practice statistics."""
-    inst = (await client.post(f"/api/exercises/{exercise_id}/attempts")).json()
+    inst = (await client.post(f"{API}/exercises/{exercise_id}/attempts")).json()
     options = inst["payload"].get("options") or [{"id": "o0"}]
     answer = {"answer": {"optionId": options[0]["id"]}}
-    await client.post(f"/api/attempts/{inst['attemptId']}/answer", json=answer)
+    await client.post(f"{API}/attempts/{inst['attemptId']}/answer", json=answer)
 
 
 async def test_exam_attempts_do_not_contaminate_practice_stats(content_client: AsyncClient) -> None:
@@ -200,21 +202,21 @@ async def test_exam_attempts_do_not_contaminate_practice_stats(content_client: A
     await _practice_once(content_client, "m04-ex-1")
     await _practice_once(content_client, "m05-ex-1")
 
-    me_before = (await content_client.get("/api/stats/me")).json()
-    global_before = (await content_client.get("/api/stats/global")).json()
-    course_before = (await content_client.get("/api/course")).json()
+    me_before = (await content_client.get(f"{API}/stats/me")).json()
+    global_before = (await content_client.get(f"{API}/stats/global")).json()
+    course_before = (await content_client.get(f"{API}")).json()
 
     # Run and submit a full global exam (23 exam attempts across every module).
-    exam = (await content_client.post("/api/exams", json={"scope": "global"})).json()
+    exam = (await content_client.post(f"{API}/exams", json={"scope": "global"})).json()
     for q in exam["questions"]:
         await content_client.post(
-            f"/api/exams/{exam['id']}/questions/{q['attemptId']}/answer", json={"answer": {"optionId": "o0"}}
+            f"{API}/exams/{exam['id']}/questions/{q['attemptId']}/answer", json={"answer": {"optionId": "o0"}}
         )
-    await content_client.post(f"/api/exams/{exam['id']}/submit", json={})
+    await content_client.post(f"{API}/exams/{exam['id']}/submit", json={})
 
-    me_after = (await content_client.get("/api/stats/me")).json()
-    global_after = (await content_client.get("/api/stats/global")).json()
-    course_after = (await content_client.get("/api/course")).json()
+    me_after = (await content_client.get(f"{API}/stats/me")).json()
+    global_after = (await content_client.get(f"{API}/stats/global")).json()
+    course_after = (await content_client.get(f"{API}")).json()
 
     # Not one practice aggregate moved.
     assert me_after == me_before
@@ -231,37 +233,37 @@ async def test_every_open_sitting_is_reachable_not_just_the_newest(content_clien
     the other consuming its questions with no way to resume or abandon it.
     """
     await _auth(content_client)
-    globally = (await content_client.post("/api/exams", json={"scope": "global"})).json()
+    globally = (await content_client.post(f"{API}/exams", json={"scope": "global"})).json()
     per_block = (
-        await content_client.post("/api/exams", json={"scope": "block", "blockId": "block-a"})
+        await content_client.post(f"{API}/exams", json={"scope": "block", "blockId": "block-a"})
     ).json()
     assert globally["id"] != per_block["id"]
 
-    open_sittings = (await content_client.get("/api/exams/open")).json()
+    open_sittings = (await content_client.get(f"{API}/exams/open")).json()
     assert [s["id"] for s in open_sittings] == [per_block["id"], globally["id"]], "newest first"
     # Both are genuinely still in progress: each renders, rather than 409-ing as a closed session does.
     for sitting in open_sittings:
-        assert (await content_client.get(f"/api/exams/{sitting['id']}")).status_code == 200
+        assert (await content_client.get(f"{API}/exams/{sitting['id']}")).status_code == 200
 
     # And starting a third of one scope closes only that scope's sitting.
-    again = (await content_client.post("/api/exams", json={"scope": "global"})).json()
-    still_open = [s["id"] for s in (await content_client.get("/api/exams/open")).json()]
+    again = (await content_client.post(f"{API}/exams", json={"scope": "global"})).json()
+    still_open = [s["id"] for s in (await content_client.get(f"{API}/exams/open")).json()]
     assert set(still_open) == {again["id"], per_block["id"]}
 
 
 async def test_question_order_is_frozen_at_assembly(content_client: AsyncClient) -> None:
     """The order is recorded when the exam is built, not re-derived from the manifest at each render."""
     await _auth(content_client)
-    exam = (await content_client.post("/api/exams", json={"scope": "global"})).json()
+    exam = (await content_client.post(f"{API}/exams", json={"scope": "global"})).json()
     first = [q["exerciseId"] for q in exam["questions"]]
 
     # Every render agrees with the assembly, including the reveal path after submission.
-    rendered = (await content_client.get(f"/api/exams/{exam['id']}")).json()
+    rendered = (await content_client.get(f"{API}/exams/{exam['id']}")).json()
     assert [q["exerciseId"] for q in rendered["questions"]] == first
     assert [q["index"] for q in rendered["questions"]] == list(range(len(first)))
-    submitted = (await content_client.post(f"/api/exams/{exam['id']}/submit", json={})).json()
+    submitted = (await content_client.post(f"{API}/exams/{exam['id']}/submit", json={})).json()
     assert [q["exerciseId"] for q in submitted["questions"]] == first
-    reviewed = (await content_client.get(f"/api/exams/{exam['id']}/review")).json()
+    reviewed = (await content_client.get(f"{API}/exams/{exam['id']}/review")).json()
     assert [q["exerciseId"] for q in reviewed["questions"]] == first
 
 
@@ -272,14 +274,14 @@ async def test_a_different_block_of_the_same_scope_abandons_nothing(content_clie
     widened this to "any open block exam" the web would abandon a sitting it never warned about.
     """
     await _auth(content_client)
-    first = (await content_client.post("/api/exams", json={"scope": "block", "blockId": "block-a"})).json()
-    second = (await content_client.post("/api/exams", json={"scope": "block", "blockId": "block-b"})).json()
+    first = (await content_client.post(f"{API}/exams", json={"scope": "block", "blockId": "block-a"})).json()
+    second = (await content_client.post(f"{API}/exams", json={"scope": "block", "blockId": "block-b"})).json()
 
-    still_open = {s["id"] for s in (await content_client.get("/api/exams/open")).json()}
+    still_open = {s["id"] for s in (await content_client.get(f"{API}/exams/open")).json()}
     assert still_open == {first["id"], second["id"]}, "a different block must not be abandoned"
 
     # ...and the same block does abandon, which is the branch the dialog exists to warn about.
-    third = (await content_client.post("/api/exams", json={"scope": "block", "blockId": "block-a"})).json()
-    after = {s["id"] for s in (await content_client.get("/api/exams/open")).json()}
+    third = (await content_client.post(f"{API}/exams", json={"scope": "block", "blockId": "block-a"})).json()
+    after = {s["id"] for s in (await content_client.get(f"{API}/exams/open")).json()}
     assert after == {third["id"], second["id"]}
-    assert (await content_client.get(f"/api/exams/{first['id']}")).status_code == 409
+    assert (await content_client.get(f"{API}/exams/{first['id']}")).status_code == 409
