@@ -10,8 +10,8 @@ services:
       args:
         GIT_COMMIT: ${GIT_COMMIT:-unknown}
         BUILD_TIME: ${BUILD_TIME:-unknown}
-    image: tradeschool-backend:latest
-    container_name: tradeschool-backend
+    image: curset-backend:latest
+    container_name: curset-backend
     env_file: .env
     environment:
       DB_HOST: ${DB_HOST}
@@ -51,8 +51,8 @@ services:
   frontend:
     build:
       context: ./frontend
-    image: tradeschool-frontend:latest
-    container_name: tradeschool-frontend
+    image: curset-frontend:latest
+    container_name: curset-frontend
     depends_on:
       backend:
         condition: service_healthy

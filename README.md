@@ -1032,8 +1032,8 @@ The backend applies migrations and reconciles the course manifest on startup. Th
 **`--build` is not optional after a content change.** `content/` is *baked into the image*
 (`backend/Dockerfile`: `COPY content /app/content`, with `CONTENT_DIR=/app/content`) — there is no bind
 mount — and the registry is read **once at process startup**. So `docker compose up -d` without `--build`
-reuses the existing `tradeschool-backend:latest` and keeps serving the previous content, and `restart`
+reuses the existing `curset-backend:latest` and keeps serving the previous content, and `restart`
 alone re-reads the same baked copy. Every content consumer shares that one snapshot — lessons, figures,
 exercises, exams and the export — so a stale image is stale everywhere at once, never in one endpoint
-only. `test_export_is_complete_against_the_manifest` asserts the export matches `content/course.yaml`
+only. `test_export_is_complete_against_the_manifest` asserts the export matches `content/crypto-futures/course.yaml`
 exactly, which is what turns "did my export miss a block?" into a question with an answer.
