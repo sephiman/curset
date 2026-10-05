@@ -89,7 +89,8 @@ uv run python scripts/export_contracts_to_android.py --target <path>
   glossary/reference annotator are TypeScript and a Python re-derivation would be a second opinion
   about which words a reader may tap. It refuses to write a bundle whose ASTs leave `BLOCK_INVENTORY`
   (the closed set of node kinds the app can render) or whose text does not match the web's, word
-  multiset for word multiset, per locale.
+  multiset for word multiset, per locale, or whose visible text carries a leaked internal token
+  (`scripts/leaked_tokens.py`: `(none)`, bare `null`, an unfilled `{placeholder}`, snake_case).
   Beside the bundle it writes `dist/i18n/`, the answer-label and chart-label catalogs from
   `frontend/src/i18n/` (`scripts/label_catalogs.py`), and refuses a key that only one locale has.
 * `export_prng_vectors.py` writes the two random streams per primitive — NumPy's PCG64 for the charts,

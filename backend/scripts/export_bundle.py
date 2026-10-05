@@ -13,7 +13,8 @@ and a two-step export is a bundle whose halves can be from different content ver
     `frontend/src/lib/`. So this script writes an input file, drives `frontend/scripts/export-ast.mjs`
     with it, and never parses a line of markdown itself.
 
-Two things it refuses to write a bundle without.
+Three things it refuses to write a bundle without; the third, no internal token in visible text,
+is `scripts/leaked_tokens.py`.
 
 **The block inventory.** `BLOCK_INVENTORY` is the closed set of mdast node kinds the app can render.
 An unknown node does not crash a renderer, it renders as nothing — so a lesson that acquires a fenced
@@ -62,6 +63,7 @@ for _extra in (_BACKEND, _BACKEND / "src"):
 from pydantic import BaseModel  # noqa: E402
 
 from scripts.label_catalogs import LabelCatalog, LabelCatalogError, build_label_catalogs  # noqa: E402
+from scripts.leaked_tokens import bundle_leaks  # noqa: E402
 from tradeschool.content.registry import CourseRegistry, _theory_only, load_registry  # noqa: E402
 from tradeschool.content.schema import LOCALES  # noqa: E402
 from tradeschool.exercises.calculation import (  # noqa: E402
@@ -793,6 +795,14 @@ def _check_exercise_refs(out: Path, registry: CourseRegistry) -> int:
     return checked
 
 
+def _check_leaked_tokens(out: Path) -> None:
+    leaks = bundle_leaks(out, label_catalogs_dir(out))
+    if leaks:
+        shown = "\n  ".join(leaks[:40])
+        more = "" if len(leaks) <= 40 else f"\n  ... and {len(leaks) - 40} more"
+        raise BundleError(f"{len(leaks)} internal token(s) in text a reader sees:\n  {shown}{more}")
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
@@ -807,7 +817,7 @@ def main(argv: list[str] | None = None) -> int:
     )
     parser.add_argument(
         "--verify-only", action="store_true",
-        help="re-check an existing bundle (inventory + text diff) without rewriting it",
+        help="re-check an existing bundle (inventory, text diff, leaked tokens) without rewriting it",
     )
     args = parser.parse_args(argv)
 
@@ -836,6 +846,8 @@ def main(argv: list[str] | None = None) -> int:
         print(f"fingerprint       {manifest['contentFingerprint']}  (verified against {len(current)} files)")
         _check_label_catalogs(out, label_catalogs)
         print(f"label catalogs    OK  ({len(label_catalogs)} files in {label_catalogs_dir(out)})")
+        _check_leaked_tokens(out)
+        print("leaked tokens     OK  (no sentinel, unfilled placeholder or snake_case in visible text)")
         (out / ".ast-input.json").unlink(missing_ok=True)
         return 0
 
@@ -867,10 +879,11 @@ def main(argv: list[str] | None = None) -> int:
     (out / "README.md").write_text(
         build_readme(build_manifest(registry, files={})["counts"]), encoding="utf-8"
     )
+    _write_label_catalogs(out, label_catalogs)
     files = _bundle_files(out)
     manifest = build_manifest(registry, files=files)
     _write(out, "manifest.json", manifest)
-    _write_label_catalogs(out, label_catalogs)
+    _check_leaked_tokens(out)
 
     counts = manifest["counts"]
     print()

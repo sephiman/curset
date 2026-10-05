@@ -982,7 +982,7 @@ positions are stripped. `src/lib/bundle/ast.test.ts` fails if either end of that
 ties the planted marks to `content/glossary-links.<locale>.txt` and `content/lesson-refs.<locale>.txt`
 lesson for lesson — so the app can never tooltip a word no reviewer has seen.
 
-Two guards decide whether a bundle gets written at all:
+Three guards decide whether a bundle gets written at all:
 
 * **The block inventory.** `BLOCK_INVENTORY` is the closed set of node kinds the app can render, and an
   unknown one renders as *nothing* — so a lesson that acquired a fenced code block, an image, a hard
@@ -998,6 +998,13 @@ Two guards decide whether a bundle gets written at all:
   order (it is a bag), or about a change to the parser (its reference came off that same parser). The
   block diff's reference is the rendered DOM, which shares no code with the bundle's path. Both blind
   spots, and the quantization one below, are written up in `docs/verification-blind-spots.md`.
+* **No leaked tokens.** No visible string — manifest, configs, figure captions, glossary, lesson
+  text, error phrases, label catalogs — may carry an internal value: a parenthesised sentinel
+  (`(none)`, `(null)`, `(n/a)`), a bare `null`/`undefined`/`NaN`, an unfilled `{placeholder}` or a
+  snake_case identifier. A parenthesised term such as "(isolated)" is prose and passes; so do a
+  calculation prompt's own `{param}` slots, the error sentence's `{value}`/`{mistake}`, and
+  snake_case inside a code span, which is authored notation (m10-l1's EMA formula). The port of the
+  Android store-shots rule, in `backend/scripts/leaked_tokens.py`; `--verify-only` runs it too.
 
 ```
 uv run python scripts/export_bundle.py --verify-only   # re-check a bundle without rewriting it
