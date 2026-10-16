@@ -872,12 +872,399 @@ Run on the final tree (lessons, glossary, course.yaml and goldens of this round)
 ## Open items
 
 - **After the 29-11-2026 elections:** a one-lesson round updates I.8's ministry list and its dated line «Estructura
-  vigente a …» once the new government's restructuring decree is published, and re-checks every «(hoy: …)» note in
-  bloque I against it.
+    vigente a …» once the new government's restructuring decree is published, and re-checks every «(hoy: …)» note in
+  bloque I against it. Since bloque II this includes the bloque II notes: Ministerio para la Transformación Digital y
+  de la Función Pública (m02-l01, m02-l02, m02-l03), Ministerio de Hacienda (m02-l01), Ministerio de Industria y
+  Turismo (m02-l03) and Ministerio de la Presidencia, Justicia y Relaciones con las Cortes (m02-l04).
 - **Waiting glossary terms** (see Glossary) enter when a second lesson uses them or a defining article appears.
 - **OEP 2026 convocatoria:** when it is published, R0b runs before anything else.
+- **RGPD corrigenda (bloque II).** `sources/normativa/` holds the 2016 DOUE original of the RGPD, without corrections.
+  Before R3 writes II.4 questions, save the consolidated RGPD text, or its corrección de errores, under `sources/` and
+  re-check the verbatim-dependent sentences of m02-l04 (art. 9.1 «orientación sexual», art. 36.1 among them).
+- **Norms named but not in `sources/` (bloque II), candidates for `normativa.yaml` before R3 asks about them:**
+  RD 776/2011 (supresión of the Comisión Interministerial de Información Administrativa; now cited through the BOE note
+  in RD 208/1996). RD 1401/2007 (composition of the Comisión Superior Calificadora de Documentos Administrativos).
+  RD 1164/2002 (eliminación de documentos). Decreto 914/1969 (plazos de transferencia to the Archivo General de la
+  Administración). The norm that renamed the Puntos de Atención al Emprendedor «al Emprendimiento» (presumably an
+  amendment to Ley 14/2013 art. 13). The Acuerdo del Consejo de Ministros of 15-07-2005 (Red de Oficinas Integradas).
+- **Orden HAP/1949/2014 status.** It rests on repealed norms and is not repealed expressly. The PAG page still lists
+  it, but its address of the oficina 060 (María de Molina, 50) differs from the PAG's current office (Francisco
+  Gervás, 7). Check whether a later orden replaced it before R3 asks about the PAG's channels.
+- **RD 1112/2018 and STC 100/2019.** The plazos m02-l03 gives (arts. 12.3, 13.4, 13.6) are non-basic and bind the
+  AGE. Questions on them must be set in the AGE, or carry the STC note.
+- **Glossary candidate «oficinas integradas»** (m02-l01, m02-l03, no defining article) enters if a later lesson or
+  norm in `sources/` defines it.
 
-## Where to resume
+## Where to resume (after bloque I)
 
 Bloque I is closed. The next session starts R2 bloque II (temas II.1–II.4, lessons `m02-l01`…`m02-l04`) with the same
 spec plus the five decisions above.
+
+# Bloque II — temas II.1–II.4
+
+Round R2, bloque II, 2026-10-16. Nothing committed. Same procedure as bloque I: one writer per tema to a shared spec
+(the bloque I spec plus the standing conventions above, and the rule that any outside source is saved under
+`sources/otros/` with URL, date and sha256 before it is cited); then a separate blind reviewer that had not written
+the lesson re-opened the cited article for every sentence carrying a number, plazo, majority, organ, date or exception,
+checked every citation and the Normativa block, and checked the glossary candidates the same way. Every FAIL was fixed
+against the article before the next tema started. The changed sentences then went through a second blind pass. Temas
+ran in order. The per-sentence tables are working files, not kept in the repo; their counts and every FAIL are below.
+
+Suites before writing (current tree at the start of the session): backend `uv run pytest` 1,374 passed, 20 skipped;
+frontend `npx vitest run` 563 passed, 49 skipped.
+
+## Summary
+
+| Tema | Lesson | Words | Citations | Sentences checked | FAIL (fixed) | Unverifiable | Glossary checked / FAIL (fixed) | Glossary entries |
+|---|---|---|---|---|---|---|---|---|
+| II.1 | `m02-l01` | 3,482 | 75 | 121 | 7 | 0 | 8 / 0 | 8 |
+| II.2 | `m02-l02` | 3,045 | 57 | 108 | 0 | 0 | 12 / 3 | 12 |
+| II.3 | `m02-l03` | 3,387 | 68 | 124 | 1 | 0 | 9 / 1 | 9 |
+| II.4 | `m02-l04` | 3,870 | 109 | 104 | 5 | 0 | 10 / 0 | 10 |
+| **Total** | | **13,784** | **309** | **457** | **13** | **0** | **39 / 4** | **39** |
+
+Words: `wc -w`, everything counted. Citations: parenthesised «(art» / «(arts» only. Citations to saved pages, the
+Diccionario and «(disposición…» are counted in each tema's section. Second pass (sentences changed by the fixes and
+by the coordinator): II.1 14 checked, 14 PASS; II.2–II.4: see «Second pass» below.
+
+Lengths against the weights. Bloque II gets 14 of the 250 questions of 2025, but II.1 and II.4 recur in the
+supuestos (style guide, per-tema table). All four lessons came out above their targets (II.1 3,000; II.2 2,300;
+II.3 2,600; II.4 3,500) after cuts from first drafts of 5,500–7,900 words. Each writer cut first what no official
+question of 2022–2025 asks; the cuts are listed per tema.
+
+## Glossary
+
+- 39 entries added, origin in bloque II; `glossary.yaml` now holds 118. 38 cite a defining article. «derecho de
+  petición» has none in the sources: it enters because m01-l01 (art. 29 CE) and m02-l01 use it in the same sense.
+- **The six waiting terms from bloque I** (mayoría absoluta, Gobierno Abierto, Objetivos de Desarrollo Sostenible,
+  libre designación, recurso por incumplimiento, recurso de anulación): `grep -il` over all lessons finds none of them
+  in a bloque II lesson, and no bloque II norm defines any of them. All six stay waiting. «libre designación» still
+  enters with IV.5 (TREBEP / RD 364/1995).
+- Not proposed, used once or with no defining article: oficinas integradas (m02-l01 and m02-l03, no defining article;
+  candidate if a later lesson defines it), sede electrónica asociada, código seguro de verificación, delegado de
+  protección de datos, derecho al olvido, elaboración de perfiles.
+- **Glossary verification:** 39 checked, 35 PASS, 4 FAIL, all replaced with the reviewer's article-faithful wording:
+  g-patrimonio-documental («parte del Patrimonio Histórico Español» is art. 48.1, not 49.2; both now cited),
+  g-documento-administrativo-electronico (two conditions of art. 46.1 RD 203/2021 restored),
+  g-archivo-electronico-unico («o actuaciones correspondientes», art. 55.1 RD 203/2021), g-carga-desproporcionada
+  (third case of art. 7.2 RD 1112/2018). In the second pass g-carga-desproporcionada failed again: its «teniendo en
+  cuenta al mismo tiempo el posible beneficio o perjuicio para los ciudadanos…» clause was missing. It was replaced with
+  the reviewer's wording.
+- **Goldens.** `glossary-links.es.txt` regenerated and read line by line: 50 → 70 web marks (28 also a PDF link), 90
+  linkable terms the book never links. **Wrong-sense link excluded:** g-servicios-comunes in m02-l01 («Entidades
+  Gestoras y Servicios Comunes de la Seguridad Social», the same false friend as m01-l07), now in `link_except`. Kept
+  after reading: «Ley Orgánica» inside «Ley Orgánica 4/2001» and «Ley Orgánica 3/2018», and «Directiva» inside
+  «Directiva 95/46/CE» and «Directiva de Servicios»: each names a real ley orgánica or directiva, so the sense holds.
+  Also kept: «personas con discapacidad» in the RDL 1/2013 Normativa lines of the m03-l07 and m04-l02 stubs, same
+  sense. `lesson-refs.es.txt`: 4 → 7 references, 0 dangling.
+
+## Second pass
+
+- II.1 (`verification-pass2.md`): 14 sentences, 14 PASS. Covered the seven FAIL fixes and two coordinator changes.
+  First, a «(hoy: Ministerio de Hacienda)» note on «Ministerio de Economía y Hacienda» (art. 11.1 RD 951/2005), matched
+  to art. 5.1 RD 829/2023 («presupuestos y gastos»). Second, the deletion of art. 6.2.d) RD 208/1996 from the Centro de
+  Información Administrativa's list, since it is a function tied to the suppressed Comisión Interministerial.
+- II.2–II.4 (`verification-pass2-II2-II4.md`): 9 lesson items, 9 PASS. They covered the art. 11 RD 1708/2011
+  citation, the art. 2 RD 127/2015 fix, the new art. 12.3 RD 1112/2018 «Lo que más cae» line and the RD 1112/2018
+  Normativa line, the four art. 7.1 / 89.2 / 96.1.a) LOPDGDD sentences and the RGPD Normativa line. Glossary: 4
+  checked, 3 PASS, 1 FAIL (g-carga-desproporcionada, fixed as above).
+
+## II.1 — `m02-l01`
+
+Atención al público. Atención de personas con discapacidad. Los servicios de información administrativa. Información general y particular al ciudadano. Iniciativas. Reclamaciones. Quejas. Peticiones.
+
+- **Final figures:** 3,482 words (`wc -w`), 75 parenthesised citations, plus «(disposición derogatoria única.b)
+  RD 951/2005)» and «(nota al art. 6.2.d) RD 208/1996)». First draft 5,569 words.
+- **Structure:** one `##` per item of the programme sentence, in its order. Atención al público (art. 4 RD 208/1996;
+  cartas de servicios, arts. 3–4 and 8–11 RD 951/2005). Discapacidad (arts. 4 and 28 RDL 1/2013; arts. 1–2, 4, 7–8 and
+  11–13 RD 366/2007; art. 10 of the Reglamento of RD 707/2026). Servicios de información (arts. 5–6 and 8–13
+  RD 208/1996). Información general y particular (arts. 1–3). Iniciativas, Reclamaciones, Quejas (arts. 14–17 and 19
+  RD 951/2005). Peticiones (LO 4/2001). No bold lead-ins: the four programme items are sections, not a list.
+- **Cambio pendiente:** RD 366/2007 art. 13 in the RD 707/2026 wording, «(desde 02-01-2027)». RDL 1/2013 art. 4.2 in
+  the Ley 4/2026 wording, «(desde 23-10-2026)».
+- **Verification:** 121 sentences checked, 114 PASS, 7 FAIL (fixed), 0 unverifiable. Glossary 8/8 PASS. Fixed:
+  1. Art. 11.1 RD 951/2005: the informe of the Ministerio de Economía y Hacienda when the carta has medidas de
+     subsanación de contenido económico was dropped. Restored with «(hoy: Ministerio de Hacienda)».
+  2. Art. 28.1 RDL 1/2013: the «No obstante» paragraph (plazos máximos of DA 3.ª.1) was dropped. Restored; DA 3.ª
+     added to Normativa.
+  3–5. Arts. 4.2.a), 7 and 8.2 RD 366/2007 are «recomendaciones» but read as rules. Each passage is now introduced as
+     a recommendation.
+  6. Art. 1.1 LO 4/2001: the delito o falta exception was dropped. Restored.
+  7. Art. 8 LO 4/2001: the inadmission ground «título específico distinto» was dropped. Restored.
+- **Glossary entries with origin here (8):** derecho de petición, cartas de servicios, información general, información
+  particular, personas con discapacidad, Oficinas de Atención al Ciudadano, modelos normalizados, accesibilidad
+  universal.
+- **Lo que más cae, as in the lesson:**
+
+- Las cartas de servicios se actualizan periódicamente en función de las circunstancias y, en cualquier caso, al menos cada tres años (art. 10.4 RD 951/2005).
+- Las quejas y sugerencias presentadas por correo electrónico o a través de Internet deben estar suscritas con la firma electrónica del interesado (art. 15.2 RD 951/2005).
+- Recibida la queja o sugerencia, la unidad responsable informa al interesado de las actuaciones realizadas en el plazo de 20 días hábiles (art. 16.1 RD 951/2005).
+- El plazo de contestación se puede suspender si se requiere al interesado para que formule aclaraciones en un plazo de 10 días hábiles (art. 16.2 RD 951/2005).
+- Sin respuesta en plazo, el ciudadano puede dirigirse a la Inspección General de Servicios del departamento para conocer los motivos de la falta de contestación (art. 16.3 RD 951/2005).
+- La Inspección General de Servicios de cada departamento hace el seguimiento de las quejas y sugerencias de los órganos, unidades y organismos de su ámbito, tanto centrales como periféricos (art. 17.1 RD 951/2005).
+- Las quejas no tienen, en ningún caso, la calificación de recurso administrativo ni su presentación interrumpe los plazos establecidos en la normativa vigente (art. 19 RD 951/2005).
+- La jefatura de la unidad departamental de información administrativa la ostenta el titular de la Subdirección General que tenga encomendada la competencia sobre la información administrativa (art. 5.1 RD 208/1996).
+- La información general se facilita obligatoriamente, sin exigir la acreditación de legitimación alguna (art. 2.2 RD 208/1996).
+- La Administración asegura los derechos de los ciudadanos con discapacidad, entre otros medios, mediante la eliminación y corrección de cualquier norma, criterio, instrucción, actuación, práctica o decisión que suponga una vulneración de la igualdad de oportunidades de las personas con discapacidad (art. 2.d) RD 366/2007).
+
+- **Sources of «Lo que más cae»:** 1 conv2025_A P1 12; 2 conv2025_A sup. I 6; 3 conv2025_A sup. I reserva 5; 4 style
+  guide «otro plazo» (conv2020_X sup. I reserva 2, programa anterior); 5 style guide «órgano» (conv2020 sup. I 3); 6
+  conv2025_X P1 13; 7 conv2024_X P1 13, conv2022_X P1 40; 8 conv2024_A P1 15; 9 style guide «texto alterado»
+  (conv2020_X P1 19); 10 conv2024_X sup. I 5.
+- **Normativa:** R1 gave the six norms without ranges. The ranges now come from the citations. LPAC is dropped: after
+  the cuts the lesson cites no LPAC article. RD 707/2026 (Reglamento, art. 10) and RD 829/2023 (arts. 5.1 and 22.2) are
+  added.
+- **Ambiguous or inconsistent texts (listed, not resolved):**
+  - «Iniciativas»: no norm defines them as a separate figure. RD 208/1996 art. 4.d) says «iniciativas o sugerencias»
+    and RD 951/2005 art. 14 says «sugerencias». RD 208/1996 art. 6.2.d) and its derogatoria (Orden de 5-1-1959,
+    «oficinas de iniciativas y reclamaciones») use the older term. The lesson uses the norms' terms; LPAC art. 133 is
+    not used.
+  - «Reclamaciones»: RD 208/1996 art. 4.e) pairs «quejas y reclamaciones» without telling them apart. RD 951/2005 uses
+    «reclamaciones» only for incumplimiento of the cartas (arts. 9.c), 12.1).
+  - RD 208/1996 art. 4.d)–e) and its DT única still refer to the capítulo III (Libro de Quejas y Sugerencias),
+    derogated by RD 951/2005, whose DT única keeps it «hasta tanto se dicten las normas de aplicación y desarrollo».
+  - Comisión Interministerial de Información Administrativa: arts. 11–13 RD 208/1996 «(Derogado)». Only the BOE
+    consolidated-text note at art. 6.2.d) states its supresión by RD 776/2011; RD 776/2011 is not in sources/. Art.
+    5.3.a) and f) still name a «Comisión Ministerial de Información Administrativa».
+  - RD 208/1996 art. 6.1 places the Centro de Información Administrativa under a 1987 structure (RD 221/1987). No file
+    in sources/ shows that it still exists with Subdirección General level. The lesson's present tense rests on the
+    1996 text.
+  - Frozen references in RD 208/1996 (arts. 3.1–3.2, 4.b), 14) to Ley 30/1992 and LO 5/1992. The lesson states the
+    rules without them.
+  - «Gobiernos Civiles» (art. 9.1 RD 208/1996) quoted as written. No source in sources/ names the successor for this
+    article, so there is no «hoy».
+  - «Ministerio de Administraciones Públicas» (art. 17.2 RD 951/2005, the IGS for the servicios periféricos of the
+    Delegaciones) is quoted without «hoy». The competence match is unclear: the Delegaciones fall under Política
+    Territorial, the IGS function under Función Pública. «Secretaría General para la Administración Pública» (arts.
+    11.1 RD 951/2005, 11.2 RD 366/2007) is an old organ, not a ministry: quoted, no «hoy».
+  - RDL 1/2013 art. 4.2 is rewritten whole by Ley 4/2026, and the file has only the new wording. The 33 % sentence
+    carries «(desde 23-10-2026)» although that threshold is probably unchanged; the reviewer agrees the marker is
+    harmless.
+  - conv2020_X P1 17 (versiones simplificadas, old art. 13.1 RD 366/2007) stays excluded from 02-01-2027; the lesson
+    gives only the new art. 13.1.
+
+## II.2 — `m02-l02`
+
+Concepto de documento, registro y archivo. Funciones del registro y del archivo. Clases de archivo y criterios de ordenación.
+
+- **Final figures:** 3,045 words (`wc -w`), 57 parenthesised «(art» citations, plus 3 «(disposición…» and 3 citations
+  of the saved Diccionario. First draft 5,563 words.
+- **Structure:** concepto de documento (art. 49 Ley 16/1985; art. 2.2.b–d RD 1708/2011; art. 26.1 LPAC; art. 46.1
+  RD 203/2021). Then registro (art. 16 LPAC; arts. 38, 40 and 53 RD 203/2021; DA 4 and DF 7 LPAC) and archivo (art. 59.1
+  Ley 16/1985; art. 17.1 LPAC; art. 55.1 RD 203/2021). Then funciones (arts. 2.2.e–f, 13.6, 14.1 and DT 1 RD 1708/2011;
+  arts. 55 and 58 Ley 16/1985), clases de archivo (arts. 8–12 RD 1708/2011) and criterios de ordenación (Diccionario
+  de Terminología Archivística).
+- **Outside source saved** (new rule): `sources/otros/cultura-dta-diccionario.html` and
+  `cultura-dta-presentacion.html`, Ministerio de Cultura, Diccionario de Terminología Archivística (2.ª ed., 1995),
+  in `fuentes.yaml` with sha256. No norm in sources/ lists criterios de ordenación. The Diccionario's «Ordenación»
+  entry names cronológicas y/o alfabéticas only, so numérico, geográfico and temático are omitted.
+- **Cambio pendiente:** Ley 4/2026 adds only DA 12 to Ley 16/1985 and touches none of the cited articles. The Normativa
+  line says so.
+- **Verification:** 108 sentences checked, 108 PASS, 0 FAIL, 0 unverifiable. Glossary 12 checked, 9 PASS, 3 FAIL
+  (fixed; see Glossary above). After the pass, the citation «art. 11.1.º–3.º RD 1708/2011», which both writer and
+  reviewer flagged as readable as an apartado 1, became «art. 11 RD 1708/2011, funciones 1.º a 3.º».
+- **Glossary entries with origin here (12):** Patrimonio Documental, documento de archivo, documento electrónico,
+  expediente electrónico, documentos públicos administrativos, documento administrativo electrónico, Registro
+  Electrónico General, archivo electrónico único, ciclo vital de documentos, calendario de conservación, archivo
+  intermedio, Comisión Superior Calificadora de Documentos Administrativos.
+- **Lo que más cae, as in the lesson:**
+
+- Los Organismos públicos vinculados o dependientes de cada Administración podrán disponer de su propio registro electrónico plenamente interoperable e interconectado con el Registro Electrónico General de la Administración de la que depende (art. 16.1 LPAC).
+- Las disposiciones de creación de registros electrónicos especifican el órgano o unidad responsable de su gestión, así como la fecha y hora oficial y los días declarados como inhábiles (art. 16.1 LPAC).
+- Los asientos se anotan respetando el orden temporal de recepción o salida de los documentos e indican la fecha del día en que se produzcan (art. 16.2 LPAC).
+- El registro electrónico permite la presentación de documentos todos los días del año durante las veinticuatro horas (art. 31.2.a) LPAC).
+- Los archivos del Sistema de Archivos de la Administración General del Estado se clasifican, atendiendo al ciclo vital de los documentos, en archivos de oficina o de gestión, archivos generales o centrales de los Ministerios y de los organismos públicos dependientes de los mismos, archivo intermedio y archivos históricos (art. 8 RD 1708/2011).
+- Los archivos de oficina o de gestión eliminan los documentos de apoyo informativo antes de la transferencia al Archivo central (art. 9 RD 1708/2011).
+- Llevar a cabo el proceso de identificación de series y elaborar el cuadro de clasificación es función del Archivo Central (art. 10.1 RD 1708/2011).
+- El archivo intermedio custodia los documentos generados y reunidos por los Departamentos ministeriales y sus organismos públicos una vez finalizada su fase activa conforme a los calendarios de conservación; en la Administración General del Estado es el Archivo General de la Administración (art. 11 RD 1708/2011).
+- Documento electrónico es la información de cualquier naturaleza en forma electrónica, archivada en un soporte electrónico, según un formato determinado y susceptible de identificación y tratamiento diferenciado (art. 2.2.c) RD 1708/2011).
+- Documento de archivo es el ejemplar en cualquier tipo de soporte, testimonio de las actividades y funciones de las personas físicas y jurídicas, públicas o privadas (art. 2.2.b) RD 1708/2011).
+
+- **Sources of «Lo que más cae»:** 1–2 conv2025_A P1 13; 3 conv2020 P1 11 (style); 4 conv2020 P1 40 (style); 5
+  conv2024_X P1 14; 6 conv2025_X P1 14; 7 conv2022 P1 reserva 5; 8 conv2020_X P1 21 (style); 9 conv2025_X P1 15; 10
+  conv2022_X P1 reserva 1.
+- **Normativa:** R1 gave «LPAC: arts. 16–17» and the other three norms without ranges. Every range now comes from the
+  citations. RD 829/2023 art. 22.1–22.2 is added for the «hoy» note on art. 38.1 RD 203/2021.
+- **Ambiguous or inconsistent texts (listed, not resolved):**
+  - Art. 12 RD 1708/2011 (consolidated 2024-03-27) has two apartados numbered «2». The lesson cites the second as «el
+    segundo apartado numerado 2».
+  - Arts. 2.2.c)–d) and 14.1.g) RD 1708/2011 still refer to Ley 11/2007 (repealed); arts. 20–22 and 24 to Ley 30/1992.
+  - RD 1708/2011 gives no plazos de transferencia in years. It defers to the calendarios de conservación and,
+    transitionally, to the Decreto 914/1969 (DT 1), which is not in sources/. Any year figure needs that decree or a
+    departmental calendario saved first.
+  - Not in sources/: RD 1401/2007 (composition of the Comisión Superior Calificadora; RD 1708/2011 DF 1 amends its
+    art. 2.1.a) and RD 1164/2002 (eliminación de documentos). Both are candidates for normativa.yaml if the bank asks
+    them.
+  - Art. 58 Ley 16/1985 gives the Comisión Superior Calificadora more competences (integración en los Archivos, acceso,
+    inutilidad administrativa) than the lesson and the glossary entry state.
+  - «Ministerio de Presidencia» (art. 13.3–13.4 RD 1708/2011, Comisión de Archivos) matches no competence in
+    RD 829/2023, so that passage was cut. Art. 40.2 RD 203/2021 (not cited) names the MPTFP and would need its own «hoy».
+  - Art. 26.2 LPAC and art. 46.1 RD 203/2021 define the documento electrónico differently (the RD adds the ENI and the
+    Derecho administrativo conditions). The lesson quotes both, attributed.
+
+## II.3 — `m02-l03`
+
+Administración electrónica y servicios al ciudadano. Análisis de principales páginas web de carácter público. Servicios telemáticos. Oficinas integradas de atención al ciudadano. Ventanilla única empresarial. El Punto de Acceso General de la Administración General del Estado.
+
+- **Final figures:** 3,387 words (`wc -w`), 68 parenthesised «(art» citations, plus 1 anexo, 1 disposición and 2
+  preámbulo citations, and 7 citations of saved pages, each «a fecha de 16-10-2026». First draft 5,783 words.
+- **Structure:** administración electrónica (arts. 9.2, 10.1, 12.2 and 14 LPAC; arts. 3.2, 26.2.c) and 30.2
+  RD 203/2021; art. 40 LRJSP). Then páginas web (arts. 38–39 LRJSP; arts. 6, 9.1 and 10.1 RD 203/2021; RD 1112/2018)
+  and servicios telemáticos (art. 11.2 RD 203/2021; arts. 41.1 and 43 LPAC; arts. 40.3.f–g and 42.5 RD 203/2021). Then
+  oficinas integradas (art. 10 RD 208/1996, cross-referenced to m02-l01), ventanilla única empresarial (RD 127/2015)
+  and the PAG (arts. 13.a), 43.4 and 53.1.a) LPAC; arts. 7–8 RD 203/2021; Orden HAP/1949/2014). The registro is not
+  restated: one cross-reference to m02-l02.
+- **Outside sources saved** (`sources/otros/`, in `fuentes.yaml` with url, sha256 and lessons): pag-quienes-somos,
+  pag-telefono-060, pag-oficina-informacion, sede-pag-portada, clave-que-es, pae-circe, pae-servicios (cited), and
+  pae-subsede (`lessons: []`, it backs the Industria «hoy» note). The reviewer matched every sha256. Not saved:
+  carpetaciudadana.gob.es (a JavaScript shell with no text), so Carpeta Ciudadana facts come from art. 8 RD 203/2021;
+  one PAE URL returned 404.
+- **«hoy» notes (convention 1):** art. 9.2.c) LPAC and art. 6.1 RD 203/2021 → Ministerio para la Transformación Digital
+  y de la Función Pública (art. 22.1–22.2 RD 829/2023). Art. 5.1 Orden HAP/1949/2014 → same (art. 22.2). Art. 2
+  RD 127/2015 «Ministerio de Industria, Energía y Turismo» → Ministerio de Industria y Turismo (art. 10.1 RD 829/2023).
+  The reviewer passed all four. The Industria match is the weakest, because art. 10.1 does not name PYME; it holds
+  through RD 1009/2023 art. 9 and pae-subsede.html.
+- **Verification:** 124 sentences checked, 123 PASS, 1 FAIL (fixed), 0 unverifiable. Glossary 9 checked, 8 PASS, 1
+  FAIL (fixed). Fixed: art. 2 RD 127/2015, the oficinas integradas «creadas según el Acuerdo de Consejo de Ministros de
+  15 de julio de 2005» (condition restored). Coordinator change after the pass: the «Lo que más cae» line «El RD
+  1112/2018 regula la accesibilidad…» (true but not a fact an option tests) was replaced by the plazo of art. 12.3
+  RD 1112/2018. Art. 1 RD 1112/2018 then left the Normativa line because the text no longer cites it.
+- **Glossary entries with origin here (9):** sede electrónica, portal de internet, Punto de Acceso General, Carpeta
+  Ciudadana, Dirección Electrónica Habilitada única, certificado electrónico, sello electrónico, carga
+  desproporcionada, declaración de accesibilidad.
+- **Lo que más cae, as in the lesson:**
+
+- La sede electrónica es la dirección electrónica disponible para los ciudadanos a través de redes de telecomunicaciones cuya titularidad corresponde a una Administración Pública, o bien a una o varios organismos públicos o entidades de Derecho Público en el ejercicio de sus competencias (art. 38.1 LRJSP).
+- Las Administraciones Públicas podrán identificarse mediante un sello electrónico basado en un certificado electrónico reconocido o cualificado que reúna los requisitos exigidos por la legislación de firma electrónica (art. 40.1 LRJSP).
+- En los organismos públicos estatales, la creación o supresión de portales se hace por resolución de la persona titular de la Presidencia o de la Dirección (art. 6.1 RD 203/2021).
+- La Dirección Electrónica Habilitada única está alojada en la sede electrónica del PAGe de la Administración General del Estado (art. 7.4 RD 203/2021).
+- Las personas físicas podrán elegir en todo momento si se comunican con las Administraciones por medios electrónicos o no, salvo que estén obligadas a relacionarse electrónicamente (art. 14.1 LPAC).
+- La notificación electrónica obligatoria, o expresamente elegida por el interesado, se entiende rechazada a los diez días naturales desde su puesta a disposición sin acceso a su contenido (art. 43.2 LPAC).
+- La oficina de asistencia en materia de registros puede hacer la identificación o firma electrónica del interesado no obligado a la relación electrónica, en los procedimientos para los que se haya previsto habilitación (art. 40.3.f) RD 203/2021).
+- Recibidas las solicitudes de información accesible y las quejas, la entidad obligada debe responder en el plazo de veinte días hábiles (art. 12.3 RD 1112/2018).
+- La sede electrónica del PAG se considera la sede central de la Administración General del Estado (art. 7.3 Orden HAP/1949/2014).
+- Los PAE utilizan el sistema de tramitación telemática CIRCE e inician la tramitación a través del Documento Único Electrónico (art. 3.2 RD 127/2015).
+
+- **Sources of «Lo que más cae»:** 1 conv2024_A P1 reserva 3; 2 conv2025_A P1 14; 3 conv2024_X P1 15; 4 conv2025_X P1
+  16; 5 conv2020_X P1 22 (style); 6 style guide «plazo» (part 2); 7 conv2024_X sup. I 6; 8 style guide «plazo»
+  (RD 1112/2018 was asked in conv2022 P1 39); 9 conv2022 P1 40; 10 conv2022 P1 41 (annulled; it tested RD 127/2015).
+- **Normativa:** R1 gave the six norms without ranges. The ranges now come from the citations. RD 208/1996 (art. 10)
+  and RD 829/2023 (arts. 10.1 and 22.1–22.2) are added. Domains are written without «www.»/«https://» so that
+  remark-gfm does not turn them into links.
+- **Ambiguous or inconsistent texts (listed, not resolved):**
+  - Art. 9.2.c) LPAC requires «previa comunicación» to the SGAD with a two-month window; art. 26.2.c) RD 203/2021
+    requires «previa autorización» of the SGAD. The lesson follows the LPAC.
+  - «Lista de confianza de prestadores de servicios de certificación» (art. 9.2 LPAC) against «…prestadores
+    cualificados de servicios de confianza» (art. 26.2 RD 203/2021). The lesson uses and cites the LPAC.
+  - The Orden HAP/1949/2014 rests on repealed norms (Ley 11/2007, RD 1671/2009, Ley 30/1992, Ley 6/1997), names organs
+    that no longer exist, and is not repealed expressly. The saved PAG page still lists it as its regulation and gives
+    today's gestión (DG de Gobernanza Pública).
+  - Arts. 4.2 and 8.5.b) of the Orden: «oficina 060 de calle María de Molina, 50». The saved PAG page gives calle
+    Francisco Gervás, 7 and does not call it «060». The lesson gives both, each with its source.
+  - Who runs the PAGe: art. 7.4 RD 203/2021 (MPTFP with the SGAD of MAETD) against art. 5 of the Orden (titularidad of
+    MinHAP). Both resolve to the same ministry today.
+  - RD 127/2015 says «Centro de Información y Red de Creación de Empresa» and «Puntos de Atención al Emprendedor». The
+    PAE portal says «…de Empresas» and «Puntos de Atención al Emprendimiento». The renaming norm (presumably an
+    amendment to art. 13 Ley 14/2013) is not in sources/ and was not identified.
+  - RD 1112/2018: STC 100/2019 makes arts. 12.1, 12.3, 12.4, 12.6, 13 (part), 15.3 and 16.2 non-basic, and an inciso of
+    15.3 null. The plazos the lesson gives (arts. 12.3, 13.4, 13.6) are non-basic. They bind the AGE; the lesson does
+    not carry the STC note.
+  - RD 1112/2018 has no «Observatorio de Accesibilidad Web»: that is a portal service, not saved, so it is omitted.
+  - «Servicios telemáticos» and «oficinas integradas» have no defining norm. The Acuerdo del Consejo de Ministros of
+    15-07-2005 is not in sources/.
+  - The Cl@ve site menu still has «Cl@ve Pin». The saved «¿Qué es Cl@ve?» page names only Cl@ve Móvil and Cl@ve
+    Permanente, and the lesson follows the page.
+
+## II.4 — `m02-l04`
+
+La protección de datos personales y su régimen Jurídico: principios, derechos, responsable y encargado del tratamiento, delegado y autoridades de protección de datos. Derechos digitales.
+
+- **Final figures:** 3,870 words (`wc -w`), 109 parenthesised «(art» citations (99 in the body, 10 in «Lo que más
+  cae»). First draft 7,914 words.
+- **Structure:** programme order. Régimen jurídico (arts. 4.1–4.2 and 99.2 RGPD; art. 1 LOPDGDD). Principios (arts.
+  5–7 and 9 RGPD; arts. 5, 6.1, 7.1, 9.1 and 22.3 LOPDGDD). Derechos (arts. 12, 15–17 and 20–22 RGPD; arts. 12.7, 13.3
+  and 14 LOPDGDD). Responsable y encargado (arts. 4.7–4.8, 24, 28, 30 and 33–36 RGPD; art. 31.2 LOPDGDD). Delegado
+  (arts. 37–39 RGPD; arts. 34, 36–37 and 70.2 LOPDGDD). Autoridades (arts. 51–52, 57–58 and 77 RGPD; arts. 44, 48, 57,
+  65, 72–74 and 77–78 LOPDGDD). Derechos digitales (arts. 79–97 LOPDGDD, the título X list by the law's own names).
+- **R1's unchecked range, checked now (LOPDGDD):** the writer read the 2025-12-27 consolidated text, títulos I–V and
+  VII–X and the disposiciones adicionales primera to sexta. Every cited article exists with that number and heading in
+  that text, and none is amended by Ley 10/2025 (which changed only art. 23, not cited). The RGPD stub range «arts.
+  5–39 y 51–59» is replaced by the articles cited. The lesson cites arts. 4, 58, 77 and 99, which are outside the stub
+  range, and does not cite 8, 10–11, 13–14, 18–19, 23, 25–27, 29, 31–32, 53–56 or 59.
+- **«hoy» note:** «Ministerio de Justicia» (art. 44.1 LOPDGDD) → Ministerio de la Presidencia, Justicia y Relaciones con
+  las Cortes. It cites art. 3.2 RD 829/2023 («las demás funciones atribuidas por las leyes») and its disposiciones
+  finales primera and segunda. The reviewer passed it, noting that RD 829/2023 never names the AEPD, so the match is
+  generic.
+- **Verification:** 104 sentences checked, 99 PASS, 5 FAIL (fixed), 0 unverifiable. Glossary 10/10 PASS. Fixed with the
+  reviewer's wording:
+  1–2. Art. 7.1 LOPDGDD, body and «Lo que más cae»: the exception now carries «para la celebración del acto o negocio
+     jurídico en cuyo contexto se recaba el consentimiento».
+  3. Art. 89.2 LOPDGDD: «de los trabajadores o los empleados públicos» restored, so it is no longer a general ban.
+  4. Art. 96.1.a) LOPDGDD: the herederos' access to the caudal relicto is restored.
+  5. Normativa RGPD line: art. 57 RGPD, cited in the text, was missing; added.
+- **Glossary entries with origin here (10):** datos personales, responsable del tratamiento, encargado del tratamiento,
+  consentimiento del interesado, limitación del tratamiento, violación de la seguridad de los datos personales,
+  categorías especiales de datos, responsabilidad proactiva, desconexión digital, Agencia Española de Protección de
+  Datos.
+- **Lo que más cae, as in the lesson:**
+
+- Los responsables y encargados del tratamiento, así como todas las personas que intervengan en cualquier fase de este, están sujetos al deber de confidencialidad, que se mantiene aun finalizada su relación con el responsable o encargado (art. 5.1 y 5.3 LOPDGDD).
+- El tratamiento de los datos de un menor solo puede fundarse en su consentimiento si es mayor de catorce años, salvo que la ley exija la asistencia de los titulares de la patria potestad o tutela para el acto o negocio jurídico en cuyo contexto se recaba el consentimiento (art. 7.1 LOPDGDD).
+- El responsable informa de sus actuaciones sobre la solicitud de ejercicio de derechos en un mes desde su recepción, plazo prorrogable otros dos meses en caso necesario, teniendo en cuenta la complejidad y el número de solicitudes (art. 12.3 RGPD).
+- En la solicitud de rectificación, el afectado indica a qué datos se refiere y la corrección que haya de realizarse, y acompaña la documentación justificativa cuando sea preciso (art. 14 LOPDGDD).
+- Las imágenes de videovigilancia se suprimen en el plazo máximo de un mes desde su captación, salvo que deban conservarse para acreditar la comisión de actos que atenten contra la integridad de personas, bienes o instalaciones (art. 22.3 LOPDGDD).
+- La violación de la seguridad se notifica a la autoridad de control sin dilación indebida y, de ser posible, a más tardar 72 horas después de tener constancia de ella, salvo que sea improbable que constituya un riesgo para los derechos y las libertades de las personas físicas (art. 33.1 RGPD).
+- Las entidades aseguradoras y reaseguradoras deben designar delegado de protección de datos en todo caso; los profesionales de la salud que ejercen su actividad a título individual están exceptuados (art. 34.1.g) y l) LOPDGDD).
+- El delegado tiene acceso a los datos personales y procesos de tratamiento, sin que el responsable o el encargado puedan oponerle la existencia de cualquier deber de confidencialidad o secreto (art. 36.3 LOPDGDD).
+- La Presidencia de la Agencia y su Adjunto son nombrados por el Gobierno, a propuesta del Ministerio de Justicia (art. 48.3 LOPDGDD).
+- Los actos y disposiciones de la Presidencia ponen fin a la vía administrativa y son recurribles directamente ante la Sala de lo Contencioso-administrativo de la Audiencia Nacional (art. 48.6 LOPDGDD).
+
+- **Sources of «Lo que más cae»:** 1 conv2025_A P1 15; 2 style guide «cantidad» (age; distractors 13/16 from art. 8.1
+  RGPD); 3 style guide «plazo»; 4 conv2025_X sup. I reserva 4; 5 conv2025_X P1 17; 6 conv2024_X P1 16; 7 conv2025_X P1
+  reserva 1; 8 conv2024_A sup. I 4; 9 conv2024_A P1 14; 10 conv2022_X P1 reserva 2.
+- **Ambiguous or inconsistent texts (listed, not resolved):**
+  - The RGPD file is the 2016 DOUE original without corrigenda. Art. 9.1 reads «las orientación sexuales» (the lesson
+    writes «la orientación sexual»). Art. 36.1 reads «para para mitigarlo» (paraphrased). Art. 9.2.b) is missing an «o»,
+    and art. 30.2.d) refers to «artículo 30, apartado 1» where art. 32.1 is meant (neither is used). The lesson's
+    verbatim-dependent sentences are listed in the working ledger; a corrigendum check is an open item.
+  - Art. 77.2 LOPDGDD excludes «la prevista en el artículo 58.2.i» RGPD. The lesson writes «sin la multa
+    administrativa», reading the two norms together.
+  - Art. 65.4 LOPDGDD makes inadmisión depend on the remission («como consecuencia de dichas actuaciones de remisión»).
+    The lesson conveys this only by sentence order.
+  - Art. 5.1.e) RGPD allows longer retention for archive, research or statistics. The lesson gives the label-level rule.
+    Exceptions in arts. 17.3 and 34.3 RGPD are not stated; those sentences cite only the first apartado.
+  - Art. 34.1 LOPDGDD has sixteen letters. The lesson names six and gives no count.
+  - Art. 18.4 CE is named inside the paraphrase of art. 1.a) LOPDGDD with no CE Normativa line, as m01-l07 does with
+    art. 105.b) CE.
+
+## course.yaml
+
+- Lesson summaries for m02-l01…m02-l04, three sentences each, from the writers' drafts. In m02-l04 the delegado clause
+  now reads «obligatorio, entre otros casos, cuando el tratamiento lo lleva a cabo una autoridad u organismo público».
+  The draft said «en las autoridades y organismos públicos», which drops the art. 37.1.a) exception for the courts.
+- Module summary for m02, two sentences, following the m01 shape.
+
+## Checks and suites (bloque II)
+
+Run on the final tree (lessons, glossary, course.yaml, goldens and saved sources of this round):
+
+- **Pipeline, course as draft:** loads and validates. `pytest -k "glossary or registry or content or pipeline"`: 68
+  passed, including the never-coins checks for glossary and summaries. `figure steps per course`:
+  `age-administrativo-c1: no figures`, `crypto-futures: 34 figures`, `fixture-oposiciones: no figures`.
+- **List-shape guard** («no list marker in the middle of a sentence») and **cross-reference report**: pass for every
+  lesson; 7 references, 0 dangling. **i18n**: the label-catalog and locale tests pass in the full frontend run, and
+  the bundle export's label-catalog check is OK.
+- **Goldens:** `glossary-links.es.txt` (70 web marks) and `lesson-refs.es.txt` (7 references) regenerated and read
+  line by line (see Glossary). One wrong-sense link was excluded. No diff under `content/crypto-futures/` or `dist/`.
+- **Android bundle:** re-exported, fingerprint unchanged `9c95cf4a6bf2…` (98 files); `--verify-only` OK, leaked
+  tokens OK.
+- **Backend (`uv run pytest`), final tree:** 1,374 passed, 20 skipped, 4 warnings (slowapi deprecation). Same counts
+  as before the round.
+- **Frontend (`npx vitest run`), final tree:** 563 passed, 49 skipped; `tsc -b` clean. Same counts as before the
+  round.
+- `README.md` (course status line) now says the theory of bloques I and II is written.
+
+## Where to resume (after bloque II)
+
+Bloque II is closed. The next session starts R2 bloque III (temas III.1–III.7, lessons `m03-l01`…`m03-l07`) with the
+same spec, the standing conventions, and the outside-sources rule of this round.

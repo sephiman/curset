@@ -820,7 +820,7 @@ validate stops startup, and the error names it. `course.yaml` declares the cours
 or `[en, es]`, first = fallback), its `status` (`draft` courses are loaded and checked but never served)
 and its `exercise_types`. Two courses exist: `crypto-futures` (published) and `age-administrativo-c1`,
 the Spanish-only preparation for the Administrativo del Estado (C1) exam, still a draft: the theory of
-bloque I is written, the rest are stubs (requirements in `docs/age-administrativo-course-requirements.md`,
+bloques I and II is written, the rest are stubs (requirements in `docs/age-administrativo-course-requirements.md`,
 per-tema record in `docs/age-theory-ledger.md`). Module, lesson, exercise and glossary ids are unique **inside** a course
 only: the database keys every skeleton row by `(course_id, id)`, and every attempt and lesson
 completion carries its course. An attempt, an exam or a statistic therefore never shows up in another
