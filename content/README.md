@@ -17,6 +17,8 @@ glossary.yaml         the term list: one or two sentences per term, plus its ori
 glossary-links.*.txt  GENERATED, reviewed, frozen: every term occurrence the annotator marks, per locale
 lesson-refs.*.txt     GENERATED, reviewed, frozen: every mXX / mXX-lN mention in lesson prose and the
                       module/lesson it links to, per locale — zero dangling, asserted in suite
+sources/              what the course is written from (programme, legislation, official exams); never
+                      loaded by the app                                         (age-administrativo-c1)
 ```
 
 ## Lesson markdown

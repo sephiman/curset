@@ -818,7 +818,9 @@ charts with the production renderer, which is where a theme pass over the figure
 **Courses.** Each directory `content/<slug>/` is one course, loaded at startup. A course that does not
 validate stops startup, and the error names it. `course.yaml` declares the course's `languages` (`[es]`
 or `[en, es]`, first = fallback), its `status` (`draft` courses are loaded and checked but never served)
-and its `exercise_types`. Module, lesson, exercise and glossary ids are unique **inside** a course
+and its `exercise_types`. Two courses exist: `crypto-futures` (published) and `age-administrativo-c1`,
+the Spanish-only preparation for the Administrativo del Estado (C1) exam, still a draft skeleton
+(requirements in `docs/age-administrativo-course-requirements.md`). Module, lesson, exercise and glossary ids are unique **inside** a course
 only: the database keys every skeleton row by `(course_id, id)`, and every attempt and lesson
 completion carries its course. An attempt, an exam or a statistic therefore never shows up in another
 course.
@@ -938,9 +940,11 @@ port has to reproduce — not a course. They read crypto-futures' figures and ex
 that is the only course with generators. A test-only course (multiple choice, no figures) adds nothing
 to them, so a change in another course can never move a contract. The per-course goldens
 (`glossary-links.*.txt`, `lesson-refs.*.txt`) live inside each course's directory, one per language it
-declares. The content suites run over every published course, and each figure step names a course with
-none: `pytest` ends with a `figure steps per course` section (`fixture-oposiciones: no figures`), and
-the PDF export logs `<course>: no figures` / `no exercise charts` instead of a capture phase.
+declares. The content suites run over every course under `content/`, drafts included (a draft is
+checked before it is published), plus the published test fixtures, and each figure step names a course
+with none: `pytest` ends with a `figure steps per course` section (`age-administrativo-c1: no figures`,
+`fixture-oposiciones: no figures`), and the PDF export logs `<course>: no figures` / `no exercise
+charts` instead of a capture phase. `render.test.ts` prints every draft course end to end.
 
 ```bash
 cd backend

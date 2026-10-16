@@ -1,9 +1,9 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 """The courses every per-course pipeline step runs over, and what each figure step says about them.
 
-The published courses under `content/`, plus the published test fixtures. The Spanish-only fixture
-course has no figures, so it is the proof that a figure step names it ("no figures") rather than
-failing on it or reporting an empty result.
+Every course under `content/`, drafts included (a draft is loaded so it can be verified), plus the
+published test fixtures. The Spanish-only fixture course has no figures, so it is the proof that a
+figure step names it ("no figures") rather than failing on it or reporting an empty result.
 """
 
 from __future__ import annotations
@@ -20,7 +20,7 @@ NO_FIGURES = "no figures"
 
 @cache
 def pipeline_courses() -> tuple[CourseRegistry, ...]:
-    courses = [*load_catalog(REPO_CONTENT).published(), *load_catalog(FIXTURE_CONTENT).published()]
+    courses = [*load_catalog(REPO_CONTENT).courses.values(), *load_catalog(FIXTURE_CONTENT).published()]
     return tuple(sorted(courses, key=lambda course: course.slug))
 
 

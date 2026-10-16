@@ -20,6 +20,8 @@ import {
   type GeneratedPdf,
 } from "@/lib/pdf/generate";
 import {
+  allCourses,
+  CONTENT_ROOT,
   courseExportFromContent,
   FIXTURE_CONTENT_ROOT,
   courseContent,
@@ -502,4 +504,56 @@ describe("a course without figures (the Spanish-only test course)", () => {
     expect(generated.filename).toBe("curset-fixture-oposiciones-es-2026-10-04.pdf");
     expect(pageCount(new Uint8Array(await generated.blob.arrayBuffer()))).toBeGreaterThan(1);
   }, 120_000);
+});
+
+/** The lesson entries the table of contents will list, in document order. */
+function tocLessonTitles(node: unknown, found: string[] = [], seen = new WeakSet<object>()): string[] {
+  // The definition is a graph, not a tree: the section tracker's nodes point back into it.
+  if (typeof node !== "object" || node === null || seen.has(node)) return found;
+  seen.add(node);
+  const entry = node as { tocItem?: unknown; tocStyle?: unknown; text?: unknown };
+  if (entry.tocItem === true && entry.tocStyle === "tocLesson") {
+    const runs = Array.isArray(entry.text) ? entry.text : [entry.text];
+    found.push(runs.map((run) => (typeof run === "string" ? run : ((run as { text?: string }).text ?? ""))).join(""));
+  }
+  for (const value of Object.values(node)) tocLessonTitles(value, found, seen);
+  return found;
+}
+
+const DRAFTS = allCourses(CONTENT_ROOT).filter((course) => course.manifest().course.status === "draft");
+
+describe.each(DRAFTS.map((course) => [course.slug, course] as const))("the draft course %s", (slug, course) => {
+  it.each(course.languages)("prints every lesson under its title, with no capture phase (%s)", async (locale) => {
+    const pdfmake = await nodePdfMake();
+    const skipped: string[] = [];
+    let titles: string[] = [];
+    const meta = course.manifest().course;
+    const generated = await generateCoursePdf({
+      scope: { slug, lang: locale },
+      courseId: slug,
+      courseTitle: meta.title[locale],
+      courseSubtitle: meta.subtitle[locale],
+      courseDescription: meta.description[locale],
+      labels: testPdfLabels(locale),
+      date: new Date(2026, 9, 16),
+      onSkipped: (line) => skipped.push(line),
+      fetchExport: async (scope) => course.courseExport(scope.lang),
+      fetchExercises: async () => ({ locale, lessons: [], excluded: [] }),
+      captureAll: async () => {
+        throw new Error("a course without figures must never reach figure capture");
+      },
+      captureCharts: async () => {
+        throw new Error("a course without exercise charts must never reach chart capture");
+      },
+      renderPdf: async (built) => {
+        // The document renders twice; the second pass sees what the first one's layout did to it.
+        if (titles.length === 0) titles = tocLessonTitles(built.content);
+        return new Blob([new Uint8Array(await pdfmake.createPdf(built).getBuffer())]);
+      },
+    });
+
+    expect(skipped).toEqual([`${slug}: ${NO_FIGURES}`, `${slug}: ${NO_CHARTS}`]);
+    expect(titles).toEqual(course.lessons().map((lesson) => lesson.title[locale]));
+    expect(pageCount(new Uint8Array(await generated.blob.arrayBuffer()))).toBeGreaterThan(course.lessons().length);
+  }, 300_000);
 });

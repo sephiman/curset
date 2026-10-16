@@ -65,19 +65,19 @@ Anexo III 2.1 fixes 30 of the 70 part-1 questions on bloque VI (43%). Every exam
 | Atajos de teclado de Windows | Atajo Alt+D: barra de direcciones | atajo | 2020 extr. | 50 | vigente |  |
 | Búsqueda en Windows | Windows Search | comportamiento | 2025 ord. (A/B) | A 47 / B 47 | vigente |  |
 | Búsqueda en Windows | Búsqueda: indexación | concepto/definición | 2024 ord. (A/B) | A 51 / B 55 | vigente |  |
-| Búsqueda en Windows | Buscar en Windows: ubicaciones | configuración | 2024 extr. | 57 | vigente | posible: en Windows 11 se configura en Privacidad y seguridad > Buscar en Windows (Clásico/Mejorado). |
+| Búsqueda en Windows | Buscar en Windows: ubicaciones | configuración | 2024 extr. | 57 | vigente-con-nota | posible: en Windows 11 se configura en Privacidad y seguridad > Buscar en Windows (Clásico/Mejorado). |
 | Configuración y cuentas | Configuración: Hora e idioma | configuración | 2024 extr. | 48 | vigente |  |
 | Configuración y cuentas | Cuentas de usuario (multiusuario) | concepto/definición | 2024 extr. | 49 | función retirada | Correo y Calendario/Contactos retirados el 31-12-2024; los sustituye el nuevo Outlook para Windows. |
 | Configuración y cuentas | Configuración: Cuentas > Opciones de inicio de sesión | ruta de menú/cinta | 2020 ord. | 45 | vigente |  |
 | Explorador de archivos (vistas, orden, cinta, rutas) | Explorador: Vista (diseños) | ruta de menú/cinta | 2025 ord. (A/B) | A 48 / B 50 | vigente |  |
 | Explorador de archivos (vistas, orden, cinta, rutas) | Compartir | ruta de menú/cinta | 2025 extr. | 49 | vigente |  |
 | Explorador de archivos (vistas, orden, cinta, rutas) | Explorador: Inicio > Modificar | comportamiento | 2024 extr. | 53 | función retirada | El Explorador de Windows 11 ya no tiene cinta de opciones ni pestaña Inicio; la sustituye la barra de comandos. |
-| Explorador de archivos (vistas, orden, cinta, rutas) | Explorador: Ordenar por | comportamiento | 2024 extr. | 55 | vigente | posible: en Windows 11 se ordena desde el botón «Ordenar» de la barra de comandos («Más» para otros campos). |
-| Explorador de archivos (vistas, orden, cinta, rutas) | Menú contextual: Enviar a | comportamiento | 2024 extr. | 56 | vigente | posible: en Windows 11 «Enviar a» solo aparece en «Mostrar más opciones» (menú contextual clásico). |
+| Explorador de archivos (vistas, orden, cinta, rutas) | Explorador: Ordenar por | comportamiento | 2024 extr. | 55 | vigente-con-nota | posible: en Windows 11 se ordena desde el botón «Ordenar» de la barra de comandos («Más» para otros campos). |
+| Explorador de archivos (vistas, orden, cinta, rutas) | Menú contextual: Enviar a | comportamiento | 2024 extr. | 56 | vigente-con-nota | posible: en Windows 11 «Enviar a» solo aparece en «Mostrar más opciones» (menú contextual clásico). |
 | Explorador de archivos (vistas, orden, cinta, rutas) | Rutas UNC | concepto/definición | 2022 ord. | 49 | vigente |  |
 | Explorador de archivos (vistas, orden, cinta, rutas) | Explorador: extensiones y elementos ocultos | comportamiento | 2022 extr. | 49 | vigente |  |
-| Explorador de archivos (vistas, orden, cinta, rutas) | Explorador: diseño Detalles | comportamiento | 2020 ord. | 46 | vigente | El Explorador de Windows 11 no tiene la pestaña «Vista» de la cinta; los diseños están en el menú «Ver» de la barra de comandos. |
-| Explorador de archivos (vistas, orden, cinta, rutas) | Explorador: Acceso rápido (anclar carpeta) | comportamiento | 2020 ord. | 49 | vigente | posible: en Windows 11 el nodo «Acceso rápido» pasa a «Inicio», que mantiene una sección Acceso rápido; anclar carpetas sigue igual. |
+| Explorador de archivos (vistas, orden, cinta, rutas) | Explorador: diseño Detalles | comportamiento | 2020 ord. | 46 | vigente-con-nota | El Explorador de Windows 11 no tiene la pestaña «Vista» de la cinta; los diseños están en el menú «Ver» de la barra de comandos. |
+| Explorador de archivos (vistas, orden, cinta, rutas) | Explorador: Acceso rápido (anclar carpeta) | comportamiento | 2020 ord. | 49 | vigente-con-nota | posible: en Windows 11 el nodo «Acceso rápido» pasa a «Inicio», que mantiene una sección Acceso rápido; anclar carpetas sigue igual. |
 | Explorador de archivos (vistas, orden, cinta, rutas) | Abrir el Explorador de archivos | ruta de menú/cinta | 2020 extr. | 49 | vigente |  |
 | Funciones del sistema (Hello, Cortana, Asistencia rápida, GodMode) | Asistencia rápida | concepto/definición | 2025 ord. (A/B) | A 50 / B 48 | vigente |  |
 | Funciones del sistema (Hello, Cortana, Asistencia rápida, GodMode) | Windows Hello | concepto/definición | 2022 ord. | 45 | vigente |  |
@@ -86,17 +86,17 @@ Anexo III 2.1 fixes 30 of the 70 part-1 questions on bloque VI (43%). Every exam
 | Herramientas del sistema | Visor de eventos | concepto/definición | 2025 extr. | 46 | vigente |  |
 | Herramientas del sistema | Administrador de tareas | concepto/definición | 2024 ord. (A/B) | A 49 / B 49 | vigente |  |
 | Herramientas del sistema | Editor del Registro | concepto/definición | 2024 extr. | 51 | vigente |  |
-| Herramientas del sistema | Unidad de recuperación | concepto/definición | 2024 extr. | 52 | vigente | posible: «Herramientas administrativas» se llama «Herramientas de Windows» en Windows 11. |
-| Herramientas del sistema | Historial de archivos | concepto/definición | 2024 extr. | 58 | vigente | posible: en Windows 11 el Historial de archivos solo está en el Panel de control; la app Copia de seguridad de Windows lo complementa. |
+| Herramientas del sistema | Unidad de recuperación | concepto/definición | 2024 extr. | 52 | vigente-con-nota | posible: «Herramientas administrativas» se llama «Herramientas de Windows» en Windows 11. |
+| Herramientas del sistema | Historial de archivos | concepto/definición | 2024 extr. | 58 | vigente-con-nota | posible: en Windows 11 el Historial de archivos solo está en el Panel de control; la app Copia de seguridad de Windows lo complementa. |
 | Herramientas del sistema | Herramientas administrativas | otro | 2022 ord. | 48 | función retirada | Windows 11 la sustituye por «Herramientas de Windows» (mismo contenido: Servicios, Monitor de recursos, Visor de eventos) |
 | Información del sistema (versión, Acerca de) | Explorador: Este equipo > Propiedades | comportamiento | 2025 ord. (A/B) | A 49 / B 49 | vigente |  |
-| Información del sistema (versión, Acerca de) | Configuración: Sistema > Acerca de | ruta de menú/cinta | 2020 ord. | 44 | vigente | En Windows 11 el apartado se llama «Información» (Configuración > Sistema > Información). |
+| Información del sistema (versión, Acerca de) | Configuración: Sistema > Acerca de | ruta de menú/cinta | 2020 ord. | 44 | vigente-con-nota | En Windows 11 el apartado se llama «Información» (Configuración > Sistema > Información). |
 | Información del sistema (versión, Acerca de) | Ver versión de Windows (winver, Acerca de) | ruta de menú/cinta | 2020 ord. | 51 | función retirada | Centro de actividades sustituido por Configuración rápida y Centro de notificaciones; «Acerca de» renombrado «Información». |
 | Menú Inicio y anclaje | Edge: Anclar a Inicio | ruta de menú/cinta | 2025 ord. (A/B) | A 67 / B 67 | vigente |  |
 | Menú Inicio y anclaje | Menú Inicio centrado | comportamiento | 2025 extr. | 44 | vigente |  |
-| Menú Inicio y anclaje | Menú Inicio: elementos anclados | comportamiento | 2024 extr. | 70 | vigente | posible: los mosaicos de Inicio de Windows 10 desaparecen en Windows 11 (sección Anclados). |
-| Notificaciones, concentración y escritorios | Notificaciones (Centro de notificaciones) | ruta de menú/cinta | 2025 ord. (A/B) | A 45 / B 45 | vigente | «Centro de actividades» es la denominación de Windows 10; en Windows 11 las notificaciones están en el centro de notificaciones (fecha y hora) y la configuración rápida va aparte |
-| Notificaciones, concentración y escritorios | Escritorios virtuales: ventanas en la barra de tareas | configuración | 2022 extr. | 45 | vigente | posible: en Windows 11 la sección se llama «Escritorios» (Configuración > Sistema > Multitarea) y la opción «En todos los escritorios»; la respuesta b sigue valiendo. |
+| Menú Inicio y anclaje | Menú Inicio: elementos anclados | comportamiento | 2024 extr. | 70 | vigente-con-nota | posible: los mosaicos de Inicio de Windows 10 desaparecen en Windows 11 (sección Anclados). |
+| Notificaciones, concentración y escritorios | Notificaciones (Centro de notificaciones) | ruta de menú/cinta | 2025 ord. (A/B) | A 45 / B 45 | vigente-con-nota | «Centro de actividades» es la denominación de Windows 10; en Windows 11 las notificaciones están en el centro de notificaciones (fecha y hora) y la configuración rápida va aparte |
+| Notificaciones, concentración y escritorios | Escritorios virtuales: ventanas en la barra de tareas | configuración | 2022 extr. | 45 | vigente-con-nota | posible: en Windows 11 la sección se llama «Escritorios» (Configuración > Sistema > Multitarea) y la opción «En todos los escritorios»; la respuesta b sigue valiendo. |
 | Notificaciones, concentración y escritorios | Asistente de concentración | concepto/definición | 2020 extr. | 46 | función retirada | Sustituido en Windows 11 22H2 por «No molestar» y «Concentración» |
 | Papelera de reciclaje | Papelera de reciclaje y Mayús+Supr | comportamiento | 2025 extr. | 50 | vigente |  |
 | Papelera de reciclaje | Papelera de reciclaje: Restaurar | comportamiento | 2022 ord. | 50 | vigente |  |
@@ -112,7 +112,7 @@ Anexo III 2.1 fixes 30 of the 70 part-1 questions on bloque VI (43%). Every exam
 |---|---|---|---|---|---|---|
 | Atajos de teclado de Word | Atajo Mayús+F7 (Sinónimos) | atajo | 2022 ord. | 51 | vigente |  |
 | Atajos de teclado de Word | Atajo Mayús+F3 (Cambiar mayúsculas y minúsculas) | atajo | 2022 extr. | 55 | vigente |  |
-| Colaboración en línea | Coautoría en Word para la Web | comportamiento | 2025 extr. | 53 | vigente |  |
+| Colaboración en línea | Coautoría en Word para la Web | comportamiento | 2025 extr. | 53 | vigente-con-nota |  |
 | Colaboración en línea | Archivo > Compartir > Presentar en línea | concepto/definición | 2020 extr. | 54 | función retirada | Retirado; Archivo > Compartir abre ahora el uso compartido vía OneDrive |
 | Combinar correspondencia | Combinar correspondencia | ruta de menú/cinta | 2025 extr. | 54 | vigente |  |
 | Estilos, índices, notas | Notas al final | comportamiento | 2025 ord. (A/B) | A 52 / B 52 | vigente |  |
@@ -138,7 +138,7 @@ Anexo III 2.1 fixes 30 of the 70 part-1 questions on bloque VI (43%). Every exam
 | Pestaña Revisar (comentarios, ortografía, traducir, contar) | Nuevo comentario | ruta de menú/cinta | 2022 extr. | 52 | anulada |  |
 | Pestaña Revisar (comentarios, ortografía, traducir, contar) | Revisar > Traducir | ruta de menú/cinta | 2022 extr. | 54 | vigente |  |
 | Pestaña Revisar (comentarios, ortografía, traducir, contar) | Contar palabras | comportamiento | 2022 extr. | 56 | vigente |  |
-| Plantillas (.dotx/.dotm) | Plantilla habilitada para macros (.dotm) | concepto/definición | 2025 extr. | 55 | vigente |  |
+| Plantillas (.dotx/.dotm) | Plantilla habilitada para macros (.dotm) | concepto/definición | 2025 extr. | 55 | vigente-con-nota |  |
 | Plantillas (.dotx/.dotm) | Formato .dotm | concepto/definición | 2022 ord. | 52 | vigente |  |
 
 ### Excel (28)
@@ -153,7 +153,7 @@ Anexo III 2.1 fixes 30 of the 70 part-1 questions on bloque VI (43%). Every exam
 | Funciones lógicas y de error (SI, O, NO, SIERROR, ESLOGICO) | NO | función o fórmula | 2025 ord. (A/B) | A 58 / B 55 | vigente |  |
 | Funciones lógicas y de error (SI, O, NO, SIERROR, ESLOGICO) | Error #N/A | resultado de fórmula | 2025 extr. | 57 | vigente |  |
 | Funciones lógicas y de error (SI, O, NO, SIERROR, ESLOGICO) | Funciones PRUEBA.F.N, SI, BUSCAR | función o fórmula | 2022 ord. | 53 | vigente |  |
-| Funciones lógicas y de error (SI, O, NO, SIERROR, ESLOGICO) | SIERROR | resultado de fórmula | 2022 ord. | 54 | vigente |  |
+| Funciones lógicas y de error (SI, O, NO, SIERROR, ESLOGICO) | SIERROR | resultado de fórmula | 2022 ord. | 54 | vigente-con-nota |  |
 | Funciones lógicas y de error (SI, O, NO, SIERROR, ESLOGICO) | ESLOGICO | resultado de fórmula | 2022 extr. | 59 | vigente |  |
 | Funciones lógicas y de error (SI, O, NO, SIERROR, ESLOGICO) | Función O | resultado de fórmula | 2020 ord. | 56 | vigente |  |
 | Gestión de datos (ordenar, segmentación, Power Query) | Segmentación de datos | concepto/definición | 2024 ord. (A/B) | A 58 / B 58 | vigente |  |
@@ -197,11 +197,11 @@ Anexo III 2.1 fixes 30 of the 70 part-1 questions on bloque VI (43%). Every exam
 | Informes | Informes: origen de registros | concepto/definición | 2024 ord. (A/B) | A 57 / B 57 | vigente |  |
 | Informes | Informes: Encabezado del informe | comportamiento | 2024 extr. | 46 | vigente |  |
 | Informes | Informes: ordenar y agrupar (límite) | concepto/definición | 2022 ord. | 60 | vigente |  |
-| Otras (compactar, VBA, especificaciones, novedades, gráficos) | Gráficos modernos | concepto/definición | 2025 extr. | P1R 2 | dudosa | posible: Access 365 solo ofrece columna, línea, barra, circular y combinado |
+| Otras (compactar, VBA, especificaciones, novedades, gráficos) | Gráficos modernos | concepto/definición | 2025 extr. | P1R 2 | vigente-con-nota | posible: Access 365 solo ofrece columna, línea, barra, circular y combinado |
 | Otras (compactar, VBA, especificaciones, novedades, gráficos) | Novedades de Access 2019 (Información/Tell Me) | otro | 2022 ord. | 56 | función retirada | «Información» (Tell Me) sustituido por el cuadro Buscar (Microsoft Search) en Microsoft 365 |
 | Otras (compactar, VBA, especificaciones, novedades, gráficos) | Especificaciones de Access | concepto/definición | 2022 ord. | 57 | anulada |  |
 | Otras (compactar, VBA, especificaciones, novedades, gráficos) | Módulos VBA | concepto/definición | 2022 ord. | 59 | vigente |  |
-| Otras (compactar, VBA, especificaciones, novedades, gráficos) | Compactar y reparar base de datos | ruta de menú/cinta | 2022 extr. | 62 | vigente |  |
+| Otras (compactar, VBA, especificaciones, novedades, gráficos) | Compactar y reparar base de datos | ruta de menú/cinta | 2022 extr. | 62 | vigente-con-nota |  |
 | Reglas de validación | Regla de validación (fechas) | función o fórmula | 2024 extr. | 68 | vigente |  |
 | Reglas de validación | Regla de validación | concepto/definición | 2022 ord. | 42 | vigente |  |
 | Reglas de validación | Regla de validación >=Fecha() | función o fórmula | 2022 ord. | 58 | vigente |  |
@@ -224,7 +224,7 @@ Never asked in these questionnaires. The 2025 programme does not name this appli
 | Búsqueda | Búsqueda: cc: | comportamiento | 2025 ord. (A/B) | A 65 / B 64 | vigente |  |
 | Búsqueda | Búsqueda de mensajes | comportamiento | 2025 extr. | 66 | vigente |  |
 | Búsqueda | Búsqueda: ámbito Buzón actual | comportamiento | 2024 ord. (A/B) | A 61 / B 65 | vigente | posible: ámbito propio de Outlook clásico; el nuevo Outlook ofrece otros ámbitos de búsqueda. |
-| Búsqueda | Búsqueda instantánea | comportamiento | 2024 extr. | 65 | dudosa | posible: la búsqueda del nuevo Outlook y la del clásico se comportan de forma distinta. |
+| Búsqueda | Búsqueda instantánea | comportamiento | 2024 extr. | 65 | vigente-con-nota | posible: la búsqueda del nuevo Outlook y la del clásico se comportan de forma distinta. |
 | Búsqueda | Búsqueda instantánea | comportamiento | 2024 extr. | 67 | anulada |  |
 | Búsqueda | Búsqueda de frase exacta | comportamiento | 2022 extr. | 65 | vigente |  |
 | Búsqueda | Atajo Ctrl+Mayús+P: Nueva carpeta de búsqueda | atajo | 2020 extr. | 63 | vigente | posible: solo Outlook clásico; el nuevo Outlook no tiene carpetas de búsqueda |
@@ -449,7 +449,7 @@ Read against the wording of the 2025 programme (`sources/programa.md`, bloque VI
 | 2020 extr. | 46 | Windows | Asistente de concentración | En Windows 11 22H2 el Asistente de concentración se sustituyó por «No molestar» (notificaciones) y «Concentración» (sesiones); la pregunta solo se responde para Windows 10. |
 | 2020 extr. | 54 | Word | Archivo > Compartir > Presentar en línea | Microsoft indica que «Presentar en línea» (Office Presentation Service) ya no está disponible en la mayoría de versiones de Word para Windows; no figura en Word de Microsoft 365. |
 
-**Changed, key still holds** (status `vigente`, with a note): the feature exists but its name, location or behaviour differs in Windows 11, in the new Outlook for Windows or in Microsoft 365; or the question names Windows 10 / Office 2019. Authors should not copy the old label. Entries marked «posible» could not be confirmed.
+**Changed, key still holds** (status `vigente`, or `vigente-con-nota` where the ledger gives the current label or disputes the key): the feature exists but its name, location or behaviour differs in Windows 11, in the new Outlook for Windows or in Microsoft 365; or the question names Windows 10 / Office 2019. Authors should not copy the old label. Entries marked «posible» could not be confirmed.
 
 | Exam | Nº | Application | Feature | Note |
 |---|---|---|---|---|

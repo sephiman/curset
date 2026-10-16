@@ -8,7 +8,7 @@ Estado (requirements v1.3, R5.5):
 
 - `vigente`: enters the practice set with the official key, no note.
 - `vigente-con-nota`: enters the set with the official key and a visible note. The note is one of three kinds. «Clave oficial discutida» means the key is not supported by the norm text or is not unique. «Denominación actual» gives the current name of an organ the key names; the answer is right within the dated case. «Etiqueta actual» gives the current Windows 11 / Microsoft 365 label of a feature that still exists. The three conv2022 «c Modificada» keys are also here.
-- `norma modificada: art. X`, `función retirada`, `fuera de temario`: excluded from the set, with the reason. «(cambio-pendiente)» marks a change already published that takes effect before the next exam (R3.5).
+- `norma modificada: art. X`, `función retirada`, `fuera de temario`: excluded from the set, with the reason. «(cambio-pendiente, desde DD-MM-YYYY)» marks a change already published that takes effect before the next exam, with its effective date (R3.5). A note «Revisado R1 frente a …: la clave se mantiene.» records a question checked in round R1 against a pending change whose key holds.
 - `dudosa`: could not be settled; excluded from the set.
 - `anulada`: voided on the definitive answer sheet; not in the set.
 
@@ -35,6 +35,8 @@ Status was checked against the consolidated texts on boe.es as of 2026-10-16, an
 | **Total** | 1250 | 1140 | 47 | 40 | 10 | 12 | 1 | 0 |
 
 Modelo B repeats modelo A in a different order (supuestos I and II swapped, two stems with minor wording changes in 2024), so its counts duplicate modelo A's.
+
+Round R1 (2026-10-16) re-checked every question resting on a precept of the 12 `cambio-pendiente` norms of `sources/normativa.yaml`. One question is excluded for that reason (conv2020_X P1 17, already `norma modificada` in R0a, now dated). Five rows (three distinct questions) keep their key and carry a «Revisado R1» note. The counts above are unchanged.
 
 ## conv2025_A — Convocatoria 2025 — ejercicio único, modelo A
 
@@ -65,7 +67,7 @@ Modelo B repeats modelo A in a different order (supuestos I and II swapped, two 
 | 18 | III.3 | vigente | d |  |  |
 | 19 | III.3 | vigente | d |  |  |
 | 20 | III.4 | vigente | d |  |  |
-| 21 | V.6 (o III.5) | vigente | c |  |  |
+| 21 | V.6 (o III.5) | vigente | c |  | Revisado R1 frente a la Ley 4/2026 (en vigor 23-10-2026): la clave se mantiene. La ley añade al art. 2.4 la letra j) (ayudas económicas de emergencia o urgencia social); ninguna opción la recoge y la letra g) sigue igual. |
 | 22 | III.6 | vigente | b |  |  |
 | 23 | III.7 | vigente | a |  |  |
 | 24 | IV.1 | anulada | ANULADA |  |  |
@@ -146,7 +148,7 @@ Modelo B repeats modelo A in a different order (supuestos I and II swapped, two 
 | 14 | IV.5 | vigente | a |  |  |
 | 15 | IV.4 | vigente | c |  |  |
 | 16 | IV.4 (o IV.3) | vigente-con-nota | b | Clave oficial discutida: los 15 días naturales de la clave no figuran en el RD 364/1995 (su art. 48 da tres días hábiles o un mes); podrían venir de las bases o de la orden de nombramiento. |  |
-| 17 | IV.5 | vigente | c |  |  |
+| 17 | IV.5 | vigente | c |  | Revisado R1 frente a la Ley 4/2026 (en vigor 23-10-2026): la clave se mantiene. La ley solo cambia la letra e) del art. 49 del TREBEP; el preaviso de quince días no cambia. |
 | 18 | IV.5 | vigente | c |  |  |
 | 19 | IV.4 | vigente | d |  |  |
 | 20 | IV.5 | vigente | c |  |  |
@@ -226,7 +228,7 @@ Modelo B repeats modelo A in a different order (supuestos I and II swapped, two 
 | 18 | III.3 | vigente | d |  | = modelo A P1 19 |
 | 19 | III.2 (o III.3) | vigente | c |  | = modelo A P1 17 |
 | 20 | III.7 | vigente | a |  | = modelo A P1 23 |
-| 21 | V.6 (o III.5) | vigente | c |  | = modelo A P1 21 |
+| 21 | V.6 (o III.5) | vigente | c |  | = modelo A P1 21. Revisado R1 frente a la Ley 4/2026 (en vigor 23-10-2026): la clave se mantiene. La ley añade al art. 2.4 la letra j) (ayudas económicas de emergencia o urgencia social); ninguna opción la recoge y la letra g) sigue igual. |
 | 22 | III.4 | vigente | d |  | = modelo A P1 20 |
 | 23 | III.6 | vigente | b |  | = modelo A P1 22 |
 | 24 | IV.4 | vigente | d |  | = modelo A P1 26 |
@@ -342,7 +344,7 @@ Modelo B repeats modelo A in a different order (supuestos I and II swapped, two 
 | 14 | IV.5 | vigente | a |  | = modelo A S1 14 |
 | 15 | IV.4 | vigente | c |  | = modelo A S1 15 |
 | 16 | IV.4 (o IV.3) | vigente-con-nota | b | Clave oficial discutida: los 15 días naturales de la clave no figuran en el RD 364/1995 (su art. 48 da tres días hábiles o un mes); podrían venir de las bases o de la orden de nombramiento. | = modelo A S1 16 |
-| 17 | IV.5 | vigente | c |  | = modelo A S1 17 |
+| 17 | IV.5 | vigente | c |  | = modelo A S1 17. Revisado R1 frente a la Ley 4/2026 (en vigor 23-10-2026): la clave se mantiene. La ley solo cambia la letra e) del art. 49 del TREBEP; el preaviso de quince días no cambia. |
 | 18 | IV.5 | vigente | c |  | = modelo A S1 18 |
 | 19 | IV.4 | vigente | d |  | = modelo A S1 19 |
 | 20 | IV.5 | vigente | c |  | = modelo A S1 20 |
@@ -922,7 +924,7 @@ Modelo B repeats modelo A in a different order (supuestos I and II swapped, two 
 | Nº | Tema | Estado | Clave | Nota de clave | Nota |
 |---|---|---|---|---|---|
 | 1 | I.6 | vigente | b |  |  |
-| 2 | III.7 | vigente | b |  |  |
+| 2 | III.7 | vigente | b |  | Revisado R1 frente a la Ley 4/2026 (en vigor 23-10-2026): la clave se mantiene. La letra i) del art. 2 (normalización) no cambia; las opciones a) y c) reproducen las redacciones anteriores de las letras h) y j), que la ley reescribe, y siguen siendo incorrectas. |
 | 3 | III.3 (o II.2) | vigente | c |  |  |
 | 4 | I.10 (o I.9) | vigente | d |  |  |
 | 5 | V.3 | vigente | d |  |  |
@@ -1503,7 +1505,7 @@ Modelo B repeats modelo A in a different order (supuestos I and II swapped, two 
 | 14 | I.11 | vigente-con-nota | c | Clave oficial discutida: la opción clave es imprecisa: cada Gobierno propone a sus comisarios, pero los nombra el Consejo Europeo. |  |
 | 15 | II.1 | vigente | d |  |  |
 | 16 | II.1 | vigente | a |  |  |
-| 17 | II.1 (o III.7) | norma modificada: RD 366/2007 art. 13 (cambio-pendiente) | b |  | El RD 707/2026 (disposición final 1.ª) reescribe el art. 13 del RD 366/2007 con efectos de 2-1-2027 y la nueva redacción ya no menciona las versiones simplificadas; la clave vale hasta esa fecha. Excluida del set por R3.5. |
+| 17 | II.1 (o III.7) | norma modificada: RD 366/2007 art. 13 (cambio-pendiente, desde 02-01-2027) | b |  | El RD 707/2026 (disposición final 1.ª) reescribe el art. 13 del RD 366/2007 con efectos de 2-1-2027 y la nueva redacción ya no menciona las versiones simplificadas; la clave vale hasta esa fecha. Excluida del set por R3.5. Confirmado en R1: el nuevo art. 13.1 remite al art. 10 del Reglamento aprobado por el RD 707/2026 (lectura fácil), que tampoco recoge esa fórmula. |
 | 18 | II.1 | vigente | d |  |  |
 | 19 | II.1 | vigente | b |  |  |
 | 20 | II.1 | vigente | b |  |  |

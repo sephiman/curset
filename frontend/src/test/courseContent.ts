@@ -158,21 +158,26 @@ export function courseContent(dir: string): CourseContent {
   };
 }
 
-/** The published courses under `root`, by slug. */
-export function publishedCourses(root: string): CourseContent[] {
+/** Every course under `root`, by slug. */
+export function allCourses(root: string): CourseContent[] {
   return readdirSync(root, { withFileTypes: true })
     .filter((entry) => entry.isDirectory() && existsSync(resolve(root, entry.name, "course.yaml")))
     .map((entry) => courseContent(resolve(root, entry.name)))
-    .filter((course) => course.manifest().course.status === "published")
     .sort((a, b) => a.slug.localeCompare(b.slug));
 }
 
+/** The published courses under `root`, by slug. */
+export function publishedCourses(root: string): CourseContent[] {
+  return allCourses(root).filter((course) => course.manifest().course.status === "published");
+}
+
 /**
- * The courses the golden suites run over: every published course, plus the published test fixtures,
- * whose Spanish-only course shows a one-language, figureless course passing the same suites.
+ * The courses the golden suites run over: every real course, drafts included (a draft is verified
+ * before it is published), plus the published test fixtures, whose Spanish-only course shows a
+ * one-language, figureless course passing the same suites.
  */
 export const GOLDEN_COURSES: CourseContent[] = [
-  ...publishedCourses(CONTENT_ROOT),
+  ...allCourses(CONTENT_ROOT),
   ...publishedCourses(FIXTURE_CONTENT_ROOT),
 ];
 
