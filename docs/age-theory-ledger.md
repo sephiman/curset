@@ -878,10 +878,10 @@ Run on the final tree (lessons, glossary, course.yaml and goldens of this round)
   Turismo (m02-l03) and Ministerio de la Presidencia, Justicia y Relaciones con las Cortes (m02-l04).
 - **Waiting glossary terms** (see Glossary) enter when a second lesson uses them or a defining article appears.
 - **OEP 2026 convocatoria:** when it is published, R0b runs before anything else.
-- **RGPD corrigenda (bloque II).** `sources/normativa/` holds the 2016 DOUE original of the RGPD, without corrections.
+- **RGPD corrigenda (bloque II).** *Closed in bloque III (fix b): the corrigenda are saved and m02-l04 re-checked.* `sources/normativa/` holds the 2016 DOUE original of the RGPD, without corrections.
   Before R3 writes II.4 questions, save the consolidated RGPD text, or its corrección de errores, under `sources/` and
   re-check the verbatim-dependent sentences of m02-l04 (art. 9.1 «orientación sexual», art. 36.1 among them).
-- **Norms named but not in `sources/` (bloque II), candidates for `normativa.yaml` before R3 asks about them:**
+- **Norms named but not in `sources/` (bloque II), candidates for `normativa.yaml` before R3 asks about them:** *Closed in bloque III (fix a): five saved and indexed; the PAE renaming norm does not exist, and m02-l03 now cites art. 13.1 Ley 14/2013.*
   RD 776/2011 (supresión of the Comisión Interministerial de Información Administrativa; now cited through the BOE note
   in RD 208/1996). RD 1401/2007 (composition of the Comisión Superior Calificadora de Documentos Administrativos).
   RD 1164/2002 (eliminación de documentos). Decreto 914/1969 (plazos de transferencia to the Archivo General de la
@@ -1268,3 +1268,311 @@ Run on the final tree (lessons, glossary, course.yaml, goldens and saved sources
 
 Bloque II is closed. The next session starts R2 bloque III (temas III.1–III.7, lessons `m03-l01`…`m03-l07`) with the
 same spec, the standing conventions, and the outside-sources rule of this round.
+
+# Bloque III — temas III.1–III.7
+
+Round R2, bloque III, 2026-10-16. Nothing committed. Same procedure as bloque II: one writer per tema to a shared spec
+(the bloque II spec, the standing conventions and the outside-sources rule), then a separate blind reviewer that had
+not written the lesson. The reviewer re-opened the cited article for every sentence carrying a number, plazo,
+majority, organ, date, exception, condition or list, and checked the Normativa block and the glossary candidates.
+Every FAIL was fixed against the article; the changed sentences then went through a second blind pass (III.1–III.3
+together, III.4 alone) and a third pass (III.4–III.7 and the course.yaml summaries). Temas were written in order.
+III.6 was drafted while III.5 was in review; no file overlapped. The per-sentence tables are working files, not kept
+in the repo; their counts and every FAIL class are below.
+
+Two additions for this bloque, from the round prompt: III.3 and III.4 use the 4,000-word limit and cover plazos,
+recursos, silencio, cómputo de plazos (art. 30 LPAC) and the LCSP thresholds, procedures and contract types, because
+part 2 is built on them; the other temas hold word targets proportional to exam weight. Before drafting III.3 and
+III.4 the writer tallied every official question of 2022–2025 for the tema by article and allocated words by it.
+
+## Fixes before III.1 (open items of bloque II)
+
+### a. The six norms named in bloque II but missing from sources/
+
+All six were downloaded from boe.es into `sources/normativa/` and indexed in `normativa.yaml` (placed after
+RD 1112/2018, under a comment line):
+
+| Norm | File | What it settles |
+|---|---|---|
+| RD 776/2011 | `BOE-A-2011-9736_rd-776-2011-organos-colegiados_2011-06-04.pdf` | Art. 1 and anexo suppress the Comisión Interministerial de Información Administrativa (arts. 11–12 RD 208/1996); DD única c) derogates art. 13. m02-l01 now cites «(art. 1 y anexo RD 776/2011)» instead of the BOE note, and Normativa lists it. |
+| Decreto 914/1969 | `BOE-A-1969-643_decreto-914-1969-archivo-general_1969-05-26.pdf` | Confirms the m02-l02 sentence (number, date, transfers to the Archivo General). No lesson change. |
+| RD 1401/2007 | `BOE-A-2007-19248_rd-1401-2007-comision-calificadora_2017-05-23.pdf` | Cited by no sentence. Contradicts neither m02-l02 sentence on the Comisión Superior Calificadora. Its art. 1.2 still adscribes it to the Ministerio de Cultura; art. 13.6 RD 1708/2011 adds the adscription to the Comisión de Archivos. Listed, not resolved. |
+| RD 1164/2002 | `BOE-A-2002-22192_rd-1164-2002-eliminacion-documentos_2007-11-07.pdf` | Cited by no sentence; indexed for R3 (eliminación de documentos). |
+| Acuerdo del Consejo de Ministros de 15-07-2005 | `BOE-A-2005-13337_acuerdo-cm-oficinas-integradas_2005-08-03.pdf` | Published as the anexo of the Resolución de 19-07-2005 (BOE núm. 184, 03-08-2005). Not in the consolidated collection; the file is the diario PDF of pp. 27269–27271, which carry other dispositions too. m02-l03 now cites the anexo beside the RD 127/2015 preámbulo. |
+| Renaming of the PAE «al Emprendimiento» | **not found** | Ley 14/2013 art. 13 (Ley 18/2022 wording), Ley 18/2022 and Ley 28/2022 all say «Puntos de Atención al Emprendedor»; «Emprendimiento» is only the portal's label. Per the prompt, the citation now rests on the norm in force: m02-l03 adds «La ley los sigue llamando Puntos de Atención al Emprendedor (art. 13.1 Ley 14/2013…)». Ley 14/2013 is saved (`BOE-A-2013-10074_ley-14-2013-emprendedores_2025-04-09.pdf`) and indexed with this note. Its art. 13.3 also says «Centro de Información y Red de Creación de Empresas», the portal's form, against RD 127/2015's «Empresa». |
+
+A blind check of the changed and affected sentences (9 items) passed.
+
+### b. RGPD corrigenda
+
+EUR-Lex refused automated download (HTTP 202 challenge), so the consolidated text could not be saved. The
+Publications Office SPARQL lists three corrigenda; two have a Spanish version. Their official PDFs (cellar) are saved
+in `sources/otros/` and indexed in `fuentes.yaml` with sha256: `doue-rgpd-correccion-2018.pdf` (DO L 127 de 23-05-2018,
+CELEX 32016R0679R(02)) and `doue-rgpd-correccion-2021.pdf` (DO L 74 de 04-03-2021, R(03)). R(01) (DO L 314 de 2016)
+has no Spanish version. The RGPD entry of `normativa.yaml` now points to both.
+
+Re-check of m02-l04 against the corrected text: two FAILs, fixed. Art. 12.3 now reads «sin dilación indebida y, en
+cualquier caso, en el plazo de un mes» (body and «Lo que más cae»); art. 37.1.c) now reads «categorías especiales de
+datos **o** de datos personales relativos a condenas». Art. 9.1 («la orientación sexual») and art. 36.1 («para
+mitigarlo») already matched the corrected text. The RGPD Normativa line names both corrigenda. A blind sweep of every
+RGPD citation in m02-l04 and the glossary against the corrigenda passed (the only affected entry,
+g-categorias-especiales-de-datos, matches).
+
+## Summary
+
+| Tema | Lesson | Target / ceiling | First draft | Words | Citations | Checked (pass 1) | FAIL (fixed) | Later passes | Glossary entries |
+|---|---|---|---|---|---|---|---|---|---|
+| III.1 | `m03-l01` | 2,000 / 2,400 | 3,162 | 2,285 | 49 | 74 | 4 | 5/5 PASS | 5 |
+| III.2 | `m03-l02` | 2,500 / 2,900 | 3,467 | 2,676 | 60 | 100 | 5 | 6/6 PASS | 4 |
+| III.3 | `m03-l03` | 4,000 cap | 8,210 | 3,979 | 107 | 164 | 31 | 28/28 PASS | 8 |
+| III.4 | `m03-l04` | 4,000 cap | 6,945 | 3,991 | 104 | 147 | 24 | 55: 5 FAIL (fixed), then PASS | 11 |
+| III.5 | `m03-l05` | 1,500 / 1,800 | 2,397 | 1,669 | 30 | 61 | 10 | 21/21 PASS | 2 |
+| III.6 | `m03-l06` | 2,200 / 2,600 | 3,518 | 2,315 | 51 | 65 | 5 | 10/10 PASS | 1 |
+| III.7 | `m03-l07` | 2,400 / 2,800 | 5,261 | 2,689 | 53 | 65 | 4 | 5/5 PASS | 8 |
+| **Total** | | | | **19,604** | **454** | **676** | **83** | | **39** |
+
+Words: `wc -w`, everything counted. Citations: «(art» / «(arts» only. III.1, III.2, III.5 and III.6 came out above
+target but under the ceiling; III.5 stops at 1,669 because the next cuts were asked items. Most FAILs, in every tema,
+are the same class: a condition, exception or «salvo / en su caso / siempre que» clause of the article dropped so the
+sentence reads as a wider rule. The second class is a selective list that reads as complete.
+
+## Glossary
+
+- 39 entries added, origin in bloque III; `glossary.yaml` holds 157. Each cites its defining article. Pass 1 checked
+  every candidate (III.1 5, III.2 4, III.3 8, III.4 12, III.5 3, III.6 2, III.7 9); 11 FAILs were replaced with the
+  reviewer's article-faithful wording (circular definitions of declaración de lesividad and recusación, dropped
+  conditions in potestad reglamentaria, órgano colegiado and recurso potestativo de reposición, wrong citations in
+  decreto legislativo and costumbre, «vicio» in anulabilidad). Pass 3 re-checked the III.5–III.7 entries: 11/11 PASS.
+- Not added: Plan Anual Normativo, convalidación (two senses), nulidad de pleno derecho and responsabilidad
+  patrimonial (no defining article), actuaciones complementarias, medio propio personificado (cut from the lesson),
+  comunicación (the bare word carries other senses in about a dozen lessons), acciones positivas (RDL 1/2013 art. 2.g)
+  defines «medidas de acción positiva» differently, and m02-l01 uses it).
+- **Never-coins:** «contrato menor», «contrato sujeto a regulación armonizada», «contrato de obras» and «contrato de
+  suministro» appeared only in the plural, which the substring check does not accept. Two headings and two
+  definition sentences of m03-l04 were put in the singular; no fact changed.
+- **Goldens.** `glossary-links.es.txt` regenerated and read line by line: 70 → 121 web marks (40 also a PDF link).
+  **Wrong-sense links excluded** (`link_except`): g-interesado in m01-l01 (audiencia del interesado, Defensor),
+  m01-l08 (Ministro interesado), m01-l10 (Municipios interesados) and m02-l04 (the RGPD «interesado»); g-convenio in
+  m01-l03 and m02-l04 (international convenios), m03-l04 (concursal convenio), m04-l08 and m05-l04 (IV Convenio
+  único); g-organo-colegiado in m01-l03, m01-l05, m01-l09 and m03-l01 (colegiados outside the AGE, which art. 20.1
+  LRJSP does not cover); g-servicios-comunes in m03-l04 (the Seguridad Social false friend). Kept after reading:
+  «Real Decreto Legislativo 1/2013 / 3/2011» and «Ley Orgánica n/aaaa» (each names a real decreto legislativo or ley
+  orgánica), g-interesado in the procedural sense (m02-l01–l03, m03-l02, m03-l05, m03-l06), g-convenio in m01-l07,
+  m01-l08, m01-l09, m02-l01 and m02-l03 (administrative convenios).
+- `lesson-refs.es.txt`: 7 → 21 references, 0 dangling. The writers had wrapped lesson ids in «» (the spec's example
+  did); the renderer adds them, so the golden showed ««m03-l03»». The guillemets were removed from the m03 lessons.
+
+## III.1 — `m03-l01`
+
+- **Structure:** fuentes (art. 1 Código Civil; arts. 9.3, 103.1 CE), jerarquía (arts. 1.2 CC, 128.3 LPAC, 24.2 Ley
+  50/1997, 149.3 CE), ley (arts. 81.2 CE, 131 LPAC, 2 CC), decreto legislativo and decreto-ley (arts. 82–83, 85–86
+  CE), reglamento: concepto (art. 97 CE, 128.1 and 129.4 LPAC), clases (only the forms of art. 24.1 Ley 50/1997 and
+  art. 22.3 LO 3/1980), límites (arts. 128.2, 47.2, 37.1 LPAC), elaboración (arts. 129.1 LPAC, 25–26 Ley 50/1997),
+  otras fuentes (art. 1.3–1.6 CC). Cross-references to m01-l03 and m01-l06.
+- **FAILs fixed (4):** art. 128.1 LPAC conditions (Estatutos; Constitución, Estatutos and LBRL); the STC 55/2018
+  sentence (now general, pointing to the notes, which carry the exceptions of arts. 129.4 and 133); art. 26.6 Ley
+  50/1997 (tramitación urgente as a second ground); «Lo que más cae» art. 128.2 (truncated list and dropped «sin
+  perjuicio» clause).
+- **«hoy» note:** Ministro de la Presidencia (art. 24.1.e) Ley 50/1997) → Ministro de la Presidencia, Justicia y
+  Relaciones con las Cortes (art. 3.1 RD 829/2023, asistencia a las Comisiones Delegadas).
+- **normativa.yaml:** the LPAC entry now records STC 55/2018 (arts. 129, 130, 132, 133 and the void incisos of art.
+  129.4); LO 3/1980 temas + III.1.
+- **Glossary (5):** decreto-ley, decreto legislativo, potestad reglamentaria, costumbre, jurisprudencia.
+- **Lo que más cae sources:** 1 conv2025_A P1 16; 2 conv2022 P1 19; 3 conv2024_X P1 17, conv2022_X P1 8; 4
+  conv2022_X P1 8; 5 conv2022 P1 37; 6 conv2025_X P1 reserva 4; 7 style «plazo»; 8 conv2024_A P1 17 (ledger III.2),
+  style «texto alterado»; 9 and 10 style «texto alterado».
+- **Not in the sources, left out:** a classification of reglamentos; the rank of ley orgánica against ley ordinaria
+  (conv2022 P1 37 option b); primacy of EU law. Ley 50/1997 art. 26 is quoted as the file prints it (LO 1/2025
+  wording).
+
+## III.2 — `m03-l02`
+
+- **Structure:** concepto (the LPAC defines no acto administrativo; título III, arts. 34–52), clases (only categories
+  an LPAC article names, each with it: arts. 47.1.f, 24.4, 112.1, 113–114, 39.3, 109.1), elementos (heading over arts.
+  34–36; the expression is not in the LPAC), eficacia (37–39, 98.1), validez (47–52), motivación (35), notificación
+  (40–46). Cross-references to m03-l01, m03-l03 and m02-l03.
+- **FAILs fixed (5):** art. 109.1 conditions on revocación; art. 98.1 uncited; art. 35.2 mandatory clause; art. 40.2
+  «en su caso» and «sin perjuicio»; «Lo que más cae» art. 42 (who may take a paper notification). Voice: repeated
+  «La LPAC no / habla de» openers and «Uno de ellos es» rewritten.
+- **normativa.yaml:** LJCA temas + III.2 (art. 70.2).
+- **Glossary (4):** anulabilidad, desviación de poder (art. 70.2 LJCA), inderogabilidad singular, comparecencia en
+  la sede electrónica.
+- **Lo que más cae sources:** 1 conv2025_A P1 17, conv2022_X P1 14; 2 conv2024_A P1 17; 3 conv2022 P1 4, conv2025_A P1
+  reserva 4, conv2020_X sup. I 4; 4 conv2024_A P1 reserva 2, conv2025_X sup. I reserva 2; 5 conv2022 sup. I 2; 6
+  conv2022 P1 20; 7 conv2020 P1 16; 8 conv2025_X P1 20; 9 conv2024_A sup. II 6; 10 conv2022_X P1 5, conv2020_X sup.
+  II reserva 4.
+- **Left out:** «actos consentidos» (only art. 28 LJCA uses it).
+
+## III.3 — `m03-l03`
+
+- **Tally** (70 rows of 2022–2025, 2 anuladas; modelo B not counted twice): alzada (121–122) 7; art. 114 5; reposición
+  (123–124) 5; abstención y recusación (23–24 LRJSP) 5; convenios (47–53 LRJSP) 5; art. 21 4; art. 30 4; silencio (24,
+  91.3) 3; art. 68 3; art. 82 3; art. 87 / 22.2.b) 3; lesividad (107) 3; delegación (9 LRJSP) 3; órganos colegiados (17,
+  20 LRJSP) 3. No question asks the LJCA beyond art. 46.
+- **Structure:** the two laws (interesados and representación, arts. 4.1, 5.6 LPAC; competencia, delegación,
+  órganos colegiados, abstención y recusación, convenios, arts. 8–9, 17, 20.1, 23–24, 47.1, 49.h) LRJSP); cómputo de
+  plazos in full (arts. 30–33 LPAC, three worked date examples, each recomputed with `cal`); plazo máximo (21–23);
+  silencio (24–25); iniciación, ordenación, instrucción, terminación (56.2, 58, 68, 74, 76.1, 77.2, 80, 82–84, 87,
+  94–96); revisión de oficio (106–111) and recursos (112, 114–115, 118, 121–126); recurso contencioso-administrativo,
+  actividad impugnable and partes (arts. 6, 18, 19.1, 23.1–2, 25, 29.1, 30, 46.1 LJCA; DA 1.ª LO 1/2025).
+- **FAILs fixed (31):** dropped conditions or exceptions in arts. 4.1, 5.6, 21.1, 21.3, 24.1 (twice, including the
+  condition at the end of its third paragraph on alzada against desestimación presunta), 30.1, 30.2, 31.2.b), 32.1,
+  68.1, 68.2, 84.1, 94.4, 95.1, 106.1, 114.2, 121.1, 122.2 LPAC; 23.2.a)–b), 24.1, 47.1, 53.1 LRJSP; 19.1, 29.1, 30, 46.4
+  LJCA; DA 1.ª LO 1/2025; «Lo que más cae» reposición («si el acto es expreso»). Three sentences were removed rather
+  than fixed (5.3 LPAC, 53.1 LRJSP, 46.4 LJCA). To stay under 4,000, whole low-yield items were cut (4.1 a/c, 5.3,
+  63.1, 66.1, 73.1, 85, 88.1 LPAC; 14.2, 53.1 LRJSP; 19.2, 23.3, 28, 46.4 LJCA; one worked example); the cómputo,
+  silencio, recursos and revisión material was not cut.
+- **Glossary (8):** interesado, convenio, órgano colegiado, recurso de alzada, recurso potestativo de reposición,
+  recurso extraordinario de revisión, declaración de lesividad, recusación.
+- **Lo que más cae sources:** 1 conv2022_X sup. I 3, conv2024_X sup. II 15, conv2024_A sup. I reserva 4; 2 conv2025_A
+  sup. II 19, conv2024_A sup. II reserva 2, conv2022 sup. II 13–14; 3 conv2025_A P1 18, conv2024_A sup. II reserva 2; 4
+  conv2024_X sup. II 15; 5 conv2025_A sup. I 1–2, conv2022_X sup. I 1; 6 conv2025_A sup. I 4, conv2022_X sup. I 2; 7
+  conv2022 sup. I 3; 8 conv2025_A P1 19, conv2022 sup. I 15; 9 conv2025_X sup. I 17, conv2022_X sup. I reserva 3; 10
+  conv2024_X P1 18, conv2025_A sup. I 3.
+- **Listed, not resolved:** conv2025_X sup. I reserva 3 keys «el máximo órgano rector del INE»; art. 111.c) LPAC
+  makes the answer depend on the INE statute, which is not in sources/. LO 1/2025 DA 1.ª redirects the Juzgados de lo
+  Contencioso-Administrativo to Secciones of the Tribunales de Instancia «una vez constituidos e implantados de forma
+  efectiva»; the lesson gives no implantation dates.
+
+## III.4 — `m03-l04`
+
+- **Tally** (65 questions 2022–2025): art. 159 10; 106–108 6; 118 5; 12–18 4; 44–50 4; 19–22 3; 101 3; 29 3; 204–206
+  and 242.4 3; 219/221/223 3; 235/238/244 3; 145, 153, 193, 198 2 each.
+- **Thresholds.** The consolidated LCSP file prints 5.404.000 / 216.000 / 140.000 euros with no note. They were set by
+  the Orden HAC/1517/2025, de 18 de diciembre (BOE-A-2025-26605, BOE 26-12-2025), artículo único, from 01-01-2026,
+  applying Reglamentos Delegados (UE) 2025/2150–2152 and 2025/2487 under DA undécima LCSP; 750.000 (art. 22.1.c) is
+  unchanged. Saved as `BOE-A-2025-26605_orden-hac-1517-2025-umbrales_2025-12-26.pdf` (diario PDF; boe.es has no
+  consolidated PDF) and indexed after the LCSP; the reviewer matched title, date, pages and sha256. No source in the
+  repo states an end date; the lesson says «desde el 1 de enero de 2026».
+- **Structure:** concepto y clases (arts. 2, 12–18, 25–26), regulación armonizada (19–22 with the Orden), preparación
+  (órgano, duración 29, pliegos, presupuesto base de licitación and valor estimado 100–102, contrato menor 118,
+  urgencia y emergencia 119–120, garantías 106–108), adjudicación (abierto 156–158, simplificado and 159.6,
+  restringido 160–162 and 164, licitación con negociación 167 and 169, negociado sin publicidad 168, diálogo
+  competitivo 172, mesa 326, adjudicación y formalización 150 and 153, acuerdos marco 219 and 221), efectos y
+  extinción (193, 198, 210–211, 213, 235, 238, 243–244), revisión de precios and modificación (103, 204–206), cesión y
+  subcontratación (214–215), invalidez and recurso especial (39–40, 44–45, 50, 53).
+- **Procedures restored at the owner's request.** The first draft had cut the restringido plazos and the
+  negotiated procedures for length. The fix round put back arts. 161, 162, 164, 167, 168 (compact) and 169, and cut
+  instead aptitud (65–66), prerrogativas (190–191), 131.2, 146.1, cesión letters a), c), d), 223.2, 229.5, 323.2, 62,
+  116.1, 99.1, 326.3, 326.6, 159.4.b), 150.2 (retirada), 196, 210.3, 203.1–2, most of 211.1, 49.1, 177.1 and the DA
+  undécima sentence. Several of these were each asked once (62, 66, 65.1, 99.1, 196, 223.2, 229.5).
+- **FAILs fixed:** pass 1, 24 (16.3 syntax, 18.1.a), 19.1/19.2 exclusions, 107.1 «Administraciones Públicas», 108.2,
+  156.3, 158.3, 159.6 selective list, 168 conditions, 326.1 mesa potestativa, 193.3, 244.1, 205.2.a), 214.2.b), 44.1,
+  50.2, and seven «Lo que más cae» lines, two of them deleted, leaving 8). Pass 2 found 5 new defects in the
+  rewrites (108.2 contract types, 167.f arraigo, 169.2 «puede», 168.a scope and wording, 50.2 start of the plazo);
+  fixed with the reviewer's wording, then PASS in pass 3.
+- **Ministry name:** «Ministerio de Hacienda y Función Pública» (arts. 45.1, 323.3…) is omitted, not given a «hoy»:
+  art. 5 RD 829/2023 does not name contratación and the TACRC's present adscription is in no source file.
+- **Glossary (11):** contrato menor, presupuesto base de licitación, valor estimado (101.1.a and b), contrato sujeto a
+  regulación armonizada, contrato de obras, de suministro, de servicios, concesión de servicios, contrato mixto,
+  acuerdo marco, mesa de contratación.
+- **Lo que más cae sources:** 1 conv2022_X P1 23, conv2025_X sup. I 2 and sup. II 13; 2 conv2024_A sup. II 14,
+  conv2025_A sup. II 1, conv2022_X sup. II 17; 3 conv2025_A sup. I 10, conv2024_X sup. II 6; 4 conv2025_A sup. II 2,
+  conv2024_A sup. II 19, conv2022_X P1 32; 5 conv2024_X sup. II 3, conv2025_A sup. I 7; 6 conv2024_A sup. II 9,
+  conv2022_X sup. I reserva 5; 7 conv2025_A sup. II 5 and 9, conv2022 sup. I 13; 8 conv2024_A sup. II 16, conv2022_X
+  sup. II reserva 3.
+- **For the exams ledger (R3):** conv2024_A sup. II 14 and every official question resting on the 2024–2025
+  thresholds (5.538.000 / 221.000 / 143.000) now has a different figure in force; they need «norma modificada»
+  review. conv2024_X sup. II 4: the official key is 22 March, and twenty days from 2 March 2024 give 21 March.
+
+## III.5 — `m03-l05`
+
+- **Structure:** the four «actividad de …» labels are the programme's headings only (no cited text uses them; the
+  lesson says so). Limitación: art. 4.1 LRJSP, art. 69 LPAC, potestad sancionadora (arts. 25.1, 27.1, 29.3 LRJSP; 63.1,
+  85 LPAC). Arbitral: art. 112.2 LPAC, art. 2.1 Ley 60/2003. Servicio público and formas de gestión: arts. 85–86.2
+  LBRL, art. 284.1 LCSP. Fomento: art. 2 LGS. Cross-references to m03-l03 and m03-l04.
+- **FAILs fixed (10):** arts. 25.1 (procedure; título XI LBRL) and 27.1 LRJSP; 85.2, 85.3 and 112.2 LPAC; 86.2 LBRL;
+  2.1.b) LGS; three «Lo que más cae» lines. The fix round cut 29.1, 30.1, 31.1 LRJSP, 1.4 Ley 60/2003, 7.3 LGP, 15.2,
+  32.1 and 284.2 LCSP, the art. 2.4.j) LGS sentence and two «Lo que más cae» lines (8 remain).
+- **normativa.yaml:** LBRL temas + III.5. The Normativa LBRL line says «(sin cambios por la Ley 4/2026)»: Ley 4/2026
+  touches only arts. 25.2 and 69.1.
+- **Glossary (2):** declaración responsable, subvención.
+- **Lo que más cae sources:** 1 conv2024_A P1 23 (anulada; the only III.5 question); 2 conv2024_A P1 24 («III.3 (o
+  III.5)»); 3 conv2025_A P1 21 («V.6 (o III.5)»); 4–8 style categories «texto alterado», «otra figura del mismo tipo»
+  and «cantidad».
+- **Listed:** art. 85.2.B LBRL still refers to the contrato de gestión de servicios públicos of RDL 3/2011, repealed
+  by the LCSP; quoted as written, with the repeal cited to the LCSP derogatoria.
+
+## III.6 — `m03-l06`
+
+- **Tally** (27 questions, 2020–2025): art. 67 LPAC 6; 81 6; 91.3 4; 114.1.e) 4; 32.8, 32.1–2 and 34.3 LRJSP 2 each.
+  Words: about 45 % procedure, 25 % requisitos, 25 % supuestos.
+- **FAILs fixed (5):** the «hoy» note on «Ministerio de Justicia» (art. 32.8 LRJSP) removed, because art. 3 RD 829/2023
+  does not clearly cover the TC indemnizaciones; the clases list now says «algunos de los supuestos»; art. 67.1 LPAC
+  gains its two other starting dates; art. 82.1 condition placed on the dictamen; «Lo que más cae» 67.1 with its start.
+- **normativa.yaml:** the LO 3/1980 note wrongly put the 50.000 euros in the LO; it is in art. 81.2 LPAC (art. 22.13
+  LO 3/1980 says «en los supuestos establecidos por las leyes»). Corrected.
+- **Glossary (1):** Consejo de Estado (art. 107 CE; art. 1.1 LO 3/1980). Responsabilidad patrimonial not added (no
+  defining article).
+- **Lo que más cae sources:** 1 conv2022 sup. II 12, conv2020 sup. I 4, conv2020_X sup. I reserva 3; 2 conv2022_X sup.
+  I 12; 3 conv2025_X sup. II reserva 1, conv2022 P1 38; 4 conv2025_X sup. II reserva 2, conv2024_X sup. I 12; 5 conv2022
+  sup. II 13, conv2022_X sup. I 13; 6 conv2024_X sup. I 9; 7 conv2025_X sup. II reserva 3, conv2024_X sup. I 10; 8
+  conv2025_A P1 22, conv2025_X P1 24; 9 conv2024_X P1 21; 10 conv2020_X P1 25 and style «otra figura del mismo tipo».
+- **Listed:** art. 32.9 LRJSP still refers to the 2011 texto refundido de contratos; quoted as written.
+
+## III.7 — `m03-l07`
+
+- **Tally** (2020–2025): LO 3/2007 5 (arts. 64, 49, DA 1.ª, 76, 7.2); Ley 4/2023 2 (5.2, 1.3); Ley 15/2022 1 (9.4); RDL
+  1/2013 1 (2.i); LO 1/2004 and Ley 39/2006 none. Rows «II.1 (o III.7)» are RD 366/2007 and stay in m02-l01.
+- **Cambio pendiente:** every sentence on an article Ley 4/2026 amends carries «(desde 23-10-2026)» (art. 2.m) RDL
+  1/2013; arts. 2.2, 26.1, 28.1–2 Ley 39/2006); arts. 2.i), 42 RDL 1/2013 and 1.1, DA 17.ª Ley 39/2006 are not amended
+  and carry none. The reviewer checked each against the text of Ley 4/2026.
+- **FAILs fixed (4):** the Observatorio sentence cited only RD 829/2023 (now art. 30.1 LO 1/2004, with the «hoy» inside
+  the parenthesis); art. 42.1 RDL 1/2013 (negociación colectiva sectorial); the Grado III+ of DA 17.ª Ley 39/2006 (from
+  RDL 11/2025) added after the three grados of art. 26.1; «Lo que más cae» art. 24 LO 1/2004 («en los términos que se
+  determinen en su legislación específica»).
+- **«hoy» note:** Ministerio de Trabajo y Asuntos Sociales → Ministerio de Igualdad (art. 20 RD 829/2023), at art.
+  30.1 LO 1/2004. Not given (no clear match): arts. 63 and 46.4 LO 3/2007.
+- **Glossary (8):** discriminación directa / indirecta por razón de sexo, acoso sexual, acoso por razón de sexo,
+  composición equilibrada, situación de dependencia (desde 23-10-2026), persona trans, normalización.
+- **Lo que más cae sources:** 1 conv2025_X P1 25; 2 conv2022 P1 5; 3 conv2025_A sup. II 17; 4 conv2020 P1 23; 5 conv2020
+  P1 22; 6 style «otra figura del mismo tipo»; 7 conv2025_A P1 23; 8 conv2024_A P1 25; 9 conv2024_X P1 22; 10 conv2024_X
+  P1 reserva 2.
+- **Listed:** DF 1.ª Ley 39/2006 still describes «niveles» inside the grados; art. 26 has none.
+
+## course.yaml
+
+- Lesson summaries m03-l01…m03-l07, three sentences each, from the writers' drafts. Pass 3 checked all 21 sentences:
+  6 FAIL, all fixed with the reviewer's wording (subject-matter limits of arts. 82.1 and 86.1 CE; the art. 106.1
+  condition and the lesividad four-year limit; the poder-adjudicador condition and the Orden as source of the
+  thresholds; art. 2.1.b) LGS; the start of the six months of art. 91.3; «de nacionalidad española», art. 43.1 Ley
+  4/2023).
+- Module summary for m03, two sentences, in the m01/m02 shape.
+
+## Checks and suites (bloque III)
+
+Run on the final tree (lessons, glossary, course.yaml, goldens, normativa.yaml, fuentes.yaml and saved sources of this
+round):
+
+- **Pipeline, course as draft:** loads and validates. `pytest -k "glossary or registry or content or pipeline"`: 68
+  passed, including the never-coins checks for glossary and summaries (it first failed on four plural-only contract
+  terms; see Glossary). `figure steps per course`: `age-administrativo-c1: no figures`, `crypto-futures: 34
+  figures`, `fixture-oposiciones: no figures`.
+- **Backend (`uv run pytest`), final tree:** 1,374 passed, 20 skipped, 4 warnings. Same counts as before the round.
+- **Frontend (`npx vitest run`), final tree:** 563 passed, 49 skipped; `tsc -b` clean. Same counts as before the round.
+- **Goldens:** `glossary-links.es.txt` (121 web marks) and `lesson-refs.es.txt` (21 references, 0 dangling)
+  regenerated and read line by line (see Glossary). No diff under `content/crypto-futures/` or `dist/`.
+- **Android bundle:** re-exported, fingerprint unchanged `9c95cf4a6bf2…` (98 files); `--verify-only` OK, leaked tokens
+  OK.
+- `README.md` (course status line) now says the theory of bloques I, II and III is written.
+
+## Open items (after bloque III)
+
+- **After the 29-11-2026 elections:** the «hoy» re-check round now also covers m03-l01 (Ministerio de la Presidencia,
+  Justicia y Relaciones con las Cortes) and m03-l07 (Ministerio de Igualdad).
+- **Exams ledger, thresholds:** official questions resting on the 2024–2025 LCSP thresholds (5.538.000 / 221.000 /
+  143.000; e.g. conv2024_A sup. II 14) need «norma modificada» review against the Orden HAC/1517/2025 before they enter
+  the «Exámenes oficiales» set. conv2024_X sup. II 4: official key 22 March, computed 21 March; check before R3.
+- **LCSP thresholds after 2027:** no source in the repo gives an end date for the Orden HAC/1517/2025 figures. If a
+  new orden is published before the exam, m03-l04, its glossary entry and the course.yaml summary change.
+- **INE statute** (conv2025_X sup. I reserva 3, art. 111.c) LPAC) is not in sources/; needed before R3 asks it.
+- **Glossary candidates waiting:** Plan Anual Normativo, actuaciones complementarias, medio propio personificado,
+  nulidad de pleno derecho, responsabilidad patrimonial, comunicación (with a `link_except` plan), acciones positivas
+  (scoped to LO 3/2007). Plus the six bloque I terms and «oficinas integradas», still waiting.
+- **Formatting:** a few lines of m03-l01, m03-l02 and m03-l04 run past the usual wrap width; cosmetic only.
+
+## Where to resume (after bloque III)
+
+Bloque III is closed. The next session starts R2 bloque IV (temas IV.1–IV.9, lessons `m04-l01`…`m04-l09`) with the
+same spec, the standing conventions and the outside-sources rule. The writer spec of this round adds one rule: lesson
+ids in cross-references are written bare (m03-l03), never in «».
