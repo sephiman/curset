@@ -8,13 +8,13 @@ Estado (requirements v1.3, R5.5):
 
 - `vigente`: enters the practice set with the official key, no note.
 - `vigente-con-nota`: enters the set with the official key and a visible note. The note is one of three kinds. «Clave oficial discutida» means the key is not supported by the norm text or is not unique. «Denominación actual» gives the current name of an organ the key names; the answer is right within the dated case. «Etiqueta actual» gives the current Windows 11 / Microsoft 365 label of a feature that still exists. The three conv2022 «c Modificada» keys are also here.
-- `norma modificada: art. X`, `función retirada`, `fuera de temario`: excluded from the set, with the reason.
-- `dudosa`: not decided; see the handoff.
+- `norma modificada: art. X`, `función retirada`, `fuera de temario`: excluded from the set, with the reason. «(cambio-pendiente)» marks a change already published that takes effect before the next exam (R3.5).
+- `dudosa`: could not be settled; excluded from the set.
 - `anulada`: voided on the definitive answer sheet; not in the set.
 
 Status was checked against the consolidated texts on boe.es as of 2026-10-16, and ofimática against Windows 11 and Microsoft 365 desktop (Anexo III 2.1). Official keys are never a source of facts for authored questions (R5.5): authored questions cite the norm text only.
 
-**Naming.** The files named `conv2019_*` are the OEP 2020 exams (convocatoria 2020, cuestionario "19 ADVO-LI", sat in 2022): the answer sheets print "Oferta de Empleo Público de 2020". This ledger calls them `conv2020`. The files keep their names until they are renamed. The set is «programa anterior» (R3.4): it goes into the practice set, filtered as above, but never into tema counts.
+**Naming.** The files `conv2020_*` are the OEP 2020 exams (convocatoria 2020, cuestionario "19 ADVO-LI", sat in 2022): the answer sheets print "Oferta de Empleo Público de 2020". The set is «programa anterior» (R3.4): it goes into the practice set, filtered as above, but never into tema counts.
 
 **Exam dates.** No questionnaire prints the date of the exam. The 2025 dates come from the file names and requirement R3.4; the others give the PDF creation date only as a hint.
 
@@ -31,8 +31,8 @@ Status was checked against the consolidated texts on boe.es as of 2026-10-16, an
 | conv2022 | 125 | 107 | 9 | 5 | 2 | 2 | 0 | 0 |
 | conv2022_X | 125 | 112 | 8 | 4 | 0 | 0 | 1 | 0 |
 | conv2020 | 125 | 106 | 6 | 7 | 3 | 3 | 0 | 0 |
-| conv2020_X | 125 | 114 | 6 | 0 | 1 | 3 | 1 | 0 |
-| **Total** | 1250 | 1140 | 47 | 40 | 9 | 12 | 2 | 0 |
+| conv2020_X | 125 | 114 | 6 | 0 | 2 | 3 | 0 | 0 |
+| **Total** | 1250 | 1140 | 47 | 40 | 10 | 12 | 1 | 0 |
 
 Modelo B repeats modelo A in a different order (supuestos I and II swapped, two stems with minor wording changes in 2024), so its counts duplicate modelo A's.
 
@@ -1188,7 +1188,7 @@ Modelo B repeats modelo A in a different order (supuestos I and II swapped, two 
 | 19 | I.3 | vigente | b |  |  |
 | 20 | III.4 | vigente | d |  |  |
 | 21 | V.5 | vigente | c |  |  |
-| 22 | I.6 | dudosa | c |  | España entró en el Comité Directivo de la OGP el 1-10-2023 para un mandato de tres años que venció el 30-9-2026; no he podido comprobar si se ha renovado. |
+| 22 | I.6 | dudosa | c |  | España entró en el Comité Directivo de la OGP el 1-10-2023 para un mandato de tres años que venció el 30-9-2026; no consta la renovación. Excluida del set. |
 | 23 | III.4 | vigente | b |  |  |
 | 24 | V.5 | vigente | c |  |  |
 | 25 | I.4 | vigente | b |  |  |
@@ -1321,7 +1321,7 @@ Modelo B repeats modelo A in a different order (supuestos I and II swapped, two 
 ## conv2020 — OEP 2020 (convocatoria 2020, cuestionario 19 ADVO-LI), examen 2022 — ejercicio único
 
 - Fecha del examen: no impresa (PDF creado el 24-01-2022).
-- Cuestionario: `sources/examenes-oficiales/conv2019_cuestionario.pdf`. Plantilla definitiva: `sources/examenes-oficiales/conv2019_plantilla-definitiva.pdf`.
+- Cuestionario: `sources/examenes-oficiales/conv2020_cuestionario.pdf`. Plantilla definitiva: `sources/examenes-oficiales/conv2020_plantilla-definitiva.pdf`.
 
 ### Primera parte
 
@@ -1481,7 +1481,7 @@ Modelo B repeats modelo A in a different order (supuestos I and II swapped, two 
 ## conv2020_X — OEP 2020 (convocatoria 2020, cuestionario 19 ADVO-LI), examen 2022 — llamamiento extraordinario
 
 - Fecha del examen: no impresa (PDF creado el 28-03-2022; el supuesto I cita hechos de enero de 2022).
-- Cuestionario: `sources/examenes-oficiales/conv2019_extraordinario_cuestionario.pdf`. Plantilla definitiva: `sources/examenes-oficiales/conv2019_extraordinario_plantilla-definitiva.pdf`.
+- Cuestionario: `sources/examenes-oficiales/conv2020_extraordinario_cuestionario.pdf`. Plantilla definitiva: `sources/examenes-oficiales/conv2020_extraordinario_plantilla-definitiva.pdf`.
 
 ### Primera parte
 
@@ -1503,7 +1503,7 @@ Modelo B repeats modelo A in a different order (supuestos I and II swapped, two 
 | 14 | I.11 | vigente-con-nota | c | Clave oficial discutida: la opción clave es imprecisa: cada Gobierno propone a sus comisarios, pero los nombra el Consejo Europeo. |  |
 | 15 | II.1 | vigente | d |  |  |
 | 16 | II.1 | vigente | a |  |  |
-| 17 | II.1 (o III.7) | dudosa | b |  | El RD 707/2026 (disp. final 1.ª) reescribe el art. 13 del RD 366/2007 con efectos de 2-1-2027 y la nueva redacción ya no menciona las versiones simplificadas; hasta esa fecha rige la antigua. |
+| 17 | II.1 (o III.7) | norma modificada: RD 366/2007 art. 13 (cambio-pendiente) | b |  | El RD 707/2026 (disposición final 1.ª) reescribe el art. 13 del RD 366/2007 con efectos de 2-1-2027 y la nueva redacción ya no menciona las versiones simplificadas; la clave vale hasta esa fecha. Excluida del set por R3.5. |
 | 18 | II.1 | vigente | d |  |  |
 | 19 | II.1 | vigente | b |  |  |
 | 20 | II.1 | vigente | b |  |  |

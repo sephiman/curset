@@ -1,6 +1,6 @@
 # Ofimática in the official exams — index
 
-Round R0a, 2026-10-16. Every question of bloque VI (Informática básica y ofimática) in the eight distinct questionnaires: 2025 (ordinario 23-05-2026 and extraordinario 24-07-2026), 2024, 2022 and OEP 2020 (files `conv2019_*`, called conv2020 here), ordinario and extraordinario each. Modelo B repeats modelo A in another order; its numbers are given next to A's and its questions are not counted twice. Input for R5.1b.
+Round R0a, 2026-10-16. Every question of bloque VI (Informática básica y ofimática) in the eight distinct questionnaires: 2025 (ordinario 23-05-2026 and extraordinario 24-07-2026), 2024, 2022 and OEP 2020 (files `conv2020_*`), ordinario and extraordinario each. Modelo B repeats modelo A in another order; its numbers are given next to A's and its questions are not counted twice. Input for R5.1b.
 
 Classification per question (application, feature, form, status, obsolescence) comes from the round's per-exam pass, checked against Windows 11 and Microsoft 365 desktop (Anexo III 2.1). Feature families group features that test the same thing; they are this index's grouping, not an official one. Full question text: `sources/examenes-oficiales/`. Status per question: `docs/age-official-exams-ledger.md`.
 

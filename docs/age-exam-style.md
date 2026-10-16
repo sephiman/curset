@@ -2,7 +2,7 @@
 
 Round R0a, 2026-10-16. Requirement R5.2: the style of authored questions is derived from the official exams, not assumed. This guide is the test a reviewer applies to every question in the bank.
 
-**Sources.** Primary: the 2025 convocatoria. That is the ordinario of 23-05-2026 (modelo A; modelo B is the same questions in another order) and the extraordinario of 24-07-2026. Secondary: 2024 (ordinario modelo A and extraordinario), 2022 (ordinario and extraordinario) and OEP 2020 (ordinario and extraordinario; files `conv2019_*`, called conv2020 here, set under an earlier programme). Eight distinct questionnaires, 1,000 questions. Files: `content/age-administrativo-c1/sources/examenes-oficiales/`.
+**Sources.** Primary: the 2025 convocatoria. That is the ordinario of 23-05-2026 (modelo A; modelo B is the same questions in another order) and the extraordinario of 24-07-2026. Secondary: 2024 (ordinario modelo A and extraordinario), 2022 (ordinario and extraordinario) and OEP 2020 (ordinario and extraordinario; files `conv2020_*`, set under an earlier programme). Eight distinct questionnaires, 1,000 questions. Files: `content/age-administrativo-c1/sources/examenes-oficiales/`.
 
 **Method.** Stem form, negative stems, «ninguna/todas» options, lengths and key position are counted mechanically from the questionnaire text, with the borderline matches checked by hand. Option type, distractor construction and tema were classified per question by reading it. All numbers are in the tables at the end. Where 2025 differs from earlier years, 2025 rules.
 
