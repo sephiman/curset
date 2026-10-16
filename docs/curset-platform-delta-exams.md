@@ -1,6 +1,6 @@
-# Requirements delta — Curset platform: exam presets per course and grouped case exercises
+# Requirements delta — Curset platform: exam presets, grouped cases, source links, results by lesson
 
-Version 1.0 · 16 October 2026 · delta to docs/curset-multicourse-requirements.md. Two platform changes required by the AGE course (docs/age-administrativo-course-requirements.md, R6.1 and R7.1). Both are their own Claude Code rounds and precede that course's R5.
+Version 1.1 · 17 October 2026 · delta to docs/curset-multicourse-requirements.md. Four platform changes. A and B are required by the AGE course (docs/age-administrativo-course-requirements.md, R6.1 and R7.1) and precede that course's R5. C and D apply to every course and can run as their own rounds at any time after A.
 
 ## A. Exam presets per course
 
@@ -22,8 +22,29 @@ Version 1.0 · 16 October 2026 · delta to docs/curset-multicourse-requirements.
 - B6 Answer-order shuffle and bias guards apply per question; the question order within a case is fixed.
 - B7 Progress: case questions count as exercises of their tema for stats; the case itself is not a separate stat unit.
 
+## C. Links from question to lesson and from lesson to source
+
+- C1 Every exercise already names its lesson (tema). In practice, once answered, and in the review of a submitted exam, each question shows a link «Ver en la lección» that opens the lesson. When the question carries a citation (norm + article, as AGE questions do), the link opens the lesson at the first paragraph that cites that article; otherwise at the top of the lesson.
+- C2 Lessons get stable anchors per cited article: an inline citation such as «(art. 67 CE)» is rendered as a link and carries an anchor derived from norm short name + article (`#ce-art-67`). The anchor set of a lesson is generated from its citations and listed in the lesson's AST, so questions can target it and the cross-reference check can verify that a question's citation resolves to an anchor in its lesson (a question citing an article its lesson never cites is a check failure, reported per question).
+- C3 From lesson to source: each citation link opens the consolidated text of the norm from the course's `sources/normativa/` snapshot (the file named in `normativa.yaml`), at the article when the format allows it: for HTML sources, the article's own anchor; for PDFs, the page where the article starts, resolved once at build time by searching the text and stored in the manifest (`#page=N`). The "Normativa" block at the end of a lesson links every norm it lists the same way. Sources are served by the platform as static files of the course (public official documents); a course without `normativa.yaml` (crypto-futures) shows no citation links and nothing else changes for it.
+- C4 Exam mode shows none of these links; they appear only after submission.
+- C5 PDF export: citations print as plain text with the norm and article; the "Normativa" block prints the norm titles and consolidation dates. No hyperlinks to local files in the PDF.
+- C6 Report link (8a of the platform requirements): the report email includes the lesson anchor and the citation, so a wrong question can be traced to its source in one click.
+
+## D. Exam results by lesson
+
+- D1 The results page of a submitted exam adds a section «Por tema» (or «Por lección» in courses without bloques): one row per lesson that had at least one question in the exam, with questions, correct, wrong, blank and the percentage of correct answers, sortable, each row linking to the lesson. Rows are grouped by module (bloque) with module totals.
+- D2 Two short lists above the table: «Donde más brillas» and «Donde más tienes que preparar»: the lessons with the highest and lowest percentage among those with at least three questions in this exam. When fewer than three lessons qualify, the lists aggregate by module instead and say so; when nothing qualifies (a 20-question tema exam), the lists are omitted and only the table shows. No lesson is ranked on one or two questions, in keeping with the progress honesty rules.
+- D3 Blank answers count as not correct for the percentage but are shown separately, because in exams with penalties a blank is a decision.
+- D4 The Progress tab gets the same «Por tema» view cumulative over every exam and practice attempt of the course (already per course), with the same thresholds (at least three attempts per lesson to appear in the two lists). It replaces nothing: the existing stats stay.
+- D5 Case exercises (B) count their questions under the lesson each question cites, not under the case.
+- D6 Reserve questions (A3) that were not counted do not appear in the table.
+- D7 The data needed (lesson per question, correct/wrong/blank per answer) already exists per attempt; this section adds the aggregation and the view. Past exams get the view retroactively, since their answers are stored.
+
 ## Acceptance
 
 - `crypto-futures` exams and goldens unchanged.
 - A Spanish-only test course with a two-part preset (70 + choose-one-of-two cases of 20, 100 minutes, 1/3 penalty) runs end to end, grades only the chosen case, refuses to grade part 2 with no or two cases marked, and shows raw and transformed scores.
 - A `case` exercise renders in practice, exam and PDF; its questions report, shuffle and count like any other.
+- An answered AGE question links to its lesson at the cited article's anchor; the citation in the lesson opens the consolidated text at the article (HTML) or page (PDF); a question citing an article its lesson does not cite fails the cross-reference check. crypto-futures shows no citation links and its goldens are unchanged.
+- A submitted simulation shows the per-lesson table and the two lists; a tema exam of 20 questions shows the table only; the Progress tab shows the cumulative view; no lesson appears in a list with fewer than three questions.

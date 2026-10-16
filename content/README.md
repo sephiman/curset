@@ -19,6 +19,9 @@ lesson-refs.*.txt     GENERATED, reviewed, frozen: every mXX / mXX-lN mention in
                       module/lesson it links to, per locale — zero dangling, asserted in suite
 sources/              what the course is written from (programme, legislation, official exams); never
                       loaded by the app                                         (age-administrativo-c1)
+sources/otros/        dated copies of the non-legal pages and documents lessons cite (UN, OECD, EU,
+                      Portal de la Transparencia), indexed in fuentes.yaml with URL, date and sha256;
+                      lessons cite the file, never the live site                (age-administrativo-c1)
 ```
 
 ## Lesson markdown

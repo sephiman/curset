@@ -127,7 +127,7 @@ The header states the citation rule: where a norm has `cambio-pendiente`, lesson
 
 ### Files and versions
 
-- **Two versions in one file.** Where boe.es has already merged the future change, the consolidated PDF prints the new wording with «Téngase en cuenta que esta actualización … entra en vigor …», followed by «Redacción anterior», which is the text in force today. `version_vigente` points to that «Redacción anterior». No separate file of the version in force today was downloaded.
+- **Two versions in one file — only in two files.** *(Corrected in R2, 2026-10-16, after checking every cambio-pendiente file.)* Where boe.es has already merged the future change, the PDF prints the new wording. Two files, RD 366/2007 and the Reglamento del Congreso, also print «Téngase en cuenta que esta actualización … entra en vigor …» followed by «Redacción anterior», which is the text in force today. The ten files amended by Ley 4/2026 (LBRL, Ley 16/1985, Ley 38/2003, ET, TREBEP, LGSS, RDL 1/2013, Ley 39/2006) or RD 813/2026 (RD 725/1989, RD 640/1987) carry the new wording only: no notice of its entry into force and no «Redacción anterior». For those, the text in force today is not in the downloaded file. The `version_vigente` notes in `normativa.yaml` now say so. No separate file of the version in force today was downloaded.
 - **Filename dates.** The date in each name is the «Última modificación» printed in the PDF. It equals `consolidated_as_of` in all 71 cases.
 - **Ley 31/2022 (PGE 2023)** is `act.php` HTML (2.8 MB), because its PDF is 135 MB. Its annex tables are linked images and are not in the file.
 - **EU texts.** These come from the DOUE copies on boe.es/doue, because EUR-Lex and the cellar block automated access. None is consolidated:
