@@ -1,7 +1,7 @@
 <!-- SPDX-License-Identifier: AGPL-3.0-only -->
 # Curset
 
-A self-hosted, multi-user, multi-course web platform. Third app in the **Sephilabs** ecosystem, and
+A self-hosted, multi-user, multi-course web platform. Third app in the **SephimanDev** ecosystem, and
 its **Python reference app**. It serves several unrelated courses side by side; each user activates the
 ones that interest them and switches between them. The first course is **crypto-futures**, an
 interactive crypto-futures trading academy from absolute zero to trading with proper risk management.

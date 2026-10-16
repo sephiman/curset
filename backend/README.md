@@ -1,7 +1,7 @@
 <!-- SPDX-License-Identifier: AGPL-3.0-only -->
 # TradeSchool — backend
 
-Python / FastAPI backend for TradeSchool, the Sephilabs interactive crypto-futures trading academy.
+Python / FastAPI backend for Curset, the SephimanDev multi-course learning platform.
 It is the Python reference app of the ecosystem: clear domain separation, seed-deterministic exercise
 generators behind a common abstraction, server-side generation and grading.
 
