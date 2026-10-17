@@ -66,7 +66,7 @@ Anexo III 2.1 fixes 30 of the 70 part-1 questions on bloque VI (43%). Every exam
 | Búsqueda en Windows | Windows Search | comportamiento | 2025 ord. (A/B) | A 47 / B 47 | vigente |  |
 | Búsqueda en Windows | Búsqueda: indexación | concepto/definición | 2024 ord. (A/B) | A 51 / B 55 | vigente |  |
 | Búsqueda en Windows | Buscar en Windows: ubicaciones | configuración | 2024 extr. | 57 | vigente-con-nota | posible: en Windows 11 se configura en Privacidad y seguridad > Buscar en Windows (Clásico/Mejorado). |
-| Configuración y cuentas | Configuración: Hora e idioma | configuración | 2024 extr. | 48 | vigente |  |
+| Configuración y cuentas | Configuración: Hora e idioma | configuración | 2024 extr. | 48 | vigente-con-nota | Clave oficial discutida: `ms-win-idioma.html` hace que la voz use el idioma para mostrar. |
 | Configuración y cuentas | Cuentas de usuario (multiusuario) | concepto/definición | 2024 extr. | 49 | función retirada | Correo y Calendario/Contactos retirados el 31-12-2024; los sustituye el nuevo Outlook para Windows. |
 | Configuración y cuentas | Configuración: Cuentas > Opciones de inicio de sesión | ruta de menú/cinta | 2020 ord. | 45 | vigente |  |
 | Explorador de archivos (vistas, orden, cinta, rutas) | Explorador: Vista (diseños) | ruta de menú/cinta | 2025 ord. (A/B) | A 48 / B 50 | vigente |  |

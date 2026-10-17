@@ -821,7 +821,8 @@ or `[en, es]`, first = fallback), its `status` (`draft` courses are loaded and c
 and its `exercise_types`. Two courses exist: `crypto-futures` (published) and `age-administrativo-c1`,
 the Spanish-only preparation for the Administrativo del Estado (C1) exam, still a draft: the theory of
 all six bloques is written, bloque VI as short list-shaped lessons citing saved official pages
-(requirements in `docs/age-administrativo-course-requirements.md`, per-tema record in `docs/age-theory-ledger.md`).
+(requirements in `docs/age-administrativo-course-requirements.md`, per-tema record in `docs/age-theory-ledger.md`,
+scope, coverage and currency audit in `docs/age-scope-audit.md`).
 Module, lesson, exercise and glossary ids are unique **inside** a course only: the database keys every
 skeleton row by `(course_id, id)`, and every attempt and lesson
 completion carries its course. An attempt, an exam or a statistic therefore never shows up in another

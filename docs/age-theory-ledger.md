@@ -3000,8 +3000,6 @@ on another saved page unless noted):
   the coverage fixes from that page (see «Coverage check 2022–2025»).
 - m06-l01: the processor «obtiene» (fetches) instructions (2025 A 41) — no official Spanish page; the lesson states
   «interpreta» and «ejecuta».
-- m06-l02: the speech language can differ from the display language (2024 X 48) — `ms-win-idioma.html` says speech uses
-  the display language; not written.
 - m06-l03: the per-drive Papelera setting (2025 X 50) — forum threads and blogs only; the lesson gives the documented
   «No mover archivos eliminados a la papelera de reciclaje» policy.
 - m06-l04: characters with and without spaces in Contar palabras (2022 X 56) — not on any page found.
@@ -3050,3 +3048,41 @@ requirements). For bloque VI it compares each saved page in `sources/otros/` wit
 shortcuts, «Se aplica a»), starting with the open items above: the Impr Pant pair, the unconfirmed labels and the two
 Outlook search keys. Every round writes its verification reports under `docs/age-verification/<bloque>/`
 (decision 1 of «Decisions after bloque VI»).
+
+# R2b — scope, coverage and currency audit (2026-10-17, session 1)
+
+Report: `docs/age-scope-audit.md` (run 1); working files, writer fix files and blind verifications in
+`docs/age-verification/audit-2026-10/`. Nothing committed.
+
+**Done.** Initial suites (on the tree before this round's edits had settled): backend 1,374 passed, 20 skipped;
+frontend 561 passed, 2 failed, 49 skipped (re-run after the first edits: the two goldens and one list-shape hit, all
+from this round's edits; the list-shape hit fixed, goldens regenerated and read line by line, two false-friend marks
+given `link_except`). Part A scope (6 bloques): 3 sections removed, 9 kept with the exam note, 1 gap filled (V.3),
+2 pointers added. Part B coverage I–V: every miss and partial patched and verified blind, except **m05-l05 (64.7 %
+missed: rewrite in its own session)** and conv2024_X sup. II reserva 5 in m05-l03 (RC amount; no source states it).
+Bloque VI fixes confirmed. Cuts restored where an exam asked them (table in the report). Part C: no BOE norm newer;
+TUE/TFUE and the Council Rules saved at their new consolidations, `normativa.yaml` updated; one m01-l11 paragraph
+rewritten (art. 50 ter Statute); 233 saved pages unchanged live; no «(desde …)» date passed. C.4: conv2024_X P1 48 →
+«Clave oficial discutida»; also conv2024_X sup. I 4 disputed and conv2025_A/B sup. I 16 note dropped.
+
+**Closed in the same session (after the usage-limit pause).** Rows 18–20 of the re-check queue (two `link_except`,
+the m06-l02 speech-language sentence, and the m04-l05 «(hoy: …)» at art. 54.1 RD 364/1995) passed blind; the closing
+checks ran on the final tree and are recorded in the report («Closing checks»): backend 1,374 passed, 20 skipped;
+frontend 563 passed, 49 skipped; `tsc -b` clean; goldens 317 web marks and 95 references, 0 dangling; bundle
+fingerprint unchanged; no diff under `content/crypto-futures/`.
+
+**Open items (after R2b).**
+1. **m05-l05 rewrite** in its own session (64.7 % of its asked facts missed; open list in the report, Part B). Its
+   anticipos de caja fija and pagos a justificar material sits in m05-l03 and should move to V.5.
+2. **conv2024_X sup. II reserva 5** stays partial in m05-l03 until an official source states the amount of the opening
+   RC of a contract file.
+3. m03-l03 quotes art. 93.2 LRJSP's «Ministerio de Hacienda y Administraciones Públicas» without «(hoy: …)»: the
+   competences are split between two departments (verifier: acceptable). The after-elections «hoy» round re-checks it.
+4. Exams ledger, for R3: conv2025_A sup. I reserva 1 (a father's permiso por nacimiento against art. 50.2 TREBEP's
+   «permiso de maternidad» wording).
+5. Monthly currency run (R4b.3): drop the 23-10-2026 and 28-10-2026 «(desde …)» marks once passed.
+
+## Where to resume (after R2b)
+
+R2b is closed except for m05-l05. The next session rewrites m05-l05 (R2 rules, blind verification, coverage re-audit
+of V.5), then R2c (esquemas) can start.

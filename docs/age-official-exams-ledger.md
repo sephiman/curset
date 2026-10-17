@@ -22,12 +22,12 @@ Status was checked against the consolidated texts on boe.es as of 2026-10-16, an
 
 | Questionnaire | Questions | vigente | vigente-con-nota | anulada | norma modificada | función retirada | dudosa | fuera de temario |
 |---|---|---|---|---|---|---|---|---|
-| conv2025_A | 125 | 117 | 2 | 6 | 0 | 0 | 0 | 0 |
-| conv2025_B | 125 | 117 | 2 | 6 | 0 | 0 | 0 | 0 |
+| conv2025_A | 125 | 118 | 1 | 6 | 0 | 0 | 0 | 0 |
+| conv2025_B | 125 | 118 | 1 | 6 | 0 | 0 | 0 | 0 |
 | conv2025_X | 125 | 121 | 3 | 1 | 0 | 0 | 0 | 0 |
 | conv2024_A | 125 | 117 | 1 | 5 | 1 | 1 | 0 | 0 |
 | conv2024_B | 125 | 117 | 1 | 5 | 1 | 1 | 0 | 0 |
-| conv2024_X | 125 | 112 | 9 | 1 | 1 | 2 | 0 | 0 |
+| conv2024_X | 125 | 110 | 11 | 1 | 1 | 2 | 0 | 0 |
 | conv2022 | 125 | 107 | 9 | 5 | 2 | 2 | 0 | 0 |
 | conv2022_X | 125 | 112 | 8 | 4 | 0 | 0 | 1 | 0 |
 | conv2020 | 125 | 107 | 5 | 7 | 3 | 3 | 0 | 0 |
@@ -39,6 +39,8 @@ Modelo B repeats modelo A in a different order (supuestos I and II swapped, two 
 Round R1 (2026-10-16) re-checked every question resting on a precept of the 12 `cambio-pendiente` norms of `sources/normativa.yaml`. One question is excluded for that reason (conv2020_X P1 17, already `norma modificada` in R0a, now dated). Five rows (three distinct questions) keep their key and carry a «Revisado R1» note. The counts above are unchanged.
 
 Round R2, bloque VI (2026-10-17), checked four ofimática rows against the Microsoft pages saved under `content/age-administrativo-c1/sources/otros/`. conv2025_X P1 66 becomes «Clave oficial discutida» (`ms-outlook-buscar.html`: number strings under five digits are ignored). conv2024_X P1 65 keeps «Clave oficial discutida» and now cites the same page (prefix matching gives option a). conv2025_X P1 reserva 2 drops its note and becomes `vigente` with a «Revisado» note (`ms-access-graficos.html` lists word clouds). conv2020 P1 44 becomes `vigente`: the label is still «Acerca de» (`ms-win-version.html`), not «Información». The counts above include these changes.
+
+Round R2b (2026-10-17) classified conv2024_X P1 48 as «Clave oficial discutida»: `ms-win-idioma.html` makes the speech language follow the display language, while the key d says the display, speech and keyboard languages can differ. It was listed before as «Sin fuente oficial» in the theory ledger; the page is the reason, so it is a disputed key. The same round classified conv2024_X sup. I 4 as «Clave oficial discutida» (arts. 43.2.b), 62 and 63.1.a) LGP give the transfer 220 → 202 to Hacienda, not to the ministry's own minister; candidate since bloque V), and dropped the note on conv2025_A/B sup. I 16, which art. 114.12 RDL 6/2023 supports (fifteen días naturales). The counts above include these changes.
 
 ## conv2025_A — Convocatoria 2025 — ejercicio único, modelo A
 
@@ -149,7 +151,7 @@ Round R2, bloque VI (2026-10-17), checked four ofimática rows against the Micro
 | 13 | V.3 | vigente | a |  |  |
 | 14 | IV.5 | vigente | a |  |  |
 | 15 | IV.4 | vigente | c |  |  |
-| 16 | IV.4 (o IV.3) | vigente-con-nota | b | Clave oficial discutida: los 15 días naturales de la clave no figuran en el RD 364/1995 (su art. 48 da tres días hábiles o un mes); podrían venir de las bases o de la orden de nombramiento. |  |
+| 16 | IV.4 (o IV.3) | vigente | b |  | Revisado R2b frente al art. 114.12 RDL 6/2023 (toma de posesión del personal funcionario de carrera dentro de quince días naturales): la clave se mantiene. |
 | 17 | IV.5 | vigente | c |  | Revisado R1 frente a la Ley 4/2026 (en vigor 23-10-2026): la clave se mantiene. La ley solo cambia la letra e) del art. 49 del TREBEP; el preaviso de quince días no cambia. |
 | 18 | IV.5 | vigente | c |  |  |
 | 19 | IV.4 | vigente | d |  |  |
@@ -345,7 +347,7 @@ Round R2, bloque VI (2026-10-17), checked four ofimática rows against the Micro
 | 13 | V.3 | vigente | a |  | = modelo A S1 13 |
 | 14 | IV.5 | vigente | a |  | = modelo A S1 14 |
 | 15 | IV.4 | vigente | c |  | = modelo A S1 15 |
-| 16 | IV.4 (o IV.3) | vigente-con-nota | b | Clave oficial discutida: los 15 días naturales de la clave no figuran en el RD 364/1995 (su art. 48 da tres días hábiles o un mes); podrían venir de las bases o de la orden de nombramiento. | = modelo A S1 16 |
+| 16 | IV.4 (o IV.3) | vigente | b |  | Revisado R2b frente al art. 114.12 RDL 6/2023 (toma de posesión del personal funcionario de carrera dentro de quince días naturales): la clave se mantiene. = modelo A S1 16 |
 | 17 | IV.5 | vigente | c |  | = modelo A S1 17. Revisado R1 frente a la Ley 4/2026 (en vigor 23-10-2026): la clave se mantiene. La ley solo cambia la letra e) del art. 49 del TREBEP; el preaviso de quince días no cambia. |
 | 18 | IV.5 | vigente | c |  | = modelo A S1 18 |
 | 19 | IV.4 | vigente | d |  | = modelo A S1 19 |
@@ -897,7 +899,7 @@ Round R2, bloque VI (2026-10-17), checked four ofimática rows against the Micro
 | 45 | VI.6 (o VI.1) | vigente | b |  |  |
 | 46 | VI.6 | vigente | d |  |  |
 | 47 | VI.8 | vigente | b |  |  |
-| 48 | VI.2 | vigente | d |  |  |
+| 48 | VI.2 | vigente-con-nota | d | Clave oficial discutida: la ayuda de Microsoft («Administrar la configuración de idioma y distribución del teclado/entrada en Windows», `content/age-administrativo-c1/sources/otros/ms-win-idioma.html`, 17-10-2026) dice, para instalar la voz de un idioma: «Asegúrese de que el idioma en el que se va a usar la voz está establecido como idioma para mostrar». La voz sigue al idioma para mostrar; la clave d dice que pueden ser diferentes. |  |
 | 49 | VI.2 | función retirada | d |  | Las apps Correo y Contactos que cita la respuesta se retiraron el 31-12-2024 y las sustituye el nuevo Outlook para Windows. |
 | 50 | VI.1 (o VI.2) | vigente | c |  |  |
 | 51 | VI.2 (o VI.1) | vigente | a |  |  |
@@ -938,7 +940,7 @@ Round R2, bloque VI (2026-10-17), checked four ofimática rows against the Micro
 | 1 | V.2 | vigente | c |  |  |
 | 2 | V.2 | vigente | d |  |  |
 | 3 | V.3 | vigente | a |  |  |
-| 4 | V.2 | vigente | b |  |  |
+| 4 | V.2 | vigente-con-nota | b | Clave oficial discutida: el concepto 202 son arrendamientos de edificios y otras construcciones, créditos que el art. 43.2.b) Ley 47/2003 (LGP) especifica; el art. 63.1.a) LGP no deja a los titulares de los ministerios autorizar transferencias que incrementen los créditos del art. 43.2, de modo que la autoriza el Ministerio de Hacienda (art. 62 LGP): opción c, no la clave b. |  |
 | 5 | II.1 (o III.7) | vigente | b |  |  |
 | 6 | II.3 (o III.3) | vigente | b |  |  |
 | 7 | III.3 (o III.6) | vigente | c |  |  |
