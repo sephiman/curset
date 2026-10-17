@@ -1565,7 +1565,8 @@ round):
   the «Exámenes oficiales» set. conv2024_X sup. II 4: official key 22 March, computed 21 March; check before R3.
 - **LCSP thresholds after 2027:** no source in the repo gives an end date for the Orden HAC/1517/2025 figures. If a
   new orden is published before the exam, m03-l04, its glossary entry and the course.yaml summary change.
-- **INE statute** (conv2025_X sup. I reserva 3, art. 111.c) LPAC) is not in sources/; needed before R3 asks it.
+- **INE statute** (conv2025_X sup. I reserva 3, art. 111.c) LPAC) is not in sources/; needed before R3 asks it. *Closed
+  in bloque IV (fix before IV.1): RD 803/2022 saved and indexed; the official key is d), not «el máximo órgano rector».*
 - **Glossary candidates waiting:** Plan Anual Normativo, actuaciones complementarias, medio propio personificado,
   nulidad de pleno derecho, responsabilidad patrimonial, comunicación (with a `link_except` plan), acciones positivas
   (scoped to LO 3/2007). Plus the six bloque I terms and «oficinas integradas», still waiting.
@@ -1576,3 +1577,371 @@ round):
 Bloque III is closed. The next session starts R2 bloque IV (temas IV.1–IV.9, lessons `m04-l01`…`m04-l09`) with the
 same spec, the standing conventions and the outside-sources rule. The writer spec of this round adds one rule: lesson
 ids in cross-references are written bare (m03-l03), never in «».
+
+# Bloque IV — temas IV.1–IV.9
+
+Round R2, bloque IV, 2026-10-16. Nothing committed. Same procedure as bloque III: one writer per tema to a shared spec
+(the bloque III spec, the standing conventions, the outside-sources rule, and two additions from the round prompt:
+where the TREBEP and the pre-TREBEP rules still in force differ, the lesson says which applies to AGE funcionarios and
+cites both; IV.4, IV.5 and IV.6 use the 4,000-word limit and state every situación, permiso, plazo de reingreso, falta,
+sanción and prescription period). A separate blind reviewer re-opened the cited article for every sentence and table
+cell carrying a number, plazo, majority, organ, date, exception, condition or list, recomputed every worked date, and
+checked Normativa, the glossary candidates and the course.yaml summary. Every FAIL was fixed against the article; the
+changed sentences went through a second blind pass, and a third where the second found FAILs. Temas ran in order; the
+writer of tema N+1 drafted while tema N was in review, against a scope table that assigned each article to one lesson.
+The per-sentence tables are working files, not kept in the repo.
+
+Suites before writing (tree at the start of the session): frontend `npx vitest run` 561 passed, 2 failed, 49 skipped —
+the two failures are the glossary-link and lesson-reference goldens, which moved because m04-l01 was being written
+while the run went on; the backend run was cut by the `timeout` before its summary line.
+
+## Fix before IV.1 (open item of bloque III): the INE statute
+
+- The statute in force is the **Real Decreto 803/2022, de 4 de octubre**, por el que se aprueba el Estatuto del
+  Organismo Autónomo Instituto Nacional de Estadística (BOE-A-2022-16198, consolidated 31-10-2025, amended by RD 965/2025).
+  It repealed the RD 508/2001 (BOE-A-2001-9097) on 05-10-2022. Saved as
+  `sources/normativa/BOE-A-2022-16198_rd-803-2022-estatuto-ine_2025-10-31.pdf` (sha256 `dd372063…de4584`) and indexed in
+  `normativa.yaml` (temas III.3) under a comment line before bloque IV.
+- What it settles: the INE is an organismo autónomo adscrito al Ministerio de Economía, Comercio y Empresa a través de la
+  Secretaría de Estado de Economía y Apoyo a la Empresa (art. 1.1); its órganos de gobierno are the Presidencia and the
+  Consejo de Dirección (art. 3); art. 16 governs recursos against acts of the Presidencia. With art. 111.c).1.º LPAC, the
+  revisión de oficio of the Presidencia's acts belongs to the órgano de adscripción.
+- **Correction to the bloque III ledger.** conv2025_X sup. I reserva 3 keys **d)** (the Secretaría de Estado through
+  which the INE is adscrito) on the definitive answer sheet, not «el máximo órgano rector del INE» (option c), as the
+  III.3 entry said. Key d) is consistent with the statute and art. 111.c).1.º. The statute does not use the expression
+  «máximo órgano rector». m03-l03 cites no INE fact, so no lesson changes.
+
+## Summary
+
+| Tema | Lesson | Target / ceiling | First draft | Words | Citations | Checked (pass 1) | FAIL (fixed) | Later passes | Glossary |
+|---|---|---|---|---|---|---|---|---|---|
+| IV.1 | `m04-l01` | 2,200 / 2,600 | 4,728 | 2,584 | 42 | 86 + LQMC + summary | 6 + 1 + 1 | p2 14: 1 FAIL; p3 5/5 | 5 |
+| IV.2 | `m04-l02` | 2,200 / 2,600 | 4,354 | 2,588 | 49 | 72 | 2 (glossary 1) | p2 6/6 | 3 |
+| IV.3 | `m04-l03` | 2,200 / 2,600 | 3,863 | 2,595 | 37 | 76 | 4 + summary 1 | p2 21: 3 FAIL; p3 6/6 | 5 |
+| IV.4 | `m04-l04` | 4,000 cap | 6,794 | 3,995 | 89 | 148 | 4 + summary 1 | p2 20: 4 FAIL; p3 coordinator | 4 |
+| IV.5 | `m04-l05` | 4,000 cap | 6,614 | 3,998 | 55 | 131 | 12 (glossary 2, summary 1) | p2 82: 13 FAIL; p3 34: 5 FAIL, applied | 8 |
+| IV.6 | `m04-l06` | 4,000 cap | ≈5,000 | 3,990 | 63 | 152 | 11 (glossary 1, summary 1) | p2 23 rows + 8 cuts: 1 FAIL, applied | 6 |
+| IV.7 | `m04-l07` | 2,000 / 2,400 | 3,860 | 2,382 | 52 | 92 | 6 | p2 18/18; 1 FAIL in an untouched sentence + glossary 2, applied | 3 |
+| IV.8 | `m04-l08` | 2,800 / 3,200 | 4,563 | 3,171 | 69 | 115 | 4 + Normativa 1 + summary 1 | coordinator against the text | 3 |
+| IV.9 | `m04-l09` | 1,800 / 2,400 | ≈3,900 | 2,398 | 48 | 74 | 11 (glossary 1, summary 2) | p2 24: 2 FAIL + glossary 1, applied | 2 |
+| **Total** | | | | **27,701** | **504** | **946** | **60 lesson** | | **39** |
+
+Words: `wc -w`, everything counted. Citations: «(art» / «(arts» only; table cells that cite «art. N norma» without a
+parenthesis (IV.4, IV.5, IV.6) are not counted. «p2/p3»: second and third blind passes on the changed sentences.
+«applied» / «coordinator»: the last replacements were the reviewer's own article wording, applied by the coordinator
+and checked by diff against the article text; no further blind pass ran on them (IV.4 p3, IV.5 p3, IV.6, IV.7, IV.8,
+IV.9). IV.8 had no separate second pass: the coordinator checked the six fixes against the Convenio and TREBEP text
+and corrected one word («del Convenio» → «de este Convenio», art. 3.1).
+
+**IV.9 ceiling.** Raised by the coordinator from 2,200 to 2,400 (IV.7's) so the 11 first-pass fixes needed no cuts of
+asked items. IV.7 and IV.9 have about the same exam weight.
+
+**FAIL classes.** As in bloques I–III, most FAILs were a dropped condition, exception or «salvo / sin perjuicio» clause
+of the article, and the second class a selective list that read as complete. Bloque IV adds two:
+1. **Quoting the TREBEP disposición derogatoria única without its opening paragraph** («con el alcance establecido en el
+   apartado 2 de la disposición final cuarta»), so that a letter b) or f) reads as an unqualified repeal (IV.1, IV.2,
+   IV.3, IV.4, IV.6).
+2. **Cut-induced FAILs.** Cutting to the ceiling removed a clause of a kept sentence (IV.5 arts. 48.2, 54.1, 70.2; IV.7
+   art. 21.1.c). From IV.5 on, the rule was «cut whole facts only, never a clause of a kept sentence».
+
+**Coordinator restorations.** Three times a writer's cuts removed required content, and the coordinator had it put
+back: IV.5 (the permisos of art. 48 d), f), i), j) and art. 49 b), g), cut to fit; then arts. 14 and 52 TREBEP, the
+whole «derechos» and the general deber), IV.6 (arts. 41–43 RD 33/1986, the vista, propuesta and alegaciones plazos),
+IV.7 (asistencia sanitaria, arts. 15.1 and 17.1 RDL 4/2000). In IV.5 the art. 14 list was then shortened to the letters
+any 2020–2025 question asks or uses as a distractor plus those with a condition clause, introduced as «Entre los
+derechos individuales del artículo 14 están estos».
+
+## Which rule applies (TREBEP and the pre-TREBEP texts)
+
+No text in `sources/` says, article by article, whether a provision of Ley 30/1984, RD 364/1995, RD 365/1995 or
+RD 33/1986 «se opone» to the TREBEP. The lessons therefore quote the texts that govern the question and state both
+rules where they differ, each cited; no lesson picks a winner the texts do not name. The texts quoted are: the
+disposición derogatoria única TREBEP (opening paragraph, b) and f)), its disposición final cuarta (apartado 1, with the
+párrafo on compatibilidades, and apartado 2), the BOE notes on each Ley 30/1984 article kept «en tanto no se oponga…
+hasta que se dicten las Leyes de Función Pública», the scope of the RDL 6/2023 (art. 105.5 and DF 7.ª.2: libro segundo
+applies to the Administración del Estado «como norma de desarrollo» of the TREBEP) and its disposición derogatoria. The
+one case a text settles is the personal eventual in servicios especiales (art. 87.1.i) TREBEP against arts. 3.d) and
+4.i) RD 365/1995); the lesson states both rules side by side after the second pass removed an inferred «rige el
+TREBEP».
+
+Differences recorded in the lessons, both rules cited:
+
+- **IV.1:** who sets the number of eventual posts and appoints (art. 12.2 TREBEP / art. 20.2 Ley 30/1984).
+- **IV.2:** the discapacidad reserve: 7 % (art. 59.1 TREBEP), 10 % in the Administración del Estado (art. 108.4
+  RDL 6/2023), 5 % (art. 2.1 RD 2271/2004 and DA 19.ª Ley 30/1984, which is not in the DD única b) list); plazos of the
+  convocatoria (art. 70.1 TREBEP / art. 108.2 RDL 6/2023); exclusions from órganos de selección (art. 60.2 TREBEP /
+  art. 115.2 RDL 6/2023).
+- **IV.3:** concurso as sistema selectivo (art. 4.1 RD 364/1995, no ley required / arts. 61.6 TREBEP and 114.6
+  RDL 6/2023, «sólo en virtud de ley»); aprobados above plazas (art. 25.1 RD 364/1995 / arts. 61.8 TREBEP and 114.10
+  RDL 6/2023).
+- **IV.4:** minimum stay in excedencia voluntaria por interés particular (none in art. 89.2 TREBEP; two years in
+  art. 29.3.c) Ley 30/1984; art. 16.3 RD 365/1995); the loss of the condition for not asking reingreso (art. 16.4
+  RD 365/1995, a cause absent from art. 63 TREBEP); agrupación familiar (requisites of art. 89.3 TREBEP, duration of
+  art. 17 RD 365/1995); cuidado de familiares (reserva «al menos dos años», art. 89.4 TREBEP, against the whole period and
+  the one-parent rule, art. 14 RD 365/1995); prolongation of service to seventy (art. 67.3 TREBEP / art. 33 Ley
+  30/1984); cómputo in servicios especiales (art. 87.2 TREBEP / art. 8.2 RD 365/1995).
+- **IV.5:** DF 4.ª.1 TREBEP defers carrera, promoción interna and provisión (arts. 16–20, 78–84) to the leyes de Función
+  Pública; no text says whether RDL 6/2023 libro segundo is that law for the AGE. Promoción interna, two years «de
+  servicio activo en el inferior Subgrupo» (art. 18.2 TREBEP) / «en el Cuerpo o Escala» (art. 76 RD 364/1995);
+  intervalos de niveles (DT 6.ª RDL 6/2023 / art. 71.1 RD 364/1995); movilidad por violencia de género (art. 82.1 TREBEP,
+  also sexual, no vacancy needed / art. 66 ter RD 364/1995).
+- **IV.6:** prescription of faltas (3 años / 2 años / 6 meses, art. 97 TREBEP / 6 años / 2 años / 1 mes, art. 20
+  RD 33/1986) and of sanciones (3 / 2 / 1 año / 6 años / 2 años / 1 mes, art. 21 RD 33/1986), start dates and
+  interruption (only art. 20.2 RD 33/1986 regulates it); faltas graves and leves reserved to ley (arts. 95.3–4 TREBEP)
+  while the only lists in force are arts. 7–8 RD 33/1986; pay of the suspenso provisional (art. 98.3 TREBEP / art. 21.4
+  RD 365/1995); compatibilidades «continuará rigiéndose por la actual normativa» (DF 4.ª.1 párr. 2 TREBEP).
+
+## Saved sources (bloque IV)
+
+All indexed in `normativa.yaml`; each was verified independently by the tema's reviewer (fresh download from boe.es,
+same sha256, same text, metadata and /analisis read):
+
+| Norm | File | Why |
+|---|---|---|
+| RD 803/2022 (Estatuto del INE) | `BOE-A-2022-16198_rd-803-2022-estatuto-ine_2025-10-31.pdf` | Fix before IV.1 (above) |
+| RD 2073/1999 (Registro Central de Personal) | `BOE-A-2000-1007_rd-2073-1999-registro-central-personal_2000-01-18.pdf` | Its DD única repeals capítulo I of the RD 1405/1986 Reglamento except arts. 2, 3 and 4.1; the RCP plazos, asientos and anotaciones the exams ask are in it. The RD 1405/1986 entry now says so. |
+| Resolución de 14-04-2026, SEFP, jornada y horarios en la AGE | `BOE-A-2026-8287_res-14-04-2026-jornada-horarios-age_2026-04-15.pdf` | Applies from 16-04-2026 and repeals the Resolución de 28-02-2019 (BOE-A-2019-2861), the one in force at the 2022–2025 exams, not saved. Apartado 14.3 (permisos in days are naturales unless the norm says hábiles), 9.7 and 9.10. |
+| RD 577/1997 (Estatuto de MUFACE) | `BOE-A-1997-9874_rd-577-1997-estatuto-muface_2026-06-12.pdf` | Órganos de gobierno and the Consejo General's composition; adscription through the SEFP. RD 466/2026 (BOE-A-2026-12711, verified on boe.es, not saved) renamed it «Mutualidad General de Funcionarias y Funcionarios Civiles del Estado, O.A.»; the lesson rests on the saved consolidated text. |
+
+`normativa.yaml` also: IV.1 added to the temas of RDL 6/2023, RD 829/2023 and RD 1009/2023; IV.3 to RDL 6/2023; IV.5 to
+LO 3/2007.
+
+## Glossary
+
+- 39 entries added, origin in bloque IV; `glossary.yaml` holds 196. Each cites its defining article, which its origin
+  lesson cites. «libre designación», waiting since bloque I, entered with IV.5.
+- Withdrawn by writers after cuts left the singular absent from prose, or the defining article uncited: carrera
+  profesional (IV.5), haber regulador (IV.7), incapacidad permanente (IV.9). Dropped by the coordinator: especialidad
+  (IV.8; the bare word carries other senses in many lessons).
+- Not proposed: personal directivo (art. 13.1 TREBEP defines it by reference), concurso (provisión and selection
+  senses), incapacidad temporal in the RDL 4/2000 sense (the entry is defined by art. 169.1 LGSS and opens «En el
+  Régimen General»).
+- **Never-coins:** «órgano de selección» appeared only in the plural; the m04-l02 heading «Órganos de selección» became
+  «El órgano de selección». Plural `match` forms added to seven multi-word terms.
+- **Glossary verification:** every candidate checked in pass 1 (8 FAIL across temas, all replaced with the reviewer's
+  wording: g-organo-de-seleccion, g-comision-de-servicios, g-carrera-horizontal, g-pliego-de-cargos,
+  g-mutualismo-administrativo, g-mutualista, g-incapacidad-temporal, g-promocion-interna) and the replacements in pass 2.
+- **Goldens.** `glossary-links.es.txt` regenerated and read line by line: 121 → 235 → 225 web marks (62 also a PDF link).
+  **Wrong-sense links excluded** (`link_except`): g-oposicion in m01-l07 (oposición de un tercero, Ley 19/2013) and
+  m02-l04 (derecho de oposición, RGPD); g-directiva in m04-l01 and m04-l08 («funciones / facultades directivas»);
+  g-convenio in m04-l06 (convenios colectivos); g-servicio-activo and g-separacion-del-servicio in m01-l04 (judges,
+  LOPJ); g-incapacidad-temporal in m04-l05 and m04-l07 (the funcionarios' RDL 4/2000 sense); g-alto-cargo in m04-l04
+  (alto cargo of an international organisation). Kept after reading: «Empleado Público» inside the TREBEP's title,
+  «Real Decreto Legislativo / Decreto-ley n/aaaa» (each names a real one), g-convenio in m04-l01 (convenio de
+  Conferencia Sectorial), g-interesado in m04-l04–l06, g-regimen-general-de-la-seguridad-social in m04-l04 and m04-l07.
+  `lesson-refs.es.txt`: 21 → 57 references, 0 dangling.
+
+## IV.1 — `m04-l01`
+
+- **Tally** (2022–2025): Registro Central de Personal 4 (one anulada); art. 12 TREBEP (eventual) 2; arts. 8–9 1; art. 7
+  1; art. 2 1; competencias 2 shared with other temas.
+- **Structure:** clases de personal (arts. 8–13 TREBEP; eventual in full; interinos → m04-l03, laborales → m04-l08),
+  demás normativa (DD única and DF 4.ª.2 TREBEP quoted; the BOE notes on Ley 30/1984; ámbito of RD 364/1995, RD 365/1995,
+  RD 33/1986 and Ley 53/1984), competencias (Ley 30/1984 arts. 2–3 as in force; arts. 22.2–3 RD 829/2023 and 21.C)
+  RD 1009/2023), Registro Central de Personal (art. 13 Ley 30/1984, art. 71 TREBEP, RD 2073/1999, arts. 15–16 RD 1405/1986).
+- **«hoy»:** Ministerio de la Presidencia (art. 2 Ley 30/1984) → Ministerio para la Transformación Digital y de la Función
+  Pública (art. 22.2 RD 829/2023). Not given: Dirección General de la Función Pública (art. 13.1 Ley 30/1984), Secretario
+  de Estado para la Administración Pública (art. 25.1 RD 364/1995).
+- **Glossary (5):** empleado público, funcionario de carrera, personal laboral, personal eventual, Registro Central de
+  Personal.
+- **Listed:** the anotación lists of art. 4.1 RD 1405/1986 and art. 13.1 RD 2073/1999 differ («reingresos», laboral
+  «bajas definitivas»), which may be why conv2025_A P1 24 was annulled; art. 7 TREBEP now adds «y parental» (RDL 9/2025):
+  conv2022_X P1 35 may need a «norma modificada» check; art. 11.2 RD 2073/1999 does not say hábiles or naturales.
+
+## IV.2 — `m04-l02`
+
+- **Tally:** 8 questions; 6 in scope (art. 103.3 CE; art. 70.1 TREBEP; art. 108.3 RDL 6/2023; art. 59.1 TREBEP; art. 10
+  RD 364/1995; the OEP by Real Decreto); arts. 56 and 61.7 → m04-l03.
+- **Worked date:** convocatoria published jueves 15-04-2027, veinte días naturales «a partir del siguiente al de
+  publicación» (art. 18.1 RD 364/1995): viernes 16-04 to miércoles 05-05-2027.
+- **Cambio pendiente:** art. 4.2 RDL 1/2013 «(desde 23-10-2026)»; no cited TREBEP article changes.
+- **Glossary (3):** Oferta de Empleo Público, órgano de selección, Comisión Permanente de Selección.
+- **Listed:** the approval form of the OEP rests only on art. 5.1 RD 2271/2004 («Real Decreto»); conv2020_X sup. II 15
+  keys the Subsecretario as convoking organ, no source names it; RD 2271/2004 art. 1.1 defines discapacidad through the
+  repealed Ley 51/2003.
+
+## IV.3 — `m04-l03`
+
+- **Tally:** 10 in scope; interinos (art. 10 TREBEP) 6 of them.
+- **Cut for length:** DT 3.ª.2 TREBEP (the old Grupos A–E onto A1–C2). m04-l06 now quotes the fragment it needs.
+- **Glossary (5):** funcionario interino, funcionario en prácticas, curso selectivo, oposición, concurso-oposición.
+- **Listed:** the nombramiento organ (art. 25.1 RD 364/1995, Secretario de Estado para la Administración Pública)
+  against the official keys' Secretaría de Estado de (Hacienda y) Función Pública; no source in the repo maps them.
+  Ley 20/2021 (the art. 10 wording) is not in `sources/` and is not named.
+
+## IV.4 — `m04-l04`
+
+- **Tally** (29 questions): servicios especiales 8; servicio activo 4; interés particular, cuidado de familiares,
+  adquisición 3 each; excedencia por servicios en el sector público, violencia de género, pérdida 2 each; one each for
+  agrupación familiar, otras Administraciones, toma de posesión (art. 114.12 RDL 6/2023), suspensión firme.
+- **Structure:** adquisición (art. 62; toma de posesión, quince días naturales from the publicación del nombramiento, one
+  month with cambio de localidad, art. 114.12 RDL 6/2023) and pérdida (arts. 63–68; jubilación 2027: 67, or 65 with
+  38 años y 6 meses, art. 205.1.a) and DT 7.ª LGSS); situaciones in tables (requisitos / duración / efectos), every
+  plazo of reingreso (arts. 9.1, 14.3, 15.3, 16.4, 17.2, 18.4, 22.3–5 RD 365/1995); reingreso and adscripción provisional.
+- **Worked dates:** nombramiento published lunes 01-03-2027 → martes 16-03-2027, or jueves 01-04-2027 with cambio de
+  localidad; cese of an alto cargo published viernes 14-05-2027 → lunes 14-06-2027 (art. 9.1 RD 365/1995 with art. 30.4
+  LPAC; the lesson says art. 9.1 gives no start date).
+- **Glossary (4):** servicio activo, servicio en otras Administraciones Públicas, suspensión firme, expectativa de destino.
+- **For the exams ledger:** art. 114.12 RDL 6/2023 supports the official key of conv2025_A sup. I 16, which the exams
+  ledger marks «Clave oficial discutida»; art. 48.1 RD 364/1995 (three días hábiles / one month) is provisión, not
+  nuevo ingreso. The IV.3 writer reached the same reading.
+- **Listed:** whether «a partir de la publicación» (art. 114.12) counts the publication day; start of the month in
+  art. 9.1 and counting of «con un mes de antelación» in art. 22.3 RD 365/1995; whether DF 4.ª.2 keeps the excedencia por
+  servicios en el sector público and the other situaciones outside art. 85.1 TREBEP (art. 85.2 allows future laws to
+  create them; the exams treat them as in force); art. 19 RD 365/1995 (no trienios) against the last paragraph of
+  art. 29.3 Ley 30/1984.
+
+## IV.5 — `m04-l05`
+
+- **Tally** (46 rows, 39 in part 2): provisión 16 (concurso 7, libre designación 3, toma de posesión y cese 3, comisión
+  de servicios and adscripción provisional 3); permisos 10; vacaciones 2; grado personal 5; promoción interna 3; código
+  de conducta 2; derechos 2; carrera horizontal 1; owned elsewhere 5 (art. 30 TREBEP → m05-l04).
+- **Structure:** «Qué norma se aplica» (DF 4.ª.1 TREBEP, DF 7.ª.2 RDL 6/2023 quoted); concurso, libre designación,
+  toma de posesión y cese (art. 48 RD 364/1995 with the prórrogas of 48.2 and 48.3), other forms in a table (comisión
+  de servicios voluntaria and forzosa, «duración máxima de un año», adscripción provisional, redistribución,
+  reasignación, movilidad por salud and por violencia de género); derechos (art. 14, shortened list; art. 15); permisos
+  (every letter of arts. 48 and 49 TREBEP in tables; «desde 23-10-2026» on the two paragraphs Ley 4/2026 adds to
+  art. 49.e)); vacaciones (art. 50); who grants permisos (apartados 9.7 and 9.10 of the Resolución de 14-04-2026: no norm
+  names the organ); deberes (arts. 52, 53.7, 54.3, 54.8); carrera horizontal (art. 122 RDL 6/2023); grado personal
+  (art. 70 RD 364/1995); promoción interna (art. 18.2 TREBEP; arts. 73, 76 RD 364/1995).
+- **Worked date:** cese lunes 03-03-2025 with cambio de residencia → jueves 03-04-2025 (the 2025 ordinario key; art. 48.1
+  RD 364/1995 with art. 30.4 LPAC; the lesson says art. 48 does not say how the month is computed).
+- **Glossary (8):** libre designación, grado personal, comisión de servicios, adscripción provisional, redistribución de
+  efectivos, reasignación de efectivos, promoción interna, carrera horizontal.
+- **Cuts of note:** méritos and concurso específico, remoción, art. 47 and 47 bis TREBEP (jornada), arts. 50.5, 58.2, 74.1,
+  78–79 RD 364/1995, art. 51.2 list, art. 54 bullets other than 54.3 and 54.8, art. 14 letters not asked, the vacaciones
+  worked example. None asked in 2022–2025.
+- **For the exams ledger:** the matrimonio «quince días naturales» key (conv2025_A sup. II reserva 2) rests on the 2019
+  Resolución, not saved; the 2026 one (apartado 14.3) gives the same reading. conv2024_A sup. II reserva 1: the key holds
+  under art. 67 RD 364/1995, not only 54.1.
+
+## IV.6 — `m04-l06`
+
+- **Tally** (21 valid): faltas muy graves 5; incompatibilidades 5; faltas graves and leves 3; sanciones 3; procedimiento
+  3; prescripción 2.
+- **Structure:** incompatibilidades (Ley 53/1984: arts. 3, 7, 9, 12, 14, 16, 19; RD 598/1985 arts. 5, 14; DF 4.ª.1 párr. 2
+  TREBEP); régimen disciplinario (arts. 93–98 TREBEP; art. 95.2 in full; arts. 7.1 and 8 RD 33/1986 in full; sanciones
+  table with arts. 14–17 RD 33/1986; prescription table, both regimes); procedimiento (arts. 29–37 and 41–45 RD 33/1986;
+  suspensión provisional, art. 98.3 TREBEP, arts. 33 RD 33/1986 and 21.4 RD 365/1995).
+- **Worked date:** pliego de cargos notified martes 04-05-2027, diez días (art. 36 RD 33/1986), with art. 30.2 LPAC →
+  martes 18-05-2027; the lesson says RD 33/1986 does not say hábiles or naturales.
+- **Glossary (6):** separación del servicio, suspensión provisional, pliego de cargos, autorización de compatibilidad,
+  reconocimiento de compatibilidad, demérito.
+- **Listed:** whether the AGE has the ley de Función Pública that would bring in the new art. 16.1 Ley 53/1984; art. 33.2
+  RD 33/1986 refers to the Ley de Funcionarios Civiles del Estado, repealed by DD única a) TREBEP; art. 32.1 to the old
+  Ley de Procedimiento Administrativo; RD 33/1986 fixes no overall plazo máximo; old organ names (Comisión Superior de
+  Personal, Gobernadores civiles) quoted without «hoy»; RD 1777/1994 not in `sources/`. For the exams ledger: conv2022_X
+  sup. II 2 (key against art. 96.1.a) TREBEP, already flagged); conv2020_X sup. II 19 keys the Oficina de Conflictos de
+  Intereses, no source supports it.
+
+## IV.7 — `m04-l07`
+
+- **Tally:** 6 + 1 shared with IV.9 (art. 21 RDL 4/2000 ×2; arts. 5, 3.1, 22.2; Ley 29/1975); conv2022_X P1 9 (art. 264
+  LGSS) → IV.9.
+- **Structure:** régimen especial (arts. 1–4 RDL 4/2000; the 2011 integration, art. 2.2 RDL 4/2000 and DA 3.ª.1 and 3.ª.3
+  LGSS); MUFACE (naturaleza, art. 5.1; RD 577/1997 arts. 1, 4–5; adscription through the SEFP, art. 22.3.c)
+  RD 829/2023); campo de aplicación (art. 3 in full); asistencia sanitaria (arts. 15.1, 17.1); incapacidad temporal
+  (arts. 19–21; RD 375/2003 arts. 90.4, 95.1–2; donación de órganos, art. 21.1.c)); riesgo durante el embarazo
+  (art. 22); clases pasivas (RDL 670/1987, arts. 28–45 as cited, pensiones table).
+- **Cut:** cotización, financiación, the nine-item prestaciones list, incapacidad permanente in MUFACE (art. 23), gran
+  invalidez, the art. 28.2.a) prórroga (twelve / fifteen years). None asked in 2022–2025.
+- **Glossary (3):** mutualismo administrativo, Régimen de Clases Pasivas, mutualista.
+- **Listed:** RD 466/2026 renamed MUFACE while RDL 4/2000 and RD 375/2003 keep the old name; RD 577/1997 has two
+  articles numbered 6; art. 5.1 RD 577/1997 still names the «Ministro de Hacienda y Función Pública», quoted without
+  «hoy»; art. 4.1 RDL 4/2000 («dependiente del Ministerio de Administraciones Públicas») gets today's adscription in the
+  next sentence rather than as «(hoy: …)»; conv2022 P1 32 (MUFACE «created» in 1975) has no source; conv2022 sup. II
+  reserva 2 keys «día 91» against «desde el cuarto mes».
+
+## IV.8 — `m04-l08`
+
+- **Tally** (23 rows): Convenio clasificación 6 (art. 8.1 ×5, art. 11); ámbito 2 (the exterior exclusion); TREBEP 61.7
+  ×2, 11.3, 7; Convenio arts. 27.2, 31.3, 72.2, 70 and DA 11.ª one each; 7 owned elsewhere (complementos and
+  indemnizaciones → m05-l04).
+- **Structure:** régimen jurídico (arts. 7, 11 TREBEP; ET), selection (arts. 11.3, 55.2, 61.7 TREBEP; Convenio arts. 27,
+  31), derechos y deberes (arts. 14–15, 51–52 TREBEP; ET), jornada (Convenio arts. 64, 72 against the Resolución de
+  14-04-2026: both stated, no rule), incompatibilidades and régimen disciplinario (arts. 93–96 TREBEP; → m04-l06),
+  Convenio: ámbito (arts. 1–2 in full), vigencia (art. 3), sistema de clasificación (arts. 7–11, grupos M3–E0 with
+  their titulaciones).
+- **Glossary (3):** grupo profesional, familia profesional, despido disciplinario.
+- **Listed:** jornada 37,5 h (Convenio) against 35 h (Resolución de 14-04-2026, apartado 3.1); Convenio art. 33.1 (six
+  months in twelve, under RD 2720/1998, not in `sources/`) against art. 15.2 ET as now worded; whether the DT 3.ª
+  encuadramiento has become effective; whether the Convenio has been denounced (art. 3). For the exams ledger:
+  conv2025_A sup. II 15 is an INAEM case, and art. 8.4 / anexo IV exclude INAEM from the art. 8 classification;
+  conv2025_X sup. I 20 prints identical text in options b) and d) (key d); conv2020_X P1 35, options a)–c) all in anexo II.
+
+## IV.9 — `m04-l09`
+
+- **Tally:** 7 distinct (art. 44.1 ×2; 42.1.a); 46.1; 194.1; 215.2.a); 264.1.d)).
+- **Structure:** campo de aplicación (arts. 7, 136 LGSS; funcionarios of DA 3.ª → m04-l07); acción protectora (art. 42.1
+  in full; arts. 44, 46); incapacidad temporal (arts. 169–174, the observation periods, donación de órganos);
+  nacimiento y cuidado (arts. 177–179), riesgo durante el embarazo y la lactancia (arts. 186–189), cuidado de menores
+  con cáncer (arts. 190–192, art. 190.5 «desde 23-10-2026»), incapacidad permanente (arts. 194, 196), jubilación
+  (art. 205 and DT 7.ª; parcial, art. 215.2), muerte y supervivencia (art. 216, with 216.3), desempleo (arts. 264, 268,
+  270), prestaciones familiares (art. 237.1).
+- **Worked date:** baja por enfermedad común lunes 01-03-2027: subsidio from jueves 04-03, paid by the empresario up to
+  lunes 15-03 (art. 173.1); the lesson says the article does not say whether the baja day is day 1 or whether days are
+  naturales.
+- **Cut:** art. 155.1, corresponsabilidad en el cuidado del lactante (arts. 183–184), art. 195.1, the desempleo duration
+  scale (art. 269.1), the pointer to the Convenio complement in m04-l08. None asked in 2022–2025. art. 363.1.d) (the
+  scope table gave it to IV.9) is a non-contributory pension outside the Régimen General (art. 155.1); it is not cited.
+- **Glossary (2):** incapacidad temporal (Régimen General sense), Régimen General de la Seguridad Social.
+- **Listed:** STC 140/2024 on art. 177 (unconstitutional without nullity), not in `sources/`; the IT percentages are not
+  in the LGSS (art. 171 leaves them to implementing rules); arts. 237.1, 165.3 and 187.2 still say «maternidad /
+  paternidad».
+
+## course.yaml
+
+- Lesson summaries m04-l01…m04-l09, three sentences each, from the writers' notes as fixed after review. Each tema's
+  reviewer checked its three sentences (pass 1: 8 FAIL in all, fixed with the reviewer's wording), and the second pass
+  checked the changed ones.
+- Module summary for m04, two sentences, in the m01–m03 shape; it names topics only.
+
+## Checks and suites (bloque IV)
+
+Run on the final tree (lessons, glossary, course.yaml, goldens, normativa.yaml and saved sources of this round):
+
+- **Pipeline, course as draft:** loads and validates. `pytest -k "glossary or registry or content or pipeline"`: 68
+  passed, including the never-coins checks for glossary and summaries (it first failed on «órgano de selección», plural
+  only; see Glossary). `figure steps per course`: `age-administrativo-c1: no figures`, `crypto-futures: 34 figures`,
+  `fixture-oposiciones: no figures`.
+- **Backend (`uv run pytest`):** 1,374 passed, 20 skipped, 4 warnings.
+- **Frontend (`npx vitest run`):** 562 passed, 1 failed, 49 skipped on the first full run; `tsc -b` clean. The failure
+  was the list-shape guard: nine Normativa lines ended in a bare article number («art. 30.»), which renders as an
+  ordered-list marker. Each now carries the article's heading or scope in parentheses, as m01-l06 does («art. 30
+  (cómputo de plazos).»). After the fix `src/lib/refs`, `src/lib/glossary` and `src/lib/pdf`: 302 passed, 49 skipped.
+- **Goldens:** `glossary-links.es.txt` (225 web marks) and `lesson-refs.es.txt` (57 references, 0 dangling) regenerated
+  and read line by line (see Glossary). No diff under `content/crypto-futures/` or `dist/`.
+- **Android bundle:** re-exported, fingerprint unchanged `9c95cf4a6bf2…` (98 files); `--verify-only` OK, leaked tokens OK.
+- `README.md` (course status line) now says the theory of bloques I–IV is written.
+
+## Open items (after bloque IV)
+
+- **After the 29-11-2026 elections:** the «hoy» re-check round also covers m04-l01, m04-l03 (Ministerio para la
+  Transformación Digital y de la Función Pública, art. 22.2 RD 829/2023) and m04-l07 (MUFACE's adscription through the
+  Secretaría de Estado de Función Pública, art. 22.3.c) RD 829/2023).
+- **Exams ledger (R3), from this bloque:** conv2025_A sup. I 16 (art. 114.12 RDL 6/2023 supports the official key; the
+  «Clave oficial discutida» note can go); conv2022_X P1 35 (art. 7 TREBEP now adds «y parental», RDL 9/2025: «norma
+  modificada» check); conv2025_X sup. I reserva 3 (key d), see the INE fix); conv2024_A sup. II reserva 1 (key holds under
+  art. 67 RD 364/1995); conv2025_A sup. II 15 (INAEM is outside the art. 8 classification of the Convenio único);
+  conv2025_X sup. I 20 (options b) and d) identical); conv2020_X sup. II 19 (Oficina de Conflictos de Intereses, no
+  source); conv2022 P1 32 (MUFACE «created» in 1975, no source).
+- **Which rule applies:** the differences listed above stay open until a text settles them; questions authored on them
+  must rest on the rule the stem names, or use the point both texts share.
+- **DF 4.ª.1 TREBEP and RDL 6/2023:** no source says whether RDL 6/2023 libro segundo makes arts. 16–20 and 78–84 TREBEP
+  effective in the AGE. If one appears, m04-l03, m04-l05 and the «Qué norma se aplica» section change.
+- **Not saved, cited by no sentence:** the Resolución de 28-02-2019 (jornada; in force at the 2022–2025 exams),
+  RD 466/2026 (MUFACE renaming; verified on boe.es), Ley 20/2021 (art. 10 TREBEP wording), RD 2720/1998 (Convenio
+  art. 33.1), RD 1777/1994 (incompatibilidades procedure), STC 140/2024 (art. 177 LGSS). Save one before a question
+  rests on it.
+- **Cut for length, candidates if a later round has room:** DT 3.ª.2 TREBEP in full (m04-l03; m04-l06 quotes a
+  fragment), MUFACE incapacidad permanente (m04-l07), the desempleo duration scale and corresponsabilidad en el cuidado
+  del lactante (m04-l09), concurso específico and remoción (m04-l05).
+- **Waiting glossary terms:** the bloque I–III lists (minus «libre designación», which entered) plus «personal
+  directivo» and «incapacidad permanente».
+
+## Where to resume (after bloque IV)
+
+Bloque IV is closed. The next session starts R2 bloque V (temas V.1–V.6, lessons `m05-l01`…`m05-l06`) with the same
+spec, the standing conventions and the outside-sources rule. Two rules from this bloque carry over: quote the TREBEP
+disposición derogatoria única with its opening paragraph, and cut whole facts only, never a clause of a kept sentence.
+m04-l05 points to m05-l04 for the derechos retributivos.
