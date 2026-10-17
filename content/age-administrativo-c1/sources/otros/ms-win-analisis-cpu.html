@@ -1,0 +1,2331 @@
+ <!DOCTYPE html>
+		<html
+			class="layout layout-holy-grail   show-table-of-contents conceptual show-breadcrumb default-focus"
+			lang="es-es"
+			dir="ltr"
+			data-authenticated="false"
+			data-auth-status-determined="false"
+			data-target="docs"
+			x-ms-format-detection="none"
+		>
+			
+		<head>
+			<title>Análisis de CPU | Microsoft Learn</title>
+			<meta charset="utf-8" />
+			<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+			<meta name="color-scheme" content="light dark" />
+
+			<meta name="description" content="Análisis de CPU" />
+			<link rel="canonical" href="https://learn.microsoft.com/es-es/windows-hardware/test/wpt/cpu-analysis" /> 
+
+			<!-- Non-customizable open graph and sharing-related metadata -->
+			<meta name="twitter:card" content="summary_large_image" />
+			<meta name="twitter:site" content="@MicrosoftLearn" />
+			<meta property="og:type" content="website" />
+			<meta property="og:image:alt" content="Microsoft Learn" />
+			<meta property="og:image" content="https://learn.microsoft.com/en-us/media/open-graph-image.png" />
+			<!-- Page specific open graph and sharing-related metadata -->
+			<meta property="og:title" content="Análisis de CPU" />
+			<meta property="og:url" content="https://learn.microsoft.com/es-es/windows-hardware/test/wpt/cpu-analysis" />
+			<meta property="og:description" content="Análisis de CPU" />
+			<meta name="platform_id" content="7d09ca79-f2b9-ce16-e41c-51884eac4d4b" /> <meta name="scope" content="OEM" />
+			<meta name="locale" content="es-es" />
+			 
+			<meta name="uhfHeaderId" content="MSDocsHeader-WinHW" />
+
+			<meta name="page_type" content="conceptual" />
+
+			<!--page specific meta tags-->
+			
+
+			<!-- custom meta tags -->
+			
+		<meta name="schema" content="Conceptual" />
+	
+		<meta name="author" content="windows-driver-content" />
+	
+		<meta name="breadcrumb_path" content="/windows-hardware/test/breadcrumbs/toc.json" />
+	
+		<meta name="depot_name" content="MSDN.test-oem" />
+	
+		<meta name="document_id" content="44f54702-1d4f-121c-4229-743142c5d150" />
+	
+		<meta name="document_version_independent_id" content="fb4947ad-a248-119e-91c1-7c271c603491" />
+	
+		<meta name="feedback_product_url" content="" />
+	
+		<meta name="feedback_system" content="None" />
+	
+		<meta name="git_commit_id" content="4e6349e494eaa072433c6b9c9113a20638a32d06" />
+	
+		<meta name="gitcommit" content="https://github.com/MicrosoftDocs/commercialization-docs-pr/blob/4e6349e494eaa072433c6b9c9113a20638a32d06/test/wpt/cpu-analysis.md" />
+	
+		<meta name="ms.assetid" content="2926f382-2191-4bdd-8cd1-e01493e6daa1" />
+	
+		<meta name="ms.author" content="windowsmanufacturing" />
+	
+		<meta name="ms.custom" content="sfi-image-nochange" />
+	
+		<meta name="ms.date" content="2017-05-05T00:00:00Z" />
+	
+		<meta name="ms.mktglfcycl" content="operate" />
+	
+		<meta name="ms.service" content="windows-hardware-driver-quality" />
+	
+		<meta name="ms.sitesec" content="msdn" />
+	
+		<meta name="ms.subservice" content="windows-oem" />
+	
+		<meta name="ms.topic" content="article" />
+	
+		<meta name="MSHAttr" content="PreferredSiteName:MSDN" />
+	
+		<meta name="MSHAttr" content="PreferredLib:/library/windows/hardware" />
+	
+		<meta name="original_content_git_url" content="https://github.com/MicrosoftDocs/commercialization-docs-pr/blob/live/test/wpt/cpu-analysis.md" />
+	
+		<meta name="recommendations" content="true" />
+	
+		<meta name="site_name" content="Docs" />
+	
+		<meta name="updated_at" content="2026-10-13T10:37:00Z" />
+	
+		<meta name="ms.translationtype" content="MT" />
+	
+		<meta name="ms.contentlocale" content="es-es" />
+	
+		<meta name="loc_version" content="2024-11-14T11:04:54.8780224Z" />
+	
+		<meta name="loc_source_id" content="Github-166474692#live" />
+	
+		<meta name="loc_file_id" content="Github-166474692.live.MSDN.test-oem.wpt/cpu-analysis.md" />
+	
+		<meta name="toc_rel" content="../toc.json" />
+	
+		<meta name="feedback_help_link_type" content="" />
+	
+		<meta name="feedback_help_link_url" content="" />
+	
+		<meta name="word_count" content="12380" />
+	
+		<meta name="asset_id" content="wpt/cpu-analysis" />
+	
+		<meta name="item_type" content="Content" />
+	
+		<meta name="previous_tlsh_hash" content="B55512738603971C6FE10FC4A96FB31218B491C1FF94FEF41615220301BD7CB95FD4F132EB2986C89B5359E302D9B246D657EBDCA480B209C6B6906F8625268EB58C5BEEE7" />
+	
+		<meta name="github_feedback_content_git_url" content="https://github.com/MicrosoftDocs/commercialization-docs-pr/blob/live/test/wpt/cpu-analysis.md" />
+	
+		<meta name="markdown_url" content="https://learn.microsoft.com/es-es/windows-hardware/test/wpt/cpu-analysis?accept=text/markdown" />
+	 
+		<meta name="cmProducts" content="https://authoring-docs-microsoft.poolparty.biz/devrel/bcbcbad5-4208-4783-8035-8481272c98b8" data-source="generated" />
+	
+		<meta name="cmProducts" content="https://authoring-docs-microsoft.poolparty.biz/devrel/540ac133-a371-4dbb-8f94-28d6cc77a70b" data-source="generated" />
+	
+		<meta name="cmProducts" content="https://authoring-docs-microsoft.poolparty.biz/devrel/b84e6a16-9e96-4c0e-be0e-26481435658f" data-source="generated" />
+	
+		<meta name="spProducts" content="https://authoring-docs-microsoft.poolparty.biz/devrel/43b2e5aa-8a6d-4de2-a252-692232e5edc8" data-source="generated" />
+	
+		<meta name="spProducts" content="https://authoring-docs-microsoft.poolparty.biz/devrel/60bfc045-f127-4841-9d00-ea35495a5800" data-source="generated" />
+	
+		<meta name="spProducts" content="https://authoring-docs-microsoft.poolparty.biz/devrel/765a7ad4-0980-45f4-a5fe-0d88d715b5f3" data-source="generated" />
+	
+
+			<!-- Apply persisted/system theme before first paint to prevent wrong-theme flash when scripts are deferred. -->
+			<script id="theme-preference">
+				(function () {
+			try {
+				var stored = localStorage.getItem('theme');
+				var theme = /^(light|dark|high-contrast)$/.test(stored)
+					? stored
+					: matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+				document.documentElement.classList.add('theme-' + theme);
+			} catch (e) {}
+		})();;
+			</script>
+
+			<script id="atlas-layout-preferences">
+				(function () {
+			try {
+				var state = JSON.parse(localStorage.getItem('atlas-layout-preferences') || '{}');
+				var view = state["docs-layout-persistence"] || {};
+				var excludesKey = "";
+				var blocked = {};
+				if (excludesKey) {
+					var exclusions = JSON.parse(localStorage.getItem('atlas-layout-exclusions') || '{}');
+					if (Object.prototype.hasOwnProperty.call(exclusions, excludesKey)) {
+						var scoped = exclusions[excludesKey];
+						if (scoped) {
+							if (typeof scoped === 'object') blocked = scoped;
+						}
+					}
+				}
+				var html = document.documentElement;
+				for (var c in view) {
+					if (Object.prototype.hasOwnProperty.call(blocked, c)) continue;
+					if (view[c]) html.classList.add(c);
+					else html.classList.remove(c);
+				}
+			} catch (e) {}
+		})();;
+			</script>
+
+			<!-- assets and js globals -->
+			
+			<link rel="stylesheet" href="/static/assets/0.4.03574.8308-9505b1c8/styles/site.css" />
+			
+			<script src="https://wcpstatic.microsoft.com/mscc/lib/v2/wcp-consent.js"></script>
+			<!-- Keep this URL in sync with oneDSScriptSelector in instrumentation/one-ds.ts. -->
+			<script async src="https://js.monitor.azure.com/scripts/c/ms.jsll-4.min.js"></script>
+			
+
+			<!-- msdocs global object -->
+			<script id="msdocs-script">
+		var msDocs = {
+  "environment": {
+    "accessLevel": "online",
+    "azurePortalHostname": "portal.azure.com",
+    "reviewFeatures": false,
+    "supportLevel": "production",
+    "systemContent": true,
+    "siteName": "learn",
+    "legacyHosting": false
+  },
+  "data": {
+    "contentLocale": "es-es",
+    "contentDir": "ltr",
+    "userLocale": "es-es",
+    "userDir": "ltr",
+    "pageTemplate": "Conceptual",
+    "layoutStateStorageKey": "docs-layout-persistence",
+    "brand": "",
+    "context": {},
+    "standardFeedback": false,
+    "showFeedbackReport": false,
+    "feedbackHelpLinkType": "",
+    "feedbackHelpLinkUrl": "",
+    "feedbackSystem": "None",
+    "feedbackGitHubRepo": "",
+    "feedbackProductUrl": "",
+    "extendBreadcrumb": false,
+    "isEditDisplayable": false,
+    "isPrivateUnauthorized": false,
+    "hideViewSource": false,
+    "isPermissioned": false,
+    "hasRecommendations": true
+  },
+  "functions": {}
+};;
+	</script>
+
+			<!-- base scripts, msdocs global should be before this -->
+			<script
+				src="/static/assets/0.4.03574.8308-9505b1c8/scripts/es-es/index-docs.js"
+				async
+			></script>
+			
+
+			<!-- json-ld -->
+			
+		<script >bazadebezolkohpepadr="913455205"</script><script type="text/javascript" src="https://learn.microsoft.com/akam/13/36723bb3"  defer></script></head>
+	
+			<body
+				id="body"
+				data-bi-name="body"
+				class="layout-body "
+				lang="es-es"
+				dir="ltr"
+			>
+				<header class="layout-body-header background-color-body-medium">
+		<div class="header-holder has-default-focus">
+			
+		<a
+			href="#main"
+			
+			style="z-index: 1070"
+			class="outline-color-text visually-hidden-until-focused position-fixed inner-focus focus-visible top-0 left-0 right-0 padding-xs text-align-center background-color-body"
+			
+		>
+			Ir al contenido principal
+		</a>
+	
+		<a
+			href="#"
+			data-skip-to-ask-learn
+			style="z-index: 1070"
+			class="outline-color-text visually-hidden-until-focused position-fixed inner-focus focus-visible top-0 left-0 right-0 padding-xs text-align-center background-color-body"
+			hidden
+		>
+			Omisión de la experiencia de chat de Ask Learn
+		</a>
+	
+
+			<div hidden id="cookie-consent-holder" data-test-id="cookie-consent-container"></div>
+			<!-- Unsupported browser warning -->
+			<div
+				id="unsupported-browser"
+				style="background-color: white; color: black; padding: 16px; border-bottom: 1px solid grey;"
+				hidden
+			>
+				<div style="max-width: 800px; margin: 0 auto;">
+					<p style="font-size: 24px">Este explorador ya no se admite.</p>
+					<p style="font-size: 16px; margin-top: 16px;">
+						Actualice a Microsoft Edge para aprovechar las características y actualizaciones de seguridad más recientes, y disponer de soporte técnico.
+					</p>
+					<div style="margin-top: 12px;">
+						<a
+							href="https://go.microsoft.com/fwlink/p/?LinkID=2092881 "
+							style="background-color: #0078d4; border: 1px solid #0078d4; color: white; padding: 6px 12px; border-radius: 2px; display: inline-block;"
+						>
+							Descargar Microsoft Edge
+						</a>
+						<a
+							href="https://learn.microsoft.com/en-us/lifecycle/faq/internet-explorer-microsoft-edge"
+							style="background-color: white; padding: 6px 12px; border: 1px solid #505050; color: #171717; border-radius: 2px; display: inline-block;"
+						>
+							Más información sobre Internet Explorer y Microsoft Edge
+						</a>
+					</div>
+				</div>
+			</div>
+			<!-- site header -->
+			<div
+				id="ms--site-header"
+				data-test-id="site-header-wrapper"
+				itemscope="itemscope"
+				itemtype="http://schema.org/Organization"
+			>
+				<div
+					id="ms--mobile-nav"
+					class="site-header display-none-tablet padding-inline-none gap-none"
+					data-bi-name="mobile-header"
+					data-test-id="mobile-header"
+				></div>
+				<div
+					id="ms--primary-nav"
+					class="site-header display-none display-flex-tablet"
+					data-bi-name="L1-header"
+					data-test-id="primary-header"
+				></div>
+				<div
+					id="ms--secondary-nav"
+					class="site-header display-none display-flex-tablet"
+					data-bi-name="L2-header"
+					data-test-id="secondary-header"
+					
+				></div>
+			</div>
+			
+		<!-- banner -->
+		<div data-banner>
+			<div id="disclaimer-holder"></div>
+			
+		</div>
+		<!-- banner end -->
+	
+		</div>
+	</header>
+				 <section
+					id="layout-body-menu"
+					class="layout-body-menu border-right display-flex background-color-body-medium"
+					data-bi-name="menu"
+			  >
+					
+		<div
+			id="left-container"
+			class="left-container display-none padding-none display-block-tablet width-full display-none-until-layout-restored"
+			data-toc-container="true"
+		>
+			<div
+				id="ms--toc-content"
+				class="padding-left-sm padding-right-none padding-bottom-sm height-full"
+			>
+				<nav
+					id="affixed-left-container"
+					class="margin-top-xxs-tablet position-sticky display-flex flex-direction-column width-full"
+					aria-label="Principal"
+					data-bi-name="left-toc"
+					role="navigation"
+				>
+					<div
+						id="ms--collapsible-toc-header"
+						class="display-flex flex-direction-row-reverse justify-content-center align-items-center margin-bottom-xxs margin-right-xxs"
+					>
+						<button
+							type="button"
+							class="button button-clear button-sm inner-focus"
+							data-collapsible-toc-toggle
+							aria-expanded="true"
+							hidden
+							aria-controls="ms--toc-content"
+							aria-label="Tabla de contenido"
+						>
+							<span class="icon icon-mirrored-rtl" aria-hidden="true">
+								<span
+									class="docon docon-panel-left-contract display-none-layout-menu-collapsed"
+								></span>
+								<span
+									class="docon docon-panel-left-expand display-none display-inline-layout-menu-collapsed"
+								></span>
+							</span>
+						</button>
+						<div
+							id="ms--collapsible-toc-moniker-slot"
+							class="flex-grow-1 display-none-layout-menu-collapsed"
+						></div>
+					</div>
+				</nav>
+			</div>
+		</div>
+	
+			  </section>
+
+				<main
+					id="main"
+					role="main"
+					class="layout-body-main "
+					data-bi-name="content"
+					lang="es-es"
+					dir="ltr"
+				>
+					
+			<div
+		id="ms--content-header"
+		class="content-header default-focus border-bottom-none"
+		data-bi-name="content-header"
+	>
+		<div class="content-header-controls margin-xxs margin-inline-sm-tablet">
+			<button
+				type="button"
+				class="contents-button button button-sm margin-right-xxs"
+				data-bi-name="contents-expand"
+				aria-haspopup="true"
+				data-contents-button
+			>
+				<span class="icon" aria-hidden="true"><span class="docon docon-menu"></span></span>
+				<span class="contents-expand-title"> Tabla de contenido </span>
+			</button>
+			<button
+				type="button"
+				class="ap-collapse-behavior ap-expanded button button-sm"
+				data-bi-name="ap-collapse"
+				aria-controls="action-panel"
+			>
+				<span class="icon" aria-hidden="true"><span class="docon docon-exit-mode"></span></span>
+				<span>Salir del modo de editor</span>
+			</button>
+		</div>
+	</div> 
+		<div
+			id="action-panel"
+			role="region"
+			aria-label="Panel de acciones"
+			class="action-panel"
+			tabindex="-1"
+		></div>
+	
+			<div
+				data-main-column
+				class="reading-width margin-inline-auto layout-padding padding-top-none padding-top-sm-tablet padding-bottom-sm"
+			>
+				<div>
+					
+		<div id="article-header" class="background-color-body margin-bottom-xs display-none-print">
+			<div class="display-flex align-items-center justify-content-space-between">
+				
+		<details
+			id="article-header-breadcrumbs-overflow-popover"
+			class="popover popover-left"
+			data-for="article-header-breadcrumbs"
+		>
+			<summary
+				class="button button-clear button-primary button-sm inner-focus"
+				aria-label="Todas las rutas de navegación"
+			>
+				<span class="icon" aria-hidden="true">
+					<span class="docon docon-more"></span>
+				</span>
+			</summary>
+			<div id="article-header-breadcrumbs-overflow" class="popover-content"></div>
+		</details>
+
+		<bread-crumbs
+			id="article-header-breadcrumbs"
+			role="group"
+			aria-label="Rutas de navegación"
+			data-test-id="article-header-breadcrumbs"
+			class="overflow-hidden flex-grow-1 margin-right-sm margin-right-md-tablet margin-right-lg-desktop margin-left-negative-xxs padding-left-xxs"
+		></bread-crumbs>
+	 
+		<div
+			id="article-header-page-actions"
+			class="opacity-none margin-left-auto display-flex flex-wrap-no-wrap align-items-stretch"
+		>
+			
+		<button
+			class="button button-sm border-none inner-focus display-none-tablet flex-shrink-0 "
+			data-bi-name="ask-learn-assistant-entry"
+			data-test-id="ask-learn-assistant-modal-entry-mobile"
+			data-ask-learn-modal-entry
+			
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			aria-label="Preguntar a Learn"
+			hidden
+		>
+			<span class="icon" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+		</button>
+		<button
+			class="button button-sm display-none display-inline-flex-tablet display-none-desktop flex-shrink-0 margin-right-xxs border-color-ask-learn "
+			data-bi-name="ask-learn-assistant-entry"
+			
+			data-test-id="ask-learn-assistant-modal-entry-tablet"
+			data-ask-learn-modal-entry
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			hidden
+		>
+			<span class="icon font-size-lg" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+			<span>Preguntar a Learn</span>
+		</button>
+		<button
+			class="button button-sm display-none flex-shrink-0 display-inline-flex-desktop margin-right-xxs border-color-ask-learn "
+			data-bi-name="ask-learn-assistant-entry"
+			
+			data-test-id="ask-learn-assistant-flyout-entry"
+			data-ask-learn-flyout-entry
+			data-flyout-button="toggle"
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			aria-controls="ask-learn-flyout"
+			hidden
+		>
+			<span class="icon font-size-lg" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+			<span>Preguntar a Learn</span>
+		</button>
+	 
+
+			<details class="popover popover-right" id="article-header-page-actions-overflow">
+				<summary
+					class="justify-content-flex-start button button-clear button-sm button-primary inner-focus"
+					aria-label="Más acciones"
+					aria-expanded="false"
+					title="Más acciones"
+				>
+					<span class="icon" aria-hidden="true">
+						<span class="docon docon-more-vertical"></span>
+					</span>
+				</summary>
+				<div class="popover-content">
+					
+		<button
+			type="button"
+			id="ms--focus-mode-button"
+			data-focus-mode
+			data-bi-name="focus-mode-entry"
+			data-page-action-item="overflow-all"
+			data-popover-close
+			class="button button-clear button-sm button-block justify-content-flex-start text-align-left inner-focus display-none display-inline-flex-tablet"
+		>
+			<span class="icon" aria-hidden="true">
+				<span class="docon docon-glasses"></span>
+			</span>
+			<span>Modo de lectura</span>
+		</button>
+	 
+		<button
+			data-page-action-item="overflow-mobile"
+			type="button"
+			class="display-block-layout-menu-collapsed button-block button-sm inner-focus button button-clear display-none-tablet justify-content-flex-start text-align-left"
+			data-bi-name="contents-expand"
+			data-contents-button
+			data-popover-close
+		>
+			<span class="icon" aria-hidden="true"
+				><span class="docon docon-editor-list-bullet"></span
+			></span>
+			<span class="contents-expand-title">Tabla de contenido</span>
+		</button>
+	 
+		<a
+			id="lang-link-overflow"
+			class="button-sm inner-focus button button-clear button-block justify-content-flex-start text-align-left"
+			data-bi-name="language-toggle"
+			data-page-action-item="overflow-all"
+			data-check-hidden="true"
+			data-read-in-link
+			href="#"
+			hidden
+		>
+			<span class="icon" aria-hidden="true" data-read-in-link-icon>
+				<span class="docon docon-locale-globe"></span>
+			</span>
+			<span data-read-in-link-text>Leer en inglés</span>
+		</a>
+	
+					
+		<button
+			type="button"
+			class="collection button button-clear button-sm button-block justify-content-flex-start text-align-left inner-focus"
+			data-list-type="collection"
+			data-bi-name="collection"
+			data-page-action-item="overflow-all"
+			data-check-hidden="true"
+			data-popover-close
+		>
+			<span class="icon" aria-hidden="true">
+				<span class="docon docon-circle-addition"></span>
+			</span>
+			<span class="collection-status">Agregar</span>
+		</button>
+	 
+		<button
+			type="button"
+			class="collection button button-block button-clear button-sm justify-content-flex-start text-align-left inner-focus"
+			data-list-type="plan"
+			data-bi-name="plan"
+			data-page-action-item="overflow-all"
+			data-check-hidden="true"
+			data-popover-close
+			hidden
+		>
+			<span class="icon" aria-hidden="true">
+				<span class="docon docon-circle-addition"></span>
+			</span>
+			<span class="plan-status">Añadir a Planes</span>
+		</button>
+	 
+					  
+		<hr class="margin-block-xxs" />
+		
+				<button
+					class="button button-block button-clear button-sm justify-content-flex-start text-align-left inner-focus"
+					type="button"
+					data-bi-name="copy-markdown"
+					data-page-action-item="overflow-all"
+					data-copy-markdown
+					data-copy-state="idle"
+					data-check-hidden="true"
+				>
+					<span class="icon color-primary" aria-hidden="true">
+						<span data-show-when="idle" class="docon docon-code-lang"></span>
+						<span data-show-when="loading" class="loader" hidden></span>
+						<span data-show-when="success" class="docon docon-check-mark" hidden></span>
+					</span>
+					<span>Copiar Markdown</span>
+				</button>
+		   
+				<button
+					class="button button-block button-clear button-sm justify-content-flex-start text-align-left inner-focus"
+					type="button"
+					data-bi-name="print"
+					data-page-action-item="overflow-all"
+					data-popover-close
+					data-print-page
+					data-check-hidden="true"
+				>
+					<span class="icon color-primary" aria-hidden="true">
+						<span class="docon docon-print"></span>
+					</span>
+					<span>Imprimir</span>
+				</button>
+		  
+	
+				</div>
+			</details>
+		</div>
+	
+			</div>
+		</div>
+	  
+		<!-- privateUnauthorizedTemplate is hidden by default -->
+		<div unauthorized-private-section data-bi-name="permission-content-unauthorized-private" hidden>
+			<hr class="hr margin-top-xs margin-bottom-sm" />
+			<div class="notification notification-info">
+				<div class="notification-content">
+					<p class="margin-top-none notification-title">
+						<span class="icon" aria-hidden="true"
+							><span class="docon docon-exclamation-circle-solid"></span
+						></span>
+						<span>Nota:</span>
+					</p>
+					<p class="margin-top-none authentication-determined not-authenticated">
+						El acceso a esta página requiere autorización. Puede intentar <a class="docs-sign-in" href="#" data-bi-name="permission-content-sign-in">iniciar sesión</a> o <a  class="docs-change-directory" data-bi-name="permisson-content-change-directory">cambiar directorios</a>.
+					</p>
+					<p class="margin-top-none authentication-determined authenticated">
+						El acceso a esta página requiere autorización. Puede intentar <a class="docs-change-directory" data-bi-name="permisson-content-change-directory">cambiar los directorios</a>.
+					</p>
+				</div>
+			</div>
+		</div>
+	
+					<div class="content"><h1 id="cpu-analysis">Análisis de CPU</h1></div>
+					
+		<div
+			id="article-metadata"
+			data-bi-name="article-metadata"
+			data-test-id="article-metadata"
+			class="page-metadata-container display-flex gap-xxs justify-content-space-between align-items-center flex-wrap-wrap"
+		>
+			 
+				<div
+					id="user-feedback"
+					class="margin-block-xxs display-none display-none-print"
+					hidden
+					data-hide-on-archived
+				>
+					
+		<button
+			id="user-feedback-button"
+			data-test-id="conceptual-feedback-button"
+			class="button button-sm button-clear button-primary display-none"
+			type="button"
+			data-bi-name="user-feedback-button"
+			data-user-feedback-button
+			hidden
+		>
+			<span class="icon" aria-hidden="true">
+				<span class="docon docon-like"></span>
+			</span>
+			<span>Comentarios</span>
+		</button>
+	
+				</div>
+		  
+		</div>
+	  
+		<nav
+			id="center-doc-outline"
+			class="doc-outline display-none-desktop display-none-print margin-bottom-sm"
+			data-bi-name="intopic toc"
+			aria-label="En este artículo"
+		>
+			<h2 id="ms--in-this-article" class="title is-6 margin-block-xs">
+				En este artículo
+			</h2>
+		</nav>
+	 <div class="content"><p>En esta guía se proporcionan técnicas detalladas que puede usar para investigar los problemas relacionados con las unidades de procesamiento central (CPU) que afectan a las métricas de evaluación.</p>
+<p>Las secciones de métricas o problemas individuales de las guías de análisis específicas de la evaluación identifican problemas comunes para la investigación. En esta guía se proporcionan técnicas y herramientas que puede usar para investigar esos problemas.</p>
+<p>Las técnicas de esta guía usan windows Analizador de rendimiento (WPA) del Kit de herramientas de rendimiento de Windows (WPT). WPT forma parte del Windows Assessment and Deployment Kit (Windows ADK) y se puede descargar desde el <a href="https://insider.windows.com/" data-linktype="external">Programa</a> Windows Insider. Para obtener más información, consulte <a href="windows-performance-toolkit-technical-reference" data-linktype="relative-path">Referencia</a> técnica del Kit de herramientas de rendimiento de Windows.</p>
+<p>Esta guía se organiza en las tres secciones siguientes:</p>
+<table>
+<colgroup>
+<col width="50%">
+<col width="50%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><p><a href="#cpu-guide-background" data-raw-source="[Background](#cpu-guide-background)" data-linktype="self-bookmark">Fondo</a></p></td>
+<td><p>En esta sección se describe cómo se administran los recursos de CPU en Windows 10.</p></td>
+</tr>
+<tr class="even">
+<td><p><a href="#cpu-guide-adktools" data-raw-source="[Windows ADK Tools](#cpu-guide-adktools)" data-linktype="self-bookmark">Herramientas de Windows ADK</a></p></td>
+<td><p>En esta sección se explica cómo ver e interpretar la información de CPU en el kit de herramientas de Windows ADK.</p></td>
+</tr>
+<tr class="odd">
+<td><p><a href="#cpu-guide-techniques" data-raw-source="[Techniques](#cpu-guide-techniques)" data-linktype="self-bookmark">Técnicas</a></p></td>
+<td><p>Esta sección contiene una colección de técnicas que puede usar para investigar y resolver problemas comunes relacionados con el rendimiento de la CPU.</p></td>
+</tr>
+</tbody>
+</table>
+<h2 id="background"><a href="" id="cpu-guide-background"></a>Fondo</h2>
+<p>Esta sección contiene descripciones sencillas y una explicación básica sobre el rendimiento de la CPU. Para obtener un estudio más completo sobre este tema, se recomienda el libro Windows Internals, Quinta edición.</p>
+<p>Los equipos modernos pueden contener varias CPU instaladas en sockets independientes. Cada CPU puede hospedar varios núcleos de procesador físicos, cada uno capaz de procesar uno o dos flujos de instrucción independientes simultáneamente. Estos procesadores de flujos de instrucción individuales se administran mediante el sistema operativo Windows como procesadores lógicos.</p>
+<p>En esta guía, tanto el procesador como la CPU hacen referencia a un procesador lógico, es decir, un dispositivo de hardware que el sistema operativo puede usar para ejecutar instrucciones de programa.</p>
+<p>Windows 10 administra activamente el hardware del procesador de dos maneras principales: <em>la administración de</em> energía, equilibrar el consumo de energía y el rendimiento; y <em>el uso</em>, para equilibrar los requisitos de procesamiento de programas y controladores.</p>
+<h3 id="processor-power-management">Administración de energía del procesador</h3>
+<p>Los procesadores no siempre existen en un estado operativo. Cuando no haya instrucciones listas para ejecutarse, Windows colocará un procesador en un estado inactivo de destino (o C),según lo determinado por windows Power Manager. En función de los patrones de uso de CPU, el estado C de destino de un procesador se ajustará con el tiempo.</p>
+<p>Los estados inactivos son estados numerados de C0 (activo; no inactivo) a través de estados de potencia progresivamente inferiores. Estos estados incluyen C1 (detenido pero el reloj sigue habilitado), C2 (detenido y el reloj está deshabilitado), etc. La implementación de estados inactivos es específica del procesador. Sin embargo, un número de estado mayor en todos los procesadores refleja un menor consumo de energía, pero también un tiempo de espera más largo antes de que el procesador pueda volver al procesamiento de instrucciones. El tiempo invertido en estados inactivos afecta significativamente al uso de energía y a la duración de la batería.</p>
+<p>Algunos procesadores pueden funcionar en estados de rendimiento (P-) y limitación (T-), incluso cuando están procesando instrucciones activamente. Los estados P definen las frecuencias de reloj y los niveles de voltaje que admite el procesador. Los estados T no cambian directamente la frecuencia del reloj, pero pueden reducir la velocidad del reloj efectiva omitiendo la actividad de procesamiento en algunas fracciones de tics de reloj. Juntos, los estados actuales P y T determinan la frecuencia de funcionamiento efectiva del procesador. Las frecuencias más bajas se corresponden con un menor rendimiento y un menor consumo de energía.</p>
+<p>Windows Power Manager determina un estado P y T adecuado para cada procesador, en función de los patrones de uso de CPU y la directiva de energía del sistema. El tiempo dedicado a los estados de alto rendimiento frente a los estados de bajo rendimiento afecta significativamente al uso de energía y a la duración de la batería.</p>
+<h3 id="processor-usage-management">Administración del uso del procesador</h3>
+<p>Windows usa tres abstracciones principales para administrar el uso del procesador.</p>
+<ul>
+<li><p>Procesos</p>
+</li>
+<li><p>Subprocesos</p>
+</li>
+<li><p>Llamadas a procedimiento diferido (DPC) e interrumpir rutinas de servicio (ISR)</p>
+</li>
+</ul>
+<h3 id="processes-and-threads">Procesos y subprocesos</h3>
+<p>Todos los programas en modo de usuario de Windows se ejecutan en el contexto de un <em>proceso</em>. Un proceso incluye los siguientes atributos y componentes:</p>
+<ul>
+<li><p>Un espacio de direcciones virtuales</p>
+</li>
+<li><p>Clase Priority</p>
+</li>
+<li><p>Módulos de programa cargados</p>
+</li>
+<li><p>Información de entorno y configuración</p>
+</li>
+<li><p>Al menos un subproceso</p>
+</li>
+</ul>
+<p>Aunque los procesos contienen los módulos del programa, el contexto y el entorno, no están programados directamente para ejecutarse en un procesador. En su lugar, los subprocesos que pertenecen a un proceso se programan para ejecutarse en un procesador.</p>
+<p>Un subproceso mantiene la información de contexto de ejecución. Casi todos los cálculos se administran como parte de un subproceso. La actividad de subprocesos afecta fundamentalmente a las medidas y al rendimiento del sistema.</p>
+<p>Dado que el número de procesadores de un sistema está limitado, no se pueden ejecutar todos los subprocesos al mismo tiempo. Windows implementa el uso compartido de tiempo del procesador, lo que permite que un subproceso se ejecute durante un período de tiempo antes de que el procesador cambie a otro subproceso. El acto de cambiar entre subprocesos se denomina conmutador <em></em> de contexto y lo realiza un componente de Windows denominado <em>distribuidor</em>. El distribuidor toma decisiones de programación de subprocesos en función de la prioridad, el procesador ideal y la<em> afinidad, <em>el cuántico</em> y <em>el estado</em>. </em><em></em></p>
+<h3 id="priority">Priority</h3>
+<p>La prioridad es un factor clave en la forma en que el distribuidor selecciona qué subproceso se va a ejecutar. La prioridad del subproceso es un entero comprendido entre 0 y 31. Si un subproceso es ejecutable y tiene una prioridad más alta que un subproceso que se está ejecutando actualmente, el subproceso de prioridad inferior se adelanta inmediatamente y el subproceso de mayor prioridad se cambia de contexto.</p>
+<p>Cuando un subproceso se está ejecutando o está listo para ejecutarse, no se pueden ejecutar subprocesos de prioridad inferior a menos que haya suficientes procesadores para ejecutar ambos subprocesos al mismo tiempo, o a menos que el subproceso de mayor prioridad esté restringido a ejecutarse solo en un subconjunto de procesadores disponibles. Los subprocesos tienen una prioridad base que se puede elevar temporalmente a prioridades más altas en determinados momentos: por ejemplo, cuando el proceso posee la ventana de primer plano o cuando se completa una E/S.</p>
+<h3 id="ideal-processor-and-affinity">Procesador y afinidad ideales</h3>
+<p>El procesador y la afinidad ideales<em> de </em>un subproceso determinan los procesadores en los que se programa un subproceso determinado para ejecutarse. Cada subproceso tiene un procesador ideal establecido por el programa o automáticamente por Windows. Windows usa una metodología round robin para que se asigne un número aproximado de subprocesos en cada proceso a cada procesador. Cuando sea posible, Windows programa un subproceso para ejecutarse en su procesador ideal; sin embargo, el subproceso puede ejecutarse ocasionalmente en otros procesadores.</p>
+<p>La afinidad de procesador de un subproceso restringe los procesadores en los que se ejecutará un subproceso. Se trata de una restricción más fuerte que el atributo de procesador ideal del subproceso. El programa establece la afinidad mediante <strong>SetThreadAffinityMask</strong>. La afinidad puede impedir que los subprocesos se ejecuten en determinados procesadores.</p>
+<h3 id="quantum">Quantum</h3>
+<p>Los modificadores de contexto son operaciones costosas. Por lo general, Windows permite que cada subproceso se ejecute durante un período de tiempo denominado <em>quantum</em> antes de cambiar a otro subproceso. La duración cuántica está diseñada para conservar la capacidad de respuesta del sistema aparente. Maximiza el rendimiento al minimizar la sobrecarga del cambio de contexto. Las duraciones cuánticas pueden variar entre clientes y servidores. Las duraciones cuánticas suelen ser más largas en un servidor para maximizar el rendimiento a costa de la capacidad de respuesta aparente. En los equipos cliente, Windows asigna quantums más cortos en general, pero proporciona un cuanto más largo al subproceso asociado a la ventana de primer plano actual.</p>
+<h3 id="state">Valor</h3>
+<p>Cada subproceso existe en un estado de ejecución determinado en cualquier momento dado. Windows usa tres estados relevantes para el rendimiento; estos son: <em>En ejecución</em>, <em>listo</em> y <em>en espera</em>.</p>
+<p>Los subprocesos que se ejecutan actualmente se encuentran en estado <em>En ejecución</em> . Los subprocesos que se pueden ejecutar, pero que actualmente no se están ejecutando, están en estado <em>Listo</em> . Los subprocesos que no se pueden ejecutar porque están esperando un evento determinado se encuentran en estado <em>De espera</em> .</p>
+<p>Una transición de estado a estado se muestra en la figura 1 Transiciones de estado de subproceso:</p>
+<p><img src="images/dep-win8-cpu-techniques-figure-1-thread-state-transition.jpg" alt="figura 1 transición de estado de subproceso" data-linktype="relative-path"></p>
+<p><strong>Figura 1 Transiciones de estado de subproceso</strong></p>
+<p>La figura 1 Transiciones de estado de subproceso se explica de la siguiente manera:</p>
+<ol>
+<li><p>Un subproceso en estado En ejecución inicia una transición al estado Waiting mediante una llamada a una función de espera como <strong>WaitForSingleObject</strong> o <strong>Sleep(&gt; 0)</strong>.</p>
+</li>
+<li><p>Una operación de kernel o subproceso en ejecución prepara un subproceso en estado De espera (por ejemplo, <strong>SetEvent</strong> o expiración del temporizador). Si un procesador está inactivo o si el subproceso fácilmente tiene una prioridad más alta que un subproceso en ejecución actualmente, el subproceso fácilmente puede cambiar directamente al estado En ejecución. De lo contrario, se coloca en el estado Listo.</p>
+</li>
+<li><p>El distribuidor programa un subproceso en estado Listo cuando el distribuidor espera un subproceso en ejecución, produce <strong>(Sleep(0))</strong> o llega al final de su quantum.</p>
+</li>
+<li><p>Un subproceso en el estado En ejecución se cambia y se coloca en el estado Listo por el distribuidor cuando se adelanta por un subproceso de prioridad más alta, produce <strong>(Sleep(0))</strong> o cuando finaliza su quantum.</p>
+</li>
+</ol>
+<p>Un subproceso que existe en el estado Waiting no indica necesariamente un problema de rendimiento. La mayoría de los subprocesos pasan un tiempo significativo en el estado En espera, lo que permite a los procesadores entrar en estados inactivos y ahorrar energía. El estado del subproceso se convierte en un factor importante en el rendimiento solo cuando un usuario espera a que un subproceso complete una operación.</p>
+<h3 id="dpcs-and-isrs">DPCs e ISR</h3>
+<p>Además de procesar subprocesos, los procesadores responden a las notificaciones de dispositivos de hardware, como tarjetas de red o temporizadores. Cuando un dispositivo de hardware requiere atención del procesador, genera una <em>interrupción</em>. Windows responde a una interrupción de hardware suspendiendo un subproceso que se está ejecutando actualmente y ejecutando el ISR asociado a la interrupción.</p>
+<p>Durante el tiempo en que ejecuta un ISR, se puede impedir que un procesador controle cualquier otra actividad, incluidas otras interrupciones. Por este motivo, los ISR deben completarse rápidamente o el rendimiento del sistema puede degradarse. Para reducir el tiempo de ejecución, los ISR suelen programar DPC para realizar el trabajo que se debe realizar en respuesta a una interrupción. Para cada procesador lógico, Windows mantiene una cola de DPC programadas. Los DPC tienen prioridad sobre los subprocesos en cualquier nivel de prioridad. Antes de que un procesador vuelva al procesamiento de subprocesos, ejecuta todos los DPC de su cola.</p>
+<p>Durante el tiempo en que un procesador ejecuta DPCs e ISR, no se puede ejecutar ningún subproceso en ese procesador. Esta propiedad puede provocar problemas para los subprocesos que deben realizar el trabajo en un rendimiento determinado o con un tiempo preciso, como un subproceso que reproduce audio o vídeo. Si el tiempo de procesador que se usa para ejecutar DPCs e ISR impide que estos subprocesos reciban tiempo de procesamiento suficiente, es posible que el subproceso no logre su rendimiento necesario o complete sus elementos de trabajo a tiempo.</p>
+<h2 id="windows-adk-tools"><a href="" id="cpu-guide-adktools"></a>Herramientas de Windows ADK</h2>
+<p>Windows ADK escribe información de hardware y evaluaciones en <em>los archivos</em> de resultados de las evaluaciones. WPA proporciona información detallada sobre el uso de CPU en varios gráficos. En esta sección se explica cómo usar Windows ADK y WPA para recopilar, ver y analizar datos de rendimiento de CPU.</p>
+<h3 id="-windowsadk-assessment-results-files"><a href="" id="-------------windows-adk-assessment-results-files"></a> Archivos de resultados de evaluación de Windows ADK</h3>
+<p>Dado que Windows solo admite sistemas de multiprocesamiento simétricos, toda la información de esta sección se aplica a todas las CPU y núcleos instalados.</p>
+<p>La información detallada del hardware de CPU está disponible en la <code>EcoSysInfo</code> sección de los archivos de resultados de evaluación en el <code>&lt;Processor&gt;&lt;Instance id=”0”&gt;</code> nodo .</p>
+<p>Por ejemplo:</p>
+<pre><code>&lt;Processor&gt;
+  &lt;Instance id="0"&gt;
+    &lt;ProcessorName&gt;The name of the first CPU&lt;/ProcessorName&gt;
+    &lt;TSCFrequency&gt;The maximum frequency of the first CPU&lt;/TSCFrequency&gt;
+    &lt;NumProcs&gt;The total number of processors&lt;/NumProcs&gt;
+    &lt;NumCores&gt;The total number of cores&lt;/NumCores&gt;
+    &lt;NumCPUs&gt;The total number of logical processors&lt;/NumCPUs&gt;
+    ...and so on...
+</code></pre>
+<h3 id="wpa-graphs">Gráficos WPA</h3>
+<p>Después de cargar un seguimiento en WPA, puede encontrar información de hardware del procesador en las <strong>secciones Trace/System Configuration/General</strong> y <strong>Trace/System Configuration/PnP</strong> de la interfaz de usuario WPA.</p>
+<p><strong>Nota</strong> Todos los procedimientos de esta guía se producen en WPA.</p>
+<h3 id="cpu-idle-states-graph">Gráfico de estados inactivos de CPU</h3>
+<p>Si la información de estado de inactividad se recopila en un seguimiento, el <strong>gráfico Estados</strong> inactivos de Power/CPU se mostrará en la interfaz de usuario WPA. Este gráfico siempre contiene datos en el <em>estado de inactividad de</em> destino para cada procesador. El gráfico también contendrá información sobre el estado de inactividad real<em> de </em>cada procesador si el procesador admite este estado.</p>
+<p>Cada fila de la tabla siguiente describe un cambio de estado inactivo para el estado De destino o Real de un procesador. Las columnas siguientes están disponibles para cada fila del gráfico:</p>
+<table>
+<colgroup>
+<col width="50%">
+<col width="50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Columna</th>
+<th>Detalles</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>CPU</p></td>
+<td><p>Procesador afectado por el cambio de estado.</p></td>
+</tr>
+<tr class="even">
+<td><p>Hora de entrada</p></td>
+<td><p>Hora a la que el procesador entró en estado inactivo.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Hora de salida</p></td>
+<td><p>Hora a la que el procesador salió del estado inactivo.</p></td>
+</tr>
+<tr class="even">
+<td><p>Max:Duration(ms)</p></td>
+<td><p>El tiempo que se invierte en el estado de inactividad (agregación predeterminada:máximo).</p></td>
+</tr>
+<tr class="odd">
+<td><p>Min:Duration(ms)</p></td>
+<td><p>El tiempo dedicado al estado de inactividad (agregación predeterminada:mínimo).</p></td>
+</tr>
+<tr class="even">
+<td><p>Siguiente estado</p></td>
+<td><p>Estado al que el procesador ha pasado después del estado actual.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Estado previo</p></td>
+<td><p>Estado desde el que el procesador ha pasado antes del estado actual.</p></td>
+</tr>
+<tr class="even">
+<td><p>Valor</p></td>
+<td><p>Estado de inactividad actual.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Estado (numérico)</p></td>
+<td><p>Estado de inactividad actual como un número (por ejemplo, 0 para C0).</p></td>
+</tr>
+<tr class="even">
+<td><p>Sum:Duration(ms)</p></td>
+<td><p>Tiempo invertido en el estado inactivo (agregación:sum predeterminado).</p></td>
+</tr>
+<tr class="odd">
+<td><p>Tabla</p></td>
+<td><p>No utilizado</p></td>
+</tr>
+<tr class="even">
+<td><p>Tipo</p></td>
+<td><p><strong> Destino </strong>(para el estado de destino seleccionado de Power Manager para el procesador) o <strong>Real</strong> (para el estado de inactividad real del procesador).</p></td>
+</tr>
+</tbody>
+</table>
+<p>El perfil WPA predeterminado proporciona dos valores preestablecidos para este grafo: <strong>Estado por tipo, CPU</strong> y <strong>Diagrama de estado por tipo, CPU</strong>.</p>
+<h3 id="state-by-type-cpu">Estado por tipo, CPU</h3>
+<p>Los estados objetivo y real de cada CPU se grafican junto con el número de estado del <strong>eje Y</strong> en el <strong>gráfico estado por tipo, CPU</strong> . Figura 2 Estado de inactividad de CPU por tipo, cpu muestra el estado real de la CPU a medida que fluctúa entre los estados inactivos activos y de destino.</p>
+<p><img src="images/dep-win8-cpu-techniques-figure-2-cpu-idle-states-state-by-type-cpu.png" alt="figura 2 estados de inactividad de cpu por tipo cpu" data-linktype="relative-path"></p>
+<p><strong>Figura 2 Estados inactivos de CPU por tipo, CPU</strong></p>
+<h3 id="state-diagram-by-type-cpu">Diagrama de estado por tipo, CPU</h3>
+<p>En este gráfico, los estados Destino y Real de cada CPU se presentan en formato de escala de tiempo. Cada estado tiene una fila independiente en la escala de tiempo. Figura 3 Diagrama de estado de estados inactivos de CPU por tipo, LA CPU muestra los mismos datos que la figura 2 Estados inactivos de CPU por tipo, CPU, en una vista de escala de tiempo.</p>
+<p><img src="images/dep-win8-cpu-techniques-figure-3-cpu-idle-states-state-diagram-by-type-cpu.png" alt="Figura 3 diagrama de estado de estado de inactividad de cpu por tipo cpu" data-linktype="relative-path"></p>
+<p><strong>Figura 3 Diagrama de estado de estados inactivos de CPU por tipo, CPU</strong></p>
+<h3 id="cpu-frequency-graph">Gráfico de frecuencia de CPU</h3>
+<p>Si se recopilaron datos de frecuencia de CPU en un sistema que admite varios estados P o T, el <strong>gráfico frecuencia</strong> de CPU estará disponible en la interfaz de usuario WPA. Cada fila de la tabla siguiente representa el tiempo en un nivel de frecuencia determinado para un procesador. La <strong>columna Frecuencia (MHz)</strong> contiene un número limitado de frecuencias que corresponden a los estados P y T que son compatibles con el procesador. Las columnas siguientes están disponibles para cada fila del gráfico:</p>
+<table>
+<colgroup>
+<col width="50%">
+<col width="50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Columna</th>
+<th>Detalles</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>% de duración</p></td>
+<td><p>La duración se expresa como un porcentaje del tiempo total de CPU durante el período de tiempo visible actualmente.</p></td>
+</tr>
+<tr class="even">
+<td><p>Count</p></td>
+<td><p>Número de cambios de frecuencia (siempre 1 para filas individuales).</p></td>
+</tr>
+<tr class="odd">
+<td><p>CPU</p></td>
+<td><p>Cpu afectada por el cambio de frecuencia.</p></td>
+</tr>
+<tr class="even">
+<td><p>Hora de entrada</p></td>
+<td><p>Hora a la que la CPU entró en el estado P.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Hora de salida</p></td>
+<td><p>Hora a la que la CPU salió del estado P.</p></td>
+</tr>
+<tr class="even">
+<td><p>Frecuencia (MHz)</p></td>
+<td><p>Frecuencia de la CPU durante el tiempo en que se encuentra en estado P.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Max:Duration(ms)</p></td>
+<td><p>Tiempo dedicado al estado P (agregación predeterminada:máximo).</p></td>
+</tr>
+<tr class="even">
+<td><p>Min:Duration(ms)</p></td>
+<td><p>Tiempo dedicado al estado P (agregación predeterminada:mínimo).</p></td>
+</tr>
+<tr class="odd">
+<td><p>Sum:Duration(ms)</p></td>
+<td><p>Tiempo dedicado al estado P (agregación:sum predeterminado).</p></td>
+</tr>
+<tr class="even">
+<td><p>Tabla</p></td>
+<td><p>No utilizado</p></td>
+</tr>
+<tr class="odd">
+<td><p>Tipo</p></td>
+<td><p>Información adicional sobre el estado P.</p></td>
+</tr>
+</tbody>
+</table>
+<p>El perfil predeterminado define el <strong>valor preestablecido frecuencia por CPU</strong> para este gráfico. La figura 4 Frecuencia de CPU por CPU muestra una CPU a medida que realiza la transición entre tres estados P:</p>
+<p><img src="images/dep-win8-cpu-techniques-figure-4-cpu-frequency-by-cpu.png" alt="figura 4 frecuencia de cpu por cpu" data-linktype="relative-path"></p>
+<p><strong>Figura 4 Frecuencia de CPU por CPU</strong></p>
+<h3 id="cpu-usage-sampled-graph">Gráfico de uso de CPU (muestreado)</h3>
+<p>Los datos que se muestran en el <strong>gráfico Uso de CPU (muestreado)</strong> representan muestras de actividad de CPU que se toman en un intervalo de muestreo normal. En la mayoría de los seguimientos, se trata de un milisegundo (1 ms). Cada fila de la tabla representa un solo ejemplo.</p>
+<p>El peso de la muestra representa la importancia de esa muestra, en relación con otras muestras. El peso es igual a la marca de tiempo de la muestra actual menos la marca de tiempo de la muestra anterior. El peso no siempre es exactamente igual al intervalo de muestreo debido a las fluctuaciones en el estado del sistema y la actividad.</p>
+<p>La figura 5 Muestreo de CPU representa cómo se recopilan los datos:</p>
+<p><img src="images/dep-win8-cpu-techniques-figure-5-cpu-sampling.jpg" alt="figura 5 muestreo de cpu" data-linktype="relative-path"></p>
+<p><strong>Figura 5 Muestreo de CPU</strong></p>
+<p>Este método de muestreo no registra ninguna actividad de CPU que se produzca entre muestras. Por lo tanto, las actividades de muy corta duración, como dpCs e ISR, no se representan bien en el <strong>gráfico de muestreo de</strong> CPU.</p>
+<p>Las columnas siguientes están disponibles para cada fila del gráfico:</p>
+<table>
+<colgroup>
+<col width="50%">
+<col width="50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Columna</th>
+<th>Detalles</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>% de peso</p></td>
+<td><p>El peso se expresa como un porcentaje del tiempo total de CPU que se invierte en el intervalo de tiempo visible actualmente.</p></td>
+</tr>
+<tr class="even">
+<td><p>Dirección</p></td>
+<td><p>Dirección de memoria de la función que se encuentra en la parte superior de la pila.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Recuento de todos</p></td>
+<td><p>Número de muestras representadas por una fila. Este número incluye ejemplos que se toman cuando un procesador está inactivo. Para las filas individuales, esta columna siempre es 1.</p></td>
+</tr>
+<tr class="even">
+<td><p>Count</p></td>
+<td><p>Número de muestras representadas por una fila, excepto las muestras que se toman cuando un procesador está inactivo. En el caso de las filas individuales, esta columna siempre es 1 (o 0, en los casos en los que la CPU estaba en un estado de baja potencia).</p></td>
+</tr>
+<tr class="odd">
+<td><p>CPU</p></td>
+<td><p>Índice basado en 0 de la CPU en la que se tomó este ejemplo.</p></td>
+</tr>
+<tr class="even">
+<td><p>Nombre</p></td>
+<td><p>Nombre para mostrar del proceso activo.</p></td>
+</tr>
+<tr class="odd">
+<td><p>DPC/ISR</p></td>
+<td><p>Indica si el ejemplo mide el uso normal de la CPU, un DPC/ISR o un estado de baja potencia.</p></td>
+</tr>
+<tr class="even">
+<td><p>Función</p></td>
+<td><p>Función en la parte superior de la pila.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Módulo</p></td>
+<td><p>Módulo que contiene la función en la parte superior de la pila.</p></td>
+</tr>
+<tr class="even">
+<td><p>Priority</p></td>
+<td><p>Prioridad del subproceso en ejecución.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Proceso</p></td>
+<td><p>Nombre de imagen del proceso que posee el código en ejecución.</p></td>
+</tr>
+<tr class="even">
+<td><p>Nombre del proceso</p></td>
+<td><p>Nombre completo (incluido el identificador de proceso) del proceso que posee el código en ejecución.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Pila</p></td>
+<td><p>Pila del subproceso en ejecución.</p></td>
+</tr>
+<tr class="even">
+<td><p>Id. de subproceso</p></td>
+<td><p>Identificador del subproceso en ejecución.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Función de inicio de subprocesos</p></td>
+<td><p>Función con la que se inició el subproceso en ejecución.</p></td>
+</tr>
+<tr class="even">
+<td><p>Módulo de inicio de subprocesos</p></td>
+<td><p>Módulo que contiene la función de inicio del subproceso.</p></td>
+</tr>
+<tr class="odd">
+<td><p>TimeStamp</p></td>
+<td><p>Hora a la que se tomó la muestra.</p></td>
+</tr>
+<tr class="even">
+<td><p>Peso</p></td>
+<td><p>La hora (en milisegundos) representada por el ejemplo (es decir, la hora desde la última muestra).</p></td>
+</tr>
+</tbody>
+</table>
+<p>El perfil predeterminado proporciona los siguientes valores preestablecidos para este gráfico:</p>
+<ul>
+<li><p>Uso por CPU</p>
+</li>
+<li><p>Uso por prioridad</p>
+</li>
+<li><p>Uso por proceso</p>
+</li>
+<li><p>Uso por proceso y subproceso</p>
+</li>
+</ul>
+<h3 id="utilization-by-cpu">Uso por CPU</h3>
+<p>El <strong>gráfico Uso de uso de CPU por CPU</strong> muestra cómo se distribuye el trabajo entre procesadores. En la figura 6 Uso de CPU por CPU se muestra esta distribución para dos CPU:</p>
+<p><img src="images/dep-win8-cpu-techniques-figure-6-cpu-usage-utilization-by-cpu.png" alt="figura 6 uso del uso de cpu por cpu" data-linktype="relative-path"></p>
+<p><strong>Figura 6 Uso de CPU por CPU</strong></p>
+<h3 id="utilization-by-priority">Uso por prioridad</h3>
+<p><strong>El uso de</strong> CPU agrupado por prioridad de subprocesos muestra cómo los subprocesos de prioridad alta afectan a los subprocesos de prioridad inferior. En la figura 7 Uso de CPU (muestreado) Por prioridad se muestra este gráfico:</p>
+<p><img src="images/dep-win8-cpu-techniques-figure-7-cpu-usage-sampled-utilization-by-priority.png" alt="figura 7 uso muestreado de uso de CPU por prioridad" data-linktype="relative-path"></p>
+<p><strong>Figura 7 Uso de CPU (muestreado) Uso por prioridad</strong></p>
+<h3 id="utilization-by-process">Uso por proceso</h3>
+<p><strong>Uso de</strong> CPU agrupado por proceso muestra el uso relativo de los procesos. En la figura 8 El uso de CPU (muestreado) por proceso muestra este valor preestablecido. En este gráfico de ejemplo, se muestra un proceso que consume más tiempo de CPU que los demás procesos.</p>
+<p><img src="images/dep-win8-cpu-techniques-figure-8-cpu-usage-sampled-utilization-by-process.png" alt="figura 8 uso muestreado de uso de CPU por proceso" data-linktype="relative-path"></p>
+<p><strong>Figura 8 Uso de CPU (muestreado) uso por proceso</strong></p>
+<h3 id="utilization-by-process-and-thread">Uso por proceso y subproceso</h3>
+<p><strong>Uso</strong> de CPU agrupado por proceso y, a continuación, agrupado por subproceso muestra el uso relativo de los procesos y los subprocesos de cada proceso. En la figura 9 uso de CPU (muestreado) por proceso y subproceso se muestra este valor preestablecido. Los subprocesos de un único proceso se seleccionan en este gráfico.</p>
+<p><img src="images/dep-win8-cpu-techniques-figure-9-cpu-usage-sampled-utilization-by-process-and-thread.png" alt="figura 9 uso muestreado de uso de CPU por proceso" data-linktype="relative-path"></p>
+<p><strong>Figura 9 Uso de CPU (muestreado) uso por proceso y subproceso</strong></p>
+<h3 id="cpu-usage-precise-graph">Gráfico de uso de CPU (preciso)</h3>
+<p>El <strong>gráfico Uso de CPU (preciso)</strong> registra información asociada a eventos de cambio de contexto. Cada fila representa un conjunto de datos que está asociado a un único modificador de contexto; es decir, cuando se inició la ejecución de un subproceso. Los datos se recopilan para la siguiente secuencia de eventos:</p>
+<ol>
+<li><p>El nuevo subproceso se desactiva.</p>
+</li>
+<li><p>El nuevo subproceso está listo para ejecutarse mediante el subproceso listo.</p>
+</li>
+<li><p>El nuevo subproceso se cambia y, por tanto, se cambia un subproceso antiguo.</p>
+</li>
+<li><p>El nuevo subproceso se vuelve a desactivar.</p>
+</li>
+</ol>
+<p>En la figura 10 Diagrama preciso de uso de CPU, el tiempo fluye de izquierda a derecha. Las etiquetas del diagrama corresponden a los nombres de columna del <strong>gráfico Uso de CPU (preciso).</strong> Las etiquetas de <strong>las columnas Timestamp</strong> se muestran en la parte superior del diagrama y las etiquetas de <strong>las columnas Duración</strong> del intervalo se muestran en la parte inferior del diagrama.</p>
+<p><img src="images/dep-win8-cpu-techniques-figure-10-cpu-usage-precise-diagram.jpg" alt="figura 10 diagrama preciso de uso de CPU" data-linktype="relative-path"></p>
+<p><strong>Figura 10 Diagrama preciso de uso de CPU</strong></p>
+<p>Los saltos en la escala de tiempo de la figura 10 Diagrama preciso de uso de CPU dividen la escala de tiempo en regiones que se pueden producir simultáneamente en diferentes CPU. Estas escalas de tiempo se pueden superponer siempre que no se modifique el orden de los eventos numerados. Por ejemplo, el subproceso listo se puede ejecutar en Processor-2 al mismo tiempo que se desactiva un nuevo subproceso y, a continuación, vuelve a estar en Processor-1).</p>
+<p>La información se registra para los cuatro objetivos siguientes en la escala de tiempo:</p>
+<ul>
+<li><p><em>Nuevo subproceso</em>, que es el subproceso en el que se cambió. Es el foco principal de esta fila en el gráfico.</p>
+</li>
+<li><p><em>Subproceso</em> NewPrev, que hace referencia a la hora anterior en la que se cambió el nuevo subproceso.</p>
+</li>
+<li><p><em>Subproceso</em> listo, que es el subproceso que preparó el nuevo subproceso que se va a procesar.</p>
+</li>
+<li><p><em>Subproceso</em> antiguo, que es el subproceso que se cambió cuando se cambió el nuevo subproceso.</p>
+</li>
+</ul>
+<p>Los datos de la tabla siguiente se relacionan con cada subproceso de destino:</p>
+<table>
+<colgroup>
+<col width="50%">
+<col width="50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Columna</th>
+<th>Detalles</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>% de uso de CPU</p></td>
+<td><p>Uso de CPU del nuevo subproceso después de cambiar. Este valor se expresa como un porcentaje del tiempo total de CPU durante el período de tiempo visible actualmente.</p></td>
+</tr>
+<tr class="even">
+<td><p>Count</p></td>
+<td><p>Número de modificadores de contexto representados por la fila. Siempre es 1 para las filas individuales.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Count:Waits</p></td>
+<td><p>Número de esperas representadas por la fila. Siempre es 1 para filas individuales, excepto cuando un subproceso cambia a un estado inactivo; en este caso, se establece en 0.</p></td>
+</tr>
+<tr class="even">
+<td><p>CPU</p></td>
+<td><p>CPU en la que se produjo el modificador de contexto.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Uso de CPU (ms)</p></td>
+<td><p>Uso de CPU del nuevo subproceso después del modificador de contexto. Esto es igual a NewInSwitchTime, pero se muestra en milisegundos.</p></td>
+</tr>
+<tr class="even">
+<td><p>IdealCpu</p></td>
+<td><p>Cpu ideal seleccionada por el programador para el nuevo subproceso.</p></td>
+</tr>
+<tr class="odd">
+<td><p>LastSwitchOutTime (s)</p></td>
+<td><p>La hora anterior en que se desconectaba el nuevo subproceso.</p></td>
+</tr>
+<tr class="even">
+<td><p>NewInPri</p></td>
+<td><p>Prioridad del nuevo subproceso en el que se cambia.</p></td>
+</tr>
+<tr class="odd">
+<td><p>NewInSwitchTime(s)</p></td>
+<td><p>NextSwitchOutTime(s) menos SwitchInTime(s)</p></td>
+</tr>
+<tr class="even">
+<td><p>NewOutPri</p></td>
+<td><p>Prioridad del nuevo subproceso cuando se apaga.</p></td>
+</tr>
+<tr class="odd">
+<td><p>NewPrevOutPri</p></td>
+<td><p>Prioridad del nuevo subproceso cuando se desconectaba anteriormente.</p></td>
+</tr>
+<tr class="even">
+<td><p>NewPrevState</p></td>
+<td><p>Estado del nuevo subproceso después de que se haya cambiado previamente.</p></td>
+</tr>
+<tr class="odd">
+<td><p>NewPrevWaitMode</p></td>
+<td><p>Modo de espera del nuevo subproceso cuando se desconectaba anteriormente.</p></td>
+</tr>
+<tr class="even">
+<td><p>NewPrevWaitReason</p></td>
+<td><p>Motivo por el que se ha cambiado el nuevo subproceso.</p></td>
+</tr>
+<tr class="odd">
+<td><p>NewPriDecr</p></td>
+<td><p>Aumento de prioridad que afecta al subproceso.</p></td>
+</tr>
+<tr class="even">
+<td><p>NewProcess</p></td>
+<td><p>Proceso del nuevo subproceso.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Nombre de NewProcess</p></td>
+<td><p>Nombre del proceso del nuevo subproceso, incluido PID.</p></td>
+</tr>
+<tr class="even">
+<td><p>NewQnt</p></td>
+<td><p>Sin usar.</p></td>
+</tr>
+<tr class="odd">
+<td><p>NewState</p></td>
+<td><p>Estado del nuevo subproceso después de cambiar.</p></td>
+</tr>
+<tr class="even">
+<td><p>NewThreadId</p></td>
+<td><p>Identificador de subproceso del nuevo subproceso.</p></td>
+</tr>
+<tr class="odd">
+<td><p>NewThreadStack</p></td>
+<td><p>Pila del nuevo subproceso cuando se cambia.</p></td>
+</tr>
+<tr class="even">
+<td><p>NewThreadStartFunction</p></td>
+<td><p>Función start del nuevo subproceso.</p></td>
+</tr>
+<tr class="odd">
+<td><p>NewThreadStartModule</p></td>
+<td><p>Módulo de inicio del nuevo subproceso.</p></td>
+</tr>
+<tr class="even">
+<td><p>NewWaitMode</p></td>
+<td><p>Modo de espera del nuevo subproceso.</p></td>
+</tr>
+<tr class="odd">
+<td><p>NewWaitReason</p></td>
+<td><p>Motivo por el que se ha cambiado el nuevo subproceso.</p></td>
+</tr>
+<tr class="even">
+<td><p>NextSwitchOutTime(s)</p></td>
+<td><p>Hora a la que se desconecta el nuevo subproceso.</p></td>
+</tr>
+<tr class="odd">
+<td><p>OldInSwitchTime(s)</p></td>
+<td><p>Hora en la que se cambió el subproceso anterior antes de que se apagara.</p></td>
+</tr>
+<tr class="even">
+<td><p>OldOutPri</p></td>
+<td><p>Prioridad del subproceso anterior cuando se ha cambiado.</p></td>
+</tr>
+<tr class="odd">
+<td><p>OldProcess</p></td>
+<td><p>Proceso que posee el subproceso anterior.</p></td>
+</tr>
+<tr class="even">
+<td><p>Nombre de OldProcess</p></td>
+<td><p>Nombre del proceso que posee el subproceso anterior, incluido PID.</p></td>
+</tr>
+<tr class="odd">
+<td><p>OldQnt</p></td>
+<td><p>Sin usar.</p></td>
+</tr>
+<tr class="even">
+<td><p>OldState</p></td>
+<td><p>Estado del subproceso anterior después de que se desactive.</p></td>
+</tr>
+<tr class="odd">
+<td><p>OldThreadId</p></td>
+<td><p>Identificador de subproceso del subproceso anterior.</p></td>
+</tr>
+<tr class="even">
+<td><p>OldThreadStartFunction</p></td>
+<td><p>Función start del subproceso anterior.</p></td>
+</tr>
+<tr class="odd">
+<td><p>OldThreadStartModule</p></td>
+<td><p>Módulo de inicio del subproceso antiguo.</p></td>
+</tr>
+<tr class="even">
+<td><p>OldWaitMode</p></td>
+<td><p>Modo de espera del subproceso antiguo.</p></td>
+</tr>
+<tr class="odd">
+<td><p>OldWaitReason</p></td>
+<td><p>Motivo por el que se ha cambiado el subproceso anterior.</p></td>
+</tr>
+<tr class="even">
+<td><p>PrevCState</p></td>
+<td><p>CState anterior del procesador. Si no es 0 (activo), el procesador estaba en un estado inactivo antes de que el nuevo subproceso se cambiara de contexto.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Listos</p></td>
+<td><p>SwitchInTime(s) minusReadyTime (s)</p></td>
+</tr>
+<tr class="even">
+<td><p>Preparación de ThreadId</p></td>
+<td><p>Identificador de subproceso del subproceso listo.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Preparación de ThreadStartFunction</p></td>
+<td><p>Función start del subproceso de preparación.</p></td>
+</tr>
+<tr class="even">
+<td><p>Preparación de ThreadStartModule</p></td>
+<td><p>Módulo de inicio del subproceso de preparación.</p></td>
+</tr>
+<tr class="odd">
+<td><p>ReadyingProcess</p></td>
+<td><p>Proceso que posee el subproceso de preparación.</p></td>
+</tr>
+<tr class="even">
+<td><p>ReadyingProcess Name</p></td>
+<td><p>Nombre del proceso que posee el subproceso de preparación, incluido PID.</p></td>
+</tr>
+<tr class="odd">
+<td><p>ReadyThreadStack</p></td>
+<td><p>Pila del subproceso listo.</p></td>
+</tr>
+<tr class="even">
+<td><p>ReadyTime (s)</p></td>
+<td><p>Hora en la que se probó el nuevo subproceso.</p></td>
+</tr>
+<tr class="odd">
+<td><p>SwitchInTime(s)</p></td>
+<td><p>Hora en la que se cambió el nuevo subproceso.</p></td>
+</tr>
+<tr class="even">
+<td><p>TimeSinceLast (s)</p></td>
+<td><p>SwitchInTime(s) menos LastSwitchOutTime (s)</p></td>
+</tr>
+<tr class="odd">
+<td><p>Esperas (s)</p></td>
+<td><p>ReadyTime (s) menos LastSwitchOutTime (s)</p></td>
+</tr>
+</tbody>
+</table>
+<p>El perfil predeterminado usa los siguientes valores preestablecidos para este gráfico:</p>
+<ul>
+<li><p>Escala de tiempo por CPU</p>
+</li>
+<li><p>Escala de tiempo por proceso, subproceso</p>
+</li>
+<li><p>Uso por prioridad en el modificador de contexto Begin</p>
+</li>
+<li><p>Uso por CPU</p>
+</li>
+<li><p>Uso por proceso, subproceso</p>
+</li>
+</ul>
+<h3 id="timeline-by-cpu">Escala de tiempo por CPU</h3>
+<p><strong>Uso de</strong> CPU en una escala de tiempo por CPU muestra cómo se distribuye el trabajo entre los procesadores. Figura 11 Escala de tiempo de uso de CPU (precisa) por CPU muestra la escala de tiempo en un sistema de ocho procesadores:</p>
+<p><img src="images/dep-win8-cpu-techniques-figure-11-cpu-usage-precise-timeline-by-cpu.png" alt="figura 11 escala de tiempo precisa de uso de cpu por cpu" data-linktype="relative-path"></p>
+<p><strong>Figura 11 Escala de tiempo de uso de CPU (precisa) por CPU</strong></p>
+<h3 id="timeline-by-process-thread">Escala de tiempo por proceso, subproceso</h3>
+<p><strong>Uso de</strong> CPU en una escala de tiempo por proceso, por subproceso, muestra qué procesos tenían subprocesos que se ejecutaban en determinados momentos. Figura 12 Escala de tiempo de uso (precisa) por proceso, subproceso muestra esta escala de tiempo en varios procesos:</p>
+<p><img src="images/dep-win8-cpu-techniques-figure-12-usage-precise-timeline-by-process-thread.png" alt="figura 12 escala de tiempo precisa de uso por subproceso de proceso" data-linktype="relative-path"></p>
+<p><strong>Figura 12 Escala de tiempo de uso (precisa) por proceso, subproceso</strong></p>
+<h3 id="usage-by-priority-at-context-switch-begin">Uso por prioridad en el modificador de contexto Begin</h3>
+<p>Este gráfico identifica las ráfagas de actividad de subproceso de alta prioridad en cada nivel de prioridad. En la figura 13 Uso de CPU (preciso) uso por prioridad en El inicio del conmutador de contexto se muestra la distribución de prioridades:</p>
+<p><img src="images/dep-win8-cpu-techniques-figure-13-cpu-usage-precise-usage-by-priority-at-context-switch-start.png" alt="figura 13 uso preciso del uso de cpu por prioridad en c" data-linktype="relative-path"></p>
+<p><strong>Figura 13 Uso de CPU (preciso) por prioridad en el inicio del conmutador de contexto</strong></p>
+<h3 id="utilization-by-cpu-1">Uso por CPU</h3>
+<p>En este gráfico, el uso de CPU se agrupa y grafo por CPU para mostrar cómo se distribuye el trabajo entre los procesadores. En la figura 14 Uso de CPU (preciso) uso por CPU se muestra este gráfico para un sistema que tiene ocho procesadores.</p>
+<p><img src="images/dep-win8-cpu-techniques-figure-14-cpu-usage-precise-utilization-by-cpu.png" alt="figura 14 uso preciso del uso de cpu por cpu" data-linktype="relative-path"></p>
+<p><strong>Figura 14 Uso de CPU (preciso) por CPU</strong></p>
+<h3 id="utilization-by-process-thread">Uso por proceso, subproceso</h3>
+<p>En este gráfico, el uso de CPU se agrupa primero por proceso y, a continuación, por subproceso. Muestra el uso relativo de los procesos y los subprocesos de cada proceso Figura 15 Uso de CPU (preciso) uso por proceso, subproceso muestra esta distribución entre varios procesos:</p>
+<p><img src="images/dep-win8-cpu-techniques-figure-15-cpu-usage-precise-utilization-by-process-thread.png" alt="figura 15 uso preciso del uso de cpu por proceso" data-linktype="relative-path"></p>
+<p><strong>Figura 15 Uso de CPU (preciso) por proceso, subproceso</strong></p>
+<h3 id="dpcisr-graph">Gráfico DPC/ISR</h3>
+<p>El gráfico DPC/ISR es el origen principal de la información de DPC/ISR en WPA. Cada fila del gráfico representa un fragmento, que es un período de tiempo durante el cual un DPC o ISR se ejecutó sin interrupciones. Los datos se recopilan al principio y al final de los fragmentos. Los datos adicionales se recopilan cuando se completa un DPC/ISR. En la figura 16 diagrama DPC/ISR se muestra cómo funciona esto:</p>
+<p><img src="images/dep-win8-cpu-techniques-figure-16-dpc-isr-diagram.jpg" alt="figura 16 diagrama de isr de dpc" data-linktype="relative-path"></p>
+<p><strong>Figura 16 Diagrama DPC/ISR</strong></p>
+<p>En la figura 16 diagrama DPC/ISR se describen los datos recopilados durante las actividades siguientes:</p>
+<ol>
+<li><p><strong>DPC/ISR-A</strong> comienza a ejecutarse.</p>
+</li>
+<li><p>Una interrupción del dispositivo que tiene un nivel de interrupción mayor que <strong>DPC/ISR-A</strong> hace que <strong>ISR-B</strong> interrumpa <strong>DPC/ISR A</strong>, finalizando así el primer fragmento de <strong>DPC/ISR-A</strong>.</p>
+</li>
+<li><p><strong>ISR-B</strong> finaliza y, por tanto, finaliza el fragmento de <strong>ISR-B</strong>. <strong>DPC/ISR-A</strong> reanuda la ejecución en un segundo fragmento.</p>
+</li>
+<li><p><strong>DPC/ISR-A</strong> finaliza, finalizando así el segundo fragmento de <strong>DPC/ISR-A</strong>.</p>
+</li>
+</ol>
+<p>En la tabla de datos se muestra una fila para cada fragmento. Los fragmentos de <strong>DPC/ISR-A</strong> comparten información idéntica con columnas que no son de fragmento.</p>
+<p>Las columnas del gráfico DPC/ISR describen información de nivel de fragmento o columnas de nivel DPC/ISR. Cada fragmento disimilar de datos en columnas de nivel de fragmento y datos idénticos en columnas DPC/ISR.</p>
+<table>
+<colgroup>
+<col width="50%">
+<col width="50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Columna</th>
+<th>Detalles</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>% de duración (fragmentada)</p></td>
+<td><p>Duración (fragmentada) que se expresa como un porcentaje del tiempo total de CPU durante el período de tiempo visible actualmente.</p></td>
+</tr>
+<tr class="even">
+<td><p>% de duración exclusiva</p></td>
+<td><p>Duración exclusiva que se expresa como un porcentaje del tiempo total de CPU durante el período de tiempo visible actualmente.</p></td>
+</tr>
+<tr class="odd">
+<td><p>% de duración inclusiva</p></td>
+<td><p>Duración inclusiva que se expresa como un porcentaje del tiempo total de CPU durante el período de tiempo visible actualmente.</p></td>
+</tr>
+<tr class="even">
+<td><p>Dirección</p></td>
+<td><p>Dirección de memoria de la función DPC o ISR.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Recuento (DPCs/ISR)</p></td>
+<td><p>Recuento de DPCs/ISR representados por esta fila. Esto siempre es 1 para las filas que representan el fragmento final de un DPC/ISR; de lo contrario, este recuento es 0.</p></td>
+</tr>
+<tr class="even">
+<td><p>Recuento (fragmentos)</p></td>
+<td><p>Número de fragmentos representados por la fila. Siempre es 1 para las filas individuales.</p></td>
+</tr>
+<tr class="odd">
+<td><p>CPU</p></td>
+<td><p>Índice del procesador lógico en el que se ejecutó el DPC o ISR.</p></td>
+</tr>
+<tr class="even">
+<td><p>Tipo DPC</p></td>
+<td><p>Para DPC, el tipo de DPC, ya sea Regular o Timer. Este valor está en blanco para un ISR.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Tiempo de entrada (s) de DPC/ISR</p></td>
+<td><p>Hora en el seguimiento cuando se inició el DPC/ISR.</p></td>
+</tr>
+<tr class="even">
+<td><p>Tiempo de salida de DPC/ISR (s)</p></td>
+<td><p>Hora desde el principio del seguimiento hasta el momento en que se completó el DPC/ISR.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Duración (fragmentada) (ms)</p></td>
+<td><p>Tiempo de salida del fragmento (s) menos tiempo de entrada de fragmento (s) en milisegundos.</p></td>
+</tr>
+<tr class="even">
+<td><p>Duración exclusiva (ms)</p></td>
+<td><p>Suma de duraciones fragmentadas en ms. para todos los fragmentos de este DPC/ISR.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Fragmento</p></td>
+<td><p>Si el DPC/ISR de esta fila tenía varios fragmentos, este valor es <strong>True</strong>; de lo contrario, es <strong>False</strong>.</p></td>
+</tr>
+<tr class="even">
+<td><p>Fragmento</p></td>
+<td><p>Si no era el único fragmento de este DPC/ISR, este valor es <strong>True</strong>; en caso contrario, es <strong>False</strong>.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Tiempo de entrada del fragmento (s)</p></td>
+<td><p>Hora a la que se inició la ejecución del fragmento.</p></td>
+</tr>
+<tr class="even">
+<td><p>Tiempo de salida del fragmento (s)</p></td>
+<td><p>Hora en que el fragmento dejó de ejecutarse.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Función</p></td>
+<td><p>Función DPC o ISR que se ejecutó.</p></td>
+</tr>
+<tr class="even">
+<td><p>Duración inclusiva (ms)</p></td>
+<td><p>Tiempo de salida de DPC/ISR (s) menos DPC/ISR Entrar tiempo (s) en milisegundos.</p></td>
+</tr>
+<tr class="odd">
+<td><p>MessageIndex</p></td>
+<td><p>Índice de interrupción de las interrupciones señaladas por mensaje.</p></td>
+</tr>
+<tr class="even">
+<td><p>Módulo</p></td>
+<td><p>Módulo que contiene la función DPC o ISR.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Valor devuelto</p></td>
+<td><p>Valor devuelto de DPC/ISR</p></td>
+</tr>
+<tr class="even">
+<td><p>Tipo</p></td>
+<td><p>Tipo de evento; esto es: DPC o Interrupción (ISR).</p></td>
+</tr>
+<tr class="odd">
+<td><p>Vector</p></td>
+<td><p>Valor del vector de interrupción en el dispositivo.</p></td>
+</tr>
+</tbody>
+</table>
+<p>El perfil predeterminado usa los siguientes valores preestablecidos para este gráfico:</p>
+<ul>
+<li><p>[DPC,ISR,DPC/ISR] Duración por CPU</p>
+</li>
+<li><p>[DPC,ISR,DPC/ISR] Duración por módulo, función</p>
+</li>
+<li><p>[DPC,ISR,DPC/ISR] Escala de tiempo por módulo, función</p>
+</li>
+</ul>
+<h3 id="dpcisrdpcisr-duration-by-cpu"><a href="" id="-dpc-isr-dpc-isr--duration-by-cpu"></a>[DPC,ISR,DPC/ISR] Duración por CPU</h3>
+<p>Los eventos DPC/ISR se agregan mediante la CPU en la que se ejecutaron y se ordenan por duración. En este gráfico se muestra la asignación de la actividad DPC entre CPU. En la figura 17 DPC/ISR Duration by CPU (Duración de DPC/ISR por CPU), se muestra este gráfico para un sistema que tiene ocho procesadores.</p>
+<p><img src="images/dep-win8-cpu-techniques-figure-17-dpc-isr-duration-by-cpu.png" alt="figura 17 duración del isr de dpc por cpu" data-linktype="relative-path"></p>
+<p><strong>Figura 17 Duración de DPC/ISR por CPU</strong></p>
+<h3 id="dpcisrdpcisr-duration-by-module-function"><a href="" id="-dpc-isr-dpc-isr--duration-by-module--function"></a>[DPC,ISR,DPC/ISR] Duración por módulo, función</h3>
+<p>Los eventos DPC/ISR se agregan en este gráfico mediante el módulo y la función de las rutinas DPC/ISR, y se ordenan por duración. Esto muestra qué rutinas DPC/ISR consumieron la mayor parte de la figura 18 DPC/ISR Duration by Module, Function muestra un período de tiempo que incurre en la actividad DPC/ISR en dos módulos:</p>
+<p><img src="images/dep-win8-cpu-techniques-figure-18-dpc-isr-duration-by-module-function.png" alt="figura 18 duración del isr de dpc por función del módulo" data-linktype="relative-path"></p>
+<p><strong>Figura 18 Duración de DPC/ISR por módulo, Función</strong></p>
+<h3 id="dpcisrdpcisr-timeline-by-module-function"><a href="" id="-dpc-isr-dpc-isr--timeline-by-module--function"></a>[DPC,ISR,DPC/ISR] Escala de tiempo por módulo, función</h3>
+<p>Los eventos DPC/ISR se agregan en este grafo mediante el módulo y la función de las rutinas DPC/ISR. Se grafican como una escala de tiempo. Este gráfico proporciona una vista detallada del período de tiempo durante el cual se ejecutaron dpCs/ISR. Este gráfico también puede mostrar cómo se puede fragmentar un único DPC/ISR. Figura 19 Escala de tiempo DPC/ISR por módulo, La función muestra una escala de tiempo de actividad en tres módulos:</p>
+<p><img src="images/dep-win8-cpu-techniques-figure-19-dpc-isr-timeline-by-module-function.png" alt="figura 19 escala de tiempo de isr dpc por función del módulo" data-linktype="relative-path"></p>
+<p><strong>Figura 19 Escala de tiempo de DPC/ISR por módulo, Función</strong></p>
+<h3 id="stack-trees">Árboles de pila</h3>
+<p>Los árboles de pila se muestran en las <strong>tablas Uso de CPU (muestreado),</strong><strong> Uso de CPU (preciso)</strong> e <strong>DPC/ISR</strong> en WPA y en problemas que se notifican en los informes de evaluación. Los árboles de pila representan las pilas de llamadas asociadas a varios eventos durante un período de tiempo. Cada nodo del árbol representa un segmento de pila compartido por un subconjunto de los eventos. El árbol se construye a partir de las pilas individuales y se muestra en la figura 20 Pilas de tres eventos:</p>
+<p><img src="images/dep-win8-cpu-techniques-figure-20-stacks-from-three-events.jpg" alt="figura 20 pilas de tres eventos" data-linktype="relative-path"></p>
+<p><strong>Figura 20 Pilas de tres eventos</strong></p>
+<p>En la figura 21 Segmentos comunes identificados se muestra cómo se identifican las secuencias comunes para este gráfico:</p>
+<p><img src="images/dep-win8-cpu-techniques-figure-21-common-segments-identified.jpg" alt="figura 21 segmentos comunes identificados" data-linktype="relative-path"></p>
+<p><strong>Figura 21 Segmentos comunes identificados</strong></p>
+<p>En la figura 22 Árbol creado a partir de pilas se muestra cómo se combinan los segmentos comunes para formar los nodos de un árbol:</p>
+<p><img src="images/dep-win8-cpu-techniques-figure-22-tree-built-from-stacks.jpg" alt="figura 22 árbol creado a partir de pilas" data-linktype="relative-path"></p>
+<p><strong>Figura 22 Árbol creado a partir de pilas</strong></p>
+<p>La <strong>columna Pilas de la interfaz de usuario WPA contiene un expansador</strong> para cada nodo no hoja. En los problemas notificados por la evaluación, el árbol se muestra junto con los pesos agregados. Algunas ramas se pueden quitar del gráfico si sus pesos no cumplen un umbral especificado. En la pila de ejemplo siguiente se muestra cómo se muestran los eventos representados anteriormente como parte de un problema notificado por la evaluación.</p>
+<pre><code>5ms&nbsp;&nbsp;&nbsp;ModuleA!Function1
+5ms&nbsp;&nbsp;&nbsp;ModuleA!Function2
+5ms&nbsp;&nbsp;&nbsp;ModuleA!Function3
+      |
+4ms&nbsp;&nbsp;&nbsp;|-ModuleA!Function4
+4ms&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;ModuleB!Function1
+| &amp;nbsp; |
+1ms&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;|-ModuleB-Function2
+1ms&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;ModuleB-Function3
+| &amp;nbsp; |
+3ms&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;|-ModuleB!Function3
+3ms&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ModuleB!Function4
+      |
+1ms&nbsp;&nbsp;&nbsp;|-ModuleA!Function5
+1ms&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ModuleC!Function1
+1ms&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ModuleC!Function2
+</code></pre>
+<p>El <code>&lt;itself&gt;</code> nodo de una pila representa el momento en que una función está en la parte superior de la pila. El <code>&lt;itself&gt;</code> nodo no incluye el tiempo dedicado a las funciones a las que llama la función primaria. Esa duración se denomina <em>tiempo exclusivo</em> invertido en la función.</p>
+<p>Por ejemplo, <strong>Function1</strong> llama a <strong>Function2</strong>. <strong>Function2 pasó 2</strong> ms en un bucle intensivo de CPU y llamó a otra función que se ejecutó para 4 ms. Esto se puede representar mediante la siguiente pila:</p>
+<pre><code>6ms&nbsp;&nbsp;&nbsp;ModuleA!Function1
+      |
+2ms&nbsp;&nbsp;&nbsp;|-&lt;itself&gt;
+4ms&nbsp;&nbsp;&nbsp;|-ModuleA!Function2
+4ms&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ModuleB!Function3
+4ms&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ModuleB-Function4
+</code></pre>
+<h2 id="techniques"><a href="" id="cpu-guide-techniques"></a>Técnicas</h2>
+<p>En esta sección se describe un enfoque estándar para el análisis de rendimiento. Proporciona técnicas que puede usar para investigar problemas comunes de rendimiento relacionados con la CPU.</p>
+<p>El análisis de rendimiento es un proceso de cuatro pasos:</p>
+<ol>
+<li><p>Defina el escenario y el problema.</p>
+</li>
+<li><p>Identifique los componentes implicados y el intervalo de tiempo pertinente.</p>
+</li>
+<li><p>Cree un modelo de lo que debería haber ocurrido.</p>
+</li>
+<li><p>Use el modelo para identificar problemas e investigar las causas principales.</p>
+</li>
+</ol>
+<h3 id="define-the-scenario-and-the-problem">Definir el escenario y el problema</h3>
+<p>El primer paso en el análisis de rendimiento es definir claramente el escenario y el problema. Muchos problemas de rendimiento afectan a escenarios medidos por métricas de evaluación. Por ejemplo:</p>
+<p>Escenario 1: Un recurso físico no se está utilizando completamente. Por ejemplo, un servidor no puede usar completamente una conexión de red porque no puede cifrar los paquetes lo suficientemente rápido.</p>
+<p>Escenario 2: se está utilizando un recurso físico más de lo que debería ser. Por ejemplo, un sistema usa recursos significativos de CPU durante un período de inactividad que usa energía de batería.</p>
+<p>Escenario 3: Las actividades no se completan a una velocidad necesaria. Por ejemplo, los fotogramas se quitan durante la reproducción de vídeo porque los fotogramas no se descodifican rápidamente.</p>
+<p>Escenario 4: se ha retrasado una actividad. Por ejemplo, el usuario inició Internet Explorer, pero tardó más de lo esperado en abrir una pestaña.</p>
+<p>En esta guía se tratan los escenarios 3 y 4 relacionados con los recursos de CPU. Los escenarios 1 y 2 están fuera del ámbito y no están cubiertos. Para analizar estos problemas, puede empezar con una observación ambigua, como "es demasiado lenta" y formular preguntas adicionales para identificar el escenario y el problema exacto.</p>
+<h3 id="identify-the-components-and-the-time-period"><a href="" id="identify-the-components-and-the-time-period-"></a>Identificar los componentes y el período de tiempo</h3>
+<p>Una vez identificado el escenario y el problema, puede identificar los componentes implicados y el período de tiempo de interés. Los componentes incluyen recursos de hardware, procesos y subprocesos.</p>
+<p>A menudo puede encontrar el intervalo de tiempo de interés mediante la identificación de la actividad asociada en la guía de análisis. Una actividad es un intervalo entre un evento de inicio y un evento de detención que puede seleccionar y acercar, en WPA. Si no se define una actividad, puede encontrar el intervalo de tiempo buscando eventos genéricos específicos asociados al escenario o buscando cambios en el uso de recursos que podrían marcar el principio y el final de un escenario. Por ejemplo, si la CPU estaba inactiva durante dos segundos y, a continuación, se usaba completamente durante cuatro segundos y, a continuación, inactiva de nuevo durante dos segundos, los cuatro segundos de uso completo podrían ser el área de interés en un seguimiento que captura la reproducción de vídeo.</p>
+<h3 id="create-a-model">Creación de un modelo</h3>
+<p>Para comprender las causas principales de un problema, debe tener un modelo de lo que debería haber ocurrido. El modelo comienza con el problema o cualquier objetivo asociado para la métrica; por ejemplo, "Esta operación debe haberse completado en menos de 5 segundos".</p>
+<p>Un modelo más completo contiene información sobre cómo deben realizarse los componentes. Por ejemplo, ¿qué comunicación se espera entre los componentes? ¿Qué uso de recursos es típico? ¿Cuánto tiempo tardan normalmente las operaciones?</p>
+<p>La información del modelo se puede encontrar a menudo en la guía de análisis de evaluación. Si ese recurso no está disponible, puede generar un seguimiento a partir de hardware y software similares que no muestren el problema de rendimiento, para crear un modelo.</p>
+<h3 id="use-the-model-to-identify-problems-and-then-investigate-root-causes">Use el modelo para identificar problemas y, a continuación, investigar las causas principales.</h3>
+<p>Después de tener un modelo, puede comparar un seguimiento con el modelo para identificar problemas. Por ejemplo, un modelo para una actividad determinada denominada <strong>Suspender dispositivos</strong> podría sugerir que toda la actividad debería completarse en tres segundos, mientras que cada instancia de una sub-actividad denominada <strong>Suspender &lt;nombre&gt;</strong> del dispositivo no debería tardar más de 100 ms. Si dos instancias de la sub-actividad <strong>Suspend Device Name (Suspender &lt;nombre&gt;</strong> de dispositivo) cada una toman 800 ms, debe investigar esas instancias.</p>
+<p>Cada desviación del modelo se puede analizar para encontrar una causa principal. Debe examinar el estado de los subprocesos implicados y buscar causas principales comunes. A continuación se describen algunas causas principales relacionadas con la CPU, para las actividades que no se completan a una velocidad requerida o se retrasan:</p>
+<p>Uso directo de CPU: los subprocesos adecuados recibieron recursos completos de CPU, pero el programa necesario no se ejecutó lo suficientemente rápido. Esto puede deberse a un mal funcionamiento del programa o por hardware lento.</p>
+<p>Interferencia de subprocesos: un subproceso no obtuvo suficiente tiempo de ejecución porque otros subprocesos se estaban ejecutando en su lugar. En este caso, el subproceso se considera inactivo o adelantado.</p>
+<p>Interferencia de DPC/ISR: los subprocesos no tenían suficiente tiempo de ejecución porque las CPU estaban ocupadas procesando DPCs o ISR.</p>
+<p>En muchos casos, una de estas causas raíz no afecta notablemente al subproceso y el subproceso pasa la mayor parte de su tiempo en estado de espera. En este caso, debe identificar e investigar el evento para el que el subproceso está esperando. Este tipo recursivo de investigación se denomina <em>análisis</em> de espera y comienza identificando la ruta de acceso crítica.</p>
+<h3 id="advanced-technique-wait-analysis-and-the-critical-path">Técnica avanzada: Análisis de espera y ruta de acceso crítica</h3>
+<p>Una actividad es una red de operaciones, algunas secuenciales y algunas paralelas, que fluyen desde un evento de inicio a un evento final. Cualquier par de eventos de inicio y fin en un seguimiento se puede ver como una actividad. La ruta de acceso más larga a través de esta red de operaciones se conoce como la ruta de acceso crítica. Reducir la duración de cualquier operación en la ruta crítica reduce directamente la duración de la actividad general, aunque también puede cambiar la ruta de acceso crítica.</p>
+<p>La figura 23 Operaciones de actividad muestra la actividad de tres subprocesos. Thread-1 envía el evento de inicio de actividad y espera a que Thread-2 y Thread-3 completen sus tareas. Thread-2 completa primero su tarea, seguida de Thread-3. Cuando ambos subprocesos han completado sus tareas, Thread-1 se prepara y completa el evento de actividad.</p>
+<p><img src="images/dep-win8-cpu-techniques-figure-23-activity-operations.jpg" alt="figura 23 operaciones de actividad" data-linktype="relative-path"></p>
+<p><strong>Figura 23 Operaciones de actividad</strong></p>
+<p>En este escenario, la ruta de acceso crítica incluye partes de Thread-3 y Thread-1. Estos se trazan en la figura 24 Ruta crítica. Dado que Thread-2 no está en la ruta de acceso crítica, el tiempo necesario para completar su tarea no afecta al tiempo de actividad general.</p>
+<p><img src="images/dep-win8-cpu-techniques-figure-24-critical-path.jpg" alt="figura 24 ruta de acceso crítica" data-linktype="relative-path"></p>
+<p><strong>Figura 24 Ruta crítica</strong></p>
+<p>La ruta crítica es una respuesta literal de bajo nivel a la pregunta de por qué una actividad tardó tanto tiempo como lo hizo. Una vez conocidos los segmentos clave de la ruta de acceso crítica, se pueden analizar para encontrar los problemas que contribuyen al retraso general.</p>
+<h3 id="general-approach-to-finding-the-critical-path">Enfoque general para encontrar la ruta crítica</h3>
+<p>El primer paso para encontrar la ruta de acceso crítica es revisar el modelo de escenario para comprender el propósito y la implementación de la actividad.</p>
+<p>Comprender una actividad puede ayudar a identificar operaciones, procesos y subprocesos específicos que podrían estar en la ruta de acceso crítica. Por ejemplo, un retraso en la <strong>actividad Init</strong> del Explorador de reanudación de inicio rápido puede deberse a <strong>las aplicaciones RunOnce</strong> y al proceso de inicialización del Explorador, ambos requieren una cantidad significativa de E/S.</p>
+<p>Después de revisar el modelo de escenario, compruebe si la evaluación notificó algún problema para la actividad afectada. Muchas veces, se incluye una aproximación de la ruta crítica en los problemas de retraso notificados por la evaluación. La ruta de acceso crítica se muestra como una secuencia de esperas y acciones listas. Se puede leer de principio a fin como una secuencia de eventos, con el segmento principal retrasado de la ruta de acceso crítica en el centro de la lista. La última entrada de la lista es la acción que ha fácilmente el subproceso que completó la actividad.</p>
+<p>Si debe buscar manualmente la ruta de acceso crítica, se recomienda identificar el proceso y el subproceso que completó la actividad y trabajar hacia atrás desde el momento en que se completó la actividad. Puede identificar el proceso y el subproceso que iniciaron una actividad, así como el proceso y el subproceso que completaron una actividad, a través del <strong>gráfico Activities (Actividades</strong> ) en WPA.</p>
+<p>El <strong>gráfico Activities (Actividades)</strong> se muestra cuando el seguimiento se carga a través de un archivo XML de resultados de evaluación. Para identificar el proceso y el subproceso que están asociados a una actividad determinada, expanda el gráfico a la actividad de interés y, a continuación, cambie la vista a <strong>Graph+Table</strong>. Establezca el modo de grafo en <strong>Tabla</strong>. Las <strong>columnas Iniciar proceso</strong>, <strong>Identificador</strong> de subproceso inicio, <strong>Proceso final</strong> e <strong>Id.</strong> de subproceso final se muestran para cada actividad de la tabla.</p>
+<p>Después de conocer el proceso de inicio y finalización, el subproceso y la implementación de la actividad, la ruta de acceso crítica se puede realizar un seguimiento hacia atrás. Empiece por analizar el subproceso que completó la actividad para determinar cómo el subproceso pasó la mayor parte de su tiempo: en ejecución, listo o en espera.</p>
+<p>El tiempo de ejecución significativo indica que el uso directo de la CPU podría haber contribuido a la duración de la ruta de acceso crítica. El tiempo invertido en el modo listo indica que otros subprocesos contribuyen a la duración de la ruta crítica evitando que se ejecute un subproceso en la ruta crítica. Tiempo dedicado a la espera de puntos de E/S, temporizadores u otros subprocesos y procesos en la ruta crítica para la que estaba esperando el subproceso actual.</p>
+<p>Cada subproceso que haya fácilmente el subproceso actual es probablemente otro vínculo en la ruta de acceso crítica y también se puede analizar hasta que se tenga en cuenta la duración de la ruta crítica.</p>
+<p><strong>Procedimiento: Buscar la ruta crítica en WPA</strong></p>
+<p>En el procedimiento siguiente se supone que ha identificado una actividad en el gráfico Actividades para la que desea encontrar la ruta de acceso crítica.</p>
+<ol>
+<li><p>Para identificar el proceso que completó la actividad, mantenga el puntero sobre la actividad en el <strong>gráfico Actividades</strong> .</p>
+</li>
+<li><p>Agregue el gráfico Uso de <strong>CPU (preciso).</strong> Acercar la actividad afectada y aplicar el <strong>valor preestablecido Uso por proceso.</strong></p>
+</li>
+<li><p>Haga clic con el botón derecho en los encabezados de columna y haga visibles las <strong>columnas ReadyThreadStack</strong> y <strong>Uso de CPU (ms).</strong> Quite las <strong>columnas Ready (us) [Max]</strong> y <strong>Waits (us) [Max].</strong></p>
+</li>
+<li><p>Expanda el proceso de destino y ordene respectivamente por <strong>uso de CPU (ms), <strong></strong>Listo (us) [Sum]</strong>y <strong>Esperas (us) [Sum]</strong>.</p>
+</li>
+<li><p>Busque newThreadIds <strong></strong> en el proceso que tenga la mayor cantidad de tiempo invertido en estado en ejecución, listo o en espera.</p>
+<p>Los subprocesos que pasan un tiempo significativo en los estados En ejecución o Listo pueden representar el uso directo de la CPU en la ruta de acceso crítica. Tenga en cuenta que sus identificadores de subproceso.Threads que pasan un tiempo significativo en estado De espera podrían estar esperando en E/S, un temporizador o en otro subproceso en la ruta de acceso crítica.</p>
+</li>
+<li><p>Para detectar lo que esperaban los subprocesos, expanda el <strong>grupo NewThreadId</strong> para mostrar <strong>ReadyThreadStack</strong>.</p>
+</li>
+<li><p>Expanda <strong>[Raíz]</strong>.</p>
+</li>
+<li><p>Las pilas que comienzan con <strong>KiDispatchInterrupt</strong> no están relacionadas con otro subproceso. Para determinar qué estaba esperando el subproceso en estas pilas, expanda <strong>KiDispatchInterrupt</strong> y vea las funciones de la pila secundaria. <strong>IopfCompleteRequest</strong> indica que el subproceso fácil estaba esperando E/S. <strong>KiTimerExpiration</strong> indica que el subproceso fácil estaba esperando un temporizador.</p>
+</li>
+<li><p>Expanda pilas que no comiencen con <strong>KiDispatchInterrupt</strong> hasta que vea readyingProcess<strong> </strong>y readyingThread<strong></strong>. Si el proceso ya está expandido, expanda newThreadId<strong> </strong>que corresponde a <strong>ReadyingThread</strong>. Repita este paso hasta que encuentre un subproceso que se está ejecutando, listo, esperando otro motivo o esperando un proceso diferente. Si el subproceso está esperando un proceso diferente, repita este procedimiento mediante ese proceso.</p>
+</li>
+</ol>
+<p><strong>Ejemplo</strong></p>
+<p>En este ejemplo se presenta un retraso en la actividad Init del Explorador de reanudación de inicio rápido. Una búsqueda en el <strong>panel Problemas</strong> muestra que se notifican siete problemas de tipo de retraso para esta actividad. Cada uno de estos problemas se puede revisar como un segmento de la ruta de acceso crítica. Se identifican los siguientes segmentos clave:</p>
+<ul>
+<li><p>El subproceso 3872 del proceso TestBootStrapper.exe (3024) se adelanta durante 2,1 segundos.</p>
+</li>
+<li><p>El subproceso 3872 del proceso TestBootStrapper.exe (3024) usa 1 segundo de tiempo de CPU.</p>
+</li>
+<li><p>El subproceso 3872 del proceso TestBootStrapper.exe (3024) vacía un subárbol del Registro para 544 milisegundos.</p>
+</li>
+<li><p>El subproceso 3872 del proceso TestBootStrapper.exe (3024) se suspende durante 513 milisegundos.</p>
+</li>
+<li><p>Subprocesos 4052 y 4036 de Explorer.exe lectura del disco, lo que provoca un retraso de 461 milisegundos.</p>
+</li>
+<li><p>El subproceso 3872 del proceso TestBootStrapper.exe (3024) se muere por 187 milisegundos.</p>
+</li>
+<li><p>Subproceso 3872 de proceso TestBootStrapper.exe escribe 3,5 MB en disco, lo que provoca un retraso de 178 milisegundos.</p>
+</li>
+</ul>
+<p>Los problemas muestran que esta actividad se retrasó en 5,2 segundos. Estos retrasos contribuyen a una gran proporción de las actividades de duración total de 6,3 segundos. La aplicación TestBootStrapper.exe es principalmente responsable del retraso, principalmente porque adelantó otras tareas de procesamiento.</p>
+<p><strong>Investigar problemas en la ruta de acceso crítica</strong></p>
+<ol>
+<li><p>Zoom a la región afectada y agregue las <strong>columnas ReadyThreadStack</strong> y <strong>Uso de CPU (ms).</strong></p>
+</li>
+<li><p>En este caso, Explorer.exe es el proceso que completa la actividad. Expanda el proceso de explorer.exe y ordene el proceso respectivamente por <strong>uso de CPU (ms), <strong></strong>Listo (us) [Sum]</strong>y <strong>Esperas (us) [Sum]</strong>, como se muestra en las cifras siguientes:</p>
+<p><img src="images/dep-win8-cpu-techniques-figure-25-activity-by-cpu-usage-ms.png" alt="figura 25 actividad por uso de cpu ms" data-linktype="relative-path"></p>
+<p><strong>Figura 25 Actividad por uso de CPU (ms)</strong></p>
+<p><img src="images/dep-win8-cpu-techniques-figure-26-activity-by-ready-us.png" alt="figura 26 actividad para prepararnos" data-linktype="relative-path"></p>
+<p><strong>Figura 26 Actividad por listo (nosotros)</strong></p>
+<p><img src="images/dep-win8-cpu-techniques-figure-27-activity-by-waits-us.png" alt="figura 27 actividad por esperas" data-linktype="relative-path"></p>
+<p><strong>Figura 27 Actividad por esperas (nosotros)</strong></p>
+</li>
+<li><p>La ordenación por la <strong>columna Uso de CPU (ms)</strong> muestra una fila secundaria superior de 299 milisegundos. La ordenación por la <strong>columna Ready (us) [Sum]</strong> muestra una fila secundaria superior de 46 ms. La ordenación por la <strong>columna Waits (us) [Sum]</strong> muestra una fila secundaria superior de 5749 milisegundos y una segunda fila de 4902 milisegundos. Dado que estas filas contribuyen significativamente al retraso, debe investigarlas aún más.</p>
+</li>
+<li><p>Expanda las pilas para mostrar los subprocesos listos, como se muestra en las figuras siguientes:</p>
+<p><img src="images/dep-win8-cpu-techniques-figure-28-readying-process-and-readying-thread-for-a-thread.png" alt="proceso de preparación y subproceso listo" data-linktype="relative-path"></p>
+<p><strong>Figura 28 Proceso de preparación y subproceso listo para un subproceso</strong></p>
+<p><img src="images/dep-win8-cpu-techniques-figure-29-readying-process-and-readying-thread-for-another-thread.png" alt="figura 29 proceso de preparación y subproceso de preparación para" data-linktype="relative-path"></p>
+<p><strong>Figura 29 Proceso de preparación y subproceso listo para otro subproceso</strong></p>
+<p>En este ejemplo, el primer subproceso pasa la mayor parte de su tiempo esperando a que el proceso de RunOnce.exe salga. Debe investigar por qué el proceso de RunOnce.exe tarda tanto tiempo en completarse. El segundo subproceso está esperando el primer subproceso y probablemente es un vínculo insignificante en la misma cadena de espera.</p>
+</li>
+<li><p>Repita los pasos descritos en este procedimiento para RunOnce.exe. La columna de contribución principal es <strong>Waits (us)</strong> y tiene cuatro posibles colaboradores.</p>
+</li>
+<li><p>Expanda cada colaborador para ver que los tres primeros colaboradores están esperando al cuarto colaborador. Esta situación hace que los tres primeros colaboradores no son significativos para la cadena de espera. El cuarto colaborador está esperando otro proceso, TestBootStrapper.exe.</p>
+<p>Este escenario se muestra en la figura 30 Proceso de preparación y Subproceso listo para un subproceso en RunOnce.exe:</p>
+<p><img src="images/dep-win8-cpu-techniques-figure-30-readying-process-and-readying-thread-for-a-thread-in-runonce-exe.png" alt="figura 30 proceso de preparación y subproceso listo para" data-linktype="relative-path"></p>
+<p><strong>Figura 30 Proceso de preparación y subproceso listo para un subproceso en RunOnce.exe</strong></p>
+</li>
+<li><p>Repita los pasos de este procedimiento para TestBootStrapper.exe. Los resultados se muestran en las tres cifras siguientes:</p>
+<p><img src="images/dep-win8-cpu-techniques-figure-31-threads-by-cpu-usage-ms.png" alt="figura 31 subprocesos por uso de cpu ms" data-linktype="relative-path"></p>
+<p><strong>Figura 31 Subprocesos por uso de CPU (ms)</strong></p>
+<p><img src="images/dep-win8-cpu-techniques-figure-32-threads-by-ready-us.png" alt="figura 32 subprocesos listos" data-linktype="relative-path"></p>
+<p><strong>Figura 32 Subprocesos listos (nosotros)</strong></p>
+<p><img src="images/dep-win8-cpu-techniques-figure-33-threads-by-waits-us.png" alt="figura 33 subprocesos por esperas" data-linktype="relative-path"></p>
+<p><strong>Figura 33 Subprocesos por esperas (nosotros)</strong></p>
+<p>El subproceso 3872 pasó aproximadamente 1 segundo en ejecución, 2 segundos listos y 1,3 segundos en espera. Dado que este subproceso también es el subproceso de preparación para el subproceso 3872, los tiempos de ejecución y de preparación probablemente contribuyen al retraso. La evaluación notifica los siguientes problemas cuyas horas coinciden con los retrasos:</p>
+<ul>
+<li><p>El subproceso 3872 del proceso TestBootStrapper.exe (3024) se adelanta durante 2,1 segundos.</p>
+</li>
+<li><p>El subproceso 3872 del proceso TestBootStrapper.exe (3024) se muere por 187 milisegundos.</p>
+</li>
+<li><p>El subproceso 3872 del proceso TestBootStrapper.exe (3024) usa 1 segundo de tiempo de CPU.</p>
+</li>
+</ul>
+</li>
+<li><p>Para encontrar otros problemas de contribución, vea el evento para el que el subproceso 3872 estaba esperando. Expanda <strong>ReadyThreadStack</strong> para ver los colaboradores a los 1,3 segundos de espera, como se muestra en la figura 34 Colaboradores en tiempo de espera:</p>
+<p><img src="images/dep-win8-cpu-techniques-figure-34-contributors-to-wait-time.png" alt="figura 34 colaboradores para esperar tiempo" data-linktype="relative-path"></p>
+<p><strong>Figura 34 Colaboradores al tiempo de espera</strong></p>
+<p><strong>KiRetireDpcList</strong> suele estar relacionado con E/S y <strong>KiTimerExpiration</strong> es un temporizador. Puede ver cómo se iniciaron las E/S y el temporizador quitando <strong>ReadyThreadStack y viendo NewThreadStack<strong></strong></strong>. En esta vista se muestran tres funciones relacionadas, como se muestra en la figura 35 E/S y temporizador en NewThreadStack:</p>
+<p><img src="images/dep-win8-cpu-techniques-figure-35-ios-and-timer-on-newthreadstack.png" alt="figura 35 ios y temporizador en newthreadstack" data-linktype="relative-path"></p>
+<p><strong>Figura 35 E/S y temporizador en NewThreadStack</strong></p>
+<p>Esta vista revela los detalles siguientes:</p>
+<ul>
+<li><p>El subproceso 3872 del proceso TestBootStrapper.exe (3024) vacía un subárbol del Registro para 544 milisegundos.</p>
+</li>
+<li><p>El subproceso 3872 del proceso TestBootStrapper.exe (3024) se suspende durante 513 milisegundos.</p>
+</li>
+<li><p>Subproceso 3872 de proceso TestBootStrapper.exe escribe 3,5 MB en disco, lo que provoca un retraso de 178 milisegundos.</p>
+</li>
+</ul>
+</li>
+<li><p>Al empezar a investigar la ruta de acceso crítica, ha analizado la causa de espera más importante en Explorer.exe y ha descartado todas las partes de la ruta crítica que se produjo después de esa causa de espera. Para capturar esta sección anteriormente ignorada de la ruta de acceso crítica, debe examinar la escala de tiempo. Agregue <strong>uso de CPU (preciso)</strong> y aplique la escala de <strong>tiempo por proceso, valor preestablecido de subproceso</strong> .</p>
+</li>
+<li><p>Filtre para incluir solo los procesos identificados como parte de la ruta de acceso crítica. El gráfico resultante se muestra en la figura 36 Escala de tiempo de ruta crítica:</p>
+<p><img src="images/dep-win8-cpu-techniques-figure-36-critical-path-timelinee.png" alt="figura 36 escala de tiempo crítica de la ruta de acceso" data-linktype="relative-path"></p>
+<p><strong>Figura 36 Escala de tiempo de ruta crítica</strong></p>
+<p>En la figura 36 Escala de tiempo de ruta crítica se muestra que Explorer.exe realizaron más trabajo después de dejar de esperar RunOnce.exe. Acercar el período de tiempo después de la cadena de espera analizada previamente y realizar otro análisis. En este caso, el análisis revela un gran número de subprocesos internos para Explorer.exe y ningún seguimiento claro a través de la ruta de acceso crítica. En este caso, es probable que el análisis adicional genere información procesable.</p>
+</li>
+</ol>
+<h3 id="direct-cpu-usage">Uso directo de CPU</h3>
+<p>Las actividades suelen retrasarse porque un subproceso en la ruta de acceso crítica usa un tiempo de CPU significativo. Mediante el modelo de estado de subproceso, puede ver que este problema se caracteriza por un subproceso en la ruta de acceso crítica que pasa una cantidad excepcional de tiempo en estado En ejecución. En algún hardware, este uso intensivo de la CPU puede contribuir a retrasos.</p>
+<h3 id="problem-identification">Identificación del problema</h3>
+<p>Muchas evaluaciones usan heurística para identificar problemas relacionados con el uso directo de la CPU. El uso significativo de la CPU en la ruta de acceso crítica se notifica como un problema de la forma siguiente:</p>
+<p>El uso de CPU por proceso <em>P</em> retrasa la actividad <em>afectada A</em> durante <em>x</em> segundos</p>
+<p>Donde <em>P</em> es el proceso que se está ejecutando, <em>A</em> es la actividad y <em>x</em> es el tiempo en segundos.</p>
+<p>Si estos problemas se notifican para una actividad que incurre en retrasos, el uso directo de la CPU podría ser la causa.</p>
+<p><strong>Investigación del uso directo de CPU</strong></p>
+<ol>
+<li><p>Puede identificar manualmente el problema buscando CPU individuales que incurren en un uso de CPU del 100 % en el <strong>gráfico Uso de CPU (muestreado).</strong></p>
+</li>
+<li><p>Acercar un área de interés en el gráfico y seleccionar el <strong>valor preestablecido Uso por proceso y subproceso</strong> .</p>
+<p>De forma predeterminada, la tabla muestra filas en la parte superior que tienen el uso de CPU agregado más alto. Estos subprocesos también se muestran en la parte superior del gráfico Uso de <strong>CPU (muestreado).</strong></p>
+<p><strong>Nota</strong> En un sistema que tiene varios procesadores, parece que un subproceso que usa el 100 % de un solo procesador consumirá 100/(número de procesadores lógicos). En este tipo de sistema, solo el subproceso inactivo virtual (PID 0, TID 0) puede mostrar un mayor uso del procesador que 100/(número de procesadores lógicos). Si los procesos y subprocesos que consumen la mayor parte de la CPU corresponden a los subprocesos de la ruta crítica, el uso directo de la CPU probablemente es un factor.</p>
+</li>
+</ol>
+<p><strong>Ejemplo de problema de uso directo de CPU notificado por la evaluación</strong></p>
+<p>El uso de CPU por el proceso de TestUM.exe (4024) retrasa la actividad afectada, el proceso de apagado rápido de inicio TestIM.exe, durante 2,1 segundos. Este ejemplo se muestra en la figura 37 Subproceso 3208:</p>
+<p><img src="images/dep-win8-cpu-techniques-figure-37-thread-3208.png" alt="figura 37 subproceso 3208" data-linktype="relative-path"></p>
+<p><strong>Figura 37 Subproceso 3208</strong></p>
+<h3 id="investigation">Investigación</h3>
+<p>Después de detectar que el uso directo de la CPU contribuye a un retraso en la ruta de acceso crítica, debe identificar los módulos y funciones específicos que contribuyen al retraso.</p>
+<p><strong>Técnica: Revisión de un problema de uso directo de CPU notificado por la evaluación</strong></p>
+<p>Puede expandir un problema de uso directo de CPU notificado por la evaluación para mostrar la ruta de acceso crítica que se ve afectada por el uso directo de la CPU. Si expande el nodo asociado al uso de cpu, se mostrarán las pilas asociadas con el uso de CPU y los módulos asociados. Esta vista se muestra en la figura 38 Segmento de uso de CPU expandido:</p>
+<p><img src="images/dep-win8-cpu-techniques-figure-38-expanded-cpu-usage-segment.png" alt="figura 38 segmento de uso de CPU expandido" data-linktype="relative-path"></p>
+<p><strong>Figura 38 Segmento de uso ampliado de CPU</strong></p>
+<p><strong>Técnica: Explorar manualmente las pilas de un problema de uso directo de CPU</strong></p>
+<p>Si la evaluación no ha informado de un problema o si necesita una comprobación adicional, puede usar el <strong>gráfico Uso de CPU (muestreado)</strong> para recopilar manualmente información sobre los módulos y funciones implicados en un problema de uso de CPU. Para ello, debe acercar el área de interés y ver las pilas ordenadas por uso de CPU.</p>
+<p><strong>Exploración manual de las pilas de un problema de uso directo de CPU</strong></p>
+<ol>
+<li><p>En el menú Seguimiento, haga clic en Cargar símbolos.</p>
+</li>
+<li><p>Acercar la escala de tiempo para mostrar solo la parte de la ruta de acceso crítica afectada por el problema de CPU.</p>
+</li>
+<li><p>Aplique el <strong>valor preestablecido Uso por proceso y subproceso</strong> .</p>
+</li>
+<li><p>Agregue la <strong>columna Pila</strong> a la pantalla y arrastre esta columna a la derecha del identificador<strong> de </strong>subproceso (a la izquierda de la barra).</p>
+</li>
+<li><p>Expanda el proceso y el subproceso para mostrar los árboles de pila.</p>
+<p>Las filas de la pila se ordenan en orden descendente por <strong>% peso del uso</strong> de CPU. Esto coloca las pilas más interesantes en la parte superior. A medida que expande las pilas, observe la <strong>columna % weight</strong> para asegurarse de que el foco permanece en las filas que tienen el uso más alto.</p>
+</li>
+<li><p>Para extraer una copia de la pila, seleccione todas las filas, haga clic con el botón derecho y haga clic en <strong>Copiar selección</strong>.</p>
+</li>
+</ol>
+<h3 id="resolution">Solución</h3>
+<p>Puede aplicar soluciones en los niveles de configuración y componente para resolver un uso elevado de la CPU.</p>
+<p>El uso directo de cpu tiene un mayor impacto en los equipos que tienen procesadores de gama inferior. En estos casos, puede agregar más potencia de procesamiento al equipo. O bien, es posible que pueda quitar los módulos de problemas de la ruta de acceso crítica o del sistema. Si puede cambiar los componentes, considere un esfuerzo de rediseño para lograr uno de los siguientes resultados:</p>
+<ul>
+<li><p>Eliminación del código intensivo de CPU de la ruta de acceso crítica</p>
+</li>
+<li><p>Uso de algoritmos más eficientes para cpu</p>
+</li>
+<li><p>Aplazar o almacenar en caché el trabajo</p>
+</li>
+</ul>
+<h3 id="thread-interference">Interferencia de subprocesos</h3>
+<p>El uso de CPU por subprocesos que no están en la ruta de acceso crítica (y que podría no estar relacionado con la actividad), puede hacer que los subprocesos que se encuentren en la ruta de acceso crítica se retrasen. El modelo de estado del subproceso muestra que este problema se caracteriza por subprocesos en la ruta de acceso crítica que pasa una cantidad inusual de tiempo en el estado Listo.</p>
+<h3 id="problem-identification-1">Identificación del problema</h3>
+<p>Muchas evaluaciones usan heurística para identificar problemas relacionados con la interferencia. Estos se notifican en una de las dos formas siguientes:</p>
+<ul>
+<li><p>El proceso <em>P</em> está muerto. El colapso provoca un retraso en la actividad <em>afectada A</em> de <em>x</em> ms.</p>
+</li>
+<li><p>Se adelantó el proceso <em>P</em> . El adelantamiento provoca un retraso en la actividad <em>afectada A</em> de <em>x</em> ms.</p>
+</li>
+</ul>
+<p>Donde <em>P</em> es el proceso, <em>A</em> es la actividad y <em>x</em> es la hora en ms.</p>
+<p>El primer formulario refleja la interferencia de los subprocesos en el mismo nivel de prioridad que el subproceso en la ruta crítica. El segundo formulario refleja la interferencia de los subprocesos que están en un nivel de prioridad más alto que el subproceso en la ruta de acceso crítica.</p>
+<p>Si estos tipos de problemas se notifican para una actividad retrasada, la interferencia de subprocesos puede ser la causa. Puede usar el <strong>gráfico Uso de CPU (preciso)</strong> para identificar manualmente el problema.</p>
+<p><strong>Identificación de problemas de interferencia de subprocesos</strong></p>
+<ol>
+<li><p>Acercar el intervalo y aplicar el <strong>valor preestablecido de uso por CPU</strong> . Un uso del 100 % en todas las CPU indica un problema de interferencia.</p>
+</li>
+<li><p>Aplique el <strong>valor preestablecido Uso por proceso, subproceso</strong> y ordene por la primera <strong>columna Ready (us).</strong> (Esta es la columna que incluye el <strong>Suma</strong> de agregación).)</p>
+</li>
+<li><p>Expanda el proceso de la actividad que se ve afectada y examine el tiempo de preparación de los subprocesos en la ruta de acceso crítica. Este valor es el tiempo máximo que se puede reducir el retraso mediante la resolución de cualquier problema de interferencia de subproceso. Un valor con una magnitud significativa en relación con el retraso que se está investigando indica que existe un problema de interferencia de subprocesos.</p>
+</li>
+</ol>
+<p>La figura 39 Uso de CPU está cerca del 100 % y la figura 40 Problema de interferencia de subprocesos representa este escenario:</p>
+<p><img src="images/dep-win8-cpu-techniques-figure-39-cpu-utilization-is-near-100.png" alt="figura 39 el uso de cpu está cerca del 100 %" data-linktype="relative-path"></p>
+<p><strong>Figura 39 El uso de CPU está cerca del 100 %</strong></p>
+<p><img src="images/dep-win8-cpu-techniques-figure-40-thread-interference-problem.png" alt="figura 40 problema de interferencia de subprocesos" data-linktype="relative-path"></p>
+<p><strong>Figura 40 Problema de interferencia de subprocesos</strong></p>
+<h3 id="investigation-1">Investigación</h3>
+<p>Una vez identificado el problema, debe determinar por qué el subproceso afectado pasó tanto tiempo en estado Listo.</p>
+<p><strong>Técnica: Determinar por qué un subproceso pasó tiempo en estado listo</strong></p>
+<p>Puede usar el <strong>gráfico Uso de CPU (preciso)</strong> para determinar por qué un subproceso ha invertido tiempo en el estado Listo. Primero debe determinar si el subproceso está restringido a determinados procesadores. Aunque no puede obtener directamente esta información, puede examinar el historial de uso de CPU de un subproceso durante períodos de uso elevado de la CPU. Este es el período en el que los subprocesos tienden a cambiar con frecuencia entre procesadores.</p>
+<p><strong>Determinar las restricciones de procesador de un subproceso</strong></p>
+<ol>
+<li><p>Acercar la región afectada.</p>
+</li>
+<li><p>Agregue el <strong>gráfico Uso de CPU (preciso)</strong> y aplique el <strong>valor preestablecido Uso por proceso y subproceso</strong> .</p>
+</li>
+<li><p>Use el <strong>cuadro de diálogo Avanzado</strong> para agregar una <strong>columna cpu</strong> que tenga un <strong>modo de agregación Recuento</strong> único a la derecha de <strong>NewThreadId</strong>.</p>
+</li>
+<li><p>Filtre el gráfico para mostrar solo los subprocesos en los que está interesado.</p>
+<p>El valor de la <strong>columna Cpu</strong> refleja el número de procesadores en los que se ejecutó el subproceso durante el intervalo de tiempo actual. Durante períodos de uso de CPU del 100 %, este número se aproxima al número de procesadores en los que se permite ejecutar este subproceso. Si el valor es menor que el número de procesadores disponibles, es probable que el subproceso esté restringido a determinadas CPU.</p>
+<p>En la figura 41 Subprocesos restringidos se proporciona un ejemplo de este gráfico:</p>
+<p><img src="images/dep-win8-cpu-techniques-figure-41-restricted-threads.png" alt="figura 41 subprocesos restringidos" data-linktype="relative-path"></p>
+<p><strong>Figura 41 Subprocesos restringidos</strong></p>
+</li>
+</ol>
+<p>Después de conocer las restricciones de procesador de un subproceso, puede determinar qué adelantó o desintempleó el subproceso. Para ello, debe identificar los intervalos que el subproceso pasó en estado Listo y, a continuación, examinar qué otros subprocesos o procesos se estaban ejecutando durante esos intervalos.</p>
+<p><strong>Determinar qué adelantó o desintempleó el subproceso</strong></p>
+<ol>
+<li><p>Construya un gráfico que muestre cuándo el subproceso estaba en estado Listo y aplique el <strong>valor preestablecido De uso por proceso y subproceso</strong> .</p>
+</li>
+<li><p>Abra el <strong>Editor</strong> de vistas, haga clic en <strong>Avanzadas</strong> y seleccione la <strong>pestaña Configuración</strong> de Graph.</p>
+</li>
+<li><p>Establezca <strong>Hora</strong> de inicio en <strong>ReadyTime (s)</strong> y establezca La <strong>duración</strong> en <strong>Listo (us),</strong>como se muestra en la figura 42 Columnas de tiempo listo. Haga clic en <strong>OK</strong>.</p>
+<p><img src="images/dep-win8-cpu-techniques-figure-42-ready-time-columns.png" alt="figura 42 columnas de tiempo preparadas" data-linktype="relative-path"></p>
+<p><strong>Figura 42 Columnas de tiempo listo</strong></p>
+</li>
+<li><p>En el <strong>Editor</strong> de vistas, reemplace la <strong>columna Uso de CPU (%)</strong> por la <strong>columna Ready (us) [Sum].</strong></p>
+</li>
+<li><p>Seleccione el subproceso de interés para generar un gráfico similar a la figura 43 Gráfico de tiempo listo:</p>
+<p><img src="images/dep-win8-cpu-techniques-figure-43-ready-time-graph.png" alt="figura 43 gráfico de tiempo listo" data-linktype="relative-path"></p>
+<p><strong>Figura 43 Gráfico de tiempo listo</strong></p>
+</li>
+<li><p>En este caso, el subproceso pasó un tiempo significativo en el estado Listo. Para determinar su prioridad típica, agregue una <strong>agregación Average</strong> a la <strong>columna NewInPri</strong> .</p>
+<p>En este caso, la prioridad media del subproceso es exactamente 8. Este número indica que probablemente es un subproceso en segundo plano que nunca recibe elevaciones de prioridad.</p>
+</li>
+<li><p>Una vez conocida la prioridad media, examine la actividad de CPU de las CPU en las que se permite ejecutar el subproceso.</p>
+<p>En este caso, el subproceso se determinó que solo tenía afinidad con la CPU 1.</p>
+</li>
+<li><p>Agregue otro <strong>gráfico uso de CPU (preciso)</strong> y aplique el <strong>valor de Uso por valor preestablecido de CPU</strong> . Seleccione las CPU pertinentes.</p>
+</li>
+<li><p>Abra la <strong>vista Avanzadas</strong> y agregue un filtro para la prioridad que encontró anteriormente para filtrar ese subproceso. Este escenario se muestra en la figura 44 Filtro de subprocesos:</p>
+<p><img src="images/dep-win8-cpu-techniques-figure-44-thread-filter.png" alt="figura 44 filtro de subprocesos" data-linktype="relative-path"></p>
+<p><strong>Figura 44 Filtro de subprocesos</strong></p>
+<p>En la figura 45 Uso de CPU, Tiempo de preparación y Otra actividad de subprocesos, el gráfico superior muestra el uso de CPU del subproceso 3548. El gráfico central muestra la hora en que el subproceso estaba listo y el gráfico inferior muestra la actividad en las CPU en las que se permitió que se ejecutara el subproceso (en este caso, Cpu1).</p>
+<p><img src="images/dep-win8-cpu-techniques-figure-45-cpu-usage-ready-time-and-other-thread-activity.png" alt="figura 45 tiempo de preparación para el uso de cpu y otro subproceso ac" data-linktype="relative-path"></p>
+<p><strong>Figura 45 Uso de CPU, tiempo de preparación y otra actividad de subproceso</strong></p>
+</li>
+<li><p>Acercar una región en la que el subproceso estaba listo, pero no se ejecutó, durante la mayor parte del tiempo durante ese intervalo.</p>
+</li>
+<li><p>En el <strong>gráfico Uso</strong> de CPU, agregue <strong>NewInPri</strong> a la izquierda de la barra y examine los resultados.</p>
+<p>Los subprocesos o procesos que tienen prioridades iguales a la prioridad del subproceso de destino muestran el tiempo que el subproceso se ha agotado. Los subprocesos o procesos que tienen mayor prioridad que la prioridad del subproceso de destino muestran el tiempo que se adelantó el subproceso. Puede calcular el tiempo total que adelantó el subproceso agregando las horas de todos los subprocesos y acciones preferentes.</p>
+<p>La figura 46 Uso por prioridad Cuando el subproceso de destino estaba listo muestra que 730 ms del tiempo del subproceso se han adelantado y se han agotado los 300 ms del tiempo del subproceso. (Esta figura se acerca a un intervalo de 1192 ms).</p>
+<p><img src="images/dep-win8-cpu-techniques-figure-46-usage-by-priority-when-target-thread-was-ready.png" alt="figura 46 uso por prioridad cuando el subproceso de destino era" data-linktype="relative-path"></p>
+<p><strong>Figura 46 Uso por prioridad Cuando el subproceso de destino estaba listo</strong></p>
+</li>
+<li><p>Para determinar qué subprocesos son responsables del adelantamiento y el colapso de este subproceso, agregue la <strong>columna NewProcess</strong> a la derecha de la <strong>columna NewInPri</strong> y revise los niveles de prioridad en los que se estaban ejecutando los procesos. En este caso, el adelantamiento y el hambre fueron causados principalmente por otro subproceso en el mismo proceso y por TestResidentApp.exe. Puede suponer que estos procesos reciben elevaciones de prioridad periódicas por encima de su prioridad base.</p>
+</li>
+</ol>
+<h3 id="resolution-1">Solución</h3>
+<p>Puede resolver problemas de adelantamiento o de hambre cambiando la configuración o los componentes. Considere la posibilidad de usar las siguientes correcciones:</p>
+<ul>
+<li><p>Quite los procesos problemáticos del sistema.</p>
+</li>
+<li><p>Ajuste la prioridad base de los procesos problemáticos...</p>
+</li>
+<li><p>Cambiar la hora en que se ejecutan los procesos problemáticos; Por ejemplo, retrase la hora de inicio para que se produzca cuando se reinicie el equipo.</p>
+</li>
+<li><p>Si se pueden cambiar los componentes del problema, vuelva a diseñarlos para que sean menos intensivos en la CPU o para que se ejecuten con una prioridad menor.</p>
+</li>
+</ul>
+<h3 id="dpcisr-interference">Interferencia de DPC/ISR</h3>
+<p>Cuando se consume demasiado tiempo de procesador mediante la ejecución de DPCs e ISR, es posible que no haya suficiente tiempo de CPU disponible para ejecutar subprocesos. Esta situación puede provocar retrasos similares en la interferencia del subproceso. Cuando los subprocesos deben completar operaciones con una frecuencia regular de alta frecuencia, como en la reproducción de vídeo o la animación, las interferencias de los DPCs e ISR pueden causar problemas operativos.</p>
+<h3 id="problem-identification-2">Identificación del problema</h3>
+<p>Muchas evaluaciones usan heurística para identificar problemas relacionados con DPC/ISR. La actividad DPC/ISR se identifica como sospechosa cuando se notifica como un problema de la forma siguiente:</p>
+<p>DPC <em>D</em> supera el umbral de <em>milisegundos</em> <em>x</em> veces durante <em>P</em>. Las <em>n</em> instancias de este DPC se ejecutan para un total combinado de <em>milisegundos</em> .</p>
+<p>Donde <em>D</em> es el DPC, <em>m</em> es el número de milisegundos que establece el umbral, <em>x</em> es el número de veces que el DPC superó el umbral, P<em> es el proceso actual, </em><em>n</em> es el número de instancias que ejecutó el DPC y <em>t</em> es el tiempo total en milisegundos que el DPC ejecutó sobre el umbral.</p>
+<p>Por ejemplo, una evaluación notifica el siguiente problema:</p>
+<p><strong>DPC sdbus.sys! SdbusWorkerDpc supera el objetivo de 3,0 milisegundos 153 veces durante la duración del motor multimedia. Las 153 instancias de este DPC se ejecutan para un total combinado de 864 milisegundos</strong></p>
+<p>Si se notifica este problema para una actividad que muestra eventos o retrasos del problema, la actividad DPC/ISR podría ser la causa.</p>
+<p><strong>Identificación manual de la interferencia de DPC/ISR</strong></p>
+<ol>
+<li><p>Para identificar manualmente la interferencia DPC/ISR, abra un seguimiento en WPA e identifique los eventos de problema de interés. Estos son eventos genéricos específicos de la evaluación, como <strong>Microsoft-Windows-Dwm-Core:SCHEDULE_GLITCH</strong> o <strong>Microsoft-Windows-MediaEngine:DroppedFrame</strong>.</p>
+</li>
+<li><p>Junto al gráfico de eventos, agregue el <strong>gráfico Duración de DPC/ISR por CPU</strong> . Si los picos de la <strong>duración de DPC/ISR por gráfico de CPU</strong> se alinean con los eventos del problema, DPC/ISR podría ser un factor para causar los problemas.</p>
+</li>
+<li><p>En el caso de datos adicionales, acerque el período de tiempo que se produce a 100 ms antes de que se muestren varios eventos de problema. Si la actividad DPC/ISR significativa se muestra en uno o varios procesadores de la región de 100 ms antes de que se produjeran los eventos del problema, puede concluir que los eventos del problema fueron causados por la actividad DPC/IRS.</p>
+</li>
+<li><p>Para determinar si la interferencia DPC/ISR está causando retrasos, zoom a una región que muestra un subproceso en ejecución. Anote la CPU o las CPU en las que se ejecuta este subproceso.</p>
+</li>
+<li><p>En el gráfico DPC/ISR, aplique la <strong>duración de DPC/ISR por valor preestablecido de CPU</strong> y vea la actividad DPC/ISR en las CPU pertinentes de ese intervalo de tiempo.</p>
+</li>
+</ol>
+<p>En la figura 47 Eventos de problemas y actividad DPC/ISR se muestra que el subproceso 864 de iexplore.exe es relevante para la actividad afectada. El subproceso 864 está en estado En ejecución en CPU2 para el 10,65 % del intervalo de tiempo en la vista. Sin embargo, el gráfico DPC/ISR muestra que CPU2 estaba ocupado ejecutando DPC/ISR durante el 10 % de ese tiempo.</p>
+<p><strong>Nota</strong> La mayoría de DPC/ISR no tienen un impacto tan alto como se muestra en este ejemplo.</p>
+<p><img src="images/dep-win8-cpu-techniques-figure-47-problem-events-and-dpc-isr-activity.png" alt="figura 47 eventos de problemas y actividad de isr dpc" data-linktype="relative-path"></p>
+<p><strong>Figura 47 Eventos de problemas y actividad DPC/ISR</strong></p>
+<p>En la figura 48 DPC/ISR No relacionado con los eventos de problema, se muestran DPC/ISR que no están relacionados con los problemas de rendimiento:</p>
+<p><img src="images/dep-win8-cpu-techniques-figure-48-dpc-isr-unrelated-to-problem-events.png" alt="figura 48 dpc isr no relacionada con los eventos de problema" data-linktype="relative-path"></p>
+<p><strong>Figura 48 DPC/ISR No relacionada con los eventos de problema</strong></p>
+<p>En la figura 49 Retraso causado por la interferencia DPC/ISR, se muestran DPC/ISR para causar problemas de rendimiento:</p>
+<p><img src="images/dep-win8-cpu-techniques-figure-49-delay-caused-by-dpc-isr-interference.png" alt="figura 49 retraso causado por la interferencia de dpc isr" data-linktype="relative-path"></p>
+<p><strong>Figura 49 Retraso causado por la interferencia DPC/ISR</strong></p>
+<h3 id="investigation-2">Investigación</h3>
+<p>Después de determinar que los DPCs/ISR están relacionados con problemas o retrasos, debe determinar qué DPC/ISR específicos están implicados y por qué se producen con frecuencia o de ejecución durante un período excesivo de tiempo.</p>
+<p><strong>Técnica: Revisión de un problema de DPC/ISR notificado por la evaluación</strong></p>
+<p>En los problemas de DPC/ISR notificados por la evaluación, puede expandir el problema que muestra los procesos principales que se adelantan a DPC o ISR. Expanda la pila para ver la actividad DPC del proceso más relacionado con la actividad afectada, como se muestra en, expanda la pila para comprender lo que hacía el DPC. La figura 50 Pila DPC expandida muestra la pila expandida:</p>
+<p><img src="images/dep-win8-cpu-techniques-figure-50-expanded-dpc-stack.png" alt="figura 50 pila de dpc expandida" data-linktype="relative-path"></p>
+<p><strong>Figura 50 Pila DPC expandida</strong></p>
+<p><strong>Técnica: Busque los DPC/ISR de mayor duración y revise las pilas.</strong></p>
+<p>Si una evaluación no notifica que DPC/ISR sea un problema, puede usar los <strong>gráficos DPC/ISR</strong> y <strong>uso de CPU (muestreado)</strong> para obtener información de pila para los DPC más relevantes. Se recomienda encontrar un DPC/ISR de interés, anotar su módulo y función y, a continuación, buscar los ejemplos en el <strong>gráfico Uso de CPU (muestreado)</strong> para obtener información completa de la pila.</p>
+<p><strong>Busque los DPCs/ISR de mayor duración y revise las pilas.</strong></p>
+<ol>
+<li><p>Acercar el intervalo de interés.</p>
+</li>
+<li><p>En el gráfico DPC/ISR, seleccione la duración preestablecida <strong>de DPC/ISR por módulo, Función</strong>.</p>
+<p>Si se cargan símbolos, los eventos DPC/ISR se ordenan por duración total y, a continuación, se desglosan por Módulo y Función. Las primeras filas de la lista contienen los eventos DPC/ISR que probablemente causaron problemas de evento. Anote los nombres de módulo y función.</p>
+</li>
+<li><p>En el <strong>gráfico Uso de CPU (muestreado),</strong> seleccione el <strong>valor preestablecido Uso por proceso</strong> . De forma predeterminada, este valor preestablecido oculta la actividad DPC/ISR.</p>
+</li>
+<li><p>Abra el <strong>Editor</strong> de vistas y haga clic en <strong>Avanzado</strong>.</p>
+</li>
+<li><p>En la <strong>pestaña Filtro</strong> , cambie la <strong>opción Ocultar filas que coincidan con la configuración de filtro</strong> a <strong>Mantener filas que coincidan con el filtro</strong>. Esto permitirá que se muestren las actividades DPC/ISR.</p>
+</li>
+<li><p>Quite la <strong>columna Proceso</strong> y agregue la <strong>columna Stack</strong> para ver dpCs/ISR ordenados por pila.</p>
+</li>
+<li><p>Desactive la selección de fila actual.</p>
+</li>
+<li><p>Haga clic con el botón derecho en una celda de la <strong>columna Pila</strong> y, a continuación, haga clic <strong>en Buscar en esta columna</strong>.</p>
+</li>
+<li><p>Escriba un módulo y una función que anotó en el paso 2 de este procedimiento.</p>
+</li>
+<li><p>Active <strong>Agregar a la selección</strong> actual y haga clic en <strong>Buscar todo</strong> para seleccionar todas las instancias de la función.</p>
+</li>
+<li><p>Una vez seleccionadas todas las filas, haga clic con el botón derecho y haga clic en <strong>Mariposas/Ver calles</strong>.</p>
+</li>
+</ol>
+<p>Esta vista muestra las actividades de esta función determinada, ordenadas por duración total. La vista es similar a una visualización de pilas en la vista detallada de un problema notificado por la evaluación. La <strong>columna Weight</strong> aproxima el tiempo inclusivo que dedica cada función de la pila, en milisegundos.</p>
+<p>Esta vista se muestra en la figura 51 Callees de un DPC ordenados por duración aproximada:</p>
+<p><img src="images/dep-win8-cpu-techniques-figure-51-callees-of-a-dpc-sorted-by-approximate-duration.png" alt="figura 51 calles de un dpc ordenados por aproximadamente d" data-linktype="relative-path"></p>
+<p><strong>Figura 51 Calles de un DPC ordenados por duración aproximada</strong></p>
+<p><strong>Técnica: Revisión de DPCs/ISR de larga duración</strong></p>
+<p>La duración total de dpCs/ISR es importante, pero es más probable que los DPC/ISR individuales de larga duración provoquen retrasos. En el gráfico DPC/ISR, la <strong>columna Duración inclusiva (ms),</strong> ordenada en orden descendente, muestra las duraciones máximas de DPC/ISR individuales. Los DPCs/ISR<strong> long preestablecidos </strong>que están disponibles en algunos perfiles de evaluación le permiten filtrar esta vista para mostrar solo DPCs/ISR que tengan una duración inclusiva superior a 1 ms.</p>
+<p><strong>Nota</strong> Si este valor preestablecido no está disponible, puede abrir la <strong>sección Editor</strong> de vistas, <strong>Opciones avanzadas</strong> , para agregar un filtro.</p>
+<h3 id="resolution-2">Solución</h3>
+<p>La actividad DPC/ISR suele reflejar un problema de hardware o software que se debe corregir en el nivel de hardware o componente. En un nivel de configuración, puede reemplazar el hardware o actualizar el controlador relacionado a una versión fija. En un nivel de componente, el hardware y los controladores deben seguir los procedimientos recomendados para DPCs/ISR de MSDN y deben usar dpCs en subprocesos siempre que sea posible. Los DPC en subprocesos no se ejecutan en el nivel de distribución en las ediciones de cliente de Windows. Para obtener más información sobre los procedimientos recomendados para DPCs/ISR, vea Directrices sobre el comportamiento de ISR y DPC e Introducción a los DPC en subprocesos.</p>
+<h2 id="related-topics">Temas relacionados</h2>
+<p><a href="/es-es/windows-hardware/drivers/kernel/introduction-to-threaded-dpcs" data-linktype="absolute-path">Introducción a los DPC en subprocesos</a></p>
+<p><a href="loading-symbols" data-linktype="relative-path">Cargar símbolos</a></p>
+<p><a href="/es-es/windows-hardware/drivers/bringup/microsoft-asl-compiler" data-linktype="absolute-path">Administración de energía y ACPI: arquitectura y compatibilidad con controladores</a></p>
+<p><a href="/es-es/previous-versions/windows/hardware/download/dn550976(v=vs.85)" data-linktype="absolute-path">PPM en Windows Vista y Windows Server 2008</a></p>
+<p><a href="/es-es/windows/win32/procthread/scheduling-priorities" data-linktype="absolute-path">Prioridades de programación</a></p>
+<p><a href="/es-es/previous-versions/windows/hardware/download/dn550976(v=vs.85)" data-linktype="absolute-path">Programación, contexto de subproceso e IRQL</a></p>
+<p><a href="https://www.microsoftpressstore.com/?ID=12069" data-linktype="external">Windows Internals, Sexta Edición</a></p>
+<p><a href="windows-performance-analyzer" data-linktype="relative-path">Windows Performance Analyzer</a></p>
+<p><a href="windows-performance-toolkit-technical-reference" data-linktype="relative-path">Referencia técnica del Kit de herramientas de rendimiento de Windows</a></p>
+</div>
+					
+		<div
+			id="ms--inline-notifications"
+			class="margin-block-xs"
+			data-bi-name="inline-notification"
+		></div>
+	 
+		<div
+			id="assertive-live-region"
+			role="alert"
+			aria-live="assertive"
+			class="visually-hidden"
+			aria-relevant="additions"
+			aria-atomic="true"
+		></div>
+		<div
+			id="polite-live-region"
+			role="status"
+			aria-live="polite"
+			class="visually-hidden"
+			aria-relevant="additions"
+			aria-atomic="true"
+		></div>
+	
+					
+				</div>
+				
+		<div id="ms--additional-resources-mobile" class="display-none-print">
+			<hr class="hr" hidden />
+			<h2 id="ms--additional-resources-mobile-heading" class="title is-3" hidden>
+				Recursos adicionales
+			</h2>
+			
+		<section
+			id="right-rail-recommendations-mobile"
+			class=""
+			data-bi-name="recommendations"
+			hidden
+		></section>
+	 
+		<section
+			id="right-rail-training-mobile"
+			class=""
+			data-bi-name="learning-resource-card"
+			hidden
+		></section>
+	 
+		<section
+			id="right-rail-events-mobile"
+			class=""
+			data-bi-name="events-card"
+			hidden
+		></section>
+	
+		</div>
+	 
+		<div
+			id="article-metadata-footer"
+			data-bi-name="article-metadata-footer"
+			data-test-id="article-metadata-footer"
+			class="page-metadata-container"
+		>
+			<hr class="hr" />
+			<ul class="metadata page-metadata" data-bi-name="page info" lang="es-es" dir="ltr">
+				<li class="visibility-hidden-visual-diff">
+			<span class="badge badge-sm text-wrap-pretty">
+				<span>Se actualizó por última vez el <local-time format="twoDigitNumeric"
+		datetime="2023-06-20T00:13:00.000Z"
+		data-article-date-source="calculated"
+		class="is-invisible"
+	>
+		2023-06-20
+	</local-time></span>
+			</span>
+		</li>
+			</ul>
+		</div>
+	
+			</div>
+		
+				</main>
+				<aside
+					id="layout-body-aside"
+					class="layout-body-aside  "
+					data-bi-name="aside"
+					aria-label="Recursos adicionales"
+			  >
+					
+		<div
+			id="ms--additional-resources"
+			class="right-container padding-sm display-none display-block-desktop height-full"
+			data-bi-name="pageactions"
+		>
+			<div id="affixed-right-container" data-bi-name="right-column">
+				
+		<nav
+			id="side-doc-outline"
+			class="doc-outline border-bottom padding-bottom-xs margin-bottom-xs scrollbar-width-thin"
+			data-bi-name="intopic toc"
+			aria-label="En este artículo"
+		>
+			<h3>En este artículo</h3>
+		</nav>
+	
+				<!-- Feedback -->
+				
+			</div>
+		</div>
+	
+			  </aside> <section
+					id="layout-body-flyout"
+					class="layout-body-flyout "
+					data-bi-name="flyout"
+			  >
+					 <div
+	class="height-full border-left background-color-body-medium"
+	id="ask-learn-flyout"
+></div>
+			  </section> <div class="layout-body-footer " data-bi-name="layout-footer">
+		<footer
+			id="footer"
+			data-test-id="footer"
+			data-bi-name="footer"
+			class="footer-layout padding-xs padding-sm-desktop has-default-focus border-top"
+			role="contentinfo"
+		>
+			<div class="display-flex gap-xs flex-wrap-wrap is-full-height padding-right-lg-desktop">
+				
+		<a
+			data-mscc-ic="false"
+			href="#"
+			data-bi-name="select-locale"
+			class="locale-selector-link flex-shrink-0 button button-sm button-clear external-link-indicator"
+			id=""
+			title=""
+			><span class="icon" aria-hidden="true"
+				><span class="docon docon-world"></span></span
+			><span class="local-selector-link-text">es-es</span></a
+		>
+	 <div class="ccpa-privacy-link" data-ccpa-privacy-link hidden>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://aka.ms/yourcaliforniaprivacychoices"
+			data-bi-name="your-privacy-choices"
+			class="button button-sm button-clear flex-shrink-0 external-link-indicator"
+			id=""
+			title=""
+			>
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			viewBox="0 0 30 14"
+			xml:space="preserve"
+			height="16"
+			width="43"
+			aria-hidden="true"
+			focusable="false"
+		>
+			<path
+				d="M7.4 12.8h6.8l3.1-11.6H7.4C4.2 1.2 1.6 3.8 1.6 7s2.6 5.8 5.8 5.8z"
+				style="fill-rule:evenodd;clip-rule:evenodd;fill:#fff"
+			></path>
+			<path
+				d="M22.6 0H7.4c-3.9 0-7 3.1-7 7s3.1 7 7 7h15.2c3.9 0 7-3.1 7-7s-3.2-7-7-7zm-21 7c0-3.2 2.6-5.8 5.8-5.8h9.9l-3.1 11.6H7.4c-3.2 0-5.8-2.6-5.8-5.8z"
+				style="fill-rule:evenodd;clip-rule:evenodd;fill:#06f"
+			></path>
+			<path
+				d="M24.6 4c.2.2.2.6 0 .8L22.5 7l2.2 2.2c.2.2.2.6 0 .8-.2.2-.6.2-.8 0l-2.2-2.2-2.2 2.2c-.2.2-.6.2-.8 0-.2-.2-.2-.6 0-.8L20.8 7l-2.2-2.2c-.2-.2-.2-.6 0-.8.2-.2.6-.2.8 0l2.2 2.2L23.8 4c.2-.2.6-.2.8 0z"
+				style="fill:#fff"
+			></path>
+			<path
+				d="M12.7 4.1c.2.2.3.6.1.8L8.6 9.8c-.1.1-.2.2-.3.2-.2.1-.5.1-.7-.1L5.4 7.7c-.2-.2-.2-.6 0-.8.2-.2.6-.2.8 0L8 8.6l3.8-4.5c.2-.2.6-.2.9 0z"
+				style="fill:#06f"
+			></path>
+		</svg>
+	
+			<span>Sus opciones de privacidad</span></a
+		>
+	
+	</div>
+				<div class="flex-shrink-0">
+		<div class="dropdown has-caret-up">
+			<button
+				data-test-id="theme-selector-button"
+				class="dropdown-trigger button button-clear button-sm inner-focus theme-dropdown-trigger"
+				aria-controls="{{ themeMenuId }}"
+				aria-haspopup="true"
+				aria-expanded="false"
+				data-bi-name="theme"
+			>
+				<span class="icon" aria-hidden="true"><span class="docon docon-sun"></span></span>
+				<span>Tema</span>
+				<span class="icon expanded-indicator" aria-hidden="true">
+					<span class="docon docon-chevron-down-light"></span>
+				</span>
+			</button>
+			<div class="dropdown-menu" id="{{ themeMenuId }}" role="menu">
+				<ul class="theme-selector padding-xxs" data-test-id="theme-dropdown-menu" role="none">
+					<li class="theme display-block" role="none">
+						<button
+							class="button button-clear button-sm theme-control button-block justify-content-flex-start text-align-left"
+							role="menuitemradio"
+							aria-checked="false"
+							data-theme-to="light"
+							tabindex="-1"
+						>
+							<span class="theme-light margin-right-xxs">
+								<span
+									class="theme-selector-icon border display-inline-block has-body-background"
+									aria-hidden="true"
+								>
+									<svg class="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 14">
+										<rect width="22" height="14" class="has-fill-body-background" />
+										<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+										<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+										<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+										<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+										<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+										<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+										<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+									</svg>
+								</span>
+							</span>
+							<span> Claro </span>
+						</button>
+					</li>
+					<li class="theme display-block" role="none">
+						<button
+							class="button button-clear button-sm theme-control button-block justify-content-flex-start text-align-left"
+							role="menuitemradio"
+							aria-checked="false"
+							data-theme-to="dark"
+							tabindex="-1"
+						>
+							<span class="theme-dark margin-right-xxs">
+								<span
+									class="border theme-selector-icon display-inline-block has-body-background"
+									aria-hidden="true"
+								>
+									<svg class="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 14">
+										<rect width="22" height="14" class="has-fill-body-background" />
+										<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+										<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+										<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+										<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+										<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+										<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+										<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+									</svg>
+								</span>
+							</span>
+							<span> Oscuro </span>
+						</button>
+					</li>
+					<li class="theme display-block" role="none">
+						<button
+							class="button button-clear button-sm theme-control button-block justify-content-flex-start text-align-left"
+							role="menuitemradio"
+							aria-checked="false"
+							data-theme-to="high-contrast"
+							tabindex="-1"
+						>
+							<span class="theme-high-contrast margin-right-xxs">
+								<span
+									class="border theme-selector-icon display-inline-block has-body-background"
+									aria-hidden="true"
+								>
+									<svg class="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 14">
+										<rect width="22" height="14" class="has-fill-body-background" />
+										<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+										<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+										<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+										<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+										<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+										<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+										<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+									</svg>
+								</span>
+							</span>
+							<span> Contraste alto </span>
+						</button>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+			</div>
+			<ul class="links" data-bi-name="footerlinks">
+				<li class="manage-cookies-holder" hidden=""></li>
+				<li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://learn.microsoft.com/es-es/principles-for-ai-generated-content"
+			data-bi-name="aiDisclaimer"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Declinación de responsabilidades de IA</a
+		>
+	
+	</li><li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://learn.microsoft.com/es-es/previous-versions/"
+			data-bi-name="archivelink"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Versiones anteriores</a
+		>
+	
+	</li> <li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://techcommunity.microsoft.com/t5/microsoft-learn-blog/bg-p/MicrosoftLearnBlog"
+			data-bi-name="bloglink"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Blog</a
+		>
+	
+	</li> <li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://learn.microsoft.com/es-es/contribute"
+			data-bi-name="contributorGuide"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Contribuir</a
+		>
+	
+	</li><li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://go.microsoft.com/fwlink/?LinkId=521839"
+			data-bi-name="privacy"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Privacidad</a
+		>
+	
+	</li><li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://go.microsoft.com/fwlink/?linkid=2259814"
+			data-bi-name="consumer-health-privacy"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Privacidad de estado del consumidor</a
+		>
+	
+	</li><li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://learn.microsoft.com/es-es/legal/termsofuse"
+			data-bi-name="termsofuse"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Términos de uso</a
+		>
+	
+	</li><li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://www.microsoft.com/legal/intellectualproperty/Trademarks/"
+			data-bi-name="trademarks"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Marcas comerciales</a
+		>
+	
+	</li>
+				<li>&copy; Microsoft 2026</li>
+			</ul>
+		</footer>
+	</footer>
+			<noscript><img src="https://learn.microsoft.com/akam/13/pixel_36723bb3?a=dD0zOWM5MmYwOGUxM2I0YjM5YzQ4MjY5ZjVjMDg3NzA2Yzc3MzM4ZTY4JmpzPW9mZg==" style="visibility: hidden; position: absolute; left: -999px; top: -999px;" /></noscript></body>
+		</html>

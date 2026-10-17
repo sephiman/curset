@@ -2823,6 +2823,59 @@ or content or pipeline"`) 68 passed, never-coins included; frontend `src/lib/ref
 302 passed, 49 skipped; goldens regenerated, unchanged since the close (303 web marks, 0 dangling references). The full
 backend and frontend suites were not re-run after these edits.
 
+## Coverage check 2022–2025 (2026-10-17)
+
+Audit and fixes asked after the close; reports in `docs/age-verification/bloque-vi/coverage/` (auditor spec `spec.md`,
+per-lesson reports `m06-lNN.md`, fix list `fixes.md`, fix spec `fix-spec.md`, writer files `fix-m06-lNN.md`, blind
+verifications `verify-fix-m06-lNN.md`, the re-check queue `recheck-queue.md` and its check `recheck.md`).
+
+**Audit.** For every index row of 2022–2025, four read-only auditors took the fact the keyed option states (questionnaire
+and definitive key) and looked for it in the owner lesson (the exams ledger's first tema). Retired features and the
+«Sin fuente oficial» list were left out of the denominator.
+
+| Lesson | Asked | Covered | Partial | Miss | Share missed (partial = ½) |
+|---|---|---|---|---|---|
+| m06-l01 | 22 | 20 | 1 | 1 | 6.8 % |
+| m06-l02 | 19 | 16 | 1 | 2 | 13.2 % |
+| m06-l03 | 14 | 12 | 2 | 0 | 7.1 % |
+| m06-l04 | 21 | 17 | 4 | 0 | 9.5 % |
+| m06-l05 | 17 | 15 | 2 | 0 | 5.9 % |
+| m06-l06 | 24 | 24 | 0 | 0 | 0 % |
+| m06-l07 | 25 | 20 | 4 | 1 | 12 % |
+| m06-l08 | 15 | 15 | 0 | 0 | 0 % |
+
+No lesson missed more than a third, so all were patched. One m06-l02 miss (2025 A 47, Windows Search «aplicaciones,
+configuración y archivos») was caused by a cut made earlier the same day to fit the Narrador fix. Two m06-l07 gaps
+(2025 X 66, 2024 X 65) are the disputed Outlook search keys: the lesson follows Microsoft's page on purpose.
+
+**Fixes.** 18 facts to add (`fixes.md`) plus two partials the auditor had passed on a functional reading (Asistencia
+rápida, the quick access toolbar's «frequently used»). Mid-round, requirements v1.5 removed the word ceiling: writers
+undid their own cuts, added every fix without cutting, and restored the earlier space cuts an exam asked (2020 and
+annulled rows included): MySQL and minería de datos (m06-l01); idiomas, Registro, screen settings, and, by coordinator
+decision although the index lists them as never asked, the two dialog-box keys and the desktop icon sizes (m06-l02);
+Acerca de contents, the OneDrive Papelera and cloud-search clauses (m06-l03); Seleccionar, Opciones de impresión
+(m06-l04); EXTRAE syntax (m06-l05); SiInm, Año(), calculated fields and controls, Conmutador, Texto largo 65.535
+(m06-l06); Gráficos, Limpiar, Correo no deseado levels, carpetas de búsqueda, grupos de envío y recepción, F4 (m06-l07).
+m06-l08 had no restorable cut an exam asked.
+
+Where two official pages disagree, the lesson states both with their sources, as for Impr Pant: the quick access
+toolbar's default position (m06-l04, «encima de la cinta» against «oculta debajo»). New sources: 25 pages (24 Microsoft
+Spanish pages and RFC 5322 for the address form), saved and indexed in `fuentes.yaml` with sha256;
+`ms-office-autoguardado.html` now also lists m06-l01 and `ms-win-busqueda-privacidad.html` m06-l03.
+
+**Verification.** Blind per lesson: m06-l01 22/22, m06-l02 24/24, m06-l03 23/25, m06-l04 28/29, m06-l05 8/8, m06-l06
+22/24 (with the m06-l08 check), m06-l07 16/20. The 10 FAILs (claims wider than the page, missing client labels in
+Outlook, a person switch in one sentence, a rule about the colon in calculated fields inferred from examples, a position
+stated against a cited page) were fixed with the verifiers' wording or a newly saved page, and re-checked blind: 16/17,
+the one FAIL a line wrap, fixed. Every row the audit had marked covered was re-checked against the lessons after the
+fixes: none lost. Glossary: `link_except` for g-directiva in m06-l03 (a Windows policy, not an EU directive);
+`glossary-links.es.txt` 303 → 304 web marks (g-autoguardado now linked from a Fuentes title in m06-l01, same sense).
+
+**Checks.** On the final tree: content tests (`pytest -k "glossary or registry or content or pipeline"`) 68 passed,
+never-coins included; frontend `src/lib/refs`, `src/lib/glossary`, `src/lib/pdf` 302 passed, 49 skipped; goldens
+regenerated (304 web marks, `lesson-refs.es.txt` unchanged, 0 dangling); every file in `sources/otros/` indexed, sha256
+matching. The full backend and frontend suites were not re-run.
+
 ## Open items (after bloque VI)
 
 **Exam labels and official labels** (decision of 2026-10-17: the lessons keep the label the official page prints;
@@ -2856,7 +2909,7 @@ R3 writes authored questions with the official label; the «Exámenes oficiales�
 | «Requerido» (2025 X 59) | «Obligatorio» (m06-l06; `ms-access-tipos-datos.html`) |
 | «Divisor de bases de datos» (2020 X 59) | «Asistente para el separador de base de datos» (m06-l06; `ms-access-dividir.html`) |
 | «Introduzca el valor del parámetro» (2025 A 60) | — not printed (m06-l06 gives the behaviour only) |
-| «Origen del control» (2020 64) | «orígenes de control de cuadro de texto» (item cut; `ms-access-formularios.html`) |
+| «Origen del control» (2020 64) | «ControlSource» (`ms-access-expresiones.html`) and «origen de control» of a text box (`ms-access-formularios.html`); m06-l06 prints both as the pages do, without equating them |
 | Tab of «Orden de tabulación» | «Diseño» on the cited page, «Diseño de formulario» on `ms-access-formularios.html` (m06-l06 follows its cited page) |
 | «Gráficos modernos» (2025 X P1R 2) | «Gráfico moderno» (m06-l06; `ms-access-graficos.html`) |
 | «Archivo › Información» (Compactar y reparar, 2022 X 62) | garbled «Información de>archivo>» (m06-l06 gives the closed-database path only; `ms-access-compactar.html`) |
@@ -2897,6 +2950,8 @@ on another saved page unless noted):
 - m06-l04: «Revisar › Traducir › Traducir documento», «Revisar › Lectura en voz alta», «Referencias › Tabla de
   contenido», «Archivo › Imprimir», «Archivo › Opciones › Personalizar cinta de opciones», «Insertar › Numeración de
   páginas › Posición actual» — garbled on their pages; listed in the VI.4 notes.
+- m06-l04: «Inicio › Seleccionar» (coverage fixes) — «Seleccionar inicio >»; tab-first order printed plainly on other
+  saved Word pages («Inicio>Dictar>Transcripción») and on the English page («Home > Select»).
 - m06-l05: «Revisar › Proteger libro», «Datos › Filtro», «Archivo › Imprimir» — garbled on their pages, order printed in
   prose on the same page.
 - m06-l06: «Herramientas de base de datos» (Compactar, closed database) — «Herramientas >de base de datos»; the tab is
@@ -2941,7 +2996,18 @@ on another saved page unless noted):
 - m06-l06: 2.345,68 → Estándar (2025 A 59) — the page gives only «datos numéricos con decimales».
 - m06-l07: «Dirigir respuestas a» / «Enviar las respuestas a» (2020 X 65) — support es-es and en-us («Direct Replies
   To», «Have replies sent to»): Q&A threads and third-party guides only.
-- m06-l07: send/receive group options (2020 X P1R 1) — only a learn.microsoft.com page for Outlook 2016, cut.
+- m06-l07: send/receive group options (2020 X P1R 1) — only a learn.microsoft.com page for Outlook 2016; restored in
+  the coverage fixes from that page (see «Coverage check 2022–2025»).
+- m06-l01: the processor «obtiene» (fetches) instructions (2025 A 41) — no official Spanish page; the lesson states
+  «interpreta» and «ejecuta».
+- m06-l02: the speech language can differ from the display language (2024 X 48) — `ms-win-idioma.html` says speech uses
+  the display language; not written.
+- m06-l03: the per-drive Papelera setting (2025 X 50) — forum threads and blogs only; the lesson gives the documented
+  «No mover archivos eliminados a la papelera de reciclaje» policy.
+- m06-l04: characters with and without spaces in Contar palabras (2022 X 56) — not on any page found.
+- m06-l04: «palabra que no está en el diccionario» for Word desktop (2025 X 51) — only the Word para la Web tab says it.
+- m06-l07: adding the account is the *first* step in Outlook (2022 62) — no page says «primer paso»; the lesson gives
+  the first-run screen (type the address, Conectar).
 
 **Impr Pant: two official descriptions** (decision of 2026-10-17: state both with their sources, as the TREBEP
 and earlier-rule cases are stated; the lesson does not choose). `ms-win-atajos.html` (Windows 11 table): «Seleccione una
@@ -2962,21 +3028,20 @@ the page, an option said 600).
 g-referencia-absoluta, g-referencia-estructurada, g-consulta-de-accion, g-grupo-de-microsoft-365 (each needs its
 singular, or a plural `match`-only entry, in prose).
 
-**Cut for length, candidates if a later round has room:** m06-l01 Office applications (2024 A 43), MySQL (2020 41),
-minería de datos (2020 X 43); m06-l02 idiomas (2024 X 48), Otros usuarios (2024 X 49); m06-l03 «Enviar a» destinations
-and Acerca de contents; m06-l04 Inicio › Seleccionar (2020 X 52), Opciones de impresión (2020 53); m06-l05 the function
-pages (MAX, EXTRAE, DIVIDIRTEXTO…), 1900/1904 dates; m06-l06 Expresiones (2020 61, 62, 64); m06-l07 Gráfico (2020 X 64),
-Limpiar carpeta (2020 X 66), Correo no deseado levels (2020 X 61), carpetas de búsqueda, grupos de envío y recepción
-(2020 X P1R 1), F4 (2020 X 68). Most are single-convocatoria 2020 rows (programa anterior).
+**Cut for length:** superseded. Requirements v1.5 removed the word ceiling; every cut an exam asked was restored in
+the coverage fixes (see «Coverage check 2022–2025»). Not restored: Otros usuarios (2024 X 49, `función retirada`), the
+«Enviar a» destinations and cursiva (sin fuente oficial), and cuts no exam asked.
 
 **Files resting on non-UI sources:** `ms-win-tolerancia-errores.html` (Windows Server / Azure Local, not Windows 11; the RAID item says
 so); `ms-win32-processor-cache.html`, `ms-sql-bits.html`, `ms-win-componentes-kernel.html`, `ms-win-aqs.html` (developer
 references); `ms-office-formatos-archivo.html` (Word 2007–2021 table); `ms-win-paint.html` (product page);
 `nist-prefijos-binarios.html`, `rfc1122-capas-tcp-ip.txt`, `rfc1918-direcciones-privadas.txt`,
-`isoc-historia-internet.html`, `whatwg-html-introduccion.html`, `whatwg-html-scripting.html` (English; facts only, no
-labels).
+`isoc-historia-internet.html`, `whatwg-html-introduccion.html`, `whatwg-html-scripting.html`, `rfc5322-formato-mensaje.txt`
+(English; facts only, no labels); `ms-win-registro.html` (Windows Server troubleshooting page quoting an old definition);
+`ms-win-directivas-explorador.html` (Policy CSP, admin documentation); `ms-outlook-grupos-envio-recepcion.html` (Office
+Customization Tool 2016).
 
-**Word budget.** The eight lessons are at 1,471–1,500 words against the 1,500 ceiling: any addition needs a cut.
+**Length.** No ceiling since requirements v1.5. After the coverage fixes the lessons run 1,471–1,879 words.
 
 ## Where to resume (after bloque VI)
 
