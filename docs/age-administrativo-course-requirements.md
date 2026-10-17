@@ -1,6 +1,6 @@
 # Requirements — Course "Administrativo del Estado (C1), turno libre, OEP 2026"
 
-Version 1.3 · 17 October 2026 · requirements, not design. Content course for Curset, Spanish only. Builds on docs/curset-multicourse-requirements.md (R3.x: course structure, test-only courses, common pipeline).
+Version 1.4 · 17 October 2026 · requirements, not design. Content course for Curset, Spanish only. Builds on docs/curset-multicourse-requirements.md (R3.x: course structure, test-only courses, common pipeline).
 
 ## 1. Goal
 
@@ -27,6 +27,21 @@ A complete preparation course for the Cuerpo General Administrativo de la Admini
 - R4.4 Every lesson ends with a "Normativa" block listing the articles it rests on (norm + article ranges), generated from the citations in the text, and a "Lo que más cae" block of at most ten facts, each tied to a question in the bank that tests it.
 - R4.5 Glossary: one entry per legal or administrative term with a precise meaning (acto firme, silencio administrativo, grado personal, crédito ampliable, …), with the article that defines it when one exists. Never-coins and the no-invented-vocabulary rule apply; terms must exist outside the course with the same sense. Target 250–400 entries.
 - R4.6 Bloque VI (ofimática): text only. Describe menus, commands, shortcuts and behaviours of Windows 11 and Microsoft 365 desktop as the exams ask them; no screenshots. Where the exam style relies on exact UI labels, use the Spanish-locale labels.
+
+### 4a. Esquemas: readable structure without paraphrase
+
+- R4a.1 After the theory of all six bloques is written, a pass adds esquemas to the lessons: structured blocks that lay out what the prose already says, so a reader sees the shape of a rule at a glance. An esquema never adds a fact and never rewords one: every cell, node or step is a verbatim fragment of the norm (or the lesson's own verbatim quotation) with its citation, so the same verification applies to it as to a sentence.
+- R4a.2 Kinds, all text-only (no figures; the course keeps "no figures"): comparison tables (e.g. recursos: objeto, plazo, órgano, efectos; modificaciones presupuestarias: tipo, quién autoriza, cómo se financia), timelines of plazos (the steps of a procedure with each plazo and its article), trees (órganos and their dependencies; situaciones administrativas and their effects), and step flows (fases del gasto with document and organ). A new content block `::esquema` with a kind, a title, the rows or nodes, and a citation per row; rendered by the platform as a styled table, list or stepper, printed in the PDF as a table.
+- R4a.3 Placement: an esquema follows the paragraphs it summarises, never replaces them. Target: one to four per lesson in bloques I–V where the tema has lists of plazos, organs, kinds or phases; none where the tema is narrative. Bloque VI lessons are already list-shaped and get none.
+- R4a.4 Verification: the blind pass checks each row against its citation exactly as a sentence; the cross-reference check verifies that every citation in an esquema also appears in the lesson's prose (an esquema cannot introduce a citation the prose does not have). The "Lo que más cae" block may point at esquema rows.
+- R4a.5 This is a platform change (new block kind, renderer, PDF, checks); it goes in the platform delta as section E and precedes the esquema pass.
+
+### 4b. Scope and currency audit
+
+- R4b.1 After the theory is written and before the question bank, an audit round maps every section (heading) of every lesson to the sentence of the official programme (sources/programa.md) that calls for it. A section that maps to nothing is out of scope: it is removed, or kept only if an official exam of 2022–2025 asked it (then it stays with a note «fuera del enunciado literal; preguntado en <examen>»). The audit writes docs/age-scope-audit.md: per tema, sections mapped, sections removed, sections kept by exam evidence, and the programme sentences with no section covering them (gaps), which are then filled.
+- R4b.2 Currency: for every norm in normativa.yaml the audit compares the consolidation date stored with the latest consolidated version on boe.es (and the saved pages in sources/otros/ with their live URLs). Any norm with a newer version is listed with the articles that changed; lessons and glossary entries citing those articles are re-verified. The audit also lists every cambio-pendiente whose effective date has passed, so «(desde …)» marks can be dropped.
+- R4b.3 The same audit is re-run (a) when the OEP 2026 convocatoria is published, as part of the convocatoria diff round (R0b), against the new programme text, and (b) monthly until the exam, for currency only. Each run appends to docs/age-scope-audit.md with its date.
+- R4b.4 Acceptance: after the first run, every lesson section maps to a programme sentence or carries the exam-evidence note; every norm cited is at its latest consolidated version or has an open item naming the newer one; no «(desde …)» mark refers to a date already past.
 
 ## 5. The question bank
 
@@ -59,6 +74,8 @@ Each round is its own Claude Code session (or chain of sessions with a resumable
 - R0b Convocatoria diff (runs whenever a new convocatoria is published): compare programme and rules against the stored ones, list every changed tema and rule, and the lessons and questions affected. Stop for decision.
 - R1 Skeleton: course.yaml (45 lessons + intro, summaries empty), lesson stubs with the "Normativa" block pre-filled from normativa.yaml, glossary empty, exercise folders empty. Pipeline green with the course as draft. Stop.
 - R2 Theory, bloque by bloque (six sessions): write the lessons, the glossary entries they need, and the "Lo que más cae" facts. A verification pass per lesson checks every number, plazo and organ against the norm text. Stop after each bloque; Juanjo reads one lesson per bloque.
+- R2b Scope and currency audit (section 4b), one session, after bloque VI. Fix what it finds before R2c.
+- R2c Esquemas (section 4a), after the platform's section E exists: bloque by bloque, with the same blind verification.
 - R3 Questions, bloque by bloque: author to the quotas of R5.1, verify per R5.4, link "Lo que más cae" facts to questions. Ledger with per-tema counts (authored, dropped, kept).
 - R4 Cases: 20 scenarios, 400 questions, same verification.
 - R5 Exam presets (after the platform round of R7.1), simulation, scoring display, review page. Full pipeline, PDF without figures, CI green. Status → published.

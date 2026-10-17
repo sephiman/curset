@@ -1939,9 +1939,392 @@ Run on the final tree (lessons, glossary, course.yaml, goldens, normativa.yaml a
 - **Waiting glossary terms:** the bloque I–III lists (minus «libre designación», which entered) plus «personal
   directivo» and «incapacidad permanente».
 
+## Second blind pass on the unreviewed changes (start of bloque V, 2026-10-17)
+
+The fixes in IV.8 and the final replacements applied by diff in IV.4, IV.5, IV.6, IV.7 and IV.9 (the «applied» /
+«coordinator» rows of the Summary) had not been re-read by a reviewer. The working tables of bloque IV were gone, so
+the items were recovered from the previous session's transcripts: the last review report of each lesson (its FAIL rows,
+lesson, glossary, summary and Normativa) and the coordinator's replacement scripts. A reviewer that had written none of
+them located each item by its excerpt in the current files and re-checked it against the article.
+
+| Lesson | Checked | PASS | FAIL | Not located |
+|---|---|---|---|---|
+| IV.4 `m04-l04` | 5 | 5 | 0 | 0 |
+| IV.5 `m04-l05` | 9 | 8 | 1 | 0 |
+| IV.6 `m04-l06` | 6 | 6 | 0 | 0 |
+| IV.7 `m04-l07` | 6 | 5 | 1 | 0 |
+| IV.8 `m04-l08` | 6 | 6 | 0 | 0 |
+| IV.9 `m04-l09` | 10 | 10 | 0 | 0 |
+| **Total** | **42** | **40** | **2** | **0** |
+
+Both FAILs were dropped exceptions, both fixed against the article:
+
+1. **IV.5, art. 48.1 RD 364/1995 with art. 30.4 LPAC** (cese → toma de posesión in one month). The sentence lacked the
+   art. 30.4 rule for a month with no equivalent day. It now ends «…en el mes de vencimiento o, si en el mes de
+   vencimiento no hubiera día equivalente, el último día del mes (m03-l03).» To stay at 4,000 words, the full LPAC title
+   in that sentence became «artículo 30.4 LPAC» (the Normativa line names Ley 39/2015). The Normativa line now reads
+   «art. 30.4 (plazos en meses).» `wc -w` 4,000.
+2. **IV.7, art. 28.2.a) TRLCPE.** Cutting the prórroga sentence to make room for fix #19 had removed the «No obstante»
+   exception, so jubilación forzosa read as having none. Restored in item a): twelve years of servicios efectivos, the
+   fifteen of art. 29 not completed, prórroga for the time missing, granted if apto. `wc -w` 2,439, 39 over the 2,400
+   ceiling. The reviewer's candidate cut was the art. 22.3.c) RD 829/2023 sentence, which carries MUFACE's present
+   adscription and sits in the «hoy» re-check open item. It was kept, and the overrun is accepted.
+
+A third blind check of both replacements passed. The reviewer added one note: no article sends the toma-de-posesión
+month to the LPAC, so applying art. 30.4 to a cese is the lesson's reading. The sentence says so («El artículo 48 no
+dice cómo se computa el mes. Con el artículo 30.4 LPAC…»). Not counted as FAILs, still open: m04-l09 is at 2,401 words
+(the scope table gave IV.9 2,200, raised to 2,400 by the coordinator); m04-l08 line 208 runs to 120 columns. The
+broken wrap inside «(art. 5.1 RDL 4/2000)» in m04-l07 was fixed. Outside this pass's scope and not re-read: the IV.4
+summary wording «el Reglamento de Situaciones Administrativas», the Normativa labels of m04-l01 and m04-l03, and the
+`link_except` edits.
+
 ## Where to resume (after bloque IV)
 
 Bloque IV is closed. The next session starts R2 bloque V (temas V.1–V.6, lessons `m05-l01`…`m05-l06`) with the same
 spec, the standing conventions and the outside-sources rule. Two rules from this bloque carry over: quote the TREBEP
 disposición derogatoria única with its opening paragraph, and cut whole facts only, never a clause of a kept sentence.
 m04-l05 points to m05-l04 for the derechos retributivos.
+
+# Bloque V — temas V.1–V.6
+
+Round R2, bloque V, 2026-10-17. Nothing committed. Same procedure as bloque IV: one writer per tema to a shared spec
+(the bloque IV spec adapted to bloque V: budget in force, amounts verbatim, the cambio-pendiente norms of this bloque,
+a scope table), then a separate blind reviewer that had not written the lesson. The reviewer re-opened the cited
+article for every sentence, table row and cell carrying a number, plazo, amount, percentage, organ, date, exception,
+condition or list, recomputed every worked example, verified every newly saved source on boe.es (fresh download, same
+sha256), and checked Normativa, «Lo que más cae», the glossary candidates and the course.yaml summary. Every FAIL was
+fixed against the article; the changed sentences went through a second blind pass, and a third where the second found
+FAILs. The writer of tema N+1 drafted while tema N was in review (V.4 drafted alongside V.3). The per-sentence tables are
+working files, not kept in the repo.
+
+**No unreviewed last edits.** Bloque IV left replacements applied after the last pass (see «Second blind pass on the
+unreviewed changes» above). This bloque closed that gap: every replacement the coordinator applied after a lesson's last
+blind pass (V.2 Normativa and summary, V.3 «Lo que más cae» and summary, V.4 «Lo que más cae» and summary, V.5 summary,
+and the two bloque IV fixes) went through one more blind check: 6 PASS, 1 FAIL. The FAIL was the V.4 summary, where the
+1,5 % read as the only 2026 increase; it was fixed with the reviewer's wording. Two edits came after that check: the V.6
+art. 42.4 LGS sentence and two clarity changes in the V.2 summary. Each is the reviewer's wording, checked by the
+coordinator against the article (art. 42.4 LGS; art. 56.3–4 LGP; art. 2.1–2 RDL 14/2025), with no further blind pass.
+
+Suites before writing (tree at the start of the session): backend `uv run pytest` 1,374 passed, 20 skipped; frontend
+`npx vitest run` 561 passed, 2 failed, 49 skipped. The two failures were the glossary-link and lesson-reference goldens,
+which moved because m05-l01 and the bloque IV fixes were edited during the run.
+
+## Prompt decisions for this bloque
+
+- **Budget in force.** On 17-10-2026 no Ley de Presupuestos Generales del Estado has been published after the Ley
+  31/2022 (PGE 2023). A title search in the boe.es API is saved as `sources/otros/boe-api-leyes-pge_2026-10-17.json` and
+  indexed. m05-l01 states that the PGE 2023 are in force prorrogados (art. 134.4 CE, art. 38 LGP) and that figures tied to
+  the annual budget law change every year. m05-l02 and m05-l04 repeat the second point where they give a figure. The
+  Ley 31/2022 entry of `normativa.yaml` now lists V.1.
+- **Pagos a justificar and anticipos de caja fija.** The round prompt asks for them with V.2/V.3 at the 4,000 ceiling; the
+  programme lists them in V.5. Their full regime (límites, plazos, justificación, reposición, cuentas) is in m05-l03; m05-l05
+  gives what each is, its norm and the cross-reference. The art. 79.3 LGP rule on the carta de pago for the unspent amount
+  stays in m05-l05 under «Justificación de libramientos».
+- **V.4 ceiling.** The prompt holds word targets for V.1, V.5 and V.6 only, and requires the indemnización tables in V.4.
+  The coordinator raised V.4 from 2,800 / 3,400 to the course maximum of 4,000 (R4.3). m05-l04 is at 3,984.
+- **Amounts in V.4.** RD 462/2002: anexo II as revised by the Acuerdo del Consejo de Ministros of 02-12-2005, published by
+  Resolución de 2 de diciembre de 2005 (BOE-A-2005-19988). It is the last revision of anexo II on boe.es on 17-10-2026, and
+  the consolidated text already prints its amounts. Kilometraje: Orden HFP/793/2023 (0,26 / 0,106 euros por kilómetro).
+  The lesson quotes DF 4.ª RD 462/2002 (Consejo de Ministros for anexos II and IV, the Ministro de Hacienda for the
+  kilometraje) and art. 11.2 (anexo III). Sueldo, trienios, pagas extraordinarias and complemento de destino for 2026: the
+  two SEPG tables, saved under `sources/otros/` and indexed. They are not norms: they apply art. 2.1 RDL 14/2025 to the
+  art. 19.Cinco and art. 23 amounts of the Ley 31/2022. The lesson says they change every year.
+
+## Saved sources (bloque V)
+
+Indexed in `normativa.yaml` (under a comment line before bloque VI) or `fuentes.yaml`. The tema reviewer verified each
+writer-saved file independently on boe.es (fresh download, same sha256, metadata and /analisis).
+
+| Source | File | Why |
+|---|---|---|
+| Resolución de 2-12-2005 (dietas, anexo II RD 462/2002) | `BOE-A-2005-19988_res-02-12-2005-dietas-anexo-ii_2005-12-03.pdf` | The amounts of anexo II in force; boe.es «SE ACTUALIZA el anexo II». Diario PDF. |
+| Orden HFP/793/2023 | `BOE-A-2023-16462_orden-hfp-793-2023-kilometraje_2023-07-17.pdf` | Kilometraje of art. 18.1 RD 462/2002; repeals the Orden EHA/3770/2005. |
+| Orden HAC/557/2026 | `BOE-A-2026-12037_orden-hac-557-2026-elaboracion-pge-2027_2026-06-05.pdf` | Elaboración of the PGE 2027 (V.1); programas (anexo I) and clasificación económica (anexo II). |
+| Orden de 1-2-1996, Instrucción de operatoria contable | `BOE-A-1996-2627_orden-1996-instruccion-operatoria-contable_2024-09-17.pdf` | A different Orden from the documentos contables one of the same date. Ten official questions rest on it (reglas 6.1, 20, 24, 31, 36, 42, 77, 86). Saved by the V.3 writer. |
+| Ley 33/1987 (PGE 1988) | `BOE-A-1987-28404_ley-33-1987-pge-1988_2013-12-26.pdf` | Arts. 33–34 (devengo of pagas extraordinarias; liquidación por días), to which art. 23.Uno.B) Ley 31/2022 refers; in force per /analisis. Saved by the V.4 writer. |
+| Resolución de 20-01-2014, DG de Presupuestos (clasificación económica) | `BOE-A-2014-879_res-20-01-2014-clasificacion-economica_2014-01-29.pdf` | The only source that defines each capítulo with its inclusions and exclusions; three official questions name it. Saved by the V.5 writer. |
+| SEPG, retribuciones del personal funcionario 2026 | `sources/otros/sepg-retribuciones-funcionarios-2026.pdf` | 2026 amounts (V.4). |
+| SEPG, cuantías retributivas 2026 | `sources/otros/sepg-cuantias-retributivas-2026.pdf` | Same, by article of the Ley 31/2022. |
+| boe.es API title search | `sources/otros/boe-api-leyes-pge_2026-10-17.json` | No Ley de PGE after the Ley 31/2022. |
+
+`normativa.yaml` also: V.3 added to the temas of RD 640/1987 and RD 725/1989; V.2 and V.5 to the Orden HAC/557/2026.
+The saved texts of the LGP, RD 462/2002, the Orden de 30-7-1992 and the other bloque V norms were checked against the
+«Última actualización» on boe.es (17-10-2026). All are current.
+
+## Summary
+
+| Tema | Lesson | Target / ceiling | First draft | Words | Citations | Checked (pass 1) | FAIL (fixed) | Later passes | Glossary |
+|---|---|---|---|---|---|---|---|---|---|
+| V.1 | `m05-l01` | 1,800 / 2,200 | 4,056 | 2,169 | 44 | 65 | 3 + glossary 2 + summary 1 | p2 7/7 | 6 |
+| V.2 | `m05-l02` | 4,000 cap | 5,625 | 4,000 | 72 | 120 (1 unverifiable) | 12 + LQMC 1 + glossary 5 + summary 3 | p2 27: 4 FAIL + summary 3; p3 8: 2 FAIL (Normativa) + summary 1, applied | 7 |
+| V.3 | `m05-l03` | 4,000 cap | 7,545 | 3,999 | 60 | 136 | 7 (LQMC 2) + glossary 1 + summary 1 | p2 19/19; 1 LQMC outside the diff + summary 2, applied | 10 |
+| V.4 | `m05-l04` | 2,800 / 3,400 → 4,000 | 6,137 | 3,984 | 54 | 123 | 8 + glossary 3 + summary 2 | p2 23: 1 FAIL + summary 2 + match 4; p3 7/7, 1 LQMC outside the diff, applied | 8 |
+| V.5 | `m05-l05` | 2,000 / 2,400 | 3,707 | 2,367 | 13 | 58 | 4 (LQMC 2) + glossary 3 + summary 1 | p2 12/12; summary 1, applied | 5 |
+| V.6 | `m05-l06` | 1,800 / 2,200 | 4,576 | 2,198 | 30 | 71 | 6 (LQMC 2) + glossary 1 + summary 1 | p2 20: 1 FAIL, applied | 2 |
+| **Total** | | | | **18,717** | **273** | **573** | **41 lesson** | | **38** |
+
+Words: `wc -w`, everything counted. Citations: «(art» / «(arts» only. V.5 cites mostly anexo IV of the Resolución de
+20-01-2014, IOC reglas and Orden apartados, which are not counted. «applied»: the reviewer's replacement, applied by the
+coordinator and covered by the closing check above.
+
+**FAIL classes.** The same two as in bloques I–IV: a dropped «salvo / excepto / previo informe» clause (V.2 arts.
+47.3, 54.3 with 59, 62.1.d); V.3 art. 152.2; V.4 arts. 7.1, 9.1, 11.2; V.6 arts. 34.4, 42.4 LGS), and a selective list
+that reads as complete (V.2 the transferencias table and its órganos; V.3 the documentos contables table; V.4 anexo I
+compacted). Bloque V adds two:
+1. **Code grammar and labels no text states.** V.2 read «Sección 33, organismo 101» into an aplicación; V.4 labelled the
+   SEPG annual columns ambiguously (12 mensualidades against the «TOTAL ANUAL» with pagas).
+2. **Cut-induced FAILs again**, despite the rule. V.2 cut art. 53.5 (the exception to «en el propio ejercicio») and
+   art. 10.Dos Ley 31/2022; V.4 cut art. 12.4 RD 462/2002 (the exception to «solo el 50 por 100» on return). Each was
+   restored and paid for with another whole fact.
+
+## Glossary
+
+- 38 entries added, origin in bloque V; `glossary.yaml` holds 234. Each cites its defining article, which its origin
+  lesson cites. g-clasificacion-economica has origin m05-l02 (art. 40.1.c) LGP), proposed by the V.5 writer.
+- Dropped after review: g-credito-ampliable and g-incorporacion-de-credito (plural only in prose), g-acreedor-directo
+  (plural only in its proposed origin m05-l03). Not proposed: prórroga presupuestaria, ciclo presupuestario, pago en firme
+  (no text defines them).
+- **Plural `match` forms.** The derived plural puts the ending on the last word. Head-noun plurals were added to 12
+  bloque V terms (crédito(s) presupuestario(s), suplemento(s) de crédito, pago(s) a justificar…). The V.4 writer added
+  them to complemento(s) de destino / específico(s) / de productividad, residencia(s) oficial(es) and the other V.4
+  multi-word terms.
+- **Goldens.** `glossary-links.es.txt` regenerated and read line by line: 225 → 292 web marks (79 also a PDF link).
+  **Wrong-sense links excluded** (`link_except`): g-servicios-comunes in m05-l03 («entidades gestoras y servicios comunes
+  de la Seguridad Social», the same false friend as m01-l07 and m02-l01) and g-convenio in m05-l06 (the concursal
+  convenio of art. 34.4 LGS). Kept after reading: g-tribunal-de-cuentas and g-presupuestos-generales-del-estado in bloque
+  I and IV lessons, g-estabilidad-presupuestaria in m01-l01 (art. 135 CE), g-alto-cargo in anexo I RD 462/2002 (m05-l04)
+  and in the clasificación económica (m05-l05), g-unidades-administrativas in m05-l03 (RD 725/1989), g-convenio in
+  m05-l02 (convenios between departments), g-directiva in m05-l06 (EU directives in the LCSP title), g-dieta in m05-l03.
+  `lesson-refs.es.txt`: 57 → 86 references, 0 dangling.
+
+## V.1 — `m05-l01`
+
+- **Tally** (9 questions, 2022–2025): elaboración and remisión 5 (arts. 36.2, 36.5, 37.1 LGP; art. 134.3 CE), art. 28 LGP 2,
+  art. 3.2 LO 2/2012 1, programas finalistas 1. 2020 (programa anterior): arts. 26.1, 27, 28.1 LGP.
+- **Structure:** concepto (arts. 32, 34 LGP; art. 134 CE), principios as the texts name them (art. 26.1 LGP; arts. 3–8 LO
+  2/2012; art. 134.2 CE), ciclo (elaboración arts. 36–37 LGP with the Orden HAC/557/2026 as the current example; aprobación;
+  prórroga art. 38 LGP with the dated statement of the budget in force), presupuesto por programas (art. 35 LGP; the Orden),
+  terminología. Worked examples: remisión of the 2027 proyecto before jueves 01-10-2026; 456C finalista / 423N instrumental
+  by the anexo I letter rule.
+- **Glossary (6):** Presupuestos Generales del Estado, estabilidad presupuestaria, escenarios presupuestarios plurianuales,
+  ejercicio presupuestario, programa de gasto, crédito presupuestario.
+- **Lo que más cae sources:** 1 conv2025_A P1 34, conv2022_X P1 12; 2 conv2022_X sup. II reserva 4; 3 conv2022 sup. I reserva
+  5; 4 conv2024_A P1 35; 5 conv2024_X P1 34, conv2022_X P1 26; 6 conv2024_X P1 35; 7 conv2022_X P1 17; 8 style «texto
+  alterado».
+- **Listed:** no text in `sources/` names «fases» of the presupuesto por programas: the lesson says so and gives what the LGP
+  regulates instead. «Ciclo presupuestario» is defined nowhere. Art. 134.3 CE (Congreso, three months) and art. 37.1 LGP
+  (Cortes, before 1 October) are both stated. Art. 134.4 CE and art. 38.1 LGP word the prórroga differently; both are quoted.
+  No text says each successive prórroga carries the 2023 initial budget. Orden HAC/557/2026 anexo I refers to a
+  non-existent «artículo 6 apartado 1.1.1». Art. 35.1 LGP prints «33.1.ª)».
+
+## V.2 — `m05-l02`
+
+- **Tally** (38 questions, 34 in part 2): clasificación económica 11 (shared with V.5), transferencias 9 (arts. 52.1.a),
+  61.a), 62.1.a), 62.2, 63.1.a) LGP; art. 9.Dos.1 Ley 31/2022), gastos plurianuales 5 (art. 47.2–3), generaciones 4,
+  extraordinarios and suplementos 4, retención previa a una transferencia 2, incorporaciones, anticipos, vinculación 1 each.
+- **Structure:** PGE: contenido y estructura (arts. 33, 35, 40 LGP; Ley 31/2022); the reading of an aplicación as far as a
+  text states (art. 8.Dos.5 Ley 31/2022); créditos: especialidad, vinculación (arts. 27.2, 42–44, 46); gastos plurianuales
+  (arts. 47, 47 bis); every modificación (arts. 51–60 LGP; Ley 31/2022 arts. 9–11) with a summary table modificación /
+  órgano / financiación; anticipos de tesorería (art. 60). Worked examples: a plurianual of 810.000 euros on a crédito
+  inicial of 800.000 (second year above the 60 % ceiling: only the Gobierno, art. 47.3); a suplemento of 15.000 euros in an
+  organismo autónomo with a capítulo of 85.000 (Ministro de Hacienda, art. 56.3.b).
+- **«hoy» notes:** «Ministro de Hacienda y Administraciones Públicas» (art. 55.2 LGP) and «Ministerio de Hacienda y Función
+  Pública» (art. 9 Ley 31/2022) → Ministerio de Hacienda (art. 5.1 RD 829/2023). «Ministro de Economía» (art. 60.1, anticipos
+  de tesorería) is quoted without «hoy»: no RD 829/2023 article clearly covers it.
+- **Glossary (7):** crédito extraordinario, suplemento de crédito (one shared wording, faithful to art. 55.1), generación de
+  crédito, transferencia de crédito, anticipo de Tesorería, Fondo de Contingencia, compromiso de gasto plurianual.
+- **Lo que más cae sources:** 1 conv2022 sup. II 17, conv2025_X sup. II 18, conv2024_X sup. I 2, conv2022_X sup. II 13; 2
+  conv2022 sup. II reserva 3, conv2024_X sup. I 2, conv2022_X sup. II 13; 3 conv2022 P1 16, conv2024_X sup. I 1; 4 conv2022_X
+  sup. I reserva 2, conv2025_A sup. II 10, conv2025_X sup. I 13, conv2022_X sup. II 15; 5 conv2025_A sup. I 11, conv2022 sup. I
+  9; 6 conv2025_A sup. II 11–12, conv2022 sup. I 10.
+- **Cuts of note:** arts. 7 (regla segunda) and 10.Cinco Ley 31/2022 (arrendamientos plurianuales: diez anualidades,
+  100 %), arts. 39, 41, 47.4–6, 49.2, 50.2, 53.4, 54.4, 56.5–6, 57, 60.2 LGP, and the RC/MC sentences (the retención
+  previa is now in m05-l03, regla 6.1 IOC).
+- **Listed:** art. 47.2 says «no superior a cuatro» ejercicios and gives four percentages for later years, and it does not
+  say at which level the «crédito inicial» is taken. Art. 56 does not restate the art. 55.1 conditions. Whether «excluidos
+  incentivos al rendimiento y gastos sociales» (art. 9.Siete Ley 31/2022) also limits the capítulo 1 ampliaciones is open.
+  Art. 10 Ley 31/2022 is renumbered by RDL 7/2026; the lesson cites the current numbering. No text states how an aplicación
+  code is built.
+- **For the exams ledger:** conv2024_X sup. I 4 keys the titular del ministerio for a transfer 220 → 202; arts. 63.1.a) with
+  43.2.b), 62.1.a) LGP and art. 9.Dos.1 Ley 31/2022 give it to the Ministro de Hacienda, and the parallel conv2022_X sup. II
+  15 and conv2025_X sup. I 13 key Hacienda: candidate «Clave oficial discutida». conv2025_X sup. I 12 and conv2022 sup. II 11
+  (retención previa) are supported by regla 6.1 IOC.
+
+## V.3 — `m05-l03`
+
+- **Tally** (50 questions, 1 anulada; includes the PAJ/ACF rows the exams ledger files under V.5 and the two retención
+  rows from V.2): documentos contables 15, anticipos de caja fija 10, pagos a justificar 7, fases 6, órganos (art. 74 LGP) 5,
+  Tribunal de Cuentas and rendición 3, función interventora 2, ordenación del pago 1, realización del pago 1. No 2022–2025
+  question asks reparos, discrepancias, omisión, control financiero permanente, auditoría or the Tribunal's composition.
+- **Structure:** órganos (art. 74 LGP); fases (art. 73 LGP; regla 20 IOC) and documentos contables (apartados sexto–séptimo
+  Orden de documentos contables; IOC) with a fase / documento / órgano table; compromisos para ejercicios posteriores
+  (cross-reference m05-l02; IOC reglas 42 and 77); ordenación del pago (art. 75.1 LGP) and realización (apartados sexto–noveno
+  Orden PRE/1576/2002 as amended in 2026); pagos a justificar (art. 79 LGP; RD 640/1987, art. 6 «desde 28-10-2026») and
+  anticipos de caja fija (art. 78 LGP; RD 725/1989, art. 6.3 «desde 28-10-2026») in full; control interno (arts. 142 and
+  following LGP: función interventora, fiscalización limitada previa, reparos, discrepancias, omisión; RD 2188/1995 art. 16
+  for the fifteen-day plazos); Tribunal de Cuentas (art. 136 CE; LO 2/1982; Ley 7/1988). Worked example: fondos a justificar
+  received martes 02-03-2027, invested lunes 15-03-2027 → jueves 15-04-2027 and miércoles 02-06-2027 (the RD is silent on the
+  cómputo; art. 30.4 LPAC applied, the lesson says so).
+- **«hoy» note:** «Ministro de Economía» (art. 75.1 LGP) → Ministerio de Economía, Comercio y Empresa (art. 15.A).1.º RD
+  1009/2023).
+- **Glossary (10):** aprobación del gasto, compromiso de gasto, reconocimiento de la obligación, anticipo de caja fija, pago a
+  justificar, función interventora, control financiero permanente, auditoría pública, reparo, Tribunal de Cuentas.
+- **Lo que más cae sources:** 1 conv2024_X P1 39, conv2022 sup. II 9; 2 conv2025_X P1 39, conv2025_X sup. I 7, conv2024_A sup.
+  II 20, conv2024_X sup. I 19; 3 conv2025_A P1 38, conv2024_A P1 40; 4 conv2025_X sup. II 12; 5 conv2025_A sup. I reserva 4,
+  conv2022_X sup. I 19, conv2024_A sup. II 12; 6 conv2025_X P1 36, conv2024_X sup. I 3; 7 conv2025_X sup. I 4, conv2022_X sup.
+  I 7; 8 conv2024_A P1 38; 9 conv2024_X P1 37.
+- **Cuts of note:** art. 74.4 LGP (delegación and desconcentración) and regla 55.1 IOC, both named in the scope table; regla
+  77.7 (resolución del contrato) and anexo I fecha-de-gasto rules went to m05-l06.
+- **Listed:** two plazo regimes for pagos a justificar (art. 79.4 LGP: three months, six for expropiaciones and pagos en el
+  extranjero; art. 10 RD 640/1987: the month after the inversión and in any case three months, FSE and expropiaciones six),
+  both stated and attributed. Two dates for the Cuenta General (art. 131.1 LGP before 31 October; art. 33.1 Ley 7/1988), both
+  stated. RD 2188/1995 lags the LGP (500.000 pesetas in art. 18 against 5.000 euros in art. 151.c) LGP; four reparo cases
+  against five in art. 154.2): the lesson cites the LGP. Art. 77 LGP is pagos indebidos, not modos de pago; the current LGP
+  has no plan de disposición de fondos; «propuesta de pago» is part of the reconocimiento (art. 73.4 LGP). The IOC cites the
+  1988 TRLGP. Art. 136.1 CE prints «de Estado» (sic).
+- **For the exams ledger:** conv2022 sup. II 9 (ACF in Parques Nacionales: the supuesto gives no capítulo 2 figure to check the
+  7 %); conv2024_X sup. II reserva 5 (RC «más el IVA» rests on the LCSP, not on the V.3 orders); conv2025_A sup. II reserva 4
+  (organ name).
+
+## V.4 — `m05-l04`
+
+- **Tally** (20 questions: 15 classified V.4 plus conv2025_X S2 8–9 (art. 30 TREBEP), conv2025_X S2 3 and conv2022_X P1 15
+  (Convenio), conv2024_A P1 36): RD 462/2002 6, Ley 30/1984 4, Ley 33/1987 3, art. 30 TREBEP 2, Convenio 2, clasificación
+  económica 3, Orden de 30-7-1992 0. The bloque IV ledger said IV.5 sent five art. 30 rows here; the V.4 writer found two in
+  2022–2025 plus conv2020 P1 reserva 2.
+- **Structure:** retribuciones de los funcionarios (arts. 21–24, 30 TREBEP with DD única and DF 4.ª quoted; arts. 23–24 Ley
+  30/1984; art. 23 Ley 31/2022) with the 2026 tables (sueldo and trienio by subgrupo, pagas extraordinarias, complemento de
+  destino niveles 16 a 22 from the SEPG documents; RDL 14/2025 art. 2.1–2, including the conditional 0,5 % payable in the first
+  quarter of 2027); personal laboral (art. 56.1 IV Convenio único); nóminas, altas y bajas (Orden de 30-7-1992); devengo y
+  liquidación (arts. 33–34 Ley 33/1987); pago (Orden PRE/1576/2002); indemnizaciones (RD 462/2002: supuestos, anexo I in full,
+  anexo II table, kilometraje, anexo III named, anexo IV table, art. 12 hours, art. 7.1 courses, art. 32.Tres and DA 32.ª Ley
+  31/2022 as far as the text goes; DF 4.ª and art. 11.2 on who revises each amount). Worked example: a C1 funcionario in
+  comisión de servicio con derecho a indemnización, martes to miércoles, 28 h: 48,92 + 28,21 + 110,24 = 187,37 euros.
+- **Glossary (8):** trienio, complemento de destino, complemento específico, complemento de productividad, gratificación por
+  servicios extraordinarios, residencia oficial, comisión de servicio con derecho a indemnización, dieta. No wrong-sense
+  overlap with g-comision-de-servicios (provisión sense).
+- **Lo que más cae sources:** 1 conv2025_A P1 37, conv2024_A sup. II reserva 4; 2 conv2024_A P1 39; 3 conv2024_X P1 38; 4
+  conv2025_X sup. II 8–9; 5 conv2025_X P1 38, conv2022 P1 reserva 4; 6 conv2022 sup. I reserva 3, conv2024_A sup. I reserva 2;
+  7 conv2024_A sup. II 5; 8 conv2022 P1 25; 9 conv2024_X sup. II reserva 2.
+- **Cuts of note:** art. 27 TREBEP, the RDL 6/2023 complemento de desempeño and de carrera paragraph, apartados 4.2.2.1, 5.5,
+  6 and 8 of the Orden de 30-7-1992, noveno.2.1.a) Orden PRE/1576/2002. None asked in 2022–2025.
+- **Listed:** anexo IV (asistencias) keeps its 2002 amounts; boe.es records no revision. Art. 32.Tres Ley 31/2022 keeps
+  indemnizaciones at their 2022 amounts, while the Orden HFP/793/2023 raised the kilometraje in 2023 and RDL 14/2025 does not
+  name art. 32.Tres. DA 32.ª says only that the art. 26.3 suspension «se mantiene»; the year rests on the boe.es analysis, so
+  the lesson gives none. The two SEPG documents give different annual complemento de destino figures (14 payments against
+  12 mensualidades); the lesson uses the 12-mensualidad column and labels it. DF 4.ª.1 TREBEP defers arts. 21–30 (except
+  25.2): both rules are stated, as in bloque IV. Anexo I keeps «los Ministerios de Hacienda y de Administraciones Públicas»
+  without «hoy». No text in `sources/` gives a euro rounding rule. For funcionarios, no text in `sources/` states the 1
+  December start of the paga period.
+- **For the exams ledger:** conv2022 P1 25 cites the Resolución de 4-1-2010 (nóminas), not saved; conv2022 sup. II 8 (which
+  habilitación pays after a change of post) has no text in `sources/`.
+
+## V.5 — `m05-l05`
+
+- **Tally** (18 questions classified V.5, all on ACF or PAJ, owned by m05-l03; plus 11 classified V.2 that test the
+  clasificación económica of V.5's first three items, where this lesson spends its words).
+- **Structure:** clasificación económica (Resolución de 20-01-2014, anexo IV; the same codes in anexo II of the Orden
+  HAC/557/2026): capítulo 2, capítulo 6, capítulos 4 and 7 with inclusions and exclusions; pagos: concepto y tipos, pagos por
+  obligaciones presupuestarias (cross-reference m05-l03 for propuesta, ordenación and realización), the other kinds named
+  (anticipos de caja fija, pagos a justificar, extrapresupuestarios, en formalización); justificación de libramientos (arts.
+  73.4, 79.3–4 LGP; regla 61.1 IOC).
+- **Glossary (5):** clasificación económica (origin m05-l02), gastos corrientes en bienes y servicios, inversiones reales,
+  transferencias corrientes, transferencias de capital.
+- **Lo que más cae sources:** 1 conv2025_X sup. I 7, conv2022_X P1 21; 2 conv2022_X P1 24, conv2022_X sup. II 11 (anulada); 3
+  conv2025_X sup. II 10, conv2022_X sup. I reserva 1, conv2022_X sup. II 14; 4 conv2025_X sup. I 6, conv2025_A sup. I 8; 5
+  conv2024_X sup. II 8; 6 conv2022_X sup. I 5; 7 conv2024_A P1 36; 8 conv2024_A sup. II 18; 9 conv2025_A sup. II reserva 3.
+- **Listed:** articles 43 and 73 have different names in the 2014 Resolución and the 2027 Orden; the lesson names neither.
+  No text in `sources/` defines «pago en firme»; the lesson says so and quotes the two uses (regla 59 bis IOC; RD 640/1987
+  disposición derogatoria). Regla 88 IOC calls transferencias «no condicionadas», and capítulos 4 and 7 say «condicionados o
+  no»: both are stated. Apartado primero.2 Orden PRE/1576/2002 still cites art. 65 TRLGP.
+- **ACF/PAJ points m05-l03 does not cover** (candidates for a later round): art. 79.6 LGP (cuenta approved or reparada in two
+  months; conv2020 P1 38), the rest of art. 79.3 LGP, art. 78.5 LGP, apartado noveno.2.5 Orden PRE/1576/2002, apartado
+  décimo.1 Orden de documentos contables, regla 64.2 IOC.
+
+## V.6 — `m05-l06`
+
+- **Tally** (22 questions): art. 198.4 LCSP 3, art. 34.1 LGS 2, regla 77.1 IOC 2 (m05-l03), regla 77.7, 42.2.b), 86.3 IOC 1
+  each, anexo I nota 34 1, arts. 10, 8.1, 5.1 LGS 1 each, art. 151.e) LGP 1 (m05-l03), art. 2.4 LGS 1 (m03-l05), LCSP arts. 106,
+  107, 108, 29.2, 193.3, 101 6 (m03-l04). No 2022–2025 question asks justificación, pagos anticipados, garantías or reintegro;
+  those sections are short.
+- **Structure:** contratos: expediente de gasto and tramitación anticipada (art. 117.2 LCSP; regla 42 IOC), documentos
+  (cross-reference m05-l03; regla 77.7 IOC on resolución), pago del precio (art. 198.4 LCSP, with a worked date: acta lunes
+  03-05-2027 → miércoles 02-06-2027; factura martes 18-05 → jueves 17-06-2027); subvenciones: plan estratégico (art. 8.1 LGS),
+  requisitos (art. 9), competencia (art. 10, the 12 millones de euros threshold), gasto and pago (art. 34.1–4, the pago
+  anticipado and its «en ningún caso» exclusions), justificación (art. 30), reintegro (arts. 37.1 «entre otros», 39.1, 42.4),
+  documentos (regla 86 IOC; anexo I nota 34). LGS cambio pendiente: Ley 4/2026 only adds art. 2.4.j), which the lesson does not
+  cite; the Normativa line keeps the note.
+- **Glossary (2):** plan estratégico de subvenciones, pago anticipado.
+- **Lo que más cae sources:** 1 conv2024_A P1 37, conv2025_X sup. II 15; 2 conv2025_X sup. II 16; 3 conv2025_A P1 39; 4
+  conv2022_X sup. I 20; 5 conv2024_A sup. I 18, conv2024_X P1 40; 6 conv2022_X P1 27; 7 conv2025_A P1 40; 8 conv2024_A sup. I 17;
+  9 conv2025_A P1 reserva 1.
+- **Cuts of note:** arts. 105, 117.1, 118.3, 198.3, 198.8, 199, 210.4, 240, 243 LCSP; arts. 34.5, 37.1.d)–i), 38.2, 39.2–3, 40,
+  41.1, 42.5, 44.3 LGS; arts. 56, 70.1, 71.2 RLGS; reglas 42.3–4, 77.4–6, 78, 83–85, 87 IOC. Arts. 56 RLGS and 44.3 LGS were
+  asked only in 2020.
+- **Listed:** art. 42.4 LGS lets the reintegro plazo be suspended and extended under art. 42.5–6 of the repealed Ley 30/1992
+  (quoted as written). Art. 36.1.b) LGS refers to «artículo 60» LGP, today the anticipos de tesorería. The interés de demora of
+  subvenciones in force on 17-10-2026 is in no source (DA 42.ª Ley 31/2022 set 4,0625 % until 31-12-2023); the art. 38.2
+  sentence was cut. Reglas 42.1, 77.1, 85–87 IOC cite repealed texts. Art. 198.4 LCSP counts the factura plazo «desde» and the
+  others as «siguientes».
+- **Overlaps left for a later pass (convention 3):** m03-l04 restates art. 198.4 LCSP, which the scope gives to m05-l06; m05-l03
+  repeats the RC de «tramitación anticipada» (regla 42.2.b) IOC) and the art. 151.e) LGP exemption that m05-l06 also states.
+
+## course.yaml
+
+- Lesson summaries m05-l01…m05-l06, three sentences each, from the writers' notes as fixed after review. Every sentence was
+  checked by its tema's reviewers (pass 1: 9 FAIL in all, fixed with the reviewer's wording); the later passes and the
+  closing check covered the changed ones.
+- Module summary for m05, two sentences, in the m01–m04 shape; it names topics only.
+
+## Checks and suites (bloque V)
+
+Run on the final tree (lessons, glossary, course.yaml, goldens, normativa.yaml, fuentes.yaml and saved sources of this
+round, and the two bloque IV fixes):
+
+- **Pipeline, course as draft:** loads and validates. `pytest -k "glossary or registry or content or pipeline"`: 68
+  passed, including the never-coins checks for glossary and summaries. `figure steps per course`:
+  `age-administrativo-c1: no figures`, `crypto-futures: 34 figures`, `fixture-oposiciones: no figures`.
+- **Backend (`uv run pytest`):** 1,374 passed, 20 skipped, 4 warnings.
+- **Frontend (`npx vitest run`):** 563 passed, 49 skipped, including the list-shape guard and the regenerated goldens;
+  `tsc -b` clean.
+- **Goldens:** `glossary-links.es.txt` (292 web marks) and `lesson-refs.es.txt` (86 references, 0 dangling) regenerated
+  and read line by line (see Glossary). No diff under `content/crypto-futures/` or `dist/`.
+- **Android bundle:** re-exported, fingerprint unchanged `9c95cf4a6bf2…` (98 files); `--verify-only` OK, leaked tokens OK.
+- `README.md` (course status line) now says the theory of bloques I to V is written.
+
+## Open items (after bloque V)
+
+- **After the 29-11-2026 elections:** the «hoy» re-check round also covers m05-l02 (Ministerio de Hacienda, art. 5.1 RD
+  829/2023) and m05-l03 (Ministerio de Economía, Comercio y Empresa, art. 15.A).1.º RD 1009/2023).
+- **Budget law.** If a Ley de PGE for 2027 is published before the exam, m05-l01 (the dated budget-in-force statement),
+  m05-l02 (every Ley 31/2022 article cited), m05-l04 (the 2026 amounts and art. 32.Tres) and the course.yaml summaries of
+  m05-l01, m05-l02 and m05-l04 change. The 2027 retribution amounts (SEPG tables for 2027) and the conditional 0,5 % of
+  art. 2.2 RDL 14/2025 (payable in the first quarter of 2027) need a check before R3 asks them.
+- **Indemnizaciones.** The Government announced a revision of the RD 462/2002 amounts (press, September 2026; not a source).
+  If a Resolución or Orden is published, m05-l04's anexo II, kilometraje and anexo IV tables change, and so do their glossary
+  entries.
+- **Exams ledger (R3), from this bloque:** conv2024_X sup. I 4 (transfer 220 → 202: official key titular del ministerio,
+  the articles give it to the Ministro de Hacienda; candidate «Clave oficial discutida»); conv2025_X sup. I 12 and conv2022
+  sup. II 11 (retención previa, supported by regla 6.1 IOC); conv2022 sup. II 9 (no capítulo 2 figure to check the 7 %);
+  conv2024_X sup. II reserva 5 (RC «más el IVA» rests on the LCSP); conv2022 P1 25 (Resolución de 4-1-2010 on nóminas, not
+  saved); conv2022 sup. II 8 (no text on which habilitación pays).
+- **Overlaps (convention 3):** m03-l04 restates art. 198.4 LCSP (owner m05-l06); m05-l03 and m05-l06 both state regla 42.2.b)
+  IOC and art. 151.e) LGP. A later cleanup pass keeps each in one lesson.
+- **Not saved, cited by no sentence:** the Resolución de 4-1-2010 (nóminas), the Orden HFP/535/2022 (elaboración of the
+  PGE 2023), the interés de demora of subvenciones in force (no source after DA 42.ª Ley 31/2022). Save one before a question
+  rests on it.
+- **Cut for length, candidates if a later round has room:** art. 74.4 LGP and regla 55.1 IOC (m05-l03); art. 10.Cinco Ley
+  31/2022 and art. 47.4–6 LGP (m05-l02); the RDL 6/2023 complementos de desempeño y de carrera (m05-l04); art. 79.6 LGP and
+  the other ACF/PAJ points listed under V.5; art. 38.2 and 39.2 LGS (m05-l06).
+- **Bloque IV leftovers:** m04-l07 is 39 words over its 2,400 ceiling, and m04-l09 is at 2,401. m04-l08 line 208 runs past
+  the wrap width. The IV.4 summary wording «el Reglamento de Situaciones Administrativas» was not re-read.
+- **Waiting glossary terms:** the bloque I–IV lists, plus crédito ampliable, incorporación de crédito, acreedor directo and
+  prórroga presupuestaria.
+
+## Where to resume (after bloque V)
+
+Bloque V is closed. The next session starts R2 bloque VI (temas VI.1–VI.8, lessons `m06-l01`…`m06-l08`), the short
+list-shaped ofimática lessons of R4.3 (600–1,500 words), built on the ofimática index (`docs/age-ofimatica-index.md`).
+The spec carries over with two additions from this bloque: every replacement applied after a lesson's last blind pass
+gets one more blind check before the bloque closes, and multi-word glossary terms get head-noun plural `match` forms when
+they are added.

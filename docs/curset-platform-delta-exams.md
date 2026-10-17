@@ -1,6 +1,6 @@
 # Requirements delta — Curset platform: exam presets, grouped cases, source links, results by lesson
 
-Version 1.1 · 17 October 2026 · delta to docs/curset-multicourse-requirements.md. Four platform changes. A and B are required by the AGE course (docs/age-administrativo-course-requirements.md, R6.1 and R7.1) and precede that course's R5. C and D apply to every course and can run as their own rounds at any time after A.
+Version 1.2 · 17 October 2026 · delta to docs/curset-multicourse-requirements.md. Four platform changes. A and B are required by the AGE course (docs/age-administrativo-course-requirements.md, R6.1 and R7.1) and precede that course's R5. C and D apply to every course and can run as their own rounds at any time after A.
 
 ## A. Exam presets per course
 
@@ -41,10 +41,20 @@ Version 1.1 · 17 October 2026 · delta to docs/curset-multicourse-requirements.
 - D6 Reserve questions (A3) that were not counted do not appear in the table.
 - D7 The data needed (lesson per question, correct/wrong/blank per answer) already exists per attempt; this section adds the aggregation and the view. Past exams get the view retroactively, since their answers are stored.
 
+## E. Esquema block
+
+- E1 A new lesson block `::esquema` with fields: kind (`tabla` | `plazos` | `arbol` | `pasos`), title, and rows; each row carries one or more cells (for `tabla`), or a label and detail (for `plazos`, `arbol`, `pasos`), plus a citation (norm short name + article) and, for `arbol`, a parent reference. Rows are verbatim fragments; the block has no free prose.
+- E2 Rendering: `tabla` as a table with a header row; `plazos` as an ordered timeline (step, plazo, article); `arbol` as an indented tree; `pasos` as a numbered stepper with document/organ columns. Each row's citation renders as the same citation link as inline citations (C2–C3). Mobile: tables scroll horizontally inside their own container; trees and steppers stack.
+- E3 PDF: every kind prints as a table; citations print as text.
+- E4 Checks: every row has a citation; every citation in an esquema also appears as an inline citation in the same lesson's prose (otherwise a cross-reference failure naming the row); list-shape and never-coins run over esquema text; reading-time counts esquema words.
+- E5 Glossary links are annotated inside esquema cells as in prose.
+- E6 crypto-futures has no esquemas and is unchanged; a fixture lesson with one block of each kind proves rendering, PDF and the checks, including a failing citation.
+
 ## Acceptance
 
 - `crypto-futures` exams and goldens unchanged.
 - A Spanish-only test course with a two-part preset (70 + choose-one-of-two cases of 20, 100 minutes, 1/3 penalty) runs end to end, grades only the chosen case, refuses to grade part 2 with no or two cases marked, and shows raw and transformed scores.
 - A `case` exercise renders in practice, exam and PDF; its questions report, shuffle and count like any other.
 - An answered AGE question links to its lesson at the cited article's anchor; the citation in the lesson opens the consolidated text at the article (HTML) or page (PDF); a question citing an article its lesson does not cite fails the cross-reference check. crypto-futures shows no citation links and its goldens are unchanged.
+- A lesson with the four esquema kinds renders on web and in the PDF; an esquema row citing an article the prose does not cite fails the check with the row named.
 - A submitted simulation shows the per-lesson table and the two lists; a tema exam of 20 questions shows the table only; the Progress tab shows the cumulative view; no lesson appears in a list with fewer than three questions.
