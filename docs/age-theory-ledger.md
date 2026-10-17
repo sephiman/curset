@@ -2328,3 +2328,660 @@ list-shaped ofimática lessons of R4.3 (600–1,500 words), built on the ofimát
 The spec carries over with two additions from this bloque: every replacement applied after a lesson's last blind pass
 gets one more blind check before the bloque closes, and multi-word glossary terms get head-noun plural `match` forms when
 they are added.
+
+# Bloque VI — temas VI.1–VI.8
+
+Round R2, bloque VI, 2026-10-17. Nothing committed. One writer per tema to a shared spec (`spec-bloque-vi.md`): sources
+are saved official pages only (Microsoft's Spanish documentation for Windows 11 and Microsoft 365 desktop; for VI.1 and
+the internet, mail and security items an official or standards-body page), each saved under `sources/otros/` before it
+is cited and indexed in `fuentes.yaml`; every list item ends with «(fuente: `file`)»; a «Fuentes» block replaces
+«Normativa» as the last section; lessons are list-shaped, 600–1,500 words. Then a blind verifier per tema, who had not
+written the lesson, checked every item field by field (label, path, shortcut, behaviour, default) against the saved
+page, the sha256 of every file, a re-download of one page in five (article text compared, not bytes), and coverage
+against the ofimática index, the exams ledger and the programme. The writer of tema N+1 drafted while tema N was in
+review. Every edit applied after a tema's pass was re-checked blind by the next tema's verifier (VI.1 edits in the VI.2
+pass, and so on). A closing blind check covered the last edits (VI.8), all course.yaml summaries of m06, the 43 m06
+glossary entries and the 11 m06 lines of `glossary-links.es.txt`: 73/73 PASS. The per-item tables, the writer spec and the
+writers' notes are kept in `docs/age-verification/bloque-vi/` (decision 1 below).
+
+Notation in this section: «2025 A 44 / B 41» = 2025 ordinaria, modelo A question 44, modelo B question 41; «2025 X» =
+extraordinaria; «2022» and «2020» alone = ordinaria; P1R = reserve question of part 1.
+
+## Prompt decisions for this bloque
+
+- **incibe.es** rejects a bare `-A "Mozilla/5.0"`: pages were downloaded with a full Firefox user agent plus `Accept`
+  and `Accept-Language: es-ES` headers.
+- **Accepted as official:** NIST (government standards body) for the IEC binary prefixes, because iec.ch blocks
+  automated access (AWS WAF challenge); a vendor's own support page for its own product (Apple for macOS; the
+  www.microsoft.com Paint product page); the Basque Government web-service page for «Diseño adaptable»; the Council
+  register copy (doc. 12092/23) of COM(2023) 442 final, because EUR-Lex answers with a WAF challenge; the Internet
+  Society history page, ISOC being the IETF's organisational home (authors Leiner, Cerf, Kahn et al.). The W3C HTML 4.01
+  chapters 2 and 18 were first cited for HTML and client-side JavaScript; after the close they were replaced by the
+  WHATWG HTML Standard (see «Decisions after bloque VI»).
+- **Not used:** RAE dictionary, Microsoft Q&A and Community forums, academies, blogs, Wikipedia, the FSF page, MDN and
+  WHATWG.
+- **«&» labels** (Microsoft's Spanish pages print «Privacidad & seguridad», «Importar & vínculo»): written as printed,
+  never silently as «y»; the «y» form is listed below as not confirmed.
+- **Singular or plural the page does not print = not confirmed** (exam «Gráficos modernos» against the page's «Gráfico
+  moderno»).
+- **«Lo que más cae»** lines state facts the exams asked, not neighbouring facts from the same page; most repeated index
+  families first.
+- **«Fuentes» replaces «Normativa»** in m06. The ENS stays cited by its file in `sources/normativa/`
+  (`BOE-A-2022-7191_ens_2024-11-06.pdf`, m06-l01), not copied to `sources/otros/`.
+- **Outlook:** Microsoft 365 desktop has two clients; items that differ name theirs («Outlook clásico», «nuevo
+  Outlook»).
+- **Garbled paths.** Microsoft's machine-translated Spanish prints «X del sistema>», «Información de>archivo>». A path
+  is written in reading order only when every label is on the page and the order is printed plainly on that page or
+  another saved page; otherwise the item gives the labels without the path.
+
+## Saved sources (bloque VI)
+
+173 new files in `sources/otros/`, all indexed in `fuentes.yaml` with URL, title, consultado 2026-10-17, sha256 and the
+lessons citing them (167 HTML, 4 PDF, 2 TXT). sha256 re-run on all 173 when this section was drafted: all match; no file
+in the folder is unindexed and no entry lacks its file. No file saved before bloque VI is cited by m06.
+
+| Domain | Files |
+|---|---|
+| support.microsoft.com | 135 |
+| learn.microsoft.com | 22 |
+| azure.microsoft.com | 2 |
+| www.microsoft.com | 1 |
+| www.w3.org | 2 |
+| www.rfc-editor.org | 2 |
+| physics.nist.gov | 1 |
+| www.incibe.es | 1 |
+| www.boe.es | 1 |
+| support.apple.com | 1 |
+| www.internetsociety.org | 1 |
+| data.consilium.europa.eu | 1 |
+| www.dominios.es | 1 |
+| www.euskadi.eus | 1 |
+| www.aepd.es | 1 |
+| **Total** | **173** (160 Microsoft) |
+
+New files by tema: VI.1 25, VI.2 20, VI.3 19, VI.4 26, VI.5 31, VI.6 18, VI.7 20, VI.8 14.
+
+**Reused within the bloque** (one file, two lessons in its `lessons` list): `incibe-glosario-ciberseguridad.pdf` (l01,
+l08), `ms-win-atajos.html` (l02, l03), `ms-onedrive-restaurar.html` (l02, l03), `ms-win-menu-inicio.html` (l02, l08),
+`ms-office-pdf.html` (l04, l06), `ms-office-barra-acceso-rapido.html` (l04, l05). Plus the ENS from
+`sources/normativa/`. Fuentes lines in the eight lessons: 180 = 173 new + 6 reuses + the ENS.
+
+**Re-downloads** (one in five, per tema): 5, 4, 5, 6, 7, 5, 4 and 4 files, 40 in all. Each returned HTTP 200 at the
+fragment URL with the same article text (the INCIBE PDF and RFC 1122 byte-identical).
+
+Pages downloaded, cited in a draft and then removed from `sources/otros/` when the item was cut stay out of the index
+(VI.1: Office suites, Azure MySQL, data mining, Espacios de almacenamiento; VI.7: Outlook charts, Limpieza de
+conversación, Correo no deseado, carpetas de búsqueda, grupos de envío y recepción).
+
+## Summary
+
+| Tema | Lesson | Words | Items | Fuentes | Pass 1 checks | FAIL (fixed) | Re-check of post-pass edits | Glossary |
+|---|---|---|---|---|---|---|---|---|
+| VI.1 | `m06-l01` | 1,498 | 33 | 26 (25 + ENS) | 62 | 1 (glossary) | 2/2 PASS (in VI.2) | 7 |
+| VI.2 | `m06-l02` | 1,497 | 35 | 20 | 53 | 3 (2 items, LQMC 1) | 4/4 PASS (in VI.3) | 6 |
+| VI.3 | `m06-l03` | 1,494 | 35 | 21 (19 + 2 reused) | 75 | 5 (2 items, LQMC 1, LQMC order, glossary 1) | 4/4 PASS (in VI.4) | 5 |
+| VI.4 | `m06-l04` | 1,480 | 33 | 26 | 53 | 3 (2 items, summary) | 4/4 PASS (in VI.5) | 6 |
+| VI.5 | `m06-l05` | 1,498 | 35 | 32 (31 + 1 reused) | 55 | 3 (1 item, LQMC order, summary) | 5/5 PASS (in VI.6) | 3 |
+| VI.6 | `m06-l06` | 1,477 | 33 | 19 (18 + 1 reused) | 52 | 5 (4 items, LQMC 1) | 5/5 PASS (in VI.7) | 5 |
+| VI.7 | `m06-l07` | 1,489 | 26 | 20 | 63 | 4 (3 items, Fuentes 1) | 4/4 PASS (in VI.8) | 5 |
+| VI.8 | `m06-l08` | 1,471 | 32 | 16 (14 + 2 reused) | 66 | 2 (1 item, LQMC order) | 2/2 PASS (closing check) | 6 |
+| **Total** | | **11,879** | **262** | **180** | **479** | **26** | **30/30** | **43** |
+
+Words: `wc -w` on the final file, everything counted. Items: `- ` lines in the programme sections; each lesson also has
+exactly ten «Lo que más cae» lines. Pass 1 checks: the rows of each `verify-pass1.md` (items, LQMC, Fuentes and
+fragment, summary, glossary, form). The closing check adds 73 rows (10 queue items, 9 summaries, 43 glossary entries, 11
+link lines), all PASS.
+
+**FAIL classes** (26 in the pass-1 files):
+1. **Label not confirmed / «&» written as «y»** (7): VI.3 «Privacidad y seguridad»; VI.4 «Vista › Macros › Grabar
+   macro»; VI.6 «Archivo › Información» (Compactar), «Gráficos modernos», «Agrupar y ordenar», «Importar y vincular»;
+   VI.7 Fuentes title «requisitos, limitaciones y pasos».
+2. **Claim broader than the page** (7): VI.2 Acoplar («a un borde»; the page says left or right edge); VI.4 Historial de
+   versiones (skipped «Abrir versión»); VI.5 Fechas (dropped «de manera predeterminada»); VI.7 Acceso delegado (dropped
+   «o con Exchange Online»), Búsqueda (Ctrl+Mayús+P without its client), Responder y Reenviar («los incluye» lost the
+   attachments); VI.8 JavaScript (only «al cargar la página»).
+3. **Citation on the wrong page** (3): VI.2 Varios escritorios («Nuevo escritorio» is on `ms-win-escritorios.html`),
+   VI.2 LQMC 1 («de forma predeterminada» is on `ms-win-barra-tareas.html`), VI.3 LQMC 1 («Ver» is on
+   `ms-win-explorador.html`; also dropped «listas»).
+4. **LQMC order or LQMC not the asked fact** (4): order not by family size in VI.3, VI.5, VI.8; VI.6 «la regla de
+   registro compara campos» was not what 2020 X 58, 2022 42 or 2020 X 60 asked.
+5. **Contradiction between two official pages** (1): VI.3 Recortes stated Impr Pant per `ms-win-recortes.html` (whole
+   screen to the clipboard) against m06-l02's `ms-win-atajos.html` (select an area). Clause dropped in m06-l03.
+6. **Summary term absent from the lesson** (2): VI.4 «la barra de acceso rápido»; VI.5 «los valores de error» and
+   «impresión».
+7. **Glossary match or term** (2): VI.1 g-doble-factor-de-autenticacion matched «autenticación multifactor» (match
+   removed); VI.3 g-registro-de-windows, a term no page or lesson prints (replaced by g-editor-del-registro).
+
+## Glossary
+
+- 49 candidates proposed (VI.1 7, VI.2 6, VI.3 7, VI.4 6, VI.5 5, VI.6 6, VI.7 6, VI.8 6), all PASS in review after the
+  two replacements below.
+- **Dropped, to the waiting list** (6): only the plural appears in prose, so the singular entry would not link —
+  g-extension-de-nombre-de-archivo (m06-l03), g-ruta-unc (m06-l03), g-referencia-estructurada (m06-l05),
+  g-consulta-de-accion (m06-l06), g-grupo-de-microsoft-365 (m06-l07); g-referencia-absoluta (m06-l05): the term is not
+  in the prose at all.
+- **43 added**, origin m06; `glossary.yaml` holds 277. Each definition follows its saved page and ends «(fuente: file)».
+  Multi-word terms carry head-noun plural `match` forms.
+- **Replacements in review:** the `match` «autenticación multifactor» was removed from g-doble-factor-de-autenticacion
+  (Microsoft's MFA is two or more factors; the entry is INCIBE's two-factor sense); g-registro-de-windows →
+  g-editor-del-registro (`ms-win-herramientas-sistema.html`).
+- **`link_except` added:** g-plantilla in m01-l10 («plantilla de personal»); g-informacion-general in m06-l05 (a Fuentes
+  title, «Información general sobre fórmulas en Excel»); g-acceso-directo in m06-l04 (keyboard access keys of the
+  ribbon); g-acceso-rapido in m06-l02 (a definition sentence), m06-l04 and m06-l05 (inside «Barra de herramientas de
+  acceso rápido»).
+- **Goldens.** `glossary-links.es.txt` regenerated and read line by line: 292 → 303 web marks (79 → 80 also a PDF link);
+  «linkable terms the book never links» 155 → 197. The 11 new marks (m06-l02 1, m06-l03 5, m06-l06 1, m06-l08 4) all use
+  the entry's sense (closing check part 3b). `lesson-refs.es.txt` unchanged.
+
+## VI.1 — `m06-l01`
+
+- **Tally** (33 rows filed VI.1 first, 7 of them 2020): index families Hardware, memoria y almacenamiento (13 q),
+  Seguridad (6), Software, nube y otros conceptos (6), Sistemas operativos (4), Bases de datos (conceptos) (2). Rows
+  where VI.1 is only the bracketed alternative belong to VI.2, VI.3, VI.6, VI.8 or II.3.
+- **Structure:** four `##` with the programme's words. Hardware y software: CPU, RAM, caché, bit y byte, múltiplos del
+  byte (NIST), requisitos de Windows 11, BIOS y UEFI, Plug and Play, dispositivos de entrada, router, aplicación de
+  fuentes abiertas (ENI), SaaS, VDI, SGBD. Almacenamiento: HDD/SSD, NTFS, sistemas de archivos de Windows, RAID, nube,
+  Copias de seguridad de Windows. Sistemas operativos: ejemplos, funciones del kernel. Seguridad: malware, virus, gusano
+  y troyano, antivirus, cortafuegos, phishing, CAPTCHA, certificado digital, contraseña robusta, autenticación
+  multifactor, actualizaciones, ENS (arts. 2.1, 26; op.acc.6). No shortcuts, so no key-notation line.
+- **Glossary (7):** malware, cortafuegos, phishing, copia de seguridad, doble factor de autenticación, SaaS, NTFS.
+- **Lo que más cae sources:** 1 2025 A 44 / B 41, 2020 43; 2 2025 A 43 / B 42; 3 2025 A 41 / B 44; 4 2024 X 41, 2024 A
+  41 / B 45; 5 2022 X 51 (and 46); 6 2022 70; 7 2025 A 42 / B 43; 8 2024 X 42, 2020 P1R 5; 9 2024 X 43, 2020 X 42; 10
+  2024 X 44.
+- **Pass 1:** G5 g-doble-factor-de-autenticacion `match` «autenticación multifactor» → removed. Applied as well (a
+  verifier note, not a FAIL): RAID now says «en Espacios de almacenamiento directo (Windows Server)».
+- **Labels not confirmed:** none. `ms-win-firewall.html` and `ms-win-antivirus.html` print «Firewall & protección de
+  red» and «Protección contra amenazas & virus» in their steps; the lesson uses the forms of the same pages' titles
+  («Firewall y protección de red», «Protección contra virus y amenazas»).
+- **Not documented:** disipador (2025 X 41); escáner as input and impresora as output device (2024 A 41 / B 45);
+  «software libre» by that name (2025 X 42: the lesson uses the ENI's «aplicación de fuentes abiertas»); chat de IA /
+  ChatGPT (2024 A 65 / B 61, filed «VI.1 (o VI.8)»: no official Spanish page; Copilot is in VI.2); Linux and Android as
+  operating systems (2020 41); a hardware definition of the caché beyond the L2/L3 property of `Win32_Processor`.
+- **Retired:** none described. BIOS is answered with UEFI, which «reemplaza a la antigua interfaz de firmware del BIOS»
+  (`ms-win-uefi.html`).
+- **Cuts:** Office desktop applications (2024 A 43), MySQL as a database engine (2020 41), minería de datos (2020 X 43),
+  Espacios de almacenamiento levels; GPU line, INCIBE «software» definition, binary prefixes beyond GiB, NTFS 8 PB
+  limit, Authenticator 30-second code, Defender scan types, router home-LAN clause.
+- **For the exams ledger:** 2024 A 65 (chat de IA) has no owner lesson; decide VI.1, VI.2 or VI.8.
+
+## VI.2 — `m06-l02`
+
+- **Tally** (29 rows, 8 of them 2020, 5 on retired features): Atajos de teclado de Windows, Funciones del sistema,
+  Accesos directos, Notificaciones/concentración/escritorios, Configuración y cuentas, Información del sistema, Menú
+  Inicio y anclaje, Varias pantallas, IA y Copilot, Accesibilidad, Papelera de reciclaje, Búsqueda en Windows.
+- **Structure:** El entorno Windows. Fundamentos (Configuración, Opciones de inicio de sesión / Windows Hello, Versión,
+  Narrador, Lupa, Acceso por voz); Ventanas, iconos, menús contextuales, cuadros de diálogo (maximizar y cerrar,
+  Alt+Tab, Acoplar, Diseños de ajuste, menú contextual, cuadros de diálogo); El escritorio y sus elementos (iconos,
+  acceso directo, Papelera, barra de tareas, widgets y Configuración rápida, centro de notificaciones, No molestar,
+  varios escritorios, varias pantallas, captura de pantalla); El menú Inicio (abrir, posición, estructura, anclar,
+  búsqueda); Copilot (abrir, qué es, frente a un buscador, Copilot en Word, Excel y Outlook). Intro states the key
+  notation.
+- **Glossary (6):** barra de tareas, menú Inicio, acceso directo, Papelera de reciclaje, Windows Hello, Microsoft
+  Copilot.
+- **Lo que más cae sources:** 1 2025 X 44, 2024 X 70, 2025 A 67 / B 67; 2 2025 A 45 / B 45; 3 2025 A 46 / B 46, 2025 X
+  45; 4 2024 A 50 / B 50, 2024 A 66 / B 66, 2020 47; 5 2022 47, 2022 X 47; 6 2025 X 47; 7 2022 X 48, 2020 50; 8 2022 X
+  45; 9 2022 45; 10 2022 X 50, 2020 X 44 (also 2025 X 48, filed VI.3).
+- **Pass 1:** Acoplar «a un borde» → «al borde izquierdo o derecho… o a una esquina para que ocupe un cuarto»; Varios
+  escritorios «Vista de tareas › Nuevo escritorio» re-cited to `ms-win-escritorios.html`, Windows+Ctrl+D to
+  `ms-win-atajos.html`; LQMC 1 second source `ms-win-barra-tareas.html` for «de forma predeterminada». Cambiar de
+  ventana lost a parenthesis for words.
+- **Labels not confirmed:** no label is missing from its page; seven paths are decoded from garbled strings (see Open
+  items). Windows+A: `ms-win-atajos.html` says it opens «el Centro de actividades de Windows 11»,
+  `ms-win-barra-tareas.html` the Configuración rápida; the lesson follows the taskbar page («Centro de actividades» is
+  the Windows 10 name).
+- **Not documented:** Modo Dios (2022 46): only Q&A threads and Windows 7 archive pages.
+- **Retired:** Cortana (one line: retired spring 2023, `ms-cortana-fin-soporte.html`); Reconocimiento de voz → Acceso
+  por voz (item kept, replacement line cut); Asistente de concentración, Centro de actividades and live tiles appear
+  only in Windows 10 parts of the pages and are not described; Correo y Contactos (2024 X 49) not mentioned.
+- **Cuts:** idiomas para mostrar, voz y teclado (2024 X 48); Registro (2024 X 51, now in m06-l03); Otros usuarios (2024
+  X 49); Foco, Windows+L / Ctrl+Alt+Supr, Copilot Chat, Copilot data permissions, escala/resolución detail, Windows+X,
+  Alt+arrastrar, «Resumir un archivo».
+- **For the exams ledger:** 2020 44 and 2020 51: every saved Spanish page says «Configuración › Sistema › Acerca de»
+  (`ms-win-version.html`, `ms-win-atajos.html`), not «Información». 2022 X 45: «Escritorios» is now confirmed
+  (`ms-win-escritorios.html`, «Expanda Escritorios»). Impr Pant: m06-l02 now states both official descriptions (see
+  «Decisions after bloque VI»).
+
+## VI.3 — `m06-l03`
+
+- **Tally** (37 rows filed VI.3 first or bracketed, 9 of them 2020; 1 annulled, 4 on retired features; rows owned by
+  VI.1 and VI.2 are listed, not repeated): Explorador de archivos (10 q), Atajos de teclado (8), Herramientas del
+  sistema (6), Accesorios: WordPad y Bloc de notas (4), Búsqueda en Windows (3), Papelera (2), Información del sistema,
+  Accesos directos.
+- **Structure:** El Explorador de archivos (abrir, diseños, extensiones y elementos ocultos, extensión, teclas, menú
+  contextual, rutas UNC); Gestión de carpetas y archivos (crear/renombrar/eliminar, arrastrar, Enviar a y comprimir,
+  compartir en red local, Papelera); Operaciones de búsqueda (cuadro, indexación, Buscar en Windows, AQS); «Este equipo»
+  y «Acceso rápido» (Inicio, Acceso rápido, Este equipo, Asignar unidad de red, Acerca de); Accesorios (Bloc de notas,
+  encabezado y pie, Recortes, Grabadora de pasos, Paint, Calculadora, Reloj, Asistencia rápida); Herramientas del
+  sistema (Herramientas de Windows, Administrador de tareas, Visor de eventos, Editor del Registro, Unidad de
+  recuperación, Historial de archivos).
+- **Glossary (5):** Explorador de archivos, Acceso rápido, indexación, Editor del Registro, Historial de archivos.
+- **Lo que más cae sources:** 1 2025 A 48 / B 50, 2020 46; 2 2022 X 49; 3 2020 49; 4 2024 A 47 / B 47, 2020 X 48, 49,
+  50, 2024 X 54; 5 2025 X 46, 2024 A 49 / B 49; 6 2024 X 58; 7 2020 X 51; 8 2024 A 51 / B 55; 9 2024 X 57; 10 2025 X 50.
+- **Pass 1:** Buscar en Windows path → «Configuración › Privacidad & seguridad › Buscar en Windows» (as printed);
+  Recortes Impr Pant clause dropped (contradiction with m06-l02); LQMC 1 re-cited to both Explorer pages, with «listas»;
+  LQMC reordered by family size; g-registro-de-windows → g-editor-del-registro.
+- **Labels not confirmed:** «Iconos muy grandes», «Mosaicos», «Lista» (singular), «Ordenar» and «Más», «Estándar»
+  (Calculadora), «Privacidad y seguridad» (see Open items).
+- **Not documented:** Ctrl+Mayús+arrastrar creates a shortcut (2025 X 48: the official page gives Alt+arrastrar); «Este
+  equipo › Propiedades» opens Configuración › Sistema (2025 A 49); the contents of Herramientas de Windows (2022 48:
+  screenshot only); Detalles shows the most information (2020 46); sorting by fields not shown (2024 X 55); the «Enviar
+  a» destinations (2024 X 56: only Carpeta comprimida here and Escritorio in m06-l02).
+- **Retired:** WordPad (removed from 24H2), Grabadora de pasos (no longer updated, Recortes recommended), Herramientas
+  administrativas → Herramientas de Windows: one line each, sourced. Explorer ribbon (2024 X 53) not described.
+- **Cuts:** window parts, Ctrl+Mayús+1…9, tabs, Alt+Flecha arriba, Mayús+F10, selection keys; 24H2 archive formats;
+  \\localhost and «Volver a conectar»; cloud search; index timing and size; Acerca de contents; Recortes autosave, OCR
+  and Retraso; Paint layers; Calculadora converters and «Mantener en la parte superior»; Reloj presets; msinfo32,
+  MSConfig, compmgmt.msc, eventvwr.msc, regedit run commands; OneDrive cloud deletes; LQMC Restaurar and Unidad de
+  recuperación.
+- **For the exams ledger:** 2024 X 52: «Herramientas de Windows» confirmed (`ms-win-herramientas-windows.html`), which
+  closes «Sin confirmar en la interfaz española». 2024 X 57: the setting prints «Privacidad & seguridad». 2025 A 48: the
+  Spanish page does not print «Iconos muy grandes» or «Mosaicos». Impr Pant: `ms-win-recortes.html` says it captures the
+  whole screen to the clipboard, `ms-win-atajos.html` that it lets you select an area; m06-l03 states neither.
+
+## VI.4 — `m06-l04`
+
+- **Tally** (30 rows, 7 of them 2020; 2 annulled, 1 on a retired feature): Interfaz (7 q), Formato de texto, imágenes y
+  objetos (4), Pestaña Revisar (4), Leer en voz alta / Transcribir (3), Estilos, índices, notas (3), Colaboración en
+  línea, Impresión, Plantillas, Atajos de Word (2 each), Combinar correspondencia (1).
+- **Structure:** Principales funciones y utilidades (Sugerencias de teclas, barra de estado, Contar palabras, Mostrar u
+  ocultar ¶, panel de navegación, ortografía, sinónimos y mayúsculas, Traducir, Lectura en voz alta, Transcribir,
+  coautoría, combinar correspondencia, macros); Creación y estructuración (tabla de contenido, índice, notas, espaciado,
+  delimitador, recorte de pantalla, saltos de sección, encabezado/pie/números, tablas); Gestión, grabación, recuperación
+  e impresión (Archivo, formatos, Autoguardado, Historial de versiones, Autorrecuperación, PDF, Imprimir);
+  Personalización (barra de herramientas de acceso rápido, cinta, ubicación predeterminada, marcas). Only function keys,
+  Alt sequences and locale-independent combinations, plus Ctrl+B for the panel de navegación.
+- **Glossary (6):** plantilla, macro, combinación de correspondencia, Autoguardado, Autorrecuperación, coautoría.
+- **Lo que más cae sources:** 1 2024 A 52 / B 54; 2 2024 A 53 / B 53; 3 2024 X 61, 2024 X 60; 4 2025 A 51 / B 51; 5 2025
+  X 51; 6 2022 X 53, 2020 54, 2025 A 53 / B 53; 7 2024 A 54 / B 52, 2024 A 55 / B 51; 8 2022 51, 2022 X 55; 9 2022 52,
+  2025 X 55; 10 2025 A 54 / B 54 (2020 53, annulled, same family).
+- **Pass 1:** Macros: tab and «Grabar macro» dropped → «el menú Macros tiene «Ver macros» y «Detener grabación»»;
+  Historial de versiones → «… › Historial de versiones › Abrir versión › Restaurar»; summary «la barra de acceso rápido»
+  → «la barra de herramientas de acceso rápido». Applied as well (a note): Delimitador «ancla» → «anclaje», the page's
+  noun.
+- **Labels not confirmed:** the Macros tab and button; the Layout tab for Saltos; «Mostrar todo»; «Leer en voz alta»;
+  «número de página»; «Visualización» against «Mostrar» (see Open items).
+- **Not documented:** the Formato de imagen pane tabs (2020 52); a note's text shown on hover (2025 A 52); cursiva (2025
+  A 51: the shortcuts page mixes Ctrl+I and Ctrl+K letter sets); Navegación's Títulos / Páginas / Resultados (2020 X 55,
+  only «Ctrl+B opens the panel» is covered).
+- **Retired:** Presentar en línea (2020 X 54): not named by the programme, no line; page read, not saved.
+- **Cuts:** Inicio › Edición › Seleccionar (2020 X 52); Opciones de impresión in Opciones de Word (2020 53, annulled);
+  Alt sequences per tab, Ctrl+F1, Alt+Z, Ctrl+Mayús+E, note and index shortcuts, Ctrl+P, Ctrl+F2, Alt+5; manual table of
+  contents; Interletraje; Bloquear anclaje; Autorrecuperación panel; PDF/A; QAT below the ribbon; ribbon export;
+  Transcribir formats.
+- **For the exams ledger:** 2024 X 60: the button prints «Mostrar u ocultar ¶», not «Mostrar todo». 2020 54 / 2022 X 53:
+  current pages say «Lectura en voz alta». 2025 A 53: `ms-word-transcribir.html` gives 300 minutes a month (an option
+  said 600) and says Transcribir is in Word desktop only for commercial tenants. 2020 X 53: no saved page ties Macros to
+  the «Vista» tab (`ms-word-macros.html` prints «Ver»). LQMC 6 keeps «Transcribir separa oradores»; the verifier's
+  alternative («graba en Word o carga un audio», the keyed fact of 2025 A 53) was not applied.
+
+## VI.5 — `m06-l05`
+
+- **Tally** (28 rows, 8 of them 2020; 2 annulled): Otras funciones (7 q), Funciones lógicas y de error (6), Referencias
+  (4), Fechas (3), Gestión de datos (3), Celdas y rangos (2), Impresión (2), Validación de datos (1).
+- **Structure:** Principales funciones (teclas de acceso, tablas dinámicas); Libros, hojas y celdas (hojas, ocultar,
+  proteger hoja y libro, Inmovilizar paneles, rangos no adyacentes, Combinar y centrar, separadores); Introducción y
+  edición (edición, fechas, formato personalizado); Fórmulas y funciones (referencias, otras hojas, estructuradas,
+  SI/NO/O, SI.ERROR, #N/A, búsqueda e información, contar, texto y fecha); Gráficos (Gráficos recomendados, Alt+F1,
+  F11); Gestión de datos (ordenar, Autofiltro, filtro avanzado/duplicados/formato condicional, Subtotales, segmentación,
+  Power Query, lista desplegable, Imprimir, Escalar); Personalización (cinta, barra de herramientas de acceso rápido).
+  No letter shortcuts.
+- **Glossary (3):** referencia relativa, tabla dinámica, segmentación de datos.
+- **Lo que más cae sources:** 1 2025 X 58; 2 2020 56, 2025 A 58 / B 55; 3 2022 54; 4 2025 X 57; 5 2022 X 58, 2020 55; 6
+  2025 X 56; 7 2025 A 55 / B 58; 8 2025 A 56 / B 57, 2020 X 57; 9 2024 A 58 / B 58; 10 2020 59.
+- **Pass 1:** Fechas → «por defecto, el 1-1-1900 es el 1»; CONTARA/CONTAR line moved to the top (largest family);
+  summary «los valores de error» and «impresión» → «y el error #N/A» and «…Validación de datos, Imprimir y la cinta».
+  Coverage gap closed after the pass: «el punto y coma (;) es el operador de unión: C2:C7;E2:E7»
+  (`ms-excel-referencias-estructuradas.html`, 2025 A 57), paid for by cutting «Ctrl+Av Pág y Ctrl+Re Pág cambian de
+  hoja» and «con contraseña o sin ella».
+- **Labels not confirmed:** «Imprimir selección», «Ajustar todas las columnas en una página», «Vista» against «Ver» for
+  Inmovilizar paneles (see Open items). Printed but inconsistent across pages: SI.ERROR / SIERROR, BUSCARV / CONSULTAV,
+  #N/A / #N/D, «Segmentación» / «Segmentador»; the category pages print NOT, OR, AND, DAY, XLOOKUP in English.
+- **Not documented:** «;» as the argument separator (2022 X 60, MAX); «20-2» read as 20-feb (2024 A 60: the page gives
+  «2/2» only); PRUEBA.F.N (2022 53).
+- **Retired:** none.
+- **Cuts:** PRUEBA.F.N; the function pages for SI, Y, ES, CONTAR, MAX, EXTRAE, DIVIDIRTEXTO, FORMULATEXTO, BUSCARV,
+  BUSCARX, FILAS, F4, the #¡DIV/0!, #¿NOMBRE?, #¡VALOR!, #REF! pages, sistemas de fechas 1900/1904, Autorrellenar,
+  Relleno rápido, barra de estado, tablas, mover hojas, filtro avanzado, formato condicional, operadores (all read, not
+  saved); referencia 3D, sheet names with spaces, Tabla1, Agregar nivel, text/number filters, Alerta de error styles,
+  áreas de impresión, scale percentage, F9, .xlsx/.xlsm/.xltx.
+- **For the exams ledger:** 2022 54 (SI.ERROR, key disputed): the LQMC line states only the page's behaviour. 2024 A 59
+  and 2024 X 62: neither label is printed on a Spanish Microsoft page. 2025 A 57: the «;» union operator is documented
+  (`ms-excel-referencias-estructuradas.html`).
+
+## VI.6 — `m06-l06`
+
+- **Tally** (35 rows, 8 of them 2020; 2 annulled, 1 retired): Consultas (7 q), Reglas de validación (6), Otras (5),
+  Tablas (4), Claves, índices y relaciones (3), Informes (3), Expresiones (3, 2020 only), Dividir (2), Formularios (1).
+- **Structure:** Principales funciones (objetos, límites, Compactar y reparar, módulos, dividir, Gráfico moderno);
+  Tablas (tipos de datos, Moneda, Autonumeración y Calculado, formato de Número, propiedades de campo, clave principal;
+  `###` Reglas de validación: campo y registro); Consultas (crear y ejecutar, de acción, criterios, parámetros, campo
+  calculado, WHERE); Formularios (crear, vistas, subformularios, orden de tabulación); Informes (origen, secciones,
+  Agrupación, orden y total); Relaciones (ventana, tipos, integridad referencial); Importación, vinculación y
+  exportación (importar o vincular, exportar a Excel, a PDF).
+- **Glossary (5):** clave principal, clave externa, integridad referencial, regla de validación, tabla vinculada.
+- **Lo que más cae sources:** 1 2024 X 64, 2025 X 61, 2022 61; 2 2025 A 60 / B 60; 3 2025 A P1R 2 / B P1R 2; 4 2025 X
+  60; 5 2022 58, 2020 63 (and 2024 X 68); 6 2022 42, 2020 X 60; 7 2025 A 62 / B 62; 8 2025 X 59; 9 2024 A 57 / B 57; 10
+  2020 X 59, 2022 X 63.
+- **Pass 1:** Compactar: «Archivo › Información» dropped → «con la base abierta o sin abrirla; sin abrirla, desde
+  «Herramientas de base de datos»»; «Gráficos modernos» → «Gráfico moderno»; «Agrupar y ordenar» → «Agrupación, orden y
+  total»: panel opened from «Diseño de informe › Agrupación y totales»; «Importar y vincular» → «Importar & vínculo»;
+  LQMC 6 «la regla de registro compara campos» → «La regla de validación limita los valores que se pueden escribir en un
+  campo».
+- **Labels not confirmed:** «Indizado», «Requerido», «Divisor de bases de datos», «Introduzca el valor del parámetro»,
+  «Origen del control», the Diseño tab for Orden de tabulación, «Gráficos modernos», «Archivo › Información», «Agrupar y
+  ordenar», «Importar y vincular» (see Open items).
+- **Not documented:** none among the programme phrases. 2024 X 45 (PostgreSQL for a contacts database) has no Access
+  feature and no Microsoft page naming it; 2025 A 59 (2.345,68 → Estándar) only as «datos numéricos con decimales».
+- **Retired:** «Información» (Tell Me), 2022 56: not named by the programme, not described.
+- **Cuts:** Expresiones (2020 61 SiInm, 62 Año, 64 Conmutador; pages read, not saved); parámetros page, índice page,
+  grouped reports, origen de registros, Access shortcuts, function list; Número sizes, Sí/No, Texto largo 65.535, 32
+  tables per query, 10 fields per key, Autonumeración start, types without rules, Crear tabla overwrite, report tools,
+  Detalle, export of macros and modules.
+- **For the exams ledger:** 2025 X P1R 2: `ms-access-graficos.html` lists «nubes de palabras» among the chart types and
+  has a «Nube de Word» section, so the note «no consta que exista "Nube de palabras"» (and the index note on the five
+  chart types) is contradicted and the key (c) is supported. 2022 X 62: the route «Archivo › Información» stays
+  unconfirmed; «Herramientas de base de datos» (key a) is printed.
+
+## VI.7 — `m06-l07`
+
+- **Tally** (34 rows filed VI.7 or «VI.7 (o VI.8)», 9 of them 2020; 4 annulled): Búsqueda (8 q), Creación, envío y
+  respuesta (7), Organización y configuración (5), Permisos y delegación (4), Limpieza y archivo (3), Grupos (2), Reglas
+  (2). 2020 69 (SMTP) is left to VI.8.
+- **Structure:** Conceptos elementales y funcionamiento (Outlook, IMAP y POP, S/MIME, grupos de Microsoft 365, permisos
+  de carpeta, acceso delegado); El entorno de trabajo (qué cliente usas, vistas, categorías, búsqueda, Buzón actual,
+  Limpieza de buzón, Archivar); Enviar, recibir, responder y reenviar (enviar y recibir, Responder y Reenviar, atajos,
+  recuperar, programar envío); Creación (mensaje nuevo, importancia alta, firmas); Reglas (regla, crear, mensajes
+  existentes); Libreta de direcciones (libreta, grupo de contactos). Items name their client where the two differ.
+- **Glossary (5):** IMAP, POP, S/MIME, acceso delegado, lista de contactos.
+- **Lo que más cae sources:** 1 2025 A 65 / B 64; 2 2022 X 65; 3 2024 A 61 / B 65; 4 2024 X 69; 5 2025 X 64; 6 2022 65;
+  7 2024 A 68 / B 68; 8 2024 X 66 (2025 A 64 / B 65 annulled); 9 2024 A 63 / B 63, 2020 X 67; 10 2024 A 64 / B 62.
+- **Pass 1:** Acceso delegado → «exige cuenta profesional o educativa en Microsoft 365 o con Exchange Online»; Búsqueda
+  → «en Outlook clásico, Ctrl+E o F3 busca y Ctrl+Mayús+P crea una carpeta de búsqueda»; Responder y Reenviar →
+  «Reenviar admite destinatarios nuevos e incluye los datos adjuntos»; Fuentes title of `ms-outlook-recuperar.html` →
+  «requisitos, limitaciones & pasos» (also in the fragment).
+- **Labels not confirmed:** «Retrasar entrega», «Incluir», «Delegar acceso», «Correo no deseado › Opciones», «Formato de
+  texto › Edición › Buscar», público / privado (see Open items). Two paths rest on the reverse-order decode only:
+  «Archivo › Herramientas › Limpieza de buzón» and «Configuración › Cuentas › Firmas».
+- **Not documented:** «Dirigir respuestas a» (2020 X 65): no Spanish Microsoft page.
+- **Retired:** none named by the programme (Correo y Calendario belongs to VI.2).
+- **Cuts:** Insertar › Ilustraciones › Gráfico (2020 X 64); Limpiar conversación / carpeta (2020 X 66); Correo no
+  deseado levels (2020 X 61); carpetas de búsqueda; send/receive group options (2020 X P1R 1, only Ctrl+Alt+S kept); F4
+  in an open item (2020 X 68); vistas path, S/MIME option labels, recall in the new Outlook and the 24-hour retry, the
+  120-minute delay rule, Autoarchivar, default importance, rule limits for Gmail/Yahoo/iCloud, «Ejecutar esta nueva
+  regla ahora», keytips, new-Outlook list steps, Ctrl+Mayús+L, Alt+S, «Todos los elementos de Outlook».
+- **For the exams ledger:** 2024 X 65 («proyecto», key c, «Clave oficial discutida») and 2025 X 66 ("9876", key a,
+  `vigente`) are contradicted by `ms-outlook-buscar.html`: prefix matching returns proyecto, proyectos, proyector… «con
+  o sin comillas» (option a of 2024 X 65; the same page's table says quotes give the exact phrase, so the page is
+  internally inconsistent), and «Las cadenas de números de menos de cinco dígitos se omiten» (a four-digit search
+  returns nothing; candidate «Clave oficial discutida» for 2025 X 66). The new Outlook has folder permission levels
+  (`ms-outlook-compartir-carpeta.html`, «Uso compartido y permisos»). Delegation in the new Outlook is «solo
+  parcialmente disponible» and is assigned from classic Outlook, not from «Configuración › Cuentas»
+  (`ms-outlook-delegados.html`). The index notes marked «posible» on both points change.
+
+## VI.8 — `m06-l08`
+
+- **Tally** (32 rows filed VI.8 first or bracketed, 8 of them 2020; 2 annulled): Navegación y servicios web (6 q),
+  Lenguajes web (5), Red: IP, DNS, TCP/IP, FTP (5), Correo: protocolos (4, only SMTP filed VI.8 first), Diseño web
+  adaptable (2), HTTP y HTTPS (2). Bracketed rows already covered in VI.1, VI.2 and VI.7 (router, SaaS, escritorio
+  virtual, Copilot, chat de IA, S/MIME, IMAP/POP) are not repeated.
+- **Structure:** Origen, evolución y estado actual (ARPANET, NCP → TCP/IP on 1-1-1983, World Wide Web y HTML, Web 3.0,
+  Web 4.0); Conceptos elementales sobre protocolos y servicios (`###` Red: protocolo, TCP/IP, capas, dirección IP,
+  direcciones privadas, DNS, ping, HTTP, HTTPS, FTP, SMTP; `###` Servicios: dominio .es, HTML, JavaScript, diseño
+  adaptable, alojamiento, spam, CAPTCHA); Funcionalidades básicas de los navegadores (cookie, cookies de sesión y
+  persistentes, historial, favoritos, descargas, pestañas, InPrivate, extensiones, anclar un sitio a Inicio; Microsoft
+  Edge).
+- **Glossary (6):** TCP/IP, dirección IP, DNS, HTTPS, cookie, spam.
+- **Lo que más cae sources:** 1 2025 A 68 / B 68; 2 2025 A 69 / B 70; 3 2025 X 69; 4 2024 A 69 / B 69, 2022 X 70, 2020
+  70; 5 2020 65, 2020 X 69; 6 2025 X 67, 2024 X 47; 7 2022 X 69, 2022 66; 8 2022 X 64; 9 2025 X 68, 2020 67; 10 2025 X
+  70, 2020 68.
+- **Pass 1:** JavaScript → «se ejecuta en el equipo del cliente al cargar el documento o con un evento, como activar un
+  enlace»; LQMC reordered by family size (Navegación, Lenguajes, Red, HTTP/HTTPS, Diseño adaptable; the last two tie).
+  Summary: «En Microsoft Edge» → «En el navegador (Microsoft Edge)» (a verifier note).
+- **Labels not confirmed:** «Configuración y más › Más herramientas › Anclar a Inicio», «hosting», «IPv4» / «IPv6»,
+  «secuestro de sesión» (see Open items). The layer names, «inicio de sesión remoto», «lenguaje de marcado de
+  hipertexto» and «lenguaje de script del lado del cliente» are standard Spanish renderings of English standards text
+  (RFC 1122, WHATWG HTML Standard), not UI labels.
+- **Not documented:** none. No support.microsoft.com es-es page was found for finding downloads, adding favourites,
+  deleting cookies or pinning sites; `ms-edge-atajos.html` covers the shortcuts.
+- **Retired:** none.
+- **Cuts:** none forced (1,438 words before review). Left out: NSFNET and the 1985 TCP/IP mandate, HTML versions
+  2.0–4.01, RFC 1918 block names, DNSSEC, Ctrl+L / Ctrl+Entrar, «Bloquear cookies de terceros», InPrivate search.
+- **For the exams ledger:** 2025 A 67: the keyed path «Configuración y más › Más herramientas › Anclar a Inicio» is
+  printed on no single page («Configuración y más» is printed as the menu's name on `ms-edge-atajos.html` and
+  `ms-edge-inprivate.html`). 2020 66: «hosting» is not printed; INCIBE's entry is «Servidor».
+
+## course.yaml
+
+- Eight lesson summaries m06-l01…m06-l08, three sentences at most (m06-l01 two), in topic-list form, from the writers'
+  proposals with the reviewers' corrections: VI.4 «la barra de herramientas de acceso rápido»; VI.5 «…BUSCARV y el error
+  #N/A» and «…Power Query, Validación de datos, Imprimir y la cinta»; VI.8 «En el navegador (Microsoft Edge)». Checked
+  in each tema's pass 1 and again, sentence by sentence, in the closing check (9 PASS with the module summary).
+- Module summary for m06 (new, coordinator's wording), two sentences in the m01–m05 shape; it names topics only.
+- **Left as they are** (closing-check notes, non-blocking): the m06-l04 summary's «Estilos» rests only on «Los estilos
+  de título forman la tabla de contenido» and «aplica Título 1, Título 2…»; the m06-l06 summary has «Compactar y reparar
+  y dividir» (two «y» in a row); g-menu-inicio is marked inside a Fuentes title of m06-l08 («Personalizar el menú Inicio
+  de Windows»; right sense, no `link_except`).
+
+## Checks and suites (bloque VI)
+
+Run on the final tree (lessons, glossary, course.yaml, goldens, fuentes.yaml and saved sources of this round):
+
+- **Pipeline, course as draft:** loads and validates. `pytest -k "glossary or registry or content or pipeline"`: 68
+  passed, including the never-coins checks for glossary and summaries (the first run failed on six plural-only glossary
+  terms, which were dropped; see Glossary). `figure steps per course`: `age-administrativo-c1: no figures`,
+  `crypto-futures: 34 figures`, `fixture-oposiciones: no figures`.
+- **Backend (`uv run pytest`):** 1,374 passed, 20 skipped, 4 warnings. Same as the baseline at the start of the session.
+- **Frontend (`npx vitest run`):** 563 passed, 49 skipped, including the list-shape guard on the eight list-shaped
+  lessons and the regenerated goldens; `tsc -b` clean. The baseline run at the start had 1 failure (562 passed): it
+  ran while m06-l01 was being written, and the run on the final tree has none.
+- **Goldens:** `glossary-links.es.txt` regenerated and read line by line (292 → 303 web marks; wrong senses excluded,
+  see Glossary). `lesson-refs.es.txt` regenerated, unchanged (0 dangling). No diff under `content/crypto-futures/` or
+  `dist/`.
+- **Cross-reference of sources:** every file cited in an m06 lesson is in `sources/otros/` (or the ENS in
+  `sources/normativa/`) and indexed in `fuentes.yaml` with a matching sha256; no saved file is unindexed; every Fuentes
+  block lists exactly the files its lesson cites, in order of first citation.
+- **Android bundle:** re-exported, fingerprint unchanged `9c95cf4a6bf2…` (98 files); `--verify-only` OK, leaked tokens
+  OK.
+- `README.md` (course status line) now says the theory of all six bloques is written.
+
+## Decisions after bloque VI (2026-10-17)
+
+Taken by Juanjo after reading the close; applied in the same session. Where an earlier paragraph of this section says
+otherwise, this one rules.
+
+1. **Audit trail.** The writer spec, the writers' notes, every per-item verification report, the re-check queue and the
+   closing checks of this bloque are copied into `docs/age-verification/bloque-vi/` (one file per tema plus the shared
+   files; see its README). Bloque IV's and V's working tables were lost with `/tmp`. **From now on every round writes its
+   reports directly under `docs/age-verification/<bloque>/`, not in a scratch folder.**
+2. **Unconfirmed labels.** The lessons keep the label the official page prints. The table «Etiqueta del examen /
+   Etiqueta oficial» under Open items lists all 41, so R3 writes authored questions with the official label and the
+   «Exámenes oficiales» set keeps the exam's wording.
+3. **Facts with no official source** (Modo Dios, Ctrl+Mayús+arrastrar, PRUEBA.F.N, disipador…): out of the lessons and
+   out of the authored bank; the «Exámenes oficiales» set keeps them as asked. Listed under «Sin fuente oficial».
+4. **Impr Pant.** m06-l02 states both official descriptions, each with its source, and does not choose (as the TREBEP
+   and earlier-rule cases are handled): `ms-win-atajos.html` (select an area, to the clipboard) and
+   `ms-win-recortes.html` (the whole screen, to the clipboard). To stay at 1,500 words, m06-l02 lost three clauses: who
+   the Narrador is for, two dialog-box keys (Barra espaciadora, Esc) and the desktop right-click › Ver sizes.
+5. **Sources outside the list.** NIST, Apple, the Council copy of COM(2023) 442, the Basque Government page and the
+   Internet Society are accepted. The W3C HTML 4.01 files are replaced by the current HTML Standard:
+   `whatwg-html-introduccion.html` (§1, introduction and history) and `whatwg-html-scripting.html` (§4.12), saved and
+   indexed; the two `w3c-html401-*` files are deleted and unindexed. m06-l08's World Wide Web, HTML and JavaScript items
+   and two «Lo que más cae» lines were rewritten to the WHATWG text; «lenguaje de marcado de hipertexto» now cites
+   `ms-win-extensiones.html`. m06-l08 is at 1,471 words.
+6. **Exams ledger.** Applied: conv2025_X P1 66 → «Clave oficial discutida»; conv2024_X P1 65's note now cites the
+   Microsoft page; conv2025_X P1 reserva 2 → `vigente` with a note confirming the key; conv2020 P1 44 → `vigente`, and
+   the index's «Información» notes now say «Acerca de». Counts updated in its summary table.
+7. **Small points.** m06-l04 summary «Estilos de título»; m06-l06 summary «Compactar y reparar base de datos y Dividir
+   la base de datos»; m06-l04 «Lo que más cae» «Transcribir graba en Word o carga un audio» (the fact 2025 A 53 asked).
+
+**Blind check of these edits** (`docs/age-verification/bloque-vi/postclose-check.md`): 19 checked, 18 PASS, 1 FAIL. The
+FAIL was the m06-l02 Narrador cut: it dropped the accessibility purpose that 2024 A 46 and 2020 50 ask. The item now
+reads «lee la pantalla si eres invidente o tienes visión reducida» (the checker's wording), paid for by cutting
+«(aplicaciones, configuración y archivos)» from the Búsqueda item; both re-checked blind, 11/11 PASS
+(`postclose-recheck.md`). m06-l02 is at 1,500 words. After these edits: content tests (`pytest -k "glossary or registry
+or content or pipeline"`) 68 passed, never-coins included; frontend `src/lib/refs`, `src/lib/glossary`, `src/lib/pdf`
+302 passed, 49 skipped; goldens regenerated, unchanged since the close (303 web marks, 0 dangling references). The full
+backend and frontend suites were not re-run after these edits.
+
+## Open items (after bloque VI)
+
+**Exam labels and official labels** (decision of 2026-10-17: the lessons keep the label the official page prints;
+R3 writes authored questions with the official label; the «Exámenes oficiales» set keeps the exam's original wording).
+«—» means no official page prints a label for it.
+
+| Etiqueta del examen | Etiqueta oficial |
+|---|---|
+| «Iconos muy grandes» (2025 A 48) | «iconos extra grandes» (m06-l03; `ms-win-explorador-lector.html`) |
+| «Mosaicos» (2025 A 48) | — not printed: the Spanish page writes «iconos» where the English one has «Tiles» (m06-l03 leaves it out) |
+| «Lista» (2025 A 48) | «listas» (m06-l03; `ms-win-explorador.html`) |
+| «Ordenar», «Más» (Explorer command bar, 2024 X 55) | — not printed (m06-l03 says only that the column buttons in Detalles sort) |
+| «Estándar» (Calculadora) | «Standard» (m06-l03; `ms-win-calculadora.html`) |
+| «Privacidad y seguridad» (2024 X 57) | «Privacidad & seguridad» (m06-l03; `ms-win-indexacion.html`) |
+| «Grabación de acciones de usuario» (2024 A 45) | «Grabadora de pasos» (m06-l03; `ms-win-desuso.html`) |
+| «Vista › Macros» (2020 X 53) | «Ver» on the Macros page, «Vista» on the shortcut page without Macros (m06-l04 names no tab; `ms-word-macros.html`) |
+| «Grabar macro» | «grabar macros», inside a garbled path (m06-l04 leaves it out; `ms-word-macros.html`) |
+| Tab of «Saltos» («Disposición») | «Saltos de diseño>» on the page, «Disposición» on the shortcut page without Saltos (m06-l04 names only Saltos; `ms-word-salto-seccion.html`) |
+| «Mostrar todo» (2024 X 60) | «Mostrar u ocultar ¶» (m06-l04; `ms-word-opciones-mostrar.html`) |
+| «Leer en voz alta» (2022 X 53, 2020 54) | «Lectura en voz alta» (m06-l04; `ms-word-lectura-voz-alta.html`) |
+| «Número de página» | «numeración de páginas» (m06-l04; `ms-word-numeros-pagina.html`) |
+| «Mostrar» (Opciones de Word, 2020 53) | «Opciones de Word (Mostrar)» in the title, «Visualización» in the path (`ms-word-opciones-mostrar.html`) |
+| «Imprimir selección» (2024 A 59) | «Imprimir hojas activas» › «Imprimir tabla seleccionada» (m06-l05; `ms-excel-imprimir.html`) |
+| «Ajustar todas las columnas en una página» (2024 X 62) | the behaviour only: Ancho 1 página, Alto Automático; neighbouring label «Ajustar hoja en una página» (m06-l05; `ms-excel-escalar.html`) |
+| «Vista › Inmovilizar paneles» | «pestaña Vista» and «Ver>Inmovilizar paneles» on the same page (m06-l05 writes «Vista»; `ms-excel-inmovilizar-paneles.html`) |
+| «SIERROR» (2022 54) | «SI.ERROR» (m06-l05; `ms-excel-funcion-sierror.html`) |
+| «BUSCARV» | «BUSCARV» in the body, «CONSULTAV» in one page title (m06-l05 writes BUSCARV) |
+| «#N/A» (2025 X 57) | «#N/A» (m06-l05; `ms-excel-error-na.html`); the DIVIDIRTEXTO page prints «#N/D» |
+| «Combinar y centrar» (2020 59) | «Combinar y centrar» and «Combinar & centro» (m06-l05; `ms-excel-combinar-celdas.html`) |
+| «Indizado» (2025 X 59) | «Indexado» (m06-l06; `ms-access-tipos-datos.html`) |
+| «Requerido» (2025 X 59) | «Obligatorio» (m06-l06; `ms-access-tipos-datos.html`) |
+| «Divisor de bases de datos» (2020 X 59) | «Asistente para el separador de base de datos» (m06-l06; `ms-access-dividir.html`) |
+| «Introduzca el valor del parámetro» (2025 A 60) | — not printed (m06-l06 gives the behaviour only) |
+| «Origen del control» (2020 64) | «orígenes de control de cuadro de texto» (item cut; `ms-access-formularios.html`) |
+| Tab of «Orden de tabulación» | «Diseño» on the cited page, «Diseño de formulario» on `ms-access-formularios.html` (m06-l06 follows its cited page) |
+| «Gráficos modernos» (2025 X P1R 2) | «Gráfico moderno» (m06-l06; `ms-access-graficos.html`) |
+| «Archivo › Información» (Compactar y reparar, 2022 X 62) | garbled «Información de>archivo>» (m06-l06 gives the closed-database path only; `ms-access-compactar.html`) |
+| «Agrupar y ordenar» | «Agrupar &ordenar»; m06-l06 names the panel «Agrupación, orden y total» (`ms-access-informes.html`) |
+| «Importar y vincular» | «Importar & vínculo» / «Importar & vincular» (m06-l06 as printed; `ms-access-importar-excel.html`) |
+| «Retrasar entrega» (2025 X 64) | «Opciones de mensaje», «Opciones de entrega», «No entregar antes» (m06-l07; `ms-outlook-programar-envio.html`) |
+| «Incluir» (group of Firma, 2020 X 62) | «Mensaje › Firma › Firmas» (m06-l07; `ms-outlook-firma.html`) |
+| «Delegar acceso» (2024 A 63) | «Delegar el acceso» (m06-l07; `ms-outlook-delegados.html`) |
+| «Correo no deseado › Opciones» (2020 X 61) | «Inicio › Eliminar › Bloquear › Opciones de correo electrónico no deseado» (junk-mail page read, not saved; item cut) |
+| «Formato de texto › Edición › Buscar» (2020 X 68) | — not printed on any page read (item cut) |
+| «Mail» (new Outlook, Ctrl+1) | «Vaya a Mail» (m06-l07 writes «va al correo»; `ms-outlook-atajos.html`) |
+| «Configuración y más › Más herramientas › Anclar a Inicio» (2025 A 67) | «menú de más opciones › Más herramientas › Anclar a Inicio», garbled (m06-l02, m06-l08; `ms-win-menu-inicio.html`) |
+| «hosting» (2020 66) | — not printed; m06-l08 uses «alojamiento de sitios web» (`incibe-glosario-ciberseguridad.pdf`, «Servidor») |
+| «IPv4» / «IPv6» | «en su versión v4» / «en su versión v6» (m06-l08; `incibe-glosario-ciberseguridad.pdf`) |
+| «secuestro de sesión» | «Session Hijacking», «también llamado secuestro de cookies» (m06-l08; `incibe-glosario-ciberseguridad.pdf`) |
+
+**Paths decoded from garbled strings** (every label printed; order read back, confirmed by the plainly printed pattern
+on another saved page unless noted):
+- m06-l01: «Configuración › Cuentas › Copias de seguridad de Windows» — printed «Configuración>cuentas>de Copias de
+  seguridad de Windows».
+- m06-l02: «Configuración › Sistema › Multitarea» — «Multitarea del sistema>» (`ms-win-acoplar.html`,
+  `ms-win-escritorios.html`).
+- m06-l02: «Configuración › Sistema › Notificaciones» — «Notificaciones del sistema>».
+- m06-l02: «Configuración › Cuentas › Opciones de inicio de sesión» — «Opcionesde inicio de sesión decuentas>».
+- m06-l02: «Configuración › Personalización › Temas › Configuración del icono de escritorio» — «Temas de
+  personalización>».
+- m06-l02: «Enviar a › Escritorio (crear acceso directo)» — steps print «Enviar al>escritorio», the note «solo Enviar
+  a».
+- m06-l02: «Anclados» — the structure list prints «Chinchetas», the layout section «Anclados».
+- m06-l02: «Asistente para el ajuste» — the same page also prints «Asistente de acoplamiento» and «Asistente de ajuste».
+- m06-l02: «Windows+Impr Pant» — the row prints «Tecla Windows + PrtScn»; the key is «Impr Scn o Impr Pant».
+- m06-l03: «Ver › Mostrar › Extensiones de nombre de archivo» — `ms-win-explorador.html` «Ver>presentación»;
+  `ms-win-extensiones.html` «Ver>mostrar>extensiones de nombre de archivo».
+- m06-l03: «Ver más › Opciones», list «Abrir Explorador de archivos para:» — the list label is printed only in the
+  Windows 10 part of the page.
+- m06-l03: «Ctrl+Windows+Q» — `ms-win-asistencia-rapida.html` «Presione Ctrl, + tecla + del logotipo de Windows,Q»;
+  `ms-win-atajos.html` prints it plainly.
+- m06-l04: «Revisar › Traducir › Traducir documento», «Revisar › Lectura en voz alta», «Referencias › Tabla de
+  contenido», «Archivo › Imprimir», «Archivo › Opciones › Personalizar cinta de opciones», «Insertar › Numeración de
+  páginas › Posición actual» — garbled on their pages; listed in the VI.4 notes.
+- m06-l05: «Revisar › Proteger libro», «Datos › Filtro», «Archivo › Imprimir» — garbled on their pages, order printed in
+  prose on the same page.
+- m06-l06: «Herramientas de base de datos» (Compactar, closed database) — «Herramientas >de base de datos»; the tab is
+  printed plainly on `ms-access-dividir.html`, `ms-access-clave-principal.html`, `ms-access-relaciones.html`.
+- m06-l06: «Nuevo origen de datos › Desde archivo › Excel» — «Nuevo origen>de datos desde archivo>Excel», reassembled
+  across a «>»; no saved page prints it plainly.
+- m06-l07: «Archivo › Agregar cuenta», «Archivo › Configuración de la cuenta › Delegar el acceso», «Mensaje › Firma ›
+  Firmas», «Archivo › Administrar reglas y alertas › Nueva regla», «Configuración › Correo › Reglas» — garbled, order
+  confirmed by plain prints.
+- m06-l07: «Archivo › Herramientas › Limpieza de buzón» and «Configuración › Cuentas › Firmas» — reverse-order decode
+  only; no saved page prints them in order.
+- m06-l08: Edge «menú de más opciones › Más herramientas › Anclar a Inicio» — labels in the page's own garbled order.
+
+**Sin fuente oficial** (decision of 2026-10-17: these stay out of the lessons and out of the authored bank; the
+«Exámenes oficiales» set keeps the questions as asked). No official page found:
+- m06-l01: disipador (2025 X 41) — searched support.microsoft.com and learn.microsoft.com es-es (disipador, heat sink):
+  a Surface fan page and Q&A threads only.
+- m06-l01: escáner as input and impresora as output device (2024 A 41 / B 45) — no Microsoft or standards page
+  classifies them; HID driver pages checked.
+- m06-l01: «software libre» against «software gratuito» (2025 X 42) — no official page defines it by that name; the ENI
+  term «aplicación de fuentes abiertas» is used.
+- m06-l01: chat de IA / ChatGPT (2024 A 65 / B 61) — no official Spanish page; no owner lesson.
+- m06-l01: Linux and Android as operating systems (2020 41) — no Spanish official page saved.
+- m06-l01: hardware definition of the caché beyond L2/L3 — only the `Win32_Processor` reference; the archived Microsoft
+  blog was not used.
+- m06-l02: Modo Dios (2022 46) — support and learn (es-es, en-us): Q&A threads and Windows 7 archive pages only.
+- m06-l03: Ctrl+Mayús+arrastrar creates a shortcut (2025 X 48) — support and learn (es-es, en-us): Q&A threads and a
+  2010 MSDN blog only; `ms-win-atajos.html` gives Alt+arrastrar.
+- m06-l03: «Este equipo › Propiedades» opens Configuración › Sistema (2025 A 49) — support and learn: Q&A threads only.
+- m06-l03: contents of Herramientas de Windows (2022 48) — screenshot only on `ms-win-herramientas-windows.html`.
+- m06-l03: Detalles shows the most information (2020 46); sorting by fields not shown (2024 X 55); the «Enviar a»
+  destinations (2024 X 56) — no page states them.
+- m06-l04: Formato de imagen pane tabs (2020 52) — support es-es and en-us: no Word page lists the pane's tabs.
+- m06-l04: a note's text on hover (2025 A 52) — closest is `ms-word-opciones-mostrar.html` (tooltips over hyperlinks and
+  comment marks «o contenido similar»).
+- m06-l04: cursiva shortcut (2025 A 51) — `ms-word-atajos.html` mixes the Spanish and English letter sets.
+- m06-l05: «;» as the argument separator (2022 X 60) — no Spanish Microsoft page states it; «Operadores de cálculo y
+  prioridad» (read, not saved) prints the union operator garbled.
+- m06-l05: «20-2» read as a date (2024 A 60) — the page documents «2/2» only.
+- m06-l05: PRUEBA.F.N (2022 53) — the Spanish category page prints «PRUEBA.F» and a garbled «F.PRUEBA».
+- m06-l06: PostgreSQL (2024 X 45) — no Microsoft page names it; not an Access feature.
+- m06-l06: 2.345,68 → Estándar (2025 A 59) — the page gives only «datos numéricos con decimales».
+- m06-l07: «Dirigir respuestas a» / «Enviar las respuestas a» (2020 X 65) — support es-es and en-us («Direct Replies
+  To», «Have replies sent to»): Q&A threads and third-party guides only.
+- m06-l07: send/receive group options (2020 X P1R 1) — only a learn.microsoft.com page for Outlook 2016, cut.
+
+**Impr Pant: two official descriptions** (decision of 2026-10-17: state both with their sources, as the TREBEP
+and earlier-rule cases are stated; the lesson does not choose). `ms-win-atajos.html` (Windows 11 table): «Seleccione una
+zona de la pantalla para hacer una captura de pantalla en el portapapeles»; `ms-win-recortes.html`: Imprimir pantalla
+(PrtSc) takes «toda la pantalla» to the clipboard. m06-l02 now states both, each with its source; m06-l03 states
+neither. R2b re-checks both live pages.
+
+**Exams-ledger and index updates** (applied 2026-10-17, see the R2 bloque VI paragraph of
+`docs/age-official-exams-ledger.md`): conv2025_X P1 66 → «Clave oficial discutida» and conv2024_X P1 65 keeps it, both
+citing `ms-outlook-buscar.html`; conv2025_X P1 reserva 2 → `vigente` with a note confirming the key
+(`ms-access-graficos.html`); conv2020 P1 44 → `vigente` and the index notes on 2020 44 and 51 now say «Acerca de», not
+«Información». Not applied, for R3: 2022 X 45 «Escritorios» and 2024 X 52 «Herramientas de Windows» confirmed; new
+Outlook has folder permission levels and its delegation is assigned from classic Outlook (index «posible» notes); 2025
+A 67 Edge path not printed as keyed; 2024 A 65 (chat de IA) needs an owner tema; 2025 A 53 (Transcribir: 300 minutes on
+the page, an option said 600).
+
+**Waiting glossary terms:** the bloque I–V lists, plus g-extension-de-nombre-de-archivo, g-ruta-unc,
+g-referencia-absoluta, g-referencia-estructurada, g-consulta-de-accion, g-grupo-de-microsoft-365 (each needs its
+singular, or a plural `match`-only entry, in prose).
+
+**Cut for length, candidates if a later round has room:** m06-l01 Office applications (2024 A 43), MySQL (2020 41),
+minería de datos (2020 X 43); m06-l02 idiomas (2024 X 48), Otros usuarios (2024 X 49); m06-l03 «Enviar a» destinations
+and Acerca de contents; m06-l04 Inicio › Seleccionar (2020 X 52), Opciones de impresión (2020 53); m06-l05 the function
+pages (MAX, EXTRAE, DIVIDIRTEXTO…), 1900/1904 dates; m06-l06 Expresiones (2020 61, 62, 64); m06-l07 Gráfico (2020 X 64),
+Limpiar carpeta (2020 X 66), Correo no deseado levels (2020 X 61), carpetas de búsqueda, grupos de envío y recepción
+(2020 X P1R 1), F4 (2020 X 68). Most are single-convocatoria 2020 rows (programa anterior).
+
+**Files resting on non-UI sources:** `ms-win-tolerancia-errores.html` (Windows Server / Azure Local, not Windows 11; the RAID item says
+so); `ms-win32-processor-cache.html`, `ms-sql-bits.html`, `ms-win-componentes-kernel.html`, `ms-win-aqs.html` (developer
+references); `ms-office-formatos-archivo.html` (Word 2007–2021 table); `ms-win-paint.html` (product page);
+`nist-prefijos-binarios.html`, `rfc1122-capas-tcp-ip.txt`, `rfc1918-direcciones-privadas.txt`,
+`isoc-historia-internet.html`, `whatwg-html-introduccion.html`, `whatwg-html-scripting.html` (English; facts only, no
+labels).
+
+**Word budget.** The eight lessons are at 1,471–1,500 words against the 1,500 ceiling: any addition needs a cut.
+
+## Where to resume (after bloque VI)
+
+R2 is complete for all six bloques. The next session starts R2b, the scope and currency audit (section 4b of the
+requirements). For bloque VI it compares each saved page in `sources/otros/` with its live URL (labels, paths,
+shortcuts, «Se aplica a»), starting with the open items above: the Impr Pant pair, the unconfirmed labels and the two
+Outlook search keys. Every round writes its verification reports under `docs/age-verification/<bloque>/`
+(decision 1 of «Decisions after bloque VI»).

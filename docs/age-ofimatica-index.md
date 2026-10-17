@@ -90,8 +90,8 @@ Anexo III 2.1 fixes 30 of the 70 part-1 questions on bloque VI (43%). Every exam
 | Herramientas del sistema | Historial de archivos | concepto/definición | 2024 extr. | 58 | vigente-con-nota | posible: en Windows 11 el Historial de archivos solo está en el Panel de control; la app Copia de seguridad de Windows lo complementa. |
 | Herramientas del sistema | Herramientas administrativas | otro | 2022 ord. | 48 | función retirada | Windows 11 la sustituye por «Herramientas de Windows» (mismo contenido: Servicios, Monitor de recursos, Visor de eventos) |
 | Información del sistema (versión, Acerca de) | Explorador: Este equipo > Propiedades | comportamiento | 2025 ord. (A/B) | A 49 / B 49 | vigente |  |
-| Información del sistema (versión, Acerca de) | Configuración: Sistema > Acerca de | ruta de menú/cinta | 2020 ord. | 44 | vigente-con-nota | En Windows 11 el apartado se llama «Información» (Configuración > Sistema > Información). |
-| Información del sistema (versión, Acerca de) | Ver versión de Windows (winver, Acerca de) | ruta de menú/cinta | 2020 ord. | 51 | función retirada | Centro de actividades sustituido por Configuración rápida y Centro de notificaciones; «Acerca de» renombrado «Información». |
+| Información del sistema (versión, Acerca de) | Configuración: Sistema > Acerca de | ruta de menú/cinta | 2020 ord. | 44 | vigente | Windows 11 mantiene «Acerca de» (Configuración > Sistema > Acerca de; revisado R2 bloque VI). |
+| Información del sistema (versión, Acerca de) | Ver versión de Windows (winver, Acerca de) | ruta de menú/cinta | 2020 ord. | 51 | función retirada | Centro de actividades sustituido por Configuración rápida y Centro de notificaciones; «Acerca de» sigue vigente (revisado R2 bloque VI). |
 | Menú Inicio y anclaje | Edge: Anclar a Inicio | ruta de menú/cinta | 2025 ord. (A/B) | A 67 / B 67 | vigente |  |
 | Menú Inicio y anclaje | Menú Inicio centrado | comportamiento | 2025 extr. | 44 | vigente |  |
 | Menú Inicio y anclaje | Menú Inicio: elementos anclados | comportamiento | 2024 extr. | 70 | vigente-con-nota | posible: los mosaicos de Inicio de Windows 10 desaparecen en Windows 11 (sección Anclados). |
@@ -197,7 +197,7 @@ Anexo III 2.1 fixes 30 of the 70 part-1 questions on bloque VI (43%). Every exam
 | Informes | Informes: origen de registros | concepto/definición | 2024 ord. (A/B) | A 57 / B 57 | vigente |  |
 | Informes | Informes: Encabezado del informe | comportamiento | 2024 extr. | 46 | vigente |  |
 | Informes | Informes: ordenar y agrupar (límite) | concepto/definición | 2022 ord. | 60 | vigente |  |
-| Otras (compactar, VBA, especificaciones, novedades, gráficos) | Gráficos modernos | concepto/definición | 2025 extr. | P1R 2 | vigente-con-nota | posible: Access 365 solo ofrece columna, línea, barra, circular y combinado |
+| Otras (compactar, VBA, especificaciones, novedades, gráficos) | Gráficos modernos | concepto/definición | 2025 extr. | P1R 2 | vigente | Revisado R2 bloque VI: la ayuda de Access incluye las nubes de palabras entre los gráficos; la clave se mantiene. |
 | Otras (compactar, VBA, especificaciones, novedades, gráficos) | Novedades de Access 2019 (Información/Tell Me) | otro | 2022 ord. | 56 | función retirada | «Información» (Tell Me) sustituido por el cuadro Buscar (Microsoft Search) en Microsoft 365 |
 | Otras (compactar, VBA, especificaciones, novedades, gráficos) | Especificaciones de Access | concepto/definición | 2022 ord. | 57 | anulada |  |
 | Otras (compactar, VBA, especificaciones, novedades, gráficos) | Módulos VBA | concepto/definición | 2022 ord. | 59 | vigente |  |
@@ -222,9 +222,9 @@ Never asked in these questionnaires. The 2025 programme does not name this appli
 | Family | Feature | Form | Exam | Nº | Status | Windows 11 / Microsoft 365 note |
 |---|---|---|---|---|---|---|
 | Búsqueda | Búsqueda: cc: | comportamiento | 2025 ord. (A/B) | A 65 / B 64 | vigente |  |
-| Búsqueda | Búsqueda de mensajes | comportamiento | 2025 extr. | 66 | vigente |  |
+| Búsqueda | Búsqueda de mensajes | comportamiento | 2025 extr. | 66 | vigente-con-nota | Clave oficial discutida: la ayuda de Outlook dice que las cadenas de menos de cinco dígitos se omiten. |
 | Búsqueda | Búsqueda: ámbito Buzón actual | comportamiento | 2024 ord. (A/B) | A 61 / B 65 | vigente | posible: ámbito propio de Outlook clásico; el nuevo Outlook ofrece otros ámbitos de búsqueda. |
-| Búsqueda | Búsqueda instantánea | comportamiento | 2024 extr. | 65 | vigente-con-nota | posible: la búsqueda del nuevo Outlook y la del clásico se comportan de forma distinta. |
+| Búsqueda | Búsqueda instantánea | comportamiento | 2024 extr. | 65 | vigente-con-nota | Clave oficial discutida: la ayuda de Outlook describe la búsqueda por prefijo, que da la opción a. |
 | Búsqueda | Búsqueda instantánea | comportamiento | 2024 extr. | 67 | anulada |  |
 | Búsqueda | Búsqueda de frase exacta | comportamiento | 2022 extr. | 65 | vigente |  |
 | Búsqueda | Atajo Ctrl+Mayús+P: Nueva carpeta de búsqueda | atajo | 2020 extr. | 63 | vigente | posible: solo Outlook clásico; el nuevo Outlook no tiene carpetas de búsqueda |
@@ -444,7 +444,7 @@ Read against the wording of the 2025 programme (`sources/programa.md`, bloque VI
 | 2022 ord. | 56 | Access | Novedades de Access 2019 (Información/Tell Me) | Pregunta de novedades de Access 2019; el cuadro «Información» (Tell Me) ha sido sustituido por el cuadro Buscar de Microsoft 365. |
 | 2020 ord. | 48 | Windows | Cortana | Cortana se retiró en Windows 11 (app sin soporte desde 2023) y la sustituye Copilot. |
 | 2020 ord. | 50 | Windows | Accesibilidad: Lupa, Narrador, Reconocimiento de voz | El Reconocimiento de voz de Windows quedó en desuso en 2023 y se retiró a partir de Windows 11 24H2 (lo sustituye Acceso por voz), así que la opción d tampoco es hoy una herramienta de Windows. |
-| 2020 ord. | 51 | Windows | Ver versión de Windows (winver, Acerca de) | El Centro de actividades de Windows 10 no existe en Windows 11 (Configuración rápida y Centro de notificaciones) y «Acerca de» pasa a llamarse «Información». |
+| 2020 ord. | 51 | Windows | Ver versión de Windows (winver, Acerca de) | El Centro de actividades de Windows 10 no existe en Windows 11 (Configuración rápida y Centro de notificaciones); «Acerca de» sigue vigente en Windows 11 (revisado R2 bloque VI). |
 | 2020 extr. | 45 | Windows | Accesorios: WordPad y Bloc de notas | WordPad se eliminó de Windows 11 a partir de la versión 24H2 (2024); la comparación con el Bloc de notas ya no es posible. |
 | 2020 extr. | 46 | Windows | Asistente de concentración | En Windows 11 22H2 el Asistente de concentración se sustituyó por «No molestar» (notificaciones) y «Concentración» (sesiones); la pregunta solo se responde para Windows 10. |
 | 2020 extr. | 54 | Word | Archivo > Compartir > Presentar en línea | Microsoft indica que «Presentar en línea» (Office Presentation Service) ya no está disponible en la mayoría de versiones de Word para Windows; no figura en Word de Microsoft 365. |
@@ -457,7 +457,7 @@ Read against the wording of the 2025 programme (`sources/programa.md`, bloque VI
 | 2025 ord. (A/B) | A 53 / B 53 | Word | Transcribir | posible: Transcribir solo existe en Word para la web y en 2026 hay informes de que ha desaparecido para algunos usuarios |
 | 2025 extr. | 47 | Windows | Atajo Windows+Impr Pant | posible: desde 2023 Impr Pant sola abre Recortes por defecto; no cambia la respuesta |
 | 2025 extr. | 64 | Outlook | Programar envío en el nuevo Outlook | posible: pregunta del nuevo Outlook; en Outlook clásico el envío retrasado exige Outlook abierto |
-| 2025 extr. | P1R 2 | Access | Gráficos modernos | posible: Access 365 solo ofrece columna, línea, barra, circular y combinado |
+| 2025 extr. | P1R 2 | Access | Gráficos modernos | Revisado R2 bloque VI: la ayuda de Access incluye las nubes de palabras; la clave se mantiene. |
 | 2024 ord. (A/B) | A 61 / B 65 | Outlook | Búsqueda: ámbito Buzón actual | posible: ámbito propio de Outlook clásico; el nuevo Outlook ofrece otros ámbitos de búsqueda. |
 | 2024 ord. (A/B) | A 63 / B 63 | Outlook | Acceso delegado | posible: en el nuevo Outlook la delegación se configura desde Configuración > Cuentas, no desde Archivo. |
 | 2024 ord. (A/B) | A 64 / B 62 | Outlook | Limpieza de buzón | posible: Limpieza de buzón es de Outlook clásico (Archivo > Herramientas); el nuevo Outlook no la tiene. |
@@ -468,14 +468,14 @@ Read against the wording of the 2025 programme (`sources/programa.md`, bloque VI
 | 2024 extr. | 56 | Windows | Menú contextual: Enviar a | posible: en Windows 11 «Enviar a» solo aparece en «Mostrar más opciones» (menú contextual clásico). |
 | 2024 extr. | 57 | Windows | Buscar en Windows: ubicaciones | posible: en Windows 11 se configura en Privacidad y seguridad > Buscar en Windows (Clásico/Mejorado). |
 | 2024 extr. | 58 | Windows | Historial de archivos | posible: en Windows 11 el Historial de archivos solo está en el Panel de control; la app Copia de seguridad de Windows lo complementa. |
-| 2024 extr. | 65 | Outlook | Búsqueda instantánea | posible: la búsqueda del nuevo Outlook y la del clásico se comportan de forma distinta. |
+| 2024 extr. | 65 | Outlook | Búsqueda instantánea | Clave oficial discutida: la ayuda de Outlook describe la búsqueda por prefijo, que da la opción a (revisado R2 bloque VI). |
 | 2024 extr. | 66 | Outlook | Permisos de carpeta: Colaborador | posible: solo en Outlook clásico; el nuevo Outlook ofrece otros niveles de permiso. |
 | 2024 extr. | 69 | Outlook | Recuperar mensaje | posible: la recuperación en la nube de Exchange Online (2023) ya no depende del cliente del destinatario; sigue fallando si el mensaje ya se leyó. |
 | 2024 extr. | 70 | Windows | Menú Inicio: elementos anclados | posible: los mosaicos de Inicio de Windows 10 desaparecen en Windows 11 (sección Anclados). |
 | 2022 ord. | 68 | Outlook | Vistas | posible: el nuevo Outlook ofrece menos opciones de vista que Outlook clásico |
 | 2022 extr. | 42 | otros | BIOS | posible: en los equipos actuales la BIOS clásica la sustituye el firmware UEFI, que Windows 11 exige. |
 | 2022 extr. | 45 | Windows | Escritorios virtuales: ventanas en la barra de tareas | posible: en Windows 11 la sección se llama «Escritorios» (Configuración > Sistema > Multitarea) y la opción «En todos los escritorios»; la respuesta b sigue valiendo. |
-| 2020 ord. | 44 | Windows | Configuración: Sistema > Acerca de | En Windows 11 el apartado se llama «Información» (Configuración > Sistema > Información). |
+| 2020 ord. | 44 | Windows | Configuración: Sistema > Acerca de | Revisado R2 bloque VI: Windows 11 mantiene «Acerca de» (Configuración > Sistema > Acerca de); la nota anterior («Información») era errónea. |
 | 2020 ord. | 46 | Windows | Explorador: diseño Detalles | El Explorador de Windows 11 no tiene la pestaña «Vista» de la cinta; los diseños están en el menú «Ver» de la barra de comandos. |
 | 2020 ord. | 49 | Windows | Explorador: Acceso rápido (anclar carpeta) | posible: en Windows 11 el nodo «Acceso rápido» pasa a «Inicio», que mantiene una sección Acceso rápido; anclar carpetas sigue igual. |
 | 2020 extr. | 47 | Windows | Accesorios: Bloc de notas | posible: el Bloc de notas de Windows 11 ha incorporado formato básico, pero sigue siendo el editor simple |

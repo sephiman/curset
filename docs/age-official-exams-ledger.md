@@ -30,13 +30,15 @@ Status was checked against the consolidated texts on boe.es as of 2026-10-16, an
 | conv2024_X | 125 | 112 | 9 | 1 | 1 | 2 | 0 | 0 |
 | conv2022 | 125 | 107 | 9 | 5 | 2 | 2 | 0 | 0 |
 | conv2022_X | 125 | 112 | 8 | 4 | 0 | 0 | 1 | 0 |
-| conv2020 | 125 | 106 | 6 | 7 | 3 | 3 | 0 | 0 |
+| conv2020 | 125 | 107 | 5 | 7 | 3 | 3 | 0 | 0 |
 | conv2020_X | 125 | 114 | 6 | 0 | 2 | 3 | 0 | 0 |
-| **Total** | 1250 | 1140 | 47 | 40 | 10 | 12 | 1 | 0 |
+| **Total** | 1250 | 1141 | 46 | 40 | 10 | 12 | 1 | 0 |
 
 Modelo B repeats modelo A in a different order (supuestos I and II swapped, two stems with minor wording changes in 2024), so its counts duplicate modelo A's.
 
 Round R1 (2026-10-16) re-checked every question resting on a precept of the 12 `cambio-pendiente` norms of `sources/normativa.yaml`. One question is excluded for that reason (conv2020_X P1 17, already `norma modificada` in R0a, now dated). Five rows (three distinct questions) keep their key and carry a «Revisado R1» note. The counts above are unchanged.
+
+Round R2, bloque VI (2026-10-17), checked four ofimática rows against the Microsoft pages saved under `content/age-administrativo-c1/sources/otros/`. conv2025_X P1 66 becomes «Clave oficial discutida» (`ms-outlook-buscar.html`: number strings under five digits are ignored). conv2024_X P1 65 keeps «Clave oficial discutida» and now cites the same page (prefix matching gives option a). conv2025_X P1 reserva 2 drops its note and becomes `vigente` with a «Revisado» note (`ms-access-graficos.html` lists word clouds). conv2020 P1 44 becomes `vigente`: the label is still «Acerca de» (`ms-win-version.html`), not «Información». The counts above include these changes.
 
 ## conv2025_A — Convocatoria 2025 — ejercicio único, modelo A
 
@@ -433,7 +435,7 @@ Round R1 (2026-10-16) re-checked every question resting on a precept of the 12 `
 | 63 | VI.7 | vigente | b |  |  |
 | 64 | VI.7 | vigente | b |  |  |
 | 65 | VI.7 (o VI.8) | vigente | b |  |  |
-| 66 | VI.7 | vigente | a |  |  |
+| 66 | VI.7 | vigente-con-nota | a | Clave oficial discutida: la ayuda de Microsoft («Buscar en Outlook», `content/age-administrativo-c1/sources/otros/ms-outlook-buscar.html`, 17-10-2026) dice que las cadenas de números de menos de cinco dígitos se omiten y que una búsqueda así no obtiene resultados; «9876» no devuelve lo que dice la clave a. |  |
 | 67 | VI.8 | vigente | a |  |  |
 | 68 | VI.8 | vigente | b |  |  |
 | 69 | VI.8 (o VI.1) | vigente | b |  |  |
@@ -444,7 +446,7 @@ Round R1 (2026-10-16) re-checked every question resting on a precept of the 12 `
 | Nº | Tema | Estado | Clave | Nota de clave | Nota |
 |---|---|---|---|---|---|
 | 1 | II.4 | vigente | b |  |  |
-| 2 | VI.6 | vigente-con-nota | c | Clave oficial discutida: la galería de gráficos modernos que documenta Access 365 (columna, línea, barra, circular, combinado) no confirma la clave; no consta que exista «Nube de palabras». |  |
+| 2 | VI.6 | vigente | c |  | Revisado R2 bloque VI: la ayuda de Microsoft («Crear un gráfico en un formulario o informe», `content/age-administrativo-c1/sources/otros/ms-access-graficos.html`, 17-10-2026) incluye las nubes de palabras entre los gráficos de Access; la clave se mantiene. |
 | 3 | IV.6 | anulada | ANULADA |  |  |
 | 4 | III.1 (o I.5) | vigente | d |  |  |
 | 5 | I.2 | vigente | b |  |  |
@@ -912,7 +914,7 @@ Round R1 (2026-10-16) re-checked every question resting on a precept of the 12 `
 | 62 | VI.5 | vigente | d |  |  |
 | 63 | VI.5 | vigente | b |  |  |
 | 64 | VI.6 | vigente | b |  |  |
-| 65 | VI.7 | vigente-con-nota | c | Clave oficial discutida: si la búsqueda de Outlook coincide por prefijo, la respuesta sería a, no c; no se ha podido verificar con la ayuda de Microsoft. |  |
+| 65 | VI.7 | vigente-con-nota | c | Clave oficial discutida: la ayuda de Microsoft («Buscar en Outlook», `content/age-administrativo-c1/sources/otros/ms-outlook-buscar.html`, 17-10-2026) dice que Outlook busca por concordancia de prefijos y que «proyect», con o sin comillas, devuelve proyecto, proyectos y proyector en remitente, asunto, cuerpo o datos adjuntos: es la opción a. La misma página dice en otra tabla que una palabra entre comillas solo encuentra esa palabra; se contradice. |  |
 | 66 | VI.7 | vigente | c |  |  |
 | 67 | VI.7 | anulada | ANULADA |  |  |
 | 68 | VI.6 | vigente | c |  |  |
@@ -1372,14 +1374,14 @@ Round R1 (2026-10-16) re-checked every question resting on a precept of the 12 `
 | 41 | VI.1 | vigente | c |  |  |
 | 42 | VI.1 | vigente | d |  |  |
 | 43 | VI.1 | vigente | c |  |  |
-| 44 | VI.2 | vigente-con-nota | d |  | Etiqueta actual: Configuración > Sistema > «Información» (antes «Acerca de»). |
+| 44 | VI.2 | vigente | d |  | Revisado R2 bloque VI: las páginas de Microsoft en español siguen diciendo «Configuración › Sistema › Acerca de» (`content/age-administrativo-c1/sources/otros/ms-win-version.html`); la etiqueta no ha cambiado. |
 | 45 | VI.2 | vigente | c |  |  |
 | 46 | VI.3 | vigente-con-nota | d |  | Etiqueta actual: los diseños están en el menú «Ver» de la barra de comandos del Explorador; Windows 11 no tiene la pestaña «Vista» de la cinta. |
 | 47 | VI.2 | vigente | b |  |  |
 | 48 | VI.2 | función retirada | a |  | Cortana se retiró en Windows 11 (app sin soporte desde 2023) y la sustituye Copilot. |
 | 49 | VI.3 | vigente-con-nota | a |  | Etiqueta actual: el nodo «Acceso rápido» del Explorador pasa a «Inicio», que mantiene una sección «Acceso rápido». Sin confirmar en la interfaz española. |
 | 50 | VI.2 | función retirada | b |  | El Reconocimiento de voz de Windows quedó en desuso en 2023 y se retiró a partir de Windows 11 24H2 (lo sustituye Acceso por voz), así que la opción d tampoco es hoy una herramienta de Windows. |
-| 51 | VI.2 | función retirada | c |  | El Centro de actividades de Windows 10 no existe en Windows 11 (Configuración rápida y Centro de notificaciones) y «Acerca de» pasa a llamarse «Información». |
+| 51 | VI.2 | función retirada | c |  | El Centro de actividades de Windows 10 no existe en Windows 11 (Configuración rápida y Centro de notificaciones); «Acerca de» sigue vigente en Windows 11 (revisado R2 bloque VI). |
 | 52 | VI.4 | vigente | c |  |  |
 | 53 | VI.4 | anulada | ANULADA |  |  |
 | 54 | VI.4 | vigente | a |  |  |

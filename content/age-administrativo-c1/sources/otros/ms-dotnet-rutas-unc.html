@@ -1,0 +1,1968 @@
+ <!DOCTYPE html>
+		<html
+			class="layout layout-holy-grail   show-table-of-contents conceptual show-breadcrumb default-focus"
+			lang="es-es"
+			dir="ltr"
+			data-authenticated="false"
+			data-auth-status-determined="false"
+			data-target="docs"
+			x-ms-format-detection="none"
+		>
+			
+		<head>
+			<title>Formatos de ruta de acceso de archivo en los sistemas Windows - .NET | Microsoft Learn</title>
+			<meta charset="utf-8" />
+			<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+			<meta name="color-scheme" content="light dark" />
+
+			<meta name="description" content="En este artículo, obtenga información sobre los formatos de ruta de acceso de archivo en sistemas Windows, como las rutas de acceso de DOS tradicionales, las rutas de acceso del dispositivo DOS y las rutas de acceso de convención de nomenclatura universal (UNC)." />
+			<link rel="canonical" href="https://learn.microsoft.com/es-es/dotnet/standard/io/file-path-formats" /> 
+
+			<!-- Non-customizable open graph and sharing-related metadata -->
+			<meta name="twitter:card" content="summary" />
+			<meta name="twitter:site" content="@MicrosoftLearn" />
+			<meta property="og:type" content="website" />
+			<meta property="og:image:alt" content="Formatos de ruta de acceso de archivo en los sistemas Windows - .NET | Microsoft Learn" />
+			<meta property="og:image" content="https://learn.microsoft.com/dotnet/media/dot-net-cross-platform.png" />
+			<!-- Page specific open graph and sharing-related metadata -->
+			<meta property="og:title" content="Formatos de ruta de acceso de archivo en los sistemas Windows - .NET" />
+			<meta property="og:url" content="https://learn.microsoft.com/es-es/dotnet/standard/io/file-path-formats" />
+			<meta property="og:description" content="En este artículo, obtenga información sobre los formatos de ruta de acceso de archivo en sistemas Windows, como las rutas de acceso de DOS tradicionales, las rutas de acceso del dispositivo DOS y las rutas de acceso de convención de nomenclatura universal (UNC)." />
+			<meta name="platform_id" content="d203e825-4c85-57ee-02d9-2d7146133aad" /> <meta name="scope" content=".NET" />
+			<meta name="locale" content="es-es" />
+			 
+			<meta name="uhfHeaderId" content="MSDocsHeader-DotNet" />
+
+			<meta name="page_type" content="conceptual" />
+
+			<!--page specific meta tags-->
+			
+
+			<!-- custom meta tags -->
+			
+		<meta name="schema" content="Conceptual" />
+	
+		<meta name="ai-usage" content="ai-assisted" />
+	
+		<meta name="apiPlatform" content="dotnet" />
+	
+		<meta name="author" content="adegeo" />
+	
+		<meta name="breadcrumb_path" content="/dotnet/breadcrumb/toc.json" />
+	
+		<meta name="depot_name" content="VS.core-docs" />
+	
+		<meta name="document_id" content="b74b99ff-32f8-c2d1-0a62-5907985f591e" />
+	
+		<meta name="document_version_independent_id" content="716a28dc-360e-2964-47f5-0ff18bb00b1c" />
+	
+		<meta name="feedback_product_url" content="https://aka.ms/feedback/report?space=61" />
+	
+		<meta name="feedback_system" content="OpenSource" />
+	
+		<meta name="git_commit_id" content="8a189e07f74e50fa0e49551857c3b88d69a7630b" />
+	
+		<meta name="gitcommit" content="https://github.com/dotnet/docs/blob/8a189e07f74e50fa0e49551857c3b88d69a7630b/docs/standard/io/file-path-formats.md" />
+	
+		<meta name="ms.author" content="adegeo" />
+	
+		<meta name="ms.date" content="2025-10-22T00:00:00Z" />
+	
+		<meta name="ms.devlang" content="dotnet" />
+	
+		<meta name="ms.service" content="dotnet-fundamentals" />
+	
+		<meta name="ms.topic" content="concept-article" />
+	
+		<meta name="original_content_git_url" content="https://github.com/dotnet/docs/blob/live/docs/standard/io/file-path-formats.md" />
+	
+		<meta name="show_latex" content="true" />
+	
+		<meta name="site_name" content="Docs" />
+	
+		<meta name="updated_at" content="2026-10-05T04:34:00Z" />
+	
+		<meta name="ms.translationtype" content="MT" />
+	
+		<meta name="ms.contentlocale" content="es-es" />
+	
+		<meta name="loc_version" content="2026-02-23T22:23:19.4869593Z" />
+	
+		<meta name="loc_source_id" content="Github-35890081#live" />
+	
+		<meta name="loc_file_id" content="Github-35890081.live.VS.core-docs.docs/standard/io/file-path-formats.md" />
+	
+		<meta name="toc_rel" content="../../fundamentals/toc.json" />
+	
+		<meta name="feedback_help_link_type" content="" />
+	
+		<meta name="feedback_help_link_url" content="" />
+	
+		<meta name="search.mshattr.devlang" content="csharp vb" />
+	
+		<meta name="word_count" content="3571" />
+	
+		<meta name="asset_id" content="standard/io/file-path-formats" />
+	
+		<meta name="item_type" content="Content" />
+	
+		<meta name="previous_tlsh_hash" content="AB3F5772550D63973FF31AC17DA3EB624DB9D0C0AB96EFF4063A930F547A3FBA9178A632B72926C02A1215B31345DB4E9753F1448289280DD2D98A594BA175CCFDDC71ED82" />
+	
+		<meta name="github_feedback_content_git_url" content="https://github.com/dotnet/docs/blob/main/docs/standard/io/file-path-formats.md" />
+	
+		<meta name="markdown_url" content="https://learn.microsoft.com/es-es/dotnet/standard/io/file-path-formats?accept=text/markdown" />
+	 
+		<meta name="cmProducts" content="https://authoring-docs-microsoft.poolparty.biz/devrel/bcbcbad5-4208-4783-8035-8481272c98b8" data-source="generated" />
+	
+		<meta name="cmProducts" content="https://authoring-docs-microsoft.poolparty.biz/devrel/7696cda6-0510-47f6-8302-71bb5d2e28cf" data-source="generated" />
+	
+		<meta name="spProducts" content="https://authoring-docs-microsoft.poolparty.biz/devrel/43b2e5aa-8a6d-4de2-a252-692232e5edc8" data-source="generated" />
+	
+		<meta name="spProducts" content="https://authoring-docs-microsoft.poolparty.biz/devrel/69c76c32-967e-4c65-b89a-74cc527db725" data-source="generated" />
+	
+
+			<!-- Apply persisted/system theme before first paint to prevent wrong-theme flash when scripts are deferred. -->
+			<script id="theme-preference">
+				(function () {
+			try {
+				var stored = localStorage.getItem('theme');
+				var theme = /^(light|dark|high-contrast)$/.test(stored)
+					? stored
+					: matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+				document.documentElement.classList.add('theme-' + theme);
+			} catch (e) {}
+		})();;
+			</script>
+
+			<script id="atlas-layout-preferences">
+				(function () {
+			try {
+				var state = JSON.parse(localStorage.getItem('atlas-layout-preferences') || '{}');
+				var view = state["docs-layout-persistence"] || {};
+				var excludesKey = "";
+				var blocked = {};
+				if (excludesKey) {
+					var exclusions = JSON.parse(localStorage.getItem('atlas-layout-exclusions') || '{}');
+					if (Object.prototype.hasOwnProperty.call(exclusions, excludesKey)) {
+						var scoped = exclusions[excludesKey];
+						if (scoped) {
+							if (typeof scoped === 'object') blocked = scoped;
+						}
+					}
+				}
+				var html = document.documentElement;
+				for (var c in view) {
+					if (Object.prototype.hasOwnProperty.call(blocked, c)) continue;
+					if (view[c]) html.classList.add(c);
+					else html.classList.remove(c);
+				}
+			} catch (e) {}
+		})();;
+			</script>
+
+			<!-- assets and js globals -->
+			
+			<link rel="stylesheet" href="/static/assets/0.4.03574.8308-9505b1c8/styles/site.css" />
+			
+			<script src="https://wcpstatic.microsoft.com/mscc/lib/v2/wcp-consent.js"></script>
+			<!-- Keep this URL in sync with oneDSScriptSelector in instrumentation/one-ds.ts. -->
+			<script async src="https://js.monitor.azure.com/scripts/c/ms.jsll-4.min.js"></script>
+			
+
+			<!-- msdocs global object -->
+			<script id="msdocs-script">
+		var msDocs = {
+  "environment": {
+    "accessLevel": "online",
+    "azurePortalHostname": "portal.azure.com",
+    "reviewFeatures": false,
+    "supportLevel": "production",
+    "systemContent": true,
+    "siteName": "learn",
+    "legacyHosting": false
+  },
+  "data": {
+    "contentLocale": "es-es",
+    "contentDir": "ltr",
+    "userLocale": "es-es",
+    "userDir": "ltr",
+    "pageTemplate": "Conceptual",
+    "layoutStateStorageKey": "docs-layout-persistence",
+    "brand": "",
+    "context": {},
+    "standardFeedback": false,
+    "showFeedbackReport": false,
+    "feedbackHelpLinkType": "",
+    "feedbackHelpLinkUrl": "",
+    "feedbackSystem": "OpenSource",
+    "feedbackGitHubRepo": "dotnet/docs",
+    "feedbackProductUrl": "https://aka.ms/feedback/report?space=61",
+    "extendBreadcrumb": false,
+    "isEditDisplayable": false,
+    "isPrivateUnauthorized": false,
+    "hideViewSource": false,
+    "isPermissioned": false,
+    "hasRecommendations": true,
+    "mathjax": {},
+    "openSourceFeedbackIssueUrl": "https://github.com/dotnet/docs/issues/new?template=z-customer-feedback.yml",
+    "openSourceFeedbackIssueTitle": ""
+  },
+  "functions": {}
+};;
+	</script>
+
+			<!-- base scripts, msdocs global should be before this -->
+			<script
+				src="/static/assets/0.4.03574.8308-9505b1c8/scripts/es-es/index-docs.js"
+				async
+			></script>
+			
+
+			<!-- json-ld -->
+			
+		<script >bazadebezolkohpepadr="913455205"</script><script type="text/javascript" src="https://learn.microsoft.com/akam/13/36723bb7"  defer></script></head>
+	
+			<body
+				id="body"
+				data-bi-name="body"
+				class="layout-body "
+				lang="es-es"
+				dir="ltr"
+			>
+				<header class="layout-body-header background-color-body-medium">
+		<div class="header-holder has-default-focus">
+			
+		<a
+			href="#main"
+			
+			style="z-index: 1070"
+			class="outline-color-text visually-hidden-until-focused position-fixed inner-focus focus-visible top-0 left-0 right-0 padding-xs text-align-center background-color-body"
+			
+		>
+			Ir al contenido principal
+		</a>
+	
+		<a
+			href="#"
+			data-skip-to-ask-learn
+			style="z-index: 1070"
+			class="outline-color-text visually-hidden-until-focused position-fixed inner-focus focus-visible top-0 left-0 right-0 padding-xs text-align-center background-color-body"
+			hidden
+		>
+			Omisión de la experiencia de chat de Ask Learn
+		</a>
+	
+
+			<div hidden id="cookie-consent-holder" data-test-id="cookie-consent-container"></div>
+			<!-- Unsupported browser warning -->
+			<div
+				id="unsupported-browser"
+				style="background-color: white; color: black; padding: 16px; border-bottom: 1px solid grey;"
+				hidden
+			>
+				<div style="max-width: 800px; margin: 0 auto;">
+					<p style="font-size: 24px">Este explorador ya no se admite.</p>
+					<p style="font-size: 16px; margin-top: 16px;">
+						Actualice a Microsoft Edge para aprovechar las características y actualizaciones de seguridad más recientes, y disponer de soporte técnico.
+					</p>
+					<div style="margin-top: 12px;">
+						<a
+							href="https://go.microsoft.com/fwlink/p/?LinkID=2092881 "
+							style="background-color: #0078d4; border: 1px solid #0078d4; color: white; padding: 6px 12px; border-radius: 2px; display: inline-block;"
+						>
+							Descargar Microsoft Edge
+						</a>
+						<a
+							href="https://learn.microsoft.com/en-us/lifecycle/faq/internet-explorer-microsoft-edge"
+							style="background-color: white; padding: 6px 12px; border: 1px solid #505050; color: #171717; border-radius: 2px; display: inline-block;"
+						>
+							Más información sobre Internet Explorer y Microsoft Edge
+						</a>
+					</div>
+				</div>
+			</div>
+			<!-- site header -->
+			<div
+				id="ms--site-header"
+				data-test-id="site-header-wrapper"
+				itemscope="itemscope"
+				itemtype="http://schema.org/Organization"
+			>
+				<div
+					id="ms--mobile-nav"
+					class="site-header display-none-tablet padding-inline-none gap-none"
+					data-bi-name="mobile-header"
+					data-test-id="mobile-header"
+				></div>
+				<div
+					id="ms--primary-nav"
+					class="site-header display-none display-flex-tablet"
+					data-bi-name="L1-header"
+					data-test-id="primary-header"
+				></div>
+				<div
+					id="ms--secondary-nav"
+					class="site-header display-none display-flex-tablet"
+					data-bi-name="L2-header"
+					data-test-id="secondary-header"
+					
+				></div>
+			</div>
+			
+		<!-- banner -->
+		<div data-banner>
+			<div id="disclaimer-holder"></div>
+			
+		</div>
+		<!-- banner end -->
+	
+		</div>
+	</header>
+				 <section
+					id="layout-body-menu"
+					class="layout-body-menu border-right display-flex background-color-body-medium"
+					data-bi-name="menu"
+			  >
+					
+		<div
+			id="left-container"
+			class="left-container display-none padding-none display-block-tablet width-full display-none-until-layout-restored"
+			data-toc-container="true"
+		>
+			<div
+				id="ms--toc-content"
+				class="padding-left-sm padding-right-none padding-bottom-sm height-full"
+			>
+				<nav
+					id="affixed-left-container"
+					class="margin-top-xxs-tablet position-sticky display-flex flex-direction-column width-full"
+					aria-label="Principal"
+					data-bi-name="left-toc"
+					role="navigation"
+				>
+					<div
+						id="ms--collapsible-toc-header"
+						class="display-flex flex-direction-row-reverse justify-content-center align-items-center margin-bottom-xxs margin-right-xxs"
+					>
+						<button
+							type="button"
+							class="button button-clear button-sm inner-focus"
+							data-collapsible-toc-toggle
+							aria-expanded="true"
+							hidden
+							aria-controls="ms--toc-content"
+							aria-label="Tabla de contenido"
+						>
+							<span class="icon icon-mirrored-rtl" aria-hidden="true">
+								<span
+									class="docon docon-panel-left-contract display-none-layout-menu-collapsed"
+								></span>
+								<span
+									class="docon docon-panel-left-expand display-none display-inline-layout-menu-collapsed"
+								></span>
+							</span>
+						</button>
+						<div
+							id="ms--collapsible-toc-moniker-slot"
+							class="flex-grow-1 display-none-layout-menu-collapsed"
+						></div>
+					</div>
+				</nav>
+			</div>
+		</div>
+	
+			  </section>
+
+				<main
+					id="main"
+					role="main"
+					class="layout-body-main "
+					data-bi-name="content"
+					lang="es-es"
+					dir="ltr"
+				>
+					
+			<div
+		id="ms--content-header"
+		class="content-header default-focus border-bottom-none"
+		data-bi-name="content-header"
+	>
+		<div class="content-header-controls margin-xxs margin-inline-sm-tablet">
+			<button
+				type="button"
+				class="contents-button button button-sm margin-right-xxs"
+				data-bi-name="contents-expand"
+				aria-haspopup="true"
+				data-contents-button
+			>
+				<span class="icon" aria-hidden="true"><span class="docon docon-menu"></span></span>
+				<span class="contents-expand-title"> Tabla de contenido </span>
+			</button>
+			<button
+				type="button"
+				class="ap-collapse-behavior ap-expanded button button-sm"
+				data-bi-name="ap-collapse"
+				aria-controls="action-panel"
+			>
+				<span class="icon" aria-hidden="true"><span class="docon docon-exit-mode"></span></span>
+				<span>Salir del modo de editor</span>
+			</button>
+		</div>
+	</div> 
+		<div
+			id="action-panel"
+			role="region"
+			aria-label="Panel de acciones"
+			class="action-panel"
+			tabindex="-1"
+		></div>
+	
+			<div
+				data-main-column
+				class="reading-width margin-inline-auto layout-padding padding-top-none padding-top-sm-tablet padding-bottom-sm"
+			>
+				<div>
+					
+		<div id="article-header" class="background-color-body margin-bottom-xs display-none-print">
+			<div class="display-flex align-items-center justify-content-space-between">
+				
+		<details
+			id="article-header-breadcrumbs-overflow-popover"
+			class="popover popover-left"
+			data-for="article-header-breadcrumbs"
+		>
+			<summary
+				class="button button-clear button-primary button-sm inner-focus"
+				aria-label="Todas las rutas de navegación"
+			>
+				<span class="icon" aria-hidden="true">
+					<span class="docon docon-more"></span>
+				</span>
+			</summary>
+			<div id="article-header-breadcrumbs-overflow" class="popover-content"></div>
+		</details>
+
+		<bread-crumbs
+			id="article-header-breadcrumbs"
+			role="group"
+			aria-label="Rutas de navegación"
+			data-test-id="article-header-breadcrumbs"
+			class="overflow-hidden flex-grow-1 margin-right-sm margin-right-md-tablet margin-right-lg-desktop margin-left-negative-xxs padding-left-xxs"
+		></bread-crumbs>
+	 
+		<div
+			id="article-header-page-actions"
+			class="opacity-none margin-left-auto display-flex flex-wrap-no-wrap align-items-stretch"
+		>
+			
+		<button
+			class="button button-sm border-none inner-focus display-none-tablet flex-shrink-0 "
+			data-bi-name="ask-learn-assistant-entry"
+			data-test-id="ask-learn-assistant-modal-entry-mobile"
+			data-ask-learn-modal-entry
+			
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			aria-label="Preguntar a Learn"
+			hidden
+		>
+			<span class="icon" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+		</button>
+		<button
+			class="button button-sm display-none display-inline-flex-tablet display-none-desktop flex-shrink-0 margin-right-xxs border-color-ask-learn "
+			data-bi-name="ask-learn-assistant-entry"
+			
+			data-test-id="ask-learn-assistant-modal-entry-tablet"
+			data-ask-learn-modal-entry
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			hidden
+		>
+			<span class="icon font-size-lg" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+			<span>Preguntar a Learn</span>
+		</button>
+		<button
+			class="button button-sm display-none flex-shrink-0 display-inline-flex-desktop margin-right-xxs border-color-ask-learn "
+			data-bi-name="ask-learn-assistant-entry"
+			
+			data-test-id="ask-learn-assistant-flyout-entry"
+			data-ask-learn-flyout-entry
+			data-flyout-button="toggle"
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			aria-controls="ask-learn-flyout"
+			hidden
+		>
+			<span class="icon font-size-lg" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+			<span>Preguntar a Learn</span>
+		</button>
+	 
+		<details class="language popover popover-right">
+			<summary
+				class="button button-clear button-sm"
+				title="Lenguaje"
+				data-bi-name="language"
+			>
+				<span class="lang-title align-self-flex-start" dir="ltr">Lenguaje</span>
+				<span class="icon" aria-hidden="true">
+					<span class="docon docon-chevron-down-light expanded-indicator"></span>
+				</span>
+			</summary>
+			<div class="language-selector popover-content padding-xxs">
+				<ul
+					class="list-style-none margin-none padding-none"
+					data-bi-name="language-links"
+					dir="ltr"
+				>
+					
+			<li>
+				<button
+					type="button"
+					class="button button-clear button-sm button-block"
+					data-bi-name="lang-csharp"
+					data-popover-close
+					aria-pressed="false"
+				>
+					csharp
+				</button>
+			</li>
+		
+			<li>
+				<button
+					type="button"
+					class="button button-clear button-sm button-block"
+					data-bi-name="lang-vb"
+					data-popover-close
+					aria-pressed="false"
+				>
+					vb
+				</button>
+			</li>
+		
+				</ul>
+			</div>
+		</details>
+	
+
+			<details class="popover popover-right" id="article-header-page-actions-overflow">
+				<summary
+					class="justify-content-flex-start button button-clear button-sm button-primary inner-focus"
+					aria-label="Más acciones"
+					aria-expanded="false"
+					title="Más acciones"
+				>
+					<span class="icon" aria-hidden="true">
+						<span class="docon docon-more-vertical"></span>
+					</span>
+				</summary>
+				<div class="popover-content">
+					
+		<button
+			type="button"
+			id="ms--focus-mode-button"
+			data-focus-mode
+			data-bi-name="focus-mode-entry"
+			data-page-action-item="overflow-all"
+			data-popover-close
+			class="button button-clear button-sm button-block justify-content-flex-start text-align-left inner-focus display-none display-inline-flex-tablet"
+		>
+			<span class="icon" aria-hidden="true">
+				<span class="docon docon-glasses"></span>
+			</span>
+			<span>Modo de lectura</span>
+		</button>
+	 
+		<button
+			data-page-action-item="overflow-mobile"
+			type="button"
+			class="display-block-layout-menu-collapsed button-block button-sm inner-focus button button-clear display-none-tablet justify-content-flex-start text-align-left"
+			data-bi-name="contents-expand"
+			data-contents-button
+			data-popover-close
+		>
+			<span class="icon" aria-hidden="true"
+				><span class="docon docon-editor-list-bullet"></span
+			></span>
+			<span class="contents-expand-title">Tabla de contenido</span>
+		</button>
+	 
+		<a
+			id="lang-link-overflow"
+			class="button-sm inner-focus button button-clear button-block justify-content-flex-start text-align-left"
+			data-bi-name="language-toggle"
+			data-page-action-item="overflow-all"
+			data-check-hidden="true"
+			data-read-in-link
+			href="#"
+			hidden
+		>
+			<span class="icon" aria-hidden="true" data-read-in-link-icon>
+				<span class="docon docon-locale-globe"></span>
+			</span>
+			<span data-read-in-link-text>Leer en inglés</span>
+		</a>
+	
+					
+		<button
+			type="button"
+			class="collection button button-clear button-sm button-block justify-content-flex-start text-align-left inner-focus"
+			data-list-type="collection"
+			data-bi-name="collection"
+			data-page-action-item="overflow-all"
+			data-check-hidden="true"
+			data-popover-close
+		>
+			<span class="icon" aria-hidden="true">
+				<span class="docon docon-circle-addition"></span>
+			</span>
+			<span class="collection-status">Agregar</span>
+		</button>
+	 
+		<button
+			type="button"
+			class="collection button button-block button-clear button-sm justify-content-flex-start text-align-left inner-focus"
+			data-list-type="plan"
+			data-bi-name="plan"
+			data-page-action-item="overflow-all"
+			data-check-hidden="true"
+			data-popover-close
+			hidden
+		>
+			<span class="icon" aria-hidden="true">
+				<span class="docon docon-circle-addition"></span>
+			</span>
+			<span class="plan-status">Añadir a Planes</span>
+		</button>
+	 
+					  
+		<hr class="margin-block-xxs" />
+		
+				<button
+					class="button button-block button-clear button-sm justify-content-flex-start text-align-left inner-focus"
+					type="button"
+					data-bi-name="copy-markdown"
+					data-page-action-item="overflow-all"
+					data-copy-markdown
+					data-copy-state="idle"
+					data-check-hidden="true"
+				>
+					<span class="icon color-primary" aria-hidden="true">
+						<span data-show-when="idle" class="docon docon-code-lang"></span>
+						<span data-show-when="loading" class="loader" hidden></span>
+						<span data-show-when="success" class="docon docon-check-mark" hidden></span>
+					</span>
+					<span>Copiar Markdown</span>
+				</button>
+		   
+				<button
+					class="button button-block button-clear button-sm justify-content-flex-start text-align-left inner-focus"
+					type="button"
+					data-bi-name="print"
+					data-page-action-item="overflow-all"
+					data-popover-close
+					data-print-page
+					data-check-hidden="true"
+				>
+					<span class="icon color-primary" aria-hidden="true">
+						<span class="docon docon-print"></span>
+					</span>
+					<span>Imprimir</span>
+				</button>
+		  
+	
+				</div>
+			</details>
+		</div>
+	
+			</div>
+		</div>
+	  
+		<!-- privateUnauthorizedTemplate is hidden by default -->
+		<div unauthorized-private-section data-bi-name="permission-content-unauthorized-private" hidden>
+			<hr class="hr margin-top-xs margin-bottom-sm" />
+			<div class="notification notification-info">
+				<div class="notification-content">
+					<p class="margin-top-none notification-title">
+						<span class="icon" aria-hidden="true"
+							><span class="docon docon-exclamation-circle-solid"></span
+						></span>
+						<span>Nota:</span>
+					</p>
+					<p class="margin-top-none authentication-determined not-authenticated">
+						El acceso a esta página requiere autorización. Puede intentar <a class="docs-sign-in" href="#" data-bi-name="permission-content-sign-in">iniciar sesión</a> o <a  class="docs-change-directory" data-bi-name="permisson-content-change-directory">cambiar directorios</a>.
+					</p>
+					<p class="margin-top-none authentication-determined authenticated">
+						El acceso a esta página requiere autorización. Puede intentar <a class="docs-change-directory" data-bi-name="permisson-content-change-directory">cambiar los directorios</a>.
+					</p>
+				</div>
+			</div>
+		</div>
+	
+					<div class="content"><h1 id="file-path-formats-on-windows-systems">Formatos de ruta de acceso de archivo en los sistemas Windows</h1></div>
+					
+		<div
+			id="article-metadata"
+			data-bi-name="article-metadata"
+			data-test-id="article-metadata"
+			class="page-metadata-container display-flex gap-xxs justify-content-space-between align-items-center flex-wrap-wrap"
+		>
+			 
+				<div
+					id="user-feedback"
+					class="margin-block-xxs display-none display-none-print"
+					hidden
+					data-hide-on-archived
+				>
+					
+		<button
+			id="user-feedback-button"
+			data-test-id="conceptual-feedback-button"
+			class="button button-sm button-clear button-primary display-none"
+			type="button"
+			data-bi-name="user-feedback-button"
+			data-user-feedback-button
+			hidden
+		>
+			<span class="icon" aria-hidden="true">
+				<span class="docon docon-like"></span>
+			</span>
+			<span>Comentarios</span>
+		</button>
+	
+				</div>
+		  
+		</div>
+	  
+		<nav
+			id="center-doc-outline"
+			class="doc-outline display-none-desktop display-none-print margin-bottom-sm"
+			data-bi-name="intopic toc"
+			aria-label="En este artículo"
+		>
+			<h2 id="ms--in-this-article" class="title is-6 margin-block-xs">
+				En este artículo
+			</h2>
+		</nav>
+	 
+				<div class="content" data-code-language-options="csharp,vb">
+					<p>Los miembros de muchos de los tipos del <a href="/es-es/dotnet/api/system.io" class="no-loc" data-linktype="absolute-path">System.IO</a> espacio de nombres incluyen un <code>path</code> parámetro que permite especificar una ruta de acceso absoluta o relativa a un recurso del sistema de archivos. A continuación, esta ruta de acceso se pasa a las <a href="/es-es/windows/desktop/fileio/file-systems" data-linktype="absolute-path">API del sistema de archivos de Windows</a>. En este tema se describen los formatos de las rutas de acceso de archivo que puede usar en sistemas Windows.</p>
+<h2 id="traditional-dos-paths">Rutas de acceso de DOS tradicionales</h2>
+<p>Una ruta de acceso estándar de DOS puede constar de tres componentes:</p>
+<ul>
+<li>Una letra de volumen o unidad seguida por el separador de volumen (<code>:</code>).</li>
+<li>Un nombre de directorio. El <a href="/es-es/dotnet/api/system.io.path.directoryseparatorchar#system-io-path-directoryseparatorchar" data-linktype="absolute-path">carácter separador de directorio</a> separa subdirectorios dentro de la jerarquía de directorios anidada.</li>
+<li>Un nombre de archivo opcional. El <a href="/es-es/dotnet/api/system.io.path.directoryseparatorchar#system-io-path-directoryseparatorchar" data-linktype="absolute-path">carácter separador de directorio</a> separa la ruta de acceso del archivo y el nombre de archivo.</li>
+</ul>
+<p>Si los tres componentes están presentes, la ruta de acceso es absoluta. Si no se especifica la letra de volumen o unidad y el nombre de directorio comienza por el <a href="/es-es/dotnet/api/system.io.path.directoryseparatorchar#system-io-path-directoryseparatorchar" data-linktype="absolute-path">carácter separador de directorio</a>, la ruta de acceso es relativa con respecto a la raíz de la unidad actual. En caso contrario, la ruta de acceso es relativa al directorio actual. En la tabla siguiente se muestran algunas posibles rutas de acceso de directorio y archivo.</p>
+<table>
+<thead>
+<tr>
+<th>Ruta</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>C:\Documents\Newsletters\Summer2018.pdf</code></td>
+<td>Ruta de acceso de archivo absoluta desde la raíz de la unidad <code>C:</code>.</td>
+</tr>
+<tr>
+<td><code>\Program Files\Custom Utilities\StringFinder.exe</code></td>
+<td>Una ruta de acceso relativa desde la raíz de la unidad actual.</td>
+</tr>
+<tr>
+<td><code>2018\January.xlsx</code></td>
+<td>Ruta de acceso relativa a un archivo en un subdirectorio del directorio actual.</td>
+</tr>
+<tr>
+<td><code>..\Publications\TravelBrochure.pdf</code></td>
+<td>Ruta de acceso relativa a un archivo de un directorio a partir del directorio actual.</td>
+</tr>
+<tr>
+<td><code>C:\Projects\apilibrary\apilibrary.sln</code></td>
+<td>Ruta de acceso absoluta a un archivo desde la raíz de la unidad <code>C:</code>.</td>
+</tr>
+<tr>
+<td><code>C:Projects\apilibrary\apilibrary.sln</code></td>
+<td>Ruta de acceso relativa desde el directorio actual de la unidad <code>C:</code>.</td>
+</tr>
+</tbody>
+</table>
+<div class="IMPORTANT">
+<p>Importante</p>
+<p>Tenga en cuenta la diferencia entre las dos últimas rutas de acceso. Ambos especifican el especificador de volumen opcional (<code>C:</code> en ambos casos), pero el primero comienza con la raíz del volumen especificado, mientras que el segundo no. Como resultado, la primera es una ruta de acceso absoluta desde el directorio raíz de la unidad <code>C:</code>, mientras que la segunda es una ruta de acceso relativa del directorio actual de la unidad <code>C:</code>. El uso del segundo formulario cuando el primero está pensado es un origen común de errores que implican rutas de acceso de archivos de Windows.</p>
+</div>
+<p>Puede determinar si una ruta de acceso de archivo está completa (es decir, si la ruta de acceso es independiente del directorio actual y no cambia cuando cambia el directorio actual) llamando al método <a href="/es-es/dotnet/api/system.io.path.ispathfullyqualified" class="no-loc" data-linktype="absolute-path">Path.IsPathFullyQualified</a>. Tenga en cuenta que esta ruta de acceso puede incluir segmentos de directorio relativos (<code>.</code> y <code>..</code>) y seguir estando completamente calificada si la ruta de acceso resuelta siempre apunta a la misma ubicación.</p>
+<p>En el ejemplo siguiente se muestra la diferencia entre las rutas de acceso absolutas y relativas. Se supone que existe el directorio <code>D:\FY2018\</code> y que aún no ha establecido ningún directorio actual para <code>D:\</code> desde el símbolo del sistema antes de ejecutar el ejemplo.</p>
+<pre><code class="lang-csharp" name="absolute-and-relative-paths">using System;
+using System.Diagnostics;
+using System.IO;
+using System.Reflection;
+
+public class Example2
+{
+    public static void Main(string[] args)
+    {
+        Console.WriteLine($"Current directory is '{Environment.CurrentDirectory}'");
+        Console.WriteLine("Setting current directory to 'C:\\'");
+
+        Directory.SetCurrentDirectory(@"C:\");
+        string path = Path.GetFullPath(@"D:\FY2018");
+        Console.WriteLine($"'D:\\FY2018' resolves to {path}");
+        path = Path.GetFullPath(@"D:FY2018");
+        Console.WriteLine($"'D:FY2018' resolves to {path}");
+
+        Console.WriteLine("Setting current directory to 'D:\\Docs'");
+        Directory.SetCurrentDirectory(@"D:\Docs");
+
+        path = Path.GetFullPath(@"D:\FY2018");
+        Console.WriteLine($"'D:\\FY2018' resolves to {path}");
+        path = Path.GetFullPath(@"D:FY2018");
+
+        // This will be "D:\Docs\FY2018" as it happens to match the drive of the current directory
+        Console.WriteLine($"'D:FY2018' resolves to {path}");
+
+        Console.WriteLine("Setting current directory to 'C:\\'");
+        Directory.SetCurrentDirectory(@"C:\");
+
+        path = Path.GetFullPath(@"D:\FY2018");
+        Console.WriteLine($"'D:\\FY2018' resolves to {path}");
+
+        // This will be either "D:\FY2018" or "D:\FY2018\FY2018" in the subprocess. In the sub process,
+        // the command prompt set the current directory before launch of our application, which
+        // sets a hidden environment variable that is considered.
+        path = Path.GetFullPath(@"D:FY2018");
+        Console.WriteLine($"'D:FY2018' resolves to {path}");
+
+        if (args.Length &lt; 1)
+        {
+            Console.WriteLine(@"Launching again, after setting current directory to D:\FY2018");
+            Uri currentExe = new(Assembly.GetExecutingAssembly().Location, UriKind.Absolute);
+            string commandLine = $"/C cd D:\\FY2018 &amp; \"{currentExe.LocalPath}\" stop";
+            ProcessStartInfo psi = new("cmd", commandLine); ;
+            Process.Start(psi).WaitForExit();
+
+            Console.WriteLine("Sub process returned:");
+            path = Path.GetFullPath(@"D:\FY2018");
+            Console.WriteLine($"'D:\\FY2018' resolves to {path}");
+            path = Path.GetFullPath(@"D:FY2018");
+            Console.WriteLine($"'D:FY2018' resolves to {path}");
+        }
+        Console.WriteLine("Press any key to continue... ");
+        Console.ReadKey();
+    }
+}
+// The example displays the following output:
+//      Current directory is 'C:\Programs\file-paths'
+//      Setting current directory to 'C:\'
+//      'D:\FY2018' resolves to D:\FY2018
+//      'D:FY2018' resolves to d:\FY2018
+//      Setting current directory to 'D:\Docs'
+//      'D:\FY2018' resolves to D:\FY2018
+//      'D:FY2018' resolves to D:\Docs\FY2018
+//      Setting current directory to 'C:\'
+//      'D:\FY2018' resolves to D:\FY2018
+//      'D:FY2018' resolves to d:\FY2018
+//      Launching again, after setting current directory to D:\FY2018
+//      Sub process returned:
+//      'D:\FY2018' resolves to D:\FY2018
+//      'D:FY2018' resolves to d:\FY2018
+// The subprocess displays the following output:
+//      Current directory is 'C:\'
+//      Setting current directory to 'C:\'
+//      'D:\FY2018' resolves to D:\FY2018
+//      'D:FY2018' resolves to D:\FY2018\FY2018
+//      Setting current directory to 'D:\Docs'
+//      'D:\FY2018' resolves to D:\FY2018
+//      'D:FY2018' resolves to D:\Docs\FY2018
+//      Setting current directory to 'C:\'
+//      'D:\FY2018' resolves to D:\FY2018
+//      'D:FY2018' resolves to D:\FY2018\FY2018
+</code></pre><pre><code class="lang-vb" name="absolute-and-relative-paths">Imports System.IO
+Imports System.Reflection
+
+Public Module Example2
+
+    Public Sub Main(args() As String)
+        Console.WriteLine($"Current directory is '{Environment.CurrentDirectory}'")
+        Console.WriteLine("Setting current directory to 'C:\'")
+        Directory.SetCurrentDirectory("C:\")
+
+        Dim filePath As String = Path.GetFullPath("D:\FY2018")
+        Console.WriteLine($"'D:\\FY2018' resolves to {filePath}")
+        filePath = Path.GetFullPath("D:FY2018")
+        Console.WriteLine($"'D:FY2018' resolves to {filePath}")
+
+        Console.WriteLine("Setting current directory to 'D:\\Docs'")
+        Directory.SetCurrentDirectory("D:\Docs")
+
+        filePath = Path.GetFullPath("D:\FY2018")
+        Console.WriteLine($"'D:\\FY2018' resolves to {filePath}")
+        filePath = Path.GetFullPath("D:FY2018")
+
+        ' This will be "D:\Docs\FY2018" as it happens to match the drive of the current directory
+        Console.WriteLine($"'D:FY2018' resolves to {filePath}")
+
+        Console.WriteLine("Setting current directory to 'C:\\'")
+        Directory.SetCurrentDirectory("C:\")
+
+        filePath = Path.GetFullPath("D:\FY2018")
+        Console.WriteLine($"'D:\\FY2018' resolves to {filePath}")
+
+        ' This will be either "D:\FY2018" or "D:\FY2018\FY2018" in the subprocess. In the sub process,
+        ' the command prompt set the current directory before launch of our application, which
+        ' sets a hidden environment variable that is considered.
+        filePath = Path.GetFullPath("D:FY2018")
+        Console.WriteLine($"'D:FY2018' resolves to {filePath}")
+
+        If args.Length &lt; 1 Then
+            Console.WriteLine("Launching again, after setting current directory to D:\FY2018")
+            Dim currentExe As New Uri(Assembly.GetExecutingAssembly().GetName().CodeBase, UriKind.Absolute)
+            Dim commandLine As String = $"/C cd D:\FY2018 &amp; ""{currentExe.LocalPath}"" stop"
+            Dim psi As New ProcessStartInfo("cmd", commandLine)
+            Process.Start(psi).WaitForExit()
+
+            Console.WriteLine("Sub process returned:")
+            filePath = Path.GetFullPath("D:\FY2018")
+            Console.WriteLine($"'D:\\FY2018' resolves to {filePath}")
+            filePath = Path.GetFullPath("D:FY2018")
+            Console.WriteLine($"'D:FY2018' resolves to {filePath}")
+        End If
+        Console.WriteLine("Press any key to continue... ")
+        Console.ReadKey()
+    End Sub
+End Module
+' The example displays the following output:
+'      Current directory is 'C:\Programs\file-paths'
+'      Setting current directory to 'C:\'
+'      'D:\FY2018' resolves to D:\FY2018
+'      'D:FY2018' resolves to d:\FY2018
+'      Setting current directory to 'D:\Docs'
+'      'D:\FY2018' resolves to D:\FY2018
+'      'D:FY2018' resolves to D:\Docs\FY2018
+'      Setting current directory to 'C:\'
+'      'D:\FY2018' resolves to D:\FY2018
+'      'D:FY2018' resolves to d:\FY2018
+'      Launching again, after setting current directory to D:\FY2018
+'      Sub process returned:
+'      'D:\FY2018' resolves to D:\FY2018
+'      'D:FY2018' resolves to d:\FY2018
+' The subprocess displays the following output:
+'      Current directory is 'C:\'
+'      Setting current directory to 'C:\'
+'      'D:\FY2018' resolves to D:\FY2018
+'      'D:FY2018' resolves to D:\FY2018\FY2018
+'      Setting current directory to 'D:\Docs'
+'      'D:\FY2018' resolves to D:\FY2018
+'      'D:FY2018' resolves to D:\Docs\FY2018
+'      Setting current directory to 'C:\'
+'      'D:\FY2018' resolves to D:\FY2018
+'      'D:FY2018' resolves to D:\FY2018\FY2018
+</code></pre><h2 id="unc-paths">Rutas de acceso UNC</h2>
+<p>Las rutas de acceso de convención de nomenclatura universal (UNC), que se usan para acceder a los recursos de red, tienen el formato siguiente:</p>
+<ul>
+<li>Un servidor o un nombre de host, precedido por <code>\\</code>. El nombre del servidor puede ser un nombre de equipo NetBIOS o una dirección IP/FQDN (se admiten IPv4, así como v6).</li>
+<li>Un nombre de recurso compartido, que está separado del nombre de host por <code>\</code>. Juntos, el nombre del servidor y el del recurso compartido forman el volumen.</li>
+<li>Un nombre de directorio. El <a href="/es-es/dotnet/api/system.io.path.directoryseparatorchar#system-io-path-directoryseparatorchar" data-linktype="absolute-path">carácter separador de directorio</a> separa subdirectorios dentro de la jerarquía de directorios anidada.</li>
+<li>Un nombre de archivo opcional. El <a href="/es-es/dotnet/api/system.io.path.directoryseparatorchar#system-io-path-directoryseparatorchar" data-linktype="absolute-path">carácter separador de directorio</a> separa la ruta de acceso del archivo y el nombre de archivo.</li>
+</ul>
+<p>A continuación se muestran algunos ejemplos de rutas de acceso UNC:</p>
+<table>
+<thead>
+<tr>
+<th>Ruta</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>\\system07\C$\</code></td>
+<td>Directorio raíz de la unidad <code>C:</code> en <code>system07</code>.</td>
+</tr>
+<tr>
+<td><code>\\Server2\Share\Test\Foo.txt</code></td>
+<td>Archivo <code>Foo.txt</code> en el directorio Prueba del volumen <code>\\Server2\Share</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>Las rutas de acceso UNC siempre deben ser completas. Pueden incluir segmentos de directorio relativos (<code>.</code> y <code>..</code>), pero deben formar parte de una ruta completa. Solo puede usar rutas de acceso relativas mediante la asignación de una ruta de acceso UNC a una letra de unidad.</p>
+<h2 id="dos-device-paths">Rutas de acceso de dispositivo DOS</h2>
+<p>El sistema operativo Windows tiene un modelo de objetos unificado que apunta a todos los recursos, incluidos los archivos. Estas rutas de acceso de objeto son accesibles desde la ventana de consola y se exponen a la capa de Win32 a través de una carpeta especial para vínculos simbólicos a la que se asignan las rutas de acceso DOS y UNC heredadas. Se accede a esta carpeta especial a través de la sintaxis de la ruta de acceso del dispositivo DOS, que es una de las siguientes:</p>
+<ul>
+<li><code>\\.\C:\Test\Foo.txt</code></li>
+<li><code>\\?\C:\Test\Foo.txt</code></li>
+</ul>
+<p>Además de identificar una unidad por su letra de unidad, puede identificar un volumen mediante su GUID de volumen. Esto tiene la forma siguiente:</p>
+<ul>
+<li><code>\\.\Volume{b75e2c83-0000-0000-0000-602f00000000}\Test\Foo.txt</code></li>
+<li><code>\\?\Volume{b75e2c83-0000-0000-0000-602f00000000}\Test\Foo.txt</code></li>
+</ul>
+<div class="NOTE">
+<p>Nota:</p>
+<p>La sintaxis de ruta de acceso del dispositivo DOS se admite en implementaciones de .NET que se ejecutan en Windows a partir de .NET Core 1.1 y .NET Framework 4.6.2.</p>
+</div>
+<p>La ruta de acceso del dispositivo DOS consta de los siguientes componentes:</p>
+<ul>
+<li><p>Especificador de ruta de acceso del dispositivo (<code>\\.\</code> o <code>\\?\</code>), que identifica la ruta de acceso como ruta de acceso del dispositivo DOS.</p>
+<div class="NOTE">
+<p>Nota:</p>
+<p>
+              <code>\\?\</code> se admite en todas las versiones de .NET Core y .NET 5+ y en .NET Framework a partir de la versión 4.6.2.</p>
+</div>
+</li>
+<li><p>Un vínculo simbólico para el objeto de dispositivo "real" (C: en el caso de un nombre de unidad o Volume{b75e2c83-0000-0000-0000-602f00000000} en el caso de un identificador de volumen).</p>
+<p>El primer segmento de la ruta de acceso de dispositivo DOS, una vez que el especificador de ruta de acceso de dispositivo identifica el volumen o la unidad. (Por ejemplo, <code>\\?\C:\</code> y <code>\\.\BootPartition\</code>.</p>
+<p>Hay un vínculo específico para las UNC que se llama, no sorprendentemente, <code>UNC</code>. Por ejemplo:</p>
+<ul>
+<li><code>\\.\UNC\Server\Share\Test\Foo.txt</code></li>
+<li><code>\\?\UNC\Server\Share\Test\Foo.txt</code></li>
+</ul>
+<p>Para las UNC de dispositivo, la parte del servidor o recurso compartido forma el volumen. Por ejemplo, en <code>\\?\server1\utilities\\filecomparer\</code>, la parte del servidor o recurso compartido es <code>server1\utilities</code>. Esto es significativo al llamar a un método como <a href="/es-es/dotnet/api/system.io.path.getfullpath#system-io-path-getfullpath(system-string-system-string)" class="no-loc" data-linktype="absolute-path">Path.GetFullPath(String, String)</a> con segmentos de directorio relativos; nunca es posible navegar más allá del volumen.</p>
+</li>
+</ul>
+<p>Las rutas de dispositivos DOS están completamente calificadas de acuerdo con la definición y no pueden comenzar con un segmento de directorio relativo (<code>.</code> o <code>..</code>). Los directorios actuales nunca entran en uso.</p>
+<h2 id="example-ways-to-refer-to-the-same-file">Ejemplo: Formas de hacer referencia al mismo archivo</h2>
+<p>En el ejemplo siguiente se muestran algunas de las formas en las que puede hacer referencia a un archivo al usar las API en el <a href="/es-es/dotnet/api/system.io" class="no-loc" data-linktype="absolute-path">System.IO</a> espacio de nombres. En el ejemplo se crea una instancia de un <a href="/es-es/dotnet/api/system.io.fileinfo" class="no-loc" data-linktype="absolute-path">FileInfo</a> objeto y se usan sus <a href="/es-es/dotnet/api/system.io.fileinfo.name#system-io-fileinfo-name" class="no-loc" data-linktype="absolute-path">Name</a> propiedades y <a href="/es-es/dotnet/api/system.io.fileinfo.length#system-io-fileinfo-length" class="no-loc" data-linktype="absolute-path">Length</a> para mostrar el nombre de archivo y la longitud del archivo.</p>
+<pre><code class="lang-csharp" name="referring-to-the-same-file">using System;
+using System.IO;
+
+class Program
+{
+    static void Main()
+    {
+        string[] filenames = {
+            @"c:\temp\test-file.txt",
+            @"\\127.0.0.1\c$\temp\test-file.txt",
+            @"\\LOCALHOST\c$\temp\test-file.txt",
+            @"\\.\c:\temp\test-file.txt",
+            @"\\?\c:\temp\test-file.txt",
+            @"\\.\UNC\LOCALHOST\c$\temp\test-file.txt" };
+
+        foreach (string filename in filenames)
+        {
+            FileInfo fi = new(filename);
+            Console.WriteLine($"file {fi.Name}: {fi.Length:N0} bytes");
+        }
+    }
+}
+// The example displays output like the following:
+//      file test-file.txt: 22 bytes
+//      file test-file.txt: 22 bytes
+//      file test-file.txt: 22 bytes
+//      file test-file.txt: 22 bytes
+//      file test-file.txt: 22 bytes
+//      file test-file.txt: 22 bytes
+</code></pre><pre><code class="lang-vb" name="referring-to-the-same-file">Imports System.IO
+
+Module Program
+    Sub Main()
+        Dim filenames() As String = {
+                "c:\temp\test-file.txt",
+                "\\127.0.0.1\c$\temp\test-file.txt",
+                "\\LOCALHOST\c$\temp\test-file.txt",
+                "\\.\c:\temp\test-file.txt",
+                "\\?\c:\temp\test-file.txt",
+                "\\.\UNC\LOCALHOST\c$\temp\test-file.txt"}
+
+        For Each filename In filenames
+            Dim fi As New FileInfo(filename)
+            Console.WriteLine($"file {fi.Name}: {fi.Length:N0} bytes")
+        Next
+    End Sub
+End Module
+</code></pre><h2 id="path-normalization">Normalización de la ruta de acceso</h2>
+<p>Casi todas las rutas de acceso que se pasan a las API de Windows se normalizan. Durante la normalización, Windows realiza los pasos siguientes:</p>
+<ul>
+<li>Identifica la ruta de acceso.</li>
+<li>Aplica el directorio actual a rutas de acceso parcialmente calificadas (relativas).</li>
+<li>Estandariza los componentes y los separadores de directorios.</li>
+<li>Evalúa los componentes de directorio relativos (<code>.</code> para el directorio actual y <code>..</code> para el directorio primario).</li>
+<li>Recorta determinados caracteres.</li>
+</ul>
+<p>Esta normalización se produce implícitamente, pero puede hacerlo explícitamente llamando al <a href="/es-es/dotnet/api/system.io.path.getfullpath" class="no-loc" data-linktype="absolute-path">Path.GetFullPath</a> método , que encapsula una llamada a la <a href="/es-es/windows/desktop/api/fileapi/nf-fileapi-getfullpathnamea" data-linktype="absolute-path">función GetFullPathName().</a> También puede llamar a la <a href="/es-es/windows/desktop/api/fileapi/nf-fileapi-getfullpathnamea" data-linktype="absolute-path">función GetFullPathName()</a> de Windows directamente mediante P/Invoke.</p>
+<h3 id="identify-the-path">Identificación de la ruta de acceso</h3>
+<p>El primer paso en la normalización de la ruta de acceso es identificar el tipo de ruta de acceso. Las rutas de acceso se dividen en una de algunas categorías:</p>
+<ul>
+<li>Son rutas de acceso de dispositivo; es decir, comienzan con dos separadores y un signo de interrogación o punto (<code>\\?</code> o <code>\\.</code>).</li>
+<li>Son rutas UNC; es decir, comienzan con dos separadores sin signo de interrogación o punto.</li>
+<li>Son rutas de acceso DOS completas, es decir, comienzan por una letra de unidad, un separador de volumen y un separador de componentes (<code>C:\</code>).</li>
+<li>Designan un dispositivo heredado (<code>CON</code>, <code>LPT1</code>).</li>
+<li>Son relativas a la raíz de la unidad actual; es decir, comienzan con un único separador de componente (<code>\</code>).</li>
+<li>Son relativas al directorio actual de una unidad especificada, es decir, comienzan por una letra de unidad, un separador de volumen y ningún separador de componente (<code>C:</code>).</li>
+<li>Son relativos al directorio actual; es decir, comienzan con cualquier otra cosa (<code>temp\testfile.txt</code>).</li>
+</ul>
+<p>El tipo de la ruta de acceso determina si se aplica o no un directorio actual de alguna manera. También determina cuál es la "raíz" de la ruta.</p>
+<h3 id="handle-legacy-devices">Gestión de dispositivos antiguos</h3>
+<p>Si la ruta de acceso es un dispositivo DOS heredado, como <code>CON</code>, <code>COM1</code>, o <code>LPT1</code>, se convierte en una ruta de acceso del dispositivo anteponiendo <code>\\.\</code> y se devuelve.</p>
+<p>Antes de Windows 11, la ruta de acceso que comienza con un nombre de dispositivo heredado siempre se interpreta como un dispositivo heredado por el <a href="/es-es/dotnet/api/system.io.path.getfullpath#system-io-path-getfullpath(system-string)" class="no-loc" data-linktype="absolute-path">Path.GetFullPath(String)</a> método . Por ejemplo, la ruta de acceso del dispositivo DOS para <code>CON.TXT</code> es <code>\\.\CON</code>y la ruta de acceso del dispositivo DOS para <code>COM1.TXT\file1.txt</code> es <code>\\.\COM1</code>. Dado que esto ya no se aplica con Windows 11, especifique la ruta de acceso completa al dispositivo DOS heredado, como <code>\\.\CON</code>.</p>
+<h3 id="apply-the-current-directory">Aplicación del directorio actual</h3>
+<p>Si una ruta no está completamente calificada, Windows aplica el directorio actual a ella. Las rutas UNC y de dispositivo no tienen aplicado el directorio actual. Ni tampoco una unidad completa con separador <code>C:\</code>.</p>
+<p>Si la ruta de acceso comienza por un único separador de componente, se aplica la unidad desde el directorio actual. Por ejemplo, si la ruta de acceso del archivo es <code>\utilities</code> y el directorio actual es <code>C:\temp\</code>, la normalización genera <code>C:\utilities</code>.</p>
+<p>Si la ruta de acceso comienza por una letra de unidad, el separador de volumen y ningún separador de componente, se aplica el último directorio actual establecido desde el shell de comandos para la unidad especificada. Si no se ha establecido el último directorio actual, se aplicará únicamente el disco. Por ejemplo, si la ruta de acceso del archivo es <code>D:sources</code>, el directorio actual es <code>C:\Documents\</code>y el último directorio actual de la unidad D: era <code>D:\sources\</code>, el resultado es <code>D:\sources\sources</code>. Estas rutas de acceso "relativas a la unidad" son un origen común de errores lógicos de programas y scripts. Asumir que una ruta de acceso que comienza con una letra y dos puntos no es relativa evidentemente no es correcto.</p>
+<p>Si la ruta de acceso comienza por un valor distinto de un separador, se aplican la unidad y el directorio actuales. Por ejemplo, si la ruta de acceso es <code>filecompare</code> y el directorio actual es <code>C:\utilities\</code>, el resultado es <code>C:\utilities\filecompare\</code>.</p>
+<div class="IMPORTANT">
+<p>Importante</p>
+<p>Las rutas de acceso relativas son peligrosas en aplicaciones multiproceso (es decir, la mayoría de las aplicaciones) porque el directorio actual es una configuración por proceso. Cualquier subproceso puede cambiar el directorio actual en cualquier momento. A partir de .NET Core 2.1, puede llamar al método <a href="/es-es/dotnet/api/system.io.path.getfullpath#system-io-path-getfullpath(system-string-system-string)" class="no-loc" data-linktype="absolute-path">Path.GetFullPath(String, String)</a> para obtener una ruta absoluta de una ruta relativa y la ruta base (el directorio actual) contra la cual desea resolverla.</p>
+</div>
+<h3 id="canonicalize-separators">Asignación canónica de separadores</h3>
+<p>Todas las barras diagonales (<code>/</code>) se convierten en el separador estándar de Windows, que es la barra diagonal inversa (<code>\</code>). Si están presentes, una serie de barras diagonales que siguen a las dos primeras barras diagonales se contraen en una sola barra diagonal.</p>
+<div class="NOTE">
+<p>Nota:</p>
+<p>A partir de .NET 8 en sistemas operativos basados en Unix, el tiempo de ejecución ya no convierte caracteres de barra diagonal inversa (<code>\</code>) en separadores de directorios (barras diagonales <code>/</code>). Para obtener más información, consulte <a href="../../core/compatibility/core-libraries/8.0/file-path-backslash" data-linktype="relative-path">Asignación de barras diagonales inversas en rutas de acceso de archivo Unix</a>.</p>
+</div>
+<h3 id="evaluate-relative-components">Evaluación de componentes relativos</h3>
+<p>Cuando se procesa la ruta de acceso, se evalúan los componentes o segmentos que se componen de un punto o un punto doble (<code>.</code> o <code>..</code>):</p>
+<ul>
+<li><p>Durante un único período, se quita el segmento actual, ya que hace referencia al directorio actual.</p>
+</li>
+<li><p>Para un punto doble, se quitan el segmento actual y el principal, ya que el punto doble hace referencia al directorio principal.</p>
+<p>Los directorios principales solo se quitan si no están después de la raíz de la ruta de acceso. La raíz de la ruta de acceso depende del tipo de ruta de acceso. Es la unidad (<code>C:\</code>) para las rutas de acceso DOS, el servidor o recurso compartido para las UNC (<code>\\Server\Share</code>), y el prefijo de ruta de acceso de dispositivo para las rutas de acceso de dispositivo (<code>\\?\</code> o <code>\\.\</code>).</p>
+</li>
+</ul>
+<h3 id="trim-characters">Recortar caracteres</h3>
+<p>Junto con las series de separadores y segmentos relativos eliminados anteriormente, se eliminan algunos caracteres adicionales durante la normalización.</p>
+<ul>
+<li><p>Si un segmento finaliza en un único período, ese período se quita. (Un segmento de un período único o doble se normaliza en el paso anterior. Un segmento de tres o más puntos no se normaliza y es realmente un nombre de archivo o directorio válido).</p>
+</li>
+<li><p>Si la ruta de acceso no termina en un separador, se quitan todos los puntos y espacios finales (U+0020). Si el último segmento es simplemente un período único o doble, se encuentra bajo la regla de componentes relativos anterior.</p>
+<p>Esta regla significa que puede crear un nombre de directorio con un espacio final agregando un separador final después del espacio.</p>
+<div class="IMPORTANT">
+<p>Importante</p>
+<p>
+              <strong>Nunca</strong> debe crear un directorio o un nombre de archivo con un espacio final. Los espacios finales pueden hacer que sea difícil o imposible acceder a un directorio; las aplicaciones suelen fallar al intentar manejar directorios o archivos cuyos nombres incluyen espacios finales.</p>
+</div>
+</li>
+</ul>
+<h2 id="skip-normalization">Omitir la normalización</h2>
+<p>Normalmente, cualquier ruta que se envía a una API de Windows se pasa (de manera efectiva) a la <a href="/es-es/windows/desktop/api/fileapi/nf-fileapi-getfullpathnamea" data-linktype="absolute-path">función GetFullPathName</a> y se normaliza. Hay una excepción importante: una ruta de acceso del dispositivo que comienza con un signo de interrogación en lugar de un punto. A menos que la ruta de acceso comience exactamente con <code>\\?\</code> (observe el uso de la barra diagonal inversa canónica), se normaliza.</p>
+<p>¿Por qué desea omitir la normalización? Hay tres razones principales:</p>
+<ol>
+<li><p>Para obtener acceso a rutas que normalmente no están disponibles, aunque son legales. Un archivo o directorio denominado <code>hidden.</code>, por ejemplo, es imposible acceder de ninguna otra manera.</p>
+</li>
+<li><p>Para mejorar el rendimiento omitiendo la normalización si ya se ha normalizado.</p>
+</li>
+<li><p>Solo en .NET&nbsp;Framework, para omitir la comprobación <code>MAX_PATH</code> de la longitud de ruta de acceso para permitir rutas de acceso que tienen más de 259&nbsp;caracteres. La mayoría de las API permiten esto, con algunas excepciones.</p>
+</li>
+</ol>
+<div class="NOTE">
+<p>Nota:</p>
+<p>.NET Core y .NET 5+ controlan las rutas de acceso largas de manera implícita y no realizan una <code>MAX_PATH</code> verificación. La <code>MAX_PATH</code> comprobación solo se aplica a .NET Framework.</p>
+</div>
+<p>La omisión de la normalización y las comprobaciones de ruta de acceso máximas es la única diferencia entre las dos sintaxis de ruta de acceso de dispositivo. En los demás casos son idénticas. Tenga cuidado al omitir la normalización, dado que es muy fácil crear rutas de acceso difíciles de controlar para las aplicaciones "normales".</p>
+<p>Las rutas de acceso que comienzan por <code>\\?\</code> siguen normalizadas si las pasa explícitamente a la <a href="/es-es/windows/desktop/api/fileapi/nf-fileapi-getfullpathnamea" data-linktype="absolute-path">función GetFullPathName</a>.</p>
+<p>Puede pasar rutas de acceso de más de <code>MAX_PATH</code> caracteres a <a href="/es-es/windows/desktop/api/fileapi/nf-fileapi-getfullpathnamea" data-linktype="absolute-path">GetFullPathName</a> sin <code>\\?\</code>. Admite rutas de acceso de longitud arbitraria hasta el tamaño máximo de cadena que Windows puede manejar.</p>
+<h2 id="case-and-the-windows-file-system">Case y el sistema de archivos de Windows</h2>
+<p>Una peculiaridad del sistema de archivos de Windows que los desarrolladores y usuarios no familiarizados con Windows encuentran confusa es que las rutas de acceso y los nombres de directorio no distinguen entre mayúsculas y minúsculas. Es decir, los nombres de archivos y directorios reflejan las mayúsculas y minúsculas de las cadenas que se usan cuando se crean. Por ejemplo, la llamada al método</p>
+<pre><code class="lang-csharp">Directory.Create("TeStDiReCtOrY");
+</code></pre>
+<pre><code class="lang-vb">Directory.Create("TeStDiReCtOrY")
+</code></pre>
+<p>crea un directorio denominado TeStDiReCtOrY. Si modifica el nombre de un directorio o archivo para cambiar sus mayúsculas y minúsculas, el nombre del directorio o archivo refleja las mayúsculas y minúsculas de la cadena usada al cambiar el nombre. Por ejemplo, el código siguiente cambia el nombre de un archivo denominado test.txt a Test.txt:</p>
+<pre><code class="lang-csharp" name="case-and-renaming">using System.IO;
+
+class Example3
+{
+    static void Main()
+    {
+        var fi = new FileInfo(@".\test.txt");
+        fi.MoveTo(@".\Test.txt");
+    }
+}
+</code></pre><pre><code class="lang-vb" name="case-and-renaming">Imports System.IO
+
+Module Example3
+    Public Sub Main()
+        Dim fi As New FileInfo(".\test.txt")
+        fi.MoveTo(".\Test.txt")
+    End Sub
+End Module
+</code></pre>
+<p>Pero las comparaciones de nombre de directorio y archivo no distinguen mayúsculas de minúsculas. Si busca un archivo denominado "test.txt", las API del sistema de archivos de .NET ignoran las mayúsculas y minúsculas en la comparación. "Test.txt", "TEST.TXT", "test.TXT", y cualquier otra combinación de letras mayúsculas y minúsculas coincidirá con "test.txt".</p>
+
+				</div>
+		  
+					
+		<div
+			id="ms--inline-notifications"
+			class="margin-block-xs"
+			data-bi-name="inline-notification"
+		></div>
+	 
+		<div
+			id="assertive-live-region"
+			role="alert"
+			aria-live="assertive"
+			class="visually-hidden"
+			aria-relevant="additions"
+			aria-atomic="true"
+		></div>
+		<div
+			id="polite-live-region"
+			role="status"
+			aria-live="polite"
+			class="visually-hidden"
+			aria-relevant="additions"
+			aria-atomic="true"
+		></div>
+	
+					
+			
+		<!-- feedback section -->
+		<section
+			class="feedback-section position-relative margin-top-lg border border-radius padding-xxs display-none-print"
+			data-bi-name="open-source-feedback-section"
+			data-open-source-feedback-section
+			hidden
+		>
+			<div class="display-flex flex-direction-column flex-direction-row-tablet">
+				<div
+					class="width-450-tablet padding-inline-xs padding-inline-xs-tablet padding-top-xs padding-bottom-sm padding-top-xs-tablet background-color-body-medium"
+				>
+					<div class="display-flex flex-direction-column">
+						<div class="padding-bottom-xxs">
+							<span class="icon margin-right-xxs" aria-hidden="true">
+								<span class="docon docon-brand-github"></span>
+							</span>
+							<span class="font-weight-semibold">
+								Colaborar con nosotros en GitHub
+							</span>
+						</div>
+						<span class="line-height-normal">
+							El origen de este contenido se puede encontrar en GitHub, donde también puede crear y revisar problemas y solicitudes de incorporación de cambios. Para más información, consulte <a href="https://learn.microsoft.com/contribute/content/dotnet/dotnet-contribute">nuestra guía para colaboradores</a>.
+						</span>
+					</div>
+				</div>
+				<div
+					class="display-flex gap-xs width-full-tablet flex-direction-column padding-xs justify-content-space-evenly"
+				>
+					<div class="media">
+						
+					<div class="media-left">
+						<div class="image image-36x36" hidden data-open-source-image-container>
+							<img
+								class="theme-display is-light"
+								src="https://learn.microsoft.com/media/logos/logo_net.svg"
+								aria-hidden="true"
+								data-open-source-image-light
+							/>
+							<img
+								class="theme-display is-dark is-high-contrast"
+								src="https://learn.microsoft.com/media/logos/logo_net.svg"
+								aria-hidden="true"
+								data-open-source-image-dark
+							/>
+						</div>
+					</div>
+			  
+
+						<div class="media-content">
+							<p
+								class="font-size-xl font-weight-semibold margin-bottom-xxs"
+								data-open-source-product-title
+							>
+								.NET
+							</p>
+							<div class="display-flex gap-xs flex-direction-column">
+								<p class="line-height-normal" data-open-source-product-description></p>
+								<div class="display-flex gap-xs flex-direction-column">
+									<a href="#" data-github-link>
+										<span class="icon margin-right-xxs" aria-hidden="true">
+											<span class="docon docon-bug"></span>
+										</span>
+										<span>Abrir incidencia con la documentación</span>
+									</a>
+									<a
+										href="https://aka.ms/feedback/report?space=61"
+										class="display-block margin-top-auto font-size-md"
+										data-feedback-product-url
+									>
+										<span class="icon margin-right-xxs" aria-hidden="true">
+											<span class="docon docon-feedback"></span>
+										</span>
+										<span>Proporcionar comentarios sobre el producto</span>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- end feedback section -->
+	
+			
+		<!-- feedback section -->
+		<section
+			id="site-user-feedback-footer"
+			class="font-size-sm margin-top-md display-none-print display-none-desktop"
+			data-test-id="site-user-feedback-footer"
+			data-bi-name="site-feedback-section"
+		>
+			<hr class="hr" />
+			<h2 id="ms--feedback" class="title is-3">Comentarios</h2>
+			<div class="display-flex flex-wrap-wrap align-items-center">
+				<p class="font-weight-semibold margin-xxs margin-left-none">
+					¿Le ha resultado útil esta página?
+				</p>
+				<div class="buttons">
+					<button
+						class="thumb-rating-button like button button-primary button-sm"
+						data-test-id="footer-rating-yes"
+						data-binary-rating-response="rating-yes"
+						type="button"
+						title="Este artículo es útil"
+						data-bi-name="button-rating-yes"
+						aria-pressed="false"
+					>
+						<span class="icon" aria-hidden="true">
+							<span class="docon docon-like"></span>
+						</span>
+						<span>Sí</span>
+					</button>
+					<button
+						class="thumb-rating-button dislike button button-primary button-sm"
+						id="standard-rating-no-button"
+						hidden
+						data-test-id="footer-rating-no"
+						data-binary-rating-response="rating-no"
+						type="button"
+						title="Este artículo no es útil"
+						data-bi-name="button-rating-no"
+						aria-pressed="false"
+					>
+						<span class="icon" aria-hidden="true">
+							<span class="docon docon-dislike"></span>
+						</span>
+						<span>No</span>
+					</button>
+					<details
+						class="popover popover-top"
+						id="mobile-help-popover"
+						data-test-id="footer-feedback-popover"
+					>
+						<summary
+							class="thumb-rating-button dislike button button-primary button-sm"
+							data-test-id="details-footer-rating-no"
+							data-binary-rating-response="rating-no"
+							title="Este artículo no es útil"
+							data-bi-name="button-rating-no"
+							aria-pressed="false"
+							data-bi-an="feedback-unhelpful-popover"
+						>
+							<span class="icon" aria-hidden="true">
+								<span class="docon docon-dislike"></span>
+							</span>
+							<span>No</span>
+						</summary>
+						<div
+							class="popover-content width-200 width-300-tablet"
+							role="dialog"
+							aria-labelledby="popover-heading"
+							aria-describedby="popover-description"
+						>
+							<p id="popover-heading" class="font-size-lg margin-bottom-xxs font-weight-semibold">
+								¿Necesita ayuda con este tema?
+							</p>
+							<p id="popover-description" class="font-size-sm margin-bottom-xs">
+								¿Desea intentar usar Ask Learn para aclarar o guiarle a través de este tema?
+							</p>
+							
+		<div class="buttons flex-direction-row flex-wrap justify-content-center gap-xxs">
+			<div>
+		<button
+			class="button button-sm border inner-focus display-none margin-right-xxs"
+			data-bi-name="ask-learn-assistant-entry-troubleshoot"
+			data-test-id="ask-learn-assistant-modal-entry-mobile-feedback"
+			data-ask-learn-modal-entry-feedback
+			data-bi-an=feedback-unhelpful-popover
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			aria-label="Preguntar a Learn"
+			hidden
+		>
+			<span class="icon" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+		</button>
+		<button
+			class="button button-sm display-inline-flex display-none-desktop flex-shrink-0 margin-right-xxs border-color-ask-learn margin-right-xxs"
+			data-bi-name="ask-learn-assistant-entry-troubleshoot"
+			data-bi-an=feedback-unhelpful-popover
+			data-test-id="ask-learn-assistant-modal-entry-tablet-feedback"
+			data-ask-learn-modal-entry-feedback
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			hidden
+		>
+			<span class="icon font-size-lg" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+			<span>Preguntar a Learn</span>
+		</button>
+		<button
+			class="button button-sm display-none flex-shrink-0 display-inline-flex-desktop margin-right-xxs border-color-ask-learn margin-right-xxs"
+			data-bi-name="ask-learn-assistant-entry-troubleshoot"
+			data-bi-an=feedback-unhelpful-popover
+			data-test-id="ask-learn-assistant-flyout-entry-feedback"
+			data-ask-learn-flyout-entry-show-only
+			data-flyout-button="toggle"
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			aria-controls="ask-learn-flyout"
+			hidden
+		>
+			<span class="icon font-size-lg" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+			<span>Preguntar a Learn</span>
+		</button>
+	</div>
+			<button
+				type="button"
+				class="button button-sm margin-right-xxs"
+				data-help-option="suggest-fix"
+				data-bi-name="feedback-suggest"
+				data-bi-an="feedback-unhelpful-popover"
+				data-test-id="suggest-fix"
+			>
+				<span class="icon" aria-hidden="true">
+					<span class="docon docon-feedback"></span>
+				</span>
+				<span> ¿Sugerir una corrección? </span>
+			</button>
+		</div>
+	
+						</div>
+					</details>
+				</div>
+			</div>
+		</section>
+		<!-- end feedback section -->
+	
+		
+				</div>
+				
+		<div id="ms--additional-resources-mobile" class="display-none-print">
+			<hr class="hr" hidden />
+			<h2 id="ms--additional-resources-mobile-heading" class="title is-3" hidden>
+				Recursos adicionales
+			</h2>
+			
+		<section
+			id="right-rail-recommendations-mobile"
+			class=""
+			data-bi-name="recommendations"
+			hidden
+		></section>
+	 
+		<section
+			id="right-rail-training-mobile"
+			class=""
+			data-bi-name="learning-resource-card"
+			hidden
+		></section>
+	 
+		<section
+			id="right-rail-events-mobile"
+			class=""
+			data-bi-name="events-card"
+			hidden
+		></section>
+	
+		</div>
+	 
+		<div
+			id="article-metadata-footer"
+			data-bi-name="article-metadata-footer"
+			data-test-id="article-metadata-footer"
+			class="page-metadata-container"
+		>
+			<hr class="hr" />
+			<ul class="metadata page-metadata" data-bi-name="page info" lang="es-es" dir="ltr">
+				<li class="visibility-hidden-visual-diff">
+			<span class="badge badge-sm text-wrap-pretty">
+				<span>Se actualizó por última vez el <local-time format="twoDigitNumeric"
+		datetime="2025-10-22T08:00:00.000Z"
+		data-article-date-source="calculated"
+		class="is-invisible"
+	>
+		2025-10-22
+	</local-time></span>
+			</span>
+		</li>
+			</ul>
+		</div>
+	
+			</div>
+		
+				</main>
+				<aside
+					id="layout-body-aside"
+					class="layout-body-aside  "
+					data-bi-name="aside"
+					aria-label="Recursos adicionales"
+			  >
+					
+		<div
+			id="ms--additional-resources"
+			class="right-container padding-sm display-none display-block-desktop height-full"
+			data-bi-name="pageactions"
+		>
+			<div id="affixed-right-container" data-bi-name="right-column">
+				
+		<nav
+			id="side-doc-outline"
+			class="doc-outline border-bottom padding-bottom-xs margin-bottom-xs scrollbar-width-thin"
+			data-bi-name="intopic toc"
+			aria-label="En este artículo"
+		>
+			<h3>En este artículo</h3>
+		</nav>
+	
+				<!-- Feedback -->
+				
+		<section
+			id="ms--site-user-feedback-right-rail"
+			class="font-size-sm display-none-print"
+			data-test-id="site-user-feedback-right-rail"
+			data-bi-name="site-feedback-right-rail"
+		>
+			<div class="display-flex flex-wrap-wrap align-items-center">
+				<p class="font-weight-semibold margin-xxs margin-left-none">
+					¿Le ha resultado útil esta página?
+				</p>
+				<div class="display-flex flex-wrap-nowrap">
+					<button
+						class="thumb-rating-button like inner-focus"
+						data-test-id="right-rail-rating-yes"
+						data-binary-rating-response="rating-yes"
+						type="button"
+						title="Este artículo es útil"
+						aria-label="Este artículo es útil"
+						data-bi-name="button-rating-yes"
+						aria-pressed="false"
+					>
+						<span class="icon" aria-hidden="true">
+							<span class="docon docon-like"></span>
+						</span>
+					</button>
+					<button
+						class="thumb-rating-button dislike inner-focus"
+						id="right-rail-no-button"
+						hidden
+						data-test-id="right-rail-rating-no"
+						data-binary-rating-response="rating-no"
+						type="button"
+						title="Este artículo no es útil"
+						aria-label="Este artículo no es útil"
+						data-bi-name="button-rating-no"
+						aria-pressed="false"
+					>
+						<span class="icon" aria-hidden="true">
+							<span class="docon docon-dislike"></span>
+						</span>
+					</button>
+					<details class="popover popover-right" id="help-popover" data-test-id="feedback-popover">
+						<summary
+							tabindex="0"
+							class="thumb-rating-button dislike inner-focus"
+							data-test-id="details-right-rail-rating-no"
+							data-binary-rating-response="rating-no"
+							title="Este artículo no es útil"
+							aria-label="Este artículo no es útil"
+							data-bi-name="button-rating-no"
+							aria-pressed="false"
+							data-bi-an="feedback-unhelpful-popover"
+						>
+							<span class="icon" aria-hidden="true">
+								<span class="docon docon-dislike"></span>
+							</span>
+						</summary>
+						<div
+							class="popover-content width-200 width-300-tablet"
+							role="dialog"
+							aria-labelledby="popover-heading-right-rail"
+							aria-describedby="popover-description-right-rail"
+						>
+							<p
+								id="popover-heading-right-rail"
+								class="font-size-lg margin-bottom-xxs font-weight-semibold"
+							>
+								¿Necesita ayuda con este tema?
+							</p>
+							<p id="popover-description-right-rail" class="font-size-sm margin-bottom-xs">
+								¿Desea intentar usar Ask Learn para aclarar o guiarle a través de este tema?
+							</p>
+							
+		<div class="buttons flex-direction-row flex-wrap justify-content-center gap-xxs">
+			<div>
+		<button
+			class="button button-sm border inner-focus display-none margin-right-xxs"
+			data-bi-name="ask-learn-assistant-entry-troubleshoot"
+			data-test-id="ask-learn-assistant-modal-entry-mobile-feedback"
+			data-ask-learn-modal-entry-feedback
+			data-bi-an=feedback-unhelpful-popover
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			aria-label="Preguntar a Learn"
+			hidden
+		>
+			<span class="icon" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+		</button>
+		<button
+			class="button button-sm display-inline-flex display-none-desktop flex-shrink-0 margin-right-xxs border-color-ask-learn margin-right-xxs"
+			data-bi-name="ask-learn-assistant-entry-troubleshoot"
+			data-bi-an=feedback-unhelpful-popover
+			data-test-id="ask-learn-assistant-modal-entry-tablet-feedback"
+			data-ask-learn-modal-entry-feedback
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			hidden
+		>
+			<span class="icon font-size-lg" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+			<span>Preguntar a Learn</span>
+		</button>
+		<button
+			class="button button-sm display-none flex-shrink-0 display-inline-flex-desktop margin-right-xxs border-color-ask-learn margin-right-xxs"
+			data-bi-name="ask-learn-assistant-entry-troubleshoot"
+			data-bi-an=feedback-unhelpful-popover
+			data-test-id="ask-learn-assistant-flyout-entry-feedback"
+			data-ask-learn-flyout-entry-show-only
+			data-flyout-button="toggle"
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			aria-controls="ask-learn-flyout"
+			hidden
+		>
+			<span class="icon font-size-lg" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+			<span>Preguntar a Learn</span>
+		</button>
+	</div>
+			<button
+				type="button"
+				class="button button-sm margin-right-xxs"
+				data-help-option="suggest-fix"
+				data-bi-name="feedback-suggest"
+				data-bi-an="feedback-unhelpful-popover"
+				data-test-id="suggest-fix"
+			>
+				<span class="icon" aria-hidden="true">
+					<span class="docon docon-feedback"></span>
+				</span>
+				<span> ¿Sugerir una corrección? </span>
+			</button>
+		</div>
+	
+						</div>
+					</details>
+				</div>
+			</div>
+		</section>
+	
+			</div>
+		</div>
+	
+			  </aside> <section
+					id="layout-body-flyout"
+					class="layout-body-flyout "
+					data-bi-name="flyout"
+			  >
+					 <div
+	class="height-full border-left background-color-body-medium"
+	id="ask-learn-flyout"
+></div>
+			  </section> <div class="layout-body-footer " data-bi-name="layout-footer">
+		<footer
+			id="footer"
+			data-test-id="footer"
+			data-bi-name="footer"
+			class="footer-layout padding-xs padding-sm-desktop has-default-focus border-top"
+			role="contentinfo"
+		>
+			<div class="display-flex gap-xs flex-wrap-wrap is-full-height padding-right-lg-desktop">
+				
+		<a
+			data-mscc-ic="false"
+			href="#"
+			data-bi-name="select-locale"
+			class="locale-selector-link flex-shrink-0 button button-sm button-clear external-link-indicator"
+			id=""
+			title=""
+			><span class="icon" aria-hidden="true"
+				><span class="docon docon-world"></span></span
+			><span class="local-selector-link-text">es-es</span></a
+		>
+	 <div class="ccpa-privacy-link" data-ccpa-privacy-link hidden>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://aka.ms/yourcaliforniaprivacychoices"
+			data-bi-name="your-privacy-choices"
+			class="button button-sm button-clear flex-shrink-0 external-link-indicator"
+			id=""
+			title=""
+			>
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			viewBox="0 0 30 14"
+			xml:space="preserve"
+			height="16"
+			width="43"
+			aria-hidden="true"
+			focusable="false"
+		>
+			<path
+				d="M7.4 12.8h6.8l3.1-11.6H7.4C4.2 1.2 1.6 3.8 1.6 7s2.6 5.8 5.8 5.8z"
+				style="fill-rule:evenodd;clip-rule:evenodd;fill:#fff"
+			></path>
+			<path
+				d="M22.6 0H7.4c-3.9 0-7 3.1-7 7s3.1 7 7 7h15.2c3.9 0 7-3.1 7-7s-3.2-7-7-7zm-21 7c0-3.2 2.6-5.8 5.8-5.8h9.9l-3.1 11.6H7.4c-3.2 0-5.8-2.6-5.8-5.8z"
+				style="fill-rule:evenodd;clip-rule:evenodd;fill:#06f"
+			></path>
+			<path
+				d="M24.6 4c.2.2.2.6 0 .8L22.5 7l2.2 2.2c.2.2.2.6 0 .8-.2.2-.6.2-.8 0l-2.2-2.2-2.2 2.2c-.2.2-.6.2-.8 0-.2-.2-.2-.6 0-.8L20.8 7l-2.2-2.2c-.2-.2-.2-.6 0-.8.2-.2.6-.2.8 0l2.2 2.2L23.8 4c.2-.2.6-.2.8 0z"
+				style="fill:#fff"
+			></path>
+			<path
+				d="M12.7 4.1c.2.2.3.6.1.8L8.6 9.8c-.1.1-.2.2-.3.2-.2.1-.5.1-.7-.1L5.4 7.7c-.2-.2-.2-.6 0-.8.2-.2.6-.2.8 0L8 8.6l3.8-4.5c.2-.2.6-.2.9 0z"
+				style="fill:#06f"
+			></path>
+		</svg>
+	
+			<span>Sus opciones de privacidad</span></a
+		>
+	
+	</div>
+				<div class="flex-shrink-0">
+		<div class="dropdown has-caret-up">
+			<button
+				data-test-id="theme-selector-button"
+				class="dropdown-trigger button button-clear button-sm inner-focus theme-dropdown-trigger"
+				aria-controls="{{ themeMenuId }}"
+				aria-haspopup="true"
+				aria-expanded="false"
+				data-bi-name="theme"
+			>
+				<span class="icon" aria-hidden="true"><span class="docon docon-sun"></span></span>
+				<span>Tema</span>
+				<span class="icon expanded-indicator" aria-hidden="true">
+					<span class="docon docon-chevron-down-light"></span>
+				</span>
+			</button>
+			<div class="dropdown-menu" id="{{ themeMenuId }}" role="menu">
+				<ul class="theme-selector padding-xxs" data-test-id="theme-dropdown-menu" role="none">
+					<li class="theme display-block" role="none">
+						<button
+							class="button button-clear button-sm theme-control button-block justify-content-flex-start text-align-left"
+							role="menuitemradio"
+							aria-checked="false"
+							data-theme-to="light"
+							tabindex="-1"
+						>
+							<span class="theme-light margin-right-xxs">
+								<span
+									class="theme-selector-icon border display-inline-block has-body-background"
+									aria-hidden="true"
+								>
+									<svg class="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 14">
+										<rect width="22" height="14" class="has-fill-body-background" />
+										<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+										<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+										<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+										<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+										<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+										<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+										<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+									</svg>
+								</span>
+							</span>
+							<span> Claro </span>
+						</button>
+					</li>
+					<li class="theme display-block" role="none">
+						<button
+							class="button button-clear button-sm theme-control button-block justify-content-flex-start text-align-left"
+							role="menuitemradio"
+							aria-checked="false"
+							data-theme-to="dark"
+							tabindex="-1"
+						>
+							<span class="theme-dark margin-right-xxs">
+								<span
+									class="border theme-selector-icon display-inline-block has-body-background"
+									aria-hidden="true"
+								>
+									<svg class="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 14">
+										<rect width="22" height="14" class="has-fill-body-background" />
+										<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+										<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+										<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+										<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+										<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+										<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+										<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+									</svg>
+								</span>
+							</span>
+							<span> Oscuro </span>
+						</button>
+					</li>
+					<li class="theme display-block" role="none">
+						<button
+							class="button button-clear button-sm theme-control button-block justify-content-flex-start text-align-left"
+							role="menuitemradio"
+							aria-checked="false"
+							data-theme-to="high-contrast"
+							tabindex="-1"
+						>
+							<span class="theme-high-contrast margin-right-xxs">
+								<span
+									class="border theme-selector-icon display-inline-block has-body-background"
+									aria-hidden="true"
+								>
+									<svg class="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 14">
+										<rect width="22" height="14" class="has-fill-body-background" />
+										<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+										<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+										<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+										<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+										<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+										<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+										<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+									</svg>
+								</span>
+							</span>
+							<span> Contraste alto </span>
+						</button>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+			</div>
+			<ul class="links" data-bi-name="footerlinks">
+				<li class="manage-cookies-holder" hidden=""></li>
+				<li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://learn.microsoft.com/es-es/principles-for-ai-generated-content"
+			data-bi-name="aiDisclaimer"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Declinación de responsabilidades de IA</a
+		>
+	
+	</li><li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://learn.microsoft.com/es-es/previous-versions/"
+			data-bi-name="archivelink"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Versiones anteriores</a
+		>
+	
+	</li> <li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://techcommunity.microsoft.com/t5/microsoft-learn-blog/bg-p/MicrosoftLearnBlog"
+			data-bi-name="bloglink"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Blog</a
+		>
+	
+	</li> <li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://learn.microsoft.com/es-es/contribute"
+			data-bi-name="contributorGuide"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Contribuir</a
+		>
+	
+	</li><li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://go.microsoft.com/fwlink/?LinkId=521839"
+			data-bi-name="privacy"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Privacidad</a
+		>
+	
+	</li><li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://go.microsoft.com/fwlink/?linkid=2259814"
+			data-bi-name="consumer-health-privacy"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Privacidad de estado del consumidor</a
+		>
+	
+	</li><li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://learn.microsoft.com/es-es/legal/termsofuse"
+			data-bi-name="termsofuse"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Términos de uso</a
+		>
+	
+	</li><li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://www.microsoft.com/legal/intellectualproperty/Trademarks/"
+			data-bi-name="trademarks"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Marcas comerciales</a
+		>
+	
+	</li>
+				<li>&copy; Microsoft 2026</li>
+			</ul>
+		</footer>
+	</footer>
+			<noscript><img src="https://learn.microsoft.com/akam/13/pixel_36723bb7?a=dD0zOWM5MmYwOGUxM2I0YjM5YzQ4MjY5ZjVjMDg3NzA2Yzc3MzM4ZTY4JmpzPW9mZg==" style="visibility: hidden; position: absolute; left: -999px; top: -999px;" /></noscript></body>
+		</html>
