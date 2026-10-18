@@ -835,7 +835,9 @@ and its `exercise_types`. Two courses exist: `crypto-futures` (published) and `a
 the Spanish-only preparation for the Administrativo del Estado (C1) exam, still a draft: the theory of
 all six bloques is written, bloque VI as short list-shaped lessons citing saved official pages
 (requirements in `docs/age-administrativo-course-requirements.md`, per-tema record in `docs/age-theory-ledger.md`,
-scope, coverage and currency audit in `docs/age-scope-audit.md`).
+scope, coverage and currency audit in `docs/age-scope-audit.md`). Its question bank is being built bloque by
+bloque: bloque I holds 676 verified fixed multiple-choice questions (plan in `docs/age-bank-plan.md`, counts and
+verification record in `docs/age-bank-ledger.md`).
 Module, lesson, exercise and glossary ids are unique **inside** a course only: the database keys every
 skeleton row by `(course_id, id)`, and every attempt and lesson
 completion carries its course. An attempt, an exam or a statistic therefore never shows up in another

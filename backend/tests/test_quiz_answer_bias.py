@@ -34,6 +34,14 @@ from tradeschool.exercises.types import ExerciseType
 
 LOCALES = ("en", "es")
 
+#: The single-choice guards run on every course with a quiz bank, in each of its languages. The other kinds
+#: (multi-select, matching, ordering, true/false, charts) exist only in crypto-futures.
+SINGLE_CHOICE_BANKS = (
+    ("crypto-futures", "en"),
+    ("crypto-futures", "es"),
+    ("age-administrativo-c1", "es"),
+)
+
 #: How far the suite may sit from chance before it is a tell, in standard deviations of the exact
 #: permutation null. Three sigma is ~1 false alarm in 370 content passes — loose enough that ordinary
 #: authoring drift never trips it, tight enough that the pre-fix content failed at thirty.
@@ -66,9 +74,9 @@ class Answered:
 Statistic = Callable[[tuple[int, ...], frozenset[int]], float]
 
 
-def _variants(kind: QuizKind) -> list[tuple[str, QuizVariant]]:
-    """Every quiz variant of one sub-kind in the real course, tagged with its exercise id."""
-    registry = load_registry(get_settings().content_dir / "crypto-futures")
+def _variants(kind: QuizKind, course: str = "crypto-futures") -> list[tuple[str, QuizVariant]]:
+    """Every quiz variant of one sub-kind in a real course, tagged with its exercise id."""
+    registry = load_registry(get_settings().content_dir / course)
     out: list[tuple[str, QuizVariant]] = []
     for _module, _lesson, exercise in registry.manifest.iter_exercises():
         resolved = registry.get_exercise_config(exercise.id)
@@ -80,7 +88,7 @@ def _variants(kind: QuizKind) -> list[tuple[str, QuizVariant]]:
     return out
 
 
-def _answered(kind: QuizKind, locale: str) -> list[Answered]:
+def _answered(kind: QuizKind, locale: str, course: str = "crypto-futures") -> list[Answered]:
     return [
         Answered(
             exercise=exercise_id,
@@ -88,7 +96,7 @@ def _answered(kind: QuizKind, locale: str) -> list[Answered]:
             lengths=tuple(len(o.text.get(locale)) for o in v.options),
             correct=frozenset(i for i, o in enumerate(v.options) if o.correct),
         )
-        for exercise_id, v in _variants(kind)
+        for exercise_id, v in _variants(kind, course)
     ]
 
 
@@ -152,18 +160,18 @@ def _report(name: str, rows: Sequence[Answered], stat: Statistic) -> tuple[float
 # --- length --------------------------------------------------------------------------------------
 
 
-@pytest.mark.parametrize("locale", LOCALES)
-def test_the_longest_option_is_not_the_answer_more_often_than_chance(locale: str) -> None:
+@pytest.mark.parametrize(("course", "locale"), SINGLE_CHOICE_BANKS)
+def test_the_longest_option_is_not_the_answer_more_often_than_chance(course: str, locale: str) -> None:
     """The oldest tell in multiple choice: when in doubt, pick the wordiest one."""
-    rows = _answered(QuizKind.SINGLE_CHOICE, locale)
+    rows = _answered(QuizKind.SINGLE_CHOICE, locale, course)
     z, detail = _report("single_choice longest-is-correct", rows, _longest_is_correct)
     assert abs(z) <= SIGMA, detail
 
 
-@pytest.mark.parametrize("locale", LOCALES)
-def test_the_answer_carries_no_systematic_length_advantage(locale: str) -> None:
+@pytest.mark.parametrize(("course", "locale"), SINGLE_CHOICE_BANKS)
+def test_the_answer_carries_no_systematic_length_advantage(course: str, locale: str) -> None:
     """The same tell one step weaker: never the longest, but reliably the longer."""
-    rows = _answered(QuizKind.SINGLE_CHOICE, locale)
+    rows = _answered(QuizKind.SINGLE_CHOICE, locale, course)
     z, detail = _report("single_choice length edge", rows, _length_edge)
     assert abs(z) <= SIGMA, detail
 
@@ -196,11 +204,11 @@ def _position_z(rows: Iterable[Answered]) -> list[tuple[int, float, float, float
     return stats
 
 
-@pytest.mark.parametrize("locale", LOCALES)
-def test_the_answer_is_authored_into_every_slot_equally(locale: str) -> None:
+@pytest.mark.parametrize(("course", "locale"), SINGLE_CHOICE_BANKS)
+def test_the_answer_is_authored_into_every_slot_equally(course: str, locale: str) -> None:
     """The source order is content too — and a reader of the YAML, or the printed book's frozen
     instance, sees it even though the generator re-deals it for every learner."""
-    stats = _position_z(_answered(QuizKind.SINGLE_CHOICE, locale))
+    stats = _position_z(_answered(QuizKind.SINGLE_CHOICE, locale, course))
     worst = max(stats, key=lambda s: abs(s[4]))
     detail = "authored position: " + ", ".join(
         f"{chr(97 + slot)}={observed:.0f}(chance {expected:.0f}±{sd:.0f}, z={z:+.1f})"
@@ -209,10 +217,11 @@ def test_the_answer_is_authored_into_every_slot_equally(locale: str) -> None:
     assert abs(worst[4]) <= SIGMA, detail
 
 
-def test_the_generator_deals_the_answer_to_every_slot_equally() -> None:
+@pytest.mark.parametrize(("course", "locale"), [("crypto-futures", "en"), ("age-administrativo-c1", "es")])
+def test_the_generator_deals_the_answer_to_every_slot_equally(course: str, locale: str) -> None:
     """What a learner actually sees. The source order above is only the deck; this is the deal, and
     it must stay a deal — a shuffle quietly reduced to identity would restore the source's bias."""
-    registry = load_registry(get_settings().content_dir / "crypto-futures")
+    registry = load_registry(get_settings().content_dir / course)
     generator = get_generator(ExerciseType.QUIZ)
     seeds = rng_for(20260809)
     rows: list[Answered] = []
@@ -223,14 +232,14 @@ def test_the_generator_deals_the_answer_to_every_slot_equally() -> None:
         config = resolved[1]
         for _ in range(200):
             seed = seeds.randrange(2**62)
-            instance = generator.generate(config, seed, "en")
+            instance = generator.generate(config, seed, locale)
             if instance.payload.get("kind") != QuizKind.SINGLE_CHOICE.value:
                 continue
             options = cast(Sequence[Mapping[str, object]], instance.payload["options"])
             dealt = [str(o["id"]) for o in options]
             answer = cast(
                 Mapping[str, object],
-                generator.grade(config, seed, {"optionId": ""}, "en").correct_answer,
+                generator.grade(config, seed, {"optionId": ""}, locale).correct_answer,
             )
             slot = dealt.index(str(answer["optionId"]))
             rows.append(

@@ -15,7 +15,7 @@ from collections.abc import Iterable
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from tradeschool.citations.grammar import Segment, collapse, parse_segment
+from tradeschool.citations.grammar import Segment, collapse, parse_segment, slug
 from tradeschool.citations.lesson import LessonCitation, LessonCitations, resolve_segment, scan_lesson
 from tradeschool.citations.norms import NormIndex
 from tradeschool.citations.sources import SourceIndex, source_url
@@ -131,6 +131,8 @@ class CourseCitations:
     def _anchor(self, lesson_id: str, citation: str, locale: str) -> str | None:
         segment = parse_segment(citation)
         found = self.lesson(lesson_id, locale)
+        if segment is not None and found is not None and segment.files:
+            return _source_anchor(found, segment.files)
         named = resolve_segment(segment, self.norms or NormIndex([], {})) if segment else None
         if segment is None or found is None or named is None:
             return None
@@ -151,6 +153,16 @@ class CourseCitations:
         for lesson_id, found in self.lessons.get(locale, {}).items():
             problems += _esquema_problems(lesson_id, found, self.norms or NormIndex([], {}))
         return problems
+
+
+def _source_anchor(found: LessonCitations, files: tuple[str, ...]) -> str | None:
+    """The first cited file's anchor, when the lesson's prose cites that file."""
+    wanted = {f"fuente-{slug(file)}" for file in files}
+    for citation in found.prose:
+        for anchor in citation.anchors:
+            if anchor in wanted:
+                return anchor
+    return None
 
 
 def _esquema_problems(lesson_id: str, found: LessonCitations, norms: NormIndex) -> list[str]:

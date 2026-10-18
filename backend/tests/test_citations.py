@@ -408,6 +408,34 @@ def test_a_question_citing_an_article_its_lesson_never_cites_fails_the_load(tmp_
         load_registry(course)
 
 
+def _cite_in_first_delegacion_question(course: Path, citation: str) -> None:
+    path = course / "exercises" / "m02-ex-1.yaml"
+    raw = yaml.safe_load(path.read_text(encoding="utf-8"))
+    raw["variants"][0]["citation"] = citation
+    path.write_text(yaml.safe_dump(raw, allow_unicode=True), encoding="utf-8")
+
+
+def test_a_question_citing_a_source_file_its_lesson_cites_opens_at_that_citation(tmp_path: Path) -> None:
+    course = _copy(tmp_path)
+    _cite_in_first_delegacion_question(course, "fuente: `guia-recursos.html`")
+    registry = load_registry(course)
+    link = registry.citations.question_link("m02-l1", "fuente: `guia-recursos.html`", "es")
+    assert link.anchor == "fuente-guia-recursos-html"
+
+
+def test_a_question_citing_a_source_file_its_lesson_never_cites_fails_the_load(tmp_path: Path) -> None:
+    course = _copy(tmp_path)
+    _cite_in_first_delegacion_question(course, "fuente: `otra-guia.html`")
+    with pytest.raises(
+        ContentError,
+        match=(
+            r"question m02-ex-1/delegacion-01 cites «fuente: `otra-guia\.html`», "
+            r"which its lesson m02-l1 never cites"
+        ),
+    ):
+        load_registry(course)
+
+
 def test_an_esquema_row_citing_what_the_prose_does_not_fails_the_load_naming_the_row(tmp_path: Path) -> None:
     course = _copy(tmp_path)
     lesson = course / "es" / "lessons" / "m02-l1.md"
