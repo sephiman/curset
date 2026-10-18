@@ -1,0 +1,16 @@
+# Recheck 5: m01-l07, `plazos` «Plazos de la resolución de acceso y de la reclamación», step 2 (2026-10-18)
+
+Blind reviewer. I did not read the earlier verify, fixes or recheck reports. Rule: `spec.md` in this folder and the
+`::esquema` section of `docs/platform-delta-handoff.md` (a `plazos` row is «paso — plazo (cita)»). Norm: Ley 19/2013,
+consolidated text of 2022-07-09, arts. 2.1.f), 23, 24 and DA 4.ª. Prose: m01-l07, section «Reclamación ante el
+Consejo de Transparencia y Buen Gobierno». Load check: `LOAD OK`.
+
+| # | row | citation | PASS/FAIL | passage / reason | replacement |
+|---|---|---|---|---|---|
+| 2 | Reclamación ante el Consejo de Transparencia y Buen Gobierno, salvo contra las resoluciones de los órganos del artículo 2.1.f), que solo admiten recurso contencioso-administrativo; potestativa y previa a la vía contencioso-administrativa; la competencia corresponde al Consejo, salvo en aquellos supuestos en que las Comunidades Autónomas atribuyan dicha competencia a un órgano específico, de acuerdo con la disposición adicional cuarta — un mes desde el día siguiente al de la notificación del acto o desde el día siguiente a aquel en que se produzcan los efectos del silencio administrativo | arts. 23.2, 24.1, 24.2 y 24.6 Ley 19/2013 | PASS | **Art. 23.2:** «contra las resoluciones dictadas por los órganos previstos en el artículo 2.1.f) sólo cabrá la interposición de recurso contencioso-administrativo». The first «salvo» says this faithfully. It belongs to the reclamación, which is where the norm puts it: 23.2 sets aside 23.1, the reclamación that replaces the recursos administrativos. Art. 2.1.f) also covers «las instituciones autonómicas análogas», so the second paragraph of DA 4.ª.1 (autonomic Asambleas Legislativas and similar bodies: contencioso only) leaves no gap. **Art. 24.1:** «con carácter potestativo y previo a su impugnación en vía contencioso-administrativa». The row shortens this the same way the prose does. **Art. 24.6:** quoted word for word. The second «salvo» belongs to the competencia, as in the norm. The row keeps the reference to DA 4.ª, so it is no wider than 24.6. **Art. 24.2:** the plazo field matches the prose word for word, with «acto impugnado» shortened to «acto» as the prose does. It keeps both starting points (the notificación and the silencio). Leaving out «toda resolución expresa o presunta en materia de acceso» makes the row narrower, not wider. **Ambiguity:** the head of the step is «Reclamación». The contencioso appears only inside two clauses closed by semicolons. The one-month field follows the 24.6 clause, so it cannot be read as the plazo of a recurso contencioso-administrativo. **Prose and citation:** every fact is in the section's prose, which cites 23.2, 24.1, 24.2 and 24.6. The citation names one norm and does not end in «f)». **Order:** placing the step after the resolución (step 1) and before its own resolución (step 3) follows arts. 24.2 and 24.4 and the prose. | — |
+
+## Verdict
+
+PASS. Step 2 is faithful to arts. 23.2, 24.1, 24.2 and 24.6 Ley 19/2013 and no wider than them. Each «salvo» belongs
+to what the norm attaches it to, the one-month plazo reads only as the plazo of the reclamación, and every fact is in
+the prose. The load check passes.

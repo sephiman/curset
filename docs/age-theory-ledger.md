@@ -3695,15 +3695,15 @@ Not applied, judged PASS with a note:
 
 ## Open items
 
-1. **Citation misparse «art. 23.Uno.B)» / «art. 23.Uno.D)» in m05-l04 (prose, l. 212 and l. 252).** These have the
+1. **Citation misparse «art. 23.Uno.B)» / «art. 23.Uno.D)» in m05-l04 (prose, l. 212 and l. 252)** (closed in «Esquemas bloque I»). These have the
    same uppercase-letter + «)» problem as bloque IV item 1. Both link to art. 23 of **Ley 30/1984**, not Ley 31/2022.
    They are the only two such rows left in `citations.es.txt`. The round prompt kept the bloque V prose untouched,
    so they were not reworded.
    - Fix: «(art. 23.Uno.B Ley 31/2022)» / «(art. 23.Uno.D Ley 31/2022)», or a grammar change that lets an uppercase letter + «)» continue.
    - The Ley 31/2022 row of the pagas table can then come back.
 2. **Prose gaps found by this pass** (each a one-sentence R2 fix with its own blind check):
-   - m05-l02, art. 10.Seis Ley 31/2022: the MRR exception covers only the remanentes generated in servicio 50 of each sección and the MRR credits of the entidades of art. 1.a).2.º–4.º. The prose says «los créditos del Mecanismo de Recuperación y Resiliencia».
-   - m05-l06, art. 34.5 LGS: no pago while the beneficiary is not up to date with tax and Social Security obligations or owes a reintegro. Once stated, a «del gasto al pago» table becomes possible.
+   - (closed in «Esquemas bloque I») m05-l02, art. 10.Seis Ley 31/2022: the MRR exception covers only the remanentes generated in servicio 50 of each sección and the MRR credits of the entidades of art. 1.a).2.º–4.º. The prose says «los créditos del Mecanismo de Recuperación y Resiliencia».
+   - (closed in «Esquemas bloque I») m05-l06, art. 34.5 LGS: no pago while the beneficiary is not up to date with tax and Social Security obligations or owes a reintegro. Once stated, a «del gasto al pago» table becomes possible.
    - Notes, not FAILs: art. 148 párr. 2 LGP (m05-l03); art. 70.1 RLGS and the last sentence of art. 70.3 RLGS (m05-l06); the full DF 4.ª.1 wording in the m04-l05 opening quotation (l. 19–20); art. 2.1 párr. 2 RD 2271/2004 (m04-l02).
 3. **Platform:** a row's citation names one norm, and «regla … IOC» and ordinal «apartado …» are not leads, so IOC and Orden-apartado facts cannot be esquema rows. Bloque III item 2 (a list-row citation ending in a letter) still stands.
 
@@ -3712,3 +3712,388 @@ Not applied, judged PASS with a note:
 Bloque V is closed for R2c. The next session runs R2c for the next bloque that takes esquemas (bloque VI gets none,
 R4a.3; bloques I–II if they have not had their pass) with this spec. Before choosing a kind, check what the citation
 grammar can carry. Before writing a list kind, check that the order is stated in the text.
+
+# Esquemas bloque I (R2c, 2026-10-18)
+
+Round R2c (requirements § 4a) for temas I.1–I.11, after closing the bloque V open items. Nothing committed. The m01
+lesson diffs only add lines, except the three prose sentences of the follow-up (m01-l07, m01-l08); the m05 prose changes
+are the round prompt's items 1–3. Working files in
+`docs/age-verification/bloque-i/esquemas/`: `spec.md` (also bloque II's), `verify-m05.md`, `verify-m01-l01.md`,
+`verify-m01-l02-l03.md`, `verify-m01-l03-mayorias.md`, `verify-m01-l04.md`, `verify-m01-l05.md`,
+`verify-m01-l07-l08.md`, `verify-m01-l09-l10-l11.md`, `fixes.md`, `recheck.md`, `recheck-2.md`, and for the follow-up
+`verify-m01-l07-l08-adiciones.md`, `recheck-3.md`, `recheck-4.md`, `recheck-5.md`.
+
+**Method.** Same as bloques III–V. Five writers drew every field from the lesson's prose and checked it against the
+cited article (`pdftotext` of `sources/normativa/`, CELEX texts for the TUE/TFUE), using the norm's words where the prose
+shortens. Eight blind reviewers checked every row, title and placement (two split the 42 rows of m01-l02/l03 and the 60
+of m01-l04/l05). A reviewer who had not read the first reports re-checked every fixed esquema whole. A third reviewer
+re-checked the five re-check FAILs.
+
+## Bloque V open items
+
+1. **m05-l02, art. 10.Seis Ley 31/2022.** The prose sentence is replaced by two. The first: «no se pueden incorporar
+   los remanentes de créditos derivados de generaciones aprobadas en el ejercicio anterior, y queda sin efecto la letra
+   b)». The second gives the exception as the law states it: «los remanentes de créditos que se hubieran generado en el
+   servicio 50 «Mecanismo de Recuperación y Resiliencia» de cada sección» and «el resto de los créditos vinculados al
+   Mecanismo … consignados en los presupuestos de gastos de las entidades de los apartados 2.º, 3.º y 4.º de la letra
+   a) del artículo 1». The apartado's third sentence (financing under art. 42 RDL 36/2020) is left out; it is not a
+   condition of the exception. The «Incorporación, durante la vigencia de la Ley 31/2022» row returns to «Qué es cada
+   modificación de crédito».
+2. **m05-l06, art. 34.5 LGS.** New sentence, verbatim and cited: «No podrá realizarse el pago de la subvención en tanto
+   el beneficiario no se halle al corriente en el cumplimiento de sus obligaciones tributarias y frente a la Seguridad
+   Social o sea deudor por resolución de procedencia de reintegro (art. 34.5 LGS).» It opens the new tabla «Del gasto al
+   pago de la subvención» (art. 34.1–5 LGS, six rows). The first draft joined pagos a cuenta and anticipados in one
+   row and failed: it dropped the «En ningún caso…» exception and the «régimen de garantías», and stretched «cuando la
+   naturaleza … lo justifique» over the anticipados. The two now have separate rows.
+3. **m05-l04, «23.Uno.B)» / «23.Uno.D)».** Both now read «(art. 23.Uno.B Ley 31/2022)» / «(art. 23.Uno.D Ley 31/2022)».
+   Both rows in `citations.es.txt` now open Ley 31/2022 at `#a2-5`; they opened art. 23 of Ley 30/1984 before. The
+   pagas table gains a Ley 31/2022 row (art. 23.Uno.B), and its title names the three norms. «23.Uno.C)» (l. 255) and
+   «23.Uno.B)–D)» in the Normativa list are not citation leads, so nothing misresolves.
+
+Blind check (`verify-m05.md`): 19 items, 18 PASS, 1 FAIL (the 34.4 row, fixed); the re-check passed the whole table.
+
+## Esquemas added
+
+| Lesson | Kind | Title | Rows |
+|---|---|---|---|
+| I.1 `m01-l01` | tabla | Niveles de protección de los derechos (art. 53 CE) | 4 |
+| | tabla | Tres plazos: la suspensión del artículo 161.2, el recurso y la cuestión de inconstitucionalidad (art. 161.2 CE; arts. 33.1, 35.2 LOTC) | 3 |
+| | tabla | Elección y cese del Defensor del Pueblo: mayorías y plazos (arts. 2 y 5 LO 3/1981) | 8 |
+| | tabla | Mayorías y referéndum de la reforma constitucional (arts. 167 y 168 CE) | 7 |
+| I.2 `m01-l02` | tabla | La Regencia (art. 59 CE) | 5 |
+| I.3 `m01-l03` | plazos | Del fin del mandato a la convocatoria del Congreso electo (art. 68.4, 68.6 CE) | 3 |
+| | arbol | Las Cortes Generales: las Cámaras y algunos de sus órganos (CE; Reglamentos del Congreso y del Senado) | 16 |
+| | plazos | Plazos de la tramitación en el Senado y de la sanción (arts. 90–91 CE) | 4 |
+| | tabla | Algunos quórum y mayorías de las Cortes Generales (CE; arts. 37.1, 39.4 Reglamento del Congreso) | 14 |
+| I.4 `m01-l04` | arbol | El Consejo General del Poder Judicial: composición, Pleno y Comisiones (art. 122 CE; arts. 595, 604.1 LOPJ) | 11 |
+| | tabla | Mayorías en la elección de los Vocales y en algunos acuerdos del CGPJ (art. 122.3 CE; LOPJ) | 7 |
+| | arbol | Las Salas del Tribunal Supremo, de la Audiencia Nacional y de los Tribunales Superiores de Justicia (art. 123.1 CE; arts. 55, 62, 64.1, 70, 72 LOPJ) | 15 |
+| I.5 `m01-l05` | arbol | El Gobierno y sus órganos de colaboración y apoyo (art. 98.2 CE; arts. 1–10 Ley 50/1997) | 11 |
+| | plazos | Votaciones y plazos de la investidura (art. 99 CE) | 5 |
+| | tabla | La cuestión de confianza y la moción de censura (arts. 112–115 CE; art. 21.4 Ley 50/1997) | 8 |
+| I.7 `m01-l07` | tabla | Los dos plazos del artículo 19 que suspenden el plazo para resolver (art. 19.2–3 Ley 19/2013) | 2 |
+| | plazos | Plazos de la resolución de acceso y de la reclamación (arts. 20, 23, 24 Ley 19/2013) | 3 |
+| I.8 `m01-l08` | arbol | Órganos superiores y directivos de la Administración General del Estado (art. 55.2–5 LRJSP) | 8 |
+| | arbol | Organización interna de los Ministerios (art. 58 LRJSP) | 5 |
+| | arbol | El Delegado del Gobierno y los Subdelegados (arts. 72.3, 69.4 LRJSP) | 2 |
+| I.9 `m01-l09` | tabla | Las vías de acceso a la autonomía de los artículos 143 y 151 (arts. 143.2, 146, 151.1–2 CE) | 2 |
+| | tabla | Tres materias en las dos listas de los artículos 148.1 y 149.1 | 3 |
+| | tabla | Leyes marco, transferencia o delegación y armonización (art. 150 CE) | 3 |
+| I.10 `m01-l10` | tabla | El municipio, la provincia y la isla en la Constitución (arts. 140–141 CE) | 3 |
+| | tabla | Pleno, Junta de Gobierno, Tenientes de Alcalde y Vicepresidentes en el ayuntamiento y en la Diputación (arts. 20–23, 32–35 LBRL) | 4 |
+| I.11 `m01-l11` | tabla | Composición del Consejo Europeo, el Consejo, el Parlamento Europeo y la Comisión (arts. 14.2, 15.2, 16.2, 17.5 TUE) | 4 |
+| | tabla | Algunas reglas de votación del Consejo Europeo, el Consejo, el Parlamento Europeo y la Comisión (TUE; TFUE) | 7 |
+| | arbol | El Tribunal de Justicia de la Unión Europea (art. 19.1–2 TUE) | 4 |
+| **Total** | | **28 esquemas** | **171** |
+
+I.6 `m01-l06` gets none: the tema is narrative, its sources are non-normative, and its lists (art. 133 LPAC trámites,
+planes, V Plan compromisos, ODS) are already lists or tables. Words (`wc -w`, everything counted) rise by 214 (m01-l02)
+to 1,090 (m01-l03); m01-l06 is unchanged. The reading-time check passes.
+
+**Where the prompt's kinds changed, and why.**
+- **Estados de alarma, excepción y sitio: no new esquema** (I.1 and I.5). The prose already has a table for them
+  (quién lo declara, duración).
+- **Leyes orgánicas** (art. 81 CE): the I.1 rule is two sentences about 250 lines from the reforma. Its majority is a row
+  of the I.3 table (art. 81.2 CE), where the prose teaches it again.
+- **Derechos fundamentales and their guarantees:** one `tabla` of the three levels of art. 53. The amparo and TC plazos
+  are already a prose table.
+- **Cortes:** the prompt's `arbol`, `tabla` and `plazos`, plus a second `plazos` (arts. 68.4–68.6 CE), whose order the
+  norm states («desde la terminación del mandato», «siguientes a la celebración»).
+- **Poder Judicial:** the organización judicial tree stops at the TS, the AN and the TSJ. No text states a dependency
+  between the art. 26 Tribunales.
+- **I.7 derecho de acceso:** the single `plazos` became a `tabla` of the two art. 19 suspensions plus a three-step
+  `plazos`. Nothing orders 19.2 against 19.3, and both run inside the 20.1 month. The solicitud has no plazo of its own.
+- **AGE:** the exterior tree was dropped: the prose never cites art. 41.1 Ley 2/2014, so no dependency is stated for the
+  Misiones, Representaciones or Oficinas Consulares. The Ministry tree (art. 58 LRJSP) came in the follow-up, once the
+  prose stated 58.1 and 58.4.
+- **CCAA competences:** the 148.1 and 149.1 lists are already in the prose. The table holds only the three materias that
+  the prose itself pairs (montes, puertos, sanidad). The art. 150 techniques get their own table.
+- **Local organs:** `tabla`, not `arbol`. The prose already tables where each municipal organ exists (art. 20.1). No
+  single parent node is written: 20.1.a) says «ayuntamientos», 20.1.b) «municipios».
+- **EU institutions:** art. 13.1 TUE is already a list, so the `arbol` covers only the TJUE (art. 19 TUE). Composition
+  and voting are two tables because the rules sit in the TUE and the TFUE, and a row cites one norm.
+
+## Verification
+
+| Pass | Items | PASS | FAIL |
+|---|---|---|---|
+| Blind pass: bloque V items (sentences, rows, titles, citations) | 19 | 18 | 1 |
+| Blind pass: m01-l01 (22 rows, 4 titles) | 26 | 25 | 1 |
+| Blind pass: m01-l02 / l03 except the mayorías table | 28 | 25 | 3 |
+| Blind pass: m01-l03 mayorías table (14 rows, title) | 15 | 14 | 1 |
+| Blind pass: m01-l04 | 38 | 35 | 3 |
+| Blind pass: m01-l05 | 25 | 24 | 1 |
+| Blind pass: m01-l07 / l08 | 16 | 14 | 2 |
+| Blind pass: m01-l09 / l10 / l11 | 32 | 27 | 5 |
+| **First pass, total** | **199** | **182** | **17** |
+| Re-check: ten fixed esquemas, whole | 90 | 85 | 5 |
+| Second re-check: the four esquemas of the re-check FAILs | 24 | 24 | 0 |
+
+FAIL classes (`fixes.md` has each one):
+- **Selective list read as complete** (the most common this bloque, 7): the titles of the TC plazos (twice), the
+  CGPJ tree, the CGPJ majorities, the Cortes majorities, the «Qué establece» header of m01-l10, and the votación table.
+- **Dropped condition or exception:** art. 34.4 LGS (bloque V); art. 90.2 CE (the veto's mayoría absoluta, and «puede»);
+  art. 630.1 LOPJ (the three-fifths list cut, then the default without its exception).
+- **False order:** the Senado timeline went from enmiendas straight to sanción. Art. 90.2 bars sanción until the
+  Congreso «se pronuncie sobre las enmiendas».
+- **False dependency:** the Director Insular under the Delegado in every case (art. 70 LRJSP: «o del Subdelegado … cuando
+  este cargo exista»).
+- **Fact or pairing the prose lacks:** «en su primera reunión», «de entre sus miembros» (art. 53.2 RS); the medio
+  ambiente and ferrocarriles pairs; the 16.4 TUE pointer sentence; the «arts. 7–10 Ley 50/1997» root, a range the prose
+  never cites.
+- **Citation misparse, new:** «arts. 23.2 y 24.1–2 Ley 19/2013» reads «24.1–2» as a range from art. 24 to art. 2. It
+  loaded only because the prose cites art. 2.1. Now «arts. 23.2, 24.1 y 24.2». A scan of every new row (anchors against
+  the articles written) found no other case.
+- **Cell shape:** a «—» cell read as a denial (isla, personalidad jurídica); a cell with no subject.
+
+Removed instead of fixed (prose gap): the 630.1 LOPJ rows; the medio ambiente and ferrocarriles rows; the Director
+Insular node.
+
+One reviewer's fix not applied: two reviewers asked for an art. 238.2 TFUE row (72 %) in the votación table. Art. 238.2
+opens «a reserva de las disposiciones fijadas en el Protocolo sobre las disposiciones transitorias», and the prose leaves
+that out. So the 16.4 TUE row's label carries the exception by reference («salvo el caso del artículo 238.2 del Tratado
+de Funcionamiento de la Unión Europea»), the title says «Algunas», and the third reviewer passed it. (The Protocol's
+transitional rules on qualified majority ran until 31-03-2017, art. 16.5 TUE.)
+
+Not applied, judged PASS with a note:
+- The agravado rows of the reforma table repeat the art. 168 numbered list, set beside the ordinary procedure.
+- The art. 150 table repeats three bold-led paragraphs almost word for word.
+- «antes de plantearla» (35.2 LOTC) is the prose's own narrowing of «antes de adoptar mediante auto su decisión
+  definitiva».
+- The Grupos Parlamentarios sit under «órganos» as the prose places them; the Reglamento del Congreso does not call them
+  organs.
+- The Consejo de Ministros and the Comisiones Delegadas hang from the «Gobierno — se compone de…» node. They are where its
+  members meet (art. 1.3, 5.1), not members.
+
+## Follow-up from the user (m01-l07, m01-l08)
+
+After the blind passes the user asked for four more things.
+- **Director Insular** (art. 70 LRJSP): already fixed. The node was removed in fix 4.
+- **CTBG in the m01-l07 timeline:** fixed. The row named only the CTBG, but DA 4.ª Ley 19/2013 gives the autonomic and
+  local reclamaciones to the body each Comunidad designates. A first fix by reference to DA 4.ª failed: it read wider,
+  because under DA 4.ª.2 the CTBG still resolves when a convenio gives it the competence. The prose gains art. 24.6, the
+  norm's own statement of the exception, as one bullet: «La competencia para conocer de las reclamaciones corresponde
+  al Consejo, salvo en aquellos supuestos en que las Comunidades Autónomas atribuyan dicha competencia a un órgano
+  específico, de acuerdo con la disposición adicional cuarta (art. 24.6 Ley 19/2013).» Step 2's label carries it, cites
+  «arts. 23.2, 24.1, 24.2 y 24.6 Ley 19/2013», and puts the 2.1.f) exclusion first, so the one-month cell cannot read
+  as a contencioso plazo. The title drops «ante el Consejo…».
+- **m01-l08 prose gaps closed.** Two sentences, in the norm's words:
+  - «De ellas dependen jerárquicamente los órganos directivos que se les adscriban (art. 58.1 LRJSP).»
+  - «Las Subdirecciones Generales pueden adscribirse también directamente a otros órganos directivos de mayor nivel o a
+    órganos superiores del Ministerio (art. 58.4 LRJSP).»
+- **Ministry tree added:** the arbol «Organización interna de los Ministerios» (art. 58.1–4 LRJSP), five nodes. The
+  Secretarías de Estado and Secretarías Generales, the Subsecretaría and the Direcciones Generales are roots, because no
+  text gives the Direcciones Generales a single parent. The Secretaría General Técnica sits under the Subsecretaría
+  («dependiendo de ella»), and the Subdirecciones Generales under the Direcciones Generales, with their 58.4 alternative
+  in the node.
+
+Blind check: 15 items, 14 PASS (both sentences and all eight tree checks among them), 1 FAIL, the DA 4.ª label. Its
+fixes took three single-row re-checks, each by a new reviewer: `recheck-3.md` (label wording), `recheck-4.md` (the
+cell read as a contencioso plazo) and `recheck-5.md`, PASS. Fixes 26–28 in `fixes.md`.
+
+## Considered and left as prose
+
+- **I.1:** suspensión general (55.1) and the capítulos of título I are lists. The TC composition, the amparo plazos and
+  the estados are prose tables. No TC `arbol`: nothing says the Secciones belong to the Salas. Defensor quejas plazos
+  (15.1, 18.1) and informes (32) are single sentences.
+- **I.2:** refrendo, arts. 62–63, the order of sucesión and the Cortes' interventions are lists; nombramientos is a table;
+  the tutela (60.1) is one paragraph.
+- **I.3:** the Senado composition is a table; incompatibilidades, funciones, art. 67, materias no delegables, Diputación
+  Permanente and tratados are lists. The suplicatorio and Grupo plazos are isolated. The Comisión Mixta and the
+  Comisiones de investigación are left out of the tree: no text makes them organs of a Cámara.
+- **I.4:** the órdenes jurisdiccionales and the art. 26 Tribunales are lists; the Comisiones' composition is a table.
+  The DT 1.ª LO 1/2025 calendar is a numbered list. The CGPJ plazos are scattered sentences.
+- **I.5:** the functions of the Presidente (2.2) and the Consejo de Ministros (5.1), the causes of cese (101.1) and the
+  Gobierno en funciones limits are lists or sentences.
+- **I.7:** sanciones and órgano competente are tables. The límites, inadmisión causes, reclamación features, the CTBG
+  Comisión and the entrada en vigor are lists. The infracciones are given «entre otras».
+- **I.8:** the nombramientos are a table; the creation of órganos (59) is a list. The Secretaría General of the
+  Delegaciones (76.1) depends on «los Delegados o, en su caso, de los Subdelegados», which the prose does not state.
+- **I.9:** the 143.1, 144, 147.2, 148.1, 149.1, 149.3, 152.1, 153 and 157.1 contents are lists. The 151.2 procedure and
+  the 155 steps are numbered lists.
+- **I.10:** art. 3 entities, potestades, Pleno atribuciones, servicios mínimos (a table), gran población and provincial
+  competences are lists. Concejo Abierto and comarcas are short paragraphs.
+- **I.11:** the seven institutions, the seats (a table), the formations, art. 7, the Comisión's functions, the
+  nombramiento, the competence lists and the 288 acts are lists. The mandates are single sentences.
+
+## Checks
+
+- **Load:** every row cites a norm and article that the lesson's prose also cites. The backend subset
+  `-k "glossary or registry or content or pipeline or citation or source or esquema"` passed (114), covering the
+  list-shape, never-coins and reading-time checks.
+- **`citations.es.txt`** regenerated (`UPDATE_CITATIONS=1`):
+  - Header: «3211 → 3216 prose citations», «1433 → 1434 anchors», «272 → 496 esquema rows».
+  - Esquema rows: 171 bloque I, 45 bloque II, 8 bloque V.
+  - Prose rows: five new citations (art. 10.Seis Ley 31/2022 in m05-l02, art. 34.5 LGS in m05-l06, art. 24.6 Ley 19/2013
+    in m01-l07, arts. 58.1 and 58.4 LRJSP in m01-l08). The two 23.Uno rows
+    moved from Ley 30/1984 to Ley 31/2022. No other prose row or anchor changed.
+- **`glossary-links.es.txt`** and **`lesson-refs.es.txt`** regenerated and read: no change from HEAD. No mark moves or
+  appears. The writers' two watch points were the «silencio administrativo» label in m01-l07 and «provincias» in the
+  m01-l08 tree. Neither adds a mark: each first occurrence is earlier in the prose.
+- **PDF:** a scratch Vitest (not kept) rendered m01-l01…m02-l04 and the three m05 lessons through `lessonToContent`,
+  before and after. There are 40 new pdfmake tables, one per new esquema. Each has a header and one body row per
+  esquema row (counts match `citations.es.txt` per lesson). Re-run after the follow-up: the m01-l08 Ministry tree prints
+  with five body rows. The m05-l02 and m05-l04 tables gain one body row each.
+  No prose table changed.
+- **Android bundle:** re-exported to a scratch folder, byte-identical to `dist/bundle` and `dist/i18n`.
+  `--verify-only` passed: fingerprint `9c95cf4a6bf2…` (98 files), label catalogs and leaked tokens OK. No diff under
+  `content/crypto-futures/` or `dist/`.
+- **Full suites:** on the final tree, after the follow-up. See «Esquemas bloque II», which closes the round.
+
+## Open items
+
+1. **Prose gaps found by this pass** (each a one-sentence R2 fix with its own blind check; the removed rows can then
+   return):
+   - m01-l01, art. 33.2 LOTC: requisito c) («se inserte en el BOE y en el Diario Oficial de la Comunidad Autónoma»)
+     and the purpose clause. The nine-month row waits on it. Also art. 76 LOTC (two months) and art. 35.2 LOTC
+     («concluso el procedimiento», «tres días»), and art. 7.2 LO 3/1981 («entendiéndose en caso contrario que no
+     acepta el nombramiento»).
+   - m01-l03: art. 93.1 Reglamento del Senado («Sin perjuicio de las mayorías especiales…»); art. 41.1 Reglamento del
+     Congreso («con las excepciones previstas en este Reglamento»); art. 46.2 («aquellas que deban constituirse por
+     disposición legal»).
+   - m01-l04, art. 630.1 LOPJ: the three-fifths list also covers the Presidentes of the AN, the TSJ and the Audiencias
+     Provinciales; the prose names only Presidentes de Sala and Magistrados del TS. Also art. 595.1 («Además de las
+     funciones encomendadas a la Presidencia»).
+   - m01-l07, art. 19.3 Ley 19/2013: the suspension lasts «hasta que se hayan recibido las alegaciones o haya
+     transcurrido el plazo». DA 4.ª.3 (Ciudades con Estatuto de Autonomía) is not in the prose either.
+   - m01-l09: the prose does not pair medio ambiente (148.1.9.ª / 149.1.23.ª) or ferrocarriles (148.1.5.ª /
+     149.1.21.ª).
+   - m01-l11, art. 238.2 TFUE («a reserva de … Protocolo»), art. 238.3 TFUE (not all members voting), art. 235.1 TFUE.
+2. **Platform:**
+   - A row cannot cite a `sources/otros/` file: the load needs a norm and an article. The I.11 head-counts (720
+     diputados, 27 comisarios, the TJUE judges) stay in the prose with its «a fecha de».
+   - «arts. X y Y.1–2» reads «Y.1–2» as a range ending at article 2. In a plural citation, write «Y.1 y Y.2».
+   - Bloque III item 2 (a list-row citation ending in a letter) still stands.
+3. **Repository, outside this round:** `sources/normativa/BOE-A-2022-22128_pge-2023_2026-09-30.html` is committed with
+   LF line endings (sha256 `2893ba…`). `source-index.json` pins the CRLF copy on disk (`db43f3…`), so a fresh checkout
+   fails the source-index freshness test. `core.autocrlf=input` normalised the downloads on `git add`; about 160 other
+   files under `sources/` (mostly `otros/*.html`) lost their CRLFs the same way, but they are not hash-pinned. A writer
+   added `.gitattributes` (`content/*/sources/** -text`). The user has since renormalised `sources/` and staged it
+   (`git add --renormalize`); at the end of this round it is staged, not yet committed. This round did not touch
+   `sources/`.
+
+## Where to resume (after esquemas bloque I)
+
+Bloque I is closed for R2c; bloque II follows in the same round.
+
+# Esquemas bloque II (R2c, 2026-10-18)
+
+Round R2c (requirements § 4a) for temas II.1–II.4, run with bloque I under one spec. Nothing committed. The m02 lesson
+diffs only add lines. Working files in `docs/age-verification/bloque-ii/esquemas/`: `spec.md` (a pointer to bloque I's),
+`verify-m02-l01-l02.md`, `verify-m02-l03-l04.md`, `fixes.md`, `recheck.md`.
+
+**Method.** Same as bloque I: two writers, two blind reviewers, and a re-check of every fixed item by a reviewer who
+had not read the first reports.
+
+## Esquemas added
+
+| Lesson | Kind | Title | Rows |
+|---|---|---|---|
+| II.1 `m02-l01` | tabla | Información general e información particular sobre los procedimientos (arts. 2.1–2, 3.1 RD 208/1996) | 2 |
+| | pasos | Presentación y contestación de las quejas y sugerencias (arts. 15–16 RD 951/2005) | 3 |
+| II.2 `m02-l02` | tabla | El asiento en el registro (art. 16.1–3 LPAC) | 4 |
+| | tabla | Documentos presentados en papel (art. 16.5 LPAC; art. 53.1 RD 203/2021) | 3 |
+| | tabla | Clases de archivo según el ciclo vital de los documentos (arts. 9–12 RD 1708/2011) | 4 |
+| II.3 `m02-l03` | tabla | Creación o supresión de portales en el ámbito estatal (art. 6.1 RD 203/2021) | 3 |
+| | tabla | Plazos de la relación electrónica (art. 3.2 RD 203/2021; arts. 9.2.c), 43.2 LPAC) | 4 |
+| | arbol | El PAGe y su sede electrónica (art. 7.3–4 RD 203/2021) | 3 |
+| II.4 `m02-l04` | tabla | Acceso, rectificación y oposición (arts. 15.1, 16, 21.1–2 RGPD; arts. 13.3, 14 LOPDGDD) | 6 |
+| | tabla | La Presidencia de la Agencia Española de Protección de Datos y su Adjunto (art. 48 LOPDGDD) | 6 |
+| | tabla | Plazos de respuesta a las solicitudes y reclamaciones (art. 12.3 RGPD; arts. 37.1–2, 65.5 LOPDGDD) | 4 |
+| | tabla | Prescripción de las sanciones (art. 78.1 LOPDGDD) | 3 |
+| **Total** | | **12 esquemas** | **45** |
+
+Words (`wc -w`, everything counted) rise by 368 (m02-l01) to 772 (m02-l04). The reading-time check passes.
+
+**Where the prompt's kinds changed, and why.**
+- **Registro: `tabla`, not `pasos`.** The prose does not state the remisión: art. 16.2 «cursados sin dilación a sus
+  destinatarios» is missing. Art. 16.1–3 also gives no order between the asiento, its contents and the recibo. For the
+  documentos en papel, art. 53.1 RD 203/2021 names no organ that keeps the paper, and a `pasos` row needs one.
+- **Atención al ciudadano: `pasos` for quejas y sugerencias only.** The order rests on «Formuladas…», «Recibida…» and
+  «transcurrido el plazo». The peticiones `plazos` was drafted and then removed (see Verification).
+- **Art. 13 LPAC: no table.** The prose teaches only art. 13.a) (the PAG).
+- **RGPD/LOPDGDD rights: no «plazo de respuesta» column.** Art. 12.3 RGPD sets one plazo for every right, so each row
+  would repeat the same cell under a second article. Art. 12.3 is the first row of «Plazos de respuesta…» instead.
+  Supresión, portabilidad, decisiones automatizadas and the copia of 15.3 are left out (see Open items).
+- **Administración electrónica `arbol`: only stated dependencies.** The PAGe → its sede («dispondrá de») → the DEHú
+  («alojada en»). The oficinas de asistencia, the Carpeta Ciudadana and the portal are reached «a través de» the sede,
+  which does not state belonging. No text puts the PAE electrónico inside the red de PAE.
+
+## Verification
+
+| Pass | Items | PASS | FAIL |
+|---|---|---|---|
+| Blind pass: m02-l01 / l02 (18 rows, 1 title) | 19 | 16 | 3 |
+| Blind pass: m02-l03 / l04 | 31 | 29 | 2 |
+| **First pass, total** | **50** | **45** | **5** |
+| Re-check: the three fixed esquemas, whole | 10 | 10 | 0 |
+
+FAIL classes (`fixes.md` has each one):
+- **Dropped condition:** both peticiones plazos (arts. 9.1–2 and 11.1 LO 4/2001) leave out art. 10.1: when a petición
+  is remitted for lack of competence, «los plazos se computarán desde la recepción del escrito». The prose lacks it, so
+  the esquema was removed. Its title also read as complete (art. 7.2 subsanación and art. 6.2 acuse are left out).
+- **False dependency:** «sede electrónica asociada» under a sede. Art. 10.1 RD 203/2021 makes the asociada a sede «a
+  todos los efectos», a peer, not a part. The node and its root were removed.
+- **Reworded fact:** art. 37.2 LOPDGDD «podrán remitir … a fin de que este responda» had become «Responderá». The cell
+  now uses the prose's words.
+
+Not applied, judged PASS with a note:
+- The quejas step 1 «órgano» field names the users, the actor, not an organ.
+- The archive-class table leaves out the Archivos Históricos Provinciales (second art. 12.2), which the prose states.
+- The two registro tables repeat the paragraphs above them almost word for word.
+- The AEPD row on art. 48.3 leaves out «en votación pública», «inmediatamente después» and the hearing, as the prose
+  does. These are form and timing, not exceptions.
+
+## Considered and left as prose
+
+- **II.1:** art. 4 RD 208/1996 functions, arts. 1.2 and 2 RD 366/2007 and the oficinas (art. 8) are lists. The cartas de
+  servicios approval sentence cites RD 951/2005 and RD 829/2023 together. The Inspecciones' seguimiento (17.1–3) is three
+  sentences. No norm compares quejas, reclamaciones and peticiones.
+- **II.2:** the places of presentación (16.4) are a list. The oficinas de asistencia functions (40.3 RD 203/2021) are two
+  items. Eliminación and the criterios de ordenación are short paragraphs and definitions.
+- **II.3:** the obligados (14.2 LPAC), the identificación systems (9.2), the oficina de asistencia functions and the PAG
+  channels (art. 4 Orden HAP/1949/2014) are lists.
+- **II.4:** the principles (5.1 RGPD), licitud (6.1), delegado (37.1 RGPD, 34.1 LOPDGDD), its functions (39.1) and the
+  derechos digitales are lists. The infracciones are a prose table. Videovigilancia (22.3), 33.1 RGPD and 34.3 LOPDGDD are
+  single sentences, not responses to a solicitud. The limitación del tratamiento is given only as a definition
+  (art. 4.3 RGPD).
+
+## Checks
+
+- **Load:** every row cites a norm and article that the lesson's prose also cites; the backend subset passed (see
+  «Esquemas bloque I», where both bloques were regenerated together).
+- **`citations.es.txt`:** 45 bloque II esquema rows; no bloque II prose row changed.
+- **`glossary-links.es.txt`** and **`lesson-refs.es.txt`**: no change from HEAD. The writer's watch points
+  (g-unidades-administrativas, g-interesado, g-registro-electronico-general, g-archivo-intermedio, g-oposicion) all
+  first occur earlier in the prose, or the lesson is in the term's `link_except`.
+- **PDF:** twelve new pdfmake tables, one body row per esquema row (19, 10, 11 and 5 body rows in m02-l04, l03, l02 and
+  l01). No prose table changed.
+- **Android bundle:** byte-identical; `--verify-only` passed (see bloque I).
+- **Full suites on the final tree:** backend `uv run pytest` 1,449 passed, 20 skipped; frontend `npx vitest run`
+  592 passed, 51 skipped; `tsc -b` clean. Same counts as before the round.
+
+## Open items
+
+1. **Prose gaps found by this pass** (each a one-sentence R2 fix with its own blind check; the removed rows can then
+   return):
+   - m02-l01: art. 10.1 LO 4/2001 (plazos from the competent organ's receipt), art. 9.1 párr. 2, art. 10.2. Once
+     stated, the peticiones `plazos` can return. Also art. 3.2 RD 208/1996 («con las limitaciones y en los términos
+     establecidos en la Ley Orgánica 5/1992 … y en el artículo 37 de la Ley 30/1992»), and the art. 2.1 catch-all
+     «así como a cualesquiera otros datos…».
+   - m02-l02: art. 49.5 Ley 16/1985 (the Estado may declare documents part of the Patrimonio Documental without the
+     antigüedad). It blocks a table of art. 49.2–4. Art. 16.2 LPAC («cursados sin dilación») blocks a registro `pasos`.
+   - m02-l03: arts. 12.3 and 13.4 RD 1112/2018 without the 12.4 and 13.5 suspensions and the 12.6 effect (blocks the
+     accesibilidad plazos). Art. 6.1 RD 127/2015 without «Sin perjuicio de la identidad definida en el marco de la Unión
+     Europea». Art. 6.1 RD 203/2021: the prior notice to the two ministries when a portal is suppressed.
+   - m02-l04: arts. 17.3, 20.3–4, 22.2 and 15.4 RGPD (the exceptions of supresión, portabilidad, decisiones
+     automatizadas and copia). They block the rest of the rights table. Also art. 48.5 párr. 2 LOPDGDD (cese of the
+     Presidencia, same majorities) and art. 65.5 (the claim proceeds if no decision is notified in three months).
+2. **Platform:** as in bloque I.
+
+## Where to resume (after esquemas bloques I–II)
+
+Bloques I and II are closed for R2c, and with bloques III–V every bloque that takes esquemas has had its pass (bloque
+VI gets none, R4a.3). What remains are the prose gaps listed under each bloque's open items, each a one-sentence R2 fix
+with its own blind check, after which its blocked row can return. Two lessons from this round:
+- A title or header is a claim of completeness; seven of the bloque I FAILs were that.
+- A plural citation with a sub-range («arts. 23.2 y 24.1–2») misparses; write each apartado.
