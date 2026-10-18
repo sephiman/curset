@@ -1,0 +1,57 @@
+# Coverage re-check 2022–2025 — m05-l03 (tema V.3), after the move to m05-l05
+
+Date 2026-10-18. Method: `docs/age-verification/audit-2026-10/coverage/spec.md`. Context: `spec.md` (this folder).
+Population: rows of `docs/age-official-exams-ledger.md` in conv2025_A, conv2025_X, conv2024_A, conv2024_X, conv2022 and
+conv2022_X (all six tables; modelo B repeats A) whose first tema is V.3 and whose Estado is `vigente` or
+`vigente-con-nota`. Stems and options read from the questionnaires, keys from the definitive answer sheets (scratchpad
+`exams/`); every key matches the ledger. Lesson judged: the current `content/age-administrativo-c1/es/lessons/m05-l03.md`
+(line numbers below are that file's); for rows tagged «(o V.6)», also `m05-l06.md`.
+
+No V.3 row asks about pagos a justificar or anticipos de caja fija, so the sections moved to m05-l05 cost m05-l03 no
+row.
+
+| Exam | Part | Nº | Asked fact (key) | Article | Status | Where in the lesson (quote) | Note |
+|---|---|---|---|---|---|---|---|
+| conv2025_A | P1 | 36 | b: the Tribunal de Cuentas' own function is the external, permanent and consuntiva fiscalización of the public sector's economic-financial activity | art. 2.a) LO 2/1982 | covered | l. 246–248: «Sus funciones propias son la fiscalización externa, permanente y consuntiva de la actividad económico-financiera del sector público …»; Lo que más cae l. 273 | |
+| conv2025_A | P1 | 39 (o V.6) | c: in anticipated processing of contracts the Servicio gestor issues an RC «de tramitación anticipada» with the amount for each later year | regla 42.2.b) IOC | covered | l. 123–124: «En la tramitación anticipada de expedientes de contratación, el documento es un RC de «tramitación anticipada» con el importe de cada ejercicio posterior (regla 42.2.b) IOC)»; l. 271 | |
+| conv2025_A | P1 res | 1 (o V.6) | a: in competitive subsidies, once the concession is approved, the fecha de gasto is the date of documentary evidence that the beneficiary met the conditions for payment | Orden de documentos contables, anexo I, nota 34.II.a) a.1) | covered (m05-l06) | m05-l06 l. 138: «En las subvenciones en régimen de concurrencia, una vez aprobado el acuerdo de concesión, la fecha de gasto de los documentos contables es la fecha en que se tenga constancia documental …» | Covered in the alternative lesson; m05-l03 does not state it |
+| conv2025_A | SI | 13 | a: on approving a budget modification the Dirección General de Presupuestos issues document MC | regla 5 IOC; apartado sexto.1 Orden de documentos contables | covered | l. 86 (table): «Modificación de créditos aprobada \| MC \| Dirección General de Presupuestos \| regla 5 IOC» | |
+| conv2025_A | SI res | 4 | a: at the start of a contracting file the Servicio gestor issues document RC | regla 77.1 IOC | covered | l. 102: «Al inicio de un expediente de contratación, el Servicio gestor expide un documento RC de ejercicio corriente …»; l. 267 | |
+| conv2025_A | SII | 8 | a: an obligation recognised in December 2025 is imputed to 2025, and its recognition is documented with OK | art. 34.1.b) LGP; regla 23.3 IOC | covered | l. 69–72: «Al ejercicio presupuestario … se imputan las obligaciones económicas reconocidas hasta el fin del mes de diciembre … (art. 34.1.b) LGP). Una obligación reconocida en diciembre de 2025 por un gasto realizado en 2025 se imputa al presupuesto de 2025.»; l. 89 (table): «Reconocimiento de la obligación … \| OK» | Was partial in R2b (imputation rule missing) |
+| conv2025_A | SII res | 4 (o III.4) | c: the Minister approves the expense of a 90.000 € services contract, with no prior Consejo de Ministros authorisation | art. 74.1 LGP | covered | l. 24–26: «Corresponde a los Ministros … aprobar y comprometer los gastos propios de sus presupuestos, salvo los casos reservados por la Ley a la competencia del Consejo de Ministros …»; l. 265 | |
+| conv2025_X | P1 | 36 | a: Ministers fix the limits below which the expense competences belong to the Secretarios de Estado and the Subsecretario | art. 74.1 LGP | covered | l. 27–29: «Los Ministros fijan los límites por debajo de los cuales estas competencias corresponden, en su ámbito respectivo, a los Secretarios de Estado y Subsecretario del departamento (art. 74.1 LGP)»; l. 265 | |
+| conv2025_X | P1 | 37 | b: the función interventora includes the intervention of the recognition of obligations and of the comprobación de la inversión | art. 150.2.b) LGP | covered | l. 205: «b) La intervención del reconocimiento de las obligaciones y de la comprobación de la inversión.» | |
+| conv2025_X | SI | 4 | c: in the INE (organismo autónomo) the President recognises and pays the obligations | art. 74.2 LGP | covered | l. 31–33: «… compete a los presidentes o directores de los organismos autónomos … la aprobación y compromiso del gasto, así como el reconocimiento y el pago de las obligaciones (art. 74.2 LGP)»; l. 266 | |
+| conv2025_X | SII | 11 | b: the IOC phases are autorización del gasto, compromiso del gasto and reconocimiento de la obligación | regla 20.1 IOC | covered | l. 19–20: «La IOC divide la ejecución de los gastos presupuestarios en tres fases: autorización del gasto, compromiso del gasto y reconocimiento de la obligación (regla 20.1 IOC)»; l. 269 | |
+| conv2024_A | P1 | 38 | b: the Director General del Tesoro y Política Financiera is the Ordenador General de pagos del Estado | art. 75.1 LGP | covered | l. 128–130 (art. 75.1 LGP); l. 272: «El Ordenador General de pagos del Estado es el Director General del Tesoro y Política Financiera (art. 75.1 LGP)» | |
+| conv2024_A | SI | 18 (o V.6) | b: before the call for subsidies the expense must be approved | regla 86.3 IOC | covered | l. 114–115: «el documento A se expide aprobado el expediente de gasto, aprobación previa a la publicación de la convocatoria en el «Boletín Oficial del Estado»»; l. 268 | |
+| conv2024_A | SI | 19 | c: the approval (authorisation) of the expense is documented with document A | regla 21.2 IOC | covered | l. 87 (table): «Autorización del gasto \| A de ejercicio corriente …» | |
+| conv2024_A | SII | 12 | b: on formalising the contract (commitment) the Servicio gestor issues document D | regla 77.2 IOC | covered | l. 105–106: «Al formalizar los contratos, expide los documentos D (regla 77.1–2 IOC)»; l. 267 | |
+| conv2024_X | P1 | 37 | a: the Tribunal de Cuentas examines the Cuenta General del Estado within six months from its rendering | art. 10 LO 2/1982 | covered | l. 258–259: «El Tribunal la examina y comprueba dentro del plazo de seis meses a partir de la fecha en que se haya rendido»; l. 274 | |
+| conv2024_X | P1 res | 5 | d: loading a prorogued budget needs no specific accounting document | regla 4.2 IOC | covered | l. 44–45: «La carga del presupuesto prorrogado no exige ningún documento contable específico (regla 4.2 IOC)» | |
+| conv2024_X | SI | 3 | a: the Minister approves the department's expenses, save cases reserved by law to the Consejo de Ministros | art. 74.1 LGP | covered | l. 24–26 (as conv2025_A SII res 4) | |
+| conv2024_X | SII res | 5 (o V.6) | a: at the start of the contracting file the Servicio gestor issues an RC for the presupuesto base de licitación (300.000 € IVA excluido) plus IVA, not for the award price (298.000 €) | regla 77.1 IOC; art. 100.1 LCSP | covered | l. 102: RC at the start (regla 77.1 IOC); l. 110–112: «La regla 77.1 IOC no dice por qué importe se expide el RC inicial. El presupuesto base de licitación es el límite máximo de gasto que en virtud del contrato puede comprometer el órgano de contratación, incluido el Impuesto sobre el Valor Añadido, salvo disposición en contrario (art. 100.1 LCSP).» | Was partial in R2b (amount missing). The lesson states every norm fact; linking the RC amount to the presupuesto base de licitación is the reader's step, since no norm states it, and the lesson says so |
+| conv2022 | P1 | 24 | c: recognition of the obligation declares a claim derived from an approved and committed expense that carries the propuesta de pago | art. 73.4 LGP | covered | l. 63–65: «… derivado de un gasto aprobado y comprometido y que comporta la propuesta de pago correspondiente» | |
+| conv2022 | SII | 19 | c: once the contractor justifies performance, the next phase is the recognition of the obligation | regla 78.1 IOC; art. 73.4 LGP | covered | l. 106–108: «Antes del reconocimiento de la obligación, el contratista justifica el cumplimiento de la prestación o la procedencia del abono a cuenta; aprobado el expediente, se expide un documento OK (regla 78.1 IOC)» | |
+| conv2022_X | P1 | 18 | b: document AD is issued when authorisation and commitment are agreed in a single act | regla 24.2 IOC | covered | l. 91 (table): «Autorización y compromiso en un acto único \| AD»; l. 270 | |
+| conv2022_X | P1 | 27 (o V.6) | c: in non-nominative subsidies with prior call, document A is issued once the expense file is approved, approval prior to publishing the call | regla 86.3 IOC | covered | l. 114–115 (as conv2024_A SI 18) | |
+| conv2022_X | SI | 6 | b: an organismo autónomo renders accounts to the Tribunal de Cuentas through the IGAE | art. 137 LGP | covered | l. 189–190: «Las entidades del sector público estatal rinden al Tribunal de Cuentas la información contable por conducto de la IGAE (art. 137 LGP)» | |
+| conv2022_X | SI | 7 | a: in an organismo autónomo the Director recognises and pays the obligations | art. 74.2 LGP | covered | l. 31–33 (as conv2025_X SI 4) | |
+| conv2022_X | SI | 19 (o V.6) | a: at the start of a contracting file the Servicio gestor issues an RC of the current year and, where applicable, an RC of later years | regla 77.1 IOC | covered | l. 102–103: «… expide un documento RC de ejercicio corriente y, en su caso, un RC de ejercicios posteriores …» | |
+| conv2022_X | SI | 20 (o V.6) | c: when a contract is resolved the Servicio gestor issues negative AD and RC documents, current and later years, for the unexecuted amount per the liquidation | regla 77.7 IOC | covered (m05-l06) | m05-l06 l. 43–44: «Si se resuelve el contrato, el Servicio gestor expide documentos AD y RC negativos de ejercicio corriente y de ejercicios posteriores, por el importe no ejecutado …»; l. 187 | Covered in the alternative lesson; m05-l03 has only the general opposite-sign rule (l. 96–97) |
+| conv2022_X | SII | 10 | d: when the nature of the operation so determines, the needed phases are accumulated in one act | art. 73.7 LGP | covered | l. 76–77: «Cuando la naturaleza de la operación o gasto lo determine, se acumulan en un solo acto las fases de ejecución precisas (art. 73.7 LGP)» | |
+| conv2022_X | SII | 18 | c: the expense may be authorised for an approximate amount, reserving all or part of a credit | art. 73.2 LGP | covered | l. 49–50: «… se autoriza la realización de un gasto determinado por una cuantía cierta o aproximada, reservando a tal fin la totalidad o parte de un crédito presupuestario» | |
+
+No row of tema V.3 is `anulada`, disputed, or excluded; none needs a source outside `sources/normativa/`.
+
+## Counts
+
+- Asked: 29.
+- Covered: 29 (two in the alternative lesson m05-l06: conv2025_A P1 res 1 and conv2022_X SI 20).
+- Partial: 0.
+- Miss: 0.
+- Share missed (partial as half): 0 / 29 = 0.0 %.
+
+Before/after: R2b 29 asked, 27 covered, 2 partial, 0 miss, 3.4 % missed → now 29 asked, 29 covered, 0 partial, 0 miss,
+0.0 % missed. The two former partials (conv2025_A SII 8, conv2024_X SII res 5) are closed by art. 34.1.b) LGP
+(l. 69–72) and art. 100.1 LCSP (l. 110–112).

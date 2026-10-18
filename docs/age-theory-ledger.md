@@ -3086,3 +3086,80 @@ fingerprint unchanged; no diff under `content/crypto-futures/`.
 
 R2b is closed except for m05-l05. The next session rewrites m05-l05 (R2 rules, blind verification, coverage re-audit
 of V.5), then R2c (esquemas) can start.
+
+# m05-l05 rewrite (2026-10-18)
+
+Open item 1 of R2b. Tema V.5 rewritten under R2 rules, with the regime of pagos a justificar and anticipos de caja fija
+moved from m05-l03 (V.3), where the bloque V prompt had grouped it, to m05-l05, where the programme puts it. Nothing
+committed. Every working file is in `docs/age-verification/bloque-v/m05-l05-rewrite/`: `spec.md`, `writer.md`,
+`verify-m05-l05.md`, `verify-m05-l03.md`, `fixes.md`, `recheck.md`, `recheck-2.md`, `coverage-m05-l05.md`,
+`coverage-m05-l03.md`.
+
+**What changed.**
+- m05-l05: sections 1–4 (clasificación económica; pagos: concepto y tipos) unchanged. «Pagos por obligaciones
+  presupuestarias» now states the cesionario, the importe limits and the descuentos (apartados séptimo.1.3, séptimo.5,
+  décimo Orden PRE/1576/2002) and points to m05-l03 for propuesta, ordenación, formas and perceptores. «Anticipos de caja
+  fija» (art. 78.1, 78.3 LGP; RD 725/1989 arts. 1–7, 9; reglas 34–36 IOC; apartado décimo.2 Orden de documentos
+  contables), with a worked example (7 % of 2.000.000; electricity exception; no fraccionamiento). «Pagos "a justificar"»
+  (art. 79.1–3, 79.5 LGP; RD 640/1987 arts. 1, 3–7, 9; reglas 28, 29, 33 IOC). «Justificación de libramientos» (arts.
+  73.4, 79.3–4, 79.6 LGP; RD 640/1987 arts. 10, 12; reglas 30–32, 61.1 IOC; apartado décimo.1 Orden de documentos
+  contables; apartado noveno.2.5 Orden PRE/1576/2002), with the plazo worked example moved from m05-l03. Art. 79.6 LGP,
+  a cut asked in conv2020 P1 38, is restored. New «Lo que más cae» (ten lines, sources in `writer.md`).
+- m05-l03: loses the two `###` sections «Pagos a justificar» and «Anticipos de caja fija»; one line under «Perceptores»
+  points to m05-l05. Keeps the perceptores list (apartado séptimo.2, which names ACF and pagos a justificar as agentes
+  mediadores) and art. 151 LGP: the programme gives perceptores and control to V.3. Gains the second paragraph of
+  apartado noveno.1 (pagos en formalización), which a FAIL showed missing; m05-l05's «Tipos» table now only names that
+  form and points here. Intro, «Lo que más cae» (the four ACF/PAJ lines replaced by V.3 facts from the exams ledger)
+  and Normativa adjusted.
+- Glossary: g-anticipo-de-caja-fija and g-pago-a-justificar origin m05-l03 → m05-l05 (definitions unchanged).
+  `link_except` m05-l05 added to g-servicios-comunes (Seguridad Social sense) and g-convenio (the convenio with credit
+  entities of art. 5.2 RD 640/1987). Nothing goes to the waiting list.
+- course.yaml: new summaries for m05-l03 and m05-l05 (three sentences each).
+
+**Word counts** (`wc -w`, everything counted).
+
+| Lesson | Before | After |
+|---|---|---|
+| m05-l03 | 4,400 | 3,519 |
+| m05-l05 | 2,367 | 5,649 |
+
+**Coverage 2022–2025** (R2b method; partial counts as half).
+
+| Lesson | Before (R2b) | After |
+|---|---|---|
+| m05-l05 | 17 asked: 5 covered, 2 partial, 10 miss — 64.7 % missed | 17 asked: 17 covered, 0 partial, 0 miss — 0 % |
+| m05-l03 | 29 asked: 27 covered, 2 partial, 0 miss — 3.4 % | 29 asked: 29 covered, 0 partial, 0 miss — 0 % |
+
+conv2025_X P1 40 («V.5 o V.3», perceptores) counts covered through m05-l03; m05-l05 names the two classes and points
+there. The two former m05-l03 partials were closed in R2b (art. 34.1.b) LGP; art. 100.1 LCSP); the auditor notes that
+the RC amount of conv2024_X sup. II reserva 5 still needs a step from the reader, as the lesson itself says. Bloque V
+coverage after this round: 113 asked, all covered.
+
+**Verification.**
+- Blind review, every sentence with a number, plazo, organ, date, condition or exception: m05-l05 113 checked, 107
+  PASS, 6 FAIL (two dropped «no obstante» exceptions, arts. 4.2 RD 725/1989 and 5.2 RD 640/1987; four «Lo que más
+  cae» lines that dropped an exception the body states); m05-l03 96 checked, 95 PASS, 1 FAIL (apartado noveno.1 read as
+  complete) plus the m05-l03 summary (read as if every LGP fase had a document). All fixed (`fixes.md`, 11 items).
+- Blind re-check of the 11 fixes: 8 PASS, 3 FAIL (an unclear subject after fix 1, no base for the 10 %, no subject for
+  the FSE plazo); the re-checker's wording applied; second re-check 3/3 PASS.
+- Not applied, judged acceptable by the re-checker: RD 1009/2023 not named in the m05-l03 intro (course convention);
+  LPAC not named in the m05-l05 intro (used once, pointer to m03-l03, as m05-l06); AECI without «(hoy: …)» (art. 78.3
+  LGP in force uses that name and the exams quote it).
+- Cross-references: m05-l01, m05-l02, m05-l04 and m05-l06 point to m05-l03 for fases, documentos, formas de pago, RC/MC
+  and art. 151 LGP, and m05-l02 points to m05-l05 for subconcepto 221.03; all still resolve to the content named.
+  `lesson-refs.es.txt` 95 → 93 references, 0 dangling.
+
+**Closing checks** (final tree): goldens regenerated and read line by line (`glossary-links.es.txt` 317 → 318 web
+marks; the moved links follow the origin change, two wrong-sense marks excluded, see Glossary above); content tests
+`pytest -k "glossary or registry or content or pipeline"` 68 passed (never-coins included); frontend `src/lib/refs`,
+`src/lib/glossary`, `src/lib/pdf` 302 passed, 49 skipped; full frontend `npx vitest run` 563 passed, 49 skipped;
+`tsc -b` clean; full backend `uv run pytest` 1,374 passed, 20 skipped; no diff under `content/crypto-futures/` or `dist/`; bundle re-exported to a
+scratch folder byte-identical to `dist/bundle`, `--verify-only` fingerprint `9c95cf4a6bf2…` verified, leaked tokens OK.
+
+**Listed, not resolved** (`writer.md`): three authorities for extending the pagos-a-justificar plazo (art. 79.4 LGP,
+art. 10.1 RD 640/1987, regla 31 IOC), all stated and attributed; art. 78.2, 78.4–5 LGP (Seguridad Social fondos de
+maniobra) and regla 64.2 IOC left out, unasked.
+
+## Where to resume (after the m05-l05 rewrite)
+
+R2b is closed. R2c (esquemas) can start once the platform's section E exists.
