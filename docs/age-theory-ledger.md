@@ -3530,12 +3530,12 @@ Not applied, judged PASS with a note:
 
 ## Open items
 
-1. **Citation misparse «art. 21.C)»:** in m04-l01 and m04-l03, «(art. 21.C) Real Decreto 1009/2023, …)» is read as
+1. **Citation misparse «art. 21.C)»** (closed in «Esquemas bloque V»): in m04-l01 and m04-l03, «(art. 21.C) Real Decreto 1009/2023, …)» is read as
    «art. 21.C» with the previous norm, RD 829/2023. Both lessons link it to art. 21 of RD 829/2023, the wrong norm
    (`citations.es.txt` rows `m04-l01 … art. 21.C` and `m04-l03 … art. 21.C`). This is the same «letter + )» grammar
    limit as bloque III item 2, here inside prose. It needs either a parser fix or a prose rewording, with its own
    check.
-2. **Prose gaps found by the esquema pass** (prose out of scope here; each is a one-sentence R2 fix with its own blind
+2. **Prose gaps found by the esquema pass** (closed in «Esquemas bloque V»; prose out of scope here; each is a one-sentence R2 fix with its own blind
    check):
    - m04-l03: arts. 61.8 párr. 2 TREBEP and 114.10 párrs. 2–3 RDL 6/2023 (the relación complementaria when selected
      candidates renounce; RDL 114.10 also says «No procederá dicho requerimiento» if fewer were proposed than plazas
@@ -3551,3 +3551,164 @@ Not applied, judged PASS with a note:
 Bloque IV is closed for R2c. The next session runs R2c for bloque V with the same spec and with the false-order and
 dropped-condition checks in the reviewer prompt. Before writing a row, check that the prose states the norm's
 conditions in full: four of this bloque's eight FAILs were prose gaps that the esquema made visible.
+
+# Esquemas bloque V (R2c, 2026-10-18)
+
+Round R2c (requirements § 4a) for temas V.1–V.6, after closing the bloque IV open items. Nothing committed. The m05
+lesson diffs only add lines; the m04 prose changes are the round prompt's item 1. Working files in
+`docs/age-verification/bloque-v/esquemas/`: `spec.md`, `verify-m04.md`, `verify-m05-l01-l02.md`, `verify-m05-l03.md`,
+`verify-m05-l04-l06.md`, `verify-m05-l05.md`, `fixes.md`, `recheck.md`.
+
+**Method.** Same as bloques III and IV. The writer drew every field from the lesson's prose and checked it against the
+cited article (`pdftotext` of `sources/normativa/`; the Ley 31/2022 from its saved HTML), using the norm's own words
+where the prose shortens. Five blind reviewers checked every item. A sixth reviewer, who had not seen the first reports,
+re-checked every fixed item and the whole of each affected esquema. A seventh re-checked the one re-check FAIL.
+
+## Bloque IV open items
+
+**1. Three prose gaps.** Each sentence was checked blind like an R2 sentence.
+- **m04-l02, cupo of DA 19.ª Ley 30/1984 and art. 2.1 RD 2271/2004.** New sentence: «Las dos reservan el cupo para
+  personas con discapacidad cuyo grado de minusvalía sea igual o superior al 33 por ciento, y la Ley 30/1984 añade
+  «siempre que superen las pruebas selectivas y que, en su momento, acrediten el indicado grado de minusvalía y la
+  compatibilidad con el desempeño de las tareas y funciones correspondientes»». It covers the threshold and the DA
+  19.ª conditions, because bloque IV FAIL #2 named both.
+  - Restored rows: Ley 30/1984 and RD 2271/2004 in «El cupo de reserva…», in the prose's words.
+  - The first pass failed them for «de las vacantes», which the prose does not say. The re-check passed them.
+- **m04-l03, relación complementaria.** Three sentences, not one, because the two norms differ.
+  - Art. 61.8 párr. 2 TREBEP: renuncias «antes de su nombramiento o toma de posesión».
+  - Art. 114.10 párrs. 2–3 RDL 6/2023: puntuación mínima, «en todo caso antes de la toma de posesión», «no procede» unless as many were proposed as plazas convocadas.
+  - Restored table: «Aprobados y plazas convocadas», four rows (61.8 TREBEP, 114.10 RDL 6/2023, 22.3 and 25.1 RD 364/1995). The two norm rows are verbatim with «[…]» over the purpose clause. «antes de la de toma de posesión» (sic in the BOE) is printed without the stray «de».
+  - First pass 8/8 PASS.
+- **m04-l05, art. 18.2 TREBEP.** The first draft dropped «que se dicten en desarrollo» and failed. The applied sentence is the reviewer's: «El capítulo II del título III, donde está el artículo 18, produce efectos a partir de la entrada en vigor de las leyes de Función Pública que se dicten en desarrollo del TREBEP (disposición final cuarta.1 TREBEP).» The next sentence regains its subject («la promoción interna consiste…»).
+  - The TREBEP row of «Requisitos de la promoción interna» now carries that condition in its label and cites «art. 18.2 y disposición final cuarta.1 TREBEP».
+  - Re-check PASS.
+
+**2. «(art. 21.C) Real Decreto 1009/2023, …)».** Rewritten in m04-l01 and m04-l03 as «(art. 21.C RD 1009/2023)». The grammar reads «21.C» as an article unit; only a lowercase letter before «)» continues a citation. Both rows in `citations.es.txt` now open RD 1009/2023 at p. 16 (they opened art. 21 of RD 829/2023 before).
+- The full title of RD 1009/2023 no longer appears in those two lessons' prose; the «Normativa» line names it.
+- m04-l01 gains the arbol «La Secretaría de Estado de Función Pública y los órganos que dependen de ella»: art. 22.2–3 RD 829/2023 and art. 21.C RD 1009/2023, five nodes, 6/6 PASS.
+
+Bloque IV verification: 19 items, 15 PASS, 4 FAIL (the two cupo rows and the m04-l05 sentence and label), all fixed
+and re-checked PASS.
+
+## Esquemas added
+
+| Lesson | Kind | Title | Rows |
+|---|---|---|---|
+| V.1 `m05-l01` | tabla | Plazos del ciclo presupuestario (arts. 134.3–4 CE; arts. 37.1, 38.1–2, 34.1, 131.1 LGP) | 6 |
+| V.2 `m05-l02` | arbol | Estructura de los estados de gastos de los Presupuestos Generales del Estado (art. 40.1 LGP) | 7 |
+| | tabla | Qué es cada modificación de crédito (arts. 52.1, 53.1, 54.1–2, 55.1, 58 LGP) | 5 |
+| V.3 `m05-l03` | tabla | Fases del gasto del Estado hasta la ordenación del pago (arts. 73, 74.1, 75.1, 75.3 LGP) | 4 |
+| | arbol | Control de la gestión económico-financiera del sector público estatal (arts. 140, 142.2, 148, 157, 162, 164.1 LGP) | 6 |
+| | pasos | Reparo y discrepancia (arts. 154.1, 155 LGP) | 4 |
+| V.4 `m05-l04` | tabla | Las pagas extraordinarias en el TREBEP y en la Ley 30/1984 (art. 22.4 y DF 4.ª.1 TREBEP; art. 23.2.c) Ley 30/1984) | 2 |
+| | tabla | Devengo y liquidación de las retribuciones de los funcionarios del Estado (arts. 33, 34 Ley 33/1987) | 7 |
+| V.5 `m05-l05` | pasos | Las cuentas de los anticipos de caja fija, hasta el Tribunal de Cuentas (art. 7.1, 7.2, 7.4 RD 725/1989) | 5 |
+| | pasos | La cuenta justificativa de los pagos a justificar (art. 12 RD 640/1987) | 5 |
+| | tabla | Plazos de la cuenta justificativa de los pagos a justificar (art. 79.4, 79.6 LGP; art. 10 RD 640/1987) | 5 |
+| V.6 `m05-l06` | plazos | Plazos de la justificación y del reintegro de las subvenciones (art. 30.2 LGS; art. 70.3 RLGS; art. 42.4 LGS) | 3 |
+| **Total** | | **12 esquemas** | **59** |
+
+Words (`wc -w`, everything counted) rise by 155 (m05-l06) to 851 (m05-l03); m04-l01/l02/l03/l05 by 90/162/475/65. The
+reading-time check passes.
+
+**Where the prompt's kinds changed, and why.**
+- **The budget cycle is a `tabla`, not `plazos`.** A `plazos` esquema renders as a timeline. Art. 134.3 CE (Congreso, three months before) and art. 37.1 LGP (Cortes, before 1 October) fix the same act under two norms, and art. 134.4 CE and 38.1 LGP word the prórroga differently. A timeline would put one before the other.
+- **The justificación de libramientos is a `tabla`.** It sets the two regimes side by side: arts. 79.4 and 79.6 LGP against art. 10.1–2 RD 640/1987.
+- **The fases del gasto are a `tabla` with the organ, not `pasos` with the document.** A row's citation is one segment naming one norm, and «regla … IOC» and «apartado sexto…» are not citation leads. So no row can rest on the IOC or the Orden de documentos contables, where the documents A, D and OK are. The prose table of m05-l03 keeps the documents. The table stops at the ordenación del pago, because no citable text names the organ of the pago material.
+- **The `pasos` for ACF and pagos a justificar follow the cuenta.** Art. 7.1 → 7.2 → 7.4 RD 725/1989 and art. 12.3 → 12.4 → 12.5 RD 640/1987 state that order. The reposición of art. 7.3 runs «con independencia del resultado del examen fiscal», so it stays out of the stepper (the reviewer confirmed this).
+- **Indemnizaciones: no new esquema.** The anexo II and anexo IV tables are already in the prose. No text maps each supuesto of art. 1.1 RD 462/2002 to concepts 230–233.
+
+## Verification
+
+| Pass | Items | PASS | FAIL |
+|---|---|---|---|
+| Blind pass: bloque IV items (sentences, rows, citation) | 19 | 15 | 4 |
+| Blind pass: m05-l01 / l02 | 6 / 13 | 5 / 12 | 1 / 1 |
+| Blind pass: m05-l03 | 14 | 12 | 2 |
+| Blind pass: m05-l04 / l06 (plus the pagas table's title) | 9 / 3 | 9 / 2 | title / 1 |
+| Blind pass: m05-l05 | 15 | 14 | 1 |
+| **First pass, total** | **79 + 1 title** | **69** | **11** |
+| Re-check: fixed items and their whole esquemas | 33 | 32 | 1 |
+| Second re-check: m05-l04 TREBEP label | 1 | 1 | 0 |
+
+FAIL classes (`fixes.md` has each one):
+- **Dropped condition:** the 38.1 LGP «Si … no se aprobara»; 73.4 «conforme a los acuerdos»; the organ of art. 70.3 RLGS; «que se dicten en desarrollo» of DF 4.ª.1 TREBEP (twice, and again in the m05-l04 label, the re-check FAIL).
+- **Reads wider:** the Consejo de Ministros salvo of art. 74.1 carried over to the reconocimiento; the art. 75.3 list cut; the MRR exception of art. 10.Seis Ley 31/2022.
+- **Not verbatim:** «por los mismos órganos y con los mismos trámites»; «de las vacantes» not in the prose.
+- **Selective list read as complete:** the pagas title «en cada norma».
+
+Removed instead of fixed:
+- The m05-l02 row «Incorporación, durante la vigencia de la Ley 31/2022» (art. 10.Seis): the prose has the same shortening.
+- The m05-l04 Ley 31/2022 pagas row, whose prose citation misparses (see Open items).
+- A planned m05-l06 table from the aprobación del gasto to the pago: art. 34.5 LGS bars any pago while the beneficiary is not up to date with tax and Social Security obligations or owes a reintegro, and the prose does not state it.
+
+Writer's fixes outside the reviews:
+- The m05-l05 label «aprobación o reparo de la cuenta» put a g-reparo mark (the Intervención's reparo, art. 154.1) on the approving authority's reparo of art. 79.6. The label now uses the prose's verb, «aprueba o repara la cuenta», and the mark is gone.
+- A «No la prevé el artículo» cell became «—».
+
+Blindness: the second re-checker read the earlier FAIL line in `recheck.md` while appending its verdict. It says its verdict rests on the norm, the lesson and the spec only.
+
+Not applied, judged PASS with a note:
+- m05-l03 step 2 leaves out «con cita de los preceptos legales»; the prose does too, and it narrows.
+- The m05-l05 ACF steps keep the prose's «defectos» and leave out the IGAE instructions.
+- m05-l02 «art. 54.1–2 LGP»: the prose names 54.2 in text and cites art. 54; the check matches by anchor.
+- The Ley 30/1984 rows carry no vigencia condition. That condition is DF 4.ª.2 TREBEP, another norm, and a row cites one.
+
+## Considered and left as prose
+
+- **V.1:** the principios (art. 134.2 CE; art. 26.1 LGP; arts. 27, 28 LGP) are sentences or lists; the elaboración of
+  the 2027 budget is already a table (pasos, órgano, plazo); the «fases» of the presupuesto por programas have no text.
+- **V.2:** the modificaciones table (órgano, financiación), vinculación, plurianual percentages, the OOAA suplemento
+  thresholds, generaciones and transferencias by organ are already tables; the 55.2, 52.1, 53.2, 58 and 60.1 cases are
+  lists. The clasificación económica capítulos are a table (the arbol stops at the LGP's levels).
+- **V.3:** the documentos contables are a table; the 150.2 contents and the perceptores are lists; the Tribunal de
+  Cuentas organs are a table. The Cuenta General plazos (131.1 LGP, 33.1 Ley 7/1988, 10 LO 2/1982) give two rules for
+  one act, and 131.1 is already in the m05-l01 table. The RD 2188/1995 fifteen-day plazos cannot share a row with art.
+  155 LGP (one norm per row) and are two sentences.
+- **V.4:** grupos and dietas (anexos I–II), dietas by hour (art. 12), asistencias (anexo IV), the 2026 amounts and the
+  complemento de destino are tables or lists; the complementarias (24 TREBEP, 23.3 Ley 30/1984) are lists.
+- **V.5:** the capítulo 2 and 6 articles, pago tipos, propuesta limits and ACF límites are tables; the 3.2 RD 640/1987
+  extremes are a list.
+- **V.6:** the pago del precio (198.4–6 LCSP) is a table; tramitación anticipada, the 56.1 RLGS cases and the 37.1 LGS
+  causes are lists. The prescripción of art. 39.1 LGS is not a step after the reintegro procedure.
+
+## Checks
+
+- **Load:** every row cites a norm and article that the lesson's prose also cites. The backend subset
+  `-k "glossary or registry or content or pipeline or citation or source or esquema"` passed: 114 passed, covering the
+  list-shape, never-coins and reading-time checks.
+- **`citations.es.txt`** regenerated with `UPDATE_CITATIONS=1`:
+  - Header: «3205 → 3211 prose citations», «202 → 272 esquema rows».
+  - Esquema rows: 59 new in bloque V; 11 new in bloque IV, and the m04-l05 row now carries two anchors.
+  - Prose rows: the two «21.C» rows moved from RD 829/2023 to RD 1009/2023, and six new prose citations came with the m04 sentences.
+  - No other row or anchor changed.
+- **`glossary-links.es.txt`** regenerated and read line by line: no change from HEAD. A draft label added
+  g-reparo in m05-l05 (wrong sense, see above); the fix removed it. **`lesson-refs.es.txt`:** unchanged.
+- **PDF:** a scratch Vitest (not kept) rendered m04-l01/l02/l03/l05 and m05-l01…l06 through `lessonToContent`,
+  before and after. Every new esquema printed as one pdfmake table, header plus one body row per esquema row. The
+  restored m04-l02 rows add two body rows to their table. No prose table changed.
+- **Android bundle:** re-exported to a scratch folder, byte-identical to `dist/bundle` and `dist/i18n`.
+  `--verify-only` passed: fingerprint `9c95cf4a6bf2…` (98 files), label catalogs and leaked tokens OK. No diff under
+  `content/crypto-futures/` or `dist/`.
+- **Full suites on the final tree:** backend `uv run pytest` 1,449 passed, 20 skipped; frontend `npx vitest run`
+  592 passed, 51 skipped; `tsc -b` clean. Same counts as before the round.
+
+## Open items
+
+1. **Citation misparse «art. 23.Uno.B)» / «art. 23.Uno.D)» in m05-l04 (prose, l. 212 and l. 252).** These have the
+   same uppercase-letter + «)» problem as bloque IV item 1. Both link to art. 23 of **Ley 30/1984**, not Ley 31/2022.
+   They are the only two such rows left in `citations.es.txt`. The round prompt kept the bloque V prose untouched,
+   so they were not reworded.
+   - Fix: «(art. 23.Uno.B Ley 31/2022)» / «(art. 23.Uno.D Ley 31/2022)», or a grammar change that lets an uppercase letter + «)» continue.
+   - The Ley 31/2022 row of the pagas table can then come back.
+2. **Prose gaps found by this pass** (each a one-sentence R2 fix with its own blind check):
+   - m05-l02, art. 10.Seis Ley 31/2022: the MRR exception covers only the remanentes generated in servicio 50 of each sección and the MRR credits of the entidades of art. 1.a).2.º–4.º. The prose says «los créditos del Mecanismo de Recuperación y Resiliencia».
+   - m05-l06, art. 34.5 LGS: no pago while the beneficiary is not up to date with tax and Social Security obligations or owes a reintegro. Once stated, a «del gasto al pago» table becomes possible.
+   - Notes, not FAILs: art. 148 párr. 2 LGP (m05-l03); art. 70.1 RLGS and the last sentence of art. 70.3 RLGS (m05-l06); the full DF 4.ª.1 wording in the m04-l05 opening quotation (l. 19–20); art. 2.1 párr. 2 RD 2271/2004 (m04-l02).
+3. **Platform:** a row's citation names one norm, and «regla … IOC» and ordinal «apartado …» are not leads, so IOC and Orden-apartado facts cannot be esquema rows. Bloque III item 2 (a list-row citation ending in a letter) still stands.
+
+## Where to resume (after esquemas bloque V)
+
+Bloque V is closed for R2c. The next session runs R2c for the next bloque that takes esquemas (bloque VI gets none,
+R4a.3; bloques I–II if they have not had their pass) with this spec. Before choosing a kind, check what the citation
+grammar can carry. Before writing a list kind, check that the order is stated in the text.
