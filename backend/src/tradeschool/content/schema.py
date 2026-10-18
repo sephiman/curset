@@ -180,11 +180,16 @@ class Manifest(BaseModel):
         }
         for preset in self.exams:
             for part in preset.parts:
-                for level, ids_at_level in known.items():
-                    named = getattr(part.source, level)
-                    if named is not None and named not in ids_at_level:
-                        raise ValueError(f"exam {preset.id!r} part {part.id!r}: unknown {level} {named!r}")
-                if part.source.cases and ExerciseType.CASE not in self.course.exercise_types:
+                sources = [entry.source for entry in part.sources] if part.sources else [part.source]
+                for source in sources:
+                    assert source is not None
+                    named_modules = [(m, "module") for m in source.modules or []]
+                    for named, level in [(getattr(source, level), level) for level in known] + named_modules:
+                        if named is not None and named not in known[level]:
+                            raise ValueError(
+                                f"exam {preset.id!r} part {part.id!r}: unknown {level} {named!r}"
+                            )
+                if part.cases and ExerciseType.CASE not in self.course.exercise_types:
                     raise ValueError(
                         f"exam {preset.id!r} part {part.id!r} draws cases; the course declares no case type"
                     )

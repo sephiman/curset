@@ -302,9 +302,7 @@ def test_a_pinned_debt_that_stopped_firing_has_to_be_retired() -> None:
     assert "retire the note" in failures[0]
 
     # ...and while it IS firing, the pin silences that one and nothing else.
-    offender = Unquantized(
-        where="frozen:fig-x[0]", path="levels[].price", scale=2, first=1.005, count=1
-    )
+    offender = Unquantized(where="frozen:fig-x[0]", path="levels[].price", scale=2, first=1.005, count=1)
     other = Unquantized(where="frozen:fig-y[0]", path="levels[].price", scale=2, first=2.005, count=1)
     assert quantization_failures([offender], [], pinned) == []
     # The key runs up to the ": N value(s)" the message appends; the id itself carries a colon.

@@ -9,9 +9,10 @@ from __future__ import annotations
 
 from collections.abc import Sequence
 from dataclasses import dataclass
+from itertools import combinations
 from typing import TYPE_CHECKING, Protocol
 
-from tradeschool.exams.presets import ExamPreset, PresetPart
+from tradeschool.exams.presets import ExamPreset, PartSource, PresetPart, PresetSource
 from tradeschool.exercises.case import CaseConfig, question_seeds
 from tradeschool.exercises.quiz import QuizConfig, QuizGenerator
 from tradeschool.exercises.types import ExerciseType
@@ -60,35 +61,57 @@ class DrawnPart:
     cases: list[str]
 
 
-def source_level(part: PresetPart, target: str | None) -> tuple[str | None, str | None]:
-    """(level, id) of a non-case source: the whole course, or one block, module or lesson."""
-    source = part.source
+@dataclass(frozen=True)
+class Scope:
+    """What a source covers: the whole course (`level` None), or the named blocks, modules or lesson."""
+
+    level: str | None
+    ids: frozenset[str] = frozenset()
+
+
+def source_scope(source: PresetSource, target: str | None) -> Scope:
+    """The scope of a non-case source; a parametric one (`each`) covers the target picked at start."""
     if source.each is not None:
-        return source.each, target
+        return Scope(source.each, frozenset({target}) if target else frozenset())
+    if source.modules:
+        return Scope("module", frozenset(source.modules))
     for level in ("block", "module", "lesson"):
         named = getattr(source, level)
         if named is not None:
-            return level, named
-    return None, None
+            return Scope(level, frozenset({named}))
+    return Scope(None)
 
 
-def per_module_scope(registry: CourseRegistry, level: str | None, target: str | None) -> list[str]:
-    """Modules with a playable bank, in course order, inside the source (a per-module draw's rows)."""
+def _exercise_ids(registry: CourseRegistry, scope: Scope) -> list[str]:
+    targets: list[str | None] = [*sorted(scope.ids)] or [None]
+    if len(targets) == 1:
+        return registry.scope_exercise_ids(scope.level, targets[0])
+    inside = {exercise for target in targets for exercise in registry.scope_exercise_ids(scope.level, target)}
+    return [exercise for exercise in registry.scope_exercise_ids(None, None) if exercise in inside]
+
+
+def per_module_scope(registry: CourseRegistry, scope: Scope) -> list[str]:
+    """Modules with a playable bank, in course order, inside the scope (a per-module draw's rows)."""
     out: list[str] = []
     for block, module in registry.manifest.iter_modules():
-        if level == "block" and block.id != target:
+        if scope.level == "block" and block.id not in scope.ids:
             continue
-        if level == "module" and module.id != target:
+        if scope.level == "module" and module.id not in scope.ids:
             continue
-        if registry.playable_module_exercises(module.id):
+        if _module_questions(registry, module.id):
             out.append(module.id)
     return out
 
 
-def question_pool(registry: CourseRegistry, level: str | None, target: str | None) -> list[PoolQuestion]:
-    """Every distinct question under the source, in course order; cases are drawn only by a case part."""
+def _module_questions(registry: CourseRegistry, module_id: str) -> list[str]:
+    """The module's playable exercises a question draw may pick: all but its cases."""
+    return [e for e in registry.playable_module_exercises(module_id) if registry.case_config(e) is None]
+
+
+def question_pool(registry: CourseRegistry, scope: Scope) -> list[PoolQuestion]:
+    """Every distinct question under the scope, in course order; cases are drawn only by a case part."""
     pool: list[PoolQuestion] = []
-    for exercise_id in registry.scope_exercise_ids(level, target):
+    for exercise_id in _exercise_ids(registry, scope):
         config = registry.get_exercise_config(exercise_id)
         if config is None or config[0] is ExerciseType.CASE:
             continue
@@ -134,7 +157,7 @@ def draw_per_module(registry: CourseRegistry, modules: list[str], rand: Rand) ->
     """One exercise per module, each with a fresh seed — choice then seed, module by module."""
     drawn: list[DrawnQuestion] = []
     for module_id in modules:
-        exercise_id = rand.choice(registry.playable_module_exercises(module_id))
+        exercise_id = rand.choice(_module_questions(registry, module_id))
         drawn.append(DrawnQuestion(exercise_id, rand.randbelow(SEED_SPACE)))
     return drawn
 
@@ -149,6 +172,44 @@ def draw_random(
     main, extra = sorted(picked[:counted]), sorted(picked[counted:])
     return [DrawnQuestion(pool[i].exercise_id, _seed_for(registry, pool[i], rand)) for i in main] + [
         DrawnQuestion(pool[i].exercise_id, _seed_for(registry, pool[i], rand), reserve=True) for i in extra
+    ]
+
+
+def draw_all(registry: CourseRegistry, pool: list[PoolQuestion], rand: Rand) -> list[DrawnQuestion]:
+    """Every question of the pool, in course order."""
+    return [DrawnQuestion(question.exercise_id, _seed_for(registry, question, rand)) for question in pool]
+
+
+def draw_composite(
+    registry: CourseRegistry, part: PresetPart, target: str | None, rand: Rand
+) -> list[DrawnQuestion]:
+    """Each source's questions, shuffled together; then `reserve` more from what the random sources left."""
+    counted: list[DrawnQuestion] = []
+    spare: list[PoolQuestion] = []
+    for number, entry in enumerate(part.draws, start=1):
+        scope = source_scope(entry.source, target)
+        if entry.draw == "per-module":
+            counted += draw_per_module(registry, per_module_scope(registry, scope), rand)
+            continue
+        pool = question_pool(registry, scope)
+        if entry.draw == "all":
+            counted += draw_all(registry, pool, rand)
+            continue
+        assert entry.questions is not None
+        if len(pool) < entry.questions:
+            raise DrawError(f"source {number} holds {len(pool)} questions; it needs {entry.questions}")
+        picked = _sample(rand, len(pool), entry.questions)
+        counted += [
+            DrawnQuestion(pool[i].exercise_id, _seed_for(registry, pool[i], rand)) for i in sorted(picked)
+        ]
+        chosen = set(picked)
+        spare += [question for i, question in enumerate(pool) if i not in chosen]
+    shuffled = [counted[i] for i in _sample(rand, len(counted), len(counted))]
+    if len(spare) < part.reserve:
+        raise DrawError(f"the sources leave {len(spare)} questions; the part needs {part.reserve} in reserve")
+    extra = sorted(_sample(rand, len(spare), part.reserve))
+    return shuffled + [
+        DrawnQuestion(spare[i].exercise_id, _seed_for(registry, spare[i], rand), reserve=True) for i in extra
     ]
 
 
@@ -172,28 +233,41 @@ def draw_cases(
 
 
 def draw_part(registry: CourseRegistry, part: PresetPart, target: str | None, rand: Rand) -> DrawnPart:
-    if part.source.cases:
+    if part.cases:
         assert part.choose is not None and part.questions is not None
         cases, questions = draw_cases(
             registry, case_pool(registry), part.choose, part.questions, part.reserve, rand
         )
         return DrawnPart(part.id, questions, cases)
-    level, named = source_level(part, target)
-    if part.draw == "per-module":
-        return DrawnPart(
-            part.id, draw_per_module(registry, per_module_scope(registry, level, named), rand), []
-        )
-    assert part.questions is not None
-    pool = question_pool(registry, level, named)
-    return DrawnPart(part.id, draw_random(registry, pool, part.questions, part.reserve, rand), [])
+    if part.sources is not None:
+        return DrawnPart(part.id, draw_composite(registry, part, target, rand), [])
+    entry = part.draws[0]
+    scope = source_scope(entry.source, target)
+    if entry.draw == "per-module":
+        return DrawnPart(part.id, draw_per_module(registry, per_module_scope(registry, scope), rand), [])
+    pool = question_pool(registry, scope)
+    if entry.draw == "all":
+        return DrawnPart(part.id, draw_all(registry, pool, rand), [])
+    assert entry.questions is not None
+    return DrawnPart(part.id, draw_random(registry, pool, entry.questions, part.reserve, rand), [])
+
+
+def _source_count(registry: CourseRegistry, entry: PartSource, target: str | None) -> int:
+    scope = source_scope(entry.source, target)
+    if entry.draw == "per-module":
+        return len(per_module_scope(registry, scope))
+    if entry.draw == "all":
+        return len(question_pool(registry, scope))
+    assert entry.questions is not None
+    return entry.questions
 
 
 def counted_questions(registry: CourseRegistry, part: PresetPart, target: str | None) -> int:
-    """How many questions the part counts: declared, or one per module with a bank for a per-module draw."""
-    if part.draw == "per-module":
-        return len(per_module_scope(registry, *source_level(part, target)))
-    assert part.questions is not None
-    return part.questions
+    """How many questions the part counts: declared, or what each source's draw mode takes, summed."""
+    if part.cases:
+        assert part.questions is not None
+        return part.questions
+    return sum(_source_count(registry, entry, target) for entry in part.draws)
 
 
 def preset_targets(registry: CourseRegistry, preset: ExamPreset) -> list[str]:
@@ -213,7 +287,7 @@ def pool_shortfalls(registry: CourseRegistry, preset: ExamPreset, target: str | 
     """Why the course cannot supply this preset (for `target`, if parametric); empty when it can."""
     problems: list[str] = []
     for part in preset.parts:
-        if part.source.cases:
+        if part.cases:
             assert part.choose is not None and part.questions is not None
             cases = case_pool(registry)
             if len(cases) < part.choose:
@@ -227,22 +301,43 @@ def pool_shortfalls(registry: CourseRegistry, preset: ExamPreset, target: str | 
                         f"part {part.id!r} needs {needed}"
                     )
             continue
-        level, named = source_level(part, target)
-        if part.draw == "per-module":
-            if not per_module_scope(registry, level, named):
-                problems.append(f"part {part.id!r} has no module with a bank")
+        problems += _source_shortfalls(registry, part, target)
+        counted = counted_questions(registry, part, target)
+        if part.scoring is not None and counted and part.scoring.minimum_raw >= counted:
+            problems.append(f"part {part.id!r}: minimum_raw must be below the maximum raw score {counted}")
+    return problems
+
+
+def _source_shortfalls(registry: CourseRegistry, part: PresetPart, target: str | None) -> list[str]:
+    """Why a question part's sources cannot supply it: a short pool, two sources sharing questions, or
+    too little left over for the reserve."""
+    problems: list[str] = []
+    composite = part.sources is not None
+    pools: list[set[PoolQuestion]] = []
+    spare = 0
+    for number, entry in enumerate(part.draws, start=1):
+        label = f"part {part.id!r}" + (f" source {number}" if composite else "")
+        scope = source_scope(entry.source, target)
+        pool = question_pool(registry, scope)
+        pools.append(set(pool))
+        if entry.draw == "per-module":
+            if not per_module_scope(registry, scope):
+                problems.append(f"{label} has no module with a bank")
             continue
-        assert part.questions is not None
-        available = len(question_pool(registry, level, named))
-        if available < part.questions + part.reserve:
-            problems.append(
-                f"part {part.id!r} needs {part.questions + part.reserve} questions; "
-                f"the pool holds {available}"
-            )
-        if part.scoring is not None and part.scoring.minimum_raw >= part.questions:
-            problems.append(
-                f"part {part.id!r}: minimum_raw must be below the maximum raw score {part.questions}"
-            )
+        if entry.draw == "all":
+            if not pool:
+                problems.append(f"{label} draws every question of an empty pool")
+            continue
+        assert entry.questions is not None
+        needed = entry.questions + (0 if composite else part.reserve)
+        if len(pool) < needed:
+            problems.append(f"{label} needs {needed} questions; the pool holds {len(pool)}")
+        spare += max(len(pool) - entry.questions, 0)
+    for first, second in combinations(range(len(pools)), 2):
+        if pools[first] & pools[second]:
+            problems.append(f"part {part.id!r}: sources {first + 1} and {second + 1} share questions")
+    if composite and spare < part.reserve:
+        problems.append(f"part {part.id!r} needs {part.reserve} reserve questions; its sources leave {spare}")
     return problems
 
 

@@ -77,9 +77,7 @@ def readme_text(summary: dict, domain: dict) -> str:
     """The spec as the Android repository reads it — it has no access to this repo's scripts."""
     functions = summary["functions"]
     environment = summary["environment"]
-    rows = "\n".join(
-        f"| `{name}` | {what} |" for _source, name, what in DELIVERED
-    )
+    rows = "\n".join(f"| `{name}` | {what} |" for _source, name, what in DELIVERED)
     per_function = "\n".join(
         f"| `{fn}` | {functions[fn]['calls']:,} | {functions[fn]['distinct_inputs']:,} | "
         f"{domain['domains'][fn]['min']!r} | {domain['domains'][fn]['max']!r} |"

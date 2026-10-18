@@ -117,6 +117,7 @@ def test_integers_and_choice_read_the_32_bit_generator_whatever_the_dtype_says()
     comes out of the buffered half of a 64-bit word. A port reading it from `next_uint64` produces
     correct chart noise and the wrong label on every seed.
     """
+
     def buffer_after(call: Any) -> tuple[int, bool]:
         generator = np.random.default_rng(VECTOR_SEEDS[0])
         generator.integers(0, 10, dtype=np.uint32)  # fill the buffer

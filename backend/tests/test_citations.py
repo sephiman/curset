@@ -19,8 +19,12 @@ from httpx import AsyncClient
 
 from conftest import FIXTURE_CONTENT
 from pipeline_courses import course_dir, pipeline_courses
-from tradeschool.citations.grammar import parse_segment
-from tradeschool.citations.sources import INDEX_FILE, SourceIndex, sha256
+from tradeschool.citations.course import CourseCitations
+from tradeschool.citations.grammar import parentheticals, parse_segment
+from tradeschool.citations.lesson import scan_lesson
+from tradeschool.citations.norms import NormIndex
+from tradeschool.citations.sources import INDEX_FILE, SourceIndex, index_pdf_pages, sha256
+from tradeschool.content.esquema import parse_esquemas
 from tradeschool.content.registry import ContentError, CourseRegistry, load_registry
 
 OPOS = "/api/courses/fixture-oposiciones"
@@ -58,6 +62,39 @@ def _linked_courses() -> list[CourseRegistry]:
         ("apartado 2.4.a) Resolución de 14-04-2026", ["apartado-2"], "Resolución de 14-04-2026"),
         ("preámbulo CE", ["preambulo"], "CE"),
         ("arts. 137\u2013139", ["art-137", "art-139"], ""),
+        ("art. 21.C) RD 1009/2023", ["art-21"], "RD 1009/2023"),
+        ("art. 23.Uno.B) Ley 31/2022", ["art-23"], "Ley 31/2022"),
+        ("arts. 23.2 y 24.1\u20132 Ley 19/2013", ["art-23", "art-24"], "Ley 19/2013"),
+        ("arts. 30.2\u20133 y 68.1 LPAC", ["art-30", "art-68"], "LPAC"),
+        ("arts. 24.1\u201324.2 Ley 19/2013", ["art-24"], "Ley 19/2013"),
+        ("arts. 23.2, 24.1\u20132 y 25 Ley 19/2013", ["art-23", "art-24", "art-25"], "Ley 19/2013"),
+        ("arts. 12.1\u201313.2 LPAC", ["art-12", "art-13"], "LPAC"),
+        ("regla 34 IOC", ["regla-34"], "IOC"),
+        ("regla 34.II.a.1 IOC", ["regla-34"], "IOC"),
+        ("regla 42.2.b) IOC", ["regla-42"], "IOC"),
+        ("regla 59 bis IOC", ["regla-59-bis"], "IOC"),
+        ("regla 77.1\u20132 IOC", ["regla-77"], "IOC"),
+        (
+            "apartado sexto.1 Orden de documentos contables",
+            ["apartado-sexto"],
+            "Orden de documentos contables",
+        ),
+        (
+            "apartado s\u00e9ptimo.1.1\u20131.2 Orden PRE/1576/2002",
+            ["apartado-septimo"],
+            "Orden PRE/1576/2002",
+        ),
+        ("apartado d\u00e9cimo Orden PRE/1576/2002", ["apartado-decimo"], "Orden PRE/1576/2002"),
+        (
+            "nota 34 anexo I Orden de documentos contables",
+            ["anexo-i-nota-34"],
+            "Orden de documentos contables",
+        ),
+        (
+            "anexo I, nota 34.II.a.1, Orden de documentos contables",
+            ["anexo-i-nota-34"],
+            ", Orden de documentos contables",
+        ),
     ],
 )
 def test_a_segment_cites_the_units_it_names_as_written(written: str, units: list[str], norm: str) -> None:
@@ -70,6 +107,127 @@ def test_a_segment_cites_the_units_it_names_as_written(written: str, units: list
 def test_a_segment_without_a_lead_is_prose() -> None:
     assert parse_segment("m05-l05") is None
     assert parse_segment("véase el tema anterior") is None
+    assert parse_segment("regla general") is None
+    assert parse_segment("nota del BOE al art. 29 Ley 30/1984") is None
+
+
+@pytest.mark.parametrize(
+    ("text", "inner"),
+    [
+        (
+            "(art. 21.C) Real Decreto 1009/2023, de 5 de diciembre).",
+            "art. 21.C) Real Decreto 1009/2023, de 5 de diciembre",
+        ),
+        ("(art. 23.Uno.B) Ley 31/2022) y más", "art. 23.Uno.B) Ley 31/2022"),
+        ("(art. 23.Uno.B)\u2013D) Ley 31/2022).", "art. 23.Uno.B)\u2013D) Ley 31/2022"),
+        ("(art. 159.4.f) LCSP).", "art. 159.4.f) LCSP"),
+        ("(art. 8.1.a)\u2013b) RDL 4/2000). Estos", "art. 8.1.a)\u2013b) RDL 4/2000"),
+        # A capital after a space is a word, not a paragraph letter: «(… título I) Siguiente».
+        ("(art. 2 TUE, título I) Siguiente frase.", "art. 2 TUE, título I"),
+    ],
+)
+def test_a_paragraph_letter_and_its_paren_do_not_close_the_citation(text: str, inner: str) -> None:
+    assert [paren.inner for paren in parentheticals(text)] == [inner]
+
+
+def test_a_list_row_citation_may_end_in_a_letter_paragraph() -> None:
+    body = (
+        ':::esquema{kind=plazos title="Plazos"}\n'
+        "1. Garantía definitiva — siete días hábiles (art. 159.4.f) LCSP)\n"
+        "2. Adjudicación (anticipada) — quince días (art. 23.Uno.B) Ley 31/2022)\n"
+        ":::\n"
+    )
+    rows = parse_esquemas(body)[0].rows
+    assert [(row.fields, row.citation) for row in rows] == [
+        (("Garantía definitiva", "siete días hábiles"), "art. 159.4.f) LCSP"),
+        (("Adjudicación (anticipada)", "quince días"), "art. 23.Uno.B) Ley 31/2022"),
+    ]
+
+
+def test_rule_headings_ordinal_apartados_and_annex_notes_are_indexed_by_page() -> None:
+    pages = [
+        "Primero.  Ámbito de aplicación.\nRegla 34.  Establecimiento del sistema.",
+        "Sexto.  Delimitación.\nRegla 59 bis.  Pagos.\nANEXO I\n1. Oficina: el código.\n2. Código: x.",
+        "100. «Retención de crédito».\n3. Esta casilla se dejará en blanco.\n4. Signo: positivo.",
+        "34. Fecha del gasto: la de realización.\n1. Certificaciones: el día.\nANEXO II\n1. Otra nota.",
+    ]
+    units = index_pdf_pages(pages)
+    assert {
+        key: units[key] for key in ("regla-34", "regla-59-bis", "apartado-primero", "apartado-sexto")
+    } == {
+        "regla-34": 1,
+        "regla-59-bis": 2,
+        "apartado-primero": 1,
+        "apartado-sexto": 2,
+    }
+    notes = {key: page for key, page in units.items() if "-nota-" in key}
+    # Notes run 1, 2, 3, 4 … in order; a gap (5 to 33 here) stops the run, and each annex starts its own.
+    assert notes == {
+        "anexo-i-nota-1": 2,
+        "anexo-i-nota-2": 2,
+        "anexo-i-nota-3": 3,
+        "anexo-i-nota-4": 3,
+        "anexo-ii-nota-1": 4,
+    }
+
+
+def test_a_rule_of_a_non_article_source_opens_its_page_or_else_the_file(tmp_path: Path) -> None:
+    normativa = tmp_path / "normativa.yaml"
+    normativa.write_text(
+        yaml.safe_dump(
+            [
+                {
+                    "short": "Orden de 1 de febrero de 1996 (Instrucción de operatoria contable)",
+                    "aliases": ["IOC"],
+                    "title": "Orden de 1 de febrero de 1996 por la que se aprueba la Instrucción.",
+                    "boe_id": "BOE-A-1996-2627",
+                    "file": "sources/normativa/ioc.pdf",
+                },
+                {
+                    "short": "Orden de 1 de febrero de 1996 (documentos contables)",
+                    "aliases": ["Orden de documentos contables"],
+                    "title": "Orden de 1 de febrero de 1996 por la que se aprueban los documentos contables.",
+                    "boe_id": "BOE-A-1996-2749",
+                    "file": "sources/normativa/documentos.pdf",
+                },
+            ],
+            allow_unicode=True,
+        ),
+        encoding="utf-8",
+    )
+    lesson = (
+        "El ACF se establece por regla (regla 34.II.a.1 IOC). El documento es un ADOK "
+        "(apartado sexto.1 Orden de documentos contables). La fecha del gasto "
+        "(nota 34 anexo I Orden de documentos contables) y su signo (regla 35 IOC)."
+    )
+    norms = NormIndex.load(normativa, [lesson])
+    sources = SourceIndex(
+        {
+            "sources/normativa/ioc.pdf": {"units": {"regla-34": 16}},
+            "sources/normativa/documentos.pdf": {"units": {"apartado-sexto": 3, "anexo-i-nota-34": 15}},
+        }
+    )
+    citations = CourseCitations("c", norms, sources, {"es": {"l": scan_lesson("l", lesson, norms)}})
+    shipped = [(item["text"], item["ids"], item["href"]) for item in citations.lesson_payload("l", "es")]
+    assert shipped == [
+        (
+            "regla 34.II.a.1 IOC",
+            ["boe-a-1996-2627-regla-34"],
+            "/api/courses/c/sources/normativa/ioc.pdf#page=16",
+        ),
+        (
+            "apartado sexto.1 Orden de documentos contables",
+            ["boe-a-1996-2749-apartado-sexto"],
+            "/api/courses/c/sources/normativa/documentos.pdf#page=3",
+        ),
+        (
+            "nota 34 anexo I Orden de documentos contables",
+            ["boe-a-1996-2749-anexo-i-nota-34"],
+            "/api/courses/c/sources/normativa/documentos.pdf#page=15",
+        ),
+        # Not in the page index: the rule still names its norm and opens the file.
+        ("regla 35 IOC", ["boe-a-1996-2627-regla-35"], "/api/courses/c/sources/normativa/ioc.pdf"),
+    ]
 
 
 # --- the golden ------------------------------------------------------------------------------------

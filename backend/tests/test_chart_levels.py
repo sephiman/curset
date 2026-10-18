@@ -53,8 +53,14 @@ _CONTENT = Path(__file__).resolve().parents[2] / "content" / "crypto-futures"
 def _config(injector: str, targets: list[str], n: int = _N) -> PatternChartConfig:
     gen = PatternChartGenerator()
     return gen.parse_config(
-        {"type": "pattern_chart", "prompt": {"en": "x", "es": "x"}, "injector": injector,
-         "n": n, "targets": targets, "choices": list(get_injector(injector).labels)}
+        {
+            "type": "pattern_chart",
+            "prompt": {"en": "x", "es": "x"},
+            "injector": injector,
+            "n": n,
+            "targets": targets,
+            "choices": list(get_injector(injector).labels),
+        }
     )
 
 
@@ -312,7 +318,11 @@ def test_no_orphan_or_duplicate_level_lines(injector: str, label: str) -> None:
 def _series(highs: list[float], lows: list[float], closes: list[float]) -> Series:
     opens = [closes[0], *closes[:-1]]
     return Series(
-        time=list(range(len(closes))), open=opens, high=highs, low=lows, close=closes,
+        time=list(range(len(closes))),
+        open=opens,
+        high=highs,
+        low=lows,
+        close=closes,
         volume=[1.0] * len(closes),
     )
 
@@ -397,11 +407,7 @@ def test_no_two_figures_draw_the_same_level_price() -> None:
     for figure_id, panel in _figure_panels():
         for lvl in _levels(_panels(figure_id)[panel]):
             by_price.setdefault(_price(lvl), []).append(f"{figure_id}:{lvl['label']}")
-    shared = {
-        price: where
-        for price, where in by_price.items()
-        if len({w.split(":")[0] for w in where}) > 1
-    }
+    shared = {price: where for price, where in by_price.items() if len({w.split(":")[0] for w in where}) > 1}
     assert not shared, f"the same level price drawn by different figures: {shared}"
 
 
@@ -409,10 +415,16 @@ def test_every_injector_that_draws_a_level_is_covered() -> None:
     """Fails if the parametrised suites' discovery silently finds nothing."""
     drawn = {name for name, _label in _LEVEL_PAIRS}
     assert drawn >= {
-        "fakeout", "volume_confirmation", "wyckoff", "fibonacci", "candle_reaction",
+        "fakeout",
+        "volume_confirmation",
+        "wyckoff",
+        "fibonacci",
+        "candle_reaction",
         # ...and the figure injectors that draw lines: the m27 trade's four, the m19/m06 shelf, and the
         # m24 order pair (whose `plan` kinds still owe the discovered price/guard/no-orphan checks).
-        "trade_anatomy", "liquidity_sweep", "stop_limit_gap",
+        "trade_anatomy",
+        "liquidity_sweep",
+        "stop_limit_gap",
     }
     assert _figure_panels(), "no figure exposes a level — level rendering lost its figure coverage"
 

@@ -114,9 +114,7 @@ def test_format_number_swaps_separators_and_nothing_else(value: str, en: str, es
         ("1", "100%", "100%"),  # normalize() would render this 1E+2; it must not reach a reader
     ],
 )
-def test_format_percent_states_the_fraction_as_an_exchange_does(
-    fraction: str, en: str, es: str
-) -> None:
+def test_format_percent_states_the_fraction_as_an_exchange_does(fraction: str, en: str, es: str) -> None:
     assert format_percent(Decimal(fraction), "en") == en
     assert format_percent(Decimal(fraction), "es") == es
     assert " %" not in es, "ES percent spacing follows the funding lessons (0,05%), not the RAE"
@@ -168,9 +166,7 @@ def test_no_generated_string_carries_the_other_locales_number_form(
                 for text in texts:
                     if _states(foreign, text):
                         offenders.append(f"seed {seed} [{locale}] {name}: {foreign!r} in {text!r}")
-    assert not offenders, f"{exercise_id} prints the wrong locale's numbers:\n  " + "\n  ".join(
-        offenders[:5]
-    )
+    assert not offenders, f"{exercise_id} prints the wrong locale's numbers:\n  " + "\n  ".join(offenders[:5])
 
 
 @pytest.mark.parametrize(("exercise_id", "config"), CALCULATIONS, ids=IDS)
@@ -201,9 +197,7 @@ def test_the_answer_key_quotes_a_label_the_option_list_shows(
 
 
 @pytest.mark.parametrize(("exercise_id", "config"), CALCULATIONS, ids=IDS)
-def test_every_rate_reaches_the_prompt_as_a_percentage(
-    exercise_id: str, config: CalculationConfig
-) -> None:
+def test_every_rate_reaches_the_prompt_as_a_percentage(exercise_id: str, config: CalculationConfig) -> None:
     """A prompt states `0.05%`; the fraction `0.0005` the formula multiplies by never appears in it.
 
     The fraction still has to be reachable, which is what the worked solution's `rate = 0.05% =
@@ -237,29 +231,41 @@ def test_every_rate_reaches_the_prompt_as_a_percentage(
 
 #: One params dict per BRANCH of every formula's `explain`, so a phrase that only appears on the
 #: short side, the zero-delta case or the swing style is still exercised.
-BRANCHES: list[dict[str, object]] = [
-    {"entry": "20000", "leverage": "10", "mmr": "0.005", "side": side} for side in ("long", "short")
-] + [
-    {"notional": "70000", "rate": rate, "side": side}
-    for rate, side in (("0.0005", "long"), ("0.0005", "short"), ("0", "long"))
-] + [
-    {"entry": "41000", "quantity": "1", "leverage": "25"},
-    {"price": "3.5", "circulating": "1400"},
-    {"price": "3.5", "max_supply": "3000"},
-    {"equity": "60000", "risk_pct": "0.005", "stop_distance": "500"},
-    {"win_rate": "0.55", "avg_win": "200", "avg_loss": "360"},
-    {"price_a": "60000", "price_b": "60900"},
-] + [
-    {"entry": "35000", "exit": "30500", "quantity": "0.5", "side": side, "fee_rate": "0.0002"}
-    for side in ("long", "short")
-] + [
-    {"taker_buy": buy, "taker_sell": sell}
-    for buy, sell in (("1450", "600"), ("600", "1450"), ("600", "600"))
-] + [
-    {"notional": "31000", "gross_pct": "0.02", "style": style, "fee_rate": "0.0004",
-     "round_trips": "15", "funding_rate": "0.0001", "funding_intervals": "6"}
-    for style in ("scalper", "day", "swing")
-]
+BRANCHES: list[dict[str, object]] = (
+    [{"entry": "20000", "leverage": "10", "mmr": "0.005", "side": side} for side in ("long", "short")]
+    + [
+        {"notional": "70000", "rate": rate, "side": side}
+        for rate, side in (("0.0005", "long"), ("0.0005", "short"), ("0", "long"))
+    ]
+    + [
+        {"entry": "41000", "quantity": "1", "leverage": "25"},
+        {"price": "3.5", "circulating": "1400"},
+        {"price": "3.5", "max_supply": "3000"},
+        {"equity": "60000", "risk_pct": "0.005", "stop_distance": "500"},
+        {"win_rate": "0.55", "avg_win": "200", "avg_loss": "360"},
+        {"price_a": "60000", "price_b": "60900"},
+    ]
+    + [
+        {"entry": "35000", "exit": "30500", "quantity": "0.5", "side": side, "fee_rate": "0.0002"}
+        for side in ("long", "short")
+    ]
+    + [
+        {"taker_buy": buy, "taker_sell": sell}
+        for buy, sell in (("1450", "600"), ("600", "1450"), ("600", "600"))
+    ]
+    + [
+        {
+            "notional": "31000",
+            "gross_pct": "0.02",
+            "style": style,
+            "fee_rate": "0.0004",
+            "round_trips": "15",
+            "funding_rate": "0.0001",
+            "funding_intervals": "6",
+        }
+        for style in ("scalper", "day", "swing")
+    ]
+)
 
 
 def _steps(locale: str) -> list[tuple[str, str]]:
@@ -292,9 +298,7 @@ def test_no_worked_solution_prose_reaches_an_es_reader_in_english() -> None:
         for formula_id, line in spanish:
             if stem_en in line:
                 leaks.append(f"{formula_id}: {stem_en!r} still in {line!r}")
-        assert any(stem_es in line for _f, line in spanish), (
-            f"no ES worked solution ever says {phrase.es!r}"
-        )
+        assert any(stem_es in line for _f, line in spanish), f"no ES worked solution ever says {phrase.es!r}"
     assert not leaks, "English prose in an ES worked solution:\n  " + "\n  ".join(leaks)
 
 
@@ -322,9 +326,7 @@ def test_a_unit_that_is_a_word_is_declared_in_both_languages(
         return
     en, es = config.unit.get("en"), config.unit.get("es")
     assert en and es, f"{exercise_id}: unit is missing a language"
-    assert en != es, (
-        f"{exercise_id}: unit is {en!r} in both languages — declare it as a bare string instead"
-    )
+    assert en != es, f"{exercise_id}: unit is {en!r} in both languages — declare it as a bare string instead"
     for locale in LOCALES:
         payload = get_generator(ExerciseType.CALCULATION).generate(config, 1, locale).payload
         assert payload["unit"] == config.unit.get(locale), f"{exercise_id} [{locale}]"

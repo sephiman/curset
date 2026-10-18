@@ -35,8 +35,15 @@ _ALL = (*_SHAPE_LABELS, *_POSITION_LABELS)
 def _config(targets: list[str], n: int = _N) -> PatternChartConfig:
     gen = PatternChartGenerator()
     return gen.parse_config(
-        {"type": "pattern_chart", "prompt": {"en": "x", "es": "x"}, "injector": _INJECTOR,
-         "n": n, "indicator": "none", "targets": targets, "choices": list(get_injector(_INJECTOR).labels)}
+        {
+            "type": "pattern_chart",
+            "prompt": {"en": "x", "es": "x"},
+            "injector": _INJECTOR,
+            "n": n,
+            "indicator": "none",
+            "targets": targets,
+            "choices": list(get_injector(_INJECTOR).labels),
+        }
     )
 
 
@@ -281,8 +288,14 @@ def _figure_panel(target: str, seed: int, n: int = 160) -> dict:
             "id": "fig-test-timeframes",
             "caption": {"en": "x", "es": "x"},
             "panels": [
-                {"generator": "pattern_chart", "injector": _INJECTOR, "target": target,
-                 "seed": seed, "n": n, "indicator": "none"}
+                {
+                    "generator": "pattern_chart",
+                    "injector": _INJECTOR,
+                    "target": target,
+                    "seed": seed,
+                    "n": n,
+                    "indicator": "none",
+                }
             ],
         }
     )

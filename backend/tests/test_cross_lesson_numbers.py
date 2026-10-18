@@ -44,10 +44,7 @@ def _reused_values() -> list[float]:
     coupling = yaml.safe_load(
         (get_settings().content_dir / "crypto-futures" / "figure-coupling.yaml").read_text(encoding="utf-8")
     )
-    anchors = {
-        a["what"]: a["prose"]
-        for a in coupling["figures"]["fig-m06-liquidation-cascade"]["anchors"]
-    }
+    anchors = {a["what"]: a["prose"] for a in coupling["figures"]["fig-m06-liquidation-cascade"]["anchors"]}
     shelf = float(anchors["level:shelf"])
     wick = float(anchors["low:120"])
     return [shelf, round(shelf * _LIQ_FACTOR_10X, 2), wick]

@@ -120,9 +120,7 @@ def test_print_seed_is_stable_and_derived_from_the_id() -> None:
 def test_print_seed_is_the_same_in_a_fresh_process() -> None:
     """Needs a subprocess: `hash()` is salted per process, so in-process stability proves nothing."""
     code = "from tradeschool.content.print_export import print_seed; print(print_seed('m12-ex-1'))"
-    out = subprocess.run(
-        [sys.executable, "-c", code], capture_output=True, text=True, check=True
-    ).stdout
+    out = subprocess.run([sys.executable, "-c", code], capture_output=True, text=True, check=True).stdout
     assert int(out.strip()) == print_seed("m12-ex-1")
 
 
@@ -324,7 +322,13 @@ def test_dummy_answers_are_accepted_by_every_quiz_sub_kind(locale: str) -> None:
         generator.grade(config, exercise["seed"], dummy_answer(exercise["payload"]), locale)
         kinds.add(exercise["answer"]["kind"])
     every_kind = {
-        "single_choice", "true_false", "multi_select", "ordering", "matching", "calculation", "chart"
+        "single_choice",
+        "true_false",
+        "multi_select",
+        "ordering",
+        "matching",
+        "calculation",
+        "chart",
     }
     assert every_kind <= kinds
 

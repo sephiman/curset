@@ -4,7 +4,8 @@
 The page index is built once, at generation time, by `scripts/index_sources.py` into the course's
 `source-index.json` (sha256 per file, so a stale index is caught); serving only reads it. A unit is
 found by the heading the consolidated text prints for it: «Artículo 67.», «Disposición adicional
-cuarta.», «Preámbulo», «ANEXO I».
+cuarta.», «Preámbulo», «ANEXO I», «Regla 34.», «Sexto.» (an apartado of an orden). An annex's notes
+(«34. Fecha del gasto: …») are its numbered lines in an unbroken run from 1.
 """
 
 from __future__ import annotations
@@ -15,7 +16,7 @@ import re
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from tradeschool.citations.grammar import LATIN, Unit
+from tradeschool.citations.grammar import LATIN, ORDINAL_WORD, Unit
 
 INDEX_FILE = "source-index.json"
 SERVED_FOLDERS = ("normativa", "otros")
@@ -31,10 +32,13 @@ _HEADINGS: tuple[tuple[re.Pattern[str], str], ...] = (
     ),
     (re.compile(r"^\s*(PRE[ÁA]MBULO|Pre[áa]mbulo)\b"), "preambulo"),
     (re.compile(r"^\s*ANEXO(?:\s+([IVXL]+|\d+|ÚNICO))?\b"), "anexo"),
+    (re.compile(rf"^\s*Regla\s+(\d+)(?:\s+({LATIN}))?\."), "regla"),
+    (re.compile(rf"^\s*({ORDINAL_WORD})\.\s+[A-ZÁÉÍÓÚ]", re.I), "apartado"),
 )
 _DISPOSICION = {"adicional": "da", "transitoria": "dt", "final": "df", "derogatoria": "dd"}
 # An index page lists its entries with dot leaders and a page number; its headings are not the units.
 _LEADER = re.compile(r"(\.\s?){4,}\s*\d+\s*$")
+_NUMBERED_LINE = re.compile(r"^\s*(\d{1,3})\.\s")
 
 
 def heading_unit(line: str) -> Unit | None:
@@ -50,6 +54,10 @@ def heading_unit(line: str) -> Unit | None:
             return Unit(_DISPOSICION[match[1].lower()], "" if ordinal in ("de", "del") else ordinal)
         if kind == "anexo":
             return Unit("anexo", (match[1] or "").lower())
+        if kind == "regla":
+            return Unit("regla", f"{match[1]} {match[2]}" if match[2] else match[1])
+        if kind == "apartado":
+            return Unit("apartado", match[1].lower())
         return Unit("preambulo")
     return None
 
@@ -57,6 +65,8 @@ def heading_unit(line: str) -> Unit | None:
 def index_pdf_pages(pages: list[str]) -> dict[str, int]:
     """unit slug → first page (1-based) whose body opens it; index pages are skipped."""
     units: dict[str, int] = {}
+    annex: Unit | None = None
+    next_note = 1
     for number, text in enumerate(pages, start=1):
         lines = text.splitlines()
         if sum(1 for line in lines if _LEADER.search(line)) >= 3:
@@ -65,6 +75,12 @@ def index_pdf_pages(pages: list[str]) -> dict[str, int]:
             unit = heading_unit(line)
             if unit is not None:
                 units.setdefault(unit.slug, number)
+                annex, next_note = (unit, 1) if unit.kind == "anexo" else (annex, next_note)
+                continue
+            note = _NUMBERED_LINE.match(line)
+            if annex is not None and note is not None and int(note[1]) == next_note:
+                units.setdefault(Unit("nota", note[1], annex).slug, number)
+                next_note += 1
     return units
 
 

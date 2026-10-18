@@ -1,9 +1,10 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 """Exam presets end to end on the Spanish-only fixture course (delta A, B3, D).
 
-Its «Simulacro» is the acceptance preset: part 1 draws 70 questions (+2 reserve) from the whole course,
-part 2 offers two cases of 20 and grades the one marked, 100 minutes, a third off per wrong answer,
-blanks free, 0 to 50 per part with the pass minimum at 25, part 2 graded only if part 1 reaches it.
+Its «Simulacro» is the acceptance preset: part 1 draws 40 questions from module m01 and 30 from m02
+shuffled into one part (+2 reserve; the AGE «40 from bloques I to V + 30 from bloque VI», A8), part 2
+offers two cases of 20 and grades the one marked, 100 minutes, a third off per wrong answer, blanks
+free, 0 to 50 per part with the pass minimum at 25, part 2 graded only if part 1 reaches it.
 """
 
 from __future__ import annotations
@@ -138,10 +139,51 @@ async def test_the_simulacro_draws_its_parts_offers_two_cases_and_runs_on_a_cloc
     async with get_sessionmaker()() as session:
         stored = await session.get(ExamSession, uuid.UUID(str(exam["id"])))
         assert stored is not None
-        assert stored.rules["presetId"] == "simulacro" and stored.rules["presetVersion"] == 1
+        assert stored.rules["presetId"] == "simulacro" and stored.rules["presetVersion"] == 2
         assert (stored.created_at + timedelta(minutes=100)).isoformat()[:19] == str(exam["deadline"])[:19]
     # Nothing is revealed while it runs: no answers, no lesson links.
     assert all(q["correctAnswer"] is None and q["lessonAnchor"] is None for q in exam["questions"])  # type: ignore[union-attr]
+
+
+def _module(exercise_id: str) -> str:
+    return exercise_id.split("-")[0]
+
+
+async def test_a_composite_part_draws_each_sources_count_shuffled_into_one_part(
+    multi_client: AsyncClient,
+) -> None:
+    await _sign_up(multi_client, "composite")
+    exam = await _start_simulacro(multi_client)
+    questions = [q for q in exam["questions"] if q["partId"] == "parte-1"]  # type: ignore[union-attr]
+    counted = [_module(q["exerciseId"]) for q in questions if not q["reserve"]]
+    assert (counted.count("m01"), counted.count("m02")) == (40, 30)
+    # Shuffled together, not one source after the other: m02 questions sit among the first forty.
+    assert "m02" in counted[:40] and "m01" in counted[40:]
+    # One part: one clock, one score row, the reserves still last.
+    assert [part["id"] for part in exam["parts"]] == ["parte-1", "parte-2"]  # type: ignore[index]
+    assert [q["reserve"] for q in questions] == [False] * 70 + [True] * 2
+    presets = (await multi_client.get(f"{OPOS}/exams/presets")).json()
+    assert presets[0]["parts"][0]["questions"] == 70
+
+
+async def test_results_by_lesson_attribute_each_composite_question_to_its_lesson(
+    multi_client: AsyncClient, registry: CourseRegistry
+) -> None:
+    await _sign_up(multi_client, "attributor")
+    exam = await _start_simulacro(multi_client)
+    counted = [q for q in exam["questions"] if q["partId"] == "parte-1" and not q["reserve"]]  # type: ignore[union-attr]
+    expected: dict[str, int] = {}
+    for question in counted:
+        lesson_id = registry.question_lesson_id(question["exerciseId"], None)
+        assert lesson_id is not None
+        expected[lesson_id] = expected.get(lesson_id, 0) + 1
+    submitted = (await multi_client.post(f"{OPOS}/exams/{exam['id']}/submit")).json()
+    table = submitted["byLesson"]
+    rows = {row["lessonId"]: row for group in table["groups"] for row in group["lessons"]}
+    # Part 2 is not graded (all blank), so the table holds part 1 alone, each question under its lesson.
+    assert {lesson_id: row["questions"] for lesson_id, row in rows.items()} == expected
+    assert {group["moduleId"]: group["questions"] for group in table["groups"]} == {"m01": 40, "m02": 30}
+    assert submitted["result"]["parts"][0]["questions"] == 70
 
 
 async def test_only_the_marked_case_is_graded_and_scores_raw_and_transformed(

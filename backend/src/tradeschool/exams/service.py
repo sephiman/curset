@@ -316,12 +316,12 @@ def _parts_view(
             config = registry.case_config(exercise_id)
             if config is not None:
                 cases.append(ExamCaseView(exercise_id, config.title.get(locale), config.scenario.get(locale)))
-        counted = part.questions if part.source.cases else sum(1 for reserve in placed if not reserve)
+        counted = part.questions if part.cases else sum(1 for reserve in placed if not reserve)
         views.append(
             ExamPartView(
                 id=part.id,
                 title=part.title.get(locale) if part.title else None,
-                kind="cases" if part.source.cases else "questions",
+                kind="cases" if part.cases else "questions",
                 counted=counted or 0,
                 reserve=part.reserve,
                 choose=part.choose,

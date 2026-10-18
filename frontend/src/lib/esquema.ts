@@ -50,7 +50,42 @@ declare module "mdast" {
 }
 
 const SEPARATOR = " — ";
-const TRAILING_CITATION = /\s*\(([^()]*(?:\([^()]*\)[^()]*)*)\)\s*$/;
+const CONTINUES =
+  /^(?:\s+[ye]\s+[a-zñ\d]|\s*,\s*[a-zñ\d]|\s+[A-ZÁÉÍÓÚ]|\s+(?:del|de)\s|\.\d|\s+bis\b|\s*[\u2013-]\s*[A-Za-zñ]\))/;
+
+/** Whether the «)» at `at` closes a paragraph letter («f)», «21.C)») and the citation goes on (as `grammar.py`). */
+function letterParenContinues(text: string, at: number): boolean {
+  if (at < 2) return false;
+  const letter = text[at - 1];
+  const before = text[at - 2];
+  const lower = /[a-zñ]/.test(letter) && ". \n\u2013-".includes(before);
+  const upper = /[A-Z]/.test(letter) && ".\u2013-".includes(before);
+  return (lower || upper) && CONTINUES.test(text.slice(at + 1, at + 40));
+}
+
+/** Where the parenthetical whose inside starts at `start` closes. */
+function closeAt(text: string, start: number): number {
+  let depth = 0;
+  for (let cursor = start; cursor < text.length; cursor++) {
+    const char = text[cursor];
+    if (char === "(") depth++;
+    else if (char === ")") {
+      if (depth) depth--;
+      else if (!letterParenContinues(text, cursor)) return cursor;
+    }
+  }
+  return text.length;
+}
+
+/** The «(cita)» that closes at the very end of `text`: where its «(» is and its inside. */
+function trailingCitation(text: string): { open: number; inner: string } | null {
+  const end = text.trimEnd().length - 1;
+  if (end < 0 || text[end] !== ")") return null;
+  for (let open = text.indexOf("("); open >= 0; open = text.indexOf("(", open + 1)) {
+    if (closeAt(text, open + 1) === end) return { open, inner: text.slice(open + 1, end) };
+  }
+  return null;
+}
 
 function cell(role: EsquemaCellRole, children: PhrasingContent[]): EsquemaCellNode {
   return { type: "esquemaCell", role, children, data: { hName: "span", hProperties: { "data-esquema-cell": role } } };
@@ -76,11 +111,11 @@ function fields(content: PhrasingContent[]): PhrasingContent[][] {
 function splitCitation(last: PhrasingContent[]): PhrasingContent[] {
   const tail = last[last.length - 1];
   if (!tail || tail.type !== "text") return [];
-  const match = TRAILING_CITATION.exec(tail.value);
-  if (!match) return [];
-  tail.value = tail.value.slice(0, match.index);
+  const cited = trailingCitation(tail.value);
+  if (!cited) return [];
+  tail.value = tail.value.slice(0, cited.open).trimEnd();
   if (!tail.value) last.pop();
-  return [{ type: "text", value: match[1] } as Text];
+  return [{ type: "text", value: cited.inner } as Text];
 }
 
 function rows(list: List, kind: Exclude<EsquemaKind, "tabla">, depth: number): EsquemaRowNode[] {

@@ -48,8 +48,14 @@ Payload = dict[str, object]
 def _config(injector: str, targets: list[str], n: int = _N) -> PatternChartConfig:
     gen = PatternChartGenerator()
     return gen.parse_config(
-        {"type": "pattern_chart", "prompt": {"en": "x", "es": "x"}, "injector": injector,
-         "n": n, "targets": targets, "choices": list(get_injector(injector).labels)}
+        {
+            "type": "pattern_chart",
+            "prompt": {"en": "x", "es": "x"},
+            "injector": injector,
+            "n": n,
+            "targets": targets,
+            "choices": list(get_injector(injector).labels),
+        }
     )
 
 
@@ -221,9 +227,12 @@ def test_the_margins_are_load_bearing_and_not_decoration() -> None:
     assert len(dg.touches(f.series, d, lo, hi, margin=0.0001)) < 3
     # ...and a line moved bodily through the price action is not respected at any margin.
     through = Diagonal(
-        start=d.start, end=d.end,
-        start_price=d.start_price * 1.03, end_price=d.end_price * 1.03,
-        label=d.label, kind=d.kind,
+        start=d.start,
+        end=d.end,
+        start_price=d.start_price * 1.03,
+        end_price=d.end_price * 1.03,
+        label=d.label,
+        kind=d.kind,
     )
     assert not dg.respected(f.series, through, lo, hi)
 
@@ -234,8 +243,12 @@ def test_touches_count_visits_and_not_bars() -> None:
 
     closes = [100.0] * 6 + [110.0] * 20 + [100.0] * 6
     series = Series(
-        time=list(range(len(closes))), open=list(closes), high=list(closes), low=list(closes),
-        close=closes, volume=[1.0] * len(closes),
+        time=list(range(len(closes))),
+        open=list(closes),
+        high=list(closes),
+        low=list(closes),
+        close=closes,
+        volume=[1.0] * len(closes),
     )
     flat = Diagonal(start=0, end=len(closes) - 1, start_price=100.0, end_price=100.0, kind="support")
     assert dg.touches(series, flat, 0, len(closes)) == [0, 26]
@@ -257,8 +270,14 @@ def _decided(result: PatternResult, label: str) -> Diagonal:
 
 @pytest.mark.parametrize(
     ("label", "settles_beyond"),
-    [("line_holds", False), ("line_break", True), ("line_fakeout", False),
-     ("channel_intact", False), ("channel_broken", True), ("channel_failed", True)],
+    [
+        ("line_holds", False),
+        ("line_break", True),
+        ("line_fakeout", False),
+        ("channel_intact", False),
+        ("channel_broken", True),
+        ("channel_failed", True),
+    ],
 )
 def test_trend_channel_settles_on_the_side_its_label_claims(label: str, settles_beyond: bool) -> None:
     """Where the chart ENDS up is the answer: through the line, or back on the inside of it."""
@@ -281,9 +300,14 @@ def test_trend_channel_settles_on_the_side_its_label_claims(label: str, settles_
 def test_a_fakeout_closes_through_the_line_and_a_hold_never_does() -> None:
     """The distinction the whole trio exists for, on the BODY — a wick through a diagonal is nothing."""
     inj = get_injector("trend_channel")
-    for label, must_close_through in (("line_holds", False), ("line_fakeout", True),
-                                      ("line_break", True), ("channel_intact", False),
-                                      ("channel_broken", True), ("channel_failed", True)):
+    for label, must_close_through in (
+        ("line_holds", False),
+        ("line_fakeout", True),
+        ("line_break", True),
+        ("channel_intact", False),
+        ("channel_broken", True),
+        ("channel_failed", True),
+    ):
         config = _config("trend_channel", [label])
         for seed in range(_SEEDS):
             result = inj.build(np.random.default_rng(seed), _N, label)
@@ -359,9 +383,7 @@ def test_the_diagonal_family_ships_both_directions() -> None:
     """
     inj = get_injector("trend_channel")
     for label in inj.labels:
-        kinds = {
-            inj.build(np.random.default_rng(seed), _N, label).diagonals[0].kind for seed in range(80)
-        }
+        kinds = {inj.build(np.random.default_rng(seed), _N, label).diagonals[0].kind for seed in range(80)}
         assert kinds == _KINDS, (
             f"trend_channel/{label} only ever draws a {kinds} line. This family is the documented "
             f"exception to the bull-only guard in test_chart_bands.py §3b — it is bidirectional "
@@ -413,10 +435,9 @@ def test_the_lines_converge_monotonically_except_for_the_control(label: str) -> 
     for seed in range(120):
         result = inj.build(np.random.default_rng(seed), _N, label)
         upper, lower = result.diagonals
-        span = np.array([
-            dg.price_at(upper, i) - dg.price_at(lower, i)
-            for i in range(upper.start, upper.end + 1)
-        ])
+        span = np.array(
+            [dg.price_at(upper, i) - dg.price_at(lower, i) for i in range(upper.start, upper.end + 1)]
+        )
         assert float(span.min()) > 0, f"seed {seed}: {label} lines crossed"
         ratio = float(span[-1] / span[0])
         if label == "parallel_channel":
@@ -444,7 +465,7 @@ def _bar_range_ratio(label: str, seeds: int = 120) -> float:
 
 @pytest.mark.parametrize("label", [s for s in _SHAPE_LABELS if s != "parallel_channel"])
 def test_the_candles_narrow_with_the_lines(label: str) -> None:
-    """"Each bar's range narrows" (m15-l2) is a claim about the CANDLES, so it is checked on them.
+    """ "Each bar's range narrows" (m15-l2) is a claim about the CANDLES, so it is checked on them.
 
     The lines are linear by construction, so their own convergence is arithmetic and the test above is
     nearly a tautology. This is the half that can actually be false, and was: at the original width the
@@ -574,8 +595,12 @@ def test_a_figure_diagonal_is_still_the_line_the_injector_drew(figure_id: str, p
         # closes and the wicks dip through it. Requiring a wick to straddle the line would be asserting
         # the criterion the lesson explicitly did not choose.
         series = Series(
-            time=list(range(len(s["close"]))), open=s["open"], high=s["high"], low=s["low"],
-            close=s["close"], volume=s["volume"],
+            time=list(range(len(s["close"]))),
+            open=s["open"],
+            high=s["high"],
+            low=s["low"],
+            close=s["close"],
+            volume=s["volume"],
         )
         visits = dg.touches(series, line, start, pre)
         assert len(visits) >= 3, (
@@ -625,8 +650,12 @@ def _held_instance(seed: int = 4) -> tuple[Series, Diagonal, int, int]:
 def _with_closes(series: Series, closes: list[float]) -> Series:
     """The same candles with a different close path — bodies moved, wicks left where they were."""
     return Series(
-        time=list(series.time), open=list(series.open), high=list(series.high),
-        low=list(series.low), close=closes, volume=list(series.volume),
+        time=list(series.time),
+        open=list(series.open),
+        high=list(series.high),
+        low=list(series.low),
+        close=closes,
+        volume=list(series.volume),
     )
 
 
@@ -659,9 +688,12 @@ def test_the_respect_contract_fails_when_the_line_was_never_touched() -> None:
     # 4% further onto the untraded side: too far to touch, and still never closed through.
     away = 0.96 if d.kind == "resistance" else 1.04
     lifted = Diagonal(
-        start=d.start, end=d.end,
-        start_price=round(d.start_price / away, 2), end_price=round(d.end_price / away, 2),
-        label=d.label, kind=d.kind,
+        start=d.start,
+        end=d.end,
+        start_price=round(d.start_price / away, 2),
+        end_price=round(d.end_price / away, 2),
+        label=d.label,
+        kind=d.kind,
     )
     assert dg.worst_breach(series, lifted, lo, hi) <= dg.BREACH_MARGIN, "still not breached..."
     assert len(dg.touches(series, lifted, lo, hi)) < 3, "...and no longer validated"

@@ -21,6 +21,8 @@ import re
 from dataclasses import dataclass, field
 from typing import Literal
 
+from tradeschool.citations.grammar import trailing_parenthetical
+
 EsquemaKind = Literal["tabla", "plazos", "arbol", "pasos"]
 KINDS: tuple[EsquemaKind, ...] = ("tabla", "plazos", "arbol", "pasos")
 #: Label/detail fields of a list row, besides its citation.
@@ -32,7 +34,6 @@ _CLOSE = re.compile(r"^:::[ \t]*$")
 _ATTR = re.compile(r'(?P<key>[a-z]+)=(?:"(?P<quoted>[^"]*)"|(?P<bare>[^\s"]+))')
 _LIST_ITEM = re.compile(r"^(?P<indent>[ \t]*)(?:[-*+]|\d+\.)[ \t]+(?P<text>.*)$")
 _TABLE_RULE = re.compile(r"^\|?[ \t]*:?-{2,}:?[ \t]*(\|[ \t]*:?-{2,}:?[ \t]*)*\|?[ \t]*$")
-_TRAILING_CITATION = re.compile(r"\((?P<citation>[^()]*(?:\([^()]*\)[^()]*)*)\)\s*$")
 
 
 class EsquemaError(ValueError):
@@ -97,9 +98,9 @@ def _list(esquema: Esquema, lines: list[tuple[int, str]]) -> None:
                 raise EsquemaError(f"line {number}: an esquema row is one line")
             raise EsquemaError(f"line {number}: an esquema holds rows only, no free prose")
         body = item["text"].strip()
-        cited = _TRAILING_CITATION.search(body)
-        citation = cited["citation"].strip() if cited else ""
-        label = body[: cited.start()].strip() if cited else body
+        cited = trailing_parenthetical(body)
+        citation = cited.inner.strip() if cited else ""
+        label = body[: cited.start - 1].strip() if cited else body
         fields = tuple(part.strip() for part in label.split(FIELD_SEPARATOR))
         if not low <= len(fields) <= high:
             raise EsquemaError(

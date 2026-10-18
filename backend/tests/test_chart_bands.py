@@ -41,8 +41,14 @@ Payload = dict[str, object]
 def _config(injector: str, targets: list[str], n: int = _N) -> PatternChartConfig:
     gen = PatternChartGenerator()
     return gen.parse_config(
-        {"type": "pattern_chart", "prompt": {"en": "x", "es": "x"}, "injector": injector,
-         "n": n, "targets": targets, "choices": list(get_injector(injector).labels)}
+        {
+            "type": "pattern_chart",
+            "prompt": {"en": "x", "es": "x"},
+            "injector": injector,
+            "n": n,
+            "targets": targets,
+            "choices": list(get_injector(injector).labels),
+        }
     )
 
 
@@ -371,11 +377,7 @@ def test_the_band_is_the_span_crossed_inside_one_candle(label: str) -> None:
         assert hi - lo > GAP_FLOOR * s.close[g], f"seed {seed}: {label} span below the readable floor"
         # Exactly one candle covers it: the impulse. Any other bar with range inside the span would mean
         # the span was traded through more than once, and "almost nothing traded here" would be false.
-        crossers = [
-            j
-            for j in range(f.warmup, len(s.close))
-            if s.low[j] < hi and s.high[j] > lo
-        ]
+        crossers = [j for j in range(f.warmup, len(s.close)) if s.low[j] < hi and s.high[j] > lo]
         assert crossers[0] == g, f"seed {seed}: {label} something crossed the span before the impulse"
 
 

@@ -144,7 +144,7 @@ def _evaluate(name: str, bits: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
     for i, value in enumerate(inputs.tolist()):
         try:
             libm_out[i] = scalar(value)
-        except (ValueError, OverflowError):
+        except ValueError, OverflowError:
             # `math` raises where the ufunc returns NaN/inf; mirror the ufunc so the columns compare.
             with np.errstate(all="ignore"):
                 libm_out[i] = float(np.asarray(ufunc(np.float64(value))))
@@ -225,9 +225,7 @@ def _write_tsv(path: Path, rows: list[tuple[Measured, np.ndarray]], note: str) -
             np_out = m.numpy_out.view(np.float64)
             libm_out = m.libm_out.view(np.float64)
             for i in index.tolist():
-                fh.write(
-                    f"{m.name}\t{hex64(inputs[i])}\t{hex64(np_out[i])}\t{hex64(libm_out[i])}\n"
-                )
+                fh.write(f"{m.name}\t{hex64(inputs[i])}\t{hex64(np_out[i])}\t{hex64(libm_out[i])}\n")
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -235,12 +233,15 @@ def main(argv: list[str] | None = None) -> int:
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
     )
     parser.add_argument(
-        "--seeds", type=int, default=len(PROBE_SEEDS),
+        "--seeds",
+        type=int,
+        default=len(PROBE_SEEDS),
         help=f"probe seeds per injector kind (default {len(PROBE_SEEDS)}, the contract floor)",
     )
     parser.add_argument("--out", type=Path, default=ARTIFACT_DIR, help="artifact directory")
     parser.add_argument(
-        "--full", action="store_true",
+        "--full",
+        action="store_true",
         help=f"also write {FULL_NAME} — every distinct input, ~120 MB, NOT committed",
     )
     args = parser.parse_args(argv)

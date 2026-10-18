@@ -21,8 +21,14 @@ _PER = 90  # charts per label for the statistical tests
 def _config(injector: str, targets: list[str], choices: list[str]) -> object:
     gen = PatternChartGenerator()
     return gen.parse_config(
-        {"type": "pattern_chart", "prompt": {"en": "x", "es": "x"}, "injector": injector,
-         "n": 130, "targets": targets, "choices": choices}
+        {
+            "type": "pattern_chart",
+            "prompt": {"en": "x", "es": "x"},
+            "injector": injector,
+            "n": 130,
+            "targets": targets,
+            "choices": choices,
+        }
     )
 
 
@@ -84,8 +90,11 @@ def _fakeout_beyond(close: float, level: float, kind: str) -> bool:
 
 def test_fakeout_structure_matches_label() -> None:
     """Where price SETTLED relative to the level encodes the label, plus a false break's poke beyond."""
-    config = _config("fakeout", ["genuine_breakout", "false_break", "no_break"],
-                     ["genuine_breakout", "false_break", "no_break"])
+    config = _config(
+        "fakeout",
+        ["genuine_breakout", "false_break", "no_break"],
+        ["genuine_breakout", "false_break", "no_break"],
+    )
     seen = {"genuine_breakout": 0, "false_break": 0, "no_break": 0}
     for seed in range(60):
         label, _ann, payload = _instantiate(config, seed)  # type: ignore[arg-type]
@@ -143,8 +152,9 @@ def test_ma_context_structure_matches_label() -> None:
 
 
 def test_oscillator_reading_matches_label() -> None:
-    config = _config("oscillator_reading", ["overbought", "oversold", "neutral"],
-                     ["overbought", "oversold", "neutral"])
+    config = _config(
+        "oscillator_reading", ["overbought", "oversold", "neutral"], ["overbought", "oversold", "neutral"]
+    )
     seen = {"overbought": 0, "oversold": 0, "neutral": 0}
     for seed in range(60):
         label, _ann, payload = _instantiate(config, seed)  # type: ignore[arg-type]
@@ -218,8 +228,11 @@ def test_macd_cross_matches_label() -> None:
 
 
 def test_fibonacci_pullback_hits_labelled_level() -> None:
-    config = _config("fibonacci", ["retrace_382", "retrace_500", "retrace_618"],
-                     ["retrace_382", "retrace_500", "retrace_618"])
+    config = _config(
+        "fibonacci",
+        ["retrace_382", "retrace_500", "retrace_618"],
+        ["retrace_382", "retrace_500", "retrace_618"],
+    )
     seen = {"retrace_382": 0, "retrace_500": 0, "retrace_618": 0}
     for seed in range(60):
         label, _ann, payload = _instantiate(config, seed)  # type: ignore[arg-type]
@@ -241,8 +254,11 @@ def test_fibonacci_pullback_hits_labelled_level() -> None:
 
 
 def test_volume_confirmation_matches_label() -> None:
-    config = _config("volume_confirmation", ["confirmed_breakout", "unconfirmed_breakout"],
-                     ["confirmed_breakout", "unconfirmed_breakout"])
+    config = _config(
+        "volume_confirmation",
+        ["confirmed_breakout", "unconfirmed_breakout"],
+        ["confirmed_breakout", "unconfirmed_breakout"],
+    )
     seen = {"confirmed_breakout": 0, "unconfirmed_breakout": 0}
     for seed in range(60):
         label, _ann, payload = _instantiate(config, seed)  # type: ignore[arg-type]
@@ -263,8 +279,9 @@ def test_volume_confirmation_matches_label() -> None:
 
 
 def test_wyckoff_structure_matches_label() -> None:
-    config = _config("wyckoff", ["accumulation", "distribution", "none"],
-                     ["accumulation", "distribution", "none"])
+    config = _config(
+        "wyckoff", ["accumulation", "distribution", "none"], ["accumulation", "distribution", "none"]
+    )
     seen = {"accumulation": 0, "distribution": 0, "none": 0}
     for seed in range(60):
         label, _ann, payload = _instantiate(config, seed)  # type: ignore[arg-type]
@@ -294,8 +311,9 @@ def test_wyckoff_structure_matches_label() -> None:
 
 
 def test_derivatives_oi_matches_label() -> None:
-    config = _config("derivatives", ["rising_oi", "falling_oi", "flat_oi"],
-                     ["rising_oi", "falling_oi", "flat_oi"])
+    config = _config(
+        "derivatives", ["rising_oi", "falling_oi", "flat_oi"], ["rising_oi", "falling_oi", "flat_oi"]
+    )
     seen = {"rising_oi": 0, "falling_oi": 0, "flat_oi": 0}
     for seed in range(60):
         label, _ann, payload = _instantiate(config, seed)  # type: ignore[arg-type]
@@ -317,8 +335,14 @@ def test_derivatives_price_is_label_independent() -> None:
     seeds_price: dict[str, list[float]] = {}
     for label in ("rising_oi", "falling_oi", "flat_oi"):
         cfg = gen.parse_config(
-            {"type": "pattern_chart", "prompt": {"en": "x", "es": "x"}, "injector": "derivatives",
-             "n": 130, "targets": [label], "choices": ["rising_oi", "falling_oi", "flat_oi"]}
+            {
+                "type": "pattern_chart",
+                "prompt": {"en": "x", "es": "x"},
+                "injector": "derivatives",
+                "n": 130,
+                "targets": [label],
+                "choices": ["rising_oi", "falling_oi", "flat_oi"],
+            }
         )
         _lbl, _ann, payload = _instantiate(cfg, 3)  # type: ignore[arg-type]
         seeds_price[label] = payload["series"]["close"]  # type: ignore[index]

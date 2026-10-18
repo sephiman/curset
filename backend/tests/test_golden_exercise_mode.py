@@ -203,8 +203,14 @@ def _current() -> dict[str, str]:
     for inj in all_injectors():
         labels = list(inj.labels)
         cfg = pg.parse_config(
-            {"type": "pattern_chart", "prompt": {"en": "x", "es": "x"}, "injector": inj.name,
-             "n": 130, "targets": labels, "choices": labels}
+            {
+                "type": "pattern_chart",
+                "prompt": {"en": "x", "es": "x"},
+                "injector": inj.name,
+                "n": 130,
+                "targets": labels,
+                "choices": labels,
+            }
         )
         for seed in _SEEDS:
             label, ann, payload = pattern_instantiate(cfg, seed)
@@ -212,9 +218,14 @@ def _current() -> dict[str, str]:
 
     sg = SyntheticChartGenerator()
     scfg = sg.parse_config(
-        {"type": "synthetic_chart", "prompt": {"en": "x", "es": "x"}, "indicator": "rsi", "n": 120,
-         "targets": ["none", "bullish_regular", "bearish_regular"],
-         "choices": ["none", "bullish_regular", "bearish_regular"]}
+        {
+            "type": "synthetic_chart",
+            "prompt": {"en": "x", "es": "x"},
+            "indicator": "rsi",
+            "n": 120,
+            "targets": ["none", "bullish_regular", "bearish_regular"],
+            "choices": ["none", "bullish_regular", "bearish_regular"],
+        }
     )
     for seed in _SEEDS:
         tgt, s1, s2, payload = divergence_instantiate(scfg, seed)

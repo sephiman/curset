@@ -56,8 +56,7 @@ EXEMPT_QUIZ_VARIANTS: dict[str, tuple[str, str]] = {
     # display id m23-ex-2
     "m20-ex-2": (
         "three-bills",
-        "structurally-heavy: five chained integer steps across three personas (quiz twin of "
-        "m23-ex-5).",
+        "structurally-heavy: five chained integer steps across three personas (quiz twin of m23-ex-5).",
     ),
     # display id m24-ex-4
     "m21-ex-4": (
@@ -219,9 +218,7 @@ def _space(config: CalculationConfig) -> list[dict[str, object]]:
 # --- the assertions --------------------------------------------------------------------------------
 
 
-@pytest.mark.parametrize(
-    ("exercise_id", "key", "config"), CALCULATIONS, ids=[c[0] for c in CALCULATIONS]
-)
+@pytest.mark.parametrize(("exercise_id", "key", "config"), CALCULATIONS, ids=[c[0] for c in CALCULATIONS])
 def test_every_draw_lands_at_mental_cost(exercise_id: str, key: str, config) -> None:
     if key in EXEMPT_CALCULATION:
         pytest.skip(f"exempt by name: {EXEMPT_CALCULATION[key]}")
@@ -240,9 +237,7 @@ def test_every_draw_lands_at_mental_cost(exercise_id: str, key: str, config) -> 
     )
 
 
-@pytest.mark.parametrize(
-    ("exercise_id", "key", "config"), CALCULATIONS, ids=[c[0] for c in CALCULATIONS]
-)
+@pytest.mark.parametrize(("exercise_id", "key", "config"), CALCULATIONS, ids=[c[0] for c in CALCULATIONS])
 def test_named_distractors_survive_every_draw(exercise_id: str, key: str, config) -> None:
     if key in EXEMPT_CALCULATION:
         pytest.skip(f"exempt by name: {EXEMPT_CALCULATION[key]}")

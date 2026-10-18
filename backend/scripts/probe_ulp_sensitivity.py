@@ -103,14 +103,18 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--exp-rate", type=float, default=MEASURED_EXP_RATE)
     parser.add_argument("--log-rate", type=float, default=MEASURED_LOG_RATE)
     parser.add_argument(
-        "--ulps", type=int, default=1,
+        "--ulps",
+        type=int,
+        default=1,
         help="size of the perturbation in ulp (1 is what two correct libms can differ by; larger "
-             "values map out how much headroom the fingerprints have)",
+        "values map out how much headroom the fingerprints have)",
     )
     parser.add_argument(
-        "--seeds", type=int, default=4,
+        "--seeds",
+        type=int,
+        default=4,
         help="probe seeds per injector kind for the WIDE sweep, which covers figure mode too "
-             "(the committed 84 exercise goldens are always checked as well)",
+        "(the committed 84 exercise goldens are always checked as well)",
     )
     args = parser.parse_args(argv)
 
@@ -122,9 +126,9 @@ def main(argv: list[str] | None = None) -> int:
 
     baseline = measure()
     drift = {
-        k[len("golden:"):]: v
+        k[len("golden:") :]: v
         for k, v in baseline.items()
-        if k.startswith("golden:") and v != GOLDEN.get(k[len("golden:"):])
+        if k.startswith("golden:") and v != GOLDEN.get(k[len("golden:") :])
     }
     if drift:
         print(f"WARNING: {len(drift)} fingerprints already differ from GOLDEN before perturbing:")

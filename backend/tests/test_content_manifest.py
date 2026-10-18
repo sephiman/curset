@@ -80,9 +80,7 @@ def test_real_manifest_loads_and_lessons_have_both_languages() -> None:
     assert [m.id for m in block_g.modules] == ["m35"]
     assert block_g.modules[0].key == "epilogue"
     assert [lesson.exercises for lesson in block_g.modules[0].lessons] == [[]]
-    assert [
-        lesson.id for _, lesson in registry.manifest.iter_lessons() if not lesson.exercises
-    ] == ["m35-l1"]
+    assert [lesson.id for _, lesson in registry.manifest.iter_lessons() if not lesson.exercises] == ["m35-l1"]
     # Every authored lesson exists in both languages (load_registry enforces it).
     for locale in ("en", "es"):
         assert "m06-l1" in registry.markdown[locale]

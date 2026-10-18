@@ -77,9 +77,7 @@ _RENAME_CODES = frozenset("RC")
 
 def _git(repo: Path, *args: str, raw: bool = False) -> str:
     """Run git and return its stdout, stripped — `raw=True` for output parsed by position."""
-    result = subprocess.run(
-        ["git", *args], cwd=repo, check=False, capture_output=True, text=True
-    )
+    result = subprocess.run(["git", *args], cwd=repo, check=False, capture_output=True, text=True)
     if result.returncode != 0:
         raise DeliveryError(f"git {' '.join(args)} failed in {repo}: {result.stderr.strip()}")
     return result.stdout if raw else result.stdout.strip()
@@ -186,9 +184,7 @@ def deliver(source: Path, target: Path, *, now: str | None = None) -> dict[str, 
         },
         "bundleFormatVersion": bundle_manifest.get("bundleFormatVersion"),
         "bundleFingerprint": bundle_manifest.get("contentFingerprint"),
-        "counts": {
-            name: sum(1 for key in files if key.startswith(f"{name}/")) for name in DELIVERED_DIRS
-        },
+        "counts": {name: sum(1 for key in files if key.startswith(f"{name}/")) for name in DELIVERED_DIRS},
         "files": files,
     }
     (target / MANIFEST_NAME).write_text(
@@ -218,8 +214,10 @@ def main(argv: list[str] | None = None) -> int:
     print("=" * 78)
     print(f"from              {args.source}")
     print(f"source commit     {source_repo['commit']}  ({source_repo['branch']})")
-    print(f"dirty             {source_repo['dirty']}"
-          + (f"  — {len(source_repo['uncommittedFiles'])} uncommitted paths" if source_repo["dirty"] else ""))
+    print(
+        f"dirty             {source_repo['dirty']}"
+        + (f"  — {len(source_repo['uncommittedFiles'])} uncommitted paths" if source_repo["dirty"] else "")
+    )
     print(f"bundle format     {manifest['bundleFormatVersion']}")
     print(f"bundle print      {manifest['bundleFingerprint']}")
     for name in DELIVERED_DIRS:
@@ -231,8 +229,9 @@ def main(argv: list[str] | None = None) -> int:
     if source_repo["dirty"]:
         print()
         print("THIS EXPORT IS FROM A DIRTY TREE. Re-run it after committing:")
-        print(f"  cd {_BACKEND} && uv run python scripts/export_contracts_to_android.py "
-              f"--target {args.target}")
+        print(
+            f"  cd {_BACKEND} && uv run python scripts/export_contracts_to_android.py --target {args.target}"
+        )
     return 0
 
 

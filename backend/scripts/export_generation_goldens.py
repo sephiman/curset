@@ -156,9 +156,7 @@ def _config_and_kind(identifier: str) -> tuple[object, str]:
     parts = identifier.split(":")
     if parts[0] == "divergence":
         indicator, shape = parts[1], parts[2]
-        divergence_targets: tuple[str, ...] = (
-            GOLDEN_DIVERGENCE_TARGETS if shape == "golden" else (shape,)
-        )
+        divergence_targets: tuple[str, ...] = GOLDEN_DIVERGENCE_TARGETS if shape == "golden" else (shape,)
         return divergence_config(indicator, divergence_targets), "divergence"
     injector = get_injector(parts[0])
     labels = tuple(injector.labels)
@@ -469,9 +467,7 @@ def instrumented() -> Iterator[dict[str, int]]:
             setattr(module, attribute, original)
 
 
-def retry_iterations(
-    build: Callable[[], object], counts: dict[str, int]
-) -> dict[str, int]:
+def retry_iterations(build: Callable[[], object], counts: dict[str, int]) -> dict[str, int]:
     """Iterations each loop ran while building ONE document — a difference of the running tallies."""
     before = dict(counts)
     build()
@@ -519,9 +515,7 @@ def scan_retry_loops(scan_seeds: tuple[int, ...] = RETRY_SCAN_SEEDS) -> list[Ret
                 except Exception:  # a refused plant is a designed outcome, not a retry finding
                     continue
                 if ran[loop] > 1:
-                    findings.append(
-                        RetryFinding(loop=loop, key=identifier, seed=seed, iterations=ran[loop])
-                    )
+                    findings.append(RetryFinding(loop=loop, key=identifier, seed=seed, iterations=ran[loop]))
     return sorted(findings, key=lambda f: (f.loop, -f.iterations, f.key))
 
 
@@ -585,7 +579,9 @@ FORMATTER_CASES: tuple[FormatterCase, ...] = (
     FormatterCase("min-subnormal", 5e-324, "5e-324", "4.9E-324"),
     FormatterCase("max-double", 1.7976931348623157e308, "1.7976931348623157e+308", "1.7976931348623157E308"),
     FormatterCase(
-        "min-normal", 2.2250738585072014e-308, "2.2250738585072014e-308",
+        "min-normal",
+        2.2250738585072014e-308,
+        "2.2250738585072014e-308",
         "2.2250738585072014E-308",
     ),
 )
@@ -749,8 +745,10 @@ def quantization_violations(payload: object, *, where: str) -> tuple[list[Unquan
             Unquantized(where=where, path=path, scale=PAYLOAD_SCALES[path], first=first, count=count)
             for path, (first, count) in sorted(unrounded.items())
         ],
-        [f"{where} {path}: {count} float(s) at a path with no declared scale"
-         for path, count in sorted(undeclared.items())],
+        [
+            f"{where} {path}: {count} float(s) at a path with no declared scale"
+            for path, count in sorted(undeclared.items())
+        ],
     )
 
 
@@ -809,16 +807,21 @@ def main(argv: list[str] | None = None) -> int:
     )
     parser.add_argument("--out", type=Path, default=DEFAULT_OUT, help=f"default {DEFAULT_OUT}")
     parser.add_argument(
-        "--seeds", type=int, default=len(MULTI_SEEDS),
+        "--seeds",
+        type=int,
+        default=len(MULTI_SEEDS),
         help=f"multi-target seeds (default {len(MULTI_SEEDS)}; single-target uses the first "
-             f"{len(SINGLE_SEEDS)} of them)",
+        f"{len(SINGLE_SEEDS)} of them)",
     )
     parser.add_argument(
-        "--scan", type=int, default=len(RETRY_SCAN_SEEDS),
+        "--scan",
+        type=int,
+        default=len(RETRY_SCAN_SEEDS),
         help=f"how many seeds to scan for retry-loop documents (default {len(RETRY_SCAN_SEEDS)})",
     )
     parser.add_argument(
-        "--dump-id", default=None,
+        "--dump-id",
+        default=None,
         help="print one document's full canonical JSON and exit — the bytes that were hashed",
     )
     args = parser.parse_args(argv)
@@ -835,8 +838,10 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     started = time.monotonic()
-    print(f"building exercise-mode documents ({len(multi_seeds)} multi / {len(single_seeds)} single) ...",
-          flush=True)
+    print(
+        f"building exercise-mode documents ({len(multi_seeds)} multi / {len(single_seeds)} single) ...",
+        flush=True,
+    )
     exercise: dict[str, str] = {}
     awkward = 0
     unrounded: list[Unquantized] = []
@@ -909,8 +914,8 @@ def main(argv: list[str] | None = None) -> int:
                 "EXERCISE-MODE GENERATION GOLDENS — these lines NEVER move.",
                 "",
                 "`id<TAB>sha256`. The digest is sha256 over the canonical JSON of the document's",
-                "envelope: `{\"p\": payload, \"label\": label, \"ann\": annotations}` for a pattern chart,",
-                "`{\"p\", \"t\", \"s1\", \"s2\"}` for a divergence, serialized with sorted keys and no",
+                'envelope: `{"p": payload, "label": label, "ann": annotations}` for a pattern chart,',
+                '`{"p", "t", "s1", "s2"}` for a divergence, serialized with sorted keys and no',
                 "spaces. The FIRST 16 HEX DIGITS are the fingerprint the web repo's",
                 "`tests/test_golden_exercise_mode.py` has committed, where it has one.",
                 "",
@@ -938,7 +943,7 @@ def main(argv: list[str] | None = None) -> int:
                 "FIGURE GOLDENS — these lines move only when the CONTENT moves, and only with a note.",
                 "",
                 "`frozen:<figure id><TAB>sha256`, one line per chart figure in `content/figures/`. The",
-                "digest is sha256 over the canonical JSON of `build_figure(spec, \"en\")[\"panels\"]` —",
+                'digest is sha256 over the canonical JSON of `build_figure(spec, "en")["panels"]` —',
                 "the same recipe `tests/test_generation_numerics.py` pins its content figure with, so",
                 "the first 16 hex digits match that pin where it exists.",
                 "",
@@ -1020,14 +1025,14 @@ def main(argv: list[str] | None = None) -> int:
         "## The hash recipe — one, and it is the web repo's own",
         "",
         "```",
-        "digest = sha256(json.dumps(envelope, sort_keys=True, separators=(\",\", \":\")))",
+        'digest = sha256(json.dumps(envelope, sort_keys=True, separators=(",", ":")))',
         "```",
         "",
         "| document | envelope |",
         "| --- | --- |",
-        "| pattern chart | `{\"p\": payload, \"label\": label, \"ann\": annotations}` |",
-        "| divergence | `{\"p\": payload, \"t\": target, \"s1\": swing1, \"s2\": swing2}` |",
-        "| figure | the `panels` list of `build_figure(spec, \"en\")` |",
+        '| pattern chart | `{"p": payload, "label": label, "ann": annotations}` |',
+        '| divergence | `{"p": payload, "t": target, "s1": swing1, "s2": swing2}` |',
+        '| figure | the `panels` list of `build_figure(spec, "en")` |',
         "",
         "`payload` is the ROUNDED payload — prices to 2 decimals, panes to 2 or 4 — which is exactly",
         "the parity contract Phase W1 settled on. Raw intermediate floats are deliberately not part of",

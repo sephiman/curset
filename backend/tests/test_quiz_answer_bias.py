@@ -413,8 +413,12 @@ def test_every_chart_choice_shown_can_actually_be_the_answer() -> None:
 # to keep it that way: both are solvable by bulk alone if length ever starts tracking the answer.
 
 
-def _pairing_z(kind: QuizKind, locale: str, left: Callable[[QuizVariant], list[int]],
-               right: Callable[[QuizVariant], list[int]]) -> tuple[float, int]:
+def _pairing_z(
+    kind: QuizKind,
+    locale: str,
+    left: Callable[[QuizVariant], list[int]],
+    right: Callable[[QuizVariant], list[int]],
+) -> tuple[float, int]:
     """Does the correct pairing line long with long? Null = every pairing, exactly enumerated."""
     from itertools import permutations
 

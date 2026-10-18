@@ -74,7 +74,7 @@ blocks:
         type: case
 exams:
 - id: simulacro
-  version: 1
+  version: 2
   title:
     es: Simulacro
   time_limit_minutes: 100
@@ -82,8 +82,14 @@ exams:
   - id: parte-1
     title:
       es: Primera parte
-    source: course
-    questions: 70
+    # As the AGE part 1 (40 from bloques I–V + 30 from bloque VI): two sources shuffled into one part.
+    sources:
+    - source:
+        modules: [m01]
+      questions: 40
+    - source:
+        module: m02
+      questions: 30
     reserve: 2
     penalty: 1/3
     blank: free

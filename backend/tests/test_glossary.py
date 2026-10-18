@@ -160,7 +160,12 @@ def test_opting_out_of_linking_may_not_also_configure_linking() -> None:
     """`link: false` and a match list contradict each other; the file must say one thing."""
     with pytest.raises(ValidationError, match="link is off for en, so it needs no rules"):
         GlossaryTerm(
-            id="g-a", en="a", es="a", origin="m01-l1", definition=_def(), link=False,
+            id="g-a",
+            en="a",
+            es="a",
+            origin="m01-l1",
+            definition=_def(),
+            link=False,
             match=MatchVariants(en=["a"]),
         )
 
@@ -168,26 +173,44 @@ def test_opting_out_of_linking_may_not_also_configure_linking() -> None:
 def test_a_term_can_opt_out_of_linking_in_one_locale_only() -> None:
     """ES `base` is "base de datos" everywhere; EN `basis` is unambiguous. One entry, two answers."""
     term = GlossaryTerm(
-        id="g-basis", en="basis", es="base", origin="m19-l1", definition=_def(),
+        id="g-basis",
+        en="basis",
+        es="base",
+        origin="m19-l1",
+        definition=_def(),
         link=LocaleFlags(es=False),
     )
     assert term.links("en") is True
     assert term.links("es") is False
     # The rules that would contradict the switch are rejected only for the locale that is off.
     GlossaryTerm(
-        id="g-b", en="b", es="b", origin="m01-l1", definition=_def(),
-        link=LocaleFlags(es=False), match=MatchVariants(en=["bs"]),
+        id="g-b",
+        en="b",
+        es="b",
+        origin="m01-l1",
+        definition=_def(),
+        link=LocaleFlags(es=False),
+        match=MatchVariants(en=["bs"]),
     )
     with pytest.raises(ValidationError, match="link is off for es"):
         GlossaryTerm(
-            id="g-c", en="c", es="c", origin="m01-l1", definition=_def(),
-            link=LocaleFlags(es=False), match=MatchVariants(es=["cs"]),
+            id="g-c",
+            en="c",
+            es="c",
+            origin="m01-l1",
+            definition=_def(),
+            link=LocaleFlags(es=False),
+            match=MatchVariants(es=["cs"]),
         )
 
 
 def test_exclusions_can_be_per_locale_and_are_reported_per_locale() -> None:
     term = GlossaryTerm(
-        id="g-spot", en="spot", es="spot", origin="m02-l1", definition=_def(),
+        id="g-spot",
+        en="spot",
+        es="spot",
+        origin="m02-l1",
+        definition=_def(),
         link_except=LocaleLessons(en=["m13-l1"]),
     )
     assert term.excluded_lessons("en") == ["m13-l1"]
@@ -198,14 +221,22 @@ def test_exclusions_can_be_per_locale_and_are_reported_per_locale() -> None:
 def test_one_lesson_may_be_a_false_friend_in_both_locales() -> None:
     """g-expiry's lock-up lesson: the duplicate check is per locale, so the pair is not a typo."""
     term = GlossaryTerm(
-        id="g-a", en="a", es="a", origin="m01-l1", definition=_def(),
+        id="g-a",
+        en="a",
+        es="a",
+        origin="m01-l1",
+        definition=_def(),
         link_except=LocaleLessons(en=["m13-l1", "m18-l1"], es=["m18-l1"]),
     )
     assert term.excluded_lessons("en") == ["m13-l1", "m18-l1"]
     assert term.excluded_lessons("es") == ["m18-l1"]
     with pytest.raises(ValidationError, match=r"duplicate lesson in link_except \(en\)"):
         GlossaryTerm(
-            id="g-a", en="a", es="a", origin="m01-l1", definition=_def(),
+            id="g-a",
+            en="a",
+            es="a",
+            origin="m01-l1",
+            definition=_def(),
             link_except=LocaleLessons(en=["m13-l1", "m13-l1"]),
         )
 

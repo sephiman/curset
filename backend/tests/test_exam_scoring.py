@@ -3,6 +3,8 @@
 
 from __future__ import annotations
 
+import random
+from collections.abc import Sequence
 from fractions import Fraction
 
 import pytest
@@ -10,8 +12,10 @@ from pydantic import ValidationError
 
 from conftest import FIXTURE_CONTENT
 from tradeschool.content.registry import CourseRegistry, load_registry
+from tradeschool.exams.draw import DrawnQuestion, counted_questions, draw_part, pool_shortfalls
 from tradeschool.exams.presets import ExamPreset, PartScoring
 from tradeschool.exams.scoring import Tally, raw_score, transformed_score
+from tradeschool.exercises.quiz import QuizConfig, QuizGenerator
 from tradeschool.stats.by_lesson import lesson_table
 
 CPS = PartScoring(max=50, pass_minimum=25, minimum_raw=31.67)
@@ -89,6 +93,10 @@ def test_the_module_fallback_says_so(registry: CourseRegistry) -> None:
     assert lists["best"][0]["moduleId"] == "m03" and lists["worst"][0]["moduleId"] == "m02"  # type: ignore[index]
 
 
+_COMPOSITE_M01 = {"source": {"module": "m01"}, "questions": 4}
+_COMPOSITE_M02 = {"source": {"module": "m02"}, "questions": 3}
+
+
 @pytest.mark.parametrize(
     ("part", "message"),
     [
@@ -99,6 +107,27 @@ def test_the_module_fallback_says_so(registry: CourseRegistry) -> None:
         (
             {"id": "p", "source": "course", "draw": "per-module", "questions": 3},
             "takes its count from the course",
+        ),
+        ({"id": "p", "source": {"module": "m01"}, "draw": "all", "questions": 3}, "takes every question"),
+        ({"id": "p", "source": {"module": "m01"}, "draw": "all", "reserve": 2}, "has no reserve questions"),
+        ({"id": "p", "source": {"modules": []}, "questions": 1}, "names one of"),
+        (
+            {"id": "p", "source": "course", "sources": [_COMPOSITE_M01, _COMPOSITE_M02], "questions": 3},
+            "declares `source` or `sources`",
+        ),
+        ({"id": "p", "sources": [_COMPOSITE_M01]}, "at least 2"),
+        ({"id": "p", "sources": [_COMPOSITE_M01, {"source": "cases", "questions": 2}]}, "draws questions"),
+        (
+            {"id": "p", "sources": [_COMPOSITE_M01, {"source": {"each": "lesson"}, "questions": 2}]},
+            "draws questions",
+        ),
+        (
+            {
+                "id": "p",
+                "sources": [_COMPOSITE_M01, {"source": "course", "draw": "per-module"}],
+                "reserve": 1,
+            },
+            "has no reserve questions",
         ),
     ],
 )
@@ -114,3 +143,87 @@ def test_a_part_cannot_wait_on_a_part_without_a_pass_minimum() -> None:
     ]
     with pytest.raises(ValidationError, match="has no pass minimum"):
         ExamPreset.model_validate({"id": "x", "version": 1, "title": {"es": "X"}, "parts": parts})
+
+
+class _Seeded:
+    """The two calls a draw makes, from a seeded stream (the service passes `secrets`)."""
+
+    def __init__(self, seed: int) -> None:
+        self._rng = random.Random(seed)
+
+    def choice(self, seq: Sequence[str]) -> str:
+        return self._rng.choice(seq)
+
+    def randbelow(self, n: int) -> int:
+        return self._rng.randrange(n)
+
+
+def _preset(part: dict[str, object]) -> ExamPreset:
+    return ExamPreset.model_validate({"id": "x", "version": 1, "title": {"es": "X"}, "parts": [part]})
+
+
+def _lesson_counts(registry: CourseRegistry, drawn: list[DrawnQuestion]) -> dict[str, int]:
+    counts: dict[str, int] = {}
+    for question in drawn:
+        lesson_id = registry.question_lesson_id(question.exercise_id, None)
+        assert lesson_id is not None
+        counts[lesson_id] = counts.get(lesson_id, 0) + 1
+    return counts
+
+
+def test_each_source_of_a_part_draws_its_own_count_in_its_own_mode(registry: CourseRegistry) -> None:
+    preset = _preset(
+        {
+            "id": "p",
+            "sources": [
+                {"source": {"lesson": "m01-l1"}, "draw": "all"},
+                {"source": {"lesson": "m01-l2"}, "questions": 5},
+                {"source": {"module": "m02"}, "draw": "per-module"},
+            ],
+        }
+    )
+    assert pool_shortfalls(registry, preset, None) == []
+    assert counted_questions(registry, preset.parts[0], None) == 21 + 5 + 1
+    drawn = draw_part(registry, preset.parts[0], None, _Seeded(7)).questions
+    assert _lesson_counts(registry, drawn) == {"m01-l1": 21, "m01-l2": 5, "m02-l1": 1}
+    # `all` takes every question of its lesson: each quiz variant exactly once.
+    generator = QuizGenerator()
+    variants = set()
+    for question in drawn:
+        config = registry.get_exercise_config(question.exercise_id)
+        if registry.question_lesson_id(question.exercise_id, None) == "m01-l1":
+            assert config is not None and isinstance(config[1], QuizConfig)
+            variants.add((question.exercise_id, generator.variant(config[1], question.seed).id))
+    assert len(variants) == 21
+
+
+def test_a_set_of_modules_draws_from_every_module_in_it(registry: CourseRegistry) -> None:
+    preset = _preset({"id": "p", "source": {"modules": ["m02", "m01"]}, "questions": 60})
+    drawn = draw_part(registry, preset.parts[0], None, _Seeded(3)).questions
+    modules = {question.exercise_id.split("-")[0] for question in drawn}
+    assert len(drawn) == 60 and modules == {"m01", "m02"}
+    too_many = _preset({"id": "p", "source": {"modules": ["m02", "m01"]}, "questions": 82})
+    assert pool_shortfalls(registry, too_many, None) == ["part 'p' needs 82 questions; the pool holds 81"]
+
+
+def test_a_composite_draw_is_shuffled_and_its_reserves_come_last(registry: CourseRegistry) -> None:
+    part = {"id": "p", "sources": [_COMPOSITE_M01, _COMPOSITE_M02], "reserve": 2}
+    drawn = draw_part(registry, _preset(part).parts[0], None, _Seeded(11)).questions
+    assert [question.reserve for question in drawn] == [False] * 7 + [True] * 2
+    modules = [question.exercise_id.split("-")[0] for question in drawn[:7]]
+    assert sorted(modules) == ["m01"] * 4 + ["m02"] * 3
+    assert modules != sorted(modules)
+    assert len({(question.exercise_id, question.seed) for question in drawn}) == 9
+
+
+def test_composite_sources_that_overlap_or_run_short_fail_the_load_check(registry: CourseRegistry) -> None:
+    overlapping = _preset(
+        {"id": "p", "sources": [_COMPOSITE_M01, {"source": {"lesson": "m01-l2"}, "questions": 1}]}
+    )
+    assert pool_shortfalls(registry, overlapping, None) == ["part 'p': sources 1 and 2 share questions"]
+    too_many = _preset(
+        {"id": "p", "sources": [_COMPOSITE_M02, {"source": {"lesson": "m01-l1"}, "questions": 22}]}
+    )
+    assert pool_shortfalls(registry, too_many, None) == [
+        "part 'p' source 2 needs 22 questions; the pool holds 21"
+    ]

@@ -284,8 +284,9 @@ Open <http://localhost:5173>, register an account, and review the full course:
   (m24), and one complete trade with its level, entry, stop and target drawn (m27). Every reference is
   checked to resolve in both languages, and no spec may sit unembedded.
 - **Exams** (`/exams`): each course declares its own exams as **presets** in `course.yaml` (see
-  `content/README.md`): parts, question count, source, time limit, penalty, blank rule, score range and
-  pass minimum, reserve questions, and "choose one case of N". The Exams tab lists them with title,
+  `content/README.md`): parts, question count, source (or several sources with a count each, shuffled
+  into one part), draw mode, time limit, penalty, blank rule, score range and pass minimum, reserve
+  questions, and "choose one case of N". The Exams tab lists them with title,
   parts, question count and time. crypto-futures keeps the two it always had — **global** (one question
   per module with a bank, so the epilogue is skipped) and **per-block** (offered only for blocks that have
   one) — byte for byte (`backend/tests/goldens/crypto-exam-results.json`). One attempt per question, free

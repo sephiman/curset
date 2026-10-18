@@ -5,13 +5,18 @@ This is the ONE parser of citations. The web never detects a citation: the backe
 citations with their exact text and the annotator marks those spans (see `lib/citations/annotate.ts`).
 
 A parenthetical is split at top-level «;» into segments. A segment cites when it starts with a lead —
-`art.`/`arts.`, `disposición …`, `DA`/`DT`/`DF`/`DD`, `anexo`, `apartado(s)`, `preámbulo` or
-`fuente:` — and anything else in it («m05-l05», «no toca los artículos citados») is prose.
+`art.`/`arts.`, `disposición …`, `DA`/`DT`/`DF`/`DD`, `anexo`, `apartado(s)`, `regla`, `nota`,
+`preámbulo` or `fuente:` — and anything else in it («m05-l05», «no toca los artículos citados») is prose.
 
 Articles: under a singular `art.` the first number is THE article and what follows is its paragraphs,
 letters and ordinals («14.2.d) y e)» is article 14); a later `art.` starts another. Under `arts.`
-every listed number is an article and two numbers joined by an en dash are a range. An article keeps a
-Latin suffix written right after its number («610 bis.2» is article 610 bis; «12.2 bis» is article 12).
+every listed number is an article and two bare numbers joined by an en dash are a range; after a
+paragraph the dash runs over paragraphs («24.1» dash «2» is article 24). An article keeps a Latin suffix
+written right after its number («610 bis.2» is article 610 bis; «12.2 bis» is article 12). A paragraph
+letter closes with «)» without closing the citation: «159.4.f) LCSP», «21.C) RD 1009/2023».
+
+Rules of sources that have no articles cite the same way: «regla 34.II.a.1 IOC», «apartado sexto.1
+Orden …», «nota 34 anexo I Orden …» (also written «anexo I, nota 34, Orden …»).
 """
 
 from __future__ import annotations
@@ -26,12 +31,20 @@ _ORDINAL = r"(?!(?:de|del|la|los|las|y|e)\b)[a-záéíóúñ]+|\d+(?:\.ª)?"
 # What may follow a unit before the norm: «.1», «.4.a)», « b) y f)».
 _SUB = r"(?:\.(?:\d+|[a-zñ]\)?|[A-Z]\b)|\s[a-zñ]\)(?:\s+[ye]\s+[a-zñ]\))*)*"
 _SPELLED = r"(?:Uno|Dos|Tres|Cuatro|Cinco|Seis|Siete|Ocho|Nueve|Diez|Once|Doce)"
+# The ordinal an «apartado» of an orden or resolución is numbered with: «sexto», «decimoquinto».
+ORDINAL_WORD = (
+    r"(?:(?:decimo)?(?:primer|segund|tercer|cuart|quint|sext|s[ée]ptim|octav|noven)o"
+    r"|d[ée]cimo|und[ée]cimo|duod[ée]cimo|vig[ée]simo)\b"
+)
+_ANEXO_NUMBER = r"[IVXL]+|\d+|único"
+# What may follow a rule or note number: «.II.a.1», «.2.b)».
+_RULE_SUB = r"(?:\.(?:\d+|[IVXL]+\b|[a-zñ]\)?|[A-Z]\b\)?|[ºª]))*"
 
 # One article designator: 14 · 14.2 · 4.1.b) · 148.1.8.ª · 610 bis.2 · 12.2 bis · 61.ñ — or a bare letter
-# paragraph continuing the article before it («e)» in «14.2.d) y e)»).
+# paragraph continuing the article before it («e)» in «14.2.d) y e)», «D)» in «23.Uno.B)» dash «D)»).
 _ITEM = (
-    rf"(?:\d+(?:\s{LATIN}\b)?(?:\.(?:\d+|[a-zñ]\)?|[A-Z]\b|{_SPELLED}\b|[ºª])|\s{LATIN}\b|[ºª])*\)?"
-    r"|[a-zñ]\))"
+    rf"(?:\d+(?:\s{LATIN}\b)?(?:\.(?:\d+|[a-zñ]\)?|[A-Z]\b\)?|{_SPELLED}\b|[ºª])|\s{LATIN}\b|[ºª])*\)?"
+    r"|[a-zñ]\)|[A-Z]\))"
 )
 # The en dash (U+2013) is how the lessons write a range; a hyphen is accepted too.
 _DASH = "[\u2013-]"
@@ -49,11 +62,21 @@ _DISPOSICION = re.compile(
     re.DOTALL,
 )
 _DISPOSICION_SHORT = re.compile(r"^(?P<kind>DA|DT|DF|DD)\s+(?P<ord>\d+|\w+)\b(?P<rest>.*)$", re.DOTALL)
-_ANEXO = re.compile(r"^anexo(?:\s+(?P<num>[IVXL]+|\d+|único)\b)?(?P<rest>.*)$", re.DOTALL)
+_ANEXO = re.compile(rf"^anexo(?:\s+(?P<num>{_ANEXO_NUMBER})\b)?(?P<rest>.*)$", re.DOTALL)
 _APARTADO = re.compile(
-    rf"^apartados?\s+(?P<num>\d+){_SUB}(?:{_DASH}\d+{_SUB})?(?:\s+(?:y|a)\s+\d+{_SUB})?(?P<rest>.*)$",
+    rf"^apartados?\s+(?P<num>\d+|{ORDINAL_WORD}){_SUB}(?:{_DASH}\d+{_SUB})?"
+    rf"(?:\s+(?:y|a)\s+(?:\d+|{ORDINAL_WORD}){_SUB})?(?P<rest>.*)$",
     re.DOTALL,
 )
+_REGLA = re.compile(
+    rf"^reglas?\s+(?P<num>\d+(?:\s{LATIN}\b)?){_RULE_SUB}(?:{_DASH}\d+{_RULE_SUB})?(?P<rest>.*)$", re.DOTALL
+)
+_NOTA = re.compile(
+    rf"^notas?\s+(?P<num>\d+){_RULE_SUB}(?:\s+(?:del\s+)?anexo\s+(?P<anexo>{_ANEXO_NUMBER})\b)?(?P<rest>.*)$",
+    re.DOTALL,
+)
+# «anexo I, nota 34.II.a.1, Orden …»: the note follows its annex.
+_ANEXO_NOTE = re.compile(rf"^\s*,?\s*notas?\s+(?P<num>\d+){_RULE_SUB}(?P<rest>.*)$", re.DOTALL)
 # «art. 205.1.a) y disposición transitoria séptima LGSS»: one norm, two units.
 _AND_MORE = re.compile(r"^\s*(?:,|y|e)\s+(?=disposici|anexo|apartado)")
 _PREAMBULO = re.compile(r"^preámbulo\b(?P<rest>.*)$", re.DOTALL)
@@ -62,7 +85,8 @@ _SOURCE_FILE = re.compile(r"`([^`]+)`")
 
 #: How a parenthetical has to start for it to be read as a citation at all.
 LEAD = re.compile(
-    r"^(?:arts?\.\s|disposici(?:ón|ones)\s|D[ATFD]\s\w|anexo\b|apartados?\s|preámbulo\b|fuente:)"
+    r"^(?:arts?\.\s|disposici(?:ón|ones)\s|D[ATFD]\s\w|anexo\b|apartados?\s|reglas?\s+\d|notas?\s+\d"
+    r"|preámbulo\b|fuente:)"
 )
 _CONNECTOR = re.compile(r"^(?:del|de\s+la|de\s+los|de)\s+", re.IGNORECASE)
 
@@ -79,14 +103,17 @@ def collapse(text: str) -> str:
 
 @dataclass(frozen=True)
 class Unit:
-    """One thing cited inside a norm: `art`/`da`/`dt`/`df`/`dd`/`anexo`/`apartado`/`preambulo`."""
+    """One thing cited in a norm: `art`/`da`/`dt`/`df`/`dd`/`anexo`/`apartado`/`regla`/`nota`/`preambulo`."""
 
     kind: str
     number: str = ""
+    #: The unit this one sits in: the annex of a note (`anexo-i-nota-34`).
+    within: Unit | None = None
 
     @property
     def slug(self) -> str:
-        return f"{self.kind}-{slug(self.number)}" if self.number else self.kind
+        own = f"{self.kind}-{slug(self.number)}" if self.number else self.kind
+        return f"{self.within.slug}-{own}" if self.within else own
 
 
 @dataclass(frozen=True)
@@ -119,23 +146,23 @@ def _articles(lead: str, designators: str) -> _Articles:
     plural = lead == "arts."
     found = _Articles()
     previous: str | None = None
+    previous_has_paragraph = False
     for match in _ITEM_OR_SEP.finditer(designators):
-        number = _article_number(match["item"])
+        item = match["item"]
+        number = _article_number(item)
         starts_article = previous is None or plural or match["art"] is not None
         if number is None or not starts_article:
             continue
-        sep = match["sep"] or ""
-        if (
-            plural
-            and previous is not None
-            and sep.strip() in ("\u2013", "-")
-            and previous.isdigit()
-            and number.isdigit()
-        ):
+        dash = (match["sep"] or "").strip() in ("\u2013", "-")
+        # «24.1» dash «2» and «24.1» dash «24.2» run over paragraphs of article 24, not up to article 2.
+        if plural and dash and previous_has_paragraph and (item == number or number == previous):
+            continue
+        if plural and dash and previous is not None and previous.isdigit() and number.isdigit():
             found.ranges.append((int(previous), int(number)))
         if Unit("art", number) not in found.units:
             found.units.append(Unit("art", number))
         previous = number
+        previous_has_paragraph = item != number
     return found
 
 
@@ -174,21 +201,36 @@ def parse_segment(raw: str) -> Segment | None:
             text, (Unit(short["kind"].lower(), short["ord"]),), norm_text=_norm_text(short["rest"])
         )
     if anexo := _ANEXO.match(text):
-        return Segment(text, (Unit("anexo", anexo["num"] or ""),), norm_text=_norm_text(anexo["rest"]))
+        annex = Unit("anexo", anexo["num"] or "")
+        if anexo["num"] and (note := _ANEXO_NOTE.match(anexo["rest"])):
+            return Segment(text, (Unit("nota", note["num"], annex),), norm_text=_norm_text(note["rest"]))
+        return Segment(text, (annex,), norm_text=_norm_text(anexo["rest"]))
     if apartado := _APARTADO.match(text):
         return Segment(text, (Unit("apartado", apartado["num"]),), norm_text=_norm_text(apartado["rest"]))
+    if regla := _REGLA.match(text):
+        return Segment(text, (Unit("regla", regla["num"]),), norm_text=_norm_text(regla["rest"]))
+    if nota := _NOTA.match(text):
+        within = Unit("anexo", nota["anexo"]) if nota["anexo"] else None
+        return Segment(text, (Unit("nota", nota["num"], within),), norm_text=_norm_text(nota["rest"]))
     if preambulo := _PREAMBULO.match(text):
         return Segment(text, (Unit("preambulo"),), norm_text=_norm_text(preambulo["rest"]))
     return None
 
 
 def _letter_paren_continues(text: str, at: int) -> bool:
-    """Whether the «)» at `at` closes a letter paragraph («b)») and the citation goes on after it."""
-    if at < 2 or not re.match(r"[a-zñ]", text[at - 1]) or text[at - 2] not in ". \n":
+    """Whether the «)» at `at` closes a paragraph letter («b)», «21.C)») and the citation goes on."""
+    if at < 2:
+        return False
+    letter, before = text[at - 1], text[at - 2]
+    lower = bool(re.match(r"[a-zñ]", letter)) and before in ". \n\u2013-"
+    # A capital is a paragraph letter only after a dot or a dash: «(… título I) Siguiente» closes.
+    upper = bool(re.match(r"[A-Z]", letter)) and before in ".\u2013-"
+    if not (lower or upper):
         return False
     return bool(
         re.match(
-            r"(?:\s+[ye]\s+[a-zñ\d]|\s*,\s*[a-zñ\d]|\s+[A-ZÁÉÍÓÚ]|\s+(?:del|de)\s|\.\d|\s+bis\b)",
+            r"(?:\s+[ye]\s+[a-zñ\d]|\s*,\s*[a-zñ\d]|\s+[A-ZÁÉÍÓÚ]|\s+(?:del|de)\s|\.\d|\s+bis\b"
+            r"|\s*[\u2013-]\s*[A-Za-zñ]\))",
             text[at + 1 : at + 40],
         )
     )
@@ -202,6 +244,25 @@ class Parenthetical:
     inner: str
 
 
+def _close(text: str, inner_start: int) -> int:
+    """Where the parenthetical whose inside starts at `inner_start` ends: its «)», or the paragraph's end."""
+    depth = 0
+    cursor = inner_start
+    while cursor < len(text):
+        char = text[cursor]
+        if char == "(":
+            depth += 1
+        elif char == ")":
+            if depth:
+                depth -= 1
+            elif not _letter_paren_continues(text, cursor):
+                break
+        elif char == "\n" and text[cursor + 1 : cursor + 2] == "\n":
+            break  # a paragraph never continues a parenthetical
+        cursor += 1
+    return cursor
+
+
 def parentheticals(text: str) -> list[Parenthetical]:
     """Every parenthetical whose inside starts with a lead, in order, closing parens matched."""
     found: list[Parenthetical] = []
@@ -211,23 +272,23 @@ def parentheticals(text: str) -> list[Parenthetical]:
         if not LEAD.match(text[inner_start : inner_start + 20]):
             index = inner_start
             continue
-        depth = 0
-        cursor = inner_start
-        while cursor < len(text):
-            char = text[cursor]
-            if char == "(":
-                depth += 1
-            elif char == ")":
-                if depth:
-                    depth -= 1
-                elif not _letter_paren_continues(text, cursor):
-                    break
-            elif char == "\n" and text[cursor + 1 : cursor + 2] == "\n":
-                break  # a paragraph never continues a parenthetical
-            cursor += 1
+        cursor = _close(text, inner_start)
         found.append(Parenthetical(inner_start, text[inner_start:cursor]))
         index = cursor
     return found
+
+
+def trailing_parenthetical(text: str) -> Parenthetical | None:
+    """The parenthetical that closes at the very end of `text` — an esquema row's citation — if any."""
+    end = len(text.rstrip()) - 1
+    if end < 0 or text[end] != ")":
+        return None
+    index = 0
+    while (open_at := text.find("(", index)) >= 0:
+        if _close(text, open_at + 1) == end:
+            return Parenthetical(open_at + 1, text[open_at + 1 : end])
+        index = open_at + 1
+    return None
 
 
 def segments(inner: str) -> list[tuple[int, str]]:

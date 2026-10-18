@@ -202,3 +202,96 @@ to `normativa.yaml`, regenerate `citations.es.txt`, and add `exams:` and `lesson
    become plain text there (one case in AGE) so links never nest.
 9. Case questions' answer shuffle is the quiz's per-question shuffle (tested); the aggregate bias suite
    (`test_quiz_answer_bias.py`) still runs on crypto only — run it over AGE's cases once real ones exist (R4).
+
+# Mini-round — composite draw and citation parser fixes (2026-10-18)
+
+Delta v1.3 A8/A9 and the parser findings of `docs/age-theory-ledger.md` («Esquemas bloque III/IV/V/I»). Nothing
+committed. Each parser fix has a test that failed before it (`test_citations.py`, `esquema.test.ts`).
+
+## A8/A9 — composite draw and draw modes
+
+```yaml
+- id: parte-1
+  sources:                         # instead of source/draw/questions; two or more
+  - source: {modules: [m01, m02, m03, m04, m05]}   # new source kind: a set of modules, one pool
+    questions: 40                  # draw: random (default) | per-module | all, per source
+  - source: {module: m06}
+    questions: 30
+  reserve: 5                       # drawn after the counted questions from what the random sources left
+```
+
+- The counted questions of every source are shuffled together into one part (one clock, one score row); reserves
+  stay last. Each question keeps its exercise, so «Por tema» attributes it to its lesson as before (D).
+- `draw: all` takes every question of the source (no `questions`, no `reserve`); it is valid on a single-source
+  part too. `per-module` and `random` behave as before. A composite source may not be `cases` or `each`.
+- Load check (`pool_shortfalls`): each source's pool must cover its count, no two sources may share a question,
+  and the random sources must leave enough for the reserve. `minimum_raw` is now checked against the counted
+  total for every question part.
+- The single-source path draws exactly as before (same calls on the random stream), so the crypto golden holds.
+- Fixed on the way: a `per-module` draw could pick a **case** exercise (it read the module's playable exercises,
+  cases included). crypto has no cases, so it never showed; the fixture's m02 does
+  (`test_each_source_of_a_part_draws_its_own_count_in_its_own_mode` fails without the fix).
+- Fixture: `simulacro` v2, part 1 = 40 from `{modules: [m01]}` + 30 from `{module: m02}` + 2 reserve, 100 minutes
+  shared with the case part. The fixture has two modules, so the «set of modules» source is proven on a
+  two-module set in `test_a_set_of_modules_draws_from_every_module_in_it`.
+- A stored preset snapshot re-validates with every field present, so «`source` or `sources`, not both» reads the
+  values, not the fields set (an earlier draft refused every stored sitting).
+
+## Citation parser
+
+a. **A letter + «)» inside a citation.** An uppercase letter after a dot or a dash («21.C)», «23.Uno.B)»,
+   «B)–D)») and a lowercase letter after a dash («a)–b)») now continue the citation like «f)» did. A capital after
+   a space is a word, so «(… título I) Siguiente» still closes. An esquema row's trailing citation is found with the
+   same rule, on both sides: `grammar.trailing_parenthetical` (backend) and `trailingCitation` in `lib/esquema.ts`
+   (web), so «(art. 159.4.f) LCSP)» no longer breaks a `plazos`/`pasos`/`arbol` row.
+b. **Sub-ranges under `arts.`.** After an item with a paragraph, a dash runs over paragraphs: «arts. 23.2 y 24.1–2»
+   is articles 23 and 24, «24.1–24.2» is article 24; «arts. 14–38» and «arts. 12.1–13.2» are still article ranges.
+c. **Rules of sources without articles.** New leads `regla`/`reglas` + number and `nota`/`notas` + number, and
+   `apartado` with an ordinal word: «regla 34.II.a.1 IOC» → `regla-34`, «regla 59 bis» → `regla-59-bis`,
+   «apartado sexto.1 Orden …» → `apartado-sexto`, «nota 34 anexo I Orden …» and «anexo I, nota 34, Orden …» →
+   `anexo-i-nota-34`. «regla general» and «nota del BOE al art. 29» stay prose. The source index gains «Regla N.»
+   headings, ordinal apartado headings («Sexto.  Delimitación.») and an annex's numbered notes (an unbroken run
+   from 1 after each «ANEXO» heading); a unit the index cannot place opens the norm's file.
+
+## AGE regenerated
+
+`source-index.json`: only additions (no file hash or existing unit moved). `citations.es.txt`, against HEAD, before
+the re-link edits — every changed row is one of these:
+
+| Fix | Rows | What changed |
+|---|---|---|
+| b | 2 (m03-l03) | «arts. 30.2–3 y 68.1 LPAC», «arts. 30.4–5 y 122.1 LPAC» lose the false `art-3` / `art-5` anchors |
+| a | 3 (m03-l04, m04-l05, m04-l07) | «art. 39.2.a)–b) LCSP», «art. 49.a)–c) TREBEP», «art. 8.1.a)–b) RDL 4/2000» were cut at the first letter («art. 39.2.a») and borrowed the previous citation's norm; now whole, norm named. Same anchor and page |
+| c | 2 (m05-l06) | «anexo I, nota 34.II.a.1, Orden de documentos contables» re-linked from the annex (p. 10) to note 34 (p. 15) |
+| c | 55 new (m05-l02 3, m05-l03 24, m05-l04 1, m05-l05 20, m05-l06 7) | 37 «regla … IOC» and 18 «apartado <ordinal> … Orden» (13 PRE/1576/2002, 5 documentos contables) were not read as citations; all open at their page |
+
+Header: 3,216 → 3,271 prose citations, 1,434 → 1,464 anchors, 496 esquema rows, 5 naming a norm `normativa.yaml`
+lacks (unchanged). No lesson text changed in this step; `annotate.test.ts` places every row of the new golden.
+
+**Re-linked rows: 9**, the esquema list rows that dropped a letter because the old row grammar could not end in one
+(ledger bloque III item 2). Only the citation in each row changed:
+- m03-l04 `plazos` l. 281: «art. 159.4 LCSP» → «art. 159.4.f) LCSP».
+- m05-l02 `arbol` l. 72–77: «art. 40.1 LGP» → «40.1.a)» (orgánica), «40.1.b)» (programas), «40.1.c)» (económica
+  and its capítulos, artículos, conceptos) — the letters the prose cites for each.
+- m05-l03 `pasos` l. 261–262: «art. 155 LGP» → «155.a)» (intervención delegada), «155.b)» (Consejo de Ministros).
+
+Anchors are per article, so these rows keep their target. Rows cited **without the rule: 0** — no esquema row had
+been rewritten onto another norm to stand in for a regla, apartado or nota; the ledger records those facts as left
+out instead (the fases del gasto table, bloque V), and adding them is content work for a later R2c pass. The two
+prose rows that cited the note only through its annex were re-linked by fix c itself (table above). The prose
+rewordings made earlier for «21.C)» and «23.Uno.B)» (m04-l01, m04-l03, m05-l04) parse either way and were left
+as they are. Table rows citing an article where the prose cites a letter (m04-l07 21.1, m05-l04 arts. 33–34
+Ley 33/1987) were never affected by the bug and are not counted.
+
+Ledger open items this closes: bloque III item 2, bloque V item 3 (platform), bloque I «arts. X y Y.1–2».
+
+## CI, goldens, Android
+
+- Backend: `ruff check .` clean, `mypy src` (strict) clean, `pytest` 1,489 passed, 20 skipped (1,449 before; +40:
+  `test_citations` +27, `test_exam_scoring` +11, `test_exam_presets` +2). The crypto exam golden holds unchanged.
+- Frontend: `npm run build` (tsc + vite) clean; `npm test` 593 passed, 51 skipped (+1, `lib/esquema.test.ts`).
+- Android bundle re-exported to scratch: byte-identical to `dist/bundle`, label catalogs identical to `dist/i18n`.
+  `verify_golden_stability.py`: 90 fingerprints hold, digest `f0ae701b…bcaea`, unchanged. Nothing under
+  `content/crypto-futures/` or `dist/` changed.
+- `ruff format` over the whole backend: HEAD was not clean outside `src/`; 35 files (scripts and tests) were
+  reformatted, layout only. `ruff format --check .` is now clean.

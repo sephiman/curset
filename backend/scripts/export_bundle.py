@@ -91,6 +91,7 @@ I18N_DIR = FRONTEND_DIR / "src" / "i18n"
 #: what the Android app has to do to consume it.
 BUNDLE_FORMAT_VERSION = 2
 
+
 #: The AST export's multiset text diff goes in a sibling `reports/` directory, never inside the
 #: bundle: it is a verification report ABOUT the bundle, not content the app reads, and everything
 #: inside `dist/bundle` crosses into the Android repository.
@@ -235,9 +236,9 @@ def canonical_bytes(value: object) -> bytes:
     `ensure_ascii` off so the TypeScript half writes byte-identical files — `JSON.stringify` has no
     escaping mode to match `\\uXXXX` output.
     """
-    return json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode(
-        "utf-8"
-    ) + b"\n"
+    return (
+        json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode("utf-8") + b"\n"
+    )
 
 
 def sha256_file(path: Path) -> str:
@@ -610,9 +611,7 @@ def build_ast_input(registry: CourseRegistry) -> dict[str, Any]:
             "key": lesson.key,
             "moduleId": module.id,
             "markdown": {loc: registry.markdown[loc][lesson.id] for loc in LOCALES},
-            "exportMarkdown": {
-                loc: _theory_only(registry.markdown[loc][lesson.id]) for loc in LOCALES
-            },
+            "exportMarkdown": {loc: _theory_only(registry.markdown[loc][lesson.id]) for loc in LOCALES},
         }
         for module, lesson in registry.manifest.iter_lessons()
     ]
@@ -698,12 +697,21 @@ def _run_ast_export(out: Path, *, verify: bool, emit: bool = True) -> None:
     report.parent.mkdir(parents=True, exist_ok=True)
     (out / "exercises").mkdir(parents=True, exist_ok=True)
     command = [
-        "npm", "run", "--silent", "export:bundle-ast", "--",
-        "--input", str(ast_input),
-        "--out", str(out / "ast"),
-        "--glossary-dir", str(out / "glossary"),
-        "--refs-out", str(out / EXERCISE_REFS_FILE),
-        "--diff-report", str(report),
+        "npm",
+        "run",
+        "--silent",
+        "export:bundle-ast",
+        "--",
+        "--input",
+        str(ast_input),
+        "--out",
+        str(out / "ast"),
+        "--glossary-dir",
+        str(out / "glossary"),
+        "--refs-out",
+        str(out / EXERCISE_REFS_FILE),
+        "--diff-report",
+        str(report),
     ]
     if not verify:
         command.append("--no-verify")
@@ -816,7 +824,8 @@ def main(argv: list[str] | None = None) -> int:
         "--no-verify", action="store_true", help="skip the multiset text diff against the web export"
     )
     parser.add_argument(
-        "--verify-only", action="store_true",
+        "--verify-only",
+        action="store_true",
         help="re-check an existing bundle (inventory, text diff, leaked tokens) without rewriting it",
     )
     args = parser.parse_args(argv)

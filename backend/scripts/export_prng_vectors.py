@@ -82,7 +82,20 @@ DRAWS_PER_PARAM = 64
 #: ones because `print_seed` lives in a 62-bit space and an attempt's seed is an arbitrary integer —
 #: a port whose SeedSequence only handles small entropy would pass everything else and fail the book.
 VECTOR_SEEDS: tuple[int, ...] = (
-    0, 1, 2, 3, 4, 5, 8, 11, 12, 13, 16, 20, 21, 24,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    8,
+    11,
+    12,
+    13,
+    16,
+    20,
+    21,
+    24,
     print_seed("m01-ex-1"),
     print_seed("m30-ex-3"),
 )
@@ -90,13 +103,26 @@ VECTOR_SEEDS: tuple[int, ...] = (
 #: `rng.integers(low, high)` as the generation path calls it — regime counts, coin flips, and the
 #: label lottery, whose upper bound is the length of a config's `targets` list.
 INTEGER_BOUNDS: tuple[tuple[int, int], ...] = (
-    (0, 2), (0, 3), (0, 5), (0, 6), (0, 9), (0, 15), (2, 4), (2, 5), (0, 2**63 - 1),
+    (0, 2),
+    (0, 3),
+    (0, 5),
+    (0, 6),
+    (0, 9),
+    (0, 15),
+    (2, 4),
+    (2, 5),
+    (0, 2**63 - 1),
 )
 
 #: `rng.uniform(low, high)` bounds spanning the real call sites: drift regimes, volatility
 #: multipliers, base-price jitter and leg lengths.
 UNIFORM_BOUNDS: tuple[tuple[float, float], ...] = (
-    (0.0, 1.0), (-0.0006, 0.0006), (0.0025, 0.006), (0.085, 0.155), (0.6, 1.8), (0.9, 1.1),
+    (0.0, 1.0),
+    (-0.0006, 0.0006),
+    (0.0025, 0.006),
+    (0.085, 0.155),
+    (0.6, 1.8),
+    (0.9, 1.1),
 )
 
 #: `rng.choice(a)` population sizes: 2 (the sign coin), 5 (`injectors._BASE_PRICES`) and the label
@@ -118,18 +144,55 @@ WIDE_OPS = ("raw64", "f64", "i64wide", "normal")
 #: buffer), a 64-bit draw across a FILLED buffer (which must leave it filled), and the two integer
 #: widths side by side.
 MIXED_PROGRAM: tuple[str, ...] = (
-    ("raw64", "u32", "u32", "raw64", "u32", "f64", "u32", "u32", "u32", "i64small", "i64wide",
-     "u32", "f32", "f32", "raw64", "u32", "f32", "i32", "i32", "normal", "u32", "choice5",
-     "i64wide", "u32", "f64", "u32", "i64small", "choice5", "raw64", "u32")
-    * 2
-)
+    "raw64",
+    "u32",
+    "u32",
+    "raw64",
+    "u32",
+    "f64",
+    "u32",
+    "u32",
+    "u32",
+    "i64small",
+    "i64wide",
+    "u32",
+    "f32",
+    "f32",
+    "raw64",
+    "u32",
+    "f32",
+    "i32",
+    "i32",
+    "normal",
+    "u32",
+    "choice5",
+    "i64wide",
+    "u32",
+    "f64",
+    "u32",
+    "i64small",
+    "choice5",
+    "raw64",
+    "u32",
+) * 2
 
 #: `(n, salt)` pairs for the CPython shuffles the exercise machinery actually performs: salt 0 lays
 #: out a single/multi-select option list or an ordering, salts 1 and 2 lay out the two columns of a
 #: `matching` question, and 7 is the calculation option order (`seed * 1000 + 7`).
 QUIZ_LAYOUTS: tuple[tuple[int, int], ...] = (
-    (2, 0), (3, 0), (4, 0), (5, 0), (6, 0),
-    (3, 1), (3, 2), (4, 1), (4, 2), (5, 1), (5, 2), (6, 1), (6, 2),
+    (2, 0),
+    (3, 0),
+    (4, 0),
+    (5, 0),
+    (6, 0),
+    (3, 1),
+    (3, 2),
+    (4, 1),
+    (4, 2),
+    (5, 1),
+    (5, 2),
+    (6, 1),
+    (6, 2),
     (4, 7),
 )
 
@@ -261,9 +324,7 @@ def normal_rows(seed: int) -> list[dict[str, Any]]:
             path = "tail"
         else:
             path = "wedge"
-        rows.append(
-            {"index": index, "hex": hex64(value), "value": repr(value), "words": words, "path": path}
-        )
+        rows.append({"index": index, "hex": hex64(value), "value": repr(value), "words": words, "path": path})
     return rows
 
 
@@ -330,9 +391,7 @@ def cpython_rows(seed: int) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     generator = random.Random(seed)
     for index in range(DRAWS_PER_SEED):
-        rows.append(
-            {"primitive": "random", "arg": "", "index": index, "value": hex64(generator.random())}
-        )
+        rows.append({"primitive": "random", "arg": "", "index": index, "value": hex64(generator.random())})
     for bits in (1, 4, 15, 16, 31, 32, 53, 64):
         generator = random.Random(seed)
         for index in range(DRAWS_PER_PARAM):
@@ -413,8 +472,13 @@ def cpython_rows(seed: int) -> list[dict[str, Any]]:
 def quiz_layout_rows() -> list[dict[str, Any]]:
     """`quiz._shuffled(n, seed, salt)` — the generator's own function, never a copy of its arithmetic."""
     return [
-        {"n": n, "seed": seed, "salt": salt, "derived_seed": seed * 1000 + salt,
-         "order": _shuffled(n, seed, salt)}
+        {
+            "n": n,
+            "seed": seed,
+            "salt": salt,
+            "derived_seed": seed * 1000 + salt,
+            "order": _shuffled(n, seed, salt),
+        }
         for n, salt in QUIZ_LAYOUTS
         for seed in VECTOR_SEEDS
     ]
@@ -488,8 +552,11 @@ def build_all() -> dict[str, str]:
             "",
             f"{DRAWS_PER_SEED} draws per seed.",
         ],
-        [[str(seed), str(row["index"]), str(row["raw64"])]
-         for seed in VECTOR_SEEDS for row in raw_rows(seed)],
+        [
+            [str(seed), str(row["index"]), str(row["raw64"])]
+            for seed in VECTOR_SEEDS
+            for row in raw_rows(seed)
+        ],
     )
 
     files["pcg64-double"] = _tsv(
@@ -499,22 +566,27 @@ def build_all() -> dict[str, str]:
             "",
             f"{DRAWS_PER_SEED} draws per seed.",
         ],
-        [[str(seed), str(row["index"]), row["hex"], row["value"]]
-         for seed in VECTOR_SEEDS for row in double_rows(seed)],
+        [
+            [str(seed), str(row["index"]), row["hex"], row["value"]]
+            for seed in VECTOR_SEEDS
+            for row in double_rows(seed)
+        ],
     )
 
     files["pcg64-integers"] = _tsv(
         "seed\tlow\thigh\tindex\tvalue",
         [
             *_seed_note("`Generator.integers(low, high)` — half-open, the bounds the injectors use"),
-
             "",
             f"{DRAWS_PER_PARAM} draws per (seed, bounds); each bound restarts from the seed.",
             "`(0, 2**63-1)` is here to exercise the wide path; the rest are real call sites, and",
             "`(0, len(targets))` is the label lottery whose bound is a config's own list length.",
         ],
-        [[str(seed), str(row["low"]), str(row["high"]), str(row["index"]), str(row["value"])]
-         for seed in VECTOR_SEEDS for row in integer_rows(seed)],
+        [
+            [str(seed), str(row["low"]), str(row["high"]), str(row["index"]), str(row["value"])]
+            for seed in VECTOR_SEEDS
+            for row in integer_rows(seed)
+        ],
     )
 
     files["pcg64-uniform"] = _tsv(
@@ -524,15 +596,17 @@ def build_all() -> dict[str, str]:
             "",
             f"{DRAWS_PER_PARAM} draws per (seed, bounds); each bound restarts from the seed.",
         ],
-        [[str(seed), row["low"], row["high"], str(row["index"]), row["hex"]]
-         for seed in VECTOR_SEEDS for row in uniform_rows(seed)],
+        [
+            [str(seed), row["low"], row["high"], str(row["index"]), row["hex"]]
+            for seed in VECTOR_SEEDS
+            for row in uniform_rows(seed)
+        ],
     )
 
     files["pcg64-normal"] = _tsv(
         "seed\tindex\thex\tdecimal\twords\tpath",
         [
             *_seed_note("`Generator.standard_normal()` — the 256-level ziggurat"),
-
             "",
             f"{DRAWS_PER_SEED} draws per seed, drawn ONE AT A TIME so each draw's cost is visible.",
             "`words` is how many 64-bit words the draw consumed; `path` is where it came from:",
@@ -542,8 +616,11 @@ def build_all() -> dict[str, str]:
             "Only `wedge` and `tail` rows can differ between two correct libms, and then by an ulp.",
             "They are INFORMATIVE: the binding contract is the rounded payload, not these doubles.",
         ],
-        [[str(seed), str(row["index"]), row["hex"], row["value"], str(row["words"]), row["path"]]
-         for seed in VECTOR_SEEDS for row in normal_rows(seed)],
+        [
+            [str(seed), str(row["index"]), row["hex"], row["value"], str(row["words"]), row["path"]]
+            for seed in VECTOR_SEEDS
+            for row in normal_rows(seed)
+        ],
     )
 
     files["pcg64-mixed-32-64"] = _tsv(
@@ -578,9 +655,19 @@ def build_all() -> dict[str, str]:
             "`value` is decimal for integers and a bit pattern for floats (16 hex digits for a double,",
             "8 for a float32).",
         ],
-        [[str(seed), str(row["index"]), row["op"], row["width"], row["value"],
-          str(row["has_uint32"]), str(row["uinteger"])]
-         for seed in VECTOR_SEEDS for row in mixed_rows(seed)],
+        [
+            [
+                str(seed),
+                str(row["index"]),
+                row["op"],
+                row["width"],
+                row["value"],
+                str(row["has_uint32"]),
+                str(row["uinteger"]),
+            ]
+            for seed in VECTOR_SEEDS
+            for row in mixed_rows(seed)
+        ],
     )
 
     files["pcg64-choice"] = _tsv(
@@ -589,15 +676,17 @@ def build_all() -> dict[str, str]:
             *_seed_note(
                 "`Generator.choice(arange(n))` as the injectors call it — one element, with replacement"
             ),
-
             "",
             "The population is `arange(n)`, so the VALUE is the index `choice` picked: that is the",
             "number a port has to reproduce, whatever the real population happens to hold.",
             "n covers the real ones: 2 (the sign coin), 5 (`injectors._BASE_PRICES`) and the label",
             "list lengths an injector offers.",
         ],
-        [[str(seed), str(row["n"]), str(row["index"]), str(row["chosen"])]
-         for seed in VECTOR_SEEDS for row in choice_rows(seed)],
+        [
+            [str(seed), str(row["n"]), str(row["index"]), str(row["chosen"])]
+            for seed in VECTOR_SEEDS
+            for row in choice_rows(seed)
+        ],
     )
 
     files["pcg64-shuffle"] = _tsv(
@@ -610,8 +699,11 @@ def build_all() -> dict[str, str]:
             "is already pinned rather than introduced unpinned — do not port against this file",
             "expecting it to explain an option order.",
         ],
-        [[str(seed), str(row["n"]), str(row["index"]), row["order"]]
-         for seed in VECTOR_SEEDS for row in shuffle_rows(seed)],
+        [
+            [str(seed), str(row["n"]), str(row["index"]), row["order"]]
+            for seed in VECTOR_SEEDS
+            for row in shuffle_rows(seed)
+        ],
     )
 
     files["cpython-mt-state"] = _tsv(
@@ -624,9 +716,11 @@ def build_all() -> dict[str, str]:
             "usual first bug in a port, and it is invisible until a whole shuffle comes out wrong.",
             "624 words per seed, plus `index` 624 (meaning `genrand` will twist on its next call).",
         ],
-        [[str(seed), str(index), str(word)]
-         for seed in VECTOR_SEEDS
-         for index, word in enumerate([*cpython_mt_state(seed)["words"], cpython_mt_state(seed)["index"]])],
+        [
+            [str(seed), str(index), str(word)]
+            for seed in VECTOR_SEEDS
+            for index, word in enumerate([*cpython_mt_state(seed)["words"], cpython_mt_state(seed)["index"]])
+        ],
     )
 
     files["cpython-random"] = _tsv(
@@ -650,8 +744,11 @@ def build_all() -> dict[str, str]:
             "",
             f"seeds: {', '.join(str(s) for s in VECTOR_SEEDS)}",
         ],
-        [[str(seed), row["primitive"], row["arg"], str(row["index"]), row["value"]]
-         for seed in VECTOR_SEEDS for row in cpython_rows(seed)],
+        [
+            [str(seed), row["primitive"], row["arg"], str(row["index"]), row["value"]]
+            for seed in VECTOR_SEEDS
+            for row in cpython_rows(seed)
+        ],
     )
 
     files["quiz-layout"] = _tsv(
@@ -669,9 +766,16 @@ def build_all() -> dict[str, str]:
             "",
             "`order` is the permutation of `range(n)`: slot i shows the original item `order[i]`.",
         ],
-        [[str(row["n"]), str(row["salt"]), str(row["seed"]), str(row["derived_seed"]),
-          ",".join(str(v) for v in row["order"])]
-         for row in quiz_layout_rows()],
+        [
+            [
+                str(row["n"]),
+                str(row["salt"]),
+                str(row["seed"]),
+                str(row["derived_seed"]),
+                ",".join(str(v) for v in row["order"]),
+            ]
+            for row in quiz_layout_rows()
+        ],
     )
 
     return files

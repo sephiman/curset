@@ -69,9 +69,7 @@ def test_a_missing_artifact_refuses_and_says_how_to_get_it_back(
     import scripts.export_libm_parity as exporter
 
     absent = tmp_path / "gone" / "libm-parity-sample.tsv"
-    monkeypatch.setattr(
-        exporter, "DELIVERED", ((absent, "libm-parity-sample.tsv", "the measured rows"),)
-    )
+    monkeypatch.setattr(exporter, "DELIVERED", ((absent, "libm-parity-sample.tsv", "the measured rows"),))
     out = tmp_path / "out"
     with pytest.raises(ParityExportError, match="missing artifact") as refusal:
         exporter.deliver(out)

@@ -21,10 +21,39 @@ _HIDDEN = [DivergenceType.BULLISH_HIDDEN, DivergenceType.BEARISH_HIDDEN]
 
 # StockCharts' canonical 14-period Wilder RSI worked example (closes -> expected RSI).
 _RSI_REF_CLOSES = [
-    44.3389, 44.0902, 44.1497, 43.6124, 44.3278, 44.8264, 45.0955, 45.4245, 45.8433, 46.0826,
-    45.8931, 46.0328, 45.6140, 46.2820, 46.2820, 46.0028, 46.0328, 46.4116, 46.2222, 45.6439,
-    46.2122, 46.2521, 45.7137, 46.4515, 45.7835, 45.3548, 44.0288, 44.1783, 44.2181, 44.5672,
-    43.4205, 42.6628, 43.1314,
+    44.3389,
+    44.0902,
+    44.1497,
+    43.6124,
+    44.3278,
+    44.8264,
+    45.0955,
+    45.4245,
+    45.8433,
+    46.0826,
+    45.8931,
+    46.0328,
+    45.6140,
+    46.2820,
+    46.2820,
+    46.0028,
+    46.0328,
+    46.4116,
+    46.2222,
+    45.6439,
+    46.2122,
+    46.2521,
+    45.7137,
+    46.4515,
+    45.7835,
+    45.3548,
+    44.0288,
+    44.1783,
+    44.2181,
+    44.5672,
+    43.4205,
+    42.6628,
+    43.1314,
 ]
 
 
@@ -92,8 +121,14 @@ def _collect_last3(targets: list[str], per: int) -> tuple[np.ndarray, np.ndarray
     for tv in targets:
         choices = ["none", tv] if tv != "none" else ["none"]
         config = gen.parse_config(
-            {"type": "synthetic_chart", "prompt": {"en": "x", "es": "x"}, "indicator": "rsi",
-             "n": N, "targets": [tv], "choices": choices}
+            {
+                "type": "synthetic_chart",
+                "prompt": {"en": "x", "es": "x"},
+                "indicator": "rsi",
+                "n": N,
+                "targets": [tv],
+                "choices": choices,
+            }
         )
         for seed in range(per):
             _t, _s1, _s2, payload = _instantiate(config, seed)
@@ -191,8 +226,14 @@ def test_none_charts_reach_rsi_extremes_without_pegging() -> None:
     # pegging at 0/100 (the round-3 concern: RSI must not stay compressed in a mid band).
     gen = SyntheticChartGenerator()
     config = gen.parse_config(
-        {"type": "synthetic_chart", "prompt": {"en": "x", "es": "x"}, "indicator": "rsi",
-         "n": N, "targets": ["none"], "choices": ["none"]}
+        {
+            "type": "synthetic_chart",
+            "prompt": {"en": "x", "es": "x"},
+            "indicator": "rsi",
+            "n": N,
+            "targets": ["none"],
+            "choices": ["none"],
+        }
     )
     mins, maxs = [], []
     for seed in range(30):
@@ -210,8 +251,14 @@ def test_divergence_shows_in_rendered_rsi(target: DivergenceType) -> None:
     # The rendered RSI at the two swings must actually diverge (and stay non-degenerate).
     gen = SyntheticChartGenerator()
     config = gen.parse_config(
-        {"type": "synthetic_chart", "prompt": {"en": "x", "es": "x"}, "indicator": "rsi",
-         "n": N, "targets": [target.value], "choices": ["none", target.value]}
+        {
+            "type": "synthetic_chart",
+            "prompt": {"en": "x", "es": "x"},
+            "indicator": "rsi",
+            "n": N,
+            "targets": [target.value],
+            "choices": ["none", target.value],
+        }
     )
     for seed in range(15):
         _t, s1, s2, payload = _instantiate(config, seed)

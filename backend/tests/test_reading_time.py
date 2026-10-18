@@ -68,9 +68,7 @@ async def _auth(client: AsyncClient) -> None:
 
 
 def _lessons(course: dict[str, Any]) -> list[dict[str, Any]]:
-    return [
-        lesson for block in course["blocks"] for m in block["modules"] for lesson in m["lessons"]
-    ]
+    return [lesson for block in course["blocks"] for m in block["modules"] for lesson in m["lessons"]]
 
 
 def test_directives_and_markup_are_stripped_and_callout_prose_is_kept() -> None:
@@ -141,9 +139,7 @@ async def test_every_view_serves_the_same_per_lesson_seconds(content_client: Asy
     missing = [x["id"] for x in module["lessons"] if "readingSeconds" not in x]
     assert missing == [], f"the module view serves lessons with no estimate: {missing}"
     from_course = {
-        lesson["id"]: lesson["readingSeconds"]
-        for lesson in lessons
-        if lesson["id"].startswith("m08-")
+        lesson["id"]: lesson["readingSeconds"] for lesson in lessons if lesson["id"].startswith("m08-")
     }
     assert {lesson["id"]: lesson["readingSeconds"] for lesson in module["lessons"]} == from_course
     assert len(from_course) == 2, "m08 carries two lessons — the case a module total is a real sum"

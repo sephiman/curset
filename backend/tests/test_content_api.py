@@ -45,7 +45,15 @@ async def test_course_export_theory_only(content_client: AsyncClient) -> None:
     assert len(lessons) == 44
     # In display order — ascending since the 2026-08-10 renumbering made id order == reading order.
     assert [m["id"] for m in modules if len(m["lessons"]) == 2] == [
-        "m03", "m08", "m09", "m15", "m19", "m21", "m22", "m23", "m27",
+        "m03",
+        "m08",
+        "m09",
+        "m15",
+        "m19",
+        "m21",
+        "m22",
+        "m23",
+        "m27",
     ]
 
     for m in modules:
@@ -151,7 +159,13 @@ async def test_course_tree_shape(content_client: AsyncClient) -> None:
     await _auth(content_client)
     course = (await content_client.get(f"{API}")).json()
     assert [b["id"] for b in course["blocks"]] == [
-        "block-a", "block-b", "block-c", "block-d", "block-e", "block-f", "block-g",
+        "block-a",
+        "block-b",
+        "block-c",
+        "block-d",
+        "block-e",
+        "block-f",
+        "block-g",
     ]
 
     # Root course identity for the header (localized; sourced from the manifest).
@@ -274,9 +288,7 @@ async def test_glossary_endpoint_serves_entries_at_its_real_path(
     assert len(data["terms"]) > 0
 
     registry = load_registry(get_settings().content_dir / "crypto-futures")
-    assert [t["term"] for t in data["terms"]] == [
-        e["term"] for e in registry.glossary_entries("es")
-    ]
+    assert [t["term"] for t in data["terms"]] == [e["term"] for e in registry.glossary_entries("es")]
     # The three shapes the page renders, all reachable over HTTP.
     assert any(t.get("aliasOf") for t in data["terms"])
     assert any(t.get("senses") for t in data["terms"])

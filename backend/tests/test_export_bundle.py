@@ -258,9 +258,7 @@ def test_a_table_alignment_outside_gfm_fails() -> None:
         {
             "type": "table",
             "align": ["justify"],
-            "children": [
-                {"type": "tableRow", "children": [{"type": "tableCell", "children": [_text("x")]}]}
-            ],
+            "children": [{"type": "tableRow", "children": [{"type": "tableCell", "children": [_text("x")]}]}],
         }
     )
     assert any("justify" in message for message in _violations(tree))
@@ -341,9 +339,9 @@ def test_a_calculation_s_params_reach_the_bundle_in_the_order_the_yaml_declares(
         exported = written["configs"][exercise_id]["config"]["params"]
         assert [entry["name"] for entry in exported] == declared, exercise_id
         for entry, name in zip(exported, declared, strict=True):
-            assert {k: v for k, v in entry.items() if k != "name"} == config.params[
-                name
-            ].model_dump(mode="json"), f"{exercise_id}/{name}"
+            assert {k: v for k, v in entry.items() if k != "name"} == config.params[name].model_dump(
+                mode="json"
+            ), f"{exercise_id}/{name}"
         checked += 1
         reordered += declared != sorted(declared)
     assert checked == 18, f"expected 18 calculation exercises, found {checked}"
@@ -452,6 +450,7 @@ def test_the_manifest_fingerprint_excludes_only_the_manifest(registry: Any) -> N
 # to being a complete specification — an independent implementation written from its words alone
 # reproduces the real digest, and the words that make that possible are actually present.
 
+
 #: The recipe, reimplemented from `README.md`'s "Verifying this bundle" section and nothing else.
 #: Deliberately does NOT call `canonical_bytes`: that would test the exporter against itself again.
 def _fingerprint_from_documented_recipe(files: dict[str, str]) -> str:
@@ -503,9 +502,7 @@ def test_every_localized_string_in_a_config_is_offered_to_the_annotator(registry
     `exercises/configs.json` directly.
     """
     configs = build_exercise_configs(registry)["configs"]
-    offered = {
-        (entry["exerciseId"], entry["path"]) for entry in build_ast_input(registry)["exerciseTexts"]
-    }
+    offered = {(entry["exerciseId"], entry["path"]) for entry in build_ast_input(registry)["exerciseTexts"]}
     assert offered, "no exercise prose was offered for annotation at all"
     for exercise_id, entry in configs.items():
         for path, text in localized_strings(entry["config"]):

@@ -17,6 +17,10 @@ from tradeschool.content.text import LocalizedText
 #: The penalties an official exam uses; anything else is an authoring mistake, not a policy.
 PENALTIES = (Fraction(0), Fraction(1, 4), Fraction(1, 3))
 
+#: `random`: `questions` distinct questions from the pool. `per-module`: one question from each module
+#: with a bank, in course order (the count follows the course). `all`: every question of the pool.
+DrawMode = Literal["random", "per-module", "all"]
+
 
 class PresetSource(BaseModel):
     """Where a part draws from: exactly one field set.
@@ -30,6 +34,8 @@ class PresetSource(BaseModel):
     cases: bool = False
     block: str | None = None
     module: str | None = None
+    #: A set of modules drawn as one pool (AGE bloques I to V).
+    modules: list[str] | None = None
     lesson: str | None = None
     each: Literal["block", "module", "lesson"] | None = None
 
@@ -45,13 +51,12 @@ class PresetSource(BaseModel):
     def _exactly_one(self) -> Self:
         chosen = [
             name
-            for name in ("course", "cases", "block", "module", "lesson", "each")
-            if getattr(self, name) not in (None, False)
+            for name in ("course", "cases", "block", "module", "modules", "lesson", "each")
+            if getattr(self, name)
         ]
         if len(chosen) != 1:
-            raise ValueError(
-                f"a part's source names one of course, cases, block, module, lesson, each; got {chosen}"
-            )
+            names = "course, cases, block, module, modules, lesson, each"
+            raise ValueError(f"a part's source names one of {names}; got {chosen}")
         return self
 
 
@@ -71,16 +76,39 @@ class PartScoring(BaseModel):
         return self
 
 
+def _count_problem(draw: DrawMode, questions: int | None, reserve: int) -> str | None:
+    """Why a draw mode and a count do not go together, if they do not."""
+    if draw == "per-module" and questions is not None:
+        return "a per-module draw takes its count from the course"
+    if draw == "all" and questions is not None:
+        return "an `all` draw takes every question of its pool"
+    if draw == "random" and questions is None:
+        return "a random draw needs `questions`"
+    if draw != "random" and reserve:
+        return f"a {draw} draw has no reserve questions"
+    return None
+
+
+class PartSource(BaseModel):
+    """One source of a composite part: where it draws from, how, and how many (A8)."""
+
+    model_config = ConfigDict(extra="forbid")
+    source: PresetSource
+    draw: DrawMode = "random"
+    questions: int | None = Field(default=None, ge=1)
+
+
 class PresetPart(BaseModel):
     model_config = ConfigDict(extra="forbid")
     id: str
     title: LocalizedText | None = None
-    source: PresetSource
-    #: `per-module`: one question from each module with a bank, in course order (the count follows the
-    #: course). `random`: `questions` distinct questions from the pool.
-    draw: Literal["random", "per-module"] = "random"
-    #: Counted questions (per case, for a case part); absent for a per-module draw.
+    #: One source, drawn with `draw` and `questions` — or `sources`, never both.
+    source: PresetSource | None = None
+    draw: DrawMode = "random"
+    #: Counted questions (per case, for a case part); absent for a per-module or `all` draw.
     questions: int | None = Field(default=None, ge=1)
+    #: Several sources, each with its own draw and count, shuffled together into one part.
+    sources: list[PartSource] | None = Field(default=None, min_length=2)
     #: Case parts only: how many cases are offered; the learner marks one and only that one is graded.
     choose: int | None = Field(default=None, ge=2)
     #: Extra questions shown at the end of the part, counted only if one before them is voided.
@@ -106,6 +134,10 @@ class PresetPart(BaseModel):
 
     @model_validator(mode="after")
     def _consistent(self) -> Self:
+        if self.sources is not None:
+            return self._composite()
+        if self.source is None:
+            raise ValueError(f"part {self.id!r} declares `source` or `sources`")
         if self.source.cases:
             if self.choose is None or self.questions is None:
                 raise ValueError(f"part {self.id!r}: a case part needs `choose` and `questions`")
@@ -113,13 +145,45 @@ class PresetPart(BaseModel):
                 raise ValueError(f"part {self.id!r}: a case part draws cases, not one question per module")
         elif self.choose is not None:
             raise ValueError(f"part {self.id!r}: `choose` belongs to a case part")
-        if self.draw == "per-module" and self.questions is not None:
-            raise ValueError(f"part {self.id!r}: a per-module draw takes its count from the course")
-        if self.draw == "random" and self.questions is None:
-            raise ValueError(f"part {self.id!r}: a random draw needs `questions`")
-        if self.draw == "per-module" and self.reserve:
-            raise ValueError(f"part {self.id!r}: a per-module draw has no reserve questions")
+        if problem := _count_problem(self.draw, self.questions, self.reserve):
+            raise ValueError(f"part {self.id!r}: {problem}")
         return self
+
+    def _composite(self) -> Self:
+        assert self.sources is not None
+        # Read off the values, not the fields set: a stored snapshot dumps every field with its default.
+        own = [
+            name
+            for name, unset in (("source", None), ("draw", "random"), ("questions", None), ("choose", None))
+            if getattr(self, name) != unset
+        ]
+        if own:
+            raise ValueError(f"part {self.id!r} declares `source` or `sources`, not both ({sorted(own)})")
+        for number, entry in enumerate(self.sources, start=1):
+            if entry.source.cases or entry.source.each:
+                raise ValueError(
+                    f"part {self.id!r} source {number}: a composite part draws questions from fixed sources"
+                )
+            reserve = self.reserve if entry.draw == "per-module" else 0
+            if problem := _count_problem(entry.draw, entry.questions, reserve):
+                raise ValueError(f"part {self.id!r} source {number}: {problem}")
+        return self
+
+    @property
+    def cases(self) -> bool:
+        return self.source is not None and self.source.cases
+
+    @property
+    def each(self) -> Literal["block", "module", "lesson"] | None:
+        return self.source.each if self.source is not None else None
+
+    @property
+    def draws(self) -> list[PartSource]:
+        """The part's sources: its `sources`, or its one `source` with the part's own draw and count."""
+        if self.sources is not None:
+            return self.sources
+        assert self.source is not None
+        return [PartSource(source=self.source, draw=self.draw, questions=self.questions)]
 
 
 class ExamPreset(BaseModel):
@@ -137,7 +201,7 @@ class ExamPreset(BaseModel):
         ids = [part.id for part in self.parts]
         if len(set(ids)) != len(ids):
             raise ValueError(f"preset {self.id!r}: duplicate part id")
-        if any(part.source.each for part in self.parts) and len(self.parts) > 1:
+        if any(part.each for part in self.parts) and len(self.parts) > 1:
             raise ValueError(f"preset {self.id!r}: a parametric (`each`) preset has one part")
         if self.parts[0].requires_previous_pass:
             raise ValueError(f"preset {self.id!r}: the first part has no previous part to pass")
@@ -150,4 +214,4 @@ class ExamPreset(BaseModel):
 
     @property
     def parametric(self) -> Literal["block", "module", "lesson"] | None:
-        return self.parts[0].source.each
+        return self.parts[0].each

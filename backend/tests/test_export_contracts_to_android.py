@@ -171,9 +171,7 @@ def test_a_dirty_source_tree_is_declared_and_its_files_listed(source: Path, targ
         assert manifest["sourceRepo"]["note"], "a dirty export must say what that means"
 
 
-def test_the_timestamp_can_be_pinned_so_two_exports_are_comparable(
-    source: Path, target: Path
-) -> None:
+def test_the_timestamp_can_be_pinned_so_two_exports_are_comparable(source: Path, target: Path) -> None:
     first = deliver(source, target, now="2026-08-24T00:00:00+00:00")
     second = deliver(source, target, now="2026-08-24T00:00:00+00:00")
     assert first == second, "the same inputs and the same clock must give the same manifest"
@@ -219,7 +217,11 @@ def test_every_dirty_path_is_reported_exactly_once(dirty_repo: Path) -> None:
     assert changes == sorted(changes)
     assert len(changes) == len(set(changes))
     assert set(changes) == {
-        ".gitignore", "with space.txt", "a.txt", "b.txt", "untracked.txt",
+        ".gitignore",
+        "with space.txt",
+        "a.txt",
+        "b.txt",
+        "untracked.txt",
     }
 
 

@@ -377,9 +377,13 @@ A course's exams are declared in its `course.yaml` under `exams:`; the engine ha
 own. Each preset has an `id`, a `version` (bump it when the rules change: a sitting stores the preset id,
 version and a snapshot of the rules it was taken under), a `title`, an optional `time_limit_minutes` for
 the whole exam, and one or more `parts`. A part draws from a `source` — `course`, `cases`, `{block: id}`,
-`{module: id}`, `{lesson: id}`, or `{each: block|module|lesson}` for a preset sat on one of them at a time
-(the learner picks which) — either one question per module with a bank (`draw: per-module`, the count
-follows the course) or `questions` distinct questions at random. It may add `reserve` questions (shown
+`{module: id}`, `{modules: [id, …]}`, `{lesson: id}`, or `{each: block|module|lesson}` for a preset sat on
+one of them at a time (the learner picks which) — in one of three `draw` modes: `questions` distinct
+questions at random (`random`, the default), one question per module with a bank (`per-module`, the
+count follows the course) or every question of the source (`all`). A part may instead list several
+`sources`, each `{source, draw, questions}`, drawn and shuffled together into one part with one time and
+one score («40 from bloques I–V + 30 from bloque VI»); the results still count each question under its
+lesson, and the load fails when two of them share a question. It may add `reserve` questions (shown
 last, never counted: the platform voids nothing), a `penalty` of `0`, `1/4` or `1/3` per wrong answer,
 a `blank` rule (`free` or `wrong`), a `scoring` block (`max`, `pass_minimum`, `minimum_raw`: the CPS
 transform, raw `minimum_raw` → `pass_minimum` and the maximum raw → `max`) and `requires_previous_pass`.
@@ -400,16 +404,21 @@ counted in progress as a question of its own lesson. A quiz variant takes the sa
 ## Citations and the sources they open
 
 In a course with `sources/normativa.yaml`, the backend reads every citation in the lessons as written —
-`(art. 67 CE)`, `(arts. 14–38 CE)`, `(art. 14.2.d) y e) LPAC)`, `(disposición adicional cuarta Ley
-19/2013)`, `(anexo I Orden HAC/557/2026)`, `(fuente: `file.html`)` — one grammar,
-`backend/src/tradeschool/citations/`. A citation with no norm takes the norm of the one before it. A
+`(art. 67 CE)`, `(arts. 14–38 CE)`, `(arts. 23.2 y 24.1–2 Ley 19/2013)` (articles 23 and 24),
+`(art. 14.2.d) y e) LPAC)`, `(art. 21.C) RD 1009/2023)`, `(disposición adicional cuarta Ley 19/2013)`,
+`(anexo I Orden HAC/557/2026)`, the rules of norms without articles — `(regla 34.II.a.1 IOC)`,
+`(apartado sexto.1 Orden …)`, `(nota 34 anexo I Orden …)` — and `(fuente: `file.html`)` — one grammar,
+`backend/src/tradeschool/citations/`. A paragraph letter's «)» never closes a citation, in prose or at
+the end of an esquema row. A citation with no norm takes the norm of the one before it. A
 norm resolves through its `short` name, the name in that short name's parentheses, the long and short
 number forms, its title, an optional `aliases:` list in its entry, and the abbreviations the lessons
 declare in prose («Ley 39/2015, de 1 de octubre, … (LPAC)»); `aliases:` win over a lesson's declaration.
 Each cited unit gets the anchor `<norm>-<unit>`, where `<norm>` is the entry's official id so two norms
 never share one (`boe-a-1978-31229-art-67`, `celex-12016e-txt-art-267`; an entry with neither id falls
 back to its acronym or number form), or `fuente-<file>`, carried by the first paragraph that cites it; the web links the citation to the consolidated text at its article (an HTML source) or
-page (a PDF, from `source-index.json`). A question's `citation` must resolve to an anchor in its own
+page (a PDF, from `source-index.json`, which places articles, disposiciones, annexes, «Regla N.»,
+ordinal apartados and an annex's numbered notes; a unit it cannot place opens the file). A question's
+`citation` must resolve to an anchor in its own
 lesson, or the course does not load. The PDF prints citations as text and adds each «Normativa» norm's
 title and consolidation date. Regenerate the index with `uv run python scripts/index_sources.py`
 whenever a file in `sources/normativa/` changes.

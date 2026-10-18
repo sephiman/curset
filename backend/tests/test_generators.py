@@ -80,8 +80,14 @@ def test_phase2_formulas_are_exact_decimal() -> None:
 
     # Same gross move (600), three styles: fees hit the scalper, funding taxes the swing hold.
     snr = get_formula("style_net_result")
-    common = {"notional": "20000", "gross_pct": "0.03", "fee_rate": "0.0004",
-              "round_trips": "15", "funding_rate": "0.0001", "funding_intervals": "6"}
+    common = {
+        "notional": "20000",
+        "gross_pct": "0.03",
+        "fee_rate": "0.0004",
+        "round_trips": "15",
+        "funding_rate": "0.0001",
+        "funding_intervals": "6",
+    }
     assert snr.compute({**common, "style": "day"}) == Decimal("584")  # 600 - 16
     assert snr.compute({**common, "style": "scalper"}) == Decimal("360")  # 600 - 16*15
     assert snr.compute({**common, "style": "swing"}) == Decimal("572")  # 600 - (16 + 12 funding)
@@ -97,9 +103,15 @@ def test_phase2_formula_explanations_include_the_result() -> None:
         "fdv": {"price": "2", "max_supply": "500"},
         "position_size_from_risk": {"equity": "10000", "risk_pct": "0.01", "stop_distance": "100"},
         "expectancy": {"win_rate": "0.4", "avg_win": "300", "avg_loss": "100"},
-        "style_net_result": {"notional": "20000", "gross_pct": "0.03", "style": "scalper",
-                             "fee_rate": "0.0004", "round_trips": "15", "funding_rate": "0.0001",
-                             "funding_intervals": "6"},
+        "style_net_result": {
+            "notional": "20000",
+            "gross_pct": "0.03",
+            "style": "scalper",
+            "fee_rate": "0.0004",
+            "round_trips": "15",
+            "funding_rate": "0.0001",
+            "funding_intervals": "6",
+        },
     }
     for name, params in cases.items():
         f = get_formula(name)
@@ -214,11 +226,20 @@ def test_calculation_distractors_stay_on_the_plausible_side() -> None:
 
 def test_quiz_true_false() -> None:
     gen = QuizGenerator()
-    config = gen.parse_config({"type": "quiz", "variants": [
-        {"id": "tf", "kind": "true_false",
-         "prompt": {"en": "A stablecoin targets a fixed value.", "es": "..."},
-         "answer": True, "explanation": {"en": "yes", "es": "sí"}},
-    ]})
+    config = gen.parse_config(
+        {
+            "type": "quiz",
+            "variants": [
+                {
+                    "id": "tf",
+                    "kind": "true_false",
+                    "prompt": {"en": "A stablecoin targets a fixed value.", "es": "..."},
+                    "answer": True,
+                    "explanation": {"en": "yes", "es": "sí"},
+                },
+            ],
+        }
+    )
     inst = gen.generate(config, seed=1, locale="en")
     assert inst.payload == {"kind": "true_false"}  # the claim is the prompt; no answer leaks
     assert gen.grade(config, 1, {"value": True}, "en").correct is True
@@ -229,15 +250,24 @@ def test_quiz_true_false() -> None:
 
 def test_quiz_multi_select_all_or_nothing() -> None:
     gen = QuizGenerator()
-    config = gen.parse_config({"type": "quiz", "variants": [
-        {"id": "ms", "kind": "multi_select", "prompt": {"en": "Pick the risks", "es": "..."},
-         "options": [
-             {"id": "a", "text": {"en": "A", "es": "A"}, "correct": True},
-             {"id": "b", "text": {"en": "B", "es": "B"}, "correct": True},
-             {"id": "c", "text": {"en": "C", "es": "C"}},
-             {"id": "d", "text": {"en": "D", "es": "D"}},
-         ]},
-    ]})
+    config = gen.parse_config(
+        {
+            "type": "quiz",
+            "variants": [
+                {
+                    "id": "ms",
+                    "kind": "multi_select",
+                    "prompt": {"en": "Pick the risks", "es": "..."},
+                    "options": [
+                        {"id": "a", "text": {"en": "A", "es": "A"}, "correct": True},
+                        {"id": "b", "text": {"en": "B", "es": "B"}, "correct": True},
+                        {"id": "c", "text": {"en": "C", "es": "C"}},
+                        {"id": "d", "text": {"en": "D", "es": "D"}},
+                    ],
+                },
+            ],
+        }
+    )
     inst = gen.generate(config, seed=2, locale="en")
     assert inst.payload["kind"] == "multi_select"
     for opt in inst.payload["options"]:  # type: ignore[union-attr]
@@ -250,15 +280,24 @@ def test_quiz_multi_select_all_or_nothing() -> None:
 
 def test_quiz_ordering() -> None:
     gen = QuizGenerator()
-    config = gen.parse_config({"type": "quiz", "variants": [
-        {"id": "ord", "kind": "ordering", "prompt": {"en": "Order the cycle", "es": "..."},
-         "items": [
-             {"id": "acc", "text": {"en": "accumulation", "es": "a"}, "position": 1},
-             {"id": "mup", "text": {"en": "markup", "es": "b"}, "position": 2},
-             {"id": "dis", "text": {"en": "distribution", "es": "c"}, "position": 3},
-             {"id": "mdn", "text": {"en": "markdown", "es": "d"}, "position": 4},
-         ]},
-    ]})
+    config = gen.parse_config(
+        {
+            "type": "quiz",
+            "variants": [
+                {
+                    "id": "ord",
+                    "kind": "ordering",
+                    "prompt": {"en": "Order the cycle", "es": "..."},
+                    "items": [
+                        {"id": "acc", "text": {"en": "accumulation", "es": "a"}, "position": 1},
+                        {"id": "mup", "text": {"en": "markup", "es": "b"}, "position": 2},
+                        {"id": "dis", "text": {"en": "distribution", "es": "c"}, "position": 3},
+                        {"id": "mdn", "text": {"en": "markdown", "es": "d"}, "position": 4},
+                    ],
+                },
+            ],
+        }
+    )
     inst = gen.generate(config, seed=3, locale="en")
     assert {i["id"] for i in inst.payload["items"]} == {"acc", "mup", "dis", "mdn"}  # type: ignore[union-attr]
     for it in inst.payload["items"]:  # type: ignore[union-attr]
@@ -270,14 +309,35 @@ def test_quiz_ordering() -> None:
 
 def test_quiz_matching_hides_pairing_and_grades() -> None:
     gen = QuizGenerator()
-    config = gen.parse_config({"type": "quiz", "variants": [
-        {"id": "mat", "kind": "matching", "prompt": {"en": "Match order types", "es": "..."},
-         "pairs": [
-             {"id": "p1", "left": {"en": "market", "es": "m"}, "right": {"en": "fills now", "es": "r"}},
-             {"id": "p2", "left": {"en": "limit", "es": "l"}, "right": {"en": "price control", "es": "r"}},
-             {"id": "p3", "left": {"en": "stop", "es": "s"}, "right": {"en": "triggers", "es": "r"}},
-         ]},
-    ]})
+    config = gen.parse_config(
+        {
+            "type": "quiz",
+            "variants": [
+                {
+                    "id": "mat",
+                    "kind": "matching",
+                    "prompt": {"en": "Match order types", "es": "..."},
+                    "pairs": [
+                        {
+                            "id": "p1",
+                            "left": {"en": "market", "es": "m"},
+                            "right": {"en": "fills now", "es": "r"},
+                        },
+                        {
+                            "id": "p2",
+                            "left": {"en": "limit", "es": "l"},
+                            "right": {"en": "price control", "es": "r"},
+                        },
+                        {
+                            "id": "p3",
+                            "left": {"en": "stop", "es": "s"},
+                            "right": {"en": "triggers", "es": "r"},
+                        },
+                    ],
+                },
+            ],
+        }
+    )
     inst = gen.generate(config, seed=4, locale="en")
     assert {x["id"] for x in inst.payload["lefts"]} == {"l0", "l1", "l2"}  # type: ignore[union-attr]
     assert {x["id"] for x in inst.payload["rights"]} == {"r0", "r1", "r2"}  # type: ignore[union-attr]
@@ -297,14 +357,22 @@ def test_quiz_variant_selection_is_deterministic() -> None:
     raw = {
         "type": "quiz",
         "variants": [
-            {"id": "v1", "prompt": {"en": "one", "es": "uno"}, "options": [
-                {"id": "a", "text": {"en": "x", "es": "x"}, "correct": True},
-                {"id": "b", "text": {"en": "y", "es": "y"}},
-            ]},
-            {"id": "v2", "prompt": {"en": "two", "es": "dos"}, "options": [
-                {"id": "a", "text": {"en": "x", "es": "x"}, "correct": True},
-                {"id": "b", "text": {"en": "y", "es": "y"}},
-            ]},
+            {
+                "id": "v1",
+                "prompt": {"en": "one", "es": "uno"},
+                "options": [
+                    {"id": "a", "text": {"en": "x", "es": "x"}, "correct": True},
+                    {"id": "b", "text": {"en": "y", "es": "y"}},
+                ],
+            },
+            {
+                "id": "v2",
+                "prompt": {"en": "two", "es": "dos"},
+                "options": [
+                    {"id": "a", "text": {"en": "x", "es": "x"}, "correct": True},
+                    {"id": "b", "text": {"en": "y", "es": "y"}},
+                ],
+            },
         ],
     }
     gen = QuizGenerator()

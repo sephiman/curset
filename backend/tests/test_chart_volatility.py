@@ -46,8 +46,14 @@ Payload = dict[str, object]
 def _config(injector: str, targets: list[str], n: int = _N) -> PatternChartConfig:
     gen = PatternChartGenerator()
     return gen.parse_config(
-        {"type": "pattern_chart", "prompt": {"en": "x", "es": "x"}, "injector": injector,
-         "n": n, "targets": targets, "choices": list(get_injector(injector).labels)}
+        {
+            "type": "pattern_chart",
+            "prompt": {"en": "x", "es": "x"},
+            "injector": injector,
+            "n": n,
+            "targets": targets,
+            "choices": list(get_injector(injector).labels),
+        }
     )
 
 
@@ -250,7 +256,5 @@ def test_every_injector_that_drives_the_pane_is_covered() -> None:
     """
     carried = _pane_figure_panels()
     assert carried, "no figure carries the momentum pane — it lost its figure coverage"
-    declared = [
-        (fid, i) for fid, i in carried if _panels(fid)[i]["indicator"] == "momentum"
-    ]
+    declared = [(fid, i) for fid, i in carried if _panels(fid)[i]["indicator"] == "momentum"]
     assert declared, "no figure DRAWS the momentum pane — the pane renderer is untested"

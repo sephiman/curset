@@ -136,9 +136,7 @@ def iter_exercise_items(seeds: tuple[int, ...] = PROBE_SEEDS) -> Iterator[WorkIt
 
 
 def _synth_spec(panel: FigurePanel, key: str) -> FigureSpec:
-    return FigureSpec(
-        id=key, caption=LocalizedText(en="x", es="x"), panels=[panel]
-    )
+    return FigureSpec(id=key, caption=LocalizedText(en="x", es="x"), panels=[panel])
 
 
 def iter_figure_items(seeds: tuple[int, ...] = PROBE_SEEDS) -> Iterator[WorkItem]:
@@ -151,9 +149,7 @@ def iter_figure_items(seeds: tuple[int, ...] = PROBE_SEEDS) -> Iterator[WorkItem
         for label in inj.labels:
             for seed in seeds:
                 key = f"{inj.name}:{label}:{seed}"
-                panel = FigurePanel(
-                    generator="pattern_chart", injector=inj.name, target=label, seed=seed
-                )
+                panel = FigurePanel(generator="pattern_chart", injector=inj.name, target=label, seed=seed)
                 spec = _synth_spec(panel, f"fig-{key}")
                 yield WorkItem("figure", key, lambda sp=spec: build_figure(sp, "en"))  # type: ignore[misc]
 

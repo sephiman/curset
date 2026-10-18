@@ -36,8 +36,14 @@ Annotations = list[dict[str, object]]
 def _config(injector: str, targets: list[str], n: int = _N) -> PatternChartConfig:
     gen = PatternChartGenerator()
     return gen.parse_config(
-        {"type": "pattern_chart", "prompt": {"en": "x", "es": "x"}, "injector": injector,
-         "n": n, "targets": targets, "choices": list(get_injector(injector).labels)}
+        {
+            "type": "pattern_chart",
+            "prompt": {"en": "x", "es": "x"},
+            "injector": injector,
+            "n": n,
+            "targets": targets,
+            "choices": list(get_injector(injector).labels),
+        }
     )
 
 

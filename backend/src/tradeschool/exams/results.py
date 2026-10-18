@@ -26,7 +26,7 @@ def _ratio(num: int, den: int) -> float | None:
 
 def is_scored(preset: ExamPreset) -> bool:
     return len(preset.parts) > 1 or any(
-        part.penalty or part.scoring or part.source.cases or part.reserve or part.blank != "free"
+        part.penalty or part.scoring or part.cases or part.reserve or part.blank != "free"
         for part in preset.parts
     )
 
@@ -103,7 +103,7 @@ def _tally(attempts: list[Attempt]) -> Tally:
 
 def _case_choice(part: PresetPart, marks: list[str]) -> tuple[str | None, NotGraded | None]:
     """The one marked case, or why the part cannot be graded."""
-    if not part.source.cases:
+    if not part.cases:
         return None, None
     if not marks:
         return None, "no-case-marked"

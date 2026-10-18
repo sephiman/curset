@@ -71,6 +71,4 @@ async def test_dev_chart_data_pattern_oi_reproduces(content_client: AsyncClient)
 
 async def test_dev_endpoints_require_auth(content_client: AsyncClient) -> None:
     assert (await content_client.get(f"{API}/dev/attempts?exercise_id=m12-ex-1")).status_code == 401
-    assert (
-        await content_client.get(f"{API}/dev/charts/data?exercise_id=m12-ex-1&seed=1")
-    ).status_code == 401
+    assert (await content_client.get(f"{API}/dev/charts/data?exercise_id=m12-ex-1&seed=1")).status_code == 401

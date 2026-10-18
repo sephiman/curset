@@ -82,12 +82,16 @@ def main(argv: list[str] | None = None) -> int:
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
     )
     parser.add_argument(
-        "--seeds", type=int, default=len(PROBE_SEEDS),
+        "--seeds",
+        type=int,
+        default=len(PROBE_SEEDS),
         help=f"probe seeds per injector kind (default {len(PROBE_SEEDS)}; the digest is only "
-             f"comparable between runs that used the SAME count)",
+        f"comparable between runs that used the SAME count)",
     )
     parser.add_argument(
-        "--dump", type=Path, default=None,
+        "--dump",
+        type=Path,
+        default=None,
         help="also write every per-document fingerprint here, for diffing two machines",
     )
     args = parser.parse_args(argv)
@@ -132,8 +136,10 @@ def main(argv: list[str] | None = None) -> int:
     print(f"documents          {len(prints)} ({exercise} exercise + {figure} figure)")
     print(f"probe seeds        {len(seeds)}")
     print(f"refused            {len(refused)}" + (f"  {refused[:6]}" if refused else ""))
-    print(f"committed          {'OK' if not moved and not missing else 'MOVED'}"
-          f"  ({checked} fingerprints checked: {len(GOLDEN)} golden + {len(PINNED)} pinned)")
+    print(
+        f"committed          {'OK' if not moved and not missing else 'MOVED'}"
+        f"  ({checked} fingerprints checked: {len(GOLDEN)} golden + {len(PINNED)} pinned)"
+    )
     for key, (was, now) in sorted(moved.items()):
         print(f"    {key}: committed={was} current={now}")
     for key in missing:

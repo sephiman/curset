@@ -217,8 +217,14 @@ def current_pins() -> dict[str, str]:
         name, seed = key.rsplit(":", 1)
         labels = list(get_injector(name).labels)
         cfg = PatternChartGenerator().parse_config(
-            {"type": "pattern_chart", "prompt": {"en": "x", "es": "x"}, "injector": name,
-             "n": 130, "targets": labels, "choices": labels}
+            {
+                "type": "pattern_chart",
+                "prompt": {"en": "x", "es": "x"},
+                "injector": name,
+                "n": 130,
+                "targets": labels,
+                "choices": labels,
+            }
         )
         label, ann, payload = pattern_instantiate(cfg, int(seed))
         out[f"exercise:{key}"] = _fp({"p": payload, "label": label, "ann": ann})
@@ -228,11 +234,7 @@ def current_pins() -> dict[str, str]:
         spec = FigureSpec(
             id=f"fig-{key.replace(':', '-')}",
             caption=LocalizedText(en="x", es="x"),
-            panels=[
-                FigurePanel(
-                    generator="pattern_chart", injector=injector, target=target, seed=int(seed)
-                )
-            ],
+            panels=[FigurePanel(generator="pattern_chart", injector=injector, target=target, seed=int(seed))],
         )
         out[f"figure:{key}"] = _fp(build_figure(spec, "en")["panels"])
 

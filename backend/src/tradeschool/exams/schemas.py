@@ -261,7 +261,7 @@ class PresetOut(BaseModel):
                 PresetPartOut(
                     id=part.id,
                     title=part.title.get(locale) if part.title else None,
-                    kind="cases" if part.source.cases else "questions",
+                    kind="cases" if part.cases else "questions",
                     questions=counted_questions(registry, part, target),
                     reserve=part.reserve,
                     choose=part.choose,
