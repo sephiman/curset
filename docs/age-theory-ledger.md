@@ -3247,3 +3247,128 @@ form. Stored `question_reports.lesson_anchor` values keep the old names (none fo
 mypy clean (`ruff format --check` reports the same 26 files as HEAD, none touched here). Full frontend `npx vitest run`
 592 passed, 51 skipped (includes `src/lib/{refs,glossary,pdf,citations}`); `tsc -b` clean. `glossary-links.es.txt`,
 `lesson-refs.es.txt`, `content/crypto-futures/` and `dist/` unchanged. Not committed.
+
+# Esquemas bloque III (R2c, 2026-10-18)
+
+Round R2c (requirements § 4a) for temas III.1–III.7. Nothing committed. Prose untouched: the lesson diffs only add
+lines. Working files in `docs/age-verification/bloque-iii/esquemas/`: `spec.md`, `verify-m03-l01-l02-l05-l07.md`,
+`verify-m03-l03.md`, `verify-m03-l04-l06.md`, `fixes.md`, `recheck.md`, `recheck-2.md`.
+
+**Method.** The writer drew every fact field from the lesson's prose and checked it against the cited article
+(`pdftotext` of `sources/normativa/`), taking the norm's own words where the prose shortens. Labels and headers name
+the step or case, and they carry a condition in the norm's words when the fact depends on one. Three blind
+reviewers checked every row as a sentence (verbatim, nothing wider than the article, citation right, already stated
+in the prose, no false order in a numbered list, placement). Fixes were re-checked by a reviewer who did not read the
+first reports, and the one re-check FAIL by a third reviewer.
+
+## Esquemas added
+
+| Lesson | Kind | Title | Rows |
+|---|---|---|---|
+| III.1 `m03-l01` | tabla | La delegación legislativa (art. 82.2 CE) | 2 |
+| | plazos | Plazos de la elaboración de normas (arts. 26.2, 26.6 Ley 50/1997) | 3 |
+| | arbol | Las fuentes del ordenamiento jurídico español (art. 1.1, 1.3, 1.4 Código Civil) | 4 |
+| III.2 `m03-l02` | tabla | Desde cuándo produce efectos el acto (arts. 39.1–3, 24.4 LPAC) | 4 |
+| | tabla | Conversión, conservación y convalidación (arts. 50–52 LPAC) | 5 |
+| | plazos | Plazos de la notificación (arts. 40.2, 42.2, 43.2 LPAC) | 3 |
+| III.3 `m03-l03` | tabla | Cómputo de plazos (art. 30.1–5 LPAC) | 4 |
+| | plazos | Plazos del procedimiento administrativo común (arts. 21.2–3, 68, 76.1, 77.2, 80.2, 83.2, 82.2, 87, 95.1 LPAC) | 12 |
+| | tabla | Los recursos administrativos (arts. 121.1, 123.1, 125.1 LPAC) | 3 |
+| | tabla | Plazos de los recursos administrativos (arts. 122, 124, 125.2, 126.3 LPAC) | 3 |
+| III.4 `m03-l04` | tabla | Plazos de presentación de proposiciones y solicitudes (arts. 156, 159.3, 159.6, 161, 164 LCSP) | 8 |
+| | plazos | De la apertura de las proposiciones a la formalización (arts. 150.2, 159.4, 158, 153.3 LCSP) | 6 |
+| | tabla | Límites de la modificación del contrato (arts. 204.1, 205.2, 206.1, 242.4 LCSP) | 5 |
+| | tabla | Umbrales de valor estimado (arts. 118.1, 159.1.a), 159.6, 19–22, 44.1.a) LCSP) | 5 |
+| III.5 `m03-l05` | tabla | Declaración responsable y comunicación (art. 69.1–2 LPAC) | 2 |
+| | tabla | Prescripción de infracciones y sanciones (art. 30.1 LRJSP) | 3 |
+| III.6 `m03-l06` | tabla | Prescripción del derecho a reclamar (art. 67.1 LPAC) | 4 |
+| | pasos | Informe, propuesta, dictamen y resolución (arts. 81.1–2, 92 LPAC) | 4 |
+| | plazos | Plazos del procedimiento (arts. 81.1–2, 91.3 LPAC) | 4 |
+| III.7 `m03-l07` | tabla | Discriminación y acoso por razón de sexo (arts. 6–7 LO 3/2007) | 4 |
+| | tabla | Órganos de igualdad y contra la violencia de género (art. 76 LO 3/2007; arts. 29.1, 30.1 LO 1/2004; arts. 9.4, 41 Ley 15/2022) | 5 |
+| **Total** | | **21 esquemas** | **93** |
+
+Words (`wc -w`, everything counted) rise by 216–973 per lesson; the reading-time check passes.
+
+## Verification
+
+| Pass | Rows | PASS | FAIL |
+|---|---|---|---|
+| Blind pass: l01 / l02 / l05 / l07 | 10 / 12 / 5 / 9 | 9 / 12 / 4 / 8 | 1 / 0 / 1 / 1 |
+| Blind pass: l03 | 21 | 18 | 3 |
+| Blind pass: l04 / l06 | 25 / 13 | 21 / 12 | 4 / 1 |
+| **First pass, total** | **95** | **84** | **11** |
+| Re-check of the 11 fixed items (whole esquemas) | 11 items | 10 | 1 |
+| Second re-check (l03 rows 21.2–21.3 and the order) | 4 checks | 4 | 0 |
+
+The FAILs were the bloque's usual two classes plus one new one:
+- **Dropped condition:** art. 95.1 LPAC (advertencia), art. 9.4 Ley 15/2022 («en los términos previstos en la
+  normativa aplicable»), art. 118.1 LCSP («sin perjuicio del artículo 229»), art. 50.1 LCSP (the 50.2 exception), art.
+  69.3 LPAC párr. 2 (comunicación after the start of the activity).
+- **False order**, new to esquemas: a numbered row that puts one step before another with no text for it. The cases
+  were the Plan Normativo before the consulta pública; the plazo máximo (art. 21) after the instrucción; arts. 150.2
+  and 159.4.f) LCSP after the adjudicación; and the CGPJ informe after the dictamen. Each row was moved or removed;
+  `fixes.md` has the eleven.
+- **Re-check FAIL:** the art. 21.3 starting point tied only to the three-month default. It now has its own row
+  covering both plazos (art. 21.3 «Este plazo y los previstos en el apartado anterior»).
+
+Not applied, judged PASS with a note: arts. 52.3 LPAC and 69 LPAC cells copy the prose's verbatim shortening; the
+26.6 condition «cuando la norma afecte a los derechos e intereses legítimos» and the Observatorio's adscription are
+absent from both prose and row; art. 153.3 LCSP's «hasta un mes» autonomic extension is not in the prose, so not in
+the row.
+
+## Considered and left as prose
+
+- **III.1:** the forms of art. 24.1 Ley 50/1997, the reglamento hierarchy (24.2), the limits of art. 83 CE and the
+  consulta-pública exemptions (26.2), all already lists in the prose. The decreto-ley plazos (86.2–3 CE) are two
+  sentences. The límites del reglamento (128.2, 47.2, 37.1 LPAC) are three different rules, not one comparison.
+- **III.2:** nulidad (47.1), motivación (35.1), notification media (41.1–2) and publicación (45.1) are already lists.
+  The clases del acto: the lesson says no article classifies them, so a tree would invent a classification.
+- **III.3:** silencio (24–25 LPAC): its conditions and exceptions do not fit cells without dropping one, and 25.1 is
+  already a list. The abstención motives (23.2 LRJSP), convenio resolution causes (51.2) and 114.1 are already lists.
+  Prescription (30.1 LRJSP) is tabled once, in III.5, where the potestad sancionadora is taught. The contencioso plazos
+  (46.1, 29.1, 30 LJCA) are four short sentences, and the four-per-lesson cap went to the recursos and procedure.
+- **III.4:** garantías (106–108) are two paragraphs; the procedimiento negociado (168) and licitación con negociación
+  (167) are already lists; the art. 50.2 special recurso plazos go with 50.1 in prose (the row was removed, see above).
+- **III.5:** the formas de gestión (85.2 LBRL) are already a nested list, and an arbol joining them to art. 284.1 LCSP
+  would link two regimes the prose keeps apart. The four «actividad de …» labels are not terms of any cited norm (the
+  lesson says so), so no tree of them. Graduación (29.3 LRJSP), subvención requisites (2.1 LGS) and principles (8.3)
+  are already lists.
+- **III.6:** the procedure against autoridades y personal (36.4 LRJSP) is already a list with its plazos; the
+  supuestos (arts. 32.3, 32.8, 32.9, 33, 35) are narrative, and the lesson says no norm classifies them.
+- **III.7:** the dependency grades (26.1 Ley 39/2006 and DA 17.ª) are already a list. The «cincuenta o más
+  trabajadores» pair (45.2 LO 3/2007, 42.1 RDL 1/2013) would drop 42.1's exemption. Most of the tema is narrative
+  definitions.
+
+## Checks
+
+- Load: every row cites a norm and article that the lesson's prose also cites (the load would fail otherwise). The
+  list shape, never-coins and reading-time checks pass in the backend subset
+  `-k "glossary or registry or content or pipeline or citation or source or esquema"`.
+- `citations.es.txt` regenerated (`UPDATE_CITATIONS=1`): +93 esquema rows, header «0 → 93 esquema rows», no prose row
+  or anchor changed.
+- `glossary-links.es.txt` regenerated and read: one web mark moves within m03-l03 (g-silencio-administrativo, first
+  occurrence now in the «Cómputo de plazos» table). A first draft labelled the m03-l04 row «Contrato menor». That
+  spent the book's single PDF link for g-contrato-menor inside its origin lesson and cost m05-l06 its link. The label
+  now reads «Contratos menores», the plural of art. 118.1, and the book's links are unchanged.
+- `lesson-refs.es.txt` unchanged.
+- PDF: a scratch Vitest (not kept) rendered the seven lessons through `lessonToContent`. Every esquema printed as a
+  pdfmake table with one body row per esquema row (m03-l01's `:::note` prints as a one-cell table and was left out of
+  the count).
+- Android bundle re-exported to a scratch folder: byte-identical to `dist/bundle`; `--verify-only` fingerprint
+  `9c95cf4a6bf2…` verified, label catalogs and leaked tokens OK. No diff under `content/crypto-futures/` or `dist/`.
+- Full suites on the final tree: backend `uv run pytest` 1,449 passed, 20 skipped; frontend `npx vitest run` 592
+  passed, 51 skipped; `tsc -b` clean. Same counts as before the round.
+
+## Open items
+
+1. **m03-l05 prose, art. 69.3 párr. 2:** the effects sentence omits «No obstante…, la comunicación podrá presentarse
+   dentro de un plazo posterior al inicio de la actividad cuando la legislación correspondiente lo prevea
+   expresamente». The prose was out of scope here. Adding it is a one-sentence R2 fix with its own blind check.
+2. A `plazos`/`pasos` list row cannot cite a letter written «f)» (the trailing-citation grammar takes the first
+   unbalanced «)»): m03-l04 cites «art. 159.4 LCSP» where the prose says «159.4.f)». Tables are not affected.
+
+## Where to resume (after esquemas bloque III)
+
+Bloque III is closed for R2c. The next session runs R2c for the next bloque with this spec. The reviewer prompt
+should keep the false-order check, the class this round added.
