@@ -3163,3 +3163,87 @@ maniobra) and regla 64.2 IOC left out, unasked.
 ## Where to resume (after the m05-l05 rewrite)
 
 R2b is closed. R2c (esquemas) can start once the platform's section E exists.
+
+## Citation aliases, missing norms, `lesson_noun` (2026-10-18)
+
+Follows `docs/platform-delta-handoff.md` § AGE (step 8): 50 prose citations opened nowhere (45 named a norm
+`normativa.yaml` could not resolve, 5 named none). Lesson text not touched.
+
+**`normativa.yaml`.** Four entries added in a closing section; the field list gains `aliases`.
+- Reforma del art. 69.3 CE, de 19-05-2026 (BOE-A-2026-10881): not in the BOE consolidated collection (API 404; its
+  text is inside the CE consolidated file), so `file` is the BOE publication already in `sources/normativa/`.
+- RD 707/2026 and Ley 4/2026: their boe.es consolidated PDFs downloaded as `…_rd-707-2026-consolidado_2026-09-03.pdf`
+  (sha256 `320a3d26…`; already carries the 16-10-2026 corrección, BOE-A-2026-21525) and
+  `…_ley-4-2026-consolidado_2026-10-03.pdf` (sha256 `4d13a1c7…`); the BOE publications stay as the
+  `cambios_pendientes` files of the norms they amend.
+- Estatuto del TJUE (Protocolo n.º 3): EUR-Lex has no consolidated text of the protocol on its own (Publications
+  Office SPARQL: only `12016E/PRO/03` and `12016M/PRO/03`), and nothing was blocked, so nothing went to
+  `sources/otros/`. `file` is the TUE consolidated file of 15-03-2025 (protocol on pp. 41–60), the version m01-l11
+  cites. The entry's note says that it shares the file with the TUE: a Estatuto article number the TUE also has would
+  open at the TUE's; today the lessons only cite art. 50 ter (p. 53, correct). curia.europa.eu's consolidated
+  `statut_cour_es.pdf` (01-09-2024) was not used: it lacks Decisión 2025/504 (art. 47 → art. 9 bis).
+
+**Aliases.** `LGS` → Ley 38/2003 and `TRLCPE` → RDL 670/1987: that is what m03-l05/m05-l06 and m04-l07 declare in
+prose, but each declaration is wrapped across two lines and the declared-abbreviation reader stops at a newline.
+(The round prompt said Ley 47/2003 and RDL 4/2000; those are the LGP and the TR de Seguridad Social de los
+Funcionarios Civiles, and pointing there would link 40 citations to wrong articles.) Also added:
+`Orden de documentos contables` and `IOC` (the two Órdenes de 1-2-1996), `Convenio único` (IV Convenio único AGE),
+and `RLGS` → RD 887/2006, which fixes four citations (arts. 56.1–3 and 70.3 RLGS, m05-l06) that linked to Ley 38/2003,
+because «Reglamento de la Ley 38/2003, … (RLGS)» bound the abbreviation to the Ley.
+
+**`course.yaml`.** `lesson_noun: {es: tema}`. `exams:` stays a comment; its reason now reads composite draw (delta
+v1.3, A8) instead of «schema rejects the key».
+
+**Regenerated.** `source-index.json` adds the two consolidated files and the reform (existing entries unchanged);
+`citations.es.txt` changes 61 rows, only in the anchors/ids/norm/target columns (lesson, section and text columns
+identical to HEAD): the 45 unresolved citations, 4 RLGS citations, 11 «Normativa» rows that now name their norm
+(one, m03-l07 «Ley 4/2026 (modificación del RDL 1/2013 …)», was linked to RDL 1/2013 and now goes to Ley 4/2026).
+Unresolved count 65 → 10. `glossary-links.es.txt` and `lesson-refs.es.txt` unchanged.
+
+**Still not right, not fixable from `normativa.yaml`:**
+- Five citations with no norm: m01-l09 «arts. 137–139», «arts. 140–142», «arts. 143–158» (the norm, CE, is named in the
+  sentence but no citation precedes them) and m06-l01 «art. 26», «anexo II, op.acc.6» (RD 311/2022 named in the
+  bullet; the citation before is a source file). Needs «CE»/«ENS» in the lesson text or a grammar change.
+- m05-l06 «anexo I, nota 34.II.a.1» (twice): written «(anexo I, nota 34.II.a.1) Orden de documentos contables)»; the
+  «)» after «a.1» closes the citation, so it takes the previous citation's norm. Body (l. 141): RD 887/2006 now
+  (Ley 38/2003 before, through the RLGS binding); «Lo que más cae» (l. 192): Ley 38/2003 now (nowhere before). Both
+  open at the file's top and both are wrong: needs the lesson's parenthesis fixed or a grammar change.
+- The two Órdenes de 1-2-1996 share the anchor slug `orden-de-1-de-febrero-de-1996` (slug from the short name's
+  head); targets are right, anchor names could collide if both are cited by the same unit in one lesson.
+- 122 citations still open at the file's top (unit not indexed), the handoff's count: the second «anexo I» row
+  joined it and «art. 70.3 RLGS» (an article Ley 38/2003 lacks) left it.
+
+**Checks.** `UPDATE_CITATIONS=1 pytest tests/test_citations.py` 32 passed; backend
+`-k "glossary or registry or content or pipeline or citation or source"` 104 passed; frontend `src/lib/{refs,glossary,
+pdf,citations}` 315 passed, 51 skipped; full frontend `npx vitest run` 592 passed, 51 skipped; `tsc -b` clean; full
+backend `uv run pytest` 1,449 passed, 20 skipped. No diff under `content/crypto-futures/` or `dist/`. Not committed.
+
+## Citation closing fixes (2026-10-18)
+
+**Lesson text (minimal; blind-checked, 7/7 PASS against the source PDFs).**
+- m01-l09: «(arts. 137–139)», «(arts. 140–142)», «(arts. 143–158)» → «… CE)». CE título VIII, capítulos I–III, pp. 28–35.
+- m06-l01: «(art. 26)» → «(art. 26 ENS)»; «(anexo II, op.acc.6)» → «(anexo II, op.acc.6, ENS)»; the bullet re-wrapped
+  to stay under 120 columns. RD 311/2022 was already in `normativa.yaml` («ENS (RD 311/2022)»). Reviewer's note: the
+  doble factor for zonas no controladas is refuerzo R8 of op.acc.6 (op.acc.6.r8.1), inside the cited measure.
+- m05-l06 (×2): «(anexo I, nota 34.II.a.1) Orden de documentos contables)» → «(anexo I, nota 34.II.a.1, Orden de
+  documentos contables)». The round prompt asked to name RLGS; not done, because the note is the Orden de 1-2-1996's
+  (anexo I, nota 34 «Fecha del gasto», II.a.1, p. 16, word for word) and RD 887/2006 has no anexo at all. The comma
+  form is what the grammar reads as «qualifier, norm»; both rows now open the Orden de documentos contables at p. 10
+  (the anexo I heading), not RD 887/2006.
+
+**Anchors from the official id.** `citations/norms.py`: a norm's anchor slug is its `boe_id` (`boe-a-1996-2749`), else
+`celex-<celex>` (`celex-12016e-pro-03`), else the old acronym / number form / short name. Every AGE and fixture entry
+has one of the ids and none repeats, so the two Órdenes de 1-2-1996 now anchor as `boe-a-1996-2749-…` and
+`boe-a-1996-2627-…`. Regenerated: AGE `citations.es.txt` and the fixture's change in the anchors/ids/norm columns;
+row for row against HEAD, no target moved except the 61 rows of the previous section and the 7 citations above, and
+the fixture moves no target and no text. 1,441 → 1,433 anchor names (norm-less and LGS anchors merged into existing
+ones); «naming a norm normativa.yaml lacks» 10 → 5 (the five «Otras fuentes» lines, which are not norms). Tests
+holding old anchor names updated: `test_citations.py` (2), `test_cases.py` (1). The frontend tests that print
+`#lpac-art-122` use hand-written API payloads and still pass unchanged. `content/README.md` describes the new anchor
+form. Stored `question_reports.lesson_anchor` values keep the old names (none for AGE beyond test data on this machine).
+
+**Checks.** Backend `-k "glossary or registry or content or pipeline or citation or source"` 104 passed; full backend
+1,448 passed, 1 failed (`test_cases`, old anchor), 20 skipped; after the fix `test_cases.py` 9 passed; ruff check and
+mypy clean (`ruff format --check` reports the same 26 files as HEAD, none touched here). Full frontend `npx vitest run`
+592 passed, 51 skipped (includes `src/lib/{refs,glossary,pdf,citations}`); `tsc -b` clean. `glossary-links.es.txt`,
+`lesson-refs.es.txt`, `content/crypto-futures/` and `dist/` unchanged. Not committed.

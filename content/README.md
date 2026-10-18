@@ -405,9 +405,10 @@ In a course with `sources/normativa.yaml`, the backend reads every citation in t
 `backend/src/tradeschool/citations/`. A citation with no norm takes the norm of the one before it. A
 norm resolves through its `short` name, the name in that short name's parentheses, the long and short
 number forms, its title, an optional `aliases:` list in its entry, and the abbreviations the lessons
-declare in prose («Ley 39/2015, de 1 de octubre, … (LPAC)»). Each cited unit gets the anchor
-`<norm>-<unit>` (`ce-art-67`, `ley-19-2013-da-cuarta`, `fuente-<file>`), carried by the first paragraph
-that cites it; the web links the citation to the consolidated text at its article (an HTML source) or
+declare in prose («Ley 39/2015, de 1 de octubre, … (LPAC)»); `aliases:` win over a lesson's declaration.
+Each cited unit gets the anchor `<norm>-<unit>`, where `<norm>` is the entry's official id so two norms
+never share one (`boe-a-1978-31229-art-67`, `celex-12016e-txt-art-267`; an entry with neither id falls
+back to its acronym or number form), or `fuente-<file>`, carried by the first paragraph that cites it; the web links the citation to the consolidated text at its article (an HTML source) or
 page (a PDF, from `source-index.json`). A question's `citation` must resolve to an anchor in its own
 lesson, or the course does not load. The PDF prints citations as text and adds each «Normativa» norm's
 title and consolidation date. Regenerate the index with `uv run python scripts/index_sources.py`

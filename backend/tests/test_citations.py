@@ -180,7 +180,7 @@ async def test_a_lesson_ships_its_citations_with_anchors_and_source_targets(
     await _sign_up(multi_client, "citer")
     lesson = (await multi_client.get(f"{OPOS}/lessons/m02-l1")).json()
     by_text = {c["text"]: c for c in lesson["citations"] if c["section"] == "prose"}
-    assert by_text["art. 9.1 LRJSP"]["ids"] == ["lrjsp-art-9"]
+    assert by_text["art. 9.1 LRJSP"]["ids"] == ["boe-a-2015-10566-art-9"]
     assert by_text["art. 9.1 LRJSP"]["href"].endswith("/sources/normativa/lrjsp-extracto.pdf#page=2")
     assert by_text["art. 122.1 LPAC"]["href"].endswith("/sources/normativa/lpac-extracto.html#a1-22")
     assert by_text["guia-recursos.html"]["href"].endswith("/sources/otros/guia-recursos.html")
@@ -203,7 +203,7 @@ async def test_an_answered_question_links_to_the_paragraph_that_cites_its_articl
     ).json()
     assert graded["lessonLink"] == {
         "lessonId": "m01-l1",
-        "anchor": "lpac-art-122",
+        "anchor": "boe-a-2015-10565-art-122",
         "citation": "art. 122.1 LPAC",
     }
 

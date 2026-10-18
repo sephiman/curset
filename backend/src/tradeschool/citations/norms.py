@@ -6,8 +6,9 @@ entry answers to: its `short` name, the head and the parenthesis of that name (�
 the long and short number forms («Ley Orgánica 2/1979» = «LO 2/1979»), its title, any `aliases` the
 entry lists, and the abbreviations the lessons themselves declare in prose («…Públicas (LPAC)»).
 
-Every norm has one anchor slug: the acronym in its short name if it has one (`ce`, `lpac`), else its
-number form (`lo-3-1981`), else its short name (`codigo-civil`).
+Every norm has one anchor slug, from its official id so two norms never share one: `boe-a-2015-10565`,
+or `celex-12016m-txt` for an EU norm. An entry with neither falls back to the acronym in its short name
+(`ce`), else its number form (`lo-3-1981`), else its short name (`codigo-civil`).
 """
 
 from __future__ import annotations
@@ -80,7 +81,15 @@ def _short_parts(short: str) -> tuple[str, str | None]:
     return (match["head"], match["paren"]) if match else (short, None)
 
 
-def norm_slug(short: str) -> str:
+def norm_slug(entry: dict[str, object]) -> str:
+    if entry.get("boe_id"):
+        return slug(str(entry["boe_id"]))
+    if entry.get("celex"):
+        return f"celex-{slug(str(entry['celex']))}"
+    return _name_slug(str(entry["short"]))
+
+
+def _name_slug(short: str) -> str:
     head, paren = _short_parts(short)
     for candidate in (paren, head):
         if candidate and _ACRONYM.match(candidate):
@@ -160,7 +169,7 @@ class NormIndex:
                 raise ValueError(f"{path}: every norm needs a `short` name")
             own = _declared_aliases(entry)
             norm = Norm(
-                slug=norm_slug(str(entry["short"])),
+                slug=norm_slug(entry),
                 short=str(entry["short"]),
                 title=str(entry.get("title") or entry["short"]).rstrip().rstrip("."),
                 file=str(entry["file"]) if entry.get("file") else None,

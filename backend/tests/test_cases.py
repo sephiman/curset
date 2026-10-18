@@ -99,7 +99,9 @@ async def test_a_case_question_report_names_the_case_its_citation_and_its_lesson
     )
     assert report.citation == "art. 10.1 LRJSP"
     assert report.lesson_anchor is not None
-    assert report.lesson_anchor.endswith("/courses/fixture-oposiciones/lessons/m02-l1#lrjsp-art-10")
+    assert report.lesson_anchor.endswith(
+        "/courses/fixture-oposiciones/lessons/m02-l1#boe-a-2015-10566-art-10"
+    )
     body = mailer.outbox[0].body
     assert "El permiso denegado" in body and "art. 10.1 LRJSP" in body and report.lesson_anchor in body
 
