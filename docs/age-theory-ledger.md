@@ -3362,7 +3362,7 @@ the row.
 
 ## Open items
 
-1. **m03-l05 prose, art. 69.3 párr. 2:** the effects sentence omits «No obstante…, la comunicación podrá presentarse
+1. **m03-l05 prose, art. 69.3 párr. 2** (closed in «Esquemas bloque IV»): the effects sentence omits «No obstante…, la comunicación podrá presentarse
    dentro de un plazo posterior al inicio de la actividad cuando la legislación correspondiente lo prevea
    expresamente». The prose was out of scope here. Adding it is a one-sentence R2 fix with its own blind check.
 2. A `plazos`/`pasos` list row cannot cite a letter written «f)» (the trailing-citation grammar takes the first
@@ -3372,3 +3372,182 @@ the row.
 
 Bloque III is closed for R2c. The next session runs R2c for the next bloque with this spec. The reviewer prompt
 should keep the false-order check, the class this round added.
+
+# Esquemas bloque IV (R2c, 2026-10-18)
+
+Round R2c (requirements § 4a) for temas IV.1–IV.9, plus the m03-l05 fix left open by bloque III. Nothing committed.
+The m04 lesson diffs only add lines. Working files are in `docs/age-verification/bloque-iv/esquemas/`: `spec.md`,
+`verify-m03-l05.md`, `verify-m04-l01-l02-l03.md`, `verify-m04-l04.md`, `verify-m04-l05-l06.md`,
+`verify-m04-l07-l08-l09.md`, `fixes.md` and `recheck.md`.
+
+**Method.** Same as bloque III. The writer drew every fact field from the lesson's prose and checked it against the
+cited article (`pdftotext` of `sources/normativa/`), using the norm's own words where the prose shortens. Where the
+round prompt asked for TREBEP-vs-earlier-rule pairs, the norms sit side by side in one table, one row and one
+citation per norm. The esquema states each rule and does not say which applies, as the prose does not. Four blind
+reviewers checked every row as a sentence: verbatim, nothing wider, citation right, already in the prose, no false
+order, placement. A fifth checked the m03-l05 change. The fixes were then re-checked by a reviewer who had not read
+the first reports.
+
+## m03-l05: art. 69.3 LPAC párrafo 2
+
+- **Prose:** the paragraph on art. 69.3 gains one sentence, verbatim and cited: «La comunicación podrá presentarse
+  dentro de un plazo posterior al inicio de la actividad cuando la legislación correspondiente lo prevea expresamente
+  (art. 69.3 LPAC).» The norm's opening «No obstante lo dispuesto en el párrafo anterior» is left out. The sentence
+  follows the párrafo 1 sentence, and the reviewer judged the meaning unchanged.
+- **Esquema:** the «Efectos» column of «Declaración responsable y comunicación» is restored. Both rows carry the
+  párrafo 1 effects. Only the comunicación row adds párrafo 2, because that paragraph names only the comunicación.
+  Citations: «arts. 69.1 y 69.3 LPAC» and «arts. 69.2 y 69.3 LPAC».
+- **Blind check:** 9 items, 9 PASS. Bloque III open item 1 is closed.
+
+## Esquemas added
+
+| Lesson | Kind | Title | Rows |
+|---|---|---|---|
+| IV.1 `m04-l01` | arbol | Clases de empleados públicos (arts. 8.1–2, 9.1, 11.1, 12.1 TREBEP) | 5 |
+| | tabla | A quién se aplica cada norma (art. 1.1–2 RD 364/1995, art. 1 RD 365/1995, art. 1 RD 33/1986, art. 2.1.a) Ley 53/1984) | 4 |
+| IV.2 `m04-l02` | arbol | Clases de órganos de selección (arts. 10, 11, 12.1 RD 364/1995) | 3 |
+| | tabla | Quién no puede formar parte de los órganos de selección (art. 60.2 TREBEP, art. 115.2 RDL 6/2023, art. 13.2 RD 364/1995) | 3 |
+| | tabla | El cupo de reserva para personas con discapacidad (art. 59.1 TREBEP, art. 108.4 RDL 6/2023) | 2 |
+| IV.3 `m04-l03` | tabla | Los sistemas selectivos de los funcionarios en cada norma (art. 61.6 TREBEP, art. 4.1 RD 364/1995, arts. 114.4 y 114.6 RDL 6/2023) | 3 |
+| IV.4 `m04-l04` | tabla | Jubilación forzosa y prolongación en el servicio activo (art. 67.3–4 TREBEP, art. 205.1.a) y DT 7.ª LGSS, art. 33 Ley 30/1984) | 4 |
+| | tabla | Efectos de las situaciones administrativas (arts. 87.2, 89.2–5, 90.1 TREBEP; arts. 8.2, 12.5, 13.6, 14.2, 18.4–5, 19 RD 365/1995) | 12 |
+| | tabla | Duración de las situaciones (art. 29.3.c) Ley 30/1984; arts. 89.4–5, 90.2 TREBEP; arts. 12.2, 15.3, 16.3, 17, 18.4, 21.3 RD 365/1995) | 10 |
+| IV.5 `m04-l05` | plazos | Plazos de la libre designación (arts. 53, 54.1, 56.1 RD 364/1995) | 3 |
+| | plazos | Plazos del concurso (arts. 42.2, 47.1, 48.1–3 RD 364/1995) | 4 |
+| | tabla | Intervalos de niveles hasta que se apruebe la normativa reglamentaria (DT 6.ª RDL 6/2023) | 5 |
+| | tabla | Requisitos de la promoción interna (art. 18.2 TREBEP, art. 76 RD 364/1995) | 2 |
+| IV.6 `m04-l06` | tabla | Autorización y reconocimiento de compatibilidad (arts. 9, 14 Ley 53/1984, art. 5 RD 598/1985) | 4 |
+| | tabla | Suspensión provisional: el TREBEP y el RD 365/1995 (art. 98.3 TREBEP, art. 21.4 RD 365/1995) | 3 |
+| | pasos | Fases del expediente disciplinario (arts. 29.1, 30, 35.1, 42, 45.1, 47 RD 33/1986) | 4 |
+| | plazos | Plazos del expediente disciplinario (arts. 35.1, 36, 37.1, 41–43, 45.1 RD 33/1986) | 7 |
+| IV.7 `m04-l07` | tabla | Alta, conservación y baja como mutualista (arts. 7.1, 8.1–2 RDL 4/2000, art. 10.3 RD 375/2003) | 5 |
+| | tabla | Retribuciones y subsidio en la incapacidad temporal y en el riesgo durante el embarazo (arts. 21.1, 22.4 RDL 4/2000, art. 95.1–2 RD 375/2003) | 6 |
+| IV.8 `m04-l08` | tabla | La jornada en el ET, el Convenio único y la Resolución de 14-04-2026 (art. 34.1 ET, art. 64.1 Convenio único, apartado 2.4.a)) | 3 |
+| | tabla | Horas extraordinarias en el Convenio único y en el ET (art. 72.1–3 Convenio único, art. 35.1 ET) | 4 |
+| IV.9 `m04-l09` | tabla | Períodos mínimos de cotización (arts. 172, 178.1, 205.1, 215.2.a) LGSS) | 7 |
+| | tabla | Cuantía de las prestaciones económicas (arts. 171, 179.1, 187.3, 189, 192.1, 270.2 LGSS) | 6 |
+| **Total** | | **23 esquemas** | **109** |
+
+Words (`wc -w`, everything counted) rise by 174 (m04-l03) to 1,391 (m04-l04) per lesson; m03-l05 rises by 117. The
+reading-time check passes.
+
+## Verification
+
+| Pass | Rows | PASS | FAIL |
+|---|---|---|---|
+| Blind pass: l01 / l02 / l03 | 9 / 10 / 7 | 9 / 7 / 5 | 0 / 3 / 2 |
+| Blind pass: l04 | 26 | 26 | 0 |
+| Blind pass: l05 / l06 (the l05 intervalos table counted as one row) | 10 / 18 | 9 / 18 | 1 / 0 |
+| Blind pass: l07 / l08 / l09 | 11 / 7 / 16 | 10 / 7 / 15 | 1 / 0 / 1 |
+| **First pass, total** | **114** | **106** | **8** |
+| m03-l05 change (sentence, two rows, nothing else changed) | 9 items | 9 | 0 |
+| Re-check of the fixes (each affected esquema whole, plus the removals) | 12 items | 12 | 0 |
+
+The eight FAILs fell into two classes. `fixes.md` has each one.
+- **Dropped condition:** art. 48.2 RD 364/1995 (the three-month aplazamiento «a propuesta del Departamento, por
+  exigencias del normal funcionamiento de los servicios»), art. 10.3 RD 375/2003 («ante la Mutualidad General»), art.
+  215.2 LGSS («a tiempo completo», «con carácter simultáneo»), and the 33 % threshold of DA 19.ª Ley 30/1984 and art. 2.1
+  RD 2271/2004. The art. 61.8 TREBEP and art. 114.10 RDL 6/2023 rows also failed this way: each left out the
+  relación complementaria paragraph(s) after «excepto cuando así lo prevea la propia convocatoria».
+- **Not a faithful shortening:** art. 12.1 RD 364/1995 (the Comisiones Permanentes node kept the object without
+  «se encomienda»). It now uses the prose's wording.
+
+**Removed instead of fixed.** In four FAILs the prose has the same gap as the row, so the reviewer's replacement
+would add a fact the prose does not state. The two older cupo rows (Ley 30/1984, RD 2271/2004) were removed; the table
+keeps TREBEP and RDL 6/2023. The whole m04-l03 table «Aprobados y plazas convocadas» was removed (arts. 61.8 TREBEP,
+114.10 RDL 6/2023, 22.3 and 25.1 RD 364/1995). The m04-l09 table «Duración de la incapacidad temporal» was removed
+because it repeated the art. 169.1 a)–b) list that the prose already has (a reviewer's note, not a FAIL).
+
+**No false order.** Every numbered step in the `plazos` and `pasos` lists rests on the norm's own wording: «a partir
+de la incoación», «Contestado el pliego», «Cumplimentadas las diligencias», «dentro de los diez días siguientes», «El
+nombramiento requerirá el previo informe», and «a partir del día siguiente al del cese, que deberá efectuarse dentro de
+los tres días hábiles siguientes a la publicación».
+
+Not applied, judged PASS with a note:
+- The m04-l04 label «Excedencias voluntarias, salvo esa mensualidad de la incentivada» was kept over the norm's «salvo
+  lo previsto en el apartado 5 del artículo anterior», which names nothing inside the table.
+- The «LGSS, desde 2027» row gives the rule from 2027 only, as the prose does. For 2026, DT 7.ª gives 66 years and 10
+  months, or 65 with 38 years and 3 months cotizados.
+- The libre designación and concurso rows name the «Secretario/Secretaría de Estado para la Administración Pública» as
+  the norm does, without the prose's «hoy» gloss.
+- Combined citations («art. 48.1–3», «arts. 29.1 y 30», «arts. 45.1 y 47») are matched by anchor (norm + article),
+  not by string.
+
+## Considered and left as prose
+
+- **IV.1:** the anotación list of art. 13.1.a) RD 2073/1999 and the derogation list of DD única b) TREBEP are already
+  lists. The two RCP plazos (art. 11.2 RD 2073/1999) are one sentence. A tree of the Secretaría de Estado de Función
+  Pública and its órganos (arts. 22.2–3 RD 829/2023, 21.C) RD 1009/2023) was drafted and dropped. The prose citation
+  «(art. 21.C) Real Decreto 1009/2023, …)» is parsed as «art. 21.C» of RD 829/2023 (see Open items), so no row can cite
+  RD 1009/2023.
+- **IV.2:** both plazo tables (OEP, convocatoria) and the art. 55.2 principles are already in the prose as tables or
+  lists. The arbol of órganos de selección comes close to the prose bullets (l. 77–84). It was kept because the
+  round prompt asks for it and it shows the art. 10 classification as a tree.
+- **IV.3:** the interinos table (art. 10.1), the cese causes (10.3), the requisitos (56.1), the grupos (76) and the
+  nacionales rules (57) are already tables or lists. The aprobados/plazas comparison was removed; see Verification.
+- **IV.4:** the reingreso table is already in the prose. The adquisición requisitos (62.1), causes of pérdida (63) and
+  servicios especiales supuestos (87.1) are lists. The round prompt's «supuesto, efectos, reingreso» became two
+  esquemas, efectos and duración. A supuestos column would have meant copying twelve 87.1 letters into one cell or
+  rewording the excedencia requisitos.
+- **IV.5:** the permisos of arts. 48 and 49 TREBEP and the other forms of provisión are already tables. The prompt's
+  «quién lo concede» column cannot be filled: the lesson says no norm names the organ that grants permisos (apartado
+  9.10 of the Resolución speaks only of «los órganos competentes»). The art. 14 derechos and art. 54 principios are
+  lists. The vacaciones by antigüedad (apartado 9.1) are one sentence.
+- **IV.6:** faltas (95.2 TREBEP; 7.1 and 8 RD 33/1986), sanciones (96.1 and the art. 14–17 table) and prescription
+  (the TREBEP / RD 33/1986 table) are already lists or tables in the prose. So are the art. 12.1 and 19 activities and
+  the art. 47 organs.
+- **IV.7:** the campo de aplicación exclusions (3.2), the Consejo General's composition (5.1 RD 577/1997), the
+  jubilación kinds (28.2 TRLCPE) and the pensions table are already in the prose. The post-2011 rule (2.2 RDL 4/2000,
+  DA 3.ª LGSS) is two sentences in two sections.
+- **IV.8:** the órganos de selección of the Convenio (31), the clasificación table (8.1), the crédito horario (68.e) ET),
+  the ámbito lists (1.2, 2) and the provisión procedures (27.2) are already lists or tables. The período de prueba
+  (32.1) is one sentence.
+- **IV.9:** the acción protectora (42.1), the art. 44.1 exceptions, the IT situations (169.1), the IT payment table
+  (173.1), the incapacidad permanente grades and the desempleo scope (264.1) are already lists or tables.
+
+## Checks
+
+- **Load:** every row cites a norm and article that the lesson's prose also cites, and the course loads. The list
+  shape, never-coins and reading-time checks pass in the backend subset
+  `-k "glossary or registry or content or pipeline or citation or source or esquema"` (112 passed, golden excluded,
+  before regeneration; the golden test passes after it).
+- **`citations.es.txt`** regenerated (`UPDATE_CITATIONS=1`): +109 esquema rows (header «93 → 202 esquema rows») and one
+  prose row, the new art. 69.3 LPAC citation in m03-l05 (3204 → 3205). No other prose row or anchor changed.
+- **`glossary-links.es.txt`** regenerated and read: 318 → 319 web marks, 82 → 83 PDF links. The one change is a new
+  mark, not a moved one. g-suspension-provisional (origin m04-l06) gets a WP mark in m04-l04, in the «Duración de las
+  situaciones» row label «Suspensión provisional durante la tramitación de un expediente disciplinario». The m04-l04
+  prose never writes the full term, and it was in the list of terms the book never linked. The sense is right, and
+  no other lesson loses a link.
+- **`lesson-refs.es.txt`:** unchanged.
+- **PDF:** a scratch Vitest (not kept) rendered the ten lessons through `lessonToContent`, before and after. Every new
+  esquema printed as a pdfmake table with one body row per esquema row plus the header. The prose tables are
+  unchanged, and m03-l05's table keeps its three rows with the added column.
+- **Android bundle:** re-exported to a scratch folder, byte-identical to `dist/bundle` and `dist/i18n`.
+  `--verify-only` passed: fingerprint `9c95cf4a6bf2…` (98 files), label catalogs and leaked tokens OK. No diff under
+  `content/crypto-futures/` or `dist/`.
+- **Full suites on the final tree:** backend `uv run pytest` 1,449 passed, 20 skipped; frontend `npx vitest run` 592
+  passed, 51 skipped; `tsc -b` clean. Same counts as before the round.
+
+## Open items
+
+1. **Citation misparse «art. 21.C)»:** in m04-l01 and m04-l03, «(art. 21.C) Real Decreto 1009/2023, …)» is read as
+   «art. 21.C» with the previous norm, RD 829/2023. Both lessons link it to art. 21 of RD 829/2023, the wrong norm
+   (`citations.es.txt` rows `m04-l01 … art. 21.C` and `m04-l03 … art. 21.C`). This is the same «letter + )» grammar
+   limit as bloque III item 2, here inside prose. It needs either a parser fix or a prose rewording, with its own
+   check.
+2. **Prose gaps found by the esquema pass** (prose out of scope here; each is a one-sentence R2 fix with its own blind
+   check):
+   - m04-l03: arts. 61.8 párr. 2 TREBEP and 114.10 párrs. 2–3 RDL 6/2023 (the relación complementaria when selected
+     candidates renounce; RDL 114.10 also says «No procederá dicho requerimiento» if fewer were proposed than plazas
+     convocadas).
+   - m04-l02: the 5 % rule of DA 19.ª Ley 30/1984 and art. 2.1 RD 2271/2004 is stated without its 33 % threshold.
+   - m04-l05, promoción interna: art. 18.2 TREBEP is stated without the DF 4.ª.1 caveat the lesson gives for título III
+     capítulo II.
+   Once the prose carries these clauses, the removed rows can return.
+3. **Bloque III item 2** (a list-row citation cannot end in a letter) still stands. This bloque cited apartados only.
+
+## Where to resume (after esquemas bloque IV)
+
+Bloque IV is closed for R2c. The next session runs R2c for bloque V with the same spec and with the false-order and
+dropped-condition checks in the reviewer prompt. Before writing a row, check that the prose states the norm's
+conditions in full: four of this bloque's eight FAILs were prose gaps that the esquema made visible.
