@@ -6,11 +6,11 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Self
 
-import yaml
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from tradeschool.content.collation import alphabetical_key
 from tradeschool.content.text import LocalizedText
+from tradeschool.content.yaml_file import read_yaml
 
 
 def _plain(text: LocalizedText, where: str) -> None:
@@ -197,9 +197,7 @@ def load_glossary(content_dir: Path, lesson_keys: set[str], taken_ids: set[str])
     path = content_dir / "glossary.yaml"
     if not path.exists():
         return Glossary(terms=[])
-    with path.open(encoding="utf-8") as fh:
-        raw = yaml.safe_load(fh)
-    glossary = Glossary.model_validate(raw)
+    glossary = Glossary.model_validate(read_yaml(path))
 
     for term in glossary.terms:
         if term.id in taken_ids:

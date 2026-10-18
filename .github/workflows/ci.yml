@@ -22,8 +22,8 @@ jobs:
       - run: uv sync --frozen
       - run: uv run ruff check .
       - run: uv run mypy src
-      # Testcontainers spins a real Postgres on the runner's Docker.
-      - run: uv run pytest
+      # Testcontainers spins a real Postgres per xdist worker on the runner's Docker.
+      - run: uv run pytest -n auto
 
   frontend:
     runs-on: ubuntu-latest

@@ -12,10 +12,10 @@ from pathlib import Path
 from typing import Literal, Self
 
 import numpy as np
-import yaml
 from pydantic import BaseModel, ConfigDict, model_validator
 
 from tradeschool.content.text import LocalizedText
+from tradeschool.content.yaml_file import read_yaml
 from tradeschool.exercises.charts.engine import build_series
 from tradeschool.exercises.charts.indicators import ema, macd, rsi
 from tradeschool.exercises.charts.injectors import RsiDivergenceInjector
@@ -324,9 +324,7 @@ def load_figures(content_dir: Path) -> dict[str, FigureSpec]:
     if not figures_dir.exists():
         return figures
     for path in sorted(figures_dir.glob("*.yaml")):
-        with path.open(encoding="utf-8") as fh:
-            raw = yaml.safe_load(fh)
-        spec = FigureSpec.model_validate(raw)
+        spec = FigureSpec.model_validate(read_yaml(path))
         if spec.id != path.stem:
             raise ValueError(f"figure id {spec.id!r} must match filename {path.stem!r}")
         if spec.key in keys:

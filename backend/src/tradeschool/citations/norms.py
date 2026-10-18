@@ -18,9 +18,8 @@ from collections.abc import Iterable
 from dataclasses import dataclass
 from pathlib import Path
 
-import yaml
-
 from tradeschool.citations.grammar import LEAD, collapse, slug
+from tradeschool.content.yaml_file import read_yaml
 
 _LONG_TO_SHORT = {
     "Ley Orgánica": "LO",
@@ -157,7 +156,7 @@ class NormIndex:
 
     @classmethod
     def load(cls, path: Path, prose: Iterable[str]) -> NormIndex:
-        raw = yaml.safe_load(path.read_text(encoding="utf-8")) or []
+        raw = read_yaml(path) or []
         if not isinstance(raw, list):
             raise ValueError(f"{path} must be a list of norms")
         norms: list[Norm] = []

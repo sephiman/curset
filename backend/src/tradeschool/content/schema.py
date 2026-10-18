@@ -11,10 +11,10 @@ from enum import StrEnum
 from pathlib import Path
 from typing import Self
 
-import yaml
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from tradeschool.content.text import Locale, LocalizedText
+from tradeschool.content.yaml_file import read_yaml
 from tradeschool.exams.presets import ExamPreset
 from tradeschool.exercises.types import ExerciseType
 
@@ -213,6 +213,4 @@ def missing_languages(node: object, languages: set[str], path: str = "") -> Iter
 
 
 def parse_manifest(path: Path) -> Manifest:
-    with path.open(encoding="utf-8") as fh:
-        raw = yaml.safe_load(fh)
-    return Manifest.model_validate(raw)
+    return Manifest.model_validate(read_yaml(path))

@@ -50,7 +50,7 @@ Backend (needs a reachable Postgres; tests bring their own via testcontainers):
 ```bash
 cd backend
 uv sync
-uv run pytest          # integration tests against a real Postgres
+uv run pytest -n auto  # integration tests against a real Postgres, one container per worker
 uv run ruff check . && uv run mypy src
 uv run uvicorn tradeschool.main:app --reload   # http://localhost:8000
 ```

@@ -32,7 +32,7 @@ scripts/        numeric-determinism measurement tooling (not part of the app) â€
 
 ```bash
 uv sync                       # install deps (incl. dev group)
-uv run pytest                 # integration tests against real Postgres (testcontainers)
+uv run pytest -n auto         # integration tests against real Postgres (testcontainers), one per worker
 uv run ruff check .           # lint
 uv run mypy src               # types
 uv run tradeschool sync       # reconcile the course manifest into the DB

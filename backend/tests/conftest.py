@@ -6,6 +6,7 @@ from __future__ import annotations
 from collections.abc import AsyncGenerator, Generator
 from contextlib import asynccontextmanager
 from dataclasses import dataclass, field
+from functools import cache
 from pathlib import Path
 
 import pytest
@@ -19,6 +20,7 @@ from testcontainers.postgres import PostgresContainer
 # Import every model so Base.metadata is complete for truncation.
 import tradeschool.models  # noqa: F401
 from tradeschool.config import Settings
+from tradeschool.content import registry
 from tradeschool.db import Base, get_sessionmaker
 from tradeschool.main import create_app
 from tradeschool.migrations import run_migrations
@@ -52,6 +54,14 @@ def settings(postgres_container: PostgresContainer) -> Settings:
         # Off by default so functional tests aren't throttled; the rate-limit test flips it on.
         rate_limit_enabled=False,
     )
+
+
+@pytest.fixture(scope="session", autouse=True)
+def _catalog_parsed_once() -> Generator[None]:
+    """Each test's app lifespan loads the catalogue; content is read-only, so parse each root once."""
+    with pytest.MonkeyPatch.context() as patch:
+        patch.setattr(registry, "load_catalog", cache(registry.load_catalog))
+        yield
 
 
 @pytest.fixture(scope="session")

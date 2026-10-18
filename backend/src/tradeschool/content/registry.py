@@ -11,7 +11,6 @@ from collections.abc import Callable
 from dataclasses import dataclass, field
 from pathlib import Path
 
-import yaml
 from pydantic import BaseModel, ValidationError
 
 from tradeschool.citations.course import CitedQuestion, CourseCitations, QuestionLink
@@ -29,6 +28,7 @@ from tradeschool.content.schema import (
     parse_manifest,
 )
 from tradeschool.content.text import LOCALES, LocalizedText
+from tradeschool.content.yaml_file import read_yaml
 from tradeschool.exams.draw import check_presets
 from tradeschool.exercises.case import CaseConfig
 from tradeschool.exercises.figures import FigureSpec, load_figures
@@ -536,8 +536,7 @@ def _load_exercise_configs(
         if not has_generator(exercise.type):
             logger.info("no generator for %s (%s); skipping", exercise.id, exercise.type.value)
             continue
-        with path.open(encoding="utf-8") as fh:
-            raw = yaml.safe_load(fh)
+        raw = read_yaml(path)
         if not isinstance(raw, dict):
             raise ContentError(f"exercise config {path} is not a mapping")
         declared = raw.get("type")
@@ -738,7 +737,7 @@ def _check_glossary_never_coins(glossary: Glossary, markdown: dict[str, dict[str
     whitespace-flattened text or every such term reads as absent.
     """
     flattened = {
-        locale: " ".join(" ".join(body.split()) for body in lessons.values())
+        locale: " ".join(" ".join(body.split()) for body in lessons.values()).casefold()
         for locale, lessons in markdown.items()
     }
     missing: list[str] = []
@@ -748,7 +747,7 @@ def _check_glossary_never_coins(glossary: Glossary, markdown: dict[str, dict[str
             # Parenthetical glosses in the term itself ("open interest (OI)") are display sugar;
             # match on the head, which is what the prose actually writes.
             needle = needle.split(" (")[0]
-            if needle not in flattened[locale].casefold():
+            if needle not in flattened[locale]:
                 missing.append(f"{term.id} ({locale}: {needle!r})")
     if missing:
         raise ContentError(
