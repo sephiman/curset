@@ -53,6 +53,13 @@ export interface TimeframeContext {
   position: "above" | "below";
 }
 
+/** «Ver en la lección»: the question's lesson, at the anchor of what it cites (null: the top). */
+export interface LessonLink {
+  lessonId: string;
+  anchor: string | null;
+  citation: string | null;
+}
+
 export interface AttemptPayload {
   // quiz — every quiz payload carries `kind`; calculation carries "multiple_choice".
   kind?: QuizKind | "multiple_choice";
@@ -63,6 +70,9 @@ export interface AttemptPayload {
   // calculation
   unit?: string | null;
   formula?: string;
+  // case (print only): the scenario and its questions in order
+  scenario?: string;
+  questions?: { id: string; number: string; prompt: string; payload: AttemptPayload }[];
   // chart
   series?: ChartSeriesPayload;
   rsi?: number[];
@@ -98,9 +108,12 @@ export interface GradeResponse {
   correctAnswer: unknown;
   solutionSteps: string[];
   explanation: string | null;
+  lessonLink?: LessonLink | null;
 }
 
 export interface AttemptReview extends AttemptInstance {
+  questionId: string | null;
+  lessonLink: LessonLink | null;
   givenAnswer: Record<string, unknown> | null;
   isCorrect: boolean | null;
   correctAnswer: unknown;
@@ -134,6 +147,31 @@ export type Deferred = { value: Answer | null; onChange: (answer: Answer) => voi
 export async function createAttempt(scope: CourseScope, exerciseId: string): Promise<AttemptInstance> {
   const { data } = await apiClient.post<AttemptInstance>(
     courseUrl(scope, `/exercises/${exerciseId}/attempts`),
+    undefined,
+    inReadingLanguage(scope),
+  );
+  return data;
+}
+
+/** One question of an opened case: its own attempt, answered through `answerAttempt`. */
+export interface CaseQuestionInstance {
+  attemptId: string;
+  questionId: string;
+  lessonId: string | null;
+  prompt: string;
+  payload: AttemptPayload;
+}
+
+export interface CaseInstance {
+  exerciseId: string;
+  title: string;
+  scenario: string;
+  questions: CaseQuestionInstance[];
+}
+
+export async function openCase(scope: CourseScope, exerciseId: string): Promise<CaseInstance> {
+  const { data } = await apiClient.post<CaseInstance>(
+    courseUrl(scope, `/exercises/${exerciseId}/case-attempts`),
     undefined,
     inReadingLanguage(scope),
   );

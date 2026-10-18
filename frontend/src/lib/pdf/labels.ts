@@ -40,5 +40,12 @@ export function pdfLabels(t: Translate, generated: string): PdfLabels {
     marker: (raw) => t(`chartMarker.${raw}`, { defaultValue: raw }),
     zone: (label, kind) =>
       t(`band.${label}`, { defaultValue: t(`band.${kind}`, { defaultValue: label }) }),
+    caseQuestion: (number) => t("course.pdfCaseQuestion", { number }),
+    esquemaColumns: {
+      plazos: [t("esquema.step"), t("esquema.plazo"), t("esquema.citation")],
+      pasos: [t("esquema.step"), t("esquema.document"), t("esquema.organ"), t("esquema.citation")],
+      arbol: [t("esquema.node"), t("esquema.detail"), t("esquema.citation")],
+    },
+    consolidated: (date) => t("course.pdfConsolidated", { date }),
   };
 }

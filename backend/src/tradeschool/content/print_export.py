@@ -23,6 +23,7 @@ from pydantic import BaseModel
 
 from tradeschool.content.registry import CourseRegistry
 from tradeschool.exercises.base import GradeResult
+from tradeschool.exercises.case import CaseConfig, question_seeds
 from tradeschool.exercises.registry import get_generator, has_generator
 from tradeschool.exercises.reveal import RevealError, reveal, revealed_mapping
 from tradeschool.exercises.types import ExerciseType
@@ -211,6 +212,47 @@ CHART_TYPES = frozenset(
 # --- building ------------------------------------------------------------------------------------
 
 
+def _print_case(
+    registry: CourseRegistry, exercise_id: str, config: CaseConfig, locale: str
+) -> dict[str, object]:
+    """A case prints as its scenario then its questions in order; the key answers every question."""
+    seed = print_seed(registry.exercise_key(exercise_id))
+    quiz = get_generator(ExerciseType.QUIZ)
+    number = print_number(exercise_id)
+    questions: list[dict[str, object]] = []
+    answers: list[dict[str, object]] = []
+    seeds = question_seeds(seed, len(config.questions))
+    for position, (question, question_seed) in enumerate(zip(config.questions, seeds, strict=True), start=1):
+        quiz_config = question.as_quiz()
+        instance = quiz.generate(quiz_config, question_seed, locale)
+        try:
+            revealed = reveal(quiz, quiz_config, question_seed, locale, instance.payload)
+        except RevealError as exc:
+            raise PrintExerciseError(f"question {question.id}: {exc}") from exc
+        label = f"{number}.{position}"
+        questions.append(
+            {"id": question.id, "number": label, "prompt": instance.prompt, "payload": instance.payload}
+        )
+        answers.append(
+            {
+                "id": question.id,
+                "number": label,
+                **_quiz_answer(instance.payload, revealed.result, quiz_config),
+                "explanation": revealed.result.explanation,
+            }
+        )
+    return {
+        "id": exercise_id,
+        "number": number,
+        "type": ExerciseType.CASE.value,
+        "isChart": False,
+        "seed": seed,
+        "prompt": config.title.get(locale),
+        "payload": {"scenario": config.scenario.get(locale), "questions": questions},
+        "answer": {"kind": "case", "questions": answers, "explanation": None},
+    }
+
+
 def build_print_exercise(registry: CourseRegistry, exercise_id: str, locale: str) -> dict[str, object]:
     """One exercise as it will be printed: the frozen instance, and the answer to it.
 
@@ -220,6 +262,8 @@ def build_print_exercise(registry: CourseRegistry, exercise_id: str, locale: str
     if resolved is None:
         raise PrintExerciseError("declared in the manifest but not authored yet")
     exercise_type, config = resolved
+    if isinstance(config, CaseConfig):
+        return _print_case(registry, exercise_id, config, locale)
     if not has_generator(exercise_type):
         raise PrintExerciseError(f"no generator for type {exercise_type.value!r}")
     adapter = ADAPTERS.get(exercise_type)

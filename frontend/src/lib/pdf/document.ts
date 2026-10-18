@@ -12,7 +12,7 @@ import {
   type ExerciseLabels,
 } from "@/lib/pdf/exercises";
 import { glossarySection, type GlossaryLabels } from "@/lib/pdf/glossary";
-import { lessonToContent, type MarkdownRenderers } from "@/lib/pdf/markdown";
+import { appendNormativa, lessonToContent, type ListEsquemaKind, type MarkdownRenderers } from "@/lib/pdf/markdown";
 import { DEST, keepTogether, printedId, withId, type OversizedBlock } from "@/lib/pdf/pagination";
 import { createSectionTracker, SECTION_ID, type SectionTracker } from "@/lib/pdf/sections";
 import { DEFAULT_STYLE, PAGE, PRINT_FONT, PRINT_STYLES, panelWidth } from "@/lib/pdf/page";
@@ -43,6 +43,10 @@ export interface PdfLabels extends ExerciseLabels, GlossaryLabels {
   /** Cover line naming the language and the day the document was made. */
   generated: string;
   page: (current: number, total: number) => string;
+  /** The header row of each list esquema printed as a table (step, plazo, article…). */
+  esquemaColumns: Record<ListEsquemaKind, string[]>;
+  /** After a «Normativa» norm's title: «texto consolidado a 2024-11-06». */
+  consolidated: (date: string) => string;
 }
 
 export interface BuildCourseDocumentOptions {
@@ -144,13 +148,14 @@ function figureContent(figure: CapturedFigure): FigureBlock {
   };
 }
 
-function renderers(figures: Map<string, CapturedFigure>): MarkdownRenderers {
+function renderers(figures: Map<string, CapturedFigure>, labels: PdfLabels): MarkdownRenderers {
   return {
     figure: (id) => {
       const figure = figures.get(id);
       if (!figure) throw new Error(`figure ${id} was not rendered for this export`);
       return figureContent(figure);
     },
+    esquemaColumns: labels.esquemaColumns,
   };
 }
 
@@ -180,21 +185,25 @@ function exerciseChart(charts: Map<string, string>): ExerciseChartLookup {
  * A course with no glossary still gets its lesson references; only the term half stands down, so the
  * book never carries a link to a glossary page it does not print.
  */
-function proseAnnotator(doc: CourseExport) {
+function proseAnnotator(doc: CourseExport, labels: PdfLabels) {
   const terms = doc.glossary.length > 0 ? buildTermIndex(doc.glossary, doc.locale) : null;
   const marked = new Set<string>();
   const registry = buildRefRegistry(refModulesFromExport(doc));
+  const norms = new Map(
+    doc.blocks.flatMap((b) => b.modules.flatMap((m) => m.lessons.map((l) => [l.id, l.normativa ?? []] as const))),
+  );
   return (lessonId: string) => (tree: Root) => {
     if (terms) annotateLesson(tree, { lessonId, terms, marked });
     annotateLessonRefs(tree, { lessonId, registry });
+    appendNormativa(tree, norms.get(lessonId) ?? [], labels.consolidated);
   };
 }
 
 export function buildCourseDocument(o: BuildCourseDocumentOptions): TDocumentDefinitions {
   const sections = o.sections ?? createSectionTracker();
   const keepPagesTogether = keepTogether({ onOversizedBlock: o.onOversizedBlock });
-  const render = renderers(o.figures);
-  const annotator = proseAnnotator(o.export);
+  const render = renderers(o.figures, o.labels);
+  const annotator = proseAnnotator(o.export, o.labels);
   const chart = exerciseChart(o.exerciseCharts);
   const byLesson = new Map(o.exercises.lessons.map((lesson) => [lesson.lessonId, lesson.exercises]));
   const excludedByLesson = new Map<string, number>();

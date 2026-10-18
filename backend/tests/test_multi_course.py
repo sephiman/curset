@@ -90,7 +90,7 @@ async def test_disabling_and_re_enabling_keeps_progress_attempts_and_exams(multi
     await _sign_up(multi_client, "returner", courses=["fixture-oposiciones"])
     assert (await multi_client.post(f"{OPOS}/lessons/m01-l1/complete")).status_code == 200
     await _answer_opos_quiz(multi_client, correct=True)
-    exam = (await multi_client.post(f"{OPOS}/exams", json={"scope": "global"})).json()
+    exam = (await multi_client.post(f"{OPOS}/exams", json={"presetId": "tema", "target": "m01-l1"})).json()
 
     await multi_client.put("/api/me/courses", json={"active": []})
     await multi_client.put("/api/me/courses", json={"active": ["fixture-oposiciones"]})
@@ -171,7 +171,7 @@ async def test_the_same_ids_in_two_courses_never_share_progress(multi_client: As
 
 async def test_an_exam_belongs_to_its_course(multi_client: AsyncClient) -> None:
     await _sign_up(multi_client, "examinee", courses=["crypto-futures", "fixture-oposiciones"])
-    exam = (await multi_client.post(f"{OPOS}/exams", json={"scope": "global"})).json()
+    exam = (await multi_client.post(f"{OPOS}/exams", json={"presetId": "tema", "target": "m01-l1"})).json()
     assert (await multi_client.get(f"{CRYPTO}/exams/open")).json() == []
     assert (await multi_client.get(f"{CRYPTO}/exams/{exam['id']}")).status_code == 404
     assert [e["id"] for e in (await multi_client.get(f"{OPOS}/exams/open")).json()] == [exam["id"]]

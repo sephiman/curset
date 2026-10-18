@@ -2,10 +2,12 @@ import { unified } from "unified";
 import remarkParse from "remark-parse";
 import remarkGfm from "remark-gfm";
 import type { Content, ContentStack, ContentText, TableCell } from "pdfmake/interfaces";
-import type { PhrasingContent, Root, RootContent, TableContent } from "mdast";
+import type { Paragraph, PhrasingContent, Root, RootContent, TableContent } from "mdast";
 // Type-only import: this is what teaches mdast about `containerDirective` / `leafDirective` nodes.
 import type {} from "mdast-util-directive";
+import type { CourseExportNorm } from "@/api/course";
 import { remarkBlockDirectives } from "@/lib/directives";
+import { ROW_FIELDS, transformEsquemas, type EsquemaKind, type EsquemaRowNode } from "@/lib/esquema";
 import { GLOSSARY_TERM, LESSON_REF } from "@/lib/glossary/annotate";
 import { CALLOUT_ID, DEST, FIGURE_ID, printedId, withId } from "@/lib/pdf/pagination";
 import { CROSS_REF, PRINT, contentWidth } from "@/lib/pdf/page";
@@ -19,9 +21,13 @@ import { CROSS_REF, PRINT, contentWidth } from "@/lib/pdf/page";
 
 const processor = unified().use(remarkParse).use(remarkGfm).use(remarkBlockDirectives);
 
+export type ListEsquemaKind = Exclude<EsquemaKind, "tabla">;
+
 export interface MarkdownRenderers {
   /** MUST throw for an unknown figure: one that cannot be rendered has to fail the export. */
   figure: (figureId: string) => Content;
+  /** The header row a list esquema prints as a table under; absent, it prints with none. */
+  esquemaColumns?: Record<ListEsquemaKind, string[]>;
 }
 
 interface Marks {
@@ -159,6 +165,43 @@ function tableRow(row: TableContent, header: boolean): TableCell[] {
   return row.children.map((cell) => ({ text: runs(cell.children), bold: header }));
 }
 
+const TABLE_LAYOUT = {
+  hLineWidth: (i: number, t: { table: { body: unknown[] } }) =>
+    i === 0 || i === 1 || i === t.table.body.length ? 0.5 : 0.25,
+  vLineWidth: () => 0,
+  hLineColor: () => PRINT.rule,
+};
+
+/** Every esquema prints as a table: a `tabla` as written, a list kind one row per step or node. */
+function esquema(node: Extract<RootContent, { type: "containerDirective" }>, r: MarkdownRenderers, ids: Ids): Content {
+  const title: Content = { text: node.attributes?.title ?? "", style: "h4", headlineLevel: 4 };
+  const kind = node.attributes?.kind as EsquemaKind;
+  if (kind === "tabla" || !(kind in ROW_FIELDS)) return { stack: [title, ...blocks(node.children, r, ids)] };
+  const roles = [...ROW_FIELDS[kind as ListEsquemaKind], "citation"];
+  const rows = (node.children as RootContent[]).filter((child): child is EsquemaRowNode => child.type === "esquemaRow");
+  const body: TableCell[][] = rows.map((row) =>
+    roles.map((role, column) => {
+      const found = row.children.find((cell) => cell.role === role);
+      // An arbol prints its tree as indentation in the first column.
+      const indent = column === 0 ? row.depth * 12 : 0;
+      return { text: found ? runs(found.children) : "", margin: [indent, 0, 0, 0] };
+    }),
+  );
+  const header = r.esquemaColumns?.[kind as ListEsquemaKind];
+  if (header) body.unshift(header.map((text) => ({ text, bold: true })));
+  return {
+    stack: [
+      title,
+      {
+        table: { headerRows: header ? 1 : 0, widths: roles.map(() => "*"), body },
+        layout: TABLE_LAYOUT,
+        style: "p",
+        margin: [0, 4, 0, 10],
+      },
+    ],
+  };
+}
+
 function blocks(nodes: RootContent[], r: MarkdownRenderers, ids: Ids): Content[] {
   const out: Content[] = [];
   for (const node of nodes) {
@@ -202,12 +245,7 @@ function blocks(nodes: RootContent[], r: MarkdownRenderers, ids: Ids): Content[]
             widths: node.children[0]?.children.map(() => "*") ?? ["*"],
             body: node.children.map((row, i) => tableRow(row, i === 0)),
           },
-          layout: {
-            hLineWidth: (i: number, t: { table: { body: unknown[] } }) =>
-              i === 0 || i === 1 || i === t.table.body.length ? 0.5 : 0.25,
-            vLineWidth: () => 0,
-            hLineColor: () => PRINT.rule,
-          },
+          layout: TABLE_LAYOUT,
           style: "p",
           margin: [0, 4, 0, 10],
         });
@@ -217,6 +255,8 @@ function blocks(nodes: RootContent[], r: MarkdownRenderers, ids: Ids): Content[]
           out.push(
             callout(node.attributes?.type ?? "info", blocks(node.children, r, ids), ids.for(CALLOUT_ID)),
           );
+        } else if (node.name === "esquema") {
+          out.push(esquema(node, r, ids));
         }
         break;
       case "leafDirective":
@@ -236,7 +276,34 @@ function blocks(nodes: RootContent[], r: MarkdownRenderers, ids: Ids): Content[]
 }
 
 function parseLesson(markdown: string): Root {
-  return processor.parse(markdown);
+  const tree = processor.parse(markdown);
+  transformEsquemas(tree);
+  return tree;
+}
+
+function plainText(node: { children?: unknown[]; value?: unknown }): string {
+  if (typeof node.value === "string") return node.value;
+  return (node.children ?? []).map((child) => plainText(child as { children?: unknown[] })).join("");
+}
+
+/**
+ * The «Normativa» block, as the book prints it: each norm it lists followed by its title and the date
+ * of the consolidated text the course used. The book links to no local file, so this is the citation.
+ */
+export function appendNormativa(tree: Root, norms: CourseExportNorm[], consolidated: (date: string) => string): void {
+  if (norms.length === 0) return;
+  const at = tree.children.findIndex(
+    (node) => node.type === "heading" && node.depth === 2 && plainText(node).trim() === "Normativa",
+  );
+  const list = tree.children.slice(at + 1).find((node) => node.type === "list");
+  if (at < 0 || !list || list.type !== "list") return;
+  for (const item of list.children) {
+    const paragraph = item.children.find((child): child is Paragraph => child.type === "paragraph");
+    const norm = paragraph && norms.find((n) => plainText(paragraph).startsWith(`${n.name}:`));
+    if (!paragraph || !norm?.title) continue;
+    const date = norm.consolidatedAsOf ? ` (${consolidated(norm.consolidatedAsOf)})` : "";
+    paragraph.children.push({ type: "break" }, { type: "text", value: `${norm.title}${date}.` });
+  }
 }
 
 /** A lesson's `::figure` ids in reading order; duplicates kept, since a figure may recur. */

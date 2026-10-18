@@ -17,17 +17,24 @@ glossary.yaml         the term list: one or two sentences per term, plus its ori
 glossary-links.*.txt  GENERATED, reviewed, frozen: every term occurrence the annotator marks, per locale
 lesson-refs.*.txt     GENERATED, reviewed, frozen: every mXX / mXX-lN mention in lesson prose and the
                       module/lesson it links to, per locale — zero dangling, asserted in suite
-sources/              what the course is written from (programme, legislation, official exams); never
-                      loaded by the app                                         (age-administrativo-c1)
+sources/              what the course is written from (programme, legislation, official exams)
+sources/normativa.yaml the norms the course cites: short name, title, consolidated file and date; a course
+                      that has it gets citation links (below)                   (age-administrativo-c1)
+sources/normativa/    the consolidated texts; served to readers as static files, opened at the article
 sources/otros/        dated copies of the non-legal pages and documents lessons cite (UN, OECD, EU,
                       Portal de la Transparencia), indexed in fuentes.yaml with URL, date and sha256;
-                      lessons cite the file, never the live site                (age-administrativo-c1)
+                      lessons cite the file, never the live site; served like normativa/
+source-index.json     GENERATED (scripts/index_sources.py): the page or anchor each article starts at in
+                      each sources/normativa/ file, with the file's sha256
+citations.*.txt       GENERATED, reviewed, frozen: every citation in the lessons, its anchors and where
+                      it opens (backend/tests/test_citations.py)
 ```
 
 ## Lesson markdown
 
-GFM plus exactly three **block** directives: `:::note{type=info|warning|tip}` … `:::` for a callout,
-`::figure{id=…}` and `::exercise{id=…}` on their own line. Many lessons carry no figure; exactly one
+GFM plus exactly four **block** directives: `:::note{type=info|warning|tip}` … `:::` for a callout,
+`:::esquema{kind=… title="…"}` … `:::` (below), and `::figure{id=…}` and `::exercise{id=…}` on their
+own line. Many lessons carry no figure; exactly one
 carries no `::exercise` either — `m35-l1`, the epilogue — and that absence is declared in the lesson's
 own prose and in the manifest rather than left to be noticed. There is no inline `:name` dialect — it is
 deleted in `frontend/src/lib/directives.ts` — so prose may write a colon followed by anything (`03:00`,
@@ -363,3 +370,57 @@ test in the same commit. Until then `RETIRED_EXERCISE_FIELDS` in
 `backend/tests/test_generators.py` asserts both halves of the retirement: the schema rejects the
 field, and no `content/exercises/*.yaml` still ships it. The reasoning also sits beside the schema it
 left, in `backend/src/tradeschool/exercises/calculation.py`.
+
+## Exams: presets per course
+
+A course's exams are declared in its `course.yaml` under `exams:`; the engine has no exam rule of its
+own. Each preset has an `id`, a `version` (bump it when the rules change: a sitting stores the preset id,
+version and a snapshot of the rules it was taken under), a `title`, an optional `time_limit_minutes` for
+the whole exam, and one or more `parts`. A part draws from a `source` — `course`, `cases`, `{block: id}`,
+`{module: id}`, `{lesson: id}`, or `{each: block|module|lesson}` for a preset sat on one of them at a time
+(the learner picks which) — either one question per module with a bank (`draw: per-module`, the count
+follows the course) or `questions` distinct questions at random. It may add `reserve` questions (shown
+last, never counted: the platform voids nothing), a `penalty` of `0`, `1/4` or `1/3` per wrong answer,
+a `blank` rule (`free` or `wrong`), a `scoring` block (`max`, `pass_minimum`, `minimum_raw`: the CPS
+transform, raw `minimum_raw` → `pass_minimum` and the maximum raw → `max`) and `requires_previous_pass`.
+A `cases` part offers `choose` cases and grades only the one the learner marks; none or two marked, the
+part is not graded. The load fails when a preset's pool cannot supply it. `crypto-futures` declares its
+two historical exams this way; their draws and results are frozen in
+`backend/tests/goldens/crypto-exam-results.json`.
+
+## Case exercises
+
+`type: case` (declare `case` in `exercise_types`): a `title`, a one-page `scenario` in Markdown with no
+figures, and 10–25 single-choice `questions`. Each question has `id`, `lesson` (the permanent key of the
+lesson it counts under and links to), `prompt`, `options`, `explanation`, `citation`, `difficulty`
+(1–3) and `tags`. In practice the case opens one attempt per question; each is graded, reported and
+counted in progress as a question of its own lesson. A quiz variant takes the same `citation`,
+`difficulty` and `tags`.
+
+## Citations and the sources they open
+
+In a course with `sources/normativa.yaml`, the backend reads every citation in the lessons as written —
+`(art. 67 CE)`, `(arts. 14–38 CE)`, `(art. 14.2.d) y e) LPAC)`, `(disposición adicional cuarta Ley
+19/2013)`, `(anexo I Orden HAC/557/2026)`, `(fuente: `file.html`)` — one grammar,
+`backend/src/tradeschool/citations/`. A citation with no norm takes the norm of the one before it. A
+norm resolves through its `short` name, the name in that short name's parentheses, the long and short
+number forms, its title, an optional `aliases:` list in its entry, and the abbreviations the lessons
+declare in prose («Ley 39/2015, de 1 de octubre, … (LPAC)»). Each cited unit gets the anchor
+`<norm>-<unit>` (`ce-art-67`, `ley-19-2013-da-cuarta`, `fuente-<file>`), carried by the first paragraph
+that cites it; the web links the citation to the consolidated text at its article (an HTML source) or
+page (a PDF, from `source-index.json`). A question's `citation` must resolve to an anchor in its own
+lesson, or the course does not load. The PDF prints citations as text and adds each «Normativa» norm's
+title and consolidation date. Regenerate the index with `uv run python scripts/index_sources.py`
+whenever a file in `sources/normativa/` changes.
+
+## Esquemas
+
+`:::esquema{kind=tabla|plazos|arbol|pasos title="…"}` lays out what the prose already says; it never adds
+or rewords a fact. `tabla` is a GFM table whose last column is the citation. The others are lists, one row
+per item, fields separated by « — », each row ending in its citation in parentheses: `plazos` is
+`paso — plazo (cita)`, `pasos` is `paso — documento — órgano (cita)`, `arbol` is `nodo [— detalle]
+(cita)` with nesting as the tree. Every row needs a citation, and what it cites must also be cited in the
+same lesson's prose; the load fails otherwise, naming the row. Glossary marks, list shape, never-coins
+and reading time see esquema text as lesson text. The web draws a table, a timeline, a tree or a stepper;
+the PDF prints every kind as a table.
+

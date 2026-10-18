@@ -10,7 +10,7 @@ function keyPaths(obj: unknown, prefix = ""): string[] {
 }
 
 // Keep in sync with the ExerciseType union in src/api/course.ts.
-const EXERCISE_TYPES = ["quiz", "calculation", "synthetic_chart", "fixture_chart", "pattern_chart"];
+const EXERCISE_TYPES = ["quiz", "calculation", "synthetic_chart", "fixture_chart", "pattern_chart", "case"];
 
 // Every choice string a chart exercise can present to the learner must be localized (the badge/label
 // bug shipped `exerciseType.pattern_chart` and `divergence.accumulation` raw). Divergence labels live

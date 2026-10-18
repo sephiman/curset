@@ -27,7 +27,7 @@
     "glossary": "Glosario"
   },
   "exam": {
-    "intro": "Un examen muestreado y calificado sobre el banco de ejercicios: una pregunta por módulo, revelado todo junto al final.",
+    "intro": "Los exámenes del curso, con sus propias reglas: preguntas, tiempo y puntuación.",
     "inProgress": "Examen en curso",
     "resume": "Continuar",
     "conflictTitle": "Ya tienes un examen abierto",
@@ -35,12 +35,7 @@
     "conflictAnswered": "{{done}} de {{total}} respondidas",
     "conflictResume": "Continuar el examen abierto",
     "conflictStartNew": "Empezar uno nuevo",
-    "global": "Examen global",
-    "block": "Examen de bloque",
     "startTitle": "Empezar un examen",
-    "startGlobal": "Empezar examen global",
-    "startGlobalHint": "Una pregunta de cada módulo que el curso examina.",
-    "startBlock": "O un solo bloque:",
     "historyTitle": "Exámenes anteriores",
     "noHistory": "Aún no hay exámenes.",
     "answeredOf": "{{done}}/{{total}} respondidas",
@@ -56,7 +51,38 @@
     "scoreLine": "{{correct}} de {{total}} correctas",
     "byBlock": "Por bloque",
     "byModule": "Por módulo",
-    "notFound": "Examen no encontrado."
+    "notFound": "Examen no encontrado.",
+    "questions_one": "{{count}} pregunta",
+    "questions_other": "{{count}} preguntas",
+    "minutes": "{{count}} min",
+    "untimed": "Sin límite de tiempo",
+    "penalty": "Cada error resta {{fraction}} de acierto",
+    "noPenalty": "Los errores no restan",
+    "partCases": "{{title}}: un supuesto a elegir entre {{choose}}, {{count}} preguntas",
+    "partQuestions": "{{title}}: {{count}} preguntas",
+    "reserveCount": "más {{count}} de reserva",
+    "start": "Empezar",
+    "chooseTarget": "Elige sobre qué:",
+    "noPresets": "Este curso aún no tiene exámenes.",
+    "timeLeft": "Quedan {{time}}",
+    "timeUp": "Se acabó el tiempo. Entregamos el examen con lo que respondiste.",
+    "reserve": "Reserva",
+    "reserveHint": "Las preguntas de reserva solo cuentan si se anula alguna anterior.",
+    "chooseCase": "Marca el supuesto que quieres que se califique",
+    "chooseCaseRule": "Solo se califica si marcas exactamente uno. Sin marca o con dos, esta parte no se califica.",
+    "markCase": "Calificar este supuesto",
+    "scenario": "Supuesto",
+    "showScenario": "Ver el supuesto",
+    "raw": "Directa",
+    "transformed": "Calificación",
+    "total": "Total",
+    "partNotGraded": "No se califica",
+    "partTally": "{{correct}} aciertos · {{wrong}} errores · {{blank}} en blanco",
+    "caseChosen": "Supuesto calificado: {{title}}",
+    "caseNotChosen": "Supuesto no calificado",
+    "notGradedNoCase": "no marcaste ningún supuesto",
+    "notGradedSeveralCases": "marcaste más de un supuesto",
+    "notGradedPreviousPart": "la parte anterior no llegó al mínimo"
   },
   "auth": {
     "loginTitle": "Inicia sesión",
@@ -150,7 +176,9 @@
     "pdfTrueFalse": "¿Verdadero o falso?",
     "pdfOrderingHint": "Coloca estas en el orden correcto.",
     "pdfMatchingHint": "Empareja cada elemento numerado con una opción con letra.",
-    "pdfAuthor": "Autor: {{name}}"
+    "pdfAuthor": "Autor: {{name}}",
+    "pdfCaseQuestion": "Pregunta {{number}}",
+    "pdfConsolidated": "texto consolidado a {{date}}"
   },
   "glossary": {
     "title": "Glosario",
@@ -208,14 +236,20 @@
     "hideCalculator": "Ocultar calculadora",
     "clear": "Limpiar",
     "useResult": "Usar resultado",
-    "formula": "Fórmula"
+    "formula": "Fórmula",
+    "viewInLesson": "Ver en la lección",
+    "startCase": "Empezar el supuesto",
+    "caseProgress": "{{done}} de {{total}} respondidas",
+    "caseDone": "Has respondido todas las preguntas del supuesto.",
+    "question": "Pregunta {{number}}"
   },
   "exerciseType": {
     "quiz": "Cuestionario",
     "calculation": "Cálculo",
     "synthetic_chart": "Gráfico",
     "fixture_chart": "Gráfico",
-    "pattern_chart": "Gráfico"
+    "pattern_chart": "Gráfico",
+    "case": "Supuesto práctico"
   },
   "divergence": {
     "none": "Sin divergencia",
@@ -433,7 +467,7 @@
     "action": "Elegir cursos",
     "course": "Aquí verás sus módulos y lecciones.",
     "glossary": "Aquí verás sus términos.",
-    "exams": "Aquí verás sus exámenes por bloque y globales.",
+    "exams": "Aquí verás los exámenes del curso.",
     "progress": "Aquí verás tu progreso y tus fallos."
   },
   "report": {
@@ -442,5 +476,34 @@
     "send": "Enviar",
     "length": "{{length}}/{{max}} · mínimo {{min}}",
     "thanks": "Gracias. Hemos recibido el aviso."
+  },
+  "byLesson": {
+    "title": "Por {{noun}}",
+    "lesson": "lección",
+    "best": "Donde más brillas",
+    "worst": "Donde más tienes que preparar",
+    "byModule": "Hay menos de tres lecciones con tres preguntas o más, así que las listas comparan módulos.",
+    "threshold": "Solo entran en las listas las lecciones con {{count}} preguntas o más.",
+    "questions": "Preguntas",
+    "correct": "Aciertos",
+    "wrong": "Errores",
+    "blank": "En blanco",
+    "pct": "% de acierto",
+    "blankNote": "Una pregunta en blanco no cuenta como acierto, pero se muestra aparte: con penalización, dejarla en blanco es una decisión.",
+    "progressIntro": "Todas tus respuestas del curso, de práctica y de examen, por {{noun}}.",
+    "sortBy": "Ordenar por {{column}}",
+    "empty": "Aún no hay respuestas."
+  },
+  "citation": {
+    "openSource": "Abrir {{citation}} en el texto consolidado"
+  },
+  "esquema": {
+    "step": "Paso",
+    "plazo": "Plazo",
+    "document": "Documento",
+    "organ": "Órgano",
+    "node": "Órgano o figura",
+    "detail": "Detalle",
+    "citation": "Artículo"
   }
 }

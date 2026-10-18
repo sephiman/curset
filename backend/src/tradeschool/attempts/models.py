@@ -31,6 +31,9 @@ class Attempt(Base):
     # Every attempt belongs to one course, so no attempt can surface in another course's numbers.
     course_id: Mapped[str] = mapped_column(String, index=True)
     exercise_id: Mapped[str] = mapped_column(String, index=True)
+    # The question inside a case exercise; null for every other exercise. A case's questions are
+    # separate attempts, so a stat or a report is about one question, never about the whole case.
+    question_id: Mapped[str | None] = mapped_column(String, nullable=True)
     # The seed fully determines the instantiated scenario (§3.2): any attempt is exactly replayable.
     seed: Mapped[int] = mapped_column(BigInteger, nullable=False)
     # Cached public instance for fast history rendering (regenerable from the seed).

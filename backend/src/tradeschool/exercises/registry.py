@@ -5,6 +5,7 @@ from __future__ import annotations
 
 from tradeschool.exercises.base import ExerciseGenerator
 from tradeschool.exercises.calculation import CalculationGenerator
+from tradeschool.exercises.case import CaseGenerator
 from tradeschool.exercises.fixture_chart import FixtureChartGenerator
 from tradeschool.exercises.pattern_chart import PatternChartGenerator
 from tradeschool.exercises.quiz import QuizGenerator
@@ -19,6 +20,7 @@ _GENERATORS: dict[ExerciseType, ExerciseGenerator] = {
         SyntheticChartGenerator(),
         FixtureChartGenerator(),
         PatternChartGenerator(),
+        CaseGenerator(),
     )
 }
 

@@ -10,7 +10,7 @@ import yaml
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from tradeschool.content.collation import alphabetical_key
-from tradeschool.content.schema import LocalizedText
+from tradeschool.content.text import LocalizedText
 
 
 def _plain(text: LocalizedText, where: str) -> None:

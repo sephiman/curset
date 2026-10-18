@@ -25,7 +25,7 @@ for _extra in (_BACKEND / "src", _BACKEND / "tests"):
         sys.path.insert(0, str(_extra))
 
 from test_golden_exercise_mode import _fp as fingerprint  # type: ignore[import-not-found]  # noqa: E402
-from tradeschool.content.schema import LocalizedText  # noqa: E402
+from tradeschool.content.text import LocalizedText  # noqa: E402
 from tradeschool.exercises.charts.patterns.registry import all_injectors  # noqa: E402
 from tradeschool.exercises.charts.types import DivergenceType  # noqa: E402
 from tradeschool.exercises.figures import (  # noqa: E402

@@ -19,7 +19,7 @@ from typing import Annotated, ClassVar, Literal, Self
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from tradeschool.content.numbers import format_number, format_param
-from tradeschool.content.schema import LocalizedText
+from tradeschool.content.text import LocalizedText
 from tradeschool.exercises.base import (
     ExerciseGenerator,
     GeneratedInstance,

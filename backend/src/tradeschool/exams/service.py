@@ -1,8 +1,9 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Exam lifecycle: one exercise per module, no feedback until submission, then graded in bulk.
+"""Exam lifecycle under the course's presets: draw, deferred answers, case marks, the clock, grading.
 
 Exam attempts live in their own lane (``exam_session_id`` set) and never touch practice stats. The
 practice generators are reused verbatim, so charts get the exercise-mode series, cut before resolution.
+Every rule comes from the preset (`exams/presets.py`); a session stores the preset it was taken with.
 """
 
 from __future__ import annotations
@@ -11,22 +12,32 @@ import secrets
 import uuid
 from collections.abc import Mapping
 from dataclasses import dataclass, field
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timedelta
 
 from sqlalchemy import select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from tradeschool.attempts.models import Attempt, AttemptState
 from tradeschool.content.registry import CourseRegistry
+from tradeschool.content.text import LocalizedText
 from tradeschool.errors import AppError
+from tradeschool.exams.draw import DrawError, draw_part, preset_targets
+from tradeschool.exams.layout import attempt_layout, case_marks, offered_cases
 from tradeschool.exams.models import ExamSession
+from tradeschool.exams.presets import ExamPreset, PresetPart, PresetSource
+from tradeschool.exams.results import counted_outcomes, grade_session
 from tradeschool.exercises.base import GeneratedInstance, GradeResult
 from tradeschool.exercises.registry import get_generator
 from tradeschool.exercises.types import ExerciseType
+from tradeschool.stats.by_lesson import lesson_table
 
-_SEED_SPACE = 2**62
+#: Answers sent this long after the clock ran out still land: the request left before it did.
+ANSWER_GRACE = timedelta(seconds=15)
 
-Scope = str  # "global" | "block"
+#: Legacy (before presets): the frozen question order as exercise KEYS, one per module.
+QUESTION_ORDER = "questionOrder"
+#: The frozen question order as attempt ids — a case or a variant draw repeats an exercise key.
+ATTEMPT_ORDER = "attemptOrder"
 
 
 # --- sentinel answers: let review reveal the correct answer + solution for an UNANSWERED question ---
@@ -65,43 +76,105 @@ class ExamQuestionView:
     instance: GeneratedInstance
     given_answer: dict[str, object] | None
     answered: bool
+    part_id: str = ""
+    lesson_id: str | None = None
+    #: A case question: the case is `exercise_id`, this is the question inside it.
+    question_id: str | None = None
+    reserve: bool = False
     # Reveal-only (submitted session review):
+    lesson_anchor: str | None = None
+    citation: str | None = None
     is_correct: bool | None = None
     unanswered: bool = False
     result: GradeResult | None = None
 
 
 @dataclass
+class ExamCaseView:
+    exercise_id: str
+    title: str
+    scenario: str
+
+
+@dataclass
+class ExamPartView:
+    id: str
+    title: str | None
+    kind: str  # "questions" | "cases"
+    counted: int
+    reserve: int
+    choose: int | None
+    penalty: str
+    cases: list[ExamCaseView] = field(default_factory=list)
+    marked: list[str] = field(default_factory=list)
+
+
+@dataclass
 class ExamView:
     id: uuid.UUID
-    scope: Scope
-    block_id: str | None
-    block_title: str | None
+    preset_id: str
+    preset_version: int
+    preset_title: str
+    target: str | None
+    target_title: str | None
     status: str
     created_at: datetime
     finished_at: datetime | None
+    deadline: datetime | None
+    parts: list[ExamPartView] = field(default_factory=list)
     questions: list[ExamQuestionView] = field(default_factory=list)
     result: dict[str, object] | None = None
+    #: Revealed only: the «Por tema» table and lists, computed from the stored answers (so past exams too).
+    by_lesson: dict[str, object] | None = None
 
 
-def _ratio(num: int, den: int) -> float | None:
-    return round(num / den, 4) if den else None
+# --- the preset a session runs under ---
+def _preset_id(exam: ExamSession) -> str:
+    """Sessions from before presets stored a scope; its name is the crypto preset that replaced it."""
+    return str(exam.rules.get("presetId") or exam.rules.get("scope") or "global")
 
 
-def _rules(exam: ExamSession) -> dict[str, object]:
-    return dict(exam.rules)
+def target_of(exam: ExamSession) -> str | None:
+    target = exam.rules.get("target") if "presetId" in exam.rules else exam.rules.get("blockId")
+    return target if isinstance(target, str) else None
 
 
-# --- module selection ---
-def _scope_modules(registry: CourseRegistry, scope: Scope, block_id: str | None) -> list[tuple[str, str]]:
-    """(block_id, module_id) in canonical order, only modules with at least one playable exercise."""
-    out: list[tuple[str, str]] = []
-    for block, module in registry.manifest.iter_modules():
-        if scope == "block" and block.id != block_id:
-            continue
-        if registry.playable_module_exercises(module.id):
-            out.append((block.id, module.id))
-    return out
+def _find_preset(registry: CourseRegistry, preset_id: str) -> ExamPreset | None:
+    return next((p for p in registry.manifest.exams if p.id == preset_id), None)
+
+
+def session_preset(registry: CourseRegistry, exam: ExamSession) -> ExamPreset:
+    """The rules this sitting was taken under: its own snapshot, else (legacy) the course's preset by id."""
+    snapshot = exam.rules.get("preset")
+    if isinstance(snapshot, dict):
+        return ExamPreset.model_validate(snapshot)
+    found = _find_preset(registry, _preset_id(exam))
+    if found is not None:
+        return found
+    name = _preset_id(exam)
+    return ExamPreset(
+        id=name,
+        version=1,
+        title=LocalizedText(en=name, es=name),
+        parts=[PresetPart(id="main", source=PresetSource(course=True), draw="per-module")],
+    )
+
+
+def target_title(registry: CourseRegistry, preset: ExamPreset, target: str | None, locale: str) -> str | None:
+    if target is None:
+        return None
+    if preset.parametric == "module":
+        return registry.module_title(target, locale)
+    if preset.parametric == "lesson":
+        location = registry.lesson_location(target)
+        return location.lesson.title.get(locale) if location else None
+    return registry.block_title(target, locale)
+
+
+def deadline_of(preset: ExamPreset, exam: ExamSession) -> datetime | None:
+    if preset.time_limit_minutes is None:
+        return None
+    return exam.created_at + timedelta(minutes=preset.time_limit_minutes)
 
 
 async def _load_owned(
@@ -149,12 +222,6 @@ def _canonical_order(registry: CourseRegistry) -> dict[str, int]:
     return {module.id: i for i, (_, module) in enumerate(registry.manifest.iter_modules())}
 
 
-#: Where a session's frozen question order lives, inside the `rules` JSONB it already has. A list of
-#: exercise KEYS, in the order the exam was assembled — one per module, so the keys are unique within
-#: a session.
-QUESTION_ORDER = "questionOrder"
-
-
 def _frozen_order(exam: ExamSession) -> dict[str, int] | None:
     """The order this exam was assembled in, or `None` for a session written before it was frozen."""
     order = exam.rules.get(QUESTION_ORDER)
@@ -164,7 +231,7 @@ def _frozen_order(exam: ExamSession) -> dict[str, int] | None:
 
 
 def _result_for_view(registry: CourseRegistry, result: dict[str, object]) -> dict[str, object]:
-    """A stored result blob speaks keys (`moduleId`); the view speaks display ids."""
+    """A stored result blob speaks keys (`moduleId`, a part's `case`); the view speaks display ids."""
     out = dict(result)
     modules = result.get("modules")
     if isinstance(modules, list):
@@ -174,7 +241,96 @@ def _result_for_view(registry: CourseRegistry, result: dict[str, object]) -> dic
             else m
             for m in modules
         ]
+    parts = result.get("parts")
+    if isinstance(parts, list):
+        out["parts"] = [
+            {**p, "case": registry.exercise_id_for_key(str(p["case"])) or p["case"]}
+            if isinstance(p, dict) and p.get("case")
+            else p
+            for p in parts
+        ]
     return out
+
+
+def _sorter(exam: ExamSession, registry: CourseRegistry) -> dict[str, int] | None:
+    order = exam.rules.get(ATTEMPT_ORDER)
+    if isinstance(order, list) and order:
+        return {str(attempt_id): index for index, attempt_id in enumerate(order)}
+    return None
+
+
+def _display_id(registry: CourseRegistry, attempt: Attempt) -> str:
+    return registry.exercise_id_for_key(attempt.exercise_id) or attempt.exercise_id
+
+
+def _question_location(
+    registry: CourseRegistry, exercise_id: str, question_id: str | None
+) -> tuple[str, str]:
+    """(block, module) the question counts under — for a case question, the lesson it names."""
+    if question_id is not None:
+        lesson_id = registry.question_lesson_id(exercise_id, question_id)
+        location = registry.lesson_location(lesson_id) if lesson_id else None
+        if location is not None:
+            return location.block.id, location.module.id
+    return registry.exercise_location(exercise_id) or ("", "")
+
+
+def _ordered(exam: ExamSession, registry: CourseRegistry, attempts: list[Attempt]) -> list[Attempt]:
+    # The order is FROZEN at assembly and read back here, rather than re-derived from today's manifest.
+    # Re-deriving made an exam disagree with itself: the sort ran over the CURRENT module order, so a
+    # display renumbering — which this repo supports on purpose, keys being permanent and ids not —
+    # reordered the questions of an exam already sitting in review, and the `index` the UI paginates
+    # by moved under it. Attempt ids and keys are permanent, so a frozen list survives a renumbering.
+    by_attempt = _sorter(exam, registry)
+    if by_attempt is not None:
+        return sorted(attempts, key=lambda a: by_attempt.get(str(a.id), len(by_attempt)))
+    frozen = _frozen_order(exam)
+    if frozen is not None:
+        return sorted(attempts, key=lambda a: frozen.get(a.exercise_id, len(frozen)))
+    # Sessions assembled before the order was frozen. Same derivation as before, and `_attempts_of`
+    # orders by id so the ties this produces resolve the same way on every render.
+    canonical = _canonical_order(registry)
+
+    def legacy_key(a: Attempt) -> int:
+        loc = registry.exercise_location(_display_id(registry, a))
+        return canonical.get(loc[1], 10_000) if loc else 10_000
+
+    return sorted(attempts, key=legacy_key)
+
+
+def _parts_view(
+    registry: CourseRegistry,
+    exam: ExamSession,
+    preset: ExamPreset,
+    layout: dict[str, tuple[str, bool]],
+    locale: str,
+) -> list[ExamPartView]:
+    offered = offered_cases(exam)
+    marks = case_marks(exam)
+    views: list[ExamPartView] = []
+    for part in preset.parts:
+        placed = [reserve for part_id, reserve in layout.values() if part_id == part.id]
+        cases: list[ExamCaseView] = []
+        for key in offered.get(part.id, []):
+            exercise_id = registry.exercise_id_for_key(key) or key
+            config = registry.case_config(exercise_id)
+            if config is not None:
+                cases.append(ExamCaseView(exercise_id, config.title.get(locale), config.scenario.get(locale)))
+        counted = part.questions if part.source.cases else sum(1 for reserve in placed if not reserve)
+        views.append(
+            ExamPartView(
+                id=part.id,
+                title=part.title.get(locale) if part.title else None,
+                kind="cases" if part.source.cases else "questions",
+                counted=counted or 0,
+                reserve=part.reserve,
+                choose=part.choose,
+                penalty=str(part.penalty),
+                cases=cases,
+                marked=[registry.exercise_id_for_key(k) or k for k in marks.get(part.id, [])],
+            )
+        )
+    return views
 
 
 def _build_view(
@@ -184,43 +340,20 @@ def _build_view(
     locale: str,
     reveal: bool,
 ) -> ExamView:
-    def display_id(a: Attempt) -> str:
-        return registry.exercise_id_for_key(a.exercise_id) or a.exercise_id
-
-    # The order is FROZEN at assembly and read back here, rather than re-derived from today's manifest.
-    # Re-deriving made an exam disagree with itself: the sort ran over the CURRENT module order, so a
-    # display renumbering — which this repo supports on purpose, keys being permanent and ids not —
-    # reordered the questions of an exam already sitting in review, and the `index` the UI paginates
-    # by moved under it. Attempts store the permanent key, so the frozen list survives a renumbering.
-    frozen = _frozen_order(session_obj)
-    if frozen is not None:
-
-        def sort_key(a: Attempt) -> int:
-            return frozen.get(a.exercise_id, len(frozen))
-    else:
-        # Sessions assembled before the order was frozen. Same derivation as before, and `_attempts_of`
-        # now orders by id so the ties this produces resolve the same way on every render.
-        canonical = _canonical_order(registry)
-
-        def sort_key(a: Attempt) -> int:
-            loc = registry.exercise_location(display_id(a))
-            return canonical.get(loc[1], 10_000) if loc else 10_000
-
-    rules = _rules(session_obj)
-    scope = str(rules.get("scope", "global"))
-    block_id = rules.get("blockId")
-    block_id_str = str(block_id) if isinstance(block_id, str) else None
+    preset = session_preset(registry, session_obj)
+    layout = attempt_layout(session_obj, preset)
+    default_part = preset.parts[0].id
     questions: list[ExamQuestionView] = []
-    for index, attempt in enumerate(sorted(attempts, key=sort_key)):
-        exercise_id = display_id(attempt)
-        loc = registry.exercise_location(exercise_id)
-        b_id, m_id = loc if loc else ("", "")
-        config = registry.get_exercise_config(exercise_id)
+    for index, attempt in enumerate(_ordered(session_obj, registry, attempts)):
+        exercise_id = _display_id(registry, attempt)
+        config = registry.attempt_config(exercise_id, attempt.question_id)
         if config is None:
             continue  # exercise deactivated since the exam ran — skip defensively
         exercise_type, cfg = config
         generator = get_generator(exercise_type)
         instance = generator.generate(cfg, attempt.seed, locale)
+        b_id, m_id = _question_location(registry, exercise_id, attempt.question_id)
+        part_id, reserve = layout.get(str(attempt.id), (default_part, False))
         answered = attempt.given_answer is not None
         q = ExamQuestionView(
             index=index,
@@ -234,6 +367,10 @@ def _build_view(
             instance=instance,
             given_answer=attempt.given_answer,
             answered=answered,
+            part_id=part_id,
+            lesson_id=registry.question_lesson_id(exercise_id, attempt.question_id),
+            question_id=attempt.question_id,
+            reserve=reserve,
         )
         if reveal:
             sentinel = _sentinel_answer(exercise_type, instance.payload)
@@ -245,75 +382,105 @@ def _build_view(
                 q.result = generator.grade(cfg, attempt.seed, sentinel, locale)
             q.unanswered = not answered
             q.is_correct = bool(attempt.is_correct) and answered
+            link = registry.question_link(exercise_id, attempt.question_id, attempt.seed, locale)
+            q.lesson_anchor, q.citation = (link.anchor, link.citation) if link else (None, None)
         questions.append(q)
 
-    block_title = registry.block_title(block_id_str, locale) if block_id_str else None
-    result = rules.get("result")
+    target = target_of(session_obj)
+    result = session_obj.rules.get("result")
     return ExamView(
         id=session_obj.id,
-        scope=scope,
-        block_id=block_id_str,
-        block_title=block_title,
-        status=str(rules.get("status", "open")),
+        preset_id=preset.id,
+        preset_version=preset.version,
+        preset_title=preset.title.get(locale),
+        target=target,
+        target_title=target_title(registry, preset, target, locale),
+        status=str(session_obj.rules.get("status", "open")),
         created_at=session_obj.created_at,
         finished_at=session_obj.finished_at,
+        deadline=deadline_of(preset, session_obj),
+        parts=_parts_view(registry, session_obj, preset, layout, locale),
         questions=questions,
         result=_result_for_view(registry, result) if isinstance(result, dict) else None,
+        by_lesson=lesson_table(registry, counted_outcomes(registry, session_obj, preset, attempts), locale)
+        if reveal
+        else None,
     )
 
 
 # --- lifecycle ---
+def _resolve_start(
+    registry: CourseRegistry, preset_id: str, target: str | None
+) -> tuple[ExamPreset, str | None]:
+    preset = _find_preset(registry, preset_id)
+    if preset is None:
+        raise AppError("EXAM_BAD_SCOPE", f"Unknown exam {preset_id!r}.", status_code=400)
+    if preset.parametric is None:
+        return preset, None
+    known = {
+        "block": {b.id for b in registry.manifest.blocks},
+        "module": registry.manifest.module_ids(),
+        "lesson": {lesson.id for _, lesson in registry.manifest.iter_lessons()},
+    }[preset.parametric]
+    if target not in known:
+        raise AppError("EXAM_BAD_SCOPE", f"Unknown {preset.parametric} {target!r}.", status_code=400)
+    if target not in preset_targets(registry, preset):
+        raise AppError("EXAM_EMPTY", f"Nothing to examine in {target!r}.", status_code=409)
+    return preset, target
+
+
 async def start_exam(
     session: AsyncSession,
     registry: CourseRegistry,
     user_id: uuid.UUID,
     course_id: str,
-    scope: Scope,
-    block_id: str | None,
+    preset_id: str,
+    target: str | None,
     locale: str,
 ) -> ExamView:
-    if scope not in ("global", "block"):
-        raise AppError("EXAM_BAD_SCOPE", f"Unknown exam scope {scope!r}.", status_code=400)
-    if scope == "block":
-        if block_id is None or not any(b.id == block_id for b in registry.manifest.blocks):
-            raise AppError("EXAM_BAD_SCOPE", f"Unknown block {block_id!r}.", status_code=400)
-    else:
-        block_id = None
+    preset, target = _resolve_start(registry, preset_id, target)
 
-    modules = _scope_modules(registry, scope, block_id)
-    if not modules:
-        raise AppError("EXAM_EMPTY", "No playable modules for this exam scope.", status_code=409)
-
-    # Starting a new exam of the same scope closes any open one of that scope.
+    # Starting a sitting of a preset (and target) closes any open one of the same.
     for existing in await _open_sessions(session, user_id, course_id):
-        if existing.rules.get("scope") == scope and existing.rules.get("blockId") == block_id:
+        if _preset_id(existing) == preset.id and target_of(existing) == target:
             await _abandon(session, existing)
 
     exam = ExamSession(
         user_id=user_id,
         course_id=course_id,
-        rules={"scope": scope, "blockId": block_id, "status": "open"},
+        rules={
+            "presetId": preset.id,
+            "presetVersion": preset.version,
+            "target": target,
+            "status": "open",
+            # The rules as they were when the sitting began: grading and review never read a later edit.
+            "preset": preset.model_dump(mode="json"),
+        },
     )
     session.add(exam)
     await session.flush()  # assign exam.id for the attempt FK
 
-    question_keys: list[str] = []
-    for _b_id, module_id in modules:
-        exercise_id = secrets.choice(registry.playable_module_exercises(module_id))
-        config = registry.get_exercise_config(exercise_id)
-        assert config is not None  # playable set guarantees it
-        exercise_type, cfg = config
-        generator = get_generator(exercise_type)
-        seed = secrets.randbelow(_SEED_SPACE)
-        instance = generator.generate(cfg, seed, locale)
-        exercise_key = registry.exercise_key(exercise_id)
-        question_keys.append(exercise_key)
-        session.add(
-            Attempt(
+    order: list[str] = []
+    parts: list[dict[str, object]] = []
+    for part in preset.parts:
+        try:
+            drawn = draw_part(registry, part, target, secrets)
+        except DrawError as exc:
+            raise AppError("EXAM_EMPTY", str(exc), status_code=409) from exc
+        counted: list[str] = []
+        reserve: list[str] = []
+        for question in drawn.questions:
+            config = registry.attempt_config(question.exercise_id, question.question_id)
+            assert config is not None  # the draw only names playable questions
+            exercise_type, cfg = config
+            instance = get_generator(exercise_type).generate(cfg, question.seed, locale)
+            attempt = Attempt(
+                id=uuid.uuid4(),
                 user_id=user_id,
                 course_id=course_id,
-                exercise_id=exercise_key,  # rows store the permanent key
-                seed=seed,
+                exercise_id=registry.exercise_key(question.exercise_id),  # rows store the permanent key
+                question_id=question.question_id,
+                seed=question.seed,
                 instance_snapshot={
                     "type": exercise_type.value,
                     "prompt": instance.prompt,
@@ -322,11 +489,20 @@ async def start_exam(
                 state=AttemptState.OPEN,
                 exam_session_id=exam.id,
             )
+            session.add(attempt)
+            (reserve if question.reserve else counted).append(str(attempt.id))
+            order.append(str(attempt.id))
+        parts.append(
+            {
+                "id": part.id,
+                "attempts": counted,
+                "reserve": reserve,
+                "cases": [registry.exercise_key(case_id) for case_id in drawn.cases],
+            }
         )
-    # `modules` is in canonical order, so this IS the order the exam was assembled in — recorded now
-    # rather than re-derived at every render. Additive: it goes in the `rules` JSONB the session
-    # already has, so no schema migration, and a session written before this reads as `None`.
-    exam.rules = {**exam.rules, QUESTION_ORDER: question_keys}
+    # Recorded now rather than re-derived at every render. Additive: it goes in the `rules` JSONB the
+    # session already has, so no schema migration.
+    exam.rules = {**exam.rules, ATTEMPT_ORDER: order, "parts": parts}
     await session.commit()
     return _build_view(exam, registry, await _attempts_of(session, exam.id), locale, reveal=False)
 
@@ -336,16 +512,8 @@ async def open_exams(
 ) -> list[ExamView]:
     """EVERY open sitting, newest first — not just the most recent one.
 
-    `start_exam` only closes an open session of the SAME scope, so starting a block exam while a
-    global one is unfinished leaves two open at once. The old `current_exam` returned
-    `open_sessions[0]`, which meant the older sitting stayed open forever with no route in the UI that
-    could reach it: the learner's half-finished exam was still consuming its questions and could
-    neither be resumed nor abandoned.
-
-    Listing them is preferred over the other available fix — closing the others when a new exam
-    starts — because that one silently destroys work the learner never asked to discard, and the
-    moment it would happen (starting an exam of a different scope) is not a moment they are thinking
-    about the other one. The Android app already lists every open sitting; this is the web following.
+    Starting an exam closes an open one of the same preset and target only, so two sittings can be open
+    at once; each needs a route to be resumed or abandoned. The Android app lists every open sitting too.
     """
     return [
         _build_view(exam, registry, await _attempts_of(session, exam.id), locale, reveal=False)
@@ -367,8 +535,17 @@ async def render_exam(
     return _build_view(exam, registry, await _attempts_of(session, exam.id), locale, reveal=False)
 
 
+def _check_writable(registry: CourseRegistry, exam: ExamSession) -> None:
+    if exam.rules.get("status") != "open":
+        raise AppError("EXAM_NOT_OPEN", "This exam is not in progress.", status_code=409)
+    deadline = deadline_of(session_preset(registry, exam), exam)
+    if deadline is not None and datetime.now(UTC) > deadline + ANSWER_GRACE:
+        raise AppError("EXAM_TIME_UP", "The time for this exam is over.", status_code=409)
+
+
 async def answer_question(
     session: AsyncSession,
+    registry: CourseRegistry,
     user_id: uuid.UUID,
     exam_id: uuid.UUID,
     course_id: str,
@@ -377,12 +554,37 @@ async def answer_question(
 ) -> None:
     """Store (or replace) an answer. No grading, no reveal — feedback comes only at submission."""
     exam = await _load_owned(session, user_id, exam_id, course_id)
-    if exam.rules.get("status") != "open":
-        raise AppError("EXAM_NOT_OPEN", "This exam is not in progress.", status_code=409)
+    _check_writable(registry, exam)
     attempt = await session.get(Attempt, attempt_id)
     if attempt is None or attempt.exam_session_id != exam_id:
         raise AppError("EXAM_QUESTION_NOT_FOUND", "No such question in this exam.", status_code=404)
     attempt.given_answer = dict(answer)
+    await session.commit()
+
+
+async def mark_cases(
+    session: AsyncSession,
+    registry: CourseRegistry,
+    user_id: uuid.UUID,
+    exam_id: uuid.UUID,
+    course_id: str,
+    part_id: str,
+    exercise_ids: list[str],
+) -> None:
+    """Which cases of a part the learner marked. Any number is stored; grading takes exactly one."""
+    exam = await _load_owned(session, user_id, exam_id, course_id)
+    _check_writable(registry, exam)
+    offered = offered_cases(exam).get(part_id)
+    if not offered:
+        raise AppError("EXAM_PART_NOT_FOUND", f"No case part {part_id!r} in this exam.", status_code=404)
+    keys = [registry.exercise_key(eid) for eid in exercise_ids if eid in registry.exercise_configs]
+    if len(keys) != len(exercise_ids) or not set(keys) <= set(offered):
+        raise AppError(
+            "EXAM_CASE_NOT_OFFERED", "Only the cases this part offers can be marked.", status_code=400
+        )
+    marks = case_marks(exam)
+    marks[part_id] = sorted(set(keys), key=offered.index)
+    exam.rules = {**exam.rules, "caseMarks": marks}
     await session.commit()
 
 
@@ -400,30 +602,19 @@ async def submit_exam(
 
     attempts = await _attempts_of(session, exam_id)
     now = datetime.now(UTC)
-    per_module: list[dict[str, object]] = []
-    order = _canonical_order(registry)
-    correct_total = 0
-    # Typed block accumulators (kept out of the object-valued dicts so the arithmetic stays clean).
-    block_order: list[str] = []
-    block_title: dict[str, str] = {}
-    block_correct: dict[str, int] = {}
-    block_total: dict[str, int] = {}
-
-    def display_id(a: Attempt) -> str:
-        return registry.exercise_id_for_key(a.exercise_id) or a.exercise_id
-
-    for attempt in sorted(
-        attempts, key=lambda a: order.get((registry.exercise_location(display_id(a)) or ("", ""))[1], 10_000)
-    ):
-        config = registry.get_exercise_config(display_id(attempt))
+    preset = session_preset(registry, exam)
+    for attempt in attempts:
+        config = registry.attempt_config(_display_id(registry, attempt), attempt.question_id)
         answered = attempt.given_answer is not None
         is_correct = False
         if answered and config is not None:
-            _etype, cfg = config
-            generator = get_generator(config[0])
+            exercise_type, cfg = config
             try:
-                graded = generator.grade(cfg, attempt.seed, attempt.given_answer or {}, locale)
-                is_correct = graded.correct
+                is_correct = (
+                    get_generator(exercise_type)
+                    .grade(cfg, attempt.seed, attempt.given_answer or {}, locale)
+                    .correct
+                )
             except Exception:
                 is_correct = False
         # Unanswered (or ungradeable) → incorrect, but kept distinct in review via given_answer is None.
@@ -431,46 +622,7 @@ async def submit_exam(
         attempt.state = AttemptState.ANSWERED
         attempt.answered_at = now
 
-        loc = registry.exercise_location(display_id(attempt))
-        b_id, m_id = loc if loc else ("", "")
-        per_module.append(
-            {
-                # Stored in the session's rules blob, so this is a KEY — display ids are resolved
-                # at view time (`_result_for_view`), which is also what keeps pre-renumber exams true.
-                "moduleId": registry.module_key(m_id) if m_id else m_id,
-                "title": registry.module_title(m_id, locale) or m_id,
-                "blockId": b_id,
-                "correct": is_correct,
-                "unanswered": not answered,
-            }
-        )
-        if b_id not in block_total:
-            block_order.append(b_id)
-            block_title[b_id] = registry.block_title(b_id, locale) or b_id
-            block_correct[b_id] = 0
-            block_total[b_id] = 0
-        block_total[b_id] += 1
-        block_correct[b_id] += 1 if is_correct else 0
-        correct_total += 1 if is_correct else 0
-
-    total = len(per_module)
-    blocks: list[dict[str, object]] = [
-        {
-            "blockId": b,
-            "title": block_title[b],
-            "correct": block_correct[b],
-            "total": block_total[b],
-            "score": _ratio(block_correct[b], block_total[b]),
-        }
-        for b in block_order
-    ]
-    result: dict[str, object] = {
-        "score": _ratio(correct_total, total),
-        "correct": correct_total,
-        "total": total,
-        "blocks": blocks,
-        "modules": per_module,
-    }
+    result = grade_session(registry, exam, preset, attempts, locale)
     exam.finished_at = now
     exam.rules = {**exam.rules, "status": "submitted", "result": result}
     await session.commit()

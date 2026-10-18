@@ -12,7 +12,7 @@ from dataclasses import dataclass
 from decimal import Decimal
 
 from tradeschool.content.numbers import format_number, format_percent
-from tradeschool.content.schema import LocalizedText
+from tradeschool.content.text import LocalizedText
 
 FormulaParams = Mapping[str, object]
 

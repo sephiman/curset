@@ -19,7 +19,7 @@ from tradeschool.content.glossary import (
     load_glossary,
 )
 from tradeschool.content.registry import load_registry
-from tradeschool.content.schema import LOCALES, LocalizedText
+from tradeschool.content.text import LOCALES, LocalizedText
 
 
 def _def(s: str = "d") -> LocalizedText:

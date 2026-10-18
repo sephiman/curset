@@ -12,6 +12,7 @@ import { QuizExercise } from "@/features/exercises/QuizExercise";
 import { Prose } from "@/lib/markdown";
 import { cn } from "@/lib/cn";
 import { useCourse } from "@/features/courses/CourseContext";
+import { LessonLink } from "@/features/exercises/LessonLink";
 import { ReportQuestion } from "@/features/reports/ReportQuestion";
 
 const CHART_TYPES: ReadonlySet<ExerciseType> = new Set([
@@ -23,10 +24,13 @@ const CHART_TYPES: ReadonlySet<ExerciseType> = new Set([
 export function ExercisePlayer({
   exerciseId,
   type,
+  lessonId,
   highlighted = false,
 }: {
   exerciseId: string;
   type: ExerciseType;
+  /** The page it sits on: «Ver en la lección» shows only when it leads somewhere else on it or beyond. */
+  lessonId?: string;
   /** Outlined because a link (today: Progress → review) pointed the learner at this exercise. */
   highlighted?: boolean;
 }) {
@@ -113,6 +117,13 @@ export function ExercisePlayer({
               <Button variant="secondary" onClick={() => start.mutate()} disabled={start.isPending}>
                 {t("exercise.tryAgain")}
               </Button>
+              {result.lessonLink && (result.lessonLink.anchor || result.lessonLink.lessonId !== lessonId) && (
+                <LessonLink
+                  lessonId={result.lessonLink.lessonId}
+                  anchor={result.lessonLink.anchor}
+                  citation={result.lessonLink.citation}
+                />
+              )}
               {/* Multiple choice only, and only once answered: the report must never be a way to ask. */}
               {instance.type === "quiz" && <ReportQuestion key={instance.attemptId} attemptId={instance.attemptId} />}
             </div>

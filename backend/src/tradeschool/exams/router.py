@@ -16,10 +16,12 @@ from tradeschool.db import get_async_session
 from tradeschool.deps import CourseId, ReadingLocale, get_registry
 from tradeschool.exams import service
 from tradeschool.exams.schemas import (
+    CaseMarksRequest,
     ExamAnswerRequest,
     ExamHistoryItem,
     ExamSessionOut,
     ExamStartRequest,
+    PresetOut,
 )
 
 router = APIRouter(tags=["exams"], prefix="/exams")
@@ -34,10 +36,21 @@ async def start_exam(
     course: CourseId,
     locale: ReadingLocale,
 ) -> ExamSessionOut:
+    assert payload.presetId is not None  # the request model fills it from the legacy scope
     view = await service.start_exam(
-        session, registry, user.id, course, payload.scope, payload.blockId, locale
+        session, registry, user.id, course, payload.presetId, payload.target, locale
     )
     return ExamSessionOut.build(view)
+
+
+@router.get("/presets", response_model=list[PresetOut])
+async def exam_presets(
+    user: Annotated[User, Depends(current_active_user)],
+    registry: Annotated[CourseRegistry, Depends(get_registry)],
+    locale: ReadingLocale,
+) -> list[PresetOut]:
+    """The course's exams as the Exams tab lists them: title, parts, question count and time."""
+    return [PresetOut.build(preset, registry, locale) for preset in registry.manifest.exams]
 
 
 # RETIRED 2026-09-04: `GET /current`, which answered with the most recent open sitting only. Starting
@@ -88,9 +101,24 @@ async def answer_question(
     payload: ExamAnswerRequest,
     user: Annotated[User, Depends(current_active_user)],
     session: Annotated[AsyncSession, Depends(get_async_session)],
+    registry: Annotated[CourseRegistry, Depends(get_registry)],
     course: CourseId,
 ) -> None:
-    await service.answer_question(session, user.id, exam_id, course, attempt_id, payload.answer)
+    await service.answer_question(session, registry, user.id, exam_id, course, attempt_id, payload.answer)
+
+
+@router.put("/{exam_id}/parts/{part_id}/cases", status_code=204)
+async def mark_cases(
+    exam_id: uuid.UUID,
+    part_id: str,
+    payload: CaseMarksRequest,
+    user: Annotated[User, Depends(current_active_user)],
+    session: Annotated[AsyncSession, Depends(get_async_session)],
+    registry: Annotated[CourseRegistry, Depends(get_registry)],
+    course: CourseId,
+) -> None:
+    """The cases of a part the learner marked; only a part with exactly one marked is graded."""
+    await service.mark_cases(session, registry, user.id, exam_id, course, part_id, payload.exerciseIds)
 
 
 @router.post("/{exam_id}/submit", response_model=ExamSessionOut)

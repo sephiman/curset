@@ -18,7 +18,7 @@ import yaml
 from tradeschool.config import get_settings
 from tradeschool.content.numbers import format_number
 from tradeschool.content.registry import load_registry
-from tradeschool.content.schema import LOCALES
+from tradeschool.content.text import LOCALES
 
 #: The 10x example both lessons walk: cushion 1/leverage, less the 0.5% the exchange keeps.
 _LIQ_FACTOR_10X = 1 - 0.10 + 0.005

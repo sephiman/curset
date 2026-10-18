@@ -6,7 +6,7 @@ from __future__ import annotations
 from pydantic import BaseModel, ConfigDict, Field
 
 from tradeschool.content.registry import CourseRegistry
-from tradeschool.content.schema import Locale
+from tradeschool.content.text import Locale
 from tradeschool.enrollment.service import EnrollmentState, course_text_locale
 
 

@@ -28,7 +28,7 @@ import pytest
 from tradeschool.config import get_settings
 from tradeschool.content.numbers import format_number, format_param, format_percent
 from tradeschool.content.registry import load_registry
-from tradeschool.content.schema import LOCALES
+from tradeschool.content.text import LOCALES
 from tradeschool.exercises.calculation import (
     MISTAKE_TRANSLATIONS_ES,
     CalculationConfig,

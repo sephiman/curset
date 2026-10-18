@@ -15,7 +15,7 @@ import numpy as np
 import yaml
 from pydantic import BaseModel, ConfigDict, model_validator
 
-from tradeschool.content.schema import LocalizedText
+from tradeschool.content.text import LocalizedText
 from tradeschool.exercises.charts.engine import build_series
 from tradeschool.exercises.charts.indicators import ema, macd, rsi
 from tradeschool.exercises.charts.injectors import RsiDivergenceInjector

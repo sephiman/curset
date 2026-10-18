@@ -13,7 +13,7 @@ from collections.abc import Iterator
 from pathlib import Path
 from typing import Any
 
-from tradeschool.content.schema import LOCALES
+from tradeschool.content.text import LOCALES
 
 #: A sentinel in parentheses. Only these words: a parenthesised term such as "(isolated)" is prose.
 PARENTHESISED_SENTINEL = re.compile(r"\((?:none|null|undefined|nan|n/a)\)", re.IGNORECASE)

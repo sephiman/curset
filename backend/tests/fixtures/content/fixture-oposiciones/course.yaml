@@ -1,6 +1,8 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 # A Spanish-only, test-only course for the multi-course suite. Its ids deliberately repeat the
 # crypto-futures course's (m01, m01-l1, m01-ex-1): ids are unique per course, never across courses.
+# It is also the platform delta's proof course (docs/curset-platform-delta-exams.md): a two-part exam
+# preset with a choose-one-of-two case part, two cases, cited lessons, every esquema kind, sources.
 course:
   id: fixture-oposiciones
   title:
@@ -11,7 +13,9 @@ course:
     es: Un curso mínimo para comprobar que la plataforma sirve varios cursos.
   languages: [es]
   status: published
-  exercise_types: [quiz]
+  exercise_types: [quiz, case]
+  lesson_noun:
+    es: tema
 blocks:
 - id: block-a
   title:
@@ -31,8 +35,83 @@ blocks:
       exercises:
       - id: m01-ex-1
         type: quiz
+      - id: m01-ex-2
+        type: quiz
     - id: m01-l2
       title:
         es: El recurso potestativo de reposición
       summary:
         es: El recurso de reposición se interpone ante el mismo órgano que dictó el acto.
+      exercises:
+      - id: m01-ex-3
+        type: quiz
+  - id: m02
+    title:
+      es: La competencia y los recursos
+    summary:
+      es: Quién decide cuando un órgano delega o avoca, y los plazos de los recursos.
+    lessons:
+    - id: m02-l1
+      title:
+        es: La delegación, la avocación y los plazos de los recursos
+      summary:
+        es: Un órgano puede delegar sus competencias y un órgano superior puede avocar un asunto. El recurso
+          de alzada y el de reposición tienen un mes de plazo contra un acto expreso.
+      exercises:
+      - id: m02-ex-1
+        type: quiz
+      - id: m02-ex-2
+        type: quiz
+    - id: m02-l2
+      title:
+        es: Supuestos prácticos de recursos
+      summary:
+        es: Dos supuestos de veinte preguntas sobre los recursos y la delegación.
+      exercises:
+      - id: m02-ex-3
+        type: case
+      - id: m02-ex-4
+        type: case
+exams:
+- id: simulacro
+  version: 1
+  title:
+    es: Simulacro
+  time_limit_minutes: 100
+  parts:
+  - id: parte-1
+    title:
+      es: Primera parte
+    source: course
+    questions: 70
+    reserve: 2
+    penalty: 1/3
+    blank: free
+    scoring:
+      max: 50
+      pass_minimum: 25
+      minimum_raw: 35
+  - id: parte-2
+    title:
+      es: Segunda parte
+    source: cases
+    choose: 2
+    questions: 20
+    penalty: 1/3
+    blank: free
+    scoring:
+      max: 50
+      pass_minimum: 25
+      minimum_raw: 10
+    requires_previous_pass: true
+- id: tema
+  version: 1
+  title:
+    es: Tema
+  time_limit_minutes: 25
+  parts:
+  - id: preguntas
+    source:
+      each: lesson
+    questions: 20
+    penalty: 1/3

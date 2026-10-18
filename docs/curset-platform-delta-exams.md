@@ -1,6 +1,6 @@
 # Requirements delta — Curset platform: exam presets, grouped cases, source links, results by lesson
 
-Version 1.2 · 17 October 2026 · delta to docs/curset-multicourse-requirements.md. Four platform changes. A and B are required by the AGE course (docs/age-administrativo-course-requirements.md, R6.1 and R7.1) and precede that course's R5. C and D apply to every course and can run as their own rounds at any time after A.
+Version 1.3 · 18 October 2026 · delta to docs/curset-multicourse-requirements.md. Four platform changes. A and B are required by the AGE course (docs/age-administrativo-course-requirements.md, R6.1 and R7.1) and precede that course's R5. C and D apply to every course and can run as their own rounds at any time after A.
 
 ## A. Exam presets per course
 
@@ -10,6 +10,8 @@ Version 1.2 · 17 October 2026 · delta to docs/curset-multicourse-requirements.
 - A4 Scoring: raw score per part = correct − penalty × wrong; transformed score per the formula the preset declares (linear map from the preset's minimum raw to the pass minimum and from maximum raw to the maximum score, which is the CPS formula); total = sum of parts. The results page shows raw and transformed per part and in total, and nothing else about cut-offs.
 - A5 `crypto-futures` keeps its current exams as its presets, declared the same way; its behaviour and scores are byte-for-byte unchanged (goldens prove it).
 - A6 The exam list in the Exams tab shows the course's presets with title, parts, question count and time. Past exams store the preset id and version they were taken with.
+- A8 Composite draw: a part may declare several sources with a count each («40 from modules I–V, 30 from module VI»), drawn and shuffled together into one part with one time and one score. The results page still attributes each question to its lesson (D). Needed for the AGE part 1; the fixture course gets a two-source part to prove it.
+- A9 Draw modes recognised: `all`, `per-module` (one question per module, as crypto-futures uses), `random` from a lesson, module, set of modules or case pool; declared per source.
 - A7 Progress rules (fractions below ten, no ranking under three exercises, no aggregate under three people) are unchanged and apply per preset.
 
 ## B. Grouped case exercise (supuesto práctico)

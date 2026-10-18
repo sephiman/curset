@@ -28,6 +28,17 @@ async def stats_me(
     return await service.me_stats(session, registry, user.id, locale)
 
 
+@router.get("/stats/me/by-lesson")
+async def stats_by_lesson(
+    user: Annotated[User, Depends(current_active_user)],
+    session: Annotated[AsyncSession, Depends(get_async_session)],
+    registry: Annotated[CourseRegistry, Depends(get_registry)],
+    locale: ReadingLocale,
+) -> dict[str, object]:
+    """Practice and submitted exams together, per lesson; the existing stats are untouched."""
+    return await service.lesson_progress(session, registry, user.id, locale)
+
+
 @router.get("/stats/global")
 async def stats_global(
     user: Annotated[User, Depends(current_active_user)],

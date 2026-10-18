@@ -26,6 +26,8 @@ export interface ExerciseOverall {
 /** An exercise the learner got wrong at least once, and where to go to try it again. */
 export interface ReviewTarget {
   exerciseId: string;
+  /** Set when the failure is one question of a case: the exercise is the case. */
+  questionId?: string;
   lessonId: string | null;
   incorrect: number;
   /** Solved since — shown as solved rather than implying unfinished business. */
@@ -95,6 +97,7 @@ export interface GlobalModule {
 
 export interface GlobalExercise {
   exerciseId: string;
+  questionId?: string;
   moduleId: string;
   learners: number;
   firstSeen: number;
@@ -115,5 +118,41 @@ export async function getMeStats(scope: CourseScope): Promise<MeStats> {
 
 export async function getGlobalStats(scope: CourseScope): Promise<GlobalStats> {
   const { data } = await apiClient.get<GlobalStats>(courseUrl(scope, "/stats/global"), inReadingLanguage(scope));
+  return data;
+}
+
+/** One lesson's (or module's) row of «Por tema»: blanks apart, the percentage counting them as not correct. */
+export interface LessonTableRow {
+  questions: number;
+  correct: number;
+  wrong: number;
+  blank: number;
+  pct: number | null;
+  title: string;
+}
+
+export interface LessonTableGroup extends LessonTableRow {
+  moduleId: string;
+  lessons: (LessonTableRow & { lessonId: string })[];
+}
+
+export interface LessonTableLists {
+  /** `module` when fewer than three lessons had enough questions to rank, so modules were ranked. */
+  level: "lesson" | "module";
+  best: (LessonTableRow & { lessonId?: string; moduleId?: string })[];
+  worst: (LessonTableRow & { lessonId?: string; moduleId?: string })[];
+}
+
+export interface LessonTable {
+  /** Questions a lesson needs before it may be ranked in the lists. */
+  threshold: number;
+  groups: LessonTableGroup[];
+  /** Absent when nothing qualifies: then only the table shows. */
+  lists: LessonTableLists | null;
+}
+
+/** «Por tema» over every practice attempt and every submitted exam of the course. */
+export async function getLessonProgress(scope: CourseScope): Promise<LessonTable> {
+  const { data } = await apiClient.get<LessonTable>(courseUrl(scope, "/stats/me/by-lesson"), inReadingLanguage(scope));
   return data;
 }

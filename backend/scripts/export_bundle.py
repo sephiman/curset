@@ -65,7 +65,7 @@ from pydantic import BaseModel  # noqa: E402
 from scripts.label_catalogs import LabelCatalog, LabelCatalogError, build_label_catalogs  # noqa: E402
 from scripts.leaked_tokens import bundle_leaks  # noqa: E402
 from tradeschool.content.registry import CourseRegistry, _theory_only, load_registry  # noqa: E402
-from tradeschool.content.schema import LOCALES  # noqa: E402
+from tradeschool.content.text import LOCALES  # noqa: E402
 from tradeschool.exercises.calculation import (  # noqa: E402
     MISTAKE_SENTENCES,
     MISTAKE_TRANSLATIONS_ES,

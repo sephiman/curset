@@ -15,3 +15,5 @@ class ExerciseType(StrEnum):
     # moving averages, oscillator readings, Fibonacci, volume, derivatives). The frozen
     # SYNTHETIC_CHART stays divergence-only; new injectors are additions on this type (§ freeze rule).
     PATTERN_CHART = "pattern_chart"
+    # A scenario with an ordered list of multiple-choice questions that share it (supuesto práctico).
+    CASE = "case"

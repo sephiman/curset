@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { completeLesson, getLesson, uncompleteLesson, type ExerciseType } from "@/api/course";
 import { listAttempts } from "@/api/exercises";
 import { Badge, Button, Spinner } from "@/components/ui/primitives";
+import { CaseExercise } from "@/features/exercises/CaseExercise";
 import { ExercisePlayer } from "@/features/exercises/ExercisePlayer";
 import { LessonFigure } from "@/features/course/LessonFigure";
 import { GlossaryTerm, TermPopoverHost } from "@/features/glossary/TermPopover";
@@ -143,11 +144,18 @@ export function LessonPage() {
             markdown={lesson.markdown}
             renderExercise={(id) => {
               const type = typeById.get(id);
+              if (type === "case") return <CaseExercise exerciseId={id} highlighted={id === highlightedExerciseId} />;
               return type ? (
-                <ExercisePlayer exerciseId={id} type={type} highlighted={id === highlightedExerciseId} />
+                <ExercisePlayer
+                  exerciseId={id}
+                  type={type}
+                  lessonId={lessonId}
+                  highlighted={id === highlightedExerciseId}
+                />
               ) : null;
             }}
             renderFigure={(id) => <LessonFigure id={id} />}
+            citations={lesson.citations}
             glossary={{ lessonId, terms }}
             renderTerm={(termId, children) => <GlossaryTerm termId={termId}>{children}</GlossaryTerm>}
             refs={refRegistry ? { lessonId, registry: refRegistry } : undefined}

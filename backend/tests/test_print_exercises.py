@@ -26,7 +26,7 @@ from tradeschool.content.print_export import (
     print_seed,
 )
 from tradeschool.content.registry import CourseRegistry, load_registry
-from tradeschool.content.schema import LOCALES
+from tradeschool.content.text import LOCALES
 from tradeschool.exercises.base import GradeResult
 from tradeschool.exercises.registry import get_generator
 from tradeschool.exercises.reveal import RevealError, dummy_answer, reveal

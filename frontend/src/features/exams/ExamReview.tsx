@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import type { TFunction } from "i18next";
 import type { ExerciseType } from "@/api/course";
-import { reviewExam, type ExamQuestion } from "@/api/exams";
+import { reviewExam, type ExamQuestion, type ExamResult, type ExamSession, type NotGraded } from "@/api/exams";
 import { Badge, Card, Spinner } from "@/components/ui/primitives";
 import { AttemptResult } from "@/features/exercises/AttemptResult";
 import { ChartExercise } from "@/features/exercises/ChartExercise";
@@ -12,6 +12,10 @@ import { Prose } from "@/lib/markdown";
 import { scopeKey, useCourse } from "@/features/courses/CourseContext";
 import { ReportQuestion } from "@/features/reports/ReportQuestion";
 import { ProseReferenceHost } from "@/features/references/ProseReferenceHost";
+import { ByLessonTable } from "@/features/byLesson/ByLessonTable";
+import { LessonLink } from "@/features/exercises/LessonLink";
+import { useCourseTree } from "@/features/course/queries";
+import { scoreNumber, sittingName } from "@/features/exams/format";
 
 const CHART_TYPES: ReadonlySet<ExerciseType> = new Set(["synthetic_chart", "fixture_chart", "pattern_chart"]);
 
@@ -56,11 +60,71 @@ function StatusBadge({ q, t }: { q: ExamQuestion; t: TFunction }) {
   );
 }
 
+const NOT_GRADED: Record<NotGraded, string> = {
+  "no-case-marked": "exam.notGradedNoCase",
+  "several-cases-marked": "exam.notGradedSeveralCases",
+  "previous-part-not-passed": "exam.notGradedPreviousPart",
+};
+
+/** Raw and transformed per part and in total — and nothing else about cut-offs. */
+function PartScores({ exam, result }: { exam: ExamSession; result: ExamResult }) {
+  const { t, i18n } = useTranslation();
+  const lang = i18n.resolvedLanguage;
+  const titles = new Map(exam.parts.map((part) => [part.id, part.title ?? part.id]));
+  const caseTitles = new Map(exam.parts.flatMap((part) => part.cases.map((c) => [c.exerciseId, c.title])));
+  const number = (value: number | undefined) => (value == null ? "—" : scoreNumber(value, lang));
+  return (
+    <div className="overflow-x-auto">
+      <table className="w-full text-sm">
+        <thead className="border-b border-gray-300 text-gray-500 dark:border-gray-700 dark:text-gray-400">
+          <tr>
+            <th className="py-2 pr-3 text-left" />
+            <th className="py-2 pr-3 text-right">{t("exam.raw")}</th>
+            <th className="py-2 text-right">{t("exam.transformed")}</th>
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-border dark:divide-gray-800">
+          {(result.parts ?? []).map((part) => (
+            <tr key={part.id}>
+              <td className="py-2 pr-3">
+                <p className="font-medium">{titles.get(part.id)}</p>
+                {part.graded ? (
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                    {t("exam.partTally", { correct: part.correct, wrong: part.wrong, blank: part.blank })}
+                    {part.case && ` · ${t("exam.caseChosen", { title: caseTitles.get(part.case) ?? part.case })}`}
+                  </p>
+                ) : (
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                    {t("exam.partNotGraded")}: {t(NOT_GRADED[part.reason ?? "no-case-marked"])}
+                  </p>
+                )}
+              </td>
+              <td className="py-2 pr-3 text-right tabular-nums">{part.graded ? number(part.raw) : "—"}</td>
+              <td className="py-2 text-right tabular-nums">
+                {part.graded && part.transformed != null ? `${number(part.transformed)} / ${number(part.max)}` : "—"}
+              </td>
+            </tr>
+          ))}
+          <tr className="font-semibold">
+            <td className="py-2 pr-3">{t("exam.total")}</td>
+            <td className="py-2 pr-3 text-right tabular-nums">{number(result.raw)}</td>
+            <td className="py-2 text-right tabular-nums">
+              {result.transformed != null ? `${number(result.transformed)} / ${number(result.max ?? undefined)}` : "—"}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
 export function ExamReview() {
   const { t, i18n } = useTranslation();
   const lang = i18n.resolvedLanguage;
   const { examId = "" } = useParams();
   const { scope, path } = useCourse();
+  const { data: course } = useCourseTree();
+  const noun = course?.course.lessonNoun;
 
   const { data: exam, isLoading, isError } = useQuery({
     queryKey: ["exam", ...scopeKey(scope), examId, "review"],
@@ -87,7 +151,9 @@ export function ExamReview() {
   }
 
   const r = exam.result;
-  const scopeName = exam.scope === "global" ? t("exam.global") : (exam.blockTitle ?? t("exam.block"));
+  const scored = r.parts !== undefined;
+  const caseTitles = new Map(exam.parts.flatMap((part) => part.cases.map((c) => [c.exerciseId, c.title])));
+  const graded = new Set((r.parts ?? []).filter((p) => p.graded).map((p) => p.case).filter(Boolean));
 
   return (
     <ProseReferenceHost>
@@ -96,13 +162,19 @@ export function ExamReview() {
         <Link to={path("/exams")} className="text-sm text-primary hover:underline">
           ← {t("nav.exams")}
         </Link>
-        <h1 className="mt-2 text-2xl font-bold">{scopeName}</h1>
+        <h1 className="mt-2 text-2xl font-bold">{sittingName(exam)}</h1>
         <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
           {exam.finishedAt ? new Date(exam.finishedAt).toLocaleDateString(lang) : ""}
         </p>
       </div>
 
       {/* Score — plain, honest numbers. No pass/fail, no badges/confetti. */}
+      {scored && (
+        <Card className="p-4">
+          <PartScores exam={exam} result={r} />
+        </Card>
+      )}
+      {!scored && (
       <Card className="p-4">
         <div className="flex items-baseline gap-3">
           <span className="text-3xl font-bold tabular-nums">{pct(r.score)}</span>
@@ -151,6 +223,13 @@ export function ExamReview() {
           ))}
         </div>
       </Card>
+      )}
+
+      {exam.byLesson && (
+        <Card className="p-4">
+          <ByLessonTable table={exam.byLesson} noun={noun} />
+        </Card>
+      )}
 
       {/* Per-question review — your answer, the correct answer, and the worked solution, in bulk. */}
       <div className="space-y-4">
@@ -170,14 +249,20 @@ export function ExamReview() {
                 </p>
                 <StatusBadge q={q} t={t} />
               </div>
+              {(q.questionId || q.reserve) && (
+                <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                  {q.questionId &&
+                    `${caseTitles.get(q.exerciseId) ?? q.exerciseId}${graded.has(q.exerciseId) ? "" : ` · ${t("exam.caseNotChosen")}`}`}
+                  {q.reserve && t("exam.reserve")}
+                </p>
+              )}
               <div className="mt-2">
                 <Prose markdown={q.prompt} />
               </div>
-              {q.type === "quiz" && (
-                <div className="mt-2 flex flex-wrap gap-3">
-                  <ReportQuestion attemptId={q.attemptId} />
-                </div>
-              )}
+              <div className="mt-2 flex flex-wrap items-start gap-3">
+                {q.lessonId && <LessonLink lessonId={q.lessonId} anchor={q.lessonAnchor} citation={q.citation} />}
+                {(q.type === "quiz" || q.type === "case") && <ReportQuestion attemptId={q.attemptId} />}
+              </div>
               <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">
                 <span className="font-medium">{t("exam.yourAnswer")}:</span>{" "}
                 <span className={cn(q.unanswered && "text-gray-400 italic dark:text-gray-500")}>

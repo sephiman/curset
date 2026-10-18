@@ -9,7 +9,8 @@ export type ExerciseType =
   | "calculation"
   | "synthetic_chart"
   | "fixture_chart"
-  | "pattern_chart";
+  | "pattern_chart"
+  | "case";
 
 export interface ExerciseRef {
   id: string;
@@ -56,6 +57,8 @@ export interface CourseMeta {
   /** The book's short name — what the PDF's running footer prints in place of the full title. */
   subtitle: string;
   description: string;
+  /** What the course calls a lesson where results are listed per lesson («tema»); null: the default. */
+  lessonNoun?: string | null;
 }
 
 export interface Course {
@@ -67,6 +70,22 @@ export interface Course {
   blocks: CourseBlock[];
 }
 
+/**
+ * One citation of a lesson, as the backend's grammar found it: the web marks exactly `text`, in order,
+ * and never detects a citation itself (see lib/citations/annotate.ts).
+ */
+export interface LessonCitation {
+  /** As the reader sees it: whitespace collapsed, no backticks. */
+  text: string;
+  section: "prose" | "esquema" | "normativa";
+  /** The anchors this citation is the first in the lesson to carry — the element ids it gets. */
+  ids: string[];
+  /** Where it opens: the source at its article or page; null when the course keeps no text for it. */
+  href: string | null;
+  /** The norm's title and consolidation date, for the link's tooltip. */
+  title: string | null;
+}
+
 export interface LessonDetail {
   id: string;
   title: string;
@@ -74,6 +93,8 @@ export interface LessonDetail {
   moduleTitle: string;
   blockId: string;
   markdown: string;
+  /** Empty in a course without sources/normativa.yaml: it links no citations. */
+  citations: LessonCitation[];
   completed: boolean;
   readingSeconds: number;
   exercises: ExerciseRef[];
@@ -118,10 +139,19 @@ export async function getModule(scope: CourseScope, moduleId: string): Promise<M
 }
 
 /** The shape `…/{course}/export?lang=…` serves: theory only, `::exercise` stripped server-side. */
+/** A norm the lesson's «Normativa» block lists, with what the PDF prints after its name. */
+export interface CourseExportNorm {
+  name: string;
+  title: string | null;
+  consolidatedAsOf: string | null;
+}
+
 export interface CourseExportLesson {
   id: string;
   title: string;
   markdown: string;
+  /** Present only in a course that keeps its norms. */
+  normativa?: CourseExportNorm[];
 }
 
 export interface CourseExportModule {
@@ -191,8 +221,18 @@ export async function getCourseExport(scope: CourseScope): Promise<CourseExport>
  *
  * The one endpoint that hands over solutions — see its server-side docstring.
  */
+/** One question of a printed case: its own number (`2.4.3`) and the options it shows. */
+export interface PrintCaseQuestion {
+  id: string;
+  number: string;
+  prompt: string;
+  payload: AttemptPayload;
+}
+
 export interface PrintAnswer {
-  kind: QuizKind | "calculation" | "chart";
+  kind: QuizKind | "calculation" | "chart" | "case";
+  /** case: one key entry per printed question, under the same number. */
+  questions?: (PrintAnswer & { id: string; number: string })[];
   /** Which printed options are correct (single_choice, multi_select, calculation). */
   optionIds?: string[];
   /** ordering: the printed item ids in their correct sequence. */

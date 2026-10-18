@@ -2,49 +2,140 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import type { CourseBlock } from "@/api/course";
+import type { TFunction } from "i18next";
 import {
   examHistory,
+  getExamPresets,
   getOpenExams,
   startExam,
-  type ExamScope,
+  type ExamHistoryItem,
+  type ExamPreset,
   type ExamSession,
 } from "@/api/exams";
 import { Badge, Button, Card, Spinner } from "@/components/ui/primitives";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import { scopeKey, useCourse } from "@/features/courses/CourseContext";
-import { useCourseTree } from "@/features/course/queries";
+import { examScore, sittingName } from "@/features/exams/format";
 
-function pct(score: number | null): string {
-  return score == null ? "—" : `${Math.round(score * 100)}%`;
+/** One line per part: what it draws, how many questions, how many in reserve. */
+function partLine(preset: ExamPreset, t: TFunction): string[] {
+  return preset.parts.map((part) => {
+    const title = part.title ?? preset.title;
+    const base =
+      part.kind === "cases"
+        ? t("exam.partCases", { title, choose: part.choose, count: part.questions })
+        : t("exam.partQuestions", { title, count: part.questions });
+    return part.reserve ? `${base}, ${t("exam.reserveCount", { count: part.reserve })}` : base;
+  });
 }
 
-/** The blocks an exam can be scoped to: one with no exercise bank anywhere in it is not one. */
-function examinable(blocks: CourseBlock[] | undefined): CourseBlock[] {
-  return (blocks ?? []).filter((b) => b.modules.some((m) => m.exercisesTotal > 0));
+function penaltyLine(preset: ExamPreset, t: TFunction): string {
+  const penalties = new Set(preset.parts.map((part) => part.penalty));
+  const [only] = [...penalties];
+  return penalties.size === 1 && only === "0" ? t("exam.noPenalty") : t("exam.penalty", { fraction: only });
+}
+
+function PresetCard({
+  preset,
+  disabled,
+  onStart,
+}: {
+  preset: ExamPreset;
+  disabled: boolean;
+  onStart: (target?: string) => void;
+}) {
+  const { t } = useTranslation();
+  const time = preset.timeLimitMinutes ? t("exam.minutes", { count: preset.timeLimitMinutes }) : t("exam.untimed");
+  return (
+    <Card className="space-y-3 p-4">
+      <div className="flex flex-wrap items-baseline justify-between gap-2">
+        <h3 className="font-semibold">{preset.title}</h3>
+        <span className="text-xs text-gray-500 dark:text-gray-400">
+          {preset.targets ? time : `${t("exam.questions", { count: preset.questions })} · ${time}`}
+        </span>
+      </div>
+      {preset.parts.length > 1 && (
+        <ul className="space-y-0.5 text-sm text-gray-600 dark:text-gray-300">
+          {partLine(preset, t).map((line) => (
+            <li key={line}>{line}</li>
+          ))}
+        </ul>
+      )}
+      <p className="text-xs text-gray-500 dark:text-gray-400">{penaltyLine(preset, t)}</p>
+      {preset.targets ? (
+        <div>
+          <p className="mb-2 text-sm font-medium">{t("exam.chooseTarget")}</p>
+          <div className="grid gap-2 sm:grid-cols-2">
+            {preset.targets.map((target) => (
+              <Button
+                key={target.id}
+                variant="secondary"
+                disabled={disabled}
+                onClick={() => onStart(target.id)}
+                className="justify-between text-left"
+              >
+                <span className="truncate">{target.title}</span>
+                <span className="shrink-0 text-xs text-gray-500">{t("exam.questions", { count: target.questions })}</span>
+              </Button>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <Button disabled={disabled} onClick={() => onStart()}>
+          {t("exam.start")}
+        </Button>
+      )}
+    </Card>
+  );
+}
+
+function HistoryRow({ item }: { item: ExamHistoryItem }) {
+  const { i18n } = useTranslation();
+  const { path } = useCourse();
+  return (
+    <Link to={path(`/exams/${item.id}/review`)} className="block">
+      <Card className="flex items-center justify-between gap-3 p-3 hover:border-primary">
+        <div className="min-w-0">
+          <p className="truncate text-sm font-medium">{sittingName(item)}</p>
+          <p className="text-xs text-gray-500 dark:text-gray-400">
+            {item.finishedAt ? new Date(item.finishedAt).toLocaleDateString(i18n.resolvedLanguage) : "—"}
+          </p>
+        </div>
+        <div className="flex shrink-0 items-center gap-2">
+          {item.transformed == null && (
+            <span className="text-xs text-gray-500 dark:text-gray-400">
+              {item.correct}/{item.total}
+            </span>
+          )}
+          <Badge tone="indigo">{examScore(item, i18n.resolvedLanguage)}</Badge>
+        </div>
+      </Card>
+    </Link>
+  );
 }
 
 export function ExamPage() {
-  const { t, i18n } = useTranslation();
-  const lang = i18n.resolvedLanguage;
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const qc = useQueryClient();
-
   const { scope: courseScope, path } = useCourse();
 
+  const { data: presets } = useQuery({
+    queryKey: ["exam", ...scopeKey(courseScope), "presets"],
+    queryFn: () => getExamPresets(courseScope),
+  });
   const { data: open } = useQuery({
     queryKey: ["exam", ...scopeKey(courseScope), "open"],
     queryFn: () => getOpenExams(courseScope),
   });
-  const { data: course } = useCourseTree();
   const { data: history, isLoading } = useQuery({
     queryKey: ["exam", ...scopeKey(courseScope), "history"],
     queryFn: () => examHistory(courseScope),
   });
 
   const start = useMutation({
-    mutationFn: ({ scope, blockId }: { scope: ExamScope; blockId?: string }) =>
-      startExam(courseScope, scope, blockId),
+    mutationFn: ({ presetId, target }: { presetId: string; target?: string }) =>
+      startExam(courseScope, presetId, target),
     onSuccess: (s: ExamSession) => {
       void qc.invalidateQueries({ queryKey: ["exam", courseScope.slug] });
       navigate(path(`/exams/${s.id}`));
@@ -52,26 +143,22 @@ export function ExamPage() {
   });
 
   // What the reader asked to start, held back while they answer for the sitting it would abandon.
-  const [pending, setPending] = useState<{ scope: ExamScope; blockId?: string } | null>(null);
+  const [pending, setPending] = useState<{ presetId: string; target?: string } | null>(null);
 
   /**
-   * The open sitting a start would destroy. The server abandons an open session of the SAME scope and
-   * block and only that one, so this asks exactly when something is at stake and never otherwise — a
+   * The open sitting a start would destroy. The server abandons an open sitting of the SAME preset and
+   * target and only that one, so this asks exactly when something is at stake and never otherwise — a
    * confirmation that fires when nothing would be lost is one readers learn to dismiss unread.
    */
-  const conflicting = (scope: ExamScope, blockId?: string): ExamSession | null =>
-    (open ?? []).find((s) => s.scope === scope && (s.blockId ?? undefined) === blockId) ?? null;
+  const conflicting = (presetId: string, target?: string): ExamSession | null =>
+    (open ?? []).find((s) => s.presetId === presetId && (s.target ?? undefined) === target) ?? null;
 
-  /** Every start goes through here: ask if a sitting would be lost, otherwise just begin. */
-  const requestStart = (scope: ExamScope, blockId?: string): void => {
-    if (conflicting(scope, blockId)) setPending({ scope, blockId });
-    else start.mutate({ scope, blockId });
+  const requestStart = (presetId: string, target?: string): void => {
+    if (conflicting(presetId, target)) setPending({ presetId, target });
+    else start.mutate({ presetId, target });
   };
 
-  const doomed = pending ? conflicting(pending.scope, pending.blockId) : null;
-
-  const scopeName = (scope: ExamScope, blockTitle: string | null): string =>
-    scope === "global" ? t("exam.global") : (blockTitle ?? t("exam.block"));
+  const doomed = pending ? conflicting(pending.presetId, pending.target) : null;
 
   const answered = (session: ExamSession): string =>
     t("exam.conflictAnswered", {
@@ -99,7 +186,7 @@ export function ExamPage() {
           onDismiss={() => setPending(null)}
         >
           <p className="font-medium text-gray-900 dark:text-gray-100">
-            {scopeName(doomed.scope, doomed.blockTitle)} · {answered(doomed)}
+            {sittingName(doomed)} · {answered(doomed)}
           </p>
           <p>{t("exam.conflictBody")}</p>
         </ConfirmDialog>
@@ -109,8 +196,7 @@ export function ExamPage() {
         <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{t("exam.intro")}</p>
       </div>
 
-      {/* One card per open sitting: two scopes can be open at once, and the one that is not the
-          newest used to be unreachable from here. */}
+      {/* One card per open sitting: two can be open at once, and each needs a way back in. */}
       {(open ?? []).map((sitting) => (
         <Card
           key={sitting.id}
@@ -118,9 +204,7 @@ export function ExamPage() {
         >
           <div>
             <p className="text-xs font-medium tracking-wide text-primary uppercase">{t("exam.inProgress")}</p>
-            <p className="text-sm text-gray-600 dark:text-gray-300">
-              {scopeName(sitting.scope, sitting.blockTitle)}
-            </p>
+            <p className="text-sm text-gray-600 dark:text-gray-300">{sittingName(sitting)}</p>
           </div>
           <Button onClick={() => navigate(path(`/exams/${sitting.id}`))}>{t("exam.resume")}</Button>
         </Card>
@@ -130,32 +214,17 @@ export function ExamPage() {
         <h2 className="text-sm font-semibold tracking-wide text-gray-500 uppercase dark:text-gray-400">
           {t("exam.startTitle")}
         </h2>
-        <Card className="space-y-4 p-4">
-          <div>
-            <Button disabled={start.isPending} onClick={() => requestStart("global")}>
-              {t("exam.startGlobal")}
-            </Button>
-            <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">{t("exam.startGlobalHint")}</p>
-          </div>
-          <div>
-            <p className="mb-2 text-sm font-medium">{t("exam.startBlock")}</p>
-            <div className="grid gap-2 sm:grid-cols-2">
-              {/* A block whose modules carry no exercise bank has nothing to grade — the epilogue
-                  (block G) is one — and the server answers EXAM_EMPTY. Don't offer the button. */}
-              {examinable(course?.blocks).map((b) => (
-                <Button
-                  key={b.id}
-                  variant="secondary"
-                  disabled={start.isPending}
-                  onClick={() => requestStart("block", b.id)}
-                  className="justify-start"
-                >
-                  {b.title}
-                </Button>
-              ))}
-            </div>
-          </div>
-        </Card>
+        {presets && presets.length === 0 && (
+          <p className="text-sm text-gray-500 dark:text-gray-400">{t("exam.noPresets")}</p>
+        )}
+        {(presets ?? []).map((preset) => (
+          <PresetCard
+            key={preset.id}
+            preset={preset}
+            disabled={start.isPending}
+            onStart={(target) => requestStart(preset.id, target)}
+          />
+        ))}
       </section>
 
       <section className="space-y-3">
@@ -170,23 +239,8 @@ export function ExamPage() {
           <p className="text-sm text-gray-500 dark:text-gray-400">{t("exam.noHistory")}</p>
         ) : (
           <div className="space-y-2">
-            {history.map((h) => (
-              <Link key={h.id} to={path(`/exams/${h.id}/review`)} className="block">
-                <Card className="flex items-center justify-between gap-3 p-3 hover:border-primary">
-                  <div className="min-w-0">
-                    <p className="truncate text-sm font-medium">{scopeName(h.scope, h.blockTitle)}</p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">
-                      {h.finishedAt ? new Date(h.finishedAt).toLocaleDateString(lang) : "—"}
-                    </p>
-                  </div>
-                  <div className="flex shrink-0 items-center gap-2">
-                    <span className="text-xs text-gray-500 dark:text-gray-400">
-                      {h.correct}/{h.total}
-                    </span>
-                    <Badge tone="indigo">{pct(h.score)}</Badge>
-                  </div>
-                </Card>
-              </Link>
+            {history.map((item) => (
+              <HistoryRow key={item.id} item={item} />
             ))}
           </div>
         )}

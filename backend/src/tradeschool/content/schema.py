@@ -9,39 +9,14 @@ from __future__ import annotations
 from collections.abc import Iterator
 from enum import StrEnum
 from pathlib import Path
-from typing import Literal, Self
+from typing import Self
 
 import yaml
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
+from tradeschool.content.text import Locale, LocalizedText
+from tradeschool.exams.presets import ExamPreset
 from tradeschool.exercises.types import ExerciseType
-
-#: Every language the platform can serve; a course declares the subset it is written in.
-LOCALES = ("en", "es")
-Locale = Literal["en", "es"]
-
-
-class LocalizedText(BaseModel):
-    """Text in the languages its course declares; which ones must be present is checked per course."""
-
-    model_config = ConfigDict(extra="forbid")
-    en: str | None = None
-    es: str | None = None
-
-    @model_validator(mode="after")
-    def _not_empty(self) -> Self:
-        if self.en is None and self.es is None:
-            raise ValueError("localized text needs at least one language")
-        return self
-
-    def get(self, locale: str) -> str:
-        value = self.es if locale == "es" else self.en
-        if value is None:
-            raise LookupError(f"no {locale!r} text in {self!r}")
-        return value
-
-    def languages(self) -> set[str]:
-        return {locale for locale in LOCALES if getattr(self, locale) is not None}
 
 
 class KeyedEntity(BaseModel):
@@ -113,6 +88,8 @@ class ManifestCourse(BaseModel):
     status: CourseStatus
     #: The exercise kinds this course uses; an exercise of any other kind is a manifest error.
     exercise_types: list[ExerciseType] = Field(min_length=1)
+    #: What the course calls a lesson where results are listed per lesson («tema»); absent: «lección».
+    lesson_noun: LocalizedText | None = None
 
     @model_validator(mode="after")
     def _distinct_languages(self) -> Self:
@@ -125,6 +102,8 @@ class Manifest(BaseModel):
     model_config = ConfigDict(extra="forbid")
     course: ManifestCourse
     blocks: list[ManifestBlock]
+    #: The course's exams; none declared means the Exams tab offers nothing.
+    exams: list[ExamPreset] = Field(default_factory=list)
 
     # --- Derived views ---
     def iter_modules(self) -> list[tuple[ManifestBlock, ManifestModule]]:
@@ -186,7 +165,29 @@ class Manifest(BaseModel):
                     raise ValueError(f"module {module.id!r} assumes unknown module {dep!r}")
                 if dep == module.id:
                     raise ValueError(f"module {module.id!r} cannot assume itself")
+        self._validate_exams()
         return self
+
+    def _validate_exams(self) -> None:
+        """Preset ids are unique and every source names something this course has."""
+        ids = [preset.id for preset in self.exams]
+        if len(set(ids)) != len(ids):
+            raise ValueError(f"duplicate exam preset id in {ids}")
+        known = {
+            "block": {b.id for b in self.blocks},
+            "module": self.module_ids(),
+            "lesson": {lesson.id for _, lesson in self.iter_lessons()},
+        }
+        for preset in self.exams:
+            for part in preset.parts:
+                for level, ids_at_level in known.items():
+                    named = getattr(part.source, level)
+                    if named is not None and named not in ids_at_level:
+                        raise ValueError(f"exam {preset.id!r} part {part.id!r}: unknown {level} {named!r}")
+                if part.source.cases and ExerciseType.CASE not in self.course.exercise_types:
+                    raise ValueError(
+                        f"exam {preset.id!r} part {part.id!r} draws cases; the course declares no case type"
+                    )
 
 
 def missing_languages(node: object, languages: set[str], path: str = "") -> Iterator[str]:

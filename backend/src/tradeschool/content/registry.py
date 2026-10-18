@@ -14,12 +14,12 @@ from pathlib import Path
 import yaml
 from pydantic import BaseModel, ValidationError
 
+from tradeschool.citations.course import CitedQuestion, CourseCitations, QuestionLink
+from tradeschool.citations.sources import SourceIndex
 from tradeschool.content.glossary import Glossary, GlossaryTerm, load_glossary
 from tradeschool.content.reading import estimate_seconds
 from tradeschool.content.schema import (
-    LOCALES,
     CourseStatus,
-    LocalizedText,
     Manifest,
     ManifestBlock,
     ManifestExercise,
@@ -28,7 +28,11 @@ from tradeschool.content.schema import (
     missing_languages,
     parse_manifest,
 )
+from tradeschool.content.text import LOCALES, LocalizedText
+from tradeschool.exams.draw import check_presets
+from tradeschool.exercises.case import CaseConfig
 from tradeschool.exercises.figures import FigureSpec, load_figures
+from tradeschool.exercises.quiz import QuizConfig, QuizGenerator
 from tradeschool.exercises.registry import get_generator, has_generator
 from tradeschool.exercises.types import ExerciseType
 
@@ -55,6 +59,17 @@ class LessonLocation:
     lesson: ManifestLesson
 
 
+@dataclass(frozen=True)
+class StatUnit:
+    """One question as progress counts it: an exercise, or one question of a case."""
+
+    exercise_id: str
+    question_id: str | None
+    #: Where it counts: the exercise's lesson, or the lesson a case question names.
+    lesson_id: str
+    module_id: str
+
+
 @dataclass
 class CourseRegistry:
     manifest: Manifest
@@ -66,6 +81,10 @@ class CourseRegistry:
     figures: dict[str, FigureSpec] = field(default_factory=dict)
     # The glossary, loaded once; sorted per locale on the way out.
     glossary: Glossary = field(default_factory=lambda: Glossary(terms=[]))
+    # The folder holding the served `normativa/` and `otros/`; None: the course serves no sources.
+    source_root: Path | None = None
+    # Citations, anchors and source links (empty for a course without sources/normativa.yaml).
+    citations: CourseCitations = field(default_factory=lambda: CourseCitations("", None, SourceIndex()))
     # reading_seconds[locale][lesson_id] -> estimated reading time. Derived from the markdown once
     # here, so every surface that shows time is summing the same per-lesson numbers.
     reading_seconds: dict[str, dict[str, int]] = field(default_factory=dict)
@@ -104,6 +123,84 @@ class CourseRegistry:
 
     def get_exercise_config(self, exercise_id: str) -> tuple[ExerciseType, BaseModel] | None:
         return self.exercise_configs.get(exercise_id)
+
+    def attempt_config(
+        self, exercise_id: str, question_id: str | None
+    ) -> tuple[ExerciseType, BaseModel] | None:
+        """What generates and grades ONE attempt: the exercise's config, or a case question's own quiz."""
+        config = self.exercise_configs.get(exercise_id)
+        if config is None or question_id is None:
+            return config
+        case = config[1]
+        if not isinstance(case, CaseConfig):
+            return None
+        try:
+            return ExerciseType.QUIZ, case.question(question_id).as_quiz()
+        except KeyError:
+            return None
+
+    def case_config(self, exercise_id: str) -> CaseConfig | None:
+        config = self.exercise_configs.get(exercise_id)
+        return config[1] if config is not None and isinstance(config[1], CaseConfig) else None
+
+    def question_lesson_id(self, exercise_id: str, question_id: str | None) -> str | None:
+        """The lesson a question counts under: a case question names its own, any other its exercise's."""
+        case = self.case_config(exercise_id)
+        if question_id is None or case is None:
+            return self.exercise_lesson_id(exercise_id)
+        try:
+            return self.lesson_id_for_key(case.question(question_id).lesson)
+        except KeyError:
+            return None
+
+    def lesson_location(self, lesson_id: str) -> LessonLocation | None:
+        return self._lessons.get(lesson_id)
+
+    def question_citation(self, exercise_id: str, question_id: str | None, seed: int) -> str | None:
+        """The citation of the question an attempt showed: its case question, or the variant its seed drew."""
+        config = self.attempt_config(exercise_id, question_id)
+        if config is None or not isinstance(config[1], QuizConfig):
+            return None
+        return QuizGenerator().variant(config[1], seed).citation
+
+    def question_link(
+        self, exercise_id: str, question_id: str | None, seed: int, locale: str
+    ) -> QuestionLink | None:
+        """«Ver en la lección»: the question's lesson, at the anchor of what it cites when it cites."""
+        lesson_id = self.question_lesson_id(exercise_id, question_id)
+        if lesson_id is None:
+            return None
+        citation = self.question_citation(exercise_id, question_id, seed)
+        return self.citations.question_link(lesson_id, citation, locale)
+
+    def stat_units(self) -> list[StatUnit]:
+        """Every unit progress counts, in course order. A case is not one: each of its questions is."""
+        units: list[StatUnit] = []
+        for module, lesson, exercise in self.manifest.iter_exercises():
+            case = self.case_config(exercise.id)
+            if case is None:
+                units.append(StatUnit(exercise.id, None, lesson.id, module.id))
+                continue
+            for question in case.questions:
+                lesson_id = self.lesson_id_for_key(question.lesson) or lesson.id
+                location = self._lessons[lesson_id]
+                units.append(StatUnit(exercise.id, question.id, lesson_id, location.module.id))
+        return units
+
+    def scope_exercise_ids(self, level: str | None, target: str | None) -> list[str]:
+        """Exercise ids in course order under a block, module or lesson (`level` None: the whole course)."""
+        out: list[str] = []
+        for block, module in self.manifest.iter_modules():
+            for lesson in module.lessons:
+                inside = {
+                    None: True,
+                    "block": block.id == target,
+                    "module": module.id == target,
+                    "lesson": lesson.id == target,
+                }[level]
+                if inside:
+                    out.extend(exercise.id for exercise in lesson.exercises)
+        return out
 
     def __post_init__(self) -> None:
         # Reading time is computed here — at load, once per (locale, lesson) — and never per request:
@@ -200,7 +297,7 @@ class CourseRegistry:
         """Exercise ids in this module with a loaded, playable generator config — the exam-samplable set."""
         return [eid for eid in self.module_exercise_ids(module_id) if eid in self.exercise_configs]
 
-    def course_meta(self, locale: str) -> dict[str, str]:
+    def course_meta(self, locale: str) -> dict[str, str | None]:
         """Root course identity for the course-page header (localized)."""
         course = self.manifest.course
         return {
@@ -208,6 +305,7 @@ class CourseRegistry:
             "title": course.title.get(locale),
             "subtitle": course.subtitle.get(locale),
             "description": course.description.get(locale),
+            "lessonNoun": course.lesson_noun.get(locale) if course.lesson_noun else None,
         }
 
     def course_tree(
@@ -265,6 +363,7 @@ class CourseRegistry:
         self,
         localized: Callable[[LocalizedText], object],
         prose: Callable[[str], object],
+        extra: Callable[[str], dict[str, object]] = lambda _lesson_id: {},
     ) -> list[dict[str, object]]:
         """The export tree, with how to render a localized field left to the caller.
 
@@ -286,6 +385,7 @@ class CourseRegistry:
                                 "title": localized(lesson.title),
                                 "summary": localized(lesson.summary),
                                 "markdown": prose(lesson.id),
+                                **extra(lesson.id),
                             }
                             for lesson in module.lessons
                         ],
@@ -303,6 +403,12 @@ class CourseRegistry:
             "blocks": self._export_blocks(
                 lambda text: text.get(locale),
                 lambda lesson_id: _theory_only(self.markdown[locale][lesson_id]),
+                # A course that keeps its norms prints each «Normativa» norm with its title and date.
+                lambda lesson_id: (
+                    {"normativa": self.citations.normativa_payload(lesson_id, locale)}
+                    if self.citations.links
+                    else {}
+                ),
             ),
             "glossary": self.glossary_entries(locale),
         }
@@ -377,6 +483,8 @@ class CourseRegistry:
             "moduleTitle": loc.module.title.get(locale),
             "blockId": loc.block.id,
             "markdown": self.markdown[locale][lesson_id],
+            # The citations the web links, by their exact text; empty in a course without normativa.yaml.
+            "citations": self.citations.lesson_payload(lesson_id, locale),
             "completed": lesson_id in completed_lesson_ids,
             "readingSeconds": self.lesson_reading_seconds(lesson_id, locale),
             "exercises": [self._exercise_dict(ex) for ex in loc.lesson.exercises],
@@ -470,6 +578,7 @@ def load_registry(content_dir: Path) -> CourseRegistry:
             markdown[locale][lesson.id] = body
 
     exercise_configs = _load_exercise_configs(content_dir, manifest)
+    _check_case_lessons(manifest, exercise_configs)
     figures = load_figures(content_dir)
     _check_figure_files(content_dir, figures)
 
@@ -492,13 +601,68 @@ def load_registry(content_dir: Path) -> CourseRegistry:
     _check_glossary_never_coins(glossary, markdown)
     _check_summaries_never_coin(manifest, glossary, markdown)
 
-    return CourseRegistry(
+    try:
+        citations = CourseCitations.build(content_dir, manifest.course.id, markdown)
+    except ValueError as exc:
+        raise ContentError(str(exc)) from exc
+    citation_problems = citations.problems(_cited_questions(manifest, exercise_configs), languages[0])
+    if citation_problems:
+        raise ContentError("citation cross-references that do not hold: " + "; ".join(citation_problems))
+
+    registry = CourseRegistry(
         manifest=manifest,
         markdown=markdown,
         exercise_configs=exercise_configs,
         figures=figures,
         glossary=glossary,
+        citations=citations,
+        source_root=content_dir / "sources" if citations.links else None,
     )
+    exam_problems = check_presets(registry)
+    if exam_problems:
+        raise ContentError("exam presets the course cannot supply: " + "; ".join(exam_problems))
+    return registry
+
+
+def _cited_questions(
+    manifest: Manifest, exercise_configs: dict[str, tuple[ExerciseType, BaseModel]]
+) -> list[CitedQuestion]:
+    """Every question that carries a citation, with the lesson (display id) that must cite it too."""
+    lesson_ids = {lesson.key: lesson.id for _, lesson in manifest.iter_lessons()}
+    found: list[CitedQuestion] = []
+    for _module, lesson, exercise in manifest.iter_exercises():
+        config = exercise_configs.get(exercise.id)
+        if config is None:
+            continue
+        if isinstance(config[1], QuizConfig):
+            found += [
+                CitedQuestion(f"{exercise.id}/{v.id}", lesson.id, v.citation)
+                for v in config[1].variants
+                if v.citation
+            ]
+        elif isinstance(config[1], CaseConfig):
+            found += [
+                CitedQuestion(f"{exercise.id}/{q.id}", lesson_ids.get(q.lesson, q.lesson), q.citation)
+                for q in config[1].questions
+                if q.citation
+            ]
+    return found
+
+
+def _check_case_lessons(
+    manifest: Manifest, exercise_configs: dict[str, tuple[ExerciseType, BaseModel]]
+) -> None:
+    """Every case question names a lesson of this course (by key): that is where it counts and links."""
+    lesson_keys = {lesson.key for _, lesson in manifest.iter_lessons()}
+    unknown = [
+        f"{exercise_id}/{question.id} -> {question.lesson!r}"
+        for exercise_id, (_, config) in exercise_configs.items()
+        if isinstance(config, CaseConfig)
+        for question in config.questions
+        if question.lesson not in lesson_keys
+    ]
+    if unknown:
+        raise ContentError("case questions naming a lesson the course does not have: " + ", ".join(unknown))
 
 
 def _check_figure_files(content_dir: Path, figures: dict[str, FigureSpec]) -> None:

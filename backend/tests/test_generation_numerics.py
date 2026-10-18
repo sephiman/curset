@@ -13,7 +13,7 @@ from pathlib import Path
 import numpy as np
 import pytest
 
-from tradeschool.content.schema import LocalizedText
+from tradeschool.content.text import LocalizedText
 from tradeschool.exercises.charts import numerics
 from tradeschool.exercises.charts.indicators import squeeze_momentum
 from tradeschool.exercises.charts.patterns.registry import get_injector

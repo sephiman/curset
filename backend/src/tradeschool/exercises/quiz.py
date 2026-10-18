@@ -11,9 +11,9 @@ from collections.abc import Mapping
 from enum import StrEnum
 from typing import ClassVar, Literal, Self
 
-from pydantic import BaseModel, ConfigDict, model_validator
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
-from tradeschool.content.schema import LocalizedText
+from tradeschool.content.text import LocalizedText
 from tradeschool.exercises.base import (
     ExerciseGenerator,
     GeneratedInstance,
@@ -67,6 +67,12 @@ class QuizVariant(BaseModel):
     items: list[OrderItem] = []
     # matching
     pairs: list[MatchPair] = []
+    # Question metadata for test-only courses. Excluded from dumps so the Android bundle's configs and
+    # fingerprint stay byte-identical for the course that ships there.
+    #: The norm and article the question is answerable from, written as a lesson cites it («art. 67.2 CE»).
+    citation: str | None = Field(default=None, exclude=True)
+    difficulty: int | None = Field(default=None, ge=1, le=3, exclude=True)
+    tags: list[str] = Field(default_factory=list, exclude=True)
 
     @model_validator(mode="after")
     def _check(self) -> Self:

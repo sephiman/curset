@@ -9,7 +9,7 @@ import uuid
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, Query, Request
-from fastapi.responses import JSONResponse
+from fastapi.responses import FileResponse, JSONResponse
 from pydantic import BaseModel
 from sqlalchemy import delete, select
 from sqlalchemy.dialects.postgresql import insert as pg_insert
@@ -18,6 +18,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from tradeschool.attempts.models import Attempt, AttemptState
 from tradeschool.auth.backend import current_active_user
 from tradeschool.auth.models import User
+from tradeschool.citations.sources import SERVED_FOLDERS
 from tradeschool.content.models import LessonCompletion
 from tradeschool.content.print_export import build_print_exercises
 from tradeschool.content.registry import CourseRegistry
@@ -185,6 +186,31 @@ async def get_figure(
     if key not in cache:
         cache[key] = build_figure(spec, locale)
     return cache[key]
+
+
+@router.get("/sources/{folder}/{name}")
+async def get_source(
+    folder: str,
+    name: str,
+    user: Annotated[User, Depends(current_active_user)],
+    registry: Annotated[CourseRegistry, Depends(get_registry)],
+) -> FileResponse:
+    """A source the course cites (public official texts and saved pages), as a static file.
+
+    Saved HTML pages are third-party documents, so they are served sandboxed: nothing in them runs as
+    this site.
+    """
+    missing = AppError("SOURCE_NOT_FOUND", f"No source {folder}/{name}.", status_code=404)
+    if registry.source_root is None or folder not in SERVED_FOLDERS:
+        raise missing
+    base = (registry.source_root / folder).resolve()
+    path = (base / name).resolve()
+    if path.parent != base or not path.is_file():
+        raise missing
+    return FileResponse(
+        path,
+        headers={"Content-Security-Policy": "sandbox", "X-Content-Type-Options": "nosniff"},
+    )
 
 
 @router.get("/lessons/{lesson_id}")

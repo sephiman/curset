@@ -283,14 +283,23 @@ Open <http://localhost:5173>, register an account, and review the full course:
   taken (m19) and as a liquidation wick (m06), a stop-limit that gaps past its own limit and never fills
   (m24), and one complete trade with its level, entry, stop and target drawn (m27). Every reference is
   checked to resolve in both languages, and no spec may sit unembedded.
-- **Exams** (`/exams`): a sampled, graded run over the exercise bank — one question per module,
-  **global** (every module that has a bank, so the epilogue is skipped) or **per-block** (offered only
-  for blocks that have one), each instantiated with a fresh seed. One attempt per question, free
-  navigation, **no feedback until submission**; everything (your answer, the correct
-  answer, the worked solution) is revealed together at the end, with an overall + per-block/per-module
-  breakdown (no pass/fail). Sessions are resumable and their seeds persist, so old reviews reproduce
-  exactly. **Exam attempts are a separate lane** — they never touch practice statistics or course
-  mastery. Sampling, seeds and grading are server-side; no solution reaches the client mid-session.
+- **Exams** (`/exams`): each course declares its own exams as **presets** in `course.yaml` (see
+  `content/README.md`): parts, question count, source, time limit, penalty, blank rule, score range and
+  pass minimum, reserve questions, and "choose one case of N". The Exams tab lists them with title,
+  parts, question count and time. crypto-futures keeps the two it always had — **global** (one question
+  per module with a bank, so the epilogue is skipped) and **per-block** (offered only for blocks that have
+  one) — byte for byte (`backend/tests/goldens/crypto-exam-results.json`). One attempt per question, free
+  navigation, **no feedback until submission**; a timed preset runs on the server's clock and hands the
+  sitting in when it runs out. A scored preset shows the raw score (right − penalty × wrong) and the
+  transformed score (the CPS formula) per part and in total, and nothing about cut-offs; an unscored one
+  shows the share right per block and module (no pass/fail). The results page adds **«Por tema»**: every
+  lesson with questions in the sitting, grouped by module, blanks apart, sortable, with the two short lists
+  of where you shine and what to prepare — ranked only on lessons with three questions or more, by module
+  when fewer than three lessons qualify, and omitted when nothing does. Each question links back to its
+  lesson, at the paragraph that cites its article. Sessions store the preset id, version and rules they
+  were taken under, and their seeds, so old reviews reproduce exactly. **Exam attempts are a separate
+  lane** — they never touch practice statistics or course mastery. Sampling, seeds and grading are
+  server-side; no solution reaches the client mid-session.
 - **Progress** (`/stats`) informs and routes; it never rewards. Three rules keep it honest when there
   is barely any data yet. **Below ten observations a rate is a fraction, not a percentage** — "2/3 at
   first attempt", never "67%" — because one data point below ten moves a percentage by more than ten
@@ -305,6 +314,9 @@ Open <http://localhost:5173>, register an account, and review the full course:
   learners you subtract yourself and are reading one identifiable classmate's results — and the
   headcount it prints counts *people*, kept apart from the first-attempt observations the rate is
   computed over (one learner answering four exercises is four observations and one person).
+  The same **«Por tema»** table as an exam's results sits at the bottom, cumulative over every practice
+  attempt and every submitted exam of the course, with the same three-question rule for its lists; it
+  replaces nothing above it. A case's questions count as exercises of the lesson each one names.
   Every rate carries its own denominator, because two of them are counted over different populations:
   **accuracy is over answered attempts, first-attempt accuracy is over distinct exercises**, which is
   how "1 wrong · 100% first attempt" used to be printed as one self-contradicting line.
@@ -827,6 +839,17 @@ Module, lesson, exercise and glossary ids are unique **inside** a course only: t
 skeleton row by `(course_id, id)`, and every attempt and lesson
 completion carries its course. An attempt, an exam or a statistic therefore never shows up in another
 course.
+
+**Cases, citations, sources and esquemas.** A course may carry **case** exercises (supuestos
+prácticos): one scenario and 10–25 questions on it, answered in practice with the scenario kept in view
+(sticky beside the questions, collapsible on a phone), each question graded, reported and counted on
+its own. A course with `sources/normativa.yaml` gets **citation links**: every «(art. 67 CE)» in a lesson
+opens the consolidated text at the article (HTML) or page (PDF), served from the course's own
+`sources/normativa/` and `sources/otros/` at `/api/courses/{course}/sources/…` (saved HTML pages under
+a sandbox policy). An answered question links to its lesson at the paragraph that cites its article, and
+a question citing what its lesson never cites stops the course from loading. **Esquemas**
+(`:::esquema`) lay out a rule as a table, a timeline, a tree or a stepper on screen and as a table in the
+PDF, every row with its citation. Authoring rules for all four: `content/README.md`.
 
 **Active and selected courses.** At sign-up, after username and password, the learner ticks the
 courses that interest them. None is ticked by default, and continuing with none is fine. Account →

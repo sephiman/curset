@@ -2,7 +2,11 @@ import { createContext, useContext, type ReactNode } from "react";
 import Markdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
 import type { Root } from "mdast";
+import type { LessonCitation } from "@/api/course";
+import { annotateCitations } from "@/lib/citations/annotate";
 import { remarkBlockDirectives } from "@/lib/directives";
+import { remarkEsquema, type EsquemaCellRole, type EsquemaKind } from "@/lib/esquema";
+import { EsquemaBlock, EsquemaCell, EsquemaRow } from "@/lib/EsquemaBlock";
 import { annotateLesson, annotateLessonRefs } from "@/lib/glossary/annotate";
 import type { TermMatcher } from "@/lib/glossary/terms";
 import type { RefKind, RefRegistry, RefTarget } from "@/lib/refs/registry";
@@ -18,6 +22,11 @@ interface DirectiveNode {
 }
 
 function transform(node: DirectiveNode): void {
+  // An esquema already carries its own hast hints (`lib/esquema.ts`).
+  if (node.type === "containerDirective" && node.name === "esquema") {
+    for (const child of node.children ?? []) transform(child as DirectiveNode);
+    return;
+  }
   if (node.type === "containerDirective" || node.type === "leafDirective" || node.type === "textDirective") {
     const attrs = node.attributes ?? {};
     const data = (node.data ??= {});
@@ -58,6 +67,35 @@ function Callout({ tone, children }: { tone: string; children: ReactNode }) {
   );
 }
 
+/** A citation as the reader taps it: the source, opened beside the lesson; extra anchors ride along. */
+function Citation({ citation, children }: { citation: string; children: ReactNode }) {
+  const [href, ids, title] = JSON.parse(citation) as [string | null, string[], string | null];
+  const [id, ...more] = ids;
+  const anchors = more.map((extra) => <span key={extra} id={extra} className="scroll-mt-16" />);
+  if (!href) {
+    return (
+      <span id={id} className="scroll-mt-16">
+        {anchors}
+        {children}
+      </span>
+    );
+  }
+  return (
+    <a
+      id={id}
+      href={href}
+      title={title ?? undefined}
+      target="_blank"
+      rel="noreferrer"
+      data-citation-link=""
+      className="scroll-mt-16 text-primary underline decoration-dotted underline-offset-2 hover:decoration-solid"
+    >
+      {anchors}
+      {children}
+    </a>
+  );
+}
+
 function buildComponents(
   renderExercise: (exerciseId: string) => ReactNode,
   renderFigure: (figureId: string) => ReactNode,
@@ -67,6 +105,10 @@ function buildComponents(
   return {
     span: (props) => {
       const attrs = props as Record<string, unknown> & { children?: ReactNode };
+      const citation = attrs["data-citation"];
+      if (typeof citation === "string") return <Citation citation={citation}>{attrs.children}</Citation>;
+      const cell = attrs["data-esquema-cell"];
+      if (typeof cell === "string") return <EsquemaCell role={cell as EsquemaCellRole}>{attrs.children}</EsquemaCell>;
       const termId = attrs["data-term-id"];
       // Planted by the glossary annotator; anything else is a span the markdown itself asked for.
       if (typeof termId === "string") return <>{renderTerm(termId, attrs.children)}</>;
@@ -130,6 +172,16 @@ function buildComponents(
       if (typeof figureId === "string") return <>{renderFigure(figureId)}</>;
       const noteType = attrs["data-note-type"];
       if (typeof noteType === "string") return <Callout tone={noteType}>{attrs.children}</Callout>;
+      const esquemaKind = attrs["data-esquema-kind"];
+      if (typeof esquemaKind === "string") {
+        return (
+          <EsquemaBlock kind={esquemaKind as EsquemaKind} title={String(attrs["data-esquema-title"] ?? "")}>
+            {attrs.children}
+          </EsquemaBlock>
+        );
+      }
+      const row = attrs["data-esquema-row"];
+      if (typeof row === "string") return <EsquemaRow depth={Number(row)}>{attrs.children}</EsquemaRow>;
       return <div>{attrs.children}</div>;
     },
   };
@@ -151,6 +203,7 @@ export function LessonMarkdown({
   renderLessonRef = (_kind, _refId, children) => children,
   glossary,
   refs,
+  citations = [],
 }: {
   markdown: string;
   renderExercise: (exerciseId: string) => ReactNode;
@@ -159,14 +212,17 @@ export function LessonMarkdown({
   renderLessonRef?: (kind: RefKind, refId: string, children: ReactNode) => ReactNode;
   glossary?: { lessonId: string; terms: TermMatcher[] };
   refs?: { lessonId: string; registry: RefRegistry };
+  /** The lesson's citations as the backend found them; marked last, in place, never detected here. */
+  citations?: LessonCitation[];
 }) {
   const annotate = () => (tree: Root) => {
     if (glossary) annotateLesson(tree, { ...glossary, marked: new Set<string>() });
     if (refs) annotateLessonRefs(tree, refs);
+    if (citations.length > 0) annotateCitations(tree, citations);
   };
   return (
     <Markdown
-      remarkPlugins={[remarkGfm, remarkBlockDirectives, annotate, remarkDirectiveToHast]}
+      remarkPlugins={[remarkGfm, remarkBlockDirectives, remarkEsquema, annotate, remarkDirectiveToHast]}
       components={buildComponents(renderExercise, renderFigure, renderTerm, renderLessonRef)}
     >
       {markdown}

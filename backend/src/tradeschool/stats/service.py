@@ -16,7 +16,11 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from tradeschool.attempts.models import Attempt, AttemptState
 from tradeschool.content.models import LessonCompletion
-from tradeschool.content.registry import CourseRegistry
+from tradeschool.content.registry import CourseRegistry, StatUnit
+from tradeschool.exams.models import ExamSession
+from tradeschool.exams.results import counted_outcomes
+from tradeschool.exams.service import session_preset
+from tradeschool.stats.by_lesson import Outcome, lesson_table
 
 # A module is only rankable in "your costliest sections" once the learner has answered this many
 # *distinct* exercises in it. Modules carry four to six exercises, so below three the panel would be
@@ -78,12 +82,20 @@ async def _answered(session: AsyncSession, course_id: str, user_id: uuid.UUID | 
     return list((await session.scalars(stmt)).all())
 
 
-def _roll_by_exercise(attempts: list[Attempt]) -> dict[str, _ExerciseRoll]:
+#: A stat unit as attempts store it: the exercise KEY, plus the question for a case question.
+UnitKey = tuple[str, str | None]
+
+
+def _roll_by_exercise(attempts: list[Attempt]) -> dict[UnitKey, _ExerciseRoll]:
     # Keyed by the attempt's stored exercise KEY; manifest walks translate display -> key to read it.
-    rolls: dict[str, _ExerciseRoll] = defaultdict(_ExerciseRoll)
+    rolls: dict[UnitKey, _ExerciseRoll] = defaultdict(_ExerciseRoll)
     for a in attempts:
-        rolls[a.exercise_id].add(bool(a.is_correct))
+        rolls[(a.exercise_id, a.question_id)].add(bool(a.is_correct))
     return rolls
+
+
+def _unit_key(registry: CourseRegistry, unit: StatUnit) -> UnitKey:
+    return registry.exercise_key(unit.exercise_id), unit.question_id
 
 
 @dataclass
@@ -103,7 +115,10 @@ async def me_stats(
     session: AsyncSession, registry: CourseRegistry, user_id: uuid.UUID, locale: str
 ) -> dict[str, object]:
     rolls = _roll_by_exercise(await _answered(session, registry.slug, user_id))
-    passed = {key for key, roll in rolls.items() if roll.correct > 0}  # exercise KEYS
+    passed = {key for key, roll in rolls.items() if roll.correct > 0}  # unit KEYS
+    units_by_module: dict[str, list[StatUnit]] = defaultdict(list)
+    for unit in registry.stat_units():
+        units_by_module[unit.module_id].append(unit)
 
     completed_rows = await session.scalars(
         select(LessonCompletion.lesson_id).where(
@@ -130,11 +145,12 @@ async def me_stats(
         published_lessons += len(lesson_ids)
         completed_published += lessons_done
 
-        exercise_ids = registry.module_exercise_ids(module.id)
+        units = units_by_module[module.id]
         mod = _Agg()
         to_review: list[dict[str, object]] = []
-        for eid in exercise_ids:
-            roll = rolls.get(registry.exercise_key(eid))
+        for unit in units:
+            eid = unit.exercise_id
+            roll = rolls.get(_unit_key(registry, unit))
             if roll is None:
                 continue
             for agg in (mod, overall):
@@ -148,14 +164,16 @@ async def me_stats(
             # module's incorrect count sums over, so the drill-down reconciles with the number
             # printed beside it. Exam attempts cannot appear here: _answered() excluded them.
             if roll.answered - roll.correct > 0:
-                to_review.append(
-                    {
-                        "exerciseId": eid,
-                        "lessonId": registry.exercise_lesson_id(eid),
-                        "incorrect": roll.answered - roll.correct,
-                        "passed": roll.correct > 0,
-                    }
-                )
+                review: dict[str, object] = {
+                    "exerciseId": eid,
+                    # Where the player is: a case question is answered inside its case.
+                    "lessonId": registry.exercise_lesson_id(eid),
+                    "incorrect": roll.answered - roll.correct,
+                    "passed": roll.correct > 0,
+                }
+                if unit.question_id is not None:
+                    review["questionId"] = unit.question_id
+                to_review.append(review)
 
         module_rows.append(
             {
@@ -166,8 +184,8 @@ async def me_stats(
                 "lessonsTotal": len(lesson_ids),
                 "lessonsCompleted": lessons_done,
                 # Mastery (exercises).
-                "exercisesTotal": len(exercise_ids),
-                "exercisesPassed": sum(1 for eid in exercise_ids if registry.exercise_key(eid) in passed),
+                "exercisesTotal": len(units),
+                "exercisesPassed": sum(1 for unit in units if _unit_key(registry, unit) in passed),
                 "answered": mod.answered,
                 "accuracy": _ratio(mod.correct, mod.answered),
                 "firstAttemptAccuracy": _ratio(mod.first_correct, mod.first_seen),
@@ -181,7 +199,7 @@ async def me_stats(
                 "toReview": to_review,
             }
         )
-        if mod.answered - mod.correct > 0 and mod.first_seen >= _rank_threshold(len(exercise_ids)):
+        if mod.answered - mod.correct > 0 and mod.first_seen >= _rank_threshold(len(units)):
             costly_src.append((module.id, module.title.get(locale), mod, to_review))
 
     costly_src.sort(
@@ -234,45 +252,50 @@ async def me_stats(
 async def global_stats(session: AsyncSession, registry: CourseRegistry, locale: str) -> dict[str, object]:
     attempts = await _answered(session, registry.slug, None)
 
-    # earliest answered attempt per (user, exercise) — the first-attempt population.
-    first_seen: dict[tuple[uuid.UUID, str], bool] = {}
+    # earliest answered attempt per (user, unit) — the first-attempt population.
+    first_seen: dict[tuple[uuid.UUID, UnitKey], bool] = {}
     for a in attempts:
-        key = (a.user_id, a.exercise_id)
+        key = (a.user_id, (a.exercise_id, a.question_id))
         if key not in first_seen:
             first_seen[key] = bool(a.is_correct)
 
-    by_exercise: dict[str, _Agg] = defaultdict(_Agg)
+    by_exercise: dict[tuple[str, str | None], _Agg] = defaultdict(_Agg)
     by_module: dict[str, _Agg] = defaultdict(_Agg)
     # Distinct learners, counted apart from `first_seen` because they are different populations: one
     # learner answering four of a module's exercises is four first-attempt observations but still one
     # person. The rate is over the observations; the gate and the printed headcount are over people.
-    exercise_learners: dict[str, set[uuid.UUID]] = defaultdict(set)
+    exercise_learners: dict[tuple[str, str | None], set[uuid.UUID]] = defaultdict(set)
     module_learners: dict[str, set[uuid.UUID]] = defaultdict(set)
-    for (user_id, exercise_key), correct in first_seen.items():
+    module_of: dict[tuple[str, str | None], str] = {}
+    for (user_id, (exercise_key, question_id)), correct in first_seen.items():
         # The attempt row stores the KEY; everything from here out speaks display ids.
         exercise_id = registry.exercise_id_for_key(exercise_key)
-        loc = registry.exercise_location(exercise_id) if exercise_id else None
-        if exercise_id is None or loc is None:
+        lesson_id = registry.question_lesson_id(exercise_id, question_id) if exercise_id else None
+        location = registry.lesson_location(lesson_id) if lesson_id else None
+        if exercise_id is None or location is None:
             continue
-        _, module_id = loc
-        for agg in (by_exercise[exercise_id], by_module[module_id]):
+        unit = (exercise_id, question_id)
+        module_id = location.module.id
+        module_of[unit] = module_id
+        for agg in (by_exercise[unit], by_module[module_id]):
             agg.first_seen += 1
             agg.first_correct += 1 if correct else 0
-        exercise_learners[exercise_id].add(user_id)
+        exercise_learners[unit].add(user_id)
         module_learners[module_id].add(user_id)
 
     exercises = sorted(
         (
             {
                 "exerciseId": exercise_id,
-                "moduleId": (registry.exercise_location(exercise_id) or ("", ""))[1],
-                "learners": len(exercise_learners[exercise_id]),
+                **({"questionId": question_id} if question_id is not None else {}),
+                "moduleId": module_of[(exercise_id, question_id)],
+                "learners": len(exercise_learners[(exercise_id, question_id)]),
                 "firstSeen": agg.first_seen,
                 "firstCorrect": agg.first_correct,
                 "firstAttemptAccuracy": _ratio(agg.first_correct, agg.first_seen),
             }
-            for exercise_id, agg in by_exercise.items()
-            if len(exercise_learners[exercise_id]) >= MIN_LEARNERS_FOR_GLOBAL
+            for (exercise_id, question_id), agg in by_exercise.items()
+            if len(exercise_learners[(exercise_id, question_id)]) >= MIN_LEARNERS_FOR_GLOBAL
         ),
         key=lambda d: d["firstAttemptAccuracy"] if d["firstAttemptAccuracy"] is not None else 1.0,
     )
@@ -298,3 +321,38 @@ async def global_stats(session: AsyncSession, registry: CourseRegistry, locale: 
         "exercises": exercises,
         "modules": module_rows,
     }
+
+
+async def lesson_progress(
+    session: AsyncSession, registry: CourseRegistry, user_id: uuid.UUID, locale: str
+) -> dict[str, object]:
+    """The «Por tema» view over every practice attempt and every submitted exam of this course."""
+    outcomes: list[tuple[str, Outcome]] = []
+    for attempt in await _answered(session, registry.slug, user_id):
+        exercise_id = registry.exercise_id_for_key(attempt.exercise_id)
+        lesson_id = registry.question_lesson_id(exercise_id, attempt.question_id) if exercise_id else None
+        if lesson_id is not None:
+            outcomes.append((lesson_id, "correct" if attempt.is_correct else "wrong"))
+
+    exams = [
+        exam
+        for exam in await session.scalars(
+            select(ExamSession)
+            .where(ExamSession.user_id == user_id, ExamSession.course_id == registry.slug)
+            .order_by(ExamSession.created_at)
+        )
+        if exam.rules.get("status") == "submitted"
+    ]
+    by_exam: dict[uuid.UUID, list[Attempt]] = defaultdict(list)
+    if exams:
+        rows = await session.scalars(
+            select(Attempt)
+            .where(Attempt.exam_session_id.in_([exam.id for exam in exams]))
+            .order_by(Attempt.id)
+        )
+        for attempt in rows:
+            assert attempt.exam_session_id is not None
+            by_exam[attempt.exam_session_id].append(attempt)
+    for exam in exams:
+        outcomes += counted_outcomes(registry, exam, session_preset(registry, exam), by_exam[exam.id])
+    return lesson_table(registry, outcomes, locale)

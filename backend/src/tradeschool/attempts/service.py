@@ -13,9 +13,11 @@ from sqlalchemy import select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from tradeschool.attempts.models import Attempt, AttemptState
+from tradeschool.citations.course import QuestionLink
 from tradeschool.content.registry import CourseRegistry
 from tradeschool.errors import AppError
 from tradeschool.exercises.base import GeneratedInstance, GradeResult, InvalidAnswerError
+from tradeschool.exercises.case import question_seeds
 from tradeschool.exercises.registry import get_generator
 from tradeschool.exercises.types import ExerciseType
 
@@ -49,6 +51,17 @@ def _display_id(registry: CourseRegistry, attempt: Attempt) -> str:
     return registry.exercise_id_for_key(attempt.exercise_id) or attempt.exercise_id
 
 
+def _resolve_attempt(registry: CourseRegistry, attempt: Attempt) -> tuple[ExerciseType, object]:
+    """What grades this one attempt: its exercise, or — for a case question — that question's own quiz."""
+    exercise_type, config = _resolve(registry, _display_id(registry, attempt))
+    if attempt.question_id is None:
+        return exercise_type, config
+    found = registry.attempt_config(_display_id(registry, attempt), attempt.question_id)
+    if found is None:
+        raise AppError("EXERCISE_NOT_AVAILABLE", "This question is no longer available.", status_code=409)
+    return found
+
+
 async def open_attempt(
     session: AsyncSession,
     registry: CourseRegistry,
@@ -57,6 +70,10 @@ async def open_attempt(
     locale: str,
 ) -> OpenedAttempt:
     exercise_type, config = _resolve(registry, exercise_id)
+    if exercise_type is ExerciseType.CASE:
+        raise AppError(
+            "EXERCISE_IS_A_CASE", "A case is opened as a case, question by question.", status_code=409
+        )
     exercise_key = registry.exercise_key(exercise_id)  # attempts store the permanent key
     generator = get_generator(exercise_type)
     seed = secrets.randbelow(_SEED_SPACE)
@@ -96,6 +113,75 @@ async def open_attempt(
     )
 
 
+@dataclass
+class OpenedCaseQuestion:
+    attempt: Attempt
+    question_id: str
+    lesson_id: str | None
+    instance: GeneratedInstance
+
+
+@dataclass
+class OpenedCase:
+    exercise_id: str
+    title: str
+    scenario: str
+    questions: list[OpenedCaseQuestion]
+
+
+async def open_case(
+    session: AsyncSession,
+    registry: CourseRegistry,
+    user_id: uuid.UUID,
+    exercise_id: str,
+    locale: str,
+) -> OpenedCase:
+    """A case in practice: one open attempt per question, each graded on its own as it is answered."""
+    _resolve(registry, exercise_id)
+    case = registry.case_config(exercise_id)
+    if case is None:
+        raise AppError("EXERCISE_NOT_A_CASE", f"{exercise_id!r} is not a case.", status_code=409)
+    exercise_key = registry.exercise_key(exercise_id)
+    # Same abandoned rule as a single exercise: reopening a case abandons its unanswered questions.
+    await session.execute(
+        update(Attempt)
+        .where(
+            Attempt.user_id == user_id,
+            Attempt.course_id == registry.slug,
+            Attempt.exercise_id == exercise_key,
+            Attempt.state == AttemptState.OPEN,
+            Attempt.exam_session_id.is_(None),
+        )
+        .values(state=AttemptState.ABANDONED)
+    )
+    quiz = get_generator(ExerciseType.QUIZ)
+    opened: list[OpenedCaseQuestion] = []
+    seeds = question_seeds(secrets.randbelow(_SEED_SPACE), len(case.questions))
+    for question, seed in zip(case.questions, seeds, strict=True):
+        instance = quiz.generate(question.as_quiz(), seed, locale)
+        attempt = Attempt(
+            user_id=user_id,
+            course_id=registry.slug,
+            exercise_id=exercise_key,
+            question_id=question.id,
+            seed=seed,
+            instance_snapshot={
+                "type": ExerciseType.QUIZ.value,
+                "prompt": instance.prompt,
+                "payload": instance.payload,
+            },
+            state=AttemptState.OPEN,
+        )
+        session.add(attempt)
+        opened.append(
+            OpenedCaseQuestion(
+                attempt, question.id, registry.question_lesson_id(exercise_id, question.id), instance
+            )
+        )
+    await session.commit()
+    return OpenedCase(exercise_id, case.title.get(locale), case.scenario.get(locale), opened)
+
+
 async def load_owned(
     session: AsyncSession, registry: CourseRegistry, user_id: uuid.UUID, attempt_id: uuid.UUID
 ) -> Attempt:
@@ -118,7 +204,7 @@ async def submit_answer(
     if attempt.state != AttemptState.OPEN:
         raise AppError("ATTEMPT_ALREADY_RESOLVED", "This attempt is already resolved.", status_code=409)
 
-    exercise_type, config = _resolve(registry, _display_id(registry, attempt))
+    exercise_type, config = _resolve_attempt(registry, attempt)
     generator = get_generator(exercise_type)
     try:
         result = generator.grade(config, attempt.seed, answer, locale)  # type: ignore[arg-type]
@@ -151,7 +237,7 @@ async def review_attempt(
 ) -> AttemptReview:
     attempt = await load_owned(session, registry, user_id, attempt_id)
     display_id = _display_id(registry, attempt)
-    exercise_type, config = _resolve(registry, display_id)
+    exercise_type, config = _resolve_attempt(registry, attempt)
     generator = get_generator(exercise_type)
     # Replay the exact scenario from the seed, localized to the requested language.
     instance = generator.generate(config, attempt.seed, locale)  # type: ignore[arg-type]
@@ -165,6 +251,13 @@ async def review_attempt(
         result=result,
         exercise_id=display_id,
     )
+
+
+def answer_link(registry: CourseRegistry, attempt: Attempt, locale: str) -> QuestionLink | None:
+    """Where «Ver en la lección» goes once the attempt is answered; None while its answer is hidden."""
+    if attempt.state != AttemptState.ANSWERED:
+        return None
+    return registry.question_link(_display_id(registry, attempt), attempt.question_id, attempt.seed, locale)
 
 
 async def user_attempts(

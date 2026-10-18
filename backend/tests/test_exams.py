@@ -28,7 +28,7 @@ async def _module_order(client: AsyncClient, *, examinable_only: bool = False) -
 async def test_global_exam_covers_every_module_in_order(content_client: AsyncClient) -> None:
     await _auth(content_client)
     exam = (await content_client.post(f"{API}/exams", json={"scope": "global"})).json()
-    assert exam["scope"] == "global"
+    assert exam["presetId"] == "global"
     assert exam["status"] == "open"
 
     q_modules = [q["moduleId"] for q in exam["questions"]]
@@ -50,7 +50,7 @@ async def test_global_exam_covers_every_module_in_order(content_client: AsyncCli
 async def test_block_exam_scopes_to_one_block(content_client: AsyncClient) -> None:
     await _auth(content_client)
     exam = (await content_client.post(f"{API}/exams", json={"scope": "block", "blockId": "block-a"})).json()
-    assert exam["scope"] == "block" and exam["blockId"] == "block-a"
+    assert exam["presetId"] == "block" and exam["target"] == "block-a"
     assert {q["blockId"] for q in exam["questions"]} == {"block-a"}
     assert len(exam["questions"]) >= 1
 
@@ -66,14 +66,14 @@ async def test_a_block_exam_scores_per_block_and_reveals_unanswered(content_clie
     """
     await _auth(content_client)
     exam = (await content_client.post(f"{API}/exams", json={"scope": "block", "blockId": "block-f"})).json()
-    assert exam["scope"] == "block" and exam["blockId"] == "block-f"
+    assert exam["presetId"] == "block" and exam["target"] == "block-f"
     assert [q["moduleId"] for q in exam["questions"]] == ["m29", "m30", "m31", "m32", "m33", "m34"]
 
     submitted = (await content_client.post(f"{API}/exams/{exam['id']}/submit")).json()
     result = submitted["result"]
     assert result["total"] == 6
     assert result["blocks"] == [
-        {"blockId": "block-f", "title": submitted["blockTitle"], "correct": 0, "total": 6, "score": 0.0}
+        {"blockId": "block-f", "title": submitted["targetTitle"], "correct": 0, "total": 6, "score": 0.0}
     ]
     # Unanswered, so incorrect — but distinguishable from a wrong answer, and the solution is revealed.
     assert all(q["unanswered"] is True for q in submitted["questions"])
@@ -154,7 +154,8 @@ async def test_review_reproduces_exactly(content_client: AsyncClient) -> None:
     await content_client.post(f"{API}/exams/{exam['id']}/submit", json={})
     first = (await content_client.get(f"{API}/exams/{exam['id']}/review")).json()
     second = (await content_client.get(f"{API}/exams/{exam['id']}/review")).json()
-    # Seeds persist per attempt → the review is byte-stable across reloads.
+    # Seeds persist per attempt → the review is byte-stable across reloads (the server clock aside).
+    first.pop("serverNow"), second.pop("serverNow")
     assert first == second
     assert all(q["correctAnswer"] is not None for q in first["questions"])
 
@@ -183,7 +184,7 @@ async def test_history_lists_submitted_only(content_client: AsyncClient) -> None
     history = (await content_client.get(f"{API}/exams")).json()
     assert len(history) == 1
     row = history[0]
-    assert row["id"] == exam["id"] and row["scope"] == "block" and row["blockId"] == "block-a"
+    assert row["id"] == exam["id"] and row["presetId"] == "block" and row["target"] == "block-a"
     assert row["total"] >= 1 and 0.0 <= row["score"] <= 1.0
 
 

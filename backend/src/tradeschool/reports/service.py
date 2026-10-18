@@ -15,6 +15,7 @@ from tradeschool.attempts.models import Attempt, AttemptState
 from tradeschool.attempts.service import load_owned
 from tradeschool.auth.mail import Mailer
 from tradeschool.auth.models import User
+from tradeschool.citations.course import QuestionLink
 from tradeschool.content.registry import CourseRegistry
 from tradeschool.errors import AppError
 from tradeschool.exercises.quiz import QuizConfig, QuizGenerator
@@ -42,7 +43,8 @@ async def _reportable(
     """An answered multiple-choice attempt of this course; never one whose answer is still hidden."""
     attempt = await load_owned(session, registry, user.id, attempt_id)
     exercise_id = registry.exercise_id_for_key(attempt.exercise_id)
-    config = registry.get_exercise_config(exercise_id) if exercise_id else None
+    # A case question resolves to its own one-question quiz, so it is reportable like any other.
+    config = registry.attempt_config(exercise_id, attempt.question_id) if exercise_id else None
     # OPEN covers an exam in progress too: its attempts only become ANSWERED when it is submitted.
     if attempt.state != AttemptState.ANSWERED or config is None or config[0] is not ExerciseType.QUIZ:
         raise AppError("REPORT_NOT_AVAILABLE", "This question cannot be reported.", status_code=409)
@@ -81,7 +83,7 @@ async def file_report(
     await _check_limits(session, user.id, attempt.id)
 
     exercise_id = registry.exercise_id_for_key(attempt.exercise_id) or attempt.exercise_id
-    _, config = registry.get_exercise_config(exercise_id) or (None, None)
+    _, config = registry.attempt_config(exercise_id, attempt.question_id) or (None, None)
     assert isinstance(config, QuizConfig)
     generator = get_generator(ExerciseType.QUIZ)
     assert isinstance(generator, QuizGenerator)
@@ -90,7 +92,10 @@ async def file_report(
         config, attempt.seed, attempt.given_answer or dummy_answer(instance.payload), locale
     )
     location = registry.exercise_location(exercise_id)
+    # The player lives in the exercise's lesson; the question itself may belong to another (a case's).
     lesson_id = registry.exercise_lesson_id(exercise_id) or ""
+    question_link = registry.question_link(exercise_id, attempt.question_id, attempt.seed, locale)
+    case = registry.case_config(exercise_id)
 
     report = QuestionReport(
         user_id=user.id,
@@ -108,11 +113,21 @@ async def file_report(
         correct_answer=describe_correct(graded.correct_answer, locale),
         username=user.username,
         link=f"{public_url.rstrip('/')}/courses/{registry.slug}/lessons/{lesson_id}#ex-{exercise_id}",
+        case_title=case.title.get(locale) if case else None,
+        citation=question_link.citation if question_link else None,
+        lesson_anchor=_anchor_url(public_url, registry.slug, question_link),
     )
     session.add(report)
     await session.commit()
     await session.refresh(report)
     return report
+
+
+def _anchor_url(public_url: str, course: str, link: QuestionLink | None) -> str | None:
+    """The cited paragraph in its lesson, one click from the mail; None when the question cites nothing."""
+    if link is None or link.anchor is None:
+        return None
+    return f"{public_url.rstrip('/')}/courses/{course}/lessons/{link.lesson_id}#{link.anchor}"
 
 
 async def deliver_pending(sessionmaker: async_sessionmaker[AsyncSession], mailer: Mailer, to: str) -> int:

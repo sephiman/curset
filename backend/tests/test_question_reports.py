@@ -98,7 +98,7 @@ async def test_an_unanswered_question_cannot_be_reported(multi_client: AsyncClie
 
 async def test_an_exam_question_is_reportable_only_after_submission(multi_client: AsyncClient) -> None:
     await _sign_up(multi_client, "examinee")
-    exam = (await multi_client.post(f"{OPOS}/exams", json={"scope": "global"})).json()
+    exam = (await multi_client.post(f"{OPOS}/exams", json={"presetId": "tema", "target": "m01-l1"})).json()
     question = exam["questions"][0]["attemptId"]
     in_progress = await multi_client.post(f"{OPOS}/attempts/{question}/report", json={"message": MESSAGE})
     assert in_progress.status_code == 409

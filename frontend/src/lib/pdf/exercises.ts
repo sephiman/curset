@@ -43,17 +43,23 @@ export interface ExerciseLabels {
   marker: (raw: string) => string;
   /** A shaded zone's name (`band.<label>` -> `band.<kind>` -> raw), as the app resolves it. */
   zone: (label: string, kind: string) => string;
+  /** "Pregunta 2.4.3": one question of a printed case. */
+  caseQuestion: (number: string) => string;
 }
 
 /** `exerciseId` is not a pdfmake property; the renderer ignores it and the tests assert on it. */
 export interface ExerciseBlock extends ContentStack {
   exerciseId: string;
   exerciseNumber: string;
+  /** A case's question numbers, as printed — the bijection with its key is checked per question too. */
+  caseQuestions?: string[];
 }
 
 export interface AnswerEntry extends ContentStack {
   answerFor: string;
   exerciseNumber: string;
+  /** A case's answered question numbers, in the key's order. */
+  caseAnswers?: string[];
 }
 
 /** A captured exercise chart by id. MUST throw when missing — a chartless question is unanswerable. */
@@ -145,6 +151,17 @@ export function promptContent(markdown: string, source: string): Content[] {
   });
 }
 
+/** A case: its scenario, then each question under its own number with its lettered options. */
+function caseQuestions(exercise: PrintExercise, labels: ExerciseLabels): Content[] {
+  const body: Content[] = [...promptContent(exercise.payload.scenario ?? "", `${exercise.id}-scenario`)];
+  for (const item of exercise.payload.questions ?? []) {
+    body.push({ text: labels.caseQuestion(item.number), style: "exerciseHint", margin: [0, 6, 0, 2] });
+    body.push(...promptContent(item.prompt, `${exercise.id}-${item.id}`));
+    (item.payload.options ?? []).forEach((option, index) => body.push(optionLine(index, option.text ?? "")));
+  }
+  return body;
+}
+
 /** The statement: prompt, then whatever the reader chooses between. */
 function question(
   exercise: PrintExercise,
@@ -153,6 +170,7 @@ function question(
 ): Content[] {
   const body: Content[] = [...promptContent(exercise.prompt, exercise.id)];
   const kind = exercise.answer.kind;
+  if (kind === "case") return [...body, ...caseQuestions(exercise, labels)];
 
   if (exercise.isChart) {
     body.push(chartImage(exercise, chart));
@@ -208,6 +226,9 @@ export function exerciseBlock(
     margin: [0, 0, 0, 12],
     exerciseId: exercise.id,
     exerciseNumber: exercise.number,
+    ...(exercise.answer.kind === "case"
+      ? { caseQuestions: (exercise.payload.questions ?? []).map((item) => item.number) }
+      : {}),
   };
 }
 
@@ -263,6 +284,14 @@ export function answerLines(exercise: PrintExercise, labels: ExerciseLabels): st
     return lines;
   }
   switch (answer.kind) {
+    case "case": {
+      // Each question's options are its own; the key cites them against the question it printed.
+      const printed = new Map((exercise.payload.questions ?? []).map((item) => [item.id, item]));
+      return (answer.questions ?? []).map((key) => {
+        const options = printed.get(key.id)?.payload.options ?? [];
+        return `${key.number}  ${(key.optionIds ?? []).map((id) => cite(options, id)).join("; ")}`;
+      });
+    }
     case "true_false":
       return [answer.value ? labels.trueLabel : labels.falseLabel];
     case "ordering": {
@@ -329,6 +358,9 @@ export function answerEntry(exercise: PrintExercise, labels: ExerciseLabels): An
   if (exercise.answer.explanation) {
     stack.push({ text: `${labels.why}: ${exercise.answer.explanation}`, style: "answerAside" });
   }
+  for (const key of exercise.answer.questions ?? []) {
+    if (key.explanation) stack.push({ text: `${key.number} · ${labels.why}: ${key.explanation}`, style: "answerAside" });
+  }
   // An answer must never be split across a page turn from the number that addresses it. `unbreakable`
   // would do that too — and did, until it was found stranding the module heading above it: pdfmake
   // moves such a block during layout, and a moved block reports positions that make the heading look
@@ -341,6 +373,9 @@ export function answerEntry(exercise: PrintExercise, labels: ExerciseLabels): An
       margin: [0, 0, 0, 8],
       answerFor: exercise.id,
       exerciseNumber: exercise.number,
+      ...(exercise.answer.kind === "case"
+        ? { caseAnswers: (exercise.answer.questions ?? []).map((key) => key.number) }
+        : {}),
     },
     printedId(ANSWER_ID, exercise.id, 0),
   );

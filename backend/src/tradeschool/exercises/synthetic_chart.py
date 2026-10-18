@@ -13,7 +13,7 @@ from typing import ClassVar, Literal, Self
 import numpy as np
 from pydantic import BaseModel, ConfigDict, model_validator
 
-from tradeschool.content.schema import LocalizedText
+from tradeschool.content.text import LocalizedText
 from tradeschool.exercises.base import (
     ExerciseGenerator,
     GeneratedInstance,

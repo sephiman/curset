@@ -3,7 +3,9 @@ import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import type { TFunction } from "i18next";
-import { getGlobalStats, getMeStats, type ModuleStat, type ReviewTarget } from "@/api/stats";
+import { getGlobalStats, getLessonProgress, getMeStats, type ModuleStat, type ReviewTarget } from "@/api/stats";
+import { ByLessonTable } from "@/features/byLesson/ByLessonTable";
+import { useCourseTree } from "@/features/course/queries";
 import { Card, MiniBar, Spinner } from "@/components/ui/primitives";
 import { MIN_N_FOR_PERCENT, partitionModules, rate, rateShort } from "@/features/stats/format";
 import { scopeKey, useCourse } from "@/features/courses/CourseContext";
@@ -48,7 +50,7 @@ function ReviewLinks({ moduleId, targets }: { moduleId: string; targets: ReviewT
     <span className="inline-flex flex-wrap items-center gap-1">
       {shown.map((r) => (
         <Link
-          key={r.exerciseId}
+          key={`${r.exerciseId}/${r.questionId ?? ""}`}
           to={path(r.lessonId ? `/lessons/${r.lessonId}#ex-${r.exerciseId}` : `/modules/${moduleId}`)}
           title={t(r.passed ? "stats.reviewSolved" : "stats.reviewPending")}
           className={
@@ -57,7 +59,7 @@ function ReviewLinks({ moduleId, targets }: { moduleId: string; targets: ReviewT
               : "rounded border border-border px-1.5 py-0.5 font-mono text-xs text-primary hover:border-primary dark:border-gray-700"
           }
         >
-          {r.exerciseId}
+          {r.questionId ? `${r.exerciseId}/${r.questionId}` : r.exerciseId}
         </Link>
       ))}
       {extra > 0 && (
@@ -103,6 +105,11 @@ export function StatsPage() {
   // so a language switch has to refetch or the table keeps rendering the previous language's titles.
   const me = useQuery({ queryKey: ["stats", "me", ...scopeKey(scope)], queryFn: () => getMeStats(scope) });
   const global = useQuery({ queryKey: ["stats", "global", ...scopeKey(scope)], queryFn: () => getGlobalStats(scope) });
+  const byLesson = useQuery({
+    queryKey: ["stats", "byLesson", ...scopeKey(scope)],
+    queryFn: () => getLessonProgress(scope),
+  });
+  const { data: course } = useCourseTree();
   const [showUntouched, setShowUntouched] = useState(false);
 
   if (me.isLoading || !me.data) {
@@ -306,6 +313,16 @@ export function StatsPage() {
             </section>
           )}
         </>
+      )}
+      {/* Practice and every submitted exam together, by lesson. It replaces nothing above, and it shows
+          even before any practice, because exam answers count here and nowhere else on the page. */}
+      {byLesson.data && byLesson.data.groups.length > 0 && (
+        <Card className="space-y-2 p-4">
+          <p className="text-xs text-gray-500 dark:text-gray-400">
+            {t("byLesson.progressIntro", { noun: course?.course.lessonNoun ?? t("byLesson.lesson") })}
+          </p>
+          <ByLessonTable table={byLesson.data} noun={course?.course.lessonNoun} />
+        </Card>
       )}
     </div>
   );

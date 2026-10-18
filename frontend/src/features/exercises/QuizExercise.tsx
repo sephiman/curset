@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useId, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { Answer, AttemptPayload, Deferred, OptionView } from "@/api/exercises";
 import { Button } from "@/components/ui/primitives";
@@ -55,6 +55,9 @@ export function QuizExercise({
 }
 
 function SingleChoice({ options, pending, onSubmit, deferred }: { options: OptionView[] } & ControlProps) {
+  // One radio group per question: a shared name let a choice in one question clear another's on a page
+  // that shows several at once (a case, a lesson with two quizzes).
+  const group = useId();
   const [selected, setSelected] = useState<string | null>(
     deferred?.value && "optionId" in deferred.value ? deferred.value.optionId : null,
   );
@@ -69,7 +72,7 @@ function SingleChoice({ options, pending, onSubmit, deferred }: { options: Optio
           <label key={opt.id} className={cn(optionBase, selected === opt.id ? optionOn : optionOff)}>
             <input
               type="radio"
-              name="quiz-option"
+              name={group}
               className="mt-0.5"
               checked={selected === opt.id}
               onChange={() => choose(opt.id)}

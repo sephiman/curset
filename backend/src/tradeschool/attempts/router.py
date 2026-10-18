@@ -15,6 +15,7 @@ from tradeschool.attempts.schemas import (
     AttemptInstance,
     AttemptReviewResponse,
     AttemptSummary,
+    CaseInstance,
     GradeResponse,
 )
 from tradeschool.auth.backend import current_active_user
@@ -38,6 +39,18 @@ async def create_attempt(
     return AttemptInstance.from_opened(opened)
 
 
+@router.post("/exercises/{exercise_id}/case-attempts", response_model=CaseInstance, status_code=201)
+async def open_case(
+    exercise_id: str,
+    user: Annotated[User, Depends(current_active_user)],
+    session: Annotated[AsyncSession, Depends(get_async_session)],
+    registry: Annotated[CourseRegistry, Depends(get_registry)],
+    locale: ReadingLocale,
+) -> CaseInstance:
+    """Open a case: one attempt per question; each is answered through `/attempts/{id}/answer`."""
+    return CaseInstance.from_opened(await service.open_case(session, registry, user.id, exercise_id, locale))
+
+
 @router.post("/attempts/{attempt_id}/answer", response_model=GradeResponse)
 async def answer_attempt(
     attempt_id: uuid.UUID,
@@ -50,7 +63,7 @@ async def answer_attempt(
     attempt, result = await service.submit_answer(
         session, registry, user.id, attempt_id, payload.answer, locale
     )
-    return GradeResponse.build(attempt, result)
+    return GradeResponse.build(attempt, result, service.answer_link(registry, attempt, locale))
 
 
 @router.get("/attempts/{attempt_id}", response_model=AttemptReviewResponse)
@@ -62,7 +75,7 @@ async def review_attempt(
     locale: ReadingLocale,
 ) -> AttemptReviewResponse:
     review = await service.review_attempt(session, registry, user.id, attempt_id, locale)
-    return AttemptReviewResponse.build(review)
+    return AttemptReviewResponse.build(review, service.answer_link(registry, review.attempt, locale))
 
 
 @router.get("/attempts", response_model=list[AttemptSummary])

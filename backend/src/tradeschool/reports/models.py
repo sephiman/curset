@@ -37,6 +37,10 @@ class QuestionReport(Base):
     correct_answer: Mapped[str] = mapped_column(Text, nullable=False)
     username: Mapped[str] = mapped_column(String(32), nullable=False)
     link: Mapped[str] = mapped_column(Text, nullable=False)
+    # A case question carries its scenario's title; a cited question its citation and lesson anchor.
+    case_title: Mapped[str | None] = mapped_column(Text, nullable=True)
+    citation: Mapped[str | None] = mapped_column(Text, nullable=True)
+    lesson_anchor: Mapped[str | None] = mapped_column(String, nullable=True)
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), nullable=False, server_default=func.now(), index=True
     )
