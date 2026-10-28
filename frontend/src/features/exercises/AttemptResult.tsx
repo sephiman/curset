@@ -68,39 +68,36 @@ function renderCorrectAnswer(value: unknown, t: TFunction): ReactNode {
   return null;
 }
 
-export function AttemptResult({
-  correct,
+export function Verdict({ correct }: { correct: boolean }) {
+  const { t } = useTranslation();
+  return (
+    <div
+      className={cn(
+        "rounded-md px-3 py-2 text-sm font-medium",
+        correct
+          ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-950/50 dark:text-emerald-200"
+          : "bg-red-100 text-red-800 dark:bg-red-950/50 dark:text-red-200",
+      )}
+    >
+      {correct ? t("exercise.correct") : t("exercise.incorrect")}
+    </div>
+  );
+}
+
+/** The correct answer, the worked steps and the explanation, in that order. */
+export function SolutionBody({
   correctAnswer,
   solutionSteps,
   explanation,
-  hideVerdict = false,
 }: {
-  correct: boolean;
   correctAnswer: unknown;
   solutionSteps: string[];
   explanation: string | null;
-  // When the verdict is shown elsewhere (exam review's per-question badge, which distinguishes
-  // "unanswered" from "wrong"), skip the banner here to avoid a second, conflicting verdict.
-  hideVerdict?: boolean;
 }) {
   const { t } = useTranslation();
   const answer = renderCorrectAnswer(correctAnswer, t);
-
   return (
-    <div className="mt-4 space-y-3">
-      {!hideVerdict && (
-        <div
-          className={cn(
-            "rounded-md px-3 py-2 text-sm font-medium",
-            correct
-              ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-950/50 dark:text-emerald-200"
-              : "bg-red-100 text-red-800 dark:bg-red-950/50 dark:text-red-200",
-          )}
-        >
-          {correct ? t("exercise.correct") : t("exercise.incorrect")}
-        </div>
-      )}
-
+    <>
       {answer != null && (
         <div className="text-sm text-gray-700 dark:text-gray-300">
           <span className="font-medium">{t("exercise.correctAnswer")}:</span>
@@ -124,6 +121,29 @@ export function AttemptResult({
           <Prose markdown={explanation} />
         </div>
       )}
+    </>
+  );
+}
+
+export function AttemptResult({
+  correct,
+  correctAnswer,
+  solutionSteps,
+  explanation,
+  hideVerdict = false,
+}: {
+  correct: boolean;
+  correctAnswer: unknown;
+  solutionSteps: string[];
+  explanation: string | null;
+  // When the verdict is shown elsewhere (exam review's per-question badge, which distinguishes
+  // "unanswered" from "wrong"), skip the banner here to avoid a second, conflicting verdict.
+  hideVerdict?: boolean;
+}) {
+  return (
+    <div className="mt-4 space-y-3">
+      {!hideVerdict && <Verdict correct={correct} />}
+      <SolutionBody correctAnswer={correctAnswer} solutionSteps={solutionSteps} explanation={explanation} />
     </div>
   );
 }

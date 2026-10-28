@@ -28,6 +28,9 @@ source-index.json     GENERATED (scripts/index_sources.py): the page or anchor e
                       each sources/normativa/ file, with the file's sha256
 citations.*.txt       GENERATED, reviewed, frozen: every citation in the lessons, its anchors and where
                       it opens (backend/tests/test_citations.py)
+excerpts.json         GENERATED (scripts/extract_excerpts.py): per question, the cited text of the norm
+                      for the solution panel, or the reason it has none; the course does not load while
+                      a question lacks its entry or its entry was built for another citation
 ```
 
 ## Lesson markdown
@@ -426,6 +429,17 @@ without parentheses when the whole cell is citations that each name their norm (
 `regla 14.1 IOC; regla 5 IOC`): a table's «Cita» column anchors like prose. The PDF prints citations as text and adds each «Normativa» norm's
 title and consolidation date. Regenerate the index with `uv run python scripts/index_sources.py`
 whenever a file in `sources/normativa/` changes.
+
+Once a question is answered (and in a submitted exam's review) its «Ver solución» panel shows the
+correct option, the explanation, the cited text of the norm under «Art. 30.4 LPAC», then «Tema N:
+<title>», «Texto consolidado» and the report button. The text comes from `excerpts.json`, extracted at
+build time from the course's own copies: the cited apartado(s), else the whole unit, at most 200 words,
+with the whole article behind «Ver artículo completo» when it has at most 1,500; for a saved page in
+`sources/otros/`, at most two sentences of the paragraph under the cited label that hold what the
+explanation says, with the page's title and date from `fuentes.yaml`. Run
+`uv run python scripts/extract_excerpts.py` (after `index_sources.py`) whenever a question's citation or
+a source changes; it prints, per course, how many questions got an excerpt and why each other did not.
+A course without `normativa.yaml` shows the explanation only. The PDF does not print excerpts.
 
 ## Esquemas
 

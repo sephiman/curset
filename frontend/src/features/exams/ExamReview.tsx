@@ -5,15 +5,14 @@ import type { TFunction } from "i18next";
 import type { ExerciseType } from "@/api/course";
 import { reviewExam, type ExamQuestion, type ExamResult, type ExamSession, type NotGraded } from "@/api/exams";
 import { Badge, Card, Spinner } from "@/components/ui/primitives";
-import { AttemptResult } from "@/features/exercises/AttemptResult";
 import { ChartExercise } from "@/features/exercises/ChartExercise";
 import { cn } from "@/lib/cn";
 import { Prose } from "@/lib/markdown";
 import { scopeKey, useCourse } from "@/features/courses/CourseContext";
-import { ReportQuestion } from "@/features/reports/ReportQuestion";
 import { ProseReferenceHost } from "@/features/references/ProseReferenceHost";
 import { ByLessonTable } from "@/features/byLesson/ByLessonTable";
 import { LessonLink } from "@/features/exercises/LessonLink";
+import { SolutionPanel } from "@/features/exercises/SolutionPanel";
 import { useCourseTree } from "@/features/course/queries";
 import { scoreNumber, sittingName } from "@/features/exams/format";
 
@@ -259,10 +258,11 @@ export function ExamReview() {
               <div className="mt-2">
                 <Prose markdown={q.prompt} />
               </div>
-              <div className="mt-2 flex flex-wrap items-start gap-3">
-                {q.lessonId && <LessonLink lessonId={q.lessonId} anchor={q.lessonAnchor} citation={q.citation} />}
-                {(q.type === "quiz" || q.type === "case") && <ReportQuestion attemptId={q.attemptId} />}
-              </div>
+              {CHART_TYPES.has(q.type) && q.lessonId && (
+                <div className="mt-2 flex flex-wrap items-start gap-3">
+                  <LessonLink lessonId={q.lessonId} anchor={q.lessonAnchor} citation={q.citation} />
+                </div>
+              )}
               <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">
                 <span className="font-medium">{t("exam.yourAnswer")}:</span>{" "}
                 <span className={cn(q.unanswered && "text-gray-400 italic dark:text-gray-500")}>
@@ -272,11 +272,16 @@ export function ExamReview() {
               {CHART_TYPES.has(q.type) ? (
                 <ChartExercise type={q.type} payload={q.payload} result={result} hideVerdict={!!q.unanswered} />
               ) : (
-                <AttemptResult
+                <SolutionPanel
+                  attemptId={q.attemptId}
                   correct={result.correct}
                   correctAnswer={result.correctAnswer}
                   solutionSteps={result.solutionSteps}
                   explanation={result.explanation}
+                  excerpt={q.excerpt}
+                  noExcerpt={q.noExcerpt}
+                  lessonLink={q.lessonId ? { lessonId: q.lessonId, anchor: q.lessonAnchor, citation: q.citation } : null}
+                  reportable={q.type === "quiz" || q.type === "case"}
                   hideVerdict={!!q.unanswered}
                 />
               )}

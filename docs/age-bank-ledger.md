@@ -1,3 +1,111 @@
+# Questions without an excerpt (platform delta F, closed 2026-10-30)
+
+Bank change before commit (2026-10-30): **m06-l02-q350 dropped** (key «gráficos, tablas dinámicas y fórmulas» merged two
+items of `ms-excel-copilot.html`, which says «formas»), replaced by **m06-l02-q359** (Copilot in Excel, «Búsqueda web»);
+**m06-l03-q219 dropped** (distractor b, «La versión de Windows del equipo», arguably true: the page's Especificaciones del
+dispositivo list holds «una versión de Windows de 32 o 64 bits»), replaced by **m06-l03-q276** (what Acerca de shows
+right under the device name). Both replacements written by a sonnet writer and passed by a blind opus verifier on all
+five checks (q276 after one explanation fix); reports `bank/bloque-vi/m06-l02.r1.verify-1.md`, `m06-l03.r1.verify-1.md`;
+drops in `bank/bloque-vi/drops.tsv`. The rebuild moved m06-l02-q351 from exercise 10 to 9 (its text is unchanged).
+
+88 questions show the solution panel without the norm's or page's text: explanation, «Tema N» and source links,
+report button and «Sin extracto: …» with the reason. **extraction**: the build found no paragraph (21, unchanged since
+2026-10-29). **verifier**: a blind check found that no single paragraph of the saved copy holds the fact the key rests
+on, or the re-cited paragraph still fell short (67; `content/age-administrativo-c1/excerpt-exclusions.yaml`). No
+question text or key was changed. **Open for a later round:** give each a citable sentence (a saved page that states the
+fact in one paragraph, or a narrower annex unit for the code lists), then rebuild `excerpts.json`.
+
+| question | exercise | citation | why |
+|---|---|---|---|
+| `m01-l01-q010` | `m01-l01-ex-1` | fuente: `boe-analisis-ce.xml` | extraction: no paragraph of the page holds what the explanation says |
+| `m01-l06-q003` | `m01-l06-ex-1` | fuente: `oecd-recomendacion-gobierno-abierto-2017.pdf` | extraction: no paragraph of the page holds what the explanation says |
+| `m01-l06-q008` | `m01-l06-ex-1` | fuente: `oecd-recomendacion-gobierno-abierto-2017.pdf` | extraction: no paragraph of the page holds what the explanation says |
+| `m01-l06-q009` | `m01-l06-ex-1` | fuente: `oecd-recomendacion-gobierno-abierto-2017.pdf` | extraction: no paragraph of the page holds what the explanation says |
+| `m01-l06-q025` | `m01-l06-ex-2` | fuente: `transparencia-planes-anteriores.html` | extraction: no paragraph of the page holds what the explanation says |
+| `m01-l06-q026` | `m01-l06-ex-2` | fuente: `transparencia-planes-anteriores.html` | extraction: no paragraph of the page holds what the explanation says |
+| `m01-l06-q027` | `m01-l06-ex-2` | fuente: `transparencia-planes-anteriores.html` | extraction: no paragraph of the page holds what the explanation says |
+| `m01-l06-q032` | `m01-l06-ex-2` | fuente: `transparencia-iv-plan.pdf` | verifier: the blind check found the excerpt short of the fact (bloque I–II saved page) |
+| `m01-l06-q041` | `m01-l06-ex-2` | fuente: `transparencia-v-plan.pdf` | verifier: the blind check found the excerpt short of the fact (bloque I–II saved page) |
+| `m01-l06-q043` | `m01-l06-ex-3` | fuente: `un-res-70-1-agenda-2030.pdf` | extraction: no paragraph of the page holds what the explanation says |
+| `m01-l06-q049` | `m01-l06-ex-3` | fuente: `un-res-70-1-agenda-2030.pdf`; «Los Objetivos y las metas estimularán durante los próximos 15 años la acción en las siguientes esferas de importancia crítica pa ra la humanidad y el planeta.» | verifier: re-cited; the list the cited sentence opens is a run of sub-headings, which no paragraph holds |
+| `m01-l06-q054` | `m01-l06-ex-3` | fuente: `un-ods-objetivos.html` | extraction: no paragraph of the page holds what the explanation says |
+| `m01-l06-q055` | `m01-l06-ex-3` | fuente: `un-res-70-1-agenda-2030.pdf` | extraction: no paragraph of the page holds what the explanation says |
+| `m01-l06-q057` | `m01-l06-ex-3` | fuente: `un-ods-objetivos.html` | extraction: no paragraph of the page holds what the explanation says |
+| `m02-l02-q064` | `m02-l02-ex-4` | fuente: `cultura-dta-diccionario.html` | verifier: the blind check found the excerpt short of the fact (bloque I–II saved page) |
+| `m02-l02-q066` | `m02-l02-ex-4` | fuente: `cultura-dta-diccionario.html` | verifier: the blind check found the excerpt short of the fact (bloque I–II saved page) |
+| `m05-l02-q020` | `m05-l02-ex-1` | anexo II Orden HAC/557/2026 | verifier: annex code list: the fact is a neighbouring code line |
+| `m05-l02-q039` | `m05-l02-ex-1` | arts. 43.2 y 44.2 LGP | verifier: the key needs arts. 43.2 and 44.2 together |
+| `m05-l02-q064` | `m05-l02-ex-3` | art. 44.1 LGP | verifier: re-cited, but the blind re-check found the cited paragraph short of the fact |
+| `m05-l02-q066` | `m05-l02-ex-3` | anexo II Orden HAC/557/2026 | verifier: annex code list: the fact is a neighbouring code line |
+| `m05-l02-q067` | `m05-l02-ex-3` | anexo II Orden HAC/557/2026 | verifier: annex code list: the fact spans two capítulos |
+| `m05-l02-q070` | `m05-l02-ex-3` | anexo IV, art. 22, Resolución de 20-01-2014 | verifier: annex: the subconcepto sentence is beyond the excerpt |
+| `m05-l02-q278` | `m05-l02-ex-9` | art. 44.1 LGP | verifier: re-cited, but the blind re-check found the cited paragraph short of the fact |
+| `m05-l02-q282` | `m05-l02-ex-9` | anexo II Orden HAC/557/2026 | verifier: annex code list: the subconcepto is below the cited line |
+| `m05-l02-q309` | `m05-l02-ex-11` | anexo II Orden HAC/557/2026 | verifier: annex code list: the fact spans two capítulos |
+| `m05-l02-q310` | `m05-l02-ex-11` | anexo II Orden HAC/557/2026 | verifier: annex code list: the cited capítulos are far into the annex |
+| `m05-l03-q041` | `m05-l03-ex-2` | anexo I Orden de documentos contables | verifier: annex note beyond the excerpt |
+| `m05-l04-q058` | `m05-l04-ex-2` | anexo IV, art. 23, concepto 233, Resolución de 20-01-2014 | verifier: annex concepto text beyond the heading |
+| `m05-l04-q059` | `m05-l04-ex-2` | anexo II Orden HAC/557/2026 | verifier: annex code list: the subconcepto is far from the cited line |
+| `m05-l05-q007` | `m05-l05-ex-1` | anexo IV, introducción, Resolución de 20-01-2014 | verifier: annex introduction paragraph beyond the excerpt |
+| `m05-l06-q049` | `m05-l06-ex-2` | anexo I, nota 34.II.a.1, Orden de documentos contables | verifier: annex note sub-item beyond the excerpt |
+| `m05-l06-q050` | `m05-l06-ex-2` | anexo I, nota 34.II.a.1, Orden de documentos contables | verifier: annex note sub-item beyond the excerpt |
+| `m06-l01-q012` | `m06-l01-ex-1` | fuente: `ms-win32-processor-cache.html`; «Una caché de nivel 2 es un área de memoria externa que tiene un tiempo de acceso más rápido que la memoria RAM principal.» | verifier: re-cited, but the blind re-check found the cited paragraph short of the fact |
+| `m06-l01-q031` | `m06-l01-ex-1` | fuente: `nist-prefijos-binarios.html`; «Examples and comparisons with SI prefixes» | extraction: no paragraph of the page holds what the explanation says |
+| `m06-l01-q032` | `m06-l01-ex-1` | fuente: `nist-prefijos-binarios.html`; «Examples and comparisons with SI prefixes» | extraction: no paragraph of the page holds what the explanation says |
+| `m06-l01-q033` | `m06-l01-ex-1` | fuente: `nist-prefijos-binarios.html`; «Prefixes for binary multiples» | extraction: no paragraph of the page holds what the explanation says |
+| `m06-l01-q034` | `m06-l01-ex-2` | fuente: `nist-prefijos-binarios.html`; «Prefixes for binary multiples» | extraction: no paragraph of the page holds what the explanation says |
+| `m06-l01-q035` | `m06-l01-ex-2` | fuente: `nist-prefijos-binarios.html`; «Prefixes for binary multiples» | extraction: no paragraph of the page holds what the explanation says |
+| `m06-l01-q036` | `m06-l01-ex-2` | fuente: `nist-prefijos-binarios.html`; «Prefixes for binary multiples» | extraction: no paragraph of the page holds what the explanation says |
+| `m06-l01-q037` | `m06-l01-ex-2` | fuente: `nist-prefijos-binarios.html`; «Examples and comparisons with SI prefixes» | extraction: no paragraph of the page holds what the explanation says |
+| `m06-l01-q038` | `m06-l01-ex-2` | fuente: `nist-prefijos-binarios.html`; «Examples and comparisons with SI prefixes» | extraction: no paragraph of the page holds what the explanation says |
+| `m06-l01-q040` | `m06-l01-ex-2` | fuente: `nist-prefijos-binarios.html`; «Prefixes for binary multiples» | extraction: no paragraph of the page holds what the explanation says |
+| `m06-l01-q148` | `m06-l01-ex-5` | fuente: `ms-learn-equipos-almacenamiento.html`; «Tanto las unidades de disco duro como las unidades de estado sólido pueden contener mucha información.» | verifier: re-cited, but the blind re-check found the cited paragraph short of the fact |
+| `m06-l01-q174` | `m06-l01-ex-6` | fuente: `azure-vdi.html`; «Seis componentes clave de VDI» | verifier: writer: only the heading states the number six |
+| `m06-l01-q207` | `m06-l01-ex-7` | fuente: `ms-win-sistemas-archivos.html`; «Comparación de la funcionalidad del sistema de archivos» | verifier: writer: the key needs two separate table rows |
+| `m06-l01-q211` | `m06-l01-ex-7` | fuente: `ms-win-sistemas-archivos.html`; «Enlaces simbólicos — Sí — No — No — No» | verifier: re-cited, but the blind re-check found the cited paragraph short of the fact |
+| `m06-l01-q320` | `m06-l01-ex-10` | fuente: `incibe-glosario-ciberseguridad.pdf`; «Phishing» | verifier: writer: the synonym line is under six words and has no end punctuation |
+| `m06-l01-q344` | `m06-l01-ex-10` | fuente: `ms-cuenta-mfa.html`; «Algo que tiene: como un smartphone o una memoria USB segura.» | verifier: re-cited, but the blind re-check found the cited paragraph short of the fact |
+| `m06-l02-q004` | `m06-l02-ex-1` | fuente: `ms-win-atajos.html`; «Métodos abreviados de teclado con las teclas de Windows» | verifier: the sentence holding the fact is not one paragraph of the saved copy (split by markup or a PDF line break) |
+| `m06-l02-q005` | `m06-l02-ex-1` | fuente: `ms-win-opciones-inicio-sesion.html`; «Formas de iniciar sesión en Windows 11» | verifier: the sentence holding the fact is not one paragraph of the saved copy (split by markup or a PDF line break) |
+| `m06-l02-q206` | `m06-l02-ex-5` | fuente: `ms-win-barra-tareas.html`; «Widgets» | verifier: writer: the key is a short list item, apart from its intro |
+| `m06-l02-q211` | `m06-l02-ex-6` | fuente: `ms-win-barra-tareas.html`; «La configuración rápida proporciona una manera cómoda de acceder a la configuración usada con frecuencia y modificarla sin tener que navegar por los menús. Por ejemplo, puedes ajustar rápidamente el volumen, cambiar el brillo de la pantalla, cambiar Wi-Fi redes o activar las herramientas de accesibilidad.» | verifier: re-cited, but the blind re-check found the cited paragraph short of the fact |
+| `m06-l02-q217` | `m06-l02-ex-6` | fuente: `ms-win-notificaciones.html`; «Cómo funcionan las notificaciones» | verifier: writer: the key is a short list item, apart from its intro |
+| `m06-l02-q241` | `m06-l02-ex-7` | fuente: `ms-win-escritorios.html`; «En todos los escritorios: esta configuración mostrará todas las ventanas abiertas de todos los escritorios de la barra de tareas, independientemente del escritorio que esté usando actualmente. Esto puede ser útil si desea obtener acceso rápido a todas las aplicaciones abiertas sin cambiar de escritorio.» | verifier: re-cited, but the blind re-check found the cited paragraph short of the fact |
+| `m06-l02-q302` | `m06-l02-ex-8` | fuente: `ms-win-atajos.html`; «Escritorio y otros métodos abreviados generales» | extraction: no paragraph of the page holds what the explanation says |
+| `m06-l02-q304` | `m06-l02-ex-8` | fuente: `ms-win-menu-inicio.html`; «Mover Inicio a un lado» | verifier: writer: split between two list items |
+| `m06-l02-q335` | `m06-l02-ex-9` | fuente: `ms-copilot-introduccion.html`; «Introducción a Microsoft Copilot» | verifier: writer: three separate list items |
+| `m06-l02-q337` | `m06-l02-ex-9` | fuente: `ms-copilot-introduccion.html`; «Introducción a Microsoft Copilot» | verifier: the sentence holding the fact is not one paragraph of the saved copy (split by markup or a PDF line break) |
+| `m06-l03-q215` | `m06-l03-ex-6` | fuente: `ms-win-atajos.html`; «Métodos abreviados de teclado con las teclas de Windows» | verifier: the sentence holding the fact is not one paragraph of the saved copy (split by markup or a PDF line break) |
+| `m06-l03-q393` | `m06-l03-ex-11` | fuente: `ms-win-unidad-recuperacion.html`; «Crear una unidad de recuperación» | verifier: writer: a four-word list item apart from its intro |
+| `m06-l04-q131` | `m06-l04-ex-4` | fuente: `ms-word-coautoria-documentos.html`; «Si la coautoría no funciona» | verifier: writer: NOT question resting on five checks under five subheadings |
+| `m06-l04-q243` | `m06-l04-ex-6` | fuente: `ms-office-formatos-archivo.html`; «.dotm — Plantilla habilitada para macros de Word — Plantilla para crear nuevos archivos Word» | verifier: re-cited, but the blind re-check found the cited paragraph short of the fact |
+| `m06-l04-q343` | `m06-l04-ex-8` | fuente: `ms-word-cinta.html`; «Personalizar la cinta de opciones en Word» | verifier: the sentence holding the fact is not one paragraph of the saved copy (split by markup or a PDF line break) |
+| `m06-l04-q352` | `m06-l04-ex-8` | fuente: `ms-word-cinta.html`; «En la ventana Personalizar la cinta de opciones, seleccione Importar o exportar.» | verifier: re-cited, but the blind re-check found the cited paragraph short of the fact |
+| `m06-l05-q113` | `m06-l05-ex-4` | fuente: `ms-excel-formato-fecha.html`; «En Tipo, elija un formato de fecha. Se verá una vista previa de su formato en el cuadro Muestra, con la primera fecha de sus datos.» | verifier: re-cited, but the blind re-check found the cited paragraph short of the fact |
+| `m06-l06-q004` | `m06-l06-ex-1` | fuente: `ms-access-especificaciones.html`; «Número de caracteres de un nombre de campo — 64» | verifier: re-cited, but the blind re-check found the cited paragraph short of the fact |
+| `m06-l06-q405` | `m06-l06-ex-10` | fuente: `ms-access-funcion-conmutador.html`; «Función Conmutador» | verifier: writer: split between the intro and a short list item |
+| `m06-l06-q406` | `m06-l06-ex-10` | fuente: `ms-access-funcion-conmutador.html`; «La primera expresión verdadera tiene un valor correspondiente que es nulo.» | verifier: re-cited, but the blind re-check found the cited paragraph short of the fact |
+| `m06-l07-q003` | `m06-l07-ex-1` | fuente: `ms-outlook-agregar-cuenta.html`; «Agregar una cuenta de correo electrónico» | verifier: the sentence holding the fact is not one paragraph of the saved copy (split by markup or a PDF line break) |
+| `m06-l07-q008` | `m06-l07-ex-1` | fuente: `rfc5322-formato-mensaje.txt`; «3.4. Address Specification» | verifier: writer: the sentence is cut by an RFC page footer |
+| `m06-l07-q023` | `m06-l07-ex-1` | fuente: `ms-outlook-smime.html`; «Cifrar todos los mensajes con S/MIME en el nuevo Outlook» | verifier: the sentence holding the fact is not one paragraph of the saved copy (split by markup or a PDF line break) |
+| `m06-l07-q044` | `m06-l07-ex-2` | fuente: `ms-outlook-grupo-enviar.html`; «Enviar un correo electrónico a un grupo en el nuevo Outlook» | verifier: writer: split between two list items |
+| `m06-l07-q046` | `m06-l07-ex-2` | fuente: `ms-outlook-compartir-carpeta.html`; «En la sección Permisos , seleccione la lista desplegable Nivel de permisos y seleccione los permisos que desea conceder a este usuario. Si no está seguro del nivel de permisos que debe seleccionar, consulte la siguiente sección Comprender los permisos de uso compartido.» | verifier: re-cited, but the blind re-check found the cited paragraph short of the fact |
+| `m06-l07-q048` | `m06-l07-ex-2` | fuente: `ms-outlook-compartir-carpeta.html`; «En la sección Permisos , seleccione la lista desplegable Nivel de permisos y seleccione los permisos que desea conceder a este usuario. Si no está seguro del nivel de permisos que debe seleccionar, consulte la siguiente sección Comprender los permisos de uso compartido.» | verifier: re-cited, but the blind re-check found the cited paragraph short of the fact |
+| `m06-l07-q068` | `m06-l07-ex-3` | fuente: `ms-outlook-delegados.html`; «Opciones para delegar una carpeta» | verifier: writer: split between the intro and two list items |
+| `m06-l07-q159` | `m06-l07-ex-6` | fuente: `ms-outlook-procedimientos.html`; «Encontrar ese mensaje: búsqueda eficaz» | verifier: writer: route spread over three list items |
+| `m06-l07-q171` | `m06-l07-ex-6` | fuente: `ms-outlook-limpiar-conversacion.html`; «Cambiar las opciones de limpieza de la conversación» | verifier: writer: route spread over three list items |
+| `m06-l07-q311` | `m06-l07-ex-9` | fuente: `ms-outlook-graficos.html`; «Para insertar gráficos en mensajes en Outlook para PC, siga estos pasos.» | verifier: re-cited, but the blind re-check found the cited paragraph short of the fact |
+| `m06-l07-q332` | `m06-l07-ex-10` | fuente: `ms-outlook-reglas.html`; «Ejecutar reglas de bandeja de entrada en mensajes existentes en el nuevo Outlook para Windows» | verifier: writer: route spread over two list items |
+| `m06-l07-q349` | `m06-l07-ex-11` | fuente: `ms-outlook-listas-contactos.html`; «Seleccione Nuevo grupo de contactos en la cinta de opciones .» | verifier: re-cited, but the blind re-check found the cited paragraph short of the fact |
+| `m06-l08-q057` | `m06-l08-ex-3` | fuente: `rfc1122-capas-tcp-ip.txt`; «1.1.3 Internet Protocol Suite» | verifier: writer: the protocols are a bulleted list apart from the intro |
+| `m06-l08-q115` | `m06-l08-ex-4` | fuente: `ms-win-ping.html`; «/R — Especifica que se realiza un seguimiento de la ruta de acceso de ida y vuelta (disponible solo en IPv6).» | verifier: re-cited, but the blind re-check found the cited paragraph short of the fact |
+| `m06-l08-q205` | `m06-l08-ex-7` | fuente: `aepd-guia-cookies.pdf`; «2.1.3. Tipos de cookies según el plazo de tiempo que permanecen activadas» | verifier: the sentence holding the fact is not one paragraph of the saved copy (split by markup or a PDF line break) |
+| `m06-l08-q207` | `m06-l08-ex-7` | fuente: `aepd-guia-cookies.pdf`; «2.1.3. Tipos de cookies según el plazo de tiempo que permanecen activadas» | verifier: the sentence holding the fact is not one paragraph of the saved copy (split by markup or a PDF line break) |
+| `m06-l08-q210` | `m06-l08-ex-7` | fuente: `aepd-guia-cookies.pdf`; «2.1.3. Tipos de cookies según el plazo de tiempo que permanecen activadas» | verifier: the sentence holding the fact is not one paragraph of the saved copy (split by markup or a PDF line break) |
+| `m06-l08-q237` | `m06-l08-ex-8` | fuente: `ms-edge-inprivate.html`; «¿Qué hace Microsoft Edge con tus datos mientras te encuentras en InPrivate?» | verifier: writer: the negation lives only in the list's heading |
+| `m06-l08-q249` | `m06-l08-ex-8` | fuente: `ms-edge-extensiones.html`; «A la derecha de la ventana que se abre, seleccione Notificar abuso.» | verifier: re-cited, but the blind re-check found the cited paragraph short of the fact |
+| `m06-l08-q257` | `m06-l08-ex-9` | fuente: `aepd-guia-cookies.pdf`; «2.1.3. Tipos de cookies según el plazo de tiempo que permanecen activadas» | verifier: writer: the two types are in separate paragraphs |
+
 # R3 closing steps (2026-10-27 → 28)
 
 User's four closing items. Nothing committed.

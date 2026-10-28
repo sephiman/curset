@@ -11,6 +11,7 @@ from pydantic import BaseModel
 from tradeschool.attempts.models import Attempt, AttemptState
 from tradeschool.attempts.service import AttemptReview, OpenedAttempt, OpenedCase
 from tradeschool.citations.course import QuestionLink
+from tradeschool.citations.excerpt_store import MissingExcerpt, SolutionExcerpt, SolutionText
 from tradeschool.exercises.base import GradeResult
 
 
@@ -89,6 +90,46 @@ class LessonLinkOut(BaseModel):
         return cls(lessonId=link.lesson_id, anchor=link.anchor, citation=link.citation) if link else None
 
 
+class ExcerptOut(BaseModel):
+    """The cited text of the norm (or of a saved page) for the solution panel (delta F)."""
+
+    heading: str
+    text: str
+    #: The whole article behind «Ver artículo completo»; None when `text` is all of it or it is too long.
+    full: str | None
+    #: The article is too long to show: «Ver artículo completo» opens the source instead.
+    fullTooLong: bool
+    #: «Texto consolidado»: the source at the article or page.
+    href: str
+    attribution: str | None
+
+    @classmethod
+    def build(cls, excerpt: SolutionText | None) -> ExcerptOut | None:
+        if not isinstance(excerpt, SolutionExcerpt):
+            return None
+        return cls(
+            heading=excerpt.heading,
+            text=excerpt.text,
+            full=excerpt.full,
+            fullTooLong=excerpt.full_too_long,
+            href=excerpt.href,
+            attribution=excerpt.attribution,
+        )
+
+
+class NoExcerptOut(BaseModel):
+    """«Sin extracto»: why a question of a course with norms has no text, and the source it looked in."""
+
+    reason: str
+    href: str | None
+
+
+def missing_reason(excerpt: SolutionText | None) -> NoExcerptOut | None:
+    if not isinstance(excerpt, MissingExcerpt):
+        return None
+    return NoExcerptOut(reason=excerpt.reason, href=excerpt.href)
+
+
 class GradeResponse(BaseModel):
     attemptId: uuid.UUID
     correct: bool
@@ -96,9 +137,18 @@ class GradeResponse(BaseModel):
     solutionSteps: list[str]
     explanation: str | None
     lessonLink: LessonLinkOut | None = None
+    excerpt: ExcerptOut | None = None
+    #: Set instead of `excerpt` when the build found no text for the question: why, as a code.
+    noExcerpt: NoExcerptOut | None = None
 
     @classmethod
-    def build(cls, attempt: Attempt, result: GradeResult, link: QuestionLink | None = None) -> GradeResponse:
+    def build(
+        cls,
+        attempt: Attempt,
+        result: GradeResult,
+        link: QuestionLink | None = None,
+        excerpt: SolutionText | None = None,
+    ) -> GradeResponse:
         return cls(
             attemptId=attempt.id,
             correct=result.correct,
@@ -106,6 +156,8 @@ class GradeResponse(BaseModel):
             solutionSteps=result.solution_steps,
             explanation=result.explanation,
             lessonLink=LessonLinkOut.build(link),
+            excerpt=ExcerptOut.build(excerpt),
+            noExcerpt=missing_reason(excerpt),
         )
 
 
@@ -125,9 +177,13 @@ class AttemptReviewResponse(BaseModel):
     createdAt: datetime
     answeredAt: datetime | None
     lessonLink: LessonLinkOut | None = None
+    excerpt: ExcerptOut | None = None
+    noExcerpt: NoExcerptOut | None = None
 
     @classmethod
-    def build(cls, review: AttemptReview, link: QuestionLink | None = None) -> AttemptReviewResponse:
+    def build(
+        cls, review: AttemptReview, link: QuestionLink | None = None, excerpt: SolutionText | None = None
+    ) -> AttemptReviewResponse:
         a = review.attempt
         r = review.result
         return cls(
@@ -146,6 +202,8 @@ class AttemptReviewResponse(BaseModel):
             createdAt=a.created_at,
             answeredAt=a.answered_at,
             lessonLink=LessonLinkOut.build(link),
+            excerpt=ExcerptOut.build(excerpt),
+            noExcerpt=missing_reason(excerpt),
         )
 
 

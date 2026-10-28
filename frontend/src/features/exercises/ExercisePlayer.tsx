@@ -5,15 +5,13 @@ import type { ExerciseType } from "@/api/course";
 import { answerAttempt, createAttempt, type Answer, type AttemptInstance, type GradeResponse } from "@/api/exercises";
 import { Badge, Button, Card } from "@/components/ui/primitives";
 import { AttemptHistory } from "@/features/exercises/AttemptHistory";
-import { AttemptResult } from "@/features/exercises/AttemptResult";
 import { CalculationExercise } from "@/features/exercises/CalculationExercise";
 import { ChartExercise } from "@/features/exercises/ChartExercise";
 import { QuizExercise } from "@/features/exercises/QuizExercise";
 import { Prose } from "@/lib/markdown";
 import { cn } from "@/lib/cn";
 import { useCourse } from "@/features/courses/CourseContext";
-import { LessonLink } from "@/features/exercises/LessonLink";
-import { ReportQuestion } from "@/features/reports/ReportQuestion";
+import { SolutionPanel } from "@/features/exercises/SolutionPanel";
 
 const CHART_TYPES: ReadonlySet<ExerciseType> = new Set([
   "synthetic_chart",
@@ -105,11 +103,21 @@ export function ExercisePlayer({
               />
             )
           ) : (
-            <AttemptResult
+            <SolutionPanel
+              attemptId={instance.attemptId}
               correct={result.correct}
               correctAnswer={result.correctAnswer}
               solutionSteps={result.solutionSteps}
               explanation={result.explanation}
+              excerpt={result.excerpt}
+              noExcerpt={result.noExcerpt}
+              lessonLink={
+                result.lessonLink && (result.lessonLink.anchor || result.lessonLink.lessonId !== lessonId)
+                  ? result.lessonLink
+                  : null
+              }
+              // Multiple choice only, and only once answered: the report must never be a way to ask.
+              reportable={instance.type === "quiz"}
             />
           )}
           {result && (
@@ -117,15 +125,6 @@ export function ExercisePlayer({
               <Button variant="secondary" onClick={() => start.mutate()} disabled={start.isPending}>
                 {t("exercise.tryAgain")}
               </Button>
-              {result.lessonLink && (result.lessonLink.anchor || result.lessonLink.lessonId !== lessonId) && (
-                <LessonLink
-                  lessonId={result.lessonLink.lessonId}
-                  anchor={result.lessonLink.anchor}
-                  citation={result.lessonLink.citation}
-                />
-              )}
-              {/* Multiple choice only, and only once answered: the report must never be a way to ask. */}
-              {instance.type === "quiz" && <ReportQuestion key={instance.attemptId} attemptId={instance.attemptId} />}
             </div>
           )}
         </div>

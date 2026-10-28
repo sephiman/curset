@@ -1,6 +1,6 @@
 # Requirements delta — Curset platform: exam presets, grouped cases, source links, results by lesson
 
-Version 1.4 · 28 October 2026 · delta to docs/curset-multicourse-requirements.md. Four platform changes. A and B are required by the AGE course (docs/age-administrativo-course-requirements.md, R6.1 and R7.1) and precede that course's R5. C and D apply to every course and can run as their own rounds at any time after A.
+Version 1.5 · 29 October 2026 · delta to docs/curset-multicourse-requirements.md. Four platform changes. A and B are required by the AGE course (docs/age-administrativo-course-requirements.md, R6.1 and R7.1) and precede that course's R5. C and D apply to every course and can run as their own rounds at any time after A.
 
 ## A. Exam presets per course
 
@@ -55,11 +55,20 @@ Version 1.4 · 28 October 2026 · delta to docs/curset-multicourse-requirements.
 ## F. Solution panel with the norm's own text
 
 - F1 After a question is answered in practice (right or wrong), and for every question in the review of a submitted exam, a collapsed panel «Ver solución» opens with, in this order: the correct option marked; the explanation; the **cited text of the norm, verbatim**, under a heading with norm short name and article («Art. 30.4 LPAC»); then the links «Tema N: <title>» (to the lesson anchor, as in C1) and «Texto consolidado» (to the source at the article or page, as in C3). Never shown before answering; never in exam mode before submission.
-- F2 The excerpt is extracted at build time from the course's own snapshot (sources/normativa/ or sources/otros/), not fetched live, and stored with the exercise in the generated AST. Unit of extraction: the cited paragraph(s) when the citation names them («art. 30.4»), else the whole article; capped at 200 words with a «Ver artículo completo» expansion that shows the full article (capped at 1,500 words, else the link only). For HTML sources the article's element; for PDF sources the page text between the article heading and the next heading, via the existing page index; for saved documentation pages (bloque VI), the paragraph that contains the cited label, at most two sentences, with the page title and date as attribution.
+- F2 The excerpt is extracted at build time from the course's own snapshot (sources/normativa/ or sources/otros/), not fetched live, and stored with the exercise in the generated AST. Unit of extraction: the cited paragraph(s) when the citation names them («art. 30.4»), else the whole article; capped at 200 words with a «Ver artículo completo» expansion that shows the full article (capped at 1,500 words, else the link only). For HTML sources the article's element; for PDF sources the page text between the article heading and the next heading, via the existing page index; for saved documentation pages (bloque VI), the paragraph of the cited label's section that holds the fact: the whole paragraph when it is under 120 words, two sentences only when it is longer (amended 30 October 2026), with the page title and date as attribution.
 - F3 Build check: every question gets an excerpt or an explicit «no excerpt» marker with a reason (heading not found, source not text-extractable). The build report lists the no-excerpt questions per course; the round that adds this feature must bring age-administrativo-c1 to under 1 % no-excerpt, fixing the extractor or the citation form where it fails. A verifier samples 100 excerpts and confirms each contains the fact the key rests on; misses are extractor bugs, not content bugs.
 - F4 Esquema rows and «Lo que más cae» lines are not affected. Case questions (B) get the panel per question. The PDF does not print excerpts (the key section stays as it is).
 - F5 Courses without normativa.yaml (crypto-futures) show the panel with the explanation only; nothing else changes for them.
 - F6 Report link (8a) sits inside the panel, after the excerpt, so a reader who sees the norm and still disagrees can report with one click.
+
+## G. Exam clock, pause and time per question
+
+- G1 Every exam shows a clock: time used and, when the preset has a limit, time left. The clock counts only active time: it starts when the first question is shown and stops at submission.
+- G2 Pause: a preset declares `pause: between-questions | never`. With `between-questions`, a «Pausar» control is enabled only once the current question has been answered; pausing stops the clock and covers the questions (no reading while paused); «Reanudar» shows the next question. With `never` (the «Simulacro oficial» default) there is no pause control and leaving the page does not stop the clock. Practice presets («Tema», «Bloque N») default to `between-questions`.
+- G3 Per-question time: the time from a question being shown to its answer is recorded with the attempt (blank answers record the time until the learner moved on). Results page: total active time, time per part, and in the «Por tema» table (D1) the average time per question of each lesson; a per-question list in review with its time. Progress (D4) adds average time per question per lesson, cumulative, so the learner sees where they are slow as well as where they fail.
+- G4 Reload and loss of connection: the clock state is saved with the attempt on the server at every answer; reloading resumes with the correct time used; with `never`, time keeps running while the page is closed, as in the real exam.
+- G5 Time limit: when the preset has a limit, reaching it submits the exam automatically with the answers given, and the results say so. Reserve questions count inside the same limit.
+- G6 crypto-futures presets: pause `between-questions`, no limit unless declared; its goldens unchanged (times are not part of the goldens).
 
 ## Acceptance
 
@@ -69,4 +78,5 @@ Version 1.4 · 28 October 2026 · delta to docs/curset-multicourse-requirements.
 - An answered AGE question links to its lesson at the cited article's anchor; the citation in the lesson opens the consolidated text at the article (HTML) or page (PDF); a question citing an article its lesson does not cite fails the cross-reference check. crypto-futures shows no citation links and its goldens are unchanged.
 - A lesson with the four esquema kinds renders on web and in the PDF; an esquema row citing an article the prose does not cite fails the check with the row named.
 - An answered AGE question shows the solution panel with the verbatim cited text under its article heading, the tema link and the source link; a crypto-futures question shows the explanation only; fewer than 1 % of AGE questions lack an excerpt and each of those says why.
+- A practice exam can be paused only after answering; a simulation cannot; a reload resumes with the correct time; the results show total, per-part and per-question times and the per-lesson averages.
 - A submitted simulation shows the per-lesson table and the two lists; a tema exam of 20 questions shows the table only; the Progress tab shows the cumulative view; no lesson appears in a list with fewer than three questions.

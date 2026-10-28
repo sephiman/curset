@@ -60,6 +60,39 @@ export interface LessonLink {
   citation: string | null;
 }
 
+/** The cited text of the norm (or of a saved page) a solution panel shows; built with the course. */
+export interface SolutionExcerpt {
+  /** «Art. 30.4 LPAC», or the cited label of a saved page. */
+  heading: string;
+  /** Paragraphs separated by a blank line; at most 200 words, «[…]» marks a cut. */
+  text: string;
+  /** The whole article behind «Ver artículo completo»; null when `text` is all of it or it is too long. */
+  full: string | null;
+  /** The article is too long to show: «Ver artículo completo» opens the source instead. */
+  fullTooLong: boolean;
+  /** «Texto consolidado»: the source at the article or page. */
+  href: string;
+  /** A saved page's title and consultation date; null for a norm. */
+  attribution: string | null;
+}
+
+export type NoExcerptReason =
+  | "no-citation"
+  | "no-norm"
+  | "no-file"
+  | "not-text"
+  | "no-heading"
+  | "no-label"
+  | "no-match"
+  | "no-parse"
+  | "no-fact";
+
+/** «Sin extracto»: why, and the source the question cites when the course keeps it. */
+export interface NoExcerpt {
+  reason: NoExcerptReason;
+  href: string | null;
+}
+
 export interface AttemptPayload {
   // quiz — every quiz payload carries `kind`; calculation carries "multiple_choice".
   kind?: QuizKind | "multiple_choice";
@@ -109,11 +142,16 @@ export interface GradeResponse {
   solutionSteps: string[];
   explanation: string | null;
   lessonLink?: LessonLink | null;
+  excerpt?: SolutionExcerpt | null;
+  /** Set instead of `excerpt` when the course keeps norms but found no text for the question: why. */
+  noExcerpt?: NoExcerpt | null;
 }
 
 export interface AttemptReview extends AttemptInstance {
   questionId: string | null;
   lessonLink: LessonLink | null;
+  excerpt?: SolutionExcerpt | null;
+  noExcerpt?: NoExcerpt | null;
   givenAnswer: Record<string, unknown> | null;
   isCorrect: boolean | null;
   correctAnswer: unknown;

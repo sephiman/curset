@@ -63,7 +63,12 @@ async def answer_attempt(
     attempt, result = await service.submit_answer(
         session, registry, user.id, attempt_id, payload.answer, locale
     )
-    return GradeResponse.build(attempt, result, service.answer_link(registry, attempt, locale))
+    return GradeResponse.build(
+        attempt,
+        result,
+        service.answer_link(registry, attempt, locale),
+        service.answer_excerpt(registry, attempt),
+    )
 
 
 @router.get("/attempts/{attempt_id}", response_model=AttemptReviewResponse)
@@ -75,7 +80,11 @@ async def review_attempt(
     locale: ReadingLocale,
 ) -> AttemptReviewResponse:
     review = await service.review_attempt(session, registry, user.id, attempt_id, locale)
-    return AttemptReviewResponse.build(review, service.answer_link(registry, review.attempt, locale))
+    return AttemptReviewResponse.build(
+        review,
+        service.answer_link(registry, review.attempt, locale),
+        service.answer_excerpt(registry, review.attempt),
+    )
 
 
 @router.get("/attempts", response_model=list[AttemptSummary])

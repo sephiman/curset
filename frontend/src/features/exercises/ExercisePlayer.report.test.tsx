@@ -95,15 +95,15 @@ describe("the report link on a practice exercise", () => {
     expect(hasReportLink()).toBe(true);
   });
 
-  it("is a red button in the same row as Try again, where a reader looks after answering", async () => {
+  it("is a red button inside the solution panel, after the norm's text (delta F6)", async () => {
     opened = QUIZ;
     await mount("quiz");
     await act(async () => host.querySelector<HTMLInputElement>('input[type="radio"]')!.click());
     await clickButton(en.exercise.submit);
-    const buttons = [...host.querySelectorAll("button")];
-    const report = buttons.find((b) => b.textContent === en.report.link)!;
-    const tryAgain = buttons.find((b) => b.textContent === en.exercise.tryAgain)!;
-    expect(report.parentElement).toBe(tryAgain.parentElement);
+    const report = [...host.querySelectorAll("button")].find((b) => b.textContent === en.report.link)!;
+    const panel = host.querySelector("details")!;
+    expect(panel.querySelector("summary")).toHaveTextContent(en.solution.show);
+    expect(panel.contains(report)).toBe(true);
     expect(report.className).toContain("bg-red-600");
   });
 

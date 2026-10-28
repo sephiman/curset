@@ -14,6 +14,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from tradeschool.attempts.models import Attempt, AttemptState
 from tradeschool.citations.course import QuestionLink
+from tradeschool.citations.excerpt_store import SolutionText
 from tradeschool.content.registry import CourseRegistry
 from tradeschool.errors import AppError
 from tradeschool.exercises.base import GeneratedInstance, GradeResult, InvalidAnswerError
@@ -258,6 +259,13 @@ def answer_link(registry: CourseRegistry, attempt: Attempt, locale: str) -> Ques
     if attempt.state != AttemptState.ANSWERED:
         return None
     return registry.question_link(_display_id(registry, attempt), attempt.question_id, attempt.seed, locale)
+
+
+def answer_excerpt(registry: CourseRegistry, attempt: Attempt) -> SolutionText | None:
+    """The cited text of the norm for the solution panel; None while the attempt's answer is hidden."""
+    if attempt.state != AttemptState.ANSWERED:
+        return None
+    return registry.question_excerpt(_display_id(registry, attempt), attempt.question_id, attempt.seed)
 
 
 async def user_attempts(

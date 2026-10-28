@@ -295,3 +295,170 @@ Ledger open items this closes: bloque III item 2, bloque V item 3 (platform), bl
   `content/crypto-futures/` or `dist/` changed.
 - `ruff format` over the whole backend: HEAD was not clean outside `src/`; 35 files (scripts and tests) were
   reformatted, layout only. `ruff format --check .` is now clean.
+
+# Round F — solution panel with the norm's text (delta v1.4, section F, 2026-10-28)
+
+Nothing committed. F1–F6 built; the AGE course regenerated and verified on a sample.
+
+## Excerpt schema (`content/<slug>/excerpts.json`, from `scripts/extract_excerpts.py`)
+
+Generated at build time from the course's own snapshot (pypdf for PDFs, stdlib `html.parser` for HTML/XML,
+plain text for `.txt`); serving only reads it. Keyed by question: `<exercise key>/<variant or case question id>`.
+`sources` holds the sha256 of every file read (a test fails when one changes). Each question has its `citation`
+(as built, whitespace collapsed) and either `excerpt` or `none` (the reason).
+
+```json
+{"sources": {"sources/normativa/lpac-extracto.html": "462d…", "sources/otros/guia-recursos.html": "4522…"},
+ "questions": {
+  "m01-ex-1/plazo-alzada": {"citation": "art. 122.1 LPAC", "excerpt": {
+    "heading": "Art. 122.1 LPAC",
+    "text": "1. El plazo para la interposición del recurso de alzada será de un mes, si el acto fuera expreso.",
+    "full": "Artículo 122. Plazos.\n\n1. El plazo … expreso.\n\n2. El plazo máximo para dictar y notificar la resolución será de tres meses.",
+    "source": {"file": "sources/normativa/lpac-extracto.html", "fragment": "#a1-22"}}},
+  "m02-ex-2/recursos-19": {"citation": "fuente: `guia-recursos.html`; «Recursos administrativos»", "excerpt": {
+    "heading": "Recursos administrativos",
+    "text": "El recurso de alzada se dirige al órgano superior jerárquico. El de reposición, al mismo órgano que dictó el acto.",
+    "attribution": "Guía de recursos administrativos (fixture), consultado el 2026-10-28",
+    "source": {"file": "sources/otros/guia-recursos.html", "fragment": ""}}},
+  "m02-ex-2/recursos-20": {"citation": "fuente: `guia-recursos.html`; «Plazos de los recursos»", "none": "label not found"}}}
+```
+
+`text` has paragraphs separated by a blank line, at most 200 words (cut at a sentence end that keeps at least
+half, marked «[…]»). `full` is the whole unit with its heading, present only when it differs from `text` and has
+at most 1,500 words; `fullTooLong: true` when it has more (the web's «Ver artículo completo» then opens the
+source). Reasons: `the question cites nothing`, `the citation names no norm of normativa.yaml`, `the norm has no
+source file`, `source not text-extractable`, `heading not found`, `label not found`, `no paragraph of the page
+holds what the explanation says`, `citation not understood`.
+
+API: `GradeResponse`, `AttemptReviewResponse` (practice, case questions) and the exam review's questions carry
+`excerpt: {heading, text, full, fullTooLong, href, attribution} | null`; `href` is the served source with its
+fragment («Texto consolidado»). Null before answering, on an open exam, and in courses without `normativa.yaml`.
+
+Build check: `load_registry` fails for a course with `normativa.yaml` when `excerpts.json` is missing, a question
+has no entry, or an entry was built for another citation (`check_excerpts=False` only for the build script).
+
+## What moved where
+
+- Backend: `citations/excerpts.py` (pure extraction: PDF/HTML/text to paragraphs, unit and apartado location,
+  saved-page sentences, caps — the F2 contract is pinned in its docstring), `citations/excerpt_build.py` (build
+  time: every question → excerpt or reason), `citations/excerpt_store.py` (what serving reads),
+  `scripts/extract_excerpts.py` (writes the file, prints per-course counts and every no-excerpt with its reason).
+  `grammar.cited_parts` (apartados and letters a citation names inside a unit; the one parser still).
+  `sources.heading_unit` reads spelled-out article numbers («Artículo veintidós.», «Artículo veintinueve bis.»)
+  and two-word ordinals («Disposición transitoria vigésima sexta» → `dt-vigesimosexta`).
+- Frontend: `features/exercises/SolutionPanel.tsx` (collapsed `<details>` «Ver solución»: answer, explanation,
+  excerpt, «Tema N: título», «Texto consolidado», report), used by `ExercisePlayer`, `CaseExercise` and
+  `ExamReview`; `AttemptResult` split into `Verdict` + `SolutionBody`. i18n `solution.*` in es and en. Chart
+  exercises keep their inline result (they are not cited questions). PDF unchanged.
+- Fixture: `m02-ex-2` variants `recursos-19` (saved-page excerpt) and `recursos-20` (no excerpt: «label not
+  found») re-cited; `sources/otros/fuentes.yaml` added for the attribution; `excerpts.json` generated.
+- AGE: `excerpts.json` added; `source-index.json` regenerated (articles with spelled-out numbers now placed;
+  seven one-word ordinal entries such as `dt-vigesima` replaced by their compound forms); `citations.es.txt`:
+  133 rows gain a page fragment, nothing else moved (anchors and text unchanged).
+
+## AGE result (step 4)
+
+First build: 251 of 5,200 without excerpt (4.83 %): 231 «heading not found» (laws that spell article numbers,
+EUR-Lex/DOUE PDFs where every line ends in a space), 19 labels, 1 file. After the extractor fixes (no citation
+was changed): **21 of 5,200 (0.40 %)**, all «no paragraph of the page holds what the explanation says»: an XML
+listing (1), an English OECD PDF (3), Transparencia plan listings (3), UN pages where the fact is an aggregate (4),
+NIST tables in English (9), one Windows shortcuts table (1). Listed by the script; `test_excerpts.py` fails above 1 %.
+
+Verification (`docs/age-verification/excerpts/`): 100 at random, two blind opus verifiers: 94 yes, 1 full-only,
+5 no. Fixed: 4 of the 6 misses (table rows, dotted sub-apartados, doc-page steps) and 5 flags (BOE editorial
+notes, unaccented «CAPITULO», hard breaks after «artículo», list item without its opening). Open: item 7 (the fact
+is in another paragraph) and item 58 (the list item `&p` does not score). Details in `fixes.md`; no second
+verifier pass was run on the fixes.
+
+## Tests, CI, goldens, Android
+
+- Backend: `ruff check .`, `ruff format --check .`, `mypy src` (strict) clean; `pytest -n auto` 1,528 passed,
+  20 skipped (1,489 before; `test_excerpts.py` new). Crypto exam golden unchanged.
+- Frontend: `npm run build` clean; `npm test` 601 passed, 51 skipped (`SolutionPanel.test.tsx` 7 new, incl. the
+  running-exam test; the report test now asserts the button inside the panel, F6).
+- Android bundle re-exported to scratch: byte-identical to `dist/bundle`; label catalogs identical to `dist/i18n`.
+  `verify_golden_stability.py`: 90 fingerprints hold, digest `f0ae701b…bcaea`, unchanged. Nothing under
+  `content/crypto-futures/` or `dist/` changed.
+- Not done: the app was not run in a browser; the mobile layout (wrapping links, `break-words` text, full-width
+  `<details>`) is covered by markup only.
+
+## Interpretations
+
+1. «The paragraph that contains the cited label» for saved pages: the label locates the section; within it (or
+   on the whole page when the section does not hold it) the paragraph and up to two sentences are those holding
+   what the explanation quotes, else its first sentence's content words. Most labels are section headings, whose
+   own «paragraph» is the heading itself. A pick ending in «:» shows that sentence and the list item that matches.
+2. Cited letters narrow the excerpt to the apartado's opening and the letters only when the apartado exceeds
+   200 words; a whole unit longer than 200 words whose opening does not hold the explanation's quotation shows the
+   paragraph that does. Both keep the fact under the cap.
+3. A cited apartado missing under the first heading of its unit is looked for under a later one (an annexed
+   reglamento's own «Artículo 1»); an untitled preamble is the text between the enacting formula and the first
+   heading; «anexo IV, art. 63» is that article inside the annex.
+4. Heading: the citation as written, first letter capitalised («Art. 30.4 LPAC»); for a saved page, its label
+   (or the page title when cited without one). «Tema N» is the course's `lesson_noun` and the lesson's place in
+   its module; the link reads «Ver en la lección» while the course tree is loading.
+5. «Texto consolidado» reads «Página guardada» for a saved page. In the practice player, the lesson link inside
+   the panel follows C1 rule 7 (shown only when it leads somewhere). Exam review: chart questions keep their
+   separate «Ver en la lección» line and no panel.
+
+## Closing F (2026-10-29)
+
+- Items 7 and 58 fixed by extractor changes only (no citation touched); a second verifier pass and a 50-item
+  bloque VI sample found 5 further misses, all fixed and re-checked (`docs/age-verification/excerpts/fixes.md`,
+  `report-3.md` to `report-5.md`). Saved-page extraction now also weighs the explanation's first sentence (its
+  quotes, codes such as «&p», numbers, runs of words) and can show a two-part fact as «… […] …».
+- «Sin extracto»: `excerpts.json` keeps, for a question without text, the source it looked in
+  (`"source": {file, fragment}` next to `none`). The API ships `noExcerpt: {reason, href} | null` beside
+  `excerpt` (practice, cases, exam review); reason codes `no-citation`, `no-norm`, `no-file`, `not-text`,
+  `no-heading`, `no-label`, `no-match`, `no-parse`, worded in the `noExcerptReason` i18n namespace (es/en). The
+  panel then shows the explanation, «Tema N: …», «Página guardada» / «Texto consolidado», «Sin extracto: …» and
+  the report button. The 21 AGE questions are listed in `docs/age-bank-ledger.md` for a later round.
+- Tests: backend 1,530 passed, 20 skipped (`test_excerpts.py` adds the pinned-seed API test of a no-excerpt
+  question and a registry check over all 21); frontend 602 passed, 51 skipped. ruff, format, mypy (strict), tsc,
+  vite build clean. Android bundle and label catalogs identical; golden digest `f0ae701b…bcaea`, 90 fingerprints.
+
+## Bloque VI excerpts verified in full (2026-10-30)
+
+Decision of 2026-10-30, steps 1–5. Nothing committed.
+
+1. **F2 amended** for saved pages: the whole paragraph when it is under 120 words, two sentences only when longer
+   (`WHOLE_PARAGRAPH`; the delta's F2 text updated). The build also flags `links-only` (a cited label whose section
+   is only link titles) and `fallback` (nothing in the section matched; first paragraph shown); flags print in the
+   build report and sit in `excerpts.json` as `flag`.
+2. **Cited text as label.** A citation may now name the page's own text: `fuente: \`f.html\`; «<sentence>»` where the
+   sentence (six words or more, ending in «.», «:», «?» or «!») or the table row («cell — cell») is copied from one
+   paragraph of the page. The panel shows that paragraph or row under the nearest page heading; a row of a table with
+   three or more columns comes after the header row that names its columns; a lead-in ending in «:» brings the list it
+   opens. The rule applies only to such labels; no excerpt verified before it changed.
+3. **Full pass**: every bloque VI excerpt (1,843) plus the 12 bloque I saved-page excerpts the F2 amendment changed,
+   1,855 in 31 batches of 60, blind opus verifiers (`docs/age-verification/excerpts/full/`): 1,687 yes, 168 no, every
+   «no» with the fact on the page. 141 re-cited (130 by the verifier's quoted sentence, placed mechanically; 9 by a
+   sonnet writer; 2 norms re-cited to one article), question text and key unchanged, bank drafts edited and the
+   exercises rebuilt (only `citation:` lines and two anchor comments moved). Blind re-check of the re-cited
+   (`recheck/`): 113 yes on first check, 7 more after the lead-in rule; 21 still short → «sin extracto» (20 on re-check, 1 whose list is a run of sub-headings). The 12 bloque
+   I and 27 other bloque I–II saved-page excerpts the amendment touched were also checked (35 yes, 4 → «sin extracto»).
+   Accepted residual: **no bloque VI excerpt is shown that a blind verifier did not judge «yes»** (audited by text).
+4. **«Sin extracto»** for a verified miss: `content/<slug>/excerpt-exclusions.yaml` lists the question and the reason;
+   the build gives it `none` with the code `no-fact` («el verificador no encontró el dato en el extracto ni en otro
+   lugar de la página»). Count: 89 in the course (21 extraction, 68 verifier), bloque VI 57 of 1,853. The F3 test now
+   caps extraction failures at 1 % (21, 0.40 %) and reports verifier exclusions apart.
+5. **Norms (bloques I–V)**: a fresh sample of 100 (`report-8.md`): 96 yes, 1 full-only, 3 no (4 %), all in two kinds,
+   multi-article citations and annex code lists. Full pass of those kinds (56, `full-boe/`): 40 yes, 16 no; 2 re-cited
+   to the one article that holds the fact (then failed their re-check: the key needs both articles), 14 to «sin
+   extracto». The remaining norm kinds were not passed in full: their sample miss rate was 0 of 96.
+6. Sample 7's fixes, re-checked within the full pass: 255, 265, 271 and 280 yes; 240 (q036), 243 (q174), 260 (q205),
+   263 (q247) were misses there and went through re-citation or «sin extracto».
+
+Counts by bloque (questions, with excerpt, «sin extracto»): I 675/661/14, II 264/262/2, III 775/775/0, IV 988/988/0,
+V 645/629/16, VI 1,853/1,796/57. Content flags for the course round (not excerpt matters, keys unchanged):
+`full/content-flags.tsv` (m06-l02-q350 key wording vs the page; m06-l03-q219 a distractor close to the page's text).
+
+### Before commit (2026-10-30)
+
+- m06-l02-q350 dropped (key «fórmulas» where the page says «formas»), replaced by m06-l02-q359; m06-l03-q219 checked
+  blind: distractor b is arguably true by the page, so dropped and replaced by m06-l03-q276. Both replacements passed
+  the bank's five checks (`bank/bloque-vi/m06-l0[23].r1.verify-1.md`). Their excerpts are the page sentences the
+  verifiers quoted for the key. The rebuild moved m06-l02-q351 from exercise 10 to exercise 9; its text is unchanged,
+  but its key changed, so earlier practice attempts no longer point at it (the course is a draft).
+- Rebuilt: bloque VI 1,853 questions, 1,797 with excerpt, 56 «sin extracto»; course 88 (21 extraction, 67 verifier).
+  Excerpt audit: 1,843 saved-page excerpts shown, 0 not judged «yes».

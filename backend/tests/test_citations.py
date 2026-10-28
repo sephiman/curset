@@ -454,7 +454,7 @@ def _cite_in_first_delegacion_question(course: Path, citation: str) -> None:
 def test_a_question_citing_a_source_file_its_lesson_cites_opens_at_that_citation(tmp_path: Path) -> None:
     course = _copy(tmp_path)
     _cite_in_first_delegacion_question(course, "fuente: `guia-recursos.html`")
-    registry = load_registry(course)
+    registry = load_registry(course, check_excerpts=False)  # the re-cited question's excerpt is stale
     link = registry.citations.question_link("m02-l1", "fuente: `guia-recursos.html`", "es")
     assert link.anchor == "fuente-guia-recursos-html"
 
@@ -463,7 +463,7 @@ def test_a_question_citing_a_source_file_with_its_label_opens_at_that_file(tmp_p
     citation = "fuente: `guia-recursos.html`; «Recurso de alzada»"
     course = _copy(tmp_path)
     _cite_in_first_delegacion_question(course, citation)
-    registry = load_registry(course)
+    registry = load_registry(course, check_excerpts=False)  # the re-cited question's excerpt is stale
     link = registry.citations.question_link("m02-l1", citation, "es")
     assert link.anchor == "fuente-guia-recursos-html"
 

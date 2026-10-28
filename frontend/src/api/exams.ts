@@ -1,6 +1,6 @@
 import { apiClient, courseUrl, inReadingLanguage, type CourseScope } from "@/api/client";
 import type { ExerciseType } from "@/api/course";
-import type { Answer, AttemptPayload } from "@/api/exercises";
+import type { Answer, AttemptPayload, NoExcerpt, SolutionExcerpt } from "@/api/exercises";
 import type { LessonTable } from "@/api/stats";
 
 export type ExamStatus = "open" | "submitted" | "abandoned";
@@ -28,6 +28,8 @@ export interface ExamQuestion {
   // Reveal-only (submitted review):
   lessonAnchor: string | null;
   citation: string | null;
+  excerpt?: SolutionExcerpt | null;
+  noExcerpt?: NoExcerpt | null;
   isCorrect: boolean | null;
   unanswered: boolean | null;
   correctAnswer: unknown;

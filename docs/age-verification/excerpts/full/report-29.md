@@ -1,0 +1,28 @@
+# Batch 29 (verifier B5): 38 yes, 22 no
+
+Saved by the coordinator from the verifier's returned text; unlisted rows are «yes». Shared cause: all RFC 1122 items (1720–1727) got the section's opening sentence; several RFC 1918 and Internet-history items got a generic excerpt.
+
+| n | key | verdict | where |
+|---|---|---|---|
+| 1683 | m06-l08-ex-1/m06-l08-q019 | no | `isoc-historia-internet.html`, «Origins of the Internet»: «…an RFQ was released by DARPA for the development of one of the key components, the packet switches called Interface Message Processors (IMP's).» |
+| 1684 | m06-l08-ex-1/m06-l08-q020 | no | `isoc-historia-internet.html`, «Origins of the Internet»: «In October 1972, Kahn organized a large, very successful demonstration of the ARPANET at the International Computer Communication Conference (ICCC).» |
+| 1687 | m06-l08-ex-1/m06-l08-q024 | no | `isoc-historia-internet.html`, «The Role of Documentation»: «These memos were intended to be an informal fast distribution way to share ideas with other network researchers.» |
+| 1691 | m06-l08-ex-2/m06-l08-q028 | no | `isoc-historia-internet.html`, «Origins of the Internet»: «The result of this experiment was the realization that the time-shared computers could work well together, running programs and retrieving data as necessary on the remote machine, but that the circuit switched telephone system was totally inadequate for the job.» |
+| 1692 | m06-l08-ex-2/m06-l08-q029 | no | `isoc-historia-internet.html`, «The Initial Internetting Concepts»: «Connecting the two together was far more economical that duplicating these very expensive computers.» |
+| 1693 | m06-l08-ex-2/m06-l08-q030 | no | `isoc-historia-internet.html`, «The Initial Internetting Concepts»: «Each distinct network would have to stand on its own and no internal changes could be required to any such network to connect it to the Internet.» |
+| 1694 | m06-l08-ex-2/m06-l08-q031 | no | `isoc-historia-internet.html`, «The Initial Internetting Concepts»: «If a packet didn't make it to the final destination, it would shortly be retransmitted from the source.» |
+| 1696 | m06-l08-ex-2/m06-l08-q033 | no | `isoc-historia-internet.html`, «Proving the Ideas»: «…and Class C represented local area networks (large number of networks with relatively few hosts).» |
+| 1698 | m06-l08-ex-2/m06-l08-q035 | no | `isoc-historia-internet.html`, «Transition to Widespread Infrastructure»: «He worked with the community to help NSF make a critical decision – that TCP/IP would be mandatory for the NSFNET program.» |
+| 1699 | m06-l08-ex-2/m06-l08-q036 | no | `isoc-historia-internet.html`, «Proving the Ideas»: «…and the Domain Name System (DNS) was invented by Paul Mockapetris of USC/ISI.» |
+| 1700 | m06-l08-ex-2/m06-l08-q037 | no | `isoc-historia-internet.html`, «Proving the Ideas»: «The shift to having a large number of independently managed networks (e.g., LANs) meant that having a single table of hosts was no longer feasible, and the Domain Name System (DNS) was invented by Paul Mockapetris of USC/ISI.» |
+| 1720 | m06-l08-ex-3/m06-l08-q057 | no | `rfc1122-capas-tcp-ip.txt`, «1.1.3 Internet Protocol Suite»: «The most common Internet user protocols are: o Telnet (remote login) o FTP (file transfer) o SMTP (electronic mail delivery)» |
+| 1721 | m06-l08-ex-3/m06-l08-q058 | no | `rfc1122-capas-tcp-ip.txt`, «1.1.3 Internet Protocol Suite»: «There are two primary transport layer protocols at present: o Transmission Control Protocol (TCP) o User Datagram Protocol (UDP)» |
+| 1722 | m06-l08-ex-3/m06-l08-q059 | no | `rfc1122-capas-tcp-ip.txt`, «1.1.3 Internet Protocol Suite»: «The Internet layer protocols IP, ICMP, and IGMP are discussed in Chapter 3.» |
+| 1723 | m06-l08-ex-3/m06-l08-q060 | no | `rfc1122-capas-tcp-ip.txt`, «1.1.3 Internet Protocol Suite»: «IP is a connectionless or datagram internetwork service, providing no end-to-end delivery guarantees.» |
+| 1724 | m06-l08-ex-3/m06-l08-q061 | no | `rfc1122-capas-tcp-ip.txt`, «1.1.3 Internet Protocol Suite»: «ICMP provides error reporting, congestion reporting, and first-hop gateway redirection.» |
+| 1725 | m06-l08-ex-3/m06-l08-q062 | no | `rfc1122-capas-tcp-ip.txt`, «1.1.3 Internet Protocol Suite»: «The application layer of the Internet suite essentially combines the functions of the top two layers -- Presentation and Application -- of the OSI reference model.» |
+| 1726 | m06-l08-ex-3/m06-l08-q063 | no | `rfc1122-capas-tcp-ip.txt`, «1.1.3 Internet Protocol Suite»: «Support protocols, used for host name mapping, booting, and management, include SNMP, BOOTP, RARP, and the Domain Name System (DNS) protocols.» |
+| 1727 | m06-l08-ex-3/m06-l08-q064 | no | `rfc1122-capas-tcp-ip.txt`, «1.1.3 Internet Protocol Suite»: «UDP is a connectionless ("datagram") transport service.» |
+| 1729 | m06-l08-ex-3/m06-l08-q066 | no | `rfc1918-direcciones-privadas.txt`, «3. Private Address Space»: «Note that (in pre-CIDR notation) the first block is nothing but a single class A network number, while the second block is a set of 16 contiguous class B network numbers, and third block is a set of 256 contiguous class C network numbers.» |
+| 1730 | m06-l08-ex-3/m06-l08-q068 | no | `rfc1918-direcciones-privadas.txt`, «3. Private Address Space»: «Private hosts can communicate with all other hosts inside the enterprise, both public and private. However, they cannot have IP connectivity to any host outside of the enterprise.» |
+| 1731 | m06-l08-ex-3/m06-l08-q069 | no | `rfc1918-direcciones-privadas.txt`, «3. Private Address Space»: «Moving a host from private to public or vice versa involves a change of IP address, changes to the appropriate DNS entries, and changes to configuration files on other hosts that reference the host by IP address.» |

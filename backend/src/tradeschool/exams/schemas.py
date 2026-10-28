@@ -9,6 +9,7 @@ from typing import Literal, Self
 
 from pydantic import BaseModel, model_validator
 
+from tradeschool.attempts.schemas import ExcerptOut, NoExcerptOut, missing_reason
 from tradeschool.content.registry import CourseRegistry
 from tradeschool.exams.draw import counted_questions, preset_targets
 from tradeschool.exams.models import ExamSession
@@ -68,6 +69,8 @@ class ExamQuestionOut(BaseModel):
     # Reveal-only (populated on a submitted session's review):
     lessonAnchor: str | None = None
     citation: str | None = None
+    excerpt: ExcerptOut | None = None
+    noExcerpt: NoExcerptOut | None = None
     isCorrect: bool | None = None
     unanswered: bool | None = None
     correctAnswer: object | None = None
@@ -95,6 +98,8 @@ class ExamQuestionOut(BaseModel):
             reserve=q.reserve,
             lessonAnchor=q.lesson_anchor,
             citation=q.citation,
+            excerpt=ExcerptOut.build(q.excerpt),
+            noExcerpt=missing_reason(q.excerpt),
             isCorrect=q.is_correct,
             unanswered=q.unanswered if q.result is not None else None,
             correctAnswer=q.result.correct_answer if q.result else None,

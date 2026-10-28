@@ -16,16 +16,24 @@ import re
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from tradeschool.citations.grammar import LATIN, ORDINAL_WORD, Unit
+from tradeschool.citations.grammar import LATIN, ORDINAL_WORD, Unit, slug
 
 INDEX_FILE = "source-index.json"
 SERVED_FOLDERS = ("normativa", "otros")
 
 _HEADINGS: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(rf"^\s*Art[íi]culo\s+(\d+)(?:\s+({LATIN}))?\b"), "art"),
+    # Older laws spell the number out: «Artículo treinta y tres.», «Artículo decimoquinto.».
     (
         re.compile(
-            r"^\s*Disposici[óo]n\s+(adicional|transitoria|final|derogatoria)(?:\s+([a-záéíóúñ]+|\d+))?\b",
+            rf"^\s*Art[íi]culo\s+([a-záéíóúñ]+(?:\s+(?:y\s+)?(?!{LATIN}\b)[a-záéíóúñ]+){{0,3}})(?:\s+({LATIN}))?\s*\."
+        ),
+        "spelled",
+    ),
+    (
+        re.compile(
+            r"^\s*Disposici[óo]n\s+(adicional|transitoria|final|derogatoria)"
+            r"(?:\s+((?:vig|trig|cuadrag)[ée]sim[ao]\s+[a-záéíóúñ]+|[a-záéíóúñ]+|\d+))?\b",
             re.I,
         ),
         "disp",
@@ -41,6 +49,52 @@ _LEADER = re.compile(r"(\.\s?){4,}\s*\d+\s*$")
 _NUMBERED_LINE = re.compile(r"^\s*(\d{1,3})\.\s")
 
 
+# Accents dropped: «veintidós», «décimo» and «vigésimo» are looked up as «veintidos», «decimo», «vigesimo».
+_NUMBER_WORDS = {
+    "uno": 1, "primero": 1, "dos": 2, "segundo": 2, "tres": 3, "tercero": 3, "cuatro": 4, "cuarto": 4,
+    "cinco": 5, "quinto": 5, "seis": 6, "sexto": 6, "siete": 7, "septimo": 7, "ocho": 8, "octavo": 8,
+    "nueve": 9, "noveno": 9, "diez": 10, "decimo": 10, "once": 11, "undecimo": 11, "doce": 12,
+    "duodecimo": 12, "trece": 13, "catorce": 14, "quince": 15, "dieciseis": 16, "diecisiete": 17,
+    "dieciocho": 18, "diecinueve": 19, "veinte": 20, "vigesimo": 20, "treinta": 30, "trigesimo": 30,
+    "cuarenta": 40, "cuadragesimo": 40, "cincuenta": 50, "quincuagesimo": 50, "sesenta": 60,
+    "sexagesimo": 60, "setenta": 70, "septuagesimo": 70, "ochenta": 80, "octogesimo": 80, "noventa": 90,
+    "nonagesimo": 90, "cien": 100, "ciento": 100, "centesimo": 100,
+}  # fmt: skip
+# Compounds written as one word: «veintitrés», «decimoquinto», «vigesimoprimero».
+_PREFIXES = (("veinti", 20), ("decimo", 10), ("vigesimo", 20), ("trigesimo", 30))
+
+
+def _word_number(word: str) -> int | None:
+    if word in _NUMBER_WORDS:
+        return _NUMBER_WORDS[word]
+    for prefix, value in _PREFIXES:
+        rest = _NUMBER_WORDS.get(word.removeprefix(prefix)) if word.startswith(prefix) else None
+        if rest is not None and rest < 10:
+            return value + rest
+    return None
+
+
+def _compound_ordinal(ordinal: str) -> str:
+    """«vigésima sexta» as a citation writes it: «vigesimosexta»."""
+    if " " not in ordinal:
+        return ordinal
+    tens, unit = ordinal.split()
+    return tens.replace("é", "e")[:-1] + "o" + unit
+
+
+def spelled_number(words: str) -> int | None:
+    """«treinta y tres» → 33, «decimoquinto» → 15, «ciento dos» → 102; None when a word is not a number."""
+    total = 0
+    for word in slug(words).split("-"):
+        if word == "y":
+            continue
+        value = _word_number(word)
+        if value is None:
+            return None
+        total += value
+    return total or None
+
+
 def heading_unit(line: str) -> Unit | None:
     """The unit a heading line opens, if it is one."""
     for pattern, kind in _HEADINGS:
@@ -49,8 +103,13 @@ def heading_unit(line: str) -> Unit | None:
             continue
         if kind == "art":
             return Unit("art", f"{match[1]} {match[2]}" if match[2] else match[1])
+        if kind == "spelled":
+            number = spelled_number(match[1])
+            if number is None:
+                continue
+            return Unit("art", f"{number} {match[2]}" if match[2] else str(number))
         if kind == "disp":
-            ordinal = (match[2] or "").lower()
+            ordinal = _compound_ordinal((match[2] or "").lower())
             return Unit(_DISPOSICION[match[1].lower()], "" if ordinal in ("de", "del") else ordinal)
         if kind == "anexo":
             return Unit("anexo", (match[1] or "").lower())

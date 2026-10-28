@@ -3,12 +3,10 @@ import { useMutation } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { answerAttempt, openCase, type Answer, type CaseInstance, type GradeResponse } from "@/api/exercises";
 import { Badge, Button, Card } from "@/components/ui/primitives";
-import { AttemptResult } from "@/features/exercises/AttemptResult";
 import { CaseScenario } from "@/features/exercises/CaseScenario";
-import { LessonLink } from "@/features/exercises/LessonLink";
 import { QuizExercise } from "@/features/exercises/QuizExercise";
+import { SolutionPanel } from "@/features/exercises/SolutionPanel";
 import { useCourse } from "@/features/courses/CourseContext";
-import { ReportQuestion } from "@/features/reports/ReportQuestion";
 import { Prose } from "@/lib/markdown";
 import { cn } from "@/lib/cn";
 
@@ -73,24 +71,17 @@ export function CaseExercise({ exerciseId, highlighted = false }: { exerciseId: 
                       onSubmit={(value) => answer.mutate({ attemptId: question.attemptId, value })}
                     />
                   ) : (
-                    <>
-                      <AttemptResult
-                        correct={result.correct}
-                        correctAnswer={result.correctAnswer}
-                        solutionSteps={result.solutionSteps}
-                        explanation={result.explanation}
-                      />
-                      <div className="mt-3 flex flex-wrap items-start gap-3">
-                        {result.lessonLink && (
-                          <LessonLink
-                            lessonId={result.lessonLink.lessonId}
-                            anchor={result.lessonLink.anchor}
-                            citation={result.lessonLink.citation}
-                          />
-                        )}
-                        <ReportQuestion attemptId={question.attemptId} />
-                      </div>
-                    </>
+                    <SolutionPanel
+                      attemptId={question.attemptId}
+                      correct={result.correct}
+                      correctAnswer={result.correctAnswer}
+                      solutionSteps={result.solutionSteps}
+                      explanation={result.explanation}
+                      excerpt={result.excerpt}
+                      noExcerpt={result.noExcerpt}
+                      lessonLink={result.lessonLink}
+                      reportable
+                    />
                   )}
                 </li>
               );

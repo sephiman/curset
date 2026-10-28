@@ -14,6 +14,13 @@ from pathlib import Path
 from pydantic import BaseModel, ValidationError
 
 from tradeschool.citations.course import CitedQuestion, CourseCitations, QuestionLink
+from tradeschool.citations.excerpt_store import (
+    EXCERPTS_FILE,
+    ExcerptStore,
+    SolutionText,
+    question_key,
+    solved_questions,
+)
 from tradeschool.citations.sources import SourceIndex
 from tradeschool.content.glossary import Glossary, GlossaryTerm, load_glossary
 from tradeschool.content.reading import estimate_seconds
@@ -85,6 +92,8 @@ class CourseRegistry:
     source_root: Path | None = None
     # Citations, anchors and source links (empty for a course without sources/normativa.yaml).
     citations: CourseCitations = field(default_factory=lambda: CourseCitations("", None, SourceIndex()))
+    # The norm's text per question for the solution panel; None for a course without sources/normativa.yaml.
+    excerpts: ExcerptStore | None = None
     # reading_seconds[locale][lesson_id] -> estimated reading time. Derived from the markdown once
     # here, so every surface that shows time is summing the same per-lesson numbers.
     reading_seconds: dict[str, dict[str, int]] = field(default_factory=dict)
@@ -162,6 +171,14 @@ class CourseRegistry:
         if config is None or not isinstance(config[1], QuizConfig):
             return None
         return QuizGenerator().variant(config[1], seed).citation
+
+    def question_excerpt(self, exercise_id: str, question_id: str | None, seed: int) -> SolutionText | None:
+        """The cited text of the norm for the question an attempt showed, as `excerpts.json` holds it."""
+        config = self.attempt_config(exercise_id, question_id)
+        if self.excerpts is None or config is None or not isinstance(config[1], QuizConfig):
+            return None
+        variant = QuizGenerator().variant(config[1], seed)
+        return self.excerpts.excerpt(question_key(self.exercise_key(exercise_id), variant.id))
 
     def question_link(
         self, exercise_id: str, question_id: str | None, seed: int, locale: str
@@ -552,8 +569,9 @@ def _load_exercise_configs(
     return configs
 
 
-def load_registry(content_dir: Path) -> CourseRegistry:
-    """One course, from its own directory `content/<slug>/`."""
+def load_registry(content_dir: Path, *, check_excerpts: bool = True) -> CourseRegistry:
+    """One course, from its own directory `content/<slug>/`; `check_excerpts` off only for the build
+    step that writes `excerpts.json`."""
     manifest_path = content_dir / "course.yaml"
     if not manifest_path.exists():
         raise ContentError(f"manifest not found: {manifest_path}")
@@ -608,6 +626,12 @@ def load_registry(content_dir: Path) -> CourseRegistry:
     if citation_problems:
         raise ContentError("citation cross-references that do not hold: " + "; ".join(citation_problems))
 
+    excerpts = (
+        _load_excerpts(content_dir, manifest, exercise_configs)
+        if citations.links and check_excerpts
+        else None
+    )
+
     registry = CourseRegistry(
         manifest=manifest,
         markdown=markdown,
@@ -615,12 +639,30 @@ def load_registry(content_dir: Path) -> CourseRegistry:
         figures=figures,
         glossary=glossary,
         citations=citations,
+        excerpts=excerpts,
         source_root=content_dir / "sources" if citations.links else None,
     )
     exam_problems = check_presets(registry)
     if exam_problems:
         raise ContentError("exam presets the course cannot supply: " + "; ".join(exam_problems))
     return registry
+
+
+def _load_excerpts(
+    content_dir: Path, manifest: Manifest, exercise_configs: dict[str, tuple[ExerciseType, BaseModel]]
+) -> ExcerptStore:
+    """F3: every question of a course with norms has an excerpt or a «no excerpt» reason, built for its
+    current citation."""
+    store = ExcerptStore.load(content_dir)
+    if store is None:
+        raise ContentError(f"{content_dir / EXCERPTS_FILE} is missing: run scripts/extract_excerpts.py")
+    problems = store.problems(solved_questions(manifest, exercise_configs, manifest.course.languages[0]))
+    if problems:
+        raise ContentError(
+            f"{content_dir / EXCERPTS_FILE} is stale (run scripts/extract_excerpts.py): "
+            + "; ".join(problems[:20])
+        )
+    return store
 
 
 def _cited_questions(

@@ -217,6 +217,95 @@ def parse_segment(raw: str) -> Segment | None:
     return None
 
 
+@dataclass(frozen=True)
+class Part:
+    """What a segment names inside one unit: apartados («30.4», «30.2» en dash «3») and their letters."""
+
+    paragraphs: tuple[str, ...] = ()
+    #: (apartado, letter); the apartado is "" for a letter cited straight under the unit («61.ñ»).
+    letters: tuple[tuple[str, str], ...] = ()
+
+
+_SUB_PARAGRAPH = re.compile(rf"^\.(\d+|{_SPELLED})\b")
+_SUB_LETTER = re.compile(r"^\.([a-zñ])\b\)?")
+
+
+def _designator_part(rest: str) -> tuple[str | None, str | None]:
+    """(apartado, letter) of what follows an article number: «.4.a)» → ("4", "a"), «.ñ» → (None, "ñ")."""
+    paragraph = _SUB_PARAGRAPH.match(rest)
+    after = rest[paragraph.end() :] if paragraph else rest
+    letter = _SUB_LETTER.match(after)
+    return (paragraph[1] if paragraph else None), (letter[1] if letter else None)
+
+
+def cited_parts(raw: str) -> dict[str, Part]:
+    """unit slug → the apartados and letters the segment names in it; a unit cited whole is absent."""
+    text = collapse(raw)
+    article = _ARTICLE_SEGMENT.match(text)
+    if article is None:
+        return _rule_parts(text)
+    plural = article["lead"] == "arts."
+    paragraphs: dict[str, list[str]] = {}
+    letters: dict[str, list[tuple[str, str]]] = {}
+    current: str | None = None
+    last_paragraph = ""
+    for match in _ITEM_OR_SEP.finditer(article["designators"]):
+        item = match["item"]
+        number = _article_number(item)
+        dash = (match["sep"] or "").strip() in ("\u2013", "-")
+        if number is None:  # a bare letter continues the apartado before it: «14.2.d) y e)»
+            if current is not None:
+                letters.setdefault(current, []).append((last_paragraph, item[0]))
+            continue
+        starts_article = current is None or plural or match["art"] is not None
+        if not starts_article or (
+            plural and dash and last_paragraph and (item == number or number == current)
+        ):
+            # «30.2 y 3» under a singular `art.`, or «30.2» en dash «3» under `arts.`: apartados.
+            to = item.split(".")[-1] if number == current else number
+            if current is not None and to.isdigit():
+                first = int(last_paragraph) + 1 if dash and last_paragraph.isdigit() else int(to)
+                for value in range(first, int(to) + 1):
+                    paragraphs.setdefault(current, []).append(str(value))
+                last_paragraph = to
+            continue
+        current = number
+        paragraph, letter = _designator_part(item[len(number) :])
+        last_paragraph = paragraph or ""
+        if paragraph:
+            paragraphs.setdefault(number, []).append(paragraph)
+        if letter:
+            letters.setdefault(number, []).append((last_paragraph, letter))
+    return {
+        Unit("art", number).slug: Part(
+            tuple(dict.fromkeys(paragraphs.get(number, []))), tuple(letters.get(number, []))
+        )
+        for number in {*paragraphs, *letters}
+    }
+
+
+_RULE_PART = re.compile(
+    rf"^(?:disposici(?:ón|ones)\s+\w+(?:es)?\s+(?:{_ORDINAL})|D[ATFD]\s+\w+|reglas?\s+\d+(?:\s{LATIN}\b)?"
+    rf"|apartados?\s+(?:\d+|{ORDINAL_WORD}))(?P<rest>\.\S*)"
+)
+
+
+def _rule_parts(text: str) -> dict[str, Part]:
+    """The apartado a disposición, regla or apartado names after its number: «cuarta.1», «regla 42.2.b)»."""
+    segment = parse_segment(text)
+    match = _RULE_PART.match(text)
+    if segment is None or not segment.units or match is None:
+        return {}
+    paragraph, letter = _designator_part(match["rest"])
+    if paragraph is None and letter is None:
+        return {}
+    return {
+        segment.units[0].slug: Part(
+            (paragraph,) if paragraph else (), ((paragraph or "", letter),) if letter else ()
+        )
+    }
+
+
 def _letter_paren_continues(text: str, at: int) -> bool:
     """Whether the «)» at `at` closes a paragraph letter («b)», «21.C)») and the citation goes on."""
     if at < 2:

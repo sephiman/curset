@@ -18,6 +18,7 @@ from sqlalchemy import select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from tradeschool.attempts.models import Attempt, AttemptState
+from tradeschool.citations.excerpt_store import SolutionText
 from tradeschool.content.registry import CourseRegistry
 from tradeschool.content.text import LocalizedText
 from tradeschool.errors import AppError
@@ -84,6 +85,7 @@ class ExamQuestionView:
     # Reveal-only (submitted session review):
     lesson_anchor: str | None = None
     citation: str | None = None
+    excerpt: SolutionText | None = None
     is_correct: bool | None = None
     unanswered: bool = False
     result: GradeResult | None = None
@@ -384,6 +386,7 @@ def _build_view(
             q.is_correct = bool(attempt.is_correct) and answered
             link = registry.question_link(exercise_id, attempt.question_id, attempt.seed, locale)
             q.lesson_anchor, q.citation = (link.anchor, link.citation) if link else (None, None)
+            q.excerpt = registry.question_excerpt(exercise_id, attempt.question_id, attempt.seed)
         questions.append(q)
 
     target = target_of(session_obj)
