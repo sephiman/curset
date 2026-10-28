@@ -1,0 +1,606 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# Question bank, m06-l06: fixed multiple-choice questions (round R3). Generated from
+# docs/age-verification/bank/bloque-vi/m06-l06.draft.json minus drops.tsv by
+# docs/age-verification/bank/tools/build_exercises.py; edit the draft and rebuild, not this file.
+type: quiz
+variants:
+# anchor: fuente-ms-access-importar-excel-html
+- id: m06-l06-q425
+  prompt:
+    es: "En Access 365, ¿cuál de las siguientes rutas de la cinta inicia la importación de datos desde un archivo de Excel en la versión más reciente de Microsoft 365?"
+  options:
+  - id: a
+    text:
+      es: "Datos externos › Importar & vínculo › Excel"
+  - id: b
+    text:
+      es: "Datos externos › Exportar › Nuevo origen de datos › Desde archivo › Excel"
+  - id: c
+    correct: true
+    text:
+      es: "Datos externos › Importar & vínculo › Nuevo origen de datos › Desde archivo › Excel"
+  - id: d
+    text:
+      es: "Crear › Tablas › Nuevo origen de datos › Desde archivo › Excel"
+  explanation:
+    es: "La página dice: «Si usa la versión más reciente de Microsoft 365, Access 2021 o Access 2019, en la pestaña Datos externos, en el grupo Importar & vínculo, haga clic en Nuevo origen>de datos desde archivo>Excel». Importar & vínculo > Excel directamente es la ruta de la versión anterior: «Si usa Access 2016, en la pestaña Datos externos, en el grupo Importar & vincular, haga clic en Excel». Exportar es otro grupo: la frase pone el inicio de la importación en un único grupo, Importar & vínculo. Y Crear > Tablas cambia la pestaña, mientras que la frase fija una sola, Datos externos, la misma que según la página «no está disponible a menos que esté abierta una base de datos»."
+  citation: "fuente: `ms-access-importar-excel.html`; «Iniciar la operación de importación»"
+  difficulty: 1
+  tags:
+  - "ofimática-menú"
+# anchor: fuente-ms-access-importar-excel-html
+- id: m06-l06-q426
+  prompt:
+    es: "Según la ayuda de Access 365, ¿qué ocurre con la hoja de cálculo de origen al importar datos de Excel a una tabla?"
+  options:
+  - id: a
+    text:
+      es: "Access mueve los datos a la tabla y vacía la hoja de origen"
+  - id: b
+    text:
+      es: "Access crea una tabla vinculada que refleja los cambios de la hoja"
+  - id: c
+    text:
+      es: "Access guarda el libro de Excel como una base de datos de Access"
+  - id: d
+    correct: true
+    text:
+      es: "Access copia los datos en una tabla y no altera la hoja de origen"
+  explanation:
+    es: "La página dice: «Al importar datos, Access crea una copia de los datos en una tabla nueva o existente sin alterar la hoja de cálculo de origen de Excel». «Access mueve los datos a la tabla y vacía la hoja de origen» contradice que no se altere el origen. «Crea una tabla vinculada que refleja los cambios» describe la vinculación, no la importación. «Access guarda el libro de Excel como una base de datos de Access» no es posible: «No existe ninguna forma de guardar un libro de Excel como base de datos de Access»."
+  citation: "fuente: `ms-access-importar-excel.html`; «Comprender la importación de datos de Excel»"
+  difficulty: 1
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-access-importar-excel-html
+- id: m06-l06-q427
+  prompt:
+    es: "En Access 365, ¿cuál es el número máximo de columnas de origen que se pueden importar desde una hoja de Excel?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "255"
+  - id: b
+    text:
+      es: "256"
+  - id: c
+    text:
+      es: "128"
+  - id: d
+    text:
+      es: "1.024"
+  explanation:
+    es: "La página dice: «El número de columnas de origen que desea importar no puede ser superior a 255 porque Access no admite más de 255 campos en una tabla». Por eso 256 supera el máximo por una columna, 128 se queda corto y 1.024 queda muy por encima."
+  citation: "fuente: `ms-access-importar-excel.html`; «Preparar la hoja de cálculo»"
+  difficulty: 1
+  tags:
+  - "cantidad"
+# anchor: fuente-ms-access-importar-excel-html
+- id: m06-l06-q428
+  prompt:
+    es: "En Access 365, ¿cuántas hojas de cálculo se pueden importar a la vez durante una operación de importación?"
+  options:
+  - id: a
+    text:
+      es: "Todas las hojas del libro de Excel a la vez"
+  - id: b
+    correct: true
+    text:
+      es: "Una sola; hay que repetir la operación con cada hoja"
+  - id: c
+    text:
+      es: "Hasta tres hojas, si tienen las mismas columnas"
+  - id: d
+    text:
+      es: "Todas las hojas cuyo nombre coincida con una tabla"
+  explanation:
+    es: "La página dice: «puede importar solo una hoja de cálculo a la vez durante una operación de importación. Para importar datos de varias hojas de cálculo, repita la operación de importación para cada hoja de cálculo». Por eso «Todas las hojas del libro de Excel a la vez» es falso, y también «hasta tres hojas, si tienen las mismas columnas» y «todas las hojas cuyo nombre coincida con una tabla», que no figuran en la página."
+  citation: "fuente: `ms-access-importar-excel.html`; «Preparar la hoja de cálculo»"
+  difficulty: 1
+  tags:
+  - "cantidad"
+# anchor: fuente-ms-access-importar-excel-html
+- id: m06-l06-q429
+  prompt:
+    es: "En Access 365, ¿cuál de las siguientes formas permite importar solo una parte de una hoja de cálculo de Excel?"
+  options:
+  - id: a
+    text:
+      es: "Filtrando las filas que sobran en el asistente de importación"
+  - id: b
+    text:
+      es: "Omitiendo las filas sobrantes con la casilla Saltar del asistente"
+  - id: c
+    correct: true
+    text:
+      es: "Definiendo en Excel un rango con nombre que incluya solo esas celdas"
+  - id: d
+    text:
+      es: "Escribiendo el rango de celdas en el cuadro Nombre de archivo"
+  explanation:
+    es: "La página dice: «Si desea importar solo una parte de una hoja de cálculo, puede definir un rango con nombre que incluya solo las celdas que desea importar». Filtrar las filas en el asistente y omitirlas con una casilla contradicen la página: «No puede filtrar ni omitir filas durante la operación de importación». Y escribir el rango en el cuadro Nombre de archivo no es el procedimiento: el rango se define con nombre en Excel y el asistente pide buscar el archivo de origen y elegir la hoja."
+  citation: "fuente: `ms-access-importar-excel.html`; «Preparar la hoja de cálculo»"
+  difficulty: 2
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-access-importar-excel-html
+- id: m06-l06-q430
+  prompt:
+    es: "En Access 365, ¿cuál de las siguientes soluciones alternativas indica la ayuda para importar datos de un libro de Excel con una etiqueta de confidencialidad aplicada?"
+  options:
+  - id: a
+    text:
+      es: "Importar el libro con la etiqueta y quitarla después"
+  - id: b
+    text:
+      es: "Aplicar a la base de datos la misma etiqueta antes de importar"
+  - id: c
+    text:
+      es: "Importar solo la primera hoja del libro con etiqueta"
+  - id: d
+    correct: true
+    text:
+      es: "Quitar la etiqueta antes de importar y reponerla después"
+  explanation:
+    es: "La página dice: «Access no admite la importación de datos de Excel con una etiqueta de confidencialidad aplicada. Como solución alternativa, puede quitar la etiqueta antes de importar y volver a colocarla después de importar». «Importar el libro con la etiqueta» es justo lo que no admite. «Aplicar a la base de datos la misma etiqueta» y «importar solo la primera hoja» no figuran en la página como solución."
+  citation: "fuente: `ms-access-importar-excel.html`; «Importar o vincular a datos de un libro de Excel»"
+  difficulty: 3
+  tags:
+  - "requisito"
+# anchor: fuente-ms-access-importar-excel-html
+- id: m06-l06-q431
+  prompt:
+    es: "En Access 365, ¿cuántas filas de origen explora Access en cada columna para determinar el tipo de datos de los campos de la tabla al importar?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Las ocho primeras"
+  - id: b
+    text:
+      es: "La primera"
+  - id: c
+    text:
+      es: "Las cien primeras"
+  - id: d
+    text:
+      es: "Todas"
+  explanation:
+    es: "La página dice: «Access explora las ocho primeras filas de origen para determinar el tipo de datos de los campos de la tabla». Por eso «la primera» y «las cien primeras» no son las filas que explora, y «todas» tampoco: la página advierte de que los valores de tipos distintos tras la fila ocho pueden omitirse o convertirse mal."
+  citation: "fuente: `ms-access-importar-excel.html`; «Preparar la hoja de cálculo»"
+  difficulty: 3
+  tags:
+  - "cantidad"
+# anchor: fuente-ms-access-importar-excel-html
+- id: m06-l06-q432
+  prompt:
+    es: "En Access 365, al importar una hoja de Excel a una tabla existente con la opción de anexar, ¿qué debe coincidir exactamente con los nombres de los campos de la tabla?"
+  options:
+  - id: a
+    text:
+      es: "El nombre de la hoja de cálculo de origen"
+  - id: b
+    correct: true
+    text:
+      es: "Los encabezados de las columnas de la hoja de origen"
+  - id: c
+    text:
+      es: "El nombre del archivo de Excel de origen"
+  - id: d
+    text:
+      es: "El nombre del rango con nombre de origen"
+  explanation:
+    es: "La página dice: «Si está anexando datos a una tabla existente, asegúrese de que los encabezados de columna en la hoja de cálculo de origen coincidan exactamente con los nombres de los campos en la tabla de destino». El nombre de la hoja de cálculo sirve para elegir qué importar: el asistente pide «seleccione la hoja de cálculo o el rango con nombre que desee importar». El nombre del archivo de Excel es el que se escribe «en el cuadro Nombre de archivo» para localizar los datos. Y el nombre del rango sirve para acotar el origen: «Si desea importar solo una parte de una hoja de cálculo, puede definir un rango con nombre que incluya solo las celdas que desea importar»."
+  citation: "fuente: `ms-access-importar-excel.html`; «Preparar la base de datos de destino»"
+  difficulty: 2
+  tags:
+  - "requisito"
+# anchor: fuente-ms-access-importar-excel-html
+- id: m06-l06-q433
+  prompt:
+    es: "Según la ayuda de Access 365, si se elige Permitir a Access agregar la clave principal al importar a una tabla nueva, ¿qué agrega Access?"
+  options:
+  - id: a
+    text:
+      es: "Un campo Texto corto como primer campo, con el nombre de la hoja"
+  - id: b
+    text:
+      es: "Un campo Autonumeración como último campo, con valores únicos desde 0"
+  - id: c
+    correct: true
+    text:
+      es: "Un campo Autonumeración como primer campo, con valores únicos desde 1"
+  - id: d
+    text:
+      es: "Un índice sin duplicados sobre la primera columna de origen"
+  explanation:
+    es: "La página dice: «Si selecciona Permitir a Access agregar la clave principal, Access agrega un campo Autonumeración como primer campo en la tabla de destino y lo rellena automáticamente con valores de identificador únicos a partir de 1». «Un campo Texto corto» y «un índice sin duplicados sobre la primera columna» no figuran en la página. Un campo Autonumeración como último campo, con valores desde 0, altera la posición y el primer valor."
+  citation: "fuente: `ms-access-importar-excel.html`; «Usar el Asistente para importación de hojas de cálculo»"
+  difficulty: 2
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-access-importar-excel-html
+- id: m06-l06-q434
+  prompt:
+    es: "En Access 365, ¿cuál de los siguientes valores coloca Access en los campos correspondientes si una celda de la hoja de origen contiene un valor de error?"
+  options:
+  - id: a
+    text:
+      es: "El texto del error, como #NUM"
+  - id: b
+    text:
+      es: "El valor cero"
+  - id: c
+    text:
+      es: "El último valor válido de la columna"
+  - id: d
+    correct: true
+    text:
+      es: "Un valor nulo"
+  explanation:
+    es: "La página dice: «Si una hoja de cálculo o un rango de origen contienen valores de error, Access coloca un valor nulo en los campos correspondientes de la tabla». «El texto del error, como #NUM», «el valor cero» y «el último valor válido de la columna» no figuran en la página; por eso recomienda corregir los errores antes de importar."
+  citation: "fuente: `ms-access-importar-excel.html`; «Preparar la hoja de cálculo»"
+  difficulty: 2
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-access-importar-excel-html
+- id: m06-l06-q435
+  prompt:
+    es: "Al importar a Access 365 una celda de Excel que contiene una fórmula, se importa:"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "El resultado del cálculo, pero no la fórmula"
+  - id: b
+    text:
+      es: "La fórmula, pero no el resultado"
+  - id: c
+    text:
+      es: "La fórmula y el resultado, en dos campos"
+  - id: d
+    text:
+      es: "Ni la fórmula ni el resultado"
+  explanation:
+    es: "La página dice: «Se importan los resultados de una columna o las celdas calculadas pero no la formula base». Por eso «la fórmula, pero no el resultado» es lo contrario. «La fórmula y el resultado, en dos campos» y «ni la fórmula ni el resultado» tampoco figuran en la página."
+  citation: "fuente: `ms-access-importar-excel.html`; «Solucionar valores que faltan o son incorrectos»"
+  difficulty: 1
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-access-importar-excel-html
+- id: m06-l06-q436
+  prompt:
+    es: "Según la ayuda de Access 365, ¿cuál de los siguientes elementos de una hoja de Excel hay que agregar manualmente a la base de datos tras importarla?"
+  options:
+  - id: a
+    text:
+      es: "Los resultados de las celdas calculadas"
+  - id: b
+    correct: true
+    text:
+      es: "Los logotipos, gráficos e imágenes"
+  - id: c
+    text:
+      es: "El texto con formato de negrita o cursiva"
+  - id: d
+    text:
+      es: "Las fechas de las celdas con formato de fecha"
+  explanation:
+    es: "La página dice: «No se pueden importar elementos gráficos como logotipos, gráficos e imágenes. Agréguelos manualmente a la base de datos después de finalizar la operación de importación». «Los resultados de las celdas calculadas» sí se importan: «Se importan los resultados de una columna o las celdas calculadas pero no la formula base». «El texto con formato de negrita o cursiva» también se importa: «el texto se importa, pero se pierde el formato». «Las fechas de las celdas con formato de fecha» se importan, con los desajustes de sistema de fechas que la página describe."
+  citation: "fuente: `ms-access-importar-excel.html`; «Solucionar valores que faltan o son incorrectos»"
+  difficulty: 2
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-access-importar-excel-html
+- id: m06-l06-q437
+  prompt:
+    es: "En Access 365, ¿cuál de los siguientes tipos de campo crea Access al importar una columna de Excel que contiene solo valores VERDADERO o FALSO?"
+  options:
+  - id: a
+    text:
+      es: "Un campo Texto con las palabras VERDADERO y FALSO"
+  - id: b
+    text:
+      es: "Un campo Número con los valores 1 y 0"
+  - id: c
+    correct: true
+    text:
+      es: "Un campo Sí/No con los valores -1 y 0"
+  - id: d
+    text:
+      es: "Un campo Fecha y hora con dos valores"
+  explanation:
+    es: "La página dice: «Si la hoja de cálculo o el rango de origen incluye una columna que contiene solo valores VERDADERO o FALSO, Access crea un campo Sí/No para la columna e inserta valores de -1 o 0 en el campo». «Un campo Texto», «Un campo Número con los valores 1 y 0» y «un campo Fecha y hora» no son lo que crea. Un campo Número aparece solo si la columna contiene solo valores -1 o 0."
+  citation: "fuente: `ms-access-importar-excel.html`; «Solucionar valores que faltan o son incorrectos»"
+  difficulty: 3
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-access-importar-excel-html
+- id: m06-l06-q438
+  prompt:
+    es: "Una lista de valores separados por punto y coma de una celda de Excel se trata, al importarla a Access 365:"
+  options:
+  - id: a
+    text:
+      es: "Como un campo con compatibilidad con varios valores"
+  - id: b
+    text:
+      es: "Como un registro distinto para cada valor"
+  - id: c
+    text:
+      es: "Como una columna distinta para cada valor"
+  - id: d
+    correct: true
+    text:
+      es: "Como un valor único en un campo de texto"
+  explanation:
+    es: "La página dice: «Access no habilita la compatibilidad con varios valores en un campo, incluso si la columna de origen contiene una lista de valores separados por punto y coma (;). La lista de valores se trata como un valor único y se incluye en un campo de texto». Por eso «un campo con compatibilidad con varios valores» es falso, y «un registro distinto» y «una columna distinta» para cada valor tampoco figuran en la página."
+  citation: "fuente: `ms-access-importar-excel.html`; «Solucionar valores que faltan o son incorrectos»"
+  difficulty: 2
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-access-importar-excel-html
+- id: m06-l06-q439
+  prompt:
+    es: "En Access 365, ¿cuál de las siguientes expresiones de una consulta de actualización corrige las fechas importadas desplazadas cuatro años?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "[nombre de campo de fecha] + 1462"
+  - id: b
+    text:
+      es: "[nombre de campo de fecha] + 1461"
+  - id: c
+    text:
+      es: "[nombre de campo de fecha] + 365"
+  - id: d
+    text:
+      es: "[nombre de campo de fecha] - 1462"
+  explanation:
+    es: "La página dice: «ejecute una consulta de actualización que utilice la expresión [nombre de campo de fecha] + 1462 para corregir las fechas». Por eso «+ 1461» se queda a un día, «+ 365» corrige solo un año y «- 1462» resta en lugar de sumar."
+  citation: "fuente: `ms-access-importar-excel.html`; «Solucionar valores que faltan o son incorrectos»"
+  difficulty: 3
+  tags:
+  - "función"
+# anchor: fuente-ms-access-importar-excel-html
+- id: m06-l06-q440
+  prompt:
+    es: "En Access 365, ¿cuáles son los tres campos de la tabla de registro de errores de una operación de importación?"
+  options:
+  - id: a
+    text:
+      es: "Error, Tabla y Registro"
+  - id: b
+    text:
+      es: "Mensaje, Hoja y Columna"
+  - id: c
+    correct: true
+    text:
+      es: "Error, Campo y Fila"
+  - id: d
+    text:
+      es: "Campo, Valor y Fila"
+  explanation:
+    es: "La página dice: «La tabla tiene tres campos: Error, Campo y Fila». Por eso «Error, Tabla y Registro», «Mensaje, Hoja y Columna» y «Campo, Valor y Fila» no son los campos de esa tabla, aunque cada una comparta algún nombre con ella."
+  citation: "fuente: `ms-access-importar-excel.html`; «Solucionar valores que faltan o son incorrectos»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-ms-access-importar-excel-html
+- id: m06-l06-q441
+  prompt:
+    es: "En la tabla de registro de errores de una importación a Access 365, ¿cuál de los siguientes significados tiene el error Infracción de clave?"
+  options:
+  - id: a
+    text:
+      es: "Que un valor es demasiado grande para el tamaño del campo"
+  - id: b
+    text:
+      es: "Que un valor infringe la regla de validación del campo"
+  - id: c
+    text:
+      es: "Que se ha intentado guardar un valor nulo en un campo requerido"
+  - id: d
+    correct: true
+    text:
+      es: "Que el valor de clave principal ya existe en la tabla"
+  explanation:
+    es: "Del error Infracción de clave la página dice: «El valor de clave principal de este registro es un duplicado que ya existe en la tabla». «Que un valor es demasiado grande para el tamaño del campo» es el error Truncamiento de campo. «Que un valor infringe la regla de validación del campo» es el error de regla de validación. «Que se ha intentado guardar un valor nulo en un campo requerido» es el error Nulo en campo requerido."
+  citation: "fuente: `ms-access-importar-excel.html`; «Solucionar valores que faltan o son incorrectos»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-ms-access-importar-excel-html
+- id: m06-l06-q442
+  prompt:
+    es: "Señale qué significa el mensaje Error al intentar importar el archivo que muestra Access 365 al terminar una importación:"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Que la operación de importación se ejecutó de forma totalmente incorrecta"
+  - id: b
+    text:
+      es: "Que se importaron solo algunos datos del archivo"
+  - id: c
+    text:
+      es: "Que la importación terminó, con errores anotados en una tabla de registro"
+  - id: d
+    text:
+      es: "Que el libro de Excel de origen estaba abierto"
+  explanation:
+    es: "La página dice: «Si recibe el mensaje Error al intentar importar el archivo, la operación de importación se ejecutó de forma totalmente incorrecta». Si importó todos o parte de los datos, Access pide guardar la información de la operación y la tabla de registro de errores recoge los errores, lo que descarta «Que se importaron solo algunos datos del archivo» y «Que la importación terminó, con errores anotados en una tabla de registro». «Que el libro de Excel de origen estaba abierto» puede producir errores de conversión, pero no es lo que indica ese mensaje."
+  citation: "fuente: `ms-access-importar-excel.html`; «Solucionar valores que faltan o son incorrectos»"
+  difficulty: 3
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-access-importar-excel-html
+- id: m06-l06-q443
+  prompt:
+    es: "Según la ayuda de Access 365, ¿qué ocurre con los cambios hechos en las celdas de origen de Excel cuando se vincula una hoja desde Access?"
+  options:
+  - id: a
+    text:
+      es: "No aparecen hasta repetir la operación de vinculación"
+  - id: b
+    correct: true
+    text:
+      es: "Aparecen en la tabla vinculada, de solo lectura"
+  - id: c
+    text:
+      es: "Aparecen en la tabla vinculada, que se edita en Access"
+  - id: d
+    text:
+      es: "Se copian a una tabla nueva que se puede editar"
+  explanation:
+    es: "La página dice: «Cualquier cambio que realice en las celdas de origen en Excel aparece en la tabla vinculada. No obstante, no puede editar el contenido de la tabla correspondiente en Access». Por eso «No aparecen hasta repetir la operación de vinculación» es falso, y «que se edita en Access» contradice que sea de solo lectura. «Se copian a una tabla nueva que se puede editar» describe una importación, no una vinculación."
+  citation: "fuente: `ms-access-importar-excel.html`; «Vincular a datos en Excel»"
+  difficulty: 3
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-access-importar-excel-html
+- id: m06-l06-q444
+  prompt:
+    es: "En Access 365, ¿se pueden anexar datos de Excel a una tabla existente mediante una operación de vinculación?"
+  options:
+  - id: a
+    text:
+      es: "Sí, eligiendo Anexar una copia de los registros a la tabla"
+  - id: b
+    text:
+      es: "Sí, siempre que la tabla existente tenga clave principal"
+  - id: c
+    correct: true
+    text:
+      es: "No: la vinculación siempre crea una tabla vinculada nueva"
+  - id: d
+    text:
+      es: "Sí, pero solo si la tabla existente está vacía"
+  explanation:
+    es: "La página dice: «No puede vincular datos de Excel a una tabla existente en la base de datos. Esto significa que no puede anexar datos a una tabla existente realizando una operación de vinculación». La opción Anexar una copia de los registros a la tabla pertenece a la importación, que la página trata aparte y que sí admite tablas existentes. Y las dos opciones condicionadas, con clave principal o con la tabla vacía, contradicen la frase, que no admite la vinculación a una tabla existente en ningún caso."
+  citation: "fuente: `ms-access-importar-excel.html`; «Si es la primera vez que se vincula a una hoja de Excel»"
+  difficulty: 3
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-access-importar-excel-html
+- id: m06-l06-q445
+  prompt:
+    es: "Según la ayuda de Access 365, ¿qué se puede hacer con una tabla vinculada a una hoja de Excel una vez abierta en la vista Hoja de datos?"
+  options:
+  - id: a
+    text:
+      es: "Cambiar el tipo de datos de los campos"
+  - id: b
+    text:
+      es: "Editar el contenido de los registros"
+  - id: c
+    text:
+      es: "Cambiar el tamaño de los campos"
+  - id: d
+    correct: true
+    text:
+      es: "Ocultar campos y filtrar registros"
+  explanation:
+    es: "La página dice: «puede ocultar campos y filtrar registros abriendo la tabla vinculada en la vista Hoja de datos después de haberlos importado a Access». «Cambiar el tipo de datos» y «cambiar el tamaño de los campos» no se pueden: «No puede cambiar el tipo de datos o el tamaño de los campos en la tabla vinculada». «Editar el contenido» tampoco: la tabla vinculada es de solo lectura."
+  citation: "fuente: `ms-access-importar-excel.html`; «Preparar los datos de Excel»"
+  difficulty: 2
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-access-importar-excel-html
+- id: m06-l06-q446
+  prompt:
+    es: "Según la ayuda de Access 365, ¿qué condición debe cumplirse para que esté disponible la pestaña Datos externos?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Que esté abierta una base de datos"
+  - id: b
+    text:
+      es: "Que esté abierto el libro de Excel de origen"
+  - id: c
+    text:
+      es: "Que la base de datos contenga al menos una tabla"
+  - id: d
+    text:
+      es: "Que la base de datos esté dividida en dos archivos"
+  explanation:
+    es: "La página dice: «La pestaña Datos externos no está disponible a menos que esté abierta una base de datos». «Que esté abierto el libro de Excel» es lo contrario de lo que recomienda para importar: cerrar el libro de origen. «Que la base de datos contenga al menos una tabla» y «Que la base de datos esté dividida en dos archivos» no figuran en la página."
+  citation: "fuente: `ms-access-importar-excel.html`; «Iniciar la operación de importación»"
+  difficulty: 2
+  tags:
+  - "requisito"
+# anchor: fuente-ms-access-exportar-excel-html
+- id: m06-l06-q447
+  prompt:
+    es: "En Access 365, ¿cuál de las siguientes rutas de la cinta inicia la exportación de un objeto a Excel?"
+  options:
+  - id: a
+    text:
+      es: "Datos externos › Importar & vínculo › Excel"
+  - id: b
+    correct: true
+    text:
+      es: "Datos externos › Exportar › Excel"
+  - id: c
+    text:
+      es: "Archivo › Guardar como › Excel"
+  - id: d
+    text:
+      es: "Crear › Informes › Excel"
+  explanation:
+    es: "La página dice: «En la pestaña Datos externos, en el grupo Exportar, haga clic en Excel». «Importar & vínculo › Excel» es el grupo de la importación o vinculación. «Archivo › Guardar como › Excel» no existe: «Access no incluye ningún comando \"Guardar como\" para el formato Excel». «Crear › Informes» agrupa las herramientas para crear informes."
+  citation: "fuente: `ms-access-exportar-excel.html`; «Ejecutar la operación de exportación»"
+  difficulty: 1
+  tags:
+  - "ofimática-menú"
+# anchor: fuente-ms-access-exportar-excel-html
+- id: m06-l06-q448
+  prompt:
+    es: "En Access 365, ¿cuál de las siguientes listas recoge los objetos que se pueden exportar a Excel con el Asistente para exportación?"
+  options:
+  - id: a
+    text:
+      es: "Solo tablas y consultas de la base de datos"
+  - id: b
+    text:
+      es: "Tablas, consultas y macros"
+  - id: c
+    correct: true
+    text:
+      es: "Tablas, consultas, formularios o informes"
+  - id: d
+    text:
+      es: "Formularios, informes y módulos de VBA"
+  explanation:
+    es: "La página dice: «Puede exportar tablas, consultas, formularios o informes». «Solo tablas y consultas de la base de datos» es lo que permite el comando de importación de Excel, no la exportación de Access. «Tablas, consultas y macros» y «Formularios, informes y módulos de VBA» incluyen objetos que no se pueden exportar: «No puede exportar macros ni módulos a Excel»."
+  citation: "fuente: `ms-access-exportar-excel.html`; «Acerca de la exportación de datos a Excel»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-ms-access-exportar-excel-html
+- id: m06-l06-q449
+  prompt:
+    es: "En Access 365, ¿cuántos objetos de base de datos se pueden exportar a Excel en cada operación de exportación?"
+  options:
+  - id: a
+    text:
+      es: "Todos los del mismo tipo"
+  - id: b
+    text:
+      es: "Hasta cinco"
+  - id: c
+    text:
+      es: "Todos los seleccionados en el panel de navegación"
+  - id: d
+    correct: true
+    text:
+      es: "Solo uno"
+  explanation:
+    es: "La página dice: «Solo puede exportar un objeto de base de datos en cada operación de exportación. No obstante, puede combinar varias hojas de cálculo en Excel después de finalizar las operaciones individuales». «Todos los del mismo tipo», «hasta cinco» y «todos los seleccionados en el panel de navegación» exceden ese límite de uno."
+  citation: "fuente: `ms-access-exportar-excel.html`; «Acerca de la exportación de datos a Excel»"
+  difficulty: 2
+  tags:
+  - "cantidad"

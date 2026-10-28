@@ -1,0 +1,319 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# Question bank, m06-l08: fixed multiple-choice questions (round R3). Generated from
+# docs/age-verification/bank/bloque-vi/m06-l08.draft.json minus drops.tsv by
+# docs/age-verification/bank/tools/build_exercises.py; edit the draft and rebuild, not this file.
+type: quiz
+variants:
+# anchor: fuente-euskadi-diseno-adaptable-html
+- id: m06-l08-q155
+  prompt:
+    es: "Según los datos de visitas a Euskadi.eus en 2018 que cita el Servicio Web del Gobierno Vasco, ¿qué tipo de dispositivo fue el más usado?"
+  options:
+  - id: a
+    text:
+      es: "El móvil, con el 62 % de las visitas"
+  - id: b
+    text:
+      es: "El ordenador personal, con el 34 % de las visitas"
+  - id: c
+    correct: true
+    text:
+      es: "El ordenador personal, con el 62 % de las visitas"
+  - id: d
+    text:
+      es: "La tableta, con el 34 % de las visitas"
+  explanation:
+    es: "En 2018 el ordenador personal fue el dispositivo del 62 % de las visitas a Euskadi.eus, frente al 34 % del móvil y el 4 % de la tableta. El móvil supuso el 34 % de las visitas, no el 62 %. El ordenador personal supuso el 62 %; el 34 % es el del móvil. La tableta supuso el 4 % de las visitas; el 34 % es el del móvil."
+  citation: "fuente: `euskadi-diseno-adaptable.html`; «Diseño adaptable (Responsive Design)»"
+  difficulty: 3
+  tags:
+  - "cantidad"
+# anchor: fuente-ms-win-ping-html
+- id: m06-l08-q156
+  prompt:
+    es: "En Windows 11, ¿qué permite la ruta de origen flexible que ping usa con el parámetro /j?"
+  options:
+  - id: a
+    text:
+      es: "Que se fije el tiempo de espera de cada respuesta de eco"
+  - id: b
+    text:
+      es: "Que se haga el seguimiento de la ruta de ida y vuelta en IPv6"
+  - id: c
+    text:
+      es: "Que el siguiente destino intermedio sea un vecino accesible directamente"
+  - id: d
+    correct: true
+    text:
+      es: "Que los destinos intermedios sucesivos estén separados por uno o varios enrutadores"
+  explanation:
+    es: "Con el enrutamiento de origen flexible (/j), los destinos intermedios sucesivos pueden estar separados por uno o varios enrutadores. Que el siguiente destino sea un vecino accesible directamente es la exigencia de la ruta de origen estricta (/k). El seguimiento de la ruta de ida y vuelta, solo en IPv6, es el parámetro /R. El tiempo de espera de cada respuesta se fija con /w."
+  citation: "fuente: `ms-win-ping.html`; «ping»"
+  difficulty: 2
+  tags:
+  - "configuración"
+# anchor: fuente-ms-win-ping-html
+- id: m06-l08-q157
+  prompt:
+    es: "En Windows 11, ¿qué valor máximo admite el campo Período de vida (TTL) que se fija en el encabezado IP de los mensajes de solicitud de eco de ping?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "255, y por defecto se usa el TTL predeterminado del host"
+  - id: b
+    text:
+      es: "32, y por defecto se usa el TTL predeterminado del host"
+  - id: c
+    text:
+      es: "9, y por defecto se usa el TTL predeterminado del host"
+  - id: d
+    text:
+      es: "65 500, y por defecto se usa el TTL predeterminado del host"
+  explanation:
+    es: "El TTL máximo que se puede fijar es 255, y por defecto se usa el valor TTL predeterminado del host. 65 500 es el tamaño máximo del campo de datos, no el TTL máximo. 32 es la longitud predeterminada del campo de datos, no el TTL máximo. 9 es el máximo del recuento de /r y de la lista de hosts, no el TTL máximo."
+  citation: "fuente: `ms-win-ping.html`; «ping»"
+  difficulty: 3
+  tags:
+  - "cantidad"
+# anchor: fuente-ms-win-ping-html
+- id: m06-l08-q158
+  prompt:
+    es: "En Windows 11, ¿qué envía el comando ping /n 10 /l 1000 10.0.99.221 al destino?"
+  options:
+  - id: a
+    text:
+      es: "1000 mensajes de solicitud de eco, cada uno con 10 bytes en el campo de datos"
+  - id: b
+    text:
+      es: "10 mensajes de solicitud de eco, cada uno con un tiempo de vida de 1000"
+  - id: c
+    text:
+      es: "Mensajes de solicitud de eco hasta que se interrumpa, de 1000 bytes cada uno"
+  - id: d
+    correct: true
+    text:
+      es: "10 mensajes de solicitud de eco, cada uno con 1000 bytes en el campo de datos"
+  explanation:
+    es: "El parámetro /n fija el número de solicitudes (10) y /l la longitud del campo de datos (1000 bytes). Intercambiar las cifras invierte /n, que es el número de mensajes, y /l, que es la longitud de los datos. /l fija la longitud del campo de datos, no el tiempo de vida de los mensajes. Seguir enviando hasta interrumpir es el efecto de /t, que ese comando no usa."
+  citation: "fuente: `ms-win-ping.html`; «ping»"
+  difficulty: 2
+  tags:
+  - "configuración"
+  - "comportamiento"
+# anchor: fuente-ms-win-ping-html
+- id: m06-l08-q159
+  prompt:
+    es: "En Windows 11, ¿qué hace el comando ping /a 10.0.99.221 cuando se escribe tal cual en el símbolo del sistema?"
+  options:
+  - id: a
+    text:
+      es: "Hace ping al destino y registra la ruta de 4 saltos"
+  - id: b
+    correct: true
+    text:
+      es: "Hace ping al destino y resuelve la dirección 10.0.99.221 en su nombre de host"
+  - id: c
+    text:
+      es: "Hace ping al destino enviando solicitudes de eco hasta que se interrumpa"
+  - id: d
+    text:
+      es: "Hace ping al destino con 10 solicitudes de eco de 1000 bytes"
+  explanation:
+    es: "ping /a 10.0.99.221 hace ping al destino y resuelve la dirección en su nombre de host. Enviar solicitudes hasta que se interrumpa es el efecto de /t. Registrar la ruta de 4 saltos es el ejemplo de ping /r 4. Las 10 solicitudes de 1000 bytes son el ejemplo de ping /n 10 /l 1000."
+  citation: "fuente: `ms-win-ping.html`; «ping»"
+  difficulty: 2
+  tags:
+  - "configuración"
+# anchor: fuente-ms-win-ping-html
+- id: m06-l08-q160
+  prompt:
+    es: "En Windows 11, ¿en qué condición está disponible el comando ping, según la documentación de Microsoft Learn?"
+  options:
+  - id: a
+    text:
+      es: "Solo si hay una conexión a Internet activa en el equipo"
+  - id: b
+    text:
+      es: "Solo si el equipo tiene una dirección IP pública asignada"
+  - id: c
+    correct: true
+    text:
+      es: "Solo si el protocolo TCP/IP está instalado como componente de un adaptador de red"
+  - id: d
+    text:
+      es: "Solo si el servicio DNS está instalado en el adaptador de red"
+  explanation:
+    es: "La documentación dice: «Este comando solo está disponible si el protocolo de Internet (TCP/IP) está instalado como componente en las propiedades de un adaptador de red». Una conexión a Internet activa no es la condición: la página presenta ping como la prueba de conectividad a nivel de IP con otro equipo TCP/IP, mediante solicitudes de eco, sin pedir salida a Internet. Una dirección IP pública tampoco: la condición es TCP/IP instalado. Y el servicio DNS no es el requisito: la página trata la resolución de nombres aparte, como algo que se puede probar con ping, no como condición de que el comando esté disponible."
+  citation: "fuente: `ms-win-ping.html`; «ping»"
+  difficulty: 3
+  tags:
+  - "requisito"
+# anchor: fuente-incibe-glosario-ciberseguridad-pdf
+- id: m06-l08-q161
+  prompt:
+    es: "¿Cuál de los siguientes protocolos es, según el glosario de INCIBE, el más utilizado para la navegación web?"
+  options:
+  - id: a
+    text:
+      es: "FTP, el servicio de transferencia de ficheros"
+  - id: b
+    text:
+      es: "DNS, el servicio de nombres de dominio"
+  - id: c
+    correct: true
+    text:
+      es: "HTTP, el protocolo de transferencia de hipertexto"
+  - id: d
+    text:
+      es: "SMTP, el protocolo de intercambio de correo electrónico"
+  explanation:
+    es: "HTTP es el protocolo más utilizado para la navegación web. FTP sirve para transferir ficheros por una red, no para la navegación web. SMTP sirve para intercambiar mensajes de correo electrónico. El DNS traduce nombres de dominio en direcciones IP."
+  citation: "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.8.8. HTTP»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-ms-edge-consola-javascript-html
+- id: m06-l08-q162
+  prompt:
+    es: "En la Consola de DevTools de Microsoft Edge, ¿qué se obtiene al pulsar Flecha arriba, como en muchos otros entornos de línea de comandos?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Los comandos especificados anteriormente, para reutilizarlos"
+  - id: b
+    text:
+      es: "Los resultados que muestra la consola mientras se escribe"
+  - id: c
+    text:
+      es: "Las propiedades y métodos del cuerpo de la página web actual"
+  - id: d
+    text:
+      es: "El resultado de la expresión anterior ejecutada, con la utilidad $_"
+  explanation:
+    es: "Flecha arriba muestra los comandos que se especificaron anteriormente, disponibles para su reutilización. El resultado de la expresión anterior lo guarda $_, que no se muestra con Flecha arriba. La lista de propiedades y métodos del cuerpo de la página aparece al escribir un punto en el autocompletado. La evaluación inmediata, que muestra el resultado mientras se escribe, es independiente de Flecha arriba."
+  citation: "fuente: `ms-edge-consola-javascript.html`; «Ejecución de JavaScript en la consola»"
+  difficulty: 2
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-edge-consola-javascript-html
+- id: m06-l08-q163
+  prompt:
+    es: "En la Consola de DevTools de Microsoft Edge, si se escribe 2+2 sin pulsar Entrar, ¿qué hace la consola?"
+  options:
+  - id: a
+    text:
+      es: "Muestra la expresión 2+2 tal como se ha escrito, sin evaluarla"
+  - id: b
+    correct: true
+    text:
+      es: "Muestra el resultado 4 en la línea siguiente al escribir"
+  - id: c
+    text:
+      es: "No muestra nada hasta que se pulsa Entrar para ejecutar el comando"
+  - id: d
+    text:
+      es: "Muestra un mensaje de error porque falta pulsar Entrar al final"
+  explanation:
+    es: "La consola muestra inmediatamente el resultado 4 en la línea siguiente mientras se escribe, sin pulsar Entrar. La evaluación inmediata muestra el resultado antes de pulsar Entrar. La consola no marca error por no haber pulsado Entrar: muestra el resultado mientras se escribe. La consola evalúa la expresión y muestra su resultado, no la expresión sin evaluar."
+  citation: "fuente: `ms-edge-consola-javascript.html`; «Ejecución de JavaScript en la consola»"
+  difficulty: 2
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-edge-consola-javascript-html
+- id: m06-l08-q164
+  prompt:
+    es: "En la Consola de DevTools de Microsoft Edge, ¿qué contiene siempre la utilidad $_ después de ejecutar expresiones?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "El resultado de la expresión anterior que se ejecutó en la consola"
+  - id: b
+    text:
+      es: "Los comandos que se especificaron anteriormente en la consola, para reutilizarlos"
+  - id: c
+    text:
+      es: "El primer elemento de la lista de propiedades de document.body"
+  - id: d
+    text:
+      es: "El resultado de la expresión que se está escribiendo ahora"
+  explanation:
+    es: "La utilidad $_ siempre contiene el resultado de la expresión anterior que se ejecutó en la consola. Los comandos anteriores los muestra Flecha arriba, no $_. document.body es el ejemplo del autocompletado, que lista sus propiedades y métodos, sin relación con $_. La expresión que se está escribiendo aún no se ha ejecutado, por lo que $_ no la contiene."
+  citation: "fuente: `ms-edge-consola-javascript.html`; «Ejecución de JavaScript en la consola»"
+  difficulty: 3
+  tags:
+  - "concepto"
+# anchor: fuente-euskadi-diseno-adaptable-html
+- id: m06-l08-q165
+  prompt:
+    es: "¿Cuál de las siguientes bases usa el Servicio Web del Gobierno Vasco para lograr la adaptabilidad de sus portales?"
+  options:
+  - id: a
+    text:
+      es: "En versiones separadas de cada portal para móviles, tabletas y ordenadores, con contenidos duplicados"
+  - id: b
+    text:
+      es: "En duplicar el trabajo y el mantenimiento de cada contenido por dispositivo"
+  - id: c
+    correct: true
+    text:
+      es: "En estándares web como HTML5 y CSS3, unidades relativas, media queries y frameworks"
+  - id: d
+    text:
+      es: "En estándares cerrados de cada fabricante de navegadores y plugins como Flash y PDF"
+  explanation:
+    es: "La adaptabilidad de los portales se basa en estándares web (HTML5 y CSS3), unidades relativas, media queries, lenguajes de script y frameworks como Bootstrap. Hacer versiones separadas por dispositivo es justo lo que el diseño adaptable evita. La página basa la adaptabilidad en estándares web, no en estándares cerrados de cada fabricante. Duplicar el trabajo y el mantenimiento es lo que se evita al no hacer versiones extra para determinados entornos."
+  citation: "fuente: `euskadi-diseno-adaptable.html`; «Diseño adaptable (Responsive Design)»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-euskadi-diseno-adaptable-html
+- id: m06-l08-q166
+  prompt:
+    es: "¿Cuál de las siguientes situaciones describía el tráfico de Internet en los primeros años de su expansión, según el Servicio Web del Gobierno Vasco?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Casi todo se realizaba desde ordenadores personales, con pocos sistemas operativos y navegadores"
+  - id: b
+    text:
+      es: "Se repartía por igual entre ordenadores, televisores y consolas con navegador"
+  - id: c
+    text:
+      es: "Casi todo se realizaba desde teléfonos inteligentes, con muchos sistemas operativos"
+  - id: d
+    text:
+      es: "Casi todo se realizaba desde tabletas, con una gran variedad de resoluciones"
+  explanation:
+    es: "En los primeros años casi todo el tráfico se realizaba desde ordenadores personales, con un número reducido de sistemas operativos, navegadores, resoluciones y dispositivos de entrada. Los teléfonos inteligentes llegaron después y cambiaron ese panorama. Los televisores y las consolas con navegador integrado son un fenómeno posterior, con la irrupción de nuevos dispositivos. Con las tabletas y otros dispositivos aumentó la variedad de resoluciones, tras los primeros años."
+  citation: "fuente: `euskadi-diseno-adaptable.html`; «Diseño adaptable (Responsive Design)»"
+  difficulty: 3
+  tags:
+  - "concepto"
+# anchor: fuente-whatwg-html-introduccion-html
+- id: m06-l08-q167
+  prompt:
+    es: "Según la introducción del estándar HTML del WHATWG, ¿qué atributos permiten incluir datos para scripts del cliente o del servidor, y los navegadores nunca los tocan?"
+  options:
+  - id: a
+    text:
+      es: "Los atributos class, que sirven para crear elementos propios"
+  - id: b
+    text:
+      es: "Los atributos de manejadores de eventos, que ejecutan los scripts"
+  - id: c
+    text:
+      es: "Los atributos href, que fijan el destino de un enlace"
+  - id: d
+    correct: true
+    text:
+      es: "Los atributos data-*, que buscan y procesan los scripts"
+  explanation:
+    es: "Los atributos data-* permiten a los scripts incluir datos en los elementos HTML, y se garantiza que los navegadores nunca los tocan. El atributo class sirve para extender elementos y crear elementos propios, no para guardar datos de scripts. El atributo href fija el destino de un enlace, que un script puede cambiar. Los atributos de contenido de manejadores de eventos sirven para incrustar un script, no para guardar datos de scripts."
+  citation: "fuente: `whatwg-html-introduccion.html`; «1.7.2 Extensibility»"
+  difficulty: 2
+  tags:
+  - "concepto"

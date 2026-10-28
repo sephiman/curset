@@ -436,8 +436,8 @@ must not come back: the route is a static segment, so it would shadow the live m
 
 ## Which build am I running?
 
-The stack builds from the **working tree**, not from a commit, so "is this container running my
-changes?" is a real question. One unauthenticated curl answers it:
+A local `--build` builds from the **working tree**, not from a commit, and a pulled image comes from
+whatever CI last published, so "is this container running my changes?" is a real question. One unauthenticated curl answers it:
 
 ```
 curl -s localhost:8092/api/version
@@ -454,7 +454,8 @@ env GIT_COMMIT=(git rev-parse --short HEAD)(git diff --quiet; or echo -dirty) \
 ```
 
 Both default to `unknown` in a bare `docker compose up --build`, which is itself the answer: an image
-that cannot say what it was built from was not built by the command above.
+that cannot say what it was built from was not built by the command above. CI images stamp the full
+commit SHA and the build time.
 
 A 404 on an endpoint you just added is usually one of two things — a stale image, which `/api/version`
 now settles, or the path itself. Course-owned endpoints live under `/api/courses/{course}/…`; see
@@ -835,9 +836,9 @@ and its `exercise_types`. Two courses exist: `crypto-futures` (published) and `a
 the Spanish-only preparation for the Administrativo del Estado (C1) exam, still a draft: the theory of
 all six bloques is written, bloque VI as short list-shaped lessons citing saved official pages
 (requirements in `docs/age-administrativo-course-requirements.md`, per-tema record in `docs/age-theory-ledger.md`,
-scope, coverage and currency audit in `docs/age-scope-audit.md`). Its question bank is being built bloque by
-bloque: bloque I holds 676 verified fixed multiple-choice questions (plan in `docs/age-bank-plan.md`, counts and
-verification record in `docs/age-bank-ledger.md`).
+scope, coverage and currency audit in `docs/age-scope-audit.md`). Its question bank covers all six bloques with
+5,200 blind-verified fixed multiple-choice questions (I 675, II 264, III 775, IV 988, V 645, VI 1,853; plan in
+`docs/age-bank-plan.md`, counts and verification record in `docs/age-bank-ledger.md`).
 Module, lesson, exercise and glossary ids are unique **inside** a course only: the database keys every
 skeleton row by `(course_id, id)`, and every attempt and lesson
 completion carries its course. An attempt, an exam or a statistic therefore never shows up in another
@@ -1060,19 +1061,42 @@ checkable pins, which is what stops the artifact and the suite becoming two opin
 ## Deployment
 
 Copy `.env.example` to `.env` and fill it in (create the dedicated Postgres DB + user first, on the shared
-network). Then:
+network).
+
+CI (`.github/workflows/ci.yml`, job `images`) builds both images on every run and, on pushes to `main`
+once the `backend` and `frontend` test jobs are green, publishes them to GitHub Container Registry as
+`ghcr.io/sephiman/curset-backend` and `ghcr.io/sephiman/curset-frontend`, tagged `latest` and
+`sha-<short commit>`. Pull requests build the images without pushing. `docker-compose.yml` names those
+images and keeps its `build:` blocks, so the same file serves two modes.
+
+**Deploy host — pull the published images.** GHCR packages start private, so log in once with a personal
+access token that has `read:packages`:
+
+```bash
+docker login ghcr.io -u <github-user>   # paste the token as the password; one time per host
+docker compose pull --policy always && docker compose up -d
+```
+
+`--policy always` makes a failed pull an error; without it, compose only warns for a service that has
+`build:` and `up` then builds from source instead. To roll back, point `image:` at a `sha-…` tag.
+
+**Local — build from the working tree:**
 
 ```bash
 docker compose up -d --build
 ```
 
+A local `--build` tags its result with the same `ghcr.io/…:latest` name, so it replaces any pulled image
+until the next pull, and the next pull replaces it.
+
 The backend applies migrations and reconciles the course manifest on startup. The frontend is published on
 `127.0.0.1:${FRONTEND_PORT}`; put your external nginx / Cloudflare in front.
 
-**`--build` is not optional after a content change.** `content/` is *baked into the image*
+**A new image is not optional after a content change.** `content/` is *baked into the image*
 (`backend/Dockerfile`: `COPY content /app/content`, with `CONTENT_DIR=/app/content`) — there is no bind
-mount — and the registry is read **once at process startup**. So `docker compose up -d` without `--build`
-reuses the existing `curset-backend:latest` and keeps serving the previous content, and `restart`
+mount — and the registry is read **once at process startup**. So `docker compose up -d` without a pull
+(deploy host) or `--build` (local) reuses the existing `ghcr.io/sephiman/curset-backend:latest` and keeps
+serving the previous content, and `restart`
 alone re-reads the same baked copy. Every content consumer shares that one snapshot — lessons, figures,
 exercises, exams and the export — so a stale image is stale everywhere at once, never in one endpoint
 only. `test_export_is_complete_against_the_manifest` asserts the export matches `content/crypto-futures/course.yaml`

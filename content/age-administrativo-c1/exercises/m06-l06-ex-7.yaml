@@ -1,0 +1,606 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# Question bank, m06-l06: fixed multiple-choice questions (round R3). Generated from
+# docs/age-verification/bank/bloque-vi/m06-l06.draft.json minus drops.tsv by
+# docs/age-verification/bank/tools/build_exercises.py; edit the draft and rebuild, not this file.
+type: quiz
+variants:
+# anchor: fuente-ms-access-funcion-ano-html
+- id: m06-l06-q226
+  prompt:
+    es: "Según la página de la función Año de Access 365, ¿qué puede ser el argumento fecha que recibe la función?"
+  options:
+  - id: a
+    text:
+      es: "Solo un campo de la tabla con el tipo de datos Fecha y hora"
+  - id: b
+    correct: true
+    text:
+      es: "Cualquier variante, expresión numérica o de cadena que pueda representar una fecha"
+  - id: c
+    text:
+      es: "Solo un literal de fecha escrito entre almohadillas (#), como #10/10/2018#"
+  - id: d
+    text:
+      es: "Solo un número entero comprendido entre los años 1 y 9999"
+  explanation:
+    es: "La página dice que el argumento es «cualquier variante, expresión numérica, expresión de cadena o cualquier combinación de estos que pueda representar una fecha». Por eso no se limita a un campo Fecha y hora, ni a un literal con #, ni a un entero de 1 a 9999."
+  citation: "fuente: `ms-access-funcion-ano.html`; «Función Año»"
+  difficulty: 3
+  tags:
+  - "concepto"
+# anchor: fuente-ms-access-where-html
+- id: m06-l06-q227
+  prompt:
+    es: "En una instrucción SQL de Access 365, ¿cuál de las siguientes opciones especifica la cláusula WHERE?"
+  options:
+  - id: a
+    text:
+      es: "Las tablas de las que se toman los datos de la consulta guardada"
+  - id: b
+    text:
+      es: "El nombre que recibirá la consulta cuando el usuario la guarde"
+  - id: c
+    correct: true
+    text:
+      es: "Los criterios que deben cumplir los campos para entrar en el resultado"
+  - id: d
+    text:
+      es: "El formato de archivo en el que se ejecuta la consulta de Access"
+  explanation:
+    es: "La página dice: «En una instrucción SQL, la cláusula WHERE especifica criterios que tienen que cumplir los valores de campo para que los registros que contienen los valores se incluyan en los resultados de la consulta». No indica las tablas de origen, el nombre con que se guarda la consulta ni el formato de archivo."
+  citation: "fuente: `ms-access-where.html`; «Limitar resultados con criterios»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-ms-access-consultas-html
+- id: m06-l06-q231
+  prompt:
+    es: "En Access 365, con el criterio Como [¿Qué ciudad?]&\"*\", ¿qué devuelve la consulta si el usuario escribe *s*?"
+  options:
+  - id: a
+    text:
+      es: "Todas las ciudades que empiezan por la letra s"
+  - id: b
+    text:
+      es: "Todas las ciudades que acaban en la letra s"
+  - id: c
+    correct: true
+    text:
+      es: "Todas las ciudades que contienen la letra s"
+  - id: d
+    text:
+      es: "Solo la ciudad cuyo nombre es *s*"
+  explanation:
+    es: "La ayuda dice que, si el usuario escribe *s*, «la consulta devolverá todas las ciudades que contengan la letra \"s\"»: el asterisco entre comillas del criterio permite escribir comodines. Las ciudades que empiezan por s son el caso de escribir solo s, como el ejemplo de la letra L. Las que acaban en s no se pueden pedir así: el criterio añade siempre un asterisco al final de lo que se escribe, de modo que el texto escrito nunca queda anclado al final. Y *s* no se toma como nombre literal, porque la página dice que los asteriscos escritos funcionan como caracteres comodín."
+  citation: "fuente: `ms-access-consultas.html`; «Crear una consulta de parámetros»"
+  difficulty: 2
+  tags:
+  - "resultado-fórmula"
+# anchor: fuente-ms-access-consultas-html
+- id: m06-l06-q232
+  prompt:
+    es: "En el cuadro de diálogo Parámetros de la consulta de Access 365, ¿qué debe coincidir con la petición que se usa en la fila Criterios?"
+  options:
+  - id: a
+    text:
+      es: "El nombre de la tabla de origen de la consulta"
+  - id: b
+    text:
+      es: "El tipo de datos de la clave principal de la tabla"
+  - id: c
+    text:
+      es: "El nombre del campo de la fila Campo de la cuadrícula"
+  - id: d
+    correct: true
+    text:
+      es: "La petición escrita en la columna Parámetro"
+  explanation:
+    es: "La ayuda dice: «Asegúrese de que cada parámetro coincida con la petición que usa en la fila Criterios de la cuadrícula de diseño de la consulta», y pide escribir esa petición en la columna Parámetro del cuadro de diálogo Parámetros de la consulta. La petición es el texto entre corchetes que pregunta al usuario, como [¿Qué ciudad?], por lo que no es el nombre de la tabla ni el del campo de la fila Campo. El tipo de datos de la clave principal tampoco: el tipo de datos del parámetro se elige aparte, en la columna Tipo de datos."
+  citation: "fuente: `ms-access-consultas.html`; «Especificar los tipos de datos de los parámetros»"
+  difficulty: 2
+  tags:
+  - "requisito"
+# anchor: fuente-ms-access-consulta-seleccion-html
+- id: m06-l06-q233
+  prompt:
+    es: "Según la ayuda de Access 365, ¿qué puede usarse como campo de salida de una consulta de selección para realizar cálculos o usar una función?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Una expresión"
+  - id: b
+    text:
+      es: "Una fila de totales de la hoja de datos"
+  - id: c
+    text:
+      es: "Una consulta de parámetros"
+  - id: d
+    text:
+      es: "Una regla de validación"
+  explanation:
+    es: "La ayuda dice: «Si desea realizar cálculos o usar una función para generar resultados de consultas, puede usar una expresión como campo de salida». La fila Total de la hoja de datos suma valores de columnas, la consulta de parámetros pide valores y la regla de validación comprueba datos al escribirlos; ninguna se presenta como campo de salida."
+  citation: "fuente: `ms-access-consulta-seleccion.html`; «Usar una expresión como campo de salida»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-ms-access-consulta-seleccion-html
+- id: m06-l06-q234
+  prompt:
+    es: "En una consulta de Access 365, ¿dónde se escriben los criterios alternativos de un valor de campo?"
+  options:
+  - id: a
+    text:
+      es: "En la fila Mostrar de la columna"
+  - id: b
+    correct: true
+    text:
+      es: "En la fila O, bajo la fila Criterios"
+  - id: c
+    text:
+      es: "En la fila Ordenar de la columna"
+  - id: d
+    text:
+      es: "En la fila Total de la columna"
+  explanation:
+    es: "La ayuda dice: «Especifique los criterios alternativos en la fila O, bajo la fila Criterios». Mostrar sirve para ocultar o ver el campo en el resultado y Total, para elegir la función de resumen; Ordenar es otra fila de la cuadrícula, y la página sitúa los criterios alternativos solo en la fila O."
+  citation: "fuente: `ms-access-consulta-seleccion.html`; «Paso 4: Especificar criterios»"
+  difficulty: 2
+  tags:
+  - "configuración"
+# anchor: fuente-ms-access-consulta-seleccion-html
+- id: m06-l06-q235
+  prompt:
+    es: "En la vista Diseño de una consulta de Access 365, ¿cuál de las siguientes filas no se muestra de manera predeterminada y se activa con Totales?"
+  options:
+  - id: a
+    text:
+      es: "La fila Criterios"
+  - id: b
+    text:
+      es: "La fila Campo"
+  - id: c
+    correct: true
+    text:
+      es: "La fila Total"
+  - id: d
+    text:
+      es: "La fila Mostrar"
+  explanation:
+    es: "La ayuda dice: «Para resumir los datos en una consulta, use la fila Total. De manera predeterminada, la fila Total no se muestra en la vista Diseño». Criterios, Campo y Mostrar son filas de la cuadrícula que ya aparecen al crear la consulta, como en los pasos de agregar campos y escribir criterios."
+  citation: "fuente: `ms-access-consulta-seleccion.html`; «Paso 5: Resumir datos»"
+  difficulty: 3
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-access-formularios-html
+- id: m06-l06-q236
+  prompt:
+    es: "Con una tabla seleccionada en Access 365, ¿cuál de las siguientes opciones describe lo que hace el comando Formulario del grupo Formularios?"
+  options:
+  - id: a
+    text:
+      es: "Coloca solo los campos de la clave principal y lo abre en la vista Diseño"
+  - id: b
+    text:
+      es: "Abre un asistente que pregunta qué campos se incluyen en el formulario"
+  - id: c
+    text:
+      es: "Abre un formulario vacío con el panel Lista de campos a la vista"
+  - id: d
+    correct: true
+    text:
+      es: "Coloca todos los campos de la tabla y abre el formulario en la vista Presentación"
+  explanation:
+    es: "La ayuda dice que la herramienta Formulario «coloca todos los campos del origen de datos subyacente en el formulario» y lo muestra en la vista Presentación. Colocar solo los campos de la clave principal y abrir la vista Diseño contradice las dos mitades. Preguntar qué campos se incluyen es el Asistente para formularios, que la página trata en otra sección. Y abrir un formulario vacío con la Lista de campos es la herramienta Formulario en blanco, también en otra sección."
+  citation: "fuente: `ms-access-formularios.html`; «Crear un formulario mediante la herramienta Formulario»"
+  difficulty: 1
+  tags:
+  - "ofimática-menú"
+# anchor: fuente-ms-access-formularios-html
+- id: m06-l06-q238
+  prompt:
+    es: "¿Cuál de las siguientes herramientas de Access 365 permite definir cómo se agrupan y ordenan los datos del formulario y usar campos de más de una tabla o consulta?"
+  options:
+  - id: a
+    text:
+      es: "La herramienta Formulario"
+  - id: b
+    correct: true
+    text:
+      es: "El Asistente para formularios"
+  - id: c
+    text:
+      es: "La herramienta Varios elementos"
+  - id: d
+    text:
+      es: "La herramienta Formulario dividido"
+  explanation:
+    es: "La ayuda dice que con el Asistente para formularios «también puede definir cómo se agrupan y ordenan los datos, y puede usar campos de más de una tabla o consulta». La herramienta Formulario coloca todos los campos de un origen, Varios elementos muestra varios registros a la vez y Formulario dividido muestra a la vez las vistas Formulario y Hoja de datos."
+  citation: "fuente: `ms-access-formularios.html`; «Crear un formulario mediante el Asistente para formularios»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-ms-access-formularios-html
+- id: m06-l06-q239
+  prompt:
+    es: "¿Cuál de las siguientes herramientas de Access 365 crea un formulario con una vista Formulario y una vista Hoja de datos conectadas al mismo origen y sincronizadas?"
+  options:
+  - id: a
+    text:
+      es: "Varios elementos"
+  - id: b
+    text:
+      es: "Formulario en blanco"
+  - id: c
+    correct: true
+    text:
+      es: "Formulario dividido"
+  - id: d
+    text:
+      es: "Asistente para formularios"
+  explanation:
+    es: "La ayuda dice que un formulario dividido «proporciona dos vistas de los datos al mismo tiempo: una vista Formulario y una vista Hoja de datos», conectadas al mismo origen y sincronizadas. Varios elementos muestra varios registros en filas y columnas, Formulario en blanco abre un formulario vacío y el Asistente para formularios guía la elección de campos."
+  citation: "fuente: `ms-access-formularios.html`; «Crear un formulario dividido mediante la herramienta Formulario dividido»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-ms-access-formularios-html
+- id: m06-l06-q240
+  prompt:
+    es: "¿Cuál de las siguientes herramientas de Access 365 crea un formulario que muestra varios registros a la vez y es más personalizable que una hoja de datos?"
+  options:
+  - id: a
+    text:
+      es: "Formulario"
+  - id: b
+    text:
+      es: "Formulario en blanco"
+  - id: c
+    text:
+      es: "Asistente para formularios"
+  - id: d
+    correct: true
+    text:
+      es: "Varios elementos"
+  explanation:
+    es: "La ayuda dice que la herramienta Varios elementos crea un formulario similar a una hoja de datos, con «más opciones de personalización». La herramienta Formulario muestra un único registro a la vez, Formulario en blanco empieza vacío y el Asistente para formularios sirve para elegir campos, agrupar y ordenar."
+  citation: "fuente: `ms-access-formularios.html`; «Crear un formulario que muestre varios registros mediante la herramienta Varios elementos»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-ms-access-formularios-html
+- id: m06-l06-q241
+  prompt:
+    es: "En Access 365, ¿cuál de las siguientes rutas de la cinta lleva a la herramienta Formulario dividido?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Crear › Formularios › Más formularios › Formulario dividido"
+  - id: b
+    text:
+      es: "Crear › Formularios › Formulario dividido"
+  - id: c
+    text:
+      es: "Crear › Formularios › Asistente para formularios › Formulario dividido"
+  - id: d
+    text:
+      es: "Inicio › Vistas › Más formularios › Formulario dividido"
+  explanation:
+    es: "La ayuda indica: «En la pestaña Crear, en el grupo Formularios, haga clic en Más formularios y, después, haga clic en Formulario dividido». El botón Formulario del grupo crea el formulario simple, el Asistente para formularios es otro comando del grupo, y Inicio › Vistas contiene Ver, no esta herramienta."
+  citation: "fuente: `ms-access-formularios.html`; «Crear un formulario dividido mediante la herramienta Formulario dividido»"
+  difficulty: 2
+  tags:
+  - "ofimática-menú"
+# anchor: fuente-ms-access-formularios-html
+- id: m06-l06-q242
+  prompt:
+    es: "Señale qué muestra Access 365 al usar la herramienta Formulario en blanco para crear un formulario:"
+  options:
+  - id: a
+    text:
+      es: "Un formulario vacío en la vista Diseño y la hoja de propiedades"
+  - id: b
+    correct: true
+    text:
+      es: "Un formulario vacío en vista Presentación y la Lista de campos"
+  - id: c
+    text:
+      es: "Un formulario con todos los campos de la primera tabla de la lista"
+  - id: d
+    text:
+      es: "Un asistente de varias páginas para elegir los campos"
+  explanation:
+    es: "La ayuda dice: «Access abre un formulario en blanco en la vista Presentación y muestra el panel Lista de campos». No abre la vista Diseño con la hoja de propiedades, no coloca todos los campos de una tabla, que es lo que hace la herramienta Formulario, ni lanza un asistente, que es el Asistente para formularios."
+  citation: "fuente: `ms-access-formularios.html`; «Crear un formulario mediante la herramienta Formulario en blanco»"
+  difficulty: 3
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-access-formularios-html
+- id: m06-l06-q244
+  prompt:
+    es: "Según la ayuda de Access 365 sobre formularios, ¿qué es un formulario dependiente en una base de datos?"
+  options:
+  - id: a
+    text:
+      es: "Un formulario insertado dentro de otro formulario principal"
+  - id: b
+    text:
+      es: "Un formulario que no está vinculado directamente a ningún origen de datos"
+  - id: c
+    text:
+      es: "Un formulario que solo muestra los campos de la clave principal"
+  - id: d
+    correct: true
+    text:
+      es: "Un formulario conectado directamente a un origen de datos, como una tabla"
+  explanation:
+    es: "La ayuda dice: «Un formulario dependiente está conectado directamente a un origen de datos, como una tabla o consulta». El formulario insertado dentro de otro es el subformulario, que la página cita al compararlo con el formulario dividido. El formulario sin vínculo directo con un origen es el independiente, que la página nombra en la misma frase como el otro tipo. Y que solo muestre los campos de la clave principal no define al dependiente: la página dice que permite controlar qué campos o filas aparecen, pero lo que lo define es la conexión con el origen."
+  citation: "fuente: `ms-access-formularios.html`; «Introducción a formularios»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-ms-access-formularios-html
+- id: m06-l06-q245
+  prompt:
+    es: "En Access 365, ¿cuál de las siguientes teclas muestra la hoja de propiedades de un formulario en la vista Presentación?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "F4"
+  - id: b
+    text:
+      es: "F11"
+  - id: c
+    text:
+      es: "F5"
+  - id: d
+    text:
+      es: "F7"
+  explanation:
+    es: "La ayuda dice: «Para mostrar la hoja de propiedades, presione F4». F11 es la tecla que, según la ayuda de la clave principal, muestra el panel de navegación; F5 actualiza los datos de un gráfico y F7 no se asigna a formularios en las páginas de Access."
+  citation: "fuente: `ms-access-formularios.html`; «Ajustar el formulario en la vista Presentación»"
+  difficulty: 1
+  tags:
+  - "atajo"
+# anchor: fuente-ms-access-formularios-html
+- id: m06-l06-q246
+  prompt:
+    es: "En Access 365, ¿cuál de las siguientes combinaciones de teclas muestra el panel Lista de campos al ajustar un formulario?"
+  options:
+  - id: a
+    text:
+      es: "Ctrl+G"
+  - id: b
+    correct: true
+    text:
+      es: "Alt+F8"
+  - id: c
+    text:
+      es: "F4"
+  - id: d
+    text:
+      es: "Alt+F4"
+  explanation:
+    es: "La ayuda dice: «haga clic en Agregar campos existentes o presione Alt+F8». Ctrl+G es la combinación que las páginas de consultas dan para guardar la consulta. F4 es, según la propia página de formularios, la tecla que muestra la hoja de propiedades. Y Alt+F4 es en Windows la combinación para cerrar la ventana activa, según la tabla de atajos del sistema."
+  citation: "fuente: `ms-access-formularios.html`; «Ajustar el formulario en la vista Presentación»"
+  difficulty: 2
+  tags:
+  - "atajo"
+# anchor: fuente-ms-access-formularios-html
+- id: m06-l06-q247
+  prompt:
+    es: "¿En cuál de las siguientes vistas de un formulario de Access 365 se ven los datos mientras se cambia el diseño?"
+  options:
+  - id: a
+    text:
+      es: "Vista Diseño"
+  - id: b
+    text:
+      es: "Vista Hoja de datos"
+  - id: c
+    correct: true
+    text:
+      es: "Vista Presentación"
+  - id: d
+    text:
+      es: "Vista Formulario"
+  explanation:
+    es: "La ayuda dice que en la vista Presentación «el formulario se encuentra en ejecución» y que «como puede ver los datos mientras está modificando el formulario», es útil para ajustar controles. En la vista Diseño «no puede ver los datos subyacentes»; la Hoja de datos y la vista Formulario sirven para ver o introducir información, no para cambiar el diseño."
+  citation: "fuente: `ms-access-formularios.html`; «Comprender la vista Presentación y la vista Diseño»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-ms-access-formularios-html
+- id: m06-l06-q248
+  prompt:
+    es: "¿Cuál de las siguientes vistas de un formulario de Access 365 muestra las secciones de encabezado, detalle y pie de página?"
+  options:
+  - id: a
+    text:
+      es: "Vista Presentación"
+  - id: b
+    text:
+      es: "Vista Hoja de datos"
+  - id: c
+    text:
+      es: "Vista Formulario"
+  - id: d
+    correct: true
+    text:
+      es: "Vista Diseño"
+  explanation:
+    es: "La ayuda dice que la vista Diseño «le ofrece una visión más detallada de la estructura de un formulario» y permite ver «las secciones de encabezado, detalle y pie de página del formulario». La vista Presentación muestra el formulario en ejecución con sus datos, y Hoja de datos y Formulario sirven para ver o introducir información."
+  citation: "fuente: `ms-access-formularios.html`; «Comprender la vista Presentación y la vista Diseño»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-ms-access-subformulario-html
+- id: m06-l06-q249
+  prompt:
+    es: "Según la ayuda de Access 365 sobre subformularios, ¿para qué sirve la vista Formulario de un formulario?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Para ver o introducir información"
+  - id: b
+    text:
+      es: "Para modificar el diseño del formulario"
+  - id: c
+    text:
+      es: "Para agregar saltos de página y gráficos"
+  - id: d
+    text:
+      es: "Para ajustar el tamaño de los controles con los datos a la vista"
+  explanation:
+    es: "La ayuda dice que el formulario se abre «en la vista Formulario, para que pueda ver o introducir información, o en la vista Diseño, para modificar su diseño». Modificar el diseño es de la vista Diseño, agregar saltos de página y gráficos también lo es, y ajustar controles con los datos a la vista es lo propio de la vista Presentación."
+  citation: "fuente: `ms-access-subformulario.html`; «Crear un formulario que contiene un subformulario (formulario de uno a varios)»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-ms-access-formularios-html
+- id: m06-l06-q250
+  prompt:
+    es: "Cuando un formulario de Access 365 se muestra en la vista Diseño, según la ayuda de Microsoft:"
+  options:
+  - id: a
+    text:
+      es: "se encuentra en ejecución y los datos aparecen como cuando el formulario está en uso."
+  - id: b
+    correct: true
+    text:
+      es: "no se encuentra en ejecución y no se ven los datos subyacentes."
+  - id: c
+    text:
+      es: "solo sirve para ver o introducir información."
+  - id: d
+    text:
+      es: "los datos se organizan en filas y columnas, como en una hoja de datos."
+  explanation:
+    es: "La ayuda dice de la vista Diseño: «El formulario no se encuentra en ejecución [...]. No puede ver los datos subyacentes». Estar en ejecución con los datos a la vista es la vista Presentación, ver o introducir información es la vista Formulario, y las filas y columnas como en una hoja de datos corresponden a la herramienta Varios elementos."
+  citation: "fuente: `ms-access-formularios.html`; «Comprender la vista Presentación y la vista Diseño»"
+  difficulty: 2
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-access-formularios-html
+- id: m06-l06-q251
+  prompt:
+    es: "En Access 365, ¿qué tarea se puede hacer con mayor facilidad en la vista Diseño que en la vista Presentación de un formulario?"
+  options:
+  - id: a
+    text:
+      es: "Ajustar el tamaño de los cuadros de texto para que quepan los datos"
+  - id: b
+    text:
+      es: "Ver los datos del formulario mientras se reorganizan los controles"
+  - id: c
+    correct: true
+    text:
+      es: "Agregar controles como marcos de objeto dependientes o saltos de página"
+  - id: d
+    text:
+      es: "Introducir información nueva en los registros del formulario"
+  explanation:
+    es: "La ayuda dice que en la vista Diseño se puede «agregar una mayor variedad de controles al formulario, como marcos de objeto dependientes, saltos de página y gráficos». Ajustar cuadros de texto con los datos a la vista y reorganizar controles viéndolos es lo que se hace en la vista Presentación, e introducir información es la función de la vista Formulario."
+  citation: "fuente: `ms-access-formularios.html`; «Comprender la vista Presentación y la vista Diseño»"
+  difficulty: 3
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-access-formularios-html
+- id: m06-l06-q253
+  prompt:
+    es: "Según la ayuda de Microsoft sobre formularios, un formulario independiente de Access 365 es el que:"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "no está vinculado a un origen de datos, pero puede contener botones de comando y etiquetas."
+  - id: b
+    text:
+      es: "está conectado directamente a una tabla o consulta para editar y mostrar sus datos."
+  - id: c
+    text:
+      es: "se inserta dentro de otro formulario para mostrar los registros relacionados."
+  - id: d
+    text:
+      es: "muestra los datos en la vista Hoja de datos y en la vista Formulario a la vez."
+  explanation:
+    es: "La ayuda dice que un formulario independiente es el que «no esté vinculado directamente a un origen de datos, pero que aún contenga botones de comando, etiquetas u otros controles». Estar conectado a una tabla o consulta es lo propio del formulario dependiente, insertarse en otro es el subformulario y mostrar a la vez las vistas Formulario y Hoja de datos es el formulario dividido."
+  citation: "fuente: `ms-access-formularios.html`; «Introducción a formularios»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-ms-access-formularios-html
+- id: m06-l06-q254
+  prompt:
+    es: "En Access 365, ¿en qué se diferencia un formulario dividido de una combinación de formulario y subformulario?"
+  options:
+  - id: a
+    text:
+      es: "En que sus dos vistas usan orígenes de datos distintos y se sincronizan al guardar"
+  - id: b
+    correct: true
+    text:
+      es: "En que sus dos vistas están conectadas al mismo origen y sincronizadas siempre"
+  - id: c
+    text:
+      es: "En que solo permite ver los datos, sin agregar ni editar registros"
+  - id: d
+    text:
+      es: "En que muestra un único registro a la vez en las dos vistas"
+  explanation:
+    es: "La ayuda dice que se diferencia «en que las dos vistas están conectadas al mismo origen de datos y están sincronizadas entre ellas en todo momento». Por eso no usan orígenes distintos ni se sincronizan al guardar; además permite «agregar, editar o eliminar datos de cualquier parte», y una de sus vistas es una hoja de datos, que muestra varios registros."
+  citation: "fuente: `ms-access-formularios.html`; «Crear un formulario dividido mediante la herramienta Formulario dividido»"
+  difficulty: 3
+  tags:
+  - "concepto"
+# anchor: fuente-ms-access-formularios-html
+- id: m06-l06-q255
+  prompt:
+    es: "Señale cómo se agregan varios campos a la vez desde el panel Lista de campos al formulario de Access 365:"
+  options:
+  - id: a
+    text:
+      es: "Presionando F4 y marcando los campos en la hoja de propiedades"
+  - id: b
+    text:
+      es: "Escribiendo los nombres de los campos en la propiedad Indexado"
+  - id: c
+    correct: true
+    text:
+      es: "Manteniendo presionada la tecla Ctrl, seleccionando los campos y arrastrándolos"
+  - id: d
+    text:
+      es: "Haciendo clic en Ejecutar, del grupo Resultados, tras elegir los campos"
+  explanation:
+    es: "La ayuda dice: «Para agregar varios campos a la vez, mantenga presionada la tecla Ctrl y haga clic en los campos que desea agregar. A continuación, arrastre los campos seleccionados al formulario». F4 abre la hoja de propiedades, Indexado es una propiedad de campo de tabla y Ejecutar, del grupo Resultados, lanza una consulta."
+  citation: "fuente: `ms-access-formularios.html`; «Ajustar el formulario en la vista Presentación»"
+  difficulty: 3
+  tags:
+  - "atajo"
+# anchor: fuente-ms-access-formularios-html
+- id: m06-l06-q256
+  prompt:
+    es: "En Access 365, ¿qué permite cambiar la hoja de propiedades de un formulario en la vista Presentación o en la vista Diseño?"
+  options:
+  - id: a
+    text:
+      es: "Solo las propiedades de los campos de la tabla de origen"
+  - id: b
+    text:
+      es: "Solo el orden de las tablas en el panel Lista de campos"
+  - id: c
+    text:
+      es: "Únicamente el tamaño del formulario en la vista Presentación"
+  - id: d
+    correct: true
+    text:
+      es: "Las propiedades del formulario, sus controles y sus secciones"
+  explanation:
+    es: "La ayuda dice: «Use la hoja de propiedades para cambiar las propiedades del formulario, sus controles y sus secciones». No se limita a los campos de la tabla de origen, ni al orden de las tablas del panel Lista de campos, ni al tamaño del formulario."
+  citation: "fuente: `ms-access-formularios.html`; «Ajustar el formulario en la vista Presentación»"
+  difficulty: 2
+  tags:
+  - "concepto"

@@ -1,0 +1,607 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# Question bank, m06-l08: fixed multiple-choice questions (round R3). Generated from
+# docs/age-verification/bank/bloque-vi/m06-l08.draft.json minus drops.tsv by
+# docs/age-verification/bank/tools/build_exercises.py; edit the draft and rebuild, not this file.
+type: quiz
+variants:
+# anchor: fuente-incibe-glosario-ciberseguridad-pdf
+- id: m06-l08-q126
+  prompt:
+    es: "El protocolo SSL, que proporciona autenticación y privacidad entre extremos mediante criptografía, ha evolucionado hacia:"
+  options:
+  - id: a
+    text:
+      es: "SFTP, siglas de protocolo de transferencia segura de archivos"
+  - id: b
+    text:
+      es: "DNSSEC, siglas de extensiones de seguridad del sistema de nombres de dominio"
+  - id: c
+    text:
+      es: "SMTP, siglas de protocolo simple de transferencia de correo"
+  - id: d
+    correct: true
+    text:
+      es: "TLS, siglas de seguridad de la capa de transporte"
+  explanation:
+    es: "SSL ha evolucionado hacia TLS (Transport Layer Security, seguridad de la capa de transporte), muy utilizado en la actualidad. SFTP es el protocolo de transferencia segura de archivos que usa SSH, no la evolución de SSL. DNSSEC añade una capa de seguridad al protocolo DNS, no es la evolución de SSL. SMTP es el protocolo de intercambio de correo electrónico."
+  citation: "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.18.24. SSL»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-incibe-glosario-ciberseguridad-pdf
+- id: m06-l08-q127
+  prompt:
+    es: "Señale qué lado se autentica de forma general en una comunicación SSL, según el glosario de términos de ciberseguridad de INCIBE:"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Solo el lado del servidor, mientras que el cliente se mantiene sin autenticar"
+  - id: b
+    text:
+      es: "Ambos lados, el servidor y el cliente, mediante certificados X.509"
+  - id: c
+    text:
+      es: "Solo el lado del cliente, mientras que el servidor se mantiene sin autenticar"
+  - id: d
+    text:
+      es: "Ninguno de los dos lados, porque SSL solo cifra la información"
+  explanation:
+    es: "En SSL, de forma general solo se autentica el lado del servidor; la autenticación mutua exige una infraestructura de claves públicas (PKI) para los clientes. El cliente es el que se mantiene sin autenticar, no el servidor. La autenticación de ambos lados exige desplegar una infraestructura de claves públicas para los clientes, y no es lo general. SSL proporciona autenticación y privacidad, no solo cifrado."
+  citation: "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.18.24. SSL»"
+  difficulty: 3
+  tags:
+  - "concepto"
+# anchor: fuente-incibe-glosario-ciberseguridad-pdf
+- id: m06-l08-q128
+  prompt:
+    es: "¿Cuál de las siguientes acciones puede hacer un equipo cliente con el servicio FTP, según el glosario de términos de ciberseguridad de INCIBE?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Conectarse a un servidor para descargar archivos o enviarle archivos, sea cual sea el sistema operativo"
+  - id: b
+    text:
+      es: "Solo enviar archivos a un servidor, sin poder descargarlos"
+  - id: c
+    text:
+      es: "Solo descargar archivos de un servidor, sin poder enviarle archivos"
+  - id: d
+    text:
+      es: "Conectarse a un servidor solo si ambos equipos usan el mismo sistema operativo"
+  explanation:
+    es: "Con FTP, desde un equipo cliente se puede conectar a un servidor para descargar archivos o enviarle archivos, con independencia del sistema operativo de cada equipo. FTP permite también enviar archivos al servidor, no solo descargarlos. FTP permite también descargar archivos del servidor, no solo enviarlos. FTP funciona independientemente del sistema operativo utilizado en cada equipo."
+  citation: "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.6.12. FTP»"
+  difficulty: 2
+  tags:
+  - "concepto"
+  - "comportamiento"
+# anchor: fuente-incibe-glosario-ciberseguridad-pdf
+- id: m06-l08-q130
+  prompt:
+    es: "¿Cuál de las siguientes tareas tiene SMTP frente a los protocolos POP e IMAP, según el glosario de términos de ciberseguridad de INCIBE?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Enviar el correo, mientras que POP o IMAP se emplean para recibirlo"
+  - id: b
+    text:
+      es: "Enviar y recibir el correo, sin necesidad de usar POP ni IMAP"
+  - id: c
+    text:
+      es: "Recibir el correo, mientras que POP o IMAP se emplean para enviarlo"
+  - id: d
+    text:
+      es: "Descargar ficheros del servidor, mientras que POP o IMAP envían el correo"
+  explanation:
+    es: "A SMTP se le dejó la tarea específica de enviar correo, y la recepción se hace con POP o IMAP. Invertir las tareas contradice la página: SMTP envía y POP o IMAP reciben. SMTP tiene limitaciones en la recepción, por lo que se crearon POP e IMAP para recibir. La descarga de ficheros del servidor es la función de FTP, no la de SMTP."
+  citation: "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.18.16. SMTP»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-incibe-glosario-ciberseguridad-pdf
+- id: m06-l08-q132
+  prompt:
+    es: "¿Cuál de las siguientes características define al correo spam, según el glosario de términos de ciberseguridad de INCIBE?"
+  options:
+  - id: a
+    text:
+      es: "Prometer negocios muy rentables a cambio de una transferencia de dinero"
+  - id: b
+    text:
+      es: "Usar el nombre de una persona u organismo de confianza para obtener datos"
+  - id: c
+    text:
+      es: "Ser solicitado por el receptor y enviarse a un único destinatario"
+  - id: d
+    correct: true
+    text:
+      es: "Ser no solicitado por el receptor y enviarse en grandes cantidades"
+  explanation:
+    es: "El correo spam es un correo no solicitado por el receptor y que se envía en grandes cantidades. Que sea solicitado por el receptor y a un único destinatario contradice la definición. Usar el nombre de una persona u organismo de confianza para obtener datos es el correo de suplantación. Prometer negocios muy rentables a cambio de una transferencia de dinero es el esquema de las cartas nigerianas."
+  citation: "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.3.32. Correo spam»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-incibe-glosario-ciberseguridad-pdf
+- id: m06-l08-q133
+  prompt:
+    es: "¿Cuál de las siguientes finalidades tiene el envío de correo spam, según el glosario de términos de ciberseguridad de INCIBE?"
+  options:
+  - id: a
+    text:
+      es: "Para comprobar si el usuario que lo recibe es un humano o un bot"
+  - id: b
+    correct: true
+    text:
+      es: "Con fines publicitarios o como complemento de actividades maliciosas como los ataques de phishing"
+  - id: c
+    text:
+      es: "Para intercambiar mensajes de correo electrónico entre servidores de correo"
+  - id: d
+    text:
+      es: "Para evitar que el usuario introduzca el usuario y la contraseña en cada página"
+  explanation:
+    es: "El spam se envía con fines publicitarios o como complemento de actividades maliciosas como los ataques de phishing. Comprobar si el usuario es un humano o un bot es la función del CAPTCHA. Evitar introducir el usuario y la contraseña en cada página es una de las funciones de las cookies. Intercambiar mensajes de correo entre servidores es lo que hace SMTP."
+  citation: "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.3.32. Correo spam»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-incibe-glosario-ciberseguridad-pdf
+- id: m06-l08-q134
+  prompt:
+    es: "¿Qué sinónimo da el glosario de términos de ciberseguridad de INCIBE para el término correo spam en la entrada correspondiente?"
+  options:
+  - id: a
+    text:
+      es: "Cartas nigerianas"
+  - id: b
+    text:
+      es: "Correo de suplantación"
+  - id: c
+    correct: true
+    text:
+      es: "Correo basura"
+  - id: d
+    text:
+      es: "Phishing, que es otro tipo de ataque"
+  explanation:
+    es: "El glosario da como sinónimo de correo spam el término correo basura. Correo de suplantación es una entrada aparte: un mensaje que usa el nombre de una persona u organismo de confianza. Cartas nigerianas es otra entrada aparte: una comunicación inesperada que promete negocios muy rentables. Phishing es otra entrada aparte: una técnica de suplantación para conseguir credenciales o datos de tarjeta; el spam solo la complementa."
+  citation: "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.3.32. Correo spam»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-incibe-glosario-ciberseguridad-pdf
+- id: m06-l08-q136
+  prompt:
+    es: "¿Cuál de los siguientes tipos de pruebas realiza la medida de seguridad CAPTCHA, según el glosario de términos de ciberseguridad de INCIBE?"
+  options:
+  - id: a
+    text:
+      es: "Pruebas de cifrado simétrico controladas por el usuario"
+  - id: b
+    text:
+      es: "Pruebas de autenticación con certificado controladas por el servidor"
+  - id: c
+    text:
+      es: "Pruebas de petición-respuesta controladas por el navegador"
+  - id: d
+    correct: true
+    text:
+      es: "Pruebas de desafío-respuesta controladas por máquinas"
+  explanation:
+    es: "CAPTCHA consiste en pruebas de desafío-respuesta controladas por máquinas, para saber si el usuario es un humano o un bot según su respuesta. No son pruebas de cifrado simétrico: es un desafío-respuesta que sirve para distinguir humanos de bots. No son pruebas con certificado: se trata de desafíos cuya respuesta indica si el usuario es un humano o un bot. El esquema petición-respuesta es el de HTTP; el CAPTCHA es una prueba de desafío-respuesta."
+  citation: "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.3.2. Captcha»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-incibe-glosario-ciberseguridad-pdf
+- id: m06-l08-q137
+  prompt:
+    es: "Según el glosario de términos de ciberseguridad de INCIBE, ¿qué se entiende por servidor en el contexto de las redes y los servicios?"
+  options:
+  - id: a
+    text:
+      es: "Solo el programa de software que realiza tareas, nunca el ordenador físico"
+  - id: b
+    text:
+      es: "Solo el ordenador físico en el que funciona el programa, nunca el programa"
+  - id: c
+    text:
+      es: "El equipo que descarga archivos de otras máquinas con un cliente FTP"
+  - id: d
+    correct: true
+    text:
+      es: "Tanto el equipo que almacena una información como el programa que la gestiona y la ofrece"
+  explanation:
+    es: "Por servidor se entiende tanto el equipo que almacena una información como el programa que la gestiona y la ofrece a otras máquinas. Decir que es solo el ordenador excluye al software, que el glosario también incluye. Decir que es solo el programa excluye al ordenador físico, que el glosario también incluye. El equipo que descarga archivos mediante FTP es el cliente; el servidor es el que ofrece los archivos."
+  citation: "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.18.8. Servidor»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-incibe-glosario-ciberseguridad-pdf
+- id: m06-l08-q138
+  prompt:
+    es: "Según el glosario de términos de ciberseguridad de INCIBE, una URL (Uniform Resource Locator) es:"
+  options:
+  - id: a
+    text:
+      es: "El servicio que traduce nombres de dominio en direcciones IP"
+  - id: b
+    correct: true
+    text:
+      es: "La dirección que identifica un contenido colgado en Internet"
+  - id: c
+    text:
+      es: "El pequeño fichero que guarda un sitio web en el equipo del usuario"
+  - id: d
+    text:
+      es: "El número único que identifica a todo sistema conectado a una red"
+  explanation:
+    es: "Las siglas URL hacen referencia a la dirección que identifica un contenido colgado en Internet. El número único que identifica a todo sistema conectado a una red es la dirección IP. El servicio que traduce nombres de dominio en direcciones IP es el DNS. El pequeño fichero que guarda un sitio web en el equipo del usuario es la cookie."
+  citation: "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.20.1. URL»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-whatwg-html-introduccion-html
+- id: m06-l08-q139
+  prompt:
+    es: "¿Qué es HTML, según la introducción del estándar HTML del WHATWG, en relación con la World Wide Web?"
+  options:
+  - id: a
+    text:
+      es: "El protocolo de transferencia de hipertexto de la World Wide Web"
+  - id: b
+    correct: true
+    text:
+      es: "El lenguaje de marcado principal de la World Wide Web"
+  - id: c
+    text:
+      es: "El lenguaje de programación que ejecutan los navegadores en la Web"
+  - id: d
+    text:
+      es: "El lenguaje basado en XML que sustituyó a HTML en la Web"
+  explanation:
+    es: "El estándar define HTML como el lenguaje de marcado principal de la World Wide Web. El protocolo de transferencia de hipertexto es HTTP, y HTML es un lenguaje de marcado, no un protocolo. XHTML fue el equivalente basado en XML, pero el interés por evolucionar HTML renació en 2003, sin que lo sustituyera. Los scripts en JavaScript son los programas que se insertan en la página; HTML es el lenguaje de marcado."
+  citation: "fuente: `whatwg-html-introduccion.html`; «1.3 Background»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-whatwg-html-introduccion-html
+- id: m06-l08-q140
+  prompt:
+    es: "Según el estándar HTML del WHATWG, ¿para qué se diseñó principalmente HTML en su origen?"
+  options:
+  - id: a
+    text:
+      es: "Para transferir ficheros entre un cliente y un servidor"
+  - id: b
+    text:
+      es: "Para intercambiar mensajes de correo electrónico entre servidores"
+  - id: c
+    text:
+      es: "Para describir aplicaciones web interactivas en el navegador"
+  - id: d
+    correct: true
+    text:
+      es: "Para describir semánticamente documentos científicos"
+  explanation:
+    es: "En su origen, HTML se diseñó principalmente como un lenguaje para describir semánticamente documentos científicos; después se adaptó a otros documentos y aplicaciones. Describir aplicaciones es una adaptación posterior de su diseño, no el propósito original. Transferir ficheros entre cliente y servidor es lo que hace FTP. Intercambiar correo entre servidores es lo que hace SMTP."
+  citation: "fuente: `whatwg-html-introduccion.html`; «1.3 Background»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-ms-win-extensiones-html
+- id: m06-l08-q141
+  prompt:
+    es: "¿Cuál de los siguientes tipos de archivo es el que tiene la extensión .htm o .html, según la lista de extensiones comunes de Windows 11?"
+  options:
+  - id: a
+    text:
+      es: "Un archivo de configuración de inicialización de Windows"
+  - id: b
+    text:
+      es: "Un archivo de correo electrónico creado por Outlook Express"
+  - id: c
+    text:
+      es: "Una plantilla de Microsoft Word"
+  - id: d
+    correct: true
+    text:
+      es: "Una página de lenguaje de marcado de hipertexto"
+  explanation:
+    es: "Las extensiones htm y html corresponden a una página de lenguaje de marcado de hipertexto. El archivo de configuración de inicialización de Windows es el de extensión ini. La plantilla de Microsoft Word es la de extensión dotx. El archivo de correo creado por Outlook Express, Windows Live Mail y otros programas es el de extensión eml."
+  citation: "fuente: `ms-win-extensiones.html`; «Extensiones de nombre de archivo comunes en Windows»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-whatwg-html-introduccion-html
+- id: m06-l08-q142
+  prompt:
+    es: "¿Cuál de las siguientes formas de insertar scripts, normalmente escritos en JavaScript, describe la introducción del estándar HTML del WHATWG?"
+  options:
+  - id: a
+    text:
+      es: "Como datos, con atributos data-* que los navegadores procesan siempre"
+  - id: b
+    correct: true
+    text:
+      es: "Como pequeños programas, con el elemento script o con atributos de manejadores de eventos"
+  - id: c
+    text:
+      es: "Como pequeños programas, solo con el elemento noscript de la página"
+  - id: d
+    text:
+      es: "Como hojas de estilo, con el elemento style o con atributos de color"
+  explanation:
+    es: "Los scripts (normalmente en JavaScript) son pequeños programas que se insertan con el elemento script o con atributos de contenido de manejadores de eventos. Un script es un pequeño programa, no una hoja de estilo, y no se inserta con atributos de color. El elemento noscript muestra contenido cuando los scripts están desactivados; no sirve para insertarlos. Los atributos data-* nunca los toca el navegador: sirven para que los scripts guarden datos en los elementos."
+  citation: "fuente: `whatwg-html-introduccion.html`; «1.10 A quick introduction to HTML»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-whatwg-html-introduccion-html
+- id: m06-l08-q143
+  prompt:
+    es: "¿Cuál de las siguientes acciones se puede hacer desde los scripts de la página con el árbol DOM, según la introducción del estándar HTML del WHATWG?"
+  options:
+  - id: a
+    text:
+      es: "Solo leerlo, sin poder modificar ninguno de sus elementos"
+  - id: b
+    text:
+      es: "Nada: el árbol DOM solo lo modifica el servidor de la página"
+  - id: c
+    text:
+      es: "Sustituirlo por un árbol XML que el navegador no procesa"
+  - id: d
+    correct: true
+    text:
+      es: "Manipularlo, por ejemplo cambiando el destino de un enlace"
+  explanation:
+    es: "El árbol DOM se puede manipular desde scripts de la página («This DOM tree can be manipulated from scripts in the page»); por ejemplo, un script puede cambiar el atributo href de un enlace. Leerlo sin poder modificar nada no es lo que dice la página, que explica cómo se cambia el destino de un enlace. Que solo lo modifique el servidor tampoco: la manipulación se hace desde scripts de la página. Y sustituirlo por un árbol XML que el navegador no procesa choca con la sección 1.8 de la página del WHATWG, que dice de los documentos XML: «it is treated as an XML document by web browsers, to be parsed by an XML processor», es decir, el navegador sí los procesa con un procesador XML."
+  citation: "fuente: `whatwg-html-introduccion.html`; «1.10 A quick introduction to HTML»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-whatwg-html-scripting-html
+- id: m06-l08-q144
+  prompt:
+    es: "¿Cuál de las siguientes razones da el estándar HTML para animar a usar alternativas declarativas a los scripts siempre que sea posible?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Porque suelen ser más fáciles de mantener y muchos usuarios los desactivan"
+  - id: b
+    text:
+      es: "Porque los scripts no pueden dar interactividad a los documentos"
+  - id: c
+    text:
+      es: "Porque los navegadores no pueden ejecutar scripts en JavaScript"
+  - id: d
+    text:
+      es: "Porque las alternativas declarativas se ejecutan siempre en el servidor de la página"
+  explanation:
+    es: "El estándar dice: «Authors are encouraged to use declarative alternatives to scripting where possible, as declarative mechanisms are often more maintainable, and many users disable scripting». Que los scripts no puedan dar interactividad contradice la primera frase de la sección: «Scripts allow authors to add interactivity to their documents». Que los navegadores no ejecuten scripts en JavaScript contradice la propia razón de que muchos usuarios los desactiven, que supone que se ejecutan. Y que las alternativas declarativas se ejecuten siempre en el servidor no es lo que dice la sección: su ejemplo, el elemento details para mostrar u ocultar una sección, lo resuelve el navegador sin script."
+  citation: "fuente: `whatwg-html-scripting.html`; «4.12 Scripting»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-whatwg-html-scripting-html
+- id: m06-l08-q145
+  prompt:
+    es: "En lugar de un script para mostrar u ocultar una sección con más detalles, ¿qué elemento propone el estándar HTML como alternativa declarativa?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "El elemento details de HTML"
+  - id: b
+    text:
+      es: "El elemento output de HTML"
+  - id: c
+    text:
+      es: "El elemento form de HTML"
+  - id: d
+    text:
+      es: "El elemento noscript de HTML"
+  explanation:
+    es: "El estándar propone usar el elemento details en lugar de un script para mostrar u ocultar una sección con más detalles. El elemento noscript presenta contenido alternativo cuando los scripts están desactivados, no es un mecanismo declarativo de mostrar u ocultar. El elemento output muestra el resultado de un cálculo en los ejemplos de la página. El elemento form agrupa los controles de un formulario, como en el ejemplo del cálculo del cuadrado."
+  citation: "fuente: `whatwg-html-scripting.html`; «4.12 Scripting»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-whatwg-html-scripting-html
+- id: m06-l08-q146
+  prompt:
+    es: "¿Cuál de las siguientes cosas ocurre, en el ejemplo del estándar HTML que usa noscript para calcular un cuadrado, cuando los scripts están desactivados?"
+  options:
+  - id: a
+    text:
+      es: "El formulario desaparece de la página sin dejar ningún botón"
+  - id: b
+    text:
+      es: "El navegador ejecuta el script del cálculo en un hilo aparte"
+  - id: c
+    correct: true
+    text:
+      es: "Aparece un botón para hacer el cálculo en el servidor"
+  - id: d
+    text:
+      es: "El valor se calcula al instante en el propio navegador"
+  explanation:
+    es: "Con los scripts desactivados aparece un botón para que el cálculo se haga en el servidor; con los scripts activados, el valor se calcula al instante. Calcular el valor al instante en el navegador es lo que ocurre con los scripts activados. Con los scripts desactivados aparece un botón en el formulario, que permanece en la página. Con los scripts desactivados no se ejecuta el script, ni en un hilo aparte ni de otra forma."
+  citation: "fuente: `whatwg-html-scripting.html`; «4.12 Scripting»"
+  difficulty: 3
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-edge-consola-javascript-html
+- id: m06-l08-q147
+  prompt:
+    es: "En Microsoft Edge en Windows 11, ¿qué combinación de teclas abre directamente la consola de DevTools para ejecutar JavaScript?"
+  options:
+  - id: a
+    text:
+      es: "Ctrl+Mayús+M, que cambia de usuario o examina como invitado"
+  - id: b
+    correct: true
+    text:
+      es: "Ctrl+Mayús+J"
+  - id: c
+    text:
+      es: "Ctrl+Mayús+K, que duplica la pestaña actual"
+  - id: d
+    text:
+      es: "Ctrl+Mayús+N, que abre una ventana de InPrivate"
+  explanation:
+    es: "Ctrl+Mayús+J abre directamente la consola de DevTools de Edge en Windows. Ctrl+Mayús+K duplica la pestaña actual, según la lista de métodos abreviados de Edge. Ctrl+Mayús+N abre una nueva ventana de InPrivate. Ctrl+Mayús+M inicia sesión como usuario distinto o examina como invitado."
+  citation: "fuente: `ms-edge-consola-javascript.html`; «Ejecución de JavaScript en la consola»"
+  difficulty: 1
+  tags:
+  - "atajo"
+# anchor: fuente-ms-edge-consola-javascript-html
+- id: m06-l08-q148
+  prompt:
+    es: "¿Cuál de las siguientes formas de ejecución usa la Consola de DevTools de Microsoft Edge para el código JavaScript que se escribe en ella?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "De forma inmediata e interactiva, a medida que se escribe"
+  - id: b
+    text:
+      es: "Solo tras enviarlo a un servidor externo que lo valida antes"
+  - id: c
+    text:
+      es: "Solo al guardar el código escrito en un archivo con extensión .js"
+  - id: d
+    text:
+      es: "Solo al cerrar la consola, que ejecuta todo lo escrito de una vez"
+  explanation:
+    es: "La consola ejecuta cualquier expresión o instrucción de JavaScript de forma inmediata e interactiva a medida que se escribe. La consola no necesita archivos: ejecuta lo que se escribe a medida que se escribe. La consola no espera a cerrarse: muestra el resultado mientras se escribe. La consola evalúa el código en el propio navegador, sin enviarlo a ningún servidor."
+  citation: "fuente: `ms-edge-consola-javascript.html`; «Ejecución de JavaScript en la consola»"
+  difficulty: 2
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-edge-consola-javascript-html
+- id: m06-l08-q149
+  prompt:
+    es: "¿Cuál de las siguientes secuencias repite la Consola de DevTools de Microsoft Edge, un entorno de bucle de lectura, evaluación e impresión (REPL)?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Lee el código, lo evalúa, imprime el resultado y vuelve al primer paso"
+  - id: b
+    text:
+      es: "Evalúa el código, lo lee, imprime el resultado y vuelve al primer paso"
+  - id: c
+    text:
+      es: "Lee el código, imprime el resultado, lo evalúa y vuelve al primer paso"
+  - id: d
+    text:
+      es: "Lee el código, lo evalúa, imprime el resultado y termina la sesión"
+  explanation:
+    es: "La consola lee el código JavaScript que se escribe, lo evalúa, imprime el resultado y vuelve al primer paso. Evaluar el código antes de leerlo invierte el orden de los pasos de la página. Imprimir el resultado antes de evaluar el código invierte el orden de los pasos. La consola vuelve al primer paso, no termina la sesión."
+  citation: "fuente: `ms-edge-consola-javascript.html`; «Ejecución de JavaScript en la consola»"
+  difficulty: 3
+  tags:
+  - "concepto"
+# anchor: fuente-ms-edge-consola-javascript-html
+- id: m06-l08-q150
+  prompt:
+    es: "En la Consola de DevTools de Microsoft Edge, ¿qué teclas permiten escribir un bloque de varias líneas sin ejecutar el comando al pulsar Entrar?"
+  options:
+  - id: a
+    text:
+      es: "Alt+Entrar"
+  - id: b
+    text:
+      es: "Ctrl+Entrar, que añade www. y .com a la dirección escrita"
+  - id: c
+    text:
+      es: "F10+Entrar, que abre el menú Configuración y más"
+  - id: d
+    correct: true
+    text:
+      es: "Mayús+Entrar"
+  explanation:
+    es: "En la consola, Entrar ejecuta el comando; para escribir varias líneas hay que pulsar Mayús+Entrar. Ctrl+Entrar es el método abreviado de Edge que añade www. al principio y .com al final del texto de la barra de direcciones. F10+Entrar abre el menú Configuración y más. Alt+Entrar no es la combinación de la página: para evitar la limitación de una línea indica Mayús+Entrar."
+  citation: "fuente: `ms-edge-consola-javascript.html`; «Ejecución de JavaScript en la consola»"
+  difficulty: 3
+  tags:
+  - "atajo"
+# anchor: fuente-ms-edge-consola-javascript-html
+- id: m06-l08-q151
+  prompt:
+    es: "¿Cuál de las siguientes cosas ocurre la primera vez que se intenta pegar contenido en la herramienta Consola de DevTools de Microsoft Edge?"
+  options:
+  - id: a
+    text:
+      es: "Se pega como texto sin formato, sin advertencia"
+  - id: b
+    text:
+      es: "Se pega y se ejecuta de inmediato, sin pedir confirmación"
+  - id: c
+    text:
+      es: "Se pega tras escribir Entrar, que ejecuta el contenido"
+  - id: d
+    correct: true
+    text:
+      es: "Se muestra una advertencia en lugar de pegarlo"
+  explanation:
+    es: "Al intentar pegar por vez inicial, la consola muestra una advertencia en lugar de pegar el contenido, para evitar ataques de auto-XSS. Pegar y ejecutar de inmediato contradice la advertencia, que impide pegar de entrada. La consola no pega ni como texto sin formato: muestra primero la advertencia. Entrar ejecuta el comando; para pegar hay que escribir primero «permitir pegar»."
+  citation: "fuente: `ms-edge-consola-javascript.html`; «Ejecución de JavaScript en la consola»"
+  difficulty: 2
+  tags:
+  - "comportamiento"
+# anchor: fuente-euskadi-diseno-adaptable-html
+- id: m06-l08-q152
+  prompt:
+    es: "¿Cuál de las siguientes acciones evita el diseño adaptable, según la definición del Servicio Web del Gobierno Vasco?"
+  options:
+  - id: a
+    text:
+      es: "Adaptar el diseño a las distintas resoluciones de pantalla de los usuarios"
+  - id: b
+    correct: true
+    text:
+      es: "Duplicar los sitios web para versiones de dispositivos concretos"
+  - id: c
+    text:
+      es: "Usar unidades relativas y consultas de medios (media queries)"
+  - id: d
+    text:
+      es: "Usar estándares web como HTML5 y CSS3 en sus portales"
+  explanation:
+    es: "El diseño adaptable es un conjunto de técnicas para que los sitios web sean utilizables en cualquier dispositivo sin duplicarlos en versiones para dispositivos concretos. HTML5 y CSS3 son estándares que el Servicio Web usa para lograr la adaptabilidad, no lo que evita. Las unidades relativas y las media queries son técnicas que usa para adaptar el diseño. Adaptar el diseño a distintas resoluciones es justo lo que pretende el diseño adaptable."
+  citation: "fuente: `euskadi-diseno-adaptable.html`; «Diseño adaptable (Responsive Design)»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-euskadi-diseno-adaptable-html
+- id: m06-l08-q153
+  prompt:
+    es: "¿Cuál de los siguientes dispositivos recomienda el Servicio Web del Gobierno Vasco que se tenga en cuenta primero al plantear una interfaz adaptable?"
+  options:
+  - id: a
+    text:
+      es: "En las tabletas, con el enfoque «Tablet First»"
+  - id: b
+    correct: true
+    text:
+      es: "En los dispositivos móviles, con el enfoque «Mobile First»"
+  - id: c
+    text:
+      es: "En los televisores y consolas, con el enfoque «Console First»"
+  - id: d
+    text:
+      es: "En los ordenadores personales, con el enfoque «Desktop First»"
+  explanation:
+    es: "Al plantear una interfaz adaptable se recomienda pensar primero en los dispositivos móviles («Mobile First»), para lograr interacciones más claras y simples. Los ordenadores personales no son el primer dispositivo al que se recomienda pensar. Los televisores y las consolas aparecen solo como dispositivos con navegador integrado, no como punto de partida. Las tabletas son un dispositivo más en los datos de visitas; la recomendación es pensar primero en los móviles."
+  citation: "fuente: `euskadi-diseno-adaptable.html`; «Diseño adaptable (Responsive Design)»"
+  difficulty: 2
+  tags:
+  - "concepto"

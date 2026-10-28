@@ -4097,3 +4097,66 @@ VI gets none, R4a.3). What remains are the prose gaps listed under each bloque's
 with its own blind check, after which its blocked row can return. Two lessons from this round:
 - A title or header is a claim of completeness; seven of the bloque I FAILs were that.
 - A plural citation with a sub-range («arts. 23.2 y 24.1–2») misparses; write each apartado.
+
+# Bloque II prose gaps (R3, 2026-10-19)
+
+Closed before the bloque II question bank, as «Esquemas bloque II» open item 1 asked. Records:
+`docs/age-verification/bank/bloque-ii/prose-gaps/writer.md`, `verify.md` (65 items, 61 PASS), `recheck.md` (the 5
+fixed items, 5/5 PASS). Nothing committed.
+
+- **m02-l01:** art. 2.1 RD 208/1996 catch-all; art. 3.2 RD 208/1996 limitations clause (it names repealed LO 5/1992 and
+  art. 37 Ley 30/1992 as the RD writes them); arts. 9.1 párr. 2, 10.1, 10.2 LO 4/2001. The peticiones `plazos` is back
+  as «Algunos plazos de las peticiones» (3 rows, each with the art. 10.1 condition).
+- **m02-l02:** art. 49.5 Ley 16/1985 (new table «Documentos que forman parte del Patrimonio Documental», 4 rows);
+  art. 16.2 LPAC «cursados sin dilación» (new `pasos` «Del asiento a los destinatarios», 2 steps).
+- **m02-l03:** arts. 12.3, 12.4, 12.6, 13.4, 13.5, 13.6 RD 1112/2018 one by one (new `plazos`, 2 rows); art. 6.1 RD
+  127/2015 «Sin perjuicio de la identidad definida…» (sentence split so the clause covers only the VUDS); art. 6.1 RD
+  203/2021 prior notice when a portal is suppressed (new row).
+- **m02-l04:** arts. 15.4, 17.3 (letters a–e), 20.3, 20.4, 22.2–22.4 RGPD (22.4 now covers «los tres casos del
+  artículo 22.2»); art. 48.5 párr. 2 LOPDGDD (cese row); art. 65.5 LOPDGDD with «conforme al artículo 64.4». Rights
+  table retitled «Algunos derechos del interesado» (4 rows added).
+- **Source citations:** 11 bare `sources/otros/` paths in m02-l02 and m02-l03 now read «(fuente: `file`; label)».
+
+`citations.es.txt` regenerated with the bloque III build (53 m02 rows added, 2 replaced); `glossary-links.es.txt`
+moves one row (g-unidades-administrativas' first m02-l02 mark now falls on the art. 16.2 sentence). Not restored:
+art. 10.2 LO 4/2001 (no plazo), art. 3.2 RD 208/1996 (left out of the table on purpose), the limitación del tratamiento
+(the prose only defines it).
+
+# R3 session 5–7 lesson fixes (2026-10-22 → 27): coverage-audit misses and verifier-found errors
+
+Decisions 2b–2d of the R3 closing round. Each addition is a fact an official exam (2020–2025) asks, or a rule a
+verifier needed, that no lesson stated: a **coverage-audit miss** of R2/R2b. Every change follows the R2 rules (the
+norm's own words where shortening would drop a condition, a parenthesised citation that resolves) and passed a blind
+check. Records: `docs/age-verification/bank/lesson-fixes/<module>/writer.md`; checks: `…/check.md`,
+`coordinator-recheck.md`, `recheck-s6.md`, `s6/check.md`. Questions on the additions are the `.s5b`/`.s5c`/`.s5d`
+files, merged into the lesson drafts.
+
+**Coverage-audit misses (additions)**
+- m02-l03: STC 100/2019 on arts. 12–13 RD 1112/2018 (not basic; the 20-day inciso).
+- m03-l03: art. 13 LRJSP (suplencia); art. 30.2–3 LRJSP (start of prescription of infracciones and sanciones);
+  art. 95.3 párr. 2, art. 96.5 and art. 106.3 LPAC; art. 6 LJCA; art. 128.2 LJCA (August inhábil in the contencioso);
+  the month rule in the contencioso (art. 185.1 LOPJ with art. 5.1 Código Civil).
+- m03-l04: art. 29.7 LCSP. m03-l05: arts. 89.1 and 25.1.b) LPAC. m03-l06: art. 68.1 LPAC.
+- m04-l04: art. 29.3 Ley 30/1984 (trienios); art. 98.3 TREBEP. m04-l06: art. 6 RD 33/1986; arts. 25.3 and 30.2 LRJSP
+  beside art. 20.2 RD 33/1986; art. 30.4 LPAC; art. 61.s) LRJSP beside art. 47.1 RD 33/1986; art. 23 RD 33/1986 beside
+  art. 94.3 TREBEP (conflicts stated, not resolved). m04-l07: art. 1.1 RD 577/1997; art. 28.3.b) TRLCPE. m04-l09:
+  arts. 207.1 and 208.1 LGSS (incl. the indemnización condition); DT vigesimosexta LGSS.
+- m05-l02: arts. 62/63 criterion (anexo IV Resolución de 20-01-2014); art. 47.2 (retención adicional del 10 %) and
+  47.4–6 LGP. m05-l03: art. 13.2 RD 2188/1995 (ten days; five if urgent).
+
+**Verifier-found errors corrected**
+- «(hoy: …)» notes added: m02-l01 (art. 3.2 RD 208/1996; art. 17.2 RD 951/2005), m02-l03 (art. 18.1 RD 1112/2018),
+  m03-l03 (art. 93.2 LRJSP), m04-l07 (art. 4.1 RDL 4/2000; art. 5.1 RD 577/1997), m05-l02 (art. 60.1 LGP «Ministro de
+  Economía»; l. 220 and l. 309, the Hacienda notes now cite art. 5.1 RD 829/2023 outside the «hoy»).
+- m05-l02 esquema: orgánica 40.1.a), programas 40.1.b). m05-l05: art. 63 «inútiles por su uso normal» and concepto 630
+  in separate clauses. m05-l06: DA 12.ª LCSP only moves an inhábil last day. m05-l04: apartado noveno.1 Orden
+  PRE/1576/2002 with the cheque's conditions. m03-l07: the Observatorio paragraph no longer cites art. 20 RD 829/2023
+  for what it does not say. m06-l02: the screen-orientation path from the Windows 10 tab removed.
+- Citation forms the resolver could not read: Ley 29/1975 arts. 3.1 and 10.1; art. 15.A).1.º RD 1009/2023; art. 34.1
+  LGP (not 34.1.b)); anexo II RD 462/2002; m06-l01 `boe-rd-4-2010-eni.pdf`.
+
+**Decision 2d.** Art. 35.2 LGP says «de carácter plurianual», so m05-l01 keeps it; the programas finalistas definition
+was already verbatim. Ruling in `bloque-ii/verify-spec.md`: check 5 compares stem and options, not the fact.
+
+**Not done for want of a source:** the successor of «Gobiernos Civiles» (art. 9.1 RD 208/1996); TRLSC DA 3.ª.1.d)
+(DUE cese); art. 98 RGLCAP.

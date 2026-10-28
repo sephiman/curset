@@ -1,0 +1,606 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# Question bank, m06-l06: fixed multiple-choice questions (round R3). Generated from
+# docs/age-verification/bank/bloque-vi/m06-l06.draft.json minus drops.tsv by
+# docs/age-verification/bank/tools/build_exercises.py; edit the draft and rebuild, not this file.
+type: quiz
+variants:
+# anchor: fuente-ms-access-tipos-datos-html
+- id: m06-l06-q112
+  prompt:
+    es: "En Access 365, el valor No de la propiedad Indexado de un campo de una tabla:"
+  options:
+  - id: a
+    text:
+      es: "crea un índice único en el campo."
+  - id: b
+    correct: true
+    text:
+      es: "quita cualquier índice en el campo."
+  - id: c
+    text:
+      es: "crea un índice no único en el campo."
+  - id: d
+    text:
+      es: "impide que el campo quede vacío."
+  explanation:
+    es: "En la ayuda, No «quita cualquier índice en el campo». Los índices único y no único los crean Sí (sin duplicados) y Sí (se aceptan duplicados), y exigir que el campo no quede vacío es la función de la propiedad Obligatorio."
+  citation: "fuente: `ms-access-tipos-datos.html`; «Indexado»"
+  difficulty: 2
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-access-tipos-datos-html
+- id: m06-l06-q113
+  prompt:
+    es: "En Access 365, ¿cuál de las siguientes afirmaciones sobre la propiedad de campo Indexado es correcta?"
+  options:
+  - id: a
+    text:
+      es: "Permite crear también índices de varios campos"
+  - id: b
+    text:
+      es: "Solo se puede establecer en los campos que forman la clave principal de la tabla"
+  - id: c
+    correct: true
+    text:
+      es: "Permite crear un índice en un solo campo, pero no un índice de varios campos"
+  - id: d
+    text:
+      es: "Solo admite los dos valores Sí y No, sin más opciones"
+  explanation:
+    es: "La ayuda dice que «se puede crear un índice en un solo campo estableciendo la propiedad Indizado del campo», pero «no se puede crear un índice de varios campos al establecer esta propiedad». Además la propiedad aparece en campos de varios tipos, no solo en los de clave principal, y tiene tres valores, no dos."
+  citation: "fuente: `ms-access-tipos-datos.html`; «Indexado»"
+  difficulty: 3
+  tags:
+  - "concepto"
+# anchor: fuente-ms-access-tipos-datos-html
+- id: m06-l06-q114
+  prompt:
+    es: "En Access 365, ¿qué advierte la ayuda sobre cambiar la propiedad Indexado de un campo que se utiliza en una clave principal?"
+  options:
+  - id: a
+    text:
+      es: "Access convierte el campo automáticamente en un campo Autonumeración sin avisar"
+  - id: b
+    text:
+      es: "Access elimina la clave principal de la tabla y la sustituye por una clave externa"
+  - id: c
+    text:
+      es: "El campo deja de aceptar valores nuevos en las tablas con las que se relaciona"
+  - id: d
+    correct: true
+    text:
+      es: "Sin un índice exclusivo es posible escribir valores duplicados, lo que puede romper las relaciones"
+  explanation:
+    es: "La nota de la ayuda dice: «No cambie esta propiedad para un campo que se utiliza en una clave principal. Sin un índice exclusivo, es posible escribir valores duplicados, lo que puede romper las relaciones de las que forma parte la clave». Convertir el campo en Autonumeración no es lo que advierte: el tipo de datos es otra cosa, y la página dice que no se puede cambiar el tipo de datos de un campo que interviene en una relación. Quitar la clave principal y sustituirla por una clave externa tampoco: según la página de la clave principal, quitarla es un paso manual que Access advierte de que exige eliminar antes las relaciones. Y que el campo deje de aceptar valores nuevos es lo contrario del riesgo que cita la nota: lo que pasa sin índice exclusivo es que se aceptan duplicados."
+  citation: "fuente: `ms-access-tipos-datos.html`; «Indexado»"
+  difficulty: 2
+  tags:
+  - "requisito"
+# anchor: fuente-ms-access-clave-principal-html
+- id: m06-l06-q115
+  prompt:
+    es: "En Access 365, ¿cuántas claves principales puede tener como máximo una misma tabla, según la ayuda de Microsoft?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Una sola"
+  - id: b
+    text:
+      es: "Una por cada campo indexado"
+  - id: c
+    text:
+      es: "Dos: una simple y una compuesta"
+  - id: d
+    text:
+      es: "Tantas como relaciones tenga la tabla"
+  explanation:
+    es: "La ayuda dice: «Cada tabla solo puede tener una clave principal». No admite una por campo indexado ni dos (simple y compuesta): esa única clave puede ser simple o compuesta, según tenga uno o varios campos. Tampoco depende del número de relaciones: una clave externa es la clave principal de otra tabla, no una clave principal adicional."
+  citation: "fuente: `ms-access-clave-principal.html`; «Clave principal»"
+  difficulty: 1
+  tags:
+  - "cantidad"
+# anchor: fuente-ms-access-clave-principal-html
+- id: m06-l06-q116
+  prompt:
+    es: "En Access 365, ¿cuál de los siguientes nombres recibe una clave principal formada por más de un campo, según la ayuda de Microsoft?"
+  options:
+  - id: a
+    text:
+      es: "Clave externa"
+  - id: b
+    correct: true
+    text:
+      es: "Clave compuesta"
+  - id: c
+    text:
+      es: "Clave natural"
+  - id: d
+    text:
+      es: "Clave de búsqueda"
+  explanation:
+    es: "La ayuda dice: «Una clave que tiene más de un campo se denomina clave compuesta». Clave externa es, según la misma página, «la clave principal de otra tabla»; clave natural es la que se basa en un campo de datos, y «clave de búsqueda» no es un término que la página use para claves."
+  citation: "fuente: `ms-access-clave-principal.html`; «Claves compuestas: uso de varios campos combinados a modo de clave principal»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-ms-access-clave-principal-html
+- id: m06-l06-q117
+  prompt:
+    es: "En la vista Diseño de una tabla de Access 365, ¿cómo se seleccionan varios campos para crear una clave compuesta?"
+  options:
+  - id: a
+    text:
+      es: "Marcando la casilla Obligatorio en cada uno de los campos que van a formar la clave"
+  - id: b
+    text:
+      es: "Escribiendo los nombres de todos los campos en la propiedad Indexado del primero"
+  - id: c
+    correct: true
+    text:
+      es: "Manteniendo presionada la tecla Ctrl y seleccionando el selector de filas de cada campo"
+  - id: d
+    text:
+      es: "Seleccionando el selector de filas de cada campo y presionando después la tecla Supr"
+  explanation:
+    es: "La ayuda indica que, para seleccionar más de un campo y crear una clave compuesta, se mantiene presionada la tecla CTRL y se selecciona el selector de filas de cada campo. Marcar Obligatorio solo exige datos en el campo, la propiedad Indexado no permite crear índices de varios campos y la tecla SUPR de esa página sirve para eliminar una línea de relación, no para seleccionar campos."
+  citation: "fuente: `ms-access-clave-principal.html`; «Definir la clave principal con los campos existentes en Access»"
+  difficulty: 2
+  tags:
+  - "atajo"
+# anchor: fuente-ms-access-clave-principal-html
+- id: m06-l06-q119
+  prompt:
+    es: "Según la ayuda de Access 365, ¿qué comprueba Access en el campo de clave principal de cada registro?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Que tiene un valor y que este es siempre distinto"
+  - id: b
+    text:
+      es: "Que coincide con el valor de un campo de otra tabla"
+  - id: c
+    text:
+      es: "Que es un número de tipo Autonumeración"
+  - id: d
+    text:
+      es: "Que su valor no ha cambiado desde la última vez que se abrió la tabla"
+  explanation:
+    es: "La ayuda dice que Access «comprueba que cada registro tiene un valor en el campo de clave principal y que este es siempre distinto». Coincidir con otra tabla es lo propio de una clave externa; no exige tipo Autonumeración, que solo se sugiere si no hay otra clave; y que los valores «no suelen cambiar» es una característica deseable, no una comprobación de Access."
+  citation: "fuente: `ms-access-clave-principal.html`; «Información general sobre las claves principales en Access»"
+  difficulty: 1
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-access-clave-principal-html
+- id: m06-l06-q120
+  prompt:
+    es: "En Access 365, ¿qué crea automáticamente Access para la clave principal, lo que agiliza las consultas y otras operaciones?"
+  options:
+  - id: a
+    text:
+      es: "Una relación con cada tabla de la base de datos"
+  - id: b
+    correct: true
+    text:
+      es: "Un índice"
+  - id: c
+    text:
+      es: "Una regla de validación"
+  - id: d
+    text:
+      es: "Una consulta de selección"
+  explanation:
+    es: "La ayuda dice: «Access crea automáticamente un índice para la clave principal, que permite agilizar las consultas y otras operaciones». Las relaciones se definen en la ventana Relaciones, la regla de validación es una propiedad del campo y la consulta de selección es un objeto distinto; ninguna la menciona la página como creada con la clave."
+  citation: "fuente: `ms-access-clave-principal.html`; «Información general sobre las claves principales en Access»"
+  difficulty: 1
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-access-clave-principal-html
+- id: m06-l06-q121
+  prompt:
+    es: "Señale qué ocurre con los campos de una tabla de Access 365 al quitar su clave principal:"
+  options:
+  - id: a
+    text:
+      es: "Se eliminan de la tabla junto con el índice de la clave"
+  - id: b
+    text:
+      es: "Se mantienen en la tabla y conservan también el índice de la clave"
+  - id: c
+    correct: true
+    text:
+      es: "Se mantienen en la tabla, pero se elimina el índice creado para la clave"
+  - id: d
+    text:
+      es: "Pasan a ser claves externas dentro de la misma tabla"
+  explanation:
+    es: "La ayuda dice: «Al quitar la clave principal, no se eliminan los campos de la tabla, pero sí el índice que se creó para dicha clave». Por eso fallan la opción que elimina los campos y la que conserva el índice; y una clave externa es la clave principal de otra tabla, no el resultado de quitar la de esta."
+  citation: "fuente: `ms-access-clave-principal.html`; «Quitar la clave principal en Access»"
+  difficulty: 2
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-access-clave-principal-html
+- id: m06-l06-q122
+  prompt:
+    es: "En Access 365, ¿qué ocurre si se intenta quitar una clave principal que forma parte de una relación de tabla?"
+  options:
+  - id: a
+    text:
+      es: "Access elimina la relación automáticamente y quita la clave"
+  - id: b
+    text:
+      es: "Access quita la clave y deja la relación sin efecto"
+  - id: c
+    text:
+      es: "Access convierte la clave en una clave externa"
+  - id: d
+    correct: true
+    text:
+      es: "Access advierte de que hay que eliminar primero la relación"
+  explanation:
+    es: "La ayuda dice: «Si intenta quitar una clave principal que forma parte de una o más relaciones, Access le advertirá de que debe eliminar primero la relación». Que Access elimine la relación por su cuenta contradice que sea el usuario quien debe borrarla, con la ventana Relaciones y la tecla SUPR, antes de quitar la clave. Quitar la clave y dejar la relación sin efecto contradice ese orden: la clave se quita después de eliminar las relaciones. Y convertirla en clave externa no figura en ese procedimiento, cuyo último paso es quitar la clave principal desde la vista Diseño."
+  citation: "fuente: `ms-access-clave-principal.html`; «Quitar la clave principal en Access»"
+  difficulty: 2
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-access-clave-principal-html
+- id: m06-l06-q123
+  prompt:
+    es: "Según la ayuda de Access 365, ¿cuál de los siguientes campos es una elección poco adecuada como clave principal de una tabla Contactos?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "El código postal"
+  - id: b
+    text:
+      es: "Un campo Autonumeración"
+  - id: c
+    text:
+      es: "Un número de identificación único asignado a cada contacto"
+  - id: d
+    text:
+      es: "Un número de serie único"
+  explanation:
+    es: "La ayuda explica que el código postal es una clave incorrecta porque «puede que más de una persona tenga el mismo código postal». En cambio, un Autonumeración «constituye una clave principal correcta», y también se suele usar «un número de identificación único, como un número de identificador, un número de serie o un código»."
+  citation: "fuente: `ms-access-clave-principal.html`; «¿En qué consiste una clave principal correcta?»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-ms-access-clave-principal-html
+- id: m06-l06-q124
+  prompt:
+    es: "Según la ayuda de Access 365, ¿cuál es una característica de una clave principal correcta?"
+  options:
+  - id: a
+    text:
+      es: "Puede quedar vacía mientras el registro es nuevo"
+  - id: b
+    correct: true
+    text:
+      es: "Nunca está vacía ni es nula"
+  - id: c
+    text:
+      es: "Cambia cada vez que se modifica el registro"
+  - id: d
+    text:
+      es: "Se repite en los registros de la misma tabla"
+  explanation:
+    es: "La ayuda enumera que una clave correcta «identifica inequívocamente cada fila», «nunca debe estar vacía ni ser nula» y tiene valores que no suelen cambiar. Por eso fallan la que puede quedar vacía, la que cambia con cada modificación y la que se repite, que contradice la identificación inequívoca de cada fila."
+  citation: "fuente: `ms-access-clave-principal.html`; «¿En qué consiste una clave principal correcta?»"
+  difficulty: 2
+  tags:
+  - "requisito"
+# anchor: fuente-ms-access-clave-principal-html
+- id: m06-l06-q125
+  prompt:
+    es: "Al crear una tabla en la vista Hoja de datos de Access 365, ¿qué clave principal crea Access automáticamente?"
+  options:
+  - id: a
+    text:
+      es: "Un campo llamado Código de tipo Texto corto"
+  - id: b
+    text:
+      es: "Una clave compuesta con los dos primeros campos"
+  - id: c
+    correct: true
+    text:
+      es: "Un campo llamado id. de tipo Autonumeración"
+  - id: d
+    text:
+      es: "Un campo llamado Número de tipo Datos adjuntos"
+  explanation:
+    es: "La ayuda dice que, al crear una tabla en la vista Hoja de datos, «Access crea automáticamente una clave principal y le asigna el nombre de campo de «id.» y el tipo de datos Autonumeración». No crea un Código de Texto corto, ni una clave compuesta, ni un campo de Datos adjuntos."
+  citation: "fuente: `ms-access-clave-principal.html`; «Información general sobre las claves principales en Access»"
+  difficulty: 2
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-access-clave-principal-html
+- id: m06-l06-q126
+  prompt:
+    es: "Señale qué hace Access 365 al guardar una tabla nueva sin definir una clave principal:"
+  options:
+  - id: a
+    text:
+      es: "Guarda la tabla y marca como clave principal el primer campo de ella"
+  - id: b
+    text:
+      es: "Impide guardar la tabla hasta que se defina una clave principal"
+  - id: c
+    text:
+      es: "Crea una clave compuesta con todos los campos de la tabla guardada"
+  - id: d
+    correct: true
+    text:
+      es: "Pide crear una y, si se elige Sí, crea un campo Id. de tipo Autonumeración"
+  explanation:
+    es: "La nota de la ayuda dice: «Si guarda una tabla nueva sin definir una clave principal, Access le pide que cree una. Si elige Sí, se crea un campo Id. con el tipo de datos Autonumeración». No marca el primer campo por su cuenta, no impide guardar y no crea una clave con todos los campos."
+  citation: "fuente: `ms-access-clave-principal.html`; «Quitar la clave principal en Access»"
+  difficulty: 3
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-access-clave-principal-html
+- id: m06-l06-q127
+  prompt:
+    es: "En Access 365, ¿qué es una clave externa, según la ayuda de Microsoft sobre las claves principales?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "La clave principal de otra tabla"
+  - id: b
+    text:
+      es: "Un campo con un índice que admite duplicados"
+  - id: c
+    text:
+      es: "Una clave principal formada por más de un campo"
+  - id: d
+    text:
+      es: "Un campo que no puede quedar vacío"
+  explanation:
+    es: "La ayuda dice: «Una clave externa es, sencillamente, la clave principal de otra tabla». Un índice con duplicados es el valor Sí (se aceptan duplicados) de Indexado, una clave de varios campos se llama clave compuesta y que un campo no quede vacío es la propiedad Obligatorio."
+  citation: "fuente: `ms-access-clave-principal.html`; «Información general sobre las claves principales en Access»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-ms-access-reglas-validacion-html
+- id: m06-l06-q128
+  prompt:
+    es: "En Access 365, ¿cuándo comprueba Access una regla de validación de campo y cuándo una de registro?"
+  options:
+  - id: a
+    text:
+      es: "La de campo, al salir del registro; la de registro, al salir del campo"
+  - id: b
+    correct: true
+    text:
+      es: "La de campo, al salir del campo; la de registro, al salir del registro"
+  - id: c
+    text:
+      es: "Las dos, al guardar la tabla en la vista Diseño"
+  - id: d
+    text:
+      es: "Las dos, al abrir la tabla en la vista Hoja de datos"
+  explanation:
+    es: "La ayuda dice que una regla de campo «se aplica cuando el foco deja el campo» y una de registro «se aplica cuando el foco deja el registro». La opción con los momentos intercambiados los invierte. Comprobar las dos al guardar la tabla en la vista Diseño no cuadra con la página, que liga cada regla a dejar el campo o el registro; y las reglas de tabla, según otra frase de la misma página, se aplican al importar los datos. Comprobarlas al abrir la tabla en la vista Hoja de datos tampoco es un momento que la página dé."
+  citation: "fuente: `ms-access-reglas-validacion.html`; «Agregar una regla de validación a una tabla»"
+  difficulty: 2
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-access-reglas-validacion-html
+- id: m06-l06-q129
+  prompt:
+    es: "En Access 365, ¿cuál de las siguientes es un ejemplo de regla de validación de registro?"
+  options:
+  - id: a
+    text:
+      es: ">=Fecha()"
+  - id: b
+    text:
+      es: "<=5"
+  - id: c
+    correct: true
+    text:
+      es: "[Fecha de finalización]>=[Fecha de inicio]"
+  - id: d
+    text:
+      es: ">=0"
+  explanation:
+    es: "La ayuda da como regla de registro «[Fecha de finalización]>=[Fecha de inicio]», que compara dos campos de la misma tabla. >=Fecha() (impedir fechas del pasado), <=5 (número inferior o igual a cinco) y >=0 (el campo Divisa no puede ser negativo) figuran como ejemplos de regla de campo."
+  citation: "fuente: `ms-access-reglas-validacion.html`; «Reglas de validación de registro»"
+  difficulty: 2
+  tags:
+  - "configuración"
+# anchor: fuente-ms-access-reglas-validacion-html
+- id: m06-l06-q130
+  prompt:
+    es: "En Access 365, ¿cuál de las siguientes reglas de validación de campo impide valores de fecha del pasado?"
+  options:
+  - id: a
+    text:
+      es: "<Fecha()"
+  - id: b
+    text:
+      es: "<>Fecha()"
+  - id: c
+    text:
+      es: ">=0"
+  - id: d
+    correct: true
+    text:
+      es: ">=Fecha()"
+  explanation:
+    es: "La ayuda da como ejemplo «Impedir valores de fecha del pasado: >=Fecha()». La regla <Fecha() tiene el texto de validación «La fecha de nacimiento no puede ser una fecha futura», es decir, admite solo fechas pasadas; <>Fecha() solo excluye el día de hoy y >=0 es la regla que impide valores negativos."
+  citation: "fuente: `ms-access-reglas-validacion.html`; «Regla de validación de campo»"
+  difficulty: 1
+  tags:
+  - "configuración"
+# anchor: fuente-ms-access-reglas-validacion-html
+- id: m06-l06-q131
+  prompt:
+    es: "En Access 365, si un campo Fecha tiene la regla de validación >=#01/01/2010# y se escribe una fecha anterior a 2010, ¿qué ocurre al intentar pasar a otro campo?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Access no permite abandonar el campo hasta que se corrija el problema"
+  - id: b
+    text:
+      es: "Access sustituye la fecha escrita por la fecha 01/01/2010 y permite continuar"
+  - id: c
+    text:
+      es: "Access guarda la fecha escrita y marca el registro como no válido para revisarlo"
+  - id: d
+    text:
+      es: "Access mueve el registro con la fecha incorrecta al final de la tabla"
+  explanation:
+    es: "La ayuda dice: «Si especifica una fecha anterior a 2010 e intenta colocar el foco en otro campo, Access no le permitirá abandonar el campo actual hasta que corrija el problema». Por tanto no sustituye la fecha por 01/01/2010, ni la guarda marcando el registro, ni lo mueve al final de la tabla."
+  citation: "fuente: `ms-access-reglas-validacion.html`; «Reglas de validación de campo»"
+  difficulty: 3
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-access-reglas-validacion-html
+- id: m06-l06-q133
+  prompt:
+    es: "En Access 365, ¿cuál de las siguientes rutas permite comprobar si los datos existentes de una tabla cumplen una regla de validación nueva?"
+  options:
+  - id: a
+    text:
+      es: "Campos de tabla › Validación de campo › Probar reglas de validación"
+  - id: b
+    text:
+      es: "Diseño de tabla › Mostrar u ocultar › Probar reglas de validación"
+  - id: c
+    text:
+      es: "Inicio › Registros › Probar reglas de validación"
+  - id: d
+    correct: true
+    text:
+      es: "Diseño de tabla › Herramientas › Probar reglas de validación"
+  explanation:
+    es: "La ayuda indica, con la tabla abierta en la vista Diseño: «En la pestaña Diseño de tabla, en el grupo Herramientas, haga clic en Probar reglas de validación». En Campos de tabla › Validación de campo solo se crean las reglas y mensajes; Mostrar u ocultar no es un grupo de Diseño de tabla en la página e Inicio › Registros tampoco aparece en ella."
+  citation: "fuente: `ms-access-reglas-validacion.html`; «Contrastar los datos existentes con una nueva regla de validación»"
+  difficulty: 2
+  tags:
+  - "ofimática-menú"
+# anchor: fuente-ms-access-reglas-validacion-html
+- id: m06-l06-q134
+  prompt:
+    es: "En Access 365, ¿cuál de las siguientes rutas de la cinta permite crear una regla de validación de campo?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Campos de tabla › Validación de campo › Validación"
+  - id: b
+    text:
+      es: "Diseño de tabla › Herramientas › Validación de campo"
+  - id: c
+    text:
+      es: "Crear › Tablas › Regla de validación de campo"
+  - id: d
+    text:
+      es: "Inicio › Registros › Validación de campo"
+  explanation:
+    es: "La ayuda indica: «En la pestaña Campos de tabla, en el grupo Validación de campo, haga clic en Validación y, después, en Regla de validación de campo». El grupo Herramientas de Diseño de tabla contiene Clave principal y Probar reglas de validación, no la creación de reglas; Crear › Tablas e Inicio › Registros no aparecen en esa página con esa función."
+  citation: "fuente: `ms-access-reglas-validacion.html`; «Crear una regla de validación de campo»"
+  difficulty: 2
+  tags:
+  - "ofimática-menú"
+# anchor: fuente-ms-access-reglas-validacion-html
+- id: m06-l06-q135
+  prompt:
+    es: "En una regla de validación de Access 365, ¿cuál de las siguientes expresiones equivale a ENTRE 100 Y 1000?"
+  options:
+  - id: a
+    text:
+      es: ">100 Y <1000"
+  - id: b
+    correct: true
+    text:
+      es: ">=100 Y <=1000"
+  - id: c
+    text:
+      es: ">=100 O <=1000"
+  - id: d
+    text:
+      es: "<=100 Y >=1000"
+  explanation:
+    es: "La ayuda dice: «ENTRE 100 Y 1000 (es lo mismo que >=100 Y <=1000)». >100 Y <1000 excluiría los extremos; >=100 O <=1000 la cumpliría cualquier número, y <=100 Y >=1000 no la cumpliría ninguno."
+  citation: "fuente: `ms-access-reglas-validacion.html`; «Qué se puede incluir en una regla de validación»"
+  difficulty: 3
+  tags:
+  - "configuración"
+# anchor: fuente-ms-access-reglas-validacion-html
+- id: m06-l06-q136
+  prompt:
+    es: "En Access 365, las restricciones sobre los tipos de caracteres que se escriben en un campo se aplican más fácilmente con:"
+  options:
+  - id: a
+    text:
+      es: "una regla de validación de registro."
+  - id: b
+    text:
+      es: "un campo Calculado."
+  - id: c
+    correct: true
+    text:
+      es: "una máscara de entrada."
+  - id: d
+    text:
+      es: "una consulta de parámetros."
+  explanation:
+    es: "La ayuda dice que «las restricciones sobre los tipos de caracteres que se escriban en un campo pueden aplicarse más fácilmente con una máscara de entrada». La regla de registro compara campos de la misma tabla, el campo Calculado guarda el resultado de una expresión y la consulta de parámetros pide valores al ejecutarse."
+  citation: "fuente: `ms-access-reglas-validacion.html`; «Información general»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-ms-access-reglas-validacion-html
+- id: m06-l06-q137
+  prompt:
+    es: "Según la ayuda de Access 365, además de al escribir datos, ¿cuándo se aplican las reglas de validación definidas para una tabla?"
+  options:
+  - id: a
+    text:
+      es: "Solo cuando se exportan los datos"
+  - id: b
+    text:
+      es: "Solo cuando se ejecuta una consulta de selección"
+  - id: c
+    text:
+      es: "Solo cuando se compacta la base de datos"
+  - id: d
+    correct: true
+    text:
+      es: "Cuando se importan los datos"
+  explanation:
+    es: "La ayuda dice: «Cuando se definen reglas para tablas, esas reglas se aplican cuando se importan los datos». No se aplican solo al exportar, ni al ejecutar una consulta de selección, que solo muestra datos, ni al compactar la base de datos."
+  citation: "fuente: `ms-access-reglas-validacion.html`; «Dónde usar las reglas de validación»"
+  difficulty: 2
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-access-reglas-validacion-html
+- id: m06-l06-q138
+  prompt:
+    es: "En Access 365, si la regla de un control de formulario es menos estricta que la del campo de tabla al que está enlazado, ¿cuál prevalece?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "La de la tabla, porque es más estricta"
+  - id: b
+    text:
+      es: "La del formulario, que sustituye a la de la tabla"
+  - id: c
+    text:
+      es: "Ninguna: Access aplica solo la regla más reciente"
+  - id: d
+    text:
+      es: "La del formulario, porque se aplica la primera"
+  explanation:
+    es: "La ayuda dice: «Si la tabla es más estricta que el formulario, la regla definida para el campo de la tabla tiene prioridad». Que el formulario sustituya a la tabla o que solo cuente la regla más reciente contradice esa frase; y aunque «la regla de formulario se aplica antes que la regla de la tabla», eso no la hace prevalecer."
+  citation: "fuente: `ms-access-reglas-validacion.html`; «Agregar una regla de validación a un formulario»"
+  difficulty: 3
+  tags:
+  - "comportamiento"

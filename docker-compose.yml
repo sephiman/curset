@@ -10,7 +10,7 @@ services:
       args:
         GIT_COMMIT: ${GIT_COMMIT:-unknown}
         BUILD_TIME: ${BUILD_TIME:-unknown}
-    image: curset-backend:latest
+    image: ghcr.io/sephiman/curset-backend:latest
     container_name: curset-backend
     env_file: .env
     environment:
@@ -51,7 +51,7 @@ services:
   frontend:
     build:
       context: ./frontend
-    image: curset-frontend:latest
+    image: ghcr.io/sephiman/curset-frontend:latest
     container_name: curset-frontend
     depends_on:
       backend:

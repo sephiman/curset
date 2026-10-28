@@ -9,3 +9,20 @@ prompt says, unless the prompt explicitly overrides it.
 - The voice page's "never does" list is a hard constraint, not style advice.
 - Spanish is Peninsular and addresses the reader as "tú".
 - EN mirrors the ES structure.
+
+## Subagent models and concurrency
+
+- Writers (question drafting, lesson sentences, esquema rows): sonnet.
+- Verifiers (blind checks of keys, citations, style, copies) and any
+  re-check: opus. Never haiku for anything that decides a key.
+- Coordinator: the session model.
+- At most 4 subagents running at once (2 writers, 2 verifiers).
+- A writer takes several parts in sequence in one run, reusing its
+  loaded context; a verifier takes consecutive batches of 60 the same
+  way. Spec, style guide and ofimática index are loaded once per agent
+  run, not once per part.
+- Progress is written to the ledger after every part, so a window cut
+  loses at most one part.
+- When the usage window is near its end, no new agents are launched;
+  running ones finish their current part, the ledger is written, and
+  work waits for the reset.

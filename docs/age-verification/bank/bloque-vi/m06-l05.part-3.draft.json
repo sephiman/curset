@@ -1,0 +1,1617 @@
+[
+ {
+  "id": "m06-l05-q201",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Fórmulas y funciones",
+  "citation": "fuente: `ms-excel-funcion-sierror.html`; «Descripción»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, la celda A1 contiene 80 y B1 contiene 0. ¿Cuál de los siguientes resultados muestra la celda que contiene =SI.ERROR(A1/B1; \"Sin datos\")?",
+  "options": {
+   "a": "El valor 80",
+   "b": "Sin datos",
+   "c": "#N/A",
+   "d": "FALSO"
+  },
+  "correct": "b",
+  "difficulty": 1,
+  "tags": [
+   "resultado-fórmula"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "A1/B1 divide entre 0 y da un error, y SI.ERROR devuelve en ese caso el valor especificado, el texto Sin datos. 80 sería el resultado de ignorar B1; #N/A y FALSO no son el valor especificado.",
+  "source_quote": "SI.ERROR devuelve un valor que se especifica si una fórmula lo evalúa como un error; de lo contrario, devuelve el resultado de la fórmula.",
+  "covers": [
+   "family:Funciones lógicas y de error (SI, O, NO, SIERROR, ESLOGICO)",
+   "lmc-3",
+   "official:conv2022·P1·54"
+  ]
+ },
+ {
+  "id": "m06-l05-q202",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Fórmulas y funciones",
+  "citation": "fuente: `ms-excel-funcion-sierror.html`; «Ejemplos»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, A1 contiene 80 y B1 contiene 4. ¿Qué muestra la celda que contiene =SI.ERROR(A1/B1; \"Sin datos\")?",
+  "options": {
+   "a": "Sin datos",
+   "b": "#¡DIV/0!",
+   "c": "20",
+   "d": "320"
+  },
+  "correct": "c",
+  "difficulty": 1,
+  "tags": [
+   "resultado-fórmula"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "La división 80/4 no da error, así que SI.ERROR devuelve el resultado de la fórmula: 20. El texto Sin datos solo se devuelve ante un error, #¡DIV/0! es el error que SI.ERROR sustituye y 320 resulta de multiplicar.",
+  "source_quote": "SI.ERROR devuelve un valor que se especifica si una fórmula lo evalúa como un error; de lo contrario, devuelve el resultado de la fórmula.",
+  "covers": [
+   "family:Funciones lógicas y de error (SI, O, NO, SIERROR, ESLOGICO)",
+   "lmc-3"
+  ]
+ },
+ {
+  "id": "m06-l05-q203",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Fórmulas y funciones",
+  "citation": "fuente: `ms-excel-funcion-sierror.html`; «Observaciones»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, A1 contiene 50, B1 contiene 0 y C1 está vacía. ¿Cuál de los siguientes resultados muestra la celda con =SI.ERROR(A1/B1; C1)?",
+  "options": {
+   "a": "El número 0",
+   "b": "El error #¡DIV/0!",
+   "c": "El valor lógico FALSO",
+   "d": "Una cadena vacía (\"\")"
+  },
+  "correct": "d",
+  "difficulty": 3,
+  "tags": [
+   "resultado-fórmula",
+   "comportamiento"
+  ],
+  "distractor_pattern": "texto-alterado",
+  "explanation": "A1/B1 da un error y SI.ERROR devuelve C1, pero si value_if_error es una celda vacía lo trata como un valor de cadena vacío (\"\"). Por eso no muestra 0, ni el error original, ni un valor lógico.",
+  "source_quote": "Si el valor o value_if_error es una celda vacía, SI.ERROR lo trata como un valor de cadena vacío (\"\").",
+  "covers": [
+   "family:Funciones lógicas y de error (SI, O, NO, SIERROR, ESLOGICO)",
+   "lmc-3"
+  ]
+ },
+ {
+  "id": "m06-l05-q204",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Fórmulas y funciones",
+  "citation": "fuente: `ms-excel-funcion-sierror.html`; «Ejemplos»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, A4 está vacía y B4 contiene 23. ¿Cuál de los siguientes resultados muestra la celda con =SI.ERROR(A4/B4; \"Sin cálculo\")?",
+  "options": {
+   "a": "0",
+   "b": "Sin cálculo",
+   "c": "#¡DIV/0!",
+   "d": "#¡VALOR!"
+  },
+  "correct": "a",
+  "difficulty": 3,
+  "tags": [
+   "resultado-fórmula"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "Según el ejemplo de la página, dividir una celda vacía (\"\") entre 23 no encuentra ningún error y SI.ERROR devuelve el resultado de la fórmula, 0. El texto solo aparecería ante un error, y ni #¡DIV/0! ni #¡VALOR! se producen aquí.",
+  "source_quote": "Comprueba si hay un error en la fórmula en el primer argumento (divide \"\" entre 23), no encuentra ningún error y devuelve los resultados de la fórmula",
+  "covers": [
+   "family:Funciones lógicas y de error (SI, O, NO, SIERROR, ESLOGICO)",
+   "lmc-3"
+  ]
+ },
+ {
+  "id": "m06-l05-q205",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Fórmulas y funciones",
+  "citation": "fuente: `ms-excel-funciones-categoria.html`; «Funciones lógicas»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, ¿cuál de las siguientes funciones devuelve el valor especificado solo si la expresión da el error #N/A y, en otro caso, el resultado de la expresión?",
+  "options": {
+   "a": "SI.ERROR",
+   "b": "SI",
+   "c": "SI.CONJUNTO",
+   "d": "SI.ND"
+  },
+  "correct": "d",
+  "difficulty": 3,
+  "tags": [
+   "función"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "SI.ND devuelve el valor especificado si la expresión se convierte en #N/A y, si no, el resultado de la expresión. SI.ERROR responde a cualquier error, SI realiza una prueba lógica y SI.CONJUNTO comprueba una o varias condiciones y devuelve el valor de la condición verdadera que se cumple antes.",
+  "source_quote": "Devuelve el valor que se especifica, si la expresión se convierte en #N/A; de lo contrario, devuelve el resultado de la expresión.",
+  "covers": [
+   "family:Funciones lógicas y de error (SI, O, NO, SIERROR, ESLOGICO)"
+  ]
+ },
+ {
+  "id": "m06-l05-q206",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Fórmulas y funciones",
+  "citation": "fuente: `ms-excel-funcion-sierror.html`; «Sintaxis»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, en =SI.ERROR(A3/B3; \"Revisar\"), ¿cuál de las siguientes opciones describe lo que representa el segundo argumento, \"Revisar\"?",
+  "options": {
+   "a": "El valor de la celda en la que se busca un error",
+   "b": "El valor que se devuelve si la fórmula da un error",
+   "c": "El valor que se devuelve si la fórmula no da ningún error",
+   "d": "El tipo de error concreto que se quiere detectar"
+  },
+  "correct": "b",
+  "difficulty": 2,
+  "tags": [
+   "función",
+   "concepto"
+  ],
+  "distractor_pattern": "texto-alterado",
+  "explanation": "El segundo argumento es el valor que se devuelve si la fórmula se evalúa como un error; el primero, A3/B3, es donde se busca un error. Además, SI.ERROR evalúa varios tipos de error, no uno concreto elegido en el argumento.",
+  "source_quote": "El valor que se devuelve si la fórmula se evalúa como un error.",
+  "covers": [
+   "family:Funciones lógicas y de error (SI, O, NO, SIERROR, ESLOGICO)",
+   "lmc-3"
+  ]
+ },
+ {
+  "id": "m06-l05-q207",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Fórmulas y funciones",
+  "citation": "fuente: `ms-excel-funcion-sierror.html`; «Sintaxis»",
+  "stem_form": "enunciado",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, el número de tipos de error que evalúa la función SI.ERROR, desde #N/A hasta #¡NULO!, según su ayuda, es:",
+  "options": {
+   "a": "5",
+   "b": "6",
+   "c": "7",
+   "d": "8"
+  },
+  "correct": "c",
+  "difficulty": 2,
+  "tags": [
+   "cantidad"
+  ],
+  "distractor_pattern": "cifra-cercana",
+  "explanation": "La página enumera siete tipos de error: #N/A, #¡VALOR!, #¡REF!, #¡DIV/0!, #¡NUM!, #¿NOMBRE? y #¡NULO!.",
+  "source_quote": "Se evalúan los siguientes tipos de error: #N/A, #¡VALOR!, #¡REF!, #¡DIV/0!, #¡NUM!, #¿NOMBRE? o #¡NULO!.",
+  "covers": [
+   "family:Funciones lógicas y de error (SI, O, NO, SIERROR, ESLOGICO)",
+   "lmc-3"
+  ]
+ },
+ {
+  "id": "m06-l05-q208",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Fórmulas y funciones",
+  "citation": "fuente: `ms-excel-error-na.html`; «Solución principal»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, ¿cuál de las siguientes afirmaciones describe lo que suele indicar el error #N/A en una celda?",
+  "options": {
+   "a": "Que una fórmula no encuentra lo que se le ha pedido que busque",
+   "b": "Que el nombre de una función está mal escrito en la fórmula",
+   "c": "Que faltan las comillas dobles en un valor de texto de la fórmula",
+   "d": "Que el rango de la fórmula omite los dos puntos (:) del rango"
+  },
+  "correct": "a",
+  "difficulty": 1,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "El error #N/A suele indicar que una fórmula no encuentra lo que se le ha pedido que busque. Un nombre de función mal escrito, las comillas dobles que faltan y los dos puntos omitidos son causas que la página asocia al error #¿NOMBRE?.",
+  "source_quote": "El error #N/A suele indicar que una fórmula no encuentra lo que se le ha pedido que busque.",
+  "covers": [
+   "family:Funciones lógicas y de error (SI, O, NO, SIERROR, ESLOGICO)",
+   "lmc-4",
+   "official:conv2025_X·P1·57"
+  ]
+ },
+ {
+  "id": "m06-l05-q209",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Fórmulas y funciones",
+  "citation": "fuente: `ms-excel-error-na.html`; «Solución principal»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, la tabla A2:B4 contiene Manzana, Pera y Melocotón con sus precios. ¿Cuál de los siguientes resultados muestra =BUSCARV(\"Plátano\"; A2:B4; 2; FALSO)?",
+  "options": {
+   "a": "#¡VALOR!",
+   "b": "#¿NOMBRE?",
+   "c": "#N/A",
+   "d": "#¡REF!"
+  },
+  "correct": "c",
+  "difficulty": 2,
+  "tags": [
+   "resultado-fórmula"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "Plátano no está en la tabla de búsqueda, por lo que BUSCARV devuelve un error #N/A. #¡VALOR!, #¿NOMBRE? y #¡REF! no son lo que la página da para un valor de búsqueda ausente.",
+  "source_quote": "En este caso, el valor \"Plátano\" no está presente en la tabla de búsqueda, por lo que BUSCARV devuelve un error #N/A.",
+  "covers": [
+   "family:Funciones lógicas y de error (SI, O, NO, SIERROR, ESLOGICO)",
+   "lmc-4",
+   "official:conv2025_X·P1·57"
+  ]
+ },
+ {
+  "id": "m06-l05-q210",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Fórmulas y funciones",
+  "citation": "fuente: `ms-excel-error-na.html`; «Usar el método de coincidencia aproximada o el método de coincidencia exacta (VERDADERO/FALSO)»",
+  "stem_form": "senale",
+  "names_article": false,
+  "negative": false,
+  "prompt": "Señale el valor del argumento tipo_de_coincidencia de COINCIDIR en Excel 365 que busca una coincidencia exacta.",
+  "options": {
+   "a": "1",
+   "b": "0",
+   "c": "-1",
+   "d": "2"
+  },
+  "correct": "b",
+  "difficulty": 2,
+  "tags": [
+   "configuración"
+  ],
+  "distractor_pattern": "cifra-cercana",
+  "explanation": "Para buscar una coincidencia exacta, el argumento tipo_de_coincidencia de COINCIDIR se establece en 0 (cero). Ninguno de los otros valores es el que la página da para la coincidencia exacta.",
+  "source_quote": "Para buscar una coincidencia exacta, establezca el argumento tipo_de_coincidencia en 0 (cero).",
+  "covers": [
+   "family:Funciones lógicas y de error (SI, O, NO, SIERROR, ESLOGICO)"
+  ]
+ },
+ {
+  "id": "m06-l05-q211",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Fórmulas y funciones",
+  "citation": "fuente: `ms-excel-error-na.html`; «Usar el método de coincidencia aproximada o el método de coincidencia exacta (VERDADERO/FALSO)»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, ¿qué efecto tiene usar VERDADERO en el argumento ordenado de la función BUSCARV?",
+  "options": {
+   "a": "Busca una coincidencia aproximada, con riesgo de #N/A o resultados erróneos",
+   "b": "Busca una coincidencia exacta aunque la tabla de búsqueda no esté ordenada",
+   "c": "Ordena la tabla de búsqueda antes de buscar el valor indicado en ella",
+   "d": "Devuelve siempre el valor de la primera fila de la tabla de búsqueda"
+  },
+  "correct": "a",
+  "difficulty": 3,
+  "tags": [
+   "comportamiento"
+  ],
+  "distractor_pattern": "texto-alterado",
+  "explanation": "Con VERDADERO se indica a la función que busque una coincidencia aproximada, lo que puede causar un error #N/A y resultados erróneos. La coincidencia exacta, aunque la tabla no esté ordenada, se pide con FALSO.",
+  "source_quote": "Tenga en cuenta que al usar VERDADERO se indica a la función que busque una coincidencia aproximada, lo que puede causar un error #N/A y devolver también resultados erróneos",
+  "covers": [
+   "family:Funciones lógicas y de error (SI, O, NO, SIERROR, ESLOGICO)"
+  ]
+ },
+ {
+  "id": "m06-l05-q212",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Fórmulas y funciones",
+  "citation": "fuente: `ms-excel-error-na.html`; «Existe un espacio adicional en las celdas»",
+  "stem_form": "enunciado",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, la función que se anida en BUSCARV para quitar los espacios iniciales o finales de los datos de origen y evitar un #N/A es:",
+  "options": {
+   "a": "LIMPIAR",
+   "b": "NOMPROPIO",
+   "c": "EXTRAE",
+   "d": "ESPACIOS"
+  },
+  "correct": "d",
+  "difficulty": 2,
+  "tags": [
+   "función"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "La página usa ESPACIOS, anidada en BUSCARV, para quitar espacios iniciales o finales. LIMPIAR quita los caracteres no imprimibles, LARGO devuelve el número de caracteres y EXTRAE devuelve una parte del texto.",
+  "source_quote": "Puede usar la función ESPACIOS para quitar espacios iniciales o finales.",
+  "covers": [
+   "family:Funciones lógicas y de error (SI, O, NO, SIERROR, ESLOGICO)"
+  ]
+ },
+ {
+  "id": "m06-l05-q213",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Fórmulas y funciones",
+  "citation": "fuente: `ms-excel-error-na.html`; «Si ha escrito de forma manual #N/A»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, B2 contiene 10, B3 contiene #N/A escrito a mano y C1 contiene =SUMA(B2:B3). ¿Qué devuelve C1?",
+  "options": {
+   "a": "10",
+   "b": "#N/A",
+   "c": "0",
+   "d": "#¡VALOR!"
+  },
+  "correct": "b",
+  "difficulty": 3,
+  "tags": [
+   "resultado-fórmula"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "Las fórmulas que hacen referencia a celdas con #N/A no pueden calcular ningún valor y devuelven el error #N/A. Por eso no dan 10, ni 0, ni #¡VALOR!.",
+  "source_quote": "Hasta ese momento, las fórmulas que hacen referencia a estas celdas no podrán calcular ningún valor y, en su lugar, devolverán el error #N/A.",
+  "covers": [
+   "family:Funciones lógicas y de error (SI, O, NO, SIERROR, ESLOGICO)",
+   "lmc-4"
+  ]
+ },
+ {
+  "id": "m06-l05-q214",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Fórmulas y funciones",
+  "citation": "fuente: `ms-excel-error-na.html`; «Uso de #N/A con gráficos»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, ¿qué ocurre con las celdas que contienen #N/A al crear un gráfico con esos datos?",
+  "options": {
+   "a": "Sus valores no se representan en el gráfico",
+   "b": "Se representan como valores de 0 en el gráfico",
+   "c": "Impiden que Excel cree el gráfico",
+   "d": "Se sustituyen automáticamente por el promedio de la serie"
+  },
+  "correct": "a",
+  "difficulty": 2,
+  "tags": [
+   "comportamiento"
+  ],
+  "distractor_pattern": "texto-alterado",
+  "explanation": "La página dice que «los valores #N/A no se representarán en un gráfico». Por eso se usa #N/A en los datos de gráficos: los valores 0, en cambio, sí se representan, como una línea recta en la parte inferior del gráfico, que es lo que contradice la opción de «valores de 0». Que impidan crear el gráfico choca con que la página los recomiende justo para gráficos. Y sustituirse por el promedio de la serie no es lo que ocurre: la página los describe como no representados, no como reemplazados.",
+  "source_quote": "ya que los valores #N/A no se representarán en un gráfico.",
+  "covers": [
+   "family:Funciones lógicas y de error (SI, O, NO, SIERROR, ESLOGICO)",
+   "lmc-4"
+  ]
+ },
+ {
+  "id": "m06-l05-q215",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Fórmulas y funciones",
+  "citation": "fuente: `ms-excel-error-nombre.html`; «Introducción»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, ¿cuál es la principal razón por la que aparece el error #¿NOMBRE? en una fórmula?",
+  "options": {
+   "a": "Una fórmula de matriz con rangos de distinto tamaño",
+   "b": "Faltan argumentos necesarios en una función predefinida",
+   "c": "Un error ortográfico en el nombre de la fórmula",
+   "d": "Un valor de búsqueda ausente de los datos de origen"
+  },
+  "correct": "c",
+  "difficulty": 1,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "La principal razón del error #¿NOMBRE? es un error ortográfico en el nombre de la fórmula. Los otros tres supuestos son causas de #N/A que describe la página de ese error.",
+  "source_quote": "La principal razón por la que el #NAME? aparece en la fórmula es que hay un error ortográfico en el nombre de la fórmula.",
+  "covers": [
+   "family:Funciones lógicas y de error (SI, O, NO, SIERROR, ESLOGICO)"
+  ]
+ },
+ {
+  "id": "m06-l05-q216",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Fórmulas y funciones",
+  "citation": "fuente: `ms-excel-error-nombre.html`; «Introducción»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, la celda A1 contiene =PROMEDI(B1:B3), con el nombre de la función mal escrito. ¿Cuál de los siguientes errores muestra?",
+  "options": {
+   "a": "#N/A",
+   "b": "#¡VALOR!",
+   "c": "#¡REF!",
+   "d": "#¿NOMBRE?"
+  },
+  "correct": "d",
+  "difficulty": 2,
+  "tags": [
+   "resultado-fórmula"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "Un error ortográfico en el nombre de la fórmula es la principal razón del error #¿NOMBRE?. #N/A aparece cuando una fórmula no encuentra lo que busca, y #¡VALOR! y #¡REF! no se asocian a este caso.",
+  "source_quote": "La principal razón por la que el #NAME? aparece en la fórmula es que hay un error ortográfico en el nombre de la fórmula.",
+  "covers": [
+   "family:Funciones lógicas y de error (SI, O, NO, SIERROR, ESLOGICO)"
+  ]
+ },
+ {
+  "id": "m06-l05-q217",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Fórmulas y funciones",
+  "citation": "fuente: `ms-excel-error-nombre.html`; «En la sintaxis faltan comillas dobles para valores de texto»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, ¿cuál de las siguientes causas provoca el error #¿NOMBRE? en una fórmula?",
+  "options": {
+   "a": "Un tipo de dato distinto entre el valor de búsqueda y los datos de origen",
+   "b": "Omitir las comillas dobles de un valor de texto",
+   "c": "Un archivo protegido con funciones como CELDA",
+   "d": "Una macro que usa una función que devuelve #N/A"
+  },
+  "correct": "b",
+  "difficulty": 2,
+  "tags": [
+   "concepto",
+   "comportamiento"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "Si la sintaxis omite las comillas dobles de un valor de texto, aparece el error #¿NOMBRE?. Los otros tres supuestos son causas de #N/A que describe la página de ese error.",
+  "source_quote": "Si la sintaxis omite las comillas dobles \"\" para un valor de texto, verá el #NAME error.",
+  "covers": [
+   "family:Funciones lógicas y de error (SI, O, NO, SIERROR, ESLOGICO)"
+  ]
+ },
+ {
+  "id": "m06-l05-q218",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Fórmulas y funciones",
+  "citation": "fuente: `ms-excel-error-nombre.html`; «La fórmula hace referencia a un nombre que no se ha definido»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, ¿cuál de las siguientes causas provoca el error #¿NOMBRE? en una fórmula como =SUMA(Ganancias)?",
+  "options": {
+   "a": "Que Ganancias sea un nombre no definido en el libro",
+   "b": "Que haya un espacio adicional en las celdas de la suma",
+   "c": "Que se use VERDADERO como coincidencia aproximada",
+   "d": "Que una función definida por el usuario no esté disponible"
+  },
+  "correct": "a",
+  "difficulty": 2,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "La página usa precisamente una SUMA con referencia a Ganancias, un nombre no definido en el libro, como causa de #¿NOMBRE?. Los espacios adicionales, la coincidencia aproximada y las funciones definidas por el usuario no disponibles son causas de #N/A.",
+  "source_quote": "Cuando la fórmula tiene una referencia a un nombre no definido en Excel, ¿ve la #NAME? error.",
+  "covers": [
+   "family:Funciones lógicas y de error (SI, O, NO, SIERROR, ESLOGICO)"
+  ]
+ },
+ {
+  "id": "m06-l05-q219",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Fórmulas y funciones",
+  "citation": "fuente: `ms-excel-error-nombre.html`; «Se omitieron los dos puntos (:) en una referencia de rango.»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, ¿cuál de los siguientes resultados muestra una fórmula en la que se omiten los dos puntos (:) de una referencia de rango, como en B2B12?",
+  "options": {
+   "a": "El error #N/A",
+   "b": "El error #¡DIV/0!",
+   "c": "El valor 0",
+   "d": "El error #¿NOMBRE?"
+  },
+  "correct": "d",
+  "difficulty": 2,
+  "tags": [
+   "comportamiento"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "Si se omiten los dos puntos de una referencia de rango, la fórmula muestra el error #¿NOMBRE?. #N/A y #¡DIV/0! tienen otras causas, y la fórmula no devuelve 0.",
+  "source_quote": "Si omite dos puntos (:) en una referencia de rango, la fórmula muestra un #NAME? error.",
+  "covers": [
+   "family:Funciones lógicas y de error (SI, O, NO, SIERROR, ESLOGICO)"
+  ]
+ },
+ {
+  "id": "m06-l05-q220",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Fórmulas y funciones",
+  "citation": "fuente: `ms-excel-error-nombre.html`; «Introducción»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, ¿cuál de las siguientes opciones recoge lo que advierte la ayuda de Microsoft sobre el error #¿NOMBRE??",
+  "options": {
+   "a": "Conviene ocultarlo con SI.ERROR para que no afecte a otros cálculos",
+   "b": "Desaparece por sí solo al volver a calcular el libro",
+   "c": "Hay que corregir la sintaxis y no enmascararlo con SI.ERROR",
+   "d": "Solo se corrige activando un complemento en Excel"
+  },
+  "correct": "c",
+  "difficulty": 2,
+  "tags": [
+   "comportamiento",
+   "requisito"
+  ],
+  "distractor_pattern": "texto-alterado",
+  "explanation": "La página dice que #¿NOMBRE? indica que hay que corregir algo en la sintaxis y que no se use una función de control de errores, como SI.ERROR, para enmascararlo. La activación de un complemento es solo una de las causas posibles, y nada indica que desaparezca solo.",
+  "source_quote": "No use ninguna función de control de errores, como SI.ERROR, para enmascarar el error.",
+  "covers": [
+   "family:Funciones lógicas y de error (SI, O, NO, SIERROR, ESLOGICO)"
+  ]
+ },
+ {
+  "id": "m06-l05-q221",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Fórmulas y funciones",
+  "citation": "fuente: `ms-excel-funciones-categoria.html`; «Funciones de búsqueda y referencia»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, ¿cuál de las siguientes afirmaciones describe correctamente lo que hace la función BUSCARV?",
+  "options": {
+   "a": "Busca en la fila superior de una matriz y devuelve el valor de la celda que se indique",
+   "b": "Devuelve el número de filas de una referencia y las cuenta por columnas",
+   "c": "Devuelve la fórmula de la referencia dada como texto en la celda",
+   "d": "Busca en la primera columna de una matriz y devuelve el valor de una celda de esa fila"
+  },
+  "correct": "d",
+  "difficulty": 2,
+  "tags": [
+   "función",
+   "concepto"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "BUSCARV busca en la columna 1 de una matriz y se mueve en horizontal por la fila para devolver el valor de una celda. Buscar en la fila superior es BUSCARH, contar filas es FILAS y devolver la fórmula como texto es FORMULATEXTO.",
+  "source_quote": "Busca en la primera columna de una matriz y se mueve en horizontal por la fila para devolver el valor de una celda.",
+  "covers": [
+   "family:Otras funciones (CONTAR, MAX, DIA, EXTRAE, DIVIDIRTEXTO, FORMULATEXTO, BUSCARV)"
+  ]
+ },
+ {
+  "id": "m06-l05-q222",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Fórmulas y funciones",
+  "citation": "fuente: `ms-excel-funciones-categoria.html`; «Funciones de búsqueda y referencia»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, ¿cuál de las siguientes afirmaciones describe correctamente lo que hace la función FILAS?",
+  "options": {
+   "a": "Devuelve la cantidad de hojas en una referencia",
+   "b": "Devuelve el número de filas de una referencia",
+   "c": "Cuenta cuántos números hay en la lista de argumentos",
+   "d": "Devuelve el número de la hoja a la que se hace referencia"
+  },
+  "correct": "b",
+  "difficulty": 1,
+  "tags": [
+   "función",
+   "concepto"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "FILAS devuelve el número de filas de una referencia. Devolver la cantidad de hojas es HOJAS, contar números es CONTAR y devolver el número de la hoja a la que se hace referencia es HOJA.",
+  "source_quote": "Devuelve el número de filas de una referencia.",
+  "covers": [
+   "family:Otras funciones (CONTAR, MAX, DIA, EXTRAE, DIVIDIRTEXTO, FORMULATEXTO, BUSCARV)",
+   "lmc-7"
+  ]
+ },
+ {
+  "id": "m06-l05-q223",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Fórmulas y funciones",
+  "citation": "fuente: `ms-excel-referencias-estructuradas.html`; «Reglas de sintaxis de las referencias estructuradas»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, la tabla Pedidos tiene una fila de encabezado y seis filas de datos. ¿Qué devuelve =FILAS(Pedidos[Importe])?",
+  "options": {
+   "a": "7",
+   "b": "1",
+   "c": "6",
+   "d": "5"
+  },
+  "correct": "c",
+  "difficulty": 3,
+  "tags": [
+   "resultado-fórmula"
+  ],
+  "distractor_pattern": "cifra-cercana",
+  "explanation": "Una referencia estructurada con un especificador de columna hace referencia a los datos de la columna, sin el encabezado ni la fila de totales, y FILAS devuelve el número de filas de una referencia: 6. 7 contaría el encabezado y 1 el número de columnas.",
+  "source_quote": "Éstos hacen referencia los datos de la columna, sin cualquier encabezado de columna o fila de totales.",
+  "covers": [
+   "family:Otras funciones (CONTAR, MAX, DIA, EXTRAE, DIVIDIRTEXTO, FORMULATEXTO, BUSCARV)",
+   "family:Referencias (relativas, a otras hojas, estructuradas)",
+   "lmc-7",
+   "official:conv2025_A·P1·55"
+  ]
+ },
+ {
+  "id": "m06-l05-q224",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Fórmulas y funciones",
+  "citation": "fuente: `ms-excel-funciones-categoria.html`; «Funciones de información»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, ¿cuál de las siguientes afirmaciones describe correctamente lo que hace la función ESLOGICO?",
+  "options": {
+   "a": "Devuelve VERDADERO si el valor es un valor lógico",
+   "b": "Devuelve VERDADERO si el valor es un número",
+   "c": "Devuelve VERDADERO si el valor es texto",
+   "d": "Devuelve VERDADERO si el valor está en blanco"
+  },
+  "correct": "a",
+  "difficulty": 1,
+  "tags": [
+   "función",
+   "concepto"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "ESLOGICO devuelve VERDADERO si el valor es un valor lógico. Para números está ESNUMERO, para texto ESTEXTO y para celdas en blanco ESBLANCO.",
+  "source_quote": "Devuelve VERDADERO si el valor es un valor lógico.",
+  "covers": [
+   "family:Funciones lógicas y de error (SI, O, NO, SIERROR, ESLOGICO)"
+  ]
+ },
+ {
+  "id": "m06-l05-q225",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Fórmulas y funciones",
+  "citation": "fuente: `ms-excel-funciones-categoria.html`; «Funciones de información»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, A1 contiene 3 y B1 contiene 2. ¿Qué muestra la celda con la fórmula =ESLOGICO(A1>B1)?",
+  "options": {
+   "a": "VERDADERO",
+   "b": "FALSO",
+   "c": "1",
+   "d": "#¡VALOR!"
+  },
+  "correct": "a",
+  "difficulty": 2,
+  "tags": [
+   "resultado-fórmula"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "A1>B1 se evalúa como VERDADERO, que es un valor lógico, y ESLOGICO devuelve VERDADERO si el valor es un valor lógico. Por eso no muestra FALSO, 1 ni un error.",
+  "source_quote": "Devuelve VERDADERO si el valor es un valor lógico.",
+  "covers": [
+   "family:Funciones lógicas y de error (SI, O, NO, SIERROR, ESLOGICO)",
+   "official:conv2022_X·P1·59"
+  ]
+ },
+ {
+  "id": "m06-l05-q226",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Fórmulas y funciones",
+  "citation": "fuente: `ms-excel-funciones-categoria.html`; «Funciones de búsqueda y referencia»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, ¿cuál de las siguientes afirmaciones describe correctamente lo que hace la función FORMULATEXTO?",
+  "options": {
+   "a": "Devuelve VERDADERO si hay una referencia a una celda con fórmula",
+   "b": "Devuelve información sobre el formato, la ubicación o el contenido de una celda",
+   "c": "Devuelve la fórmula de la referencia dada como texto",
+   "d": "Devuelve un valor convertido en un número"
+  },
+  "correct": "c",
+  "difficulty": 1,
+  "tags": [
+   "función",
+   "concepto"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "FORMULATEXTO devuelve la fórmula de la referencia dada como texto. Detectar si una celda tiene fórmula es ESFORMULA, CELDA da información sobre formato, ubicación o contenido y N convierte un valor en un número.",
+  "source_quote": "Devuelve la fórmula en la referencia dada como texto.",
+  "covers": [
+   "family:Otras funciones (CONTAR, MAX, DIA, EXTRAE, DIVIDIRTEXTO, FORMULATEXTO, BUSCARV)",
+   "official:conv2020_X·P1·56"
+  ]
+ },
+ {
+  "id": "m06-l05-q227",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Fórmulas y funciones",
+  "citation": "fuente: `ms-excel-funciones-categoria.html`; «Funciones de búsqueda y referencia»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, A1 contiene la fórmula =B1+C1. ¿Qué muestra, en otra celda, la fórmula =FORMULATEXTO(A1)?",
+  "options": {
+   "a": "El resultado numérico de sumar B1 y C1",
+   "b": "VERDADERO",
+   "c": "El número de caracteres de la fórmula",
+   "d": "La propia fórmula =B1+C1, como texto"
+  },
+  "correct": "d",
+  "difficulty": 2,
+  "tags": [
+   "resultado-fórmula"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "FORMULATEXTO devuelve la fórmula de la referencia dada como texto, es decir, =B1+C1. El valor sumado es lo que muestra A1; VERDADERO sería el resultado de ESFORMULA y el número de caracteres, el de LARGO.",
+  "source_quote": "Devuelve la fórmula en la referencia dada como texto.",
+  "covers": [
+   "family:Otras funciones (CONTAR, MAX, DIA, EXTRAE, DIVIDIRTEXTO, FORMULATEXTO, BUSCARV)",
+   "official:conv2020_X·P1·56"
+  ]
+ },
+ {
+  "id": "m06-l05-q228",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Fórmulas y funciones",
+  "citation": "fuente: `ms-excel-formulas.html`; «Análisis detallado de las fórmulas»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, ¿cuál de las siguientes afirmaciones describe correctamente lo que hace la función BUSCARX en comparación con BUSCARV?",
+  "options": {
+   "a": "Solo busca en la primera columna y devuelve coincidencias aproximadas",
+   "b": "Funciona en cualquier dirección y devuelve coincidencias exactas de forma predeterminada",
+   "c": "Busca únicamente de izquierda a derecha y exige ordenar la tabla",
+   "d": "Cuenta las filas de una referencia en las que encuentra el valor"
+  },
+  "correct": "b",
+  "difficulty": 2,
+  "tags": [
+   "función",
+   "concepto"
+  ],
+  "distractor_pattern": "texto-alterado",
+  "explanation": "BUSCARX es una versión mejorada de BUSCARV que funciona en cualquier dirección y devuelve coincidencias exactas de forma predeterminada. Buscar solo en la columna 1 de la matriz es lo propio de BUSCARV, y contar filas es FILAS.",
+  "source_quote": "una versión mejorada de BUSCARV que funciona en cualquier dirección y devuelve coincidencias exactas de forma predeterminada.",
+  "covers": [
+   "family:Otras funciones (CONTAR, MAX, DIA, EXTRAE, DIVIDIRTEXTO, FORMULATEXTO, BUSCARV)"
+  ]
+ },
+ {
+  "id": "m06-l05-q229",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Fórmulas y funciones",
+  "citation": "fuente: `ms-excel-funciones-categoria.html`; «Funciones de búsqueda y referencia»",
+  "stem_form": "enunciado",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, la función que busca en la fila superior de una matriz y devuelve el valor de la celda indicada es:",
+  "options": {
+   "a": "BUSCARV",
+   "b": "FILAS",
+   "c": "FORMULATEXTO",
+   "d": "BUSCARH"
+  },
+  "correct": "d",
+  "difficulty": 2,
+  "tags": [
+   "función"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "BUSCARH busca en la fila superior de una matriz y devuelve el valor de la celda indicada. BUSCARV busca en la columna 1 de la matriz, FILAS devuelve el número de filas de una referencia y FORMULATEXTO devuelve una fórmula como texto.",
+  "source_quote": "Busca en la fila superior de una matriz y devuelve el valor de la celda indicada.",
+  "covers": [
+   "family:Otras funciones (CONTAR, MAX, DIA, EXTRAE, DIVIDIRTEXTO, FORMULATEXTO, BUSCARV)"
+  ]
+ },
+ {
+  "id": "m06-l05-q230",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Fórmulas y funciones",
+  "citation": "fuente: `ms-excel-funciones-categoria.html`; «Funciones de información»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, ¿cuál de las siguientes funciones devuelve VERDADERO si el valor es el valor de error #N/A?",
+  "options": {
+   "a": "ESERROR",
+   "b": "ESNOD",
+   "c": "ESERR",
+   "d": "ESBLANCO"
+  },
+  "correct": "b",
+  "difficulty": 2,
+  "tags": [
+   "función"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "ESNOD devuelve VERDADERO si el valor es el valor de error #N/A. ESERROR lo hace con cualquier valor de error, ESERR con cualquiera excepto #N/A y ESBLANCO con valores en blanco.",
+  "source_quote": "Devuelve VERDADERO si el valor es el valor de error #N/A.",
+  "covers": [
+   "family:Funciones lógicas y de error (SI, O, NO, SIERROR, ESLOGICO)"
+  ]
+ },
+ {
+  "id": "m06-l05-q231",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Fórmulas y funciones",
+  "citation": "fuente: `ms-excel-funcion-contara.html`; «Descripción»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, ¿cuál de las siguientes afirmaciones describe correctamente lo que hace la función CONTARA?",
+  "options": {
+   "a": "Cuenta cuántos números hay en la lista de argumentos",
+   "b": "Cuenta las celdas del rango que cumplen el criterio especificado",
+   "c": "Cuenta el número de celdas que no están vacías en un rango",
+   "d": "Cuenta las celdas del rango que cumplen varios criterios"
+  },
+  "correct": "c",
+  "difficulty": 1,
+  "tags": [
+   "función",
+   "concepto"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "CONTARA cuenta el número de celdas que no están vacías en un rango. Contar números es CONTAR, y contar según uno o varios criterios es CONTAR.SI y CONTAR.SI.CONJUNTO.",
+  "source_quote": "La función CONTARA cuenta el número de celdas que no están vacías en un rango.",
+  "covers": [
+   "family:Otras funciones (CONTAR, MAX, DIA, EXTRAE, DIVIDIRTEXTO, FORMULATEXTO, BUSCARV)",
+   "lmc-1",
+   "official:conv2025_X·P1·58"
+  ]
+ },
+ {
+  "id": "m06-l05-q232",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Fórmulas y funciones",
+  "citation": "fuente: `ms-excel-funcion-contara.html`; «Observaciones»",
+  "stem_form": "senale",
+  "names_article": false,
+  "negative": false,
+  "prompt": "Señale la función de Excel 365 que se usa para contar solo las celdas de un rango que contienen números.",
+  "options": {
+   "a": "CONTAR",
+   "b": "CONTARA",
+   "c": "CONTAR.SI",
+   "d": "CONTAR.SI.CONJUNTO"
+  },
+  "correct": "a",
+  "difficulty": 1,
+  "tags": [
+   "función"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "La página indica que, para contar solo las celdas que contienen números, se use CONTAR. CONTARA cuenta también texto, valores lógicos y errores, y las otras dos cuentan según criterios.",
+  "source_quote": "Si no necesita contar valores lógicos, texto o valores de error (en otras palabras, si desea contar solo las celdas que contienen números), use la función CONTAR.",
+  "covers": [
+   "family:Otras funciones (CONTAR, MAX, DIA, EXTRAE, DIVIDIRTEXTO, FORMULATEXTO, BUSCARV)",
+   "lmc-1"
+  ]
+ },
+ {
+  "id": "m06-l05-q233",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Fórmulas y funciones",
+  "citation": "fuente: `ms-excel-funcion-contara.html`; «Observaciones»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, A1:A6 contienen 10, el texto Norte, VERDADERO, #¡DIV/0!, una celda vacía y 7,5. ¿Qué devuelve =CONTARA(A1:A6)?",
+  "options": {
+   "a": "6",
+   "b": "5",
+   "c": "4",
+   "d": "2"
+  },
+  "correct": "b",
+  "difficulty": 2,
+  "tags": [
+   "resultado-fórmula"
+  ],
+  "distractor_pattern": "cifra-cercana",
+  "explanation": "CONTARA cuenta las celdas que contienen cualquier tipo de información, incluidos errores, y no cuenta las celdas vacías: 10, Norte, VERDADERO, #¡DIV/0! y 7,5 son 5. 6 contaría la celda vacía, 4 excluiría el error y 2 son solo los números.",
+  "source_quote": "La función CONTARA cuenta las celdas que contienen cualquier tipo de información, incluidos los valores de error y texto vacío (\"\"). Por ejemplo, si el rango contiene una fórmula que devuelve una cadena vacía, la función CONTARA cuenta ese valor. La función CONTARA no cuenta celdas vacías.",
+  "covers": [
+   "family:Otras funciones (CONTAR, MAX, DIA, EXTRAE, DIVIDIRTEXTO, FORMULATEXTO, BUSCARV)",
+   "lmc-1"
+  ]
+ },
+ {
+  "id": "m06-l05-q234",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Fórmulas y funciones",
+  "citation": "fuente: `ms-excel-funcion-contara.html`; «Observaciones»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, A1:A6 contienen 10, el texto Norte, VERDADERO, #¡DIV/0!, una celda vacía y 7,5. ¿Qué devuelve =CONTAR(A1:A6)?",
+  "options": {
+   "a": "2",
+   "b": "5",
+   "c": "3",
+   "d": "4"
+  },
+  "correct": "a",
+  "difficulty": 2,
+  "tags": [
+   "resultado-fórmula"
+  ],
+  "distractor_pattern": "cifra-cercana",
+  "explanation": "CONTAR cuenta solo las celdas que contienen números, que aquí son 10 y 7,5. 5 sería el resultado de CONTARA; 3 y 4 contarían además el valor lógico o el error.",
+  "source_quote": "si desea contar solo las celdas que contienen números), use la función CONTAR.",
+  "covers": [
+   "family:Otras funciones (CONTAR, MAX, DIA, EXTRAE, DIVIDIRTEXTO, FORMULATEXTO, BUSCARV)",
+   "lmc-1"
+  ]
+ },
+ {
+  "id": "m06-l05-q235",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Fórmulas y funciones",
+  "citation": "fuente: `ms-excel-funcion-contara.html`; «Observaciones»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, B1 y B3 contienen números y B2 contiene una fórmula que devuelve texto vacío (\"\"). ¿Qué devuelve =CONTARA(B1:B3)?",
+  "options": {
+   "a": "2",
+   "b": "1",
+   "c": "0",
+   "d": "3"
+  },
+  "correct": "d",
+  "difficulty": 3,
+  "tags": [
+   "resultado-fórmula",
+   "comportamiento"
+  ],
+  "distractor_pattern": "cifra-cercana",
+  "explanation": "CONTARA cuenta el texto vacío (\"\"): si el rango contiene una fórmula que devuelve una cadena vacía, la cuenta. Por tanto cuenta las tres celdas.",
+  "source_quote": "Por ejemplo, si el rango contiene una fórmula que devuelve una cadena vacía, la función CONTARA cuenta ese valor.",
+  "covers": [
+   "family:Otras funciones (CONTAR, MAX, DIA, EXTRAE, DIVIDIRTEXTO, FORMULATEXTO, BUSCARV)",
+   "lmc-1"
+  ]
+ },
+ {
+  "id": "m06-l05-q236",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Fórmulas y funciones",
+  "citation": "fuente: `ms-excel-funcion-contara.html`; «Sintaxis»",
+  "stem_form": "enunciado",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, el número máximo de argumentos que admite la función CONTARA en una fórmula es:",
+  "options": {
+   "a": "256",
+   "b": "254",
+   "c": "255",
+   "d": "128"
+  },
+  "correct": "c",
+  "difficulty": 2,
+  "tags": [
+   "cantidad"
+  ],
+  "distractor_pattern": "cifra-cercana",
+  "explanation": "La página indica que CONTARA admite hasta un máximo de 255 argumentos.",
+  "source_quote": "hasta un máximo de 255 argumentos",
+  "covers": [
+   "family:Otras funciones (CONTAR, MAX, DIA, EXTRAE, DIVIDIRTEXTO, FORMULATEXTO, BUSCARV)"
+  ]
+ },
+ {
+  "id": "m06-l05-q237",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Fórmulas y funciones",
+  "citation": "fuente: `ms-excel-funciones-categoria.html`; «Funciones estadísticas»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, A1:A4 contienen 14, 9, 31 y 22. ¿Qué muestra la celda con =MAX(A1:A4)?",
+  "options": {
+   "a": "76",
+   "b": "22",
+   "c": "31",
+   "d": "9"
+  },
+  "correct": "c",
+  "difficulty": 1,
+  "tags": [
+   "resultado-fórmula"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "MAX devuelve el valor máximo de una lista de argumentos: 31. 76 es la suma, y 22 y 9 son otros valores de la lista que no son el máximo.",
+  "source_quote": "Devuelve el valor máximo de una lista de argumentos.",
+  "covers": [
+   "family:Otras funciones (CONTAR, MAX, DIA, EXTRAE, DIVIDIRTEXTO, FORMULATEXTO, BUSCARV)",
+   "official:conv2022_X·P1·60"
+  ]
+ },
+ {
+  "id": "m06-l05-q238",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Fórmulas y funciones",
+  "citation": "fuente: `ms-excel-funcion-extrae.html`; «Ejemplo»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, A1 contiene Hoja de cálculo. ¿Qué muestra la celda con =EXTRAE(A1; 9; 7)?",
+  "options": {
+   "a": "álculo",
+   "b": " cálcul",
+   "c": "Hoja de",
+   "d": "cálculo"
+  },
+  "correct": "d",
+  "difficulty": 2,
+  "tags": [
+   "resultado-fórmula"
+  ],
+  "distractor_pattern": "cifra-cercana",
+  "explanation": "EXTRAE devuelve 7 caracteres comenzando por la posición 9, y el primer carácter del texto es la posición 1: en Hoja de cálculo la posición 9 es el carácter c de cálculo. Empezar en la 10 daría álculo, en la 8 un espacio antes, y Hoja de serían los 7 primeros caracteres.",
+  "source_quote": "EXTRAE devuelve un número específico de caracteres de una cadena de texto, comenzando en la posición y en función del número de caracteres que especifique.",
+  "covers": [
+   "family:Otras funciones (CONTAR, MAX, DIA, EXTRAE, DIVIDIRTEXTO, FORMULATEXTO, BUSCARV)",
+   "official:conv2020·P1·60"
+  ]
+ },
+ {
+  "id": "m06-l05-q239",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Fórmulas y funciones",
+  "citation": "fuente: `ms-excel-funcion-extrae.html`; «Sintaxis»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, A1 contiene Excel y B1 contiene =EXTRAE(A1; 20; 3). ¿Qué muestra B1?",
+  "options": {
+   "a": "Texto vacío",
+   "b": "Excel",
+   "c": "cel",
+   "d": "#¡VALOR!"
+  },
+  "correct": "a",
+  "difficulty": 2,
+  "tags": [
+   "resultado-fórmula"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "Si posición_inicial es mayor que la longitud del texto, EXTRAE devuelve texto vacío (\"\"). La posición 20 supera los 5 caracteres de Excel, por lo que no devuelve el texto, sus últimos caracteres ni un error.",
+  "source_quote": "Si posición_inicial es mayor que la longitud de texto, EXTRAE devuelve “” (texto vacío).",
+  "covers": [
+   "family:Otras funciones (CONTAR, MAX, DIA, EXTRAE, DIVIDIRTEXTO, FORMULATEXTO, BUSCARV)"
+  ]
+ },
+ {
+  "id": "m06-l05-q240",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Fórmulas y funciones",
+  "citation": "fuente: `ms-excel-funcion-extrae.html`; «Sintaxis»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, A1 contiene Presupuesto anual y B1 contiene =EXTRAE(A1; 13; 20). ¿Qué muestra B1?",
+  "options": {
+   "a": "anual seguido de espacios hasta completar 20 caracteres",
+   "b": "anual",
+   "c": "Texto vacío",
+   "d": "#¡VALOR!"
+  },
+  "correct": "b",
+  "difficulty": 3,
+  "tags": [
+   "resultado-fórmula",
+   "comportamiento"
+  ],
+  "distractor_pattern": "texto-alterado",
+  "explanation": "La posición 13 es el carácter a de anual, y como la posición inicial más los 20 caracteres excede la longitud del texto, EXTRAE devuelve los caracteres hasta el final. Según el ejemplo de la página, no se agregan espacios al final.",
+  "source_quote": "Si posición_inicial es menor que la longitud de texto, pero posición_inicial más núm_de_caracteres excede la longitud de texto, EXTRAE devuelve los caracteres hasta el final de texto.",
+  "covers": [
+   "family:Otras funciones (CONTAR, MAX, DIA, EXTRAE, DIVIDIRTEXTO, FORMULATEXTO, BUSCARV)"
+  ]
+ },
+ {
+  "id": "m06-l05-q241",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Fórmulas y funciones",
+  "citation": "fuente: `ms-excel-funcion-extrae.html`; «Ejemplo»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, A1 contiene Hoja de cálculo. ¿Qué muestra la celda con =EXTRAE(A1; 1; 4)?",
+  "options": {
+   "a": "oja",
+   "b": "Hoja ",
+   "c": "Hoj",
+   "d": "Hoja"
+  },
+  "correct": "d",
+  "difficulty": 2,
+  "tags": [
+   "resultado-fórmula"
+  ],
+  "distractor_pattern": "cifra-cercana",
+  "explanation": "El primer carácter del texto es la posición 1, así que EXTRAE con inicio 1 y 4 caracteres devuelve Hoja. oja empezaría en la posición 2, Hoja con espacio serían 5 caracteres y Hoj, 3.",
+  "source_quote": "posición_inicial para el primer carácter de texto es 1, y así sucesivamente.",
+  "covers": [
+   "family:Otras funciones (CONTAR, MAX, DIA, EXTRAE, DIVIDIRTEXTO, FORMULATEXTO, BUSCARV)"
+  ]
+ },
+ {
+  "id": "m06-l05-q242",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Fórmulas y funciones",
+  "citation": "fuente: `ms-excel-funciones-categoria.html`; «Funciones de texto»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, ¿cuál de las siguientes afirmaciones describe correctamente lo que hace la función EXTRAE?",
+  "options": {
+   "a": "Devuelve los caracteres del lado izquierdo de un valor de texto",
+   "b": "Devuelve el número de caracteres de una cadena de texto dada",
+   "c": "Devuelve un número específico de caracteres de una cadena de texto desde una posición",
+   "d": "Divide las cadenas de texto mediante delimitadores de columna y fila"
+  },
+  "correct": "c",
+  "difficulty": 2,
+  "tags": [
+   "función",
+   "concepto"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "EXTRAE devuelve un número específico de caracteres de una cadena de texto a partir de la posición que se especifique. Los caracteres del lado izquierdo son de IZQUIERDA, el número de caracteres es de LARGO y dividir por delimitadores es de DIVIDIRTEXTO.",
+  "source_quote": "Devuelve un número específico de caracteres de una cadena de texto que comienza en la posición que se especifique.",
+  "covers": [
+   "family:Otras funciones (CONTAR, MAX, DIA, EXTRAE, DIVIDIRTEXTO, FORMULATEXTO, BUSCARV)"
+  ]
+ },
+ {
+  "id": "m06-l05-q243",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Fórmulas y funciones",
+  "citation": "fuente: `ms-excel-funciones-categoria.html`; «Funciones de texto»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, ¿cuál de las siguientes afirmaciones describe correctamente lo que hace la función DIVIDIRTEXTO?",
+  "options": {
+   "a": "Divide las cadenas de texto mediante delimitadores de columna y fila",
+   "b": "Combina el texto de varios rangos o cadenas",
+   "c": "Devuelve una matriz de valores de texto de cualquier rango especificado",
+   "d": "Devuelve los caracteres del lado izquierdo de un valor de texto"
+  },
+  "correct": "a",
+  "difficulty": 1,
+  "tags": [
+   "función",
+   "concepto"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "DIVIDIRTEXTO divide las cadenas de texto mediante delimitadores de columna y fila. Combinar el texto de varios rangos lo hace la función de unión de texto, devolver una matriz de valores de texto es de MATRIZATEXTO y los caracteres de la izquierda son de IZQUIERDA.",
+  "source_quote": "Divide las cadenas de texto mediante delimitadores de columna y fila",
+  "covers": [
+   "family:Otras funciones (CONTAR, MAX, DIA, EXTRAE, DIVIDIRTEXTO, FORMULATEXTO, BUSCARV)"
+  ]
+ },
+ {
+  "id": "m06-l05-q244",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Fórmulas y funciones",
+  "citation": "fuente: `ms-excel-funcion-dividirtexto.html`; «Sintaxis»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, A2 contiene el texto 1,2,3;4,5,6. ¿Cómo desborda =DIVIDIRTEXTO(A2; \",\"; \";\") el resultado?",
+  "options": {
+   "a": "En una matriz de 3 filas y 2 columnas",
+   "b": "En una matriz de 2 filas y 3 columnas",
+   "c": "En una sola fila de 6 celdas",
+   "d": "En una sola columna de 6 celdas"
+  },
+  "correct": "b",
+  "difficulty": 2,
+  "tags": [
+   "resultado-fórmula"
+  ],
+  "distractor_pattern": "texto-alterado",
+  "explanation": "El delimitador de columna es la coma y el de fila el punto y coma, así que 1,2,3;4,5,6 se divide en una matriz de 2×3, como indica el ejemplo de la página: dos filas de tres valores. Un delimitador de fila separa filas, no se ignora.",
+  "source_quote": "Divida las constantes de la matriz de A2 en una matriz de 2X3.",
+  "covers": [
+   "family:Otras funciones (CONTAR, MAX, DIA, EXTRAE, DIVIDIRTEXTO, FORMULATEXTO, BUSCARV)",
+   "official:conv2024_X·P1·63"
+  ]
+ },
+ {
+  "id": "m06-l05-q245",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Fórmulas y funciones",
+  "citation": "fuente: `ms-excel-funcion-dividirtexto.html`; «Introducción»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, ¿cuál de las siguientes opciones describe cómo puede desbordar el texto la función DIVIDIRTEXTO?",
+  "options": {
+   "a": "Solo entre columnas, nunca por filas",
+   "b": "Entre columnas o hacia abajo por filas",
+   "c": "Solo hacia abajo por filas, nunca entre columnas",
+   "d": "En una sola celda, separando las partes con espacios"
+  },
+  "correct": "b",
+  "difficulty": 1,
+  "tags": [
+   "función",
+   "comportamiento"
+  ],
+  "distractor_pattern": "texto-alterado",
+  "explanation": "DIVIDIRTEXTO permite dividir entre columnas o hacia abajo por filas, según el delimitador que se use.",
+  "source_quote": "Permite dividir entre columnas o hacia abajo por filas.",
+  "covers": [
+   "family:Otras funciones (CONTAR, MAX, DIA, EXTRAE, DIVIDIRTEXTO, FORMULATEXTO, BUSCARV)"
+  ]
+ },
+ {
+  "id": "m06-l05-q246",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Fórmulas y funciones",
+  "citation": "fuente: `ms-excel-funcion-dividirtexto.html`; «Introducción»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, la función DIVIDIRTEXTO funciona igual que una herramienta, pero en formato de fórmula. ¿Cuál de las siguientes es esa herramienta?",
+  "options": {
+   "a": "El asistente para funciones",
+   "b": "El asistente para fórmulas",
+   "c": "El Relleno rápido",
+   "d": "El asistente de texto a columnas"
+  },
+  "correct": "d",
+  "difficulty": 2,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "La página dice que DIVIDIRTEXTO funciona igual que el asistente de texto a columnas, pero en formato de fórmula. El asistente para funciones ayuda con los argumentos, el asistente para fórmulas muestra la sintaxis al escribir y el Relleno rápido reconoce patrones en columnas adyacentes.",
+  "source_quote": "La función DIVIDIRTEXTO funciona igual que el asistente de texto a columnas, pero en formato de fórmula.",
+  "covers": [
+   "family:Otras funciones (CONTAR, MAX, DIA, EXTRAE, DIVIDIRTEXTO, FORMULATEXTO, BUSCARV)"
+  ]
+ },
+ {
+  "id": "m06-l05-q247",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Fórmulas y funciones",
+  "citation": "fuente: `ms-excel-funcion-dividirtexto.html`; «Observaciones»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, para dividir un texto por una coma y un punto a la vez con DIVIDIRTEXTO, ¿qué hay que usar como delimitador?",
+  "options": {
+   "a": "Una constante de matriz con ambos delimitadores",
+   "b": "Los dos caracteres escritos seguidos entre comillas",
+   "c": "Dos argumentos de delimitador de columna consecutivos",
+   "d": "Una función SI que elija uno de los dos"
+  },
+  "correct": "a",
+  "difficulty": 3,
+  "tags": [
+   "función",
+   "requisito"
+  ],
+  "distractor_pattern": "texto-alterado",
+  "explanation": "Si hay más de un delimitador, se debe usar una constante de matriz: para dividir por una coma y un punto, {\",\",\".\"}.",
+  "source_quote": "Si hay más de un delimitador, se debe usar una constante de matriz.",
+  "covers": [
+   "family:Otras funciones (CONTAR, MAX, DIA, EXTRAE, DIVIDIRTEXTO, FORMULATEXTO, BUSCARV)"
+  ]
+ },
+ {
+  "id": "m06-l05-q248",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Fórmulas y funciones",
+  "citation": "fuente: `ms-excel-funcion-dividirtexto.html`; «Sintaxis»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, si el texto tiene dos delimitadores consecutivos y no se cambia el argumento ignore_empty, ¿qué crea DIVIDIRTEXTO entre ellos?",
+  "options": {
+   "a": "Una celda con el valor 0",
+   "b": "Una celda con un espacio",
+   "c": "Una celda vacía",
+   "d": "Ninguna celda, porque los omite"
+  },
+  "correct": "c",
+  "difficulty": 2,
+  "tags": [
+   "comportamiento"
+  ],
+  "distractor_pattern": "texto-alterado",
+  "explanation": "ignore_empty vuelve al valor predeterminado FALSO, lo que crea una celda vacía. Omitir los delimitadores consecutivos solo ocurre si se especifica VERDADERO.",
+  "source_quote": "Especifique VERDADERO para omitir los delimitadores consecutivos. Vuelve al valor predeterminado FALSO, lo que crea una celda vacía.",
+  "covers": [
+   "family:Otras funciones (CONTAR, MAX, DIA, EXTRAE, DIVIDIRTEXTO, FORMULATEXTO, BUSCARV)"
+  ]
+ },
+ {
+  "id": "m06-l05-q249",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Fórmulas y funciones",
+  "citation": "fuente: `ms-excel-funcion-dia.html`; «Descripción»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, A2 contiene la fecha 27 de octubre de 2026. ¿Qué muestra la celda con =DIA(A2)?",
+  "options": {
+   "a": "10",
+   "b": "27",
+   "c": "2026",
+   "d": "31"
+  },
+  "correct": "b",
+  "difficulty": 1,
+  "tags": [
+   "resultado-fórmula"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "DIA devuelve el día de una fecha como un número entero entre 1 y 31: en el 27 de octubre de 2026, 27. 10 es el mes, 2026 el año y 31 no es el día de esa fecha.",
+  "source_quote": "Devuelve el día de una fecha, representada por un número de serie. El día se expresa como un número entero comprendido entre 1 y 31.",
+  "covers": [
+   "family:Otras funciones (CONTAR, MAX, DIA, EXTRAE, DIVIDIRTEXTO, FORMULATEXTO, BUSCARV)",
+   "official:conv2020·P1·57"
+  ]
+ },
+ {
+  "id": "m06-l05-q250",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Fórmulas y funciones",
+  "citation": "fuente: `ms-excel-funcion-dia.html`; «Observaciones»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, si una fecha tiene un formato de presentación Hijri, ¿qué valores devuelven las funciones AÑO, MES y DIA?",
+  "options": {
+   "a": "Valores gregorianos, sea cual sea el formato",
+   "b": "Valores Hijri, como el formato de presentación",
+   "c": "Un error #¡VALOR! en las tres funciones",
+   "d": "Valores Hijri para el año y gregorianos para el mes y el día"
+  },
+  "correct": "a",
+  "difficulty": 3,
+  "tags": [
+   "comportamiento"
+  ],
+  "distractor_pattern": "texto-alterado",
+  "explanation": "Los valores devueltos por AÑO, MES y DIA son valores gregorianos independientemente del formato de presentación; con formato Hijri, corresponden a la fecha gregoriana equivalente.",
+  "source_quote": "Los valores devueltos por las funciones AÑO, MES y DIA serán valores gregorianos independientemente del formato de presentación para el valor de fecha proporcionado.",
+  "covers": [
+   "family:Otras funciones (CONTAR, MAX, DIA, EXTRAE, DIVIDIRTEXTO, FORMULATEXTO, BUSCARV)"
+  ]
+ },
+ {
+  "id": "m06-l05-q251",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Gráficos",
+  "citation": "fuente: `ms-excel-graficos.html`; «Crear un gráfico»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365 para Windows, tras seleccionar los datos, ¿cuál de las siguientes rutas de la cinta de opciones abre los gráficos recomendados?",
+  "options": {
+   "a": "Insertar › Tabla dinámica",
+   "b": "Insertar › Segmentación",
+   "c": "Datos › Ordenar y filtrar",
+   "d": "Insertar › Gráficos recomendados"
+  },
+  "correct": "d",
+  "difficulty": 1,
+  "tags": [
+   "ofimática-menú"
+  ],
+  "distractor_pattern": "otra-ruta",
+  "explanation": "Se seleccionan los datos y se elige Insertar › Gráficos recomendados. Insertar › Tabla dinámica crea una tabla dinámica, Insertar › Segmentación añade botones de filtro y Datos › Filtro pone flechas en los encabezados.",
+  "source_quote": "Seleccione datos para el gráfico. Seleccione Insertar>gráficos recomendados.",
+  "covers": [
+   "prog:Gráficos"
+  ]
+ },
+ {
+  "id": "m06-l05-q252",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Gráficos",
+  "citation": "fuente: `ms-excel-atajos.html`; «Teclas de función»",
+  "stem_form": "senale",
+  "names_article": false,
+  "negative": false,
+  "prompt": "Señale el método abreviado de Excel 365 que crea un gráfico incrustado a partir de los datos del rango actual.",
+  "options": {
+   "a": "F11",
+   "b": "Alt+Mayús+F1",
+   "c": "Alt+F1",
+   "d": "Ctrl+F1"
+  },
+  "correct": "c",
+  "difficulty": 1,
+  "tags": [
+   "atajo"
+  ],
+  "distractor_pattern": "otro-atajo",
+  "explanation": "Alt+F1 crea un gráfico incrustado a partir de los datos del rango actual. F11 lo crea en una hoja de gráfico distinta, Alt+Mayús+F1 inserta una hoja de cálculo nueva y Ctrl+F1 muestra u oculta la cinta de opciones.",
+  "source_quote": "Alt+F1: crea un gráfico incrustado a partir de los datos del rango actual.",
+  "covers": [
+   "prog:Gráficos"
+  ]
+ },
+ {
+  "id": "m06-l05-q253",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Gráficos",
+  "citation": "fuente: `ms-excel-atajos.html`; «Teclas de función»",
+  "stem_form": "senale",
+  "names_article": false,
+  "negative": false,
+  "prompt": "Señale la tecla de Excel 365 que crea un gráfico a partir de los datos del rango actual en una hoja de gráfico distinta.",
+  "options": {
+   "a": "Alt+F1",
+   "b": "Mayús+F11",
+   "c": "Alt+F11",
+   "d": "F11"
+  },
+  "correct": "d",
+  "difficulty": 1,
+  "tags": [
+   "atajo"
+  ],
+  "distractor_pattern": "otro-atajo",
+  "explanation": "Solo F11 crea un gráfico en una hoja de gráfico distinta. Alt+F1 lo crea incrustado, Mayús+F11 inserta una hoja de cálculo nueva y Alt+F11 abre el Editor de Visual Basic para Aplicaciones.",
+  "source_quote": "Solo F11: crea un gráfico a partir de los datos del rango actual en una hoja de gráfico distinta.",
+  "covers": [
+   "prog:Gráficos"
+  ]
+ },
+ {
+  "id": "m06-l05-q254",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Gráficos",
+  "citation": "fuente: `ms-excel-graficos.html`; «Crear un gráfico»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, ¿cuál de las siguientes afirmaciones describe la pestaña Todos los gráficos del cuadro de gráficos recomendados?",
+  "options": {
+   "a": "Muestra una vista previa de un gráfico recomendado para los datos",
+   "b": "Crea de inmediato un gráfico con los datos seleccionados",
+   "c": "Muestra todos los tipos de gráficos",
+   "d": "Agrega una línea de tendencia a un gráfico existente"
+  },
+  "correct": "c",
+  "difficulty": 1,
+  "tags": [
+   "concepto",
+   "ofimática-menú"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "Si ningún gráfico recomendado gusta, la pestaña Todos los gráficos muestra todos los tipos de gráficos. La vista previa se obtiene al seleccionar un gráfico en Gráficos recomendados, el gráfico inmediato lo crea Alt+F1 y la línea de tendencia se agrega con Agregar elemento de gráfico.",
+  "source_quote": "Si no ve un gráfico que le guste, seleccione la pestaña Todos los gráficos para ver todos los tipos de gráficos.",
+  "covers": [
+   "prog:Gráficos"
+  ]
+ },
+ {
+  "id": "m06-l05-q255",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Gráficos",
+  "citation": "fuente: `ms-excel-graficos.html`; «Crear un gráfico»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, tras seleccionar datos y presionar Alt+F1, ¿qué advierte la ayuda de Microsoft sobre el gráfico creado?",
+  "options": {
+   "a": "Que solo se crea si los datos están en una tabla de Excel",
+   "b": "Que es posible que no sea el mejor gráfico para los datos",
+   "c": "Que se coloca siempre en una hoja de gráfico distinta",
+   "d": "Que hay que confirmarlo con Aceptar para que aparezca"
+  },
+  "correct": "b",
+  "difficulty": 3,
+  "tags": [
+   "comportamiento"
+  ],
+  "distractor_pattern": "texto-alterado",
+  "explanation": "La ayuda dice que Alt+F1 crea un gráfico inmediatamente, pero que es posible que no sea el mejor gráfico para los datos. La hoja de gráfico distinta corresponde a F11, y no se menciona confirmar con Aceptar ni exigir una tabla.",
+  "source_quote": "Puede seleccionar los datos que quiera en el gráfico y presionar ALT + F1 para crear un gráfico inmediatamente, pero es posible que no sea el mejor gráfico para los datos.",
+  "covers": [
+   "prog:Gráficos"
+  ]
+ },
+ {
+  "id": "m06-l05-q256",
+  "bloque": "VI",
+  "tema": "VI.5",
+  "section": "Gráficos",
+  "citation": "fuente: `ms-excel-graficos.html`; «Agregar una línea de tendencia»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Excel 365, con un gráfico seleccionado, ¿cuál de los siguientes comandos de Agregar elemento de gráfico permite añadir una línea de tendencia?",
+  "options": {
+   "a": "Línea de tendencia",
+   "b": "Título del gráfico",
+   "c": "Leyenda",
+   "d": "Líneas de cuadrícula"
+  },
+  "correct": "a",
+  "difficulty": 2,
+  "tags": [
+   "ofimática-menú"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "En Agregar elemento de gráfico se elige Línea de tendencia y después el tipo de línea. Título del gráfico, Leyenda y Líneas de cuadrícula son otros elementos del gráfico que se muestran u ocultan.",
+  "source_quote": "Seleccione Línea de tendencia y, a continuación, seleccione el tipo de línea de tendencia que desee",
+  "covers": [
+   "prog:Gráficos"
+  ]
+ }
+]

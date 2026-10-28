@@ -15,7 +15,7 @@ from collections.abc import Iterable
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from tradeschool.citations.grammar import Segment, collapse, parse_segment, slug
+from tradeschool.citations.grammar import Segment, collapse, parse_segment, segments, slug
 from tradeschool.citations.lesson import LessonCitation, LessonCitations, resolve_segment, scan_lesson
 from tradeschool.citations.norms import NormIndex
 from tradeschool.citations.sources import SourceIndex, source_url
@@ -129,7 +129,7 @@ class CourseCitations:
         return QuestionLink(lesson_id, self._anchor(lesson_id, citation, locale), citation)
 
     def _anchor(self, lesson_id: str, citation: str, locale: str) -> str | None:
-        segment = parse_segment(citation)
+        segment = parse_segment(citation) or _labelled_source(citation)
         found = self.lesson(lesson_id, locale)
         if segment is not None and found is not None and segment.files:
             return _source_anchor(found, segment.files)
@@ -153,6 +153,13 @@ class CourseCitations:
         for lesson_id, found in self.lessons.get(locale, {}).items():
             problems += _esquema_problems(lesson_id, found, self.norms or NormIndex([], {}))
         return problems
+
+
+def _labelled_source(citation: str) -> Segment | None:
+    """The file segment of a `fuente:` citation with the page's label after it («fuente: `f`; «Abrir»»)."""
+    pieces = segments(citation)
+    first = parse_segment(pieces[0][1]) if pieces else None
+    return first if first is not None and first.files else None
 
 
 def _source_anchor(found: LessonCitations, files: tuple[str, ...]) -> str | None:

@@ -1,0 +1,414 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# Question bank, m06-l06: fixed multiple-choice questions (round R3). Generated from
+# docs/age-verification/bank/bloque-vi/m06-l06.draft.json minus drops.tsv by
+# docs/age-verification/bank/tools/build_exercises.py; edit the draft and rebuild, not this file.
+type: quiz
+variants:
+# anchor: fuente-ms-access-expresiones-html
+- id: m06-l06-q353
+  prompt:
+    es: "En Access 365, ¿cuál de las siguientes opciones indica dónde se escribe la expresión para crear un control calculado en un formulario o un informe?"
+  options:
+  - id: a
+    text:
+      es: "En un campo de la tabla de origen"
+  - id: b
+    text:
+      es: "En un campo de la consulta de origen"
+  - id: c
+    correct: true
+    text:
+      es: "En la propiedad ControlSource del control"
+  - id: d
+    text:
+      es: "En la propiedad Formato del control"
+  explanation:
+    es: "La ayuda dice: «Para crear control calculado, escriba una expresión en la ControlSource propiedad del control en lugar de en un campo de tabla o consulta». Por eso «en un campo de la tabla de origen» y «en un campo de la consulta de origen» son lo que la ayuda descarta expresamente. «En la propiedad Formato del control» no figura: Format sirve para el formato de presentación, por ejemplo Percent."
+  citation: "fuente: `ms-access-expresiones.html`; «Formularios e informes»"
+  difficulty: 1
+  tags:
+  - "configuración"
+# anchor: fuente-ms-access-expresiones-html
+- id: m06-l06-q354
+  prompt:
+    es: "En Access 365, ¿cuándo están disponibles las propiedades Page y Pages para mostrar números de página en formularios o informes?"
+  options:
+  - id: a
+    text:
+      es: "Siempre, desde la hoja de propiedades del informe"
+  - id: b
+    text:
+      es: "Solo en la vista Diseño del informe"
+  - id: c
+    text:
+      es: "Solo cuando el informe tiene un encabezado de grupo"
+  - id: d
+    correct: true
+    text:
+      es: "Solo al imprimir o en la vista previa de impresión"
+  explanation:
+    es: "La ayuda dice: «Estas propiedades solo están disponibles durante la impresión o la vista previa de impresión, por lo que no aparecen en la hoja de propiedades del formulario o informe». Por eso no se ven siempre desde la hoja de propiedades y tampoco solo en la vista Diseño, que no es impresión ni vista previa. Y que dependan de un encabezado de grupo no está en la página: la sitúa en un cuadro de texto del encabezado o pie de página del informe, y las limita por el momento, la impresión o su vista previa."
+  citation: "fuente: `ms-access-expresiones.html`; «Encabezados y pies de página»"
+  difficulty: 3
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-access-expresiones-html
+- id: m06-l06-q355
+  prompt:
+    es: "En un control de un subformulario de Access 365, ¿qué valor devuelve la expresión =Parent![OrderID], según la ayuda de Microsoft?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "El valor del control IdDePedido del formulario principal"
+  - id: b
+    text:
+      es: "El valor del control IdDePedido del propio subformulario"
+  - id: c
+    text:
+      es: "El valor del campo IdDePedido de la primera tabla relacionada"
+  - id: d
+    text:
+      es: "La suma de todos los valores de IdDePedido"
+  explanation:
+    es: "La ayuda dice de =Parent![OrderID]: «El valor del control IdDePedido en el formulario primario o principal del subformulario actual». «El valor del control IdDePedido del propio subformulario» no es lo que devuelve, porque Parent remite al formulario principal. «El valor del campo IdDePedido de la primera tabla relacionada» y «la suma de todos los valores» no figuran en la ayuda para esa expresión: la suma corresponde a la función Suma."
+  citation: "fuente: `ms-access-expresiones.html`; «Valores en otros controles»"
+  difficulty: 3
+  tags:
+  - "resultado-fórmula"
+# anchor: fuente-ms-access-expresiones-html
+- id: m06-l06-q356
+  prompt:
+    es: "En Access 365, si uno de los controles de una expresión aritmética (+, -, * o /) es nulo, ¿qué resultado devuelve toda la expresión?"
+  options:
+  - id: a
+    text:
+      es: "Cero"
+  - id: b
+    correct: true
+    text:
+      es: "Nulo"
+  - id: c
+    text:
+      es: "El valor del control que no es nulo"
+  - id: d
+    text:
+      es: "Un error en tiempo de ejecución"
+  explanation:
+    es: "La ayuda dice: «Cuando se usa un operador aritmético (+, -, * o /) en una expresión y uno de los controles es nulo, el resultado de toda la expresión es nulo. Esto se conoce como propagación de valores nulos». Cero no es el resultado: solo se obtiene si se convierte el nulo con la función Nz. El valor del control que no es nulo contradice «el resultado de toda la expresión es nulo». Y un error en tiempo de ejecución tampoco: el resultado es un nulo, no un error."
+  citation: "fuente: `ms-access-expresiones.html`; «Operaciones aritméticas»"
+  difficulty: 2
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-access-expresiones-html
+- id: m06-l06-q357
+  prompt:
+    es: "En Access 365, ¿cuál de las siguientes funciones permite evitar la propagación de valores nulos al convertir un valor nulo en cero?"
+  options:
+  - id: a
+    text:
+      es: "Año"
+  - id: b
+    text:
+      es: "Longitud"
+  - id: c
+    correct: true
+    text:
+      es: "Nz"
+  - id: d
+    text:
+      es: "Suma"
+  explanation:
+    es: "La ayuda dice: «puede evitar la propagación de valores nulos utilizando la función Nz para convertir el valor nulo en cero. Por ejemplo, use =Nz([Subtotal])+Nz([Freight])». «Año» devuelve el año de una fecha. «Longitud» devuelve el número de caracteres de un texto. «Suma» devuelve la suma de los valores de un control; ninguna convierte nulos en cero."
+  citation: "fuente: `ms-access-expresiones.html`; «Operaciones aritméticas»"
+  difficulty: 2
+  tags:
+  - "función"
+# anchor: fuente-ms-access-expresiones-html
+- id: m06-l06-q358
+  prompt:
+    es: "En un control de un informe de Access 365 con la expresión =[Price]*1.06, ¿qué valor se muestra, según la ayuda de Microsoft?"
+  options:
+  - id: a
+    text:
+      es: "El valor de Precio reducido en un 6 %"
+  - id: b
+    text:
+      es: "El 6 % del valor de Precio"
+  - id: c
+    text:
+      es: "El valor de Precio con seis decimales"
+  - id: d
+    correct: true
+    text:
+      es: "El valor de Precio más un 6 %"
+  explanation:
+    es: "La ayuda dice de =[Price]*1.06: «El producto del valor del campo o control Precio y 1,06 (suma un 6 % al valor Precio)». Reducirlo un 6 % es lo contrario, porque multiplicar por 1,06 aumenta. El 6 % del valor sería multiplicar por 0,06. Y los seis decimales no salen de ninguna parte de la expresión: la página la describe como un producto por 1,06, sin ninguna instrucción de formato."
+  citation: "fuente: `ms-access-expresiones.html`; «Operaciones aritméticas»"
+  difficulty: 2
+  tags:
+  - "resultado-fórmula"
+# anchor: fuente-ms-access-expresiones-html
+- id: m06-l06-q359
+  prompt:
+    es: "En un control de un informe de Access 365, ¿qué muestra la expresión =Sum([Quantity]*[Price]), según la ayuda de Microsoft?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "La suma del producto de los valores de Cantidad y Precio"
+  - id: b
+    text:
+      es: "El producto de la suma de Cantidad por la suma de Precio"
+  - id: c
+    text:
+      es: "El número de registros del control Cantidad"
+  - id: d
+    text:
+      es: "La media de los valores de Cantidad y Precio"
+  explanation:
+    es: "La ayuda dice de =Sum([Quantity]*[Price]): «Usa la función Suma para mostrar la suma del producto de los valores de los controles Cantidad y Precio». «El producto de la suma de Cantidad por la suma de Precio» invierte el orden de las operaciones. «El número de registros» lo muestra la función Contar, como en =Count([OrderID]). «La media» la muestra la función Prom, como en =Avg([Freight])."
+  citation: "fuente: `ms-access-expresiones.html`; «Cuenta, suma y promedio de valores»"
+  difficulty: 3
+  tags:
+  - "resultado-fórmula"
+# anchor: fuente-ms-access-expresiones-html
+- id: m06-l06-q360
+  prompt:
+    es: "En un control de un informe de Access 365, ¿qué muestra la expresión =[InvoiceDate] + 30, según la ayuda de Microsoft?"
+  options:
+  - id: a
+    text:
+      es: "La fecha 30 días antes de la fecha de la factura"
+  - id: b
+    text:
+      es: "El número 30 sumado al mes de la factura"
+  - id: c
+    correct: true
+    text:
+      es: "La fecha 30 días después de la fecha de la factura"
+  - id: d
+    text:
+      es: "La diferencia en días respecto a la fecha actual"
+  explanation:
+    es: "La ayuda dice de =[InvoiceDate] + 30: «Usa operaciones aritméticas en fechas para calcular la fecha 30 días después de la fecha del campo o control FechaDeFactura». «30 días antes» sería =[InvoiceDate] - 30. «El número 30 sumado al mes» no es lo que hace la suma, que cuenta días. «La diferencia en días respecto a la fecha actual» la calcula DifFecha, no esta suma."
+  citation: "fuente: `ms-access-expresiones.html`; «Operaciones de fecha»"
+  difficulty: 2
+  tags:
+  - "resultado-fórmula"
+# anchor: fuente-ms-access-formularios-html
+- id: m06-l06-q361
+  prompt:
+    es: "En la vista Diseño de un formulario de Access 365, ¿cuál de las siguientes opciones se puede editar en el propio cuadro de texto, sin la hoja de propiedades?"
+  options:
+  - id: a
+    text:
+      es: "El origen de registros del formulario"
+  - id: b
+    text:
+      es: "El alto de la sección de detalle"
+  - id: c
+    text:
+      es: "Las relaciones de la tabla de origen"
+  - id: d
+    correct: true
+    text:
+      es: "El origen de control del cuadro de texto"
+  explanation:
+    es: "La ayuda dice que en la vista Diseño se pueden «Editar orígenes de control de cuadro de texto en los propios cuadros de texto, sin usar la hoja de propiedades». «El origen de registros del formulario» y «las relaciones de la tabla de origen» no figuran en esa lista. «El alto de la sección de detalle» se cambia arrastrando el borde inferior de la sección, no editando el cuadro de texto."
+  citation: "fuente: `ms-access-formularios.html`; «Comprender la vista Presentación y la vista Diseño»"
+  difficulty: 3
+  tags:
+  - "configuración"
+# anchor: fuente-ms-access-funcion-conmutador-html
+- id: m06-l06-q401
+  prompt:
+    es: "En Access 365, ¿cuál de las siguientes descripciones corresponde a lo que devuelve la función Conmutador?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "El valor de la primera expresión verdadera de la lista"
+  - id: b
+    text:
+      es: "El valor asociado a la última expresión que sea verdadera"
+  - id: c
+    text:
+      es: "La lista de todas las expresiones que sean verdaderas"
+  - id: d
+    text:
+      es: "El número de expresiones verdaderas de la lista"
+  explanation:
+    es: "La ayuda dice que Conmutador «Evalúa una lista de expresiones y devuelve un tipo de datos Variant o una expresión asociada con la primera expresión de la lista que tenga el valor True». «El valor asociado a la última expresión que sea verdadera» invierte cuál se devuelve. «La lista de todas las expresiones que sean verdaderas» y «El número de expresiones verdaderas de la lista» no son lo que devuelve: devuelve un único valor."
+  citation: "fuente: `ms-access-funcion-conmutador.html`; «Función Conmutador»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-ms-access-funcion-conmutador-html
+- id: m06-l06-q402
+  prompt:
+    es: "En Access 365, ¿cuál de las siguientes opciones describe cómo se compone la lista de argumentos de la función Conmutador?"
+  options:
+  - id: a
+    text:
+      es: "De tres argumentos: expresión, valor si es verdadera y valor si es falsa"
+  - id: b
+    correct: true
+    text:
+      es: "De pares de expresiones y valores"
+  - id: c
+    text:
+      es: "De una expresión y una lista de valores posibles"
+  - id: d
+    text:
+      es: "De un valor y una lista de condiciones lógicas"
+  explanation:
+    es: "La ayuda dice: «La lista de argumentos de la función Switch consta de pares de expresiones y valores». «Tres argumentos: expresión, valor si es verdadera y valor si es falsa» describe la función SiInm, que recibe tres argumentos. «Una expresión y una lista de valores posibles» y «un valor y una lista de condiciones lógicas» no figuran en la ayuda: cada expresión lleva su propio valor."
+  citation: "fuente: `ms-access-funcion-conmutador.html`; «Función Conmutador»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-ms-access-funcion-conmutador-html
+- id: m06-l06-q404
+  prompt:
+    es: "Señale qué ocurre en Access 365 si las partes de la lista de la función Conmutador no están emparejadas correctamente:"
+  options:
+  - id: a
+    text:
+      es: "La función devuelve un valor nulo"
+  - id: b
+    text:
+      es: "La función ignora la expresión sin pareja"
+  - id: c
+    text:
+      es: "La función devuelve el valor de la primera expresión"
+  - id: d
+    correct: true
+    text:
+      es: "Se produce un error en tiempo de ejecución"
+  explanation:
+    es: "La ayuda dice: «Si las partes no están emparejadas correctamente, se produce un error en tiempo de ejecución». «Devuelve un valor nulo» ocurre en otros casos: cuando ninguna expresión es verdadera o cuando el valor de la primera verdadera es nulo. «Ignora la expresión sin pareja» y «devuelve el valor de la primera expresión» no figuran en la ayuda."
+  citation: "fuente: `ms-access-funcion-conmutador.html`; «Función Conmutador»"
+  difficulty: 2
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-access-funcion-conmutador-html
+- id: m06-l06-q405
+  prompt:
+    es: "En Access 365, ¿cuál de los siguientes casos hace que la función Conmutador devuelva un valor nulo, según la ayuda de Microsoft?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Cuando ninguna de las expresiones es verdadera"
+  - id: b
+    text:
+      es: "Cuando la primera expresión de la lista es falsa"
+  - id: c
+    text:
+      es: "Cuando hay más de dos pares de expresión y valor"
+  - id: d
+    text:
+      es: "Cuando la última expresión de la lista es verdadera"
+  explanation:
+    es: "La ayuda dice: «Switch devuelve un valor nulo si: Ninguna de las expresiones es verdadera. La primera expresión verdadera tiene un valor correspondiente que es nulo». «Cuando la primera expresión de la lista es falsa» no basta: si otra es verdadera, devuelve su valor. «Cuando hay más de dos pares» y «Cuando la última expresión de la lista es verdadera» tampoco figuran como causas de un valor nulo."
+  citation: "fuente: `ms-access-funcion-conmutador.html`; «Función Conmutador»"
+  difficulty: 2
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-access-funcion-conmutador-html
+- id: m06-l06-q406
+  prompt:
+    es: "Señale qué devuelve la función Conmutador de Access 365 si la primera expresión verdadera tiene como valor correspondiente un valor nulo:"
+  options:
+  - id: a
+    text:
+      es: "El valor de la siguiente expresión verdadera"
+  - id: b
+    correct: true
+    text:
+      es: "Un valor nulo"
+  - id: c
+    text:
+      es: "Un error en tiempo de ejecución"
+  - id: d
+    text:
+      es: "El valor cero"
+  explanation:
+    es: "La ayuda dice que la función devuelve un valor nulo si «la primera expresión verdadera tiene un valor correspondiente que es nulo». Devolver el valor de la siguiente expresión verdadera contradice que la función se queda con el valor asociado a la primera expresión verdadera. El error en tiempo de ejecución es lo que ocurre cuando las partes no están emparejadas, no cuando el valor es nulo. Y el cero no se devuelve: el valor correspondiente es nulo y la función devuelve ese nulo."
+  citation: "fuente: `ms-access-funcion-conmutador.html`; «Función Conmutador»"
+  difficulty: 2
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-access-funcion-conmutador-html
+- id: m06-l06-q407
+  prompt:
+    es: "En Access 365, ¿cuál de las siguientes advertencias hace la ayuda sobre las expresiones de la función Conmutador que no son la primera verdadera?"
+  options:
+  - id: a
+    text:
+      es: "No se evalúan, porque la función se detiene en la primera verdadera"
+  - id: b
+    text:
+      es: "Se evalúan solo si el valor asociado es nulo"
+  - id: c
+    correct: true
+    text:
+      es: "Se evalúan todas, aunque solo se devuelva una"
+  - id: d
+    text:
+      es: "Se evalúan en una consulta, pero no en un módulo de VBA"
+  explanation:
+    es: "La ayuda dice: «Switch evalúa todas las expresiones, aunque solo devuelva una de ellas. Por esta razón, debe estar atento a los efectos secundarios indeseables». «No se evalúan, porque la función se detiene en la primera verdadera» es lo contrario. «Se evalúan solo si el valor asociado es nulo» y «en una consulta, pero no en un módulo de VBA» no figuran en la ayuda."
+  citation: "fuente: `ms-access-funcion-conmutador.html`; «Función Conmutador»"
+  difficulty: 2
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-access-funcion-conmutador-html
+- id: m06-l06-q408
+  prompt:
+    es: "En Access 365, ¿qué ocurre si la evaluación de cualquier expresión de la función Conmutador da como resultado un error de división por cero?"
+  options:
+  - id: a
+    text:
+      es: "Se devuelve el valor de la primera expresión verdadera"
+  - id: b
+    text:
+      es: "La función devuelve un valor nulo"
+  - id: c
+    text:
+      es: "La expresión con error se omite sin avisar"
+  - id: d
+    correct: true
+    text:
+      es: "Se produce un error aunque no sea la devuelta"
+  explanation:
+    es: "La ayuda dice, tras indicar que evalúa todas las expresiones: «si la evaluación de cualquier expresión da como resultado un error de división por cero, se produce un error». «Se devuelve el valor de la primera expresión verdadera» ignora que se evalúan todas. «La función devuelve un valor nulo» corresponde a otros casos (ninguna verdadera o valor nulo). «La expresión con error se omite sin avisar» contradice que se produzca un error."
+  citation: "fuente: `ms-access-funcion-conmutador.html`; «Función Conmutador»"
+  difficulty: 2
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-access-funcion-conmutador-html
+- id: m06-l06-q409
+  prompt:
+    es: "En una consulta de Access 365, un registro tiene ProductID igual a PRO_XYZ1 y se aplica Switch([ProductID]=\"PRO_XYZ1\";\"First\";[ProductID]=\"PRO_XYZ2\";\"Two\";[ProductID]=\"PRO_XYZ1\";\"Ten\"). ¿Qué devuelve?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "First"
+  - id: b
+    text:
+      es: "Ten"
+  - id: c
+    text:
+      es: "Two"
+  - id: d
+    text:
+      es: "Un valor nulo"
+  explanation:
+    es: "Switch devuelve el valor asociado a la primera expresión verdadera: «Las expresiones se evalúan de izquierda a derecha». La primera expresión se cumple, así que devuelve First. «Ten» corresponde a la tercera expresión, que también es verdadera pero va después. «Two» corresponde a una expresión falsa para ese registro. «Un valor nulo» solo se devuelve si ninguna expresión es verdadera o si el valor de la primera verdadera es nulo."
+  citation: "fuente: `ms-access-funcion-conmutador.html`; «Ejemplo de consulta»"
+  difficulty: 3
+  tags:
+  - "resultado-fórmula"

@@ -1,0 +1,611 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# Question bank, m06-l07: fixed multiple-choice questions (round R3). Generated from
+# docs/age-verification/bank/bloque-vi/m06-l07.draft.json minus drops.tsv by
+# docs/age-verification/bank/tools/build_exercises.py; edit the draft and rebuild, not this file.
+type: quiz
+variants:
+# anchor: fuente-ms-outlook-smime-html
+- id: m06-l07-q027
+  prompt:
+    es: "En el nuevo Outlook para Windows, si se cifra un mensaje y Outlook no puede comprobar que todos los destinatarios pueden descifrarlo, ¿qué ocurre?"
+  options:
+  - id: a
+    text:
+      es: "Envía el mensaje sin cifrar a los destinatarios que no pueden descifrarlo."
+  - id: b
+    text:
+      es: "Envía el mensaje cifrado y devuelve una confirmación de entrega a la bandeja."
+  - id: c
+    text:
+      es: "Bloquea el envío hasta que se quiten los destinatarios que no pueden leerlo."
+  - id: d
+    correct: true
+    text:
+      es: "Advierte de los destinatarios que quizá no puedan leerlo y deja enviarlo."
+  explanation:
+    es: "La página dice que el nuevo Outlook muestra una advertencia que resalta los destinatarios que quizá no puedan leer el mensaje cifrado, y que se puede enviar de todos modos, quitar esos destinatarios o volver a comprobarlo. No bloquea el envío, porque enviarlo igualmente es una de las salidas. Tampoco lo envía sin cifrar a esos destinatarios ni devuelve una confirmación de entrega por su cuenta."
+  citation: "fuente: `ms-outlook-smime.html`; «Cifrar un único mensaje y solicitar confirmaciones con S/MIME en el nuevo Outlook»"
+  difficulty: 2
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-outlook-smime-html
+- id: m06-l07-q028
+  prompt:
+    es: "En el nuevo Outlook para Windows, ¿cuál de las siguientes afirmaciones sobre S/MIME y la protección IRM del Cifrado de mensajes de Microsoft Purview es correcta?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "La protección IRM no debe aplicarse a un mensaje ya firmado o cifrado con S/MIME."
+  - id: b
+    text:
+      es: "Un mensaje cifrado con S/MIME debe protegerse además con IRM para enviarse."
+  - id: c
+    text:
+      es: "La protección IRM se aplica sobre la firma S/MIME para reforzar el cifrado."
+  - id: d
+    text:
+      es: "La firma S/MIME y la protección IRM se aplican juntas a todos los mensajes."
+  explanation:
+    es: "La página dice que la protección IRM no debe aplicarse a un mensaje ya firmado o cifrado con S/MIME; para aplicarla hay que quitar antes la firma y el cifrado S/MIME, y un mensaje con IRM no debe firmarse ni cifrarse con S/MIME. Las tres opciones que combinan las dos protecciones contradicen esa regla."
+  citation: "fuente: `ms-outlook-smime.html`; «Cifrar un mensaje con el Cifrado de mensajes de Microsoft Purview en el nuevo Outlook»"
+  difficulty: 3
+  tags:
+  - "concepto"
+# anchor: fuente-ms-outlook-smime-html
+- id: m06-l07-q029
+  prompt:
+    es: "En el nuevo Outlook para Windows, ¿qué debe hacer el usuario para enviar correos electrónicos cifrados con S/MIME a destinatarios externos?"
+  options:
+  - id: a
+    text:
+      es: "Instalar su propio certificado en el equipo del destinatario."
+  - id: b
+    text:
+      es: "Configurar la cuenta con acceso POP en lugar de con IMAP."
+  - id: c
+    correct: true
+    text:
+      es: "Instalar el certificado del destinatario en el equipo local."
+  - id: d
+    text:
+      es: "Pedir al destinatario que se una a su grupo de Microsoft 365."
+  explanation:
+    es: "La nota de la página dice que, para enviar correos cifrados con S/MIME a destinatarios externos, el usuario debe instalar el certificado del destinatario en el equipo local. Instalar el propio certificado en el equipo ajeno invierte quién instala qué y dónde. Unirse a un grupo o cambiar el método de acceso no aparecen como requisito."
+  citation: "fuente: `ms-outlook-smime.html`; «Cifrar un único mensaje y solicitar confirmaciones con S/MIME en el nuevo Outlook»"
+  difficulty: 2
+  tags:
+  - "requisito"
+# anchor: fuente-ms-outlook-grupos-html
+- id: m06-l07-q030
+  prompt:
+    es: "En Outlook 365, ¿qué se crea automáticamente al crear un grupo de Microsoft 365 para un equipo de trabajo?"
+  options:
+  - id: a
+    text:
+      es: "Un buzón delegado del creador al que acceden todos los miembros con nivel Editor."
+  - id: b
+    correct: true
+    text:
+      es: "Una bandeja de entrada compartida, una dirección de correo del grupo y un calendario compartido."
+  - id: c
+    text:
+      es: "Una lista de contactos con las direcciones de todos los miembros, sin bandeja de entrada propia."
+  - id: d
+    text:
+      es: "Una carpeta de búsqueda con los mensajes de todos los miembros y un calendario compartido."
+  explanation:
+    es: "La página dice que al crear un grupo se crean automáticamente una bandeja de entrada compartida, una dirección de correo del grupo y un calendario compartido. Una lista de contactos es otra cosa: un conjunto de direcciones, que la página distingue del grupo. Las carpetas de búsqueda reúnen mensajes por criterios, no forman parte del grupo. El acceso delegado se concede persona a persona y no nace de crear un grupo."
+  citation: "fuente: `ms-outlook-grupos.html`; «Más información sobre los grupos en Outlook»"
+  difficulty: 1
+  tags:
+  - "concepto"
+  - "comportamiento"
+# anchor: fuente-ms-outlook-grupos-html
+- id: m06-l07-q031
+  prompt:
+    es: "En Outlook 365, ¿cuál de las siguientes afirmaciones sobre los grupos de Microsoft 365 y las listas de contactos es correcta?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "La lista de contactos es solo un conjunto de direcciones para escribir a todos a la vez."
+  - id: b
+    text:
+      es: "El grupo y la lista de contactos son lo mismo, también llamado lista de distribución."
+  - id: c
+    text:
+      es: "La lista de contactos tiene bandeja de entrada y calendario compartidos, y el grupo no."
+  - id: d
+    text:
+      es: "El grupo es solo un conjunto de direcciones de correo para escribir a todos a la vez."
+  explanation:
+    es: "La página dice que los grupos de Microsoft 365 no son listas de contactos: una lista de contactos es simplemente un conjunto de direcciones para enviar correo o invitaciones a todos a la vez. Es el grupo, no la lista, el que tiene bandeja y calendario compartidos. Llamar al grupo un simple conjunto de direcciones lo confunde con la lista. La lista de distribución es el otro nombre de la lista de contactos, no del grupo."
+  citation: "fuente: `ms-outlook-grupos.html`; «Un grupo de Microsoft 365 es más que una lista de distribución»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-ms-outlook-grupos-html
+- id: m06-l07-q032
+  prompt:
+    es: "En Outlook 365, con una cuenta profesional o educativa, ¿de quién puede aceptar mensajes el buzón compartido de un grupo de Microsoft 365?"
+  options:
+  - id: a
+    text:
+      es: "Solo de los usuarios de la organización, sean o no sean miembros del propio grupo."
+  - id: b
+    text:
+      es: "Solo de los miembros del grupo, que son los únicos que pueden escribir a su dirección."
+  - id: c
+    text:
+      es: "Solo del propietario del grupo, que después reenvía los mensajes a los demás miembros."
+  - id: d
+    correct: true
+    text:
+      es: "Puede fijarse para aceptarlos de fuera del grupo e incluso de fuera de la organización."
+  explanation:
+    es: "La página dice que la bandeja del grupo tiene una dirección de correo y se puede fijar para aceptar mensajes de usuarios de fuera del grupo e incluso de fuera de la organización, como una lista de distribución. Limitarlo a los miembros o a la organización contradice esa frase. El propietario no reenvía nada: el grupo tiene su propia dirección y su bandeja."
+  citation: "fuente: `ms-outlook-grupos.html`; «Grupos de Microsoft 365 con cuentas profesionales o educativas»"
+  difficulty: 2
+  tags:
+  - "comportamiento"
+  - "configuración"
+# anchor: fuente-ms-outlook-grupos-html
+- id: m06-l07-q033
+  prompt:
+    es: "En Outlook 365, con una cuenta profesional o educativa, ¿cuál de los siguientes recursos de un grupo de Microsoft 365 sirve para almacenar y compartir archivos?"
+  options:
+  - id: a
+    text:
+      es: "El bloc de notas de OneNote compartido"
+  - id: b
+    text:
+      es: "El calendario compartido de los eventos del grupo"
+  - id: c
+    correct: true
+    text:
+      es: "La biblioteca de documentos de SharePoint"
+  - id: d
+    text:
+      es: "El plan de tareas de Planner"
+  explanation:
+    es: "La página describe la biblioteca de documentos de SharePoint como el lugar del grupo para almacenar y compartir archivos. El bloc de notas de OneNote sirve para recopilar ideas, investigaciones e información. Planner asigna y administra tareas entre los miembros. El calendario compartido programa eventos del grupo."
+  citation: "fuente: `ms-outlook-grupos.html`; «Grupos de Microsoft 365 con cuentas profesionales o educativas»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-ms-outlook-grupos-html
+- id: m06-l07-q034
+  prompt:
+    es: "En Outlook 365, ¿cuál de los siguientes recursos NO tiene un grupo de Microsoft 365 creado con una cuenta personal, como Outlook.com o Gmail?"
+  options:
+  - id: a
+    text:
+      es: "Una dirección de correo del grupo"
+  - id: b
+    text:
+      es: "Un calendario compartido del grupo"
+  - id: c
+    text:
+      es: "Una bandeja de entrada compartida por los miembros"
+  - id: d
+    correct: true
+    text:
+      es: "Una biblioteca de documentos de SharePoint"
+  explanation:
+    es: "La página dice que con una cuenta personal se puede crear un grupo, pero no habrá recursos compartidos de OneNote, SharePoint o Planner. La bandeja de entrada y el calendario compartidos se configuran para todos los grupos, y cualquiera que sea el tipo de cuenta se puede escribir al grupo en una dirección de correo dedicada."
+  citation: "fuente: `ms-outlook-grupos.html`; «Grupos de Microsoft 365 con cuentas personales»"
+  difficulty: 3
+  tags:
+  - "concepto"
+# anchor: fuente-ms-outlook-grupos-html
+- id: m06-l07-q035
+  prompt:
+    es: "En Outlook 365, con una cuenta profesional o educativa, ¿qué ocurre con los permisos de los miembros al agregarlos a un grupo de Microsoft 365?"
+  options:
+  - id: a
+    text:
+      es: "Reciben acceso delegado al buzón personal del propietario del grupo."
+  - id: b
+    correct: true
+    text:
+      es: "Se les conceden automáticamente los permisos que necesitan para las herramientas del grupo."
+  - id: c
+    text:
+      es: "El propietario tiene que asignarles a mano los permisos de cada recurso del grupo."
+  - id: d
+    text:
+      es: "Reciben el nivel de permisos Revisor en cada recurso hasta que el propietario lo cambie."
+  explanation:
+    es: "La página dice que no hace falta asignar permisos a mano: al agregar a los miembros se les conceden automáticamente los permisos que necesitan para las herramientas del grupo. Asignarlos a mano es justo lo que la página dice que no hace falta. Revisor es un nivel de permisos de carpeta compartida, no el de los miembros de un grupo. El acceso delegado al buzón personal se concede aparte."
+  citation: "fuente: `ms-outlook-grupos.html`; «Grupos de Microsoft 365 con cuentas profesionales o educativas»"
+  difficulty: 2
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-outlook-grupos-html
+- id: m06-l07-q036
+  prompt:
+    es: "Señale a qué amplía automáticamente el acceso de los miembros crear un grupo de Microsoft 365 en Outlook 365 con una cuenta profesional o educativa:"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "A los archivos compartidos en OneDrive, los chats de Teams y las tareas de Planner."
+  - id: b
+    text:
+      es: "A los contactos personales del propietario y a su libreta de direcciones."
+  - id: c
+    text:
+      es: "A las reglas de mensaje y a las carpetas de búsqueda del propietario del grupo."
+  - id: d
+    text:
+      es: "A los buzones personales de los demás miembros y a sus calendarios privados."
+  explanation:
+    es: "La página dice que crear un grupo con una cuenta profesional o educativa amplía automáticamente a los miembros el acceso a los archivos compartidos en OneDrive, a los chats de Teams y a las asignaciones de tareas en Planner. Los buzones personales, las reglas, las carpetas de búsqueda y los contactos del propietario no forman parte de lo que el grupo comparte."
+  citation: "fuente: `ms-outlook-grupos.html`; «Más información sobre los grupos en Outlook»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-ms-outlook-grupo-enviar-html
+- id: m06-l07-q037
+  prompt:
+    es: "Señale la afirmación correcta sobre un grupo privado de Microsoft 365 en Outlook 365, con una cuenta profesional o educativa:"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Solo los miembros del grupo pueden participar en sus conversaciones."
+  - id: b
+    text:
+      es: "Solo los propietarios del grupo pueden iniciar una conversación de grupo."
+  - id: c
+    text:
+      es: "Cualquier persona de la organización puede leer y responder sus conversaciones."
+  - id: d
+    text:
+      es: "Cualquier persona de fuera de la organización puede leer sus conversaciones."
+  explanation:
+    es: "La página dice: «Para un grupo privado, solo los miembros del grupo pueden participar en la conversación». Que solo los propietarios puedan iniciar una conversación contradice la frase anterior de la página: cualquier persona de su organización puede iniciar una conversación de grupo. Que cualquiera de la organización lea y responda es lo que la página da para un grupo público. Y que lo lea cualquier persona de fuera de la organización contradice el «solo los miembros» del grupo privado."
+  citation: "fuente: `ms-outlook-grupo-enviar.html`; «Enviar un correo electrónico a un grupo en Outlook»"
+  difficulty: 2
+  tags:
+  - "concepto"
+  - "comportamiento"
+# anchor: fuente-ms-outlook-grupo-enviar-html
+- id: m06-l07-q038
+  prompt:
+    es: "En Outlook 365, con una cuenta profesional o educativa, ¿quién puede leer y responder a las conversaciones de un grupo público de Microsoft 365?"
+  options:
+  - id: a
+    text:
+      es: "Cualquier persona, también ajena a la organización."
+  - id: b
+    text:
+      es: "Solo los propietarios del grupo."
+  - id: c
+    correct: true
+    text:
+      es: "Cualquier persona de la organización."
+  - id: d
+    text:
+      es: "Solo los miembros del grupo."
+  explanation:
+    es: "La página dice que, en un grupo público, cualquier persona de la organización puede leer y responder a las conversaciones. Limitarlo a los miembros es la regla del grupo privado. Los propietarios no tienen ese derecho en exclusiva. La página habla de personas de la organización, no de cualquiera de fuera."
+  citation: "fuente: `ms-outlook-grupo-enviar.html`; «Enviar un correo electrónico a un grupo en Outlook»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-ms-outlook-grupo-enviar-html
+- id: m06-l07-q039
+  prompt:
+    es: "En Outlook clásico, al seleccionar el grupo en el panel de navegación y elegir Nuevo Email en la cinta, ¿qué ocurre con la línea Para?"
+  options:
+  - id: a
+    text:
+      es: "Hay que escribir en ella las direcciones de todos los miembros."
+  - id: b
+    correct: true
+    text:
+      es: "El alias del grupo se agrega automáticamente a la línea Para."
+  - id: c
+    text:
+      es: "Se rellena con la dirección personal del propietario del grupo."
+  - id: d
+    text:
+      es: "Queda vacía y el mensaje va en copia oculta a los miembros."
+  explanation:
+    es: "La página dice: «En la cinta de opciones, seleccione Nuevo Email. Observe que el alias del grupo se agrega automáticamente a la línea Para», y que al enviar el mensaje lo reciben todos los miembros. Escribir las direcciones de todos los miembros contradice «se agrega automáticamente» y no hace falta si el alias va en la línea Para. Rellenar con la dirección del propietario tampoco: lo que se agrega es el alias del grupo. Y dejarla vacía con copia oculta contradice que el alias ya esté en la línea Para."
+  citation: "fuente: `ms-outlook-grupo-enviar.html`; «Enviar un correo electrónico a un grupo en Outlook clásico»"
+  difficulty: 2
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-outlook-grupo-enviar-html
+- id: m06-l07-q040
+  prompt:
+    es: "En Outlook clásico, ¿cuál de las siguientes afirmaciones sobre un correo que se envía al grupo desde Nuevo Email es correcta?"
+  options:
+  - id: a
+    text:
+      es: "Solo lo reciben los miembros con nivel de permisos Editor."
+  - id: b
+    text:
+      es: "Lo reciben los miembros cuando el propietario lo aprueba."
+  - id: c
+    text:
+      es: "Solo lo recibe el propietario, que lo reenvía a los miembros."
+  - id: d
+    correct: true
+    text:
+      es: "Todos los miembros del grupo reciben el correo electrónico enviado."
+  explanation:
+    es: "Los pasos de Outlook clásico terminan así: escribir el mensaje, seleccionar Enviar, y todos los miembros del grupo recibirán el correo electrónico. No hay reenvío del propietario ni aprobación previa. Editor es un nivel de permisos de carpeta o de delegado, no una condición para recibir el correo del grupo."
+  citation: "fuente: `ms-outlook-grupo-enviar.html`; «Enviar un correo electrónico a un grupo en Outlook clásico»"
+  difficulty: 1
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-outlook-grupo-enviar-html
+- id: m06-l07-q041
+  prompt:
+    es: "En Outlook clásico, al hacer clic con el botón derecho en un mensaje de un grupo de Microsoft 365 y seleccionar Responder, ¿a quién se envía la respuesta?"
+  options:
+  - id: a
+    text:
+      es: "A todos los miembros del grupo, salvo al remitente."
+  - id: b
+    correct: true
+    text:
+      es: "Solo al remitente del mensaje, y no al grupo."
+  - id: c
+    text:
+      es: "Solo al propietario del grupo, que la reenvía."
+  - id: d
+    text:
+      es: "Al grupo y al remitente del mensaje a la vez."
+  explanation:
+    es: "La página dice que Responder envía el mensaje solo al remitente y no al grupo. Para responder al grupo se elige Responder a todos o se escribe en el cuadro Agregar un mensaje del panel de lectura. Ninguna opción de la página excluye al remitente ni envía la respuesta al propietario."
+  citation: "fuente: `ms-outlook-grupo-enviar.html`; «Responder a un correo electrónico a un grupo en la versión clásica de Outlook»"
+  difficulty: 2
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-outlook-grupo-enviar-html
+- id: m06-l07-q042
+  prompt:
+    es: "En Outlook 365, con una cuenta profesional o educativa, ¿qué ocurre si un miembro elimina de su bandeja de entrada personal un correo del grupo?"
+  options:
+  - id: a
+    text:
+      es: "El correo se borra para todos si el grupo es privado."
+  - id: b
+    text:
+      es: "El correo pasa a la carpeta Archivo del buzón del grupo."
+  - id: c
+    text:
+      es: "El correo se borra también del buzón del grupo."
+  - id: d
+    correct: true
+    text:
+      es: "El correo aún se puede encontrar en el buzón del grupo."
+  explanation:
+    es: "La página dice que, si se elimina el correo del grupo de la bandeja de entrada personal, el correo aún se puede encontrar en el buzón del grupo. No se borra del grupo, ni siquiera si es privado: eliminar una conversación para todos queda reservado a los propietarios. La carpeta Archivo es el destino de Archivar, no de eliminar."
+  citation: "fuente: `ms-outlook-grupo-enviar.html`; «Enviar un correo electrónico a un grupo en Outlook»"
+  difficulty: 2
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-outlook-grupo-enviar-html
+- id: m06-l07-q043
+  prompt:
+    es: "En el nuevo Outlook para Windows, ¿quién puede eliminar una conversación para todos los usuarios de un grupo de Microsoft 365?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Solo los propietarios del grupo."
+  - id: b
+    text:
+      es: "Cualquier persona de la organización."
+  - id: c
+    text:
+      es: "Solo quien inició la conversación."
+  - id: d
+    text:
+      es: "Cualquier miembro del propio grupo."
+  explanation:
+    es: "La página dice: «Solo los propietarios del grupo pueden eliminar las conversaciones de todos los usuarios». Cualquier persona de la organización puede iniciar una conversación, según la página, pero eso no le da derecho a borrarla para todos. Quien la inició y cualquier miembro tampoco son propietarios, y la frase reserva esa acción a los propietarios."
+  citation: "fuente: `ms-outlook-grupo-enviar.html`; «Eliminar una conversación para todos los usuarios de un grupo en el nuevo Outlook»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-ms-outlook-grupo-enviar-html
+- id: m06-l07-q044
+  prompt:
+    es: "En el nuevo Outlook para Windows, para enviar un correo electrónico a un grupo desde la barra de navegación, se selecciona:"
+  options:
+  - id: a
+    text:
+      es: "Compartido conmigo, el nombre del grupo y, después, Nuevo correo."
+  - id: b
+    text:
+      es: "Grupos, el nombre del grupo en la lista y, después, Reenviar."
+  - id: c
+    correct: true
+    text:
+      es: "Grupos, el nombre del grupo en la lista y, a continuación, Nuevo correo."
+  - id: d
+    text:
+      es: "People, el nombre del grupo en la lista y, después, Nuevo correo."
+  explanation:
+    es: "Los pasos del nuevo Outlook son seleccionar Grupos en la barra de navegación, el nombre del grupo en la lista y Nuevo correo; después se escribe en Para la dirección del grupo. People es la vista de contactos, no la de grupos. Reenviar reenvía un mensaje que ya está en el buzón del grupo. Compartido conmigo es el nodo de las carpetas compartidas por otras personas."
+  citation: "fuente: `ms-outlook-grupo-enviar.html`; «Enviar un correo electrónico a un grupo en el nuevo Outlook»"
+  difficulty: 2
+  tags:
+  - "ofimática-menú"
+# anchor: fuente-ms-outlook-grupo-enviar-html
+- id: m06-l07-q045
+  prompt:
+    es: "En el nuevo Outlook para Windows, ¿cuál de las siguientes casillas debe activar un miembro que sigue un grupo para recibir una copia de lo que envía al grupo?"
+  options:
+  - id: a
+    text:
+      es: "Solicitar una confirmación de entrega"
+  - id: b
+    text:
+      es: "Enviar automáticamente un mensaje al delegado que resume estos permisos"
+  - id: c
+    text:
+      es: "Agregar una firma digital a todos los mensajes que envío"
+  - id: d
+    correct: true
+    text:
+      es: "Enviarme una copia del correo electrónico que envío a un grupo"
+  explanation:
+    es: "La página indica activar la casilla enviarme una copia del correo electrónico que envío a un grupo; vale para quien es miembro y sigue el grupo en su bandeja. La casilla del mensaje automático al delegado aparece al conceder acceso delegado. Agregar una firma digital a todos los mensajes es una opción de S/MIME. Solicitar una confirmación de entrega pide un recibo del mensaje, no una copia."
+  citation: "fuente: `ms-outlook-grupo-enviar.html`; «Recibir una copia del correo electrónico que envía a un grupo en el nuevo Outlook»"
+  difficulty: 3
+  tags:
+  - "configuración"
+# anchor: fuente-ms-outlook-compartir-carpeta-html
+- id: m06-l07-q046
+  prompt:
+    es: "En el nuevo Outlook para Windows, ¿qué puede hacer en una carpeta compartida el invitado que tiene el nivel de permisos Colaborador?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Solo crear elementos."
+  - id: b
+    text:
+      es: "Crear y leer elementos, y eliminar los que cree."
+  - id: c
+    text:
+      es: "Crear, leer, modificar y eliminar todos los elementos."
+  - id: d
+    text:
+      es: "Solo leer elementos."
+  explanation:
+    es: "La tabla de niveles de permisos da a Colaborador una sola actividad: solo crear elementos. Solo leer elementos es el nivel Revisor. Crear y leer, y eliminar lo propio, es Autor no editor. Crear, leer, modificar y eliminar todos los elementos es Editor."
+  citation: "fuente: `ms-outlook-compartir-carpeta.html`; «Comprender los permisos de uso compartido»"
+  difficulty: 1
+  tags:
+  - "concepto"
+  - "configuración"
+# anchor: fuente-ms-outlook-compartir-carpeta-html
+- id: m06-l07-q047
+  prompt:
+    es: "En Outlook clásico, al compartir una carpeta, ¿cuál de los siguientes es el nivel de permisos con los mínimos derechos en la escala que desciende desde Propietario?"
+  options:
+  - id: a
+    text:
+      es: "Autor no editor"
+  - id: b
+    correct: true
+    text:
+      es: "Colaborador"
+  - id: c
+    text:
+      es: "Autor"
+  - id: d
+    text:
+      es: "Editor de publicación"
+  explanation:
+    es: "La página dice que en Outlook clásico los permisos descienden de Propietario, con todos los derechos, hasta Colaborador, con los mínimos derechos. Autor y Autor no editor pueden además leer elementos y gestionar los suyos. Editor de publicación está en lo alto de la escala: crea, lee, modifica y elimina todo y crea subcarpetas."
+  citation: "fuente: `ms-outlook-compartir-carpeta.html`; «Propietario de una carpeta o buzón: Conceder permisos a una carpeta»"
+  difficulty: 2
+  tags:
+  - "configuración"
+# anchor: fuente-ms-outlook-compartir-carpeta-html
+- id: m06-l07-q048
+  prompt:
+    es: "En el nuevo Outlook para Windows, ¿cuál de los siguientes niveles de permisos deja al invitado solo leer los elementos de una carpeta compartida?"
+  options:
+  - id: a
+    text:
+      es: "Autor"
+  - id: b
+    text:
+      es: "Colaborador"
+  - id: c
+    correct: true
+    text:
+      es: "Revisor"
+  - id: d
+    text:
+      es: "Ninguno"
+  explanation:
+    es: "La tabla da a Revisor una sola actividad: solo leer elementos. Colaborador solo crea elementos. Autor crea y lee, y modifica y elimina los elementos que cree. Ninguno no permite ninguna actividad ni abrir la carpeta."
+  citation: "fuente: `ms-outlook-compartir-carpeta.html`; «Comprender los permisos de uso compartido»"
+  difficulty: 1
+  tags:
+  - "configuración"
+# anchor: fuente-ms-outlook-compartir-carpeta-html
+- id: m06-l07-q049
+  prompt:
+    es: "En el nuevo Outlook para Windows, ¿cuál de los siguientes niveles de permisos permite crear subcarpetas en la carpeta compartida?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Editor de publicación"
+  - id: b
+    text:
+      es: "Autor"
+  - id: c
+    text:
+      es: "Editor"
+  - id: d
+    text:
+      es: "Autor no editor"
+  explanation:
+    es: "Según la tabla, Editor de publicación crea, lee, modifica y elimina todos los elementos y, además, crea subcarpetas. Editor tiene las mismas actividades sobre los elementos, pero no crea subcarpetas. Autor y Autor no editor crean y leen elementos y gestionan los suyos, sin subcarpetas."
+  citation: "fuente: `ms-outlook-compartir-carpeta.html`; «Comprender los permisos de uso compartido»"
+  difficulty: 2
+  tags:
+  - "configuración"
+# anchor: fuente-ms-outlook-compartir-carpeta-html
+- id: m06-l07-q050
+  prompt:
+    es: "En el nuevo Outlook para Windows, ¿qué permite el nivel de permisos Autor que no permite el nivel Autor no editor en una carpeta compartida?"
+  options:
+  - id: a
+    text:
+      es: "Crear subcarpetas dentro de la carpeta compartida."
+  - id: b
+    text:
+      es: "Leer los elementos que haya en la carpeta compartida."
+  - id: c
+    correct: true
+    text:
+      es: "Modificar los elementos que el invitado haya creado."
+  - id: d
+    text:
+      es: "Eliminar los elementos que el invitado haya creado."
+  explanation:
+    es: "La tabla da a Autor crear y leer elementos, y modificar y eliminar los que cree; a Autor no editor, crear y leer elementos, y eliminar los que cree. La diferencia es modificar los propios. Los dos leen y los dos eliminan lo que crean. Ninguno de los dos crea subcarpetas: eso lo permite Autor de publicación."
+  citation: "fuente: `ms-outlook-compartir-carpeta.html`; «Comprender los permisos de uso compartido»"
+  difficulty: 3
+  tags:
+  - "configuración"
+# anchor: fuente-ms-outlook-compartir-carpeta-html
+- id: m06-l07-q051
+  prompt:
+    es: "En Outlook 365, ¿qué ocurre si, tras elegir un nivel de permisos para una carpeta compartida, se desactiva una de sus casillas de permisos?"
+  options:
+  - id: a
+    text:
+      es: "El nivel de permisos vuelve a ser Propietario."
+  - id: b
+    text:
+      es: "El nivel de permisos pasa a Revisor."
+  - id: c
+    text:
+      es: "El nivel de permisos cambia a Ninguno."
+  - id: d
+    correct: true
+    text:
+      es: "El nivel de permisos cambia a Personalizado."
+  explanation:
+    es: "La página lo dice para los dos clientes: si se quita una de las casillas asociadas a un nivel, el nivel cambia a Personalizado; en Outlook clásico, ajustar botones o casillas cambia el nivel a Personalizado. Ninguno, Revisor y Propietario son niveles integrados con actividades fijas, no el resultado de cambiar una casilla."
+  citation: "fuente: `ms-outlook-compartir-carpeta.html`; «Propietario de una carpeta o buzón: Conceder permisos a una carpeta»"
+  difficulty: 2
+  tags:
+  - "comportamiento"
+  - "configuración"

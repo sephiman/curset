@@ -1,0 +1,615 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# Question bank, m06-l05: fixed multiple-choice questions (round R3). Generated from
+# docs/age-verification/bank/bloque-vi/m06-l05.draft.json minus drops.tsv by
+# docs/age-verification/bank/tools/build_exercises.py; edit the draft and rebuild, not this file.
+type: quiz
+variants:
+# anchor: fuente-ms-excel-funcion-o-html
+- id: m06-l05-q156
+  prompt:
+    es: "En Excel 365, ¿cuál de las siguientes afirmaciones describe lo que devuelve la función O con sus argumentos?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Devuelve VERDADERO si alguno de sus argumentos se evalúa como VERDADERO"
+  - id: b
+    text:
+      es: "Devuelve VERDADERO solo si todos sus argumentos se evalúan como VERDADERO"
+  - id: c
+    text:
+      es: "Invierte el valor lógico de su argumento"
+  - id: d
+    text:
+      es: "Devuelve FALSO si alguno de sus argumentos se evalúa como VERDADERO"
+  explanation:
+    es: "O devuelve VERDADERO si alguno de sus argumentos es VERDADERO y FALSO si todos son FALSO. Pedir que todos sean verdaderos es Y, invertir el valor es NO y devolver FALSO con un argumento verdadero contradice la definición."
+  citation: "fuente: `ms-excel-funcion-o.html`; «Detalles técnicos»"
+  difficulty: 1
+  tags:
+  - "función"
+  - "concepto"
+# anchor: fuente-ms-excel-funcion-o-html
+- id: m06-l05-q157
+  prompt:
+    es: "En Excel 365, B14 vale 120000 (ventas), B4 100000 (objetivo de ventas), C14 8 (cuentas), B5 10 (objetivo de cuentas) y B6 5 %. ¿Qué muestra =SI(O(B14>=B4;C14>=B5);B14*B6;0)?"
+  options:
+  - id: a
+    text:
+      es: "0"
+  - id: b
+    text:
+      es: "120000"
+  - id: c
+    correct: true
+    text:
+      es: "6000"
+  - id: d
+    text:
+      es: "VERDADERO"
+  explanation:
+    es: "B14>=B4 se cumple, así que O es VERDADERO y SI multiplica las ventas totales por el porcentaje de comisión: 120000 × 5 % = 6000. 0 solo aparece si no se cumple ninguna condición; 120000 omite la comisión y VERDADERO es el resultado de O."
+  citation: "fuente: `ms-excel-funcion-o.html`; «Cálculo de la comisión de ventas»"
+  difficulty: 3
+  tags:
+  - "resultado-fórmula"
+# anchor: fuente-ms-excel-funcion-no-html
+- id: m06-l05-q158
+  prompt:
+    es: "En Excel 365, B14 vale 80000, B7 100000, C14 12, B5 10 y B8 5 %. ¿Qué muestra =SI(Y(NO(B14<B7);NO(C14<B5));B14*B8;0)?"
+  options:
+  - id: a
+    text:
+      es: "4000"
+  - id: b
+    text:
+      es: "80000"
+  - id: c
+    text:
+      es: "FALSO"
+  - id: d
+    correct: true
+    text:
+      es: "0"
+  explanation:
+    es: "El total de ventas es inferior al objetivo, por lo que NO(B14<B7) es FALSO, Y no se cumple y se devuelve 0, el valor del caso contrario. 4000 sería la comisión si se cumpliera, 80000 el total de ventas y FALSO el resultado de Y sin SI."
+  citation: "fuente: `ms-excel-funcion-no.html`; «Cálculo de la comisión de ventas»"
+  difficulty: 3
+  tags:
+  - "resultado-fórmula"
+# anchor: fuente-ms-excel-funcion-sierror-html
+- id: m06-l05-q201
+  prompt:
+    es: "En Excel 365, la celda A1 contiene 80 y B1 contiene 0. ¿Cuál de los siguientes resultados muestra la celda que contiene =SI.ERROR(A1/B1; \"Sin datos\")?"
+  options:
+  - id: a
+    text:
+      es: "El valor 80"
+  - id: b
+    correct: true
+    text:
+      es: "Sin datos"
+  - id: c
+    text:
+      es: "#N/A"
+  - id: d
+    text:
+      es: "FALSO"
+  explanation:
+    es: "A1/B1 divide entre 0 y da un error, y SI.ERROR devuelve en ese caso el valor especificado, el texto Sin datos. 80 sería el resultado de ignorar B1; #N/A y FALSO no son el valor especificado."
+  citation: "fuente: `ms-excel-funcion-sierror.html`; «Descripción»"
+  difficulty: 1
+  tags:
+  - "resultado-fórmula"
+# anchor: fuente-ms-excel-funcion-sierror-html
+- id: m06-l05-q202
+  prompt:
+    es: "En Excel 365, A1 contiene 80 y B1 contiene 4. ¿Qué muestra la celda que contiene =SI.ERROR(A1/B1; \"Sin datos\")?"
+  options:
+  - id: a
+    text:
+      es: "Sin datos"
+  - id: b
+    text:
+      es: "#¡DIV/0!"
+  - id: c
+    correct: true
+    text:
+      es: "20"
+  - id: d
+    text:
+      es: "320"
+  explanation:
+    es: "La división 80/4 no da error, así que SI.ERROR devuelve el resultado de la fórmula: 20. El texto Sin datos solo se devuelve ante un error, #¡DIV/0! es el error que SI.ERROR sustituye y 320 resulta de multiplicar."
+  citation: "fuente: `ms-excel-funcion-sierror.html`; «Ejemplos»"
+  difficulty: 1
+  tags:
+  - "resultado-fórmula"
+# anchor: fuente-ms-excel-funcion-sierror-html
+- id: m06-l05-q203
+  prompt:
+    es: "En Excel 365, A1 contiene 50, B1 contiene 0 y C1 está vacía. ¿Cuál de los siguientes resultados muestra la celda con =SI.ERROR(A1/B1; C1)?"
+  options:
+  - id: a
+    text:
+      es: "El número 0"
+  - id: b
+    text:
+      es: "El error #¡DIV/0!"
+  - id: c
+    text:
+      es: "El valor lógico FALSO"
+  - id: d
+    correct: true
+    text:
+      es: "Una cadena vacía (\"\")"
+  explanation:
+    es: "A1/B1 da un error y SI.ERROR devuelve C1, pero si value_if_error es una celda vacía lo trata como un valor de cadena vacío (\"\"). Por eso no muestra 0, ni el error original, ni un valor lógico."
+  citation: "fuente: `ms-excel-funcion-sierror.html`; «Observaciones»"
+  difficulty: 3
+  tags:
+  - "resultado-fórmula"
+  - "comportamiento"
+# anchor: fuente-ms-excel-funcion-sierror-html
+- id: m06-l05-q204
+  prompt:
+    es: "En Excel 365, A4 está vacía y B4 contiene 23. ¿Cuál de los siguientes resultados muestra la celda con =SI.ERROR(A4/B4; \"Sin cálculo\")?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "0"
+  - id: b
+    text:
+      es: "Sin cálculo"
+  - id: c
+    text:
+      es: "#¡DIV/0!"
+  - id: d
+    text:
+      es: "#¡VALOR!"
+  explanation:
+    es: "Según el ejemplo de la página, dividir una celda vacía (\"\") entre 23 no encuentra ningún error y SI.ERROR devuelve el resultado de la fórmula, 0. El texto solo aparecería ante un error, y ni #¡DIV/0! ni #¡VALOR! se producen aquí."
+  citation: "fuente: `ms-excel-funcion-sierror.html`; «Ejemplos»"
+  difficulty: 3
+  tags:
+  - "resultado-fórmula"
+# anchor: fuente-ms-excel-funciones-categoria-html
+- id: m06-l05-q205
+  prompt:
+    es: "En Excel 365, ¿cuál de las siguientes funciones devuelve el valor especificado solo si la expresión da el error #N/A y, en otro caso, el resultado de la expresión?"
+  options:
+  - id: a
+    text:
+      es: "SI.ERROR"
+  - id: b
+    text:
+      es: "SI"
+  - id: c
+    text:
+      es: "SI.CONJUNTO"
+  - id: d
+    correct: true
+    text:
+      es: "SI.ND"
+  explanation:
+    es: "SI.ND devuelve el valor especificado si la expresión se convierte en #N/A y, si no, el resultado de la expresión. SI.ERROR responde a cualquier error, SI realiza una prueba lógica y SI.CONJUNTO comprueba una o varias condiciones y devuelve el valor de la condición verdadera que se cumple antes."
+  citation: "fuente: `ms-excel-funciones-categoria.html`; «Funciones lógicas»"
+  difficulty: 3
+  tags:
+  - "función"
+# anchor: fuente-ms-excel-funcion-sierror-html
+- id: m06-l05-q206
+  prompt:
+    es: "En Excel 365, en =SI.ERROR(A3/B3; \"Revisar\"), ¿cuál de las siguientes opciones describe lo que representa el segundo argumento, \"Revisar\"?"
+  options:
+  - id: a
+    text:
+      es: "El valor de la celda en la que se busca un error"
+  - id: b
+    correct: true
+    text:
+      es: "El valor que se devuelve si la fórmula da un error"
+  - id: c
+    text:
+      es: "El valor que se devuelve si la fórmula no da ningún error"
+  - id: d
+    text:
+      es: "El tipo de error concreto que se quiere detectar"
+  explanation:
+    es: "El segundo argumento es el valor que se devuelve si la fórmula se evalúa como un error; el primero, A3/B3, es donde se busca un error. Además, SI.ERROR evalúa varios tipos de error, no uno concreto elegido en el argumento."
+  citation: "fuente: `ms-excel-funcion-sierror.html`; «Sintaxis»"
+  difficulty: 2
+  tags:
+  - "función"
+  - "concepto"
+# anchor: fuente-ms-excel-funcion-sierror-html
+- id: m06-l05-q207
+  prompt:
+    es: "En Excel 365, el número de tipos de error que evalúa la función SI.ERROR, desde #N/A hasta #¡NULO!, según su ayuda, es:"
+  options:
+  - id: a
+    text:
+      es: "5"
+  - id: b
+    text:
+      es: "6"
+  - id: c
+    correct: true
+    text:
+      es: "7"
+  - id: d
+    text:
+      es: "8"
+  explanation:
+    es: "La página enumera siete tipos de error: #N/A, #¡VALOR!, #¡REF!, #¡DIV/0!, #¡NUM!, #¿NOMBRE? y #¡NULO!."
+  citation: "fuente: `ms-excel-funcion-sierror.html`; «Sintaxis»"
+  difficulty: 2
+  tags:
+  - "cantidad"
+# anchor: fuente-ms-excel-error-na-html
+- id: m06-l05-q209
+  prompt:
+    es: "En Excel 365, la tabla A2:B4 contiene Manzana, Pera y Melocotón con sus precios. ¿Cuál de los siguientes resultados muestra =BUSCARV(\"Plátano\"; A2:B4; 2; FALSO)?"
+  options:
+  - id: a
+    text:
+      es: "#¡VALOR!"
+  - id: b
+    text:
+      es: "#¿NOMBRE?"
+  - id: c
+    correct: true
+    text:
+      es: "#N/A"
+  - id: d
+    text:
+      es: "#¡REF!"
+  explanation:
+    es: "Plátano no está en la tabla de búsqueda, por lo que BUSCARV devuelve un error #N/A. #¡VALOR!, #¿NOMBRE? y #¡REF! no son lo que la página da para un valor de búsqueda ausente."
+  citation: "fuente: `ms-excel-error-na.html`; «Solución principal»"
+  difficulty: 2
+  tags:
+  - "resultado-fórmula"
+# anchor: fuente-ms-excel-error-na-html
+- id: m06-l05-q210
+  prompt:
+    es: "Señale el valor del argumento tipo_de_coincidencia de COINCIDIR en Excel 365 que busca una coincidencia exacta."
+  options:
+  - id: a
+    text:
+      es: "1"
+  - id: b
+    correct: true
+    text:
+      es: "0"
+  - id: c
+    text:
+      es: "-1"
+  - id: d
+    text:
+      es: "2"
+  explanation:
+    es: "Para buscar una coincidencia exacta, el argumento tipo_de_coincidencia de COINCIDIR se establece en 0 (cero). Ninguno de los otros valores es el que la página da para la coincidencia exacta."
+  citation: "fuente: `ms-excel-error-na.html`; «Usar el método de coincidencia aproximada o el método de coincidencia exacta (VERDADERO/FALSO)»"
+  difficulty: 2
+  tags:
+  - "configuración"
+# anchor: fuente-ms-excel-error-na-html
+- id: m06-l05-q211
+  prompt:
+    es: "En Excel 365, ¿qué efecto tiene usar VERDADERO en el argumento ordenado de la función BUSCARV?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Busca una coincidencia aproximada, con riesgo de #N/A o resultados erróneos"
+  - id: b
+    text:
+      es: "Busca una coincidencia exacta aunque la tabla de búsqueda no esté ordenada"
+  - id: c
+    text:
+      es: "Ordena la tabla de búsqueda antes de buscar el valor indicado en ella"
+  - id: d
+    text:
+      es: "Devuelve siempre el valor de la primera fila de la tabla de búsqueda"
+  explanation:
+    es: "Con VERDADERO se indica a la función que busque una coincidencia aproximada, lo que puede causar un error #N/A y resultados erróneos. La coincidencia exacta, aunque la tabla no esté ordenada, se pide con FALSO."
+  citation: "fuente: `ms-excel-error-na.html`; «Usar el método de coincidencia aproximada o el método de coincidencia exacta (VERDADERO/FALSO)»"
+  difficulty: 3
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-excel-error-na-html
+- id: m06-l05-q213
+  prompt:
+    es: "En Excel 365, B2 contiene 10, B3 contiene #N/A escrito a mano y C1 contiene =SUMA(B2:B3). ¿Qué devuelve C1?"
+  options:
+  - id: a
+    text:
+      es: "10"
+  - id: b
+    correct: true
+    text:
+      es: "#N/A"
+  - id: c
+    text:
+      es: "0"
+  - id: d
+    text:
+      es: "#¡VALOR!"
+  explanation:
+    es: "Las fórmulas que hacen referencia a celdas con #N/A no pueden calcular ningún valor y devuelven el error #N/A. Por eso no dan 10, ni 0, ni #¡VALOR!."
+  citation: "fuente: `ms-excel-error-na.html`; «Si ha escrito de forma manual #N/A»"
+  difficulty: 3
+  tags:
+  - "resultado-fórmula"
+# anchor: fuente-ms-excel-error-na-html
+- id: m06-l05-q214
+  prompt:
+    es: "En Excel 365, ¿qué ocurre con las celdas que contienen #N/A al crear un gráfico con esos datos?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Sus valores no se representan en el gráfico"
+  - id: b
+    text:
+      es: "Se representan como valores de 0 en el gráfico"
+  - id: c
+    text:
+      es: "Impiden que Excel cree el gráfico"
+  - id: d
+    text:
+      es: "Se sustituyen automáticamente por el promedio de la serie"
+  explanation:
+    es: "La página dice que «los valores #N/A no se representarán en un gráfico». Por eso se usa #N/A en los datos de gráficos: los valores 0, en cambio, sí se representan, como una línea recta en la parte inferior del gráfico, que es lo que contradice la opción de «valores de 0». Que impidan crear el gráfico choca con que la página los recomiende justo para gráficos. Y sustituirse por el promedio de la serie no es lo que ocurre: la página los describe como no representados, no como reemplazados."
+  citation: "fuente: `ms-excel-error-na.html`; «Uso de #N/A con gráficos»"
+  difficulty: 2
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-excel-error-nombre-html
+- id: m06-l05-q215
+  prompt:
+    es: "En Excel 365, ¿cuál es la principal razón por la que aparece el error #¿NOMBRE? en una fórmula?"
+  options:
+  - id: a
+    text:
+      es: "Una fórmula de matriz con rangos de distinto tamaño"
+  - id: b
+    text:
+      es: "Faltan argumentos necesarios en una función predefinida"
+  - id: c
+    correct: true
+    text:
+      es: "Un error ortográfico en el nombre de la fórmula"
+  - id: d
+    text:
+      es: "Un valor de búsqueda ausente de los datos de origen"
+  explanation:
+    es: "La principal razón del error #¿NOMBRE? es un error ortográfico en el nombre de la fórmula. Los otros tres supuestos son causas de #N/A que describe la página de ese error."
+  citation: "fuente: `ms-excel-error-nombre.html`; «Introducción»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-ms-excel-error-nombre-html
+- id: m06-l05-q216
+  prompt:
+    es: "En Excel 365, la celda A1 contiene =PROMEDI(B1:B3), con el nombre de la función mal escrito. ¿Cuál de los siguientes errores muestra?"
+  options:
+  - id: a
+    text:
+      es: "#N/A"
+  - id: b
+    text:
+      es: "#¡VALOR!"
+  - id: c
+    text:
+      es: "#¡REF!"
+  - id: d
+    correct: true
+    text:
+      es: "#¿NOMBRE?"
+  explanation:
+    es: "Un error ortográfico en el nombre de la fórmula es la principal razón del error #¿NOMBRE?. #N/A aparece cuando una fórmula no encuentra lo que busca, y #¡VALOR! y #¡REF! no se asocian a este caso."
+  citation: "fuente: `ms-excel-error-nombre.html`; «Introducción»"
+  difficulty: 2
+  tags:
+  - "resultado-fórmula"
+# anchor: fuente-ms-excel-error-nombre-html
+- id: m06-l05-q217
+  prompt:
+    es: "En Excel 365, ¿cuál de las siguientes causas provoca el error #¿NOMBRE? en una fórmula?"
+  options:
+  - id: a
+    text:
+      es: "Un tipo de dato distinto entre el valor de búsqueda y los datos de origen"
+  - id: b
+    correct: true
+    text:
+      es: "Omitir las comillas dobles de un valor de texto"
+  - id: c
+    text:
+      es: "Un archivo protegido con funciones como CELDA"
+  - id: d
+    text:
+      es: "Una macro que usa una función que devuelve #N/A"
+  explanation:
+    es: "Si la sintaxis omite las comillas dobles de un valor de texto, aparece el error #¿NOMBRE?. Los otros tres supuestos son causas de #N/A que describe la página de ese error."
+  citation: "fuente: `ms-excel-error-nombre.html`; «En la sintaxis faltan comillas dobles para valores de texto»"
+  difficulty: 2
+  tags:
+  - "concepto"
+  - "comportamiento"
+# anchor: fuente-ms-excel-error-nombre-html
+- id: m06-l05-q218
+  prompt:
+    es: "En Excel 365, ¿cuál de las siguientes causas provoca el error #¿NOMBRE? en una fórmula como =SUMA(Ganancias)?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Que Ganancias sea un nombre no definido en el libro"
+  - id: b
+    text:
+      es: "Que haya un espacio adicional en las celdas de la suma"
+  - id: c
+    text:
+      es: "Que se use VERDADERO como coincidencia aproximada"
+  - id: d
+    text:
+      es: "Que una función definida por el usuario no esté disponible"
+  explanation:
+    es: "La página usa precisamente una SUMA con referencia a Ganancias, un nombre no definido en el libro, como causa de #¿NOMBRE?. Los espacios adicionales, la coincidencia aproximada y las funciones definidas por el usuario no disponibles son causas de #N/A."
+  citation: "fuente: `ms-excel-error-nombre.html`; «La fórmula hace referencia a un nombre que no se ha definido»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-ms-excel-error-nombre-html
+- id: m06-l05-q219
+  prompt:
+    es: "En Excel 365, ¿cuál de los siguientes resultados muestra una fórmula en la que se omiten los dos puntos (:) de una referencia de rango, como en B2B12?"
+  options:
+  - id: a
+    text:
+      es: "El error #N/A"
+  - id: b
+    text:
+      es: "El error #¡DIV/0!"
+  - id: c
+    text:
+      es: "El valor 0"
+  - id: d
+    correct: true
+    text:
+      es: "El error #¿NOMBRE?"
+  explanation:
+    es: "Si se omiten los dos puntos de una referencia de rango, la fórmula muestra el error #¿NOMBRE?. #N/A y #¡DIV/0! tienen otras causas, y la fórmula no devuelve 0."
+  citation: "fuente: `ms-excel-error-nombre.html`; «Se omitieron los dos puntos (:) en una referencia de rango.»"
+  difficulty: 2
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-excel-error-nombre-html
+- id: m06-l05-q220
+  prompt:
+    es: "En Excel 365, ¿cuál de las siguientes opciones recoge lo que advierte la ayuda de Microsoft sobre el error #¿NOMBRE??"
+  options:
+  - id: a
+    text:
+      es: "Conviene ocultarlo con SI.ERROR para que no afecte a otros cálculos"
+  - id: b
+    text:
+      es: "Desaparece por sí solo al volver a calcular el libro"
+  - id: c
+    correct: true
+    text:
+      es: "Hay que corregir la sintaxis y no enmascararlo con SI.ERROR"
+  - id: d
+    text:
+      es: "Solo se corrige activando un complemento en Excel"
+  explanation:
+    es: "La página dice que #¿NOMBRE? indica que hay que corregir algo en la sintaxis y que no se use una función de control de errores, como SI.ERROR, para enmascararlo. La activación de un complemento es solo una de las causas posibles, y nada indica que desaparezca solo."
+  citation: "fuente: `ms-excel-error-nombre.html`; «Introducción»"
+  difficulty: 2
+  tags:
+  - "comportamiento"
+  - "requisito"
+# anchor: fuente-ms-excel-funciones-categoria-html
+- id: m06-l05-q221
+  prompt:
+    es: "En Excel 365, ¿cuál de las siguientes afirmaciones describe correctamente lo que hace la función BUSCARV?"
+  options:
+  - id: a
+    text:
+      es: "Busca en la fila superior de una matriz y devuelve el valor de la celda que se indique"
+  - id: b
+    text:
+      es: "Devuelve el número de filas de una referencia y las cuenta por columnas"
+  - id: c
+    text:
+      es: "Devuelve la fórmula de la referencia dada como texto en la celda"
+  - id: d
+    correct: true
+    text:
+      es: "Busca en la primera columna de una matriz y devuelve el valor de una celda de esa fila"
+  explanation:
+    es: "BUSCARV busca en la columna 1 de una matriz y se mueve en horizontal por la fila para devolver el valor de una celda. Buscar en la fila superior es BUSCARH, contar filas es FILAS y devolver la fórmula como texto es FORMULATEXTO."
+  citation: "fuente: `ms-excel-funciones-categoria.html`; «Funciones de búsqueda y referencia»"
+  difficulty: 2
+  tags:
+  - "función"
+  - "concepto"
+# anchor: fuente-ms-excel-funciones-categoria-html
+- id: m06-l05-q222
+  prompt:
+    es: "En Excel 365, ¿cuál de las siguientes afirmaciones describe correctamente lo que hace la función FILAS?"
+  options:
+  - id: a
+    text:
+      es: "Devuelve la cantidad de hojas en una referencia"
+  - id: b
+    correct: true
+    text:
+      es: "Devuelve el número de filas de una referencia"
+  - id: c
+    text:
+      es: "Cuenta cuántos números hay en la lista de argumentos"
+  - id: d
+    text:
+      es: "Devuelve el número de la hoja a la que se hace referencia"
+  explanation:
+    es: "FILAS devuelve el número de filas de una referencia. Devolver la cantidad de hojas es HOJAS, contar números es CONTAR y devolver el número de la hoja a la que se hace referencia es HOJA."
+  citation: "fuente: `ms-excel-funciones-categoria.html`; «Funciones de búsqueda y referencia»"
+  difficulty: 1
+  tags:
+  - "función"
+  - "concepto"
+# anchor: fuente-ms-excel-funciones-categoria-html
+- id: m06-l05-q224
+  prompt:
+    es: "En Excel 365, ¿cuál de las siguientes afirmaciones describe correctamente lo que hace la función ESLOGICO?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Devuelve VERDADERO si el valor es un valor lógico"
+  - id: b
+    text:
+      es: "Devuelve VERDADERO si el valor es un número"
+  - id: c
+    text:
+      es: "Devuelve VERDADERO si el valor es texto"
+  - id: d
+    text:
+      es: "Devuelve VERDADERO si el valor está en blanco"
+  explanation:
+    es: "ESLOGICO devuelve VERDADERO si el valor es un valor lógico. Para números está ESNUMERO, para texto ESTEXTO y para celdas en blanco ESBLANCO."
+  citation: "fuente: `ms-excel-funciones-categoria.html`; «Funciones de información»"
+  difficulty: 1
+  tags:
+  - "función"
+  - "concepto"
+# anchor: fuente-ms-excel-funciones-categoria-html
+- id: m06-l05-q226
+  prompt:
+    es: "En Excel 365, ¿cuál de las siguientes afirmaciones describe correctamente lo que hace la función FORMULATEXTO?"
+  options:
+  - id: a
+    text:
+      es: "Devuelve VERDADERO si hay una referencia a una celda con fórmula"
+  - id: b
+    text:
+      es: "Devuelve información sobre el formato, la ubicación o el contenido de una celda"
+  - id: c
+    correct: true
+    text:
+      es: "Devuelve la fórmula de la referencia dada como texto"
+  - id: d
+    text:
+      es: "Devuelve un valor convertido en un número"
+  explanation:
+    es: "FORMULATEXTO devuelve la fórmula de la referencia dada como texto. Detectar si una celda tiene fórmula es ESFORMULA, CELDA da información sobre formato, ubicación o contenido y N convierte un valor en un número."
+  citation: "fuente: `ms-excel-funciones-categoria.html`; «Funciones de búsqueda y referencia»"
+  difficulty: 1
+  tags:
+  - "función"
+  - "concepto"

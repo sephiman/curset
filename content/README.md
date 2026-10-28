@@ -420,8 +420,10 @@ page (a PDF, from `source-index.json`, which places articles, disposiciones, ann
 ordinal apartados and an annex's numbered notes; a unit it cannot place opens the file). A question's
 `citation` must resolve to an anchor in its own
 lesson, or the course does not load; it may cite an article or a source file the lesson cites
-(`fuente: \`file.html\``). A source citation is read only when its parenthetical starts with `fuente:` — put a label
-after it (`(fuente: \`file.html\`; Portal …)`), never before. The PDF prints citations as text and adds each «Normativa» norm's
+(`fuente: \`file.html\``), with the page's label after it if wanted (`fuente: \`file.html\`; «Imprimir»`). A source citation is read only when its parenthetical starts with `fuente:` — put a label
+after it (`(fuente: \`file.html\`; Portal …)`), never before. A cell of a plain markdown table is a citation
+without parentheses when the whole cell is citations that each name their norm (`art. 64.1 RD 364/1995`,
+`regla 14.1 IOC; regla 5 IOC`): a table's «Cita» column anchors like prose. The PDF prints citations as text and adds each «Normativa» norm's
 title and consolidation date. Regenerate the index with `uv run python scripts/index_sources.py`
 whenever a file in `sources/normativa/` changes.
 

@@ -1,6 +1,6 @@
 # Requirements delta — Curset platform: exam presets, grouped cases, source links, results by lesson
 
-Version 1.3 · 18 October 2026 · delta to docs/curset-multicourse-requirements.md. Four platform changes. A and B are required by the AGE course (docs/age-administrativo-course-requirements.md, R6.1 and R7.1) and precede that course's R5. C and D apply to every course and can run as their own rounds at any time after A.
+Version 1.4 · 28 October 2026 · delta to docs/curset-multicourse-requirements.md. Four platform changes. A and B are required by the AGE course (docs/age-administrativo-course-requirements.md, R6.1 and R7.1) and precede that course's R5. C and D apply to every course and can run as their own rounds at any time after A.
 
 ## A. Exam presets per course
 
@@ -52,6 +52,15 @@ Version 1.3 · 18 October 2026 · delta to docs/curset-multicourse-requirements.
 - E5 Glossary links are annotated inside esquema cells as in prose.
 - E6 crypto-futures has no esquemas and is unchanged; a fixture lesson with one block of each kind proves rendering, PDF and the checks, including a failing citation.
 
+## F. Solution panel with the norm's own text
+
+- F1 After a question is answered in practice (right or wrong), and for every question in the review of a submitted exam, a collapsed panel «Ver solución» opens with, in this order: the correct option marked; the explanation; the **cited text of the norm, verbatim**, under a heading with norm short name and article («Art. 30.4 LPAC»); then the links «Tema N: <title>» (to the lesson anchor, as in C1) and «Texto consolidado» (to the source at the article or page, as in C3). Never shown before answering; never in exam mode before submission.
+- F2 The excerpt is extracted at build time from the course's own snapshot (sources/normativa/ or sources/otros/), not fetched live, and stored with the exercise in the generated AST. Unit of extraction: the cited paragraph(s) when the citation names them («art. 30.4»), else the whole article; capped at 200 words with a «Ver artículo completo» expansion that shows the full article (capped at 1,500 words, else the link only). For HTML sources the article's element; for PDF sources the page text between the article heading and the next heading, via the existing page index; for saved documentation pages (bloque VI), the paragraph that contains the cited label, at most two sentences, with the page title and date as attribution.
+- F3 Build check: every question gets an excerpt or an explicit «no excerpt» marker with a reason (heading not found, source not text-extractable). The build report lists the no-excerpt questions per course; the round that adds this feature must bring age-administrativo-c1 to under 1 % no-excerpt, fixing the extractor or the citation form where it fails. A verifier samples 100 excerpts and confirms each contains the fact the key rests on; misses are extractor bugs, not content bugs.
+- F4 Esquema rows and «Lo que más cae» lines are not affected. Case questions (B) get the panel per question. The PDF does not print excerpts (the key section stays as it is).
+- F5 Courses without normativa.yaml (crypto-futures) show the panel with the explanation only; nothing else changes for them.
+- F6 Report link (8a) sits inside the panel, after the excerpt, so a reader who sees the norm and still disagrees can report with one click.
+
 ## Acceptance
 
 - `crypto-futures` exams and goldens unchanged.
@@ -59,4 +68,5 @@ Version 1.3 · 18 October 2026 · delta to docs/curset-multicourse-requirements.
 - A `case` exercise renders in practice, exam and PDF; its questions report, shuffle and count like any other.
 - An answered AGE question links to its lesson at the cited article's anchor; the citation in the lesson opens the consolidated text at the article (HTML) or page (PDF); a question citing an article its lesson does not cite fails the cross-reference check. crypto-futures shows no citation links and its goldens are unchanged.
 - A lesson with the four esquema kinds renders on web and in the PDF; an esquema row citing an article the prose does not cite fails the check with the row named.
+- An answered AGE question shows the solution panel with the verbatim cited text under its article heading, the tema link and the source link; a crypto-futures question shows the explanation only; fewer than 1 % of AGE questions lack an excerpt and each of those says why.
 - A submitted simulation shows the per-lesson table and the two lists; a tema exam of 20 questions shows the table only; the Progress tab shows the cumulative view; no lesson appears in a list with fewer than three questions.

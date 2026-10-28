@@ -36,6 +36,7 @@ _FENCE = re.compile(r"^(```|~~~)")
 _DIRECTIVE_FENCE = re.compile(r"^:{2,}")
 _NORMATIVA = re.compile(r"^##\s+Normativa\s*$")
 _NORMATIVA_ITEM = re.compile(r"^-\s+(?P<norm>[^:\n]+?):\s")
+_TABLE_SEPARATOR = re.compile(r"^\|?\s*:?-{3,}")
 _OTHER_SOURCES = "sources/otros"
 
 
@@ -157,6 +158,38 @@ def _prose_chunks(lines: list[str], skip: set[int]) -> list[tuple[int, str]]:
     return chunks
 
 
+def _bare_table_cells(chunk: str) -> list[tuple[int, str]]:
+    """Body cells of the chunk's markdown tables that hold no parenthesis, as (offset in chunk, text)."""
+    rows = chunk.split("\n")
+    cells: list[tuple[int, str]] = []
+    offset = 0
+    for number, row in enumerate(rows):
+        following = rows[number + 1].strip() if number + 1 < len(rows) else ""
+        stripped = row.strip()
+        is_body = stripped.startswith("|") and not _TABLE_SEPARATOR.match(stripped)
+        if is_body and not _TABLE_SEPARATOR.match(following):
+            column = row.index("|") + 1
+            for cell in row[column:].split("|"):
+                text = cell.strip()
+                if text and "(" not in text:
+                    cells.append((offset + column + cell.index(text), text))
+                column += len(cell) + 1
+        offset += len(row) + 1
+    return cells
+
+
+def _cell_citations(cell: str, index: NormIndex) -> list[tuple[int, Segment, tuple[Norm | None, str]]]:
+    """A cell that is nothing but citations, each naming its norm, as (offset, segment, norm); else none."""
+    found: list[tuple[int, Segment, tuple[Norm | None, str]]] = []
+    for offset, piece in segments(cell):
+        segment = parse_segment(piece)
+        named = resolve_segment(segment, index) if segment is not None and not segment.files else None
+        if segment is None or named is None or not segment.units:
+            return []
+        found.append((offset, segment, named))
+    return found
+
+
 def _normativa_lines(lines: list[str]) -> set[int]:
     inside = False
     found: set[int] = set()
@@ -199,6 +232,16 @@ def scan_lesson(lesson_id: str, markdown: str, index: NormIndex) -> LessonCitati
                 text = collapse(segment.text)
                 citation = LessonCitation(
                     "prose", text, line, norm, norm_slug, implicit, segment.units, segment.ranges
+                )
+                found.append((line, position, citation))
+        # A table's citation column cites without parentheses; a bare cell counts when it is only citations.
+        for start, cell in _bare_table_cells(chunk):
+            for offset, segment, (norm, norm_slug) in _cell_citations(cell, index):
+                position = start + offset
+                line = first_line + _line_of(offsets, position)
+                units, ranges = segment.units, segment.ranges
+                citation = LessonCitation(
+                    "prose", collapse(segment.text), line, norm, norm_slug, False, units, ranges
                 )
                 found.append((line, position, citation))
 

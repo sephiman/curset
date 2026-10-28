@@ -103,6 +103,8 @@ def main(bloque: str, module: str) -> None:
         old.unlink()
     total = 0
     for draft in sorted((BANK / bloque).glob(f"{module}-l*.draft.json")):
+        if draft.name.count(".") > 2:  # parts and .s5/.s7 records are already merged into the lesson draft
+            continue
         lesson = draft.name.split(".")[0]
         questions = kept_questions(bloque, lesson)
         exercise_ids = []

@@ -1,0 +1,607 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# Question bank, m06-l01: fixed multiple-choice questions (round R3). Generated from
+# docs/age-verification/bank/bloque-vi/m06-l01.draft.json minus drops.tsv by
+# docs/age-verification/bank/tools/build_exercises.py; edit the draft and rebuild, not this file.
+type: quiz
+variants:
+# anchor: fuente-ms-win-uefi-html
+- id: m06-l01-q059
+  prompt:
+    es: "Señale la afirmación correcta sobre la compatibilidad del firmware UEFI 2.3.1 con la implementación multidifusión, según la documentación de Microsoft:"
+  options:
+  - id: a
+    text:
+      es: "Permite difundir una imagen de PC que solo puede recibir un equipo cada vez."
+  - id: b
+    text:
+      es: "Permite difundir una imagen de PC aunque se sobrecargue el servidor de imágenes."
+  - id: c
+    correct: true
+    text:
+      es: "Permite difundir una imagen de PC que varios equipos reciben sin sobrecargar la red."
+  - id: d
+    text:
+      es: "Permite instalar la misma imagen de PC solo desde una unidad flash USB."
+  explanation:
+    es: "La página dice que la implementación multidifusión «permite a los fabricantes de PC difundir una imagen de PC que varios equipos pueden recibir sin sobrecargar la red o el servidor de imágenes». Un solo equipo cada vez, o sobrecargar el servidor de imágenes, contradice esa frase; y la multidifusión difunde la imagen por la red, no desde una unidad flash USB."
+  citation: "fuente: `ms-win-uefi.html`; «Ventajas de UEFI»"
+  difficulty: 3
+  tags:
+  - "concepto"
+# anchor: fuente-ms-win-uefi-html
+- id: m06-l01-q060
+  prompt:
+    es: "Según la documentación de Microsoft sobre UEFI, ¿cuántas de las empresas tecnológicas más punteras participan en el Unified EFI Forum, entre ellas Microsoft?"
+  options:
+  - id: a
+    text:
+      es: "Más de 14 empresas."
+  - id: b
+    text:
+      es: "Más de 40 empresas."
+  - id: c
+    text:
+      es: "Más de 1.400 empresas."
+  - id: d
+    correct: true
+    text:
+      es: "Más de 140 empresas."
+  explanation:
+    es: "La página dice que «más de 140 de las empresas tecnológicas más punteras participan en Unified EFI Forum», entre ellas AMD, Apple, Intel y Microsoft. 14, 40 y 1.400 son cifras distintas de esa."
+  citation: "fuente: `ms-win-uefi.html`; «Requisitos de firmware de United Extensible Firmware Interface (UEFI)»"
+  difficulty: 2
+  tags:
+  - "cantidad"
+# anchor: fuente-ms-win-plug-and-play-html
+- id: m06-l01-q061
+  prompt:
+    es: "¿Cuál de las siguientes definiciones de Plug and Play (PnP) da Microsoft en su documentación para los controladores de Windows?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "La parte de Windows que permite adaptarse a los cambios de hardware con una intervención mínima del usuario."
+  - id: b
+    text:
+      es: "La interfaz del firmware que controla el arranque del equipo antes de pasar el control a Windows u otro sistema operativo."
+  - id: c
+    text:
+      es: "El componente de Windows que reparte el tiempo del procesador entre los distintos subprocesos."
+  - id: d
+    text:
+      es: "El sistema de archivos predeterminado de Windows, que funciona con el cifrado de unidad BitLocker."
+  explanation:
+    es: "La página dice que PnP «es la parte de Windows que permite a un sistema informático adaptarse a los cambios de hardware con una intervención mínima del usuario». Controlar el arranque es la interfaz del firmware, repartir el tiempo del procesador es el distribuidor y el sistema de archivos que funciona con BitLocker es NTFS."
+  citation: "fuente: `ms-win-plug-and-play.html`; «Introducción a Plug and Play»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-ms-win-plug-and-play-html
+- id: m06-l01-q062
+  prompt:
+    es: "Según el ejemplo de Microsoft sobre Plug and Play en Windows, ¿qué puede hacer un usuario que acopla su equipo portátil a una estación de acoplamiento?"
+  options:
+  - id: a
+    text:
+      es: "Usar el teclado, el ratón y el monitor de la estación tras instalar a mano sus controladores."
+  - id: b
+    correct: true
+    text:
+      es: "Usar el teclado, el ratón y el monitor de la estación sin cambios de configuración manuales."
+  - id: c
+    text:
+      es: "Usar solo el monitor de la estación, porque el teclado y el ratón exigen configuración manual."
+  - id: d
+    text:
+      es: "Usar el teclado, el ratón y el monitor de la estación tras configurarlos en el firmware."
+  explanation:
+    es: "La página pone este ejemplo: un usuario puede acoplar un portátil «y usar el teclado, el mouse y el monitor de la estación de acoplamiento sin realizar cambios de configuración manuales». Instalar a mano los controladores, configurar el teclado y el ratón o pasar por el firmware son justo la configuración manual que PnP evita."
+  citation: "fuente: `ms-win-plug-and-play.html`; «Introducción a Plug and Play»"
+  difficulty: 2
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-win-plug-and-play-html
+- id: m06-l01-q063
+  prompt:
+    es: "¿Cuál de las siguientes funciones proporciona, según Microsoft, la compatibilidad del software del sistema con Plug and Play junto con los controladores PnP?"
+  options:
+  - id: a
+    text:
+      es: "El cifrado del disco a nivel del sistema de archivos."
+  - id: b
+    text:
+      es: "La copia de las carpetas del usuario en OneDrive."
+  - id: c
+    correct: true
+    text:
+      es: "La carga de los controladores adecuados."
+  - id: d
+    text:
+      es: "El control del arranque antes de pasar a Windows."
+  explanation:
+    es: "Entre las funciones que la página atribuye al software del sistema con los controladores PnP está la «carga de controladores adecuados», junto al reconocimiento automático del hardware y la asignación de recursos. El cifrado a nivel del sistema de archivos es de NTFS, la copia de carpetas en OneDrive es de Copias de seguridad de Windows y el control del arranque es de la interfaz del firmware."
+  citation: "fuente: `ms-win-plug-and-play.html`; «Introducción a Plug and Play»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-ms-win-plug-and-play-html
+- id: m06-l01-q064
+  prompt:
+    es: "Según Microsoft, en Windows con Plug and Play, ¿quién determina y asigna los recursos de hardware de cada dispositivo, como los puertos de entrada/salida?"
+  options:
+  - id: a
+    text:
+      es: "El controlador de cada dispositivo PnP."
+  - id: b
+    text:
+      es: "El usuario, mediante configuración manual."
+  - id: c
+    text:
+      es: "La interfaz del firmware UEFI."
+  - id: d
+    correct: true
+    text:
+      es: "El administrador de Plug and Play (PnP)."
+  explanation:
+    es: "La página dice que «el administrador de PnP determina los recursos de hardware solicitados por cada dispositivo (por ejemplo, puertos de entrada/salida…) y asigna los recursos». Precisa que «los controladores para dispositivos PnP no asignan recursos»; PnP evita la configuración manual; y el firmware controla el arranque, no esta asignación."
+  citation: "fuente: `ms-win-plug-and-play.html`; «Introducción a Plug and Play»"
+  difficulty: 3
+  tags:
+  - "concepto"
+# anchor: fuente-ms-win-plug-and-play-html
+- id: m06-l01-q065
+  prompt:
+    es: "¿Cuál de las siguientes afirmaciones describe, según Microsoft, cómo trata el administrador de Plug and Play de Windows a los dispositivos heredados?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Les asigna los recursos primero, porque no se configuran dinámicamente."
+  - id: b
+    text:
+      es: "Les asigna los recursos en último lugar, cuando ya no quedan otros."
+  - id: c
+    text:
+      es: "No les asigna ningún recurso, porque no admiten la configuración dinámica."
+  - id: d
+    text:
+      es: "Deja que sus controladores asignen los recursos que necesiten."
+  explanation:
+    es: "La página dice: «Los recursos no se pueden configurar dinámicamente para los dispositivos heredados, por lo que el administrador de PnP asigna primero recursos a los dispositivos heredados». Asignarlos en último lugar o no asignarlos contradice esa frase, y la página precisa que los controladores no asignan recursos."
+  citation: "fuente: `ms-win-plug-and-play.html`; «Introducción a Plug and Play»"
+  difficulty: 3
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-win-plug-and-play-html
+- id: m06-l01-q066
+  prompt:
+    es: "Según la documentación de Microsoft sobre Plug and Play en Windows, ¿con qué elementos requiere compatibilidad PnP para que funcione?"
+  options:
+  - id: a
+    text:
+      es: "Solo con el hardware del dispositivo, sin depender de sus controladores ni del software del sistema."
+  - id: b
+    correct: true
+    text:
+      es: "Con el hardware del dispositivo, el software del sistema y los controladores."
+  - id: c
+    text:
+      es: "Solo con el software del sistema, sin depender del hardware."
+  - id: d
+    text:
+      es: "Solo con los controladores, sin depender del software del sistema."
+  explanation:
+    es: "La página dice: «PnP requiere compatibilidad con el hardware del dispositivo, el software del sistema y los controladores». Las otras tres dejan fuera uno o dos de esos elementos."
+  citation: "fuente: `ms-win-plug-and-play.html`; «Introducción a Plug and Play»"
+  difficulty: 2
+  tags:
+  - "requisito"
+# anchor: fuente-ms-win-dispositivos-entrada-html
+- id: m06-l01-q067
+  prompt:
+    es: "¿Cuál de las siguientes listas recoge solo dispositivos señaladores, según la documentación de Microsoft sobre la entrada en las aplicaciones de Windows?"
+  options:
+  - id: a
+    text:
+      es: "Pantalla táctil, ratón, memoria RAM y panel táctil."
+  - id: b
+    text:
+      es: "Ratón, lápiz óptico, placa base y panel táctil."
+  - id: c
+    correct: true
+    text:
+      es: "Pantalla táctil, ratón, lápiz óptico y panel táctil."
+  - id: d
+    text:
+      es: "Pantalla táctil, lápiz óptico, CPU y memoria caché."
+  explanation:
+    es: "La página habla de los datos de entrada «procedentes de dispositivos señaladores, como la pantalla táctil, el ratón, el lápiz óptico y el panel táctil». La memoria RAM, la placa base, la CPU y la memoria caché son componentes internos que guardan datos, conectan chips o procesan instrucciones, no dispositivos de entrada."
+  citation: "fuente: `ms-win-dispositivos-entrada.html`; «Puntero»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-ms-win-dispositivos-entrada-html
+- id: m06-l01-q068
+  prompt:
+    es: "Según la documentación de Microsoft sobre entrada e interacciones en Windows, ¿qué tipo de dispositivo es el lápiz óptico que se usa con un equipo?"
+  options:
+  - id: a
+    text:
+      es: "Un dispositivo que guarda datos temporalmente, como la RAM."
+  - id: b
+    text:
+      es: "Un procesador que muestra gráficos en pantalla, como la GPU."
+  - id: c
+    text:
+      es: "Una placa de circuito que conecta chips, como la placa base."
+  - id: d
+    correct: true
+    text:
+      es: "Un dispositivo señalador de entrada, como el ratón."
+  explanation:
+    es: "Dentro de los dispositivos de entrada, la página cita el lápiz óptico entre los «dispositivos señaladores», junto a la pantalla táctil, el ratón y el panel táctil. Guardar datos temporalmente es la función de la RAM, mostrar los gráficos la de la GPU y conectar los chips la de la placa base."
+  citation: "fuente: `ms-win-dispositivos-entrada.html`; «Puntero»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-ms-win-dispositivos-entrada-html
+- id: m06-l01-q069
+  prompt:
+    es: "Según la documentación de Microsoft sobre entrada en las aplicaciones de Windows, la entrada del teclado es una parte esencial de la experiencia de interacción e indispensable para:"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "la accesibilidad."
+  - id: b
+    text:
+      es: "la entrada por mirada."
+  - id: c
+    text:
+      es: "la entrada multitáctil indirecta."
+  - id: d
+    text:
+      es: "el movimiento panorámico."
+  explanation:
+    es: "La página dice que la entrada del teclado es «una parte esencial de la experiencia de interacción e indispensable para la accesibilidad». La entrada por mirada tiene su propio apartado en la página: sigue la ubicación y el movimiento de los ojos y la cabeza. La multitáctil indirecta es la del panel táctil, que la página describe en otro apartado como una combinación con la precisión de un dispositivo apuntador. El movimiento panorámico es una interacción distinta, con sus propias directrices."
+  citation: "fuente: `ms-win-dispositivos-entrada.html`; «Keyboard»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-ms-win-dispositivos-entrada-html
+- id: m06-l01-q070
+  prompt:
+    es: "¿Cuál de las siguientes series recoge propiedades de entrada específicas del lápiz, según la documentación de Microsoft sobre la entrada en las aplicaciones de Windows?"
+  options:
+  - id: a
+    text:
+      es: "Los clics de botón, la rueda de desplazamiento y el movimiento del puntero."
+  - id: b
+    correct: true
+    text:
+      es: "La presión, la inclinación, el botón del cuerpo y la detección del borrador."
+  - id: c
+    text:
+      es: "La ubicación y el movimiento de los ojos y de la cabeza del usuario."
+  - id: d
+    text:
+      es: "La entrada multitáctil indirecta con la precisión de un dispositivo apuntador."
+  explanation:
+    es: "La página dice que el apartado del lápiz administra «propiedades de entrada específicas del lápiz, como la presión, la inclinación, el botón del cuerpo del lápiz y la detección del borrador». Los clics, la rueda y el movimiento del puntero son la entrada del ratón; los ojos y la cabeza, la entrada por mirada; y la entrada multitáctil indirecta, la del panel táctil."
+  citation: "fuente: `ms-win-dispositivos-entrada.html`; «Lápiz y Windows Ink»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-ms-win-dispositivos-entrada-html
+- id: m06-l01-q071
+  prompt:
+    es: "¿Cuál de las siguientes descripciones corresponde a la entrada del panel táctil, según la documentación de Microsoft sobre la entrada en las aplicaciones de Windows?"
+  options:
+  - id: a
+    text:
+      es: "La entrada del teclado con el seguimiento de los ojos y de la cabeza."
+  - id: b
+    text:
+      es: "La presión y la inclinación del lápiz con la detección del borrador."
+  - id: c
+    correct: true
+    text:
+      es: "La entrada multitáctil indirecta con la precisión de un dispositivo apuntador."
+  - id: d
+    text:
+      es: "Los clics de botón del ratón con la entrada del mando de Xbox."
+  explanation:
+    es: "La página dice que la entrada del panel táctil «combina la entrada multitáctil indirecta con la precisión de un dispositivo apuntador». El seguimiento de ojos y cabeza es la entrada por mirada, la presión, la inclinación y el borrador son propiedades del lápiz, y el mando de Xbox es la entrada del controlador para juegos."
+  citation: "fuente: `ms-win-dispositivos-entrada.html`; «Panel táctil»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-ms-win-plug-and-play-html
+- id: m06-l01-q075
+  prompt:
+    es: "Según Microsoft, ¿qué pueden hacer los controladores y el código en modo de usuario gracias a Plug and Play respecto a los eventos de hardware?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Registrarse y recibir notificaciones de determinados eventos de hardware."
+  - id: b
+    text:
+      es: "Asignar por sí mismos los recursos que solicita cada dispositivo."
+  - id: c
+    text:
+      es: "Pasar por alto al administrador de PnP al enumerar un dispositivo."
+  - id: d
+    text:
+      es: "Configurar a mano el hardware que se agrega al equipo."
+  explanation:
+    es: "La página dice que PnP permite a los controladores y al código en modo de usuario registrarse y recibir notificaciones de determinados eventos de hardware. Los controladores para dispositivos PnP no asignan recursos, la asignación la hace el administrador de PnP, y el objetivo de PnP es evitar la configuración manual del hardware."
+  citation: "fuente: `ms-win-plug-and-play.html`; «Introducción a Plug and Play»"
+  difficulty: 3
+  tags:
+  - "concepto"
+# anchor: fuente-nist-prefijos-binarios-html
+- id: m06-l01-q076
+  prompt:
+    es: "Según el NIST, ¿qué valor tiene mega en los estándares del IEEE, salvo que se señale expresamente el uso de la definición de base dos?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "1.000.000"
+  - id: b
+    text:
+      es: "1.024.000"
+  - id: c
+    text:
+      es: "1.048.576"
+  - id: d
+    text:
+      es: "1.073.741.824"
+  explanation:
+    es: "El NIST cuenta que el Consejo de Normas del IEEE decidió usar las definiciones convencionales de los prefijos del Sistema Internacional, de modo que mega significa 1 000 000; la definición de base dos solo puede usarse si se señala expresamente. 1.048.576 es el megabyte de la memoria del ordenador, 1.024.000 el del disquete de «1,44 MB» y 1.073.741.824 es un gibibyte."
+  citation: "fuente: `nist-prefijos-binarios.html`; «Historical context»"
+  difficulty: 3
+  tags:
+  - "cantidad"
+# anchor: fuente-nist-prefijos-binarios-html
+- id: m06-l01-q077
+  prompt:
+    es: "¿Cuál de los siguientes valores tiene el megabyte con el que se formatea el disquete de 3 1/2 pulgadas de «1,44 MB», según el contexto histórico del NIST?"
+  options:
+  - id: a
+    text:
+      es: "1.000.000 bytes."
+  - id: b
+    correct: true
+    text:
+      es: "1.024.000 bytes."
+  - id: c
+    text:
+      es: "1.048.576 bytes."
+  - id: d
+    text:
+      es: "1.073.741.824 bytes."
+  explanation:
+    es: "El NIST dice que un tercer megabyte, de 1 024 000 bytes, es el que se usa para formatear el disquete de 90 mm (3 1/2 pulgadas) de «1,44 MB». Los 1.000.000 bytes son el megabyte de los fabricantes de dispositivos de almacenamiento, los 1.048.576 el de la memoria y 1.073.741.824 bytes son un gibibyte."
+  citation: "fuente: `nist-prefijos-binarios.html`; «Historical context»"
+  difficulty: 3
+  tags:
+  - "cantidad"
+# anchor: fuente-nist-prefijos-binarios-html
+- id: m06-l01-q078
+  prompt:
+    es: "Según el contexto histórico del NIST, ¿qué valor usan todos los ingenieros de telecomunicaciones para el megabit por segundo?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "10^6 bit/s, es decir, 1.000.000 bit/s."
+  - id: b
+    text:
+      es: "2^20 bit/s, es decir, 1.048.576 bit/s."
+  - id: c
+    text:
+      es: "1.024.000 bit/s."
+  - id: d
+    text:
+      es: "10^9 bit/s, es decir, 1.000.000.000 bit/s."
+  explanation:
+    es: "El NIST cuenta que algunos diseñadores de redes de área local han usado el megabit por segundo como 1 048 576 bit/s, pero todos los ingenieros de telecomunicaciones lo usan como 10^6 bit/s. 1.024.000 es el megabyte del disquete y 10^9 corresponde al prefijo giga."
+  citation: "fuente: `nist-prefijos-binarios.html`; «Historical context»"
+  difficulty: 3
+  tags:
+  - "cantidad"
+# anchor: fuente-incibe-glosario-ciberseguridad-pdf
+- id: m06-l01-q101
+  prompt:
+    es: "¿Cuál de las siguientes definiciones corresponde a un router (enrutador) en una red de ordenadores?"
+  options:
+  - id: a
+    text:
+      es: "Equipo que almacena una información y la gestiona para ofrecerla a otras máquinas."
+  - id: b
+    text:
+      es: "Tecnología que extiende de forma segura una red local sobre una red pública."
+  - id: c
+    correct: true
+    text:
+      es: "Dispositivo que distribuye el tráfico de red entre dos o más redes diferentes."
+  - id: d
+    text:
+      es: "Prestador de servicios que da a sus clientes acceso a redes de telecomunicaciones."
+  explanation:
+    es: "El glosario del INCIBE define el router como un dispositivo que distribuye tráfico de red entre dos o más redes diferentes. Almacenar información y gestionarla para ofrecerla a otras máquinas es lo que hace un servidor. Extender una red local sobre una red pública de forma segura es la red privada virtual (VPN). Dar acceso a redes de telecomunicaciones es lo que hace el proveedor de acceso (ISP)."
+  citation: "fuente: `incibe-glosario-ciberseguridad.pdf`; «Router»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-incibe-glosario-ciberseguridad-pdf
+- id: m06-l01-q102
+  prompt:
+    es: "¿A cuántas redes está conectado, como mínimo, un router, el dispositivo que redirige el tráfico de una red hacia otra?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Al menos a dos redes, generalmente LAN o WAN."
+  - id: b
+    text:
+      es: "A una sola red, generalmente la red LAN."
+  - id: c
+    text:
+      es: "Al menos a tres redes, generalmente LAN o WAN."
+  - id: d
+    text:
+      es: "A una sola red, generalmente la red WAN."
+  explanation:
+    es: "Según el glosario del INCIBE, el router está conectado al menos a dos redes, generalmente LAN o WAN, y el tráfico que recibe de una red lo redirige hacia la otra u otras. Con una sola red no habría hacia dónde redirigirlo, y el mínimo que da el glosario es dos, no tres."
+  citation: "fuente: `incibe-glosario-ciberseguridad.pdf`; «Router»"
+  difficulty: 2
+  tags:
+  - "cantidad"
+  - "concepto"
+# anchor: fuente-incibe-glosario-ciberseguridad-pdf
+- id: m06-l01-q103
+  prompt:
+    es: "¿Qué comprueba un router en los paquetes de información que recibe para decidir por qué ruta serán enviados?"
+  options:
+  - id: a
+    text:
+      es: "Las direcciones de origen de los paquetes, con listas blancas de remitentes."
+  - id: b
+    correct: true
+    text:
+      es: "Las direcciones de destino, con cabeceras y tablas de comparación."
+  - id: c
+    text:
+      es: "El contenido de los ficheros adjuntos, con firmas de antivirus actualizadas."
+  - id: d
+    text:
+      es: "El nombre del usuario que los envía, con su certificado digital."
+  explanation:
+    es: "El glosario del INCIBE dice que el router comprueba las direcciones de destino de los paquetes y decide por qué ruta serán enviados; para el mejor camino usa cabeceras y tablas de comparación. El glosario no le atribuye mirar la dirección de origen, los ficheros adjuntos ni el nombre o el certificado del remitente."
+  citation: "fuente: `incibe-glosario-ciberseguridad.pdf`; «Router»"
+  difficulty: 2
+  tags:
+  - "comportamiento"
+# anchor: fuente-incibe-glosario-ciberseguridad-pdf
+- id: m06-l01-q104
+  prompt:
+    es: "¿Cuál de los siguientes términos se usa en español como sinónimo de router, el dispositivo que distribuye tráfico entre redes?"
+  options:
+  - id: a
+    text:
+      es: "Servidor"
+  - id: b
+    text:
+      es: "Cortafuegos"
+  - id: c
+    text:
+      es: "Proxy"
+  - id: d
+    correct: true
+    text:
+      es: "Encaminador"
+  explanation:
+    es: "El glosario del INCIBE da como sinónimos de router «Enrutador, Encaminador, Rúter». El servidor provee y gestiona datos para otras máquinas. El cortafuegos permite y limita el tráfico según unas normas. El proxy hace de intermediario en las peticiones de los equipos de una LAN hacia Internet. Los tres tienen su propia entrada en el mismo glosario."
+  citation: "fuente: `incibe-glosario-ciberseguridad.pdf`; «Router»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-incibe-glosario-ciberseguridad-pdf
+- id: m06-l01-q105
+  prompt:
+    es: "En términos domésticos, ¿qué es el router, según el glosario de términos de ciberseguridad del INCIBE?"
+  options:
+  - id: a
+    text:
+      es: "El programa que hace de intermediario entre la LAN doméstica e Internet."
+  - id: b
+    correct: true
+    text:
+      es: "El dispositivo del proveedor que une la LAN doméstica con la red del ISP."
+  - id: c
+    text:
+      es: "El equipo que aloja los sitios web y el correo electrónico del hogar."
+  - id: d
+    text:
+      es: "La tecnología que extiende la LAN doméstica sobre Internet con cifrado."
+  explanation:
+    es: "El glosario del INCIBE dice que, en términos domésticos, el router es el dispositivo que proporciona el proveedor de servicios de telefonía (o ISP) y que conecta la LAN doméstica con la red del ISP. Hacer de intermediario entre la LAN e Internet es la definición de proxy; alojar sitios web y correo es lo que hace un servidor; extender una LAN sobre Internet con cifrado es la red privada virtual."
+  citation: "fuente: `incibe-glosario-ciberseguridad.pdf`; «Router»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-ms-office-autoguardado-html
+- id: m06-l01-q106
+  prompt:
+    es: "¿Cuál de los siguientes programas es, junto a Word y Excel, una de las aplicaciones de Microsoft 365 para Windows?"
+  options:
+  - id: a
+    text:
+      es: "SQL Server"
+  - id: b
+    text:
+      es: "BitLocker"
+  - id: c
+    text:
+      es: "Azure Virtual Desktop"
+  - id: d
+    correct: true
+    text:
+      es: "PowerPoint"
+  explanation:
+    es: "La ayuda del Autoguardado lo sitúa en Excel, Word y PowerPoint para Microsoft 365 y habla de «aplicaciones de Office, como PowerPoint y Excel». SQL Server es un sistema de administración de bases de datos relacionales; BitLocker es el cifrado de unidad que funciona con NTFS; Azure Virtual Desktop es el ejemplo de infraestructura de escritorio virtual que da Microsoft."
+  citation: "fuente: `ms-office-autoguardado.html`; «¿Qué es el Autoguardado?»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-ms-office-autoguardado-html
+- id: m06-l01-q107
+  prompt:
+    es: "En Windows, ¿en qué aplicaciones de Microsoft 365 está disponible el Autoguardado para los suscriptores de Microsoft 365?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "En Excel, Word y PowerPoint."
+  - id: b
+    text:
+      es: "En Word, Excel y Access."
+  - id: c
+    text:
+      es: "En Word, PowerPoint y Outlook."
+  - id: d
+    text:
+      es: "Solo en Word y en Excel."
+  explanation:
+    es: "La página dice que en Windows el Autoguardado está disponible en Excel, Word y PowerPoint para los suscriptores de Microsoft 365. No nombra Access ni Outlook, y no lo limita a Word y Excel."
+  citation: "fuente: `ms-office-autoguardado.html`; «¿Qué es el Autoguardado?»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-incibe-glosario-ciberseguridad-pdf
+- id: m06-l01-q108
+  prompt:
+    es: "¿Cuál de las siguientes afirmaciones describe el modelo SaaS (Software as a Service) de distribución de software?"
+  options:
+  - id: a
+    text:
+      es: "El software se instala en el equipo del cliente y los datos que maneja se guardan en su disco local."
+  - id: b
+    text:
+      es: "El software se aloja en servidores de un tercero, pero los datos que maneja se guardan en el equipo del cliente."
+  - id: c
+    correct: true
+    text:
+      es: "El software y los datos que maneja se alojan en servidores de un tercero y el cliente accede por Internet."
+  - id: d
+    text:
+      es: "El cliente aloja el software y sus datos en servidores propios y accede a ellos solo desde su red local."
+  explanation:
+    es: "El glosario del INCIBE define SaaS como un modelo de distribución de software donde tanto el software como los datos que maneja se alojan en servidores de un tercero y el cliente accede a ellos vía Internet. Instalar el software en el equipo del cliente, dejar allí los datos o alojarlo todo en servidores propios contradice esa definición."
+  citation: "fuente: `incibe-glosario-ciberseguridad.pdf`; «SaaS»"
+  difficulty: 1
+  tags:
+  - "concepto"

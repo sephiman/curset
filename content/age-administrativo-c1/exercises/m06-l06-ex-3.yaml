@@ -1,0 +1,608 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# Question bank, m06-l06: fixed multiple-choice questions (round R3). Generated from
+# docs/age-verification/bank/bloque-vi/m06-l06.draft.json minus drops.tsv by
+# docs/age-verification/bank/tools/build_exercises.py; edit the draft and rebuild, not this file.
+type: quiz
+variants:
+# anchor: fuente-ms-access-tipos-datos-escritorio-html
+- id: m06-l06-q043
+  prompt:
+    es: "En una tabla de Access 365, ¿qué tipo de datos permite adjuntar a un registro archivos como imágenes, documentos u hojas de cálculo, hasta unos 2 GB?"
+  options:
+  - id: a
+    text:
+      es: "El tipo Hipervínculo"
+  - id: b
+    correct: true
+    text:
+      es: "El tipo Datos adjuntos"
+  - id: c
+    text:
+      es: "El tipo Texto largo"
+  - id: d
+    text:
+      es: "El tipo Calculado"
+  explanation:
+    es: "En la tabla de tipos de datos, Datos adjuntos permite adjuntar «archivos como imágenes, documentos, hojas de cálculo o gráficos», con un tamaño de «hasta unos 2 GB». Hipervínculo guarda una dirección de vínculo, no el archivo. Texto largo guarda texto. Calculado guarda el resultado de una expresión."
+  citation: "fuente: `ms-access-tipos-datos-escritorio.html`; «Tipos de datos para bases de datos de escritorio de Access»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-ms-access-tipos-datos-escritorio-html
+- id: m06-l06-q044
+  prompt:
+    es: "En Access 365, ¿cuál de las siguientes afirmaciones sobre el tipo de datos Datos adjuntos es correcta?"
+  options:
+  - id: a
+    text:
+      es: "Admite hasta unos 2 GB y solo está disponible en el formato MDB"
+  - id: b
+    text:
+      es: "Admite hasta 1 GB aproximadamente y no está disponible en el formato MDB"
+  - id: c
+    text:
+      es: "Admite un solo archivo por registro, de hasta unos 2 GB, también en MDB"
+  - id: d
+    correct: true
+    text:
+      es: "Admite hasta unos 2 GB y no está disponible en el formato MDB"
+  explanation:
+    es: "La tabla de tipos de datos da a Datos adjuntos «hasta unos 2 GB» y añade que «no está disponible en los formatos de archivo MDB». Por eso fallan la opción de solo MDB y la de un archivo «también en MDB»; esta además contradice que cada campo admite «una cantidad ilimitada de datos adjuntos por registro». 1 GB aproximadamente es el tamaño de Texto largo, no el de Datos adjuntos."
+  citation: "fuente: `ms-access-tipos-datos-escritorio.html`; «Tipos de datos para bases de datos de escritorio de Access»"
+  difficulty: 1
+  tags:
+  - "concepto"
+  - "cantidad"
+# anchor: fuente-ms-access-tipos-datos-escritorio-html
+- id: m06-l06-q045
+  prompt:
+    es: "En una tabla de Access 365, ¿cuántos datos adjuntos puede contener por registro un campo de tipo Datos adjuntos?"
+  options:
+  - id: a
+    text:
+      es: "Un solo archivo adjunto por registro, de hasta unos 2 GB de tamaño en total"
+  - id: b
+    text:
+      es: "Hasta 10 archivos adjuntos por registro, sea cual sea el tamaño de cada uno"
+  - id: c
+    text:
+      es: "Hasta 32 archivos adjuntos por registro, de hasta 1 GB de tamaño cada uno"
+  - id: d
+    correct: true
+    text:
+      es: "Una cantidad ilimitada, hasta el límite de tamaño del archivo de base de datos"
+  explanation:
+    es: "La página dice que «cada campo Datos adjuntos puede contener una cantidad ilimitada de datos adjuntos por registro, hasta el límite de almacenamiento del tamaño de un archivo de base de datos». Un solo archivo adjunto de hasta unos 2 GB confunde el campo con otros tipos de la tabla, para los que la página da «hasta unos 2 GB». Los límites de 10 y de 32 archivos por registro contradicen «ilimitada»: el único tope que la página pone es el tamaño del archivo de base de datos."
+  citation: "fuente: `ms-access-tipos-datos-escritorio.html`; «Tipos de datos para bases de datos de escritorio de Access»"
+  difficulty: 2
+  tags:
+  - "cantidad"
+# anchor: fuente-ms-access-especificaciones-html
+- id: m06-l06-q046
+  prompt:
+    es: "En Access 365, según las especificaciones de la tabla, el número máximo de caracteres de un campo Texto corto es de:"
+  options:
+  - id: a
+    text:
+      es: "64 caracteres"
+  - id: b
+    correct: true
+    text:
+      es: "255 caracteres"
+  - id: c
+    text:
+      es: "2048 caracteres"
+  - id: d
+    text:
+      es: "65.535 caracteres"
+  explanation:
+    es: "Las especificaciones dan al campo Texto corto un máximo de 255 caracteres. 64 es el límite del nombre de una tabla o de un campo, 2048 el de una regla de validación y 65.535 el de un campo Texto largo al introducir datos por la interfaz."
+  citation: "fuente: `ms-access-especificaciones.html`; «Tabla»"
+  difficulty: 1
+  tags:
+  - "cantidad"
+# anchor: fuente-ms-access-tipos-datos-escritorio-html
+- id: m06-l06-q047
+  prompt:
+    es: "Señale la afirmación correcta sobre el tipo de datos Texto largo en las bases de datos de escritorio de Access 365:"
+  options:
+  - id: a
+    text:
+      es: "Admite hasta 2 GB aproximadamente, pero los controles muestran solo los primeros 64 000 caracteres"
+  - id: b
+    text:
+      es: "Admite hasta 1 GB aproximadamente, y los controles muestran siempre el texto completo del campo"
+  - id: c
+    correct: true
+    text:
+      es: "Admite hasta 1 GB aproximadamente, pero los controles muestran solo los primeros 64 000 caracteres"
+  - id: d
+    text:
+      es: "Admite hasta 64 000 caracteres, pero los controles pueden mostrar hasta 1 GB aproximadamente"
+  explanation:
+    es: "La tabla de tipos de datos da a Texto largo «hasta 1 gigabyte (GB) aproximadamente, pero los controles para mostrar un texto largo se limitan a los primeros 64 000 caracteres». Unos 2 GB es el tamaño de Datos adjuntos y de Objeto OLE. Los controles no muestran el texto completo, y la opción de 64 000 caracteres de almacenamiento invierte las dos cifras."
+  citation: "fuente: `ms-access-tipos-datos-escritorio.html`; «Tipos de datos para bases de datos de escritorio de Access»"
+  difficulty: 2
+  tags:
+  - "cantidad"
+# anchor: fuente-ms-access-tipos-datos-escritorio-html
+- id: m06-l06-q048
+  prompt:
+    es: "En una tabla de Access 365, ¿cuánto ocupa un valor del tipo de datos Fecha y hora?"
+  options:
+  - id: a
+    text:
+      es: "4 bytes"
+  - id: b
+    text:
+      es: "16 bytes"
+  - id: c
+    text:
+      es: "42 bytes"
+  - id: d
+    correct: true
+    text:
+      es: "8 bytes"
+  explanation:
+    es: "La tabla de tipos de datos da a Fecha y hora un tamaño de 8 bytes. Los 42 bytes son la cadena codificada de Fecha y hora extendida, 4 bytes ocupa Autonumeración y 16 bytes, Autonumeración como Id. de replicación."
+  citation: "fuente: `ms-access-tipos-datos-escritorio.html`; «Tipos de datos para bases de datos de escritorio de Access»"
+  difficulty: 2
+  tags:
+  - "cantidad"
+# anchor: fuente-ms-access-tipos-datos-escritorio-html
+- id: m06-l06-q049
+  prompt:
+    es: "En un campo Sí/No de Access 365, ¿cuál de los siguientes pares de valores numéricos almacena Access?"
+  options:
+  - id: a
+    text:
+      es: "Cero (0) para Falso y 1 para Verdadero"
+  - id: b
+    text:
+      es: "-1 para Falso y cero (0) para Verdadero"
+  - id: c
+    text:
+      es: "1 para Falso y cero (0) para Verdadero"
+  - id: d
+    correct: true
+    text:
+      es: "Cero (0) para Falso y -1 para Verdadero"
+  explanation:
+    es: "La página dice que en un campo Sí/No «Access almacena el valor numérico cero (0) para Falso y -1 para Verdadero». Las demás opciones cambian el -1 por 1 o invierten los valores."
+  citation: "fuente: `ms-access-tipos-datos-escritorio.html`; «Tipos de datos para bases de datos de escritorio de Access»"
+  difficulty: 3
+  tags:
+  - "concepto"
+# anchor: fuente-ms-access-tipos-datos-escritorio-html
+- id: m06-l06-q050
+  prompt:
+    es: "En la vista Diseño de una tabla de Access 365, ¿qué ocurre al elegir la entrada Asistente para búsquedas en la columna de tipo de datos?"
+  options:
+  - id: a
+    text:
+      es: "Se crea un campo Hipervínculo que enlaza con otra tabla de la base"
+  - id: b
+    text:
+      es: "Se crea un campo Calculado con una expresión sobre campos de otra tabla"
+  - id: c
+    correct: true
+    text:
+      es: "Se inicia un asistente para definir un campo de búsqueda simple o complejo"
+  - id: d
+    text:
+      es: "Se crea un índice sin duplicados sobre el campo seleccionado de la tabla"
+  explanation:
+    es: "La página dice que el Asistente para búsquedas «no es realmente un tipo de datos» y que al elegirlo se inicia el asistente «para ayudarle a definir un campo de búsqueda simple o complejo». Hipervínculo guarda una dirección, Calculado usa campos de la misma tabla y el índice sin duplicados es un valor de la propiedad Indexado, no de esta entrada."
+  citation: "fuente: `ms-access-tipos-datos-escritorio.html`; «Tipos de datos para bases de datos de escritorio de Access»"
+  difficulty: 2
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-access-tipos-datos-escritorio-html
+- id: m06-l06-q051
+  prompt:
+    es: "En Access 365, si el tipo de resultado de un campo Calculado es texto corto, ¿cuántos caracteres puede tener el resultado como máximo?"
+  options:
+  - id: a
+    text:
+      es: "Hasta 255 caracteres"
+  - id: b
+    correct: true
+    text:
+      es: "Hasta 243 caracteres"
+  - id: c
+    text:
+      es: "Hasta 64 caracteres"
+  - id: d
+    text:
+      es: "Hasta 2048 caracteres"
+  explanation:
+    es: "La tabla de tipos de datos dice que «el resultado de tipo de datos de texto corto puede tener hasta 243 caracteres». 255 es el máximo de un campo Texto corto, no del resultado de un Calculado; 64 es el límite de un nombre de campo y 2048 el de una regla de validación."
+  citation: "fuente: `ms-access-tipos-datos-escritorio.html`; «Tipos de datos para bases de datos de escritorio de Access»"
+  difficulty: 3
+  tags:
+  - "cantidad"
+# anchor: fuente-ms-access-tipos-datos-html
+- id: m06-l06-q052
+  prompt:
+    es: "En una tabla de Access 365, un campo de tipo Moneda, que se usa para almacenar datos monetarios, tiene una exactitud de:"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "15 dígitos a la izquierda del separador decimal y 4 a la derecha"
+  - id: b
+    text:
+      es: "15 dígitos a la izquierda del separador decimal y 2 a la derecha"
+  - id: c
+    text:
+      es: "4 dígitos a la izquierda del separador decimal y 15 a la derecha"
+  - id: d
+    text:
+      es: "28 dígitos a la izquierda del separador decimal y 4 a la derecha"
+  explanation:
+    es: "La página dice que «un campo Moneda tiene una exactitud de 15 dígitos a la izquierda del separador decimal y 4 dígitos a la derecha». La opción de 2 decimales cambia los 4 de la página, la de 4 y 15 los invierte y la de 28 cambia la parte entera."
+  citation: "fuente: `ms-access-tipos-datos.html`; «Moneda»"
+  difficulty: 1
+  tags:
+  - "cantidad"
+# anchor: fuente-ms-access-tipos-datos-html
+- id: m06-l06-q053
+  prompt:
+    es: "En Access 365, ¿cuál de las siguientes afirmaciones sobre el tipo de datos Moneda es correcta?"
+  options:
+  - id: a
+    text:
+      es: "Sus datos se redondean a dos decimales en los cálculos y cada valor ocupa 8 bytes"
+  - id: b
+    correct: true
+    text:
+      es: "Sus datos no se redondean durante los cálculos y cada valor ocupa 8 bytes"
+  - id: c
+    text:
+      es: "Sus datos no se redondean durante los cálculos y cada valor ocupa 16 bytes"
+  - id: d
+    text:
+      es: "Sus datos no se redondean durante los cálculos y cada valor ocupa 4 bytes"
+  explanation:
+    es: "La página dice que «los datos de un campo Moneda no se redondean durante los cálculos» y que «cada valor de campo Moneda requiere 8 bytes de almacenamiento». La opción del redondeo a dos decimales contradice la página; las de 16 y 4 bytes cambian el tamaño, y son los de Autonumeración."
+  citation: "fuente: `ms-access-tipos-datos.html`; «Moneda»"
+  difficulty: 2
+  tags:
+  - "concepto"
+  - "cantidad"
+# anchor: fuente-ms-access-tipos-datos-html
+- id: m06-l06-q054
+  prompt:
+    es: "En Access 365, ¿qué ocurre con los valores de un campo Autonumeración que tenían los registros eliminados de una tabla?"
+  options:
+  - id: a
+    text:
+      es: "Se reutilizan en los siguientes registros nuevos de la tabla"
+  - id: b
+    correct: true
+    text:
+      es: "No se reutilizan, por lo que pueden quedar huecos en el recuento"
+  - id: c
+    text:
+      es: "Se renumeran los registros que quedan para no dejar huecos en el recuento"
+  - id: d
+    text:
+      es: "Se asignan a los registros que se importan más adelante a la tabla"
+  explanation:
+    es: "La página dice: «Los valores Autonumeración no se reutilizan, por lo que los registros eliminados pueden provocar espacios en el recuento». Reutilizarlos en los registros nuevos o asignarlos a los que se importen después contradice «no se reutilizan». Renumerar los registros que quedan contradice los «espacios en el recuento» que la página da por posibles: por eso aconseja no usar Autonumeración para contar registros y usar una fila de totales en la hoja de datos."
+  citation: "fuente: `ms-access-tipos-datos.html`; «Autonumeración»"
+  difficulty: 1
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-access-tipos-datos-html
+- id: m06-l06-q055
+  prompt:
+    es: "En Access 365, ¿cuál de los siguientes pares recoge los valores de la propiedad Nuevos valores de un campo Autonumeración?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Incrementar y Aleatorio"
+  - id: b
+    text:
+      es: "Incrementar y Decrementar"
+  - id: c
+    text:
+      es: "Entero largo e Id. de replicación"
+  - id: d
+    text:
+      es: "Sí (sin duplicados) y No"
+  explanation:
+    es: "La página dice que Nuevos valores «determina si un campo Autonumeración se incrementa con cada valor nuevo o si usa números aleatorios»: las dos opciones son Incrementar y Aleatorio. Decrementar no es una de las dos opciones que la página enumera. Entero largo e Identificador de replicación son los dos valores de la propiedad Tamaño del campo de Autonumeración. Y Sí (sin duplicados) y No pertenecen a la propiedad Indexado, que crea un índice único."
+  citation: "fuente: `ms-access-tipos-datos.html`; «Autonumeración»"
+  difficulty: 2
+  tags:
+  - "configuración"
+# anchor: fuente-ms-access-tipos-datos-html
+- id: m06-l06-q056
+  prompt:
+    es: "En un campo Autonumeración de Access 365 con la propiedad Nuevos valores en Incrementar, ¿cómo se asignan los valores?"
+  options:
+  - id: a
+    text:
+      es: "Empieza en 0 y aumenta en 1 con cada nuevo registro"
+  - id: b
+    correct: true
+    text:
+      es: "Empieza en 1 y aumenta en 1 con cada nuevo registro"
+  - id: c
+    text:
+      es: "Empieza en 1 y aumenta en 10 con cada nuevo registro"
+  - id: d
+    text:
+      es: "Empieza en un valor aleatorio y suma 1 cada vez"
+  explanation:
+    es: "La página dice que Incrementar «comienza con el valor 1 y aumenta gradualmente en 1 para cada nuevo registro». Empezar en 0 o aumentar en 10 cambia las cifras de la página, y empezar en un valor aleatorio corresponde a la opción Aleatorio, que además asigna un valor aleatorio a cada registro."
+  citation: "fuente: `ms-access-tipos-datos.html`; «Autonumeración»"
+  difficulty: 2
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-access-tipos-datos-html
+- id: m06-l06-q057
+  prompt:
+    es: "En Access 365, ¿cuál de los siguientes es el uso más común de un campo Autonumeración?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Servir como clave principal de la tabla"
+  - id: b
+    text:
+      es: "Llevar el recuento de registros de la tabla"
+  - id: c
+    text:
+      es: "Guardar el resultado de una expresión"
+  - id: d
+    text:
+      es: "Mostrar valores de otra tabla o consulta"
+  explanation:
+    es: "La página dice que «el uso más común de un campo Autonumeración es como clave principal». Añade que no se debe usar para llevar el recuento de registros, porque los valores no se reutilizan. Guardar el resultado de una expresión es el tipo Calculado, y mostrar valores de otra tabla o consulta, un campo de búsqueda."
+  citation: "fuente: `ms-access-tipos-datos.html`; «Autonumeración»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-ms-access-tipos-datos-html
+- id: m06-l06-q059
+  prompt:
+    es: "En Access 365, ¿en cuál de los siguientes formatos de archivo está disponible el tipo de datos Calculado?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Solo en bases de datos con formato de archivo .accdb"
+  - id: b
+    text:
+      es: "Solo en bases de datos con formato de archivo .mdb"
+  - id: c
+    text:
+      es: "En bases de datos con formato .accdb y con formato .mdb"
+  - id: d
+    text:
+      es: "Solo en bases de datos back-end con formato .accdb"
+  explanation:
+    es: "La página dice: «los tipos de datos calculados solo están disponibles en bases de datos con formato de archivo .accdb», y en otra frase repite que Datos adjuntos y Calculado no están disponibles en los formatos .mdb. «Solo .mdb» y «.accdb y .mdb» contradicen las dos frases. Y «solo en bases back-end .accdb» añade una restricción que la página no pone: la condición que fija es el formato del archivo, no el papel de la base."
+  citation: "fuente: `ms-access-tipos-datos.html`; «Calculado»"
+  difficulty: 3
+  tags:
+  - "requisito"
+# anchor: fuente-ms-access-tipos-datos-html
+- id: m06-l06-q101
+  prompt:
+    es: "En un campo Número de Access 365, ¿para qué sirve el formato Estándar, según la ayuda de Microsoft?"
+  options:
+  - id: a
+    text:
+      es: "Para mostrar valores monetarios generales almacenados en el formato de la UE."
+  - id: b
+    correct: true
+    text:
+      es: "Para mostrar datos numéricos con decimales."
+  - id: c
+    text:
+      es: "Para mostrar la fecha en un formato corto."
+  - id: d
+    text:
+      es: "Para mostrar la hora solo con un formato de 24 horas."
+  explanation:
+    es: "La tabla de formatos de Número dice que Estándar sirve para mostrar «datos numéricos con decimales». Los valores monetarios en el formato de la UE corresponden al formato Euro; la fecha en formato corto y la hora de 24 horas son formatos de los campos Fecha y hora, no de los de tipo Número."
+  citation: "fuente: `ms-access-tipos-datos.html`; «Número»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-ms-access-tipos-datos-html
+- id: m06-l06-q102
+  prompt:
+    es: "En Access 365, ¿cuál de los siguientes formatos de un campo Número muestra valores monetarios generales almacenados en el formato de la UE?"
+  options:
+  - id: a
+    text:
+      es: "Moneda"
+  - id: b
+    text:
+      es: "Estándar"
+  - id: c
+    correct: true
+    text:
+      es: "Euro"
+  - id: d
+    text:
+      es: "Científico"
+  explanation:
+    es: "La tabla de formatos de Número asigna a Euro los «valores monetarios generales almacenados en el formato de la UE». Moneda muestra valores monetarios generales sin esa precisión de formato; Estándar es para datos numéricos con decimales y Científico, para cálculos."
+  citation: "fuente: `ms-access-tipos-datos.html`; «Número»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-ms-access-tipos-datos-html
+- id: m06-l06-q103
+  prompt:
+    es: "En Access 365, ¿cuál de los siguientes formatos de un campo Número muestra los números sin formato adicional, exactamente como se almacenan?"
+  options:
+  - id: a
+    text:
+      es: "Euro"
+  - id: b
+    text:
+      es: "Porcentaje"
+  - id: c
+    text:
+      es: "Científico"
+  - id: d
+    correct: true
+    text:
+      es: "General"
+  explanation:
+    es: "La tabla de formatos de Número describe General como «números sin formato adicional exactamente como se almacenan». Euro es para valores monetarios en el formato de la UE, Porcentaje, para porcentajes y Científico, para cálculos."
+  citation: "fuente: `ms-access-tipos-datos.html`; «Número»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-ms-access-tipos-datos-html
+- id: m06-l06-q104
+  prompt:
+    es: "En Access 365, ¿cuál de los siguientes tamaños de un campo Número conviene usar al crear una clave externa para relacionarla con un campo Autonumeración?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Entero largo, de 4 bytes"
+  - id: b
+    text:
+      es: "Byte, para enteros entre 0 y 255"
+  - id: c
+    text:
+      es: "Entero, para enteros de 2 bytes"
+  - id: d
+    text:
+      es: "Doble, de punto flotante de 8 bytes"
+  explanation:
+    es: "La ayuda indica: «Use Entero largo al crear una clave externa para relacionarla con el campo de clave principal de Autonumeración de otra tabla». Byte, de 0 a 255, y Entero, de -32.768 a 32.767, no son Entero largo, y la ayuda dice que Autonumeración es compatible con Número «si la propiedad Tamaño del campo del segundo es Entero largo»; Doble es un tamaño de punto flotante de 8 bytes, tampoco Entero largo."
+  citation: "fuente: `ms-access-tipos-datos.html`; «Tamaño de campo»"
+  difficulty: 3
+  tags:
+  - "configuración"
+# anchor: fuente-ms-access-tipos-datos-html
+- id: m06-l06-q105
+  prompt:
+    es: "¿Cuál de los siguientes tamaños de campo Número de Access 365 ocupa 1 byte y se usa para enteros comprendidos entre 0 y 255?"
+  options:
+  - id: a
+    text:
+      es: "Entero"
+  - id: b
+    correct: true
+    text:
+      es: "Byte"
+  - id: c
+    text:
+      es: "Sencillo"
+  - id: d
+    text:
+      es: "Doble"
+  explanation:
+    es: "La ayuda define Byte como el tamaño «para enteros comprendidos entre 0 y 255» con un requisito de almacenamiento de 1 byte. Entero necesita 2 bytes, Sencillo 4 bytes y Doble 8 bytes."
+  citation: "fuente: `ms-access-tipos-datos.html`; «Tamaño de campo»"
+  difficulty: 2
+  tags:
+  - "cantidad"
+# anchor: fuente-ms-access-tipos-datos-html
+- id: m06-l06-q106
+  prompt:
+    es: "Para obtener el mejor rendimiento, ¿qué recomienda Microsoft sobre la propiedad Tamaño del campo de un campo Número de Access 365?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Especificar siempre un tamaño lo suficientemente pequeño"
+  - id: b
+    text:
+      es: "Dejar siempre el tamaño más grande disponible, para evitar errores"
+  - id: c
+    text:
+      es: "Usar siempre el tamaño Decimal, que ocupa 12 bytes"
+  - id: d
+    text:
+      es: "Cambiar el tamaño cada vez que se añade un registro"
+  explanation:
+    es: "La ayuda aconseja: «Para obtener el mejor rendimiento, especifique siempre el tamaño de campo lo suficientemente pequeño». Recomendar el mayor tamaño o Decimal va en sentido contrario, y la ayuda no dice que el tamaño deba cambiarse con cada registro."
+  citation: "fuente: `ms-access-tipos-datos.html`; «Tamaño de campo»"
+  difficulty: 2
+  tags:
+  - "configuración"
+# anchor: fuente-ms-access-tipos-datos-html
+- id: m06-l06-q107
+  prompt:
+    es: "En Access 365, ¿qué hace la propiedad de campo Regla de validación, según la ayuda de Microsoft?"
+  options:
+  - id: a
+    text:
+      es: "Requiere que los datos se introduzcan siempre en el campo al agregar un registro"
+  - id: b
+    text:
+      es: "Muestra caracteres de edición, como un signo de dólar, para guiar la entrada de datos"
+  - id: c
+    correct: true
+    text:
+      es: "Proporciona una expresión que debe ser verdadera al agregar o cambiar el valor del campo"
+  - id: d
+    text:
+      es: "Escribe el mensaje de ayuda que aparece cuando un valor infringe la regla establecida"
+  explanation:
+    es: "Regla de validación «proporciona una expresión que debe ser verdadera al agregar o cambiar el valor en este campo». Que los datos se introduzcan es la función de Obligatorio, los caracteres de edición son de la Máscara de entrada y el mensaje ante un valor no válido lo escribe el Texto de validación."
+  citation: "fuente: `ms-access-tipos-datos.html`; «Regla de validación»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-ms-access-tipos-datos-html
+- id: m06-l06-q110
+  prompt:
+    es: "En Access 365, ¿cuál de las siguientes propiedades de campo requiere que los datos se introduzcan en el campo?"
+  options:
+  - id: a
+    text:
+      es: "Indexado"
+  - id: b
+    correct: true
+    text:
+      es: "Obligatorio"
+  - id: c
+    text:
+      es: "Máscara de entrada"
+  - id: d
+    text:
+      es: "Posiciones decimales"
+  explanation:
+    es: "Obligatorio «requiere que los datos se introduzcan en un campo». Indexado especifica si el campo tiene un índice, Máscara de entrada muestra caracteres de edición y Posiciones decimales indica cuántas se usan al mostrar los números."
+  citation: "fuente: `ms-access-tipos-datos.html`; «Obligatorio»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-ms-access-tipos-datos-html
+- id: m06-l06-q111
+  prompt:
+    es: "En Access 365, el valor Sí (sin duplicados) de la propiedad Indexado de un campo crea:"
+  options:
+  - id: a
+    text:
+      es: "un índice no único en el campo."
+  - id: b
+    text:
+      es: "un índice que abarca varios campos a la vez."
+  - id: c
+    text:
+      es: "la eliminación de cualquier índice del campo."
+  - id: d
+    correct: true
+    text:
+      es: "un índice único en el campo."
+  explanation:
+    es: "Según la ayuda, Sí (sin duplicados) «crea un índice único en el campo». El índice no único lo crea Sí (se aceptan duplicados) y No «quita cualquier índice en el campo». Un índice de varios campos no se puede crear con esta propiedad."
+  citation: "fuente: `ms-access-tipos-datos.html`; «Indexado»"
+  difficulty: 1
+  tags:
+  - "concepto"

@@ -1,0 +1,1862 @@
+[
+ {
+  "id": "m06-l08-q101",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `ms-win-ping.html`; «ping»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Windows 11, ¿qué tipo de mensajes envía el comando ping a otro equipo TCP/IP para comprobar la conectividad a nivel de IP?",
+  "options": {
+   "a": "Mensajes de solicitud de conexión del protocolo TCP",
+   "b": "Mensajes de respuesta de eco del protocolo ICMP",
+   "c": "Mensajes de solicitud de eco del protocolo ICMP",
+   "d": "Mensajes de solicitud de eco del protocolo UDP"
+  },
+  "correct": "c",
+  "difficulty": 1,
+  "tags": [
+   "concepto",
+   "comportamiento"
+  ],
+  "distractor_pattern": "texto-alterado",
+  "explanation": "ping comprueba la conectividad IP enviando mensajes de solicitud de eco del protocolo de mensajes de control de Internet (ICMP). Los mensajes de eco son de ICMP, no de UDP, según la descripción del comando. Las respuestas de eco son las que recibe y muestra ping, junto con los tiempos de ida y vuelta; lo que envía son solicitudes. ping no envía solicitudes de conexión TCP, sino solicitudes de eco ICMP.",
+  "source_quote": "Comprueba la conectividad a nivel de IP con otro equipo TCP/IP mediante el envío de mensajes de solicitud de eco del protocolo de mensajes de control de Internet (ICMP).",
+  "covers": [
+   "official:conv2022·P1·69",
+   "family:Red: IP, DNS, TCP/IP, FTP"
+  ]
+ },
+ {
+  "id": "m06-l08-q102",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `ms-win-ping.html`; «ping»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "¿Cuál de las siguientes informaciones muestra el comando ping de Windows 11 sobre los mensajes de respuesta de eco que recibe del equipo de destino?",
+  "options": {
+   "a": "Solo el número de saltos hasta el destino, sin los tiempos",
+   "b": "Su recepción, junto con los tiempos de ida y vuelta",
+   "c": "El contenido de los mensajes de solicitud de eco enviados",
+   "d": "La ruta completa de enrutadores, con la hora de cada salto"
+  },
+  "correct": "b",
+  "difficulty": 2,
+  "tags": [
+   "comportamiento"
+  ],
+  "distractor_pattern": "texto-alterado",
+  "explanation": "ping muestra la recepción de los mensajes de respuesta de eco y los tiempos de ida y vuelta. Mostrar solo los saltos sin tiempos contradice que muestra los tiempos de ida y vuelta. Lo que muestra son las respuestas de eco recibidas, no el contenido de las solicitudes que envía. La ruta y la hora de cada salto solo se registran con los parámetros /r y /s, no por defecto.",
+  "source_quote": "Se muestra la recepción de los mensajes de respuesta de eco correspondientes, junto con los tiempos de ida y vuelta.",
+  "covers": []
+ },
+ {
+  "id": "m06-l08-q103",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `ms-win-ping.html`; «ping»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "¿Cuál de las siguientes listas recoge los problemas que se solucionan con ping, el comando TCP/IP principal para ello, según la documentación de Windows 11?",
+  "options": {
+   "a": "Problemas de disponibilidad, enrutamiento y asignación de direcciones",
+   "b": "Problemas de conectividad, disponibilidad y resolución de nombres",
+   "c": "Problemas de conectividad, fragmentación y autenticación del usuario",
+   "d": "Problemas de conectividad, cifrado y resolución de nombres"
+  },
+  "correct": "b",
+  "difficulty": 2,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "texto-alterado",
+  "explanation": "ping es el comando TCP/IP principal para solucionar problemas de conectividad, disponibilidad y resolución de nombres. El cifrado no figura entre los problemas que ping ayuda a resolver. El enrutamiento y la asignación de direcciones no figuran en la lista de la página. La fragmentación (parámetro /f, útil para la PMTU) y la autenticación no son los problemas que cita como principales.",
+  "source_quote": "ping es el comando TCP/IP principal que se usa para solucionar problemas de conectividad, disponibilidad y resolución de nombres.",
+  "covers": []
+ },
+ {
+  "id": "m06-l08-q104",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `ms-win-ping.html`; «ping»",
+  "stem_form": "enunciado",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Windows 11, el parámetro /t del comando ping, que se usa para enviar solicitudes de eco a un destino:",
+  "options": {
+   "a": "Envía las solicitudes con la marca No fragmentar establecida en 1",
+   "b": "Realiza la resolución inversa de nombres en la dirección IP de destino",
+   "c": "Fija el número de solicitudes de eco que se envían",
+   "d": "Sigue enviando solicitudes de eco al destino hasta que se interrumpa"
+  },
+  "correct": "d",
+  "difficulty": 1,
+  "tags": [
+   "configuración",
+   "comportamiento"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "Con /t, ping continúa enviando solicitudes de eco al destino hasta que se interrumpa. La resolución inversa de nombres en la dirección de destino es el parámetro /a. El número de solicitudes de eco se fija con /n. La marca No fragmentar en 1 es lo que establece el parámetro /f.",
+  "source_quote": "Especifica que ping continúa enviando mensajes de solicitud de eco al destino hasta que se interrumpa.",
+  "covers": []
+ },
+ {
+  "id": "m06-l08-q105",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `ms-win-ping.html`; «ping»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Windows 11, con ping /t en marcha, ¿qué hacen las combinaciones CTRL+BREAK y CTRL+C?",
+  "options": {
+   "a": "CTRL+BREAK interrumpe y muestra estadísticas; CTRL+C interrumpe y sale del comando",
+   "b": "Ambas interrumpen el comando y muestran estadísticas, sin salir de él",
+   "c": "Ambas interrumpen el comando y salen de él sin mostrar estadísticas",
+   "d": "CTRL+BREAK interrumpe y sale del comando; CTRL+C interrumpe y muestra estadísticas"
+  },
+  "correct": "a",
+  "difficulty": 3,
+  "tags": [
+   "comportamiento",
+   "atajo"
+  ],
+  "distractor_pattern": "texto-alterado",
+  "explanation": "CTRL+BREAK interrumpe ping y muestra las estadísticas; CTRL+C interrumpe y sale del comando. Intercambiar las dos combinaciones invierte lo que indica la página. CTRL+BREAK no sale del comando: interrumpe y muestra las estadísticas. CTRL+C no deja el comando en marcha: interrumpe y sale.",
+  "source_quote": "Para interrumpir y mostrar estadísticas, presione CTRL+BREAK. Para interrumpir y salir de este comando, presione CTRL+C.",
+  "covers": []
+ },
+ {
+  "id": "m06-l08-q106",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `ms-win-ping.html`; «ping»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Windows 11, ¿cuántos mensajes de solicitud de eco envía por defecto el comando ping si no se indica el parámetro /n?",
+  "options": {
+   "a": "5, que son los mensajes predeterminados",
+   "b": "10, que son los mensajes predeterminados",
+   "c": "4, que son los mensajes predeterminados",
+   "d": "3, que son los mensajes predeterminados"
+  },
+  "correct": "c",
+  "difficulty": 1,
+  "tags": [
+   "cantidad"
+  ],
+  "distractor_pattern": "cifra-cercana",
+  "explanation": "El parámetro /n fija el número de solicitudes de eco y su valor predeterminado es 4. El valor predeterminado es 4, no 3. El valor predeterminado es 4, no 5. Diez es el número de solicitudes de uno de los ejemplos de la página, no el valor predeterminado.",
+  "source_quote": "Especifica el número de mensajes de solicitud de eco que se envían. El valor predeterminado es 4.",
+  "covers": []
+ },
+ {
+  "id": "m06-l08-q107",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `ms-win-ping.html`; «ping»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "¿Cuál de las siguientes longitudes tiene por defecto el campo de datos de los mensajes de solicitud de eco del comando ping de Windows 11?",
+  "options": {
+   "a": "32 bytes, con un tamaño máximo de 65 500 bytes",
+   "b": "32 bytes, con un tamaño máximo de 1 000 bytes",
+   "c": "64 bytes, con un tamaño máximo de 65 500 bytes",
+   "d": "32 bytes, con un tamaño máximo de 255 bytes"
+  },
+  "correct": "a",
+  "difficulty": 2,
+  "tags": [
+   "cantidad"
+  ],
+  "distractor_pattern": "cifra-cercana",
+  "explanation": "El parámetro /l fija la longitud del campo de datos, 32 bytes por defecto, con un máximo de 65 500. La longitud predeterminada es 32 bytes, no 64. Mil bytes es el campo de datos de uno de los ejemplos de la página, no el máximo, que es 65 500. 255 es el TTL máximo, no el tamaño máximo del campo de datos.",
+  "source_quote": "Especifica la longitud, en bytes, del campo Data en los mensajes de solicitud de eco. El valor predeterminado es 32. El tamaño máximo es de 65 500.",
+  "covers": []
+ },
+ {
+  "id": "m06-l08-q108",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `ms-win-ping.html`; «ping»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Windows 11, ¿cuánto tiempo espera por defecto ping la respuesta de eco de cada solicitud antes de mostrar el error «Tiempo de espera de solicitud»?",
+  "options": {
+   "a": "40 000 milisegundos, es decir, 40 segundos",
+   "b": "1000 milisegundos, es decir, 1 segundo",
+   "c": "400 milisegundos, es decir, 0,4 segundos",
+   "d": "4000 milisegundos, es decir, 4 segundos"
+  },
+  "correct": "d",
+  "difficulty": 3,
+  "tags": [
+   "cantidad",
+   "configuración"
+  ],
+  "distractor_pattern": "cifra-cercana",
+  "explanation": "El parámetro /w fija el tiempo de espera en milisegundos y por defecto es 4000, es decir, 4 segundos. El tiempo de espera predeterminado es de 4 segundos, no de 1. El tiempo de espera predeterminado es 4000 milisegundos, no 400. El tiempo de espera predeterminado es 4000 milisegundos, no 40 000.",
+  "source_quote": "El tiempo de espera predeterminado es 4000 (4 segundos).",
+  "covers": []
+ },
+ {
+  "id": "m06-l08-q109",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `ms-win-ping.html`; «ping»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "¿Cuál de los siguientes efectos tiene, en Windows 11, el parámetro /a del comando ping sobre la dirección IP de destino?",
+  "options": {
+   "a": "Resuelve la dirección a su nombre de host y lo muestra, si la operación tiene éxito",
+   "b": "Registra la ruta tomada por la solicitud y su respuesta",
+   "c": "Resuelve el nombre del equipo de destino a su dirección IP",
+   "d": "Sigue enviando solicitudes hasta que se interrumpa el comando"
+  },
+  "correct": "a",
+  "difficulty": 2,
+  "tags": [
+   "configuración",
+   "comportamiento"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "Con /a, ping realiza la resolución inversa de nombres en la dirección IP de destino y muestra el nombre de host si se completa con éxito. La resolución que hace /a es inversa: de dirección IP a nombre, no de nombre a dirección. Seguir enviando solicitudes hasta que se interrumpa es el parámetro /t. Registrar la ruta de la solicitud y de la respuesta es lo que hace el parámetro /r.",
+  "source_quote": "Especifica que la resolución inversa de nombres se realice en la dirección IP de destino. Si esta operación se completa con éxito, ping muestra el nombre del host correspondiente.",
+  "covers": []
+ },
+ {
+  "id": "m06-l08-q110",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `ms-win-ping.html`; «ping»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Windows 11, ¿entre qué valores debe estar el recuento que se indica con el parámetro /r de ping para registrar la ruta?",
+  "options": {
+   "a": "Mínimo 0 y máximo 9",
+   "b": "Mínimo 1 y máximo 255",
+   "c": "Mínimo 1 y máximo 9",
+   "d": "Mínimo 1 y máximo 4"
+  },
+  "correct": "c",
+  "difficulty": 3,
+  "tags": [
+   "cantidad"
+  ],
+  "distractor_pattern": "cifra-cercana",
+  "explanation": "El recuento de /r, que registra la ruta tomada, debe ser un mínimo de 1 y un máximo de 9. Mínimo 1 y máximo 4 es el intervalo del recuento de /s, el de las marcas de tiempo. El recuento mínimo es 1, no 0. 255 es el TTL máximo, no el máximo del recuento de /r.",
+  "source_quote": "El recuento debe ser un mínimo de 1 y un máximo de 9.",
+  "covers": []
+ },
+ {
+  "id": "m06-l08-q111",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `ms-win-ping.html`; «ping»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Windows 11, ¿entre qué valores debe estar el recuento que se indica con el parámetro /s de ping para registrar la hora de llegada de cada salto?",
+  "options": {
+   "a": "Mínimo 1 y máximo 9",
+   "b": "Mínimo 1 y máximo 4",
+   "c": "Mínimo 1 y máximo 32",
+   "d": "Mínimo 4 y máximo 9"
+  },
+  "correct": "b",
+  "difficulty": 3,
+  "tags": [
+   "cantidad"
+  ],
+  "distractor_pattern": "cifra-cercana",
+  "explanation": "El recuento de /s, que usa la marca de tiempo de Internet, debe ser un mínimo de 1 y un máximo de 4. Mínimo 1 y máximo 9 es el intervalo del recuento de /r. 32 es la longitud predeterminada del campo de datos, no el máximo del recuento de /s. El mínimo del recuento es 1, no 4.",
+  "source_quote": "El recuento debe ser un mínimo de 1 y un máximo de 4.",
+  "covers": []
+ },
+ {
+  "id": "m06-l08-q112",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `ms-win-ping.html`; «ping»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "¿Cuál de las siguientes exigencias impone, en Windows 11, la ruta de origen estricta que ping usa con el parámetro /k?",
+  "options": {
+   "a": "Que el siguiente destino intermedio sea accesible directamente, como vecino en una interfaz del enrutador",
+   "b": "Que los destinos intermedios puedan estar separados por uno o varios enrutadores",
+   "c": "Que la lista de hosts tenga al menos nueve direcciones o nombres",
+   "d": "Que se registre la ruta tomada por la solicitud de eco y su respuesta"
+  },
+  "correct": "a",
+  "difficulty": 3,
+  "tags": [
+   "configuración",
+   "comportamiento"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "Con la ruta de origen estricta, el siguiente destino intermedio debe ser accesible directamente, es decir, un vecino en una interfaz del enrutador. Que los destinos estén separados por uno o varios enrutadores es lo que permite la ruta de origen flexible (/j). Registrar la ruta es la función de /r. La lista de hosts admite como máximo nueve direcciones o nombres, no un mínimo de nueve.",
+  "source_quote": "Con el enrutamiento de origen estricto, el siguiente destino intermedio debe ser accesible directamente (debe ser un vecino en una interfaz del enrutador).",
+  "covers": []
+ },
+ {
+  "id": "m06-l08-q113",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `ms-win-ping.html`; «ping»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "¿Cuál de las siguientes utilidades tiene, en Windows 11, el parámetro /f de ping, que envía las solicitudes con la marca No fragmentar establecida en 1?",
+  "options": {
+   "a": "Para especificar el tipo de servicio (TOS) de los mensajes",
+   "b": "Para solucionar problemas de la unidad de transmisión máxima",
+   "c": "Para fijar el tiempo de vida (TTL) de los mensajes que se envían",
+   "d": "Para registrar la hora de llegada de cada salto de la ruta"
+  },
+  "correct": "b",
+  "difficulty": 3,
+  "tags": [
+   "configuración"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "El parámetro /f, solo disponible en IPv4, impide que los enrutadores fragmenten la solicitud y es útil para solucionar problemas de PMTU. Registrar la hora de llegada de cada salto es lo que hace /s. El TTL se fija con otro parámetro, que especifica el campo Período de vida del encabezado IP. El tipo de servicio se especifica con /v.",
+  "source_quote": "Los enrutadores no pueden fragmentar el mensaje de solicitud de eco en la ruta de acceso al destino. Este parámetro es útil para solucionar problemas de unidad de transmisión máxima (PMTU).",
+  "covers": []
+ },
+ {
+  "id": "m06-l08-q114",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `ms-win-ping.html`; «ping»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Windows 11, ¿cuál es el valor predeterminado del campo Tipo de servicio (TOS) que se fija con el parámetro /v de ping?",
+  "options": {
+   "a": "4, y se especifica como un valor decimal de 1 a 9",
+   "b": "32, y se especifica como un valor decimal de 0 a 255",
+   "c": "0, y se especifica como un valor decimal de 0 a 255",
+   "d": "255, y se especifica como un valor decimal de 0 a 255"
+  },
+  "correct": "c",
+  "difficulty": 3,
+  "tags": [
+   "cantidad",
+   "configuración"
+  ],
+  "distractor_pattern": "cifra-cercana",
+  "explanation": "El valor predeterminado de TOS es 0, y se especifica como un valor decimal de 0 a 255. 32 es la longitud predeterminada del campo de datos, no el valor predeterminado de TOS. 4 es el número de solicitudes por defecto y el intervalo de 1 a 9 es el del recuento de /r. 255 es el máximo del intervalo, no el valor predeterminado, que es 0.",
+  "source_quote": "El valor predeterminado es 0. TOS se especifica como un valor decimal de 0 a 255.",
+  "covers": []
+ },
+ {
+  "id": "m06-l08-q115",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `ms-win-ping.html`; «ping»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "¿Cuál de los siguientes pares de parámetros de ping de Windows 11 están disponibles solo para IPv6, según la documentación?",
+  "options": {
+   "a": "/R y /S, el seguimiento de la ruta y la dirección de origen",
+   "b": "/n y /l, el número de solicitudes y la longitud de los datos",
+   "c": "/r y /j, el registro de ruta y la ruta de origen flexible",
+   "d": "/f y /v, la marca No fragmentar y el tipo de servicio"
+  },
+  "correct": "a",
+  "difficulty": 3,
+  "tags": [
+   "configuración"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "Los parámetros /R (seguimiento de la ruta de ida y vuelta) y /S (dirección de origen) están disponibles solo para IPv6. /f y /v están disponibles solo para IPv4. /r y /j están disponibles solo para IPv4. /n y /l son parámetros generales de número y tamaño de las solicitudes, sin esa restricción a IPv6.",
+  "source_quote": "Especifica que se realiza un seguimiento de la ruta de acceso de ida y vuelta (disponible solo en IPv6).",
+  "covers": []
+ },
+ {
+  "id": "m06-l08-q116",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `ms-win-ping.html`; «ping»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Windows 11, si el ping a una dirección IP funciona pero el ping al nombre del equipo no, ¿qué indica la documentación de ping?",
+  "options": {
+   "a": "Es posible que haya un problema de conectividad IP con el destino",
+   "b": "Es seguro que el equipo de destino no está encendido",
+   "c": "Es posible que el protocolo ICMP esté desinstalado en el equipo local",
+   "d": "Es posible que haya un problema de resolución de nombres"
+  },
+  "correct": "d",
+  "difficulty": 2,
+  "tags": [
+   "comportamiento"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "Si el ping a la IP funciona y el ping al nombre no, es posible que haya un problema de resolución de nombres. Un ping correcto a la IP demuestra la conectividad IP, que es lo que ping comprueba. Si el ping a la IP funciona, el equipo de destino responde, así que no puede estar apagado. ping funciona con la IP, así que el envío de solicitudes de eco ICMP está operativo en el equipo local.",
+  "source_quote": "Si el ping a la dirección IP se realiza correctamente, pero el ping al nombre del equipo no, es posible que tenga un problema de resolución de nombres.",
+  "covers": []
+ },
+ {
+  "id": "m06-l08-q117",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `ms-win-ping.html`; «ping»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "¿Cuál de los siguientes medios permite resolver el nombre de equipo que se indica a ping en Windows 11, según la documentación?",
+  "options": {
+   "a": "Solo mediante consultas del sistema de nombres de dominio",
+   "b": "Mediante el archivo hosts local, consultas DNS o técnicas de resolución de nombres NetBIOS",
+   "c": "Solo mediante el archivo hosts local del equipo",
+   "d": "Solo mediante técnicas de resolución de nombres NetBIOS"
+  },
+  "correct": "b",
+  "difficulty": 2,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "texto-alterado",
+  "explanation": "El nombre debe poder resolverse por el archivo hosts local, por consultas DNS o por técnicas de resolución de nombres NetBIOS. El archivo hosts es uno de los tres medios, no el único. Las consultas DNS son uno de los tres medios, no el único. NetBIOS es uno de los tres medios, no el único.",
+  "source_quote": "asegúrese de que el nombre de equipo que especifique se puede resolver a través del archivo hosts local, utilizando consultas del sistema de nombres de dominio (DNS) o mediante técnicas de resolución de nombres NetBIOS.",
+  "covers": []
+ },
+ {
+  "id": "m06-l08-q118",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `ms-win-ping.html`; «ping»",
+  "stem_form": "enunciado",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Windows 11, si el comando ping se escribe sin ningún parámetro, el sistema muestra:",
+  "options": {
+   "a": "El error «Tiempo de espera de solicitud» tras cuatro intentos",
+   "b": "Los tiempos de ida y vuelta hacia el equipo local",
+   "c": "El contenido de la Ayuda",
+   "d": "Una solicitud de eco enviada a la puerta de enlace predeterminada"
+  },
+  "correct": "c",
+  "difficulty": 1,
+  "tags": [
+   "comportamiento"
+  ],
+  "distractor_pattern": "texto-alterado",
+  "explanation": "Si se usa sin parámetros, ping muestra el contenido de la Ayuda. El error de tiempo de espera aparece cuando no se recibe una respuesta de eco dentro del tiempo de espera, no al usarlo sin parámetros. Los tiempos de ida y vuelta se muestran al recibir respuestas de un destino, que sin parámetros no se indica. Sin parámetros no se indica destino, por lo que no envía ninguna solicitud de eco.",
+  "source_quote": "Si se usa sin parámetros, este comando muestra el contenido de la Ayuda.",
+  "covers": []
+ },
+ {
+  "id": "m06-l08-q119",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `ms-win-ping.html`; «ping»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Windows 11, ¿cuántas direcciones o nombres admite como máximo la lista de hosts de los parámetros /j y /k de ping?",
+  "options": {
+   "a": "Nueve direcciones o nombres como máximo",
+   "b": "255 direcciones o nombres como máximo",
+   "c": "Treinta y dos direcciones o nombres como máximo",
+   "d": "Cuatro direcciones o nombres como máximo"
+  },
+  "correct": "a",
+  "difficulty": 3,
+  "tags": [
+   "cantidad"
+  ],
+  "distractor_pattern": "cifra-cercana",
+  "explanation": "La lista de hosts admite como máximo 9 direcciones o nombres. Cuatro es el máximo del recuento de /s y el número de solicitudes por defecto, no el de la lista de hosts. 32 es la longitud predeterminada del campo de datos. 255 es el valor máximo del TTL y del TOS.",
+  "source_quote": "El número máximo de direcciones o nombres de la lista de hosts es 9.",
+  "covers": []
+ },
+ {
+  "id": "m06-l08-q120",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.8.8. HTTP»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "¿Cuál de los siguientes esquemas sigue el protocolo HTTP, el más utilizado para la navegación web, según el glosario de INCIBE?",
+  "options": {
+   "a": "Petición-respuesta: el servidor pide los recursos al navegador y este se los envía",
+   "b": "Suscripción: el servidor envía los recursos al navegador sin que este los pida",
+   "c": "Conexión permanente: el navegador y el servidor mantienen un canal cifrado abierto",
+   "d": "Petición-respuesta: el navegador pide los recursos y el servidor se los envía si los tiene"
+  },
+  "correct": "d",
+  "difficulty": 1,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "texto-alterado",
+  "explanation": "HTTP sigue un esquema petición-respuesta: el navegador pide los recursos que necesita y el servidor se los envía si dispone de ellos. Invertir los papeles contradice la página: es el navegador quien realiza las peticiones. El servidor solo envía los recursos que el navegador ha pedido. La información enviada por HTTP va en texto claro, no por un canal cifrado.",
+  "source_quote": "Se trata de un protocolo que sigue un esquema petición-respuesta. El navegador realiza peticiones de los recursos que necesita (la web, las imágenes, los videos…) y el servidor se los envía si dispone de ellos.",
+  "covers": [
+   "family:HTTP y HTTPS"
+  ]
+ },
+ {
+  "id": "m06-l08-q121",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.8.8. HTTP»",
+  "stem_form": "senale",
+  "names_article": false,
+  "negative": false,
+  "prompt": "Señale con qué se identifica cada pieza de información transmitida por HTTP, según el glosario de términos de ciberseguridad de INCIBE:",
+  "options": {
+   "a": "Con una dirección IP, que identifica al sistema conectado",
+   "b": "Con una URL (Uniform Resource Locator)",
+   "c": "Con un certificado X.509 que autentica al servidor",
+   "d": "Con una dirección MAC, escrita en el hardware de la red"
+  },
+  "correct": "b",
+  "difficulty": 2,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "En HTTP, cada pieza de información transmitida se identifica con una URL (Uniform Resource Locator). La dirección MAC identifica a un dispositivo conectado a una red, no a cada pieza de información. La dirección IP identifica a todo sistema conectado a una red, no cada recurso transmitido. El certificado X.509 se usa en SSL para autenticar, no para identificar cada recurso.",
+  "source_quote": "A cada pieza de información transmitida se la identifica mediante un identificador llamado URL (del inglés Uniform Resource Locator).",
+  "covers": [
+   "family:HTTP y HTTPS"
+  ]
+ },
+ {
+  "id": "m06-l08-q122",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.8.8. HTTP»",
+  "stem_form": "senale",
+  "names_article": false,
+  "negative": false,
+  "prompt": "Señale lo que implica que HTTP envíe la información en texto claro, según el glosario de términos de ciberseguridad de INCIBE:",
+  "options": {
+   "a": "Que solo el servidor de destino puede leer lo que envía el navegador a la página",
+   "b": "Que el navegador y el servidor intercambian antes una clave de cifrado",
+   "c": "Que cualquiera que intercepte el tráfico puede leer lo enviado y recibido",
+   "d": "Que la información se cifra antes de ser enviada por la red"
+  },
+  "correct": "c",
+  "difficulty": 1,
+  "tags": [
+   "concepto",
+   "comportamiento"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "HTTP envía la información en texto claro: cualquiera que intercepte el tráfico de red puede leer lo que se envía y se recibe. Que solo el servidor pueda leerla contradice que cualquiera que intercepte el tráfico puede hacerlo. Cifrar la información antes de enviarla es lo que hace HTTPS. Intercambiar antes una clave entre navegador y servidor es lo que se hace en HTTPS para cifrar el tráfico.",
+  "source_quote": "La información enviada mediante HTTP se envía en texto claro, lo que quiere decir que cualquiera que intercepte el tráfico de red puede leer lo que se está enviando y recibiendo.",
+  "covers": [
+   "lmc-9",
+   "family:HTTP y HTTPS",
+   "official:conv2020·P1·67"
+  ]
+ },
+ {
+  "id": "m06-l08-q123",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.8.8. HTTP»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "¿Cuál de las siguientes razones explica por qué se desarrolló el protocolo HTTPS, según el glosario de términos de ciberseguridad de INCIBE?",
+  "options": {
+   "a": "Porque HTTP es un protocolo poco utilizado para la navegación web",
+   "b": "Porque HTTP envía en texto claro y lo puede leer quien intercepte el tráfico",
+   "c": "Porque HTTP no identifica con una URL cada pieza de información transmitida",
+   "d": "Porque HTTP no sigue un esquema de petición y respuesta entre navegador y servidor"
+  },
+  "correct": "b",
+  "difficulty": 2,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "texto-alterado",
+  "explanation": "HTTPS se desarrolló porque HTTP envía en texto claro, de modo que cualquiera que intercepte el tráfico puede leerlo; en HTTPS la información se cifra antes de enviarse. HTTP sí sigue un esquema petición-respuesta, y HTTPS se basa en él. HTTP sí identifica cada pieza de información con una URL. HTTP es el protocolo más utilizado para la navegación web.",
+  "source_quote": "Por esta razón se desarrolló el protocolo HTTPS, en el que la información es cifrada antes de ser enviada por la red.",
+  "covers": [
+   "lmc-9",
+   "family:HTTP y HTTPS",
+   "official:conv2025_X·P1·68",
+   "official:conv2020·P1·67"
+  ]
+ },
+ {
+  "id": "m06-l08-q124",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.8.9. HTTPS»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "¿Cuál de las siguientes formas de cifrado se aplica al tráfico HTTP en HTTPS, según el glosario de términos de ciberseguridad de INCIBE?",
+  "options": {
+   "a": "Con cifrado simétrico, cuya clave se intercambió antes entre navegador y servidor",
+   "b": "Con un algoritmo de cifrado asimétrico aplicado a todo el tráfico HTTP de la comunicación",
+   "c": "Sin cifrar el tráfico: solo se autentica el servidor con un certificado",
+   "d": "Con una clave simétrica fija que genera el navegador sin intercambiarla con el servidor"
+  },
+  "correct": "a",
+  "difficulty": 1,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "texto-alterado",
+  "explanation": "En HTTPS el tráfico HTTP se cifra con un algoritmo simétrico cuya clave se ha intercambiado previamente entre el navegador y el servidor. El tráfico no se cifra con un algoritmo asimétrico: es un algoritmo simétrico. La clave no es fija ni se genera sin intercambio: se ha intercambiado previamente entre navegador y servidor. HTTPS cifra el tráfico HTTP, que es lo que lo distingue de HTTP.",
+  "source_quote": "En HTTPS el tráfico HTTP es cifrado mediante un algoritmo de cifrado simétrico cuya clave ha sido previamente intercambiada entre el navegador y el servidor.",
+  "covers": [
+   "lmc-9",
+   "family:HTTP y HTTPS"
+  ]
+ },
+ {
+  "id": "m06-l08-q125",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.8.9. HTTPS»",
+  "stem_form": "senale",
+  "names_article": false,
+  "negative": false,
+  "prompt": "Señale la definición de HTTPS que ofrece el glosario de términos de ciberseguridad de INCIBE en su apartado sobre protocolos:",
+  "options": {
+   "a": "Un protocolo de red basado en FTP, destinado a la transferencia segura de ficheros",
+   "b": "Un protocolo de red basado en HTTP, destinado a la transferencia segura de datos de hipertexto",
+   "c": "Un protocolo de red basado en TCP/IP, destinado a traducir nombres de dominio de forma segura",
+   "d": "Un protocolo de red basado en SMTP, destinado al envío seguro de correo electrónico"
+  },
+  "correct": "b",
+  "difficulty": 1,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "HTTPS es un protocolo de red basado en HTTP, destinado a la transferencia segura de datos de hipertexto; en otras palabras, la versión segura de HTTP. La versión segura de FTP es SFTP, que usa SSH para la transferencia de datos entre cliente y servidor. SMTP intercambia mensajes de correo electrónico y no tiene una versión segura llamada HTTPS. Traducir nombres de dominio en direcciones IP es la función del DNS.",
+  "source_quote": "Protocolo seguro de transferencia de hipertexto, más conocido por sus siglas HTTPS, del inglés Hypertext Transfer Protocol Secure, es un protocolo de red basado en el protocolo HTTP, destinado a la transferencia segura de datos de hipertexto.",
+  "covers": [
+   "lmc-9",
+   "family:HTTP y HTTPS"
+  ]
+ },
+ {
+  "id": "m06-l08-q126",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.18.24. SSL»",
+  "stem_form": "enunciado",
+  "names_article": false,
+  "negative": false,
+  "prompt": "El protocolo SSL, que proporciona autenticación y privacidad entre extremos mediante criptografía, ha evolucionado hacia:",
+  "options": {
+   "a": "SFTP, siglas de protocolo de transferencia segura de archivos",
+   "b": "DNSSEC, siglas de extensiones de seguridad del sistema de nombres de dominio",
+   "c": "SMTP, siglas de protocolo simple de transferencia de correo",
+   "d": "TLS, siglas de seguridad de la capa de transporte"
+  },
+  "correct": "d",
+  "difficulty": 2,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "SSL ha evolucionado hacia TLS (Transport Layer Security, seguridad de la capa de transporte), muy utilizado en la actualidad. SFTP es el protocolo de transferencia segura de archivos que usa SSH, no la evolución de SSL. DNSSEC añade una capa de seguridad al protocolo DNS, no es la evolución de SSL. SMTP es el protocolo de intercambio de correo electrónico.",
+  "source_quote": "SSL ha evolucionado hacia TLS, siglas en inglés de «seguridad de la capa de transporte» (Transport Layer Security) protocolo ampliamente utilizado en la actualidad.",
+  "covers": [
+   "lmc-9",
+   "family:HTTP y HTTPS"
+  ]
+ },
+ {
+  "id": "m06-l08-q127",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.18.24. SSL»",
+  "stem_form": "senale",
+  "names_article": false,
+  "negative": false,
+  "prompt": "Señale qué lado se autentica de forma general en una comunicación SSL, según el glosario de términos de ciberseguridad de INCIBE:",
+  "options": {
+   "a": "Solo el lado del servidor, mientras que el cliente se mantiene sin autenticar",
+   "b": "Ambos lados, el servidor y el cliente, mediante certificados X.509",
+   "c": "Solo el lado del cliente, mientras que el servidor se mantiene sin autenticar",
+   "d": "Ninguno de los dos lados, porque SSL solo cifra la información"
+  },
+  "correct": "a",
+  "difficulty": 3,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "texto-alterado",
+  "explanation": "En SSL, de forma general solo se autentica el lado del servidor; la autenticación mutua exige una infraestructura de claves públicas (PKI) para los clientes. El cliente es el que se mantiene sin autenticar, no el servidor. La autenticación de ambos lados exige desplegar una infraestructura de claves públicas para los clientes, y no es lo general. SSL proporciona autenticación y privacidad, no solo cifrado.",
+  "source_quote": "En comunicaciones SSL de forma general solo se autentica el lado del servidor mientras que el cliente se mantiene sin autenticar",
+  "covers": []
+ },
+ {
+  "id": "m06-l08-q128",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.6.12. FTP»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "¿Cuál de las siguientes acciones puede hacer un equipo cliente con el servicio FTP, según el glosario de términos de ciberseguridad de INCIBE?",
+  "options": {
+   "a": "Conectarse a un servidor para descargar archivos o enviarle archivos, sea cual sea el sistema operativo",
+   "b": "Solo enviar archivos a un servidor, sin poder descargarlos",
+   "c": "Solo descargar archivos de un servidor, sin poder enviarle archivos",
+   "d": "Conectarse a un servidor solo si ambos equipos usan el mismo sistema operativo"
+  },
+  "correct": "a",
+  "difficulty": 2,
+  "tags": [
+   "concepto",
+   "comportamiento"
+  ],
+  "distractor_pattern": "texto-alterado",
+  "explanation": "Con FTP, desde un equipo cliente se puede conectar a un servidor para descargar archivos o enviarle archivos, con independencia del sistema operativo de cada equipo. FTP permite también enviar archivos al servidor, no solo descargarlos. FTP permite también descargar archivos del servidor, no solo enviarlos. FTP funciona independientemente del sistema operativo utilizado en cada equipo.",
+  "source_quote": "desde un equipo cliente se puede conectar a un servidor para descargar archivos desde él o para enviarle archivos, independientemente del sistema operativo utilizado en cada equipo.",
+  "covers": [
+   "lmc-7",
+   "official:conv2022·P1·66",
+   "family:Red: IP, DNS, TCP/IP, FTP"
+  ]
+ },
+ {
+  "id": "m06-l08-q129",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.6.12. FTP»",
+  "stem_form": "senale",
+  "names_article": false,
+  "negative": false,
+  "prompt": "Señale a qué se hace referencia con las siglas FTP (File Transfer Protocol), según el glosario de términos de ciberseguridad de INCIBE:",
+  "options": {
+   "a": "A un servicio que traduce nombres en direcciones IP y a los servidores que lo prestan",
+   "b": "A un protocolo de navegación web de petición y respuesta, que usa URL",
+   "c": "A un servicio de transferencia de ficheros por una red y a los servidores que lo prestan",
+   "d": "A un servicio de envío de correo electrónico y a los servidores que lo prestan"
+  },
+  "correct": "c",
+  "difficulty": 1,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "FTP es un servicio de transferencia de ficheros a través de una red y también los servidores que lo prestan. El servicio de envío de correo electrónico corresponde a SMTP. El protocolo de navegación web de petición y respuesta, con URL, es HTTP. Traducir nombres en direcciones IP es la función del servicio DNS.",
+  "source_quote": "Por FTP (del acrónimo inglés File Transfer Protocol) se hace referencia a un servicio de transferencia de ficheros a través de una red, así como a los servidores que permiten prestar este servicio.",
+  "covers": [
+   "lmc-7",
+   "family:Red: IP, DNS, TCP/IP, FTP"
+  ]
+ },
+ {
+  "id": "m06-l08-q130",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.18.16. SMTP»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "¿Cuál de las siguientes tareas tiene SMTP frente a los protocolos POP e IMAP, según el glosario de términos de ciberseguridad de INCIBE?",
+  "options": {
+   "a": "Enviar el correo, mientras que POP o IMAP se emplean para recibirlo",
+   "b": "Enviar y recibir el correo, sin necesidad de usar POP ni IMAP",
+   "c": "Recibir el correo, mientras que POP o IMAP se emplean para enviarlo",
+   "d": "Descargar ficheros del servidor, mientras que POP o IMAP envían el correo"
+  },
+  "correct": "a",
+  "difficulty": 1,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "texto-alterado",
+  "explanation": "A SMTP se le dejó la tarea específica de enviar correo, y la recepción se hace con POP o IMAP. Invertir las tareas contradice la página: SMTP envía y POP o IMAP reciben. SMTP tiene limitaciones en la recepción, por lo que se crearon POP e IMAP para recibir. La descarga de ficheros del servidor es la función de FTP, no la de SMTP.",
+  "source_quote": "otorgando a SMTP la tarea específica de enviar correo, y recibirlos empleando los otros protocolos antes mencionados (POP O IMAP).",
+  "covers": [
+   "official:conv2020·P1·69"
+  ]
+ },
+ {
+  "id": "m06-l08-q131",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.18.16. SMTP»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "¿Cuál de las siguientes limitaciones señala el glosario de INCIBE en el protocolo SMTP, el más comúnmente utilizado para el intercambio de correo?",
+  "options": {
+   "a": "Tiene limitaciones en el envío de mensajes desde el servidor de origen",
+   "b": "Tiene limitaciones en la recepción de mensajes en el servidor de destino",
+   "c": "No permite enviar mensajes a más de un destinatario a la vez",
+   "d": "Solo permite enviar mensajes de texto, sin adjuntos"
+  },
+  "correct": "b",
+  "difficulty": 2,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "texto-alterado",
+  "explanation": "SMTP tiene algunas limitaciones en cuanto a la recepción de mensajes en el servidor de destino, y por eso se crearon POP e IMAP. La limitación está en la recepción de mensajes, no en el envío, que es su tarea específica. La página no habla de adjuntos: la limitación que señala es la de la recepción en el servidor de destino. La limitación que cita no es el número de destinatarios, sino la recepción en el servidor de destino.",
+  "source_quote": "Este protocolo, aunque es el más comúnmente utilizado, posee algunas limitaciones en cuanto a la recepción de mensajes en el servidor de destino (cola de mensajes recibidos).",
+  "covers": []
+ },
+ {
+  "id": "m06-l08-q132",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.3.32. Correo spam»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "¿Cuál de las siguientes características define al correo spam, según el glosario de términos de ciberseguridad de INCIBE?",
+  "options": {
+   "a": "Prometer negocios muy rentables a cambio de una transferencia de dinero",
+   "b": "Usar el nombre de una persona u organismo de confianza para obtener datos",
+   "c": "Ser solicitado por el receptor y enviarse a un único destinatario",
+   "d": "Ser no solicitado por el receptor y enviarse en grandes cantidades"
+  },
+  "correct": "d",
+  "difficulty": 1,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "El correo spam es un correo no solicitado por el receptor y que se envía en grandes cantidades. Que sea solicitado por el receptor y a un único destinatario contradice la definición. Usar el nombre de una persona u organismo de confianza para obtener datos es el correo de suplantación. Prometer negocios muy rentables a cambio de una transferencia de dinero es el esquema de las cartas nigerianas.",
+  "source_quote": "Tipo de correo electrónico que se caracteriza por ser no solicitado por el receptor y que se envía en grandes cantidades con fines publicitarios o como complemento de actividades maliciosas como los ataques de phishing.",
+  "covers": [
+   "lmc-2",
+   "official:conv2025_A·P1·69",
+   "family:Navegación y servicios web"
+  ]
+ },
+ {
+  "id": "m06-l08-q133",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.3.32. Correo spam»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "¿Cuál de las siguientes finalidades tiene el envío de correo spam, según el glosario de términos de ciberseguridad de INCIBE?",
+  "options": {
+   "a": "Para comprobar si el usuario que lo recibe es un humano o un bot",
+   "b": "Con fines publicitarios o como complemento de actividades maliciosas como los ataques de phishing",
+   "c": "Para intercambiar mensajes de correo electrónico entre servidores de correo",
+   "d": "Para evitar que el usuario introduzca el usuario y la contraseña en cada página"
+  },
+  "correct": "b",
+  "difficulty": 1,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "El spam se envía con fines publicitarios o como complemento de actividades maliciosas como los ataques de phishing. Comprobar si el usuario es un humano o un bot es la función del CAPTCHA. Evitar introducir el usuario y la contraseña en cada página es una de las funciones de las cookies. Intercambiar mensajes de correo entre servidores es lo que hace SMTP.",
+  "source_quote": "que se envía en grandes cantidades con fines publicitarios o como complemento de actividades maliciosas como los ataques de phishing.",
+  "covers": [
+   "lmc-2",
+   "family:Navegación y servicios web"
+  ]
+ },
+ {
+  "id": "m06-l08-q134",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.3.32. Correo spam»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "¿Qué sinónimo da el glosario de términos de ciberseguridad de INCIBE para el término correo spam en la entrada correspondiente?",
+  "options": {
+   "a": "Cartas nigerianas",
+   "b": "Correo de suplantación",
+   "c": "Correo basura",
+   "d": "Phishing, que es otro tipo de ataque"
+  },
+  "correct": "c",
+  "difficulty": 2,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "El glosario da como sinónimo de correo spam el término correo basura. Correo de suplantación es una entrada aparte: un mensaje que usa el nombre de una persona u organismo de confianza. Cartas nigerianas es otra entrada aparte: una comunicación inesperada que promete negocios muy rentables. Phishing es otra entrada aparte: una técnica de suplantación para conseguir credenciales o datos de tarjeta; el spam solo la complementa.",
+  "source_quote": "Sinónimo: Correo basura",
+  "covers": [
+   "lmc-2",
+   "family:Navegación y servicios web"
+  ]
+ },
+ {
+  "id": "m06-l08-q135",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.3.2. Captcha»",
+  "stem_form": "enunciado",
+  "names_article": false,
+  "negative": false,
+  "prompt": "Según el glosario de términos de ciberseguridad de INCIBE, las siglas CAPTCHA corresponden a una:",
+  "options": {
+   "a": "Protocolo de transferencia automática para cifrar la identidad del usuario en cada página",
+   "b": "Prueba de Turing manual y privada para identificar a un usuario registrado en un sitio",
+   "c": "Prueba pública de contraseñas para autenticar a los ordenadores de una red privada",
+   "d": "Prueba de Turing automática y pública para diferenciar ordenadores de humanos"
+  },
+  "correct": "d",
+  "difficulty": 1,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "texto-alterado",
+  "explanation": "CAPTCHA es el acrónimo de «Completely Automated Public Turing test to tell Computers and Humans Apart»: prueba de Turing completamente automática y pública para diferenciar ordenadores de humanos. La prueba es completamente automática y pública, no manual ni privada, y diferencia humanos de ordenadores sin identificar a un usuario registrado. No es un protocolo de transferencia ni cifra la identidad: es una medida de seguridad de desafío-respuesta. Es una prueba para diferenciar a ordenadores de humanos, no para autenticar ordenadores ni contraseñas.",
+  "source_quote": "Acrónimo en inglés de Completely Automated Public Turing test to tell Computers and Humans Apart; en español, prueba de Turing completamente automática y pública para diferenciar ordenadores de humanos",
+  "covers": [
+   "official:conv2022·P1·43",
+   "official:conv2020_X·P1·70"
+  ]
+ },
+ {
+  "id": "m06-l08-q136",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.3.2. Captcha»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "¿Cuál de los siguientes tipos de pruebas realiza la medida de seguridad CAPTCHA, según el glosario de términos de ciberseguridad de INCIBE?",
+  "options": {
+   "a": "Pruebas de cifrado simétrico controladas por el usuario",
+   "b": "Pruebas de autenticación con certificado controladas por el servidor",
+   "c": "Pruebas de petición-respuesta controladas por el navegador",
+   "d": "Pruebas de desafío-respuesta controladas por máquinas"
+  },
+  "correct": "d",
+  "difficulty": 2,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "texto-alterado",
+  "explanation": "CAPTCHA consiste en pruebas de desafío-respuesta controladas por máquinas, para saber si el usuario es un humano o un bot según su respuesta. No son pruebas de cifrado simétrico: es un desafío-respuesta que sirve para distinguir humanos de bots. No son pruebas con certificado: se trata de desafíos cuya respuesta indica si el usuario es un humano o un bot. El esquema petición-respuesta es el de HTTP; el CAPTCHA es una prueba de desafío-respuesta.",
+  "source_quote": "que consiste en la realización de pruebas desafío-respuesta controladas por máquinas que sirven para determinar cuándo el usuario es un humano o un bot según la respuesta a dicho desafío.",
+  "covers": []
+ },
+ {
+  "id": "m06-l08-q137",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.18.8. Servidor»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "Según el glosario de términos de ciberseguridad de INCIBE, ¿qué se entiende por servidor en el contexto de las redes y los servicios?",
+  "options": {
+   "a": "Solo el programa de software que realiza tareas, nunca el ordenador físico",
+   "b": "Solo el ordenador físico en el que funciona el programa, nunca el programa",
+   "c": "El equipo que descarga archivos de otras máquinas con un cliente FTP",
+   "d": "Tanto el equipo que almacena una información como el programa que la gestiona y la ofrece"
+  },
+  "correct": "d",
+  "difficulty": 1,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "texto-alterado",
+  "explanation": "Por servidor se entiende tanto el equipo que almacena una información como el programa que la gestiona y la ofrece a otras máquinas. Decir que es solo el ordenador excluye al software, que el glosario también incluye. Decir que es solo el programa excluye al ordenador físico, que el glosario también incluye. El equipo que descarga archivos mediante FTP es el cliente; el servidor es el que ofrece los archivos.",
+  "source_quote": "Así, se entiende por servidor tanto el equipo que almacena una determinada información como el programa de software encargado de gestionar dicha información y ofrecerla.",
+  "covers": []
+ },
+ {
+  "id": "m06-l08-q138",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.20.1. URL»",
+  "stem_form": "enunciado",
+  "names_article": false,
+  "negative": false,
+  "prompt": "Según el glosario de términos de ciberseguridad de INCIBE, una URL (Uniform Resource Locator) es:",
+  "options": {
+   "a": "El servicio que traduce nombres de dominio en direcciones IP",
+   "b": "La dirección que identifica un contenido colgado en Internet",
+   "c": "El pequeño fichero que guarda un sitio web en el equipo del usuario",
+   "d": "El número único que identifica a todo sistema conectado a una red"
+  },
+  "correct": "b",
+  "difficulty": 1,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "Las siglas URL hacen referencia a la dirección que identifica un contenido colgado en Internet. El número único que identifica a todo sistema conectado a una red es la dirección IP. El servicio que traduce nombres de dominio en direcciones IP es el DNS. El pequeño fichero que guarda un sitio web en el equipo del usuario es la cookie.",
+  "source_quote": "Las siglas URL (Uniform Resource Locator) hacen referencia a la dirección que identifica un contenido colgado en Internet.",
+  "covers": []
+ },
+ {
+  "id": "m06-l08-q139",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `whatwg-html-introduccion.html`; «1.3 Background»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "¿Qué es HTML, según la introducción del estándar HTML del WHATWG, en relación con la World Wide Web?",
+  "options": {
+   "a": "El protocolo de transferencia de hipertexto de la World Wide Web",
+   "b": "El lenguaje de marcado principal de la World Wide Web",
+   "c": "El lenguaje de programación que ejecutan los navegadores en la Web",
+   "d": "El lenguaje basado en XML que sustituyó a HTML en la Web"
+  },
+  "correct": "b",
+  "difficulty": 1,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "El estándar define HTML como el lenguaje de marcado principal de la World Wide Web. El protocolo de transferencia de hipertexto es HTTP, y HTML es un lenguaje de marcado, no un protocolo. XHTML fue el equivalente basado en XML, pero el interés por evolucionar HTML renació en 2003, sin que lo sustituyera. Los scripts en JavaScript son los programas que se insertan en la página; HTML es el lenguaje de marcado.",
+  "source_quote": "HTML is the World Wide Web's core markup language.",
+  "covers": [
+   "lmc-5",
+   "official:conv2020·P1·65",
+   "official:conv2020_X·P1·69",
+   "family:Lenguajes web (HTML, JavaScript)"
+  ]
+ },
+ {
+  "id": "m06-l08-q140",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `whatwg-html-introduccion.html`; «1.3 Background»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "Según el estándar HTML del WHATWG, ¿para qué se diseñó principalmente HTML en su origen?",
+  "options": {
+   "a": "Para transferir ficheros entre un cliente y un servidor",
+   "b": "Para intercambiar mensajes de correo electrónico entre servidores",
+   "c": "Para describir aplicaciones web interactivas en el navegador",
+   "d": "Para describir semánticamente documentos científicos"
+  },
+  "correct": "d",
+  "difficulty": 2,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "En su origen, HTML se diseñó principalmente como un lenguaje para describir semánticamente documentos científicos; después se adaptó a otros documentos y aplicaciones. Describir aplicaciones es una adaptación posterior de su diseño, no el propósito original. Transferir ficheros entre cliente y servidor es lo que hace FTP. Intercambiar correo entre servidores es lo que hace SMTP.",
+  "source_quote": "Originally, HTML was primarily designed as a language for semantically describing scientific documents.",
+  "covers": [
+   "family:Lenguajes web (HTML, JavaScript)"
+  ]
+ },
+ {
+  "id": "m06-l08-q141",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `ms-win-extensiones.html`; «Extensiones de nombre de archivo comunes en Windows»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "¿Cuál de los siguientes tipos de archivo es el que tiene la extensión .htm o .html, según la lista de extensiones comunes de Windows 11?",
+  "options": {
+   "a": "Un archivo de configuración de inicialización de Windows",
+   "b": "Un archivo de correo electrónico creado por Outlook Express",
+   "c": "Una plantilla de Microsoft Word",
+   "d": "Una página de lenguaje de marcado de hipertexto"
+  },
+  "correct": "d",
+  "difficulty": 1,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "Las extensiones htm y html corresponden a una página de lenguaje de marcado de hipertexto. El archivo de configuración de inicialización de Windows es el de extensión ini. La plantilla de Microsoft Word es la de extensión dotx. El archivo de correo creado por Outlook Express, Windows Live Mail y otros programas es el de extensión eml.",
+  "source_quote": "htm, html Página de lenguaje de marcado de hipertexto",
+  "covers": [
+   "lmc-5",
+   "family:Lenguajes web (HTML, JavaScript)"
+  ]
+ },
+ {
+  "id": "m06-l08-q142",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `whatwg-html-introduccion.html`; «1.10 A quick introduction to HTML»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "¿Cuál de las siguientes formas de insertar scripts, normalmente escritos en JavaScript, describe la introducción del estándar HTML del WHATWG?",
+  "options": {
+   "a": "Como datos, con atributos data-* que los navegadores procesan siempre",
+   "b": "Como pequeños programas, con el elemento script o con atributos de manejadores de eventos",
+   "c": "Como pequeños programas, solo con el elemento noscript de la página",
+   "d": "Como hojas de estilo, con el elemento style o con atributos de color"
+  },
+  "correct": "b",
+  "difficulty": 1,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "texto-alterado",
+  "explanation": "Los scripts (normalmente en JavaScript) son pequeños programas que se insertan con el elemento script o con atributos de contenido de manejadores de eventos. Un script es un pequeño programa, no una hoja de estilo, y no se inserta con atributos de color. El elemento noscript muestra contenido cuando los scripts están desactivados; no sirve para insertarlos. Los atributos data-* nunca los toca el navegador: sirven para que los scripts guarden datos en los elementos.",
+  "source_quote": "Scripts (typically in JavaScript) are small programs that can be embedded using the script element or using event handler content attributes.",
+  "covers": [
+   "lmc-4",
+   "family:Lenguajes web (HTML, JavaScript)"
+  ]
+ },
+ {
+  "id": "m06-l08-q143",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `whatwg-html-introduccion.html`; «1.10 A quick introduction to HTML»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "¿Cuál de las siguientes acciones se puede hacer desde los scripts de la página con el árbol DOM, según la introducción del estándar HTML del WHATWG?",
+  "options": {
+   "a": "Solo leerlo, sin poder modificar ninguno de sus elementos",
+   "b": "Nada: el árbol DOM solo lo modifica el servidor de la página",
+   "c": "Sustituirlo por un árbol XML que el navegador no procesa",
+   "d": "Manipularlo, por ejemplo cambiando el destino de un enlace"
+  },
+  "correct": "d",
+  "difficulty": 2,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "texto-alterado",
+  "explanation": "El árbol DOM se puede manipular desde scripts de la página («This DOM tree can be manipulated from scripts in the page»); por ejemplo, un script puede cambiar el atributo href de un enlace. Leerlo sin poder modificar nada no es lo que dice la página, que explica cómo se cambia el destino de un enlace. Que solo lo modifique el servidor tampoco: la manipulación se hace desde scripts de la página. Y sustituirlo por un árbol XML que el navegador no procesa choca con la sección 1.8 de la página del WHATWG, que dice de los documentos XML: «it is treated as an XML document by web browsers, to be parsed by an XML processor», es decir, el navegador sí los procesa con un procesador XML.",
+  "source_quote": "This DOM tree can be manipulated from scripts in the page.",
+  "covers": [
+   "lmc-4",
+   "family:Lenguajes web (HTML, JavaScript)"
+  ]
+ },
+ {
+  "id": "m06-l08-q144",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `whatwg-html-scripting.html`; «4.12 Scripting»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "¿Cuál de las siguientes razones da el estándar HTML para animar a usar alternativas declarativas a los scripts siempre que sea posible?",
+  "options": {
+   "a": "Porque suelen ser más fáciles de mantener y muchos usuarios los desactivan",
+   "b": "Porque los scripts no pueden dar interactividad a los documentos",
+   "c": "Porque los navegadores no pueden ejecutar scripts en JavaScript",
+   "d": "Porque las alternativas declarativas se ejecutan siempre en el servidor de la página"
+  },
+  "correct": "a",
+  "difficulty": 2,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "texto-alterado",
+  "explanation": "El estándar dice: «Authors are encouraged to use declarative alternatives to scripting where possible, as declarative mechanisms are often more maintainable, and many users disable scripting». Que los scripts no puedan dar interactividad contradice la primera frase de la sección: «Scripts allow authors to add interactivity to their documents». Que los navegadores no ejecuten scripts en JavaScript contradice la propia razón de que muchos usuarios los desactiven, que supone que se ejecutan. Y que las alternativas declarativas se ejecuten siempre en el servidor no es lo que dice la sección: su ejemplo, el elemento details para mostrar u ocultar una sección, lo resuelve el navegador sin script.",
+  "source_quote": "Authors are encouraged to use declarative alternatives to scripting where possible, as declarative mechanisms are often more maintainable, and many users disable scripting.",
+  "covers": [
+   "lmc-4",
+   "family:Lenguajes web (HTML, JavaScript)"
+  ]
+ },
+ {
+  "id": "m06-l08-q145",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `whatwg-html-scripting.html`; «4.12 Scripting»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En lugar de un script para mostrar u ocultar una sección con más detalles, ¿qué elemento propone el estándar HTML como alternativa declarativa?",
+  "options": {
+   "a": "El elemento details de HTML",
+   "b": "El elemento output de HTML",
+   "c": "El elemento form de HTML",
+   "d": "El elemento noscript de HTML"
+  },
+  "correct": "a",
+  "difficulty": 2,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "El estándar propone usar el elemento details en lugar de un script para mostrar u ocultar una sección con más detalles. El elemento noscript presenta contenido alternativo cuando los scripts están desactivados, no es un mecanismo declarativo de mostrar u ocultar. El elemento output muestra el resultado de un cálculo en los ejemplos de la página. El elemento form agrupa los controles de un formulario, como en el ejemplo del cálculo del cuadrado.",
+  "source_quote": "For example, instead of using a script to show or hide a section to show more details, the details element could be used.",
+  "covers": [
+   "family:Lenguajes web (HTML, JavaScript)"
+  ]
+ },
+ {
+  "id": "m06-l08-q146",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `whatwg-html-scripting.html`; «4.12 Scripting»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "¿Cuál de las siguientes cosas ocurre, en el ejemplo del estándar HTML que usa noscript para calcular un cuadrado, cuando los scripts están desactivados?",
+  "options": {
+   "a": "El formulario desaparece de la página sin dejar ningún botón",
+   "b": "El navegador ejecuta el script del cálculo en un hilo aparte",
+   "c": "Aparece un botón para hacer el cálculo en el servidor",
+   "d": "El valor se calcula al instante en el propio navegador"
+  },
+  "correct": "c",
+  "difficulty": 3,
+  "tags": [
+   "comportamiento"
+  ],
+  "distractor_pattern": "texto-alterado",
+  "explanation": "Con los scripts desactivados aparece un botón para que el cálculo se haga en el servidor; con los scripts activados, el valor se calcula al instante. Calcular el valor al instante en el navegador es lo que ocurre con los scripts activados. Con los scripts desactivados aparece un botón en el formulario, que permanece en la página. Con los scripts desactivados no se ejecuta el script, ni en un hilo aparte ni de otra forma.",
+  "source_quote": "When script is disabled, a button appears to do the calculation on the server side. When script is enabled, the value is computed on-the-fly instead.",
+  "covers": [
+   "family:Lenguajes web (HTML, JavaScript)"
+  ]
+ },
+ {
+  "id": "m06-l08-q147",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `ms-edge-consola-javascript.html`; «Ejecución de JavaScript en la consola»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Microsoft Edge en Windows 11, ¿qué combinación de teclas abre directamente la consola de DevTools para ejecutar JavaScript?",
+  "options": {
+   "a": "Ctrl+Mayús+M, que cambia de usuario o examina como invitado",
+   "b": "Ctrl+Mayús+J",
+   "c": "Ctrl+Mayús+K, que duplica la pestaña actual",
+   "d": "Ctrl+Mayús+N, que abre una ventana de InPrivate"
+  },
+  "correct": "b",
+  "difficulty": 1,
+  "tags": [
+   "atajo"
+  ],
+  "distractor_pattern": "otro-atajo",
+  "explanation": "Ctrl+Mayús+J abre directamente la consola de DevTools de Edge en Windows. Ctrl+Mayús+K duplica la pestaña actual, según la lista de métodos abreviados de Edge. Ctrl+Mayús+N abre una nueva ventana de InPrivate. Ctrl+Mayús+M inicia sesión como usuario distinto o examina como invitado.",
+  "source_quote": "O bien, presione Ctrl+Mayús+J (Windows, Linux) o Comando+Opción+J (macOS) para abrir directamente la consola de DevTools.",
+  "covers": [
+   "lmc-4",
+   "family:Lenguajes web (HTML, JavaScript)"
+  ]
+ },
+ {
+  "id": "m06-l08-q148",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `ms-edge-consola-javascript.html`; «Ejecución de JavaScript en la consola»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "¿Cuál de las siguientes formas de ejecución usa la Consola de DevTools de Microsoft Edge para el código JavaScript que se escribe en ella?",
+  "options": {
+   "a": "De forma inmediata e interactiva, a medida que se escribe",
+   "b": "Solo tras enviarlo a un servidor externo que lo valida antes",
+   "c": "Solo al guardar el código escrito en un archivo con extensión .js",
+   "d": "Solo al cerrar la consola, que ejecuta todo lo escrito de una vez"
+  },
+  "correct": "a",
+  "difficulty": 2,
+  "tags": [
+   "comportamiento"
+  ],
+  "distractor_pattern": "texto-alterado",
+  "explanation": "La consola ejecuta cualquier expresión o instrucción de JavaScript de forma inmediata e interactiva a medida que se escribe. La consola no necesita archivos: ejecuta lo que se escribe a medida que se escribe. La consola no espera a cerrarse: muestra el resultado mientras se escribe. La consola evalúa el código en el propio navegador, sin enviarlo a ningún servidor.",
+  "source_quote": "Puede escribir cualquier expresión, instrucción o fragmento de código de JavaScript en la consola y se ejecuta de forma inmediata e interactiva a medida que escribe.",
+  "covers": [
+   "lmc-4",
+   "official:conv2024_A·P1·69",
+   "family:Lenguajes web (HTML, JavaScript)",
+   "official:conv2022_X·P1·70",
+   "official:conv2020·P1·70"
+  ]
+ },
+ {
+  "id": "m06-l08-q149",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `ms-edge-consola-javascript.html`; «Ejecución de JavaScript en la consola»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "¿Cuál de las siguientes secuencias repite la Consola de DevTools de Microsoft Edge, un entorno de bucle de lectura, evaluación e impresión (REPL)?",
+  "options": {
+   "a": "Lee el código, lo evalúa, imprime el resultado y vuelve al primer paso",
+   "b": "Evalúa el código, lo lee, imprime el resultado y vuelve al primer paso",
+   "c": "Lee el código, imprime el resultado, lo evalúa y vuelve al primer paso",
+   "d": "Lee el código, lo evalúa, imprime el resultado y termina la sesión"
+  },
+  "correct": "a",
+  "difficulty": 3,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "texto-alterado",
+  "explanation": "La consola lee el código JavaScript que se escribe, lo evalúa, imprime el resultado y vuelve al primer paso. Evaluar el código antes de leerlo invierte el orden de los pasos de la página. Imprimir el resultado antes de evaluar el código invierte el orden de los pasos. La consola vuelve al primer paso, no termina la sesión.",
+  "source_quote": "Lee el Código JavaScript que escribe en él. Evalúa el código. Imprime el resultado de la expresión. Vuelve al primer paso.",
+  "covers": []
+ },
+ {
+  "id": "m06-l08-q150",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `ms-edge-consola-javascript.html`; «Ejecución de JavaScript en la consola»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En la Consola de DevTools de Microsoft Edge, ¿qué teclas permiten escribir un bloque de varias líneas sin ejecutar el comando al pulsar Entrar?",
+  "options": {
+   "a": "Alt+Entrar",
+   "b": "Ctrl+Entrar, que añade www. y .com a la dirección escrita",
+   "c": "F10+Entrar, que abre el menú Configuración y más",
+   "d": "Mayús+Entrar"
+  },
+  "correct": "d",
+  "difficulty": 3,
+  "tags": [
+   "atajo"
+  ],
+  "distractor_pattern": "otro-atajo",
+  "explanation": "En la consola, Entrar ejecuta el comando; para escribir varias líneas hay que pulsar Mayús+Entrar. Ctrl+Entrar es el método abreviado de Edge que añade www. al principio y .com al final del texto de la barra de direcciones. F10+Entrar abre el menú Configuración y más. Alt+Entrar no es la combinación de la página: para evitar la limitación de una línea indica Mayús+Entrar.",
+  "source_quote": "Para evitar la limitación de 1 línea, presione Mayús+Entrar en lugar de Entrar.",
+  "covers": []
+ },
+ {
+  "id": "m06-l08-q151",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `ms-edge-consola-javascript.html`; «Ejecución de JavaScript en la consola»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "¿Cuál de las siguientes cosas ocurre la primera vez que se intenta pegar contenido en la herramienta Consola de DevTools de Microsoft Edge?",
+  "options": {
+   "a": "Se pega como texto sin formato, sin advertencia",
+   "b": "Se pega y se ejecuta de inmediato, sin pedir confirmación",
+   "c": "Se pega tras escribir Entrar, que ejecuta el contenido",
+   "d": "Se muestra una advertencia en lugar de pegarlo"
+  },
+  "correct": "d",
+  "difficulty": 2,
+  "tags": [
+   "comportamiento"
+  ],
+  "distractor_pattern": "texto-alterado",
+  "explanation": "Al intentar pegar por vez inicial, la consola muestra una advertencia en lugar de pegar el contenido, para evitar ataques de auto-XSS. Pegar y ejecutar de inmediato contradice la advertencia, que impide pegar de entrada. La consola no pega ni como texto sin formato: muestra primero la advertencia. Entrar ejecuta el comando; para pegar hay que escribir primero «permitir pegar».",
+  "source_quote": "La primera vez que intenta pegar contenido en la herramienta Consola , en lugar de pegarlo, se muestra un mensaje:",
+  "covers": []
+ },
+ {
+  "id": "m06-l08-q152",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `euskadi-diseno-adaptable.html`; «Diseño adaptable (Responsive Design)»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "¿Cuál de las siguientes acciones evita el diseño adaptable, según la definición del Servicio Web del Gobierno Vasco?",
+  "options": {
+   "a": "Adaptar el diseño a las distintas resoluciones de pantalla de los usuarios",
+   "b": "Duplicar los sitios web para versiones de dispositivos concretos",
+   "c": "Usar unidades relativas y consultas de medios (media queries)",
+   "d": "Usar estándares web como HTML5 y CSS3 en sus portales"
+  },
+  "correct": "b",
+  "difficulty": 1,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "El diseño adaptable es un conjunto de técnicas para que los sitios web sean utilizables en cualquier dispositivo sin duplicarlos en versiones para dispositivos concretos. HTML5 y CSS3 son estándares que el Servicio Web usa para lograr la adaptabilidad, no lo que evita. Las unidades relativas y las media queries son técnicas que usa para adaptar el diseño. Adaptar el diseño a distintas resoluciones es justo lo que pretende el diseño adaptable.",
+  "source_quote": "Llamamos \"Diseño Adaptable\" una serie de tecnicas en el diseño y desarrollo de sitios web con el fin de que sean utilizables en cualquier dispositivo o entorno, sin necesidad de duplicarlos para hacer versiones para dispositivos concretos.",
+  "covers": [
+   "lmc-10",
+   "official:conv2025_X·P1·70",
+   "official:conv2020·P1·68",
+   "family:Diseño web adaptable"
+  ]
+ },
+ {
+  "id": "m06-l08-q153",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `euskadi-diseno-adaptable.html`; «Diseño adaptable (Responsive Design)»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "¿Cuál de los siguientes dispositivos recomienda el Servicio Web del Gobierno Vasco que se tenga en cuenta primero al plantear una interfaz adaptable?",
+  "options": {
+   "a": "En las tabletas, con el enfoque «Tablet First»",
+   "b": "En los dispositivos móviles, con el enfoque «Mobile First»",
+   "c": "En los televisores y consolas, con el enfoque «Console First»",
+   "d": "En los ordenadores personales, con el enfoque «Desktop First»"
+  },
+  "correct": "b",
+  "difficulty": 2,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "texto-alterado",
+  "explanation": "Al plantear una interfaz adaptable se recomienda pensar primero en los dispositivos móviles («Mobile First»), para lograr interacciones más claras y simples. Los ordenadores personales no son el primer dispositivo al que se recomienda pensar. Los televisores y las consolas aparecen solo como dispositivos con navegador integrado, no como punto de partida. Las tabletas son un dispositivo más en los datos de visitas; la recomendación es pensar primero en los móviles.",
+  "source_quote": "De hecho, al plantear un diseño de interfaz se recomienda pensar primero en los dispositivos moviles (\"Mobile First\") para lograr interacciones mas claras y simples.",
+  "covers": [
+   "lmc-10",
+   "family:Diseño web adaptable"
+  ]
+ },
+ {
+  "id": "m06-l08-q154",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `euskadi-diseno-adaptable.html`; «Diseño adaptable (Responsive Design)»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "¿Cuál de las siguientes mejoras en los buscadores se atribuye al diseño adaptable, según el Servicio Web del Gobierno Vasco?",
+  "options": {
+   "a": "Se evitan penalizaciones de SEO al no duplicar contenidos",
+   "b": "Se obtienen mejores posiciones al duplicar el contenido para cada dispositivo",
+   "c": "Se evita la accesibilidad, porque se simplifican las interacciones",
+   "d": "Se necesitan versiones extra para cada dispositivo, por lo que cada una se indexa"
+  },
+  "correct": "a",
+  "difficulty": 2,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "texto-alterado",
+  "explanation": "Al evitar duplicidades de contenidos se evitan penalizaciones de SEO, y Google da relevancia a los sitios adaptados a distintos dispositivos. Duplicar contenidos es lo que provoca las penalizaciones de SEO que el diseño adaptable evita. La simplificación de las interacciones mejora la accesibilidad, no la evita. El diseño adaptable evita hacer versiones extra para determinados entornos.",
+  "source_quote": "Mejoras en posicionamiento en buscadores: Al evitar duplicidades de contenidos evitamos penalizaciones de SEO.",
+  "covers": [
+   "lmc-10",
+   "family:Diseño web adaptable"
+  ]
+ },
+ {
+  "id": "m06-l08-q155",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `euskadi-diseno-adaptable.html`; «Diseño adaptable (Responsive Design)»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "Según los datos de visitas a Euskadi.eus en 2018 que cita el Servicio Web del Gobierno Vasco, ¿qué tipo de dispositivo fue el más usado?",
+  "options": {
+   "a": "El móvil, con el 62 % de las visitas",
+   "b": "El ordenador personal, con el 34 % de las visitas",
+   "c": "El ordenador personal, con el 62 % de las visitas",
+   "d": "La tableta, con el 34 % de las visitas"
+  },
+  "correct": "c",
+  "difficulty": 3,
+  "tags": [
+   "cantidad"
+  ],
+  "distractor_pattern": "cifra-cercana",
+  "explanation": "En 2018 el ordenador personal fue el dispositivo del 62 % de las visitas a Euskadi.eus, frente al 34 % del móvil y el 4 % de la tableta. El móvil supuso el 34 % de las visitas, no el 62 %. El ordenador personal supuso el 62 %; el 34 % es el del móvil. La tableta supuso el 4 % de las visitas; el 34 % es el del móvil.",
+  "source_quote": "Tipo de dispositivo: Ordenador personal (62%), movil (34%), tablet (4%)",
+  "covers": [
+   "family:Diseño web adaptable"
+  ]
+ },
+ {
+  "id": "m06-l08-q156",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `ms-win-ping.html`; «ping»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Windows 11, ¿qué permite la ruta de origen flexible que ping usa con el parámetro /j?",
+  "options": {
+   "a": "Que se fije el tiempo de espera de cada respuesta de eco",
+   "b": "Que se haga el seguimiento de la ruta de ida y vuelta en IPv6",
+   "c": "Que el siguiente destino intermedio sea un vecino accesible directamente",
+   "d": "Que los destinos intermedios sucesivos estén separados por uno o varios enrutadores"
+  },
+  "correct": "d",
+  "difficulty": 2,
+  "tags": [
+   "configuración"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "Con el enrutamiento de origen flexible (/j), los destinos intermedios sucesivos pueden estar separados por uno o varios enrutadores. Que el siguiente destino sea un vecino accesible directamente es la exigencia de la ruta de origen estricta (/k). El seguimiento de la ruta de ida y vuelta, solo en IPv6, es el parámetro /R. El tiempo de espera de cada respuesta se fija con /w.",
+  "source_quote": "Con el enrutamiento de origen flexible, los destinos intermedios sucesivos se pueden separar por uno o varios enrutadores.",
+  "covers": []
+ },
+ {
+  "id": "m06-l08-q157",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `ms-win-ping.html`; «ping»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Windows 11, ¿qué valor máximo admite el campo Período de vida (TTL) que se fija en el encabezado IP de los mensajes de solicitud de eco de ping?",
+  "options": {
+   "a": "255, y por defecto se usa el TTL predeterminado del host",
+   "b": "32, y por defecto se usa el TTL predeterminado del host",
+   "c": "9, y por defecto se usa el TTL predeterminado del host",
+   "d": "65 500, y por defecto se usa el TTL predeterminado del host"
+  },
+  "correct": "a",
+  "difficulty": 3,
+  "tags": [
+   "cantidad"
+  ],
+  "distractor_pattern": "cifra-cercana",
+  "explanation": "El TTL máximo que se puede fijar es 255, y por defecto se usa el valor TTL predeterminado del host. 65 500 es el tamaño máximo del campo de datos, no el TTL máximo. 32 es la longitud predeterminada del campo de datos, no el TTL máximo. 9 es el máximo del recuento de /r y de la lista de hosts, no el TTL máximo.",
+  "source_quote": "El valor predeterminado es el valor TTL predeterminado para el host. El TTL máximo es 255.",
+  "covers": []
+ },
+ {
+  "id": "m06-l08-q158",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `ms-win-ping.html`; «ping»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Windows 11, ¿qué envía el comando ping /n 10 /l 1000 10.0.99.221 al destino?",
+  "options": {
+   "a": "1000 mensajes de solicitud de eco, cada uno con 10 bytes en el campo de datos",
+   "b": "10 mensajes de solicitud de eco, cada uno con un tiempo de vida de 1000",
+   "c": "Mensajes de solicitud de eco hasta que se interrumpa, de 1000 bytes cada uno",
+   "d": "10 mensajes de solicitud de eco, cada uno con 1000 bytes en el campo de datos"
+  },
+  "correct": "d",
+  "difficulty": 2,
+  "tags": [
+   "configuración",
+   "comportamiento"
+  ],
+  "distractor_pattern": "texto-alterado",
+  "explanation": "El parámetro /n fija el número de solicitudes (10) y /l la longitud del campo de datos (1000 bytes). Intercambiar las cifras invierte /n, que es el número de mensajes, y /l, que es la longitud de los datos. /l fija la longitud del campo de datos, no el tiempo de vida de los mensajes. Seguir enviando hasta interrumpir es el efecto de /t, que ese comando no usa.",
+  "source_quote": "Para hacer ping al destino 10.0.99.221 con 10 mensajes de solicitud de eco, cada uno de los cuales tiene un campo Datos de 1 000 bytes, escriba: ping /n 10 /l 1000 10.0.99.221",
+  "covers": []
+ },
+ {
+  "id": "m06-l08-q159",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `ms-win-ping.html`; «ping»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Windows 11, ¿qué hace el comando ping /a 10.0.99.221 cuando se escribe tal cual en el símbolo del sistema?",
+  "options": {
+   "a": "Hace ping al destino y registra la ruta de 4 saltos",
+   "b": "Hace ping al destino y resuelve la dirección 10.0.99.221 en su nombre de host",
+   "c": "Hace ping al destino enviando solicitudes de eco hasta que se interrumpa",
+   "d": "Hace ping al destino con 10 solicitudes de eco de 1000 bytes"
+  },
+  "correct": "b",
+  "difficulty": 2,
+  "tags": [
+   "configuración"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "ping /a 10.0.99.221 hace ping al destino y resuelve la dirección en su nombre de host. Enviar solicitudes hasta que se interrumpa es el efecto de /t. Registrar la ruta de 4 saltos es el ejemplo de ping /r 4. Las 10 solicitudes de 1000 bytes son el ejemplo de ping /n 10 /l 1000.",
+  "source_quote": "Para hacer ping al destino 10.0.99.221 y resolver 10.0.99.221 en su nombre de host, escriba: ping /a 10.0.99.221",
+  "covers": []
+ },
+ {
+  "id": "m06-l08-q160",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `ms-win-ping.html`; «ping»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Windows 11, ¿en qué condición está disponible el comando ping, según la documentación de Microsoft Learn?",
+  "options": {
+   "a": "Solo si hay una conexión a Internet activa en el equipo",
+   "b": "Solo si el equipo tiene una dirección IP pública asignada",
+   "c": "Solo si el protocolo TCP/IP está instalado como componente de un adaptador de red",
+   "d": "Solo si el servicio DNS está instalado en el adaptador de red"
+  },
+  "correct": "c",
+  "difficulty": 3,
+  "tags": [
+   "requisito"
+  ],
+  "distractor_pattern": "texto-alterado",
+  "explanation": "La documentación dice: «Este comando solo está disponible si el protocolo de Internet (TCP/IP) está instalado como componente en las propiedades de un adaptador de red». Una conexión a Internet activa no es la condición: la página presenta ping como la prueba de conectividad a nivel de IP con otro equipo TCP/IP, mediante solicitudes de eco, sin pedir salida a Internet. Una dirección IP pública tampoco: la condición es TCP/IP instalado. Y el servicio DNS no es el requisito: la página trata la resolución de nombres aparte, como algo que se puede probar con ping, no como condición de que el comando esté disponible.",
+  "source_quote": "Este comando solo está disponible si el protocolo de Internet (TCP / IP) está instalado como componente en las propiedades de un adaptador de red en conexiones de red.",
+  "covers": []
+ },
+ {
+  "id": "m06-l08-q161",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.8.8. HTTP»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "¿Cuál de los siguientes protocolos es, según el glosario de INCIBE, el más utilizado para la navegación web?",
+  "options": {
+   "a": "FTP, el servicio de transferencia de ficheros",
+   "b": "DNS, el servicio de nombres de dominio",
+   "c": "HTTP, el protocolo de transferencia de hipertexto",
+   "d": "SMTP, el protocolo de intercambio de correo electrónico"
+  },
+  "correct": "c",
+  "difficulty": 1,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "HTTP es el protocolo más utilizado para la navegación web. FTP sirve para transferir ficheros por una red, no para la navegación web. SMTP sirve para intercambiar mensajes de correo electrónico. El DNS traduce nombres de dominio en direcciones IP.",
+  "source_quote": "HTTP son las siglas en inglés de Protocolo de Transferencia de Hipertexto. Se trata del protocolo más utilizado para la navegación web.",
+  "covers": [
+   "family:HTTP y HTTPS"
+  ]
+ },
+ {
+  "id": "m06-l08-q162",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `ms-edge-consola-javascript.html`; «Ejecución de JavaScript en la consola»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En la Consola de DevTools de Microsoft Edge, ¿qué se obtiene al pulsar Flecha arriba, como en muchos otros entornos de línea de comandos?",
+  "options": {
+   "a": "Los comandos especificados anteriormente, para reutilizarlos",
+   "b": "Los resultados que muestra la consola mientras se escribe",
+   "c": "Las propiedades y métodos del cuerpo de la página web actual",
+   "d": "El resultado de la expresión anterior ejecutada, con la utilidad $_"
+  },
+  "correct": "a",
+  "difficulty": 2,
+  "tags": [
+   "comportamiento"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "Flecha arriba muestra los comandos que se especificaron anteriormente, disponibles para su reutilización. El resultado de la expresión anterior lo guarda $_, que no se muestra con Flecha arriba. La lista de propiedades y métodos del cuerpo de la página aparece al escribir un punto en el autocompletado. La evaluación inmediata, que muestra el resultado mientras se escribe, es independiente de Flecha arriba.",
+  "source_quote": "Presione Flecha arriba para mostrar los comandos que especificó anteriormente.",
+  "covers": [
+   "lmc-4"
+  ]
+ },
+ {
+  "id": "m06-l08-q163",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `ms-edge-consola-javascript.html`; «Ejecución de JavaScript en la consola»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En la Consola de DevTools de Microsoft Edge, si se escribe 2+2 sin pulsar Entrar, ¿qué hace la consola?",
+  "options": {
+   "a": "Muestra la expresión 2+2 tal como se ha escrito, sin evaluarla",
+   "b": "Muestra el resultado 4 en la línea siguiente al escribir",
+   "c": "No muestra nada hasta que se pulsa Entrar para ejecutar el comando",
+   "d": "Muestra un mensaje de error porque falta pulsar Entrar al final"
+  },
+  "correct": "b",
+  "difficulty": 2,
+  "tags": [
+   "comportamiento"
+  ],
+  "distractor_pattern": "texto-alterado",
+  "explanation": "La consola muestra inmediatamente el resultado 4 en la línea siguiente mientras se escribe, sin pulsar Entrar. La evaluación inmediata muestra el resultado antes de pulsar Entrar. La consola no marca error por no haber pulsado Entrar: muestra el resultado mientras se escribe. La consola evalúa la expresión y muestra su resultado, no la expresión sin evaluar.",
+  "source_quote": "La consola muestra inmediatamente el resultado 4 en la línea siguiente mientras escribe.",
+  "covers": [
+   "lmc-4"
+  ]
+ },
+ {
+  "id": "m06-l08-q164",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `ms-edge-consola-javascript.html`; «Ejecución de JavaScript en la consola»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En la Consola de DevTools de Microsoft Edge, ¿qué contiene siempre la utilidad $_ después de ejecutar expresiones?",
+  "options": {
+   "a": "El resultado de la expresión anterior que se ejecutó en la consola",
+   "b": "Los comandos que se especificaron anteriormente en la consola, para reutilizarlos",
+   "c": "El primer elemento de la lista de propiedades de document.body",
+   "d": "El resultado de la expresión que se está escribiendo ahora"
+  },
+  "correct": "a",
+  "difficulty": 3,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "La utilidad $_ siempre contiene el resultado de la expresión anterior que se ejecutó en la consola. Los comandos anteriores los muestra Flecha arriba, no $_. document.body es el ejemplo del autocompletado, que lista sus propiedades y métodos, sin relación con $_. La expresión que se está escribiendo aún no se ha ejecutado, por lo que $_ no la contiene.",
+  "source_quote": "$_ siempre contiene el resultado de la última expresión que ejecutó en la consola.",
+  "covers": [
+   "lmc-4"
+  ]
+ },
+ {
+  "id": "m06-l08-q165",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `euskadi-diseno-adaptable.html`; «Diseño adaptable (Responsive Design)»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "¿Cuál de las siguientes bases usa el Servicio Web del Gobierno Vasco para lograr la adaptabilidad de sus portales?",
+  "options": {
+   "a": "En versiones separadas de cada portal para móviles, tabletas y ordenadores, con contenidos duplicados",
+   "b": "En duplicar el trabajo y el mantenimiento de cada contenido por dispositivo",
+   "c": "En estándares web como HTML5 y CSS3, unidades relativas, media queries y frameworks",
+   "d": "En estándares cerrados de cada fabricante de navegadores y plugins como Flash y PDF"
+  },
+  "correct": "c",
+  "difficulty": 2,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "texto-alterado",
+  "explanation": "La adaptabilidad de los portales se basa en estándares web (HTML5 y CSS3), unidades relativas, media queries, lenguajes de script y frameworks como Bootstrap. Hacer versiones separadas por dispositivo es justo lo que el diseño adaptable evita. La página basa la adaptabilidad en estándares web, no en estándares cerrados de cada fabricante. Duplicar el trabajo y el mantenimiento es lo que se evita al no hacer versiones extra para determinados entornos.",
+  "source_quote": "Hemos basado la adaptabilidad de nuestros portales en el uso de estandares web (HTML5 y CSS3), utilización de unidades relativas y media queries para adaptar el diseño a distintas resoluciones, modificaciones mediante lenguajes de script y uso de frameworks como Bootstrap.",
+  "covers": [
+   "lmc-10",
+   "family:Diseño web adaptable"
+  ]
+ },
+ {
+  "id": "m06-l08-q166",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `euskadi-diseno-adaptable.html`; «Diseño adaptable (Responsive Design)»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "¿Cuál de las siguientes situaciones describía el tráfico de Internet en los primeros años de su expansión, según el Servicio Web del Gobierno Vasco?",
+  "options": {
+   "a": "Casi todo se realizaba desde ordenadores personales, con pocos sistemas operativos y navegadores",
+   "b": "Se repartía por igual entre ordenadores, televisores y consolas con navegador",
+   "c": "Casi todo se realizaba desde teléfonos inteligentes, con muchos sistemas operativos",
+   "d": "Casi todo se realizaba desde tabletas, con una gran variedad de resoluciones"
+  },
+  "correct": "a",
+  "difficulty": 3,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "texto-alterado",
+  "explanation": "En los primeros años casi todo el tráfico se realizaba desde ordenadores personales, con un número reducido de sistemas operativos, navegadores, resoluciones y dispositivos de entrada. Los teléfonos inteligentes llegaron después y cambiaron ese panorama. Los televisores y las consolas con navegador integrado son un fenómeno posterior, con la irrupción de nuevos dispositivos. Con las tabletas y otros dispositivos aumentó la variedad de resoluciones, tras los primeros años.",
+  "source_quote": "En los primeros años de expansión de Interner, casi todo el trafico se realizaba desde ordenadores personales, es decir, había un número reducido de sistemas operativos, navegadores, resoluciones, situaciones de uso y dispositivos de entrada.",
+  "covers": [
+   "family:Diseño web adaptable"
+  ]
+ },
+ {
+  "id": "m06-l08-q167",
+  "bloque": "VI",
+  "tema": "VI.8",
+  "section": "Conceptos elementales sobre protocolos y servicios en Internet",
+  "citation": "fuente: `whatwg-html-introduccion.html`; «1.7.2 Extensibility»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "Según la introducción del estándar HTML del WHATWG, ¿qué atributos permiten incluir datos para scripts del cliente o del servidor, y los navegadores nunca los tocan?",
+  "options": {
+   "a": "Los atributos class, que sirven para crear elementos propios",
+   "b": "Los atributos de manejadores de eventos, que ejecutan los scripts",
+   "c": "Los atributos href, que fijan el destino de un enlace",
+   "d": "Los atributos data-*, que buscan y procesan los scripts"
+  },
+  "correct": "d",
+  "difficulty": 2,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "Los atributos data-* permiten a los scripts incluir datos en los elementos HTML, y se garantiza que los navegadores nunca los tocan. El atributo class sirve para extender elementos y crear elementos propios, no para guardar datos de scripts. El atributo href fija el destino de un enlace, que un script puede cambiar. Los atributos de contenido de manejadores de eventos sirven para incrustar un script, no para guardar datos de scripts.",
+  "source_quote": "Authors can include data for inline client-side scripts or server-side site-wide scripts to process using the data-*=\"\" attributes. These are guaranteed to never be touched by browsers",
+  "covers": [
+   "lmc-4",
+   "family:Lenguajes web (HTML, JavaScript)"
+  ]
+ }
+]

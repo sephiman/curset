@@ -171,6 +171,42 @@ def test_rule_headings_ordinal_apartados_and_annex_notes_are_indexed_by_page() -
     }
 
 
+def test_a_table_cell_that_is_only_a_citation_is_read_as_one(tmp_path: Path) -> None:
+    normativa = tmp_path / "normativa.yaml"
+    normativa.write_text(
+        yaml.safe_dump(
+            [
+                {
+                    "short": "Orden de 1 de febrero de 1996 (Instrucción de operatoria contable)",
+                    "aliases": ["IOC"],
+                    "title": "Orden de 1 de febrero de 1996 por la que se aprueba la Instrucción.",
+                    "boe_id": "BOE-A-1996-2627",
+                    "file": "sources/normativa/ioc.pdf",
+                }
+            ],
+            allow_unicode=True,
+        ),
+        encoding="utf-8",
+    )
+    lesson = (
+        "Los documentos contables:\n\n"
+        "| Operación | Documento | Cita |\n"
+        "|---|---|---|\n"
+        "| Retención de crédito | RC | regla 14.1 IOC |\n"
+        "| Autorización del gasto | A, aprobado el expediente | regla 21.2 IOC; regla 5 IOC |\n"
+        "| Compromiso del gasto | D (regla 22.2 IOC) | Servicio gestor |\n"
+    )
+    norms = NormIndex.load(normativa, [lesson])
+    scanned = scan_lesson("l", lesson, norms)
+    assert [(c.section, c.text, c.anchors) for c in scanned.items] == [
+        ("prose", "regla 14.1 IOC", ("boe-a-1996-2627-regla-14",)),
+        ("prose", "regla 21.2 IOC", ("boe-a-1996-2627-regla-21",)),
+        ("prose", "regla 5 IOC", ("boe-a-1996-2627-regla-5",)),
+        # A parenthesised citation in a cell is read once, as prose; a cell of plain words is not a citation.
+        ("prose", "regla 22.2 IOC", ("boe-a-1996-2627-regla-22",)),
+    ]
+
+
 def test_a_rule_of_a_non_article_source_opens_its_page_or_else_the_file(tmp_path: Path) -> None:
     normativa = tmp_path / "normativa.yaml"
     normativa.write_text(
@@ -420,6 +456,15 @@ def test_a_question_citing_a_source_file_its_lesson_cites_opens_at_that_citation
     _cite_in_first_delegacion_question(course, "fuente: `guia-recursos.html`")
     registry = load_registry(course)
     link = registry.citations.question_link("m02-l1", "fuente: `guia-recursos.html`", "es")
+    assert link.anchor == "fuente-guia-recursos-html"
+
+
+def test_a_question_citing_a_source_file_with_its_label_opens_at_that_file(tmp_path: Path) -> None:
+    citation = "fuente: `guia-recursos.html`; «Recurso de alzada»"
+    course = _copy(tmp_path)
+    _cite_in_first_delegacion_question(course, citation)
+    registry = load_registry(course)
+    link = registry.citations.question_link("m02-l1", citation, "es")
     assert link.anchor == "fuente-guia-recursos-html"
 
 

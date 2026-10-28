@@ -18,6 +18,10 @@ const LESSON = `# Los plazos
 
 El plazo es de un mes (art. 122.1 LPAC). Se resuelve en tres meses (art. 122.2 LPAC).
 
+| Recurso | Cita |
+|---|---|
+| Reposición | art. 124.1 LPAC |
+
 :::esquema{kind=tabla title="Los dos recursos"}
 | Recurso | Plazo | Artículo |
 |---|---|---|
@@ -42,6 +46,7 @@ El plazo es de un mes (art. 122.1 LPAC). Se resuelve en tres meses (art. 122.2 L
 const CITATIONS = [
   cite("art. 122.1 LPAC", "prose", ["lpac-art-122"]),
   cite("art. 122.2 LPAC", "prose"),
+  cite("art. 124.1 LPAC", "prose", ["lpac-art-124"]),
   ...["art. 122.1 LPAC", "art. 122.1 LPAC", "art. 122.2 LPAC", "art. 122.1 LPAC", "art. 122.1 LPAC", "art. 122.2 LPAC"].map((text) =>
     cite(text, "esquema"),
   ),
@@ -81,6 +86,14 @@ describe("citations in a lesson", () => {
     expect(second.id).toBe("");
     // The parentheses stay text: only the citation is the link.
     expect(prose.textContent).toContain("(art. 122.1 LPAC)");
+  });
+
+  it("mark a citation a plain table's cell holds without parentheses", () => {
+    render(CITATIONS);
+    const cell = [...host.querySelectorAll("table td")].find((td) => td.textContent === "art. 124.1 LPAC")!;
+    const link = cell.querySelector("a")!;
+    expect(link.textContent).toBe("art. 124.1 LPAC");
+    expect(link.id).toBe("lpac-art-124");
   });
 
   it("are plain text in a course that ships none", () => {

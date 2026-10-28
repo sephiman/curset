@@ -1,0 +1,614 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# Question bank, m06-l08: fixed multiple-choice questions (round R3). Generated from
+# docs/age-verification/bank/bloque-vi/m06-l08.draft.json minus drops.tsv by
+# docs/age-verification/bank/tools/build_exercises.py; edit the draft and rebuild, not this file.
+type: quiz
+variants:
+# anchor: fuente-ms-win-ping-html
+- id: m06-l08-q101
+  prompt:
+    es: "En Windows 11, ¿qué tipo de mensajes envía el comando ping a otro equipo TCP/IP para comprobar la conectividad a nivel de IP?"
+  options:
+  - id: a
+    text:
+      es: "Mensajes de solicitud de conexión del protocolo TCP"
+  - id: b
+    text:
+      es: "Mensajes de respuesta de eco del protocolo ICMP"
+  - id: c
+    correct: true
+    text:
+      es: "Mensajes de solicitud de eco del protocolo ICMP"
+  - id: d
+    text:
+      es: "Mensajes de solicitud de eco del protocolo UDP"
+  explanation:
+    es: "ping comprueba la conectividad IP enviando mensajes de solicitud de eco del protocolo de mensajes de control de Internet (ICMP). Los mensajes de eco son de ICMP, no de UDP, según la descripción del comando. Las respuestas de eco son las que recibe y muestra ping, junto con los tiempos de ida y vuelta; lo que envía son solicitudes. ping no envía solicitudes de conexión TCP, sino solicitudes de eco ICMP."
+  citation: "fuente: `ms-win-ping.html`; «ping»"
+  difficulty: 1
+  tags:
+  - "concepto"
+  - "comportamiento"
+# anchor: fuente-ms-win-ping-html
+- id: m06-l08-q102
+  prompt:
+    es: "¿Cuál de las siguientes informaciones muestra el comando ping de Windows 11 sobre los mensajes de respuesta de eco que recibe del equipo de destino?"
+  options:
+  - id: a
+    text:
+      es: "Solo el número de saltos hasta el destino, sin los tiempos"
+  - id: b
+    correct: true
+    text:
+      es: "Su recepción, junto con los tiempos de ida y vuelta"
+  - id: c
+    text:
+      es: "El contenido de los mensajes de solicitud de eco enviados"
+  - id: d
+    text:
+      es: "La ruta completa de enrutadores, con la hora de cada salto"
+  explanation:
+    es: "ping muestra la recepción de los mensajes de respuesta de eco y los tiempos de ida y vuelta. Mostrar solo los saltos sin tiempos contradice que muestra los tiempos de ida y vuelta. Lo que muestra son las respuestas de eco recibidas, no el contenido de las solicitudes que envía. La ruta y la hora de cada salto solo se registran con los parámetros /r y /s, no por defecto."
+  citation: "fuente: `ms-win-ping.html`; «ping»"
+  difficulty: 2
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-win-ping-html
+- id: m06-l08-q103
+  prompt:
+    es: "¿Cuál de las siguientes listas recoge los problemas que se solucionan con ping, el comando TCP/IP principal para ello, según la documentación de Windows 11?"
+  options:
+  - id: a
+    text:
+      es: "Problemas de disponibilidad, enrutamiento y asignación de direcciones"
+  - id: b
+    correct: true
+    text:
+      es: "Problemas de conectividad, disponibilidad y resolución de nombres"
+  - id: c
+    text:
+      es: "Problemas de conectividad, fragmentación y autenticación del usuario"
+  - id: d
+    text:
+      es: "Problemas de conectividad, cifrado y resolución de nombres"
+  explanation:
+    es: "ping es el comando TCP/IP principal para solucionar problemas de conectividad, disponibilidad y resolución de nombres. El cifrado no figura entre los problemas que ping ayuda a resolver. El enrutamiento y la asignación de direcciones no figuran en la lista de la página. La fragmentación (parámetro /f, útil para la PMTU) y la autenticación no son los problemas que cita como principales."
+  citation: "fuente: `ms-win-ping.html`; «ping»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-ms-win-ping-html
+- id: m06-l08-q104
+  prompt:
+    es: "En Windows 11, el parámetro /t del comando ping, que se usa para enviar solicitudes de eco a un destino:"
+  options:
+  - id: a
+    text:
+      es: "Envía las solicitudes con la marca No fragmentar establecida en 1"
+  - id: b
+    text:
+      es: "Realiza la resolución inversa de nombres en la dirección IP de destino"
+  - id: c
+    text:
+      es: "Fija el número de solicitudes de eco que se envían"
+  - id: d
+    correct: true
+    text:
+      es: "Sigue enviando solicitudes de eco al destino hasta que se interrumpa"
+  explanation:
+    es: "Con /t, ping continúa enviando solicitudes de eco al destino hasta que se interrumpa. La resolución inversa de nombres en la dirección de destino es el parámetro /a. El número de solicitudes de eco se fija con /n. La marca No fragmentar en 1 es lo que establece el parámetro /f."
+  citation: "fuente: `ms-win-ping.html`; «ping»"
+  difficulty: 1
+  tags:
+  - "configuración"
+  - "comportamiento"
+# anchor: fuente-ms-win-ping-html
+- id: m06-l08-q105
+  prompt:
+    es: "En Windows 11, con ping /t en marcha, ¿qué hacen las combinaciones CTRL+BREAK y CTRL+C?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "CTRL+BREAK interrumpe y muestra estadísticas; CTRL+C interrumpe y sale del comando"
+  - id: b
+    text:
+      es: "Ambas interrumpen el comando y muestran estadísticas, sin salir de él"
+  - id: c
+    text:
+      es: "Ambas interrumpen el comando y salen de él sin mostrar estadísticas"
+  - id: d
+    text:
+      es: "CTRL+BREAK interrumpe y sale del comando; CTRL+C interrumpe y muestra estadísticas"
+  explanation:
+    es: "CTRL+BREAK interrumpe ping y muestra las estadísticas; CTRL+C interrumpe y sale del comando. Intercambiar las dos combinaciones invierte lo que indica la página. CTRL+BREAK no sale del comando: interrumpe y muestra las estadísticas. CTRL+C no deja el comando en marcha: interrumpe y sale."
+  citation: "fuente: `ms-win-ping.html`; «ping»"
+  difficulty: 3
+  tags:
+  - "comportamiento"
+  - "atajo"
+# anchor: fuente-ms-win-ping-html
+- id: m06-l08-q106
+  prompt:
+    es: "En Windows 11, ¿cuántos mensajes de solicitud de eco envía por defecto el comando ping si no se indica el parámetro /n?"
+  options:
+  - id: a
+    text:
+      es: "5, que son los mensajes predeterminados"
+  - id: b
+    text:
+      es: "10, que son los mensajes predeterminados"
+  - id: c
+    correct: true
+    text:
+      es: "4, que son los mensajes predeterminados"
+  - id: d
+    text:
+      es: "3, que son los mensajes predeterminados"
+  explanation:
+    es: "El parámetro /n fija el número de solicitudes de eco y su valor predeterminado es 4. El valor predeterminado es 4, no 3. El valor predeterminado es 4, no 5. Diez es el número de solicitudes de uno de los ejemplos de la página, no el valor predeterminado."
+  citation: "fuente: `ms-win-ping.html`; «ping»"
+  difficulty: 1
+  tags:
+  - "cantidad"
+# anchor: fuente-ms-win-ping-html
+- id: m06-l08-q107
+  prompt:
+    es: "¿Cuál de las siguientes longitudes tiene por defecto el campo de datos de los mensajes de solicitud de eco del comando ping de Windows 11?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "32 bytes, con un tamaño máximo de 65 500 bytes"
+  - id: b
+    text:
+      es: "32 bytes, con un tamaño máximo de 1 000 bytes"
+  - id: c
+    text:
+      es: "64 bytes, con un tamaño máximo de 65 500 bytes"
+  - id: d
+    text:
+      es: "32 bytes, con un tamaño máximo de 255 bytes"
+  explanation:
+    es: "El parámetro /l fija la longitud del campo de datos, 32 bytes por defecto, con un máximo de 65 500. La longitud predeterminada es 32 bytes, no 64. Mil bytes es el campo de datos de uno de los ejemplos de la página, no el máximo, que es 65 500. 255 es el TTL máximo, no el tamaño máximo del campo de datos."
+  citation: "fuente: `ms-win-ping.html`; «ping»"
+  difficulty: 2
+  tags:
+  - "cantidad"
+# anchor: fuente-ms-win-ping-html
+- id: m06-l08-q108
+  prompt:
+    es: "En Windows 11, ¿cuánto tiempo espera por defecto ping la respuesta de eco de cada solicitud antes de mostrar el error «Tiempo de espera de solicitud»?"
+  options:
+  - id: a
+    text:
+      es: "40 000 milisegundos, es decir, 40 segundos"
+  - id: b
+    text:
+      es: "1000 milisegundos, es decir, 1 segundo"
+  - id: c
+    text:
+      es: "400 milisegundos, es decir, 0,4 segundos"
+  - id: d
+    correct: true
+    text:
+      es: "4000 milisegundos, es decir, 4 segundos"
+  explanation:
+    es: "El parámetro /w fija el tiempo de espera en milisegundos y por defecto es 4000, es decir, 4 segundos. El tiempo de espera predeterminado es de 4 segundos, no de 1. El tiempo de espera predeterminado es 4000 milisegundos, no 400. El tiempo de espera predeterminado es 4000 milisegundos, no 40 000."
+  citation: "fuente: `ms-win-ping.html`; «ping»"
+  difficulty: 3
+  tags:
+  - "cantidad"
+  - "configuración"
+# anchor: fuente-ms-win-ping-html
+- id: m06-l08-q109
+  prompt:
+    es: "¿Cuál de los siguientes efectos tiene, en Windows 11, el parámetro /a del comando ping sobre la dirección IP de destino?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Resuelve la dirección a su nombre de host y lo muestra, si la operación tiene éxito"
+  - id: b
+    text:
+      es: "Registra la ruta tomada por la solicitud y su respuesta"
+  - id: c
+    text:
+      es: "Resuelve el nombre del equipo de destino a su dirección IP"
+  - id: d
+    text:
+      es: "Sigue enviando solicitudes hasta que se interrumpa el comando"
+  explanation:
+    es: "Con /a, ping realiza la resolución inversa de nombres en la dirección IP de destino y muestra el nombre de host si se completa con éxito. La resolución que hace /a es inversa: de dirección IP a nombre, no de nombre a dirección. Seguir enviando solicitudes hasta que se interrumpa es el parámetro /t. Registrar la ruta de la solicitud y de la respuesta es lo que hace el parámetro /r."
+  citation: "fuente: `ms-win-ping.html`; «ping»"
+  difficulty: 2
+  tags:
+  - "configuración"
+  - "comportamiento"
+# anchor: fuente-ms-win-ping-html
+- id: m06-l08-q110
+  prompt:
+    es: "En Windows 11, ¿entre qué valores debe estar el recuento que se indica con el parámetro /r de ping para registrar la ruta?"
+  options:
+  - id: a
+    text:
+      es: "Mínimo 0 y máximo 9"
+  - id: b
+    text:
+      es: "Mínimo 1 y máximo 255"
+  - id: c
+    correct: true
+    text:
+      es: "Mínimo 1 y máximo 9"
+  - id: d
+    text:
+      es: "Mínimo 1 y máximo 4"
+  explanation:
+    es: "El recuento de /r, que registra la ruta tomada, debe ser un mínimo de 1 y un máximo de 9. Mínimo 1 y máximo 4 es el intervalo del recuento de /s, el de las marcas de tiempo. El recuento mínimo es 1, no 0. 255 es el TTL máximo, no el máximo del recuento de /r."
+  citation: "fuente: `ms-win-ping.html`; «ping»"
+  difficulty: 3
+  tags:
+  - "cantidad"
+# anchor: fuente-ms-win-ping-html
+- id: m06-l08-q111
+  prompt:
+    es: "En Windows 11, ¿entre qué valores debe estar el recuento que se indica con el parámetro /s de ping para registrar la hora de llegada de cada salto?"
+  options:
+  - id: a
+    text:
+      es: "Mínimo 1 y máximo 9"
+  - id: b
+    correct: true
+    text:
+      es: "Mínimo 1 y máximo 4"
+  - id: c
+    text:
+      es: "Mínimo 1 y máximo 32"
+  - id: d
+    text:
+      es: "Mínimo 4 y máximo 9"
+  explanation:
+    es: "El recuento de /s, que usa la marca de tiempo de Internet, debe ser un mínimo de 1 y un máximo de 4. Mínimo 1 y máximo 9 es el intervalo del recuento de /r. 32 es la longitud predeterminada del campo de datos, no el máximo del recuento de /s. El mínimo del recuento es 1, no 4."
+  citation: "fuente: `ms-win-ping.html`; «ping»"
+  difficulty: 3
+  tags:
+  - "cantidad"
+# anchor: fuente-ms-win-ping-html
+- id: m06-l08-q112
+  prompt:
+    es: "¿Cuál de las siguientes exigencias impone, en Windows 11, la ruta de origen estricta que ping usa con el parámetro /k?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Que el siguiente destino intermedio sea accesible directamente, como vecino en una interfaz del enrutador"
+  - id: b
+    text:
+      es: "Que los destinos intermedios puedan estar separados por uno o varios enrutadores"
+  - id: c
+    text:
+      es: "Que la lista de hosts tenga al menos nueve direcciones o nombres"
+  - id: d
+    text:
+      es: "Que se registre la ruta tomada por la solicitud de eco y su respuesta"
+  explanation:
+    es: "Con la ruta de origen estricta, el siguiente destino intermedio debe ser accesible directamente, es decir, un vecino en una interfaz del enrutador. Que los destinos estén separados por uno o varios enrutadores es lo que permite la ruta de origen flexible (/j). Registrar la ruta es la función de /r. La lista de hosts admite como máximo nueve direcciones o nombres, no un mínimo de nueve."
+  citation: "fuente: `ms-win-ping.html`; «ping»"
+  difficulty: 3
+  tags:
+  - "configuración"
+  - "comportamiento"
+# anchor: fuente-ms-win-ping-html
+- id: m06-l08-q113
+  prompt:
+    es: "¿Cuál de las siguientes utilidades tiene, en Windows 11, el parámetro /f de ping, que envía las solicitudes con la marca No fragmentar establecida en 1?"
+  options:
+  - id: a
+    text:
+      es: "Para especificar el tipo de servicio (TOS) de los mensajes"
+  - id: b
+    correct: true
+    text:
+      es: "Para solucionar problemas de la unidad de transmisión máxima"
+  - id: c
+    text:
+      es: "Para fijar el tiempo de vida (TTL) de los mensajes que se envían"
+  - id: d
+    text:
+      es: "Para registrar la hora de llegada de cada salto de la ruta"
+  explanation:
+    es: "El parámetro /f, solo disponible en IPv4, impide que los enrutadores fragmenten la solicitud y es útil para solucionar problemas de PMTU. Registrar la hora de llegada de cada salto es lo que hace /s. El TTL se fija con otro parámetro, que especifica el campo Período de vida del encabezado IP. El tipo de servicio se especifica con /v."
+  citation: "fuente: `ms-win-ping.html`; «ping»"
+  difficulty: 3
+  tags:
+  - "configuración"
+# anchor: fuente-ms-win-ping-html
+- id: m06-l08-q114
+  prompt:
+    es: "En Windows 11, ¿cuál es el valor predeterminado del campo Tipo de servicio (TOS) que se fija con el parámetro /v de ping?"
+  options:
+  - id: a
+    text:
+      es: "4, y se especifica como un valor decimal de 1 a 9"
+  - id: b
+    text:
+      es: "32, y se especifica como un valor decimal de 0 a 255"
+  - id: c
+    correct: true
+    text:
+      es: "0, y se especifica como un valor decimal de 0 a 255"
+  - id: d
+    text:
+      es: "255, y se especifica como un valor decimal de 0 a 255"
+  explanation:
+    es: "El valor predeterminado de TOS es 0, y se especifica como un valor decimal de 0 a 255. 32 es la longitud predeterminada del campo de datos, no el valor predeterminado de TOS. 4 es el número de solicitudes por defecto y el intervalo de 1 a 9 es el del recuento de /r. 255 es el máximo del intervalo, no el valor predeterminado, que es 0."
+  citation: "fuente: `ms-win-ping.html`; «ping»"
+  difficulty: 3
+  tags:
+  - "cantidad"
+  - "configuración"
+# anchor: fuente-ms-win-ping-html
+- id: m06-l08-q115
+  prompt:
+    es: "¿Cuál de los siguientes pares de parámetros de ping de Windows 11 están disponibles solo para IPv6, según la documentación?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "/R y /S, el seguimiento de la ruta y la dirección de origen"
+  - id: b
+    text:
+      es: "/n y /l, el número de solicitudes y la longitud de los datos"
+  - id: c
+    text:
+      es: "/r y /j, el registro de ruta y la ruta de origen flexible"
+  - id: d
+    text:
+      es: "/f y /v, la marca No fragmentar y el tipo de servicio"
+  explanation:
+    es: "Los parámetros /R (seguimiento de la ruta de ida y vuelta) y /S (dirección de origen) están disponibles solo para IPv6. /f y /v están disponibles solo para IPv4. /r y /j están disponibles solo para IPv4. /n y /l son parámetros generales de número y tamaño de las solicitudes, sin esa restricción a IPv6."
+  citation: "fuente: `ms-win-ping.html`; «ping»"
+  difficulty: 3
+  tags:
+  - "configuración"
+# anchor: fuente-ms-win-ping-html
+- id: m06-l08-q116
+  prompt:
+    es: "En Windows 11, si el ping a una dirección IP funciona pero el ping al nombre del equipo no, ¿qué indica la documentación de ping?"
+  options:
+  - id: a
+    text:
+      es: "Es posible que haya un problema de conectividad IP con el destino"
+  - id: b
+    text:
+      es: "Es seguro que el equipo de destino no está encendido"
+  - id: c
+    text:
+      es: "Es posible que el protocolo ICMP esté desinstalado en el equipo local"
+  - id: d
+    correct: true
+    text:
+      es: "Es posible que haya un problema de resolución de nombres"
+  explanation:
+    es: "Si el ping a la IP funciona y el ping al nombre no, es posible que haya un problema de resolución de nombres. Un ping correcto a la IP demuestra la conectividad IP, que es lo que ping comprueba. Si el ping a la IP funciona, el equipo de destino responde, así que no puede estar apagado. ping funciona con la IP, así que el envío de solicitudes de eco ICMP está operativo en el equipo local."
+  citation: "fuente: `ms-win-ping.html`; «ping»"
+  difficulty: 2
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-win-ping-html
+- id: m06-l08-q117
+  prompt:
+    es: "¿Cuál de los siguientes medios permite resolver el nombre de equipo que se indica a ping en Windows 11, según la documentación?"
+  options:
+  - id: a
+    text:
+      es: "Solo mediante consultas del sistema de nombres de dominio"
+  - id: b
+    correct: true
+    text:
+      es: "Mediante el archivo hosts local, consultas DNS o técnicas de resolución de nombres NetBIOS"
+  - id: c
+    text:
+      es: "Solo mediante el archivo hosts local del equipo"
+  - id: d
+    text:
+      es: "Solo mediante técnicas de resolución de nombres NetBIOS"
+  explanation:
+    es: "El nombre debe poder resolverse por el archivo hosts local, por consultas DNS o por técnicas de resolución de nombres NetBIOS. El archivo hosts es uno de los tres medios, no el único. Las consultas DNS son uno de los tres medios, no el único. NetBIOS es uno de los tres medios, no el único."
+  citation: "fuente: `ms-win-ping.html`; «ping»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-ms-win-ping-html
+- id: m06-l08-q118
+  prompt:
+    es: "En Windows 11, si el comando ping se escribe sin ningún parámetro, el sistema muestra:"
+  options:
+  - id: a
+    text:
+      es: "El error «Tiempo de espera de solicitud» tras cuatro intentos"
+  - id: b
+    text:
+      es: "Los tiempos de ida y vuelta hacia el equipo local"
+  - id: c
+    correct: true
+    text:
+      es: "El contenido de la Ayuda"
+  - id: d
+    text:
+      es: "Una solicitud de eco enviada a la puerta de enlace predeterminada"
+  explanation:
+    es: "Si se usa sin parámetros, ping muestra el contenido de la Ayuda. El error de tiempo de espera aparece cuando no se recibe una respuesta de eco dentro del tiempo de espera, no al usarlo sin parámetros. Los tiempos de ida y vuelta se muestran al recibir respuestas de un destino, que sin parámetros no se indica. Sin parámetros no se indica destino, por lo que no envía ninguna solicitud de eco."
+  citation: "fuente: `ms-win-ping.html`; «ping»"
+  difficulty: 1
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-win-ping-html
+- id: m06-l08-q119
+  prompt:
+    es: "En Windows 11, ¿cuántas direcciones o nombres admite como máximo la lista de hosts de los parámetros /j y /k de ping?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Nueve direcciones o nombres como máximo"
+  - id: b
+    text:
+      es: "255 direcciones o nombres como máximo"
+  - id: c
+    text:
+      es: "Treinta y dos direcciones o nombres como máximo"
+  - id: d
+    text:
+      es: "Cuatro direcciones o nombres como máximo"
+  explanation:
+    es: "La lista de hosts admite como máximo 9 direcciones o nombres. Cuatro es el máximo del recuento de /s y el número de solicitudes por defecto, no el de la lista de hosts. 32 es la longitud predeterminada del campo de datos. 255 es el valor máximo del TTL y del TOS."
+  citation: "fuente: `ms-win-ping.html`; «ping»"
+  difficulty: 3
+  tags:
+  - "cantidad"
+# anchor: fuente-incibe-glosario-ciberseguridad-pdf
+- id: m06-l08-q120
+  prompt:
+    es: "¿Cuál de los siguientes esquemas sigue el protocolo HTTP, el más utilizado para la navegación web, según el glosario de INCIBE?"
+  options:
+  - id: a
+    text:
+      es: "Petición-respuesta: el servidor pide los recursos al navegador y este se los envía"
+  - id: b
+    text:
+      es: "Suscripción: el servidor envía los recursos al navegador sin que este los pida"
+  - id: c
+    text:
+      es: "Conexión permanente: el navegador y el servidor mantienen un canal cifrado abierto"
+  - id: d
+    correct: true
+    text:
+      es: "Petición-respuesta: el navegador pide los recursos y el servidor se los envía si los tiene"
+  explanation:
+    es: "HTTP sigue un esquema petición-respuesta: el navegador pide los recursos que necesita y el servidor se los envía si dispone de ellos. Invertir los papeles contradice la página: es el navegador quien realiza las peticiones. El servidor solo envía los recursos que el navegador ha pedido. La información enviada por HTTP va en texto claro, no por un canal cifrado."
+  citation: "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.8.8. HTTP»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-incibe-glosario-ciberseguridad-pdf
+- id: m06-l08-q121
+  prompt:
+    es: "Señale con qué se identifica cada pieza de información transmitida por HTTP, según el glosario de términos de ciberseguridad de INCIBE:"
+  options:
+  - id: a
+    text:
+      es: "Con una dirección IP, que identifica al sistema conectado"
+  - id: b
+    correct: true
+    text:
+      es: "Con una URL (Uniform Resource Locator)"
+  - id: c
+    text:
+      es: "Con un certificado X.509 que autentica al servidor"
+  - id: d
+    text:
+      es: "Con una dirección MAC, escrita en el hardware de la red"
+  explanation:
+    es: "En HTTP, cada pieza de información transmitida se identifica con una URL (Uniform Resource Locator). La dirección MAC identifica a un dispositivo conectado a una red, no a cada pieza de información. La dirección IP identifica a todo sistema conectado a una red, no cada recurso transmitido. El certificado X.509 se usa en SSL para autenticar, no para identificar cada recurso."
+  citation: "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.8.8. HTTP»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-incibe-glosario-ciberseguridad-pdf
+- id: m06-l08-q122
+  prompt:
+    es: "Señale lo que implica que HTTP envíe la información en texto claro, según el glosario de términos de ciberseguridad de INCIBE:"
+  options:
+  - id: a
+    text:
+      es: "Que solo el servidor de destino puede leer lo que envía el navegador a la página"
+  - id: b
+    text:
+      es: "Que el navegador y el servidor intercambian antes una clave de cifrado"
+  - id: c
+    correct: true
+    text:
+      es: "Que cualquiera que intercepte el tráfico puede leer lo enviado y recibido"
+  - id: d
+    text:
+      es: "Que la información se cifra antes de ser enviada por la red"
+  explanation:
+    es: "HTTP envía la información en texto claro: cualquiera que intercepte el tráfico de red puede leer lo que se envía y se recibe. Que solo el servidor pueda leerla contradice que cualquiera que intercepte el tráfico puede hacerlo. Cifrar la información antes de enviarla es lo que hace HTTPS. Intercambiar antes una clave entre navegador y servidor es lo que se hace en HTTPS para cifrar el tráfico."
+  citation: "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.8.8. HTTP»"
+  difficulty: 1
+  tags:
+  - "concepto"
+  - "comportamiento"
+# anchor: fuente-incibe-glosario-ciberseguridad-pdf
+- id: m06-l08-q123
+  prompt:
+    es: "¿Cuál de las siguientes razones explica por qué se desarrolló el protocolo HTTPS, según el glosario de términos de ciberseguridad de INCIBE?"
+  options:
+  - id: a
+    text:
+      es: "Porque HTTP es un protocolo poco utilizado para la navegación web"
+  - id: b
+    correct: true
+    text:
+      es: "Porque HTTP envía en texto claro y lo puede leer quien intercepte el tráfico"
+  - id: c
+    text:
+      es: "Porque HTTP no identifica con una URL cada pieza de información transmitida"
+  - id: d
+    text:
+      es: "Porque HTTP no sigue un esquema de petición y respuesta entre navegador y servidor"
+  explanation:
+    es: "HTTPS se desarrolló porque HTTP envía en texto claro, de modo que cualquiera que intercepte el tráfico puede leerlo; en HTTPS la información se cifra antes de enviarse. HTTP sí sigue un esquema petición-respuesta, y HTTPS se basa en él. HTTP sí identifica cada pieza de información con una URL. HTTP es el protocolo más utilizado para la navegación web."
+  citation: "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.8.8. HTTP»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-incibe-glosario-ciberseguridad-pdf
+- id: m06-l08-q124
+  prompt:
+    es: "¿Cuál de las siguientes formas de cifrado se aplica al tráfico HTTP en HTTPS, según el glosario de términos de ciberseguridad de INCIBE?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Con cifrado simétrico, cuya clave se intercambió antes entre navegador y servidor"
+  - id: b
+    text:
+      es: "Con un algoritmo de cifrado asimétrico aplicado a todo el tráfico HTTP de la comunicación"
+  - id: c
+    text:
+      es: "Sin cifrar el tráfico: solo se autentica el servidor con un certificado"
+  - id: d
+    text:
+      es: "Con una clave simétrica fija que genera el navegador sin intercambiarla con el servidor"
+  explanation:
+    es: "En HTTPS el tráfico HTTP se cifra con un algoritmo simétrico cuya clave se ha intercambiado previamente entre el navegador y el servidor. El tráfico no se cifra con un algoritmo asimétrico: es un algoritmo simétrico. La clave no es fija ni se genera sin intercambio: se ha intercambiado previamente entre navegador y servidor. HTTPS cifra el tráfico HTTP, que es lo que lo distingue de HTTP."
+  citation: "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.8.9. HTTPS»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-incibe-glosario-ciberseguridad-pdf
+- id: m06-l08-q125
+  prompt:
+    es: "Señale la definición de HTTPS que ofrece el glosario de términos de ciberseguridad de INCIBE en su apartado sobre protocolos:"
+  options:
+  - id: a
+    text:
+      es: "Un protocolo de red basado en FTP, destinado a la transferencia segura de ficheros"
+  - id: b
+    correct: true
+    text:
+      es: "Un protocolo de red basado en HTTP, destinado a la transferencia segura de datos de hipertexto"
+  - id: c
+    text:
+      es: "Un protocolo de red basado en TCP/IP, destinado a traducir nombres de dominio de forma segura"
+  - id: d
+    text:
+      es: "Un protocolo de red basado en SMTP, destinado al envío seguro de correo electrónico"
+  explanation:
+    es: "HTTPS es un protocolo de red basado en HTTP, destinado a la transferencia segura de datos de hipertexto; en otras palabras, la versión segura de HTTP. La versión segura de FTP es SFTP, que usa SSH para la transferencia de datos entre cliente y servidor. SMTP intercambia mensajes de correo electrónico y no tiene una versión segura llamada HTTPS. Traducir nombres de dominio en direcciones IP es la función del DNS."
+  citation: "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.8.9. HTTPS»"
+  difficulty: 1
+  tags:
+  - "concepto"
