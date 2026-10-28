@@ -23,6 +23,7 @@ from tradeschool.auth.manager import get_user_manager
 from tradeschool.auth.models import AccessToken, User
 from tradeschool.config import Settings, get_settings
 from tradeschool.db import get_async_session
+from tradeschool.observability import bind_user
 
 _settings = get_settings()
 
@@ -61,7 +62,12 @@ auth_backend = AuthenticationBackend(  # type: ignore[type-var]
 
 fastapi_users = FastAPIUsers[User, uuid.UUID](get_user_manager, [auth_backend])  # type: ignore[type-var]
 
-current_active_user = fastapi_users.current_user(active=True)
+_current_active_user = fastapi_users.current_user(active=True)
+
+
+async def current_active_user(user: Annotated[User, Depends(_current_active_user)]) -> User:
+    bind_user(user.id)
+    return user
 
 
 def set_session_cookie(response: Response, token: str, settings: Settings) -> None:

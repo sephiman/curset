@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import logging
 import secrets
 import uuid
 from collections.abc import Mapping
@@ -22,6 +23,8 @@ from tradeschool.exercises.case import question_seeds
 from tradeschool.exercises.quiz import QuizConfig
 from tradeschool.exercises.registry import get_generator
 from tradeschool.exercises.types import ExerciseType
+
+logger = logging.getLogger("tradeschool.attempts")
 
 _SEED_SPACE = 2**62
 
@@ -123,6 +126,13 @@ async def open_attempt(
     session.add(attempt)
     await session.commit()
     await session.refresh(attempt)
+    logger.info(
+        "attempt_opened attempt=%s exercise=%s variant=%s type=%s",
+        attempt.id,
+        exercise_key,
+        attempt.variant_id,
+        exercise_type.value,
+    )
     return OpenedAttempt(
         attempt=attempt, instance=instance, exercise_type=exercise_type, exercise_id=exercise_id
     )
@@ -194,6 +204,7 @@ async def open_case(
             )
         )
     await session.commit()
+    logger.info("case_opened exercise=%s questions=%d", exercise_key, len(opened))
     return OpenedCase(exercise_id, case.title.get(locale), case.scenario.get(locale), opened)
 
 
@@ -231,6 +242,13 @@ async def submit_answer(
     attempt.state = AttemptState.ANSWERED
     attempt.answered_at = datetime.now(UTC)
     await session.commit()
+    logger.info(
+        "attempt_answered attempt=%s exercise=%s question=%s correct=%s",
+        attempt.id,
+        attempt.exercise_id,
+        attempt.question_id,
+        result.correct,
+    )
     return attempt, result
 
 

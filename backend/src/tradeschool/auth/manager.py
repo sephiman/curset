@@ -12,7 +12,7 @@ import uuid
 from collections.abc import AsyncGenerator
 from typing import Annotated
 
-from fastapi import Depends, Request
+from fastapi import Depends, Request, Response
 from fastapi_users import BaseUserManager, UUIDIDMixin
 from fastapi_users.exceptions import InvalidPasswordException, UserAlreadyExists
 from fastapi_users.password import PasswordHelper
@@ -62,7 +62,12 @@ class UserManager(UUIDIDMixin, BaseUserManager[User, uuid.UUID]):  # type: ignor
             raise InvalidPasswordException(f"Password must be at least {MIN_PASSWORD_LENGTH} characters.")
 
     async def on_after_register(self, user: User, request: Request | None = None) -> None:
-        logger.info("User registered: %s", user.id)
+        logger.info("user_registered user=%s", user.id)
+
+    async def on_after_login(
+        self, user: User, request: Request | None = None, response: Response | None = None
+    ) -> None:
+        logger.info("auth_login user=%s", user.id)
 
     async def register(self, username: str, password: str, locale: Locale) -> User:
         """Create a user by username. Raises InvalidPasswordException / UserAlreadyExists / ValueError."""
@@ -85,7 +90,10 @@ class UserManager(UUIDIDMixin, BaseUserManager[User, uuid.UUID]):  # type: ignor
         return user
 
     async def set_locale(self, user: User, locale: str) -> User:
-        return await self._username_db().update(user, {"locale": locale})
+        locale_before = user.locale
+        updated = await self._username_db().update(user, {"locale": locale})
+        logger.info("user_locale_changed locale=%s->%s", locale_before, locale)
+        return updated
 
     async def set_password(self, user: User, new_password: str) -> User:
         await self.validate_password(new_password)

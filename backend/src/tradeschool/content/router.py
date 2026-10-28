@@ -5,6 +5,7 @@ reading language (query `lang`, else the user's choice for the course); progress
 
 from __future__ import annotations
 
+import logging
 import uuid
 from typing import Annotated
 
@@ -26,6 +27,8 @@ from tradeschool.db import get_async_session
 from tradeschool.deps import ReadingLocale, get_registry, language_not_available
 from tradeschool.errors import AppError
 from tradeschool.exercises.figures import build_figure
+
+logger = logging.getLogger("tradeschool.content")
 
 router = APIRouter(tags=["content"])
 # The course itself and its whole-document exports, whose paths hang off the course root
@@ -244,6 +247,7 @@ async def complete_lesson(
         .on_conflict_do_nothing(index_elements=["user_id", "course_id", "lesson_id"])
     )
     await session.commit()
+    logger.info("lesson_completed lesson=%s", registry.lesson_key(lesson_id))
     return CompleteResponse(lessonId=lesson_id, completed=True)
 
 
@@ -265,6 +269,7 @@ async def uncomplete_lesson(
         )
     )
     await session.commit()
+    logger.info("lesson_uncompleted lesson=%s", registry.lesson_key(lesson_id))
     return CompleteResponse(lessonId=lesson_id, completed=False)
 
 

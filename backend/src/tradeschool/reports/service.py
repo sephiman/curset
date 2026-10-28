@@ -120,6 +120,13 @@ async def file_report(
     session.add(report)
     await session.commit()
     await session.refresh(report)
+    logger.info(
+        "question_report_filed report=%s attempt=%s exercise=%s variant=%s",
+        report.id,
+        attempt.id,
+        exercise_id,
+        report.variant_id,
+    )
     return report
 
 
@@ -160,6 +167,13 @@ async def deliver_pending(sessionmaker: async_sessionmaker[AsyncSession], mailer
                 report.emailed_at = datetime.now(UTC)
                 delivered += 1
             else:
-                logger.warning("question report %s not mailed (attempt %d)", report.id, report.email_attempts)
+                logger.warning(
+                    "question_report_mail_failed report=%s course=%s attempts=%d",
+                    report.id,
+                    report.course_id,
+                    report.email_attempts,
+                )
             await session.commit()
+    if pending:
+        logger.info("question_reports_mailed pending=%d delivered=%d", len(pending), delivered)
     return delivered

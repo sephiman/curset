@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import logging
 import uuid
 from collections.abc import Mapping
 from dataclasses import dataclass
@@ -15,6 +16,8 @@ from tradeschool.content.registry import Catalog, CourseRegistry
 from tradeschool.enrollment.models import UserCourse
 from tradeschool.enrollment.reading import reading_language
 from tradeschool.errors import AppError
+
+logger = logging.getLogger("tradeschool.enrollment")
 
 
 def course_text_locale(registry: CourseRegistry, locale: str) -> str:
@@ -127,6 +130,14 @@ async def save_state(
         if slug in reading_choices:
             row.reading_locale = reading_choices[slug]
     await session.commit()
+    # user= explicit: the sign-up path runs before any session is bound to the log context.
+    logger.info(
+        "enrollment_saved user=%s active=%d selected=%s reading_choices=%d",
+        user_id,
+        len(active),
+        effective,
+        len(reading_choices),
+    )
     return await load_state(session, catalog, user_id, account_locale)
 
 

@@ -23,8 +23,9 @@ from tradeschool.content.router import router as content_router
 from tradeschool.db import dispose_engine, init_engine
 from tradeschool.deps import get_registry
 from tradeschool.enrollment.router import catalogue_router, me_router
-from tradeschool.errors import register_exception_handlers
+from tradeschool.errors import log_refusal, register_exception_handlers
 from tradeschool.exams.router import router as exams_router
+from tradeschool.observability import RequestContextReset, configure_logging
 from tradeschool.practice.router import router as practice_router
 from tradeschool.ratelimit import limiter
 from tradeschool.reports.router import router as reports_router
@@ -86,6 +87,7 @@ async def _retry_report_mail(app: FastAPI) -> None:
 
 def create_app(settings: Settings | None = None) -> FastAPI:
     settings = settings or get_settings()
+    configure_logging()
 
     app = FastAPI(
         title="Curset",
@@ -103,6 +105,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     app.add_exception_handler(RateLimitExceeded, _rate_limit_handler)
 
     register_exception_handlers(app)
+    app.add_middleware(RequestContextReset)
 
     api = APIRouter(prefix="/api")
     # Genuinely global: an account is not per-course, and health/version describe the service.
@@ -137,8 +140,9 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     return app
 
 
-async def _rate_limit_handler(_: Request, exc: Exception) -> JSONResponse:
+async def _rate_limit_handler(request: Request, exc: Exception) -> JSONResponse:
     assert isinstance(exc, RateLimitExceeded)
+    log_refusal(request, 429, "RATE_LIMITED")
     return JSONResponse(
         status_code=429,
         content={"code": "RATE_LIMITED", "message": "Too many requests. Please slow down."},

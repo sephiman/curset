@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import logging
 import uuid
 from datetime import timedelta
 
@@ -15,6 +16,8 @@ from tradeschool.auth.mail import Mailer
 from tradeschool.auth.mail_texts import verification_mail
 from tradeschool.auth.models import User
 from tradeschool.errors import AppError
+
+logger = logging.getLogger("tradeschool.auth")
 
 VERIFY_TTL = timedelta(hours=48)
 
@@ -46,6 +49,7 @@ async def change_email(
     user.email = email
     user.is_verified = False
     await session.commit()
+    logger.info("user_email_changed user=%s has_email=%s", user.id, email is not None)
     await send_link(session, user, mailer=mailer, public_url=public_url)
     return user
 
@@ -62,6 +66,7 @@ async def send_link(session: AsyncSession, user: User, *, mailer: Mailer, public
     hours = int(VERIFY_TTL.total_seconds() // 3600)
     subject, body = verification_mail(user.locale, user.username, link(public_url, token), hours)
     mailer.send(user.email, subject, body)
+    logger.info("email_verification_sent user=%s", user.id)
 
 
 async def confirm(session: AsyncSession, token: str) -> None:
@@ -76,3 +81,4 @@ async def confirm(session: AsyncSession, token: str) -> None:
     user.is_verified = True
     email_tokens.mark_used(row)
     await session.commit()
+    logger.info("email_verified user=%s", user.id)

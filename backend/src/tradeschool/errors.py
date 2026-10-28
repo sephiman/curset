@@ -3,11 +3,15 @@
 
 from __future__ import annotations
 
+import logging
+
 from fastapi import FastAPI, Request, status
 from fastapi.encoders import jsonable_encoder
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
+
+logger = logging.getLogger("tradeschool.errors")
 
 
 class AppError(Exception):
@@ -57,9 +61,20 @@ _STATUS_CODE = {
 }
 
 
+def log_refusal(request: Request, status_code: int, code: str) -> None:
+    # The route template, not the raw URI: one line shape per endpoint, whatever ids are in the path.
+    route = request.scope.get("route")
+    path = getattr(route, "path", "unmapped")
+    logger.info(
+        "request_refused status=%d code=%s method=%s path=%s", status_code, code, request.method, path
+    )
+
+
 def register_exception_handlers(app: FastAPI) -> None:
     @app.exception_handler(AppError)
-    async def _app_error(_: Request, exc: AppError) -> JSONResponse:
+    async def _app_error(request: Request, exc: AppError) -> JSONResponse:
+        if 400 <= exc.status_code < 500:
+            log_refusal(request, exc.status_code, exc.code)
         return JSONResponse(
             status_code=exc.status_code,
             content=_envelope(exc.code, exc.message, exc.fields, exc.extra),

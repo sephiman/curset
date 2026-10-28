@@ -8,6 +8,7 @@ Every rule comes from the preset (`exams/presets.py`); a session stores the pres
 
 from __future__ import annotations
 
+import logging
 import secrets
 import uuid
 from collections.abc import Mapping
@@ -34,6 +35,8 @@ from tradeschool.exercises.types import ExerciseType
 from tradeschool.stats.by_lesson import lesson_table
 
 #: Answers sent this long after the clock ran out still land: the request left before it did.
+logger = logging.getLogger("tradeschool.exams")
+
 ANSWER_GRACE = timedelta(seconds=15)
 
 #: Legacy (before presets): the frozen question order as exercise KEYS, one per module.
@@ -442,9 +445,11 @@ async def start_exam(
     preset, target = _resolve_start(registry, preset_id, target)
 
     # Starting a sitting of a preset (and target) closes any open one of the same.
+    replaced: list[uuid.UUID] = []
     for existing in await _open_sessions(session, user_id, course_id):
         if _preset_id(existing) == preset.id and target_of(existing) == target:
             await _abandon(session, existing)
+            replaced.append(existing.id)
 
     exam = ExamSession(
         user_id=user_id,
@@ -508,6 +513,14 @@ async def start_exam(
     # session already has, so no schema migration.
     exam.rules = {**exam.rules, ATTEMPT_ORDER: order, "parts": parts}
     await session.commit()
+    logger.info(
+        "exam_started exam=%s preset=%s target=%s questions=%d replaced=%s",
+        exam.id,
+        preset.id,
+        target,
+        len(order),
+        ",".join(map(str, replaced)) or "none",
+    )
     return _build_view(exam, registry, await _attempts_of(session, exam.id), locale, reveal=False)
 
 
@@ -564,6 +577,7 @@ async def answer_question(
         raise AppError("EXAM_QUESTION_NOT_FOUND", "No such question in this exam.", status_code=404)
     attempt.given_answer = dict(answer)
     await session.commit()
+    logger.info("exam_answer_saved exam=%s attempt=%s", exam_id, attempt_id)
 
 
 async def mark_cases(
@@ -590,6 +604,7 @@ async def mark_cases(
     marks[part_id] = sorted(set(keys), key=offered.index)
     exam.rules = {**exam.rules, "caseMarks": marks}
     await session.commit()
+    logger.info("exam_cases_marked exam=%s part=%s marked=%d", exam_id, part_id, len(marks[part_id]))
 
 
 async def submit_exam(
@@ -630,6 +645,14 @@ async def submit_exam(
     exam.finished_at = now
     exam.rules = {**exam.rules, "status": "submitted", "result": result}
     await session.commit()
+    logger.info(
+        "exam_submitted exam=%s preset=%s questions=%d answered=%d correct=%d",
+        exam_id,
+        preset.id,
+        len(attempts),
+        sum(a.given_answer is not None for a in attempts),
+        sum(bool(a.is_correct) for a in attempts),
+    )
     return _build_view(exam, registry, await _attempts_of(session, exam_id), locale, reveal=True)
 
 
@@ -638,6 +661,7 @@ async def abandon_exam(session: AsyncSession, user_id: uuid.UUID, exam_id: uuid.
     if exam.rules.get("status") == "open":
         await _abandon(session, exam)
         await session.commit()
+        logger.info("exam_abandoned exam=%s", exam_id)
 
 
 async def review_exam(

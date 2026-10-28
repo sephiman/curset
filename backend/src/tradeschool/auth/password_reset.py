@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import logging
 from datetime import timedelta
 
 from sqlalchemy import delete, func, select
@@ -15,6 +16,8 @@ from tradeschool.auth.mail_texts import password_reset_mail
 from tradeschool.auth.manager import UserManager
 from tradeschool.auth.models import AccessToken, EmailToken, User
 from tradeschool.errors import AppError
+
+logger = logging.getLogger("tradeschool.auth")
 
 RESET_TTL = timedelta(minutes=60)
 
@@ -34,13 +37,18 @@ async def request_for_email(session: AsyncSession, email: str, *, mailer: Mailer
         select(User).where(func.lower(User.email) == email, User.is_verified, User.is_active)
     )
     if user is None or user.email is None:
+        logger.info("password_reset_requested known_user=false")
         return
     if await email_tokens.issued_recently(session, user.id, TokenPurpose.PASSWORD_RESET):
+        logger.info(
+            "password_reset_requested known_user=true user=%s mail_queued=false reason=recent", user.id
+        )
         return
     token = await email_tokens.issue(session, user.id, TokenPurpose.PASSWORD_RESET, user.email, RESET_TTL)
     minutes = int(RESET_TTL.total_seconds() // 60)
     subject, body = password_reset_mail(user.locale, user.username, link(public_url, token), minutes)
     mailer.send(user.email, subject, body)
+    logger.info("password_reset_requested known_user=true user=%s mail_queued=true", user.id)
 
 
 async def _target(session: AsyncSession, token: str) -> tuple[EmailToken, User]:
@@ -63,3 +71,4 @@ async def confirm(session: AsyncSession, token: str, new_password: str, *, user_
     email_tokens.mark_used(row)
     await session.execute(delete(AccessToken).where(AccessToken.__table__.c.user_id == user.id))
     await session.commit()
+    logger.info("password_reset_completed user=%s sessions_revoked=true", user.id)

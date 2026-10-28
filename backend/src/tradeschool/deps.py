@@ -18,6 +18,7 @@ from tradeschool.db import get_async_session
 from tradeschool.enrollment.models import UserCourse
 from tradeschool.enrollment.reading import reading_language
 from tradeschool.errors import AppError
+from tradeschool.observability import bind_course
 
 
 def app_settings(request: Request) -> Settings:
@@ -37,7 +38,7 @@ def app_catalog(request: Request) -> Catalog:
     return catalog
 
 
-def get_registry(request: Request) -> CourseRegistry:
+async def get_registry(request: Request) -> CourseRegistry:
     """The published course named by `/api/courses/{course}/…`; a draft is as absent as an unknown slug.
 
     Read off `request.path_params` so the routers it serves need not declare the segment themselves.
@@ -46,6 +47,7 @@ def get_registry(request: Request) -> CourseRegistry:
     registry = app_catalog(request).get(slug)
     if registry is None or not registry.published:
         raise AppError("COURSE_NOT_FOUND", f"No course {slug!r}.", status_code=404)
+    bind_course(slug)
     return registry
 
 

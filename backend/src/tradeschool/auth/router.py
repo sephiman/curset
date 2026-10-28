@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import logging
 from dataclasses import dataclass
 from typing import Annotated, cast
 
@@ -40,6 +41,8 @@ from tradeschool.deps import app_catalog, app_mailer, app_settings
 from tradeschool.enrollment.service import enroll_at_signup
 from tradeschool.errors import AppError
 from tradeschool.ratelimit import limiter
+
+logger = logging.getLogger("tradeschool.auth")
 
 router = APIRouter(tags=["auth"])
 
@@ -132,6 +135,8 @@ async def logout(
     token = request.cookies.get(settings.session_cookie_name)
     if token:
         await strategy.destroy_token(token, user)
+    # No service owns logout: the strategy call above is the whole action.
+    logger.info("auth_logout")
     response = Response(status_code=204)
     clear_session_cookie(response, settings)
     return response
