@@ -1,6 +1,6 @@
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
-import yaml from "js-yaml";
+import { load } from "js-yaml";
 import type { CourseExport, GlossaryEntry } from "@/api/course";
 import type { CapturedFigure } from "@/lib/pdf/document";
 import { FONT_DIR, PRINT_FONT_FILES } from "@/lib/pdf/fonts";
@@ -131,7 +131,7 @@ export function courseContent(dir: string): CourseContent {
   const base = dir.endsWith("/") ? dir : `${dir}/`;
   let cached: Manifest | null = null;
   const manifest = (): Manifest => {
-    cached ??= yaml.load(readFileSync(`${base}course.yaml`, "utf8")) as Manifest;
+    cached ??= load(readFileSync(`${base}course.yaml`, "utf8")) as Manifest;
     return cached;
   };
   const modules = () => manifest().blocks.flatMap((block) => block.modules);
@@ -250,7 +250,7 @@ function glossaryOf(
 ): GlossaryEntry[] {
   const path = resolve(base, "glossary.yaml");
   if (!existsSync(path)) return [];
-  const raw = yaml.load(readFileSync(path, "utf8")) as {
+  const raw = load(readFileSync(path, "utf8")) as {
     terms: {
       id: string;
       en: string;

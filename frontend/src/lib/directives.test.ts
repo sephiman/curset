@@ -5,7 +5,7 @@ import { describe, expect, it } from "vitest";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
 import remarkGfm from "remark-gfm";
-import yaml from "js-yaml";
+import { load } from "js-yaml";
 import type { Root, RootContent } from "mdast";
 import type {} from "mdast-util-directive";
 import { remarkBlockDirectives } from "@/lib/directives";
@@ -74,7 +74,7 @@ function renderedStrings(course: CourseContent): { where: string; markdown: stri
   );
   const dir = resolve(course.dir, "exercises");
   for (const file of readdirSync(dir).filter((name) => name.endsWith(".yaml")).sort()) {
-    const doc = yaml.load(readFileSync(resolve(dir, file), "utf8")) as {
+    const doc = load(readFileSync(resolve(dir, file), "utf8")) as {
       variants?: { id: string; prompt?: Record<string, string> }[];
     };
     for (const variant of doc.variants ?? []) {

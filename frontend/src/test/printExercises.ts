@@ -1,5 +1,5 @@
 import { readFileSync } from "node:fs";
-import yaml from "js-yaml";
+import { load } from "js-yaml";
 import type { PrintExercise, PrintExercises, PrintLesson } from "@/api/course";
 import type { AttemptPayload, OptionView } from "@/api/exercises";
 import { CONTENT_DIR, exerciseKey, manifestModules, type Locale } from "@/test/courseContent";
@@ -53,7 +53,7 @@ const configs = new Map<string, RawConfig>();
 function config(exerciseId: string): RawConfig {
   const cached = configs.get(exerciseId);
   if (cached) return cached;
-  const raw = yaml.load(
+  const raw = load(
     readFileSync(`${CONTENT_DIR}exercises/${exerciseId}.yaml`, "utf8"),
   ) as RawConfig;
   configs.set(exerciseId, raw);

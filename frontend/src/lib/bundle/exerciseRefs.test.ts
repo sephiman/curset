@@ -6,7 +6,7 @@ import { manifestModules, LOCALES, type Locale } from "@/test/courseContent";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { CONTENT_DIR } from "@/test/courseContent";
-import yaml from "js-yaml";
+import { load } from "js-yaml";
 
 /**
  * The references inside exercise prose, resolved at export time so the app stops detecting them.
@@ -98,7 +98,7 @@ function exerciseStrings(locale: Locale): { where: string; text: string }[] {
     } catch {
       continue; // declared in the manifest but not yet playable
     }
-    walk(yaml.load(raw), id.id);
+    walk(load(raw), id.id);
   }
   return out;
 }
