@@ -379,6 +379,7 @@ Everything whose data belongs to a course hangs off the course:
 /api/courses/{course}/exams                …/open, /{exam_id}, /{exam_id}/submit, …
 /api/courses/{course}/attempts             …/{attempt_id}, /exercises/{id}/attempts
 /api/courses/{course}/attempts/{id}/report "Report this question" (see Courses, languages and reports)
+/api/courses/{course}/lessons/{id}/practice A lesson's practice round (courses with `lesson_practice`)
 /api/courses/{course}/stats/me             …/stats/global (anonymous aggregate, within the course)
 ```
 
@@ -833,12 +834,32 @@ charts with the production renderer, which is where a theme pass over the figure
 validate stops startup, and the error names it. `course.yaml` declares the course's `languages` (`[es]`
 or `[en, es]`, first = fallback), its `status` (`draft` courses are loaded and checked but never served)
 and its `exercise_types`. Two courses exist: `crypto-futures` (published) and `age-administrativo-c1`,
-the Spanish-only preparation for the Administrativo del Estado (C1) exam, still a draft: the theory of
+the Spanish-only preparation for the Administrativo del Estado (C1) exam, published since AGE 1.0
+(deployment steps in `docs/deploy-age-1.0.md`): the theory of
 all six bloques is written, bloque VI as short list-shaped lessons citing saved official pages
 (requirements in `docs/age-administrativo-course-requirements.md`, per-tema record in `docs/age-theory-ledger.md`,
 scope, coverage and currency audit in `docs/age-scope-audit.md`). Its question bank covers all six bloques with
 5,200 blind-verified fixed multiple-choice questions (I 675, II 264, III 775, IV 988, V 645, VI 1,853; plan in
-`docs/age-bank-plan.md`, counts and verification record in `docs/age-bank-ledger.md`).
+`docs/age-bank-plan.md`, counts and verification record in `docs/age-bank-ledger.md`). Its questions are
+practised per tema and in exams. **Lesson practice** (`lesson_practice: true` in `course.yaml`): the lessons
+embed no quizzes; instead every tema ends with «Practicar» (also beside each tema on its module page), a round
+of that tema's questions one at a time — «20 al azar» by default or «Todas», no clock, no penalty, no score —
+with «Ver solución» open after each answer and the report link inside it. A question answered correctly twice
+in practice is four times less likely to come up (`practice/order.py`). Each answer is an ordinary practice
+attempt on the question's own id (`POST …/exercises/{id}/attempts {"variantId"}`), so Progress counts it as it
+counts crypto-futures' embedded quizzes; crypto-futures does not declare the flag and is unchanged. Exam
+presets: «Tema» (20 questions from one tema, no penalty, 25 minutes) and «Bloque» (40 from one bloque, a wrong
+answer costs 1/3, 45 minutes); the «Simulacro oficial» and its two parts wait for the supuestos prácticos, and
+pausing between questions waits for delta G.
+
+**Question identity.** A quiz question is named by its own id (`m06-l02-q351`), never by the exercise the
+bank build grouped it into: every attempt stores it (`attempts.variant_id`), and grading, review, reports,
+excerpts and statistics follow the question to whichever exercise holds it today, so a rebuild that
+rebalances a tema's exercises moves nothing a learner did. A case question is named under its case
+(`m02-ex-3/q01`), since its id is only unique inside the case. `content/<slug>/question-keys.tsv` freezes
+every key with a digest of what the learner sees; `test_question_identity.py` fails if a rebuild gives an
+unchanged question a new key (`UPDATE_QUESTION_KEYS=1` regenerates it after adding or rewording questions).
+Attempts written before the ids were stored are named at startup by `tradeschool backfill-question-ids`.
 Module, lesson, exercise and glossary ids are unique **inside** a course only: the database keys every
 skeleton row by `(course_id, id)`, and every attempt and lesson
 completion carries its course. An attempt, an exam or a statistic therefore never shows up in another

@@ -12,7 +12,7 @@ from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
 from tradeschool.attempts.models import Attempt, AttemptState
-from tradeschool.attempts.service import load_owned
+from tradeschool.attempts.service import load_owned, question_ref
 from tradeschool.auth.mail import Mailer
 from tradeschool.auth.models import User
 from tradeschool.citations.course import QuestionLink
@@ -42,9 +42,8 @@ async def _reportable(
 ) -> Attempt:
     """An answered multiple-choice attempt of this course; never one whose answer is still hidden."""
     attempt = await load_owned(session, registry, user.id, attempt_id)
-    exercise_id = registry.exercise_id_for_key(attempt.exercise_id)
     # A case question resolves to its own one-question quiz, so it is reportable like any other.
-    config = registry.attempt_config(exercise_id, attempt.question_id) if exercise_id else None
+    config = registry.attempt_config(question_ref(registry, attempt))
     # OPEN covers an exam in progress too: its attempts only become ANSWERED when it is submitted.
     if attempt.state != AttemptState.ANSWERED or config is None or config[0] is not ExerciseType.QUIZ:
         raise AppError("REPORT_NOT_AVAILABLE", "This question cannot be reported.", status_code=409)
@@ -82,8 +81,9 @@ async def file_report(
     attempt = await _reportable(session, registry, user, attempt_id)
     await _check_limits(session, user.id, attempt.id)
 
-    exercise_id = registry.exercise_id_for_key(attempt.exercise_id) or attempt.exercise_id
-    _, config = registry.attempt_config(exercise_id, attempt.question_id) or (None, None)
+    ref = question_ref(registry, attempt)
+    exercise_id = ref.exercise_id
+    _, config = registry.attempt_config(ref) or (None, None)
     assert isinstance(config, QuizConfig)
     generator = get_generator(ExerciseType.QUIZ)
     assert isinstance(generator, QuizGenerator)
@@ -94,7 +94,7 @@ async def file_report(
     location = registry.exercise_location(exercise_id)
     # The player lives in the exercise's lesson; the question itself may belong to another (a case's).
     lesson_id = registry.exercise_lesson_id(exercise_id) or ""
-    question_link = registry.question_link(exercise_id, attempt.question_id, attempt.seed, locale)
+    question_link = registry.question_link(ref, locale)
     case = registry.case_config(exercise_id)
 
     report = QuestionReport(

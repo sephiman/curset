@@ -182,10 +182,11 @@ export type Answer =
 /** Deferred-grading mode (exams): answer-capture only, no submit button or feedback. */
 export type Deferred = { value: Answer | null; onChange: (answer: Answer) => void };
 
-export async function createAttempt(scope: CourseScope, exerciseId: string): Promise<AttemptInstance> {
+/** A fresh attempt: the question its seed draws, or the one `variantId` names (lesson practice). */
+export async function createAttempt(scope: CourseScope, exerciseId: string, variantId?: string): Promise<AttemptInstance> {
   const { data } = await apiClient.post<AttemptInstance>(
     courseUrl(scope, `/exercises/${exerciseId}/attempts`),
-    undefined,
+    variantId ? { variantId } : undefined,
     inReadingLanguage(scope),
   );
   return data;

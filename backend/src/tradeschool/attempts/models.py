@@ -7,7 +7,17 @@ import uuid
 from datetime import datetime
 from enum import StrEnum
 
-from sqlalchemy import BigInteger, Boolean, DateTime, Enum, ForeignKey, ForeignKeyConstraint, String, func
+from sqlalchemy import (
+    BigInteger,
+    Boolean,
+    DateTime,
+    Enum,
+    ForeignKey,
+    ForeignKeyConstraint,
+    Index,
+    String,
+    func,
+)
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -24,6 +34,7 @@ class Attempt(Base):
     __tablename__ = "attempts"
     __table_args__ = (
         ForeignKeyConstraint(["course_id", "exercise_id"], ["exercises.course_id", "exercises.id"]),
+        Index("ix_attempts_course_variant", "course_id", "variant_id"),
     )
 
     id: Mapped[uuid.UUID] = mapped_column(primary_key=True, default=uuid.uuid4)
@@ -34,6 +45,12 @@ class Attempt(Base):
     # The question inside a case exercise; null for every other exercise. A case's questions are
     # separate attempts, so a stat or a report is about one question, never about the whole case.
     question_id: Mapped[str | None] = mapped_column(String, nullable=True)
+    # The quiz question the attempt showed, by its own id: grading, review, reports and stats follow
+    # it to whichever exercise holds it today, so a rebuild that rebalances a bank moves nothing.
+    # Null only for generated exercises (the seed is the question) and case questions (question_id).
+    variant_id: Mapped[str | None] = mapped_column(
+        String, nullable=True, comment="the quiz question's own id"
+    )
     # The seed fully determines the instantiated scenario (§3.2): any attempt is exactly replayable.
     seed: Mapped[int] = mapped_column(BigInteger, nullable=False)
     # Cached public instance for fast history rendering (regenerable from the seed).

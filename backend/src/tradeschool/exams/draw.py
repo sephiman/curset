@@ -51,6 +51,8 @@ class DrawnQuestion:
     #: Set on a case question: the exercise is the case, this names the question inside it.
     question_id: str | None = None
     reserve: bool = False
+    #: The quiz question drawn, stored on the attempt; None for a case or a generated exercise.
+    variant_id: str | None = None
 
 
 @dataclass(frozen=True)
@@ -153,12 +155,22 @@ def _seed_for(registry: CourseRegistry, question: PoolQuestion, rand: Rand) -> i
     raise DrawError(f"no seed selects variant {question.variant_id!r} of {question.exercise_id!r}")
 
 
+def _drawn(
+    registry: CourseRegistry, question: PoolQuestion, rand: Rand, *, reserve: bool = False
+) -> DrawnQuestion:
+    seed = _seed_for(registry, question, rand)
+    return DrawnQuestion(question.exercise_id, seed, reserve=reserve, variant_id=question.variant_id)
+
+
 def draw_per_module(registry: CourseRegistry, modules: list[str], rand: Rand) -> list[DrawnQuestion]:
     """One exercise per module, each with a fresh seed — choice then seed, module by module."""
     drawn: list[DrawnQuestion] = []
     for module_id in modules:
         exercise_id = rand.choice(_module_questions(registry, module_id))
-        drawn.append(DrawnQuestion(exercise_id, rand.randbelow(SEED_SPACE)))
+        seed = rand.randbelow(SEED_SPACE)
+        drawn.append(
+            DrawnQuestion(exercise_id, seed, variant_id=registry.drawn_variant_id(exercise_id, seed))
+        )
     return drawn
 
 
@@ -170,14 +182,14 @@ def draw_random(
         raise DrawError(f"the pool holds {len(pool)} questions; the part needs {counted + reserve}")
     picked = _sample(rand, len(pool), counted + reserve)
     main, extra = sorted(picked[:counted]), sorted(picked[counted:])
-    return [DrawnQuestion(pool[i].exercise_id, _seed_for(registry, pool[i], rand)) for i in main] + [
-        DrawnQuestion(pool[i].exercise_id, _seed_for(registry, pool[i], rand), reserve=True) for i in extra
+    return [_drawn(registry, pool[i], rand) for i in main] + [
+        _drawn(registry, pool[i], rand, reserve=True) for i in extra
     ]
 
 
 def draw_all(registry: CourseRegistry, pool: list[PoolQuestion], rand: Rand) -> list[DrawnQuestion]:
     """Every question of the pool, in course order."""
-    return [DrawnQuestion(question.exercise_id, _seed_for(registry, question, rand)) for question in pool]
+    return [_drawn(registry, question, rand) for question in pool]
 
 
 def draw_composite(
@@ -199,18 +211,14 @@ def draw_composite(
         if len(pool) < entry.questions:
             raise DrawError(f"source {number} holds {len(pool)} questions; it needs {entry.questions}")
         picked = _sample(rand, len(pool), entry.questions)
-        counted += [
-            DrawnQuestion(pool[i].exercise_id, _seed_for(registry, pool[i], rand)) for i in sorted(picked)
-        ]
+        counted += [_drawn(registry, pool[i], rand) for i in sorted(picked)]
         chosen = set(picked)
         spare += [question for i, question in enumerate(pool) if i not in chosen]
     shuffled = [counted[i] for i in _sample(rand, len(counted), len(counted))]
     if len(spare) < part.reserve:
         raise DrawError(f"the sources leave {len(spare)} questions; the part needs {part.reserve} in reserve")
     extra = sorted(_sample(rand, len(spare), part.reserve))
-    return shuffled + [
-        DrawnQuestion(spare[i].exercise_id, _seed_for(registry, spare[i], rand), reserve=True) for i in extra
-    ]
+    return shuffled + [_drawn(registry, spare[i], rand, reserve=True) for i in extra]
 
 
 def draw_cases(

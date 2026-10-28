@@ -18,11 +18,13 @@ course:
       El programa del Cuerpo General Administrativo de la Administración del Estado, ingreso libre, resumido
       tema a tema, con preguntas tipo test como las del examen.
   languages: [es]
-  status: draft
+  status: published
   exercise_types: [quiz]
   # «Por tema» instead of «Por lección» in results and stats.
   lesson_noun:
     es: tema
+  # Questions are practised per tema from its «Practicar» page; the lessons embed none.
+  lesson_practice: true
   # glyph / color: not set. The schema has no such fields yet; the identity round (R2a.3 of
   # docs/curset-multicourse-requirements.md, R2.2 of the course requirements) adds both here.
 blocks:
@@ -1265,12 +1267,6 @@ blocks:
           TCP/IP, dirección IP y direcciones privadas, DNS, HTTP y HTTPS, FTP, SMTP, HTML, JavaScript, diseño
           adaptable y spam. En el navegador (Microsoft Edge): cookies, historial, favoritos, descargas, InPrivate,
           extensiones y anclar un sitio a Inicio.
-# exams: not declared yet. The presets schema exists (docs/curset-platform-delta-exams.md, part A), but part 1
-# draws 40 from bloques I–V + 30 from VI, a composite draw it lacks (delta v1.3, A8). Then R7.1 goes here:
-# "Simulacro oficial" (part 1: 70 questions + 5 reserve from the whole programme; part 2: choose one case of
-# two, 20 + 5 reserve, graded only if part 1 reaches its minimum; 100 minutes for both; a wrong answer costs
-# 1/3, a blank costs nothing; 0–50 per part, pass 25, CPS transformation; 0–100 total), "Parte 1" alone,
-# "Parte 2" alone, "Bloque N" per bloque (40 questions, 45 minutes) and "Tema" per tema (20 questions).
       exercises:
       - id: m06-l08-ex-1
         type: quiz
@@ -1290,3 +1286,32 @@ blocks:
         type: quiz
       - id: m06-l08-ex-9
         type: quiz
+exams:
+# The presets of R7.1 the platform supports today (docs/curset-platform-delta-exams.md, part A). Waiting for
+# R5 (the supuestos prácticos): "Simulacro oficial" (part 1: 70 questions + 5 reserve, 40 from bloques I–V and
+# 30 from VI; part 2: choose one case of two, 20 + 5 reserve, graded only if part 1 reaches its minimum; 100
+# minutes for both; a wrong answer costs 1/3, a blank costs nothing; 0–50 per part, pass 25, CPS
+# transformation; 0–100 total), "Parte 1" alone and "Parte 2" alone. "Tema" pauses between questions once
+# delta G (clock and pause) is built: the schema has no `pause` yet, and G2 makes it the practice default.
+- id: tema
+  version: 1
+  title:
+    es: Tema
+  time_limit_minutes: 25
+  parts:
+  - id: preguntas
+    source:
+      each: lesson
+    questions: 20
+    penalty: 0
+- id: bloque
+  version: 1
+  title:
+    es: Bloque
+  time_limit_minutes: 45
+  parts:
+  - id: preguntas
+    source:
+      each: module
+    questions: 40
+    penalty: 1/3

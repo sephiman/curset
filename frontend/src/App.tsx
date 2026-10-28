@@ -12,6 +12,7 @@ import { AccountPage } from "@/features/account/AccountPage";
 import { CoursePage } from "@/features/course/CoursePage";
 import { ModulePage } from "@/features/course/ModulePage";
 import { LessonPage } from "@/features/course/LessonPage";
+import { PracticePage } from "@/features/practice/PracticePage";
 import { CourseRoutes } from "@/features/courses/CourseRoute";
 import { SelectedCourseRedirect } from "@/features/courses/SelectedCourseRedirect";
 import { GlossaryPage } from "@/features/glossary/GlossaryPage";
@@ -29,6 +30,7 @@ const COURSE_PAGES = [
   { path: "", element: <CoursePage /> },
   { path: "modules/:moduleId", element: <ModulePage /> },
   { path: "lessons/:lessonId", element: <LessonPage /> },
+  { path: "lessons/:lessonId/practice", element: <PracticePage /> },
   { path: "glossary", element: <GlossaryPage /> },
   { path: "stats", element: <StatsPage /> },
   { path: "exams", element: <ExamPage /> },

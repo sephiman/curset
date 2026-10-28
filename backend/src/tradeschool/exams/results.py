@@ -12,6 +12,7 @@ from __future__ import annotations
 from fractions import Fraction
 
 from tradeschool.attempts.models import Attempt
+from tradeschool.attempts.service import question_ref
 from tradeschool.content.registry import CourseRegistry
 from tradeschool.exams.layout import attempt_layout, case_marks
 from tradeschool.exams.models import ExamSession
@@ -31,12 +32,8 @@ def is_scored(preset: ExamPreset) -> bool:
     )
 
 
-def _display_id(registry: CourseRegistry, attempt: Attempt) -> str:
-    return registry.exercise_id_for_key(attempt.exercise_id) or attempt.exercise_id
-
-
 def _location(registry: CourseRegistry, attempt: Attempt) -> tuple[str, str]:
-    exercise_id = _display_id(registry, attempt)
+    exercise_id = question_ref(registry, attempt).exercise_id
     if attempt.question_id is not None:
         lesson_id = registry.question_lesson_id(exercise_id, attempt.question_id)
         location = registry.lesson_location(lesson_id) if lesson_id else None
@@ -151,7 +148,9 @@ def counted_outcomes(
         if part_id not in graded:
             continue
         for attempt in counted:
-            lesson_id = registry.question_lesson_id(_display_id(registry, attempt), attempt.question_id)
+            lesson_id = registry.question_lesson_id(
+                question_ref(registry, attempt).exercise_id, attempt.question_id
+            )
             if lesson_id is None:
                 continue
             outcome: Outcome = (

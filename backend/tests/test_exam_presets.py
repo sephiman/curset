@@ -18,6 +18,7 @@ from sqlalchemy import select, update
 
 from conftest import FIXTURE_CONTENT
 from tradeschool.attempts.models import Attempt
+from tradeschool.attempts.service import question_ref
 from tradeschool.content.registry import CourseRegistry, load_registry
 from tradeschool.db import get_sessionmaker
 from tradeschool.exams.models import ExamSession
@@ -46,8 +47,7 @@ async def _correct_options(registry: CourseRegistry, exam_id: str) -> dict[str, 
         ).all()
     out: dict[str, str] = {}
     for attempt in attempts:
-        exercise_id = registry.exercise_id_for_key(attempt.exercise_id) or attempt.exercise_id
-        config = registry.attempt_config(exercise_id, attempt.question_id)
+        config = registry.attempt_config(question_ref(registry, attempt))
         assert config is not None
         graded = QuizGenerator().grade(config[1], attempt.seed, {"optionId": ""}, "es")
         out[str(attempt.id)] = str(graded.correct_answer["optionId"])  # type: ignore[index]

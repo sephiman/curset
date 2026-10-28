@@ -47,9 +47,9 @@ export function ModulePage() {
       )}
 
       <div className="space-y-2">
-        {module.lessons.map((lesson) => (
-          <Link key={lesson.id} to={path(`/lessons/${lesson.id}`)} className="block">
-            <Card className="flex items-center justify-between gap-3 p-4 hover:border-primary">
+        {module.lessons.map((lesson) => {
+          const row = (
+            <>
               <span className="font-medium">{lesson.title}</span>
               {/* Each row carries the lesson's OWN full estimate — the same number its page shows, and
                   the reason the header's remaining total can be smaller: a read lesson still costs what
@@ -60,9 +60,30 @@ export function ModulePage() {
                 </span>
                 {lesson.completed && <Badge tone="green">{t("course.completed")}</Badge>}
               </span>
+            </>
+          );
+          if (!lesson.practiceQuestions) {
+            return (
+              <Link key={lesson.id} to={path(`/lessons/${lesson.id}`)} className="block">
+                <Card className="flex items-center justify-between gap-3 p-4 hover:border-primary">{row}</Card>
+              </Link>
+            );
+          }
+          // A lesson with practice: two links side by side, since a link cannot hold another.
+          return (
+            <Card key={lesson.id} className="flex flex-col hover:border-primary sm:flex-row sm:items-center sm:gap-3">
+              <Link to={path(`/lessons/${lesson.id}`)} className="flex min-w-0 flex-1 items-center justify-between gap-3 p-4">
+                {row}
+              </Link>
+              <Link
+                to={path(`/lessons/${lesson.id}/practice`)}
+                className="shrink-0 px-4 pb-4 text-sm font-medium text-primary hover:underline sm:mr-4 sm:px-0 sm:pb-0"
+              >
+                {t("practice.entry")}
+              </Link>
             </Card>
-          </Link>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

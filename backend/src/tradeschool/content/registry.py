@@ -39,7 +39,7 @@ from tradeschool.content.yaml_file import read_yaml
 from tradeschool.exams.draw import check_presets
 from tradeschool.exercises.case import CaseConfig
 from tradeschool.exercises.figures import FigureSpec, load_figures
-from tradeschool.exercises.quiz import QuizConfig, QuizGenerator
+from tradeschool.exercises.quiz import QuizConfig, QuizGenerator, QuizVariant
 from tradeschool.exercises.registry import get_generator, has_generator
 from tradeschool.exercises.types import ExerciseType
 
@@ -77,6 +77,17 @@ class StatUnit:
     module_id: str
 
 
+@dataclass(frozen=True)
+class QuestionRef:
+    """The question one attempt showed, by its own id, in the exercise that holds it today."""
+
+    exercise_id: str
+    #: A case question; the exercise is the case.
+    question_id: str | None = None
+    #: A quiz question; None only for a generated exercise, where the seed is the question.
+    variant_id: str | None = None
+
+
 @dataclass
 class CourseRegistry:
     manifest: Manifest
@@ -111,6 +122,9 @@ class CourseRegistry:
     _lesson_ids: dict[str, str] = field(default_factory=dict)
     _exercise_keys: dict[str, str] = field(default_factory=dict)
     _exercise_ids: dict[str, str] = field(default_factory=dict)
+    # quiz question id -> the exercises holding it. One home for a bank's ids; crypto-futures reuses a
+    # few ids across exercises, and those only ever resolve inside the attempt's own exercise.
+    _variant_homes: dict[str, list[str]] = field(default_factory=dict)
 
     @property
     def slug(self) -> str:
@@ -133,20 +147,41 @@ class CourseRegistry:
     def get_exercise_config(self, exercise_id: str) -> tuple[ExerciseType, BaseModel] | None:
         return self.exercise_configs.get(exercise_id)
 
-    def attempt_config(
-        self, exercise_id: str, question_id: str | None
-    ) -> tuple[ExerciseType, BaseModel] | None:
-        """What generates and grades ONE attempt: the exercise's config, or a case question's own quiz."""
+    def attempt_config(self, ref: QuestionRef) -> tuple[ExerciseType, BaseModel] | None:
+        """What generates and grades ONE attempt: the quiz question it showed, a case question's own quiz,
+        or the exercise's config for a generated exercise."""
+        config = self.exercise_configs.get(ref.exercise_id)
+        if config is None:
+            return None
+        if ref.question_id is not None:
+            if not isinstance(config[1], CaseConfig):
+                return None
+            try:
+                return ExerciseType.QUIZ, config[1].question(ref.question_id).as_quiz()
+            except KeyError:
+                return None
+        if ref.variant_id is not None:
+            only = config[1].only(ref.variant_id) if isinstance(config[1], QuizConfig) else None
+            return None if only is None else (ExerciseType.QUIZ, only)
+        return config
+
+    def locate(self, exercise_key: str, question_id: str | None, variant_id: str | None) -> QuestionRef:
+        """Where a stored attempt's question is today. A quiz question follows its own id to whichever
+        exercise a rebuild put it in; a case question and a generated exercise stay with their exercise."""
+        exercise_id = self.exercise_id_for_key(exercise_key) or exercise_key
+        if variant_id is None:
+            return QuestionRef(exercise_id, question_id)
+        homes = self._variant_homes.get(variant_id, [])
+        if exercise_id not in homes and len(homes) == 1:
+            exercise_id = homes[0]
+        return QuestionRef(exercise_id, question_id, variant_id)
+
+    def drawn_variant_id(self, exercise_id: str, seed: int) -> str | None:
+        """The quiz question a seed draws, which the attempt then stores; None for any other kind."""
         config = self.exercise_configs.get(exercise_id)
-        if config is None or question_id is None:
-            return config
-        case = config[1]
-        if not isinstance(case, CaseConfig):
+        if config is None or not isinstance(config[1], QuizConfig):
             return None
-        try:
-            return ExerciseType.QUIZ, case.question(question_id).as_quiz()
-        except KeyError:
-            return None
+        return QuizGenerator().variant(config[1], seed).id
 
     def case_config(self, exercise_id: str) -> CaseConfig | None:
         config = self.exercise_configs.get(exercise_id)
@@ -165,30 +200,44 @@ class CourseRegistry:
     def lesson_location(self, lesson_id: str) -> LessonLocation | None:
         return self._lessons.get(lesson_id)
 
-    def question_citation(self, exercise_id: str, question_id: str | None, seed: int) -> str | None:
-        """The citation of the question an attempt showed: its case question, or the variant its seed drew."""
-        config = self.attempt_config(exercise_id, question_id)
-        if config is None or not isinstance(config[1], QuizConfig):
+    def _shown_question(self, ref: QuestionRef) -> QuizVariant | None:
+        config = self.attempt_config(ref)
+        if config is None or not isinstance(config[1], QuizConfig) or len(config[1].variants) != 1:
             return None
-        return QuizGenerator().variant(config[1], seed).citation
+        return config[1].variants[0]
 
-    def question_excerpt(self, exercise_id: str, question_id: str | None, seed: int) -> SolutionText | None:
+    def question_excerpt(self, ref: QuestionRef) -> SolutionText | None:
         """The cited text of the norm for the question an attempt showed, as `excerpts.json` holds it."""
-        config = self.attempt_config(exercise_id, question_id)
-        if self.excerpts is None or config is None or not isinstance(config[1], QuizConfig):
+        variant = self._shown_question(ref)
+        if self.excerpts is None or variant is None:
             return None
-        variant = QuizGenerator().variant(config[1], seed)
-        return self.excerpts.excerpt(question_key(self.exercise_key(exercise_id), variant.id))
+        case_key = self.exercise_key(ref.exercise_id) if ref.question_id is not None else None
+        return self.excerpts.excerpt(question_key(variant.id, case_key))
 
-    def question_link(
-        self, exercise_id: str, question_id: str | None, seed: int, locale: str
-    ) -> QuestionLink | None:
+    def question_link(self, ref: QuestionRef, locale: str) -> QuestionLink | None:
         """«Ver en la lección»: the question's lesson, at the anchor of what it cites when it cites."""
-        lesson_id = self.question_lesson_id(exercise_id, question_id)
+        lesson_id = self.question_lesson_id(ref.exercise_id, ref.question_id)
         if lesson_id is None:
             return None
-        citation = self.question_citation(exercise_id, question_id, seed)
-        return self.citations.question_link(lesson_id, citation, locale)
+        variant = self._shown_question(ref)
+        return self.citations.question_link(lesson_id, variant.citation if variant else None, locale)
+
+    def lesson_questions(self, lesson_id: str) -> list[QuestionRef]:
+        """Every quiz question of a lesson's exercises, in course order: what its practice draws from."""
+        location = self._lessons.get(lesson_id)
+        if location is None:
+            return []
+        return [
+            QuestionRef(exercise.id, variant_id=variant.id)
+            for exercise in location.lesson.exercises
+            if isinstance(config := self.exercise_configs.get(exercise.id, (None, None))[1], QuizConfig)
+            for variant in config.variants
+        ]
+
+    def _practice_count(self, lesson_id: str) -> dict[str, int]:
+        if not self.manifest.course.lesson_practice:
+            return {}
+        return {"practiceQuestions": len(self.lesson_questions(lesson_id))}
 
     def stat_units(self) -> list[StatUnit]:
         """Every unit progress counts, in course order. A case is not one: each of its questions is."""
@@ -239,6 +288,10 @@ class CourseRegistry:
                     self._exercise_lessons[exercise.id] = lesson.id
                     self._exercise_keys[exercise.id] = exercise.key
                     self._exercise_ids[exercise.key] = exercise.id
+                    config = self.exercise_configs.get(exercise.id)
+                    if config is not None and isinstance(config[1], QuizConfig):
+                        for variant in config[1].variants:
+                            self._variant_homes.setdefault(variant.id, []).append(exercise.id)
 
     # --- id <-> key boundary ---
     def module_key(self, module_id: str) -> str:
@@ -314,7 +367,7 @@ class CourseRegistry:
         """Exercise ids in this module with a loaded, playable generator config — the exam-samplable set."""
         return [eid for eid in self.module_exercise_ids(module_id) if eid in self.exercise_configs]
 
-    def course_meta(self, locale: str) -> dict[str, str | None]:
+    def course_meta(self, locale: str) -> dict[str, str | bool | None]:
         """Root course identity for the course-page header (localized)."""
         course = self.manifest.course
         return {
@@ -323,6 +376,8 @@ class CourseRegistry:
             "subtitle": course.subtitle.get(locale),
             "description": course.description.get(locale),
             "lessonNoun": course.lesson_noun.get(locale) if course.lesson_noun else None,
+            # Sent only when set, so a course without it serves exactly what it did before.
+            **({"lessonPractice": True} if course.lesson_practice else {}),
         }
 
     def course_tree(
@@ -348,6 +403,7 @@ class CourseRegistry:
                         "completed": lesson.id in completed_lesson_ids,
                         "readingSeconds": self.lesson_reading_seconds(lesson.id, locale),
                         "exercises": [self._exercise_dict(ex) for ex in lesson.exercises],
+                        **self._practice_count(lesson.id),
                     }
                     for l_index, lesson in enumerate(module.lessons, start=1)
                 ]
@@ -505,6 +561,7 @@ class CourseRegistry:
             "completed": lesson_id in completed_lesson_ids,
             "readingSeconds": self.lesson_reading_seconds(lesson_id, locale),
             "exercises": [self._exercise_dict(ex) for ex in loc.lesson.exercises],
+            **self._practice_count(lesson_id),
         }
 
     def module_detail(
@@ -530,6 +587,7 @@ class CourseRegistry:
                     "title": lesson.title.get(locale),
                     "completed": lesson.id in completed_lesson_ids,
                     "readingSeconds": self.lesson_reading_seconds(lesson.id, locale),
+                    **self._practice_count(lesson.id),
                 }
                 for index, lesson in enumerate(module.lessons, start=1)
             ],

@@ -27,6 +27,26 @@ def _cmd_sync() -> int:
     return 0
 
 
+def _cmd_backfill_question_ids() -> int:
+    import tradeschool.models  # noqa: F401  (every table, so the attempts mapper resolves its foreign keys)
+    from tradeschool.attempts.backfill import backfill_variant_ids
+    from tradeschool.content.registry import load_catalog
+    from tradeschool.db import dispose_engine, get_sessionmaker, init_engine
+
+    settings = get_settings()
+
+    async def run() -> str:
+        init_engine(settings.database_url)
+        try:
+            async with get_sessionmaker()() as session:
+                return str(await backfill_variant_ids(load_catalog(settings.content_dir), session))
+        finally:
+            await dispose_engine()
+
+    print(asyncio.run(run()))
+    return 0
+
+
 def _cmd_reset_password(username: str) -> int:
     """Admin password reset (self-service reset is gone with email). Prompts twice, Argon2-hashes."""
     import getpass
@@ -75,6 +95,9 @@ def main(argv: list[str] | None = None) -> int:
     sub = parser.add_subparsers(dest="command", required=True)
     sub.add_parser("migrate", help="Apply database migrations (alembic upgrade head)")
     sub.add_parser("sync", help="Reconcile the course manifest into the database")
+    sub.add_parser(
+        "backfill-question-ids", help="Name the quiz question of attempts written before attempts stored it"
+    )
     reset = sub.add_parser("reset-password", help="Set a user's password (prompts for the new one)")
     reset.add_argument("username", help="Username of the account to reset")
 
@@ -83,6 +106,8 @@ def main(argv: list[str] | None = None) -> int:
         return _cmd_migrate()
     if args.command == "sync":
         return _cmd_sync()
+    if args.command == "backfill-question-ids":
+        return _cmd_backfill_question_ids()
     if args.command == "reset-password":
         return _cmd_reset_password(args.username)
     parser.error(f"unknown command {args.command!r}")

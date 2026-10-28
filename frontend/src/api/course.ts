@@ -27,6 +27,8 @@ export interface CourseLesson {
   /** This lesson's reading time in seconds; every aggregate is a sum of these (see readingTime.ts). */
   readingSeconds: number;
   exercises: ExerciseRef[];
+  /** How many questions its practice draws from; only in a course with lesson practice. */
+  practiceQuestions?: number;
 }
 
 export interface CourseModule {
@@ -59,6 +61,8 @@ export interface CourseMeta {
   description: string;
   /** What the course calls a lesson where results are listed per lesson («tema»); null: the default. */
   lessonNoun?: string | null;
+  /** Each lesson's questions are practised from its «Practicar» page; absent: quizzes sit in the lessons. */
+  lessonPractice?: boolean;
 }
 
 export interface Course {
@@ -98,6 +102,8 @@ export interface LessonDetail {
   completed: boolean;
   readingSeconds: number;
   exercises: ExerciseRef[];
+  /** How many questions its practice draws from; only in a course with lesson practice. */
+  practiceQuestions?: number;
 }
 
 export interface PrereqRef {
@@ -111,7 +117,14 @@ export interface ModuleDetail {
   summary: string;
   assumes: PrereqRef[];
   unmetPrereqs: PrereqRef[];
-  lessons: { id: string; order: number; title: string; completed: boolean; readingSeconds: number }[];
+  lessons: {
+    id: string;
+    order: number;
+    title: string;
+    completed: boolean;
+    readingSeconds: number;
+    practiceQuestions?: number;
+  }[];
 }
 
 export async function getCourse(scope: CourseScope): Promise<Course> {

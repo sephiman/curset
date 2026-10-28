@@ -90,6 +90,9 @@ class ManifestCourse(BaseModel):
     exercise_types: list[ExerciseType] = Field(min_length=1)
     #: What the course calls a lesson where results are listed per lesson («tema»); absent: «lección».
     lesson_noun: LocalizedText | None = None
+    #: Each lesson's questions are practised one by one from a «Practicar» page instead of quizzes
+    #: embedded in its text; absent: practice is whatever the lesson embeds.
+    lesson_practice: bool = False
 
     @model_validator(mode="after")
     def _distinct_languages(self) -> Self:

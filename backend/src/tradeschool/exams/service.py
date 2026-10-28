@@ -18,8 +18,9 @@ from sqlalchemy import select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from tradeschool.attempts.models import Attempt, AttemptState
+from tradeschool.attempts.service import question_ref
 from tradeschool.citations.excerpt_store import SolutionText
-from tradeschool.content.registry import CourseRegistry
+from tradeschool.content.registry import CourseRegistry, QuestionRef
 from tradeschool.content.text import LocalizedText
 from tradeschool.errors import AppError
 from tradeschool.exams.draw import DrawError, draw_part, preset_targets
@@ -261,10 +262,6 @@ def _sorter(exam: ExamSession, registry: CourseRegistry) -> dict[str, int] | Non
     return None
 
 
-def _display_id(registry: CourseRegistry, attempt: Attempt) -> str:
-    return registry.exercise_id_for_key(attempt.exercise_id) or attempt.exercise_id
-
-
 def _question_location(
     registry: CourseRegistry, exercise_id: str, question_id: str | None
 ) -> tuple[str, str]:
@@ -294,7 +291,7 @@ def _ordered(exam: ExamSession, registry: CourseRegistry, attempts: list[Attempt
     canonical = _canonical_order(registry)
 
     def legacy_key(a: Attempt) -> int:
-        loc = registry.exercise_location(_display_id(registry, a))
+        loc = registry.exercise_location(question_ref(registry, a).exercise_id)
         return canonical.get(loc[1], 10_000) if loc else 10_000
 
     return sorted(attempts, key=legacy_key)
@@ -347,8 +344,9 @@ def _build_view(
     default_part = preset.parts[0].id
     questions: list[ExamQuestionView] = []
     for index, attempt in enumerate(_ordered(session_obj, registry, attempts)):
-        exercise_id = _display_id(registry, attempt)
-        config = registry.attempt_config(exercise_id, attempt.question_id)
+        ref = question_ref(registry, attempt)
+        exercise_id = ref.exercise_id
+        config = registry.attempt_config(ref)
         if config is None:
             continue  # exercise deactivated since the exam ran — skip defensively
         exercise_type, cfg = config
@@ -384,9 +382,9 @@ def _build_view(
                 q.result = generator.grade(cfg, attempt.seed, sentinel, locale)
             q.unanswered = not answered
             q.is_correct = bool(attempt.is_correct) and answered
-            link = registry.question_link(exercise_id, attempt.question_id, attempt.seed, locale)
+            link = registry.question_link(ref, locale)
             q.lesson_anchor, q.citation = (link.anchor, link.citation) if link else (None, None)
-            q.excerpt = registry.question_excerpt(exercise_id, attempt.question_id, attempt.seed)
+            q.excerpt = registry.question_excerpt(ref)
         questions.append(q)
 
     target = target_of(session_obj)
@@ -473,7 +471,9 @@ async def start_exam(
         counted: list[str] = []
         reserve: list[str] = []
         for question in drawn.questions:
-            config = registry.attempt_config(question.exercise_id, question.question_id)
+            config = registry.attempt_config(
+                QuestionRef(question.exercise_id, question.question_id, question.variant_id)
+            )
             assert config is not None  # the draw only names playable questions
             exercise_type, cfg = config
             instance = get_generator(exercise_type).generate(cfg, question.seed, locale)
@@ -483,6 +483,7 @@ async def start_exam(
                 course_id=course_id,
                 exercise_id=registry.exercise_key(question.exercise_id),  # rows store the permanent key
                 question_id=question.question_id,
+                variant_id=question.variant_id,
                 seed=question.seed,
                 instance_snapshot={
                     "type": exercise_type.value,
@@ -607,7 +608,7 @@ async def submit_exam(
     now = datetime.now(UTC)
     preset = session_preset(registry, exam)
     for attempt in attempts:
-        config = registry.attempt_config(_display_id(registry, attempt), attempt.question_id)
+        config = registry.attempt_config(question_ref(registry, attempt))
         answered = attempt.given_answer is not None
         is_correct = False
         if answered and config is not None:

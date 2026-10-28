@@ -74,17 +74,41 @@ export function ExamRunner() {
       markExamCases(scope, examId, partId, exerciseIds),
     meta: { silentSuccess: true },
   });
+  // Every exam query but this runner's own: still mounted, it would refetch a sitting the server now
+  // refuses as no longer in progress, and say so in a toast over the next page.
+  const refreshOtherExamQueries = () =>
+    void qc.invalidateQueries({ queryKey: ["exam", scope.slug], predicate: (query) => query.queryKey.at(-1) !== examId });
+  // Answers and case marks still on their way to the server. Handing in waits for them: sent first, the
+  // hand-in closed the sitting under them, the server refused the late save and the answer counted blank.
+  const saving = useRef(new Set<Promise<unknown>>());
+  const handingIn = useRef(false);
+  const track = (save: Promise<unknown>) => {
+    const settled = save.catch(() => undefined);
+    saving.current.add(settled);
+    void settled.finally(() => saving.current.delete(settled));
+  };
   const submit = useMutation({
-    mutationFn: () => submitExam(scope, examId),
+    mutationFn: async () => {
+      await Promise.all(saving.current);
+      return submitExam(scope, examId);
+    },
+    onError: () => {
+      handingIn.current = false;
+    },
     onSuccess: () => {
-      void qc.invalidateQueries({ queryKey: ["exam", scope.slug] });
+      refreshOtherExamQueries();
       navigate(path(`/exams/${examId}/review`), { replace: true });
     },
   });
+  // Set before the hand-in is queued, so no answer chosen after the click is sent behind it.
+  const handIn = () => {
+    handingIn.current = true;
+    submit.mutate();
+  };
   const abandon = useMutation({
     mutationFn: () => abandonExam(scope, examId),
     onSuccess: () => {
-      void qc.invalidateQueries({ queryKey: ["exam", scope.slug] });
+      refreshOtherExamQueries();
       navigate(path("/exams"), { replace: true });
     },
   });
@@ -96,7 +120,7 @@ export function ExamRunner() {
     // The clock ran out: the sitting is handed in with what was answered, once.
     if (timeUp && !submittedOnTime.current && !submit.isPending) {
       submittedOnTime.current = true;
-      submit.mutate();
+      handIn();
     }
   }, [timeUp, submit]);
 
@@ -119,19 +143,21 @@ export function ExamRunner() {
   const multiPart = exam.parts.length > 1;
 
   const setAnswer = (attemptId: string, a: Answer) => {
+    if (handingIn.current) return;
     setAnswers((prev) => ({ ...prev, [attemptId]: a }));
-    answerMut.mutate({ attemptId, answer: a });
+    track(answerMut.mutateAsync({ attemptId, answer: a }));
   };
   const toggleMark = (partId: string, exerciseId: string, on: boolean) => {
     const before = marks[partId] ?? [];
     const next = on ? [...before, exerciseId] : before.filter((id) => id !== exerciseId);
+    if (handingIn.current) return;
     setMarks((prev) => ({ ...prev, [partId]: next }));
-    markMut.mutate({ partId, exerciseIds: next });
+    track(markMut.mutateAsync({ partId, exerciseIds: next }));
   };
 
   const onSubmit = () => {
     const msg = unanswered > 0 ? t("exam.submitConfirmUnanswered", { count: unanswered }) : t("exam.submitConfirm");
-    if (window.confirm(msg)) submit.mutate();
+    if (window.confirm(msg)) handIn();
   };
   const onAbandon = () => {
     if (window.confirm(t("exam.abandonConfirm"))) abandon.mutate();

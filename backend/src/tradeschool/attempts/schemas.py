@@ -19,6 +19,11 @@ class AnswerRequest(BaseModel):
     answer: dict[str, object]
 
 
+class OpenAttemptRequest(BaseModel):
+    #: One question of a quiz by its own id (lesson practice); absent: the seed draws one.
+    variantId: str | None = None
+
+
 class AttemptInstance(BaseModel):
     """The statement as shown to the learner — never carries the solution (§3.1)."""
 

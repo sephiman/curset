@@ -93,6 +93,7 @@ export function SolutionPanel({
   lessonLink,
   reportable,
   hideVerdict = false,
+  open = false,
 }: {
   attemptId: string;
   correct: boolean;
@@ -104,6 +105,8 @@ export function SolutionPanel({
   lessonLink?: LessonTarget | null;
   reportable: boolean;
   hideVerdict?: boolean;
+  /** Unfolded from the start (lesson practice: the solution is the point of answering). */
+  open?: boolean;
 }) {
   const { t } = useTranslation();
   const { path } = useCourse();
@@ -111,7 +114,7 @@ export function SolutionPanel({
   return (
     <div className="mt-4 space-y-3">
       {!hideVerdict && <Verdict correct={correct} />}
-      <details className="group rounded-md border border-border dark:border-gray-800 oled:border-oled-line">
+      <details open={open} className="group rounded-md border border-border dark:border-gray-800 oled:border-oled-line">
         <summary className="cursor-pointer px-3 py-2 text-sm font-medium text-primary select-none">
           {t("solution.show")}
         </summary>

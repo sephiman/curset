@@ -34,9 +34,9 @@ from tradeschool.citations.excerpts import (
 )
 from tradeschool.citations.grammar import Part, cited_parts
 from tradeschool.citations.sources import heading_unit, sha256
-from tradeschool.content.registry import ContentError, CourseRegistry, load_registry
+from tradeschool.content.registry import ContentError, QuestionRef, load_registry
 from tradeschool.db import get_sessionmaker
-from tradeschool.exercises.quiz import QuizConfig, QuizGenerator
+from tradeschool.exercises.quiz import QuizConfig
 
 OPOS = "/api/courses/fixture-oposiciones"
 CRYPTO = "/api/courses/crypto-futures"
@@ -145,7 +145,7 @@ def test_the_fixture_excerpts_rebuild_from_its_sources_exactly_as_committed() ->
 
 
 def test_an_html_norm_gives_the_cited_paragraph_and_the_whole_article() -> None:
-    excerpt = _questions(FIXTURE)["m01-ex-1/plazo-alzada"]["excerpt"]
+    excerpt = _questions(FIXTURE)["plazo-alzada"]["excerpt"]
     first = (
         "1. El plazo para la interposición del recurso de alzada será de un mes, si el acto fuera expreso."
     )
@@ -159,7 +159,7 @@ def test_an_html_norm_gives_the_cited_paragraph_and_the_whole_article() -> None:
 
 
 def test_a_pdf_norm_gives_the_cited_paragraph_at_its_page() -> None:
-    excerpt = _questions(FIXTURE)["m02-ex-1/delegacion-01"]["excerpt"]
+    excerpt = _questions(FIXTURE)["delegacion-01"]["excerpt"]
     assert isinstance(excerpt, dict)
     assert excerpt["heading"] == "Art. 9.4 LRJSP"
     assert excerpt["text"] == (
@@ -170,7 +170,7 @@ def test_a_pdf_norm_gives_the_cited_paragraph_at_its_page() -> None:
 
 
 def test_a_saved_page_gives_the_labelled_paragraph_with_its_title_and_date() -> None:
-    excerpt = _questions(FIXTURE)["m02-ex-2/recursos-19"]["excerpt"]
+    excerpt = _questions(FIXTURE)["recursos-19"]["excerpt"]
     assert excerpt == {
         "heading": "Recursos administrativos",
         "text": "El recurso de alzada se dirige al órgano superior jerárquico. "
@@ -181,7 +181,7 @@ def test_a_saved_page_gives_the_labelled_paragraph_with_its_title_and_date() -> 
 
 
 def test_a_question_without_an_excerpt_says_why() -> None:
-    assert _questions(FIXTURE)["m02-ex-2/recursos-20"] == {
+    assert _questions(FIXTURE)["recursos-20"] == {
         "citation": "fuente: `guia-recursos.html`; «Plazos de los recursos»",
         "none": "label not found",
         "source": {"file": "sources/otros/guia-recursos.html", "fragment": ""},
@@ -207,12 +207,12 @@ def test_a_course_with_norms_and_no_excerpts_file_fails_the_load(tmp_path: Path)
 def test_a_question_whose_excerpt_was_built_for_another_citation_fails_the_load(tmp_path: Path) -> None:
     course = _copy(tmp_path)
     raw = json.loads((course / EXCERPTS_FILE).read_text(encoding="utf-8"))
-    raw["questions"]["m01-ex-1/plazo-alzada"]["citation"] = "art. 121.1 LPAC"
-    del raw["questions"]["m02-ex-1/delegacion-02"]
+    raw["questions"]["plazo-alzada"]["citation"] = "art. 121.1 LPAC"
+    del raw["questions"]["delegacion-02"]
     (course / EXCERPTS_FILE).write_text(json.dumps(raw), encoding="utf-8")
-    with pytest.raises(ContentError, match=r"stale.*m01-ex-1/plazo-alzada: built for «art\. 121\.1 LPAC».*"):
+    with pytest.raises(ContentError, match=r"stale.*plazo-alzada: built for «art\. 121\.1 LPAC».*"):
         load_registry(course)
-    with pytest.raises(ContentError, match=r"m02-ex-1/delegacion-02 has no entry"):
+    with pytest.raises(ContentError, match=r"delegacion-02 has no entry"):
         load_registry(course)
 
 
@@ -240,10 +240,10 @@ def test_fewer_than_one_percent_of_age_questions_fail_extraction_and_each_withou
 def test_a_question_listed_in_the_exclusions_is_built_without_an_excerpt(tmp_path: Path) -> None:
     course = _copy(tmp_path)
     (course / EXCLUSIONS_FILE).write_text(
-        "questions:\n- question: m01-ex-1/plazo-alzada\n  reason: verifier\n", encoding="utf-8"
+        "questions:\n- question: plazo-alzada\n  reason: verifier\n", encoding="utf-8"
     )
     built = build_excerpts(load_registry(course, check_excerpts=False), SourceTexts(course, _pdf_pages))
-    entry = built["questions"]["m01-ex-1/plazo-alzada"]  # type: ignore[index]
+    entry = built["questions"]["plazo-alzada"]  # type: ignore[index]
     assert entry["none"] == NO_FACT
     assert entry["source"] == {"file": "sources/normativa/lpac-extracto.html", "fragment": "#a1-22"}
 
@@ -276,29 +276,25 @@ def test_a_cited_table_row_comes_with_the_header_row_that_names_its_columns() ->
     assert excerpt.heading == "Formatos"
 
 
-def _seed_for(registry: CourseRegistry, exercise_id: str, variant_id: str) -> int:
-    """A seed whose draw is `variant_id`: the way to open one chosen variant of a quiz."""
-    config = registry.exercise_configs[exercise_id][1]
-    assert isinstance(config, QuizConfig)
-    return next(seed for seed in range(10_000) if QuizGenerator().variant(config, seed).id == variant_id)
-
-
 def test_every_age_question_without_an_excerpt_still_has_its_explanation_lesson_link_and_reason() -> None:
     registry = next(course for course in pipeline_courses() if course.slug == "age-administrativo-c1")
-    ids = {exercise.key: exercise.id for _, _, exercise in registry.manifest.iter_exercises()}
+    homes = {
+        variant.id: exercise_id
+        for exercise_id, (_, config) in registry.exercise_configs.items()
+        if isinstance(config, QuizConfig)
+        for variant in config.variants
+    }
     missing = [key for key, entry in _questions(AGE).items() if "none" in entry]
     assert missing
     for key in missing:
-        exercise_key, variant_id = key.split("/")
-        exercise_id = ids[exercise_key]
-        seed = _seed_for(registry, exercise_id, variant_id)
-        assert isinstance(registry.question_excerpt(exercise_id, None, seed), MissingExcerpt), key
-        link = registry.question_link(exercise_id, None, seed, "es")
+        ref = QuestionRef(homes[key], variant_id=key)
+        assert isinstance(registry.question_excerpt(ref), MissingExcerpt), key
+        link = registry.question_link(ref, "es")
         assert link is not None and link.lesson_id, key
-        config = registry.exercise_configs[exercise_id][1]
-        assert isinstance(config, QuizConfig)
-        variant = QuizGenerator().variant(config, seed)
-        assert variant.explanation is not None and variant.explanation.get("es"), key
+        config = registry.attempt_config(ref)
+        assert config is not None and isinstance(config[1], QuizConfig)
+        explanation = config[1].variants[0].explanation
+        assert explanation is not None and explanation.get("es"), key
 
 
 # --- what the API ships -------------------------------------------------------------------------------
@@ -343,9 +339,10 @@ async def test_a_question_without_an_excerpt_ships_its_reason_with_the_explanati
 ) -> None:
     await _sign_up(multi_client, "unquoted")
     opened = (await multi_client.post(f"{OPOS}/exercises/m02-ex-2/attempts")).json()
-    seed = _seed_for(load_registry(FIXTURE), "m02-ex-2", "recursos-20")
-    async with get_sessionmaker()() as session:  # pin the draw to the variant whose label the page lacks
-        await session.execute(update(Attempt).where(Attempt.id == opened["attemptId"]).values(seed=seed))
+    async with get_sessionmaker()() as session:  # pin the attempt to the question whose label the page lacks
+        await session.execute(
+            update(Attempt).where(Attempt.id == opened["attemptId"]).values(variant_id="recursos-20")
+        )
         await session.commit()
     graded = (
         await multi_client.post(

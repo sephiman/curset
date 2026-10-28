@@ -136,6 +136,11 @@ class QuizConfig(BaseModel):
             raise ValueError("duplicate variant ids")
         return self
 
+    def only(self, variant_id: str) -> QuizConfig | None:
+        """The one question an attempt showed, as a quiz of its own: no seed can pick another."""
+        variant = next((v for v in self.variants if v.id == variant_id), None)
+        return None if variant is None else QuizConfig.model_construct(type="quiz", variants=[variant])
+
 
 def _shuffled(n: int, seed: int, salt: int) -> list[int]:
     """A deterministic permutation of range(n) from (seed, salt)."""

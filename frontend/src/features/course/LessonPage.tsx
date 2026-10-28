@@ -7,6 +7,7 @@ import { listAttempts } from "@/api/exercises";
 import { Badge, Button, Spinner } from "@/components/ui/primitives";
 import { CaseExercise } from "@/features/exercises/CaseExercise";
 import { ExercisePlayer } from "@/features/exercises/ExercisePlayer";
+import { PracticeEntry } from "@/features/practice/PracticeEntry";
 import { LessonFigure } from "@/features/course/LessonFigure";
 import { GlossaryTerm, TermPopoverHost } from "@/features/glossary/TermPopover";
 import { ReferenceLink } from "@/features/references/ReferenceLink";
@@ -168,6 +169,7 @@ export function LessonPage() {
           </ReferenceProvider>
         </TermPopoverHost>
       </div>
+      <PracticeEntry lessonId={lessonId} questions={lesson.practiceQuestions} />
       {/* End-of-lesson panel. The button is the *only* thing that marks a lesson read — nothing is
           inferred from scrolling or dwell time — so it says so rather than sitting unexplained. */}
       <div className="mt-8 rounded-lg border border-border p-4 dark:border-gray-800 oled:border-oled-line">

@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import type { Me } from "@/api/auth";
 import { useAuth } from "@/auth/AuthContext";
 import { LanguageControl, ThemeControl } from "@/components/layout/controls";
+import { Button } from "@/components/ui/primitives";
 import { useNavItems } from "@/features/courses/useNavItems";
 import { cn } from "@/lib/cn";
 
@@ -16,6 +17,8 @@ export function AccountMenu({ user }: { user: Me }) {
   const { t } = useTranslation();
   const { logout } = useAuth();
   const navItems = useNavItems();
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -57,8 +60,27 @@ export function AccountMenu({ user }: { user: Me }) {
           role="menu"
           className="absolute right-0 z-50 mt-2 w-64 max-w-[calc(100vw-2rem)] rounded-lg border border-border bg-white p-3 shadow-lg dark:border-gray-800 dark:bg-gray-900 oled:border-oled-line-strong oled:bg-oled-bg"
         >
+          {/* Who is signed in and the way to their account come first, so on a phone the button shows
+              as soon as the menu opens, above the primary nav folded in below `sm`. */}
+          <div className="mb-3 border-b border-border px-1 pb-3 dark:border-gray-800 oled:border-oled-line">
+            <p className="text-xs text-gray-500 dark:text-gray-400">{t("auth.signedInAs")}</p>
+            <p className="truncate font-semibold">{user.username}</p>
+            <Button
+              role="menuitem"
+              variant="secondary"
+              aria-current={pathname === "/account" ? "page" : undefined}
+              onClick={() => {
+                setOpen(false);
+                navigate("/account");
+              }}
+              className="mt-2 w-full"
+            >
+              {t("account.title")}
+            </Button>
+          </div>
+
           {/* Primary nav, only when it was collapsed out of the header (< sm). Active page keeps its
-              highlight here. Same single menu on mobile — nav, divider, then account controls. */}
+              highlight here. Same single menu on mobile — account, nav, then the display controls. */}
           <nav className="mb-3 flex flex-col border-b border-border pb-3 sm:hidden dark:border-gray-800 oled:border-oled-line">
             {navItems.map(({ tab, to, labelKey, current }) => (
               <Link
@@ -79,20 +101,7 @@ export function AccountMenu({ user }: { user: Me }) {
           </nav>
 
           <div className="space-y-3">
-            <div className="px-1">
-              <p className="text-xs text-gray-500 dark:text-gray-400">{t("auth.signedInAs")}</p>
-              <p className="truncate font-semibold">{user.username}</p>
-              <NavLink
-                to="/account"
-                role="menuitem"
-                onClick={() => setOpen(false)}
-                className="mt-1 inline-block text-sm font-medium text-primary hover:underline"
-              >
-                {t("account.title")}
-              </NavLink>
-            </div>
-
-            <div className="border-t border-border pt-3 dark:border-gray-800 oled:border-oled-line">
+            <div>
               <p className="mb-1 px-1 text-xs text-gray-500 dark:text-gray-400">{t("common.language")}</p>
               <LanguageControl block />
             </div>

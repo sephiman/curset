@@ -6,7 +6,7 @@ items of `ms-excel-copilot.html`, which says «formas»), replaced by **m06-l02-
 dispositivo list holds «una versión de Windows de 32 o 64 bits»), replaced by **m06-l03-q276** (what Acerca de shows
 right under the device name). Both replacements written by a sonnet writer and passed by a blind opus verifier on all
 five checks (q276 after one explanation fix); reports `bank/bloque-vi/m06-l02.r1.verify-1.md`, `m06-l03.r1.verify-1.md`;
-drops in `bank/bloque-vi/drops.tsv`. The rebuild moved m06-l02-q351 from exercise 10 to 9 (its text is unchanged).
+drops in `bank/bloque-vi/drops.tsv`. The rebuild moved m06-l02-q351 from exercise 10 to 9 (its text is unchanged). Since 2026-10-28 that no longer changes its key: a question is keyed, and its attempts stored, by its own id; `excerpts.json` and `excerpt-exclusions.yaml` were re-keyed with no other change.
 
 88 questions show the solution panel without the norm's or page's text: explanation, «Tema N» and source links,
 report button and «Sin extracto: …» with the reason. **extraction**: the build found no paragraph (21, unchanged since

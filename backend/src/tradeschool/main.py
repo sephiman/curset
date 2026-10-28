@@ -25,6 +25,7 @@ from tradeschool.deps import get_registry
 from tradeschool.enrollment.router import catalogue_router, me_router
 from tradeschool.errors import register_exception_handlers
 from tradeschool.exams.router import router as exams_router
+from tradeschool.practice.router import router as practice_router
 from tradeschool.ratelimit import limiter
 from tradeschool.reports.router import router as reports_router
 from tradeschool.stats.router import router as stats_router
@@ -51,11 +52,13 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None]:
     app.state.catalog = load_catalog(settings.content_dir)
 
     if settings.sync_content_on_startup:
+        from tradeschool.attempts.backfill import backfill_variant_ids
         from tradeschool.content.sync import reconcile_catalog
         from tradeschool.db import get_sessionmaker
 
         async with get_sessionmaker()() as session:
             await reconcile_catalog(app.state.catalog, session)
+            await backfill_variant_ids(app.state.catalog, session)
 
     retry = asyncio.create_task(_retry_report_mail(app))
     yield
@@ -111,7 +114,14 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     # Everything whose data belongs to a course hangs off /api/courses/{course}/….
     scoped = APIRouter(prefix="/courses/{course}", dependencies=[Depends(get_registry)])
-    for router in (content_router, attempts_router, stats_router, exams_router, reports_router):
+    for router in (
+        content_router,
+        attempts_router,
+        practice_router,
+        stats_router,
+        exams_router,
+        reports_router,
+    ):
         scoped.include_router(router)
     if settings.dev_mode:
         from tradeschool.dev.router import router as dev_router

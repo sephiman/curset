@@ -303,24 +303,24 @@ Nothing committed. F1–F6 built; the AGE course regenerated and verified on a s
 ## Excerpt schema (`content/<slug>/excerpts.json`, from `scripts/extract_excerpts.py`)
 
 Generated at build time from the course's own snapshot (pypdf for PDFs, stdlib `html.parser` for HTML/XML,
-plain text for `.txt`); serving only reads it. Keyed by question: `<exercise key>/<variant or case question id>`.
+plain text for `.txt`); serving only reads it. Keyed by question: a quiz question's own id (`m06-l02-q351`), a case question's id under its case key (`m02-ex-3/q01`) — since 2026-10-28; before, every key carried its exercise key, which a rebuild could change.
 `sources` holds the sha256 of every file read (a test fails when one changes). Each question has its `citation`
 (as built, whitespace collapsed) and either `excerpt` or `none` (the reason).
 
 ```json
 {"sources": {"sources/normativa/lpac-extracto.html": "462d…", "sources/otros/guia-recursos.html": "4522…"},
  "questions": {
-  "m01-ex-1/plazo-alzada": {"citation": "art. 122.1 LPAC", "excerpt": {
+  "plazo-alzada": {"citation": "art. 122.1 LPAC", "excerpt": {
     "heading": "Art. 122.1 LPAC",
     "text": "1. El plazo para la interposición del recurso de alzada será de un mes, si el acto fuera expreso.",
     "full": "Artículo 122. Plazos.\n\n1. El plazo … expreso.\n\n2. El plazo máximo para dictar y notificar la resolución será de tres meses.",
     "source": {"file": "sources/normativa/lpac-extracto.html", "fragment": "#a1-22"}}},
-  "m02-ex-2/recursos-19": {"citation": "fuente: `guia-recursos.html`; «Recursos administrativos»", "excerpt": {
+  "recursos-19": {"citation": "fuente: `guia-recursos.html`; «Recursos administrativos»", "excerpt": {
     "heading": "Recursos administrativos",
     "text": "El recurso de alzada se dirige al órgano superior jerárquico. El de reposición, al mismo órgano que dictó el acto.",
     "attribution": "Guía de recursos administrativos (fixture), consultado el 2026-10-28",
     "source": {"file": "sources/otros/guia-recursos.html", "fragment": ""}}},
-  "m02-ex-2/recursos-20": {"citation": "fuente: `guia-recursos.html`; «Plazos de los recursos»", "none": "label not found"}}}
+  "recursos-20": {"citation": "fuente: `guia-recursos.html`; «Plazos de los recursos»", "none": "label not found"}}}
 ```
 
 `text` has paragraphs separated by a blank line, at most 200 words (cut at a sentence end that keeps at least
@@ -459,6 +459,7 @@ V 645/629/16, VI 1,853/1,796/57. Content flags for the course round (not excerpt
   blind: distractor b is arguably true by the page, so dropped and replaced by m06-l03-q276. Both replacements passed
   the bank's five checks (`bank/bloque-vi/m06-l0[23].r1.verify-1.md`). Their excerpts are the page sentences the
   verifiers quoted for the key. The rebuild moved m06-l02-q351 from exercise 10 to exercise 9; its text is unchanged,
-  but its key changed, so earlier practice attempts no longer point at it (the course is a draft).
+  but its key changed, so earlier practice attempts no longer point at it (the course is a draft). Fixed
+  2026-10-28: keys and attempts name the question by its own id (README, «Question identity»).
 - Rebuilt: bloque VI 1,853 questions, 1,797 with excerpt, 56 «sin extracto»; course 88 (21 extraction, 67 verifier).
   Excerpt audit: 1,843 saved-page excerpts shown, 0 not judged «yes».

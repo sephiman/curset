@@ -4,7 +4,8 @@ Run from backend/: `uv run python ../docs/age-verification/bank/tools/build_exer
 Kept = every question in `<bloque>/mBB-lTT.draft.json` whose id is not in `<bloque>/drops.tsv`. Options keep their
 authored order (positions are balanced per tema; the platform shuffles per learner). Questions are grouped by lesson
 section, in lesson order, into exercises of MIN_PER..MAX_PER variants. Each variant gets a `# anchor:` comment from the
-platform's own resolver; a citation that resolves to nothing stops the build.
+platform's own resolver; a citation that resolves to nothing stops the build. Question ids pass through verbatim:
+a drop may regroup a tema's exercises, but a question's key is its id, so attempts and stats never notice.
 """
 
 from __future__ import annotations

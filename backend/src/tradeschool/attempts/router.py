@@ -17,6 +17,7 @@ from tradeschool.attempts.schemas import (
     AttemptSummary,
     CaseInstance,
     GradeResponse,
+    OpenAttemptRequest,
 )
 from tradeschool.auth.backend import current_active_user
 from tradeschool.auth.models import User
@@ -34,8 +35,11 @@ async def create_attempt(
     session: Annotated[AsyncSession, Depends(get_async_session)],
     registry: Annotated[CourseRegistry, Depends(get_registry)],
     locale: ReadingLocale,
+    payload: OpenAttemptRequest | None = None,
 ) -> AttemptInstance:
-    opened = await service.open_attempt(session, registry, user.id, exercise_id, locale)
+    """A fresh attempt: the question its seed draws, or — in lesson practice — the one `variantId` names."""
+    variant_id = payload.variantId if payload else None
+    opened = await service.open_attempt(session, registry, user.id, exercise_id, locale, variant_id)
     return AttemptInstance.from_opened(opened)
 
 

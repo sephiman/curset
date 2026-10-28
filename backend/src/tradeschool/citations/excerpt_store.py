@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+from collections import Counter
 from collections.abc import Iterable
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -30,9 +31,10 @@ from tradeschool.exercises.types import ExerciseType
 EXCERPTS_FILE = "excerpts.json"
 
 
-def question_key(exercise_key: str, question_id: str) -> str:
-    """A question's permanent name: its exercise's key and its variant (or case question) id."""
-    return f"{exercise_key}/{question_id}"
+def question_key(question_id: str, case_key: str | None = None) -> str:
+    """A question's permanent name: a quiz question's own id, which no rebuild or rebalancing changes; a case
+    question's id under its case's key, since those ids are unique only inside the case."""
+    return question_id if case_key is None else f"{case_key}/{question_id}"
 
 
 @dataclass(frozen=True)
@@ -51,14 +53,13 @@ def solved_questions(
         config = exercise_configs.get(exercise.id)
         cfg = config[1] if config else None
         if isinstance(cfg, QuizConfig):
-            items = [(v.id, v.citation, v.explanation) for v in cfg.variants]
+            items = [(question_key(v.id), v.citation, v.explanation) for v in cfg.variants]
         elif isinstance(cfg, CaseConfig):
-            items = [(q.id, q.citation, q.explanation) for q in cfg.questions]
+            items = [(question_key(q.id, exercise.key), q.citation, q.explanation) for q in cfg.questions]
         else:
             continue
         found += [
-            SolvedQuestion(question_key(exercise.key, item), citation, text.get(locale) if text else "")
-            for item, citation, text in items
+            SolvedQuestion(key, citation, text.get(locale) if text else "") for key, citation, text in items
         ]
     return found
 
@@ -149,7 +150,10 @@ class ExcerptStore:
     def problems(self, questions: Iterable[SolvedQuestion]) -> list[str]:
         """Questions with no entry, or whose entry was built for another citation: the file is stale."""
         problems: list[str] = []
-        for question in questions:
+        listed = list(questions)
+        counts = Counter(question.key for question in listed)
+        problems += [f"{key} names {n} questions" for key, n in counts.items() if n > 1]
+        for question in listed:
             entry = self.questions.get(question.key)
             citation = " ".join((question.citation or "").split())
             if entry is None:

@@ -9,16 +9,17 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 from datetime import UTC, datetime
 
-from sqlalchemy import select, update
+from sqlalchemy import or_, select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from tradeschool.attempts.models import Attempt, AttemptState
 from tradeschool.citations.course import QuestionLink
 from tradeschool.citations.excerpt_store import SolutionText
-from tradeschool.content.registry import CourseRegistry
+from tradeschool.content.registry import CourseRegistry, QuestionRef
 from tradeschool.errors import AppError
 from tradeschool.exercises.base import GeneratedInstance, GradeResult, InvalidAnswerError
 from tradeschool.exercises.case import question_seeds
+from tradeschool.exercises.quiz import QuizConfig
 from tradeschool.exercises.registry import get_generator
 from tradeschool.exercises.types import ExerciseType
 
@@ -47,20 +48,29 @@ def _resolve(registry: CourseRegistry, exercise_id: str) -> tuple[ExerciseType, 
     return config
 
 
-def _display_id(registry: CourseRegistry, attempt: Attempt) -> str:
-    """The display id for a stored attempt; a key the manifest dropped keeps its raw form."""
-    return registry.exercise_id_for_key(attempt.exercise_id) or attempt.exercise_id
+def question_ref(registry: CourseRegistry, attempt: Attempt) -> QuestionRef:
+    """The question a stored attempt showed, in the exercise that holds it today; a key the manifest
+    dropped keeps its raw form."""
+    return registry.locate(attempt.exercise_id, attempt.question_id, attempt.variant_id)
 
 
 def _resolve_attempt(registry: CourseRegistry, attempt: Attempt) -> tuple[ExerciseType, object]:
-    """What grades this one attempt: its exercise, or — for a case question — that question's own quiz."""
-    exercise_type, config = _resolve(registry, _display_id(registry, attempt))
-    if attempt.question_id is None:
-        return exercise_type, config
-    found = registry.attempt_config(_display_id(registry, attempt), attempt.question_id)
+    """What grades this one attempt: the question it showed, or its exercise when the seed is the question."""
+    ref = question_ref(registry, attempt)
+    _resolve(registry, ref.exercise_id)
+    found = registry.attempt_config(ref)
     if found is None:
         raise AppError("EXERCISE_NOT_AVAILABLE", "This question is no longer available.", status_code=409)
     return found
+
+
+def _only_question(registry: CourseRegistry, exercise_id: str, variant_id: str) -> object:
+    found = registry.attempt_config(QuestionRef(exercise_id, variant_id=variant_id))
+    if found is None:
+        raise AppError(
+            "QUESTION_NOT_FOUND", f"No question {variant_id!r} in {exercise_id!r}.", status_code=404
+        )
+    return found[1]
 
 
 async def open_attempt(
@@ -69,8 +79,11 @@ async def open_attempt(
     user_id: uuid.UUID,
     exercise_id: str,
     locale: str,
+    variant_id: str | None = None,
 ) -> OpenedAttempt:
     exercise_type, config = _resolve(registry, exercise_id)
+    if variant_id is not None:
+        config = _only_question(registry, exercise_id, variant_id)
     if exercise_type is ExerciseType.CASE:
         raise AppError(
             "EXERCISE_IS_A_CASE", "A case is opened as a case, question by question.", status_code=409
@@ -98,6 +111,7 @@ async def open_attempt(
         user_id=user_id,
         course_id=registry.slug,
         exercise_id=exercise_key,
+        variant_id=variant_id or registry.drawn_variant_id(exercise_id, seed),
         seed=seed,
         instance_snapshot={
             "type": exercise_type.value,
@@ -237,7 +251,7 @@ async def review_attempt(
     locale: str,
 ) -> AttemptReview:
     attempt = await load_owned(session, registry, user_id, attempt_id)
-    display_id = _display_id(registry, attempt)
+    display_id = question_ref(registry, attempt).exercise_id
     exercise_type, config = _resolve_attempt(registry, attempt)
     generator = get_generator(exercise_type)
     # Replay the exact scenario from the seed, localized to the requested language.
@@ -258,14 +272,14 @@ def answer_link(registry: CourseRegistry, attempt: Attempt, locale: str) -> Ques
     """Where «Ver en la lección» goes once the attempt is answered; None while its answer is hidden."""
     if attempt.state != AttemptState.ANSWERED:
         return None
-    return registry.question_link(_display_id(registry, attempt), attempt.question_id, attempt.seed, locale)
+    return registry.question_link(question_ref(registry, attempt), locale)
 
 
 def answer_excerpt(registry: CourseRegistry, attempt: Attempt) -> SolutionText | None:
     """The cited text of the norm for the solution panel; None while the attempt's answer is hidden."""
     if attempt.state != AttemptState.ANSWERED:
         return None
-    return registry.question_excerpt(_display_id(registry, attempt), attempt.question_id, attempt.seed)
+    return registry.question_excerpt(question_ref(registry, attempt))
 
 
 async def user_attempts(
@@ -275,15 +289,18 @@ async def user_attempts(
         exercise_key = registry.exercise_key(exercise_id)
     except KeyError:
         return []  # unknown exercise = empty history, exactly as before keys existed
+    config = registry.get_exercise_config(exercise_id)
+    held = [v.id for v in config[1].variants] if config and isinstance(config[1], QuizConfig) else []
     # Practice history only — exam attempts live in their own lane (never shown on the exercise player).
+    # A question a rebuild moved here brings its attempts; one it moved away takes them along.
     rows = await session.scalars(
         select(Attempt)
         .where(
             Attempt.user_id == user_id,
             Attempt.course_id == registry.slug,
-            Attempt.exercise_id == exercise_key,
+            or_(Attempt.exercise_id == exercise_key, Attempt.variant_id.in_(held)),
             Attempt.exam_session_id.is_(None),
         )
         .order_by(Attempt.created_at.desc())
     )
-    return list(rows.all())
+    return [a for a in rows.all() if question_ref(registry, a).exercise_id == exercise_id]
