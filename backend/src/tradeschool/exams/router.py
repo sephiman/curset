@@ -54,6 +54,20 @@ async def exam_presets(
     return [PresetOut.build(preset, registry, locale) for preset in registry.manifest.exams]
 
 
+@router.get("/presets/{preset_id}/print")
+async def export_exam_print(
+    preset_id: str,
+    user: Annotated[User, Depends(current_active_user)],
+    registry: Annotated[CourseRegistry, Depends(get_registry)],
+    locale: ReadingLocale,
+    seed: int | None = None,
+) -> dict[str, object]:
+    """Printable format for an exam preset (delta A, B, H): parts, lettered options and key sheet."""
+    from tradeschool.exams.print_export import build_exam_print
+
+    return build_exam_print(registry, preset_id, locale, seed)
+
+
 # RETIRED 2026-09-04: `GET /current`, which answered with the most recent open sitting only. Starting
 # an exam closes an open one of the SAME scope, so a global and a block exam can be open at once and
 # the older of the two had no route that could reach it. `/open` answers with all of them; the UI

@@ -1852,3 +1852,28 @@ One line per finished part: date-time, agent, file, result.
 - 2026-10-28 · verifier-1 · style rewrites final pass (style-rewrites-final.check.md): m05-l03-q002, m05-l01-q036 (i-v-4), m06-l08-q143, m06-l01-q351 (vi-3) · PASS 4, FAIL 0; no drops
 - 2026-10-28 12:40 · coordinator · R3 closing steps done. Suites: frontend build and tsc -b clean, vitest 594 passed / 51 skipped / 0 failed; backend ruff, format, mypy clean; pytest 1,337 passed, 20 skipped, 160 errors — every error is a Testcontainers fixture failing at setup because the Docker daemon is not running (unix:///var/run/docker.sock missing), so the database-backed tests were NOT run this time (they passed on 2026-10-27 with Docker up; only content changed since); export_bundle --verify-only OK; verify_golden_stability exit 0. Android and crypto-futures untouched. README counts updated (5,200). Stop.
 - 2026-10-28 13:33 · coordinator · Docker back up: full backend pytest 1,497 passed, 20 skipped, 0 errors — confirms the 160 setup errors were only the missing daemon.
+
+## R5 — official simulation presets, exam presets & «Exámenes oficiales» practice set (2026-10-30)
+
+- **Simulacro oficial preset**:
+  - Part 1: 70 counted questions composite draw (40 from modules m01–m05 + 30 from m06) plus 5 reserve questions (`reserve=True`) placed at the end.
+  - Part 2: 1 of 2 cases offered from the ten R4 case pairs (drawn at random, 20 questions + 5 reserve).
+  - Shared clock: 100 minutes. `pause: never`.
+  - Penalty: -1/3 of a correct answer per error; blank = 0.
+  - Scoring: each part 0–50 points (minimum 25); Part 2 graded only if Part 1 ≥ 25; final score 0–100 with the Comisión Permanente de Selección (CPS) transformation formula (`d < M: P·d/M; d ≥ M: P + (d − M)(E − P)/(N − M)` with M=95/3 (printed 31,67) for Part 1 and M=38/3 (printed 12,67) for Part 2, N=70/20, E=50, P=E/2=25, all from the CPS minimums note of 29-09-2026; M is kept exact because a raw score is always a multiple of 1/3 and 95/3 < 31.67).
+  - Display: tema labels hidden during the sitting and revealed in review; option letters A–D in on-screen order.
+- **Standalone «Parte 1» and «Parte 2»**:
+  - Independent practice sittings with 50 minutes each (explicit assumption: convocatoria establishes a single shared 100-minute block; 50 minutes represents half the shared allotment).
+- **«Exámenes oficiales» practice set (10 questionnaires, 2020–2025 convocatorias)**:
+  - 10 presets in `course.yaml`: `conv2025-a`, `conv2025-x`, `conv2024-a`, `conv2024-b`, `conv2024-x`, `conv2022`, `conv2022-x`, `conv2020-a`, `conv2020-b`, `conv2020-x`.
+  - Built strictly from `docs/age-official-exams-ledger.md`: 1,187 questions included (1,141 `vigente` as printed + 46 `vigente-con-nota` with tribunal/normative note rendered in the solution panel).
+  - 63 questions excluded (`anulada`, `dudosa`, `fuera de temario`, `norma modificada`, `función retirada`), with an attribution header and explicit exclusion summary on each preset.
+  - Keys from the definitive CPS answer sheets; original option sequence maintained without runtime shuffle (`shuffle: false`); letters A–D as printed.
+  - Manifest flag `official: true` ensures official questionnaires never pollute normal bank draws, solved question metrics, or citations.
+- **Printable exam export & PDF**:
+  - Printable session generator (`GET /exams/presets/{preset_id}/print`) outputting complete exam structure, scenarios, reserve questions, lettered options, and answer key sheet.
+  - Client-side vector PDF generator with `pdfmake` (`generateExamPdf` and `downloadPdf`) in Liberation Sans with running headers and footers.
+- **Verification**:
+  - Presets and grading proved by `backend/tests/test_age_simulation_presets.py` and `backend/tests/test_age_official_exams.py`.
+  - Crypto-futures and Android goldens 100% unmoved.
+

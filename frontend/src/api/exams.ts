@@ -170,12 +170,78 @@ export interface ExamPreset {
   id: string;
   version: number;
   title: string;
+  description?: string | null;
   timeLimitMinutes: number | null;
   pause: "between-questions" | "never";
   questions: number;
   parts: PresetPart[];
   /** A preset sat on one block, module or lesson at a time lists them here. */
   targets: PresetTarget[] | null;
+}
+
+export interface ExamPrintOption {
+  id: string;
+  letter: string;
+  text: string;
+}
+
+export interface ExamPrintQuestion {
+  id: string;
+  number: string;
+  reserve?: boolean;
+  prompt: string;
+  options: ExamPrintOption[];
+}
+
+export interface ExamPrintCase {
+  id: string;
+  title: string;
+  scenario: string;
+  questions: ExamPrintQuestion[];
+}
+
+export interface ExamPrintPart {
+  id: string;
+  title: string;
+  kind: "questions" | "cases";
+  questions?: ExamPrintQuestion[];
+  cases?: ExamPrintCase[];
+}
+
+export interface ExamPrintKey {
+  number: string;
+  reserve?: boolean;
+  correctOptionId: string;
+  correctLetter: string;
+  explanation?: string | null;
+}
+
+export interface ExamPrintKeyGroup {
+  partId: string;
+  title: string;
+  keys: ExamPrintKey[];
+}
+
+export interface ExamPrintData {
+  presetId: string;
+  title: string;
+  description?: string | null;
+  timeLimitMinutes: number | null;
+  pause: string;
+  parts: ExamPrintPart[];
+  keySheet: ExamPrintKeyGroup[];
+}
+
+export function examPrintUrl(course: CourseScope, presetId: string): string {
+  return courseUrl(course, `/exams/presets/${presetId}/print`);
+}
+
+export async function getExamPrint(course: CourseScope, presetId: string): Promise<ExamPrintData> {
+  const { data } = await apiClient.get<ExamPrintData>(
+    courseUrl(course, `/exams/presets/${presetId}/print`),
+    inReadingLanguage(course),
+  );
+  return data;
 }
 
 export async function getExamPresets(course: CourseScope): Promise<ExamPreset[]> {

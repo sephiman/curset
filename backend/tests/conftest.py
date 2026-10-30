@@ -163,7 +163,11 @@ REPORT_ADDRESS = "reports@curset.test"
 def multi_course_settings(settings: Settings, tmp_path_factory: pytest.TempPathFactory) -> Settings:
     """The real crypto-futures course next to the fixture courses (a Spanish-only one and a draft)."""
     root = tmp_path_factory.mktemp("content")
-    for course in [REPO_CONTENT / "crypto-futures", *sorted(FIXTURE_CONTENT.iterdir())]:
+    for course in [
+        REPO_CONTENT / "crypto-futures",
+        REPO_CONTENT / "age-administrativo-c1",
+        *sorted(FIXTURE_CONTENT.iterdir()),
+    ]:
         (root / course.name).symlink_to(course, target_is_directory=True)
     return settings.model_copy(update={"content_dir": root, "report_email_to": REPORT_ADDRESS})
 

@@ -38,7 +38,11 @@ async def test_catalogue_lists_published_courses_alphabetically_and_hides_drafts
     multi_client: AsyncClient,
 ) -> None:
     catalogue = (await multi_client.get("/api/courses?lang=en")).json()
-    assert [course["slug"] for course in catalogue] == ["fixture-oposiciones", "crypto-futures"]
+    assert [course["slug"] for course in catalogue] == [
+        "fixture-oposiciones",
+        "age-administrativo-c1",
+        "crypto-futures",
+    ]
     spanish_only = catalogue[0]
     assert spanish_only["languages"] == ["es"]
     # The account is English, the course has no English: its own title comes in Spanish, and says so.

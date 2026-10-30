@@ -37,6 +37,7 @@ class PresetSource(BaseModel):
     #: A set of modules drawn as one pool (AGE bloques I to V).
     modules: list[str] | None = None
     lesson: str | None = None
+    exercise: str | None = None
     each: Literal["block", "module", "lesson"] | None = None
 
     @model_validator(mode="before")
@@ -51,11 +52,11 @@ class PresetSource(BaseModel):
     def _exactly_one(self) -> Self:
         chosen = [
             name
-            for name in ("course", "cases", "block", "module", "modules", "lesson", "each")
+            for name in ("course", "cases", "block", "module", "modules", "lesson", "exercise", "each")
             if getattr(self, name)
         ]
         if len(chosen) != 1:
-            names = "course, cases, block, module, modules, lesson, each"
+            names = "course, cases, block, module, modules, lesson, exercise, each"
             raise ValueError(f"a part's source names one of {names}; got {chosen}")
         return self
 
@@ -66,8 +67,19 @@ class PartScoring(BaseModel):
     model_config = ConfigDict(extra="forbid")
     max: float = Field(gt=0)
     pass_minimum: float = Field(ge=0)
-    #: The raw score that earns exactly `pass_minimum` (the CPS «nota de corte»).
-    minimum_raw: float = Field(gt=0)
+    #: The raw score that earns exactly `pass_minimum` (the CPS «nota de corte»), exact: 95/3, not 31.67.
+    minimum_raw: Fraction
+
+    @field_validator("minimum_raw", mode="before")
+    @classmethod
+    def _exact(cls, raw: object) -> Fraction:
+        try:
+            value = Fraction(str(raw).strip())
+        except (ValueError, ZeroDivisionError) as exc:
+            raise ValueError(f"minimum_raw {raw!r} is not a fraction") from exc
+        if value <= 0:
+            raise ValueError(f"minimum_raw {raw!r} must be above 0")
+        return value
 
     @model_validator(mode="after")
     def _ordered(self) -> Self:
@@ -111,6 +123,8 @@ class PresetPart(BaseModel):
     sources: list[PartSource] | None = Field(default=None, min_length=2)
     #: Case parts only: how many cases are offered; the learner marks one and only that one is graded.
     choose: int | None = Field(default=None, ge=2)
+    #: Case parts only: explicit pairs of case ids; one pair is picked at random and offered.
+    case_pairs: list[list[str]] | None = None
     #: Extra questions shown at the end of the part, counted only if one before them is voided.
     reserve: int = Field(default=0, ge=0)
     #: What a wrong answer costs, as a fraction of a correct one.
@@ -143,8 +157,16 @@ class PresetPart(BaseModel):
                 raise ValueError(f"part {self.id!r}: a case part needs `choose` and `questions`")
             if self.draw != "random":
                 raise ValueError(f"part {self.id!r}: a case part draws cases, not one question per module")
+            if self.case_pairs is not None:
+                for pair in self.case_pairs:
+                    if len(pair) != self.choose:
+                        raise ValueError(
+                            f"part {self.id!r}: each case pair must hold {self.choose} cases, got {pair}"
+                        )
         elif self.choose is not None:
             raise ValueError(f"part {self.id!r}: `choose` belongs to a case part")
+        elif self.case_pairs is not None:
+            raise ValueError(f"part {self.id!r}: `case_pairs` belongs to a case part")
         if problem := _count_problem(self.draw, self.questions, self.reserve):
             raise ValueError(f"part {self.id!r}: {problem}")
         return self
@@ -192,6 +214,7 @@ class ExamPreset(BaseModel):
     #: Bumped whenever the rules change; a past exam keeps the version it was taken with.
     version: int = Field(ge=1)
     title: LocalizedText
+    description: LocalizedText | None = None
     #: For the whole exam, parts running together; absent means untimed.
     time_limit_minutes: int | None = Field(default=None, ge=1)
     #: `between-questions`: pause enabled between questions; `never`: no pause control and time keeps running.
@@ -201,12 +224,19 @@ class ExamPreset(BaseModel):
     @model_validator(mode="after")
     def _parts(self) -> Self:
         if self.pause is None:
+            id_lower = self.id.lower()
             title_text = (
                 " ".join(self.title.values()).lower()
                 if isinstance(self.title, dict)
                 else str(self.title).lower()
             )
-            if "simulacro" in self.id.lower() or "simulacro" in title_text:
+            if (
+                "simulacro" in id_lower
+                or "simulacro" in title_text
+                or id_lower.startswith("conv")
+                or id_lower.startswith("ofi-")
+                or id_lower.startswith("parte-")
+            ):
                 self.pause = "never"
             else:
                 self.pause = "between-questions"

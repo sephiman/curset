@@ -39,8 +39,8 @@ def raw_score(tally: Tally, penalty: Fraction, blank: Literal["free", "wrong"]) 
 
 
 def transformed_score(raw: Fraction, max_raw: int, scoring: PartScoring) -> Fraction:
-    # Through `str`, so a declared 31.67 is the decimal 31.67 and not its nearest binary double.
-    minimum = Fraction(str(scoring.minimum_raw))
+    minimum = scoring.minimum_raw
+    # Through `str`, so a declared 25.5 is that decimal and not its nearest binary double.
     pass_minimum = Fraction(str(scoring.pass_minimum))
     top = Fraction(str(scoring.max))
     if raw <= 0:

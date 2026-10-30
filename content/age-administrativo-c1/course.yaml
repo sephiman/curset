@@ -87,6 +87,36 @@ blocks:
         type: case
       - id: sp-20
         type: case
+      - id: ofi-conv2025-a
+        type: quiz
+        official: true
+      - id: ofi-conv2025-b
+        type: quiz
+        official: true
+      - id: ofi-conv2025-x
+        type: quiz
+        official: true
+      - id: ofi-conv2024-a
+        type: quiz
+        official: true
+      - id: ofi-conv2024-b
+        type: quiz
+        official: true
+      - id: ofi-conv2024-x
+        type: quiz
+        official: true
+      - id: ofi-conv2022
+        type: quiz
+        official: true
+      - id: ofi-conv2022-x
+        type: quiz
+        official: true
+      - id: ofi-conv2020
+        type: quiz
+        official: true
+      - id: ofi-conv2020-x
+        type: quiz
+        official: true
 - id: block-b
   title:
     es: Programa
@@ -1329,12 +1359,345 @@ blocks:
       - id: m06-l08-ex-9
         type: quiz
 exams:
-# The presets of R7.1 the platform supports today (docs/curset-platform-delta-exams.md, part A). Waiting for
-# R5 (the supuestos prácticos): "Simulacro oficial" (part 1: 70 questions + 5 reserve, 40 from bloques I–V and
-# 30 from VI; part 2: choose one case of two, 20 + 5 reserve, graded only if part 1 reaches its minimum; 100
-# minutes for both; a wrong answer costs 1/3, a blank costs nothing; 0–50 per part, pass 25, CPS
-# transformation; 0–100 total), "Parte 1" alone and "Parte 2" alone. "Tema" pauses between questions once
-# delta G (clock and pause) is built: the schema has no `pause` yet, and G2 makes it the practice default.
+- id: simulacro
+  version: 1
+  title:
+    es: Simulacro oficial
+  description:
+    es: >-
+      Simulacro completo del ejercicio único de la convocatoria oficial. Primera parte: 70 preguntas ordinarias
+      (40 de los temas I a V y 30 del tema VI) más 5 preguntas de reserva. Segunda parte: supuesto práctico a elegir
+      entre dos propuestos (20 preguntas ordinarias más 5 de reserva). Duración: 100 minutos conjuntos sin pausa.
+      Penalización: 1/3 de acierto por respuesta errónea; respuestas en blanco sin coste. Calificación de 0 a 50
+      puntos por parte mediante la fórmula oficial de transformación de la CPS (mínimo de 25 puntos por parte; la segunda
+      parte solo se califica si se supera la primera). Calificación final: 0 a 100 puntos.
+  time_limit_minutes: 100
+  pause: never
+  parts:
+  - id: parte-1
+    title:
+      es: Primera parte
+    sources:
+    - source:
+        modules: [m01, m02, m03, m04, m05]
+      questions: 40
+    - source:
+        module: m06
+      questions: 30
+    reserve: 5
+    penalty: 1/3
+    blank: free
+    scoring:
+      max: 50
+      pass_minimum: 25
+      # 31,67 in the CPS minimums note: the reachable raw score 95 thirds (A - E/3).
+      minimum_raw: 95/3
+  - id: parte-2
+    title:
+      es: Segunda parte
+    source: cases
+    choose: 2
+    case_pairs:
+    - [sp-01, sp-05]
+    - [sp-02, sp-10]
+    - [sp-03, sp-04]
+    - [sp-06, sp-08]
+    - [sp-07, sp-18]
+    - [sp-09, sp-20]
+    - [sp-11, sp-16]
+    - [sp-12, sp-14]
+    - [sp-13, sp-19]
+    - [sp-15, sp-17]
+    questions: 20
+    reserve: 5
+    penalty: 1/3
+    blank: free
+    scoring:
+      max: 50
+      pass_minimum: 25
+      # 12,67 in the CPS minimums note: the reachable raw score 38 thirds (A - E/3).
+      minimum_raw: 38/3
+    requires_previous_pass: true
+- id: parte-1
+  version: 1
+  title:
+    es: Parte 1
+  description:
+    es: >-
+      Primera parte del ejercicio único oficial (temas I a VI): 70 preguntas ordinarias (40 de los temas I a V y
+      30 del tema VI) más 5 de reserva. Duración: 50 minutos (asunción pedagógica para la práctica aislada; la
+      convocatoria oficial establece un tiempo único conjunto de 100 minutos para ambas partes). Sin pausa.
+      Penalización de 1/3 por fallo. Calificación transformada de 0 a 50 puntos (nota de corte: 31,67 puntos directos = 25 puntos).
+  time_limit_minutes: 50
+  pause: never
+  parts:
+  - id: parte-1
+    title:
+      es: Primera parte
+    sources:
+    - source:
+        modules: [m01, m02, m03, m04, m05]
+      questions: 40
+    - source:
+        module: m06
+      questions: 30
+    reserve: 5
+    penalty: 1/3
+    blank: free
+    scoring:
+      max: 50
+      pass_minimum: 25
+      # 31,67 in the CPS minimums note: the reachable raw score 95 thirds (A - E/3).
+      minimum_raw: 95/3
+- id: parte-2
+  version: 1
+  title:
+    es: Parte 2
+  description:
+    es: >-
+      Segunda parte del ejercicio único oficial: supuesto práctico a elegir entre dos opciones sorteadas de la
+      batería de casos (20 preguntas ordinarias más 5 de reserva). Duración: 50 minutos (asunción pedagógica para
+      la práctica aislada; la convocatoria oficial establece un tiempo único conjunto de 100 minutos para ambas partes).
+      Sin pausa. Penalización de 1/3 por fallo. Calificación transformada de 0 a 50 puntos (nota de corte: 12,67 puntos
+      directos = 25 puntos).
+  time_limit_minutes: 50
+  pause: never
+  parts:
+  - id: parte-2
+    title:
+      es: Segunda parte
+    source: cases
+    choose: 2
+    case_pairs:
+    - [sp-01, sp-05]
+    - [sp-02, sp-10]
+    - [sp-03, sp-04]
+    - [sp-06, sp-08]
+    - [sp-07, sp-18]
+    - [sp-09, sp-20]
+    - [sp-11, sp-16]
+    - [sp-12, sp-14]
+    - [sp-13, sp-19]
+    - [sp-15, sp-17]
+    questions: 20
+    reserve: 5
+    penalty: 1/3
+    blank: free
+    scoring:
+      max: 50
+      pass_minimum: 25
+      # 12,67 in the CPS minimums note: the reachable raw score 38 thirds (A - E/3).
+      minimum_raw: 38/3
+- id: conv2025-a
+  version: 1
+  title:
+    es: Examen oficial 2025 · Modelo A
+  description:
+    es: >-
+      Instituto Nacional de Administración Pública (INAP) · Convocatoria 2025, ejercicio realizado el 23-05-2026, Modelo A.
+
+
+      Cuestionario original de 125 preguntas. Se incluyen 119 preguntas vigentes (con claves de la plantilla definitiva de corrección) y se excluyen 6 preguntas anuladas por la Comisión Permanente de Selección.
+  time_limit_minutes: 100
+  pause: never
+  parts:
+  - id: examen
+    title:
+      es: Cuestionario oficial
+    source:
+      exercise: ofi-conv2025-a
+    draw: all
+    penalty: 1/3
+    blank: free
+- id: conv2025-b
+  version: 1
+  title:
+    es: Examen oficial 2025 · Modelo B
+  description:
+    es: >-
+      Instituto Nacional de Administración Pública (INAP) · Convocatoria 2025, ejercicio realizado el 23-05-2026, Modelo B.
+
+
+      Cuestionario original de 125 preguntas. Se incluyen 119 preguntas vigentes (con claves de la plantilla definitiva de corrección) y se excluyen 6 preguntas anuladas por la Comisión Permanente de Selección.
+  time_limit_minutes: 100
+  pause: never
+  parts:
+  - id: examen
+    title:
+      es: Cuestionario oficial
+    source:
+      exercise: ofi-conv2025-b
+    draw: all
+    penalty: 1/3
+    blank: free
+- id: conv2025-x
+  version: 1
+  title:
+    es: Examen oficial 2025 · Extraordinario
+  description:
+    es: >-
+      Instituto Nacional de Administración Pública (INAP) · Convocatoria 2025, llamamiento extraordinario realizado el 24-07-2026.
+
+
+      Cuestionario original de 125 preguntas. Se incluyen 124 preguntas vigentes (con claves de la plantilla definitiva de corrección) y se excluye 1 pregunta anulada por la Comisión Permanente de Selección.
+  time_limit_minutes: 100
+  pause: never
+  parts:
+  - id: examen
+    title:
+      es: Cuestionario oficial
+    source:
+      exercise: ofi-conv2025-x
+    draw: all
+    penalty: 1/3
+    blank: free
+- id: conv2024-a
+  version: 1
+  title:
+    es: Examen oficial 2024 · Modelo A
+  description:
+    es: >-
+      Instituto Nacional de Administración Pública (INAP) · Convocatoria 2024 (cuestionario creado el 15-12-2024), Modelo A.
+
+
+      Cuestionario original de 125 preguntas. Se incluyen 118 preguntas vigentes y se excluyen 7 preguntas: 5 anuladas por la CPS, 1 por norma modificada y 1 por función retirada de ofimática.
+  time_limit_minutes: 100
+  pause: never
+  parts:
+  - id: examen
+    title:
+      es: Cuestionario oficial
+    source:
+      exercise: ofi-conv2024-a
+    draw: all
+    penalty: 1/3
+    blank: free
+- id: conv2024-b
+  version: 1
+  title:
+    es: Examen oficial 2024 · Modelo B
+  description:
+    es: >-
+      Instituto Nacional de Administración Pública (INAP) · Convocatoria 2024 (cuestionario creado el 15-12-2024), Modelo B.
+
+
+      Cuestionario original de 125 preguntas. Se incluyen 118 preguntas vigentes y se excluyen 7 preguntas: 5 anuladas por la CPS, 1 por norma modificada y 1 por función retirada de ofimática.
+  time_limit_minutes: 100
+  pause: never
+  parts:
+  - id: examen
+    title:
+      es: Cuestionario oficial
+    source:
+      exercise: ofi-conv2024-b
+    draw: all
+    penalty: 1/3
+    blank: free
+- id: conv2024-x
+  version: 1
+  title:
+    es: Examen oficial 2024 · Extraordinario
+  description:
+    es: >-
+      Instituto Nacional de Administración Pública (INAP) · Convocatoria 2024, llamamiento extraordinario (cuestionario creado el 06-02-2025).
+
+
+      Cuestionario original de 125 preguntas. Se incluyen 121 preguntas vigentes y se excluyen 4 preguntas: 1 anulada por la CPS, 1 por norma modificada y 2 por función retirada de ofimática.
+  time_limit_minutes: 100
+  pause: never
+  parts:
+  - id: examen
+    title:
+      es: Cuestionario oficial
+    source:
+      exercise: ofi-conv2024-x
+    draw: all
+    penalty: 1/3
+    blank: free
+- id: conv2022
+  version: 1
+  title:
+    es: Examen oficial 2022
+  description:
+    es: >-
+      Instituto Nacional de Administración Pública (INAP) · Convocatoria 2022, ejercicio único (cuestionario creado el 24-07-2023).
+
+
+      Cuestionario original de 125 preguntas. Se incluyen 116 preguntas vigentes y se excluyen 9 preguntas: 5 anuladas por la CPS, 2 por norma modificada y 2 por función retirada de ofimática.
+  time_limit_minutes: 100
+  pause: never
+  parts:
+  - id: examen
+    title:
+      es: Cuestionario oficial
+    source:
+      exercise: ofi-conv2022
+    draw: all
+    penalty: 1/3
+    blank: free
+- id: conv2022-x
+  version: 1
+  title:
+    es: Examen oficial 2022 · Extraordinario
+  description:
+    es: >-
+      Instituto Nacional de Administración Pública (INAP) · Convocatoria 2022, llamamiento extraordinario (cuestionario creado el 02-11-2023).
+
+
+      Cuestionario original de 125 preguntas. Se incluyen 120 preguntas vigentes y se excluyen 5 preguntas: 4 anuladas por la CPS y 1 dudosa.
+  time_limit_minutes: 100
+  pause: never
+  parts:
+  - id: examen
+    title:
+      es: Cuestionario oficial
+    source:
+      exercise: ofi-conv2022-x
+    draw: all
+    penalty: 1/3
+    blank: free
+- id: conv2020
+  version: 1
+  title:
+    es: Examen oficial 2020 (OEP 2020)
+  description:
+    es: >-
+      Instituto Nacional de Administración Pública (INAP) · OEP 2020, ejercicio único celebrado en 2022 (cuestionario 19 ADVO-LI).
+
+
+      Cuestionario original de 125 preguntas. Se incluyen 112 preguntas vigentes y se excluyen 13 preguntas: 7 anuladas por la CPS, 3 por norma modificada y 3 por función retirada de ofimática.
+  time_limit_minutes: 100
+  pause: never
+  parts:
+  - id: examen
+    title:
+      es: Cuestionario oficial
+    source:
+      exercise: ofi-conv2020
+    draw: all
+    penalty: 1/3
+    blank: free
+- id: conv2020-x
+  version: 1
+  title:
+    es: Examen oficial 2020 (OEP 2020) · Extraordinario
+  description:
+    es: >-
+      Instituto Nacional de Administración Pública (INAP) · OEP 2020, llamamiento extraordinario celebrado en 2022 (cuestionario 19 ADVO-LI).
+
+
+      Cuestionario original de 125 preguntas. Se incluyen 120 preguntas vigentes y se excluyen 5 preguntas: 2 por norma modificada y 3 por función retirada de ofimática.
+  time_limit_minutes: 100
+  pause: never
+  parts:
+  - id: examen
+    title:
+      es: Cuestionario oficial
+    source:
+      exercise: ofi-conv2020-x
+    draw: all
+    penalty: 1/3
+    blank: free
 - id: tema
   version: 1
   title:

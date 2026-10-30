@@ -18,7 +18,7 @@ from tradeschool.exams.scoring import Tally, raw_score, transformed_score
 from tradeschool.exercises.quiz import QuizConfig, QuizGenerator
 from tradeschool.stats.by_lesson import lesson_table
 
-CPS = PartScoring(max=50, pass_minimum=25, minimum_raw=31.67)
+CPS = PartScoring(max=50, pass_minimum=25, minimum_raw=Fraction(95, 3))
 
 
 def test_raw_is_correct_minus_the_penalty_per_wrong_and_blanks_cost_nothing() -> None:
@@ -28,11 +28,11 @@ def test_raw_is_correct_minus_the_penalty_per_wrong_and_blanks_cost_nothing() ->
 
 
 def test_the_transform_is_the_cps_formula_of_the_intro_lesson() -> None:
-    # m00-l01's own example: M = 31,67, N = 70, d = 46 gives 34,35.
+    # m00-l01's own example: M = 31,67 (95/3 exact), N = 70, d = 46 gives 34,35.
     assert float(transformed_score(Fraction(46), 70, CPS)) == pytest.approx(34.35, abs=0.01)
-    assert transformed_score(Fraction("31.67"), 70, CPS) == 25
+    assert transformed_score(Fraction(95, 3), 70, CPS) == 25
     assert transformed_score(Fraction(70), 70, CPS) == 50
-    assert float(transformed_score(Fraction(10), 70, CPS)) == pytest.approx(25 * 10 / 31.67, abs=1e-6)
+    assert float(transformed_score(Fraction(10), 70, CPS)) == pytest.approx(25 * 10 * 3 / 95, abs=1e-6)
     assert transformed_score(Fraction(-3), 70, CPS) == 0
 
 

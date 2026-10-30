@@ -506,3 +506,142 @@ Platform round implementing section I of `docs/curset-platform-delta-exams.md`. 
 - **Copy interaction**: `CopyableReference` component copies the reference string to the system clipboard and displays inline confirmation feedback («Copiado» / checkmark) for 2 seconds.
 - **Schema & API**: `AttemptInstance` and `GradeResponse` expose `questionId` (`opened.attempt.question_id or opened.attempt.variant_id`) across the attempts and exams endpoints.
 
+## Delta R5 — official simulation presets, official exams practice set & printable PDF (2026-10-30)
+
+Platform round implementing the official simulation presets, the ten official exam practice sets (2020–2025 convocatorias), and printable PDF documents for `age-administrativo-c1`. Nothing committed.
+
+### Preset Schema Extensions & Preset Examples
+
+`backend/src/tradeschool/exams/presets.py` and `backend/src/tradeschool/exams/draw.py` extended to support:
+- `exercise: str | None`: single exercise target for a preset source (used by official exam presets).
+- `case_pairs: list[list[str]] | None`: pairs of cases where a sitting randomly offers one pair (`[case_a, case_b]`) and grades only the marked case.
+- `official: bool`: exercise manifest flag ensuring official questionnaire exercises never pollute normal bank draws, solved question metrics, or citations.
+- `shuffle: bool` in `QuizConfig`: when `false`, options preserve printed exam order (A–D) without runtime randomization.
+
+#### 1. «Simulacro oficial»
+Composite draw: Part 1 = 70 questions (40 from modules m01–m05 + 30 from m06) + 5 reserve questions placed last (`reserve=True`); Part 2 = 1 of 2 cases offered from the ten R4 case pairs (20 questions + 5 reserve); 100 minutes shared clock; `pause: never`; wrong = −1/3 of a correct answer, blank = 0; each part 0–50 points (minimum 25); Part 2 graded only if Part 1 ≥ 25; final score 0–100 with CPS transformation formula; tema labels hidden during the sitting; option letters A–D.
+
+```yaml
+- id: simulacro
+  version: 1
+  title: {es: Simulacro oficial}
+  description:
+    es: "Cuestionario teórico de 70 preguntas ordinarias más 5 de reserva y supuesto práctico de 20 preguntas más 5 de reserva a elegir entre dos opciones, con las reglas y baremo de la Comisión Permanente de Selección."
+  time_limit_minutes: 100
+  pause: never
+  parts:
+  - id: parte-1
+    title: {es: Primera parte}
+    kind: questions
+    questions: 70
+    reserve: 5
+    sources:
+    - {modules: [m01, m02, m03, m04, m05], questions: 40}
+    - {module: m06, questions: 30}
+    penalty: 1/3
+    blank: free
+    scoring: {max: 50, pass_minimum: 25, minimum_raw: 95/3}   # printed 31,67
+  - id: parte-2
+    title: {es: Segunda parte}
+    kind: cases
+    choose: 1
+    questions: 20
+    reserve: 5
+    case_pairs:
+    - [sp-01, sp-02]
+    - [sp-03, sp-04]
+    - [sp-05, sp-06]
+    - [sp-07, sp-08]
+    - [sp-09, sp-10]
+    - [sp-11, sp-12]
+    - [sp-13, sp-14]
+    - [sp-15, sp-16]
+    - [sp-17, sp-18]
+    - [sp-19, sp-20]
+    penalty: 1/3
+    blank: free
+    scoring: {max: 50, pass_minimum: 25, minimum_raw: 38/3}   # printed 12,67
+    requires_previous_pass: true
+```
+
+#### 2. «Parte 1» and «Parte 2» standalone
+Standalone sittings for learners practicing each half independently, 50 minutes each (explicit assumption: the official convocatoria establishes one 100-minute shared block; 50 minutes represents half the shared allotment).
+
+```yaml
+- id: parte-1
+  version: 1
+  title: {es: Primera parte (teoría)}
+  description:
+    es: "Primera parte del ejercicio oficial: 70 preguntas ordinarias más 5 de reserva (40 de materias comunes y 30 de informática). Tiempo estimado de 50 minutos (la convocatoria oficial asigna 100 minutos conjuntos para ambas partes)."
+  time_limit_minutes: 50
+  pause: never
+  parts:
+  - id: parte-1
+    title: {es: Primera parte}
+    kind: questions
+    questions: 70
+    reserve: 5
+    sources:
+    - {modules: [m01, m02, m03, m04, m05], questions: 40}
+    - {module: m06, questions: 30}
+    penalty: 1/3
+    blank: free
+    scoring: {max: 50, pass_minimum: 25, minimum_raw: 95/3}   # printed 31,67
+
+- id: parte-2
+  version: 1
+  title: {es: Segunda parte (supuesto)}
+  description:
+    es: "Segunda parte del ejercicio oficial: supuesto práctico de 20 preguntas más 5 de reserva a elegir entre dos opciones. Tiempo estimado de 50 minutos (la convocatoria oficial asigna 100 minutos conjuntos para ambas partes)."
+  time_limit_minutes: 50
+  pause: never
+  parts:
+  - id: parte-2
+    title: {es: Segunda parte}
+    kind: cases
+    choose: 1
+    questions: 20
+    reserve: 5
+    case_pairs:
+    - [sp-01, sp-02]
+    - [sp-03, sp-04]
+    - [sp-05, sp-06]
+    - [sp-07, sp-08]
+    - [sp-09, sp-10]
+    - [sp-11, sp-12]
+    - [sp-13, sp-14]
+    - [sp-15, sp-16]
+    - [sp-17, sp-18]
+    - [sp-19, sp-20]
+    penalty: 1/3
+    blank: free
+    scoring: {max: 50, pass_minimum: 25, minimum_raw: 38/3}   # printed 12,67
+```
+
+#### 3. «Exámenes oficiales» (conv2025-a .. conv2020-x)
+10 presets covering all official examinations 2020–2025. 1,187 valid questions included (1,141 `vigente` + 46 `vigente-con-nota`), 63 non-current questions excluded (`anulada`, `dudosa`, `fuera de temario`, `norma modificada`, `función retirada`). Each preset includes an attribution header, exclusion note, keys from the definitive answer sheets, original option sequence without shuffle (`shuffle: false`), official letters A–D, and full solution panel with notes.
+
+Example preset:
+```yaml
+- id: conv2025-a
+  version: 1
+  title: {es: "Convocatoria 2025 — Modelo A"}
+  description:
+    es: "Cuestionario oficial del proceso selectivo para ingreso en el Cuerpo General Administrativo de la Administración del Estado (convocatoria 2025, ejercicio celebrado el 14 de diciembre de 2024, Modelo A). Fuente: INAP / Comisión Permanente de Selección. 119 preguntas vigentes (6 preguntas excluidas por el tribunal o modificación normativa: anulación oficial de preguntas 74 y 103; preguntas 115, 116, 117 y 118 de LibreOffice fuera del temario vigente)."
+  time_limit_minutes: 100
+  pause: never
+  parts:
+  - id: oficial
+    title: {es: "Cuestionario oficial"}
+    kind: questions
+    questions: 119
+    source: {exercise: ofi-conv2025-a}
+    penalty: 1/3
+    blank: free
+```
+
+### Printable Exam Export (Delta A, B, H)
+- **Backend export**: `GET /exams/presets/{preset_id}/print` returning structured JSON (`build_exam_print`) with counted questions, reserve questions, both cases of the drawn pair (scenario + questions), lettered options (A–D), and complete key sheet.
+- **Frontend PDF typesetting**: `frontend/src/lib/pdf/examDocument.ts` typesetting the exam with `pdfmake` using Liberation Sans fonts, headers, footers with page numbering, scenarios in callout panels, unbreakable question blocks, and clean multi-column key tables. Accessible via «Descargar PDF» on the Exams page.
+
+

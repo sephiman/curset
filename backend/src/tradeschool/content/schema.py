@@ -39,6 +39,7 @@ class KeyedEntity(BaseModel):
 class ManifestExercise(KeyedEntity):
     model_config = ConfigDict(extra="forbid")
     type: ExerciseType
+    official: bool = False
 
 
 class ManifestLesson(KeyedEntity):

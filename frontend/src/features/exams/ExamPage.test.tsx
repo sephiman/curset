@@ -255,15 +255,17 @@ describe("starting an exam that would abandon nothing", () => {
 
 describe("the exam list", () => {
   it("shows each preset with its title, parts, question count and time", () => {
-    presets = [SIMULACRO];
+    presets = [{ ...SIMULACRO, description: "Official simulation description" }];
     page();
     const text = document.body.textContent ?? "";
     expect(text).toContain("Simulacro");
+    expect(text).toContain("Official simulation description");
     expect(text).toContain(translate("exam.questions_other", { count: 90 }));
     expect(text).toContain(translate("exam.minutes", { count: 100 }));
     expect(text).toContain(`${translate("exam.partQuestions", { title: "Primera parte", count: 70 })}, ${translate("exam.reserveCount", { count: 2 })}`);
     expect(text).toContain(translate("exam.partCases", { title: "Segunda parte", choose: 2, count: 20 }));
     expect(text).toContain(translate("exam.penalty", { fraction: "1/3" }));
+    expect(button(translate("exam.exportPdf"))).not.toBeNull();
   });
 
   it("offers a parametric preset once per target, with each one's question count", () => {

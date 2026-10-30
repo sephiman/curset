@@ -125,6 +125,7 @@ class CourseRegistry:
     # quiz question id -> the exercises holding it. One home for a bank's ids; crypto-futures reuses a
     # few ids across exercises, and those only ever resolve inside the attempt's own exercise.
     _variant_homes: dict[str, list[str]] = field(default_factory=dict)
+    _official_exercises: dict[str, bool] = field(default_factory=dict)
 
     @property
     def slug(self) -> str:
@@ -253,8 +254,13 @@ class CourseRegistry:
                 units.append(StatUnit(exercise.id, question.id, lesson_id, location.module.id))
         return units
 
+    def is_official(self, exercise_id: str) -> bool:
+        return self._official_exercises.get(exercise_id, False)
+
     def scope_exercise_ids(self, level: str | None, target: str | None) -> list[str]:
         """Exercise ids in course order under a block, module or lesson (`level` None: the whole course)."""
+        if level == "exercise":
+            return [target] if target else []
         out: list[str] = []
         for block, module in self.manifest.iter_modules():
             for lesson in module.lessons:
@@ -288,6 +294,8 @@ class CourseRegistry:
                     self._exercise_lessons[exercise.id] = lesson.id
                     self._exercise_keys[exercise.id] = exercise.key
                     self._exercise_ids[exercise.key] = exercise.id
+                    if exercise.official:
+                        self._official_exercises[exercise.id] = True
                     config = self.exercise_configs.get(exercise.id)
                     if config is not None and isinstance(config[1], QuizConfig):
                         for variant in config[1].variants:
@@ -731,6 +739,8 @@ def _cited_questions(
     lesson_ids = {lesson.key: lesson.id for _, lesson in manifest.iter_lessons()}
     found: list[CitedQuestion] = []
     for _module, lesson, exercise in manifest.iter_exercises():
+        if exercise.official:
+            continue
         config = exercise_configs.get(exercise.id)
         if config is None:
             continue

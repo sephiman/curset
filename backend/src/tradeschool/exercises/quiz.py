@@ -73,6 +73,7 @@ class QuizVariant(BaseModel):
     citation: str | None = Field(default=None, exclude=True)
     difficulty: int | None = Field(default=None, ge=1, le=3, exclude=True)
     tags: list[str] = Field(default_factory=list, exclude=True)
+    shuffle: bool = Field(default=True, exclude=True)
 
     @model_validator(mode="after")
     def _check(self) -> Self:
@@ -126,6 +127,7 @@ class QuizVariant(BaseModel):
 class QuizConfig(BaseModel):
     model_config = ConfigDict(extra="forbid")
     type: Literal["quiz"]
+    shuffle: bool = Field(default=True, exclude=True)
     variants: list[QuizVariant]
 
     @model_validator(mode="after")
@@ -139,7 +141,9 @@ class QuizConfig(BaseModel):
     def only(self, variant_id: str) -> QuizConfig | None:
         """The one question an attempt showed, as a quiz of its own: no seed can pick another."""
         variant = next((v for v in self.variants if v.id == variant_id), None)
-        return None if variant is None else QuizConfig.model_construct(type="quiz", variants=[variant])
+        if variant is None:
+            return None
+        return QuizConfig.model_construct(type="quiz", variants=[variant], shuffle=self.shuffle)
 
 
 def _shuffled(n: int, seed: int, salt: int) -> list[int]:
@@ -165,7 +169,11 @@ class QuizGenerator(ExerciseGenerator):
         payload: dict[str, object] = {"kind": v.kind.value}
 
         if v.kind in (QuizKind.SINGLE_CHOICE, QuizKind.MULTI_SELECT):
-            order = _shuffled(len(v.options), seed, 0)
+            order = (
+                _shuffled(len(v.options), seed, 0)
+                if (config.shuffle and v.shuffle)
+                else list(range(len(v.options)))
+            )
             payload["options"] = [
                 {"id": v.options[i].id, "text": v.options[i].text.get(locale)} for i in order
             ]

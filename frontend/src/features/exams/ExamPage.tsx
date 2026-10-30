@@ -16,6 +16,8 @@ import { Badge, Button, Card, Spinner } from "@/components/ui/primitives";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import { scopeKey, useCourse } from "@/features/courses/CourseContext";
 import { examScore, sittingName } from "@/features/exams/format";
+import { generateExamPdf } from "@/lib/pdf/examDocument";
+import { downloadPdf } from "@/lib/pdf/generate";
 
 /** One line per part: what it draws, how many questions, how many in reserve. */
 function partLine(preset: ExamPreset, t: TFunction): string[] {
@@ -45,6 +47,21 @@ function PresetCard({
   onStart: (target?: string) => void;
 }) {
   const { t } = useTranslation();
+  const { scope: courseScope } = useCourse();
+  const [downloading, setDownloading] = useState(false);
+
+  const handlePdf = async () => {
+    try {
+      setDownloading(true);
+      const generated = await generateExamPdf(courseScope, preset.id);
+      downloadPdf(generated);
+    } catch (e) {
+      console.error("PDF export failed:", e);
+    } finally {
+      setDownloading(false);
+    }
+  };
+
   const time = preset.timeLimitMinutes ? t("exam.minutes", { count: preset.timeLimitMinutes }) : t("exam.untimed");
   return (
     <Card className="space-y-3 p-4">
@@ -54,6 +71,9 @@ function PresetCard({
           {preset.targets ? time : `${t("exam.questions", { count: preset.questions })} · ${time}`}
         </span>
       </div>
+      {preset.description && (
+        <p className="text-xs text-gray-600 dark:text-gray-300">{preset.description}</p>
+      )}
       {preset.parts.length > 1 && (
         <ul className="space-y-0.5 text-sm text-gray-600 dark:text-gray-300">
           {partLine(preset, t).map((line) => (
@@ -81,9 +101,20 @@ function PresetCard({
           </div>
         </div>
       ) : (
-        <Button disabled={disabled} onClick={() => onStart()}>
-          {t("exam.start")}
-        </Button>
+        <div className="flex flex-wrap items-center gap-2">
+          <Button disabled={disabled} onClick={() => onStart()}>
+            {t("exam.start")}
+          </Button>
+          <Button
+            variant="secondary"
+            disabled={downloading}
+            onClick={handlePdf}
+            title={t("exam.exportPdf")}
+          >
+            {downloading && <Spinner className="mr-1.5 h-3.5 w-3.5" />}
+            {t("exam.exportPdf")}
+          </Button>
+        </div>
       )}
     </Card>
   );

@@ -50,6 +50,8 @@ def solved_questions(
     """Every multiple-choice question of the course: quiz variants and case questions, in course order."""
     found: list[SolvedQuestion] = []
     for _module, _lesson, exercise in manifest.iter_exercises():
+        if exercise.official:
+            continue
         config = exercise_configs.get(exercise.id)
         cfg = config[1] if config else None
         if isinstance(cfg, QuizConfig):

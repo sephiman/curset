@@ -285,9 +285,9 @@ Open <http://localhost:5173>, register an account, and review the full course:
   checked to resolve in both languages, and no spec may sit unembedded.
 - **Exams** (`/exams`): each course declares its own exams as **presets** in `course.yaml` (see
   `content/README.md`): parts, question count, source (or several sources with a count each, shuffled
-  into one part), draw mode, time limit, penalty, blank rule, score range and pass minimum, reserve
-  questions, and "choose one case of N". The Exams tab lists them with title,
-  parts, question count and time. crypto-futures keeps the two it always had — **global** (one question
+  into one part, or single official exercises), draw mode, time limit, penalty, blank rule, score range and pass minimum, reserve
+  questions, and "choose one case of N" (or random case pairs from R4 cases). The Exams tab lists them with title,
+  description, parts, question count, time, and a **«Descargar PDF»** export. age-administrativo-c1 provides **«Simulacro oficial»** (70 questions drawn 40 from m01–m05 + 30 from m06 plus 5 reserve; Part 2 choosing 1 of 2 cases from an offered R4 pair, 20 questions + 5 reserve; 100 minutes shared clock; `pause: never`; tema labels hidden during the sitting; option letters A–D; CPS transformation formula; auto-submit at 100 minutes), standalone **«Parte 1»** and **«Parte 2»** (50 min each), and the **«Exámenes oficiales»** practice set (10 presets covering 2020–2025 convocatorias, with 1,187 questions, keys from definitive sheets, `shuffle: false`, official notes, and excluded questions accounted for). crypto-futures keeps the two it always had — **global** (one question
   per module with a bank, so the epilogue is skipped) and **per-block** (offered only for blocks that have
   one) — byte for byte (`backend/tests/goldens/crypto-exam-results.json`). One attempt per question, free
   navigation, **no feedback until submission**; a timed preset runs on the server's clock and hands the

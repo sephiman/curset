@@ -184,7 +184,9 @@ export function ExamRunner() {
   const isSimulation =
     exam.presetId === "simulacro" ||
     exam.presetId.startsWith("simulacro") ||
-    exam.presetId.startsWith("parte-");
+    exam.presetId.startsWith("parte-") ||
+    exam.presetId.startsWith("conv") ||
+    exam.presetId.startsWith("ofi-");
   const showTema = Boolean(courseTree?.course.lessonNoun && !isSimulation);
   const currentTema = showTema ? findTemaInfo(courseTree, q.lessonId) : null;
 

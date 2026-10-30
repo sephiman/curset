@@ -267,6 +267,7 @@ class PresetOut(BaseModel):
     id: str
     version: int
     title: str
+    description: str | None = None
     timeLimitMinutes: int | None
     pause: Literal["between-questions", "never"] = "between-questions"
     questions: int
@@ -307,6 +308,7 @@ class PresetOut(BaseModel):
             id=preset.id,
             version=preset.version,
             title=preset.title.get(locale),
+            description=preset.description.get(locale) if preset.description else None,
             timeLimitMinutes=preset.time_limit_minutes,
             pause=preset.pause,
             questions=sum(p.questions for p in parts),

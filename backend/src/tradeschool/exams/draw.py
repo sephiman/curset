@@ -75,6 +75,8 @@ def source_scope(source: PresetSource, target: str | None) -> Scope:
     """The scope of a non-case source; a parametric one (`each`) covers the target picked at start."""
     if source.each is not None:
         return Scope(source.each, frozenset({target}) if target else frozenset())
+    if source.exercise is not None:
+        return Scope("exercise", frozenset({source.exercise}))
     if source.modules:
         return Scope("module", frozenset(source.modules))
     for level in ("block", "module", "lesson"):
@@ -85,6 +87,8 @@ def source_scope(source: PresetSource, target: str | None) -> Scope:
 
 
 def _exercise_ids(registry: CourseRegistry, scope: Scope) -> list[str]:
+    if scope.level == "exercise":
+        return sorted(scope.ids)
     targets: list[str | None] = [*sorted(scope.ids)] or [None]
     if len(targets) == 1:
         return registry.scope_exercise_ids(scope.level, targets[0])
@@ -106,8 +110,12 @@ def per_module_scope(registry: CourseRegistry, scope: Scope) -> list[str]:
 
 
 def _module_questions(registry: CourseRegistry, module_id: str) -> list[str]:
-    """The module's playable exercises a question draw may pick: all but its cases."""
-    return [e for e in registry.playable_module_exercises(module_id) if registry.case_config(e) is None]
+    """The module's playable exercises a question draw may pick: all but its cases and official exams."""
+    return [
+        e
+        for e in registry.playable_module_exercises(module_id)
+        if registry.case_config(e) is None and not registry.is_official(e)
+    ]
 
 
 def question_pool(registry: CourseRegistry, scope: Scope) -> list[PoolQuestion]:
@@ -116,6 +124,8 @@ def question_pool(registry: CourseRegistry, scope: Scope) -> list[PoolQuestion]:
     for exercise_id in _exercise_ids(registry, scope):
         config = registry.get_exercise_config(exercise_id)
         if config is None or config[0] is ExerciseType.CASE:
+            continue
+        if scope.level != "exercise" and registry.is_official(exercise_id):
             continue
         if isinstance(config[1], QuizConfig):
             pool.extend(PoolQuestion(exercise_id, variant.id) for variant in config[1].variants)
@@ -222,18 +232,28 @@ def draw_composite(
 
 
 def draw_cases(
-    registry: CourseRegistry, pool: list[str], offered: int, counted: int, reserve: int, rand: Rand
+    registry: CourseRegistry,
+    pool: list[str],
+    offered: int,
+    counted: int,
+    reserve: int,
+    rand: Rand,
+    pairs: list[list[str]] | None = None,
 ) -> tuple[list[str], list[DrawnQuestion]]:
     """`offered` distinct cases, each whole: its first `counted` questions, then `reserve` more."""
-    if len(pool) < offered:
-        raise DrawError(f"the course has {len(pool)} cases; the part offers {offered}")
-    cases = [pool[i] for i in _sample(rand, len(pool), offered)]
+    if pairs:
+        pair_idx = rand.randbelow(len(pairs))
+        cases = list(pairs[pair_idx])
+    else:
+        if len(pool) < offered:
+            raise DrawError(f"the course has {len(pool)} cases; the part offers {offered}")
+        cases = [pool[i] for i in _sample(rand, len(pool), offered)]
     drawn: list[DrawnQuestion] = []
     for case_id in cases:
         config = registry.case_config(case_id)
         assert config is not None
         seeds = question_seeds(rand.randbelow(SEED_SPACE), len(config.questions))
-        for index, (question, seed) in enumerate(zip(config.questions, seeds, strict=True)):
+        for index, (question, seed) in enumerate(zip(config.questions, seeds, strict=False)):
             if index >= counted + reserve:
                 break
             drawn.append(DrawnQuestion(case_id, seed, question.id, reserve=index >= counted))
@@ -244,7 +264,13 @@ def draw_part(registry: CourseRegistry, part: PresetPart, target: str | None, ra
     if part.cases:
         assert part.choose is not None and part.questions is not None
         cases, questions = draw_cases(
-            registry, case_pool(registry), part.choose, part.questions, part.reserve, rand
+            registry,
+            case_pool(registry),
+            part.choose,
+            part.questions,
+            part.reserve,
+            rand,
+            pairs=part.case_pairs,
         )
         return DrawnPart(part.id, questions, cases)
     if part.sources is not None:
@@ -297,16 +323,25 @@ def pool_shortfalls(registry: CourseRegistry, preset: ExamPreset, target: str | 
     for part in preset.parts:
         if part.cases:
             assert part.choose is not None and part.questions is not None
-            cases = case_pool(registry)
-            if len(cases) < part.choose:
-                problems.append(f"part {part.id!r} offers {part.choose} cases; the course has {len(cases)}")
-            needed = part.questions + part.reserve
-            for case_id in cases:
+            if part.case_pairs is not None:
+                if not part.case_pairs:
+                    problems.append(f"part {part.id!r}: case_pairs is empty")
+                cases_to_check = {c for pair in part.case_pairs for c in pair}
+            else:
+                cases = case_pool(registry)
+                if len(cases) < part.choose:
+                    problems.append(
+                        f"part {part.id!r} offers {part.choose} cases; the course has {len(cases)}"
+                    )
+                cases_to_check = set(cases)
+            for case_id in sorted(cases_to_check):
                 config: CaseConfig | None = registry.case_config(case_id)
-                if config is not None and len(config.questions) < needed:
+                if config is None:
+                    problems.append(f"case {case_id!r} not found in course")
+                elif len(config.questions) < part.questions:
                     problems.append(
                         f"case {case_id!r} has {len(config.questions)} questions; "
-                        f"part {part.id!r} needs {needed}"
+                        f"part {part.id!r} needs {part.questions}"
                     )
             continue
         problems += _source_shortfalls(registry, part, target)
