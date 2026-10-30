@@ -5,14 +5,25 @@ import type { LessonTable, LessonTableLists, LessonTableRow } from "@/api/stats"
 import { useCourse } from "@/features/courses/CourseContext";
 import { cn } from "@/lib/cn";
 
-type SortColumn = "order" | "questions" | "correct" | "wrong" | "blank" | "pct";
+type SortColumn = "order" | "questions" | "correct" | "wrong" | "blank" | "pct" | "avgTime";
 
 function pct(value: number | null): string {
   return value == null ? "—" : `${Math.round(value * 100)}%`;
 }
 
+function formatAvgTime(seconds: number | null | undefined): string {
+  if (seconds == null) return "—";
+  const s = Math.round(seconds);
+  const m = Math.floor(s / 60);
+  const rem = s % 60;
+  return m > 0 ? `${m}m ${rem}s` : `${rem}s`;
+}
+
 function sortRows<T extends LessonTableRow>(rows: T[], column: SortColumn): T[] {
   if (column === "order") return rows;
+  if (column === "avgTime") {
+    return [...rows].sort((a, b) => (b.averageSeconds ?? 0) - (a.averageSeconds ?? 0));
+  }
   // Highest first, except the percentage, where the weakest lesson is the one worth seeing first.
   const sign = column === "pct" ? 1 : -1;
   return [...rows].sort((a, b) => sign * ((a[column] ?? 0) - (b[column] ?? 0)));
@@ -63,24 +74,39 @@ export function ByLessonTable({ table, noun }: { table: LessonTable; noun?: stri
   const { t } = useTranslation();
   const { path } = useCourse();
   const [sort, setSort] = useState<SortColumn>("order");
+  const hasAvgTime = useMemo(
+    () => table.groups.some((g) => g.averageSeconds != null || g.lessons.some((l) => l.averageSeconds != null)),
+    [table],
+  );
   const groups = useMemo(
     () => table.groups.map((group) => ({ ...group, lessons: sortRows(group.lessons, sort) })),
     [table, sort],
   );
-  const columns: { key: SortColumn; label: string }[] = [
-    { key: "questions", label: t("byLesson.questions") },
-    { key: "correct", label: t("byLesson.correct") },
-    { key: "wrong", label: t("byLesson.wrong") },
-    { key: "blank", label: t("byLesson.blank") },
-    { key: "pct", label: t("byLesson.pct") },
-  ];
+  const columns: { key: SortColumn; label: string }[] = useMemo(() => {
+    const cols: { key: SortColumn; label: string }[] = [
+      { key: "questions", label: t("byLesson.questions") },
+      { key: "correct", label: t("byLesson.correct") },
+      { key: "wrong", label: t("byLesson.wrong") },
+      { key: "blank", label: t("byLesson.blank") },
+      { key: "pct", label: t("byLesson.pct") },
+    ];
+    if (hasAvgTime) {
+      cols.push({ key: "avgTime", label: t("byLesson.avgTime") });
+    }
+    return cols;
+  }, [hasAvgTime, t]);
   const numbers = (row: LessonTableRow) => (
     <>
       <td className="py-1.5 pr-3 text-right tabular-nums">{row.questions}</td>
       <td className="py-1.5 pr-3 text-right tabular-nums">{row.correct}</td>
       <td className="py-1.5 pr-3 text-right tabular-nums">{row.wrong}</td>
       <td className="py-1.5 pr-3 text-right tabular-nums">{row.blank}</td>
-      <td className="py-1.5 text-right tabular-nums">{pct(row.pct)}</td>
+      <td className={cn("py-1.5 text-right tabular-nums", hasAvgTime && "pr-3")}>{pct(row.pct)}</td>
+      {hasAvgTime && (
+        <td className="py-1.5 text-right font-mono text-xs text-gray-500 tabular-nums dark:text-gray-400">
+          {formatAvgTime(row.averageSeconds)}
+        </td>
+      )}
     </>
   );
 

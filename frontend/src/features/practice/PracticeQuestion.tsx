@@ -59,10 +59,13 @@ export function PracticeQuestion({
         <SolutionPanel
           open
           attemptId={attempt.attemptId}
+          questionId={result.questionId ?? attempt.questionId ?? question.questionId}
+          lessonId={lessonId}
           correct={result.correct}
           correctAnswer={result.correctAnswer}
           solutionSteps={result.solutionSteps}
           explanation={result.explanation}
+          options={attempt.payload.options}
           excerpt={result.excerpt}
           noExcerpt={result.noExcerpt}
           lessonLink={result.lessonLink && (result.lessonLink.anchor || result.lessonLink.lessonId !== lessonId) ? result.lessonLink : null}

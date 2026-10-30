@@ -29,6 +29,7 @@ class AttemptInstance(BaseModel):
 
     attemptId: uuid.UUID
     exerciseId: str
+    questionId: str | None = None
     type: str
     prompt: str
     payload: dict[str, object]
@@ -39,6 +40,7 @@ class AttemptInstance(BaseModel):
         return cls(
             attemptId=opened.attempt.id,
             exerciseId=opened.exercise_id,  # display id; the row stores the permanent key
+            questionId=opened.attempt.question_id or opened.attempt.variant_id,
             type=opened.exercise_type.value,
             prompt=opened.instance.prompt,
             payload=opened.instance.payload,
@@ -137,6 +139,7 @@ def missing_reason(excerpt: SolutionText | None) -> NoExcerptOut | None:
 
 class GradeResponse(BaseModel):
     attemptId: uuid.UUID
+    questionId: str | None = None
     correct: bool
     correctAnswer: object
     solutionSteps: list[str]
@@ -156,6 +159,7 @@ class GradeResponse(BaseModel):
     ) -> GradeResponse:
         return cls(
             attemptId=attempt.id,
+            questionId=attempt.question_id or attempt.variant_id,
             correct=result.correct,
             correctAnswer=result.correct_answer,
             solutionSteps=result.solution_steps,
@@ -194,7 +198,7 @@ class AttemptReviewResponse(BaseModel):
         return cls(
             attemptId=a.id,
             exerciseId=review.exercise_id,  # display id; the row stores the permanent key
-            questionId=a.question_id,
+            questionId=a.question_id or a.variant_id,
             type=review.exercise_type.value,
             prompt=review.instance.prompt,
             payload=review.instance.payload,

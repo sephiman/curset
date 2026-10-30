@@ -488,3 +488,21 @@ Platform round of 2026-10-30 implementing sections G (clock, pause, time per que
 - **BOE page header furniture (Table A, 16 questions)**: Strip BOE headers (`BOLETÍN OFICIAL DEL ESTADO`, `Núm. ...`, `Sec. ...`, `Pág. ...`) leaking into norm excerpts across four BOE-original PDFs (Orden HFP/793/2023, Orden HAC/557/2026, RDL 14/2025).
 - **Sub-number focusing for long articles (Table C, 19 questions)**: Added lettered subsection detection in `_is_sub_part` and focused extraction for cited sub-articles (e.g. `art. 76.2.b EBEP`, `art. 67.2 TREBEP`). Removed now-unnecessary manual exclusions from `excerpt-exclusions.yaml` (`sp-01/q26`, `sp-15/q09`).
 - **Rebuilt excerpts**: Exactly 33 questions changed in `content/age-administrativo-c1/excerpts.json` (16 Table A + 17 Table C present in the course); all 35 verified to show the required legal fact. Zero citation changes, zero regressions in previously verified excerpts.
+
+## Delta I — question number, tema label & copyable reference (2026-10-30)
+
+Platform round implementing section I of `docs/curset-platform-delta-exams.md`. Nothing committed.
+
+### Question number & Tema label (Delta I1 & I2)
+- **Question number (I1)**: Every question displays «Pregunta N de M» (or «Question N of M») across practice rounds, case exercises, all exam sessions, and exam review.
+- **Tema label (I2)**: Formatted as «Tema <Roman>.<Order> · <Title>» (e.g., «Tema III.3 · El acto administrativo»).
+  - Shown during **practice**, **case exercises**, in **«Tema»** and **«Bloque»** exam sittings, and in **every exam review**.
+  - **Suppressed during exam sitting** for simulation presets («Simulacro oficial», «Parte 1», «Parte 2») to match official exam conditions where questions are unlabeled. The tema label is revealed upon submitting in the exam review.
+- **Course isolation (I4)**: Courses without `lesson_noun` (`crypto-futures`) display the question number only («Question N of M»), preserving existing presentation and test suites.
+
+### Copyable reference (Delta I3)
+- **Format**: `«<short-course> · <Roman>.<Order> · <short-question-id>»` (e.g. `age-c1 · III.3 · q127`).
+- **Surfaces**: Displayed in the `SolutionPanel` footer (for practice, cases, and review) and beside each question's status badge in `ExamReview`.
+- **Copy interaction**: `CopyableReference` component copies the reference string to the system clipboard and displays inline confirmation feedback («Copiado» / checkmark) for 2 seconds.
+- **Schema & API**: `AttemptInstance` and `GradeResponse` expose `questionId` (`opened.attempt.question_id or opened.attempt.variant_id`) across the attempts and exams endpoints.
+

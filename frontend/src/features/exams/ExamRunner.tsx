@@ -13,8 +13,10 @@ import { CaseScenario } from "@/features/exercises/CaseScenario";
 import { cn } from "@/lib/cn";
 import { Prose } from "@/lib/markdown";
 import { scopeKey, useCourse } from "@/features/courses/CourseContext";
+import { useCourseTree } from "@/features/course/queries";
 import { ProseReferenceHost } from "@/features/references/ProseReferenceHost";
 import { clock, sittingName } from "@/features/exams/format";
+import { findTemaInfo } from "@/lib/tema";
 
 const CHART_TYPES: ReadonlySet<ExerciseType> = new Set(["synthetic_chart", "fixture_chart", "pattern_chart"]);
 
@@ -37,6 +39,7 @@ export function ExamRunner() {
   const navigate = useNavigate();
   const qc = useQueryClient();
   const { scope, path } = useCourse();
+  const { data: courseTree } = useCourseTree();
 
   const { data: exam, isLoading, isError } = useQuery({
     queryKey: ["exam", ...scopeKey(scope), examId],
@@ -45,6 +48,7 @@ export function ExamRunner() {
   });
 
   const [answers, setAnswers] = useState<Record<string, Answer>>({});
+  const answersRef = useRef<Record<string, Answer>>({});
   const [marks, setMarks] = useState<Record<string, string[]>>({});
   const [current, setCurrent] = useState(0);
   const [activeSeconds, setActiveSeconds] = useState(0);
@@ -63,6 +67,7 @@ export function ExamRunner() {
         if (q.givenAnswer) seed[q.attemptId] = q.givenAnswer;
         if (q.timeSeconds != null) questionTimes.current[q.attemptId] = q.timeSeconds;
       }
+      answersRef.current = { ...seed };
       setAnswers(seed);
       setMarks(Object.fromEntries(exam.parts.map((part) => [part.id, part.marked])));
       setActiveSeconds(Math.round(exam.activeSeconds ?? 0));
@@ -136,6 +141,7 @@ export function ExamRunner() {
   });
   // Set before the hand-in is queued, so no answer chosen after the click is sent behind it.
   const handIn = () => {
+    recordCurrentQuestionTime(current);
     handingIn.current = true;
     submit.mutate();
   };
@@ -175,6 +181,12 @@ export function ExamRunner() {
   const caseOf = q.questionId ? casesById.get(q.exerciseId) : undefined;
   const part = exam.parts.find((p) => p.id === q.partId);
   const multiPart = exam.parts.length > 1;
+  const isSimulation =
+    exam.presetId === "simulacro" ||
+    exam.presetId.startsWith("simulacro") ||
+    exam.presetId.startsWith("parte-");
+  const showTema = Boolean(courseTree?.course.lessonNoun && !isSimulation);
+  const currentTema = showTema ? findTemaInfo(courseTree, q.lessonId) : null;
 
   const recordCurrentQuestionTime = (fromIdx: number) => {
     const prevQ = questions[fromIdx];
@@ -187,13 +199,12 @@ export function ExamRunner() {
     questionStart.current = now;
 
     // Blank: time until learner moved on
-    if (answers[prevQ.attemptId] === undefined) {
+    if (answersRef.current[prevQ.attemptId] === undefined) {
       track(
         answerMut.mutateAsync({
           attemptId: prevQ.attemptId,
           answer: undefined,
           timeSeconds: totalTime,
-          clockUsedSeconds: activeSecondsRef.current,
         }),
       );
     }
@@ -214,6 +225,7 @@ export function ExamRunner() {
     questionTimes.current[attemptId] = totalTime;
     questionStart.current = now;
 
+    answersRef.current[attemptId] = a;
     setAnswers((prev) => ({ ...prev, [attemptId]: a }));
     track(
       answerMut.mutateAsync({
@@ -348,7 +360,14 @@ export function ExamRunner() {
 
             <Card className="p-4">
               <p className="text-xs text-gray-400">
-                <span className="font-mono">{q.moduleId.toUpperCase()}</span> · {q.moduleTitle}
+                <span className="font-medium text-gray-600 dark:text-gray-300">
+                  {t("practice.progress", { number: current + 1, total: questions.length })}
+                </span>
+                {showTema && currentTema && (
+                  <span className="ml-2 font-normal text-gray-500 dark:text-gray-400">
+                    · {currentTema.temaLabel}
+                  </span>
+                )}
                 {q.reserve && <span className="ml-2 font-medium text-amber-700 dark:text-amber-300">{t("exam.reserve")}</span>}
               </p>
               {q.reserve && <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">{t("exam.reserveHint")}</p>}

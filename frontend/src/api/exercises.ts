@@ -129,6 +129,7 @@ export interface AttemptPayload {
 export interface AttemptInstance {
   attemptId: string;
   exerciseId: string;
+  questionId?: string | null;
   type: ExerciseType;
   prompt: string;
   payload: AttemptPayload;
@@ -137,6 +138,7 @@ export interface AttemptInstance {
 
 export interface GradeResponse {
   attemptId: string;
+  questionId?: string | null;
   correct: boolean;
   correctAnswer: unknown;
   solutionSteps: string[];

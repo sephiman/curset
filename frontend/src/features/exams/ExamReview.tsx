@@ -13,8 +13,10 @@ import { ProseReferenceHost } from "@/features/references/ProseReferenceHost";
 import { ByLessonTable } from "@/features/byLesson/ByLessonTable";
 import { LessonLink } from "@/features/exercises/LessonLink";
 import { SolutionPanel } from "@/features/exercises/SolutionPanel";
+import { CopyableReference } from "@/components/ui/CopyableReference";
 import { useCourseTree } from "@/features/course/queries";
 import { clock, scoreNumber, sittingName } from "@/features/exams/format";
+import { buildQuestionReference, findTemaInfo } from "@/lib/tema";
 
 const CHART_TYPES: ReadonlySet<ExerciseType> = new Set(["synthetic_chart", "fixture_chart", "pattern_chart"]);
 
@@ -255,6 +257,9 @@ export function ExamReview() {
       {/* Per-question review — your answer, the correct answer, and the worked solution, in bulk. */}
       <div className="space-y-4">
         {exam.questions.map((q) => {
+          const isCase = caseTitles.has(q.exerciseId);
+          const temaInfo = findTemaInfo(course, q.lessonId);
+          const reference = buildQuestionReference(course, q.lessonId, q.questionId);
           const result = {
             attemptId: q.attemptId,
             correct: !!q.isCorrect,
@@ -264,20 +269,30 @@ export function ExamReview() {
           };
           return (
             <Card key={q.attemptId} className="p-4">
-              <div className="flex items-center justify-between gap-2">
+              <div className="flex flex-wrap items-center justify-between gap-2">
                 <p className="text-xs text-gray-400">
-                  <span className="font-mono">{q.moduleId.toUpperCase()}</span> · {q.moduleTitle}
+                  <span className="font-medium text-gray-600 dark:text-gray-300">
+                    {t("practice.progress", { number: q.index + 1, total: exam.questions.length })}
+                  </span>
+                  {temaInfo && (
+                    <span className="ml-2 font-normal text-gray-500 dark:text-gray-400">
+                      · {temaInfo.temaLabel}
+                    </span>
+                  )}
                   {q.timeSeconds != null && (
                     <span className="ml-2 font-mono tabular-nums text-gray-500 dark:text-gray-400">
                       ({clock(q.timeSeconds * 1000)})
                     </span>
                   )}
                 </p>
-                <StatusBadge q={q} t={t} />
+                <div className="flex items-center gap-2">
+                  {reference && <CopyableReference reference={reference} />}
+                  <StatusBadge q={q} t={t} />
+                </div>
               </div>
-              {(q.questionId || q.reserve) && (
+              {(isCase || q.reserve) && (
                 <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                  {q.questionId &&
+                  {isCase &&
                     `${caseTitles.get(q.exerciseId) ?? q.exerciseId}${graded.has(q.exerciseId) ? "" : ` · ${t("exam.caseNotChosen")}`}`}
                   {q.reserve && t("exam.reserve")}
                 </p>
@@ -301,6 +316,9 @@ export function ExamReview() {
               ) : (
                 <SolutionPanel
                   attemptId={q.attemptId}
+                  questionId={q.questionId}
+                  lessonId={q.lessonId}
+                  reference={reference}
                   correct={result.correct}
                   correctAnswer={result.correctAnswer}
                   solutionSteps={result.solutionSteps}

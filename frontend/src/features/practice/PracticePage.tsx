@@ -6,8 +6,10 @@ import { getLesson } from "@/api/course";
 import { drawPracticeRound, type PracticeRound } from "@/api/practice";
 import { Button, Card, Spinner } from "@/components/ui/primitives";
 import { scopeKey, useCourse } from "@/features/courses/CourseContext";
+import { useCourseTree } from "@/features/course/queries";
 import { PracticeQuestion } from "@/features/practice/PracticeQuestion";
 import { cn } from "@/lib/cn";
+import { findTemaInfo } from "@/lib/tema";
 
 type Size = "twenty" | "all";
 
@@ -19,10 +21,12 @@ export function PracticePage() {
   const { t } = useTranslation();
   const { lessonId = "" } = useParams();
   const { scope, path } = useCourse();
+  const { data: courseTree } = useCourseTree();
   const { data: lesson } = useQuery({
     queryKey: ["lesson", ...scopeKey(scope), lessonId],
     queryFn: () => getLesson(scope, lessonId),
   });
+  const temaInfo = findTemaInfo(courseTree, lessonId);
   const [size, setSize] = useState<Size>("twenty");
   const [round, setRound] = useState<{ number: number; questions: PracticeRound["questions"] } | null>(null);
   const [index, setIndex] = useState(0);
@@ -105,7 +109,10 @@ export function PracticePage() {
       {round !== null && !done && (
         <Card className="p-4">
           <p className="mb-3 text-xs text-gray-500 dark:text-gray-400">
-            {t("practice.progress", { number: index + 1, total: round.questions.length })}
+            <span className="font-medium text-gray-700 dark:text-gray-300">
+              {t("practice.progress", { number: index + 1, total: round.questions.length })}
+            </span>
+            {temaInfo && <span className="ml-2">· {temaInfo.temaLabel}</span>}
           </p>
           <PracticeQuestion
             key={`${round.number}-${index}`}

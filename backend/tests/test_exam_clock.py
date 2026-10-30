@@ -228,3 +228,12 @@ async def test_reload_resumes_correct_time_and_never_counts_while_closed(
     sim_view = (await multi_client.get(f"{OPOS}/exams/{simulacro['id']}")).json()
     assert sim_view["paused"] is False
     assert 295.0 <= sim_view["activeSeconds"] <= 305.0
+
+    # A client reporting shorter clockUsedSeconds cannot shorten the server clock
+    first_q = simulacro["questions"][0]
+    await multi_client.post(
+        f"{OPOS}/exams/{simulacro['id']}/questions/{first_q['attemptId']}/answer",
+        json={"answer": {"optionId": "a"}, "timeSeconds": 10.0, "clockUsedSeconds": 10.0},
+    )
+    sim_view_after_cheat = (await multi_client.get(f"{OPOS}/exams/{simulacro['id']}")).json()
+    assert sim_view_after_cheat["activeSeconds"] >= 295.0

@@ -164,4 +164,14 @@ describe("handing in an exam", () => {
     expect(calls).toEqual(["save a-1", "saved a-1", "submit"]);
     expect(examFetches).toBe(1);
   });
+
+  it("waits for the time save of an unanswered question, then hands in", async () => {
+    act(() => submitButton().click());
+    await settle();
+    expect(calls).toEqual(["save a-1"]);
+
+    act(() => releaseSave());
+    await settle();
+    expect(calls).toEqual(["save a-1", "saved a-1", "submit"]);
+  });
 });

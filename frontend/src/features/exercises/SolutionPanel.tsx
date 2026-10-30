@@ -2,10 +2,12 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import type { LessonLink as LessonTarget, NoExcerpt, OptionView, SolutionExcerpt } from "@/api/exercises";
+import { CopyableReference } from "@/components/ui/CopyableReference";
 import { useCourse } from "@/features/courses/CourseContext";
 import { useCourseTree } from "@/features/course/queries";
 import { SolutionBody, Verdict } from "@/features/exercises/AttemptResult";
 import { ReportQuestion } from "@/features/reports/ReportQuestion";
+import { buildQuestionReference } from "@/lib/tema";
 
 /** «Tema 3: Las fuentes del Derecho»: the course's noun for a lesson, its place in its module, its title. */
 function useLessonLabel(lessonId: string): string | null {
@@ -84,6 +86,9 @@ function ExcerptBlock({ excerpt }: { excerpt: SolutionExcerpt }) {
  */
 export function SolutionPanel({
   attemptId,
+  questionId,
+  lessonId,
+  reference: explicitReference,
   correct,
   correctAnswer,
   solutionSteps,
@@ -97,6 +102,9 @@ export function SolutionPanel({
   open = false,
 }: {
   attemptId: string;
+  questionId?: string | null;
+  lessonId?: string | null;
+  reference?: string | null;
   correct: boolean;
   correctAnswer: unknown;
   solutionSteps: string[];
@@ -112,7 +120,12 @@ export function SolutionPanel({
 }) {
   const { t } = useTranslation();
   const { path } = useCourse();
-  const lessonLabel = useLessonLabel(lessonLink?.lessonId ?? "");
+  const { data: course } = useCourseTree();
+  const targetLessonId = lessonId ?? lessonLink?.lessonId;
+  const lessonLabel = useLessonLabel(targetLessonId ?? "");
+  const reference =
+    explicitReference ??
+    (course && questionId ? buildQuestionReference(course, targetLessonId, questionId) : null);
   return (
     <div className="mt-4 space-y-3">
       {!hideVerdict && <Verdict correct={correct} />}
@@ -158,9 +171,10 @@ export function SolutionPanel({
               )}
             </nav>
           )}
-          {reportable && (
-            <div className="flex flex-wrap items-start gap-3">
-              <ReportQuestion attemptId={attemptId} />
+          {(reference || reportable) && (
+            <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
+              {reference && <CopyableReference reference={reference} />}
+              {reportable && <ReportQuestion attemptId={attemptId} />}
             </div>
           )}
         </div>

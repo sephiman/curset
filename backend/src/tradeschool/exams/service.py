@@ -387,7 +387,7 @@ def _build_view(
             answered=answered,
             part_id=part_id,
             lesson_id=registry.question_lesson_id(exercise_id, attempt.question_id),
-            question_id=attempt.question_id,
+            question_id=attempt.question_id or attempt.variant_id,
             reserve=reserve,
         )
         if reveal:
@@ -642,14 +642,21 @@ async def answer_question(
     now = datetime.now(UTC)
     clock = _exam_clock(exam)
     if clock:
-        if clock_used_seconds is not None:
-            clock["activeSeconds"] = clock_used_seconds
-            clock["lastResumedAt"] = now.isoformat()
-        elif not clock.get("paused") and clock.get("lastResumedAt"):
-            resumed_dt = datetime.fromisoformat(str(clock["lastResumedAt"]))
-            active = _active_seconds(clock) + (now - resumed_dt).total_seconds()
-            clock["activeSeconds"] = active
-            clock["lastResumedAt"] = now.isoformat()
+        preset = session_preset(registry, exam)
+        if preset.pause == "never":
+            started = clock.get("startedAt")
+            if started:
+                started_dt = datetime.fromisoformat(str(started))
+                clock["activeSeconds"] = max(0.0, (now - started_dt).total_seconds())
+        else:
+            if clock_used_seconds is not None:
+                clock["activeSeconds"] = max(clock_used_seconds, _active_seconds(clock))
+                clock["lastResumedAt"] = now.isoformat()
+            elif not clock.get("paused") and clock.get("lastResumedAt"):
+                resumed_dt = datetime.fromisoformat(str(clock["lastResumedAt"]))
+                active = _active_seconds(clock) + (now - resumed_dt).total_seconds()
+                clock["activeSeconds"] = round(active, 1)
+                clock["lastResumedAt"] = now.isoformat()
         exam.rules = {**exam.rules, "clock": clock}
     await session.commit()
     logger.info("exam_answer_saved exam=%s attempt=%s", exam_id, attempt_id)

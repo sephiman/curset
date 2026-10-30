@@ -1,6 +1,6 @@
 # Requirements delta — Curset platform: exam presets, grouped cases, source links, results by lesson
 
-Version 1.6 · 30 October 2026 · delta to docs/curset-multicourse-requirements.md. Four platform changes. A and B are required by the AGE course (docs/age-administrativo-course-requirements.md, R6.1 and R7.1) and precede that course's R5. C and D apply to every course and can run as their own rounds at any time after A.
+Version 1.7 · 31 October 2026 · delta to docs/curset-multicourse-requirements.md. Four platform changes. A and B are required by the AGE course (docs/age-administrativo-course-requirements.md, R6.1 and R7.1) and precede that course's R5. C and D apply to every course and can run as their own rounds at any time after A.
 
 ## A. Exam presets per course
 
@@ -78,6 +78,13 @@ Version 1.6 · 30 October 2026 · delta to docs/curset-multicourse-requirements.
 - H4 Question reports (8a) include the letter the learner saw next to each option text, so the email reads like the screen did.
 - H5 Case questions (B) and exam parts (A) use the same labels; reserve questions too.
 
+## I. Question number, tema label and shareable reference
+
+- I1 Every question shows «Pregunta N de M» in practice and in every exam and review.
+- I2 The tema label («Tema III.3 · <lesson title>») is shown in practice, in «Tema» and «Bloque» exams and in every review. It is not shown during a «Simulacro oficial», «Parte 1» or «Parte 2» sitting (the official exam does not label questions and knowing the tema changes how one answers); it appears in that exam's review.
+- I3 The solution panel and the review show the question's stable id as a copyable reference («age-c1 · III.3 · q127»), so learners can point each other to the same question; question reports already carry it.
+- I4 Courses without `lesson_noun` (crypto-futures) show the number only, as today.
+
 ## Acceptance
 
 - `crypto-futures` exams and goldens unchanged.
@@ -86,6 +93,7 @@ Version 1.6 · 30 October 2026 · delta to docs/curset-multicourse-requirements.
 - An answered AGE question links to its lesson at the cited article's anchor; the citation in the lesson opens the consolidated text at the article (HTML) or page (PDF); a question citing an article its lesson does not cite fails the cross-reference check. crypto-futures shows no citation links and its goldens are unchanged.
 - A lesson with the four esquema kinds renders on web and in the PDF; an esquema row citing an article the prose does not cite fails the check with the row named.
 - An answered AGE question shows the solution panel with the verbatim cited text under its article heading, the tema link and the source link; a crypto-futures question shows the explanation only; fewer than 1 % of AGE questions lack an excerpt and each of those says why.
+- An AGE question in a «Bloque» exam shows its number and tema; the same question in a «Simulacro oficial» sitting shows the number only and the tema in review; the panel offers the copyable id.
 - An AGE question shows A–D in its displayed order; the panel says «Correcta: X» and the PDF key matches the printed letters; crypto-futures shows no letters.
 - A practice exam can be paused only after answering; a simulation cannot; a reload resumes with the correct time; the results show total, per-part and per-question times and the per-lesson averages.
 - A submitted simulation shows the per-lesson table and the two lists; a tema exam of 20 questions shows the table only; the Progress tab shows the cumulative view; no lesson appears in a list with fewer than three questions.

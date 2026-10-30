@@ -7,8 +7,10 @@ import { CaseScenario } from "@/features/exercises/CaseScenario";
 import { QuizExercise } from "@/features/exercises/QuizExercise";
 import { SolutionPanel } from "@/features/exercises/SolutionPanel";
 import { useCourse } from "@/features/courses/CourseContext";
+import { useCourseTree } from "@/features/course/queries";
 import { Prose } from "@/lib/markdown";
 import { cn } from "@/lib/cn";
+import { findTemaInfo } from "@/lib/tema";
 
 /**
  * A case in practice: the scenario stays in view while its questions are answered in order, each one
@@ -17,6 +19,7 @@ import { cn } from "@/lib/cn";
 export function CaseExercise({ exerciseId, highlighted = false }: { exerciseId: string; highlighted?: boolean }) {
   const { t } = useTranslation();
   const { scope } = useCourse();
+  const { data: courseTree } = useCourseTree();
   const [opened, setOpened] = useState<CaseInstance | null>(null);
   const [results, setResults] = useState<Record<string, GradeResponse>>({});
 
@@ -58,10 +61,12 @@ export function CaseExercise({ exerciseId, highlighted = false }: { exerciseId: 
           <ol className="space-y-4">
             {opened.questions.map((question, index) => {
               const result = results[question.attemptId];
+              const qTema = findTemaInfo(courseTree, question.lessonId);
               return (
                 <li key={question.attemptId} className="rounded-md border border-border p-3 dark:border-gray-800 oled:border-oled-line">
                   <p className="text-xs font-medium text-gray-500 dark:text-gray-400">
-                    {t("exercise.question", { number: index + 1 })}
+                    <span>{t("practice.progress", { number: index + 1, total })}</span>
+                    {qTema && <span className="ml-2 font-normal text-gray-400">· {qTema.temaLabel}</span>}
                   </p>
                   <Prose markdown={question.prompt} />
                   {!result ? (
@@ -73,6 +78,8 @@ export function CaseExercise({ exerciseId, highlighted = false }: { exerciseId: 
                   ) : (
                     <SolutionPanel
                       attemptId={question.attemptId}
+                      questionId={question.questionId}
+                      lessonId={question.lessonId}
                       correct={result.correct}
                       correctAnswer={result.correctAnswer}
                       solutionSteps={result.solutionSteps}
