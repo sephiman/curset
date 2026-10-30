@@ -840,8 +840,10 @@ all six bloques is written, bloque VI as short list-shaped lessons citing saved 
 (requirements in `docs/age-administrativo-course-requirements.md`, per-tema record in `docs/age-theory-ledger.md`,
 scope, coverage and currency audit in `docs/age-scope-audit.md`). Its question bank covers all six bloques with
 5,200 blind-verified fixed multiple-choice questions (I 675, II 264, III 775, IV 988, V 645, VI 1,853; plan in
-`docs/age-bank-plan.md`, counts and verification record in `docs/age-bank-ledger.md`). Its questions are
-practised per tema and in exams. **Lesson practice** (`lesson_practice: true` in `course.yaml`): the lessons
+`docs/age-bank-plan.md`, counts and verification record in `docs/age-bank-ledger.md`), and 20 supuestos
+prácticos (`case` exercises `sp-01` … `sp-20`, listed under «Cómo es el examen»), each a one-page scenario and
+20 blind-verified questions on bloques II–V that count under their own temas (record, per-case table and the ten
+pairs for the simulation in `docs/age-cases-ledger.md`). Its questions are practised per tema and in exams. **Lesson practice** (`lesson_practice: true` in `course.yaml`): the lessons
 embed no quizzes; instead every tema ends with «Practicar» (also beside each tema on its module page), a round
 of that tema's questions one at a time — «20 al azar» by default or «Todas», no clock, no penalty, no score —
 with «Ver solución» open after each answer and the report link inside it. A question answered correctly twice
@@ -849,8 +851,8 @@ in practice is four times less likely to come up (`practice/order.py`). Each ans
 attempt on the question's own id (`POST …/exercises/{id}/attempts {"variantId"}`), so Progress counts it as it
 counts crypto-futures' embedded quizzes; crypto-futures does not declare the flag and is unchanged. Exam
 presets: «Tema» (20 questions from one tema, no penalty, 25 minutes) and «Bloque» (40 from one bloque, a wrong
-answer costs 1/3, 45 minutes); the «Simulacro oficial» and its two parts wait for the supuestos prácticos, and
-pausing between questions waits for delta G.
+answer costs 1/3, 45 minutes); the «Simulacro oficial» and its two parts come with round R5, and pausing
+between questions waits for delta G.
 
 **Question identity.** A quiz question is named by its own id (`m06-l02-q351`), never by the exercise the
 bank build grouped it into: every attempt stores it (`attempts.variant_id`), and grading, review, reports,

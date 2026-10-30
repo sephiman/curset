@@ -287,7 +287,13 @@ def test_every_age_question_without_an_excerpt_still_has_its_explanation_lesson_
     missing = [key for key, entry in _questions(AGE).items() if "none" in entry]
     assert missing
     for key in missing:
-        ref = QuestionRef(homes[key], variant_id=key)
+        case_key, _, question_id = key.partition("/")
+        case_id = registry.exercise_id_for_key(case_key) if question_id else None
+        ref = (
+            QuestionRef(case_id, question_id=question_id)
+            if case_id is not None
+            else QuestionRef(homes[key], variant_id=key)
+        )
         assert isinstance(registry.question_excerpt(ref), MissingExcerpt), key
         link = registry.question_link(ref, "es")
         assert link is not None and link.lesson_id, key

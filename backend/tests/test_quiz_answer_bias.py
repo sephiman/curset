@@ -88,7 +88,18 @@ def _variants(kind: QuizKind, course: str = "crypto-futures") -> list[tuple[str,
     return out
 
 
-def _answered(kind: QuizKind, locale: str, course: str = "crypto-futures") -> list[Answered]:
+def _case_questions(course: str) -> list[tuple[str, QuizVariant]]:
+    """Every case question of a course as the one-variant quiz that grades it, tagged with its case id."""
+    registry = load_registry(get_settings().content_dir / course)
+    out: list[tuple[str, QuizVariant]] = []
+    for _module, _lesson, exercise in registry.manifest.iter_exercises():
+        case = registry.case_config(exercise.id)
+        if case is not None:
+            out.extend((exercise.id, q.as_quiz().variants[0]) for q in case.questions)
+    return out
+
+
+def _rows(variants: Iterable[tuple[str, QuizVariant]], locale: str) -> list[Answered]:
     return [
         Answered(
             exercise=exercise_id,
@@ -96,8 +107,14 @@ def _answered(kind: QuizKind, locale: str, course: str = "crypto-futures") -> li
             lengths=tuple(len(o.text.get(locale)) for o in v.options),
             correct=frozenset(i for i, o in enumerate(v.options) if o.correct),
         )
-        for exercise_id, v in _variants(kind, course)
+        for exercise_id, v in variants
     ]
+
+
+def _answered(kind: QuizKind, locale: str, course: str = "crypto-futures") -> list[Answered]:
+    """A kind's variants; single-choice rows include the course's case questions (single-choice quizzes)."""
+    cases = _case_questions(course) if kind is QuizKind.SINGLE_CHOICE else []
+    return _rows([*_variants(kind, course), *cases], locale)
 
 
 # --- the null ------------------------------------------------------------------------------------
@@ -215,6 +232,19 @@ def test_the_answer_is_authored_into_every_slot_equally(course: str, locale: str
         for slot, observed, expected, sd, z in stats
     )
     assert abs(worst[4]) <= SIGMA, detail
+
+
+@pytest.mark.parametrize(("course", "locale"), [("age-administrativo-c1", "es")])
+def test_the_case_pool_alone_carries_no_length_or_position_tell(course: str, locale: str) -> None:
+    """An exam's case part draws only from the cases, so the pool must pass the guards on its own too."""
+    rows = _rows(_case_questions(course), locale)
+    assert rows, f"{course} has no case questions"
+    longest_z, longest = _report("case longest-is-correct", rows, _longest_is_correct)
+    edge_z, edge = _report("case length edge", rows, _length_edge)
+    worst = max(_position_z(rows), key=lambda s: abs(s[4]))
+    assert abs(longest_z) <= SIGMA and abs(edge_z) <= SIGMA and abs(worst[4]) <= SIGMA, (
+        f"{longest}\n{edge}\nworst authored slot {chr(97 + worst[0])}: z = {worst[4]:+.2f}"
+    )
 
 
 @pytest.mark.parametrize(("course", "locale"), [("crypto-futures", "en"), ("age-administrativo-c1", "es")])

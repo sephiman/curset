@@ -1,0 +1,529 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# Supuesto práctico sp-04 (round R4). Generated from docs/age-verification/cases/sp-04.draft.json minus
+# drops.tsv by docs/age-verification/cases/tools/build_cases.py; edit the draft and rebuild, not this file.
+type: case
+title:
+  es: "Encuestas obligatorias del INE"
+scenario:
+  es: "El Instituto Nacional de Estadística (INE), con sede en Madrid, es un organismo autónomo adscrito al Ministerio de Economía, Comercio y Empresa. En los plazos por días son festivos el 12 de octubre, el 1 de noviembre, el 6, el 8 y el 25 de diciembre. A efectos de este supuesto, en Madrid son inhábiles el sábado, 15 de mayo, y el martes, 9 de noviembre de 2027.\n\nTransportes Valdemaría, S.L. no respondió a una encuesta obligatoria. El lunes, 7 de junio de 2027, el INE acuerda iniciar el procedimiento sancionador con tramitación simplificada y se lo notifica ese mismo día a la empresa. Propone una multa de 12.000 euros, solo pecuniaria, y la notificación prevé una reducción del 20 % por reconocer la responsabilidad y otra del 20 % por pagar voluntariamente. La empresa reconoce su responsabilidad y paga antes de la resolución. El jueves, 15 de julio de 2027, el INE notifica a Conservas Bahía Seca, S.L. el trámite de audiencia de otro procedimiento sancionador.\n\nEl viernes, 5 de marzo de 2027, Doña Inés Salvatierra Mora resbala en la sede del INE y se fractura una muñeca por una negligencia leve de Don Gaspar Lorente Ríos, empleado de mantenimiento. El INE la indemniza.\n\nEl INE contrata con Tecnoterminales Alcor, S.L. el suministro de 500 tabletas por 85.000 euros, IVA excluido. El plazo total de entrega termina el viernes, 22 de octubre de 2027. La empresa entrega todas las tabletas el jueves, 4 de noviembre de 2027, por causa suya. La Intervención Delegada formula reparo al expediente y el INE no lo acepta.\n\nDon Rubén Aguirre Mena es encuestador del INE, con contrato laboral temporal desde el miércoles, 1 de septiembre de 2027. En octubre hace 8 horas extraordinarias en un día festivo. El sábado, 16 de octubre de 2027, se rompe una pierna jugando al fútbol y causa baja médica ese mismo día. El INE convoca 20 plazas de personal laboral del Convenio único.\n\nEl INE convoca por libre designación el puesto de Subdirector General de Estadísticas Sociales. La convocatoria se publica en el Boletín Oficial del Estado el martes, 21 de septiembre de 2027.\n\nAl cierre de 2026 el INE tiene 90.000 euros de remanentes de un crédito extraordinario concedido por ley el lunes, 28 de diciembre de 2026 y 70.000 euros de remanente de tesorería no aplicado a su presupuesto. En marzo de 2027 se suplementó el crédito de una aplicación del capítulo 2, y el INE quiere transferir 20.000 euros desde ella a otra del mismo programa. El capítulo 2 tenía 3.600.000 euros iniciales y el suplemento de marzo, financiado con mayores ingresos, fue de 60.000.\n\nDon Álvaro Pastor Lillo, funcionario del Cuerpo de Gestión de la Administración Civil del Estado con residencia oficial en Madrid, viaja en comisión de servicio con derecho a indemnización. Sale el martes, 16 de noviembre de 2027, a las 8:00 y regresa el jueves, 18 de noviembre de 2027, a las 17:00, tras dos noches de hotel a 80 euros. Sus dietas son 65,97 euros de alojamiento y 37,40 de manutención.\n\nEl INE libra fondos a justificar a su Cajero pagador. Los percibe el lunes, 2 de agosto de 2027, e invierte el último euro el miércoles, 20 de octubre de 2027.\n\nSe plantean las siguientes cuestiones:"
+questions:
+# anchor: boe-a-2015-10565-art-96
+- id: q01
+  lesson: m03-l03
+  prompt:
+    es: "Según el artículo 96.6 de la Ley 39/2015, de 1 de octubre, del Procedimiento Administrativo Común de las Administraciones Públicas, ¿hasta qué fecha debe resolver el INE el procedimiento sancionador simplificado contra Transportes Valdemaría, S.L., salvo que reste menos para su tramitación ordinaria?"
+  options:
+  - id: a
+    text:
+      es: "Hasta el miércoles, 7 de julio de 2027."
+  - id: b
+    correct: true
+    text:
+      es: "Hasta el lunes, 19 de julio de 2027."
+  - id: c
+    text:
+      es: "Hasta el martes, 7 de septiembre de 2027."
+  - id: d
+    text:
+      es: "Hasta el viernes, 16 de julio de 2027."
+  explanation:
+    es: "La tramitación simplificada se resuelve en treinta días, a contar desde el siguiente a la notificación del acuerdo, y los plazos por días son hábiles. Notificado el lunes 7 de junio, el primer día es el martes 8 de junio, y el trigésimo día hábil es el lunes 19 de julio de 2027. El miércoles 7 de julio cuenta treinta días naturales. El martes 7 de septiembre es el plazo de tres meses del procedimiento ordinario, que aquí no resulta más breve. El viernes 16 de julio cuenta el día de la notificación como primero."
+  citation: "art. 96.6 LPAC"
+  difficulty: 2
+  tags:
+  - "plazo"
+  - "cómputo"
+# anchor: boe-a-2015-10565-art-85
+- id: q02
+  lesson: m03-l03
+  prompt:
+    es: "¿Qué importe debe abonar Transportes Valdemaría, S.L. por la multa, conforme a las reducciones que la Ley 39/2015, de 1 de octubre, del Procedimiento Administrativo Común de las Administraciones Públicas, prevé para las sanciones pecuniarias?"
+  options:
+  - id: a
+    text:
+      es: "Un importe de 9.600 euros."
+  - id: b
+    text:
+      es: "Un importe de 7.680 euros."
+  - id: c
+    correct: true
+    text:
+      es: "Un importe de 7.200 euros."
+  - id: d
+    text:
+      es: "Un importe de 4.800 euros."
+  explanation:
+    es: "Como la sanción es solo pecuniaria, se aplican reducciones de al menos el 20 % sobre el importe de la sanción propuesta, acumulables entre sí. Reconocer la responsabilidad y pagar voluntariamente dan dos reducciones del 20 %, que suman el 40 % de 12.000 euros: se pagan 7.200 euros. La cifra de 9.600 euros aplica una sola reducción. La de 7.680 euros aplica la otra reducción sobre el importe ya reducido, no sobre el propuesto. La de 4.800 euros es el 40 % que se descuenta, no el que se paga."
+  citation: "art. 85.3 LPAC"
+  difficulty: 2
+  tags:
+  - "cantidad"
+  - "efecto"
+# anchor: boe-a-2015-10565-art-63
+- id: q03
+  lesson: m03-l03
+  prompt:
+    es: "Señale la respuesta correcta sobre cómo debe organizarse el procedimiento sancionador que el INE inicia contra Transportes Valdemaría, S.L., según la Ley 39/2015, de 1 de octubre, del Procedimiento Administrativo Común de las Administraciones Públicas:"
+  options:
+  - id: a
+    text:
+      es: "Se inicia siempre de oficio, con las fases instructora y sancionadora a cargo del mismo órgano."
+  - id: b
+    text:
+      es: "Se inicia a solicitud de la empresa, con las fases instructora y sancionadora a cargo de órganos distintos."
+  - id: c
+    text:
+      es: "Se inicia de oficio o a solicitud de la empresa, con una única fase a cargo del mismo órgano."
+  - id: d
+    correct: true
+    text:
+      es: "Se inicia siempre de oficio, con las fases instructora y sancionadora a cargo de órganos distintos."
+  explanation:
+    es: "Los procedimientos de naturaleza sancionadora se inician siempre de oficio, por acuerdo del órgano competente, y separan la fase instructora de la sancionadora, que se encomiendan a órganos distintos. La opción del mismo órgano niega esa separación. La opción de la solicitud de la empresa contradice que solo se inician de oficio. La opción de la fase única mantiene los dos errores a la vez."
+  citation: "art. 63.1 LPAC"
+  difficulty: 1
+  tags:
+  - "procedimiento"
+  - "órgano"
+# anchor: boe-a-2015-10565-art-82
+- id: q04
+  lesson: m03-l03
+  prompt:
+    es: "¿Hasta qué fecha puede alegar Conservas Bahía Seca, S.L. en el trámite de audiencia, si el INE le concede el plazo máximo que prevé la Ley 39/2015, de 1 de octubre, del Procedimiento Administrativo Común de las Administraciones Públicas?"
+  options:
+  - id: a
+    text:
+      es: "Hasta el jueves, 29 de julio de 2027."
+  - id: b
+    correct: true
+    text:
+      es: "Hasta el jueves, 5 de agosto de 2027."
+  - id: c
+    text:
+      es: "Hasta el viernes, 30 de julio de 2027."
+  - id: d
+    text:
+      es: "Hasta el miércoles, 4 de agosto de 2027."
+  explanation:
+    es: "En el trámite de audiencia los interesados alegan en un plazo no inferior a diez días ni superior a quince, y los días son hábiles. Notificado el jueves 15 de julio, se cuentan desde el viernes 16, y el decimoquinto día hábil es el jueves 5 de agosto de 2027. El jueves 29 de julio es el décimo día hábil, el plazo mínimo. El viernes 30 de julio cuenta quince días naturales. El miércoles 4 de agosto cuenta el día de la notificación como primero."
+  citation: "art. 82.2 LPAC"
+  difficulty: 2
+  tags:
+  - "plazo"
+  - "cómputo"
+# anchor: boe-a-2015-10566-art-36
+- id: q22
+  lesson: m03-l06
+  prompt:
+    es: "Según el artículo 36.2 de la Ley 40/2015, de 1 de octubre, de Régimen Jurídico del Sector Público, ¿puede el INE exigir a Don Gaspar Lorente Ríos la responsabilidad por la indemnización que abonó a Doña Inés Salvatierra Mora?"
+  options:
+  - id: a
+    text:
+      es: "Sí, de oficio y previa instrucción de un procedimiento, porque actuó con negligencia grave."
+  - id: b
+    text:
+      es: "Sí, pero solo si Doña Inés lo solicita expresamente al INE, que no puede actuar de oficio."
+  - id: c
+    text:
+      es: "No, porque la responsabilidad del personal solo puede exigirse ante la jurisdicción penal."
+  - id: d
+    correct: true
+    text:
+      es: "No, porque su negligencia fue leve y solo se exige la responsabilidad por dolo, o culpa o negligencia graves."
+  explanation:
+    es: "La Administración que ha indemnizado exige de oficio la responsabilidad a su personal solo si hubo dolo, o culpa o negligencia graves, previa instrucción de un procedimiento. La negligencia de Don Gaspar fue leve, así que el INE no puede exigírsela. La opción que apela a la negligencia grave contradice los hechos. La que exige que Doña Inés lo solicite se equivoca: la Administración actúa de oficio. La de la jurisdicción penal confunde esta vía con la responsabilidad penal del artículo 37."
+  citation: "art. 36.2 LRJSP"
+  difficulty: 1
+  tags:
+  - "requisito"
+  - "efecto"
+# anchor: boe-a-2017-12902-art-210
+- id: q06
+  lesson: m03-l04
+  prompt:
+    es: "Según el artículo 210.2 de la Ley 9/2017, de 8 de noviembre, de Contratos del Sector Público, entregadas las tabletas por Tecnoterminales Alcor, S.L., la Administración debe hacer el acto formal y positivo de recepción o conformidad, si el pliego no fija otro plazo:"
+  options:
+  - id: a
+    text:
+      es: "Dentro de los quince días siguientes a la entrega de las tabletas."
+  - id: b
+    text:
+      es: "Dentro de los treinta días hábiles siguientes a la entrega de las tabletas."
+  - id: c
+    text:
+      es: "Dentro de los dos meses siguientes a la entrega de las tabletas."
+  - id: d
+    correct: true
+    text:
+      es: "Dentro del mes siguiente a la entrega de las tabletas."
+  explanation:
+    es: "La constatación del cumplimiento exige un acto formal y positivo de recepción o conformidad dentro del mes siguiente a la entrega, o en el plazo que fije el pliego por las características del contrato. Quince días y dos meses son plazos que el artículo no prevé. Treinta días hábiles confunde el plazo de recepción con el de pago del precio, que son treinta días y no son hábiles."
+  citation: "art. 210.2 LCSP"
+  difficulty: 1
+  tags:
+  - "plazo"
+  - "procedimiento"
+# anchor: boe-a-2017-12902-art-193
+- id: q07
+  lesson: m03-l04
+  prompt:
+    es: "Si el INE opta por las penalidades diarias por demora de la Ley 9/2017, de 8 de noviembre, de Contratos del Sector Público, ¿qué importe total corresponde por el retraso de Tecnoterminales Alcor, S.L. en la entrega de las tabletas?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Un total de 663 euros."
+  - id: b
+    text:
+      es: "Un total de 612 euros."
+  - id: c
+    text:
+      es: "Un total de 802,23 euros."
+  - id: d
+    text:
+      es: "Un total de 6.630 euros."
+  explanation:
+    es: "Las penalidades diarias son de 0,60 euros por cada 1.000 euros del precio del contrato, IVA excluido: 85 × 0,60 = 51 euros al día. El plazo terminó el viernes 22 de octubre y la entrega fue el jueves 4 de noviembre, 13 días naturales de demora: 13 × 51 = 663 euros. La cifra de 612 euros cuenta doce días. La de 802,23 euros calcula la penalidad sobre el precio con IVA. La de 6.630 euros aplica 0,60 euros por cada 100 euros del precio."
+  citation: "art. 193.3 LCSP"
+  difficulty: 2
+  tags:
+  - "cantidad"
+  - "efecto"
+# anchor: boe-a-2017-12902-art-211
+- id: q29
+  lesson: m03-l04
+  prompt:
+    es: "Según el artículo 211.1 de la Ley 9/2017, de 8 de noviembre, de Contratos del Sector Público, si durante el suministro Tecnoterminales Alcor, S.L. deja de pagar los salarios de los trabajadores que participan en él, ¿qué consecuencia tiene para el contrato con el INE?"
+  options:
+  - id: a
+    text:
+      es: "Solo es causa de resolución si el INE declara antes a la empresa en concurso."
+  - id: b
+    text:
+      es: "Solo permite imponer penalidades diarias, sin que pueda resolverse el contrato."
+  - id: c
+    correct: true
+    text:
+      es: "Es causa de resolución del contrato, aunque los pliegos no lo hayan previsto."
+  - id: d
+    text:
+      es: "Solo es causa de resolución si los pliegos lo calificaron como obligación esencial."
+  explanation:
+    es: "El impago de los salarios de los trabajadores que participan en la ejecución es causa de resolución por sí mismo (art. 211.1.i LCSP), sin que los pliegos tengan que preverlo. Exigir que los pliegos lo califiquen como obligación esencial es el requisito de otras obligaciones, no de este impago. El concurso de la empresa es otra causa distinta, no una condición. Las penalidades diarias castigan la demora, y no excluyen resolver por esta causa."
+  citation: "art. 211.1 LCSP"
+  difficulty: 2
+  tags:
+  - "efecto"
+  - "procedimiento"
+# anchor: boe-a-2003-21614-art-155
+- id: q09
+  lesson: m05-l03
+  prompt:
+    es: "¿Cuál de las siguientes opciones recoge ante quién y por conducto de quién plantea el INE la discrepancia motivada por escrito cuando no acepta el reparo de la Intervención Delegada al expediente de las tabletas?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Ante la Intervención General de la Administración del Estado, a través del Presidente del INE."
+  - id: b
+    text:
+      es: "Ante la Intervención General de la Administración del Estado, por conducto de la Subsecretaría del Ministerio de Economía, Comercio y Empresa."
+  - id: c
+    text:
+      es: "Ante el Consejo de Ministros, a través del Presidente del INE."
+  - id: d
+    text:
+      es: "Ante el Tribunal de Cuentas, a través del Presidente del INE."
+  explanation:
+    es: "Si el órgano gestor no acepta el reparo, plantea la discrepancia a la Intervención General de la Administración del Estado. La plantea por conducto de la Subsecretaría en los ministerios y a través de los presidentes o directores en los demás casos, y el INE es un organismo autónomo. La opción de la Subsecretaría aplica la vía de los ministerios. El Consejo de Ministros solo decide cuando el reparo es de la Intervención General y la discrepancia subsiste. El Tribunal de Cuentas ejerce el control externo y no resuelve discrepancias."
+  citation: "art. 155 LGP"
+  difficulty: 2
+  tags:
+  - "órgano"
+  - "procedimiento"
+# anchor: boe-a-2019-7414-art-72
+- id: q10
+  lesson: m04-l08
+  prompt:
+    es: "Si se compensan con tiempo de descanso, como prevé preferentemente el IV Convenio único para el personal laboral de la Administración General del Estado, las horas extraordinarias que hizo Don Rubén Aguirre Mena en octubre dan derecho a:"
+  options:
+  - id: a
+    text:
+      es: "Dieciséis horas de descanso compensatorio."
+  - id: b
+    correct: true
+    text:
+      es: "Veinte horas de descanso compensatorio."
+  - id: c
+    text:
+      es: "Ocho horas de descanso compensatorio."
+  - id: d
+    text:
+      es: "Doce horas de descanso compensatorio."
+  explanation:
+    es: "Las horas extraordinarias se compensan preferentemente con descanso a razón de dos horas por cada una, y de dos horas y media si son nocturnas o en días festivos. Son 8 horas en un día festivo: 8 × 2,5 = 20 horas. Dieciséis horas aplica dos horas por cada una, la proporción general. Ocho horas compensa hora por hora. Doce horas no corresponde a ninguna de las proporciones del Convenio."
+  citation: "art. 72.2 Convenio único"
+  difficulty: 1
+  tags:
+  - "cantidad"
+  - "efecto"
+# anchor: boe-a-2019-7414-art-27
+- id: q11
+  lesson: m04-l08
+  prompt:
+    es: "Antes de incluir los puestos vacantes de personal laboral en una convocatoria de ingreso libre, ¿qué debe hacer el INE según el IV Convenio único para el personal laboral de la Administración General del Estado?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Ofertarlos antes en una convocatoria de concurso abierto y permanente o por promoción interna."
+  - id: b
+    text:
+      es: "Ofertarlos antes únicamente en una convocatoria de concurso abierto y permanente."
+  - id: c
+    text:
+      es: "Ofertarlos antes en una convocatoria de oposición libre y de concurso-oposición."
+  - id: d
+    text:
+      es: "Nada, porque el ingreso libre es el procedimiento ordinario de cobertura de vacantes."
+  explanation:
+    es: "Antes de incluir un puesto en una convocatoria de ingreso libre hay que haberlo ofertado en una convocatoria del concurso abierto y permanente o a través de la promoción interna. La opción de solo el concurso abierto y permanente deja fuera la promoción. La opción de la oposición y el concurso-oposición confunde la oferta previa con los sistemas selectivos del ingreso. La opción de no hacer nada ignora que el ingreso libre es el último de los tres procedimientos."
+  citation: "art. 27.2 Convenio único"
+  difficulty: 1
+  tags:
+  - "procedimiento"
+  - "requisito"
+# anchor: boe-a-2015-11724-art-173
+- id: q12
+  lesson: m04-l09
+  prompt:
+    es: "Contando el día de la baja como el primero y por días naturales, ¿hasta qué fecha está a cargo del INE, como empresario, el subsidio de incapacidad temporal de Don Rubén Aguirre Mena, según la Ley General de la Seguridad Social?"
+  options:
+  - id: a
+    text:
+      es: "Hasta el martes, 19 de octubre de 2027."
+  - id: b
+    text:
+      es: "Hasta el viernes, 29 de octubre de 2027."
+  - id: c
+    correct: true
+    text:
+      es: "Hasta el sábado, 30 de octubre de 2027."
+  - id: d
+    text:
+      es: "Hasta el domingo, 31 de octubre de 2027."
+  explanation:
+    es: "En el accidente no laboral el subsidio se abona desde el cuarto día de baja, y del cuarto al decimoquinto, ambos inclusive, está a cargo del empresario. Con el sábado 16 de octubre como día primero, el decimoquinto día es el sábado 30 de octubre de 2027. El martes 19 de octubre es el cuarto día, cuando empieza el subsidio, no cuando termina el pago del empresario. El viernes 29 de octubre es el decimocuarto día. El domingo 31 de octubre es el decimosexto."
+  citation: "art. 173.1 LGSS"
+  difficulty: 1
+  tags:
+  - "plazo"
+  - "cómputo"
+# anchor: boe-a-2015-11724-art-172
+- id: q13
+  lesson: m04-l09
+  prompt:
+    es: "Según el artículo 172 de la Ley General de la Seguridad Social, ¿exige un período previo de cotización para cobrar el subsidio de incapacidad temporal por la baja de Don Rubén Aguirre Mena, que lleva cotizando desde su contrato?"
+  options:
+  - id: a
+    text:
+      es: "Sí, porque en todo accidente exige ciento ochenta días cotizados en los cinco años anteriores."
+  - id: b
+    correct: true
+    text:
+      es: "No, porque en el accidente, sea o no de trabajo, no se exige ningún período previo."
+  - id: c
+    text:
+      es: "Sí, porque en el accidente no laboral exige noventa días cotizados en el año anterior."
+  - id: d
+    text:
+      es: "No, porque el período previo solo se exige a quienes tienen contrato indefinido."
+  explanation:
+    es: "Los ciento ochenta días cotizados en los cinco años anteriores se exigen en la enfermedad común. En el accidente, sea o no de trabajo, y en la enfermedad profesional no se exige ningún período previo, y Don Rubén se lesionó jugando al fútbol, un accidente no laboral. Don Rubén lleva cotizando unas seis semanas, menos de los ciento ochenta días, pero eso no le afecta. Los noventa días del último año no son un período que la ley fije. La distinción por tipo de contrato no existe en el artículo."
+  citation: "art. 172 LGSS"
+  difficulty: 2
+  tags:
+  - "requisito"
+  - "excepción"
+# anchor: boe-a-1995-8729-art-53
+- id: q14
+  lesson: m04-l05
+  prompt:
+    es: "¿Hasta qué fecha pueden presentarse las solicitudes para el puesto de Subdirector General de Estadísticas Sociales, según el Real Decreto 364/1995, de 10 de marzo?"
+  options:
+  - id: a
+    text:
+      es: "Hasta el miércoles, 6 de octubre de 2027."
+  - id: b
+    text:
+      es: "Hasta el martes, 12 de octubre de 2027."
+  - id: c
+    text:
+      es: "Hasta el jueves, 21 de octubre de 2027."
+  - id: d
+    correct: true
+    text:
+      es: "Hasta el miércoles, 13 de octubre de 2027."
+  explanation:
+    es: "Las solicitudes se dirigen al órgano convocante dentro de los quince días hábiles siguientes al de la publicación de la convocatoria. Publicada el martes 21 de septiembre, se cuentan desde el miércoles 22. El martes 12 de octubre es festivo y no cuenta, así que el decimoquinto día hábil es el miércoles 13 de octubre de 2027. El miércoles 6 de octubre cuenta quince días naturales. El martes 12 de octubre cuenta ese festivo como hábil. El jueves 21 de octubre aplica un mes, plazo que la norma no prevé para presentar solicitudes."
+  citation: "art. 53 RD 364/1995"
+  difficulty: 3
+  tags:
+  - "plazo"
+  - "cómputo"
+# anchor: boe-a-1995-8729-art-56
+- id: q15
+  lesson: m04-l05
+  prompt:
+    es: "Terminado el plazo de solicitudes del puesto de Subdirector General de Estadísticas Sociales, ¿hasta qué fecha debe hacerse el nombramiento, sin prorrogar el plazo, según el Real Decreto 364/1995, de 10 de marzo?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Hasta el lunes, 15 de noviembre de 2027."
+  - id: b
+    text:
+      es: "Hasta el jueves, 28 de octubre de 2027."
+  - id: c
+    text:
+      es: "Hasta el sábado, 13 de noviembre de 2027."
+  - id: d
+    text:
+      es: "Hasta el lunes, 13 de diciembre de 2027."
+  explanation:
+    es: "Los nombramientos se hacen en el plazo máximo de un mes contado desde la finalización del de solicitudes, que termina el miércoles 13 de octubre. El mes concluye el mismo día del mes de vencimiento, el sábado 13 de noviembre, que es inhábil, así que pasa al primer día hábil siguiente: el lunes 15 de noviembre de 2027. El jueves 28 de octubre cuenta quince días naturales. El sábado 13 de noviembre olvida la prórroga del último día inhábil. El lunes 13 de diciembre suma el mes más al que puede prorrogarse el plazo, que aquí no se prorroga."
+  citation: "art. 56.1 RD 364/1995"
+  difficulty: 2
+  tags:
+  - "plazo"
+  - "cómputo"
+# anchor: boe-a-2003-21614-art-58
+- id: q16
+  lesson: m05-l02
+  prompt:
+    es: "Según el artículo 58 de la Ley 47/2003, de 26 de noviembre, General Presupuestaria, ¿hasta qué importe puede el INE incorporar a los créditos de 2027 los remanentes del crédito extraordinario concedido por ley en diciembre de 2026?"
+  options:
+  - id: a
+    text:
+      es: "Un máximo de 160.000 euros de remanentes."
+  - id: b
+    text:
+      es: "Un máximo de 90.000 euros de remanentes."
+  - id: c
+    correct: true
+    text:
+      es: "Un máximo de 70.000 euros de remanentes."
+  - id: d
+    text:
+      es: "Un máximo de 20.000 euros de remanentes."
+  explanation:
+    es: "Los remanentes de los créditos extraordinarios concedidos por ley en el último mes del ejercicio anterior pueden incorporarse, y son 90.000 euros. Pero en un organismo autónomo la incorporación solo puede hacerse con cargo a la parte del remanente de tesorería no aplicada al presupuesto, que es de 70.000 euros. El importe máximo es ese. La cifra de 90.000 euros ignora el límite de la financiación. La de 160.000 euros suma remanentes de crédito y de tesorería. La de 20.000 euros es la diferencia entre los dos."
+  citation: "art. 58 LGP"
+  difficulty: 3
+  tags:
+  - "cantidad"
+  - "requisito"
+# anchor: boe-a-2003-21614-art-62
+- id: q17
+  lesson: m05-l02
+  prompt:
+    es: "Según la Ley 47/2003, de 26 de noviembre, General Presupuestaria, la incorporación al presupuesto de 2027 de los remanentes de crédito del INE debe ser autorizada por:"
+  options:
+  - id: a
+    text:
+      es: "La Presidencia del INE, por tratarse de su presupuesto."
+  - id: b
+    text:
+      es: "El titular del Ministerio de Economía, Comercio y Empresa, de adscripción."
+  - id: c
+    text:
+      es: "El Consejo de Ministros, a propuesta del Ministro de Hacienda."
+  - id: d
+    correct: true
+    text:
+      es: "El Ministro de Hacienda, también en un organismo autónomo."
+  explanation:
+    es: "Las incorporaciones de remanentes del artículo 58 las autoriza el Ministro de Hacienda, también en un organismo autónomo. La Presidencia del INE autoriza otras modificaciones en su presupuesto, pero no las incorporaciones. El titular del ministerio de adscripción, que es Economía, Comercio y Empresa, tampoco tiene esa competencia. El Consejo de Ministros interviene en otras modificaciones, no en esta."
+  citation: "art. 62.1.c) LGP"
+  difficulty: 1
+  tags:
+  - "órgano"
+  - "competencia"
+# anchor: boe-a-2003-21614-art-52
+- id: q18
+  lesson: m05-l02
+  prompt:
+    es: "Señale la respuesta correcta sobre la transferencia de crédito que el INE quiere hacer en octubre, según la Ley 47/2003, de 26 de noviembre, General Presupuestaria:"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "No puede hacerse, porque las transferencias no minoran los créditos suplementados en el ejercicio."
+  - id: b
+    text:
+      es: "Puede hacerse, porque las dos aplicaciones son del mismo programa y del mismo capítulo."
+  - id: c
+    text:
+      es: "No puede hacerse, porque las transferencias nunca pueden hacerse entre aplicaciones del mismo programa."
+  - id: d
+    text:
+      es: "Puede hacerse, pero solo si el Consejo de Ministros la autoriza de forma expresa."
+  explanation:
+    es: "Las transferencias no pueden minorar créditos extraordinarios ni créditos que se hayan suplementado o ampliado en el ejercicio, así que la aplicación suplementada en marzo no puede ceder crédito. Que las aplicaciones sean del mismo programa y capítulo no levanta esa restricción. Las transferencias entre aplicaciones del mismo programa son posibles, y su límite es otro. Ninguna regla pide autorización expresa del Consejo de Ministros para esta transferencia."
+  citation: "art. 52.1 LGP"
+  difficulty: 2
+  tags:
+  - "requisito"
+  - "excepción"
+# anchor: boe-a-2002-10337-art-12
+- id: q19
+  lesson: m05-l04
+  prompt:
+    es: "¿Qué importe total de dietas percibe Don Álvaro Pastor Lillo por su comisión de servicio, según el Real Decreto 462/2002, de 24 de mayo, sobre indemnizaciones por razón del servicio, si el alojamiento se paga por lo gastado sin exceder la dieta?"
+  options:
+  - id: a
+    text:
+      es: "Un total de 206,74 euros."
+  - id: b
+    correct: true
+    text:
+      es: "Un total de 225,44 euros."
+  - id: c
+    text:
+      es: "Un total de 253,50 euros."
+  - id: d
+    text:
+      es: "Un total de 310,11 euros."
+  explanation:
+    es: "Funcionario del Subgrupo A2, es del grupo 2. Sale el martes antes de las catorce horas: alojamiento y manutención al 100 %. El miércoles es día intermedio: dieta entera. El jueves concluye después de las catorce horas: solo el 50 % de la manutención, sin alojamiento. El hotel costó 80 euros por noche, más que la dieta, así que se pagan 65,97 por noche. Total: 2 × 65,97 + 2 × 37,40 + 18,70 = 225,44 euros. La cifra de 206,74 euros omite la manutención del día de regreso. La de 253,50 euros paga el hotel por los 80 euros gastados. La de 310,11 euros paga tres dietas enteras."
+  citation: "art. 12.3.b) RD 462/2002"
+  difficulty: 2
+  tags:
+  - "cantidad"
+  - "cómputo"
+# anchor: boe-a-1987-12158-art-7
+- id: q28
+  lesson: m05-l05
+  prompt:
+    es: "Según el artículo 7.2 del Real Decreto 640/1987, de 8 de mayo, sobre pagos librados «a justificar», ¿qué cantidad máxima de efectivo, para indemnizaciones por razón de servicio, puede custodiar el Cajero pagador del INE si prevé pagar 140 euros por cada día hábil de noviembre de 2027?"
+  options:
+  - id: a
+    text:
+      es: "Un máximo de 3.080 euros."
+  - id: b
+    text:
+      es: "Un máximo de 2.940 euros."
+  - id: c
+    correct: true
+    text:
+      es: "Un máximo de 2.800 euros."
+  - id: d
+    text:
+      es: "Un máximo de 4.200 euros."
+  explanation:
+    es: "El efectivo que el Presidente de un organismo autónomo autoriza en la Caja pagadora no puede exceder de los pagos que se prevea realizar durante un mes (art. 7.2 RD 640/1987). Noviembre de 2027 tiene 22 días de lunes a viernes, y el escenario hace inhábiles el lunes, 1 de noviembre, y el martes, 9 de noviembre de 2027, así que quedan 20 días hábiles: 20 × 140 = 2.800 euros. La cantidad de 3.080 euros cuenta los 22 días sin quitar ningún festivo. La de 2.940 euros quita solo el 1 de noviembre y olvida el 9. La de 4.200 euros paga también los fines de semana y los festivos."
+  citation: "art. 7.2 RD 640/1987"
+  difficulty: 3
+  tags:
+  - "cantidad"
+  - "cómputo"
