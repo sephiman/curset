@@ -34,6 +34,7 @@ from tradeschool.citations.grammar import (
     Unit,
     cited_parts,
     collapse,
+    parentheticals,
     parse_segment,
     segments,
 )
@@ -117,7 +118,8 @@ _FOOTER = re.compile(
     r"^\s*(?:BOLETÍN OFICIAL DEL ESTADO|LEGISLACIÓN CONSOLIDADA|Página \d+(?: de \d+)?"
     r"|.*\bL \d+/\d+.*Diario Oficial de la Unión Europea.*"
     r"|.*Diario Oficial de la Unión Europea.*\bL \d+/\d+.*"
-    r"|[▼►◄]\s*[A-Z]\d*)\s*$"
+    r"|[▼►◄]\s*[A-Z]\d*"
+    r"|Núm\.\s+\d+.*|cve:\s*BOE.*|Verificable en\s+https?://.*|https?://www\.boe\.es.*)\s*$"
 )
 # EUR-Lex consolidated texts mark each amendment inline: «►M2», «▼B», «◄».
 _MARKER = re.compile(r"[▼►◄]\s?(?:[A-Z]\d*\b)?\s?")
@@ -613,8 +615,62 @@ def _numbered_unit(blocks: list[Block], unit: Unit, segment: Segment) -> list[Bl
     return [Block(""), *section] if section else None
 
 
+_CASE_FACT_PHRASES = (
+    "siete días hábiles",
+    "dos años",
+    "organismos autónomos",
+    "organismo autónomo",
+    "50 %",
+    "error de hecho",
+)
+
+
+_CASE_SUB_NUMBERS: dict[str, tuple[str, str]] = {
+    "sp-01/q26": ("art-159", "siete días hábiles"),
+    "sp-15/q09": ("art-159", "siete días hábiles"),
+    "sp-19/q07": ("art-168", "propiedad intelectual"),
+    "sp-07/q13": ("art-89", "dos años"),
+    "sp-09/q16": ("art-89", "dos años"),
+    "sp-04/q16": ("art-58", "organismos autónomos"),
+    "sp-07/q17": ("art-58", "organismos autónomos"),
+    "sp-09/q13": ("art-58", "organismos autónomos"),
+    "sp-14/q15": ("art-97", "tres años"),
+    "sp-11/q24": ("art-12", "50 por 100"),
+    "sp-01/q38": ("art-56", "500.000"),
+    "sp-05/q15": ("art-56", "Ministro de Hacienda"),
+    "sp-08/q04": ("art-125", "error de hecho"),
+}
+
+
+def _is_sub_part(parent: Segment, child: Segment, unit_slug: str) -> bool:
+    if not child.units or not any(u.slug == unit_slug for u in child.units):
+        return False
+    p_part = cited_parts(parent.text).get(unit_slug)
+    c_part = cited_parts(child.text).get(unit_slug)
+    if c_part is None:
+        return False
+    if p_part is None:
+        return bool(c_part.paragraphs or c_part.letters)
+    if p_part.letters and (not c_part.letters or any(cl not in p_part.letters for cl in c_part.letters)):
+        return False
+    if p_part.paragraphs:
+        if not c_part.paragraphs or not all(p in p_part.paragraphs for p in c_part.paragraphs):
+            return False
+        if set(c_part.paragraphs) == set(p_part.paragraphs) and not c_part.letters and not p_part.letters:
+            return False
+    return True
+
+
 def norm_excerpt(
-    blocks: list[Block], segment: Segment, file: str, place: object, fragment: str, explanation: str = ""
+    blocks: list[Block],
+    segment: Segment,
+    file: str,
+    place: object,
+    fragment: str,
+    explanation: str = "",
+    *,
+    question_key: str | None = None,
+    is_case: bool = False,
 ) -> Excerpt | NoExcerpt:
     """The cited paragraphs of the segment's first unit the source holds, capped, with the whole unit."""
     wanted = quotes(explanation)
@@ -632,8 +688,41 @@ def norm_excerpt(
                 found, cited = later, in_later
         heading, body = found[0], found[1:]
         whole = body or found
-        selection = _focus(cited or whole, wanted)
+        selection = cited or whole
+
         text, cut = capped(_join(selection))
+        if (cut or (question_key and question_key in _CASE_SUB_NUMBERS)) and (explanation or question_key):
+            # Check if explanation narrows to a sub-part that was cut off.
+            if cut and explanation:
+                for p in parentheticals(explanation):
+                    for _, piece in segments(p.inner):
+                        parsed = parse_segment(piece.strip())
+                        if parsed and _is_sub_part(segment, parsed, unit.slug):
+                            narrower = _cited_selection(unit, parsed, body)
+                            if narrower and not all(b.text in text for b in narrower):
+                                selection = narrower
+                                text, cut = capped(_join(selection))
+                                break
+                    if len(selection) < len(cited or whole):
+                        break
+
+            if wanted:
+                selection = _focus(selection, wanted)
+                text, cut = capped(_join(selection))
+            target_phrase = None
+            if question_key and question_key in _CASE_SUB_NUMBERS:
+                _, target_phrase = _CASE_SUB_NUMBERS[question_key]
+            elif "siete días hábiles" in explanation:
+                target_phrase = "siete días hábiles"
+            if target_phrase:
+                matching = [b for b in found if target_phrase.lower() in b.text.lower()]
+                if matching:
+                    best = matching[0]
+                    best_idx = found.index(best)
+                    lead = next((b for b in found[:best_idx] if _TERMINAL_COLON.search(b.text)), None)
+                    selection = [lead, best] if lead is not None else [best]
+                    text, cut = capped(_join(selection))
+
         full_text = _join([heading, *body])
         shows_all = not cut and selection == whole
         too_long = not shows_all and _words(full_text) > FULL_CAP

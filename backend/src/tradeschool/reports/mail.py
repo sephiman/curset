@@ -19,9 +19,15 @@ def report_mail(report: QuestionReport) -> tuple[str, str]:
         ("User", report.username),
         ("Sent at", report.created_at.isoformat(timespec="seconds")),
         ("Question", report.prompt),
-        ("Their answer", report.given_answer),
-        ("Correct answer", report.correct_answer),
     ]
+    if report.options:
+        fields.append(("Options", f"\n{report.options}"))
+    fields.extend(
+        [
+            ("Their answer", report.given_answer),
+            ("Correct answer", report.correct_answer),
+        ]
+    )
     # A case question names its case; a cited question its citation, so it can be checked at the source.
     if report.case_title:
         fields.insert(4, ("Case", f"{report.exercise_id}: {report.case_title}"))

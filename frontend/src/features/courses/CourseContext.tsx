@@ -26,9 +26,14 @@ export function CourseProvider({
   return <CourseContext.Provider value={value}>{children}</CourseContext.Provider>;
 }
 
+/** The course on screen, or null when rendered outside a course route. */
+export function useCurrentCourse(): CurrentCourse | null {
+  return useContext(CourseContext);
+}
+
 /** The course on screen. Every page under `/courses/:course` has one; anything else is a wiring bug. */
 export function useCourse(): CurrentCourse {
-  const current = useContext(CourseContext);
+  const current = useCurrentCourse();
   if (!current) throw new Error("useCourse must be used inside a course route");
   return current;
 }

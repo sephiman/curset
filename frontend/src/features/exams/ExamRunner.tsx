@@ -4,7 +4,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import type { ExerciseType } from "@/api/course";
 import type { Answer } from "@/api/exercises";
-import { abandonExam, answerExamQuestion, getExam, markExamCases, submitExam, type ExamCase } from "@/api/exams";
+import { abandonExam, answerExamQuestion, getExam, markExamCases, pauseExam, resumeExam, submitExam, type ExamCase } from "@/api/exams";
 import { Button, Card, Spinner } from "@/components/ui/primitives";
 import { CalculationExercise } from "@/features/exercises/CalculationExercise";
 import { ChartExercise } from "@/features/exercises/ChartExercise";
@@ -47,17 +47,38 @@ export function ExamRunner() {
   const [answers, setAnswers] = useState<Record<string, Answer>>({});
   const [marks, setMarks] = useState<Record<string, string[]>>({});
   const [current, setCurrent] = useState(0);
+  const [activeSeconds, setActiveSeconds] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const activeSecondsRef = useRef(0);
+  activeSecondsRef.current = activeSeconds;
+  const questionTimes = useRef<Record<string, number>>({});
+  const questionStart = useRef<number>(Date.now());
   const seeded = useRef(false);
 
   useEffect(() => {
     if (exam && !seeded.current) {
       seeded.current = true;
       const seed: Record<string, Answer> = {};
-      for (const q of exam.questions) if (q.givenAnswer) seed[q.attemptId] = q.givenAnswer;
+      for (const q of exam.questions) {
+        if (q.givenAnswer) seed[q.attemptId] = q.givenAnswer;
+        if (q.timeSeconds != null) questionTimes.current[q.attemptId] = q.timeSeconds;
+      }
       setAnswers(seed);
       setMarks(Object.fromEntries(exam.parts.map((part) => [part.id, part.marked])));
+      setActiveSeconds(Math.round(exam.activeSeconds ?? 0));
+      setIsPaused(!!exam.paused);
+      questionStart.current = Date.now();
     }
   }, [exam]);
+
+  // Tick active time when exam is open and not paused
+  useEffect(() => {
+    if (!exam || isPaused || exam.status !== "open") return;
+    const interval = window.setInterval(() => {
+      setActiveSeconds((s) => s + 1);
+    }, 1000);
+    return () => window.clearInterval(interval);
+  }, [exam, isPaused]);
 
   // A closed/unknown session can't be run — send the learner back to the landing.
   useEffect(() => {
@@ -65,8 +86,21 @@ export function ExamRunner() {
   }, [isError, navigate]);
 
   const answerMut = useMutation({
-    mutationFn: ({ attemptId, answer }: { attemptId: string; answer: Answer }) =>
-      answerExamQuestion(scope, examId, attemptId, answer),
+    mutationFn: ({
+      attemptId,
+      answer,
+      timeSeconds,
+      clockUsedSeconds,
+    }: {
+      attemptId: string;
+      answer?: Answer;
+      timeSeconds?: number;
+      clockUsedSeconds?: number;
+    }) =>
+      answerExamQuestion(scope, examId, attemptId, answer as Answer, {
+        timeSeconds,
+        clockUsedSeconds,
+      }),
     meta: { silentSuccess: true },
   });
   const markMut = useMutation({
@@ -142,11 +176,70 @@ export function ExamRunner() {
   const part = exam.parts.find((p) => p.id === q.partId);
   const multiPart = exam.parts.length > 1;
 
+  const recordCurrentQuestionTime = (fromIdx: number) => {
+    const prevQ = questions[fromIdx];
+    if (!prevQ) return;
+    const now = Date.now();
+    const elapsed = Math.max(0.1, (now - questionStart.current) / 1000);
+    const prevTime = questionTimes.current[prevQ.attemptId] ?? 0;
+    const totalTime = Math.round((prevTime + elapsed) * 10) / 10;
+    questionTimes.current[prevQ.attemptId] = totalTime;
+    questionStart.current = now;
+
+    // Blank: time until learner moved on
+    if (answers[prevQ.attemptId] === undefined) {
+      track(
+        answerMut.mutateAsync({
+          attemptId: prevQ.attemptId,
+          answer: undefined,
+          timeSeconds: totalTime,
+          clockUsedSeconds: activeSecondsRef.current,
+        }),
+      );
+    }
+  };
+
+  const goToQuestion = (nextIndex: number) => {
+    if (nextIndex === current || isPaused) return;
+    recordCurrentQuestionTime(current);
+    setCurrent(nextIndex);
+  };
+
   const setAnswer = (attemptId: string, a: Answer) => {
     if (handingIn.current) return;
+    const now = Date.now();
+    const elapsed = Math.max(0.1, (now - questionStart.current) / 1000);
+    const prevTime = questionTimes.current[attemptId] ?? 0;
+    const totalTime = Math.round((prevTime + elapsed) * 10) / 10;
+    questionTimes.current[attemptId] = totalTime;
+    questionStart.current = now;
+
     setAnswers((prev) => ({ ...prev, [attemptId]: a }));
-    track(answerMut.mutateAsync({ attemptId, answer: a }));
+    track(
+      answerMut.mutateAsync({
+        attemptId,
+        answer: a,
+        timeSeconds: totalTime,
+        clockUsedSeconds: activeSecondsRef.current,
+      }),
+    );
   };
+
+  const onPause = async () => {
+    if (isPaused || handingIn.current || !q) return;
+    recordCurrentQuestionTime(current);
+    await pauseExam(scope, examId, q.attemptId);
+    setIsPaused(true);
+  };
+
+  const onResume = async () => {
+    if (!isPaused || handingIn.current) return;
+    await resumeExam(scope, examId);
+    setIsPaused(false);
+    questionStart.current = Date.now();
+    setCurrent((i) => Math.min(i + 1, questions.length - 1));
+  };
+
   const toggleMark = (partId: string, exerciseId: string, on: boolean) => {
     const before = marks[partId] ?? [];
     const next = on ? [...before, exerciseId] : before.filter((id) => id !== exerciseId);
@@ -171,6 +264,9 @@ export function ExamRunner() {
         <div className="flex flex-wrap items-center justify-between gap-2">
           <h1 className="text-lg font-semibold">{sittingName(exam)}</h1>
           <div className="flex items-center gap-3 text-sm text-gray-500 dark:text-gray-400">
+            <span role="timer" aria-label="time-used" className="font-mono tabular-nums">
+              {t("exam.timeUsed", { time: clock(activeSeconds * 1000) })}
+            </span>
             {timeLeft !== null && (
               <span role="timer" aria-live="off" className={cn("font-mono tabular-nums", timeLeft < 5 * 60_000 && "text-red-600")}>
                 {t("exam.timeLeft", { time: clock(timeLeft) })}
@@ -199,9 +295,10 @@ export function ExamRunner() {
                     <button
                       key={x.attemptId}
                       type="button"
+                      disabled={isPaused}
                       aria-label={x.reserve ? `${number} · ${t("exam.reserve")}` : `${number}`}
                       aria-current={x.index === current}
-                      onClick={() => setCurrent(x.index)}
+                      onClick={() => goToQuestion(x.index)}
                       className={cn(
                         "h-8 min-w-8 rounded-md border px-1 text-xs font-medium tabular-nums transition-colors",
                         x.index === current &&
@@ -210,6 +307,7 @@ export function ExamRunner() {
                         isAnswered
                           ? "border-primary bg-primary text-primary-foreground"
                           : "border-border text-gray-600 hover:border-primary/60 dark:border-gray-700 dark:text-gray-300",
+                        isPaused && "opacity-50 cursor-not-allowed",
                       )}
                     >
                       {x.reserve ? `R${number}` : number}
@@ -221,57 +319,82 @@ export function ExamRunner() {
           );
         })}
 
-        {caseOf && part && (
-          <CaseScenario
-            title={caseOf.title}
-            scenario={caseOf.scenario}
-            choice={{
-              label: t("exam.markCase"),
-              rule: t("exam.chooseCaseRule"),
-              checked: (marks[part.id] ?? []).includes(caseOf.exerciseId),
-              onChange: (on) => toggleMark(part.id, caseOf.exerciseId, on),
-            }}
-          />
+        {isPaused ? (
+          <Card className="p-8 text-center space-y-4">
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">{t("exam.pausedNotice")}</h2>
+            <p className="text-sm text-gray-600 dark:text-gray-400 max-w-md mx-auto">
+              {t("exam.pausedExplanation")}
+            </p>
+            <div className="pt-2">
+              <Button onClick={onResume}>
+                {t("exam.resumeSitting")} →
+              </Button>
+            </div>
+          </Card>
+        ) : (
+          <>
+            {caseOf && part && (
+              <CaseScenario
+                title={caseOf.title}
+                scenario={caseOf.scenario}
+                choice={{
+                  label: t("exam.markCase"),
+                  rule: t("exam.chooseCaseRule"),
+                  checked: (marks[part.id] ?? []).includes(caseOf.exerciseId),
+                  onChange: (on) => toggleMark(part.id, caseOf.exerciseId, on),
+                }}
+              />
+            )}
+
+            <Card className="p-4">
+              <p className="text-xs text-gray-400">
+                <span className="font-mono">{q.moduleId.toUpperCase()}</span> · {q.moduleTitle}
+                {q.reserve && <span className="ml-2 font-medium text-amber-700 dark:text-amber-300">{t("exam.reserve")}</span>}
+              </p>
+              {q.reserve && <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">{t("exam.reserveHint")}</p>}
+              <div className="mt-2">
+                <Prose markdown={q.prompt} />
+              </div>
+              {CHART_TYPES.has(q.type) ? (
+                <ChartExercise key={q.attemptId} type={q.type} payload={q.payload} result={null} deferred={deferred} />
+              ) : q.type === "quiz" || q.type === "case" ? (
+                <QuizExercise key={q.attemptId} payload={q.payload} deferred={deferred} />
+              ) : (
+                <CalculationExercise
+                  key={q.attemptId}
+                  options={q.payload.options ?? []}
+                  unit={q.payload.unit}
+                  formula={q.payload.formula}
+                  deferred={deferred}
+                />
+              )}
+            </Card>
+
+            <div className="flex items-center justify-between gap-2">
+              <Button variant="secondary" disabled={current === 0} onClick={() => goToQuestion(current - 1)}>
+                ← {t("exam.prev")}
+              </Button>
+              {exam.pause === "between-questions" && (
+                <Button
+                  variant="secondary"
+                  disabled={answers[q.attemptId] === undefined || submit.isPending}
+                  onClick={onPause}
+                >
+                  ⏸ {t("exam.pause")}
+                </Button>
+              )}
+              {current < questions.length - 1 ? (
+                <Button variant="secondary" onClick={() => goToQuestion(current + 1)}>
+                  {t("exam.next")} →
+                </Button>
+              ) : (
+                <Button disabled={submit.isPending} onClick={onSubmit}>
+                  {t("exam.submit")}
+                </Button>
+              )}
+            </div>
+          </>
         )}
-
-        <Card className="p-4">
-          <p className="text-xs text-gray-400">
-            <span className="font-mono">{q.moduleId.toUpperCase()}</span> · {q.moduleTitle}
-            {q.reserve && <span className="ml-2 font-medium text-amber-700 dark:text-amber-300">{t("exam.reserve")}</span>}
-          </p>
-          {q.reserve && <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">{t("exam.reserveHint")}</p>}
-          <div className="mt-2">
-            <Prose markdown={q.prompt} />
-          </div>
-          {CHART_TYPES.has(q.type) ? (
-            <ChartExercise key={q.attemptId} type={q.type} payload={q.payload} result={null} deferred={deferred} />
-          ) : q.type === "quiz" || q.type === "case" ? (
-            <QuizExercise key={q.attemptId} payload={q.payload} deferred={deferred} />
-          ) : (
-            <CalculationExercise
-              key={q.attemptId}
-              options={q.payload.options ?? []}
-              unit={q.payload.unit}
-              formula={q.payload.formula}
-              deferred={deferred}
-            />
-          )}
-        </Card>
-
-        <div className="flex items-center justify-between gap-2">
-          <Button variant="secondary" disabled={current === 0} onClick={() => setCurrent((i) => i - 1)}>
-            ← {t("exam.prev")}
-          </Button>
-          {current < questions.length - 1 ? (
-            <Button variant="secondary" onClick={() => setCurrent((i) => i + 1)}>
-              {t("exam.next")} →
-            </Button>
-          ) : (
-            <Button disabled={submit.isPending} onClick={onSubmit}>
-              {t("exam.submit")}
-            </Button>
-          )}
-        </div>
 
         <div className="flex items-center justify-between gap-2 border-t border-border pt-4 dark:border-gray-800 oled:border-oled-line">
           <button type="button" onClick={onAbandon} className="text-xs text-gray-400 hover:text-red-600 dark:text-gray-500">

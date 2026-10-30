@@ -96,6 +96,14 @@ async def file_report(
     lesson_id = registry.exercise_lesson_id(exercise_id) or ""
     question_link = registry.question_link(ref, locale)
     case = registry.case_config(exercise_id)
+    letters = registry.manifest.course.option_labels == "letters"
+    options_text: str | None = None
+    if letters and "options" in instance.payload and isinstance(instance.payload["options"], list):
+        options_text = "\n".join(
+            f"  {chr(ord('A') + i)}) {opt.get('text', '')}"
+            for i, opt in enumerate(instance.payload["options"])
+            if isinstance(opt, dict)
+        )
 
     report = QuestionReport(
         user_id=user.id,
@@ -109,13 +117,16 @@ async def file_report(
         seed=attempt.seed,
         reading_locale=locale,
         prompt=instance.prompt,
-        given_answer=describe_given(instance.payload, attempt.given_answer, locale),
-        correct_answer=describe_correct(graded.correct_answer, locale),
+        given_answer=describe_given(instance.payload, attempt.given_answer, locale, letters=letters),
+        correct_answer=describe_correct(
+            graded.correct_answer, locale, payload=instance.payload, letters=letters
+        ),
         username=user.username,
         link=f"{public_url.rstrip('/')}/courses/{registry.slug}/lessons/{lesson_id}#ex-{exercise_id}",
         case_title=case.title.get(locale) if case else None,
         citation=question_link.citation if question_link else None,
         lesson_anchor=_anchor_url(public_url, registry.slug, question_link),
+        options=options_text,
     )
     session.add(report)
     await session.commit()

@@ -89,6 +89,7 @@ class ExamQuestionView:
     # Reveal-only (submitted session review):
     lesson_anchor: str | None = None
     citation: str | None = None
+    time_seconds: float | None = None
     excerpt: SolutionText | None = None
     is_correct: bool | None = None
     unanswered: bool = False
@@ -127,6 +128,9 @@ class ExamView:
     created_at: datetime
     finished_at: datetime | None
     deadline: datetime | None
+    pause: str = "between-questions"
+    paused: bool = False
+    active_seconds: float = 0.0
     parts: list[ExamPartView] = field(default_factory=list)
     questions: list[ExamQuestionView] = field(default_factory=list)
     result: dict[str, object] | None = None
@@ -180,7 +184,18 @@ def target_title(registry: CourseRegistry, preset: ExamPreset, target: str | Non
 def deadline_of(preset: ExamPreset, exam: ExamSession) -> datetime | None:
     if preset.time_limit_minutes is None:
         return None
-    return exam.created_at + timedelta(minutes=preset.time_limit_minutes)
+    if preset.pause == "never":
+        return exam.created_at + timedelta(minutes=preset.time_limit_minutes)
+    clock = exam.rules.get("clock")
+    if not isinstance(clock, dict):
+        return exam.created_at + timedelta(minutes=preset.time_limit_minutes)
+    active = float(clock.get("activeSeconds", 0.0))
+    now = datetime.now(UTC)
+    if not clock.get("paused") and clock.get("lastResumedAt"):
+        resumed_dt = datetime.fromisoformat(clock["lastResumedAt"])
+        active += (now - resumed_dt).total_seconds()
+    remaining = max(0.0, preset.time_limit_minutes * 60 - active)
+    return now + timedelta(seconds=remaining)
 
 
 async def _load_owned(
@@ -385,6 +400,7 @@ def _build_view(
                 q.result = generator.grade(cfg, attempt.seed, sentinel, locale)
             q.unanswered = not answered
             q.is_correct = bool(attempt.is_correct) and answered
+            q.time_seconds = attempt.time_seconds
             link = registry.question_link(ref, locale)
             q.lesson_anchor, q.citation = (link.anchor, link.citation) if link else (None, None)
             q.excerpt = registry.question_excerpt(ref)
@@ -392,6 +408,24 @@ def _build_view(
 
     target = target_of(session_obj)
     result = session_obj.rules.get("result")
+    clock = session_obj.rules.get("clock")
+    paused = False
+    active_seconds = 0.0
+    now = datetime.now(UTC)
+    if isinstance(clock, dict):
+        paused = bool(clock.get("paused", False))
+        active_seconds = float(clock.get("activeSeconds", 0.0))
+        if preset.pause == "never":
+            started = clock.get("startedAt")
+            if started:
+                started_dt = datetime.fromisoformat(started)
+                end_time = session_obj.finished_at or now
+                active_seconds = max(0.0, (end_time - started_dt).total_seconds())
+        elif not paused and session_obj.rules.get("status") == "open":
+            last_resumed = clock.get("lastResumedAt")
+            if last_resumed:
+                resumed_dt = datetime.fromisoformat(last_resumed)
+                active_seconds += max(0.0, (now - resumed_dt).total_seconds())
     return ExamView(
         id=session_obj.id,
         preset_id=preset.id,
@@ -403,6 +437,9 @@ def _build_view(
         created_at=session_obj.created_at,
         finished_at=session_obj.finished_at,
         deadline=deadline_of(preset, session_obj),
+        pause=preset.pause or "between-questions",
+        paused=paused,
+        active_seconds=round(active_seconds, 1),
         parts=_parts_view(registry, session_obj, preset, layout, locale),
         questions=questions,
         result=_result_for_view(registry, result) if isinstance(result, dict) else None,
@@ -511,7 +548,14 @@ async def start_exam(
         )
     # Recorded now rather than re-derived at every render. Additive: it goes in the `rules` JSONB the
     # session already has, so no schema migration.
-    exam.rules = {**exam.rules, ATTEMPT_ORDER: order, "parts": parts}
+    now = datetime.now(UTC)
+    clock = {
+        "activeSeconds": 0.0,
+        "paused": False,
+        "lastResumedAt": now.isoformat(),
+        "startedAt": now.isoformat(),
+    }
+    exam.rules = {**exam.rules, ATTEMPT_ORDER: order, "parts": parts, "clock": clock}
     await session.commit()
     logger.info(
         "exam_started exam=%s preset=%s target=%s questions=%d replaced=%s",
@@ -552,9 +596,23 @@ async def render_exam(
     return _build_view(exam, registry, await _attempts_of(session, exam.id), locale, reveal=False)
 
 
+def _exam_clock(exam: ExamSession) -> dict[str, object]:
+    clock = exam.rules.get("clock")
+    if isinstance(clock, dict):
+        return dict(clock)
+    return {}
+
+
+def _active_seconds(clock: Mapping[str, object]) -> float:
+    val = clock.get("activeSeconds")
+    return float(val) if isinstance(val, (int, float, str)) else 0.0
+
+
 def _check_writable(registry: CourseRegistry, exam: ExamSession) -> None:
     if exam.rules.get("status") != "open":
         raise AppError("EXAM_NOT_OPEN", "This exam is not in progress.", status_code=409)
+    if _exam_clock(exam).get("paused"):
+        raise AppError("EXAM_PAUSED", "This exam is currently paused.", status_code=409)
     deadline = deadline_of(session_preset(registry, exam), exam)
     if deadline is not None and datetime.now(UTC) > deadline + ANSWER_GRACE:
         raise AppError("EXAM_TIME_UP", "The time for this exam is over.", status_code=409)
@@ -567,7 +625,9 @@ async def answer_question(
     exam_id: uuid.UUID,
     course_id: str,
     attempt_id: uuid.UUID,
-    answer: Mapping[str, object],
+    answer: Mapping[str, object] | None = None,
+    time_seconds: float | None = None,
+    clock_used_seconds: float | None = None,
 ) -> None:
     """Store (or replace) an answer. No grading, no reveal — feedback comes only at submission."""
     exam = await _load_owned(session, user_id, exam_id, course_id)
@@ -575,9 +635,93 @@ async def answer_question(
     attempt = await session.get(Attempt, attempt_id)
     if attempt is None or attempt.exam_session_id != exam_id:
         raise AppError("EXAM_QUESTION_NOT_FOUND", "No such question in this exam.", status_code=404)
-    attempt.given_answer = dict(answer)
+    if answer is not None:
+        attempt.given_answer = dict(answer)
+    if time_seconds is not None:
+        attempt.time_seconds = time_seconds
+    now = datetime.now(UTC)
+    clock = _exam_clock(exam)
+    if clock:
+        if clock_used_seconds is not None:
+            clock["activeSeconds"] = clock_used_seconds
+            clock["lastResumedAt"] = now.isoformat()
+        elif not clock.get("paused") and clock.get("lastResumedAt"):
+            resumed_dt = datetime.fromisoformat(str(clock["lastResumedAt"]))
+            active = _active_seconds(clock) + (now - resumed_dt).total_seconds()
+            clock["activeSeconds"] = active
+            clock["lastResumedAt"] = now.isoformat()
+        exam.rules = {**exam.rules, "clock": clock}
     await session.commit()
     logger.info("exam_answer_saved exam=%s attempt=%s", exam_id, attempt_id)
+
+
+async def pause_exam(
+    session: AsyncSession,
+    registry: CourseRegistry,
+    user_id: uuid.UUID,
+    exam_id: uuid.UUID,
+    course_id: str,
+    attempt_id: uuid.UUID | None = None,
+) -> None:
+    exam = await _load_owned(session, user_id, exam_id, course_id)
+    if exam.rules.get("status") != "open":
+        raise AppError("EXAM_NOT_OPEN", "This exam is not in progress.", status_code=409)
+    preset = session_preset(registry, exam)
+    if preset.pause != "between-questions":
+        raise AppError("EXAM_PAUSE_NOT_ALLOWED", "This exam cannot be paused.", status_code=409)
+    if attempt_id is not None:
+        attempt = await session.get(Attempt, attempt_id)
+        if attempt is None or attempt.exam_session_id != exam_id:
+            raise AppError("EXAM_QUESTION_NOT_FOUND", "No such question in this exam.", status_code=404)
+        if attempt.given_answer is None:
+            raise AppError(
+                "EXAM_PAUSE_NOT_ANSWERED",
+                "You can only pause after answering the current question.",
+                status_code=409,
+            )
+    else:
+        attempts = await _attempts_of(session, exam_id)
+        answered = [a for a in attempts if a.given_answer is not None]
+        if not answered:
+            raise AppError(
+                "EXAM_PAUSE_NOT_ANSWERED",
+                "You can only pause after answering the current question.",
+                status_code=409,
+            )
+
+    clock = _exam_clock(exam)
+    now = datetime.now(UTC)
+    active = _active_seconds(clock)
+    if not clock.get("paused") and clock.get("lastResumedAt"):
+        resumed_dt = datetime.fromisoformat(str(clock["lastResumedAt"]))
+        active += (now - resumed_dt).total_seconds()
+    clock["activeSeconds"] = round(active, 1)
+    clock["paused"] = True
+    clock["lastResumedAt"] = None
+    exam.rules = {**exam.rules, "clock": clock}
+    await session.commit()
+    logger.info("exam_paused exam=%s activeSeconds=%.1f", exam_id, active)
+
+
+async def resume_exam(
+    session: AsyncSession,
+    registry: CourseRegistry,
+    user_id: uuid.UUID,
+    exam_id: uuid.UUID,
+    course_id: str,
+) -> None:
+    exam = await _load_owned(session, user_id, exam_id, course_id)
+    if exam.rules.get("status") != "open":
+        raise AppError("EXAM_NOT_OPEN", "This exam is not in progress.", status_code=409)
+    clock = _exam_clock(exam)
+    if not clock.get("paused"):
+        raise AppError("EXAM_NOT_PAUSED", "Exam is not paused.", status_code=409)
+    now = datetime.now(UTC)
+    clock["paused"] = False
+    clock["lastResumedAt"] = now.isoformat()
+    exam.rules = {**exam.rules, "clock": clock}
+    await session.commit()
+    logger.info("exam_resumed exam=%s", exam_id)
 
 
 async def mark_cases(
@@ -622,6 +766,24 @@ async def submit_exam(
     attempts = await _attempts_of(session, exam_id)
     now = datetime.now(UTC)
     preset = session_preset(registry, exam)
+    deadline = deadline_of(preset, exam)
+    if deadline is not None and now >= deadline:
+        exam.rules = {**exam.rules, "autoSubmitted": True}
+    clock = _exam_clock(exam)
+    if clock:
+        active = _active_seconds(clock)
+        if preset.pause == "never":
+            started = clock.get("startedAt")
+            if started:
+                started_dt = datetime.fromisoformat(str(started))
+                active = max(0.0, (now - started_dt).total_seconds())
+        elif not clock.get("paused") and clock.get("lastResumedAt"):
+            resumed_dt = datetime.fromisoformat(str(clock["lastResumedAt"]))
+            active += (now - resumed_dt).total_seconds()
+        clock["activeSeconds"] = round(active, 1)
+        clock["paused"] = True
+        clock["lastResumedAt"] = None
+        exam.rules = {**exam.rules, "clock": clock}
     for attempt in attempts:
         config = registry.attempt_config(question_ref(registry, attempt))
         answered = attempt.given_answer is not None

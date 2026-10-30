@@ -2,6 +2,7 @@ import { useId, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { Answer, AttemptPayload, Deferred, OptionView } from "@/api/exercises";
 import { Button } from "@/components/ui/primitives";
+import { useCourseTree } from "@/features/course/queries";
 import { assignPair, isComplete, unassignPair, usedRights, type Pairs } from "@/features/exercises/matching";
 import { moveItem } from "@/features/exercises/ordering";
 import { cn } from "@/lib/cn";
@@ -38,23 +39,31 @@ export function QuizExercise({
   onSubmit,
   deferred,
 }: { payload: AttemptPayload } & ControlProps) {
+  const { data: courseTree } = useCourseTree();
+  const letters = courseTree?.course.optionLabels === "letters";
   const p: ControlProps = { pending, onSubmit, deferred };
   switch (payload.kind) {
     case "true_false":
       return <TrueFalse {...p} />;
     case "multi_select":
-      return <MultiSelect options={payload.options ?? []} {...p} />;
+      return <MultiSelect options={payload.options ?? []} letters={letters} {...p} />;
     case "ordering":
       return <Ordering items={payload.items ?? []} {...p} />;
     case "matching":
       return <Matching lefts={payload.lefts ?? []} rights={payload.rights ?? []} {...p} />;
     case "single_choice":
     default:
-      return <SingleChoice options={payload.options ?? []} {...p} />;
+      return <SingleChoice options={payload.options ?? []} letters={letters} {...p} />;
   }
 }
 
-function SingleChoice({ options, pending, onSubmit, deferred }: { options: OptionView[] } & ControlProps) {
+function SingleChoice({
+  options,
+  pending,
+  onSubmit,
+  deferred,
+  letters,
+}: { options: OptionView[]; letters?: boolean } & ControlProps) {
   // One radio group per question: a shared name let a choice in one question clear another's on a page
   // that shows several at once (a case, a lesson with two quizzes).
   const group = useId();
@@ -68,7 +77,7 @@ function SingleChoice({ options, pending, onSubmit, deferred }: { options: Optio
   return (
     <div className="mt-3 space-y-3">
       <div className="space-y-2">
-        {options.map((opt) => (
+        {options.map((opt, idx) => (
           <label key={opt.id} className={cn(optionBase, selected === opt.id ? optionOn : optionOff)}>
             <input
               type="radio"
@@ -77,6 +86,11 @@ function SingleChoice({ options, pending, onSubmit, deferred }: { options: Optio
               checked={selected === opt.id}
               onChange={() => choose(opt.id)}
             />
+            {letters && (
+              <span className="font-semibold text-gray-500 dark:text-gray-400 select-none">
+                {String.fromCharCode(65 + idx)})
+              </span>
+            )}
             <span>{opt.text}</span>
           </label>
         ))}
@@ -124,7 +138,13 @@ function TrueFalse({ pending, onSubmit, deferred }: ControlProps) {
   );
 }
 
-function MultiSelect({ options, pending, onSubmit, deferred }: { options: OptionView[] } & ControlProps) {
+function MultiSelect({
+  options,
+  pending,
+  onSubmit,
+  deferred,
+  letters,
+}: { options: OptionView[]; letters?: boolean } & ControlProps) {
   const { t } = useTranslation();
   const [selected, setSelected] = useState<string[]>(
     deferred?.value && "optionIds" in deferred.value ? deferred.value.optionIds : [],
@@ -138,11 +158,16 @@ function MultiSelect({ options, pending, onSubmit, deferred }: { options: Option
     <div className="mt-3 space-y-3">
       <p className="text-xs text-gray-500 dark:text-gray-400">{t("exercise.selectAllThatApply")}</p>
       <div className="space-y-2">
-        {options.map((opt) => {
+        {options.map((opt, idx) => {
           const on = selected.includes(opt.id);
           return (
             <label key={opt.id} className={cn(optionBase, on ? optionOn : optionOff)}>
               <input type="checkbox" className="mt-0.5" checked={on} onChange={() => toggle(opt.id)} />
+              {letters && (
+                <span className="font-semibold text-gray-500 dark:text-gray-400 select-none">
+                  {String.fromCharCode(65 + idx)})
+                </span>
+              )}
               <span>{opt.text}</span>
             </label>
           );

@@ -106,6 +106,54 @@ def test_a_boe_pdf_rejoins_wrapped_lines_and_drops_its_running_footer() -> None:
     ]
 
 
+def test_a_boe_original_pdf_drops_running_headers_and_cve_lines() -> None:
+    page = (
+        "Artículo 1. Objeto.\n"
+        "BOLETÍN OFICIAL DEL ESTADO\n"
+        "Núm. 169 Lunes 17 de julio de 2023 Sec. I.   Pág. 103029\n"
+        "cve: BOE-A-2023-16462\n"
+        "Verificable en https://www.boe.es\n"
+        "https://www.boe.es BOLETÍN OFICIAL DEL ESTADO D. L.: M-1/1958 - ISSN: 0212-033X\n"
+        "El importe de la indemnización por uso de vehículo particular queda fijado en 0,26 euros.\n"
+    )
+    texts = [block.text for block in pdf_blocks([page])]
+    assert texts == [
+        "Artículo 1. Objeto.",
+        "El importe de la indemnización por uso de vehículo particular queda fijado en 0,26 euros.",
+    ]
+
+
+def test_a_long_article_or_apartado_focuses_the_subnumber_holding_the_fact() -> None:
+    from tradeschool.citations.excerpts import norm_excerpt
+    from tradeschool.citations.grammar import parse_segment
+
+    blocks = [
+        Block("Artículo 159. Procedimiento abierto simplificado.", 1),
+        Block("4. La tramitación del procedimiento se ajustará a las siguientes especialidades:"),
+        Block("f) En todo caso, la valoración a la que se refiere la letra anterior deberá estar efectuada:"),
+        Block("1.º " + "palabra " * 40),
+        Block("2.º " + "palabra " * 40),
+        Block("3.º " + "palabra " * 80),
+        Block(
+            "4.º Requerir a la empresa con la mejor puntuación para que constituya la garantía "
+            "definitiva en siete días hábiles."
+        ),
+    ]
+    seg = parse_segment("art. 159.4.f) LCSP")
+    assert seg is not None
+    res = norm_excerpt(
+        blocks,
+        seg,
+        "file.html",
+        None,
+        "",
+        "La empresa constituye la garantía definitiva en siete días hábiles (art. 159.4.f) LCSP).",
+        is_case=True,
+    )
+    assert isinstance(res, Excerpt)
+    assert "siete días hábiles" in res.text
+
+
 def test_a_wrapped_line_that_starts_with_an_ordinal_is_not_a_heading() -> None:
     page = "1. Podrá conceder una ampliación si no perjudica derechos de \ntercero. El acuerdo se notifica.\n"
     assert [block.level for block in pdf_blocks([page])] == [0]

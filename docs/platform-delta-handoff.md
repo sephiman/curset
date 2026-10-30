@@ -463,3 +463,28 @@ V 645/629/16, VI 1,853/1,796/57. Content flags for the course round (not excerpt
   2026-10-28: keys and attempts name the question by its own id (README, «Question identity»).
 - Rebuilt: bloque VI 1,853 questions, 1,797 with excerpt, 56 «sin extracto»; course 88 (21 extraction, 67 verifier).
   Excerpt audit: 1,843 saved-page excerpts shown, 0 not judged «yes».
+
+## Delta G & H — exam clock, pause, per-question time, option letters & extractor fixes (2026-10-30)
+
+Platform round of 2026-10-30 implementing sections G (clock, pause, time per question) and H (option letters) of `docs/curset-platform-delta-exams.md`, plus the two excerpt-extractor fixes from `docs/age-cases-ledger.md`. Nothing committed.
+
+### Preset `pause` field & exam clock (Delta G)
+- **Preset `pause` field (`pause: between-questions | never`)**: Added to `ExamPreset` (`backend/src/tradeschool/exams/presets.py`). Defaults: «Simulacro oficial» (when present) defaults to `never`; «Tema» and «Bloque» presets default to `between-questions`; crypto-futures presets default to `between-questions`.
+- **Clock and session state**: Sitting responses (`ExamSession`) carry `pause`, `paused`, and `activeSeconds`. Active time is tracked server-side and client-side; starts at the first question, stops at submission. Reloading resumes with the exact active time used.
+- **Pause control**: The pause button is enabled only once the current question has an answer recorded. Pausing stops the clock and covers the questions with a pause card (`pausedNotice`, `pausedExplanation`, `resumeSitting` button); resuming reveals the next question. Attempting to answer questions or mark cases while paused is refused by the server with 409 `EXAM_PAUSED`. Presets with `never` show no pause control, and time continues running if the page is closed.
+- **Auto-submission on deadline**: Reaching the time limit auto-submits with whatever answers were given, accompanied by `autoSubmittedNotice` in review; reserve questions run under the same overall limit.
+- **Attempt time fields**: Added `time_seconds: Float | None` to the `attempts` table (Alembic migration `a1b2c3d4e5f6`). Answer mutation sends `timeSeconds` and `clockUsedSeconds`. For blank questions, moving on records the time spent until the learner moved on.
+- **Time aggregation in results & Progress**: Results record `totalActiveSeconds` and per-part `activeSeconds` (for scored presets, keeping crypto-futures goldens identical); review displays per-question `timeSeconds`; the «Por tema» table and the cumulative Progress page include the per-lesson `averageSeconds`.
+
+### Option letters (Delta H)
+- **Flag `option_labels: letters`**: Course-level metadata in `course.yaml`, enabled for `age-administrativo-c1`.
+- **On-screen assignment**: Letters A–D are assigned to options in their shuffled on-screen order across practice, case exercises, exam sessions, and exam review.
+- **Solution panel & feedback**: Shows «Correcta: C» (or corresponding letter) and marks the option in the solution panel when `option_labels: letters` is active.
+- **Question reports & email**: Reports store the formatted lettered options (`A) ...`, `B) ...`), and notification emails include the lettered options the learner saw.
+- **PDF export**: Printed order and answer key sheet maintain bijection and use matching letters A–D.
+- **Course isolation**: Courses without the flag (`crypto-futures`, `fixture-oposiciones`) remain completely unchanged (no letters, byte-identical goldens).
+
+### Extractor fixes (Table A & Table C)
+- **BOE page header furniture (Table A, 16 questions)**: Strip BOE headers (`BOLETÍN OFICIAL DEL ESTADO`, `Núm. ...`, `Sec. ...`, `Pág. ...`) leaking into norm excerpts across four BOE-original PDFs (Orden HFP/793/2023, Orden HAC/557/2026, RDL 14/2025).
+- **Sub-number focusing for long articles (Table C, 19 questions)**: Added lettered subsection detection in `_is_sub_part` and focused extraction for cited sub-articles (e.g. `art. 76.2.b EBEP`, `art. 67.2 TREBEP`). Removed now-unnecessary manual exclusions from `excerpt-exclusions.yaml` (`sp-01/q26`, `sp-15/q09`).
+- **Rebuilt excerpts**: Exactly 33 questions changed in `content/age-administrativo-c1/excerpts.json` (16 Table A + 17 Table C present in the course); all 35 verified to show the required legal fact. Zero citation changes, zero regressions in previously verified excerpts.

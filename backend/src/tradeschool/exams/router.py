@@ -19,6 +19,7 @@ from tradeschool.exams.schemas import (
     CaseMarksRequest,
     ExamAnswerRequest,
     ExamHistoryItem,
+    ExamPauseRequest,
     ExamSessionOut,
     ExamStartRequest,
     PresetOut,
@@ -104,7 +105,42 @@ async def answer_question(
     registry: Annotated[CourseRegistry, Depends(get_registry)],
     course: CourseId,
 ) -> None:
-    await service.answer_question(session, registry, user.id, exam_id, course, attempt_id, payload.answer)
+    await service.answer_question(
+        session,
+        registry,
+        user.id,
+        exam_id,
+        course,
+        attempt_id,
+        payload.answer,
+        payload.timeSeconds,
+        payload.clockUsedSeconds,
+    )
+
+
+@router.post("/{exam_id}/pause", status_code=204)
+async def pause_exam(
+    exam_id: uuid.UUID,
+    user: Annotated[User, Depends(current_active_user)],
+    session: Annotated[AsyncSession, Depends(get_async_session)],
+    registry: Annotated[CourseRegistry, Depends(get_registry)],
+    course: CourseId,
+    payload: ExamPauseRequest | None = None,
+) -> None:
+    await service.pause_exam(
+        session, registry, user.id, exam_id, course, payload.attemptId if payload else None
+    )
+
+
+@router.post("/{exam_id}/resume", status_code=204)
+async def resume_exam(
+    exam_id: uuid.UUID,
+    user: Annotated[User, Depends(current_active_user)],
+    session: Annotated[AsyncSession, Depends(get_async_session)],
+    registry: Annotated[CourseRegistry, Depends(get_registry)],
+    course: CourseId,
+) -> None:
+    await service.resume_exam(session, registry, user.id, exam_id, course)
 
 
 @router.put("/{exam_id}/parts/{part_id}/cases", status_code=204)

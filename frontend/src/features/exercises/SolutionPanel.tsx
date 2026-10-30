@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import type { LessonLink as LessonTarget, NoExcerpt, SolutionExcerpt } from "@/api/exercises";
+import type { LessonLink as LessonTarget, NoExcerpt, OptionView, SolutionExcerpt } from "@/api/exercises";
 import { useCourse } from "@/features/courses/CourseContext";
 import { useCourseTree } from "@/features/course/queries";
 import { SolutionBody, Verdict } from "@/features/exercises/AttemptResult";
@@ -88,6 +88,7 @@ export function SolutionPanel({
   correctAnswer,
   solutionSteps,
   explanation,
+  options,
   excerpt,
   noExcerpt,
   lessonLink,
@@ -100,6 +101,7 @@ export function SolutionPanel({
   correctAnswer: unknown;
   solutionSteps: string[];
   explanation: string | null;
+  options?: OptionView[];
   excerpt?: SolutionExcerpt | null;
   noExcerpt?: NoExcerpt | null;
   lessonLink?: LessonTarget | null;
@@ -119,7 +121,12 @@ export function SolutionPanel({
           {t("solution.show")}
         </summary>
         <div className="space-y-3 border-t border-border px-3 py-3 dark:border-gray-800 oled:border-oled-line">
-          <SolutionBody correctAnswer={correctAnswer} solutionSteps={solutionSteps} explanation={explanation} />
+          <SolutionBody
+            correctAnswer={correctAnswer}
+            solutionSteps={solutionSteps}
+            explanation={explanation}
+            options={options}
+          />
           {excerpt && <ExcerptBlock excerpt={excerpt} />}
           {!excerpt && noExcerpt && (
             <p className="text-xs text-gray-500 dark:text-gray-400">

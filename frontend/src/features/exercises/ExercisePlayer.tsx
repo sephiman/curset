@@ -109,6 +109,7 @@ export function ExercisePlayer({
               correctAnswer={result.correctAnswer}
               solutionSteps={result.solutionSteps}
               explanation={result.explanation}
+              options={instance.payload.options}
               excerpt={result.excerpt}
               noExcerpt={result.noExcerpt}
               lessonLink={

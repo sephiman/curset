@@ -77,6 +77,7 @@ export function CaseExercise({ exerciseId, highlighted = false }: { exerciseId: 
                       correctAnswer={result.correctAnswer}
                       solutionSteps={result.solutionSteps}
                       explanation={result.explanation}
+                      options={question.payload.options}
                       excerpt={result.excerpt}
                       noExcerpt={result.noExcerpt}
                       lessonLink={result.lessonLink}

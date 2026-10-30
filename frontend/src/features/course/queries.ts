@@ -1,19 +1,24 @@
 import { useQuery } from "@tanstack/react-query";
 import { getCourse, getGlossary } from "@/api/course";
-import { scopeKey, useCourse } from "@/features/courses/CourseContext";
+import { scopeKey, useCurrentCourse } from "@/features/courses/CourseContext";
 
 /** The course tree of the course on screen, in its reading language. */
 export function useCourseTree() {
-  const { scope } = useCourse();
-  return useQuery({ queryKey: ["course", ...scopeKey(scope)], queryFn: () => getCourse(scope) });
+  const current = useCurrentCourse();
+  return useQuery({
+    queryKey: current ? ["course", ...scopeKey(current.scope)] : ["course", "none"],
+    queryFn: () => (current ? getCourse(current.scope) : Promise.reject(new Error("No current course"))),
+    enabled: !!current,
+  });
 }
 
 /** The course's glossary in its reading language; cached for the session, it changes on deploy only. */
 export function useCourseGlossary() {
-  const { scope } = useCourse();
+  const current = useCurrentCourse();
   return useQuery({
-    queryKey: ["glossary", ...scopeKey(scope)],
-    queryFn: () => getGlossary(scope),
+    queryKey: current ? ["glossary", ...scopeKey(current.scope)] : ["glossary", "none"],
+    queryFn: () => (current ? getGlossary(current.scope) : Promise.reject(new Error("No current course"))),
+    enabled: !!current,
     staleTime: Infinity,
   });
 }

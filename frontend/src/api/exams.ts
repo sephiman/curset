@@ -25,6 +25,7 @@ export interface ExamQuestion {
   questionId: string | null;
   /** Shown at the end of its part; counted only if a question before it is voided (never, here). */
   reserve: boolean;
+  timeSeconds?: number | null;
   // Reveal-only (submitted review):
   lessonAnchor: string | null;
   citation: string | null;
@@ -72,6 +73,7 @@ export interface ExamResultPart {
   transformed?: number;
   max?: number;
   passed?: boolean;
+  activeSeconds?: number;
 }
 
 export interface ExamResultBlock {
@@ -101,6 +103,8 @@ export interface ExamResult {
   raw?: number;
   transformed?: number | null;
   max?: number | null;
+  totalActiveSeconds?: number;
+  autoSubmitted?: boolean;
 }
 
 export interface ExamSession {
@@ -115,6 +119,9 @@ export interface ExamSession {
   finishedAt: string | null;
   /** When the clock runs out; null when the preset is untimed. */
   deadline: string | null;
+  pause: "between-questions" | "never";
+  paused: boolean;
+  activeSeconds: number;
   /** The server's clock at the response, so the countdown never trusts the device's. */
   serverNow: string;
   parts: ExamPart[];
@@ -164,6 +171,7 @@ export interface ExamPreset {
   version: number;
   title: string;
   timeLimitMinutes: number | null;
+  pause: "between-questions" | "never";
   questions: number;
   parts: PresetPart[];
   /** A preset sat on one block, module or lesson at a time lists them here. */
@@ -205,8 +213,28 @@ export async function answerExamQuestion(
   examId: string,
   attemptId: string,
   answer: Answer,
+  timing?: { timeSeconds?: number; clockUsedSeconds?: number },
 ): Promise<void> {
-  await apiClient.post(courseUrl(course, `/exams/${examId}/questions/${attemptId}/answer`), { answer });
+  await apiClient.post(courseUrl(course, `/exams/${examId}/questions/${attemptId}/answer`), {
+    answer,
+    timeSeconds: timing?.timeSeconds,
+    clockUsedSeconds: timing?.clockUsedSeconds,
+  });
+}
+
+export async function pauseExam(
+  course: CourseScope,
+  examId: string,
+  attemptId?: string,
+): Promise<void> {
+  await apiClient.post(courseUrl(course, `/exams/${examId}/pause`), { attemptId: attemptId ?? null });
+}
+
+export async function resumeExam(
+  course: CourseScope,
+  examId: string,
+): Promise<void> {
+  await apiClient.post(courseUrl(course, `/exams/${examId}/resume`), {});
 }
 
 /** The cases of a part the learner marked; the part is graded only with exactly one. */

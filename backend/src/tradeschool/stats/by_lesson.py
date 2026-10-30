@@ -33,16 +33,25 @@ class _Row:
     wrong: int = 0
     blank: int = 0
     order: int = 0
+    total_seconds: float = 0.0
+    timed_count: int = 0
 
     @property
     def questions(self) -> int:
         return self.correct + self.wrong + self.blank
 
-    def add(self, outcome: Outcome) -> None:
+    @property
+    def average_seconds(self) -> float | None:
+        return round(self.total_seconds / self.timed_count, 1) if self.timed_count else None
+
+    def add(self, outcome: Outcome, time_seconds: float | None = None) -> None:
         setattr(self, outcome, getattr(self, outcome) + 1)
+        if time_seconds is not None:
+            self.total_seconds += time_seconds
+            self.timed_count += 1
 
     def out(self, key: str) -> dict[str, object]:
-        return {
+        data: dict[str, object] = {
             key: self.id,
             "title": self.title,
             "questions": self.questions,
@@ -51,6 +60,9 @@ class _Row:
             "blank": self.blank,
             "pct": round(self.correct / self.questions, 4) if self.questions else None,
         }
+        if self.timed_count > 0:
+            data["averageSeconds"] = self.average_seconds
+        return data
 
 
 @dataclass
@@ -73,15 +85,22 @@ def _ranked(rows: list[_Row], key: str) -> dict[str, object] | None:
 
 
 def lesson_table(
-    registry: CourseRegistry, outcomes: Iterable[tuple[str, Outcome]], locale: str
+    registry: CourseRegistry,
+    outcomes: Iterable[tuple[str, Outcome] | tuple[str, Outcome, float | None]],
+    locale: str,
 ) -> dict[str, object]:
-    """`outcomes` is (lesson id, outcome) per counted question; rows follow course order."""
+    """`outcomes` is (lesson id, outcome[, time_seconds]) per counted question; rows follow course order."""
     lessons: dict[str, _Row] = {}
-    for lesson_id, outcome in outcomes:
+    for entry in outcomes:
+        lesson_id = entry[0]
+        outcome = entry[1]
+        time_seconds = entry[2] if len(entry) > 2 else None
         location = registry.lesson_location(lesson_id)
         if location is None:
             continue
-        lessons.setdefault(lesson_id, _Row(lesson_id, location.lesson.title.get(locale))).add(outcome)
+        lessons.setdefault(lesson_id, _Row(lesson_id, location.lesson.title.get(locale))).add(
+            outcome, time_seconds
+        )
 
     groups: list[_Group] = []
     for order, (module, lesson) in enumerate(registry.manifest.iter_lessons()):
@@ -95,6 +114,8 @@ def lesson_table(
         group.lessons.append(found)
         for outcome in ("correct", "wrong", "blank"):
             setattr(group.module, outcome, getattr(group.module, outcome) + getattr(found, outcome))
+        group.module.total_seconds += found.total_seconds
+        group.module.timed_count += found.timed_count
 
     lists = _ranked([row for group in groups for row in group.lessons], "lessonId")
     level: Literal["lesson", "module"] | None = "lesson" if lists else None

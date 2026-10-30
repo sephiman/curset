@@ -84,6 +84,9 @@ const SIMULACRO: ExamSession = {
   createdAt: "2026-10-18T09:00:00Z",
   finishedAt: "2026-10-18T10:30:00Z",
   deadline: "2026-10-18T10:40:00Z",
+  pause: "never",
+  paused: false,
+  activeSeconds: 5400,
   serverNow: "2026-10-18T10:30:00Z",
   parts: [
     { id: "parte-1", title: "Part one", kind: "questions", counted: 70, reserve: 2, choose: null, penalty: "1/3", cases: [], marked: [] },
@@ -106,16 +109,17 @@ const SIMULACRO: ExamSession = {
     blocks: [],
     modules: [],
     parts: [
-      { id: "parte-1", graded: true, reason: null, case: null, correct: 50, wrong: 12, blank: 8, questions: 70, raw: 46, transformed: 32.8571, max: 50, passed: true },
+      { id: "parte-1", graded: true, reason: null, case: null, correct: 50, wrong: 12, blank: 8, questions: 70, raw: 46, transformed: 32.8571, max: 50, passed: true, activeSeconds: 1800 },
       { id: "parte-2", graded: false, reason: "no-case-marked", case: null },
     ],
     raw: 46,
     transformed: 32.8571,
     max: 100,
+    totalActiveSeconds: 1800,
   },
   byLesson: TABLE,
   questions: [
-    question(0),
+    question(0, { timeSeconds: 45 }),
     question(1, { reserve: true }),
     question(2, { partId: "parte-2", exerciseId: "m02-ex-3", questionId: "q01", lessonId: "m02-l1", lessonAnchor: "lrjsp-art-9", citation: "art. 9.1 LRJSP" }),
   ],
@@ -185,9 +189,22 @@ describe("the results page of a scored exam", () => {
     expect(rows[0]).toContain(translate("exam.partTally", { correct: 50, wrong: 12, blank: 8 }));
     expect(rows[0]).toContain("46");
     expect(rows[0]).toContain("32.86 / 50");
+    expect(rows[0]).toContain("30:00");
     expect(rows[1]).toContain(`${en.exam.partNotGraded}: ${en.exam.notGradedNoCase}`);
     expect(rows[2]).toContain(en.exam.total);
     expect(rows[2]).toContain("32.86 / 100");
+    expect(rows[2]).toContain("30:00");
+  });
+
+  it("shows per-question time on review question cards", () => {
+    render();
+    expect(host.textContent).toContain("00:45");
+  });
+
+  it("shows auto-submitted notice when autoSubmitted is true", () => {
+    exam = { ...SIMULACRO, result: { ...SIMULACRO.result!, autoSubmitted: true } };
+    render();
+    expect(host.textContent).toContain(en.exam.autoSubmittedNotice);
   });
 
   it("lists results by tema, grouped by module, with blanks apart and each row linking to its lesson", () => {

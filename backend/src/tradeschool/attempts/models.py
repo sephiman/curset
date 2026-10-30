@@ -12,6 +12,7 @@ from sqlalchemy import (
     Boolean,
     DateTime,
     Enum,
+    Float,
     ForeignKey,
     ForeignKeyConstraint,
     Index,
@@ -63,6 +64,7 @@ class Attempt(Base):
     exam_session_id: Mapped[uuid.UUID | None] = mapped_column(
         ForeignKey("exam_sessions.id", ondelete="cascade"), nullable=True, index=True
     )
+    time_seconds: Mapped[float | None] = mapped_column(Float, nullable=True)
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), nullable=False, server_default=func.now()
     )

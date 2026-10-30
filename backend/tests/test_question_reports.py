@@ -183,3 +183,43 @@ async def test_reporting_touches_neither_the_attempt_nor_progress(multi_client: 
     await multi_client.post(f"{OPOS}/attempts/{attempt_id}/report", json={"message": MESSAGE})
     assert (await multi_client.get(f"{OPOS}/attempts/{attempt_id}")).json() == before_attempt
     assert (await multi_client.get(f"{OPOS}/stats/me")).json() == before_stats
+
+
+async def test_report_on_letters_course_includes_options_and_letter_in_mail(
+    multi_client: AsyncClient, mailer: RecordingMailer
+) -> None:
+    """When a course has option_labels: letters, the report mail carries options and letter prefixes."""
+    await _sign_up(multi_client, "letter_reporter")
+    opened = (await multi_client.post(f"{OPOS}/exercises/m01-ex-1/attempts")).json()
+    attempt_id = str(opened["attemptId"])
+    await multi_client.post(f"{OPOS}/attempts/{attempt_id}/answer", json={"answer": {"optionId": "b"}})
+
+    # Temporarily set option_labels on the registry's course
+    app = multi_client._transport.app  # type: ignore[attr-defined]
+    reg = app.state.catalog.get("fixture-oposiciones")
+    assert reg is not None
+    prev_labels = reg.manifest.course.option_labels
+    try:
+        reg.manifest.course.option_labels = "letters"
+        resp = await multi_client.post(f"{OPOS}/attempts/{attempt_id}/report", json={"message": MESSAGE})
+        assert resp.status_code == 202
+
+        [report] = [r for r in await _reports() if str(r.attempt_id) == attempt_id]
+        assert report.options is not None
+        assert "A) " in report.options
+        assert "B) " in report.options
+        assert report.given_answer in report.options
+        assert report.correct_answer in report.options
+        assert report.given_answer != report.correct_answer
+
+        [mail] = [
+            m
+            for m in mailer.outbox
+            if f"attempt={attempt_id}" in m.body or attempt_id in m.body or report.prompt in m.body
+        ]
+        assert "Options:" in mail.body
+        assert "A) " in mail.body
+        assert f"Their answer: {report.given_answer}" in mail.body
+        assert f"Correct answer: {report.correct_answer}" in mail.body
+    finally:
+        reg.manifest.course.option_labels = prev_labels

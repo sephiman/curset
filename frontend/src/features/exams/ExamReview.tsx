@@ -14,7 +14,7 @@ import { ByLessonTable } from "@/features/byLesson/ByLessonTable";
 import { LessonLink } from "@/features/exercises/LessonLink";
 import { SolutionPanel } from "@/features/exercises/SolutionPanel";
 import { useCourseTree } from "@/features/course/queries";
-import { scoreNumber, sittingName } from "@/features/exams/format";
+import { clock, scoreNumber, sittingName } from "@/features/exams/format";
 
 const CHART_TYPES: ReadonlySet<ExerciseType> = new Set(["synthetic_chart", "fixture_chart", "pattern_chart"]);
 
@@ -23,13 +23,16 @@ function pct(score: number | null): string {
 }
 
 /** Best-effort readable rendering of the learner's own answer, using the question payload. */
-function answerText(q: ExamQuestion, t: TFunction): string {
+function answerText(q: ExamQuestion, t: TFunction, letters?: boolean): string {
   const a = q.givenAnswer;
   if (!a) return t("exam.unanswered");
   const opts = q.payload.options ?? [];
   const text = (id: string): string => {
-    const o = opts.find((x) => x.id === id);
-    return o ? String(o.text ?? o.value ?? id) : id;
+    const idx = opts.findIndex((x) => x.id === id);
+    if (idx < 0) return id;
+    const o = opts[idx];
+    const val = String(o.text ?? o.value ?? id);
+    return letters ? `${String.fromCharCode(65 + idx)}) ${val}` : val;
   };
   if ("optionId" in a) return text(a.optionId);
   if ("optionIds" in a) return a.optionIds.map(text).join(", ");
@@ -72,6 +75,7 @@ function PartScores({ exam, result }: { exam: ExamSession; result: ExamResult })
   const titles = new Map(exam.parts.map((part) => [part.id, part.title ?? part.id]));
   const caseTitles = new Map(exam.parts.flatMap((part) => part.cases.map((c) => [c.exerciseId, c.title])));
   const number = (value: number | undefined) => (value == null ? "—" : scoreNumber(value, lang));
+  const hasTimes = (result.parts ?? []).some((p) => p.activeSeconds != null) || result.totalActiveSeconds != null;
   return (
     <div className="overflow-x-auto">
       <table className="w-full text-sm">
@@ -79,7 +83,8 @@ function PartScores({ exam, result }: { exam: ExamSession; result: ExamResult })
           <tr>
             <th className="py-2 pr-3 text-left" />
             <th className="py-2 pr-3 text-right">{t("exam.raw")}</th>
-            <th className="py-2 text-right">{t("exam.transformed")}</th>
+            <th className="py-2 pr-3 text-right">{t("exam.transformed")}</th>
+            {hasTimes && <th className="py-2 text-right">{t("exam.activeTime")}</th>}
           </tr>
         </thead>
         <tbody className="divide-y divide-border dark:divide-gray-800">
@@ -99,17 +104,27 @@ function PartScores({ exam, result }: { exam: ExamSession; result: ExamResult })
                 )}
               </td>
               <td className="py-2 pr-3 text-right tabular-nums">{part.graded ? number(part.raw) : "—"}</td>
-              <td className="py-2 text-right tabular-nums">
+              <td className="py-2 pr-3 text-right tabular-nums">
                 {part.graded && part.transformed != null ? `${number(part.transformed)} / ${number(part.max)}` : "—"}
               </td>
+              {hasTimes && (
+                <td className="py-2 text-right font-mono text-xs text-gray-500 tabular-nums dark:text-gray-400">
+                  {part.activeSeconds != null ? clock(part.activeSeconds * 1000) : "—"}
+                </td>
+              )}
             </tr>
           ))}
           <tr className="font-semibold">
             <td className="py-2 pr-3">{t("exam.total")}</td>
             <td className="py-2 pr-3 text-right tabular-nums">{number(result.raw)}</td>
-            <td className="py-2 text-right tabular-nums">
+            <td className="py-2 pr-3 text-right tabular-nums">
               {result.transformed != null ? `${number(result.transformed)} / ${number(result.max ?? undefined)}` : "—"}
             </td>
+            {hasTimes && (
+              <td className="py-2 text-right font-mono text-xs tabular-nums text-gray-900 dark:text-gray-100">
+                {result.totalActiveSeconds != null ? clock(result.totalActiveSeconds * 1000) : "—"}
+              </td>
+            )}
           </tr>
         </tbody>
       </table>
@@ -124,6 +139,7 @@ export function ExamReview() {
   const { scope, path } = useCourse();
   const { data: course } = useCourseTree();
   const noun = course?.course.lessonNoun;
+  const letters = course?.course.optionLabels === "letters";
 
   const { data: exam, isLoading, isError } = useQuery({
     queryKey: ["exam", ...scopeKey(scope), examId, "review"],
@@ -166,6 +182,12 @@ export function ExamReview() {
           {exam.finishedAt ? new Date(exam.finishedAt).toLocaleDateString(lang) : ""}
         </p>
       </div>
+
+      {r.autoSubmitted && (
+        <p role="status" className="rounded-md bg-amber-50 p-3 text-sm text-amber-900 dark:bg-amber-950/50 dark:text-amber-100">
+          {t("exam.autoSubmittedNotice")}
+        </p>
+      )}
 
       {/* Score — plain, honest numbers. No pass/fail, no badges/confetti. */}
       {scored && (
@@ -245,6 +267,11 @@ export function ExamReview() {
               <div className="flex items-center justify-between gap-2">
                 <p className="text-xs text-gray-400">
                   <span className="font-mono">{q.moduleId.toUpperCase()}</span> · {q.moduleTitle}
+                  {q.timeSeconds != null && (
+                    <span className="ml-2 font-mono tabular-nums text-gray-500 dark:text-gray-400">
+                      ({clock(q.timeSeconds * 1000)})
+                    </span>
+                  )}
                 </p>
                 <StatusBadge q={q} t={t} />
               </div>
@@ -266,7 +293,7 @@ export function ExamReview() {
               <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">
                 <span className="font-medium">{t("exam.yourAnswer")}:</span>{" "}
                 <span className={cn(q.unanswered && "text-gray-400 italic dark:text-gray-500")}>
-                  {answerText(q, t)}
+                  {answerText(q, t, letters)}
                 </span>
               </p>
               {CHART_TYPES.has(q.type) ? (
@@ -278,6 +305,7 @@ export function ExamReview() {
                   correctAnswer={result.correctAnswer}
                   solutionSteps={result.solutionSteps}
                   explanation={result.explanation}
+                  options={q.payload.options}
                   excerpt={q.excerpt}
                   noExcerpt={q.noExcerpt}
                   lessonLink={q.lessonId ? { lessonId: q.lessonId, anchor: q.lessonAnchor, citation: q.citation } : null}

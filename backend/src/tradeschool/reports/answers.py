@@ -9,9 +9,15 @@ _TRUE_FALSE = {"en": ("True", "False"), "es": ("Verdadero", "Falso")}
 _NO_ANSWER = {"en": "(no answer)", "es": "(sin respuesta)"}
 
 
-def _texts(entries: object) -> dict[str, str]:
+def _texts(entries: object, *, letters: bool = False) -> dict[str, str]:
     if not isinstance(entries, list):
         return {}
+    if letters:
+        return {
+            str(e["id"]): f"{chr(ord('A') + i)}) {e['text']}"
+            for i, e in enumerate(entries)
+            if isinstance(e, dict)
+        }
     return {str(e["id"]): str(e["text"]) for e in entries if isinstance(e, dict)}
 
 
@@ -20,11 +26,17 @@ def _boolean(value: object, locale: str) -> str:
     return yes if value is True else no
 
 
-def describe_given(payload: Mapping[str, object], answer: Mapping[str, object] | None, locale: str) -> str:
+def describe_given(
+    payload: Mapping[str, object],
+    answer: Mapping[str, object] | None,
+    locale: str,
+    *,
+    letters: bool = False,
+) -> str:
     """The learner's answer, in the texts the instance showed them."""
     if not answer:
         return _NO_ANSWER.get(locale, _NO_ANSWER["en"])
-    options = _texts(payload.get("options"))
+    options = _texts(payload.get("options"), letters=letters)
     if "optionId" in answer:
         return options.get(str(answer["optionId"]), str(answer["optionId"]))
     if "optionIds" in answer and isinstance(answer["optionIds"], list):
@@ -43,10 +55,21 @@ def describe_given(payload: Mapping[str, object], answer: Mapping[str, object] |
     return str(dict(answer))
 
 
-def describe_correct(correct_answer: object, locale: str) -> str:
+def describe_correct(
+    correct_answer: object,
+    locale: str,
+    *,
+    payload: Mapping[str, object] | None = None,
+    letters: bool = False,
+) -> str:
     """The solution as the review screen prints it."""
     if not isinstance(correct_answer, dict):
         return str(correct_answer)
+    if letters and payload and "options" in payload and isinstance(payload["options"], list):
+        correct_id = str(correct_answer.get("optionId", ""))
+        for i, opt in enumerate(payload["options"]):
+            if isinstance(opt, dict) and str(opt.get("id")) == correct_id:
+                return f"{chr(ord('A') + i)}) {opt.get('text', '')}"
     if "text" in correct_answer:
         return str(correct_answer["text"])
     if "readable" in correct_answer and isinstance(correct_answer["readable"], list):

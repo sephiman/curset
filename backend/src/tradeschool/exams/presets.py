@@ -194,10 +194,22 @@ class ExamPreset(BaseModel):
     title: LocalizedText
     #: For the whole exam, parts running together; absent means untimed.
     time_limit_minutes: int | None = Field(default=None, ge=1)
+    #: `between-questions`: pause enabled between questions; `never`: no pause control and time keeps running.
+    pause: Literal["between-questions", "never"] | None = None
     parts: list[PresetPart] = Field(min_length=1)
 
     @model_validator(mode="after")
     def _parts(self) -> Self:
+        if self.pause is None:
+            title_text = (
+                " ".join(self.title.values()).lower()
+                if isinstance(self.title, dict)
+                else str(self.title).lower()
+            )
+            if "simulacro" in self.id.lower() or "simulacro" in title_text:
+                self.pause = "never"
+            else:
+                self.pause = "between-questions"
         ids = [part.id for part in self.parts]
         if len(set(ids)) != len(ids):
             raise ValueError(f"preset {self.id!r}: duplicate part id")

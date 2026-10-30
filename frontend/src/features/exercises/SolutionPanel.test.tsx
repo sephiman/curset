@@ -171,6 +171,9 @@ describe("an exam that is still running", () => {
       createdAt: "2026-10-28T09:00:00Z",
       finishedAt: null,
       deadline: null,
+      pause: "between-questions",
+      paused: false,
+      activeSeconds: 300,
       serverNow: "2026-10-28T09:05:00Z",
       parts: [
         { id: "parte-1", title: "Part one", kind: "questions", counted: 1, reserve: 0, choose: null, penalty: "1/3", cases: [], marked: [] },

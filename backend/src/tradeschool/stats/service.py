@@ -332,12 +332,12 @@ async def lesson_progress(
     session: AsyncSession, registry: CourseRegistry, user_id: uuid.UUID, locale: str
 ) -> dict[str, object]:
     """The «Por tema» view over every practice attempt and every submitted exam of this course."""
-    outcomes: list[tuple[str, Outcome]] = []
+    outcomes: list[tuple[str, Outcome, float | None]] = []
     for attempt in await _answered(session, registry.slug, user_id):
         exercise_id, question_id = _attempt_unit(registry, attempt)
         lesson_id = registry.question_lesson_id(exercise_id, question_id)
         if lesson_id is not None:
-            outcomes.append((lesson_id, "correct" if attempt.is_correct else "wrong"))
+            outcomes.append((lesson_id, "correct" if attempt.is_correct else "wrong", attempt.time_seconds))
 
     exams = [
         exam

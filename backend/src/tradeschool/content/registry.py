@@ -378,6 +378,7 @@ class CourseRegistry:
             "lessonNoun": course.lesson_noun.get(locale) if course.lesson_noun else None,
             # Sent only when set, so a course without it serves exactly what it did before.
             **({"lessonPractice": True} if course.lesson_practice else {}),
+            **({"optionLabels": course.option_labels} if course.option_labels else {}),
         }
 
     def course_tree(

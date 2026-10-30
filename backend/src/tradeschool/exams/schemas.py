@@ -42,7 +42,13 @@ class ExamStartRequest(BaseModel):
 
 
 class ExamAnswerRequest(BaseModel):
-    answer: dict[str, object]
+    answer: dict[str, object] | None = None
+    timeSeconds: float | None = None
+    clockUsedSeconds: float | None = None
+
+
+class ExamPauseRequest(BaseModel):
+    attemptId: uuid.UUID | None = None
 
 
 class CaseMarksRequest(BaseModel):
@@ -69,6 +75,7 @@ class ExamQuestionOut(BaseModel):
     # Reveal-only (populated on a submitted session's review):
     lessonAnchor: str | None = None
     citation: str | None = None
+    timeSeconds: float | None = None
     excerpt: ExcerptOut | None = None
     noExcerpt: NoExcerptOut | None = None
     isCorrect: bool | None = None
@@ -98,6 +105,7 @@ class ExamQuestionOut(BaseModel):
             reserve=q.reserve,
             lessonAnchor=q.lesson_anchor,
             citation=q.citation,
+            timeSeconds=q.time_seconds,
             excerpt=ExcerptOut.build(q.excerpt),
             noExcerpt=missing_reason(q.excerpt),
             isCorrect=q.is_correct,
@@ -158,6 +166,9 @@ class ExamSessionOut(BaseModel):
     #: cannot shorten or stretch the sitting.
     deadline: datetime | None
     serverNow: datetime
+    pause: Literal["between-questions", "never"] = "between-questions"
+    paused: bool = False
+    activeSeconds: float = 0.0
     parts: list[ExamPartOut]
     result: dict[str, object] | None
     byLesson: dict[str, object] | None
@@ -177,6 +188,9 @@ class ExamSessionOut(BaseModel):
             finishedAt=view.finished_at,
             deadline=view.deadline,
             serverNow=datetime.now(UTC),
+            pause=view.pause,
+            paused=view.paused,
+            activeSeconds=view.active_seconds,
             parts=[ExamPartOut.build(part) for part in view.parts],
             result=view.result,
             byLesson=view.by_lesson,
@@ -254,6 +268,7 @@ class PresetOut(BaseModel):
     version: int
     title: str
     timeLimitMinutes: int | None
+    pause: Literal["between-questions", "never"] = "between-questions"
     questions: int
     parts: list[PresetPartOut]
     #: A parametric preset's choices (one sitting per block, module or lesson); absent otherwise.
@@ -293,6 +308,7 @@ class PresetOut(BaseModel):
             version=preset.version,
             title=preset.title.get(locale),
             timeLimitMinutes=preset.time_limit_minutes,
+            pause=preset.pause,
             questions=sum(p.questions for p in parts),
             parts=parts,
             targets=targets,

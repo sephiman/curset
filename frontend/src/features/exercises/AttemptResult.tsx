@@ -1,6 +1,8 @@
 import type { ReactNode } from "react";
 import type { TFunction } from "i18next";
 import { useTranslation } from "react-i18next";
+import type { OptionView } from "@/api/exercises";
+import { useCourseTree } from "@/features/course/queries";
 import { cn } from "@/lib/cn";
 import { Prose } from "@/lib/markdown";
 
@@ -89,19 +91,68 @@ export function SolutionBody({
   correctAnswer,
   solutionSteps,
   explanation,
+  options,
 }: {
   correctAnswer: unknown;
   solutionSteps: string[];
   explanation: string | null;
+  options?: OptionView[];
 }) {
   const { t } = useTranslation();
+  const { data: courseTree } = useCourseTree();
+  const letters = courseTree?.course.optionLabels === "letters";
+
+  const correctId =
+    typeof correctAnswer === "object" && correctAnswer !== null && "optionId" in correctAnswer
+      ? String((correctAnswer as { optionId: unknown }).optionId)
+      : null;
+  const optIndex =
+    options && correctId != null ? options.findIndex((o) => o.id === correctId) : -1;
+  const correctLetter = optIndex >= 0 ? String.fromCharCode(65 + optIndex) : null;
+
   const answer = renderCorrectAnswer(correctAnswer, t);
   return (
     <>
       {answer != null && (
         <div className="text-sm text-gray-700 dark:text-gray-300">
-          <span className="font-medium">{t("exercise.correctAnswer")}:</span>
-          {typeof answer === "string" ? <span> {answer}</span> : answer}
+          {letters && correctLetter ? (
+            <div>
+              <p className="font-semibold text-emerald-700 dark:text-emerald-400">
+                {t("exercise.correctOption", { letter: correctLetter })}
+              </p>
+              {options && options.length > 0 ? (
+                <div className="mt-2 space-y-1">
+                  {options.map((opt, idx) => {
+                    const isCorrect = opt.id === correctId;
+                    return (
+                      <div
+                        key={opt.id}
+                        className={cn(
+                          "flex items-start gap-2 rounded-md border p-2 text-sm",
+                          isCorrect
+                            ? "border-emerald-500 bg-emerald-50 font-medium text-emerald-950 dark:border-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-100"
+                            : "border-border text-gray-600 dark:border-gray-800 dark:text-gray-400 opacity-75",
+                        )}
+                      >
+                        <span className="font-semibold">{String.fromCharCode(65 + idx)})</span>
+                        <span>{opt.text}</span>
+                        {isCorrect && (
+                          <span className="ml-auto font-bold text-emerald-600 dark:text-emerald-400">✓</span>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                typeof answer === "string" ? <span> · {answer}</span> : answer
+              )}
+            </div>
+          ) : (
+            <div>
+              <span className="font-medium">{t("exercise.correctAnswer")}:</span>
+              {typeof answer === "string" ? <span> {answer}</span> : answer}
+            </div>
+          )}
         </div>
       )}
 
@@ -130,20 +181,25 @@ export function AttemptResult({
   correctAnswer,
   solutionSteps,
   explanation,
+  options,
   hideVerdict = false,
 }: {
   correct: boolean;
   correctAnswer: unknown;
   solutionSteps: string[];
   explanation: string | null;
-  // When the verdict is shown elsewhere (exam review's per-question badge, which distinguishes
-  // "unanswered" from "wrong"), skip the banner here to avoid a second, conflicting verdict.
+  options?: OptionView[];
   hideVerdict?: boolean;
 }) {
   return (
     <div className="mt-4 space-y-3">
       {!hideVerdict && <Verdict correct={correct} />}
-      <SolutionBody correctAnswer={correctAnswer} solutionSteps={solutionSteps} explanation={explanation} />
+      <SolutionBody
+        correctAnswer={correctAnswer}
+        solutionSteps={solutionSteps}
+        explanation={explanation}
+        options={options}
+      />
     </div>
   );
 }

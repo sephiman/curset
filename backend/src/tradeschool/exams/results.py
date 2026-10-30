@@ -134,8 +134,8 @@ def counted_attempts(
 
 def counted_outcomes(
     registry: CourseRegistry, exam: ExamSession, preset: ExamPreset, attempts: list[Attempt]
-) -> list[tuple[str, Outcome]]:
-    """(lesson, outcome) for every question a submitted sitting counted: graded parts, no reserves."""
+) -> list[tuple[str, Outcome, float | None]]:
+    """(lesson, outcome, time_seconds) for counted questions: graded parts, no reserves."""
     result = exam.rules.get("result")
     stored_parts = result.get("parts") if isinstance(result, dict) else None
     graded = (
@@ -143,7 +143,7 @@ def counted_outcomes(
         if isinstance(stored_parts, list)
         else {part.id for part in preset.parts}
     )
-    outcomes: list[tuple[str, Outcome]] = []
+    outcomes: list[tuple[str, Outcome, float | None]] = []
     for part_id, (counted, _reason, _case) in counted_attempts(exam, preset, attempts).items():
         if part_id not in graded:
             continue
@@ -156,7 +156,7 @@ def counted_outcomes(
             outcome: Outcome = (
                 "blank" if attempt.given_answer is None else "correct" if attempt.is_correct else "wrong"
             )
-            outcomes.append((lesson_id, outcome))
+            outcomes.append((lesson_id, outcome, attempt.time_seconds))
     return outcomes
 
 
@@ -174,7 +174,14 @@ def grade_session(
         if reason is None and part.requires_previous_pass and not previous_passed:
             reason = "previous-part-not-passed"
         tally = _tally(counted)
-        entry: dict[str, object] = {"id": part.id, "graded": reason is None, "reason": reason, "case": case}
+        part_seconds = round(sum(a.time_seconds for a in counted if a.time_seconds is not None), 1)
+        entry: dict[str, object] = {
+            "id": part.id,
+            "graded": reason is None,
+            "reason": reason,
+            "case": case,
+            "activeSeconds": part_seconds,
+        }
         passed = False
         if reason is None:
             graded.extend(counted)
@@ -200,10 +207,19 @@ def grade_session(
     if not is_scored(preset):
         return result
     every_part_scored = all(part.scoring is not None for part in preset.parts)
+    clock = exam.rules.get("clock")
+    total_active = (
+        round(float(clock.get("activeSeconds", 0.0)), 1)
+        if isinstance(clock, dict) and "activeSeconds" in clock
+        else round(sum(a.time_seconds for a in attempts if a.time_seconds is not None), 1)
+    )
     result.update(
         parts=parts,
         raw=rounded(raw_total),
         transformed=rounded(transformed_total) if every_part_scored else None,
         max=sum(part.scoring.max for part in preset.parts if part.scoring) if every_part_scored else None,
+        totalActiveSeconds=total_active,
     )
+    if exam.rules.get("autoSubmitted"):
+        result["autoSubmitted"] = True
     return result

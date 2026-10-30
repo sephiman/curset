@@ -63,6 +63,8 @@ export interface CourseMeta {
   lessonNoun?: string | null;
   /** Each lesson's questions are practised from its «Practicar» page; absent: quizzes sit in the lessons. */
   lessonPractice?: boolean;
+  /** How multiple-choice options are labelled (`letters` for A-D; absent for no labels). */
+  optionLabels?: "letters" | null;
 }
 
 export interface Course {

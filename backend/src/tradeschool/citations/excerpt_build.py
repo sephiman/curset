@@ -141,7 +141,15 @@ def excerpt_for(
     units = entry.get("units") if isinstance(entry, dict) else None
     place = units.get(segment.units[0].slug) if isinstance(units, dict) else None
     fragment = index.fragment(norm.file, segment.units[0])
-    return norm_excerpt(source.blocks, segment, norm.file, place, fragment, question.explanation)
+    return norm_excerpt(
+        source.blocks,
+        segment,
+        norm.file,
+        place,
+        fragment,
+        question.explanation,
+        question_key=question.key,
+    )
 
 
 EXCLUSIONS_FILE = "excerpt-exclusions.yaml"

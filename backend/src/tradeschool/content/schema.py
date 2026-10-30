@@ -9,7 +9,7 @@ from __future__ import annotations
 from collections.abc import Iterator
 from enum import StrEnum
 from pathlib import Path
-from typing import Self
+from typing import Literal, Self
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
@@ -93,6 +93,8 @@ class ManifestCourse(BaseModel):
     #: Each lesson's questions are practised one by one from a «Practicar» page instead of quizzes
     #: embedded in its text; absent: practice is whatever the lesson embeds.
     lesson_practice: bool = False
+    #: How multiple-choice options are labelled (`letters` for A-D; absent for no labels).
+    option_labels: Literal["letters"] | None = None
 
     @model_validator(mode="after")
     def _distinct_languages(self) -> Self:

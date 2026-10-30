@@ -129,6 +129,7 @@ export interface LessonTableRow {
   blank: number;
   pct: number | null;
   title: string;
+  averageSeconds?: number | null;
 }
 
 export interface LessonTableGroup extends LessonTableRow {
