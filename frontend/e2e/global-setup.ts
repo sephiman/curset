@@ -8,12 +8,12 @@ export default async function globalSetup(config: FullConfig): Promise<void> {
   let login = await api.post("/api/auth/login", { data: USER });
   if (!login.ok()) {
     const register = await api.post("/api/auth/register", {
-      data: { ...USER, locale: "es", email: null, courses: [AGE, CRYPTO] },
+      data: { ...USER, locale: "es", name: "e2e-mobile", courses: [AGE, CRYPTO] },
     });
-    if (!register.ok()) throw new Error(`cannot register ${USER.username}: ${await register.text()}`);
+    if (!register.ok()) throw new Error(`cannot register ${USER.email}: ${await register.text()}`);
     login = await api.post("/api/auth/login", { data: USER });
   }
-  if (!login.ok()) throw new Error(`cannot sign in ${USER.username}: ${await login.text()}`);
+  if (!login.ok()) throw new Error(`cannot sign in ${USER.email}: ${await login.text()}`);
   await api.storageState({ path: STATE_FILE });
   await api.dispose();
 }

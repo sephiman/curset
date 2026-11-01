@@ -4,7 +4,7 @@ export const AGE = "age-administrativo-c1";
 export const CRYPTO = "crypto-futures";
 
 // One fixed account, so repeated runs reuse it instead of filling the local database with users.
-export const USER = { username: "e2e-mobile", password: "E2e-mobile-layout-2026!" };
+export const USER = { email: "e2e-mobile@example.com", password: "E2e-mobile-layout-2026!" };
 export const STATE_FILE = "e2e/.auth/state.json";
 
 /** Both courses active, `selected` the current one; the session itself comes from the global setup. */
