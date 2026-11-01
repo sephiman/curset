@@ -15,7 +15,7 @@ export function LoginPage() {
   const location = useLocation();
   const next = new URLSearchParams(location.search).get("next") ?? "/";
 
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -27,7 +27,7 @@ export function LoginPage() {
     setError(null);
     setBusy(true);
     try {
-      await login(username, password);
+      await login(email, password);
       navigate(next, { replace: true });
     } catch (err) {
       setError(apiErrorMessage(err, t));
@@ -40,8 +40,8 @@ export function LoginPage() {
     <AuthCard title={t("auth.loginTitle")}>
       <form onSubmit={onSubmit} className="space-y-4">
         <div>
-          <Label htmlFor="username">{t("auth.username")}</Label>
-          <Input id="username" type="text" autoComplete="username" autoCapitalize="none" spellCheck={false} required value={username} onChange={(e) => setUsername(e.target.value)} />
+          <Label htmlFor="email">{t("auth.email")}</Label>
+          <Input id="email" type="email" autoComplete="email" autoCapitalize="none" spellCheck={false} required value={email} onChange={(e) => setEmail(e.target.value)} />
         </div>
         <div>
           <Label htmlFor="password">{t("auth.password")}</Label>

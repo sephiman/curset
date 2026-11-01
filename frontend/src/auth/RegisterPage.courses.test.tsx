@@ -68,7 +68,7 @@ beforeEach(async () => {
       </MemoryRouter>,
     );
   });
-  fill("username", "newcomer");
+  fill("email", "newcomer@example.com");
   fill("password", "correcthorse");
   await submitForm();
 });
@@ -84,12 +84,12 @@ describe("the courses step of sign-up", () => {
 
   it("creates the account with no course when none is ticked", async () => {
     await submitForm();
-    expect(register).toHaveBeenCalledWith("newcomer", "correcthorse", "en", null, []);
+    expect(register).toHaveBeenCalledWith("newcomer@example.com", "correcthorse", "en", null, []);
   });
 
   it("activates the ticked courses", async () => {
     act(() => host.querySelector<HTMLInputElement>('input[type="checkbox"]')!.click());
     await submitForm();
-    expect(register).toHaveBeenCalledWith("newcomer", "correcthorse", "en", null, ["crypto-futures"]);
+    expect(register).toHaveBeenCalledWith("newcomer@example.com", "correcthorse", "en", null, ["crypto-futures"]);
   });
 });

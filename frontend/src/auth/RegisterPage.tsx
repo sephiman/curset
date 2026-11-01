@@ -9,16 +9,16 @@ import { Button, Input, Label } from "@/components/ui/primitives";
 import { CourseChoices } from "@/features/courses/CourseChoices";
 
 const MIN_PASSWORD = 8;
-const USERNAME_RE = /^[a-z0-9_-]{3,32}$/;
+const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 
 export function RegisterPage() {
   const { t, i18n } = useTranslation();
   const { user, register } = useAuth();
   const navigate = useNavigate();
 
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
   // Sign-up asks for the account first, then which courses interest the learner (R5.4).
   const [step, setStep] = useState<"account" | "courses">("account");
   const [courses, setCourses] = useState<string[]>([]);
@@ -30,8 +30,9 @@ export function RegisterPage() {
   function onAccountSubmit(e: FormEvent) {
     e.preventDefault();
     setError(null);
-    if (!USERNAME_RE.test(username.trim().toLowerCase())) {
-      setError(t("auth.usernameInvalid"));
+    const normalizedEmail = email.trim().toLowerCase();
+    if (!EMAIL_RE.test(normalizedEmail)) {
+      setError(t("errors.VALIDATION_ERROR"));
       return;
     }
     if (password.length < MIN_PASSWORD) {
@@ -47,7 +48,7 @@ export function RegisterPage() {
     setBusy(true);
     try {
       const locale = (i18n.resolvedLanguage === "es" ? "es" : "en") as Locale;
-      await register(username.trim().toLowerCase(), password, locale, email.trim() || null, courses);
+      await register(email.trim().toLowerCase(), password, locale, name.trim() || null, courses);
       navigate("/", { replace: true });
     } catch (err) {
       setError(apiErrorMessage(err, t));
@@ -70,27 +71,50 @@ export function RegisterPage() {
           </Button>
         </form>
       ) : (
-      <form onSubmit={onAccountSubmit} className="space-y-4">
-        <div>
-          <Label htmlFor="username">{t("auth.username")}</Label>
-          <Input id="username" type="text" autoComplete="username" autoCapitalize="none" spellCheck={false} required minLength={3} maxLength={32} value={username} onChange={(e) => setUsername(e.target.value)} />
-          <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">{t("auth.usernameHint")}</p>
-        </div>
-        <div>
-          <Label htmlFor="password">{t("auth.password")}</Label>
-          <Input id="password" type="password" autoComplete="new-password" required minLength={MIN_PASSWORD} value={password} onChange={(e) => setPassword(e.target.value)} />
-          <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">{t("auth.passwordHint", { count: MIN_PASSWORD })}</p>
-        </div>
-        <div>
-          <Label htmlFor="email">{t("auth.emailOptional")}</Label>
-          <Input id="email" type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-          <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">{t("account.emailHint")}</p>
-        </div>
-        {error && <p className="text-sm text-red-600 dark:text-red-400">{error}</p>}
-        <Button type="submit" className="w-full">
-          {t("common.continue")}
-        </Button>
-      </form>
+        <form onSubmit={onAccountSubmit} className="space-y-4">
+          <div>
+            <Label htmlFor="email">{t("auth.email")}</Label>
+            <Input
+              id="email"
+              type="email"
+              autoComplete="email"
+              autoCapitalize="none"
+              spellCheck={false}
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div>
+            <Label htmlFor="name">{t("auth.nameOptional")}</Label>
+            <Input
+              id="name"
+              type="text"
+              autoComplete="name"
+              maxLength={100}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+            <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">{t("auth.nameHint")}</p>
+          </div>
+          <div>
+            <Label htmlFor="password">{t("auth.password")}</Label>
+            <Input
+              id="password"
+              type="password"
+              autoComplete="new-password"
+              required
+              minLength={MIN_PASSWORD}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">{t("auth.passwordHint", { count: MIN_PASSWORD })}</p>
+          </div>
+          {error && <p className="text-sm text-red-600 dark:text-red-400">{error}</p>}
+          <Button type="submit" className="w-full">
+            {t("common.continue")}
+          </Button>
+        </form>
       )}
       <p className="mt-4 text-center text-sm text-gray-500 dark:text-gray-400">
         {t("auth.haveAccount")}{" "}

@@ -38,7 +38,7 @@ beforeEach(() => {
       <MemoryRouter initialEntries={["/courses/crypto-futures"]}>
         <Routes>
           <Route path="/account" element={<h1>account page</h1>} />
-          <Route path="*" element={<AccountMenu user={{ username: "juanjo", locale: "en" } as never} />} />
+          <Route path="*" element={<AccountMenu user={{ email: "juanjo@example.com", name: "juanjo", locale: "en" } as never} />} />
         </Routes>
       </MemoryRouter>,
     );

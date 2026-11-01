@@ -39,9 +39,9 @@ def quiz_answer(variant: QuizVariant, seed: int, correct: bool) -> dict[str, obj
     return {"pairs": cmap}
 
 
-async def _login(client: AsyncClient, username: str) -> None:
-    creds = {"username": username, "password": "correcthorse"}
-    await client.post("/api/auth/register", json={**creds, "locale": "en"})
+async def _login(client: AsyncClient, name: str) -> None:
+    creds = {"email": f"{name}@example.com", "password": "correcthorse"}
+    await client.post("/api/auth/register", json={**creds, "name": name, "locale": "en"})
     await client.post("/api/auth/login", json=creds)
 
 

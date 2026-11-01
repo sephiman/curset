@@ -4,9 +4,9 @@ export type Locale = "en" | "es";
 
 export interface Me {
   id: string;
-  username: string;
+  email: string;
+  name: string | null;
   locale: Locale;
-  email: string | null;
   email_verified: boolean;
 }
 
@@ -15,19 +15,19 @@ export async function getMe(): Promise<Me> {
   return data;
 }
 
-export async function login(username: string, password: string): Promise<Me> {
-  const { data } = await apiClient.post<Me>("/auth/login", { username, password });
+export async function login(email: string, password: string): Promise<Me> {
+  const { data } = await apiClient.post<Me>("/auth/login", { email, password });
   return data;
 }
 
 export async function register(
-  username: string,
+  email: string,
   password: string,
   locale: Locale,
-  email: string | null,
+  name: string | null,
   courses: string[],
 ): Promise<Me> {
-  const { data } = await apiClient.post<Me>("/auth/register", { username, password, locale, email, courses });
+  const { data } = await apiClient.post<Me>("/auth/register", { email, password, locale, name, courses });
   return data;
 }
 
@@ -40,8 +40,13 @@ export async function updateLocale(locale: Locale): Promise<Me> {
   return data;
 }
 
-/** `null` removes the address; any change leaves it unverified until the mailed link is opened. */
-export async function updateEmail(email: string | null): Promise<Me> {
+export async function updateName(name: string | null): Promise<Me> {
+  const { data } = await apiClient.patch<Me>("/auth/me", { name });
+  return data;
+}
+
+/** Any change leaves it unverified until the mailed link is opened. */
+export async function updateEmail(email: string): Promise<Me> {
   const { data } = await apiClient.patch<Me>("/auth/me", { email });
   return data;
 }

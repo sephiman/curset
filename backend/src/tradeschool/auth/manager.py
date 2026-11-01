@@ -1,9 +1,5 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""User manager: Argon2 hashing, password/username policy, username-keyed identity.
-
-fastapi-users is email-centric: its ``get_by_email`` hook is pointed at our ``username`` column, and
-registration/locale go through explicit methods because the stock ``create``/``update`` read ``email``.
-"""
+"""User manager: Argon2 hashing, password policy, email-keyed identity."""
 
 from __future__ import annotations
 
@@ -23,7 +19,7 @@ from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from tradeschool.auth.models import User
-from tradeschool.auth.schemas import Locale, normalize_username
+from tradeschool.auth.schemas import Locale, derive_name_from_email, normalize_email
 from tradeschool.config import get_settings
 from tradeschool.db import get_async_session
 
@@ -36,15 +32,11 @@ MIN_PASSWORD_LENGTH = 8
 
 
 class UserDatabase(SQLAlchemyUserDatabase[User, uuid.UUID]):  # type: ignore[type-var]
-    """SQLAlchemy adapter keyed on ``username``: ``get_by_email`` is aliased to the username lookup."""
-
-    async def get_by_username(self, username: str) -> User | None:
-        statement = select(User).where(func.lower(User.username) == func.lower(username))
-        return await self._get_user(statement)
+    """SQLAlchemy adapter keyed on case-insensitive ``email``."""
 
     async def get_by_email(self, email: str) -> User | None:
-        # Identity lookup hook called by fastapi-users' authenticate(); aliased to username.
-        return await self.get_by_username(email)
+        statement = select(User).where(func.lower(User.email) == func.lower(email))
+        return await self._get_user(statement)
 
 
 async def get_user_db(
@@ -69,16 +61,18 @@ class UserManager(UUIDIDMixin, BaseUserManager[User, uuid.UUID]):  # type: ignor
     ) -> None:
         logger.info("auth_login user=%s", user.id)
 
-    async def register(self, username: str, password: str, locale: Locale) -> User:
-        """Create a user by username. Raises InvalidPasswordException / UserAlreadyExists / ValueError."""
+    async def register(self, email: str, password: str, locale: Locale, name: str | None = None) -> User:
+        """Create a user by email. Raises InvalidPasswordException / UserAlreadyExists / ValueError."""
         await self.validate_password(password)
-        uname = normalize_username(username)  # ValueError -> 422 at the router
-        db = self._username_db()
-        if await db.get_by_username(uname) is not None:
+        addr = normalize_email(email)
+        display_name = name or derive_name_from_email(addr)
+        db = self._user_db()
+        if await db.get_by_email(addr) is not None:
             raise UserAlreadyExists()
         user = await db.create(
             {
-                "username": uname,
+                "email": addr,
+                "name": display_name,
                 "hashed_password": self.password_helper.hash(password),
                 "locale": locale,
                 "is_active": True,
@@ -91,18 +85,23 @@ class UserManager(UUIDIDMixin, BaseUserManager[User, uuid.UUID]):  # type: ignor
 
     async def set_locale(self, user: User, locale: str) -> User:
         locale_before = user.locale
-        updated = await self._username_db().update(user, {"locale": locale})
+        updated = await self._user_db().update(user, {"locale": locale})
         logger.info("user_locale_changed locale=%s->%s", locale_before, locale)
+        return updated
+
+    async def set_name(self, user: User, name: str | None) -> User:
+        name_before = user.name
+        updated = await self._user_db().update(user, {"name": name})
+        logger.info("user_name_changed name=%s->%s", name_before, name)
         return updated
 
     async def set_password(self, user: User, new_password: str) -> User:
         await self.validate_password(new_password)
-        return await self._username_db().update(
+        return await self._user_db().update(
             user, {"hashed_password": self.password_helper.hash(new_password)}
         )
 
-    def _username_db(self) -> UserDatabase:
-        # user_db is always our UserDatabase (see get_user_manager); narrow it for the extra methods.
+    def _user_db(self) -> UserDatabase:
         assert isinstance(self.user_db, UserDatabase)
         return self.user_db
 

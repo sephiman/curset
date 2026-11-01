@@ -23,10 +23,17 @@ def registry() -> CourseRegistry:
     return load_registry(FIXTURE_CONTENT / "fixture-oposiciones")
 
 
-async def _sign_up(client: AsyncClient, username: str) -> None:
-    body = {"username": username, "password": PASSWORD, "locale": "es", "courses": ["fixture-oposiciones"]}
+async def _sign_up(client: AsyncClient, name: str) -> None:
+    email = f"{name}@example.com"
+    body = {
+        "email": email,
+        "name": name,
+        "password": PASSWORD,
+        "locale": "es",
+        "courses": ["fixture-oposiciones"],
+    }
     await client.post("/api/auth/register", json=body)
-    await client.post("/api/auth/login", json={"username": username, "password": PASSWORD})
+    await client.post("/api/auth/login", json={"email": email, "password": PASSWORD})
 
 
 async def test_pause_allowed_and_refused_by_preset(multi_client: AsyncClient) -> None:

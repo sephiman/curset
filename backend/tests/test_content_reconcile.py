@@ -83,7 +83,8 @@ async def test_reconcile_reorder_add_remove_preserves_progress(session: AsyncSes
 
     # A learner completes lB.
     user = User(
-        username="xlearner",
+        email="xlearner@example.com",
+        name="xlearner",
         hashed_password="x",
         is_active=True,
         is_superuser=False,
@@ -136,7 +137,8 @@ async def test_reconcile_moves_exercise_between_lessons_keeping_attempts(
     assert (await session.get(Exercise, {"course_id": "c1", "id": "shared-ex"})).lesson_id == "lA"
 
     user = User(
-        username="ylearner",
+        email="ylearner@example.com",
+        name="ylearner",
         hashed_password="x",
         is_active=True,
         is_superuser=False,

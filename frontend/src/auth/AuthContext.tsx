@@ -6,17 +6,18 @@ import type { Locale, Me } from "@/api/auth";
 interface AuthContextValue {
   user: Me | null;
   loading: boolean;
-  login: (username: string, password: string) => Promise<void>;
+  login: (email: string, password: string) => Promise<void>;
   register: (
-    username: string,
+    email: string,
     password: string,
     locale: Locale,
-    email: string | null,
+    name: string | null,
     courses: string[],
   ) => Promise<void>;
   logout: () => Promise<void>;
   setLocale: (locale: Locale) => Promise<void>;
-  setEmail: (email: string | null) => Promise<void>;
+  setName: (name: string | null) => Promise<void>;
+  setEmail: (email: string) => Promise<void>;
   refresh: () => Promise<void>;
 }
 
@@ -51,8 +52,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const login = useCallback(
-    async (username: string, password: string) => {
-      const me = await authApi.login(username, password);
+    async (email: string, password: string) => {
+      const me = await authApi.login(email, password);
       setUser(me);
       applyUserLocale(me);
     },
@@ -60,9 +61,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   );
 
   const register = useCallback(
-    async (username: string, password: string, locale: Locale, email: string | null, courses: string[]) => {
-      await authApi.register(username, password, locale, email, courses);
-      const me = await authApi.login(username, password);
+    async (email: string, password: string, locale: Locale, name: string | null, courses: string[]) => {
+      await authApi.register(email, password, locale, name, courses);
+      const me = await authApi.login(email, password);
       setUser(me);
       applyUserLocale(me);
     },
@@ -85,7 +86,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     [i18n, user],
   );
 
-  const setEmail = useCallback(async (email: string | null) => {
+  const setName = useCallback(async (name: string | null) => {
+    setUser(await authApi.updateName(name));
+  }, []);
+
+  const setEmail = useCallback(async (email: string) => {
     setUser(await authApi.updateEmail(email));
   }, []);
 
@@ -99,8 +104,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const value = useMemo<AuthContextValue>(
-    () => ({ user, loading, login, register, logout, setLocale, setEmail, refresh }),
-    [user, loading, login, register, logout, setLocale, setEmail, refresh],
+    () => ({ user, loading, login, register, logout, setLocale, setName, setEmail, refresh }),
+    [user, loading, login, register, logout, setLocale, setName, setEmail, refresh],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

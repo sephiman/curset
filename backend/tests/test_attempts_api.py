@@ -15,7 +15,7 @@ from tradeschool.exercises.quiz import QuizConfig, QuizKind, QuizVariant, _shuff
 
 API = "/api/courses/crypto-futures"
 
-CREDS = {"username": "solver", "password": "correcthorse"}
+CREDS = {"email": "solver@example.com", "password": "correcthorse"}
 
 
 def quiz_answer(variant: QuizVariant, seed: int, correct: bool) -> dict[str, object]:

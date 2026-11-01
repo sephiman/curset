@@ -35,7 +35,8 @@ class QuestionReport(Base):
     prompt: Mapped[str] = mapped_column(Text, nullable=False)
     given_answer: Mapped[str] = mapped_column(Text, nullable=False)
     correct_answer: Mapped[str] = mapped_column(Text, nullable=False)
-    username: Mapped[str] = mapped_column(String(32), nullable=False)
+    email: Mapped[str] = mapped_column(String(254), nullable=False)
+    name: Mapped[str | None] = mapped_column(String(100), nullable=True)
     link: Mapped[str] = mapped_column(Text, nullable=False)
     # A case question carries its scenario's title; a cited question its citation and lesson anchor.
     case_title: Mapped[str | None] = mapped_column(Text, nullable=True)

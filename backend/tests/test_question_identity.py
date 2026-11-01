@@ -126,15 +126,17 @@ def test_no_rebuild_changes_the_key_of_an_unchanged_question(course: CourseRegis
 # --- attempts follow their question ------------------------------------------------------------------
 
 
-async def _sign_up(client: AsyncClient, username: str) -> None:
+async def _sign_up(client: AsyncClient, name: str) -> None:
+    email = f"{name}@example.com"
     body = {
-        "username": username,
+        "email": email,
+        "name": name,
         "password": "correcthorse",
         "locale": "es",
         "courses": ["fixture-oposiciones"],
     }
     await client.post("/api/auth/register", json=body)
-    await client.post("/api/auth/login", json={"username": username, "password": "correcthorse"})
+    await client.post("/api/auth/login", json={"email": email, "password": "correcthorse"})
 
 
 async def _row(attempt_id: str) -> Attempt:

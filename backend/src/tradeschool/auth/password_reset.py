@@ -23,7 +23,6 @@ RESET_TTL = timedelta(minutes=60)
 
 
 def _invalid() -> AppError:
-    # One code for unknown, expired and used alike: which of the three it was is nobody's business.
     return AppError("RESET_TOKEN_INVALID", "This reset link is not valid.", status_code=400)
 
 
@@ -34,9 +33,9 @@ def link(public_url: str, token: str) -> str:
 async def request_for_email(session: AsyncSession, email: str, *, mailer: Mailer, public_url: str) -> None:
     """Silent for unknown or unverified addresses; the caller answers 202 either way."""
     user = await session.scalar(
-        select(User).where(func.lower(User.email) == email, User.is_verified, User.is_active)
+        select(User).where(func.lower(User.email) == email.lower(), User.is_verified, User.is_active)
     )
-    if user is None or user.email is None:
+    if user is None:
         logger.info("password_reset_requested known_user=false")
         return
     if await email_tokens.issued_recently(session, user.id, TokenPurpose.PASSWORD_RESET):
@@ -46,7 +45,8 @@ async def request_for_email(session: AsyncSession, email: str, *, mailer: Mailer
         return
     token = await email_tokens.issue(session, user.id, TokenPurpose.PASSWORD_RESET, user.email, RESET_TTL)
     minutes = int(RESET_TTL.total_seconds() // 60)
-    subject, body = password_reset_mail(user.locale, user.username, link(public_url, token), minutes)
+    display_name = user.name or user.email.split("@")[0]
+    subject, body = password_reset_mail(user.locale, display_name, link(public_url, token), minutes)
     mailer.send(user.email, subject, body)
     logger.info("password_reset_requested known_user=true user=%s mail_queued=true", user.id)
 
@@ -67,7 +67,7 @@ async def validate(session: AsyncSession, token: str) -> None:
 
 async def confirm(session: AsyncSession, token: str, new_password: str, *, user_manager: UserManager) -> None:
     row, user = await _target(session, token)
-    await user_manager.set_password(user, new_password)  # InvalidPasswordException before any write
+    await user_manager.set_password(user, new_password)
     email_tokens.mark_used(row)
     await session.execute(delete(AccessToken).where(AccessToken.__table__.c.user_id == user.id))
     await session.commit()

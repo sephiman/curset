@@ -11,7 +11,7 @@ from tradeschool.content.registry import load_registry
 
 API = "/api/courses/crypto-futures"
 
-CREDS = {"username": "student", "password": "correcthorse"}
+CREDS = {"email": "student@example.com", "password": "correcthorse"}
 
 
 async def _auth(client: AsyncClient) -> None:

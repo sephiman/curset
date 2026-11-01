@@ -15,12 +15,13 @@ PASSWORD = "correcthorse"
 
 
 async def _sign_up(
-    client: AsyncClient, username: str, locale: str = "en", courses: list[str] | None = None
+    client: AsyncClient, name: str, locale: str = "en", courses: list[str] | None = None
 ) -> None:
-    body = {"username": username, "password": PASSWORD, "locale": locale, "courses": courses or []}
+    email = f"{name}@example.com"
+    body = {"email": email, "name": name, "password": PASSWORD, "locale": locale, "courses": courses or []}
     assert (await client.post("/api/auth/register", json=body)).status_code == 201
     assert (
-        await client.post("/api/auth/login", json={"username": username, "password": PASSWORD})
+        await client.post("/api/auth/login", json={"email": email, "password": PASSWORD})
     ).status_code == 200
 
 
@@ -57,7 +58,7 @@ async def test_a_draft_course_is_served_to_nobody(multi_client: AsyncClient) -> 
     assert response.json()["code"] == "COURSE_NOT_FOUND"
     signup = await multi_client.post(
         "/api/auth/register",
-        json={"username": "drafty2", "password": PASSWORD, "courses": ["fixture-borrador"]},
+        json={"email": "drafty2@example.com", "password": PASSWORD, "courses": ["fixture-borrador"]},
     )
     assert signup.status_code == 404
 

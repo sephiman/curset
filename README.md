@@ -16,7 +16,7 @@ grading stays server-side, so what the statistics measure is unchanged.)
 
 - **License:** AGPL-3.0-only
 - **Backend:** Python 3.14 · FastAPI · SQLAlchemy 2 (async) · Alembic · Pydantic v2 · fastapi-users
-  (username identity, cookie + database strategy, Argon2, no JWT) · stdlib `smtplib` (optional email
+  (email identity, cookie + database strategy, Argon2, no JWT) · stdlib `smtplib` (optional email
   verification + password reset) · slowapi · NumPy · `decimal.Decimal`
   for every financial formula · pytest + testcontainers (real Postgres)
 - **Frontend:** React 19 · TypeScript (strict) · Vite · react-router · TanStack Query · axios · Tailwind ·
@@ -903,7 +903,7 @@ a question citing what its lesson never cites stops the course from loading. **E
 (`:::esquema`) lay out a rule as a table, a timeline, a tree or a stepper on screen and as a table in the
 PDF, every row with its citation. Authoring rules for all four: `content/README.md`.
 
-**Active and selected courses.** At sign-up, after username and password, the learner ticks the
+**Active and selected courses.** At sign-up, after email and password, the learner ticks the
 courses that interest them. None is ticked by default, and continuing with none is fine. Account →
 **Courses** lists every published course with a switch. Turning a course off hides it everywhere and
 deletes nothing: its progress, attempts and open exams come back when it is turned on again. One
@@ -930,21 +930,17 @@ statistics.
 
 ## Accounts
 
-Accounts are **username + password**; you always sign in with the username. Usernames are 3–32
-characters (lowercase letters, numbers, `-`, `_`) and case-insensitive.
+Accounts are **email + password**; you always sign in with the email address. The display name is optional
+(defaults to the email's username).
 
-An **email is optional** — at registration or later on the **Account** page (`/account`, from the
-avatar menu) — and is used for one thing: resetting a forgotten password. (Question reports are mailed
+Email is used for identity and resetting a forgotten password. (Question reports are mailed
 to the team's address, not the learner's.) The flow follows
 crypto-ambush's:
 
-- Setting or changing the address leaves it **unverified** and mails a 48-hour link to it
+- Registering or changing the address leaves it **unverified** and mails a 48-hour link to it
   (`/verify-email?token=…`). A link for an address the user has since replaced stops working.
-- An address is unique **only once verified** (a partial unique index on `lower(email)`), so typing
-  someone else's address blocks nobody; verifying one already verified elsewhere answers
-  `409 EMAIL_ALREADY_USED`.
 - **Forgot your password?** on the login card mails a 60-minute single-use link
-  (`/reset-password?token=…`) — only to a *verified* address, and the request answers `202` whether or
+  (`/reset-password?token=…`) — to a *verified* address, and the request answers `202` whether or
   not the address matched. Using it signs the account out everywhere.
 - Tokens are 256-bit, stored only as SHA-256 hashes (`email_token`), and only the newest link per
   purpose works. Mail endpoints are rate limited per IP (`MAIL_RATE_LIMIT`) and send at most one link
@@ -957,7 +953,7 @@ endpoints answer 404, and the admin reset stays the way back in:
 
 ```bash
 cd backend
-uv run tradeschool reset-password <username>   # prompts twice for the new password (Argon2-hashed)
+uv run tradeschool reset-password <email>   # prompts twice for the new password (Argon2-hashed)
 ```
 
 ## Cross-machine numeric stability

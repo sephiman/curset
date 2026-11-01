@@ -28,10 +28,19 @@ def registry() -> CourseRegistry:
     return load_registry(COURSE)
 
 
-async def _sign_up(client: AsyncClient, username: str) -> None:
-    body = {"username": username, "password": PASSWORD, "locale": "es", "courses": ["fixture-oposiciones"]}
+async def _sign_up(client: AsyncClient, name: str, mailer: RecordingMailer | None = None) -> None:
+    email = f"{name}@example.com"
+    body = {
+        "email": email,
+        "name": name,
+        "password": PASSWORD,
+        "locale": "es",
+        "courses": ["fixture-oposiciones"],
+    }
     await client.post("/api/auth/register", json=body)
-    await client.post("/api/auth/login", json={"username": username, "password": PASSWORD})
+    await client.post("/api/auth/login", json={"email": email, "password": PASSWORD})
+    if mailer is not None:
+        mailer.outbox.clear()
 
 
 async def test_a_case_opens_with_its_scenario_and_one_attempt_per_question_in_order(
@@ -78,7 +87,7 @@ async def test_each_case_question_is_graded_alone_and_counts_under_its_own_tema(
 async def test_a_case_question_report_names_the_case_its_citation_and_its_lesson_anchor(
     multi_client: AsyncClient, mailer: RecordingMailer
 ) -> None:
-    await _sign_up(multi_client, "caseReporter")
+    await _sign_up(multi_client, "caseReporter", mailer=mailer)
     case = (await multi_client.post(f"{OPOS}/exercises/m02-ex-3/case-attempts")).json()
     question = case["questions"][15]  # q16: m02-l1, cites art. 10.1 LRJSP
     await multi_client.post(

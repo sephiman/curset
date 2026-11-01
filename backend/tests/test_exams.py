@@ -7,7 +7,7 @@ from httpx import AsyncClient
 
 API = "/api/courses/crypto-futures"
 
-CREDS = {"username": "examtaker", "password": "correcthorse"}
+CREDS = {"email": "examtaker@example.com", "password": "correcthorse"}
 
 
 async def _auth(client: AsyncClient) -> None:

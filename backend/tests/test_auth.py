@@ -7,7 +7,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from tradeschool.auth.models import AccessToken
 
-REG = {"username": "learner", "password": "correcthorse"}
+REG = {"email": "learner@example.com", "password": "correcthorse"}
 
 
 async def _register(client: AsyncClient, **over: object) -> None:
@@ -20,36 +20,45 @@ async def test_register_returns_user_with_locale(client: AsyncClient) -> None:
     resp = await client.post("/api/auth/register", json={**REG, "locale": "es"})
     assert resp.status_code == 201
     body = resp.json()
-    assert body["username"] == REG["username"]
+    assert body["email"] == REG["email"]
+    assert body["name"] == "learner"
     assert body["locale"] == "es"
     assert "id" in body
     assert "password" not in body and "hashed_password" not in body
-    assert body["email"] is None
     assert body["email_verified"] is False
 
 
-async def test_register_normalizes_username_case(client: AsyncClient) -> None:
-    resp = await client.post("/api/auth/register", json={**REG, "username": "LeArNeR"})
+async def test_register_normalizes_email_case(client: AsyncClient) -> None:
+    resp = await client.post("/api/auth/register", json={**REG, "email": "LeArNeR@Example.COM"})
     assert resp.status_code == 201
-    assert resp.json()["username"] == "learner"
+    assert resp.json()["email"] == "learner@example.com"
+    assert resp.json()["name"] == "learner"
+
+
+async def test_register_accepts_custom_name(client: AsyncClient) -> None:
+    resp = await client.post(
+        "/api/auth/register", json={**REG, "email": "custom@example.com", "name": "Custom Name"}
+    )
+    assert resp.status_code == 201
+    assert resp.json()["name"] == "Custom Name"
 
 
 async def test_register_duplicate_is_case_insensitive(client: AsyncClient) -> None:
     await _register(client)
-    resp = await client.post("/api/auth/register", json={**REG, "username": "LEARNER"})
+    resp = await client.post("/api/auth/register", json={**REG, "email": "LEARNER@EXAMPLE.COM"})
     assert resp.status_code == 400
     assert resp.json()["code"] == "USER_ALREADY_EXISTS"
 
 
 async def test_register_weak_password_rejected(client: AsyncClient) -> None:
-    resp = await client.post("/api/auth/register", json={"username": "alice", "password": "short"})
+    resp = await client.post("/api/auth/register", json={"email": "alice@example.com", "password": "short"})
     assert resp.status_code == 400
     assert resp.json()["code"] == "INVALID_PASSWORD"
 
 
-async def test_register_invalid_username_is_validation_error(client: AsyncClient) -> None:
-    for bad in ("ab", "has space", "no!punct", "a" * 33):
-        resp = await client.post("/api/auth/register", json={"username": bad, "password": "correcthorse"})
+async def test_register_invalid_email_is_validation_error(client: AsyncClient) -> None:
+    for bad in ("ab", "has space@example.com", "no-at-sign", "@nodomain.com", "a" * 255):
+        resp = await client.post("/api/auth/register", json={"email": bad, "password": "correcthorse"})
         assert resp.status_code == 422, bad
         assert resp.json()["code"] == "VALIDATION_ERROR", bad
 
@@ -63,20 +72,20 @@ async def test_login_sets_cookie_and_me_works(client: AsyncClient) -> None:
     await _register(client)
     login = await client.post("/api/auth/login", json=REG)
     assert login.status_code == 200
-    assert login.json()["username"] == REG["username"]
+    assert login.json()["email"] == REG["email"]
     # A session cookie was set on the client's jar.
     assert client.cookies.get("tradeschool_session") is not None
 
     me = await client.get("/api/auth/me")
     assert me.status_code == 200
-    assert me.json()["username"] == REG["username"]
+    assert me.json()["email"] == REG["email"]
 
 
 async def test_login_is_case_insensitive(client: AsyncClient) -> None:
     await _register(client)
-    login = await client.post("/api/auth/login", json={**REG, "username": "LEARNER"})
+    login = await client.post("/api/auth/login", json={**REG, "email": "LEARNER@EXAMPLE.COM"})
     assert login.status_code == 200
-    assert login.json()["username"] == "learner"
+    assert login.json()["email"] == "learner@example.com"
 
 
 async def test_login_bad_password_rejected(client: AsyncClient) -> None:
@@ -110,13 +119,16 @@ async def test_session_is_server_revocable(client: AsyncClient, session: AsyncSe
     assert (await client.get("/api/auth/me")).status_code == 401
 
 
-async def test_update_me_locale(client: AsyncClient) -> None:
+async def test_update_me_locale_and_name(client: AsyncClient) -> None:
     await _register(client, locale="en")
     await client.post("/api/auth/login", json=REG)
-    patched = await client.patch("/api/auth/me", json={"locale": "es"})
+    patched = await client.patch("/api/auth/me", json={"locale": "es", "name": "New Name"})
     assert patched.status_code == 200
     assert patched.json()["locale"] == "es"
-    assert (await client.get("/api/auth/me")).json()["locale"] == "es"
+    assert patched.json()["name"] == "New Name"
+    me = (await client.get("/api/auth/me")).json()
+    assert me["locale"] == "es"
+    assert me["name"] == "New Name"
 
 
 async def test_register_is_rate_limited(rl_client: AsyncClient) -> None:
@@ -124,7 +136,7 @@ async def test_register_is_rate_limited(rl_client: AsyncClient) -> None:
     last_status = None
     for i in range(6):
         resp = await rl_client.post(
-            "/api/auth/register", json={"username": f"user{i}", "password": "correcthorse"}
+            "/api/auth/register", json={"email": f"user{i}@example.com", "password": "correcthorse"}
         )
         last_status = resp.status_code
     assert last_status == 429

@@ -167,15 +167,17 @@ def test_parte_1_and_parte_2_alone_presets(registry: CourseRegistry) -> None:
     assert pool_shortfalls(registry, p2_preset, None) == []
 
 
-async def _sign_up(client: AsyncClient, username: str) -> None:
+async def _sign_up(client: AsyncClient, name: str) -> None:
+    email = f"{name}@example.com"
     body = {
-        "username": username,
+        "email": email,
+        "name": name,
         "password": PASSWORD,
         "locale": "es",
         "courses": ["age-administrativo-c1"],
     }
     await client.post("/api/auth/register", json=body)
-    await client.post("/api/auth/login", json={"username": username, "password": PASSWORD})
+    await client.post("/api/auth/login", json={"email": email, "password": PASSWORD})
 
 
 async def _correct_options(registry: CourseRegistry, exam_id: str) -> dict[str, str]:

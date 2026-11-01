@@ -17,11 +17,16 @@ PASSWORD = "correcthorse"
 MESSAGE = "The second option is also correct under the current rules."
 
 
-async def _sign_up(client: AsyncClient, username: str, locale: str = "en") -> None:
+async def _sign_up(
+    client: AsyncClient, name: str, locale: str = "en", mailer: RecordingMailer | None = None
+) -> None:
     courses = ["crypto-futures", "fixture-oposiciones"]
-    body = {"username": username, "password": PASSWORD, "locale": locale, "courses": courses}
+    email = f"{name}@example.com"
+    body = {"email": email, "password": PASSWORD, "name": name, "locale": locale, "courses": courses}
     await client.post("/api/auth/register", json=body)
-    await client.post("/api/auth/login", json={"username": username, "password": PASSWORD})
+    await client.post("/api/auth/login", json={"email": email, "password": PASSWORD})
+    if mailer is not None:
+        mailer.outbox.clear()
 
 
 async def _answered_opos_attempt(client: AsyncClient, option: str = "b") -> str:
@@ -38,7 +43,7 @@ async def _reports() -> list[QuestionReport]:
 async def test_a_report_is_stored_and_mailed_with_every_field(
     multi_client: AsyncClient, mailer: RecordingMailer
 ) -> None:
-    await _sign_up(multi_client, "reporter")
+    await _sign_up(multi_client, "reporter", mailer=mailer)
     attempt_id = await _answered_opos_attempt(multi_client)
 
     response = await multi_client.post(f"{OPOS}/attempts/{attempt_id}/report", json={"message": MESSAGE})
@@ -52,7 +57,8 @@ async def test_a_report_is_stored_and_mailed_with_every_field(
         "m01-ex-1",
     )
     assert report.variant_id == "plazo-alzada"
-    assert report.username == "reporter"
+    assert report.email == "reporter@example.com"
+    assert report.name == "reporter"
     assert report.link.endswith("/courses/fixture-oposiciones/lessons/m01-l1#ex-m01-ex-1")
     assert report.emailed_at is not None
 
@@ -73,7 +79,7 @@ async def test_a_report_is_stored_and_mailed_with_every_field(
 async def test_a_spanish_only_course_is_reported_in_spanish_even_from_an_english_account(
     multi_client: AsyncClient, mailer: RecordingMailer
 ) -> None:
-    await _sign_up(multi_client, "english", locale="en")
+    await _sign_up(multi_client, "english", locale="en", mailer=mailer)
     attempt_id = await _answered_opos_attempt(multi_client, option="b")
     await multi_client.post(f"{OPOS}/attempts/{attempt_id}/report", json={"message": MESSAGE})
 
@@ -158,7 +164,7 @@ async def test_a_calculation_is_not_a_multiple_choice_question(multi_client: Asy
 async def test_a_mail_failure_keeps_the_report_and_a_later_run_delivers_it(
     multi_client: AsyncClient, mailer: RecordingMailer
 ) -> None:
-    await _sign_up(multi_client, "unlucky")
+    await _sign_up(multi_client, "unlucky", mailer=mailer)
     attempt_id = await _answered_opos_attempt(multi_client)
     mailer.refusing = True
     assert (
@@ -189,7 +195,7 @@ async def test_report_on_letters_course_includes_options_and_letter_in_mail(
     multi_client: AsyncClient, mailer: RecordingMailer
 ) -> None:
     """When a course has option_labels: letters, the report mail carries options and letter prefixes."""
-    await _sign_up(multi_client, "letter_reporter")
+    await _sign_up(multi_client, "letter_reporter", mailer=mailer)
     opened = (await multi_client.post(f"{OPOS}/exercises/m01-ex-1/attempts")).json()
     attempt_id = str(opened["attemptId"])
     await multi_client.post(f"{OPOS}/attempts/{attempt_id}/answer", json={"answer": {"optionId": "b"}})

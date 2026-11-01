@@ -12,7 +12,7 @@ from tradeschool.exercises.figures import build_figure, load_figures
 API = "/api/courses/crypto-futures"
 
 CONTENT = Path(__file__).resolve().parents[2] / "content" / "crypto-futures"
-CREDS = {"username": "figviewer", "password": "correcthorse"}
+CREDS = {"email": "figviewer@example.com", "password": "correcthorse"}
 
 
 async def _auth(client: AsyncClient) -> None:

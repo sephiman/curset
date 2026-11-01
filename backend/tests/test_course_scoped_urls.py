@@ -7,7 +7,7 @@ import pytest
 from httpx import AsyncClient
 
 COURSE = "crypto-futures"
-CREDS = {"username": "scoped", "password": "correcthorse"}
+CREDS = {"email": "scoped@example.com", "password": "correcthorse"}
 
 # Every unscoped alias the previous version served, retired in this one (R9.3).
 RETIRED_ALIASES = [

@@ -24,7 +24,7 @@ from tradeschool.content.registry import load_registry
 
 API = "/api/courses/crypto-futures"
 
-CREDS = {"username": "student", "password": "correcthorse"}
+CREDS = {"email": "student@example.com", "password": "correcthorse"}
 
 # A lesson with one of everything the stripper has to see through. The prose words are counted below,
 # deliberately by hand, so the expected number is an assertion and not an echo of the implementation.

@@ -13,7 +13,7 @@ import { coursePath } from "@/components/layout/nav";
  * no `replace` prop and leans on react-router's same-path rule — pinned here, since it is not ours.
  */
 
-const USER = { username: "juanjo", locale: "en" as const };
+const USER = { email: "juanjo@example.com", name: "juanjo", locale: "en" as const };
 
 vi.mock("@/auth/AuthContext", () => ({
   useAuth: () => ({ user: USER, logout: async () => {} }),

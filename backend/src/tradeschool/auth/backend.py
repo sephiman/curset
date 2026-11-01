@@ -42,9 +42,6 @@ async def get_access_token_db(
     yield SQLAlchemyAccessTokenDatabase(session, AccessToken)
 
 
-# fastapi-users' generics are bound to its email-typed UserProtocol; our User keys on username
-# instead (see auth/manager.py), so these library-boundary instantiations need a type-var waiver.
-# Nothing here ever reads an email — the session backend is entirely user-id keyed.
 SessionStrategy = DatabaseStrategy[User, uuid.UUID, AccessToken]  # type: ignore[type-var]
 
 

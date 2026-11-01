@@ -354,15 +354,17 @@ def test_every_age_question_without_an_excerpt_still_has_its_explanation_lesson_
 # --- what the API ships -------------------------------------------------------------------------------
 
 
-async def _sign_up(client: AsyncClient, username: str) -> None:
+async def _sign_up(client: AsyncClient, name: str) -> None:
+    email = f"{name}@example.com"
     body = {
-        "username": username,
+        "email": email,
+        "name": name,
         "password": PASSWORD,
         "locale": "es",
         "courses": ["crypto-futures", "fixture-oposiciones"],
     }
     await client.post("/api/auth/register", json=body)
-    await client.post("/api/auth/login", json={"username": username, "password": PASSWORD})
+    await client.post("/api/auth/login", json={"email": email, "password": PASSWORD})
 
 
 async def test_an_answered_question_ships_the_cited_text_and_its_source_link(

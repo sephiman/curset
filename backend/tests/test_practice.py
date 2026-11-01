@@ -41,15 +41,17 @@ def test_a_round_holds_each_question_once_and_all_of_them_when_asked() -> None:
     assert sorted(practice_order(ids, {"q01"}, None, random.Random(3))) == ids
 
 
-async def _sign_up(client: AsyncClient, username: str) -> None:
+async def _sign_up(client: AsyncClient, name: str) -> None:
+    email = f"{name}@example.com"
     body = {
-        "username": username,
+        "email": email,
+        "name": name,
         "password": "correcthorse",
         "locale": "es",
         "courses": ["fixture-oposiciones"],
     }
     await client.post("/api/auth/register", json=body)
-    await client.post("/api/auth/login", json={"username": username, "password": "correcthorse"})
+    await client.post("/api/auth/login", json={"email": email, "password": "correcthorse"})
 
 
 def _correct(registry: CourseRegistry, exercise_id: str, question_id: str) -> str:
@@ -133,9 +135,17 @@ async def test_a_question_outside_the_exercise_cannot_be_opened(multi_client: As
 
 
 async def test_a_course_without_lesson_practice_keeps_its_embedded_quizzes(multi_client: AsyncClient) -> None:
-    body = {"username": "trader", "password": "correcthorse", "locale": "en", "courses": ["crypto-futures"]}
+    body = {
+        "email": "trader@example.com",
+        "name": "trader",
+        "password": "correcthorse",
+        "locale": "en",
+        "courses": ["crypto-futures"],
+    }
     await multi_client.post("/api/auth/register", json=body)
-    await multi_client.post("/api/auth/login", json={"username": "trader", "password": "correcthorse"})
+    await multi_client.post(
+        "/api/auth/login", json={"email": "trader@example.com", "password": "correcthorse"}
+    )
     refused = await multi_client.post(f"{CRYPTO}/lessons/m01-l1/practice")
     assert refused.status_code == 409 and refused.json()["code"] == "PRACTICE_NOT_AVAILABLE"
     course = (await multi_client.get(CRYPTO)).json()

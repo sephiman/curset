@@ -88,19 +88,14 @@ async def register(
     unknown = sorted(set(payload.courses) - catalog.published_slugs())
     if unknown:
         raise AppError("COURSE_NOT_FOUND", f"No course {unknown[0]!r}.", status_code=404)
-    if payload.email is not None:
-        await email_verification.ensure_available(session, payload.email)
     try:
-        user = await user_manager.register(payload.username, payload.password, payload.locale)
+        user = await user_manager.register(payload.email, payload.password, payload.locale, name=payload.name)
     except UserAlreadyExists as exc:
-        raise AppError("USER_ALREADY_EXISTS", "That username is already taken.", status_code=400) from exc
+        raise AppError("USER_ALREADY_EXISTS", "That email is already registered.", status_code=400) from exc
     except InvalidPasswordException as exc:
         raise _invalid_password(exc) from exc
     await enroll_at_signup(session, catalog, user.id, user.locale, payload.courses)
-    if payload.email is not None:
-        user = await email_verification.change_email(
-            session, user, payload.email, mailer=mailer, public_url=settings.app_public_url
-        )
+    await email_verification.send_link(session, user, mailer=mailer, public_url=settings.app_public_url)
     return UserRead.model_validate(user)
 
 
@@ -113,10 +108,10 @@ async def login(
     strategy: Annotated[SessionStrategy, Depends(get_database_strategy)],
     settings: Annotated[Settings, Depends(app_settings)],
 ) -> Response:
-    creds = _Credentials(username=payload.username.strip(), password=payload.password)
+    creds = _Credentials(username=payload.email, password=payload.password)
     user = await user_manager.authenticate(cast(OAuth2PasswordRequestForm, creds))
     if user is None or not user.is_active:
-        raise AppError("LOGIN_BAD_CREDENTIALS", "Invalid username or password.", status_code=400)
+        raise AppError("LOGIN_BAD_CREDENTIALS", "Invalid email or password.", status_code=400)
 
     token = await strategy.write_token(user)
     response = JSONResponse(UserRead.model_validate(user).model_dump(mode="json"))
@@ -158,7 +153,9 @@ async def update_me(
 ) -> User:
     if payload.locale is not None:
         user = await user_manager.set_locale(user, payload.locale)
-    if "email" in payload.model_fields_set:
+    if "name" in payload.model_fields_set:
+        user = await user_manager.set_name(user, payload.name)
+    if payload.email is not None and payload.email != user.email:
         user = await email_verification.change_email(
             session, user, payload.email, mailer=mailer, public_url=settings.app_public_url
         )
@@ -180,8 +177,6 @@ async def resend_verification(
     settings: Annotated[Settings, Depends(app_settings)],
 ) -> dict[str, str]:
     _require_mail(mailer)
-    if user.email is None:
-        raise AppError("EMAIL_MISSING", "Add an email address first.", status_code=400)
     await email_verification.send_link(session, user, mailer=mailer, public_url=settings.app_public_url)
     return {"status": "accepted"}
 

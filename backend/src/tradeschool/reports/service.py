@@ -121,7 +121,8 @@ async def file_report(
         correct_answer=describe_correct(
             graded.correct_answer, locale, payload=instance.payload, letters=letters
         ),
-        username=user.username,
+        email=user.email,
+        name=user.name,
         link=f"{public_url.rstrip('/')}/courses/{registry.slug}/lessons/{lesson_id}#ex-{exercise_id}",
         case_title=case.title.get(locale) if case else None,
         citation=question_link.citation if question_link else None,

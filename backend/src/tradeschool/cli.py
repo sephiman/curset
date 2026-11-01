@@ -47,8 +47,8 @@ def _cmd_backfill_question_ids() -> int:
     return 0
 
 
-def _cmd_reset_password(username: str) -> int:
-    """Admin password reset (self-service reset is gone with email). Prompts twice, Argon2-hashes."""
+def _cmd_reset_password(email: str) -> int:
+    """Admin password reset. Prompts twice, Argon2-hashes."""
     import getpass
 
     from sqlalchemy import func, select
@@ -57,19 +57,17 @@ def _cmd_reset_password(username: str) -> int:
     from tradeschool.auth.models import User
     from tradeschool.db import dispose_engine, get_sessionmaker, init_engine
 
-    lookup = username.strip().lower()
+    lookup = email.strip().lower()
 
     async def run() -> int:
         init_engine(get_settings().database_url)
         try:
             async with get_sessionmaker()() as session:
-                user = (
-                    await session.scalars(select(User).where(func.lower(User.username) == lookup))
-                ).first()
+                user = (await session.scalars(select(User).where(func.lower(User.email) == lookup))).first()
                 if user is None:
-                    print(f"No user with username {lookup!r}.", file=sys.stderr)
+                    print(f"No user with email {lookup!r}.", file=sys.stderr)
                     return 1
-                new = getpass.getpass(f"New password for {user.username!r}: ")
+                new = getpass.getpass(f"New password for {user.email!r}: ")
                 confirm = getpass.getpass("Confirm new password: ")
                 if new != confirm:
                     print("Passwords do not match.", file=sys.stderr)
@@ -82,7 +80,7 @@ def _cmd_reset_password(username: str) -> int:
                     return 1
                 user.hashed_password = password_helper.hash(new)
                 await session.commit()
-                print(f"Password updated for {user.username!r}.")
+                print(f"Password updated for {user.email!r}.")
                 return 0
         finally:
             await dispose_engine()
@@ -99,7 +97,7 @@ def main(argv: list[str] | None = None) -> int:
         "backfill-question-ids", help="Name the quiz question of attempts written before attempts stored it"
     )
     reset = sub.add_parser("reset-password", help="Set a user's password (prompts for the new one)")
-    reset.add_argument("username", help="Username of the account to reset")
+    reset.add_argument("email", help="Email of the account to reset")
 
     args = parser.parse_args(argv)
     if args.command == "migrate":
@@ -109,7 +107,7 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "backfill-question-ids":
         return _cmd_backfill_question_ids()
     if args.command == "reset-password":
-        return _cmd_reset_password(args.username)
+        return _cmd_reset_password(args.email)
     parser.error(f"unknown command {args.command!r}")
     return 2
 

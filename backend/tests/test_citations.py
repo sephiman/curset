@@ -361,11 +361,12 @@ def test_the_source_index_is_fresh_and_covers_every_norm_file(course: CourseRegi
 # --- links and serving ------------------------------------------------------------------------------
 
 
-async def _sign_up(client: AsyncClient, username: str) -> None:
+async def _sign_up(client: AsyncClient, name: str) -> None:
     courses = ["crypto-futures", "fixture-oposiciones"]
-    body = {"username": username, "password": PASSWORD, "locale": "es", "courses": courses}
+    email = f"{name}@example.com"
+    body = {"email": email, "name": name, "password": PASSWORD, "locale": "es", "courses": courses}
     await client.post("/api/auth/register", json=body)
-    await client.post("/api/auth/login", json={"username": username, "password": PASSWORD})
+    await client.post("/api/auth/login", json={"email": email, "password": PASSWORD})
 
 
 async def test_a_lesson_ships_its_citations_with_anchors_and_source_targets(

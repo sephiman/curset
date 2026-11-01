@@ -9,7 +9,7 @@ import { clearViewport, setViewportWidth } from "@/test/viewport";
 /** Delta J1–J3: which chrome a reader gets either side of 768 px, and focus mode during a sitting. */
 
 vi.mock("@/auth/AuthContext", () => ({
-  useAuth: () => ({ user: { username: "juanjo", locale: "en" }, logout: async () => {} }),
+  useAuth: () => ({ user: { email: "juanjo@example.com", name: "juanjo", locale: "en" }, logout: async () => {} }),
 }));
 vi.mock("@/lib/theme", () => ({ useTheme: () => ({ theme: "light", resolvedTheme: "light", setTheme: () => {} }) }));
 vi.mock("@/features/courses/useCourses", () => ({

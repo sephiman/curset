@@ -79,7 +79,7 @@ async def _sit(client: AsyncClient, start: dict[str, object]) -> dict[str, objec
 async def test_crypto_exams_draw_and_score_exactly_as_frozen(
     content_client: AsyncClient, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    creds = {"username": "goldentaker", "password": "correcthorse"}
+    creds = {"email": "goldentaker@example.com", "password": "correcthorse"}
     await content_client.post("/api/auth/register", json={**creds, "locale": "es"})
     await content_client.post("/api/auth/login", json=creds)
 

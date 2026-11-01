@@ -9,8 +9,12 @@ import { useNavItems } from "@/features/courses/useNavItems";
 import { cn } from "@/lib/cn";
 import { usePhoneLayout } from "@/lib/viewport";
 
-function initials(username: string): string {
-  return username.slice(0, 2).toUpperCase();
+function displayName(user: Me): string {
+  return user.name?.trim() || user.email.split("@")[0] || user.email;
+}
+
+function initials(user: Me): string {
+  return displayName(user).slice(0, 2).toUpperCase();
 }
 
 /** Account controls behind an avatar button (SharedLedger pattern); below `sm` the primary nav folds in. */
@@ -47,11 +51,11 @@ export function AccountMenu({ user }: { user: Me }) {
         type="button"
         aria-haspopup="menu"
         aria-expanded={open}
-        aria-label={user.username}
+        aria-label={displayName(user)}
         onClick={() => setOpen((v) => !v)}
         className="flex h-9 w-9 max-md:h-11 max-md:w-11 items-center justify-center rounded-full bg-primary text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-1 dark:focus:ring-offset-gray-900 oled:focus:ring-offset-oled-bg"
       >
-        {initials(user.username)}
+        {initials(user)}
       </button>
 
       {/* The one floating panel in the app, and the case the OLED brief calls a modal: it is told
@@ -67,7 +71,8 @@ export function AccountMenu({ user }: { user: Me }) {
               as soon as the menu opens, above the primary nav folded in below `sm`. */}
           <div className="mb-3 border-b border-border px-1 pb-3 dark:border-gray-800 oled:border-oled-line">
             <p className="text-xs text-gray-500 dark:text-gray-400">{t("auth.signedInAs")}</p>
-            <p className="truncate font-semibold">{user.username}</p>
+            <p className="truncate font-semibold">{displayName(user)}</p>
+            <p className="truncate text-xs text-gray-500 dark:text-gray-400">{user.email}</p>
             <Button
               role="menuitem"
               variant="secondary"

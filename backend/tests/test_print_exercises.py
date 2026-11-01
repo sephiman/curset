@@ -34,7 +34,7 @@ from tradeschool.exercises.types import ExerciseType
 
 API = "/api/courses/crypto-futures"
 
-CREDS = {"username": "printer", "password": "correcthorse"}
+CREDS = {"email": "printer@example.com", "password": "correcthorse"}
 
 _registry: CourseRegistry | None = None
 _built: dict[str, dict[str, Any]] = {}

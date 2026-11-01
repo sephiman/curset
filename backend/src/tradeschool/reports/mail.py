@@ -16,7 +16,7 @@ def report_mail(report: QuestionReport) -> tuple[str, str]:
         ("Variant", report.variant_id),
         ("Seed", str(report.seed)),
         ("Reading language", report.reading_locale),
-        ("User", report.username),
+        ("User", f"{report.name} <{report.email}>" if report.name else report.email),
         ("Sent at", report.created_at.isoformat(timespec="seconds")),
         ("Question", report.prompt),
     ]

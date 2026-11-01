@@ -1,8 +1,8 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""User, session-token and mailed-link tables; identity is the **username**, the email is optional.
+"""User, session-token and mailed-link tables; identity is the **email**, name is optional.
 
-Deliberately not inheriting ``SQLAlchemyBaseUserTableUUID``: that base hardcodes a non-null unique
-``email``. The same columns are spelled out here instead. See ``auth/manager.py``.
+Deliberately not inheriting ``SQLAlchemyBaseUserTableUUID``: that base brings default assumptions
+about email indexing that curset spells out directly. See ``auth/manager.py``.
 """
 
 from __future__ import annotations
@@ -23,15 +23,13 @@ class User(Base):
     __tablename__ = "user"
 
     id: Mapped[uuid.UUID] = mapped_column(GUID, primary_key=True, default=uuid.uuid4)
-    # Sole identifier. Case-insensitive uniqueness + lookups are served by a functional UNIQUE index
-    # on lower(username), created in the migration (expression indexes aren't modelled here).
-    username: Mapped[str] = mapped_column(String(32), nullable=False)
+    # Primary identifier. Case-insensitive uniqueness + lookups are served by a functional UNIQUE index
+    # on lower(email), created in the migration (expression indexes aren't modelled here).
+    email: Mapped[str] = mapped_column(String(254), nullable=False)
+    name: Mapped[str | None] = mapped_column(String(100), nullable=True)
     hashed_password: Mapped[str] = mapped_column(String(1024), nullable=False)
     is_active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
     is_superuser: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
-    # Optional, for password reset. Unique only once verified (partial index on lower(email) in the
-    # migration), so typing someone else's address cannot lock them out of it.
-    email: Mapped[str | None] = mapped_column(String(254), nullable=True)
     # Whether `email` is verified; any change of address resets it.
     is_verified: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
     locale: Mapped[str] = mapped_column(String(2), nullable=False, default="en", server_default="en")
