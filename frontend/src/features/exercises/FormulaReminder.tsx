@@ -45,6 +45,10 @@ export const GENERIC_FORMULAS: Record<string, { en: string; es: string }> = {
     en: "gross = notional × move | net = gross − costs (fees + funding)",
     es: "bruto = notional × movimiento | neto = bruto − costes (comisiones + financiación)",
   },
+  orderbook_slippage: {
+    en: "avg fill = (qty1 × price1 + qty2 × price2) / total order size",
+    es: "precio medio = (cant1 × precio1 + cant2 × precio2) / tamaño total",
+  },
 };
 
 export function FormulaReminder({ formula }: { formula?: string | null }) {

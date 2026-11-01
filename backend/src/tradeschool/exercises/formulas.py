@@ -562,7 +562,65 @@ def _style_net_distractors(p: FormulaParams, result: Decimal) -> list[Distractor
     ]
 
 
+# --- Order book slippage (m02): average execution price across ask tiers ----------------------------
+
+
+def _orderbook_slippage_compute(p: FormulaParams) -> Decimal:
+    t1_p = _dec(p["tier1_price"])
+    t1_q = _dec(p["tier1_qty"])
+    t2_p = _dec(p["tier2_price"])
+    size = _dec(p["order_size"])
+    t2_q = size - t1_q
+    total_cost = (t1_q * t1_p) + (t2_q * t2_p)
+    return total_cost / size
+
+
+def _orderbook_slippage_explain(p: FormulaParams, result: Decimal, locale: str) -> list[str]:
+    fmt = _num(locale)
+    t1_p = _dec(p["tier1_price"])
+    t1_q = _dec(p["tier1_qty"])
+    t2_p = _dec(p["tier2_price"])
+    size = _dec(p["order_size"])
+    t2_q = size - t1_q
+    t1_cost = t1_q * t1_p
+    t2_cost = t2_q * t2_p
+    total_cost = t1_cost + t2_cost
+    tier1_lbl = "tramo 1" if locale == "es" else "tier 1"
+    tier2_lbl = "tramo 2" if locale == "es" else "tier 2"
+    avg_lbl = "precio medio" if locale == "es" else "avg fill"
+    cost_expr = (
+        f"coste = {fmt(t1_cost)} + {fmt(t2_cost)} = {fmt(total_cost)}"
+        if locale == "es"
+        else f"total cost = {fmt(t1_cost)} + {fmt(t2_cost)} = {fmt(total_cost)}"
+    )
+    return [
+        f"{tier1_lbl}: {fmt(t1_q)} × {fmt(t1_p)} = {fmt(t1_cost)}",
+        f"{tier2_lbl}: {fmt(t2_q)} × {fmt(t2_p)} = {fmt(t2_cost)}",
+        cost_expr,
+        f"{avg_lbl} = {fmt(total_cost)} / {fmt(size)} = {fmt(result)}",
+    ]
+
+
+def _orderbook_slippage_distractors(p: FormulaParams, result: Decimal) -> list[Distractor]:
+    t1_p = _dec(p["tier1_price"])
+    t2_p = _dec(p["tier2_price"])
+    mid = (t1_p + t2_p) / Decimal(2)
+    return [
+        ("assume the entire order fills at the top ask without slippage", t1_p),
+        ("take the simple unweighted average of the two ask prices", mid),
+        ("assume the entire order fills at the second tier price", t2_p),
+    ]
+
+
 FORMULAS: dict[str, Formula] = {
+    "orderbook_slippage": Formula(
+        id="orderbook_slippage",
+        arg_names=("tier1_price", "tier1_qty", "tier2_price", "tier2_qty", "order_size"),
+        percent_args=(),
+        compute=_orderbook_slippage_compute,
+        explain=_orderbook_slippage_explain,
+        distractors=_orderbook_slippage_distractors,
+    ),
     "liquidation_price": Formula(
         id="liquidation_price",
         arg_names=("entry", "leverage", "mmr", "side"),

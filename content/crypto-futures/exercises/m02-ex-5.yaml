@@ -1,0 +1,17 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+type: calculation
+formula: orderbook_slippage
+prompt:
+  en: "You send a market buy for **{order_size} units** into a book whose lowest asks are **{tier1_qty} units at {tier1_price} USDT**, followed by **{tier2_qty} units at {tier2_price} USDT**. What is your average fill price, in USDT?"
+  es: "Envías una compra a mercado de **{order_size} unidades** a un libro cuyas ventas más bajas son **{tier1_qty} unidades a {tier1_price} USDT**, seguidas de **{tier2_qty} unidades a {tier2_price} USDT**. ¿Cuál es tu precio medio de ejecución, en USDT?"
+params:
+  tier1_price: { kind: choice, values: ["2.00"] }
+  tier1_qty: { kind: choice, values: ["400", "600"] }
+  tier2_price: { kind: choice, values: ["2.20"] }
+  tier2_qty: { kind: choice, values: ["1000"] }
+  order_size: { kind: choice, values: ["700", "900"] }
+round: 3
+unit: USDT
+explanation:
+  en: "A market order eats through the lowest available asks level by level. The first tier fills completely, and the remainder fills at the higher tier price. The average execution price is the total cost divided by the total units filled."
+  es: "Una orden a mercado consume las ventas disponibles nivel a nivel. El primer tramo se ejecuta por completo y el resto se ejecuta al precio más alto del siguiente tramo. El precio medio de ejecución es el coste total dividido por el total de unidades ejecutadas."

@@ -6,6 +6,7 @@ import i18n from "@/i18n";
 import type { CourseScope } from "@/api/client";
 import { getFigure, type FigureData, type FigurePanel } from "@/api/course";
 import { CandleAnatomy } from "@/components/charts/CandleAnatomy";
+import { OrderBookDepth } from "@/components/charts/OrderBookDepth";
 import { CandleChart, type SwingMarker } from "@/components/charts/CandleChart";
 import type { CapturedFigure } from "@/lib/pdf/document";
 
@@ -37,6 +38,7 @@ function toMarkers(annotations: FigurePanel["annotations"]): SwingMarker[] {
 /** The print twin of `LessonFigure`'s map of hand-drawn figures. */
 const SVG_FIGURES: Record<string, () => ReactNode> = {
   "candle-anatomy": () => <CandleAnatomy theme="light" />,
+  "orderbook-depth": () => <OrderBookDepth theme="light" />,
 };
 
 export function nextFrame(): Promise<void> {

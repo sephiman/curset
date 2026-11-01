@@ -244,6 +244,13 @@ BRANCHES: list[dict[str, object]] = (
         {"equity": "60000", "risk_pct": "0.005", "stop_distance": "500"},
         {"win_rate": "0.55", "avg_win": "200", "avg_loss": "360"},
         {"price_a": "60000", "price_b": "60900"},
+        {
+            "tier1_price": "2.00",
+            "tier1_qty": "500",
+            "tier2_price": "2.20",
+            "tier2_qty": "1000",
+            "order_size": "800",
+        },
     ]
     + [
         {"entry": "35000", "exit": "30500", "quantity": "0.5", "side": side, "fee_rate": "0.0002"}

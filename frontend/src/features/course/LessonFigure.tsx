@@ -2,6 +2,7 @@ import { type ReactNode } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getFigure, type FigurePanel } from "@/api/course";
 import { CandleAnatomy } from "@/components/charts/CandleAnatomy";
+import { OrderBookDepth } from "@/components/charts/OrderBookDepth";
 import { CandleChart, type SwingMarker } from "@/components/charts/CandleChart";
 import { FramedChart, PAIRED_HEIGHT } from "@/components/charts/FramedChart";
 import { Spinner } from "@/components/ui/primitives";
@@ -10,6 +11,7 @@ import { scopeKey, useCourse } from "@/features/courses/CourseContext";
 // Hand-drawn SVG figures, keyed by the spec's `svg` name.
 const SVG_FIGURES: Record<string, () => ReactNode> = {
   "candle-anatomy": () => <CandleAnatomy />,
+  "orderbook-depth": () => <OrderBookDepth />,
 };
 
 function toMarkers(annotations: FigurePanel["annotations"]): SwingMarker[] {

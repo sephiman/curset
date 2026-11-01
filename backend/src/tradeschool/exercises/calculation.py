@@ -310,6 +310,15 @@ MISTAKE_TRANSLATIONS_ES: dict[str, str] = {
     "ignore trading costs (take the gross move)": "ignorar los costes de trading (tomar el movimiento bruto)",
     "treat it as a single round-trip with no funding": "tratarlo como un solo ida y vuelta sin financiación",
     "make an arithmetic slip": "hacer un error de cálculo aritmético",
+    "assume the entire order fills at the top ask without slippage": (
+        "asumir que toda la orden se ejecuta al mejor ask sin slippage"
+    ),
+    "take the simple unweighted average of the two ask prices": (
+        "tomar la media simple no ponderada de ambos precios ask"
+    ),
+    "assume the entire order fills at the second tier price": (
+        "asumir que toda la orden se ejecuta al precio del segundo tramo"
+    ),
 }
 
 
