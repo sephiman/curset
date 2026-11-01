@@ -103,6 +103,20 @@ describe("the export action", () => {
     expect(alert()).toBeNull();
   });
 
+  it("passes pdfExercises flag from the course metadata", async () => {
+    generateCoursePdf.mockResolvedValue({ blob: new Blob([]), filename: "f.pdf" });
+    mount(<ExportPdfButton course={{ ...COURSE, pdfExercises: false }} />);
+
+    await act(async () => {
+      button().click();
+    });
+    await waitUntil(() => downloadPdf.mock.calls.length > 0, "the download");
+
+    expect(generateCoursePdf).toHaveBeenCalledWith(
+      expect.objectContaining({ pdfExercises: false }),
+    );
+  });
+
   it("says which part of the work is happening while it runs", async () => {
     let report: (p: GenerateProgress) => void = () => {};
     let finish: () => void = () => {};

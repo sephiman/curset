@@ -136,6 +136,23 @@ describe.each(LOCALES)("course PDF document (%s)", (locale) => {
     }
   });
 
+  it("omits all exercises and the answer key when pdfExercises is false", () => {
+    const exercises = printExercisesFromContent(locale);
+    const doc = buildCourseDocument({
+      courseTitle: "Title",
+      courseSubtitle: "Subtitle",
+      courseDescription: "Desc",
+      export: courseExportFromContent(locale),
+      figures: stubFigures(figureDirectives(locale)),
+      exercises,
+      pdfExercises: false,
+      exerciseCharts: stubExerciseCharts(exercises, "png"),
+      labels: testPdfLabels(locale),
+    });
+    expect(exerciseBlocks(doc)).toEqual([]);
+    expect(answerEntries(doc)).toEqual([]);
+  });
+
   it("answers every printed exercise exactly once, and answers nothing else", () => {
     const doc = buildFor(locale);
     const printed = exerciseBlocks(doc);

@@ -364,3 +364,11 @@ async def test_the_theory_export_is_unchanged_by_all_this(content_client: AsyncC
     text = json.dumps(doc)
     assert "::exercise" not in text
     assert not [eid for eid in manifest_exercise_ids() if eid in text]
+
+
+def test_course_disabling_pdf_exercises_serves_no_print_exercises() -> None:
+    age_registry = load_registry(get_settings().content_dir / "age-administrativo-c1")
+    assert age_registry.manifest.course.pdf_exercises is False
+    assert age_registry.course_meta("es").get("pdfExercises") is False
+    doc = build_print_exercises(age_registry, "es")
+    assert doc == {"locale": "es", "lessons": [], "excluded": []}

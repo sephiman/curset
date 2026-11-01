@@ -143,6 +143,7 @@ course:
   languages: [en, es]         # [es] for a Spanish-only course; the first is the fallback
   status: published           # draft: loaded and checked, never served to users
   exercise_types: [quiz, calculation, synthetic_chart, pattern_chart]
+  pdf_exercises: false        # optional; false exports theory only in the course PDF (default: true)
 ```
 
 Every localized text in the course — manifest, exercises, figures, glossary — must carry exactly the

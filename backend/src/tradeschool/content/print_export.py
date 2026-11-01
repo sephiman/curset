@@ -296,6 +296,8 @@ def build_print_exercise(registry: CourseRegistry, exercise_id: str, locale: str
 
 def build_print_exercises(registry: CourseRegistry, locale: str) -> dict[str, object]:
     """Every printable exercise in manifest order, each with its answer. Empty lessons still appear."""
+    if not registry.manifest.course.pdf_exercises:
+        return {"locale": locale, "lessons": [], "excluded": []}
     lessons: list[dict[str, object]] = []
     excluded: list[dict[str, str]] = []
     for _, module in registry.manifest.iter_modules():

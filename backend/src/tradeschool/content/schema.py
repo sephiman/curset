@@ -96,6 +96,8 @@ class ManifestCourse(BaseModel):
     lesson_practice: bool = False
     #: How multiple-choice options are labelled (`letters` for A-D; absent for no labels).
     option_labels: Literal["letters"] | None = None
+    #: Whether the course PDF export prints in-lesson exercises and the answer key; false for theory only.
+    pdf_exercises: bool = True
 
     @model_validator(mode="after")
     def _distinct_languages(self) -> Self:

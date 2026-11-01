@@ -387,6 +387,7 @@ class CourseRegistry:
             # Sent only when set, so a course without it serves exactly what it did before.
             **({"lessonPractice": True} if course.lesson_practice else {}),
             **({"optionLabels": course.option_labels} if course.option_labels else {}),
+            **({"pdfExercises": False} if not course.pdf_exercises else {}),
         }
 
     def course_tree(

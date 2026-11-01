@@ -65,6 +65,8 @@ export interface CourseMeta {
   lessonPractice?: boolean;
   /** How multiple-choice options are labelled (`letters` for A-D; absent for no labels). */
   optionLabels?: "letters" | null;
+  /** Whether the course PDF export includes in-lesson exercises and answer key; false for theory only. */
+  pdfExercises?: boolean;
 }
 
 export interface Course {

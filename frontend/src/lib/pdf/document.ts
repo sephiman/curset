@@ -58,6 +58,8 @@ export interface BuildCourseDocumentOptions {
   figures: Map<string, CapturedFigure>;
   /** The printed exercises and their answers. Required: there is no exercise-free variant of the book. */
   exercises: PrintExercises;
+  /** Whether to print in-lesson exercises and the answer key; false for theory only. */
+  pdfExercises?: boolean;
   /** One captured PNG per chart exercise, keyed by exercise id. */
   exerciseCharts: Map<string, string>;
   /** Called for a box too tall for any page, so the report can name it. Never a failure. */
@@ -205,10 +207,15 @@ export function buildCourseDocument(o: BuildCourseDocumentOptions): TDocumentDef
   const render = renderers(o.figures, o.labels);
   const annotator = proseAnnotator(o.export, o.labels);
   const chart = exerciseChart(o.exerciseCharts);
-  const byLesson = new Map(o.exercises.lessons.map((lesson) => [lesson.lessonId, lesson.exercises]));
+  const printExercises = o.pdfExercises ?? true;
+  const byLesson = printExercises
+    ? new Map(o.exercises.lessons.map((lesson) => [lesson.lessonId, lesson.exercises]))
+    : new Map<string, PrintExercise[]>();
   const excludedByLesson = new Map<string, number>();
-  for (const exclusion of o.exercises.excluded) {
-    excludedByLesson.set(exclusion.lessonId, (excludedByLesson.get(exclusion.lessonId) ?? 0) + 1);
+  if (printExercises) {
+    for (const exclusion of o.exercises.excluded) {
+      excludedByLesson.set(exclusion.lessonId, (excludedByLesson.get(exclusion.lessonId) ?? 0) + 1);
+    }
   }
   // The key follows the book: grouped by module, in the order the exercises were printed.
   const keyGroups: AnswerKeyGroup[] = [];
@@ -271,7 +278,9 @@ export function buildCourseDocument(o: BuildCourseDocumentOptions): TDocumentDef
       module.lessons.forEach((lesson, index) => {
         const body = lessonToContent(lesson.markdown, render, lesson.id, annotator?.(lesson.id));
         const exercises = byLesson.get(lesson.id) ?? [];
-        moduleExercises.push(...exercises);
+        if (printExercises) {
+          moduleExercises.push(...exercises);
+        }
         // A lesson's prose opens with its own `# title` — the string the manifest carries and the app
         // shows. Promote it to the TOC entry rather than printing the title twice; a body without one
         // falls back to the manifest title, so the TOC is never short an entry.
@@ -298,7 +307,9 @@ export function buildCourseDocument(o: BuildCourseDocumentOptions): TDocumentDef
             ...(index === 0 ? opening : []),
             ...body,
             // The prose is unchanged; the exercises follow it, inside the lesson's own section.
-            ...lessonExercises(exercises, excludedByLesson.get(lesson.id) ?? 0, o.labels, chart),
+            ...(printExercises
+              ? lessonExercises(exercises, excludedByLesson.get(lesson.id) ?? 0, o.labels, chart)
+              : []),
           ],
           pageBreak: "before",
           lessonId: lesson.id,
@@ -306,7 +317,9 @@ export function buildCourseDocument(o: BuildCourseDocumentOptions): TDocumentDef
         content.push(section);
       });
 
-      keyGroups.push({ title: moduleTitle, exercises: moduleExercises });
+      if (printExercises) {
+        keyGroups.push({ title: moduleTitle, exercises: moduleExercises });
+      }
     }
   }
 
@@ -317,10 +330,12 @@ export function buildCourseDocument(o: BuildCourseDocumentOptions): TDocumentDef
   const glossary = glossarySection(o.export.glossary, o.export.locale, o.labels, glossaryId);
   if (glossary) content.push(glossary);
 
-  const answerKeyId = printedId(SECTION_ID, "answer-key", 0);
-  sections.declare(answerKeyId, o.labels.answerKey);
-  const key = answerKeySection(keyGroups, o.labels, answerKeyId);
-  if (key) content.push(key);
+  if (printExercises) {
+    const answerKeyId = printedId(SECTION_ID, "answer-key", 0);
+    sections.declare(answerKeyId, o.labels.answerKey);
+    const key = answerKeySection(keyGroups, o.labels, answerKeyId);
+    if (key) content.push(key);
+  }
 
   return {
     info: {

@@ -43,6 +43,7 @@ export function ExportPdfButton({ course }: { course: CourseMeta }) {
         courseTitle: course.title,
         courseSubtitle: course.subtitle,
         courseDescription: course.description,
+        pdfExercises: course.pdfExercises,
         labels,
         date: new Date(),
         onProgress: setProgress,

@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { FigureData } from "@/api/course";
-import { downloadPdf, pdfFilename } from "@/lib/pdf/generate";
+import { downloadPdf, generateCoursePdf, pdfFilename, type GenerateProgress } from "@/lib/pdf/generate";
+import { testPdfLabels } from "@/test/printLabels";
 
 /**
  * What the export does when a figure will not come out: it stops, naming the figure — the prose quotes
@@ -88,5 +89,37 @@ describe("the file the reader gets", () => {
     expect(created).toHaveLength(1);
     expect(clicks[0]?.download).toBe("curset-x-en-2026-08-03.pdf");
     expect(document.querySelector("a[download]")).toBeNull(); // and it cleans up after itself
+  });
+});
+
+describe("generating course PDF with pdfExercises: false", () => {
+  it("skips fetching exercises and passes pdfExercises to buildCourseDocument", async () => {
+    const fetchExercises = vi.fn();
+    const fetchExport = vi.fn().mockResolvedValue({
+      locale: "es",
+      blocks: [],
+      glossary: [],
+    });
+    const renderPdf = vi.fn().mockResolvedValue(new Blob(["%PDF-"]));
+    const progress: GenerateProgress[] = [];
+
+    const generated = await generateCoursePdf({
+      scope: SCOPE,
+      courseId: "age-administrativo-c1",
+      courseTitle: "Admin",
+      courseSubtitle: "Subtitle",
+      courseDescription: "Desc",
+      pdfExercises: false,
+      labels: testPdfLabels("es"),
+      date: new Date(2026, 9, 4),
+      onProgress: (p) => progress.push(p),
+      fetchExport,
+      fetchExercises,
+      renderPdf,
+    });
+
+    expect(fetchExercises).not.toHaveBeenCalled();
+    expect(progress.map((p) => p.phase)).toEqual(["export", "typeset"]);
+    expect(generated.filename).toBe("curset-age-administrativo-c1-en-2026-10-04.pdf");
   });
 });

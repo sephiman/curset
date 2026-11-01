@@ -43,6 +43,8 @@ export interface GenerateCoursePdfOptions {
   /** The running footer's title segment; the cover keeps the full title. */
   courseSubtitle: string;
   courseDescription: string;
+  /** When false, in-lesson exercises and the answer key are omitted from the export. */
+  pdfExercises?: boolean;
   labels: PdfLabels;
   /** Injected, never read from the clock in here. */
   date: Date;
@@ -115,9 +117,12 @@ export async function generateCoursePdf(o: GenerateCoursePdfOptions): Promise<Ge
   o.onProgress?.({ phase: "export", done: 0, total: 0 });
   const exported = await fetchExport(o.scope);
 
-  o.onProgress?.({ phase: "exercises", done: 0, total: 0 });
-  const exercises = await fetchExercises(o.scope);
-  (o.onExcluded ?? reportExcluded)(exercises.excluded);
+  let exercises: PrintExercises = { locale: o.scope.lang, lessons: [], excluded: [] };
+  if (o.pdfExercises !== false) {
+    o.onProgress?.({ phase: "exercises", done: 0, total: 0 });
+    exercises = await fetchExercises(o.scope);
+    (o.onExcluded ?? reportExcluded)(exercises.excluded);
+  }
 
   const ids = exported.blocks.flatMap((block) =>
     block.modules.flatMap((module) => module.lessons.flatMap((lesson) => figureIds(lesson.markdown))),
@@ -152,6 +157,7 @@ export async function generateCoursePdf(o: GenerateCoursePdfOptions): Promise<Ge
     export: exported,
     figures,
     exercises,
+    pdfExercises: o.pdfExercises,
     exerciseCharts,
     onOversizedBlock: (block) => oversized.push(block),
     labels: o.labels,
