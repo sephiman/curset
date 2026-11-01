@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { useTranslation } from "react-i18next";
 import type { Me } from "@/api/auth";
-import { resendVerification } from "@/api/auth";
+import { changePassword, resendVerification } from "@/api/auth";
 import { apiErrorMessage } from "@/api/client";
 import { useAuth } from "@/auth/AuthContext";
 import { useMailFeature } from "@/auth/useMailFeature";
@@ -148,6 +148,85 @@ function EmailForm({ user }: { user: Me }) {
   );
 }
 
+function PasswordForm() {
+  const { t } = useTranslation();
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
+
+  async function onSubmit(e: FormEvent) {
+    e.preventDefault();
+    setError(null);
+    if (newPassword.length < 8) {
+      setError(t("auth.passwordTooShort", { count: 8 }));
+      return;
+    }
+    if (newPassword !== confirmPassword) {
+      setError(t("account.passwordsDiffer"));
+      return;
+    }
+    setBusy(true);
+    try {
+      await changePassword(currentPassword, newPassword);
+      setCurrentPassword("");
+      setNewPassword("");
+      setConfirmPassword("");
+      showToast(t("account.passwordChanged"), "success");
+    } catch (err) {
+      setError(apiErrorMessage(err, t));
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <form onSubmit={onSubmit} className="space-y-3">
+      <h2 className="text-base font-semibold">{t("account.changePassword")}</h2>
+      <div>
+        <Label htmlFor="current-password">{t("account.currentPassword")}</Label>
+        <Input
+          id="current-password"
+          type="password"
+          autoComplete="current-password"
+          required
+          value={currentPassword}
+          onChange={(e) => setCurrentPassword(e.target.value)}
+        />
+      </div>
+      <div>
+        <Label htmlFor="new-password">{t("account.newPassword")}</Label>
+        <Input
+          id="new-password"
+          type="password"
+          autoComplete="new-password"
+          required
+          minLength={8}
+          value={newPassword}
+          onChange={(e) => setNewPassword(e.target.value)}
+        />
+        <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">{t("auth.passwordHint", { count: 8 })}</p>
+      </div>
+      <div>
+        <Label htmlFor="confirm-password">{t("account.repeatNewPassword")}</Label>
+        <Input
+          id="confirm-password"
+          type="password"
+          autoComplete="new-password"
+          required
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+        />
+      </div>
+      {error && <p className="text-sm text-red-600 dark:text-red-400">{error}</p>}
+      <Button type="submit" disabled={busy || !currentPassword || !newPassword || !confirmPassword}>
+        {busy ? t("common.loading") : t("account.savePassword")}
+      </Button>
+    </form>
+  );
+}
+
 export function AccountPage() {
   const { t } = useTranslation();
   const { user } = useAuth();
@@ -163,6 +242,9 @@ export function AccountPage() {
       <Card className="space-y-4 p-4">
         <EmailForm key={user.email} user={user} />
         <EmailStatus user={user} mail={mail} />
+      </Card>
+      <Card className="p-4">
+        <PasswordForm />
       </Card>
       <CourseSettings />
     </div>

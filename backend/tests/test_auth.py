@@ -141,3 +141,50 @@ async def test_register_is_rate_limited(rl_client: AsyncClient) -> None:
         last_status = resp.status_code
     assert last_status == 429
     assert resp.json()["code"] == "RATE_LIMITED"
+
+
+async def test_change_password_requires_authentication(client: AsyncClient) -> None:
+    resp = await client.post(
+        "/api/auth/change-password",
+        json={"current_password": "correcthorse", "new_password": "newpassword123"},
+    )
+    assert resp.status_code == 401
+
+
+async def test_change_password_rejects_wrong_current_password(client: AsyncClient) -> None:
+    await _register(client)
+    await client.post("/api/auth/login", json=REG)
+    resp = await client.post(
+        "/api/auth/change-password",
+        json={"current_password": "wrongpassword", "new_password": "newpassword123"},
+    )
+    assert resp.status_code == 400
+    assert resp.json()["code"] == "BAD_CURRENT_PASSWORD"
+
+
+async def test_change_password_rejects_weak_new_password(client: AsyncClient) -> None:
+    await _register(client)
+    await client.post("/api/auth/login", json=REG)
+    resp = await client.post(
+        "/api/auth/change-password",
+        json={"current_password": REG["password"], "new_password": "short"},
+    )
+    assert resp.status_code == 400
+    assert resp.json()["code"] == "INVALID_PASSWORD"
+
+
+async def test_change_password_updates_password(client: AsyncClient) -> None:
+    await _register(client)
+    await client.post("/api/auth/login", json=REG)
+    resp = await client.post(
+        "/api/auth/change-password",
+        json={"current_password": REG["password"], "new_password": "newpassword123"},
+    )
+    assert resp.status_code == 200
+    assert resp.json() == {"status": "ok"}
+
+    # Old password no longer works
+    assert (await client.post("/api/auth/login", json=REG)).status_code == 400
+    # New password works
+    login = await client.post("/api/auth/login", json={"email": REG["email"], "password": "newpassword123"})
+    assert login.status_code == 200

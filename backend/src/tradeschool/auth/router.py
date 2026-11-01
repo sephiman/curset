@@ -25,6 +25,7 @@ from tradeschool.auth.mail import Mailer
 from tradeschool.auth.manager import UserManager, get_user_manager
 from tradeschool.auth.models import User
 from tradeschool.auth.schemas import (
+    ChangePasswordRequest,
     EmailTokenBody,
     Features,
     LoginRequest,
@@ -223,6 +224,24 @@ async def confirm_password_reset(
 ) -> dict[str, str]:
     try:
         await password_reset.confirm(session, payload.token, payload.new_password, user_manager=user_manager)
+    except InvalidPasswordException as exc:
+        raise _invalid_password(exc) from exc
+    return {"status": "ok"}
+
+
+@router.post("/change-password")
+async def change_password(
+    payload: ChangePasswordRequest,
+    user: Annotated[User, Depends(current_active_user)],
+    user_manager: Annotated[UserManager, Depends(get_user_manager)],
+) -> dict[str, str]:
+    verified, _ = user_manager.password_helper.verify_and_update(
+        payload.current_password, user.hashed_password
+    )
+    if not verified:
+        raise AppError("BAD_CURRENT_PASSWORD", "Current password does not match.", status_code=400)
+    try:
+        await user_manager.set_password(user, payload.new_password)
     except InvalidPasswordException as exc:
         raise _invalid_password(exc) from exc
     return {"status": "ok"}

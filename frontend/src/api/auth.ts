@@ -75,3 +75,10 @@ export async function validateReset(token: string): Promise<void> {
 export async function confirmReset(token: string, newPassword: string): Promise<void> {
   await apiClient.post("/auth/password-reset/confirm", { token, new_password: newPassword });
 }
+
+export async function changePassword(currentPassword: string, newPassword: string): Promise<void> {
+  await apiClient.post("/auth/change-password", {
+    current_password: currentPassword,
+    new_password: newPassword,
+  });
+}
