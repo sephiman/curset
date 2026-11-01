@@ -39,6 +39,7 @@ jobs:
           cache-dependency-path: frontend/package-lock.json
       - run: npm ci
       - run: npm run build
+      - run: npm run lint
       - run: npm test
 
   # Builds both images on every run; pushes to GHCR only from main, after the test jobs are green.
