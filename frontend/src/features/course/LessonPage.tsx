@@ -20,6 +20,8 @@ import { LessonMarkdown } from "@/lib/markdown";
 import { scopeKey, useCourse } from "@/features/courses/CourseContext";
 import { useCourseGlossary, useCourseTree } from "@/features/course/queries";
 import { useHeaderBack } from "@/components/layout/phoneChrome";
+import { cn } from "@/lib/cn";
+import { useLessonWidth } from "@/lib/lessonWidth";
 import { usePhoneLayout } from "@/lib/viewport";
 
 /** «← parent»; on the phone layout it becomes the header bar's back arrow instead (J2). */
@@ -43,6 +45,7 @@ export function LessonPage() {
   const { hash } = useLocation();
   const queryClient = useQueryClient();
   const { scope, path } = useCourse();
+  const { lessonWidthClass } = useLessonWidth();
   const lang = scope.lang;
 
   const { data: lesson, isLoading } = useQuery({
@@ -146,7 +149,7 @@ export function LessonPage() {
   const readingTime = formatReadingTime(lesson.readingSeconds, t);
 
   return (
-    <article className="mx-auto max-w-2xl max-md:max-w-[65ch] max-md:text-[17px] max-md:leading-[1.6]">
+    <article className={cn("mx-auto", lessonWidthClass, "max-md:max-w-[65ch] max-md:text-[17px] max-md:leading-[1.6]")}>
       <div className="flex items-baseline justify-between gap-3">
         <BackLink to={backTo} label={backLabel} />
         {readingTime !== null && (

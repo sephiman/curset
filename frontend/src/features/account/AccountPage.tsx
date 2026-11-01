@@ -6,6 +6,7 @@ import { apiErrorMessage } from "@/api/client";
 import { useAuth } from "@/auth/AuthContext";
 import { useMailFeature } from "@/auth/useMailFeature";
 import { Badge, Button, Card, Input, Label } from "@/components/ui/primitives";
+import { LessonWidthControl } from "@/components/layout/controls";
 import { showToast } from "@/lib/toastBus";
 import { CourseSettings } from "@/features/courses/CourseSettings";
 
@@ -245,6 +246,12 @@ export function AccountPage() {
       </Card>
       <Card className="p-4">
         <PasswordForm />
+      </Card>
+      <Card className="space-y-2 p-4">
+        <h2 className="font-semibold">{t("common.lessonWidth")}</h2>
+        <div>
+          <LessonWidthControl />
+        </div>
       </Card>
       <CourseSettings />
     </div>

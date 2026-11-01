@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { LessonWidthProvider } from "@/lib/lessonWidth";
 import { ThemeProvider } from "@/lib/theme";
 import { AuthProvider } from "@/auth/AuthContext";
 import App from "./App";
@@ -47,9 +48,11 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <ThemeProvider>
-          <AuthProvider>
-            <App />
-          </AuthProvider>
+          <LessonWidthProvider>
+            <AuthProvider>
+              <App />
+            </AuthProvider>
+          </LessonWidthProvider>
         </ThemeProvider>
       </BrowserRouter>
     </QueryClientProvider>

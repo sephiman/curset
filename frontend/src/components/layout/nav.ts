@@ -35,3 +35,9 @@ export function tabOf(pathname: string): Tab {
   if (rest.startsWith("/stats")) return "progress";
   return "course";
 }
+
+/** True on a lesson or its practice page, where the reader's width preference applies. */
+export function isLessonPath(pathname: string): boolean {
+  const rest = pathname.replace(/^\/courses\/[^/]+/, "");
+  return rest.startsWith("/lessons/");
+}

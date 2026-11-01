@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import type { Locale } from "@/api/auth";
 import { useAuth } from "@/auth/AuthContext";
 import { useFollowInterfaceLanguage } from "@/features/courses/useCourses";
+import { useLessonWidth, type LessonWidth } from "@/lib/lessonWidth";
 import { useTheme, type ThemePreference } from "@/lib/theme";
 import { cn } from "@/lib/cn";
 
@@ -92,6 +93,25 @@ export function ThemeControl({ block }: { block?: boolean }) {
         { value: "dark", label: t("theme.dark") },
         { value: "oled", label: t("theme.oled") },
         { value: "system", label: t("theme.system") },
+      ]}
+    />
+  );
+}
+
+/** Normal/Ancho/Completo segmented control for lesson and practice width. */
+export function LessonWidthControl({ block }: { block?: boolean }) {
+  const { t } = useTranslation();
+  const { lessonWidth, setLessonWidth } = useLessonWidth();
+  return (
+    <Segmented<LessonWidth>
+      ariaLabel={t("common.lessonWidth")}
+      value={lessonWidth}
+      onChange={setLessonWidth}
+      block={block}
+      options={[
+        { value: "normal", label: t("lessonWidth.normal") },
+        { value: "wide", label: t("lessonWidth.wide") },
+        { value: "full", label: t("lessonWidth.full") },
       ]}
     />
   );

@@ -1,15 +1,16 @@
 import { type ReactNode } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "@/auth/AuthContext";
 import { AccountMenu } from "@/components/layout/AccountMenu";
 import { Logo } from "@/components/layout/Logo";
 import { PhoneChromeProvider, useIsFocusMode } from "@/components/layout/phoneChrome";
-import { HOME_PATH } from "@/components/layout/nav";
+import { HOME_PATH, isLessonPath } from "@/components/layout/nav";
 import { PhoneHeader } from "@/components/layout/PhoneHeader";
 import { TabBar } from "@/components/layout/TabBar";
 import { useNavItems } from "@/features/courses/useNavItems";
 import { cn } from "@/lib/cn";
+import { useLessonWidth } from "@/lib/lessonWidth";
 import { usePhoneLayout } from "@/lib/viewport";
 
 export function AppShell({ children }: { children: ReactNode }) {
@@ -23,11 +24,14 @@ export function AppShell({ children }: { children: ReactNode }) {
 function Shell({ children }: { children: ReactNode }) {
   const { t } = useTranslation();
   const { user } = useAuth();
+  const { pathname } = useLocation();
+  const { lessonWidth } = useLessonWidth();
   const navItems = useNavItems();
   const phone = usePhoneLayout();
   const focused = useIsFocusMode();
   // Home is the Course tab: the selected course's root, or the "no course" page when there is none.
   const home = navItems.find((item) => item.tab === "course")?.to ?? HOME_PATH;
+  const fullLesson = isLessonPath(pathname) && lessonWidth === "full";
 
   if (phone) {
     return (
@@ -49,7 +53,7 @@ function Shell({ children }: { children: ReactNode }) {
       <header className="border-b border-border bg-white dark:border-gray-800 dark:bg-gray-900 oled:border-oled-line oled:bg-oled-bg">
         {/* Logo and avatar never shrink or clip; the nav between them collapses into the avatar menu
             below `sm`, where it would otherwise crowd them (space-driven — a narrowed window too). */}
-        <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-3">
+        <div className={cn("mx-auto flex items-center justify-between gap-4 px-4 py-3", fullLesson ? "max-w-none" : "max-w-5xl")}>
           <div className="flex min-w-0 items-center gap-6">
             {/* The wordmark is the way back to the start from anywhere. A plain `Link`, deliberately
                 with no `replace` prop: react-router replaces only when the target already IS the
@@ -85,7 +89,7 @@ function Shell({ children }: { children: ReactNode }) {
           <div className="flex shrink-0 items-center gap-3">{user && <AccountMenu user={user} />}</div>
         </div>
       </header>
-      <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-6">{children}</main>
+      <main className={cn("mx-auto w-full flex-1 px-4 py-6", fullLesson ? "max-w-none" : "max-w-5xl")}>{children}</main>
     </div>
   );
 }

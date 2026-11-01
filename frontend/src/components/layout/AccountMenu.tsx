@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import type { Me } from "@/api/auth";
 import { useAuth } from "@/auth/AuthContext";
-import { LanguageControl, ThemeControl } from "@/components/layout/controls";
+import { LanguageControl, LessonWidthControl, ThemeControl } from "@/components/layout/controls";
 import { Button } from "@/components/ui/primitives";
 import { useNavItems } from "@/features/courses/useNavItems";
 import { cn } from "@/lib/cn";
@@ -119,6 +119,11 @@ export function AccountMenu({ user }: { user: Me }) {
             <div>
               <p className="mb-1 px-1 text-xs text-gray-500 dark:text-gray-400">{t("common.theme")}</p>
               <ThemeControl block />
+            </div>
+
+            <div>
+              <p className="mb-1 px-1 text-xs text-gray-500 dark:text-gray-400">{t("common.lessonWidth")}</p>
+              <LessonWidthControl block />
             </div>
 
             <button

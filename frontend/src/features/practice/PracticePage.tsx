@@ -9,6 +9,7 @@ import { scopeKey, useCourse } from "@/features/courses/CourseContext";
 import { useCourseTree } from "@/features/course/queries";
 import { PracticeQuestion } from "@/features/practice/PracticeQuestion";
 import { cn } from "@/lib/cn";
+import { useLessonWidth } from "@/lib/lessonWidth";
 import { findTemaInfo } from "@/lib/tema";
 
 type Size = "twenty" | "all";
@@ -21,6 +22,7 @@ export function PracticePage() {
   const { t } = useTranslation();
   const { lessonId = "" } = useParams();
   const { scope, path } = useCourse();
+  const { lessonWidthClass } = useLessonWidth();
   const { data: courseTree } = useCourseTree();
   const { data: lesson } = useQuery({
     queryKey: ["lesson", ...scopeKey(scope), lessonId],
@@ -63,7 +65,7 @@ export function PracticePage() {
   };
 
   return (
-    <div className="mx-auto max-w-2xl space-y-4">
+    <div className={cn("mx-auto space-y-4", lessonWidthClass)}>
       <div>
         <Link to={path(`/lessons/${lessonId}`)} className="text-sm text-primary hover:underline">
           ← {t("practice.back")}
