@@ -1,5 +1,5 @@
 /// <reference types="vitest/config" />
-import { defineConfig } from "vitest/config";
+import { configDefaults, defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import path from "node:path";
@@ -21,6 +21,8 @@ export default defineConfig({
     environment: "jsdom",
     globals: true,
     setupFiles: ["./src/test/setup.ts"],
+    // Playwright's real-browser specs (`npm run test:e2e`) need a live stack; vitest never collects them.
+    exclude: [...configDefaults.exclude, "e2e/**"],
     /**
      * Vitest defaults to 5s, which is the wrong order of magnitude for this suite: several files
      * build the whole 220-page book or annotate all 36 lessons, and a single one of those takes

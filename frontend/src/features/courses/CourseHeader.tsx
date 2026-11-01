@@ -8,6 +8,7 @@ import { useCourse } from "@/features/courses/CourseContext";
 import { availability } from "@/features/courses/languages";
 import { useCatalogue, useChooseReadingLanguage, useMyCourses } from "@/features/courses/useCourses";
 import { useInterfaceLocale } from "@/i18n/locale";
+import { usePhoneLayout } from "@/lib/viewport";
 
 /**
  * Which course is on screen, which languages it exists in and, when it has several, which one it is
@@ -22,6 +23,10 @@ export function CourseHeader() {
   const { data: catalogue = [] } = useCatalogue();
   const { data: mine } = useMyCourses();
   const chooseReadingLanguage = useChooseReadingLanguage();
+  const phone = usePhoneLayout();
+
+  // The phone header's course sheet carries all of this (J2).
+  if (phone) return null;
 
   const tab = tabOf(pathname);
   const active = catalogue.filter((entry) => mine?.active.includes(entry.slug));

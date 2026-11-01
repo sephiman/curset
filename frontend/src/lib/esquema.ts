@@ -1,4 +1,4 @@
-import type { List, ListItem, Nodes, Paragraph, Parent, PhrasingContent, Root, Text } from "mdast";
+import type { List, ListItem, Nodes, Paragraph, Parent, PhrasingContent, Root, Table, Text } from "mdast";
 import type { ContainerDirective } from "mdast-util-directive";
 import type { Plugin } from "unified";
 
@@ -137,6 +137,23 @@ function rows(list: List, kind: Exclude<EsquemaKind, "tabla">, depth: number): E
   });
 }
 
+function plainText(node: Nodes): string {
+  if ("value" in node && typeof node.value === "string") return node.value;
+  return "children" in node ? (node.children as Nodes[]).map(plainText).join("") : "";
+}
+
+/** Each body cell carries its column's header text, so a narrow screen can print a row as «header: value». */
+function labelTableCells(table: Table): void {
+  const [head, ...body] = table.children;
+  if (!head) return;
+  const headers = head.children.map((cell) => plainText(cell).trim());
+  for (const row of body) {
+    row.children.forEach((cell, index) => {
+      cell.data = { ...cell.data, hProperties: { ...cell.data?.hProperties, "data-header": headers[index] ?? "" } };
+    });
+  }
+}
+
 function isEsquema(node: Nodes): node is ContainerDirective {
   return node.type === "containerDirective" && node.name === "esquema";
 }
@@ -152,7 +169,10 @@ export function transformEsquemas(tree: Root): void {
           hName: "div",
           hProperties: { "data-esquema-kind": kind, "data-esquema-title": title },
         };
-        if (kind !== "tabla" && ESQUEMA_KINDS.includes(kind)) {
+        if (kind === "tabla") {
+          const table = child.children.find((c): c is Table => c.type === "table");
+          if (table) labelTableCells(table);
+        } else if (ESQUEMA_KINDS.includes(kind)) {
           const list = child.children.find((c): c is List => c.type === "list");
           if (list) child.children = rows(list, kind, 0) as never;
         }

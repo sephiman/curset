@@ -85,14 +85,15 @@ function PresetCard({
       {preset.targets ? (
         <div>
           <p className="mb-2 text-sm font-medium">{t("exam.chooseTarget")}</p>
-          <div className="grid gap-2 sm:grid-cols-2">
+          {/* grid-cols-1 is minmax(0,1fr): an implicit auto column grew to the longest title and widened the page. */}
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
             {preset.targets.map((target) => (
               <Button
                 key={target.id}
                 variant="secondary"
                 disabled={disabled}
                 onClick={() => onStart(target.id)}
-                className="justify-between text-left"
+                className="min-w-0 justify-between gap-3 text-left"
               >
                 <span className="truncate">{target.title}</span>
                 <span className="shrink-0 text-xs text-gray-500">{t("exam.questions", { count: target.questions })}</span>

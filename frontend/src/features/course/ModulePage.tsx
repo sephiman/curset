@@ -5,6 +5,8 @@ import { getModule } from "@/api/course";
 import { formatReadingTime, remainingSeconds } from "@/features/course/readingTime";
 import { Badge, Card, Spinner } from "@/components/ui/primitives";
 import { scopeKey, useCourse } from "@/features/courses/CourseContext";
+import { OneLineSummary } from "@/features/course/OneLineSummary";
+import { useCourseTree } from "@/features/course/queries";
 
 export function ModulePage() {
   const { t } = useTranslation();
@@ -14,6 +16,11 @@ export function ModulePage() {
     queryKey: ["module", ...scopeKey(scope), moduleId],
     queryFn: () => getModule(scope, moduleId),
   });
+  // The module endpoint carries no lesson summaries; the course tree (already cached) does.
+  const { data: tree } = useCourseTree();
+  const lessonSummaries = new Map(
+    (tree?.blocks ?? []).flatMap((block) => block.modules.flatMap((m) => m.lessons.map((l) => [l.id, l.summary] as const))),
+  );
 
   if (isLoading || !module) {
     return (
@@ -62,22 +69,34 @@ export function ModulePage() {
               </span>
             </>
           );
+          const summary = lessonSummaries.get(lesson.id);
+          const summaryLine = summary && (
+            <OneLineSummary text={summary} phoneOnly className="-mt-3 px-4 pb-3 text-sm text-gray-500 dark:text-gray-400" />
+          );
           if (!lesson.practiceQuestions) {
+            // The row link stretches over the card, so the summary's «más» button can sit beside it.
             return (
-              <Link key={lesson.id} to={path(`/lessons/${lesson.id}`)} className="block">
-                <Card className="flex items-center justify-between gap-3 p-4 hover:border-primary">{row}</Card>
-              </Link>
+              <Card key={lesson.id} className="relative hover:border-primary">
+                <Link
+                  to={path(`/lessons/${lesson.id}`)}
+                  className="flex items-center justify-between gap-3 p-4 after:absolute after:inset-0 after:rounded-lg focus:outline-none focus-visible:after:ring-2 focus-visible:after:ring-primary"
+                >
+                  {row}
+                </Link>
+                {summaryLine}
+              </Card>
             );
           }
           // A lesson with practice: two links side by side, since a link cannot hold another.
           return (
-            <Card key={lesson.id} className="flex flex-col hover:border-primary sm:flex-row sm:items-center sm:gap-3">
+            <Card key={lesson.id} className="flex flex-col hover:border-primary md:flex-row md:items-center md:gap-3">
               <Link to={path(`/lessons/${lesson.id}`)} className="flex min-w-0 flex-1 items-center justify-between gap-3 p-4">
                 {row}
               </Link>
+              {summaryLine}
               <Link
                 to={path(`/lessons/${lesson.id}/practice`)}
-                className="shrink-0 px-4 pb-4 text-sm font-medium text-primary hover:underline sm:mr-4 sm:px-0 sm:pb-0"
+                className="inline-flex min-h-11 shrink-0 items-center px-4 pb-1 text-sm font-medium text-primary hover:underline md:mr-4 md:min-h-0 md:px-0 md:pb-0"
               >
                 {t("practice.entry")}
               </Link>

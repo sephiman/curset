@@ -13,6 +13,7 @@ import {
 } from "@/features/course/readingTime";
 import { Badge, Card, Spinner } from "@/components/ui/primitives";
 import { cn } from "@/lib/cn";
+import { OneLineSummary } from "@/features/course/OneLineSummary";
 import { useCourse } from "@/features/courses/CourseContext";
 import { useCourseTree } from "@/features/course/queries";
 
@@ -37,11 +38,39 @@ function ModuleCard({ module, suggested }: { module: CourseModule; suggested: bo
   // rather than "~0 min".
   const timeLeft = formatReadingTime(remainingSeconds(moduleLessons(module)), t);
 
-  const inner = (
-    <Card className={cn("h-full p-4 transition-colors", suggested ? "border-primary ring-1 ring-primary" : module.hasContent ? "hover:border-primary" : "opacity-70")}>
+  // A module with exactly one lesson has no useful intermediate page — jump straight to the lesson.
+  // The module page is kept for the (data-model-supported) multi-lesson case.
+  const target =
+    module.lessonsTotal === 1 && module.lessons[0]
+      ? path(`/lessons/${module.lessons[0].id}`)
+      : path(`/modules/${module.id}`);
+  const heading = (
+    <>
+      <span className="text-gray-400">{module.id.toUpperCase()}</span> · {module.title}
+    </>
+  );
+
+  // The title link stretches over the whole card, so the card stays one tap target while the summary's
+  // «más» (a button, which a link may not contain) sits above it.
+  return (
+    <Card
+      className={cn(
+        "relative h-full p-4 transition-colors",
+        suggested ? "border-primary ring-1 ring-primary" : module.hasContent ? "hover:border-primary" : "opacity-70",
+      )}
+    >
       <div className="flex items-start justify-between gap-2">
         <h3 className="font-semibold">
-          <span className="text-gray-400">{module.id.toUpperCase()}</span> · {module.title}
+          {module.hasContent ? (
+            <Link
+              to={target}
+              className="after:absolute after:inset-0 after:rounded-lg focus:outline-none focus-visible:after:ring-2 focus-visible:after:ring-primary"
+            >
+              {heading}
+            </Link>
+          ) : (
+            heading
+          )}
         </h3>
         <div className="flex shrink-0 gap-1">
           {suggested && <Badge tone="indigo">{t("course.suggestedNext")}</Badge>}
@@ -49,7 +78,7 @@ function ModuleCard({ module, suggested }: { module: CourseModule; suggested: bo
           {!module.hasContent && <Badge tone="neutral">{t("course.comingSoon")}</Badge>}
         </div>
       </div>
-      <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{module.summary}</p>
+      <OneLineSummary text={module.summary} className="mt-1 text-sm text-gray-500 dark:text-gray-400" />
 
       {module.hasContent && (
         <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
@@ -75,21 +104,6 @@ function ModuleCard({ module, suggested }: { module: CourseModule; suggested: bo
         </p>
       )}
     </Card>
-  );
-
-  // A module with exactly one lesson has no useful intermediate page — jump straight to the lesson.
-  // The module page is kept for the (data-model-supported) multi-lesson case.
-  const target =
-    module.lessonsTotal === 1 && module.lessons[0]
-      ? path(`/lessons/${module.lessons[0].id}`)
-      : path(`/modules/${module.id}`);
-
-  return module.hasContent ? (
-    <Link to={target} className="block">
-      {inner}
-    </Link>
-  ) : (
-    <div>{inner}</div>
   );
 }
 
@@ -195,7 +209,7 @@ export function CoursePage() {
             {/* The block's own remaining time, in normal case so "min" is not shouted by the uppercase heading. */}
             <BlockReadingTime block={block} />
           </h2>
-          <div className="grid gap-3 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             {block.modules.map((module) => (
               <ModuleCard key={module.id} module={module} suggested={module.id === suggestedModuleId} />
             ))}

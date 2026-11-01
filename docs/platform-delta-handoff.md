@@ -645,3 +645,101 @@ Example preset:
 - **Frontend PDF typesetting**: `frontend/src/lib/pdf/examDocument.ts` typesetting the exam with `pdfmake` using Liberation Sans fonts, headers, footers with page numbering, scenarios in callout panels, unbreakable question blocks, and clean multi-column key tables. Accessible via «Descargar PDF» on the Exams page.
 
 
+
+## Delta J — mobile layout (2026-11-01)
+
+Delta v1.8 section J, J1–J8, on both courses, not committed. Part 1 piloted J1–J4 on age-administrativo-c1 in the
+dev build. Part 2 removed that gate, so below 768 px every course gets the phone layout, in every build.
+
+### What changed
+
+- **J1 tab bar.** `components/layout/TabBar.tsx`: Curso, Glosario, Exámenes and Progreso fixed at the bottom with icon
+  and label, padded for the home indicator. The avatar menu drops its copy of the sections on the phone layout.
+  **Decision (user, 2026-11-01):** an exam sitting is focus mode. Any preset hides the bar while its sitting is open
+  (`useFocusMode` in `components/layout/phoneChrome.tsx`, called by `ExamRunner`), and Anterior/Siguiente take the
+  bottom. The bar comes back on the results and in review. Practice rounds keep it.
+- **J2 header.** `PhoneHeader.tsx`: mark + «Curset», the course name as a compact selector, the avatar, no divider.
+  The selector opens `features/courses/CourseSwitcher.tsx`, a bottom sheet (`components/ui/Sheet.tsx`) listing the
+  active courses with their language note («Solo en español») and, for a two-language course, the reading-language
+  switch. `CourseHeader` renders nothing on the phone layout. The lesson's «← Curso / módulo» becomes the header's
+  back arrow (`useHeaderBack`).
+- **J3 exam sitting.** A sticky clock bar shows time used, time left, «0/110» (the full phrase is the
+  accessible name) and pause when allowed. `features/exams/QuestionNavigator.tsx` holds the chip strip: current
+  centred, answered filled, reserves dashed, part labels pinned at the left. «Ir a…» opens the full grid as a sheet.
+  Toasts become small pills at the top on the phone layout. The desktop sitting renders as before.
+- **J4 esquemas.** Below 640 px a `tabla` renders one card per row, each cell «header: value». The header text
+  travels on each body cell as `data-header`, set in `lib/esquema.ts`; the rendering is `lib/MarkdownTable.tsx`.
+  `plazos` gets step numbers and `arbol` gets connectors. 640 px and above: the table as before.
+- **J5 reading.** Lesson text is 17 px at line height 1.6, measure capped at 65ch; headings 26/21/18 px; lists
+  compact. `features/course/OneLineSummary.tsx`: module and lesson cards show one line of summary with «más/menos»,
+  and «más» only appears when the line is actually cut. Lesson summaries come from the cached course tree and appear on
+  phones only (desktop lesson rows had none and still have none). The module card's link now stretches over the card
+  (`after:inset-0`) instead of wrapping it, because a link cannot contain the «más» button. Above 768 px it looks
+  the same.
+- **J6 touch targets.** Below 768 px: buttons (`Button`), the avatar, header controls, sheet close, segmented
+  controls, the copyable id and «Ver solución» are at least 44 px. Chips are 44 px in the strip and the sheet;
+  options are `min-h-11` at every width. Options show a focus ring (`has-[:focus-visible]`), and chips, tabs,
+  «Ir a…» and sheet controls have `focus-visible` rings in all three themes.
+- **J7 solution panel.** On a phone the excerpt gets a full border around its article heading. «Tema N: …» (clamped
+  to two lines) and «Texto consolidado» are a row of two buttons, with the copyable id and the report button stacked
+  below.
+
+### Bugs the real-browser checks found (fixed, all widths)
+
+- **«Tema» exam buttons** (`ExamPage.tsx`). The choose-a-tema grid had no column template, so its implicit `auto`
+  column grew to the longest lesson title (3,143 px). Phones then laid the whole page out at 1,440 px and zoomed it
+  out, which hid the tab bar. This is probably the left-clipping seen on the phone in section J. Fixed with
+  `grid-cols-1` and `min-w-0`. The 360 px Exámenes width test fails with the fix reverted (verified) and passes
+  with it.
+- **«Por tema» lists** (`ByLessonTable.tsx`) and the **course page module grid** (`CoursePage.tsx`, made
+  visible by the one-line summaries): the same missing `grid-cols-1`, same fix. `ChartGallery.tsx` had the
+  same pattern and got the same fix.
+
+### Tests
+
+- Vitest, `src/test/viewport.ts` (a `matchMedia` answering `max-width` for a set width):
+  - `components/layout/PhoneChrome.test.tsx`: tab bar present at 360/390/430/767 and absent at 768/1024; the
+    one-line header; hidden in a sitting and back on review.
+  - `lib/EsquemaLayout.test.tsx`: table at 640/1024, cards with «header: value» at 360/639.
+- Playwright, new: `npm run test:e2e` (`frontend/e2e/`, `playwright.config.ts`, `@playwright/test` 1.64.1).
+  Runs against the live dev stack and signs in once (login is rate limited) as `e2e-mobile`. 26 tests:
+  - tab bar at 360 vs 1024 on both courses;
+  - esquema table at 800 vs cards at 360;
+  - the full first question of a 70-question «Parte 1» sitting fits above Anterior/Siguiente at 360 with no
+    scrolling and no tab bar;
+  - tab bar back on the results;
+  - no element wider than the viewport, and no widened layout viewport, at 360/390/430 on: Exámenes (both
+    courses), lesson with esquema, practice with the panel open, simulation sitting, results by tema, course
+    selector open.
+
+  Vitest excludes `e2e/**`, and `tsconfig.e2e.json` puts the specs under `tsc -b`.
+
+### Results
+
+- Frontend: `tsc -b` and `npm run build` clean. `npm test`: 650 passed, 51 skipped (638 before; 12 new).
+  `npm run test:e2e`: 26 passed.
+- Backend (no backend change): `ruff check`, `ruff format --check`, `mypy src` clean. `pytest -n auto`: 1,585 passed,
+  20 skipped.
+- Android bundle re-exported to scratch: byte-identical to `dist/bundle`, label catalogs identical to `dist/i18n`
+  (the new UI keys are outside the exported namespaces). `verify_golden_stability.py`: 90 fingerprints hold,
+  digest `f0ae701b…bcaea`, unchanged. Nothing under `dist/` or `content/` changed.
+- J8: 45 screenshots in `docs/screens/mobile/`: five screens (`lesson-esquema`, `practice-panel`, `simulation`,
+  `results-tema`, `course-selector`) × 360/390/430 × light/dark/oled. They replace the four Part 1 screenshots.
+
+### Local environment
+
+- **The local backend now runs from HEAD against `postgresdb`** (127.0.0.1:5432, database `tradeschool`), via `uv run
+  uvicorn` on :8000 with `DEV_MODE=true`, behind `npm run dev` on :5173. The `curset-backend` container image predates
+  commit 4c18259, so it was not used. On startup the HEAD backend ran migrations and inserted that commit's 10 new
+  course rows into the local testing database.
+- The eight throwaway accounts created for screenshots and probes were deleted, `e2e-mobile` included. Every
+  foreign key from `user` cascades. The next `npm run test:e2e` registers `e2e-mobile` again.
+
+### Interpretations and open points
+
+- The «Por tema» table itself still scrolls sideways inside its own box on a phone. Lesson titles wrap in a narrow
+  first column and the Fallos/Blanco columns are off screen until scrolled. Section J does not ask for cards there.
+  This is the next candidate if the results screen should read like the esquemas.
+- Between 640 and 768 px, lesson rows with practice now stack (`md:` instead of `sm:`), so the phone layout is one
+  layout across its whole range.
+- `viewport-fit=cover` was already in `index.html`, so the safe-area padding takes effect with no change there.

@@ -1,6 +1,6 @@
 # Requirements delta — Curset platform: exam presets, grouped cases, source links, results by lesson
 
-Version 1.7 · 31 October 2026 · delta to docs/curset-multicourse-requirements.md. Four platform changes. A and B are required by the AGE course (docs/age-administrativo-course-requirements.md, R6.1 and R7.1) and precede that course's R5. C and D apply to every course and can run as their own rounds at any time after A.
+Version 1.8 · 1 November 2026 · delta to docs/curset-multicourse-requirements.md. Four platform changes. A and B are required by the AGE course (docs/age-administrativo-course-requirements.md, R6.1 and R7.1) and precede that course's R5. C and D apply to every course and can run as their own rounds at any time after A.
 
 ## A. Exam presets per course
 
@@ -85,6 +85,19 @@ Version 1.7 · 31 October 2026 · delta to docs/curset-multicourse-requirements.
 - I3 The solution panel and the review show the question's stable id as a copyable reference («age-c1 · III.3 · q127»), so learners can point each other to the same question; question reports already carry it.
 - I4 Courses without `lesson_noun` (crypto-futures) show the number only, as today.
 
+## J. Mobile layout
+
+Observed on a 1080×2400 phone (Nov 2026): the exam navigator grid fills two screens before the first question; esquema tables wrap into unreadable columns and are clipped on the left; the header stack (logo, course selector, language notice, divider) takes 40 % of every screen; the four main tabs are hidden behind the avatar menu.
+
+- J1 Below 768 px the four main sections (Curso, Glosario, Exámenes, Progreso) are a fixed bottom tab bar with icon and label, safe-area aware; the avatar menu keeps account, language, theme and sign-out only. Above 768 px nothing changes.
+- J2 Header below 768 px: one line: mark + «Curset» at the left, the course name as a compact selector (tap opens the course sheet with the «Solo en español» note inside), avatar at the right. No divider line. The lesson «← Curso» link becomes the back arrow of that bar.
+- J3 Exam sitting below 768 px: order is clock bar (sticky: time used, time left, answered/total, pause when allowed), then the question card, then the four options, then Anterior/Siguiente fixed at the bottom. The question navigator is a horizontally scrolling strip of numbered chips under the clock (current centred; answered filled; reserve dashed; part labels as sticky separators) with an «Ir a…» button that opens the full grid as a sheet. The «Guardado» toast is a small pill at the top of the content, never covering the navigation.
+- J4 Esquemas below 640 px: `tabla` renders as stacked cards, one per row, each cell on its own line as «header: value»; `plazos` and `pasos` as a vertical list with the step number, label, plazo/document and citation; `arbol` as an indented list with connectors. No horizontal scroll and nothing clipped; the esquema title and citation links stay. Above 640 px the table layout stays.
+- J5 Reading: body text 17 px, line height 1.6, measure under 70 characters; headings scaled accordingly; lead-in labels and «Lo que más cae» as compact lists; module and lesson cards show title, reading time and a one-line summary with «más» to expand, not the full summary.
+- J6 Touch targets at least 44 × 44 px for options, chips, tabs and buttons; focus and selected states visible in the three themes.
+- J7 Solution panel below 768 px: opens inline under the options, the excerpt in a bordered block with the article heading, the two links as a row of two buttons, the copyable id and report link below.
+- J8 Verified in a real browser at 360, 390 and 430 px widths and in the three themes, with screenshots saved under docs/screens/mobile/ for the five screens: lesson with esquema, practice with the panel open, simulation sitting, results by tema, course selector/menu.
+
 ## Acceptance
 
 - `crypto-futures` exams and goldens unchanged.
@@ -93,6 +106,7 @@ Version 1.7 · 31 October 2026 · delta to docs/curset-multicourse-requirements.
 - An answered AGE question links to its lesson at the cited article's anchor; the citation in the lesson opens the consolidated text at the article (HTML) or page (PDF); a question citing an article its lesson does not cite fails the cross-reference check. crypto-futures shows no citation links and its goldens are unchanged.
 - A lesson with the four esquema kinds renders on web and in the PDF; an esquema row citing an article the prose does not cite fails the check with the row named.
 - An answered AGE question shows the solution panel with the verbatim cited text under its article heading, the tema link and the source link; a crypto-futures question shows the explanation only; fewer than 1 % of AGE questions lack an excerpt and each of those says why.
+- At 360 px: the first question of a simulation is visible without scrolling under the clock bar; an esquema table shows as stacked cards with nothing clipped; the header is one line; the four tabs are at the bottom.
 - An AGE question in a «Bloque» exam shows its number and tema; the same question in a «Simulacro oficial» sitting shows the number only and the tema in review; the panel offers the copyable id.
 - An AGE question shows A–D in its displayed order; the panel says «Correcta: X» and the PDF key matches the printed letters; crypto-futures shows no letters.
 - A practice exam can be paused only after answering; a simulation cannot; a reload resumes with the correct time; the results show total, per-part and per-question times and the per-lesson averages.

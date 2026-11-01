@@ -7,6 +7,7 @@ import { LanguageControl, ThemeControl } from "@/components/layout/controls";
 import { Button } from "@/components/ui/primitives";
 import { useNavItems } from "@/features/courses/useNavItems";
 import { cn } from "@/lib/cn";
+import { usePhoneLayout } from "@/lib/viewport";
 
 function initials(username: string): string {
   return username.slice(0, 2).toUpperCase();
@@ -17,6 +18,8 @@ export function AccountMenu({ user }: { user: Me }) {
   const { t } = useTranslation();
   const { logout } = useAuth();
   const navItems = useNavItems();
+  // On the phone layout the tab bar carries the sections, so the menu keeps account, language, theme, sign-out.
+  const phone = usePhoneLayout();
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
@@ -46,7 +49,7 @@ export function AccountMenu({ user }: { user: Me }) {
         aria-expanded={open}
         aria-label={user.username}
         onClick={() => setOpen((v) => !v)}
-        className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-1 dark:focus:ring-offset-gray-900 oled:focus:ring-offset-oled-bg"
+        className="flex h-9 w-9 max-md:h-11 max-md:w-11 items-center justify-center rounded-full bg-primary text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-1 dark:focus:ring-offset-gray-900 oled:focus:ring-offset-oled-bg"
       >
         {initials(user.username)}
       </button>
@@ -81,6 +84,7 @@ export function AccountMenu({ user }: { user: Me }) {
 
           {/* Primary nav, only when it was collapsed out of the header (< sm). Active page keeps its
               highlight here. Same single menu on mobile — account, nav, then the display controls. */}
+          {!phone && (
           <nav className="mb-3 flex flex-col border-b border-border pb-3 sm:hidden dark:border-gray-800 oled:border-oled-line">
             {navItems.map(({ tab, to, labelKey, current }) => (
               <Link
@@ -99,6 +103,7 @@ export function AccountMenu({ user }: { user: Me }) {
               </Link>
             ))}
           </nav>
+          )}
 
           <div className="space-y-3">
             <div>
@@ -118,7 +123,7 @@ export function AccountMenu({ user }: { user: Me }) {
                 setOpen(false);
                 void logout();
               }}
-              className="w-full rounded-md border border-border px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-800 oled:border-oled-line-strong oled:hover:bg-oled-hover"
+              className="w-full rounded-md border border-border px-3 py-2 text-sm font-medium max-md:min-h-11 text-gray-700 transition-colors hover:bg-gray-100 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-800 oled:border-oled-line-strong oled:hover:bg-oled-hover"
             >
               {t("auth.logout")}
             </button>

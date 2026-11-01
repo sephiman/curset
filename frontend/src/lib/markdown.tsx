@@ -7,6 +7,14 @@ import { annotateCitations } from "@/lib/citations/annotate";
 import { remarkBlockDirectives } from "@/lib/directives";
 import { remarkEsquema, type EsquemaCellRole, type EsquemaKind } from "@/lib/esquema";
 import { EsquemaBlock, EsquemaCell, EsquemaRow } from "@/lib/EsquemaBlock";
+import {
+  MarkdownTable,
+  MarkdownTableBody,
+  MarkdownTableCell,
+  MarkdownTableHead,
+  MarkdownTableHeaderCell,
+  MarkdownTableRow,
+} from "@/lib/MarkdownTable";
 import { annotateLesson, annotateLessonRefs } from "@/lib/glossary/annotate";
 import type { TermMatcher } from "@/lib/glossary/terms";
 import type { RefKind, RefRegistry, RefTarget } from "@/lib/refs/registry";
@@ -119,13 +127,13 @@ function buildComponents(
       }
       return <span>{attrs.children}</span>;
     },
-    h1: ({ children }) => <h1 className="mt-2 mb-4 text-2xl font-bold">{children}</h1>,
-    h2: ({ children }) => <h2 className="mt-6 mb-3 text-xl font-semibold">{children}</h2>,
-    h3: ({ children }) => <h3 className="mt-4 mb-2 text-lg font-semibold">{children}</h3>,
-    p: ({ children }) => <p className="my-3 leading-relaxed text-gray-700 dark:text-gray-300">{children}</p>,
-    ul: ({ children }) => <ul className="my-3 list-disc space-y-1 pl-6 text-gray-700 dark:text-gray-300">{children}</ul>,
-    ol: ({ children }) => <ol className="my-3 list-decimal space-y-1 pl-6 text-gray-700 dark:text-gray-300">{children}</ol>,
-    li: ({ children }) => <li className="leading-relaxed">{children}</li>,
+    h1: ({ children }) => <h1 className="mt-2 mb-4 text-2xl font-bold max-md:text-[1.625rem] max-md:leading-tight">{children}</h1>,
+    h2: ({ children }) => <h2 className="mt-6 mb-3 text-xl font-semibold max-md:text-[1.3125rem] max-md:leading-snug">{children}</h2>,
+    h3: ({ children }) => <h3 className="mt-4 mb-2 text-lg font-semibold max-md:text-[1.125rem] max-md:leading-snug">{children}</h3>,
+    p: ({ children }) => <p className="my-3 leading-relaxed text-gray-700 max-md:leading-[1.6] dark:text-gray-300">{children}</p>,
+    ul: ({ children }) => <ul className="my-3 list-disc space-y-1 pl-6 text-gray-700 max-md:pl-5 dark:text-gray-300">{children}</ul>,
+    ol: ({ children }) => <ol className="my-3 list-decimal space-y-1 pl-6 text-gray-700 max-md:pl-5 dark:text-gray-300">{children}</ol>,
+    li: ({ children }) => <li className="leading-relaxed max-md:leading-normal">{children}</li>,
     strong: ({ children }) => <strong className="font-semibold text-gray-900 dark:text-gray-100">{children}</strong>,
     code: ({ children }) => (
       <code className="rounded bg-gray-100 px-1 py-0.5 font-mono text-[0.85em] text-gray-800 dark:bg-gray-800 dark:text-gray-200">
@@ -137,33 +145,19 @@ function buildComponents(
         {children}
       </a>
     ),
-    // GFM tables. Same rule as the PDF's tables and SharedLedger's data tables: horizontal rules
-    // only, the header rule a step stronger than the row rules. The wrapper scrolls so a wide table
-    // never widens the page on phone widths.
-    table: ({ children }) => (
-      <div className="my-4 overflow-x-auto">
-        <table className="w-full text-sm">{children}</table>
-      </div>
-    ),
-    thead: ({ children }) => (
-      <thead className="border-b border-gray-300 text-gray-500 dark:border-gray-700 dark:text-gray-400 oled:border-oled-line-strong">
-        {children}
-      </thead>
-    ),
-    tbody: ({ children }) => (
-      <tbody className="divide-y divide-border dark:divide-gray-800 oled:divide-oled-line">{children}</tbody>
-    ),
-    // `align` carries a `|:---:|` column marker; left is the default only while none is set.
-    th: ({ align, children }) => (
-      <th align={align} className={cn("py-2 pr-4 last:pr-0", !align && "text-left")}>
-        {children}
-      </th>
-    ),
-    td: ({ align, children }) => (
-      <td align={align} className="py-2 pr-4 align-top text-gray-700 last:pr-0 dark:text-gray-300">
-        {children}
-      </td>
-    ),
+    table: ({ children }) => <MarkdownTable>{children}</MarkdownTable>,
+    thead: ({ children }) => <MarkdownTableHead>{children}</MarkdownTableHead>,
+    tbody: ({ children }) => <MarkdownTableBody>{children}</MarkdownTableBody>,
+    tr: ({ children }) => <MarkdownTableRow>{children}</MarkdownTableRow>,
+    th: ({ align, children }) => <MarkdownTableHeaderCell align={align}>{children}</MarkdownTableHeaderCell>,
+    td: (props) => {
+      const header = (props as Record<string, unknown>)["data-header"];
+      return (
+        <MarkdownTableCell align={props.align} header={typeof header === "string" ? header : undefined}>
+          {props.children}
+        </MarkdownTableCell>
+      );
+    },
     div: (props) => {
       const attrs = props as Record<string, unknown> & { children?: ReactNode };
       const exerciseId = attrs["data-exercise-id"];

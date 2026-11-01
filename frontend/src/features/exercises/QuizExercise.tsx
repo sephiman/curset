@@ -19,8 +19,8 @@ type ControlProps = {
 const optionOff = "border-border hover:border-primary/60 dark:border-gray-700";
 const optionOn = "border-primary bg-indigo-50 dark:bg-indigo-950/40";
 const optionBase =
-  "flex w-full cursor-pointer items-start gap-2 rounded-md border p-3 text-left text-sm transition-colors";
-const rowBase = "flex w-full items-center gap-2 rounded-md border p-3 text-sm";
+  "flex min-h-11 w-full cursor-pointer items-start gap-2 rounded-md border p-3 text-left text-sm transition-colors has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-primary";
+const rowBase = "flex min-h-11 w-full items-center gap-2 rounded-md border p-3 text-sm";
 
 function SubmitButton({ disabled, onSubmit }: { disabled: boolean; onSubmit?: () => void }) {
   const { t } = useTranslation();

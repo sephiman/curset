@@ -19,6 +19,23 @@ import { formatReadingTime } from "@/features/course/readingTime";
 import { LessonMarkdown } from "@/lib/markdown";
 import { scopeKey, useCourse } from "@/features/courses/CourseContext";
 import { useCourseGlossary, useCourseTree } from "@/features/course/queries";
+import { useHeaderBack } from "@/components/layout/phoneChrome";
+import { usePhoneLayout } from "@/lib/viewport";
+
+/** «← parent»; on the phone layout it becomes the header bar's back arrow instead (J2). */
+function BackLink({ to, label }: { to: string; label: string }) {
+  const phone = usePhoneLayout();
+  return phone ? <HeaderBack to={to} label={label} /> : (
+    <Link to={to} className="text-sm text-primary hover:underline">
+      ← {label}
+    </Link>
+  );
+}
+
+function HeaderBack({ to, label }: { to: string; label: string }) {
+  useHeaderBack(to, label);
+  return <span />;
+}
 
 export function LessonPage() {
   const { t } = useTranslation();
@@ -129,11 +146,9 @@ export function LessonPage() {
   const readingTime = formatReadingTime(lesson.readingSeconds, t);
 
   return (
-    <article className="mx-auto max-w-2xl">
+    <article className="mx-auto max-w-2xl max-md:max-w-[65ch] max-md:text-[17px] max-md:leading-[1.6]">
       <div className="flex items-baseline justify-between gap-3">
-        <Link to={backTo} className="text-sm text-primary hover:underline">
-          ← {backLabel}
-        </Link>
+        <BackLink to={backTo} label={backLabel} />
         {readingTime !== null && (
           <span className="text-xs text-gray-500 dark:text-gray-400">{readingTime}</span>
         )}

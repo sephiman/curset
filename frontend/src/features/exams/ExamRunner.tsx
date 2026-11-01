@@ -17,6 +17,9 @@ import { useCourseTree } from "@/features/course/queries";
 import { ProseReferenceHost } from "@/features/references/ProseReferenceHost";
 import { clock, sittingName } from "@/features/exams/format";
 import { findTemaInfo } from "@/lib/tema";
+import { usePhoneLayout } from "@/lib/viewport";
+import { useFocusMode } from "@/components/layout/phoneChrome";
+import { QuestionChipStrip, QuestionGrid } from "@/features/exams/QuestionNavigator";
 
 const CHART_TYPES: ReadonlySet<ExerciseType> = new Set(["synthetic_chart", "fixture_chart", "pattern_chart"]);
 
@@ -40,6 +43,8 @@ export function ExamRunner() {
   const qc = useQueryClient();
   const { scope, path } = useCourse();
   const { data: courseTree } = useCourseTree();
+  const phone = usePhoneLayout();
+  useFocusMode();
 
   const { data: exam, isLoading, isError } = useQuery({
     queryKey: ["exam", ...scopeKey(scope), examId],
@@ -180,7 +185,6 @@ export function ExamRunner() {
   const casesById = new Map<string, ExamCase>(exam.parts.flatMap((part) => part.cases.map((c) => [c.exerciseId, c])));
   const caseOf = q.questionId ? casesById.get(q.exerciseId) : undefined;
   const part = exam.parts.find((p) => p.id === q.partId);
-  const multiPart = exam.parts.length > 1;
   const isSimulation =
     exam.presetId === "simulacro" ||
     exam.presetId.startsWith("simulacro") ||
@@ -271,160 +275,181 @@ export function ExamRunner() {
   };
 
   const deferred = { value: answers[q.attemptId] ?? null, onChange: (a: Answer) => setAnswer(q.attemptId, a) };
+  const navigator = { exam, answers, current, disabled: isPaused, onGo: goToQuestion };
+
+  const clockReadout = (
+    <>
+      <span role="timer" aria-label="time-used" className="font-mono whitespace-nowrap tabular-nums">
+        {t("exam.timeUsed", { time: clock(activeSeconds * 1000) })}
+      </span>
+      {timeLeft !== null && (
+        <span role="timer" aria-live="off" className={cn("font-mono tabular-nums", timeLeft < 5 * 60_000 && "text-red-600")}>
+          {t("exam.timeLeft", { time: clock(timeLeft) })}
+        </span>
+      )}
+      {phone ? (
+        <span className="tabular-nums" aria-label={t("exam.answeredOf", { done: answeredCount, total: counted.length })}>
+          {answeredCount}/{counted.length}
+        </span>
+      ) : (
+        <span>{t("exam.answeredOf", { done: answeredCount, total: counted.length })}</span>
+      )}
+    </>
+  );
+
+  const pauseButton = exam.pause === "between-questions" && (
+    <Button
+      variant="secondary"
+      disabled={answers[q.attemptId] === undefined || submit.isPending}
+      onClick={onPause}
+      className={cn(phone && "px-3 py-1.5")}
+    >
+      ⏸ {t("exam.pause")}
+    </Button>
+  );
+
+  const timeUpNotice = timeUp && (
+    <p role="status" className="rounded-md bg-amber-50 p-3 text-sm text-amber-900 dark:bg-amber-950/50 dark:text-amber-100">
+      {t("exam.timeUp")}
+    </p>
+  );
+
+  const pausedCard = (
+    <Card className="p-8 text-center space-y-4">
+      <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">{t("exam.pausedNotice")}</h2>
+      <p className="text-sm text-gray-600 dark:text-gray-400 max-w-md mx-auto">{t("exam.pausedExplanation")}</p>
+      <div className="pt-2">
+        <Button onClick={onResume}>{t("exam.resumeSitting")} →</Button>
+      </div>
+    </Card>
+  );
+
+  const questionBody = (
+    <>
+      {caseOf && part && (
+        <CaseScenario
+          title={caseOf.title}
+          scenario={caseOf.scenario}
+          choice={{
+            label: t("exam.markCase"),
+            rule: t("exam.chooseCaseRule"),
+            checked: (marks[part.id] ?? []).includes(caseOf.exerciseId),
+            onChange: (on) => toggleMark(part.id, caseOf.exerciseId, on),
+          }}
+        />
+      )}
+
+      <Card className="p-4">
+        <p className="text-xs text-gray-400">
+          <span className="font-medium text-gray-600 dark:text-gray-300">
+            {t("practice.progress", { number: current + 1, total: questions.length })}
+          </span>
+          {showTema && currentTema && (
+            <span className="ml-2 font-normal text-gray-500 dark:text-gray-400">· {currentTema.temaLabel}</span>
+          )}
+          {q.reserve && <span className="ml-2 font-medium text-amber-700 dark:text-amber-300">{t("exam.reserve")}</span>}
+        </p>
+        {q.reserve && <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">{t("exam.reserveHint")}</p>}
+        <div className="mt-2">
+          <Prose markdown={q.prompt} />
+        </div>
+        {CHART_TYPES.has(q.type) ? (
+          <ChartExercise key={q.attemptId} type={q.type} payload={q.payload} result={null} deferred={deferred} />
+        ) : q.type === "quiz" || q.type === "case" ? (
+          <QuizExercise key={q.attemptId} payload={q.payload} deferred={deferred} />
+        ) : (
+          <CalculationExercise
+            key={q.attemptId}
+            options={q.payload.options ?? []}
+            unit={q.payload.unit}
+            formula={q.payload.formula}
+            deferred={deferred}
+          />
+        )}
+      </Card>
+    </>
+  );
+
+  const prevButton = (
+    <Button variant="secondary" disabled={current === 0} onClick={() => goToQuestion(current - 1)}>
+      ← {t("exam.prev")}
+    </Button>
+  );
+  const nextButton =
+    current < questions.length - 1 ? (
+      <Button variant="secondary" onClick={() => goToQuestion(current + 1)}>
+        {t("exam.next")} →
+      </Button>
+    ) : (
+      <Button disabled={submit.isPending} onClick={onSubmit}>
+        {t("exam.submit")}
+      </Button>
+    );
+
+  const footer = (
+    <div className="flex items-center justify-between gap-2 border-t border-border pt-4 dark:border-gray-800 oled:border-oled-line">
+      <button type="button" onClick={onAbandon} className="text-xs text-gray-400 hover:text-red-600 dark:text-gray-500">
+        {t("exam.abandon")}
+      </button>
+      <Button variant="ghost" disabled={submit.isPending} onClick={onSubmit}>
+        {t("exam.submit")}
+      </Button>
+    </div>
+  );
+
+  if (phone) {
+    // J3: sticky clock bar with the chip strip, then the question, then Anterior/Siguiente fixed at the bottom (no tab bar in a sitting).
+    return (
+      <ProseReferenceHost>
+        <div className="space-y-3 pb-16">
+          <h1 className="sr-only">{sittingName(exam)}</h1>
+          <div className="sticky top-0 z-30 -mx-4 space-y-1 border-b border-border bg-gray-50 px-4 pt-2 pb-1 dark:border-gray-800 dark:bg-gray-950 oled:border-oled-line oled:bg-oled-bg">
+            <div className="flex min-h-9 items-center gap-3 text-xs text-gray-600 dark:text-gray-300">
+              {clockReadout}
+              <span className="ml-auto">{pauseButton}</span>
+            </div>
+            <QuestionChipStrip {...navigator} />
+          </div>
+          {timeUpNotice}
+          {isPaused ? pausedCard : questionBody}
+          {footer}
+          {!isPaused && (
+            <div className="fixed inset-x-0 bottom-0 z-30 flex items-center justify-between gap-2 border-t border-border bg-white px-4 pt-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))] dark:border-gray-800 dark:bg-gray-900 oled:border-oled-line oled:bg-oled-bg">
+              {prevButton}
+              {nextButton}
+            </div>
+          )}
+        </div>
+      </ProseReferenceHost>
+    );
+  }
 
   return (
     <ProseReferenceHost>
       <div className="mx-auto max-w-2xl space-y-4">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <h1 className="text-lg font-semibold">{sittingName(exam)}</h1>
-          <div className="flex items-center gap-3 text-sm text-gray-500 dark:text-gray-400">
-            <span role="timer" aria-label="time-used" className="font-mono tabular-nums">
-              {t("exam.timeUsed", { time: clock(activeSeconds * 1000) })}
-            </span>
-            {timeLeft !== null && (
-              <span role="timer" aria-live="off" className={cn("font-mono tabular-nums", timeLeft < 5 * 60_000 && "text-red-600")}>
-                {t("exam.timeLeft", { time: clock(timeLeft) })}
-              </span>
-            )}
-            <span>{t("exam.answeredOf", { done: answeredCount, total: counted.length })}</span>
-          </div>
+          <div className="flex items-center gap-3 text-sm text-gray-500 dark:text-gray-400">{clockReadout}</div>
         </div>
-        {timeUp && (
-          <p role="status" className="rounded-md bg-amber-50 p-3 text-sm text-amber-900 dark:bg-amber-950/50 dark:text-amber-100">
-            {t("exam.timeUp")}
-          </p>
-        )}
+        {timeUpNotice}
 
         {/* Progress strip — tappable markers grouped by part; answered filled, current ringed, reserves marked. */}
-        {exam.parts.map((p) => {
-          const inPart = questions.filter((x) => x.partId === p.id);
-          return (
-            <div key={p.id} className="space-y-1">
-              {multiPart && <p className="text-xs font-medium text-gray-500 dark:text-gray-400">{p.title ?? p.id}</p>}
-              <div className="flex flex-wrap gap-1.5">
-                {inPart.map((x) => {
-                  const isAnswered = answers[x.attemptId] !== undefined;
-                  const number = x.index + 1;
-                  return (
-                    <button
-                      key={x.attemptId}
-                      type="button"
-                      disabled={isPaused}
-                      aria-label={x.reserve ? `${number} · ${t("exam.reserve")}` : `${number}`}
-                      aria-current={x.index === current}
-                      onClick={() => goToQuestion(x.index)}
-                      className={cn(
-                        "h-8 min-w-8 rounded-md border px-1 text-xs font-medium tabular-nums transition-colors",
-                        x.index === current &&
-                          "ring-2 ring-primary ring-offset-1 dark:ring-offset-gray-900 oled:ring-offset-oled-bg",
-                        x.reserve && "border-dashed",
-                        isAnswered
-                          ? "border-primary bg-primary text-primary-foreground"
-                          : "border-border text-gray-600 hover:border-primary/60 dark:border-gray-700 dark:text-gray-300",
-                        isPaused && "opacity-50 cursor-not-allowed",
-                      )}
-                    >
-                      {x.reserve ? `R${number}` : number}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          );
-        })}
+        <QuestionGrid {...navigator} />
 
         {isPaused ? (
-          <Card className="p-8 text-center space-y-4">
-            <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">{t("exam.pausedNotice")}</h2>
-            <p className="text-sm text-gray-600 dark:text-gray-400 max-w-md mx-auto">
-              {t("exam.pausedExplanation")}
-            </p>
-            <div className="pt-2">
-              <Button onClick={onResume}>
-                {t("exam.resumeSitting")} →
-              </Button>
-            </div>
-          </Card>
+          pausedCard
         ) : (
           <>
-            {caseOf && part && (
-              <CaseScenario
-                title={caseOf.title}
-                scenario={caseOf.scenario}
-                choice={{
-                  label: t("exam.markCase"),
-                  rule: t("exam.chooseCaseRule"),
-                  checked: (marks[part.id] ?? []).includes(caseOf.exerciseId),
-                  onChange: (on) => toggleMark(part.id, caseOf.exerciseId, on),
-                }}
-              />
-            )}
-
-            <Card className="p-4">
-              <p className="text-xs text-gray-400">
-                <span className="font-medium text-gray-600 dark:text-gray-300">
-                  {t("practice.progress", { number: current + 1, total: questions.length })}
-                </span>
-                {showTema && currentTema && (
-                  <span className="ml-2 font-normal text-gray-500 dark:text-gray-400">
-                    · {currentTema.temaLabel}
-                  </span>
-                )}
-                {q.reserve && <span className="ml-2 font-medium text-amber-700 dark:text-amber-300">{t("exam.reserve")}</span>}
-              </p>
-              {q.reserve && <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">{t("exam.reserveHint")}</p>}
-              <div className="mt-2">
-                <Prose markdown={q.prompt} />
-              </div>
-              {CHART_TYPES.has(q.type) ? (
-                <ChartExercise key={q.attemptId} type={q.type} payload={q.payload} result={null} deferred={deferred} />
-              ) : q.type === "quiz" || q.type === "case" ? (
-                <QuizExercise key={q.attemptId} payload={q.payload} deferred={deferred} />
-              ) : (
-                <CalculationExercise
-                  key={q.attemptId}
-                  options={q.payload.options ?? []}
-                  unit={q.payload.unit}
-                  formula={q.payload.formula}
-                  deferred={deferred}
-                />
-              )}
-            </Card>
-
+            {questionBody}
             <div className="flex items-center justify-between gap-2">
-              <Button variant="secondary" disabled={current === 0} onClick={() => goToQuestion(current - 1)}>
-                ← {t("exam.prev")}
-              </Button>
-              {exam.pause === "between-questions" && (
-                <Button
-                  variant="secondary"
-                  disabled={answers[q.attemptId] === undefined || submit.isPending}
-                  onClick={onPause}
-                >
-                  ⏸ {t("exam.pause")}
-                </Button>
-              )}
-              {current < questions.length - 1 ? (
-                <Button variant="secondary" onClick={() => goToQuestion(current + 1)}>
-                  {t("exam.next")} →
-                </Button>
-              ) : (
-                <Button disabled={submit.isPending} onClick={onSubmit}>
-                  {t("exam.submit")}
-                </Button>
-              )}
+              {prevButton}
+              {pauseButton}
+              {nextButton}
             </div>
           </>
         )}
 
-        <div className="flex items-center justify-between gap-2 border-t border-border pt-4 dark:border-gray-800 oled:border-oled-line">
-          <button type="button" onClick={onAbandon} className="text-xs text-gray-400 hover:text-red-600 dark:text-gray-500">
-            {t("exam.abandon")}
-          </button>
-          <Button variant="ghost" disabled={submit.isPending} onClick={onSubmit}>
-            {t("exam.submit")}
-          </Button>
-        </div>
+        {footer}
       </div>
     </ProseReferenceHost>
   );

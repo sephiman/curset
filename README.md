@@ -62,7 +62,14 @@ cd frontend
 npm install
 npm run dev            # http://localhost:5173
 npm run build && npm test
+npm run test:e2e       # real-browser layout checks; needs the dev server and the backend running
 ```
+
+`npm run test:e2e` drives Chromium (Playwright) against `http://localhost:5173` (override with
+`E2E_BASE_URL`). It signs in once as `e2e-mobile`, registering that account on the first run, and
+checks the phone layout at 360, 390 and 430 px: the tab bar, esquema cards, the first question of a
+70-question sitting visible without scrolling, and no element wider than the screen on the Exámenes
+page and the five J8 screens. Point it at a local stack only, never at a deploy host.
 
 ## Reviewing locally
 
@@ -827,6 +834,24 @@ freezes the light and dark tables and asserts the OLED delta touches those four 
 
 The dev-only chart gallery at `/dev/charts` renders every figure and a sweep of generated exercise
 charts with the production renderer, which is where a theme pass over the figures is done.
+
+## Phone layout
+
+Below 768 px the app switches to a phone layout, the same for every course:
+
+- **Tab bar.** The four sections (Curso, Glosario, Exámenes, Progreso) sit in a fixed bottom bar. The
+  avatar menu keeps only account, language, theme and sign-out. The bar is hidden while an exam is being
+  sat, where Anterior/Siguiente take the bottom, and comes back on the results.
+- **Header.** One line: the mark and «Curset» (or a lesson's back arrow), the course name as a compact
+  selector that opens the course sheet with each course's languages, and the avatar.
+- **Exam sitting.** A sticky clock bar (time used, time left, answered, pause when allowed) over a
+  scrolling strip of question chips with «Ir a…» for the full grid. Toasts are small pills at the top.
+- **Reading.** Lesson text is 17 px at 1.6 line height. Module and lesson cards show one line of their
+  summary with «más». Below 640 px a `tabla` esquema is one card per row («header: value»).
+- **Touch.** Options, chips, tabs and buttons are at least 44 × 44 px. In the solution panel the two
+  links are a row of two buttons.
+
+Above 768 px nothing changes. Screens at 360/390/430 px in the three themes are in `docs/screens/mobile/`.
 
 ## Courses, languages and reports
 

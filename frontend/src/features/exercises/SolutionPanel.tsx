@@ -41,12 +41,16 @@ function Paragraphs({ text }: { text: string }) {
   );
 }
 
+// The lesson and source links: inline text above 768 px, a row of two buttons on a phone (J7).
+const LINK =
+  "font-medium text-primary hover:underline max-md:flex max-md:min-h-11 max-md:items-center max-md:justify-center max-md:rounded-md max-md:border max-md:border-border max-md:px-3 max-md:text-center max-md:leading-tight max-md:hover:no-underline dark:max-md:border-gray-700 oled:max-md:border-oled-line-strong";
+
 /** The norm's own words, under «Art. 30.4 LPAC»; the whole article one tap away when it fits. */
 function ExcerptBlock({ excerpt }: { excerpt: SolutionExcerpt }) {
   const { t } = useTranslation();
   const [whole, setWhole] = useState(false);
   return (
-    <figure className="rounded-md border-l-4 border-primary/60 bg-gray-50 p-3 dark:bg-gray-900 oled:bg-oled-bg oled:ring-1 oled:ring-oled-line">
+    <figure className="rounded-md border-l-4 border-primary/60 bg-gray-50 p-3 max-md:ring-1 max-md:ring-border dark:bg-gray-900 dark:max-md:ring-gray-800 oled:bg-oled-bg oled:ring-1 oled:ring-oled-line">
       <figcaption className="mb-2 text-sm font-semibold text-gray-800 dark:text-gray-100">{excerpt.heading}</figcaption>
       <blockquote className="space-y-2 text-sm leading-relaxed text-gray-700 dark:text-gray-300">
         <Paragraphs text={whole && excerpt.full ? excerpt.full : excerpt.text} />
@@ -130,7 +134,7 @@ export function SolutionPanel({
     <div className="mt-4 space-y-3">
       {!hideVerdict && <Verdict correct={correct} />}
       <details open={open} className="group rounded-md border border-border dark:border-gray-800 oled:border-oled-line">
-        <summary className="cursor-pointer px-3 py-2 text-sm font-medium text-primary select-none">
+        <summary className="cursor-pointer px-3 py-2 max-md:py-3 text-sm font-medium text-primary select-none">
           {t("solution.show")}
         </summary>
         <div className="space-y-3 border-t border-border px-3 py-3 dark:border-gray-800 oled:border-oled-line">
@@ -147,32 +151,32 @@ export function SolutionPanel({
             </p>
           )}
           {(lessonLink || excerpt || noExcerpt?.href) && (
-            <nav className="flex flex-wrap gap-x-4 gap-y-1 text-sm">
+            <nav className="flex flex-wrap gap-x-4 gap-y-1 text-sm max-md:grid max-md:grid-cols-2 max-md:gap-2">
               {lessonLink && (
                 <Link
                   to={path(`/lessons/${lessonLink.lessonId}${lessonLink.anchor ? `#${lessonLink.anchor}` : ""}`)}
-                  className="font-medium text-primary hover:underline"
+                  className={LINK}
                 >
-                  {lessonLabel ?? t("exercise.viewInLesson")}
+                  <span className="max-md:line-clamp-2">{lessonLabel ?? t("exercise.viewInLesson")}</span>
                 </Link>
               )}
               {!excerpt && lessonLink?.citation && (
-                <span className="text-gray-500 dark:text-gray-400">({lessonLink.citation})</span>
+                <span className="text-gray-500 max-md:order-last max-md:col-span-2 dark:text-gray-400">({lessonLink.citation})</span>
               )}
               {!excerpt && noExcerpt?.href && (
-                <a href={noExcerpt.href} target="_blank" rel="noreferrer" className="font-medium text-primary hover:underline">
+                <a href={noExcerpt.href} target="_blank" rel="noreferrer" className={LINK}>
                   {noExcerpt.href.includes("/sources/otros/") ? t("solution.savedPage") : t("solution.source")}
                 </a>
               )}
               {excerpt && (
-                <a href={excerpt.href} target="_blank" rel="noreferrer" className="font-medium text-primary hover:underline">
+                <a href={excerpt.href} target="_blank" rel="noreferrer" className={LINK}>
                   {excerpt.attribution ? t("solution.savedPage") : t("solution.source")}
                 </a>
               )}
             </nav>
           )}
           {(reference || reportable) && (
-            <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
+            <div className="flex flex-wrap items-center justify-between gap-3 pt-1 max-md:flex-col max-md:items-start">
               {reference && <CopyableReference reference={reference} />}
               {reportable && <ReportQuestion attemptId={attemptId} />}
             </div>

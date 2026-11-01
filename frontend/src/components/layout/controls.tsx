@@ -37,7 +37,7 @@ export function Segmented<T extends string>({
             aria-pressed={active}
             onClick={() => onChange(o.value)}
             className={cn(
-              "rounded px-2 py-1 text-xs font-medium transition-colors",
+              "rounded px-2 py-1 text-xs font-medium transition-colors max-md:min-h-11 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary",
               block && "flex-1",
               active
                 ? "bg-primary text-primary-foreground"
@@ -155,7 +155,7 @@ export function ThemeCycleButton() {
       aria-label={t("common.theme")}
       title={t(`theme.${theme}`)}
       onClick={() => setTheme(next)}
-      className="inline-flex h-7 w-7 items-center justify-center rounded-md border border-border text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200 oled:border-oled-line-strong oled:hover:bg-oled-hover"
+      className="inline-flex h-7 w-7 max-md:h-11 max-md:w-11 items-center justify-center rounded-md border border-border text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200 oled:border-oled-line-strong oled:hover:bg-oled-hover"
     >
       <ThemeIcon theme={theme} />
     </button>

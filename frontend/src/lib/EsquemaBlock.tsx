@@ -1,6 +1,7 @@
 import { createContext, useContext, type ReactNode } from "react";
 import type { EsquemaCellRole, EsquemaKind } from "@/lib/esquema";
 import { cn } from "@/lib/cn";
+import { useStackedEsquemas } from "@/lib/viewport";
 
 /**
  * An esquema on screen. `tabla` is its table (it scrolls inside its own box on a phone); `plazos` a
@@ -9,6 +10,12 @@ import { cn } from "@/lib/cn";
  */
 
 const KindContext = createContext<EsquemaKind>("tabla");
+/** True inside an esquema laid out for a narrow screen (J4): tables as cards, lists vertical. */
+const StackedContext = createContext(false);
+
+export function useStackedEsquema(): boolean {
+  return useContext(StackedContext);
+}
 
 const CELL_STYLE: Record<EsquemaCellRole, string> = {
   label: "font-medium text-gray-900 dark:text-gray-100",
@@ -27,6 +34,7 @@ const ROW_GRID: Record<EsquemaKind, string> = {
 };
 
 export function EsquemaBlock({ kind, title, children }: { kind: EsquemaKind; title: string; children: ReactNode }) {
+  const stacked = useStackedEsquemas();
   return (
     <figure
       data-esquema={kind}
@@ -34,9 +42,16 @@ export function EsquemaBlock({ kind, title, children }: { kind: EsquemaKind; tit
     >
       <figcaption className="mb-2 text-sm font-semibold text-gray-900 dark:text-gray-100">{title}</figcaption>
       <KindContext.Provider value={kind}>
-        <div className={cn(kind === "plazos" && "border-l-2 border-primary/40 pl-3", kind === "pasos" && "[counter-reset:paso]")}>
-          {children}
-        </div>
+        <StackedContext.Provider value={stacked}>
+          <div
+            className={cn(
+              kind === "plazos" && "border-l-2 border-primary/40 pl-3",
+              (kind === "pasos" || (stacked && kind === "plazos")) && "[counter-reset:paso]",
+            )}
+          >
+            {children}
+          </div>
+        </StackedContext.Provider>
       </KindContext.Provider>
     </figure>
   );
@@ -44,15 +59,21 @@ export function EsquemaBlock({ kind, title, children }: { kind: EsquemaKind; tit
 
 export function EsquemaRow({ depth, children }: { depth: number; children: ReactNode }) {
   const kind = useContext(KindContext);
+  const stacked = useContext(StackedContext);
+  const numbered = kind === "pasos" || (stacked && kind === "plazos");
+  const branch = kind === "arbol" && depth > 0;
+  const indent = stacked ? 0.875 : 1.25;
   return (
     <div
       role="group"
-      style={kind === "arbol" ? { paddingLeft: `${depth * 1.25}rem` } : undefined}
+      style={kind === "arbol" ? { [stacked ? "marginLeft" : "paddingLeft"]: `${depth * indent}rem` } : undefined}
       className={cn(
         "grid grid-cols-1 gap-x-4 gap-y-0.5 border-b border-border py-2 text-sm last:border-b-0 dark:border-gray-800 oled:border-oled-line",
         ROW_GRID[kind],
-        kind === "pasos" && "[counter-increment:paso] before:font-semibold before:text-primary before:content-[counter(paso)'.'] sm:before:hidden",
-        kind === "arbol" && depth > 0 && "border-l border-l-gray-300 dark:border-l-gray-700",
+        numbered && "[counter-increment:paso] before:font-semibold before:text-primary before:content-[counter(paso)'.'] sm:before:hidden",
+        branch && !stacked && "border-l border-l-gray-300 dark:border-l-gray-700",
+        // A connector from the parent's rail into this node: the left rule plus a short tick.
+        branch && stacked && "relative border-l border-l-gray-300 pl-4 after:absolute after:top-[1.05rem] after:left-0 after:w-3 after:border-t after:border-gray-300 dark:border-l-gray-700 dark:after:border-gray-700 oled:border-l-oled-line-strong oled:after:border-oled-line-strong",
       )}
     >
       {children}

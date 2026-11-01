@@ -48,7 +48,7 @@ function Lists({ lists, threshold }: { lists: LessonTableLists; threshold: numbe
   );
   return (
     <div className="space-y-2">
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <section>
           <h3 className="text-xs font-semibold tracking-wide text-gray-500 uppercase dark:text-gray-400">{t("byLesson.best")}</h3>
           <ul className="mt-1 space-y-1">{lists.best.map(entry)}</ul>

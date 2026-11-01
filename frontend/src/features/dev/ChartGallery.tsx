@@ -138,7 +138,7 @@ export function ChartGallery() {
           <Spinner />
         </div>
       ) : (
-        <div className="grid gap-3 lg:grid-cols-2">
+        <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
           {data.items.map((item) => {
             const gt = item.groundTruth;
             const markers = isDivergence(gt) ? divergenceMarkers(gt) : patternMarkers(gt);

@@ -4,16 +4,43 @@ import { useTranslation } from "react-i18next";
 import { useAuth } from "@/auth/AuthContext";
 import { AccountMenu } from "@/components/layout/AccountMenu";
 import { Logo } from "@/components/layout/Logo";
+import { PhoneChromeProvider, useIsFocusMode } from "@/components/layout/phoneChrome";
 import { HOME_PATH } from "@/components/layout/nav";
+import { PhoneHeader } from "@/components/layout/PhoneHeader";
+import { TabBar } from "@/components/layout/TabBar";
 import { useNavItems } from "@/features/courses/useNavItems";
 import { cn } from "@/lib/cn";
+import { usePhoneLayout } from "@/lib/viewport";
 
 export function AppShell({ children }: { children: ReactNode }) {
+  return (
+    <PhoneChromeProvider>
+      <Shell>{children}</Shell>
+    </PhoneChromeProvider>
+  );
+}
+
+function Shell({ children }: { children: ReactNode }) {
   const { t } = useTranslation();
   const { user } = useAuth();
   const navItems = useNavItems();
+  const phone = usePhoneLayout();
+  const focused = useIsFocusMode();
   // Home is the Course tab: the selected course's root, or the "no course" page when there is none.
   const home = navItems.find((item) => item.tab === "course")?.to ?? HOME_PATH;
+
+  if (phone) {
+    return (
+      <div className="flex min-h-full flex-col">
+        <PhoneHeader home={home} user={user} />
+        {/* Clear of the fixed tab bar (3.5 rem plus the home-indicator inset); in focus mode the page owns the bottom. */}
+        <main className={cn("w-full flex-1 px-4 pt-3", focused ? "pb-6" : "pb-[calc(5rem+env(safe-area-inset-bottom))]")}>
+          {children}
+        </main>
+        {user && !focused && <TabBar />}
+      </div>
+    );
+  }
 
   return (
     <div className="flex min-h-full flex-col">
