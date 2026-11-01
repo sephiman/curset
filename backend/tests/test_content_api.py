@@ -179,9 +179,9 @@ async def test_course_tree_shape(content_client: AsyncClient) -> None:
     assert m01["hasContent"] is True and m01["lessonsTotal"] == 1
     # Reading and mastery are reported independently.
     assert m01["exercisesTotal"] == 2 and m01["exercisesPassed"] == 0
-    # Phase 2 authored every module: m02 now has a lesson and its four exercises.
+    # Phase 2 authored every module: m02 now has a lesson and its five exercises.
     m02 = _module(course, "m02")
-    assert m02["hasContent"] is True and m02["lessonsTotal"] == 1 and m02["exercisesTotal"] == 4
+    assert m02["hasContent"] is True and m02["lessonsTotal"] == 1 and m02["exercisesTotal"] == 5
     # m06 assumes m05, which the learner hasn't touched -> advisory notice.
     assert "m05" in _module(course, "m06")["unmetPrereqs"]
 

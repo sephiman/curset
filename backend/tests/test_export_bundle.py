@@ -344,8 +344,8 @@ def test_a_calculation_s_params_reach_the_bundle_in_the_order_the_yaml_declares(
             ), f"{exercise_id}/{name}"
         checked += 1
         reordered += declared != sorted(declared)
-    assert checked == 18, f"expected 18 calculation exercises, found {checked}"
-    assert reordered == 9, (
+    assert checked == 19, f"expected 19 calculation exercises, found {checked}"
+    assert reordered == 10, (
         f"{reordered} of them declare a non-alphabetical order; if this moved, the test below it "
         "is no longer exercising the hazard it was written for"
     )

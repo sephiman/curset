@@ -171,6 +171,19 @@ def _chain(formula_id: str, p: dict[str, object]) -> list[tuple[str, Fraction]]:
             cost = base_fee
         steps.append(("add", gross - cost))
         return steps
+    if formula_id == "orderbook_slippage":
+        t2_q = _f(p["order_size"]) - _f(p["tier1_qty"])
+        t1_cost = _f(p["tier1_qty"]) * _f(p["tier1_price"])
+        t2_cost = t2_q * _f(p["tier2_price"])
+        total_cost = t1_cost + t2_cost
+        avg_price = total_cost / _f(p["order_size"])
+        return [
+            ("add", t2_q),
+            ("mult", t1_cost),
+            ("mult", t2_cost),
+            ("add", total_cost),
+            ("mult", avg_price),
+        ]
     raise KeyError(f"no solver chain declared for formula {formula_id!r} — add one here")
 
 
