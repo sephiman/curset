@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./assets/identity/tokens.css";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -53,6 +54,12 @@
   --color-oled-line: #303030;
   --color-oled-line-strong: #454545;
   --color-oled-hover: #1c1c1c;
+}
+
+/* Curset's ink and paper per theme, from identity.json via the generated tokens.css. */
+@theme inline {
+  --color-brand-fg: var(--brand-fg);
+  --color-brand-bg: var(--brand-bg);
 }
 
 html, body, #root { height: 100%; }

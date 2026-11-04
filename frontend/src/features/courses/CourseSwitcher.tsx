@@ -5,6 +5,7 @@ import type { Locale } from "@/api/auth";
 import { Segmented } from "@/components/layout/controls";
 import { coursePath, tabOf } from "@/components/layout/nav";
 import { Sheet } from "@/components/ui/Sheet";
+import { CourseGlyph } from "@/features/courses/CourseGlyph";
 import { availability } from "@/features/courses/languages";
 import { useCatalogue, useChooseReadingLanguage, useMyCourses } from "@/features/courses/useCourses";
 import { useInterfaceLocale } from "@/i18n/locale";
@@ -44,10 +45,11 @@ export function CourseSwitcher({ className }: { className?: string }) {
         aria-label={t("courses.openSheet", { title: course.title })}
         onClick={() => setOpen(true)}
         className={cn(
-          "flex h-11 min-w-0 items-center gap-1 rounded-md px-2 text-sm font-medium md:h-9 hover:bg-gray-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary dark:hover:bg-gray-800 oled:hover:bg-oled-hover",
+          "flex h-11 min-w-0 items-center gap-1.5 rounded-md px-2 text-sm font-medium md:h-9 hover:bg-gray-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary dark:hover:bg-gray-800 oled:hover:bg-oled-hover",
           className,
         )}
       >
+        <CourseGlyph course={course} />
         <span className="truncate" lang={course.textLocale}>
           {course.title}
         </span>
@@ -73,7 +75,8 @@ export function CourseSwitcher({ className }: { className?: string }) {
                         : "border-border hover:bg-gray-50 dark:border-gray-800 dark:hover:bg-gray-800 oled:border-oled-line oled:hover:bg-oled-hover",
                     )}
                   >
-                    <span className="block text-sm font-medium" lang={entry.textLocale}>
+                    <span className="flex items-center gap-2 text-sm font-medium" lang={entry.textLocale}>
+                      <CourseGlyph course={entry} />
                       {entry.title}
                     </span>
                     <span className="block text-xs text-gray-500 dark:text-gray-400">

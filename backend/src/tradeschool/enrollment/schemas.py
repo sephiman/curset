@@ -10,6 +10,11 @@ from tradeschool.content.text import Locale
 from tradeschool.enrollment.service import EnrollmentState, course_text_locale
 
 
+class AccentColor(BaseModel):
+    light: str
+    dark: str
+
+
 class CatalogueCourse(BaseModel):
     slug: str
     title: str
@@ -18,6 +23,9 @@ class CatalogueCourse(BaseModel):
     #: The language `title`, `subtitle` and `description` are in: the account's when the course has it.
     textLocale: str
     languages: list[str]
+    #: The glyph's name; served at `/api/courses/<slug>/glyph.svg`. None: the course has none.
+    glyph: str | None = None
+    color: AccentColor | None = None
 
     @classmethod
     def build(cls, registry: CourseRegistry, locale: str) -> CatalogueCourse:
@@ -30,6 +38,8 @@ class CatalogueCourse(BaseModel):
             description=course.description.get(text_locale),
             textLocale=text_locale,
             languages=registry.languages,
+            glyph=course.glyph,
+            color=AccentColor(light=course.color.light, dark=course.color.dark) if course.color else None,
         )
 
 

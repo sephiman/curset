@@ -11,6 +11,7 @@ import {
   type PdfLabels,
 } from "@/lib/pdf/document";
 import { figureIds } from "@/lib/pdf/markdown";
+import { coverArt } from "@/lib/pdf/coverArt";
 import {
   courseExportFromContent,
   figureDirectives,
@@ -439,5 +440,30 @@ describe("figure ids read from the prose", () => {
   it("finds them in reading order, including a repeat", () => {
     const markdown = "# T\n\ntext\n\n::figure{id=a}\n\nmore\n\n::figure{id=b}\n\n::figure{id=a}\n";
     expect(figureIds(markdown)).toEqual(["a", "b", "a"]);
+  });
+});
+
+describe("the cover art", () => {
+  it("puts the platform mark above the title and the course glyph, in its accent, beside it", () => {
+    const exercises = printExercisesFromContent("en");
+    const course = readManifest().course;
+    const glyph = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path stroke="currentColor" d="M3 3h18"/></svg>';
+    const doc = buildCourseDocument({
+      courseTitle: course.title.en,
+      courseSubtitle: course.subtitle.en,
+      courseDescription: course.description.en,
+      cover: coverArt(glyph, "#0f6b68"),
+      export: courseExportFromContent("en"),
+      figures: stubFigures(figureDirectives("en")),
+      exercises,
+      exerciseCharts: stubExerciseCharts(exercises, "png"),
+      labels: testPdfLabels("en"),
+    });
+    const [mark, title] = ((doc.content as unknown[])[0] as { stack: Record<string, unknown>[] }).stack;
+    expect(mark.svg).toContain("<svg");
+    expect(mark.svg).not.toContain("currentColor");
+    const [drawn, text] = title.columns as Record<string, unknown>[];
+    expect(drawn.svg).toContain('stroke="#0f6b68"');
+    expect(text.text).toBe(course.title.en);
   });
 });

@@ -21,6 +21,7 @@ import { ExamPage } from "@/features/exams/ExamPage";
 import { ExamRunner } from "@/features/exams/ExamRunner";
 import { ExamReview } from "@/features/exams/ExamReview";
 import { ChartGallery, GALLERY_COURSE } from "@/features/dev/ChartGallery";
+import { IdentityGallery } from "@/features/dev/IdentityGallery";
 
 /**
  * The pages of one course, relative to `/courses/:course`. A display id names its CURRENT holder, so
@@ -69,6 +70,8 @@ export default function App() {
                   <Route path="/stats" element={<SelectedCourseRedirect tab="progress" />} />
                   <Route path="/exams/*" element={<SelectedCourseRedirect tab="exams" />} />
 
+                  {/* Unadvertised; gated by the DEV_MODE-only dev endpoints like the chart gallery. */}
+                  <Route path="/dev/identity" element={<IdentityGallery />} />
                   <Route path="/dev/charts" element={<Navigate to={coursePath(GALLERY_COURSE, "/dev/charts")} replace />} />
                   <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>

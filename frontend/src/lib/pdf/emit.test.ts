@@ -7,6 +7,7 @@ import type { TDocumentDefinitions } from "pdfmake/interfaces";
 import { PRINT_FONTS } from "@/lib/pdf/document";
 import { generateCoursePdf } from "@/lib/pdf/generate";
 import {
+  glyphFromContent,
   courseExportFromContent,
   printFontPaths,
   readManifest,
@@ -37,6 +38,7 @@ describe.runIf(OUT)("emit a PDF for review", () => {
       const exercises = printExercisesFromContent(LOCALE);
       const generated = await generateCoursePdf({
         scope: { slug: course.id, lang: LOCALE },
+        fetchGlyph: glyphFromContent,
         courseId: course.id,
         courseTitle: course.title[LOCALE],
         courseSubtitle: course.subtitle[LOCALE],

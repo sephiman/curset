@@ -4,6 +4,7 @@ import { createMemoryRouter, Outlet, RouterProvider } from "react-router-dom";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import en from "@/i18n/en.json";
 import { coursePath } from "@/components/layout/nav";
+import identity from "@/assets/identity/identity.json";
 
 /**
  * The header wordmark as the way back to the course from any depth.
@@ -171,7 +172,9 @@ describe("the header wordmark", () => {
   it("shows the theme's logo artwork, adding only interaction affordances around it", () => {
     mountAt(HOME_PATH);
     const classes = logo().className.split(/\s+/);
-    expect(logo().querySelector("img")?.getAttribute("src")).toContain("curset-logo-light");
+    // Vite inlines an artwork this small as a data URL; the light one is the one drawn in light ink.
+    const src = decodeURIComponent(logo().querySelector("img")?.getAttribute("src") ?? "");
+    expect(src).toMatch(new RegExp(`color=["']${identity.themes.light.fg}["']`));
     expect(classes).toEqual(expect.arrayContaining(["shrink-0"]));
     // The link gains no box of its own around the artwork.
     expect(classes.filter((c) => /^-?[pm][xytrbl]?-/.test(c))).toEqual([]);

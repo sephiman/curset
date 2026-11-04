@@ -144,6 +144,8 @@ course:
   status: published           # draft: loaded and checked, never served to users
   exercise_types: [quiz, calculation, synthetic_chart, pattern_chart]
   pdf_exercises: false        # optional; false exports theory only in the course PDF (default: true)
+  glyph: candlestick          # optional; content/<slug>/identity/<glyph>.svg, written by `npm run identity`
+  color: {light: "#0f6b68", dark: "#19afaa"}  # optional; accent on paper / on ink, each ≥ 4.5:1 as text
 ```
 
 Every localized text in the course — manifest, exercises, figures, glossary — must carry exactly the

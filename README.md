@@ -807,12 +807,15 @@ each chart answer's prices against the published series, and asserts two builds 
 
 ## Themes
 
-**Logo.** The header and the auth card show the Curset wordmark, an open book with a rising arrow,
-"Curset" and *a Sephimandev app* in small type. There is one artwork per resolved theme
-(`frontend/src/assets/brand/curset-logo-{light,dark,oled}.png`), following TradeLog and SharedLedger.
-The browser tab uses `curset-icon-{light,dark}.png`, picked by the system colour scheme. The SVGs
-beside them are the sources; `frontend/scripts/render-brand.sh` re-renders the PNGs (needs
-`rsvg-convert` and the Noto Sans font).
+**Logo.** The header shows the horizontal Curset lockup, the phone header the mark, and the auth card
+the stacked lockup: a scale with a pointer, and «curset» in DM Mono standing on it. Each piece has a
+light, a dark and a mono (`currentColor`) SVG under `frontend/src/assets/identity/`; OLED uses the dark
+one. The browser tab uses `favicon.svg` and its 16/32/180/512 PNGs. `identity.json` holds the name,
+typeface and ink/paper tokens; `npm run identity` regenerates every SVG, the `tokens.css` behind the
+`brand-fg`/`brand-bg` colours, the course glyphs and the PNGs from it. Never edit those outputs by hand.
+Each course declares a `glyph` and a two-shade accent `color` in its `course.yaml`; the glyph shows
+beside the course title in the selector, the course sheet, settings, sign-up and the PDF cover.
+Decisions: `docs/identity.md`; review page: `/dev/identity` (DEV_MODE).
 
 Four choices — **Light**, **Dark**, **OLED**, **System** — in the avatar menu and in the auth-card
 footer (which collapses to an icon that cycles the same four on phone widths). The preference is

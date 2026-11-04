@@ -12,7 +12,7 @@ export function AuthCard({ title, children }: { title: string; children: ReactNo
       <div className="w-full max-w-sm">
         <div className="mb-6 text-center">
           <h2 className="flex justify-center">
-            <Logo className="h-14" />
+            <Logo layout="stacked" className="h-24" />
           </h2>
           <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{t("app.tagline")}</p>
         </div>

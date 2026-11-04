@@ -10,6 +10,20 @@ export interface CatalogueCourse {
   /** The account's language when the course has it, else the course's first. */
   textLocale: Locale;
   languages: Locale[];
+  /** The course's glyph, served at `/api/courses/<slug>/glyph.svg`; null: the course has none. */
+  glyph?: string | null;
+  /** The accent: `light` on paper, `dark` on ink (dark and OLED). */
+  color?: AccentColor | null;
+}
+
+/** Where the backend serves a course's glyph; public, like the catalogue. */
+export function glyphUrl(slug: string): string {
+  return `/api/courses/${encodeURIComponent(slug)}/glyph.svg`;
+}
+
+export interface AccentColor {
+  light: string;
+  dark: string;
 }
 
 /** The signed-in user's course choices; `selected` is already the server's fallback when needed. */

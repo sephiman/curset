@@ -8,6 +8,7 @@ import { downloadPdf, generateCoursePdf, type GenerateProgress } from "@/lib/pdf
 import { pdfLabels } from "@/lib/pdf/labels";
 import i18n from "@/i18n";
 import { useCourse } from "@/features/courses/CourseContext";
+import { useCatalogue } from "@/features/courses/useCourses";
 
 /**
  * The whole course as one printable PDF, in its reading language.
@@ -19,6 +20,8 @@ export function ExportPdfButton({ course }: { course: CourseMeta }) {
   const { t } = useTranslation();
   const [progress, setProgress] = useState<GenerateProgress | null>(null);
   const { scope } = useCourse();
+  const { data: catalogue } = useCatalogue();
+  const accentOnPaper = catalogue?.find((entry) => entry.slug === scope.slug)?.color?.light;
   // The book is printed in the course's reading language, labels and all — a printed page has no
   // interface around it, so its words follow the content (R4.5).
   const locale = scope.lang;
@@ -43,6 +46,7 @@ export function ExportPdfButton({ course }: { course: CourseMeta }) {
         courseTitle: course.title,
         courseSubtitle: course.subtitle,
         courseDescription: course.description,
+        accentOnPaper,
         pdfExercises: course.pdfExercises,
         labels,
         date: new Date(),

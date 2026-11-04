@@ -73,6 +73,16 @@ class CourseStatus(StrEnum):
     PUBLISHED = "published"
 
 
+class CourseColor(BaseModel):
+    """The course accent: one hue, a shade for paper and one for ink, since no single colour passes
+    4.5:1 as text against both."""
+
+    model_config = ConfigDict(extra="forbid")
+    light: str = Field(pattern=r"^#[0-9a-f]{6}$")
+    #: Dark and OLED.
+    dark: str = Field(pattern=r"^#[0-9a-f]{6}$")
+
+
 class ManifestCourse(BaseModel):
     """The root course entity; its blocks live at the manifest's top level."""
 
@@ -98,6 +108,9 @@ class ManifestCourse(BaseModel):
     option_labels: Literal["letters"] | None = None
     #: Whether the course PDF export prints in-lesson exercises and the answer key; false for theory only.
     pdf_exercises: bool = True
+    #: The course's symbol, `identity/<glyph>.svg` in its directory; absent: the course shows none.
+    glyph: str | None = Field(default=None, pattern=r"^[a-z0-9-]+$")
+    color: CourseColor | None = None
 
     @model_validator(mode="after")
     def _distinct_languages(self) -> Self:

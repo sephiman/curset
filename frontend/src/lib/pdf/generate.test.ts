@@ -105,6 +105,7 @@ describe("generating course PDF with pdfExercises: false", () => {
 
     const generated = await generateCoursePdf({
       scope: SCOPE,
+      fetchGlyph: async () => null,
       courseId: "age-administrativo-c1",
       courseTitle: "Admin",
       courseSubtitle: "Subtitle",

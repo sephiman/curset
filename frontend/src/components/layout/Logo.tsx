@@ -2,37 +2,44 @@ import { useTheme, type ResolvedTheme } from "@/lib/theme";
 import { cn } from "@/lib/cn";
 import { PLATFORM_NAME } from "@/lib/platform";
 // Imported rather than served from public/, so Vite content-hashes them and a new artwork gets a new URL.
-import logoDark from "@/assets/brand/curset-logo-dark.png";
-import logoLight from "@/assets/brand/curset-logo-light.png";
-import logoOled from "@/assets/brand/curset-logo-oled.png";
-import iconDark from "@/assets/brand/curset-icon-dark.png";
-import iconLight from "@/assets/brand/curset-icon-light.png";
+import horizontalDark from "@/assets/identity/curset-lockup-horizontal-dark.svg";
+import horizontalLight from "@/assets/identity/curset-lockup-horizontal-light.svg";
+import stackedDark from "@/assets/identity/curset-lockup-stacked-dark.svg";
+import stackedLight from "@/assets/identity/curset-lockup-stacked-light.svg";
+import markDark from "@/assets/identity/curset-mark-dark.svg";
+import markLight from "@/assets/identity/curset-mark-light.svg";
 
-const LOGO_SRC: Record<ResolvedTheme, string> = { light: logoLight, dark: logoDark, oled: logoOled };
+type Layout = "horizontal" | "stacked";
 
-/** The Curset wordmark in the artwork drawn for the theme on screen. `decorative` when a link names it. */
-export function Logo({ className, decorative = false }: { className?: string; decorative?: boolean }) {
+// OLED draws in the dark artwork: paper on black reads like paper on ink.
+const LOCKUP: Record<Layout, Record<ResolvedTheme, string>> = {
+  horizontal: { light: horizontalLight, dark: horizontalDark, oled: horizontalDark },
+  stacked: { light: stackedLight, dark: stackedDark, oled: stackedDark },
+};
+const MARK: Record<ResolvedTheme, string> = { light: markLight, dark: markDark, oled: markDark };
+
+/** The Curset lockup in the theme's artwork. `decorative` when a link names it. */
+export function Logo({
+  className,
+  decorative = false,
+  layout = "horizontal",
+}: {
+  className?: string;
+  decorative?: boolean;
+  layout?: Layout;
+}) {
   const { resolvedTheme } = useTheme();
   return (
     <img
-      src={LOGO_SRC[resolvedTheme]}
+      src={LOCKUP[layout][resolvedTheme]}
       alt={decorative ? "" : PLATFORM_NAME}
-      width={720}
-      height={192}
       className={cn("h-9 w-auto select-none", className)}
     />
   );
 }
 
-const MARK_SRC: Record<ResolvedTheme, string> = { light: iconLight, dark: iconDark, oled: iconDark };
-
-/** The compact mark plus the name, for the one-line phone header. */
+/** The mark alone, for the one-line phone header; the link around it carries the name. */
 export function LogoMark() {
   const { resolvedTheme } = useTheme();
-  return (
-    <span className="inline-flex items-center gap-1.5">
-      <img src={MARK_SRC[resolvedTheme]} alt="" width={28} height={28} className="h-7 w-7 select-none" />
-      <span className="text-base font-semibold tracking-tight">{PLATFORM_NAME}</span>
-    </span>
-  );
+  return <img src={MARK[resolvedTheme]} alt="" width={28} height={28} className="h-7 w-7 select-none" />;
 }

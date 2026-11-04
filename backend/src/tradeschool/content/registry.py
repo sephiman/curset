@@ -108,6 +108,8 @@ class CourseRegistry:
     # reading_seconds[locale][lesson_id] -> estimated reading time. Derived from the markdown once
     # here, so every surface that shows time is summing the same per-lesson numbers.
     reading_seconds: dict[str, dict[str, int]] = field(default_factory=dict)
+    # The course glyph's SVG source, or None when the course declares no glyph.
+    glyph_svg: str | None = None
     _modules: dict[str, tuple[ManifestBlock, ManifestModule]] = field(default_factory=dict)
     _lessons: dict[str, LessonLocation] = field(default_factory=dict)
     _exercises: dict[str, tuple[ManifestBlock, ManifestModule]] = field(default_factory=dict)
@@ -637,6 +639,15 @@ def _load_exercise_configs(
     return configs
 
 
+def _load_glyph(content_dir: Path, glyph: str | None) -> str | None:
+    if glyph is None:
+        return None
+    path = content_dir / "identity" / f"{glyph}.svg"
+    if not path.exists():
+        raise ContentError(f"course glyph {glyph!r} not found: {path}")
+    return path.read_text(encoding="utf-8")
+
+
 def load_registry(content_dir: Path, *, check_excerpts: bool = True) -> CourseRegistry:
     """One course, from its own directory `content/<slug>/`; `check_excerpts` off only for the build
     step that writes `excerpts.json`."""
@@ -662,6 +673,7 @@ def load_registry(content_dir: Path, *, check_excerpts: bool = True) -> CourseRe
                 raise ContentError(f"empty {locale} lesson file for {lesson.id!r}: {path}")
             markdown[locale][lesson.id] = body
 
+    glyph_svg = _load_glyph(content_dir, manifest.course.glyph)
     exercise_configs = _load_exercise_configs(content_dir, manifest)
     _check_case_lessons(manifest, exercise_configs)
     figures = load_figures(content_dir)
@@ -709,6 +721,7 @@ def load_registry(content_dir: Path, *, check_excerpts: bool = True) -> CourseRe
         citations=citations,
         excerpts=excerpts,
         source_root=content_dir / "sources" if citations.links else None,
+        glyph_svg=glyph_svg,
     )
     exam_problems = check_presets(registry)
     if exam_problems:

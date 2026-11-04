@@ -373,3 +373,11 @@ export function stubFigures(ids: string[], panelsPerFigure = 1): Map<string, Cap
   }
   return captured;
 }
+
+/** A course's glyph off disk, as the backend serves it; null when the course declares none. */
+export async function glyphFromContent(slug: string): Promise<string | null> {
+  const dir = resolve(CONTENT_ROOT, slug, "identity");
+  if (!existsSync(dir)) return null;
+  const [file] = readdirSync(dir).filter((name) => name.endsWith(".svg"));
+  return file ? readFileSync(resolve(dir, file), "utf8") : null;
+}

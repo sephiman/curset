@@ -14,6 +14,8 @@ const CRYPTO: CatalogueCourse = {
   description: "d",
   textLocale: "en",
   languages: ["en", "es"],
+  glyph: "candlestick",
+  color: { light: "#0f6b68", dark: "#19afaa" },
 };
 const OPOS: CatalogueCourse = {
   slug: "oposiciones",
@@ -87,6 +89,20 @@ beforeEach(() => {
 });
 
 describe("with two active courses", () => {
+  it("draws a course's glyph in its accent beside its title, in the header and in the sheet", () => {
+    const sheet = openSheet("/courses/crypto-futures");
+    const header = document.querySelector('button[aria-haspopup="dialog"]')!;
+    for (const glyph of [header.querySelector<HTMLElement>("[data-glyph]"), sheet.querySelector<HTMLElement>('[aria-current="true"] [data-glyph]')]) {
+      expect(glyph?.dataset.glyph).toBe("candlestick");
+      expect(glyph?.style.getPropertyValue("--accent-light")).toBe("#0f6b68");
+      expect(glyph?.style.getPropertyValue("--accent-dark")).toBe("#19afaa");
+      expect(glyph?.getAttribute("style")).toContain("/api/courses/crypto-futures/glyph.svg");
+    }
+    // A course without a glyph shows its title alone.
+    const opos = [...sheet.querySelectorAll("li button")].find((b) => b.textContent?.includes(OPOS.title))!;
+    expect(opos.querySelector("[data-glyph]")).toBeNull();
+  });
+
   it("lists both in the sheet, the current one marked", () => {
     const sheet = openSheet("/courses/crypto-futures");
     const titles = [...sheet.querySelectorAll("li button")].map((button) => button.querySelector("span")?.textContent);

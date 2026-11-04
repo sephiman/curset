@@ -13,6 +13,8 @@ import { captureFigures } from "@/lib/pdf/figures";
 import { figureIds } from "@/lib/pdf/markdown";
 import { loadPdfMake } from "@/lib/pdf/runtime";
 import { PLATFORM_NAME } from "@/lib/platform";
+import { coverArt } from "@/lib/pdf/coverArt";
+import { glyphUrl } from "@/api/courses";
 
 /**
  * Generate the course PDF in its reading language: export + exercises, capture figures and charts
@@ -43,6 +45,8 @@ export interface GenerateCoursePdfOptions {
   /** The running footer's title segment; the cover keeps the full title. */
   courseSubtitle: string;
   courseDescription: string;
+  /** The course accent's paper shade, for its glyph on the cover; absent: the glyph prints in ink. */
+  accentOnPaper?: string;
   /** When false, in-lesson exercises and the answer key are omitted from the export. */
   pdfExercises?: boolean;
   labels: PdfLabels;
@@ -66,6 +70,8 @@ export interface GenerateCoursePdfOptions {
     exercises: PrintExercises["lessons"][number]["exercises"],
     onProgress?: (p: { done: number; total: number }) => void,
   ) => Promise<Map<string, string>>;
+  /** The course glyph's SVG, or null for a course without one. */
+  fetchGlyph?: (slug: string) => Promise<string | null>;
   /** Tests supply a pdfmake whose font comes off disk; the typesetting is the real thing either way. */
   renderPdf?: (definition: TDocumentDefinitions) => Promise<Blob>;
 }
@@ -108,14 +114,20 @@ function reportExcluded(excluded: PrintExercises["excluded"]): void {
   }
 }
 
+async function fetchCourseGlyph(slug: string): Promise<string | null> {
+  const response = await fetch(glyphUrl(slug));
+  return response.ok ? response.text() : null;
+}
+
 export async function generateCoursePdf(o: GenerateCoursePdfOptions): Promise<GeneratedPdf> {
+  const fetchGlyph = o.fetchGlyph ?? fetchCourseGlyph;
   const fetchExport = o.fetchExport ?? getCourseExport;
   const fetchExercises = o.fetchExercises ?? getPrintExercises;
   const captureAll = o.captureAll ?? ((ids, onProgress) => captureFigures(o.scope, ids, onProgress));
   const captureCharts = o.captureCharts ?? captureExerciseCharts;
 
   o.onProgress?.({ phase: "export", done: 0, total: 0 });
-  const exported = await fetchExport(o.scope);
+  const [exported, glyph] = await Promise.all([fetchExport(o.scope), fetchGlyph(o.scope.slug)]);
 
   let exercises: PrintExercises = { locale: o.scope.lang, lessons: [], excluded: [] };
   if (o.pdfExercises !== false) {
@@ -154,6 +166,7 @@ export async function generateCoursePdf(o: GenerateCoursePdfOptions): Promise<Ge
     courseTitle: o.courseTitle,
     courseSubtitle: o.courseSubtitle,
     courseDescription: o.courseDescription,
+    cover: coverArt(glyph, o.accentOnPaper),
     export: exported,
     figures,
     exercises,

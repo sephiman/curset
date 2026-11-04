@@ -17,6 +17,7 @@ import { DEST, keepTogether, printedId, withId, type OversizedBlock } from "@/li
 import { createSectionTracker, SECTION_ID, type SectionTracker } from "@/lib/pdf/sections";
 import { DEFAULT_STYLE, PAGE, PRINT_FONT, PRINT_STYLES, panelWidth } from "@/lib/pdf/page";
 import { PLATFORM_NAME } from "@/lib/platform";
+import type { CoverArt } from "@/lib/pdf/coverArt";
 
 /**
  * The course as a print document: a pure function of (identity, theory export, figures, exercises).
@@ -54,6 +55,8 @@ export interface BuildCourseDocumentOptions {
   /** The book's short name, for the running footer: the full title wraps at this size. */
   courseSubtitle: string;
   courseDescription: string;
+  /** The platform mark above the title and the course glyph beside it; absent: a text-only cover. */
+  cover?: CoverArt;
   export: CourseExport;
   figures: Map<string, CapturedFigure>;
   /** The printed exercises and their answers. Required: there is no exercise-free variant of the book. */
@@ -117,15 +120,23 @@ export function answerEntries(doc: TDocumentDefinitions): { answerFor: string; e
   return collect(doc, "answerFor");
 }
 
+function coverTitle(o: BuildCourseDocumentOptions): Content {
+  const title: Content = { text: o.courseTitle, style: "courseTitle" };
+  if (!o.cover?.glyph) return title;
+  return { columns: [{ svg: o.cover.glyph, width: 30, margin: [0, 2, 0, 0] }, { ...title, width: "*" }], columnGap: 12 };
+}
+
 function cover(o: BuildCourseDocumentOptions): Content {
   return {
     stack: [
-      { text: o.courseTitle, style: "courseTitle" },
+      ...(o.cover ? [{ svg: o.cover.mark, width: 44, margin: [0, 0, 0, 40] } satisfies Content] : []),
+      coverTitle(o),
       { text: o.labels.author, style: "coverMeta" },
       { text: o.courseDescription, style: "courseDescription" },
       { text: o.labels.generated, style: "coverMeta" },
     ],
-    margin: [0, 170, 0, 0],
+    // With the mark on top the title still lands where a text-only cover puts it.
+    margin: [0, o.cover ? 86 : 170, 0, 0],
   };
 }
 

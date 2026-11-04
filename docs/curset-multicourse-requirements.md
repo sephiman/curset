@@ -1,6 +1,6 @@
 # Requirements — Curset, the multi-course web platform (today TradeSchool)
 
-Version 1.0 · 4 October 2026 · requirements, not design. Web only (backend + SPA). The Android app is out of scope: it is the crypto-futures course and will stay that.
+Version 1.1 · 5 November 2026 · requirements, not design. Web only (backend + SPA). The Android app is out of scope: it is the crypto-futures course and will stay that.
 
 ## 1. Goal
 
@@ -21,7 +21,7 @@ The web goes from one course (`crypto-futures`) to several, on unrelated subject
 - R2a.2 Platform pieces: mark (symbol only), wordmark (name), lockup (symbol + name, horizontal and stacked), favicon (16/32/180/512 and SVG), and a monochrome variant of each. Every piece in light and dark variants; the mark works in one colour.
 - R2a.3 Per-course pieces: each course declares in its `course.yaml` a `glyph` (the name of an SVG under `content/<slug>/identity/`) and an accent `color`. The glyph is a simple stroke symbol, legible at 24 px, representing the subject without text: a candlestick for `crypto-futures`; a symbol of its own for each oposiciones course once its syllabus exists. Glyphs share stroke weight, bounding box and corner radius with the platform mark so the dropdown and settings read as one family.
 - R2a.4 Where each piece appears: lockup in the header and the auth card; mark alone as favicon and in the browser tab; glyph + course title in the dropdown, in settings, at sign-up and in the course header; platform mark on the PDF cover with the course glyph beside the course title; PDF footer with the monochrome wordmark.
-- R2a.5 Colour: one ink and one paper for the platform, one accent per course. Course accents have similar lightness so no course looks like "the main one", and each passes 4.5:1 against paper and against ink as text, or is used only as a fill with ink text on top. The existing light, dark and OLED themes receive the colours through tokens; no SVG carries fixed colours except the monochrome variants, which use `currentColor`.
+- R2a.5 Colour: one ink and one paper for the platform, one accent hue per course in two shades: one for use on paper (light theme) and one for use on ink (dark and OLED themes). Each shade passes 4.5:1 as text against the background it is used on; course accents have similar lightness so no course looks like "the main one". (A single shade cannot pass against both an ink and a paper that are 13:1 apart; the earlier wording asked for that and was wrong.) The existing light, dark and OLED themes receive the colours through tokens; no SVG carries fixed colours except the monochrome variants, which use `currentColor`.
 - R2a.6 CI checks: every SVG is valid, has a `viewBox`, no `<script>`, no external references, and is under 20 KB; favicon PNGs are generated from the SVG and never hand-edited; the glyph each course declares exists; each accent's contrast is tested against ink and paper.
 - R2a.7 Deliverables of that round: the SVGs, the identity file (name, typefaces, colour tokens), a dev-gallery page (`/dev/identity`) showing every piece in the three themes, and a ten-line decisions doc in `docs/`. Rejected directions are not kept.
 

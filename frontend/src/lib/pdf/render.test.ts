@@ -21,6 +21,7 @@ import {
 } from "@/lib/pdf/generate";
 import {
   allCourses,
+  glyphFromContent,
   CONTENT_ROOT,
   courseExportFromContent,
   FIXTURE_CONTENT_ROOT,
@@ -86,6 +87,7 @@ async function generate(
   const exercises = printed ?? printExercisesFromContent(locale);
   const generated = await generateCoursePdf({
     scope: { slug: course.id, lang: locale },
+    fetchGlyph: glyphFromContent,
     courseId: course.id,
     courseTitle: course.title[locale],
     courseSubtitle: course.subtitle[locale],
@@ -435,6 +437,7 @@ describe("pagination in the produced file", () => {
     const pdfmake = await nodePdfMake();
     const { blob } = await generateCoursePdf({
       scope: { slug: "tiny", lang: "en" },
+      fetchGlyph: glyphFromContent,
       courseId: "tiny",
       courseTitle: "T",
       courseSubtitle: "S",
@@ -476,6 +479,7 @@ describe("a course without figures (the Spanish-only test course)", () => {
     const meta = course.manifest().course;
     const generated = await generateCoursePdf({
       scope: { slug: course.slug, lang: "es" },
+      fetchGlyph: glyphFromContent,
       courseId: course.slug,
       courseTitle: meta.title.es,
       courseSubtitle: meta.subtitle.es,
@@ -530,6 +534,7 @@ describe.each(DRAFTS.map((course) => [course.slug, course] as const))("the draft
     const meta = course.manifest().course;
     const generated = await generateCoursePdf({
       scope: { slug, lang: locale },
+      fetchGlyph: glyphFromContent,
       courseId: slug,
       courseTitle: meta.title[locale],
       courseSubtitle: meta.subtitle[locale],
