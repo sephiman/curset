@@ -1,7 +1,7 @@
 import { createContext, useContext, type ReactNode } from "react";
 import type { EsquemaCellRole, EsquemaKind } from "@/lib/esquema";
 import { cn } from "@/lib/cn";
-import { useStackedEsquemas } from "@/lib/viewport";
+import { useNarrowLayout } from "@/lib/viewport";
 
 /**
  * An esquema on screen. `tabla` is its table (it scrolls inside its own box on a phone); `plazos` a
@@ -33,12 +33,23 @@ const ROW_GRID: Record<EsquemaKind, string> = {
   arbol: "sm:grid-cols-[1fr_1.4fr_auto]",
 };
 
-export function EsquemaBlock({ kind, title, children }: { kind: EsquemaKind; title: string; children: ReactNode }) {
-  const stacked = useStackedEsquemas();
+export function EsquemaBlock({
+  id,
+  kind,
+  title,
+  children,
+}: {
+  id?: string;
+  kind: EsquemaKind;
+  title: string;
+  children: ReactNode;
+}) {
+  const stacked = useNarrowLayout();
   return (
     <figure
+      id={id}
       data-esquema={kind}
-      className="my-5 rounded-lg border border-border p-3 dark:border-gray-800 oled:border-oled-line"
+      className="my-5 scroll-mt-6 rounded-lg border border-border p-3 dark:border-gray-800 oled:border-oled-line"
     >
       <figcaption className="mb-2 text-sm font-semibold text-gray-900 dark:text-gray-100">{title}</figcaption>
       <KindContext.Provider value={kind}>

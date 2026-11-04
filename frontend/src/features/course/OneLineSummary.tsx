@@ -3,25 +3,34 @@ import { useTranslation } from "react-i18next";
 import { cn } from "@/lib/cn";
 import { usePhoneLayout } from "@/lib/viewport";
 
-/** A card summary: one line on a phone, with «más» when it is cut (J5); above 768 px in full, or not at all with `phoneOnly`. */
-export function OneLineSummary({ text, className, phoneOnly = false }: { text: string; className?: string; phoneOnly?: boolean }) {
+/** A summary cut to one line with «más» when it is cut: on a phone only (cards, J5), or at every width (lesson rows, K6). */
+export function OneLineSummary({
+  text,
+  className,
+  everywhere = false,
+}: {
+  text: string;
+  className?: string;
+  everywhere?: boolean;
+}) {
   const { t } = useTranslation();
   const phone = usePhoneLayout();
+  const oneLine = everywhere || phone;
   const ref = useRef<HTMLParagraphElement>(null);
   const [expanded, setExpanded] = useState(false);
   const [clipped, setClipped] = useState(false);
 
   useLayoutEffect(() => {
     const element = ref.current;
-    if (!phone || expanded || !element) return;
+    if (!oneLine || expanded || !element) return;
     const measure = () => setClipped(element.scrollWidth > element.clientWidth + 1);
     measure();
     const observer = typeof ResizeObserver === "function" ? new ResizeObserver(measure) : null;
     observer?.observe(element);
     return () => observer?.disconnect();
-  }, [phone, expanded, text]);
+  }, [oneLine, expanded, text]);
 
-  if (!phone) return phoneOnly ? null : <p className={className}>{text}</p>;
+  if (!oneLine) return <p className={className}>{text}</p>;
   return (
     <div className={cn("relative z-10 flex items-baseline gap-1", className)}>
       <p ref={ref} className={cn("min-w-0 flex-1", !expanded && "truncate")}>

@@ -743,3 +743,123 @@ dev build. Part 2 removed that gate, so below 768 px every course gets the phone
 - Between 640 and 768 px, lesson rows with practice now stack (`md:` instead of `sm:`), so the phone layout is one
   layout across its whole range.
 - `viewport-fit=cover` was already in `index.html`, so the safe-area padding takes effect with no change there.
+
+## Delta K — desktop layout and the two J leftovers (2026-11-04)
+
+Delta v1.9 section K, K1–K8, on both courses, not committed. Part 1 built K1–K3 and was reviewed on
+screenshots; Part 2 applied the user's three decisions and did K4–K8.
+
+**Decisions (user, 2026-11-04):**
+1. The header has one width (`max-w-5xl`) on every page, the lesson page included and whatever the reader's
+   width setting; only the page under it widens. The mark never moves.
+2. «Solo en español» shows only inside the course sheet, as on phones.
+3. The lesson index lists every `##`; a section's `###` show only while that section is current; esquema
+   titles always show, in italic, under their section.
+
+### What changed
+
+- **K1 header tabs (≥768).** `components/layout/HeaderTabs.tsx`: the four sections after the course
+  selector, the current one underlined (`aria-current="page"`). The selector is `CourseSwitcher` (the J2
+  phone selector, now with a `className`), and its `Sheet` is a centred dialog from 768 px.
+  `CourseHeader` (the strip under the header) is deleted; its tests became `CourseSwitcher.test.tsx`.
+  The avatar menu lost its unreachable copy of the sections.
+- **Header chrome.** `phoneChrome.tsx` is now `headerChrome.tsx` (`HeaderChromeProvider`): the back target
+  carries an optional `note`, the lesson's reading time, which the desktop header shows beside the back
+  link at ≥1024.
+- **K2 lesson (≥1024).** `lib/outline.ts` gives every `##`/`###` and esquema a `sec-…` id (remark plugin
+  after `remarkEsquema`) and returns the same entries for the index, so the index and the page cannot
+  disagree. `features/course/LessonIndex.tsx`: sticky, current entry from a scroll listener (reading
+  line 96 px), folding per decision 3, «Lo que más cae» and «Normativa» in their own list at the end.
+  `LessonPage` at ≥1024 is a three-track grid: index, a `60ch` column, a mirror track, so the column is
+  centred on the page. Measured at 1280 px: 63–73 characters a line, median 67 (58ch gave 57–69). Ancho
+  and Completo still widen the column. The page widens to `max-w-7xl`; the header does not.
+- **K3 sitting (≥1024).** Sticky clock bar with pause, the question and Anterior/Siguiente in the centre,
+  the full `QuestionGrid` in a sticky right panel. The old desktop sitting is gone: below 1024 the J3
+  sitting applies (`useCompactLayout`, `(max-width: 1023.98px)`), and toasts are pills at the top there
+  too, so they never cover the fixed Siguiente between 768 and 1023.
+- **K4 results (≥1024).** `ExamReview` uses the full column: the scores card as a top band (the unscored
+  card lays out score, by-block and by-module in three columns), the two lists side by side, «Por tema»
+  full width; the per-question review stays at `max-w-3xl`.
+- **K5 «Por tema» (<640).** `ByLessonTable`: one card per lesson under its module (title, «Aciertos ·
+  Errores · En blanco · Tiempo medio», percentage), with a «Ordenar por» select so sorting survives on a
+  phone. `useStackedEsquemas` became `useNarrowLayout`, shared by esquemas and this.
+- **K6 course and module pages.** Module cards were already two columns from 640 px. Module page lesson
+  rows are one grid: title and a one-line summary (`OneLineSummary everywhere`, «más» when cut), reading
+  time, «Practicar». At 768–1023 the rows now show the summary too (before: phones only).
+- **i18n:** `course.lessonIndex`, `byLesson.sortLabel` (en/es). Outside the exported label namespaces.
+
+### Tests
+
+- Vitest, new: `LessonIndex.test.tsx` (index at 1024, absent at 1023; folding; closing list; every entry
+  points at an id on the page), `ExamRunner.layout.test.tsx` (grid panel at 1024, chip strip and fixed
+  buttons at 1023), `ByLessonTable.test.tsx` (cards at 639 with tally and sort, table at 640),
+  `CourseSwitcher.test.tsx`; `PhoneChrome.test.tsx` adds header tabs at 768 (after the selector, current
+  marked) and none at 767; `lessonWidth.test.tsx` asserts the header keeps `max-w-5xl` on Completo (it
+  was `max-w-none` before decision 1).
+- Playwright, new `e2e/desktop-layout.spec.ts` (30 tests): header tabs, the mark not moving between the
+  course page and a lesson, index beside a centred column with the longest line 66–76 characters, the
+  grid panel, the two lists side by side and the table over 900 px, «Por tema» cards at 360, and no
+  element wider than the viewport at 768/1024/1280/1440 on the five J8 screens plus the course page.
+  The J spec's tab-bar locator now excludes the header (the header tabs share the «Secciones» name).
+- `playwright.config.ts` starts `npm run dev` itself unless something already serves :5173.
+
+### CI
+
+- New `e2e` job: Postgres 17 and this commit's backend image as job services, then `npm ci`, Chromium,
+  `npm run test:e2e`. The backend service restarts on failure (it does not retry its first database
+  connection) and has a 3 s healthcheck. DEV_MODE is on, for the seeded draw below.
+- **Changed image policy:** `images` now pushes `sha-<full sha>` on every push and same-repo PR (the e2e
+  job pulls it); fork PRs build without pushing and skip e2e. `latest` is no longer set by `images`: the
+  new `latest` job retags `sha-…` as `latest` on main only after `images` and `e2e` are green.
+- `frontend/e2e/ci-local.sh` is the same job locally: builds the backend image from the working tree,
+  starts the two containers with the job's settings on a throwaway network, clears `e2e/.auth`, runs the
+  suite, removes everything. Needs :8000 free.
+
+### Results
+
+- Frontend: `npm run build`, `npm run lint` clean. `npm test`: 671 passed, 51 skipped (658 at the end of
+  Part 1; 13 new).
+- Backend (no backend change): `ruff check`, `ruff format --check`, `mypy src` clean. `pytest -n auto`:
+  1,594 passed, 21 skipped.
+- Android bundle re-exported to scratch: byte-identical to `dist/bundle`, label catalogs identical to
+  `dist/i18n`. `verify_golden_stability.py`: 90 fingerprints hold, digest `f0ae701b…bcaea`, unchanged.
+  Nothing under `dist/` or `content/` changed.
+- `e2e/ci-local.sh`, three runs: (1) 54/56, the two J tab-bar tests (fixed, above); (2) 54/56, two
+  environmental failures (`ERR_NETWORK_CHANGED`, a stalled load) while the backend pytest run's
+  Testcontainers churned Docker networks alongside it; (3) alone: 55/56 — see the first open point.
+- K8: 15 screenshots in `docs/screens/desktop/`: `lesson-index-esquema`, `sitting-grid`, `results`,
+  `course`, `header-tabs` × light/dark/oled at 1280 px. They replace the Part 1 screenshots.
+
+### Interpretations and open points
+
+- The J first-question test sampled a random «parte-1» sitting and failed on long draws; resolved below.
+- K2 «the back link in the header bar» is read as the app header (as J2 did on phones); between 768 and
+  1023 the back link and reading time stay at the top of the lesson.
+- The results' «Total» active time showed 00:00 for API-built sittings in the screenshots while Primera
+  parte showed 05:50; the e2e helper answers without a clock, so this is test data, not checked further.
+
+### The J first-question test made deterministic (2026-11-04)
+
+**Decision (user, 2026-11-04):** pin a typical first question and assert it whole; add a free-draw test
+that asserts only the stem and the first two options.
+
+- **Seeded start (backend).** `ExamStartRequest.seed` (optional). The router refuses it with 403
+  `EXAM_SEED_DEV_ONLY` unless the server is in dev mode, so a learner cannot replay a sitting whose answers
+  they know. `exams/draw.py` gains `SeededRand` (the printable exam's `ExamPrintRand`, moved and renamed,
+  since two callers now use it); `start_exam` draws with it when a seed is given, with `secrets` otherwise.
+  Interface message added in en/es. `tests/test_exam_seed.py`: the same seed draws the same sitting
+  (questions, prompts, payloads), another seed another one, and a non-dev server refuses the seed — the
+  first and last failed before the change.
+- **Choosing the seed.** Seeds 1–40 of «parte-1» at 360 × 800: first-question text 462–1,089 characters
+  on screen (median about 760); 8 of 40 did not fit whole, worst by 130 px. Seed 27 (771 characters, a
+  Gobierno question, 56 px to spare) is pinned as `TYPICAL_FIRST_QUESTION_SEED`. A content edit can
+  change what it draws; the test then fails loudly and the seed is re-chosen the same way.
+- **Tests (`e2e/mobile-layout.spec.ts`).** The pinned test asserts the stem and all four options end
+  above Anterior/Siguiente with no scroll and no tab bar. The new free-draw test asserts the stem and the
+  first two options do; the four longest draws above leave 121–178 px below the second option.
+  `e2e/session.ts` `startSitting` takes the optional seed.
+- **CI and `ci-local.sh`:** the backend runs with `DEV_MODE=true`.
+
+Results: `ci-local.sh` alone, three consecutive runs: 57/57 passed each (1.2 min). Backend `pytest -n
+auto`: 1,597 passed, 21 skipped; ruff, format, mypy clean. Frontend: lint clean, `npm test` 671 passed,
+51 skipped.

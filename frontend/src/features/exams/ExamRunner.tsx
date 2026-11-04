@@ -17,8 +17,8 @@ import { useCourseTree } from "@/features/course/queries";
 import { ProseReferenceHost } from "@/features/references/ProseReferenceHost";
 import { clock, sittingName } from "@/features/exams/format";
 import { findTemaInfo } from "@/lib/tema";
-import { usePhoneLayout } from "@/lib/viewport";
-import { useFocusMode } from "@/components/layout/phoneChrome";
+import { useCompactLayout } from "@/lib/viewport";
+import { useFocusMode } from "@/components/layout/headerChrome";
 import { QuestionChipStrip, QuestionGrid } from "@/features/exams/QuestionNavigator";
 
 const CHART_TYPES: ReadonlySet<ExerciseType> = new Set(["synthetic_chart", "fixture_chart", "pattern_chart"]);
@@ -43,7 +43,8 @@ export function ExamRunner() {
   const qc = useQueryClient();
   const { scope, path } = useCourse();
   const { data: courseTree } = useCourseTree();
-  const phone = usePhoneLayout();
+  // Below 1024 px the sitting is the J3 one: chip strip, buttons fixed at the bottom.
+  const compact = useCompactLayout();
   useFocusMode();
 
   const { data: exam, isLoading, isError } = useQuery({
@@ -287,7 +288,7 @@ export function ExamRunner() {
           {t("exam.timeLeft", { time: clock(timeLeft) })}
         </span>
       )}
-      {phone ? (
+      {compact ? (
         <span className="tabular-nums" aria-label={t("exam.answeredOf", { done: answeredCount, total: counted.length })}>
           {answeredCount}/{counted.length}
         </span>
@@ -302,7 +303,7 @@ export function ExamRunner() {
       variant="secondary"
       disabled={answers[q.attemptId] === undefined || submit.isPending}
       onClick={onPause}
-      className={cn(phone && "px-3 py-1.5")}
+      className={cn(compact && "px-3 py-1.5")}
     >
       ⏸ {t("exam.pause")}
     </Button>
@@ -397,7 +398,7 @@ export function ExamRunner() {
     </div>
   );
 
-  if (phone) {
+  if (compact) {
     // J3: sticky clock bar with the chip strip, then the question, then Anterior/Siguiente fixed at the bottom (no tab bar in a sitting).
     return (
       <ProseReferenceHost>
@@ -424,32 +425,44 @@ export function ExamRunner() {
     );
   }
 
+  // K3: clock bar on top, the question in the centre column, the full grid in a sticky panel at the right.
   return (
     <ProseReferenceHost>
-      <div className="mx-auto max-w-2xl space-y-4">
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <h1 className="text-lg font-semibold">{sittingName(exam)}</h1>
-          <div className="flex items-center gap-3 text-sm text-gray-500 dark:text-gray-400">{clockReadout}</div>
+      <div className="space-y-4">
+        <div className="sticky top-0 z-30 -mx-4 flex min-h-12 items-center gap-4 border-b border-border bg-gray-50 px-4 py-2 dark:border-gray-800 dark:bg-gray-950 oled:border-oled-line oled:bg-oled-bg">
+          <h1 className="min-w-0 truncate text-base font-semibold">{sittingName(exam)}</h1>
+          <div className="ml-auto flex shrink-0 items-center gap-4 text-sm text-gray-600 dark:text-gray-300">
+            {clockReadout}
+            {pauseButton}
+          </div>
         </div>
         {timeUpNotice}
 
-        {/* Progress strip — tappable markers grouped by part; answered filled, current ringed, reserves marked. */}
-        <QuestionGrid {...navigator} />
-
-        {isPaused ? (
-          pausedCard
-        ) : (
-          <>
-            {questionBody}
-            <div className="flex items-center justify-between gap-2">
-              {prevButton}
-              {pauseButton}
-              {nextButton}
-            </div>
-          </>
-        )}
-
-        {footer}
+        <div className="grid grid-cols-[minmax(0,1fr)_18rem] items-start gap-6">
+          <div className="min-w-0 space-y-4">
+            {isPaused ? (
+              pausedCard
+            ) : (
+              <>
+                {questionBody}
+                <div className="flex items-center justify-between gap-2">
+                  {prevButton}
+                  {nextButton}
+                </div>
+              </>
+            )}
+            {footer}
+          </div>
+          <nav
+            aria-label={t("exam.navigator")}
+            className="sticky top-16 max-h-[calc(100dvh-5rem)] space-y-3 overflow-y-auto overscroll-contain rounded-lg border border-border bg-white p-3 dark:border-gray-800 dark:bg-gray-900 oled:border-oled-line oled:bg-oled-bg"
+          >
+            <p className="text-xs font-semibold tracking-wide text-gray-500 uppercase dark:text-gray-400">
+              {t("exam.questionsSheet")}
+            </p>
+            <QuestionGrid {...navigator} />
+          </nav>
+        </div>
       </div>
     </ProseReferenceHost>
   );

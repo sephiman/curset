@@ -7,6 +7,7 @@ test pins, and a draw is a pure function of that stream and the course.
 
 from __future__ import annotations
 
+import random
 from collections.abc import Sequence
 from dataclasses import dataclass
 from itertools import combinations
@@ -30,6 +31,19 @@ class Rand(Protocol):
     def choice(self, seq: Sequence[str]) -> str: ...
 
     def randbelow(self, n: int) -> int: ...
+
+
+class SeededRand:
+    """A repeatable `Rand`: the printable exam's draw, and a dev-mode sitting started with a seed."""
+
+    def __init__(self, seed: int) -> None:
+        self._rng = random.Random(seed)
+
+    def choice(self, seq: Sequence[str]) -> str:
+        return self._rng.choice(seq)
+
+    def randbelow(self, n: int) -> int:
+        return self._rng.randrange(n)
 
 
 class DrawError(RuntimeError):

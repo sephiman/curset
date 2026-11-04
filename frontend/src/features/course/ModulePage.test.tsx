@@ -58,9 +58,10 @@ function mount(node: ReactElement): void {
   });
 }
 
+/** Each lesson row's text: the row is the card around the lesson's link. */
 function rowText(): string[] {
-  return [...host.querySelectorAll(`a[href^='${coursePath(TEST_COURSE.slug, "/lessons/")}']`)].map((row) =>
-    (row.textContent ?? "").replace(/\s+/g, " ").trim(),
+  return [...host.querySelectorAll(`a[href^='${coursePath(TEST_COURSE.slug, "/lessons/")}']:not([href$='/practice'])`)].map(
+    (link) => (link.parentElement?.textContent ?? "").replace(/\s+/g, " ").trim(),
   );
 }
 

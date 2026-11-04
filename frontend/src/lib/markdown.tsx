@@ -7,6 +7,7 @@ import { annotateCitations } from "@/lib/citations/annotate";
 import { remarkBlockDirectives } from "@/lib/directives";
 import { remarkEsquema, type EsquemaCellRole, type EsquemaKind } from "@/lib/esquema";
 import { EsquemaBlock, EsquemaCell, EsquemaRow } from "@/lib/EsquemaBlock";
+import { remarkOutline } from "@/lib/outline";
 import {
   MarkdownTable,
   MarkdownTableBody,
@@ -128,8 +129,8 @@ function buildComponents(
       return <span>{attrs.children}</span>;
     },
     h1: ({ children }) => <h1 className="mt-2 mb-4 text-2xl font-bold max-md:text-[1.625rem] max-md:leading-tight">{children}</h1>,
-    h2: ({ children }) => <h2 className="mt-6 mb-3 text-xl font-semibold max-md:text-[1.3125rem] max-md:leading-snug">{children}</h2>,
-    h3: ({ children }) => <h3 className="mt-4 mb-2 text-lg font-semibold max-md:text-[1.125rem] max-md:leading-snug">{children}</h3>,
+    h2: ({ id, children }) => <h2 id={id} className="mt-6 mb-3 scroll-mt-6 text-xl font-semibold max-md:text-[1.3125rem] max-md:leading-snug">{children}</h2>,
+    h3: ({ id, children }) => <h3 id={id} className="mt-4 mb-2 scroll-mt-6 text-lg font-semibold max-md:text-[1.125rem] max-md:leading-snug">{children}</h3>,
     p: ({ children }) => <p className="my-3 leading-relaxed text-gray-700 max-md:leading-[1.6] dark:text-gray-300">{children}</p>,
     ul: ({ children }) => <ul className="my-3 list-disc space-y-1 pl-6 text-gray-700 max-md:pl-5 dark:text-gray-300">{children}</ul>,
     ol: ({ children }) => <ol className="my-3 list-decimal space-y-1 pl-6 text-gray-700 max-md:pl-5 dark:text-gray-300">{children}</ol>,
@@ -169,7 +170,11 @@ function buildComponents(
       const esquemaKind = attrs["data-esquema-kind"];
       if (typeof esquemaKind === "string") {
         return (
-          <EsquemaBlock kind={esquemaKind as EsquemaKind} title={String(attrs["data-esquema-title"] ?? "")}>
+          <EsquemaBlock
+            id={typeof attrs.id === "string" ? attrs.id : undefined}
+            kind={esquemaKind as EsquemaKind}
+            title={String(attrs["data-esquema-title"] ?? "")}
+          >
             {attrs.children}
           </EsquemaBlock>
         );
@@ -216,7 +221,7 @@ export function LessonMarkdown({
   };
   return (
     <Markdown
-      remarkPlugins={[remarkGfm, remarkBlockDirectives, remarkEsquema, annotate, remarkDirectiveToHast]}
+      remarkPlugins={[remarkGfm, remarkBlockDirectives, remarkEsquema, remarkOutline, annotate, remarkDirectiveToHast]}
       components={buildComponents(renderExercise, renderFigure, renderTerm, renderLessonRef)}
     >
       {markdown}

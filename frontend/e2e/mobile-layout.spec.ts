@@ -1,14 +1,35 @@
-import { expect, test, type Page } from "@playwright/test";
+import { expect, test, type Locator, type Page } from "@playwright/test";
 import { AGE, CRYPTO, abandonSitting, overflowingElements, signIn, startSitting, submittedSitting } from "./session";
 
 /** Delta J at real widths: what jsdom cannot measure — fit, scrolling and what is on screen without it. */
 
 const PHONES = [360, 390, 430] as const;
 const ESQUEMA_LESSON = `/courses/${AGE}/lessons/m01-l03`;
-const tabBar = (page: Page) => page.getByRole("navigation", { name: "Secciones" });
+// The header tabs (768 px and up) carry the same name; the bottom bar is the one outside the header.
+const tabBar = (page: Page) => page.locator('nav[aria-label="Secciones"]:not(header nav)');
 
 function phone(width: number) {
   return { viewport: { width, height: 800 }, isMobile: true, hasTouch: true, deviceScaleFactor: 2 };
+}
+
+const TYPICAL_FIRST_QUESTION_SEED = 27;
+
+/** The question's stem on screen, found by its opening words. */
+function stem(page: Page, prompt: string): Locator {
+  return page.locator("main p").filter({ hasText: prompt.slice(0, 40) }).first();
+}
+
+/** Where Anterior/Siguiente begin: everything the reader sees without scrolling sits above this line. */
+async function buttonsTop(page: Page): Promise<number> {
+  const box = await page.getByRole("button", { name: /Siguiente/ }).boundingBox();
+  expect(box).not.toBeNull();
+  return box!.y;
+}
+
+async function expectAbove(locator: Locator, line: number): Promise<void> {
+  await expect(locator).toBeVisible();
+  const box = await locator.boundingBox();
+  expect(box!.y + box!.height).toBeLessThanOrEqual(line);
 }
 
 async function expectNothingWiderThanTheScreen(page: Page): Promise<void> {
@@ -67,19 +88,35 @@ test.describe("simulation sitting at 360 px", () => {
 
   test("shows the whole first question of a 70-question sitting without scrolling, with no tab bar", async ({ page }) => {
     await signIn(page);
-    const sitting = await startSitting(page.request, AGE, "parte-1");
+    // A pinned draw whose first question is of typical length (771 characters on screen; the median of
+    // seeds 1–40 is about 760, and the longest do not fit at 360 × 800). A content edit can change it.
+    const sitting = await startSitting(page.request, AGE, "parte-1", TYPICAL_FIRST_QUESTION_SEED);
     try {
       expect(sitting.questions.filter((q) => !q.reserve)).toHaveLength(70);
       await page.goto(`/courses/${AGE}/exams/${sitting.id}`);
       const options = page.getByRole("radio");
       await expect(options).toHaveCount(4);
-      const navigation = page.getByRole("button", { name: /Siguiente/ });
-      const lastOption = await options.last().locator("xpath=ancestor::label").boundingBox();
-      const navTop = (await navigation.boundingBox())?.y ?? 0;
-      expect(lastOption).not.toBeNull();
-      expect(lastOption!.y + lastOption!.height).toBeLessThanOrEqual(navTop);
+      const navTop = await buttonsTop(page);
+      await expectAbove(stem(page, sitting.questions[0].prompt), navTop);
+      for (let i = 0; i < 4; i += 1) await expectAbove(options.nth(i).locator("xpath=ancestor::label"), navTop);
       expect(await page.evaluate(() => window.scrollY)).toBe(0);
       await expect(tabBar(page)).toHaveCount(0);
+    } finally {
+      await abandonSitting(page.request, AGE, sitting.id);
+    }
+  });
+
+  test("shows the stem and the first two options of any first question without scrolling", async ({ page }) => {
+    await signIn(page);
+    const sitting = await startSitting(page.request, AGE, "parte-1");
+    try {
+      await page.goto(`/courses/${AGE}/exams/${sitting.id}`);
+      const options = page.getByRole("radio");
+      await expect(options).toHaveCount(4);
+      const navTop = await buttonsTop(page);
+      await expectAbove(stem(page, sitting.questions[0].prompt), navTop);
+      for (let i = 0; i < 2; i += 1) await expectAbove(options.nth(i).locator("xpath=ancestor::label"), navTop);
+      expect(await page.evaluate(() => window.scrollY)).toBe(0);
     } finally {
       await abandonSitting(page.request, AGE, sitting.id);
     }

@@ -15,11 +15,23 @@ export async function signIn(page: Page, selected: string = AGE): Promise<void> 
 
 interface Sitting {
   id: string;
-  questions: { attemptId: string; partId: string; reserve: boolean; payload: { options?: { id: string }[] } }[];
+  questions: {
+    attemptId: string;
+    partId: string;
+    reserve: boolean;
+    prompt: string;
+    payload: { options?: { id: string }[] };
+  }[];
 }
 
-export async function startSitting(api: APIRequestContext, course: string, presetId: string): Promise<Sitting> {
-  const response = await api.post(`/api/courses/${course}/exams`, { data: { presetId, target: null } });
+/** A new sitting; with a `seed` the draw is repeatable (the backend takes one only in dev mode). */
+export async function startSitting(
+  api: APIRequestContext,
+  course: string,
+  presetId: string,
+  seed?: number,
+): Promise<Sitting> {
+  const response = await api.post(`/api/courses/${course}/exams`, { data: { presetId, target: null, seed } });
   expect(response.ok(), await response.text()).toBe(true);
   return (await response.json()) as Sitting;
 }

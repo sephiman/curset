@@ -6,7 +6,7 @@
 
 export type Tab = "course" | "glossary" | "exams" | "progress";
 
-/** The primary navigation, in canonical order — inline in the header ≥ sm, in the avatar menu below. */
+/** The primary navigation, in canonical order — header tabs at 768 px and up, the bottom tab bar below. */
 export const TABS: readonly { tab: Tab; rest: string; labelKey: string }[] = [
   { tab: "course", rest: "", labelKey: "nav.course" },
   { tab: "glossary", rest: "/glossary", labelKey: "nav.glossary" },
@@ -40,4 +40,10 @@ export function tabOf(pathname: string): Tab {
 export function isLessonPath(pathname: string): boolean {
   const rest = pathname.replace(/^\/courses\/[^/]+/, "");
   return rest.startsWith("/lessons/");
+}
+
+/** True on a lesson's reading page (not its practice), which widens to fit the side index (K2). */
+export function isLessonReadingPath(pathname: string): boolean {
+  const rest = pathname.replace(/^\/courses\/[^/]+/, "");
+  return /^\/lessons\/[^/]+\/?$/.test(rest);
 }

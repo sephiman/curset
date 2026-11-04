@@ -62,14 +62,24 @@ cd frontend
 npm install
 npm run dev            # http://localhost:5173
 npm run build && npm test
-npm run test:e2e       # real-browser layout checks; needs the dev server and the backend running
+npm run test:e2e       # real-browser layout checks; needs the backend running (starts Vite if needed)
+./e2e/ci-local.sh      # the CI e2e job on this machine: fresh backend image + Postgres, then the suite
 ```
 
 `npm run test:e2e` drives Chromium (Playwright) against `http://localhost:5173` (override with
-`E2E_BASE_URL`). It signs in once as `e2e-mobile`, registering that account on the first run, and
-checks the phone layout at 360, 390 and 430 px: the tab bar, esquema cards, the first question of a
-70-question sitting visible without scrolling, and no element wider than the screen on the Exámenes
-page and the five J8 screens. Point it at a local stack only, never at a deploy host.
+`E2E_BASE_URL`), starting `npm run dev` unless a dev server already answers there. It signs in once as
+`e2e-mobile`, registering that account on the first run. It checks the phone layout at 360, 390 and
+430 px (the tab bar, esquema cards, the first question of a 70-question sitting visible without
+scrolling) and the desktop layout (header tabs, the lesson index beside a centred column, the sitting's
+grid panel, the results' two lists side by side, «Por tema» cards at 360 px), and that no element is
+wider than the screen on the five J8 screens and the course page at every phone width and at 768, 1024,
+1280 and 1440 px. Point it at a local stack only, never at a deploy host.
+
+CI runs the same suite in the `e2e` job, with this commit's backend image and a throwaway Postgres as
+job services. `e2e/ci-local.sh` builds the image from the working tree, starts the same two containers
+with the same settings, runs the suite and removes them; it needs port 8000 free. The backend must run
+in dev mode (`DEV_MODE=true`): the phone sitting test pins its draw with a `seed` on the exam start,
+which only a dev-mode server accepts.
 
 ## Reviewing locally
 
@@ -851,7 +861,34 @@ Below 768 px the app switches to a phone layout, the same for every course:
 - **Touch.** Options, chips, tabs and buttons are at least 44 × 44 px. In the solution panel the two
   links are a row of two buttons.
 
-Above 768 px nothing changes. Screens at 360/390/430 px in the three themes are in `docs/screens/mobile/`.
+Screens at 360/390/430 px in the three themes are in `docs/screens/mobile/`. Also below 640 px, «Por
+tema» is one card per lesson (title, aciertos/errores/en blanco, percentage, average time) with a sort
+selector; from 640 px it is the table.
+
+## Desktop layout
+
+From 768 px:
+
+- **Header.** The mark, the course name as the selector that opens the course sheet (a centred dialog
+  here), then the four sections as tabs with the current one underlined, and the avatar. The header has
+  one width on every page, so the mark never moves.
+
+From 1024 px:
+
+- **Lesson.** The text is a centred column of about 70 characters a line, with a sticky index on the
+  left: every `##` section and esquema title (italic, under its section), the current section's `###`
+  unfolded, and «Lo que más cae» and «Normativa» in their own list at the end. The back link and the
+  reading time move into the header bar.
+- **Exam sitting.** A sticky clock bar on top, the question in the centre with Anterior/Siguiente under
+  it, and the full question grid in a sticky panel on the right. Below 1024 px the phone sitting (chip
+  strip, buttons fixed at the bottom, toasts as pills) applies.
+- **Results.** The scores in a full-width band, «Donde más brillas» and «Donde más tienes que preparar»
+  side by side, and «Por tema» full width with sortable columns; the per-question review stays a
+  readable column.
+- **Course and module pages.** Module cards in two columns; each lesson row shows its title, a one-line
+  summary with «más», its reading time and «Practicar».
+
+Screens at 1280 px in the three themes are in `docs/screens/desktop/`.
 
 ## Courses, languages and reports
 
@@ -915,7 +952,7 @@ tabs each show a one-line page with a button to the Courses section.
 **Two languages.** The interface language is the account's. A course is *read* in one of its own
 languages: the account's if the course has it, otherwise its first. The header's ES ↔ EN switch carries
 the viewed course along when it has the language and leaves it alone when it does not ("Spanish only"
-shows under the course title). A two-language course also has its own reading-language selector,
+shows beside the course in the course sheet). A two-language course also has its own reading-language selector,
 remembered per user and per course.
 
 **Report this question.** Every answered multiple-choice question (practice — just answered or

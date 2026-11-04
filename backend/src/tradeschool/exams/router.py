@@ -6,7 +6,7 @@ from __future__ import annotations
 import uuid
 from typing import Annotated
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Request
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from tradeschool.auth.backend import current_active_user
@@ -14,6 +14,7 @@ from tradeschool.auth.models import User
 from tradeschool.content.registry import CourseRegistry
 from tradeschool.db import get_async_session
 from tradeschool.deps import CourseId, ReadingLocale, get_registry
+from tradeschool.errors import AppError
 from tradeschool.exams import service
 from tradeschool.exams.schemas import (
     CaseMarksRequest,
@@ -30,6 +31,7 @@ router = APIRouter(tags=["exams"], prefix="/exams")
 
 @router.post("", response_model=ExamSessionOut, status_code=201)
 async def start_exam(
+    request: Request,
     payload: ExamStartRequest,
     user: Annotated[User, Depends(current_active_user)],
     session: Annotated[AsyncSession, Depends(get_async_session)],
@@ -38,8 +40,11 @@ async def start_exam(
     locale: ReadingLocale,
 ) -> ExamSessionOut:
     assert payload.presetId is not None  # the request model fills it from the legacy scope
+    # A learner who could pick the seed could replay a sitting whose answers they already know.
+    if payload.seed is not None and not request.app.state.settings.dev_mode:
+        raise AppError("EXAM_SEED_DEV_ONLY", "A seeded exam is a dev-mode tool.", status_code=403)
     view = await service.start_exam(
-        session, registry, user.id, course, payload.presetId, payload.target, locale
+        session, registry, user.id, course, payload.presetId, payload.target, locale, payload.seed
     )
     return ExamSessionOut.build(view)
 

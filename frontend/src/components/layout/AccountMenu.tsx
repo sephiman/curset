@@ -1,13 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import type { Me } from "@/api/auth";
 import { useAuth } from "@/auth/AuthContext";
 import { LanguageControl, LessonWidthControl, ThemeControl } from "@/components/layout/controls";
 import { Button } from "@/components/ui/primitives";
-import { useNavItems } from "@/features/courses/useNavItems";
-import { cn } from "@/lib/cn";
-import { usePhoneLayout } from "@/lib/viewport";
 
 function displayName(user: Me): string {
   return user.name?.trim() || user.email.split("@")[0] || user.email;
@@ -17,13 +14,10 @@ function initials(user: Me): string {
   return displayName(user).slice(0, 2).toUpperCase();
 }
 
-/** Account controls behind an avatar button (SharedLedger pattern); below `sm` the primary nav folds in. */
+/** Account, language, theme, lesson width and sign-out behind an avatar button (SharedLedger pattern); the sections live in the tabs. */
 export function AccountMenu({ user }: { user: Me }) {
   const { t } = useTranslation();
   const { logout } = useAuth();
-  const navItems = useNavItems();
-  // On the phone layout the tab bar carries the sections, so the menu keeps account, language, theme, sign-out.
-  const phone = usePhoneLayout();
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
@@ -67,8 +61,7 @@ export function AccountMenu({ user }: { user: Me }) {
           role="menu"
           className="absolute right-0 z-50 mt-2 w-64 max-w-[calc(100vw-2rem)] rounded-lg border border-border bg-white p-3 shadow-lg dark:border-gray-800 dark:bg-gray-900 oled:border-oled-line-strong oled:bg-oled-bg"
         >
-          {/* Who is signed in and the way to their account come first, so on a phone the button shows
-              as soon as the menu opens, above the primary nav folded in below `sm`. */}
+          {/* Who is signed in and the way to their account come first. */}
           <div className="mb-3 border-b border-border px-1 pb-3 dark:border-gray-800 oled:border-oled-line">
             <p className="text-xs text-gray-500 dark:text-gray-400">{t("auth.signedInAs")}</p>
             <p className="truncate font-semibold">{displayName(user)}</p>
@@ -86,29 +79,6 @@ export function AccountMenu({ user }: { user: Me }) {
               {t("account.title")}
             </Button>
           </div>
-
-          {/* Primary nav, only when it was collapsed out of the header (< sm). Active page keeps its
-              highlight here. Same single menu on mobile — account, nav, then the display controls. */}
-          {!phone && (
-          <nav className="mb-3 flex flex-col border-b border-border pb-3 sm:hidden dark:border-gray-800 oled:border-oled-line">
-            {navItems.map(({ tab, to, labelKey, current }) => (
-              <Link
-                key={tab}
-                to={to}
-                aria-current={current ? "page" : undefined}
-                onClick={() => setOpen(false)}
-                className={cn(
-                  "rounded-md px-2 py-1.5 text-sm transition-colors",
-                  current
-                    ? "bg-primary/10 font-medium text-primary"
-                    : "text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800 oled:hover:bg-oled-hover",
-                )}
-              >
-                {t(labelKey)}
-              </Link>
-            ))}
-          </nav>
-          )}
 
           <div className="space-y-3">
             <div>

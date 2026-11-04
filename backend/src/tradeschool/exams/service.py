@@ -24,7 +24,7 @@ from tradeschool.citations.excerpt_store import SolutionText
 from tradeschool.content.registry import CourseRegistry, QuestionRef
 from tradeschool.content.text import LocalizedText
 from tradeschool.errors import AppError
-from tradeschool.exams.draw import DrawError, draw_part, preset_targets
+from tradeschool.exams.draw import DrawError, Rand, SeededRand, draw_part, preset_targets
 from tradeschool.exams.layout import attempt_layout, case_marks, offered_cases
 from tradeschool.exams.models import ExamSession
 from tradeschool.exams.presets import ExamPreset, PresetPart, PresetSource
@@ -478,8 +478,10 @@ async def start_exam(
     preset_id: str,
     target: str | None,
     locale: str,
+    seed: int | None = None,
 ) -> ExamView:
     preset, target = _resolve_start(registry, preset_id, target)
+    rand: Rand = SeededRand(seed) if seed is not None else secrets
 
     # Starting a sitting of a preset (and target) closes any open one of the same.
     replaced: list[uuid.UUID] = []
@@ -507,7 +509,7 @@ async def start_exam(
     parts: list[dict[str, object]] = []
     for part in preset.parts:
         try:
-            drawn = draw_part(registry, part, target, secrets)
+            drawn = draw_part(registry, part, target, rand)
         except DrawError as exc:
             raise AppError("EXAM_EMPTY", str(exc), status_code=409) from exc
         counted: list[str] = []

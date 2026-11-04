@@ -137,7 +137,7 @@ function rows(list: List, kind: Exclude<EsquemaKind, "tabla">, depth: number): E
   });
 }
 
-function plainText(node: Nodes): string {
+export function plainText(node: Nodes): string {
   if ("value" in node && typeof node.value === "string") return node.value;
   return "children" in node ? (node.children as Nodes[]).map(plainText).join("") : "";
 }

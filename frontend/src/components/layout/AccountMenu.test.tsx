@@ -9,9 +9,6 @@ import en from "@/i18n/en.json";
 vi.mock("@/auth/AuthContext", () => ({ useAuth: () => ({ logout: async () => {} }) }));
 vi.mock("@/lib/theme", () => ({ useTheme: () => ({ theme: "light", resolvedTheme: "light", setTheme: () => {} }) }));
 vi.mock("@/features/courses/useCourses", () => ({ useFollowInterfaceLanguage: () => () => {} }));
-vi.mock("@/features/courses/useNavItems", () => ({
-  useNavItems: () => [{ tab: "course", to: "/courses/crypto-futures", labelKey: "nav.course", current: true }],
-}));
 
 function translate(key: string): string {
   const template = key.split(".").reduce<unknown>((node, part) => (node as Record<string, unknown>)?.[part], en);
@@ -47,7 +44,7 @@ beforeEach(() => {
 });
 
 function menuItems(): HTMLElement[] {
-  return [...host.querySelectorAll<HTMLElement>('[role="menu"] [role="menuitem"], [role="menu"] nav a')];
+  return [...host.querySelectorAll<HTMLElement>('[role="menu"] [role="menuitem"]')];
 }
 
 describe("the account entry of the avatar menu", () => {
@@ -56,7 +53,7 @@ describe("the account entry of the avatar menu", () => {
     expect(account?.tagName).toBe("BUTTON");
   });
 
-  it("comes before the primary nav that folds into the menu on a phone", () => {
+  it("comes first in the menu", () => {
     expect(menuItems()[0].textContent).toBe(en.account.title);
   });
 

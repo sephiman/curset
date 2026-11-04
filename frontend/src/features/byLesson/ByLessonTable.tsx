@@ -3,7 +3,9 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import type { LessonTable, LessonTableLists, LessonTableRow } from "@/api/stats";
 import { useCourse } from "@/features/courses/CourseContext";
+import { Select } from "@/components/ui/primitives";
 import { cn } from "@/lib/cn";
+import { useNarrowLayout } from "@/lib/viewport";
 
 type SortColumn = "order" | "questions" | "correct" | "wrong" | "blank" | "pct" | "avgTime";
 
@@ -65,6 +67,50 @@ function Lists({ lists, threshold }: { lists: LessonTableLists; threshold: numbe
   );
 }
 
+/** K5: below 640 px, one card per lesson under its module — title, tally, percentage, average time. */
+function LessonCards({ groups, hasAvgTime }: { groups: LessonTable["groups"]; hasAvgTime: boolean }) {
+  const { t } = useTranslation();
+  const { path } = useCourse();
+  const tally = (row: LessonTableRow) =>
+    [
+      `${t("byLesson.correct")} ${row.correct}`,
+      `${t("byLesson.wrong")} ${row.wrong}`,
+      `${t("byLesson.blank")} ${row.blank}`,
+      ...(hasAvgTime ? [`${t("byLesson.avgTime")} ${formatAvgTime(row.averageSeconds)}`] : []),
+    ].join(" · ");
+  return (
+    <div className="space-y-5">
+      {groups.map((group) => (
+        <section key={group.moduleId} aria-label={group.title}>
+          <div className="border-b border-gray-300 pb-1 dark:border-gray-700">
+            <div className="flex items-baseline justify-between gap-3">
+              <h3 className="min-w-0 text-sm font-semibold text-gray-900 dark:text-gray-100">{group.title}</h3>
+              <span className="shrink-0 text-sm font-semibold tabular-nums">{pct(group.pct)}</span>
+            </div>
+            <p className="text-xs text-gray-500 tabular-nums dark:text-gray-400">{tally(group)}</p>
+          </div>
+          <ul className="mt-2 space-y-2">
+            {group.lessons.map((row) => (
+              <li
+                key={row.lessonId}
+                className="rounded-lg border border-border p-3 dark:border-gray-800 oled:border-oled-line"
+              >
+                <div className="flex items-baseline justify-between gap-3">
+                  <Link to={path(`/lessons/${row.lessonId}`)} className="min-w-0 text-sm text-primary hover:underline">
+                    {row.title}
+                  </Link>
+                  <span className="shrink-0 text-base font-semibold tabular-nums">{pct(row.pct)}</span>
+                </div>
+                <p className="mt-1 text-xs text-gray-500 tabular-nums dark:text-gray-400">{tally(row)}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+    </div>
+  );
+}
+
 /**
  * «Por tema» (or «Por lección»): every lesson with questions, grouped under its module with the module's
  * totals, and the two short lists above when three lessons — or, failing that, three modules — have
@@ -74,6 +120,7 @@ export function ByLessonTable({ table, noun }: { table: LessonTable; noun?: stri
   const { t } = useTranslation();
   const { path } = useCourse();
   const [sort, setSort] = useState<SortColumn>("order");
+  const cards = useNarrowLayout();
   const hasAvgTime = useMemo(
     () => table.groups.some((g) => g.averageSeconds != null || g.lessons.some((l) => l.averageSeconds != null)),
     [table],
@@ -118,6 +165,21 @@ export function ByLessonTable({ table, noun }: { table: LessonTable; noun?: stri
       {table.lists && <Lists lists={table.lists} threshold={table.threshold} />}
       {table.groups.length === 0 ? (
         <p className="text-sm text-gray-500 dark:text-gray-400">{t("byLesson.empty")}</p>
+      ) : cards ? (
+        <>
+          <label className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
+            {t("byLesson.sortLabel")}
+            <Select value={sort} onChange={(event) => setSort(event.target.value as SortColumn)} className="w-auto">
+              <option value="order">{noun ?? t("byLesson.lesson")}</option>
+              {columns.map((column) => (
+                <option key={column.key} value={column.key}>
+                  {column.label}
+                </option>
+              ))}
+            </Select>
+          </label>
+          <LessonCards groups={groups} hasAvgTime={hasAvgTime} />
+        </>
       ) : (
         <div className="overflow-x-auto">
           <table className="w-full min-w-[32rem] text-sm">

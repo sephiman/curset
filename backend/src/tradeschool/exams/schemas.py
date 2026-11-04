@@ -31,6 +31,8 @@ class ExamStartRequest(BaseModel):
     # The pre-preset request: `scope` names crypto-futures' two presets, `blockId` the block exam's target.
     scope: Literal["global", "block"] | None = None
     blockId: str | None = None
+    # A repeatable draw for the browser suite; the router takes it only on a dev-mode server.
+    seed: int | None = None
 
     @model_validator(mode="after")
     def _preset(self) -> Self:

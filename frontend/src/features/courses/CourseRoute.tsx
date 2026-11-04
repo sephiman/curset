@@ -5,7 +5,6 @@ import type { CatalogueCourse } from "@/api/courses";
 import { coursePath, tabOf } from "@/components/layout/nav";
 import { Button, Spinner } from "@/components/ui/primitives";
 import { CourseProvider } from "@/features/courses/CourseContext";
-import { CourseHeader } from "@/features/courses/CourseHeader";
 import { NoCoursePage } from "@/features/courses/NoCoursePage";
 import { useCatalogue, useMyCourses, useSaveMyCourses } from "@/features/courses/useCourses";
 
@@ -65,7 +64,6 @@ export function CourseRoute({ children }: { children: ReactNode }) {
   const lang = mine.data.readingLanguages[slug] ?? course.languages[0];
   return (
     <CourseProvider course={course} scope={{ slug, lang }}>
-      <CourseHeader />
       {children}
     </CourseProvider>
   );

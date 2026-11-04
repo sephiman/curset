@@ -1,6 +1,6 @@
 # Requirements delta — Curset platform: exam presets, grouped cases, source links, results by lesson
 
-Version 1.8 · 1 November 2026 · delta to docs/curset-multicourse-requirements.md. Four platform changes. A and B are required by the AGE course (docs/age-administrativo-course-requirements.md, R6.1 and R7.1) and precede that course's R5. C and D apply to every course and can run as their own rounds at any time after A.
+Version 1.9 · 4 November 2026 · delta to docs/curset-multicourse-requirements.md. Four platform changes. A and B are required by the AGE course (docs/age-administrativo-course-requirements.md, R6.1 and R7.1) and precede that course's R5. C and D apply to every course and can run as their own rounds at any time after A.
 
 ## A. Exam presets per course
 
@@ -98,6 +98,17 @@ Observed on a 1080×2400 phone (Nov 2026): the exam navigator grid fills two scr
 - J7 Solution panel below 768 px: opens inline under the options, the excerpt in a bordered block with the article heading, the two links as a row of two buttons, the copyable id and report link below.
 - J8 Verified in a real browser at 360, 390 and 430 px widths and in the three themes, with screenshots saved under docs/screens/mobile/ for the five screens: lesson with esquema, practice with the panel open, simulation sitting, results by tema, course selector/menu.
 
+## K. Desktop layout, and two leftovers from J
+
+- K1 At 768 px and above the four sections (Curso, Glosario, Exámenes, Progreso) are visible tabs in the header, after the course selector; the avatar menu keeps account, language, theme and sign-out. The current tab is marked. No bottom bar.
+- K2 Lesson page at 1024 px and above: a reading column of 68–72 characters centred, and a sticky left index with the lesson's headings and esquema titles (current section highlighted while scrolling); «Lo que más cae» and «Normativa» listed at the end of the index. Esquemas keep the table layout. Reading time and the back link in the header bar.
+- K3 Exam sitting at 1024 px and above: clock bar on top; the question and options in the centre column; the full question grid in a sticky right panel (part labels, answered filled, reserve dashed, current marked) instead of the chip strip; Anterior/Siguiente under the question. Below 1024 the J3 layout applies.
+- K4 Results page at 1024 px and above: scores and times in a top band; «Donde más brillas» and «Donde más tienes que preparar» side by side; the «Por tema» table full width below with sortable columns.
+- K5 «Por tema» on phones (left from J): stacked cards per lesson (title, correct/wrong/blank, percentage, average time), no sideways scroll; the table stays at 640 px and above.
+- K6 Course and module pages at 1024 px and above: module cards in two columns; lesson rows with title, reading time, one-line summary and «Practicar».
+- K7 Nothing wider than the viewport at 768, 1024, 1280 and 1440 px on the five screens plus the course page, checked by the Playwright suite; the suite runs in CI with the backend and database as job services.
+- K8 Screenshots at 1280 px in the three themes under docs/screens/desktop/ for: lesson with index and esquema, sitting with the grid panel, results, course page, header with tabs.
+
 ## Acceptance
 
 - `crypto-futures` exams and goldens unchanged.
@@ -106,6 +117,7 @@ Observed on a 1080×2400 phone (Nov 2026): the exam navigator grid fills two scr
 - An answered AGE question links to its lesson at the cited article's anchor; the citation in the lesson opens the consolidated text at the article (HTML) or page (PDF); a question citing an article its lesson does not cite fails the cross-reference check. crypto-futures shows no citation links and its goldens are unchanged.
 - A lesson with the four esquema kinds renders on web and in the PDF; an esquema row citing an article the prose does not cite fails the check with the row named.
 - An answered AGE question shows the solution panel with the verbatim cited text under its article heading, the tema link and the source link; a crypto-futures question shows the explanation only; fewer than 1 % of AGE questions lack an excerpt and each of those says why.
+- At 1280 px: the four tabs are in the header, a lesson shows its index beside a centred reading column, the sitting shows the grid panel, the results show the two lists side by side; at 360 px «Por tema» is cards; Playwright runs in CI.
 - At 360 px: the first question of a simulation is visible without scrolling under the clock bar; an esquema table shows as stacked cards with nothing clipped; the header is one line; the four tabs are at the bottom.
 - An AGE question in a «Bloque» exam shows its number and tema; the same question in a «Simulacro oficial» sitting shows the number only and the tema in review; the panel offers the copyable id.
 - An AGE question shows A–D in its displayed order; the panel says «Correcta: X» and the PDF key matches the printed letters; crypto-futures shows no letters.

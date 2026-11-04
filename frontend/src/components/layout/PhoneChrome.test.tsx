@@ -34,7 +34,7 @@ vi.mock("react-i18next", () => ({
 }));
 
 const { AppShell } = await import("./AppShell");
-const { useFocusMode } = await import("./phoneChrome");
+const { useFocusMode } = await import("./headerChrome");
 
 (globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
 
@@ -76,12 +76,34 @@ function render(node: ReactElement): void {
   });
 }
 
-const tabBar = () => host.querySelector(`nav[aria-label="${en.nav.sections}"]`);
+// The header tabs (768 px and up) carry the same name; the bottom bar is the one outside the header.
+const tabBar = () =>
+  [...host.querySelectorAll(`nav[aria-label="${en.nav.sections}"]`)].find((nav) => !nav.closest("header")) ?? null;
 
 beforeEach(() => {
   document.body.innerHTML = "";
 });
 afterEach(clearViewport);
+
+describe("the header tabs (K1)", () => {
+  const headerTabs = () => host.querySelector(`header nav[aria-label="${en.nav.sections}"]`);
+
+  it("are in the header at 768 px, after the course selector, the current one marked", () => {
+    setViewportWidth(768);
+    mountAt(coursePath("crypto-futures", "/exams/e1/review"));
+    const links = [...(headerTabs()?.querySelectorAll("a") ?? [])];
+    expect(links.map((a) => a.textContent)).toEqual([en.nav.course, en.nav.glossary, en.nav.exams, en.nav.progress]);
+    expect(links.find((a) => a.getAttribute("aria-current") === "page")?.textContent).toBe(en.nav.exams);
+    const selector = host.querySelector('header button[aria-haspopup="dialog"]')!;
+    expect(selector.compareDocumentPosition(headerTabs()!) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+  });
+
+  it("are absent from the header at 767 px", () => {
+    setViewportWidth(767);
+    mountAt(coursePath("crypto-futures"));
+    expect(headerTabs()).toBeNull();
+  });
+});
 
 describe("the bottom tab bar", () => {
   it.each([360, 390, 430, 767])("is present at %i px with the four sections", (width) => {

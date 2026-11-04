@@ -19,25 +19,26 @@ import { formatReadingTime } from "@/features/course/readingTime";
 import { LessonMarkdown } from "@/lib/markdown";
 import { scopeKey, useCourse } from "@/features/courses/CourseContext";
 import { useCourseGlossary, useCourseTree } from "@/features/course/queries";
-import { useHeaderBack } from "@/components/layout/phoneChrome";
+import { useHeaderBack } from "@/components/layout/headerChrome";
 import { cn } from "@/lib/cn";
-import { useLessonWidth } from "@/lib/lessonWidth";
-import { usePhoneLayout } from "@/lib/viewport";
+import { useLessonWidth, type LessonWidth } from "@/lib/lessonWidth";
+import { lessonOutline } from "@/lib/outline";
+import { useCompactLayout, usePhoneLayout } from "@/lib/viewport";
+import { LessonIndex } from "@/features/course/LessonIndex";
 
-/** «← parent»; on the phone layout it becomes the header bar's back arrow instead (J2). */
-function BackLink({ to, label }: { to: string; label: string }) {
-  const phone = usePhoneLayout();
-  return phone ? <HeaderBack to={to} label={label} /> : (
-    <Link to={to} className="text-sm text-primary hover:underline">
-      ← {label}
-    </Link>
-  );
+/** Puts the page's «← parent» (and, from 1024 px, the reading time) in the header bar instead of the page (J2, K2). */
+function HeaderBack({ to, label, note = null }: { to: string; label: string; note?: string | null }) {
+  useHeaderBack(to, label, note);
+  return null;
 }
 
-function HeaderBack({ to, label }: { to: string; label: string }) {
-  useHeaderBack(to, label);
-  return <span />;
-}
+// The reading column's width at 1024 px and up, per the reader's width setting: 60ch of the body face
+// measures 68–72 characters a line; the third track mirrors the index's so the column sits centred (K2).
+const READING_TRACKS: Record<LessonWidth, string> = {
+  normal: "grid-cols-[minmax(11rem,1fr)_minmax(0,60ch)_minmax(0,1fr)]",
+  wide: "grid-cols-[minmax(11rem,1fr)_minmax(0,56rem)_minmax(0,1fr)]",
+  full: "grid-cols-[15rem_minmax(0,1fr)]",
+};
 
 export function LessonPage() {
   const { t } = useTranslation();
@@ -45,7 +46,9 @@ export function LessonPage() {
   const { hash } = useLocation();
   const queryClient = useQueryClient();
   const { scope, path } = useCourse();
-  const { lessonWidthClass } = useLessonWidth();
+  const { lessonWidth, lessonWidthClass } = useLessonWidth();
+  const phone = usePhoneLayout();
+  const compact = useCompactLayout();
   const lang = scope.lang;
 
   const { data: lesson, isLoading } = useQuery({
@@ -107,6 +110,8 @@ export function LessonPage() {
     return () => window.clearTimeout(settle);
   }, [lesson, hash]);
 
+  const outline = useMemo(() => (lesson ? lessonOutline(lesson.markdown) : []), [lesson]);
+
   const typeById = useMemo(() => {
     const map = new Map<string, ExerciseType>();
     lesson?.exercises.forEach((e) => map.set(e.id, e.type));
@@ -148,14 +153,8 @@ export function LessonPage() {
   // a lesson already marked read still tells you what re-reading it costs.
   const readingTime = formatReadingTime(lesson.readingSeconds, t);
 
-  return (
-    <article className={cn("mx-auto", lessonWidthClass, "max-md:max-w-[65ch] max-md:text-[17px] max-md:leading-[1.6]")}>
-      <div className="flex items-baseline justify-between gap-3">
-        <BackLink to={backTo} label={backLabel} />
-        {readingTime !== null && (
-          <span className="text-xs text-gray-500 dark:text-gray-400">{readingTime}</span>
-        )}
-      </div>
+  const body = (
+    <>
       <div className="mt-4">
         <TermPopoverHost entries={entriesById}>
           <ReferenceProvider registry={refRegistry}>
@@ -220,6 +219,38 @@ export function LessonPage() {
           <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">{t("course.markCompleteHint")}</p>
         )}
       </div>
+    </>
+  );
+
+  if (!compact) {
+    return (
+      <div className={cn("grid items-start gap-x-10", READING_TRACKS[lessonWidth])}>
+        <HeaderBack to={backTo} label={backLabel} note={readingTime} />
+        {/* Stretched to the row, so the index inside has the whole lesson to stay stuck within. */}
+        <aside className="w-full max-w-64 min-w-0 self-stretch justify-self-end">
+          <LessonIndex entries={outline} />
+        </aside>
+        <article className="min-w-0">{body}</article>
+      </div>
+    );
+  }
+
+  return (
+    <article className={cn("mx-auto", lessonWidthClass, "max-md:max-w-[65ch] max-md:text-[17px] max-md:leading-[1.6]")}>
+      <div className="flex items-baseline justify-between gap-3">
+        {phone ? (
+          <>
+            <HeaderBack to={backTo} label={backLabel} />
+            <span />
+          </>
+        ) : (
+          <Link to={backTo} className="text-sm text-primary hover:underline">
+            ← {backLabel}
+          </Link>
+        )}
+        {readingTime !== null && <span className="text-xs text-gray-500 dark:text-gray-400">{readingTime}</span>}
+      </div>
+      {body}
     </article>
   );
 }

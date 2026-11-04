@@ -10,26 +10,12 @@ Generates a complete printable exam session with:
 from __future__ import annotations
 
 import secrets
-from collections.abc import Sequence
 from typing import Any
 
 from tradeschool.content.registry import CourseRegistry
-from tradeschool.exams.draw import DrawError, draw_part
+from tradeschool.exams.draw import DrawError, SeededRand, draw_part
 from tradeschool.exams.presets import ExamPreset
 from tradeschool.exercises.quiz import QuizConfig, QuizGenerator
-
-
-class ExamPrintRand:
-    def __init__(self, seed: int = 42) -> None:
-        import random
-
-        self._rng = random.Random(seed)
-
-    def choice(self, seq: Sequence[str]) -> str:
-        return self._rng.choice(seq)
-
-    def randbelow(self, n: int) -> int:
-        return self._rng.randrange(n)
 
 
 def build_exam_print(
@@ -39,7 +25,7 @@ def build_exam_print(
     if preset is None:
         raise DrawError(f"No preset {preset_id!r} in course {registry.slug!r}")
 
-    rand = ExamPrintRand(seed if seed is not None else secrets.randbelow(2**32))
+    rand = SeededRand(seed if seed is not None else secrets.randbelow(2**32))
     quiz_gen = QuizGenerator()
 
     parts_out: list[dict[str, Any]] = []

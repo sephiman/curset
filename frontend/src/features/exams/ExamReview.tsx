@@ -174,7 +174,8 @@ export function ExamReview() {
 
   return (
     <ProseReferenceHost>
-    <div className="mx-auto max-w-2xl space-y-6">
+    {/* K4: from 1024 px the results use the full column — the scores as a top band, «Por tema» full width. */}
+    <div className="mx-auto max-w-2xl space-y-6 lg:max-w-none">
       <div>
         <Link to={path("/exams")} className="text-sm text-primary hover:underline">
           ← {t("nav.exams")}
@@ -198,8 +199,8 @@ export function ExamReview() {
         </Card>
       )}
       {!scored && (
-      <Card className="p-4">
-        <div className="flex items-baseline gap-3">
+      <Card className="p-4 lg:grid lg:grid-cols-[auto_minmax(0,1fr)_minmax(0,1fr)] lg:gap-8">
+        <div className="flex items-baseline gap-3 lg:flex-col lg:gap-1">
           <span className="text-3xl font-bold tabular-nums">{pct(r.score)}</span>
           <span className="text-sm text-gray-500 dark:text-gray-400">
             {t("exam.scoreLine", { correct: r.correct, total: r.total })}
@@ -207,7 +208,7 @@ export function ExamReview() {
         </div>
 
         {r.blocks.length > 1 && (
-          <div className="mt-4 space-y-1">
+          <div className="mt-4 space-y-1 lg:mt-0">
             <p className="text-xs font-semibold tracking-wide text-gray-500 uppercase dark:text-gray-400">
               {t("exam.byBlock")}
             </p>
@@ -222,7 +223,7 @@ export function ExamReview() {
           </div>
         )}
 
-        <div className="mt-4 space-y-1">
+        <div className="mt-4 space-y-1 lg:col-start-3 lg:mt-0">
           <p className="text-xs font-semibold tracking-wide text-gray-500 uppercase dark:text-gray-400">
             {t("exam.byModule")}
           </p>
@@ -255,7 +256,7 @@ export function ExamReview() {
       )}
 
       {/* Per-question review — your answer, the correct answer, and the worked solution, in bulk. */}
-      <div className="space-y-4">
+      <div className="space-y-4 lg:mx-auto lg:max-w-3xl">
         {exam.questions.map((q) => {
           const isCase = caseTitles.has(q.exerciseId);
           const temaInfo = findTemaInfo(course, q.lessonId);

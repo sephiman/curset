@@ -2,12 +2,10 @@ import { act } from "react";
 import { createRoot } from "react-dom/client";
 import { MemoryRouter, Route, Routes, useLocation } from "react-router-dom";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { Locale } from "@/api/auth";
 import type { CatalogueCourse, MyCourses } from "@/api/courses";
 import en from "@/i18n/en.json";
-import { CourseProvider } from "@/features/courses/CourseContext";
 
-/** The course strip above every course page: dropdown or title, languages, reading-language choice. */
+/** The header's course selector and its sheet: the courses, their languages, the reading-language choice. */
 
 const CRYPTO: CatalogueCourse = {
   slug: "crypto-futures",
@@ -46,36 +44,40 @@ vi.mock("react-i18next", () => ({
   initReactI18next: { type: "3rdParty", init: () => {} },
 }));
 
-const { CourseHeader } = await import("@/features/courses/CourseHeader");
+const { CourseSwitcher } = await import("@/features/courses/CourseSwitcher");
 
 (globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
-
-let host: HTMLDivElement;
 
 function Where() {
   return <p data-testid="where">{useLocation().pathname}</p>;
 }
 
-function mount(course: CatalogueCourse, path: string, lang: Locale = course.languages[0]): void {
-  host = document.createElement("div");
+function openSheet(path: string): HTMLElement {
+  const host = document.createElement("div");
   document.body.appendChild(host);
   act(() => {
     createRoot(host).render(
       <MemoryRouter initialEntries={[path]}>
         <Routes>
           <Route
-            path="/courses/:course/*"
+            path="*"
             element={
-              <CourseProvider course={course} scope={{ slug: course.slug, lang }}>
-                <CourseHeader />
+              <>
+                <CourseSwitcher />
                 <Where />
-              </CourseProvider>
+              </>
             }
           />
         </Routes>
       </MemoryRouter>,
     );
   });
+  act(() => host.querySelector<HTMLButtonElement>('button[aria-haspopup="dialog"]')!.click());
+  return document.querySelector<HTMLElement>('[role="dialog"]')!;
+}
+
+function where(): string | null | undefined {
+  return document.querySelector('[data-testid="where"]')?.textContent;
 }
 
 beforeEach(() => {
@@ -85,51 +87,55 @@ beforeEach(() => {
 });
 
 describe("with two active courses", () => {
-  it("offers both, alphabetically, in a dropdown on the Course tab", () => {
-    mount(CRYPTO, "/courses/crypto-futures");
-    const select = host.querySelector("select");
-    expect(select).not.toBeNull();
-    expect([...select!.options].map((option) => option.value)).toEqual(["oposiciones", "crypto-futures"]);
+  it("lists both in the sheet, the current one marked", () => {
+    const sheet = openSheet("/courses/crypto-futures");
+    const titles = [...sheet.querySelectorAll("li button")].map((button) => button.querySelector("span")?.textContent);
+    expect(titles).toEqual([OPOS.title, CRYPTO.title]);
+    expect(sheet.querySelector('[aria-current="true"]')?.textContent).toContain(CRYPTO.title);
   });
 
   it("keeps the reader on the Exams tab when the course changes there", () => {
-    mount(CRYPTO, "/courses/crypto-futures/exams");
-    const select = host.querySelector("select")!;
-    act(() => {
-      select.value = "oposiciones";
-      select.dispatchEvent(new Event("change", { bubbles: true }));
-    });
-    expect(host.querySelector('[data-testid="where"]')?.textContent).toBe("/courses/oposiciones/exams");
+    const sheet = openSheet("/courses/crypto-futures/exams");
+    const opos = [...sheet.querySelectorAll<HTMLButtonElement>("li button")].find((b) => b.textContent?.includes(OPOS.title))!;
+    act(() => opos.click());
+    expect(where()).toBe("/courses/oposiciones/exams");
   });
 
-  it("has no dropdown of its own on Glossary or Progress: they follow the selection", () => {
-    mount(CRYPTO, "/courses/crypto-futures/glossary");
-    expect(host.querySelector("select")).toBeNull();
-    expect(host.textContent).toContain(CRYPTO.title);
+  it("returns to the course page when the course changes from Glossary", () => {
+    const sheet = openSheet("/courses/crypto-futures/glossary");
+    const opos = [...sheet.querySelectorAll<HTMLButtonElement>("li button")].find((b) => b.textContent?.includes(OPOS.title))!;
+    act(() => opos.click());
+    expect(where()).toBe("/courses/oposiciones");
   });
-});
-
-it("shows the title in place of the dropdown when only one course is active", () => {
-  mine = { active: ["crypto-futures"], selected: "crypto-futures", readingLanguages: {} };
-  mount(CRYPTO, "/courses/crypto-futures");
-  expect(host.querySelector("select")).toBeNull();
-  expect(host.textContent).toContain(CRYPTO.title);
 });
 
 describe("languages", () => {
   it("says a Spanish-only course is Spanish only, and offers no reading-language choice", () => {
-    mount(OPOS, "/courses/oposiciones");
-    expect(host.textContent).toContain("Spanish only");
-    expect(host.querySelector('[role="group"]')).toBeNull();
+    const sheet = openSheet("/courses/oposiciones");
+    expect(sheet.textContent).toContain("Spanish only");
+    expect(sheet.querySelector('[role="group"]')).toBeNull();
   });
 
   it("lets a two-language course be read in the other language, remembered per course", () => {
-    mount(CRYPTO, "/courses/crypto-futures", "en");
-    expect(host.textContent).toContain("In English and Spanish");
-    const es = [...host.querySelectorAll<HTMLButtonElement>('[role="group"] button')].find(
+    const sheet = openSheet("/courses/crypto-futures");
+    expect(sheet.textContent).toContain("In English and Spanish");
+    const es = [...sheet.querySelectorAll<HTMLButtonElement>('[role="group"] button')].find(
       (button) => button.textContent === "ES",
     )!;
     act(() => es.click());
     expect(choose).toHaveBeenCalledWith("crypto-futures", "es");
   });
+});
+
+it("renders nothing outside a course page", () => {
+  const host = document.createElement("div");
+  document.body.appendChild(host);
+  act(() => {
+    createRoot(host).render(
+      <MemoryRouter initialEntries={["/account"]}>
+        <CourseSwitcher />
+      </MemoryRouter>,
+    );
+  });
+  expect(host.querySelector("button")).toBeNull();
 });

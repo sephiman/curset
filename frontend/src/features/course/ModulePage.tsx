@@ -55,51 +55,45 @@ export function ModulePage() {
 
       <div className="space-y-2">
         {module.lessons.map((lesson) => {
-          const row = (
-            <>
-              <span className="font-medium">{lesson.title}</span>
+          const summary = lessonSummaries.get(lesson.id);
+          // K6: title and one-line summary, then reading time and «Practicar». The title's link stretches
+          // over the row; «Practicar» and the summary's «más» sit above it. On a phone the time stays
+          // beside the title and «Practicar» drops below.
+          return (
+            <Card
+              key={lesson.id}
+              className="relative grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-x-3 p-4 hover:border-primary md:grid-cols-[minmax(0,1fr)_auto_auto] md:items-center md:gap-x-6"
+            >
+              <Link
+                to={path(`/lessons/${lesson.id}`)}
+                className="col-start-1 row-start-1 font-medium after:absolute after:inset-0 after:rounded-lg focus:outline-none focus-visible:after:ring-2 focus-visible:after:ring-primary"
+              >
+                {lesson.title}
+              </Link>
               {/* Each row carries the lesson's OWN full estimate — the same number its page shows, and
                   the reason the header's remaining total can be smaller: a read lesson still costs what
                   it costs, it just no longer counts as time left. */}
-              <span className="flex shrink-0 items-center gap-2">
+              <span className="col-start-2 row-start-1 flex shrink-0 items-center gap-2 md:row-span-2">
                 <span className="text-xs text-gray-500 dark:text-gray-400">
                   {formatReadingTime(lesson.readingSeconds, t)}
                 </span>
                 {lesson.completed && <Badge tone="green">{t("course.completed")}</Badge>}
               </span>
-            </>
-          );
-          const summary = lessonSummaries.get(lesson.id);
-          const summaryLine = summary && (
-            <OneLineSummary text={summary} phoneOnly className="-mt-3 px-4 pb-3 text-sm text-gray-500 dark:text-gray-400" />
-          );
-          if (!lesson.practiceQuestions) {
-            // The row link stretches over the card, so the summary's «más» button can sit beside it.
-            return (
-              <Card key={lesson.id} className="relative hover:border-primary">
+              {summary && (
+                <OneLineSummary
+                  text={summary}
+                  everywhere
+                  className="col-span-2 row-start-2 mt-0.5 text-sm text-gray-500 md:col-span-1 dark:text-gray-400"
+                />
+              )}
+              {(lesson.practiceQuestions ?? 0) > 0 && (
                 <Link
-                  to={path(`/lessons/${lesson.id}`)}
-                  className="flex items-center justify-between gap-3 p-4 after:absolute after:inset-0 after:rounded-lg focus:outline-none focus-visible:after:ring-2 focus-visible:after:ring-primary"
+                  to={path(`/lessons/${lesson.id}/practice`)}
+                  className="relative z-10 col-span-2 row-start-3 -mb-2 inline-flex min-h-11 items-center justify-self-start text-sm font-medium text-primary hover:underline md:col-span-1 md:col-start-3 md:row-span-2 md:row-start-1 md:mb-0 md:min-h-0"
                 >
-                  {row}
+                  {t("practice.entry")}
                 </Link>
-                {summaryLine}
-              </Card>
-            );
-          }
-          // A lesson with practice: two links side by side, since a link cannot hold another.
-          return (
-            <Card key={lesson.id} className="flex flex-col hover:border-primary md:flex-row md:items-center md:gap-3">
-              <Link to={path(`/lessons/${lesson.id}`)} className="flex min-w-0 flex-1 items-center justify-between gap-3 p-4">
-                {row}
-              </Link>
-              {summaryLine}
-              <Link
-                to={path(`/lessons/${lesson.id}/practice`)}
-                className="inline-flex min-h-11 shrink-0 items-center px-4 pb-1 text-sm font-medium text-primary hover:underline md:mr-4 md:min-h-0 md:px-0 md:pb-0"
-              >
-                {t("practice.entry")}
-              </Link>
+              )}
             </Card>
           );
         })}

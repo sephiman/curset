@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import type { Me } from "@/api/auth";
 import { AccountMenu } from "@/components/layout/AccountMenu";
-import { useHeaderBackTarget } from "@/components/layout/phoneChrome";
+import { useHeaderBackTarget } from "@/components/layout/headerChrome";
 import { LogoMark } from "@/components/layout/Logo";
 import { CourseSwitcher } from "@/features/courses/CourseSwitcher";
 
@@ -28,7 +28,7 @@ export function PhoneHeader({ home, user }: { home: string; user: Me | null }) {
             <LogoMark />
           </Link>
         )}
-        <div className="flex min-w-0 flex-1 justify-center">{user && <CourseSwitcher />}</div>
+        <div className="flex min-w-0 flex-1 justify-center">{user && <CourseSwitcher className="flex-1" />}</div>
         <div className="shrink-0">{user && <AccountMenu user={user} />}</div>
       </div>
     </header>

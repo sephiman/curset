@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import en from "@/i18n/en.json";
 import { InCourse } from "@/test/course";
+import { clearViewport, setViewportWidth } from "@/test/viewport";
 import { LessonWidthProvider, useLessonWidth } from "@/lib/lessonWidth";
 
 vi.mock("@/auth/AuthContext", () => ({
@@ -104,6 +105,7 @@ function Probe() {
 afterEach(() => {
   vi.unstubAllGlobals();
   document.body.innerHTML = "";
+  clearViewport();
 });
 
 describe("lesson width preference", () => {
@@ -139,6 +141,8 @@ describe("lesson width preference", () => {
   });
 
   it("changes the lesson and practice width from both the account page and the avatar menu, and expands the shell on Full", async () => {
+    // Below 1024 px, where the lesson is one column with no side index.
+    setViewportWidth(800);
     stubStorage("normal");
     const host = render(
       <LessonWidthProvider>
@@ -178,6 +182,8 @@ describe("lesson width preference", () => {
 
     expect(article().className).toContain("max-w-none");
     expect(main().className).toContain("max-w-none");
+    // Only the page widens: the header keeps one width on every page, so the mark never moves.
+    expect(host.querySelector("header > div")!.className).toContain("max-w-5xl");
 
     // Navigate to the Account page: main returns to max-w-5xl, and the Account page also renders the control.
     const accountBtn = [...host.querySelectorAll<HTMLButtonElement>('[role="menuitem"]')].find(

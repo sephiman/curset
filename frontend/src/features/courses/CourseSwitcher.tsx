@@ -10,8 +10,8 @@ import { useCatalogue, useChooseReadingLanguage, useMyCourses } from "@/features
 import { useInterfaceLocale } from "@/i18n/locale";
 import { cn } from "@/lib/cn";
 
-/** The phone header's course name: tapping it opens the course sheet (J2), which replaces CourseHeader there. */
-export function CourseSwitcher() {
+/** The header's course name: tapping it opens the course sheet with the languages and the reading-language choice (J2, K1). */
+export function CourseSwitcher({ className }: { className?: string }) {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -43,7 +43,10 @@ export function CourseSwitcher() {
         aria-expanded={open}
         aria-label={t("courses.openSheet", { title: course.title })}
         onClick={() => setOpen(true)}
-        className="flex h-11 min-w-0 flex-1 items-center gap-1 rounded-md px-2 text-sm font-medium hover:bg-gray-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary dark:hover:bg-gray-800 oled:hover:bg-oled-hover"
+        className={cn(
+          "flex h-11 min-w-0 items-center gap-1 rounded-md px-2 text-sm font-medium md:h-9 hover:bg-gray-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary dark:hover:bg-gray-800 oled:hover:bg-oled-hover",
+          className,
+        )}
       >
         <span className="truncate" lang={course.textLocale}>
           {course.title}

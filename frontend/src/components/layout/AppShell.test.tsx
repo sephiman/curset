@@ -26,6 +26,8 @@ vi.mock("@/features/courses/useCourses", () => ({
   useMyCourses: () => ({
     data: { active: ["crypto-futures"], selected: "crypto-futures", readingLanguages: { "crypto-futures": "en" } },
   }),
+  useCatalogue: () => ({ data: [] }),
+  useChooseReadingLanguage: () => () => {},
   useFollowInterfaceLanguage: () => () => {},
 }));
 
