@@ -1,0 +1,1630 @@
+ <!DOCTYPE html>
+		<html
+			class="layout layout-holy-grail   show-table-of-contents conceptual show-breadcrumb default-focus"
+			lang="es-es"
+			dir="ltr"
+			data-authenticated="false"
+			data-auth-status-determined="false"
+			data-target="docs"
+			x-ms-format-detection="none"
+		>
+			
+		<head>
+			<title>Registro de Windows para usuarios avanzados - Windows Server | Microsoft Learn</title>
+			<meta charset="utf-8" />
+			<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+			<meta name="color-scheme" content="light dark" />
+
+			<meta name="description" content="Describe el registro de Windows y proporciona información sobre cómo editarlo." />
+			<link rel="canonical" href="https://learn.microsoft.com/es-es/troubleshoot/windows-server/performance/windows-registry-advanced-users" /> 
+
+			<!-- Non-customizable open graph and sharing-related metadata -->
+			<meta name="twitter:card" content="summary_large_image" />
+			<meta name="twitter:site" content="@MicrosoftLearn" />
+			<meta property="og:type" content="website" />
+			<meta property="og:image:alt" content="Microsoft Learn" />
+			<meta property="og:image" content="https://learn.microsoft.com/en-us/media/open-graph-image.png" />
+			<!-- Page specific open graph and sharing-related metadata -->
+			<meta property="og:title" content="Registro de Windows para usuarios avanzados - Windows Server" />
+			<meta property="og:url" content="https://learn.microsoft.com/es-es/troubleshoot/windows-server/performance/windows-registry-advanced-users" />
+			<meta property="og:description" content="Describe el registro de Windows y proporciona información sobre cómo editarlo." />
+			<meta name="platform_id" content="48ca686c-1bd3-d49a-2d8b-7cb553c6f142" /> <meta name="scope" content="Troubleshoot,Windows Server" />
+			<meta name="locale" content="es-es" />
+			 
+			<meta name="uhfHeaderId" content="MSDocsHeader-WindowsServer" />
+
+			<meta name="page_type" content="conceptual" />
+
+			<!--page specific meta tags-->
+			
+
+			<!-- custom meta tags -->
+			
+		<meta name="schema" content="Conceptual" />
+	
+		<meta name="audience" content="itpro" />
+	
+		<meta name="author" content="kaushika-msft" />
+	
+		<meta name="breadcrumb_path" content="/support/breadcrumb/toc.json" />
+	
+		<meta name="depot_name" content="MSDN.support1-docset" />
+	
+		<meta name="document_id" content="4a441948-5dcb-3423-30ed-45eefb2499fe" />
+	
+		<meta name="document_version_independent_id" content="cdbed10b-744e-8ad6-4e7e-d057fae682e8" />
+	
+		<meta name="feedback_product_url" content="https://techcommunity.microsoft.com/t5/windows-server-for-it-pro/bd-p/WindowsServer" />
+	
+		<meta name="feedback_system" content="Standard" />
+	
+		<meta name="git_commit_id" content="2abb659fba5d9c4462b444df176b6b605f47ce1e" />
+	
+		<meta name="gitcommit" content="https://github.com/MicrosoftDocs/SupportArticles-docs-pr/blob/2abb659fba5d9c4462b444df176b6b605f47ce1e/support/windows-server/performance/windows-registry-advanced-users.md" />
+	
+		<meta name="manager" content="dcscontentpm" />
+	
+		<meta name="ms.author" content="kaushika" />
+	
+		<meta name="ms.custom" content="sap:system performance\system performance (slow,unresponsive,high cpu,resource leak)" />
+	
+		<meta name="ms.custom" content="pcy:WinComm Performance" />
+	
+		<meta name="ms.date" content="2026-02-12T00:00:00Z" />
+	
+		<meta name="ms.reviewer" content="kaushika" />
+	
+		<meta name="ms.service" content="windows-server" />
+	
+		<meta name="ms.topic" content="troubleshooting" />
+	
+		<meta name="original_content_git_url" content="https://github.com/MicrosoftDocs/SupportArticles-docs-pr/blob/live/support/windows-server/performance/windows-registry-advanced-users.md" />
+	
+		<meta name="recommendations" content="true" />
+	
+		<meta name="site_name" content="Docs" />
+	
+		<meta name="updated_at" content="2026-10-14T02:22:00Z" />
+	
+		<meta name="ms.translationtype" content="MT" />
+	
+		<meta name="ms.contentlocale" content="es-es" />
+	
+		<meta name="loc_version" content="2024-11-04T10:06:37.8321381Z" />
+	
+		<meta name="loc_source_id" content="Github-238510682#live" />
+	
+		<meta name="loc_file_id" content="Github-238510682.live.MSDN.support1-docset.windows-server/performance/windows-registry-advanced-users.md" />
+	
+		<meta name="toc_rel" content="../toc.json" />
+	
+		<meta name="feedback_help_link_type" content="" />
+	
+		<meta name="feedback_help_link_url" content="" />
+	
+		<meta name="word_count" content="2577" />
+	
+		<meta name="asset_id" content="windows-server/performance/windows-registry-advanced-users" />
+	
+		<meta name="item_type" content="Content" />
+	
+		<meta name="previous_tlsh_hash" content="50337C72850557113FF81FD41B67F3220DF579CB2B2CEFC82A29A347507D7DB6E9A8FC2676219DC42BA324E30288A64BC317A15A88E5350AC1C2A1B9C6F171DCD9DC6329E5" />
+	
+		<meta name="github_feedback_content_git_url" content="https://github.com/MicrosoftDocs/SupportArticles-docs/blob/main/support/windows-server/performance/windows-registry-advanced-users.md" />
+	
+		<meta name="markdown_url" content="https://learn.microsoft.com/es-es/troubleshoot/windows-server/performance/windows-registry-advanced-users?accept=text/markdown" />
+	 
+		<meta name="cmProducts" content="https://authoring-docs-microsoft.poolparty.biz/devrel/bcbcbad5-4208-4783-8035-8481272c98b8" data-source="generated" />
+	
+		<meta name="spProducts" content="https://authoring-docs-microsoft.poolparty.biz/devrel/43b2e5aa-8a6d-4de2-a252-692232e5edc8" data-source="generated" />
+	
+
+			<!-- Apply persisted/system theme before first paint to prevent wrong-theme flash when scripts are deferred. -->
+			<script id="theme-preference">
+				(function () {
+			try {
+				var stored = localStorage.getItem('theme');
+				var theme = /^(light|dark|high-contrast)$/.test(stored)
+					? stored
+					: matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+				document.documentElement.classList.add('theme-' + theme);
+			} catch (e) {}
+		})();;
+			</script>
+
+			<script id="atlas-layout-preferences">
+				(function () {
+			try {
+				var state = JSON.parse(localStorage.getItem('atlas-layout-preferences') || '{}');
+				var view = state["docs-layout-persistence"] || {};
+				var excludesKey = "";
+				var blocked = {};
+				if (excludesKey) {
+					var exclusions = JSON.parse(localStorage.getItem('atlas-layout-exclusions') || '{}');
+					if (Object.prototype.hasOwnProperty.call(exclusions, excludesKey)) {
+						var scoped = exclusions[excludesKey];
+						if (scoped) {
+							if (typeof scoped === 'object') blocked = scoped;
+						}
+					}
+				}
+				var html = document.documentElement;
+				for (var c in view) {
+					if (Object.prototype.hasOwnProperty.call(blocked, c)) continue;
+					if (view[c]) html.classList.add(c);
+					else html.classList.remove(c);
+				}
+			} catch (e) {}
+		})();;
+			</script>
+
+			<!-- assets and js globals -->
+			
+			<link rel="stylesheet" href="/static/assets/0.4.03574.8308-9505b1c8/styles/site.css" />
+			
+			<script src="https://wcpstatic.microsoft.com/mscc/lib/v2/wcp-consent.js"></script>
+			<!-- Keep this URL in sync with oneDSScriptSelector in instrumentation/one-ds.ts. -->
+			<script async src="https://js.monitor.azure.com/scripts/c/ms.jsll-4.min.js"></script>
+			
+
+			<!-- msdocs global object -->
+			<script id="msdocs-script">
+		var msDocs = {
+  "environment": {
+    "accessLevel": "online",
+    "azurePortalHostname": "portal.azure.com",
+    "reviewFeatures": false,
+    "supportLevel": "production",
+    "systemContent": true,
+    "siteName": "learn",
+    "legacyHosting": false
+  },
+  "data": {
+    "contentLocale": "es-es",
+    "contentDir": "ltr",
+    "userLocale": "es-es",
+    "userDir": "ltr",
+    "pageTemplate": "Conceptual",
+    "layoutStateStorageKey": "docs-layout-persistence",
+    "brand": "",
+    "context": {},
+    "standardFeedback": true,
+    "showFeedbackReport": false,
+    "feedbackHelpLinkType": "",
+    "feedbackHelpLinkUrl": "",
+    "feedbackSystem": "Standard",
+    "feedbackGitHubRepo": "MicrosoftDocs/SupportArticles-docs",
+    "feedbackProductUrl": "https://techcommunity.microsoft.com/t5/windows-server-for-it-pro/bd-p/WindowsServer",
+    "extendBreadcrumb": false,
+    "isEditDisplayable": false,
+    "isPrivateUnauthorized": false,
+    "hideViewSource": false,
+    "isPermissioned": false,
+    "hasRecommendations": true
+  },
+  "functions": {}
+};;
+	</script>
+
+			<!-- base scripts, msdocs global should be before this -->
+			<script
+				src="/static/assets/0.4.03574.8308-9505b1c8/scripts/es-es/index-docs.js"
+				async
+			></script>
+			
+
+			<!-- json-ld -->
+			
+		<script >bazadebezolkohpepadr="913455205"</script><script type="text/javascript" src="https://learn.microsoft.com/akam/13/36723bb3"  defer></script></head>
+	
+			<body
+				id="body"
+				data-bi-name="body"
+				class="layout-body "
+				lang="es-es"
+				dir="ltr"
+			>
+				<header class="layout-body-header background-color-body-medium">
+		<div class="header-holder has-default-focus">
+			
+		<a
+			href="#main"
+			
+			style="z-index: 1070"
+			class="outline-color-text visually-hidden-until-focused position-fixed inner-focus focus-visible top-0 left-0 right-0 padding-xs text-align-center background-color-body"
+			
+		>
+			Ir al contenido principal
+		</a>
+	
+		<a
+			href="#"
+			data-skip-to-ask-learn
+			style="z-index: 1070"
+			class="outline-color-text visually-hidden-until-focused position-fixed inner-focus focus-visible top-0 left-0 right-0 padding-xs text-align-center background-color-body"
+			hidden
+		>
+			Omisión de la experiencia de chat de Ask Learn
+		</a>
+	
+
+			<div hidden id="cookie-consent-holder" data-test-id="cookie-consent-container"></div>
+			<!-- Unsupported browser warning -->
+			<div
+				id="unsupported-browser"
+				style="background-color: white; color: black; padding: 16px; border-bottom: 1px solid grey;"
+				hidden
+			>
+				<div style="max-width: 800px; margin: 0 auto;">
+					<p style="font-size: 24px">Este explorador ya no se admite.</p>
+					<p style="font-size: 16px; margin-top: 16px;">
+						Actualice a Microsoft Edge para aprovechar las características y actualizaciones de seguridad más recientes, y disponer de soporte técnico.
+					</p>
+					<div style="margin-top: 12px;">
+						<a
+							href="https://go.microsoft.com/fwlink/p/?LinkID=2092881 "
+							style="background-color: #0078d4; border: 1px solid #0078d4; color: white; padding: 6px 12px; border-radius: 2px; display: inline-block;"
+						>
+							Descargar Microsoft Edge
+						</a>
+						<a
+							href="https://learn.microsoft.com/en-us/lifecycle/faq/internet-explorer-microsoft-edge"
+							style="background-color: white; padding: 6px 12px; border: 1px solid #505050; color: #171717; border-radius: 2px; display: inline-block;"
+						>
+							Más información sobre Internet Explorer y Microsoft Edge
+						</a>
+					</div>
+				</div>
+			</div>
+			<!-- site header -->
+			<div
+				id="ms--site-header"
+				data-test-id="site-header-wrapper"
+				itemscope="itemscope"
+				itemtype="http://schema.org/Organization"
+			>
+				<div
+					id="ms--mobile-nav"
+					class="site-header display-none-tablet padding-inline-none gap-none"
+					data-bi-name="mobile-header"
+					data-test-id="mobile-header"
+				></div>
+				<div
+					id="ms--primary-nav"
+					class="site-header display-none display-flex-tablet"
+					data-bi-name="L1-header"
+					data-test-id="primary-header"
+				></div>
+				<div
+					id="ms--secondary-nav"
+					class="site-header display-none display-flex-tablet"
+					data-bi-name="L2-header"
+					data-test-id="secondary-header"
+					
+				></div>
+			</div>
+			
+		<!-- banner -->
+		<div data-banner>
+			<div id="disclaimer-holder"></div>
+			
+		</div>
+		<!-- banner end -->
+	
+		</div>
+	</header>
+				 <section
+					id="layout-body-menu"
+					class="layout-body-menu border-right display-flex background-color-body-medium"
+					data-bi-name="menu"
+			  >
+					
+		<div
+			id="left-container"
+			class="left-container display-none padding-none display-block-tablet width-full display-none-until-layout-restored"
+			data-toc-container="true"
+		>
+			<div
+				id="ms--toc-content"
+				class="padding-left-sm padding-right-none padding-bottom-sm height-full"
+			>
+				<nav
+					id="affixed-left-container"
+					class="margin-top-xxs-tablet position-sticky display-flex flex-direction-column width-full"
+					aria-label="Principal"
+					data-bi-name="left-toc"
+					role="navigation"
+				>
+					<div
+						id="ms--collapsible-toc-header"
+						class="display-flex flex-direction-row-reverse justify-content-center align-items-center margin-bottom-xxs margin-right-xxs"
+					>
+						<button
+							type="button"
+							class="button button-clear button-sm inner-focus"
+							data-collapsible-toc-toggle
+							aria-expanded="true"
+							hidden
+							aria-controls="ms--toc-content"
+							aria-label="Tabla de contenido"
+						>
+							<span class="icon icon-mirrored-rtl" aria-hidden="true">
+								<span
+									class="docon docon-panel-left-contract display-none-layout-menu-collapsed"
+								></span>
+								<span
+									class="docon docon-panel-left-expand display-none display-inline-layout-menu-collapsed"
+								></span>
+							</span>
+						</button>
+						<div
+							id="ms--collapsible-toc-moniker-slot"
+							class="flex-grow-1 display-none-layout-menu-collapsed"
+						></div>
+					</div>
+				</nav>
+			</div>
+		</div>
+	
+			  </section>
+
+				<main
+					id="main"
+					role="main"
+					class="layout-body-main "
+					data-bi-name="content"
+					lang="es-es"
+					dir="ltr"
+				>
+					
+			<div
+		id="ms--content-header"
+		class="content-header default-focus border-bottom-none"
+		data-bi-name="content-header"
+	>
+		<div class="content-header-controls margin-xxs margin-inline-sm-tablet">
+			<button
+				type="button"
+				class="contents-button button button-sm margin-right-xxs"
+				data-bi-name="contents-expand"
+				aria-haspopup="true"
+				data-contents-button
+			>
+				<span class="icon" aria-hidden="true"><span class="docon docon-menu"></span></span>
+				<span class="contents-expand-title"> Tabla de contenido </span>
+			</button>
+			<button
+				type="button"
+				class="ap-collapse-behavior ap-expanded button button-sm"
+				data-bi-name="ap-collapse"
+				aria-controls="action-panel"
+			>
+				<span class="icon" aria-hidden="true"><span class="docon docon-exit-mode"></span></span>
+				<span>Salir del modo de editor</span>
+			</button>
+		</div>
+	</div> 
+		<div
+			id="action-panel"
+			role="region"
+			aria-label="Panel de acciones"
+			class="action-panel"
+			tabindex="-1"
+		></div>
+	
+			<div
+				data-main-column
+				class="reading-width margin-inline-auto layout-padding padding-top-none padding-top-sm-tablet padding-bottom-sm"
+			>
+				<div>
+					
+		<div id="article-header" class="background-color-body margin-bottom-xs display-none-print">
+			<div class="display-flex align-items-center justify-content-space-between">
+				
+		<details
+			id="article-header-breadcrumbs-overflow-popover"
+			class="popover popover-left"
+			data-for="article-header-breadcrumbs"
+		>
+			<summary
+				class="button button-clear button-primary button-sm inner-focus"
+				aria-label="Todas las rutas de navegación"
+			>
+				<span class="icon" aria-hidden="true">
+					<span class="docon docon-more"></span>
+				</span>
+			</summary>
+			<div id="article-header-breadcrumbs-overflow" class="popover-content"></div>
+		</details>
+
+		<bread-crumbs
+			id="article-header-breadcrumbs"
+			role="group"
+			aria-label="Rutas de navegación"
+			data-test-id="article-header-breadcrumbs"
+			class="overflow-hidden flex-grow-1 margin-right-sm margin-right-md-tablet margin-right-lg-desktop margin-left-negative-xxs padding-left-xxs"
+		></bread-crumbs>
+	 
+		<div
+			id="article-header-page-actions"
+			class="opacity-none margin-left-auto display-flex flex-wrap-no-wrap align-items-stretch"
+		>
+			
+		<button
+			class="button button-sm border-none inner-focus display-none-tablet flex-shrink-0 "
+			data-bi-name="ask-learn-assistant-entry"
+			data-test-id="ask-learn-assistant-modal-entry-mobile"
+			data-ask-learn-modal-entry
+			
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			aria-label="Preguntar a Learn"
+			hidden
+		>
+			<span class="icon" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+		</button>
+		<button
+			class="button button-sm display-none display-inline-flex-tablet display-none-desktop flex-shrink-0 margin-right-xxs border-color-ask-learn "
+			data-bi-name="ask-learn-assistant-entry"
+			
+			data-test-id="ask-learn-assistant-modal-entry-tablet"
+			data-ask-learn-modal-entry
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			hidden
+		>
+			<span class="icon font-size-lg" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+			<span>Preguntar a Learn</span>
+		</button>
+		<button
+			class="button button-sm display-none flex-shrink-0 display-inline-flex-desktop margin-right-xxs border-color-ask-learn "
+			data-bi-name="ask-learn-assistant-entry"
+			
+			data-test-id="ask-learn-assistant-flyout-entry"
+			data-ask-learn-flyout-entry
+			data-flyout-button="toggle"
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			aria-controls="ask-learn-flyout"
+			hidden
+		>
+			<span class="icon font-size-lg" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+			<span>Preguntar a Learn</span>
+		</button>
+	 
+
+			<details class="popover popover-right" id="article-header-page-actions-overflow">
+				<summary
+					class="justify-content-flex-start button button-clear button-sm button-primary inner-focus"
+					aria-label="Más acciones"
+					aria-expanded="false"
+					title="Más acciones"
+				>
+					<span class="icon" aria-hidden="true">
+						<span class="docon docon-more-vertical"></span>
+					</span>
+				</summary>
+				<div class="popover-content">
+					
+		<button
+			type="button"
+			id="ms--focus-mode-button"
+			data-focus-mode
+			data-bi-name="focus-mode-entry"
+			data-page-action-item="overflow-all"
+			data-popover-close
+			class="button button-clear button-sm button-block justify-content-flex-start text-align-left inner-focus display-none display-inline-flex-tablet"
+		>
+			<span class="icon" aria-hidden="true">
+				<span class="docon docon-glasses"></span>
+			</span>
+			<span>Modo de lectura</span>
+		</button>
+	 
+		<button
+			data-page-action-item="overflow-mobile"
+			type="button"
+			class="display-block-layout-menu-collapsed button-block button-sm inner-focus button button-clear display-none-tablet justify-content-flex-start text-align-left"
+			data-bi-name="contents-expand"
+			data-contents-button
+			data-popover-close
+		>
+			<span class="icon" aria-hidden="true"
+				><span class="docon docon-editor-list-bullet"></span
+			></span>
+			<span class="contents-expand-title">Tabla de contenido</span>
+		</button>
+	 
+		<a
+			id="lang-link-overflow"
+			class="button-sm inner-focus button button-clear button-block justify-content-flex-start text-align-left"
+			data-bi-name="language-toggle"
+			data-page-action-item="overflow-all"
+			data-check-hidden="true"
+			data-read-in-link
+			href="#"
+			hidden
+		>
+			<span class="icon" aria-hidden="true" data-read-in-link-icon>
+				<span class="docon docon-locale-globe"></span>
+			</span>
+			<span data-read-in-link-text>Leer en inglés</span>
+		</a>
+	
+					
+		<button
+			type="button"
+			class="collection button button-clear button-sm button-block justify-content-flex-start text-align-left inner-focus"
+			data-list-type="collection"
+			data-bi-name="collection"
+			data-page-action-item="overflow-all"
+			data-check-hidden="true"
+			data-popover-close
+		>
+			<span class="icon" aria-hidden="true">
+				<span class="docon docon-circle-addition"></span>
+			</span>
+			<span class="collection-status">Agregar</span>
+		</button>
+	 
+		<button
+			type="button"
+			class="collection button button-block button-clear button-sm justify-content-flex-start text-align-left inner-focus"
+			data-list-type="plan"
+			data-bi-name="plan"
+			data-page-action-item="overflow-all"
+			data-check-hidden="true"
+			data-popover-close
+			hidden
+		>
+			<span class="icon" aria-hidden="true">
+				<span class="docon docon-circle-addition"></span>
+			</span>
+			<span class="plan-status">Añadir a Planes</span>
+		</button>
+	 
+					  
+		<hr class="margin-block-xxs" />
+		
+				<button
+					class="button button-block button-clear button-sm justify-content-flex-start text-align-left inner-focus"
+					type="button"
+					data-bi-name="copy-markdown"
+					data-page-action-item="overflow-all"
+					data-copy-markdown
+					data-copy-state="idle"
+					data-check-hidden="true"
+				>
+					<span class="icon color-primary" aria-hidden="true">
+						<span data-show-when="idle" class="docon docon-code-lang"></span>
+						<span data-show-when="loading" class="loader" hidden></span>
+						<span data-show-when="success" class="docon docon-check-mark" hidden></span>
+					</span>
+					<span>Copiar Markdown</span>
+				</button>
+		   
+				<button
+					class="button button-block button-clear button-sm justify-content-flex-start text-align-left inner-focus"
+					type="button"
+					data-bi-name="print"
+					data-page-action-item="overflow-all"
+					data-popover-close
+					data-print-page
+					data-check-hidden="true"
+				>
+					<span class="icon color-primary" aria-hidden="true">
+						<span class="docon docon-print"></span>
+					</span>
+					<span>Imprimir</span>
+				</button>
+		  
+	
+				</div>
+			</details>
+		</div>
+	
+			</div>
+		</div>
+	  
+		<!-- privateUnauthorizedTemplate is hidden by default -->
+		<div unauthorized-private-section data-bi-name="permission-content-unauthorized-private" hidden>
+			<hr class="hr margin-top-xs margin-bottom-sm" />
+			<div class="notification notification-info">
+				<div class="notification-content">
+					<p class="margin-top-none notification-title">
+						<span class="icon" aria-hidden="true"
+							><span class="docon docon-exclamation-circle-solid"></span
+						></span>
+						<span>Nota:</span>
+					</p>
+					<p class="margin-top-none authentication-determined not-authenticated">
+						El acceso a esta página requiere autorización. Puede intentar <a class="docs-sign-in" href="#" data-bi-name="permission-content-sign-in">iniciar sesión</a> o <a  class="docs-change-directory" data-bi-name="permisson-content-change-directory">cambiar directorios</a>.
+					</p>
+					<p class="margin-top-none authentication-determined authenticated">
+						El acceso a esta página requiere autorización. Puede intentar <a class="docs-change-directory" data-bi-name="permisson-content-change-directory">cambiar los directorios</a>.
+					</p>
+				</div>
+			</div>
+		</div>
+	
+					<div class="content"><h1 id="windows-registry-information-for-advanced-users">Información del Registro de Windows para usuarios avanzados</h1></div>
+					
+		<div
+			id="article-metadata"
+			data-bi-name="article-metadata"
+			data-test-id="article-metadata"
+			class="page-metadata-container display-flex gap-xxs justify-content-space-between align-items-center flex-wrap-wrap"
+		>
+			
+		<div class="margin-block-xxs">
+			<ul class="metadata page-metadata" data-bi-name="page info" lang="es-es" dir="ltr">
+				 <li class="display-inline">Se aplica a: <a href=https://learn.microsoft.com/windows/release-health/windows-server-release-info target=_blank>Supported versions of Windows Server</a></li>
+			</ul>
+		</div>
+	 
+				<div
+					id="user-feedback"
+					class="margin-block-xxs display-none display-none-print"
+					hidden
+					data-hide-on-archived
+				>
+					
+		<button
+			id="user-feedback-button"
+			data-test-id="conceptual-feedback-button"
+			class="button button-sm button-clear button-primary display-none"
+			type="button"
+			data-bi-name="user-feedback-button"
+			data-user-feedback-button
+			hidden
+		>
+			<span class="icon" aria-hidden="true">
+				<span class="docon docon-like"></span>
+			</span>
+			<span>Comentarios</span>
+		</button>
+	
+				</div>
+		  
+		</div>
+	  
+		<nav
+			id="center-doc-outline"
+			class="doc-outline display-none-desktop display-none-print margin-bottom-sm"
+			data-bi-name="intopic toc"
+			aria-label="En este artículo"
+		>
+			<h2 id="ms--in-this-article" class="title is-6 margin-block-xs">
+				En este artículo
+			</h2>
+		</nav>
+	 <div class="content"><p>En este artículo se describe el registro de Windows y se proporciona información sobre cómo editarlo y realizar una copia de seguridad de él.</p>
+<p><em>Número de KB original:</em> 256986</p>
+<h2 id="description-of-the-registry">Descripción del Registro</h2>
+<p>El <em>Microsoft Computer Dictionary</em>, quinta edición, define el Registro como:</p>
+<p>Una base de datos jerárquica central que se usa en Windows 98, Windows CE, Windows NT y Windows 2000 y sirve para almacenar información necesaria para configurar el sistema para uno o varios usuarios, aplicaciones y dispositivos de hardware.</p>
+<p>El Registro contiene información que Windows consulta continuamente durante el funcionamiento, como perfiles para cada usuario, las aplicaciones instaladas en el equipo y los tipos de documentos que cada uno puede crear, la configuración de la hoja de propiedades para carpetas e iconos de aplicación, qué hardware existe en el sistema y los puertos que se usan.</p>
+<p>El Registro reemplaza la mayoría de los archivos .ini basados en texto que se usan en los archivos de configuración de Windows 3.x y MS-DOS, como Autoexec.bat y Config.sys. Aunque el Registro es común a varios sistemas operativos Windows, hay algunas diferencias entre ellos. Un subárbol del Registro es un grupo de claves, subclaves y valores en el Registro que tiene un conjunto de archivos auxiliares que contienen copias de seguridad de sus datos. Los archivos auxiliares de todos los subárboles excepto HKEY_CURRENT_USER se encuentran en la carpeta <code>%SystemRoot%\System32\Config</code> de Windows NT 4.0, Windows 2000, Windows XP, Windows Server 2003 y Windows Vista. Los archivos auxiliares de HKEY_CURRENT_USER están en la carpeta <code>%SystemRoot%\Profiles\Username</code>. Las extensiones de nombre de archivo de los archivos de estas carpetas indican el tipo de datos que contienen. Además, la ausencia de una extensión a veces puede indicar el tipo de datos que contienen.</p>
+<table>
+<thead>
+<tr>
+<th>Subárbol del Registro</th>
+<th>Archivos auxiliares</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HKEY_LOCAL_MACHINE\SAM</td>
+<td>Sam, Sam.log, Sam.sav</td>
+</tr>
+<tr>
+<td>HKEY_LOCAL_MACHINE\Security</td>
+<td>Security, Security.log, Security.sav</td>
+</tr>
+<tr>
+<td>HKEY_LOCAL_MACHINE\Software</td>
+<td>Software, Software.log, Software.sav</td>
+</tr>
+<tr>
+<td>HKEY_LOCAL_MACHINE\System</td>
+<td>System, System.alt, System.log, System.sav</td>
+</tr>
+<tr>
+<td>HKEY_CURRENT_CONFIG</td>
+<td>System, System.alt, System.log, System.sav, Ntuser.dat, Ntuser.dat.log</td>
+</tr>
+<tr>
+<td>HKEY_USERS\DEFAULT</td>
+<td>Default, Default.log, Default.sav</td>
+</tr>
+</tbody>
+</table>
+<p>En Windows 98, los archivos del Registro se denominan User.dat y System.dat. En Windows Millennium Edition, los archivos del Registro se denominan Classes.dat, User.dat y System.dat.</p>
+<div class="NOTE">
+<p>Nota:</p>
+<p>Las características de seguridad de Windows permiten a un administrador controlar el acceso a las claves del Registro.</p>
+</div>
+<p>La siguiente tabla muestra las teclas predefinidas utilizadas por el sistema. La longitud máxima de un nombre de clave es de 255 caracteres.</p>
+<table>
+<thead>
+<tr>
+<th>Carpeta o clave predefinida</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HKEY_CURRENT_USER</td>
+<td>Contiene la raíz de la información de configuración del usuario que ha iniciado sesión actualmente. Las carpetas, los colores de pantalla y la configuración de Panel de control del usuario se almacenan aquí. Esta información está asociada al perfil del usuario. Esta clave a veces se abrevia como <em>HKCU</em>.</td>
+</tr>
+<tr>
+<td>HKEY_USERS</td>
+<td>Contiene todos los perfiles de usuario cargados actualmente en el equipo. HKEY_CURRENT_USER es una subclave de HKEY_USERS. HKEY_USERS a veces se abrevia como <em>HKU</em>.</td>
+</tr>
+<tr>
+<td>HKEY_LOCAL_MACHINE</td>
+<td>Contiene información de configuración específica del equipo (para cualquier usuario). Esta clave a veces se abrevia como <em>HKLM</em>.</td>
+</tr>
+<tr>
+<td>HKEY_CLASSES_ROOT</td>
+<td>Es una subclave de <code>HKEY_LOCAL_MACHINE\Software</code>. La información que se almacena aquí garantiza que se abra el programa correcto al abrir un archivo mediante el Explorador de Windows. Esta clave a veces se abrevia como <em>HKCR</em>. A partir de Windows 2000, esta información se almacena en las claves HKEY_LOCAL_MACHINE y HKEY_CURRENT_USER. La clave <code>HKEY_LOCAL_MACHINE\Software\Classes</code> contiene la configuración predeterminada que se puede aplicar a todos los usuarios del equipo local. La clave <code>HKEY_CURRENT_USER\Software\Classes</code> contiene la configuración que invalida la configuración predeterminada y se aplica solo al usuario interactivo. La clave HKEY_CLASSES_ROOT proporciona una vista del Registro que combina la información de estos dos orígenes. HKEY_CLASSES_ROOT también proporciona esta vista combinada para los programas que están diseñados para versiones anteriores de Windows. Para cambiar la configuración del usuario interactivo, se deben realizar cambios en <code>HKEY_CURRENT_USER\Software\Classes</code> en lugar de en HKEY_CLASSES_ROOT. Para cambiar la configuración predeterminada, los cambios deben realizarse en <code>HKEY_LOCAL_MACHINE\Software\Classes</code>. Si escribe valores en una clave en HKEY_CLASSES_ROOT, el sistema almacena la información en <code>HKEY_LOCAL_MACHINE\Software\Classes</code>. Si escribe valores en una clave en HKEY_CLASSES_ROOT y la clave ya existe en <code>HKEY_CURRENT_USER\Software\Classes</code>, el sistema almacenará la información allí en lugar de en <code>HKEY_LOCAL_MACHINE\Software\Classes</code>.</td>
+</tr>
+<tr>
+<td>HKEY_CURRENT_CONFIG</td>
+<td>Contiene información sobre el perfil de hardware que usa el equipo local al iniciar el sistema.</td>
+</tr>
+</tbody>
+</table>
+<div class="NOTE">
+<p>Nota:</p>
+<p>El Registro en versiones de 64 bits de Windows XP, Windows Server 2003 y Windows Vista se divide en claves de 32 y 64 bits. Muchas de las claves de 32 bits tienen los mismos nombres que sus homólogos de 64 bits y viceversa. La versión predeterminada de 64 bits del Editor del Registro que se incluye con versiones de 64 bits de Windows XP, Windows Server 2003 y Windows Vista muestra las claves de 32 bits en el nodo <code>HKEY_LOCAL_MACHINE\Software\WOW6432Node</code>.
+Para obtener más información sobre cómo ver el Registro en versiones de 64 bits de Windows, consulte <a href="https://support.microsoft.com/help/305097" data-linktype="external">How to view the system registry by using 64-bit versions of Windows (Cómo ver el Registro del sistema mediante versiones de 64 bits de Windows</a>).</p>
+</div>
+<p>En la tabla siguiente se enumeran los tipos de datos que están definidos actualmente y que usa Windows. El tamaño máximo de un nombre de valor es el siguiente:</p>
+<ul>
+<li>Windows Server 2003, Windows XP y Windows Vista: 16&nbsp;383 caracteres</li>
+<li>Windows 2000: 260 caracteres ANSI o 16 383 caracteres Unicode</li>
+<li>Windows Millennium Edition/Windows 98/Windows 95: 255 caracteres</li>
+</ul>
+<p>Los valores largos (más de 2048 bytes) deben almacenarse como archivos con los nombres de archivo almacenados en el Registro. Esto ayuda al registro a funcionar de forma eficaz. El tamaño máximo de un valor es el siguiente:</p>
+<ul>
+<li>Windows NT 4.0/Windows 2000/Windows XP/Windows Server 2003/Windows Vista: memoria disponible</li>
+<li>Windows Millennium Edition/Windows 98/Windows 95: 16&nbsp;300 bytes</li>
+</ul>
+<div class="NOTE">
+<p>Nota:</p>
+<p>Hay un límite de 64 000 para el tamaño total de todos los valores de una clave.</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Nombre</th>
+<th>Tipo de datos</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Valor binario</td>
+<td>REG_BINARY</td>
+<td>Datos binarios sin formato. La mayoría de la información del componente de hardware se almacena como datos binarios y se muestra en el Editor del Registro en formato hexadecimal.</td>
+</tr>
+<tr>
+<td>Valor DWORD</td>
+<td>REG_DWORD</td>
+<td>Datos representados por un número de 4 bytes de longitud (un entero de 32 bits). Muchos parámetros para los controladores de dispositivo y los servicios son de este tipo y se muestran en el Editor del Registro en formato binario, hexadecimal o decimal. Los valores relacionados son DWORD_LITTLE_ENDIAN (el byte menos significativo está en la dirección más baja) y REG_DWORD_BIG_ENDIAN (el byte menos significativo está en la dirección más alta).</td>
+</tr>
+<tr>
+<td>Valor de cadena expansible</td>
+<td>REG_EXPAND_SZ</td>
+<td>Cadena de datos de longitud variable. Este tipo de datos incluye variables que se resuelven cuando un programa o servicio usa los datos.</td>
+</tr>
+<tr>
+<td>Valor de varias cadenas</td>
+<td>REG_MULTI_SZ</td>
+<td>Una cadena múltiple. Suelen ser de este tipo los valores que contienen listas o varios valores en un formulario que los usuarios pueden leer. Las entradas se separan con espacios, comas u otras marcas.</td>
+</tr>
+<tr>
+<td>Valor de cadena</td>
+<td>REG_SZ</td>
+<td>Cadena de texto de longitud fija.</td>
+</tr>
+<tr>
+<td>Valor binario</td>
+<td>REG_RESOURCE_LIST</td>
+<td>Una serie de matrices anidadas diseñadas para almacenar una lista de recursos que usa un controlador de dispositivo de hardware o uno de los dispositivos físicos que controla. El sistema detecta y escribe estos datos en el árbol \ResourceMap y se muestran en el Editor del Registro en formato hexadecimal como un valor binario.</td>
+</tr>
+<tr>
+<td>Valor binario</td>
+<td>REG_RESOURCE_REQUIREMENTS_LIST</td>
+<td>Una serie de matrices anidadas que está diseñada para almacenar la lista de posibles recursos de hardware que puede usar el controlador o uno de los dispositivos físicos que controla. El sistema escribe un subconjunto de esta lista en el árbol \ResourceMap. El sistema detecta estos datos y se muestran en el Editor del Registro en formato hexadecimal como un valor binario.</td>
+</tr>
+<tr>
+<td>Valor binario</td>
+<td>REG_FULL_RESOURCE_DESCRIPTOR</td>
+<td>Una serie de matrices anidadas diseñadas para almacenar una lista de recursos que usa un dispositivo de hardware físico. El sistema detecta y escribe estos datos en el árbol \HardwareDescription y se muestran en el Editor del Registro en formato hexadecimal como un valor binario.</td>
+</tr>
+<tr>
+<td>Ninguno</td>
+<td>REG_NONE</td>
+<td>Datos sin ningún tipo determinado. El sistema o las aplicaciones escriben estos datos en el Registro y se muestran en el Editor del Registro en formato hexadecimal como un valor binario.</td>
+</tr>
+<tr>
+<td>Vínculo</td>
+<td>REG_LINK</td>
+<td>Cadena Unicode que nombra un vínculo simbólico.</td>
+</tr>
+<tr>
+<td>Valor QWORD</td>
+<td>REG_QWORD</td>
+<td>Datos representados por un número que es un entero de 64 bits. Estos datos se muestran en el Editor del Registro como un valor binario y se introdujeron en Windows 2000.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="back-up-the-registry">Realizar una copia de seguridad del Registro</h2>
+<p>Antes de editar el Registro, exporte las claves del Registro que tiene previsto editar o realice una copia de seguridad de todo el Registro. Si se produce un problema, puede seguir los pasos de la sección <a href="#restore-the-registry" data-linktype="self-bookmark">Restaurar el Registro</a> para restaurar el Registro a su estado anterior. Para realizar una copia de seguridad de todo el Registro, use la utilidad Copia de seguridad para realizar una copia de seguridad del estado del sistema. El estado del sistema incluye el Registro, la base de datos de registro de clases COM+ y los archivos de arranque. Para obtener más información sobre cómo usar la utilidad de copia de seguridad para realizar una copia de seguridad del estado del sistema, consulte los artículos siguientes:</p>
+<ul>
+<li><p><a href="https://support.microsoft.com/help/17127/windows-back-up-restore" data-linktype="external">Realizar una copia de seguridad y restaurar su equipo</a></p>
+</li>
+<li><p><a href="https://support.microsoft.com/help/326216" data-linktype="external">Uso de la característica de copia de seguridad para realizar copias de seguridad y restaurar datos en Windows Server 2003</a></p>
+</li>
+</ul>
+<h2 id="edit-the-registry">Editar el registro</h2>
+<p>Para modificar los datos del Registro, un programa debe usar las funciones del Registro definidas en <a href="/es-es/windows/win32/sysinfo/registry-functions" data-linktype="absolute-path">Funciones del Registro</a>.</p>
+<p>Los administradores pueden modificar el Registro mediante el Editor del Registro (Regedit.exe o Regedt32.exe), una directiva de grupo, una directiva del sistema, archivos del Registro (.reg) o ejecutando scripts como archivos de script de VisualBasic.</p>
+<h3 id="use-the-windows-user-interface">Uso de la interfaz de usuario de Windows</h3>
+<p>Se recomienda usar la interfaz de usuario de Windows para cambiar la configuración del sistema en lugar de editar manualmente el registro. Sin embargo, la edición del Registro puede ser a veces el mejor método para resolver un problema del producto. Si el problema está documentado en Microsoft Knowledge Base, habrá disponible un artículo con instrucciones paso a paso sobre cómo editar el registro para ese problema. Le recomendamos que siga esas instrucciones al pie de la letra.</p>
+<h3 id="use-registry-editor">Uso del Editor del Registro</h3>
+<div class="WARNING">
+<p>Advertencia</p>
+<p>Es posible que se produzcan problemas graves si modifica el Registro de forma incorrecta mediante el Editor del Registro u otro método. Estos problemas pueden requerir la reinstalación del sistema operativo. Microsoft no puede garantizar la solución de estos problemas. La modificación del Registro se hará bajo su propia responsabilidad.</p>
+</div>
+<p>Puede usar el Editor del Registro para realizar las siguientes acciones:</p>
+<ul>
+<li>Buscar un subárbol, una clave, una subclave o un valor</li>
+<li>Agregar una subclave o un valor</li>
+<li>Cambiar un valor</li>
+<li>Eliminar una subclave o un valor</li>
+<li>Cambiar el nombre de una subclave o un valor</li>
+</ul>
+<p>El área de navegación del Editor del Registro muestra carpetas. Cada carpeta representa una clave predefinida en el equipo local. Al acceder al Registro de un equipo remoto, solo aparecen dos claves predefinidas: HKEY_USERS y HKEY_LOCAL_MACHINE.</p>
+<h3 id="use-group-policy">Uso de directiva de grupo</h3>
+<p>Microsoft Management Console (MMC) hospeda herramientas administrativas que puede usar para administrar redes, equipos, servicios y otros componentes del sistema. El complemento de directiva de grupo de MMC permite a los administradores definir la configuración de directiva que se aplica a equipos o usuarios. Puede implementar directivas de grupo en equipos locales mediante el complemento de directiva de grupo local de MMC, Gpedit.msc. Puede implementar directivas de grupo en Active Directory mediante el complemento de MMC de usuarios y equipos de Active Directory. Para obtener más información sobre cómo usar directivas de grupo, consulte los temas de Ayuda del complemento de directiva de grupo de MMC adecuado.</p>
+<h3 id="use-a-registration-entries-reg-file">Uso de un archivo de entradas de Registro (.reg)</h3>
+<p>Cree un archivo de entradas de Registro (.reg) que contenga los cambios del Registro y, a continuación, ejecute el archivo .reg en el equipo donde desea realizar los cambios. Puede ejecutar el archivo .reg manualmente o mediante un script de inicio de sesión. Para más información, consulte <a href="https://support.microsoft.com/help/310516" data-linktype="external">Cómo añadir, modificar o eliminar subclaves del Registro y valores utilizando un archivo de entradas de registro (.reg)</a>.</p>
+<h3 id="use-windows-script-host">Uso de Windows Script Host</h3>
+<p>Windows Script Host permite ejecutar scripts VBScript y JScript directamente en el sistema operativo. Puede crear archivos VBScript y JScript que usen métodos de Windows Script Host para eliminar, leer y escribir claves y valores del Registro. Para obtener más información acerca de estos métodos, visite los siguientes sitios web de Microsoft:</p>
+<ul>
+<li><p><a href="/es-es/previous-versions/293bt9hh(v=vs.80)" data-linktype="absolute-path">Método RegDelete</a></p>
+</li>
+<li><p><a href="/es-es/previous-versions//x05fawxd(v=vs.85)" data-linktype="absolute-path">Método RegRead</a></p>
+</li>
+<li><p><a href="/es-es/previous-versions//yfdfhz1b(v=vs.85)" data-linktype="absolute-path">Método RegWrite</a></p>
+</li>
+</ul>
+<h3 id="use-windows-management-instrumentation">Uso de Instrumental de administración de Windows</h3>
+<p>El Instrumental de administración de Windows es un componente del sistema operativo Microsoft Windows y es la implementación de Microsoft de Web-Based Enterprise Management (WBEM). WBEM es una iniciativa del sector para desarrollar una tecnología estándar para acceder a la información de administración en un entorno empresarial. Puede usar WMI para automatizar tareas administrativas (como editar el Registro) en un entorno empresarial. Puede usar WMI en lenguajes de scripting que tengan un motor en Windows y que controlen objetos de Microsoft ActiveX. También puede usar la utilidad de línea de comando WMI (Wmic.exe) para modificar el Registro de Windows.</p>
+<p>Para obtener más información sobre WMI, consulte <a href="/es-es/windows/win32/wmisdk/wmi-start-page" data-linktype="absolute-path">Instrumental de administración de Windows</a>.</p>
+<p>Para obtener más información sobre la utilidad de línea de comando de WMI, consulte <a href="https://support.microsoft.com/help/290216" data-linktype="external">Una descripción de la utilidad de línea de comandos del instrumental de administración de Windows (WMI) (Wmic.exe)</a>.</p>
+<h3 id="use-console-registry-tool-for-windows">Uso de la herramienta del Registro de consola para Windows</h3>
+<p>Puede usar la herramienta del Registro de consola para Windows (Reg.exe) para editar el Registro. Para obtener ayuda con la herramienta Reg.exe, escriba <code>reg /?</code> en el símbolo del sistema y, a continuación, haga clic en <strong>Aceptar</strong>.</p>
+<h2 id="restore-the-registry">Restaurar el Registro</h2>
+<p>Para restaurar el Registro, use el método adecuado.</p>
+<h3 id="method-1-restore-the-registry-keys">Paso 1: restaurar las claves del Registro</h3>
+<p>Para restaurar las subclaves del Registro que exportó, haga doble clic en el archivo Entradas de registro (.reg) que guardó en la sección Exportar subclaves del Registro. O bien, puede restaurar todo el Registro desde una copia de seguridad. Para obtener más información sobre cómo restaurar todo el Registro, consulte la sección <a href="#method-2-restore-the-whole-registry" data-linktype="self-bookmark">Método 2: restaurar todo el registro</a> más adelante en este artículo.</p>
+<h3 id="method-2-restore-the-whole-registry">Método 2: restaurar el Registro completo</h3>
+<p>Para restaurar todo el Registro, restaure el estado del sistema a partir de una copia de seguridad. Para obtener más información sobre cómo restaurar el estado del sistema a partir de una copia de seguridad, consulte <a href="https://support.microsoft.com/help/309340" data-linktype="external">Uso de copia de seguridad para proteger datos y restaurar archivos y carpetas en el equipo en Windows XP y Windows Vista</a>.</p>
+<div class="NOTE">
+<p>Nota:</p>
+<p>La copia de seguridad del estado del sistema también crea copias actualizadas de los archivos del Registro en la carpeta <code>%SystemRoot%\Repair</code>.</p>
+</div>
+<h2 id="references">Referencias</h2>
+<p>Para más información, visite el siguiente sitio web:</p>
+<ul>
+<li><p><a href="/es-es/previous-versions/windows/it-pro/windows-2000-server/cc984339(v=msdn.10)" data-linktype="absolute-path">Kit de recursos del servidor de Windows 2000</a></p>
+</li>
+<li><p><a href="/es-es/previous-versions//cc750583(v=technet.10)" data-linktype="absolute-path">Dentro del Registro</a></p>
+</li>
+</ul>
+<p>El <a href="https://www.windowsservercatalog.com/software" data-linktype="external">catálogo de Windows Server</a> de productos probados es una referencia para los productos que se han probado para la compatibilidad con Windows Server.</p>
+<p>Data Protection Manager (DPM) es un miembro clave de la familia de productos de administración de Microsoft System Center y está diseñado para ayudar a los profesionales de TI a administrar su entorno de Windows. DPM es el nuevo estándar para la copia de seguridad y recuperación de Windows y ofrece protección continua de datos para servidores de archivos y aplicaciones de Microsoft que usan medios de disco y cinta perfectamente integrados. Para obtener más información sobre cómo hacer una copia de seguridad del Registro y cómo restaurarlo, consulte <a href="https://support.microsoft.com/help/322756" data-linktype="external">Cómo realizar una copia de seguridad del Registro y restaurarlo en Windows XP y Windows Vista</a>.</p>
+</div>
+					
+		<div
+			id="ms--inline-notifications"
+			class="margin-block-xs"
+			data-bi-name="inline-notification"
+		></div>
+	 
+		<div
+			id="assertive-live-region"
+			role="alert"
+			aria-live="assertive"
+			class="visually-hidden"
+			aria-relevant="additions"
+			aria-atomic="true"
+		></div>
+		<div
+			id="polite-live-region"
+			role="status"
+			aria-live="polite"
+			class="visually-hidden"
+			aria-relevant="additions"
+			aria-atomic="true"
+		></div>
+	
+					
+		<!-- feedback section -->
+		<section
+			id="site-user-feedback-footer"
+			class="font-size-sm margin-top-md display-none-print display-none-desktop"
+			data-test-id="site-user-feedback-footer"
+			data-bi-name="site-feedback-section"
+		>
+			<hr class="hr" />
+			<h2 id="ms--feedback" class="title is-3">Comentarios</h2>
+			<div class="display-flex flex-wrap-wrap align-items-center">
+				<p class="font-weight-semibold margin-xxs margin-left-none">
+					¿Le ha resultado útil esta página?
+				</p>
+				<div class="buttons">
+					<button
+						class="thumb-rating-button like button button-primary button-sm"
+						data-test-id="footer-rating-yes"
+						data-binary-rating-response="rating-yes"
+						type="button"
+						title="Este artículo es útil"
+						data-bi-name="button-rating-yes"
+						aria-pressed="false"
+					>
+						<span class="icon" aria-hidden="true">
+							<span class="docon docon-like"></span>
+						</span>
+						<span>Sí</span>
+					</button>
+					<button
+						class="thumb-rating-button dislike button button-primary button-sm"
+						id="standard-rating-no-button"
+						hidden
+						data-test-id="footer-rating-no"
+						data-binary-rating-response="rating-no"
+						type="button"
+						title="Este artículo no es útil"
+						data-bi-name="button-rating-no"
+						aria-pressed="false"
+					>
+						<span class="icon" aria-hidden="true">
+							<span class="docon docon-dislike"></span>
+						</span>
+						<span>No</span>
+					</button>
+					<details
+						class="popover popover-top"
+						id="mobile-help-popover"
+						data-test-id="footer-feedback-popover"
+					>
+						<summary
+							class="thumb-rating-button dislike button button-primary button-sm"
+							data-test-id="details-footer-rating-no"
+							data-binary-rating-response="rating-no"
+							title="Este artículo no es útil"
+							data-bi-name="button-rating-no"
+							aria-pressed="false"
+							data-bi-an="feedback-unhelpful-popover"
+						>
+							<span class="icon" aria-hidden="true">
+								<span class="docon docon-dislike"></span>
+							</span>
+							<span>No</span>
+						</summary>
+						<div
+							class="popover-content width-200 width-300-tablet"
+							role="dialog"
+							aria-labelledby="popover-heading"
+							aria-describedby="popover-description"
+						>
+							<p id="popover-heading" class="font-size-lg margin-bottom-xxs font-weight-semibold">
+								¿Necesita ayuda con este tema?
+							</p>
+							<p id="popover-description" class="font-size-sm margin-bottom-xs">
+								¿Desea intentar usar Ask Learn para aclarar o guiarle a través de este tema?
+							</p>
+							
+		<div class="buttons flex-direction-row flex-wrap justify-content-center gap-xxs">
+			<div>
+		<button
+			class="button button-sm border inner-focus display-none margin-right-xxs"
+			data-bi-name="ask-learn-assistant-entry-troubleshoot"
+			data-test-id="ask-learn-assistant-modal-entry-mobile-feedback"
+			data-ask-learn-modal-entry-feedback
+			data-bi-an=feedback-unhelpful-popover
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			aria-label="Preguntar a Learn"
+			hidden
+		>
+			<span class="icon" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+		</button>
+		<button
+			class="button button-sm display-inline-flex display-none-desktop flex-shrink-0 margin-right-xxs border-color-ask-learn margin-right-xxs"
+			data-bi-name="ask-learn-assistant-entry-troubleshoot"
+			data-bi-an=feedback-unhelpful-popover
+			data-test-id="ask-learn-assistant-modal-entry-tablet-feedback"
+			data-ask-learn-modal-entry-feedback
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			hidden
+		>
+			<span class="icon font-size-lg" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+			<span>Preguntar a Learn</span>
+		</button>
+		<button
+			class="button button-sm display-none flex-shrink-0 display-inline-flex-desktop margin-right-xxs border-color-ask-learn margin-right-xxs"
+			data-bi-name="ask-learn-assistant-entry-troubleshoot"
+			data-bi-an=feedback-unhelpful-popover
+			data-test-id="ask-learn-assistant-flyout-entry-feedback"
+			data-ask-learn-flyout-entry-show-only
+			data-flyout-button="toggle"
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			aria-controls="ask-learn-flyout"
+			hidden
+		>
+			<span class="icon font-size-lg" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+			<span>Preguntar a Learn</span>
+		</button>
+	</div>
+			<button
+				type="button"
+				class="button button-sm margin-right-xxs"
+				data-help-option="suggest-fix"
+				data-bi-name="feedback-suggest"
+				data-bi-an="feedback-unhelpful-popover"
+				data-test-id="suggest-fix"
+			>
+				<span class="icon" aria-hidden="true">
+					<span class="docon docon-feedback"></span>
+				</span>
+				<span> ¿Sugerir una corrección? </span>
+			</button>
+		</div>
+	
+						</div>
+					</details>
+				</div>
+			</div>
+		</section>
+		<!-- end feedback section -->
+	
+				</div>
+				
+		<div id="ms--additional-resources-mobile" class="display-none-print">
+			<hr class="hr" hidden />
+			<h2 id="ms--additional-resources-mobile-heading" class="title is-3" hidden>
+				Recursos adicionales
+			</h2>
+			
+		<section
+			id="right-rail-recommendations-mobile"
+			class=""
+			data-bi-name="recommendations"
+			hidden
+		></section>
+	 
+		<section
+			id="right-rail-training-mobile"
+			class=""
+			data-bi-name="learning-resource-card"
+			hidden
+		></section>
+	 
+		<section
+			id="right-rail-events-mobile"
+			class=""
+			data-bi-name="events-card"
+			hidden
+		></section>
+	
+		</div>
+	 
+		<div
+			id="article-metadata-footer"
+			data-bi-name="article-metadata-footer"
+			data-test-id="article-metadata-footer"
+			class="page-metadata-container"
+		>
+			<hr class="hr" />
+			<ul class="metadata page-metadata" data-bi-name="page info" lang="es-es" dir="ltr">
+				<li class="visibility-hidden-visual-diff">
+			<span class="badge badge-sm text-wrap-pretty">
+				<span>Se actualizó por última vez el <local-time format="twoDigitNumeric"
+		datetime="2026-02-12T08:00:00.000Z"
+		data-article-date-source="calculated"
+		class="is-invisible"
+	>
+		2026-02-12
+	</local-time></span>
+			</span>
+		</li>
+			</ul>
+		</div>
+	
+			</div>
+		
+				</main>
+				<aside
+					id="layout-body-aside"
+					class="layout-body-aside  "
+					data-bi-name="aside"
+					aria-label="Recursos adicionales"
+			  >
+					
+		<div
+			id="ms--additional-resources"
+			class="right-container padding-sm display-none display-block-desktop height-full"
+			data-bi-name="pageactions"
+		>
+			<div id="affixed-right-container" data-bi-name="right-column">
+				
+		<nav
+			id="side-doc-outline"
+			class="doc-outline border-bottom padding-bottom-xs margin-bottom-xs scrollbar-width-thin"
+			data-bi-name="intopic toc"
+			aria-label="En este artículo"
+		>
+			<h3>En este artículo</h3>
+		</nav>
+	
+				<!-- Feedback -->
+				
+		<section
+			id="ms--site-user-feedback-right-rail"
+			class="font-size-sm display-none-print"
+			data-test-id="site-user-feedback-right-rail"
+			data-bi-name="site-feedback-right-rail"
+		>
+			<div class="display-flex flex-wrap-wrap align-items-center">
+				<p class="font-weight-semibold margin-xxs margin-left-none">
+					¿Le ha resultado útil esta página?
+				</p>
+				<div class="display-flex flex-wrap-nowrap">
+					<button
+						class="thumb-rating-button like inner-focus"
+						data-test-id="right-rail-rating-yes"
+						data-binary-rating-response="rating-yes"
+						type="button"
+						title="Este artículo es útil"
+						aria-label="Este artículo es útil"
+						data-bi-name="button-rating-yes"
+						aria-pressed="false"
+					>
+						<span class="icon" aria-hidden="true">
+							<span class="docon docon-like"></span>
+						</span>
+					</button>
+					<button
+						class="thumb-rating-button dislike inner-focus"
+						id="right-rail-no-button"
+						hidden
+						data-test-id="right-rail-rating-no"
+						data-binary-rating-response="rating-no"
+						type="button"
+						title="Este artículo no es útil"
+						aria-label="Este artículo no es útil"
+						data-bi-name="button-rating-no"
+						aria-pressed="false"
+					>
+						<span class="icon" aria-hidden="true">
+							<span class="docon docon-dislike"></span>
+						</span>
+					</button>
+					<details class="popover popover-right" id="help-popover" data-test-id="feedback-popover">
+						<summary
+							tabindex="0"
+							class="thumb-rating-button dislike inner-focus"
+							data-test-id="details-right-rail-rating-no"
+							data-binary-rating-response="rating-no"
+							title="Este artículo no es útil"
+							aria-label="Este artículo no es útil"
+							data-bi-name="button-rating-no"
+							aria-pressed="false"
+							data-bi-an="feedback-unhelpful-popover"
+						>
+							<span class="icon" aria-hidden="true">
+								<span class="docon docon-dislike"></span>
+							</span>
+						</summary>
+						<div
+							class="popover-content width-200 width-300-tablet"
+							role="dialog"
+							aria-labelledby="popover-heading-right-rail"
+							aria-describedby="popover-description-right-rail"
+						>
+							<p
+								id="popover-heading-right-rail"
+								class="font-size-lg margin-bottom-xxs font-weight-semibold"
+							>
+								¿Necesita ayuda con este tema?
+							</p>
+							<p id="popover-description-right-rail" class="font-size-sm margin-bottom-xs">
+								¿Desea intentar usar Ask Learn para aclarar o guiarle a través de este tema?
+							</p>
+							
+		<div class="buttons flex-direction-row flex-wrap justify-content-center gap-xxs">
+			<div>
+		<button
+			class="button button-sm border inner-focus display-none margin-right-xxs"
+			data-bi-name="ask-learn-assistant-entry-troubleshoot"
+			data-test-id="ask-learn-assistant-modal-entry-mobile-feedback"
+			data-ask-learn-modal-entry-feedback
+			data-bi-an=feedback-unhelpful-popover
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			aria-label="Preguntar a Learn"
+			hidden
+		>
+			<span class="icon" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+		</button>
+		<button
+			class="button button-sm display-inline-flex display-none-desktop flex-shrink-0 margin-right-xxs border-color-ask-learn margin-right-xxs"
+			data-bi-name="ask-learn-assistant-entry-troubleshoot"
+			data-bi-an=feedback-unhelpful-popover
+			data-test-id="ask-learn-assistant-modal-entry-tablet-feedback"
+			data-ask-learn-modal-entry-feedback
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			hidden
+		>
+			<span class="icon font-size-lg" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+			<span>Preguntar a Learn</span>
+		</button>
+		<button
+			class="button button-sm display-none flex-shrink-0 display-inline-flex-desktop margin-right-xxs border-color-ask-learn margin-right-xxs"
+			data-bi-name="ask-learn-assistant-entry-troubleshoot"
+			data-bi-an=feedback-unhelpful-popover
+			data-test-id="ask-learn-assistant-flyout-entry-feedback"
+			data-ask-learn-flyout-entry-show-only
+			data-flyout-button="toggle"
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			aria-controls="ask-learn-flyout"
+			hidden
+		>
+			<span class="icon font-size-lg" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+			<span>Preguntar a Learn</span>
+		</button>
+	</div>
+			<button
+				type="button"
+				class="button button-sm margin-right-xxs"
+				data-help-option="suggest-fix"
+				data-bi-name="feedback-suggest"
+				data-bi-an="feedback-unhelpful-popover"
+				data-test-id="suggest-fix"
+			>
+				<span class="icon" aria-hidden="true">
+					<span class="docon docon-feedback"></span>
+				</span>
+				<span> ¿Sugerir una corrección? </span>
+			</button>
+		</div>
+	
+						</div>
+					</details>
+				</div>
+			</div>
+		</section>
+	
+			</div>
+		</div>
+	
+			  </aside> <section
+					id="layout-body-flyout"
+					class="layout-body-flyout "
+					data-bi-name="flyout"
+			  >
+					 <div
+	class="height-full border-left background-color-body-medium"
+	id="ask-learn-flyout"
+></div>
+			  </section> <div class="layout-body-footer " data-bi-name="layout-footer">
+		<footer
+			id="footer"
+			data-test-id="footer"
+			data-bi-name="footer"
+			class="footer-layout padding-xs padding-sm-desktop has-default-focus border-top"
+			role="contentinfo"
+		>
+			<div class="display-flex gap-xs flex-wrap-wrap is-full-height padding-right-lg-desktop">
+				
+		<a
+			data-mscc-ic="false"
+			href="#"
+			data-bi-name="select-locale"
+			class="locale-selector-link flex-shrink-0 button button-sm button-clear external-link-indicator"
+			id=""
+			title=""
+			><span class="icon" aria-hidden="true"
+				><span class="docon docon-world"></span></span
+			><span class="local-selector-link-text">es-es</span></a
+		>
+	 <div class="ccpa-privacy-link" data-ccpa-privacy-link hidden>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://aka.ms/yourcaliforniaprivacychoices"
+			data-bi-name="your-privacy-choices"
+			class="button button-sm button-clear flex-shrink-0 external-link-indicator"
+			id=""
+			title=""
+			>
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			viewBox="0 0 30 14"
+			xml:space="preserve"
+			height="16"
+			width="43"
+			aria-hidden="true"
+			focusable="false"
+		>
+			<path
+				d="M7.4 12.8h6.8l3.1-11.6H7.4C4.2 1.2 1.6 3.8 1.6 7s2.6 5.8 5.8 5.8z"
+				style="fill-rule:evenodd;clip-rule:evenodd;fill:#fff"
+			></path>
+			<path
+				d="M22.6 0H7.4c-3.9 0-7 3.1-7 7s3.1 7 7 7h15.2c3.9 0 7-3.1 7-7s-3.2-7-7-7zm-21 7c0-3.2 2.6-5.8 5.8-5.8h9.9l-3.1 11.6H7.4c-3.2 0-5.8-2.6-5.8-5.8z"
+				style="fill-rule:evenodd;clip-rule:evenodd;fill:#06f"
+			></path>
+			<path
+				d="M24.6 4c.2.2.2.6 0 .8L22.5 7l2.2 2.2c.2.2.2.6 0 .8-.2.2-.6.2-.8 0l-2.2-2.2-2.2 2.2c-.2.2-.6.2-.8 0-.2-.2-.2-.6 0-.8L20.8 7l-2.2-2.2c-.2-.2-.2-.6 0-.8.2-.2.6-.2.8 0l2.2 2.2L23.8 4c.2-.2.6-.2.8 0z"
+				style="fill:#fff"
+			></path>
+			<path
+				d="M12.7 4.1c.2.2.3.6.1.8L8.6 9.8c-.1.1-.2.2-.3.2-.2.1-.5.1-.7-.1L5.4 7.7c-.2-.2-.2-.6 0-.8.2-.2.6-.2.8 0L8 8.6l3.8-4.5c.2-.2.6-.2.9 0z"
+				style="fill:#06f"
+			></path>
+		</svg>
+	
+			<span>Sus opciones de privacidad</span></a
+		>
+	
+	</div>
+				<div class="flex-shrink-0">
+		<div class="dropdown has-caret-up">
+			<button
+				data-test-id="theme-selector-button"
+				class="dropdown-trigger button button-clear button-sm inner-focus theme-dropdown-trigger"
+				aria-controls="{{ themeMenuId }}"
+				aria-haspopup="true"
+				aria-expanded="false"
+				data-bi-name="theme"
+			>
+				<span class="icon" aria-hidden="true"><span class="docon docon-sun"></span></span>
+				<span>Tema</span>
+				<span class="icon expanded-indicator" aria-hidden="true">
+					<span class="docon docon-chevron-down-light"></span>
+				</span>
+			</button>
+			<div class="dropdown-menu" id="{{ themeMenuId }}" role="menu">
+				<ul class="theme-selector padding-xxs" data-test-id="theme-dropdown-menu" role="none">
+					<li class="theme display-block" role="none">
+						<button
+							class="button button-clear button-sm theme-control button-block justify-content-flex-start text-align-left"
+							role="menuitemradio"
+							aria-checked="false"
+							data-theme-to="light"
+							tabindex="-1"
+						>
+							<span class="theme-light margin-right-xxs">
+								<span
+									class="theme-selector-icon border display-inline-block has-body-background"
+									aria-hidden="true"
+								>
+									<svg class="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 14">
+										<rect width="22" height="14" class="has-fill-body-background" />
+										<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+										<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+										<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+										<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+										<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+										<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+										<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+									</svg>
+								</span>
+							</span>
+							<span> Claro </span>
+						</button>
+					</li>
+					<li class="theme display-block" role="none">
+						<button
+							class="button button-clear button-sm theme-control button-block justify-content-flex-start text-align-left"
+							role="menuitemradio"
+							aria-checked="false"
+							data-theme-to="dark"
+							tabindex="-1"
+						>
+							<span class="theme-dark margin-right-xxs">
+								<span
+									class="border theme-selector-icon display-inline-block has-body-background"
+									aria-hidden="true"
+								>
+									<svg class="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 14">
+										<rect width="22" height="14" class="has-fill-body-background" />
+										<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+										<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+										<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+										<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+										<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+										<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+										<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+									</svg>
+								</span>
+							</span>
+							<span> Oscuro </span>
+						</button>
+					</li>
+					<li class="theme display-block" role="none">
+						<button
+							class="button button-clear button-sm theme-control button-block justify-content-flex-start text-align-left"
+							role="menuitemradio"
+							aria-checked="false"
+							data-theme-to="high-contrast"
+							tabindex="-1"
+						>
+							<span class="theme-high-contrast margin-right-xxs">
+								<span
+									class="border theme-selector-icon display-inline-block has-body-background"
+									aria-hidden="true"
+								>
+									<svg class="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 14">
+										<rect width="22" height="14" class="has-fill-body-background" />
+										<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+										<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+										<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+										<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+										<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+										<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+										<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+									</svg>
+								</span>
+							</span>
+							<span> Contraste alto </span>
+						</button>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+			</div>
+			<ul class="links" data-bi-name="footerlinks">
+				<li class="manage-cookies-holder" hidden=""></li>
+				<li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://learn.microsoft.com/es-es/principles-for-ai-generated-content"
+			data-bi-name="aiDisclaimer"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Declinación de responsabilidades de IA</a
+		>
+	
+	</li><li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://learn.microsoft.com/es-es/previous-versions/"
+			data-bi-name="archivelink"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Versiones anteriores</a
+		>
+	
+	</li> <li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://techcommunity.microsoft.com/t5/microsoft-learn-blog/bg-p/MicrosoftLearnBlog"
+			data-bi-name="bloglink"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Blog</a
+		>
+	
+	</li> <li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://learn.microsoft.com/es-es/contribute"
+			data-bi-name="contributorGuide"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Contribuir</a
+		>
+	
+	</li><li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://go.microsoft.com/fwlink/?LinkId=521839"
+			data-bi-name="privacy"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Privacidad</a
+		>
+	
+	</li><li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://go.microsoft.com/fwlink/?linkid=2259814"
+			data-bi-name="consumer-health-privacy"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Privacidad de estado del consumidor</a
+		>
+	
+	</li><li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://learn.microsoft.com/es-es/legal/termsofuse"
+			data-bi-name="termsofuse"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Términos de uso</a
+		>
+	
+	</li><li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://www.microsoft.com/legal/intellectualproperty/Trademarks/"
+			data-bi-name="trademarks"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Marcas comerciales</a
+		>
+	
+	</li>
+				<li>&copy; Microsoft 2026</li>
+			</ul>
+		</footer>
+	</footer>
+			<noscript><img src="https://learn.microsoft.com/akam/13/pixel_36723bb3?a=dD0zOWM5MmYwOGUxM2I0YjM5YzQ4MjY5ZjVjMDg3NzA2Yzc3MzM4ZTY4JmpzPW9mZg==" style="visibility: hidden; position: absolute; left: -999px; top: -999px;" /></noscript></body>
+		</html>
