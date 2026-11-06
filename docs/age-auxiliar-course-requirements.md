@@ -1,6 +1,6 @@
 # Requirements — Course "Auxiliar Administrativo del Estado (C2), turno libre, OEP 2026"
 
-Version 1.1 · 5 November 2026 · requirements, not design. Second oposiciones course for Curset, Spanish only. Written as a delta to docs/age-administrativo-course-requirements.md (the C1 course): everything not stated here is as there, with "C1" read as "C2" and the slugs, programme and exam rules below.
+Version 1.2 · 6 November 2026 · requirements, not design. Second oposiciones course for Curset, Spanish only. Written as a delta to docs/age-administrativo-course-requirements.md (the C1 course): everything not stated here is as there, with "C1" read as "C2" and the slugs, programme and exam rules below.
 
 ## 1. Goal
 
@@ -10,7 +10,7 @@ A complete preparation course for the Cuerpo General Auxiliar de la Administraci
 
 - R2.1 Slug: `age-auxiliar-c2`. Title: "Auxiliar Administrativo del Estado (C2)". Subtitle: "Ingreso libre · convocatoria OEP 2026". Languages: `[es]`. Exercise types: multiple-choice and psicotécnico (section 6). No figures. Status `draft` until acceptance, then `published`.
 - R2.2 Glyph and accent per the identity rules; a distinct glyph from C1's, same family.
-- R2.3 Independence: the course shares nothing with `age-administrativo-c1` at the file level (R3.1 of the platform requirements). Its lessons, glossary and questions are its own. The C1 lessons and bank may be used as a reference by writers, since every fact there is cited and verified, but every C2 fact is re-cited from the C2 course's own sources snapshot and re-verified; nothing is copied without that.
+- R2.3 Independence with provenance. The course shares nothing with `age-administrativo-c1` at the file level (R3.1 of the platform requirements): its lessons, glossary, questions and sources snapshot are its own. But verification is not paid twice: a C2 sentence, esquema row, glossary entry or question that is identical to a C1 one (same text, same citation, and the cited source file present in both snapshots with the same sha256) inherits C1's verification and is recorded as «verificado en C1: <report path>» instead of going through a verifier. Everything that differs (text cut to C2 depth, new facts, new questions, changed citations) is verified as C1's rules require. C2's own style checklist (R0a) is applied to every question, inherited or not, since the C2 exams have their own forms. Every item carries exactly one of the two: a provenance record or its own verification; never neither. The cross-reference check (citation resolves in its own lesson) and the excerpt build apply to every C2 question regardless of provenance.
 
 ## 3. Source of truth
 

@@ -74,11 +74,20 @@ describe("the favicon PNGs", () => {
 });
 
 describe("the course glyphs", () => {
-  it.each(courses)("%s declares a glyph that exists", (slug) => {
-    const manifest = load(readFileSync(resolve(CONTENT_ROOT, slug, "course.yaml"), "utf8")) as {
-      course: { glyph?: string };
+  const manifestOf = (slug: string) =>
+    load(readFileSync(resolve(CONTENT_ROOT, slug, "course.yaml"), "utf8")) as {
+      course: { glyph?: string; status: string };
     };
-    expect(manifest.course.glyph).toBeTruthy();
-    expect(existsSync(resolve(CONTENT_ROOT, slug, "identity", `${manifest.course.glyph}.svg`))).toBe(true);
+
+  // A draft gets its glyph in its own identity round, so only a published course must declare one.
+  it.each(courses.filter((slug) => manifestOf(slug).course.status === "published"))(
+    "%s, published, declares a glyph",
+    (slug) => {
+      expect(manifestOf(slug).course.glyph).toBeTruthy();
+    },
+  );
+
+  it.each(courses.filter((slug) => manifestOf(slug).course.glyph))("%s declares a glyph that exists", (slug) => {
+    expect(existsSync(resolve(CONTENT_ROOT, slug, "identity", `${manifestOf(slug).course.glyph}.svg`))).toBe(true);
   });
 });

@@ -813,7 +813,8 @@ light, a dark and a mono (`currentColor`) SVG under `frontend/src/assets/identit
 one. The browser tab uses `favicon.svg` and its 16/32/180/512 PNGs. `identity.json` holds the name,
 typeface and ink/paper tokens; `npm run identity` regenerates every SVG, the `tokens.css` behind the
 `brand-fg`/`brand-bg` colours, the course glyphs and the PNGs from it. Never edit those outputs by hand.
-Each course declares a `glyph` and a two-shade accent `color` in its `course.yaml`; the glyph shows
+Each published course declares a `glyph` and a two-shade accent `color` in its `course.yaml` (a draft gets
+them in its own identity round, and the identity tests skip it until then); the glyph shows
 beside the course title in the selector, the course sheet, settings, sign-up and the PDF cover.
 Decisions: `docs/identity.md`; review page: `/dev/identity` (DEV_MODE).
 
@@ -898,7 +899,7 @@ Screens at 1280 px in the three themes are in `docs/screens/desktop/`.
 **Courses.** Each directory `content/<slug>/` is one course, loaded at startup. A course that does not
 validate stops startup, and the error names it. `course.yaml` declares the course's `languages` (`[es]`
 or `[en, es]`, first = fallback), its `status` (`draft` courses are loaded and checked but never served)
-and its `exercise_types`. Two courses exist: `crypto-futures` (published) and `age-administrativo-c1`,
+and its `exercise_types`. Three courses exist: `crypto-futures` (published), `age-auxiliar-c2` (draft, below) and `age-administrativo-c1`,
 the Spanish-only preparation for the Administrativo del Estado (C1) exam, published since AGE 1.0
 (deployment steps in `docs/deploy-age-1.0.md`): the theory of
 all six bloques is written, bloque VI as short list-shaped lessons citing saved official pages
@@ -918,6 +919,14 @@ counts crypto-futures' embedded quizzes; crypto-futures does not declare the fla
 presets: «Tema» (20 questions from one tema, no penalty, 25 minutes) and «Bloque» (40 from one bloque, a wrong
 answer costs 1/3, 45 minutes); the «Simulacro oficial» and its two parts come with round R5, and pausing
 between questions waits for delta G.
+
+`age-auxiliar-c2` is the draft preparation for the Auxiliar Administrativo del Estado (C2) exam, Spanish
+only, with no figures (requirements in `docs/age-auxiliar-course-requirements.md`, a delta to C1's). Round
+R1 built its skeleton (`docs/age-c2-round-1-handoff.md`): «Proceso de selección» holds «Cómo es el examen»
+(`m00-l01`) and «Cómo son los psicotécnicos» (`ps-l01`, the 16 psicotécnico types with one official
+question each), both written; «Programa» holds bloque I (`m01`, 16 temas) and bloque II (`m02`, 12 temas)
+as titled stubs with a «Normativa» block. It declares `lesson_practice`, letter options and «tema» like C1,
+has no questions or exam presets yet, and shares no file with C1: its `sources/` are its own copies.
 
 **Question identity.** A quiz question is named by its own id (`m06-l02-q351`), never by the exercise the
 bank build grouped it into: every attempt stores it (`attempts.variant_id`), and grading, review, reports,
@@ -1057,7 +1066,7 @@ to them, so a change in another course can never move a contract. The per-course
 declares. The content suites run over every course under `content/`, drafts included (a draft is
 checked before it is published), plus the published test fixtures, and each figure step names a course
 with none: `pytest` ends with a `figure steps per course` section (`age-administrativo-c1: no figures`,
-`fixture-oposiciones: no figures`), and the PDF export logs `<course>: no figures` / `no exercise
+`age-auxiliar-c2: no figures`, `fixture-oposiciones: no figures`), and the PDF export logs `<course>: no figures` / `no exercise
 charts` instead of a capture phase. `render.test.ts` prints every draft course end to end.
 
 ```bash

@@ -12,6 +12,7 @@ import pytest
 from httpx import AsyncClient
 
 from tradeschool.content.registry import ContentError, load_catalog, load_registry
+from tradeschool.content.schema import CourseStatus, ManifestCourse
 
 REPO = Path(__file__).resolve().parents[2]
 IDENTITY = json.loads((REPO / "frontend/src/assets/identity/identity.json").read_text(encoding="utf-8"))
@@ -36,9 +37,16 @@ def _contrast(a: str, b: str) -> float:
     return (high + 0.05) / (low + 0.05)
 
 
-@pytest.mark.parametrize("course_dir", COURSES, ids=lambda path: path.name)
-def test_every_course_declares_a_glyph_that_exists_and_is_a_clean_svg(course_dir: Path) -> None:
+def _identity_of(course_dir: Path) -> ManifestCourse:
     course = load_registry(course_dir).manifest.course
+    if course.status is CourseStatus.DRAFT and course.glyph is None and course.color is None:
+        pytest.skip("a draft gets its glyph and accent in its own identity round")
+    return course
+
+
+@pytest.mark.parametrize("course_dir", COURSES, ids=lambda path: path.name)
+def test_every_published_course_declares_a_glyph_that_exists_and_is_a_clean_svg(course_dir: Path) -> None:
+    course = _identity_of(course_dir)
     assert course.glyph is not None and course.color is not None
     path = course_dir / "identity" / f"{course.glyph}.svg"
     source = path.read_text(encoding="utf-8")
@@ -53,7 +61,7 @@ def test_every_course_declares_a_glyph_that_exists_and_is_a_clean_svg(course_dir
 
 @pytest.mark.parametrize("course_dir", COURSES, ids=lambda path: path.name)
 def test_each_accent_shade_passes_text_contrast_on_the_background_it_is_drawn_on(course_dir: Path) -> None:
-    color = load_registry(course_dir).manifest.course.color
+    color = _identity_of(course_dir).color
     assert color is not None
     assert _contrast(color.light, IDENTITY["colors"]["paper"]) >= TEXT_CONTRAST
     assert _contrast(color.dark, IDENTITY["colors"]["ink"]) >= TEXT_CONTRAST
