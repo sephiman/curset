@@ -26,3 +26,9 @@ prompt says, unless the prompt explicitly overrides it.
 - When the usage window is near its end, no new agents are launched;
   running ones finish their current part, the ledger is written, and
   work waits for the reset.
+
+## C1 edits and C2 provenance
+
+- A round that edits a C1 lesson sentence inherited by C2 (`age-auxiliar-c2`) must rerun
+  `backend/scripts/provenance.py` for the affected C2 lessons and update their records in
+  `docs/age-verification/c2/` in the same round; `backend/tests/test_provenance.py` fails until it does.

@@ -1,0 +1,1906 @@
+
+
+<!DOCTYPE html>
+<html lang="es-ES" dir=ltr>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Crear una tabla din&#xE1;mica para analizar datos de una hoja de c&#xE1;lculo | Microsoft Support</title>
+	
+	<meta name="audience" content="End User" />
+<meta name="author" content="alison-mk" />
+<meta name="awa-articleGuid" content="a9a84538-bfe9-40a9-a8e9-f99134456576" />
+<meta name="depot_name" content="Learn.EndUser-Excel" />
+<meta name="description" content="Cómo usar una tabla dinámica en Excel para calcular, resumir y analizar los datos de la hoja de cálculo con el fin de ver patrones y tendencias ocultos." />
+<meta name="disable_toc_fallback" content="true" />
+<meta name="document_id" content="4343f88d-c6c8-2181-514c-903bafba0f49" />
+<meta name="document_version_independent_id" content="4343f88d-c6c8-2181-514c-903bafba0f49" />
+<meta name="feedback_help_link_type" content="" />
+<meta name="feedback_help_link_url" content="" />
+<meta name="feedback_product_url" content="" />
+<meta name="feedback_system" content="Standard" />
+<meta name="git_commit_id" content="7d29d2df6799743be055ace871a7034a05189b28" />
+<meta name="gitcommit" content="https://github.com/MicrosoftDocs/enduser-excel-pr/blob/7d29d2df6799743be055ace871a7034a05189b28/Excel/get-started/create-a-pivottable-to-analyze-worksheet-data.md" />
+<meta name="loc_file_id" content="Github-1217467876.live.Learn.EndUser-Excel.get-started/create-a-pivottable-to-analyze-worksheet-data.md" />
+<meta name="loc_source_id" content="Github-1217467876#live" />
+<meta name="loc_version" content="2026-06-18T10:39:54.6762888Z" />
+<meta name="locale" content="es-es" />
+<meta name="manager" content="jecon" />
+<meta name="ms.author" content="aljerabe" />
+<meta name="ms.collection" content="Pivot Tables" />
+<meta name="ms.contentlocale" content="es-es" />
+<meta name="ms.context-sensitive-id" content="20428" />
+<meta name="ms.context-sensitive-id" content="85071" />
+<meta name="ms.context-sensitive-id" content="98560" />
+<meta name="ms.custom" content="Fusion_PivotTables" />
+<meta name="ms.custom" content="Gotit" />
+<meta name="ms.custom" content="KPI_Excel_PivotTables" />
+<meta name="ms.custom" content="Platform Tab" />
+<meta name="ms.custom" content="PivotTable" />
+<meta name="ms.custom" content="takelessons2" />
+<meta name="ms.custom" content="CSS_Deflection_Office_Excel" />
+<meta name="ms.custom" content="CSS_Accuracy_Office_Excel" />
+<meta name="ms.date" content="01/23/2026" />
+<meta name="ms.service" content="excel" />
+<meta name="ms.topic" content="how-to" />
+<meta name="ms.translationtype" content="MT" />
+<meta name="original_content_git_url" content="https://github.com/MicrosoftDocs/enduser-excel-pr/blob/live/Excel/get-started/create-a-pivottable-to-analyze-worksheet-data.md" />
+<meta name="page_type" content="conceptual" />
+<meta name="permissioned-type" content="public" />
+<meta name="schema" content="Conceptual" />
+<meta name="search.appverid" content="ZXL160,ZXL190,ZXL900,MXL900,ZXL210,MXL210,ZXL240,MXL240" />
+<meta name="site_name" content="SMC" />
+<meta name="toc_rel" content="../toc.json" />
+<meta name="updated_at" content="2026-10-04 09:02 AM" />
+<meta name="word_count" content="3205" />
+
+	<link rel="canonical" href="https://support.microsoft.com/es-es/excel/get-started/create-a-pivottable-to-analyze-worksheet-data" />
+
+	
+
+
+<meta name="awa-env" content="Production" />
+<meta name="awa-market" content="es-ES" />
+<meta name="awa-contentlang" content="es" />
+<meta name="awa-userFlightingId" content="764571b1-c2fc-4684-ac91-f61cc015ec52" />
+<meta name="awa-expid" content="P-R-1753027-1-1;P-D-1087983-1-1;P-E-1830045-C1-3;P-E-1693585-2-3;P-E-1661482-C1-3;P-E-1660511-C1-3;P-E-1656596-C1-5;P-E-1551018-2-8;P-E-1585233-C1-3;P-E-1560750-2-7;P-E-1554013-2-6;P-E-1536917-C1-5;P-E-1526785-2-5;P-E-1260007-C1-3;P-E-1046152-2-3;P-R-1545158-1-4;P-R-1426254-2-6;P-R-1392118-1-2;P-R-1245128-2-4;P-R-1235984-2-3;P-R-1211158-1-4;P-R-1150391-2-8;P-R-1150395-2-8;P-R-1150399-2-8;P-R-1150396-2-8;P-R-1150394-2-8;P-R-1150390-2-8;P-R-1150386-2-8;P-R-1146801-1-11;P-R-1141562-1-2;P-R-1141283-2-9;P-R-1136354-8-9;P-R-1119659-1-16;P-R-1119437-1-17;P-R-1116805-2-18;P-R-1116803-2-20;P-R-1114100-1-2;P-R-1100996-2-14;P-R-1096341-2-6;P-R-1088825-2-10;P-R-1089468-1-2;P-R-1085248-1-2;P-R-1072011-12-8;P-R-1033854-4-6;P-R-1029969-4-4;P-R-1020735-5-10;P-R-1018544-4-7;P-R-1009708-2-9;P-R-1005895-2-11;P-R-113175-4-7;P-R-113174-1-2;P-R-110379-1-7;P-R-107838-1-7;P-R-106524-1-3;P-R-103787-2-5;P-R-101783-1-2;P-R-97577-1-5;P-R-97457-1-10;P-R-94390-1-2;P-R-94360-10-25;P-R-93416-1-3;P-R-90963-2-2;P-R-85265-6-8;P-R-73296-2-15" />
+<meta name="awa-irisId" />
+<meta name="awa-origindatacenter" content="West Europe" />
+<meta name="awa-variationid" content="ECS" />
+<meta name="awa-prdct" content="office.com" />
+<meta name="awa-stv" content="3.3.0-71f5851451f347d74e9c92f26f8c402427818cb4&#x2B;71f5851451f347d74e9c92f26f8c402427818cb4" />
+
+
+ 
+	<meta name="awa-title" content="Crear una tabla din&#xE1;mica para analizar datos de una hoja de c&#xE1;lculo | Microsoft Support" />
+	<meta name="awa-selfHelpExp" content="uhflandingbanner_m365" />
+	<meta name="awa-dataBoundary" content="WW" />
+	
+	
+		<link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css?v=2FMn2Zx6PuH5tdBQDRNwrOo60ts5wWPC9R8jK67b3t4" crossorigin="anonymous" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" />
+	
+	<link rel="stylesheet" href="/css/sitewide/sitewide.css?v=MuqrNC72E8G9Js96VBBbw0VGWXMblTEtdcWprfQUH4Q" />
+	<link rel="stylesheet" href="/css/promotionbanner/promotion-banner.css?v=cAmflE3c6Gw7niTOiMPEie9MY87yDE2mSl3DO7_jZRI" />
+	<link rel="stylesheet" href="/css/glyphs/glyphs.css?v=VOnvhT441Pay0WAKH5gdcXXigXpiuNbaQcI9DgXyoDE" />
+	<link rel="stylesheet" href="/css/fonts/site-fonts.css?v=XWcxZPSEmN3tnHWAVMOFsAlPJq7aug49fUGb8saTNjw" />
+	<link rel="stylesheet" href="/css/MeControlCallout/teaching-callout.css?v=690pjf05o15fVEafEpUwgaF8vqVfOkp5wP1Jl9gE99U" />
+	
+	<link rel="stylesheet" href="/css/Learn/learn.min.css?v=d8pFdJgTwz1yFjtlwoktXFAMe3Zz2GvjRwepx_DX5Vo" />
+	<link rel="stylesheet" href="/css/promotionbanner/copilot-banner.css?v=PDcYGcklngroLgP7dtes49N9qqnVkpEYAWdfr_X9Kd8" />
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+
+	
+        <link rel="stylesheet" href="https://www.microsoft.com/onerfstatics/marketingsites-neu-prod/west-european/shell/_scrf/css/themes=default.device=uplevel_web_pc/63-57d110/c9-be0100/a6-e969ef/43-9f2e7c/82-8b5456/a0-5d3913/4f-460e79/ae-f1ac0c?ver=2.0&amp;_cf=02242021_3231" type="text/css" media="all" />
+    
+</head>
+<body class="article">
+	<div id="bodyWrapper">
+
+            <div id="headerArea" class="uhf"  data-m='{"cN":"headerArea","cT":"Area_coreuiArea","id":"a1Body","sN":1,"aN":"Body"}'>
+                <div id="headerRegion"      data-region-key="headerregion" data-m='{"cN":"headerRegion","cT":"Region_coreui-region","id":"r1a1","sN":1,"aN":"a1"}' >
+
+    <div  id="headerUniversalHeader" data-m='{"cN":"headerUniversalHeader","cT":"Module_coreui-universalheader","id":"m1r1a1","sN":1,"aN":"r1a1"}'  data-module-id="Category|headerRegion|coreui-region|headerUniversalHeader|coreui-universalheader">
+        
+
+
+
+
+
+
+        <a id="uhfSkipToMain" class="m-skip-to-main" href="javascript:void(0)" data-href="#supArticleContent" tabindex="0" data-m='{"cN":"Skip to content_nonnav","id":"nn1m1r1a1","sN":1,"aN":"m1r1a1"}'>Saltar al contenido principal</a>
+
+
+<header class="c-uhfh context-uhf no-js c-sgl-stck c-category-header " itemscope="itemscope" data-header-footprint="/SMCConvergence/ContextualHeader-Site, fromService: True"   data-magict="true"   itemtype="http://schema.org/Organization">
+    <div class="theme-light js-global-head f-closed  global-head-cont" data-m='{"cN":"Universal Header_cont","cT":"Container","id":"c2m1r1a1","sN":2,"aN":"m1r1a1"}'>
+        <div class="c-uhfh-gcontainer-st">
+            <button type="button" class="c-action-trigger c-glyph glyph-global-nav-button" aria-label="All Microsoft expand to see list of Microsoft products and services" initialState-label="All Microsoft expand to see list of Microsoft products and services" toggleState-label="Close All Microsoft list" aria-expanded="false" data-m='{"cN":"Mobile menu button_nonnav","id":"nn1c2m1r1a1","sN":1,"aN":"c2m1r1a1"}'></button>
+            <button type="button" class="c-action-trigger c-glyph glyph-arrow-htmllegacy c-close-search" aria-label="Cerrar la b&#250;squeda" aria-expanded="false" data-m='{"cN":"Close Search_nonnav","id":"nn2c2m1r1a1","sN":2,"aN":"c2m1r1a1"}'></button>
+                    <a id="uhfLogo" class="c-logo c-sgl-stk-uhfLogo" itemprop="url" href="https://www.microsoft.com" aria-label="Microsoft" data-m='{"cN":"GlobalNav_Logo_cont","cT":"Container","id":"c3c2m1r1a1","sN":3,"aN":"c2m1r1a1"}'>
+                        <img alt="" itemprop="logo" class="c-image" src="https://uhf.microsoft.com/images/microsoft/RE1Mu3b.png" role="presentation" aria-hidden="true" />
+                        <span itemprop="name" role="presentation" aria-hidden="true">Microsoft</span>
+                    </a>
+            <div class="f-mobile-title">
+                <button type="button" class="c-action-trigger c-glyph glyph-chevron-left" aria-label="Ver m&#225;s opciones del men&#250;" data-m='{"cN":"Mobile back button_nonnav","id":"nn4c2m1r1a1","sN":4,"aN":"c2m1r1a1"}'></button>
+                <span data-global-title="P&#225;gina principal de Microsoft" class="js-mobile-title">Soporte t&#233;cnico</span>
+                <button type="button" class="c-action-trigger c-glyph glyph-chevron-right" aria-label="Ver m&#225;s opciones del men&#250;" data-m='{"cN":"Mobile forward button_nonnav","id":"nn5c2m1r1a1","sN":5,"aN":"c2m1r1a1"}'></button>
+            </div>
+                    <div class="c-show-pipe x-hidden-vp-mobile-st">
+                        <a id="uhfCatLogo" class="c-logo c-cat-logo" href="https://support.microsoft.com/es-es" aria-label="Soporte t&#233;cnico" itemprop="url" data-m='{"cN":"CatNav_Soporte técnico_nav","id":"n6c2m1r1a1","sN":6,"aN":"c2m1r1a1"}'>
+                                <span>Soporte t&#233;cnico</span>
+                        </a>
+                    </div>
+                <div class="cat-logo-button-cont x-hidden">
+                        <button type="button" id="uhfCatLogoButton" class="c-cat-logo-button x-hidden" aria-expanded="false" aria-label="Soporte t&#233;cnico" data-m='{"cN":"Soporte técnico_nonnav","id":"nn7c2m1r1a1","sN":7,"aN":"c2m1r1a1"}'>
+                            Soporte t&#233;cnico
+                        </button>
+                </div>
+
+
+
+                    <nav id="uhf-g-nav" aria-label="Menú contextual" class="c-uhfh-gnav" data-m='{"cN":"Category nav_cont","cT":"Container","id":"c8c2m1r1a1","sN":8,"aN":"c2m1r1a1"}'>
+            <ul class="js-paddle-items">
+                    <li class="single-link js-nav-menu x-hidden-none-mobile-vp uhf-menu-item">
+                        <a class="c-uhf-nav-link" href="https://support.microsoft.com/es-es" data-m='{"cN":"CatNav_Inicio_nav","id":"n1c8c2m1r1a1","sN":1,"aN":"c8c2m1r1a1"}' > Inicio </a>
+                    </li>
+                                        <li class="single-link js-nav-menu uhf-menu-item">
+                            <a id="c-shellmenu_0" class="c-uhf-nav-link" href="https://www.microsoft.com/microsoft-365?ocid=cmmttvzgpuy" data-m='{"id":"n2c8c2m1r1a1","sN":2,"aN":"c8c2m1r1a1"}'>Microsoft 365</a>
+                        </li>
+                        <li class="single-link js-nav-menu uhf-menu-item">
+                            <a id="c-shellmenu_1" class="c-uhf-nav-link" href="https://www.microsoft.com/microsoft-365/microsoft-office?ocid=cmml7tr0rib" data-m='{"id":"n3c8c2m1r1a1","sN":3,"aN":"c8c2m1r1a1"}'>Office</a>
+                        </li>
+                        <li class="nested-menu uhf-menu-item">
+                            <div class="c-uhf-menu js-nav-menu">
+                                <button type="button" id="c-shellmenu_2"  aria-expanded="false" data-m='{"id":"nn4c8c2m1r1a1","sN":4,"aN":"c8c2m1r1a1"}'>Productos</button>
+
+                                <ul class="" data-class-idn="" aria-hidden="true" data-m='{"cT":"Container","id":"c5c8c2m1r1a1","sN":5,"aN":"c8c2m1r1a1"}'>
+        <li class="js-nav-menu single-link" data-m='{"cT":"Container","id":"c1c5c8c2m1r1a1","sN":1,"aN":"c5c8c2m1r1a1"}'>
+            <a id="c-shellmenu_3" class="js-subm-uhf-nav-link" href="https://support.microsoft.com/es-es/microsoft-365/" data-m='{"id":"n1c1c5c8c2m1r1a1","sN":1,"aN":"c1c5c8c2m1r1a1"}'>Microsoft 365</a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cT":"Container","id":"c2c5c8c2m1r1a1","sN":2,"aN":"c5c8c2m1r1a1"}'>
+            <a id="c-shellmenu_4" class="js-subm-uhf-nav-link" href="https://support.microsoft.com/es-es/outlook/" data-m='{"id":"n1c2c5c8c2m1r1a1","sN":1,"aN":"c2c5c8c2m1r1a1"}'>Outlook</a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cT":"Container","id":"c3c5c8c2m1r1a1","sN":3,"aN":"c5c8c2m1r1a1"}'>
+            <a id="c-shellmenu_5" class="js-subm-uhf-nav-link" href="https://support.microsoft.com/es-es/teams/" data-m='{"id":"n1c3c5c8c2m1r1a1","sN":1,"aN":"c3c5c8c2m1r1a1"}'>Microsoft Teams</a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cT":"Container","id":"c4c5c8c2m1r1a1","sN":4,"aN":"c5c8c2m1r1a1"}'>
+            <a id="c-shellmenu_6" class="js-subm-uhf-nav-link" href="https://support.microsoft.com/es-es/onedrive/" data-m='{"id":"n1c4c5c8c2m1r1a1","sN":1,"aN":"c4c5c8c2m1r1a1"}'>OneDrive</a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cT":"Container","id":"c5c5c8c2m1r1a1","sN":5,"aN":"c5c8c2m1r1a1"}'>
+            <a id="c-shellmenu_7" class="js-subm-uhf-nav-link" href="https://support.microsoft.com/es-es/microsoft-copilot/" data-m='{"id":"n1c5c5c8c2m1r1a1","sN":1,"aN":"c5c5c8c2m1r1a1"}'>Microsoft Copilot</a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cT":"Container","id":"c6c5c8c2m1r1a1","sN":6,"aN":"c5c8c2m1r1a1"}'>
+            <a id="c-shellmenu_8" class="js-subm-uhf-nav-link" href="https://support.microsoft.com/es-es/onenote/" data-m='{"id":"n1c6c5c8c2m1r1a1","sN":1,"aN":"c6c5c8c2m1r1a1"}'>OneNote</a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cT":"Container","id":"c7c5c8c2m1r1a1","sN":7,"aN":"c5c8c2m1r1a1"}'>
+            <a id="c-shellmenu_9" class="js-subm-uhf-nav-link" href="https://support.microsoft.com/es-es/windows/" data-m='{"id":"n1c7c5c8c2m1r1a1","sN":1,"aN":"c7c5c8c2m1r1a1"}'>Windows</a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cT":"Container","id":"c8c5c8c2m1r1a1","sN":8,"aN":"c5c8c2m1r1a1"}'>
+            <a id="c-shellmenu_10" class="js-subm-uhf-nav-link" href="https://support.microsoft.com/es-es/all-products-list" data-m='{"id":"n1c8c5c8c2m1r1a1","sN":1,"aN":"c8c5c8c2m1r1a1"}'>m&#225;s ...</a>
+            
+        </li>
+                                                    
+                                </ul>
+                            </div>
+                        </li>                        <li class="nested-menu uhf-menu-item">
+                            <div class="c-uhf-menu js-nav-menu">
+                                <button type="button" id="c-shellmenu_11"  aria-expanded="false" data-m='{"id":"nn6c8c2m1r1a1","sN":6,"aN":"c8c2m1r1a1"}'>Dispositivos</button>
+
+                                <ul class="" data-class-idn="" aria-hidden="true" data-m='{"cT":"Container","id":"c7c8c2m1r1a1","sN":7,"aN":"c8c2m1r1a1"}'>
+        <li class="js-nav-menu single-link" data-m='{"cT":"Container","id":"c1c7c8c2m1r1a1","sN":1,"aN":"c7c8c2m1r1a1"}'>
+            <a id="c-shellmenu_12" class="js-subm-uhf-nav-link" href="https://support.microsoft.com/es-es/surface/" data-m='{"id":"n1c1c7c8c2m1r1a1","sN":1,"aN":"c1c7c8c2m1r1a1"}'>Surface</a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cT":"Container","id":"c2c7c8c2m1r1a1","sN":2,"aN":"c7c8c2m1r1a1"}'>
+            <a id="c-shellmenu_13" class="js-subm-uhf-nav-link" href="https://support.microsoft.com/es-es/surface/accessories/pc/" data-m='{"id":"n1c2c7c8c2m1r1a1","sN":1,"aN":"c2c7c8c2m1r1a1"}'>Accesorios de PC</a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cT":"Container","id":"c3c7c8c2m1r1a1","sN":3,"aN":"c7c8c2m1r1a1"}'>
+            <a id="c-shellmenu_14" class="js-subm-uhf-nav-link" href="https://support.xbox.com/" data-m='{"id":"n1c3c7c8c2m1r1a1","sN":1,"aN":"c3c7c8c2m1r1a1"}'>Xbox</a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cT":"Container","id":"c4c7c8c2m1r1a1","sN":4,"aN":"c7c8c2m1r1a1"}'>
+            <a id="c-shellmenu_15" class="js-subm-uhf-nav-link" href="https://support.xbox.com/help/games-apps/my-games-apps/all-about-pc-gaming" data-m='{"id":"n1c4c7c8c2m1r1a1","sN":1,"aN":"c4c7c8c2m1r1a1"}'>Juegos en PC</a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cT":"Container","id":"c5c7c8c2m1r1a1","sN":5,"aN":"c7c8c2m1r1a1"}'>
+            <a id="c-shellmenu_16" class="js-subm-uhf-nav-link" href="https://docs.microsoft.com/hololens/" data-m='{"id":"n1c5c7c8c2m1r1a1","sN":1,"aN":"c5c7c8c2m1r1a1"}'>HoloLens</a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cT":"Container","id":"c6c7c8c2m1r1a1","sN":6,"aN":"c7c8c2m1r1a1"}'>
+            <a id="c-shellmenu_17" class="js-subm-uhf-nav-link" href="https://learn.microsoft.com/surface-hub/" data-m='{"id":"n1c6c7c8c2m1r1a1","sN":1,"aN":"c6c7c8c2m1r1a1"}'>Surface Hub</a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cT":"Container","id":"c7c7c8c2m1r1a1","sN":7,"aN":"c7c8c2m1r1a1"}'>
+            <a id="c-shellmenu_18" class="js-subm-uhf-nav-link" href="https://support.microsoft.com/es-es/surface/hardware-warranty/" data-m='{"id":"n1c7c7c8c2m1r1a1","sN":1,"aN":"c7c7c8c2m1r1a1"}'>Garant&#237;as de hardware</a>
+            
+        </li>
+                                                    
+                                </ul>
+                            </div>
+                        </li>                        <li class="single-link js-nav-menu uhf-menu-item">
+                            <a id="c-shellmenu_19" class="c-uhf-nav-link" href="https://support.microsoft.com/accounts-billing/" data-m='{"id":"n8c8c2m1r1a1","sN":8,"aN":"c8c2m1r1a1"}'>Cuenta y facturaci&#243;n</a>
+                        </li>
+                        <li class="nested-menu uhf-menu-item">
+                            <div class="c-uhf-menu js-nav-menu">
+                                <button type="button" id="c-shellmenu_20"  aria-expanded="false" data-m='{"id":"nn9c8c2m1r1a1","sN":9,"aN":"c8c2m1r1a1"}'>Recursos</button>
+
+                                <ul class="" data-class-idn="" aria-hidden="true" data-m='{"cT":"Container","id":"c10c8c2m1r1a1","sN":10,"aN":"c8c2m1r1a1"}'>
+        <li class="js-nav-menu single-link" data-m='{"cT":"Container","id":"c1c10c8c2m1r1a1","sN":1,"aN":"c10c8c2m1r1a1"}'>
+            <a id="c-shellmenu_21" class="js-subm-uhf-nav-link" href="https://learn.microsoft.com/answers/" data-m='{"id":"n1c1c10c8c2m1r1a1","sN":1,"aN":"c1c10c8c2m1r1a1"}'>Foros de la comunidadForos de la comunidad</a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cT":"Container","id":"c2c10c8c2m1r1a1","sN":2,"aN":"c10c8c2m1r1a1"}'>
+            <a id="c-shellmenu_22" class="js-subm-uhf-nav-link" href="https://portal.office.com/AdminPortal#/support" data-m='{"id":"n1c2c10c8c2m1r1a1","sN":1,"aN":"c2c10c8c2m1r1a1"}'>Administradores de Microsoft 365</a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cT":"Container","id":"c3c10c8c2m1r1a1","sN":3,"aN":"c10c8c2m1r1a1"}'>
+            <a id="c-shellmenu_23" class="js-subm-uhf-nav-link" href="https://developer.microsoft.com/" data-m='{"id":"n1c3c10c8c2m1r1a1","sN":1,"aN":"c3c10c8c2m1r1a1"}'>Desarrollador</a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cT":"Container","id":"c4c10c8c2m1r1a1","sN":4,"aN":"c10c8c2m1r1a1"}'>
+            <a id="c-shellmenu_24" class="js-subm-uhf-nav-link" href="https://support.microsoft.com/es-es/education/" data-m='{"id":"n1c4c10c8c2m1r1a1","sN":1,"aN":"c4c10c8c2m1r1a1"}'>Educaci&#243;n</a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cT":"Container","id":"c5c10c8c2m1r1a1","sN":5,"aN":"c10c8c2m1r1a1"}'>
+            <a id="c-shellmenu_25" class="js-subm-uhf-nav-link" href="https://www.microsoft.com/reportascam/" data-m='{"id":"n1c5c10c8c2m1r1a1","sN":1,"aN":"c5c10c8c2m1r1a1"}'>Comunicar una estafa de soporte t&#233;cnico</a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cT":"Container","id":"c6c10c8c2m1r1a1","sN":6,"aN":"c10c8c2m1r1a1"}'>
+            <a id="c-shellmenu_26" class="js-subm-uhf-nav-link" href="https://support.microsoft.com/es-es/surface/product-safety-guidelines" data-m='{"id":"n1c6c10c8c2m1r1a1","sN":1,"aN":"c6c10c8c2m1r1a1"}'>Seguridad del producto</a>
+            
+        </li>
+                                                    
+                                </ul>
+                            </div>
+                        </li>
+
+                <li id="overflow-menu" class="overflow-menu x-hidden uhf-menu-item">
+                        <div class="c-uhf-menu js-nav-menu">
+        <button data-m='{"pid":"Más","id":"nn11c8c2m1r1a1","sN":11,"aN":"c8c2m1r1a1"}' type="button" aria-label="M&#225;s" aria-expanded="false">M&#225;s</button>
+        <ul id="overflow-menu-list" aria-hidden="true" class="overflow-menu-list">
+        </ul>
+    </div>
+
+                </li>
+                                    <li class="single-link js-nav-menu" id="c-uhf-nav-cta">
+                        <a id="buyInstallButton" class="c-uhf-nav-link" href="https://go.microsoft.com/fwlink/?linkid=849747" data-m='{"cN":"CatNav_cta_Comprar Microsoft 365_nav","id":"n12c8c2m1r1a1","sN":12,"aN":"c8c2m1r1a1"}'>Comprar Microsoft 365</a>
+                    </li>
+            </ul>
+            
+        </nav>
+
+
+            <div class="c-uhfh-actions" data-m='{"cN":"Header actions_cont","cT":"Container","id":"c9c2m1r1a1","sN":9,"aN":"c2m1r1a1"}'>
+                <div class="wf-menu">        <nav id="uhf-c-nav" aria-label="Todo el menú de Microsoft" data-m='{"cN":"GlobalNav_cont","cT":"Container","id":"c1c9c2m1r1a1","sN":1,"aN":"c9c2m1r1a1"}'>
+            <ul class="js-paddle-items">
+                <li>
+                    <div class="c-uhf-menu js-nav-menu">
+                        <button type="button" class="c-button-logo all-ms-nav" aria-expanded="false" data-m='{"cN":"GlobalNav_More_nonnav","id":"nn1c1c9c2m1r1a1","sN":1,"aN":"c1c9c2m1r1a1"}'> <span>Todo Microsoft</span></button>
+                        <ul class="f-multi-column f-multi-column-6" aria-hidden="true" data-m='{"cN":"More_cont","cT":"Container","id":"c2c1c9c2m1r1a1","sN":2,"aN":"c1c9c2m1r1a1"}'>
+                                    <li class="c-w0-contr">
+            <h2 class="c-uhf-sronly">Global</h2>
+            <ul class="c-w0">
+        <li class="js-nav-menu single-link" data-m='{"cN":"M365_cont","cT":"Container","id":"c1c2c1c9c2m1r1a1","sN":1,"aN":"c2c1c9c2m1r1a1"}'>
+            <a id="shellmenu_27" class="js-subm-uhf-nav-link" href="https://www.microsoft.com/es-es/microsoft-365" data-m='{"cN":"W0Nav_M365_nav","id":"n1c1c2c1c9c2m1r1a1","sN":1,"aN":"c1c2c1c9c2m1r1a1"}'>Microsoft 365</a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cN":"GlobalAzure_cont","cT":"Container","id":"c2c2c1c9c2m1r1a1","sN":2,"aN":"c2c1c9c2m1r1a1"}'>
+            <a id="shellmenu_28" class="js-subm-uhf-nav-link" href="https://azure.microsoft.com/es-es?ocid=cmm4r4ppnhp" data-m='{"cN":"W0Nav_GlobalAzure_nav","id":"n1c2c2c1c9c2m1r1a1","sN":1,"aN":"c2c2c1c9c2m1r1a1"}'>Azure</a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cN":"Copilot_cont","cT":"Container","id":"c3c2c1c9c2m1r1a1","sN":3,"aN":"c2c1c9c2m1r1a1"}'>
+            <a id="shellmenu_29" class="js-subm-uhf-nav-link" href="https://copilot.com/?fromcode=cmmuaql67jy" data-m='{"cN":"W0Nav_Copilot_nav","id":"n1c3c2c1c9c2m1r1a1","sN":1,"aN":"c3c2c1c9c2m1r1a1"}'>Copilot</a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cN":"Windows_cont","cT":"Container","id":"c4c2c1c9c2m1r1a1","sN":4,"aN":"c2c1c9c2m1r1a1"}'>
+            <a id="shellmenu_30" class="js-subm-uhf-nav-link" href="https://www.microsoft.com/es-es/windows/" data-m='{"cN":"W0Nav_Windows_nav","id":"n1c4c2c1c9c2m1r1a1","sN":1,"aN":"c4c2c1c9c2m1r1a1"}'>Windows</a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cN":"Surface_cont","cT":"Container","id":"c5c2c1c9c2m1r1a1","sN":5,"aN":"c2c1c9c2m1r1a1"}'>
+            <a id="shellmenu_31" class="js-subm-uhf-nav-link" href="https://www.microsoft.com/surface" data-m='{"cN":"W0Nav_Surface_nav","id":"n1c5c2c1c9c2m1r1a1","sN":1,"aN":"c5c2c1c9c2m1r1a1"}'>Surface</a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cN":"XBOX_cont","cT":"Container","id":"c6c2c1c9c2m1r1a1","sN":6,"aN":"c2c1c9c2m1r1a1"}'>
+            <a id="shellmenu_32" class="js-subm-uhf-nav-link" href="https://www.xbox.com/" data-m='{"cN":"W0Nav_XBOX_nav","id":"n1c6c2c1c9c2m1r1a1","sN":1,"aN":"c6c2c1c9c2m1r1a1"}'>XBOX</a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cN":"Deals_cont","cT":"Container","id":"c7c2c1c9c2m1r1a1","sN":7,"aN":"c2c1c9c2m1r1a1"}'>
+            <a id="shellmenu_33" class="js-subm-uhf-nav-link" href="https://www.microsoft.com/es-es/store/b/sale?icid=DSM_TopNavDeals" data-m='{"cN":"W0Nav_Deals_nav","id":"n1c7c2c1c9c2m1r1a1","sN":1,"aN":"c7c2c1c9c2m1r1a1"}'>Ofertas</a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cN":"Small Business_cont","cT":"Container","id":"c8c2c1c9c2m1r1a1","sN":8,"aN":"c2c1c9c2m1r1a1"}'>
+            <a id="l0_SmallBusiness" class="js-subm-uhf-nav-link" href="https://www.microsoft.com/es-es/store/b/business" data-m='{"cN":"W0Nav_Small Business_nav","id":"n1c8c2c1c9c2m1r1a1","sN":1,"aN":"c8c2c1c9c2m1r1a1"}'>Peque&#241;as empresas</a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cN":"Support_cont","cT":"Container","id":"c9c2c1c9c2m1r1a1","sN":9,"aN":"c2c1c9c2m1r1a1"}'>
+            <a id="l1_support" class="js-subm-uhf-nav-link" href="https://support.microsoft.com/es-es" data-m='{"cN":"W0Nav_Support_nav","id":"n1c9c2c1c9c2m1r1a1","sN":1,"aN":"c9c2c1c9c2m1r1a1"}'>Soporte</a>
+            
+        </li>
+            </ul>
+        </li>
+
+<li class="f-sub-menu js-nav-menu nested-menu" data-m='{"cT":"Container","id":"c10c2c1c9c2m1r1a1","sN":10,"aN":"c2c1c9c2m1r1a1"}'>
+
+    <span id="uhf-navspn-shellmenu_37-span" style="display:none"   f-multi-parent="true" aria-expanded="false" data-m='{"id":"nn1c10c2c1c9c2m1r1a1","sN":1,"aN":"c10c2c1c9c2m1r1a1"}'>Software</span>
+    <button id="uhf-navbtn-shellmenu_37-button" type="button"   f-multi-parent="true" aria-expanded="false" data-m='{"id":"nn2c10c2c1c9c2m1r1a1","sN":2,"aN":"c10c2c1c9c2m1r1a1"}'>Software</button>
+    <ul aria-hidden="true" aria-labelledby="uhf-navspn-shellmenu_37-span">
+        <li class="js-nav-menu single-link" data-m='{"cN":"More_Software_WindowsApps_cont","cT":"Container","id":"c3c10c2c1c9c2m1r1a1","sN":3,"aN":"c10c2c1c9c2m1r1a1"}'>
+            <a id="shellmenu_38" class="js-subm-uhf-nav-link" href="https://apps.microsoft.com/home" data-m='{"cN":"GlobalNav_More_Software_WindowsApps_nav","id":"n1c3c10c2c1c9c2m1r1a1","sN":1,"aN":"c3c10c2c1c9c2m1r1a1"}'>Aplicaciones Windows</a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cN":"More_Software_OneDrive_cont","cT":"Container","id":"c4c10c2c1c9c2m1r1a1","sN":4,"aN":"c10c2c1c9c2m1r1a1"}'>
+            <a id="shellmenu_39" class="js-subm-uhf-nav-link" href="https://www.microsoft.com/es-es/microsoft-365/onedrive/online-cloud-storage" data-m='{"cN":"GlobalNav_More_Software_OneDrive_nav","id":"n1c4c10c2c1c9c2m1r1a1","sN":1,"aN":"c4c10c2c1c9c2m1r1a1"}'>OneDrive</a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cN":"More_Software_Outlook_cont","cT":"Container","id":"c5c10c2c1c9c2m1r1a1","sN":5,"aN":"c10c2c1c9c2m1r1a1"}'>
+            <a id="shellmenu_40" class="js-subm-uhf-nav-link" href="https://www.microsoft.com/es-es/microsoft-365/outlook/email-and-calendar-software-microsoft-outlook" data-m='{"cN":"GlobalNav_More_Software_Outlook_nav","id":"n1c5c10c2c1c9c2m1r1a1","sN":1,"aN":"c5c10c2c1c9c2m1r1a1"}'>Outlook</a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cN":"More_Software_Skype_cont","cT":"Container","id":"c6c10c2c1c9c2m1r1a1","sN":6,"aN":"c10c2c1c9c2m1r1a1"}'>
+            <a id="shellmenu_41" class="js-subm-uhf-nav-link" href="https://support.microsoft.com/es-es/office/pasar-de-skype-a-microsoft-teams-gratis-3c0caa26-d9db-4179-bcb3-930ae2c87570?icid=DSM_All_Skype" data-m='{"cN":"GlobalNav_More_Software_Skype_nav","id":"n1c6c10c2c1c9c2m1r1a1","sN":1,"aN":"c6c10c2c1c9c2m1r1a1"}'>Paso de Skype a Teams</a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cN":"More_Software_OneNote_cont","cT":"Container","id":"c7c10c2c1c9c2m1r1a1","sN":7,"aN":"c10c2c1c9c2m1r1a1"}'>
+            <a id="shellmenu_42" class="js-subm-uhf-nav-link" href="https://www.microsoft.com/es-es/microsoft-365/onenote/digital-note-taking-app" data-m='{"cN":"GlobalNav_More_Software_OneNote_nav","id":"n1c7c10c2c1c9c2m1r1a1","sN":1,"aN":"c7c10c2c1c9c2m1r1a1"}'>OneNote</a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cN":"More_Software_Microsoft Teams_cont","cT":"Container","id":"c8c10c2c1c9c2m1r1a1","sN":8,"aN":"c10c2c1c9c2m1r1a1"}'>
+            <a id="shellmenu_43" class="js-subm-uhf-nav-link" href="https://www.microsoft.com/es-es/microsoft-teams/group-chat-software" data-m='{"cN":"GlobalNav_More_Software_Microsoft Teams_nav","id":"n1c8c10c2c1c9c2m1r1a1","sN":1,"aN":"c8c10c2c1c9c2m1r1a1"}'>Microsoft Teams</a>
+            
+        </li>
+    </ul>
+    
+</li>
+<li class="f-sub-menu js-nav-menu nested-menu" data-m='{"cN":"PCsAndDevices_cont","cT":"Container","id":"c11c2c1c9c2m1r1a1","sN":11,"aN":"c2c1c9c2m1r1a1"}'>
+
+    <span id="uhf-navspn-shellmenu_44-span" style="display:none"   f-multi-parent="true" aria-expanded="false" data-m='{"cN":"GlobalNav_PCsAndDevices_nonnav","id":"nn1c11c2c1c9c2m1r1a1","sN":1,"aN":"c11c2c1c9c2m1r1a1"}'>PCs y dispositivos</span>
+    <button id="uhf-navbtn-shellmenu_44-button" type="button"   f-multi-parent="true" aria-expanded="false" data-m='{"cN":"GlobalNav_PCsAndDevices_nonnav","id":"nn2c11c2c1c9c2m1r1a1","sN":2,"aN":"c11c2c1c9c2m1r1a1"}'>PCs y dispositivos</button>
+    <ul aria-hidden="true" aria-labelledby="uhf-navspn-shellmenu_44-span">
+        <li class="js-nav-menu single-link" data-m='{"cN":"More_PCsAndDevices_ShopXbox_cont","cT":"Container","id":"c3c11c2c1c9c2m1r1a1","sN":3,"aN":"c11c2c1c9c2m1r1a1"}'>
+            <a id="shellmenu_45" class="js-subm-uhf-nav-link" href="https://www.microsoft.com/es-es/store/b/xbox?icid=DSM_All_ShopXbox" data-m='{"cN":"GlobalNav_More_PCsAndDevices_ShopXbox_nav","id":"n1c3c11c2c1c9c2m1r1a1","sN":1,"aN":"c3c11c2c1c9c2m1r1a1"}'>Comprar XBOX</a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cN":"More_PCsAndDevices_Accessories_cont","cT":"Container","id":"c4c11c2c1c9c2m1r1a1","sN":4,"aN":"c11c2c1c9c2m1r1a1"}'>
+            <a id="shellmenu_46" class="js-subm-uhf-nav-link" href="https://www.microsoft.com/es-es/store/b/accessories?icid=CNavDevicesAccessories" data-m='{"cN":"GlobalNav_More_PCsAndDevices_Accessories_nav","id":"n1c4c11c2c1c9c2m1r1a1","sN":1,"aN":"c4c11c2c1c9c2m1r1a1"}'>Accesorios</a>
+            
+        </li>
+    </ul>
+    
+</li>
+<li class="f-sub-menu js-nav-menu nested-menu" data-m='{"cT":"Container","id":"c12c2c1c9c2m1r1a1","sN":12,"aN":"c2c1c9c2m1r1a1"}'>
+
+    <span id="uhf-navspn-shellmenu_47-span" style="display:none"   f-multi-parent="true" aria-expanded="false" data-m='{"id":"nn1c12c2c1c9c2m1r1a1","sN":1,"aN":"c12c2c1c9c2m1r1a1"}'>Entretenimiento</span>
+    <button id="uhf-navbtn-shellmenu_47-button" type="button"   f-multi-parent="true" aria-expanded="false" data-m='{"id":"nn2c12c2c1c9c2m1r1a1","sN":2,"aN":"c12c2c1c9c2m1r1a1"}'>Entretenimiento</button>
+    <ul aria-hidden="true" aria-labelledby="uhf-navspn-shellmenu_47-span">
+        <li class="js-nav-menu single-link" data-m='{"cN":"More_Entertainment_XboxGamePassUltimate_cont","cT":"Container","id":"c3c12c2c1c9c2m1r1a1","sN":3,"aN":"c12c2c1c9c2m1r1a1"}'>
+            <a id="shellmenu_48" class="js-subm-uhf-nav-link" href="https://www.xbox.com/es-es/games/store/xbox-game-pass-ultimate/cfq7ttc0khs0?icid=DSM_All_XboxGamePassUltimate" data-m='{"cN":"GlobalNav_More_Entertainment_XboxGamePassUltimate_nav","id":"n1c3c12c2c1c9c2m1r1a1","sN":1,"aN":"c3c12c2c1c9c2m1r1a1"}'>XBOX Game Pass Ultimate</a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cN":"More_Entertainment_XboxGames_cont","cT":"Container","id":"c4c12c2c1c9c2m1r1a1","sN":4,"aN":"c12c2c1c9c2m1r1a1"}'>
+            <a id="shellmenu_49" class="js-subm-uhf-nav-link" href="https://www.microsoft.com/es-es/store/top-paid/games/xbox?icid=DSM_All_XboxGames" data-m='{"cN":"GlobalNav_More_Entertainment_XboxGames_nav","id":"n1c4c12c2c1c9c2m1r1a1","sN":1,"aN":"c4c12c2c1c9c2m1r1a1"}'>XBOX y juegos</a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cN":"More_Entertainment_PCGames_cont","cT":"Container","id":"c5c12c2c1c9c2m1r1a1","sN":5,"aN":"c12c2c1c9c2m1r1a1"}'>
+            <a id="shellmenu_50" class="js-subm-uhf-nav-link" href="https://apps.microsoft.com/games" data-m='{"cN":"GlobalNav_More_Entertainment_PCGames_nav","id":"n1c5c12c2c1c9c2m1r1a1","sN":1,"aN":"c5c12c2c1c9c2m1r1a1"}'>Juegos para PC</a>
+            
+        </li>
+    </ul>
+    
+</li>
+<li class="f-sub-menu js-nav-menu nested-menu" data-m='{"cT":"Container","id":"c13c2c1c9c2m1r1a1","sN":13,"aN":"c2c1c9c2m1r1a1"}'>
+
+    <span id="uhf-navspn-shellmenu_51-span" style="display:none"   f-multi-parent="true" aria-expanded="false" data-m='{"id":"nn1c13c2c1c9c2m1r1a1","sN":1,"aN":"c13c2c1c9c2m1r1a1"}'>Empresas</span>
+    <button id="uhf-navbtn-shellmenu_51-button" type="button"   f-multi-parent="true" aria-expanded="false" data-m='{"id":"nn2c13c2c1c9c2m1r1a1","sN":2,"aN":"c13c2c1c9c2m1r1a1"}'>Empresas</button>
+    <ul aria-hidden="true" aria-labelledby="uhf-navspn-shellmenu_51-span">
+        <li class="js-nav-menu single-link" data-m='{"cN":"More_Business_AI_cont","cT":"Container","id":"c3c13c2c1c9c2m1r1a1","sN":3,"aN":"c13c2c1c9c2m1r1a1"}'>
+            <a id="shellmenu_52" class="js-subm-uhf-nav-link" href="https://www.microsoft.com/es-es/ai?icid=DSM_All_AI" data-m='{"cN":"GlobalNav_More_Business_AI_nav","id":"n1c3c13c2c1c9c2m1r1a1","sN":1,"aN":"c3c13c2c1c9c2m1r1a1"}'>Microsoft AI</a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cN":"More_Business_Microsoft Security_cont","cT":"Container","id":"c4c13c2c1c9c2m1r1a1","sN":4,"aN":"c13c2c1c9c2m1r1a1"}'>
+            <a id="shellmenu_53" class="js-subm-uhf-nav-link" href="https://www.microsoft.com/es-es/security" data-m='{"cN":"GlobalNav_More_Business_Microsoft Security_nav","id":"n1c4c13c2c1c9c2m1r1a1","sN":1,"aN":"c4c13c2c1c9c2m1r1a1"}'>Seguridad de Microsoft</a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cN":"More_DeveloperAndIT_Azure_cont","cT":"Container","id":"c5c13c2c1c9c2m1r1a1","sN":5,"aN":"c13c2c1c9c2m1r1a1"}'>
+            <a id="shellmenu_54" class="js-subm-uhf-nav-link" href="https://azure.microsoft.com/es-es/" data-m='{"cN":"GlobalNav_More_DeveloperAndIT_Azure_nav","id":"n1c5c13c2c1c9c2m1r1a1","sN":1,"aN":"c5c13c2c1c9c2m1r1a1"}'>Azure</a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cN":"More_Business_MicrosoftDynamics365_cont","cT":"Container","id":"c6c13c2c1c9c2m1r1a1","sN":6,"aN":"c13c2c1c9c2m1r1a1"}'>
+            <a id="shellmenu_55" class="js-subm-uhf-nav-link" href="https://www.microsoft.com/es-es/dynamics-365" data-m='{"cN":"GlobalNav_More_Business_MicrosoftDynamics365_nav","id":"n1c6c13c2c1c9c2m1r1a1","sN":1,"aN":"c6c13c2c1c9c2m1r1a1"}'>Dynamics 365</a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cN":"More_Business_Microsoft365forbusiness_cont","cT":"Container","id":"c7c13c2c1c9c2m1r1a1","sN":7,"aN":"c13c2c1c9c2m1r1a1"}'>
+            <a id="shellmenu_56" class="js-subm-uhf-nav-link" href="https://www.microsoft.com/es-es/microsoft-365/business" data-m='{"cN":"GlobalNav_More_Business_Microsoft365forbusiness_nav","id":"n1c7c13c2c1c9c2m1r1a1","sN":1,"aN":"c7c13c2c1c9c2m1r1a1"}'>Microsoft 365 para empresas</a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cN":"More_Business_MicrosoftPowerPlatform_cont","cT":"Container","id":"c8c13c2c1c9c2m1r1a1","sN":8,"aN":"c13c2c1c9c2m1r1a1"}'>
+            <a id="shellmenu_57" class="js-subm-uhf-nav-link" href="https://www.microsoft.com/es-es/power-platform" data-m='{"cN":"GlobalNav_More_Business_MicrosoftPowerPlatform_nav","id":"n1c8c13c2c1c9c2m1r1a1","sN":1,"aN":"c8c13c2c1c9c2m1r1a1"}'>Microsoft Power Platform</a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cN":"More_Business_Windows365_cont","cT":"Container","id":"c9c13c2c1c9c2m1r1a1","sN":9,"aN":"c13c2c1c9c2m1r1a1"}'>
+            <a id="shellmenu_58" class="js-subm-uhf-nav-link" href="https://www.microsoft.com/es-es/windows-365" data-m='{"cN":"GlobalNav_More_Business_Windows365_nav","id":"n1c9c13c2c1c9c2m1r1a1","sN":1,"aN":"c9c13c2c1c9c2m1r1a1"}'>Windows 365</a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cN":"More_Business_Sovereignty_cont","cT":"Container","id":"c10c13c2c1c9c2m1r1a1","sN":10,"aN":"c13c2c1c9c2m1r1a1"}'>
+            <a id="shellmenu_59" class="js-subm-uhf-nav-link" href="https://www.microsoft.com/es-es/sovereignty?icid=DSM_More_Sovereignty" data-m='{"cN":"GlobalNav_More_Business_Sovereignty_nav","id":"n1c10c13c2c1c9c2m1r1a1","sN":1,"aN":"c10c13c2c1c9c2m1r1a1"}'>Soberan&#237;a digital</a>
+            
+        </li>
+    </ul>
+    
+</li>
+<li class="f-sub-menu js-nav-menu nested-menu" data-m='{"cT":"Container","id":"c14c2c1c9c2m1r1a1","sN":14,"aN":"c2c1c9c2m1r1a1"}'>
+
+    <span id="uhf-navspn-shellmenu_60-span" style="display:none"   f-multi-parent="true" aria-expanded="false" data-m='{"id":"nn1c14c2c1c9c2m1r1a1","sN":1,"aN":"c14c2c1c9c2m1r1a1"}'>Desarrolladores y TI
+</span>
+    <button id="uhf-navbtn-shellmenu_60-button" type="button"   f-multi-parent="true" aria-expanded="false" data-m='{"id":"nn2c14c2c1c9c2m1r1a1","sN":2,"aN":"c14c2c1c9c2m1r1a1"}'>Desarrolladores y TI
+</button>
+    <ul aria-hidden="true" aria-labelledby="uhf-navspn-shellmenu_60-span">
+        <li class="js-nav-menu single-link" data-m='{"cN":"More_DeveloperAndIT_MicrosoftDeveloper_cont","cT":"Container","id":"c3c14c2c1c9c2m1r1a1","sN":3,"aN":"c14c2c1c9c2m1r1a1"}'>
+            <a id="shellmenu_61" class="js-subm-uhf-nav-link" href="https://developer.microsoft.com/es-es/" data-m='{"cN":"GlobalNav_More_DeveloperAndIT_MicrosoftDeveloper_nav","id":"n1c3c14c2c1c9c2m1r1a1","sN":1,"aN":"c3c14c2c1c9c2m1r1a1"}'>Desarrollador de Microsoft</a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cN":"More_DeveloperAndIT_MicrosoftLearn_cont","cT":"Container","id":"c4c14c2c1c9c2m1r1a1","sN":4,"aN":"c14c2c1c9c2m1r1a1"}'>
+            <a id="shellmenu_62" class="js-subm-uhf-nav-link" href="https://learn.microsoft.com/" data-m='{"cN":"GlobalNav_More_DeveloperAndIT_MicrosoftLearn_nav","id":"n1c4c14c2c1c9c2m1r1a1","sN":1,"aN":"c4c14c2c1c9c2m1r1a1"}'>Microsoft Learn</a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cN":"More_DeveloperAndIT_SupportForAIMarketplaceApps_cont","cT":"Container","id":"c5c14c2c1c9c2m1r1a1","sN":5,"aN":"c14c2c1c9c2m1r1a1"}'>
+            <a id="shellmenu_63" class="js-subm-uhf-nav-link" href="https://www.microsoft.com/software-development-companies/offers-benefits/isv-success?icid=DSM_All_SupportAIMarketplace&amp;ocid=cmm3atxvn98" data-m='{"cN":"GlobalNav_More_DeveloperAndIT_SupportForAIMarketplaceApps_nav","id":"n1c5c14c2c1c9c2m1r1a1","sN":1,"aN":"c5c14c2c1c9c2m1r1a1"}'>Soporte t&#233;cnico para aplicaciones del marketplace de IA</a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cN":"More_DeveloperAndIT_MicrosoftTechCommunity_cont","cT":"Container","id":"c6c14c2c1c9c2m1r1a1","sN":6,"aN":"c14c2c1c9c2m1r1a1"}'>
+            <a id="shellmenu_64" class="js-subm-uhf-nav-link" href="https://techcommunity.microsoft.com/" data-m='{"cN":"GlobalNav_More_DeveloperAndIT_MicrosoftTechCommunity_nav","id":"n1c6c14c2c1c9c2m1r1a1","sN":1,"aN":"c6c14c2c1c9c2m1r1a1"}'>Microsoft Tech Community</a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cN":"More_DeveloperAndIT_Marketplace_cont","cT":"Container","id":"c7c14c2c1c9c2m1r1a1","sN":7,"aN":"c14c2c1c9c2m1r1a1"}'>
+            <a id="shellmenu_65" class="js-subm-uhf-nav-link" href="https://marketplace.microsoft.com?icid=DSM_All_Marketplace&amp;ocid=cmm3atxvn98" data-m='{"cN":"GlobalNav_More_DeveloperAndIT_Marketplace_nav","id":"n1c7c14c2c1c9c2m1r1a1","sN":1,"aN":"c7c14c2c1c9c2m1r1a1"}'>Microsoft Marketplace</a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cN":"Software companies_cont","cT":"Container","id":"c8c14c2c1c9c2m1r1a1","sN":8,"aN":"c14c2c1c9c2m1r1a1"}'>
+            <a id="shellmenu_66" class="js-subm-uhf-nav-link" href="https://www.microsoft.com/software-development-companies?icid=DSM_All_SoftwareCompanies&amp;ocid=cmm3atxvn98" data-m='{"cN":"GlobalNav_Software companies_nav","id":"n1c8c14c2c1c9c2m1r1a1","sN":1,"aN":"c8c14c2c1c9c2m1r1a1"}'>Empresas de software</a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cN":"More_DeveloperAndIT_VisualStudio_cont","cT":"Container","id":"c9c14c2c1c9c2m1r1a1","sN":9,"aN":"c14c2c1c9c2m1r1a1"}'>
+            <a id="shellmenu_67" class="js-subm-uhf-nav-link" href="https://visualstudio.microsoft.com/" data-m='{"cN":"GlobalNav_More_DeveloperAndIT_VisualStudio_nav","id":"n1c9c14c2c1c9c2m1r1a1","sN":1,"aN":"c9c14c2c1c9c2m1r1a1"}'>Visual Studio</a>
+            
+        </li>
+    </ul>
+    
+</li>
+<li class="f-sub-menu js-nav-menu nested-menu" data-m='{"cT":"Container","id":"c15c2c1c9c2m1r1a1","sN":15,"aN":"c2c1c9c2m1r1a1"}'>
+
+    <span id="uhf-navspn-shellmenu_68-span" style="display:none"   f-multi-parent="true" aria-expanded="false" data-m='{"id":"nn1c15c2c1c9c2m1r1a1","sN":1,"aN":"c15c2c1c9c2m1r1a1"}'>Otro</span>
+    <button id="uhf-navbtn-shellmenu_68-button" type="button"   f-multi-parent="true" aria-expanded="false" data-m='{"id":"nn2c15c2c1c9c2m1r1a1","sN":2,"aN":"c15c2c1c9c2m1r1a1"}'>Otro</button>
+    <ul aria-hidden="true" aria-labelledby="uhf-navspn-shellmenu_68-span">
+        <li class="js-nav-menu single-link" data-m='{"cN":"More_Other_Microsoft Rewards_cont","cT":"Container","id":"c3c15c2c1c9c2m1r1a1","sN":3,"aN":"c15c2c1c9c2m1r1a1"}'>
+            <a id="shellmenu_69" class="js-subm-uhf-nav-link" href="https://www.microsoft.com/rewards" data-m='{"cN":"GlobalNav_More_Other_Microsoft Rewards_nav","id":"n1c3c15c2c1c9c2m1r1a1","sN":1,"aN":"c3c15c2c1c9c2m1r1a1"}'>Microsoft Rewards </a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cN":"More_Other_FreeDownloadsAndSecurity_cont","cT":"Container","id":"c4c15c2c1c9c2m1r1a1","sN":4,"aN":"c15c2c1c9c2m1r1a1"}'>
+            <a id="shellmenu_70" class="js-subm-uhf-nav-link" href="https://www.microsoft.com/es-es/download" data-m='{"cN":"GlobalNav_More_Other_FreeDownloadsAndSecurity_nav","id":"n1c4c15c2c1c9c2m1r1a1","sN":1,"aN":"c4c15c2c1c9c2m1r1a1"}'>Seguridad y descargas gratuitas</a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cN":"More_Other_Education_cont","cT":"Container","id":"c5c15c2c1c9c2m1r1a1","sN":5,"aN":"c15c2c1c9c2m1r1a1"}'>
+            <a id="shellmenu_71" class="js-subm-uhf-nav-link" href="https://www.microsoft.com/es-es/education?icid=CNavMSCOML0_Studentsandeducation" data-m='{"cN":"GlobalNav_More_Other_Education_nav","id":"n1c5c15c2c1c9c2m1r1a1","sN":1,"aN":"c5c15c2c1c9c2m1r1a1"}'>Educaci&#243;n</a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cN":"More_Other_GiftCards_cont","cT":"Container","id":"c6c15c2c1c9c2m1r1a1","sN":6,"aN":"c15c2c1c9c2m1r1a1"}'>
+            <a id="shellmenu_72" class="js-subm-uhf-nav-link" href="https://www.microsoft.com/es-es/store/b/gift-cards" data-m='{"cN":"GlobalNav_More_Other_GiftCards_nav","id":"n1c6c15c2c1c9c2m1r1a1","sN":1,"aN":"c6c15c2c1c9c2m1r1a1"}'>Tarjetas regalo</a>
+            
+        </li>
+        <li class="js-nav-menu single-link" data-m='{"cN":"More_Other_Licensing_cont","cT":"Container","id":"c7c15c2c1c9c2m1r1a1","sN":7,"aN":"c15c2c1c9c2m1r1a1"}'>
+            <a id="Licensing" class="js-subm-uhf-nav-link" href="https://www.microsoft.com/licensing/" data-m='{"cN":"GlobalNav_More_Other_Licensing_nav","id":"n1c7c15c2c1c9c2m1r1a1","sN":1,"aN":"c7c15c2c1c9c2m1r1a1"}'>Licenciamiento</a>
+            
+        </li>
+    </ul>
+    
+</li>
+                                                            <li class="f-multi-column-info">
+                                    <a data-m='{"id":"n16c2c1c9c2m1r1a1","sN":16,"aN":"c2c1c9c2m1r1a1"}' href="https://www.microsoft.com/es-es/sitemap" aria-label="" class="c-glyph">Ver mapa del sitio</a>
+                                </li>
+                            
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+</div>
+                            <form class="c-search" autocomplete="off" id="searchForm" name="searchForm" role="search" action="/es-es/Search/results" method="GET" data-seAutoSuggest='{"isAutosuggestDisabled":false,"queryParams":{"market":"es-es","clientId":"7F27B536-CF6B-4C65-8638-A0F8CBDFCA65","sources":"Microsoft-Terms,Iris-Products,DCatAll-Products","filter":"+ClientType:StoreWeb","counts":"5,1,5"},"familyNames":{"Apps":"Aplicación","Books":"Libro","Bundles":"Pack","Devices":"Dispositivo","Fees":"Fee","Games":"Juego","MusicAlbums":"Álbum","MusicTracks":"Canción","MusicVideos":"Vídeo","MusicArtists":"Artista","OperatingSystem":"Sistema operativo","Software":"Software","Movies":"Película","TV":"Televisión","CSV":"Tarjeta de regalo","VideoActor":"Actor"}}' data-seautosuggestapi="https://www.microsoft.com/msstoreapiprod/api/autosuggest" data-m='{"cN":"GlobalNav_Search_cont","cT":"Container","id":"c3c1c9c2m1r1a1","sN":3,"aN":"c1c9c2m1r1a1"}' aria-expanded="false">
+                                <input  id="cli_shellHeaderSearchInput" aria-label="B&#250;squeda ampliada" aria-expanded="false" aria-controls="universal-header-search-auto-suggest-transparent" aria-owns="universal-header-search-auto-suggest-ul" type="search" name="query" placeholder="B&#250;squeda de ayuda" data-m='{"cN":"SearchBox_nav","id":"n1c3c1c9c2m1r1a1","sN":1,"aN":"c3c1c9c2m1r1a1"}' data-toggle="tooltip" data-placement="right" title="B&#250;squeda de ayuda" />
+                                    <button id="search" aria-label="B&#250;squeda de ayuda" class="c-glyph" data-m='{"cN":"Search_nav","id":"n2c3c1c9c2m1r1a1","sN":2,"aN":"c3c1c9c2m1r1a1"}' data-bi-mto="true" aria-expanded="false" disabled="disabled">
+                                        <span role="presentation">Buscar</span>
+                                        <span role="tooltip" class="c-uhf-tooltip c-uhf-search-tooltip">B&#250;squeda de ayuda</span>
+                                    </button>
+                                <div class="m-auto-suggest" id="universal-header-search-auto-suggest-transparent" role="group">
+                                    <ul class="c-menu" id="universal-header-search-auto-suggest-ul" aria-label="Sugerencias de b&#250;squeda" aria-hidden="true" data-bi-dnt="true" data-bi-mto="true" data-js-auto-suggest-position="default" role="listbox" data-tel="jsll" data-m='{"cN":"search suggestions_cont","cT":"Container","id":"c3c3c1c9c2m1r1a1","sN":3,"aN":"c3c1c9c2m1r1a1"}'></ul>
+                                    <ul class="c-menu f-auto-suggest-no-results" aria-hidden="true" aria-label="Sin resultados" data-js-auto-suggest-postion="default" data-js-auto-suggest-position="default" role="listbox">
+                                        <li class="c-menu-item" role="option" aria-disabled="true"> <span tabindex="-1">Sin resultados</span></li>
+                                    </ul>
+                                </div>
+                                
+                            </form>
+                        <button data-m='{"cN":"cancel-search","pid":"Cancelar Buscar","id":"nn4c1c9c2m1r1a1","sN":4,"aN":"c1c9c2m1r1a1"}' id="cancel-search" class="cancel-search" aria-label="Cancelar Buscar">
+                            <span>Cancelar</span>
+                        </button>
+                        <div id="meControl" class="c-me" data-bi-cn="GlobalNav_Account_SignIn"  data-signinsettings='{"containerId":"meControl","enabled":true,"headerHeight":48,"debug":false,"extensibleLinks":[{"string":"Historial de pedidos","url":"https://www.microsoftstore.com/store/mseea/es_ES/DisplayAccountOrderListPage","id":""},{"string":"Historial de devolución","url":"https://www.microsoftstore.com/store/mseea/es_ES/DisplayAccountReturnListPage","id":""},{"string":"Contenido digital","url":"https://www.microsoftstore.com/store/mseea/es_ES/DisplayDownloadHistoryPage","id":""},{"string":"Libreta de direcciones","url":"https://www.microsoftstore.com/store/mseea/es_ES/DisplayEditProfilePage/tab.addressbook","id":""},{"string":"Pago","url":"https://www.microsoftstore.com/store/mseea/es_ES/DisplayAddEditPaymentPage","id":""},{"string":"Perfil de su cuenta","url":"https://www.microsoftstore.com/store/mseea/es_ES/DisplayEditProfilePage/tab.profile","id":""}],"userData":{"idp":"msa","firstName":"","lastName":"","memberName":"","cid":"","authenticatedState":"3"},"rpData":{"preferredIdp":"msa","msaInfo":{"signInUrl":"/es-es/store/signin","signOutUrl":"/es-es/store/signout","meUrl":"https://login.live.com/me.srf?wa=wsignin1.0"},"aadInfo":{"signOutUrl":"/es-es/store/signout","appId":"","siteUrl":"","blockMsaFed":true}}}' data-m='{"cN":"GlobalNav_Account_cont","cT":"Container","id":"c5c1c9c2m1r1a1","sN":5,"aN":"c1c9c2m1r1a1"}'>
+                            <div class="msame_Header">
+                                <div class="msame_Header_name st_msame_placeholder">Iniciar sesi&#243;n</div>
+                            </div>
+                            
+                        </div>
+                
+            </div>
+        </div>
+        
+        
+    </div>
+    
+</header>
+
+
+
+
+    </div>
+        </div>
+
+    </div>
+
+    			
+
+<div id="smcTeachingCalloutPopover" class="teachingCalloutHidden teachingCalloutPopover caretArrowUp" data-timeout="8">
+
+	<div class="caretArrow caretArrowPosition"> </div>
+	<div class="popoverMessageWrapper">
+		<div class="calloutDismiss">
+			<a id="teachingCalloutDismiss"
+				href="javascript:void(0)"
+				ms.interactiontype="11" data-bi-bhvr="HIDE"
+				data-bi-id="teachingCalloutDismiss"
+				aria-label="Close callout prompt.">
+				<span class="icon-mdl2 icon-cancel"></span>
+			</a>
+		</div>
+
+		<div id="noAccounts" class="signInMessages calloutMessageHidden">
+			<div class="calloutHeading" id="calloutHeading">Iniciar sesión con Microsoft</div>
+			<div class="calloutMessage" id="calloutMessage">Iniciar sesión o crear una cuenta</div>
+		</div>
+		<div id="multipleSignInSuccess" class="signInMessages calloutMessageHidden">
+			<div class="calloutHeading" id="calloutHeading">Hola:</div>
+			<div class="calloutMessage" id="calloutMessage">Seleccione una cuenta diferente.</div>
+		</div>
+		<div id="multipleSignInFail" class="signInMessages calloutMessageHidden">
+			<div class="calloutHeading" id="calloutHeading">Tiene varias cuentas</div>
+			<div class="calloutMessage" id="calloutMessage">Elija la cuenta con la que desea iniciar sesión.</div>
+		</div>
+	</div>
+</div>
+
+		<div id="ocHelp">
+			<div class="container" id="ocArticle">
+				<div class="row">
+					<div class="col-md-3 mt-4">
+						
+		
+<div class="fs-6 w-100 d-md-none" dir="ltr">
+	<button id="showRelatedTopics" class="relatedTopicsButton font-size-14px lh-base bg-white p-1 d-flex d-md-none align-items-center"
+			type="button"
+			ms.pgarea="leftnav"
+			data-bi-area="leftnav">
+		<span class="bulletedListIcon fw-bold float-start ps-1 m-1 fs-6"></span>
+		<span class="p-1 text-center" role="heading">Temas relacionados</span>
+	</button>
+</div>
+
+<div id="learnRenderLeftNav"
+	class="ps-4 float-end pe-0 end-0"
+	role="complementary"
+	aria-label="Vínculos relacionados"
+	ms.pgarea="leftnav"
+	data-bi-area="leftnav"
+	dir="ltr">
+
+	<div class="height-48px flex-row border-bottom w-100 d-flex d-md-none">
+		<div class="display-inherit text-truncate fw-semibold flex-grow-1 text-dark fs-6 px-4 py-3" role="heading" aria-level="2" tabindex="-1">
+			<span>Temas relacionados</span>
+		</div>
+		<div class="closePaneButtonContainer border-bottom fs-6 flex-shrink-1 border-start d-flex align-items-center justify-content-center">
+			<a href="javascript:"
+			class="closePaneButton text-decoration-none"
+			ms.interactiontype="11"
+			data-bi-bhvr="HIDE"
+			data-bi-area="Banner"
+			ms.pgarea="leftnav"
+			roles="button"
+			aria-label="Cerrar">&times;</a>
+		</div>
+	</div>
+
+	<div class="learnRenderLeftNavContent fs-6 fw-normal text-muted lh-base overflow-y-auto">
+				<div class="learnRenderLeftNavCategory">
+					<div class="learnRenderLeftNavCategoryTitle">
+						<a href="what-is-excel" class="learnRenderLeftNavLink" data-bi-slot="1">Empiece ya</a>
+					</div>
+						<ul class="learnRenderLeftNavArticles list-unstyled col">
+<li class="learnRenderLeftNavArticle"><a href="what-is-excel" class="learnRenderLeftNavLink" data-bi-slot="2">¿Qué es Excel?</a></li><li class="learnRenderLeftNavArticle"><a href="use-excel-as-your-calculator" class="learnRenderLeftNavLink" data-bi-slot="3">Usar Excel como calculadora</a></li><li class="learnRenderLeftNavArticle"><a href="add-a-watermark-in-excel" class="learnRenderLeftNavLink" data-bi-slot="4">Agregar una marca de agua en Excel</a></li><li class="learnRenderLeftNavArticle"><a href="merge-and-unmerge-cells-in-excel" class="learnRenderLeftNavLink" data-bi-slot="5">Combinar y anular la combinación de celdas</a></li><li class="learnRenderLeftNavArticle"><a href="insert-or-delete-rows-and-columns-in-excel" class="learnRenderLeftNavLink" data-bi-slot="6">Insertar o eliminar filas y columnas</a></li><li class="learnRenderLeftNavArticle"><a href="collaborate-on-excel-workbooks-at-the-same-time-with-co-authoring" class="learnRenderLeftNavLink" data-bi-slot="7">Colaborar en libros de Excel al mismo tiempo con la coautoría</a></li><li class="learnRenderLeftNavArticle"><a href="move-or-copy-worksheets-or-worksheet-data" class="learnRenderLeftNavLink" data-bi-slot="8">Mover o copiar hojas de cálculo o datos de hoja de cálculo</a></li><li class="learnRenderLeftNavArticle"><a href="hide-or-show-rows-or-columns" class="learnRenderLeftNavLink" data-bi-slot="9">Mostrar u ocultar filas o columnas</a></li><li class="learnRenderLeftNavArticle"><a href="select-cell-contents-in-excel" class="learnRenderLeftNavLink" data-bi-slot="10">Seleccionar el contenido de celdas en Excel</a></li><li class="learnRenderLeftNavArticle"><a href="insert-or-delete-a-worksheet" class="learnRenderLeftNavLink" data-bi-slot="11">Insertar o eliminar una hoja de cálculo</a></li><li class="learnRenderLeftNavArticle"><a href="change-the-format-of-a-cell" class="learnRenderLeftNavLink" data-bi-slot="12">Cambiar el formato de una celda</a></li><li class="learnRenderLeftNavArticle"><a href="create-and-format-tables" class="learnRenderLeftNavLink" data-bi-slot="13">Trabajo con tablas</a></li><li class="learnRenderLeftNavArticle"><a href="../get-started-with-excel/save-your-workbook-to-onedrive-in-excel" class="learnRenderLeftNavLink" data-bi-slot="14">Guardar un libro en OneDrive desde Excel</a></li><li class="learnRenderLeftNavArticle"><a href="copy-cell-formatting" class="learnRenderLeftNavLink" data-bi-slot="15">Copiar el formato de celda</a></li><li class="learnRenderLeftNavArticle"><a href="create-a-chart-from-start-to-finish" class="learnRenderLeftNavLink" data-bi-slot="16">Crear un gráfico de principio a fin</a></li><li class="learnRenderLeftNavArticle"><a href="available-number-formats-in-excel" class="learnRenderLeftNavLink" data-bi-slot="17">Formatos de número disponibles en Excel</a></li>						</ul>
+				</div>
+				<div class="learnRenderLeftNavCategory">
+					<div class="learnRenderLeftNavCategoryTitle">
+						<a href="protect-an-excel-file" class="learnRenderLeftNavLink" data-bi-slot="18">Colaborar</a>
+					</div>
+						<ul class="learnRenderLeftNavArticles list-unstyled col">
+<li class="learnRenderLeftNavArticle"><a href="protect-an-excel-file" class="learnRenderLeftNavLink" data-bi-slot="19">Proteger un archivo de Excel</a></li><li class="learnRenderLeftNavArticle"><a href="print-a-worksheet-or-workbook" class="learnRenderLeftNavLink" data-bi-slot="20">Imprimir una hoja de cálculo o un libro</a></li><li class="learnRenderLeftNavArticle"><a href="share-your-excel-workbook-with-others" class="learnRenderLeftNavLink" data-bi-slot="21">Compartir el libro de Excel con otros usuarios</a></li>						</ul>
+				</div>
+				<div class="learnRenderLeftNavCategory">
+					<div class="learnRenderLeftNavCategoryTitle">
+						<a href="calculate-the-difference-between-two-dates" class="learnRenderLeftNavLink" data-bi-slot="22">F&#xF3;rmulas y funciones</a>
+					</div>
+						<ul class="learnRenderLeftNavArticles list-unstyled col">
+<li class="learnRenderLeftNavArticle"><a href="calculate-the-difference-between-two-dates" class="learnRenderLeftNavLink" data-bi-slot="23">Calcular la diferencia entre dos fechas</a></li><li class="learnRenderLeftNavArticle"><a href="../functions/sum-function" class="learnRenderLeftNavLink" data-bi-slot="24">Función SUMA</a></li><li class="learnRenderLeftNavArticle"><a href="../functions/if-function" class="learnRenderLeftNavLink" data-bi-slot="25">Función SI</a></li><li class="learnRenderLeftNavArticle"><a href="../functions/xlookup-function" class="learnRenderLeftNavLink" data-bi-slot="26">Función BUSCARX</a></li><li class="learnRenderLeftNavArticle"><a href="display-or-hide-zero-values" class="learnRenderLeftNavLink" data-bi-slot="27">Mostrar u ocultar valores cero</a></li>						</ul>
+				</div>
+				<div class="learnRenderLeftNavCategory learnRenderLeftNavActiveCategory">
+					<div class="learnRenderLeftNavCategoryTitle">
+						<a href="create-a-pivottable-to-analyze-worksheet-data" class="learnRenderLeftNavLink" data-bi-slot="28">Importar y analizar datos</a>
+					</div>
+						<ul class="learnRenderLeftNavArticles list-unstyled col">
+<li class="learnRenderLeftNavArticle learnRenderLeftNavCurrentArticle"><a href="create-a-pivottable-to-analyze-worksheet-data" class="learnRenderLeftNavLink" data-bi-slot="29" aria-current="page">Crear una tabla dinámica para analizar datos de una hoja de cálculo</a></li><li class="learnRenderLeftNavArticle"><a href="filter-data-in-a-range-or-table-in-excel" class="learnRenderLeftNavLink" data-bi-slot="30">Filtrar datos de una tabla o un rango</a></li><li class="learnRenderLeftNavArticle"><a href="use-slicers-to-filter-data" class="learnRenderLeftNavLink" data-bi-slot="31">Usar segmentaciones para filtrar datos</a></li><li class="learnRenderLeftNavArticle"><a href="use-the-field-list-to-arrange-fields-in-a-pivottable" class="learnRenderLeftNavLink" data-bi-slot="32">Usar la lista de campos para organizar los campos en una tabla dinámica</a></li><li class="learnRenderLeftNavArticle"><a href="import-or-export-text-txt-or-csv-files" class="learnRenderLeftNavLink" data-bi-slot="33">Importar o exportar archivos de texto (.txt o .csv)</a></li><li class="learnRenderLeftNavArticle"><a href="filter-for-unique-values-or-remove-duplicate-values" class="learnRenderLeftNavLink" data-bi-slot="34">Filtrar valores únicos o quitar valores duplicados</a></li><li class="learnRenderLeftNavArticle"><a href="../get-started-with-excel/quick-start-create-a-macro" class="learnRenderLeftNavLink" data-bi-slot="35">Inicio rápido Crear una macro</a></li><li class="learnRenderLeftNavArticle"><a href="import-data-from-the-web" class="learnRenderLeftNavLink" data-bi-slot="36">Importar datos de la Web</a></li><li class="learnRenderLeftNavArticle"><a href="find-or-replace-text-and-numbers-on-a-worksheet" class="learnRenderLeftNavLink" data-bi-slot="37">Buscar o reemplazar texto y números en una hoja de cálculo</a></li><li class="learnRenderLeftNavArticle"><a href="apply-data-validation-to-cells" class="learnRenderLeftNavLink" data-bi-slot="38">Aplicar validación de datos a celdas</a></li>						</ul>
+				</div>
+				<div class="learnRenderLeftNavCategory">
+					<div class="learnRenderLeftNavCategoryTitle">
+						<a href="lock-or-unlock-specific-areas-of-a-protected-worksheet" class="learnRenderLeftNavLink" data-bi-slot="39">Dar formato a datos</a>
+					</div>
+						<ul class="learnRenderLeftNavArticles list-unstyled col">
+<li class="learnRenderLeftNavArticle"><a href="lock-or-unlock-specific-areas-of-a-protected-worksheet" class="learnRenderLeftNavLink" data-bi-slot="40">Bloquear o desbloquear áreas específicas de una hoja de cálculo protegida</a></li><li class="learnRenderLeftNavArticle"><a href="group-or-ungroup-data-in-a-pivottable" class="learnRenderLeftNavLink" data-bi-slot="41">Agrupar o desagrupar datos en una tabla dinámica</a></li><li class="learnRenderLeftNavArticle"><a href="create-a-pivotchart" class="learnRenderLeftNavLink" data-bi-slot="42">Crear un gráfico dinámico</a></li><li class="learnRenderLeftNavArticle"><a href="use-sparklines-to-show-data-trends" class="learnRenderLeftNavLink" data-bi-slot="43">Usar minigráficos para mostrar tendencias de datos</a></li><li class="learnRenderLeftNavArticle"><a href="create-a-drop-down-list" class="learnRenderLeftNavLink" data-bi-slot="44">Crear una lista desplegable</a></li><li class="learnRenderLeftNavArticle"><a href="combine-text-from-two-or-more-cells-into-one-cell-in-microsoft-excel" class="learnRenderLeftNavLink" data-bi-slot="45">Combinar texto de dos o más celdas en una celda</a></li><li class="learnRenderLeftNavArticle"><a href="freeze-panes-to-lock-rows-and-columns" class="learnRenderLeftNavLink" data-bi-slot="46">Inmovilizar paneles para bloquear filas y columnas</a></li><li class="learnRenderLeftNavArticle"><a href="../get-started-with-excel/quick-start-sort-data-in-an-excel-worksheet" class="learnRenderLeftNavLink" data-bi-slot="47">Inicio rápido: Ordenar datos en una hoja de cálculo</a></li><li class="learnRenderLeftNavArticle"><a href="split-data-into-multiple-columns" class="learnRenderLeftNavLink" data-bi-slot="48">Divida los datos en varias columnas</a></li>						</ul>
+				</div>
+	</div>
+</div>
+	
+					</div>
+                    <main role="main" class="col col-md-9 mt-4" id="supMainContent" tabindex="-1">
+						
+
+
+
+
+<h1 id="create-a-pivottable-to-analyze-worksheet-data">Crear una tabla dinámica para analizar datos de una hoja de cálculo</h1>
+
+	<section class="supAppliesToSection"
+		ms.cmpgrp="applies_to"
+		aria-label="Productos a los que se aplica este art&#xED;culo"
+		dir="ltr">
+		<div id="supAppliesToTableContainer">
+			<details id="supAppliesToList"><summary class="contentToggle">Se aplica a</summary><div role="list"><span class="appliesToItem" role="listitem">Excel para Microsoft 365</span> <span class="appliesToItem" role="listitem">Excel para Microsoft 365 para Mac</span> <span class="appliesToItem" role="listitem">Excel&#xA0;2024</span> <span class="appliesToItem" role="listitem">Excel&#xA0;2024 para Mac</span> <span class="appliesToItem" role="listitem">Excel 2021</span> <span class="appliesToItem" role="listitem">Excel 2021 para Mac</span> <span class="appliesToItem" role="listitem">Excel 2019</span> <span class="appliesToItem" role="listitem">Excel 2016</span> </div></details>
+		</div>
+	</section>
+
+	
+
+
+<div class="copilotInlineContainer CopilotInlineBanner copilotgrowth-wave1"
+	id="copilotBanner"
+	data-bi-area="inline_banner"
+	data-bi-scn="Copilot Promo"
+	data-bi-id="copilotgrowth-wave1_inline"
+	data-bi-title="Get help with Copilot"
+	data-bi-subtext=""
+	data-bi-button="Dime c&#xF3;mo crear una tabla din&#xE1;mica"
+	data-bi-link="https://m365.cloud.microsoft/chat/entity1-d870f6cd-4aa5-4d42-9626-ab690c041429/eyJpZCI6ImY3YWJhMDRiLWExNjItNDAwNS05NmI2LTk4MjA2NTE2YmYyYyIsInNjZW5hcmlvIjoidHJ5aW5hcHB0dXJibyIsInJlZmVycmFsIjp7ImNtbWlkIjoiY21td2N0Zzkya2IifSwidmVyc2lvbiI6MS4zLCJjaGF0VHlwZSI6IndvcmsiLCJwcm9wZXJ0aWVzIjp7ImNsaWNrVGltZXN0YW1wIjoiMjAyNi0wNi0xMlQwNDowNzoyNi44MTlaIn0sInR1cmJvUHJvbXB0SWQiOiJmN2FiYTA0Yi1hMTYyLTQwMDUtOTZiNi05ODIwNjUxNmJmMmMiLCJ0dXJib1Byb21wdEVudmlyb25tZW50IjoiUFJPRCIsImNvcnJlbGF0aW9uSWQiOiI2ZjJjZjBmNC05MDllLTQ3YmItYTU2NS1lNmNhN2M1OGY4MjgifQ==?fromcode=cmmwctg92kb&amp;cmmid=cmmwctg92kb&amp;ocid=cmmwctg92kb"
+	data-bi-secondary-button-text="&#xBF;Cu&#xE1;les son los pasos para eliminar una tabla din&#xE1;mica completa?"
+	data-bi-tertiary-button-text="Dise&#xF1;a una tabla din&#xE1;mica para mi conjunto de datos"
+	data-bi-campaignid="cmmwctg92kb"
+	data-bi-placement="inline">
+
+	<div class="copilotBannerHeader">
+		<div class="copilotImageContainer">
+			
+				<img src="/images/copilot-banner-logo.svg?v=c7N671DRofjY-cWMgpLqYectYsldAQJt4-EhpaQ1ZqU" alt="" aria-hidden="true" width="28" height="28" />
+			
+			
+		</div>
+	</div>
+
+	<button id="copilotgrowth-banner-dismiss-button" type="button" class="copilotDismissButton icon-fluent icon-cancel"
+			aria-label="Cerrar banner de notificaci&#xF3;n"
+			data-bi-bhvr="HIDE" data-bi-mto></button>
+
+	<div class="copilotBannerContent">
+		<div class="copilotTitle">Obtener ayuda con Copilot</div>
+
+		<div class="copilotCtaContainer">
+			<a id="copilotgrowth-banner-button"
+			   href="https://m365.cloud.microsoft/chat/entity1-d870f6cd-4aa5-4d42-9626-ab690c041429/eyJpZCI6ImY3YWJhMDRiLWExNjItNDAwNS05NmI2LTk4MjA2NTE2YmYyYyIsInNjZW5hcmlvIjoidHJ5aW5hcHB0dXJibyIsInJlZmVycmFsIjp7ImNtbWlkIjoiY21td2N0Zzkya2IifSwidmVyc2lvbiI6MS4zLCJjaGF0VHlwZSI6IndvcmsiLCJwcm9wZXJ0aWVzIjp7ImNsaWNrVGltZXN0YW1wIjoiMjAyNi0wNi0xMlQwNDowNzoyNi44MTlaIn0sInR1cmJvUHJvbXB0SWQiOiJmN2FiYTA0Yi1hMTYyLTQwMDUtOTZiNi05ODIwNjUxNmJmMmMiLCJ0dXJib1Byb21wdEVudmlyb25tZW50IjoiUFJPRCIsImNvcnJlbGF0aW9uSWQiOiI2ZjJjZjBmNC05MDllLTQ3YmItYTU2NS1lNmNhN2M1OGY4MjgifQ==?fromcode=cmmwctg92kb&amp;cmmid=cmmwctg92kb&amp;ocid=cmmwctg92kb"
+			   class="copilotPromptLink"
+			   target="_blank"
+			   rel="noopener noreferrer"
+			   data-bi-mto
+			   data-bi-slot="1">
+				Dime c&#xF3;mo crear una tabla din&#xE1;mica
+			</a>
+			<a id="copilotgrowth-banner-button-secondary"
+			   href="https://m365.cloud.microsoft/chat/entity1-d870f6cd-4aa5-4d42-9626-ab690c041429/eyJpZCI6IjdkOTAxMzNlLWM0MjktNDQwYi1iYjI4LTI3OGI2ZGU0MzJjZCIsInNjZW5hcmlvIjoidHJ5aW5hcHB0dXJibyIsInJlZmVycmFsIjp7ImNtbWlkIjoiY21td2N0Zzkya2IifSwidmVyc2lvbiI6MS4zLCJjaGF0VHlwZSI6IndvcmsiLCJwcm9wZXJ0aWVzIjp7ImNsaWNrVGltZXN0YW1wIjoiMjAyNi0wNi0xMlQwNDowNzoyNi44MTlaIn0sInR1cmJvUHJvbXB0SWQiOiI3ZDkwMTMzZS1jNDI5LTQ0MGItYmIyOC0yNzhiNmRlNDMyY2QiLCJ0dXJib1Byb21wdEVudmlyb25tZW50IjoiUFJPRCIsImNvcnJlbGF0aW9uSWQiOiJiOWI1NWY4My1iZmYyLTQ0ZjMtYmU5Ny0wODY3OTk4NTE4MjUifQ==?fromcode=cmmwctg92kb&amp;cmmid=cmmwctg92kb&amp;ocid=cmmwctg92kb"
+			   class="copilotPromptLink"
+			   target="_blank"
+			   rel="noopener noreferrer"
+			   data-bi-mto
+			   data-bi-slot="2">
+				&#xBF;Cu&#xE1;les son los pasos para eliminar una tabla din&#xE1;mica completa?
+			</a>
+			<a id="copilotgrowth-banner-button-tertiary"
+			   href="https://m365.cloud.microsoft/chat/entity1-d870f6cd-4aa5-4d42-9626-ab690c041429/eyJpZCI6IjhjNzZiYTdkLWU3MzYtNGE4Yy1iMWZkLTVlYjcxMWU5YmE2OSIsInNjZW5hcmlvIjoidHJ5aW5hcHB0dXJibyIsInJlZmVycmFsIjp7ImNtbWlkIjoiY21td2N0Zzkya2IifSwidmVyc2lvbiI6MS4zLCJjaGF0VHlwZSI6IndvcmsiLCJwcm9wZXJ0aWVzIjp7ImNsaWNrVGltZXN0YW1wIjoiMjAyNi0wNi0xMlQwNDowNzoyNi44MTlaIn0sInR1cmJvUHJvbXB0SWQiOiI4Yzc2YmE3ZC1lNzM2LTRhOGMtYjFmZC01ZWI3MTFlOWJhNjkiLCJ0dXJib1Byb21wdEVudmlyb25tZW50IjoiUFJPRCIsImNvcnJlbGF0aW9uSWQiOiI4ZGE2NjAzNS0zZGU5LTQ0NzMtYWQ5NS02ZTgxMWVhNmUxOWUifQ==?fromcode=cmmwctg92kb&amp;cmmid=cmmwctg92kb&amp;ocid=cmmwctg92kb"
+			   class="copilotPromptLink"
+			   target="_blank"
+			   rel="noopener noreferrer"
+			   data-bi-mto
+			   data-bi-slot="3">
+				Dise&#xF1;a una tabla din&#xE1;mica para mi conjunto de datos
+			</a>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	document.getElementById('copilotgrowth-banner-dismiss-button').addEventListener('click', function () {
+		document.getElementById('copilotBanner').style.display = 'none';
+		document.cookie = 'copilotBannerDismissed=true; path=/';
+	});
+</script>
+
+<div class="learnArticleContent">
+	<p>Una tabla dinámica es una herramienta avanzada para calcular, resumir y analizar datos que le permite ver comparaciones, patrones y tendencias en ellos. Las tablas dinámicas funcionan de forma un poco diferente según la plataforma que use para ejecutar Excel.</p>
+<p>Si tiene los requisitos de <a href="https://learn.microsoft.com/copilot/microsoft-365/microsoft-365-copilot-requirements#license-requirements" data-linktype="external">licencia</a> adecuados, puede <a href="../copilot/visualize-your-data-with-copilot-in-excel" data-linktype="relative-path">pedir a Copilot que le ayude a crear una tabla dinámica</a>.</p>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+
+              <a href="#tabpanel_1_windows" role="tab" aria-controls="tabpanel_1_windows" data-tab="windows" tabindex="0" aria-selected="true" data-linktype="self-bookmark">Windows</a>
+</li>
+<li role="presentation">
+
+              <a href="#tabpanel_1_web" role="tab" aria-controls="tabpanel_1_web" data-tab="web" tabindex="-1" data-linktype="self-bookmark">Web</a>
+</li>
+<li role="presentation">
+
+              <a href="#tabpanel_1_macos" role="tab" aria-controls="tabpanel_1_macos" data-tab="macos" tabindex="-1" data-linktype="self-bookmark">macOS</a>
+</li>
+<li role="presentation">
+
+              <a href="#tabpanel_1_office-for-ios" role="tab" aria-controls="tabpanel_1_office-for-ios" data-tab="office-for-ios" tabindex="-1" data-linktype="self-bookmark">Office para iOS</a>
+</li>
+</ul>
+<section id="tabpanel_1_windows" role="tabpanel" data-tab="windows">
+
+<div class="embeddedvideo"><iframe src="https://learn-video.azurefd.net/vod/player?id=501b3c00-13b3-47c2-841e-d728184e6767" frameborder="0" allowfullscreen="true" data-linktype="external" title="Reproductor de vídeo"></iframe></div>
+<h2 id="create-a-pivottable-in-excel-for-windows">Crear una tabla dinámica en Excel para Windows</h2>
+<ol>
+<li><p>Seleccione las celdas a partir de las que quiera crear una tabla dinámica.</p>
+<div class="NOTE">
+<p>Nota</p>
+<p>Los datos deben organizarse en columnas con una sola fila de encabezado. Consulte la sección Sugerencias y trucos sobre el formato de datos para obtener más información.</p>
+</div>
+</li>
+<li><p>Seleccione <strong>Insertar</strong>&gt;<strong>tabla dinámica</strong>.<br>
+
+              <span class="mx-imgBorder">
+              <img src="../media/pivottable-button.png" alt="botón de tabla dinámica" data-linktype="relative-path">
+              
+              </span>
+            
+</p>
+</li>
+<li><p>Se crea una tabla dinámica basada en una tabla o un rango existente.<br>
+
+              <span class="mx-imgBorder">
+              <img src="../media/pivottable-from-range-or-table.png" alt="Tabla dinámica de rango o tabla" data-linktype="relative-path">
+              
+              </span>
+            
+</p>
+<div class="NOTE">
+<p>Nota</p>
+<p>Al seleccionar <strong>Agregar estos datos al modelo de datos</strong> , se agrega la tabla o el rango que se usa para esta tabla dinámica al modelo de datos del libro. 
+              <a href="../create-a-data-model-in-excel" data-linktype="relative-path">Obtener más información</a>.</p>
+</div>
+</li>
+<li><p>Elija dónde desea que se coloque el informe de tabla dinámica. Seleccione <strong>Nueva hoja de cálculo</strong> para colocar la tabla dinámica en una hoja de cálculo nueva o en una <strong>hoja de cálculo existente</strong> y seleccione dónde desea que aparezca la nueva tabla dinámica.</p>
+</li>
+<li><p>Seleccione <strong>Aceptar</strong>.</p>
+</li>
+</ol>
+<h2 id="pivottables-from-other-sources">Tablas dinámicas de otros orígenes</h2>
+<p>Al hacer clic en la flecha abajo del botón, puede seleccionar entre otros orígenes posibles para la tabla dinámica. Además de usar una tabla o un rango existente, hay otros tres orígenes entre los que puede seleccionar para rellenar la tabla dinámica.</p>
+<p>
+              <span class="mx-imgBorder">
+              <img src="../media/select-pivottable-source.png" alt="Seleccionar origen de tabla dinámica" data-linktype="relative-path">
+              
+              </span>
+            
+</p>
+<div class="NOTE">
+<p>Nota</p>
+<p>Según la configuración de TI de su organización, es posible que vea el nombre de su organización incluido en la lista. Por ejemplo, "Desde Power BI (Microsoft)".</p>
+</div>
+<p>
+              <strong>Obtener de un origen de datos externo</strong></p>
+<p>
+              <span class="mx-imgBorder">
+              <img src="../media/pivottable-from-external-source.png" alt="Tabla dinámica de origen externo Obtener" data-linktype="relative-path">
+              
+              </span>
+              <strong>del modelo de datos</strong></p>
+<p>Use esta opción si el libro contiene un <a href="../create-a-data-model-in-excel" data-linktype="relative-path">modelo de datos</a> y desea crear una tabla dinámica a partir de varias tablas, mejorar la tabla dinámica con medidas personalizadas o está trabajando con conjuntos de datos muy grandes.<br>
+
+              <span class="mx-imgBorder">
+              <img src="../media/pivottable-from-data-table.png" alt="Tabla dinámica de una tabla de datos" data-linktype="relative-path">
+              
+              </span>
+            
+</p>
+<p>
+              <strong>Obtener de Power BI</strong></p>
+<p>Use esta opción si su organización usa Power BI y desea descubrir conjuntos de datos en la nube aprobados a los que tiene acceso y conectarse a ellos.</p>
+<p>
+              <span class="mx-imgBorder">
+              <img src="../media/pivottable-from-power-bi.png" alt="Tabla dinámica de Power BI" data-linktype="relative-path">
+              
+              </span>
+            
+</p>
+<h2 id="building-out-your-pivottable">Creación de la tabla dinámica</h2>
+<ol>
+<li><p>Para agregar un campo a la tabla dinámica, seleccione la casilla del nombre del campo en el panel <strong>Campos de tabla dinámica</strong>.</p>
+<div class="NOTE">
+<p>Nota</p>
+<p>Los campos seleccionados se agregan a sus áreas predeterminadas: los campos no numéricos se agregan a <strong>Filas</strong>, las jerarquías de fecha y hora se agregan a <strong>Columnas</strong> y los campos numéricos se agregan a <strong>Valores</strong>.</p>
+</div>
+<p>
+              <span class="mx-imgBorder">
+              <img src="../media/pivot-table-003.png" alt="Tabla dinámica" data-linktype="relative-path">
+              
+              </span>
+            
+</p>
+</li>
+<li><p>Para mover un campo de un área a otra, arrastre el campo al área de destino.</p>
+</li>
+</ol>
+<h2 id="refreshing-pivottables">Actualización de las tablas dinámicas</h2>
+<p>Si agrega nuevos datos al origen de datos de tabla dinámica, tendrá que actualizar las tablas dinámicas que se integraron en ese origen de datos. Para actualizar solo una tabla dinámica, puede hacer clic con el botón derecho en cualquier parte del rango de la tabla dinámica y, después, seleccionar <strong>Actualizar</strong>. Si tiene varias tablas dinámicas, primero seleccione cualquier celda de cualquier tabla dinámica y, después, en la cinta de opciones, vaya a <strong>Analizar</strong>&gt; tabla dinámica, seleccione la flecha situada debajo del botón <strong>Actualizar</strong> y después seleccione <strong>Actualizar todo</strong>.</p>
+<p>
+              <span class="mx-imgBorder">
+              <img src="../media/excelptrefresh.png" alt="Actualizar una tabla dinámica" data-linktype="relative-path">
+              
+              </span>
+            
+</p>
+<h2 id="working-with-pivottable-values">Trabajar con valores de tabla dinámica</h2>
+<p>
+              <strong>Resumir valores por</strong></p>
+<p>De forma predeterminada, los campos de tabla dinámica colocados en el área <strong>Valores</strong> se muestran como <strong>SUM</strong>. Si Excel interpreta los datos como texto, los datos se mostrarán como un <strong>RECUENTO.</strong> Por eso es tan importante asegurarse de no mezclar tipos de datos en los campos de valor. Para cambiar el cálculo predeterminado, primero seleccione la flecha situada a la derecha del nombre de campo y, después, la opción <strong>Configuración de campo de valor</strong> .</p>
+<p>
+              <span class="mx-imgBorder">
+              <img src="../media/excel-pivottable-valuefieldsettings.png" alt="Cuadro de diálogo Configuración de campo de valor de Excel" data-linktype="relative-path">
+              
+              </span>
+            
+</p>
+<p>Después, cambie el cálculo en la sección <strong>Resumir valores por</strong>. Tenga en cuenta que al cambiar el método de cálculo, Excel lo anexa automáticamente en la sección Nombre <strong>personalizado</strong> , como "Suma de FieldName", pero puede cambiarlo. Si selecciona <strong>Formato</strong> de número, puede cambiar el formato de número para todo el campo.</p>
+<div class="TIP">
+<p>Recomendación</p>
+<p>Dado que al cambiar el cálculo en la sección <strong>Resumir valores por</strong> se cambia el nombre del campo de la tabla dinámica, es mejor no cambiar el nombre de los campos de la tabla dinámica hasta que haya terminado de configurar la tabla dinámica. Un truco es usar <strong>Buscar & reemplazar</strong> (<strong>Ctrl + H</strong>) &gt;<strong>Buscar qué</strong>&gt; "<strong>Suma de</strong>" y luego <strong>Reemplazar con</strong>&gt; dejar en blanco para reemplazar todo a la vez en lugar de volver a escribir manualmente.</p>
+</div>
+<p>
+              <span class="mx-imgBorder">
+              <img src="../media/excel-pivottable-valuefieldsettings2.png" alt="Cuadro de diálogo Configuración de campo de valor de Excel para las opciones Resumir valores por" data-linktype="relative-path">
+              
+              </span>
+            
+</p>
+<p>
+              <strong>Mostrar valores como</strong></p>
+<p>En lugar de usar un cálculo para resumir los datos, también puede mostrarlos como porcentaje de un campo. En el siguiente ejemplo, hemos cambiado nuestros importes de gastos domésticos para que aparezcan como <strong>% del total general</strong> en lugar de la suma de los valores.</p>
+<p>
+              <span class="mx-imgBorder">
+              <img src="../media/excel-pivottable-showvaluesas.png" alt="Ejemplo de tabla dinámica con valores mostrados como un porcentaje del total general" data-linktype="relative-path">
+              
+              </span>
+              <span class="mx-imgBorder">
+              <img src="../media/excel-pivottable-showvaluesas.png" alt="Ejemplo de tabla dinámica con valores mostrados como un porcentaje del total general" data-linktype="relative-path">
+              
+              </span>
+            
+</p>
+<p>Una vez que haya abierto el cuadro de diálogo <strong>Configuración del campo de valor</strong> , puede realizar las selecciones desde la pestaña <strong>Mostrar valores como</strong> .</p>
+<p>
+              <strong>Muestre un valor como cálculo y como porcentaje.</strong></p>
+<p>Simplemente arrastre el elemento a la sección <strong>Valores</strong> dos veces y, a continuación, configure las opciones <strong>Resumir valores por</strong> y <strong>Mostrar valores como</strong> para cada uno.</p>
+</section>
+<section id="tabpanel_1_web" role="tabpanel" data-tab="web" aria-hidden="true" hidden="hidden">
+
+<div class="embeddedvideo"><iframe src="https://learn-video.azurefd.net/vod/player?id=501b3c00-13b3-47c2-841e-d728184e6767" frameborder="0" allowfullscreen="true" data-linktype="external" title="Reproductor de vídeo"></iframe></div>
+<h2 id="insert-a-pivottable">Insertar una tabla dinámica</h2>
+<ol>
+<li>Abra una hoja de cálculo en <a href="https://excel.cloud.microsoft/?wdOrigin=COMMUNITY.EXCEL.SMCARTICLE" data-linktype="external">Excel para la Web</a>.</li>
+<li>Seleccione una tabla o un rango de datos en la hoja y seleccione <strong>Insertar &gt; tabla dinámica</strong> para abrir el panel <strong>Insertar tabla dinámica</strong> .</li>
+<li>Puede crear manualmente su propia <strong>tabla dinámica</strong> o elegir una <strong>tabla dinámica</strong> recomendada para que se cree automáticamente. Siga uno de estos procedimientos:</li>
+</ol>
+<!-- -->
+<ul>
+<li>En la tarjeta <strong>Crear su propia tabla dinámica</strong> , seleccione <strong>Nueva hoja</strong> u <strong>Hoja existente</strong> para elegir el destino de la tabla dinámica.</li>
+<li>En una tabla dinámica recomendada, seleccione <strong>Nueva hoja</strong> u <strong>Hoja existente</strong> para elegir el destino de la tabla dinámica.</li>
+</ul>
+<div class="NOTE">
+<p>Nota</p>
+<p>
+              <strong>Las tablas dinámicas</strong> recomendadas solo están disponibles para suscriptores de Microsoft 365.</p>
+</div>
+<p>
+              <span class="mx-imgBorder">
+              <img src="../media/insert-pivottable-pane-001.png" alt="El panel Insertar tabla dinámica le permite establecer el origen, el destino y otros aspectos de la tabla dinámica." data-linktype="relative-path">
+              
+              </span>
+            
+</p>
+<h2 id="change-the-source-data">Cambiar el origen de los datos</h2>
+<p>Puede cambiar el origen de datos de la tabla dinámica mientras la crea.</p>
+<ol>
+<li>En el panel <strong>Insertar tabla dinámica</strong> , seleccione el cuadro de texto en <strong>Origen</strong>. Al cambiar el <strong>origen</strong>, las tarjetas del panel no estarán disponibles.</li>
+<li>Seleccione los datos de la cuadrícula o escriba un rango en el cuadro de texto.</li>
+<li>Pulsa Entrar en el teclado o el botón para confirmar la selección. El panel se actualiza con nuevas <strong>tablas dinámicas</strong> recomendadas basadas en el nuevo origen de datos.</li>
+</ol>
+<p>
+              <span class="mx-imgBorder">
+              <img src="../media/insert-pivottable-from-empty-sheet-001.png" alt="Panel Insertar tabla dinámica que solicita una tabla o rango para usar como origen y le permite cambiar el destino." data-linktype="relative-path">
+              
+              </span>
+            
+</p>
+<p>
+              <strong>Obtener de Power BI</strong></p>
+<p>Use esta opción si su organización usa Power BI y desea descubrir conjuntos de datos en la nube aprobados a los que tiene acceso y conectarse a ellos.</p>
+<p>
+              <span class="mx-imgBorder">
+              <img src="../media/pivottable-from-power-bi.png" alt="Tabla dinámica de Power BI" data-linktype="relative-path">
+              
+              </span>
+            
+</p>
+<h2 id="working-with-the-pivottable-fields-pane">Trabajar con el panel Campos de tabla dinámica</h2>
+<p>En el panel <strong>Campos de tabla dinámica</strong> , active la casilla de cualquier campo que desee agregar a la tabla dinámica.</p>
+<p>De forma predeterminada, los campos no numéricos se agregan al área <strong>Filas</strong>, los campos de fecha y hora se agregan al área <strong>Columnas</strong> y los campos numéricos se agregan al área <strong>Valores</strong>.</p>
+<p>También puede arrastrar y colocar manualmente cualquier elemento disponible en cualquiera de los campos de la <strong>tabla dinámica</strong> o, si ya no desea tener un elemento en la tabla dinámica, arrástrelo fuera de la lista o desactívelo.</p>
+<p>
+              <span class="mx-imgBorder">
+              <img src="../media/pivottable-fields-in-excel-for-the-web.png" alt="Campos de tabla dinámica en Excel para la Web" data-linktype="relative-path">
+              
+              </span>
+            
+</p>
+<h2 id="working-with-pivottable-values-1">Trabajar con valores de tabla dinámica</h2>
+<p>
+              <strong>Resumir valores por</strong></p>
+<p>De forma predeterminada, los campos de <strong>tabla dinámica</strong> del área <strong>Valores</strong> se muestran como <strong>SUM</strong>. Si Excel interpreta los datos como texto, se muestra como un <strong>RECUENTO.</strong> Por eso es tan importante asegurarse de no mezclar tipos de datos en los campos de valor.</p>
+<p>Para cambiar el cálculo predeterminado, haga clic con el botón derecho en cualquier valor de la fila y seleccione la opción <strong>Resumir valores por</strong> .</p>
+<p>
+              <span class="mx-imgBorder">
+              <img src="../media/summarize-by-in-excel-for-the-web.png" alt="Resumir por en Excel para la Web" data-linktype="relative-path">
+              
+              </span>
+            
+</p>
+<p>
+              <strong>Mostrar valores como</strong></p>
+<p>En lugar de usar un cálculo para resumir los datos, también puede mostrarlos como porcentaje de un campo. En el siguiente ejemplo, hemos cambiado nuestros importes de gastos domésticos para que aparezcan como <strong>% del total general</strong> en lugar de la suma de los valores.</p>
+<p>
+              <span class="mx-imgBorder">
+              <img src="../media/excel-pivottable-showvaluesas.png" alt="Ejemplo de tabla dinámica con Valores mostrado como un porcentaje de Total general" data-linktype="relative-path">
+              
+              </span>
+            
+</p>
+<p>Haga clic con el botón derecho en cualquier valor de la columna para la que quiera mostrar el valor. Seleccione <strong>Mostrar valores como</strong> en el menú. Se mostrará una lista de valores disponibles.</p>
+<p>Haga su selección de la lista.</p>
+<p>Para mostrar como un <strong>% del total principal</strong>, mueva el puntero sobre ese elemento de la lista y seleccione el campo principal que desea usar como base del cálculo.</p>
+<p>
+              <span class="mx-imgBorder">
+              <img src="../media/show-as.png" alt="Mostrar como" data-linktype="relative-path">
+              
+              </span>
+            
+</p>
+<h2 id="refreshing-pivottables-1">Actualización de las tablas dinámicas</h2>
+<p>Si agrega nuevos datos al origen de datos de <strong>la tabla dinámica</strong> , se deben actualizar las <strong>tablas dinámicas</strong> creadas en ese origen de datos. Haga clic con el botón derecho en cualquier parte del rango de la <strong>tabla dinámica</strong> y, después, seleccione <strong>Actualizar</strong>.</p>
+<p>
+              <span class="mx-imgBorder">
+              <img src="../media/refresh-pivottable.png" alt="Actualizar una tabla dinámica" data-linktype="relative-path">
+              
+              </span>
+            
+</p>
+<h2 id="delete-a-pivottable">Eliminar una tabla dinámica</h2>
+<p>Si ha creado una <strong>tabla dinámica</strong> y decide que ya no la quiere, seleccione todo el rango de la <strong>tabla dinámica</strong> y presione <strong>Suprimir</strong>. Esto no afectará a otros datos, <strong>tablas dinámicas</strong> o gráficos a su alrededor. Si la <strong>tabla dinámica</strong> está en una hoja independiente que no tiene otros datos que desea conservar, eliminar la hoja es una forma rápida de quitar la <strong>tabla dinámica.</strong></p>
+<p>Introducción a las tablas dinámicas con <a href="https://excel.cloud.microsoft/?wdOrigin=COMMUNITY.EXCEL.SMCARTICLE" data-linktype="external">Excel en la Web</a>.</p>
+</section>
+<section id="tabpanel_1_macos" role="tabpanel" data-tab="macos" aria-hidden="true" hidden="hidden">
+<h2 id="before-you-get-started">Antes de empezar</h2>
+<ul>
+<li>Los datos deben organizarse en formato tabular y no tener ninguna fila o columna en blanco. Lo ideal sería usar una <a href="../overview-of-excel-tables" data-linktype="relative-path">tabla de Excel</a>.</li>
+<li>Las tablas son un excelente origen de datos de tabla dinámica, ya que las filas agregadas a una tabla se incluyen automáticamente en la tabla dinámica al actualizar los datos y las columnas nuevas se incluyen en la lista <strong>de campos de la tabla dinámica</strong> . En caso contrario, tendrá que <a href="../change-the-source-data-for-a-pivottable" data-linktype="relative-path">cambiar los datos de origen de una tabla dinámica</a> o usar una <a href="https://support.microsoft.com/kb/830287" data-linktype="external">fórmula de rango dinámico con nombre</a>.</li>
+<li>Los tipos de datos de columnas deben ser iguales. Por ejemplo, no debería mezclar las fechas y texto en la misma columna.</li>
+<li>Las tablas dinámicas trabajan en una instantánea de los datos, denominada caché, por lo que los datos reales no se modifican de ninguna forma.</li>
+</ul>
+<h2 id="create-by-using-a-recommended-pivottable">Crear mediante una tabla dinámica recomendada</h2>
+<p>Si no tiene experiencia con las tablas dinámicas o no sabe cómo empezar, las <strong>tablas dinámicas recomendadas</strong> son una buena elección. Cuando usa esta característica, Excel determina un diseño significativo haciendo coincidir los datos con las áreas más adecuadas de la tabla dinámica. Esto le ofrece un punto inicial para realizar pruebas. Después de crear una tabla dinámica recomendada, puede explorar diferentes orientaciones y reorganizar los campos para lograr los resultados deseados. También puedes descargar nuestro tutorial interactivo <a href="https://templates.office.com/PivotTable-tutorial-TM16400647" data-linktype="external">Crea tu primera tabla dinámica</a> .</p>
+<ol>
+<li><p>Seleccione una celda en el rango de datos o tabla de origen.</p>
+</li>
+<li><p>Vaya a <strong>Insertar</strong>&gt;<strong>tabla dinámica recomendada</strong>.</p>
+<p>
+              <span class="mx-imgBorder">
+              <img src="../media/excel-pivottable-btn-recommended.png" alt="Vaya a Insertar &gt; tablas dinámicas recomendadas para que Excel cree una tabla dinámica automáticamente" data-linktype="relative-path">
+              
+              </span>
+            
+</p>
+</li>
+<li><p>Excel analiza los datos y presenta varias opciones, como en este ejemplo con los datos de gastos domésticos.</p>
+<p>
+              <span class="mx-imgBorder">
+              <img src="../media/excel-pivottable-recommended.png" alt="Cuadro de diálogo de tablas dinámicas recomendadas de Excel" data-linktype="relative-path">
+              
+              </span>
+            
+</p>
+</li>
+<li><p>Seleccione la tabla dinámica que mejor le parezca y presione <strong>Aceptar</strong>. Excel crea una tabla dinámica en una hoja nueva y muestra la lista <strong>de campos de la tabla dinámica</strong> .</p>
+</li>
+</ol>
+<h2 id="manually-create-a-pivottable">Crear manualmente una tabla dinámica</h2>
+<ol>
+<li><p>Seleccione una celda en el rango de datos o tabla de origen.</p>
+</li>
+<li><p>Vaya a <strong>Insertar</strong>&gt;<strong>tabla dinámica</strong>.</p>
+<p>
+              <span class="mx-imgBorder">
+              <img src="../media/mac-pod-xl-data-analysis.gif" alt="Ficha Datos, grupo Análisis" data-linktype="relative-path">
+              
+              </span>
+            
+</p>
+</li>
+<li><p>Excel muestra el cuadro de diálogo <strong>Crear tabla dinámica</strong> con el nombre de tabla o rango seleccionado. En este caso, utilizamos una tabla denominada "tbl_HouseholdExpenses".</p>
+</li>
+<li><p>En la sección <strong>Elija dónde desea colocar el informe de tabla dinámica</strong>, seleccione <strong>Nueva hoja de cálculo</strong> u <strong>Hoja de cálculo existente</strong>. Si selecciona <strong>Nueva hoja de cálculo</strong>, tendrá que seleccionar la hoja de cálculo y la celda donde quiera colocar la tabla dinámica.</p>
+</li>
+<li><p>Seleccione <strong>Aceptar</strong> y Excel creará una tabla dinámica en blanco y mostrará la lista <strong>de campos de tabla dinámica</strong> .</p>
+</li>
+</ol>
+<h2 id="working-with-the-pivottable-fields-list">Trabajar con la lista de campos de tabla dinámica</h2>
+<p>
+              <strong>Lista de campos de tabla dinámica</strong></p>
+<p>En el área <strong>Nombre de campo</strong> de la parte superior, active la casilla correspondiente a cualquier campo que quiera agregar a la tabla dinámica. De forma predeterminada, los campos no numéricos se agregan al área <strong>Fila</strong>, los campos de fecha y hora se agregan al área <strong>Columna</strong> y los campos numéricos se agregan al área Valores. También puede arrastrar y colocar manualmente cualquier elemento disponible a alguno de los campos de tabla dinámica. Si ya no quiere un elemento de la tabla dinámica, basta con que lo arrastre fuera de la lista de campos o desactive su selección. Poder reorganizar elementos de campo es una de las características de la tabla dinámica que hace que cambiar su apariencia sea tan fácil.</p>
+<p>
+              <strong>Lista de campos de tabla dinámica</strong></p>
+<p>
+              <span class="mx-imgBorder">
+              <img src="../media/excel-pivottable-fieldlist1.png" alt="Ejemplo del cuadro de diálogo de la lista de campos de tablas dinámicas de Excel" data-linktype="relative-path">
+              
+              </span>
+            
+</p>
+<h2 id="pivottable-values">Valores de tabla dinámica</h2>
+<ul>
+<li><p>
+              <strong>Resumir por</strong><br>
+De forma predeterminada, los campos de tabla dinámica colocados en el área <strong>Valores</strong> se muestran como <strong>SUM</strong>. Si Excel interpreta los datos como texto, los datos se mostrarán como un <strong>RECUENTO.</strong> Por eso es tan importante asegurarse de no mezclar tipos de datos en los campos de valor. Para cambiar el cálculo predeterminado, primero seleccione la flecha situada a la derecha del nombre de campo y, después, seleccione la opción <strong>Configuración de campo</strong> .<br>
+Después, cambie el cálculo en la sección <strong>Resumir valores por</strong>. Tenga en cuenta que al cambiar el método de cálculo, Excel lo anexa automáticamente en la sección Nombre <strong>personalizado</strong> , como "Suma de FieldName", pero puede cambiarlo. Si selecciona <strong>Número...</strong> , puede cambiar el formato de número para todo el campo.</p>
+<div class="TIP">
+<p>Recomendación</p>
+<p>Dado que al cambiar el cálculo en la sección <strong>Resumir por</strong> se cambia el nombre del campo de la tabla dinámica, es mejor no cambiar el nombre de los campos de la tabla dinámica hasta que haya terminado de configurar la tabla dinámica. Un truco es seleccionar <strong>Reemplazar</strong> (<strong>en el menú Editar</strong>) &gt;<strong>Buscar qué</strong>&gt; "<strong>Suma de</strong>", y luego <strong>Reemplazar con</strong>&gt; dejar en blanco para reemplazar todo a la vez en lugar de volver a escribir manualmente.</p>
+</div>
+</li>
+<li><p>
+              <strong>Mostrar datos como</strong><br>
+En lugar de usar un cálculo para resumir los datos, también puede mostrarlos como porcentaje de un campo. En el siguiente ejemplo, hemos cambiado nuestros importes de gastos domésticos para que aparezcan como <strong>% del total general</strong> en lugar de la suma de los valores.</p>
+<p>
+              <span class="mx-imgBorder">
+              <img src="../media/excel-pivottable-showvaluesas.png" alt="Ejemplo de tabla dinámica con Valores mostrado como un porcentaje de Total general" data-linktype="relative-path">
+              
+              </span>
+            
+</p>
+<p>Una vez abierto el cuadro de diálogo Configuración de <strong>campo</strong> , puede realizar las selecciones desde la pestaña <strong>Mostrar datos como</strong> .</p>
+</li>
+<li><p>
+              <strong>Muestre un valor como cálculo y como porcentaje.</strong><br>
+Simplemente arrastre el elemento a la sección <strong>Valores</strong> dos veces, haga clic con el botón derecho en el valor y seleccione <strong>Configuración de campo. A</strong> continuación, configure <strong>las opciones Resumir por</strong> y <strong>Mostrar datos como</strong> para cada uno.</p>
+</li>
+</ul>
+<h2 id="refreshing-pivottables-2">Actualización de las tablas dinámicas</h2>
+<p>Si agrega nuevos datos al origen de datos de la tabla dinámica, se deben actualizar las tablas dinámicas creadas en ese origen de datos. Para actualizar solo una tabla dinámica, puede hacer clic con el botón derecho en cualquier parte del rango de la tabla dinámica y, después, seleccionar <strong>Actualizar</strong>. Si tiene varias tablas dinámicas, primero seleccione cualquier celda de cualquier tabla dinámica y, después, en la cinta de opciones, vaya a <strong>Analizar</strong>&gt; tabla dinámica, seleccione la flecha situada debajo del botón <strong>Actualizar</strong> y después seleccione <strong>Actualizar todo</strong>.</p>
+<h3 id="deleting-a-pivottable">Eliminar una tabla dinámica</h3>
+<p>Si creó una tabla dinámica y decide que ya no la quiere, simplemente seleccione todo el rango de la tabla dinámica y, después, presione <strong>Suprimir</strong>. Esto no afecta a ningún otro dato, tabla dinámica o gráfico a su alrededor. Si la tabla dinámica se encuentra en una hoja separada que no tenga otros datos que quiera conservar, eliminar esa hoja es una forma rápida de quitar la tabla dinámica.</p>
+</section>
+<section id="tabpanel_1_office-for-ios" role="tabpanel" data-tab="office-for-ios" aria-hidden="true" hidden="hidden">
+
+<p>La tabla dinámica en iPad está disponible para los clientes que ejecutan Excel en iPad versión 2.82.205.0 y posteriores. Para acceder a esta característica, asegúrese de que la aplicación está actualizada a la versión más reciente a través de la App Store.</p>
+<h2 id="create-a-pivottable-in-excel-on-ipad">Crear una tabla dinámica en Excel en iPad</h2>
+<ol>
+<li>Seleccione una celda en el rango de datos o tabla de origen.</li>
+<li>Vaya a <strong>Insertar &gt; tabla dinámica</strong>.<br>
+
+              <span class="mx-imgBorder">
+              <img src="../media/insertion-pane.jpg" alt="Insertar una tabla dinámica en iPad." data-linktype="relative-path">
+              
+              </span>
+            
+</li>
+<li>Elija dónde desea colocar la tabla dinámica. Seleccione <strong>Insertar en una hoja nueva</strong> para colocar la tabla dinámica en una nueva hoja de cálculo o seleccione la celda en la que quiere colocar la nueva tabla dinámica en el campo de destino.</li>
+<li>Seleccione <strong>Insertar</strong>.</li>
+</ol>
+<h2 id="working-with-the-pivottable-field-list">Trabajar con la lista de campos de tabla dinámica</h2>
+<p>Normalmente, los campos no numéricos se agregan al área <strong>Filas</strong> , los campos de fecha y hora se agregan al área <strong>Columnas</strong> y los campos numéricos se agregan al área <strong>Valores</strong> . También puede arrastrar y colocar manualmente cualquier elemento disponible a alguno de los campos de tabla dinámica. Si ya no quiere un elemento de la tabla dinámica, basta con que lo arrastre fuera de la lista de campos o desactive su selección. Poder reorganizar elementos de campo es una de las características de la tabla dinámica que hace que cambiar su apariencia sea tan fácil.</p>
+<div class="NOTE">
+<p>Nota</p>
+<p>Si la lista de campos ya no está visible, vaya a la pestaña <strong>Tabla dinámica</strong> , deslice el dedo hacia la izquierda y seleccione <strong>Lista de campos</strong> para mostrar la lista de campos.</p>
+</div>
+<p>
+              <span class="mx-imgBorder">
+              <img src="../media/pivottable-field-list.png" alt="Tabla dinámica en iPad Lista de campos" data-linktype="relative-path">
+              
+              </span>
+            
+</p>
+<h2 id="refreshing-pivottables-3">Actualización de las tablas dinámicas</h2>
+<p>Si agrega nuevos datos al origen de datos de la tabla dinámica, se deben actualizar las tablas dinámicas creadas en ese origen de datos. Para actualizar solo una tabla dinámica, puede seleccionar y mantener presionada una celda en cualquier parte del rango de tabla dinámica y, después, seleccionar <strong>Actualizar</strong>. Si tiene varias, vaya a la <strong>pestaña de tabla dinámica</strong> en la cinta de opciones y seleccione <strong>Actualizar</strong>.</p>
+<p>
+              <span class="mx-imgBorder">
+              <img src="../media/refreshing-pivot-table-ipad.png" alt="Captura de pantalla de la actualización de tabla dinámica en Excel para iPad" data-linktype="relative-path">
+              
+              </span>
+            
+</p>
+<h2 id="deleting-a-pivottable-1">Eliminar una tabla dinámica</h2>
+<p>Si creó una tabla dinámica y decide que ya no la quiere, puede seleccionar las filas y columnas que abarcan todo el rango de la tabla dinámica y, después, presionar <strong>Suprimir</strong>.</p>
+</section>
+</div>
+<h2 id="data-format-tips-and-tricks">Sugerencias y trucos sobre el formato de datos</h2>
+<ul>
+<li><p>Use datos <a href="https://support.microsoft.com/office/top-ten-ways-to-clean-your-data-2844b620-677c-47a7-ac3e-c2e157d1db19" data-linktype="external">tabulares limpios</a> para obtener mejores resultados.</p>
+</li>
+<li><p>Organice los datos en columnas, no en filas.</p>
+</li>
+<li><p>Asegúrese de que todas las columnas tienen encabezados, con una sola fila de etiquetas únicas que no estén en blanco para cada columna. Evite usar filas dobles de encabezados o celdas combinadas.</p>
+<p>
+              <span class="mx-imgBorder">
+              <img src="../media/excel-column-2.png" alt="Columna 2 de Excel" data-linktype="relative-path">
+              
+              </span>
+            
+</p>
+</li>
+<li><p>Aplique formato a los datos como una <a href="https://support.microsoft.com/office/overview-of-excel-tables-7ab0bb7d-3a9e-4b56-a3c9-6c94334e492c" data-linktype="external">tabla de Excel</a> (seleccione cualquier lugar de los datos y, a continuación, seleccione <strong>Insertar &gt; tabla</strong> en la cinta de opciones).</p>
+</li>
+<li><p>Si tiene datos anidados o con un formato complicado, use <a href="https://support.microsoft.com/office/about-power-query-in-excel-7104fbee-9e62-4cb9-a02e-5bfb1a6c536a" data-linktype="external">Power Query</a> para transformarlos (por ejemplo, para <a href="https://support.microsoft.com/office/unpivot-columns-power-query-0f7bad4b-9ea1-49c1-9d95-f588221c7098" data-linktype="external">anular la dinamización de los datos</a>) de modo que se organicen en columnas con una sola fila de encabezado.</p>
+</li>
+</ul>
+<h2 id="need-more-help">¿Necesitas más ayuda?</h2>
+<p>Siempre puede preguntar a un experto en Excel <a href="https://techcommunity.microsoft.com/t5/Excel/ct-p/Excel_Cat" data-linktype="external">Tech Community</a> u obtener soporte técnico en <a href="https://answers.microsoft.com/lang/msoffice/forum/msoffice_excel" data-linktype="external">Comunidades</a>.</p>
+<h2 id="microsoft-privacy-policy">Microsoft Privacy Policy</h2>
+<p>Las recomendaciones de tablas dinámicas forman parte de la <a href="https://docs.microsoft.com/deployoffice/privacy/connected-experiences#connected-experiences-that-download-online-content" data-linktype="external">experiencia conectada de Microsoft 365</a> y analizan los datos con los servicios de inteligencia artificial. Si decide no participar en la experiencia conectada en Microsoft 365, sus datos no se enviarán al servicio de inteligencia artificial y no podrá usar las recomendaciones de tabla dinámica. Lea la <a href="https://privacy.microsoft.com/privacystatement" data-linktype="external">declaración de privacidad de Microsoft</a> para obtener más detalles.</p>
+<h2 id="related-articles">Artículos relacionados</h2>
+<p>
+              <a href="create-a-pivotchart" data-linktype="relative-path">Crear un gráfico dinámico</a></p>
+<p>
+              <a href="use-slicers-to-filter-data" data-linktype="relative-path">Usar la segmentación para filtrar datos de tablas dinámicas</a></p>
+<p>
+              <a href="../create-a-pivottable-timeline-to-filter-dates" data-linktype="relative-path">Crear una escala de tiempo de tabla dinámica para filtrar datos</a></p>
+<p>
+              <a href="../use-multiple-tables-to-create-a-pivottable-in-excel" data-linktype="relative-path">Crear una tabla dinámica para analizar modelos de datos en varias tablas</a></p>
+<p>
+              <a href="../create-a-pivottable-from-power-bi-datasets" data-linktype="relative-path">Crear una tabla dinámica conectada a los conjuntos de datos de Power BI</a></p>
+<p>
+              <a href="use-the-field-list-to-arrange-fields-in-a-pivottable" data-linktype="relative-path">Usar la lista de campos para organizar los campos en una tabla dinámica</a></p>
+<p>
+              <a href="../change-the-source-data-for-a-pivottable" data-linktype="relative-path">Cambiar los datos de origen en una tabla dinámica</a></p>
+<p>
+              <a href="../calculate-values-in-a-pivottable" data-linktype="relative-path">Calcular valores en un informe de tabla dinámica</a></p>
+<p>
+              <a href="../delete-a-pivottable" data-linktype="relative-path">Eliminar una tabla dinámica</a></p>
+
+</div>
+
+
+
+
+					</main>
+				</div>
+			</div>
+		</div>
+		<div id="ocFooterWrapper">
+
+		
+
+
+	<div id="modernFeedback" data-enable-star-rating="True">
+		<section id="feedbackSection" class="prrFeedbackWrapper mw-none w-100 bottom-0 display-block">
+			<div class="prrColumnWrapper py-2 border-bottom">
+				<div id="feedBackContainer" class="m-auto position-relative text-center">
+					<section class="p-0 feedbackSection">
+						<div>
+							<form action="javascript:void(0);" id="extendedFeedbackForm" name="smartFeedbackForm" class="smartFeedbackForm mb-0">
+								<div class="feedbackBegin h-auto justify-content-center align-items-center gap-4 d-block d-sm-flex" role="region" aria-label="L_Feedback_RoleDescription">
+								<h2 id="beginFeedbackHeader" class="pe-2 display-inline-block p-0 m-0 fw-semibold fs-6 lh-base mt-0 align-baseline">¿Te resultó útil esta información?</h2>
+									<div class="feedbackButtons align-items-start gap-3 lh-base fs-6 fw-semibold display-inline-block d-block d-md-flex" role="group" aria-labelledby="beginFeedbackHeader">
+									<button class="feedbackButtonBlue fw-normal fs-6 display-inline-block text-align-center text-decoration-none text-white border border-transparent feedbackSelection" name="buttonYes" type="button" data-bi-id="buttonYes" data-bi-mto>Sí</button>
+									<button class="feedbackButtonBlue fw-normal fs-6 display-inline-block text-align-center text-decoration-none text-white border border-transparent feedbackSelection" name="buttonNo" type="button" data-bi-id="buttonNo" data-bi-mto>No</button>
+									</div>
+								</div>
+                            <div id="extendedFeedback" class="feedbackReply text-start hidden ps-sm-5 ps-3">
+									<div id="extendedFeedbackHeader" class="feedbackHeader mt-2 display-table">
+									<label for="feedbackText" class="feedbackHeaderIfArticleHelpful mt-3 fw-normal align-middle fs-6 display-table-cell hidden">
+										<span class="fw-semibold" aria-hidden="true">Thank you! Any more feedback for Microsoft?</span>
+										</label>
+									<label for="feedbackText" class="feedbackHeaderIfArticleNotHelpful mt-3 fw-normal align-middle fs-6 display-table-cell hidden">
+										<span class="fw-semibold" aria-hidden="true">Can you help us improve?</span> (Send feedback to Microsoft so we can help.)
+										</label>
+									</div>
+
+									<fieldset id="extendedFeedbackStarRating" class="mt-4 starRating" data-star-rating-question="How satisfied are you with the translation quality?">
+										<legend class="fs-6 pb-2" for="translationQuality">How satisfied are you with the translation quality?</legend>
+										<div class="starRatingStars">
+													<span id="rating_0" tabindex="0" data-startindex="0" data-stardescription="Very dissatisfied" aria-label="Very dissatisfied" role="menuitem" class="translationRatingStar c-glyph glyph-favorite-star"></span>
+													<span id="rating_1" tabindex="0" data-startindex="1" data-stardescription="Dissatisfied" aria-label="Dissatisfied" role="menuitem" class="translationRatingStar c-glyph glyph-favorite-star"></span>
+													<span id="rating_2" tabindex="0" data-startindex="2" data-stardescription="Neutral" aria-label="Neutral" role="menuitem" class="translationRatingStar c-glyph glyph-favorite-star"></span>
+													<span id="rating_3" tabindex="0" data-startindex="3" data-stardescription="Satisfied" aria-label="Satisfied" role="menuitem" class="translationRatingStar c-glyph glyph-favorite-star"></span>
+													<span id="rating_4" tabindex="0" data-startindex="4" data-stardescription="Very satisfied" aria-label="Very satisfied" role="menuitem" class="translationRatingStar c-glyph glyph-favorite-star"></span>
+											<label id="starRatingDescription" class="starRatingDescription hidden">
+											</label>
+										</div>
+									</fieldset>
+
+									<fieldset id="extendedFeedbackArticleExperience" class="mt-4">
+										<legend class="fs-6 pb-2">What affected your experience?</legend>
+										<div class="feedbackHeaderIfArticleHelpful hidden">
+			<div id="articleExperience_helpful_0">
+		<div class="experienceOption pt-1">
+			<label class="articleExperienceOptionsLabels">
+				<input class="articleExperienceOptionsCheckbox position-absolute opacity-0" type="checkbox" tabindex="-1" id="helpful_0" name="helpful_0" value="Resolved my issue" data-bi-dnt />
+				<span class="checkboxTick position-absolute rounded-1 mt-1" tabindex="0" role="checkbox" aria-label="Resolved my issue"></span>
+				<span class="experienceOptionLabels align-top ms-4 fs-6 d-block fw-normal lh-base">Resolved my issue</span>
+			</label>
+		</div>
+
+		<div class="experienceOption pt-1">
+			<label class="articleExperienceOptionsLabels">
+				<input class="articleExperienceOptionsCheckbox position-absolute opacity-0" type="checkbox" tabindex="-1" id="helpful_1" name="helpful_1" value="Clear instructions" data-bi-dnt />
+				<span class="checkboxTick position-absolute rounded-1 mt-1" tabindex="0" role="checkbox" aria-label="Clear instructions"></span>
+				<span class="experienceOptionLabels align-top ms-4 fs-6 d-block fw-normal lh-base">Clear instructions</span>
+			</label>
+		</div>
+			</div>
+			<div id="articleExperience_helpful_1">
+		<div class="experienceOption pt-1">
+			<label class="articleExperienceOptionsLabels">
+				<input class="articleExperienceOptionsCheckbox position-absolute opacity-0" type="checkbox" tabindex="-1" id="helpful_2" name="helpful_2" value="Easy to follow" data-bi-dnt />
+				<span class="checkboxTick position-absolute rounded-1 mt-1" tabindex="0" role="checkbox" aria-label="Easy to follow"></span>
+				<span class="experienceOptionLabels align-top ms-4 fs-6 d-block fw-normal lh-base">Easy to follow</span>
+			</label>
+		</div>
+
+		<div class="experienceOption pt-1">
+			<label class="articleExperienceOptionsLabels">
+				<input class="articleExperienceOptionsCheckbox position-absolute opacity-0" type="checkbox" tabindex="-1" id="helpful_3" name="helpful_3" value="No jargon" data-bi-dnt />
+				<span class="checkboxTick position-absolute rounded-1 mt-1" tabindex="0" role="checkbox" aria-label="No jargon"></span>
+				<span class="experienceOptionLabels align-top ms-4 fs-6 d-block fw-normal lh-base">No jargon</span>
+			</label>
+		</div>
+			</div>
+			<div id="articleExperience_helpful_2">
+		<div class="experienceOption pt-1">
+			<label class="articleExperienceOptionsLabels">
+				<input class="articleExperienceOptionsCheckbox position-absolute opacity-0" type="checkbox" tabindex="-1" id="helpful_4" name="helpful_4" value="Pictures helped" data-bi-dnt />
+				<span class="checkboxTick position-absolute rounded-1 mt-1" tabindex="0" role="checkbox" aria-label="Pictures helped"></span>
+				<span class="experienceOptionLabels align-top ms-4 fs-6 d-block fw-normal lh-base">Pictures helped</span>
+			</label>
+		</div>
+
+		<div class="experienceOption pt-1">
+			<label class="articleExperienceOptionsLabels">
+				<input class="articleExperienceOptionsCheckbox position-absolute opacity-0" type="checkbox" tabindex="-1" id="helpful_5" name="helpful_5" value="Translation quality" data-bi-dnt />
+				<span class="checkboxTick position-absolute rounded-1 mt-1" tabindex="0" role="checkbox" aria-label="Translation quality"></span>
+				<span class="experienceOptionLabels align-top ms-4 fs-6 d-block fw-normal lh-base">Translation quality</span>
+			</label>
+		</div>
+			</div>
+										</div>
+										<div class="feedbackHeaderIfArticleNotHelpful hidden">
+			<div id="articleExperience_notHelpful_0">
+		<div class="experienceOption pt-1">
+			<label class="articleExperienceOptionsLabels">
+				<input class="articleExperienceOptionsCheckbox position-absolute opacity-0" type="checkbox" tabindex="-1" id="notHelpful_0" name="notHelpful_0" value="Didn&#x27;t match my screen" data-bi-dnt />
+				<span class="checkboxTick position-absolute rounded-1 mt-1" tabindex="0" role="checkbox" aria-label="Didn't match my screen"></span>
+				<span class="experienceOptionLabels align-top ms-4 fs-6 d-block fw-normal lh-base">Didn't match my screen</span>
+			</label>
+		</div>
+
+		<div class="experienceOption pt-1">
+			<label class="articleExperienceOptionsLabels">
+				<input class="articleExperienceOptionsCheckbox position-absolute opacity-0" type="checkbox" tabindex="-1" id="notHelpful_1" name="notHelpful_1" value="Incorrect instructions" data-bi-dnt />
+				<span class="checkboxTick position-absolute rounded-1 mt-1" tabindex="0" role="checkbox" aria-label="Incorrect instructions"></span>
+				<span class="experienceOptionLabels align-top ms-4 fs-6 d-block fw-normal lh-base">Incorrect instructions</span>
+			</label>
+		</div>
+			</div>
+			<div id="articleExperience_notHelpful_1">
+		<div class="experienceOption pt-1">
+			<label class="articleExperienceOptionsLabels">
+				<input class="articleExperienceOptionsCheckbox position-absolute opacity-0" type="checkbox" tabindex="-1" id="notHelpful_2" name="notHelpful_2" value="Too technical" data-bi-dnt />
+				<span class="checkboxTick position-absolute rounded-1 mt-1" tabindex="0" role="checkbox" aria-label="Too technical"></span>
+				<span class="experienceOptionLabels align-top ms-4 fs-6 d-block fw-normal lh-base">Too technical</span>
+			</label>
+		</div>
+
+		<div class="experienceOption pt-1">
+			<label class="articleExperienceOptionsLabels">
+				<input class="articleExperienceOptionsCheckbox position-absolute opacity-0" type="checkbox" tabindex="-1" id="notHelpful_3" name="notHelpful_3" value="Not enough information" data-bi-dnt />
+				<span class="checkboxTick position-absolute rounded-1 mt-1" tabindex="0" role="checkbox" aria-label="Not enough information"></span>
+				<span class="experienceOptionLabels align-top ms-4 fs-6 d-block fw-normal lh-base">Not enough information</span>
+			</label>
+		</div>
+			</div>
+			<div id="articleExperience_notHelpful_2">
+		<div class="experienceOption pt-1">
+			<label class="articleExperienceOptionsLabels">
+				<input class="articleExperienceOptionsCheckbox position-absolute opacity-0" type="checkbox" tabindex="-1" id="notHelpful_4" name="notHelpful_4" value="Not enough pictures" data-bi-dnt />
+				<span class="checkboxTick position-absolute rounded-1 mt-1" tabindex="0" role="checkbox" aria-label="Not enough pictures"></span>
+				<span class="experienceOptionLabels align-top ms-4 fs-6 d-block fw-normal lh-base">Not enough pictures</span>
+			</label>
+		</div>
+
+		<div class="experienceOption pt-1">
+			<label class="articleExperienceOptionsLabels">
+				<input class="articleExperienceOptionsCheckbox position-absolute opacity-0" type="checkbox" tabindex="-1" id="notHelpful_5" name="notHelpful_5" value="Translation quality" data-bi-dnt />
+				<span class="checkboxTick position-absolute rounded-1 mt-1" tabindex="0" role="checkbox" aria-label="Translation quality"></span>
+				<span class="experienceOptionLabels align-top ms-4 fs-6 d-block fw-normal lh-base">Translation quality</span>
+			</label>
+		</div>
+			</div>
+										</div>
+									</fieldset>
+
+									<div id="extendedFeedbackVerbatim" class="verbatimFeedback mt-4">
+										<label for="verbatimFeedbackInput" class="fs-6 pb-2">Any additional feedback? (Optional)</label>
+									<textarea id="verbatimFeedbackInput" class="feedbackTextArea lh-sm fw-normal fs-6 border border-light p-3" name="feedbackText" rows="6" cols="40" maxlength="250" placeholder="Para proteger su privacidad, no proporcione ninguna información personal como dirección de correo electrónico, número de teléfono, clave de producto, contraseña o número de tarjeta de crédito."></textarea>
+									</div>
+									<div id="extendedFeedbackFormSubmit" class="feedbackButtons">
+									<button id="buttonFeedbackVerbatimSubmit" class="feedbackButtonBlue fw-normal fs-6 display-inline-block text-align-center text-decoration-none text-white border border-transparent mt-3" type="submit" data-bi-id="buttonFeedbackVerbatimSubmit" data-bi-mto disabled>Submit feedback</button>
+									</div>
+									<div id="privacyStatement" class="pt-2">
+										<span>By pressing submit, your feedback will be used to improve Microsoft products and services.</span>
+										<span id="aadPrivacySubtext" class="hidden">Your IT admin will be able to collect this data.</span>
+										<a id="privacyLink" href="https://privacy.microsoft.com/es-ES/privacystatement"><span>Privacy Statement.</span></a>
+									</div>
+								</div>
+							</form>
+							<div id="feedbackThankYouMessage" class="hidden feedbackHeader mt-3 display-table mb-0 fw-bold feedbackThankYou">
+								<h2 class="fw-normal align-middle fs-6 display-table-cell"><span class="c-glyph glyph-heart-fill text-dark align-middle mx-3" aria-hidden="true"></span>¡Gracias por sus comentarios!</h2>
+							</div>
+						</div>
+					</section>
+				</div>
+				<a href="javascript:" id="disableStickyFeedbackButton" class="position-absolute top-0 fs-4 text-decoration-none hidden" role="button" ms.interactiontype="11" aria-label="Close dialog" data-bi-bhvr="HIDE" data-bi-area="Feedback" ms.cmpgrp="content" ms.pgarea="Body" data-bi-id="buttonFeedbackCancel" data-bi-mto>&times;</a>
+			</div>
+		</section>
+	</div>
+
+			</div>
+
+
+            <div id="footerArea" class="uhf"  data-m='{"cN":"footerArea","cT":"Area_coreuiArea","id":"a2Body","sN":2,"aN":"Body"}'>
+                <div id="footerRegion"      data-region-key="footerregion" data-m='{"cN":"footerRegion","cT":"Region_coreui-region","id":"r1a2","sN":1,"aN":"a2"}' >
+
+    <div  id="footerUniversalFooter" data-m='{"cN":"footerUniversalFooter","cT":"Module_coreui-universalfooter","id":"m1r1a2","sN":1,"aN":"r1a2"}'  data-module-id="Category|footerRegion|coreui-region|footerUniversalFooter|coreui-universalfooter">
+        
+
+
+
+<footer id="uhf-footer" class="c-uhff context-uhf"  data-uhf-mscc-rq="false" data-footer-footprint="/SMCConvergence/MSSMCConvergenceFooter, fromService: True" data-m='{"cN":"Uhf footer_cont","cT":"Container","id":"c1m1r1a2","sN":1,"aN":"m1r1a2"}'>
+        <nav class="c-uhff-nav" aria-label="V&#237;nculos de recursos de pie de p&#225;gina" data-m='{"cN":"Footer nav_cont","cT":"Container","id":"c1c1m1r1a2","sN":1,"aN":"c1m1r1a2"}'>
+            
+                <div class="c-uhff-nav-row">
+                    <div class="c-uhff-nav-group" data-m='{"cN":"footerNavColumn1_cont","cT":"Container","id":"c1c1c1m1r1a2","sN":1,"aN":"c1c1m1r1a2"}'>
+                        <div class="c-heading-4" role="heading" aria-level="2">Novedades</div>
+                        <ul class="c-list f-bare">
+                            <li>
+                                <a aria-label="Surface Pro Novedades" class="c-uhff-link" href="https://www.microsoft.com/surface/devices/surface-pro" data-m='{"cN":"Footer_WhatsNew_NewSurfacePro_nav","id":"n1c1c1c1m1r1a2","sN":1,"aN":"c1c1c1m1r1a2"}'>Surface Pro</a>
+                            </li>
+                            <li>
+                                <a aria-label="Surface Laptop Novedades" class="c-uhff-link" href="https://www.microsoft.com/surface/devices/surface-laptop" data-m='{"cN":"Footer_WhatsNew_SurfaceLaptop_nav","id":"n2c1c1c1m1r1a2","sN":2,"aN":"c1c1c1m1r1a2"}'>Surface Laptop</a>
+                            </li>
+                            <li>
+                                <a aria-label="Explorar Copilot Novedades" class="c-uhff-link" href="https://www.microsoft.com/copilot?icid=DSM_Footer_WhatsNew_Copilot" data-m='{"cN":"Footer_WhatsNew_CopilotMicrosoft_nav","id":"n3c1c1c1m1r1a2","sN":3,"aN":"c1c1c1m1r1a2"}'>Explorar Copilot</a>
+                            </li>
+                            <li>
+                                <a aria-label="Microsoft 365 Novedades" class="c-uhff-link" href="https://www.microsoft.com/es-es/microsoft-365" data-m='{"cN":"Footer_WhatsNew_Microsoft365_nav","id":"n4c1c1c1m1r1a2","sN":4,"aN":"c1c1c1m1r1a2"}'>Microsoft 365</a>
+                            </li>
+                            <li>
+                                <a aria-label="Explora los productos de Microsoft Novedades" class="c-uhff-link" href="https://www.microsoft.com/es-es/microsoft-products-and-apps" data-m='{"cN":"Footer_WhatsNew_ExploreMicrosoftProducts_nav","id":"n5c1c1c1m1r1a2","sN":5,"aN":"c1c1c1m1r1a2"}'>Explora los productos de Microsoft</a>
+                            </li>
+                            <li>
+                                <a aria-label="Aplicaciones de Windows 11 Novedades" class="c-uhff-link" href="https://www.microsoft.com/es-es/windows/apps-for-windows?icid=DSM_Footer_WhatsNew_Windows11apps" data-m='{"cN":"Footer_WhatsNew_Windows_11_apps_nav","id":"n6c1c1c1m1r1a2","sN":6,"aN":"c1c1c1m1r1a2"}'>Aplicaciones de Windows 11</a>
+                            </li>
+
+                        </ul>
+                        
+                    </div>
+                    <div class="c-uhff-nav-group" data-m='{"cN":"footerNavColumn2_cont","cT":"Container","id":"c2c1c1m1r1a2","sN":2,"aN":"c1c1m1r1a2"}'>
+                        <div class="c-heading-4" role="heading" aria-level="2">Microsoft Store</div>
+                        <ul class="c-list f-bare">
+                            <li>
+                                <a aria-label="Perfil de la cuenta Microsoft Store" class="c-uhff-link" href="https://account.microsoft.com/" data-m='{"cN":"Footer_StoreandSupport_AccountProfile_nav","id":"n1c2c1c1m1r1a2","sN":1,"aN":"c2c1c1m1r1a2"}'>Perfil de la cuenta</a>
+                            </li>
+                            <li>
+                                <a aria-label="Centro de descarga Microsoft Store" class="c-uhff-link" href="https://www.microsoft.com/es-es/download" data-m='{"cN":"Footer_StoreandSupport_DownloadCenter_nav","id":"n2c2c1c1m1r1a2","sN":2,"aN":"c2c1c1m1r1a2"}'>Centro de descarga</a>
+                            </li>
+                            <li>
+                                <a aria-label="Soporte de Microsoft Store Microsoft Store" class="c-uhff-link" href="https://go.microsoft.com/fwlink/?linkid=2139749" data-m='{"cN":"Footer_StoreandSupport_SalesAndSupport_nav","id":"n3c2c1c1m1r1a2","sN":3,"aN":"c2c1c1m1r1a2"}'>Soporte de Microsoft Store</a>
+                            </li>
+                            <li>
+                                <a aria-label="Devoluciones Microsoft Store" class="c-uhff-link" href="https://support.microsoft.com/es-es/account-billing/81629012-aa4f-f48b-2394-8596f415072b?icid=DSM_Footer_MicrosoftStore_Returns" data-m='{"cN":"Footer_StoreandSupport_Returns_nav","id":"n4c2c1c1m1r1a2","sN":4,"aN":"c2c1c1m1r1a2"}'>Devoluciones</a>
+                            </li>
+                            <li>
+                                <a aria-label="Seguimiento de pedidos Microsoft Store" class="c-uhff-link" href="https://www.microsoft.com/es-es/store/b/order-tracking" data-m='{"cN":"Footer_StoreandSupport_OrderTracking_nav","id":"n5c2c1c1m1r1a2","sN":5,"aN":"c2c1c1m1r1a2"}'>Seguimiento de pedidos</a>
+                            </li>
+                            <li>
+                                <a aria-label="Reciclar  Microsoft Store" class="c-uhff-link" href="https://www.microsoft.com/es-es/store/b/recycling?icid=GlobalFooterNav" data-m='{"cN":"Footer_Recyclying_nav","id":"n6c2c1c1m1r1a2","sN":6,"aN":"c2c1c1m1r1a2"}'>Reciclar </a>
+                            </li>
+                            <li>
+                                <a aria-label="Garant&#237;as comerciales Microsoft Store" class="c-uhff-link" href="https://www.microsoft.com/es-es/store/b/aboutwarranties?icid=GlobalFooterNav" data-m='{"cN":"Footer_Warranties_nav","id":"n7c2c1c1m1r1a2","sN":7,"aN":"c2c1c1m1r1a2"}'>Garant&#237;as comerciales</a>
+                            </li>
+
+                        </ul>
+                        
+                    </div>
+                    <div class="c-uhff-nav-group" data-m='{"cN":"footerNavColumn3_cont","cT":"Container","id":"c3c1c1m1r1a2","sN":3,"aN":"c1c1m1r1a2"}'>
+                        <div class="c-heading-4" role="heading" aria-level="2">Educaci&#243;n</div>
+                        <ul class="c-list f-bare">
+                            <li>
+                                <a aria-label="Microsoft Educaci&#243;n Educaci&#243;n" class="c-uhff-link" href="https://www.microsoft.com/es-es/education" data-m='{"cN":"Footer_Education_MicrosoftInEducation_nav","id":"n1c3c1c1m1r1a2","sN":1,"aN":"c3c1c1m1r1a2"}'>Microsoft Educaci&#243;n</a>
+                            </li>
+                            <li>
+                                <a aria-label="Dispositivos para educaci&#243;n Educaci&#243;n" class="c-uhff-link" href="https://www.microsoft.com/es-es/education/devices/overview" data-m='{"cN":"Footer_Education_DevicesforEducation_nav","id":"n2c3c1c1m1r1a2","sN":2,"aN":"c3c1c1m1r1a2"}'>Dispositivos para educaci&#243;n</a>
+                            </li>
+                            <li>
+                                <a aria-label="Microsoft Teams para Educaci&#243;n Educaci&#243;n" class="c-uhff-link" href="https://www.microsoft.com/es-es/education/products/teams" data-m='{"cN":"Footer_Education_MicrosoftTeamsforEducation_nav","id":"n3c3c1c1m1r1a2","sN":3,"aN":"c3c1c1m1r1a2"}'>Microsoft Teams para Educaci&#243;n</a>
+                            </li>
+                            <li>
+                                <a aria-label="Microsoft 365 Educaci&#243;n Educaci&#243;n" class="c-uhff-link" href="https://www.microsoft.com/es-es/education/products/microsoft-365" data-m='{"cN":"Footer_Education_Microsoft365Education_nav","id":"n4c3c1c1m1r1a2","sN":4,"aN":"c3c1c1m1r1a2"}'>Microsoft 365 Educaci&#243;n</a>
+                            </li>
+                            <li>
+                                <a aria-label="Office Educaci&#243;n Educaci&#243;n" class="c-uhff-link" href="https://www.microsoft.com/es-es/education/products/office" data-m='{"cN":"Footer_Education_Office Education_nav","id":"n5c3c1c1m1r1a2","sN":5,"aN":"c3c1c1m1r1a2"}'>Office Educaci&#243;n</a>
+                            </li>
+                            <li>
+                                <a aria-label="Formaci&#243;n y desarrollo de educadores Educaci&#243;n" class="c-uhff-link" href="https://education.microsoft.com/" data-m='{"cN":"Footer_Education_EducatorTrainingDevelopment_nav","id":"n6c3c1c1m1r1a2","sN":6,"aN":"c3c1c1m1r1a2"}'>Formaci&#243;n y desarrollo de educadores</a>
+                            </li>
+                            <li>
+                                <a aria-label="Ofertas para estudiantes y padres Educaci&#243;n" class="c-uhff-link" href="https://www.microsoft.com/es-es/store/b/student" data-m='{"cN":"Footer_Education_DealsForStudentsandParents_nav","id":"n7c3c1c1m1r1a2","sN":7,"aN":"c3c1c1m1r1a2"}'>Ofertas para estudiantes y padres</a>
+                            </li>
+                            <li>
+                                <a aria-label="Azure para estudiantes Educaci&#243;n" class="c-uhff-link" href="https://azure.microsoft.com/es-es/free/students/" data-m='{"cN":"Footer_Education_Azureforstudents_nav","id":"n8c3c1c1m1r1a2","sN":8,"aN":"c3c1c1m1r1a2"}'>Azure para estudiantes</a>
+                            </li>
+
+                        </ul>
+                        
+                    </div>
+                </div>
+                <div class="c-uhff-nav-row">
+                    <div class="c-uhff-nav-group" data-m='{"cN":"footerNavColumn4_cont","cT":"Container","id":"c4c1c1m1r1a2","sN":4,"aN":"c1c1m1r1a2"}'>
+                        <div class="c-heading-4" role="heading" aria-level="2">Empresas
+</div>
+                        <ul class="c-list f-bare">
+                            <li>
+                                <a aria-label="Microsoft AI Empresas
+" class="c-uhff-link" href="https://www.microsoft.com/es-es/ai?icid=DSM_Footer_AI" data-m='{"cN":"Footer_Business_AI_nav","id":"n1c4c1c1m1r1a2","sN":1,"aN":"c4c1c1m1r1a2"}'>Microsoft AI</a>
+                            </li>
+                            <li>
+                                <a aria-label="Seguridad de Microsoft Empresas
+" class="c-uhff-link" href="https://www.microsoft.com/es-es/security" data-m='{"cN":"Footer_Business_Microsoft Security_nav","id":"n2c4c1c1m1r1a2","sN":2,"aN":"c4c1c1m1r1a2"}'>Seguridad de Microsoft</a>
+                            </li>
+                            <li>
+                                <a aria-label="Azure Empresas
+" class="c-uhff-link" href="https://azure.microsoft.com/es-es/" data-m='{"cN":"Footer_DeveloperAndIT_MicrosoftAzure_nav","id":"n3c4c1c1m1r1a2","sN":3,"aN":"c4c1c1m1r1a2"}'>Azure</a>
+                            </li>
+                            <li>
+                                <a aria-label="Dynamics 365 Empresas
+" class="c-uhff-link" href="https://www.microsoft.com/es-es/dynamics-365" data-m='{"cN":"Footer_Business_MicrosoftDynamics365_nav","id":"n4c4c1c1m1r1a2","sN":4,"aN":"c4c1c1m1r1a2"}'>Dynamics 365</a>
+                            </li>
+                            <li>
+                                <a aria-label="Microsoft 365 Empresas
+" class="c-uhff-link" href="https://www.microsoft.com/es-es/microsoft-365/business/" data-m='{"cN":"Footer_Business_M365_nav","id":"n5c4c1c1m1r1a2","sN":5,"aN":"c4c1c1m1r1a2"}'>Microsoft 365</a>
+                            </li>
+                            <li>
+                                <a aria-label="Microsoft Copilot Empresas
+" class="c-uhff-link" href="https://www.microsoft.com/copilot?icid=DSM_Footer_Business_Copilot" data-m='{"cN":"Footer_CopilotMicrosoft_nav","id":"n6c4c1c1m1r1a2","sN":6,"aN":"c4c1c1m1r1a2"}'>Microsoft Copilot</a>
+                            </li>
+                            <li>
+                                <a aria-label="Microsoft Teams Empresas
+" class="c-uhff-link" href="https://www.microsoft.com/es-es/microsoft-teams/group-chat-software" data-m='{"cN":"Footer_Business_Microsoft365_nav","id":"n7c4c1c1m1r1a2","sN":7,"aN":"c4c1c1m1r1a2"}'>Microsoft Teams</a>
+                            </li>
+                            <li>
+                                <a aria-label="Peque&#241;as empresas Empresas
+" class="c-uhff-link" href="https://www.microsoft.com/es-es/store/b/business" data-m='{"cN":"Footer_Business-SmallBusiness_nav","id":"n8c4c1c1m1r1a2","sN":8,"aN":"c4c1c1m1r1a2"}'>Peque&#241;as empresas</a>
+                            </li>
+
+                        </ul>
+                        
+                    </div>
+                    <div class="c-uhff-nav-group" data-m='{"cN":"footerNavColumn5_cont","cT":"Container","id":"c5c1c1m1r1a2","sN":5,"aN":"c1c1m1r1a2"}'>
+                        <div class="c-heading-4" role="heading" aria-level="2">Desarrolladores y TI</div>
+                        <ul class="c-list f-bare">
+                            <li>
+                                <a aria-label="Desarrollador de Microsoft Desarrolladores y TI" class="c-uhff-link" href="https://developer.microsoft.com/es-es/" data-m='{"cN":"Footer_DeveloperAndIT_MicrosoftDeveloper_nav","id":"n1c5c1c1m1r1a2","sN":1,"aN":"c5c1c1m1r1a2"}'>Desarrollador de Microsoft</a>
+                            </li>
+                            <li>
+                                <a aria-label="Microsoft Learn Desarrolladores y TI" class="c-uhff-link" href="https://learn.microsoft.com/" data-m='{"cN":"Footer_DeveloperAndIT_MicrosoftLearn_nav","id":"n2c5c1c1m1r1a2","sN":2,"aN":"c5c1c1m1r1a2"}'>Microsoft Learn</a>
+                            </li>
+                            <li>
+                                <a aria-label="Soporte t&#233;cnico para aplicaciones del marketplace de IA Desarrolladores y TI" class="c-uhff-link" href="https://www.microsoft.com/software-development-companies/offers-benefits/isv-success?icid=DSM_Footer_SupportAIMarketplace&amp;ocid=cmm3atxvn98" data-m='{"cN":"Footer_DeveloperAndIT_SupportForAIMarketplaceApps_nav","id":"n3c5c1c1m1r1a2","sN":3,"aN":"c5c1c1m1r1a2"}'>Soporte t&#233;cnico para aplicaciones del marketplace de IA</a>
+                            </li>
+                            <li>
+                                <a aria-label="Microsoft Tech Community Desarrolladores y TI" class="c-uhff-link" href="https://techcommunity.microsoft.com/" data-m='{"cN":"Footer_DeveloperAndIT_MicrosoftTechCommunity_nav","id":"n4c5c1c1m1r1a2","sN":4,"aN":"c5c1c1m1r1a2"}'>Microsoft Tech Community</a>
+                            </li>
+                            <li>
+                                <a aria-label="Microsoft Marketplace Desarrolladores y TI" class="c-uhff-link" href="https://marketplace.microsoft.com?icid=DSM_Footer_Marketplace&amp;ocid=cmm3atxvn98" data-m='{"cN":"Footer_DeveloperAndIT_Marketplace_nav","id":"n5c5c1c1m1r1a2","sN":5,"aN":"c5c1c1m1r1a2"}'>Microsoft Marketplace</a>
+                            </li>
+                            <li>
+                                <a aria-label="Microsoft Power Platform Desarrolladores y TI" class="c-uhff-link" href="https://www.microsoft.com/es-es/power-platform" data-m='{"cN":"Footer_DeveloperAndIT_Power Platform_nav","id":"n6c5c1c1m1r1a2","sN":6,"aN":"c5c1c1m1r1a2"}'>Microsoft Power Platform</a>
+                            </li>
+                            <li>
+                                <a aria-label="Empresas de software Desarrolladores y TI" class="c-uhff-link" href="https://www.microsoft.com/software-development-companies?icid=DSM_Footer_SoftwareCompanies&amp;ocid=cmm3atxvn98" data-m='{"cN":"Software companies_nav","id":"n7c5c1c1m1r1a2","sN":7,"aN":"c5c1c1m1r1a2"}'>Empresas de software</a>
+                            </li>
+                            <li>
+                                <a aria-label="Visual Studio Desarrolladores y TI" class="c-uhff-link" href="https://visualstudio.microsoft.com/" data-m='{"cN":"Footer_DeveloperAndIT_MicrosoftVisualStudio_nav","id":"n8c5c1c1m1r1a2","sN":8,"aN":"c5c1c1m1r1a2"}'>Visual Studio</a>
+                            </li>
+
+                        </ul>
+                        
+                    </div>
+                    <div class="c-uhff-nav-group" data-m='{"cN":"footerNavColumn6_cont","cT":"Container","id":"c6c1c1m1r1a2","sN":6,"aN":"c1c1m1r1a2"}'>
+                        <div class="c-heading-4" role="heading" aria-level="2">Compa&#241;&#237;a
+</div>
+                        <ul class="c-list f-bare">
+                            <li>
+                                <a aria-label="Oportunidades de empleo Compa&#241;&#237;a
+" class="c-uhff-link" href="https://careers.microsoft.com/" data-m='{"cN":"Footer_Company_Careers_nav","id":"n1c6c1c1m1r1a2","sN":1,"aN":"c6c1c1m1r1a2"}'>Oportunidades de empleo</a>
+                            </li>
+                            <li>
+                                <a aria-label="Acerca de Microsoft Compa&#241;&#237;a
+" class="c-uhff-link" href="https://www.microsoft.com/about" data-m='{"cN":"Footer_Company_AboutMicrosoft_nav","id":"n2c6c1c1m1r1a2","sN":2,"aN":"c6c1c1m1r1a2"}'>Acerca de Microsoft</a>
+                            </li>
+                            <li>
+                                <a aria-label="Noticias de la compa&#241;&#237;a Compa&#241;&#237;a
+" class="c-uhff-link" href="https://news.microsoft.com/source/emea/region/spain/?lang=es&amp;icid=DSM_Footer_Company_CompanyNews" data-m='{"cN":"Footer_Company_CompanyNews_nav","id":"n3c6c1c1m1r1a2","sN":3,"aN":"c6c1c1m1r1a2"}'>Noticias de la compa&#241;&#237;a</a>
+                            </li>
+                            <li>
+                                <a aria-label="Privacidad en Microsoft Compa&#241;&#237;a
+" class="c-uhff-link" href="https://www.microsoft.com/es-es/privacy?icid=DSM_Footer_Company_Privacy" data-m='{"cN":"Footer_Company_PrivacyAtMicrosoft_nav","id":"n4c6c1c1m1r1a2","sN":4,"aN":"c6c1c1m1r1a2"}'>Privacidad en Microsoft</a>
+                            </li>
+                            <li>
+                                <a aria-label="Inversores Compa&#241;&#237;a
+" class="c-uhff-link" href="https://www.microsoft.com/investor/default.aspx" data-m='{"cN":"Footer_Company_Investors_nav","id":"n5c6c1c1m1r1a2","sN":5,"aN":"c6c1c1m1r1a2"}'>Inversores</a>
+                            </li>
+
+                        </ul>
+                        
+                    </div>
+                </div>
+        </nav>
+    <div class="c-uhff-base">
+                <a id="locale-picker-link" aria-label="Selector de idiomas del contenido. Actualmente definido en Espa&#241;ol (Espa&#241;a, alfabetizaci&#243;n internacional)" class="c-uhff-link c-uhff-lang-selector c-glyph glyph-world" href="https://support.microsoft.com/es-es/worldwide" data-m='{"cN":"locale_picker(ES)_nav","id":"n7c1c1m1r1a2","sN":7,"aN":"c1c1m1r1a2"}'>Espa&#241;ol (Espa&#241;a, alfabetizaci&#243;n internacional)</a>
+
+            <a data-m='{"id":"n8c1c1m1r1a2","sN":8,"aN":"c1c1m1r1a2"}' href="https://aka.ms/yourcaliforniaprivacychoices" class='c-uhff-link c-uhff-ccpa'>
+        <svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 14" xml:space="preserve" height="16" width="43">
+            <title>Icono de exclusi&#243;n de opciones de privacidad</title>
+            <path d="M7.4 12.8h6.8l3.1-11.6H7.4C4.2 1.2 1.6 3.8 1.6 7s2.6 5.8 5.8 5.8z" style="fill-rule:evenodd;clip-rule:evenodd;fill:#fff"/>
+            <path d="M22.6 0H7.4c-3.9 0-7 3.1-7 7s3.1 7 7 7h15.2c3.9 0 7-3.1 7-7s-3.2-7-7-7zm-21 7c0-3.2 2.6-5.8 5.8-5.8h9.9l-3.1 11.6H7.4c-3.2 0-5.8-2.6-5.8-5.8z" style="fill-rule:evenodd;clip-rule:evenodd;fill:#06f"/>
+            <path d="M24.6 4c.2.2.2.6 0 .8L22.5 7l2.2 2.2c.2.2.2.6 0 .8-.2.2-.6.2-.8 0l-2.2-2.2-2.2 2.2c-.2.2-.6.2-.8 0-.2-.2-.2-.6 0-.8L20.8 7l-2.2-2.2c-.2-.2-.2-.6 0-.8.2-.2.6-.2.8 0l2.2 2.2L23.8 4c.2-.2.6-.2.8 0z" style="fill:#fff"/>
+            <path d="M12.7 4.1c.2.2.3.6.1.8L8.6 9.8c-.1.1-.2.2-.3.2-.2.1-.5.1-.7-.1L5.4 7.7c-.2-.2-.2-.6 0-.8.2-.2.6-.2.8 0L8 8.6l3.8-4.5c.2-.2.6-.2.9 0z" style="fill:#06f"/>
+        </svg>
+        <span>Tus opciones de privacidad</span>
+    </a>
+
+        <noscript>
+                <a data-m='{"id":"n9c1c1m1r1a2","sN":9,"aN":"c1c1m1r1a2"}' href="https://aka.ms/yourcaliforniaprivacychoices" class='c-uhff-link c-uhff-ccpa'>
+        <svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 14" xml:space="preserve" height="16" width="43">
+            <title>Icono de exclusi&#243;n de opciones de privacidad</title>
+            <path d="M7.4 12.8h6.8l3.1-11.6H7.4C4.2 1.2 1.6 3.8 1.6 7s2.6 5.8 5.8 5.8z" style="fill-rule:evenodd;clip-rule:evenodd;fill:#fff"/>
+            <path d="M22.6 0H7.4c-3.9 0-7 3.1-7 7s3.1 7 7 7h15.2c3.9 0 7-3.1 7-7s-3.2-7-7-7zm-21 7c0-3.2 2.6-5.8 5.8-5.8h9.9l-3.1 11.6H7.4c-3.2 0-5.8-2.6-5.8-5.8z" style="fill-rule:evenodd;clip-rule:evenodd;fill:#06f"/>
+            <path d="M24.6 4c.2.2.2.6 0 .8L22.5 7l2.2 2.2c.2.2.2.6 0 .8-.2.2-.6.2-.8 0l-2.2-2.2-2.2 2.2c-.2.2-.6.2-.8 0-.2-.2-.2-.6 0-.8L20.8 7l-2.2-2.2c-.2-.2-.2-.6 0-.8.2-.2.6-.2.8 0l2.2 2.2L23.8 4c.2-.2.6-.2.8 0z" style="fill:#fff"/>
+            <path d="M12.7 4.1c.2.2.3.6.1.8L8.6 9.8c-.1.1-.2.2-.3.2-.2.1-.5.1-.7-.1L5.4 7.7c-.2-.2-.2-.6 0-.8.2-.2.6-.2.8 0L8 8.6l3.8-4.5c.2-.2.6-.2.9 0z" style="fill:#06f"/>
+        </svg>
+        <span>Tus opciones de privacidad</span>
+    </a>
+
+        </noscript>
+            <a data-m='{"id":"n10c1c1m1r1a2","sN":10,"aN":"c1c1m1r1a2"}' href="https://go.microsoft.com/fwlink/?linkid=2259814" class="c-uhff-link c-uhff-consumer">
+        <span>Privacidad de la salud del consumidor</span>
+    </a>
+
+        <nav aria-label="V&#237;nculos corporativos de Microsoft">
+            <ul class="c-list f-bare" data-m='{"cN":"Corp links_cont","cT":"Container","id":"c11c1c1m1r1a2","sN":11,"aN":"c1c1m1r1a2"}'>
+                                <li  id="c-uhff-footer_contactus">
+                    <a class="c-uhff-link" href="https://support.microsoft.com/contactus" data-mscc-ic="false" data-m='{"cN":"Footer_ContactUs_nav","id":"n1c11c1c1m1r1a2","sN":1,"aN":"c11c1c1m1r1a2"}'>Ponte en contacto con Microsoft</a>
+                </li>
+                <li  id="c-uhff-footer_privacyandcookies">
+                    <a class="c-uhff-link" href="https://go.microsoft.com/fwlink/?LinkId=521839" data-mscc-ic="false" data-m='{"cN":"Footer_PrivacyandCookies_nav","id":"n2c11c1c1m1r1a2","sN":2,"aN":"c11c1c1m1r1a2"}'>Privacidad</a>
+                </li>
+                <li class=" x-hidden" id="c-uhff-footer_managecookies">
+                    <a class="c-uhff-link" href="#" data-mscc-ic="false" data-m='{"cN":"Footer_ManageCookies_nav","id":"n3c11c1c1m1r1a2","sN":3,"aN":"c11c1c1m1r1a2"}'>Gestionar cookies</a>
+                </li>
+                <li  id="c-uhff-footer_termsofuse">
+                    <a class="c-uhff-link" href="https://go.microsoft.com/fwlink/?LinkID=206977" data-mscc-ic="false" data-m='{"cN":"Footer_TermsOfUse_nav","id":"n4c11c1c1m1r1a2","sN":4,"aN":"c11c1c1m1r1a2"}'>Condiciones de uso </a>
+                </li>
+                <li  id="c-uhff-footer_trademarks">
+                    <a class="c-uhff-link" href="https://go.microsoft.com/fwlink/?linkid=2196228" data-mscc-ic="false" data-m='{"cN":"Footer_Trademarks_nav","id":"n5c11c1c1m1r1a2","sN":5,"aN":"c11c1c1m1r1a2"}'>Marcas registradas</a>
+                </li>
+                <li  id="c-uhff-footer_aboutourads">
+                    <a class="c-uhff-link" href="https://choice.microsoft.com/" data-mscc-ic="false" data-m='{"cN":"Footer_AboutourAds_nav","id":"n6c11c1c1m1r1a2","sN":6,"aN":"c11c1c1m1r1a2"}'>Sobre nuestra publicidad</a>
+                </li>
+                <li  id="c-uhff-footer_eucompliancedocs">
+                    <a class="c-uhff-link" href="https://www.microsoft.com/en-ie/eucompliancedoc/default.aspx" data-mscc-ic="false" data-m='{"cN":"Footer_EUComplianceDoCs_nav","id":"n7c11c1c1m1r1a2","sN":7,"aN":"c11c1c1m1r1a2"}'>Docs de cumplimiento de la UE</a>
+                </li>
+
+                <li>&#169; Microsoft 2026</li>
+                
+            </ul>
+        </nav>
+        
+    </div>
+    
+</footer>
+
+<script id="uhf-footer-ccpa">
+    const globalPrivacyControlEnabled = navigator.globalPrivacyControl;
+
+    const GPC_DataSharingOptIn = (globalPrivacyControlEnabled) ? false : checkThirdPartyAdsOptOutCookie();
+
+    if(window.onGPCLoaded) {
+        window.onGPCLoaded();
+    }
+    
+    function checkThirdPartyAdsOptOutCookie() {
+        try {
+            const ThirdPartyAdsOptOutCookieName = '3PAdsOptOut';
+            var cookieValue = getCookie(ThirdPartyAdsOptOutCookieName);
+            return cookieValue != 1;
+        } catch {
+            return true;
+        }
+    }
+
+    function getCookie(cookieName) {
+        var cookieValue = document.cookie.match('(^|;)\\s*' + cookieName + '\\s*=\\s*([^;]+)');
+        return (cookieValue) ? cookieValue[2] : '';
+    }
+</script>
+
+
+
+
+
+
+
+    </div>
+        </div>
+
+    </div>
+
+    	</div>
+
+	
+	
+		<script src="/lib/jquery/dist/jquery.min.js?v=9_aliU8dGd2tb6OSsuzixeV4y_faTqgFtohetphbbj0" crossorigin="anonymous" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2">
+		</script>
+		<script src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js?v=5P1JGBOIxI7FBAvT_mb1fCnI5n_NhQKzNUuW7Hq0fMc" crossorigin="anonymous" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI">
+		</script>
+		<script src="/lib/oneds/dist/ms.analytics-web-4.0.2.min.js?v=O7wAAOKAVN2-OLLnoh3KjWb9pW6khEi85GWLxrUYqXA">
+		</script>
+	
+
+		
+<script src="/lib/uhf/dist/uhfbundle.js?v=of4Bk4iHW2lu2zc7UaUcCo47rVLNSJYX0ELAcivbHkg"></script>
+
+<script src="https://mem.gfx.ms/meversion?partner=SMCConvergence&market=es-es&uhf=1" defer></script>
+	
+
+
+
+<script type="text/javascript">
+	(function () {
+		function getCookie(name) {
+			var cookies = document.cookie.split('; ');
+			for (var i = 0; i < cookies.length; i++) {
+				var kvp = cookies[i].split('=');
+				if (kvp[0] === name) {
+					return decodeURIComponent(kvp[1]);
+				}
+			}
+			return null;
+		}
+
+		if (typeof window.oneDS === 'object') {
+			window.analytics = new window.oneDS.ApplicationInsights();
+			var config = {
+				instrumentationKey: "ac04587c8d6b439297eee84d88c95e8b-e1b6c3bf-fa11-485c-aebc-a825e1f68c8f-7432",
+				disableCookiesUsage: true,
+				cookieCfg: {
+					ignoreCookies: ["MicrosoftApplicationsTelemetryDeviceId", "MSFPC"]
+				},
+				channelConfiguration: {
+					eventsLimitInMem: 50
+				},
+				propertyConfiguration: {
+					gpcDataSharingOptIn: false,
+					callback: {
+						userConsentDetails: () => {
+							const consentDetails = {
+								Required: true,
+								Analytics: false,
+								Advertising: false,
+								SocialMedia: false
+							};
+
+							return consentDetails;
+						}
+					}
+				},
+				webAnalyticsConfiguration: {
+					autoCapture: {
+						pageView: true,
+						onLoad: true,
+						onUnload: true,
+						click: true,
+						scroll: true,
+						resize: true,
+						lineage: false,
+						jsError: true,
+						msTags: true
+					},
+					autoPopulateParentIdAndParentName: true,
+					isLoggedIn: false,
+					urlCollectHash: true,
+urlCollectQuery: true,
+					useDefaultContentName: true,
+					useShortNameForContentBlob: false
+				}
+			};
+
+			var isFirstTime = true;
+			var jsLocalId = null;
+
+
+			//Telemetry initializers are used to modify the contents of collected telemetry before being sent from the user's browser
+			window.analytics.addTelemetryInitializer(function (e) {
+				if (isFirstTime) {
+					var context = window.analytics.getPropertyManager().getPropertiesContext();
+					var ext = e.ext = e.ext || {};
+
+					if (jsLocalId) {
+						// Set the localId so it's set automatically for all future events
+						context.user.setLocalId(jsLocalId);
+
+						var userExt = ext.user = ext.user || {};
+						userExt.localId = jsLocalId;
+					}
+
+					isFirstTime = false;
+				}
+			});
+			window.analytics.initialize(config, []);
+		}
+	})();
+</script>
+
+		
+
+<script type="text/javascript">
+	$(function () {
+		var signInUrl = "/es-es/authentication/signin";
+		var signOutUrl = "/es-es/authentication/signout";
+		var switchAccountUrl = "/es-es/authentication/switchaccount";
+		var shellOptions = {
+			meControlOptions: {
+				apiGeneration: 'GEN2',
+				authProviderConfig: {
+					type: 'webAadWithMsaProxy',
+					appSignInUrl: signInUrl,
+					appSignInToUrl: signInUrl,
+					appSignOutUrl: signOutUrl,
+					appSwitchUrl: switchAccountUrl,
+					appSwitchToUrl: switchAccountUrl,
+					aad: {
+						signOutUrl: 'https://login.microsoftonline.com:443/uxlogout?appid=ee272b19-4411-433f-8f28-5c13cb6fd407\u0026wreply=https%3A%2F%2Fsupport.microsoft.com%2Fsignin-oidc\u0026shouldforgetuser=False',
+						signOutAndForgetUrl: 'https://login.microsoftonline.com:443/uxlogout?appid=ee272b19-4411-433f-8f28-5c13cb6fd407\u0026wreply=https%3A%2F%2Fsupport.microsoft.com%2Fsignin-oidc\u0026shouldforgetuser=True',
+						forgetUrl: 'https://login.microsoftonline.com:443/forgetuser',
+						rememberedAccountsUrl: 'https://login.microsoftonline.com:443/savedusers?appid=ee272b19-4411-433f-8f28-5c13cb6fd407\u0026wreply=https%3A%2F%2Fsupport.microsoft.com%2Fsignin-oidc',
+					},
+				},
+			}
+		};
+
+		if (window.msCommonShell) {
+			window.msCommonShell.load(shellOptions);
+		}
+		else {
+			window.onShellReadyToLoad = function () {
+				window.onShellReadyToLoad = null;
+				window.msCommonShell.load(shellOptions);
+			};
+		}
+	});
+</script>
+
+<script defer type="text/javascript" src="/js/SilentSignInManager.Main.min.js?v=YhJIc9eIReDAmfom1ivxwN61e3gQDko8Dw4oru_ZXi4"></script>
+<script type="text/javascript">
+	$(async function () {
+		await window.manageSilentSignIn.handleAllSilentSignIn();
+	})
+</script>
+		
+
+
+	<script>
+		if (window.UcsCreative === undefined) {
+			window.UcsCreative = {};
+		}
+	</script>
+	<script type="text/javascript">
+
+		window.silentSigninProgress = true;
+
+		var silentSigninStartLog = {
+			actionType: 'A',
+			content: {
+				contentId: 'silentSignInStarted'
+			}
+		};
+		window.analytics.captureContentUpdate(silentSigninStartLog);
+	</script>
+	<iframe id="iframeOP" width="1" height="1" name="iframeOP" class="d-none" sandbox="allow-same-origin allow-forms allow-scripts" src="/es-es/authentication/silentsignin?ru=%2Fes-es%2Fsilentsigninhandler" hidden></iframe>
+
+		<script src="/js/MeControlCallout.Main.min.js?v=tLNC8gJXmcpgKnVZCzJOdJOwkDcmcgvOTKeTIHyDJVw"></script>
+
+	
+	<script src="/js/Support.Main.min.js?v=YU-6bvuqYbPuSFcD3H71b99Qvws9rMxWNkcd7L9swS8"></script>
+		<script defer src="/js/ExtendedFeedback.Main.min.js?v=CJMXanN4-02TmOoIgv6O2JDg190tlvonOMOTHaAxTYo"></script>
+		<script type="text/javascript">
+			if (occe && occe.Resources) {
+				occe.Resources.addLocalizedStrings({"L_Feedback_ThankYou":"L_Feedback_ThankYou"});
+			}
+		</script>
+
+	<script defer src="/js/TabControl.Main.min.js?v=Tuq0JGG2-NUsWHZ5maQKtMZE5uDF4Q6HoAVX46j1Ktw"></script>
+	<script src="/js/LeftNavigation.Main.min.js?v=7xKXyNwn7X9rN66VAES5OF5UwbQUMBxRViBw-nNfMCU"></script>
+
+	
+		<script src="/js/PromotionBanner.Main.min.js?v=fo3GgQJxXuFWB4PGQZcpUFPshv4tBbkzYvBtvPRDRd0"></script>
+		<script type="text/javascript">
+				window.addEventListener('load', function () {
+					if (typeof window.initPromotionLogger !== 'undefined') {
+						window.initPromotionLogger();
+					}
+				});
+		</script>
+	
+	
+
+</body>
+</html>

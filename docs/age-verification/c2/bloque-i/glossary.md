@@ -1,0 +1,241 @@
+# Registro de procedencia — glosario de age-auxiliar-c2 (bloque I)
+
+R2.3: cada entrada copiada de C1 con el mismo término, la misma definición, las mismas citas y los ficheros citados con el mismo sha256 lleva «verificado en C1: <informe>» (el informe se elige por `git blame` de la entrada en el glosario de C1). Lo comprueba `backend/tests/test_provenance.py`.
+
+Entradas: 232 (bloque I: 173, bloque II: 59) · heredadas de C1: 232 · verificadas: 0.
+
+- `g-ley-organica` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l01 · AGE-C1: block 1
+- `g-recurso-de-amparo` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l01 · AGE-C1: block 1
+- `g-recurso-de-inconstitucionalidad` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l01 · AGE-C1: block 1
+- `g-estado-de-alarma` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l01 · AGE-C1: block 1
+- `g-estado-de-excepcion` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l01 · AGE-C1: block 1
+- `g-principios-rectores` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l01 · AGE-C1: block 1
+- `g-derecho-de-peticion` · verificado en C1: docs/age-theory-ledger.md · C1 origin m02-l01 · AGE-C1: block 2
+- `g-personas-con-discapacidad` · verificado en C1: docs/age-theory-ledger.md · C1 origin m02-l01 · AGE-C1: block 2
+- `g-cuestion-de-inconstitucionalidad` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l01 · AGE-C1: block 1
+- `g-defensor-del-pueblo` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l01 · AGE-C1: block 1
+- `g-monarquia-parlamentaria` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l02 · AGE-C1: block 1
+- `g-refrendo` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l02 · AGE-C1: block 1
+- `g-regencia` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l02 · AGE-C1: block 1
+- `g-derecho-de-gracia` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l02 · AGE-C1: block 1
+- `g-referendum-consultivo` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l03 · AGE-C1: block 1
+- `g-mandato-imperativo` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l03 · AGE-C1: block 1
+- `g-inviolabilidad-parlamentaria` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l03 · AGE-C1: block 1
+- `g-inmunidad-parlamentaria` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l03 · AGE-C1: block 1
+- `g-suplicatorio` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l03 · AGE-C1: block 1
+- `g-diputacion-permanente` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l03 · AGE-C1: block 1
+- `g-grupo-parlamentario` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l03 · AGE-C1: block 1
+- `g-grupo-mixto` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l03 · AGE-C1: block 1
+- `g-junta-de-portavoces` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l03 · AGE-C1: block 1
+- `g-comision-mixta` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l03 · AGE-C1: block 1
+- `g-ley-de-bases` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l03 · AGE-C1: block 1
+- `g-iniciativa-popular` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l03 · AGE-C1: block 1
+- `g-veto` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l03 · AGE-C1: block 1
+- `g-sesion-conjunta` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l02 · AGE-C1: block 1
+- `g-fondo-de-compensacion` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l09 · AGE-C1: block 1
+- `g-potestad-jurisdiccional` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l04 · AGE-C1: block 1
+- `g-consejo-general-del-poder-judicial` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l04 · AGE-C1: block 1
+- `g-ministerio-fiscal` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l04 · AGE-C1: block 1
+- `g-partido-judicial` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l04 · AGE-C1: block 1
+- `g-tribunal-de-instancia` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l04 · AGE-C1: block 1
+- `g-juez-de-paz` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l04 · AGE-C1: block 1
+- `g-estado-de-sitio` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l05 · AGE-C1: block 1
+- `g-cuestion-de-confianza` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l05 · AGE-C1: block 1
+- `g-mocion-de-censura` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l05 · AGE-C1: block 1
+- `g-gobierno-en-funciones` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l05 · AGE-C1: block 1
+- `g-ministro-sin-cartera` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l05 · AGE-C1: block 1
+- `g-comisiones-delegadas` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l05 · AGE-C1: block 1
+- `g-investidura` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l05 · AGE-C1: block 1
+- `g-potestad-reglamentaria` · verificado en C1: docs/age-theory-ledger.md · C1 origin m03-l01 · AGE-C1: r2 block 3
+- `g-organo-colegiado` · verificado en C1: docs/age-theory-ledger.md · C1 origin m03-l03 · AGE-C1: r2 block 3
+- `g-consejo-de-estado` · verificado en C1: docs/age-theory-ledger.md · C1 origin m03-l06 · AGE-C1: r2 block 3
+- `g-consulta-publica` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l06 · AGE-C1: block 1
+- `g-agenda-2030` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l06 · AGE-C1: block 1
+- `g-accesibilidad-universal` · verificado en C1: docs/age-verification/audit-2026-11/theory.md · C1 origin m02-l01 · Course age-administrativo-c1: currency audit (R2b part C, st
+- `g-informacion-publica` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l07 · AGE-C1: block 1
+- `g-publicidad-activa` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l07 · AGE-C1: block 1
+- `g-derecho-de-acceso-a-la-informacion-publica` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l07 · AGE-C1: block 1
+- `g-silencio-administrativo` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l07 · AGE-C1: block 1
+- `g-alto-cargo` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l08 · AGE-C1: r2 block 4
+- `g-organos-superiores` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l08 · AGE-C1: block 1
+- `g-organos-directivos` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l08 · AGE-C1: block 1
+- `g-servicios-comunes` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l08 · AGE-C1: all theory is there
+- `g-unidades-administrativas` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l08 · AGE-C1: block 1
+- `g-delegado-del-gobierno` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l08 · AGE-C1: block 1
+- `g-subdelegado-del-gobierno` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l08 · AGE-C1: block 1
+- `g-servicio-exterior-del-estado` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l08 · AGE-C1: block 1
+- `g-oficinas-consulares` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l08 · AGE-C1: block 1
+- `g-representaciones-permanentes` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l08 · AGE-C1: block 1
+- `g-estatuto-de-autonomia` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l09 · AGE-C1: block 1
+- `g-ley-marco` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l09 · AGE-C1: block 1
+- `g-tribunal-superior-de-justicia` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l09 · AGE-C1: block 1
+- `g-entidad-local` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l10 · AGE-C1: block 1
+- `g-municipio` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l10 · AGE-C1: block 1
+- `g-provincia` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l10 · AGE-C1: block 1
+- `g-termino-municipal` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l10 · AGE-C1: block 1
+- `g-padron-municipal` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l10 · AGE-C1: block 1
+- `g-vecino` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l10 · AGE-C1: block 1
+- `g-concejo-abierto` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l10 · AGE-C1: block 1
+- `g-junta-de-gobierno-local` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l10 · AGE-C1: block 1
+- `g-mancomunidad` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l10 · AGE-C1: block 1
+- `g-area-metropolitana` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l10 · AGE-C1: block 1
+- `g-municipio-gran-poblacion` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l10 · AGE-C1: block 1
+- `g-mayoria-cualificada-consejo` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l11 · AGE-C1: block 1
+- `g-minoria-de-bloqueo` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l11 · AGE-C1: block 1
+- `g-orden-jurisdiccional` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l04 · AGE-C1: block 1
+- `g-anulabilidad` · verificado en C1: docs/age-theory-ledger.md · C1 origin m03-l02 · AGE-C1: r2 block 3
+- `g-desviacion-de-poder` · verificado en C1: docs/age-theory-ledger.md · C1 origin m03-l02 · AGE-C1: r2 block 3
+- `g-inderogabilidad-singular` · verificado en C1: docs/age-theory-ledger.md · C1 origin m03-l02 · AGE-C1: r2 block 3
+- `g-comparecencia-en-la-sede-electronica` · verificado en C1: docs/age-theory-ledger.md · C1 origin m03-l02 · AGE-C1: r2 block 3
+- `g-interesado` · verificado en C1: docs/age-theory-ledger.md · C1 origin m03-l03 · AGE-C1: r2 block 3
+- `g-convenio` · verificado en C1: docs/age-theory-ledger.md · C1 origin m03-l03 · AGE-C1: all theory is there
+- `g-recurso-de-alzada` · verificado en C1: docs/age-theory-ledger.md · C1 origin m03-l03 · AGE-C1: r2 block 3
+- `g-recurso-potestativo-de-reposicion` · verificado en C1: docs/age-theory-ledger.md · C1 origin m03-l03 · AGE-C1: r2 block 3
+- `g-recurso-extraordinario-de-revision` · verificado en C1: docs/age-theory-ledger.md · C1 origin m03-l03 · AGE-C1: r2 block 3
+- `g-declaracion-de-lesividad` · verificado en C1: docs/age-theory-ledger.md · C1 origin m03-l03 · AGE-C1: r2 block 3
+- `g-recusacion` · verificado en C1: docs/age-theory-ledger.md · C1 origin m03-l03 · AGE-C1: r2 block 3
+- `g-sede-electronica` · verificado en C1: docs/age-theory-ledger.md · C1 origin m02-l03 · AGE-C1: block 2
+- `g-punto-de-acceso-general` · verificado en C1: docs/age-theory-ledger.md · C1 origin m02-l03 · AGE-C1: block 2
+- `g-direccion-electronica-habilitada-unica` · verificado en C1: docs/age-theory-ledger.md · C1 origin m02-l03 · AGE-C1: block 2
+- `g-declaracion-responsable` · verificado en C1: docs/age-theory-ledger.md · C1 origin m03-l05 · AGE-C1: r2 block 3
+- `g-datos-personales` · verificado en C1: docs/age-theory-ledger.md · C1 origin m02-l04 · AGE-C1: block 2
+- `g-responsable-del-tratamiento` · verificado en C1: docs/age-theory-ledger.md · C1 origin m02-l04 · AGE-C1: block 2
+- `g-encargado-del-tratamiento` · verificado en C1: docs/age-theory-ledger.md · C1 origin m02-l04 · AGE-C1: block 2
+- `g-consentimiento-del-interesado` · verificado en C1: docs/age-theory-ledger.md · C1 origin m02-l04 · AGE-C1: block 2
+- `g-limitacion-del-tratamiento` · verificado en C1: docs/age-theory-ledger.md · C1 origin m02-l04 · AGE-C1: block 2
+- `g-violacion-de-la-seguridad-de-los-datos-personales` · verificado en C1: docs/age-theory-ledger.md · C1 origin m02-l04 · AGE-C1: block 2
+- `g-categorias-especiales-de-datos` · verificado en C1: docs/age-theory-ledger.md · C1 origin m02-l04 · AGE-C1: block 2
+- `g-responsabilidad-proactiva` · verificado en C1: docs/age-theory-ledger.md · C1 origin m02-l04 · AGE-C1: block 2
+- `g-agencia-espanola-de-proteccion-de-datos` · verificado en C1: docs/age-theory-ledger.md · C1 origin m02-l04 · AGE-C1: block 2
+- `g-directiva` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l11 · AGE-C1: r2 block 6
+- `g-decreto-ley` · verificado en C1: docs/age-theory-ledger.md · C1 origin m03-l01 · AGE-C1: r2 block 3
+- `g-decreto-legislativo` · verificado en C1: docs/age-theory-ledger.md · C1 origin m03-l01 · AGE-C1: r2 block 3
+- `g-empleado-publico` · verificado en C1: docs/age-theory-ledger.md · C1 origin m04-l01 · AGE-C1: r2 block 4
+- `g-funcionario-de-carrera` · verificado en C1: docs/age-theory-ledger.md · C1 origin m04-l01 · AGE-C1: r2 block 4
+- `g-personal-laboral` · verificado en C1: docs/age-theory-ledger.md · C1 origin m04-l01 · AGE-C1: r2 block 4
+- `g-personal-eventual` · verificado en C1: docs/age-theory-ledger.md · C1 origin m04-l01 · AGE-C1: r2 block 4
+- `g-registro-central-de-personal` · verificado en C1: docs/age-theory-ledger.md · C1 origin m04-l01 · AGE-C1: r2 block 4
+- `g-oferta-de-empleo-publico` · verificado en C1: docs/age-theory-ledger.md · C1 origin m04-l02 · AGE-C1: r2 block 4
+- `g-organo-de-seleccion` · verificado en C1: docs/age-theory-ledger.md · C1 origin m04-l02 · AGE-C1: r2 block 4
+- `g-funcionario-en-practicas` · verificado en C1: docs/age-theory-ledger.md · C1 origin m04-l03 · AGE-C1: r2 block 4
+- `g-curso-selectivo` · verificado en C1: docs/age-theory-ledger.md · C1 origin m04-l03 · AGE-C1: r2 block 4
+- `g-oposicion` · verificado en C1: docs/age-theory-ledger.md · C1 origin m04-l03 · AGE-C1: round R3: ended
+- `g-concurso-oposicion` · verificado en C1: docs/age-theory-ledger.md · C1 origin m04-l03 · AGE-C1: r2 block 4
+- `g-servicio-activo` · verificado en C1: docs/age-theory-ledger.md · C1 origin m04-l04 · AGE-C1: r2 block 4
+- `g-servicio-en-otras-administraciones-publicas` · verificado en C1: docs/age-theory-ledger.md · C1 origin m04-l04 · AGE-C1: r2 block 4
+- `g-suspension-firme` · verificado en C1: docs/age-theory-ledger.md · C1 origin m04-l04 · AGE-C1: r2 block 4
+- `g-expectativa-de-destino` · verificado en C1: docs/age-theory-ledger.md · C1 origin m04-l04 · AGE-C1: r2 block 4
+- `g-libre-designacion` · verificado en C1: docs/age-theory-ledger.md · C1 origin m04-l05 · AGE-C1: r2 block 4
+- `g-grado-personal` · verificado en C1: docs/age-theory-ledger.md · C1 origin m04-l05 · AGE-C1: r2 block 4
+- `g-comision-de-servicios` · verificado en C1: docs/age-theory-ledger.md · C1 origin m04-l05 · AGE-C1: r2 block 4
+- `g-adscripcion-provisional` · verificado en C1: docs/age-theory-ledger.md · C1 origin m04-l05 · AGE-C1: r2 block 4
+- `g-redistribucion-de-efectivos` · verificado en C1: docs/age-theory-ledger.md · C1 origin m04-l05 · AGE-C1: r2 block 4
+- `g-reasignacion-de-efectivos` · verificado en C1: docs/age-theory-ledger.md · C1 origin m04-l05 · AGE-C1: r2 block 4
+- `g-promocion-interna` · verificado en C1: docs/age-theory-ledger.md · C1 origin m04-l05 · AGE-C1: r2 block 4
+- `g-regimen-general-de-la-seguridad-social` · verificado en C1: docs/age-theory-ledger.md · C1 origin m04-l09 · AGE-C1: r2 block 4
+- `g-carrera-horizontal` · verificado en C1: docs/age-theory-ledger.md · C1 origin m04-l05 · AGE-C1: r2 block 4
+- `g-separacion-del-servicio` · verificado en C1: docs/age-theory-ledger.md · C1 origin m04-l06 · AGE-C1: r2 block 4
+- `g-suspension-provisional` · verificado en C1: docs/age-theory-ledger.md · C1 origin m04-l06 · AGE-C1: r2 block 4
+- `g-pliego-de-cargos` · verificado en C1: docs/age-theory-ledger.md · C1 origin m04-l06 · AGE-C1: r2 block 4
+- `g-demerito` · verificado en C1: docs/age-theory-ledger.md · C1 origin m04-l06 · AGE-C1: r2 block 4
+- `g-mutualismo-administrativo` · verificado en C1: docs/age-theory-ledger.md · C1 origin m04-l07 · AGE-C1: r2 block 4
+- `g-regimen-de-clases-pasivas` · verificado en C1: docs/age-theory-ledger.md · C1 origin m04-l07 · AGE-C1: r2 block 4
+- `g-mutualista` · verificado en C1: docs/age-theory-ledger.md · C1 origin m04-l07 · AGE-C1: r2 block 4
+- `g-trienio` · verificado en C1: docs/age-theory-ledger.md · C1 origin m05-l04 · AGE-C1: r2 block 5
+- `g-complemento-de-destino` · verificado en C1: docs/age-theory-ledger.md · C1 origin m05-l04 · AGE-C1: r2 block 5
+- `g-complemento-especifico` · verificado en C1: docs/age-theory-ledger.md · C1 origin m05-l04 · AGE-C1: r2 block 5
+- `g-complemento-de-productividad` · verificado en C1: docs/age-theory-ledger.md · C1 origin m05-l04 · AGE-C1: r2 block 5
+- `g-residencia-oficial` · verificado en C1: docs/age-theory-ledger.md · C1 origin m05-l04 · AGE-C1: r2 block 5
+- `g-comision-de-servicio-con-derecho-a-indemnizacion` · verificado en C1: docs/age-theory-ledger.md · C1 origin m05-l04 · AGE-C1: r2 block 5
+- `g-dieta` · verificado en C1: docs/age-theory-ledger.md · C1 origin m05-l04 · AGE-C1: r2 block 5
+- `g-desconexion-digital` · verificado en C1: docs/age-theory-ledger.md · C1 origin m02-l04 · AGE-C1: block 2
+- `g-despido-disciplinario` · verificado en C1: docs/age-theory-ledger.md · C1 origin m04-l08 · AGE-C1: r2 block 4
+- `g-incapacidad-temporal` · verificado en C1: docs/age-theory-ledger.md · C1 origin m04-l09 · AGE-C1: r2 block 4
+- `g-presupuestos-generales-del-estado` · verificado en C1: docs/age-theory-ledger.md · C1 origin m05-l01 · AGE-C1: r2 block 5
+- `g-estabilidad-presupuestaria` · verificado en C1: docs/age-theory-ledger.md · C1 origin m05-l01 · AGE-C1: r2 block 5
+- `g-escenarios-presupuestarios-plurianuales` · verificado en C1: docs/age-theory-ledger.md · C1 origin m05-l01 · AGE-C1: r2 block 5
+- `g-ejercicio-presupuestario` · verificado en C1: docs/age-theory-ledger.md · C1 origin m05-l01 · AGE-C1: r2 block 5
+- `g-credito-presupuestario` · verificado en C1: docs/age-theory-ledger.md · C1 origin m05-l01 · AGE-C1: r2 block 5
+- `g-fondo-de-contingencia` · verificado en C1: docs/age-theory-ledger.md · C1 origin m05-l02 · AGE-C1: r2 block 5
+- `g-aprobacion-del-gasto` · verificado en C1: docs/age-theory-ledger.md · C1 origin m05-l03 · AGE-C1: r2 block 5
+- `g-compromiso-de-gasto` · verificado en C1: docs/age-theory-ledger.md · C1 origin m05-l03 · AGE-C1: r2 block 5
+- `g-reconocimiento-de-la-obligacion` · verificado en C1: docs/age-theory-ledger.md · C1 origin m05-l03 · AGE-C1: r2 block 5
+- `g-funcion-interventora` · verificado en C1: docs/age-theory-ledger.md · C1 origin m05-l03 · AGE-C1: r2 block 5
+- `g-control-financiero-permanente` · verificado en C1: docs/age-theory-ledger.md · C1 origin m05-l03 · AGE-C1: r2 block 5
+- `g-auditoria-publica` · verificado en C1: docs/age-theory-ledger.md · C1 origin m05-l03 · AGE-C1: r2 block 5
+- `g-tribunal-de-cuentas` · verificado en C1: docs/age-theory-ledger.md · C1 origin m05-l03 · AGE-C1: r2 block 5
+- `g-clasificacion-economica` · verificado en C1: docs/age-theory-ledger.md · C1 origin m05-l02 · AGE-C1: r2 block 5
+- `g-gastos-corrientes-en-bienes-y-servicios` · verificado en C1: docs/age-theory-ledger.md · C1 origin m05-l05 · AGE-C1: r2 block 5
+- `g-inversiones-reales` · verificado en C1: docs/age-theory-ledger.md · C1 origin m05-l05 · AGE-C1: r2 block 5
+- `g-transferencias-corrientes` · verificado en C1: docs/age-theory-ledger.md · C1 origin m05-l05 · AGE-C1: r2 block 5
+- `g-transferencias-de-capital` · verificado en C1: docs/age-theory-ledger.md · C1 origin m05-l05 · AGE-C1: r2 block 5
+- `g-discriminacion-directa-por-razon-de-sexo` · verificado en C1: docs/age-theory-ledger.md · C1 origin m03-l07 · AGE-C1: r2 block 3
+- `g-discriminacion-indirecta-por-razon-de-sexo` · verificado en C1: docs/age-theory-ledger.md · C1 origin m03-l07 · AGE-C1: r2 block 3
+- `g-acoso-sexual` · verificado en C1: docs/age-theory-ledger.md · C1 origin m03-l07 · AGE-C1: r2 block 3
+- `g-acoso-por-razon-de-sexo` · verificado en C1: docs/age-theory-ledger.md · C1 origin m03-l07 · AGE-C1: r2 block 3
+- `g-composicion-equilibrada` · verificado en C1: docs/age-theory-ledger.md · C1 origin m03-l07 · AGE-C1: r2 block 3
+- `g-situacion-de-dependencia` · verificado en C1: docs/age-verification/audit-2026-11/theory.md · C1 origin m03-l07 · Course age-administrativo-c1: currency audit (R2b part C, st
+- `g-persona-trans` · verificado en C1: docs/age-theory-ledger.md · C1 origin m03-l07 · AGE-C1: r2 block 3
+- `g-normalizacion` · verificado en C1: docs/age-theory-ledger.md · C1 origin m03-l07 · AGE-C1: r2 block 3
+
+## Bloque II (2026-11-06)
+
+- `g-oficinas-de-atencion-al-ciudadano` · verificado en C1: docs/age-theory-ledger.md · C1 origin m02-l01 · AGE-C1: block 2
+- `g-modelos-normalizados` · verificado en C1: docs/age-theory-ledger.md · C1 origin m02-l01 · AGE-C1: block 2
+- `g-cartas-de-servicios` · verificado en C1: docs/age-theory-ledger.md · C1 origin m02-l01 · AGE-C1: block 2
+- `g-informacion-general` · verificado en C1: docs/age-theory-ledger.md · C1 origin m02-l01 · AGE-C1: r2 block 6
+- `g-informacion-particular` · verificado en C1: docs/age-theory-ledger.md · C1 origin m02-l01 · AGE-C1: block 2
+- `g-patrimonio-documental` · verificado en C1: docs/age-theory-ledger.md · C1 origin m02-l02 · AGE-C1: block 2
+- `g-documento-de-archivo` · verificado en C1: docs/age-theory-ledger.md · C1 origin m02-l02 · AGE-C1: block 2
+- `g-documento-electronico` · verificado en C1: docs/age-theory-ledger.md · C1 origin m02-l02 · AGE-C1: block 2
+- `g-expediente-electronico` · verificado en C1: docs/age-theory-ledger.md · C1 origin m02-l02 · AGE-C1: block 2
+- `g-documentos-publicos-administrativos` · verificado en C1: docs/age-theory-ledger.md · C1 origin m02-l02 · AGE-C1: block 2
+- `g-documento-administrativo-electronico` · verificado en C1: docs/age-theory-ledger.md · C1 origin m02-l02 · AGE-C1: block 2
+- `g-registro-electronico-general` · verificado en C1: docs/age-theory-ledger.md · C1 origin m02-l02 · AGE-C1: block 2
+- `g-archivo-electronico-unico` · verificado en C1: docs/age-theory-ledger.md · C1 origin m02-l02 · AGE-C1: block 2
+- `g-ciclo-vital-de-documentos` · verificado en C1: docs/age-theory-ledger.md · C1 origin m02-l02 · AGE-C1: block 2
+- `g-calendario-de-conservacion` · verificado en C1: docs/age-theory-ledger.md · C1 origin m02-l02 · AGE-C1: block 2
+- `g-archivo-intermedio` · verificado en C1: docs/age-theory-ledger.md · C1 origin m02-l02 · AGE-C1: block 2
+- `g-comision-superior-calificadora-de-documentos-administrativos` · verificado en C1: docs/age-theory-ledger.md · C1 origin m02-l02 · AGE-C1: block 2
+- `g-portal-de-internet` · verificado en C1: docs/age-theory-ledger.md · C1 origin m02-l03 · AGE-C1: block 2
+- `g-carpeta-ciudadana` · verificado en C1: docs/age-theory-ledger.md · C1 origin m02-l03 · AGE-C1: block 2
+- `g-certificado-electronico` · verificado en C1: docs/age-theory-ledger.md · C1 origin m02-l03 · AGE-C1: block 2
+- `g-sello-electronico` · verificado en C1: docs/age-theory-ledger.md · C1 origin m02-l03 · AGE-C1: block 2
+- `g-carga-desproporcionada` · verificado en C1: docs/age-theory-ledger.md · C1 origin m02-l03 · AGE-C1: block 2
+- `g-declaracion-de-accesibilidad` · verificado en C1: docs/age-theory-ledger.md · C1 origin m02-l03 · AGE-C1: block 2
+- `g-malware` · verificado en C1: docs/age-theory-ledger.md · C1 origin m06-l01 · AGE-C1: r2 block 6
+- `g-cortafuegos` · verificado en C1: docs/age-theory-ledger.md · C1 origin m06-l01 · AGE-C1: r2 block 6
+- `g-phishing` · verificado en C1: docs/age-theory-ledger.md · C1 origin m06-l01 · AGE-C1: r2 block 6
+- `g-saas` · verificado en C1: docs/age-theory-ledger.md · C1 origin m06-l01 · AGE-C1: r2 block 6
+- `g-ntfs` · verificado en C1: docs/age-theory-ledger.md · C1 origin m06-l01 · AGE-C1: r2 block 6
+- `g-barra-de-tareas` · verificado en C1: docs/age-theory-ledger.md · C1 origin m06-l02 · AGE-C1: r2 block 6
+- `g-menu-inicio` · verificado en C1: docs/age-theory-ledger.md · C1 origin m06-l02 · AGE-C1: r2 block 6
+- `g-acceso-directo` · verificado en C1: docs/age-theory-ledger.md · C1 origin m06-l02 · AGE-C1: r2 block 6
+- `g-papelera-de-reciclaje` · verificado en C1: docs/age-theory-ledger.md · C1 origin m06-l02 · AGE-C1: r2 block 6
+- `g-microsoft-copilot` · verificado en C1: docs/age-theory-ledger.md · C1 origin m06-l02 · AGE-C1: r2 block 6
+- `g-explorador-de-archivos` · verificado en C1: docs/age-theory-ledger.md · C1 origin m06-l03 · AGE-C1: r2 block 6
+- `g-acceso-rapido` · verificado en C1: docs/age-theory-ledger.md · C1 origin m06-l03 · AGE-C1: r2 block 6
+- `g-indexacion` · verificado en C1: docs/age-theory-ledger.md · C1 origin m06-l03 · AGE-C1: r2 block 6
+- `g-editor-del-registro` · verificado en C1: docs/age-theory-ledger.md · C1 origin m06-l03 · AGE-C1: r2 block 6
+- `g-historial-de-archivos` · verificado en C1: docs/age-theory-ledger.md · C1 origin m06-l03 · AGE-C1: r2 block 6
+- `g-plantilla` · verificado en C1: docs/age-verification/audit-2026-11/theory.md · C1 origin m06-l04 · Course age-administrativo-c1: currency audit (R2b part C, st
+- `g-macro` · verificado en C1: docs/age-theory-ledger.md · C1 origin m06-l04 · AGE-C1: r2 block 6
+- `g-combinacion-de-correspondencia` · verificado en C1: docs/age-theory-ledger.md · C1 origin m06-l04 · AGE-C1: r2 block 6
+- `g-autoguardado` · verificado en C1: docs/age-theory-ledger.md · C1 origin m06-l04 · AGE-C1: r2 block 6
+- `g-autorrecuperacion` · verificado en C1: docs/age-theory-ledger.md · C1 origin m06-l04 · AGE-C1: r2 block 6
+- `g-tabla-dinamica` · verificado en C1: docs/age-theory-ledger.md · C1 origin m06-l05 · AGE-C1: r2 block 6
+- `g-segmentacion-de-datos` · verificado en C1: docs/age-theory-ledger.md · C1 origin m06-l05 · AGE-C1: r2 block 6
+- `g-clave-principal` · verificado en C1: docs/age-theory-ledger.md · C1 origin m06-l06 · AGE-C1: r2 block 6
+- `g-clave-externa` · verificado en C1: docs/age-theory-ledger.md · C1 origin m06-l06 · AGE-C1: r2 block 6
+- `g-integridad-referencial` · verificado en C1: docs/age-theory-ledger.md · C1 origin m06-l06 · AGE-C1: r2 block 6
+- `g-regla-de-validacion` · verificado en C1: docs/age-theory-ledger.md · C1 origin m06-l06 · AGE-C1: r2 block 6
+- `g-tabla-vinculada` · verificado en C1: docs/age-theory-ledger.md · C1 origin m06-l06 · AGE-C1: r2 block 6
+- `g-imap` · verificado en C1: docs/age-theory-ledger.md · C1 origin m06-l07 · AGE-C1: r2 block 6
+- `g-pop` · verificado en C1: docs/age-theory-ledger.md · C1 origin m06-l07 · AGE-C1: r2 block 6
+- `g-s-mime` · verificado en C1: docs/age-theory-ledger.md · C1 origin m06-l07 · AGE-C1: r2 block 6
+- `g-lista-de-contactos` · verificado en C1: docs/age-verification/audit-2026-11/followup · C1 origin m06-l07 · age-administrativo-c1: November currency audit follow-ups (e
+- `g-tcp-ip` · verificado en C1: docs/age-theory-ledger.md · C1 origin m06-l08 · AGE-C1: r2 block 6
+- `g-direccion-ip` · verificado en C1: docs/age-theory-ledger.md · C1 origin m06-l08 · AGE-C1: r2 block 6
+- `g-dns` · verificado en C1: docs/age-theory-ledger.md · C1 origin m06-l08 · AGE-C1: r2 block 6
+- `g-https` · verificado en C1: docs/age-theory-ledger.md · C1 origin m06-l08 · AGE-C1: r2 block 6
+- `g-cookie` · verificado en C1: docs/age-theory-ledger.md · C1 origin m06-l08 · AGE-C1: r2 block 6

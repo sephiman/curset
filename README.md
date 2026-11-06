@@ -924,9 +924,19 @@ between questions waits for delta G.
 only, with no figures (requirements in `docs/age-auxiliar-course-requirements.md`, a delta to C1's). Round
 R1 built its skeleton (`docs/age-c2-round-1-handoff.md`): «Proceso de selección» holds «Cómo es el examen»
 (`m00-l01`) and «Cómo son los psicotécnicos» (`ps-l01`, the 16 psicotécnico types with one official
-question each), both written; «Programa» holds bloque I (`m01`, 16 temas) and bloque II (`m02`, 12 temas)
-as titled stubs with a «Normativa» block. It declares `lesson_practice`, letter options and «tema» like C1,
-has no questions or exam presets yet, and shares no file with C1: its `sources/` are its own copies.
+question each), both written; «Programa» holds bloque I (`m01`, 16 temas) and bloque II (`m02`, 12
+temas, the ofimática ones list-shaped), all written in round R2 (`docs/age-c2-theory-ledger.md`). It
+declares `lesson_practice`, letter options and «tema» like C1, has no questions or exam presets yet, and
+shares no file with C1: its `sources/` are its own copies.
+
+**Provenance (R2.3).** A C2 sentence identical to a C1 one, with the same governing citations and the cited
+files at the same sha256 in both snapshots, inherits C1's verification; every other sentence needs its own
+PASS from a blind verifier. `backend/scripts/provenance.py` splits a lesson into sentences, finds what C1
+sentence (if any) each inherits from, and writes the per-lesson record in `docs/age-verification/c2/bloque-i/` or `bloque-ii/`
+(`plan` lists what still needs a verifier, `record` writes the record once nothing is pending);
+`backend/tests/test_provenance.py` audits every written C2 lesson and the glossary against those records in
+the pipeline, so an edit to a lesson, to C1, or to a cited file breaks the test until the record is redone (a round
+that edits an inherited C1 sentence reruns it in the same round; CLAUDE.md).
 
 **Question identity.** A quiz question is named by its own id (`m06-l02-q351`), never by the exercise the
 bank build grouped it into: every attempt stores it (`attempts.variant_id`), and grading, review, reports,

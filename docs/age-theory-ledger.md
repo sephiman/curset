@@ -4215,3 +4215,17 @@ If it is convalidated: nothing reverts; on 01-12-2026 drop the «desde 01-12-202
 
 **Other open items (added).** m04-l09 lists no situaciones especiales de IT (coverage); post-election round for I.8
 and the «(hoy: …)» notes.
+
+## C1 edit made from the C2 course (2026-11-06)
+
+Decision 2 after C2's bloque I (Juanjo): one sentence of `m01-l11` (I.11), the only C1 edit of that session.
+
+- Was: «La lección sigue sus versiones consolidadas publicadas en el Diario Oficial de la Unión Europea C 202, de 7 de
+  junio de 2016.» The cited files are the consolidations of 15-03-2025 (`CELEX-02016M-20250315_tue_2025-03-15.pdf` and
+  the TFUE one), whose base text is DO C 202 of 7-6-2016.
+- Now: «La lección sigue sus versiones consolidadas a 15 de marzo de 2025, cuyo texto de base se publicó en el Diario
+  Oficial de la Unión Europea C 202, de 7 de junio de 2016.» The next sentence («Las versiones de 2016 todavía cuentan
+  al Reino Unido.») stays: art. 52 TUE in the 2025 consolidation still lists the United Kingdom.
+- Blind check: `docs/age-verification/bloque-i/m01-l11-intro-2026-11-06.md`.
+- C2's `m01-l10` carries the same sentence and inherits this verification (R2.3). Any later edit of a C1 sentence that
+  C2 inherits must rerun `backend/scripts/provenance.py` for C2 in the same round (CLAUDE.md).

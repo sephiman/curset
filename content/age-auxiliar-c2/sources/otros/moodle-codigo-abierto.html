@@ -1,0 +1,1014 @@
+<!DOCTYPE html >
+<html itemscope itemtype="http://schema.org/WebPage" lang="es-ES" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer-when-downgrade"/>
+<link rel="profile" href="https://gmpg.org/xfn/11">
+
+<link rel="preconnect" href="https://cdn.cookielaw.org">
+
+<script data-ot-ignore class="optanon-category-C0001">
+(function () {
+	var map = {
+		utm_source: '_ms',
+		utm_medium: '_mm',
+		utm_campaign: '_mc',
+		utm_content: '_mct',
+		utm_term: '_mt'
+	};
+	var maxAge = 60 * 60 * 24 * 30; // 30 days
+	var secure = location.protocol === 'https:' ? '; Secure' : '';
+
+	var params;
+	try {
+		params = new URLSearchParams(location.search);
+	} catch (e) {
+		return;
+	}
+
+	// Only touch storage when the URL carries at least one UTM param, so
+	// internal navigation doesn't wipe the values from the landing page.
+	var found = {};
+	var hasAny = false;
+	for (var param in map) {
+		var value = (params.get(param) || '').trim().slice(0, 200);
+		if (value) {
+			found[param] = value;
+			hasAny = true;
+		}
+	}
+	if (!hasAny) {
+		return;
+	}
+
+	// A new campaign visit replaces the whole set, so values from different
+	// campaigns never get mixed together.
+	for (var param in map) {
+		var key = map[param];
+		var value = found[param];
+
+		if (value) {
+			document.cookie = key + '=' + encodeURIComponent(value) + '; path=/; max-age=' + maxAge + '; SameSite=Lax' + secure;
+		} else {
+			document.cookie = key + '=; path=/; max-age=0; SameSite=Lax' + secure;
+		}
+
+		try {
+			if (value) {
+				localStorage.setItem(key, value);
+			} else {
+				localStorage.removeItem(key);
+			}
+		} catch (e) {}
+	}
+})();
+</script>
+	
+
+<link rel="preconnect" href="https://dev.visualwebsiteoptimizer.com" />
+	
+	<script  src="https://cdn.cookielaw.org/consent/14c09820-f928-43c9-a804-c252a907247e/OtAutoBlock.js" ></script>
+	<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"   charset="UTF-8" data-domain-script="14c09820-f928-43c9-a804-c252a907247e" ></script>
+	<script >
+	function OptanonWrapper() { }
+	</script>
+	
+
+<meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+
+	
+	<title>Código abierto - Moodle - Aprendizaje en línea de código abierto</title>
+	<meta name="description" content="Como plataforma de aprendizaje electrónico de código abierto, Moodle LMS permite que cualquier persona descargue el software completo de forma gratuita y personalice su funcionamiento." />
+	<link rel="canonical" href="https://moodle.com/es/acerca-de/open-source/" data-no-translation="" />
+	<script type="application/ld+json" class="yoast-schema-graph">{
+    "@context": "https:\/\/schema.org",
+    "@graph": [
+        {
+            "@type": "WebPage",
+            "@id": "https:\/\/moodle.com\/about\/open-source\/",
+            "url": "https:\/\/moodle.com\/about\/open-source\/",
+            "name": "C\u00f3digo abierto - Moodle - Aprendizaje en l\u00ednea de c\u00f3digo abierto",
+            "isPartOf": {
+                "@id": "https:\/\/moodle.com\/#website"
+            },
+            "datePublished": "2020-09-01T05:25:59+00:00",
+            "dateModified": "2023-10-09T09:48:57+00:00",
+            "description": "Como plataforma de aprendizaje electr\u00f3nico de c\u00f3digo abierto, Moodle LMS permite que cualquier persona descargue el software completo de forma gratuita y personalice su funcionamiento.",
+            "breadcrumb": {
+                "@id": "https:\/\/moodle.com\/about\/open-source\/#breadcrumb"
+            },
+            "inLanguage": "es",
+            "potentialAction": [
+                {
+                    "@type": "ReadAction",
+                    "target": [
+                        "https:\/\/moodle.com\/about\/open-source\/"
+                    ]
+                }
+            ]
+        },
+        {
+            "@type": "BreadcrumbList",
+            "@id": "https:\/\/moodle.com\/about\/open-source\/#breadcrumb",
+            "itemListElement": [
+                {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "name": "Inicio",
+                    "item": "https:\/\/moodle.com\/"
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "name": "Sobre nosotros",
+                    "item": "https:\/\/moodle.com\/about\/"
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 3,
+                    "name": "C\u00f3digo abierto"
+                }
+            ]
+        },
+        {
+            "@type": "WebSite",
+            "@id": "https:\/\/moodle.com\/#website",
+            "url": "https:\/\/moodle.com\/",
+            "name": "Moodle",
+            "description": "Empoderar a los educadores para mejorar nuestro mundo.",
+            "publisher": {
+                "@id": "https:\/\/moodle.com\/#organization"
+            },
+            "potentialAction": [
+                {
+                    "@type": "SearchAction",
+                    "target": {
+                        "@type": "EntryPoint",
+                        "urlTemplate": "https:\/\/moodle.com\/?s={search_term_string}"
+                    },
+                    "query-input": {
+                        "@type": "PropertyValueSpecification",
+                        "valueRequired": true,
+                        "valueName": "search_term_string"
+                    }
+                }
+            ],
+            "inLanguage": "es"
+        },
+        {
+            "@type": "Organization",
+            "@id": "https:\/\/moodle.com\/#organization",
+            "name": "Moodle",
+            "url": "https:\/\/moodle.com\/",
+            "logo": {
+                "@type": "ImageObject",
+                "inLanguage": "es",
+                "@id": "https:\/\/moodle.com\/#\/schema\/logo\/image\/",
+                "url": "https:\/\/moodle.com\/wp-content\/uploads\/2024\/02\/Moodlelogo.svg",
+                "contentUrl": "https:\/\/moodle.com\/wp-content\/uploads\/2024\/02\/Moodlelogo.svg",
+                "width": 138,
+                "height": 35,
+                "caption": "Moodle"
+            },
+            "image": {
+                "@id": "https:\/\/moodle.com\/#\/schema\/logo\/image\/"
+            },
+            "sameAs": [
+                "https:\/\/www.facebook.com\/moodle\/",
+                "https:\/\/x.com\/moodle",
+                "https:\/\/www.linkedin.com\/company\/moodle",
+                "https:\/\/www.youtube.com\/moodle",
+                "https:\/\/www.instagram.com\/moodlehq\/"
+            ]
+        }
+    ]
+}</script>
+	
+
+
+<style id="wp-block-library-inline-css">
+:root{--wp-block-synced-color:#7a00df;--wp-block-synced-color--rgb:122,0,223;--wp-bound-block-color:var(--wp-block-synced-color);--wp-editor-canvas-background:#ddd;--wp-admin-theme-color:#007cba;--wp-admin-theme-color--rgb:0,124,186;--wp-admin-theme-color-darker-10:#006ba1;--wp-admin-theme-color-darker-10--rgb:0,107,160.5;--wp-admin-theme-color-darker-20:#005a87;--wp-admin-theme-color-darker-20--rgb:0,90,135;--wp-admin-border-width-focus:2px}@media (min-resolution:192dpi){:root{--wp-admin-border-width-focus:1.5px}}.wp-element-button{cursor:pointer}:root .has-very-light-gray-background-color{background-color:#eee}:root .has-very-dark-gray-background-color{background-color:#313131}:root .has-very-light-gray-color{color:#eee}:root .has-very-dark-gray-color{color:#313131}:root .has-vivid-green-cyan-to-vivid-cyan-blue-gradient-background{background:linear-gradient(135deg,#00d084,#0693e3)}:root .has-purple-crush-gradient-background{background:linear-gradient(135deg,#34e2e4,#4721fb 50%,#ab1dfe)}:root .has-hazy-dawn-gradient-background{background:linear-gradient(135deg,#faaca8,#dad0ec)}:root .has-subdued-olive-gradient-background{background:linear-gradient(135deg,#fafae1,#67a671)}:root .has-atomic-cream-gradient-background{background:linear-gradient(135deg,#fdd79a,#004a59)}:root .has-nightshade-gradient-background{background:linear-gradient(135deg,#330968,#31cdcf)}:root .has-midnight-gradient-background{background:linear-gradient(135deg,#020381,#2874fc)}:root{--wp--preset--font-size--normal:16px;--wp--preset--font-size--huge:42px}.has-regular-font-size{font-size:1em}.has-larger-font-size{font-size:2.625em}.has-normal-font-size{font-size:var(--wp--preset--font-size--normal)}.has-huge-font-size{font-size:var(--wp--preset--font-size--huge)}:root .has-text-align-center{text-align:center}:root .has-text-align-left{text-align:left}:root .has-text-align-right{text-align:right}.has-fit-text{white-space:nowrap!important}#end-resizable-editor-section{display:none}.aligncenter{clear:both}.items-justified-left{justify-content:flex-start}.items-justified-center{justify-content:center}.items-justified-right{justify-content:flex-end}.items-justified-space-between{justify-content:space-between}.screen-reader-text{word-wrap:normal!important;border:0;clip-path:inset(50%);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px;word-break:normal!important}.screen-reader-text:focus{background-color:#ddd;clip-path:none;color:#444;display:block;font-size:1em;height:auto;left:5px;line-height:normal;padding:15px 23px 14px;text-decoration:none;top:5px;width:auto;z-index:100000}html :where(.has-border-color){border-style:solid}html :where([style^=border-color],[style*=";border-color"],[style*="; border-color"]){border-style:solid}html :where([style^=border-top-color],[style*=";border-top-color"],[style*="; border-top-color"]){border-top-style:solid}html :where([style^=border-right-color],[style*=";border-right-color"],[style*="; border-right-color"]){border-right-style:solid}html :where([style^=border-bottom-color],[style*=";border-bottom-color"],[style*="; border-bottom-color"]){border-bottom-style:solid}html :where([style^=border-left-color],[style*=";border-left-color"],[style*="; border-left-color"]){border-left-style:solid}html :where([style^=border-width],[style*=";border-width"],[style*="; border-width"]){border-style:solid}html :where([style^=border-top-width],[style*=";border-top-width"],[style*="; border-top-width"]){border-top-style:solid}html :where([style^=border-right-width],[style*=";border-right-width"],[style*="; border-right-width"]){border-right-style:solid}html :where([style^=border-bottom-width],[style*=";border-bottom-width"],[style*="; border-bottom-width"]){border-bottom-style:solid}html :where([style^=border-left-width],[style*=";border-left-width"],[style*="; border-left-width"]){border-left-style:solid}html :where(img[class*=wp-image-]){height:auto;max-width:100%}:where(figure){margin:0 0 1em}html :where(.is-position-sticky){--wp-admin--admin-bar--position-offset:var(--wp-admin--admin-bar--height,0px)}@media screen and (max-width:600px){html :where(.is-position-sticky){--wp-admin--admin-bar--position-offset:0px}}
+
+/*# sourceURL=/wp-includes/css/dist/block-library/common.min.css */
+</style>
+
+<style id="global-styles-inline-css">
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgb(6,147,227) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgb(252,185,0) 0%,rgb(255,105,0) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgb(255,105,0) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgb(255, 255, 255), 6px 6px rgb(0, 0, 0);--wp--preset--shadow--crisp: 6px 6px 0px rgb(0, 0, 0);}.wp-block-button{--wp--preset--dimension--25: 25%;--wp--preset--dimension--50: 50%;--wp--preset--dimension--75: 75%;--wp--preset--dimension--100: 100%;}:where(body) { margin: 0; }:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}body{padding-top: 0px;padding-right: 0px;padding-bottom: 0px;padding-left: 0px;}:root :where(.wp-element-button, .wp-block-button__link){background-color: #32373c;border-width: 0;color: #fff;font-family: inherit;font-size: inherit;font-style: inherit;font-weight: inherit;letter-spacing: inherit;line-height: inherit;padding-top: calc(0.667em + 2px);padding-right: calc(1.333em + 2px);padding-bottom: calc(0.667em + 2px);padding-left: calc(1.333em + 2px);text-decoration: none;text-transform: inherit;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+/*# sourceURL=global-styles-inline-css */
+</style>
+
+<link rel='stylesheet' id='contact-form-7-css' href='https://moodle.com/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=6.1.5' media='all' />
+<link rel='stylesheet' id='nbcpf-intlTelInput-style-css' href='https://moodle.com/wp-content/plugins/country-phone-field-contact-form-7/assets/css/intlTelInput.min.css?ver=7.1.4' media='all' />
+<link rel='stylesheet' id='nbcpf-countryFlag-style-css' href='https://moodle.com/wp-content/plugins/country-phone-field-contact-form-7/assets/css/countrySelect.min.css?ver=7.1.4' media='all' />
+<link rel='stylesheet' id='wpcf7-redirect-script-frontend-css' href='https://moodle.com/wp-content/plugins/wpcf7-redirect/build/assets/frontend-script.css?ver=2c532d7e2be36f6af233' media='all' />
+<link rel='stylesheet' id='trp-language-switcher-v2-css' href='https://moodle.com/wp-content/plugins/translatepress-multilingual/assets/css/trp-language-switcher-v2.css?ver=3.1.8' media='all' />
+<link rel='stylesheet' id='cf7cf-style-css' href='https://moodle.com/wp-content/plugins/cf7-conditional-fields/style.css?ver=2.7.3' media='all' />
+<link rel='stylesheet' id='jvcf7_client_css-css' href='https://moodle.com/wp-content/plugins/jquery-validation-for-contact-form-7/includes/assets/css/jvcf7_client.css?ver=5.4.2' media='all' />
+<link rel='stylesheet' id='dm-serif-display-font-css' href='https://moodle.com/wp-content/cache/asset-cleanup/1/css/item/thetheme__fonts__dm-serif-display__stylesheet-css-v7203ff34a058415f8a7ac5a8df4babefb2beb7ee.css' media='all' />
+<link rel='stylesheet' id='open-sans-font-css' href='https://moodle.com/wp-content/cache/asset-cleanup/1/css/item/thetheme__fonts__open-sans__stylesheet-css-v4bd9cb010c4d8b0e936f9798d196fd19b56a33b5.css' media='all' />
+<link rel='stylesheet' id='fontawesome-font-css' href='https://moodle.com/wp-content/cache/asset-cleanup/1/css/item/thetheme__fonts__fontawesome__css__all-css-ve5a435679d239fc3db21b1a263178ad43fb5d42e.css' media='all' />
+<link rel='stylesheet' id='default-theme-styles-css' href='https://moodle.com/wp-content/themes/thetheme/style.css?ver=1.5.8' media='all' />
+<link rel='stylesheet' id='rows-block-css' href='https://moodle.com/wp-content/themes/thetheme/plugins/row.style.build.css?ver=7.1.4' media='all' />
+<link rel='stylesheet' id='child-styles-css' href='https://moodle.com/wp-content/themes/thetheme/css/common-styles.css?ver=1.5.8' media='all' />
+<link rel='stylesheet' id='child-menu-css' href='https://moodle.com/wp-content/themes/thetheme/css/header.css?ver=1.5.8' media='all' />
+<link rel='stylesheet' id='child-ie-css' href='https://moodle.com/wp-content/themes/thetheme/css/ie.css?ver=7.1.4' media='all' />
+<link rel='stylesheet' id='custom-full-cta-css' href='https://moodle.com/wp-content/themes/thetheme/css/acf-full-cta.css?ver=1.5.8' media='all' />
+<link rel='stylesheet' id='fancybox-css' href='https://moodle.com/wp-content/plugins/moodle_events/fancybox/fancybox.min.css?ver=7.1.4' media='all' />
+<link rel='stylesheet' id='custom-key-features-css' href='https://moodle.com/wp-content/themes/thetheme/css/acf-key-features.css?ver=1.5.8' media='all' />
+<link rel='stylesheet' id='custom-single-text-css' href='https://moodle.com/wp-content/themes/thetheme/css/acf-single-text.css?ver=1.5.8' media='all' />
+<link rel='stylesheet' id='custom-tabbed-three-col-cards-css' href='https://moodle.com/wp-content/themes/thetheme/css/acf-tabbed-three-col-cards.css?ver=1.5.8' media='all' />
+<link rel='stylesheet' id='custom-footer-content-css' href='https://moodle.com/wp-content/themes/thetheme/css/acf-footer-content.css?ver=1.5.8' media='all' />
+<script id="jquery-core-js" src="https://moodle.com/wp-includes/js/jquery/jquery.min.js?ver=3.7.1"></script>
+<script id="jquery-migrate-js" src="https://moodle.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1"></script>
+<script id="trp-language-switcher-js-v2-js" src="https://moodle.com/wp-content/plugins/translatepress-multilingual/assets/js/trp-frontend-language-switcher.js?ver=3.1.8"></script>
+<script id="vwo-script-js" src="https://moodle.com/wp-content/themes/thetheme/js/vwo.js"></script>
+<script id="visible-js" src="https://moodle.com/wp-content/themes/thetheme/plugins/jquery.visible.js?ver=7.1.4"></script>
+<script id="utm-scripts-js" src="https://moodle.com/wp-content/themes/thetheme/js/utm.js?ver=7.1.4"></script>
+<script id="fancybox-js" src="https://moodle.com/wp-content/themes/thetheme/plugins/fancybox/jquery.fancybox.js?ver=7.1.4"></script>
+<script id="custom-key-features-js" src="https://moodle.com/wp-content/themes/thetheme/acf-blocks/key-features/assets/scripts.js?ver=1.5.8"></script>
+<script id="custom-tabbed-three-col-cards-js" src="https://moodle.com/wp-content/themes/thetheme/acf-blocks/tabbed-three-col-cards/assets/scripts.js?ver=1.5.8"></script>
+<link rel="https://api.w.org/" href="https://moodle.com/es/wp-json/" /><link rel="alternate" title="JSON" type="application/json" href="https://moodle.com/es/wp-json/wp/v2/pages/114773" />
+
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TTBZR6C8');</script>
+
+
+
+<script src="/wp-content/js/readMoreJS.min.js"></script>
+
+<link rel="alternate" hreflang="en" href="https://moodle.com/about/open-source/"/>
+<link rel="alternate" hreflang="de" href="https://moodle.com/de/uber/open-source/"/>
+<link rel="alternate" hreflang="es" href="https://moodle.com/es/acerca-de/open-source/"/>
+<link rel="alternate" hreflang="fr" href="https://moodle.com/fr/sur/open-source/"/>
+<link rel="alternate" hreflang="it" href="https://moodle.com/it/di/open-source/"/>
+<link rel="alternate" hreflang="pt" href="https://moodle.com/pt-br/sobre/open-source/"/>
+<link rel="alternate" hreflang="x-default" href="https://moodle.com/about/open-source/"/>
+
+<link rel="icon" href="https://moodle.com/wp-content/uploads/2019/03/cropped-FAV_icon-1-32x32.png" sizes="32x32" />
+<link rel="icon" href="https://moodle.com/wp-content/uploads/2019/03/cropped-FAV_icon-1-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://moodle.com/wp-content/uploads/2019/03/cropped-FAV_icon-1-180x180.png" />
+<meta name="msapplication-TileImage" content="https://moodle.com/wp-content/uploads/2019/03/cropped-FAV_icon-1-270x270.png" />
+<noscript><style> .wpb_animate_when_almost_visible { opacity: 1; }</style></noscript>
+    
+     
+      <meta property="og:locale" content="es_ES"/>
+      <meta property="og:site_name" content="Moodle"/>
+      <meta property="og:title" content="Código abierto - Moodle - Aprendizaje en línea de código abierto"/>
+      <meta property="og:url" content="https://moodle.com/es/acerca-de/open-source/"/>
+      <meta property="og:type" content="article"/>
+      <meta property="og:description" content="Como plataforma de aprendizaje electrónico de código abierto, Moodle LMS permite que cualquier persona descargue el software completo de forma gratuita y personalice su funcionamiento."/>
+      <meta property="og:image" content="https://moodle.com/wp-content/uploads/2022/11/Moodle_SocialSharingImage_1200x630px.png"/>
+      <meta property="og:image:url" content="https://moodle.com/wp-content/uploads/2022/11/Moodle_SocialSharingImage_1200x630px.png"/>
+      <meta property="og:image:secure_url" content="https://moodle.com/wp-content/uploads/2022/11/Moodle_SocialSharingImage_1200x630px.png"/>
+      <meta property="article:publisher" content="https://www.facebook.com/moodle/"/>
+     
+     
+      <meta name="twitter:title" content="Código abierto - Moodle - Aprendizaje en línea de código abierto"/>
+      <meta name="twitter:url" content="https://moodle.com/es/acerca-de/open-source/"/>
+      <meta name="twitter:description" content="Como plataforma de aprendizaje electrónico de código abierto, Moodle LMS permite que cualquier persona descargue el software completo de forma gratuita y personalice su funcionamiento."/>
+      <meta name="twitter:image" content="https://moodle.com/wp-content/uploads/2022/11/Moodle_SocialSharingImage_1200x630px.png"/>
+      <meta name="twitter:card" content="summary_large_image"/>
+      <meta name="twitter:site" content="@moodle"/>
+     
+     
+     
+    
+        
+    </head>
+
+<body data-rsssl="1" class="wp-singular page-template-default page page-id-114773 page-child parent-pageid-21714 wp-theme-thetheme translatepress-es_ES sticky-header no-sidebar wpb-js-composer js-comp-ver-6.8.0 vc_responsive" data-post-id="114773">
+<div id="page" class="site">
+	<a class="skip-link screen-reader-text" href="#content">saltar al contenido</a>
+
+	<header id="masthead" class="site-header">
+		<div class="site-header-wrapper alignwide">
+				
+			<div class="mobile-menu-toggle">
+				<button id="menu-toggle" aria-label="Alternar menú" class="menu-toggle hamburger hamburger--slider">
+					<span class="hamburger-box">
+						<span class="hamburger-inner"></span>
+						<span class="hamburger-text"><span class="closed">Menú</span><span class="open">Cerca</span></span>
+					</span>
+				</button>
+			</div>
+
+			<div class="mobile-top-menu">
+				<a class="search" aria-label="Abrir búsqueda" href="#">
+					<svg width="36" height="36" viewbox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M27.5 16.5C27.5 22.5751 22.5751 27.5 16.5 27.5C10.4249 27.5 5.5 22.5751 5.5 16.5C5.5 10.4249 10.4249 5.5 16.5 5.5C22.5751 5.5 27.5 10.4249 27.5 16.5Z" stroke="#194866" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						<path d="M31.5 31.5001L24.975 24.9751" stroke="#194866" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+					</svg>
+				</a>
+			</div>
+			
+			<div class="site-branding">
+				<a class="site-logo" aria-label="De vuelta a casa" href="https://moodle.com/es/"><img width="138" height="35" src="https://moodle.com/wp-content/uploads/2024/02/Moodlelogo.svg" class="no-lazy" alt="Moodlelogo" decoding="async" /></a>			</div>
+
+			<div id="site-menu" class="site-menu">
+				<nav id="site-navigation" class="main-navigation" aria-label="Menú Primaria">
+					<div class="menu-moodle-menu-container"><ul id="menu-moodle-menu" class="primary-menu"><li id="menu-item-224672" class="no-link menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-224672"><a href="#">Productos</a>
+<ul class="sub-menu mega-menu not-processed">
+	<li id="menu-item-277638" class="menu-item menu-item-type-post_type menu-item-object-moodle-product menu-item-277638"><a href="https://moodle.com/es/products/lms/"><span class="title">Moodle LMS</span><span class="description">Involucre a sus alumnos con espacios de aprendizaje en línea flexibles, seguros y accesibles.</span></a></li>
+	<li id="menu-item-277636" class="menu-item menu-item-type-post_type menu-item-object-moodle-product menu-item-277636"><a href="https://moodle.com/es/products/lugar-de-trabajo/"><span class="title">Moodle Workplace</span><span class="description">Optimice la capacitación, la incorporación y la gestión del cumplimiento mientras impulsa resultados de aprendizaje que puede medir.</span></a></li>
+	<li id="menu-item-277635" class="menu-item menu-item-type-post_type menu-item-object-moodle-product menu-item-277635"><a href="https://moodle.com/es/products/moodlecloud/"><span class="title">MoodleCloud</span><span class="description">Para particulares que venden cursos o pequeñas organizaciones con necesidades básicas de formación e incorporación.</span></a></li>
+	<li id="menu-item-277637" class="menu-item menu-item-type-post_type menu-item-object-moodle-product menu-item-277637"><a href="https://moodle.com/es/products/aplicacion-moodle/"><span class="title">Moodle App</span><span class="description">Acceda a Moodle desde cualquier lugar, en cualquier dispositivo en línea y sin conexión.</span></a></li>
+	<li id="menu-item-274894" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-274894"><a href="https://moodle.com/es/integraciones-certificadas/"><span class="title">Integraciones certificadas</span><span class="description">Amplíe su ecosistema de aprendizaje en línea con complementos potentes y de confianza.</span></a>
+	<ul class="sub-menu">
+		<li id="menu-item-281816" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-281816"><a href="https://moodle.com/es/convertirse-en-socio-de-moodle/aplicar-integracion-socio/"><span class="title">Conviértase en socio integrador certificado</span></a></li>
+	</ul>
+</li>
+</ul>
+</li>
+<li id="menu-item-274936" class="no-link menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-274936"><a href="#">Servicios</a>
+<ul class="sub-menu mega-menu not-processed">
+	<li id="menu-item-274958" class="menu-item menu-item-type-post_type menu-item-object-service menu-item-has-children menu-item-274958"><a href="https://moodle.com/es/services/certified-service-providers/"><span class="title">Socios certificados</span><span class="description">Obtenga servicios gestionados y experiencia en personalización, diseño de aprendizaje, alojamiento, asistencia y formación para sus requisitos exclusivos.</span></a>
+	<ul class="sub-menu">
+		<li id="menu-item-275007" class="menu-item menu-item-type-post_type menu-item-object-service menu-item-275007"><a href="https://moodle.com/es/services/certified-service-providers/"><span class="title">Encuentra tu socio</span><span class="description">Nuestra red de Socios Certificados Moodle transformará Moodle en una solución que satisfaga sus necesidades únicas.</span></a></li>
+		<li id="menu-item-274945" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-274945"><a href="/es/convertirse-en-socio-de-moodle/"><span class="title">Conviértase en un socio de Moodle</span><span class="description">Muestra tu experiencia y haz crecer tu negocio con la solución de aprendizaje online más personalizable y fiable del mundo.</span></a></li>
+	</ul>
+</li>
+	<li id="menu-item-279361" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-279361"><a href="https://moodle.com/es/services/"><span class="title">Todos los servicios</span><span class="description">En Moodle, ofrecemos una amplia gama de servicios para dar soporte tanto a las nuevas instalaciones de Moodle como a las ya existentes. Lea más aquí.</span></a></li>
+</ul>
+</li>
+<li id="menu-item-224673" class="no-link menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-224673"><a href="#">Soluciones</a>
+<ul class="sub-menu mega-menu not-processed">
+	<li id="menu-item-277653" class="menu-item menu-item-type-post_type menu-item-object-solution menu-item-277653"><a href="https://moodle.com/es/solutions/educacion/"><span class="title">Educación</span><span class="description">Apoye a todos los tipos de alumnos, universitarios, de formación continua, sin titulación y de desarrollo profesional, todo dentro de un mismo LMS.</span></a></li>
+	<li id="menu-item-277651" class="menu-item menu-item-type-post_type menu-item-object-solution menu-item-277651"><a href="https://moodle.com/es/solutions/aprendizaje-en-el-lugar-de-trabajo/"><span class="title">Aprendizaje en el lugar de trabajo</span><span class="description">Capacite y mejore las habilidades de su fuerza laboral con un conjunto de herramientas de automatización, generación de informes y aprendizaje virtual que ahorran tiempo e impulsan los resultados.</span></a></li>
+	<li id="menu-item-277620" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-277620"><a href="https://moodle.com/es/solutions/gobierno/"><span class="title">Gobierno</span><span class="description">Cumpla las normas reglamentarias y de conformidad con un LMS escalable y seguro para el sector público y los organismos gubernamentales.</span></a></li>
+	<li id="menu-item-277652" class="menu-item menu-item-type-post_type menu-item-object-solution menu-item-277652"><a href="https://moodle.com/es/solutions/entrenamiento-vocacional/"><span class="title">Formación profesional</span><span class="description">Traiga sus cursos de educación y capacitación vocacional en línea con Moodle LMS.</span></a></li>
+	<li id="menu-item-280315" class="menu-item menu-item-type-post_type menu-item-object-solution menu-item-280315"><a href="https://moodle.com/es/solutions/moodle-y-ai/"><span class="title">Moodle y la IA</span><span class="description">Conozca el enfoque de Moodle sobre la IA centrado en el ser humano y nuestro compromiso con la transparencia, la igualdad y la práctica ética.</span></a></li>
+</ul>
+</li>
+<li id="menu-item-224671" class="no-link menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor menu-item-has-children menu-item-224671"><a href="#">Sobre nosotros</a>
+<ul class="sub-menu mega-menu not-processed">
+	<li id="menu-item-177262" class="menu-item menu-item-type-post_type menu-item-object-page current-page-ancestor current-menu-ancestor current-menu-parent current-page-parent current_page_parent current_page_ancestor menu-item-has-children menu-item-177262"><a href="https://moodle.com/es/acerca-de/"><span class="title">Sobre nosotros</span><span class="description">Obtenga más información sobre la historia, la misión y las personas detrás de nuestro proyecto global de Moodle.</span></a>
+	<ul class="sub-menu">
+		<li id="menu-item-274955" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-274955"><a href="https://moodle.com/es/acerca-de/la-historia-de-moodle/"><span class="title">La historia de Moodle</span><span class="description">Explore la historia de Moodle y conozca nuestro compromiso con la igualdad de acceso a experiencias de aprendizaje electrónico de calidad.</span></a></li>
+		<li id="menu-item-274953" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-114773 current_page_item menu-item-274953"><a href="https://moodle.com/es/acerca-de/open-source/"><span class="title">Código abierto</span><span class="description">Descubra cómo el código abierto contribuye a un mundo más equitativo y garantiza la sostenibilidad, la seguridad, la flexibilidad y la personalización.</span></a></li>
+		<li id="menu-item-274956" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-274956"><a href="https://moodle.com/es/bcorp/"><span class="title">Corporación B certificada oficialmente</span><span class="description">Lea el compromiso de Moodle con los educadores, los alumnos, los empleados, los clientes y la sociedad a través de la obtención de la certificación B-Corp.</span></a></li>
+		<li id="menu-item-278458" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-278458"><a href="https://moodle.com/es/acerca-de/liderazgo/"><span class="title">Nuestro equipo directivo</span><span class="description">Conozca la junta directiva y el equipo directivo de Moodle.</span></a></li>
+	</ul>
+</li>
+	<li id="menu-item-46209" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-46209"><a href="https://moodle.com/es/events/"><span class="title">Eventos</span><span class="description">Vea los próximos eventos y fechas de nuestras conferencias, capacitaciones y seminarios web de MoodleMoot en todo el mundo.</span></a></li>
+	<li id="menu-item-27180" class="menuPrimary no-footer menu-item menu-item-type-post_type menu-item-object-page menu-item-27180"><a href="https://moodle.com/es/comunidad/"><span class="title">Comunidad</span><span class="description">El lugar donde obtener ayuda, hacer y responder preguntas y contribuir a la plataforma de aprendizaje de código abierto, Moodle LMS.</span></a></li>
+	<li id="menu-item-270313" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-270313"><a href="https://moodle.com/es/carreras-2/"><span class="title">Trabaja con nosotros</span><span class="description">Únase a nuestra misión de capacitar a los educadores para mejorar nuestro mundo. Busque oportunidades profesionales en Moodle.</span></a></li>
+	<li id="menu-item-274952" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-274952"><a href="https://moodle.com/es/acerca-de/premios-2/"><span class="title">Premios</span><span class="description">Descubra nuestros premios y clasificaciones mundiales, testimonio de los más de 20 años de experiencia de Moodle en tecnología educativa.</span></a></li>
+	<li id="menu-item-277450" class="no-header menu-item menu-item-type-post_type menu-item-object-page menu-item-277450"><a href="https://moodle.com/es/accesibilidad/"><span class="title">Accesibilidad</span></a></li>
+</ul>
+</li>
+<li id="menu-item-274893" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-news menu-item-has-children menu-item-274893"><a href="https://moodle.com/es/noticias/">Recursos</a>
+<ul class="sub-menu mega-menu not-processed">
+<li class="news-intro"><span class="label">Recursos</span><span class="description">Encuentre noticias y recursos sobre productos, soluciones, servicios, lanzamientos, casos de estudio y mucho más de Moodle.</span><span class="news-links"><a class="news-link" href="/es/historias-de-exito/">Casos de éxito<i class="fa-solid fa-arrow-right"></i></a><a class="news-link" href="/es/noticias/categoria-19/producto/">Producto<i class="fa-solid fa-arrow-right"></i></a><a class="news-link" href="/es/noticias/categoria-19/media-pr/">Medios de comunicación y relaciones públicas<i class="fa-solid fa-arrow-right"></i></a></span><a class="button outline arrow" href="https://moodle.com/es/noticias/"><span>Ver todas las noticias</span></a></li>	<li id="menu-item-282088" class="menu-item menu-item-type-post_type menu-item-object-news menu-item-282088"><a class="news-item" href="https://moodle.com/es/noticias/moodle-global-partner-summit-26/"><img width="200" height="150" src="https://moodle.com/wp-content/uploads/2026/10/Global-Partner-Summit-200x150.png" class="attachment-thumbnail size-thumbnail wp-post-image" alt="Moodle Global Partner Summit 2026: highlights from Barcelona. Three smiling individuals standing together." decoding="async" srcset="https://moodle.com/wp-content/uploads/2026/10/Global-Partner-Summit-200x150.png 200w, https://moodle.com/wp-content/uploads/2026/10/Global-Partner-Summit-300x225.png 300w, https://moodle.com/wp-content/uploads/2026/10/Global-Partner-Summit-768x576.png 768w, https://moodle.com/wp-content/uploads/2026/10/Global-Partner-Summit-16x12.png 16w, https://moodle.com/wp-content/uploads/2026/10/Global-Partner-Summit-700x525.png 700w, https://moodle.com/wp-content/uploads/2026/10/Global-Partner-Summit-550x413.png 550w, https://moodle.com/wp-content/uploads/2026/10/Global-Partner-Summit-800x600.png 800w, https://moodle.com/wp-content/uploads/2026/10/Global-Partner-Summit-850x638.png 850w, https://moodle.com/wp-content/uploads/2026/10/Global-Partner-Summit.png 900w" sizes="(max-width: 200px) 100vw, 200px" /><span class="title">Moodle Global Partner Summit 2026: highlights from Barcelona</span></a></li>
+	<li id="menu-item-282057" class="menu-item menu-item-type-post_type menu-item-object-news menu-item-282057"><a class="news-item" href="https://moodle.com/es/noticias/made-with-moodle-consultant-microbiology/"><img width="200" height="150" src="https://moodle.com/wp-content/uploads/2026/10/MoodleMWM-400x300-1-200x150.png" class="attachment-thumbnail size-thumbnail wp-post-image" alt="MoodleMWM 400x300" decoding="async" srcset="https://moodle.com/wp-content/uploads/2026/10/MoodleMWM-400x300-1-200x150.png 200w, https://moodle.com/wp-content/uploads/2026/10/MoodleMWM-400x300-1-300x225.png 300w, https://moodle.com/wp-content/uploads/2026/10/MoodleMWM-400x300-1-16x12.png 16w, https://moodle.com/wp-content/uploads/2026/10/MoodleMWM-400x300-1.png 400w" sizes="(max-width: 200px) 100vw, 200px" /><span class="title">Made with Moodle: How one consultant built the microbiology exam resource he couldn’t find</span></a></li>
+	<li id="menu-item-282003" class="menu-item menu-item-type-post_type menu-item-object-news menu-item-282003"><a class="news-item" href="https://moodle.com/es/noticias/workforce-development-trends-learning-ecosystem/"><img width="200" height="150" src="https://moodle.com/wp-content/uploads/2026/10/Microlearning-200x150.png" class="attachment-thumbnail size-thumbnail wp-post-image" alt="Tendencias en el desarrollo del lugar de trabajo" decoding="async" srcset="https://moodle.com/wp-content/uploads/2026/10/Microlearning-200x150.png 200w, https://moodle.com/wp-content/uploads/2026/10/Microlearning-300x225.png 300w, https://moodle.com/wp-content/uploads/2026/10/Microlearning-16x12.png 16w, https://moodle.com/wp-content/uploads/2026/10/Microlearning-550x413.png 550w, https://moodle.com/wp-content/uploads/2026/10/Microlearning.png 600w" sizes="(max-width: 200px) 100vw, 200px" /><span class="title">Afrontar el cambio con cautela: 5 tendencias en el desarrollo del personal para las que tu ecosistema de formación debe estar preparado</span></a></li>
+</ul>
+</li>
+</ul></div>					<div class="button-block">
+						<a class="button small outline" href="/es/obtener-moodle/"><span>Obtener Moodle</span></a>
+						<a class="contact" href="/es/contacto/"><span>Contacto</span></a>
+					</div>
+				</nav>
+
+				<nav id="mobile-extras">
+					<div class="language-switcher" data-no-translation>
+	<div class="language-switcher-current">
+		<span>ES</span>
+	</div>
+			<div class="language-switcher-list">
+							<a href="https://moodle.com/about/open-source/" title="English">
+											<img class="flag" src="https://moodle.com/wp-content/plugins/translatepress-multilingual/assets/images/flags/en_GB.png" width="18" height="12" alt="" />
+										EN				</a>
+							<a href="https://moodle.com/de/uber/open-source/" title="Deutsch">
+											<img class="flag" src="https://moodle.com/wp-content/plugins/translatepress-multilingual/assets/images/flags/de_DE.png" width="18" height="12" alt="" />
+										DE				</a>
+							<a href="https://moodle.com/fr/sur/open-source/" title="Français">
+											<img class="flag" src="https://moodle.com/wp-content/plugins/translatepress-multilingual/assets/images/flags/fr_FR.png" width="18" height="12" alt="" />
+										FR				</a>
+							<a href="https://moodle.com/it/di/open-source/" title="Italiano">
+											<img class="flag" src="https://moodle.com/wp-content/plugins/translatepress-multilingual/assets/images/flags/it_IT.png" width="18" height="12" alt="" />
+										IT				</a>
+							<a href="https://moodle.com/pt-br/sobre/open-source/" title="Português">
+											<img class="flag" src="https://moodle.com/wp-content/plugins/translatepress-multilingual/assets/images/flags/pt_BR.png" width="18" height="12" alt="" />
+										PT-BR				</a>
+					</div>
+	</div>
+					<div class="button-block">
+						<a class="button" href="/es/rfp/"><span>Presentar una RFP</span></a>
+					</div>
+					<div class="button-block">
+						<a class="button" href="/es/obtener-moodle/"><span>Obtener Moodle</span></a>
+					</div>
+					<div class="button-block">
+						<a class="button outline" href="https://moodle.com/es/iniciar-sesion/"><span>Iniciar sesión</span></a>
+					</div>
+				</nav>
+			</div>
+
+			<nav id="desktop-extras">
+									<ul class="text-links">
+													<li><a class="link" href="https://moodle.org/" ><span>Moodle.org</span></a></li>
+													<li><a class="link" href="/es/iniciar-sesion/" ><span>Ayuda para iniciar sesión</span></a></li>
+													<li><a class="link" href="/es/rfp/" ><span>Presentar una RFP</span></a></li>
+											</ul>
+								<div class="moodle-global">
+					<div class="language-switcher" data-no-translation>
+	<div class="language-switcher-current">
+		<span>ES</span>
+	</div>
+			<div class="language-switcher-list">
+							<a href="https://moodle.com/about/open-source/" title="English">
+											<img class="flag" src="https://moodle.com/wp-content/plugins/translatepress-multilingual/assets/images/flags/en_GB.png" width="18" height="12" alt="" />
+										EN				</a>
+							<a href="https://moodle.com/de/uber/open-source/" title="Deutsch">
+											<img class="flag" src="https://moodle.com/wp-content/plugins/translatepress-multilingual/assets/images/flags/de_DE.png" width="18" height="12" alt="" />
+										DE				</a>
+							<a href="https://moodle.com/fr/sur/open-source/" title="Français">
+											<img class="flag" src="https://moodle.com/wp-content/plugins/translatepress-multilingual/assets/images/flags/fr_FR.png" width="18" height="12" alt="" />
+										FR				</a>
+							<a href="https://moodle.com/it/di/open-source/" title="Italiano">
+											<img class="flag" src="https://moodle.com/wp-content/plugins/translatepress-multilingual/assets/images/flags/it_IT.png" width="18" height="12" alt="" />
+										IT				</a>
+							<a href="https://moodle.com/pt-br/sobre/open-source/" title="Português">
+											<img class="flag" src="https://moodle.com/wp-content/plugins/translatepress-multilingual/assets/images/flags/pt_BR.png" width="18" height="12" alt="" />
+										PT-BR				</a>
+					</div>
+	</div>
+					<a class="search" aria-label="Abrir búsqueda" href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
+				</div>
+			</nav>
+
+		</div>
+	</header>
+
+	<div id="content" class="site-content">
+		
+	<div class="site-content-wrapper">
+
+		<div id="primary" class="content-area">
+			<main id="main" class="site-main">
+
+				
+<article id="post-114773" class="post-114773 page type-page status-publish hentry">
+	<div class="hentry-wrapper">
+					<header class="">
+				<div class="header-content alignwide">
+											<div class="breadcrumbs" typeof="BreadcrumbList" vocab="https://schema.org/">
+							<span property="itemListElement" typeof="ListItem"><a property="item" typeof="WebPage" title="Ir a Acerca de nosotros." href="https://moodle.com/es/acerca-de/" class="post post-page" ><span property="name">Sobre nosotros</span></a><meta property="position" content="1"></span><span class="sep"> / </span><span property="itemListElement" typeof="ListItem"><span property="name" class="post post-page current-item">Código abierto</span><meta property="url" content="https://moodle.com/es/acerca-de/open-source/"><meta property="position" content="2"></span>						</div>
+										<div class="header-content-inner">
+													<h1>El camino del "código abierto
+</h1>
+												<div class="header-right">
+																<div class="copy"><p>Descubre la importancia de utilizar una plataforma de aprendizaje de código abierto como Moodle LMS.</p>
+</div>
+														</div>
+					</div>
+				</div>
+			</header>
+			
+		<div class="entry-content alignwide">
+			<div id="block-c2luZ2xl" class="alignfull alignfull acf-block single-text-block no-header blue">
+  <div class="single-text alignwide white-text">
+        <p>El término "código abierto" se refiere a algo que la gente puede modificar y compartir porque su diseño es de acceso público. Como plataforma de código abierto, el código fuente de Moodle LMS tiene una licencia que permite a cualquiera descargar gratuitamente todo el software y personalizar su funcionamiento.</p>
+<p>Esto nos permite apoyar más ampliamente el aprendizaje de código abierto, un modelo de educación dirigido por el alumno en el que uno puede crear y participar en experiencias de aprendizaje compartidas online con herramientas como Moodle.</p>
+  </div>
+</div>
+
+
+
+
+<div id="block-S2V5IEZl" class="alignfull alignfull acf-block tabbed-three-col-cards-block">
+  <div class="wp-block-row-rowlayout alignwide tabbed-three-col-cards">
+          <h2><span class="caption">Ventajas del aprendizaje de código abierto<span class="caption-sep"> – </span></span>¿Por qué elegir un LMS de código abierto?
+</h2>
+        
+    <div class="tabs">
+      <div class="tabs-header">
+        <div class="filter-current"><span class="filter-title">Longevidad y sostenibilidad</span><i class="fa-solid fa-chevron-down filter-arrow"></i></div>
+        <div class="tabs-header-inner">
+                        <a class="tab-link active" data-tab="1" href="#">Longevidad y sostenibilidad</a>
+                            <a class="tab-link" data-tab="2" href="#">Confiabilidad y seguridad</a>
+                            <a class="tab-link" data-tab="3" href="#">Flexibilidad y personalización</a>
+                      </div>
+      </div>
+      
+      <div class="tabs-blocks bg-">
+                    <div class="tab-content active" data-tab="1">
+              <h3>Longevidad y sostenibilidad</h3>
+                              <div class="copy"><p>Nuestra licencia de código abierto garantiza que Moodle LMS estará siempre disponible para su uso y desarrollo por parte de la comunidad, independientemente de cualquier cambio que pueda afectar a nuestra empresa.</p>
+</div>
+              <div class="cards three-col">
+      <div class="card">
+      <div class="card-inner">
+                  <img fetchpriority="high" decoding="async" src="https://moodle.com/wp-content/uploads/2022/02/Frame-1150-e1657719661327.png" alt="Apoyo comunitario e innovación Imagen" width="980" height="980" />
+                <div class="card-content">
+          <div class="card-copy">
+                          <h4>Apoyo de la comunidad e innovación</h4>
+                          <div class="desc"><p>Moodle LMS tiene una comunidad en constante crecimiento de <a href="https://moodle.com/es/solutions/certified-service-providers/">Socios certificados</a>, desarrolladores, administradores de sistemas, educadores y estudiantes que escriben nuevas funciones, corrigen errores, actualizan la documentación, comparten recursos e ideas para mejorar continuamente Moodle.</p>
+</div>
+                      </div>
+        </div>
+      </div>
+    </div>
+      <div class="card">
+      <div class="card-inner">
+                  <img decoding="async" src="https://moodle.com/wp-content/uploads/2022/02/Frame-1153.png" alt="Experiencia en desarrollo Imagen" width="980" height="980" />
+                <div class="card-content">
+          <div class="card-copy">
+                          <h4>Experiencia en desarrollo</h4>
+                          <div class="desc"><p>Moodle HQ tiene equipos de desarrolladores, diseñadores y personal de soporte distribuidos globalmente que se enfocan en hacer crecer y mejorar nuestro software de código abierto central, en asociación con nuestra red de <a href="https://moodle.com/es/solutions/certified-service-providers/">Proveedores de servicios certificados</a>.</p>
+</div>
+                      </div>
+        </div>
+      </div>
+    </div>
+      <div class="card">
+      <div class="card-inner">
+                  <img decoding="async" src="https://moodle.com/wp-content/uploads/2022/02/Frame-1149.png" alt="Impulsado por las necesidades del usuario Imagen" width="980" height="980" />
+                <div class="card-content">
+          <div class="card-copy">
+                          <h4>Impulsado por las necesidades del usuario</h4>
+                          <div class="desc"><p><span style="font-weight: 400">Nuestros amigos en el </span><a href="https://moodleassociation.org/"><span style="font-weight: 400">Asociación de Usuarios de Moodle</span></a><span style="font-weight: 400"> agrupar sus recursos para pagar a la sede de Moodle para que trabaje en prioridades particulares que sus miembros identifiquen y voten.</span></p>
+</div>
+                      </div>
+        </div>
+      </div>
+    </div>
+  </div>
+            </div>
+                        <div class="tab-content" data-tab="2">
+              <h3>Confiabilidad y seguridad</h3>
+                              <div class="copy"><p>En Moodle, miles de desarrolladores y nuestra red de socios certificados y proveedores de servicios contribuyen a brindar un sistema de gestión de aprendizaje que protege la privacidad y seguridad de sus datos.</p>
+</div>
+              <div class="cards three-col">
+      <div class="card">
+      <div class="card-inner">
+                  <img loading="lazy" decoding="async" src="https://moodle.com/wp-content/uploads/2022/02/Frame-1154.png" alt="Mantenido por más de 1000 desarrolladores Imagen" width="980" height="980" />
+                <div class="card-content">
+          <div class="card-copy">
+                          <h4>Mantenido por más de 1000 desarrolladores</h4>
+                          <div class="desc"><p>Moodle tiene más de 1000 desarrolladores que participan en el desarrollo de Moodle, coordinados por los equipos principales en la sede de Moodle. La gran cantidad de desarrolladores que observan, respaldan y revisan el código ayuda a afirmar la confiabilidad de Moodle.</p>
+</div>
+                      </div>
+        </div>
+      </div>
+    </div>
+      <div class="card">
+      <div class="card-inner">
+                  <img loading="lazy" decoding="async" src="https://moodle.com/wp-content/uploads/2022/02/Frame-1152.png" alt="Imagen de seguridad por diseño" width="980" height="980" />
+                <div class="card-content">
+          <div class="card-copy">
+                          <h4>Seguridad por diseño</h4>
+                          <div class="desc"><p>Incorporamos una mentalidad de seguridad desde el principio en todo nuestro desarrollo. A diferencia del software propietario donde el código está oculto, nuestra comunidad supervisa constantemente nuestro código fuente en busca de errores que se detecten y solucionen más rápido. Como plataforma de código abierto, también puede seleccionar su preferido  <a href="https://moodle.com/es/solutions/certified-service-providers/">Socio certificado o proveedor de servicios de Moodle</a> en nuestra red para proporcionar un sitio Moodle escalable, confiable y resistente con seguridad mejorada y protección de datos.</p>
+</div>
+                      </div>
+        </div>
+      </div>
+    </div>
+      <div class="card">
+      <div class="card-inner">
+                  <img loading="lazy" decoding="async" src="https://moodle.com/wp-content/uploads/2022/02/Frame-718.png" alt="Comprometidos con la privacidad Imagen" width="980" height="980" />
+                <div class="card-content">
+          <div class="card-copy">
+                          <h4>Comprometidos con la privacidad</h4>
+                          <div class="desc"><p><span style="font-weight: 400"><a href="https://moodle.com/es/solutions/lms/">Moodle LMS</a> le permite a su organización tener un control completo sobre sus datos, incluido cómo y dónde los almacena. También le proporcionamos las mejores características, herramientas y </span><a href="https://docs.moodle.org/311/en/Security_recommendations"><span style="font-weight: 400">recursos</span></a><span style="font-weight: 400"> para asegurarse de mantener la privacidad y seguridad de los datos de sus alumnos.</span></p>
+</div>
+                      </div>
+        </div>
+      </div>
+    </div>
+  </div>
+            </div>
+                        <div class="tab-content" data-tab="3">
+              <h3>Flexibilidad y personalización</h3>
+                              <div class="copy"><p>Como el sistema de gestión de aprendizaje más personalizable del mundo, Moodle le brinda la flexibilidad de diseñar su LMS como lo desee.</p>
+</div>
+              <div class="cards three-col">
+      <div class="card">
+      <div class="card-inner">
+                  <img loading="lazy" decoding="async" src="https://moodle.com/wp-content/uploads/2022/02/Frame-1150-e1657719661327.png" alt="Imagen totalmente personalizable" width="980" height="980" />
+                <div class="card-content">
+          <div class="card-copy">
+                          <h4>Totalmente personalizable</h4>
+                          <div class="desc"><p>Moodle puede ampliarse o modificarse en una solución que se adapte perfectamente a sus necesidades. Esto puede variar desde simplemente cambiar el aspecto de un sitio con un nuevo tema, hasta integraciones y complementos.</p>
+</div>
+                      </div>
+        </div>
+      </div>
+    </div>
+      <div class="card">
+      <div class="card-inner">
+                  <img loading="lazy" decoding="async" src="https://moodle.com/wp-content/uploads/2022/02/Frame-1151.png" alt="Propiedad completa de su plataforma Imagen" width="980" height="980" />
+                <div class="card-content">
+          <div class="card-copy">
+                          <h4>Propiedad completa de su plataforma</h4>
+                          <div class="desc"><p>Moodle le brinda total flexibilidad sobre cómo y dónde ejecuta su plataforma de aprendizaje. No hay tarifas de licencia ni restricciones: solo necesita encontrar sus propios recursos de alojamiento y soporte, u obtener asistencia experta de nuestra red global de <a href="https://moodle.com/es/solutions/certified-service-providers/">Proveedores de servicios certificados</a>.</p>
+</div>
+                      </div>
+        </div>
+      </div>
+    </div>
+  </div>
+            </div>
+                  </div>
+    </div>
+
+      </div>
+</div>
+
+
+<div id="block-U3RhcnQg" class="alignfull alignfull acf-block full-cta-block size-wide">
+  <div class="wp-block-row-rowlayout alignwide full-cta">
+    <div class="cards">
+      <div class="card orange">
+        <div class="card-inner">
+          <div class="card-content">
+            <div class="card-cta-copy">
+                              <h2>Comience su viaje de aprendizaje en línea con Moodle</h2>
+                                            <div class="desc">Moodle ofrece una gama de soluciones de enseñanza y capacitación en línea que se pueden adaptar a su institución u organización educativa. Responda algunas preguntas rápidas para averiguar qué solución y método de configuración de Moodle se adapta mejor a sus necesidades.</div>
+              
+              <div class="button-block">
+                                  <a href="#solution-quiz" class="button outline arrow"><span>Ver mis opciones</span></a>
+                              </div>
+              <div class="button-block">
+                              </div>
+            </div>
+                      </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+			<div class="end-content">&nbsp;</div>
+		</div>
+
+	</div>
+</article>
+			</main>
+		</div>
+
+	</div>
+
+
+	</div>
+
+	<div class="footer-wrapper">
+		<div class="hentry-wrapper">
+			<footer id="colophon" class="site-footer">
+				<div id="block-Zm9vdGVy" class="alignfull acf-block footer-content-block alignfull">
+  <div class="footer-content white-text">
+    <div class="columns">
+      <div class="columns-inner alignwide">
+        <div class="column column-1">
+          <div class="column-inner">
+            <div class="moodle-logo">
+              <a aria-label="De vuelta a casa" href="/es/"><img decoding="async" src="https://moodle.com/wp-content/uploads/2022/02/logo-footer.svg" alt="Moodle" /></a>
+            </div>
+            <div class="b-corp-logo">
+              <a href="https://www.bcorporation.net/en-us/find-a-b-corp/company/moodle-pty-ltd/" target="_blank"><img decoding="async" src="https://moodle.com/wp-content/uploads/2022/02/b-corp-footer.png" alt="Corporación B certificada. Esta empresa cumple con los más altos estándares de impacto social y ambiental." title="Corporación B certificada. Esta empresa cumple con los más altos estándares de impacto social y ambiental." /></a>
+            </div>
+          </div>
+        </div>
+        <div class="column column-2">
+          <div class="column-inner">
+            <div class="column-top">
+
+              <nav id="footer-navigation" class="footer-navigation" aria-label="Menú de pie de página">
+                <div class="menu-moodle-menu-container"><ul id="menu-moodle-menu-1" class="footer-menu"><li class="no-link menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-224672"><a href="#">Productos</a>
+<ul class="sub-menu mega-menu not-processed">
+	<li class="menu-item menu-item-type-post_type menu-item-object-moodle-product menu-item-277638"><a href="https://moodle.com/es/products/lms/"><span class="title">Moodle LMS</span><span class="description">Involucre a sus alumnos con espacios de aprendizaje en línea flexibles, seguros y accesibles.</span></a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-moodle-product menu-item-277636"><a href="https://moodle.com/es/products/lugar-de-trabajo/"><span class="title">Moodle Workplace</span><span class="description">Optimice la capacitación, la incorporación y la gestión del cumplimiento mientras impulsa resultados de aprendizaje que puede medir.</span></a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-moodle-product menu-item-277635"><a href="https://moodle.com/es/products/moodlecloud/"><span class="title">MoodleCloud</span><span class="description">Para particulares que venden cursos o pequeñas organizaciones con necesidades básicas de formación e incorporación.</span></a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-moodle-product menu-item-277637"><a href="https://moodle.com/es/products/aplicacion-moodle/"><span class="title">Moodle App</span><span class="description">Acceda a Moodle desde cualquier lugar, en cualquier dispositivo en línea y sin conexión.</span></a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-274894"><a href="https://moodle.com/es/integraciones-certificadas/"><span class="title">Integraciones certificadas</span><span class="description">Amplíe su ecosistema de aprendizaje en línea con complementos potentes y de confianza.</span></a>
+	<ul class="sub-menu">
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-281816"><a href="https://moodle.com/es/convertirse-en-socio-de-moodle/aplicar-integracion-socio/"><span class="title">Conviértase en socio integrador certificado</span></a></li>
+	</ul>
+</li>
+</ul>
+</li>
+<li class="no-link menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-274936"><a href="#">Servicios</a>
+<ul class="sub-menu mega-menu not-processed">
+	<li class="menu-item menu-item-type-post_type menu-item-object-service menu-item-has-children menu-item-274958"><a href="https://moodle.com/es/services/certified-service-providers/"><span class="title">Socios certificados</span><span class="description">Obtenga servicios gestionados y experiencia en personalización, diseño de aprendizaje, alojamiento, asistencia y formación para sus requisitos exclusivos.</span></a>
+	<ul class="sub-menu">
+		<li class="menu-item menu-item-type-post_type menu-item-object-service menu-item-275007"><a href="https://moodle.com/es/services/certified-service-providers/"><span class="title">Encuentra tu socio</span><span class="description">Nuestra red de Socios Certificados Moodle transformará Moodle en una solución que satisfaga sus necesidades únicas.</span></a></li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-274945"><a href="/es/convertirse-en-socio-de-moodle/"><span class="title">Conviértase en un socio de Moodle</span><span class="description">Muestra tu experiencia y haz crecer tu negocio con la solución de aprendizaje online más personalizable y fiable del mundo.</span></a></li>
+	</ul>
+</li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-279361"><a href="https://moodle.com/es/services/"><span class="title">Todos los servicios</span><span class="description">En Moodle, ofrecemos una amplia gama de servicios para dar soporte tanto a las nuevas instalaciones de Moodle como a las ya existentes. Lea más aquí.</span></a></li>
+</ul>
+</li>
+<li class="no-link menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-224673"><a href="#">Soluciones</a>
+<ul class="sub-menu mega-menu not-processed">
+	<li class="menu-item menu-item-type-post_type menu-item-object-solution menu-item-277653"><a href="https://moodle.com/es/solutions/educacion/"><span class="title">Educación</span><span class="description">Apoye a todos los tipos de alumnos, universitarios, de formación continua, sin titulación y de desarrollo profesional, todo dentro de un mismo LMS.</span></a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-solution menu-item-277651"><a href="https://moodle.com/es/solutions/aprendizaje-en-el-lugar-de-trabajo/"><span class="title">Aprendizaje en el lugar de trabajo</span><span class="description">Capacite y mejore las habilidades de su fuerza laboral con un conjunto de herramientas de automatización, generación de informes y aprendizaje virtual que ahorran tiempo e impulsan los resultados.</span></a></li>
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-277620"><a href="https://moodle.com/es/solutions/gobierno/"><span class="title">Gobierno</span><span class="description">Cumpla las normas reglamentarias y de conformidad con un LMS escalable y seguro para el sector público y los organismos gubernamentales.</span></a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-solution menu-item-277652"><a href="https://moodle.com/es/solutions/entrenamiento-vocacional/"><span class="title">Formación profesional</span><span class="description">Traiga sus cursos de educación y capacitación vocacional en línea con Moodle LMS.</span></a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-solution menu-item-280315"><a href="https://moodle.com/es/solutions/moodle-y-ai/"><span class="title">Moodle y la IA</span><span class="description">Conozca el enfoque de Moodle sobre la IA centrado en el ser humano y nuestro compromiso con la transparencia, la igualdad y la práctica ética.</span></a></li>
+</ul>
+</li>
+<li class="no-link menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor menu-item-has-children menu-item-224671"><a href="#">Sobre nosotros</a>
+<ul class="sub-menu mega-menu not-processed">
+	<li class="menu-item menu-item-type-post_type menu-item-object-page current-page-ancestor current-menu-ancestor current-menu-parent current-page-parent current_page_parent current_page_ancestor menu-item-has-children menu-item-177262"><a href="https://moodle.com/es/acerca-de/"><span class="title">Sobre nosotros</span><span class="description">Obtenga más información sobre la historia, la misión y las personas detrás de nuestro proyecto global de Moodle.</span></a>
+	<ul class="sub-menu">
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-274955"><a href="https://moodle.com/es/acerca-de/la-historia-de-moodle/"><span class="title">La historia de Moodle</span><span class="description">Explore la historia de Moodle y conozca nuestro compromiso con la igualdad de acceso a experiencias de aprendizaje electrónico de calidad.</span></a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-114773 current_page_item menu-item-274953"><a href="https://moodle.com/es/acerca-de/open-source/"><span class="title">Código abierto</span><span class="description">Descubra cómo el código abierto contribuye a un mundo más equitativo y garantiza la sostenibilidad, la seguridad, la flexibilidad y la personalización.</span></a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-274956"><a href="https://moodle.com/es/bcorp/"><span class="title">Corporación B certificada oficialmente</span><span class="description">Lea el compromiso de Moodle con los educadores, los alumnos, los empleados, los clientes y la sociedad a través de la obtención de la certificación B-Corp.</span></a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-278458"><a href="https://moodle.com/es/acerca-de/liderazgo/"><span class="title">Nuestro equipo directivo</span><span class="description">Conozca la junta directiva y el equipo directivo de Moodle.</span></a></li>
+	</ul>
+</li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-46209"><a href="https://moodle.com/es/events/"><span class="title">Eventos</span><span class="description">Vea los próximos eventos y fechas de nuestras conferencias, capacitaciones y seminarios web de MoodleMoot en todo el mundo.</span></a></li>
+	<li class="menuPrimary no-footer menu-item menu-item-type-post_type menu-item-object-page menu-item-27180"><a href="https://moodle.com/es/comunidad/"><span class="title">Comunidad</span><span class="description">El lugar donde obtener ayuda, hacer y responder preguntas y contribuir a la plataforma de aprendizaje de código abierto, Moodle LMS.</span></a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-270313"><a href="https://moodle.com/es/carreras-2/"><span class="title">Trabaja con nosotros</span><span class="description">Únase a nuestra misión de capacitar a los educadores para mejorar nuestro mundo. Busque oportunidades profesionales en Moodle.</span></a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-274952"><a href="https://moodle.com/es/acerca-de/premios-2/"><span class="title">Premios</span><span class="description">Descubra nuestros premios y clasificaciones mundiales, testimonio de los más de 20 años de experiencia de Moodle en tecnología educativa.</span></a></li>
+	<li class="no-header menu-item menu-item-type-post_type menu-item-object-page menu-item-277450"><a href="https://moodle.com/es/accesibilidad/"><span class="title">Accesibilidad</span></a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-news menu-item-has-children menu-item-274893"><a href="https://moodle.com/es/noticias/">Recursos</a>
+<ul class="sub-menu mega-menu not-processed">
+<li class="news-intro"><span class="label">Recursos</span><span class="description">Encuentre noticias y recursos sobre productos, soluciones, servicios, lanzamientos, casos de estudio y mucho más de Moodle.</span><span class="news-links"><a class="news-link" href="/es/historias-de-exito/">Casos de éxito<i class="fa-solid fa-arrow-right"></i></a><a class="news-link" href="/es/noticias/categoria-19/producto/">Producto<i class="fa-solid fa-arrow-right"></i></a><a class="news-link" href="/es/noticias/categoria-19/media-pr/">Medios de comunicación y relaciones públicas<i class="fa-solid fa-arrow-right"></i></a></span><a class="button outline arrow" href="https://moodle.com/es/noticias/"><span>Ver todas las noticias</span></a></li>	<li class="menu-item menu-item-type-post_type menu-item-object-news menu-item-282088"><a class="news-item" href="https://moodle.com/es/noticias/moodle-global-partner-summit-26/"><img width="200" height="150" src="https://moodle.com/wp-content/uploads/2026/10/Global-Partner-Summit-200x150.png" class="attachment-thumbnail size-thumbnail wp-post-image" alt="Moodle Global Partner Summit 2026: highlights from Barcelona. Three smiling individuals standing together." decoding="async" loading="lazy" srcset="https://moodle.com/wp-content/uploads/2026/10/Global-Partner-Summit-200x150.png 200w, https://moodle.com/wp-content/uploads/2026/10/Global-Partner-Summit-300x225.png 300w, https://moodle.com/wp-content/uploads/2026/10/Global-Partner-Summit-768x576.png 768w, https://moodle.com/wp-content/uploads/2026/10/Global-Partner-Summit-16x12.png 16w, https://moodle.com/wp-content/uploads/2026/10/Global-Partner-Summit-700x525.png 700w, https://moodle.com/wp-content/uploads/2026/10/Global-Partner-Summit-550x413.png 550w, https://moodle.com/wp-content/uploads/2026/10/Global-Partner-Summit-800x600.png 800w, https://moodle.com/wp-content/uploads/2026/10/Global-Partner-Summit-850x638.png 850w, https://moodle.com/wp-content/uploads/2026/10/Global-Partner-Summit.png 900w" sizes="(max-width: 200px) 100vw, 200px" /><span class="title">Moodle Global Partner Summit 2026: highlights from Barcelona</span></a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-news menu-item-282057"><a class="news-item" href="https://moodle.com/es/noticias/made-with-moodle-consultant-microbiology/"><img width="200" height="150" src="https://moodle.com/wp-content/uploads/2026/10/MoodleMWM-400x300-1-200x150.png" class="attachment-thumbnail size-thumbnail wp-post-image" alt="MoodleMWM 400x300" decoding="async" loading="lazy" srcset="https://moodle.com/wp-content/uploads/2026/10/MoodleMWM-400x300-1-200x150.png 200w, https://moodle.com/wp-content/uploads/2026/10/MoodleMWM-400x300-1-300x225.png 300w, https://moodle.com/wp-content/uploads/2026/10/MoodleMWM-400x300-1-16x12.png 16w, https://moodle.com/wp-content/uploads/2026/10/MoodleMWM-400x300-1.png 400w" sizes="(max-width: 200px) 100vw, 200px" /><span class="title">Made with Moodle: How one consultant built the microbiology exam resource he couldn’t find</span></a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-news menu-item-282003"><a class="news-item" href="https://moodle.com/es/noticias/workforce-development-trends-learning-ecosystem/"><img width="200" height="150" src="https://moodle.com/wp-content/uploads/2026/10/Microlearning-200x150.png" class="attachment-thumbnail size-thumbnail wp-post-image" alt="Tendencias en el desarrollo del lugar de trabajo" decoding="async" loading="lazy" srcset="https://moodle.com/wp-content/uploads/2026/10/Microlearning-200x150.png 200w, https://moodle.com/wp-content/uploads/2026/10/Microlearning-300x225.png 300w, https://moodle.com/wp-content/uploads/2026/10/Microlearning-16x12.png 16w, https://moodle.com/wp-content/uploads/2026/10/Microlearning-550x413.png 550w, https://moodle.com/wp-content/uploads/2026/10/Microlearning.png 600w" sizes="(max-width: 200px) 100vw, 200px" /><span class="title">Afrontar el cambio con cautela: 5 tendencias en el desarrollo del personal para las que tu ecosistema de formación debe estar preparado</span></a></li>
+</ul>
+</li>
+</ul></div>              </nav>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-extra-links">
+      <div class="alignwide">
+        <div class="footer-menu-extra">
+                      <div class="footer-text">Capacitar a los educadores para mejorar nuestro mundo. </div>
+                      <div class="button-block button-1"><a class="button arrow" href="/es/boletin-informativo/"><span>Suscripción al boletín de noticias</span></a></div>
+                  </div>
+        <div class="footer-links">
+                      <div class="additional-links">
+              <div class="link">
+                
+                <a href="#" onclick="OneTrust.ToggleInfoDisplay(); return false;">Cambiar la configuración de cookies</a>
+                
+              </div>
+                              <div class="link"><a href="/cookies-policy/">Política de cookies</a></div>
+                              <div class="link"><a href="/privacy-notice/">Aviso de Privacidad</a></div>
+                              <div class="link"><a href="/trademarks/">Política de marcas registradas</a></div>
+                          </div>
+                      <div class="social-icons-block">
+              <div>Síguenos:</div>
+                              <a class="facebook social-icon" href="https://www.facebook.com/moodle/" aria-label="Ir a Facebook">
+                <svg fill="none" height="20" viewbox="0 0 20 20" width="100%" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="m0 4.00098c0-1.06087.421427-2.07829 1.17157-2.82843.75015-.750146 1.76756-1.17157344 2.82843-1.17157344h12c1.0609 0 2.0783.42142744 2.8284 1.17157344.7502.75014 1.1716 1.76756 1.1716 2.82843v12.00002c0 1.0608-.4214 2.0783-1.1716 2.8284-.7501.7501-1.7675 1.1716-2.8284 1.1716h-12c-1.06087 0-2.07828-.4215-2.82843-1.1716-.750143-.7501-1.17157-1.7676-1.17157-2.8284zm4-2c-.53043 0-1.03914.21071-1.41421.58578-.37508.37508-.58579.88378-.58579 1.41422v12.00002c0 .5304.21071 1.0391.58579 1.4142.37507.3751.88378.5858 1.41421.5858h6v-7h-1c-.26522 0-.51957-.1054-.70711-.2929-.18753-.1876-.29289-.4419-.29289-.7071 0-.26524.10536-.51959.29289-.70713.18754-.18754.44189-.29289.70711-.29289h1v-1.5c0-.92826.3687-1.8185 1.0251-2.47488.6564-.65637 1.5466-1.02512 2.4749-1.02512h.6c.2652 0 .5196.10535.7071.29289s.2929.44189.2929.70711c0 .26521-.1054.51957-.2929.7071-.1875.18754-.4419.2929-.7071.2929h-.6c-.197 0-.392.03879-.574.11418-.182.07538-.3474.18587-.4867.32516-.1392.13928-.2497.30464-.3251.48663s-.1142.37704-.1142.57403v1.5h2.1c.2652 0 .5196.10535.7071.29289s.2929.44189.2929.70713c0 .2652-.1054.5195-.2929.7071-.1875.1875-.4419.2929-.7071.2929h-2.1v7h4c.5304 0 1.0391-.2107 1.4142-.5858s.5858-.8838.5858-1.4142v-12.00002c0-.53044-.2107-1.03914-.5858-1.41422-.3751-.37507-.8838-.58578-1.4142-.58578z" fill="#fff" fill-rule="evenodd"/></svg>
+                </a>
+                              <a class="linkedin social-icon" href="https://www.linkedin.com/company/moodle" title="Ir a LinkedIn">
+                <svg fill="none" height="20" viewbox="0 0 20 20" width="100%" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="m4 .00097656c-1.06087 0-2.07828.42142744-2.82843 1.17157344-.750143.75014-1.17157 1.76756-1.17157 2.82843v12.00002c0 1.0608.421427 2.0783 1.17157 2.8284.75015.7501 1.76756 1.1716 2.82843 1.1716h12c1.0609 0 2.0783-.4215 2.8284-1.1716.7502-.7501 1.1716-1.7676 1.1716-2.8284v-12.00002c0-1.06087-.4214-2.07829-1.1716-2.82843-.7501-.750146-1.7675-1.17157344-2.8284-1.17157344zm-2 4.00000344c0-.53044.21071-1.03914.58579-1.41422.37507-.37507.88378-.58578 1.41421-.58578h12c.5304 0 1.0391.21071 1.4142.58578.3751.37508.5858.88378.5858 1.41422v12.00002c0 .5304-.2107 1.0391-.5858 1.4142s-.8838.5858-1.4142.5858h-12c-.53043 0-1.03914-.2107-1.41421-.5858-.37508-.3751-.58579-.8838-.58579-1.4142zm5 5c0-.26522-.10536-.51957-.29289-.70711-.18754-.18754-.44189-.29289-.70711-.29289s-.51957.10535-.70711.29289c-.18753.18754-.29289.44189-.29289.70711v6.00002c0 .2652.10536.5195.29289.7071.18754.1875.44189.2929.70711.2929s.51957-.1054.70711-.2929c.18753-.1876.29289-.4419.29289-.7071zm.5-3.5c0 .39782-.15804.77935-.43934 1.06066-.2813.2813-.66284.43934-1.06066.43934s-.77936-.15804-1.06066-.43934c-.2813-.28131-.43934-.66284-.43934-1.06066 0-.39783.15804-.77936.43934-1.06066.2813-.28131.66284-.43934 1.06066-.43934s.77936.15803 1.06066.43934c.2813.2813.43934.66283.43934 1.06066zm2.5 2.5c.34 0 .64.17.82.428.5154-.2809 1.093-.42805 1.68-.428 2.16 0 3.5 1.926 3.5 3.57102v3.429c0 .2652-.1054.5195-.2929.7071-.1875.1875-.4419.2929-.7071.2929s-.5196-.1054-.7071-.2929c-.1875-.1876-.2929-.4419-.2929-.7071v-3.43c0-.768-.66-1.57102-1.5-1.57102-.524 0-1.103.28502-1.5.96302v4.038c0 .2652-.1054.5195-.2929.7071-.1875.1875-.4419.2929-.7071.2929-.26522 0-.51957-.1054-.70711-.2929-.18753-.1876-.29289-.4419-.29289-.7071v-6.00002c0-.26522.10536-.51957.29289-.70711.18754-.18754.44189-.29289.70711-.29289z" fill="#fff" fill-rule="evenodd"/></svg>
+                </a>
+                              <a class="twitter social-icon" href="https://x.com/moodle" title="Ir a Twitter">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-twitter-x" viewbox="0 0 16 16">
+                  <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/>
+                  </svg>
+                </a>
+                              <a class="youtube social-icon" href="https://www.youtube.com/moodle" title="Ir a Youtube">
+                  <svg fill="none" height="20" viewbox="0 0 23 20" width="100%" xmlns="http://www.w3.org/2000/svg"><path d="m3.20091 17.3398-.19612.9806zm16.59819 0 .1961.9806zm.1139-14.53739.2096-.9778zm-16.82604 0 .20952.97781zm6.41304 4.19721.5145-.85749c-.30893-.18536-.69369-.19022-1.0072-.01271-.31351.1775-.5073.50993-.5073.8702zm0 5.99998h-1c0 .3603.19379.6927.5073.8702s.69827.1727 1.0072-.0127zm5-2.99998.5145.85748c.3012-.1807.4855-.5062.4855-.85748 0-.35126-.1843-.67677-.4855-.85749zm-14-5.23416v10.49954h2v-10.49954zm22 10.49954v-10.49954h-2v10.49954zm-19.49521 3.0554c5.60794 1.1216 11.38251 1.1216 16.99041 0l-.3922-1.9612c-5.349 1.0698-10.85696 1.0698-16.20598 0zm17.11781-16.49579c-5.6839-1.21797-11.5613-1.21797-17.24517 0l.41905 1.95561c5.40764-1.15878 10.99942-1.15878 16.40702 0zm2.3774 2.94085c0-1.4182-.9907-2.64369-2.3774-2.94085l-.4191 1.95561c.4646.09955.7965.51011.7965.98524zm-2 10.49954c0 .5319-.3754.9899-.897 1.0942l.3922 1.9612c1.4564-.2913 2.5048-1.5701 2.5048-3.0554zm-20 0c0 1.4853 1.04836 2.7641 2.50479 3.0554l.39223-1.9612c-.52158-.1043-.89702-.5623-.89702-1.0942zm2-10.49954c0-.47513.33191-.88569.79648-.98524l-.41905-1.95561c-1.38672.29716-2.37743 1.52265-2.37743 2.94085zm6 2.23416v5.99998h2v-5.99998zm1.5145 6.85748 5-3-1.029-1.71497-5 2.99997zm5-4.71497-5-3-1.029 1.71498 5 2.99999z" fill="#fff"/></svg>
+                </a>
+                                <a class="instagram social-icon" href="https://www.instagram.com/moodlehq/" title="Ir a Instagram">
+                  <svg fill="none" height="20" width="100%" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 47.57 47.57"><defs><style>.cls-1{fill:#fff;}</style></defs><g id="objects"><g><path class="cls-1" d="M38.06,0H9.51C4.26,0,0,4.26,0,9.51v28.54c0,5.25,4.26,9.51,9.51,9.51h28.54c5.25,0,9.51-4.26,9.51-9.51V9.51c0-5.25-4.26-9.51-9.51-9.51Zm3.75,31.55c0,5.66-4.6,10.26-10.26,10.26h-15.53c-5.66,0-10.26-4.6-10.26-10.26v-15.53c0-5.66,4.6-10.26,10.26-10.26h15.53c5.66,0,10.26,4.6,10.26,10.26v15.53Z"></path><path class="cls-1" d="M23.79,17.65c-3.39,0-6.14,2.75-6.14,6.14s2.75,6.14,6.14,6.14,6.14-2.75,6.14-6.14-2.75-6.14-6.14-6.14Z"></path><path class="cls-1" d="M31.55,8.85h-15.53c-3.95,0-7.17,3.22-7.17,7.17v15.53c0,3.95,3.22,7.17,7.17,7.17h15.53c3.95,0,7.17-3.22,7.17-7.17v-15.53c0-3.95-3.22-7.17-7.17-7.17Zm-7.76,24.16c-5.09,0-9.23-4.14-9.23-9.23s4.14-9.23,9.23-9.23,9.23,4.14,9.23,9.23-4.14,9.23-9.23,9.23Zm9.63-16.77c-1.23,0-2.22-.99-2.22-2.22s.99-2.22,2.22-2.22,2.22,.99,2.22,2.22-.99,2.22-2.22,2.22Z"></path></g></g></svg>
+                </a>
+                              <a class="mastodon social-icon" rel="me" href="https://openedtech.social/@moodle" title="Ir a Mastodonte">
+                  <svg fill="none" height="20" width="100%" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 200 200" style="enable-background:new 0 0 200 200;" xml:space="preserve"><style >.st0{fill:none;stroke:#FFFFFF;stroke-width:15;stroke-miterlimit:10;}.st1{fill:#FFFFFF;stroke:#FFFFFF;stroke-width:5;stroke-miterlimit:10;}</style><g><g id="Ac5ZCm_00000005264104785831267240000003427963782964771506_"><g><path class="st0" d="M133.38,175.86c-0.95,0.15-1.93,0.25-2.9,0.46c-12.29,2.67-24.68,2.89-37.13,1.42c-18.29-2.16-27.72-12.14-28.22-29.84c-0.13-4.53,1.75-6.35,5.92-5.35c23.56,5.62,47.28,5.89,71.13,2.38c11.67-1.71,22.3-5.72,31.41-13.12c6.53-5.31,10.21-13.39,11.2-21.75c0.63-5.28,1.48-10.54,1.55-15.82c0.19-13.55,1.04-27.27-0.63-40.64c-2.75-22.04-15.56-34.89-37.15-39.1c-27.61-5.38-55.28-5.22-82.95-0.52c-18.01,3.06-32.98,16.28-38.28,33.76c-1.18,3.9-2,7.89-2.05,11.8c-0.27,21.18,0.02,42.39,0.96,63.56c0.34,7.58,1.51,15.08,3.62,22.36c6.21,21.49,24.56,37.52,46.5,41.86c17.24,3.4,34.67,3.03,52.19-2.07C134.78,183.44,135.05,182.76,133.38,175.86z"/></g></g><path class="st1" d="M105.89,53.44c10.11-10.48,21.07-13.28,32.7-8.24c9.87,4.28,15.46,12.02,16.07,22.65c0.65,11.29,0.44,22.62,0.59,33.94c0.03,2.57,0.03,5.15-0.02,7.72c-0.07,3.62-2,5.85-4.96,5.85c-2.99,0-4.9-2.2-4.89-5.84c0-10.5,0.16-21,0.04-31.49c-0.05-4.2-0.31-8.46-1.13-12.56c-1.35-6.68-6.9-11.49-13.77-12.4c-7.21-0.95-13.15,1.06-17.25,7.55c-1.72,2.72-2.52,5.43-2.43,8.65c0.18,6.99,0.07,14,0.05,21c-0.01,3.94-1.78,6.13-4.91,6.14c-3.14,0.01-4.95-2.17-4.96-6.08c-0.02-7.2-0.44-14.44,0.12-21.6c0.51-6.55-6.8-14.57-12.88-15.65c-10.83-1.93-20.57,4.67-21.18,15.64c-0.67,12.21-0.41,24.48-0.55,36.72c-0.02,1.75,0.08,3.51-0.04,5.25c-0.19,2.75-2.2,4.72-4.78,4.68c-2.75-0.05-4.34-1.59-4.96-4.21c-0.07-0.3-0.09-0.61-0.09-0.92c0.1-13.58-0.08-27.17,0.39-40.74c0.43-12.34,6.57-21.19,18.49-25.02C87.37,40.67,97.65,43.57,105.89,53.44z"/></g></svg>
+                </a>
+                          </div>
+                  </div>
+      </div>
+    </div>
+    <div class="bottom">
+      <div class="bottom-inner alignwide">
+                  <div class="terms">La palabra Moodle y los logotipos de Moodle asociados son marcas comerciales o marcas comerciales registradas de Moodle Pty Ltd o sus afiliadas relacionadas.</div>
+                <div class="copyright">
+          Copyright © 2026 Moodle Todos los derechos reservados        </div>
+      </div>
+    </div>
+  </div>
+</div>
+			</footer>
+		</div>
+	</div>
+</div>
+
+
+<aside class="video-popup popup" aria-label="Reproductor de video">
+	<a class="close" href="#">Cerca</a>
+	<div class="popup-inner"></div>
+</aside>
+
+<aside class="search-popup popup" aria-label="Buscar en Moodle.com">
+	<a class="close" href="#">Cerca</a>
+	<div class="popup-inner">
+		<div class="search-form">
+			<form method="get" action="/es/" data-trp-original-action="/">
+				<input name="s" aria-label="Entrada de búsqueda" class="search-input" placeholder="Introduce la palabra que quieras buscar" autocomplete="off" type="text">
+				<button aria-label="Botón de búsqueda" type="submit" class="search-button">
+					<svg width="36" height="36" viewbox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M27.5 16.5C27.5 22.5751 22.5751 27.5 16.5 27.5C10.4249 27.5 5.5 22.5751 5.5 16.5C5.5 10.4249 10.4249 5.5 16.5 5.5C22.5751 5.5 27.5 10.4249 27.5 16.5Z" stroke="#194866" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						<path d="M31.5 31.5001L24.975 24.9751" stroke="#194866" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+					</svg>
+				</button>
+			<input type="hidden" name="trp-form-language" value="es"/></form>
+		</div>
+	</div>
+</aside>
+
+<template id="tp-language" data-tp-language="es_ES"></template><script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/es/*"},{"not":{"href_matches":["/wp-*.php","/wp-admin/*","/wp-content/uploads/*","/wp-content/*","/wp-content/plugins/*","/wp-content/themes/thetheme/*","/es/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+
+<script>
+   // Intercom
+      window.intercomSettings = {
+        api_base: "https://api-iam.intercom.io",
+		app_id: "c4141deq",
+      };
+
+     var w = window;
+    var ic = w.Intercom;
+    if (typeof ic === "function") {
+        ic('reattach_activator');
+        ic('update', w.intercomSettings);
+    } else {
+        var d = document;
+        var i = function() {
+            i.c(arguments);
+        };
+        i.q = [];
+        i.c = function(args) {
+            i.q.push(args);
+        };
+        w.Intercom = i;
+        var l = function() {
+            var s = d.createElement('script');
+            s.type = 'text/javascript';
+            s.async = true;
+            s.src = 'https://widget.intercom.io/widget/jnrsihww';
+            var x = d.getElementsByTagName('script')[0];
+            x.parentNode.insertBefore(s, x);
+        };
+        l();
+    }
+</script>
+
+
+<script>
+(function () {
+  window.dataLayer = window.dataLayer || [];
+
+  window.addEventListener('message', function (event) {
+    if (
+      !event.data ||
+      event.data.type !== 'hsFormCallback' ||
+      event.data.eventName !== 'onFormSubmitted'
+    ) {
+      return;
+    }
+
+    var formId = event.data.id || event.data.formGuid || event.data.formId || '';
+
+    window.dataLayer.push({
+      event: 'form_submit',
+      form_id: formId,
+      form_name: formId,
+      page_location: window.location.href,
+      page_path: window.location.pathname
+    });
+  });
+})();
+</script>
+
+<script id="utm_contact_form7_scripts-js" src="https://moodle.com/wp-content/plugins/cf7-utm/js/ucf7_scripts.js?ver=1765436895"></script>
+<script id="wp-hooks-js" src="https://moodle.com/wp-includes/js/dist/hooks.min.js?ver=f0f188028580e8dc1255"></script>
+<script id="wp-i18n-js" src="https://moodle.com/wp-includes/js/dist/i18n.min.js?ver=1dfe7db3940c23ea9216"></script>
+<script id="wp-i18n-js-after">
+wp.i18n.setLocaleData( { 'text direction\u0004ltr': [ 'ltr' ] } );
+//# sourceURL=wp-i18n-js-after
+</script>
+<script id="swv-js" src="https://moodle.com/wp-content/plugins/contact-form-7/includes/swv/js/index.js?ver=6.1.5"></script>
+<script id="contact-form-7-js-translations">
+( function( domain, translations ) {
+	var localeData = translations.locale_data[ domain ] || translations.locale_data.messages;
+	localeData[""].domain = domain;
+	wp.i18n.setLocaleData( localeData, domain );
+} )( "contact-form-7", {"translation-revision-date":"2025-12-01 15:45:40+0000","generator":"GlotPress\/4.0.3","domain":"messages","locale_data":{"messages":{"":{"domain":"messages","plural-forms":"nplurals=2; plural=n != 1;","lang":"es"},"This contact form is placed in the wrong place.":["Este formulario de contacto est\u00e1 situado en el lugar incorrecto."],"Error:":["Error:"]}},"comment":{"reference":"includes\/js\/index.js"}} );
+//# sourceURL=contact-form-7-js-translations
+</script>
+<script id="contact-form-7-js-before">
+var wpcf7 = {
+    "api": {
+        "root": "https:\/\/moodle.com\/es\/wp-json\/",
+        "namespace": "contact-form-7\/v1"
+    },
+    "cached": 1
+};
+//# sourceURL=contact-form-7-js-before
+</script>
+<script id="contact-form-7-js" src="https://moodle.com/wp-content/plugins/contact-form-7/includes/js/index.js?ver=6.1.5"></script>
+<script id="nbcpf-intlTelInput-script-js" src="https://moodle.com/wp-content/plugins/country-phone-field-contact-form-7/assets/js/intlTelInput.min.js?ver=7.1.4"></script>
+<script id="nbcpf-countryFlag-script-js-extra">
+var nbcpf = {"ajaxurl":"https://moodle.com/wp-admin/admin-ajax.php"};
+//# sourceURL=nbcpf-countryFlag-script-js-extra
+</script>
+<script id="nbcpf-countryFlag-script-js" src="https://moodle.com/wp-content/plugins/country-phone-field-contact-form-7/assets/js/countrySelect.min.js?ver=7.1.4"></script>
+<script id="nbcpf-countryFlag-script-js-after">
+		(function($) {
+			$(function() {
+				$(".wpcf7-countrytext").countrySelect({
+					
+				});
+				$(".wpcf7-phonetext").intlTelInput({
+					autoHideDialCode: true,
+					autoPlaceholder: true,
+					nationalMode: false,
+					separateDialCode: true,
+					hiddenInput: "full_number",
+					preferredCountries: ["US","BR","MX","GB","ES","IN","FR"],	
+				});
+
+				$(".wpcf7-phonetext").each(function () {
+					var hiddenInput = $(this).attr('name');
+					//console.log(hiddenInput);
+					var dial_code = $(this).siblings(".flag-container").find(".selected-flag .selected-dial-code").text();
+					$("input[name="+hiddenInput+"-country-code]").val(dial_code);
+				});
+				
+				$(".wpcf7-phonetext").on("countrychange", function() {
+					// do something with iti.getSelectedCountryData()
+					//console.log(this.value);
+					var hiddenInput = $(this).attr("name");
+					var dial_code = $(this).siblings(".flag-container").find(".selected-flag .selected-dial-code").text();
+					$("input[name="+hiddenInput+"-country-code]").val(dial_code);
+					
+				});
+					
+					var isMobile = /Android.+Mobile|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+					$(".wpcf7-phonetext").on("keyup", function() {
+						var dial_code = $(this).siblings(".flag-container").find(".selected-flag .selected-dial-code").text();
+						
+						var value   = $(this).val();
+						if(value == "+")
+							$(this).val("");
+						else if(value.indexOf("+") == "-1")
+							$(this).val(dial_code + value);
+						else if(value.indexOf("+") > 0)
+							$(this).val(dial_code + value.substring(dial_code.length));
+					});$(".wpcf7-countrytext").on("keyup", function() {
+					var country_name = $(this).siblings(".flag-dropdown").find(".country-list li.active span.country-name").text();
+					if(country_name == "")
+					var country_name = $(this).siblings(".flag-dropdown").find(".country-list li.highlight span.country-name").text();
+					
+					var value   = $(this).val();
+					//console.log(country_name, value);
+					$(this).val(country_name + value.substring(country_name.length));
+				});
+				
+			});
+		})(jQuery);
+//# sourceURL=nbcpf-countryFlag-script-js-after
+</script>
+<script id="moodle-solution-quiz-js-before">
+window.moodleSolutionQuizConfig = {"hubspot":{"portalId":"23165921","region":"na1","formId":"d544189e-7e83-4497-a82d-c9782c18971b","fields":{"_q_q1":"solution_quiz_q1_goal","_q_q2":"solution_quiz_q2_learners","_q_q3":"solution_quiz_q3_structure","_q_q4":"solution_quiz_q4_support","_q_q5":"solution_quiz_q5_mobile","_q_rec":"solution_quiz_recommendation"}},"contactUrl":"https:\/\/moodle.com\/es\/contact\/","scriptUrl":"https:\/\/moodle.com\/wp-content\/plugins\/moodle-solution-quiz\/build\/quiz.js?ver=1793870373","styleUrl":"https:\/\/moodle.com\/wp-content\/plugins\/moodle-solution-quiz\/build\/quiz.css?ver=1792576758"};
+//# sourceURL=moodle-solution-quiz-js-before
+</script>
+<script data-wp-strategy="defer" defer id="moodle-solution-quiz-js" src="https://moodle.com/wp-content/plugins/moodle-solution-quiz/assets/loader.js?ver=1793015446"></script>
+<script id="wpcf7-redirect-script-js-extra">
+var wpcf7r = {"ajax_url":"https://moodle.com/wp-admin/admin-ajax.php"};
+//# sourceURL=wpcf7-redirect-script-js-extra
+</script>
+<script id="wpcf7-redirect-script-js" src="https://moodle.com/wp-content/plugins/wpcf7-redirect/build/assets/frontend-script.js?ver=2c532d7e2be36f6af233"></script>
+<script id="wpcf7cf-scripts-js-extra">
+var wpcf7cf_global_settings = {"ajaxurl":"https://moodle.com/wp-admin/admin-ajax.php"};
+//# sourceURL=wpcf7cf-scripts-js-extra
+</script>
+<script id="wpcf7cf-scripts-js" src="https://moodle.com/wp-content/plugins/cf7-conditional-fields/js/scripts.js?ver=2.7.3"></script>
+<script id="jvcf7_jquery_validate-js" src="https://moodle.com/wp-content/plugins/jquery-validation-for-contact-form-7/includes/assets/js/jquery.validate.min.js?ver=5.4.2"></script>
+<script id="jvcf7_validation-js-extra">
+var scriptData = {"jvcf7_default_settings":{"jvcf7_show_label_error":"errorMsgshow","jvcf7_invalid_field_design":"theme_1"}};
+//# sourceURL=jvcf7_validation-js-extra
+</script>
+<script id="jvcf7_validation-js" src="https://moodle.com/wp-content/plugins/jquery-validation-for-contact-form-7/includes/assets/js/jvcf7_validation.js?ver=5.4.2"></script>
+<script id="theme-header-js" src="https://moodle.com/wp-content/themes/thetheme/plugins/header.js?ver=1.5.8"></script>
+<script id="sticky-div-js" src="https://moodle.com/wp-content/themes/thetheme/plugins/jquery.sticky.min.js?ver=7.1.4"></script>
+<script id="child-navigation-js" src="https://moodle.com/wp-content/themes/thetheme/plugins/navigation.js?ver=1.5.8"></script>
+<script id="general-scripts-js" src="https://moodle.com/wp-content/themes/thetheme/plugins/general-scripts.js?ver=1.5.8"></script>
+<script id="child-scripts-js" src="https://moodle.com/wp-content/themes/thetheme/js/custom-scripts.js?ver=1.5.8"></script>
+<script id="hubspot-scripts-js" src="https://moodle.com/wp-content/themes/thetheme/js/hubspot-scripts.js?ver=1.5.8"></script>
+<script id="get-moodle-scripts-js" src="https://moodle.com/wp-content/themes/thetheme/js/get-moodle.js?ver=1.5.8"></script>
+<script id="waffle-scripts-js-extra">
+var waffle_geo_ajax = {"ajaxurl":"https://moodle.com/wp-admin/admin-ajax.php","security":"6db3c82bcb"};
+//# sourceURL=waffle-scripts-js-extra
+</script>
+<script id="waffle-scripts-js" src="https://moodle.com/wp-content/themes/thetheme/js/waffle-geo.js?ver=1.5.8"></script>
+<script id="disablesubmit-js" src="https://moodle.com/wp-content/themes/thetheme/js/fixduplicates.js?ver=1.62"></script>
+
+</body>
+</html>

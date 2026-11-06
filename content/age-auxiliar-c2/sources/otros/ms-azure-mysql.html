@@ -1,0 +1,2021 @@
+ <!DOCTYPE html>
+		<html
+			class="layout layout-holy-grail   show-table-of-contents conceptual show-breadcrumb default-focus"
+			lang="es-es"
+			dir="ltr"
+			data-authenticated="false"
+			data-auth-status-determined="false"
+			data-target="docs"
+			x-ms-format-detection="none"
+		>
+			
+		<head>
+			<title>Azure Database para MySQL, servidor flexible - Azure Database for MySQL | Microsoft Learn</title>
+			<meta charset="utf-8" />
+			<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+			<meta name="color-scheme" content="light dark" />
+
+			<meta name="description" content="Obtenga información general sobre Azure Database for MySQL servidor flexible, un servicio MySQL totalmente administrado con alta disponibilidad, copias de seguridad automatizadas, escalado y seguridad de nivel empresarial." />
+			<link rel="canonical" href="https://learn.microsoft.com/es-es/azure/mysql/flexible-server/overview" /> 
+
+			<!-- Non-customizable open graph and sharing-related metadata -->
+			<meta name="twitter:card" content="summary_large_image" />
+			<meta name="twitter:site" content="@MicrosoftLearn" />
+			<meta property="og:type" content="website" />
+			<meta property="og:image:alt" content="Microsoft Learn" />
+			<meta property="og:image" content="https://learn.microsoft.com/en-us/media/open-graph-image.png" />
+			<!-- Page specific open graph and sharing-related metadata -->
+			<meta property="og:title" content="Azure Database para MySQL, servidor flexible - Azure Database for MySQL" />
+			<meta property="og:url" content="https://learn.microsoft.com/es-es/azure/mysql/flexible-server/overview" />
+			<meta property="og:description" content="Obtenga información general sobre Azure Database for MySQL servidor flexible, un servicio MySQL totalmente administrado con alta disponibilidad, copias de seguridad automatizadas, escalado y seguridad de nivel empresarial." />
+			<meta name="platform_id" content="7f4f5ae0-ddff-9f00-c1aa-b1c27f05d305" /> <meta name="scope" content="Azure" />
+			<meta name="locale" content="es-es" />
+			 
+			<meta name="uhfHeaderId" content="azure" />
+
+			<meta name="page_type" content="conceptual" />
+
+			<!--page specific meta tags-->
+			
+
+			<!-- custom meta tags -->
+			
+		<meta name="schema" content="Conceptual" />
+	
+		<meta name="ai-usage" content="ai-assisted" />
+	
+		<meta name="author" content="SudheeshGH" />
+	
+		<meta name="breadcrumb_path" content="../../breadcrumb/azure-databases/toc.json" />
+	
+		<meta name="depot_name" content="Learn.azure-databases" />
+	
+		<meta name="document_id" content="ad174fe4-6530-5dff-5485-5c556fd215f6" />
+	
+		<meta name="document_version_independent_id" content="56e256f2-7a7d-2d25-721e-b079ecdae6bd" />
+	
+		<meta name="feedback_help_link_type" content="get-help-at-qna" />
+	
+		<meta name="feedback_help_link_url" content="/answers/tags/181/azure-database-mysql/" />
+	
+		<meta name="feedback_product_url" content="https://feedback.azure.com/d365community/forum/47b1e71d-ee24-ec11-b6e6-000d3a4f0da0" />
+	
+		<meta name="feedback_system" content="Standard" />
+	
+		<meta name="git_commit_id" content="6533963159ccb6c121fbe656c948cb4e52809487" />
+	
+		<meta name="gitcommit" content="https://github.com/MicrosoftDocs/azure-databases-docs-pr/blob/6533963159ccb6c121fbe656c948cb4e52809487/articles/mysql/flexible-server/overview.md" />
+	
+		<meta name="learn_banner_products" content="azure" />
+	
+		<meta name="ms.author" content="sunaray" />
+	
+		<meta name="ms.custom" content="references_regions" />
+	
+		<meta name="ms.date" content="2026-06-26T00:00:00Z" />
+	
+		<meta name="ms.reviewer" content="maghan" />
+	
+		<meta name="ms.service" content="azure-database-mysql" />
+	
+		<meta name="ms.subservice" content="flexible-server" />
+	
+		<meta name="ms.suite" content="office" />
+	
+		<meta name="ms.topic" content="overview" />
+	
+		<meta name="original_content_git_url" content="https://github.com/MicrosoftDocs/azure-databases-docs-pr/blob/live/articles/mysql/flexible-server/overview.md" />
+	
+		<meta name="permissioned-type" content="public" />
+	
+		<meta name="recommendation_types" content="Training" />
+	
+		<meta name="recommendation_types" content="Certification" />
+	
+		<meta name="recommendations" content="true" />
+	
+		<meta name="site_name" content="Docs" />
+	
+		<meta name="updated_at" content="2026-09-29T17:38:00Z" />
+	
+		<meta name="ms.translationtype" content="HT" />
+	
+		<meta name="ms.contentlocale" content="es-es" />
+	
+		<meta name="loc_version" content="2026-07-17T11:07:48.1596738Z" />
+	
+		<meta name="loc_source_id" content="Github-840133366#live" />
+	
+		<meta name="loc_file_id" content="Github-840133366.live.Learn.azure-databases.articles/mysql/flexible-server/overview.md" />
+	
+		<meta name="toc_rel" content="../toc.json" />
+	
+		<meta name="word_count" content="3548" />
+	
+		<meta name="asset_id" content="mysql/flexible-server/overview" />
+	
+		<meta name="item_type" content="Content" />
+	
+		<meta name="previous_tlsh_hash" content="8660F1A2861EDF25BFF13682EA8D975085FBF5D47664FFC4250C520791B83EB7A2F2A113D71403D85EA3789312CAE246C153F6DCD00A3649C2939B69C769C0CB98CEA2A6D6" />
+	
+		<meta name="github_feedback_content_git_url" content="https://github.com/MicrosoftDocs/azure-databases-docs/blob/main/articles/mysql/flexible-server/overview.md" />
+	
+		<meta name="markdown_url" content="https://learn.microsoft.com/es-es/azure/mysql/flexible-server/overview?accept=text/markdown" />
+	 
+		<meta name="cmProducts" content="https://authoring-docs-microsoft.poolparty.biz/devrel/4c3c562b-e580-487f-8ab7-ed723105d8cf" data-source="generated" />
+	
+		<meta name="spProducts" content="https://authoring-docs-microsoft.poolparty.biz/devrel/c5148132-a95f-467e-b31c-8786a8264397" data-source="generated" />
+	
+
+			<!-- Apply persisted/system theme before first paint to prevent wrong-theme flash when scripts are deferred. -->
+			<script id="theme-preference">
+				(function () {
+			try {
+				var stored = localStorage.getItem('theme');
+				var theme = /^(light|dark|high-contrast)$/.test(stored)
+					? stored
+					: matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+				document.documentElement.classList.add('theme-' + theme);
+			} catch (e) {}
+		})();;
+			</script>
+
+			<script id="atlas-layout-preferences">
+				(function () {
+			try {
+				var state = JSON.parse(localStorage.getItem('atlas-layout-preferences') || '{}');
+				var view = state["docs-layout-persistence"] || {};
+				var excludesKey = "";
+				var blocked = {};
+				if (excludesKey) {
+					var exclusions = JSON.parse(localStorage.getItem('atlas-layout-exclusions') || '{}');
+					if (Object.prototype.hasOwnProperty.call(exclusions, excludesKey)) {
+						var scoped = exclusions[excludesKey];
+						if (scoped) {
+							if (typeof scoped === 'object') blocked = scoped;
+						}
+					}
+				}
+				var html = document.documentElement;
+				for (var c in view) {
+					if (Object.prototype.hasOwnProperty.call(blocked, c)) continue;
+					if (view[c]) html.classList.add(c);
+					else html.classList.remove(c);
+				}
+			} catch (e) {}
+		})();;
+			</script>
+
+			<!-- assets and js globals -->
+			
+			<link rel="stylesheet" href="/static/assets/0.4.03574.8308-9505b1c8/styles/site.css" />
+			
+			<script src="https://wcpstatic.microsoft.com/mscc/lib/v2/wcp-consent.js"></script>
+			<!-- Keep this URL in sync with oneDSScriptSelector in instrumentation/one-ds.ts. -->
+			<script async src="https://js.monitor.azure.com/scripts/c/ms.jsll-4.min.js"></script>
+			
+
+			<!-- msdocs global object -->
+			<script id="msdocs-script">
+		var msDocs = {
+  "environment": {
+    "accessLevel": "online",
+    "azurePortalHostname": "portal.azure.com",
+    "reviewFeatures": false,
+    "supportLevel": "production",
+    "systemContent": true,
+    "siteName": "learn",
+    "legacyHosting": false
+  },
+  "data": {
+    "contentLocale": "es-es",
+    "contentDir": "ltr",
+    "userLocale": "es-es",
+    "userDir": "ltr",
+    "pageTemplate": "Conceptual",
+    "layoutStateStorageKey": "docs-layout-persistence",
+    "brand": "azure",
+    "context": {},
+    "standardFeedback": true,
+    "showFeedbackReport": false,
+    "feedbackHelpLinkType": "get-help-at-qna",
+    "feedbackHelpLinkUrl": "/answers/tags/181/azure-database-mysql/",
+    "feedbackSystem": "Standard",
+    "feedbackGitHubRepo": "MicrosoftDocs/azure-docs",
+    "feedbackProductUrl": "https://feedback.azure.com/d365community/forum/47b1e71d-ee24-ec11-b6e6-000d3a4f0da0",
+    "extendBreadcrumb": false,
+    "isEditDisplayable": false,
+    "isPrivateUnauthorized": false,
+    "hideViewSource": false,
+    "isPermissioned": false,
+    "hasRecommendations": true
+  },
+  "functions": {}
+};;
+	</script>
+
+			<!-- base scripts, msdocs global should be before this -->
+			<script
+				src="/static/assets/0.4.03574.8308-9505b1c8/scripts/es-es/index-docs.js"
+				async
+			></script>
+			
+
+			<!-- json-ld -->
+			
+		<script >bazadebezolkohpepadr="913455205"</script><script type="text/javascript" src="https://learn.microsoft.com/akam/13/36723bb3"  defer></script></head>
+	
+			<body
+				id="body"
+				data-bi-name="body"
+				class="layout-body "
+				lang="es-es"
+				dir="ltr"
+			>
+				<header class="layout-body-header background-color-body-medium">
+		<div class="header-holder has-default-focus">
+			
+		<a
+			href="#main"
+			
+			style="z-index: 1070"
+			class="outline-color-text visually-hidden-until-focused position-fixed inner-focus focus-visible top-0 left-0 right-0 padding-xs text-align-center background-color-body"
+			
+		>
+			Ir al contenido principal
+		</a>
+	
+		<a
+			href="#"
+			data-skip-to-ask-learn
+			style="z-index: 1070"
+			class="outline-color-text visually-hidden-until-focused position-fixed inner-focus focus-visible top-0 left-0 right-0 padding-xs text-align-center background-color-body"
+			hidden
+		>
+			Omisión de la experiencia de chat de Ask Learn
+		</a>
+	
+
+			<div hidden id="cookie-consent-holder" data-test-id="cookie-consent-container"></div>
+			<!-- Unsupported browser warning -->
+			<div
+				id="unsupported-browser"
+				style="background-color: white; color: black; padding: 16px; border-bottom: 1px solid grey;"
+				hidden
+			>
+				<div style="max-width: 800px; margin: 0 auto;">
+					<p style="font-size: 24px">Este explorador ya no se admite.</p>
+					<p style="font-size: 16px; margin-top: 16px;">
+						Actualice a Microsoft Edge para aprovechar las características y actualizaciones de seguridad más recientes, y disponer de soporte técnico.
+					</p>
+					<div style="margin-top: 12px;">
+						<a
+							href="https://go.microsoft.com/fwlink/p/?LinkID=2092881 "
+							style="background-color: #0078d4; border: 1px solid #0078d4; color: white; padding: 6px 12px; border-radius: 2px; display: inline-block;"
+						>
+							Descargar Microsoft Edge
+						</a>
+						<a
+							href="https://learn.microsoft.com/en-us/lifecycle/faq/internet-explorer-microsoft-edge"
+							style="background-color: white; padding: 6px 12px; border: 1px solid #505050; color: #171717; border-radius: 2px; display: inline-block;"
+						>
+							Más información sobre Internet Explorer y Microsoft Edge
+						</a>
+					</div>
+				</div>
+			</div>
+			<!-- site header -->
+			<div
+				id="ms--site-header"
+				data-test-id="site-header-wrapper"
+				itemscope="itemscope"
+				itemtype="http://schema.org/Organization"
+			>
+				<div
+					id="ms--mobile-nav"
+					class="site-header display-none-tablet padding-inline-none gap-none"
+					data-bi-name="mobile-header"
+					data-test-id="mobile-header"
+				></div>
+				<div
+					id="ms--primary-nav"
+					class="site-header display-none display-flex-tablet"
+					data-bi-name="L1-header"
+					data-test-id="primary-header"
+				></div>
+				<div
+					id="ms--secondary-nav"
+					class="site-header display-none display-flex-tablet"
+					data-bi-name="L2-header"
+					data-test-id="secondary-header"
+					
+				></div>
+			</div>
+			
+		<!-- banner -->
+		<div data-banner>
+			<div id="disclaimer-holder"></div>
+			
+		</div>
+		<!-- banner end -->
+	
+		</div>
+	</header>
+				 <section
+					id="layout-body-menu"
+					class="layout-body-menu border-right display-flex background-color-body-medium"
+					data-bi-name="menu"
+			  >
+					
+		<div
+			id="left-container"
+			class="left-container display-none padding-none display-block-tablet width-full display-none-until-layout-restored"
+			data-toc-container="true"
+		>
+			<div
+				id="ms--toc-content"
+				class="padding-left-sm padding-right-none padding-bottom-sm height-full"
+			>
+				<nav
+					id="affixed-left-container"
+					class="margin-top-xxs-tablet position-sticky display-flex flex-direction-column width-full"
+					aria-label="Principal"
+					data-bi-name="left-toc"
+					role="navigation"
+				>
+					<div
+						id="ms--collapsible-toc-header"
+						class="display-flex flex-direction-row-reverse justify-content-center align-items-center margin-bottom-xxs margin-right-xxs"
+					>
+						<button
+							type="button"
+							class="button button-clear button-sm inner-focus"
+							data-collapsible-toc-toggle
+							aria-expanded="true"
+							hidden
+							aria-controls="ms--toc-content"
+							aria-label="Tabla de contenido"
+						>
+							<span class="icon icon-mirrored-rtl" aria-hidden="true">
+								<span
+									class="docon docon-panel-left-contract display-none-layout-menu-collapsed"
+								></span>
+								<span
+									class="docon docon-panel-left-expand display-none display-inline-layout-menu-collapsed"
+								></span>
+							</span>
+						</button>
+						<div
+							id="ms--collapsible-toc-moniker-slot"
+							class="flex-grow-1 display-none-layout-menu-collapsed"
+						></div>
+					</div>
+				</nav>
+			</div>
+		</div>
+	
+			  </section>
+
+				<main
+					id="main"
+					role="main"
+					class="layout-body-main "
+					data-bi-name="content"
+					lang="es-es"
+					dir="ltr"
+				>
+					
+			<div
+		id="ms--content-header"
+		class="content-header default-focus border-bottom-none"
+		data-bi-name="content-header"
+	>
+		<div class="content-header-controls margin-xxs margin-inline-sm-tablet">
+			<button
+				type="button"
+				class="contents-button button button-sm margin-right-xxs"
+				data-bi-name="contents-expand"
+				aria-haspopup="true"
+				data-contents-button
+			>
+				<span class="icon" aria-hidden="true"><span class="docon docon-menu"></span></span>
+				<span class="contents-expand-title"> Tabla de contenido </span>
+			</button>
+			<button
+				type="button"
+				class="ap-collapse-behavior ap-expanded button button-sm"
+				data-bi-name="ap-collapse"
+				aria-controls="action-panel"
+			>
+				<span class="icon" aria-hidden="true"><span class="docon docon-exit-mode"></span></span>
+				<span>Salir del modo de editor</span>
+			</button>
+		</div>
+	</div> 
+		<div
+			id="action-panel"
+			role="region"
+			aria-label="Panel de acciones"
+			class="action-panel"
+			tabindex="-1"
+		></div>
+	
+			<div
+				data-main-column
+				class="reading-width margin-inline-auto layout-padding padding-top-none padding-top-sm-tablet padding-bottom-sm"
+			>
+				<div>
+					
+		<div id="article-header" class="background-color-body margin-bottom-xs display-none-print">
+			<div class="display-flex align-items-center justify-content-space-between">
+				
+		<details
+			id="article-header-breadcrumbs-overflow-popover"
+			class="popover popover-left"
+			data-for="article-header-breadcrumbs"
+		>
+			<summary
+				class="button button-clear button-primary button-sm inner-focus"
+				aria-label="Todas las rutas de navegación"
+			>
+				<span class="icon" aria-hidden="true">
+					<span class="docon docon-more"></span>
+				</span>
+			</summary>
+			<div id="article-header-breadcrumbs-overflow" class="popover-content"></div>
+		</details>
+
+		<bread-crumbs
+			id="article-header-breadcrumbs"
+			role="group"
+			aria-label="Rutas de navegación"
+			data-test-id="article-header-breadcrumbs"
+			class="overflow-hidden flex-grow-1 margin-right-sm margin-right-md-tablet margin-right-lg-desktop margin-left-negative-xxs padding-left-xxs"
+		></bread-crumbs>
+	 
+		<div
+			id="article-header-page-actions"
+			class="opacity-none margin-left-auto display-flex flex-wrap-no-wrap align-items-stretch"
+		>
+			
+		<button
+			class="button button-sm border-none inner-focus display-none-tablet flex-shrink-0 "
+			data-bi-name="ask-learn-assistant-entry"
+			data-test-id="ask-learn-assistant-modal-entry-mobile"
+			data-ask-learn-modal-entry
+			
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			aria-label="Preguntar a Learn"
+			hidden
+		>
+			<span class="icon" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+		</button>
+		<button
+			class="button button-sm display-none display-inline-flex-tablet display-none-desktop flex-shrink-0 margin-right-xxs border-color-ask-learn "
+			data-bi-name="ask-learn-assistant-entry"
+			
+			data-test-id="ask-learn-assistant-modal-entry-tablet"
+			data-ask-learn-modal-entry
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			hidden
+		>
+			<span class="icon font-size-lg" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+			<span>Preguntar a Learn</span>
+		</button>
+		<button
+			class="button button-sm display-none flex-shrink-0 display-inline-flex-desktop margin-right-xxs border-color-ask-learn "
+			data-bi-name="ask-learn-assistant-entry"
+			
+			data-test-id="ask-learn-assistant-flyout-entry"
+			data-ask-learn-flyout-entry
+			data-flyout-button="toggle"
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			aria-controls="ask-learn-flyout"
+			hidden
+		>
+			<span class="icon font-size-lg" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+			<span>Preguntar a Learn</span>
+		</button>
+	 
+
+			<details class="popover popover-right" id="article-header-page-actions-overflow">
+				<summary
+					class="justify-content-flex-start button button-clear button-sm button-primary inner-focus"
+					aria-label="Más acciones"
+					aria-expanded="false"
+					title="Más acciones"
+				>
+					<span class="icon" aria-hidden="true">
+						<span class="docon docon-more-vertical"></span>
+					</span>
+				</summary>
+				<div class="popover-content">
+					
+		<button
+			type="button"
+			id="ms--focus-mode-button"
+			data-focus-mode
+			data-bi-name="focus-mode-entry"
+			data-page-action-item="overflow-all"
+			data-popover-close
+			class="button button-clear button-sm button-block justify-content-flex-start text-align-left inner-focus display-none display-inline-flex-tablet"
+		>
+			<span class="icon" aria-hidden="true">
+				<span class="docon docon-glasses"></span>
+			</span>
+			<span>Modo de lectura</span>
+		</button>
+	 
+		<button
+			data-page-action-item="overflow-mobile"
+			type="button"
+			class="display-block-layout-menu-collapsed button-block button-sm inner-focus button button-clear display-none-tablet justify-content-flex-start text-align-left"
+			data-bi-name="contents-expand"
+			data-contents-button
+			data-popover-close
+		>
+			<span class="icon" aria-hidden="true"
+				><span class="docon docon-editor-list-bullet"></span
+			></span>
+			<span class="contents-expand-title">Tabla de contenido</span>
+		</button>
+	 
+		<a
+			id="lang-link-overflow"
+			class="button-sm inner-focus button button-clear button-block justify-content-flex-start text-align-left"
+			data-bi-name="language-toggle"
+			data-page-action-item="overflow-all"
+			data-check-hidden="true"
+			data-read-in-link
+			href="#"
+			hidden
+		>
+			<span class="icon" aria-hidden="true" data-read-in-link-icon>
+				<span class="docon docon-locale-globe"></span>
+			</span>
+			<span data-read-in-link-text>Leer en inglés</span>
+		</a>
+	
+					
+		<button
+			type="button"
+			class="collection button button-clear button-sm button-block justify-content-flex-start text-align-left inner-focus"
+			data-list-type="collection"
+			data-bi-name="collection"
+			data-page-action-item="overflow-all"
+			data-check-hidden="true"
+			data-popover-close
+		>
+			<span class="icon" aria-hidden="true">
+				<span class="docon docon-circle-addition"></span>
+			</span>
+			<span class="collection-status">Agregar</span>
+		</button>
+	 
+		<button
+			type="button"
+			class="collection button button-block button-clear button-sm justify-content-flex-start text-align-left inner-focus"
+			data-list-type="plan"
+			data-bi-name="plan"
+			data-page-action-item="overflow-all"
+			data-check-hidden="true"
+			data-popover-close
+			hidden
+		>
+			<span class="icon" aria-hidden="true">
+				<span class="docon docon-circle-addition"></span>
+			</span>
+			<span class="plan-status">Añadir a Planes</span>
+		</button>
+	 
+					  
+		<hr class="margin-block-xxs" />
+		
+				<button
+					class="button button-block button-clear button-sm justify-content-flex-start text-align-left inner-focus"
+					type="button"
+					data-bi-name="copy-markdown"
+					data-page-action-item="overflow-all"
+					data-copy-markdown
+					data-copy-state="idle"
+					data-check-hidden="true"
+				>
+					<span class="icon color-primary" aria-hidden="true">
+						<span data-show-when="idle" class="docon docon-code-lang"></span>
+						<span data-show-when="loading" class="loader" hidden></span>
+						<span data-show-when="success" class="docon docon-check-mark" hidden></span>
+					</span>
+					<span>Copiar Markdown</span>
+				</button>
+		   
+				<button
+					class="button button-block button-clear button-sm justify-content-flex-start text-align-left inner-focus"
+					type="button"
+					data-bi-name="print"
+					data-page-action-item="overflow-all"
+					data-popover-close
+					data-print-page
+					data-check-hidden="true"
+				>
+					<span class="icon color-primary" aria-hidden="true">
+						<span class="docon docon-print"></span>
+					</span>
+					<span>Imprimir</span>
+				</button>
+		  
+	
+				</div>
+			</details>
+		</div>
+	
+			</div>
+		</div>
+	  
+		<!-- privateUnauthorizedTemplate is hidden by default -->
+		<div unauthorized-private-section data-bi-name="permission-content-unauthorized-private" hidden>
+			<hr class="hr margin-top-xs margin-bottom-sm" />
+			<div class="notification notification-info">
+				<div class="notification-content">
+					<p class="margin-top-none notification-title">
+						<span class="icon" aria-hidden="true"
+							><span class="docon docon-exclamation-circle-solid"></span
+						></span>
+						<span>Nota:</span>
+					</p>
+					<p class="margin-top-none authentication-determined not-authenticated">
+						El acceso a esta página requiere autorización. Puede intentar <a class="docs-sign-in" href="#" data-bi-name="permission-content-sign-in">iniciar sesión</a> o <a  class="docs-change-directory" data-bi-name="permisson-content-change-directory">cambiar directorios</a>.
+					</p>
+					<p class="margin-top-none authentication-determined authenticated">
+						El acceso a esta página requiere autorización. Puede intentar <a class="docs-change-directory" data-bi-name="permisson-content-change-directory">cambiar los directorios</a>.
+					</p>
+				</div>
+			</div>
+		</div>
+	
+					<div class="content"><h1 id="what-is-azure-database-for-mysql-flexible-server">¿Qué es el servidor flexible de Azure Database for MySQL?</h1></div>
+					
+		<div
+			id="article-metadata"
+			data-bi-name="article-metadata"
+			data-test-id="article-metadata"
+			class="page-metadata-container display-flex gap-xxs justify-content-space-between align-items-center flex-wrap-wrap"
+		>
+			 
+				<div
+					id="user-feedback"
+					class="margin-block-xxs display-none display-none-print"
+					hidden
+					data-hide-on-archived
+				>
+					
+		<button
+			id="user-feedback-button"
+			data-test-id="conceptual-feedback-button"
+			class="button button-sm button-clear button-primary display-none"
+			type="button"
+			data-bi-name="user-feedback-button"
+			data-user-feedback-button
+			hidden
+		>
+			<span class="icon" aria-hidden="true">
+				<span class="docon docon-like"></span>
+			</span>
+			<span>Comentarios</span>
+		</button>
+	
+				</div>
+		  
+		</div>
+	  
+		<nav
+			id="center-doc-outline"
+			class="doc-outline display-none-desktop display-none-print margin-bottom-sm"
+			data-bi-name="intopic toc"
+			aria-label="En este artículo"
+		>
+			<h2 id="ms--in-this-article" class="title is-6 margin-block-xs">
+				En este artículo
+			</h2>
+		</nav>
+	 <div class="content"><p>Azure Database for MySQL servidor flexible es un servicio de base de datos relacional totalmente administrado y listo para producción en el Microsoft Cloud. Se basa en el motor de base de datos <a href="https://www.mysql.com/products/community/" data-linktype="external">mySQL Community Edition</a> (disponible en la licencia GPLv2), versiones 5.7, 8.0 y 8.4. El servidor le proporciona un control y una flexibilidad más pormenorizados sobre las funciones y la configuración de la administración de la base de datos. Está disponible con carácter general en varias regiones de <a href="#azure-regions" data-linktype="self-bookmark">Azure</a>.</p>
+<p>Azure Database for MySQL servidor flexible ofrece:</p>
+<ul>
+<li>Alta disponibilidad (HA) con redundancia de zona y redundancia local.</li>
+<li>Capacidad de programar ventanas de mantenimiento.</li>
+<li>Protección de datos mediante copias de seguridad automáticas y restauración a un momento dado durante un máximo de 35&nbsp;días.</li>
+<li>Aplicación automatizada de revisiones y mantenimiento automatizado para el hardware subyacente, el sistema operativo y el motor de base de datos para mantener el servicio seguro y actualizado.</li>
+<li>Rendimiento predecible mediante precios de pago por uso inclusivos.</li>
+<li>Escalado elástico en cuestión de segundos.</li>
+<li>Controles de optimización de costes con el nivel de servicio de informática ampliable de bajo coste y la capacidad para detener e iniciar el servidor.</li>
+<li>Seguridad, cumplimiento y privacidad de nivel empresarial para proteger la información confidencial en reposo y en movimiento.</li>
+<li>Supervisión y automatización para simplificar la administración de las implementaciones a gran escala.</li>
+<li>Varias formas de obtener soporte técnico.</li>
+</ul>
+<p>Estas funcionalidades no requieren un coste adicional ni casi administración. Le permiten centrarse en el desarrollo rápido de aplicaciones y en reducir el plazo de acceso al mercado, en lugar de tener que dedicar tiempo y recursos a la administración tanto de máquinas virtuales como de infraestructura. Además, puede seguir desarrollando su aplicación con las herramientas y la plataforma de código abierto de su elección, y entregar con la velocidad y eficacia que exige su negocio sin la necesidad de aprender nuevas habilidades.</p>
+<p>Azure Database for MySQL servidor flexible también admite instancias reservadas. Si las cargas de trabajo de producción tienen requisitos de capacidad de proceso predecibles, las instancias reservadas pueden ayudarle a ahorrar costos.</p>
+<p>Para conocer las últimas novedades de Azure Database for MySQL: servidor flexible, consulte <a href="../whats-new/whats-new-2026" data-linktype="relative-path">¿Qué hay de nuevo en Azure Database for MySQL?</a></p>
+<p>
+              <span class="mx-imgBorder">
+              <a href="media/overview/azure-db-for-mysql-conceptual-diagram.png#lightbox" data-linktype="relative-path">
+              <img src="media/overview/azure-db-for-mysql-conceptual-diagram.png" alt="Diagrama que muestra la relación entre Azure servicios de base de datos y MySQL." data-linktype="relative-path">
+              
+              </a>
+              </span>
+            
+</p>
+<h2 id="architecture-overview">Introducción a la arquitectura</h2>
+<p>La opción de implementación de servidor flexible ofrece tres niveles de proceso que tienen diferentes capacidades de proceso y memoria para admitir las cargas de trabajo de la base de datos:</p>
+<ul>
+<li>El nivel <em>Ampliable</em> es el más adecuado para las cargas de trabajo de desarrollo de bajo coste y simultaneidad baja que no necesitan una capacidad de proceso completa continuamente.</li>
+<li>Los niveles <em>De uso general</em> y <em>Optimizado para memoria</em> son más adecuados para cargas de trabajo de producción que requieren una alta simultaneidad, escala y rendimiento predecible.</li>
+</ul>
+<p>Puede compilar su primera aplicación en un nivel Ampliable con un coste bajo y, después, ajustar la escala para satisfacer las necesidades de la solución. Para obtener más información, consulte <a href="concepts-compute-storage" data-linktype="relative-path">Niveles de servicio de Azure Database for MySQL Flexible Server</a>.</p>
+<p>Al usar una arquitectura de servidor flexible, puede optar por una alta disponibilidad dentro de una sola zona de disponibilidad o entre varias zonas de disponibilidad. Los servidores flexibles son idóneos para:</p>
+<ul>
+<li>Facilidad de implementación, escalado simplificado y baja sobrecarga de administración de bases de datos para copias de seguridad, alta disponibilidad, seguridad y supervisión.</li>
+<li>Desarrollos de aplicaciones que requieren una versión de la comunidad de MySQL con un mejor control y personalizaciones.</li>
+<li>Cargas de trabajo de producción con alta disponibilidad con redundancia local o por zona, junto con ventanas de mantenimiento administradas.</li>
+<li>Una experiencia de desarrollo simplificada.</li>
+</ul>
+<p>
+              <span class="mx-imgBorder">
+              <a href="media/overview/flexible-server-conceptual-diagram.png#lightbox" data-linktype="relative-path">
+              <img src="media/overview/flexible-server-conceptual-diagram.png" alt="Diagrama de una arquitectura de servidor flexible." data-linktype="relative-path">
+              
+              </a>
+              </span>
+            
+</p>
+<h2 id="free-12-month-offer">Oferta de 12&nbsp;meses gratis</h2>
+<p>Con una <a href="https://azure.microsoft.com/pricing/purchase-options/azure-account?cid=msft_learn" data-linktype="external">cuenta gratuita de Azure</a>, puede usar Azure Database for MySQL servidor flexible de forma gratuita durante 12 meses. La oferta incluye límites mensuales de hasta:</p>
+<ul>
+<li>750&nbsp;horas de uso de una máquina virtual ampliable Standard_B1ms, suficientes para ejecutar una instancia de base de datos continuamente cada mes.</li>
+<li>32&nbsp;GB de almacenamiento y 32&nbsp;GB de almacenamiento de copia de seguridad.</li>
+</ul>
+<p>Use esta oferta para desarrollar e implementar aplicaciones de base de datos Azure para servidores flexibles. Para obtener información sobre cómo crear y usar Azure Database for MySQL servidor flexible de forma gratuita mediante una cuenta gratuita de Azure, consulte <a href="how-to-deploy-on-azure-free-account" data-linktype="relative-path">Implementación de Azure Database for MySQL servidor flexible en una cuenta gratuita de Azure</a>.</p>
+<h2 id="high-availability-within-and-across-availability-zones">Alta disponibilidad dentro y entre zonas de disponibilidad</h2>
+<p>Azure Database for MySQL Flexible Server le permite configurar la alta disponibilidad con conmutación por error automática. Esta solución de alta disponibilidad ayuda a garantizar que los datos confirmados no se pierden debido a errores y ayuda a mejorar el tiempo de actividad general de la aplicación.</p>
+<p>Cuando configura la alta disponibilidad, un servidor flexible aprovisiona y administra automáticamente una réplica en espera. Se paga por la capacidad de proceso y el almacenamiento aprovisionados para la réplica principal y la secundaria.</p>
+<p>Hay dos modelos de arquitectura de alta disponibilidad disponibles:</p>
+<ul>
+<li><p>
+              <strong>Alta disponibilidad con redundancia de zona</strong>: esta opción ofrece el aislamiento completo y requiere que configure la redundancia de la infraestructura en varias zonas de disponibilidad. Proporciona el nivel más alto de disponibilidad frente a cualquier error de infraestructura en una zona de disponibilidad y donde la latencia en las zonas de disponibilidad sea aceptable.</p>
+<p>Un <a href="#azure-regions" data-linktype="self-bookmark">subconjunto de regiones de Azure</a> que admiten varias zonas de disponibilidad y recursos compartidos de archivos premium con redundancia por zona ofrecen alta disponibilidad con redundancia por zona.</p>
+</li>
+<li><p>
+              <strong>Alta disponibilidad con</strong> redundancia local: esta opción ofrece redundancia de infraestructura con menor latencia de red porque los servidores principales y en espera están en la misma zona de disponibilidad. Proporciona alta disponibilidad sin que tenga que configurar la redundancia de las aplicaciones entre zonas.</p>
+<p>Puede habilitar la alta disponibilidad con redundancia local en todas las regiones donde están disponibles las instancias de servidor flexible de Azure Database for MySQL.</p>
+</li>
+</ul>
+<p>Para obtener más información, consulte <a href="concepts-high-availability" data-linktype="relative-path">Alta disponibilidad en Azure Database for MySQL</a>.</p>
+<h2 id="automated-patching-with-a-managed-maintenance-window">Aplicación automatizada de revisiones con una ventana de mantenimiento administrado</h2>
+<p>El servicio aplica automáticamente revisiones al hardware, sistema operativo y motor de base de datos subyacentes. El proceso de aplicación de revisiones incluye actualizaciones de seguridad y software. En el motor de MySQL, la versión de mantenimiento planeado también incluye actualizaciones de versiones secundarias.</p>
+<p>Puede configurar la programación de la aplicación de revisión para que la administre el sistema o puede definir su programación personalizada. Durante la programación de mantenimiento, se aplica la revisión y es posible que el servidor requiera un reinicio. Con una programación personalizada, puede hacer que el ciclo de aplicación de revisiones sea predecible y elija una ventana de mantenimiento que tenga un impacto mínimo en la empresa. El servicio sigue una programación de versión mensual para la integración continua y la versión.</p>
+<p>Para obtener más información, consulte <a href="concepts-maintenance" data-linktype="relative-path">Scheduled maintenance in Azure Database for MySQL</a>.</p>
+<h2 id="automatic-backups">Copias de seguridad automáticas</h2>
+<p>El Azure Database for MySQL servicio de servidor flexible crea automáticamente copias de seguridad de servidor y las almacena en el almacenamiento con redundancia local o con redundancia geográfica configurados por el usuario. Use copias de seguridad para restaurar el servidor a cualquier momento dado dentro del período de retención de copia de seguridad.</p>
+<p>Puede configurar un período de retención de 1 a 35 días. El valor predeterminado es siete días. Todas las copias de seguridad se cifran mediante cifrado AES de 256 bits.</p>
+<p>Para obtener más información, vea <a href="concepts-backup-restore" data-linktype="relative-path">Backup and restore in Azure Database for MySQL</a>.</p>
+<h2 id="network-isolation">Aislamiento de red</h2>
+<p>Para conectarse a un servidor flexible de Azure Database for MySQL, tiene dos opciones de red:</p>
+<ul>
+<li><p>
+              <strong>Acceso privado (integración de red virtual):</strong> implemente el servidor flexible Azure Database for MySQL en una <a href="/es-es/azure/virtual-network/virtual-networks-overview" data-linktype="absolute-path">red virtual Azure</a>. Los recursos de una red virtual se pueden comunicar mediante direcciones IP privadas.</p>
+<p>Elija la integración con red virtual si quiere las funcionalidades siguientes:</p>
+<ul>
+<li>Conecte los recursos de Azure de la misma red virtual al servidor flexible de Azure Database for MySQL mediante direcciones IP privadas.</li>
+<li>Use una red privada virtual (VPN) o Azure ExpressRoute para conectarse desde recursos no Azure al servidor flexible de Azure Database for MySQL.</li>
+<li>Evitar puntos de conexión públicos.</li>
+</ul>
+</li>
+<li><p>
+              <strong>Acceso público (direcciones IP permitidas):</strong> implemente el servidor flexible Azure Database for MySQL con un punto de conexión público. El punto de conexión público es una dirección DNS que se puede resolver públicamente. Elija un intervalo de direcciones IP para conceder permiso para acceder al servidor. Estos tipos de permisos se denominan <em>reglas de firewall</em>.</p>
+</li>
+</ul>
+<p>Para obtener más información, consulte <a href="concepts-networking" data-linktype="relative-path">Conceptos de conectividad y redes para Azure Database for MySQL servidor flexible</a>.</p>
+<h2 id="fast-adjustments-to-performance-and-scale">Ajustes rápidos de rendimiento y escala</h2>
+<p>Puede compilar su primera aplicación en una base de datos pequeña por poco dinero al mes y, después, ajustar fácilmente la escala para satisfacer las necesidades de la solución. El escalado del almacenamiento se realiza en línea y admite la característica de <em>crecimiento automático del almacenamiento</em> del Servidor flexible de Azure Database for MySQL.</p>
+<p>Con Azure Database for MySQL servidor flexible, puede aprovisionar operaciones adicionales de entrada y salida por segundo (IOPS) por encima del límite de IOPS gratuito independientemente del almacenamiento. Con esta característica puede aumentar o disminuir la cantidad de IOPS aprovisionadas en función de los requisitos de la carga de trabajo en cualquier momento. La escalabilidad dinámica permite a la base de datos responder de manera transparente ante los requisitos de recursos cambiantes. Paga solo por los recursos que consume.</p>
+<p>Para obtener más información, consulte <a href="concepts-compute-storage" data-linktype="relative-path">Azure Database for MySQL niveles de servicio de servidor flexibles</a>.</p>
+<h2 id="ability-to-scale-out-your-read-workload-with-read-replicas">Capacidad de escalar de forma horizontal la carga de trabajo de lectura con réplicas de lectura</h2>
+<p>MySQL es un motor de base de datos popular para ejecutar aplicaciones web y móviles a escala de Internet. Microsoft los clientes lo usan para educación en línea, streaming de vídeo, soluciones de pago digitales, plataformas de comercio electrónico, servicios de juegos, portales de noticias y sitios web gubernamentales y sanitarios. Estos servicios son necesarios para servir y escalar a medida que aumenta el tráfico de la aplicación web o móvil.</p>
+<p>La aplicación se desarrolla normalmente en Java o PHP y es:</p>
+<ul>
+<li>Migrado para ejecutarse en los conjuntos de escalado de máquinas virtuales de <a href="/es-es/azure/virtual-machine-scale-sets/overview" data-linktype="absolute-path">Azure</a> o en el <a href="/es-es/azure/app-service/overview" data-linktype="absolute-path">Servicio de Aplicaciones de Azure</a></li>
+<li>Contenedorizado para ejecutarse en <a href="/es-es/azure/aks/intro-kubernetes" data-linktype="absolute-path">Azure Kubernetes Service (AKS)</a></li>
+</ul>
+<p>Un conjunto de escalado de máquinas virtuales con App Service o AKS como infraestructura subyacente simplifica el escalado de las aplicaciones mediante el aprovisionamiento instantáneo de nuevas máquinas virtuales y la replicación de los componentes sin estado de las aplicaciones para responder a las solicitudes. Pero a menudo, la base de datos termina siendo un cuello de botella como un componente con estado centralizado.</p>
+<p>La función <em>de réplica de lectura</em> le permite replicar datos desde un servidor flexible de Azure Database for MySQL a un servidor de solo lectura. Puede replicar desde el servidor de origen en <em>hasta 10&nbsp;réplicas</em>.</p>
+<p>Las réplicas se actualizan asincrónicamente mediante la <a href="https://dev.mysql.com/doc/refman/5.7/en/replication-features.html" data-linktype="external">tecnología de replicación basada en la posición de los archivos de registros binarios (binlog)</a> nativa del motor de MySQL. Puede usar una solución de equilibrador de carga de proxy como <a href="https://techcommunity.microsoft.com/blog/adformysql/load-balance-read-replicas-using-proxysql-in-azure-database-for-mysql/880042" data-linktype="external">ProxySQL</a> para escalar horizontalmente la carga de trabajo de la aplicación sin problemas a réplicas de lectura sin ningún costo de refactorización de la aplicación.</p>
+<p>Para más información, vea <a href="concepts-read-replicas" data-linktype="relative-path">Réplicas de lectura en Azure Database for MySQL</a>.</p>
+<h2 id="hybrid-or-multicloud-data-synchronization-with-data-in-replication">Sincronización de datos híbridos o en varias nubes con replicación de los datos de entrada</h2>
+<p>Utilice la característica de <em>replicación de datos entrantes</em> para sincronizar datos desde un servidor MySQL externo a Azure Database for MySQL Flexible Server. El servidor externo puede ser local, en máquinas virtuales o en un servicio de base de datos hospedado por otros proveedores de nube.</p>
+<p>La replicación de datos de entrada se basa en la posición del archivo de registro binario (binlog). Tenga en cuenta los siguientes escenarios principales para usar la característica:</p>
+<ul>
+<li>Sincronización de datos híbridos</li>
+<li>Sincronización de multi-nube</li>
+</ul>
+<p>Para obtener más información, consulte <a href="concepts-data-in-replication" data-linktype="relative-path">Replicar datos en el servidor flexible de Azure Database for MySQL</a>.</p>
+<h2 id="on-demand-server-stop-and-start">Detención y arranque del servidor bajo demanda</h2>
+<p>Con Azure Database for MySQL servidor flexible, puede detener e iniciar servidores a petición para optimizar los costos. La facturación del nivel de proceso se detiene inmediatamente cuando el servidor se detiene. Esta funcionalidad puede ayudarle a ahorrar costes durante el desarrollo, las pruebas y las cargas de trabajo de producción predecibles con límite de tiempo. El servidor permanece en estado detenido durante 30 días a menos que lo reinicie antes.</p>
+<p>Para obtener más información, consulte <a href="concept-servers" data-linktype="relative-path">Conceptos del servidor en Azure Database for MySQL - Servidor flexible</a>.</p>
+<h2 id="enterprise-grade-security-compliance-and-privacy">Seguridad, cumplimiento y privacidad de nivel empresarial</h2>
+<p>Azure Database for MySQL servidor flexible usa el módulo criptográfico validado FIPS 140-2 para el cifrado de almacenamiento de datos en reposo. Los datos, incluidas las copias de seguridad, y los archivos temporales creados mientras ejecuta las consultas están cifrados.</p>
+<p>El servicio utiliza el cifrado AES de 256 bits incluido en el cifrado de almacenamiento de Azure, y las claves se pueden gestionar por el sistema (valor predeterminado). También puede usar claves administradas por el cliente almacenadas en un almacén de claves Azure o un módulo de seguridad de hardware administrado para el cifrado de datos en reposo. Para obtener más información, consulte el cifrado de datos con claves administradas por el cliente para Azure Database for MySQL.</p>
+<p>Azure Database for MySQL Flexible Server cifra los datos en tránsito mediante el protocolo Transport Layer Security (TLS), que se aplica de forma predeterminada. El servicio admite conexiones cifradas que usan TLS 1.2 (valor predeterminado) y TLS 1.3 (recomendado en MySQL 8.0 y versiones posteriores). Se denegarán todas las conexiones entrantes que usen TLS&nbsp;1.0 y TLS&nbsp;1.1. Puede desactivar el cumplimiento de TLS estableciendo el parámetro de servidor <code>require_secure_transport</code> y configurando el valor mínimo de <code>tls_version</code> para el servidor. Para obtener más información, consulte <a href="security-tls-how-to-connect" data-linktype="relative-path">Conectarse a Azure Database for MySQL - Servidor flexible mediante conexiones cifradas</a>.</p>
+<p>Azure Database for MySQL - Servidor flexible permite un acceso totalmente privado a los servidores mediante la integración con <a href="/es-es/azure/virtual-network/virtual-networks-overview" data-linktype="absolute-path">red virtual</a>. Puede acceder a los servidores de una red virtual y conectarse solo a través de direcciones IP privadas. Mediante la integración de red virtual, se deniega el acceso público y no se puede acceder a los servidores a través de puntos de conexión públicos. Para obtener más información, consulte <a href="concepts-networking" data-linktype="relative-path">Conceptos de conectividad y redes para Azure Database for MySQL servidor flexible</a>.</p>
+<p><a id="monitoring-and-alerting"></a></p>
+<h2 id="monitor-and-alert">Supervisar y alertar</h2>
+<p>Azure Database for MySQL servidor flexible tiene características integradas de supervisión del rendimiento y alertas. Todas las métricas de Azure tienen una frecuencia de un minuto. Cada métrica ofrece 30&nbsp;días de historial.</p>
+<p>Puede configurar alertas en las métricas. Azure Database for MySQL servidor flexible expone las métricas del servidor host para supervisar el uso de recursos y permite configurar registros de consultas lentas. Con estas herramientas, puede optimizar rápidamente sus cargas de trabajo y puede configurar el servidor para lograr el máximo rendimiento.</p>
+<p>En Azure Database for MySQL Flexible Server, puedes visualizar los datos de consultas lentas y de los registros de auditoría mediante los libros de trabajo de Azure Monitor. Con los cuadernos de trabajo, obtendrá un lienzo flexible para analizar datos y crear los informes visuales avanzados en el portal de Azure. Azure Database for MySQL servidor flexible proporciona tres plantillas de libro: Información general del servidor, <a href="tutorial-configure-audit" data-linktype="relative-path">Tutorial: Configuración de registros de auditoría mediante Azure Database for MySQL servidor flexible</a> y <a href="tutorial-query-performance-insights" data-linktype="relative-path">Tutorial: Información de rendimiento de consultas para Azure Database for MySQL</a>.</p>
+<p>El libro Información de rendimiento de consultas le ayuda a dedicar menos tiempo a solucionar problemas de rendimiento de la base de datos, al proporcionar información como la siguiente:</p>
+<ul>
+<li>Las principales consultas de larga duración y sus tendencias.</li>
+<li>Detalles de la consulta: se puede ver el texto de la consulta y el historial de ejecución con el tiempo de consulta mínimo, máximo, promedio y la desviación estándar.</li>
+<li>Uso de recursos (CPU, memoria y almacenamiento).</li>
+</ul>
+<p>Además, puede usar herramientas de supervisión de la comunidad como <a href="https://techcommunity.microsoft.com/blog/adformysql/monitor-azure-database-for-mysql-using-percona-monitoring-and-management-pmm/2568545" data-linktype="external">Percona Monitoring and Management</a> e integrarlas con Azure Database for MySQL servidor flexible.</p>
+<p>Para obtener más información, consulte <a href="concepts-monitoring" data-linktype="relative-path">Supervisar Azure Database for MySQL (servidor flexible)</a>.</p>
+<h2 id="migration">Migration</h2>
+<p>Azure Database for MySQL servidor flexible ejecuta la versión de la comunidad de MySQL. Esta opción de diseño garantiza la compatibilidad completa de las aplicaciones y requiere costos mínimos de refactorización para migrar las aplicaciones existentes desarrolladas en el motor mySQL a Azure Database for MySQL servidor flexible. Puede migrar a Azure Database for MySQL servidor flexible mediante las siguientes opciones.</p>
+<h3 id="offline-migrations">Migraciones sin conexión</h3>
+<p>Use Azure Database Migration Service cuando el ancho de banda de red entre el origen y el Azure sea bueno (por ejemplo, una conexión expressRoute de alta velocidad). Para obtener instrucciones paso a paso, consulte <a href="../../dms/tutorial-mysql-azure-mysql-offline-portal" data-linktype="relative-path">Tutorial: Migración de MySQL a Azure Database for MySQL sin conexión mediante DMS</a>.</p>
+<p>Use la configuración de compresión en <strong>las herramientas mydumper</strong> y <strong>myloader</strong> para mover datos de forma eficaz a través de redes de baja velocidad (como la red pública de Internet). Para obtener instrucciones paso a paso, consulte <a href="../concepts-migrate-mydumper-myloader" data-linktype="relative-path">Migrar bases de datos grandes para Azure Database for MySQL mediante mydumper/myloader</a>.</p>
+<h3 id="online-or-minimal-downtime-migrations">Migraciones con tiempo de inactividad mínimo o en línea</h3>
+<p>Para una migración en línea o con un tiempo de inactividad mínimo, considere la posibilidad de utilizar herramientas de la comunidad, como <a href="https://centminmod.com/mydumper.html" data-linktype="external">mydumper/myloader</a>, junto con la <a href="concepts-data-in-replication" data-linktype="relative-path">replicación de datos entrantes</a>, para mantener el servidor flexible sincronizado con un origen MySQL externo mientras realiza la transición. Para obtener más información, consulte <a href="../howto-migrate-single-flexible-minimum-downtime" data-linktype="relative-path">Migrar Azure Database for MySQL - Servidor único a Azure Database for MySQL - Servidor flexible con herramientas de código abierto</a>.</p>
+<h2 id="azure-regions">regiones de Azure</h2>
+<p>Una ventaja de ejecutar la carga de trabajo en Azure es su alcance global. Azure Database for MySQL - Servidor flexible está disponible actualmente en las siguientes regiones de Azure:</p>
+<div class="NOTE">
+<p>Note</p>
+<p>Para alta disponibilidad con redundancia de zona, debido a restricciones de capacidad zonal que pueden variar dinámicamente entre regiones, compruebe la experiencia del portal de Azure para ver el estado de soporte técnico más reciente. La disponibilidad puede cambiar en función de la capacidad actual y la asignación de cuotas en zonas específicas de la suscripción.</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Region</th>
+<th>Availability</th>
+<th>Alta disponibilidad con redundancia local</th>
+<th>Alta disponibilidad con redundancia de zona</th>
+<th>Copia de seguridad con redundancia geográfica</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Australia Central</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Australia East</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Australia Southeast</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Este de Austria</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Centro de Bélgica</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Brazil South</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Canada Central</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Canada East</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Central India</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Central US</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Chile Central</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Este de China 2</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Este de China&nbsp;3</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Norte de China 2</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Norte de China&nbsp;3</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Este de Dinamarca</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Este de Asia (RAE de Hong Kong)</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>East US</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Este de EE. UU. 2</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>France Central</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>France South</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Centro-oeste de Alemania</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Germany North</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Indonesia Central</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Israel Central</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Italy North</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Japan East</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Japan West</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>JIO de India occidental</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Korea Central</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Korea South</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Malaysia West</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Mexico Central</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Norte de Nueva Zelanda</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Centro-Norte de EE. UU</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>North Europe</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Norway East</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Norway West</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Poland Central</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Qatar Central</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Norte de Sudáfrica</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Oeste de Sudáfrica</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Centro-sur de EE. UU.</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>South India</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Southeast Asia</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Spain Central</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Sweden Central</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Switzerland North</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Switzerland West</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Noroeste de Taiwán</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>UAE Central</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>UAE North</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>UK South</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>UK West</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Gobierno de EE.UU. de Virginia</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>USGov: Arizona</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>USGov Texas</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Centro-Oeste de EE. UU.</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>West Europe</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>West US</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Oeste de EE. UU. 2</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Oeste de EE.&nbsp;UU.&nbsp;3</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+<h2 id="feedback-and-support">Comentarios y soporte técnico</h2>
+<p>Para preguntas o sugerencias sobre cómo trabajar con Azure Database for MySQL servidor flexible, tenga en cuenta los siguientes puntos de contacto:</p>
+<ul>
+<li>Para ponerse en contacto con Soporte técnico de Azure, <a href="https://portal.azure.com/?#blade/Microsoft_Azure_Support/HelpAndSupportBlade" data-linktype="external">file una solicitud en el portal de Azure</a>.</li>
+<li>Para proporcionar comentarios o solicitar nuevas características, <a href="https://feedback.azure.com/d365community/forum/47b1e71d-ee24-ec11-b6e6-000d3a4f0da0" data-linktype="external">publique una idea a través de los comentarios de la comunidad</a>.</li>
+</ul>
+<h2 id="related-content">Contenido relacionado</h2>
+<ul>
+<li>
+              <a href="quickstart-create-server-portal" data-linktype="relative-path">Quickstart: creación de una instancia de Azure Database for MySQL con el portal de Azure</a></li>
+<li>
+              <a href="quickstart-create-server-cli" data-linktype="relative-path">Inicio rápido: Crear una instancia de Azure Database for MySQL: Servidor flexible con la CLI de Azure</a></li>
+<li>
+              <a href="how-to-manage-server-portal" data-linktype="relative-path">Administrar Azure Database for MySQL mediante el portal de Azure</a></li>
+<li>
+              <a href="connect-python" data-linktype="relative-path">Inicio rápido: Use Python para conectarse y consultar datos en Azure Database for MySQL - Servidor flexible</a></li>
+<li>
+              <a href="connect-php" data-linktype="relative-path">Usar PHP con Azure Database for MySQL (servidor flexible)</a></li>
+</ul>
+</div>
+					
+		<div
+			id="ms--inline-notifications"
+			class="margin-block-xs"
+			data-bi-name="inline-notification"
+		></div>
+	 
+		<div
+			id="assertive-live-region"
+			role="alert"
+			aria-live="assertive"
+			class="visually-hidden"
+			aria-relevant="additions"
+			aria-atomic="true"
+		></div>
+		<div
+			id="polite-live-region"
+			role="status"
+			aria-live="polite"
+			class="visually-hidden"
+			aria-relevant="additions"
+			aria-atomic="true"
+		></div>
+	
+					
+		<!-- feedback section -->
+		<section
+			id="site-user-feedback-footer"
+			class="font-size-sm margin-top-md display-none-print display-none-desktop"
+			data-test-id="site-user-feedback-footer"
+			data-bi-name="site-feedback-section"
+		>
+			<hr class="hr" />
+			<h2 id="ms--feedback" class="title is-3">Comentarios</h2>
+			<div class="display-flex flex-wrap-wrap align-items-center">
+				<p class="font-weight-semibold margin-xxs margin-left-none">
+					¿Le ha resultado útil esta página?
+				</p>
+				<div class="buttons">
+					<button
+						class="thumb-rating-button like button button-primary button-sm"
+						data-test-id="footer-rating-yes"
+						data-binary-rating-response="rating-yes"
+						type="button"
+						title="Este artículo es útil"
+						data-bi-name="button-rating-yes"
+						aria-pressed="false"
+					>
+						<span class="icon" aria-hidden="true">
+							<span class="docon docon-like"></span>
+						</span>
+						<span>Sí</span>
+					</button>
+					<button
+						class="thumb-rating-button dislike button button-primary button-sm"
+						id="standard-rating-no-button"
+						hidden
+						data-test-id="footer-rating-no"
+						data-binary-rating-response="rating-no"
+						type="button"
+						title="Este artículo no es útil"
+						data-bi-name="button-rating-no"
+						aria-pressed="false"
+					>
+						<span class="icon" aria-hidden="true">
+							<span class="docon docon-dislike"></span>
+						</span>
+						<span>No</span>
+					</button>
+					<details
+						class="popover popover-top"
+						id="mobile-help-popover"
+						data-test-id="footer-feedback-popover"
+					>
+						<summary
+							class="thumb-rating-button dislike button button-primary button-sm"
+							data-test-id="details-footer-rating-no"
+							data-binary-rating-response="rating-no"
+							title="Este artículo no es útil"
+							data-bi-name="button-rating-no"
+							aria-pressed="false"
+							data-bi-an="feedback-unhelpful-popover"
+						>
+							<span class="icon" aria-hidden="true">
+								<span class="docon docon-dislike"></span>
+							</span>
+							<span>No</span>
+						</summary>
+						<div
+							class="popover-content width-200 width-300-tablet"
+							role="dialog"
+							aria-labelledby="popover-heading"
+							aria-describedby="popover-description"
+						>
+							<p id="popover-heading" class="font-size-lg margin-bottom-xxs font-weight-semibold">
+								¿Necesita ayuda con este tema?
+							</p>
+							<p id="popover-description" class="font-size-sm margin-bottom-xs">
+								¿Desea intentar usar Ask Learn para aclarar o guiarle a través de este tema?
+							</p>
+							
+		<div class="buttons flex-direction-row flex-wrap justify-content-center gap-xxs">
+			<div>
+		<button
+			class="button button-sm border inner-focus display-none margin-right-xxs"
+			data-bi-name="ask-learn-assistant-entry-troubleshoot"
+			data-test-id="ask-learn-assistant-modal-entry-mobile-feedback"
+			data-ask-learn-modal-entry-feedback
+			data-bi-an=feedback-unhelpful-popover
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			aria-label="Preguntar a Learn"
+			hidden
+		>
+			<span class="icon" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+		</button>
+		<button
+			class="button button-sm display-inline-flex display-none-desktop flex-shrink-0 margin-right-xxs border-color-ask-learn margin-right-xxs"
+			data-bi-name="ask-learn-assistant-entry-troubleshoot"
+			data-bi-an=feedback-unhelpful-popover
+			data-test-id="ask-learn-assistant-modal-entry-tablet-feedback"
+			data-ask-learn-modal-entry-feedback
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			hidden
+		>
+			<span class="icon font-size-lg" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+			<span>Preguntar a Learn</span>
+		</button>
+		<button
+			class="button button-sm display-none flex-shrink-0 display-inline-flex-desktop margin-right-xxs border-color-ask-learn margin-right-xxs"
+			data-bi-name="ask-learn-assistant-entry-troubleshoot"
+			data-bi-an=feedback-unhelpful-popover
+			data-test-id="ask-learn-assistant-flyout-entry-feedback"
+			data-ask-learn-flyout-entry-show-only
+			data-flyout-button="toggle"
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			aria-controls="ask-learn-flyout"
+			hidden
+		>
+			<span class="icon font-size-lg" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+			<span>Preguntar a Learn</span>
+		</button>
+	</div>
+			<button
+				type="button"
+				class="button button-sm margin-right-xxs"
+				data-help-option="suggest-fix"
+				data-bi-name="feedback-suggest"
+				data-bi-an="feedback-unhelpful-popover"
+				data-test-id="suggest-fix"
+			>
+				<span class="icon" aria-hidden="true">
+					<span class="docon docon-feedback"></span>
+				</span>
+				<span> ¿Sugerir una corrección? </span>
+			</button>
+		</div>
+	
+						</div>
+					</details>
+				</div>
+			</div>
+		</section>
+		<!-- end feedback section -->
+	
+				</div>
+				
+		<div id="ms--additional-resources-mobile" class="display-none-print">
+			<hr class="hr" hidden />
+			<h2 id="ms--additional-resources-mobile-heading" class="title is-3" hidden>
+				Recursos adicionales
+			</h2>
+			
+		<section
+			id="right-rail-recommendations-mobile"
+			class=""
+			data-bi-name="recommendations"
+			hidden
+		></section>
+	 
+		<section
+			id="right-rail-training-mobile"
+			class=""
+			data-bi-name="learning-resource-card"
+			hidden
+		></section>
+	 
+		<section
+			id="right-rail-events-mobile"
+			class=""
+			data-bi-name="events-card"
+			hidden
+		></section>
+	
+		</div>
+	 
+		<div
+			id="article-metadata-footer"
+			data-bi-name="article-metadata-footer"
+			data-test-id="article-metadata-footer"
+			class="page-metadata-container"
+		>
+			<hr class="hr" />
+			<ul class="metadata page-metadata" data-bi-name="page info" lang="es-es" dir="ltr">
+				<li class="visibility-hidden-visual-diff">
+			<span class="badge badge-sm text-wrap-pretty">
+				<span>Se actualizó por última vez el <local-time format="twoDigitNumeric"
+		datetime="2026-07-17T11:48:00.000Z"
+		data-article-date-source="calculated"
+		class="is-invisible"
+	>
+		2026-07-17
+	</local-time></span>
+			</span>
+		</li>
+			</ul>
+		</div>
+	
+			</div>
+		
+				</main>
+				<aside
+					id="layout-body-aside"
+					class="layout-body-aside  "
+					data-bi-name="aside"
+					aria-label="Recursos adicionales"
+			  >
+					
+		<div
+			id="ms--additional-resources"
+			class="right-container padding-sm display-none display-block-desktop height-full"
+			data-bi-name="pageactions"
+		>
+			<div id="affixed-right-container" data-bi-name="right-column">
+				
+		<nav
+			id="side-doc-outline"
+			class="doc-outline border-bottom padding-bottom-xs margin-bottom-xs scrollbar-width-thin"
+			data-bi-name="intopic toc"
+			aria-label="En este artículo"
+		>
+			<h3>En este artículo</h3>
+		</nav>
+	
+				<!-- Feedback -->
+				
+		<section
+			id="ms--site-user-feedback-right-rail"
+			class="font-size-sm display-none-print"
+			data-test-id="site-user-feedback-right-rail"
+			data-bi-name="site-feedback-right-rail"
+		>
+			<div class="display-flex flex-wrap-wrap align-items-center">
+				<p class="font-weight-semibold margin-xxs margin-left-none">
+					¿Le ha resultado útil esta página?
+				</p>
+				<div class="display-flex flex-wrap-nowrap">
+					<button
+						class="thumb-rating-button like inner-focus"
+						data-test-id="right-rail-rating-yes"
+						data-binary-rating-response="rating-yes"
+						type="button"
+						title="Este artículo es útil"
+						aria-label="Este artículo es útil"
+						data-bi-name="button-rating-yes"
+						aria-pressed="false"
+					>
+						<span class="icon" aria-hidden="true">
+							<span class="docon docon-like"></span>
+						</span>
+					</button>
+					<button
+						class="thumb-rating-button dislike inner-focus"
+						id="right-rail-no-button"
+						hidden
+						data-test-id="right-rail-rating-no"
+						data-binary-rating-response="rating-no"
+						type="button"
+						title="Este artículo no es útil"
+						aria-label="Este artículo no es útil"
+						data-bi-name="button-rating-no"
+						aria-pressed="false"
+					>
+						<span class="icon" aria-hidden="true">
+							<span class="docon docon-dislike"></span>
+						</span>
+					</button>
+					<details class="popover popover-right" id="help-popover" data-test-id="feedback-popover">
+						<summary
+							tabindex="0"
+							class="thumb-rating-button dislike inner-focus"
+							data-test-id="details-right-rail-rating-no"
+							data-binary-rating-response="rating-no"
+							title="Este artículo no es útil"
+							aria-label="Este artículo no es útil"
+							data-bi-name="button-rating-no"
+							aria-pressed="false"
+							data-bi-an="feedback-unhelpful-popover"
+						>
+							<span class="icon" aria-hidden="true">
+								<span class="docon docon-dislike"></span>
+							</span>
+						</summary>
+						<div
+							class="popover-content width-200 width-300-tablet"
+							role="dialog"
+							aria-labelledby="popover-heading-right-rail"
+							aria-describedby="popover-description-right-rail"
+						>
+							<p
+								id="popover-heading-right-rail"
+								class="font-size-lg margin-bottom-xxs font-weight-semibold"
+							>
+								¿Necesita ayuda con este tema?
+							</p>
+							<p id="popover-description-right-rail" class="font-size-sm margin-bottom-xs">
+								¿Desea intentar usar Ask Learn para aclarar o guiarle a través de este tema?
+							</p>
+							
+		<div class="buttons flex-direction-row flex-wrap justify-content-center gap-xxs">
+			<div>
+		<button
+			class="button button-sm border inner-focus display-none margin-right-xxs"
+			data-bi-name="ask-learn-assistant-entry-troubleshoot"
+			data-test-id="ask-learn-assistant-modal-entry-mobile-feedback"
+			data-ask-learn-modal-entry-feedback
+			data-bi-an=feedback-unhelpful-popover
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			aria-label="Preguntar a Learn"
+			hidden
+		>
+			<span class="icon" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+		</button>
+		<button
+			class="button button-sm display-inline-flex display-none-desktop flex-shrink-0 margin-right-xxs border-color-ask-learn margin-right-xxs"
+			data-bi-name="ask-learn-assistant-entry-troubleshoot"
+			data-bi-an=feedback-unhelpful-popover
+			data-test-id="ask-learn-assistant-modal-entry-tablet-feedback"
+			data-ask-learn-modal-entry-feedback
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			hidden
+		>
+			<span class="icon font-size-lg" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+			<span>Preguntar a Learn</span>
+		</button>
+		<button
+			class="button button-sm display-none flex-shrink-0 display-inline-flex-desktop margin-right-xxs border-color-ask-learn margin-right-xxs"
+			data-bi-name="ask-learn-assistant-entry-troubleshoot"
+			data-bi-an=feedback-unhelpful-popover
+			data-test-id="ask-learn-assistant-flyout-entry-feedback"
+			data-ask-learn-flyout-entry-show-only
+			data-flyout-button="toggle"
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			aria-controls="ask-learn-flyout"
+			hidden
+		>
+			<span class="icon font-size-lg" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+			<span>Preguntar a Learn</span>
+		</button>
+	</div>
+			<button
+				type="button"
+				class="button button-sm margin-right-xxs"
+				data-help-option="suggest-fix"
+				data-bi-name="feedback-suggest"
+				data-bi-an="feedback-unhelpful-popover"
+				data-test-id="suggest-fix"
+			>
+				<span class="icon" aria-hidden="true">
+					<span class="docon docon-feedback"></span>
+				</span>
+				<span> ¿Sugerir una corrección? </span>
+			</button>
+		</div>
+	
+						</div>
+					</details>
+				</div>
+			</div>
+		</section>
+	
+			</div>
+		</div>
+	
+			  </aside> <section
+					id="layout-body-flyout"
+					class="layout-body-flyout "
+					data-bi-name="flyout"
+			  >
+					 <div
+	class="height-full border-left background-color-body-medium"
+	id="ask-learn-flyout"
+></div>
+			  </section> <div class="layout-body-footer " data-bi-name="layout-footer">
+		<footer
+			id="footer"
+			data-test-id="footer"
+			data-bi-name="footer"
+			class="footer-layout padding-xs padding-sm-desktop has-default-focus border-top"
+			role="contentinfo"
+		>
+			<div class="display-flex gap-xs flex-wrap-wrap is-full-height padding-right-lg-desktop">
+				
+		<a
+			data-mscc-ic="false"
+			href="#"
+			data-bi-name="select-locale"
+			class="locale-selector-link flex-shrink-0 button button-sm button-clear external-link-indicator"
+			id=""
+			title=""
+			><span class="icon" aria-hidden="true"
+				><span class="docon docon-world"></span></span
+			><span class="local-selector-link-text">es-es</span></a
+		>
+	 <div class="ccpa-privacy-link" data-ccpa-privacy-link hidden>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://aka.ms/yourcaliforniaprivacychoices"
+			data-bi-name="your-privacy-choices"
+			class="button button-sm button-clear flex-shrink-0 external-link-indicator"
+			id=""
+			title=""
+			>
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			viewBox="0 0 30 14"
+			xml:space="preserve"
+			height="16"
+			width="43"
+			aria-hidden="true"
+			focusable="false"
+		>
+			<path
+				d="M7.4 12.8h6.8l3.1-11.6H7.4C4.2 1.2 1.6 3.8 1.6 7s2.6 5.8 5.8 5.8z"
+				style="fill-rule:evenodd;clip-rule:evenodd;fill:#fff"
+			></path>
+			<path
+				d="M22.6 0H7.4c-3.9 0-7 3.1-7 7s3.1 7 7 7h15.2c3.9 0 7-3.1 7-7s-3.2-7-7-7zm-21 7c0-3.2 2.6-5.8 5.8-5.8h9.9l-3.1 11.6H7.4c-3.2 0-5.8-2.6-5.8-5.8z"
+				style="fill-rule:evenodd;clip-rule:evenodd;fill:#06f"
+			></path>
+			<path
+				d="M24.6 4c.2.2.2.6 0 .8L22.5 7l2.2 2.2c.2.2.2.6 0 .8-.2.2-.6.2-.8 0l-2.2-2.2-2.2 2.2c-.2.2-.6.2-.8 0-.2-.2-.2-.6 0-.8L20.8 7l-2.2-2.2c-.2-.2-.2-.6 0-.8.2-.2.6-.2.8 0l2.2 2.2L23.8 4c.2-.2.6-.2.8 0z"
+				style="fill:#fff"
+			></path>
+			<path
+				d="M12.7 4.1c.2.2.3.6.1.8L8.6 9.8c-.1.1-.2.2-.3.2-.2.1-.5.1-.7-.1L5.4 7.7c-.2-.2-.2-.6 0-.8.2-.2.6-.2.8 0L8 8.6l3.8-4.5c.2-.2.6-.2.9 0z"
+				style="fill:#06f"
+			></path>
+		</svg>
+	
+			<span>Sus opciones de privacidad</span></a
+		>
+	
+	</div>
+				<div class="flex-shrink-0">
+		<div class="dropdown has-caret-up">
+			<button
+				data-test-id="theme-selector-button"
+				class="dropdown-trigger button button-clear button-sm inner-focus theme-dropdown-trigger"
+				aria-controls="{{ themeMenuId }}"
+				aria-haspopup="true"
+				aria-expanded="false"
+				data-bi-name="theme"
+			>
+				<span class="icon" aria-hidden="true"><span class="docon docon-sun"></span></span>
+				<span>Tema</span>
+				<span class="icon expanded-indicator" aria-hidden="true">
+					<span class="docon docon-chevron-down-light"></span>
+				</span>
+			</button>
+			<div class="dropdown-menu" id="{{ themeMenuId }}" role="menu">
+				<ul class="theme-selector padding-xxs" data-test-id="theme-dropdown-menu" role="none">
+					<li class="theme display-block" role="none">
+						<button
+							class="button button-clear button-sm theme-control button-block justify-content-flex-start text-align-left"
+							role="menuitemradio"
+							aria-checked="false"
+							data-theme-to="light"
+							tabindex="-1"
+						>
+							<span class="theme-light margin-right-xxs">
+								<span
+									class="theme-selector-icon border display-inline-block has-body-background"
+									aria-hidden="true"
+								>
+									<svg class="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 14">
+										<rect width="22" height="14" class="has-fill-body-background" />
+										<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+										<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+										<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+										<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+										<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+										<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+										<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+									</svg>
+								</span>
+							</span>
+							<span> Claro </span>
+						</button>
+					</li>
+					<li class="theme display-block" role="none">
+						<button
+							class="button button-clear button-sm theme-control button-block justify-content-flex-start text-align-left"
+							role="menuitemradio"
+							aria-checked="false"
+							data-theme-to="dark"
+							tabindex="-1"
+						>
+							<span class="theme-dark margin-right-xxs">
+								<span
+									class="border theme-selector-icon display-inline-block has-body-background"
+									aria-hidden="true"
+								>
+									<svg class="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 14">
+										<rect width="22" height="14" class="has-fill-body-background" />
+										<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+										<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+										<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+										<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+										<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+										<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+										<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+									</svg>
+								</span>
+							</span>
+							<span> Oscuro </span>
+						</button>
+					</li>
+					<li class="theme display-block" role="none">
+						<button
+							class="button button-clear button-sm theme-control button-block justify-content-flex-start text-align-left"
+							role="menuitemradio"
+							aria-checked="false"
+							data-theme-to="high-contrast"
+							tabindex="-1"
+						>
+							<span class="theme-high-contrast margin-right-xxs">
+								<span
+									class="border theme-selector-icon display-inline-block has-body-background"
+									aria-hidden="true"
+								>
+									<svg class="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 14">
+										<rect width="22" height="14" class="has-fill-body-background" />
+										<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+										<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+										<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+										<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+										<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+										<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+										<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+									</svg>
+								</span>
+							</span>
+							<span> Contraste alto </span>
+						</button>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+			</div>
+			<ul class="links" data-bi-name="footerlinks">
+				<li class="manage-cookies-holder" hidden=""></li>
+				<li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://learn.microsoft.com/es-es/principles-for-ai-generated-content"
+			data-bi-name="aiDisclaimer"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Declinación de responsabilidades de IA</a
+		>
+	
+	</li><li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://learn.microsoft.com/es-es/previous-versions/"
+			data-bi-name="archivelink"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Versiones anteriores</a
+		>
+	
+	</li> <li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://techcommunity.microsoft.com/t5/microsoft-learn-blog/bg-p/MicrosoftLearnBlog"
+			data-bi-name="bloglink"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Blog</a
+		>
+	
+	</li> <li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://learn.microsoft.com/es-es/contribute"
+			data-bi-name="contributorGuide"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Contribuir</a
+		>
+	
+	</li><li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://go.microsoft.com/fwlink/?LinkId=521839"
+			data-bi-name="privacy"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Privacidad</a
+		>
+	
+	</li><li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://go.microsoft.com/fwlink/?linkid=2259814"
+			data-bi-name="consumer-health-privacy"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Privacidad de estado del consumidor</a
+		>
+	
+	</li><li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://learn.microsoft.com/es-es/legal/termsofuse"
+			data-bi-name="termsofuse"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Términos de uso</a
+		>
+	
+	</li><li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://www.microsoft.com/legal/intellectualproperty/Trademarks/"
+			data-bi-name="trademarks"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Marcas comerciales</a
+		>
+	
+	</li>
+				<li>&copy; Microsoft 2026</li>
+			</ul>
+		</footer>
+	</footer>
+			<noscript><img src="https://learn.microsoft.com/akam/13/pixel_36723bb3?a=dD0zOWM5MmYwOGUxM2I0YjM5YzQ4MjY5ZjVjMDg3NzA2Yzc3MzM4ZTY4JmpzPW9mZg==" style="visibility: hidden; position: absolute; left: -999px; top: -999px;" /></noscript></body>
+		</html>
