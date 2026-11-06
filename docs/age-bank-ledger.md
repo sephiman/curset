@@ -1,3 +1,61 @@
+# Currency audit 2026-11 (R2b part C, 2026-11-05)
+
+Reports in `docs/age-verification/audit-2026-11/`; summary in `docs/age-scope-audit.md` «Run 2». Nothing committed.
+Drops in each bloque's `drops.tsv` with batches `audit-2026-11`, `audit-2026-11.replacements`,
+`audit-2026-11.recheck`. Writers sonnet, verifiers opus, blind.
+
+**Kept: 5,200 → 5,195** (I 675, II 264, III 775, IV 988, V 645, VI 1,853 → 1,848). VI.1 240/241 (one short), VI.2 224,
+VI.4 219/217, VI.7 251.
+
+**Questions on precepts changed by RDL 31/2026 or reworded for passed marks** (`questions.md`), per norm:
+
+| Norm | Checked | FAIL | Replacement |
+|---|---|---|---|
+| LGSS | 20 bank + 2 case (sp-04 q12, q13) | m04-l09-q025 (explanation false under art. 173.1 from 01-12-2026) | m04-l09-q077 (art. 173.1, situaciones especiales, `cambio-pendiente`), PASS |
+| RDL 4/2000 | 2 | — | — |
+| TRLCPE | 4 bank + 1 case (sp-18 q25) | — | — |
+| ET | 0 | — | — |
+| Ley 4/2026 marks (reworded) | 8 (m01-l10-q037, m03-l07-q050/q056/q061, m04-l02-q049, m04-l05-q160/q161, m04-l09-q043) | — | — |
+
+The four whose stems changed (m03-l07-q050, q056, m04-l05-q160, q161) have new keys in `question-keys.tsv`: their
+attempts restart. Explanations that still quote the old LGSS wording though the fact holds: q018, q022, q040, q041.
+
+**Saved pages** (`pages.md`): 18 bloque VI questions dropped for their source — m06-l04-q243, q245–q250 (Office
+file-format reference gone; decision for Juanjo in the audit), m06-l01-q344–q351 (MFA page replaced; q350 found by
+the build), m06-l02-q027, q032 (Lupa), m06-l07-q044 («Correo nuevo»). Replacements (`writer-brief.md`): 16 written,
+11 kept — m06-l04-q401–q406, m06-l01-q371, q373, q375, q376, m06-l02-q360; failed q400 (copy of q142's angle), q366
+(non-unique), q372 (silence), q374 and q377 (official copies). Re-cited to new copies: m06-l02-q026, q028–q031, q033,
+q034 (Lupa chapter pages; q028–q030 and q034 cite their table row so the excerpt shows it), m01-l06-q025–q027. **Word file formats (user decision, 2026-11-06):** re-cited to the official «Formatos Open XML y extensiones de nombres
+de archivo» (`ms-office-open-xml.html`, Word para Microsoft 365) and blind-checked (`formats-restore.verify.md`):
+m06-l04-q243 and q247 restored (drops lines removed; q243's October excerpt exclusion removed, its excerpt now holds
+the fact); q246 stays dropped (JavaScript/Python ruled out only by silence). q245 (.dot), q248 (.doc), q249 (.txt) and
+q250 (.rtf) stay out: the only live Microsoft page stating them applies to Word para Mac. The «Formatos de archivo de
+Word distintos de .dotm» cover is back through q243 and q247.
+
+**Open item — RDL 31/2026 convalidación pendiente, plazo ~2026-12-04** (art. 86.2 CE: 30 días hábiles desde la
+publicación, 21-10-2026; boe.es shows no convalidación on 2026-11-05). The course keeps the RDL 31/2026 text as in force.
+If the Congreso does not convalidate it (derogación published in the BOE), the December audit reverts exactly this, in
+one step; the pre-audit text of every file below is in commit `bc6d8c3`:
+- `es/lessons/m04-l09.md`: the paragraph under «Cuidado de menores afectados por cáncer u otra enfermedad grave»
+  (arts. 190.1, 190.3, 192.1 LGSS: «ingreso hospitalario o situación asimilada», «hospitalización o tratamiento y de
+  cuidado», the extension beyond 26, the 50 % each for simultaneous enjoyment) back to its `bc6d8c3` text; the esquema
+  row of art. 192.1 likewise; the IT table row «Situaciones especiales del art. 169.1.a)» (art. 173.1, desde
+  01-12-2026) removed and the sentence «Las situaciones especiales tienen reglas propias (art. 173.1 LGSS).» restored.
+- The two Normativa notes removed: m04-l09 «Cambio pendiente: Real Decreto-ley 31/2026, de 20 de octubre, en vigor el
+  01-12-2026 (arts. 169.1.a), 171, 172 y 173.1)» and m04-l07 «… (art. 19.1)».
+- Bank: drop m04-l09-q077 and restore m04-l09-q025 (delete its `audit-2026-11` line in `bank/bloque-iv/drops.tsv`);
+  re-check blind against the old text the questions verified only against the RDL 31/2026 wording: m04-l09-q039–q044
+  (arts. 190–192) and sp-04 q12, q13 (arts. 172, 173.1).
+- `sources/normativa.yaml`: LGSS, RDL 4/2000, TRLCPE and ET back to their previous files (kept:
+  `…_lgss_2026-10-03.pdf`, `…_trlssfce_2024-12-21.pdf`, `…_trlcpe_2025-01-29.pdf`, `…_et_2026-10-03.pdf`) or to a new
+  boe.es consolidation that records the derogación; the RDL 31/2026 `cambios_pendientes` removed.
+- Rebuild exercises, excerpts (m04-l09-q018 and q022 come off `excerpt-exclusions.yaml`) and goldens.
+If it is convalidated: nothing reverts; on 01-12-2026 drop the «desde 01-12-2026» mark and the two notes, and move the
+01-12-2026 items of `normativa.yaml` to `cambios_aplicados` (LGSS 309.1 stays pending until 01-01-2027).
+
+**Excerpts**: 167 checked blind (157 yes, 3 full-only, 7 no); exclusions added for m03-l04-q132, q136, m04-l09-q018,
+q022, m06-l02-q026. 5,595 keys, 5,504 excerpts, 91 without.
+
 # Questions without an excerpt (platform delta F, closed 2026-10-30)
 
 Bank change before commit (2026-10-30): **m06-l02-q350 dropped** (key «gráficos, tablas dinámicas y fórmulas» merged two

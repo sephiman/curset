@@ -904,7 +904,7 @@ the Spanish-only preparation for the Administrativo del Estado (C1) exam, publis
 all six bloques is written, bloque VI as short list-shaped lessons citing saved official pages
 (requirements in `docs/age-administrativo-course-requirements.md`, per-tema record in `docs/age-theory-ledger.md`,
 scope, coverage and currency audit in `docs/age-scope-audit.md`). Its question bank covers all six bloques with
-5,200 blind-verified fixed multiple-choice questions (I 675, II 264, III 775, IV 988, V 645, VI 1,853; plan in
+5,195 blind-verified fixed multiple-choice questions (I 675, II 264, III 775, IV 988, V 645, VI 1,848; plan in
 `docs/age-bank-plan.md`, counts and verification record in `docs/age-bank-ledger.md`), and 20 supuestos
 prácticos (`case` exercises `sp-01` … `sp-20`, listed under «Cómo es el examen»), each a one-page scenario and
 20 blind-verified questions on bloques II–V that count under their own temas (record, per-case table and the ten

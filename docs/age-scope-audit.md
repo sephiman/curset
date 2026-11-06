@@ -2576,3 +2576,158 @@ Unmapped sections: none.
 Unmapped sections: none.
 
 ---
+
+---
+
+# Run 2 — currency audit (R2b part C, monthly run), 2026-11-05
+
+Currency only (R4b.3 b): norms, passed marks, the bank, cases and official-exams ledger on changed articles, and the
+233 saved pages. No scope or coverage pass. Every report of this run is in `docs/age-verification/audit-2026-11/`:
+`spec.md` (verifier spec), `normativa.md` (step 1), `marks.md` (step 2), `theory.md` (step 3), `questions.md` (steps 4
+and 5), `pages.md` and `pages-live/` (step 6), the blind re-checks `recheck-1.md` to `recheck-3.md`, the replacement
+checks `replacements-a.verify.md` and `replacements-b.verify.md`, `writer-brief.md`, and the excerpt check
+`excerpts-sample-0*.jsonl` with `excerpts-report-0*.md`. Nothing is committed.
+
+## Verdict per bloque
+
+- **Bloque I — al día.** No norm newer; EU texts unchanged (Cellar: TUE/TFUE 2025-03-15, Council Rules 2026-01-01,
+  RGPD 2016-05-04). Passed Ley 4/2026 marks dropped (m01-l10). The Portal de la Transparencia moved its plan pages:
+  the I–IV Plan periods now cite a new copy (`transparencia-planes-accion_2026-11-05.html`), three questions re-cited
+  to it; the V Plan page is the same text at a new URL. The CE análisis adds the TC's Declaración 1/2026
+  (BOE-A-2026-22710); no fact the course states changes.
+- **Bloque II — al día.** Passed marks dropped (m02-l01, m02-l02). No source changed.
+- **Bloque III — al día.** Passed marks dropped (m03-l05, m03-l07); four questions reworded for the mark, five checks
+  passed. Two LCSP questions lose their excerpt to an extractor regression that predates this run (below).
+- **Bloque IV — al día after fixes.** RDL 31/2026 (BOE-A-2026-21872, 21-10-2026) newer for LGSS, RDL 4/2000, TRLCPE
+  and ET. m04-l09: five sentences on the cuidado de menores con cáncer (arts. 190.1, 190.3, 192.1 LGSS, in force since
+  23-10-2026) failed and were rewritten; the situaciones especiales payment rule added to the IT table with «desde
+  01-12-2026»; «Cambio pendiente» notes for the 01-12-2026 precepts in m04-l07 and m04-l09. One question dropped
+  (m04-l09-q025), replaced by m04-l09-q077. Everything else citing a changed article passed.
+- **Bloque V — al día.** RD 813/2026 and Ley 4/2026 marks dropped (m05-l04, m05-l05, m05-l06). No source changed.
+- **Bloque VI — al día after fixes; VI.1 one question under quota.** Three Microsoft pages now serve other pages
+  (Office file-format reference, MFA, Outlook send/receive groups) and the Lupa page was split into chapters. 18
+  questions dropped for the source, 11 replacements kept, 7 Lupa questions re-cited to the new chapter pages, 8 lesson
+  and glossary places rewritten or removed; the Word file-format facts restored on the Open XML page (2 questions).
+  VI.1 240/241, VI.4 219/217.
+
+## C.1 — Norms (`normativa.md`, all 98 entries)
+
+| Norm | Stored | Latest | Precepts changed by RDL 31/2026 (effect) | Course places re-verified |
+|---|---|---|---|---|
+| LGSS (RDL 8/2015) | 2026-10-03 | 2026-10-21 | 61.2 (01-11-2026); 144.4, 169.1.a), 171, 172, 173.1 (**01-12-2026**); 190.1–3, 191.2/191.5, 192.1–2 (23-10-2026); 309.1 (**01-01-2027**); 221.2, 224.1–2, 318.h), DA 1.ª, DT 13.ª, DA 64.ª, DT 48.ª, DA 40.ª (21-10-2026) | 22 lesson places (5 FAIL, fixed), 22 questions (1 FAIL) |
+| RDL 4/2000 | 2024-12-21 | 2026-10-21 | 19.1 (**01-12-2026**) | m04-l07 (11 places with the TRLCPE row below), 2 questions: PASS |
+| TRLCPE (RDL 670/1987) | 2025-01-29 | 2026-10-21 | 27.2 (01-11-2026); 38.4, 41.1, 41.5, 42.9–10, DT 16.ª, DA 20.ª (21-10-2026) | m04-l07 (see above), 4 questions + 1 case question: PASS |
+| ET (RDL 2/2015) | 2026-10-03 | 2026-10-21 | 37.6 (23-10-2026) | none cited |
+| other 90 BOE + 5 EU entries | = latest | — | — | — |
+
+Saved (old files stay): the four new consolidations and RDL 31/2026 (`…_2026-10-21.pdf`), byte-identical to C2's
+copies of the same day. `normativa.yaml`: the four entries updated; LGSS and RDL 4/2000 carry
+`cambios_pendientes` for 01-12-2026 (and LGSS 309.1 for 01-01-2027); the boe.es consolidations print those precepts in
+the future wording with «Téngase en cuenta…» and the «Redacción anterior». **RDL 31/2026 is not convalidated on boe.es
+on 2026-11-05** (art. 86.2 CE: 30 working days from 21-10-2026): if the Congreso derogates it, the four norms revert
+and the m04-l09 fixes, q077 and the two «Cambio pendiente» notes go back.
+
+Ruling of this run (theory verifier, accepted): a sentence whose facts read the same in the old and the new wording
+needs no «desde» mark; only the new situaciones especiales payment row carries «desde 01-12-2026». The Normativa
+notes list every cited precept with a future wording, so the flip next month is mechanical.
+
+## C.2 — Passed marks (`marks.md`)
+
+37 marks in lessons and glossary (15 inline «desde 23/28-10-2026», 22 «Cambio pendiente» Normativa sentences), the date
+phrase in 8 questions and one `cambio-pendiente` tag. In `normativa.yaml` the ten passed `cambios_pendientes` (Ley
+4/2026, RD 813/2026) moved to a new field `cambios_aplicados`. Still pending and kept: RD 707/2026 (02-01-2027),
+Reglamento del Congreso (XVI legislatura), «desde 2027» (retirement ages), and now RDL 31/2026 (01-12-2026, 01-01-2027).
+
+## C.3–C.5 — Theory, bank, cases, official exams
+
+- **Theory** (`theory.md`, `recheck-1.md`): 35 places, 30 PASS, 5 FAIL (all m04-l09, cuidado de menores), fixed and
+  re-checked blind with the added IT table row and the Normativa note: PASS.
+- **Bank and cases** (`questions.md`): per norm, LGSS 20 bank + 2 case questions (1 FAIL: m04-l09-q025, its
+  explanation false under the 01-12-2026 art. 173.1); RDL 4/2000 2; TRLCPE 4 bank + 1 case; ET 0; plus the 8
+  questions reworded for the passed marks. 35/36 PASS. Replacement m04-l09-q077 (art. 173.1, situaciones especiales,
+  `cambio-pendiente`): five checks PASS.
+- **Official exams** (`questions.md`): IV.5, IV.7, IV.8, IV.9 and every tema file naming the four norms read; no
+  official question rests on a precept RDL 31/2026 changed. No status changes.
+- **Excerpts** rebuilt for every touched question and every question whose excerpt changed (167 items, blind check
+  in `excerpts-report-0*.md`): 157 yes, 3 full-only, 7 no. Fixes: four Lupa questions re-cited to their table row
+  (excerpt now the row); five excluded in `excerpt-exclusions.yaml` (m03-l04-q132 and q136, m04-l09-q018 and q022,
+  m06-l02-q026; m06-l04-q243's October exclusion removed after its re-cite). Course: 5,595 keys, 5,504 excerpts, 91
+  without, each with its reason.
+
+## C.6 — Saved pages (`pages.md`)
+
+233 entries fetched once each with October's request: 16 identical, 109 text-identical, 11 changed, 3 gone (404),
+92 refused (HTTP 403, all support.microsoft.com; not retried), 2 boe.es API items re-run with their API header (the
+PGE query returns the same 28 laws; the CE análisis adds Declaración 1/2026). Of the 92 refused, 28 were read the same
+day by C2's R0a check (27 text-identical; `ms-outlook-grupo-enviar.html` changed and was read live by this run's
+verifier); **64 have no live check today** (`comprobacion: "live check pending (403 on 2026-11-05)"` in
+`fuentes.yaml`). Every stored file still matches its sha256.
+
+Places resting on the changed or gone pages: 88 (54 hold, 1 changed, 33 removed). Outcome:
+
+| Page | Change | Course action |
+|---|---|---|
+| `ms-office-formatos-archivo.html` | URL redirects to the Office documentation index; no live page found with the table | m06-l04 «Formatos» row and «Lo que más cae» line re-sourced to `ms-office-open-xml.html` (new, 2026-11-06); q243, q247 re-cited and kept, q245, q246, q248–q250 dropped; `g-plantilla` re-sourced |
+| `ms-cuenta-mfa.html` | URL serves the two-step verification page | m06-l01 MFA row re-sourced to `ms-entra-mfa.html` (new); 8 questions dropped (q344–q351) |
+| `ms-win-lupa.html` | split into a chaptered guide | rows re-sourced to `ms-win-lupa-cap1.html`, `-cap2.html`, `-atajos.html` (new), «Atajos de la Lupa» row added; 7 re-cited, 2 dropped (q027, q032) |
+| `ms-outlook-grupos-envio-recepcion.html` | URL serves another page | m06-l07 sentence removed |
+| `ms-outlook-grupo-enviar.html` | new translation («Nuevo correo» → «Correo nuevo») | m06-l07-q044 dropped |
+| `transparencia-planes-accion.html`, `-planes-anteriores.html`, `-iv-plan.html`, `-v-plan.html` | restructured / 404 / moved | new copy saved; m01-l06 source line and 3 questions re-cited; V Plan `url_actual` |
+| `ms-copilot-introduccion.html`, `ms-excel-copilot.html`, `whatwg-html-scripting.html`, `boe-analisis-ce.xml`, `ms-win-directivas-explorador.html`, `ms-win-opciones-inicio-sesion.html`, `comision-colegio.html` | wording, related links, page dates, news feed | facts hold; `comprobacion` / `url_actual` recorded |
+
+Replacements (bloque VI, sonnet writers, opus blind checks): 16 written, 11 kept (m06-l04-q401–q406, m06-l01-q371,
+q373, q375, q376, m06-l02-q360); 5 failed (q400 copy of a kept angle; q366 non-unique; q372 silence; q374, q377 official
+copies).
+
+**Word file formats — resolved (Juanjo, 2026-11-06).** Re-cited to the official «Formatos Open XML y extensiones de
+nombres de archivo» (`ms-office-open-xml.html`, saved 2026-11-06 with sha256; «Se aplica a» Word para Microsoft 365):
+the m06-l04 «Formatos» row (now .docx/.docm/.dotx/.dotm and the «m» macro rule, without .doc) and the «.dotm / .dotx»
+«Lo que más cae» line restored, m06-l04-q243 and q247 restored; all blind-checked (`formats-restore.verify.md`).
+q246 stays out (its JavaScript/Python distractors are ruled out by no page). q245, q248, q249, q250 (.dot, .doc,
+.txt, .rtf) stay out: the only live Microsoft page that states them («Formatos de archivo para guardar documentos»)
+applies to Word para Mac.
+
+## Elections (step 7)
+
+Not touched: I.8 and the «(hoy: …)» notes. **Post-election round** after the general elections of 29-11-2026 and the
+XVI legislatura's constitutive session (23-12-2026): I.8, the «(hoy: …)» notes, the Reglamento del Congreso art. 23
+pending change (flips with the new legislatura), and organ names that change with the new Government.
+
+## Open after this run
+
+- RDL 31/2026 convalidación pendiente, plazo ~2026-12-04: the exact revert list (m04-l09 fixes and table row, q077 out
+  and q025 back, the two notes, `normativa.yaml`, rebuild) is in the theory and bank ledgers; if convalidated, the
+  December run flips the 01-12-2026 marks.
+- VI.1 at 240/241: one question for the next growth round.
+- m04-l09 lists no situaciones especiales de IT; the new art. 169.1.a) has five (adds 4.ª menopausia, 5.ª violencia de
+  género). Coverage, not currency: no official question asks them.
+- Questions whose explanations still quote the old LGSS wording though the fact holds: m04-l09-q018, q022, q040, q041
+  (stem); m06-l07-q037 and q043 quote the old translation of `ms-outlook-grupo-enviar.html`.
+- 64 Microsoft pages without a live check (403): next monthly run.
+- **Platform, not patched:** (a) the excerpt extractor keeps a precept's «Redacción anterior» after the future
+  wording with no label (m04-l07-q031, m04-l09-q023, q026–q028, q077, sp-04/q12–q13 show it after «[…]»); (b) the
+  committed extractor gives art. 159.6 / 159.4.f) LCSP and art. 26.6 Ley 50/1997 a different paragraph than the
+  committed `excerpts.json` held (reproduced on a clean HEAD worktree; not caused by this run); (c)
+  `cases/tools/build_cases.py` moves the `ofi-*` entries of m00-l01 above its `exercises:` key, which breaks
+  `course.yaml` (reverted by hand this run).
+- `g-plantilla` now states two Word facts but no general definition: no live-checked page defines «plantilla».
+
+## Closing checks
+
+All on the final tree (2026-11-06).
+
+- **Blind checks of every edit:** `recheck-1.md` (m04-l09 and q077) PASS; `recheck-2.md` 5 FAIL → fixed;
+  `replacements-b.verify.md` part 2, 4 FAIL → fixed; `recheck-3.md` 9/9 PASS; `formats-restore.verify.md` 5/6 PASS
+  (q246 stays dropped).
+- **Rebuild:** bloques I, III, IV, VI and the 20 cases; `course.yaml` restored after `build_cases.py` (open item).
+  Kept 5,195 (I 675, II 264, III 775, IV 988, V 645, VI 1,848). Excerpts: 5,595 keys, 5,504 excerpts, 91 without.
+- **Goldens** regenerated and read line by line: `citations.es.txt` 3,537 → 3,538 prose citations (1,533 anchors),
+  every non-path change traced to this run; `question-keys.tsv` −17 dropped, +12 added, 4 rekeyed (stems reworded for
+  the passed marks: m03-l07-q050, q056, m04-l05-q160, q161); `glossary-links.es.txt` 323 → 324 web marks;
+  `lesson-refs.es.txt` unchanged.
+- **crypto-futures, auxiliar C2 and Android:** no diff under `content/crypto-futures/`, `content/age-auxiliar-c2/` or
+  `dist/`; the bundle re-exported to a scratch folder is byte-identical to `dist/bundle` (99 files), and
+  `export_bundle.py --verify-only` reports fingerprint `e8efc940d382…` verified, label catalogs OK, leaked tokens OK.
+- **Full suites:** backend `uv run pytest` 1,606 passed, 21 skipped (Docker up, figure steps «age-administrativo-c1: no
+  figures, crypto-futures: 35 figures, fixture-oposiciones: no figures»); frontend `npx vitest run` 701 passed,
+  51 skipped; `tsc -b` clean.

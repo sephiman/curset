@@ -1,0 +1,28 @@
++A script element has an intended document, which is either null or a
++Document, initially null. It is set by the HTML parser and the XML
++parser on script elements they insert to track the Document in
++which the script is expected to execute, preventing execution if the element is moved to a
++different document before the parser prepares it.
++It is reset to null when the element is prepared.
++Let intendedDocument be el's intended
++document.
++Set el's intended document to null.
+-If parser document is non-null, and parser document is not equal to
++If intendedDocument is non-null and intendedDocument is not
+-have its parser document set correctly, and run in document order (modulo scripts
+-marked defer or async), immediately, as the transformation is
++have their parser document and intended document set correctly, and run
++in document order (modulo scripts marked defer or async), immediately, as the transformation is
+-the noscript element as the context
+-element and the text contents as the input must result in a list of nodes
+-that consists only of link, style, and meta elements that
+-would be conforming if they were children of the noscript element, and no parse errors.Outside of head elements, if scripting is
++the noscript element as the target and the text contents as the
++input must result in a list of nodes that consists only of link,
++style, and meta elements that would be conforming if they were children
++of the noscript element, and no parse
++errors.Outside of head elements, if scripting is
+-whether scripting mode was Disabled
+-when the parser was invoked.
++whether scripting was disabled when the parser was
++invoked.

@@ -42,6 +42,8 @@ Round R2, bloque VI (2026-10-17), checked four ofimática rows against the Micro
 
 Round R2b (2026-10-17) classified conv2024_X P1 48 as «Clave oficial discutida»: `ms-win-idioma.html` makes the speech language follow the display language, while the key d says the display, speech and keyboard languages can differ. It was listed before as «Sin fuente oficial» in the theory ledger; the page is the reason, so it is a disputed key. The same round classified conv2024_X sup. I 4 as «Clave oficial discutida» (arts. 43.2.b), 62 and 63.1.a) LGP give the transfer 220 → 202 to Hacienda, not to the ministry's own minister; candidate since bloque V), and dropped the note on conv2025_A/B sup. I 16, which art. 114.12 RDL 6/2023 supports (fifteen días naturales). The counts above include these changes.
 
+Currency audit 2026-11 (2026-11-05): RDL 31/2026 (BOE-A-2026-21872) changes LGSS, RDL 4/2000, TRLCPE and ET. Every official question of IV.5, IV.7, IV.8, IV.9 and of the other temas naming those norms was re-read blind against the new texts (`docs/age-verification/audit-2026-11/questions.md`): none has its key or a distractor on a changed precept, so no status changes; the counts above stand. The Ley 4/2026 «Revisado R1» notes stay as written: the law has been in force since 23-10-2026 and those keys hold.
+
 ## conv2025_A — Convocatoria 2025 — ejercicio único, modelo A
 
 - Fecha del examen: 23-05-2026 (del nombre del fichero y del requisito R3.4; el cuestionario no imprime fecha).

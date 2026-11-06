@@ -4160,3 +4160,58 @@ was already verbatim. Ruling in `bloque-ii/verify-spec.md`: check 5 compares ste
 
 **Not done for want of a source:** the successor of «Gobiernos Civiles» (art. 9.1 RD 208/1996); TRLSC DA 3.ª.1.d)
 (DUE cese); art. 98 RGLCAP.
+
+# Currency audit 2026-11 (R2b part C, 2026-11-05): lesson changes
+
+Reports and blind checks in `docs/age-verification/audit-2026-11/`; summary in `docs/age-scope-audit.md` «Run 2».
+Nothing committed.
+
+**Passed marks dropped** (`marks.md`): 15 inline «desde 23-10-2026 / 28-10-2026» marks (m01-l10, m02-l01, m03-l07,
+m04-l02, m04-l05, m04-l09, m05-l05, glossary g-personas-con-discapacidad and the Ley 39/2006 entry) and 22 «Cambio
+pendiente: Ley 4/2026 / RD 813/2026» sentences in Normativa blocks. Wording unchanged.
+
+**RDL 31/2026** (LGSS, RDL 4/2000, TRLCPE, ET; `theory.md`, `recheck-1.md`):
+- m04-l09 «Cuidado de menores afectados por cáncer u otra enfermedad grave»: art. 190.1 «ingreso hospitalario o
+  situación asimilada» (was «de larga duración»); art. 190.3 «hospitalización o tratamiento y de cuidado»; the
+  exceptional extension beyond 26 (65 % or grado III, convivencia); art. 192.1 second paragraph (simultaneous enjoyment:
+  50 % each). The esquema row of art. 192.1 likewise. All in force since 23-10-2026: no mark.
+- m04-l09 IT payment table: new row «Situaciones especiales del art. 169.1.a)» (art. 173.1 LGSS, desde 01-12-2026);
+  the sentence «Las situaciones especiales tienen reglas propias (art. 173.1 LGSS)» gave way to it.
+- Normativa: «Cambio pendiente: Real Decreto-ley 31/2026, de 20 de octubre, en vigor el 01-12-2026» in m04-l09 (arts.
+  169.1.a), 171, 172 y 173.1) and m04-l07 (art. 19.1 RDL 4/2000).
+- Ruling: a sentence whose facts read the same in both wordings carries no «desde» mark.
+
+**Saved pages** (`pages.md`, `recheck-2.md`, `replacements-b.verify.md`, `recheck-3.md`):
+- m06-l01 «Autenticación multifactor»: re-sourced to `ms-entra-mfa.html` («Exige uno o varios de estos métodos…»).
+- m06-l02 «Lupa»: re-sourced to `ms-win-lupa-cap1.html` and `-cap2.html`; new row «Atajos de la Lupa»
+  (`ms-win-lupa-atajos.html`); the «Lo que más cae» Lupa line cites cap1; `ms-win-lupa.html` no longer cited.
+- m06-l04: «Formatos» esquema row and the «.dotm / .dotx» «Lo que más cae» line re-sourced to
+  `ms-office-open-xml.html` (2026-11-06; .docx/.docm/.dotx/.dotm and the «m» macro rule; .doc no longer stated).
+- m06-l07 «Enviar y recibir»: the send/receive-groups sentence removed (source page gone).
+- m01-l06: I–IV Plan periods cite `transparencia-planes-accion_2026-11-05.html`; «Otras fuentes» line updated.
+- Glossary `g-plantilla`: now two Word desktop facts (Normal.dotm; «Ubicación predeterminada de plantillas
+  personales»); no general definition, for want of a live-checked page that gives one.
+
+**Open item — RDL 31/2026 convalidación pendiente, plazo ~2026-12-04** (art. 86.2 CE: 30 días hábiles desde la
+publicación, 21-10-2026; boe.es shows no convalidación on 2026-11-05). The course keeps the RDL 31/2026 text as in force.
+If the Congreso does not convalidate it (derogación published in the BOE), the December audit reverts exactly this, in
+one step; the pre-audit text of every file below is in commit `bc6d8c3`:
+- `es/lessons/m04-l09.md`: the paragraph under «Cuidado de menores afectados por cáncer u otra enfermedad grave»
+  (arts. 190.1, 190.3, 192.1 LGSS: «ingreso hospitalario o situación asimilada», «hospitalización o tratamiento y de
+  cuidado», the extension beyond 26, the 50 % each for simultaneous enjoyment) back to its `bc6d8c3` text; the esquema
+  row of art. 192.1 likewise; the IT table row «Situaciones especiales del art. 169.1.a)» (art. 173.1, desde
+  01-12-2026) removed and the sentence «Las situaciones especiales tienen reglas propias (art. 173.1 LGSS).» restored.
+- The two Normativa notes removed: m04-l09 «Cambio pendiente: Real Decreto-ley 31/2026, de 20 de octubre, en vigor el
+  01-12-2026 (arts. 169.1.a), 171, 172 y 173.1)» and m04-l07 «… (art. 19.1)».
+- Bank: drop m04-l09-q077 and restore m04-l09-q025 (delete its `audit-2026-11` line in `bank/bloque-iv/drops.tsv`);
+  re-check blind against the old text the questions verified only against the RDL 31/2026 wording: m04-l09-q039–q044
+  (arts. 190–192) and sp-04 q12, q13 (arts. 172, 173.1).
+- `sources/normativa.yaml`: LGSS, RDL 4/2000, TRLCPE and ET back to their previous files (kept:
+  `…_lgss_2026-10-03.pdf`, `…_trlssfce_2024-12-21.pdf`, `…_trlcpe_2025-01-29.pdf`, `…_et_2026-10-03.pdf`) or to a new
+  boe.es consolidation that records the derogación; the RDL 31/2026 `cambios_pendientes` removed.
+- Rebuild exercises, excerpts (m04-l09-q018 and q022 come off `excerpt-exclusions.yaml`) and goldens.
+If it is convalidated: nothing reverts; on 01-12-2026 drop the «desde 01-12-2026» mark and the two notes, and move the
+01-12-2026 items of `normativa.yaml` to `cambios_aplicados` (LGSS 309.1 stays pending until 01-01-2027).
+
+**Other open items (added).** m04-l09 lists no situaciones especiales de IT (coverage); post-election round for I.8
+and the «(hoy: …)» notes.

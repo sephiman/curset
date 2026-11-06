@@ -577,3 +577,10 @@ run in a browser and no PDF file was rendered (the print export was checked for 
 
 Stale metadata, not shipped (draft fields only): several `depends_on` quotes and `festivos` fields in sp-04, sp-08, sp-09,
 sp-10, sp-16 still quote festivos sentences as they were before 2026-10-30.
+
+# Currency audit 2026-11 (2026-11-05)
+
+sp-04 q12, q13 (arts. 173.1 and 172 LGSS) and sp-18 q25 (art. 42.2 TRLCPE) re-verified blind against the RDL 31/2026
+texts: PASS (`docs/age-verification/audit-2026-11/questions.md`). Cases rebuilt; no case question changed.
+**Open (platform):** `tools/build_cases.py` moves the `ofi-*` entries of m00-l01 above its `exercises:` key and
+breaks `course.yaml`; reverted by hand this run. Fix the tool before the next case rebuild.
