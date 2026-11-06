@@ -4,6 +4,8 @@ import { AGE, abandonSitting, overflowingElements, signIn, startSitting, submitt
 /** Delta K at real widths: the desktop layout, and the «Por tema» cards on a phone. */
 
 const WIDTHS = [768, 1024, 1280, 1440] as const;
+const LONG_PATH_ANSWER_SEED = 73;
+const LONG_PATH = "C:\\Documents\\Newsletters\\Summer2018.pdf";
 const ESQUEMA_LESSON = `/courses/${AGE}/lessons/m01-l03`;
 const lessonIndex = (page: Page) => page.getByRole("navigation", { name: "En esta lección" });
 const headerTabs = (page: Page) => page.getByRole("banner").getByRole("navigation", { name: "Secciones" });
@@ -84,8 +86,13 @@ test.describe("at 1280 px", () => {
     await signIn(page);
     const id = await submittedSitting(page.request, AGE, "simulacro");
     await page.goto(`/courses/${AGE}/exams/${id}/review`);
-    const best = await page.getByRole("heading", { name: "Donde más brillas" }).boundingBox();
-    const worst = await page.getByRole("heading", { name: "Donde más tienes que preparar" }).boundingBox();
+    // boundingBox() does not wait: the lists render after the results load.
+    const bestHeading = page.getByRole("heading", { name: "Donde más brillas" });
+    const worstHeading = page.getByRole("heading", { name: "Donde más tienes que preparar" });
+    await expect(bestHeading).toBeVisible();
+    await expect(worstHeading).toBeVisible();
+    const best = await bestHeading.boundingBox();
+    const worst = await worstHeading.boundingBox();
     expect(worst!.y).toBe(best!.y);
     expect(worst!.x).toBeGreaterThan(best!.x);
     const table = await page.getByRole("region", { name: "Por tema" }).locator("table").boundingBox();
@@ -104,6 +111,20 @@ test.describe("«Por tema» at 360 px", () => {
     // The best/worst lists are list items too; the cards are the ones with a tally.
     await expect(section.getByRole("listitem").filter({ hasText: "Aciertos" }).first()).toBeVisible();
     await expect(section.locator("table")).toHaveCount(0);
+    await expectNothingWiderThanTheScreen(page);
+  });
+
+  test("wraps an answer that is one long unbreakable path instead of widening the page", async ({ page }) => {
+    await signIn(page);
+    // A pinned draw that counts m06-l03-q050, answered with its «C:\Documents\Newsletters\Summer2018.pdf» option.
+    // A bank edit changes the draw: the visibility check below then fails, and the seed is re-picked.
+    const id = await submittedSitting(page.request, AGE, "simulacro", {
+      seed: LONG_PATH_ANSWER_SEED,
+      prefer: LONG_PATH,
+    });
+    await page.goto(`/courses/${AGE}/exams/${id}/review`);
+    await expect(page.getByText("Tu respuesta:").first()).toBeVisible();
+    await expect(page.getByText(LONG_PATH).filter({ visible: true }).first()).toBeVisible();
     await expectNothingWiderThanTheScreen(page);
   });
 });

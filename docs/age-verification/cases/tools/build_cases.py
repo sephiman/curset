@@ -64,14 +64,30 @@ def question_yaml(q: dict[str, object], anchor: str) -> str:
     return "\n".join(lines)
 
 
+EXERCISES_KEY = "      exercises:\n"
+# One list item of the host lesson's exercises: its `- id:` line and the lines indented under it.
+EXERCISE_ENTRY = re.compile(r"      - id: .*\n(?:        .*\n)*")
+
+
 def manifest_entries(course_yaml: str, case_ids: list[str]) -> str:
-    """Replace (or add) the `exercises:` list of the host lesson with the cases."""
+    """The host lesson's `exercises:` list with the cases first, in case order; its other entries (the
+    official exams) stay after them as they were."""
     start = course_yaml.index(f"    - id: {HOST_LESSON}\n")
     nxt = re.compile(r"^(    - id: |  - id: |- id: |exams:)", re.M).search(course_yaml, start + 1)
     end = nxt.start() if nxt else len(course_yaml)
-    block = re.sub(r"      exercises:\n(?:      - id: .*\n        type: case\n)*", "", course_yaml[start:end])
-    entries = "      exercises:\n" + "".join(f"      - id: {c}\n        type: case\n" for c in case_ids)
-    return course_yaml[:start] + block.rstrip("\n") + "\n" + entries + course_yaml[end:]
+    lesson = course_yaml[start:end]
+    cases = "".join(f"      - id: {c}\n        type: case\n" for c in case_ids)
+    if EXERCISES_KEY not in lesson:
+        return course_yaml[:start] + lesson.rstrip("\n") + "\n" + EXERCISES_KEY + cases + course_yaml[end:]
+    head, listed = lesson.split(EXERCISES_KEY, 1)
+    entries: list[str] = []
+    at = 0
+    while found := EXERCISE_ENTRY.match(listed, at):
+        entries.append(found[0])
+        at = found.end()
+    tail = listed[at:]
+    others = "".join(entry for entry in entries if "\n        type: case\n" not in entry)
+    return course_yaml[:start] + head + EXERCISES_KEY + cases + others + tail + course_yaml[end:]
 
 
 def main() -> None:

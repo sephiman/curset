@@ -2731,3 +2731,161 @@ All on the final tree (2026-11-06).
 - **Full suites:** backend `uv run pytest` 1,606 passed, 21 skipped (Docker up, figure steps «age-administrativo-c1: no
   figures, crypto-futures: 35 figures, fixture-oposiciones: no figures»); frontend `npx vitest run` 701 passed,
   51 skipped; `tsc -b` clean.
+
+## Follow-up fix round (2026-11-06)
+
+Short fix round on this run's open items. Nothing committed. Reports of the round in
+`docs/age-verification/audit-2026-11/followup/` (plus the bank verify files named below). Writers sonnet, verifiers
+opus, blind.
+
+**1. Excerpt builder, superseded wording.** `excerpts.py` `_in_force`: when a consolidated text prints a precept's
+new wording, a «Téngase en cuenta que esta actualización … entra en vigor el / produce efectos desde <date> / en la
+XVI legislatura» note, «Redacción anterior:» and the old wording in quotes, the unit drops the note, the label and
+the quoted run up to its closing quote, and keeps any apartado in force after it (art. 173: note on 173.1 only,
+173.2–3 follow). A conditional note (art. 16.1 Ley 53/1984: TREBEP wording effective only with each Administración's
+ley de Función Pública) may leave the old wording in force: it stays, now labelled «Redacción anterior:» after the
+new one. Failing tests first on LGSS arts. 172, 173 and 173.1 (RDL 31/2026 consolidation) and on art. 16 Ley
+53/1984. Excerpts changed: LGSS 169.1, 171, 172, 173.1 (m04-l09-q019–q024, q026–q028, q077, sp-04/q12–q13), RDL 4/2000
+19.1 and 19.3 (m04-l07-q031, q032), Reglamento del Congreso 23 (m01-l03-q042, q043), Ley 53/1984 16 (m04-l06-q044–q049,
+sp-05/q23, label added). m04-l09-q018 and q022 come off `excerpt-exclusions.yaml` (their excerpt now holds the fact
+in the 01-12-2026 wording).
+
+**2. `build_cases.py` and `course.yaml`.** Cause: the regex that cleared the host lesson's cases also removed its
+`exercises:` key, so the `ofi-*` entries stayed above the re-added key. `manifest_entries` now parses the list and
+replaces only the `type: case` entries. Failing test first (`test_cases.py`: rebuilding with the same cases returns
+`course.yaml` unchanged); a full `build_cases.py` run leaves `course.yaml` byte-identical (`cmp`), and the 20
+`sp-*.yaml` unchanged.
+
+**3. LCSP excerpt regression.** Cause: commit `ce38576` («AGE-C1: adding exam clocks and letters», 2026-10-30) added
+to `norm_excerpt` a course-wide branch — any explanation containing «siete días hábiles» made the excerpt jump to the
+unit's first paragraph holding that phrase. m03-l04-q132 and q136 (art. 159.6) mention it only to refute a
+distractor (art. 159.4.f)), so they got 159.1 + 159.4.f).4.º. Fix: a phrase taken from the explanation now narrows
+only inside the cited apartado; the per-key case list (`_CASE_SUB_NUMBERS`, cases citing a neighbour apartado) keeps
+its whole-unit reach; the unused `_CASE_FACT_PHRASES` from the same commit deleted. Failing test first. q132 and q136
+excerpts restored byte-identical to `bc6d8c3` and off `excerpt-exclusions.yaml`; the same branch had also moved
+m03-l04-q129 (restored to `bc6d8c3`) and m03-l01-q056/q057 (now the 26.6 paragraph that holds the plazo).
+**Blind check** (`followup/excerpts-report.md`): all 29 changed excerpts «yes»; no dated superseded wording left;
+Ley 53/1984's old wording labelled and after the new; right apartado in all.
+
+**4. m04-l09 situaciones especiales, VI.1.** Lesson (R2 rules): under «Incapacidad temporal», the five situaciones
+especiales of art. 169.1.a) LGSS (1.ª–5.ª, wording from 01-12-2026, cited «desde 01-12-2026»), the violencia de género
+documents and causalidad requirement, and art. 172's cotización rules for them (none for 1.ª, 3.ª, 4.ª, 5.ª; the art.
+178.1 periods for 2.ª), replacing «tienen reglas propias». Blind check (`followup/m04-l09-theory.check.md`): 12/13
+PASS; the FAIL (lead-in «Desde el 1 de diciembre de 2026» duplicating the mark and implying 1.ª–3.ª were new) fixed
+with the verifier's wording. Questions: m04-l09 was not under quota (72 kept, plan 54); the gap was coverage, so 7
+written on the new lines (`bank/bloque-iv/m04-l09.followup-2026-11.*`), 5 kept (q078, q080, q082, q083, q084;
+`cambio-pendiente`), 2 dropped (q079 key narrower than 5.ª's documents; q081 two options true under today's art.
+172). VI.1: q378 (RD 4/2010 glossary, aplicación de fuentes abiertas) and spare q379 (Entra MFA, «algo que eres»),
+both PASS (`bank/bloque-vi/m06-l01.followup-2026-11.verify-1.md`). Two metadata fixes before the build: q080/q082
+difficulty 4 → 3 (R5.3), q083 stem form. New excerpts: 7/7 «yes» (`followup/excerpts-report-new.md`).
+
+**5. The 92 support.microsoft.com pages, browser fetch.** New script `docs/age-verification/tools/check_pages.py`
+(selection, plain request first, Playwright for a 403 or with `--browser`, `<main>` text compared as the excerpt
+builder reads it, diffs, `check-pages.json`, `--write` for `comprobacion`) with `fetch_rendered.mjs`, which drives
+the e2e suite's own Chromium (`frontend/node_modules/playwright`). The site rate-limits bursts (a contiguous block
+of 403s, then 200s again in the same session): the fetcher resumes from its cache, three passes, 1.5 s → 6 s → 15 s
+apart. Result (`audit-2026-11/pages-browser/`): **all 92 read; 88 text-identical, 4 changed**; `fuentes.yaml`
+`comprobacion` set for each («2026-11-06: navegador (Playwright, Chromium) 200; …»). A plain request also returned
+200 on 2026-11-06 for the two pages tried; the 403 is not constant.
+Re-verification of the changed pages (`followup/pages-browser.md`, `followup/pages-browser-ordenar.md`):
+
+| Page | Change | Outcome |
+|---|---|---|
+| `ms-edge-inprivate.html` | cut to a summary and one step | m06-l08 «InPrivate» item rewritten on a new copy `ms-edge-inprivate_2026-11-06.html` (saved with sha256; blind check `followup/m06-l08-inprivate.check.md` 9/9 PASS); ISP/workplace sentence removed; 10 questions dropped (q229, q230, q231, q232, q234, q235, q237, q238, q239, q265) |
+| `ms-outlook-listas-contactos.html` | new-Outlook steps rewritten | m06-l07-q349, q351, q364 dropped; lesson, glossary and 9 questions hold |
+| `ms-outlook-grupo-enviar.html` | retranslated | all 11 places hold (q044 stays dropped) |
+| `ms-excel-ordenar.html` | table «criterios de ordenación» added | all 7 places hold |
+
+m06-l08-q231's key is still stated, word for word, by «Microsoft Edge, datos de exploración y privacidad»
+(support.microsoft.com/es-es/edge/microsoft-edge-browsing-data-and-privacy, 200); the page was not saved, so q231 is
+dropped (saving it would restore q231 and the «al cerrar todas las ventanas InPrivate» sentence).
+
+**E2E (CI failing on `be2d2ed`).** Reproduced locally with `frontend/e2e/ci-local.sh` on a HEAD worktree: 55 passed,
+2 failed. (a) desktop «the two lists side by side»: `boundingBox()` ran before the results lists rendered (the
+headings are in the final snapshot) — the test now waits for both headings to be visible. (b) mobile «whole first
+question of a 70-question sitting»: the pinned seed 27 drew a typical first question before this run (412 characters
+of stem and options at `bc6d8c3`) and a long one after the audit's drops and additions (715; 603 after this round) —
+re-pinned to seed 7, the median of seeds 1–40 on the final bank (387). On the working tree: 57 passed.
+
+**Counts.** Kept 5,195 → **5,189** (I 675, II 264, III 775, IV 993, V 645, VI 1,837; VI 35.4 %): IV.9 72 → 77, VI.1
+240 → 242 (quota 241), VI.7 251 → 248 (quota 246), VI.8 191 → 181 (quota 168). Excerpts: 5,589 keys, 5,504 excerpts,
+85 without (64 verifier, 21 extraction).
+
+### Closing checks (2026-11-06)
+
+- Goldens regenerated and read: `citations.es.txt` 3,538 → 3,546 prose citations (7 art. 169.1.a) and 2 art. 172
+  «desde 01-12-2026» replace one art. 172; InPrivate file renamed); `question-keys.tsv` +7 new, −13 dropped, no key
+  moved; `glossary-links.es.txt` 324 → 325 (g-ministerio-fiscal in the new 5.ª sentence); `lesson-refs.es.txt`
+  unchanged.
+- crypto-futures, auxiliar C2, `dist/`, Android: no diff; the bundle re-exported to a scratch folder is
+  byte-identical to `dist/bundle` (99 files); `export_bundle.py --verify-only` fingerprint `e8efc940d382…` verified,
+  label catalogs OK, leaked tokens OK.
+- Backend: ruff, format, mypy (strict) clean; `uv run pytest -n auto` 1,612 passed, 21 skipped (Docker up).
+  Frontend: `tsc -b` clean, lint clean, `npx vitest run` 701 passed, 51 skipped; e2e 57 passed.
+
+### Still open
+
+- m03-l04-q129's excerpt goes from «4.» to «4.º» without the letter f) line; m03-l01-q056/q057 show 26.6's second
+  paragraph without «6.» (both «yes», cosmetic). New m04-l09 excerpts (q078, q080, q083) join apartado 1's lead-in to
+  a later paragraph with no «[…]».
+- Quotes of the old translation in kept questions whose facts hold (m06-l07-q037, q039, q041, q043, q348, q350,
+  q365): refresh together with a new saved copy of `ms-outlook-grupo-enviar.html` and `ms-outlook-listas-contactos.html`,
+  never one without the other (the excerpt and `source_quote` read the saved copy). Optional: m06-l05 esquema row on
+  numbers stored as text → «En orden ascendente, …» (`followup/pages-browser-ordenar.md`).
+- m04-l09-q018, q022, q040, q041 explanations still quote the old LGSS wording though the fact holds (from this run).
+- `check_pages.py --pending-403` selects on the `comprobacion` text: after a `--write` pass, re-run the same set with
+  `--files` (as done here).
+
+## Follow-up 2 (2026-11-06): re-cites decided by Juanjo
+
+Both proposals accepted. Reports in `docs/age-verification/audit-2026-11/followup/` (`recite.writer.md`,
+`recite.check.md`).
+
+- **InPrivate.** Saved «Microsoft Edge, datos de exploración y privacidad» as `ms-edge-privacidad.html` (Playwright,
+  sha256 in `fuentes.yaml`). Under «Qué datos se recopilan o almacenan y por qué» it states, word for word, that Edge
+  deletes the history, cookies and site data, passwords, addresses and form data on closing all InPrivate windows.
+  m06-l08-q231 re-cited to it (its «favoritos y archivos descargados» distractor refuted by
+  `ms-edge-inprivate_2026-11-06.html`) and restored (drops line removed; key `53fe38597f236c3f` as at HEAD); the
+  m06-l08 «InPrivate» item gains that sentence, cited to the new page.
+- **Outlook.** Fresh copies `ms-outlook-grupo-enviar_2026-11-06.html` and `ms-outlook-listas-contactos_2026-11-06.html`
+  (visible text equal to the live text Part P judged). Every kept citer moved to them so the lesson cross-reference
+  holds: m06-l07-q037–q043, q045, q347, q348, q350, q352, q365 (labels re-taken where the headings changed;
+  `source_quote` and explanation quotations from the new copies), the two m06-l07 citations and «Fuentes» lines, and
+  `g-lista-de-contactos`. Old copies keep `lessons: []` and a `comprobacion` naming the new copy. Prompts and options
+  untouched: no key moved (q039/q040 keep «Nuevo Email», q365 «Guardar & Cerrar»; the page now writes them in lower
+  case; one option still right, style note only).
+- **Blind check** (opus): questions 14/14 PASS, lesson and glossary 7/7 PASS, excerpts 14/14 «yes» (flags: q348's
+  excerpt ends in the page's run-together tab links; q043's carries the link «¿Cómo sé si soy el propietario del
+  grupo?»).
+- **E2E, a third failure found on the final run.** «Por tema» at 360 px failed once on a random draw:
+  m06-l03-q050's option «C:\Documents\Newsletters\Summer2018.pdf» overflowed the screen from the solution panel's
+  option row (`AttemptResult.tsx`: a bare `<span>` in a flex row; Chromium lays out a closed `<details>`). Fixed with
+  `min-w-0 break-words`, as `QuizExercise` does. New test «wraps an answer that is one long unbreakable path instead
+  of widening the page» (seed 73 counts q050; `submittedSitting` takes `{ seed, prefer }`); it failed without the fix
+  with CI's exact span and passes with it. Re-pick the seed if a bank edit moves q050 out of the draw (the test then
+  fails on visibility, not silently).
+
+**Counts.** Kept **5,190** (I 675, II 264, III 775, IV 993, V 645, VI 1,838; VI.8 182). Excerpts: 5,590 keys, 5,505
+excerpts, 85 without.
+
+**Closing checks.** Goldens regenerated and read: `citations.es.txt` 3,546 → 3,547 (the privacy page; the Outlook
+file moves); `question-keys.tsv` +m06-l08-q231 only; `glossary-links.es.txt`, `lesson-refs.es.txt` unchanged.
+Backend ruff, format, mypy clean, pytest 1,612 passed, 21 skipped; frontend `tsc -b` clean, vitest 701 passed,
+51 skipped; e2e 58 passed. Bundle re-exported byte-identical to `dist/bundle` (99 files), fingerprint
+`e8efc940d382…` verified; crypto-futures, auxiliar C2, `dist/` and Android untouched. Closed from «Still open»: the
+Outlook quotes item. Still open: the cosmetic excerpt flags and the m04-l09 old-wording explanation quotes above.
+
+## Follow-up 3 (2026-11-06): m04-l09 explanations on the wording in force
+
+Explanations and `source_quote`s of kept m04-l09 questions that quoted the LGSS wording superseded by RDL 31/2026 now
+quote the text the course cites (sonnet writer, `followup/m04-l09-quotes.writer.md`; every kept question citing arts.
+169, 171–173, 190–192 scanned). Changed: q018 and q022 («otros 180 días», «180 días dentro de los cinco años…», with
+«En la redacción vigente desde el 1 de diciembre de 2026»), q019 and q039 (`source_quote` only; q039's was not an
+exact substring before), q040 (art. 190.1 «cuando ambas trabajen, o cuando solo haya una persona progenitora…»), q042
+(art. 190.3 «hasta que la persona causante cumpla 26 años si antes de alcanzar los 23 años acreditara, además, …»).
+Prompts, options and keys untouched (checked byte for byte against HEAD); q040's and q041's stems keep the older
+phrasing, the key still the only right option. Blind check (opus, `followup/m04-l09-quotes.check.md`): 6/6 changed
+PASS, q041 and q023 (unchanged) PASS. Rebuilt bloque IV and `excerpts.json`: no excerpt changed (5,590 keys, 5,505
+excerpts); goldens unchanged from Follow-up 2. Affected subsets: backend 172 passed (excerpts, citations, identity,
+cases, manifest, esquema, glossary), frontend glossary 55 passed. Closed from «Still open»: the m04-l09 old-wording
+quotes.

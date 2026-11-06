@@ -20,7 +20,7 @@ interface Sitting {
     partId: string;
     reserve: boolean;
     prompt: string;
-    payload: { options?: { id: string }[] };
+    payload: { options?: { id: string; text?: string }[] };
   }[];
 }
 
@@ -36,11 +36,18 @@ export async function startSitting(
   return (await response.json()) as Sitting;
 }
 
-/** A submitted sitting with every counted question answered (first option), so the results have a «Por tema». */
-export async function submittedSitting(api: APIRequestContext, course: string, presetId: string): Promise<string> {
-  const sitting = await startSitting(api, course, presetId);
+/** A submitted sitting with every counted question answered (first option, or the one whose text is `prefer`),
+ * so the results have a «Por tema». */
+export async function submittedSitting(
+  api: APIRequestContext,
+  course: string,
+  presetId: string,
+  draw: { seed?: number; prefer?: string } = {},
+): Promise<string> {
+  const sitting = await startSitting(api, course, presetId, draw.seed);
   for (const question of sitting.questions.filter((q) => !q.reserve)) {
-    const optionId = question.payload.options?.[0]?.id;
+    const options = question.payload.options ?? [];
+    const optionId = (options.find((option) => option.text === draw.prefer) ?? options[0])?.id;
     if (!optionId) continue;
     await api.post(`/api/courses/${course}/exams/${sitting.id}/questions/${question.attemptId}/answer`, {
       data: { answer: { optionId }, timeSeconds: 5 },

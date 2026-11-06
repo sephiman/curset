@@ -6,6 +6,10 @@ Drops in each bloque's `drops.tsv` with batches `audit-2026-11`, `audit-2026-11.
 
 **Kept: 5,200 → 5,195** (I 675, II 264, III 775, IV 988, V 645, VI 1,853 → 1,848). VI.1 240/241 (one short), VI.2 224,
 VI.4 219/217, VI.7 251.
+**Follow-up 2026-11-06:** 5,195 → **5,189** (IV 993, VI 1,837): m04-l09-q078, q080, q082–q084 and m06-l01-q378,
+q379 added; m06-l07-q349, q351, q364 and m06-l08-q229–q232, q234, q235, q237–q239, q265 dropped (live pages
+changed). VI.1 242/241. Record: `docs/age-scope-audit.md` Run 2 «Follow-up fix round».
+Then m06-l08-q231 restored on `ms-edge-privacidad.html` (user decision): **5,190** (VI 1,838).
 
 **Questions on precepts changed by RDL 31/2026 or reworded for passed marks** (`questions.md`), per norm:
 

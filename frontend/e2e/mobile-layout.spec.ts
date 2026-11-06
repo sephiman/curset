@@ -12,7 +12,7 @@ function phone(width: number) {
   return { viewport: { width, height: 800 }, isMobile: true, hasTouch: true, deviceScaleFactor: 2 };
 }
 
-const TYPICAL_FIRST_QUESTION_SEED = 27;
+const TYPICAL_FIRST_QUESTION_SEED = 7;
 
 /** The question's stem on screen, found by its opening words. */
 function stem(page: Page, prompt: string): Locator {
@@ -88,8 +88,8 @@ test.describe("simulation sitting at 360 px", () => {
 
   test("shows the whole first question of a 70-question sitting without scrolling, with no tab bar", async ({ page }) => {
     await signIn(page);
-    // A pinned draw whose first question is of typical length (771 characters on screen; the median of
-    // seeds 1–40 is about 760, and the longest do not fit at 360 × 800). A content edit can change it.
+    // A pinned draw whose first question is of median length among seeds 1–40 (the longest do not fit at
+    // 360 × 800). A bank edit changes the draw: re-pick the seed then (re-picked 2026-11-06, was 27).
     const sitting = await startSitting(page.request, AGE, "parte-1", TYPICAL_FIRST_QUESTION_SEED);
     try {
       expect(sitting.questions.filter((q) => !q.reserve)).toHaveLength(70);

@@ -408,7 +408,43 @@ def _unit_blocks(blocks: list[Block], unit: Unit, place: object, occurrence: int
     # An annex holds its own capítulos and artículos: it runs to the next annex.
     ends = _opens_annex if unit.kind == "anexo" else (lambda block: bool(block.level))
     end = next((at for at in range(start + 1, len(blocks)) if ends(blocks[at])), len(blocks))
-    return blocks[start:end]
+    return _in_force(blocks[start:end])
+
+
+# A consolidated text prints a precept's new wording, then «Téngase en cuenta que esta actualización … entra
+# en vigor el 1 de diciembre de 2026», «Redacción anterior:» and the old wording in quotes. A dated effect is
+# the wording the course cites (R3.5); a conditional one («a partir de la entrada en vigor de las leyes …»)
+# may leave the old wording in force, so it stays, labelled.
+_DATE = r"\d{1,2}\s+de\s+\w+\s+de\s+\d{4}"
+_DATED_NOTE = re.compile(
+    r"^Téngase en cuenta que esta actualización\b.*?\b(?:entra en vigor|produce efectos)\s+"
+    rf"(?:el\s+(?:día\s+)?{_DATE}|desde\s+el\s+{_DATE}|en\s+la\s+[IVXLC]+\s+legislatura)"
+)
+_SUPERSEDED = re.compile(r"^Redacción anterior\s*:")
+_CLOSING_QUOTE = re.compile(r"[\"”»]\s*$")
+
+
+def _in_force(blocks: list[Block]) -> list[Block]:
+    """The unit without the old wording a dated update replaces; the apartados after it stay."""
+    out: list[Block] = []
+    dated = quoted = False
+    for block in blocks:
+        if quoted and not block.level:
+            quoted = not _CLOSING_QUOTE.search(block.text)
+            continue
+        quoted = False
+        if _DATED_NOTE.match(block.text):
+            dated = True
+            continue
+        if dated and _SUPERSEDED.match(block.text):
+            # The label may carry the old wording's opening on the same line.
+            opening = _SUPERSEDED.sub("", block.text).strip()
+            quoted = not opening or not _CLOSING_QUOTE.search(opening)
+            dated = False
+            continue
+        dated = False
+        out.append(block)
+    return out
 
 
 _TEXT_HEAD = re.compile(r"^(?:TEXTO CONSOLIDADO|Última modificación|Sabed:|Hago saber)", re.I)
@@ -533,7 +569,7 @@ def _letters(blocks: list[Block], letters: Iterable[str]) -> list[Block]:
 
 # The consolidated text's editorial notes are not the norm: «Téngase en cuenta…», «Se modifica … Ref. BOE-…».
 _NOTE = re.compile(
-    r"^(?:Téngase en cuenta\b|Redacción anterior\b|Ref\. BOE-|"
+    r"^(?:Téngase en cuenta\b|Ref\. BOE-|"
     r"Se (?:modifica|añade|deroga|suprime|da nueva redacción|renumera)\b.*Ref\. BOE-)"
 )
 
@@ -613,16 +649,6 @@ def _numbered_unit(blocks: list[Block], unit: Unit, segment: Segment) -> list[Bl
     paths = _dotted_paths(segment)
     section = _dotted_section(blocks, paths[0].split(".")[0]) if paths else []
     return [Block(""), *section] if section else None
-
-
-_CASE_FACT_PHRASES = (
-    "siete días hábiles",
-    "dos años",
-    "organismos autónomos",
-    "organismo autónomo",
-    "50 %",
-    "error de hecho",
-)
 
 
 _CASE_SUB_NUMBERS: dict[str, tuple[str, str]] = {
@@ -715,11 +741,14 @@ def norm_excerpt(
             elif "siete días hábiles" in explanation:
                 target_phrase = "siete días hábiles"
             if target_phrase:
-                matching = [b for b in found if target_phrase.lower() in b.text.lower()]
+                # A listed case reaches the whole unit; a phrase taken from the explanation stays inside the
+                # cited apartado, since the explanation may only refute it («… son los del art. 159.4.f)»).
+                scope = found if question_key in _CASE_SUB_NUMBERS else (cited or whole)
+                matching = [b for b in scope if target_phrase.lower() in b.text.lower()]
                 if matching:
                     best = matching[0]
-                    best_idx = found.index(best)
-                    lead = next((b for b in found[:best_idx] if _TERMINAL_COLON.search(b.text)), None)
+                    best_idx = scope.index(best)
+                    lead = next((b for b in scope[:best_idx] if _TERMINAL_COLON.search(b.text)), None)
                     selection = [lead, best] if lead is not None else [best]
                     text, cut = capped(_join(selection))
 

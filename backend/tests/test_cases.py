@@ -3,8 +3,10 @@
 
 from __future__ import annotations
 
+import importlib.util
 import shutil
 from pathlib import Path
+from types import ModuleType
 
 import pytest
 import yaml
@@ -180,3 +182,36 @@ def test_the_case_config_is_parsed_as_written(registry: CourseRegistry) -> None:
     config = registry.case_config("m02-ex-3")
     assert isinstance(config, CaseConfig)
     assert config.questions[15].lesson == "m02-l1" and config.questions[15].citation == "art. 10.1 LRJSP"
+
+
+# --- the case build tool -------------------------------------------------------------------------------
+
+BUILD_CASES = Path(__file__).resolve().parents[2] / "docs/age-verification/cases/tools/build_cases.py"
+AGE_COURSE_YAML = Path(__file__).resolve().parents[2] / "content/age-administrativo-c1/course.yaml"
+
+
+def _build_cases_tool() -> ModuleType:
+    spec = importlib.util.spec_from_file_location("build_cases", BUILD_CASES)
+    assert spec is not None and spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def test_rebuilding_the_cases_leaves_the_host_lessons_other_exercises_and_the_manifest_unchanged() -> None:
+    tool = _build_cases_tool()
+    course_yaml = AGE_COURSE_YAML.read_text(encoding="utf-8")
+    manifest = yaml.safe_load(course_yaml)
+    host = next(
+        lesson
+        for block in manifest["blocks"]
+        for module in block["modules"]
+        for lesson in module["lessons"]
+        if lesson["id"] == tool.HOST_LESSON
+    )
+    cases = [entry["id"] for entry in host["exercises"] if entry["type"] == "case"]
+    assert any(entry.get("official") for entry in host["exercises"]), (
+        "the host lesson lists official exams too"
+    )
+
+    assert tool.manifest_entries(course_yaml, cases) == course_yaml

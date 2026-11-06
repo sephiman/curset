@@ -135,7 +135,7 @@ export function SolutionBody({
                         )}
                       >
                         <span className="font-semibold">{String.fromCharCode(65 + idx)})</span>
-                        <span>{opt.text}</span>
+                        <span className="min-w-0 break-words">{opt.text}</span>
                         {isCorrect && (
                           <span className="ml-auto font-bold text-emerald-600 dark:text-emerald-400">✓</span>
                         )}

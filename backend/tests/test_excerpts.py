@@ -154,6 +154,102 @@ def test_a_long_article_or_apartado_focuses_the_subnumber_holding_the_fact() -> 
     assert "siete días hábiles" in res.text
 
 
+def test_a_phrase_the_explanation_refutes_never_moves_the_excerpt_out_of_the_cited_apartado() -> None:
+    from tradeschool.citations.excerpts import norm_excerpt
+    from tradeschool.citations.grammar import parse_segment
+
+    blocks = [
+        Block("Artículo 159. Procedimiento abierto simplificado.", 1),
+        Block(
+            "1. Los órganos de contratación podrán acordar el procedimiento cuando se cumplan "
+            "las dos condiciones:"
+        ),
+        Block("4. La tramitación del procedimiento se ajustará a las siguientes especialidades:"),
+        Block("f) En todo caso, la valoración deberá estar efectuada:"),
+        Block(
+            "4.º Requerir a la empresa que constituya la garantía definitiva en el plazo de "
+            "siete días hábiles."
+        ),
+        Block("6. En contratos de obras de valor estimado inferior a 80.000 euros " + "palabra " * 200),
+        Block(
+            "a) El plazo no será inferior a diez días hábiles. Cuando se trate de compras corrientes "
+            "de bienes disponibles en el mercado el plazo será de 5 días hábiles."
+        ),
+    ]
+    segment = parse_segment("art. 159.6 LCSP")
+    assert segment is not None
+    explanation = (
+        "El artículo 159.6.a) añade: «cuando se trate de compras corrientes de bienes disponibles "
+        "en el mercado el plazo será de 5 días hábiles». Los siete días hábiles son el plazo de la "
+        "garantía (artículo 159.4.f)."
+    )
+    found = norm_excerpt(blocks, segment, "lcsp.pdf", None, "", explanation)
+    assert isinstance(found, Excerpt)
+    assert "5 días hábiles" in found.text
+    assert "siete días hábiles" not in found.text
+
+
+@pytest.fixture(scope="module")
+def lgss_rdl_31_2026() -> list[Block]:
+    return pdf_blocks(_pdf_pages(AGE / "sources/normativa/BOE-A-2015-11724_lgss_2026-10-21.pdf"))
+
+
+@pytest.mark.parametrize(
+    ("citation", "in_force", "superseded"),
+    [
+        # Note and old wording close the article.
+        ("art. 172 LGSS", "En caso de enfermedad común, 180 días", "ciento ochenta días"),
+        # Note on apartado 1 only: apartados 2 and 3, in force, follow the old wording.
+        (
+            "art. 173 LGSS",
+            "En las situaciones especiales de incapacidad temporal previstas en el artículo 169.1.a), "
+            "el subsidio",
+            "menstruación incapacitante secundaria y por donación",
+        ),
+        (
+            "art. 173.1 LGSS",
+            "situaciones especiales de incapacidad temporal previstas en el artículo 169.1.a)",
+            '"1.',
+        ),
+    ],
+)
+def test_a_precept_reworded_for_a_later_date_shows_only_its_new_wording(
+    lgss_rdl_31_2026: list[Block], citation: str, in_force: str, superseded: str
+) -> None:
+    from tradeschool.citations.excerpts import norm_excerpt
+    from tradeschool.citations.grammar import parse_segment
+
+    segment = parse_segment(citation)
+    assert segment is not None
+    found = norm_excerpt(lgss_rdl_31_2026, segment, "lgss.pdf", None, "")
+    assert isinstance(found, Excerpt)
+    shown = f"{found.text}\n\n{found.full or ''}"
+    assert in_force in shown
+    assert superseded not in shown
+    assert "Redacción anterior" not in shown
+    if citation == "art. 173 LGSS":
+        assert "3. Durante las situaciones de huelga y cierre patronal" in shown
+
+
+def test_a_precept_whose_new_wording_waits_on_a_condition_keeps_the_old_one_labelled_after_it() -> None:
+    from tradeschool.citations.excerpts import norm_excerpt
+    from tradeschool.citations.grammar import parse_segment
+
+    # Art. 16.1 Ley 53/1984: the TREBEP wording applies only once each Administración passes its ley.
+    blocks = pdf_blocks(
+        _pdf_pages(AGE / "sources/normativa/BOE-A-1985-151_ley-incompatibilidades_2024-06-08.pdf")
+    )
+    segment = parse_segment("art. 16 Ley 53/1984")
+    assert segment is not None
+    found = norm_excerpt(blocks, segment, "ley-53-1984.pdf", None, "")
+    assert isinstance(found, Excerpt)
+    shown = found.full or found.text
+    new = shown.index("1. No podrá autorizarse o reconocerse compatibilidad al personal funcionario")
+    label = shown.index("Redacción anterior:")
+    old = shown.index('"1. No podrá autorizarse o reconocerse compatibilidad alguna')
+    assert new < label < old
+
+
 def test_a_wrapped_line_that_starts_with_an_ordinal_is_not_a_heading() -> None:
     page = "1. Podrá conceder una ampliación si no perjudica derechos de \ntercero. El acuerdo se notifica.\n"
     assert [block.level for block in pdf_blocks([page])] == [0]
