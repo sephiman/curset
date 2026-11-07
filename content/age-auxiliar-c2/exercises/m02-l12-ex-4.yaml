@@ -1,0 +1,608 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# Question bank, m02-l12: fixed multiple-choice questions (C2 round R3). Generated from
+# docs/age-verification/c2/bank/bloque-ii/ (kept derived + authored minus drops.tsv) by
+# docs/age-verification/c2/bank/tools/build_exercises.py; edit the drafts and rebuild, not this file.
+type: quiz
+variants:
+# anchor: fuente-ms-win-ping-html
+- id: m02-l12-q071
+  prompt:
+    es: "En Windows 11, si el ping a una dirección IP funciona pero el ping al nombre del equipo no, ¿qué indica la documentación de ping?"
+  options:
+  - id: a
+    text:
+      es: "Es posible que haya un problema de conectividad IP con el destino"
+  - id: b
+    text:
+      es: "Es seguro que el equipo de destino no está encendido"
+  - id: c
+    text:
+      es: "Es posible que el protocolo ICMP esté desinstalado en el equipo local"
+  - id: d
+    correct: true
+    text:
+      es: "Es posible que haya un problema de resolución de nombres"
+  explanation:
+    es: "Si el ping a la IP funciona y el ping al nombre no, es posible que haya un problema de resolución de nombres. Un ping correcto a la IP demuestra la conectividad IP, que es lo que ping comprueba. Si el ping a la IP funciona, el equipo de destino responde, así que no puede estar apagado. ping funciona con la IP, así que el envío de solicitudes de eco ICMP está operativo en el equipo local."
+  citation: "fuente: `ms-win-ping.html`; «ping»"
+  difficulty: 2
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-win-ping-html
+- id: m02-l12-q072
+  prompt:
+    es: "¿Cuál de los siguientes medios permite resolver el nombre de equipo que se indica a ping en Windows 11, según la documentación?"
+  options:
+  - id: a
+    text:
+      es: "Solo mediante consultas del sistema de nombres de dominio"
+  - id: b
+    correct: true
+    text:
+      es: "Mediante el archivo hosts local, consultas DNS o técnicas de resolución de nombres NetBIOS"
+  - id: c
+    text:
+      es: "Solo mediante el archivo hosts local del equipo"
+  - id: d
+    text:
+      es: "Solo mediante técnicas de resolución de nombres NetBIOS"
+  explanation:
+    es: "El nombre debe poder resolverse por el archivo hosts local, por consultas DNS o por técnicas de resolución de nombres NetBIOS. El archivo hosts es uno de los tres medios, no el único. Las consultas DNS son uno de los tres medios, no el único. NetBIOS es uno de los tres medios, no el único."
+  citation: "fuente: `ms-win-ping.html`; «ping»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-ms-win-ping-html
+- id: m02-l12-q073
+  prompt:
+    es: "En Windows 11, si el comando ping se escribe sin ningún parámetro, el sistema muestra:"
+  options:
+  - id: a
+    text:
+      es: "El error «Tiempo de espera de solicitud» tras cuatro intentos"
+  - id: b
+    text:
+      es: "Los tiempos de ida y vuelta hacia el equipo local"
+  - id: c
+    correct: true
+    text:
+      es: "El contenido de la Ayuda"
+  - id: d
+    text:
+      es: "Una solicitud de eco enviada a la puerta de enlace predeterminada"
+  explanation:
+    es: "Si se usa sin parámetros, ping muestra el contenido de la Ayuda. El error de tiempo de espera aparece cuando no se recibe una respuesta de eco dentro del tiempo de espera, no al usarlo sin parámetros. Los tiempos de ida y vuelta se muestran al recibir respuestas de un destino, que sin parámetros no se indica. Sin parámetros no se indica destino, por lo que no envía ninguna solicitud de eco."
+  citation: "fuente: `ms-win-ping.html`; «ping»"
+  difficulty: 1
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-win-ping-html
+- id: m02-l12-q074
+  prompt:
+    es: "En Windows 11, ¿cuántas direcciones o nombres admite como máximo la lista de hosts de los parámetros /j y /k de ping?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Nueve direcciones o nombres como máximo"
+  - id: b
+    text:
+      es: "255 direcciones o nombres como máximo"
+  - id: c
+    text:
+      es: "Treinta y dos direcciones o nombres como máximo"
+  - id: d
+    text:
+      es: "Cuatro direcciones o nombres como máximo"
+  explanation:
+    es: "La lista de hosts admite como máximo 9 direcciones o nombres. Cuatro es el máximo del recuento de /s y el número de solicitudes por defecto, no el de la lista de hosts. 32 es la longitud predeterminada del campo de datos. 255 es el valor máximo del TTL y del TOS."
+  citation: "fuente: `ms-win-ping.html`; «ping»"
+  difficulty: 3
+  tags:
+  - "cantidad"
+# anchor: fuente-incibe-glosario-ciberseguridad-pdf
+- id: m02-l12-q075
+  prompt:
+    es: "¿Cuál de los siguientes esquemas sigue el protocolo HTTP, el más utilizado para la navegación web, según el glosario de INCIBE?"
+  options:
+  - id: a
+    text:
+      es: "Petición-respuesta: el servidor pide los recursos al navegador y este se los envía"
+  - id: b
+    text:
+      es: "Suscripción: el servidor envía los recursos al navegador sin que este los pida"
+  - id: c
+    text:
+      es: "Conexión permanente: el navegador y el servidor mantienen un canal cifrado abierto"
+  - id: d
+    correct: true
+    text:
+      es: "Petición-respuesta: el navegador pide los recursos y el servidor se los envía si los tiene"
+  explanation:
+    es: "HTTP sigue un esquema petición-respuesta: el navegador pide los recursos que necesita y el servidor se los envía si dispone de ellos. Invertir los papeles contradice la página: es el navegador quien realiza las peticiones. El servidor solo envía los recursos que el navegador ha pedido. La información enviada por HTTP va en texto claro, no por un canal cifrado."
+  citation: "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.8.8. HTTP»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-incibe-glosario-ciberseguridad-pdf
+- id: m02-l12-q076
+  prompt:
+    es: "Señale con qué se identifica cada pieza de información transmitida por HTTP, según el glosario de términos de ciberseguridad de INCIBE:"
+  options:
+  - id: a
+    text:
+      es: "Con una dirección IP, que identifica al sistema conectado"
+  - id: b
+    correct: true
+    text:
+      es: "Con una URL (Uniform Resource Locator)"
+  - id: c
+    text:
+      es: "Con un certificado X.509 que autentica al servidor"
+  - id: d
+    text:
+      es: "Con una dirección MAC, escrita en el hardware de la red"
+  explanation:
+    es: "En HTTP, cada pieza de información transmitida se identifica con una URL (Uniform Resource Locator). La dirección MAC identifica a un dispositivo conectado a una red, no a cada pieza de información. La dirección IP identifica a todo sistema conectado a una red, no cada recurso transmitido. El certificado X.509 se usa en SSL para autenticar, no para identificar cada recurso."
+  citation: "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.8.8. HTTP»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-incibe-glosario-ciberseguridad-pdf
+- id: m02-l12-q077
+  prompt:
+    es: "Señale lo que implica que HTTP envíe la información en texto claro, según el glosario de términos de ciberseguridad de INCIBE:"
+  options:
+  - id: a
+    text:
+      es: "Que solo el servidor de destino puede leer lo que envía el navegador a la página"
+  - id: b
+    text:
+      es: "Que el navegador y el servidor intercambian antes una clave de cifrado"
+  - id: c
+    correct: true
+    text:
+      es: "Que cualquiera que intercepte el tráfico puede leer lo enviado y recibido"
+  - id: d
+    text:
+      es: "Que la información se cifra antes de ser enviada por la red"
+  explanation:
+    es: "HTTP envía la información en texto claro: cualquiera que intercepte el tráfico de red puede leer lo que se envía y se recibe. Que solo el servidor pueda leerla contradice que cualquiera que intercepte el tráfico puede hacerlo. Cifrar la información antes de enviarla es lo que hace HTTPS. Intercambiar antes una clave entre navegador y servidor es lo que se hace en HTTPS para cifrar el tráfico."
+  citation: "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.8.8. HTTP»"
+  difficulty: 1
+  tags:
+  - "concepto"
+  - "comportamiento"
+# anchor: fuente-incibe-glosario-ciberseguridad-pdf
+- id: m02-l12-q078
+  prompt:
+    es: "¿Cuál de las siguientes razones explica por qué se desarrolló el protocolo HTTPS, según el glosario de términos de ciberseguridad de INCIBE?"
+  options:
+  - id: a
+    text:
+      es: "Porque HTTP es un protocolo poco utilizado para la navegación web"
+  - id: b
+    correct: true
+    text:
+      es: "Porque HTTP envía en texto claro y lo puede leer quien intercepte el tráfico"
+  - id: c
+    text:
+      es: "Porque HTTP no identifica con una URL cada pieza de información transmitida"
+  - id: d
+    text:
+      es: "Porque HTTP no sigue un esquema de petición y respuesta entre navegador y servidor"
+  explanation:
+    es: "HTTPS se desarrolló porque HTTP envía en texto claro, de modo que cualquiera que intercepte el tráfico puede leerlo; en HTTPS la información se cifra antes de enviarse. HTTP sí sigue un esquema petición-respuesta, y HTTPS se basa en él. HTTP sí identifica cada pieza de información con una URL. HTTP es el protocolo más utilizado para la navegación web."
+  citation: "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.8.8. HTTP»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-incibe-glosario-ciberseguridad-pdf
+- id: m02-l12-q079
+  prompt:
+    es: "¿Cuál de las siguientes formas de cifrado se aplica al tráfico HTTP en HTTPS, según el glosario de términos de ciberseguridad de INCIBE?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Con cifrado simétrico, cuya clave se intercambió antes entre navegador y servidor"
+  - id: b
+    text:
+      es: "Con un algoritmo de cifrado asimétrico aplicado a todo el tráfico HTTP de la comunicación"
+  - id: c
+    text:
+      es: "Sin cifrar el tráfico: solo se autentica el servidor con un certificado"
+  - id: d
+    text:
+      es: "Con una clave simétrica fija que genera el navegador sin intercambiarla con el servidor"
+  explanation:
+    es: "En HTTPS el tráfico HTTP se cifra con un algoritmo simétrico cuya clave se ha intercambiado previamente entre el navegador y el servidor. El tráfico no se cifra con un algoritmo asimétrico: es un algoritmo simétrico. La clave no es fija ni se genera sin intercambio: se ha intercambiado previamente entre navegador y servidor. HTTPS cifra el tráfico HTTP, que es lo que lo distingue de HTTP."
+  citation: "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.8.9. HTTPS»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-incibe-glosario-ciberseguridad-pdf
+- id: m02-l12-q080
+  prompt:
+    es: "Señale la definición de HTTPS que ofrece el glosario de términos de ciberseguridad de INCIBE en su apartado sobre protocolos:"
+  options:
+  - id: a
+    text:
+      es: "Un protocolo de red basado en FTP, destinado a la transferencia segura de ficheros"
+  - id: b
+    correct: true
+    text:
+      es: "Un protocolo de red basado en HTTP, destinado a la transferencia segura de datos de hipertexto"
+  - id: c
+    text:
+      es: "Un protocolo de red basado en TCP/IP, destinado a traducir nombres de dominio de forma segura"
+  - id: d
+    text:
+      es: "Un protocolo de red basado en SMTP, destinado al envío seguro de correo electrónico"
+  explanation:
+    es: "HTTPS es un protocolo de red basado en HTTP, destinado a la transferencia segura de datos de hipertexto; en otras palabras, la versión segura de HTTP. La versión segura de FTP es SFTP, que usa SSH para la transferencia de datos entre cliente y servidor. SMTP intercambia mensajes de correo electrónico y no tiene una versión segura llamada HTTPS. Traducir nombres de dominio en direcciones IP es la función del DNS."
+  citation: "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.8.9. HTTPS»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-incibe-glosario-ciberseguridad-pdf
+- id: m02-l12-q081
+  prompt:
+    es: "El protocolo SSL, que proporciona autenticación y privacidad entre extremos mediante criptografía, ha evolucionado hacia:"
+  options:
+  - id: a
+    text:
+      es: "SFTP, siglas de protocolo de transferencia segura de archivos"
+  - id: b
+    text:
+      es: "DNSSEC, siglas de extensiones de seguridad del sistema de nombres de dominio"
+  - id: c
+    text:
+      es: "SMTP, siglas de protocolo simple de transferencia de correo"
+  - id: d
+    correct: true
+    text:
+      es: "TLS, siglas de seguridad de la capa de transporte"
+  explanation:
+    es: "SSL ha evolucionado hacia TLS (Transport Layer Security, seguridad de la capa de transporte), muy utilizado en la actualidad. SFTP es el protocolo de transferencia segura de archivos que usa SSH, no la evolución de SSL. DNSSEC añade una capa de seguridad al protocolo DNS, no es la evolución de SSL. SMTP es el protocolo de intercambio de correo electrónico."
+  citation: "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.18.24. SSL»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-incibe-glosario-ciberseguridad-pdf
+- id: m02-l12-q082
+  prompt:
+    es: "Señale qué lado se autentica de forma general en una comunicación SSL, según el glosario de términos de ciberseguridad de INCIBE:"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Solo el lado del servidor, mientras que el cliente se mantiene sin autenticar"
+  - id: b
+    text:
+      es: "Ambos lados, el servidor y el cliente, mediante certificados X.509"
+  - id: c
+    text:
+      es: "Solo el lado del cliente, mientras que el servidor se mantiene sin autenticar"
+  - id: d
+    text:
+      es: "Ninguno de los dos lados, porque SSL solo cifra la información"
+  explanation:
+    es: "En SSL, de forma general solo se autentica el lado del servidor; la autenticación mutua exige una infraestructura de claves públicas (PKI) para los clientes. El cliente es el que se mantiene sin autenticar, no el servidor. La autenticación de ambos lados exige desplegar una infraestructura de claves públicas para los clientes, y no es lo general. SSL proporciona autenticación y privacidad, no solo cifrado."
+  citation: "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.18.24. SSL»"
+  difficulty: 3
+  tags:
+  - "concepto"
+# anchor: fuente-incibe-glosario-ciberseguridad-pdf
+- id: m02-l12-q083
+  prompt:
+    es: "¿Cuál de las siguientes acciones puede hacer un equipo cliente con el servicio FTP, según el glosario de términos de ciberseguridad de INCIBE?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Conectarse a un servidor para descargar archivos o enviarle archivos, sea cual sea el sistema operativo"
+  - id: b
+    text:
+      es: "Solo enviar archivos a un servidor, sin poder descargarlos"
+  - id: c
+    text:
+      es: "Solo descargar archivos de un servidor, sin poder enviarle archivos"
+  - id: d
+    text:
+      es: "Conectarse a un servidor solo si ambos equipos usan el mismo sistema operativo"
+  explanation:
+    es: "Con FTP, desde un equipo cliente se puede conectar a un servidor para descargar archivos o enviarle archivos, con independencia del sistema operativo de cada equipo. FTP permite también enviar archivos al servidor, no solo descargarlos. FTP permite también descargar archivos del servidor, no solo enviarlos. FTP funciona independientemente del sistema operativo utilizado en cada equipo."
+  citation: "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.6.12. FTP»"
+  difficulty: 2
+  tags:
+  - "concepto"
+  - "comportamiento"
+# anchor: fuente-incibe-glosario-ciberseguridad-pdf
+- id: m02-l12-q084
+  prompt:
+    es: "¿Cuál de las siguientes tareas tiene SMTP frente a los protocolos POP e IMAP, según el glosario de términos de ciberseguridad de INCIBE?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Enviar el correo, mientras que POP o IMAP se emplean para recibirlo"
+  - id: b
+    text:
+      es: "Enviar y recibir el correo, sin necesidad de usar POP ni IMAP"
+  - id: c
+    text:
+      es: "Recibir el correo, mientras que POP o IMAP se emplean para enviarlo"
+  - id: d
+    text:
+      es: "Descargar ficheros del servidor, mientras que POP o IMAP envían el correo"
+  explanation:
+    es: "A SMTP se le dejó la tarea específica de enviar correo, y la recepción se hace con POP o IMAP. Invertir las tareas contradice la página: SMTP envía y POP o IMAP reciben. SMTP tiene limitaciones en la recepción, por lo que se crearon POP e IMAP para recibir. La descarga de ficheros del servidor es la función de FTP, no la de SMTP."
+  citation: "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.18.16. SMTP»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-incibe-glosario-ciberseguridad-pdf
+- id: m02-l12-q085
+  prompt:
+    es: "¿Cuál de las siguientes características define al correo spam, según el glosario de términos de ciberseguridad de INCIBE?"
+  options:
+  - id: a
+    text:
+      es: "Prometer negocios muy rentables a cambio de una transferencia de dinero"
+  - id: b
+    text:
+      es: "Usar el nombre de una persona u organismo de confianza para obtener datos"
+  - id: c
+    text:
+      es: "Ser solicitado por el receptor y enviarse a un único destinatario"
+  - id: d
+    correct: true
+    text:
+      es: "Ser no solicitado por el receptor y enviarse en grandes cantidades"
+  explanation:
+    es: "El correo spam es un correo no solicitado por el receptor y que se envía en grandes cantidades. Que sea solicitado por el receptor y a un único destinatario contradice la definición. Usar el nombre de una persona u organismo de confianza para obtener datos es el correo de suplantación. Prometer negocios muy rentables a cambio de una transferencia de dinero es el esquema de las cartas nigerianas."
+  citation: "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.3.32. Correo spam»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-incibe-glosario-ciberseguridad-pdf
+- id: m02-l12-q086
+  prompt:
+    es: "¿Cuál de las siguientes finalidades tiene el envío de correo spam, según el glosario de términos de ciberseguridad de INCIBE?"
+  options:
+  - id: a
+    text:
+      es: "Para comprobar si el usuario que lo recibe es un humano o un bot"
+  - id: b
+    correct: true
+    text:
+      es: "Con fines publicitarios o como complemento de actividades maliciosas como los ataques de phishing"
+  - id: c
+    text:
+      es: "Para intercambiar mensajes de correo electrónico entre servidores de correo"
+  - id: d
+    text:
+      es: "Para evitar que el usuario introduzca el usuario y la contraseña en cada página"
+  explanation:
+    es: "El spam se envía con fines publicitarios o como complemento de actividades maliciosas como los ataques de phishing. Comprobar si el usuario es un humano o un bot es la función del CAPTCHA. Evitar introducir el usuario y la contraseña en cada página es una de las funciones de las cookies. Intercambiar mensajes de correo entre servidores es lo que hace SMTP."
+  citation: "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.3.32. Correo spam»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-incibe-glosario-ciberseguridad-pdf
+- id: m02-l12-q087
+  prompt:
+    es: "¿Qué sinónimo da el glosario de términos de ciberseguridad de INCIBE para el término correo spam en la entrada correspondiente?"
+  options:
+  - id: a
+    text:
+      es: "Cartas nigerianas"
+  - id: b
+    text:
+      es: "Correo de suplantación"
+  - id: c
+    correct: true
+    text:
+      es: "Correo basura"
+  - id: d
+    text:
+      es: "Phishing, que es otro tipo de ataque"
+  explanation:
+    es: "El glosario da como sinónimo de correo spam el término correo basura. Correo de suplantación es una entrada aparte: un mensaje que usa el nombre de una persona u organismo de confianza. Cartas nigerianas es otra entrada aparte: una comunicación inesperada que promete negocios muy rentables. Phishing es otra entrada aparte: una técnica de suplantación para conseguir credenciales o datos de tarjeta; el spam solo la complementa."
+  citation: "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.3.32. Correo spam»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-incibe-glosario-ciberseguridad-pdf
+- id: m02-l12-q088
+  prompt:
+    es: "¿Cuál de los siguientes tipos de pruebas realiza la medida de seguridad CAPTCHA, según el glosario de términos de ciberseguridad de INCIBE?"
+  options:
+  - id: a
+    text:
+      es: "Pruebas de cifrado simétrico controladas por el usuario"
+  - id: b
+    text:
+      es: "Pruebas de autenticación con certificado controladas por el servidor"
+  - id: c
+    text:
+      es: "Pruebas de petición-respuesta controladas por el navegador"
+  - id: d
+    correct: true
+    text:
+      es: "Pruebas de desafío-respuesta controladas por máquinas"
+  explanation:
+    es: "CAPTCHA consiste en pruebas de desafío-respuesta controladas por máquinas, para saber si el usuario es un humano o un bot según su respuesta. No son pruebas de cifrado simétrico: es un desafío-respuesta que sirve para distinguir humanos de bots. No son pruebas con certificado: se trata de desafíos cuya respuesta indica si el usuario es un humano o un bot. El esquema petición-respuesta es el de HTTP; el CAPTCHA es una prueba de desafío-respuesta."
+  citation: "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.3.2. Captcha»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-incibe-glosario-ciberseguridad-pdf
+- id: m02-l12-q089
+  prompt:
+    es: "Según el glosario de términos de ciberseguridad de INCIBE, ¿qué se entiende por servidor en el contexto de las redes y los servicios?"
+  options:
+  - id: a
+    text:
+      es: "Solo el programa de software que realiza tareas, nunca el ordenador físico"
+  - id: b
+    text:
+      es: "Solo el ordenador físico en el que funciona el programa, nunca el programa"
+  - id: c
+    text:
+      es: "El equipo que descarga archivos de otras máquinas con un cliente FTP"
+  - id: d
+    correct: true
+    text:
+      es: "Tanto el equipo que almacena una información como el programa que la gestiona y la ofrece"
+  explanation:
+    es: "Por servidor se entiende tanto el equipo que almacena una información como el programa que la gestiona y la ofrece a otras máquinas. Decir que es solo el ordenador excluye al software, que el glosario también incluye. Decir que es solo el programa excluye al ordenador físico, que el glosario también incluye. El equipo que descarga archivos mediante FTP es el cliente; el servidor es el que ofrece los archivos."
+  citation: "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.18.8. Servidor»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-incibe-glosario-ciberseguridad-pdf
+- id: m02-l12-q090
+  prompt:
+    es: "Según el glosario de términos de ciberseguridad de INCIBE, una URL (Uniform Resource Locator) es:"
+  options:
+  - id: a
+    text:
+      es: "El servicio que traduce nombres de dominio en direcciones IP"
+  - id: b
+    correct: true
+    text:
+      es: "La dirección que identifica un contenido colgado en Internet"
+  - id: c
+    text:
+      es: "El pequeño fichero que guarda un sitio web en el equipo del usuario"
+  - id: d
+    text:
+      es: "El número único que identifica a todo sistema conectado a una red"
+  explanation:
+    es: "Las siglas URL hacen referencia a la dirección que identifica un contenido colgado en Internet. El número único que identifica a todo sistema conectado a una red es la dirección IP. El servicio que traduce nombres de dominio en direcciones IP es el DNS. El pequeño fichero que guarda un sitio web en el equipo del usuario es la cookie."
+  citation: "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.20.1. URL»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-whatwg-html-introduccion-html
+- id: m02-l12-q091
+  prompt:
+    es: "¿Qué es HTML, según la introducción del estándar HTML del WHATWG, en relación con la World Wide Web?"
+  options:
+  - id: a
+    text:
+      es: "El protocolo de transferencia de hipertexto de la World Wide Web"
+  - id: b
+    correct: true
+    text:
+      es: "El lenguaje de marcado principal de la World Wide Web"
+  - id: c
+    text:
+      es: "El lenguaje de programación que ejecutan los navegadores en la Web"
+  - id: d
+    text:
+      es: "El lenguaje basado en XML que sustituyó a HTML en la Web"
+  explanation:
+    es: "El estándar define HTML como el lenguaje de marcado principal de la World Wide Web. El protocolo de transferencia de hipertexto es HTTP, y HTML es un lenguaje de marcado, no un protocolo. XHTML fue el equivalente basado en XML, pero el interés por evolucionar HTML renació en 2003, sin que lo sustituyera. Los scripts en JavaScript son los programas que se insertan en la página; HTML es el lenguaje de marcado."
+  citation: "fuente: `whatwg-html-introduccion.html`; «1.3 Background»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-whatwg-html-introduccion-html
+- id: m02-l12-q092
+  prompt:
+    es: "Según el estándar HTML del WHATWG, ¿para qué se diseñó principalmente HTML en su origen?"
+  options:
+  - id: a
+    text:
+      es: "Para transferir ficheros entre un cliente y un servidor"
+  - id: b
+    text:
+      es: "Para intercambiar mensajes de correo electrónico entre servidores"
+  - id: c
+    text:
+      es: "Para describir aplicaciones web interactivas en el navegador"
+  - id: d
+    correct: true
+    text:
+      es: "Para describir semánticamente documentos científicos"
+  explanation:
+    es: "En su origen, HTML se diseñó principalmente como un lenguaje para describir semánticamente documentos científicos; después se adaptó a otros documentos y aplicaciones. Describir aplicaciones es una adaptación posterior de su diseño, no el propósito original. Transferir ficheros entre cliente y servidor es lo que hace FTP. Intercambiar correo entre servidores es lo que hace SMTP."
+  citation: "fuente: `whatwg-html-introduccion.html`; «Originally, HTML was primarily designed as a language for semantically describing scientific documents.»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-whatwg-html-introduccion-html
+- id: m02-l12-q093
+  prompt:
+    es: "¿Cuál de las siguientes formas de insertar scripts, normalmente escritos en JavaScript, describe la introducción del estándar HTML del WHATWG?"
+  options:
+  - id: a
+    text:
+      es: "Como datos, con atributos data-* que los navegadores procesan siempre"
+  - id: b
+    correct: true
+    text:
+      es: "Como pequeños programas, con el elemento script o con atributos de manejadores de eventos"
+  - id: c
+    text:
+      es: "Como pequeños programas, solo con el elemento noscript de la página"
+  - id: d
+    text:
+      es: "Como hojas de estilo, con el elemento style o con atributos de color"
+  explanation:
+    es: "Los scripts (normalmente en JavaScript) son pequeños programas que se insertan con el elemento script o con atributos de contenido de manejadores de eventos. Un script es un pequeño programa, no una hoja de estilo, y no se inserta con atributos de color. El elemento noscript muestra contenido cuando los scripts están desactivados; no sirve para insertarlos. Los atributos data-* nunca los toca el navegador: sirven para que los scripts guarden datos en los elementos."
+  citation: "fuente: `whatwg-html-introduccion.html`; «1.10 A quick introduction to HTML»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-whatwg-html-introduccion-html
+- id: m02-l12-q094
+  prompt:
+    es: "¿Cuál de las siguientes acciones se puede hacer desde los scripts de la página con el árbol DOM, según la introducción del estándar HTML del WHATWG?"
+  options:
+  - id: a
+    text:
+      es: "Solo leerlo, sin poder modificar ninguno de sus elementos"
+  - id: b
+    text:
+      es: "Nada: el árbol DOM solo lo modifica el servidor de la página"
+  - id: c
+    text:
+      es: "Sustituirlo por un árbol XML que el navegador no procesa"
+  - id: d
+    correct: true
+    text:
+      es: "Manipularlo, por ejemplo cambiando el destino de un enlace"
+  explanation:
+    es: "El árbol DOM se puede manipular desde scripts de la página («This DOM tree can be manipulated from scripts in the page»); por ejemplo, un script puede cambiar el atributo href de un enlace. Leerlo sin poder modificar nada no es lo que dice la página, que explica cómo se cambia el destino de un enlace. Que solo lo modifique el servidor tampoco: la manipulación se hace desde scripts de la página. Y sustituirlo por un árbol XML que el navegador no procesa choca con la sección 1.8 de la página del WHATWG, que dice de los documentos XML: «it is treated as an XML document by web browsers, to be parsed by an XML processor», es decir, el navegador sí los procesa con un procesador XML."
+  citation: "fuente: `whatwg-html-introduccion.html`; «1.10 A quick introduction to HTML»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-whatwg-html-scripting-html
+- id: m02-l12-q095
+  prompt:
+    es: "¿Cuál de las siguientes razones da el estándar HTML para animar a usar alternativas declarativas a los scripts siempre que sea posible?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Porque suelen ser más fáciles de mantener y muchos usuarios los desactivan"
+  - id: b
+    text:
+      es: "Porque los scripts no pueden dar interactividad a los documentos"
+  - id: c
+    text:
+      es: "Porque los navegadores no pueden ejecutar scripts en JavaScript"
+  - id: d
+    text:
+      es: "Porque las alternativas declarativas se ejecutan siempre en el servidor de la página"
+  explanation:
+    es: "El estándar dice: «Authors are encouraged to use declarative alternatives to scripting where possible, as declarative mechanisms are often more maintainable, and many users disable scripting». Que los scripts no puedan dar interactividad contradice la primera frase de la sección: «Scripts allow authors to add interactivity to their documents». Que los navegadores no ejecuten scripts en JavaScript contradice la propia razón de que muchos usuarios los desactiven, que supone que se ejecutan. Y que las alternativas declarativas se ejecuten siempre en el servidor no es lo que dice la sección: su ejemplo, el elemento details para mostrar u ocultar una sección, lo resuelve el navegador sin script."
+  citation: "fuente: `whatwg-html-scripting.html`; «4.12 Scripting»"
+  difficulty: 2
+  tags:
+  - "concepto"

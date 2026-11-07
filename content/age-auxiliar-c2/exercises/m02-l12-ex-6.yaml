@@ -1,0 +1,607 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# Question bank, m02-l12: fixed multiple-choice questions (C2 round R3). Generated from
+# docs/age-verification/c2/bank/bloque-ii/ (kept derived + authored minus drops.tsv) by
+# docs/age-verification/c2/bank/tools/build_exercises.py; edit the drafts and rebuild, not this file.
+type: quiz
+variants:
+# anchor: fuente-ms-win-dhcp-html
+- id: m02-l12-q166
+  prompt:
+    es: "¿Cuál de las siguientes funciones tiene el agente de retransmisión DHCP, según la documentación de Microsoft sobre el servidor DHCP?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Reenviar los mensajes DHCP iniciales, de modo que no hace falta un servidor DHCP en cada subred"
+  - id: b
+    text:
+      es: "Distribuir el tráfico de red entre dos o más redes según la dirección de destino"
+  - id: c
+    text:
+      es: "Actualizar los registros DNS cuando se asignan o se renuevan las concesiones"
+  - id: d
+    text:
+      es: "Reservar una dirección fija para cada cliente asociándola a su equipo"
+  explanation:
+    es: "La página atribuye al agente de retransmisión el reenvío de los mensajes DHCP iniciales, lo que elimina la necesidad de un servidor en cada subred. «Distribuir el tráfico de red entre dos o más redes según la dirección de destino» es la función de un router, según INCIBE, y no la del agente de retransmisión. «Reservar una dirección fija para cada cliente asociándola a su equipo» corresponde a las direcciones reservadas, que el servidor guarda en su base de datos asociadas a determinados clientes. «Actualizar los registros DNS cuando se asignan o se renuevan las concesiones» es la integración del servidor DHCP con DNS dinámico, una característica del servidor y no del agente."
+  citation: "fuente: `ms-win-dhcp.html`; «¿Qué es el servidor del Protocolo de configuración dinámica de host (DHCP) en Windows Server?»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-rfc1591-dominios-txt
+- id: m02-l12-q167
+  prompt:
+    es: "Según el RFC 1591, de 1994, ¿qué organismo es responsable de la coordinación y gestión generales del DNS y de la delegación de los dominios de primer nivel?"
+  options:
+  - id: a
+    text:
+      es: "El InterNIC, el registro central que lleva la administración diaria de los dominios"
+  - id: b
+    text:
+      es: "El IDNB, el comité que revisa los desacuerdos sobre la delegación de dominios"
+  - id: c
+    text:
+      es: "El RIPE NCC, el registro regional que asiste en la administración del DNS en Europa"
+  - id: d
+    correct: true
+    text:
+      es: "La IANA (Internet Assigned Numbers Authority)"
+  explanation:
+    es: "El RFC 1591 atribuye a la IANA la coordinación y gestión generales del DNS y, en especial, la delegación de los dominios de primer nivel. «El InterNIC, el registro central que lleva la administración diaria de los dominios» es el registro de Internet al que el RFC encarga la administración del día a día y el registro de segundos niveles; la coordinación general es de la IANA. «El RIPE NCC, el registro regional que asiste en la administración del DNS en Europa» es uno de los registros regionales que, según el RFC, ayudan en la administración del DNS, pero no lo coordinan. «El IDNB, el comité que revisa los desacuerdos sobre la delegación de dominios» es un comité creado por la IANA que solo actúa como panel de revisión cuando las partes no logran ponerse de acuerdo."
+  citation: "fuente: `rfc1591-dominios.txt`; «3. The Administration of Delegated Domains»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-rfc1591-dominios-txt
+- id: m02-l12-q168
+  prompt:
+    es: "Según el RFC 1591, ¿qué designan los dominios de primer nivel de dos letras, como FR, NL, KR o US, a diferencia de COM, EDU o NET?"
+  options:
+  - id: a
+    text:
+      es: "Registros regionales, como el que atiende a Europa"
+  - id: b
+    correct: true
+    text:
+      es: "Países, con códigos tomados de la lista ISO 3166"
+  - id: c
+    text:
+      es: "Tipos de organización, como las empresas o las instituciones educativas"
+  - id: d
+    text:
+      es: "Entidades reservadas al ejército o al Gobierno de Estados Unidos"
+  explanation:
+    es: "Los dominios de país son los códigos de dos letras de la norma ISO 3166, y cada uno lo organiza un administrador de ese país. «Tipos de organización, como las empresas o las instituciones educativas» describe los dominios genéricos: COM es para las empresas y EDU para las instituciones educativas. «Registros regionales, como el que atiende a Europa»: los registros regionales, como el RIPE NCC para Europa, solo ayudan en la administración del DNS; los códigos de dos letras salen de ISO 3166. «Entidades reservadas al ejército o al Gobierno de Estados Unidos»: MIL lo usa el ejército de Estados Unidos y GOV sus agencias federales; son dominios genéricos de tres letras."
+  citation: "fuente: `rfc1591-dominios.txt`; «2. The Top Level Structure of the Domain Names»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-rfc1591-dominios-txt
+- id: m02-l12-q169
+  prompt:
+    es: "¿Por qué tomó el RFC 1591 la lista ISO 3166 como base de los dominios de primer nivel de país?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Porque ISO decide qué entidades constan en su lista y la IANA no decide qué es un país"
+  - id: b
+    text:
+      es: "Porque la IANA estudia en cada solicitud si el solicitante representa de verdad a un país"
+  - id: c
+    text:
+      es: "Porque los dominios de país son los siete dominios genéricos originales, repartidos por regiones"
+  - id: d
+    text:
+      es: "Porque el comité IDNB decide qué entidades son países cuando hay desacuerdo"
+  explanation:
+    es: "El RFC explica que la IANA no está en el negocio de decidir qué es o no un país, y que ISO ya tiene un procedimiento para decidirlo. «Porque la IANA estudia en cada solicitud si el solicitante representa de verdad a un país» contradice el RFC: la IANA no decide qué es un país; por eso se acude a la lista de ISO. «Porque el comité IDNB decide qué entidades son países cuando hay desacuerdo»: el IDNB es el panel que revisa los desacuerdos entre partes que se disputan un dominio, no el que define países. «Porque los dominios de país son los siete dominios genéricos originales, repartidos por regiones» son cosas distintas: los siete genéricos son EDU, COM, NET, ORG, GOV, MIL e INT, y los de país son los códigos de dos letras."
+  citation: "fuente: `rfc1591-dominios.txt`; «2. The Top Level Structure of the Domain Names»"
+  difficulty: 3
+  tags:
+  - "concepto"
+# anchor: fuente-rfc1591-dominios-txt
+- id: m02-l12-q170
+  prompt:
+    es: "¿Cuál de las siguientes descripciones corresponde, según el RFC 1591, al dominio genérico INT, uno de los dominios de primer nivel de ámbito mundial?"
+  options:
+  - id: a
+    text:
+      es: "Para organizaciones varias que no encajaban en ningún otro dominio"
+  - id: b
+    text:
+      es: "Para los ordenadores de los proveedores de red, como los centros NIC y NOC"
+  - id: c
+    text:
+      es: "Para instituciones educativas, como universidades, colegios y consorcios del sector de la enseñanza"
+  - id: d
+    correct: true
+    text:
+      es: "Para organizaciones establecidas por tratados o bases de datos internacionales"
+  explanation:
+    es: "El RFC reserva INT a las organizaciones establecidas por tratados internacionales o por bases de datos internacionales. «Para los ordenadores de los proveedores de red, como los centros NIC y NOC» es el uso de NET, que alberga solo los ordenadores de los proveedores de red. «Para organizaciones varias que no encajaban en ningún otro dominio» es el uso de ORG, el dominio genérico miscelánea. «Para instituciones educativas, como universidades, colegios y consorcios del sector de la enseñanza» es el uso original de EDU, donde se registraron universidades, colegios, servicios educativos y consorcios."
+  citation: "fuente: `rfc1591-dominios.txt`; «2. The Top Level Structure of the Domain Names»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-rfc1591-dominios-txt
+- id: m02-l12-q171
+  prompt:
+    es: "Según el RFC 1591, ¿cuáles de los siguientes dominios genéricos de primer nivel quedaron restringidos a entidades de Estados Unidos?"
+  options:
+  - id: a
+    text:
+      es: "COM y EDU"
+  - id: b
+    correct: true
+    text:
+      es: "GOV y MIL"
+  - id: c
+    text:
+      es: "EDU e INT"
+  - id: d
+    text:
+      es: "NET y ORG"
+  explanation:
+    es: "El RFC distingue cinco dominios genéricos de ámbito internacional y dos restringidos a Estados Unidos, que son GOV (agencias federales) y MIL (ejército). «COM y EDU» son dominios de ámbito internacional, el primero para empresas y el segundo para instituciones educativas. «NET y ORG» son dominios internacionales: NET para proveedores de red y ORG para organizaciones varias. «EDU e INT» son dominios internacionales: EDU para instituciones educativas e INT para organizaciones de tratados internacionales."
+  citation: "fuente: `rfc1591-dominios.txt`; «2. The Top Level Structure of the Domain Names»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-rfc1591-dominios-txt
+- id: m02-l12-q172
+  prompt:
+    es: "Señale para qué tipo de entidades se creó el dominio genérico COM, uno de los dominios de primer nivel de ámbito mundial, según el RFC 1591:"
+  options:
+  - id: a
+    text:
+      es: "Para instituciones educativas, como universidades y colegios"
+  - id: b
+    text:
+      es: "Para agencias del Gobierno federal de Estados Unidos"
+  - id: c
+    correct: true
+    text:
+      es: "Para entidades comerciales, es decir, empresas"
+  - id: d
+    text:
+      es: "Para organismos creados por tratados internacionales"
+  explanation:
+    es: "COM se concibió para entidades comerciales, es decir, para empresas. «Para instituciones educativas, como universidades y colegios» es el uso original de EDU, que más tarde limitó los registros a universidades de cuatro años. «Para agencias del Gobierno federal de Estados Unidos» es el uso de GOV, restringido a Estados Unidos. «Para organismos creados por tratados internacionales» es el uso de INT, el dominio de organizaciones de tratados internacionales."
+  citation: "fuente: `rfc1591-dominios.txt`; «2. The Top Level Structure of the Domain Names»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-rfc1591-dominios-txt
+- id: m02-l12-q173
+  prompt:
+    es: "Según el RFC 1591, ¿quién debe supervisar el espacio de nombres de cada dominio, incluido el de un dominio de primer nivel de país?"
+  options:
+  - id: a
+    text:
+      es: "El registro regional del continente al que pertenece el país"
+  - id: b
+    correct: true
+    text:
+      es: "Un gestor designado, que actúa como fiduciario del dominio"
+  - id: c
+    text:
+      es: "El registro de Internet central, que gestiona cada dominio de forma directa"
+  - id: d
+    text:
+      es: "El comité IDNB, creado por la IANA, que decide caso por caso"
+  explanation:
+    es: "El requisito clave del RFC es que cada dominio tenga un gestor designado que supervise su espacio de nombres y actúe como fiduciario del dominio. «El registro de Internet central, que gestiona cada dominio de forma directa»: el registro central tramita la mayor parte del trabajo diario y las solicitudes de nuevos dominios, pero el RFC exige un gestor designado por dominio. «El registro regional del continente al que pertenece el país»: los registros regionales solo colaboran, por ejemplo cuando hay problemas con la administración de un país. «El comité IDNB, creado por la IANA, que decide caso por caso»: el IDNB solo revisa los casos en que las partes no se ponen de acuerdo; no gestiona dominios."
+  citation: "fuente: `rfc1591-dominios.txt`; «2. The Top Level Structure of the Domain Names»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-rfc1591-dominios-txt
+- id: m02-l12-q174
+  prompt:
+    es: "Según el RFC 1591, ¿qué condición se exige respecto a los contactos de un dominio de primer nivel que es un código de país?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Que al menos el contacto administrativo resida en el país"
+  - id: b
+    text:
+      es: "Que los contactos técnico y administrativo residan en Estados Unidos"
+  - id: c
+    text:
+      es: "Que el contacto administrativo pertenezca a la IANA y no al país"
+  - id: d
+    text:
+      es: "Que solo exista un contacto técnico, sin contacto administrativo"
+  explanation:
+    es: "Cada dominio necesita un contacto administrativo y otro técnico, y en los dominios de país al menos el administrativo debe residir en el país. «Que los contactos técnico y administrativo residan en Estados Unidos» contradice el RFC: lo que exige es residir en el país implicado, no en Estados Unidos. «Que el contacto administrativo pertenezca a la IANA y no al país»: el gestor es el fiduciario del dominio para su país y para la comunidad global; la IANA solo coordina la delegación. «Que solo exista un contacto técnico, sin contacto administrativo»: el RFC exige que cada dominio tenga un contacto administrativo y un contacto técnico."
+  citation: "fuente: `rfc1591-dominios.txt`; «2. The Top Level Structure of the Domain Names»"
+  difficulty: 3
+  tags:
+  - "concepto"
+# anchor: fuente-rfc1591-dominios-txt
+- id: m02-l12-q175
+  prompt:
+    es: "Según el RFC 1591, ¿qué estatus de marca comercial tiene el registro de un nombre de dominio?"
+  options:
+  - id: a
+    text:
+      es: "El de una marca registrada, protegida frente a terceros por la IANA"
+  - id: b
+    text:
+      es: "El de una marca provisional, hasta que la autoridad de registro resuelva"
+  - id: c
+    correct: true
+    text:
+      es: "Ninguno: el solicitante debe asegurarse de no infringir marcas ajenas"
+  - id: d
+    text:
+      es: "El de una marca que la autoridad de registro verifica antes de aceptar el nombre"
+  explanation:
+    es: "El RFC dice que registrar un nombre de dominio no otorga estatus de marca y que el solicitante debe comprobar que no vulnera la de otro. «El de una marca registrada, protegida frente a terceros por la IANA» contradice el RFC: el registro no tiene estatus de marca. «El de una marca provisional, hasta que la autoridad de registro resuelva»: en una disputa por un nombre, la autoridad de registro solo facilita los datos de contacto de ambas partes y no resuelve. «El de una marca que la autoridad de registro verifica antes de aceptar el nombre»: la comprobación corresponde al solicitante, no a la autoridad de registro."
+  citation: "fuente: `rfc1591-dominios.txt`; «3. The Administration of Delegated Domains»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-rfc1591-dominios-txt
+- id: m02-l12-q176
+  prompt:
+    es: "¿Cuál de los siguientes requisitos impone el RFC 1591 al gestor designado de un dominio respecto a sus servidores de nombres?"
+  options:
+  - id: a
+    text:
+      es: "Dos servidores primarios, sin ningún servidor secundario"
+  - id: b
+    text:
+      es: "Servidores que solo tengan conectividad por correo electrónico"
+  - id: c
+    text:
+      es: "Un único servidor de nombres, para evitar discrepancias en la base de datos"
+  - id: d
+    correct: true
+    text:
+      es: "Un servidor primario y otro secundario, con conectividad IP a Internet"
+  explanation:
+    es: "El RFC pide un servidor de nombres primario y otro secundario con conectividad IP a Internet, que el registro y la IANA puedan comprobar. «Un único servidor de nombres, para evitar discrepancias en la base de datos» contradice el RFC, que pide además un secundario. «Dos servidores primarios, sin ningún servidor secundario»: el RFC pide un servidor primario y uno secundario, no dos primarios. «Servidores que solo tengan conectividad por correo electrónico»: el RFC exige conectividad IP con los servidores de nombres; la conectividad por correo es la que se pide para contactar con el gestor."
+  citation: "fuente: `rfc1591-dominios.txt`; «3. The Administration of Delegated Domains»"
+  difficulty: 3
+  tags:
+  - "concepto"
+# anchor: fuente-rfc3207-smtp-tls-txt
+- id: m02-l12-q177
+  prompt:
+    es: "Señale lo que permite, según el RFC 3207, la extensión de SMTP que describe, además del intercambio habitual de correo entre servidores:"
+  options:
+  - id: a
+    text:
+      es: "Dejar los mensajes en el servicio para leerlos desde varios dispositivos"
+  - id: b
+    correct: true
+    text:
+      es: "Usar TLS para una comunicación privada y autenticada por Internet"
+  - id: c
+    text:
+      es: "Descargar los mensajes nuevos y eliminarlos después del servicio de correo"
+  - id: d
+    text:
+      es: "Traducir los nombres de dominio de los destinatarios en direcciones IP"
+  explanation:
+    es: "El RFC 3207 describe una extensión de SMTP que permite usar TLS para una comunicación privada y autenticada. «Descargar los mensajes nuevos y eliminarlos después del servicio de correo» es el funcionamiento de POP, que descarga los mensajes nuevos y los elimina del servicio. «Dejar los mensajes en el servicio para leerlos desde varios dispositivos» es el funcionamiento de IMAP, que deja los mensajes en el servicio de correo. «Traducir los nombres de dominio de los destinatarios en direcciones IP» es la función más importante del DNS, según INCIBE, y no una extensión de SMTP."
+  citation: "fuente: `rfc3207-smtp-tls.txt`; «Abstract»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-rfc3207-smtp-tls-txt
+- id: m02-l12-q178
+  prompt:
+    es: "¿Cómo se comunican normalmente los servidores y clientes SMTP por Internet, según la introducción del RFC 3207?"
+  options:
+  - id: a
+    text:
+      es: "Con un cifrado simétrico cuya clave se intercambió antes, como ocurre en HTTPS"
+  - id: b
+    text:
+      es: "Autenticándose mutuamente en cada conexión mediante certificados"
+  - id: c
+    text:
+      es: "Cifrados siempre con TLS desde el primer mensaje que intercambian"
+  - id: d
+    correct: true
+    text:
+      es: "En claro, sin cifrar, y a menudo a través de enrutadores no fiables"
+  explanation:
+    es: "El RFC dice que SMTP normalmente viaja en claro por Internet, y por eso define la extensión que añade TLS. «Cifrados siempre con TLS desde el primer mensaje que intercambian» contradice el RFC: TLS es una extensión que se añade, no el comportamiento normal. «Autenticándose mutuamente en cada conexión mediante certificados»: el RFC solo habla de que a menudo hay deseo de que los agentes se autentiquen, no de que lo hagan siempre. «Con un cifrado simétrico cuya clave se intercambió antes, como ocurre en HTTPS» es el esquema de HTTPS, según INCIBE, y no el de SMTP en claro."
+  citation: "fuente: `rfc3207-smtp-tls.txt`; «1. Introduction»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-rfc3207-smtp-tls-txt
+- id: m02-l12-q179
+  prompt:
+    es: "¿Cuál de los siguientes riesgos implica, según el RFC 3207, que la comunicación SMTP atraviese un enrutador que ninguna de las dos partes controla ni considera de confianza?"
+  options:
+  - id: a
+    text:
+      es: "Que el cliente reciba un mensaje descargado y ya eliminado del servidor"
+  - id: b
+    text:
+      es: "Que la dirección IP del servidor deje de identificarlo de forma única"
+  - id: c
+    correct: true
+    text:
+      es: "Que un tercero pueda vigilar o alterar la comunicación entre servidor y cliente"
+  - id: d
+    text:
+      es: "Que el nombre de dominio del destinatario no pueda resolverse"
+  explanation:
+    es: "El RFC advierte de que un enrutador no controlado ni de confianza puede permitir que un tercero vigile o altere la comunicación. «Que la dirección IP del servidor deje de identificarlo de forma única»: la dirección IP sigue siendo un número único que identifica al sistema, según INCIBE; el RFC no atribuye al enrutador ese efecto. «Que el nombre de dominio del destinatario no pueda resolverse»: resolver nombres es tarea del DNS, no del enrutador, y el RFC no lo menciona como riesgo. «Que el cliente reciba un mensaje descargado y ya eliminado del servidor»: descargar y eliminar mensajes es el modo de trabajar de POP, ajeno al riesgo que describe el RFC."
+  citation: "fuente: `rfc3207-smtp-tls.txt`; «1. Introduction»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-rfc3207-smtp-tls-txt
+- id: m02-l12-q180
+  prompt:
+    es: "Según la introducción del RFC 3207, ¿por qué puede interesar a dos agentes SMTP autenticar mutuamente sus identidades?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Para que un servidor seguro solo admita a los agentes que conoce"
+  - id: b
+    text:
+      es: "Para poder asignar automáticamente una dirección IP a cada agente"
+  - id: c
+    text:
+      es: "Para poder descargar los mensajes de los clientes y eliminarlos del servicio"
+  - id: d
+    text:
+      es: "Para poder traducir los nombres de dominio de los agentes en direcciones IP"
+  explanation:
+    es: "El RFC pone el ejemplo de un servidor SMTP seguro que solo admite comunicaciones de agentes que conoce o que actúa distinto con los que no conoce. «Para poder traducir los nombres de dominio de los agentes en direcciones IP»: traducir nombres en direcciones IP es la función del DNS, según INCIBE. «Para poder asignar automáticamente una dirección IP a cada agente»: asignar direcciones automáticamente es lo que hace DHCP, según Microsoft. «Para poder descargar los mensajes de los clientes y eliminarlos del servicio»: descargar y eliminar es el modo de POP para recibir correo, no un motivo de autenticación entre servidores."
+  citation: "fuente: `rfc3207-smtp-tls.txt`; «1. Introduction»"
+  difficulty: 3
+  tags:
+  - "concepto"
+# anchor: fuente-rfc791-ip-txt
+- id: m02-l12-q181
+  prompt:
+    es: "Según el RFC 791, ¿cuáles son las dos funciones básicas que implementa el protocolo de Internet (IP)?"
+  options:
+  - id: a
+    text:
+      es: "Control de flujo y retransmisión de datos perdidos"
+  - id: b
+    text:
+      es: "Traducción de nombres y asignación automática de direcciones"
+  - id: c
+    correct: true
+    text:
+      es: "Direccionamiento y fragmentación de datagramas"
+  - id: d
+    text:
+      es: "Cifrado y autenticación de los extremos de la comunicación"
+  explanation:
+    es: "El RFC 791 dice que IP implementa dos funciones básicas, el direccionamiento y la fragmentación. «Control de flujo y retransmisión de datos perdidos»: el RFC aclara que IP no ofrece fiabilidad extremo a extremo, control de flujo ni retransmisiones. «Cifrado y autenticación de los extremos de la comunicación»: según INCIBE, la autenticación y la privacidad entre extremos las proporciona SSL, que evolucionó a TLS. «Traducción de nombres y asignación automática de direcciones» son las tareas del DNS y de DHCP, no de IP."
+  citation: "fuente: `rfc791-ip.txt`; «1.4. Operation»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-rfc791-ip-txt
+- id: m02-l12-q182
+  prompt:
+    es: "¿Cuál de los siguientes es uno de los cuatro mecanismos clave con los que el protocolo IP presta su servicio, según el RFC 791?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "El tiempo de vida (Time to Live)"
+  - id: b
+    text:
+      es: "La retransmisión de los datagramas perdidos"
+  - id: c
+    text:
+      es: "El control de flujo entre origen y destino"
+  - id: d
+    text:
+      es: "El acuse de recibo extremo a extremo"
+  explanation:
+    es: "Los cuatro mecanismos clave de IP son Type of Service, Time to Live, Options y Header Checksum. «El acuse de recibo extremo a extremo»: el RFC dice que no hay acuses de recibo, ni extremo a extremo ni salto a salto. «El control de flujo entre origen y destino»: el RFC dice que IP no tiene control de flujo. «La retransmisión de los datagramas perdidos»: el RFC dice que IP no hace retransmisiones."
+  citation: "fuente: `rfc791-ip.txt`; «1.4. Operation»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-rfc791-ip-txt
+- id: m02-l12-q183
+  prompt:
+    es: "Según el RFC 791, ¿qué ocurre con un datagrama cuyo tiempo de vida llega a cero antes de alcanzar su destino?"
+  options:
+  - id: a
+    text:
+      es: "Se sigue encaminando con una prioridad más baja"
+  - id: b
+    correct: true
+    text:
+      es: "Se destruye, como si tuviera un límite de autodestrucción"
+  - id: c
+    text:
+      es: "Se retransmite desde el origen tras recibir un acuse de recibo"
+  - id: d
+    text:
+      es: "Se fragmenta en datagramas menores para la siguiente red"
+  explanation:
+    es: "Si el tiempo de vida llega a cero antes de que el datagrama llegue a su destino, el RFC dice que el datagrama se destruye. «Se fragmenta en datagramas menores para la siguiente red»: la fragmentación solo se usa cuando el datagrama debe cruzar una red que limita los paquetes a un tamaño menor. «Se retransmite desde el origen tras recibir un acuse de recibo»: IP no tiene acuses de recibo ni retransmisiones, según el RFC. «Se sigue encaminando con una prioridad más baja» contradice el RFC, que compara el tiempo de vida con un límite de autodestrucción."
+  citation: "fuente: `rfc791-ip.txt`; «1.4. Operation»"
+  difficulty: 1
+  tags:
+  - "comportamiento"
+# anchor: fuente-rfc791-ip-txt
+- id: m02-l12-q184
+  prompt:
+    es: "Según el RFC 791, ¿cuál es la longitud fija de las direcciones de Internet (IPv4)?"
+  options:
+  - id: a
+    text:
+      es: "8 bits, un único octeto"
+  - id: b
+    text:
+      es: "16 bits, repartidos en dos octetos"
+  - id: c
+    text:
+      es: "128 bits, repartidos en dieciséis octetos"
+  - id: d
+    correct: true
+    text:
+      es: "32 bits, repartidos en cuatro octetos"
+  explanation:
+    es: "El RFC 791 fija la longitud de las direcciones en cuatro octetos, que son 32 bits. «16 bits, repartidos en dos octetos» serían dos octetos, la mitad de los cuatro que fija el RFC. «128 bits, repartidos en dieciséis octetos» son los bits de una dirección v6, que según INCIBE es hasta cuatro veces más larga que la v4. «8 bits, un único octeto» sería un solo octeto, y el RFC fija cuatro."
+  citation: "fuente: `rfc791-ip.txt`; «2.3. Function Description»"
+  difficulty: 1
+  tags:
+  - "concepto"
+  - "cantidad"
+# anchor: fuente-rfc791-ip-txt
+- id: m02-l12-q185
+  prompt:
+    es: "Según el RFC 791, en una dirección de clase C, cuyos tres primeros bits son 1, 1 y 0, ¿cuántos bits forman la dirección local?"
+  options:
+  - id: a
+    text:
+      es: "21 bits"
+  - id: b
+    correct: true
+    text:
+      es: "8 bits"
+  - id: c
+    text:
+      es: "24 bits"
+  - id: d
+    text:
+      es: "16 bits"
+  explanation:
+    es: "En la clase C el RFC dedica 21 bits a la red y los 8 últimos bits a la dirección local. «24 bits» son los bits de la dirección local de la clase A, que dedica 7 bits a la red. «16 bits» son los bits de la dirección local de la clase B, que dedica 14 bits a la red. «21 bits» son los bits del número de red de la clase C, no de la dirección local."
+  citation: "fuente: `rfc791-ip.txt`; «2.3. Function Description»"
+  difficulty: 3
+  tags:
+  - "cantidad"
+# anchor: fuente-rfc791-ip-txt
+- id: m02-l12-q186
+  prompt:
+    es: "Según el RFC 791, ¿cuántos bits forman el número de red en una dirección de clase B, cuyos dos primeros bits son 1 y 0?"
+  options:
+  - id: a
+    text:
+      es: "7 bits"
+  - id: b
+    text:
+      es: "21 bits"
+  - id: c
+    text:
+      es: "16 bits"
+  - id: d
+    correct: true
+    text:
+      es: "14 bits"
+  explanation:
+    es: "En la clase B, tras los dos primeros bits, el RFC dedica 14 bits a la red y los 16 últimos a la dirección local. «7 bits» son los bits de red de la clase A. «21 bits» son los bits de red de la clase C. «16 bits» son los bits de la dirección local de la clase B, no los de la red."
+  citation: "fuente: `rfc791-ip.txt`; «2.3. Function Description»"
+  difficulty: 3
+  tags:
+  - "cantidad"
+# anchor: fuente-rfc791-ip-txt
+- id: m02-l12-q187
+  prompt:
+    es: "Según el RFC 791, ¿a quién corresponde convertir los nombres en direcciones, dado que IP trata principalmente con direcciones?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "A los protocolos de nivel superior, de host a host o de aplicación"
+  - id: b
+    text:
+      es: "Al propio módulo de Internet, que trabaja principalmente con nombres"
+  - id: c
+    text:
+      es: "Al campo Tipo de servicio de la cabecera de cada datagrama"
+  - id: d
+    text:
+      es: "A los procedimientos de nivel inferior, como los de la red local o las pasarelas"
+  explanation:
+    es: "El RFC dice que corresponde a los protocolos de nivel superior, de host a host o de aplicación, relacionar nombres con direcciones. «Al propio módulo de Internet, que trabaja principalmente con nombres» contradice el RFC: IP trata principalmente con direcciones y solo convierte direcciones de Internet en direcciones de la red local. «A los procedimientos de nivel inferior, como los de la red local o las pasarelas»: esos procedimientos relacionan las direcciones de la red local con las rutas. «Al campo Tipo de servicio de la cabecera de cada datagrama»: el Tipo de servicio indica la calidad de servicio deseada, no hace de traductor de nombres."
+  citation: "fuente: `rfc791-ip.txt`; «2.3. Function Description»"
+  difficulty: 3
+  tags:
+  - "concepto"
+# anchor: fuente-rfc791-ip-txt
+- id: m02-l12-q188
+  prompt:
+    es: "¿Cuál de las siguientes acciones se aplica, según el RFC 791, a un datagrama marcado como «no fragmentar» cuando solo podría llegar a su destino fragmentándose?"
+  options:
+  - id: a
+    text:
+      es: "Se retransmite desde el origen con un tamaño menor"
+  - id: b
+    text:
+      es: "Se fragmenta de todos modos al llegar a la red de paquetes pequeños"
+  - id: c
+    correct: true
+    text:
+      es: "Se descarta en lugar de entregarse"
+  - id: d
+    text:
+      es: "Se entrega igualmente y se informa del error mediante ICMP"
+  explanation:
+    es: "El RFC dice que un datagrama marcado como «no fragmentar» no se fragmenta bajo ninguna circunstancia y, si no puede entregarse sin hacerlo, se descarta. «Se fragmenta de todos modos al llegar a la red de paquetes pequeños» contradice el RFC: no se fragmenta bajo ninguna circunstancia. «Se retransmite desde el origen con un tamaño menor»: IP no hace retransmisiones, según el RFC. «Se entrega igualmente y se informa del error mediante ICMP»: el RFC dice que el datagrama se descarta en lugar de entregarse."
+  citation: "fuente: `rfc791-ip.txt`; «2.3. Function Description»"
+  difficulty: 3
+  tags:
+  - "comportamiento"
+# anchor: fuente-rfc791-ip-txt
+- id: m02-l12-q189
+  prompt:
+    es: "Según el RFC 791, ¿qué ocurre si falla la suma de comprobación de la cabecera de un datagrama?"
+  options:
+  - id: a
+    text:
+      es: "El origen lo retransmite al recibir un acuse de recibo"
+  - id: b
+    text:
+      es: "El enrutador reduce a la mitad su tiempo de vida y lo reenvía"
+  - id: c
+    correct: true
+    text:
+      es: "La entidad que detecta el error descarta de inmediato el datagrama"
+  - id: d
+    text:
+      es: "El destino corrige la cabecera y lo entrega con normalidad"
+  explanation:
+    es: "Si falla la suma de comprobación de la cabecera, el RFC dice que la entidad que detecta el error descarta el datagrama de inmediato. «El destino corrige la cabecera y lo entrega con normalidad»: IP solo tiene una suma de comprobación de la cabecera y ningún control de errores de datos que permita corregir. «El origen lo retransmite al recibir un acuse de recibo»: IP no tiene acuses de recibo ni retransmisiones, según el RFC. «El enrutador reduce a la mitad su tiempo de vida y lo reenvía»: el RFC no prevé reducir a la mitad el tiempo de vida; lo reduce cada punto de la ruta donde se procesa, y el datagrama erróneo se descarta."
+  citation: "fuente: `rfc791-ip.txt`; «1.4. Operation»"
+  difficulty: 3
+  tags:
+  - "comportamiento"
+# anchor: fuente-rfc791-ip-txt
+- id: m02-l12-q190
+  prompt:
+    es: "Según el RFC 791, ¿qué protocolo permite informar de los errores detectados al procesar los datagramas de Internet?"
+  options:
+  - id: a
+    text:
+      es: "UDP, que ofrece a las aplicaciones un servicio de datagramas"
+  - id: b
+    text:
+      es: "FTP, una aplicación que se apoya en TCP por encima de IP"
+  - id: c
+    text:
+      es: "TCP, que usa el módulo de Internet para enviar sus segmentos"
+  - id: d
+    correct: true
+    text:
+      es: "ICMP, implementado en el propio módulo del protocolo de Internet"
+  explanation:
+    es: "El RFC dice que los errores detectados pueden notificarse mediante ICMP, que está implementado en el módulo del protocolo de Internet. «TCP, que usa el módulo de Internet para enviar sus segmentos» es un protocolo de host a host que llama al módulo de Internet; no informa de errores de IP. «UDP, que ofrece a las aplicaciones un servicio de datagramas» es otro protocolo de host a host que se apoya en IP, según el diagrama del RFC. «FTP, una aplicación que se apoya en TCP por encima de IP» es una aplicación situada por encima de TCP en el diagrama de relaciones entre protocolos."
+  citation: "fuente: `rfc791-ip.txt`; «1.4. Operation»"
+  difficulty: 2
+  tags:
+  - "concepto"

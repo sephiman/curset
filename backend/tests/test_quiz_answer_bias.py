@@ -40,6 +40,7 @@ SINGLE_CHOICE_BANKS = (
     ("crypto-futures", "en"),
     ("crypto-futures", "es"),
     ("age-administrativo-c1", "es"),
+    ("age-auxiliar-c2", "es"),
 )
 
 #: How far the suite may sit from chance before it is a tell, in standard deviations of the exact

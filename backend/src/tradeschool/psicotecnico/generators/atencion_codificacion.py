@@ -10,25 +10,25 @@ from typing import ClassVar
 from tradeschool.psicotecnico.contract import ItemGenerator, UnsolvableItem, deal, str_fact
 from tradeschool.psicotecnico.item import Item, Params, Table
 
-_WORDS = (
-    "cartera",
+_WORDS = (  # eight letters, as the official items (2020-P1-39, 2020X-P1-31)
     "consulta",
-    "archivo",
-    "carpeta",
-    "oficina",
     "registro",
-    "informe",
     "licencia",
-    "sumario",
-    "mensaje",
-    "factura",
-    "formato",
-    "ventana",
-    "teclado",
-    "sellado",
-    "ordenar",
-    "usuario",
-    "decreto",
+    "despacho",
+    "contrato",
+    "cuaderno",
+    "papelera",
+    "personal",
+    "tramitar",
+    "archivar",
+    "director",
+    "impresos",
+    "informes",
+    "facturas",
+    "decretos",
+    "usuarios",
+    "formatos",
+    "mensajes",
 )
 _VALUE_WORDS = (
     "Martínez",
@@ -64,7 +64,7 @@ def _letters(rng: random.Random, count: int) -> list[str]:
 
 
 def _binary(rng: random.Random) -> dict[str, object]:
-    letters = rng.sample("abcdefg", 6)
+    letters = list("abcdef")  # listed in order, as 2024-P1-38
     codes = rng.sample(["0001", "0010", "0100", "1000", "0011", "0101", "0110", "1001", "1010", "1100"], 6)
     table = dict(zip(letters, codes, strict=True))
     message = [rng.choice(letters) for _ in range(4)]

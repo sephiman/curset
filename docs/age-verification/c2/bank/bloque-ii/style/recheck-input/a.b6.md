@@ -1,0 +1,235 @@
+# Strict recheck input — group a, batch 6 (26 candidates)
+
+## m02-l05-q142
+¿Qué tipo de recurso administra el administrador de memoria del modo kernel de Windows, según la documentación de Microsoft sobre los componentes de ese modo?
+- a) El almacenamiento en servidores remotos.
+- b) Los archivos y las claves del Registro.
+- c) La energía de los dispositivos.
+- d) La memoria física del sistema operativo.  ✓
+Cita: fuente: `ms-win-componentes-kernel.html`; «Guía de diseño de la arquitectura del controlador en modo kernel»
+Explicación: La documentación dice que el administrador de memoria «administra la memoria física para el sistema operativo». El administrador de memoria administra la memoria física, no el almacenamiento en servidores remotos. Los archivos y las claves del Registro los administra el administrador de objetos. La energía de los dispositivos la administra el administrador de energía.
+
+## m02-l05-q143
+¿Qué tipo de malware «secuestra» un dispositivo o la información que contiene, de modo que la víctima no puede acceder a ella si no paga el rescate?
+- a) El spyware.
+- b) El ransomware.  ✓
+- c) El gusano.
+- d) El virus.
+Cita: fuente: `incibe-glosario-ciberseguridad.pdf`; «Ransomware»
+Explicación: El glosario define el ransomware como «malware cuya funcionalidad es secuestrar un dispositivo o la información que contiene de forma que si la víctima no paga el rescate, no podrá acceder a ella». El spyware recopila información de un ordenador y la envía a una entidad remota, sin pedir rescate. El gusano se copia a sí mismo y se propaga automáticamente por la red. El virus infecta ficheros ejecutables o sectores de arranque de dispositivos de almacenamiento.
+
+## m02-l05-q144
+Señale la característica principal de un virus (malware), según el glosario de ciberseguridad del INCIBE:
+- a) Se propaga automáticamente en una red independientemente de la acción humana.
+- b) Crea una puerta trasera en el equipo infectado para controlarlo a distancia.
+- c) Recopila información de un ordenador y después la envía a una entidad remota.
+- d) Infecta ficheros ejecutables o sectores de arranque de dispositivos de almacenamiento.  ✓
+Cita: fuente: `incibe-glosario-ciberseguridad.pdf`; «Virus»
+Explicación: El glosario define el virus como «malware que tiene como característica principal que infecta ficheros ejecutables o sectores de arranque de dispositivos de almacenamiento». Propagarse automáticamente por la red sin la acción humana es la característica del gusano. Crear una puerta trasera es lo más común en un troyano. Recopilar información y enviarla a una entidad remota es lo que hace el spyware.
+
+## m02-l05-q145
+Señale la afirmación correcta sobre cómo se propaga un gusano (worm) de un equipo a otros, según el glosario de ciberseguridad del INCIBE:
+- a) Depende de que un usuario acceda a una web maliciosa o ejecute un fichero infectado.
+- b) Realiza copias de sí mismo y se propaga automáticamente en una red, sin acción humana.  ✓
+- c) Infecta ficheros ejecutables o sectores de arranque de dispositivos de almacenamiento.
+- d) Solo mediante adjuntos de correo que el usuario debe abrir uno a uno.
+Cita: fuente: `incibe-glosario-ciberseguridad.pdf`; «Gusano»
+Explicación: El glosario dice que «los gusanos realizan copias de sí mismos, infectan a otros ordenadores y se propagan automáticamente en una red independientemente de la acción humana». Depender de que el usuario acceda a una web maliciosa o ejecute un fichero infectado es, según el glosario, propio de los troyanos. Infectar ficheros ejecutables o sectores de arranque es lo propio del virus. Y los gusanos se propagan sin depender de la acción humana, no solo mediante adjuntos que el usuario abra uno a uno.
+
+## m02-l05-q146
+¿Qué diferencia a un gusano de un troyano, según el glosario de ciberseguridad del INCIBE?
+- a) El gusano infecta sectores de arranque; el troyano se propaga solo por la red.
+- b) El gusano depende de que el usuario ejecute un fichero; el troyano se propaga solo por la red.
+- c) El gusano se propaga solo por la red; el troyano depende de que el usuario ejecute un fichero.  ✓
+- d) El gusano no se considera malware, mientras que el troyano sí se considera malware.
+Cita: fuente: `incibe-glosario-ciberseguridad.pdf`; «Gusano»
+Explicación: El glosario dice que los troyanos dependen de que un usuario acceda a una web maliciosa o ejecute un fichero infectado, mientras que los gusanos se propagan automáticamente en una red. Infectar sectores de arranque es la característica del virus, y el troyano depende de la acción del usuario. La dependencia de la acción del usuario es la del troyano, no la del gusano. El glosario incluye los gusanos y los troyanos entre los programas maliciosos.
+
+## m02-l05-q147
+Según el glosario de ciberseguridad del INCIBE, lo más común que crea un troyano en el equipo infectado es:
+- a) una puerta trasera para descargar actualizaciones y funcionalidades.  ✓
+- b) una copia de sí mismo en cada equipo de la red a la que se conecte.
+- c) una firma en la base de datos del antivirus, que identifica el malware.
+- d) una infección del sector de arranque de los dispositivos de almacenamiento.
+Cita: fuente: `incibe-glosario-ciberseguridad.pdf`; «Troyano»
+Explicación: El glosario dice que, en un troyano, «lo más común es crear una puerta trasera en el equipo infectado». Hacer copias de sí mismos es lo que, según el glosario, hacen los gusanos. La firma antivirus es una entrada de la base de datos del antivirus que identifica un malware, no algo que cree un troyano. Infectar sectores de arranque es la característica principal del virus.
+
+## m02-l05-q148
+Según el glosario de ciberseguridad del INCIBE, ¿cuál de los siguientes tipos de malware representa más del 80 % del malware actual?
+- a) Los virus.
+- b) Los gusanos.
+- c) Los troyanos.  ✓
+- d) El ransomware.
+Cita: fuente: `incibe-glosario-ciberseguridad.pdf`; «Troyano»
+Explicación: El glosario dice que «la mayor parte del malware actual son troyanos, más del 80 %». El glosario atribuye más del 80 % a los troyanos, no a los virus. El glosario atribuye más del 80 % a los troyanos, no a los gusanos. El glosario atribuye más del 80 % a los troyanos, no al ransomware.
+
+## m02-l05-q149
+¿Cuál de las siguientes denominaciones recibe, según el glosario de ciberseguridad del INCIBE, un grupo de bots controlados por un centro de comando y control (C&C)?
+- a) Botnet o red zombi.  ✓
+- b) Intranet.
+- c) VLAN.
+- d) Sandbox.
+Cita: fuente: `incibe-glosario-ciberseguridad.pdf`; «Troyano»
+Explicación: El glosario dice que «un grupo de bot controlados por un C&C se denomina Botnet o Red Zombie». La intranet es una red de comunicación interna de una organización, no un grupo de bots. Una VLAN es una red lógica independiente dentro de una red física, no un grupo de bots. Un sandbox es un entorno de pruebas aislado, no un grupo de bots.
+
+## m02-l05-q150
+¿Cuál de las siguientes parejas está formada, en ambos casos, por tipos de malware, según el glosario de ciberseguridad del INCIBE?
+- a) Antivirus y gusano.
+- b) Troyano y ransomware.  ✓
+- c) Antispyware y virus.
+- d) Parche de seguridad y spyware.
+Cita: fuente: `incibe-glosario-ciberseguridad.pdf`; «Troyano»
+Explicación: El glosario define el troyano y el ransomware como malware; las otras parejas incluyen un elemento de protección o corrección. El antivirus es software de protección contra el software malicioso, no malware. El antispyware es una herramienta que elimina spyware, no malware. Un parche de seguridad corrige errores de seguridad de un software, no es malware.
+
+## m02-l05-q151
+¿Qué función cumple un antivirus en un equipo informático, según la definición del glosario de ciberseguridad del INCIBE?
+- a) Diferencia si el usuario es un humano o un bot.
+- b) Asocia unos datos de identidad a una persona física, organismo o empresa.
+- c) Evita que se ejecute software malicioso que infecte el equipo.  ✓
+- d) Genera contraseñas robustas y las almacena cifradas.
+Cita: fuente: `incibe-glosario-ciberseguridad.pdf`; «Antivirus»
+Explicación: El glosario define el antivirus como «software de protección para evitar que ejecutemos algún tipo de software malicioso en nuestro equipo que infecte al equipo». Diferenciar ordenadores de humanos es la función de la prueba CAPTCHA. Asociar datos de identidad a una persona o empresa es la función del certificado digital. Generar y almacenar cifradas las contraseñas es la función del gestor de contraseñas.
+
+## m02-l05-q152
+¿Qué sinónimo da el glosario de ciberseguridad del INCIBE para el término «antivirus», el software de protección?
+- a) Antispyware.
+- b) Cortafuegos.
+- c) Sandbox.
+- d) Antimalware.  ✓
+Cita: fuente: `incibe-glosario-ciberseguridad.pdf`; «Antivirus»
+Explicación: El glosario define el antivirus como software de protección contra el software malicioso y le da el sinónimo «antimalware». El glosario define el antispyware como una herramienta distinta, centrada en el spyware. El glosario define el cortafuegos como un sistema situado en los límites de una red, y le da el sinónimo firewall. El glosario define el sandbox como un entorno de pruebas aislado.
+
+## m02-l05-q153
+¿Qué es una firma antivirus, según la definición que da el glosario de ciberseguridad del INCIBE para ese término?
+- a) Una entrada de la base de datos del antivirus que identifica un tipo de malware.  ✓
+- b) Un fichero generado por una Autoridad Certificadora que asocia datos de identidad.
+- c) Un conjunto de cambios que corrige errores de seguridad de un software.
+- d) Un entorno aislado para ejecutar aplicaciones peligrosas sin riesgo.
+Cita: fuente: `incibe-glosario-ciberseguridad.pdf`; «Firma antivirus»
+Explicación: El glosario define la firma antivirus como una «entrada en la base de datos del antivirus, también conocido como diccionario, que sirve como forma de identificación de un tipo de malware en concreto». El fichero generado por una Autoridad Certificadora es el certificado digital, el conjunto de cambios que corrige errores de seguridad es el parche de seguridad, y el entorno aislado para ejecutar aplicaciones peligrosas es el sandbox.
+
+## m02-l05-q154
+En Windows 11, ¿dónde se encuentra el antivirus de Windows, según la página de Microsoft sobre Protección contra virus y amenazas?
+- a) Seguridad de Windows › Firewall y protección de red
+- b) Seguridad de Windows › Control de aplicaciones y explorador
+- c) Seguridad de Windows › Protección contra virus y amenazas  ✓
+- d) Seguridad de Windows › Seguridad de dispositivos
+Cita: fuente: `ms-win-antivirus.html`; «Protección contra virus y amenazas»
+Explicación: La página presenta Protección contra virus y amenazas, dentro de la aplicación Seguridad de Windows, como la página pensada para proteger el dispositivo frente a virus, malware y ransomware. Firewall y protección de red es la página del cortafuegos de Windows, y Control de aplicaciones y explorador y Seguridad de dispositivos son otras páginas de la aplicación.
+
+## m02-l05-q155
+El examen sin conexión del Antivirus de Microsoft Defender en Windows 11 se caracteriza porque:
+- a) se ejecuta con Windows cargado, mientras se trabaja con normalidad.
+- b) examina solo los archivos y carpetas que el usuario selecciona.
+- c) examina el dispositivo sin usar las definiciones más recientes.
+- d) se ejecuta tras un reinicio, sin cargar Windows.  ✓
+Cita: fuente: `ms-win-antivirus.html`; «Opciones de examen»
+Explicación: La página dice que el examen sin conexión «sucede después de un reinicio, sin cargar Windows», por lo que el malware persistente tiene más dificultades para ocultarse. No se ejecuta con Windows cargado. Examinar solo lo que el usuario selecciona es el examen personalizado. Y el examen usa las definiciones más recientes.
+
+## m02-l05-q156
+En la aplicación Seguridad de Windows de Windows 11, ¿dónde se ven los resultados de un examen sin conexión?
+- a) En Historial de protección.  ✓
+- b) En Protección contra ransomware.
+- c) En Actualizaciones de protección contra amenazas y virus.
+- d) En Amenazas permitidas.
+Cita: fuente: `ms-win-antivirus.html`; «Opciones de examen»
+Explicación: La página dice que, para ver los resultados del examen sin conexión, se abre Seguridad de Windows y se selecciona «Historial de protección». Protección contra ransomware reúne configuraciones contra el ransomware, Actualizaciones de protección se dedica a las actualizaciones de inteligencia de seguridad y Amenazas permitidas lista los elementos identificados como amenazas que el usuario ha elegido permitir.
+
+## m02-l05-q157
+Señale qué ocurre en Windows 11 si se desactiva temporalmente la protección en tiempo real de Seguridad de Windows:
+- a) Permanece desactivada hasta que se active manualmente.
+- b) Se vuelve a activar automáticamente tras un breve momento.  ✓
+- c) Se siguen examinando los archivos que se abren o se descargan.
+- d) Se desactivan también los análisis programados.
+Cita: fuente: `ms-win-antivirus.html`; «Protección en tiempo real»
+Explicación: La página dice que la protección en tiempo real «se volverá a activar automáticamente después de un breve momento para reanudar la protección del dispositivo». No permanece desactivada hasta que se active a mano. Mientras está desactivada, no se pueden examinar los archivos que se abren o se descargan. Y los análisis programados continúan ejecutándose.
+
+## m02-l05-q158
+¿Cuál de las siguientes definiciones corresponde a un cortafuegos, según el glosario de ciberseguridad del INCIBE?
+- a) Un sistema de programas o dispositivos, en los límites de una red, que permite y limita el tráfico.  ✓
+- b) El equipo o software que hace de intermediario en las peticiones de una red local hacia Internet.
+- c) Una tecnología de red que extiende de forma segura una red local sobre una red pública.
+- d) Una aplicación que detecta accesos no autorizados a un ordenador o a una red sin tratar de prevenirlos.
+Cita: fuente: `incibe-glosario-ciberseguridad.pdf`; «Cortafuegos»
+Explicación: El glosario define el cortafuegos como un sistema de seguridad compuesto de programas o de dispositivos hardware situados en los puntos limítrofes de una red, con el objetivo de permitir y limitar el flujo de tráfico sobre la base de un conjunto de normas y otros criterios. Hacer de intermediario en las peticiones de la red local hacia Internet es la definición del proxy. Extender de forma segura una red local sobre una red pública es la definición de la red privada virtual. Detectar accesos no autorizados sin intentar prevenirlos es la definición del sistema de detección de intrusos.
+
+## m02-l05-q159
+Según el glosario de ciberseguridad del INCIBE, un sinónimo del término «cortafuegos», el sistema de seguridad de redes, es:
+- a) Sandbox.
+- b) Antivirus.
+- c) Puerta de enlace.
+- d) Firewall.  ✓
+Cita: fuente: `incibe-glosario-ciberseguridad.pdf`; «Cortafuegos»
+Explicación: El glosario define el cortafuegos y le da el sinónimo «firewall». El glosario define el sandbox como un entorno de pruebas aislado, no como sinónimo de cortafuegos. El glosario define el antivirus como software de protección contra el software malicioso, con el sinónimo antimalware. El glosario define la puerta de enlace como un dispositivo intermediario entre redes con protocolos diferentes, con el sinónimo gateway.
+
+## m02-l05-q160
+¿En cuál de los siguientes lugares se sitúa un cortafuegos, según el glosario de ciberseguridad del INCIBE?
+- a) En el interior de cada ordenador de la red, sin tocar el tráfico.
+- b) En el centro de la red local, entre cada pareja de equipos.
+- c) En los puntos limítrofes de una red, entre los ámbitos que protege.  ✓
+- d) En el servidor de correo de la organización, antes de la bandeja de entrada.
+Cita: fuente: `incibe-glosario-ciberseguridad.pdf`; «Cortafuegos»
+Explicación: El glosario describe el cortafuegos como un sistema «situado en los puntos limítrofes de una red», para permitir y limitar el flujo de tráfico entre los ámbitos que protege. No lo sitúa dentro de cada ordenador, entre cada pareja de equipos ni en un servidor de correo.
+
+## m02-l05-q161
+¿Cuál de las siguientes opciones indica lo que asegura la funcionalidad básica de un cortafuegos, según el glosario de ciberseguridad del INCIBE?
+- a) Que las comunicaciones de la red con Internet cumplan las políticas de seguridad.  ✓
+- b) Que todos los equipos de la red tengan instalado un antivirus actualizado.
+- c) Que todos los archivos de la red se guarden cifrados en los servidores de la organización.
+- d) Que cada usuario de la red cambie su contraseña con regularidad cada pocos meses.
+Cita: fuente: `incibe-glosario-ciberseguridad.pdf`; «Cortafuegos»
+Explicación: El glosario dice que la funcionalidad básica de un cortafuego es asegurar que todas las comunicaciones entre la red e Internet se realicen conforme a las políticas de seguridad de la organización o corporación. El glosario define el antivirus como software de protección contra el software malicioso, una función distinta de la del cortafuegos. El glosario define el cifrado como la codificación de la información, una función distinta de la del cortafuegos. El glosario define la contraseña como forma de autentificación, y no le atribuye al cortafuegos que los usuarios la cambien.
+
+## m02-l05-q162
+¿Cuál de las siguientes opciones describe de qué puede estar compuesto un cortafuegos, según el glosario de ciberseguridad del INCIBE?
+- a) Solo de dispositivos hardware situados en la red.
+- b) Solo de programas instalados en cada equipo.
+- c) De programas (software) o de dispositivos hardware.  ✓
+- d) De certificados digitales emitidos por una Autoridad Certificadora.
+Cita: fuente: `incibe-glosario-ciberseguridad.pdf`; «Cortafuegos»
+Explicación: El glosario define el cortafuegos como un sistema «compuesto o bien de programas (software) o de dispositivos hardware». Por eso no es solo hardware ni solo programas. Los certificados digitales no son componentes de un cortafuegos: el glosario los define como ficheros que asocian datos de identidad.
+
+## m02-l05-q163
+Según el glosario de ciberseguridad del INCIBE, ¿cuál de los siguientes mecanismos de un cortafuegos controla el acceso a una red interna analizando el tráfico de paquetes entrantes y salientes?
+- a) El sandbox.
+- b) El sistema de detección de intrusos.
+- c) La red privada virtual.
+- d) El filtrado de paquetes.  ✓
+Cita: fuente: `incibe-glosario-ciberseguridad.pdf`; «Filtrado de paquetes»
+Explicación: El glosario define el filtrado de paquetes como un «mecanismo de un cortafuegos que permite controlar el acceso a una red interna a través del análisis de tráfico de paquetes tanto entrantes como salientes». El glosario define el sandbox como un entorno de pruebas aislado. El glosario define el sistema de detección de intrusos como una aplicación que solo detecta accesos no autorizados. El glosario define la red privada virtual como una extensión segura de una red local sobre una red pública.
+
+## m02-l05-q164
+En Windows 11, ¿cuál de las siguientes rutas permite ver y administrar el estado del Firewall de Windows, según la página de Microsoft?
+- a) Seguridad de Windows › Protección contra virus y amenazas
+- b) Seguridad de Windows › Control de aplicaciones y explorador
+- c) Seguridad de Windows › Firewall y protección de red  ✓
+- d) Seguridad de Windows › Seguridad de dispositivos
+Cita: fuente: `ms-win-firewall.html`; «Firewall y protección de red en la aplicación Seguridad de Windows»
+Explicación: La página dice que se puede usar la aplicación Seguridad de Windows para ver y administrar el estado de Firewall de Windows, en la página «Firewall y protección de red». Protección contra virus y amenazas es otra página de la aplicación, la del antivirus. Control de aplicaciones y explorador es otra página de la aplicación, distinta de Firewall y protección de red. Seguridad de dispositivos es otra página de la aplicación, distinta de Firewall y protección de red.
+
+## m02-l05-q165
+¿Cuál de las siguientes opciones es la diferencia clave entre una red privada y una red pública, según la página de Microsoft sobre el Firewall de Windows?
+- a) Si otros dispositivos de la red pueden ver el dispositivo y, tal vez, conectarse a él.  ✓
+- b) La velocidad de la conexión de la red a Internet que usa el dispositivo conectado.
+- c) Si la red usa una conexión por cable o una conexión inalámbrica Wi-Fi de la zona.
+- d) Si el dispositivo tiene activado o no el Firewall de Windows en esa red.
+Cita: fuente: `ms-win-firewall.html`; «Firewall y protección de red en la aplicación Seguridad de Windows»
+Explicación: La página dice: «La diferencia clave es si otros dispositivos de la misma red pueden ver el dispositivo y, tal vez, conectarse a él». No es la velocidad de la conexión, ni si es por cable o por Wi-Fi, ni el estado del firewall.
+
+## m02-l05-q166
+Según la página de Microsoft sobre el Firewall de Windows, ¿cuál de las siguientes redes es un ejemplo de red pública?
+- a) Una red doméstica con los dispositivos de la familia.
+- b) Una red de dominio del área de trabajo.
+- c) Una red de confianza con solo dispositivos conocidos.
+- d) El Wi-Fi de una cafetería local, con extraños conectados.  ✓
+Cita: fuente: `ms-win-firewall.html`; «Firewall y protección de red en la aplicación Seguridad de Windows»
+Explicación: La página dice que «el Wi-Fi en su cafetería local es una red pública», porque la mayoría de los otros dispositivos conectados pertenecen a extraños. La red doméstica es su ejemplo de red privada, las redes de dominio son las del área de trabajo y las redes privadas son las de confianza.
+
+## m02-l05-q167
+Como norma general, ¿en cuál de los siguientes tipos de red de Windows 11 tendrá el Firewall de Windows controles de seguridad más estrictos, según la página de Microsoft?
+- a) En una red privada, por la menor confianza en los demás dispositivos.
+- b) En ambos tipos de red por igual, sea cual sea la confianza en los demás.
+- c) En una red pública, por la menor confianza en los demás dispositivos.  ✓
+- d) Solo en la red doméstica, por la presencia de los miembros de la familia.
+Cita: fuente: `ms-win-firewall.html`; «Firewall y protección de red en la aplicación Seguridad de Windows»
+Explicación: La página dice que, como norma general, habrá «controles de seguridad más estrictos en una red pública que en una privada», por el nivel de confianza en las demás personas y dispositivos de esa red. No son iguales en ambas, y la red doméstica es su ejemplo de red privada.

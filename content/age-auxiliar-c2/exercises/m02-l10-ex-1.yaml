@@ -1,0 +1,439 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# Question bank, m02-l10: fixed multiple-choice questions (C2 round R3). Generated from
+# docs/age-verification/c2/bank/bloque-ii/ (kept derived + authored minus drops.tsv) by
+# docs/age-verification/c2/bank/tools/build_exercises.py; edit the drafts and rebuild, not this file.
+type: quiz
+variants:
+# anchor: fuente-ms-access-especificaciones-html
+- id: m02-l10-q002
+  prompt:
+    es: "En Access 365, el tamaño total de una base de datos de Access, incluidos todos los objetos de base de datos y los datos, es como máximo de:"
+  options:
+  - id: a
+    text:
+      es: "4 gigabytes, menos el espacio necesario para los objetos del sistema"
+  - id: b
+    text:
+      es: "1 gigabyte, menos el espacio necesario para los objetos del sistema"
+  - id: c
+    text:
+      es: "8 gigabytes, menos el espacio necesario para los objetos del sistema"
+  - id: d
+    correct: true
+    text:
+      es: "2 gigabytes, menos el espacio necesario para los objetos del sistema"
+  explanation:
+    es: "La tabla de especificaciones fija el tamaño total en «2 gigabytes, menos el espacio necesario para los objetos del sistema». Las cifras de 4, 1 y 8 gigabytes no son el límite de la base de datos; 1 gigabyte es, en la misma página, el tamaño de un campo Objeto OLE."
+  citation: "fuente: `ms-access-especificaciones.html`; «General»"
+  difficulty: 1
+  tags:
+  - "cantidad"
+# anchor: fuente-ms-access-especificaciones-html
+- id: m02-l10-q003
+  prompt:
+    es: "En Access 365, ¿cuál de las siguientes es la forma que indica Microsoft para solucionar la limitación de tamaño de una base de datos de Access?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Crear vínculos a tablas de otras bases de datos de Access, de hasta 2 GB cada una"
+  - id: b
+    text:
+      es: "Activar la compresión de los datos al ejecutar Compactar y reparar base de datos"
+  - id: c
+    text:
+      es: "Guardar la base de datos como un archivo binario compilado con extensión .accde"
+  - id: d
+    text:
+      es: "Mover los informes y formularios a una base de datos front-end para cada usuario"
+  explanation:
+    es: "La nota de la tabla dice que la limitación de tamaño se soluciona «mediante vínculos a tablas de otras bases de datos de Access», cada una de hasta 2 gigabytes. Compactar no comprime los datos: elimina el espacio no utilizado. El archivo .accde compila el código VBA e impide cambiar el diseño, no amplía el límite. La front-end no guarda las tablas, que son las que ocupan los datos."
+  citation: "fuente: `ms-access-especificaciones.html`; «General»"
+  difficulty: 2
+  tags:
+  - "concepto"
+  - "cantidad"
+# anchor: fuente-ms-access-especificaciones-html
+- id: m02-l10-q004
+  prompt:
+    es: "En Access 365, ¿cuál de las siguientes afirmaciones sobre el número máximo de caracteres de los nombres de tabla y de campo es correcta?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Hasta 64 caracteres en el nombre de una tabla y también 64 en el de un campo"
+  - id: b
+    text:
+      es: "Hasta 64 caracteres en el nombre de una tabla y hasta 20 en el de un campo"
+  - id: c
+    text:
+      es: "Hasta 20 caracteres en el nombre de una tabla y hasta 64 en el de un campo"
+  - id: d
+    text:
+      es: "Hasta 14 caracteres en el nombre de una tabla y hasta 64 en el de un campo"
+  explanation:
+    es: "La tabla de especificaciones da 64 caracteres al nombre de tabla y 64 al nombre de campo, igual que al nombre de cualquier objeto. Los 20 caracteres son el límite de un nombre de usuario o de grupo y los 14, el de una contraseña; no se aplican a tablas ni a campos."
+  citation: "fuente: `ms-access-especificaciones.html`; «Número de caracteres de un nombre de campo — 64»"
+  difficulty: 2
+  tags:
+  - "cantidad"
+# anchor: fuente-ms-access-especificaciones-html
+- id: m02-l10-q005
+  prompt:
+    es: "En Access 365, ¿cuál es el número máximo de campos que puede tener una tabla según las especificaciones de Access?"
+  options:
+  - id: a
+    text:
+      es: "64 campos por tabla"
+  - id: b
+    correct: true
+    text:
+      es: "255 campos por tabla"
+  - id: c
+    text:
+      es: "32 campos por tabla"
+  - id: d
+    text:
+      es: "512 campos por tabla"
+  explanation:
+    es: "La tabla de especificaciones fija el «Número de campos en una tabla» en 255. 64 es el máximo de caracteres de un nombre de tabla o de campo, 32 el número de índices de una tabla y 512 el número de conexiones disponibles en Access de Microsoft 365."
+  citation: "fuente: `ms-access-especificaciones.html`; «Tabla»"
+  difficulty: 1
+  tags:
+  - "cantidad"
+# anchor: fuente-ms-access-especificaciones-html
+- id: m02-l10-q006
+  prompt:
+    es: "En Access 365, ¿cuál de las siguientes afirmaciones describe el número máximo de caracteres de un campo Texto largo según las especificaciones de Access?"
+  options:
+  - id: a
+    text:
+      es: "255 al introducir datos por la interfaz de usuario y 65.535 al escribirlos mediante programación"
+  - id: b
+    correct: true
+    text:
+      es: "65.535 al introducir datos por la interfaz de usuario y 1 gigabyte al escribirlos mediante programación"
+  - id: c
+    text:
+      es: "65.535 tanto al introducir datos por la interfaz de usuario como al escribirlos mediante programación"
+  - id: d
+    text:
+      es: "1 gigabyte al introducir datos por la interfaz de usuario y 65.535 al escribirlos mediante programación"
+  explanation:
+    es: "Las especificaciones dan al campo Texto largo «65.535 al introducir datos a través de la interfaz de usuario» y «1 gigabyte de almacenamiento de caracteres al escribir datos mediante programación». La opción de 255 confunde el límite con el de Texto corto. La que da 65.535 en los dos casos borra la diferencia que hace la página, y la que da 1 gigabyte por la interfaz invierte las dos cifras."
+  citation: "fuente: `ms-access-especificaciones.html`; «Tabla»"
+  difficulty: 3
+  tags:
+  - "cantidad"
+# anchor: fuente-ms-access-especificaciones-html
+- id: m02-l10-q007
+  prompt:
+    es: "En Access para Microsoft 365, ¿cuántas tablas abiertas admite como máximo, incluidas las tablas vinculadas y las que Access abre internamente?"
+  options:
+  - id: a
+    text:
+      es: "2048 tablas abiertas"
+  - id: b
+    text:
+      es: "512 tablas abiertas"
+  - id: c
+    correct: true
+    text:
+      es: "4096 tablas abiertas"
+  - id: d
+    text:
+      es: "255 tablas abiertas"
+  explanation:
+    es: "Para las versiones de Access de Microsoft 365 la página da 4096 tablas abiertas. Las 2048 son el límite de las versiones de Access que no son de Microsoft 365. 512 es el número de conexiones disponibles y 255, el de campos en una tabla."
+  citation: "fuente: `ms-access-especificaciones.html`; «Tabla»"
+  difficulty: 3
+  tags:
+  - "cantidad"
+# anchor: fuente-ms-access-compactar-html
+- id: m02-l10-q008
+  prompt:
+    es: "En Access 365, ¿cuál de las siguientes afirmaciones describe lo que hace el proceso de compactar una base de datos?"
+  options:
+  - id: a
+    text:
+      es: "Comprime los datos de las tablas para que el archivo ocupe menos espacio"
+  - id: b
+    text:
+      es: "Mueve las tablas a una base de datos back-end y deja el resto de objetos"
+  - id: c
+    correct: true
+    text:
+      es: "Reduce el archivo eliminando el espacio no utilizado, sin comprimir los datos"
+  - id: d
+    text:
+      es: "Mueve los registros antiguos a otra base de datos para reducir el archivo"
+  explanation:
+    es: "La página dice que «el proceso de compactar no comprime los datos, sino que reduce el archivo de base de datos eliminando el espacio no utilizado». Comprimir los datos es justo lo que la página niega. Mover las tablas a una back-end es dividir la base de datos, y mover registros antiguos a otra base es archivar los datos, según la página sobre dividir."
+  citation: "fuente: `ms-access-compactar.html`; «Compactar y reparar una base de datos»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-ms-access-compactar-html
+- id: m02-l10-q009
+  prompt:
+    es: "En Access 365, para compactar y reparar una base de datos que no está abierta, el comando Compactar y reparar base de datos se selecciona en:"
+  options:
+  - id: a
+    text:
+      es: "La pestaña Datos externos"
+  - id: b
+    text:
+      es: "La pestaña Crear"
+  - id: c
+    text:
+      es: "La pestaña Campos de tabla"
+  - id: d
+    correct: true
+    text:
+      es: "La pestaña Herramientas de base de datos"
+  explanation:
+    es: "Con la base de datos cerrada, la página indica seleccionar «Herramientas de base de datos» y el comando «Compactar y Reparar base de datos». Datos externos es la pestaña donde la página sitúa el grupo Importar & vincular, con las importaciones y el Administrador de tablas vinculadas. Campos de tabla es la pestaña de comandos que se usa al abrir una tabla para añadir reglas de validación a sus campos. Y la pestaña Crear no es la que la página nombra para este comando."
+  citation: "fuente: `ms-access-compactar.html`; «Compactar y reparar manualmente una base de datos que no está abierta»"
+  difficulty: 1
+  tags:
+  - "ofimática-menú"
+# anchor: fuente-ms-access-compactar-html
+- id: m02-l10-q013
+  prompt:
+    es: "En Access 365, si al compactar y reparar un archivo dañado la reparación solo se completa en parte, ¿dónde registra Access los objetos que no pudo reparar?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "En una tabla del sistema llamada MSysCompactErrors"
+  - id: b
+    text:
+      es: "En un informe llamado MSysCompactErrors"
+  - id: c
+    text:
+      es: "En el registro de eventos del sistema de Windows"
+  - id: d
+    text:
+      es: "En un archivo de texto guardado junto a la base"
+  explanation:
+    es: "La página dice que, si la reparación solo se completa en parte, Access «realiza un seguimiento de los objetos de base de datos que no pudo reparar en una tabla del sistema denominada MSysCompactErrors» y abre esa tabla en la vista Hoja de datos. Un informe no es una tabla del sistema. Y el registro de eventos de Windows y un archivo de texto junto a la base no son el lugar que nombra la página: el resultado se consulta dentro de Access, en la tabla abierta."
+  citation: "fuente: `ms-access-compactar.html`; «Compactar y reparar una base de datos dañada cuando Access se lo pida»"
+  difficulty: 2
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-access-dividir-html
+- id: m02-l10-q020
+  prompt:
+    es: "En Access 365, al dividir una base de datos, ¿qué nombre sugiere Access para el archivo de la base de datos back-end?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "El nombre original con _be insertado justo antes de la extensión"
+  - id: b
+    text:
+      es: "El nombre original con _fe insertado justo antes de la extensión"
+  - id: c
+    text:
+      es: "El nombre original con _be añadido detrás de la extensión"
+  - id: d
+    text:
+      es: "El nombre original con _be insertado delante del nombre"
+  explanation:
+    es: "La página dice que el nombre que Access sugiere «conserva el nombre de archivo original» e indica que es una back-end «insertando _be en el nombre, justo antes de la extensión del nombre de archivo». Las otras opciones cambian el sufijo o el lugar donde se inserta."
+  citation: "fuente: `ms-access-dividir.html`; «Dividir la base de datos»"
+  difficulty: 2
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-access-dividir-html
+- id: m02-l10-q021
+  prompt:
+    es: "En Access 365, al indicar la ubicación de red de la base de datos back-end, ¿cuál de las siguientes recomendaciones da la ayuda de Microsoft?"
+  options:
+  - id: a
+    text:
+      es: "Especificar una letra de unidad asignada en lugar de la ruta de acceso UNC"
+  - id: b
+    text:
+      es: "Guardar la base de datos back-end en el disco duro local de cada usuario"
+  - id: c
+    text:
+      es: "Guardar la base de datos back-end en la carpeta de la copia front-end"
+  - id: d
+    correct: true
+    text:
+      es: "Especificar la ruta de acceso UNC en lugar de una letra de unidad asignada"
+  explanation:
+    es: "Como las asignaciones de unidad pueden variar, la página dice que «debe especificar la ruta de acceso UNC de la ubicación en lugar de usar una letra de unidad asignada». La opción de la letra de unidad invierte la recomendación. La ubicación «debe estar disponible para todos los usuarios», así que no vale el disco local de cada uno ni la carpeta de la copia front-end, que es local."
+  citation: "fuente: `ms-access-dividir.html`; «Dividir la base de datos»"
+  difficulty: 2
+  tags:
+  - "requisito"
+# anchor: fuente-ms-access-dividir-html
+- id: m02-l10-q024
+  prompt:
+    es: "En Access 365, ¿por qué suele mejorar el rendimiento al dividir una base de datos compartida a través de una red?"
+  options:
+  - id: a
+    text:
+      es: "Porque los datos se comprimen al enviarse por la red"
+  - id: b
+    text:
+      es: "Porque cada usuario guarda una copia local de las tablas"
+  - id: c
+    correct: true
+    text:
+      es: "Porque solo se envían los datos a través de la red"
+  - id: d
+    text:
+      es: "Porque las consultas se ejecutan en el servidor de archivos"
+  explanation:
+    es: "La página dice que el rendimiento mejora «porque solo se envían los datos a través de la red»; en una base compartida sin dividir viajan también los objetos: tablas, consultas, formularios, informes, macros y módulos. Comprimir los datos no es lo que dice la página: lo que se evita es enviar los objetos. Cada usuario guarda una copia local de la base front-end, que contiene consultas, formularios e informes, no de las tablas, que se quedan en el back-end. Y por eso las consultas no se ejecutan en el servidor de archivos: son objetos del front-end que cada usuario tiene en su copia."
+  citation: "fuente: `ms-access-dividir.html`; «Ventajas de dividir las bases de datos»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-ms-access-dividir-html
+- id: m02-l10-q025
+  prompt:
+    es: "En Access 365, en una base de datos dividida, si la base se cierra inesperadamente a un usuario, ¿cuál de las siguientes partes suele recibir el daño?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "La copia de la base de datos front-end que el usuario tenía abierta"
+  - id: b
+    text:
+      es: "La base de datos back-end con las tablas de datos compartidas"
+  - id: c
+    text:
+      es: "Las tablas vinculadas de todos los usuarios conectados a esa red compartida"
+  - id: d
+    text:
+      es: "La copia de seguridad que se hizo antes de dividir la base de datos"
+  explanation:
+    es: "La página dice que el daño «generalmente se limita a la copia de la base de datos front-end que el usuario tenía abierta»; cada usuario trabaja con su propia copia local. El back-end con las tablas compartidas es mucho menos probable que se dañe, porque se accede a él solo mediante tablas vinculadas. Las tablas vinculadas de todos los usuarios no se ven afectadas: cada uno tiene su copia del front-end. Y la copia de seguridad es un archivo aparte que la página manda hacer antes de dividir la base, no algo que se use al trabajar."
+  citation: "fuente: `ms-access-dividir.html`; «Ventajas de dividir las bases de datos»"
+  difficulty: 2
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-access-dividir-html
+- id: m02-l10-q085
+  prompt:
+    es: "Señale cómo se archivan los datos según la ayuda de Microsoft sobre dividir una base de datos de Access 365:"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Moviendo periódicamente los registros antiguos a una base de datos diferente"
+  - id: b
+    text:
+      es: "Moviendo las tablas a una base back-end y los demás objetos a una front-end"
+  - id: c
+    text:
+      es: "Compactando la base de datos para eliminar los registros más antiguos"
+  - id: d
+    text:
+      es: "Guardando la base de datos como archivo compilado .accde de solo lectura"
+  explanation:
+    es: "La página advierte que dividir no es lo mismo que archivar, y que «los datos se archivan moviendo periódicamente registros antiguos a una base de datos diferente». Mover las tablas a la back-end es dividir. Compactar elimina espacio no utilizado, no registros, y el .accde impide cambiar el diseño de los objetos."
+  citation: "fuente: `ms-access-dividir.html`; «Dividir una base de datos de Access»"
+  difficulty: 3
+  tags:
+  - "concepto"
+# anchor: fuente-ms-access-cifrar-html
+- id: m02-l10-q252
+  prompt:
+    es: "En Access 365, ¿en qué formato de archivo se aplica la característica de cifrar una base de datos con una contraseña?"
+  options:
+  - id: a
+    text:
+      es: "Solo en el formato .mdb"
+  - id: b
+    text:
+      es: "Solo en las bases de datos divididas"
+  - id: c
+    correct: true
+    text:
+      es: "Solo en el formato .accdb"
+  - id: d
+    text:
+      es: "En cualquier formato de archivo de Access"
+  explanation:
+    es: "La página dice que la característica de cifrado solo se aplica a las bases de datos en formato .accdb. El formato .mdb es el anterior, en el que ni siquiera están disponibles Datos adjuntos ni Calculado. Decir que sirve en cualquier formato contradice la página. Tampoco se limita a las divididas: una base dividida se cifra cifrando el front-end y el back-end, pero cualquier .accdb se puede cifrar."
+  citation: "fuente: `ms-access-cifrar.html`; «Información general»"
+  difficulty: 1
+  tags:
+  - "requisito"
+# anchor: fuente-ms-access-cifrar-html
+- id: m02-l10-q253
+  prompt:
+    es: "En Access 365, con la base de datos abierta en modo exclusivo, ¿cuál de las siguientes rutas permite cifrarla con una contraseña?"
+  options:
+  - id: a
+    text:
+      es: "Archivo › Opciones › Base de datos actual"
+  - id: b
+    correct: true
+    text:
+      es: "Archivo › Información › Cifrar con contraseña"
+  - id: c
+    text:
+      es: "Herramientas de base de datos › Compactar y reparar base de datos"
+  - id: d
+    text:
+      es: "Archivo › Abrir › Abrir en modo exclusivo"
+  explanation:
+    es: "Con la base abierta en modo exclusivo, se va a Archivo, Información y Cifrar con contraseña. Archivo › Abrir › Abrir en modo exclusivo es el paso previo, con la flecha junto al botón Abrir, no el cifrado. Herramientas de base de datos › Compactar y reparar elimina el espacio no utilizado. Archivo › Opciones › Base de datos actual es donde se activa Compactar al cerrar."
+  citation: "fuente: `ms-access-cifrar.html`; «Cifrar una base de datos»"
+  difficulty: 2
+  tags:
+  - "ofimática-menú"
+# anchor: fuente-ms-access-cifrar-html
+- id: m02-l10-q254
+  prompt:
+    es: "En Access 365, ¿cuál de las siguientes opciones indica qué hay que cifrar para proteger con contraseña una base de datos dividida?"
+  options:
+  - id: a
+    text:
+      es: "Solo el front-end, con las consultas, formularios e informes"
+  - id: b
+    correct: true
+    text:
+      es: "Tanto el front-end como el back-end, y se vuelve a vincular"
+  - id: c
+    text:
+      es: "Solo el back-end, que contiene las tablas"
+  - id: d
+    text:
+      es: "No se puede: la base dividida no admite cifrado"
+  explanation:
+    es: "Para cifrar una base dividida se cifran el front-end y el back-end, y tras cifrar el back-end hay que volver a vincular las tablas desde el front-end. Cifrar solo el back-end deja el front-end sin proteger, y la página pide cifrar los dos. Cifrar solo el front-end tampoco: las tablas están en el back-end. Decir que no admite cifrado contradice la sección sobre cifrar una base de datos dividida."
+  citation: "fuente: `ms-access-cifrar.html`; «Cifrar una base de datos dividida»"
+  difficulty: 3
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-access-cifrar-html
+- id: m02-l10-q255
+  prompt:
+    es: "En Access 365, ¿cuál de las siguientes opciones describe lo que ocurre si se cifra una base de datos con una contraseña y después se pierde la contraseña?"
+  options:
+  - id: a
+    text:
+      es: "Access la descifra al compactar y reparar la base de datos."
+  - id: b
+    correct: true
+    text:
+      es: "No se puede usar la base de datos ni quitar la contraseña sin conocerla."
+  - id: c
+    text:
+      es: "Microsoft puede recuperar la contraseña tras comprobar la cuenta del usuario."
+  - id: d
+    text:
+      es: "La base se abre igualmente en modo exclusivo y de solo lectura."
+  explanation:
+    es: "Si se cifra y se pierde la contraseña, no se puede usar la base de datos, y tampoco se puede quitar la contraseña si no se conoce. Microsoft no podrá recuperarla, según la nota de la página. Abrirla en modo exclusivo es un paso para cifrar o descifrar, no una vía de acceso sin contraseña. Compactar y reparar elimina espacio no utilizado y no descifra."
+  citation: "fuente: `ms-access-cifrar.html`; «Información general»"
+  difficulty: 2
+  tags:
+  - "comportamiento"

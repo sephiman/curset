@@ -17,29 +17,29 @@ Explicación: Se suma el valor de cada letra según su clase (T=3, R=3, á=4, M=
 
 ## 2. seed 4465995626877660290 · nivel 1
 
-Dadas las siguientes equivalencias: c=1010, b=0101, f=1001, d=0010, e=1100, g=0110 ¿Qué serie de letras corresponde a la siguiente serie de números?: 1100011011001001
+Dadas las siguientes equivalencias: a=0101, b=0100, c=1000, d=1001, e=1010, f=1100 ¿Qué serie de letras corresponde a la siguiente serie de números?: 1100110010101000
 
-a) egcf
-b) edec
-c) cdef
-d) egef
+a) ffec
+b) ffdf
+c) bfeb
+d) fbfc
 
-**Clave: d**
+**Clave: a**
 
-Explicación: Se separan bloques de cuatro cifras (1100 0110 1100 1001) y se busca cada uno en la tabla: egef.
+Explicación: Se separan bloques de cuatro cifras (1100 1100 1010 1000) y se busca cada uno en la tabla: ffec.
 
 ## 3. seed 2414638611166857818 · nivel 1
 
-Dadas las siguientes equivalencias: 1=c, 2=v, 6=h, 7=o. ¿Qué serie corresponde a la palabra «archivo» si cada letra de la tabla se sustituye por su cifra?
+Dadas las siguientes equivalencias: 1=e, 2=n, 4=c, 6=a. ¿Qué serie corresponde a la palabra «licencia» si cada letra de la tabla se sustituye por su cifra?
 
-a) ar76i21
-b) ar16i72
-c) ar16i27
-d) ar17i26
+a) li4624i1
+b) li4214i6
+c) li4124i6
+d) li1421i6
 
 **Clave: c**
 
-Explicación: Se sustituye cada letra de la tabla por su cifra (1=c, 2=v, 6=h, 7=o) y las demás se mantienen: archivo se escribe ar16i27.
+Explicación: Se sustituye cada letra de la tabla por su cifra (1=e, 2=n, 4=c, 6=a) y las demás se mantienen: licencia se escribe li4124i6.
 
 ## 4. seed 4568015269300506277 · nivel 2
 
@@ -82,94 +82,94 @@ Explicación: Se suma el valor de cada letra según su clase (O=8, f=2, i=7, c=2
 
 ## 7. seed 2391709619775052229 · nivel 1
 
-Dadas las siguientes equivalencias: g=0100, a=1100, f=0010, b=1010, c=0001, e=0011 ¿Qué serie de letras corresponde a la siguiente serie de números?: 0100001000110011
+Dadas las siguientes equivalencias: a=0010, b=0001, c=1000, d=0101, e=1100, f=0110 ¿Qué serie de letras corresponde a la siguiente serie de números?: 0001110001100010
 
-a) gbef
-b) gfee
-c) gefe
-d) ggbe
-
-**Clave: b**
-
-Explicación: Se separan bloques de cuatro cifras (0100 0010 0011 0011) y se busca cada uno en la tabla: gfee.
-
-## 8. seed 1863176285435730613 · nivel 1
-
-Dadas las siguientes equivalencias: a=0001, f=0011, b=0010, g=0100, e=1010, d=0101 ¿Qué serie de letras corresponde a la siguiente serie de números?: 0100001100010101
-
-a) dfaf
-b) afgd
-c) gfad
-d) gfaf
-
-**Clave: c**
-
-Explicación: Se separan bloques de cuatro cifras (0100 0011 0001 0101) y se busca cada uno en la tabla: gfad.
-
-## 9. seed 1602508387861334123 · nivel 1
-
-Dadas las siguientes equivalencias: 1=c, 4=o, 6=f, 8=i. ¿Qué serie corresponde a la palabra «oficina» si cada letra de la tabla se sustituye por su cifra?
-
-a) 46181na
-b) o6818na
-c) 48616na
-d) 46818na
+a) befb
+b) aeda
+c) cefa
+d) befa
 
 **Clave: d**
 
-Explicación: Se sustituye cada letra de la tabla por su cifra (1=c, 4=o, 6=f, 8=i) y las demás se mantienen: oficina se escribe 46818na.
+Explicación: Se separan bloques de cuatro cifras (0001 1100 0110 0010) y se busca cada uno en la tabla: befa.
+
+## 8. seed 1863176285435730613 · nivel 1
+
+Dadas las siguientes equivalencias: a=0001, b=1000, c=1100, d=0100, e=1001, f=0101 ¿Qué serie de letras corresponde a la siguiente serie de números?: 1001110001010001
+
+a) ccfa
+b) fcfb
+c) ecfa
+d) ecdb
+
+**Clave: c**
+
+Explicación: Se separan bloques de cuatro cifras (1001 1100 0101 0001) y se busca cada uno en la tabla: ecfa.
+
+## 9. seed 1602508387861334123 · nivel 1
+
+Dadas las siguientes equivalencias: 1=c, 4=t, 6=n, 8=o. ¿Qué serie corresponde a la palabra «contrato» si cada letra de la tabla se sustituye por su cifra?
+
+a) 8164ra41
+b) 186trat8
+c) 1684ra46
+d) 1864ra48
+
+**Clave: d**
+
+Explicación: Se sustituye cada letra de la tabla por su cifra (1=c, 4=t, 6=n, 8=o) y las demás se mantienen: contrato se escribe 1864ra48.
 
 ## 10. seed 1599557441512053633 · nivel 1
 
-Dadas las siguientes equivalencias: c=1010, f=0110, e=1100, d=0100, a=0001, b=0101 ¿Qué serie de letras corresponde a la siguiente serie de números?: 0110010000010100
+Dadas las siguientes equivalencias: a=0101, b=1001, c=0100, d=1000, e=0011, f=0110 ¿Qué serie de letras corresponde a la siguiente serie de números?: 1000010001010110
 
-a) fdad
-b) fdbd
-c) cddd
-d) fdbe
+a) dcea
+b) ddaf
+c) bcef
+d) dcaf
 
-**Clave: a**
+**Clave: d**
 
-Explicación: Se separan bloques de cuatro cifras (0110 0100 0001 0100) y se busca cada uno en la tabla: fdad.
+Explicación: Se separan bloques de cuatro cifras (1000 0100 0101 0110) y se busca cada uno en la tabla: dcaf.
 
 ## 11. seed 3198995701451015775 · nivel 1
 
-Dadas las siguientes equivalencias: 1=g, 4=s, 5=r, 9=o. ¿Qué serie corresponde a la palabra «registro» si cada letra de la tabla se sustituye por su cifra?
+Dadas las siguientes equivalencias: 1=a, 5=u, 6=r, 7=c. ¿Qué serie corresponde a la palabra «cuaderno» si cada letra de la tabla se sustituye por su cifra?
 
-a) 5e1i4t59
-b) 4e1i5t49
-c) 5e1i9t54
-d) 5egi4t59
+a) 751de6no
+b) 761de5no
+c) 571de6no
+d) 75ade6no
 
 **Clave: a**
 
-Explicación: Se sustituye cada letra de la tabla por su cifra (1=g, 4=s, 5=r, 9=o) y las demás se mantienen: registro se escribe 5e1i4t59.
+Explicación: Se sustituye cada letra de la tabla por su cifra (1=a, 5=u, 6=r, 7=c) y las demás se mantienen: cuaderno se escribe 751de6no.
 
 ## 12. seed 3271328786901460905 · nivel 1
 
-Dadas las siguientes equivalencias: a=0101, b=0010, g=1100, d=0110, f=1001, c=1010 ¿Qué serie de letras corresponde a la siguiente serie de números?: 0101001010101010
+Dadas las siguientes equivalencias: a=0010, b=1000, c=1100, d=1010, e=0100, f=0011 ¿Qué serie de letras corresponde a la siguiente serie de números?: 1010110001000010
 
-a) dbcc
-b) abcc
-c) abfc
-d) abbc
-
-**Clave: b**
-
-Explicación: Se separan bloques de cuatro cifras (0101 0010 1010 1010) y se busca cada uno en la tabla: abcc.
-
-## 13. seed 1818467762689500913 · nivel 1
-
-Dadas las siguientes equivalencias: 1=a, 5=f, 7=n, 8=o. ¿Qué serie corresponde a la palabra «oficina» si cada letra de la tabla se sustituye por su cifra?
-
-a) 85ici71
-b) 75ici81
-c) 8fici71
-d) 85ici17
+a) dcea
+b) fbea
+c) cbea
+d) bcba
 
 **Clave: a**
 
-Explicación: Se sustituye cada letra de la tabla por su cifra (1=a, 5=f, 7=n, 8=o) y las demás se mantienen: oficina se escribe 85ici71.
+Explicación: Se separan bloques de cuatro cifras (1010 1100 0100 0010) y se busca cada uno en la tabla: dcea.
+
+## 13. seed 1818467762689500913 · nivel 1
+
+Dadas las siguientes equivalencias: 1=a, 5=n, 7=r, 8=t. ¿Qué serie corresponde a la palabra «contrato» si cada letra de la tabla se sustituye por su cifra?
+
+a) co58718o
+b) co57817o
+c) con8718o
+d) co58178o
+
+**Clave: a**
+
+Explicación: Se sustituye cada letra de la tabla por su cifra (1=a, 5=n, 7=r, 8=t) y las demás se mantienen: contrato se escribe co58718o.
 
 ## 14. seed 3507279643990949018 · nivel 2
 
@@ -186,55 +186,55 @@ Explicación: Se suma el valor de cada letra según su clase (g=8, e=2, s=8, t=8
 
 ## 15. seed 3232733006242683934 · nivel 1
 
-Dadas las siguientes equivalencias: 3=n, 6=f, 8=i, 9=a. ¿Qué serie corresponde a la palabra «oficina» si cada letra de la tabla se sustituye por su cifra?
+Dadas las siguientes equivalencias: 3=r, 6=n, 8=o, 9=a. ¿Qué serie corresponde a la palabra «contrato» si cada letra de la tabla se sustituye por su cifra?
 
-a) o68c839
-b) o68c893
-c) o63c389
-d) o98c836
+a) c86t39t8
+b) c86t93t8
+c) c36t89t3
+d) c89t36t8
 
 **Clave: a**
 
-Explicación: Se sustituye cada letra de la tabla por su cifra (3=n, 6=f, 8=i, 9=a) y las demás se mantienen: oficina se escribe o68c839.
+Explicación: Se sustituye cada letra de la tabla por su cifra (3=r, 6=n, 8=o, 9=a) y las demás se mantienen: contrato se escribe c86t39t8.
 
 ## 16. seed 3052284052258496994 · nivel 1
 
-Dadas las siguientes equivalencias: 2=o, 4=v, 5=c, 7=a. ¿Qué serie corresponde a la palabra «archivo» si cada letra de la tabla se sustituye por su cifra?
+Dadas las siguientes equivalencias: 2=e, 4=n, 5=c, 7=a. ¿Qué serie corresponde a la palabra «licencia» si cada letra de la tabla se sustituye por su cifra?
 
-a) 2r5hi47
-b) 4r5hi72
-c) 7r4hi52
-d) 7r5hi42
+a) li5745i2
+b) li5275i4
+c) li4254i7
+d) li5245i7
 
 **Clave: d**
 
-Explicación: Se sustituye cada letra de la tabla por su cifra (2=o, 4=v, 5=c, 7=a) y las demás se mantienen: archivo se escribe 7r5hi42.
+Explicación: Se sustituye cada letra de la tabla por su cifra (2=e, 4=n, 5=c, 7=a) y las demás se mantienen: licencia se escribe li5245i7.
 
 ## 17. seed 2120375140066735932 · nivel 1
 
-Dadas las siguientes equivalencias: f=1100, b=1000, d=0001, a=0100, e=1010, c=0010 ¿Qué serie de letras corresponde a la siguiente serie de números?: 1010001000011010
+Dadas las siguientes equivalencias: a=0100, b=0110, c=0001, d=1010, e=0010, f=0101 ¿Qué serie de letras corresponde a la siguiente serie de números?: 0010001001100100
 
-a) ecdf
-b) ecde
-c) eabe
-d) fcde
-
-**Clave: b**
-
-Explicación: Se separan bloques de cuatro cifras (1010 0010 0001 1010) y se busca cada uno en la tabla: ecde.
-
-## 18. seed 1463794077017128425 · nivel 1
-
-Dadas las siguientes equivalencias: 1=n, 2=a, 4=v, 6=e. ¿Qué serie corresponde a la palabra «ventana» si cada letra de la tabla se sustituye por su cifra?
-
-a) 461t212
-b) 46nt2n2
-c) 416t262
-d) 462t121
+a) eeba
+b) eeab
+c) eeea
+d) eaba
 
 **Clave: a**
 
-Explicación: Se sustituye cada letra de la tabla por su cifra (1=n, 2=a, 4=v, 6=e) y las demás se mantienen: ventana se escribe 461t212.
+Explicación: Se separan bloques de cuatro cifras (0010 0010 0110 0100) y se busca cada uno en la tabla: eeba.
+
+## 18. seed 1463794077017128425 · nivel 1
+
+Dadas las siguientes equivalencias: 1=n, 2=e, 4=r, 6=f. ¿Qué serie corresponde a la palabra «informes» si cada letra de la tabla se sustituye por su cifra?
+
+a) i16o4m2s
+b) in6o4m2s
+c) i61o4m2s
+d) i26o4m1s
+
+**Clave: a**
+
+Explicación: Se sustituye cada letra de la tabla por su cifra (1=n, 2=e, 4=r, 6=f) y las demás se mantienen: informes se escribe i16o4m2s.
 
 ## 19. seed 331575075545083042 · nivel 2
 
@@ -275,16 +275,16 @@ Explicación: La clave se lee posición a posición: 1 (departamento) = 1, Venta
 
 ## 21. seed 3728727243465715397 · nivel 1
 
-Dadas las siguientes equivalencias: b=0110, e=0100, c=0101, f=0011, d=1001, a=1010 ¿Qué serie de letras corresponde a la siguiente serie de números?: 0101010100110011
+Dadas las siguientes equivalencias: a=0100, b=0101, c=1010, d=1001, e=0010, f=1000 ¿Qué serie de letras corresponde a la siguiente serie de números?: 0101101000101000
 
-a) ecfb
-b) fcff
-c) ccff
-d) bfff
+a) aeef
+b) becf
+c) bcef
+d) bdcf
 
 **Clave: c**
 
-Explicación: Se separan bloques de cuatro cifras (0101 0101 0011 0011) y se busca cada uno en la tabla: ccff.
+Explicación: Se separan bloques de cuatro cifras (0101 1010 0010 1000) y se busca cada uno en la tabla: bcef.
 
 ## 22. seed 3855469327430853671 · nivel 2
 
@@ -312,29 +312,29 @@ Explicación: La clave se lee posición a posición: 1 (custodia) = 2, almacén;
 
 ## 23. seed 2307144971077380955 · nivel 1
 
-Dadas las siguientes equivalencias: 2=o, 4=d, 7=c, 8=a. ¿Qué serie corresponde a la palabra «teclado» si cada letra de la tabla se sustituye por su cifra?
+Dadas las siguientes equivalencias: 2=t, 4=f, 7=c, 8=a. ¿Qué serie corresponde a la palabra «facturas» si cada letra de la tabla se sustituye por su cifra?
 
-a) te7l842
-b) te7l248
-c) te4l872
-d) tecl842
+a) 4872ur8s
+b) 4278ur2s
+c) 7842ur8s
+d) 48c2ur8s
 
 **Clave: a**
 
-Explicación: Se sustituye cada letra de la tabla por su cifra (2=o, 4=d, 7=c, 8=a) y las demás se mantienen: teclado se escribe te7l842.
+Explicación: Se sustituye cada letra de la tabla por su cifra (2=t, 4=f, 7=c, 8=a) y las demás se mantienen: facturas se escribe 4872ur8s.
 
 ## 24. seed 4077319563193477691 · nivel 1
 
-Dadas las siguientes equivalencias: d=1100, a=0001, b=1000, e=0100, g=0101, c=1001 ¿Qué serie de letras corresponde a la siguiente serie de números?: 1001100001011000
+Dadas las siguientes equivalencias: a=0110, b=0001, c=1000, d=1100, e=0010, f=0100 ¿Qué serie de letras corresponde a la siguiente serie de números?: 1000001001100001
 
-a) cbab
-b) gbeb
-c) cbgb
-d) cbge
+a) cedb
+b) ebab
+c) cefe
+d) ceab
 
-**Clave: c**
+**Clave: d**
 
-Explicación: Se separan bloques de cuatro cifras (1001 1000 0101 1000) y se busca cada uno en la tabla: cbgb.
+Explicación: Se separan bloques de cuatro cifras (1000 0010 0110 0001) y se busca cada uno en la tabla: ceab.
 
 ## 25. seed 3186026344920370923 · nivel 2
 
@@ -414,16 +414,16 @@ Explicación: Se suma el valor de cada letra según su clase (G=8, E=5, s=7, t=7
 
 ## 30. seed 1529676557096434881 · nivel 1
 
-Dadas las siguientes equivalencias: 1=i, 7=a, 8=o, 9=r. ¿Qué serie corresponde a la palabra «usuario» si cada letra de la tabla se sustituye por su cifra?
+Dadas las siguientes equivalencias: 1=s, 5=a, 6=o, 7=m. ¿Qué serie corresponde a la palabra «formatos» si cada letra de la tabla se sustituye por su cifra?
 
-a) usu7819
-b) usu7918
-c) usu1978
-d) usu9718
+a) f6r7at61
+b) f6rm5t61
+c) f6r15t67
+d) f6r75t61
 
-**Clave: b**
+**Clave: d**
 
-Explicación: Se sustituye cada letra de la tabla por su cifra (1=i, 7=a, 8=o, 9=r) y las demás se mantienen: usuario se escribe usu7918.
+Explicación: Se sustituye cada letra de la tabla por su cifra (1=s, 5=a, 6=o, 7=m) y las demás se mantienen: formatos se escribe f6r75t61.
 
 ## 31. seed 2908773674053339039 · nivel 2
 
@@ -466,68 +466,68 @@ Explicación: Se suma el valor de cada letra según su clase (S=6, e=3, L=6, l=5
 
 ## 34. seed 2193356500958727543 · nivel 1
 
-Dadas las siguientes equivalencias: c=1000, e=0101, a=0110, g=0011, f=0010, b=0001 ¿Qué serie de letras corresponde a la siguiente serie de números?: 0011001000010010
+Dadas las siguientes equivalencias: a=0101, b=1010, c=0010, d=0100, e=1001, f=1000 ¿Qué serie de letras corresponde a la siguiente serie de números?: 1010001010001000
 
-a) gfbf
-b) gfef
-c) bfbg
-d) gfga
-
-**Clave: a**
-
-Explicación: Se separan bloques de cuatro cifras (0011 0010 0001 0010) y se busca cada uno en la tabla: gfbf.
-
-## 35. seed 306428319324550081 · nivel 1
-
-Dadas las siguientes equivalencias: f=0110, a=1000, d=0100, b=1010, e=0011, c=1001 ¿Qué serie de letras corresponde a la siguiente serie de números?: 0100001101000011
-
-a) fede
-b) dbdf
-c) dede
-d) dedf
-
-**Clave: c**
-
-Explicación: Se separan bloques de cuatro cifras (0100 0011 0100 0011) y se busca cada uno en la tabla: dede.
-
-## 36. seed 1952504928800109889 · nivel 1
-
-Dadas las siguientes equivalencias: 5=u, 6=i, 8=a, 9=s. ¿Qué serie corresponde a la palabra «sumario» si cada letra de la tabla se sustituye por su cifra?
-
-a) 98m5r6o
-b) 95m8r6o
-c) 65m8r9o
-d) 59m8r6o
-
-**Clave: b**
-
-Explicación: Se sustituye cada letra de la tabla por su cifra (5=u, 6=i, 8=a, 9=s) y las demás se mantienen: sumario se escribe 95m8r6o.
-
-## 37. seed 834599586222951670 · nivel 1
-
-Dadas las siguientes equivalencias: d=1010, f=0101, c=0011, e=0010, g=0100, b=1100 ¿Qué serie de letras corresponde a la siguiente serie de números?: 0101001010100011
-
-a) fedc
-b) fede
-c) feee
-d) feef
-
-**Clave: a**
-
-Explicación: Se separan bloques de cuatro cifras (0101 0010 1010 0011) y se busca cada uno en la tabla: fedc.
-
-## 38. seed 2474667349443405148 · nivel 1
-
-Dadas las siguientes equivalencias: 3=e, 6=t, 7=n, 9=v. ¿Qué serie corresponde a la palabra «ventana» si cada letra de la tabla se sustituye por su cifra?
-
-a) 7396a9a
-b) v376a7a
-c) 93n6ana
-d) 9376a7a
+a) bfbf
+b) bcbf
+c) ecfd
+d) bcff
 
 **Clave: d**
 
-Explicación: Se sustituye cada letra de la tabla por su cifra (3=e, 6=t, 7=n, 9=v) y las demás se mantienen: ventana se escribe 9376a7a.
+Explicación: Se separan bloques de cuatro cifras (1010 0010 1000 1000) y se busca cada uno en la tabla: bcff.
+
+## 35. seed 306428319324550081 · nivel 1
+
+Dadas las siguientes equivalencias: a=0001, b=0110, c=1000, d=0100, e=1001, f=0101 ¿Qué serie de letras corresponde a la siguiente serie de números?: 0110011001001001
+
+a) dbce
+b) ddde
+c) bfdf
+d) bbde
+
+**Clave: d**
+
+Explicación: Se separan bloques de cuatro cifras (0110 0110 0100 1001) y se busca cada uno en la tabla: bbde.
+
+## 36. seed 1952504928800109889 · nivel 1
+
+Dadas las siguientes equivalencias: 3=t, 4=r, 6=a, 9=i. ¿Qué serie corresponde a la palabra «tramitar» si cada letra de la tabla se sustituye por su cifra?
+
+a) 346m9364
+b) 3r6m936r
+c) 396m4369
+d) 349m6394
+
+**Clave: a**
+
+Explicación: Se sustituye cada letra de la tabla por su cifra (3=t, 4=r, 6=a, 9=i) y las demás se mantienen: tramitar se escribe 346m9364.
+
+## 37. seed 834599586222951670 · nivel 1
+
+Dadas las siguientes equivalencias: a=0110, b=0101, c=0011, d=1001, e=1000, f=1100 ¿Qué serie de letras corresponde a la siguiente serie de números?: 1100001100110101
+
+a) fccb
+b) acbb
+c) fcbf
+d) fbdb
+
+**Clave: a**
+
+Explicación: Se separan bloques de cuatro cifras (1100 0011 0011 0101) y se busca cada uno en la tabla: fccb.
+
+## 38. seed 2474667349443405148 · nivel 1
+
+Dadas las siguientes equivalencias: 3=m, 4=r, 6=f, 9=s. ¿Qué serie corresponde a la palabra «informes» si cada letra de la tabla se sustituye por su cifra?
+
+a) in9o43e6
+b) in6o49e3
+c) in6o4me9
+d) in6o43e9
+
+**Clave: d**
+
+Explicación: Se sustituye cada letra de la tabla por su cifra (3=m, 4=r, 6=f, 9=s) y las demás se mantienen: informes se escribe in6o43e9.
 
 ## 39. seed 748262120684895621 · nivel 2
 
@@ -568,29 +568,29 @@ Explicación: La clave se lee posición a posición: 1 (sede) = 2, Este; 2 (cust
 
 ## 41. seed 3268200537010584946 · nivel 1
 
-Dadas las siguientes equivalencias: b=1100, e=1001, g=1000, a=0010, c=1010, d=0110 ¿Qué serie de letras corresponde a la siguiente serie de números?: 1100001010011000
+Dadas las siguientes equivalencias: a=0100, b=1100, c=0001, d=0110, e=0101, f=1001 ¿Qué serie de letras corresponde a la siguiente serie de números?: 1001100101010110
 
-a) baec
-b) caec
-c) bdeg
-d) baeg
-
-**Clave: d**
-
-Explicación: Se separan bloques de cuatro cifras (1100 0010 1001 1000) y se busca cada uno en la tabla: baeg.
-
-## 42. seed 3287665898356817018 · nivel 1
-
-Dadas las siguientes equivalencias: e=0011, g=0110, d=1000, a=0100, b=0010, c=1001 ¿Qué serie de letras corresponde a la siguiente serie de números?: 1000010001100011
-
-a) dage
-b) dbee
-c) cabe
-d) dagb
+a) ffed
+b) bfee
+c) cfbd
+d) fced
 
 **Clave: a**
 
-Explicación: Se separan bloques de cuatro cifras (1000 0100 0110 0011) y se busca cada uno en la tabla: dage.
+Explicación: Se separan bloques de cuatro cifras (1001 1001 0101 0110) y se busca cada uno en la tabla: ffed.
+
+## 42. seed 3287665898356817018 · nivel 1
+
+Dadas las siguientes equivalencias: a=1010, b=0110, c=0010, d=1000, e=0100, f=0101 ¿Qué serie de letras corresponde a la siguiente serie de números?: 0100010010000110
+
+a) eedb
+b) eddf
+c) bedb
+d) deeb
+
+**Clave: a**
+
+Explicación: Se separan bloques de cuatro cifras (0100 0100 1000 0110) y se busca cada uno en la tabla: eedb.
 
 ## 43. seed 579285444686769818 · nivel 2
 
@@ -633,16 +633,16 @@ Explicación: Se suma el valor de cada letra según su clase (G=6, E=7, S=6, t=2
 
 ## 46. seed 1289249862356801085 · nivel 1
 
-Dadas las siguientes equivalencias: 3=p, 4=c, 5=t, 8=e. ¿Qué serie corresponde a la palabra «carpeta» si cada letra de la tabla se sustituye por su cifra?
+Dadas las siguientes equivalencias: 3=h, 5=p, 8=e, 9=c. ¿Qué serie corresponde a la palabra «despacho» si cada letra de la tabla se sustituye por su cifra?
 
-a) car385a
-b) 4ar385a
-c) 8ar345a
-d) 3ar485a
+a) d8s5ac3o
+b) d8s5a93o
+c) d9s5a83o
+d) d8s5a39o
 
 **Clave: b**
 
-Explicación: Se sustituye cada letra de la tabla por su cifra (3=p, 4=c, 5=t, 8=e) y las demás se mantienen: carpeta se escribe 4ar385a.
+Explicación: Se sustituye cada letra de la tabla por su cifra (3=h, 5=p, 8=e, 9=c) y las demás se mantienen: despacho se escribe d8s5a93o.
 
 ## 47. seed 1882981401235517409 · nivel 2
 
@@ -659,39 +659,39 @@ Explicación: Se suma el valor de cada letra según su clase (g=1, e=8, S=5, t=1
 
 ## 48. seed 3938993709843485075 · nivel 1
 
-Dadas las siguientes equivalencias: g=0001, d=1001, b=0011, a=0101, c=1010, e=0110 ¿Qué serie de letras corresponde a la siguiente serie de números?: 0110011010010101
+Dadas las siguientes equivalencias: a=0110, b=1000, c=0001, d=0101, e=1010, f=1001 ¿Qué serie de letras corresponde a la siguiente serie de números?: 0101000110011010
 
-a) ebdd
-b) eeda
-c) ecda
-d) ceda
+a) dcfe
+b) dcfb
+c) cbfe
+d) ccee
 
-**Clave: b**
+**Clave: a**
 
-Explicación: Se separan bloques de cuatro cifras (0110 0110 1001 0101) y se busca cada uno en la tabla: eeda.
+Explicación: Se separan bloques de cuatro cifras (0101 0001 1001 1010) y se busca cada uno en la tabla: dcfe.
 
 ## 49. seed 4034968673927375854 · nivel 1
 
-Dadas las siguientes equivalencias: c=0010, f=0110, d=1000, b=1001, a=0001, e=1100 ¿Qué serie de letras corresponde a la siguiente serie de números?: 0110000100010110
+Dadas las siguientes equivalencias: a=0101, b=0110, c=0100, d=0001, e=1001, f=1010 ¿Qué serie de letras corresponde a la siguiente serie de números?: 1001000110100110
 
-a) fbae
-b) faaf
-c) fabf
-d) fcbf
+a) adeb
+b) edfb
+c) eafb
+d) adff
 
 **Clave: b**
 
-Explicación: Se separan bloques de cuatro cifras (0110 0001 0001 0110) y se busca cada uno en la tabla: faaf.
+Explicación: Se separan bloques de cuatro cifras (1001 0001 1010 0110) y se busca cada uno en la tabla: edfb.
 
 ## 50. seed 4552337786013420949 · nivel 1
 
-Dadas las siguientes equivalencias: g=0001, f=0010, a=0011, d=1010, b=0100, c=1000 ¿Qué serie de letras corresponde a la siguiente serie de números?: 0100000100111010
+Dadas las siguientes equivalencias: a=0010, b=0110, c=0101, d=1000, e=0001, f=0011 ¿Qué serie de letras corresponde a la siguiente serie de números?: 0011001100100001
 
-a) faad
-b) ffad
-c) ggaa
-d) bgad
+a) feae
+b) cfae
+c) feaa
+d) ffae
 
 **Clave: d**
 
-Explicación: Se separan bloques de cuatro cifras (0100 0001 0011 1010) y se busca cada uno en la tabla: bgad.
+Explicación: Se separan bloques de cuatro cifras (0011 0011 0010 0001) y se busca cada uno en la tabla: ffae.

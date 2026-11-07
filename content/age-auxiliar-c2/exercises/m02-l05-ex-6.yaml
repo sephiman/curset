@@ -1,0 +1,608 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# Question bank, m02-l05: fixed multiple-choice questions (C2 round R3). Generated from
+# docs/age-verification/c2/bank/bloque-ii/ (kept derived + authored minus drops.tsv) by
+# docs/age-verification/c2/bank/tools/build_exercises.py; edit the drafts and rebuild, not this file.
+type: quiz
+variants:
+# anchor: fuente-ms-win-ntfs-html
+- id: m02-l05-q110
+  prompt:
+    es: "En Windows 11, ¿cuál de las siguientes afirmaciones sobre las características avanzadas del sistema de archivos NTFS es correcta, según Microsoft?"
+  options:
+  - id: a
+    text:
+      es: "Solo admite nombres de archivo de ocho caracteres y extensión de tres letras."
+  - id: b
+    correct: true
+    text:
+      es: "Incluye descriptores de seguridad, cifrado, cuotas de disco y metadatos enriquecidos."
+  - id: c
+    text:
+      es: "Limita el tamaño de cada archivo a 4 GiB, igual que hace el sistema FAT32."
+  - id: d
+    text:
+      es: "Carece de cuotas de disco y de cifrado, que solo ofrece el cifrado BitLocker."
+  explanation:
+    es: "La página dice que NTFS proporciona características avanzadas, incluidos descriptores de seguridad, cifrado, cuotas de disco y compatibilidad con metadatos enriquecidos. NTFS admite nombres de archivo largos con un alias 8.3 para compatibilidad, y la tabla de comparación da para NTFS un tamaño de archivo máximo de 2^64–1 bytes, mientras que los 4 GiB son el límite de FAT32."
+  citation: "fuente: `ms-win-ntfs.html`; «Introducción a NTFS»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-ms-win-ntfs-html
+- id: m02-l05-q111
+  prompt:
+    es: "¿Con qué se integra NTFS para permitir un almacenamiento de alta disponibilidad al que acceden a la vez varios nodos de un clúster de conmutación por error, según Microsoft?"
+  options:
+  - id: a
+    text:
+      es: "Con las listas de control de acceso (ACL)."
+  - id: b
+    correct: true
+    text:
+      es: "Con los volúmenes compartidos de clúster (CSV)."
+  - id: c
+    text:
+      es: "Con el cifrado de unidad BitLocker."
+  - id: d
+    text:
+      es: "Con las cuotas de disco de cada usuario."
+  explanation:
+    es: "La página dice que NTFS se integra con los volúmenes compartidos de clúster (CSV), lo que permite un almacenamiento de alta disponibilidad al que varios nodos de un clúster de conmutación por error pueden acceder simultáneamente. BitLocker cifra los datos, las ACL asignan permisos y las cuotas controlan el espacio por usuario."
+  citation: "fuente: `ms-win-ntfs.html`; «Introducción a NTFS»"
+  difficulty: 3
+  tags:
+  - "concepto"
+# anchor: fuente-ms-win-sistemas-archivos-html
+- id: m02-l05-q112
+  prompt:
+    es: "¿Cuál de los siguientes conjuntos recoge los cuatro sistemas de archivos principales de Windows que compara la documentación de Microsoft?"
+  options:
+  - id: a
+    text:
+      es: "NTFS, exFAT, ext4 y FAT32."
+  - id: b
+    text:
+      es: "NTFS, HFS+, UDF y FAT32."
+  - id: c
+    text:
+      es: "NTFS, APFS, exFAT y UDF."
+  - id: d
+    correct: true
+    text:
+      es: "NTFS, exFAT, UDF y FAT32."
+  explanation:
+    es: "La página compara «los cuatro sistemas de archivos principales de Windows, NTFS, exFAT, UDF y FAT32». Ext4, HFS+ y APFS no figuran en esa comparación, así que ninguna de las otras series coincide con los cuatro que da Microsoft."
+  citation: "fuente: `ms-win-sistemas-archivos.html`; «Comparación de la funcionalidad del sistema de archivos»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-ms-win-sistemas-archivos-html
+- id: m02-l05-q113
+  prompt:
+    es: "Según la comparación de Microsoft de los sistemas de archivos de Windows, el tamaño de archivo máximo que admite FAT32 es de:"
+  options:
+  - id: a
+    text:
+      es: "2 GiB."
+  - id: b
+    correct: true
+    text:
+      es: "4 GiB."
+  - id: c
+    text:
+      es: "16 TB."
+  - id: d
+    text:
+      es: "2^64–1 bytes."
+  explanation:
+    es: "En la tabla de límites, el tamaño de archivo máximo de FAT32 es de 4 GiB, mientras que NTFS, exFAT y UDF admiten 2^64–1 bytes. La tabla de límites da 4 GiB para FAT32, no 2 GiB. Los 16 TB son un límite de volumen de NTFS con clústeres de 4 KB, no el tamaño de archivo de FAT32. Los 2^64–1 bytes son el máximo de NTFS, exFAT y UDF, no el de FAT32."
+  citation: "fuente: `ms-win-sistemas-archivos.html`; «Tamaño de archivo máximo — 2^64–1 bytes — 2^64–1 bytes — 2^64–1 bytes — 4 GiB»"
+  difficulty: 1
+  tags:
+  - "cantidad"
+# anchor: fuente-ms-win-sistemas-archivos-html
+- id: m02-l05-q114
+  prompt:
+    es: "¿Cuántos caracteres admite como máximo el nombre de un archivo en UDF, según la comparación de Microsoft de sistemas de archivos?"
+  options:
+  - id: a
+    text:
+      es: "255 caracteres Unicode o 127 ASCII."
+  - id: b
+    text:
+      es: "254 caracteres Unicode o 127 ASCII."
+  - id: c
+    text:
+      es: "32 760 caracteres Unicode o 254 ASCII."
+  - id: d
+    correct: true
+    text:
+      es: "127 caracteres Unicode o 254 ASCII."
+  explanation:
+    es: "La tabla de límites da a UDF una longitud máxima de nombre de archivo de 127 caracteres Unicode o 254 ASCII, y 255 caracteres Unicode a NTFS, exFAT y FAT32. La opción de 255 caracteres Unicode es la de los otros tres sistemas. La de 254 caracteres Unicode invierte las cifras de UDF. Los 32 760 caracteres Unicode son el máximo del nombre de la ruta, no el del nombre del archivo."
+  citation: "fuente: `ms-win-sistemas-archivos.html`; «Longitud máxima del nombre del archivo — 255 caracteres Unicode — 255 caracteres Unicode — 127 Caracteres Unicode o 254 ASCII — 255 caracteres Unicode»"
+  difficulty: 2
+  tags:
+  - "cantidad"
+# anchor: fuente-ms-win-sistemas-archivos-html
+- id: m02-l05-q115
+  prompt:
+    es: "¿Cuál de los siguientes sistemas de archivos de Windows ofrece cifrado de nivel de sistema de archivos, según la comparación de Microsoft?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "NTFS."
+  - id: b
+    text:
+      es: "exFAT."
+  - id: c
+    text:
+      es: "UDF."
+  - id: d
+    text:
+      es: "FAT32."
+  explanation:
+    es: "En la tabla de seguridad, solo NTFS tiene «Sí» en cifrado de nivel de sistema de archivos; exFAT, UDF y FAT32 tienen «No»."
+  citation: "fuente: `ms-win-sistemas-archivos.html`; «Cifrado de nivel de sistema de archivos — Sí — No — No — No»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-ms-win-sistemas-archivos-html
+- id: m02-l05-q116
+  prompt:
+    es: "¿Cuál de las siguientes características ofrecen los cuatro sistemas de archivos principales de Windows, NTFS, exFAT, UDF y FAT32, según la comparación de Microsoft?"
+  options:
+  - id: a
+    text:
+      es: "Listas de control de acceso."
+  - id: b
+    text:
+      es: "Compresión integrada."
+  - id: c
+    correct: true
+    text:
+      es: "Marcas de tiempo de creación."
+  - id: d
+    text:
+      es: "Enlaces simbólicos."
+  explanation:
+    es: "En la tabla de funcionalidad, las marcas de tiempo de creación llevan «Sí» en los cuatro sistemas de archivos. Las listas de control de acceso, la compresión integrada y los enlaces simbólicos llevan «Sí» solo en NTFS."
+  citation: "fuente: `ms-win-sistemas-archivos.html`; «Marcas de tiempo de creación — Sí — Sí — Sí — Sí»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-ms-win-sistemas-archivos-html
+- id: m02-l05-q117
+  prompt:
+    es: "¿Cuál de las siguientes características de los sistemas de archivos de Windows ofrece solo NTFS, de los cuatro principales, según la comparación de Microsoft?"
+  options:
+  - id: a
+    text:
+      es: "Conservación de mayúsculas y minúsculas."
+  - id: b
+    text:
+      es: "Marcas de tiempo de último cambio."
+  - id: c
+    text:
+      es: "Oplocks."
+  - id: d
+    correct: true
+    text:
+      es: "Compresión integrada."
+  explanation:
+    es: "La tabla de compresión da «Sí» a la compresión integrada en NTFS y «No» en exFAT, UDF y FAT32. La conservación de mayúsculas y minúsculas, las marcas de tiempo de último cambio y los oplocks llevan «Sí» en los cuatro sistemas."
+  citation: "fuente: `ms-win-sistemas-archivos.html`; «Compresión integrada — Sí — No — No — No»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-ms-win-sistemas-archivos-html
+- id: m02-l05-q118
+  prompt:
+    es: "¿Cuál de las siguientes combinaciones de cuotas de espacio en disco incorpora NTFS directamente, según la comparación de Microsoft de los sistemas de archivos de Windows?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "El de usuario, pero no el de directorio."
+  - id: b
+    text:
+      es: "El de directorio, pero no el de usuario."
+  - id: c
+    text:
+      es: "Los dos, el de usuario y el de directorio."
+  - id: d
+    text:
+      es: "Ninguno de los dos niveles."
+  explanation:
+    es: "La tabla de cuotas da «Sí» al espacio en disco de nivel de usuario y «No» al de nivel de directorio, que según la nota solo está disponible a través del servidor de archivos Resource Manager. Por eso no valen ni la opción del nivel de directorio sin el de usuario, ni la de los dos niveles, ni la de ninguno."
+  citation: "fuente: `ms-win-sistemas-archivos.html`; «Comparación de la funcionalidad del sistema de archivos»"
+  difficulty: 3
+  tags:
+  - "concepto"
+  - "requisito"
+# anchor: fuente-ms-win-sistemas-archivos-html
+- id: m02-l05-q119
+  prompt:
+    es: "¿Cuál de las siguientes parejas de sistemas de archivos de Windows admite vínculos físicos, según la comparación de Microsoft de funcionalidades?"
+  options:
+  - id: a
+    text:
+      es: "NTFS y exFAT."
+  - id: b
+    text:
+      es: "exFAT y FAT32."
+  - id: c
+    text:
+      es: "UDF y FAT32."
+  - id: d
+    correct: true
+    text:
+      es: "NTFS y UDF."
+  explanation:
+    es: "En la tabla de funcionalidad, los vínculos físicos llevan «Sí» en NTFS y UDF, y «No» en exFAT y FAT32. La tabla marca «No» a los vínculos físicos en exFAT. La tabla marca «No» a los vínculos físicos en exFAT y en FAT32. La tabla marca «No» a los vínculos físicos en FAT32."
+  citation: "fuente: `ms-win-sistemas-archivos.html`; «Vínculos físicos — Sí — No — Sí — No»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-ms-win-sistemas-archivos-html
+- id: m02-l05-q120
+  prompt:
+    es: "¿Cuál de las siguientes parejas de sistemas de archivos de Windows distingue entre mayúsculas y minúsculas, según la comparación de Microsoft, aunque en uno de ellos solo como opción?"
+  options:
+  - id: a
+    text:
+      es: "exFAT y FAT32."
+  - id: b
+    text:
+      es: "NTFS, como opción, y FAT32."
+  - id: c
+    correct: true
+    text:
+      es: "NTFS, como opción, y UDF."
+  - id: d
+    text:
+      es: "exFAT y UDF."
+  explanation:
+    es: "La tabla da «Sí (opción)» a NTFS y «Sí» a UDF en «Distingue mayúsculas y minúsculas», y «No» a exFAT y FAT32. La tabla marca «No» a esa característica en exFAT y en FAT32. La tabla marca «No» a esa característica en FAT32. La tabla marca «No» a esa característica en exFAT."
+  citation: "fuente: `ms-win-sistemas-archivos.html`; «Distingue mayúsculas y minúsculas — Sí (opción) — No — Sí — No»"
+  difficulty: 3
+  tags:
+  - "concepto"
+# anchor: fuente-ms-win-sistemas-archivos-html
+- id: m02-l05-q121
+  prompt:
+    es: "Según la comparación de Microsoft, la longitud máxima del nombre de la ruta en NTFS es de 32 760 caracteres Unicode, con cada componente de ruta de acceso no superior a:"
+  options:
+  - id: a
+    text:
+      es: "127 caracteres."
+  - id: b
+    correct: true
+    text:
+      es: "255 caracteres."
+  - id: c
+    text:
+      es: "512 caracteres."
+  - id: d
+    text:
+      es: "32 760 caracteres."
+  explanation:
+    es: "La tabla de límites da a NTFS una ruta de hasta 32 760 caracteres Unicode, con cada componente no superior a 255 caracteres. La tabla fija en 255 caracteres el máximo de cada componente de la ruta, no en 127. La tabla fija en 255 caracteres el máximo de cada componente de la ruta, no en 512. Los 32 760 caracteres son el máximo de la ruta completa, no el de cada componente."
+  citation: "fuente: `ms-win-sistemas-archivos.html`; «Comparación de la funcionalidad del sistema de archivos»"
+  difficulty: 3
+  tags:
+  - "cantidad"
+# anchor: fuente-ms-win-sistemas-archivos-html
+- id: m02-l05-q122
+  prompt:
+    es: "¿Cuál de las siguientes opciones recoge los sistemas de archivos de Windows que admiten enlaces simbólicos y puntos de montaje, según la comparación de Microsoft de funcionalidades?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Solo NTFS."
+  - id: b
+    text:
+      es: "NTFS y UDF."
+  - id: c
+    text:
+      es: "NTFS y exFAT."
+  - id: d
+    text:
+      es: "Los cuatro sistemas."
+  explanation:
+    es: "En la tabla de funcionalidad, enlaces simbólicos y puntos de montaje llevan «Sí» solo en NTFS. La tabla marca «No» a los enlaces simbólicos en UDF. La tabla marca «No» a los puntos de montaje en exFAT. La tabla marca «No» a los enlaces simbólicos en exFAT, UDF y FAT32."
+  citation: "fuente: `ms-win-sistemas-archivos.html`; «Enlaces simbólicos — Sí — No — No — No»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-azure-almacenamiento-nube-html
+- id: m02-l05-q123
+  prompt:
+    es: "Según la página de Microsoft Azure sobre qué es el almacenamiento en la nube, este guarda los datos:"
+  options:
+  - id: a
+    text:
+      es: "en el disco duro del equipo, sincronizado con la red local."
+  - id: b
+    text:
+      es: "en hardware local de la organización, con copia en Internet."
+  - id: c
+    correct: true
+    text:
+      es: "en servidores remotos a los que se accede online."
+  - id: d
+    text:
+      es: "en unidades de memoria de la propia aplicación móvil."
+  explanation:
+    es: "La página define el almacenamiento en la nube como el que «guarda datos en servidores remotos a los que se accede online, en lugar de en hardware local». La página dice que se guardan en servidores remotos en lugar de en equipos locales o discos duros físicos. La página dice que se guardan en servidores remotos en lugar de en hardware local. La aplicación móvil solo es una vía de acceso mediante una API; los datos están en servidores remotos."
+  citation: "fuente: `azure-almacenamiento-nube.html`; «¿Qué es el almacenamiento en la nube?»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-azure-almacenamiento-nube-html
+- id: m02-l05-q124
+  prompt:
+    es: "¿Cuántos modelos de almacenamiento en la nube distingue la página de Microsoft Azure sobre qué es el almacenamiento en la nube?"
+  options:
+  - id: a
+    text:
+      es: "Dos: público y privado."
+  - id: b
+    text:
+      es: "Tres: público, privado e híbrido."
+  - id: c
+    correct: true
+    text:
+      es: "Cuatro: público, privado, híbrido y multinube."
+  - id: d
+    text:
+      es: "Cinco: público, privado, híbrido, multinube y comunitario."
+  explanation:
+    es: "La página dice: «Hay cuatro modelos diferentes de almacenamiento en la nube: nubes públicas, privadas e híbridas, así como opciones multinube». Dos modelos dejan fuera el híbrido y el multinube, que la página enumera. Tres dejan fuera el multinube. Y cinco añaden un modelo comunitario que no está en la enumeración de la página, que cierra la lista en cuatro."
+  citation: "fuente: `azure-almacenamiento-nube.html`; «¿Qué es el almacenamiento en la nube?»"
+  difficulty: 1
+  tags:
+  - "cantidad"
+  - "concepto"
+# anchor: fuente-azure-almacenamiento-nube-html
+- id: m02-l05-q125
+  prompt:
+    es: "¿Cuál de los siguientes tipos de almacenamiento en la nube organiza los datos en unidades discretas, cada una con sus propios metadatos?"
+  options:
+  - id: a
+    text:
+      es: "El almacenamiento de archivos."
+  - id: b
+    text:
+      es: "El almacenamiento en bloque."
+  - id: c
+    correct: true
+    text:
+      es: "El almacenamiento de objetos."
+  - id: d
+    text:
+      es: "El almacenamiento en multinube."
+  explanation:
+    es: "La página dice que «el almacenamiento de objetos organiza los datos en unidades discretas u objetos, cada uno con sus propios metadatos». El almacenamiento de archivos mantiene una estructura jerárquica de carpetas y directorios. El almacenamiento en bloque divide los datos en bloques de tamaño fijo. La multinube no es un tipo de almacenamiento sino un modelo, que usa servicios de varios proveedores."
+  citation: "fuente: `azure-almacenamiento-nube.html`; «¿Qué es el almacenamiento en la nube?»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-azure-almacenamiento-nube-html
+- id: m02-l05-q126
+  prompt:
+    es: "¿Cuál de los siguientes usos resulta adecuado para el almacenamiento en bloque, según la página de Microsoft Azure sobre el almacenamiento en la nube?"
+  options:
+  - id: a
+    text:
+      es: "Para sistemas de archivos compartidos y aplicaciones colaborativas."
+  - id: b
+    text:
+      es: "Para grandes cantidades de datos no estructurados, como imágenes o vídeos."
+  - id: c
+    text:
+      es: "Para mantener la información regulada en un entorno privado."
+  - id: d
+    correct: true
+    text:
+      es: "Para bases de datos y aplicaciones de alto rendimiento."
+  explanation:
+    es: "Según la página, el almacenamiento en bloque divide los datos en bloques de tamaño fijo que «se pueden recuperar rápidamente, lo que hace que este tipo sea adecuado para bases de datos y aplicaciones de alto rendimiento». Los sistemas de archivos compartidos y las aplicaciones colaborativas son el uso del almacenamiento de archivos. Los datos no estructurados como imágenes y vídeos son el uso ideal del almacenamiento de objetos. Mantener la información regulada en un entorno privado es una característica del modelo de nube híbrida."
+  citation: "fuente: `azure-almacenamiento-nube.html`; «¿Qué es el almacenamiento en la nube?»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-azure-almacenamiento-nube-html
+- id: m02-l05-q127
+  prompt:
+    es: "¿Cuál de los siguientes modelos de almacenamiento en la nube está dedicado a una sola organización y puede hospedarse de forma local o mediante un proveedor de servicios?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "La nube privada."
+  - id: b
+    text:
+      es: "La nube pública."
+  - id: c
+    text:
+      es: "La nube híbrida."
+  - id: d
+    text:
+      es: "La multinube."
+  explanation:
+    es: "La página dice que el almacenamiento en la nube privada «está dedicado a una sola organización» y que «se puede hospedar de forma local o mediante un proveedor de servicios». En la nube pública, proveedores de terceros entregan el almacenamiento a través de Internet y las organizaciones comparten recursos. La nube híbrida combina modelos públicos y privados. La multinube usa servicios de varios proveedores."
+  citation: "fuente: `azure-almacenamiento-nube.html`; «¿Qué es el almacenamiento en la nube?»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-azure-almacenamiento-nube-html
+- id: m02-l05-q128
+  prompt:
+    es: "¿Cuál de los siguientes modelos de almacenamiento en la nube permite que la información confidencial o regulada permanezca en un entorno privado y las cargas menos críticas pasen a la nube pública?"
+  options:
+  - id: a
+    text:
+      es: "La nube pública."
+  - id: b
+    correct: true
+    text:
+      es: "La nube híbrida."
+  - id: c
+    text:
+      es: "La nube privada."
+  - id: d
+    text:
+      es: "La multinube."
+  explanation:
+    es: "La página dice que la nube híbrida «combina modelos públicos y privados»: la información confidencial o regulada puede permanecer en un entorno privado y las cargas menos críticas se mueven a la nube pública. En la nube pública las organizaciones comparten recursos con otras personas, aunque aisladas en el nivel de datos. La nube privada está dedicada a una sola organización y no combina modelos. La multinube sirve para evitar el bloqueo del proveedor, optimizar costes o cumplir requisitos regionales."
+  citation: "fuente: `azure-almacenamiento-nube.html`; «¿Qué es el almacenamiento en la nube?»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-azure-almacenamiento-nube-html
+- id: m02-l05-q129
+  prompt:
+    es: "¿Cuál de las siguientes opciones es un beneficio del almacenamiento en la nube, según la página de Microsoft Azure?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "La rentabilidad: la organización solo paga por el almacenamiento que usa."
+  - id: b
+    text:
+      es: "El gasto de capital inicial que supone comprar y mantener hardware propio."
+  - id: c
+    text:
+      es: "Una capacidad fija, que no puede expandirse ni contraerse con la demanda."
+  - id: d
+    text:
+      es: "Los datos alojados en un único servidor, sin replicar entre regiones."
+  explanation:
+    es: "Entre los beneficios, la página cita la rentabilidad: «las organizaciones solo pagan por el almacenamiento que usan, lo que evita el gasto de capital de comprar y mantener hardware». La página dice que se evita el gasto de capital de comprar y mantener hardware. La página dice que la capacidad puede expandirse o contraerse rápidamente. La página dice que los datos se distribuyen y replican entre servidores y regiones."
+  citation: "fuente: `azure-almacenamiento-nube.html`; «¿Qué es el almacenamiento en la nube?»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-azure-almacenamiento-nube-html
+- id: m02-l05-q130
+  prompt:
+    es: "¿Cuál de las siguientes definiciones corresponde a la durabilidad en el almacenamiento en la nube, según la página de Microsoft Azure?"
+  options:
+  - id: a
+    text:
+      es: "La capacidad de ampliar o reducir el espacio según la demanda."
+  - id: b
+    correct: true
+    text:
+      es: "La capacidad de conservar los datos a lo largo del tiempo sin pérdida."
+  - id: c
+    text:
+      es: "La capacidad de pagar solo por el almacenamiento que se usa."
+  - id: d
+    text:
+      es: "La capacidad de recuperar las copias en ubicaciones independientes."
+  explanation:
+    es: "La página define la durabilidad como «la capacidad de conservar los datos a lo largo del tiempo sin pérdida», que se aumenta replicando los datos entre regiones. Ampliar o reducir el espacio según la demanda es la escalabilidad. Pagar solo por lo que se usa es la rentabilidad. Almacenar copias en ubicaciones independientes es lo que la página relaciona con mantener la disponibilidad."
+  citation: "fuente: `azure-almacenamiento-nube.html`; «¿Qué es el almacenamiento en la nube?»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-ms-win-ntfs-html
+- id: m02-l05-q285
+  prompt:
+    es: "En Windows 11, ¿cuál de las siguientes utilidades puede examinar y reparar volúmenes NTFS manteniéndolos en línea ante daños significativos del sistema de archivos?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "chkdsk"
+  - id: b
+    text:
+      es: "format"
+  - id: c
+    text:
+      es: "Format-Volume"
+  - id: d
+    text:
+      es: "BitLocker"
+  explanation:
+    es: "La página indica que la utilidad chkdsk puede examinar y reparar volúmenes NTFS en línea. «format» sirve para dar formato a un volumen, no para repararlo en línea. «Format-Volume» es un cmdlet de PowerShell para dar formato, no la utilidad de reparación que cita la página. «BitLocker» cifra la unidad con la ayuda del TPM, no repara el sistema de archivos."
+  citation: "fuente: `ms-win-ntfs.html`; «Introducción a NTFS»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-ms-win-ntfs-html
+- id: m02-l05-q286
+  prompt:
+    es: "En Windows 11, ¿qué característica de NTFS detecta y repara automáticamente daños menores en el sistema de archivos en segundo plano, sin desconectar el volumen?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "El NTFS de recuperación automática"
+  - id: b
+    text:
+      es: "Las listas de control de acceso (ACL)"
+  - id: c
+    text:
+      es: "Las cuotas de disco"
+  - id: d
+    text:
+      es: "La compresión del sistema de archivos"
+  explanation:
+    es: "La página describe el NTFS de recuperación automática como la que repara daños menores en segundo plano. «Las listas de control de acceso (ACL)» asignan permisos detallados a archivos y carpetas, no reparan daños. «Las cuotas de disco» controlan el espacio que usa cada usuario, no reparan daños. «La compresión del sistema de archivos» maximiza los datos que caben en el volumen, no repara daños."
+  citation: "fuente: `ms-win-ntfs.html`; «Introducción a NTFS»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-ms-win-ntfs-html
+- id: m02-l05-q287
+  prompt:
+    es: "En Windows 11, ¿qué protege BitLocker, el cifrado de unidad integrado con NTFS, aunque la unidad se quite e instale en otro sistema?"
+  options:
+  - id: a
+    text:
+      es: "Los permisos de acceso, que se heredan en el otro sistema"
+  - id: b
+    correct: true
+    text:
+      es: "Los datos de la unidad, mediante cifrado de dispositivo"
+  - id: c
+    text:
+      es: "Las cuotas de disco de cada usuario del volumen"
+  - id: d
+    text:
+      es: "La copia de seguridad automática en la nube"
+  explanation:
+    es: "La página indica que BitLocker protege los datos aunque se extraiga la unidad e instale en otro sistema. «Los permisos de acceso, que se heredan en el otro sistema» no es lo que dice la página, que habla de proteger los datos mediante cifrado. «Las cuotas de disco de cada usuario del volumen» no es lo que protege BitLocker según la página. «La copia de seguridad automática en la nube» no es lo que protege BitLocker según la página. Lo que dice la fuente: «protegiendo los datos incluso si se quita una unidad e instala en otro sistema»."
+  citation: "fuente: `ms-win-ntfs.html`; «Introducción a NTFS»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-ms-win-ntfs-html
+- id: m02-l05-q288
+  prompt:
+    es: "En Windows 11, ¿cuál es el tamaño máximo de clúster que admite NTFS, con el que un volumen y un archivo pueden llegar a 8 PB, según la tabla de Microsoft?"
+  options:
+  - id: a
+    text:
+      es: "64 KB, el máximo anterior"
+  - id: b
+    text:
+      es: "512 KB, de 2 PB"
+  - id: c
+    correct: true
+    text:
+      es: "2048 KB"
+  - id: d
+    text:
+      es: "4 KB, el predeterminado"
+  explanation:
+    es: "La tabla da 2048 KB como tamaño máximo de clúster, con 8 PB de volumen y archivo. «64 KB, el máximo anterior» es el máximo anterior, que limita el volumen a 256 TB. «512 KB, de 2 PB» permite un volumen y un archivo de 2 PB, no de 8 PB. «4 KB, el predeterminado» es el tamaño predeterminado, que limita el volumen a 16 TB."
+  citation: "fuente: `ms-win-ntfs.html`; «Introducción a NTFS»"
+  difficulty: 3
+  tags:
+  - "cantidad"

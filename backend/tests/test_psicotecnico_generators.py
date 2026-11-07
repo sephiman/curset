@@ -312,6 +312,26 @@ def test_coded_words_keep_their_tildes_and_no_option_gives_itself_away_as_the_on
             assert all(re.search(r"\d", option) for option in item.options), item.options
 
 
+def test_the_word_to_code_has_eight_letters_like_the_official_ones() -> None:
+    items = [i for i in _many("atencion-codificacion", 1) if i.facts["kind"] == "digits"]
+    assert items
+    assert {len(str(i.facts["word"])) for i in items} == {8}
+
+
+def test_the_binary_table_lists_the_letters_a_to_f_in_order_like_the_official_one() -> None:
+    items = [i for i in _many("atencion-codificacion", 1) if i.facts["kind"] == "binary"]
+    assert items
+    for item in items:
+        assert re.findall(r"\b([a-z])=[01]{4}", item.stem) == list("abcdef"), item.stem
+
+
+def test_filing_items_carry_the_index_level_of_the_official_decodes_true_or_false() -> None:
+    # 2024X-P1-55, 58, 59 (FALSO) and P1-60 (CIERTO) are all nivel 2 in the psicotécnico index.
+    filing = [i for level in (1, 2) for i in _many("atencion-codificacion", level) if i.facts["kind"] == "filing"]
+    assert {i.difficulty for i in filing} == {2}
+    assert {i.facts["asks"] for i in filing} == {"CIERTA", "FALSA"}
+
+
 def test_the_filing_code_has_six_positions_like_the_official_one() -> None:
     items = [i for i in _many("atencion-codificacion", 2) if i.facts["kind"] == "filing"]
     assert items

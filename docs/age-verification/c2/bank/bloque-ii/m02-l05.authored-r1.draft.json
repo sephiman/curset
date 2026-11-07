@@ -1,0 +1,772 @@
+[
+ {
+  "id": "m02-l05-q306",
+  "tema": "II.5",
+  "section": "Conceptos fundamentales sobre el hardware y el software",
+  "citation": "fuente: `rfc3629-utf8.txt`; «UTF-8, a transformation format of ISO 10646»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "Según la RFC 3629 que define UTF-8, ¿cuántos octetos ocupa la secuencia de un carácter cuyo número va de U+0800 a U+FFFF?",
+  "options": {
+   "a": "Un octeto",
+   "b": "Dos octetos",
+   "c": "Tres octetos",
+   "d": "Cuatro octetos"
+  },
+  "correct": "c",
+  "difficulty": 2,
+  "tags": [
+   "cantidad"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "La tabla de la RFC asigna a los números de carácter de U+0800 a U+FFFF una secuencia de tres octetos, con el patrón 1110xxxx 10xxxxxx 10xxxxxx. Un octeto es la secuencia de los números de U+0000 a U+007F, el repertorio US-ASCII. Dos octetos es la secuencia de los números de U+0080 a U+07FF. Cuatro octetos es la secuencia de los números de U+10000 a U+10FFFF.",
+  "source_quote": "0000 0800-0000 FFFF | 1110xxxx 10xxxxxx 10xxxxxx",
+  "covers": [
+   "lmc-4",
+   "official:2025-P2-15",
+   "fact:utf8-tres-octetos"
+  ],
+  "lesson_anchor": "fuente-rfc3629-utf8-txt"
+ },
+ {
+  "id": "m02-l05-q307",
+  "tema": "II.5",
+  "section": "Conceptos fundamentales sobre el hardware y el software",
+  "citation": "fuente: `rfc3629-utf8.txt`; «UTF-8, a transformation format of ISO 10646»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "Según la RFC 3629 que define UTF-8, ¿quién ideó esta codificación en septiembre de 1992 para usarla en el sistema operativo Plan9?",
+  "options": {
+   "a": "Ken Thompson",
+   "b": "Rob Pike",
+   "c": "Federico Faggin",
+   "d": "Jeffrey Snover"
+  },
+  "correct": "a",
+  "difficulty": 2,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "La RFC dice que UTF-8 fue ideado en septiembre de 1992 por Ken Thompson. Rob Pike solo especificó los criterios de diseño que guiaron a Thompson. Federico Faggin es el ingeniero que diseñó el Intel 4004, según la nota de prensa de Intel. Jeffrey Snover es el inventor de PowerShell, según la página de Microsoft Learn.",
+  "source_quote": "UTF-8 was devised in September 1992 by Ken Thompson, guided by design criteria specified by Rob Pike",
+  "covers": [
+   "lmc-4",
+   "fact:utf8-thompson"
+  ],
+  "lesson_anchor": "fuente-rfc3629-utf8-txt"
+ },
+ {
+  "id": "m02-l05-q308",
+  "tema": "II.5",
+  "section": "Conceptos fundamentales sobre el hardware y el software",
+  "citation": "fuente: `rfc3629-utf8.txt`; «UTF-8, a transformation format of ISO 10646»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "¿Qué valores de octeto no aparecen nunca en un texto codificado en UTF-8, según la RFC 3629?",
+  "options": {
+   "a": "Los comprendidos entre 00 y 7F",
+   "b": "Los tres octetos EF, BB y BF",
+   "c": "Los octetos E6, 97 y A5 del ejemplo",
+   "d": "C0, C1 y de F5 a FF"
+  },
+  "correct": "d",
+  "difficulty": 3,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "La RFC dice que los valores de octeto C0, C1 y F5 a FF no aparecen nunca. Los valores de 00 a 7F son los octetos del repertorio US-ASCII, que UTF-8 conserva. EF, BB y BF forman la marca de orden de bytes, que siempre adopta esa secuencia. E6, 97 y A5 son los tres primeros octetos del ejemplo de la RFC, el carácter U+65E5 de «nihongo».",
+  "source_quote": "The octet values C0, C1, F5 to FF never appear.",
+  "covers": [
+   "lmc-4",
+   "fact:utf8-octetos-prohibidos"
+  ],
+  "lesson_anchor": "fuente-rfc3629-utf8-txt"
+ },
+ {
+  "id": "m02-l05-q309",
+  "tema": "II.5",
+  "section": "Conceptos fundamentales sobre el hardware y el software",
+  "citation": "fuente: `ms-todo-bienvenida.html`; «Le damos la bienvenida a Microsoft To Do»",
+  "stem_form": "senale",
+  "names_article": false,
+  "negative": false,
+  "prompt": "Señale cuál de las siguientes opciones de Microsoft To Do sirve para registrar detalles adicionales de una tarea, según la página de bienvenida de Microsoft:",
+  "options": {
+   "a": "Los pasos",
+   "b": "Las notas",
+   "c": "Las fechas de vencimiento",
+   "d": "Destacar la tarea"
+  },
+  "correct": "b",
+  "difficulty": 1,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "La página dice que las notas sirven para registrar detalles adicionales. Los pasos sirven para dividir las tareas más grandes en partes más manejables. Las fechas de vencimiento y los recordatorios sirven para mantener todo bajo control. Destacar una tarea sirve para marcar las tareas más importantes.",
+  "source_quote": "Use pasos para dividir sus tareas más grandes en partes y notas más manejables para registrar detalles adicionales.",
+  "covers": [
+   "lmc-6",
+   "official:2025-R2-3",
+   "fact:todo-notas"
+  ],
+  "lesson_anchor": "fuente-ms-todo-bienvenida-html"
+ },
+ {
+  "id": "m02-l05-q310",
+  "tema": "II.5",
+  "section": "Conceptos fundamentales sobre el hardware y el software",
+  "citation": "fuente: `ms-todo-bienvenida.html`; «Le damos la bienvenida a Microsoft To Do»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "¿Cuántas listas adicionales puede crear el usuario de Microsoft To Do, además de trabajar en Mi día, según la página de bienvenida de Microsoft?",
+  "options": {
+   "a": "Cualquier número de ellas",
+   "b": "Hasta diez como máximo",
+   "c": "Una por cada día de la semana",
+   "d": "Solo las que cree un administrador de Exchange Online"
+  },
+  "correct": "a",
+  "difficulty": 2,
+  "tags": [
+   "cantidad"
+  ],
+  "distractor_pattern": "cifra-cercana",
+  "explanation": "La página dice que, además de trabajar las tareas del día en Mi día, se puede crear cualquier número de listas adicionales para organizar el trabajo, la compra o los viajes. Un máximo de diez y una lista por día contradicen «cualquier número». Que solo las cree un administrador de Exchange Online contradice que sea el propio usuario quien las crea; Exchange Online solo es donde se almacenan las tareas.",
+  "source_quote": "crear cualquier número de listas adicionales para organizar su trabajo",
+  "covers": [
+   "lmc-6",
+   "official:2025-R2-3",
+   "fact:todo-listas"
+  ],
+  "lesson_anchor": "fuente-ms-todo-bienvenida-html"
+ },
+ {
+  "id": "m02-l05-q311",
+  "tema": "II.5",
+  "section": "Conceptos fundamentales sobre el hardware y el software",
+  "citation": "fuente: `ms-win-plug-and-play.html`; «Introducción a Plug and Play»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "¿Qué hace el administrador de Plug and Play de Windows 11 cuando se agrega un dispositivo nuevo que requiere recursos de hardware que ya están en uso?",
+  "options": {
+   "a": "Pide al usuario que configure el dispositivo a mano",
+   "b": "Vuelve a configurar las asignaciones de recursos",
+   "c": "Deja que el controlador del dispositivo asigne sus propios recursos",
+   "d": "Rechaza el dispositivo hasta que se reinicie el sistema"
+  },
+  "correct": "b",
+  "difficulty": 3,
+  "tags": [
+   "comportamiento"
+  ],
+  "distractor_pattern": "texto-alterado",
+  "explanation": "La página dice que el administrador de PnP vuelve a configurar las asignaciones de recursos cuando hace falta, por ejemplo cuando se agrega un dispositivo que requiere recursos ya en uso. Pedir una configuración manual contradice a Plug and Play, que permite agregar y quitar dispositivos sin configuración manual. Que el controlador asigne los recursos contradice la página: los controladores de dispositivos PnP no asignan recursos. Rechazar el dispositivo contradice que el administrador reasigne los recursos.",
+  "source_quote": "El administrador de PnP vuelve a configurar las asignaciones de recursos cuando sea necesario, como cuando se agrega un nuevo dispositivo al sistema que requiere recursos que ya están en uso.",
+  "covers": [
+   "lmc-3",
+   "fact:pnp-reconfigura"
+  ],
+  "lesson_anchor": "fuente-ms-win-plug-and-play-html"
+ },
+ {
+  "id": "m02-l05-q312",
+  "tema": "II.5",
+  "section": "Conceptos fundamentales sobre el hardware y el software",
+  "citation": "fuente: `ms-win-plug-and-play.html`; «Introducción a Plug and Play»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "¿Qué parte de Windows 11 permite a un sistema informático adaptarse a los cambios de hardware con una intervención mínima del usuario?",
+  "options": {
+   "a": "Windows Update",
+   "b": "Seguridad de Windows",
+   "c": "El administrador de memoria",
+   "d": "Plug and Play"
+  },
+  "correct": "d",
+  "difficulty": 1,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "La página define Plug and Play como la parte de Windows que permite adaptarse a los cambios de hardware con una intervención mínima del usuario, de modo que se puedan agregar y quitar dispositivos sin configuración manual. Windows Update descarga e instala las actualizaciones. Seguridad de Windows reúne el antivirus y el firewall. El administrador de memoria del kernel administra la memoria física.",
+  "source_quote": "Plug and Play (PnP) es la parte de Windows que permite a un sistema informático adaptarse a los cambios de hardware con una intervención mínima del usuario.",
+  "covers": [
+   "lmc-3",
+   "official:2025-P2-14",
+   "fact:pnp-definicion"
+  ],
+  "lesson_anchor": "fuente-ms-win-plug-and-play-html"
+ },
+ {
+  "id": "m02-l05-q313",
+  "tema": "II.5",
+  "section": "Sistemas operativos",
+  "citation": "fuente: `ms-learn-powershell.html`; «¿Qué es PowerShell?»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "¿Cuál de los siguientes módulos de PowerShell figura como módulo de terceros en la página de Microsoft Learn que explica qué es PowerShell?",
+  "options": {
+   "a": "Azure",
+   "b": "Exchange",
+   "c": "VMware",
+   "d": "SQL"
+  },
+  "correct": "c",
+  "difficulty": 2,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "La página enumera VMware, junto con AWS y Oracle Cloud, como módulos de terceros. Azure, Exchange y SQL aparecen en la lista de módulos de Microsoft, junto con Windows.",
+  "source_quote": "Módulos de terceros AWS VMware Oracle Cloud",
+  "covers": [
+   "fact:powershell-modulos"
+  ],
+  "lesson_anchor": "fuente-ms-learn-powershell-html"
+ },
+ {
+  "id": "m02-l05-q314",
+  "tema": "II.5",
+  "section": "Sistemas operativos",
+  "citation": "fuente: `ms-learn-powershell.html`; «¿Qué es PowerShell?»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "¿En qué se basa el lenguaje de scripting de PowerShell, según la página de Microsoft Learn que explica qué es PowerShell?",
+  "options": {
+   "a": "En .NET Common Language Runtime (CLR)",
+   "b": "En la máquina virtual de Java",
+   "c": "En el intérprete clásico del Símbolo del sistema",
+   "d": "En el motor de macros de Visual Basic para Aplicaciones"
+  },
+  "correct": "a",
+  "difficulty": 2,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "La página dice que PowerShell se basa en .NET Common Language Runtime (CLR), y que todas las entradas y salidas son objetos de .NET. La máquina virtual de Java, el intérprete clásico del Símbolo del sistema y el motor de macros de Visual Basic para Aplicaciones contradicen esa base en .NET.",
+  "source_quote": "PowerShell se basa en .NET Common Language Runtime (CLR).",
+  "covers": [
+   "fact:powershell-clr"
+  ],
+  "lesson_anchor": "fuente-ms-learn-powershell-html"
+ },
+ {
+  "id": "m02-l05-q315",
+  "tema": "II.5",
+  "section": "Conceptos fundamentales sobre el hardware y el software",
+  "citation": "fuente: `python-tutorial-introduccion.html`; «Una introducción informal a Python»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "Según el tutorial oficial de Python, ¿qué tipo tienen los números enteros, como 2, 4 o 20?",
+  "options": {
+   "a": "float",
+   "b": "str",
+   "c": "complex",
+   "d": "int"
+  },
+  "correct": "d",
+  "difficulty": 1,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "El tutorial dice que los números enteros tienen tipo int. El tipo float corresponde a los números con parte fraccionaria, como 5.0 o 1.6. El tipo str es el del texto, conocido como cadenas de caracteres. Los números complejos, como 3+5j, usan el sufijo j o J para la parte imaginaria.",
+  "source_quote": "Los números enteros (ej. 2, 4, 20) tienen tipo int, los que tienen una parte fraccionaria (por ejemplo 5.0, 1.6) tiene el tipo float.",
+  "covers": [
+   "official:2024-P2-14",
+   "fact:python-int"
+  ],
+  "lesson_anchor": "fuente-python-tutorial-introduccion-html"
+ },
+ {
+  "id": "m02-l05-q316",
+  "tema": "II.5",
+  "section": "Conceptos fundamentales sobre el hardware y el software",
+  "citation": "fuente: `python-tutorial-introduccion.html`; «Una introducción informal a Python»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "Según el tutorial oficial de Python, ¿qué valor entero se considera falso cuando se usa como condición de un bucle while?",
+  "options": {
+   "a": "Uno",
+   "b": "Cero",
+   "c": "Menos uno",
+   "d": "Diez"
+  },
+  "correct": "b",
+  "difficulty": 3,
+  "tags": [
+   "comportamiento"
+  ],
+  "distractor_pattern": "cifra-cercana",
+  "explanation": "El tutorial dice que cualquier valor entero que no sea cero es verdadero y que cero es falso. Uno, menos uno y diez no son cero, así que son verdaderos.",
+  "source_quote": "cualquier valor entero que no sea cero es verdadero; cero es falso.",
+  "covers": [
+   "fact:python-cero-falso"
+  ],
+  "lesson_anchor": "fuente-python-tutorial-introduccion-html"
+ },
+ {
+  "id": "m02-l05-q317",
+  "tema": "II.5",
+  "section": "Conceptos fundamentales sobre el hardware y el software",
+  "citation": "fuente: `ms-azure-ocr.html`; «OCR: reconocimiento óptico de caracteres»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "Según los requisitos de entrada de la página de Microsoft sobre OCR, ¿hasta cuántas páginas se procesan en los archivos PDF y TIFF, fuera del nivel gratis?",
+  "options": {
+   "a": "500 páginas",
+   "b": "50 páginas",
+   "c": "2000 páginas",
+   "d": "10 000 páginas"
+  },
+  "correct": "c",
+  "difficulty": 3,
+  "tags": [
+   "cantidad"
+  ],
+  "distractor_pattern": "cifra-cercana",
+  "explanation": "La página dice que, en los archivos PDF y TIFF, se procesan hasta 2000 páginas, y solo las dos primeras en el nivel gratis. El 500 es el tamaño máximo en MB de una imagen en el nivel de pago. El 50 es el mínimo en píxeles de cada dimensión de una imagen. El 10 000 es el máximo en píxeles de cada dimensión de una imagen.",
+  "source_quote": "Para los archivos PDF y TIFF, se procesan hasta 2000 páginas (solo las dos primeras páginas para el nivel gratis).",
+  "covers": [
+   "fact:ocr-paginas"
+  ],
+  "lesson_anchor": "fuente-ms-azure-ocr-html"
+ },
+ {
+  "id": "m02-l05-q318",
+  "tema": "II.5",
+  "section": "Conceptos fundamentales sobre el hardware y el software",
+  "citation": "fuente: `moodle-codigo-abierto.html`; «Código abierto»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "¿Qué garantiza la licencia de código abierto de Moodle LMS sobre su disponibilidad, según la página oficial de Moodle sobre el código abierto?",
+  "options": {
+   "a": "Que estará siempre disponible para la comunidad",
+   "b": "Que solo estará disponible mientras la empresa lo siga manteniendo",
+   "c": "Que solo podrán usarlo las organizaciones que hayan pagado una licencia",
+   "d": "Que la comunidad podrá usarlo pero no participar en su desarrollo"
+  },
+  "correct": "a",
+  "difficulty": 2,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "texto-alterado",
+  "explanation": "La página dice que la licencia garantiza que Moodle LMS estará siempre disponible para su uso y desarrollo por la comunidad, independientemente de cualquier cambio que pueda afectar a la empresa. Depender de que la empresa lo mantenga contradice esa garantía. Exigir una licencia de pago contradice que la licencia permita a cualquiera descargar gratuitamente todo el software. Excluir a la comunidad del desarrollo contradice que la disponibilidad sea para su uso y desarrollo.",
+  "source_quote": "Nuestra licencia de código abierto garantiza que Moodle LMS estará siempre disponible para su uso y desarrollo por parte de la comunidad, independientemente de cualquier cambio que pueda afectar a nuestra empresa.",
+  "covers": [
+   "fact:moodle-longevidad"
+  ],
+  "lesson_anchor": "fuente-moodle-codigo-abierto-html"
+ },
+ {
+  "id": "m02-l05-q319",
+  "tema": "II.5",
+  "section": "Conceptos fundamentales sobre el hardware y el software",
+  "citation": "fuente: `hp-plotter-designjet.html`; «Plotter multifunción HP DesignJet T830»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "Según la ficha de producto de HP, ¿cuántas impresiones A1 por hora alcanza como máximo el plotter multifunción HP DesignJet T830?",
+  "options": {
+   "a": "180 impresiones por hora",
+   "b": "26 impresiones por hora",
+   "c": "130 impresiones por hora",
+   "d": "81 impresiones por hora"
+  },
+  "correct": "d",
+  "difficulty": 2,
+  "tags": [
+   "cantidad"
+  ],
+  "distractor_pattern": "cifra-cercana",
+  "explanation": "La ficha da para el T830 hasta 26 s/pág. en A1 y 81 impresiones A1 por hora. Las 180 impresiones por hora son las de los plotters de la serie T1600, que imprimen hasta 19,3 s/pág. en A1. El 26 es el tiempo en segundos por página A1 del propio T830, no una cifra por hora. El 130 es la capacidad en ml de uno de los cartuchos de tinta.",
+  "source_quote": "Hasta 26 s/pág. en A1, 81 impresiones A1 por hora",
+  "covers": [
+   "fact:plotter-velocidad"
+  ],
+  "lesson_anchor": "fuente-hp-plotter-designjet-html"
+ },
+ {
+  "id": "m02-l05-q320",
+  "tema": "II.5",
+  "section": "Conceptos fundamentales sobre el hardware y el software",
+  "citation": "fuente: `ms-mixed-reality-cad.html`; «Trabajar con modelos 3D»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "Según la página de Microsoft sobre modelos 3D, ¿qué significan las siglas CAD que aparecen al hablar de modelos y programas de diseño?",
+  "options": {
+   "a": "Cálculo automático de datos",
+   "b": "Diseño asistido por ordenador",
+   "c": "Control avanzado de dispositivos",
+   "d": "Compilación asistida de documentos"
+  },
+  "correct": "b",
+  "difficulty": 1,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "invencion",
+  "explanation": "La página desarrolla las siglas CAD como diseño asistido por ordenador y dice que los programas CAD permiten crear modelos 3D. Cálculo automático de datos, control avanzado de dispositivos y compilación asistida de documentos no son el desarrollo de las siglas que da la página.",
+  "source_quote": "CAD (diseño asistido por ordenador)",
+  "covers": [
+   "official:2024X-P2-31",
+   "fact:cad-siglas"
+  ],
+  "lesson_anchor": "fuente-ms-mixed-reality-cad-html"
+ },
+ {
+  "id": "m02-l05-q321",
+  "tema": "II.5",
+  "section": "Sistemas operativos",
+  "citation": "fuente: `ms-win-cuentas-usuario.html`; «Administrar cuentas de usuario en Windows»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "En Windows 11, ¿cuál de las siguientes rutas de la aplicación Configuración permite conectar una cuenta profesional o educativa a un dispositivo personal?",
+  "options": {
+   "a": "Cuentas › Obtener acceso a trabajo o escuela",
+   "b": "Cuentas › Otro usuario",
+   "c": "Cuentas › Familia",
+   "d": "Cuentas › Correo electrónico y cuentas"
+  },
+  "correct": "a",
+  "difficulty": 2,
+  "tags": [
+   "ofimática-menú"
+  ],
+  "distractor_pattern": "otra-ruta",
+  "explanation": "La página indica la ruta Cuentas › Obtener acceso a trabajo o escuela, con el botón Conectar junto a Agregar una cuenta profesional o educativa. Cuentas › Otro usuario sirve para agregar o quitar la cuenta de otra persona del dispositivo. Cuentas › Familia sirve para agregar a los miembros de un grupo familiar. Cuentas › Correo electrónico y cuentas sirve para agregar las cuentas que usan las aplicaciones, como correo, calendario y contactos.",
+  "source_quote": "seleccione Cuentas>,Obtener acceso a trabajo o escuela",
+  "covers": [
+   "fact:cuentas-trabajo-ruta"
+  ],
+  "lesson_anchor": "fuente-ms-win-cuentas-usuario-html"
+ },
+ {
+  "id": "m02-l05-q322",
+  "tema": "II.5",
+  "section": "Sistemas operativos",
+  "citation": "fuente: `ms-win-cuentas-usuario.html`; «Administrar cuentas de usuario en Windows»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "¿Para qué permite Windows 11 agregar varias cuentas de usuario, según la página de Microsoft sobre cómo administrar cuentas de usuario?",
+  "options": {
+   "a": "Para que varios dispositivos compartan la misma configuración y los mismos documentos de un usuario",
+   "b": "Para que todos los usuarios de un dispositivo vean los mismos documentos y las mismas aplicaciones sin separar nada",
+   "c": "Para que varias personas usen un mismo dispositivo, con configuración, documentos y aplicaciones propios",
+   "d": "Para que cada usuario necesite su propio dispositivo y una licencia de Windows aparte para cada cuenta"
+  },
+  "correct": "c",
+  "difficulty": 2,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "texto-alterado",
+  "explanation": "La página dice que Windows permite agregar varias cuentas de usuario para usar el mismo dispositivo, y que cada usuario tiene su propia configuración, documentos y aplicaciones. Compartir configuración y documentos entre varios dispositivos contradice que sea para usar el mismo dispositivo. Que todos vean los mismos documentos y aplicaciones contradice que cada usuario tenga los suyos. Que cada usuario necesite su propio dispositivo contradice que las cuentas sirvan para usar el mismo.",
+  "source_quote": "Windows permite agregar varias cuentas de usuario para usar el mismo dispositivo, lo que permite a cada usuario tener su propia configuración, documentos y aplicaciones.",
+  "covers": [
+   "official:2024X-R2-5",
+   "fact:cuentas-multiusuario"
+  ],
+  "lesson_anchor": "fuente-ms-win-cuentas-usuario-html"
+ },
+ {
+  "id": "m02-l05-q323",
+  "tema": "II.5",
+  "section": "Nociones básicas de seguridad informática",
+  "citation": "fuente: `ms-win-firewall.html`; «Firewall y protección de red en la aplicación Seguridad de Windows»",
+  "stem_form": "cual",
+  "names_article": false,
+  "negative": false,
+  "prompt": "¿Cuál de las siguientes opciones de Firewall y protección de red en Windows 11 sirve para diagnosticar y corregir automáticamente problemas generales de conectividad?",
+  "options": {
+   "a": "Permitir una aplicación a través del firewall",
+   "b": "Configuración de notificaciones de firewall",
+   "c": "Restaurar los firewalls a los valores predeterminados",
+   "d": "Solucionador de problemas de red e Internet"
+  },
+  "correct": "d",
+  "difficulty": 2,
+  "tags": [
+   "ofimática-menú"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "La página dice que el Solucionador de problemas de red e Internet sirve, ante problemas generales de conectividad, para intentar diagnosticarlos y corregirlos automáticamente. Permitir una aplicación a través del firewall agrega una excepción para una aplicación bloqueada o abre un puerto específico. La configuración de notificaciones regula cuántas notificaciones da el firewall cuando bloquea algo. Restaurar los firewalls devuelve la configuración al estado en que estaba al obtener el equipo.",
+  "source_quote": "Solucionador de problemas de red e Internet: Si tiene problemas generales de conectividad de red, puede usar este solucionador de problemas para intentar diagnosticarlos y corregirlos automáticamente.",
+  "covers": [
+   "fact:firewall-solucionador"
+  ],
+  "lesson_anchor": "fuente-ms-win-firewall-html"
+ },
+ {
+  "id": "m02-l05-q324",
+  "tema": "II.5",
+  "section": "Nociones básicas de seguridad informática",
+  "citation": "fuente: `ms-win-firewall.html`; «Firewall y protección de red en la aplicación Seguridad de Windows»",
+  "stem_form": "senale",
+  "names_article": false,
+  "negative": false,
+  "prompt": "Señale qué ocurre en Windows 11 al activar en el Firewall de Windows la casilla que bloquea todas las conexiones entrantes, incluidas las de la lista de aplicaciones permitidas:",
+  "options": {
+   "a": "Bloquea solo las conexiones que no están en la lista de aplicaciones permitidas",
+   "b": "Ignora la lista de aplicaciones permitidas y bloquea todo",
+   "c": "Desactiva el firewall en la red privada y en la red pública del equipo",
+   "d": "Restablece la configuración del firewall a sus valores predeterminados de fábrica"
+  },
+  "correct": "b",
+  "difficulty": 3,
+  "tags": [
+   "comportamiento"
+  ],
+  "distractor_pattern": "texto-alterado",
+  "explanation": "La página dice que, al activar la casilla, el Firewall de Windows ignora la lista de aplicaciones permitidas y bloquea todo, lo que aumenta la seguridad pero puede hacer que algunas aplicaciones dejen de funcionar. Bloquear solo lo que no está en la lista contradice que se ignore esa lista. Desactivar el firewall contradice que la opción aumente la seguridad. Restablecer los valores predeterminados es la función de otra opción de la página, Restaurar los firewalls a los valores predeterminados.",
+  "source_quote": "Al activar esta casilla, se indica al Firewall de Windows que ignore la lista de aplicaciones permitidas y bloquee todo.",
+  "covers": [
+   "fact:firewall-bloquear-todo"
+  ],
+  "lesson_anchor": "fuente-ms-win-firewall-html"
+ },
+ {
+  "id": "m02-l05-q325",
+  "tema": "II.5",
+  "section": "Nociones básicas de seguridad informática",
+  "citation": "fuente: `ms-win-antivirus.html`; «Protección contra amenazas y virus en la aplicación Seguridad de Windows»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "¿A qué examen se aplican las exclusiones agregadas en Seguridad de Windows de Windows 11, según la página de Microsoft sobre protección contra virus y amenazas?",
+  "options": {
+   "a": "A todos los análisis, incluidos los programados con productos antimalware de terceros",
+   "b": "Solo a los análisis programados con el Antivirus de Microsoft Defender",
+   "c": "Solo al examen en tiempo real del Antivirus de Microsoft Defender",
+   "d": "Solo al examen sin conexión que se ejecuta tras un reinicio"
+  },
+  "correct": "c",
+  "difficulty": 3,
+  "tags": [
+   "comportamiento"
+  ],
+  "distractor_pattern": "texto-alterado",
+  "explanation": "La página dice que las exclusiones solo se aplican al examen en tiempo real con el Antivirus de Microsoft Defender. Aplicarse a todos los análisis contradice la página, según la cual los análisis programados, con Defender o con productos de terceros, podrían seguir examinando esos archivos. Aplicarse a los análisis programados contradice que solo valgan para el examen en tiempo real. El examen sin conexión es otro tipo de examen, distinto del examen en tiempo real al que se limitan las exclusiones.",
+  "source_quote": "Las exclusiones solo se aplican al examen en tiempo real con Antivirus de Microsoft Defender.",
+  "covers": [
+   "fact:antivirus-exclusiones-alcance"
+  ],
+  "lesson_anchor": "fuente-ms-win-antivirus-html"
+ },
+ {
+  "id": "m02-l05-q326",
+  "tema": "II.5",
+  "section": "Nociones básicas de seguridad informática",
+  "citation": "fuente: `ms-win-update.html`; «Windows Update: Preguntas más frecuentes»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "¿En qué dispositivos se activará el almacenamiento reservado de Windows 11, según la página de preguntas frecuentes de Windows Update?",
+  "options": {
+   "a": "En todos los que se actualicen desde una versión anterior de Windows",
+   "b": "Solo en los dispositivos administrados por una organización con directivas",
+   "c": "En todos los que tengan una conexión de uso medido a Internet",
+   "d": "En los nuevos con Windows 11 preinstalado o instalación limpia"
+  },
+  "correct": "d",
+  "difficulty": 2,
+  "tags": [
+   "requisito"
+  ],
+  "distractor_pattern": "texto-alterado",
+  "explanation": "La página dice que el almacenamiento reservado se activará para nuevos dispositivos con Windows 11 preinstalado o con una instalación limpia de Windows 11. Los dispositivos que se actualizan desde otra versión no están en esa lista, que es la respuesta de la página a esa pregunta. Los dispositivos administrados por una organización tampoco: el criterio de la página es que sean nuevos, con Windows 11 preinstalado o con instalación limpia. La conexión de uso medido solo afecta a que algunas actualizaciones no se instalen automáticamente.",
+  "source_quote": "El almacenamiento reservado se activará para nuevos dispositivos con Windows 11 preinstalado o en dispositivos con una instalación limpia de Windows 11.",
+  "covers": [
+   "fact:update-almacenamiento-reservado"
+  ],
+  "lesson_anchor": "fuente-ms-win-update-html"
+ },
+ {
+  "id": "m02-l05-q327",
+  "tema": "II.5",
+  "section": "Nociones básicas de seguridad informática",
+  "citation": "fuente: `ms-entra-mfa.html`; «Cómo funciona: autenticación multifactor de Microsoft Entra»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "¿Qué pueden hacer las directivas de acceso condicional con la autenticación multifactor de Microsoft Entra, según la página de Microsoft sobre cómo funciona?",
+  "options": {
+   "a": "Pedir siempre los mismos factores, en cualquier dispositivo y desde cualquier red",
+   "b": "Pedir más factores solo en un dispositivo personal o en un entorno remoto",
+   "c": "Pedir más factores solo en la red corporativa y no en un entorno remoto",
+   "d": "Sustituir la contraseña por el nombre de usuario como único factor"
+  },
+  "correct": "b",
+  "difficulty": 3,
+  "tags": [
+   "comportamiento"
+  ],
+  "distractor_pattern": "texto-alterado",
+  "explanation": "La página dice que estas directivas permiten inicios de sesión regulares en la red corporativa o en un dispositivo registrado, y piden más factores de comprobación en un dispositivo personal o en un entorno remoto. Pedir siempre lo mismo contradice que la exigencia cambie según el dispositivo o el entorno. Pedir más factores solo en la red corporativa invierte lo que dice la página. Sustituir la contraseña por el nombre de usuario contradice que la autenticación multifactor exija una forma adicional de identificación.",
+  "source_quote": "Estas directivas pueden permitir inicios de sesión regulares cuando el usuario se encuentra en la red corporativa o en un dispositivo registrado, pero solicitar más factores de comprobación cuando el usuario se encuentra en un dispositivo personal o en un entorno remoto.",
+  "covers": [
+   "fact:mfa-acceso-condicional"
+  ],
+  "lesson_anchor": "fuente-ms-entra-mfa-html"
+ },
+ {
+  "id": "m02-l05-q328",
+  "tema": "II.5",
+  "section": "Nociones básicas de seguridad informática",
+  "citation": "fuente: `incibe-glosario-ciberseguridad.pdf`; «Software»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "Según el glosario de términos de ciberseguridad que publica el INCIBE para empresarios, ¿qué se entiende por software?",
+  "options": {
+   "a": "Un conjunto de programas, instrucciones y reglas que permiten ejecutar tareas",
+   "b": "Un tipo de software que busca dañar un sistema de información sin consentimiento de su propietario",
+   "c": "Un software de protección que evita que se ejecute software malicioso en el equipo",
+   "d": "Un software que se apoya en anuncios como parte del propio programa para financiarse"
+  },
+  "correct": "a",
+  "difficulty": 1,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "El glosario define el software como un conjunto de programas, instrucciones y reglas informáticas que permiten ejecutar distintas tareas en un dispositivo. Un tipo de software que busca dañar o infiltrarse sin consentimiento es la definición de malware. Un software de protección que evita la ejecución de software malicioso es la definición de antivirus. Un software apoyado en anuncios como parte del propio programa es la definición de adware.",
+  "source_quote": "Definimos software del inglés como un conjunto de programas, instrucciones y reglas informáticas que permiten ejecutar distintas tareas en un dispositivo.",
+  "covers": [
+   "fact:incibe-software"
+  ],
+  "lesson_anchor": "fuente-incibe-glosario-ciberseguridad-pdf"
+ },
+ {
+  "id": "m02-l05-q329",
+  "tema": "II.5",
+  "section": "Nociones básicas de seguridad informática",
+  "citation": "fuente: `incibe-glosario-ciberseguridad.pdf`; «Spear phishing»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "Según el glosario de términos de ciberseguridad que publica el INCIBE para empresarios, ¿qué es el spear phishing?",
+  "options": {
+   "a": "Un ataque que suplanta a una entidad por correo para conseguir credenciales de cualquier usuario",
+   "b": "Una técnica de suplantación de identidad en la red, como el IP spoofing o el DNS spoofing",
+   "c": "Un malware que recopila información de un ordenador y la envía a una entidad remota",
+   "d": "Una modalidad de phishing dirigida contra un usuario u organización en concreto"
+  },
+  "correct": "d",
+  "difficulty": 2,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "El glosario define el spear phishing como una modalidad de phishing dirigido contra un usuario u organización en concreto, con una fase previa de reconocimiento. Suplantar a una entidad por correo para conseguir credenciales de un usuario cualquiera es la definición del phishing general. La suplantación de identidad en la red, con tipos como IP spoofing o DNS spoofing, es la definición de spoofing. Recopilar información de un ordenador y enviarla a una entidad remota es la definición de spyware.",
+  "source_quote": "Modalidad de phishing dirigido contra un usuario u organización en concreto",
+  "covers": [
+   "fact:incibe-spear-phishing"
+  ],
+  "lesson_anchor": "fuente-incibe-glosario-ciberseguridad-pdf"
+ },
+ {
+  "id": "m02-l05-q330",
+  "tema": "II.5",
+  "section": "Nociones básicas de seguridad informática",
+  "citation": "fuente: `incibe-glosario-ciberseguridad.pdf`; «Spyware»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "¿Qué sinónimo da el glosario de términos de ciberseguridad del INCIBE para empresarios para el término «spyware»?",
+  "options": {
+   "a": "Software malicioso",
+   "b": "Programa espía",
+   "c": "Antimalware",
+   "d": "Malvertising"
+  },
+  "correct": "b",
+  "difficulty": 2,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "El glosario da «programa espía» como sinónimo de spyware. Software malicioso es el sinónimo de malware. Antimalware es el sinónimo de antivirus. Malvertising es el sinónimo de adware.",
+  "source_quote": "Sinónimo: Programa espía",
+  "covers": [
+   "fact:incibe-spyware-sinonimo"
+  ],
+  "lesson_anchor": "fuente-incibe-glosario-ciberseguridad-pdf"
+ },
+ {
+  "id": "m02-l05-q331",
+  "tema": "II.5",
+  "section": "Conceptos fundamentales sobre el hardware y el software",
+  "citation": "fuente: `intel-4004-aniversario.pdf`; «Intel celebra el 50º aniversario del Intel 4004»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "Según la nota de prensa de Intel por el 50º aniversario del Intel 4004, ¿qué nueva metodología de diseño estableció su invención?",
+  "options": {
+   "a": "Una metodología de diseño lógico secuencial",
+   "b": "Una metodología de diseño lógico cuántico",
+   "c": "Una metodología de diseño lógico aleatorio",
+   "d": "Una metodología de diseño de circuitos neuromórficos"
+  },
+  "correct": "c",
+  "difficulty": 3,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "La nota dice que la invención del 4004 estableció una nueva metodología de diseño lógico aleatorio, en la que se basarían las siguientes generaciones de microprocesadores. El diseño lógico secuencial sustituye el término «aleatorio» que usa la nota. La computación cuántica, con la solución criogénica Intel Horse Ridge, es una línea de investigación actual de Intel. La computación neuromórfica, con el chip Intel Loihi 2, también es una línea de investigación actual, medio siglo después del 4004.",
+  "source_quote": "Su invención también estableció una nueva metodología de diseño lógico aleatorio",
+  "covers": [
+   "fact:intel-metodologia"
+  ],
+  "lesson_anchor": "fuente-intel-4004-aniversario-pdf"
+ },
+ {
+  "id": "m02-l05-q332",
+  "tema": "II.5",
+  "section": "Nociones básicas de seguridad informática",
+  "citation": "fuente: `incibe-glosario-ciberseguridad.pdf`; «Rootkit»",
+  "stem_form": "directa",
+  "names_article": false,
+  "negative": false,
+  "prompt": "Según el glosario de términos de ciberseguridad que publica el INCIBE para empresarios, ¿qué es un rootkit?",
+  "options": {
+   "a": "Un malware que da acceso continuo como administrador y oculta su presencia",
+   "b": "Un malware que secuestra un dispositivo o su información hasta que se paga un rescate",
+   "c": "Un tipo de spyware que monitoriza la actividad del teclado y la envía al ciberdelincuente",
+   "d": "Un malware con múltiples utilidades, la más común crear una puerta trasera en el equipo"
+  },
+  "correct": "a",
+  "difficulty": 2,
+  "tags": [
+   "concepto"
+  ],
+  "distractor_pattern": "otra-figura",
+  "explanation": "El glosario define el rootkit como un tipo de malware que permite un acceso continuo con permisos de administrador a un dispositivo y mantiene su presencia oculta a los administradores. Secuestrar el dispositivo o su información hasta cobrar un rescate es la definición de ransomware. Monitorizar la actividad del teclado para enviarla al ciberdelincuente es la definición de keylogger. Un malware con múltiples utilidades, cuya más común es crear una puerta trasera, es la definición de troyano.",
+  "source_quote": "Tipo de malware que permite un acceso continuo con permisos de administrador a un determinado dispositivo",
+  "covers": [
+   "fact:incibe-rootkit"
+  ],
+  "lesson_anchor": "fuente-incibe-glosario-ciberseguridad-pdf"
+ }
+]

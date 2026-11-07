@@ -1,0 +1,609 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# Question bank, m02-l09: fixed multiple-choice questions (C2 round R3). Generated from
+# docs/age-verification/c2/bank/bloque-ii/ (kept derived + authored minus drops.tsv) by
+# docs/age-verification/c2/bank/tools/build_exercises.py; edit the drafts and rebuild, not this file.
+type: quiz
+variants:
+# anchor: fuente-ms-excel-funcion-extrae-html
+- id: m02-l09-q125
+  prompt:
+    es: "En Excel 365, A1 contiene Excel y B1 contiene =EXTRAE(A1; 20; 3). ¿Qué muestra B1?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Texto vacío"
+  - id: b
+    text:
+      es: "Excel"
+  - id: c
+    text:
+      es: "cel"
+  - id: d
+    text:
+      es: "#¡VALOR!"
+  explanation:
+    es: "Si posición_inicial es mayor que la longitud del texto, EXTRAE devuelve texto vacío (\"\"). La posición 20 supera los 5 caracteres de Excel, por lo que no devuelve el texto, sus últimos caracteres ni un error."
+  citation: "fuente: `ms-excel-funcion-extrae.html`; «Sintaxis»"
+  difficulty: 2
+  tags:
+  - "resultado-fórmula"
+# anchor: fuente-ms-excel-funcion-extrae-html
+- id: m02-l09-q126
+  prompt:
+    es: "En Excel 365, A1 contiene Presupuesto anual y B1 contiene =EXTRAE(A1; 13; 20). ¿Qué muestra B1?"
+  options:
+  - id: a
+    text:
+      es: "anual seguido de espacios hasta completar 20 caracteres"
+  - id: b
+    correct: true
+    text:
+      es: "anual"
+  - id: c
+    text:
+      es: "Texto vacío"
+  - id: d
+    text:
+      es: "#¡VALOR!"
+  explanation:
+    es: "La posición 13 es el carácter a de anual, y como la posición inicial más los 20 caracteres excede la longitud del texto, EXTRAE devuelve los caracteres hasta el final. Según el ejemplo de la página, no se agregan espacios al final."
+  citation: "fuente: `ms-excel-funcion-extrae.html`; «Sintaxis»"
+  difficulty: 3
+  tags:
+  - "resultado-fórmula"
+  - "comportamiento"
+# anchor: fuente-ms-excel-funciones-categoria-html
+- id: m02-l09-q127
+  prompt:
+    es: "En Excel 365, ¿cuál de las siguientes afirmaciones describe correctamente lo que hace la función EXTRAE?"
+  options:
+  - id: a
+    text:
+      es: "Devuelve los caracteres del lado izquierdo de un valor de texto"
+  - id: b
+    text:
+      es: "Devuelve el número de caracteres de una cadena de texto dada"
+  - id: c
+    correct: true
+    text:
+      es: "Devuelve un número específico de caracteres de una cadena de texto desde una posición"
+  - id: d
+    text:
+      es: "Divide las cadenas de texto mediante delimitadores de columna y fila"
+  explanation:
+    es: "EXTRAE devuelve un número específico de caracteres de una cadena de texto a partir de la posición que se especifique. Los caracteres del lado izquierdo son de IZQUIERDA, el número de caracteres es de LARGO y dividir por delimitadores es de DIVIDIRTEXTO."
+  citation: "fuente: `ms-excel-funciones-categoria.html`; «Funciones de texto»"
+  difficulty: 2
+  tags:
+  - "función"
+  - "concepto"
+# anchor: fuente-ms-excel-funciones-categoria-html
+- id: m02-l09-q128
+  prompt:
+    es: "En Excel 365, ¿cuál de las siguientes afirmaciones describe correctamente lo que hace la función DIVIDIRTEXTO?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Divide las cadenas de texto mediante delimitadores de columna y fila"
+  - id: b
+    text:
+      es: "Combina el texto de varios rangos o cadenas"
+  - id: c
+    text:
+      es: "Devuelve una matriz de valores de texto de cualquier rango especificado"
+  - id: d
+    text:
+      es: "Devuelve los caracteres del lado izquierdo de un valor de texto"
+  explanation:
+    es: "DIVIDIRTEXTO divide las cadenas de texto mediante delimitadores de columna y fila. Combinar el texto de varios rangos lo hace la función de unión de texto, devolver una matriz de valores de texto es de MATRIZATEXTO y los caracteres de la izquierda son de IZQUIERDA."
+  citation: "fuente: `ms-excel-funciones-categoria.html`; «Funciones de texto»"
+  difficulty: 1
+  tags:
+  - "función"
+  - "concepto"
+# anchor: fuente-ms-excel-funcion-dividirtexto-html
+- id: m02-l09-q129
+  prompt:
+    es: "En Excel 365, A2 contiene el texto 1,2,3;4,5,6. ¿Cómo desborda =DIVIDIRTEXTO(A2; \",\"; \";\") el resultado?"
+  options:
+  - id: a
+    text:
+      es: "En una matriz de 3 filas y 2 columnas"
+  - id: b
+    correct: true
+    text:
+      es: "En una matriz de 2 filas y 3 columnas"
+  - id: c
+    text:
+      es: "En una sola fila de 6 celdas"
+  - id: d
+    text:
+      es: "En una sola columna de 6 celdas"
+  explanation:
+    es: "El delimitador de columna es la coma y el de fila el punto y coma, así que 1,2,3;4,5,6 se divide en una matriz de 2×3, como indica el ejemplo de la página: dos filas de tres valores. Un delimitador de fila separa filas, no se ignora."
+  citation: "fuente: `ms-excel-funcion-dividirtexto.html`; «Divida las constantes de la matriz de A2 en una matriz de 2X3.»"
+  difficulty: 2
+  tags:
+  - "resultado-fórmula"
+# anchor: fuente-ms-excel-funcion-dividirtexto-html
+- id: m02-l09-q131
+  prompt:
+    es: "En Excel 365, la función DIVIDIRTEXTO funciona igual que una herramienta, pero en formato de fórmula. ¿Cuál de las siguientes es esa herramienta?"
+  options:
+  - id: a
+    text:
+      es: "El asistente para funciones"
+  - id: b
+    text:
+      es: "El asistente para fórmulas"
+  - id: c
+    text:
+      es: "El Relleno rápido"
+  - id: d
+    correct: true
+    text:
+      es: "El asistente de texto a columnas"
+  explanation:
+    es: "La página dice que DIVIDIRTEXTO funciona igual que el asistente de texto a columnas, pero en formato de fórmula. El asistente para funciones ayuda con los argumentos, el asistente para fórmulas muestra la sintaxis al escribir y el Relleno rápido reconoce patrones en columnas adyacentes."
+  citation: "fuente: `ms-excel-funcion-dividirtexto.html`; «Introducción»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-ms-excel-funcion-dia-html
+- id: m02-l09-q134
+  prompt:
+    es: "En Excel 365, A2 contiene la fecha 27 de octubre de 2026. ¿Qué muestra la celda con =DIA(A2)?"
+  options:
+  - id: a
+    text:
+      es: "10"
+  - id: b
+    correct: true
+    text:
+      es: "27"
+  - id: c
+    text:
+      es: "2026"
+  - id: d
+    text:
+      es: "31"
+  explanation:
+    es: "DIA devuelve el día de una fecha como un número entero entre 1 y 31: en el 27 de octubre de 2026, 27. 10 es el mes, 2026 el año y 31 no es el día de esa fecha."
+  citation: "fuente: `ms-excel-funcion-dia.html`; «Descripción»"
+  difficulty: 1
+  tags:
+  - "resultado-fórmula"
+# anchor: fuente-ms-excel-formulas-html
+- id: m02-l09-q164
+  prompt:
+    es: "En Excel 365, la función PROMEDIO usa el rango B1:B10 de la hoja Marketing. ¿Qué indica el signo de exclamación en esa referencia?"
+  options:
+  - id: a
+    text:
+      es: "Marca el rango como referencia a una celda de otro libro de trabajo"
+  - id: b
+    correct: true
+    text:
+      es: "Separa la hoja de cálculo del rango de celdas"
+  - id: c
+    text:
+      es: "Multiplica el resultado del rango"
+  - id: d
+    text:
+      es: "Indica que el rango es absoluto"
+  explanation:
+    es: "La página explica que el signo de exclamación separa la referencia de la hoja de la referencia del rango. «Indica que el rango es absoluto»: la página dice que la absoluta se escribe con $, no con !. «Marca el rango como referencia a una celda de otro libro de trabajo»: las referencias a otros libros se llaman vínculos externos; la página usa ! dentro del mismo libro. «Multiplica el resultado del rango»: el signo no calcula nada; solo separa la hoja del rango."
+  citation: "fuente: `ms-excel-formulas.html`; «Hacer referencia a una celda o un rango de celdas de otra hoja de cálculo del mismo libro»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-ms-excel-formulas-html
+- id: m02-l09-q165
+  prompt:
+    es: "En Excel 365 se quiere sumar la celda B5 de todas las hojas comprendidas entre Hoja2 y Hoja13, ambas incluidas. ¿Qué fórmula lo hace?"
+  options:
+  - id: a
+    text:
+      es: "=SUMA(Hoja2+Hoja13!B5)"
+  - id: b
+    text:
+      es: "=SUMA(Hoja2!Hoja13!B5)"
+  - id: c
+    correct: true
+    text:
+      es: "=SUMA(Hoja2:Hoja13!B5)"
+  - id: d
+    text:
+      es: "=SUMA(Hoja2;Hoja13;B5)"
+  explanation:
+    es: "La página da =SUMA(Hoja2:Hoja13!B5) como ejemplo de referencia 3D, que suma B5 en todas las hojas entre la inicial y la final. «=SUMA(Hoja2!Hoja13!B5)»: la referencia 3D usa dos puntos entre los nombres de hoja y un solo signo de exclamación. «=SUMA(Hoja2;Hoja13;B5)»: esa fórmula separa tres argumentos, pero la página escribe el rango de hojas con dos puntos: Hoja2:Hoja13!B5. «=SUMA(Hoja2+Hoja13!B5)»: el operador + no forma una referencia 3D; la página usa el rango Hoja2:Hoja13."
+  citation: "fuente: `ms-excel-formulas.html`; «Estilo de referencia 3D»"
+  difficulty: 3
+  tags:
+  - "resultado-fórmula"
+# anchor: fuente-ms-excel-formulas-html
+- id: m02-l09-q166
+  prompt:
+    es: "En Excel 365, la fórmula =SUMA(Hoja2:Hoja6!A2:A5) usa una referencia 3D. ¿Qué ocurre con el cálculo si se elimina una hoja situada entre Hoja2 y Hoja6?"
+  options:
+  - id: a
+    text:
+      es: "Excel mueve la hoja eliminada a Hoja2"
+  - id: b
+    correct: true
+    text:
+      es: "Excel quita del cálculo los valores de esa hoja"
+  - id: c
+    text:
+      es: "Excel sigue sumando los valores de la hoja eliminada"
+  - id: d
+    text:
+      es: "Excel devuelve el error #¡REF! en la fórmula"
+  explanation:
+    es: "La página afirma que, al eliminar hojas entre las dos extremas, Excel elimina de los cálculos sus valores. «Excel devuelve el error #¡REF! en la fórmula»: la página dice que Excel elimina los valores de la hoja del cálculo, sin error. «Excel sigue sumando los valores de la hoja eliminada»: la página indica que los valores de la hoja eliminada salen del cálculo. «Excel mueve la hoja eliminada a Hoja2»: la página dice que Excel elimina de los cálculos los valores de la hoja eliminada."
+  citation: "fuente: `ms-excel-formulas.html`; «Qué ocurre cuando se mueven, copian, insertan o eliminan hojas de cálculo»"
+  difficulty: 3
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-excel-formulas-html
+- id: m02-l09-q167
+  prompt:
+    es: "En Excel 365, la fórmula =SUMA(Hoja2:Hoja6!A2:A5) usa una referencia 3D. ¿Qué ocurre si se inserta una hoja nueva entre Hoja2 y Hoja6?"
+  options:
+  - id: a
+    text:
+      es: "La fórmula ignora la hoja nueva hasta que se edite o se vuelva a escribir por completo"
+  - id: b
+    correct: true
+    text:
+      es: "Excel incluye en el cálculo los valores de A2 a A5 de la hoja nueva"
+  - id: c
+    text:
+      es: "Excel suma solo la hoja nueva"
+  - id: d
+    text:
+      es: "La fórmula deja de funcionar y hay que reescribirla"
+  explanation:
+    es: "La página indica que, al insertar o copiar hojas entre las extremas, Excel incluye en los cálculos los valores de las celdas A2 a A5 de las hojas añadidas. «La fórmula ignora la hoja nueva hasta que se edite o se vuelva a escribir por completo»: la página dice que Excel incluye en los cálculos los valores de las hojas agregadas entre las extremas. «La fórmula deja de funcionar y hay que reescribirla»: la página dice que Excel incluye en los cálculos los valores de las hojas agregadas entre las extremas. «Excel suma solo la hoja nueva»: la suma sigue incluyendo todas las hojas entre la Hoja2 y la Hoja6, no solo la nueva."
+  citation: "fuente: `ms-excel-formulas.html`; «Qué ocurre cuando se mueven, copian, insertan o eliminan hojas de cálculo»"
+  difficulty: 3
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-excel-formulas-html
+- id: m02-l09-q168
+  prompt:
+    es: "En Excel 365, ¿en cuál de los siguientes casos NO se puede usar una referencia 3D, según la ayuda de fórmulas?"
+  options:
+  - id: a
+    text:
+      es: "En una fórmula con la función SUMA"
+  - id: b
+    correct: true
+    text:
+      es: "En fórmulas de matriz"
+  - id: c
+    text:
+      es: "En una fórmula con la función PROMEDIO"
+  - id: d
+    text:
+      es: "En una fórmula con la función MAX"
+  explanation:
+    es: "La página advierte que no se pueden usar referencias 3D en fórmulas de matriz. «En una fórmula con la función SUMA»: la página incluye SUMA entre las funciones que admiten referencias 3D. «En una fórmula con la función PROMEDIO»: PROMEDIO figura en la lista de funciones con referencias 3D. «En una fórmula con la función MAX»: MAX también está en esa lista de la página."
+  citation: "fuente: `ms-excel-formulas.html`; «Estilo de referencia 3D»"
+  difficulty: 3
+  tags:
+  - "requisito"
+# anchor: fuente-ms-excel-formulas-html
+- id: m02-l09-q169
+  prompt:
+    es: "Con Microsoft Excel 365 abierto en un equipo con Windows 11, ¿qué es una constante en una fórmula?"
+  options:
+  - id: a
+    text:
+      es: "El resultado de una expresión calculada con otras celdas de la hoja"
+  - id: b
+    text:
+      es: "Una función como PI()"
+  - id: c
+    text:
+      es: "La dirección de una celda, como A2"
+  - id: d
+    correct: true
+    text:
+      es: "Un número o un texto escrito directamente en la fórmula"
+  explanation:
+    es: "La página define la constante como un valor que no se calcula, como el número 210 o un texto escrito en la fórmula. «El resultado de una expresión calculada con otras celdas de la hoja»: la página dice que una expresión o el valor resultante de una expresión no es una constante. «La dirección de una celda, como A2»: la dirección de celda es una referencia, no una constante. «Una función como PI()»: PI() es una función, que devuelve el valor de pi."
+  citation: "fuente: `ms-excel-formulas.html`; «Las partes de una fórmula de Excel»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-ms-excel-formulas-html
+- id: m02-l09-q170
+  prompt:
+    es: "En una celda de Excel 365 está escrita la fórmula =30+70+110. ¿Cuándo cambia su resultado?"
+  options:
+  - id: a
+    text:
+      es: "Cuando cambia otra celda de la hoja"
+  - id: b
+    text:
+      es: "Cuando se recalcula la hoja con F9"
+  - id: c
+    correct: true
+    text:
+      es: "Solo si se modifica la fórmula"
+  - id: d
+    text:
+      es: "Cada vez que se abre el libro"
+  explanation:
+    es: "La página explica que, con constantes en lugar de referencias a celdas, el resultado solo cambia si se modifica la fórmula. «Cada vez que se abre el libro»: una constante permanece igual siempre; la página dice que el resultado cambia al modificar la fórmula. «Cuando cambia otra celda de la hoja»: la fórmula solo tiene constantes, y la página dice que su resultado cambia únicamente al modificar la fórmula. «Cuando se recalcula la hoja con F9»: F9 recalcula, pero con constantes el resultado sigue siendo el mismo."
+  citation: "fuente: `ms-excel-formulas.html`; «Usar constantes en fórmulas de Excel»"
+  difficulty: 2
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-excel-formulas-html
+- id: m02-l09-q171
+  prompt:
+    es: "En Excel 365, ¿qué se escribe primero en una celda para que Excel entienda que lo que sigue es una fórmula?"
+  options:
+  - id: a
+    text:
+      es: "Los dos puntos (:)"
+  - id: b
+    text:
+      es: "La almohadilla (#)"
+  - id: c
+    text:
+      es: "El signo de exclamación (!)"
+  - id: d
+    correct: true
+    text:
+      es: "El signo igual (=)"
+  explanation:
+    es: "La página dice que las fórmulas de Excel siempre comienzan con el signo igual. «El signo de exclamación (!)»: la página usa ! para separar la hoja del rango, no para iniciar fórmulas. «Los dos puntos (:)»: los dos puntos son el operador de rango. «La almohadilla (#)»: el símbolo # forma parte de nombres de error y del rango desbordado, no inicia fórmulas."
+  citation: "fuente: `ms-excel-formulas.html`; «Crear una fórmula que haga referencia a valores de otras celdas»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-ms-excel-formulas-html
+- id: m02-l09-q172
+  prompt:
+    es: "Al trabajar con una hoja de cálculo de Microsoft Excel 365, en una fórmula, ¿cuál de las siguientes afirmaciones describe lo que hace el operador ^ (acento circunflejo)?"
+  options:
+  - id: a
+    text:
+      es: "Calcula un porcentaje"
+  - id: b
+    text:
+      es: "Concatena dos textos"
+  - id: c
+    correct: true
+    text:
+      es: "Eleva un número a una potencia"
+  - id: d
+    text:
+      es: "Multiplica entre sí los números de la fórmula"
+  explanation:
+    es: "La página dice que el operador ^ eleva un número a una potencia. «Multiplica entre sí los números de la fórmula»: la multiplicación usa el operador * (asterisco). «Concatena dos textos»: para unir textos se usa la Y comercial (&). «Calcula un porcentaje»: el porcentaje se escribe con el signo %."
+  citation: "fuente: `ms-excel-formulas.html`; «Las partes de una fórmula de Excel»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-ms-excel-formulas-html
+- id: m02-l09-q173
+  prompt:
+    es: "En Excel 365, la celda A2 contiene la fórmula =A$1 y se copia desde A2 hasta B3. ¿Qué fórmula queda en B3?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "=B$1"
+  - id: b
+    text:
+      es: "=A$1"
+  - id: c
+    text:
+      es: "=B$2"
+  - id: d
+    text:
+      es: "=A1"
+  explanation:
+    es: "La página da este ejemplo: una referencia mixta A$1 copiada de A2 a B3 pasa a =B$1, porque la columna relativa se ajusta y la fila absoluta no. «=A$1»: la columna es relativa y se ajusta al copiar a la derecha. «=B$2»: la fila es absoluta y no se ajusta al copiar hacia abajo. «=A1»: el signo $ de la fila se conserva al copiar, y la columna cambia a B."
+  citation: "fuente: `ms-excel-formulas.html`; «Referencias mixtas»"
+  difficulty: 3
+  tags:
+  - "resultado-fórmula"
+# anchor: fuente-ms-excel-formulas-html
+- id: m02-l09-q174
+  prompt:
+    es: "En Excel 365, la celda B2 contiene =A1 y se copia a B3. ¿Qué fórmula aparece en B3?"
+  options:
+  - id: a
+    text:
+      es: "=$A$2"
+  - id: b
+    text:
+      es: "=B2"
+  - id: c
+    text:
+      es: "=A1"
+  - id: d
+    correct: true
+    text:
+      es: "=A2"
+  explanation:
+    es: "La página explica que una referencia relativa copiada de B2 a B3 se ajusta de =A1 a =A2. «=A1»: la relativa se ajusta al copiar; solo una absoluta, escrita $A$1, quedaría sin cambios. «=B2»: la referencia relativa se ajusta según la posición de la fórmula, y B2 no es la celda que resulta de bajar una fila. «=$A$2»: el signo $ solo aparece si la referencia es absoluta, y =A1 no lo tiene."
+  citation: "fuente: `ms-excel-formulas.html`; «Referencias relativas»"
+  difficulty: 2
+  tags:
+  - "resultado-fórmula"
+# anchor: fuente-ms-excel-funcion-dia-html
+- id: m02-l09-q215
+  prompt:
+    es: "Según la ayuda de Microsoft para Microsoft Excel 365, ¿cuál de las siguientes afirmaciones describe lo que devuelve la función DIA para una fecha?"
+  options:
+  - id: a
+    text:
+      es: "El número de días entre dos fechas"
+  - id: b
+    text:
+      es: "El número de serie de la fecha"
+  - id: c
+    text:
+      es: "El día de la semana, como número entero de 1 a 7"
+  - id: d
+    correct: true
+    text:
+      es: "El día de la fecha, como número entero de 1 a 31"
+  explanation:
+    es: "La página dice que DIA devuelve el día de una fecha, un entero entre 1 y 31. «El día de la semana, como número entero de 1 a 7»: esa función es DIASEM, que numera el día de la semana. «El número de días entre dos fechas»: esa función es DIAS. «El número de serie de la fecha»: la función FECHA es la que devuelve un número de serie."
+  citation: "fuente: `ms-excel-funcion-dia.html`; «Descripción»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-ms-excel-funcion-dias-html
+- id: m02-l09-q229
+  prompt:
+    es: "Con Microsoft Excel 365 abierto en un equipo con Windows 11, ¿cuál de los siguientes argumentos va primero en la sintaxis de la función DIAS?"
+  options:
+  - id: a
+    text:
+      es: "El tipo de recuento"
+  - id: b
+    text:
+      es: "La fecha inicial"
+  - id: c
+    text:
+      es: "El número de serie del día de la semana"
+  - id: d
+    correct: true
+    text:
+      es: "La fecha final"
+  explanation:
+    es: "La sintaxis de la página es DIAS(fecha_final, fecha_inicial), y la función calcula fecha final menos fecha inicial. «La fecha inicial»: la sintaxis es DIAS(fecha_final; fecha_inicial). «El número de serie del día de la semana»: ese argumento es de DIASEM. «El tipo de recuento»: DIAS no tiene argumento de tipo; ese argumento es de DIASEM."
+  citation: "fuente: `ms-excel-funcion-dias.html`; «Sintaxis»"
+  difficulty: 1
+  tags:
+  - "función"
+# anchor: fuente-ms-excel-funcion-dias-html
+- id: m02-l09-q230
+  prompt:
+    es: "En Excel 365, A2 contiene 31/12/2021 y A3 contiene 1/1/2021. ¿Qué muestra =DIAS(A3;A2) con formato Número?"
+  options:
+  - id: a
+    text:
+      es: "364"
+  - id: b
+    text:
+      es: "365"
+  - id: c
+    text:
+      es: "0"
+  - id: d
+    correct: true
+    text:
+      es: "-364"
+  explanation:
+    es: "La función resta la fecha final (A3) menos la inicial (A2): da -364, el signo contrario de =DIAS(A2;A3), que da 364. «364»: la fórmula resta fecha final menos inicial; aquí la final es A3, anterior a A2. «365»: la diferencia entre 1/1/2021 y 31/12/2021 es de 364 días. «0»: las fechas son distintas, y su diferencia no es cero."
+  citation: "fuente: `ms-excel-funcion-dias.html`; «Ejemplo»"
+  difficulty: 3
+  tags:
+  - "resultado-fórmula"
+# anchor: fuente-ms-excel-funcion-dias-html
+- id: m02-l09-q231
+  prompt:
+    es: "En Excel 365, ¿qué requisito tiene escribir una fecha directamente como argumento de DIAS, como en =DIAS(\"15-MAR-2021\";\"1-FEB-2021\")?"
+  options:
+  - id: a
+    text:
+      es: "Debe ir entre almohadillas (#)"
+  - id: b
+    text:
+      es: "Debe escribirse con la función FECHA"
+  - id: c
+    correct: true
+    text:
+      es: "Debe ir entre comillas"
+  - id: d
+    text:
+      es: "Debe llevar el formato aaaa-mm-dd"
+  explanation:
+    es: "La página dice que, al escribir una fecha directamente en la función, hay que incluirla entre comillas; ese ejemplo da 42. «Debe llevar el formato aaaa-mm-dd»: la página exige comillas al escribir la fecha como texto, como \"15-MAR-2021\". «Debe escribirse con la función FECHA»: la página usa texto entre comillas en el ejemplo. «Debe ir entre almohadillas (#)»: la página usa comillas."
+  citation: "fuente: `ms-excel-funcion-dias.html`; «Ejemplo»"
+  difficulty: 2
+  tags:
+  - "requisito"
+# anchor: fuente-ms-excel-funcion-dias-html
+- id: m02-l09-q232
+  prompt:
+    es: "En Excel 365, un argumento de fecha de DIAS es texto. ¿Cómo lo trata la función?"
+  options:
+  - id: a
+    text:
+      es: "Lo ignora y usa solo el otro argumento"
+  - id: b
+    text:
+      es: "Como un número de serie igual a cero"
+  - id: c
+    correct: true
+    text:
+      es: "Como FECHANUMERO(texto_fecha)"
+  - id: d
+    text:
+      es: "Devuelve siempre un error de valor"
+  explanation:
+    es: "La página dice que, si un argumento de fecha es texto, se trata como FECHANUMERO(texto_fecha). «Como un número de serie igual a cero»: la página dice que el texto se trata como FECHANUMERO(texto_fecha). «Lo ignora y usa solo el otro argumento»: la página lo trata como FECHANUMERO(texto_fecha). «Devuelve siempre un error de valor»: el error se da solo si el texto no se puede analizar como fecha."
+  citation: "fuente: `ms-excel-funcion-dias.html`; «Observaciones»"
+  difficulty: 3
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-excel-funcion-diasem-html
+- id: m02-l09-q233
+  prompt:
+    es: "Según la ayuda de Microsoft para Microsoft Excel 365, A1 contiene un domingo. ¿Qué devuelve =DIASEM(A1)?"
+  options:
+  - id: a
+    text:
+      es: "0"
+  - id: b
+    text:
+      es: "7"
+  - id: c
+    text:
+      es: "6"
+  - id: d
+    correct: true
+    text:
+      es: "1"
+  explanation:
+    es: "Con el tipo omitido, la página numera del 1 (domingo) al 7 (sábado), así que el domingo es 1. «0»: con el tipo omitido el rango es 1-7; el 0 solo existe en el tipo 3. «6»: con el tipo 3, el domingo es 6. «7»: con el tipo 2, el domingo es 7."
+  citation: "fuente: `ms-excel-funcion-diasem.html`; «Sintaxis»"
+  difficulty: 2
+  tags:
+  - "resultado-fórmula"
+# anchor: fuente-ms-excel-funcion-diasem-html
+- id: m02-l09-q234
+  prompt:
+    es: "En una hoja de cálculo de Microsoft Excel 365 para Windows, A1 contiene un domingo. ¿Qué devuelve =DIASEM(A1;2)?"
+  options:
+  - id: a
+    text:
+      es: "6"
+  - id: b
+    text:
+      es: "1"
+  - id: c
+    correct: true
+    text:
+      es: "7"
+  - id: d
+    text:
+      es: "0"
+  explanation:
+    es: "Con el tipo 2, la página numera del 1 (lunes) al 7 (domingo), así que el domingo es 7. «1»: con el tipo 2 el lunes es 1, y el domingo es 7. «6»: con el tipo 3 el domingo es 6. «0»: solo el tipo 3 usa el 0, para el lunes."
+  citation: "fuente: `ms-excel-funcion-diasem.html`; «Sintaxis»"
+  difficulty: 2
+  tags:
+  - "resultado-fórmula"

@@ -13,7 +13,7 @@ All 650 printed keys were right on every pass. Every FAIL was about wording, exp
 | Generator | Items read (all passes) | FAILs by cause (pass where found) | Latest pass |
 |---|---|---|---|
 | tablas-lectura | 200 (4 passes) | generator 37 (p1), 28 (p2), 3 (p3) | 50/50 PASS (p4) |
-| atencion-codificacion | 200 (4) | generator 11, bank 11 (p1); generator 4 (p3) | 50/50 (p4) |
+| atencion-codificacion | 250 (5) | generator 11, bank 11 (p1); generator 4 (p3) | 50/50 (p5) |
 | verbal-sinonimos | 200 (4) | generator 46 (p1), 2 (p2); bank 1 (p3) | 50/50 (p4) |
 | verbal-antonimos | 50 (1) | none | 50/50 (p1) |
 | calculo-ecuaciones | 100 (2) | none | 50/50 (p2) |
@@ -78,3 +78,16 @@ Pass 4 noted three things without failing any item: filing items asking for the 
 - The bank is small, so stems repeat within 50 items. A later round adds DLE-sourced entries (each cited through `dle_relations.py`) until no stem repeats within 50 items.
 - verbal-antonimos accepts PROHIBIR → «Aprobar» via «vetar», a weak but defensible key.
 - INCIPIENTE has no DLE antonym, so it appears only in synonym items.
+
+## R3 calibration (2026-11-07)
+
+Three points from pass 4, applied before the C2 bank round, each with a test in `test_psicotecnico_generators.py`:
+
+- **Digit words** have eight letters, as 2020-P1-39 and 2020X-P1-31 (bank of 18 eight-letter office words; test failed first).
+- **Binary tables** list the letters a–f in order, as 2024-P1-38 (test failed first).
+- **Filing items** stay nivel 2, CIERTA and FALSA alike: the index's per-question levels put 2024X-P1-55, 58, 59 (FALSO)
+  and P1-60 (CIERTO) at nivel 2 (its 10/6/0 count includes P1-60). The test pins that label; it passed before any
+  change, since the generator already used it.
+
+Goldens regenerated (only `atencion-codificacion` moved). Blind re-read pass 5: 50/50 PASS (`atencion-codificacion.md`;
+pass 4 kept as `.pass4.md`).

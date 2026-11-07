@@ -1,0 +1,417 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# Question bank, m02-l11: fixed multiple-choice questions (C2 round R3). Generated from
+# docs/age-verification/c2/bank/bloque-ii/ (kept derived + authored minus drops.tsv) by
+# docs/age-verification/c2/bank/tools/build_exercises.py; edit the drafts and rebuild, not this file.
+type: quiz
+variants:
+# anchor: fuente-rfc5322-formato-mensaje-txt
+- id: m02-l11-q004
+  prompt:
+    es: "¿Cuál de las siguientes describe la forma de una dirección de correo electrónico de Internet según el RFC 5322?"
+  options:
+  - id: a
+    text:
+      es: "El nombre del destinatario entre paréntesis, el signo @ y un dominio."
+  - id: b
+    text:
+      es: "Una cadena que se interpreta localmente, un punto y un dominio de Internet."
+  - id: c
+    text:
+      es: "Un dominio de Internet, el signo @ y una cadena que se interpreta localmente."
+  - id: d
+    correct: true
+    text:
+      es: "Una cadena que se interpreta localmente, el signo @ y después un dominio de Internet."
+  explanation:
+    es: "El RFC 5322 define la dirección como una cadena interpretada localmente, seguida del signo @ y de un dominio de Internet. La opción que pone el dominio delante invierte el orden de la norma. La que cambia el @ por un punto quita el carácter que separa las dos partes. El nombre del destinatario entre paréntesis es una forma antigua de comentario que el RFC desaconseja, y no sustituye a la parte local."
+  citation: "fuente: `rfc5322-formato-mensaje.txt`; «3.4.1. Addr-Spec Specification»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-rfc5322-formato-mensaje-txt
+- id: m02-l11-q005
+  prompt:
+    es: "Según el RFC 5322, ¿qué identifica la parte de una dirección de correo electrónico que va detrás del signo @?"
+  options:
+  - id: a
+    text:
+      es: "El nombre de un buzón concreto, que se interpreta en el host de destino."
+  - id: b
+    correct: true
+    text:
+      es: "El punto al que se entrega el correo, por ejemplo un nombre de dominio de Internet."
+  - id: c
+    text:
+      es: "El grupo de destinatarios al que pertenece el buzón, sin sus direcciones."
+  - id: d
+    text:
+      es: "El nombre para mostrar del destinatario, que ve el usuario del programa."
+  explanation:
+    es: "El RFC dice que la parte del dominio identifica el punto al que se entrega el correo; en la forma de átomos con puntos se interpreta como un nombre de dominio de Internet. El nombre de un buzón interpretado en el host es la parte local, la que va delante del @. El nombre para mostrar es opcional y va fuera de la dirección. El grupo es otra construcción del RFC, un nombre seguido de una lista de buzones."
+  citation: "fuente: `rfc5322-formato-mensaje.txt`; «The domain portion identifies the point to which the mail is delivered.»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-rfc5322-formato-mensaje-txt
+- id: m02-l11-q006
+  prompt:
+    es: "Señale la afirmación correcta sobre la parte local de una dirección de correo electrónico, la que va delante del signo @, según el RFC 5322:"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Depende del dominio y el host la interpreta como el nombre de un buzón concreto."
+  - id: b
+    text:
+      es: "No depende del dominio y todos los hosts la interpretan siempre del mismo modo."
+  - id: c
+    text:
+      es: "Se escribe siempre entre comillas dobles, aunque solo tenga letras y puntos."
+  - id: d
+    text:
+      es: "Identifica el punto al que se entrega el correo, como un nombre de host."
+  explanation:
+    es: "El RFC llama a la parte local una cadena que depende del dominio y que el host interpreta como el nombre de un buzón concreto. Decir que no depende del dominio invierte la norma. El punto de entrega es lo que identifica el dominio, no la parte local. Las comillas no son obligatorias: el RFC indica que, si la cadena solo tiene caracteres permitidos y puntos, debería usarse la forma sin comillas y no la entrecomillada."
+  citation: "fuente: `rfc5322-formato-mensaje.txt`; «The local-part portion is a domain-dependent string. In addresses, it is simply interpreted on the particular host as a name of a particular mailbox.»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-ms-outlook-imap-pop-html
+- id: m02-l11-q017
+  prompt:
+    es: "Según la ayuda de Microsoft, cuando la cuenta de correo está configurada para el acceso POP, ¿cuál de los siguientes datos hay que pedir al proveedor?"
+  options:
+  - id: a
+    text:
+      es: "El nombre de su servidor IMAP y el de su servidor POP."
+  - id: b
+    text:
+      es: "El certificado del destinatario y su clave privada."
+  - id: c
+    text:
+      es: "La dirección de correo del grupo y su alias en Outlook."
+  - id: d
+    correct: true
+    text:
+      es: "El nombre de su servidor POP y el nombre de su servidor SMTP."
+  explanation:
+    es: "La página dice que, si la cuenta está configurada para el acceso POP, hay que averiguar con el proveedor el nombre de su servidor POP y SMTP para escribirlo en la aplicación. La pareja IMAP y POP junta dos servidores de entrada y deja fuera el de salida. El certificado y la clave privada pertenecen al cifrado S/MIME. La dirección y el alias de un grupo no intervienen en la configuración de la cuenta."
+  citation: "fuente: `ms-outlook-imap-pop.html`; «Agregar cuentas de correo web a aplicaciones de correo electrónico como Outlook clásico, Apple Mail y Spark»"
+  difficulty: 2
+  tags:
+  - "configuración"
+  - "requisito"
+# anchor: fuente-ms-outlook-imap-pop-html
+- id: m02-l11-q018
+  prompt:
+    es: "Según la ayuda de Microsoft, ¿cuál de los siguientes es una aplicación de correo electrónico instalada en el equipo y no una cuenta de correo web?"
+  options:
+  - id: a
+    text:
+      es: "Hotmail.com"
+  - id: b
+    correct: true
+    text:
+      es: "Apple Mail"
+  - id: c
+    text:
+      es: "Gmail"
+  - id: d
+    text:
+      es: "Outlook.com"
+  explanation:
+    es: "La página llama aplicaciones de correo electrónico a los programas que se instalan en el equipo para administrar el correo, como Outlook clásico, Apple Mail o Spark. Gmail, Outlook.com y Hotmail.com son los ejemplos que da de correo web, al que se accede por Internet iniciando sesión en la cuenta."
+  citation: "fuente: `ms-outlook-imap-pop.html`; «Cuentas de correo web frente a aplicaciones de correo electrónico»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-ms-outlook-smime-html
+- id: m02-l11-q022
+  prompt:
+    es: "En el nuevo Outlook para Windows, ¿cuál de las siguientes rutas permite cifrar el contenido y los datos adjuntos de todos los mensajes que se envían?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "Configuración › Correo › S/MIME"
+  - id: b
+    text:
+      es: "Opciones › Más opciones"
+  - id: c
+    text:
+      es: "Configuración › Cuentas › Firmas"
+  - id: d
+    text:
+      es: "Configuración › Correo › Reglas"
+  explanation:
+    es: "Para cifrar todos los mensajes, la página indica Configuración › Correo › S/MIME y la opción Cifrar el contenido y los datos adjuntos de todos los mensajes que envío. Opciones › Más opciones actúa sobre el mensaje que se está redactando, no sobre todos. Configuración › Correo › Reglas administra las reglas de mensaje. Configuración › Cuentas › Firmas crea firmas de texto."
+  citation: "fuente: `ms-outlook-smime.html`; «Cifrar todos los mensajes con S/MIME en el nuevo Outlook»"
+  difficulty: 2
+  tags:
+  - "ofimática-menú"
+  - "configuración"
+# anchor: fuente-ms-outlook-smime-html
+- id: m02-l11-q023
+  prompt:
+    es: "En Outlook clásico, en Configuración del Centro de confianza › Seguridad de Email, ¿qué casilla de Correo electrónico cifrado cifra todos los mensajes salientes?"
+  options:
+  - id: a
+    text:
+      es: "Agregar firma digital a este mensaje"
+  - id: b
+    text:
+      es: "Solicitar confirmación S/MIME para todos los mensajes firmados S/MIME"
+  - id: c
+    correct: true
+    text:
+      es: "Cifrar contenido y datos adjuntos de los mensajes salientes"
+  - id: d
+    text:
+      es: "Firmar digitalmente este mensaje (S/MIME)"
+  explanation:
+    es: "La página indica activar, en Correo electrónico cifrado, la casilla Cifrar contenido y datos adjuntos de los mensajes salientes. La casilla de confirmación S/MIME para todos los mensajes firmados pide confirmaciones, no cifra. Agregar firma digital a este mensaje está en la configuración de seguridad de un mensaje abierto y firma, no cifra. Firmar digitalmente este mensaje (S/MIME) es la opción de un solo mensaje en el nuevo Outlook y en la web."
+  citation: "fuente: `ms-outlook-smime.html`; «Cifrar todos los mensajes salientes con S/MIME en Outlook clásico»"
+  difficulty: 3
+  tags:
+  - "configuración"
+# anchor: fuente-ms-outlook-smime-html
+- id: m02-l11-q024
+  prompt:
+    es: "En el nuevo Outlook para Windows, si en Opciones de mensaje se solicita una confirmación de lectura o de entrega, también hay que activar la casilla:"
+  options:
+  - id: a
+    text:
+      es: "Cifrar el contenido y los datos adjuntos de todos los mensajes que envío."
+  - id: b
+    text:
+      es: "Cifrar este mensaje (S/MIME)."
+  - id: c
+    correct: true
+    text:
+      es: "Firmar digitalmente este mensaje."
+  - id: d
+    text:
+      es: "Elegir automáticamente el mejor certificado para la firma digital."
+  explanation:
+    es: "La página advierte que, si se solicita un recibo, también hay que activar la casilla Firmar digitalmente este mensaje; las confirmaciones S/MIME deben incluir una firma digital. Cifrar este mensaje (S/MIME) cifra, pero no es lo que exige el recibo. Las otras dos casillas están en Configuración › Correo › S/MIME y valen para todos los mensajes, no para el que se redacta."
+  citation: "fuente: `ms-outlook-smime.html`; «Cifrar un único mensaje y solicitar confirmaciones con S/MIME en el nuevo Outlook»"
+  difficulty: 3
+  tags:
+  - "configuración"
+  - "requisito"
+# anchor: fuente-ms-outlook-smime-html
+- id: m02-l11-q070
+  prompt:
+    es: "En el nuevo Outlook para Windows, si se cifra un mensaje y Outlook no puede comprobar que todos los destinatarios pueden descifrarlo, ¿qué ocurre?"
+  options:
+  - id: a
+    text:
+      es: "Envía el mensaje sin cifrar a los destinatarios que no pueden descifrarlo."
+  - id: b
+    text:
+      es: "Envía el mensaje cifrado y devuelve una confirmación de entrega a la bandeja."
+  - id: c
+    text:
+      es: "Bloquea el envío hasta que se quiten los destinatarios que no pueden leerlo."
+  - id: d
+    correct: true
+    text:
+      es: "Advierte de los destinatarios que quizá no puedan leerlo y deja enviarlo."
+  explanation:
+    es: "La página dice que el nuevo Outlook muestra una advertencia que resalta los destinatarios que quizá no puedan leer el mensaje cifrado, y que se puede enviar de todos modos, quitar esos destinatarios o volver a comprobarlo. No bloquea el envío, porque enviarlo igualmente es una de las salidas. Tampoco lo envía sin cifrar a esos destinatarios ni devuelve una confirmación de entrega por su cuenta."
+  citation: "fuente: `ms-outlook-smime.html`; «Cifrar un único mensaje y solicitar confirmaciones con S/MIME en el nuevo Outlook»"
+  difficulty: 2
+  tags:
+  - "comportamiento"
+# anchor: fuente-ms-outlook-smime-html
+- id: m02-l11-q071
+  prompt:
+    es: "En el nuevo Outlook para Windows, ¿cuál de las siguientes afirmaciones sobre S/MIME y la protección IRM del Cifrado de mensajes de Microsoft Purview es correcta?"
+  options:
+  - id: a
+    correct: true
+    text:
+      es: "La protección IRM no debe aplicarse a un mensaje ya firmado o cifrado con S/MIME."
+  - id: b
+    text:
+      es: "Un mensaje cifrado con S/MIME debe protegerse además con IRM para enviarse."
+  - id: c
+    text:
+      es: "La protección IRM se aplica sobre la firma S/MIME para reforzar el cifrado."
+  - id: d
+    text:
+      es: "La firma S/MIME y la protección IRM se aplican juntas a todos los mensajes."
+  explanation:
+    es: "La página dice que la protección IRM no debe aplicarse a un mensaje ya firmado o cifrado con S/MIME; para aplicarla hay que quitar antes la firma y el cifrado S/MIME, y un mensaje con IRM no debe firmarse ni cifrarse con S/MIME. Las tres opciones que combinan las dos protecciones contradicen esa regla."
+  citation: "fuente: `ms-outlook-smime.html`; «Cifrar un mensaje con el Cifrado de mensajes de Microsoft Purview en el nuevo Outlook»"
+  difficulty: 3
+  tags:
+  - "concepto"
+# anchor: fuente-ms-outlook-agregar-cuenta-html
+- id: m02-l11-q079
+  prompt:
+    es: "En Outlook 365, según la ayuda de Microsoft, ¿cuál de las siguientes funciones sirve para programar reuniones y citas fácilmente?"
+  options:
+  - id: a
+    text:
+      es: "Compartir archivos desde la nube"
+  - id: b
+    text:
+      es: "Organizar el correo electrónico"
+  - id: c
+    text:
+      es: "Seguir conectado y productivo desde cualquier lugar"
+  - id: d
+    correct: true
+    text:
+      es: "Administrar el calendario"
+  explanation:
+    es: "La página enumera lo que se puede hacer con Outlook y empareja cada función con su fin: administrar el calendario, para programar reuniones y citas fácilmente. Compartir archivos desde la nube es para que todos los usuarios tengan siempre la versión más reciente, y organizar el correo electrónico, para centrarse en los mensajes más importantes. Seguir conectado y productivo desde cualquier lugar es otra función de la lista, sin relación con programar reuniones."
+  citation: "fuente: `ms-outlook-agregar-cuenta.html`; «Inicio rápido: Agregar una cuenta de correo electrónico a Outlook»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-rfc5322-formato-mensaje-txt
+- id: m02-l11-q244
+  prompt:
+    es: "Según el RFC 5322, Internet Message Format, ¿cuál de las siguientes opciones indica los únicos campos de cabecera obligatorios de un mensaje de correo?"
+  options:
+  - id: a
+    text:
+      es: "El asunto (Subject) y la fecha de origen (Date)."
+  - id: b
+    correct: true
+    text:
+      es: "La fecha de origen (Date) y las direcciones del originador (From)."
+  - id: c
+    text:
+      es: "El destinatario (To) y el asunto (Subject)."
+  - id: d
+    text:
+      es: "Las direcciones del originador (From) y del destinatario (To)."
+  explanation:
+    es: "El RFC 5322 dice que los únicos campos de cabecera obligatorios son la fecha de origen y las direcciones del originador. El destinatario y el asunto no lo son: todos los demás campos son sintácticamente opcionales. El asunto con la fecha falla por el asunto, que es opcional. El originador con el destinatario falla por el destinatario, que tampoco es obligatorio."
+  citation: "fuente: `rfc5322-formato-mensaje.txt`; «3.6. Field Definitions»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-rfc5321-smtp-txt
+- id: m02-l11-q245
+  prompt:
+    es: "Según el RFC 5321, Simple Mail Transfer Protocol, ¿cuál es la longitud máxima total de la parte local de una dirección de correo electrónico?"
+  options:
+  - id: a
+    text:
+      es: "255 octetos"
+  - id: b
+    text:
+      es: "256 octetos"
+  - id: c
+    text:
+      es: "128 octetos"
+  - id: d
+    correct: true
+    text:
+      es: "64 octetos"
+  explanation:
+    es: "La longitud máxima total de un nombre de usuario u otra parte local es de 64 octetos. 255 octetos es el máximo del nombre de dominio. 256 octetos es el máximo de la ruta, con los signos de puntuación y los separadores. 128 octetos no corresponde a ningún límite de las longitudes de dirección de la norma."
+  citation: "fuente: `rfc5321-smtp.txt`; «4.5.3.1.1. Local-part»"
+  difficulty: 2
+  tags:
+  - "cantidad"
+# anchor: fuente-rfc5321-smtp-txt
+- id: m02-l11-q246
+  prompt:
+    es: "Según el RFC 5321, Simple Mail Transfer Protocol, ¿cuál es la longitud máxima total de un nombre de dominio?"
+  options:
+  - id: a
+    text:
+      es: "64 octetos"
+  - id: b
+    text:
+      es: "256 octetos"
+  - id: c
+    correct: true
+    text:
+      es: "255 octetos"
+  - id: d
+    text:
+      es: "1000 octetos"
+  explanation:
+    es: "La longitud máxima total de un nombre de dominio o número es de 255 octetos. 64 octetos es el límite de la parte local. 256 octetos es el de la ruta completa, que incluye los signos de puntuación y los separadores. 1000 octetos es la longitud máxima de una línea de texto con el CRLF, no de un dominio."
+  citation: "fuente: `rfc5321-smtp.txt`; «4.5.3.1.2. Domain»"
+  difficulty: 2
+  tags:
+  - "cantidad"
+# anchor: fuente-rfc5321-smtp-txt
+- id: m02-l11-q247
+  prompt:
+    es: "Según el RFC 5321, ¿cuál de las siguientes opciones es el objetivo del protocolo SMTP?"
+  options:
+  - id: a
+    text:
+      es: "Dejar los mensajes en el servidor para leerlos desde varios dispositivos."
+  - id: b
+    text:
+      es: "Cifrar el contenido de los mensajes de extremo a extremo."
+  - id: c
+    text:
+      es: "Descargar el correo al equipo y eliminarlo del servidor."
+  - id: d
+    correct: true
+    text:
+      es: "Transferir correo de forma fiable y eficiente."
+  explanation:
+    es: "El RFC 5321 dice que el objetivo de SMTP es transferir correo de forma fiable y eficiente. Descargar y eliminar del servidor es lo que hace POP. Dejar los mensajes en el servidor para leerlos desde varios dispositivos es lo que hace IMAP. El cifrado de extremo a extremo no figura como objetivo del protocolo: la página sobre cifrado lo atribuye a S/MIME."
+  citation: "fuente: `rfc5321-smtp.txt`; «1.1. Transport of Electronic Mail»"
+  difficulty: 1
+  tags:
+  - "concepto"
+# anchor: fuente-incibe-glosario-ciberseguridad-pdf
+- id: m02-l11-q248
+  prompt:
+    es: "Según el glosario de ciberseguridad de INCIBE, ¿cuál de las siguientes opciones describe el reparto de tareas entre SMTP y los protocolos POP o IMAP?"
+  options:
+  - id: a
+    text:
+      es: "SMTP almacena el correo en el servidor y POP o IMAP lo cifran."
+  - id: b
+    text:
+      es: "SMTP se encarga de recibir el correo y POP o IMAP, de enviarlo."
+  - id: c
+    correct: true
+    text:
+      es: "SMTP se encarga de enviar el correo y POP o IMAP, de recibirlo."
+  - id: d
+    text:
+      es: "SMTP y POP envían el correo e IMAP lo recibe."
+  explanation:
+    es: "El glosario atribuye a SMTP la tarea específica de enviar correo, y la recepción a POP o IMAP. Invertir los papeles contradice esa frase. Que SMTP y POP envíen e IMAP reciba mezcla los tres protocolos: POP e IMAP son los de recepción. Almacenar en el servidor y cifrar no se atribuye a ninguno de ellos: el glosario habla solo de enviar y recibir."
+  citation: "fuente: `incibe-glosario-ciberseguridad.pdf`; «2.18.16. SMTP»"
+  difficulty: 2
+  tags:
+  - "concepto"
+# anchor: fuente-ms-outlook-agregar-cuenta-html
+- id: m02-l11-q254
+  prompt:
+    es: "En Outlook 365, ¿cuál de las siguientes rutas se abre para agregar una cuenta de correo electrónico?"
+  options:
+  - id: a
+    text:
+      es: "Archivo › Herramientas › Limpieza de buzón"
+  - id: b
+    text:
+      es: "Archivo › Opciones › Buscar"
+  - id: c
+    correct: true
+    text:
+      es: "Archivo › Agregar cuenta"
+  - id: d
+    text:
+      es: "Archivo › Administrar reglas y alertas"
+  explanation:
+    es: "Para agregar una cuenta se abre Outlook y se selecciona Archivo y Agregar cuenta. Archivo › Administrar reglas y alertas lleva al cuadro de reglas. Archivo › Herramientas › Limpieza de buzón abre la herramienta que muestra el tamaño del buzón. Archivo › Opciones › Buscar sirve para fijar el ámbito de búsqueda predeterminado."
+  citation: "fuente: `ms-outlook-agregar-cuenta.html`; «Agregar una cuenta de correo electrónico»"
+  difficulty: 1
+  tags:
+  - "ofimática-menú"
