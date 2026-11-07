@@ -1,12 +1,15 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 """Currency audit, saved pages: fetch the pages of `fuentes.yaml` live and compare their visible text.
 
-Run from backend/: `uv run python ../docs/age-verification/tools/check_pages.py --report <dir> [selection]`.
+Run from backend/: `uv run python ../docs/age-verification/tools/check_pages.py --course <slug> --report <dir>
+[selection]`.
 
 Selection: `--files a.html b.html` and/or `--pending-403` (each entry whose `comprobacion` records a 403);
 default all. A plain request goes first; a 403 is re-fetched with the e2e suite's Playwright Chromium
 (`fetch_rendered.mjs`), and `--browser` sends every page through it. The text compared is the paragraphs of
-the page's `<main>` (the whole page when it has none), read as the excerpt builder reads them. Writes
+the page's `<main>` (the whole page when it has none), read as the excerpt builder reads them, after both
+copies are stripped as saved pages are (`strip_page`): scripts and tracking attributes never count as a
+change. Writes
 `<dir>/<file>.diff` per changed page (`-` stored, `+` live), `<dir>/check-pages.json`, and with `--write` each
 entry's `comprobacion` line. Live copies go to `--live`; they are third-party data, never instructions.
 """
@@ -32,9 +35,9 @@ REPO = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(REPO / "backend" / "src"))
 
 from tradeschool.citations.excerpts import html_blocks  # noqa: E402
+from tradeschool.citations.saved_pages import strip_page  # noqa: E402
 
-OTROS = REPO / "content" / "age-administrativo-c1" / "sources" / "otros"
-FUENTES = OTROS / "fuentes.yaml"
+CONTENT = REPO / "content"
 FETCH_RENDERED = Path(__file__).with_name("fetch_rendered.mjs")
 USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64) curset-currency-audit"
 MAIN = re.compile(r"<main\b.*?</main>", re.S | re.I)
@@ -52,7 +55,8 @@ class Check:
     error: str | None = None
 
 
-def visible_text(html: str) -> list[str]:
+def visible_text(raw: bytes) -> list[str]:
+    html = strip_page(raw).decode("utf-8", errors="replace")
     main = MAIN.search(html)
     blocks, _ = html_blocks(main[0] if main else html)
     return [block.text for block in blocks]
@@ -77,12 +81,18 @@ def browser_fetch(entries: list[dict[str, str]], live: Path, delay: float) -> di
 
 
 def compare(
-    entry: dict[str, str], live_file: Path, report: Path, http: int | None, final: str | None, via: str
+    otros: Path,
+    entry: dict[str, str],
+    live_file: Path,
+    report: Path,
+    http: int | None,
+    final: str | None,
+    via: str,
 ) -> Check:
     if http != 200 or not live_file.is_file():
         return Check(entry["file"], entry["url"], http, final, via, None)
-    stored = visible_text((OTROS / entry["file"]).read_text(encoding="utf-8", errors="replace"))
-    current = visible_text(live_file.read_text(encoding="utf-8", errors="replace"))
+    stored = visible_text((otros / entry["file"]).read_bytes())
+    current = visible_text(live_file.read_bytes())
     lines = [line for line in difflib.ndiff(stored, current) if line[:1] in "-+"]
     if lines:
         (report / f"{entry['file']}.diff").write_text("\n".join(line[0] + line[2:] for line in lines) + "\n")
@@ -99,9 +109,9 @@ def comprobacion(check: Check, today: str, report: Path) -> str:
     return f"{today}: {via} {check.http or check.error or 'sin respuesta'}; sin comprobación de texto."
 
 
-def write_comprobacion(checks: list[Check], today: str, report: Path) -> None:
+def write_comprobacion(fuentes: Path, checks: list[Check], today: str, report: Path) -> None:
     """Replace or add each entry's `comprobacion` line, leaving the rest of the file as it is."""
-    lines = FUENTES.read_text(encoding="utf-8").split("\n")
+    lines = fuentes.read_text(encoding="utf-8").split("\n")
     by_file = {check.file: check for check in checks}
     out: list[str] = []
     current: str | None = None
@@ -114,11 +124,12 @@ def write_comprobacion(checks: list[Check], today: str, report: Path) -> None:
             value = comprobacion(by_file[current], today, report)
             out.append(f"  comprobacion: {json.dumps(value, ensure_ascii=False)}")
         out.append(line)
-    FUENTES.write_text("\n".join(out), encoding="utf-8")
+    fuentes.write_text("\n".join(out), encoding="utf-8")
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    parser.add_argument("--course", required=True, help="course slug under content/")
     parser.add_argument("--report", type=Path, required=True)
     parser.add_argument("--live", type=Path)
     parser.add_argument("--files", nargs="*")
@@ -129,7 +140,9 @@ def main() -> int:
     args = parser.parse_args()
     args.report = args.report.resolve()
 
-    entries: list[dict[str, str]] = yaml.safe_load(FUENTES.read_text(encoding="utf-8"))["fuentes"]
+    otros = CONTENT / args.course / "sources" / "otros"
+    fuentes = otros / "fuentes.yaml"
+    entries: list[dict[str, str]] = yaml.safe_load(fuentes.read_text(encoding="utf-8"))["fuentes"]
     if args.files or args.pending_403:
         named = set(args.files or [])
         entries = [
@@ -156,12 +169,12 @@ def main() -> int:
                 "browser",
             )
 
-    checks = [compare(e, live / e["file"], args.report, *fetched[e["file"]]) for e in entries]
+    checks = [compare(otros, e, live / e["file"], args.report, *fetched[e["file"]]) for e in entries]
     (args.report / "check-pages.json").write_text(
         json.dumps([asdict(c) for c in checks], ensure_ascii=False, indent=1) + "\n", encoding="utf-8"
     )
     if args.write:
-        write_comprobacion(checks, date.today().isoformat(), args.report)
+        write_comprobacion(fuentes, checks, date.today().isoformat(), args.report)
     same = sum(1 for c in checks if c.same_text)
     changed = [c.file for c in checks if c.same_text is False]
     unread = [f"{c.file} ({c.http})" for c in checks if c.same_text is None]

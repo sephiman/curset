@@ -391,6 +391,122 @@ printed). Garbled paths are read only in their single coherent order, with the v
 - Frontend (`npx vitest run`): 715 passed, 81 skipped, 0 failed. `tsc -b` clean. `ruff`, `ruff format`, `mypy` clean on
   `scripts/provenance.py` and `tests/test_provenance.py`.
 
+# R2b — scope, coverage and currency (2026-11-06)
+
+Report and verdicts: `docs/age-c2-scope-audit.md` (Run 1). Working files: `docs/age-verification/c2/r2b/`. Edits
+this round made to lessons, each blind-checked (`c2/bloque-i/verify/r2b-scope.md`, `c2/bloque-ii/verify/r2b-scope.md`,
+12 PASS) and recorded with `provenance.py record`:
+
+- Removed (unmapped, unasked): m01-l01 «Las reformas» (and its «Otras fuentes» line); m01-l13 «Personal eventual»,
+  «Personal directivo», «Causas de pérdida»; m01-l15 «Principios y reglas de gestión presupuestaria». Normativa lines
+  trimmed to the precepts still cited (TREBEP, Ley 30/1984, RDL 6/2023 in m01-l13; LGP in m01-l15). Glossary waiting
+  list stays empty.
+- «Fuera del enunciado literal…» notes: m01-l05 «El Plan Anual Normativo», m01-l06 «Los planes de Gobierno Abierto»,
+  m01-l13 «Jubilación», m01-l15 «Principios de la programación presupuestaria», «Programación plurianual», «Las
+  modificaciones de los créditos», m02-l02 «Las cartas de servicios», m02-l03 «El Sistema de Archivos».
+- `normativa.yaml`: Ley 34/2002 `consolidated_as_of` 2025-12-18 → 2025-01-23 (the old date was the API's metadata
+  date; the PDF is byte-identical to the live one). `fuentes.yaml`: a `comprobacion` line for every page (2026-11-06).
+
+**Saved pages stripped (Juanjo, mid-round, 2026-11-06).** Every HTML page under `content/*/sources/otros/` (C1 226,
+C2 303) is now stored without `<script>`, `<style>`, `<iframe>`, `<noscript>` and tracking attributes
+(`backend/src/tradeschool/citations/saved_pages.py`, `backend/scripts/strip_saved_pages.py`); sha256 re-recorded in
+both `fuentes.yaml` (and the fixture's); the bytes as fetched are in `~/PycharmProjects/curset-saved-originals/`,
+outside git (they remain in git history). `tests/test_saved_pages.py` fails on an unstripped page or a stale sha256.
+`check_pages.py` takes `--course` and strips the live copy too, so both sides of the comparison are read alike. Checks:
+`<main>` visible text identical before and after on 527 of 529 pages (the other two, the C1 and C2 copies of
+`pag-oficina-informacion.html`, lose only the iframe fallback «Su navegador no soporta iframes.»); no question excerpt changed in either course (only C1's `excerpts.json` per-file
+digests); 222 C1→C2 copies still share a sha256 (the 223rd, `ms-copilot-introduccion.html`, already differed); the
+provenance, citation and excerpt tests pass. Stripping can only add text the old parse dropped (a `<noscript>` quirk
+of Python 3.14's `html.parser` hid footer text on 397 pages; none inside `<main>`).
+
+# R2c — esquemas, bloque I (2026-11-06)
+
+Spec: `docs/age-verification/c2/bloque-i/esquemas/spec.md` (C1's rule; rows derived from C1's esquemas byte-identical
+where the C2 prose states the fact and cites the article). Two Sonnet writers (`esquemas/writer-m01-l01-l08.md`,
+`writer-m01-l09-l16.md`), two blind Opus verifiers (`verify/esquemas-m01-l01-l08.md`: 1 FAIL; `-l09-l16.md`: 3 row
+and 5 esquema FAILs), re-checks by other verifiers (`verify/esquemas-recheck-1.md`: 2 FAIL, fixed;
+`-recheck-2.md`: 2 PASS). Counts from `esquemas/row_stats.py` on the records:
+
+| Lesson | Esquemas | Rows | Inherited from C1 | Verified here |
+|---|---|---|---|---|
+| m01-l01 | 1 | 5 | 5 | 0 |
+| m01-l02 | 2 | 14 | 14 | 0 |
+| m01-l03 | 4 | 29 | 28 | 1 |
+| m01-l04 | 2 | 14 | 12 | 2 |
+| m01-l05 | 3 | 16 | 15 | 1 |
+| m01-l06 | 0 | 0 | 0 | 0 |
+| m01-l07 | 2 | 6 | 6 | 0 |
+| m01-l08 | 3 | 5 | 5 | 0 |
+| m01-l09 | 4 | 17 | 14 | 3 |
+| m01-l10 | 4 | 26 | 18 | 8 |
+| m01-l11 | 4 | 17 | 13 | 4 |
+| m01-l12 | 2 | 14 | 13 | 1 |
+| m01-l13 | 4 | 29 | 27 | 2 |
+| m01-l14 | 4 | 24 | 23 | 1 |
+| m01-l15 | 4 | 14 | 13 | 1 |
+| m01-l16 | 2 | 12 | 10 | 2 |
+| **Total** | **45** | **242** | **216** | **26** |
+
+Rows count table rows (headers included) and list steps or tree items. «Verified here» rows are new rows, table
+headers whose lead-in citation differs from C1's, and rows changed by a fix. Every title was checked blind.
+
+Per lesson (titles; kind):
+
+- **m01-l01**: «Niveles de protección de los derechos (art. 53 CE)» (tabla).
+- **m01-l02**: «Mayorías y referéndum de la reforma constitucional (arts. 167 y 168 CE)», «La Regencia» (tablas).
+  C1's TC plazos table not made (2 of 7 rows left, one reading wider without its «salvo»).
+- **m01-l03**: Cortes (arbol); tramitación en el Senado y sanción (plazos); «Algunos quórum y mayorías» (art. 155.1
+  row dropped); Defensor del Pueblo (tabla, from C1 m01-l01).
+- **m01-l04**: CGPJ mayorías (tabla; the art. 630.1 three-fifths rows dropped with the C2 cut, and then the «Los
+  demás acuerdos» row, which read wider without them: FAIL, dropped); Salas del TS, AN y TSJ (arbol).
+- **m01-l05**: Gobierno «y algunos de sus órganos…» (arbol, Secretariado and Gabinetes nodes not cited in C2);
+  investidura (plazos); confianza y censura (tabla, art. 115.2 row dropped).
+- **m01-l06**: none (narrative; C1 has none).
+- **m01-l07**: the two art. 19 plazos (tabla); resolución y reclamación (plazos).
+- **m01-l08**: three trees, whole.
+- **m01-l09**: vías de acceso (tabla rebuilt without C1's art. 151.2 column: new); the two lists; leyes marco;
+  ayuntamiento y Diputación (Tenientes de Alcalde row dropped, title rewritten).
+- **m01-l10**: composición; votación (two new rows, arts. 240.3 and 234 TFUE); TJUE (arbol); «Duración de algunos
+  mandatos» (new; the art. 15.5 TUE and art. 253 TFUE rows FAILed for a cut exception or renewal, fixed).
+- **m01-l11**: efectos del acto (silencio row FAILed and dropped); notificación (`plazos` → `tabla`: alternative
+  channels, not a sequence; the art. 42.2 row completed with the 15:00 rule); cómputo; recursos.
+- **m01-l12**: derechos del interesado (oposición row dropped); plazos de respuesta (AEPD row dropped, new header).
+- **m01-l13**: libre designación; concurso (steps 3–4 new, C1's left-over duplicates FAILed and removed); efectos and
+  duración de algunas situaciones.
+- **m01-l14**: intervalos de niveles; disciplinario steps (title made explicit; step 4 lost «que pone fin al
+  procedimiento», not in the C2 prose); disciplinario plazos; IT y riesgo durante el embarazo.
+- **m01-l15**: estados de gastos (arbol); aprobación, compromiso y reconocimiento (ordenación del pago dropped, new
+  header); control (arbol); «Algunos plazos del ciclo presupuestario» (title FAIL, fixed).
+- **m01-l16**: discriminación y acoso; órganos (new LGTBI Consejo row, cut to art. 9.1: see open items).
+
+Tool fix: `provenance.py c1_report` failed on C1 sentences that a C2 commit (10dbeef) moved only by re-flowing the
+authorised m01-l11 intro sentence; it now looks such a sentence up before that commit
+(`test_a_c1_sentence_only_reflowed_by_a_c2_commit_keeps_the_report_from_before_it`, failing first).
+
+## Open items after R2b / R2c
+
+1. ~~Prose gaps found by the esquema check~~: fixed (Juanjo, 2026-11-06), below.
+2. **RDL 31/2026** still unconvalidated on 2026-11-06 (plazo about 04-12-2026); revert list unchanged.
+3. **Extractor:** `_FURNITURE` skips any element whose id contains «copilot», so Copilot pages lose content tab panels
+   in excerpts and in `check_pages.py` (`r2b/currency/pages.md`). Goes to the next platform round:
+   `docs/curset-platform-delta-exams.md` L7 (Juanjo, 2026-11-06).
+6. **C1 m01-l04, same wording:** «salvo que la ley disponga otra cosa (art. 630.1 LOPJ)» (prose, l.184) and the
+   esquema row «Los demás acuerdos, salvo que la ley disponga otra cosa» (l.218) read wider than «salvo cuando esta Ley
+   Orgánica disponga otra cosa». Fixed in C2 only («la LOPJ»); a C1 fix needs a C1 round and the C2 provenance rerun.
+4. `consilium-presidencia.html`: 403 on every live attempt today (saved in R2 the same day).
+5. Bloque II esquemas: none (list-shaped, R4a.3).
+
+## Prose gaps closed (Juanjo, 2026-11-06)
+
+- **m01-l04:** the two art. 630.1 LOPJ three-fifths sentences restored beside the mayoría absoluta rule, byte-identical
+  to C1 (inherited); the three art. 630.1 rows of the CGPJ esquema restored from C1. The blind check then failed the
+  rule's own wording («salvo que la ley…» for «salvo cuando esta Ley Orgánica…», also in C1): the C2 sentence and row
+  now say «la LOPJ» (verified here). Reports: `verify/prose-gaps-2026-11-06.md`, `verify/prose-gaps-recheck-2026-11-06.md`.
+- **m01-l16:** «(hoy: Secretaría de Estado de Igualdad y para la Erradicación de la Violencia contra las Mujeres)» at
+  the first mention, cited art. 20.2 RD 829/2023; the esquema row restored to arts. 9.1 y 9.3 Ley 4/2023. PASS.
+- Records redone (m01-l04: 146 inherited, 14 verified; m01-l16: 71 inherited, 38 verified). Esquema rows: m01-l04
+  14 (12 inherited, 2 verified), m01-l16 12 (10 inherited, 2 verified); bloque I total 242 (216 inherited, 26 verified).
+
 ## Where to resume
 
-Bloques I and II are complete (R2 done). Next: R2b (scope, coverage and currency audit), then R2c (esquemas).
+R2, R2b and R2c are done. Next: R3 (question bank). Open: item 6 (C1 m01-l04 wording) and platform delta L7.

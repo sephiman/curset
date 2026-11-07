@@ -19,6 +19,7 @@ from scripts.provenance import (  # noqa: E402
     Record,
     audit_glossary,
     audit_lesson,
+    c1_report,
     parse_glossary_record,
     parse_record,
     sentence_id,
@@ -255,3 +256,14 @@ def test_every_c2_glossary_entry_is_inherited_or_verified() -> None:
     c1_entries = {entry.id: entry for entry in entries(c1)}
     audit = audit_glossary(c2_entries, c1_entries, parse_glossary_record(record.read_text()), REPO)
     assert audit.problems == []
+
+
+def test_a_c1_sentence_only_reflowed_by_a_c2_commit_keeps_the_report_from_before_it() -> None:
+    c1_lesson = REPO_CONTENT / "age-administrativo-c1" / "es" / "lessons" / "m01-l11.md"
+    text = (
+        "Los dos tratados tienen el mismo valor jurídico, y la Unión sustituye y sucede a la"
+        " Comunidad Europea (art. 1 TUE)."
+    )
+    found = next(s for s in sentences(c1_lesson.read_text()) if s.text == text)
+    report, _ = c1_report(REPO_CONTENT.parent, c1_lesson, found)
+    assert report == "docs/age-theory-ledger.md"

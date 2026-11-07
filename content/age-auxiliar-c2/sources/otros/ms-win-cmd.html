@@ -118,106 +118,32 @@
 	
 
 			<!-- Apply persisted/system theme before first paint to prevent wrong-theme flash when scripts are deferred. -->
-			<script id="theme-preference">
-				(function () {
-			try {
-				var stored = localStorage.getItem('theme');
-				var theme = /^(light|dark|high-contrast)$/.test(stored)
-					? stored
-					: matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-				document.documentElement.classList.add('theme-' + theme);
-			} catch (e) {}
-		})();;
-			</script>
+			
 
-			<script id="atlas-layout-preferences">
-				(function () {
-			try {
-				var state = JSON.parse(localStorage.getItem('atlas-layout-preferences') || '{}');
-				var view = state["docs-layout-persistence"] || {};
-				var excludesKey = "";
-				var blocked = {};
-				if (excludesKey) {
-					var exclusions = JSON.parse(localStorage.getItem('atlas-layout-exclusions') || '{}');
-					if (Object.prototype.hasOwnProperty.call(exclusions, excludesKey)) {
-						var scoped = exclusions[excludesKey];
-						if (scoped) {
-							if (typeof scoped === 'object') blocked = scoped;
-						}
-					}
-				}
-				var html = document.documentElement;
-				for (var c in view) {
-					if (Object.prototype.hasOwnProperty.call(blocked, c)) continue;
-					if (view[c]) html.classList.add(c);
-					else html.classList.remove(c);
-				}
-			} catch (e) {}
-		})();;
-			</script>
+			
 
 			<!-- assets and js globals -->
 			
 			<link rel="stylesheet" href="/static/assets/0.4.03589.8339-b0a05127/styles/site.css" />
 			
-			<script src="https://wcpstatic.microsoft.com/mscc/lib/v2/wcp-consent.js"></script>
+			
 			<!-- Keep this URL in sync with oneDSScriptSelector in instrumentation/one-ds.ts. -->
-			<script async src="https://js.monitor.azure.com/scripts/c/ms.jsll-4.min.js"></script>
+			
 			
 
 			<!-- msdocs global object -->
-			<script id="msdocs-script">
-		var msDocs = {
-  "environment": {
-    "accessLevel": "online",
-    "azurePortalHostname": "portal.azure.com",
-    "reviewFeatures": false,
-    "supportLevel": "production",
-    "systemContent": true,
-    "siteName": "learn",
-    "legacyHosting": false
-  },
-  "data": {
-    "contentLocale": "es-es",
-    "contentDir": "ltr",
-    "userLocale": "es-es",
-    "userDir": "ltr",
-    "pageTemplate": "Conceptual",
-    "layoutStateStorageKey": "docs-layout-persistence",
-    "brand": "",
-    "context": {},
-    "standardFeedback": true,
-    "showFeedbackReport": false,
-    "feedbackHelpLinkType": "",
-    "feedbackHelpLinkUrl": "",
-    "feedbackSystem": "Standard",
-    "feedbackGitHubRepo": "",
-    "feedbackProductUrl": "",
-    "extendBreadcrumb": false,
-    "isEditDisplayable": false,
-    "isPrivateUnauthorized": false,
-    "hideViewSource": false,
-    "isPermissioned": false,
-    "hasRecommendations": false
-  },
-  "functions": {}
-};;
-	</script>
+			
 
 			<!-- base scripts, msdocs global should be before this -->
-			<script
-				src="/static/assets/0.4.03589.8339-b0a05127/scripts/es-es/index-docs.js"
-				async
-			></script>
+			
 			
 
 			<!-- json-ld -->
 			
-		<script >bazadebezolkohpepadr="913455205"</script><script type="text/javascript" src="https://learn.microsoft.com/akam/13/36723b28"  defer></script></head>
+		</head>
 	
 			<body
 				id="body"
-				data-bi-name="body"
 				class="layout-body "
 				lang="es-es"
 				dir="ltr"
@@ -284,19 +210,16 @@
 				<div
 					id="ms--mobile-nav"
 					class="site-header display-none-tablet padding-inline-none gap-none"
-					data-bi-name="mobile-header"
 					data-test-id="mobile-header"
 				></div>
 				<div
 					id="ms--primary-nav"
 					class="site-header display-none display-flex-tablet"
-					data-bi-name="L1-header"
 					data-test-id="primary-header"
 				></div>
 				<div
 					id="ms--secondary-nav"
 					class="site-header display-none display-flex-tablet"
-					data-bi-name="L2-header"
 					data-test-id="secondary-header"
 					
 				></div>
@@ -314,7 +237,6 @@
 				 <section
 					id="layout-body-menu"
 					class="layout-body-menu border-right display-flex background-color-body-medium"
-					data-bi-name="menu"
 			  >
 					
 		<div
@@ -330,7 +252,6 @@
 					id="affixed-left-container"
 					class="margin-top-xxs-tablet position-sticky display-flex flex-direction-column width-full"
 					aria-label="Principal"
-					data-bi-name="left-toc"
 					role="navigation"
 				>
 					<div
@@ -370,7 +291,6 @@
 					id="main"
 					role="main"
 					class="layout-body-main "
-					data-bi-name="content"
 					lang="es-es"
 					dir="ltr"
 				>
@@ -378,13 +298,11 @@
 			<div
 		id="ms--content-header"
 		class="content-header default-focus border-bottom-none"
-		data-bi-name="content-header"
 	>
 		<div class="content-header-controls margin-xxs margin-inline-sm-tablet">
 			<button
 				type="button"
 				class="contents-button button button-sm margin-right-xxs"
-				data-bi-name="contents-expand"
 				aria-haspopup="true"
 				data-contents-button
 			>
@@ -394,7 +312,6 @@
 			<button
 				type="button"
 				class="ap-collapse-behavior ap-expanded button button-sm"
-				data-bi-name="ap-collapse"
 				aria-controls="action-panel"
 			>
 				<span class="icon" aria-hidden="true"><span class="docon docon-exit-mode"></span></span>
@@ -450,7 +367,6 @@
 			
 		<button
 			class="button button-sm border-none inner-focus display-none-tablet flex-shrink-0 "
-			data-bi-name="ask-learn-assistant-entry"
 			data-test-id="ask-learn-assistant-modal-entry-mobile"
 			data-ask-learn-modal-entry
 			
@@ -466,7 +382,6 @@
 		</button>
 		<button
 			class="button button-sm display-none display-inline-flex-tablet display-none-desktop flex-shrink-0 margin-right-xxs border-color-ask-learn "
-			data-bi-name="ask-learn-assistant-entry"
 			
 			data-test-id="ask-learn-assistant-modal-entry-tablet"
 			data-ask-learn-modal-entry
@@ -482,7 +397,6 @@
 		</button>
 		<button
 			class="button button-sm display-none flex-shrink-0 display-inline-flex-desktop margin-right-xxs border-color-ask-learn "
-			data-bi-name="ask-learn-assistant-entry"
 			
 			data-test-id="ask-learn-assistant-flyout-entry"
 			data-ask-learn-flyout-entry
@@ -517,7 +431,6 @@
 			type="button"
 			id="ms--focus-mode-button"
 			data-focus-mode
-			data-bi-name="focus-mode-entry"
 			data-page-action-item="overflow-all"
 			data-popover-close
 			class="button button-clear button-sm button-block justify-content-flex-start text-align-left inner-focus display-none display-inline-flex-tablet"
@@ -532,7 +445,6 @@
 			data-page-action-item="overflow-mobile"
 			type="button"
 			class="display-block-layout-menu-collapsed button-block button-sm inner-focus button button-clear display-none-tablet justify-content-flex-start text-align-left"
-			data-bi-name="contents-expand"
 			data-contents-button
 			data-popover-close
 		>
@@ -545,7 +457,6 @@
 		<a
 			id="lang-link-overflow"
 			class="button-sm inner-focus button button-clear button-block justify-content-flex-start text-align-left"
-			data-bi-name="language-toggle"
 			data-page-action-item="overflow-all"
 			data-check-hidden="true"
 			data-read-in-link
@@ -563,7 +474,6 @@
 			type="button"
 			class="collection button button-clear button-sm button-block justify-content-flex-start text-align-left inner-focus"
 			data-list-type="collection"
-			data-bi-name="collection"
 			data-page-action-item="overflow-all"
 			data-check-hidden="true"
 			data-popover-close
@@ -578,7 +488,6 @@
 			type="button"
 			class="collection button button-block button-clear button-sm justify-content-flex-start text-align-left inner-focus"
 			data-list-type="plan"
-			data-bi-name="plan"
 			data-page-action-item="overflow-all"
 			data-check-hidden="true"
 			data-popover-close
@@ -596,7 +505,6 @@
 				<button
 					class="button button-block button-clear button-sm justify-content-flex-start text-align-left inner-focus"
 					type="button"
-					data-bi-name="copy-markdown"
 					data-page-action-item="overflow-all"
 					data-copy-markdown
 					data-copy-state="idle"
@@ -613,7 +521,6 @@
 				<button
 					class="button button-block button-clear button-sm justify-content-flex-start text-align-left inner-focus"
 					type="button"
-					data-bi-name="print"
 					data-page-action-item="overflow-all"
 					data-popover-close
 					data-print-page
@@ -634,7 +541,7 @@
 		</div>
 	  
 		<!-- privateUnauthorizedTemplate is hidden by default -->
-		<div unauthorized-private-section data-bi-name="permission-content-unauthorized-private" hidden>
+		<div unauthorized-private-section hidden>
 			<hr class="hr margin-top-xs margin-bottom-sm" />
 			<div class="notification notification-info">
 				<div class="notification-content">
@@ -645,10 +552,10 @@
 						<span>Nota:</span>
 					</p>
 					<p class="margin-top-none authentication-determined not-authenticated">
-						El acceso a esta página requiere autorización. Puede intentar <a class="docs-sign-in" href="#" data-bi-name="permission-content-sign-in">iniciar sesión</a> o <a  class="docs-change-directory" data-bi-name="permisson-content-change-directory">cambiar directorios</a>.
+						El acceso a esta página requiere autorización. Puede intentar <a class="docs-sign-in" href="#">iniciar sesión</a> o <a  class="docs-change-directory">cambiar directorios</a>.
 					</p>
 					<p class="margin-top-none authentication-determined authenticated">
-						El acceso a esta página requiere autorización. Puede intentar <a class="docs-change-directory" data-bi-name="permisson-content-change-directory">cambiar los directorios</a>.
+						El acceso a esta página requiere autorización. Puede intentar <a class="docs-change-directory">cambiar los directorios</a>.
 					</p>
 				</div>
 			</div>
@@ -658,13 +565,12 @@
 					
 		<div
 			id="article-metadata"
-			data-bi-name="article-metadata"
 			data-test-id="article-metadata"
 			class="page-metadata-container display-flex gap-xxs justify-content-space-between align-items-center flex-wrap-wrap"
 		>
 			
 		<div class="margin-block-xxs">
-			<ul class="metadata page-metadata" data-bi-name="page info" lang="es-es" dir="ltr">
+			<ul class="metadata page-metadata" lang="es-es" dir="ltr">
 				 <li class="display-inline">Se aplica a: ✅&nbsp;<a href="https://learn.microsoft.com/windows-server/get-started/windows-server-release-info" target="_blank">Windows Server 2025</a>, ✅&nbsp;<a href="https://learn.microsoft.com/windows-server/get-started/windows-server-release-info" target="_blank">Windows Server 2022</a>, ✅&nbsp;<a href="https://learn.microsoft.com/windows-server/get-started/windows-server-release-info" target="_blank">Windows Server 2019</a>, ✅&nbsp;<a href="https://learn.microsoft.com/windows-server/get-started/windows-server-release-info" target="_blank">Windows Server 2016</a>, ✅&nbsp;<a href="https://learn.microsoft.com/windows/release-health/supported-versions-windows-client" target="_blank">Windows 11</a>, ✅&nbsp;<a href="https://learn.microsoft.com/windows/release-health/supported-versions-windows-client" target="_blank">Windows 10</a>, ✅&nbsp;<a href="https://learn.microsoft.com/azure/azure-local/release-information-23h2" target="_blank">Azure Local 2311.2 and later</a></li>
 			</ul>
 		</div>
@@ -681,7 +587,6 @@
 			data-test-id="conceptual-feedback-button"
 			class="button button-sm button-clear button-primary display-none"
 			type="button"
-			data-bi-name="user-feedback-button"
 			data-user-feedback-button
 			hidden
 		>
@@ -698,7 +603,6 @@
 		<nav
 			id="center-doc-outline"
 			class="doc-outline display-none-desktop display-none-print margin-bottom-sm"
-			data-bi-name="intopic toc"
 			aria-label="En este artículo"
 		>
 			<h2 id="ms--in-this-article" class="title is-6 margin-block-xs">
@@ -1060,7 +964,6 @@
 		<div
 			id="ms--inline-notifications"
 			class="margin-block-xs"
-			data-bi-name="inline-notification"
 		></div>
 	 
 		<div
@@ -1086,7 +989,6 @@
 			id="site-user-feedback-footer"
 			class="font-size-sm margin-top-md display-none-print display-none-desktop"
 			data-test-id="site-user-feedback-footer"
-			data-bi-name="site-feedback-section"
 		>
 			<hr class="hr" />
 			<h2 id="ms--feedback" class="title is-3">Comentarios</h2>
@@ -1101,7 +1003,6 @@
 						data-binary-rating-response="rating-yes"
 						type="button"
 						title="Este artículo es útil"
-						data-bi-name="button-rating-yes"
 						aria-pressed="false"
 					>
 						<span class="icon" aria-hidden="true">
@@ -1117,7 +1018,6 @@
 						data-binary-rating-response="rating-no"
 						type="button"
 						title="Este artículo no es útil"
-						data-bi-name="button-rating-no"
 						aria-pressed="false"
 					>
 						<span class="icon" aria-hidden="true">
@@ -1135,9 +1035,7 @@
 							data-test-id="details-footer-rating-no"
 							data-binary-rating-response="rating-no"
 							title="Este artículo no es útil"
-							data-bi-name="button-rating-no"
 							aria-pressed="false"
-							data-bi-an="feedback-unhelpful-popover"
 						>
 							<span class="icon" aria-hidden="true">
 								<span class="docon docon-dislike"></span>
@@ -1161,10 +1059,8 @@
 			<div>
 		<button
 			class="button button-sm border inner-focus display-none margin-right-xxs"
-			data-bi-name="ask-learn-assistant-entry-troubleshoot"
 			data-test-id="ask-learn-assistant-modal-entry-mobile-feedback"
 			data-ask-learn-modal-entry-feedback
-			data-bi-an=feedback-unhelpful-popover
 			type="button"
 			style="min-width: max-content;"
 			aria-expanded="false"
@@ -1177,8 +1073,6 @@
 		</button>
 		<button
 			class="button button-sm display-inline-flex display-none-desktop flex-shrink-0 margin-right-xxs border-color-ask-learn margin-right-xxs"
-			data-bi-name="ask-learn-assistant-entry-troubleshoot"
-			data-bi-an=feedback-unhelpful-popover
 			data-test-id="ask-learn-assistant-modal-entry-tablet-feedback"
 			data-ask-learn-modal-entry-feedback
 			type="button"
@@ -1193,8 +1087,6 @@
 		</button>
 		<button
 			class="button button-sm display-none flex-shrink-0 display-inline-flex-desktop margin-right-xxs border-color-ask-learn margin-right-xxs"
-			data-bi-name="ask-learn-assistant-entry-troubleshoot"
-			data-bi-an=feedback-unhelpful-popover
 			data-test-id="ask-learn-assistant-flyout-entry-feedback"
 			data-ask-learn-flyout-entry-show-only
 			data-flyout-button="toggle"
@@ -1214,8 +1106,6 @@
 				type="button"
 				class="button button-sm margin-right-xxs"
 				data-help-option="suggest-fix"
-				data-bi-name="feedback-suggest"
-				data-bi-an="feedback-unhelpful-popover"
 				data-test-id="suggest-fix"
 			>
 				<span class="icon" aria-hidden="true">
@@ -1243,14 +1133,12 @@
 		<section
 			id="right-rail-training-mobile"
 			class=""
-			data-bi-name="learning-resource-card"
 			hidden
 		></section>
 	 
 		<section
 			id="right-rail-events-mobile"
 			class=""
-			data-bi-name="events-card"
 			hidden
 		></section>
 	
@@ -1258,12 +1146,11 @@
 	 
 		<div
 			id="article-metadata-footer"
-			data-bi-name="article-metadata-footer"
 			data-test-id="article-metadata-footer"
 			class="page-metadata-container"
 		>
 			<hr class="hr" />
-			<ul class="metadata page-metadata" data-bi-name="page info" lang="es-es" dir="ltr">
+			<ul class="metadata page-metadata" lang="es-es" dir="ltr">
 				<li class="visibility-hidden-visual-diff">
 			<span class="badge badge-sm text-wrap-pretty">
 				<span>Se actualizó por última vez el <local-time format="twoDigitNumeric"
@@ -1284,21 +1171,18 @@
 				<aside
 					id="layout-body-aside"
 					class="layout-body-aside  "
-					data-bi-name="aside"
 					aria-label="Recursos adicionales"
 			  >
 					
 		<div
 			id="ms--additional-resources"
 			class="right-container padding-sm display-none display-block-desktop height-full"
-			data-bi-name="pageactions"
 		>
-			<div id="affixed-right-container" data-bi-name="right-column">
+			<div id="affixed-right-container">
 				
 		<nav
 			id="side-doc-outline"
 			class="doc-outline border-bottom padding-bottom-xs margin-bottom-xs scrollbar-width-thin"
-			data-bi-name="intopic toc"
 			aria-label="En este artículo"
 		>
 			<h3>En este artículo</h3>
@@ -1310,7 +1194,6 @@
 			id="ms--site-user-feedback-right-rail"
 			class="font-size-sm display-none-print"
 			data-test-id="site-user-feedback-right-rail"
-			data-bi-name="site-feedback-right-rail"
 		>
 			<div class="display-flex flex-wrap-wrap align-items-center">
 				<p class="font-weight-semibold margin-xxs margin-left-none">
@@ -1324,7 +1207,6 @@
 						type="button"
 						title="Este artículo es útil"
 						aria-label="Este artículo es útil"
-						data-bi-name="button-rating-yes"
 						aria-pressed="false"
 					>
 						<span class="icon" aria-hidden="true">
@@ -1340,7 +1222,6 @@
 						type="button"
 						title="Este artículo no es útil"
 						aria-label="Este artículo no es útil"
-						data-bi-name="button-rating-no"
 						aria-pressed="false"
 					>
 						<span class="icon" aria-hidden="true">
@@ -1355,9 +1236,7 @@
 							data-binary-rating-response="rating-no"
 							title="Este artículo no es útil"
 							aria-label="Este artículo no es útil"
-							data-bi-name="button-rating-no"
 							aria-pressed="false"
-							data-bi-an="feedback-unhelpful-popover"
 						>
 							<span class="icon" aria-hidden="true">
 								<span class="docon docon-dislike"></span>
@@ -1383,10 +1262,8 @@
 			<div>
 		<button
 			class="button button-sm border inner-focus display-none margin-right-xxs"
-			data-bi-name="ask-learn-assistant-entry-troubleshoot"
 			data-test-id="ask-learn-assistant-modal-entry-mobile-feedback"
 			data-ask-learn-modal-entry-feedback
-			data-bi-an=feedback-unhelpful-popover
 			type="button"
 			style="min-width: max-content;"
 			aria-expanded="false"
@@ -1399,8 +1276,6 @@
 		</button>
 		<button
 			class="button button-sm display-inline-flex display-none-desktop flex-shrink-0 margin-right-xxs border-color-ask-learn margin-right-xxs"
-			data-bi-name="ask-learn-assistant-entry-troubleshoot"
-			data-bi-an=feedback-unhelpful-popover
 			data-test-id="ask-learn-assistant-modal-entry-tablet-feedback"
 			data-ask-learn-modal-entry-feedback
 			type="button"
@@ -1415,8 +1290,6 @@
 		</button>
 		<button
 			class="button button-sm display-none flex-shrink-0 display-inline-flex-desktop margin-right-xxs border-color-ask-learn margin-right-xxs"
-			data-bi-name="ask-learn-assistant-entry-troubleshoot"
-			data-bi-an=feedback-unhelpful-popover
 			data-test-id="ask-learn-assistant-flyout-entry-feedback"
 			data-ask-learn-flyout-entry-show-only
 			data-flyout-button="toggle"
@@ -1436,8 +1309,6 @@
 				type="button"
 				class="button button-sm margin-right-xxs"
 				data-help-option="suggest-fix"
-				data-bi-name="feedback-suggest"
-				data-bi-an="feedback-unhelpful-popover"
 				data-test-id="suggest-fix"
 			>
 				<span class="icon" aria-hidden="true">
@@ -1459,26 +1330,22 @@
 			  </aside> <section
 					id="layout-body-flyout"
 					class="layout-body-flyout "
-					data-bi-name="flyout"
 			  >
 					 <div
 	class="height-full border-left background-color-body-medium"
 	id="ask-learn-flyout"
 ></div>
-			  </section> <div class="layout-body-footer " data-bi-name="layout-footer">
+			  </section> <div class="layout-body-footer ">
 		<footer
 			id="footer"
 			data-test-id="footer"
-			data-bi-name="footer"
 			class="footer-layout padding-xs padding-sm-desktop has-default-focus border-top"
 			role="contentinfo"
 		>
 			<div class="display-flex gap-xs flex-wrap-wrap is-full-height padding-right-lg-desktop">
 				
 		<a
-			data-mscc-ic="false"
 			href="#"
-			data-bi-name="select-locale"
 			class="locale-selector-link flex-shrink-0 button button-sm button-clear external-link-indicator"
 			id=""
 			title=""
@@ -1489,9 +1356,7 @@
 	 <div class="ccpa-privacy-link" data-ccpa-privacy-link hidden>
 		
 		<a
-			data-mscc-ic="false"
 			href="https://aka.ms/yourcaliforniaprivacychoices"
-			data-bi-name="your-privacy-choices"
 			class="button button-sm button-clear flex-shrink-0 external-link-indicator"
 			id=""
 			title=""
@@ -1535,7 +1400,6 @@
 				aria-controls="{{ themeMenuId }}"
 				aria-haspopup="true"
 				aria-expanded="false"
-				data-bi-name="theme"
 			>
 				<span class="icon" aria-hidden="true"><span class="docon docon-sun"></span></span>
 				<span>Tema</span>
@@ -1634,14 +1498,12 @@
 		</div>
 	</div>
 			</div>
-			<ul class="links" data-bi-name="footerlinks">
+			<ul class="links">
 				<li class="manage-cookies-holder" hidden=""></li>
 				<li>
 		
 		<a
-			data-mscc-ic="false"
 			href="https://learn.microsoft.com/es-es/principles-for-ai-generated-content"
-			data-bi-name="aiDisclaimer"
 			class=" external-link-indicator"
 			id=""
 			title=""
@@ -1651,9 +1513,7 @@
 	</li><li>
 		
 		<a
-			data-mscc-ic="false"
 			href="https://learn.microsoft.com/es-es/previous-versions/"
-			data-bi-name="archivelink"
 			class=" external-link-indicator"
 			id=""
 			title=""
@@ -1663,9 +1523,7 @@
 	</li> <li>
 		
 		<a
-			data-mscc-ic="false"
 			href="https://techcommunity.microsoft.com/t5/microsoft-learn-blog/bg-p/MicrosoftLearnBlog"
-			data-bi-name="bloglink"
 			class=" external-link-indicator"
 			id=""
 			title=""
@@ -1675,9 +1533,7 @@
 	</li> <li>
 		
 		<a
-			data-mscc-ic="false"
 			href="https://learn.microsoft.com/es-es/contribute"
-			data-bi-name="contributorGuide"
 			class=" external-link-indicator"
 			id=""
 			title=""
@@ -1687,9 +1543,7 @@
 	</li><li>
 		
 		<a
-			data-mscc-ic="false"
 			href="https://go.microsoft.com/fwlink/?LinkId=521839"
-			data-bi-name="privacy"
 			class=" external-link-indicator"
 			id=""
 			title=""
@@ -1699,9 +1553,7 @@
 	</li><li>
 		
 		<a
-			data-mscc-ic="false"
 			href="https://go.microsoft.com/fwlink/?linkid=2259814"
-			data-bi-name="consumer-health-privacy"
 			class=" external-link-indicator"
 			id=""
 			title=""
@@ -1711,9 +1563,7 @@
 	</li><li>
 		
 		<a
-			data-mscc-ic="false"
 			href="https://learn.microsoft.com/es-es/legal/termsofuse"
-			data-bi-name="termsofuse"
 			class=" external-link-indicator"
 			id=""
 			title=""
@@ -1723,9 +1573,7 @@
 	</li><li>
 		
 		<a
-			data-mscc-ic="false"
 			href="https://www.microsoft.com/legal/intellectualproperty/Trademarks/"
-			data-bi-name="trademarks"
 			class=" external-link-indicator"
 			id=""
 			title=""
@@ -1737,5 +1585,5 @@
 			</ul>
 		</footer>
 	</footer>
-			<noscript><img src="https://learn.microsoft.com/akam/13/pixel_36723b28?a=dD0zOWM5MmYwOGUxM2I0YjM5YzQ4MjY5ZjVjMDg3NzA2Yzc3MzM4ZTY4JmpzPW9mZg==" style="visibility: hidden; position: absolute; left: -999px; top: -999px;" /></noscript></body>
+			</body>
 		</html>

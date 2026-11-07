@@ -443,6 +443,7 @@ _C1_REPORTS = (
     ("AGE-C1: r2b", "docs/age-scope-audit.md"),
     ("AGE-C1:", "docs/age-theory-ledger.md"),
 )
+_C2_COMMIT = "Course age-auxiliar-c2"
 # C1 sentences changed outside a C1 round, by sentence id: their report, whatever commit carries them.
 _C1_SENTENCE_REPORTS = {
     "63c0778e88": "docs/age-verification/bloque-i/m01-l11-intro-2026-11-06.md",
@@ -458,8 +459,8 @@ _BLOQUE = {
 
 
 def c1_report(repo: Path, file: Path, sentence: Sentence) -> tuple[str, str]:
-    """(report path, commit) for the newest commit among a C1 sentence's lines. A sentence whose lines are
-    uncommitted only because a neighbour was edited is looked up where it sits in HEAD."""
+    """(report path, commit) for the newest commit among a C1 sentence's lines; a sentence moved only by a
+    neighbour's edit (uncommitted, or carried by a C2 commit) is looked up before that edit."""
     import subprocess
 
     def blame(first: int, last: int, *revision: str) -> tuple[str, str]:
@@ -482,21 +483,28 @@ def c1_report(repo: Path, file: Path, sentence: Sentence) -> tuple[str, str]:
         sha, (_, summary) = max(commits.items(), key=lambda item: item[1][0])
         return sha, summary
 
-    sha, summary = blame(sentence.first_line, sentence.last_line)
-    if set(sha) == {"0"}:
-        head = subprocess.run(
-            ["git", "show", f"HEAD:{file.relative_to(repo)}"],
+    def blame_before(revision: str) -> tuple[str, str]:
+        text = subprocess.run(
+            ["git", "show", f"{revision}:{file.relative_to(repo)}"],
             cwd=repo,
             capture_output=True,
             text=True,
             check=True,
         ).stdout
-        before = next((s for s in sentences(head) if s.text == sentence.text), None)
+        before = next((s for s in sentences(text) if s.text == sentence.text), None)
         if before is None:
             raise LookupError(
                 f"{file.stem}: «{sentence.text[:60]}» is new in C1; give it a _C1_SENTENCE_REPORTS entry"
             )
-        sha, summary = blame(before.first_line, before.last_line, "HEAD")
+        return blame(before.first_line, before.last_line, revision)
+
+    sha, summary = blame(sentence.first_line, sentence.last_line)
+    if set(sha) == {"0"}:
+        sha, summary = blame_before("HEAD")
+    # A C2 commit carries C1 edits only as authorised single sentences (_C1_SENTENCE_REPORTS); their re-flowed
+    # neighbours keep the report of the commit before it.
+    while summary.startswith(_C2_COMMIT):
+        sha, summary = blame_before(f"{sha}^")
     for marker, report in _C1_REPORTS:
         if marker in summary:
             return report.format(bloque=_BLOQUE[file.stem[:3]]), sha[:7]

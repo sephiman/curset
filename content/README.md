@@ -23,7 +23,10 @@ sources/normativa.yaml the norms the course cites: short name, title, consolidat
 sources/normativa/    the consolidated texts; served to readers as static files, opened at the article
 sources/otros/        dated copies of the non-legal pages and documents lessons cite (UN, OECD, EU,
                       Portal de la Transparencia), indexed in fuentes.yaml with URL, date and sha256;
-                      lessons cite the file, never the live site; served like normativa/
+                      lessons cite the file, never the live site; served like normativa/. An HTML page
+                      is saved stripped of <script>, <style>, <iframe>, <noscript> and tracking
+                      attributes (scripts/strip_saved_pages.py, which records its sha256; the bytes as
+                      fetched go to a folder outside the repo); tests/test_saved_pages.py fails otherwise
 source-index.json     GENERATED (scripts/index_sources.py): the page or anchor each article starts at in
                       each sources/normativa/ file, with the file's sha256
 citations.*.txt       GENERATED, reviewed, frozen: every citation in the lessons, its anchors and where

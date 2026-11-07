@@ -111,106 +111,32 @@
 	
 
 			<!-- Apply persisted/system theme before first paint to prevent wrong-theme flash when scripts are deferred. -->
-			<script id="theme-preference">
-				(function () {
-			try {
-				var stored = localStorage.getItem('theme');
-				var theme = /^(light|dark|high-contrast)$/.test(stored)
-					? stored
-					: matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-				document.documentElement.classList.add('theme-' + theme);
-			} catch (e) {}
-		})();;
-			</script>
+			
 
-			<script id="atlas-layout-preferences">
-				(function () {
-			try {
-				var state = JSON.parse(localStorage.getItem('atlas-layout-preferences') || '{}');
-				var view = state["docs-layout-persistence"] || {};
-				var excludesKey = "";
-				var blocked = {};
-				if (excludesKey) {
-					var exclusions = JSON.parse(localStorage.getItem('atlas-layout-exclusions') || '{}');
-					if (Object.prototype.hasOwnProperty.call(exclusions, excludesKey)) {
-						var scoped = exclusions[excludesKey];
-						if (scoped) {
-							if (typeof scoped === 'object') blocked = scoped;
-						}
-					}
-				}
-				var html = document.documentElement;
-				for (var c in view) {
-					if (Object.prototype.hasOwnProperty.call(blocked, c)) continue;
-					if (view[c]) html.classList.add(c);
-					else html.classList.remove(c);
-				}
-			} catch (e) {}
-		})();;
-			</script>
+			
 
 			<!-- assets and js globals -->
 			
 			<link rel="stylesheet" href="/static/assets/0.4.03589.8339-b0a05127/styles/site.css" />
 			
-			<script src="https://wcpstatic.microsoft.com/mscc/lib/v2/wcp-consent.js"></script>
+			
 			<!-- Keep this URL in sync with oneDSScriptSelector in instrumentation/one-ds.ts. -->
-			<script async src="https://js.monitor.azure.com/scripts/c/ms.jsll-4.min.js"></script>
+			
 			
 
 			<!-- msdocs global object -->
-			<script id="msdocs-script">
-		var msDocs = {
-  "environment": {
-    "accessLevel": "online",
-    "azurePortalHostname": "portal.azure.com",
-    "reviewFeatures": false,
-    "supportLevel": "production",
-    "systemContent": true,
-    "siteName": "learn",
-    "legacyHosting": false
-  },
-  "data": {
-    "contentLocale": "es-es",
-    "contentDir": "ltr",
-    "userLocale": "es-es",
-    "userDir": "ltr",
-    "pageTemplate": "FAQ",
-    "layoutStateStorageKey": "docs-layout-persistence",
-    "brand": "",
-    "context": {},
-    "standardFeedback": true,
-    "showFeedbackReport": false,
-    "feedbackHelpLinkType": "",
-    "feedbackHelpLinkUrl": "",
-    "feedbackSystem": "Standard",
-    "feedbackGitHubRepo": "",
-    "feedbackProductUrl": "",
-    "extendBreadcrumb": false,
-    "isEditDisplayable": true,
-    "isPrivateUnauthorized": false,
-    "hideViewSource": false,
-    "isPermissioned": false,
-    "hasRecommendations": true
-  },
-  "functions": {}
-};;
-	</script>
+			
 
 			<!-- base scripts, msdocs global should be before this -->
-			<script
-				src="/static/assets/0.4.03589.8339-b0a05127/scripts/es-es/index-docs.js"
-				async
-			></script>
+			
 			
 
 			<!-- json-ld -->
 			
-		<script >bazadebezolkohpepadr="913455205"</script><script type="text/javascript" src="https://learn.microsoft.com/akam/13/36723b28"  defer></script></head>
+		</head>
 	
 			<body
 				id="body"
-				data-bi-name="body"
 				class="layout-body "
 				lang="es-es"
 				dir="ltr"
@@ -277,19 +203,16 @@
 				<div
 					id="ms--mobile-nav"
 					class="site-header display-none-tablet padding-inline-none gap-none"
-					data-bi-name="mobile-header"
 					data-test-id="mobile-header"
 				></div>
 				<div
 					id="ms--primary-nav"
 					class="site-header display-none display-flex-tablet"
-					data-bi-name="L1-header"
 					data-test-id="primary-header"
 				></div>
 				<div
 					id="ms--secondary-nav"
 					class="site-header display-none display-flex-tablet"
-					data-bi-name="L2-header"
 					data-test-id="secondary-header"
 					
 				></div>
@@ -307,7 +230,6 @@
 				 <section
 					id="layout-body-menu"
 					class="layout-body-menu border-right display-flex background-color-body-medium"
-					data-bi-name="menu"
 			  >
 					
 		<div
@@ -323,7 +245,6 @@
 					id="affixed-left-container"
 					class="margin-top-xxs-tablet position-sticky display-flex flex-direction-column width-full"
 					aria-label="Principal"
-					data-bi-name="left-toc"
 					role="navigation"
 				>
 					<div
@@ -363,7 +284,6 @@
 					id="main"
 					role="main"
 					class="layout-body-main "
-					data-bi-name="content"
 					lang="es-es"
 					dir="ltr"
 				>
@@ -371,13 +291,11 @@
 			<div
 		id="ms--content-header"
 		class="content-header default-focus border-bottom-none"
-		data-bi-name="content-header"
 	>
 		<div class="content-header-controls margin-xxs margin-inline-sm-tablet">
 			<button
 				type="button"
 				class="contents-button button button-sm margin-right-xxs"
-				data-bi-name="contents-expand"
 				aria-haspopup="true"
 				data-contents-button
 			>
@@ -387,7 +305,6 @@
 			<button
 				type="button"
 				class="ap-collapse-behavior ap-expanded button button-sm"
-				data-bi-name="ap-collapse"
 				aria-controls="action-panel"
 			>
 				<span class="icon" aria-hidden="true"><span class="docon docon-exit-mode"></span></span>
@@ -443,7 +360,6 @@
 			
 		<button
 			class="button button-sm border-none inner-focus display-none-tablet flex-shrink-0 "
-			data-bi-name="ask-learn-assistant-entry"
 			data-test-id="ask-learn-assistant-modal-entry-mobile"
 			data-ask-learn-modal-entry
 			
@@ -459,7 +375,6 @@
 		</button>
 		<button
 			class="button button-sm display-none display-inline-flex-tablet display-none-desktop flex-shrink-0 margin-right-xxs border-color-ask-learn "
-			data-bi-name="ask-learn-assistant-entry"
 			
 			data-test-id="ask-learn-assistant-modal-entry-tablet"
 			data-ask-learn-modal-entry
@@ -475,7 +390,6 @@
 		</button>
 		<button
 			class="button button-sm display-none flex-shrink-0 display-inline-flex-desktop margin-right-xxs border-color-ask-learn "
-			data-bi-name="ask-learn-assistant-entry"
 			
 			data-test-id="ask-learn-assistant-flyout-entry"
 			data-ask-learn-flyout-entry
@@ -510,7 +424,6 @@
 			type="button"
 			id="ms--focus-mode-button"
 			data-focus-mode
-			data-bi-name="focus-mode-entry"
 			data-page-action-item="overflow-all"
 			data-popover-close
 			class="button button-clear button-sm button-block justify-content-flex-start text-align-left inner-focus display-none display-inline-flex-tablet"
@@ -525,7 +438,6 @@
 			data-page-action-item="overflow-mobile"
 			type="button"
 			class="display-block-layout-menu-collapsed button-block button-sm inner-focus button button-clear display-none-tablet justify-content-flex-start text-align-left"
-			data-bi-name="contents-expand"
 			data-contents-button
 			data-popover-close
 		>
@@ -538,7 +450,6 @@
 		<a
 			id="lang-link-overflow"
 			class="button-sm inner-focus button button-clear button-block justify-content-flex-start text-align-left"
-			data-bi-name="language-toggle"
 			data-page-action-item="overflow-all"
 			data-check-hidden="true"
 			data-read-in-link
@@ -556,7 +467,6 @@
 			type="button"
 			class="collection button button-clear button-sm button-block justify-content-flex-start text-align-left inner-focus"
 			data-list-type="collection"
-			data-bi-name="collection"
 			data-page-action-item="overflow-all"
 			data-check-hidden="true"
 			data-popover-close
@@ -571,7 +481,6 @@
 			type="button"
 			class="collection button button-block button-clear button-sm justify-content-flex-start text-align-left inner-focus"
 			data-list-type="plan"
-			data-bi-name="plan"
 			data-page-action-item="overflow-all"
 			data-check-hidden="true"
 			data-popover-close
@@ -589,7 +498,6 @@
 				<button
 					class="button button-block button-clear button-sm justify-content-flex-start text-align-left inner-focus"
 					type="button"
-					data-bi-name="copy-markdown"
 					data-page-action-item="overflow-all"
 					data-copy-markdown
 					data-copy-state="idle"
@@ -606,7 +514,6 @@
 				<button
 					class="button button-block button-clear button-sm justify-content-flex-start text-align-left inner-focus"
 					type="button"
-					data-bi-name="print"
 					data-page-action-item="overflow-all"
 					data-popover-close
 					data-print-page
@@ -627,7 +534,7 @@
 		</div>
 	  
 		<!-- privateUnauthorizedTemplate is hidden by default -->
-		<div unauthorized-private-section data-bi-name="permission-content-unauthorized-private" hidden>
+		<div unauthorized-private-section hidden>
 			<hr class="hr margin-top-xs margin-bottom-sm" />
 			<div class="notification notification-info">
 				<div class="notification-content">
@@ -638,10 +545,10 @@
 						<span>Nota:</span>
 					</p>
 					<p class="margin-top-none authentication-determined not-authenticated">
-						El acceso a esta página requiere autorización. Puede intentar <a class="docs-sign-in" href="#" data-bi-name="permission-content-sign-in">iniciar sesión</a> o <a  class="docs-change-directory" data-bi-name="permisson-content-change-directory">cambiar directorios</a>.
+						El acceso a esta página requiere autorización. Puede intentar <a class="docs-sign-in" href="#">iniciar sesión</a> o <a  class="docs-change-directory">cambiar directorios</a>.
 					</p>
 					<p class="margin-top-none authentication-determined authenticated">
-						El acceso a esta página requiere autorización. Puede intentar <a class="docs-change-directory" data-bi-name="permisson-content-change-directory">cambiar los directorios</a>.
+						El acceso a esta página requiere autorización. Puede intentar <a class="docs-change-directory">cambiar los directorios</a>.
 					</p>
 				</div>
 			</div>
@@ -651,7 +558,6 @@
 					
 		<div
 			id="article-metadata"
-			data-bi-name="article-metadata"
 			data-test-id="article-metadata"
 			class="page-metadata-container display-flex gap-xxs justify-content-space-between align-items-center flex-wrap-wrap"
 		>
@@ -668,7 +574,6 @@
 			data-test-id="conceptual-feedback-button"
 			class="button button-sm button-clear button-primary display-none"
 			type="button"
-			data-bi-name="user-feedback-button"
 			data-user-feedback-button
 			hidden
 		>
@@ -685,7 +590,6 @@
 		<nav
 			id="center-doc-outline"
 			class="doc-outline display-none-desktop display-none-print margin-bottom-sm"
-			data-bi-name="intopic toc"
 			aria-label="En este artículo"
 		>
 			<h2 id="ms--in-this-article" class="title is-6 margin-block-xs">
@@ -895,15 +799,12 @@
 	<div class="content"></div>
 	</section>
 </article>
-<script type="application/ld+json">
-	{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿Cuál es la directiva de ciclo de vida de Microsoft Edge?\n","acceptedAnswer":{"@type":"Answer","text":"\u003cp\u003eMicrosoft Edge se rige por la \u003ca href=\"../policies/modern\"\u003eDirectiva moderna\u003c/a\u003e. Vaya \u003ca href=\"/DeployEdge/microsoft-edge-support-lifecycle\"\u003eaquí\u003c/a\u003e para obtener información sobre la directiva de ciclo de vida de Microsoft Edge.\u003c/p\u003e\n\u003cp\u003eLa finalización del soporte técnico de la aplicación de escritorio de Microsoft Edge (versión anterior) se produjo el 9 de marzo de 2021. La aplicación Microsoft Edge (versión anterior) ya no recibirá actualizaciones de seguridad después de esa fecha. Puede obtener más información \u003ca href=\"https://techcommunity.microsoft.com/t5/microsoft-365-blog/new-microsoft-edge-to-replace-microsoft-edge-legacy-with-april-s/ba-p/2114224\"\u003eaquí\u003c/a\u003e.\u003c/p\u003e\n\u003cp\u003ePara más información sobre el ciclo de vida, consulte las \u003ca href=\"/deployedge/microsoft-edge-channels\"\u003edirectrices de mantenimiento por canal\u003c/a\u003e y una lista de \u003ca href=\"/deployedge/microsoft-edge-supported-operating-systems\"\u003esistemas operativos\u003c/a\u003e con soporte.\u003c/p\u003e\n\u003cp\u003eMicrosoft recomienda usar Microsoft Edge como explorador predeterminado. \n              \u003ca href=\"https://www.microsoft.com/edge/business/download?form=MO12H4\u0026amp;OCID=MO12H4\"\u003eDescárguelo aquí.\u003c/a\u003e\u003c/p\u003e\n"}},{"@type":"Question","name":"¿Cuál es la directiva de ciclo de vida para Internet Explorer?\n","acceptedAnswer":{"@type":"Answer","text":"\u003cp\u003eInternet Explorer es un \u003ca href=\"../definitions\"\u003ecomponente\u003c/a\u003e del SO de Windows y se rige por la directiva de ciclo de vida del producto en el que esté \u003ca href=\"/lifecycle/products/?ts=0\u0026amp;products=windows\"\u003einstalado\u003c/a\u003e y sea compatible.\u003c/p\u003e\n\u003cp\u003eTenga en cuenta que la aplicación de escritorio de Internet Explorer (IE) 11 dejó de ser compatible con ciertos sistemas desde el 15 de junio de 2022. Se recomienda a los clientes que se pasen a Microsoft Edge con el modo IE. El modo IE permite la compatibilidad con versiones anteriores y será compatible al menos hasta 2029. Además, Microsoft notificará la retirada del modo IE con un año de antelación. Para obtener más información, vaya \u003ca href=\"https://blogs.windows.com/windowsexperience/2021/05/19/the-future-of-internet-explorer-on-windows-10-is-in-microsoft-edge/\"\u003eaquí\u003c/a\u003e.\u003c/p\u003e\n\u003cp\u003eAlgunas versiones de Internet Explorer pueden ser compatibles después de la última fecha de finalización del SO de Windows si hay disponibles actualizaciones de seguridad extendidas (ESU). Consulte \u003ca href=\"extended-security-updates\"\u003eaquí\u003c/a\u003e la lista de los productos que ofrecen ESU.\u003c/p\u003e\n\u003cp\u003ePara obtener ayuda para migrar de IE 11 a Edge, vaya \u003ca href=\"https://techcommunity.microsoft.com/t5/windows-it-pro-blog/proven-tools-to-accelerate-your-move-to-microsoft-edge/ba-p/2504818\"\u003eaquí\u003c/a\u003e.\u003c/p\u003e\n\u003cp\u003ePara obtener información acerca de la compatibilidad de Teams y Office 365 o Microsoft 365 con IE 11, vaya \u003ca href=\"https://aka.ms/AA97tsw\"\u003eaquí\u003c/a\u003e.\u003c/p\u003e\n\u003cp\u003ePara obtener información sobre la compatibilidad de Azure DevOps con IE11, vaya \u003ca href=\"https://devblogs.microsoft.com/devops/azure-devops-services-to-end-support-for-internet-explorer-11-and-legacy-version-of-microsoft-edge/\"\u003eaquí\u003c/a\u003e.\u003c/p\u003e\n\u003cp\u003eLas tablas siguientes muestran la versión compatible de Internet Explorer para cada sistema operativo.\u003c/p\u003e\n\u003cp\u003e\n              \u003cstrong\u003eSistemas operativos de escritorio de Windows\u003c/strong\u003e\u003c/p\u003e\n\u003ctable\u003e\n\u003cthead\u003e\n\u003ctr\u003e\n\u003cth style=\"text-align: left;\"\u003eSistema operativo\u003c/th\u003e\n\u003cth style=\"text-align: left;\"\u003eVersión de Internet Explorer\u003c/th\u003e\n\u003cth style=\"text-align: left;\"\u003eNotas\u003c/th\u003e\n\u003c/tr\u003e\n\u003c/thead\u003e\n\u003ctbody\u003e\n\u003ctr\u003e\n\u003ctd style=\"text-align: left;\"\u003eESU de Windows 7\u003c/td\u003e\n\u003ctd style=\"text-align: left;\"\u003eInternet Explorer 11\u003c/td\u003e\n\u003ctd style=\"text-align: left;\"\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd style=\"text-align: left;\"\u003eWindows 8.1 Update\u003c/td\u003e\n\u003ctd style=\"text-align: left;\"\u003eInternet Explorer 11\u003c/td\u003e\n\u003ctd style=\"text-align: left;\"\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd style=\"text-align: left;\"\u003eCanal semianual (SAC) de Windows 10\u003c/td\u003e\n\u003ctd style=\"text-align: left;\"\u003eInternet Explorer 11\u003c/td\u003e\n\u003ctd style=\"text-align: left;\"\u003eA partir del 15 de junio de 2022, la aplicación de\u003c/br\u003eescritorio IE11\u003c/br\u003eya no\u003c/br\u003ees compatible*.\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd style=\"text-align: left;\"\u003eWindows 10 IoT\u003c/td\u003e\n\u003ctd style=\"text-align: left;\"\u003eInternet Explorer 11\u003c/td\u003e\n\u003ctd style=\"text-align: left;\"\u003eA partir del 15 de junio de 2022,\u003c/br\u003ela aplicación de escritorio IE11\u003c/br\u003eya no será compatible\u003c/br\u003e.\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd style=\"text-align: left;\"\u003eWindows 10 2015 LTSB\u003c/td\u003e\n\u003ctd style=\"text-align: left;\"\u003eInternet Explorer 11\u003c/td\u003e\n\u003ctd style=\"text-align: left;\"\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd style=\"text-align: left;\"\u003eWindows 10 2016 LTSB\u003c/td\u003e\n\u003ctd style=\"text-align: left;\"\u003eInternet Explorer 11\u003c/td\u003e\n\u003ctd style=\"text-align: left;\"\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd style=\"text-align: left;\"\u003eWindows 10 2019 LTSC\u003c/td\u003e\n\u003ctd style=\"text-align: left;\"\u003eInternet Explorer 11\u003c/td\u003e\n\u003ctd style=\"text-align: left;\"\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd style=\"text-align: left;\"\u003eWindows 10 2021 LTSC\u003c/td\u003e\n\u003ctd style=\"text-align: left;\"\u003eInternet Explorer 11\u003c/td\u003e\n\u003ctd style=\"text-align: left;\"\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003c/tbody\u003e\n\u003c/table\u003e\n\u003cp\u003e*La aplicación de escritorio Internet Explorer 11 (IE11) se ha deshabilitado permanentemente en determinadas versiones de Windows 10. Puede obtener más información \u003ca href=\"http://aka.ms/iemodefaq\"\u003eaquí\u003c/a\u003e.\u003c/p\u003e\n\u003cp\u003e\n              \u003cstrong\u003eSistemas operativos Windows Server\u003c/strong\u003e\u003c/p\u003e\n\u003ctable\u003e\n\u003cthead\u003e\n\u003ctr\u003e\n\u003cth style=\"text-align: left;\"\u003eSistema operativo\u003c/th\u003e\n\u003cth style=\"text-align: left;\"\u003eVersión de Internet Explorer\u003c/th\u003e\n\u003cth style=\"text-align: left;\"\u003eNotas\u003c/th\u003e\n\u003c/tr\u003e\n\u003c/thead\u003e\n\u003ctbody\u003e\n\u003ctr\u003e\n\u003ctd style=\"text-align: left;\"\u003eESU de Windows Server 2008\u003c/td\u003e\n\u003ctd style=\"text-align: left;\"\u003eInternet Explorer 9\u003c/td\u003e\n\u003ctd style=\"text-align: left;\"\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd style=\"text-align: left;\"\u003eESU de Windows Server 2008 IA64 (Itanium)\u003c/td\u003e\n\u003ctd style=\"text-align: left;\"\u003eInternet Explorer 9\u003c/td\u003e\n\u003ctd style=\"text-align: left;\"\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd style=\"text-align: left;\"\u003eESU de Windows Server 2008 R2\u003c/td\u003e\n\u003ctd style=\"text-align: left;\"\u003eInternet Explorer 11\u003c/td\u003e\n\u003ctd style=\"text-align: left;\"\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd style=\"text-align: left;\"\u003eESU de Windows Server 2008 R2 IA64 (Itanium)\u003c/td\u003e\n\u003ctd style=\"text-align: left;\"\u003eInternet Explorer 11\u003c/td\u003e\n\u003ctd style=\"text-align: left;\"\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd style=\"text-align: left;\"\u003eWindows Server 2012\u003c/td\u003e\n\u003ctd style=\"text-align: left;\"\u003eInternet Explorer 11\u003c/td\u003e\n\u003ctd style=\"text-align: left;\"\u003eA partir del 12 de febrero de 2020,\u003c/br\u003eIE10 ya no será compatible\u003c/br\u003e.\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd style=\"text-align: left;\"\u003eWindows Server 2012 R2\u003c/td\u003e\n\u003ctd style=\"text-align: left;\"\u003eInternet Explorer 11\u003c/td\u003e\n\u003ctd style=\"text-align: left;\"\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd style=\"text-align: left;\"\u003eWindows Server 2016\u003c/td\u003e\n\u003ctd style=\"text-align: left;\"\u003eInternet Explorer 11\u003c/td\u003e\n\u003ctd style=\"text-align: left;\"\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd style=\"text-align: left;\"\u003eWindows Server 2019\u003c/td\u003e\n\u003ctd style=\"text-align: left;\"\u003eInternet Explorer 11\u003c/td\u003e\n\u003ctd style=\"text-align: left;\"\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd style=\"text-align: left;\"\u003eWindows Server 2022\u003c/td\u003e\n\u003ctd style=\"text-align: left;\"\u003eInternet Explorer 11\u003c/td\u003e\n\u003ctd style=\"text-align: left;\"\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003c/tbody\u003e\n\u003c/table\u003e\n\u003cbr/\u003e\n\u003cp\u003e\n              \u003cstrong\u003eSistemas operativos de Windows Embedded\u003c/strong\u003e\u003c/p\u003e\n\u003ctable\u003e\n\u003cthead\u003e\n\u003ctr\u003e\n\u003cth style=\"text-align: left;\"\u003eSistema operativo\u003c/th\u003e\n\u003cth style=\"text-align: left;\"\u003eVersión de Internet Explorer\u003c/th\u003e\n\u003cth style=\"text-align: left;\"\u003eNotas\u003c/th\u003e\n\u003c/tr\u003e\n\u003c/thead\u003e\n\u003ctbody\u003e\n\u003ctr\u003e\n\u003ctd style=\"text-align: left;\"\u003eWindows Embedded Compact 2013\u003c/td\u003e\n\u003ctd style=\"text-align: left;\"\u003eInternet Explorer 7\u003c/td\u003e\n\u003ctd style=\"text-align: left;\"\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd style=\"text-align: left;\"\u003eWindows Embedded Standard 7\u003c/td\u003e\n\u003ctd style=\"text-align: left;\"\u003eInternet Explorer 11\u003c/td\u003e\n\u003ctd style=\"text-align: left;\"\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd style=\"text-align: left;\"\u003eWindows Embedded POSReady 7\u003c/td\u003e\n\u003ctd style=\"text-align: left;\"\u003eInternet Explorer 11\u003c/td\u003e\n\u003ctd style=\"text-align: left;\"\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd style=\"text-align: left;\"\u003eWindows Thin PC\u003c/td\u003e\n\u003ctd style=\"text-align: left;\"\u003eInternet Explorer 11\u003c/td\u003e\n\u003ctd style=\"text-align: left;\"\u003eEl 10 de enero de 2017,\u003c/br\u003eIE11 reemplazó a IE8 en\u003c/br\u003eWindows Thin PC.\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd style=\"text-align: left;\"\u003eWindows Embedded 8 Standard\u003c/td\u003e\n\u003ctd style=\"text-align: left;\"\u003eInternet Explorer 11\u003c/td\u003e\n\u003ctd style=\"text-align: left;\"\u003eA partir del 12 de febrero de 2020,\u003c/br\u003eIE10 ya no será compatible\u003c/br\u003e.\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd style=\"text-align: left;\"\u003eActualización industrial de Windows 8.1\u003c/td\u003e\n\u003ctd style=\"text-align: left;\"\u003eInternet Explorer 11\u003c/td\u003e\n\u003ctd style=\"text-align: left;\"\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003c/tbody\u003e\n\u003c/table\u003e\n"}},{"@type":"Question","name":"¿Es Internet Explorer 11 la versión más reciente de Internet Explorer?\n","acceptedAnswer":{"@type":"Answer","text":"\u003cp\u003eSí, Internet Explorer 11 es la versión principal más reciente de Internet Explorer. La aplicación de escritorio Internet Explorer 11 ha cesado de su compatibilidad con ciertos sistemas operativos desde el 15 de junio de 2022*. Se recomienda a los clientes que cambien a Microsoft Edge con el modo Internet Explorer (IE). El modo IE proporciona compatibilidad con exploradores heredados integrados para sitios que requieren Internet Explorer. Si tiene un sistema operativo compatible, Internet Explorer 11 seguirá recibiendo actualizaciones de seguridad y soporte técnico para el ciclo de vida de la versión de Windows en la que está instalado. Consulte \u003ca href=\"#what-is-the-lifecycle-policy-for-internet-explorer-\"\u003earriba\u003c/a\u003e para obtener una lista de los sistemas operativos compatibles con Internet Explorer en cada versión.\u003c/p\u003e\n\u003cp\u003e*La aplicación de escritorio de Internet Explorer 11 (IE11) retirada y sin soporte técnico se ha deshabilitado permanentemente a través de una actualización de Microsoft Edge en determinadas versiones de Windows 10. Puede obtener más información \u003ca href=\"https://techcommunity.microsoft.com/t5/windows-it-pro-blog/internet-explorer-11-desktop-app-retirement-faq/ba-p/2366549\"\u003eaquí\u003c/a\u003e.\u003c/p\u003e\n"}},{"@type":"Question","name":"¿Qué sucede si mi aplicación de línea de negocio (LOB) empresarial tiene una dependencia de una versión de Internet Explorer que llegó al final del soporte?\n","acceptedAnswer":{"@type":"Answer","text":"\u003cp\u003eMicrosoft se compromete a ofrecer soporte al \u003ca href=\"/DeployEdge/edge-ie-mode\"\u003emodo Internet Explorer\u003c/a\u003e en Microsoft Edge al menos hasta 2029 en los sistemas operativos compatibles. Además, Microsoft facilitará una notificación con una antelación mínima de un año antes de finalizar el soporte técnico del modo IE. Las fechas de soporte de Windows están documentadas en la página de \u003ca href=\"/lifecycle/products/\"\u003eCiclo de vida del producto\u003c/a\u003e y pueden requerir licencias de actualización de seguridad extendida (ESU), si está disponible, para recibir actualizaciones de seguridad del sistema operativo más allá de la fecha de finalización del soporte.\u003c/p\u003e\n\u003cbr/\u003e\n\u003cbr/\u003e\n\u003cbr/\u003e\n"}}]}
-</script>
+
 </div>
 					
 		<div
 			id="ms--inline-notifications"
 			class="margin-block-xs"
-			data-bi-name="inline-notification"
 		></div>
 	 
 		<div
@@ -929,7 +830,6 @@
 			id="site-user-feedback-footer"
 			class="font-size-sm margin-top-md display-none-print display-none-desktop"
 			data-test-id="site-user-feedback-footer"
-			data-bi-name="site-feedback-section"
 		>
 			<hr class="hr" />
 			<h2 id="ms--feedback" class="title is-3">Comentarios</h2>
@@ -944,7 +844,6 @@
 						data-binary-rating-response="rating-yes"
 						type="button"
 						title="Este artículo es útil"
-						data-bi-name="button-rating-yes"
 						aria-pressed="false"
 					>
 						<span class="icon" aria-hidden="true">
@@ -960,7 +859,6 @@
 						data-binary-rating-response="rating-no"
 						type="button"
 						title="Este artículo no es útil"
-						data-bi-name="button-rating-no"
 						aria-pressed="false"
 					>
 						<span class="icon" aria-hidden="true">
@@ -978,9 +876,7 @@
 							data-test-id="details-footer-rating-no"
 							data-binary-rating-response="rating-no"
 							title="Este artículo no es útil"
-							data-bi-name="button-rating-no"
 							aria-pressed="false"
-							data-bi-an="feedback-unhelpful-popover"
 						>
 							<span class="icon" aria-hidden="true">
 								<span class="docon docon-dislike"></span>
@@ -1004,10 +900,8 @@
 			<div>
 		<button
 			class="button button-sm border inner-focus display-none margin-right-xxs"
-			data-bi-name="ask-learn-assistant-entry-troubleshoot"
 			data-test-id="ask-learn-assistant-modal-entry-mobile-feedback"
 			data-ask-learn-modal-entry-feedback
-			data-bi-an=feedback-unhelpful-popover
 			type="button"
 			style="min-width: max-content;"
 			aria-expanded="false"
@@ -1020,8 +914,6 @@
 		</button>
 		<button
 			class="button button-sm display-inline-flex display-none-desktop flex-shrink-0 margin-right-xxs border-color-ask-learn margin-right-xxs"
-			data-bi-name="ask-learn-assistant-entry-troubleshoot"
-			data-bi-an=feedback-unhelpful-popover
 			data-test-id="ask-learn-assistant-modal-entry-tablet-feedback"
 			data-ask-learn-modal-entry-feedback
 			type="button"
@@ -1036,8 +928,6 @@
 		</button>
 		<button
 			class="button button-sm display-none flex-shrink-0 display-inline-flex-desktop margin-right-xxs border-color-ask-learn margin-right-xxs"
-			data-bi-name="ask-learn-assistant-entry-troubleshoot"
-			data-bi-an=feedback-unhelpful-popover
 			data-test-id="ask-learn-assistant-flyout-entry-feedback"
 			data-ask-learn-flyout-entry-show-only
 			data-flyout-button="toggle"
@@ -1057,8 +947,6 @@
 				type="button"
 				class="button button-sm margin-right-xxs"
 				data-help-option="suggest-fix"
-				data-bi-name="feedback-suggest"
-				data-bi-an="feedback-unhelpful-popover"
 				data-test-id="suggest-fix"
 			>
 				<span class="icon" aria-hidden="true">
@@ -1086,21 +974,18 @@
 		<section
 			id="right-rail-recommendations-mobile"
 			class=""
-			data-bi-name="recommendations"
 			hidden
 		></section>
 	 
 		<section
 			id="right-rail-training-mobile"
 			class=""
-			data-bi-name="learning-resource-card"
 			hidden
 		></section>
 	 
 		<section
 			id="right-rail-events-mobile"
 			class=""
-			data-bi-name="events-card"
 			hidden
 		></section>
 	
@@ -1108,12 +993,11 @@
 	 
 		<div
 			id="article-metadata-footer"
-			data-bi-name="article-metadata-footer"
 			data-test-id="article-metadata-footer"
 			class="page-metadata-container"
 		>
 			<hr class="hr" />
-			<ul class="metadata page-metadata" data-bi-name="page info" lang="es-es" dir="ltr">
+			<ul class="metadata page-metadata" lang="es-es" dir="ltr">
 				<li class="visibility-hidden-visual-diff">
 			<span class="badge badge-sm text-wrap-pretty">
 				<span>Se actualizó por última vez el <local-time format="twoDigitNumeric"
@@ -1134,21 +1018,18 @@
 				<aside
 					id="layout-body-aside"
 					class="layout-body-aside  "
-					data-bi-name="aside"
 					aria-label="Recursos adicionales"
 			  >
 					
 		<div
 			id="ms--additional-resources"
 			class="right-container padding-sm display-none display-block-desktop height-full"
-			data-bi-name="pageactions"
 		>
-			<div id="affixed-right-container" data-bi-name="right-column">
+			<div id="affixed-right-container">
 				
 		<nav
 			id="side-doc-outline"
 			class="doc-outline border-bottom padding-bottom-xs margin-bottom-xs scrollbar-width-thin"
-			data-bi-name="intopic toc"
 			aria-label="En este artículo"
 		>
 			<h3>En este artículo</h3>
@@ -1160,7 +1041,6 @@
 			id="ms--site-user-feedback-right-rail"
 			class="font-size-sm display-none-print"
 			data-test-id="site-user-feedback-right-rail"
-			data-bi-name="site-feedback-right-rail"
 		>
 			<div class="display-flex flex-wrap-wrap align-items-center">
 				<p class="font-weight-semibold margin-xxs margin-left-none">
@@ -1174,7 +1054,6 @@
 						type="button"
 						title="Este artículo es útil"
 						aria-label="Este artículo es útil"
-						data-bi-name="button-rating-yes"
 						aria-pressed="false"
 					>
 						<span class="icon" aria-hidden="true">
@@ -1190,7 +1069,6 @@
 						type="button"
 						title="Este artículo no es útil"
 						aria-label="Este artículo no es útil"
-						data-bi-name="button-rating-no"
 						aria-pressed="false"
 					>
 						<span class="icon" aria-hidden="true">
@@ -1205,9 +1083,7 @@
 							data-binary-rating-response="rating-no"
 							title="Este artículo no es útil"
 							aria-label="Este artículo no es útil"
-							data-bi-name="button-rating-no"
 							aria-pressed="false"
-							data-bi-an="feedback-unhelpful-popover"
 						>
 							<span class="icon" aria-hidden="true">
 								<span class="docon docon-dislike"></span>
@@ -1233,10 +1109,8 @@
 			<div>
 		<button
 			class="button button-sm border inner-focus display-none margin-right-xxs"
-			data-bi-name="ask-learn-assistant-entry-troubleshoot"
 			data-test-id="ask-learn-assistant-modal-entry-mobile-feedback"
 			data-ask-learn-modal-entry-feedback
-			data-bi-an=feedback-unhelpful-popover
 			type="button"
 			style="min-width: max-content;"
 			aria-expanded="false"
@@ -1249,8 +1123,6 @@
 		</button>
 		<button
 			class="button button-sm display-inline-flex display-none-desktop flex-shrink-0 margin-right-xxs border-color-ask-learn margin-right-xxs"
-			data-bi-name="ask-learn-assistant-entry-troubleshoot"
-			data-bi-an=feedback-unhelpful-popover
 			data-test-id="ask-learn-assistant-modal-entry-tablet-feedback"
 			data-ask-learn-modal-entry-feedback
 			type="button"
@@ -1265,8 +1137,6 @@
 		</button>
 		<button
 			class="button button-sm display-none flex-shrink-0 display-inline-flex-desktop margin-right-xxs border-color-ask-learn margin-right-xxs"
-			data-bi-name="ask-learn-assistant-entry-troubleshoot"
-			data-bi-an=feedback-unhelpful-popover
 			data-test-id="ask-learn-assistant-flyout-entry-feedback"
 			data-ask-learn-flyout-entry-show-only
 			data-flyout-button="toggle"
@@ -1286,8 +1156,6 @@
 				type="button"
 				class="button button-sm margin-right-xxs"
 				data-help-option="suggest-fix"
-				data-bi-name="feedback-suggest"
-				data-bi-an="feedback-unhelpful-popover"
 				data-test-id="suggest-fix"
 			>
 				<span class="icon" aria-hidden="true">
@@ -1309,26 +1177,22 @@
 			  </aside> <section
 					id="layout-body-flyout"
 					class="layout-body-flyout "
-					data-bi-name="flyout"
 			  >
 					 <div
 	class="height-full border-left background-color-body-medium"
 	id="ask-learn-flyout"
 ></div>
-			  </section> <div class="layout-body-footer " data-bi-name="layout-footer">
+			  </section> <div class="layout-body-footer ">
 		<footer
 			id="footer"
 			data-test-id="footer"
-			data-bi-name="footer"
 			class="footer-layout padding-xs padding-sm-desktop has-default-focus border-top"
 			role="contentinfo"
 		>
 			<div class="display-flex gap-xs flex-wrap-wrap is-full-height padding-right-lg-desktop">
 				
 		<a
-			data-mscc-ic="false"
 			href="#"
-			data-bi-name="select-locale"
 			class="locale-selector-link flex-shrink-0 button button-sm button-clear external-link-indicator"
 			id=""
 			title=""
@@ -1339,9 +1203,7 @@
 	 <div class="ccpa-privacy-link" data-ccpa-privacy-link hidden>
 		
 		<a
-			data-mscc-ic="false"
 			href="https://aka.ms/yourcaliforniaprivacychoices"
-			data-bi-name="your-privacy-choices"
 			class="button button-sm button-clear flex-shrink-0 external-link-indicator"
 			id=""
 			title=""
@@ -1385,7 +1247,6 @@
 				aria-controls="{{ themeMenuId }}"
 				aria-haspopup="true"
 				aria-expanded="false"
-				data-bi-name="theme"
 			>
 				<span class="icon" aria-hidden="true"><span class="docon docon-sun"></span></span>
 				<span>Tema</span>
@@ -1484,14 +1345,12 @@
 		</div>
 	</div>
 			</div>
-			<ul class="links" data-bi-name="footerlinks">
+			<ul class="links">
 				<li class="manage-cookies-holder" hidden=""></li>
 				<li>
 		
 		<a
-			data-mscc-ic="false"
 			href="https://learn.microsoft.com/es-es/principles-for-ai-generated-content"
-			data-bi-name="aiDisclaimer"
 			class=" external-link-indicator"
 			id=""
 			title=""
@@ -1501,9 +1360,7 @@
 	</li><li>
 		
 		<a
-			data-mscc-ic="false"
 			href="https://learn.microsoft.com/es-es/previous-versions/"
-			data-bi-name="archivelink"
 			class=" external-link-indicator"
 			id=""
 			title=""
@@ -1513,9 +1370,7 @@
 	</li> <li>
 		
 		<a
-			data-mscc-ic="false"
 			href="https://techcommunity.microsoft.com/t5/microsoft-learn-blog/bg-p/MicrosoftLearnBlog"
-			data-bi-name="bloglink"
 			class=" external-link-indicator"
 			id=""
 			title=""
@@ -1525,9 +1380,7 @@
 	</li> <li>
 		
 		<a
-			data-mscc-ic="false"
 			href="https://learn.microsoft.com/es-es/contribute"
-			data-bi-name="contributorGuide"
 			class=" external-link-indicator"
 			id=""
 			title=""
@@ -1537,9 +1390,7 @@
 	</li><li>
 		
 		<a
-			data-mscc-ic="false"
 			href="https://go.microsoft.com/fwlink/?LinkId=521839"
-			data-bi-name="privacy"
 			class=" external-link-indicator"
 			id=""
 			title=""
@@ -1549,9 +1400,7 @@
 	</li><li>
 		
 		<a
-			data-mscc-ic="false"
 			href="https://go.microsoft.com/fwlink/?linkid=2259814"
-			data-bi-name="consumer-health-privacy"
 			class=" external-link-indicator"
 			id=""
 			title=""
@@ -1561,9 +1410,7 @@
 	</li><li>
 		
 		<a
-			data-mscc-ic="false"
 			href="https://learn.microsoft.com/es-es/legal/termsofuse"
-			data-bi-name="termsofuse"
 			class=" external-link-indicator"
 			id=""
 			title=""
@@ -1573,9 +1420,7 @@
 	</li><li>
 		
 		<a
-			data-mscc-ic="false"
 			href="https://www.microsoft.com/legal/intellectualproperty/Trademarks/"
-			data-bi-name="trademarks"
 			class=" external-link-indicator"
 			id=""
 			title=""
@@ -1587,5 +1432,5 @@
 			</ul>
 		</footer>
 	</footer>
-			<noscript><img src="https://learn.microsoft.com/akam/13/pixel_36723b28?a=dD0zOWM5MmYwOGUxM2I0YjM5YzQ4MjY5ZjVjMDg3NzA2Yzc3MzM4ZTY4JmpzPW9mZg==" style="visibility: hidden; position: absolute; left: -999px; top: -999px;" /></noscript></body>
+			</body>
 		</html>

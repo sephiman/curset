@@ -8,71 +8,14 @@
 
 <link rel="preconnect" href="https://cdn.cookielaw.org">
 
-<script data-ot-ignore class="optanon-category-C0001">
-(function () {
-	var map = {
-		utm_source: '_ms',
-		utm_medium: '_mm',
-		utm_campaign: '_mc',
-		utm_content: '_mct',
-		utm_term: '_mt'
-	};
-	var maxAge = 60 * 60 * 24 * 30; // 30 days
-	var secure = location.protocol === 'https:' ? '; Secure' : '';
 
-	var params;
-	try {
-		params = new URLSearchParams(location.search);
-	} catch (e) {
-		return;
-	}
-
-	// Only touch storage when the URL carries at least one UTM param, so
-	// internal navigation doesn't wipe the values from the landing page.
-	var found = {};
-	var hasAny = false;
-	for (var param in map) {
-		var value = (params.get(param) || '').trim().slice(0, 200);
-		if (value) {
-			found[param] = value;
-			hasAny = true;
-		}
-	}
-	if (!hasAny) {
-		return;
-	}
-
-	// A new campaign visit replaces the whole set, so values from different
-	// campaigns never get mixed together.
-	for (var param in map) {
-		var key = map[param];
-		var value = found[param];
-
-		if (value) {
-			document.cookie = key + '=' + encodeURIComponent(value) + '; path=/; max-age=' + maxAge + '; SameSite=Lax' + secure;
-		} else {
-			document.cookie = key + '=; path=/; max-age=0; SameSite=Lax' + secure;
-		}
-
-		try {
-			if (value) {
-				localStorage.setItem(key, value);
-			} else {
-				localStorage.removeItem(key);
-			}
-		} catch (e) {}
-	}
-})();
-</script>
 	
 
 <link rel="preconnect" href="https://dev.visualwebsiteoptimizer.com" />
 	
-	<script  src="https://cdn.cookielaw.org/consent/14c09820-f928-43c9-a804-c252a907247e/OtAutoBlock.js" ></script>
-	<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"   charset="UTF-8" data-domain-script="14c09820-f928-43c9-a804-c252a907247e" ></script>
-	<script >
-	function OptanonWrapper() { }
-	</script>
+	
+	
+	
 	
 
 <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
@@ -81,122 +24,13 @@
 	<title>Código abierto - Moodle - Aprendizaje en línea de código abierto</title>
 	<meta name="description" content="Como plataforma de aprendizaje electrónico de código abierto, Moodle LMS permite que cualquier persona descargue el software completo de forma gratuita y personalice su funcionamiento." />
 	<link rel="canonical" href="https://moodle.com/es/acerca-de/open-source/" data-no-translation="" />
-	<script type="application/ld+json" class="yoast-schema-graph">{
-    "@context": "https:\/\/schema.org",
-    "@graph": [
-        {
-            "@type": "WebPage",
-            "@id": "https:\/\/moodle.com\/about\/open-source\/",
-            "url": "https:\/\/moodle.com\/about\/open-source\/",
-            "name": "C\u00f3digo abierto - Moodle - Aprendizaje en l\u00ednea de c\u00f3digo abierto",
-            "isPartOf": {
-                "@id": "https:\/\/moodle.com\/#website"
-            },
-            "datePublished": "2020-09-01T05:25:59+00:00",
-            "dateModified": "2023-10-09T09:48:57+00:00",
-            "description": "Como plataforma de aprendizaje electr\u00f3nico de c\u00f3digo abierto, Moodle LMS permite que cualquier persona descargue el software completo de forma gratuita y personalice su funcionamiento.",
-            "breadcrumb": {
-                "@id": "https:\/\/moodle.com\/about\/open-source\/#breadcrumb"
-            },
-            "inLanguage": "es",
-            "potentialAction": [
-                {
-                    "@type": "ReadAction",
-                    "target": [
-                        "https:\/\/moodle.com\/about\/open-source\/"
-                    ]
-                }
-            ]
-        },
-        {
-            "@type": "BreadcrumbList",
-            "@id": "https:\/\/moodle.com\/about\/open-source\/#breadcrumb",
-            "itemListElement": [
-                {
-                    "@type": "ListItem",
-                    "position": 1,
-                    "name": "Inicio",
-                    "item": "https:\/\/moodle.com\/"
-                },
-                {
-                    "@type": "ListItem",
-                    "position": 2,
-                    "name": "Sobre nosotros",
-                    "item": "https:\/\/moodle.com\/about\/"
-                },
-                {
-                    "@type": "ListItem",
-                    "position": 3,
-                    "name": "C\u00f3digo abierto"
-                }
-            ]
-        },
-        {
-            "@type": "WebSite",
-            "@id": "https:\/\/moodle.com\/#website",
-            "url": "https:\/\/moodle.com\/",
-            "name": "Moodle",
-            "description": "Empoderar a los educadores para mejorar nuestro mundo.",
-            "publisher": {
-                "@id": "https:\/\/moodle.com\/#organization"
-            },
-            "potentialAction": [
-                {
-                    "@type": "SearchAction",
-                    "target": {
-                        "@type": "EntryPoint",
-                        "urlTemplate": "https:\/\/moodle.com\/?s={search_term_string}"
-                    },
-                    "query-input": {
-                        "@type": "PropertyValueSpecification",
-                        "valueRequired": true,
-                        "valueName": "search_term_string"
-                    }
-                }
-            ],
-            "inLanguage": "es"
-        },
-        {
-            "@type": "Organization",
-            "@id": "https:\/\/moodle.com\/#organization",
-            "name": "Moodle",
-            "url": "https:\/\/moodle.com\/",
-            "logo": {
-                "@type": "ImageObject",
-                "inLanguage": "es",
-                "@id": "https:\/\/moodle.com\/#\/schema\/logo\/image\/",
-                "url": "https:\/\/moodle.com\/wp-content\/uploads\/2024\/02\/Moodlelogo.svg",
-                "contentUrl": "https:\/\/moodle.com\/wp-content\/uploads\/2024\/02\/Moodlelogo.svg",
-                "width": 138,
-                "height": 35,
-                "caption": "Moodle"
-            },
-            "image": {
-                "@id": "https:\/\/moodle.com\/#\/schema\/logo\/image\/"
-            },
-            "sameAs": [
-                "https:\/\/www.facebook.com\/moodle\/",
-                "https:\/\/x.com\/moodle",
-                "https:\/\/www.linkedin.com\/company\/moodle",
-                "https:\/\/www.youtube.com\/moodle",
-                "https:\/\/www.instagram.com\/moodlehq\/"
-            ]
-        }
-    ]
-}</script>
+	
 	
 
 
-<style id="wp-block-library-inline-css">
-:root{--wp-block-synced-color:#7a00df;--wp-block-synced-color--rgb:122,0,223;--wp-bound-block-color:var(--wp-block-synced-color);--wp-editor-canvas-background:#ddd;--wp-admin-theme-color:#007cba;--wp-admin-theme-color--rgb:0,124,186;--wp-admin-theme-color-darker-10:#006ba1;--wp-admin-theme-color-darker-10--rgb:0,107,160.5;--wp-admin-theme-color-darker-20:#005a87;--wp-admin-theme-color-darker-20--rgb:0,90,135;--wp-admin-border-width-focus:2px}@media (min-resolution:192dpi){:root{--wp-admin-border-width-focus:1.5px}}.wp-element-button{cursor:pointer}:root .has-very-light-gray-background-color{background-color:#eee}:root .has-very-dark-gray-background-color{background-color:#313131}:root .has-very-light-gray-color{color:#eee}:root .has-very-dark-gray-color{color:#313131}:root .has-vivid-green-cyan-to-vivid-cyan-blue-gradient-background{background:linear-gradient(135deg,#00d084,#0693e3)}:root .has-purple-crush-gradient-background{background:linear-gradient(135deg,#34e2e4,#4721fb 50%,#ab1dfe)}:root .has-hazy-dawn-gradient-background{background:linear-gradient(135deg,#faaca8,#dad0ec)}:root .has-subdued-olive-gradient-background{background:linear-gradient(135deg,#fafae1,#67a671)}:root .has-atomic-cream-gradient-background{background:linear-gradient(135deg,#fdd79a,#004a59)}:root .has-nightshade-gradient-background{background:linear-gradient(135deg,#330968,#31cdcf)}:root .has-midnight-gradient-background{background:linear-gradient(135deg,#020381,#2874fc)}:root{--wp--preset--font-size--normal:16px;--wp--preset--font-size--huge:42px}.has-regular-font-size{font-size:1em}.has-larger-font-size{font-size:2.625em}.has-normal-font-size{font-size:var(--wp--preset--font-size--normal)}.has-huge-font-size{font-size:var(--wp--preset--font-size--huge)}:root .has-text-align-center{text-align:center}:root .has-text-align-left{text-align:left}:root .has-text-align-right{text-align:right}.has-fit-text{white-space:nowrap!important}#end-resizable-editor-section{display:none}.aligncenter{clear:both}.items-justified-left{justify-content:flex-start}.items-justified-center{justify-content:center}.items-justified-right{justify-content:flex-end}.items-justified-space-between{justify-content:space-between}.screen-reader-text{word-wrap:normal!important;border:0;clip-path:inset(50%);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px;word-break:normal!important}.screen-reader-text:focus{background-color:#ddd;clip-path:none;color:#444;display:block;font-size:1em;height:auto;left:5px;line-height:normal;padding:15px 23px 14px;text-decoration:none;top:5px;width:auto;z-index:100000}html :where(.has-border-color){border-style:solid}html :where([style^=border-color],[style*=";border-color"],[style*="; border-color"]){border-style:solid}html :where([style^=border-top-color],[style*=";border-top-color"],[style*="; border-top-color"]){border-top-style:solid}html :where([style^=border-right-color],[style*=";border-right-color"],[style*="; border-right-color"]){border-right-style:solid}html :where([style^=border-bottom-color],[style*=";border-bottom-color"],[style*="; border-bottom-color"]){border-bottom-style:solid}html :where([style^=border-left-color],[style*=";border-left-color"],[style*="; border-left-color"]){border-left-style:solid}html :where([style^=border-width],[style*=";border-width"],[style*="; border-width"]){border-style:solid}html :where([style^=border-top-width],[style*=";border-top-width"],[style*="; border-top-width"]){border-top-style:solid}html :where([style^=border-right-width],[style*=";border-right-width"],[style*="; border-right-width"]){border-right-style:solid}html :where([style^=border-bottom-width],[style*=";border-bottom-width"],[style*="; border-bottom-width"]){border-bottom-style:solid}html :where([style^=border-left-width],[style*=";border-left-width"],[style*="; border-left-width"]){border-left-style:solid}html :where(img[class*=wp-image-]){height:auto;max-width:100%}:where(figure){margin:0 0 1em}html :where(.is-position-sticky){--wp-admin--admin-bar--position-offset:var(--wp-admin--admin-bar--height,0px)}@media screen and (max-width:600px){html :where(.is-position-sticky){--wp-admin--admin-bar--position-offset:0px}}
 
-/*# sourceURL=/wp-includes/css/dist/block-library/common.min.css */
-</style>
 
-<style id="global-styles-inline-css">
-:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgb(6,147,227) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgb(252,185,0) 0%,rgb(255,105,0) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgb(255,105,0) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgb(255, 255, 255), 6px 6px rgb(0, 0, 0);--wp--preset--shadow--crisp: 6px 6px 0px rgb(0, 0, 0);}.wp-block-button{--wp--preset--dimension--25: 25%;--wp--preset--dimension--50: 50%;--wp--preset--dimension--75: 75%;--wp--preset--dimension--100: 100%;}:where(body) { margin: 0; }:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}body{padding-top: 0px;padding-right: 0px;padding-bottom: 0px;padding-left: 0px;}:root :where(.wp-element-button, .wp-block-button__link){background-color: #32373c;border-width: 0;color: #fff;font-family: inherit;font-size: inherit;font-style: inherit;font-weight: inherit;letter-spacing: inherit;line-height: inherit;padding-top: calc(0.667em + 2px);padding-right: calc(1.333em + 2px);padding-bottom: calc(0.667em + 2px);padding-left: calc(1.333em + 2px);text-decoration: none;text-transform: inherit;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
-/*# sourceURL=global-styles-inline-css */
-</style>
+
 
 <link rel='stylesheet' id='contact-form-7-css' href='https://moodle.com/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=6.1.5' media='all' />
 <link rel='stylesheet' id='nbcpf-intlTelInput-style-css' href='https://moodle.com/wp-content/plugins/country-phone-field-contact-form-7/assets/css/intlTelInput.min.css?ver=7.1.4' media='all' />
@@ -219,26 +53,22 @@
 <link rel='stylesheet' id='custom-single-text-css' href='https://moodle.com/wp-content/themes/thetheme/css/acf-single-text.css?ver=1.5.8' media='all' />
 <link rel='stylesheet' id='custom-tabbed-three-col-cards-css' href='https://moodle.com/wp-content/themes/thetheme/css/acf-tabbed-three-col-cards.css?ver=1.5.8' media='all' />
 <link rel='stylesheet' id='custom-footer-content-css' href='https://moodle.com/wp-content/themes/thetheme/css/acf-footer-content.css?ver=1.5.8' media='all' />
-<script id="jquery-core-js" src="https://moodle.com/wp-includes/js/jquery/jquery.min.js?ver=3.7.1"></script>
-<script id="jquery-migrate-js" src="https://moodle.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1"></script>
-<script id="trp-language-switcher-js-v2-js" src="https://moodle.com/wp-content/plugins/translatepress-multilingual/assets/js/trp-frontend-language-switcher.js?ver=3.1.8"></script>
-<script id="vwo-script-js" src="https://moodle.com/wp-content/themes/thetheme/js/vwo.js"></script>
-<script id="visible-js" src="https://moodle.com/wp-content/themes/thetheme/plugins/jquery.visible.js?ver=7.1.4"></script>
-<script id="utm-scripts-js" src="https://moodle.com/wp-content/themes/thetheme/js/utm.js?ver=7.1.4"></script>
-<script id="fancybox-js" src="https://moodle.com/wp-content/themes/thetheme/plugins/fancybox/jquery.fancybox.js?ver=7.1.4"></script>
-<script id="custom-key-features-js" src="https://moodle.com/wp-content/themes/thetheme/acf-blocks/key-features/assets/scripts.js?ver=1.5.8"></script>
-<script id="custom-tabbed-three-col-cards-js" src="https://moodle.com/wp-content/themes/thetheme/acf-blocks/tabbed-three-col-cards/assets/scripts.js?ver=1.5.8"></script>
+
+
+
+
+
+
+
+
+
 <link rel="https://api.w.org/" href="https://moodle.com/es/wp-json/" /><link rel="alternate" title="JSON" type="application/json" href="https://moodle.com/es/wp-json/wp/v2/pages/114773" />
 
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-TTBZR6C8');</script>
 
 
 
-<script src="/wp-content/js/readMoreJS.min.js"></script>
+
+
 
 <link rel="alternate" hreflang="en" href="https://moodle.com/about/open-source/"/>
 <link rel="alternate" hreflang="de" href="https://moodle.com/de/uber/open-source/"/>
@@ -252,7 +82,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="icon" href="https://moodle.com/wp-content/uploads/2019/03/cropped-FAV_icon-1-192x192.png" sizes="192x192" />
 <link rel="apple-touch-icon" href="https://moodle.com/wp-content/uploads/2019/03/cropped-FAV_icon-1-180x180.png" />
 <meta name="msapplication-TileImage" content="https://moodle.com/wp-content/uploads/2019/03/cropped-FAV_icon-1-270x270.png" />
-<noscript><style> .wpb_animate_when_almost_visible { opacity: 1; }</style></noscript>
+
     
      
       <meta property="og:locale" content="es_ES"/>
@@ -751,7 +581,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                       <div class="additional-links">
               <div class="link">
                 
-                <a href="#" onclick="OneTrust.ToggleInfoDisplay(); return false;">Cambiar la configuración de cookies</a>
+                <a href="#">Cambiar la configuración de cookies</a>
                 
               </div>
                               <div class="link"><a href="/cookies-policy/">Política de cookies</a></div>
@@ -775,10 +605,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                   <svg fill="none" height="20" viewbox="0 0 23 20" width="100%" xmlns="http://www.w3.org/2000/svg"><path d="m3.20091 17.3398-.19612.9806zm16.59819 0 .1961.9806zm.1139-14.53739.2096-.9778zm-16.82604 0 .20952.97781zm6.41304 4.19721.5145-.85749c-.30893-.18536-.69369-.19022-1.0072-.01271-.31351.1775-.5073.50993-.5073.8702zm0 5.99998h-1c0 .3603.19379.6927.5073.8702s.69827.1727 1.0072-.0127zm5-2.99998.5145.85748c.3012-.1807.4855-.5062.4855-.85748 0-.35126-.1843-.67677-.4855-.85749zm-14-5.23416v10.49954h2v-10.49954zm22 10.49954v-10.49954h-2v10.49954zm-19.49521 3.0554c5.60794 1.1216 11.38251 1.1216 16.99041 0l-.3922-1.9612c-5.349 1.0698-10.85696 1.0698-16.20598 0zm17.11781-16.49579c-5.6839-1.21797-11.5613-1.21797-17.24517 0l.41905 1.95561c5.40764-1.15878 10.99942-1.15878 16.40702 0zm2.3774 2.94085c0-1.4182-.9907-2.64369-2.3774-2.94085l-.4191 1.95561c.4646.09955.7965.51011.7965.98524zm-2 10.49954c0 .5319-.3754.9899-.897 1.0942l.3922 1.9612c1.4564-.2913 2.5048-1.5701 2.5048-3.0554zm-20 0c0 1.4853 1.04836 2.7641 2.50479 3.0554l.39223-1.9612c-.52158-.1043-.89702-.5623-.89702-1.0942zm2-10.49954c0-.47513.33191-.88569.79648-.98524l-.41905-1.95561c-1.38672.29716-2.37743 1.52265-2.37743 2.94085zm6 2.23416v5.99998h2v-5.99998zm1.5145 6.85748 5-3-1.029-1.71497-5 2.99997zm5-4.71497-5-3-1.029 1.71498 5 2.99999z" fill="#fff"/></svg>
                 </a>
                                 <a class="instagram social-icon" href="https://www.instagram.com/moodlehq/" title="Ir a Instagram">
-                  <svg fill="none" height="20" width="100%" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 47.57 47.57"><defs><style>.cls-1{fill:#fff;}</style></defs><g id="objects"><g><path class="cls-1" d="M38.06,0H9.51C4.26,0,0,4.26,0,9.51v28.54c0,5.25,4.26,9.51,9.51,9.51h28.54c5.25,0,9.51-4.26,9.51-9.51V9.51c0-5.25-4.26-9.51-9.51-9.51Zm3.75,31.55c0,5.66-4.6,10.26-10.26,10.26h-15.53c-5.66,0-10.26-4.6-10.26-10.26v-15.53c0-5.66,4.6-10.26,10.26-10.26h15.53c5.66,0,10.26,4.6,10.26,10.26v15.53Z"></path><path class="cls-1" d="M23.79,17.65c-3.39,0-6.14,2.75-6.14,6.14s2.75,6.14,6.14,6.14,6.14-2.75,6.14-6.14-2.75-6.14-6.14-6.14Z"></path><path class="cls-1" d="M31.55,8.85h-15.53c-3.95,0-7.17,3.22-7.17,7.17v15.53c0,3.95,3.22,7.17,7.17,7.17h15.53c3.95,0,7.17-3.22,7.17-7.17v-15.53c0-3.95-3.22-7.17-7.17-7.17Zm-7.76,24.16c-5.09,0-9.23-4.14-9.23-9.23s4.14-9.23,9.23-9.23,9.23,4.14,9.23,9.23-4.14,9.23-9.23,9.23Zm9.63-16.77c-1.23,0-2.22-.99-2.22-2.22s.99-2.22,2.22-2.22,2.22,.99,2.22,2.22-.99,2.22-2.22,2.22Z"></path></g></g></svg>
+                  <svg fill="none" height="20" width="100%" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 47.57 47.57"><defs></defs><g id="objects"><g><path class="cls-1" d="M38.06,0H9.51C4.26,0,0,4.26,0,9.51v28.54c0,5.25,4.26,9.51,9.51,9.51h28.54c5.25,0,9.51-4.26,9.51-9.51V9.51c0-5.25-4.26-9.51-9.51-9.51Zm3.75,31.55c0,5.66-4.6,10.26-10.26,10.26h-15.53c-5.66,0-10.26-4.6-10.26-10.26v-15.53c0-5.66,4.6-10.26,10.26-10.26h15.53c5.66,0,10.26,4.6,10.26,10.26v15.53Z"></path><path class="cls-1" d="M23.79,17.65c-3.39,0-6.14,2.75-6.14,6.14s2.75,6.14,6.14,6.14,6.14-2.75,6.14-6.14-2.75-6.14-6.14-6.14Z"></path><path class="cls-1" d="M31.55,8.85h-15.53c-3.95,0-7.17,3.22-7.17,7.17v15.53c0,3.95,3.22,7.17,7.17,7.17h15.53c3.95,0,7.17-3.22,7.17-7.17v-15.53c0-3.95-3.22-7.17-7.17-7.17Zm-7.76,24.16c-5.09,0-9.23-4.14-9.23-9.23s4.14-9.23,9.23-9.23,9.23,4.14,9.23,9.23-4.14,9.23-9.23,9.23Zm9.63-16.77c-1.23,0-2.22-.99-2.22-2.22s.99-2.22,2.22-2.22,2.22,.99,2.22,2.22-.99,2.22-2.22,2.22Z"></path></g></g></svg>
                 </a>
                               <a class="mastodon social-icon" rel="me" href="https://openedtech.social/@moodle" title="Ir a Mastodonte">
-                  <svg fill="none" height="20" width="100%" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 200 200" style="enable-background:new 0 0 200 200;" xml:space="preserve"><style >.st0{fill:none;stroke:#FFFFFF;stroke-width:15;stroke-miterlimit:10;}.st1{fill:#FFFFFF;stroke:#FFFFFF;stroke-width:5;stroke-miterlimit:10;}</style><g><g id="Ac5ZCm_00000005264104785831267240000003427963782964771506_"><g><path class="st0" d="M133.38,175.86c-0.95,0.15-1.93,0.25-2.9,0.46c-12.29,2.67-24.68,2.89-37.13,1.42c-18.29-2.16-27.72-12.14-28.22-29.84c-0.13-4.53,1.75-6.35,5.92-5.35c23.56,5.62,47.28,5.89,71.13,2.38c11.67-1.71,22.3-5.72,31.41-13.12c6.53-5.31,10.21-13.39,11.2-21.75c0.63-5.28,1.48-10.54,1.55-15.82c0.19-13.55,1.04-27.27-0.63-40.64c-2.75-22.04-15.56-34.89-37.15-39.1c-27.61-5.38-55.28-5.22-82.95-0.52c-18.01,3.06-32.98,16.28-38.28,33.76c-1.18,3.9-2,7.89-2.05,11.8c-0.27,21.18,0.02,42.39,0.96,63.56c0.34,7.58,1.51,15.08,3.62,22.36c6.21,21.49,24.56,37.52,46.5,41.86c17.24,3.4,34.67,3.03,52.19-2.07C134.78,183.44,135.05,182.76,133.38,175.86z"/></g></g><path class="st1" d="M105.89,53.44c10.11-10.48,21.07-13.28,32.7-8.24c9.87,4.28,15.46,12.02,16.07,22.65c0.65,11.29,0.44,22.62,0.59,33.94c0.03,2.57,0.03,5.15-0.02,7.72c-0.07,3.62-2,5.85-4.96,5.85c-2.99,0-4.9-2.2-4.89-5.84c0-10.5,0.16-21,0.04-31.49c-0.05-4.2-0.31-8.46-1.13-12.56c-1.35-6.68-6.9-11.49-13.77-12.4c-7.21-0.95-13.15,1.06-17.25,7.55c-1.72,2.72-2.52,5.43-2.43,8.65c0.18,6.99,0.07,14,0.05,21c-0.01,3.94-1.78,6.13-4.91,6.14c-3.14,0.01-4.95-2.17-4.96-6.08c-0.02-7.2-0.44-14.44,0.12-21.6c0.51-6.55-6.8-14.57-12.88-15.65c-10.83-1.93-20.57,4.67-21.18,15.64c-0.67,12.21-0.41,24.48-0.55,36.72c-0.02,1.75,0.08,3.51-0.04,5.25c-0.19,2.75-2.2,4.72-4.78,4.68c-2.75-0.05-4.34-1.59-4.96-4.21c-0.07-0.3-0.09-0.61-0.09-0.92c0.1-13.58-0.08-27.17,0.39-40.74c0.43-12.34,6.57-21.19,18.49-25.02C87.37,40.67,97.65,43.57,105.89,53.44z"/></g></svg>
+                  <svg fill="none" height="20" width="100%" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 200 200" style="enable-background:new 0 0 200 200;" xml:space="preserve"><g><g id="Ac5ZCm_00000005264104785831267240000003427963782964771506_"><g><path class="st0" d="M133.38,175.86c-0.95,0.15-1.93,0.25-2.9,0.46c-12.29,2.67-24.68,2.89-37.13,1.42c-18.29-2.16-27.72-12.14-28.22-29.84c-0.13-4.53,1.75-6.35,5.92-5.35c23.56,5.62,47.28,5.89,71.13,2.38c11.67-1.71,22.3-5.72,31.41-13.12c6.53-5.31,10.21-13.39,11.2-21.75c0.63-5.28,1.48-10.54,1.55-15.82c0.19-13.55,1.04-27.27-0.63-40.64c-2.75-22.04-15.56-34.89-37.15-39.1c-27.61-5.38-55.28-5.22-82.95-0.52c-18.01,3.06-32.98,16.28-38.28,33.76c-1.18,3.9-2,7.89-2.05,11.8c-0.27,21.18,0.02,42.39,0.96,63.56c0.34,7.58,1.51,15.08,3.62,22.36c6.21,21.49,24.56,37.52,46.5,41.86c17.24,3.4,34.67,3.03,52.19-2.07C134.78,183.44,135.05,182.76,133.38,175.86z"/></g></g><path class="st1" d="M105.89,53.44c10.11-10.48,21.07-13.28,32.7-8.24c9.87,4.28,15.46,12.02,16.07,22.65c0.65,11.29,0.44,22.62,0.59,33.94c0.03,2.57,0.03,5.15-0.02,7.72c-0.07,3.62-2,5.85-4.96,5.85c-2.99,0-4.9-2.2-4.89-5.84c0-10.5,0.16-21,0.04-31.49c-0.05-4.2-0.31-8.46-1.13-12.56c-1.35-6.68-6.9-11.49-13.77-12.4c-7.21-0.95-13.15,1.06-17.25,7.55c-1.72,2.72-2.52,5.43-2.43,8.65c0.18,6.99,0.07,14,0.05,21c-0.01,3.94-1.78,6.13-4.91,6.14c-3.14,0.01-4.95-2.17-4.96-6.08c-0.02-7.2-0.44-14.44,0.12-21.6c0.51-6.55-6.8-14.57-12.88-15.65c-10.83-1.93-20.57,4.67-21.18,15.64c-0.67,12.21-0.41,24.48-0.55,36.72c-0.02,1.75,0.08,3.51-0.04,5.25c-0.19,2.75-2.2,4.72-4.78,4.68c-2.75-0.05-4.34-1.59-4.96-4.21c-0.07-0.3-0.09-0.61-0.09-0.92c0.1-13.58-0.08-27.17,0.39-40.74c0.43-12.34,6.57-21.19,18.49-25.02C87.37,40.67,97.65,43.57,105.89,53.44z"/></g></svg>
                 </a>
                           </div>
                   </div>
@@ -821,194 +651,44 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	</div>
 </aside>
 
-<template id="tp-language" data-tp-language="es_ES"></template><script type="speculationrules">
-{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/es/*"},{"not":{"href_matches":["/wp-*.php","/wp-admin/*","/wp-content/uploads/*","/wp-content/*","/wp-content/plugins/*","/wp-content/themes/thetheme/*","/es/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
-</script>
-
-<script>
-   // Intercom
-      window.intercomSettings = {
-        api_base: "https://api-iam.intercom.io",
-		app_id: "c4141deq",
-      };
-
-     var w = window;
-    var ic = w.Intercom;
-    if (typeof ic === "function") {
-        ic('reattach_activator');
-        ic('update', w.intercomSettings);
-    } else {
-        var d = document;
-        var i = function() {
-            i.c(arguments);
-        };
-        i.q = [];
-        i.c = function(args) {
-            i.q.push(args);
-        };
-        w.Intercom = i;
-        var l = function() {
-            var s = d.createElement('script');
-            s.type = 'text/javascript';
-            s.async = true;
-            s.src = 'https://widget.intercom.io/widget/jnrsihww';
-            var x = d.getElementsByTagName('script')[0];
-            x.parentNode.insertBefore(s, x);
-        };
-        l();
-    }
-</script>
+<template id="tp-language" data-tp-language="es_ES"></template>
 
 
-<script>
-(function () {
-  window.dataLayer = window.dataLayer || [];
 
-  window.addEventListener('message', function (event) {
-    if (
-      !event.data ||
-      event.data.type !== 'hsFormCallback' ||
-      event.data.eventName !== 'onFormSubmitted'
-    ) {
-      return;
-    }
 
-    var formId = event.data.id || event.data.formGuid || event.data.formId || '';
 
-    window.dataLayer.push({
-      event: 'form_submit',
-      form_id: formId,
-      form_name: formId,
-      page_location: window.location.href,
-      page_path: window.location.pathname
-    });
-  });
-})();
-</script>
 
-<script id="utm_contact_form7_scripts-js" src="https://moodle.com/wp-content/plugins/cf7-utm/js/ucf7_scripts.js?ver=1765436895"></script>
-<script id="wp-hooks-js" src="https://moodle.com/wp-includes/js/dist/hooks.min.js?ver=f0f188028580e8dc1255"></script>
-<script id="wp-i18n-js" src="https://moodle.com/wp-includes/js/dist/i18n.min.js?ver=1dfe7db3940c23ea9216"></script>
-<script id="wp-i18n-js-after">
-wp.i18n.setLocaleData( { 'text direction\u0004ltr': [ 'ltr' ] } );
-//# sourceURL=wp-i18n-js-after
-</script>
-<script id="swv-js" src="https://moodle.com/wp-content/plugins/contact-form-7/includes/swv/js/index.js?ver=6.1.5"></script>
-<script id="contact-form-7-js-translations">
-( function( domain, translations ) {
-	var localeData = translations.locale_data[ domain ] || translations.locale_data.messages;
-	localeData[""].domain = domain;
-	wp.i18n.setLocaleData( localeData, domain );
-} )( "contact-form-7", {"translation-revision-date":"2025-12-01 15:45:40+0000","generator":"GlotPress\/4.0.3","domain":"messages","locale_data":{"messages":{"":{"domain":"messages","plural-forms":"nplurals=2; plural=n != 1;","lang":"es"},"This contact form is placed in the wrong place.":["Este formulario de contacto est\u00e1 situado en el lugar incorrecto."],"Error:":["Error:"]}},"comment":{"reference":"includes\/js\/index.js"}} );
-//# sourceURL=contact-form-7-js-translations
-</script>
-<script id="contact-form-7-js-before">
-var wpcf7 = {
-    "api": {
-        "root": "https:\/\/moodle.com\/es\/wp-json\/",
-        "namespace": "contact-form-7\/v1"
-    },
-    "cached": 1
-};
-//# sourceURL=contact-form-7-js-before
-</script>
-<script id="contact-form-7-js" src="https://moodle.com/wp-content/plugins/contact-form-7/includes/js/index.js?ver=6.1.5"></script>
-<script id="nbcpf-intlTelInput-script-js" src="https://moodle.com/wp-content/plugins/country-phone-field-contact-form-7/assets/js/intlTelInput.min.js?ver=7.1.4"></script>
-<script id="nbcpf-countryFlag-script-js-extra">
-var nbcpf = {"ajaxurl":"https://moodle.com/wp-admin/admin-ajax.php"};
-//# sourceURL=nbcpf-countryFlag-script-js-extra
-</script>
-<script id="nbcpf-countryFlag-script-js" src="https://moodle.com/wp-content/plugins/country-phone-field-contact-form-7/assets/js/countrySelect.min.js?ver=7.1.4"></script>
-<script id="nbcpf-countryFlag-script-js-after">
-		(function($) {
-			$(function() {
-				$(".wpcf7-countrytext").countrySelect({
-					
-				});
-				$(".wpcf7-phonetext").intlTelInput({
-					autoHideDialCode: true,
-					autoPlaceholder: true,
-					nationalMode: false,
-					separateDialCode: true,
-					hiddenInput: "full_number",
-					preferredCountries: ["US","BR","MX","GB","ES","IN","FR"],	
-				});
 
-				$(".wpcf7-phonetext").each(function () {
-					var hiddenInput = $(this).attr('name');
-					//console.log(hiddenInput);
-					var dial_code = $(this).siblings(".flag-container").find(".selected-flag .selected-dial-code").text();
-					$("input[name="+hiddenInput+"-country-code]").val(dial_code);
-				});
-				
-				$(".wpcf7-phonetext").on("countrychange", function() {
-					// do something with iti.getSelectedCountryData()
-					//console.log(this.value);
-					var hiddenInput = $(this).attr("name");
-					var dial_code = $(this).siblings(".flag-container").find(".selected-flag .selected-dial-code").text();
-					$("input[name="+hiddenInput+"-country-code]").val(dial_code);
-					
-				});
-					
-					var isMobile = /Android.+Mobile|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-					$(".wpcf7-phonetext").on("keyup", function() {
-						var dial_code = $(this).siblings(".flag-container").find(".selected-flag .selected-dial-code").text();
-						
-						var value   = $(this).val();
-						if(value == "+")
-							$(this).val("");
-						else if(value.indexOf("+") == "-1")
-							$(this).val(dial_code + value);
-						else if(value.indexOf("+") > 0)
-							$(this).val(dial_code + value.substring(dial_code.length));
-					});$(".wpcf7-countrytext").on("keyup", function() {
-					var country_name = $(this).siblings(".flag-dropdown").find(".country-list li.active span.country-name").text();
-					if(country_name == "")
-					var country_name = $(this).siblings(".flag-dropdown").find(".country-list li.highlight span.country-name").text();
-					
-					var value   = $(this).val();
-					//console.log(country_name, value);
-					$(this).val(country_name + value.substring(country_name.length));
-				});
-				
-			});
-		})(jQuery);
-//# sourceURL=nbcpf-countryFlag-script-js-after
-</script>
-<script id="moodle-solution-quiz-js-before">
-window.moodleSolutionQuizConfig = {"hubspot":{"portalId":"23165921","region":"na1","formId":"d544189e-7e83-4497-a82d-c9782c18971b","fields":{"_q_q1":"solution_quiz_q1_goal","_q_q2":"solution_quiz_q2_learners","_q_q3":"solution_quiz_q3_structure","_q_q4":"solution_quiz_q4_support","_q_q5":"solution_quiz_q5_mobile","_q_rec":"solution_quiz_recommendation"}},"contactUrl":"https:\/\/moodle.com\/es\/contact\/","scriptUrl":"https:\/\/moodle.com\/wp-content\/plugins\/moodle-solution-quiz\/build\/quiz.js?ver=1793870373","styleUrl":"https:\/\/moodle.com\/wp-content\/plugins\/moodle-solution-quiz\/build\/quiz.css?ver=1792576758"};
-//# sourceURL=moodle-solution-quiz-js-before
-</script>
-<script data-wp-strategy="defer" defer id="moodle-solution-quiz-js" src="https://moodle.com/wp-content/plugins/moodle-solution-quiz/assets/loader.js?ver=1793015446"></script>
-<script id="wpcf7-redirect-script-js-extra">
-var wpcf7r = {"ajax_url":"https://moodle.com/wp-admin/admin-ajax.php"};
-//# sourceURL=wpcf7-redirect-script-js-extra
-</script>
-<script id="wpcf7-redirect-script-js" src="https://moodle.com/wp-content/plugins/wpcf7-redirect/build/assets/frontend-script.js?ver=2c532d7e2be36f6af233"></script>
-<script id="wpcf7cf-scripts-js-extra">
-var wpcf7cf_global_settings = {"ajaxurl":"https://moodle.com/wp-admin/admin-ajax.php"};
-//# sourceURL=wpcf7cf-scripts-js-extra
-</script>
-<script id="wpcf7cf-scripts-js" src="https://moodle.com/wp-content/plugins/cf7-conditional-fields/js/scripts.js?ver=2.7.3"></script>
-<script id="jvcf7_jquery_validate-js" src="https://moodle.com/wp-content/plugins/jquery-validation-for-contact-form-7/includes/assets/js/jquery.validate.min.js?ver=5.4.2"></script>
-<script id="jvcf7_validation-js-extra">
-var scriptData = {"jvcf7_default_settings":{"jvcf7_show_label_error":"errorMsgshow","jvcf7_invalid_field_design":"theme_1"}};
-//# sourceURL=jvcf7_validation-js-extra
-</script>
-<script id="jvcf7_validation-js" src="https://moodle.com/wp-content/plugins/jquery-validation-for-contact-form-7/includes/assets/js/jvcf7_validation.js?ver=5.4.2"></script>
-<script id="theme-header-js" src="https://moodle.com/wp-content/themes/thetheme/plugins/header.js?ver=1.5.8"></script>
-<script id="sticky-div-js" src="https://moodle.com/wp-content/themes/thetheme/plugins/jquery.sticky.min.js?ver=7.1.4"></script>
-<script id="child-navigation-js" src="https://moodle.com/wp-content/themes/thetheme/plugins/navigation.js?ver=1.5.8"></script>
-<script id="general-scripts-js" src="https://moodle.com/wp-content/themes/thetheme/plugins/general-scripts.js?ver=1.5.8"></script>
-<script id="child-scripts-js" src="https://moodle.com/wp-content/themes/thetheme/js/custom-scripts.js?ver=1.5.8"></script>
-<script id="hubspot-scripts-js" src="https://moodle.com/wp-content/themes/thetheme/js/hubspot-scripts.js?ver=1.5.8"></script>
-<script id="get-moodle-scripts-js" src="https://moodle.com/wp-content/themes/thetheme/js/get-moodle.js?ver=1.5.8"></script>
-<script id="waffle-scripts-js-extra">
-var waffle_geo_ajax = {"ajaxurl":"https://moodle.com/wp-admin/admin-ajax.php","security":"6db3c82bcb"};
-//# sourceURL=waffle-scripts-js-extra
-</script>
-<script id="waffle-scripts-js" src="https://moodle.com/wp-content/themes/thetheme/js/waffle-geo.js?ver=1.5.8"></script>
-<script id="disablesubmit-js" src="https://moodle.com/wp-content/themes/thetheme/js/fixduplicates.js?ver=1.62"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </body>
 </html>

@@ -1,6 +1,6 @@
 # Requirements delta — Curset platform: exam presets, grouped cases, source links, results by lesson
 
-Version 1.9 · 4 November 2026 · delta to docs/curset-multicourse-requirements.md. Four platform changes. A and B are required by the AGE course (docs/age-administrativo-course-requirements.md, R6.1 and R7.1) and precede that course's R5. C and D apply to every course and can run as their own rounds at any time after A.
+Version 2.0 · 7 November 2026 · delta to docs/curset-multicourse-requirements.md. Four platform changes. A and B are required by the AGE course (docs/age-administrativo-course-requirements.md, R6.1 and R7.1) and precede that course's R5. C and D apply to every course and can run as their own rounds at any time after A.
 
 ## A. Exam presets per course
 
@@ -109,6 +109,18 @@ Observed on a 1080×2400 phone (Nov 2026): the exam navigator grid fills two scr
 - K7 Nothing wider than the viewport at 768, 1024, 1280 and 1440 px on the five screens plus the course page, checked by the Playwright suite; the suite runs in CI with the backend and database as job services.
 - K8 Screenshots at 1280 px in the three themes under docs/screens/desktop/ for: lesson with index and esquema, sitting with the grid panel, results, course page, header with tabs.
 
+## L. Generated psicotécnico items and mixed exam parts
+
+Needed by age-auxiliar-c2 (its requirements, section 6). Reuses the platform's existing generator framework (seeded generators, goldens, fingerprints, stability check) that crypto-futures already uses for charts and calculations.
+
+- L1 Exercise kind `psicotecnico`: an item generated from a seed by a named generator with difficulty parameters; stem, four options, one correct, explanation showing the rule or the count; no stored content. A course declares in course.yaml which generators it uses, with weights and difficulty, for practice and for exam parts.
+- L2 Generator contract: `generate(seed, params) → item`, `solve(item) → key` (the answer is computed, never guessed), and `check(item)` property tests run on every build: exactly one correct option; distractors distinct from the key and from each other; for series, the rule is the unique simplest rule under the generator's own rule family (no series with two valid continuations among the options); for ordering tasks, the key is the unique order; for arithmetic, exact; options plausible (near misses, not random).
+- L3 Types: one generator per psicotécnico type of docs/age-c2-psicotecnico-index.md, first batch the recurring ones; each generator's style (stem wording, option forms, lengths) follows the verbatim examples of the index. Items are text only (tables as esquema-like blocks; no images).
+- L4 Verification: goldens of 50 seeded items per generator, reviewed once by a blind reader (opus) for ambiguity and realism; answer-bias guards over 1,000 seeded items per generator; stability check as for the chart generators. A generator with a failing property test does not load.
+- L5 Mixed parts: a preset part may combine sources of stored questions and generated items with counts per source («30 from m01 + 30 psicotécnicos in the index weights»), one time and one score; results attribute generated items to their type, which appears in the «Por tema» table and the two lists as if it were a lesson. Printable exams print generated items with a seed in the footer so the same paper can be regenerated; the key sheet is computed by the solver.
+- L6 Practice: a «Psicotécnicos» entry in the course tree (course.yaml `practice_generators`), by type or all, timed or not, solution panel with the rule; stable ids for attempts are `gen:<generator>:<seed>`.
+- L7 Also in this round: the extractor bug that skips elements whose id contains «copilot» (affects excerpts and page checks in both courses): fix with a failing test, rebuild excerpts, blind-check the affected questions' excerpts.
+
 ## Acceptance
 
 - `crypto-futures` exams and goldens unchanged.
@@ -117,6 +129,7 @@ Observed on a 1080×2400 phone (Nov 2026): the exam navigator grid fills two scr
 - An answered AGE question links to its lesson at the cited article's anchor; the citation in the lesson opens the consolidated text at the article (HTML) or page (PDF); a question citing an article its lesson does not cite fails the cross-reference check. crypto-futures shows no citation links and its goldens are unchanged.
 - A lesson with the four esquema kinds renders on web and in the PDF; an esquema row citing an article the prose does not cite fails the check with the row named.
 - An answered AGE question shows the solution panel with the verbatim cited text under its article heading, the tema link and the source link; a crypto-futures question shows the explanation only; fewer than 1 % of AGE questions lack an excerpt and each of those says why.
+- A generator fails to load when a property test fails; 50 reviewed goldens per generator; a mixed part draws 30 stored + 30 generated with one score; the printed paper regenerates from its seed; results show psicotécnico types as rows.
 - At 1280 px: the four tabs are in the header, a lesson shows its index beside a centred reading column, the sitting shows the grid panel, the results show the two lists side by side; at 360 px «Por tema» is cards; Playwright runs in CI.
 - At 360 px: the first question of a simulation is visible without scrolling under the clock bar; an esquema table shows as stacked cards with nothing clipped; the header is one line; the four tabs are at the bottom.
 - An AGE question in a «Bloque» exam shows its number and tema; the same question in a «Simulacro oficial» sitting shows the number only and the tema in review; the panel offers the copyable id.

@@ -4229,3 +4229,30 @@ Decision 2 after C2's bloque I (Juanjo): one sentence of `m01-l11` (I.11), the o
 - Blind check: `docs/age-verification/bloque-i/m01-l11-intro-2026-11-06.md`.
 - C2's `m01-l10` carries the same sentence and inherits this verification (R2.3). Any later edit of a C1 sentence that
   C2 inherits must rerun `backend/scripts/provenance.py` for C2 in the same round (CLAUDE.md).
+
+## C1 edit: m01-l04, art. 630.1 LOPJ wording (2026-11-07)
+
+Juanjo, after C2's esquema check found the same wording in C2's `m01-l04`.
+
+- Prose (l.183–184): «…mayoría absoluta de los miembros presentes, salvo que la ley disponga otra cosa (art. 630.1
+  LOPJ).» → «…salvo cuando la LOPJ disponga otra cosa (art. 630.1 LOPJ).» Art. 630.1 says «salvo cuando esta Ley
+  Orgánica disponga otra cosa»; «la ley» read as any law.
+- Esquema «Mayorías en la elección de los Vocales…» (l.218): «Los demás acuerdos, salvo que la ley disponga otra cosa»
+  → «Los demás acuerdos, salvo cuando la LOPJ disponga otra cosa».
+- Blind check: `docs/age-verification/bloque-i/m01-l04-630-2026-11-07.md` (both PASS).
+- Questions citing art. 630.1 LOPJ: `m01-l04-q045`, `q046`. `excerpts.json` rebuilt: no excerpt changed (5,590 keys,
+  5,505 excerpts); both excerpts hold the passage that settles the key (blind check: yes, yes). q046 PASS. **q045
+  FAIL, not fixed (outside this one-fix round):** its explanation says the three other appointments «siguen la regla
+  general de mayoría absoluta de los presentes», but art. 606.3 LOPJ sets its own rule for the Promotor (and it writes
+  «los Presidentes de la Audiencia Nacional» for the norm's singular «Presidente»). The report gives the exact
+  replacement; key, stem and options are right. **Fixed (Juanjo, 2026-11-07):** the explanation in
+  `bank/bloque-i/m01-l04.draft.json` now reads «…al Presidente de la Audiencia Nacional y a los Presidentes de Sala de
+  la Audiencia Nacional… Los otros tres nombramientos no están en esa lista, así que el artículo 630.1 no les exige
+  tres quintos. Para el Promotor, el artículo 606.3 pide mayoría absoluta en primera votación y, si nadie la obtiene,
+  basta en segunda votación con el mayor número de votos.»; prompt, options, key and `source_quote` untouched
+  (bloque I rebuilt: only that line of `m01-l04-ex-3.yaml` changed). Blind check PASS
+  (`docs/age-verification/bloque-i/m01-l04-q045-2026-11-07.md`). Excerpt rebuilt: unchanged. Affected subsets:
+  backend 889 passed, 11 skipped (cases, citations, manifest, identity, esquema, excerpts, exercise numbers, glossary,
+  print, provenance, question identity and reports, saved pages); frontend glossary 59 passed.
+- C2: no C2 sentence or row inherits either edited C1 text (C2 reads «salvo que la LOPJ…», verified in C2's own
+  round). `provenance.py record m01-l04` rerun for C2: record identical; `test_provenance.py` 41 pass.
