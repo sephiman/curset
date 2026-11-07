@@ -12,14 +12,14 @@ from tradeschool.psicotecnico.item import Item, Params, Table
 
 _WORDS = (
     "cartera",
-    "almacen",
+    "consulta",
     "archivo",
     "carpeta",
     "oficina",
     "registro",
     "informe",
-    "tramite",
-    "gestion",
+    "licencia",
+    "sumario",
     "mensaje",
     "factura",
     "formato",
@@ -31,15 +31,15 @@ _WORDS = (
     "decreto",
 )
 _VALUE_WORDS = (
-    "Martinez",
+    "Martínez",
     "Archivos",
     "Registro",
-    "Gestion",
+    "Gestión",
     "Informes",
     "Carmelo",
     "Sellado",
     "Oficina",
-    "Tramites",
+    "Trámites",
 )
 _CLASSES = (
     ("consonante mayúscula", True, False),
@@ -47,7 +47,7 @@ _CLASSES = (
     ("vocal mayúscula", True, True),
     ("vocal minúscula", False, True),
 )
-_VOWELS = set("aeiou")
+_VOWELS = set("aeiouáéíóú")
 _DEPARTMENTS = ("Compras", "Ventas", "Personal", "Informática")
 _FIELDS = (
     ("departamento", ("Compras", "Ventas", "Personal", "Informática")),
@@ -86,7 +86,7 @@ def _values(rng: random.Random) -> dict[str, object]:
 
 
 def _filing(rng: random.Random) -> dict[str, object]:
-    fields = rng.sample(range(len(_FIELDS)), 4)
+    fields = rng.sample(range(len(_FIELDS)), len(_FIELDS))
     code = [rng.randrange(4) for _ in fields]
     return {"kind": "filing", "fields": fields, "code": code, "asks": rng.choice(["FALSA", "CIERTA"])}
 
@@ -182,24 +182,26 @@ class CodificacionGenerator(ItemGenerator):
             assert isinstance(mapping, dict) and isinstance(word, str)
             inverse = {letter: digit for digit, letter in mapping.items()}
             coded = "".join(inverse.get(ch, ch) for ch in word)
+            # Slips a candidate makes: two digits swapped, or a coded letter left as a letter.
             wrong: list[str] = []
-            digits = list(mapping)
             for _ in range(40):
-                a, b = rng.sample(digits, 2)
-                swapped = {**mapping, a: mapping[b], b: mapping[a]}
-                text = "".join(swapped.get(ch, ch) for ch in coded)
-                wrong.append(text)
+                a, b = rng.sample(list(inverse), 2)
+                slipped = (
+                    {**inverse, a: inverse[b], b: inverse[a]} if rng.random() < 0.7 else {**inverse, a: a}
+                )
+                wrong.append("".join(slipped.get(ch, ch) for ch in word))
+            wrong = [w for w in wrong if re.search(r"\d", w)]
             eq = ", ".join(f"{d}={letter}" for d, letter in sorted(mapping.items()))
             stem = (
-                f"Dadas las siguientes equivalencias: {eq}. ¿Qué palabra se obtiene al descodificar "
-                f"«{coded}»?"
+                f"Dadas las siguientes equivalencias: {eq}. ¿Qué serie corresponde a la palabra "
+                f"«{word}» si cada letra de la tabla se sustituye por su cifra?"
             )
             why = (
-                f"Cada cifra se sustituye por su letra ({eq}) y las letras que no son cifras se "
-                f"mantienen: {word}."
+                f"Se sustituye cada letra de la tabla por su cifra ({eq}) y las demás se mantienen: "
+                f"{word} se escribe {coded}."
             )
             try:
-                return self._item(rng, seed, level, stem, word, wrong, why, facts)
+                return self._item(rng, seed, level, stem, coded, wrong, why, facts)
             except RuntimeError:
                 continue
         raise RuntimeError("no digit item")
@@ -229,10 +231,10 @@ class CodificacionGenerator(ItemGenerator):
             for i, f in enumerate(fields)
         )
         table = Table("Clave de archivo", ("Posición", "Indica", "Valores"), rows)
-        true_claims = [(i, code[i]) for i in range(4)]
-        false_claims = [(i, (code[i] + rng.randint(1, 3)) % 4) for i in range(4)]
+        true_claims = [(i, code[i]) for i in range(len(code))]
+        false_claims = [(i, (code[i] + rng.randint(1, 3)) % 4) for i in range(len(code))]
         want_true = asks == "CIERTA"
-        picked = rng.sample(range(4), 4)
+        picked = rng.sample(range(len(code)), 4)
         target = picked[0]
         claims = [(target, true_claims[target][1] if want_true else false_claims[target][1])]
         for i in picked[1:]:
@@ -243,11 +245,14 @@ class CodificacionGenerator(ItemGenerator):
             for i, v in claims
         ]
         stem = (
-            "Una clave de archivo tiene cuatro cifras, cada una con el significado de la tabla. "
+            "Una clave de archivo tiene seis cifras, cada una con el significado de la tabla. "
             f"Para la clave {''.join(str(c) for c in code)}, ¿cuál de las siguientes afirmaciones es {asks}?"
         )
+        decoded = "; ".join(
+            f"{i + 1} ({_FIELDS[f][0]}) = {code[i]}, {_FIELDS[f][1][code[i]]}" for i, f in enumerate(fields)
+        )
         why = (
-            "Se lee cada cifra de la clave en su fila de la tabla y se comprueba cada afirmación; "
+            f"La clave se lee posición a posición: {decoded}. Se compara cada afirmación con esa lectura; "
             f"la única {asks.lower()} es: {texts[0][:-1]}."
         )
         return self._item(rng, seed, level, stem, texts[0], texts[1:], why, facts, table)
@@ -260,11 +265,11 @@ class CodificacionGenerator(ItemGenerator):
             blocks = [digits[i : i + 4] for i in range(0, len(digits), 4)]
             expected = _decode_binary(equivalences, blocks)
         elif kind == "digits":
-            pairs = dict(re.findall(r"(\d)=([a-z])", item.stem))
-            coded = re.search(r"«([^»]+)»", item.stem)
-            if coded is None:
-                raise UnsolvableItem("no coded word")
-            expected = "".join(pairs.get(ch, ch) for ch in coded.group(1))
+            letters = {letter: digit for digit, letter in re.findall(r"(\d)=([a-z])", item.stem)}
+            plain = re.search(r"«([^»]+)»", item.stem)
+            if plain is None:
+                raise UnsolvableItem("no word to code")
+            expected = "".join(letters.get(ch, ch) for ch in plain.group(1))
         elif kind == "values":
             values = [int(v) for v in re.findall(r"vale (\d)", item.stem)]
             word_match = re.search(r"«([^»]+)»", item.stem)
@@ -280,7 +285,7 @@ class CodificacionGenerator(ItemGenerator):
 
     @staticmethod
     def _solve_filing(item: Item) -> int:
-        code_match = re.search(r"clave (\d{4}),", item.stem)
+        code_match = re.search(r"clave (\d{6}),", item.stem)
         if code_match is None or item.table is None:
             raise UnsolvableItem("no code or table")
         code = [int(c) for c in code_match.group(1)]

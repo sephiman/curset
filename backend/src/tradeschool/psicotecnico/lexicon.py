@@ -1,104 +1,105 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""The word banks of the verbal generators; synonym clusters keep a distractor from being a synonym."""
+"""The word banks of the verbal generators, each entry backed by a saved DLE page (`dle_relations.json`)."""
 
 from __future__ import annotations
 
+import json
 from dataclasses import dataclass
 from functools import cache
+from importlib.resources import files
+from typing import TypedDict
 
-# word | level | synonyms | antonyms
+# word | level | synonyms | antonyms | part of speech of the whole entry (noun, adj, verb)
 _ENTRIES = """
-hereje|1|heterodoxo,disidente|ortodoxo,devoto
-erial|1|páramo,yermo,desierto,descampado|vergel,huerta
-ventura|1|fortuna,suerte,dicha|desdicha,desgracia,infortunio
-sibilino|2|enigmático,misterioso|claro,evidente,diáfano
-acérrimo|2|tenaz,obstinado|tibio,moderado,indiferente
-deslavazado|2|desvaído,descolorido|intenso,vistoso
-efímero|1|pasajero,momentáneo,fugaz,transitorio|duradero,perenne,eterno,permanente
-locuaz|1|hablador,charlatán,parlanchín|callado,taciturno,silencioso,reservado
-pródigo|2|derrochador,despilfarrador,malgastador|ahorrador,frugal,mezquino
-taciturno|2|callado,silencioso,reservado|hablador,locuaz,expansivo
-perenne|2|perpetuo,imperecedero,eterno|caduco,efímero
-ávido|2|ansioso,codicioso,voraz|saciado,desinteresado
-nefasto|1|funesto,aciago,desastroso,perjudicial|benéfico,propicio,favorable
-soslayar|2|eludir,esquivar,evitar|afrontar,encarar,enfrentar
-abstruso|2|incomprensible,enrevesado,recóndito|claro,comprensible,sencillo
-tenue|1|fino,sutil,delgado,débil|grueso,intenso,denso
-prolijo|2|extenso,dilatado,difuso|conciso,breve,sucinto
-exiguo|2|escaso,insuficiente,mínimo,reducido|abundante,copioso,cuantioso
-dilucidar|2|aclarar,esclarecer,explicar|embrollar,oscurecer,confundir
-abolir|1|derogar,suprimir,anular|instituir,implantar,establecer
-vetusto|1|antiguo,viejo,anticuado|moderno,nuevo,reciente
-frugal|2|sobrio,parco,moderado|glotón,goloso,excesivo
-perspicaz|1|agudo,sagaz,astuto,listo|torpe,obtuso,lerdo
-obstinado|1|terco,testarudo,tozudo,porfiado|dócil,flexible,transigente
-conciso|1|breve,sucinto,escueto,lacónico|extenso,prolijo,farragoso
-austero|1|sobrio,riguroso,sencillo,ascético|lujoso,suntuoso,ostentoso
-lúcido|1|claro,despejado,razonable,sensato|confuso,ofuscado,obnubilado
-apacible|1|tranquilo,sereno,sosegado,plácido|agitado,tormentoso,turbulento
-contiguo|1|próximo,adyacente,colindante,vecino|alejado,distante,lejano
-insólito|1|raro,extraño,inusual,desacostumbrado|habitual,común,corriente,ordinario
-vehemente|2|apasionado,impetuoso,ardiente,fogoso|apático,flemático,sosegado
-escarnio|2|burla,mofa,befa,irrisión|respeto,elogio,alabanza
-prohibir|1|vetar,vedar,impedir|permitir,autorizar,consentir,aprobar
-ameno|1|agradable,grato,entretenido|tedioso,aburrido,árido
-escasez|1|carencia,penuria,falta,insuficiencia|abundancia,riqueza,profusión
-honesto|1|honrado,íntegro,recto,decente|corrupto,tramposo,ruin
-veraz|1|sincero,franco,verídico|mentiroso,falso,embustero
-temerario|2|imprudente,osado,arriesgado|prudente,cauteloso,precavido
-mediocre|1|mediano,regular,anodino|excelente,sobresaliente,extraordinario
-escrupuloso|2|meticuloso,minucioso,esmerado|descuidado,negligente,chapucero
-atenuar|1|disminuir,mitigar,suavizar,aliviar|intensificar,agravar,acentuar
-prolífico|2|fecundo,fértil,productivo|estéril,infecundo,improductivo
-incipiente|2|naciente,inicial,embrionario|consumado,avanzado,maduro
-recio|1|fuerte,robusto,vigoroso,resistente|débil,flojo,endeble,frágil
-diáfano|2|transparente,cristalino,translúcido|opaco,turbio,borroso
-ostensible|2|patente,manifiesto,evidente|oculto,latente,disimulado
-aludir|1|mencionar,citar,nombrar|omitir,callar,silenciar
-repudiar|2|rechazar,rehusar,desdeñar|aceptar,admitir,acoger
+hereje|1|heterodoxo,disidente|ortodoxo|noun
+erial|1|páramo,yermo,desierto,descampado|vergel|noun
+ventura|1|fortuna,suerte,dicha|desdicha,desgracia,infortunio|noun
+sibilino|2|enigmático,misterioso|claro|adj
+acérrimo|2|tenaz,obstinado|moderado|adj
+deslavazado|2|inconexo,deshilvanado,disperso,insulso|estructurado|adj
+efímero|1|pasajero,momentáneo,fugaz,transitorio|duradero,perenne,eterno,permanente|adj
+locuaz|1|hablador,charlatán,parlanchín|callado,taciturno,silencioso,reservado|adj
+pródigo|2|derrochador,despilfarrador,malgastador|ahorrador,mezquino|adj
+taciturno|2|callado,silencioso,reservado|hablador,locuaz,expansivo|adj
+perenne|2|perpetuo,imperecedero,eterno|caduco,efímero|adj
+ávido|2|ansioso,codicioso|desinteresado|adj
+nefasto|1|funesto,aciago,desastroso|propicio,venturoso|adj
+soslayar|2|eludir,esquivar,evitar|afrontar,encarar,enfrentar|verb
+abstruso|2|incomprensible,enrevesado|claro,comprensible,sencillo|adj
+tenue|1|fino,sutil,delgado,débil|grueso,intenso|adj
+prolijo|2|extenso,dilatado,difuso|conciso,breve,sucinto|adj
+exiguo|2|escaso,insuficiente,mínimo,reducido|abundante,copioso,cuantioso|adj
+dilucidar|2|aclarar,esclarecer,explicar|embrollar,oscurecer,confundir|verb
+abolir|1|derogar,suprimir,anular|instituir,implantar,establecer|verb
+vetusto|1|antiguo,viejo,anticuado|moderno,nuevo,reciente|adj
+frugal|2|sobrio,parco,moderado|glotón,excesivo|adj
+perspicaz|1|agudo,sagaz,listo|torpe,obtuso,lerdo|adj
+obstinado|1|terco,testarudo,tozudo,porfiado|dócil,flexible,transigente|adj
+conciso|1|breve,sucinto,escueto,lacónico|extenso,prolijo|adj
+austero|1|sobrio,riguroso,sencillo,ascético|lujoso,ostentoso|adj
+lúcido|1|claro,sensato|confuso,ofuscado,obnubilado|adj
+apacible|1|tranquilo,sereno,sosegado,plácido|agitado,tormentoso,turbulento|adj
+contiguo|1|próximo,adyacente,colindante,vecino|alejado,distante,lejano|adj
+insólito|1|raro,extraño,inusual,desacostumbrado|habitual,común,corriente,ordinario|adj
+vehemente|2|apasionado,impetuoso,ardiente,fogoso|apático,flemático|adj
+escarnio|2|burla,mofa,befa,irrisión|elogio,alabanza|noun
+prohibir|1|vetar,vedar,impedir|permitir,autorizar,consentir,aprobar|verb
+ameno|1|agradable,grato,entretenido|tedioso,aburrido,árido|adj
+escasez|1|carencia,penuria,falta,insuficiencia|abundancia,riqueza,profusión|noun
+honesto|1|honrado,íntegro,recto,decente|corrupto,tramposo,ruin|adj
+veraz|1|sincero,franco,verídico|mentiroso,falso,embustero|adj
+temerario|2|imprudente,osado,arriesgado|prudente,cauteloso,precavido|adj
+mediocre|1|mediano,regular,anodino|excelente,sobresaliente|adj
+escrupuloso|2|meticuloso,minucioso,esmerado|descuidado,negligente,chapucero|adj
+atenuar|1|disminuir,mitigar,suavizar,aliviar|intensificar,agravar,acentuar|verb
+prolífico|2|fecundo,fértil,productivo|estéril,infecundo,improductivo|adj
+incipiente|2|naciente,inicial,embrionario||adj
+recio|1|fuerte,robusto,vigoroso|débil,flojo,endeble,frágil|adj
+diáfano|2|transparente,cristalino|opaco,turbio,borroso|adj
+ostensible|2|patente,manifiesto,evidente|oculto,latente|adj
+aludir|1|mencionar,citar,nombrar|omitir,callar,silenciar|verb
+repudiar|2|rechazar,rehusar,desdeñar|aceptar,admitir,acoger|verb
 """
 
-# word | level | definition
+# word | level | definition (the DLE sense, verbatim) | sense number
 _DEFINITIONS = """
-alfaguara|2|Manantial copioso que surge con violencia.
-escisión|2|Rompimiento, rotura o separación.
-nimio|1|Insignificante, sin importancia.
-ubérrimo|2|Muy abundante y fértil.
-gárrulo|2|Muy hablador.
-sempiterno|2|Que durará siempre.
-hontanar|2|Sitio en que nacen fuentes.
-arcano|2|Secreto, recóndito, reservado.
-ínclito|2|Ilustre, esclarecido, insigne.
-canícula|1|Período del año en que más aprieta el calor.
-parsimonia|1|Lentitud y sosiego en el modo de obrar.
-cenit|1|Punto más alto al que llega algo.
-proclive|1|Inclinado o propenso a algo.
-tesón|1|Firmeza, perseverancia y constancia.
-letargo|1|Estado de somnolencia profunda y prolongada.
-pábulo|2|Alimento o sustento de algo.
-candor|1|Sinceridad y sencillez del ánimo.
-recelo|1|Temor o sospecha de algo.
-acervo|2|Conjunto de bienes morales o culturales acumulados por tradición o herencia.
-mácula|2|Mancha.
-dilación|1|Demora o tardanza en hacer algo.
-perentorio|2|Urgente, apremiante.
-sinecura|2|Empleo bien retribuido que da poco trabajo.
-inefable|2|Que no se puede explicar con palabras.
-óbice|2|Obstáculo o impedimento.
-ardid|1|Artificio hábil para conseguir un propósito.
-baldío|1|Dicho de una tierra: que no se cultiva.
-nómada|1|Que va de un lugar a otro sin domicilio fijo.
-cuantioso|1|Grande en cantidad o número.
-escrutinio|2|Recuento de los votos en una elección.
-inquina|2|Aversión o mala voluntad hacia alguien.
-vetar|1|Poner el veto a algo.
-pesquisa|2|Investigación para averiguar algo.
-exiguo|1|Insuficiente, escaso.
-holgazán|1|Que rehúye el trabajo y es perezoso.
-colindante|1|Dicho de un terreno: que linda con otro.
+alfaguara|2|Manantial copioso que surge con violencia.|1.
+escisión|2|Desavenencia o riña entre algunas personas.|1.
+nimio|1|Dicho generalmente de algo no material, insignificante, sin importancia.|1.
+ubérrimo|3|Muy abundante y fértil.|1.
+gárrulo|3|Dicho de una persona, muy habladora o charlatana.|1.b.
+sempiterno|2|Que durará siempre; que, habiendo tenido principio, no tendrá fin.|1.
+hontanar|3|Sitio en que nacen fuentes o manantiales.|1.
+arcano|2|Dicho especialmente de una cosa, secreta, recóndita, reservada.|1.a.
+ínclito|2|Ilustre, esclarecido, afamado.|1.
+canícula|1|Período del año en que es más fuerte el calor.|1.a.
+parsimonia|1|Lentitud y sosiego en el modo de hablar o de obrar; flema, frialdad de ánimo.|1.
+cenit|1|Punto culminante o momento de apogeo de alguien o algo.|2.
+proclive|1|Inclinado o propenso a algo, frecuentemente a lo malo.|1.
+tesón|1|Decisión y perseverancia que se ponen en la ejecución de algo.|1.
+letargo|1|Somnolencia, inactividad.|2.b.
+pábulo|3|Aquello que sirve para mantener la existencia de algunas cosas o acciones.|2.
+candor|1|Sinceridad, sencillez, ingenuidad y pureza del ánimo.|1.
+acervo|2|Conjunto de valores o bienes culturales acumulados por tradición o herencia.|1.a.
+mácula|2|Cosa que deslustra y desdora.|1.b.
+dilación|1|Demora, tardanza o detención de algo por algún tiempo.|1.
+perentorio|2|Urgente, apremiante.|2.
+sinecura|3|Empleo o cargo retribuido que ocasiona poco o ningún trabajo.|1.
+inefable|2|Que no se puede explicar con palabras.|1.
+óbice|2|Obstáculo, embarazo, estorbo, impedimento.|1.
+ardid|1|Artificio, medio empleado hábil y mañosamente para el logro de algún intento.|1.a.
+baldío|1|Dicho de la tierra, que no está labrada ni adehesada.|2.a.
+nómada|1|Que está en constante viaje o desplazamiento.|1.b.
+cuantioso|1|Grande en cantidad o número.|1.
+escrutinio|2|Reconocimiento y cómputo de los votos en las elecciones o en otro acto análogo.|2.
+inquina|2|Aversión, mala voluntad.|1.
+pesquisa|2|Información o indagación que se hace de algo para averiguar la realidad de ello o sus circunstancias.|1.
+exiguo|1|Insuficiente, escaso.|1.
+holgazán|1|Dicho de una persona, vagabunda y ociosa, que no quiere trabajar.|1.
+colindante|1|Dicho de términos municipales o municipios, limítrofes entre sí.|1.c.
 """
 
-# right | wrong
+# right | wrong (the wrong form is no DLE word or form, and breaks a rule of the Ortografía)
 _SPELLING = """
 exuberante|exhuberante
 hortaliza|ortaliza
@@ -107,7 +108,6 @@ exhibir|exibir
 inhibir|inibir
 prohibir|prohivir
 prohibido|prohivido
-vehículo|vehiculo
 rehén|rehen
 atrás|atras
 había|habia
@@ -123,8 +123,6 @@ bienvenido|bienbenido
 envolver|embolver
 invertir|imvertir
 inmediato|immediato
-conmigo|comigo
-obvio|obbio
 volver|bolver
 ciudadanía|ciudadania
 desarrollo|desarollo
@@ -133,9 +131,7 @@ extranjero|estranjero
 adolescente|adolecente
 yacimiento|llacimiento
 atención|atencion
-administración|adminitración
 examen|exámen
-dificultad|dificutad
 deshonesto|desonesto
 zanahoria|zanaoria
 búho|buho
@@ -148,9 +144,6 @@ lingüística|linguistica
 antigüedad|antiguedad
 cigüeña|cigueña
 periódico|periodico
-sílaba|silaba
-tráfico|trafico
-médico|medico
 teléfono|telefono
 ámbito|ambito
 análisis|analisis
@@ -167,14 +160,115 @@ honorario|onorario
 # sentences with [right|wrong] slots; the plain words are spelt right
 SENTENCES = (
     "Ayer [había|habia] que [exigir|exijir] a la [comisión|comision] el [desarrollo|desarollo] del [archivo|archibo] "
-    "[también|tambien] en la [oficina|oficna] central.",
-    "El [médico|medico] del servicio [recogió|recojió] los [expedientes|espedientes] y [exhibió|exibió] "
+    "[también|tambien] en la oficina central.",
+    "El médico del servicio [recogió|recojió] los expedientes, [revisó|rebisó] el [historial|istorial] y [exhibió|exibió] "
     "la [documentación|documentacion] ante el tribunal.",
     "Con [vergüenza|verguenza] y sin [atención|atencion] alguna, el [extranjero|estranjero] [volvió|bolvió] "
     "a la oficina para [reivindicar|reibindicar] su derecho.",
-    "Se [prohibió|prohivió] el [vehículo|vehiculo] en el [ámbito|ambito] del [periódico|periodico] por una "
-    "[excepción|excepsión] [inmediata|immediata].",
+    "Se [prohibió|prohivió] aparcar cualquier vehículo en el [ámbito|ambito] del puerto, sin "
+    "[excepción|excepsión], los [sábados|sabados] y los [miércoles|miercoles].",
 )
+
+
+# Pairs the DLE does not list but whose definitions coincide (synonyms) or negate each other (antonyms);
+# the sense that decides it. Every other pair is in a DLE list, or an antonym of a word the DLE lists as synonym.
+JUDGED_SYNONYMS: dict[tuple[str, str], str] = {
+    ("hereje", "disidente"): "hereje 1.b. «Persona que disiente…»; disidente 1. «Que diside»",
+    (
+        "abstruso",
+        "enrevesado",
+    ): "abstruso 1. «De difícil comprensión»; enrevesado 1. «… que con dificultad se puede entender»",
+    ("prolijo", "dilatado"): "prolijo 1. «Largo, dilatado con exceso»",
+    ("lúcido", "claro"): "lúcido 1. «Claro en el razonamiento…»",
+}
+JUDGED_ANTONYMS: dict[tuple[str, str], str] = {
+    (
+        "acérrimo",
+        "moderado",
+    ): "acérrimo 3. «Intransigente, fanático, extremado»; moderado 1.c. «Que no es extremista»",
+    ("pródigo", "mezquino"): "pródigo 2. «Muy dadivoso»; mezquino 1.a. «tacaño»",
+    ("taciturno", "expansivo"): "taciturno 1. «Callado, silencioso…»; expansivo 2. «Franco, comunicativo»",
+    (
+        "perspicaz",
+        "lerdo",
+    ): "perspicaz 1.a. «agudo y penetrativo»; lerdo 1.a. «Tardo y torpe para comprender…»",
+    (
+        "obstinado",
+        "dócil",
+    ): "obstinado 1. «Que se obstina»; dócil 1.b. «… que recibe fácilmente la enseñanza»",
+    ("lúcido", "ofuscado"): "lúcido 1. «Claro en el razonamiento»; ofuscar 1. «… confundir las ideas»",
+    (
+        "lúcido",
+        "obnubilado",
+    ): "lúcido 1. «Claro en el razonamiento»; obnubilar 1.a. «Ofuscar o confundir la razón…»",
+    ("ameno", "tedioso"): "ameno 1.a. «Grato, placentero»; tedioso 1. «Que produce tedio»",
+    (
+        "mediocre",
+        "excelente",
+    ): "mediocre 1.a. «De poco mérito»; excelente 1. «Que sobresale por sus óptimas cualidades»",
+    ("aludir", "silenciar"): "aludir 1. «Mencionar…»; silenciar 1. «Callar u omitir algo…»",
+}
+# Definitions close enough that one could pass for the other: never key and distractor of the same item.
+NEAR_DEFINITIONS = (
+    ("alfaguara", "hontanar"),
+    ("exiguo", "nimio"),
+    ("cuantioso", "ubérrimo"),
+    ("dilación", "parsimonia"),
+)
+
+
+class DleSense(TypedDict):
+    n: str
+    category: str
+    text: str
+    syn: list[str]
+    ant: list[str]
+
+
+class DlePage(TypedDict):
+    file: str
+    absent: bool
+    lemmas: list[str]
+    senses: list[DleSense]
+
+
+@cache
+def dle_pages() -> dict[str, DlePage]:
+    raw = files("tradeschool.psicotecnico").joinpath("dle_relations.json").read_text(encoding="utf-8")
+    pages: dict[str, DlePage] = json.loads(raw)["pages"]
+    return pages
+
+
+def dle_list(word: str, kind: str) -> frozenset[str]:
+    """The heads of every «Sinónimos y afines» (`syn`) or «Antónimos y opuestos» (`ant`) list of the word."""
+    page = dle_pages().get(word.lower())
+    if page is None:
+        return frozenset()
+    return frozenset(head for sense in page["senses"] for head in sense["syn" if kind == "syn" else "ant"])
+
+
+def dle_related(a: str, b: str, kind: str) -> bool:
+    a, b = a.lower(), b.lower()
+    return b in dle_list(a, kind) or a in dle_list(b, kind)
+
+
+_CATEGORIES = {"sustantivo": "noun", "adjetivo": "adj", "verbo": "verb"}
+
+
+def part_of_speech(word: str) -> str:
+    """A cluster word takes its entry's; a defined word, the DLE category of the cited sense."""
+    for entry in entries():
+        if word in (entry.word, *entry.synonyms, *entry.antonyms):
+            return entry.part_of_speech
+    for definition in definitions():
+        if definition.word == word:
+            sense = next(s for s in dle_pages()[word]["senses"] if s["n"] == definition.sense)
+            return _CATEGORIES.get(sense["category"].split(" ")[0], sense["category"])
+    raise KeyError(word)
+
+
+def near_definitions(word: str) -> set[str]:
+    return {other for pair in NEAR_DEFINITIONS if word in pair for other in pair if other != word}
 
 
 @dataclass(frozen=True)
@@ -183,6 +277,7 @@ class Entry:
     level: int
     synonyms: tuple[str, ...]
     antonyms: tuple[str, ...]
+    part_of_speech: str
 
 
 @dataclass(frozen=True)
@@ -190,6 +285,7 @@ class Definition:
     word: str
     level: int
     text: str
+    sense: str
 
 
 def _rows(raw: str) -> list[list[str]]:
@@ -199,14 +295,14 @@ def _rows(raw: str) -> list[list[str]]:
 @cache
 def entries() -> tuple[Entry, ...]:
     return tuple(
-        Entry(w, int(level), tuple(syn.split(",")), tuple(ant.split(",")))
-        for w, level, syn, ant in _rows(_ENTRIES)
+        Entry(w, int(level), tuple(syn.split(",")), tuple(ant.split(",")) if ant else (), pos)
+        for w, level, syn, ant, pos in _rows(_ENTRIES)
     )
 
 
 @cache
 def definitions() -> tuple[Definition, ...]:
-    return tuple(Definition(w, int(level), text) for w, level, text in _rows(_DEFINITIONS))
+    return tuple(Definition(w, int(level), text, sense) for w, level, text, sense in _rows(_DEFINITIONS))
 
 
 @cache

@@ -32,12 +32,12 @@ Explicación: Faltan 1580 − 800 = 780 unidades; entre 65 al día son 12 días.
 
 En una papelería se compran 19 bolígrafos a 0,45 € cada uno y 7 carpetas a 3,25 € cada una. ¿Cuál es el importe total?
 
-a) 31,30 €
-b) 26,29 €
-c) 40,06 €
-d) 30,05 €
+a) 31,75 €
+b) 31,30 €
+c) 64,90 €
+d) 84,50 €
 
-**Clave: a**
+**Clave: b**
 
 Explicación: 19 × 0,45 + 7 × 3,25 = 31,30 euros.
 
@@ -97,10 +97,10 @@ Explicación: El reparto es entre 11, no entre 27: 1320 / 11 = 120.
 
 La suma de dos números es 48 y uno de ellos es 2 veces el otro. ¿Cuál es el mayor?
 
-a) 37.
-b) 23.
+a) 31.
+b) 38.
 c) 32.
-d) 24.
+d) 41.
 
 **Clave: c**
 
@@ -136,12 +136,12 @@ Explicación: Se opera de izquierda a derecha: 9 - 9 = 0; 0 + 11 = 11; 11 + 12 =
 
 En una papelería se compran 29 bolígrafos a 1,20 € cada uno y 16 carpetas a 2,60 € cada una. ¿Cuál es el importe total?
 
-a) 55,01 €
-b) 88,62 €
-c) 76,40 €
-d) 70,29 €
+a) 77,60 €
+b) 76,40 €
+c) 54,00 €
+d) 73,80 €
 
-**Clave: c**
+**Clave: b**
 
 Explicación: 29 × 1,20 + 16 × 2,60 = 76,40 euros.
 
@@ -149,12 +149,12 @@ Explicación: 29 × 1,20 + 16 × 2,60 = 76,40 euros.
 
 En una papelería se compran 23 bolígrafos a 0,95 € cada uno y 15 carpetas a 3,25 € cada una. ¿Cuál es el importe total?
 
-a) 50,83 €
-b) 73,42 €
-c) 90,37 €
-d) 70,60 €
+a) 70,60 €
+b) 69,65 €
+c) 36,10 €
+d) 73,85 €
 
-**Clave: d**
+**Clave: a**
 
 Explicación: 23 × 0,95 + 15 × 3,25 = 70,60 euros.
 
@@ -162,12 +162,12 @@ Explicación: 23 × 0,95 + 15 × 3,25 = 70,60 euros.
 
 En una papelería se compran 19 bolígrafos a 0,45 € cada uno y 5 carpetas a 3,25 € cada una. ¿Cuál es el importe total?
 
-a) 17,86 €
-b) 24,80 €
-c) 22,82 €
-d) 27,78 €
+a) 24,80 €
+b) 78,00 €
+c) 64,00 €
+d) 24,35 €
 
-**Clave: b**
+**Clave: a**
 
 Explicación: 19 × 0,45 + 5 × 3,25 = 24,80 euros.
 
@@ -253,12 +253,12 @@ Explicación: Se opera de izquierda a derecha: 6 - 12 = -6; -6 + 8 = 2; 2 + 8 = 
 
 En una papelería se compran 19 bolígrafos a 0,45 € cada uno y 14 carpetas a 3,25 € cada una. ¿Cuál es el importe total?
 
-a) 64,86 €
-b) 45,40 €
-c) 47,56 €
-d) 54,05 €
+a) 54,05 €
+b) 14,85 €
+c) 54,50 €
+d) 50,80 €
 
-**Clave: d**
+**Clave: a**
 
 Explicación: 19 × 0,45 + 14 × 3,25 = 54,05 euros.
 
@@ -279,10 +279,10 @@ Explicación: El reparto es entre 10, no entre 27: 400 / 10 = 40.
 
 La suma de dos números es 75 y uno de ellos es 4 veces el otro. ¿Cuál es el mayor?
 
-a) 70.
+a) 58.
 b) 60.
-c) 38.
-d) 55.
+c) 65.
+d) 43.
 
 **Clave: b**
 
@@ -293,11 +293,11 @@ Explicación: El menor es 75 / 5 = 15; el mayor es 4 × 15 = 60.
 En una papelería se compran 29 bolígrafos a 0,95 € cada uno y 12 carpetas a 2,10 € cada una. ¿Cuál es el importe total?
 
 a) 38,95 €
-b) 52,75 €
-c) 56,97 €
-d) 42,20 €
+b) 51,80 €
+c) 52,75 €
+d) 54,85 €
 
-**Clave: b**
+**Clave: c**
 
 Explicación: 29 × 0,95 + 12 × 2,10 = 52,75 euros.
 
@@ -305,10 +305,10 @@ Explicación: 29 × 0,95 + 12 × 2,10 = 52,75 euros.
 
 La suma de dos números es 112 y uno de ellos es 3 veces el otro. ¿Cuál es el mayor?
 
-a) 71.
-b) 77.
+a) 77.
+b) 91.
 c) 84.
-d) 87.
+d) 97.
 
 **Clave: c**
 
@@ -383,10 +383,10 @@ Explicación: Cada cuaderno cuesta 12 / 6 = 2 euros; 20 × 2 = 40.
 
 La suma de dos números es 144 y uno de ellos es 5 veces el otro. ¿Cuál es el mayor?
 
-a) 154.
+a) 130.
 b) 120.
-c) 144.
-d) 130.
+c) 110.
+d) 139.
 
 **Clave: b**
 
@@ -461,9 +461,9 @@ Explicación: Cada cuaderno cuesta 30 / 15 = 2 euros; 30 × 2 = 60.
 
 La suma de dos números es 57 y uno de ellos es 2 veces el otro. ¿Cuál es el mayor?
 
-a) 29.
-b) 19.
-c) 40.
+a) 40.
+b) 41.
+c) 32.
 d) 38.
 
 **Clave: d**
@@ -500,10 +500,10 @@ Explicación: Faltan 1875 − 1200 = 675 unidades; entre 75 al día son 9 días.
 
 La suma de dos números es 240 y uno de ellos es 5 veces el otro. ¿Cuál es el mayor?
 
-a) 216.
-b) 192.
+a) 176.
+b) 208.
 c) 200.
-d) 176.
+d) 160.
 
 **Clave: c**
 
@@ -513,12 +513,12 @@ Explicación: El menor es 240 / 6 = 40; el mayor es 5 × 40 = 200.
 
 En una papelería se compran 19 bolígrafos a 0,80 € cada uno y 9 carpetas a 1,50 € cada una. ¿Cuál es el importe total?
 
-a) 36,74 €
-b) 22,96 €
-c) 32,14 €
-d) 28,70 €
+a) 28,70 €
+b) 42,00 €
+c) 30,20 €
+d) 35,70 €
 
-**Clave: d**
+**Clave: a**
 
 Explicación: 19 × 0,80 + 9 × 1,50 = 28,70 euros.
 
@@ -526,10 +526,10 @@ Explicación: 19 × 0,80 + 9 × 1,50 = 28,70 euros.
 
 La suma de dos números es 68 y uno de ellos es 3 veces el otro. ¿Cuál es el mayor?
 
-a) 65.
+a) 61.
 b) 51.
-c) 26.
-d) 43.
+c) 43.
+d) 37.
 
 **Clave: b**
 
@@ -552,9 +552,9 @@ Explicación: Faltan 1020 − 300 = 720 unidades; entre 40 al día son 18 días.
 
 La suma de dos números es 30 y uno de ellos es 4 veces el otro. ¿Cuál es el mayor?
 
-a) 12.
-b) 15.
-c) 25.
+a) 19.
+b) 22.
+c) 28.
 d) 24.
 
 **Clave: d**
@@ -604,12 +604,12 @@ Explicación: Cada cuaderno cuesta 32 / 8 = 4 euros; 30 × 4 = 120.
 
 En una papelería se compran 13 bolígrafos a 1,50 € cada uno y 10 carpetas a 2,10 € cada una. ¿Cuál es el importe total?
 
-a) 45,36 €
-b) 37,26 €
-c) 43,74 €
-d) 40,50 €
+a) 48,30 €
+b) 34,50 €
+c) 40,50 €
+d) 42,30 €
 
-**Clave: d**
+**Clave: c**
 
 Explicación: 13 × 1,50 + 10 × 2,10 = 40,50 euros.
 
@@ -617,9 +617,9 @@ Explicación: 13 × 1,50 + 10 × 2,10 = 40,50 euros.
 
 La suma de dos números es 45 y uno de ellos es 4 veces el otro. ¿Cuál es el mayor?
 
-a) 18.
-b) 35.
-c) 32.
+a) 32.
+b) 39.
+c) 40.
 d) 36.
 
 **Clave: d**

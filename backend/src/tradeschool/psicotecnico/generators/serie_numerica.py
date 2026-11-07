@@ -70,7 +70,7 @@ def _interleaved(terms: list[int]) -> int | None:
 
 
 def _product_chain(terms: list[int]) -> int | None:
-    """a, f₁, a·f₁, f₂, a·f₁·f₂, f₃, …: every even position is the product of the two before it."""
+    """a, f₁, a·f₁, f₂, a·f₁·f₂, …: from the third term, each odd place is the product of the two before."""
     if len(terms) < 6 or len(terms) % 2:
         return None
     if any(terms[i] != terms[i - 2] * terms[i - 1] for i in range(2, len(terms), 2)):
@@ -143,19 +143,53 @@ _BY_LEVEL: dict[int, list[Callable[[random.Random, int], list[int]]]] = {
 }
 
 
+def _signed(word_plus: str, word_minus: str, value: int | Fraction) -> str:
+    return f"{word_plus} {number(int(value))}" if value >= 0 else f"{word_minus} {number(int(-value))}"
+
+
+def _step_text(terms: list[int]) -> str:
+    """The rule of a plain progression, as the subseries of an interleaved one is told."""
+    if _arithmetic(terms) is not None:
+        return _signed("suma", "resta", terms[1] - terms[0])
+    ratio = Fraction(terms[1], terms[0])
+    return f"multiplica por {number(int(ratio))}" if ratio > 1 else f"divide entre {number(int(1 / ratio))}"
+
+
 def _rule_text(terms: list[int], answer: int) -> str:
-    kinds = {fit(terms): fit for fit in FAMILY if fit(terms) is not None}
-    fit = kinds[answer]
-    shown = ", ".join(str(t) for t in terms)
-    text = {
-        "_geometric": "cada término es el anterior multiplicado (o dividido) por una razón constante",
-        "_arithmetic": "cada término suma una cantidad constante al anterior",
-        "_alternating": "se suman alternativamente dos cantidades fijas",
-        "_recurrent": "cada término es el anterior multiplicado por una constante más otra constante",
-        "_interleaved": "son dos series intercaladas, cada una con su propia regla",
-        "_product_chain": "cada término en posición par es el producto de los dos anteriores",
-    }[fit.__name__]
-    return f"En {shown}, {text}; el que sigue es {number(answer)}."
+    """Names the first rule of FAMILY (simplest first) that fits, with its constants."""
+    fit = next(fit for fit in FAMILY if fit(terms) == answer)
+    if fit is _geometric:
+        ratio = Fraction(terms[1], terms[0])
+        how = (
+            f"multiplicado por {number(int(ratio))}"
+            if ratio > 1
+            else f"dividido entre {number(int(1 / ratio))}"
+        )
+        text = f"cada término es el anterior {how}"
+    elif fit is _arithmetic:
+        text = "cada término " + _signed("suma", "resta", terms[1] - terms[0]) + " al anterior"
+    elif fit is _alternating:
+        a, b = terms[1] - terms[0], terms[2] - terms[1]
+        text = f"se suman alternativamente {number(a)} y {number(b)}"
+    elif fit is _recurrent:
+        ratio = Fraction(terms[2] - terms[1], terms[1] - terms[0])
+        offset = terms[1] - ratio * terms[0]
+        text = f"cada término es el anterior multiplicado por {number(int(ratio))} " + _signed(
+            "más", "menos", offset
+        )
+    elif fit is _interleaved:
+        odd, even = terms[0::2], terms[1::2]
+        text = (
+            f"son dos series intercaladas: la de los lugares impares ({', '.join(map(str, odd))}) "
+            f"{_step_text(odd)} y la de los pares ({', '.join(map(str, even))}) {_step_text(even)}"
+        )
+    else:
+        products = ", ".join(
+            f"{number(terms[i - 2])} × {number(terms[i - 1])} = {number(terms[i])}"
+            for i in range(2, len(terms), 2)
+        )
+        text = f"cada término de lugar impar es el producto de los dos anteriores ({products})"
+    return f"En {', '.join(str(t) for t in terms)}, {text}; el que sigue es {number(answer)}."
 
 
 class SerieNumericaGenerator(ItemGenerator):

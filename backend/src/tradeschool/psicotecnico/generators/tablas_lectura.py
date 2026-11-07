@@ -21,12 +21,36 @@ class NumCol:
     low: int
     high: int
     decimals: int = 0
+    additive: bool = True  # a total of the column means something (not a year, an age, a unit price)
 
 
 @dataclass(frozen=True)
 class CatCol:
     header: str
     values: tuple[str, ...]
+
+
+Cells = dict[str, Fraction]
+Derive = Callable[[random.Random, Mapping[str, str], Cells], Cells]
+
+
+def _travel(rng: random.Random, cats: Mapping[str, str], nums: Cells) -> Cells:
+    """Time and cost follow from the distance and the means of transport, as on a real expense sheet."""
+    kmh, per_km = {
+        "Tren": ((100, 220), (8, 18)),
+        "Avión": ((300, 650), (10, 25)),
+        "Coche": ((70, 110), (20, 30)),
+        "Autobús": ((60, 90), (5, 10)),
+    }[cats["Medio"]]
+    km = max(nums["Distancia (km)"], Fraction(350)) if cats["Medio"] == "Avión" else nums["Distancia (km)"]
+    minutes = round(km * 60 / rng.randint(*kmh))
+    cost = round(km * rng.randint(*per_km) / 100)
+    return {
+        **nums,
+        "Distancia (km)": km,
+        "Tiempo (min)": Fraction(minutes),
+        "Coste (€)": Fraction(max(cost, 5)),
+    }
 
 
 @dataclass(frozen=True)
@@ -38,6 +62,8 @@ class Theme:
     labels: tuple[str, ...]
     cats: tuple[CatCol, ...]
     nums: tuple[NumCol, ...]
+    ratios: tuple[tuple[str, str], ...]  # (numerator, denominator) headers whose quotient means something
+    derive: Derive | None = None
 
 
 _NAMES = (
@@ -135,10 +161,14 @@ THEMES: tuple[Theme, ...] = (
             CatCol("Editorial", ("Destino", "Alfaguara", "Santillana", "Anagrama", "Planeta")),
         ),
         (
-            NumCol("Año de publicación", 1995, 2005),
+            NumCol("Año de publicación", 1995, 2005, additive=False),
             NumCol("Ejemplares disponibles", 3, 20),
             NumCol("Ejemplares prestados", 1, 9),
             NumCol("Préstamos realizados", 100, 350),
+        ),
+        (
+            ("Préstamos realizados", "Ejemplares disponibles"),
+            ("Ejemplares prestados", "Ejemplares disponibles"),
         ),
     ),
     Theme(
@@ -152,11 +182,12 @@ THEMES: tuple[Theme, ...] = (
             CatCol("Turno", ("Mañana", "Tarde", "Noche")),
         ),
         (
-            NumCol("Edad", 18, 55),
+            NumCol("Edad", 18, 55, additive=False),
             NumCol("Horas semanales", 2, 12),
             NumCol("Cuota mensual", 30, 120),
             NumCol("Faltas de asistencia", 0, 15),
         ),
+        (("Cuota mensual", "Horas semanales"), ("Faltas de asistencia", "Horas semanales")),
     ),
     Theme(
         "Desplazamientos",
@@ -171,6 +202,8 @@ THEMES: tuple[Theme, ...] = (
             NumCol("Coste (€)", 20, 260),
             NumCol("Viajes al año", 1, 14),
         ),
+        (("Coste (€)", "Distancia (km)"), ("Distancia (km)", "Tiempo (min)")),
+        _travel,
     ),
     Theme(
         "Excursiones",
@@ -180,14 +213,15 @@ THEMES: tuple[Theme, ...] = (
         _PLACES,
         (
             CatCol("Tipo", ("Cultural", "Deportiva", "Naturaleza", "Gastronómica")),
-            CatCol("Transporte", ("Autobús", "Tren", "Barco")),
+            CatCol("Transporte", ("Autobús", "Tren", "Minibús")),
         ),
         (
             NumCol("Participantes", 12, 60),
-            NumCol("Precio por persona (€)", 15, 95),
+            NumCol("Precio por persona (€)", 15, 95, additive=False),
             NumCol("Duración (horas)", 4, 30),
             NumCol("Kilómetros", 40, 480),
         ),
+        (("Precio por persona (€)", "Duración (horas)"), ("Kilómetros", "Duración (horas)")),
     ),
     Theme(
         "Laboratorios",
@@ -201,6 +235,11 @@ THEMES: tuple[Theme, ...] = (
             NumCol("Técnicos", 3, 24),
             NumCol("Presupuesto (miles de €)", 40, 400),
             NumCol("Informes emitidos", 30, 300),
+        ),
+        (
+            ("Muestras analizadas", "Técnicos"),
+            ("Informes emitidos", "Técnicos"),
+            ("Presupuesto (miles de €)", "Técnicos"),
         ),
     ),
 )
@@ -322,15 +361,21 @@ def _build(rng: random.Random, theme: Theme, rows: int) -> Grid:
     for col, picked in zip(theme.cats, cats, strict=True):
         for slot, value in zip(rng.sample(range(rows), min(len(col.values), rows)), col.values, strict=False):
             picked[slot] = value
-    nums = []
-    for column in theme.nums:
-        scale = 10**column.decimals
-        nums.append(
-            [
-                number(Fraction(rng.randint(column.low * scale, column.high * scale), scale), column.decimals)
-                for _ in range(rows)
-            ]
-        )
+    values: list[Cells] = []
+    for r in range(rows):
+        cells = {
+            column.header: Fraction(
+                rng.randint(column.low * 10**column.decimals, column.high * 10**column.decimals),
+                10**column.decimals,
+            )
+            for column in theme.nums
+        }
+        if theme.derive is not None:
+            cells = theme.derive(
+                rng, {c.header: picked[r] for c, picked in zip(theme.cats, cats, strict=True)}, cells
+            )
+        values.append(cells)
+    nums = [[number(values[r][column.header], column.decimals) for r in range(rows)] for column in theme.nums]
     header = (theme.label_header, *(c.header for c in theme.cats), *(c.header for c in theme.nums))
     kinds = ("label", *("cat" for _ in theme.cats), *("num" for _ in theme.nums))
     table_rows = tuple((labels[r], *(c[r] for c in cats), *(n[r] for n in nums)) for r in range(rows))
@@ -341,12 +386,16 @@ def _cols(grid: Grid, kind: str) -> list[int]:
     return [i for i, k in enumerate(grid.kinds) if k == kind]
 
 
+def _additive(theme: Theme, grid: Grid) -> list[int]:
+    return [grid.header.index(c.header) for c in theme.nums if c.additive]
+
+
 def _condition_for(rng: random.Random, grid: Grid, row: int, col: int) -> dict[str, object]:
     if grid.kinds[col] == "cat":
         return {"col": col, "op": "=", "value": grid.rows[row][col]}
     target = grid.num(row, col)
-    margin = Fraction(max(1, abs(target) // 8))
     values = [grid.num(r, col) for r in range(len(grid.rows))]
+    margin = Fraction(max(1, (max(values) - min(values)) // 8))
     below, above = target - margin, target + margin
     greater = rng.random() < 0.5
     if (greater and below < min(values)) or (not greater and above > max(values)):
@@ -370,8 +419,16 @@ def _cond_text(grid: Grid, cond: Condition) -> str:
     col = int(cast(int, cond["col"]))
     name = _plain(grid.header[col])
     if cond["op"] == "=":
-        return f"{name} {cond['value']}"
+        return f"{name} «{cond['value']}»"
+    if name.split()[0].endswith("s"):  # a count: «más de 10 técnicos», not «técnicos superior a 10»
+        return f"{'más' if cond['op'] == '>' else 'menos'} de {cond['value']} {name}"
     return f"{name} {'superior' if cond['op'] == '>' else 'inferior'} a {cond['value']}"
+
+
+def _conditions(grid: Grid, conds: Sequence[Condition]) -> str:
+    """«estas condiciones: a, b y c», cells quoted as printed: no value sits capitalised mid-sentence."""
+    head = "esta condición" if len(conds) == 1 else "estas condiciones"
+    return f"{head}: {_join([_cond_text(grid, c) for c in conds])}"
 
 
 def _join(parts: Sequence[str]) -> str:
@@ -407,7 +464,7 @@ def _q_filter_name(rng: random.Random, theme: Theme, grid: Grid, level: int) -> 
     text = _join([_cond_text(grid, c) for c in conds])
     return Built(
         {"kind": "filter_name", "conds": conds},
-        f"¿Cuál de los siguientes {theme.plural} tiene {text}?",
+        f"¿Cuál de los siguientes {theme.plural} cumple {_conditions(grid, conds)}?",
         _near_rows(grid, conds, row),
         f"Solo «{grid.rows[row][0]}» cumple las {k} condiciones: {text}.",
     )
@@ -433,10 +490,9 @@ def _q_filter_extreme(rng: random.Random, theme: Theme, grid: Grid, level: int) 
         if grid.rows[r][0] + "." != winner
     ]
     outside = [grid.rows[r][0] + "." for r in range(len(grid.rows)) if r not in rows]
-    text = _join([_cond_text(grid, c) for c in conds])
     return Built(
         query,
-        f"Entre los {theme.plural} que tienen {text}, ¿cuál tiene el valor "
+        f"Entre los {theme.plural} que cumplen {_conditions(grid, conds)}, ¿cuál tiene el valor "
         f"{'más alto' if extreme == 'max' else 'más bajo'} de {_plain(grid.header[col])}?",
         others + outside,
         f"Pasan el filtro {len(rows)} {theme.plural}; entre ellos, «{winner[:-1]}» tiene el valor "
@@ -445,7 +501,7 @@ def _q_filter_extreme(rng: random.Random, theme: Theme, grid: Grid, level: int) 
 
 
 def _q_ratio(rng: random.Random, theme: Theme, grid: Grid, level: int) -> Built | None:
-    a, b = rng.sample(_cols(grid, "num"), 2)
+    a, b = (grid.header.index(h) for h in rng.choice(theme.ratios))
     if any(grid.num(r, b) == 0 for r in range(len(grid.rows))):
         return None
     extreme = rng.choice(["max", "min"])
@@ -466,14 +522,14 @@ def _q_ratio(rng: random.Random, theme: Theme, grid: Grid, level: int) -> Built 
         f"{_plain(grid.header[b])}?",
         [grid.rows[r][0] + "." for _, r in ratios[1:]],
         f"Se divide {_plain(grid.header[a])} entre {_plain(grid.header[b])} en cada fila: el {word} cociente "
-        f"es el de «{winner}» ({number(ratios[0][0], 2)}).",
+        f"es el de «{winner}» ({number(ratios[0][0], 2 if ratios[0][0] >= 1 else 3)}).",
     )
 
 
 def _q_group(rng: random.Random, theme: Theme, grid: Grid, level: int) -> Built | None:
     group = rng.choice(_cols(grid, "cat"))
-    col = rng.choice(_cols(grid, "num"))
     agg = "sum" if level < 3 else rng.choice(["sum", "mean"])
+    col = rng.choice(_additive(theme, grid) if agg == "sum" else _cols(grid, "num"))
     extreme = rng.choice(["max", "min"])
     query = {"kind": "group_extreme", "group": group, "col": col, "agg": agg, "extreme": extreme}
     scores = _group_scores(grid, query)
@@ -512,7 +568,7 @@ def _q_count(rng: random.Random, theme: Theme, grid: Grid, level: int) -> Built 
     wrong = [str(total + d) for d in (1, -1, 2, -2, 3) if total + d >= 0]
     return Built(
         {"kind": "count", "conds": conds},
-        f"¿Cuántos {theme.plural} tienen {text}?",
+        f"¿Cuántos {theme.plural} cumplen {_conditions(grid, conds)}?",
         wrong,
         f"Cumplen las condiciones ({text}) exactamente {total}.",
     )
@@ -523,9 +579,11 @@ def _q_filter_sum(rng: random.Random, theme: Theme, grid: Grid, level: int) -> B
     anchor = rng.randrange(len(grid.rows))
     conds = _random_conditions(rng, grid, anchor, k)
     rows = _matching(grid, conds)
-    if not 2 <= len(rows) <= 4:
+    if not (3 if level == 3 else 2) <= len(rows) <= (5 if level == 3 else 4):
         return None
-    candidates = [c for c in _cols(grid, "num") if all(int(cast(int, cc["col"])) != c for cc in conds)]
+    candidates = [c for c in _additive(theme, grid) if all(int(cast(int, cc["col"])) != c for cc in conds)]
+    if not candidates:
+        return None
     col = rng.choice(candidates)
     total = sum((grid.num(r, col) for r in rows), Fraction(0))
     decimals = grid.decimals(col)
@@ -534,18 +592,19 @@ def _q_filter_sum(rng: random.Random, theme: Theme, grid: Grid, level: int) -> B
         total + grid.num(next(r for r in range(len(grid.rows)) if r not in rows), col),
     ]
     wrong = [number(w, decimals) for w in pick_wrong(rng, total, slips) if w > 0]
-    text = _join([_cond_text(grid, c) for c in conds])
     return Built(
         {"kind": "filter_sum", "conds": conds, "col": col},
-        f"¿Cuál es el total de {_plain(grid.header[col])} de los {theme.plural} que tienen {text}?",
+        f"¿Cuál es el total de {_plain(grid.header[col])} de los {theme.plural} que cumplen "
+        f"{_conditions(grid, conds)}?",
         wrong,
-        f"Pasan el filtro {len(rows)} filas; sus {_plain(grid.header[col])} suman {number(total, decimals)}.",
+        f"Pasan el filtro {len(rows)} filas; en ellas, la columna «{grid.header[col]}» suma "
+        f"{number(total, decimals)}.",
     )
 
 
 def _q_share(rng: random.Random, theme: Theme, grid: Grid, level: int) -> Built | None:
     group = rng.choice(_cols(grid, "cat"))
-    col = rng.choice(_cols(grid, "num"))
+    col = rng.choice(_additive(theme, grid))
     value = rng.choice(sorted({r[group] for r in grid.rows}))
     part = sum((grid.num(r, col) for r in range(len(grid.rows)) if grid.rows[r][group] == value), Fraction(0))
     whole = sum((grid.num(r, col) for r in range(len(grid.rows))), Fraction(0))
@@ -560,9 +619,10 @@ def _q_share(rng: random.Random, theme: Theme, grid: Grid, level: int) -> Built 
     name = _plain(grid.header[group])
     return Built(
         {"kind": "share", "group": group, "value": value, "col": col},
-        f"¿Qué porcentaje del total de {_plain(grid.header[col])} corresponde a {name} {value}?",
+        f"¿Qué porcentaje del total de {_plain(grid.header[col])} corresponde a los {theme.plural} con "
+        f"{name} «{value}»?",
         wrong,
-        f"{name.capitalize()} {value} suma {number(part, 0)} de un total de {number(whole, 0)}: "
+        f"Los {theme.plural} con {name} «{value}» suman {number(part, 0)} de un total de {number(whole, 0)}: "
         f"{percent(share)}.",
     )
 

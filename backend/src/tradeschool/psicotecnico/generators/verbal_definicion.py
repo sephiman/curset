@@ -19,9 +19,17 @@ class DefinicionGenerator(ItemGenerator):
     def build(self, seed: int, params: Params) -> Item:
         rng = random.Random(seed)
         bank = lexicon.definitions()
-        pool = [d for d in bank if d.level <= params.difficulty] if params.difficulty < 3 else list(bank)
-        target = rng.choice([d for d in pool if d.level >= params.difficulty - 1] or pool)
-        others = rng.sample([d for d in bank if d.word != target.word], 9)
+        target = rng.choice([d for d in bank if d.level == params.difficulty])
+        near = lexicon.near_definitions(target.word)
+        kind = lexicon.part_of_speech(target.word)
+        others = rng.sample(
+            [
+                d
+                for d in bank
+                if d.word != target.word and d.word not in near and lexicon.part_of_speech(d.word) == kind
+            ],
+            9,
+        )
         word_to_definition = rng.random() < 0.5
         if word_to_definition:
             stem = f'Señale qué palabra corresponde a la siguiente definición: "{target.text.rstrip(".")}".'

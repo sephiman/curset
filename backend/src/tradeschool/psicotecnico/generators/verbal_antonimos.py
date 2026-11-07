@@ -26,7 +26,11 @@ class AntonimosGenerator(ItemGenerator):
 
     def build(self, seed: int, params: Params) -> Item:
         rng = random.Random(seed)
-        pool = [e for e in lexicon.entries() if e.level == params.difficulty and len(e.synonyms) >= 3]
+        pool = [
+            e
+            for e in lexicon.entries()
+            if e.level == params.difficulty and len(e.synonyms) >= 3 and e.antonyms
+        ]
         entry = rng.choice(pool)
         options, slot, answer = deal_choosing(
             rng, [_option(a) for a in entry.antonyms], [_option(w) for w in entry.synonyms]
@@ -57,5 +61,11 @@ class AntonimosGenerator(ItemGenerator):
 
     def check_extra(self, item: Item) -> list[str]:
         word = str(item.facts["word"])
-        shown = {o.rstrip(".").lower() for o in item.options}
-        return [] if word not in shown else ["the stem word is among the options"]
+        shown = [o.rstrip(".").lower() for o in item.options]
+        problems = [] if word not in shown else ["the stem word is among the options"]
+        key = shown[item.key]
+        return problems + [
+            f"the DLE lists distractor {option} as an antonym"
+            for option in shown
+            if option != key and lexicon.dle_related(word, option, "ant")
+        ]

@@ -4,6 +4,8 @@
 from __future__ import annotations
 
 import random
+import unicodedata
+from itertools import pairwise
 from typing import ClassVar
 
 from tradeschool.psicotecnico.contract import ItemGenerator, UnsolvableItem, deal
@@ -18,7 +20,7 @@ FAMILIES: tuple[tuple[str, ...], ...] = (
         "conserje",
         "conserva",
         "consigna",
-        "consiste",
+        "consistorio",
         "consola",
         "constante",
         "constar",
@@ -205,6 +207,31 @@ def _common_prefix(words: list[str]) -> int:
     return n
 
 
+def _fold(word: str) -> str:
+    """The word as it is spelt for ordering: accents dropped, ñ kept as a letter of its own."""
+    marked = unicodedata.normalize("NFD", word.casefold().replace("ñ", "\x00"))
+    return "".join(c for c in marked if unicodedata.category(c) != "Mn").replace("\x00", "ñ")
+
+
+def _split_at(a: str, b: str) -> int:
+    return next((i for i, (x, y) in enumerate(zip(a, b, strict=False)) if x != y), min(len(a), len(b)))
+
+
+def _explanation(ordered: list[str]) -> str:
+    folded = [_fold(w) for w in ordered]
+    prefix = min(_split_at(a, b) for a, b in pairwise(folded))
+    steps: list[str] = []
+    for (a, b), (fa, fb) in zip(pairwise(ordered), pairwise(folded), strict=True):
+        at = _split_at(fa, fb)
+        letters = f"{fa[at]} y {fb[at]}" if at < len(fa) else f"{fa} termina antes"
+        place = f"la {at + 1}.ª letra" if not steps else f"la {at + 1}.ª"
+        steps.append(f"{a} va antes que {b} por {place} ({letters})")
+    return (
+        f"Todas empiezan por «{folded[0][:prefix]}» y se ordenan por la primera letra distinta: "
+        f"{', '.join(steps)}."
+    )
+
+
 def _line(words: list[str]) -> str:
     return ", ".join(words) + "."
 
@@ -253,10 +280,7 @@ class OrdenacionGenerator(ItemGenerator):
                 stem="¿Qué serie indica el orden alfabético correcto de las siguientes palabras?",
                 options=options,
                 key=slot,
-                explanation=(
-                    "Se comparan las palabras letra a letra, desde la primera en que dejan de coincidir "
-                    f"(la {prefix + 1}.ª en las más parecidas): {_line(ordered)[:-1]}."
-                ),
+                explanation=_explanation(ordered),
                 facts={"words": sorted(words)},
             )
         raise RuntimeError(f"no ordering for seed {seed}")

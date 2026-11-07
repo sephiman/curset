@@ -40,15 +40,14 @@ class ItemGenerator(ABC):
         """`build`, redrawn until the key sits where the seed puts it when options are ordered by length."""
         draw = random.Random(seed ^ _RANK_SALT)
         target = draw.randrange(OPTION_COUNT)
-        tiebreak = [draw.random() for _ in range(OPTION_COUNT)]
         proposals = [self.build(seed, params)]
         for attempt in range(1, RANK_ATTEMPTS):
-            if _is_balanced(proposals[-1], target, tiebreak):
+            if _is_balanced(proposals[-1], target, seed):
                 break
             proposals.append(self.build(seed * 1_000_003 + attempt, params))
         item = next(
-            (p for p in proposals if _is_balanced(p, target, tiebreak)),
-            next((p for p in proposals if _is_balanced(p, target, tiebreak)), proposals[0]),
+            (p for p in proposals if _is_balanced(p, target, seed)),
+            proposals[0],
         )
         return replace(item, seed=seed)
 
@@ -64,12 +63,16 @@ class ItemGenerator(ABC):
         return check_item(self, item)
 
 
-def _is_balanced(item: Item, target: int, tiebreak: Sequence[float]) -> bool:
+def _is_balanced(item: Item, target: int, seed: int) -> bool:
     """The key sits at position `target` when the options are ordered by length, ties broken at random."""
     lengths = [len(option) for option in item.options]
     if len(set(lengths)) == 1:
         return True
-    order = sorted(range(len(lengths)), key=lambda i: (lengths[i], tiebreak[i]))
+    # A tie is broken by the option's text, not its slot: by slot, accepting a redraw would favour some slots.
+    order = sorted(
+        range(len(lengths)),
+        key=lambda i: (lengths[i], random.Random(f"{seed}:{item.options[i]}").random()),
+    )
     return order.index(item.key) == target
 
 

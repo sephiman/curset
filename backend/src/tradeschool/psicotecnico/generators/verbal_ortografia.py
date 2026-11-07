@@ -37,7 +37,7 @@ class OrtografiaGenerator(ItemGenerator):
         if params.difficulty == 2:
             return self._count_item(rng, seed)
         pairs = lexicon.spelling()
-        chosen = rng.sample(pairs, 10)
+        chosen = rng.sample(pairs, len(pairs))  # every other pair is a candidate, so lengths can match
         if rng.random() < 0.8:
             (right_one, wrong_one), rest = chosen[0], chosen[1:]
             options, slot = deal(rng, _option(wrong_one), [_option(r) for r, _ in rest])
@@ -47,7 +47,13 @@ class OrtografiaGenerator(ItemGenerator):
             (right_one, _), rest = chosen[0], chosen[1:]
             options, slot = deal(rng, _option(right_one), [_option(w) for _, w in rest])
             stem = _RIGHT_STEM
-            why = f"Solo «{right_one}» está bien escrita; las otras tres llevan un error."
+            fixes = {wrong: right for right, wrong in rest}
+            shown = [o.rstrip(".").lower() for o in options if o != _option(right_one)]
+            why = (
+                f"Solo «{right_one}» está bien escrita; se escribe "
+                + ", ".join(f"«{fixes[w]}», no «{w}»" for w in shown)
+                + "."
+            )
         return Item(
             generator=self.id,
             seed=seed,
@@ -62,7 +68,7 @@ class OrtografiaGenerator(ItemGenerator):
     def _count_item(self, rng: random.Random, seed: int) -> Item:
         sentence = rng.choice(lexicon.SENTENCES)
         slots = len(_SLOT.findall(sentence))
-        errors = rng.randint(2, min(5, slots))
+        errors = rng.randint(4, min(6, slots))  # the official sentences carry 4 to 6
         wrong_slots = set(rng.sample(range(slots), errors))
         text = _render(sentence, wrong_slots)
         spread = [n for n in range(max(1, errors - 3), errors + 4) if n != errors]

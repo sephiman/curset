@@ -8,27 +8,27 @@ Tabla «Excursiones»:
 
 | Destino | Tipo | Transporte | Participantes | Precio por persona (€) | Duración (horas) | Kilómetros |
 |---|---|---|---|---|---|---|
-| Segovia | Naturaleza | Tren | 57 | 72 | 23 | 384 |
-| Teruel | Deportiva | Barco | 43 | 72 | 15 | 172 |
-| Ronda | Cultural | Autobús | 30 | 29 | 12 | 171 |
-| Jaca | Naturaleza | Barco | 52 | 23 | 14 | 61 |
-| Úbeda | Gastronómica | Tren | 58 | 51 | 19 | 76 |
-| Lugo | Cultural | Autobús | 54 | 83 | 23 | 283 |
-| Cuenca | Naturaleza | Autobús | 52 | 74 | 25 | 247 |
-| Toledo | Cultural | Barco | 52 | 73 | 29 | 299 |
-| Mérida | Naturaleza | Autobús | 45 | 93 | 13 | 267 |
-| León | Gastronómica | Tren | 21 | 22 | 29 | 296 |
+| Segovia | Naturaleza | Tren | 57 | 77 | 29 | 186 |
+| Teruel | Deportiva | Minibús | 52 | 95 | 24 | 308 |
+| Ronda | Cultural | Autobús | 21 | 72 | 18 | 99 |
+| Jaca | Naturaleza | Minibús | 16 | 51 | 21 | 277 |
+| Úbeda | Gastronómica | Tren | 41 | 93 | 5 | 344 |
+| Lugo | Cultural | Autobús | 35 | 49 | 14 | 293 |
+| Cuenca | Naturaleza | Autobús | 50 | 53 | 29 | 384 |
+| Toledo | Cultural | Minibús | 28 | 47 | 5 | 76 |
+| Mérida | Naturaleza | Autobús | 42 | 66 | 20 | 267 |
+| León | Gastronómica | Tren | 44 | 65 | 19 | 40 |
 
-Responda a la siguiente pregunta según la tabla llamada Excursiones: ¿Cuántos destinos tienen duración inferior a 25, participantes superior a 50 y precio por persona inferior a 81?
+Responda a la siguiente pregunta según la tabla llamada Excursiones: ¿Cuál es el total de duración de los destinos que cumplen estas condiciones: precio por persona inferior a 55 y menos de 336 kilómetros?
 
-a) 3
-b) 4
-c) 6
-d) 2
+a) 40
+b) 45
+c) 48
+d) 35
 
 **Clave: a**
 
-Explicación: Cumplen las condiciones (duración inferior a 25, participantes superior a 50 y precio por persona inferior a 81) exactamente 3.
+Explicación: Pasan el filtro 3 filas; en ellas, la columna «Duración (horas)» suma 40.
 
 ## 2. seed 3493489528897654557 · nivel 2
 
@@ -36,26 +36,26 @@ Tabla «Laboratorios»:
 
 | Laboratorio | Ciudad | Titularidad | Muestras analizadas | Técnicos | Presupuesto (miles de €) | Informes emitidos |
 |---|---|---|---|---|---|---|
-| Iota | Valencia | Pública | 790 | 6 | 93 | 86 |
-| Beta | Barcelona | Mixta | 221 | 8 | 93 | 83 |
-| Omega | Bilbao | Mixta | 436 | 3 | 221 | 253 |
-| Gamma | Valencia | Mixta | 189 | 10 | 106 | 99 |
-| Sigma | Bilbao | Pública | 758 | 15 | 394 | 194 |
-| Kappa | Sevilla | Mixta | 618 | 23 | 340 | 131 |
-| Theta | Sevilla | Privada | 814 | 3 | 368 | 181 |
-| Alfa | Madrid | Privada | 591 | 22 | 209 | 128 |
-| Lambda | Barcelona | Mixta | 306 | 15 | 234 | 229 |
+| Iota | Valencia | Pública | 790 | 6 | 198 | 64 |
+| Beta | Barcelona | Mixta | 758 | 18 | 387 | 265 |
+| Omega | Bilbao | Mixta | 306 | 6 | 131 | 44 |
+| Gamma | Valencia | Mixta | 374 | 15 | 372 | 34 |
+| Sigma | Bilbao | Pública | 749 | 15 | 93 | 83 |
+| Kappa | Sevilla | Mixta | 482 | 7 | 394 | 199 |
+| Theta | Sevilla | Privada | 915 | 15 | 340 | 86 |
+| Alfa | Madrid | Privada | 227 | 16 | 109 | 194 |
+| Lambda | Barcelona | Mixta | 322 | 12 | 138 | 229 |
 
-Responda a la siguiente pregunta según la tabla llamada Laboratorios: ¿Cuál es el total de técnicos de los laboratorios que tienen informes emitidos inferior a 111 y titularidad Mixta?
+Responda a la siguiente pregunta según la tabla llamada Laboratorios: ¿Cuál es el total de técnicos de los laboratorios que cumplen estas condiciones: menos de 62 informes emitidos y titularidad «Mixta»?
 
-a) 23
-b) 24
-c) 18
-d) 16
+a) 25
+b) 27
+c) 21
+d) 24
 
 **Clave: c**
 
-Explicación: Pasan el filtro 2 filas; sus técnicos suman 18.
+Explicación: Pasan el filtro 2 filas; en ellas, la columna «Técnicos» suma 21.
 
 ## 3. seed 3888289725752918728 · nivel 1
 
@@ -63,106 +63,107 @@ Tabla «Desplazamientos»:
 
 | Empleado | Destino | Medio | Distancia (km) | Tiempo (min) | Coste (€) | Viajes al año |
 |---|---|---|---|---|---|---|
-| Irene Pons | Sevilla | Tren | 589 | 133 | 202 | 6 |
-| Ana Cortés | Sevilla | Coche | 690 | 413 | 160 | 13 |
-| Marta Ríos | Bilbao | Coche | 662 | 300 | 135 | 4 |
-| Diego Rubio | Valencia | Autobús | 531 | 179 | 106 | 1 |
-| Paula Giner | Bilbao | Tren | 699 | 436 | 76 | 12 |
-| Lucía Costa | Madrid | Avión | 689 | 384 | 183 | 13 |
-| Rocío Mora | Barcelona | Tren | 491 | 118 | 47 | 3 |
+| Irene Pons | Sevilla | Tren | 589 | 168 | 100 | 8 |
+| Ana Cortés | Sevilla | Coche | 689 | 413 | 158 | 3 |
+| Marta Ríos | Bilbao | Coche | 833 | 476 | 225 | 12 |
+| Diego Rubio | Valencia | Autobús | 424 | 358 | 25 | 2 |
+| Paula Giner | Bilbao | Tren | 92 | 51 | 17 | 3 |
+| Lucía Costa | Madrid | Avión | 533 | 103 | 133 | 12 |
+| Rocío Mora | Barcelona | Tren | 698 | 399 | 105 | 7 |
 
-Responda a la siguiente pregunta según la tabla llamada Desplazamientos: ¿Cuál de los siguientes empleados tiene destino Madrid, tiempo superior a 336 y distancia superior a 603?
+Responda a la siguiente pregunta según la tabla llamada Desplazamientos: ¿Qué empleado tiene el menor cociente entre distancia y tiempo?
 
-a) Lucía Costa.
+a) Rocío Mora.
 b) Marta Ríos.
-c) Rocío Mora.
+c) Diego Rubio.
 d) Irene Pons.
 
-**Clave: a**
+**Clave: c**
 
-Explicación: Solo «Lucía Costa» cumple las 3 condiciones: destino Madrid, tiempo superior a 336 y distancia superior a 603.
+Explicación: Se divide distancia entre tiempo en cada fila: el menor cociente es el de «Diego Rubio» (1,18).
 
 ## 4. seed 679292652377546788 · nivel 2
 
-Tabla «Préstamos»:
+Tabla «Academia»:
 
-| Título | Lugar de edición | Editorial | Año de publicación | Ejemplares disponibles | Ejemplares prestados | Préstamos realizados |
+| Alumno | Curso | Turno | Edad | Horas semanales | Cuota mensual | Faltas de asistencia |
 |---|---|---|---|---|---|---|
-| La isla vacía | Valencia | Santillana | 2000 | 9 | 5 | 340 |
-| La casa del lago | Barcelona | Planeta | 1998 | 18 | 5 | 222 |
-| Adiós a las novias | Madrid | Anagrama | 1996 | 3 | 7 | 226 |
-| El amante lesbiano | Valencia | Planeta | 2000 | 16 | 7 | 228 |
-| Aranmanoth | Valencia | Alfaguara | 2003 | 11 | 6 | 227 |
-| El último tren | Valencia | Anagrama | 1995 | 8 | 7 | 160 |
-| El equipaje del viajero | Valencia | Planeta | 2005 | 7 | 8 | 319 |
-| Noches de invierno | Sevilla | Destino | 1999 | 14 | 5 | 144 |
-| Mano de sombra | Barcelona | Alfaguara | 2002 | 6 | 4 | 214 |
-| Un calor tan cercano | Sevilla | Santillana | 2002 | 16 | 7 | 157 |
+| Iván Duarte | Inglés | Tarde | 30 | 10 | 93 | 15 |
+| Víctor Ibarra | Informática | Mañana | 53 | 3 | 56 | 2 |
+| Jorge Luna | Francés | Noche | 27 | 5 | 66 | 13 |
+| Rocío Mora | Inglés | Noche | 40 | 2 | 88 | 0 |
+| Raúl Mena | Alemán | Mañana | 43 | 11 | 108 | 8 |
+| Nuria Salas | Alemán | Mañana | 37 | 9 | 87 | 3 |
+| Marta Ríos | Informática | Mañana | 37 | 6 | 103 | 12 |
+| Pablo Vera | Francés | Noche | 23 | 10 | 47 | 8 |
+| Ana Cortés | Alemán | Tarde | 45 | 3 | 42 | 15 |
+| Irene Pons | Informática | Tarde | 33 | 4 | 57 | 3 |
 
-Responda a la siguiente pregunta según la tabla llamada Préstamos: ¿Qué título tiene el mayor cociente entre año de publicación y ejemplares prestados?
+Responda a la siguiente pregunta según la tabla llamada Academia: ¿Cuántos alumnos cumplen estas condiciones: más de 2 horas semanales y más de 14 faltas de asistencia?
 
-a) Mano de sombra.
-b) La isla vacía.
-c) La casa del lago.
-d) Aranmanoth.
+a) 3
+b) 0
+c) 2
+d) 5
 
-**Clave: a**
+**Clave: c**
 
-Explicación: Se divide año de publicación entre ejemplares prestados en cada fila: el mayor cociente es el de «Mano de sombra» (500,50).
+Explicación: Cumplen las condiciones (más de 2 horas semanales y más de 14 faltas de asistencia) exactamente 2.
 
 ## 5. seed 2618344893097292910 · nivel 2
-
-Tabla «Excursiones»:
-
-| Destino | Tipo | Transporte | Participantes | Precio por persona (€) | Duración (horas) | Kilómetros |
-|---|---|---|---|---|---|---|
-| Teruel | Gastronómica | Tren | 58 | 22 | 4 | 446 |
-| Mérida | Cultural | Autobús | 49 | 72 | 27 | 475 |
-| Jaca | Naturaleza | Autobús | 14 | 69 | 9 | 409 |
-| Úbeda | Gastronómica | Tren | 46 | 51 | 9 | 110 |
-| Segovia | Deportiva | Tren | 39 | 51 | 29 | 206 |
-| Ávila | Gastronómica | Barco | 12 | 81 | 15 | 75 |
-| Ronda | Cultural | Tren | 15 | 89 | 7 | 225 |
-| Cuenca | Gastronómica | Autobús | 31 | 59 | 25 | 384 |
-| León | Gastronómica | Tren | 36 | 94 | 12 | 78 |
-
-Responda a la siguiente pregunta según la tabla llamada Excursiones: ¿Cuál es el total de kilómetros de los destinos que tienen precio por persona superior a 83 y duración inferior a 13?
-
-a) 303
-b) 327
-c) 364
-d) 218
-
-**Clave: a**
-
-Explicación: Pasan el filtro 2 filas; sus kilómetros suman 303.
-
-## 6. seed 995660733233502469 · nivel 2
 
 Tabla «Desplazamientos»:
 
 | Empleado | Destino | Medio | Distancia (km) | Tiempo (min) | Coste (€) | Viajes al año |
 |---|---|---|---|---|---|---|
-| Carla Nieto | Valencia | Coche | 486 | 99 | 104 | 4 |
-| Hugo Beltrán | Valencia | Coche | 583 | 430 | 67 | 9 |
-| Elena Soler | Barcelona | Tren | 116 | 68 | 193 | 8 |
-| Pablo Vera | Madrid | Tren | 341 | 498 | 77 | 5 |
-| Nuria Salas | Sevilla | Autobús | 441 | 60 | 189 | 6 |
-| Jorge Luna | Madrid | Avión | 298 | 508 | 223 | 3 |
-| Víctor Ibarra | Madrid | Autobús | 603 | 389 | 24 | 5 |
-| Iván Duarte | Bilbao | Avión | 467 | 472 | 47 | 7 |
-| Marta Ríos | Bilbao | Avión | 302 | 198 | 141 | 6 |
+| Rocío Mora | Barcelona | Coche | 589 | 406 | 147 | 9 |
+| Raúl Mena | Valencia | Coche | 510 | 364 | 143 | 6 |
+| Carla Nieto | Valencia | Coche | 705 | 572 | 162 | 11 |
+| Víctor Ibarra | Sevilla | Autobús | 301 | 235 | 15 | 7 |
+| Hugo Beltrán | Valencia | Tren | 741 | 412 | 104 | 5 |
+| Pablo Vera | Madrid | Tren | 397 | 170 | 52 | 13 |
+| Andrés Peña | Barcelona | Avión | 563 | 64 | 118 | 8 |
+| Nuria Salas | Bilbao | Avión | 471 | 57 | 61 | 8 |
+| Irene Pons | Sevilla | Tren | 480 | 217 | 67 | 6 |
 
-Responda a la siguiente pregunta según la tabla llamada Desplazamientos: ¿Cuál es el total de distancia de los empleados que tienen coste superior a 91 y tiempo inferior a 111?
+Responda a la siguiente pregunta según la tabla llamada Desplazamientos: ¿Cuántos empleados cumplen estas condiciones: más de 5 viajes al año y medio «Coche»?
 
-a) 1168
-b) 1043
-c) 1252
-d) 1626
+a) 6
+b) 2
+c) 3
+d) 4
 
-**Clave: b**
+**Clave: c**
 
-Explicación: Pasan el filtro 3 filas; sus distancia suman 1043.
+Explicación: Cumplen las condiciones (más de 5 viajes al año y medio «Coche») exactamente 3.
+
+## 6. seed 995660733233502469 · nivel 2
+
+Tabla «Academia»:
+
+| Alumno | Curso | Turno | Edad | Horas semanales | Cuota mensual | Faltas de asistencia |
+|---|---|---|---|---|---|---|
+| Diego Rubio | Francés | Tarde | 47 | 4 | 96 | 4 |
+| Luis Parra | Francés | Noche | 44 | 5 | 40 | 8 |
+| Óscar Lara | Alemán | Tarde | 46 | 8 | 47 | 6 |
+| Iván Duarte | Informática | Mañana | 34 | 12 | 72 | 2 |
+| Raúl Mena | Francés | Tarde | 47 | 4 | 108 | 15 |
+| Víctor Ibarra | Inglés | Tarde | 32 | 6 | 42 | 4 |
+| Pablo Vera | Inglés | Tarde | 38 | 3 | 46 | 12 |
+| Nuria Salas | Alemán | Noche | 41 | 5 | 81 | 3 |
+| Paula Giner | Alemán | Noche | 19 | 4 | 44 | 8 |
+| Andrés Peña | Informática | Noche | 55 | 10 | 103 | 6 |
+
+Responda a la siguiente pregunta según la tabla llamada Academia: Sumando horas semanales por curso, ¿qué curso obtiene el menor total?
+
+a) Francés.
+b) Alemán.
+c) Informática.
+d) Inglés.
+
+**Clave: d**
+
+Explicación: Los valores por curso son Alemán 17, Francés 13, Informática 22, Inglés 9; el menor es Inglés.
 
 ## 7. seed 1223983771725134866 · nivel 2
 
@@ -170,189 +171,189 @@ Tabla «Academia»:
 
 | Alumno | Curso | Turno | Edad | Horas semanales | Cuota mensual | Faltas de asistencia |
 |---|---|---|---|---|---|---|
-| Marta Ríos | Francés | Noche | 30 | 8 | 82 | 4 |
-| Pablo Vera | Francés | Mañana | 43 | 6 | 81 | 10 |
-| Óscar Lara | Inglés | Mañana | 48 | 7 | 73 | 2 |
-| Raúl Mena | Alemán | Mañana | 49 | 8 | 104 | 6 |
-| Luis Parra | Informática | Tarde | 44 | 4 | 44 | 12 |
-| Hugo Beltrán | Francés | Tarde | 25 | 12 | 63 | 9 |
-| Víctor Ibarra | Francés | Tarde | 32 | 7 | 30 | 9 |
-| Diego Rubio | Francés | Tarde | 48 | 11 | 67 | 13 |
-| Ana Cortés | Inglés | Noche | 22 | 9 | 40 | 6 |
-| Carla Nieto | Inglés | Mañana | 55 | 10 | 74 | 14 |
+| Rocío Mora | Inglés | Noche | 39 | 7 | 69 | 5 |
+| Carla Nieto | Francés | Tarde | 22 | 10 | 86 | 13 |
+| Pablo Vera | Informática | Tarde | 54 | 3 | 120 | 8 |
+| Víctor Ibarra | Informática | Tarde | 55 | 10 | 41 | 11 |
+| Marta Ríos | Informática | Noche | 51 | 4 | 62 | 12 |
+| Iván Duarte | Francés | Noche | 19 | 5 | 32 | 6 |
+| Elena Soler | Inglés | Mañana | 29 | 4 | 60 | 15 |
+| Luis Parra | Alemán | Mañana | 20 | 8 | 95 | 15 |
+| Sara Ortiz | Alemán | Mañana | 41 | 11 | 87 | 1 |
 
-Responda a la siguiente pregunta según la tabla llamada Academia: ¿Cuál de los siguientes alumnos tiene cuota mensual superior a 64, faltas de asistencia inferior a 3 y edad inferior a 54?
+Responda a la siguiente pregunta según la tabla llamada Academia: ¿Qué alumno tiene el mayor cociente entre cuota mensual y horas semanales?
 
-a) Luis Parra.
-b) Pablo Vera.
-c) Óscar Lara.
-d) Marta Ríos.
+a) Pablo Vera.
+b) Rocío Mora.
+c) Marta Ríos.
+d) Luis Parra.
 
-**Clave: c**
+**Clave: a**
 
-Explicación: Solo «Óscar Lara» cumple las 3 condiciones: cuota mensual superior a 64, faltas de asistencia inferior a 3 y edad inferior a 54.
+Explicación: Se divide cuota mensual entre horas semanales en cada fila: el mayor cociente es el de «Pablo Vera» (40,00).
 
 ## 8. seed 4580581082989247247 · nivel 2
-
-Tabla «Laboratorios»:
-
-| Laboratorio | Ciudad | Titularidad | Muestras analizadas | Técnicos | Presupuesto (miles de €) | Informes emitidos |
-|---|---|---|---|---|---|---|
-| Omega | Valencia | Pública | 452 | 7 | 93 | 166 |
-| Épsilon | Madrid | Privada | 649 | 17 | 256 | 279 |
-| Gamma | Sevilla | Privada | 477 | 24 | 125 | 179 |
-| Zeta | Madrid | Privada | 571 | 17 | 121 | 276 |
-| Beta | Madrid | Pública | 266 | 9 | 165 | 172 |
-| Theta | Valencia | Mixta | 447 | 11 | 223 | 106 |
-| Delta | Madrid | Pública | 136 | 4 | 199 | 200 |
-| Iota | Barcelona | Pública | 237 | 17 | 75 | 187 |
-| Kappa | Bilbao | Privada | 274 | 23 | 300 | 77 |
-| Sigma | Sevilla | Mixta | 867 | 24 | 82 | 152 |
-
-Responda a la siguiente pregunta según la tabla llamada Laboratorios: ¿Qué laboratorio tiene el menor cociente entre informes emitidos y técnicos?
-
-a) Gamma.
-b) Sigma.
-c) Kappa.
-d) Theta.
-
-**Clave: c**
-
-Explicación: Se divide informes emitidos entre técnicos en cada fila: el menor cociente es el de «Kappa» (3,35).
-
-## 9. seed 3910380554785824084 · nivel 1
 
 Tabla «Desplazamientos»:
 
 | Empleado | Destino | Medio | Distancia (km) | Tiempo (min) | Coste (€) | Viajes al año |
 |---|---|---|---|---|---|---|
-| Iván Duarte | Sevilla | Autobús | 550 | 512 | 180 | 4 |
-| Lucía Costa | Valencia | Tren | 336 | 345 | 96 | 6 |
-| Carla Nieto | Madrid | Autobús | 663 | 430 | 105 | 4 |
-| Marta Ríos | Valencia | Coche | 861 | 240 | 135 | 11 |
-| Paula Giner | Barcelona | Avión | 475 | 155 | 161 | 2 |
-| Nuria Salas | Bilbao | Autobús | 297 | 82 | 154 | 11 |
-| Hugo Beltrán | Barcelona | Avión | 451 | 112 | 181 | 13 |
+| Irene Pons | Sevilla | Tren | 612 | 168 | 98 | 10 |
+| Pablo Vera | Bilbao | Avión | 459 | 58 | 106 | 5 |
+| Ana Cortés | Barcelona | Avión | 648 | 94 | 156 | 1 |
+| Luis Parra | Madrid | Avión | 350 | 39 | 66 | 4 |
+| Rocío Mora | Valencia | Coche | 747 | 439 | 187 | 14 |
+| Elena Soler | Sevilla | Autobús | 187 | 158 | 9 | 3 |
+| Sara Ortiz | Sevilla | Avión | 772 | 129 | 100 | 12 |
+| Nuria Salas | Sevilla | Coche | 358 | 219 | 86 | 6 |
+| Marta Ríos | Barcelona | Autobús | 767 | 742 | 69 | 8 |
+| Hugo Beltrán | Valencia | Autobús | 152 | 105 | 9 | 14 |
 
-Responda a la siguiente pregunta según la tabla llamada Desplazamientos: ¿Cuántos empleados tienen tiempo superior a 98, medio Avión y destino Barcelona?
+Responda a la siguiente pregunta según la tabla llamada Desplazamientos: ¿Qué empleado tiene el menor cociente entre distancia y tiempo?
 
-a) 5
-b) 2
-c) 0
-d) 3
-
-**Clave: b**
-
-Explicación: Cumplen las condiciones (tiempo superior a 98, medio Avión y destino Barcelona) exactamente 2.
-
-## 10. seed 4441628925242482318 · nivel 2
-
-Tabla «Laboratorios»:
-
-| Laboratorio | Ciudad | Titularidad | Muestras analizadas | Técnicos | Presupuesto (miles de €) | Informes emitidos |
-|---|---|---|---|---|---|---|
-| Gamma | Madrid | Mixta | 572 | 6 | 228 | 55 |
-| Zeta | Barcelona | Pública | 973 | 21 | 353 | 205 |
-| Delta | Bilbao | Mixta | 305 | 11 | 358 | 141 |
-| Omega | Valencia | Pública | 402 | 12 | 312 | 175 |
-| Lambda | Barcelona | Mixta | 845 | 15 | 317 | 123 |
-| Iota | Sevilla | Mixta | 511 | 5 | 189 | 287 |
-| Sigma | Barcelona | Privada | 898 | 6 | 230 | 166 |
-| Épsilon | Valencia | Pública | 799 | 15 | 73 | 63 |
-| Kappa | Madrid | Pública | 393 | 16 | 66 | 179 |
-
-Responda a la siguiente pregunta según la tabla llamada Laboratorios: Entre los laboratorios que tienen técnicos inferior a 16 y informes emitidos superior a 108, ¿cuál tiene el valor más alto de presupuesto?
-
-a) Omega.
-b) Gamma.
-c) Delta.
-d) Sigma.
+a) Irene Pons.
+b) Rocío Mora.
+c) Marta Ríos.
+d) Sara Ortiz.
 
 **Clave: c**
 
-Explicación: Pasan el filtro 5 laboratorios; entre ellos, «Delta» tiene el valor más alto de presupuesto.
+Explicación: Se divide distancia entre tiempo en cada fila: el menor cociente es el de «Marta Ríos» (1,03).
 
-## 11. seed 2446871128147784257 · nivel 2
-
-Tabla «Laboratorios»:
-
-| Laboratorio | Ciudad | Titularidad | Muestras analizadas | Técnicos | Presupuesto (miles de €) | Informes emitidos |
-|---|---|---|---|---|---|---|
-| Sigma | Madrid | Privada | 167 | 18 | 120 | 201 |
-| Iota | Madrid | Pública | 162 | 23 | 266 | 256 |
-| Zeta | Sevilla | Mixta | 521 | 24 | 148 | 236 |
-| Omega | Valencia | Pública | 750 | 9 | 107 | 197 |
-| Beta | Bilbao | Mixta | 871 | 12 | 166 | 204 |
-| Alfa | Barcelona | Privada | 442 | 10 | 76 | 297 |
-| Delta | Sevilla | Mixta | 418 | 11 | 169 | 278 |
-| Épsilon | Barcelona | Privada | 616 | 18 | 325 | 265 |
-| Gamma | Bilbao | Pública | 631 | 6 | 274 | 154 |
-| Theta | Bilbao | Mixta | 464 | 11 | 186 | 148 |
-
-Responda a la siguiente pregunta según la tabla llamada Laboratorios: Entre los laboratorios que tienen técnicos superior a 10 y muestras analizadas superior a 366, ¿cuál tiene el valor más bajo de presupuesto?
-
-a) Sigma.
-b) Zeta.
-c) Iota.
-d) Delta.
-
-**Clave: b**
-
-Explicación: Pasan el filtro 5 laboratorios; entre ellos, «Zeta» tiene el valor más bajo de presupuesto.
-
-## 12. seed 3654112830433712182 · nivel 1
+## 9. seed 3910380554785824084 · nivel 1
 
 Tabla «Excursiones»:
 
 | Destino | Tipo | Transporte | Participantes | Precio por persona (€) | Duración (horas) | Kilómetros |
 |---|---|---|---|---|---|---|
-| Mérida | Naturaleza | Tren | 21 | 88 | 20 | 237 |
-| Cuenca | Deportiva | Autobús | 15 | 75 | 10 | 213 |
-| Úbeda | Naturaleza | Barco | 22 | 46 | 15 | 355 |
-| Ronda | Deportiva | Autobús | 58 | 64 | 12 | 183 |
-| Segovia | Cultural | Tren | 60 | 17 | 25 | 463 |
-| Toledo | Gastronómica | Autobús | 41 | 38 | 8 | 168 |
-| Lugo | Gastronómica | Barco | 17 | 62 | 25 | 179 |
+| Soria | Gastronómica | Minibús | 19 | 76 | 19 | 249 |
+| Teruel | Cultural | Tren | 13 | 64 | 21 | 108 |
+| Jaca | Naturaleza | Autobús | 50 | 95 | 8 | 478 |
+| Toledo | Naturaleza | Tren | 35 | 95 | 16 | 323 |
+| León | Cultural | Autobús | 54 | 29 | 7 | 178 |
+| Ronda | Deportiva | Minibús | 27 | 87 | 5 | 406 |
+| Mérida | Cultural | Autobús | 53 | 50 | 8 | 127 |
+| Segovia | Deportiva | Minibús | 34 | 17 | 7 | 123 |
 
-Responda a la siguiente pregunta según la tabla llamada Excursiones: ¿Cuál de los siguientes destinos tiene precio por persona inferior a 72 y tipo Deportiva?
+Responda a la siguiente pregunta según la tabla llamada Excursiones: Entre los destinos que cumplen esta condición: transporte «Autobús», ¿cuál tiene el valor más bajo de precio por persona?
 
-a) Mérida.
-b) Úbeda.
-c) Lugo.
-d) Ronda.
+a) Teruel.
+b) Mérida.
+c) Toledo.
+d) León.
 
 **Clave: d**
 
-Explicación: Solo «Ronda» cumple las 2 condiciones: precio por persona inferior a 72 y tipo Deportiva.
+Explicación: Pasan el filtro 3 destinos; entre ellos, «León» tiene el valor más bajo de precio por persona.
+
+## 10. seed 4441628925242482318 · nivel 2
+
+Tabla «Desplazamientos»:
+
+| Empleado | Destino | Medio | Distancia (km) | Tiempo (min) | Coste (€) | Viajes al año |
+|---|---|---|---|---|---|---|
+| Pablo Vera | Valencia | Avión | 761 | 83 | 76 | 7 |
+| Irene Pons | Bilbao | Coche | 185 | 129 | 41 | 7 |
+| Iván Duarte | Sevilla | Autobús | 840 | 840 | 50 | 3 |
+| Jorge Luna | Valencia | Avión | 373 | 50 | 90 | 8 |
+| Diego Rubio | Madrid | Tren | 121 | 46 | 22 | 3 |
+| Sara Ortiz | Sevilla | Avión | 723 | 69 | 159 | 7 |
+| Nuria Salas | Madrid | Coche | 627 | 358 | 138 | 8 |
+| Ana Cortés | Sevilla | Avión | 384 | 64 | 77 | 2 |
+| Raúl Mena | Barcelona | Avión | 691 | 115 | 69 | 8 |
+
+Responda a la siguiente pregunta según la tabla llamada Desplazamientos: ¿Cuál de los siguientes empleados cumple estas condiciones: menos de 3 viajes al año, medio «Avión» y distancia superior a 295?
+
+a) Pablo Vera.
+b) Jorge Luna.
+c) Ana Cortés.
+d) Sara Ortiz.
+
+**Clave: c**
+
+Explicación: Solo «Ana Cortés» cumple las 3 condiciones: menos de 3 viajes al año, medio «Avión» y distancia superior a 295.
+
+## 11. seed 2446871128147784257 · nivel 2
+
+Tabla «Excursiones»:
+
+| Destino | Tipo | Transporte | Participantes | Precio por persona (€) | Duración (horas) | Kilómetros |
+|---|---|---|---|---|---|---|
+| Teruel | Deportiva | Autobús | 35 | 78 | 4 | 48 |
+| Jaca | Naturaleza | Tren | 51 | 68 | 24 | 64 |
+| Ronda | Naturaleza | Tren | 15 | 54 | 30 | 256 |
+| Úbeda | Cultural | Autobús | 37 | 46 | 12 | 59 |
+| Mérida | Gastronómica | Tren | 19 | 37 | 14 | 331 |
+| Cuenca | Deportiva | Autobús | 18 | 85 | 12 | 340 |
+| Lugo | Deportiva | Minibús | 19 | 89 | 12 | 242 |
+| Soria | Gastronómica | Tren | 51 | 62 | 28 | 365 |
+| Segovia | Cultural | Minibús | 55 | 73 | 24 | 293 |
+
+Responda a la siguiente pregunta según la tabla llamada Excursiones: ¿Cuántos destinos cumplen estas condiciones: precio por persona superior a 79 y tipo «Deportiva»?
+
+a) 1
+b) 5
+c) 2
+d) 0
+
+**Clave: c**
+
+Explicación: Cumplen las condiciones (precio por persona superior a 79 y tipo «Deportiva») exactamente 2.
+
+## 12. seed 3654112830433712182 · nivel 1
+
+Tabla «Academia»:
+
+| Alumno | Curso | Turno | Edad | Horas semanales | Cuota mensual | Faltas de asistencia |
+|---|---|---|---|---|---|---|
+| Víctor Ibarra | Inglés | Noche | 21 | 6 | 60 | 12 |
+| Andrés Peña | Alemán | Mañana | 27 | 3 | 51 | 7 |
+| Carla Nieto | Francés | Tarde | 45 | 3 | 71 | 5 |
+| Pablo Vera | Alemán | Noche | 40 | 6 | 64 | 8 |
+| Hugo Beltrán | Francés | Tarde | 50 | 3 | 95 | 11 |
+| Diego Rubio | Inglés | Noche | 51 | 7 | 78 | 0 |
+| Óscar Lara | Informática | Tarde | 44 | 11 | 33 | 6 |
+| Ana Cortés | Informática | Noche | 38 | 7 | 89 | 1 |
+
+Responda a la siguiente pregunta según la tabla llamada Academia: Entre los alumnos que cumplen esta condición: menos de 7 faltas de asistencia, ¿cuál tiene el valor más alto de edad?
+
+a) Andrés Peña.
+b) Diego Rubio.
+c) Víctor Ibarra.
+d) Carla Nieto.
+
+**Clave: b**
+
+Explicación: Pasan el filtro 4 alumnos; entre ellos, «Diego Rubio» tiene el valor más alto de edad.
 
 ## 13. seed 327284621952842892 · nivel 3
 
-Tabla «Laboratorios»:
+Tabla «Préstamos»:
 
-| Laboratorio | Ciudad | Titularidad | Muestras analizadas | Técnicos | Presupuesto (miles de €) | Informes emitidos |
+| Título | Lugar de edición | Editorial | Año de publicación | Ejemplares disponibles | Ejemplares prestados | Préstamos realizados |
 |---|---|---|---|---|---|---|
-| Épsilon | Madrid | Privada | 533 | 22 | 202 | 260 |
-| Sigma | Sevilla | Privada | 266 | 18 | 50 | 119 |
-| Delta | Madrid | Privada | 538 | 21 | 365 | 167 |
-| Gamma | Sevilla | Mixta | 793 | 10 | 336 | 68 |
-| Iota | Madrid | Pública | 685 | 20 | 361 | 71 |
-| Omega | Madrid | Pública | 521 | 6 | 91 | 282 |
-| Kappa | Valencia | Mixta | 258 | 18 | 286 | 299 |
-| Alfa | Barcelona | Pública | 368 | 24 | 146 | 37 |
-| Theta | Sevilla | Privada | 977 | 22 | 236 | 43 |
-| Beta | Bilbao | Privada | 647 | 7 | 354 | 119 |
-| Zeta | Sevilla | Pública | 596 | 14 | 224 | 31 |
+| Tiempo de ceniza | Madrid | Alfaguara | 1996 | 8 | 8 | 224 |
+| El jardín cerrado | Madrid | Alfaguara | 2000 | 9 | 9 | 179 |
+| El amante lesbiano | Barcelona | Anagrama | 2001 | 18 | 3 | 113 |
+| La isla vacía | Valencia | Planeta | 2005 | 16 | 3 | 165 |
+| La temporada de caza | Sevilla | Santillana | 1999 | 7 | 6 | 118 |
+| Adiós a las novias | Madrid | Planeta | 2003 | 5 | 4 | 220 |
+| Noches de invierno | Sevilla | Destino | 1996 | 16 | 4 | 117 |
+| El último tren | Barcelona | Alfaguara | 2002 | 13 | 2 | 167 |
+| Los días azules | Madrid | Anagrama | 2003 | 16 | 8 | 217 |
+| Entre visillos | Valencia | Planeta | 2000 | 9 | 8 | 334 |
+| Contra vosotros | Madrid | Alfaguara | 2002 | 13 | 1 | 291 |
 
-Responda a la siguiente pregunta según la tabla llamada Laboratorios: ¿Cuál es la media de técnicos de todos los laboratorios?
+Responda a la siguiente pregunta según la tabla llamada Préstamos: ¿Cuál es la media de ejemplares prestados de todos los títulos?
 
-a) 11,91
-b) 21,18
-c) 18,00
-d) 16,55
+a) 5,09
+b) 7,09
+c) 5,60
+d) 4,00
 
-**Clave: d**
+**Clave: a**
 
-Explicación: La suma de la columna es 182,00 y hay 11 filas: 16,55.
+Explicación: La suma de la columna es 56,00 y hay 11 filas: 5,09.
 
 ## 14. seed 3262813409570128271 · nivel 1
 
@@ -360,101 +361,99 @@ Tabla «Laboratorios»:
 
 | Laboratorio | Ciudad | Titularidad | Muestras analizadas | Técnicos | Presupuesto (miles de €) | Informes emitidos |
 |---|---|---|---|---|---|---|
-| Alfa | Bilbao | Privada | 942 | 21 | 278 | 174 |
-| Kappa | Madrid | Mixta | 681 | 15 | 207 | 232 |
-| Delta | Madrid | Pública | 628 | 5 | 122 | 216 |
-| Beta | Bilbao | Mixta | 373 | 8 | 171 | 38 |
-| Iota | Valencia | Mixta | 695 | 5 | 200 | 57 |
-| Omega | Barcelona | Pública | 569 | 10 | 266 | 173 |
-| Sigma | Sevilla | Mixta | 219 | 9 | 159 | 209 |
+| Delta | Sevilla | Privada | 150 | 4 | 244 | 278 |
+| Lambda | Barcelona | Mixta | 455 | 6 | 342 | 260 |
+| Omega | Valencia | Privada | 798 | 14 | 259 | 34 |
+| Iota | Madrid | Mixta | 201 | 11 | 355 | 158 |
+| Kappa | Valencia | Privada | 567 | 11 | 374 | 219 |
+| Zeta | Sevilla | Privada | 718 | 21 | 289 | 289 |
+| Theta | Bilbao | Pública | 477 | 20 | 400 | 184 |
 
-Responda a la siguiente pregunta según la tabla llamada Laboratorios: ¿Qué laboratorio tiene el mayor cociente entre informes emitidos y muestras analizadas?
+Responda a la siguiente pregunta según la tabla llamada Laboratorios: ¿Cuál de los siguientes laboratorios cumple estas condiciones: más de 717 muestras analizadas, menos de 65 informes emitidos y titularidad «Privada»?
 
-a) Sigma.
-b) Kappa.
-c) Delta.
-d) Omega.
-
-**Clave: a**
-
-Explicación: Se divide informes emitidos entre muestras analizadas en cada fila: el mayor cociente es el de «Sigma» (0,95).
-
-## 15. seed 1574408861979755188 · nivel 1
-
-Tabla «Laboratorios»:
-
-| Laboratorio | Ciudad | Titularidad | Muestras analizadas | Técnicos | Presupuesto (miles de €) | Informes emitidos |
-|---|---|---|---|---|---|---|
-| Sigma | Madrid | Privada | 298 | 5 | 185 | 184 |
-| Theta | Barcelona | Mixta | 443 | 3 | 118 | 278 |
-| Épsilon | Madrid | Mixta | 176 | 20 | 197 | 161 |
-| Delta | Sevilla | Mixta | 698 | 19 | 216 | 162 |
-| Gamma | Madrid | Privada | 832 | 9 | 216 | 213 |
-| Alfa | Bilbao | Pública | 505 | 16 | 363 | 143 |
-| Beta | Valencia | Pública | 248 | 21 | 164 | 71 |
-
-Responda a la siguiente pregunta según la tabla llamada Laboratorios: ¿Cuál de los siguientes laboratorios tiene presupuesto superior a 318 y informes emitidos superior a 126?
-
-a) Sigma.
-b) Épsilon.
+a) Kappa.
+b) Delta.
 c) Theta.
-d) Alfa.
+d) Omega.
 
 **Clave: d**
 
-Explicación: Solo «Alfa» cumple las 2 condiciones: presupuesto superior a 318 y informes emitidos superior a 126.
+Explicación: Solo «Omega» cumple las 3 condiciones: más de 717 muestras analizadas, menos de 65 informes emitidos y titularidad «Privada».
 
-## 16. seed 2074564667347024303 · nivel 1
+## 15. seed 1574408861979755188 · nivel 1
 
 Tabla «Excursiones»:
 
 | Destino | Tipo | Transporte | Participantes | Precio por persona (€) | Duración (horas) | Kilómetros |
 |---|---|---|---|---|---|---|
-| Lugo | Cultural | Autobús | 35 | 63 | 28 | 401 |
-| León | Gastronómica | Barco | 18 | 52 | 19 | 145 |
-| Ávila | Gastronómica | Tren | 53 | 95 | 6 | 220 |
-| Úbeda | Deportiva | Barco | 59 | 78 | 26 | 449 |
-| Toledo | Naturaleza | Tren | 50 | 34 | 25 | 50 |
-| Jaca | Gastronómica | Tren | 48 | 58 | 9 | 208 |
-| Ronda | Naturaleza | Barco | 27 | 67 | 6 | 254 |
-| Cuenca | Deportiva | Autobús | 53 | 70 | 9 | 368 |
+| Lugo | Cultural | Tren | 50 | 76 | 26 | 477 |
+| Cuenca | Gastronómica | Autobús | 12 | 69 | 4 | 358 |
+| Soria | Deportiva | Minibús | 40 | 30 | 10 | 322 |
+| Ronda | Cultural | Tren | 16 | 20 | 7 | 283 |
+| Mérida | Gastronómica | Minibús | 59 | 69 | 17 | 228 |
+| Úbeda | Naturaleza | Minibús | 60 | 19 | 13 | 480 |
+| Toledo | Naturaleza | Autobús | 41 | 33 | 9 | 145 |
 
-Responda a la siguiente pregunta según la tabla llamada Excursiones: ¿Cuál de los siguientes destinos tiene tipo Deportiva y precio por persona inferior a 78?
+Responda a la siguiente pregunta según la tabla llamada Excursiones: ¿Cuál de los siguientes destinos cumple estas condiciones: más de 436 kilómetros, precio por persona superior a 69 y tipo «Cultural»?
 
-a) Cuenca.
-b) Jaca.
-c) León.
-d) Ronda.
+a) Soria.
+b) Mérida.
+c) Lugo.
+d) Úbeda.
 
-**Clave: a**
+**Clave: c**
 
-Explicación: Solo «Cuenca» cumple las 2 condiciones: tipo Deportiva y precio por persona inferior a 78.
+Explicación: Solo «Lugo» cumple las 3 condiciones: más de 436 kilómetros, precio por persona superior a 69 y tipo «Cultural».
+
+## 16. seed 2074564667347024303 · nivel 1
+
+Tabla «Desplazamientos»:
+
+| Empleado | Destino | Medio | Distancia (km) | Tiempo (min) | Coste (€) | Viajes al año |
+|---|---|---|---|---|---|---|
+| Carla Nieto | Sevilla | Coche | 690 | 583 | 166 | 13 |
+| Marta Ríos | Barcelona | Avión | 697 | 76 | 118 | 2 |
+| Andrés Peña | Valencia | Tren | 754 | 353 | 121 | 8 |
+| Víctor Ibarra | Valencia | Autobús | 724 | 511 | 58 | 9 |
+| Lucía Costa | Madrid | Coche | 348 | 207 | 87 | 14 |
+| Nuria Salas | Bilbao | Coche | 275 | 209 | 63 | 12 |
+| Raúl Mena | Barcelona | Tren | 853 | 277 | 68 | 6 |
+
+Responda a la siguiente pregunta según la tabla llamada Desplazamientos: ¿Cuál de los siguientes empleados cumple estas condiciones: medio «Coche», distancia superior a 618 y más de 12 viajes al año?
+
+a) Andrés Peña.
+b) Carla Nieto.
+c) Nuria Salas.
+d) Lucía Costa.
+
+**Clave: b**
+
+Explicación: Solo «Carla Nieto» cumple las 3 condiciones: medio «Coche», distancia superior a 618 y más de 12 viajes al año.
 
 ## 17. seed 1580329207806355028 · nivel 1
 
-Tabla «Laboratorios»:
+Tabla «Academia»:
 
-| Laboratorio | Ciudad | Titularidad | Muestras analizadas | Técnicos | Presupuesto (miles de €) | Informes emitidos |
+| Alumno | Curso | Turno | Edad | Horas semanales | Cuota mensual | Faltas de asistencia |
 |---|---|---|---|---|---|---|
-| Beta | Bilbao | Pública | 479 | 20 | 42 | 163 |
-| Lambda | Bilbao | Mixta | 312 | 22 | 354 | 146 |
-| Iota | Valencia | Mixta | 783 | 14 | 326 | 81 |
-| Épsilon | Barcelona | Privada | 498 | 17 | 177 | 159 |
-| Sigma | Madrid | Pública | 819 | 14 | 131 | 186 |
-| Theta | Sevilla | Mixta | 734 | 13 | 157 | 30 |
-| Delta | Sevilla | Privada | 120 | 13 | 306 | 58 |
-| Gamma | Bilbao | Privada | 227 | 18 | 241 | 261 |
+| Lucía Costa | Alemán | Mañana | 34 | 4 | 85 | 10 |
+| Jorge Luna | Alemán | Mañana | 47 | 2 | 76 | 0 |
+| Iván Duarte | Francés | Tarde | 36 | 11 | 79 | 4 |
+| Nuria Salas | Alemán | Noche | 54 | 9 | 39 | 8 |
+| Sara Ortiz | Inglés | Tarde | 44 | 2 | 120 | 15 |
+| Óscar Lara | Francés | Mañana | 21 | 5 | 70 | 2 |
+| Marta Ríos | Informática | Tarde | 32 | 4 | 45 | 12 |
 
-Responda a la siguiente pregunta según la tabla llamada Laboratorios: ¿Cuál de los siguientes laboratorios tiene informes emitidos superior a 140, presupuesto inferior a 199 y titularidad Privada?
+Responda a la siguiente pregunta según la tabla llamada Academia: ¿Cuál de los siguientes alumnos cumple estas condiciones: menos de 3 horas semanales y más de 14 faltas de asistencia?
 
-a) Épsilon.
-b) Beta.
-c) Theta.
-d) Sigma.
+a) Jorge Luna.
+b) Óscar Lara.
+c) Sara Ortiz.
+d) Marta Ríos.
 
-**Clave: a**
+**Clave: c**
 
-Explicación: Solo «Épsilon» cumple las 3 condiciones: informes emitidos superior a 140, presupuesto inferior a 199 y titularidad Privada.
+Explicación: Solo «Sara Ortiz» cumple las 2 condiciones: menos de 3 horas semanales y más de 14 faltas de asistencia.
 
 ## 18. seed 4157976482641714332 · nivel 2
 
@@ -462,133 +461,132 @@ Tabla «Laboratorios»:
 
 | Laboratorio | Ciudad | Titularidad | Muestras analizadas | Técnicos | Presupuesto (miles de €) | Informes emitidos |
 |---|---|---|---|---|---|---|
-| Gamma | Barcelona | Mixta | 412 | 7 | 84 | 185 |
-| Kappa | Madrid | Mixta | 540 | 15 | 355 | 261 |
-| Delta | Madrid | Mixta | 776 | 7 | 334 | 215 |
-| Épsilon | Barcelona | Mixta | 287 | 24 | 142 | 122 |
-| Iota | Bilbao | Privada | 158 | 12 | 258 | 71 |
-| Zeta | Bilbao | Privada | 226 | 12 | 133 | 78 |
-| Alfa | Madrid | Pública | 609 | 15 | 390 | 109 |
-| Lambda | Valencia | Pública | 518 | 22 | 281 | 101 |
-| Omega | Sevilla | Privada | 690 | 15 | 285 | 153 |
+| Kappa | Sevilla | Mixta | 261 | 4 | 130 | 203 |
+| Iota | Sevilla | Privada | 890 | 17 | 131 | 59 |
+| Delta | Madrid | Pública | 962 | 18 | 339 | 44 |
+| Theta | Barcelona | Mixta | 183 | 8 | 109 | 102 |
+| Beta | Sevilla | Privada | 775 | 12 | 345 | 117 |
+| Épsilon | Barcelona | Privada | 778 | 3 | 196 | 157 |
+| Sigma | Bilbao | Mixta | 922 | 18 | 212 | 132 |
+| Gamma | Valencia | Mixta | 412 | 9 | 369 | 38 |
+| Lambda | Valencia | Privada | 835 | 16 | 50 | 299 |
+| Omega | Bilbao | Mixta | 963 | 17 | 68 | 47 |
 
-Responda a la siguiente pregunta según la tabla llamada Laboratorios: ¿Cuál es el total de presupuesto de los laboratorios que tienen técnicos superior a 11 y informes emitidos inferior a 79?
+Responda a la siguiente pregunta según la tabla llamada Laboratorios: ¿Cuántos laboratorios cumplen estas condiciones: presupuesto inferior a 169, menos de 235 informes emitidos y ciudad «Sevilla»?
 
-a) 469
-b) 282
-c) 407
-d) 391
+a) 0
+b) 2
+c) 5
+d) 3
 
-**Clave: d**
+**Clave: b**
 
-Explicación: Pasan el filtro 2 filas; sus presupuesto suman 391.
+Explicación: Cumplen las condiciones (presupuesto inferior a 169, menos de 235 informes emitidos y ciudad «Sevilla») exactamente 2.
 
 ## 19. seed 345352013983549247 · nivel 2
 
-Tabla «Desplazamientos»:
+Tabla «Préstamos»:
 
-| Empleado | Destino | Medio | Distancia (km) | Tiempo (min) | Coste (€) | Viajes al año |
+| Título | Lugar de edición | Editorial | Año de publicación | Ejemplares disponibles | Ejemplares prestados | Préstamos realizados |
 |---|---|---|---|---|---|---|
-| Carla Nieto | Valencia | Coche | 358 | 89 | 53 | 4 |
-| Hugo Beltrán | Barcelona | Avión | 807 | 275 | 127 | 2 |
-| Diego Rubio | Bilbao | Coche | 784 | 468 | 151 | 10 |
-| Lucía Costa | Sevilla | Autobús | 360 | 193 | 72 | 13 |
-| Irene Pons | Sevilla | Tren | 244 | 324 | 243 | 12 |
-| Elena Soler | Sevilla | Avión | 524 | 269 | 28 | 1 |
-| Paula Giner | Valencia | Tren | 454 | 471 | 259 | 2 |
-| Raúl Mena | Barcelona | Autobús | 664 | 79 | 105 | 6 |
-| Pablo Vera | Madrid | Autobús | 683 | 402 | 150 | 14 |
+| La temporada de caza | Madrid | Santillana | 1995 | 11 | 7 | 165 |
+| Hija de la fortuna | Barcelona | Santillana | 1996 | 5 | 2 | 309 |
+| Los días azules | Madrid | Alfaguara | 2003 | 12 | 6 | 245 |
+| El equipaje del viajero | Madrid | Anagrama | 2004 | 18 | 7 | 330 |
+| Tiempo de ceniza | Sevilla | Planeta | 1998 | 6 | 7 | 298 |
+| Cuaderno de bitácora | Sevilla | Alfaguara | 1996 | 9 | 5 | 172 |
+| Contra vosotros | Barcelona | Planeta | 2003 | 16 | 2 | 186 |
+| Un calor tan cercano | Valencia | Anagrama | 1996 | 5 | 5 | 153 |
+| El amante lesbiano | Madrid | Destino | 2002 | 18 | 8 | 278 |
 
-Responda a la siguiente pregunta según la tabla llamada Desplazamientos: ¿Cuántos empleados tienen distancia superior a 315, viajes al año inferior a 14 y tiempo inferior a 217?
+Responda a la siguiente pregunta según la tabla llamada Préstamos: ¿Cuál es el total de préstamos realizados de los títulos que cumplen estas condiciones: menos de 3 ejemplares prestados y lugar de edición «Barcelona»?
 
-a) 3
-b) 5
-c) 1
-d) 6
+a) 416
+b) 495
+c) 634
+d) 660
 
-**Clave: a**
+**Clave: b**
 
-Explicación: Cumplen las condiciones (distancia superior a 315, viajes al año inferior a 14 y tiempo inferior a 217) exactamente 3.
+Explicación: Pasan el filtro 2 filas; en ellas, la columna «Préstamos realizados» suma 495.
 
 ## 20. seed 3725810980475735155 · nivel 1
-
-Tabla «Desplazamientos»:
-
-| Empleado | Destino | Medio | Distancia (km) | Tiempo (min) | Coste (€) | Viajes al año |
-|---|---|---|---|---|---|---|
-| Pablo Vera | Madrid | Avión | 387 | 508 | 34 | 2 |
-| Luis Parra | Valencia | Tren | 524 | 103 | 143 | 10 |
-| Óscar Lara | Bilbao | Coche | 160 | 505 | 227 | 6 |
-| Irene Pons | Bilbao | Autobús | 807 | 138 | 38 | 5 |
-| Hugo Beltrán | Sevilla | Coche | 786 | 436 | 136 | 3 |
-| Carla Nieto | Valencia | Avión | 623 | 494 | 26 | 4 |
-| Jorge Luna | Barcelona | Coche | 797 | 498 | 165 | 6 |
-| Andrés Peña | Valencia | Autobús | 800 | 115 | 21 | 3 |
-
-Responda a la siguiente pregunta según la tabla llamada Desplazamientos: ¿Qué empleado tiene el mayor cociente entre viajes al año y distancia?
-
-a) Óscar Lara.
-b) Luis Parra.
-c) Jorge Luna.
-d) Pablo Vera.
-
-**Clave: a**
-
-Explicación: Se divide viajes al año entre distancia en cada fila: el mayor cociente es el de «Óscar Lara» (0,04).
-
-## 21. seed 3689692058427482923 · nivel 1
 
 Tabla «Academia»:
 
 | Alumno | Curso | Turno | Edad | Horas semanales | Cuota mensual | Faltas de asistencia |
 |---|---|---|---|---|---|---|
-| Lucía Costa | Informática | Tarde | 44 | 8 | 60 | 5 |
-| Raúl Mena | Francés | Tarde | 51 | 12 | 98 | 7 |
-| Irene Pons | Alemán | Noche | 51 | 12 | 91 | 11 |
-| Iván Duarte | Alemán | Tarde | 33 | 6 | 65 | 2 |
-| Andrés Peña | Informática | Noche | 35 | 5 | 63 | 1 |
-| Rocío Mora | Francés | Mañana | 21 | 9 | 81 | 11 |
-| Nuria Salas | Inglés | Tarde | 48 | 5 | 83 | 9 |
-| Sara Ortiz | Alemán | Noche | 51 | 8 | 79 | 2 |
+| Iván Duarte | Informática | Tarde | 40 | 3 | 44 | 7 |
+| Carla Nieto | Francés | Noche | 19 | 8 | 41 | 0 |
+| Diego Rubio | Alemán | Noche | 49 | 11 | 35 | 11 |
+| Raúl Mena | Informática | Mañana | 22 | 9 | 97 | 8 |
+| Paula Giner | Inglés | Tarde | 34 | 7 | 48 | 12 |
+| Marta Ríos | Francés | Tarde | 51 | 6 | 52 | 5 |
+| Irene Pons | Inglés | Mañana | 40 | 10 | 61 | 1 |
 
-Responda a la siguiente pregunta según la tabla llamada Academia: ¿Cuál de los siguientes alumnos tiene horas semanales superior a 11, curso Alemán y edad superior a 45?
+Responda a la siguiente pregunta según la tabla llamada Academia: ¿Cuál de los siguientes alumnos cumple estas condiciones: menos de 12 faltas de asistencia, edad superior a 45 y curso «Alemán»?
 
-a) Irene Pons.
-b) Sara Ortiz.
-c) Iván Duarte.
-d) Raúl Mena.
+a) Diego Rubio.
+b) Iván Duarte.
+c) Paula Giner.
+d) Carla Nieto.
 
 **Clave: a**
 
-Explicación: Solo «Irene Pons» cumple las 3 condiciones: horas semanales superior a 11, curso Alemán y edad superior a 45.
+Explicación: Solo «Diego Rubio» cumple las 3 condiciones: menos de 12 faltas de asistencia, edad superior a 45 y curso «Alemán».
+
+## 21. seed 3689692058427482923 · nivel 1
+
+Tabla «Desplazamientos»:
+
+| Empleado | Destino | Medio | Distancia (km) | Tiempo (min) | Coste (€) | Viajes al año |
+|---|---|---|---|---|---|---|
+| Carla Nieto | Bilbao | Coche | 278 | 174 | 83 | 6 |
+| Sara Ortiz | Barcelona | Tren | 213 | 61 | 21 | 6 |
+| Pablo Vera | Barcelona | Autobús | 340 | 279 | 31 | 10 |
+| Víctor Ibarra | Madrid | Avión | 350 | 34 | 42 | 14 |
+| Luis Parra | Valencia | Coche | 606 | 449 | 133 | 5 |
+| Jorge Luna | Sevilla | Tren | 94 | 44 | 17 | 3 |
+| Rocío Mora | Bilbao | Coche | 568 | 337 | 142 | 6 |
+
+Responda a la siguiente pregunta según la tabla llamada Desplazamientos: ¿Cuántos empleados cumplen estas condiciones: tiempo inferior a 225 y distancia inferior a 342?
+
+a) 4
+b) 3
+c) 2
+d) 5
+
+**Clave: b**
+
+Explicación: Cumplen las condiciones (tiempo inferior a 225 y distancia inferior a 342) exactamente 3.
 
 ## 22. seed 549857973036573262 · nivel 2
 
-Tabla «Laboratorios»:
+Tabla «Préstamos»:
 
-| Laboratorio | Ciudad | Titularidad | Muestras analizadas | Técnicos | Presupuesto (miles de €) | Informes emitidos |
+| Título | Lugar de edición | Editorial | Año de publicación | Ejemplares disponibles | Ejemplares prestados | Préstamos realizados |
 |---|---|---|---|---|---|---|
-| Beta | Valencia | Pública | 300 | 3 | 153 | 273 |
-| Theta | Madrid | Mixta | 466 | 11 | 312 | 133 |
-| Alfa | Sevilla | Privada | 532 | 10 | 235 | 135 |
-| Zeta | Valencia | Pública | 551 | 7 | 159 | 132 |
-| Sigma | Barcelona | Privada | 746 | 19 | 52 | 84 |
-| Épsilon | Sevilla | Privada | 906 | 18 | 311 | 181 |
-| Iota | Madrid | Pública | 647 | 8 | 272 | 111 |
-| Delta | Bilbao | Privada | 457 | 7 | 216 | 270 |
-| Lambda | Madrid | Pública | 917 | 5 | 391 | 49 |
-| Omega | Sevilla | Mixta | 708 | 14 | 181 | 113 |
+| El amante lesbiano | Madrid | Planeta | 1999 | 14 | 1 | 119 |
+| La temporada de caza | Sevilla | Santillana | 1999 | 7 | 9 | 275 |
+| La casa del lago | Sevilla | Alfaguara | 2002 | 11 | 3 | 135 |
+| Aranmanoth | Valencia | Santillana | 2003 | 3 | 2 | 299 |
+| El último tren | Barcelona | Alfaguara | 1996 | 16 | 1 | 183 |
+| La isla vacía | Madrid | Santillana | 2004 | 4 | 4 | 226 |
+| El jardín cerrado | Valencia | Planeta | 1998 | 8 | 7 | 263 |
+| Hija de la fortuna | Valencia | Destino | 1997 | 11 | 7 | 154 |
+| Contra vosotros | Madrid | Anagrama | 1999 | 12 | 4 | 283 |
+| Tiempo de ceniza | Sevilla | Anagrama | 1995 | 16 | 5 | 273 |
 
-Responda a la siguiente pregunta según la tabla llamada Laboratorios: ¿Cuántos laboratorios tienen ciudad Sevilla, presupuesto inferior a 264 y técnicos superior a 9?
+Responda a la siguiente pregunta según la tabla llamada Préstamos: ¿Cuál de los siguientes títulos cumple estas condiciones: más de 277 préstamos realizados, lugar de edición «Valencia», editorial «Santillana» y menos de 4 ejemplares disponibles?
 
-a) 2
-b) 0
-c) 4
-d) 3
+a) La isla vacía.
+b) Contra vosotros.
+c) Hija de la fortuna.
+d) Aranmanoth.
 
-**Clave: a**
+**Clave: d**
 
-Explicación: Cumplen las condiciones (ciudad Sevilla, presupuesto inferior a 264 y técnicos superior a 9) exactamente 2.
+Explicación: Solo «Aranmanoth» cumple las 4 condiciones: más de 277 préstamos realizados, lugar de edición «Valencia», editorial «Santillana» y menos de 4 ejemplares disponibles.
 
 ## 23. seed 3911690445701389361 · nivel 1
 
@@ -596,353 +594,358 @@ Tabla «Academia»:
 
 | Alumno | Curso | Turno | Edad | Horas semanales | Cuota mensual | Faltas de asistencia |
 |---|---|---|---|---|---|---|
-| Hugo Beltrán | Inglés | Noche | 49 | 7 | 69 | 14 |
-| Elena Soler | Alemán | Tarde | 41 | 6 | 95 | 7 |
-| Marta Ríos | Informática | Noche | 48 | 5 | 80 | 11 |
-| Nuria Salas | Francés | Noche | 27 | 7 | 82 | 3 |
-| Carla Nieto | Informática | Tarde | 32 | 4 | 56 | 6 |
-| Óscar Lara | Inglés | Mañana | 27 | 10 | 63 | 5 |
-| Irene Pons | Alemán | Noche | 21 | 6 | 42 | 4 |
+| Pablo Vera | Alemán | Mañana | 23 | 9 | 96 | 4 |
+| Andrés Peña | Francés | Mañana | 36 | 11 | 113 | 14 |
+| Marta Ríos | Inglés | Mañana | 24 | 5 | 119 | 6 |
+| Óscar Lara | Francés | Noche | 24 | 9 | 59 | 0 |
+| Irene Pons | Alemán | Tarde | 43 | 9 | 120 | 9 |
+| Lucía Costa | Francés | Tarde | 19 | 9 | 120 | 15 |
+| Raúl Mena | Informática | Tarde | 42 | 10 | 108 | 15 |
+| Iván Duarte | Inglés | Tarde | 44 | 12 | 57 | 10 |
 
-Responda a la siguiente pregunta según la tabla llamada Academia: ¿Cuántos alumnos tienen edad inferior a 30 y cuota mensual superior a 56?
+Responda a la siguiente pregunta según la tabla llamada Academia: ¿Cuántos alumnos cumplen estas condiciones: curso «Alemán» y menos de 10 horas semanales?
 
-a) 5
-b) 3
+a) 1
+b) 0
 c) 2
-d) 4
+d) 3
 
 **Clave: c**
 
-Explicación: Cumplen las condiciones (edad inferior a 30 y cuota mensual superior a 56) exactamente 2.
+Explicación: Cumplen las condiciones (curso «Alemán» y menos de 10 horas semanales) exactamente 2.
 
 ## 24. seed 4092711762427273095 · nivel 3
 
-Tabla «Desplazamientos»:
+Tabla «Academia»:
 
-| Empleado | Destino | Medio | Distancia (km) | Tiempo (min) | Coste (€) | Viajes al año |
+| Alumno | Curso | Turno | Edad | Horas semanales | Cuota mensual | Faltas de asistencia |
 |---|---|---|---|---|---|---|
-| Víctor Ibarra | Bilbao | Tren | 497 | 115 | 49 | 7 |
-| Raúl Mena | Valencia | Autobús | 278 | 196 | 224 | 14 |
-| Irene Pons | Bilbao | Avión | 471 | 248 | 98 | 13 |
-| Rocío Mora | Madrid | Autobús | 536 | 103 | 73 | 4 |
-| Diego Rubio | Barcelona | Coche | 364 | 372 | 218 | 14 |
-| Iván Duarte | Valencia | Coche | 503 | 436 | 131 | 8 |
-| Ana Cortés | Valencia | Autobús | 639 | 135 | 232 | 1 |
-| Lucía Costa | Sevilla | Tren | 142 | 104 | 119 | 3 |
-| Luis Parra | Sevilla | Autobús | 846 | 198 | 42 | 10 |
-| Paula Giner | Barcelona | Tren | 834 | 379 | 197 | 8 |
-| Elena Soler | Bilbao | Tren | 350 | 379 | 178 | 7 |
+| Irene Pons | Inglés | Mañana | 29 | 12 | 41 | 4 |
+| Iván Duarte | Inglés | Mañana | 19 | 8 | 64 | 11 |
+| Lucía Costa | Alemán | Mañana | 44 | 6 | 57 | 3 |
+| Elena Soler | Inglés | Noche | 33 | 10 | 48 | 7 |
+| Víctor Ibarra | Inglés | Tarde | 37 | 5 | 83 | 2 |
+| Pablo Vera | Alemán | Noche | 51 | 7 | 61 | 7 |
+| Ana Cortés | Inglés | Tarde | 37 | 8 | 79 | 8 |
+| Nuria Salas | Alemán | Tarde | 34 | 10 | 93 | 9 |
+| Raúl Mena | Francés | Tarde | 21 | 11 | 90 | 12 |
+| Hugo Beltrán | Francés | Noche | 46 | 11 | 89 | 3 |
+| Andrés Peña | Informática | Mañana | 28 | 7 | 91 | 4 |
+| Óscar Lara | Francés | Tarde | 28 | 9 | 69 | 6 |
 
-Responda a la siguiente pregunta según la tabla llamada Desplazamientos: ¿Cuál es el total de distancia de los empleados que tienen viajes al año superior a 7 y medio Coche?
+Responda a la siguiente pregunta según la tabla llamada Academia: ¿Qué porcentaje del total de horas semanales corresponde a los alumnos con turno «Noche»?
 
-a) 624
-b) 503
-c) 867
-d) 763
-
-**Clave: c**
-
-Explicación: Pasan el filtro 2 filas; sus distancia suman 867.
-
-## 25. seed 2736979108388417725 · nivel 2
-
-Tabla «Préstamos»:
-
-| Título | Lugar de edición | Editorial | Año de publicación | Ejemplares disponibles | Ejemplares prestados | Préstamos realizados |
-|---|---|---|---|---|---|---|
-| Hija de la fortuna | Valencia | Planeta | 1996 | 19 | 1 | 314 |
-| Un calor tan cercano | Barcelona | Destino | 1999 | 7 | 6 | 205 |
-| Aranmanoth | Sevilla | Anagrama | 2000 | 6 | 4 | 163 |
-| Contra vosotros | Sevilla | Anagrama | 2004 | 5 | 6 | 231 |
-| El jardín cerrado | Barcelona | Santillana | 2001 | 17 | 6 | 212 |
-| Tiempo de ceniza | Sevilla | Destino | 1999 | 13 | 7 | 271 |
-| Mano de sombra | Valencia | Santillana | 2002 | 10 | 4 | 131 |
-| Adiós a las novias | Madrid | Alfaguara | 2004 | 18 | 9 | 337 |
-| Cuaderno de bitácora | Barcelona | Anagrama | 1997 | 11 | 1 | 120 |
-
-Responda a la siguiente pregunta según la tabla llamada Préstamos: ¿Cuántos títulos tienen ejemplares disponibles superior a 5 y préstamos realizados inferior a 183?
-
-a) 3
-b) 6
-c) 1
-d) 2
+a) 26,92 %
+b) 25,85 %
+c) 25,00 %
+d) 34,46 %
 
 **Clave: a**
 
-Explicación: Cumplen las condiciones (ejemplares disponibles superior a 5 y préstamos realizados inferior a 183) exactamente 3.
+Explicación: Los alumnos con turno «Noche» suman 28 de un total de 104: 26,92 %.
+
+## 25. seed 2736979108388417725 · nivel 2
+
+Tabla «Academia»:
+
+| Alumno | Curso | Turno | Edad | Horas semanales | Cuota mensual | Faltas de asistencia |
+|---|---|---|---|---|---|---|
+| Andrés Peña | Informática | Noche | 40 | 9 | 109 | 14 |
+| Víctor Ibarra | Informática | Mañana | 51 | 12 | 83 | 15 |
+| Nuria Salas | Alemán | Mañana | 43 | 5 | 69 | 12 |
+| Lucía Costa | Alemán | Tarde | 45 | 10 | 83 | 7 |
+| Raúl Mena | Alemán | Noche | 42 | 11 | 66 | 11 |
+| Óscar Lara | Informática | Tarde | 54 | 8 | 111 | 13 |
+| Elena Soler | Francés | Noche | 45 | 8 | 78 | 15 |
+| Ana Cortés | Informática | Noche | 43 | 12 | 35 | 0 |
+| Marta Ríos | Inglés | Mañana | 47 | 12 | 33 | 7 |
+| Jorge Luna | Informática | Mañana | 37 | 7 | 120 | 3 |
+
+Responda a la siguiente pregunta según la tabla llamada Academia: ¿Cuál es el total de horas semanales de los alumnos que cumplen estas condiciones: curso «Alemán» y cuota mensual inferior a 76?
+
+a) 19
+b) 16
+c) 12
+d) 18
+
+**Clave: b**
+
+Explicación: Pasan el filtro 2 filas; en ellas, la columna «Horas semanales» suma 16.
 
 ## 26. seed 4163390447536696390 · nivel 1
+
+Tabla «Academia»:
+
+| Alumno | Curso | Turno | Edad | Horas semanales | Cuota mensual | Faltas de asistencia |
+|---|---|---|---|---|---|---|
+| Diego Rubio | Inglés | Tarde | 26 | 12 | 116 | 5 |
+| Óscar Lara | Inglés | Mañana | 54 | 10 | 44 | 15 |
+| Rocío Mora | Informática | Tarde | 49 | 7 | 120 | 14 |
+| Elena Soler | Informática | Noche | 46 | 7 | 45 | 13 |
+| Sara Ortiz | Alemán | Noche | 37 | 2 | 120 | 10 |
+| Lucía Costa | Alemán | Mañana | 20 | 11 | 89 | 7 |
+| Hugo Beltrán | Francés | Tarde | 34 | 7 | 30 | 8 |
+| Andrés Peña | Francés | Tarde | 31 | 7 | 89 | 4 |
+
+Responda a la siguiente pregunta según la tabla llamada Academia: Entre los alumnos que cumplen esta condición: edad inferior a 35, ¿cuál tiene el valor más alto de cuota mensual?
+
+a) Andrés Peña.
+b) Diego Rubio.
+c) Lucía Costa.
+d) Elena Soler.
+
+**Clave: b**
+
+Explicación: Pasan el filtro 4 alumnos; entre ellos, «Diego Rubio» tiene el valor más alto de cuota mensual.
+
+## 27. seed 1586508015396871889 · nivel 2
 
 Tabla «Laboratorios»:
 
 | Laboratorio | Ciudad | Titularidad | Muestras analizadas | Técnicos | Presupuesto (miles de €) | Informes emitidos |
 |---|---|---|---|---|---|---|
-| Lambda | Madrid | Privada | 438 | 15 | 123 | 71 |
-| Zeta | Madrid | Pública | 897 | 6 | 137 | 45 |
-| Delta | Barcelona | Mixta | 126 | 17 | 124 | 293 |
-| Gamma | Sevilla | Pública | 837 | 9 | 318 | 300 |
-| Iota | Valencia | Pública | 541 | 24 | 108 | 89 |
-| Omega | Barcelona | Mixta | 859 | 11 | 75 | 91 |
-| Épsilon | Barcelona | Mixta | 826 | 23 | 71 | 281 |
-| Kappa | Bilbao | Privada | 221 | 24 | 196 | 96 |
+| Iota | Valencia | Mixta | 324 | 12 | 385 | 34 |
+| Épsilon | Sevilla | Mixta | 230 | 18 | 284 | 127 |
+| Sigma | Barcelona | Privada | 304 | 16 | 375 | 48 |
+| Gamma | Barcelona | Mixta | 511 | 20 | 321 | 127 |
+| Beta | Madrid | Mixta | 512 | 22 | 190 | 124 |
+| Theta | Madrid | Pública | 835 | 9 | 261 | 63 |
+| Alfa | Bilbao | Privada | 947 | 3 | 236 | 116 |
+| Lambda | Sevilla | Mixta | 214 | 4 | 77 | 213 |
+| Omega | Sevilla | Mixta | 690 | 20 | 160 | 291 |
 
-Responda a la siguiente pregunta según la tabla llamada Laboratorios: ¿Cuántos laboratorios tienen muestras analizadas superior a 752, titularidad Mixta y técnicos superior a 10?
+Responda a la siguiente pregunta según la tabla llamada Laboratorios: ¿Qué laboratorio tiene el mayor cociente entre presupuesto y técnicos?
+
+a) Alfa.
+b) Theta.
+c) Épsilon.
+d) Gamma.
+
+**Clave: a**
+
+Explicación: Se divide presupuesto entre técnicos en cada fila: el mayor cociente es el de «Alfa» (78,67).
+
+## 28. seed 3588842099432019975 · nivel 2
+
+Tabla «Préstamos»:
+
+| Título | Lugar de edición | Editorial | Año de publicación | Ejemplares disponibles | Ejemplares prestados | Préstamos realizados |
+|---|---|---|---|---|---|---|
+| Entre visillos | Barcelona | Destino | 2001 | 5 | 3 | 281 |
+| El amante lesbiano | Sevilla | Alfaguara | 1996 | 19 | 2 | 168 |
+| Tiempo de ceniza | Madrid | Anagrama | 2004 | 10 | 7 | 161 |
+| Mano de sombra | Barcelona | Planeta | 1996 | 6 | 3 | 191 |
+| Hija de la fortuna | Valencia | Destino | 1997 | 19 | 2 | 276 |
+| La casa del lago | Barcelona | Santillana | 2000 | 14 | 8 | 104 |
+| El último tren | Madrid | Planeta | 2003 | 6 | 1 | 260 |
+| Los días azules | Valencia | Planeta | 1997 | 3 | 1 | 262 |
+| La isla vacía | Sevilla | Planeta | 1999 | 6 | 3 | 158 |
+
+Responda a la siguiente pregunta según la tabla llamada Préstamos: Sumando préstamos realizados por lugar de edición, ¿qué lugar de edición obtiene el menor total?
+
+a) Sevilla.
+b) Madrid.
+c) Barcelona.
+d) Valencia.
+
+**Clave: a**
+
+Explicación: Los valores por lugar de edición son Barcelona 576, Madrid 421, Sevilla 326, Valencia 538; el menor es Sevilla.
+
+## 29. seed 4110580552696902388 · nivel 2
+
+Tabla «Academia»:
+
+| Alumno | Curso | Turno | Edad | Horas semanales | Cuota mensual | Faltas de asistencia |
+|---|---|---|---|---|---|---|
+| Andrés Peña | Alemán | Tarde | 38 | 12 | 72 | 9 |
+| Víctor Ibarra | Informática | Tarde | 51 | 12 | 76 | 9 |
+| Hugo Beltrán | Inglés | Mañana | 47 | 12 | 70 | 14 |
+| Elena Soler | Informática | Noche | 31 | 8 | 63 | 12 |
+| Diego Rubio | Francés | Tarde | 32 | 9 | 95 | 8 |
+| Irene Pons | Inglés | Noche | 48 | 12 | 81 | 5 |
+| Lucía Costa | Francés | Tarde | 38 | 7 | 62 | 2 |
+| Carla Nieto | Alemán | Mañana | 36 | 7 | 44 | 9 |
+| Rocío Mora | Alemán | Mañana | 52 | 9 | 83 | 13 |
+
+Responda a la siguiente pregunta según la tabla llamada Academia: ¿Cuántos alumnos cumplen estas condiciones: edad inferior a 33, más de 7 horas semanales y menos de 13 faltas de asistencia?
+
+a) 4
+b) 5
+c) 1
+d) 2
+
+**Clave: d**
+
+Explicación: Cumplen las condiciones (edad inferior a 33, más de 7 horas semanales y menos de 13 faltas de asistencia) exactamente 2.
+
+## 30. seed 3556477018594785593 · nivel 2
+
+Tabla «Laboratorios»:
+
+| Laboratorio | Ciudad | Titularidad | Muestras analizadas | Técnicos | Presupuesto (miles de €) | Informes emitidos |
+|---|---|---|---|---|---|---|
+| Delta | Valencia | Pública | 287 | 17 | 260 | 122 |
+| Omega | Barcelona | Privada | 881 | 20 | 79 | 143 |
+| Beta | Barcelona | Pública | 768 | 3 | 148 | 246 |
+| Iota | Madrid | Mixta | 860 | 7 | 355 | 250 |
+| Sigma | Bilbao | Privada | 616 | 4 | 352 | 37 |
+| Theta | Sevilla | Mixta | 793 | 12 | 199 | 121 |
+| Zeta | Barcelona | Mixta | 721 | 11 | 290 | 241 |
+| Kappa | Bilbao | Pública | 730 | 23 | 62 | 83 |
+| Épsilon | Sevilla | Pública | 978 | 14 | 283 | 209 |
+| Alfa | Bilbao | Privada | 454 | 4 | 351 | 228 |
+
+Responda a la siguiente pregunta según la tabla llamada Laboratorios: ¿Cuántos laboratorios cumplen estas condiciones: titularidad «Mixta» y presupuesto superior a 254?
+
+a) 5
+b) 1
+c) 2
+d) 3
+
+**Clave: c**
+
+Explicación: Cumplen las condiciones (titularidad «Mixta» y presupuesto superior a 254) exactamente 2.
+
+## 31. seed 2381850757681049524 · nivel 2
+
+Tabla «Excursiones»:
+
+| Destino | Tipo | Transporte | Participantes | Precio por persona (€) | Duración (horas) | Kilómetros |
+|---|---|---|---|---|---|---|
+| Mérida | Deportiva | Tren | 29 | 55 | 14 | 312 |
+| Jaca | Naturaleza | Tren | 49 | 72 | 20 | 108 |
+| León | Gastronómica | Minibús | 12 | 55 | 30 | 299 |
+| Úbeda | Gastronómica | Minibús | 39 | 69 | 15 | 138 |
+| Segovia | Naturaleza | Autobús | 60 | 27 | 10 | 380 |
+| Cuenca | Gastronómica | Tren | 18 | 53 | 27 | 332 |
+| Ronda | Deportiva | Autobús | 36 | 79 | 15 | 138 |
+| Lugo | Deportiva | Tren | 46 | 23 | 28 | 93 |
+| Teruel | Cultural | Minibús | 23 | 66 | 9 | 182 |
+| Ávila | Gastronómica | Minibús | 42 | 28 | 15 | 327 |
+
+Responda a la siguiente pregunta según la tabla llamada Excursiones: ¿Cuál de los siguientes destinos cumple estas condiciones: menos de 18 participantes, precio por persona superior a 48, transporte «Minibús» y menos de 334 kilómetros?
+
+a) Ronda.
+b) León.
+c) Mérida.
+d) Teruel.
+
+**Clave: b**
+
+Explicación: Solo «León» cumple las 4 condiciones: menos de 18 participantes, precio por persona superior a 48, transporte «Minibús» y menos de 334 kilómetros.
+
+## 32. seed 3706174181096166754 · nivel 1
+
+Tabla «Academia»:
+
+| Alumno | Curso | Turno | Edad | Horas semanales | Cuota mensual | Faltas de asistencia |
+|---|---|---|---|---|---|---|
+| Andrés Peña | Alemán | Noche | 43 | 7 | 95 | 8 |
+| Lucía Costa | Informática | Tarde | 27 | 8 | 42 | 10 |
+| Paula Giner | Francés | Noche | 55 | 8 | 109 | 1 |
+| Luis Parra | Inglés | Tarde | 52 | 4 | 66 | 2 |
+| Hugo Beltrán | Informática | Mañana | 41 | 2 | 41 | 9 |
+| Diego Rubio | Inglés | Noche | 54 | 9 | 85 | 4 |
+| Carla Nieto | Inglés | Mañana | 26 | 12 | 80 | 1 |
+| Elena Soler | Alemán | Tarde | 44 | 7 | 68 | 11 |
+
+Responda a la siguiente pregunta según la tabla llamada Academia: ¿Qué alumno tiene el menor cociente entre faltas de asistencia y horas semanales?
+
+a) Elena Soler.
+b) Diego Rubio.
+c) Andrés Peña.
+d) Carla Nieto.
+
+**Clave: d**
+
+Explicación: Se divide faltas de asistencia entre horas semanales en cada fila: el menor cociente es el de «Carla Nieto» (0,083).
+
+## 33. seed 3614112383633376201 · nivel 3
+
+Tabla «Academia»:
+
+| Alumno | Curso | Turno | Edad | Horas semanales | Cuota mensual | Faltas de asistencia |
+|---|---|---|---|---|---|---|
+| Marta Ríos | Inglés | Tarde | 20 | 7 | 40 | 4 |
+| Nuria Salas | Inglés | Mañana | 28 | 7 | 101 | 12 |
+| Iván Duarte | Inglés | Mañana | 37 | 7 | 112 | 10 |
+| Luis Parra | Informática | Mañana | 49 | 3 | 48 | 3 |
+| Óscar Lara | Inglés | Mañana | 50 | 3 | 51 | 10 |
+| Víctor Ibarra | Informática | Mañana | 41 | 4 | 65 | 4 |
+| Sara Ortiz | Alemán | Mañana | 20 | 3 | 83 | 11 |
+| Jorge Luna | Inglés | Tarde | 24 | 10 | 97 | 15 |
+| Elena Soler | Inglés | Noche | 45 | 9 | 90 | 15 |
+| Raúl Mena | Alemán | Tarde | 36 | 2 | 67 | 13 |
+| Diego Rubio | Inglés | Tarde | 41 | 7 | 48 | 13 |
+| Andrés Peña | Francés | Mañana | 37 | 10 | 43 | 1 |
+
+Responda a la siguiente pregunta según la tabla llamada Academia: ¿Cuál de los siguientes alumnos cumple estas condiciones: turno «Tarde», curso «Inglés», edad inferior a 23 y cuota mensual inferior a 49?
+
+a) Luis Parra.
+b) Marta Ríos.
+c) Óscar Lara.
+d) Jorge Luna.
+
+**Clave: b**
+
+Explicación: Solo «Marta Ríos» cumple las 4 condiciones: turno «Tarde», curso «Inglés», edad inferior a 23 y cuota mensual inferior a 49.
+
+## 34. seed 1166747531291222478 · nivel 2
+
+Tabla «Academia»:
+
+| Alumno | Curso | Turno | Edad | Horas semanales | Cuota mensual | Faltas de asistencia |
+|---|---|---|---|---|---|---|
+| Pablo Vera | Inglés | Noche | 47 | 3 | 93 | 6 |
+| Andrés Peña | Alemán | Noche | 33 | 12 | 99 | 13 |
+| Ana Cortés | Francés | Mañana | 27 | 5 | 83 | 5 |
+| Paula Giner | Alemán | Noche | 36 | 10 | 54 | 7 |
+| Iván Duarte | Inglés | Tarde | 51 | 10 | 94 | 8 |
+| Irene Pons | Informática | Tarde | 52 | 4 | 82 | 5 |
+| Carla Nieto | Alemán | Noche | 32 | 8 | 116 | 13 |
+| Jorge Luna | Alemán | Noche | 40 | 8 | 118 | 12 |
+| Diego Rubio | Inglés | Noche | 41 | 10 | 58 | 0 |
+| Rocío Mora | Inglés | Noche | 36 | 8 | 70 | 0 |
+
+Responda a la siguiente pregunta según la tabla llamada Academia: ¿Cuántos alumnos cumplen estas condiciones: turno «Noche» y más de 6 faltas de asistencia?
+
+a) 6
+b) 4
+c) 3
+d) 7
+
+**Clave: b**
+
+Explicación: Cumplen las condiciones (turno «Noche» y más de 6 faltas de asistencia) exactamente 4.
+
+## 35. seed 1690837818924781736 · nivel 2
+
+Tabla «Desplazamientos»:
+
+| Empleado | Destino | Medio | Distancia (km) | Tiempo (min) | Coste (€) | Viajes al año |
+|---|---|---|---|---|---|---|
+| Lucía Costa | Madrid | Tren | 199 | 83 | 34 | 11 |
+| Hugo Beltrán | Sevilla | Autobús | 335 | 223 | 20 | 6 |
+| Diego Rubio | Barcelona | Autobús | 256 | 248 | 23 | 6 |
+| Iván Duarte | Sevilla | Avión | 350 | 44 | 80 | 9 |
+| Jorge Luna | Madrid | Avión | 782 | 115 | 188 | 8 |
+| Pablo Vera | Bilbao | Coche | 213 | 130 | 45 | 2 |
+| Andrés Peña | Barcelona | Autobús | 315 | 233 | 22 | 4 |
+| Luis Parra | Madrid | Tren | 733 | 344 | 59 | 2 |
+| Paula Giner | Barcelona | Coche | 321 | 203 | 83 | 5 |
+| Ana Cortés | Valencia | Avión | 771 | 124 | 123 | 2 |
+
+Responda a la siguiente pregunta según la tabla llamada Desplazamientos: ¿Cuántos empleados cumplen estas condiciones: medio «Autobús» y más de 5 viajes al año?
 
 a) 2
-b) 3
-c) 0
+b) 0
+c) 3
 d) 5
 
 **Clave: a**
 
-Explicación: Cumplen las condiciones (muestras analizadas superior a 752, titularidad Mixta y técnicos superior a 10) exactamente 2.
-
-## 27. seed 1586508015396871889 · nivel 2
-
-Tabla «Desplazamientos»:
-
-| Empleado | Destino | Medio | Distancia (km) | Tiempo (min) | Coste (€) | Viajes al año |
-|---|---|---|---|---|---|---|
-| Nuria Salas | Valencia | Autobús | 799 | 151 | 30 | 10 |
-| Marta Ríos | Barcelona | Tren | 785 | 145 | 78 | 8 |
-| Luis Parra | Bilbao | Avión | 695 | 105 | 211 | 13 |
-| Ana Cortés | Sevilla | Avión | 291 | 302 | 138 | 9 |
-| Óscar Lara | Barcelona | Autobús | 646 | 432 | 77 | 4 |
-| Carla Nieto | Barcelona | Tren | 558 | 201 | 71 | 9 |
-| Irene Pons | Sevilla | Coche | 486 | 109 | 121 | 14 |
-| Pablo Vera | Bilbao | Autobús | 489 | 119 | 156 | 6 |
-| Raúl Mena | Madrid | Coche | 586 | 466 | 85 | 12 |
-
-Responda a la siguiente pregunta según la tabla llamada Desplazamientos: ¿Cuál de los siguientes empleados tiene viajes al año inferior a 5, destino Barcelona, medio Autobús y distancia inferior a 726?
-
-a) Óscar Lara.
-b) Marta Ríos.
-c) Ana Cortés.
-d) Luis Parra.
-
-**Clave: a**
-
-Explicación: Solo «Óscar Lara» cumple las 4 condiciones: viajes al año inferior a 5, destino Barcelona, medio Autobús y distancia inferior a 726.
-
-## 28. seed 3588842099432019975 · nivel 2
-
-Tabla «Academia»:
-
-| Alumno | Curso | Turno | Edad | Horas semanales | Cuota mensual | Faltas de asistencia |
-|---|---|---|---|---|---|---|
-| Andrés Peña | Informática | Mañana | 36 | 7 | 114 | 7 |
-| Ana Cortés | Informática | Noche | 33 | 4 | 74 | 14 |
-| Pablo Vera | Francés | Tarde | 37 | 11 | 75 | 6 |
-| Hugo Beltrán | Alemán | Noche | 27 | 12 | 89 | 2 |
-| Marta Ríos | Francés | Mañana | 43 | 11 | 100 | 7 |
-| Elena Soler | Francés | Noche | 30 | 12 | 49 | 1 |
-| Nuria Salas | Informática | Tarde | 49 | 5 | 92 | 7 |
-| Raúl Mena | Francés | Noche | 21 | 2 | 55 | 7 |
-| Jorge Luna | Francés | Tarde | 20 | 11 | 109 | 0 |
-| Diego Rubio | Inglés | Tarde | 49 | 2 | 96 | 11 |
-
-Responda a la siguiente pregunta según la tabla llamada Academia: Sumando edad por curso, ¿qué curso obtiene el menor total?
-
-a) Informática.
-b) Inglés.
-c) Alemán.
-d) Francés.
-
-**Clave: c**
-
-Explicación: Los valores por curso son Alemán 27, Francés 151, Informática 118, Inglés 49; el menor es Alemán.
-
-## 29. seed 4110580552696902388 · nivel 2
-
-Tabla «Préstamos»:
-
-| Título | Lugar de edición | Editorial | Año de publicación | Ejemplares disponibles | Ejemplares prestados | Préstamos realizados |
-|---|---|---|---|---|---|---|
-| La temporada de caza | Sevilla | Alfaguara | 1999 | 16 | 6 | 206 |
-| Adiós a las novias | Valencia | Alfaguara | 2003 | 11 | 6 | 210 |
-| Hija de la fortuna | Madrid | Planeta | 2005 | 15 | 5 | 293 |
-| Mano de sombra | Madrid | Santillana | 2000 | 10 | 2 | 304 |
-| Noches de invierno | Barcelona | Santillana | 1999 | 18 | 5 | 213 |
-| Cuaderno de bitácora | Barcelona | Santillana | 2002 | 19 | 6 | 350 |
-| La casa del lago | Valencia | Destino | 2005 | 11 | 2 | 176 |
-| Los días azules | Sevilla | Destino | 2000 | 18 | 5 | 278 |
-| El equipaje del viajero | Barcelona | Planeta | 2002 | 15 | 9 | 154 |
-| El amante lesbiano | Sevilla | Anagrama | 1998 | 8 | 8 | 342 |
-
-Responda a la siguiente pregunta según la tabla llamada Préstamos: Sumando ejemplares prestados por editorial, ¿qué editorial obtiene el mayor total?
-
-a) Alfaguara.
-b) Destino.
-c) Planeta.
-d) Anagrama.
-
-**Clave: c**
-
-Explicación: Los valores por editorial son Alfaguara 12, Anagrama 8, Destino 7, Planeta 14, Santillana 13; el mayor es Planeta.
-
-## 30. seed 3556477018594785593 · nivel 2
-
-Tabla «Desplazamientos»:
-
-| Empleado | Destino | Medio | Distancia (km) | Tiempo (min) | Coste (€) | Viajes al año |
-|---|---|---|---|---|---|---|
-| Irene Pons | Sevilla | Avión | 485 | 205 | 77 | 10 |
-| Rocío Mora | Madrid | Autobús | 618 | 422 | 255 | 2 |
-| Jorge Luna | Barcelona | Avión | 509 | 339 | 136 | 5 |
-| Diego Rubio | Sevilla | Tren | 484 | 246 | 42 | 14 |
-| Lucía Costa | Valencia | Autobús | 736 | 142 | 227 | 7 |
-| Luis Parra | Valencia | Avión | 876 | 205 | 59 | 9 |
-| Paula Giner | Valencia | Tren | 251 | 230 | 101 | 4 |
-| Óscar Lara | Sevilla | Coche | 639 | 132 | 188 | 7 |
-| Marta Ríos | Bilbao | Autobús | 519 | 468 | 69 | 11 |
-| Hugo Beltrán | Barcelona | Avión | 589 | 130 | 88 | 11 |
-
-Responda a la siguiente pregunta según la tabla llamada Desplazamientos: Entre los empleados que tienen medio Avión y tiempo inferior a 381, ¿cuál tiene el valor más alto de viajes al año?
-
-a) Hugo Beltrán.
-b) Rocío Mora.
-c) Irene Pons.
-d) Luis Parra.
-
-**Clave: a**
-
-Explicación: Pasan el filtro 4 empleados; entre ellos, «Hugo Beltrán» tiene el valor más alto de viajes al año.
-
-## 31. seed 2381850757681049524 · nivel 2
-
-Tabla «Academia»:
-
-| Alumno | Curso | Turno | Edad | Horas semanales | Cuota mensual | Faltas de asistencia |
-|---|---|---|---|---|---|---|
-| Carla Nieto | Francés | Mañana | 44 | 4 | 32 | 6 |
-| Sara Ortiz | Inglés | Tarde | 44 | 8 | 86 | 12 |
-| Óscar Lara | Informática | Mañana | 37 | 5 | 84 | 13 |
-| Jorge Luna | Alemán | Tarde | 24 | 4 | 98 | 7 |
-| Lucía Costa | Informática | Noche | 45 | 2 | 111 | 14 |
-| Nuria Salas | Francés | Noche | 55 | 7 | 61 | 1 |
-| Andrés Peña | Informática | Tarde | 48 | 4 | 87 | 5 |
-| Elena Soler | Alemán | Tarde | 19 | 11 | 34 | 12 |
-| Iván Duarte | Inglés | Tarde | 53 | 3 | 85 | 2 |
-| Ana Cortés | Francés | Mañana | 48 | 5 | 31 | 3 |
-
-Responda a la siguiente pregunta según la tabla llamada Academia: ¿Qué alumno tiene el mayor cociente entre cuota mensual y faltas de asistencia?
-
-a) Andrés Peña.
-b) Iván Duarte.
-c) Lucía Costa.
-d) Nuria Salas.
-
-**Clave: d**
-
-Explicación: Se divide cuota mensual entre faltas de asistencia en cada fila: el mayor cociente es el de «Nuria Salas» (61,00).
-
-## 32. seed 3706174181096166754 · nivel 1
-
-Tabla «Préstamos»:
-
-| Título | Lugar de edición | Editorial | Año de publicación | Ejemplares disponibles | Ejemplares prestados | Préstamos realizados |
-|---|---|---|---|---|---|---|
-| La temporada de caza | Madrid | Destino | 1997 | 4 | 9 | 253 |
-| Hija de la fortuna | Barcelona | Planeta | 2001 | 13 | 5 | 268 |
-| La casa del lago | Valencia | Alfaguara | 2005 | 17 | 4 | 210 |
-| Noches de invierno | Sevilla | Santillana | 1995 | 4 | 1 | 177 |
-| La isla vacía | Valencia | Planeta | 1997 | 15 | 5 | 115 |
-| Mano de sombra | Madrid | Anagrama | 2004 | 7 | 4 | 290 |
-| Entre visillos | Madrid | Alfaguara | 2004 | 6 | 1 | 212 |
-
-Responda a la siguiente pregunta según la tabla llamada Préstamos: Entre los títulos que tienen préstamos realizados superior a 222, ¿cuál tiene el valor más bajo de ejemplares prestados?
-
-a) Entre visillos.
-b) Noches de invierno.
-c) Mano de sombra.
-d) La isla vacía.
-
-**Clave: c**
-
-Explicación: Pasan el filtro 3 títulos; entre ellos, «Mano de sombra» tiene el valor más bajo de ejemplares prestados.
-
-## 33. seed 3614112383633376201 · nivel 3
-
-Tabla «Laboratorios»:
-
-| Laboratorio | Ciudad | Titularidad | Muestras analizadas | Técnicos | Presupuesto (miles de €) | Informes emitidos |
-|---|---|---|---|---|---|---|
-| Omega | Sevilla | Pública | 765 | 22 | 350 | 49 |
-| Sigma | Barcelona | Mixta | 528 | 12 | 384 | 53 |
-| Iota | Sevilla | Privada | 401 | 11 | 188 | 123 |
-| Alfa | Valencia | Pública | 267 | 12 | 362 | 49 |
-| Beta | Madrid | Mixta | 393 | 21 | 61 | 162 |
-| Delta | Bilbao | Mixta | 427 | 22 | 350 | 277 |
-| Gamma | Valencia | Mixta | 621 | 7 | 46 | 199 |
-| Theta | Madrid | Privada | 563 | 14 | 393 | 116 |
-| Zeta | Valencia | Pública | 947 | 5 | 195 | 61 |
-| Kappa | Barcelona | Privada | 820 | 18 | 69 | 30 |
-| Lambda | Barcelona | Pública | 797 | 10 | 315 | 179 |
-
-Responda a la siguiente pregunta según la tabla llamada Laboratorios: ¿Qué laboratorio tiene el mayor cociente entre presupuesto y técnicos?
-
-a) Zeta.
-b) Theta.
-c) Alfa.
-d) Delta.
-
-**Clave: a**
-
-Explicación: Se divide presupuesto entre técnicos en cada fila: el mayor cociente es el de «Zeta» (39,00).
-
-## 34. seed 1166747531291222478 · nivel 2
-
-Tabla «Excursiones»:
-
-| Destino | Tipo | Transporte | Participantes | Precio por persona (€) | Duración (horas) | Kilómetros |
-|---|---|---|---|---|---|---|
-| Cuenca | Deportiva | Tren | 18 | 55 | 12 | 127 |
-| Toledo | Gastronómica | Autobús | 34 | 53 | 19 | 111 |
-| León | Gastronómica | Autobús | 46 | 26 | 4 | 84 |
-| Jaca | Deportiva | Barco | 28 | 50 | 9 | 249 |
-| Ronda | Naturaleza | Autobús | 45 | 54 | 5 | 131 |
-| Úbeda | Cultural | Barco | 41 | 73 | 4 | 427 |
-| Teruel | Gastronómica | Autobús | 52 | 23 | 8 | 444 |
-| Ávila | Deportiva | Tren | 29 | 92 | 25 | 438 |
-| Segovia | Cultural | Tren | 52 | 50 | 26 | 268 |
-
-Responda a la siguiente pregunta según la tabla llamada Excursiones: ¿Cuál es el total de precio por persona de los destinos que tienen kilómetros superior a 115 y participantes superior a 40?
-
-a) 255
-b) 200
-c) 240
-d) 160
-
-**Clave: b**
-
-Explicación: Pasan el filtro 4 filas; sus precio por persona suman 200.
-
-## 35. seed 1690837818924781736 · nivel 2
-
-Tabla «Excursiones»:
-
-| Destino | Tipo | Transporte | Participantes | Precio por persona (€) | Duración (horas) | Kilómetros |
-|---|---|---|---|---|---|---|
-| Segovia | Deportiva | Autobús | 59 | 47 | 27 | 440 |
-| Ronda | Deportiva | Tren | 30 | 92 | 12 | 415 |
-| Úbeda | Deportiva | Tren | 26 | 40 | 9 | 441 |
-| Jaca | Gastronómica | Tren | 58 | 16 | 14 | 183 |
-| Lugo | Cultural | Autobús | 26 | 89 | 14 | 372 |
-| Toledo | Naturaleza | Barco | 28 | 84 | 27 | 128 |
-| Mérida | Gastronómica | Barco | 24 | 20 | 25 | 426 |
-| Teruel | Naturaleza | Autobús | 37 | 47 | 24 | 93 |
-| Soria | Naturaleza | Barco | 35 | 67 | 16 | 238 |
-
-Responda a la siguiente pregunta según la tabla llamada Excursiones: ¿Cuántos destinos tienen precio por persona superior a 42 y transporte Autobús?
-
-a) 6
-b) 2
-c) 4
-d) 3
-
-**Clave: d**
-
-Explicación: Cumplen las condiciones (precio por persona superior a 42 y transporte Autobús) exactamente 3.
+Explicación: Cumplen las condiciones (medio «Autobús» y más de 5 viajes al año) exactamente 2.
 
 ## 36. seed 3525112190121478594 · nivel 1
 
@@ -950,24 +953,24 @@ Tabla «Laboratorios»:
 
 | Laboratorio | Ciudad | Titularidad | Muestras analizadas | Técnicos | Presupuesto (miles de €) | Informes emitidos |
 |---|---|---|---|---|---|---|
-| Épsilon | Sevilla | Mixta | 660 | 20 | 112 | 258 |
-| Delta | Madrid | Mixta | 349 | 22 | 190 | 113 |
-| Kappa | Bilbao | Pública | 972 | 15 | 265 | 54 |
-| Zeta | Bilbao | Privada | 401 | 15 | 190 | 160 |
-| Lambda | Barcelona | Privada | 188 | 17 | 368 | 35 |
-| Alfa | Sevilla | Mixta | 269 | 5 | 277 | 109 |
-| Iota | Valencia | Privada | 604 | 23 | 224 | 290 |
+| Lambda | Madrid | Privada | 481 | 4 | 296 | 49 |
+| Gamma | Barcelona | Privada | 127 | 10 | 249 | 87 |
+| Delta | Madrid | Mixta | 716 | 24 | 98 | 60 |
+| Kappa | Bilbao | Pública | 653 | 16 | 341 | 224 |
+| Zeta | Madrid | Pública | 285 | 18 | 300 | 142 |
+| Sigma | Valencia | Pública | 369 | 9 | 398 | 255 |
+| Épsilon | Sevilla | Pública | 170 | 24 | 55 | 295 |
 
-Responda a la siguiente pregunta según la tabla llamada Laboratorios: ¿Qué laboratorio tiene el mayor cociente entre presupuesto y muestras analizadas?
+Responda a la siguiente pregunta según la tabla llamada Laboratorios: ¿Cuál de los siguientes laboratorios cumple estas condiciones: más de 643 muestras analizadas, presupuesto superior a 56 y ciudad «Madrid»?
 
-a) Lambda.
-b) Épsilon.
-c) Alfa.
-d) Zeta.
+a) Gamma.
+b) Sigma.
+c) Delta.
+d) Kappa.
 
-**Clave: a**
+**Clave: c**
 
-Explicación: Se divide presupuesto entre muestras analizadas en cada fila: el mayor cociente es el de «Lambda» (1,96).
+Explicación: Solo «Delta» cumple las 3 condiciones: más de 643 muestras analizadas, presupuesto superior a 56 y ciudad «Madrid».
 
 ## 37. seed 778671632053513995 · nivel 1
 
@@ -975,52 +978,52 @@ Tabla «Excursiones»:
 
 | Destino | Tipo | Transporte | Participantes | Precio por persona (€) | Duración (horas) | Kilómetros |
 |---|---|---|---|---|---|---|
-| Teruel | Gastronómica | Barco | 20 | 91 | 17 | 346 |
-| Segovia | Gastronómica | Tren | 28 | 41 | 14 | 162 |
-| Ávila | Naturaleza | Barco | 45 | 74 | 15 | 433 |
-| Jaca | Gastronómica | Autobús | 22 | 49 | 21 | 235 |
-| León | Deportiva | Barco | 47 | 80 | 29 | 334 |
-| Úbeda | Naturaleza | Tren | 32 | 42 | 15 | 221 |
-| Cuenca | Cultural | Tren | 42 | 89 | 15 | 292 |
-| Soria | Deportiva | Barco | 30 | 21 | 23 | 40 |
+| Cuenca | Cultural | Minibús | 49 | 21 | 19 | 116 |
+| Ávila | Gastronómica | Tren | 49 | 67 | 18 | 351 |
+| Segovia | Gastronómica | Tren | 53 | 60 | 9 | 268 |
+| León | Gastronómica | Minibús | 13 | 59 | 30 | 268 |
+| Toledo | Naturaleza | Autobús | 50 | 20 | 20 | 444 |
+| Soria | Cultural | Autobús | 59 | 86 | 29 | 397 |
+| Úbeda | Gastronómica | Minibús | 15 | 18 | 24 | 158 |
+| Jaca | Deportiva | Autobús | 48 | 79 | 20 | 155 |
 
-Responda a la siguiente pregunta según la tabla llamada Excursiones: Entre los destinos que tienen transporte Barco, ¿cuál tiene el valor más bajo de kilómetros?
+Responda a la siguiente pregunta según la tabla llamada Excursiones: ¿Cuántos destinos cumplen estas condiciones: menos de 18 participantes, transporte «Minibús» y tipo «Gastronómica»?
 
-a) Soria.
-b) Teruel.
-c) Segovia.
-d) Ávila.
+a) 2
+b) 3
+c) 5
+d) 4
 
 **Clave: a**
 
-Explicación: Pasan el filtro 4 destinos; entre ellos, «Soria» tiene el valor más bajo de kilómetros.
+Explicación: Cumplen las condiciones (menos de 18 participantes, transporte «Minibús» y tipo «Gastronómica») exactamente 2.
 
 ## 38. seed 232616239795612045 · nivel 2
 
-Tabla «Excursiones»:
+Tabla «Desplazamientos»:
 
-| Destino | Tipo | Transporte | Participantes | Precio por persona (€) | Duración (horas) | Kilómetros |
+| Empleado | Destino | Medio | Distancia (km) | Tiempo (min) | Coste (€) | Viajes al año |
 |---|---|---|---|---|---|---|
-| Lugo | Gastronómica | Tren | 54 | 49 | 27 | 235 |
-| Teruel | Deportiva | Barco | 34 | 34 | 17 | 343 |
-| Cuenca | Naturaleza | Tren | 29 | 70 | 16 | 386 |
-| Ronda | Naturaleza | Barco | 38 | 15 | 4 | 344 |
-| Soria | Cultural | Autobús | 50 | 80 | 4 | 150 |
-| Úbeda | Gastronómica | Barco | 26 | 95 | 17 | 186 |
-| Ávila | Deportiva | Barco | 23 | 86 | 19 | 59 |
-| León | Deportiva | Tren | 51 | 31 | 21 | 304 |
-| Mérida | Gastronómica | Barco | 20 | 15 | 29 | 184 |
+| Nuria Salas | Barcelona | Tren | 510 | 214 | 61 | 6 |
+| Ana Cortés | Barcelona | Autobús | 107 | 99 | 9 | 11 |
+| Luis Parra | Bilbao | Tren | 104 | 41 | 8 | 12 |
+| Marta Ríos | Valencia | Coche | 884 | 737 | 194 | 7 |
+| Irene Pons | Valencia | Avión | 414 | 46 | 95 | 6 |
+| Pablo Vera | Sevilla | Avión | 792 | 104 | 103 | 3 |
+| Iván Duarte | Madrid | Tren | 147 | 56 | 15 | 8 |
+| Rocío Mora | Sevilla | Avión | 871 | 107 | 157 | 11 |
+| Jorge Luna | Bilbao | Coche | 744 | 480 | 193 | 9 |
 
-Responda a la siguiente pregunta según la tabla llamada Excursiones: ¿Cuál de los siguientes destinos tiene transporte Barco, participantes inferior a 22 y tipo Gastronómica?
+Responda a la siguiente pregunta según la tabla llamada Desplazamientos: Entre los empleados que cumplen estas condiciones: tiempo inferior a 301 y distancia inferior a 607, ¿cuál tiene el valor más alto de coste?
 
-a) Ávila.
-b) Ronda.
-c) Lugo.
-d) Mérida.
+a) Luis Parra.
+b) Marta Ríos.
+c) Pablo Vera.
+d) Irene Pons.
 
 **Clave: d**
 
-Explicación: Solo «Mérida» cumple las 3 condiciones: transporte Barco, participantes inferior a 22 y tipo Gastronómica.
+Explicación: Pasan el filtro 5 empleados; entre ellos, «Irene Pons» tiene el valor más alto de coste.
 
 ## 39. seed 1177092152084991428 · nivel 1
 
@@ -1028,25 +1031,25 @@ Tabla «Laboratorios»:
 
 | Laboratorio | Ciudad | Titularidad | Muestras analizadas | Técnicos | Presupuesto (miles de €) | Informes emitidos |
 |---|---|---|---|---|---|---|
-| Lambda | Valencia | Mixta | 764 | 14 | 346 | 195 |
-| Theta | Madrid | Pública | 553 | 16 | 73 | 171 |
-| Omega | Sevilla | Mixta | 881 | 17 | 253 | 232 |
-| Iota | Sevilla | Privada | 853 | 23 | 291 | 229 |
-| Gamma | Barcelona | Mixta | 156 | 9 | 162 | 195 |
-| Zeta | Valencia | Mixta | 519 | 17 | 204 | 185 |
-| Kappa | Barcelona | Mixta | 421 | 17 | 343 | 128 |
-| Sigma | Bilbao | Mixta | 723 | 23 | 363 | 90 |
+| Lambda | Valencia | Mixta | 764 | 16 | 58 | 229 |
+| Theta | Madrid | Pública | 421 | 21 | 230 | 248 |
+| Omega | Sevilla | Mixta | 575 | 23 | 142 | 269 |
+| Iota | Sevilla | Privada | 845 | 17 | 364 | 63 |
+| Gamma | Barcelona | Mixta | 547 | 18 | 162 | 194 |
+| Zeta | Valencia | Mixta | 726 | 23 | 205 | 171 |
+| Kappa | Barcelona | Mixta | 916 | 15 | 239 | 195 |
+| Sigma | Bilbao | Mixta | 430 | 9 | 100 | 87 |
 
-Responda a la siguiente pregunta según la tabla llamada Laboratorios: ¿Qué laboratorio tiene el menor cociente entre muestras analizadas y informes emitidos?
+Responda a la siguiente pregunta según la tabla llamada Laboratorios: ¿Cuál de los siguientes laboratorios cumple estas condiciones: menos de 491 muestras analizadas, presupuesto superior a 62 y menos de 112 informes emitidos?
 
-a) Omega.
-b) Kappa.
-c) Theta.
-d) Gamma.
+a) Sigma.
+b) Gamma.
+c) Omega.
+d) Kappa.
 
-**Clave: d**
+**Clave: a**
 
-Explicación: Se divide muestras analizadas entre informes emitidos en cada fila: el menor cociente es el de «Gamma» (0,80).
+Explicación: Solo «Sigma» cumple las 3 condiciones: menos de 491 muestras analizadas, presupuesto superior a 62 y menos de 112 informes emitidos.
 
 ## 40. seed 2300311533501968391 · nivel 2
 
@@ -1054,56 +1057,57 @@ Tabla «Laboratorios»:
 
 | Laboratorio | Ciudad | Titularidad | Muestras analizadas | Técnicos | Presupuesto (miles de €) | Informes emitidos |
 |---|---|---|---|---|---|---|
-| Omega | Valencia | Mixta | 297 | 23 | 217 | 137 |
-| Iota | Bilbao | Privada | 239 | 23 | 61 | 100 |
-| Zeta | Madrid | Privada | 643 | 20 | 388 | 226 |
-| Theta | Sevilla | Privada | 927 | 15 | 192 | 250 |
-| Delta | Barcelona | Privada | 364 | 24 | 158 | 156 |
-| Lambda | Madrid | Pública | 369 | 21 | 184 | 123 |
-| Gamma | Madrid | Pública | 674 | 20 | 244 | 265 |
-| Épsilon | Sevilla | Privada | 206 | 18 | 71 | 89 |
-| Alfa | Madrid | Privada | 505 | 14 | 271 | 35 |
+| Kappa | Sevilla | Mixta | 928 | 15 | 359 | 134 |
+| Theta | Madrid | Pública | 948 | 21 | 179 | 147 |
+| Beta | Sevilla | Privada | 859 | 4 | 301 | 89 |
+| Gamma | Valencia | Pública | 185 | 15 | 309 | 120 |
+| Zeta | Barcelona | Privada | 312 | 9 | 362 | 275 |
+| Alfa | Sevilla | Pública | 416 | 17 | 313 | 138 |
+| Sigma | Bilbao | Pública | 311 | 15 | 257 | 237 |
+| Lambda | Madrid | Privada | 434 | 15 | 297 | 90 |
+| Omega | Madrid | Privada | 771 | 8 | 109 | 261 |
+| Delta | Sevilla | Mixta | 766 | 15 | 266 | 298 |
 
-Responda a la siguiente pregunta según la tabla llamada Laboratorios: ¿Qué laboratorio tiene el menor cociente entre técnicos y informes emitidos?
+Responda a la siguiente pregunta según la tabla llamada Laboratorios: ¿Cuántos laboratorios cumplen estas condiciones: más de 94 informes emitidos, más de 13 técnicos y presupuesto superior a 278?
 
-a) Gamma.
-b) Delta.
-c) Omega.
-d) Theta.
-
-**Clave: d**
-
-Explicación: Se divide técnicos entre informes emitidos en cada fila: el menor cociente es el de «Theta» (0,06).
-
-## 41. seed 4561429966377530467 · nivel 3
-
-Tabla «Desplazamientos»:
-
-| Empleado | Destino | Medio | Distancia (km) | Tiempo (min) | Coste (€) | Viajes al año |
-|---|---|---|---|---|---|---|
-| Óscar Lara | Barcelona | Coche | 684 | 223 | 44 | 9 |
-| Andrés Peña | Bilbao | Autobús | 894 | 428 | 35 | 3 |
-| Luis Parra | Bilbao | Avión | 834 | 427 | 79 | 1 |
-| Paula Giner | Madrid | Avión | 630 | 352 | 54 | 4 |
-| Elena Soler | Sevilla | Coche | 832 | 150 | 238 | 2 |
-| Ana Cortés | Bilbao | Avión | 436 | 389 | 243 | 13 |
-| Sara Ortiz | Madrid | Avión | 346 | 251 | 20 | 8 |
-| Carla Nieto | Barcelona | Tren | 535 | 449 | 95 | 4 |
-| Marta Ríos | Valencia | Coche | 144 | 245 | 32 | 8 |
-| Raúl Mena | Valencia | Coche | 518 | 517 | 130 | 4 |
-| Víctor Ibarra | Madrid | Autobús | 738 | 454 | 32 | 2 |
-| Jorge Luna | Sevilla | Tren | 870 | 511 | 90 | 7 |
-
-Responda a la siguiente pregunta según la tabla llamada Desplazamientos: ¿Cuál es la media de tiempo de todos los empleados?
-
-a) 293,07
-b) 366,33
-c) 399,64
-d) 468,91
+a) 5
+b) 3
+c) 1
+d) 4
 
 **Clave: b**
 
-Explicación: La suma de la columna es 4396,00 y hay 12 filas: 366,33.
+Explicación: Cumplen las condiciones (más de 94 informes emitidos, más de 13 técnicos y presupuesto superior a 278) exactamente 3.
+
+## 41. seed 4561429966377530467 · nivel 3
+
+Tabla «Laboratorios»:
+
+| Laboratorio | Ciudad | Titularidad | Muestras analizadas | Técnicos | Presupuesto (miles de €) | Informes emitidos |
+|---|---|---|---|---|---|---|
+| Gamma | Madrid | Privada | 466 | 10 | 171 | 63 |
+| Zeta | Bilbao | Pública | 543 | 20 | 208 | 99 |
+| Épsilon | Madrid | Privada | 486 | 3 | 68 | 181 |
+| Omega | Bilbao | Pública | 685 | 11 | 190 | 222 |
+| Lambda | Sevilla | Mixta | 436 | 8 | 208 | 52 |
+| Alfa | Madrid | Pública | 552 | 14 | 145 | 229 |
+| Delta | Bilbao | Pública | 657 | 20 | 349 | 64 |
+| Kappa | Bilbao | Pública | 878 | 11 | 251 | 153 |
+| Beta | Barcelona | Pública | 169 | 13 | 51 | 170 |
+| Theta | Bilbao | Mixta | 723 | 16 | 126 | 171 |
+| Sigma | Bilbao | Mixta | 714 | 6 | 335 | 59 |
+| Iota | Valencia | Privada | 313 | 16 | 363 | 164 |
+
+Responda a la siguiente pregunta según la tabla llamada Laboratorios: ¿Qué porcentaje del total de informes emitidos corresponde a los laboratorios con titularidad «Pública»?
+
+a) 50,68 %
+b) 57,59 %
+c) 42,41 %
+d) 73,72 %
+
+**Clave: b**
+
+Explicación: Los laboratorios con titularidad «Pública» suman 937 de un total de 1627: 57,59 %.
 
 ## 42. seed 279218220529479154 · nivel 1
 
@@ -1111,135 +1115,137 @@ Tabla «Laboratorios»:
 
 | Laboratorio | Ciudad | Titularidad | Muestras analizadas | Técnicos | Presupuesto (miles de €) | Informes emitidos |
 |---|---|---|---|---|---|---|
-| Gamma | Barcelona | Mixta | 733 | 19 | 247 | 242 |
-| Kappa | Sevilla | Privada | 834 | 11 | 62 | 116 |
-| Sigma | Valencia | Privada | 645 | 10 | 362 | 142 |
-| Omega | Bilbao | Pública | 525 | 22 | 172 | 223 |
-| Alfa | Sevilla | Pública | 780 | 19 | 80 | 204 |
-| Beta | Valencia | Mixta | 610 | 3 | 282 | 271 |
-| Delta | Bilbao | Pública | 554 | 18 | 392 | 194 |
-| Épsilon | Madrid | Privada | 870 | 12 | 149 | 219 |
+| Gamma | Barcelona | Mixta | 733 | 19 | 242 | 275 |
+| Kappa | Sevilla | Privada | 554 | 19 | 179 | 154 |
+| Sigma | Valencia | Privada | 743 | 19 | 53 | 280 |
+| Omega | Bilbao | Pública | 429 | 15 | 62 | 162 |
+| Alfa | Sevilla | Pública | 200 | 18 | 392 | 139 |
+| Beta | Valencia | Mixta | 544 | 8 | 152 | 223 |
+| Delta | Bilbao | Pública | 952 | 13 | 380 | 271 |
+| Épsilon | Madrid | Privada | 884 | 13 | 229 | 50 |
 
-Responda a la siguiente pregunta según la tabla llamada Laboratorios: ¿Qué laboratorio tiene el mayor cociente entre muestras analizadas y informes emitidos?
+Responda a la siguiente pregunta según la tabla llamada Laboratorios: ¿Cuál de los siguientes laboratorios cumple estas condiciones: menos de 523 muestras analizadas y ciudad «Bilbao»?
 
 a) Gamma.
-b) Omega.
-c) Sigma.
+b) Delta.
+c) Omega.
 d) Kappa.
 
-**Clave: d**
+**Clave: c**
 
-Explicación: Se divide muestras analizadas entre informes emitidos en cada fila: el mayor cociente es el de «Kappa» (7,19).
+Explicación: Solo «Omega» cumple las 2 condiciones: menos de 523 muestras analizadas y ciudad «Bilbao».
 
 ## 43. seed 2042550028401227693 · nivel 2
-
-Tabla «Laboratorios»:
-
-| Laboratorio | Ciudad | Titularidad | Muestras analizadas | Técnicos | Presupuesto (miles de €) | Informes emitidos |
-|---|---|---|---|---|---|---|
-| Omega | Barcelona | Privada | 940 | 10 | 46 | 75 |
-| Zeta | Valencia | Privada | 177 | 20 | 364 | 65 |
-| Beta | Madrid | Mixta | 711 | 16 | 137 | 125 |
-| Lambda | Madrid | Mixta | 454 | 7 | 260 | 189 |
-| Delta | Sevilla | Pública | 437 | 9 | 67 | 143 |
-| Épsilon | Madrid | Privada | 453 | 14 | 246 | 138 |
-| Gamma | Madrid | Privada | 515 | 5 | 328 | 161 |
-| Theta | Bilbao | Mixta | 170 | 18 | 273 | 204 |
-| Sigma | Valencia | Privada | 127 | 10 | 227 | 94 |
-
-Responda a la siguiente pregunta según la tabla llamada Laboratorios: ¿Qué laboratorio tiene el mayor cociente entre informes emitidos y presupuesto?
-
-a) Theta.
-b) Delta.
-c) Gamma.
-d) Omega.
-
-**Clave: b**
-
-Explicación: Se divide informes emitidos entre presupuesto en cada fila: el mayor cociente es el de «Delta» (2,13).
-
-## 44. seed 1065444377732371285 · nivel 3
 
 Tabla «Excursiones»:
 
 | Destino | Tipo | Transporte | Participantes | Precio por persona (€) | Duración (horas) | Kilómetros |
 |---|---|---|---|---|---|---|
-| Úbeda | Deportiva | Barco | 48 | 41 | 17 | 369 |
-| Lugo | Gastronómica | Barco | 37 | 79 | 16 | 236 |
-| Teruel | Deportiva | Tren | 25 | 19 | 16 | 174 |
-| Toledo | Gastronómica | Tren | 23 | 40 | 27 | 423 |
-| Soria | Cultural | Autobús | 33 | 42 | 25 | 255 |
-| Cuenca | Cultural | Autobús | 44 | 16 | 10 | 418 |
-| Mérida | Cultural | Autobús | 30 | 44 | 11 | 278 |
-| Segovia | Gastronómica | Tren | 25 | 94 | 25 | 134 |
-| Ronda | Cultural | Tren | 53 | 49 | 14 | 280 |
-| Jaca | Naturaleza | Tren | 15 | 17 | 30 | 308 |
-| Ávila | Gastronómica | Tren | 55 | 41 | 9 | 397 |
+| Toledo | Gastronómica | Autobús | 29 | 72 | 4 | 446 |
+| Lugo | Gastronómica | Minibús | 35 | 31 | 11 | 172 |
+| Segovia | Naturaleza | Autobús | 48 | 17 | 15 | 450 |
+| Ronda | Naturaleza | Minibús | 14 | 51 | 24 | 448 |
+| Cuenca | Gastronómica | Autobús | 43 | 40 | 21 | 474 |
+| León | Cultural | Autobús | 30 | 16 | 18 | 300 |
+| Mérida | Gastronómica | Autobús | 28 | 19 | 14 | 322 |
+| Ávila | Deportiva | Minibús | 20 | 40 | 6 | 184 |
+| Úbeda | Deportiva | Tren | 58 | 60 | 20 | 435 |
 
-Responda a la siguiente pregunta según la tabla llamada Excursiones: ¿Qué porcentaje del total de kilómetros corresponde a tipo Deportiva?
+Responda a la siguiente pregunta según la tabla llamada Excursiones: ¿Cuántos destinos cumplen estas condiciones: tipo «Deportiva» y menos de 472 kilómetros?
 
-a) 13,28 %
-b) 16,60 %
-c) 21,24 %
-d) 14,60 %
+a) 2
+b) 3
+c) 0
+d) 4
 
-**Clave: b**
+**Clave: a**
 
-Explicación: Tipo Deportiva suma 543 de un total de 3272: 16,60 %.
+Explicación: Cumplen las condiciones (tipo «Deportiva» y menos de 472 kilómetros) exactamente 2.
 
-## 45. seed 2719097753412396217 · nivel 2
+## 44. seed 1065444377732371285 · nivel 3
 
 Tabla «Laboratorios»:
 
 | Laboratorio | Ciudad | Titularidad | Muestras analizadas | Técnicos | Presupuesto (miles de €) | Informes emitidos |
 |---|---|---|---|---|---|---|
-| Kappa | Madrid | Privada | 663 | 14 | 204 | 295 |
-| Gamma | Valencia | Privada | 643 | 5 | 263 | 75 |
-| Beta | Bilbao | Pública | 531 | 9 | 364 | 182 |
-| Épsilon | Valencia | Pública | 126 | 17 | 243 | 140 |
-| Alfa | Barcelona | Mixta | 952 | 17 | 72 | 228 |
-| Lambda | Sevilla | Mixta | 208 | 20 | 227 | 235 |
-| Iota | Sevilla | Pública | 519 | 8 | 173 | 106 |
-| Sigma | Madrid | Mixta | 661 | 5 | 233 | 220 |
-| Theta | Sevilla | Privada | 447 | 21 | 44 | 284 |
+| Sigma | Barcelona | Pública | 907 | 24 | 163 | 279 |
+| Delta | Sevilla | Mixta | 282 | 7 | 163 | 169 |
+| Beta | Valencia | Privada | 694 | 10 | 183 | 74 |
+| Omega | Bilbao | Privada | 171 | 19 | 294 | 212 |
+| Gamma | Bilbao | Pública | 330 | 4 | 152 | 94 |
+| Kappa | Bilbao | Pública | 641 | 16 | 209 | 136 |
+| Theta | Barcelona | Pública | 226 | 8 | 258 | 148 |
+| Zeta | Bilbao | Mixta | 503 | 15 | 290 | 250 |
+| Épsilon | Sevilla | Pública | 778 | 13 | 387 | 139 |
+| Iota | Madrid | Mixta | 966 | 22 | 294 | 47 |
+| Alfa | Valencia | Mixta | 219 | 21 | 107 | 286 |
 
-Responda a la siguiente pregunta según la tabla llamada Laboratorios: Sumando presupuesto por ciudad, ¿qué ciudad obtiene el menor total?
+Responda a la siguiente pregunta según la tabla llamada Laboratorios: ¿Qué porcentaje del total de muestras analizadas corresponde a los laboratorios con ciudad «Valencia»?
 
-a) Barcelona.
-b) Sevilla.
-c) Bilbao.
-d) Madrid.
+a) 19,16 %
+b) 13,41 %
+c) 15,97 %
+d) 12,78 %
+
+**Clave: c**
+
+Explicación: Los laboratorios con ciudad «Valencia» suman 913 de un total de 5717: 15,97 %.
+
+## 45. seed 2719097753412396217 · nivel 2
+
+Tabla «Excursiones»:
+
+| Destino | Tipo | Transporte | Participantes | Precio por persona (€) | Duración (horas) | Kilómetros |
+|---|---|---|---|---|---|---|
+| Soria | Naturaleza | Minibús | 34 | 25 | 14 | 389 |
+| Segovia | Gastronómica | Tren | 60 | 93 | 27 | 132 |
+| Ávila | Gastronómica | Tren | 16 | 76 | 20 | 205 |
+| Teruel | Gastronómica | Tren | 41 | 37 | 16 | 116 |
+| Ronda | Naturaleza | Autobús | 40 | 20 | 9 | 207 |
+| Cuenca | Naturaleza | Minibús | 34 | 68 | 17 | 342 |
+| Jaca | Cultural | Autobús | 31 | 52 | 19 | 470 |
+| Mérida | Naturaleza | Tren | 56 | 28 | 5 | 343 |
+| Lugo | Naturaleza | Minibús | 33 | 72 | 29 | 287 |
+| León | Deportiva | Minibús | 47 | 35 | 27 | 165 |
+
+Responda a la siguiente pregunta según la tabla llamada Excursiones: ¿Cuál es el total de duración de los destinos que cumplen estas condiciones: transporte «Minibús» y menos de 38 participantes?
+
+a) 60
+b) 48
+c) 46
+d) 70
 
 **Clave: a**
 
-Explicación: Los valores por ciudad son Barcelona 72, Bilbao 364, Madrid 437, Sevilla 444, Valencia 506; el menor es Barcelona.
+Explicación: Pasan el filtro 3 filas; en ellas, la columna «Duración (horas)» suma 60.
 
 ## 46. seed 3969796563389545576 · nivel 2
 
-Tabla «Desplazamientos»:
+Tabla «Préstamos»:
 
-| Empleado | Destino | Medio | Distancia (km) | Tiempo (min) | Coste (€) | Viajes al año |
+| Título | Lugar de edición | Editorial | Año de publicación | Ejemplares disponibles | Ejemplares prestados | Préstamos realizados |
 |---|---|---|---|---|---|---|
-| Raúl Mena | Sevilla | Tren | 216 | 382 | 215 | 5 |
-| Óscar Lara | Barcelona | Tren | 679 | 368 | 243 | 11 |
-| Paula Giner | Barcelona | Avión | 838 | 348 | 128 | 10 |
-| Hugo Beltrán | Bilbao | Coche | 474 | 202 | 109 | 4 |
-| Diego Rubio | Barcelona | Coche | 445 | 145 | 38 | 9 |
-| Irene Pons | Bilbao | Autobús | 306 | 479 | 52 | 10 |
-| Lucía Costa | Madrid | Avión | 828 | 75 | 99 | 6 |
-| Andrés Peña | Valencia | Avión | 556 | 130 | 72 | 1 |
-| Ana Cortés | Madrid | Avión | 866 | 285 | 138 | 10 |
+| Un calor tan cercano | Madrid | Anagrama | 2003 | 15 | 5 | 175 |
+| Mano de sombra | Barcelona | Santillana | 1997 | 6 | 4 | 186 |
+| Noches de invierno | Barcelona | Destino | 2000 | 15 | 3 | 251 |
+| Contra vosotros | Madrid | Anagrama | 2005 | 17 | 6 | 144 |
+| El amante lesbiano | Valencia | Alfaguara | 2000 | 4 | 1 | 142 |
+| El jardín cerrado | Sevilla | Santillana | 2001 | 12 | 2 | 250 |
+| Los días azules | Valencia | Planeta | 2005 | 3 | 2 | 181 |
+| La casa del lago | Madrid | Anagrama | 1996 | 20 | 6 | 129 |
+| Hija de la fortuna | Barcelona | Alfaguara | 2000 | 9 | 5 | 291 |
+| Adiós a las novias | Madrid | Santillana | 2003 | 14 | 5 | 212 |
 
-Responda a la siguiente pregunta según la tabla llamada Desplazamientos: ¿Cuál de los siguientes empleados tiene coste inferior a 81, tiempo inferior a 146 y viajes al año inferior a 2?
+Responda a la siguiente pregunta según la tabla llamada Préstamos: ¿Cuál es el total de ejemplares disponibles de los títulos que cumplen estas condiciones: editorial «Santillana» y menos de 232 préstamos realizados?
 
-a) Paula Giner.
-b) Andrés Peña.
-c) Lucía Costa.
-d) Diego Rubio.
+a) 18
+b) 20
+c) 35
+d) 19
 
 **Clave: b**
 
-Explicación: Solo «Andrés Peña» cumple las 3 condiciones: coste inferior a 81, tiempo inferior a 146 y viajes al año inferior a 2.
+Explicación: Pasan el filtro 2 filas; en ellas, la columna «Ejemplares disponibles» suma 20.
 
 ## 47. seed 2439017718913394027 · nivel 2
 
@@ -1247,27 +1253,27 @@ Tabla «Academia»:
 
 | Alumno | Curso | Turno | Edad | Horas semanales | Cuota mensual | Faltas de asistencia |
 |---|---|---|---|---|---|---|
-| Andrés Peña | Alemán | Mañana | 34 | 11 | 66 | 14 |
-| Raúl Mena | Francés | Noche | 52 | 2 | 32 | 7 |
-| Ana Cortés | Informática | Tarde | 37 | 10 | 116 | 2 |
-| Óscar Lara | Inglés | Mañana | 45 | 9 | 120 | 12 |
-| Carla Nieto | Informática | Tarde | 37 | 4 | 101 | 7 |
-| Iván Duarte | Informática | Noche | 29 | 11 | 74 | 8 |
-| Víctor Ibarra | Inglés | Mañana | 32 | 2 | 87 | 11 |
-| Diego Rubio | Alemán | Mañana | 30 | 10 | 108 | 4 |
-| Rocío Mora | Inglés | Tarde | 40 | 4 | 53 | 2 |
-| Lucía Costa | Inglés | Tarde | 31 | 4 | 90 | 12 |
+| Raúl Mena | Inglés | Tarde | 28 | 7 | 91 | 7 |
+| Ana Cortés | Francés | Noche | 46 | 11 | 69 | 2 |
+| Jorge Luna | Francés | Tarde | 32 | 8 | 114 | 4 |
+| Sara Ortiz | Informática | Mañana | 28 | 9 | 80 | 8 |
+| Iván Duarte | Francés | Tarde | 42 | 5 | 93 | 1 |
+| Víctor Ibarra | Francés | Tarde | 51 | 5 | 38 | 4 |
+| Nuria Salas | Alemán | Mañana | 48 | 2 | 66 | 0 |
+| Elena Soler | Francés | Tarde | 35 | 4 | 120 | 8 |
+| Andrés Peña | Alemán | Noche | 33 | 6 | 52 | 2 |
+| Irene Pons | Francés | Noche | 45 | 10 | 56 | 15 |
 
-Responda a la siguiente pregunta según la tabla llamada Academia: ¿Cuál de los siguientes alumnos tiene horas semanales superior a 10, cuota mensual inferior a 83 y edad inferior a 32?
+Responda a la siguiente pregunta según la tabla llamada Academia: ¿Cuál es el total de cuota mensual de los alumnos que cumplen estas condiciones: turno «Tarde» y más de 6 horas semanales?
 
-a) Diego Rubio.
-b) Lucía Costa.
-c) Andrés Peña.
-d) Iván Duarte.
+a) 274
+b) 262
+c) 205
+d) 180
 
-**Clave: d**
+**Clave: c**
 
-Explicación: Solo «Iván Duarte» cumple las 3 condiciones: horas semanales superior a 10, cuota mensual inferior a 83 y edad inferior a 32.
+Explicación: Pasan el filtro 2 filas; en ellas, la columna «Cuota mensual» suma 205.
 
 ## 48. seed 2169652614732583283 · nivel 2
 
@@ -1275,80 +1281,80 @@ Tabla «Préstamos»:
 
 | Título | Lugar de edición | Editorial | Año de publicación | Ejemplares disponibles | Ejemplares prestados | Préstamos realizados |
 |---|---|---|---|---|---|---|
-| Un calor tan cercano | Madrid | Planeta | 1998 | 7 | 2 | 175 |
-| El amante lesbiano | Barcelona | Destino | 2003 | 7 | 1 | 222 |
-| Hija de la fortuna | Madrid | Planeta | 2003 | 13 | 3 | 210 |
-| Adiós a las novias | Madrid | Alfaguara | 2003 | 4 | 8 | 344 |
-| Cuaderno de bitácora | Sevilla | Santillana | 2005 | 7 | 7 | 213 |
-| Noches de invierno | Madrid | Destino | 1997 | 4 | 9 | 181 |
-| Tiempo de ceniza | Valencia | Santillana | 2001 | 5 | 1 | 118 |
-| El jardín cerrado | Barcelona | Santillana | 1997 | 11 | 2 | 133 |
-| Entre visillos | Barcelona | Alfaguara | 2001 | 4 | 6 | 235 |
-| Aranmanoth | Valencia | Anagrama | 2004 | 15 | 2 | 107 |
+| Mano de sombra | Madrid | Alfaguara | 2005 | 14 | 2 | 180 |
+| El último tren | Madrid | Destino | 1995 | 5 | 3 | 227 |
+| Adiós a las novias | Barcelona | Anagrama | 1997 | 6 | 6 | 199 |
+| La isla vacía | Valencia | Alfaguara | 1998 | 9 | 8 | 138 |
+| Entre visillos | Madrid | Planeta | 2004 | 14 | 3 | 336 |
+| Hija de la fortuna | Valencia | Destino | 2001 | 14 | 8 | 192 |
+| Tiempo de ceniza | Madrid | Santillana | 2002 | 18 | 1 | 185 |
+| El amante lesbiano | Sevilla | Anagrama | 1998 | 19 | 9 | 199 |
+| Los días azules | Valencia | Alfaguara | 2000 | 14 | 6 | 217 |
+| La temporada de caza | Sevilla | Planeta | 1999 | 7 | 9 | 291 |
 
-Responda a la siguiente pregunta según la tabla llamada Préstamos: ¿Cuál de los siguientes títulos tiene año de publicación inferior a 2253, lugar de edición Madrid, ejemplares disponibles inferior a 5 y préstamos realizados superior a 301?
+Responda a la siguiente pregunta según la tabla llamada Préstamos: ¿Cuántos títulos cumplen estas condiciones: más de 7 ejemplares prestados y más de 13 ejemplares disponibles?
 
-a) El amante lesbiano.
-b) Noches de invierno.
-c) Hija de la fortuna.
-d) Adiós a las novias.
+a) 5
+b) 1
+c) 2
+d) 0
 
-**Clave: d**
+**Clave: c**
 
-Explicación: Solo «Adiós a las novias» cumple las 4 condiciones: año de publicación inferior a 2253, lugar de edición Madrid, ejemplares disponibles inferior a 5 y préstamos realizados superior a 301.
+Explicación: Cumplen las condiciones (más de 7 ejemplares prestados y más de 13 ejemplares disponibles) exactamente 2.
 
 ## 49. seed 4533545574814537803 · nivel 3
 
-Tabla «Préstamos»:
+Tabla «Excursiones»:
 
-| Título | Lugar de edición | Editorial | Año de publicación | Ejemplares disponibles | Ejemplares prestados | Préstamos realizados |
+| Destino | Tipo | Transporte | Participantes | Precio por persona (€) | Duración (horas) | Kilómetros |
 |---|---|---|---|---|---|---|
-| Entre visillos | Madrid | Alfaguara | 1999 | 15 | 8 | 310 |
-| Hija de la fortuna | Barcelona | Santillana | 2002 | 18 | 7 | 324 |
-| El amante lesbiano | Barcelona | Planeta | 1998 | 9 | 6 | 313 |
-| Aranmanoth | Madrid | Planeta | 2002 | 14 | 7 | 321 |
-| Contra vosotros | Madrid | Anagrama | 2000 | 5 | 4 | 264 |
-| La temporada de caza | Sevilla | Anagrama | 2003 | 9 | 5 | 262 |
-| Tiempo de ceniza | Sevilla | Planeta | 1997 | 20 | 9 | 346 |
-| El jardín cerrado | Madrid | Alfaguara | 2004 | 5 | 7 | 243 |
-| Cuaderno de bitácora | Barcelona | Alfaguara | 2001 | 11 | 5 | 343 |
-| La casa del lago | Valencia | Destino | 1996 | 4 | 9 | 178 |
-| El último tren | Sevilla | Santillana | 2001 | 20 | 7 | 263 |
+| León | Deportiva | Minibús | 13 | 22 | 11 | 152 |
+| Soria | Cultural | Autobús | 59 | 40 | 22 | 157 |
+| Segovia | Cultural | Autobús | 25 | 24 | 19 | 430 |
+| Jaca | Gastronómica | Tren | 28 | 82 | 6 | 421 |
+| Teruel | Cultural | Minibús | 38 | 63 | 14 | 353 |
+| Úbeda | Gastronómica | Autobús | 51 | 22 | 16 | 260 |
+| Ronda | Naturaleza | Minibús | 58 | 44 | 23 | 250 |
+| Toledo | Deportiva | Minibús | 38 | 94 | 14 | 251 |
+| Ávila | Deportiva | Autobús | 47 | 25 | 15 | 414 |
+| Lugo | Gastronómica | Autobús | 31 | 49 | 24 | 375 |
+| Cuenca | Naturaleza | Autobús | 27 | 90 | 5 | 45 |
 
-Responda a la siguiente pregunta según la tabla llamada Préstamos: ¿Qué título tiene el menor cociente entre ejemplares disponibles y año de publicación?
+Responda a la siguiente pregunta según la tabla llamada Excursiones: ¿Cuál es la media de participantes de todos los destinos?
 
-a) Cuaderno de bitácora.
-b) La casa del lago.
-c) La temporada de caza.
-d) El amante lesbiano.
+a) 38,80
+b) 37,73
+c) 41,50
+d) 38,00
 
 **Clave: b**
 
-Explicación: Se divide ejemplares disponibles entre año de publicación en cada fila: el menor cociente es el de «La casa del lago» (0,00).
+Explicación: La suma de la columna es 415,00 y hay 11 filas: 37,73.
 
 ## 50. seed 3814695743816065413 · nivel 2
 
-Tabla «Laboratorios»:
+Tabla «Excursiones»:
 
-| Laboratorio | Ciudad | Titularidad | Muestras analizadas | Técnicos | Presupuesto (miles de €) | Informes emitidos |
+| Destino | Tipo | Transporte | Participantes | Precio por persona (€) | Duración (horas) | Kilómetros |
 |---|---|---|---|---|---|---|
-| Sigma | Sevilla | Mixta | 876 | 15 | 71 | 99 |
-| Lambda | Valencia | Mixta | 928 | 15 | 232 | 42 |
-| Alfa | Sevilla | Mixta | 702 | 5 | 295 | 182 |
-| Zeta | Valencia | Mixta | 517 | 7 | 200 | 172 |
-| Iota | Barcelona | Privada | 597 | 5 | 166 | 166 |
-| Omega | Bilbao | Mixta | 242 | 16 | 78 | 88 |
-| Beta | Madrid | Privada | 433 | 10 | 205 | 222 |
-| Épsilon | Valencia | Privada | 661 | 20 | 238 | 146 |
-| Kappa | Bilbao | Pública | 538 | 14 | 119 | 32 |
+| Toledo | Naturaleza | Minibús | 44 | 36 | 11 | 159 |
+| Soria | Naturaleza | Minibús | 34 | 19 | 26 | 74 |
+| Úbeda | Gastronómica | Minibús | 50 | 45 | 22 | 200 |
+| Mérida | Cultural | Autobús | 34 | 47 | 27 | 225 |
+| Cuenca | Cultural | Tren | 46 | 22 | 29 | 325 |
+| Teruel | Cultural | Minibús | 13 | 25 | 27 | 138 |
+| Jaca | Gastronómica | Autobús | 60 | 76 | 23 | 212 |
+| Lugo | Gastronómica | Tren | 15 | 75 | 6 | 179 |
+| Ávila | Deportiva | Tren | 16 | 74 | 23 | 419 |
 
-Responda a la siguiente pregunta según la tabla llamada Laboratorios: ¿Cuántos laboratorios tienen informes emitidos inferior a 164 y ciudad Valencia?
+Responda a la siguiente pregunta según la tabla llamada Excursiones: ¿Cuál es el total de kilómetros de los destinos que cumplen estas condiciones: precio por persona superior a 67 y menos de 21 participantes?
 
-a) 1
-b) 4
-c) 3
-d) 2
+a) 478
+b) 526
+c) 757
+d) 598
 
 **Clave: d**
 
-Explicación: Cumplen las condiciones (informes emitidos inferior a 164 y ciudad Valencia) exactamente 2.
+Explicación: Pasan el filtro 2 filas; en ellas, la columna «Kilómetros» suma 598.

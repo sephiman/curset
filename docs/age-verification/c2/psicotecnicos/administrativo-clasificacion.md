@@ -43,7 +43,7 @@ Explicación: Por orden alfabético, Herrera queda entre Guerrero y León: cajó
 
 ## 4. seed 4081202914252533723 · nivel 1
 
-En un almacén guardan cada tipo de cuerda en un armario: Trenzada en el número 1, Cáñamo en el número 2, Esparto en el número 3, Nailon en el número 4, Sisal en el número 5, Yute en el número 6, Algodón en el número 7. Cada armario tiene tres cajones para los distintos tamaños de bobinas: el cajón A para 10 metros, el cajón B para 15 metros, el cajón C para 25 metros. ¿En qué ubicación guardarán un bobina de 25 metros de Sisal?
+En un almacén guardan cada tipo de cuerda en un armario: Polipropileno en el número 1, Cáñamo en el número 2, Esparto en el número 3, Nailon en el número 4, Sisal en el número 5, Yute en el número 6, Algodón en el número 7. Cada armario tiene tres cajones para los distintos tamaños de rollos: el cajón A para 10 metros, el cajón B para 15 metros, el cajón C para 25 metros. ¿En qué ubicación guardarán un rollo de 25 metros de Sisal?
 
 a) 5C
 b) 4C
@@ -82,16 +82,16 @@ Explicación: Gabardina está en el armario 1 y 15 metros van al cajón B: 1B.
 
 ## 7. seed 4495506071432025915 · nivel 2
 
-Un archivo ordena los expedientes por apellido en seis cajones: cajón 1: de Abad a Domínguez; cajón 2: de Durán a Moreno; cajón 3: de Navarro a Quintero; cajón 4: de Ramos a Rey; cajón 5: de Rojas a Rojas; cajón 6: de Romero a Zamora. ¿En qué cajón se archivará el expediente de Molina?
+Un archivo ordena los expedientes por apellido en seis cajones: cajón 1: de Abad a Castro; cajón 2: de Cortés a Fernández; cajón 3: de Ferrer a Fuentes; cajón 4: de Gallego a Ramos; cajón 5: de Rey a Santos; cajón 6: de Serrano a Zamora. ¿En qué cajón se archivará el expediente de Barrios?
 
-a) Cajón 3.
-b) Cajón 2.
-c) Cajón 1.
-d) Cajón 4.
+a) Cajón 2.
+b) Cajón 1.
+c) Cajón 3.
+d) Cajón 5.
 
 **Clave: b**
 
-Explicación: Por orden alfabético, Molina queda entre Durán y Moreno: cajón 2.
+Explicación: Por orden alfabético, Barrios queda entre Abad y Castro: cajón 1.
 
 ## 8. seed 3893052480573515424 · nivel 2
 
@@ -108,20 +108,20 @@ Explicación: Por orden alfabético, Gallego queda entre Domínguez y Hidalgo: c
 
 ## 9. seed 1113368139931146474 · nivel 1
 
-En un almacén guardan cada tipo de cable en un armario: Plano en el número 1, Flexible en el número 2, Fibra en el número 3, Paralelo en el número 4, Coaxial en el número 5, Trenzado en el número 6, Apantallado en el número 7. Cada armario tiene tres cajones para los distintos tamaños de bobinas: el cajón A para 10 metros, el cajón B para 15 metros, el cajón C para 25 metros. ¿En qué ubicación guardarán un bobina de 10 metros de Plano?
+En un almacén guardan cada tipo de cuerda en un armario: Yute en el número 1, Cáñamo en el número 2, Esparto en el número 3, Algodón en el número 4, Poliéster en el número 5, Sisal en el número 6, Polipropileno en el número 7. Cada armario tiene tres cajones para los distintos tamaños de rollos: el cajón A para 10 metros, el cajón B para 15 metros, el cajón C para 25 metros. ¿En qué ubicación guardarán un rollo de 15 metros de Yute?
 
-a) 2A
-b) 1C
-c) 1B
-d) 1A
+a) 1C
+b) 2B
+c) 1A
+d) 1B
 
 **Clave: d**
 
-Explicación: Plano está en el armario 1 y 10 metros van al cajón A: 1A.
+Explicación: Yute está en el armario 1 y 15 metros van al cajón B: 1B.
 
 ## 10. seed 747090381621175415 · nivel 1
 
-En un almacén guardan cada tipo de cuerda en un armario: Yute en el número 1, Trenzada en el número 2, Esparto en el número 3, Nailon en el número 4, Cáñamo en el número 5, Algodón en el número 6, Sisal en el número 7. Cada armario tiene tres cajones para los distintos tamaños de bobinas: el cajón A para 10 metros, el cajón B para 15 metros, el cajón C para 25 metros. ¿En qué ubicación guardarán un bobina de 10 metros de Nailon?
+En un almacén guardan cada tipo de cuerda en un armario: Yute en el número 1, Polipropileno en el número 2, Esparto en el número 3, Nailon en el número 4, Cáñamo en el número 5, Algodón en el número 6, Sisal en el número 7. Cada armario tiene tres cajones para los distintos tamaños de rollos: el cajón A para 10 metros, el cajón B para 15 metros, el cajón C para 25 metros. ¿En qué ubicación guardarán un rollo de 10 metros de Nailon?
 
 a) 4B
 b) 4A
@@ -134,7 +134,7 @@ Explicación: Nailon está en el armario 4 y 10 metros van al cajón A: 4A.
 
 ## 11. seed 1042665603002150715 · nivel 1
 
-En un almacén guardan cada tipo de cuerda en un armario: Seda en el número 1, Esparto en el número 2, Algodón en el número 3, Sisal en el número 4, Cáñamo en el número 5, Trenzada en el número 6. Cada armario tiene tres cajones para los distintos tamaños de bobinas: el cajón A para 10 metros, el cajón B para 15 metros, el cajón C para 25 metros. ¿En qué ubicación guardarán un bobina de 10 metros de Cáñamo?
+En un almacén guardan cada tipo de cuerda en un armario: Poliéster en el número 1, Esparto en el número 2, Algodón en el número 3, Sisal en el número 4, Cáñamo en el número 5, Polipropileno en el número 6. Cada armario tiene tres cajones para los distintos tamaños de rollos: el cajón A para 10 metros, el cajón B para 15 metros, el cajón C para 25 metros. ¿En qué ubicación guardarán un rollo de 10 metros de Cáñamo?
 
 a) 4A
 b) 5A
@@ -160,33 +160,33 @@ Explicación: Por orden alfabético, Moreno queda entre Guerrero y Pardo: cajón
 
 ## 13. seed 3463711355764829693 · nivel 2
 
-Un archivo ordena los expedientes por apellido en seis cajones: cajón 1: de Abad a Durán; cajón 2: de Escudero a Ferrer; cajón 3: de Flores a Fuentes; cajón 4: de Gallego a Ibáñez; cajón 5: de Iglesias a Rojas; cajón 6: de Romero a Zamora. ¿En qué cajón se archivará el expediente de Castro?
+Un archivo ordena los expedientes por apellido en seis cajones: cajón 1: de Abad a Cortés; cajón 2: de Crespo a Gómez; cajón 3: de Guerrero a León; cajón 4: de López a Quintero; cajón 5: de Ramos a Romero; cajón 6: de Ruiz a Zamora. ¿En qué cajón se archivará el expediente de Campos?
 
 a) Cajón 6.
-b) Cajón 5.
+b) Cajón 3.
 c) Cajón 1.
-d) Cajón 2.
+d) Cajón 5.
 
 **Clave: c**
 
-Explicación: Por orden alfabético, Castro queda entre Abad y Durán: cajón 1.
+Explicación: Por orden alfabético, Campos queda entre Abad y Cortés: cajón 1.
 
 ## 14. seed 2012502241861686181 · nivel 1
 
-En un almacén guardan cada tipo de cable en un armario: Plano en el número 1, Fibra en el número 2, Paralelo en el número 3, Coaxial en el número 4, Rígido en el número 5, Trenzado en el número 6, Flexible en el número 7. Cada armario tiene tres cajones para los distintos tamaños de bobinas: el cajón A para 10 metros, el cajón B para 15 metros, el cajón C para 25 metros. ¿En qué ubicación guardarán un bobina de 15 metros de Coaxial?
+En un almacén guardan cada tipo de cuerda en un armario: Yute en el número 1, Cáñamo en el número 2, Esparto en el número 3, Algodón en el número 4, Sisal en el número 5, Nailon en el número 6, Poliéster en el número 7. Cada armario tiene tres cajones para los distintos tamaños de rollos: el cajón A para 10 metros, el cajón B para 15 metros, el cajón C para 25 metros. ¿En qué ubicación guardarán un rollo de 25 metros de Esparto?
 
-a) 4B
-b) 4A
-c) 5B
-d) 4C
+a) 3C
+b) 3A
+c) 4C
+d) 3B
 
 **Clave: a**
 
-Explicación: Coaxial está en el armario 4 y 15 metros van al cajón B: 4B.
+Explicación: Esparto está en el armario 3 y 25 metros van al cajón C: 3C.
 
 ## 15. seed 4125722512877743755 · nivel 1
 
-En un almacén guardan cada tipo de cuerda en un armario: Algodón en el número 1, Yute en el número 2, Seda en el número 3, Sisal en el número 4, Cáñamo en el número 5, Esparto en el número 6, Nailon en el número 7. Cada armario tiene tres cajones para los distintos tamaños de bobinas: el cajón A para 10 metros, el cajón B para 15 metros, el cajón C para 25 metros. ¿En qué ubicación guardarán un bobina de 25 metros de Sisal?
+En un almacén guardan cada tipo de cuerda en un armario: Algodón en el número 1, Yute en el número 2, Poliéster en el número 3, Sisal en el número 4, Cáñamo en el número 5, Esparto en el número 6, Nailon en el número 7. Cada armario tiene tres cajones para los distintos tamaños de rollos: el cajón A para 10 metros, el cajón B para 15 metros, el cajón C para 25 metros. ¿En qué ubicación guardarán un rollo de 25 metros de Sisal?
 
 a) 3C
 b) 4A
@@ -199,16 +199,16 @@ Explicación: Sisal está en el armario 4 y 25 metros van al cajón C: 4C.
 
 ## 16. seed 2868982601802913990 · nivel 2
 
-Un archivo ordena los expedientes por apellido en seis cajones: cajón 1: de Abad a Domínguez; cajón 2: de Durán a Escudero; cajón 3: de Espinosa a Ferrer; cajón 4: de Flores a Lozano; cajón 5: de Marín a Peña; cajón 6: de Prieto a Zamora. ¿En qué cajón se archivará el expediente de Crespo?
+Un archivo ordena los expedientes por apellido en seis cajones: cajón 1: de Abad a Bravo; cajón 2: de Cabrera a Fernández; cajón 3: de Ferrer a Jover; cajón 4: de Lara a Moreno; cajón 5: de Navarro a Santos; cajón 6: de Serrano a Zamora. ¿En qué cajón se archivará el expediente de Vidal?
 
-a) Cajón 2.
+a) Cajón 3.
 b) Cajón 5.
-c) Cajón 1.
-d) Cajón 3.
+c) Cajón 6.
+d) Cajón 4.
 
 **Clave: c**
 
-Explicación: Por orden alfabético, Crespo queda entre Abad y Domínguez: cajón 1.
+Explicación: Por orden alfabético, Vidal queda entre Serrano y Zamora: cajón 6.
 
 ## 17. seed 876322470897413790 · nivel 2
 
@@ -238,55 +238,55 @@ Explicación: Por orden alfabético, Díaz queda entre Crespo y Durán: cajón 3
 
 ## 19. seed 2097352417082531498 · nivel 2
 
-Un archivo ordena los expedientes por apellido en seis cajones: cajón 1: de Abad a Delgado; cajón 2: de Díaz a Hidalgo; cajón 3: de Ibáñez a Ibáñez; cajón 4: de Iglesias a Ortega; cajón 5: de Ortiz a Quintero; cajón 6: de Ramos a Zamora. ¿En qué cajón se archivará el expediente de Cano?
+Un archivo ordena los expedientes por apellido en seis cajones: cajón 1: de Abad a Durán; cajón 2: de Escudero a García; cajón 3: de Gil a Jiménez; cajón 4: de Jover a Lozano; cajón 5: de Marín a Rey; cajón 6: de Rojas a Zamora. ¿En qué cajón se archivará el expediente de López?
 
 a) Cajón 1.
 b) Cajón 2.
-c) Cajón 6.
-d) Cajón 3.
-
-**Clave: a**
-
-Explicación: Por orden alfabético, Cano queda entre Abad y Delgado: cajón 1.
-
-## 20. seed 587241960816378758 · nivel 2
-
-Un archivo ordena los expedientes por apellido en seis cajones: cajón 1: de Abad a Delgado; cajón 2: de Díaz a Domínguez; cajón 3: de Durán a Guerrero; cajón 4: de Herrera a Herrera; cajón 5: de Hidalgo a López; cajón 6: de Lozano a Zamora. ¿En qué cajón se archivará el expediente de Quintero?
-
-a) Cajón 5.
-b) Cajón 1.
-c) Cajón 6.
-d) Cajón 4.
-
-**Clave: c**
-
-Explicación: Por orden alfabético, Quintero queda entre Lozano y Zamora: cajón 6.
-
-## 21. seed 3516795561458811259 · nivel 2
-
-Un archivo ordena los expedientes por apellido en seis cajones: cajón 1: de Abad a Calvo; cajón 2: de Campos a Castro; cajón 3: de Cortés a Ferrer; cajón 4: de Flores a Romero; cajón 5: de Ruiz a Ruiz; cajón 6: de Salas a Zamora. ¿En qué cajón se archivará el expediente de Bravo?
-
-a) Cajón 6.
-b) Cajón 2.
-c) Cajón 1.
+c) Cajón 4.
 d) Cajón 5.
 
 **Clave: c**
 
-Explicación: Por orden alfabético, Bravo queda entre Abad y Calvo: cajón 1.
+Explicación: Por orden alfabético, López queda entre Jover y Lozano: cajón 4.
+
+## 20. seed 587241960816378758 · nivel 2
+
+Un archivo ordena los expedientes por apellido en seis cajones: cajón 1: de Abad a Domínguez; cajón 2: de Durán a Fernández; cajón 3: de Ferrer a Gil; cajón 4: de Gómez a Ibáñez; cajón 5: de Iglesias a Ramos; cajón 6: de Rey a Zamora. ¿En qué cajón se archivará el expediente de Quintero?
+
+a) Cajón 5.
+b) Cajón 6.
+c) Cajón 4.
+d) Cajón 3.
+
+**Clave: a**
+
+Explicación: Por orden alfabético, Quintero queda entre Iglesias y Ramos: cajón 5.
+
+## 21. seed 3516795561458811259 · nivel 2
+
+Un archivo ordena los expedientes por apellido en seis cajones: cajón 1: de Abad a Crespo; cajón 2: de Delgado a Durán; cajón 3: de Escudero a Gil; cajón 4: de Gómez a Pardo; cajón 5: de Peña a Salas; cajón 6: de Santos a Zamora. ¿En qué cajón se archivará el expediente de Cabrera?
+
+a) Cajón 1.
+b) Cajón 2.
+c) Cajón 3.
+d) Cajón 4.
+
+**Clave: a**
+
+Explicación: Por orden alfabético, Cabrera queda entre Abad y Crespo: cajón 1.
 
 ## 22. seed 2558837762794217705 · nivel 1
 
-En un almacén guardan cada tipo de cable en un armario: Apantallado en el número 1, Plano en el número 2, Coaxial en el número 3, Paralelo en el número 4, Trenzado en el número 5, Rígido en el número 6, Flexible en el número 7, Fibra en el número 8. Cada armario tiene tres cajones para los distintos tamaños de bobinas: el cajón A para 10 metros, el cajón B para 15 metros, el cajón C para 25 metros. ¿En qué ubicación guardarán un bobina de 15 metros de Flexible?
+En un almacén guardan cada tipo de cuerda en un armario: Nailon en el número 1, Cáñamo en el número 2, Yute en el número 3, Esparto en el número 4, Sisal en el número 5, Polipropileno en el número 6, Poliéster en el número 7, Algodón en el número 8. Cada armario tiene tres cajones para los distintos tamaños de rollos: el cajón A para 10 metros, el cajón B para 15 metros, el cajón C para 25 metros. ¿En qué ubicación guardarán un rollo de 10 metros de Esparto?
 
-a) 7C
-b) 7B
-c) 8B
-d) 6B
+a) 5A
+b) 3A
+c) 4B
+d) 4A
 
-**Clave: b**
+**Clave: d**
 
-Explicación: Flexible está en el armario 7 y 15 metros van al cajón B: 7B.
+Explicación: Esparto está en el armario 4 y 10 metros van al cajón A: 4A.
 
 ## 23. seed 684010108173381283 · nivel 2
 
@@ -303,16 +303,16 @@ Explicación: Por orden alfabético, Pardo queda entre Navarro y Rojas: cajón 5
 
 ## 24. seed 1628792368968939207 · nivel 1
 
-En un almacén guardan cada tipo de cable en un armario: Plano en el número 1, Rígido en el número 2, Coaxial en el número 3, Flexible en el número 4, Apantallado en el número 5, Trenzado en el número 6. Cada armario tiene tres cajones para los distintos tamaños de bobinas: el cajón A para 10 metros, el cajón B para 15 metros, el cajón C para 25 metros. ¿En qué ubicación guardarán un bobina de 10 metros de Trenzado?
+En un almacén guardan cada tipo de tela en un armario: Batista en el número 1, Franela en el número 2, Raso en el número 3, Crepé en el número 4, Encaje en el número 5, Lino en el número 6, Tweed en el número 7. Cada armario tiene tres cajones para los distintos tamaños de rollos: el cajón A para 10 metros, el cajón B para 15 metros, el cajón C para 25 metros. ¿En qué ubicación guardarán un rollo de 25 metros de Lino?
 
-a) 5A
-b) 6A
-c) 6B
-d) 6C
+a) 6C
+b) 6B
+c) 7C
+d) 5C
 
-**Clave: b**
+**Clave: a**
 
-Explicación: Trenzado está en el armario 6 y 10 metros van al cajón A: 6A.
+Explicación: Lino está en el armario 6 y 25 metros van al cajón C: 6C.
 
 ## 25. seed 721045023008609602 · nivel 1
 
@@ -329,7 +329,7 @@ Explicación: Gabardina está en el armario 4 y 15 metros van al cajón B: 4B.
 
 ## 26. seed 1220475526916630724 · nivel 1
 
-En un almacén guardan cada tipo de cuerda en un armario: Nailon en el número 1, Trenzada en el número 2, Esparto en el número 3, Cáñamo en el número 4, Sisal en el número 5, Algodón en el número 6, Yute en el número 7. Cada armario tiene tres cajones para los distintos tamaños de bobinas: el cajón A para 10 metros, el cajón B para 15 metros, el cajón C para 25 metros. ¿En qué ubicación guardarán un bobina de 10 metros de Sisal?
+En un almacén guardan cada tipo de cuerda en un armario: Nailon en el número 1, Polipropileno en el número 2, Esparto en el número 3, Cáñamo en el número 4, Sisal en el número 5, Algodón en el número 6, Yute en el número 7. Cada armario tiene tres cajones para los distintos tamaños de rollos: el cajón A para 10 metros, el cajón B para 15 metros, el cajón C para 25 metros. ¿En qué ubicación guardarán un rollo de 10 metros de Sisal?
 
 a) 6A
 b) 5A
@@ -342,7 +342,7 @@ Explicación: Sisal está en el armario 5 y 10 metros van al cajón A: 5A.
 
 ## 27. seed 3176507720932832904 · nivel 1
 
-En un almacén guardan cada tipo de cuerda en un armario: Algodón en el número 1, Esparto en el número 2, Seda en el número 3, Nailon en el número 4, Cáñamo en el número 5, Sisal en el número 6, Yute en el número 7. Cada armario tiene tres cajones para los distintos tamaños de bobinas: el cajón A para 10 metros, el cajón B para 15 metros, el cajón C para 25 metros. ¿En qué ubicación guardarán un bobina de 15 metros de Algodón?
+En un almacén guardan cada tipo de cuerda en un armario: Algodón en el número 1, Esparto en el número 2, Poliéster en el número 3, Nailon en el número 4, Cáñamo en el número 5, Sisal en el número 6, Yute en el número 7. Cada armario tiene tres cajones para los distintos tamaños de rollos: el cajón A para 10 metros, el cajón B para 15 metros, el cajón C para 25 metros. ¿En qué ubicación guardarán un rollo de 15 metros de Algodón?
 
 a) 1A
 b) 1C
@@ -355,16 +355,16 @@ Explicación: Algodón está en el armario 1 y 15 metros van al cajón B: 1B.
 
 ## 28. seed 4090706388276574091 · nivel 2
 
-Un archivo ordena los expedientes por apellido en seis cajones: cajón 1: de Abad a Cabrera; cajón 2: de Calvo a Castro; cajón 3: de Cortés a Moreno; cajón 4: de Navarro a Pardo; cajón 5: de Peña a Peña; cajón 6: de Prieto a Zamora. ¿En qué cajón se archivará el expediente de Ibáñez?
+Un archivo ordena los expedientes por apellido en seis cajones: cajón 1: de Abad a Cortés; cajón 2: de Crespo a Escudero; cajón 3: de Espinosa a Fuentes; cajón 4: de Gallego a Pardo; cajón 5: de Peña a Santos; cajón 6: de Serrano a Zamora. ¿En qué cajón se archivará el expediente de Ramos?
 
-a) Cajón 4.
-b) Cajón 2.
-c) Cajón 1.
-d) Cajón 3.
+a) Cajón 3.
+b) Cajón 1.
+c) Cajón 5.
+d) Cajón 6.
 
-**Clave: d**
+**Clave: c**
 
-Explicación: Por orden alfabético, Ibáñez queda entre Cortés y Moreno: cajón 3.
+Explicación: Por orden alfabético, Ramos queda entre Peña y Santos: cajón 5.
 
 ## 29. seed 1393354275355015028 · nivel 1
 
@@ -381,81 +381,81 @@ Explicación: Gabardina está en el armario 4 y 25 metros van al cajón C: 4C.
 
 ## 30. seed 2618592839315439520 · nivel 2
 
-Un archivo ordena los expedientes por apellido en seis cajones: cajón 1: de Abad a Ibáñez; cajón 2: de Iglesias a Iglesias; cajón 3: de Jiménez a Molina; cajón 4: de Moreno a Romero; cajón 5: de Ruiz a Ruiz; cajón 6: de Salas a Zamora. ¿En qué cajón se archivará el expediente de Castro?
+Un archivo ordena los expedientes por apellido en seis cajones: cajón 1: de Abad a Delgado; cajón 2: de Díaz a Escudero; cajón 3: de Espinosa a Gómez; cajón 4: de Guerrero a Hidalgo; cajón 5: de Ibáñez a Ramos; cajón 6: de Rey a Zamora. ¿En qué cajón se archivará el expediente de Calvo?
 
-a) Cajón 2.
-b) Cajón 5.
-c) Cajón 1.
-d) Cajón 3.
+a) Cajón 1.
+b) Cajón 3.
+c) Cajón 2.
+d) Cajón 5.
 
-**Clave: c**
+**Clave: a**
 
-Explicación: Por orden alfabético, Castro queda entre Abad y Ibáñez: cajón 1.
+Explicación: Por orden alfabético, Calvo queda entre Abad y Delgado: cajón 1.
 
 ## 31. seed 4515498070327445420 · nivel 2
 
-Un archivo ordena los expedientes por apellido en seis cajones: cajón 1: de Abad a Campos; cajón 2: de Cano a Cano; cajón 3: de Castro a Castro; cajón 4: de Cortés a Cortés; cajón 5: de Crespo a Molina; cajón 6: de Moreno a Zamora. ¿En qué cajón se archivará el expediente de Alonso?
+Un archivo ordena los expedientes por apellido en seis cajones: cajón 1: de Abad a Cabrera; cajón 2: de Calvo a Fuentes; cajón 3: de Gallego a Guerrero; cajón 4: de Herrera a Ortiz; cajón 5: de Pardo a Quintero; cajón 6: de Ramos a Zamora. ¿En qué cajón se archivará el expediente de García?
 
-a) Cajón 3.
-b) Cajón 5.
-c) Cajón 1.
-d) Cajón 2.
+a) Cajón 4.
+b) Cajón 3.
+c) Cajón 2.
+d) Cajón 1.
 
-**Clave: c**
+**Clave: b**
 
-Explicación: Por orden alfabético, Alonso queda entre Abad y Campos: cajón 1.
+Explicación: Por orden alfabético, García queda entre Gallego y Guerrero: cajón 3.
 
 ## 32. seed 4387838571931312365 · nivel 2
 
-Un archivo ordena los expedientes por apellido en seis cajones: cajón 1: de Abad a Cano; cajón 2: de Castro a Castro; cajón 3: de Cortés a Jover; cajón 4: de Lara a Mateos; cajón 5: de Molina a Peña; cajón 6: de Prieto a Zamora. ¿En qué cajón se archivará el expediente de Barrios?
+Un archivo ordena los expedientes por apellido en seis cajones: cajón 1: de Abad a Durán; cajón 2: de Escudero a Fernández; cajón 3: de Ferrer a Lara; cajón 4: de León a Mateos; cajón 5: de Molina a Romero; cajón 6: de Ruiz a Zamora. ¿En qué cajón se archivará el expediente de Vega?
 
-a) Cajón 3.
-b) Cajón 5.
-c) Cajón 1.
-d) Cajón 2.
-
-**Clave: c**
-
-Explicación: Por orden alfabético, Barrios queda entre Abad y Cano: cajón 1.
-
-## 33. seed 2273051828560295678 · nivel 2
-
-Un archivo ordena los expedientes por apellido en seis cajones: cajón 1: de Abad a Bravo; cajón 2: de Cabrera a Díaz; cajón 3: de Domínguez a León; cajón 4: de López a Moreno; cajón 5: de Navarro a Navarro; cajón 6: de Nieto a Zamora. ¿En qué cajón se archivará el expediente de Blanco?
-
-a) Cajón 1.
-b) Cajón 6.
+a) Cajón 6.
+b) Cajón 1.
 c) Cajón 4.
 d) Cajón 5.
 
 **Clave: a**
 
-Explicación: Por orden alfabético, Blanco queda entre Abad y Bravo: cajón 1.
+Explicación: Por orden alfabético, Vega queda entre Ruiz y Zamora: cajón 6.
 
-## 34. seed 3145280539747514324 · nivel 1
+## 33. seed 2273051828560295678 · nivel 2
 
-En un almacén guardan cada tipo de cable en un armario: Fibra en el número 1, Plano en el número 2, Coaxial en el número 3, Paralelo en el número 4, Rígido en el número 5, Apantallado en el número 6. Cada armario tiene tres cajones para los distintos tamaños de bobinas: el cajón A para 10 metros, el cajón B para 15 metros, el cajón C para 25 metros. ¿En qué ubicación guardarán un bobina de 15 metros de Fibra?
+Un archivo ordena los expedientes por apellido en seis cajones: cajón 1: de Abad a Espinosa; cajón 2: de Fernández a Gallego; cajón 3: de García a Jiménez; cajón 4: de Jover a Ortiz; cajón 5: de Pardo a Salas; cajón 6: de Santos a Zamora. ¿En qué cajón se archivará el expediente de Ramos?
 
-a) 1B
-b) 1A
-c) 2B
-d) 1C
+a) Cajón 5.
+b) Cajón 4.
+c) Cajón 1.
+d) Cajón 6.
 
 **Clave: a**
 
-Explicación: Fibra está en el armario 1 y 15 metros van al cajón B: 1B.
+Explicación: Por orden alfabético, Ramos queda entre Pardo y Salas: cajón 5.
+
+## 34. seed 3145280539747514324 · nivel 1
+
+En un almacén guardan cada tipo de tela en un armario: Tweed en el número 1, Gabardina en el número 2, Raso en el número 3, Batista en el número 4, Franela en el número 5, Crepé en el número 6. Cada armario tiene tres cajones para los distintos tamaños de rollos: el cajón A para 10 metros, el cajón B para 15 metros, el cajón C para 25 metros. ¿En qué ubicación guardarán un rollo de 10 metros de Crepé?
+
+a) 6A
+b) 5A
+c) 6B
+d) 6C
+
+**Clave: a**
+
+Explicación: Crepé está en el armario 6 y 10 metros van al cajón A: 6A.
 
 ## 35. seed 3149934762592494150 · nivel 2
 
-Un archivo ordena los expedientes por apellido en seis cajones: cajón 1: de Abad a Domínguez; cajón 2: de Durán a Escudero; cajón 3: de Espinosa a Jiménez; cajón 4: de Jover a Molina; cajón 5: de Moreno a Peña; cajón 6: de Prieto a Zamora. ¿En qué cajón se archivará el expediente de Barrios?
+Un archivo ordena los expedientes por apellido en seis cajones: cajón 1: de Abad a Calvo; cajón 2: de Campos a Castro; cajón 3: de Cortés a Espinosa; cajón 4: de Fernández a Ortiz; cajón 5: de Pardo a Prieto; cajón 6: de Quintero a Zamora. ¿En qué cajón se archivará el expediente de Domínguez?
 
-a) Cajón 2.
-b) Cajón 1.
-c) Cajón 3.
+a) Cajón 6.
+b) Cajón 3.
+c) Cajón 2.
 d) Cajón 4.
 
 **Clave: b**
 
-Explicación: Por orden alfabético, Barrios queda entre Abad y Domínguez: cajón 1.
+Explicación: Por orden alfabético, Domínguez queda entre Cortés y Espinosa: cajón 3.
 
 ## 36. seed 1688487807612521401 · nivel 1
 
@@ -472,7 +472,7 @@ Explicación: Lino está en el armario 1 y 15 metros van al cajón B: 1B.
 
 ## 37. seed 2460083319849257704 · nivel 1
 
-En un almacén guardan cada tipo de cuerda en un armario: Nailon en el número 1, Cáñamo en el número 2, Seda en el número 3, Sisal en el número 4, Yute en el número 5, Trenzada en el número 6. Cada armario tiene tres cajones para los distintos tamaños de bobinas: el cajón A para 10 metros, el cajón B para 15 metros, el cajón C para 25 metros. ¿En qué ubicación guardarán un bobina de 10 metros de Yute?
+En un almacén guardan cada tipo de cuerda en un armario: Nailon en el número 1, Cáñamo en el número 2, Poliéster en el número 3, Sisal en el número 4, Yute en el número 5, Polipropileno en el número 6. Cada armario tiene tres cajones para los distintos tamaños de rollos: el cajón A para 10 metros, el cajón B para 15 metros, el cajón C para 25 metros. ¿En qué ubicación guardarán un rollo de 10 metros de Yute?
 
 a) 5B
 b) 5A
@@ -511,16 +511,16 @@ Explicación: Gabardina está en el armario 1 y 25 metros van al cajón C: 1C.
 
 ## 40. seed 128479231797070650 · nivel 2
 
-Un archivo ordena los expedientes por apellido en seis cajones: cajón 1: de Abad a Espinosa; cajón 2: de Fernández a Lozano; cajón 3: de Marín a Mateos; cajón 4: de Molina a Peña; cajón 5: de Prieto a Romero; cajón 6: de Ruiz a Zamora. ¿En qué cajón se archivará el expediente de Ortega?
+Un archivo ordena los expedientes por apellido en seis cajones: cajón 1: de Abad a Castro; cajón 2: de Cortés a Díaz; cajón 3: de Domínguez a García; cajón 4: de Gil a Herrera; cajón 5: de Hidalgo a Ortiz; cajón 6: de Pardo a Zamora. ¿En qué cajón se archivará el expediente de Salas?
 
-a) Cajón 2.
-b) Cajón 3.
-c) Cajón 4.
-d) Cajón 5.
+a) Cajón 4.
+b) Cajón 5.
+c) Cajón 6.
+d) Cajón 3.
 
 **Clave: c**
 
-Explicación: Por orden alfabético, Ortega queda entre Molina y Peña: cajón 4.
+Explicación: Por orden alfabético, Salas queda entre Pardo y Zamora: cajón 6.
 
 ## 41. seed 4074712633999301858 · nivel 1
 
@@ -550,7 +550,7 @@ Explicación: Raso está en el armario 5 y 25 metros van al cajón C: 5C.
 
 ## 43. seed 3910416812521792119 · nivel 1
 
-En un almacén guardan cada tipo de cuerda en un armario: Cáñamo en el número 1, Esparto en el número 2, Seda en el número 3, Nailon en el número 4, Yute en el número 5, Algodón en el número 6, Trenzada en el número 7, Sisal en el número 8. Cada armario tiene tres cajones para los distintos tamaños de bobinas: el cajón A para 10 metros, el cajón B para 15 metros, el cajón C para 25 metros. ¿En qué ubicación guardarán un bobina de 15 metros de Sisal?
+En un almacén guardan cada tipo de cuerda en un armario: Cáñamo en el número 1, Esparto en el número 2, Poliéster en el número 3, Nailon en el número 4, Yute en el número 5, Algodón en el número 6, Polipropileno en el número 7, Sisal en el número 8. Cada armario tiene tres cajones para los distintos tamaños de rollos: el cajón A para 10 metros, el cajón B para 15 metros, el cajón C para 25 metros. ¿En qué ubicación guardarán un rollo de 15 metros de Sisal?
 
 a) 8A
 b) 7B
@@ -563,7 +563,7 @@ Explicación: Sisal está en el armario 8 y 15 metros van al cajón B: 8B.
 
 ## 44. seed 41946785815617651 · nivel 1
 
-En un almacén guardan cada tipo de cuerda en un armario: Algodón en el número 1, Nailon en el número 2, Esparto en el número 3, Sisal en el número 4, Seda en el número 5, Trenzada en el número 6, Cáñamo en el número 7, Yute en el número 8. Cada armario tiene tres cajones para los distintos tamaños de bobinas: el cajón A para 10 metros, el cajón B para 15 metros, el cajón C para 25 metros. ¿En qué ubicación guardarán un bobina de 15 metros de Trenzada?
+En un almacén guardan cada tipo de cuerda en un armario: Algodón en el número 1, Nailon en el número 2, Esparto en el número 3, Sisal en el número 4, Poliéster en el número 5, Polipropileno en el número 6, Cáñamo en el número 7, Yute en el número 8. Cada armario tiene tres cajones para los distintos tamaños de rollos: el cajón A para 10 metros, el cajón B para 15 metros, el cajón C para 25 metros. ¿En qué ubicación guardarán un rollo de 15 metros de Polipropileno?
 
 a) 6C
 b) 6B
@@ -572,20 +572,20 @@ d) 7B
 
 **Clave: b**
 
-Explicación: Trenzada está en el armario 6 y 15 metros van al cajón B: 6B.
+Explicación: Polipropileno está en el armario 6 y 15 metros van al cajón B: 6B.
 
 ## 45. seed 3498574836558340425 · nivel 1
 
-En un almacén guardan cada tipo de cable en un armario: Flexible en el número 1, Apantallado en el número 2, Plano en el número 3, Coaxial en el número 4, Fibra en el número 5, Rígido en el número 6, Trenzado en el número 7. Cada armario tiene tres cajones para los distintos tamaños de bobinas: el cajón A para 10 metros, el cajón B para 15 metros, el cajón C para 25 metros. ¿En qué ubicación guardarán un bobina de 10 metros de Apantallado?
+En un almacén guardan cada tipo de cuerda en un armario: Nailon en el número 1, Sisal en el número 2, Algodón en el número 3, Polipropileno en el número 4, Esparto en el número 5, Poliéster en el número 6, Yute en el número 7. Cada armario tiene tres cajones para los distintos tamaños de rollos: el cajón A para 10 metros, el cajón B para 15 metros, el cajón C para 25 metros. ¿En qué ubicación guardarán un rollo de 15 metros de Sisal?
 
-a) 2C
-b) 2B
-c) 2A
-d) 3A
+a) 2A
+b) 3B
+c) 2B
+d) 1B
 
 **Clave: c**
 
-Explicación: Apantallado está en el armario 2 y 10 metros van al cajón A: 2A.
+Explicación: Sisal está en el armario 2 y 15 metros van al cajón B: 2B.
 
 ## 46. seed 553914276719877251 · nivel 2
 
@@ -615,16 +615,16 @@ Explicación: Batista está en el armario 5 y 10 metros van al cajón A: 5A.
 
 ## 48. seed 3607594572106293573 · nivel 1
 
-En un almacén guardan cada tipo de cable en un armario: Apantallado en el número 1, Fibra en el número 2, Plano en el número 3, Flexible en el número 4, Trenzado en el número 5, Paralelo en el número 6. Cada armario tiene tres cajones para los distintos tamaños de bobinas: el cajón A para 10 metros, el cajón B para 15 metros, el cajón C para 25 metros. ¿En qué ubicación guardarán un bobina de 25 metros de Apantallado?
+En un almacén guardan cada tipo de tela en un armario: Gabardina en el número 1, Franela en el número 2, Tweed en el número 3, Encaje en el número 4, Lino en el número 5, Raso en el número 6, Batista en el número 7. Cada armario tiene tres cajones para los distintos tamaños de rollos: el cajón A para 10 metros, el cajón B para 15 metros, el cajón C para 25 metros. ¿En qué ubicación guardarán un rollo de 25 metros de Lino?
 
-a) 1B
-b) 1A
-c) 2C
-d) 1C
+a) 5B
+b) 5C
+c) 6C
+d) 5A
 
-**Clave: d**
+**Clave: b**
 
-Explicación: Apantallado está en el armario 1 y 25 metros van al cajón C: 1C.
+Explicación: Lino está en el armario 5 y 25 metros van al cajón C: 5C.
 
 ## 49. seed 1109080077563619697 · nivel 2
 

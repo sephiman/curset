@@ -878,6 +878,16 @@ Not committed. 13 generators, the `psicotecnico` kind, mixed parts, the «Psicot
 - **Unchanged, checked:** crypto-futures goldens and exam results, C1 content and `dist/`, Android contracts (pytest), the two excerpt files.
 - **Results:** backend pytest 2,271 passed, 23 skipped; ruff, format and `mypy src` clean; vitest 723 passed, 81 skipped; `tsc -b` clean; e2e (`ci-local.sh`) 58 passed; goldens check (`export_psicotecnico_goldens.py --check`) up to date.
 
+## Round L blind review (2026-11-07)
+
+Done. Not committed. Report: `docs/age-verification/c2/psicotecnicos/review/README.md`; banks: `review/word-banks.md`.
+
+- **DLE pages.** Every bank word has a saved DLE page: 458 pages in `content/age-auxiliar-c2/sources/otros/dle/`, recorded in `fuentes.yaml`. `scripts/dle_relations.py` builds `psicotecnico/dle_relations.json` from them, and `tests/test_psicotecnico_lexicon.py` ties each bank entry to its DLE citation.
+- **Bank changes.** 34 synonym or antonym words removed and 6 added (DESLAVAZADO rebuilt from its DLE lists, «venturoso» for NEFASTO); definitions are now verbatim DLE senses (36 → 34); spelling pairs 62 → 54, each wrong form checked absent from the DLE.
+- **Generators.** Every key was right. The generator fixes (explanations, realism, distractors that could be defended, levels, part of speech, and the contract's length tie-break) are listed in the report. All 13 pages pass on their last blind read.
+- **Follow-up.** Sentence ortografía items carry 4–6 errors and the «Clave de archivo» code has 6 positions, as the official items do; the filing explanation decodes every position. Both pages re-read blind: 50/50. A later round grows the word bank (DLE-sourced, cited through `dle_relations.py`) until no stem repeats within 50 items.
+- **CI.** The backend job checks out the full history (`fetch-depth: 0`): `test_provenance.py` blames C1 sentences back past C2 commits, which a one-commit checkout cannot do.
+
 ## Mixed-part preset example (`fixture-oposiciones`; C2 will use 30 + 30 the same way)
 
 ```yaml

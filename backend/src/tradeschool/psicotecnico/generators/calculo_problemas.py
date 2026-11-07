@@ -257,7 +257,15 @@ class ProblemasGenerator(ItemGenerator):
                 slips = self._slips(facts)
                 if kind in ("capacity",) and answer.denominator != 1:
                     continue
-                wrong = [_render(facts, w) for w in pick_wrong(rng, answer, slips)]
+                if kind == "products":
+                    near = [w for w in slips if w > 0 and w != answer]
+                    rng.shuffle(near)
+                elif kind == "ratio":  # the larger number lies strictly between half the sum and the sum
+                    total = int_fact(facts, "small") * (int_fact(facts, "factor") + 1)
+                    near = [w for w in pick_wrong(rng, answer, slips) if Fraction(total, 2) < w < total]
+                else:
+                    near = pick_wrong(rng, answer, slips)
+                wrong = [_render(facts, w) for w in near]
             unique = [w for w in dict.fromkeys(wrong) if w != key]
             if len(unique) < 3:
                 continue
@@ -286,7 +294,18 @@ class ProblemasGenerator(ItemGenerator):
         if kind == "subgroup":
             return [Fraction(n("total"), n("staff")), Fraction(n("total"), n("staff") - n("chosen"))]
         if kind == "products":
-            return [Fraction((n("pens") + n("folders")) * n("pen_cents"), 100)]
+            # The slips a candidate makes; all are sums of the printed prices, so no option has odd cents.
+            p, pc, f, fc = n("pens"), n("pen_cents"), n("folders"), n("folder_cents")
+            totals = [
+                (p + 1) * pc + f * fc,
+                (p - 1) * pc + f * fc,
+                p * pc + (f + 1) * fc,
+                p * pc + (f - 1) * fc,
+                p * fc + f * pc,
+                (p + f) * pc,
+                (p + f) * fc,
+            ]
+            return [Fraction(t, 100) for t in totals]
         if kind == "ratio":
             return [
                 Fraction(n("small") * (n("factor") + 1), 2),

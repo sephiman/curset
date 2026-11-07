@@ -20,7 +20,7 @@ from tradeschool.psicotecnico.item import Item, Params
 from tradeschool.psicotecnico.spanish import euros, number, percent, round_half_up
 
 Render = Callable[[Fraction], str]
-_PRODUCTS = ("un producto", "un artículo", "un electrodoméstico", "un material de oficina")
+_PRODUCTS = ("un producto", "un artículo", "un electrodoméstico", "un mueble de oficina")
 
 
 def _eur(value: Fraction) -> str:
@@ -43,8 +43,10 @@ class _Case:
         wrong: list[Fraction],
         why: str,
         facts: dict[str, object],
+        plausible: Callable[[Fraction], bool] = lambda _: True,
     ) -> None:
         self.stem, self.render, self.wrong, self.why, self.facts = stem, render, wrong, why, facts
+        self.plausible = plausible  # a near miss outside it reads as absurd; the named slips in `wrong` stay
 
 
 def _discount(rng: random.Random, level: int) -> _Case:
@@ -60,7 +62,7 @@ def _discount(rng: random.Random, level: int) -> _Case:
         f"El descuento es el {rate} % de {price}; se paga el {100 - rate} % del precio: {price} × "
         f"{100 - rate} / 100."
     )
-    return _Case(stem, _eur, wrong, why, {"kind": "discount", "price": price, "rate": rate})
+    return _Case(stem, _eur, wrong, why, {"kind": "discount", "price": price, "rate": rate}, lambda w: w < p)
 
 
 def _increase(rng: random.Random, level: int) -> _Case:
@@ -70,7 +72,7 @@ def _increase(rng: random.Random, level: int) -> _Case:
     p, r = Fraction(price), Fraction(rate, 100)
     wrong = [p * (1 - r), p * (1 + r) - 1, p * (1 + r) + 2, p + r * 100]
     why = f"El nuevo precio es el {100 + rate} % del anterior: {price} × {100 + rate} / 100."
-    return _Case(stem, _eur, wrong, why, {"kind": "increase", "price": price, "rate": rate})
+    return _Case(stem, _eur, wrong, why, {"kind": "increase", "price": price, "rate": rate}, lambda w: w > p)
 
 
 def _of_quantity(rng: random.Random, level: int) -> _Case:
@@ -162,7 +164,7 @@ def _discount_then_increase(rng: random.Random, level: int) -> _Case:
 
 _BY_LEVEL: dict[int, list[Callable[[random.Random, int], _Case]]] = {
     1: [_discount, _increase, _of_quantity, _share],
-    2: [_complement, _probability, _remainder, _discount, _increase],
+    2: [_complement, _probability, _remainder],
     3: [_discount_then_increase, _remainder, _complement],
 }
 
@@ -205,7 +207,9 @@ class PorcentajesGenerator(ItemGenerator):
             cap = Fraction(100) if render is _pct else None
             if render is _count and value.denominator != 1:
                 continue
-            candidates = pick_wrong(rng, value, case.wrong, cap=cap)
+            candidates = [
+                w for w in pick_wrong(rng, value, case.wrong, cap=cap) if w in case.wrong or case.plausible(w)
+            ]
             wrong = [render(round_half_up(w, decimals)) for w in candidates]
             unique = [w for w in dict.fromkeys(wrong) if w != key]
             if len(unique) < 3:

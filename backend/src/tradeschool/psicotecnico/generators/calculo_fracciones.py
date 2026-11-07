@@ -16,7 +16,7 @@ from tradeschool.psicotecnico.contract import (
     str_fact,
 )
 from tradeschool.psicotecnico.item import Item, Params
-from tradeschool.psicotecnico.spanish import number
+from tradeschool.psicotecnico.spanish import number, sentence_case
 
 _ORDINAL = {2: "segundo", 3: "tercer"}
 _WORD = {2: "dos", 3: "tres", 4: "cuatro", 5: "cinco", 6: "seis", 7: "siete", 8: "ocho", 9: "nueve"}
@@ -151,7 +151,8 @@ class FraccionesGenerator(ItemGenerator):
                 f"{_fraction_word(second, den)} del total. ¿Cuántos paquetes nos quedan por preparar?"
             )
             why = (
-                f"Cada {den}.º son {number(total // den)} paquetes; se han preparado {first} + {second} = "
+                f"{sentence_case(_fraction_word(1, den))} son {number(total // den)} paquetes; "
+                f"se han preparado {first} + {second} = "
                 f"{first + second} de esas partes, así que quedan {number(answer)}."
             )
             return stem, why
@@ -170,7 +171,8 @@ class FraccionesGenerator(ItemGenerator):
             why = (
                 f"El total son {sum(ratios)} partes y cada parte vale "
                 f"{number(Fraction(amount, sum(ratios)))}; "
-                f"la persona pedida tiene {ratios[asked]} partes: {number(answer)}."
+                f"la persona pedida tiene {ratios[asked]} {'parte' if ratios[asked] == 1 else 'partes'}: "
+                f"{number(answer)}."
             )
             return stem, why
         full, den = int_fact(facts, "full"), int_fact(facts, "den")

@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import random
 import re
+from itertools import pairwise
 from typing import ClassVar
 
 from tradeschool.psicotecnico.contract import ItemGenerator, UnsolvableItem, deal
@@ -13,11 +14,10 @@ from tradeschool.psicotecnico.spanish import spanish_key
 
 _MATERIALS = (
     ("tela", "rollo", ("Batista", "Tweed", "Gabardina", "Lino", "Franela", "Crepé", "Encaje", "Raso")),
-    ("cuerda", "bobina", ("Esparto", "Nailon", "Cáñamo", "Yute", "Sisal", "Algodón", "Seda", "Trenzada")),
     (
-        "cable",
-        "bobina",
-        ("Coaxial", "Fibra", "Paralelo", "Trenzado", "Plano", "Apantallado", "Flexible", "Rígido"),
+        "cuerda",
+        "rollo",
+        ("Esparto", "Nailon", "Cáñamo", "Yute", "Sisal", "Algodón", "Poliéster", "Polipropileno"),
     ),
 )
 _SIZES = ((10, "A"), (15, "B"), (25, "C"))
@@ -165,6 +165,8 @@ def _cabinet(rng: random.Random) -> dict[str, object]:
 def _ranges(rng: random.Random, level_bound: bool) -> dict[str, object]:
     ordered = sorted(_SURNAMES, key=spanish_key)
     cut = sorted(rng.sample(range(8, len(ordered) - 8), 5))
+    while any(b - a < 3 for a, b in pairwise([-1, *cut, len(ordered) - 1])):  # 3+ surnames per drawer
+        cut = sorted(rng.sample(range(8, len(ordered) - 8), 5))
     bounds: list[list[str]] = []
     start = 0
     for end in [*cut, len(ordered) - 1]:

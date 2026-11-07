@@ -4,7 +4,7 @@ Generated items for the blind review (ambiguity, realism, key). Each is `seed`, 
 
 ## 1. seed 3167175567751435939 · nivel 2
 
-En un sistema de codificación cada consonante mayúscula vale 3, cada consonante minúscula vale 6, cada vocal mayúscula vale 8, cada vocal minúscula vale 4. ¿Cuál es el valor de la palabra «TRaMiTes»?
+En un sistema de codificación cada consonante mayúscula vale 3, cada consonante minúscula vale 6, cada vocal mayúscula vale 8, cada vocal minúscula vale 4. ¿Cuál es el valor de la palabra «TRáMiTes»?
 
 a) 30
 b) 34
@@ -13,7 +13,7 @@ d) 33
 
 **Clave: a**
 
-Explicación: Se suma el valor de cada letra según su clase (T=3, R=3, a=4, M=3, i=4, T=3, e=4, s=6): 30.
+Explicación: Se suma el valor de cada letra según su clase (T=3, R=3, á=4, M=3, i=4, T=3, e=4, s=6): 30.
 
 ## 2. seed 4465995626877660290 · nivel 1
 
@@ -30,16 +30,16 @@ Explicación: Se separan bloques de cuatro cifras (1100 0110 1100 1001) y se bus
 
 ## 3. seed 2414638611166857818 · nivel 1
 
-Dadas las siguientes equivalencias: 1=c, 2=v, 6=h, 7=o. ¿Qué palabra se obtiene al descodificar «ar16i27»?
+Dadas las siguientes equivalencias: 1=c, 2=v, 6=h, 7=o. ¿Qué serie corresponde a la palabra «archivo» si cada letra de la tabla se sustituye por su cifra?
 
-a) archiov
-b) arhcivo
-c) arcviho
-d) archivo
+a) ar76i21
+b) ar16i72
+c) ar16i27
+d) ar17i26
 
-**Clave: d**
+**Clave: c**
 
-Explicación: Cada cifra se sustituye por su letra (1=c, 2=v, 6=h, 7=o) y las letras que no son cifras se mantienen: archivo.
+Explicación: Se sustituye cada letra de la tabla por su cifra (1=c, 2=v, 6=h, 7=o) y las demás se mantienen: archivo se escribe ar16i27.
 
 ## 4. seed 4568015269300506277 · nivel 2
 
@@ -56,7 +56,7 @@ Explicación: Se suma el valor de cada letra según su clase (a=2, R=6, C=6, H=6
 
 ## 5. seed 2215247901385794297 · nivel 2
 
-En un sistema de codificación cada consonante mayúscula vale 2, cada consonante minúscula vale 3, cada vocal mayúscula vale 5, cada vocal minúscula vale 7. ¿Cuál es el valor de la palabra «TramITes»?
+En un sistema de codificación cada consonante mayúscula vale 2, cada consonante minúscula vale 3, cada vocal mayúscula vale 5, cada vocal minúscula vale 7. ¿Cuál es el valor de la palabra «TrámITes»?
 
 a) 32
 b) 29
@@ -65,29 +65,20 @@ d) 35
 
 **Clave: a**
 
-Explicación: Se suma el valor de cada letra según su clase (T=2, r=3, a=7, m=3, I=5, T=2, e=7, s=3): 32.
+Explicación: Se suma el valor de cada letra según su clase (T=2, r=3, á=7, m=3, I=5, T=2, e=7, s=3): 32.
 
 ## 6. seed 4175173347260579743 · nivel 2
 
-Tabla «Clave de archivo»:
+En un sistema de codificación cada consonante mayúscula vale 4, cada consonante minúscula vale 2, cada vocal mayúscula vale 8, cada vocal minúscula vale 7. ¿Cuál es el valor de la palabra «Oficina»?
 
-| Posición | Indica | Valores |
-|---|---|---|
-| 1 | sede | 0=Norte, 1=Sur, 2=Este, 3=Oeste |
-| 2 | custodia | 0=archivo, 1=oficina, 2=almacén, 3=sótano |
-| 3 | soporte | 0=papel, 1=disco, 2=cinta, 3=nube |
-| 4 | año | 0=2021, 1=2022, 2=2023, 3=2024 |
+a) 39
+b) 33
+c) 38
+d) 35
 
-Una clave de archivo tiene cuatro cifras, cada una con el significado de la tabla. Para la clave 0113, ¿cuál de las siguientes afirmaciones es CIERTA?
+**Clave: d**
 
-a) La posición 2 (custodia) es oficina.
-b) La posición 3 (soporte) es nube.
-c) La posición 1 (sede) es Este.
-d) La posición 4 (año) es 2022.
-
-**Clave: a**
-
-Explicación: Se lee cada cifra de la clave en su fila de la tabla y se comprueba cada afirmación; la única cierta es: La posición 2 (custodia) es oficina.
+Explicación: Se suma el valor de cada letra según su clase (O=8, f=2, i=7, c=2, i=7, n=2, a=7): 35.
 
 ## 7. seed 2391709619775052229 · nivel 1
 
@@ -117,16 +108,16 @@ Explicación: Se separan bloques de cuatro cifras (0100 0011 0001 0101) y se bus
 
 ## 9. seed 1602508387861334123 · nivel 1
 
-Dadas las siguientes equivalencias: 1=c, 4=o, 6=f, 8=i. ¿Qué palabra se obtiene al descodificar «46818na»?
+Dadas las siguientes equivalencias: 1=c, 4=o, 6=f, 8=i. ¿Qué serie corresponde a la palabra «oficina» si cada letra de la tabla se sustituye por su cifra?
 
-a) oifcfna
-b) ifocona
-c) oficina
-d) cfioina
+a) 46181na
+b) o6818na
+c) 48616na
+d) 46818na
 
-**Clave: c**
+**Clave: d**
 
-Explicación: Cada cifra se sustituye por su letra (1=c, 4=o, 6=f, 8=i) y las letras que no son cifras se mantienen: oficina.
+Explicación: Se sustituye cada letra de la tabla por su cifra (1=c, 4=o, 6=f, 8=i) y las demás se mantienen: oficina se escribe 46818na.
 
 ## 10. seed 1599557441512053633 · nivel 1
 
@@ -143,16 +134,16 @@ Explicación: Se separan bloques de cuatro cifras (0110 0100 0001 0100) y se bus
 
 ## 11. seed 3198995701451015775 · nivel 1
 
-Dadas las siguientes equivalencias: 1=g, 4=s, 5=r, 9=o. ¿Qué palabra se obtiene al descodificar «5e1i4t59»?
+Dadas las siguientes equivalencias: 1=g, 4=s, 5=r, 9=o. ¿Qué serie corresponde a la palabra «registro» si cada letra de la tabla se sustituye por su cifra?
 
-a) segirtso
-b) reoistrg
-c) regiotrs
-d) registro
+a) 5e1i4t59
+b) 4e1i5t49
+c) 5e1i9t54
+d) 5egi4t59
 
-**Clave: d**
+**Clave: a**
 
-Explicación: Cada cifra se sustituye por su letra (1=g, 4=s, 5=r, 9=o) y las letras que no son cifras se mantienen: registro.
+Explicación: Se sustituye cada letra de la tabla por su cifra (1=g, 4=s, 5=r, 9=o) y las demás se mantienen: registro se escribe 5e1i4t59.
 
 ## 12. seed 3271328786901460905 · nivel 1
 
@@ -169,20 +160,20 @@ Explicación: Se separan bloques de cuatro cifras (0101 0010 1010 1010) y se bus
 
 ## 13. seed 1818467762689500913 · nivel 1
 
-Dadas las siguientes equivalencias: 1=a, 5=f, 7=n, 8=o. ¿Qué palabra se obtiene al descodificar «85ici71»?
+Dadas las siguientes equivalencias: 1=a, 5=f, 7=n, 8=o. ¿Qué serie corresponde a la palabra «oficina» si cada letra de la tabla se sustituye por su cifra?
 
-a) foicina
-b) nficioa
-c) aficino
-d) oficina
+a) 85ici71
+b) 75ici81
+c) 8fici71
+d) 85ici17
 
-**Clave: d**
+**Clave: a**
 
-Explicación: Cada cifra se sustituye por su letra (1=a, 5=f, 7=n, 8=o) y las letras que no son cifras se mantienen: oficina.
+Explicación: Se sustituye cada letra de la tabla por su cifra (1=a, 5=f, 7=n, 8=o) y las demás se mantienen: oficina se escribe 85ici71.
 
 ## 14. seed 3507279643990949018 · nivel 2
 
-En un sistema de codificación cada consonante mayúscula vale 7, cada consonante minúscula vale 8, cada vocal mayúscula vale 5, cada vocal minúscula vale 2. ¿Cuál es el valor de la palabra «gestiON»?
+En un sistema de codificación cada consonante mayúscula vale 7, cada consonante minúscula vale 8, cada vocal mayúscula vale 5, cada vocal minúscula vale 2. ¿Cuál es el valor de la palabra «gestiÓN»?
 
 a) 41
 b) 38
@@ -191,33 +182,33 @@ d) 40
 
 **Clave: d**
 
-Explicación: Se suma el valor de cada letra según su clase (g=8, e=2, s=8, t=8, i=2, O=5, N=7): 40.
+Explicación: Se suma el valor de cada letra según su clase (g=8, e=2, s=8, t=8, i=2, Ó=5, N=7): 40.
 
 ## 15. seed 3232733006242683934 · nivel 1
 
-Dadas las siguientes equivalencias: 3=n, 6=f, 8=i, 9=a. ¿Qué palabra se obtiene al descodificar «o68c839»?
+Dadas las siguientes equivalencias: 3=n, 6=f, 8=i, 9=a. ¿Qué serie corresponde a la palabra «oficina» si cada letra de la tabla se sustituye por su cifra?
 
-a) ofacani
-b) oficina
-c) ofician
-d) oifcfna
+a) o68c839
+b) o68c893
+c) o63c389
+d) o98c836
 
-**Clave: b**
+**Clave: a**
 
-Explicación: Cada cifra se sustituye por su letra (3=n, 6=f, 8=i, 9=a) y las letras que no son cifras se mantienen: oficina.
+Explicación: Se sustituye cada letra de la tabla por su cifra (3=n, 6=f, 8=i, 9=a) y las demás se mantienen: oficina se escribe o68c839.
 
 ## 16. seed 3052284052258496994 · nivel 1
 
-Dadas las siguientes equivalencias: 2=o, 4=v, 5=c, 7=a. ¿Qué palabra se obtiene al descodificar «7r5hi42»?
+Dadas las siguientes equivalencias: 2=o, 4=v, 5=c, 7=a. ¿Qué serie corresponde a la palabra «archivo» si cada letra de la tabla se sustituye por su cifra?
 
-a) vrchiao
-b) arohivc
-c) crahivo
-d) archivo
+a) 2r5hi47
+b) 4r5hi72
+c) 7r4hi52
+d) 7r5hi42
 
 **Clave: d**
 
-Explicación: Cada cifra se sustituye por su letra (2=o, 4=v, 5=c, 7=a) y las letras que no son cifras se mantienen: archivo.
+Explicación: Se sustituye cada letra de la tabla por su cifra (2=o, 4=v, 5=c, 7=a) y las demás se mantienen: archivo se escribe 7r5hi42.
 
 ## 17. seed 2120375140066735932 · nivel 1
 
@@ -234,38 +225,29 @@ Explicación: Se separan bloques de cuatro cifras (1010 0010 0001 1010) y se bus
 
 ## 18. seed 1463794077017128425 · nivel 1
 
-Dadas las siguientes equivalencias: 1=n, 2=a, 4=v, 6=e. ¿Qué palabra se obtiene al descodificar «461t212»?
+Dadas las siguientes equivalencias: 1=n, 2=a, 4=v, 6=e. ¿Qué serie corresponde a la palabra «ventana» si cada letra de la tabla se sustituye por su cifra?
 
-a) veatnan
-b) aentvnv
-c) ventana
-d) vnetaea
+a) 461t212
+b) 46nt2n2
+c) 416t262
+d) 462t121
 
-**Clave: c**
+**Clave: a**
 
-Explicación: Cada cifra se sustituye por su letra (1=n, 2=a, 4=v, 6=e) y las letras que no son cifras se mantienen: ventana.
+Explicación: Se sustituye cada letra de la tabla por su cifra (1=n, 2=a, 4=v, 6=e) y las demás se mantienen: ventana se escribe 461t212.
 
 ## 19. seed 331575075545083042 · nivel 2
 
-Tabla «Clave de archivo»:
+En un sistema de codificación cada consonante mayúscula vale 1, cada consonante minúscula vale 3, cada vocal mayúscula vale 2, cada vocal minúscula vale 4. ¿Cuál es el valor de la palabra «GeStiÓN»?
 
-| Posición | Indica | Valores |
-|---|---|---|
-| 1 | departamento | 0=Compras, 1=Ventas, 2=Personal, 3=Informática |
-| 2 | soporte | 0=papel, 1=disco, 2=cinta, 3=nube |
-| 3 | sede | 0=Norte, 1=Sur, 2=Este, 3=Oeste |
-| 4 | custodia | 0=archivo, 1=oficina, 2=almacén, 3=sótano |
+a) 13
+b) 20
+c) 16
+d) 14
 
-Una clave de archivo tiene cuatro cifras, cada una con el significado de la tabla. Para la clave 0003, ¿cuál de las siguientes afirmaciones es FALSA?
+**Clave: c**
 
-a) La posición 4 (custodia) es sótano.
-b) La posición 1 (departamento) es Personal.
-c) La posición 2 (soporte) es papel.
-d) La posición 3 (sede) es Norte.
-
-**Clave: b**
-
-Explicación: Se lee cada cifra de la clave en su fila de la tabla y se comprueba cada afirmación; la única falsa es: La posición 1 (departamento) es Personal.
+Explicación: Se suma el valor de cada letra según su clase (G=1, e=4, S=1, t=3, i=4, Ó=2, N=1): 16.
 
 ## 20. seed 59091345861384708 · nivel 2
 
@@ -273,21 +255,23 @@ Tabla «Clave de archivo»:
 
 | Posición | Indica | Valores |
 |---|---|---|
-| 1 | soporte | 0=papel, 1=disco, 2=cinta, 3=nube |
-| 2 | sede | 0=Norte, 1=Sur, 2=Este, 3=Oeste |
-| 3 | custodia | 0=archivo, 1=oficina, 2=almacén, 3=sótano |
-| 4 | año | 0=2021, 1=2022, 2=2023, 3=2024 |
+| 1 | departamento | 0=Compras, 1=Ventas, 2=Personal, 3=Informática |
+| 2 | urgencia | 0=baja, 1=media, 2=alta, 3=máxima |
+| 3 | sede | 0=Norte, 1=Sur, 2=Este, 3=Oeste |
+| 4 | custodia | 0=archivo, 1=oficina, 2=almacén, 3=sótano |
+| 5 | año | 0=2021, 1=2022, 2=2023, 3=2024 |
+| 6 | soporte | 0=papel, 1=disco, 2=cinta, 3=nube |
 
-Una clave de archivo tiene cuatro cifras, cada una con el significado de la tabla. Para la clave 3303, ¿cuál de las siguientes afirmaciones es FALSA?
+Una clave de archivo tiene seis cifras, cada una con el significado de la tabla. Para la clave 100110, ¿cuál de las siguientes afirmaciones es CIERTA?
 
-a) La posición 4 (año) es 2024.
-b) La posición 2 (sede) es Oeste.
-c) La posición 3 (custodia) es almacén.
-d) La posición 1 (soporte) es nube.
+a) La posición 5 (año) es 2024.
+b) La posición 4 (custodia) es oficina.
+c) La posición 6 (soporte) es cinta.
+d) La posición 3 (sede) es Sur.
 
-**Clave: c**
+**Clave: b**
 
-Explicación: Se lee cada cifra de la clave en su fila de la tabla y se comprueba cada afirmación; la única falsa es: La posición 3 (custodia) es almacén.
+Explicación: La clave se lee posición a posición: 1 (departamento) = 1, Ventas; 2 (urgencia) = 0, baja; 3 (sede) = 0, Norte; 4 (custodia) = 1, oficina; 5 (año) = 1, 2022; 6 (soporte) = 0, papel. Se compara cada afirmación con esa lectura; la única cierta es: La posición 4 (custodia) es oficina.
 
 ## 21. seed 3728727243465715397 · nivel 1
 
@@ -304,29 +288,40 @@ Explicación: Se separan bloques de cuatro cifras (0101 0101 0011 0011) y se bus
 
 ## 22. seed 3855469327430853671 · nivel 2
 
-En un sistema de codificación cada consonante mayúscula vale 7, cada consonante minúscula vale 4, cada vocal mayúscula vale 2, cada vocal minúscula vale 6. ¿Cuál es el valor de la palabra «TRaMiTES»?
+Tabla «Clave de archivo»:
 
-a) 51
-b) 53
-c) 48
-d) 49
+| Posición | Indica | Valores |
+|---|---|---|
+| 1 | custodia | 0=archivo, 1=oficina, 2=almacén, 3=sótano |
+| 2 | sede | 0=Norte, 1=Sur, 2=Este, 3=Oeste |
+| 3 | año | 0=2021, 1=2022, 2=2023, 3=2024 |
+| 4 | departamento | 0=Compras, 1=Ventas, 2=Personal, 3=Informática |
+| 5 | soporte | 0=papel, 1=disco, 2=cinta, 3=nube |
+| 6 | urgencia | 0=baja, 1=media, 2=alta, 3=máxima |
 
-**Clave: d**
+Una clave de archivo tiene seis cifras, cada una con el significado de la tabla. Para la clave 210113, ¿cuál de las siguientes afirmaciones es CIERTA?
 
-Explicación: Se suma el valor de cada letra según su clase (T=7, R=7, a=6, M=7, i=6, T=7, E=2, S=7): 49.
+a) La posición 5 (soporte) es disco.
+b) La posición 4 (departamento) es Compras.
+c) La posición 3 (año) es 2023.
+d) La posición 6 (urgencia) es media.
+
+**Clave: a**
+
+Explicación: La clave se lee posición a posición: 1 (custodia) = 2, almacén; 2 (sede) = 1, Sur; 3 (año) = 0, 2021; 4 (departamento) = 1, Ventas; 5 (soporte) = 1, disco; 6 (urgencia) = 3, máxima. Se compara cada afirmación con esa lectura; la única cierta es: La posición 5 (soporte) es disco.
 
 ## 23. seed 2307144971077380955 · nivel 1
 
-Dadas las siguientes equivalencias: 2=o, 4=d, 7=c, 8=a. ¿Qué palabra se obtiene al descodificar «te7l842»?
+Dadas las siguientes equivalencias: 2=o, 4=d, 7=c, 8=a. ¿Qué serie corresponde a la palabra «teclado» si cada letra de la tabla se sustituye por su cifra?
 
-a) tecloda
-b) teclado
-c) tecldao
-d) tealcdo
+a) te7l842
+b) te7l248
+c) te4l872
+d) tecl842
 
-**Clave: b**
+**Clave: a**
 
-Explicación: Cada cifra se sustituye por su letra (2=o, 4=d, 7=c, 8=a) y las letras que no son cifras se mantienen: teclado.
+Explicación: Se sustituye cada letra de la tabla por su cifra (2=o, 4=d, 7=c, 8=a) y las demás se mantienen: teclado se escribe te7l842.
 
 ## 24. seed 4077319563193477691 · nivel 1
 
@@ -356,7 +351,7 @@ Explicación: Se suma el valor de cada letra según su clase (O=8, f=1, I=8, c=1
 
 ## 26. seed 91365215922186741 · nivel 2
 
-En un sistema de codificación cada consonante mayúscula vale 8, cada consonante minúscula vale 2, cada vocal mayúscula vale 5, cada vocal minúscula vale 7. ¿Cuál es el valor de la palabra «trAmITeS»?
+En un sistema de codificación cada consonante mayúscula vale 8, cada consonante minúscula vale 2, cada vocal mayúscula vale 5, cada vocal minúscula vale 7. ¿Cuál es el valor de la palabra «trÁmITeS»?
 
 a) 38
 b) 40
@@ -365,11 +360,11 @@ d) 37
 
 **Clave: c**
 
-Explicación: Se suma el valor de cada letra según su clase (t=2, r=2, A=5, m=2, I=5, T=8, e=7, S=8): 39.
+Explicación: Se suma el valor de cada letra según su clase (t=2, r=2, Á=5, m=2, I=5, T=8, e=7, S=8): 39.
 
 ## 27. seed 1628141305348886531 · nivel 2
 
-En un sistema de codificación cada consonante mayúscula vale 2, cada consonante minúscula vale 4, cada vocal mayúscula vale 7, cada vocal minúscula vale 1. ¿Cuál es el valor de la palabra «trAMIteS»?
+En un sistema de codificación cada consonante mayúscula vale 2, cada consonante minúscula vale 4, cada vocal mayúscula vale 7, cada vocal minúscula vale 1. ¿Cuál es el valor de la palabra «trÁMIteS»?
 
 a) 33
 b) 31
@@ -378,7 +373,7 @@ d) 32
 
 **Clave: b**
 
-Explicación: Se suma el valor de cada letra según su clase (t=4, r=4, A=7, M=2, I=7, t=4, e=1, S=2): 31.
+Explicación: Se suma el valor de cada letra según su clase (t=4, r=4, Á=7, M=2, I=7, t=4, e=1, S=2): 31.
 
 ## 28. seed 2954680972709955460 · nivel 2
 
@@ -390,56 +385,49 @@ Tabla «Clave de archivo»:
 | 2 | custodia | 0=archivo, 1=oficina, 2=almacén, 3=sótano |
 | 3 | año | 0=2021, 1=2022, 2=2023, 3=2024 |
 | 4 | soporte | 0=papel, 1=disco, 2=cinta, 3=nube |
+| 5 | urgencia | 0=baja, 1=media, 2=alta, 3=máxima |
+| 6 | sede | 0=Norte, 1=Sur, 2=Este, 3=Oeste |
 
-Una clave de archivo tiene cuatro cifras, cada una con el significado de la tabla. Para la clave 1132, ¿cuál de las siguientes afirmaciones es CIERTA?
+Una clave de archivo tiene seis cifras, cada una con el significado de la tabla. Para la clave 323223, ¿cuál de las siguientes afirmaciones es CIERTA?
 
-a) La posición 3 (año) es 2022.
-b) La posición 4 (soporte) es cinta.
-c) La posición 1 (departamento) es Compras.
-d) La posición 2 (custodia) es sótano.
+a) La posición 4 (soporte) es cinta.
+b) La posición 1 (departamento) es Compras.
+c) La posición 5 (urgencia) es media.
+d) La posición 6 (sede) es Norte.
 
-**Clave: b**
+**Clave: a**
 
-Explicación: Se lee cada cifra de la clave en su fila de la tabla y se comprueba cada afirmación; la única cierta es: La posición 4 (soporte) es cinta.
+Explicación: La clave se lee posición a posición: 1 (departamento) = 3, Informática; 2 (custodia) = 2, almacén; 3 (año) = 3, 2024; 4 (soporte) = 2, cinta; 5 (urgencia) = 2, alta; 6 (sede) = 3, Oeste. Se compara cada afirmación con esa lectura; la única cierta es: La posición 4 (soporte) es cinta.
 
 ## 29. seed 2015874354225302345 · nivel 2
 
-Tabla «Clave de archivo»:
+En un sistema de codificación cada consonante mayúscula vale 8, cada consonante minúscula vale 7, cada vocal mayúscula vale 5, cada vocal minúscula vale 3. ¿Cuál es el valor de la palabra «GEstIóN»?
 
-| Posición | Indica | Valores |
-|---|---|---|
-| 1 | año | 0=2021, 1=2022, 2=2023, 3=2024 |
-| 2 | custodia | 0=archivo, 1=oficina, 2=almacén, 3=sótano |
-| 3 | urgencia | 0=baja, 1=media, 2=alta, 3=máxima |
-| 4 | sede | 0=Norte, 1=Sur, 2=Este, 3=Oeste |
+a) 41
+b) 42
+c) 43
+d) 45
 
-Una clave de archivo tiene cuatro cifras, cada una con el significado de la tabla. Para la clave 3012, ¿cuál de las siguientes afirmaciones es FALSA?
+**Clave: c**
 
-a) La posición 4 (sede) es Este.
-b) La posición 1 (año) es 2024.
-c) La posición 2 (custodia) es archivo.
-d) La posición 3 (urgencia) es máxima.
-
-**Clave: d**
-
-Explicación: Se lee cada cifra de la clave en su fila de la tabla y se comprueba cada afirmación; la única falsa es: La posición 3 (urgencia) es máxima.
+Explicación: Se suma el valor de cada letra según su clase (G=8, E=5, s=7, t=7, I=5, ó=3, N=8): 43.
 
 ## 30. seed 1529676557096434881 · nivel 1
 
-Dadas las siguientes equivalencias: 1=i, 7=a, 8=o, 9=r. ¿Qué palabra se obtiene al descodificar «usu7918»?
+Dadas las siguientes equivalencias: 1=i, 7=a, 8=o, 9=r. ¿Qué serie corresponde a la palabra «usuario» si cada letra de la tabla se sustituye por su cifra?
 
-a) usuraio
-b) usuario
-c) usuairo
-d) usuaoir
+a) usu7819
+b) usu7918
+c) usu1978
+d) usu9718
 
 **Clave: b**
 
-Explicación: Cada cifra se sustituye por su letra (1=i, 7=a, 8=o, 9=r) y las letras que no son cifras se mantienen: usuario.
+Explicación: Se sustituye cada letra de la tabla por su cifra (1=i, 7=a, 8=o, 9=r) y las demás se mantienen: usuario se escribe usu7918.
 
 ## 31. seed 2908773674053339039 · nivel 2
 
-En un sistema de codificación cada consonante mayúscula vale 4, cada consonante minúscula vale 5, cada vocal mayúscula vale 8, cada vocal minúscula vale 6. ¿Cuál es el valor de la palabra «tRamiteS»?
+En un sistema de codificación cada consonante mayúscula vale 4, cada consonante minúscula vale 5, cada vocal mayúscula vale 8, cada vocal minúscula vale 6. ¿Cuál es el valor de la palabra «tRámiteS»?
 
 a) 40
 b) 44
@@ -448,7 +436,7 @@ d) 41
 
 **Clave: d**
 
-Explicación: Se suma el valor de cada letra según su clase (t=5, R=4, a=6, m=5, i=6, t=5, e=6, S=4): 41.
+Explicación: Se suma el valor de cada letra según su clase (t=5, R=4, á=6, m=5, i=6, t=5, e=6, S=4): 41.
 
 ## 32. seed 45091008023642553 · nivel 2
 
@@ -504,16 +492,16 @@ Explicación: Se separan bloques de cuatro cifras (0100 0011 0100 0011) y se bus
 
 ## 36. seed 1952504928800109889 · nivel 1
 
-Dadas las siguientes equivalencias: 5=t, 6=g, 8=e, 9=s. ¿Qué palabra se obtiene al descodificar «6895ion»?
+Dadas las siguientes equivalencias: 5=u, 6=i, 8=a, 9=s. ¿Qué serie corresponde a la palabra «sumario» si cada letra de la tabla se sustituye por su cifra?
 
-a) gestion
-b) gtseion
-c) segtion
-d) getsion
+a) 98m5r6o
+b) 95m8r6o
+c) 65m8r9o
+d) 59m8r6o
 
-**Clave: a**
+**Clave: b**
 
-Explicación: Cada cifra se sustituye por su letra (5=t, 6=g, 8=e, 9=s) y las letras que no son cifras se mantienen: gestion.
+Explicación: Se sustituye cada letra de la tabla por su cifra (5=u, 6=i, 8=a, 9=s) y las demás se mantienen: sumario se escribe 95m8r6o.
 
 ## 37. seed 834599586222951670 · nivel 1
 
@@ -530,20 +518,20 @@ Explicación: Se separan bloques de cuatro cifras (0101 0010 1010 0011) y se bus
 
 ## 38. seed 2474667349443405148 · nivel 1
 
-Dadas las siguientes equivalencias: 3=e, 6=t, 7=n, 9=v. ¿Qué palabra se obtiene al descodificar «9376a7a»?
+Dadas las siguientes equivalencias: 3=e, 6=t, 7=n, 9=v. ¿Qué serie corresponde a la palabra «ventana» si cada letra de la tabla se sustituye por su cifra?
 
-a) tenvana
-b) evntana
-c) ventana
-d) vetnata
+a) 7396a9a
+b) v376a7a
+c) 93n6ana
+d) 9376a7a
 
-**Clave: c**
+**Clave: d**
 
-Explicación: Cada cifra se sustituye por su letra (3=e, 6=t, 7=n, 9=v) y las letras que no son cifras se mantienen: ventana.
+Explicación: Se sustituye cada letra de la tabla por su cifra (3=e, 6=t, 7=n, 9=v) y las demás se mantienen: ventana se escribe 9376a7a.
 
 ## 39. seed 748262120684895621 · nivel 2
 
-En un sistema de codificación cada consonante mayúscula vale 7, cada consonante minúscula vale 1, cada vocal mayúscula vale 5, cada vocal minúscula vale 6. ¿Cuál es el valor de la palabra «GeStIoN»?
+En un sistema de codificación cada consonante mayúscula vale 7, cada consonante minúscula vale 1, cada vocal mayúscula vale 5, cada vocal minúscula vale 6. ¿Cuál es el valor de la palabra «GeStIóN»?
 
 a) 38
 b) 37
@@ -552,7 +540,7 @@ d) 42
 
 **Clave: c**
 
-Explicación: Se suma el valor de cada letra según su clase (G=7, e=6, S=7, t=1, I=5, o=6, N=7): 39.
+Explicación: Se suma el valor de cada letra según su clase (G=7, e=6, S=7, t=1, I=5, ó=6, N=7): 39.
 
 ## 40. seed 1079058097590614563 · nivel 2
 
@@ -564,17 +552,19 @@ Tabla «Clave de archivo»:
 | 2 | custodia | 0=archivo, 1=oficina, 2=almacén, 3=sótano |
 | 3 | urgencia | 0=baja, 1=media, 2=alta, 3=máxima |
 | 4 | año | 0=2021, 1=2022, 2=2023, 3=2024 |
+| 5 | departamento | 0=Compras, 1=Ventas, 2=Personal, 3=Informática |
+| 6 | soporte | 0=papel, 1=disco, 2=cinta, 3=nube |
 
-Una clave de archivo tiene cuatro cifras, cada una con el significado de la tabla. Para la clave 1022, ¿cuál de las siguientes afirmaciones es FALSA?
+Una clave de archivo tiene seis cifras, cada una con el significado de la tabla. Para la clave 220300, ¿cuál de las siguientes afirmaciones es FALSA?
 
-a) La posición 4 (año) es 2023.
-b) La posición 1 (sede) es Sur.
-c) La posición 3 (urgencia) es alta.
-d) La posición 2 (custodia) es oficina.
+a) La posición 2 (custodia) es almacén.
+b) La posición 6 (soporte) es papel.
+c) La posición 5 (departamento) es Ventas.
+d) La posición 3 (urgencia) es baja.
 
-**Clave: d**
+**Clave: c**
 
-Explicación: Se lee cada cifra de la clave en su fila de la tabla y se comprueba cada afirmación; la única falsa es: La posición 2 (custodia) es oficina.
+Explicación: La clave se lee posición a posición: 1 (sede) = 2, Este; 2 (custodia) = 2, almacén; 3 (urgencia) = 0, baja; 4 (año) = 3, 2024; 5 (departamento) = 0, Compras; 6 (soporte) = 0, papel. Se compara cada afirmación con esa lectura; la única falsa es: La posición 5 (departamento) es Ventas.
 
 ## 41. seed 3268200537010584946 · nivel 1
 
@@ -604,7 +594,7 @@ Explicación: Se separan bloques de cuatro cifras (1000 0100 0110 0011) y se bus
 
 ## 43. seed 579285444686769818 · nivel 2
 
-En un sistema de codificación cada consonante mayúscula vale 8, cada consonante minúscula vale 1, cada vocal mayúscula vale 7, cada vocal minúscula vale 5. ¿Cuál es el valor de la palabra «MaRtInez»?
+En un sistema de codificación cada consonante mayúscula vale 8, cada consonante minúscula vale 1, cada vocal mayúscula vale 7, cada vocal minúscula vale 5. ¿Cuál es el valor de la palabra «MaRtÍnez»?
 
 a) 37
 b) 34
@@ -613,7 +603,7 @@ d) 38
 
 **Clave: c**
 
-Explicación: Se suma el valor de cada letra según su clase (M=8, a=5, R=8, t=1, I=7, n=1, e=5, z=1): 36.
+Explicación: Se suma el valor de cada letra según su clase (M=8, a=5, R=8, t=1, Í=7, n=1, e=5, z=1): 36.
 
 ## 44. seed 2699695608080192048 · nivel 2
 
@@ -630,7 +620,7 @@ Explicación: Se suma el valor de cada letra según su clase (R=6, e=3, G=6, i=3
 
 ## 45. seed 3880715363111302178 · nivel 2
 
-En un sistema de codificación cada consonante mayúscula vale 6, cada consonante minúscula vale 2, cada vocal mayúscula vale 7, cada vocal minúscula vale 8. ¿Cuál es el valor de la palabra «GEStION»?
+En un sistema de codificación cada consonante mayúscula vale 6, cada consonante minúscula vale 2, cada vocal mayúscula vale 7, cada vocal minúscula vale 8. ¿Cuál es el valor de la palabra «GEStIÓN»?
 
 a) 45
 b) 39
@@ -639,24 +629,24 @@ d) 42
 
 **Clave: c**
 
-Explicación: Se suma el valor de cada letra según su clase (G=6, E=7, S=6, t=2, I=7, O=7, N=6): 41.
+Explicación: Se suma el valor de cada letra según su clase (G=6, E=7, S=6, t=2, I=7, Ó=7, N=6): 41.
 
 ## 46. seed 1289249862356801085 · nivel 1
 
-Dadas las siguientes equivalencias: 3=p, 4=c, 5=t, 8=e. ¿Qué palabra se obtiene al descodificar «4ar385a»?
+Dadas las siguientes equivalencias: 3=p, 4=c, 5=t, 8=e. ¿Qué serie corresponde a la palabra «carpeta» si cada letra de la tabla se sustituye por su cifra?
 
-a) cartepa
-b) carepta
-c) carpeta
-d) tarpeca
+a) car385a
+b) 4ar385a
+c) 8ar345a
+d) 3ar485a
 
-**Clave: c**
+**Clave: b**
 
-Explicación: Cada cifra se sustituye por su letra (3=p, 4=c, 5=t, 8=e) y las letras que no son cifras se mantienen: carpeta.
+Explicación: Se sustituye cada letra de la tabla por su cifra (3=p, 4=c, 5=t, 8=e) y las demás se mantienen: carpeta se escribe 4ar385a.
 
 ## 47. seed 1882981401235517409 · nivel 2
 
-En un sistema de codificación cada consonante mayúscula vale 5, cada consonante minúscula vale 1, cada vocal mayúscula vale 2, cada vocal minúscula vale 8. ¿Cuál es el valor de la palabra «geStIoN»?
+En un sistema de codificación cada consonante mayúscula vale 5, cada consonante minúscula vale 1, cada vocal mayúscula vale 2, cada vocal minúscula vale 8. ¿Cuál es el valor de la palabra «geStIóN»?
 
 a) 34
 b) 30
@@ -665,7 +655,7 @@ d) 29
 
 **Clave: b**
 
-Explicación: Se suma el valor de cada letra según su clase (g=1, e=8, S=5, t=1, I=2, o=8, N=5): 30.
+Explicación: Se suma el valor de cada letra según su clase (g=1, e=8, S=5, t=1, I=2, ó=8, N=5): 30.
 
 ## 48. seed 3938993709843485075 · nivel 1
 

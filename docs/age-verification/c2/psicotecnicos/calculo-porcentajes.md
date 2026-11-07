@@ -59,7 +59,7 @@ Explicación: Se calcula el 60 % de 240: 240 × 60 / 100. Resultado: 144.
 El precio de un artículo es de 250 € y sube un 4 %. ¿Cuál es su nuevo precio?
 
 a) 254,00 €
-b) 249,60 €
+b) 270,40 €
 c) 260,00 €
 d) 240,00 €
 
@@ -69,7 +69,7 @@ Explicación: El nuevo precio es el 104 % del anterior: 250 × 104 / 100. Result
 
 ## 6. seed 2117962402322770033 · nivel 1
 
-Si hay un 20 % de descuento en un material de oficina cuyo precio original es de 120 €, ¿qué importe se pagará una vez aplicado el descuento?
+Si hay un 20 % de descuento en un mueble de oficina cuyo precio original es de 120 €, ¿qué importe se pagará una vez aplicado el descuento?
 
 a) 97,00 €
 b) 96,00 €
@@ -108,20 +108,20 @@ Explicación: El porcentaje es 44 / 120 × 100. Resultado: 36,67 %.
 
 ## 9. seed 3380244725848317813 · nivel 2
 
-En una urna hay 9 bolas rojas, 8 azules y 2 verdes. Si se extrae una al azar, ¿qué probabilidad, en porcentaje, hay de que sea azul?
+En un curso hay 240 alumnos y 100 de ellos son mujeres. ¿Qué porcentaje del total no son mujeres?
 
-a) 47,06 %
-b) 38,74 %
-c) 42,11 %
-d) 57,89 %
+a) 54,33 %
+b) 53,67 %
+c) 58,33 %
+d) 62,33 %
 
 **Clave: c**
 
-Explicación: Casos favorables 8 entre casos posibles 19: 8 / 19 × 100. Resultado: 42,11 %.
+Explicación: No son mujeres 240 − 100 alumnos; (240 − 100) / 240 × 100. Resultado: 58,33 %.
 
 ## 10. seed 1742165302305072693 · nivel 1
 
-Si hay un 12 % de descuento en un material de oficina cuyo precio original es de 60 €, ¿qué importe se pagará una vez aplicado el descuento?
+Si hay un 12 % de descuento en un mueble de oficina cuyo precio original es de 60 €, ¿qué importe se pagará una vez aplicado el descuento?
 
 a) 50,80 €
 b) 48,00 €
@@ -134,16 +134,16 @@ Explicación: El descuento es el 12 % de 60; se paga el 88 % del precio: 60 × 8
 
 ## 11. seed 1436328498479605197 · nivel 2
 
-Si hay un 25 % de descuento en un artículo cuyo precio original es de 60 €, ¿qué importe se pagará una vez aplicado el descuento?
+En una urna hay 4 bolas rojas, 8 azules y 4 verdes. Si se extrae una al azar, ¿qué probabilidad, en porcentaje, hay de que sea azul?
 
-a) 45,00 €
-b) 46,00 €
-c) 43,00 €
-d) 50,40 €
+a) 50,00 %
+b) 56,00 %
+c) 46,00 %
+d) 42,00 %
 
 **Clave: a**
 
-Explicación: El descuento es el 25 % de 60; se paga el 75 % del precio: 60 × 75 / 100. Resultado: 45,00 €.
+Explicación: Casos favorables 8 entre casos posibles 16: 8 / 16 × 100. Resultado: 50,00 %.
 
 ## 12. seed 949102330877243704 · nivel 1
 
@@ -160,16 +160,16 @@ Explicación: Se calcula el 25 % de 640: 640 × 25 / 100. Resultado: 160.
 
 ## 13. seed 3507599616719210045 · nivel 2
 
-En una urna hay 9 bolas rojas, 2 azules y 6 verdes. Si se extrae una al azar, ¿qué probabilidad, en porcentaje, hay de que sea azul?
+De un presupuesto de 7200 € se ha gastado el 28 %. ¿Cuántos euros quedan por gastar?
 
-a) 10,76 %
-b) 12,26 %
-c) 11,76 %
-d) 11,26 %
+a) 5184,00 €
+b) 4976,64 €
+c) 5284,00 €
+d) 6013,44 €
 
-**Clave: c**
+**Clave: a**
 
-Explicación: Casos favorables 2 entre casos posibles 17: 2 / 17 × 100. Resultado: 11,76 %.
+Explicación: Queda el 72 % del presupuesto: 7200 × 72 / 100. Resultado: 5184,00 €.
 
 ## 14. seed 2444709385026133203 · nivel 1
 
@@ -225,46 +225,46 @@ Explicación: Se calcula el 40 % de 240: 240 × 40 / 100. Resultado: 96.
 
 ## 18. seed 474943732836401442 · nivel 2
 
-De un presupuesto de 4500 € se ha gastado el 35 %. ¿Cuántos euros quedan por gastar?
+En una urna hay 2 bolas rojas, 5 azules y 4 verdes. Si se extrae una al azar, ¿qué probabilidad, en porcentaje, hay de que sea azul?
 
-a) 2925,00 €
-b) 3276,00 €
-c) 3175,00 €
-d) 3042,00 €
+a) 45,45 %
+b) 40,00 %
+c) 47,27 %
+d) 52,73 %
 
 **Clave: a**
 
-Explicación: Queda el 65 % del presupuesto: 4500 × 65 / 100. Resultado: 2925,00 €.
+Explicación: Casos favorables 5 entre casos posibles 11: 5 / 11 × 100. Resultado: 45,45 %.
 
 ## 19. seed 2083004938889697647 · nivel 2
 
-En una urna hay 5 bolas rojas, 7 azules y 4 verdes. Si se extrae una al azar, ¿qué probabilidad, en porcentaje, hay de que sea azul?
+En un curso hay 150 alumnos y 53 de ellos son mujeres. ¿Qué porcentaje del total no son mujeres?
 
-a) 43,75 %
-b) 35,00 %
-c) 77,78 %
-d) 56,25 %
+a) 64,67 %
+b) 35,33 %
+c) 75,01 %
+d) 60,67 %
 
 **Clave: a**
 
-Explicación: Casos favorables 7 entre casos posibles 16: 7 / 16 × 100. Resultado: 43,75 %.
+Explicación: No son mujeres 150 − 53 alumnos; (150 − 53) / 150 × 100. Resultado: 64,67 %.
 
 ## 20. seed 2658154806036797156 · nivel 2
 
-Si hay un 30 % de descuento en un producto cuyo precio original es de 60 €, ¿qué importe se pagará una vez aplicado el descuento?
+En una urna hay 4 bolas rojas, 9 azules y 2 verdes. Si se extrae una al azar, ¿qué probabilidad, en porcentaje, hay de que sea azul?
 
-a) 45,36 €
-b) 42,00 €
-c) 40,00 €
-d) 30,00 €
+a) 69,60 %
+b) 60,00 %
+c) 69,23 %
+d) 43,20 %
 
 **Clave: b**
 
-Explicación: El descuento es el 30 % de 60; se paga el 70 % del precio: 60 × 70 / 100. Resultado: 42,00 €.
+Explicación: Casos favorables 9 entre casos posibles 15: 9 / 15 × 100. Resultado: 60,00 %.
 
 ## 21. seed 3332189881007156579 · nivel 1
 
-Si hay un 12 % de descuento en un material de oficina cuyo precio original es de 120 €, ¿qué importe se pagará una vez aplicado el descuento?
+Si hay un 12 % de descuento en un mueble de oficina cuyo precio original es de 120 €, ¿qué importe se pagará una vez aplicado el descuento?
 
 a) 105,60 €
 b) 108,00 €
@@ -277,7 +277,7 @@ Explicación: El descuento es el 12 % de 120; se paga el 88 % del precio: 120 ×
 
 ## 22. seed 253289811712211533 · nivel 1
 
-Si hay un 18 % de descuento en un material de oficina cuyo precio original es de 60 €, ¿qué importe se pagará una vez aplicado el descuento?
+Si hay un 18 % de descuento en un mueble de oficina cuyo precio original es de 60 €, ¿qué importe se pagará una vez aplicado el descuento?
 
 a) 50,20 €
 b) 49,20 €
@@ -329,16 +329,16 @@ Explicación: Se calcula el 60 % de 1200: 1200 × 60 / 100. Resultado: 720.
 
 ## 26. seed 3228707284633840114 · nivel 2
 
-En una urna hay 6 bolas rojas, 6 azules y 7 verdes. Si se extrae una al azar, ¿qué probabilidad, en porcentaje, hay de que sea azul?
+De un presupuesto de 36.000 € se ha gastado el 35 %. ¿Cuántos euros quedan por gastar?
 
-a) 40,42 %
-b) 31,58 %
-c) 26,53 %
-d) 46,15 %
+a) 12.600,00 €
+b) 21.528,00 €
+c) 19.656,00 €
+d) 23.400,00 €
 
-**Clave: b**
+**Clave: d**
 
-Explicación: Casos favorables 6 entre casos posibles 19: 6 / 19 × 100. Resultado: 31,58 %.
+Explicación: Queda el 65 % del presupuesto: 36.000 × 65 / 100. Resultado: 23.400,00 €.
 
 ## 27. seed 249066545599108635 · nivel 2
 
@@ -355,25 +355,25 @@ Explicación: No son mujeres 180 − 53 alumnos; (180 − 53) / 180 × 100. Resu
 
 ## 28. seed 1293261734414209284 · nivel 2
 
-De un presupuesto de 7200 € se ha gastado el 15 %. ¿Cuántos euros quedan por gastar?
+De un presupuesto de 12.000 € se ha gastado el 35 %. ¿Cuántos euros quedan por gastar?
 
-a) 7833,60 €
-b) 6120,00 €
-c) 5630,40 €
-d) 6020,00 €
+a) 8736,00 €
+b) 7800,00 €
+c) 6240,00 €
+d) 7900,00 €
 
 **Clave: b**
 
-Explicación: Queda el 85 % del presupuesto: 7200 × 85 / 100. Resultado: 6120,00 €.
+Explicación: Queda el 65 % del presupuesto: 12.000 × 65 / 100. Resultado: 7800,00 €.
 
 ## 29. seed 446028645736675108 · nivel 1
 
 Si hay un 5 % de descuento en un electrodoméstico cuyo precio original es de 60 €, ¿qué importe se pagará una vez aplicado el descuento?
 
-a) 47,88 €
-b) 63,84 €
+a) 41,04 €
+b) 47,88 €
 c) 57,00 €
-d) 72,96 €
+d) 59,28 €
 
 **Clave: c**
 
@@ -381,29 +381,29 @@ Explicación: El descuento es el 5 % de 60; se paga el 95 % del precio: 60 × 95
 
 ## 30. seed 1962857571478651500 · nivel 2
 
-En una urna hay 9 bolas rojas, 6 azules y 5 verdes. Si se extrae una al azar, ¿qué probabilidad, en porcentaje, hay de que sea azul?
+En un curso hay 64 alumnos y 28 de ellos son mujeres. ¿Qué porcentaje del total no son mujeres?
 
-a) 30,00 %
-b) 25,20 %
-c) 40,00 %
-d) 38,40 %
+a) 56,25 %
+b) 67,50 %
+c) 60,25 %
+d) 52,25 %
 
 **Clave: a**
 
-Explicación: Casos favorables 6 entre casos posibles 20: 6 / 20 × 100. Resultado: 30,00 %.
+Explicación: No son mujeres 64 − 28 alumnos; (64 − 28) / 64 × 100. Resultado: 56,25 %.
 
 ## 31. seed 745574515080052875 · nivel 2
 
-De un presupuesto de 25.000 € se ha gastado el 28 %. ¿Cuántos euros quedan por gastar?
+En una urna hay 7 bolas rojas, 2 azules y 9 verdes. Si se extrae una al azar, ¿qué probabilidad, en porcentaje, hay de que sea azul?
 
-a) 18.100,00 €
-b) 18.000,00 €
-c) 17.900,00 €
-d) 12.960,00 €
+a) 11,11 %
+b) 12,50 %
+c) 12,11 %
+d) 10,61 %
 
-**Clave: b**
+**Clave: a**
 
-Explicación: Queda el 72 % del presupuesto: 25.000 × 72 / 100. Resultado: 18.000,00 €.
+Explicación: Casos favorables 2 entre casos posibles 18: 2 / 18 × 100. Resultado: 11,11 %.
 
 ## 32. seed 4038212545246269410 · nivel 1
 
@@ -433,7 +433,7 @@ Explicación: No son mujeres 120 − 35 alumnos; (120 − 35) / 120 × 100. Resu
 
 ## 34. seed 2446400661098218715 · nivel 1
 
-Si hay un 20 % de descuento en un material de oficina cuyo precio original es de 36 €, ¿qué importe se pagará una vez aplicado el descuento?
+Si hay un 20 % de descuento en un mueble de oficina cuyo precio original es de 36 €, ¿qué importe se pagará una vez aplicado el descuento?
 
 a) 43,20 €
 b) 28,80 €
@@ -485,16 +485,16 @@ Explicación: El descuento es el 5 % de 150; se paga el 95 % del precio: 150 × 
 
 ## 38. seed 75174881938818380 · nivel 2
 
-En un curso hay 120 alumnos y 35 de ellos son mujeres. ¿Qué porcentaje del total no son mujeres?
+De un presupuesto de 36.000 € se ha gastado el 15 %. ¿Cuántos euros quedan por gastar?
 
-a) 70,83 %
-b) 76,50 %
-c) 74,83 %
-d) 68,00 %
+a) 30.600,00 €
+b) 29.376,00 €
+c) 30.700,00 €
+d) 30.850,00 €
 
 **Clave: a**
 
-Explicación: No son mujeres 120 − 35 alumnos; (120 − 35) / 120 × 100. Resultado: 70,83 %.
+Explicación: Queda el 85 % del presupuesto: 36.000 × 85 / 100. Resultado: 30.600,00 €.
 
 ## 39. seed 2766366196040747855 · nivel 1
 
@@ -511,16 +511,16 @@ Explicación: El porcentaje es 17 / 75 × 100. Resultado: 22,67 %.
 
 ## 40. seed 2107588891287733513 · nivel 2
 
-Si hay un 5 % de descuento en un producto cuyo precio original es de 75 €, ¿qué importe se pagará una vez aplicado el descuento?
+En una urna hay 9 bolas rojas, 2 azules y 2 verdes. Si se extrae una al azar, ¿qué probabilidad, en porcentaje, hay de que sea azul?
 
-a) 71,25 €
-b) 69,25 €
-c) 72,25 €
-d) 70,00 €
+a) 15,38 %
+b) 16,62 %
+c) 14,77 %
+d) 19,69 %
 
 **Clave: a**
 
-Explicación: El descuento es el 5 % de 75; se paga el 95 % del precio: 75 × 95 / 100. Resultado: 71,25 €.
+Explicación: Casos favorables 2 entre casos posibles 13: 2 / 13 × 100. Resultado: 15,38 %.
 
 ## 41. seed 2646920204310311088 · nivel 1
 
@@ -537,16 +537,16 @@ Explicación: El porcentaje es 13 / 75 × 100. Resultado: 17,33 %.
 
 ## 42. seed 724692298527132179 · nivel 2
 
-En una urna hay 9 bolas rojas, 3 azules y 9 verdes. Si se extrae una al azar, ¿qué probabilidad, en porcentaje, hay de que sea azul?
+En un curso hay 240 alumnos y 63 de ellos son mujeres. ¿Qué porcentaje del total no son mujeres?
 
-a) 13,71 %
-b) 25,00 %
-c) 14,29 %
-d) 13,14 %
+a) 70,80 %
+b) 69,75 %
+c) 73,75 %
+d) 59,00 %
 
 **Clave: c**
 
-Explicación: Casos favorables 3 entre casos posibles 21: 3 / 21 × 100. Resultado: 14,29 %.
+Explicación: No son mujeres 240 − 63 alumnos; (240 − 63) / 240 × 100. Resultado: 73,75 %.
 
 ## 43. seed 779722059324555270 · nivel 1
 
@@ -563,11 +563,11 @@ Explicación: El porcentaje es 42 / 150 × 100. Resultado: 28,00 %.
 
 ## 44. seed 1001196424421381176 · nivel 1
 
-Si hay un 18 % de descuento en un material de oficina cuyo precio original es de 36 €, ¿qué importe se pagará una vez aplicado el descuento?
+Si hay un 18 % de descuento en un mueble de oficina cuyo precio original es de 36 €, ¿qué importe se pagará una vez aplicado el descuento?
 
 a) 29,52 €
 b) 42,48 €
-c) 37,79 €
+c) 33,06 €
 d) 18,00 €
 
 **Clave: a**
@@ -581,7 +581,7 @@ El precio de un artículo es de 250 € y sube un 4 %. ¿Cuál es su nuevo preci
 a) 259,00 €
 b) 260,00 €
 c) 254,00 €
-d) 239,20 €
+d) 280,80 €
 
 **Clave: b**
 
@@ -592,7 +592,7 @@ Explicación: El nuevo precio es el 104 % del anterior: 250 × 104 / 100. Result
 El precio de un artículo es de 36 € y sube un 4 %. ¿Cuál es su nuevo precio?
 
 a) 37,44 €
-b) 41,93 €
+b) 43,43 €
 c) 34,56 €
 d) 36,44 €
 
@@ -602,29 +602,29 @@ Explicación: El nuevo precio es el 104 % del anterior: 36 × 104 / 100. Resulta
 
 ## 47. seed 4358477514223734441 · nivel 2
 
-El precio de un artículo es de 120 € y sube un 10 %. ¿Cuál es su nuevo precio?
+De un presupuesto de 25.000 € se ha gastado el 42 %. ¿Cuántos euros quedan por gastar?
 
-a) 105,60 €
-b) 132,00 €
-c) 108,00 €
-d) 134,00 €
-
-**Clave: b**
-
-Explicación: El nuevo precio es el 110 % del anterior: 120 × 110 / 100. Resultado: 132,00 €.
-
-## 48. seed 234027857163100231 · nivel 2
-
-De un presupuesto de 25.000 € se ha gastado el 64 %. ¿Cuántos euros quedan por gastar?
-
-a) 7920,00 €
-b) 8900,00 €
-c) 9100,00 €
-d) 9000,00 €
+a) 14.600,00 €
+b) 14.400,00 €
+c) 10.500,00 €
+d) 14.500,00 €
 
 **Clave: d**
 
-Explicación: Queda el 36 % del presupuesto: 25.000 × 36 / 100. Resultado: 9000,00 €.
+Explicación: Queda el 58 % del presupuesto: 25.000 × 58 / 100. Resultado: 14.500,00 €.
+
+## 48. seed 234027857163100231 · nivel 2
+
+En una urna hay 2 bolas rojas, 3 azules y 5 verdes. Si se extrae una al azar, ¿qué probabilidad, en porcentaje, hay de que sea azul?
+
+a) 31,20 %
+b) 33,60 %
+c) 42,86 %
+d) 30,00 %
+
+**Clave: d**
+
+Explicación: Casos favorables 3 entre casos posibles 10: 3 / 10 × 100. Resultado: 30,00 %.
 
 ## 49. seed 1621960650965964255 · nivel 1
 
@@ -641,7 +641,7 @@ Explicación: El nuevo precio es el 112 % del anterior: 120 × 112 / 100. Result
 
 ## 50. seed 3182904617473281507 · nivel 1
 
-Si hay un 18 % de descuento en un material de oficina cuyo precio original es de 90 €, ¿qué importe se pagará una vez aplicado el descuento?
+Si hay un 18 % de descuento en un mueble de oficina cuyo precio original es de 90 €, ¿qué importe se pagará una vez aplicado el descuento?
 
 a) 72,00 €
 b) 71,80 €

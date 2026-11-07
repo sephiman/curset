@@ -23,6 +23,28 @@ def _option(word: str) -> str:
     return sentence_case(word) + "."
 
 
+def _dle_synonym(entry: lexicon.Entry, word: str) -> bool:
+    """The DLE ties `word`, or a word of its cluster, to the stem or a synonym of it: never a distractor."""
+    kin = lexicon.synonyms_of(word) | {word}  # tenue 3. lists «sencillo», so all of «sobrio»'s cluster is out
+    return any(lexicon.dle_related(near, w, "syn") for near in (entry.word, *entry.synonyms) for w in kin)
+
+
+def _list(words: list[str]) -> str:
+    return words[0] if len(words) == 1 else ", ".join(words[:-1]) + " y " + words[-1]
+
+
+def _why(entry: lexicon.Entry, key: str, wrong: list[str]) -> str:
+    opposite = [w for w in wrong if w in entry.antonyms]
+    unrelated = [w for w in wrong if w not in entry.antonyms]
+    parts = [f"{sentence_case(key)} es sinónimo de {entry.word}"]
+    if opposite:
+        parts.append(f"{_list(opposite)} {'es su antónimo' if len(opposite) == 1 else 'son antónimos'}")
+    if unrelated:
+        verb = "no guarda" if len(unrelated) == 1 else "no guardan"
+        parts.append(f"{_list(unrelated)} {verb} relación de significado con {entry.word}")
+    return "; ".join(parts) + "."
+
+
 def _pair(a: str, b: str) -> str:
     return f"{sentence_case(a)} y {b}."
 
@@ -38,14 +60,24 @@ class SinonimosGenerator(ItemGenerator):
         pool = [e for e in lexicon.entries() if e.level == params.difficulty]
         entry = rng.choice(pool)
         own = lexicon.cluster_of(entry.word)
-        strangers = [
-            word
-            for other in lexicon.entries()
-            if lexicon.cluster_of(other.word) != own
-            for word in other.synonyms
-            if lexicon.cluster_of(word) != own
-        ]
-        wrong_pool = [*entry.antonyms, *rng.sample(strangers, 4)]
+        strangers = sorted(
+            {
+                word
+                for other in lexicon.entries()
+                if lexicon.cluster_of(other.word) != own and other.part_of_speech == entry.part_of_speech
+                for word in other.synonyms
+                if lexicon.cluster_of(word) != own and not _dle_synonym(entry, word)
+            }
+        )
+        # No three distractors may share a meaning, or the key falls out by elimination: at most two
+        # antonyms, and strangers from distinct clusters that are not the antonyms' clusters.
+        taken = {lexicon.cluster_of(a) for a in entry.antonyms}
+        picked: list[str] = []
+        for word in rng.sample(strangers, len(strangers)):
+            if lexicon.cluster_of(word) not in taken and len(picked) < 4:
+                picked.append(word)
+                taken.add(lexicon.cluster_of(word))
+        wrong_pool = [*rng.sample(entry.antonyms, min(2, len(entry.antonyms))), *picked]
         options, slot, answer = deal_choosing(
             rng, [_option(w) for w in entry.synonyms], [_option(w) for w in wrong_pool]
         )
@@ -59,13 +91,12 @@ class SinonimosGenerator(ItemGenerator):
             stem=stem,
             options=options,
             key=slot,
-            explanation=f"{sentence_case(key)} significa lo mismo que {entry.word}; "
-            f"{wrong[0]} y {wrong[1]} son opuestas o distintas.",
+            explanation=_why(entry, key, wrong),
             facts={"word": entry.word, "mode": "single"},
         )
 
     def _pair_item(self, rng: random.Random, seed: int) -> Item:
-        entries = rng.sample(lexicon.entries(), 4)
+        entries = rng.sample([e for e in lexicon.entries() if e.antonyms], 4)
         good = [_pair(e.word, rng.choice(e.synonyms)) for e in entries[:3]]
         bad_entry = entries[3]
         bad = _pair(bad_entry.word, rng.choice(bad_entry.antonyms))
@@ -109,4 +140,13 @@ class SinonimosGenerator(ItemGenerator):
         return wrong[0]
 
     def check_extra(self, item: Item) -> list[str]:
-        return [] if all(o.endswith(".") and o[0].isupper() for o in item.options) else ["option form"]
+        problems = [] if all(o.endswith(".") and o[0].isupper() for o in item.options) else ["option form"]
+        if item.facts.get("mode") == "single":
+            entry = next(e for e in lexicon.entries() if e.word == item.facts["word"])
+            key = item.options[item.key].rstrip(".").lower()
+            problems += [
+                f"the DLE lists distractor {option} as a synonym"
+                for option in item.options
+                if option.rstrip(".").lower() != key and _dle_synonym(entry, option.rstrip(".").lower())
+            ]
+        return problems

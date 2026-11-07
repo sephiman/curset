@@ -39,7 +39,7 @@ d) 80.
 
 **Clave: d**
 
-Explicación: Cada 6.º son 40 paquetes; se han preparado 2 + 2 = 4 de esas partes, así que quedan 80.
+Explicación: Un sexto son 40 paquetes; se han preparado 2 + 2 = 4 de esas partes, así que quedan 80.
 
 ## 4. seed 1720648679487398676 · nivel 2
 
@@ -52,7 +52,7 @@ d) 125.
 
 **Clave: b**
 
-Explicación: El total son 10 partes y cada parte vale 108; la persona pedida tiene 1 partes: 108.
+Explicación: El total son 10 partes y cada parte vale 108; la persona pedida tiene 1 parte: 108.
 
 ## 5. seed 313067831180357227 · nivel 2
 
@@ -130,7 +130,7 @@ d) 141.
 
 **Clave: c**
 
-Explicación: Cada 6.º son 42 paquetes; se han preparado 1 + 1 = 2 de esas partes, así que quedan 168.
+Explicación: Un sexto son 42 paquetes; se han preparado 1 + 1 = 2 de esas partes, así que quedan 168.
 
 ## 11. seed 2239371105347858788 · nivel 2
 
@@ -195,7 +195,7 @@ d) 67.
 
 **Clave: c**
 
-Explicación: El total son 6 partes y cada parte vale 84; la persona pedida tiene 1 partes: 84.
+Explicación: El total son 6 partes y cada parte vale 84; la persona pedida tiene 1 parte: 84.
 
 ## 16. seed 3839890581003824112 · nivel 2
 
@@ -208,7 +208,7 @@ d) 131.
 
 **Clave: c**
 
-Explicación: El total son 9 partes y cada parte vale 146; la persona pedida tiene 1 partes: 146.
+Explicación: El total son 9 partes y cada parte vale 146; la persona pedida tiene 1 parte: 146.
 
 ## 17. seed 1665312986840670110 · nivel 2
 
@@ -247,7 +247,7 @@ d) 156.
 
 **Clave: d**
 
-Explicación: Cada 5.º son 78 paquetes; se han preparado 1 + 2 = 3 de esas partes, así que quedan 156.
+Explicación: Un quinto son 78 paquetes; se han preparado 1 + 2 = 3 de esas partes, así que quedan 156.
 
 ## 20. seed 1037874473950172780 · nivel 1
 
@@ -260,7 +260,7 @@ d) 104.
 
 **Clave: c**
 
-Explicación: Cada 8.º son 59 paquetes; se han preparado 3 + 3 = 6 de esas partes, así que quedan 118.
+Explicación: Un octavo son 59 paquetes; se han preparado 3 + 3 = 6 de esas partes, así que quedan 118.
 
 ## 21. seed 3481901059957930986 · nivel 1
 
@@ -273,7 +273,7 @@ d) 276.
 
 **Clave: b**
 
-Explicación: Cada 9.º son 46 paquetes; se han preparado 2 + 2 = 4 de esas partes, así que quedan 230.
+Explicación: Un noveno son 46 paquetes; se han preparado 2 + 2 = 4 de esas partes, así que quedan 230.
 
 ## 22. seed 1676038646047680883 · nivel 1
 
@@ -286,7 +286,7 @@ d) 191.
 
 **Clave: c**
 
-Explicación: Cada 8.º son 59 paquetes; se han preparado 2 + 3 = 5 de esas partes, así que quedan 177.
+Explicación: Un octavo son 59 paquetes; se han preparado 2 + 3 = 5 de esas partes, así que quedan 177.
 
 ## 23. seed 1636627034901351484 · nivel 2
 
@@ -329,16 +329,16 @@ Explicación: El total son 6 partes y cada parte vale 132; la persona pedida tie
 
 ## 26. seed 2744232229661367368 · nivel 2
 
-Un premio de 330 euros se reparte entre tres personas de forma directamente proporcional a 2, 3 y 5. ¿Cuántos euros recibe la segunda?
+Un premio de 350 euros se reparte entre cuatro personas de forma directamente proporcional a 1, 2, 3 y 4. ¿Cuántos euros recibe la tercera?
 
-a) 79.
-b) 99.
-c) 95.
-d) 90.
+a) 105.
+b) 97.
+c) 118.
+d) 76.
 
-**Clave: b**
+**Clave: a**
 
-Explicación: El total son 10 partes y cada parte vale 33; la persona pedida tiene 3 partes: 99.
+Explicación: El total son 10 partes y cada parte vale 35; la persona pedida tiene 3 partes: 105.
 
 ## 27. seed 1141203405627733600 · nivel 2
 
@@ -390,7 +390,7 @@ d) 140.
 
 **Clave: d**
 
-Explicación: Cada 5.º son 70 paquetes; se han preparado 1 + 2 = 3 de esas partes, así que quedan 140.
+Explicación: Un quinto son 70 paquetes; se han preparado 1 + 2 = 3 de esas partes, así que quedan 140.
 
 ## 31. seed 446926014502010107 · nivel 2
 
@@ -416,7 +416,7 @@ d) 84.
 
 **Clave: b**
 
-Explicación: El total son 6 partes y cada parte vale 95; la persona pedida tiene 1 partes: 95.
+Explicación: El total son 6 partes y cada parte vale 95; la persona pedida tiene 1 parte: 95.
 
 ## 33. seed 8985097211321483 · nivel 2
 
@@ -442,7 +442,7 @@ d) 145.
 
 **Clave: d**
 
-Explicación: El total son 10 partes y cada parte vale 145; la persona pedida tiene 1 partes: 145.
+Explicación: El total son 10 partes y cada parte vale 145; la persona pedida tiene 1 parte: 145.
 
 ## 35. seed 985449481815013239 · nivel 1
 
@@ -455,7 +455,7 @@ d) 280.
 
 **Clave: d**
 
-Explicación: Cada 8.º son 70 paquetes; se han preparado 1 + 3 = 4 de esas partes, así que quedan 280.
+Explicación: Un octavo son 70 paquetes; se han preparado 1 + 3 = 4 de esas partes, así que quedan 280.
 
 ## 36. seed 2137225267572820965 · nivel 2
 
@@ -494,7 +494,7 @@ d) 147.
 
 **Clave: d**
 
-Explicación: El total son 10 partes y cada parte vale 147; la persona pedida tiene 1 partes: 147.
+Explicación: El total son 10 partes y cada parte vale 147; la persona pedida tiene 1 parte: 147.
 
 ## 39. seed 332700659082654377 · nivel 2
 
@@ -520,7 +520,7 @@ d) 30.
 
 **Clave: a**
 
-Explicación: El total son 9 partes y cada parte vale 33; la persona pedida tiene 1 partes: 33.
+Explicación: El total son 9 partes y cada parte vale 33; la persona pedida tiene 1 parte: 33.
 
 ## 41. seed 2251849675853898693 · nivel 1
 
@@ -533,7 +533,7 @@ d) 89.
 
 **Clave: d**
 
-Explicación: Cada 6.º son 89 paquetes; se han preparado 2 + 3 = 5 de esas partes, así que quedan 89.
+Explicación: Un sexto son 89 paquetes; se han preparado 2 + 3 = 5 de esas partes, así que quedan 89.
 
 ## 42. seed 1831363309609917936 · nivel 1
 
@@ -546,7 +546,7 @@ d) 216.
 
 **Clave: b**
 
-Explicación: Cada 5.º son 90 paquetes; se han preparado 1 + 1 = 2 de esas partes, así que quedan 270.
+Explicación: Un quinto son 90 paquetes; se han preparado 1 + 1 = 2 de esas partes, así que quedan 270.
 
 ## 43. seed 4508178208781399786 · nivel 2
 
@@ -585,7 +585,7 @@ d) 200.
 
 **Clave: d**
 
-Explicación: Cada 8.º son 40 paquetes; se han preparado 2 + 1 = 3 de esas partes, así que quedan 200.
+Explicación: Un octavo son 40 paquetes; se han preparado 2 + 1 = 3 de esas partes, así que quedan 200.
 
 ## 46. seed 1222899436258926372 · nivel 1
 
@@ -598,7 +598,7 @@ d) 72.
 
 **Clave: b**
 
-Explicación: Cada 6.º son 32 paquetes; se han preparado 2 + 2 = 4 de esas partes, así que quedan 64.
+Explicación: Un sexto son 32 paquetes; se han preparado 2 + 2 = 4 de esas partes, así que quedan 64.
 
 ## 47. seed 1301884130371718730 · nivel 2
 
