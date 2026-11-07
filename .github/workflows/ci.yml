@@ -23,6 +23,7 @@ jobs:
       # uv downloads the pinned Python (3.14) automatically on first sync.
       - run: uv sync --frozen
       - run: uv run ruff check .
+      - run: uv run ruff format --check .
       - run: uv run mypy src
       # Testcontainers spins a real Postgres per xdist worker on the runner's Docker.
       - run: uv run pytest -n auto

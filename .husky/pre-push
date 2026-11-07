@@ -3,10 +3,13 @@ set -e
 
 echo "=== Running pre-push compilation checks ==="
 
-echo "--> [1/2] Checking Frontend compilation (TypeScript & Vite build)..."
+echo "--> [1/3] Checking Frontend compilation (TypeScript & Vite build)..."
 (cd frontend && npm run build)
 
-echo "--> [2/2] Checking Backend compilation (Python mypy)..."
+echo "--> [2/3] Checking Backend compilation (Python mypy)..."
 (cd backend && uv run mypy src)
+
+echo "--> [3/3] Checking Backend lint and format (ruff)..."
+(cd backend && uv run ruff check . && uv run ruff format --check .)
 
 echo "=== All pre-push compilation checks passed successfully! ==="
