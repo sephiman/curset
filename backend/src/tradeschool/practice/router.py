@@ -7,7 +7,7 @@ import random
 from typing import Annotated
 
 from fastapi import APIRouter, Depends
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from tradeschool.auth.backend import current_active_user
@@ -56,4 +56,27 @@ async def draw_round(
     return RoundResponse(
         lessonId=lesson_id,
         questions=[RoundQuestion(exerciseId=q.exercise_id, questionId=q.variant_id or "") for q in drawn],
+    )
+
+
+class GeneratedRoundRequest(BaseModel):
+    #: One psicotécnico type; absent: every type in the course's weights.
+    generator: str | None = None
+    count: int = Field(default=20, ge=1, le=100)
+
+
+class GeneratedRoundResponse(BaseModel):
+    #: Generated exercise ids, in the order to serve them; each opens as an attempt of its own.
+    exerciseIds: list[str]
+
+
+@router.post("/practice/psicotecnicos", response_model=GeneratedRoundResponse)
+async def draw_generated_round(
+    registry: Annotated[CourseRegistry, Depends(get_registry)],
+    rand: Annotated[Rand, Depends(practice_rand)],
+    payload: GeneratedRoundRequest | None = None,
+) -> GeneratedRoundResponse:
+    request = payload or GeneratedRoundRequest()
+    return GeneratedRoundResponse(
+        exerciseIds=service.draw_generated_round(registry, request.generator, request.count, rand)
     )

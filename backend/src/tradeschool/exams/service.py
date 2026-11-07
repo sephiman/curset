@@ -32,7 +32,7 @@ from tradeschool.exams.results import counted_outcomes, grade_session
 from tradeschool.exercises.base import GeneratedInstance, GradeResult
 from tradeschool.exercises.registry import get_generator
 from tradeschool.exercises.types import ExerciseType
-from tradeschool.stats.by_lesson import lesson_table
+from tradeschool.stats.by_lesson import GENERATED_GROUP_ID, GENERATED_GROUP_TITLE, lesson_table
 
 #: Answers sent this long after the clock ran out still land: the request left before it did.
 logger = logging.getLogger("tradeschool.exams")
@@ -86,6 +86,8 @@ class ExamQuestionView:
     #: A case question: the case is `exercise_id`, this is the question inside it.
     question_id: str | None = None
     reserve: bool = False
+    #: A generated item: its type's title, which stands where a lesson's would.
+    type_title: str | None = None
     # Reveal-only (submitted session review):
     lesson_anchor: str | None = None
     citation: str | None = None
@@ -284,6 +286,8 @@ def _question_location(
     registry: CourseRegistry, exercise_id: str, question_id: str | None
 ) -> tuple[str, str]:
     """(block, module) the question counts under — for a case question, the lesson it names."""
+    if registry.generator_use(exercise_id) is not None:
+        return GENERATED_GROUP_ID, GENERATED_GROUP_ID
     if question_id is not None:
         lesson_id = registry.question_lesson_id(exercise_id, question_id)
         location = registry.lesson_location(lesson_id) if lesson_id else None
@@ -373,13 +377,16 @@ def _build_view(
         b_id, m_id = _question_location(registry, exercise_id, attempt.question_id)
         part_id, reserve = layout.get(str(attempt.id), (default_part, False))
         answered = attempt.given_answer is not None
+        use = registry.generator_use(exercise_id)
         q = ExamQuestionView(
             index=index,
             attempt_id=attempt.id,
             module_id=m_id,
             module_title=registry.module_title(m_id, locale) or m_id,
             block_id=b_id,
-            block_title=registry.block_title(b_id, locale) or b_id,
+            block_title=GENERATED_GROUP_TITLE.get(locale, GENERATED_GROUP_TITLE["es"])
+            if use
+            else registry.block_title(b_id, locale) or b_id,
             exercise_id=exercise_id,
             exercise_type=exercise_type,
             instance=instance,
@@ -387,8 +394,9 @@ def _build_view(
             answered=answered,
             part_id=part_id,
             lesson_id=registry.question_lesson_id(exercise_id, attempt.question_id),
-            question_id=attempt.question_id or attempt.variant_id,
+            question_id=f"{exercise_id}:{attempt.seed}" if use else attempt.question_id or attempt.variant_id,
             reserve=reserve,
+            type_title=use.title.get(locale) if use else None,
         )
         if reveal:
             sentinel = _sentinel_answer(exercise_type, instance.payload)

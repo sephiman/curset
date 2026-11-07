@@ -202,6 +202,17 @@ export function CoursePage() {
           </Card>
         </Link>
       )}
+      {course.course.psicotecnicos && course.course.psicotecnicos.length > 0 && (
+        <Link to={path("/practice/psicotecnicos")} className="block">
+          <Card className="flex items-center justify-between gap-3 p-4 transition-colors hover:border-primary">
+            <div>
+              <h2 className="font-semibold">{t("psicotecnicos.entry")}</h2>
+              <p className="text-sm text-gray-500 dark:text-gray-400">{t("psicotecnicos.entryHint")}</p>
+            </div>
+            <span aria-hidden className="text-primary">→</span>
+          </Card>
+        </Link>
+      )}
       {course.blocks.map((block) => (
         <section key={block.id}>
           <h2 className="mb-3 text-sm font-semibold tracking-wide text-gray-500 uppercase dark:text-gray-400">

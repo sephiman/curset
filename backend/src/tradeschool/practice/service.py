@@ -12,6 +12,7 @@ from tradeschool.attempts.models import Attempt, AttemptState
 from tradeschool.content.registry import CourseRegistry, QuestionRef
 from tradeschool.errors import AppError
 from tradeschool.practice.order import MASTERED_AFTER, Rand, practice_order
+from tradeschool.psicotecnico.weights import apportion
 
 #: «20 al azar», the default round.
 ROUND_SIZE = 20
@@ -56,3 +57,20 @@ async def draw_round(
     mastered = await _mastered(session, registry, user_id, list(by_id))
     order = practice_order(list(by_id), mastered, None if every else ROUND_SIZE, rand)
     return [by_id[qid] for qid in order]
+
+
+def draw_generated_round(
+    registry: CourseRegistry, generator: str | None, count: int, rand: Rand
+) -> list[str]:
+    """The generated exercises of a «Psicotécnicos» round: one type, or all in the course's weights."""
+    uses = registry.generator_uses()
+    if not uses:
+        raise AppError("PSICOTECNICOS_NOT_AVAILABLE", "This course has no psicotécnicos.", status_code=409)
+    if generator is not None:
+        chosen = next((use for use in uses if use.generator == generator), None)
+        if chosen is None:
+            raise AppError("GENERATOR_NOT_FOUND", f"No psicotécnico type {generator!r}.", status_code=404)
+        return [chosen.exercise_id] * count
+    shares = apportion([use.weight for use in uses], count)
+    items = [use.exercise_id for use, share in zip(uses, shares, strict=True) for _ in range(share)]
+    return sorted(items, key=lambda _: rand.random())

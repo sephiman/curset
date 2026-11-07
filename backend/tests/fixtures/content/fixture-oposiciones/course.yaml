@@ -13,10 +13,22 @@ course:
     es: Un curso mínimo para comprobar que la plataforma sirve varios cursos.
   languages: [es]
   status: published
-  exercise_types: [quiz, case]
+  exercise_types: [quiz, case, psicotecnico]
   lesson_practice: true
   lesson_noun:
     es: tema
+  # Two generators, wired into the «mixto» exam part and the «Psicotécnicos» practice entry.
+  practice_generators:
+  - generator: calculo-ecuaciones
+    title:
+      es: Ecuaciones
+    weight: 1
+    difficulty: {1: 1, 2: 1}
+  - generator: serie-numerica
+    title:
+      es: Series numéricas
+    weight: 2
+    difficulty: {1: 1, 2: 1}
 blocks:
 - id: block-a
   title:
@@ -122,3 +134,21 @@ exams:
       each: lesson
     questions: 20
     penalty: 1/3
+- id: mixto
+  version: 1
+  title:
+    es: Mixto
+  time_limit_minutes: 20
+  parts:
+  - id: mezcla
+    sources:
+    - source:
+        module: m01
+      questions: 4
+    - source: generators
+      questions: 6
+    penalty: 1/3
+    scoring:
+      max: 10
+      pass_minimum: 5
+      minimum_raw: 3

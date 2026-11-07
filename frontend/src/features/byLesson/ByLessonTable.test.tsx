@@ -44,7 +44,26 @@ const TABLE: LessonTable = {
   ],
 };
 
-function mount(width: number): HTMLDivElement {
+const WITH_TYPES: LessonTable = {
+  ...TABLE,
+  groups: [
+    ...TABLE.groups,
+    {
+      moduleId: "psicotecnicos",
+      title: "Psicotécnicos",
+      questions: 6,
+      correct: 4,
+      wrong: 2,
+      blank: 0,
+      pct: 2 / 3,
+      lessons: [
+        { lessonId: "gen:serie-numerica", kind: "type", title: "Series numéricas", questions: 6, correct: 4, wrong: 2, blank: 0, pct: 2 / 3 },
+      ],
+    },
+  ],
+};
+
+function mount(width: number, table: LessonTable = TABLE): HTMLDivElement {
   setViewportWidth(width);
   const host = document.createElement("div");
   document.body.appendChild(host);
@@ -52,7 +71,7 @@ function mount(width: number): HTMLDivElement {
     createRoot(host).render(
       <MemoryRouter>
         <InCourse>
-          <ByLessonTable table={TABLE} noun="tema" />
+          <ByLessonTable table={table} noun="tema" />
         </InCourse>
       </MemoryRouter>,
     );
@@ -92,5 +111,15 @@ describe("«Por tema»", () => {
     expect(host.querySelector("table")).not.toBeNull();
     expect(host.querySelector("li")).toBeNull();
     expect(host.querySelector(`button[aria-label="${translate("byLesson.sortBy", { column: en.byLesson.pct })}"]`)).not.toBeNull();
+  });
+});
+
+describe("psicotécnico types in «Por tema»", () => {
+  it.each([639, 1024])("lists a type as a row with no link to a lesson, at %i px", (width) => {
+    const host = mount(width, WITH_TYPES);
+    expect(host.textContent).toContain("Series numéricas");
+    const links = [...host.querySelectorAll("a")].map((a) => a.getAttribute("href") ?? "");
+    expect(links.some((href) => href.includes("gen:"))).toBe(false);
+    expect(links.some((href) => href.endsWith("/lessons/m01-l01"))).toBe(true);
   });
 });

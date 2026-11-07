@@ -18,7 +18,7 @@ from tradeschool.exams.layout import attempt_layout, case_marks
 from tradeschool.exams.models import ExamSession
 from tradeschool.exams.presets import ExamPreset, PresetPart
 from tradeschool.exams.scoring import NotGraded, Tally, raw_score, rounded, transformed_score
-from tradeschool.stats.by_lesson import Outcome
+from tradeschool.stats.by_lesson import GENERATED_GROUP_ID, GENERATED_GROUP_TITLE, Outcome
 
 
 def _ratio(num: int, den: int) -> float | None:
@@ -34,12 +34,18 @@ def is_scored(preset: ExamPreset) -> bool:
 
 def _location(registry: CourseRegistry, attempt: Attempt) -> tuple[str, str]:
     exercise_id = question_ref(registry, attempt).exercise_id
+    if registry.generator_use(exercise_id) is not None:
+        return GENERATED_GROUP_ID, GENERATED_GROUP_ID
     if attempt.question_id is not None:
         lesson_id = registry.question_lesson_id(exercise_id, attempt.question_id)
         location = registry.lesson_location(lesson_id) if lesson_id else None
         if location is not None:
             return location.block.id, location.module.id
     return registry.exercise_location(exercise_id) or ("", "")
+
+
+def _generated_title(locale: str) -> str:
+    return GENERATED_GROUP_TITLE.get(locale, GENERATED_GROUP_TITLE["es"])
 
 
 def _legacy_blob(registry: CourseRegistry, counted: list[Attempt], locale: str) -> dict[str, object]:
@@ -54,12 +60,15 @@ def _legacy_blob(registry: CourseRegistry, counted: list[Attempt], locale: str) 
     for attempt in sorted(counted, key=lambda a: order.get(_location(registry, a)[1], 10_000)):
         is_correct = bool(attempt.is_correct)
         b_id, m_id = _location(registry, attempt)
+        generated = m_id == GENERATED_GROUP_ID
         per_module.append(
             {
                 # Stored in the session's rules blob, so this is a KEY — display ids are resolved
                 # at view time, which is also what keeps pre-renumber exams true.
-                "moduleId": registry.module_key(m_id) if m_id else m_id,
-                "title": registry.module_title(m_id, locale) or m_id,
+                "moduleId": m_id if generated else registry.module_key(m_id) if m_id else m_id,
+                "title": _generated_title(locale)
+                if generated
+                else registry.module_title(m_id, locale) or m_id,
                 "blockId": b_id,
                 "correct": is_correct,
                 "unanswered": attempt.given_answer is None,
@@ -67,7 +76,9 @@ def _legacy_blob(registry: CourseRegistry, counted: list[Attempt], locale: str) 
         )
         if b_id not in block_total:
             block_order.append(b_id)
-            block_title[b_id] = registry.block_title(b_id, locale) or b_id
+            block_title[b_id] = (
+                _generated_title(locale) if generated else registry.block_title(b_id, locale) or b_id
+            )
             block_correct[b_id] = 0
             block_total[b_id] = 0
         block_total[b_id] += 1
@@ -148,7 +159,7 @@ def counted_outcomes(
         if part_id not in graded:
             continue
         for attempt in counted:
-            lesson_id = registry.question_lesson_id(
+            lesson_id = registry.table_row_id(
                 question_ref(registry, attempt).exercise_id, attempt.question_id
             )
             if lesson_id is None:

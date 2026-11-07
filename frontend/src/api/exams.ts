@@ -1,5 +1,6 @@
 import { apiClient, courseUrl, inReadingLanguage, type CourseScope } from "@/api/client";
 import type { ExerciseType } from "@/api/course";
+import type { GeneratedTable } from "@/api/exercises";
 import type { Answer, AttemptPayload, NoExcerpt, SolutionExcerpt } from "@/api/exercises";
 import type { LessonTable } from "@/api/stats";
 
@@ -21,6 +22,8 @@ export interface ExamQuestion {
   partId: string;
   /** The lesson the question counts under (a case question names its own). */
   lessonId: string | null;
+  /** A generated item: its type's title, which stands where a lesson's tema label would. */
+  typeTitle?: string | null;
   /** Set on a case question: `exerciseId` is the case, this is the question inside it. */
   questionId: string | null;
   /** Shown at the end of its part; counted only if a question before it is voided (never, here). */
@@ -190,6 +193,8 @@ export interface ExamPrintQuestion {
   number: string;
   reserve?: boolean;
   prompt: string;
+  /** A generated item's table, printed above its options. */
+  table?: GeneratedTable;
   options: ExamPrintOption[];
 }
 
@@ -224,6 +229,8 @@ export interface ExamPrintKeyGroup {
 
 export interface ExamPrintData {
   presetId: string;
+  /** The seed the paper was drawn from; printed in the footer, so the same paper can be regenerated. */
+  seed?: number;
   title: string;
   description?: string | null;
   timeLimitMinutes: number | null;
@@ -236,11 +243,11 @@ export function examPrintUrl(course: CourseScope, presetId: string): string {
   return courseUrl(course, `/exams/presets/${presetId}/print`);
 }
 
-export async function getExamPrint(course: CourseScope, presetId: string): Promise<ExamPrintData> {
-  const { data } = await apiClient.get<ExamPrintData>(
-    courseUrl(course, `/exams/presets/${presetId}/print`),
-    inReadingLanguage(course),
-  );
+export async function getExamPrint(course: CourseScope, presetId: string, seed?: number): Promise<ExamPrintData> {
+  const { data } = await apiClient.get<ExamPrintData>(courseUrl(course, `/exams/presets/${presetId}/print`), {
+    ...inReadingLanguage(course),
+    params: seed === undefined ? undefined : { seed },
+  });
   return data;
 }
 

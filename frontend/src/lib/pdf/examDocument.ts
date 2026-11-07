@@ -3,6 +3,7 @@
 
 import type { Content, TDocumentDefinitions } from "pdfmake/interfaces";
 import type { CourseScope } from "@/api/client";
+import type { GeneratedTable } from "@/api/exercises";
 import {
   getExamPrint,
   type ExamPrintCase,
@@ -28,6 +29,26 @@ function optionRow(opt: ExamPrintOption): Content {
   };
 }
 
+function tableBlock(table: GeneratedTable): Content {
+  return {
+    stack: [
+      { text: table.title, bold: true, fontSize: 8.5, margin: [30, 2, 0, 2] },
+      {
+        table: {
+          headerRows: 1,
+          widths: table.header.map(() => "auto"),
+          body: [
+            table.header.map((cell) => ({ text: cell, bold: true, fontSize: 8 })),
+            ...table.rows.map((row) => row.map((cell) => ({ text: cell, fontSize: 8 }))),
+          ],
+        },
+        layout: "lightHorizontalLines",
+        margin: [30, 0, 0, 4],
+      },
+    ],
+  };
+}
+
 function questionBlock(q: ExamPrintQuestion): Content {
   const label = q.reserve ? `${q.number} (Reserva)` : q.number;
   return {
@@ -40,6 +61,7 @@ function questionBlock(q: ExamPrintQuestion): Content {
         columnGap: 4,
         margin: [0, 4, 0, 4],
       },
+      ...(q.table ? [tableBlock(q.table)] : []),
       ...q.options.map(optionRow),
     ],
     unbreakable: true,
@@ -238,7 +260,11 @@ export function buildExamDocument(data: ExamPrintData): TDocumentDefinitions {
     }),
     footer: (currentPage: number, pageCount: number) => ({
       columns: [
-        { text: "Antigravity Curset · Oposiciones AGE", fontSize: 8, color: PRINT.muted },
+        {
+          text: data.seed === undefined ? "Antigravity Curset · Oposiciones AGE" : `Antigravity Curset · Oposiciones AGE · Semilla ${data.seed}`,
+          fontSize: 8,
+          color: PRINT.muted,
+        },
         { text: `${currentPage} / ${pageCount}`, fontSize: 8, color: PRINT.muted, alignment: "right" },
       ],
       margin: [PAGE.margins[0], 20, PAGE.margins[2], 0],
@@ -247,8 +273,8 @@ export function buildExamDocument(data: ExamPrintData): TDocumentDefinitions {
   };
 }
 
-export async function generateExamPdf(course: CourseScope, presetId: string): Promise<GeneratedPdf> {
-  const data = await getExamPrint(course, presetId);
+export async function generateExamPdf(course: CourseScope, presetId: string, seed?: number): Promise<GeneratedPdf> {
+  const data = await getExamPrint(course, presetId, seed);
   const definition = buildExamDocument(data);
   const pdfMake = await loadPdfMake();
   const blob = await pdfMake.createPdf(definition).getBlob();

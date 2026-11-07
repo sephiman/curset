@@ -93,6 +93,13 @@ export interface NoExcerpt {
   href: string | null;
 }
 
+/** The table a generated item is asked on: a title, a header row and the rows. */
+export interface GeneratedTable {
+  title: string;
+  header: string[];
+  rows: string[][];
+}
+
 export interface AttemptPayload {
   // quiz — every quiz payload carries `kind`; calculation carries "multiple_choice".
   kind?: QuizKind | "multiple_choice";
@@ -103,6 +110,9 @@ export interface AttemptPayload {
   // calculation
   unit?: string | null;
   formula?: string;
+  // psicotecnico: a table shown with the stem, and the generator that built the item
+  table?: GeneratedTable;
+  generator?: string;
   // case (print only): the scenario and its questions in order
   scenario?: string;
   questions?: { id: string; number: string; prompt: string; payload: AttemptPayload }[];

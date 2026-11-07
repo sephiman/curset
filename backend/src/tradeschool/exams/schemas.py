@@ -74,6 +74,7 @@ class ExamQuestionOut(BaseModel):
     lessonId: str | None
     questionId: str | None
     reserve: bool
+    typeTitle: str | None = None
     # Reveal-only (populated on a submitted session's review):
     lessonAnchor: str | None = None
     citation: str | None = None
@@ -105,6 +106,7 @@ class ExamQuestionOut(BaseModel):
             lessonId=q.lesson_id,
             questionId=q.question_id,
             reserve=q.reserve,
+            typeTitle=q.type_title,
             lessonAnchor=q.lesson_anchor,
             citation=q.citation,
             timeSeconds=q.time_seconds,

@@ -259,8 +259,9 @@ export function ExamReview() {
       <div className="space-y-4 lg:mx-auto lg:max-w-3xl">
         {exam.questions.map((q) => {
           const isCase = caseTitles.has(q.exerciseId);
-          const temaInfo = findTemaInfo(course, q.lessonId);
-          const reference = buildQuestionReference(course, q.lessonId, q.questionId);
+          const temaInfo = q.typeTitle ? { temaLabel: q.typeTitle } : findTemaInfo(course, q.lessonId);
+          // A generated item is named by its seed: `gen:<generator>:<seed>` replays it.
+          const reference = q.typeTitle ? q.questionId : buildQuestionReference(course, q.lessonId, q.questionId);
           const result = {
             attemptId: q.attemptId,
             correct: !!q.isCorrect,

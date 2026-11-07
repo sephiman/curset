@@ -24,6 +24,10 @@ LIST_LENGTH = 3
 
 Outcome = Literal["correct", "wrong", "blank"]
 
+#: The group generated items sit in: psicotécnico types are rows of it, as if they were lessons.
+GENERATED_GROUP_ID = "psicotecnicos"
+GENERATED_GROUP_TITLE = {"es": "Psicotécnicos", "en": "Aptitude tests"}
+
 
 @dataclass
 class _Row:
@@ -33,6 +37,8 @@ class _Row:
     wrong: int = 0
     blank: int = 0
     order: int = 0
+    #: `type` for a psicotécnico type, which has no lesson to link to.
+    kind: str | None = None
     total_seconds: float = 0.0
     timed_count: int = 0
 
@@ -62,6 +68,8 @@ class _Row:
         }
         if self.timed_count > 0:
             data["averageSeconds"] = self.average_seconds
+        if self.kind is not None:
+            data["kind"] = self.kind
         return data
 
 
@@ -96,11 +104,14 @@ def lesson_table(
         outcome = entry[1]
         time_seconds = entry[2] if len(entry) > 2 else None
         location = registry.lesson_location(lesson_id)
-        if location is None:
+        use = registry.generator_use(lesson_id)
+        if location is not None:
+            row = lessons.setdefault(lesson_id, _Row(lesson_id, location.lesson.title.get(locale)))
+        elif use is not None:
+            row = lessons.setdefault(lesson_id, _Row(lesson_id, use.title.get(locale), kind="type"))
+        else:
             continue
-        lessons.setdefault(lesson_id, _Row(lesson_id, location.lesson.title.get(locale))).add(
-            outcome, time_seconds
-        )
+        row.add(outcome, time_seconds)
 
     groups: list[_Group] = []
     for order, (module, lesson) in enumerate(registry.manifest.iter_lessons()):
@@ -116,6 +127,27 @@ def lesson_table(
             setattr(group.module, outcome, getattr(group.module, outcome) + getattr(found, outcome))
         group.module.total_seconds += found.total_seconds
         group.module.timed_count += found.timed_count
+
+    typed = [
+        (index, lessons[use.exercise_id])
+        for index, use in enumerate(registry.generator_uses())
+        if use.exercise_id in lessons
+    ]
+    if typed:
+        base = len(registry.manifest.iter_lessons())
+        group = _Group(
+            _Row(
+                GENERATED_GROUP_ID, GENERATED_GROUP_TITLE.get(locale, GENERATED_GROUP_TITLE["es"]), order=base
+            )
+        )
+        for index, row in typed:
+            row.order = base + 1 + index
+            group.lessons.append(row)
+            for outcome in ("correct", "wrong", "blank"):
+                setattr(group.module, outcome, getattr(group.module, outcome) + getattr(row, outcome))
+            group.module.total_seconds += row.total_seconds
+            group.module.timed_count += row.timed_count
+        groups.append(group)
 
     lists = _ranked([row for group in groups for row in group.lessons], "lessonId")
     level: Literal["lesson", "module"] | None = "lesson" if lists else None

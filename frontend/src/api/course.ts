@@ -10,7 +10,8 @@ export type ExerciseType =
   | "synthetic_chart"
   | "fixture_chart"
   | "pattern_chart"
-  | "case";
+  | "case"
+  | "psicotecnico";
 
 export interface ExerciseRef {
   id: string;
@@ -67,6 +68,15 @@ export interface CourseMeta {
   optionLabels?: "letters" | null;
   /** Whether the course PDF export includes in-lesson exercises and answer key; false for theory only. */
   pdfExercises?: boolean;
+  /** The psicotécnico types the course generates; absent: the course has no «Psicotécnicos» practice. */
+  psicotecnicos?: PsicotecnicoType[];
+}
+
+/** One generator the course uses: its exercise id opens attempts, its title names its row in the tables. */
+export interface PsicotecnicoType {
+  generator: string;
+  exerciseId: string;
+  title: string;
 }
 
 export interface Course {

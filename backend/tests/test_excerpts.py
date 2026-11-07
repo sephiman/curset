@@ -264,6 +264,15 @@ def test_a_table_row_is_one_block_with_its_cells_in_order() -> None:
     assert [block.text for block in blocks] == ["Ctrl+C — Copia el elemento."]
 
 
+def test_a_section_whose_id_names_copilot_is_content_and_a_banner_is_furniture() -> None:
+    blocks, _ = html_blocks(
+        '<body><div id="copilotBanner" class="CopilotInlineBanner"><p>Obtener ayuda con Copilot</p></div>'
+        '<section id="tabpanel_1_microsoft-copilot-chat-basic"><p>Copilot Chat es gratuito.</p></section>'
+        '<section id="stickybanner-uid9a60"><p>Suscríbete</p></section></body>'
+    )
+    assert [block.text for block in blocks] == ["Copilot Chat es gratuito."]
+
+
 def test_an_excerpt_is_capped_at_a_sentence_end_and_marked() -> None:
     text = " ".join(["Una frase de diez palabras que termina aquí con punto."] * 30)
     cut, was_cut = capped(text)

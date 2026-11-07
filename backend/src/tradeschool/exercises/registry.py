@@ -8,6 +8,7 @@ from tradeschool.exercises.calculation import CalculationGenerator
 from tradeschool.exercises.case import CaseGenerator
 from tradeschool.exercises.fixture_chart import FixtureChartGenerator
 from tradeschool.exercises.pattern_chart import PatternChartGenerator
+from tradeschool.exercises.psicotecnico import PsicotecnicoGenerator
 from tradeschool.exercises.quiz import QuizGenerator
 from tradeschool.exercises.synthetic_chart import SyntheticChartGenerator
 from tradeschool.exercises.types import ExerciseType
@@ -21,6 +22,7 @@ _GENERATORS: dict[ExerciseType, ExerciseGenerator] = {
         FixtureChartGenerator(),
         PatternChartGenerator(),
         CaseGenerator(),
+        PsicotecnicoGenerator(),
     )
 }
 

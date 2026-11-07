@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/primitives";
 import { useCourseTree } from "@/features/course/queries";
 import { assignPair, isComplete, unassignPair, usedRights, type Pairs } from "@/features/exercises/matching";
 import { moveItem } from "@/features/exercises/ordering";
+import { GeneratedTable } from "@/features/exercises/GeneratedTable";
 import { cn } from "@/lib/cn";
 
 // In practice mode `onSubmit` is provided (select → submit → grade). In exam mode `deferred` is
@@ -42,6 +43,14 @@ export function QuizExercise({
   const { data: courseTree } = useCourseTree();
   const letters = courseTree?.course.optionLabels === "letters";
   const p: ControlProps = { pending, onSubmit, deferred };
+  if (payload.table) {
+    return (
+      <>
+        <GeneratedTable table={payload.table} />
+        <QuizExercise payload={{ ...payload, table: undefined }} {...p} />
+      </>
+    );
+  }
   switch (payload.kind) {
     case "true_false":
       return <TrueFalse {...p} />;

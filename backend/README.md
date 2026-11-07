@@ -18,6 +18,7 @@ src/tradeschool/
   content/      manifest + content registry loader, validation, reconciliation, CLI sync,
                 print_export.py (the printed book's frozen exercise instances + their answer key —
                 the one place a solution leaves the server before a learner has answered)
+  psicotecnico/ generated psicotécnico items: contract + property tests, 13 generators, word banks, goldens
   exercises/    ExerciseGenerator ABC + registry + generators + Decimal formulas + chart engine + lesson figures
                 + reveal.py (read an instance's ground truth, verified by re-grading it)
   attempts/     seeded attempts, server-side grading, abandoned rule

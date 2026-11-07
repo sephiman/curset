@@ -40,7 +40,13 @@ class AttemptInstance(BaseModel):
         return cls(
             attemptId=opened.attempt.id,
             exerciseId=opened.exercise_id,  # display id; the row stores the permanent key
-            questionId=opened.attempt.question_id or opened.attempt.variant_id,
+            questionId=opened.attempt.question_id
+            or opened.attempt.variant_id
+            or (
+                f"{opened.exercise_id}:{opened.attempt.seed}"
+                if opened.exercise_id.startswith("gen:")
+                else None
+            ),
             type=opened.exercise_type.value,
             prompt=opened.instance.prompt,
             payload=opened.instance.payload,

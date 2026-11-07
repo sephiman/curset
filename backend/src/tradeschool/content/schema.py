@@ -67,6 +67,26 @@ class ManifestBlock(BaseModel):
     modules: list[ManifestModule] = Field(default_factory=list)
 
 
+class GeneratorUse(BaseModel):
+    """A psicotécnico generator the course uses: its row in the tables and its weight in the exam mix."""
+
+    model_config = ConfigDict(extra="forbid")
+    generator: str
+    title: LocalizedText
+    #: Its share of a mixed exam part's generated items (the index's count in the scored questions).
+    weight: int = Field(ge=1)
+    #: Difficulty level -> weight, how often each level is drawn.
+    difficulty: dict[int, int] = Field(default_factory=lambda: {1: 1, 2: 1, 3: 1})
+
+    @property
+    def exercise_id(self) -> str:
+        return generated_exercise_id(self.generator)
+
+
+def generated_exercise_id(generator: str) -> str:
+    return f"gen:{generator}"
+
+
 class CourseStatus(StrEnum):
     #: Loaded and verified by the pipeline, never offered to users.
     DRAFT = "draft"
@@ -111,6 +131,8 @@ class ManifestCourse(BaseModel):
     #: The course's symbol, `identity/<glyph>.svg` in its directory; absent: the course shows none.
     glyph: str | None = Field(default=None, pattern=r"^[a-z0-9-]+$")
     color: CourseColor | None = None
+    #: The psicotécnico generators the course uses, for the «Psicotécnicos» practice and its mixed exam parts.
+    practice_generators: list[GeneratorUse] = Field(default_factory=list)
 
     @model_validator(mode="after")
     def _distinct_languages(self) -> Self:
@@ -171,6 +193,11 @@ class Manifest(BaseModel):
                     raise ValueError(f"duplicate stable key: {key!r}")
                 seen_keys.add(key)
 
+        generators = [use.generator for use in self.course.practice_generators]
+        if len(set(generators)) != len(generators):
+            raise ValueError(f"course {self.course.id!r}: a generator is declared twice")
+        if generators and ExerciseType.PSICOTECNICO not in self.course.exercise_types:
+            raise ValueError(f"course {self.course.id!r} declares generators but not the psicotecnico type")
         declared = set(self.course.exercise_types)
         for _, _, exercise in self.iter_exercises():
             if exercise.type not in declared:
@@ -210,6 +237,14 @@ class Manifest(BaseModel):
                             raise ValueError(
                                 f"exam {preset.id!r} part {part.id!r}: unknown {level} {named!r}"
                             )
+                if (
+                    any(entry.source.generators for entry in part.draws)
+                    and not self.course.practice_generators
+                ):
+                    raise ValueError(
+                        f"exam {preset.id!r} part {part.id!r} draws generated items; the course declares no "
+                        f"generators"
+                    )
                 if part.cases and ExerciseType.CASE not in self.course.exercise_types:
                     raise ValueError(
                         f"exam {preset.id!r} part {part.id!r} draws cases; the course declares no case type"

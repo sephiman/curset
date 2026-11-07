@@ -32,6 +32,8 @@ class PresetSource(BaseModel):
     model_config = ConfigDict(extra="forbid")
     course: bool = False
     cases: bool = False
+    #: Generated psicotécnico items, split among the course's `practice_generators` by their weights.
+    generators: bool = False
     block: str | None = None
     module: str | None = None
     #: A set of modules drawn as one pool (AGE bloques I to V).
@@ -43,8 +45,8 @@ class PresetSource(BaseModel):
     @model_validator(mode="before")
     @classmethod
     def _from_word(cls, raw: object) -> object:
-        # `source: course` and `source: cases` read as words; scoped sources are mappings.
-        if raw in ("course", "cases"):
+        # `source: course`, `cases` and `generators` read as words; scoped sources are mappings.
+        if raw in ("course", "cases", "generators"):
             return {raw: True}
         return raw
 
@@ -52,11 +54,21 @@ class PresetSource(BaseModel):
     def _exactly_one(self) -> Self:
         chosen = [
             name
-            for name in ("course", "cases", "block", "module", "modules", "lesson", "exercise", "each")
+            for name in (
+                "course",
+                "cases",
+                "generators",
+                "block",
+                "module",
+                "modules",
+                "lesson",
+                "exercise",
+                "each",
+            )
             if getattr(self, name)
         ]
         if len(chosen) != 1:
-            names = "course, cases, block, module, modules, lesson, exercise, each"
+            names = "course, cases, generators, block, module, modules, lesson, exercise, each"
             raise ValueError(f"a part's source names one of {names}; got {chosen}")
         return self
 
@@ -169,6 +181,8 @@ class PresetPart(BaseModel):
             raise ValueError(f"part {self.id!r}: `case_pairs` belongs to a case part")
         if problem := _count_problem(self.draw, self.questions, self.reserve):
             raise ValueError(f"part {self.id!r}: {problem}")
+        if self.source.generators and (self.draw != "random" or self.reserve):
+            raise ValueError(f"part {self.id!r}: generated items are drawn by count, with no reserve")
         return self
 
     def _composite(self) -> Self:
@@ -186,6 +200,8 @@ class PresetPart(BaseModel):
                 raise ValueError(
                     f"part {self.id!r} source {number}: a composite part draws questions from fixed sources"
                 )
+            if entry.source.generators and entry.draw != "random":
+                raise ValueError(f"part {self.id!r} source {number}: generated items are drawn by count")
             reserve = self.reserve if entry.draw == "per-module" else 0
             if problem := _count_problem(entry.draw, entry.questions, reserve):
                 raise ValueError(f"part {self.id!r} source {number}: {problem}")

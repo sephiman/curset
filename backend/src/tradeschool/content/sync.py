@@ -28,6 +28,7 @@ from tradeschool.content.models import (
 )
 from tradeschool.content.registry import Catalog, load_catalog
 from tradeschool.content.schema import Manifest
+from tradeschool.exercises.types import ExerciseType
 
 logger = logging.getLogger("tradeschool.content")
 
@@ -107,6 +108,16 @@ async def reconcile(manifest: Manifest, session: AsyncSession, order_index: int 
                         "type": exercise.type,
                         "order_index": e_index,
                     }
+
+    # Generated exercises hang off no module: attempts of a psicotécnico item point at their generator's row.
+    for index, use in enumerate(manifest.course.practice_generators, start=1):
+        exercises[use.exercise_id] = {
+            "course_id": course_id,
+            "module_id": None,
+            "lesson_id": None,
+            "type": ExerciseType.PSICOTECNICO,
+            "order_index": index,
+        }
 
     # Parents before children so foreign keys resolve on insert.
     await upsert(Course, courses)

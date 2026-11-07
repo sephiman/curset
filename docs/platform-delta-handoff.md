@@ -863,3 +863,169 @@ that asserts only the stem and the first two options.
 Results: `ci-local.sh` alone, three consecutive runs: 57/57 passed each (1.2 min). Backend `pytest -n
 auto`: 1,597 passed, 21 skipped; ruff, format, mypy clean. Frontend: lint clean, `npm test` 671 passed,
 51 skipped.
+
+# Round L — generated psicotécnico items and mixed exam parts (delta v2.0 L, 2026-11-07)
+
+Not committed. 13 generators, the `psicotecnico` kind, mixed parts, the «Psicotécnicos» practice, the extractor fix.
+
+- **Contract** (`psicotecnico/contract.py`): `build(seed, params) → Item` (stem, optional table, 4 options, key, explanation, facts); `solve(item) → index` recomputed from the item as printed (arithmetic in `Fraction`; series: every rule of the family that explains the terms must continue them the same way; ordering: one sorted order; filters: one row); `check_extra` per type. `verify` runs the property tests at every level; `registry.load_generator` runs it once per process and raises `GeneratorLoadError`, so a course declaring a failing generator does not load (tested with a deliberately wrong one). `generate` redraws `build` until the key's place by length matches a seed-drawn target: without it the 1,000-item guards found the key almost never the longest.
+- **Platform:** exercise kind `psicotecnico` (payload = single choice plus optional `table`, rendered above the options); `practice_generators` in `course.yaml` (generator, title, weight, difficulty level weights) → one exercise `gen:<generator>` each (migration `a2b3c4d5e6f7`: enum value, `exercises.module_id` nullable); attempt ids `gen:<generator>:<seed>`.
+- **Mixed parts:** `source: generators` beside stored sources in a composite part; the count is split by weight, exactly (largest remainder); one clock, one score. Results, «Por tema» and Progress list each type as a row of the group «Psicotécnicos» (`kind: "type"`, no lesson link); the two lists treat them as lessons. Printed exams: `seed` in the payload and the footer, `?seed=` regenerates the paper, key sheet from the solver (test: same seed, same paper).
+- **Practice:** `POST /practice/psicotecnicos {generator?, count}`; page `practice/psicotecnicos` (a type or all, 10/20/40, timed = 50 s per item), card on the course page, solution panel open with the rule and the copyable `gen:…` id, no report link (reports are per stored question).
+- **Decide:** (1) weights are the totals of questions 31–60 over the six questionnaires for the 13 types (tablas 62, codificación 16, sinónimos 14, …), not the 2025 column, which is zero for five types; one line per type in `content/age-auxiliar-c2/course.yaml`. (2) One table per item (the exams share one table among six questions). (3) Option style per type follows the index (verbal and fracciones end in a full stop; money «41,40 €»). (4) The word banks (48 synonym entries, 36 definitions, 62 spelling pairs, 4 sentences) are mine, from memory: the blind review's main target.
+- **L7:** `_FURNITURE` matched `copilot|banner` against element ids, so `tabpanel_*_microsoft-copilot-*` sections were dropped; now `banner` only (test first). Rebuilding changed **no** excerpt in either course (C2's `excerpts.json` is empty), so there is nothing to blind-check for L7.
+- **Left:** blind opus review of the 13 pages in `docs/age-verification/c2/psicotecnicos/`; the 3 types of the index not in the batch (series alfanuméricas, analogías, palabra intrusa); C2 stays draft, so no browser e2e of the practice page exists (pytest + vitest cover it on the fixture course).
+- **Unchanged, checked:** crypto-futures goldens and exam results, C1 content and `dist/`, Android contracts (pytest), the two excerpt files.
+- **Results:** backend pytest 2,271 passed, 23 skipped; ruff, format and `mypy src` clean; vitest 723 passed, 81 skipped; `tsc -b` clean; e2e (`ci-local.sh`) 58 passed; goldens check (`export_psicotecnico_goldens.py --check`) up to date.
+
+## Mixed-part preset example (`fixture-oposiciones`; C2 will use 30 + 30 the same way)
+
+```yaml
+- id: mixto
+  version: 1
+  title: {es: Mixto}
+  time_limit_minutes: 20
+  parts:
+  - id: mezcla
+    sources:
+    - source: {module: m01}
+      questions: 4
+    - source: generators      # split by `practice_generators` weights, exactly
+      questions: 6
+    penalty: 1/3
+    scoring: {max: 10, pass_minimum: 5, minimum_raw: 3}
+```
+
+## One full item per generator (first golden of each)
+
+**tablas-lectura** (nivel 2, seed 274797139979144773)
+
+```text
+Excursiones: Destino | Tipo | Transporte | Participantes | Precio por persona (€) | Duración (horas) | Kilómetros
+  Segovia | Naturaleza | Tren | 57 | 72 | 23 | 384
+  Teruel | Deportiva | Barco | 43 | 72 | 15 | 172
+  Ronda | Cultural | Autobús | 30 | 29 | 12 | 171
+  Jaca | Naturaleza | Barco | 52 | 23 | 14 | 61
+  Úbeda | Gastronómica | Tren | 58 | 51 | 19 | 76
+  Lugo | Cultural | Autobús | 54 | 83 | 23 | 283
+  Cuenca | Naturaleza | Autobús | 52 | 74 | 25 | 247
+  Toledo | Cultural | Barco | 52 | 73 | 29 | 299
+  Mérida | Naturaleza | Autobús | 45 | 93 | 13 | 267
+  León | Gastronómica | Tren | 21 | 22 | 29 | 296
+```
+
+> Responda a la siguiente pregunta según la tabla llamada Excursiones: ¿Cuántos destinos tienen duración inferior a 25, participantes superior a 50 y precio por persona inferior a 81?
+>   a) 3
+>   b) 4
+>   c) 6
+>   d) 2
+> Clave: a. Cumplen las condiciones (duración inferior a 25, participantes superior a 50 y precio por persona inferior a 81) exactamente 3.
+
+**atencion-codificacion** (nivel 2, seed 3167175567751435939)
+
+> En un sistema de codificación cada consonante mayúscula vale 3, cada consonante minúscula vale 6, cada vocal mayúscula vale 8, cada vocal minúscula vale 4. ¿Cuál es el valor de la palabra «TRaMiTes»?
+>   a) 30
+>   b) 34
+>   c) 28
+>   d) 33
+> Clave: a. Se suma el valor de cada letra según su clase (T=3, R=3, a=4, M=3, i=4, T=3, e=4, s=6): 30.
+
+**verbal-sinonimos** (nivel 1, seed 1141078955796556589)
+
+> Señale la palabra cuyo significado es más parecido al de CONCISO.
+>   a) Extenso.
+>   b) Prolijo.
+>   c) Anodino.
+>   d) Lacónico.
+> Clave: d. Lacónico significa lo mismo que conciso; extenso y prolijo son opuestas o distintas.
+
+**verbal-antonimos** (nivel 1, seed 917527974932006563)
+
+> Indique entre las siguientes palabras cuál es el antónimo u opuesto de la palabra PROHIBIR.
+>   a) Aprobar.
+>   b) Vedar.
+>   c) Vetar.
+>   d) Impedir.
+> Clave: a. Aprobar es lo contrario de prohibir; las otras tres palabras significan lo mismo que prohibir.
+
+**calculo-ecuaciones** (nivel 2, seed 2226927027398353954)
+
+> Halla el valor de x en la siguiente ecuación: 12(3x - 6) = 2x + 17
+>   a) 2,62
+>   b) 4,62
+>   c) 2,74
+>   d) 2,67
+> Clave: a. Se desarrolla el paréntesis y se pasan las x a un lado: 34x = 89, de donde x = 89 / 34 = 2,62.
+
+**verbal-definicion** (nivel 2, seed 1563036168015923380)
+
+> Señale qué palabra corresponde a la siguiente definición: "Alimento o sustento de algo".
+>   a) Acervo.
+>   b) Exiguo.
+>   c) Pábulo.
+>   d) Mácula.
+> Clave: c. Pábulo: alimento o sustento de algo.
+
+**verbal-ortografia** (nivel 2, seed 1515392746909287158)
+
+> ¿Cuántos errores ortográficos contiene la siguiente frase? Ayer habia que exigir a la comision el desarrollo del archivo también en la oficina central.
+>   a) 2.
+>   b) 4.
+>   c) 5.
+>   d) 3.
+> Clave: a. Tiene 2 errores: habia, comision.
+
+**calculo-problemas** (nivel 1, seed 180558790999070772)
+
+> Un edificio tiene 3 salas de formación y cada una tiene 16 filas de 9 sillas. ¿Cuántas sillas hay en total?
+>   a) 484.
+>   b) 501.
+>   c) 432.
+>   d) 415.
+> Clave: c. 3 × 16 × 9 = 432 sillas.
+
+**calculo-porcentajes** (nivel 1, seed 142476236321150123)
+
+> Si hay un 12 % de descuento en un producto cuyo precio original es de 150 €, ¿qué importe se pagará una vez aplicado el descuento?
+>   a) 132,00 €
+>   b) 133,00 €
+>   c) 137,28 €
+>   d) 138,00 €
+> Clave: a. El descuento es el 12 % de 150; se paga el 88 % del precio: 150 × 88 / 100. Resultado: 132,00 €.
+
+**serie-numerica** (nivel 2, seed 3604771523163253630)
+
+> ¿Qué número continúa la secuencia 4, 11, 25, 53, 109, 221, _?
+>   a) 445
+>   b) 330
+>   c) 435
+>   d) 465
+> Clave: a. En 4, 11, 25, 53, 109, 221, cada término es el anterior multiplicado por una constante más otra constante; el que sigue es 445.
+
+**administrativo-clasificacion** (nivel 2, seed 2905171413568856296)
+
+> Un archivo ordena los expedientes por apellido en seis cajones: cajón 1: de Abad a Crespo; cajón 2: de Delgado a Durán; cajón 3: de Escudero a Jiménez; cajón 4: de Jover a León; cajón 5: de López a Rojas; cajón 6: de Romero a Zamora. ¿En qué cajón se archivará el expediente de Benítez?
+>   a) Cajón 6.
+>   b) Cajón 5.
+>   c) Cajón 1.
+>   d) Cajón 2.
+> Clave: c. Por orden alfabético, Benítez queda entre Abad y Crespo: cajón 1.
+
+**calculo-fracciones-proporciones** (nivel 2, seed 2551544288612410887)
+
+> Un premio de 1490 euros se reparte entre tres personas de forma directamente proporcional a 2, 3 y 5. ¿Cuántos euros recibe la segunda?
+>   a) 536.
+>   b) 393.
+>   c) 447.
+>   d) 519.
+> Clave: c. El total son 10 partes y cada parte vale 149; la persona pedida tiene 3 partes: 447.
+
+**administrativo-ordenacion** (nivel 2, seed 4555066965740239113)
+
+> ¿Qué serie indica el orden alfabético correcto de las siguientes palabras?
+>   a) consenso, conserva, consola, consuelo, consumo.
+>   b) conserva, consenso, consola, consumo, consuelo.
+>   c) consenso, consola, conserva, consuelo, consumo.
+>   d) conserva, consenso, consola, consuelo, consumo.
+> Clave: a. Se comparan las palabras letra a letra, desde la primera en que dejan de coincidir (la 5.ª en las más parecidas): consenso, conserva, consola, consuelo, consumo.
+

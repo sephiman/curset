@@ -401,6 +401,17 @@ part is not graded. The load fails when a preset's pool cannot supply it. `crypt
 two historical exams this way; their draws and results are frozen in
 `backend/tests/goldens/crypto-exam-results.json`.
 
+## Psicotécnico generators
+
+`practice_generators` in `course.yaml` lists the generators a course uses: `generator` (one of
+`backend/src/tradeschool/psicotecnico/registry.py`), `title`, `weight` (its share of the generated items of a mixed
+exam part, as the index counts the type in the scored questions) and `difficulty` (level → weight). The course
+declares `psicotecnico` in `exercise_types`. A part draws them with `source: generators` next to a stored source:
+`{questions: 30}` splits the 30 among the types by weight exactly (largest remainder). Spanish only; text and
+tables, no images. Each generator follows the verbatim examples of `docs/age-c2-psicotecnico-index.md`. Before a
+generator or its word bank changes, rerun `scripts/export_psicotecnico_goldens.py`, review the 50 items it writes,
+and commit the new fingerprints (`tests/test_psicotecnico_generators.py` fails until then).
+
 ## Case exercises
 
 `type: case` (declare `case` in `exercise_types`): a `title`, a one-page `scenario` in Markdown with no

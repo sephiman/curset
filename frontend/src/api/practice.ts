@@ -20,3 +20,22 @@ export async function drawPracticeRound(scope: CourseScope, lessonId: string, al
   );
   return data;
 }
+
+/** A «Psicotécnicos» round: generated exercise ids in the order to serve them, each opened as its own attempt. */
+export interface GeneratedRound {
+  exerciseIds: string[];
+}
+
+/** One type (`generator`) or every type in the course's weights (absent), `count` items. */
+export async function drawPsicotecnicoRound(
+  scope: CourseScope,
+  count: number,
+  generator?: string,
+): Promise<GeneratedRound> {
+  const { data } = await apiClient.post<GeneratedRound>(
+    courseUrl(scope, "/practice/psicotecnicos"),
+    { count, generator: generator ?? null },
+    inReadingLanguage(scope),
+  );
+  return data;
+}

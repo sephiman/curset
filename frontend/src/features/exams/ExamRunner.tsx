@@ -193,7 +193,7 @@ export function ExamRunner() {
     exam.presetId.startsWith("conv") ||
     exam.presetId.startsWith("ofi-");
   const showTema = Boolean(courseTree?.course.lessonNoun && !isSimulation);
-  const currentTema = showTema ? findTemaInfo(courseTree, q.lessonId) : null;
+  const currentTema = showTema ? (q.typeTitle ? { temaLabel: q.typeTitle } : findTemaInfo(courseTree, q.lessonId)) : null;
 
   const recordCurrentQuestionTime = (fromIdx: number) => {
     const prevQ = questions[fromIdx];
@@ -356,7 +356,7 @@ export function ExamRunner() {
         </div>
         {CHART_TYPES.has(q.type) ? (
           <ChartExercise key={q.attemptId} type={q.type} payload={q.payload} result={null} deferred={deferred} />
-        ) : q.type === "quiz" || q.type === "case" ? (
+        ) : q.type === "quiz" || q.type === "case" || q.type === "psicotecnico" ? (
           <QuizExercise key={q.attemptId} payload={q.payload} deferred={deferred} />
         ) : (
           <CalculationExercise

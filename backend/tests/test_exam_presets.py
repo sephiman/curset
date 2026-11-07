@@ -109,7 +109,7 @@ async def test_the_exam_list_shows_each_preset_with_parts_questions_and_time(
 ) -> None:
     await _sign_up(multi_client, "lister")
     presets = (await multi_client.get(f"{OPOS}/exams/presets")).json()
-    simulacro, tema = presets
+    simulacro, tema, _mixto = presets
     assert (simulacro["id"], simulacro["title"], simulacro["timeLimitMinutes"], simulacro["questions"]) == (
         "simulacro",
         "Simulacro",

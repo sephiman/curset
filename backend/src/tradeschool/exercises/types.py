@@ -17,3 +17,5 @@ class ExerciseType(StrEnum):
     PATTERN_CHART = "pattern_chart"
     # A scenario with an ordered list of multiple-choice questions that share it (supuesto práctico).
     CASE = "case"
+    # A generated psicotécnico item: any seed is a fresh question from a named generator.
+    PSICOTECNICO = "psicotecnico"

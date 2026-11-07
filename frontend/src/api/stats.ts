@@ -130,6 +130,8 @@ export interface LessonTableRow {
   pct: number | null;
   title: string;
   averageSeconds?: number | null;
+  /** `type` for a psicotécnico type: a row like a lesson's, with no lesson to open. */
+  kind?: "type";
 }
 
 export interface LessonTableGroup extends LessonTableRow {

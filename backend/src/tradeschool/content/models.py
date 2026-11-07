@@ -77,7 +77,8 @@ class Exercise(CourseOwnedModel):
         ForeignKeyConstraint(["course_id", "lesson_id"], ["lessons.course_id", "lessons.id"]),
     )
 
-    module_id: Mapped[str] = mapped_column(String, nullable=False, index=True)
+    # Null for a generated exercise (`gen:<generator>`), which belongs to no module and no lesson.
+    module_id: Mapped[str | None] = mapped_column(String, nullable=True, index=True)
     lesson_id: Mapped[str | None] = mapped_column(String, nullable=True, index=True)
     type: Mapped[ExerciseType] = mapped_column(
         Enum(ExerciseType, name="exercise_type", native_enum=True), nullable=False

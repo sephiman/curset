@@ -31,12 +31,23 @@ function sortRows<T extends LessonTableRow>(rows: T[], column: SortColumn): T[] 
   return [...rows].sort((a, b) => sign * ((a[column] ?? 0) - (b[column] ?? 0)));
 }
 
+/** A lesson's title opens the lesson; a psicotécnico type has none, so its title is plain text. */
+function RowTitle({ row, className }: { row: { lessonId: string; title: string; kind?: "type" }; className?: string }) {
+  const { path } = useCourse();
+  if (row.kind === "type") return <span className={className}>{row.title}</span>;
+  return (
+    <Link to={path(`/lessons/${row.lessonId}`)} className={cn("text-primary hover:underline", className)}>
+      {row.title}
+    </Link>
+  );
+}
+
 function Lists({ lists, threshold }: { lists: LessonTableLists; threshold: number }) {
   const { t } = useTranslation();
   const { path } = useCourse();
   const entry = (row: LessonTableLists["best"][number]) => (
     <li key={row.lessonId ?? row.moduleId} className="flex items-baseline justify-between gap-3 text-sm">
-      {row.lessonId ? (
+      {row.lessonId && row.kind !== "type" ? (
         <Link to={path(`/lessons/${row.lessonId}`)} className="truncate text-primary hover:underline">
           {row.title}
         </Link>
@@ -70,7 +81,6 @@ function Lists({ lists, threshold }: { lists: LessonTableLists; threshold: numbe
 /** K5: below 640 px, one card per lesson under its module — title, tally, percentage, average time. */
 function LessonCards({ groups, hasAvgTime }: { groups: LessonTable["groups"]; hasAvgTime: boolean }) {
   const { t } = useTranslation();
-  const { path } = useCourse();
   const tally = (row: LessonTableRow) =>
     [
       `${t("byLesson.correct")} ${row.correct}`,
@@ -96,9 +106,7 @@ function LessonCards({ groups, hasAvgTime }: { groups: LessonTable["groups"]; ha
                 className="rounded-lg border border-border p-3 dark:border-gray-800 oled:border-oled-line"
               >
                 <div className="flex items-baseline justify-between gap-3">
-                  <Link to={path(`/lessons/${row.lessonId}`)} className="min-w-0 text-sm text-primary hover:underline">
-                    {row.title}
-                  </Link>
+                  <RowTitle row={row} className="min-w-0 text-sm" />
                   <span className="shrink-0 text-base font-semibold tabular-nums">{pct(row.pct)}</span>
                 </div>
                 <p className="mt-1 text-xs text-gray-500 tabular-nums dark:text-gray-400">{tally(row)}</p>
@@ -118,7 +126,6 @@ function LessonCards({ groups, hasAvgTime }: { groups: LessonTable["groups"]; ha
  */
 export function ByLessonTable({ table, noun }: { table: LessonTable; noun?: string | null }) {
   const { t } = useTranslation();
-  const { path } = useCourse();
   const [sort, setSort] = useState<SortColumn>("order");
   const cards = useNarrowLayout();
   const hasAvgTime = useMemo(
@@ -214,9 +221,7 @@ export function ByLessonTable({ table, noun }: { table: LessonTable; noun?: stri
                 {group.lessons.map((row) => (
                   <tr key={row.lessonId} className="text-gray-700 dark:text-gray-300">
                     <td className="py-1.5 pr-3 pl-3">
-                      <Link to={path(`/lessons/${row.lessonId}`)} className="text-primary hover:underline">
-                        {row.title}
-                      </Link>
+                      <RowTitle row={row} />
                     </td>
                     {numbers(row)}
                   </tr>

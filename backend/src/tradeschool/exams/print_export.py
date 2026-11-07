@@ -15,7 +15,9 @@ from typing import Any
 from tradeschool.content.registry import CourseRegistry
 from tradeschool.exams.draw import DrawError, SeededRand, draw_part
 from tradeschool.exams.presets import ExamPreset
+from tradeschool.exercises.psicotecnico import PsicotecnicoConfig, build_item, option_id
 from tradeschool.exercises.quiz import QuizConfig, QuizGenerator
+from tradeschool.psicotecnico.registry import load_generator
 
 
 def build_exam_print(
@@ -25,7 +27,8 @@ def build_exam_print(
     if preset is None:
         raise DrawError(f"No preset {preset_id!r} in course {registry.slug!r}")
 
-    rand = SeededRand(seed if seed is not None else secrets.randbelow(2**32))
+    seed = seed if seed is not None else secrets.randbelow(2**32)
+    rand = SeededRand(seed)
     quiz_gen = QuizGenerator()
 
     parts_out: list[dict[str, Any]] = []
@@ -106,6 +109,11 @@ def build_exam_print(
             part_keys: list[dict[str, Any]] = []
 
             for index, dq in enumerate(drawn_part.questions, start=1):
+                if registry.generator_use(dq.exercise_id) is not None:
+                    printed, keyed = _generated_entry(registry, dq.exercise_id, dq.seed, index, dq.reserve)
+                    part_questions.append(printed)
+                    part_keys.append(keyed)
+                    continue
                 config_pair = registry.get_exercise_config(dq.exercise_id)
                 assert config_pair is not None
                 quiz_config = config_pair[1]
@@ -168,6 +176,8 @@ def build_exam_print(
 
     return {
         "presetId": preset.id,
+        # The paper regenerates from this seed: it is printed in the footer.
+        "seed": seed,
         "title": preset.title.get(locale),
         "description": preset.description.get(locale) if preset.description else None,
         "timeLimitMinutes": preset.time_limit_minutes,
@@ -175,3 +185,38 @@ def build_exam_print(
         "parts": parts_out,
         "keySheet": key_sheet,
     }
+
+
+def _generated_entry(
+    registry: CourseRegistry, exercise_id: str, seed: int, number: int, reserve: bool
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    """A generated item as printed (stem, table, lettered options) and its key-sheet line, key from the "
+    "solver."""
+    config_pair = registry.get_exercise_config(exercise_id)
+    assert config_pair is not None and isinstance(config_pair[1], PsicotecnicoConfig)
+    item = build_item(config_pair[1], seed)
+    key = load_generator(config_pair[1].generator).solve(item)
+    options = [
+        {"id": option_id(i), "letter": chr(65 + i), "text": text} for i, text in enumerate(item.options)
+    ]
+    printed: dict[str, Any] = {
+        "id": f"{exercise_id}:{seed}",
+        "number": str(number),
+        "reserve": reserve,
+        "prompt": item.stem,
+        "options": options,
+    }
+    if item.table is not None:
+        printed["table"] = {
+            "title": item.table.title,
+            "header": list(item.table.header),
+            "rows": [list(row) for row in item.table.rows],
+        }
+    keyed = {
+        "number": str(number),
+        "reserve": reserve,
+        "correctOptionId": option_id(key),
+        "correctLetter": chr(65 + key),
+        "explanation": item.explanation,
+    }
+    return printed, keyed

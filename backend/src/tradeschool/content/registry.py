@@ -26,11 +26,13 @@ from tradeschool.content.glossary import Glossary, GlossaryTerm, load_glossary
 from tradeschool.content.reading import estimate_seconds
 from tradeschool.content.schema import (
     CourseStatus,
+    GeneratorUse,
     Manifest,
     ManifestBlock,
     ManifestExercise,
     ManifestLesson,
     ManifestModule,
+    generated_exercise_id,
     missing_languages,
     parse_manifest,
 )
@@ -39,9 +41,11 @@ from tradeschool.content.yaml_file import read_yaml
 from tradeschool.exams.draw import check_presets
 from tradeschool.exercises.case import CaseConfig
 from tradeschool.exercises.figures import FigureSpec, load_figures
+from tradeschool.exercises.psicotecnico import PsicotecnicoConfig
 from tradeschool.exercises.quiz import QuizConfig, QuizGenerator, QuizVariant
 from tradeschool.exercises.registry import get_generator, has_generator
 from tradeschool.exercises.types import ExerciseType
+from tradeschool.psicotecnico.contract import GeneratorLoadError
 
 logger = logging.getLogger("tradeschool.content")
 
@@ -128,6 +132,8 @@ class CourseRegistry:
     # few ids across exercises, and those only ever resolve inside the attempt's own exercise.
     _variant_homes: dict[str, list[str]] = field(default_factory=dict)
     _official_exercises: dict[str, bool] = field(default_factory=dict)
+    # `gen:<generator>` -> the course's declaration of it.
+    _generator_uses: dict[str, GeneratorUse] = field(default_factory=dict)
 
     @property
     def slug(self) -> str:
@@ -186,6 +192,13 @@ class CourseRegistry:
             return None
         return QuizGenerator().variant(config[1], seed).id
 
+    def generator_use(self, exercise_id: str) -> GeneratorUse | None:
+        """The declaration of a generated exercise (`gen:<generator>`); None for any other."""
+        return self._generator_uses.get(exercise_id)
+
+    def generator_uses(self) -> list[GeneratorUse]:
+        return list(self.manifest.course.practice_generators)
+
     def case_config(self, exercise_id: str) -> CaseConfig | None:
         config = self.exercise_configs.get(exercise_id)
         return config[1] if config is not None and isinstance(config[1], CaseConfig) else None
@@ -199,6 +212,12 @@ class CourseRegistry:
             return self.lesson_id_for_key(case.question(question_id).lesson)
         except KeyError:
             return None
+
+    def table_row_id(self, exercise_id: str, question_id: str | None) -> str | None:
+        """The row a question counts under in the «Por tema» tables: its lesson, or its generator's type."""
+        if exercise_id in self._generator_uses:
+            return exercise_id
+        return self.question_lesson_id(exercise_id, question_id)
 
     def lesson_location(self, lesson_id: str) -> LessonLocation | None:
         return self._lessons.get(lesson_id)
@@ -220,7 +239,7 @@ class CourseRegistry:
     def question_link(self, ref: QuestionRef, locale: str) -> QuestionLink | None:
         """«Ver en la lección»: the question's lesson, at the anchor of what it cites when it cites."""
         lesson_id = self.question_lesson_id(ref.exercise_id, ref.question_id)
-        if lesson_id is None:
+        if lesson_id is None or ref.exercise_id in self._generator_uses:
             return None
         variant = self._shown_question(ref)
         return self.citations.question_link(lesson_id, variant.citation if variant else None, locale)
@@ -283,6 +302,11 @@ class CourseRegistry:
             self.reading_seconds[locale] = {
                 lesson_id: estimate_seconds(body) for lesson_id, body in lessons.items()
             }
+        for use in self.manifest.course.practice_generators:
+            # A generated exercise is its own key and id: no manifest lesson holds it.
+            self._exercise_keys[use.exercise_id] = use.exercise_id
+            self._exercise_ids[use.exercise_id] = use.exercise_id
+            self._generator_uses[use.exercise_id] = use
         for block, module in self.manifest.iter_modules():
             self._modules[module.id] = (block, module)
             self._module_keys[module.id] = module.key
@@ -377,7 +401,7 @@ class CourseRegistry:
         """Exercise ids in this module with a loaded, playable generator config — the exam-samplable set."""
         return [eid for eid in self.module_exercise_ids(module_id) if eid in self.exercise_configs]
 
-    def course_meta(self, locale: str) -> dict[str, str | bool | None]:
+    def course_meta(self, locale: str) -> dict[str, object]:
         """Root course identity for the course-page header (localized)."""
         course = self.manifest.course
         return {
@@ -390,6 +414,20 @@ class CourseRegistry:
             **({"lessonPractice": True} if course.lesson_practice else {}),
             **({"optionLabels": course.option_labels} if course.option_labels else {}),
             **({"pdfExercises": False} if not course.pdf_exercises else {}),
+            **(
+                {
+                    "psicotecnicos": [
+                        {
+                            "generator": use.generator,
+                            "exerciseId": use.exercise_id,
+                            "title": use.title.get(locale),
+                        }
+                        for use in course.practice_generators
+                    ]
+                }
+                if course.practice_generators
+                else {}
+            ),
         }
 
     def course_tree(
@@ -639,6 +677,21 @@ def _load_exercise_configs(
     return configs
 
 
+def _load_generated_exercises(manifest: Manifest) -> dict[str, tuple[ExerciseType, BaseModel]]:
+    """One generated exercise per declared generator; a generator that fails its property tests stops the "
+    "load."""
+    configs: dict[str, tuple[ExerciseType, BaseModel]] = {}
+    for use in manifest.course.practice_generators:
+        try:
+            config = PsicotecnicoConfig(
+                type="psicotecnico", generator=use.generator, difficulty=use.difficulty
+            )
+        except (ValidationError, GeneratorLoadError) as exc:
+            raise ContentError(f"generator {use.generator!r} does not load: {exc}") from exc
+        configs[generated_exercise_id(use.generator)] = (ExerciseType.PSICOTECNICO, config)
+    return configs
+
+
 def _load_glyph(content_dir: Path, glyph: str | None) -> str | None:
     if glyph is None:
         return None
@@ -675,6 +728,7 @@ def load_registry(content_dir: Path, *, check_excerpts: bool = True) -> CourseRe
 
     glyph_svg = _load_glyph(content_dir, manifest.course.glyph)
     exercise_configs = _load_exercise_configs(content_dir, manifest)
+    exercise_configs.update(_load_generated_exercises(manifest))
     _check_case_lessons(manifest, exercise_configs)
     figures = load_figures(content_dir)
     _check_figure_files(content_dir, figures)

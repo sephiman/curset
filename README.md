@@ -397,6 +397,7 @@ Everything whose data belongs to a course hangs off the course:
 /api/courses/{course}/attempts             …/{attempt_id}, /exercises/{id}/attempts
 /api/courses/{course}/attempts/{id}/report "Report this question" (see Courses, languages and reports)
 /api/courses/{course}/lessons/{id}/practice A lesson's practice round (courses with `lesson_practice`)
+/api/courses/{course}/practice/psicotecnicos A «Psicotécnicos» round: generated exercise ids, one type or all in the course's weights
 /api/courses/{course}/stats/me             …/stats/global (anonymous aggregate, within the course)
 ```
 
@@ -922,6 +923,18 @@ between questions waits for delta G.
 
 `age-auxiliar-c2` is the draft preparation for the Auxiliar Administrativo del Estado (C2) exam, Spanish
 only, with no figures (requirements in `docs/age-auxiliar-course-requirements.md`, a delta to C1's). Round
+**Generated psicotécnicos (platform delta L, 2026-11-07).** A course lists `practice_generators` in
+`course.yaml` (a generator id, its Spanish `title`, its `weight` in the exam mix and its `difficulty` level
+weights) and declares the `psicotecnico` exercise type. Each generator (`backend/src/tradeschool/psicotecnico/`)
+builds a four-option item from a seed and its solver recomputes the key from the item as printed; one that
+fails its property tests (`contract.verify`) stops the course from loading. The «Psicotécnicos» card on the
+course page opens a practice round by type or all, timed or not, with the rule shown after each answer;
+attempt ids are `gen:<generator>:<seed>`. An exam part can mix stored questions and generated items
+(`source: generators`, split by the weights); Progress and results list each type as a row. The printed
+exam carries the seed in its footer and a key sheet computed by the solver. `scripts/export_psicotecnico_goldens.py`
+writes the 50 goldens per generator to `docs/age-verification/c2/psicotecnicos/`. age-auxiliar-c2 declares the
+first batch (13 types) and stays a draft.
+
 R1 built its skeleton (`docs/age-c2-round-1-handoff.md`): «Proceso de selección» holds «Cómo es el examen»
 (`m00-l01`) and «Cómo son los psicotécnicos» (`ps-l01`, the 16 psicotécnico types with one official
 question each), both written; «Programa» holds bloque I (`m01`, 16 temas) and bloque II (`m02`, 12

@@ -247,8 +247,9 @@ def pdf_blocks(pages: list[str]) -> list[Block]:
 
 
 _SKIP = {"script", "style", "noscript", "svg", "template", "select"}
-# Page furniture inside the article: the help pages' «Obtener ayuda con Copilot» prompts, banners.
-_FURNITURE = re.compile(r"copilot|banner", re.I)
+# Page furniture inside the article: the help pages' «Obtener ayuda con Copilot» banner and sticky banners;
+# an id that merely names Copilot («tabpanel_1_microsoft-copilot-chat-basic») is article content.
+_FURNITURE = re.compile(r"banner", re.I)
 _BLOCK = {
     "p", "div", "section", "article", "main", "header", "footer", "aside", "table", "tr", "ul", "ol",
     "li", "dt", "dd", "td", "th", "caption", "blockquote", "pre", "figcaption", "summary", "details",

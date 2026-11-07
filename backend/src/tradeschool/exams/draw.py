@@ -17,6 +17,7 @@ from tradeschool.exams.presets import ExamPreset, PartSource, PresetPart, Preset
 from tradeschool.exercises.case import CaseConfig, question_seeds
 from tradeschool.exercises.quiz import QuizConfig, QuizGenerator
 from tradeschool.exercises.types import ExerciseType
+from tradeschool.psicotecnico.weights import apportion
 
 if TYPE_CHECKING:
     from tradeschool.content.registry import CourseRegistry
@@ -186,6 +187,18 @@ def _drawn(
     return DrawnQuestion(question.exercise_id, seed, reserve=reserve, variant_id=question.variant_id)
 
 
+def draw_generated(registry: CourseRegistry, count: int, rand: Rand) -> list[DrawnQuestion]:
+    """`count` fresh generated items split among the course's generators by weight, exactly, in generator "
+    "order."""
+    uses = registry.generator_uses()
+    shares = apportion([use.weight for use in uses], count)
+    return [
+        DrawnQuestion(use.exercise_id, rand.randbelow(SEED_SPACE))
+        for use, share in zip(uses, shares, strict=True)
+        for _ in range(share)
+    ]
+
+
 def draw_per_module(registry: CourseRegistry, modules: list[str], rand: Rand) -> list[DrawnQuestion]:
     """One exercise per module, each with a fresh seed — choice then seed, module by module."""
     drawn: list[DrawnQuestion] = []
@@ -223,6 +236,10 @@ def draw_composite(
     counted: list[DrawnQuestion] = []
     spare: list[PoolQuestion] = []
     for number, entry in enumerate(part.draws, start=1):
+        if entry.source.generators:
+            assert entry.questions is not None
+            counted += draw_generated(registry, entry.questions, rand)
+            continue
         scope = source_scope(entry.source, target)
         if entry.draw == "per-module":
             counted += draw_per_module(registry, per_module_scope(registry, scope), rand)
@@ -290,6 +307,9 @@ def draw_part(registry: CourseRegistry, part: PresetPart, target: str | None, ra
     if part.sources is not None:
         return DrawnPart(part.id, draw_composite(registry, part, target, rand), [])
     entry = part.draws[0]
+    if entry.source.generators:
+        assert entry.questions is not None
+        return DrawnPart(part.id, draw_generated(registry, entry.questions, rand), [])
     scope = source_scope(entry.source, target)
     if entry.draw == "per-module":
         return DrawnPart(part.id, draw_per_module(registry, per_module_scope(registry, scope), rand), [])
@@ -301,6 +321,9 @@ def draw_part(registry: CourseRegistry, part: PresetPart, target: str | None, ra
 
 
 def _source_count(registry: CourseRegistry, entry: PartSource, target: str | None) -> int:
+    if entry.source.generators:
+        assert entry.questions is not None
+        return entry.questions
     scope = source_scope(entry.source, target)
     if entry.draw == "per-module":
         return len(per_module_scope(registry, scope))
@@ -374,6 +397,9 @@ def _source_shortfalls(registry: CourseRegistry, part: PresetPart, target: str |
     spare = 0
     for number, entry in enumerate(part.draws, start=1):
         label = f"part {part.id!r}" + (f" source {number}" if composite else "")
+        if entry.source.generators:
+            pools.append(set())  # a generator can always supply another item
+            continue
         scope = source_scope(entry.source, target)
         pool = question_pool(registry, scope)
         pools.append(set(pool))

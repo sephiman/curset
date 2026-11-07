@@ -19,15 +19,82 @@ course:
       tema, con preguntas tipo test y psicotécnicos como los del examen.
   languages: [es]
   status: draft
-  # psicotécnico joins this list once platform delta section L adds the generated item type (R6.2); until then
-  # the schema knows only the stored multiple-choice kind.
-  exercise_types: [quiz]
+  exercise_types: [quiz, psicotecnico]
   # «Por tema» instead of «Por lección» in results and stats.
   lesson_noun:
     es: tema
   # Questions are practised per tema from its «Practicar» page; the lessons embed none.
   lesson_practice: true
   option_labels: letters
+# The psicotécnico generators (platform delta L): weight = the type's questions among the scored 31-60 of the six
+# official questionnaires (docs/age-c2-psicotecnico-index.md, section 1), difficulty = the index's level mix.
+# The three types outside the first batch (series alfanuméricas, analogías, palabra intrusa) wait for a later round.
+  practice_generators:
+  - generator: tablas-lectura
+    title:
+      es: Lectura de tablas
+    weight: 62
+    difficulty: {1: 19, 2: 31, 3: 12}
+  - generator: atencion-codificacion
+    title:
+      es: Codificación y equivalencias
+    weight: 16
+    difficulty: {1: 10, 2: 6}
+  - generator: verbal-sinonimos
+    title:
+      es: Sinónimos
+    weight: 14
+    difficulty: {1: 11, 2: 4}
+  - generator: verbal-antonimos
+    title:
+      es: Antónimos
+    weight: 10
+    difficulty: {1: 12, 2: 1}
+  - generator: calculo-ecuaciones
+    title:
+      es: Ecuaciones
+    weight: 9
+    difficulty: {1: 1, 2: 12}
+  - generator: verbal-definicion
+    title:
+      es: Definiciones
+    weight: 11
+    difficulty: {1: 5, 2: 5, 3: 2}
+  - generator: verbal-ortografia
+    title:
+      es: Ortografía
+    weight: 9
+    difficulty: {1: 6, 2: 5}
+  - generator: calculo-problemas
+    title:
+      es: Problemas aritméticos
+    weight: 9
+    difficulty: {1: 5, 2: 6}
+  - generator: calculo-porcentajes
+    title:
+      es: Porcentajes
+    weight: 9
+    difficulty: {1: 7, 2: 3}
+  - generator: serie-numerica
+    title:
+      es: Series numéricas
+    weight: 9
+    difficulty: {1: 4, 2: 5}
+  - generator: administrativo-clasificacion
+    title:
+      es: Clasificación y archivo
+    weight: 9
+    difficulty: {1: 4, 2: 5}
+  - generator: calculo-fracciones-proporciones
+    title:
+      es: Fracciones y repartos
+    weight: 4
+    difficulty: {1: 1, 2: 3}
+  - generator: administrativo-ordenacion
+    title:
+      es: Ordenación alfabética
+    weight: 4
+    difficulty: {1: 3, 2: 1}
   # The PDF exports theory only: questions stay on the practice and exam pages.
   pdf_exercises: false
   # glyph / color: left for the identity round (docs/identity.md; R2.2 of the course requirements), with a glyph

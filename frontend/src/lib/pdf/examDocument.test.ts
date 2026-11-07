@@ -197,3 +197,44 @@ describe("buildExamDocument", () => {
     });
   });
 });
+
+describe("a generated item in a printed exam", () => {
+  const generated: ExamPrintData = {
+    presetId: "mixto",
+    seed: 4242,
+    title: "Mixto",
+    timeLimitMinutes: null,
+    pause: "never",
+    parts: [
+      {
+        id: "mezcla",
+        title: "Mezcla",
+        kind: "questions",
+        questions: [
+          {
+            id: "gen:tablas-lectura:7",
+            number: "1",
+            prompt: "Según la tabla: ¿cuántos?",
+            table: { title: "Préstamos", header: ["Título", "Año"], rows: [["Aranmanoth", "2000"]] },
+            options: [
+              { id: "o0", letter: "A", text: "1" },
+              { id: "o1", letter: "B", text: "2" },
+              { id: "o2", letter: "C", text: "3" },
+              { id: "o3", letter: "D", text: "4" },
+            ],
+          },
+        ],
+      },
+    ],
+    keySheet: [{ partId: "mezcla", title: "Mezcla", keys: [{ number: "1", correctOptionId: "o1", correctLetter: "B" }] }],
+  };
+
+  it("prints its table above the options and the seed in the footer, so the paper can be regenerated", () => {
+    const definition = buildExamDocument(generated);
+    const text = JSON.stringify(definition.content);
+    expect(text).toContain("Aranmanoth");
+    expect(text).toContain("Préstamos");
+    const footer = (definition.footer as (page: number, pages: number) => unknown)(1, 2);
+    expect(JSON.stringify(footer)).toContain("Semilla 4242");
+  });
+});

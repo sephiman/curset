@@ -335,7 +335,7 @@ async def lesson_progress(
     outcomes: list[tuple[str, Outcome, float | None]] = []
     for attempt in await _answered(session, registry.slug, user_id):
         exercise_id, question_id = _attempt_unit(registry, attempt)
-        lesson_id = registry.question_lesson_id(exercise_id, question_id)
+        lesson_id = registry.table_row_id(exercise_id, question_id)
         if lesson_id is not None:
             outcomes.append((lesson_id, "correct" if attempt.is_correct else "wrong", attempt.time_seconds))
 

@@ -87,7 +87,7 @@ export function ExercisePlayer({
               onSubmit={(a) => answer.mutate(a)}
             />
           ) : !result ? (
-            instance.type === "quiz" ? (
+            instance.type === "quiz" || instance.type === "psicotecnico" ? (
               <QuizExercise
                 payload={instance.payload}
                 pending={answer.isPending}
