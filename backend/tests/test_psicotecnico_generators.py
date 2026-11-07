@@ -327,7 +327,9 @@ def test_the_binary_table_lists_the_letters_a_to_f_in_order_like_the_official_on
 
 def test_filing_items_carry_the_index_level_of_the_official_decodes_true_or_false() -> None:
     # 2024X-P1-55, 58, 59 (FALSO) and P1-60 (CIERTO) are all nivel 2 in the psicotécnico index.
-    filing = [i for level in (1, 2) for i in _many("atencion-codificacion", level) if i.facts["kind"] == "filing"]
+    filing = [
+        i for level in (1, 2) for i in _many("atencion-codificacion", level) if i.facts["kind"] == "filing"
+    ]
     assert {i.difficulty for i in filing} == {2}
     assert {i.facts["asks"] for i in filing} == {"CIERTA", "FALSA"}
 
