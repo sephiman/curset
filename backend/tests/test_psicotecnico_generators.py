@@ -95,10 +95,10 @@ def _declared() -> list[PsicotecnicoConfig]:
     ]
 
 
-def test_age_auxiliar_declares_the_thirteen_generators_and_stays_a_draft() -> None:
+def test_age_auxiliar_declares_the_thirteen_generators_and_is_published() -> None:
     registry = load_registry(COURSE, check_excerpts=False)
     assert sorted(use.generator for use in registry.generator_uses()) == IDS
-    assert not registry.published
+    assert registry.published
 
 
 # --- answer-bias guards over 1,000 seeded items per generator -------------------------------------

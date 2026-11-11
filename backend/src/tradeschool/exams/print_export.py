@@ -139,15 +139,16 @@ def build_exam_print(
                 correct_letter = chr(65 + correct_idx)
 
                 q_num = str(index)
-                part_questions.append(
-                    {
-                        "id": f"{dq.exercise_id}/{variant.id}",
-                        "number": q_num,
-                        "reserve": dq.reserve,
-                        "prompt": instance.prompt,
-                        "options": opts_with_letters,
-                    }
-                )
+                printed_question: dict[str, Any] = {
+                    "id": f"{dq.exercise_id}/{variant.id}",
+                    "number": q_num,
+                    "reserve": dq.reserve,
+                    "prompt": instance.prompt,
+                    "options": opts_with_letters,
+                }
+                if "table" in instance.payload:
+                    printed_question["table"] = instance.payload["table"]
+                part_questions.append(printed_question)
                 part_keys.append(
                     {
                         "number": q_num,

@@ -766,3 +766,64 @@ of the Reglamento): no lesson change.
 - `close_round.sh` (2026-11-11), exit 0: goldens as in session 3 (the Protocolo n.º 6 anchor, read); C1 and
   crypto-futures untouched; Android bundle byte-identical; backend 2,953 passed, 23 skipped; frontend 723 passed,
   81 skipped; `tsc -b` clean. Nothing committed.
+
+# R5 — psicotécnico calibration items, presets, official sets, identity, publication (2026-11-11)
+
+Not committed. Handoff: `docs/age-c2-round-5-handoff.md`; deployment: `docs/deploy-age-c2.md`.
+
+- **Calibration items:** 34 (`ps-calibracion`, `official: true`, so no draw or practice picks them), one frozen item per
+  generator level from fixed seeds (`scripts/build_calibration_items.py`, seed tag on each). Key = the solver's.
+- **Platform:** a stored quiz question may carry `table` (`QuizTable`, single-choice only, excluded from dumps so the
+  Android bundle is byte-identical); it reaches the sitting payload and the printed paper. The exam review did not draw a
+  question's table at all: fixed (test failed first). The review's copyable `gen:…` reference overflowed at 390 px
+  (found by the new e2e): wraps now. No migration.
+- **Presets** (`course.yaml`): simulacro (30 m01 + 30 generated + 5 reserve; 50 m02 + 5; 90 min, no pause; −1/3, blank 0;
+  parts 0–50, M = 29 and 64/3, N = 60 and 50; part 2 only if part 1 reaches M, Anexo I 2.3.1 a) «para que pueda evaluarse
+  la segunda»), parte-1 (49 min) and parte-2 (41 min) (their share of 90 over 110 questions: decision), psicotecnicos
+  (30, 25 min), bloque (50, 41 min), tema (20, 16 min), and the eight official sets. Decision: the reserve of the mixed
+  part comes from bloque I (generated items have none); counted questions of both sources were shuffled together, as C1's (changed in the R5 review: `order: by-source`).
+- **Official sets:** 934 included / 26 excluded, equal to the ledger Summary; 96 table questions recomputed 96/96; two Opus
+  verifiers on all 934 against the PDFs: 0 wording or key errors, one table-layout finding fixed
+  (`docs/age-verification/c2/official/report.md`). Excluded questions are named in each preset's description.
+- **Identity:** glyph `document-sheet` (sheet with folded corner), accent `#3a5aa6` / `#7ea0dc` (5.5:1 and 6.1:1; luminance
+  within 15 % of the others); `docs/identity.md` updated; the gallery lists published courses, so it shows it.
+- **Published.** Real-browser (`e2e/age-c2.spec.ts`, 390 and 1280 px): selector with three courses and «Solo en español»
+  twice, course page, Psicotécnicos round, tema practice, simulation sitting (no tema label, A–D, no pause), results
+  with psicotécnico rows in «Por tema». e2e 72 passed.
+- **Close:** goldens regenerated, no diff; C1 and crypto-futures untouched; Android bundle byte-identical; backend 3,085
+  passed, 21 skipped (one test that expected a draft was updated); frontend 726 passed, 81 skipped; `tsc -b` clean; ruff
+  and mypy clean on the files touched.
+
+## R5 review (2026-11-11)
+
+Opus review of the R5 tree before commit; nothing committed.
+
+- **Scoring** traced to Anexo I 2.1–2.3 and the CPS notes of 18-05, 29-09 and 15-10-2026 (sources/programa.md): −1/3,
+  blank free, 0–50 per part, P = 25 = E/2, M = 29 and 64/3, N = 60 and 50, part 2 only if part 1 reaches M, 90 minutes.
+  Added the literal «a third below» case (86/3 → 2150/87; 21 → 1575/64) and a sitting at exactly M (part 2 graded)
+  and at M − 1/3 (not graded).
+- **Order:** new preset option `order: by-source` (composite parts only): sources in declared order, shuffled within
+  each. Used by «Simulacro oficial» and «Parte 1» of this course (bloque I, then psicotécnicos) and of C1 (bloques
+  I–V, then VI; C1's two presets now `version: 2`). Draw fingerprints of every other C1, C2 and crypto preset (3 seeds
+  plus the printed paper) are unchanged.
+- **Official sets:** conv2024-x and conv2020 (picked at random) re-checked blind on all 233 questions: counts,
+  exclusions, notes, keys against the definitive sheets, wording, and the four tables cell by cell: 0 discrepancies.
+  The descriptions' agreement is fixed («3 anuladas», «1 por norma modificada», «Ninguna pregunta lleva nota»).
+- **Calibration items:** 34/34 regenerate identically and were each solved by hand: one correct option, the keyed one.
+  Wording points in the generators (round L) are left open: codificación n1 says «letra de la tabla» with no table;
+  ecuaciones uses «Halla» (tú) among «Responda/Indique» (usted) and gives no rounding rule; definición uses straight
+  quotes; problemas n3 says «stock»; ordenación says «las siguientes palabras» and lists none in the stem; numeric
+  options end with a full stop in some generators. The file header now matches the build script.
+- **Time descriptions:** «Parte 1», «Parte 2», «Psicotécnicos», «Bloque» and «Tema» now say their time is an
+  estimate of the course and that the convocatoria gives 90 minutes for the whole exercise.
+- **e2e added:** the review's excerpt for a pinned question in each AGE course; the review's tema and type labels;
+  sign-up lists three courses; Cuenta › Cursos lists three, all active.
+- **Close:** backend 3,095 passed, 21 skipped; frontend 726 passed, 81 skipped; `tsc -b` clean; e2e 76 passed;
+  ruff and format clean on the touched files.
+
+## Where to resume (after R5)
+
+1. Commit; deploy per `docs/deploy-age-c2.md`.
+2. Variant rounds for bloque I's gap (plan § 6), the three psicotécnico types not yet generated (series alfanuméricas,
+   analogías, palabra intrusa), and the owed word-bank growth.
+3. Convocatoria diff round when the OEP 2026 convocatoria is published.

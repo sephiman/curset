@@ -196,6 +196,19 @@ describe("the results page of a scored exam", () => {
     expect(rows[2]).toContain("30:00");
   });
 
+  it("shows the table a question is asked on above its answer, as the sitting did", () => {
+    const table = { title: "Préstamos", header: ["Título", "Año"], rows: [["Aranmanoth", "2000"], ["Mano de sombra", "1997"]] };
+    exam = {
+      ...SIMULACRO,
+      questions: [question(0, { payload: { kind: "single_choice", options: [{ id: "a", text: "One month." }], table } })],
+    };
+    render();
+    const shown = host.querySelector("table[class*='min-w-full']");
+    expect(shown).toHaveTextContent("Préstamos");
+    expect(shown).toHaveTextContent("Mano de sombra");
+    expect(host.querySelectorAll("table[class*='min-w-full'] tbody tr")).toHaveLength(2);
+  });
+
   it("shows per-question time on review question cards", () => {
     render();
     expect(host.textContent).toContain("00:45");

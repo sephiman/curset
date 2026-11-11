@@ -1,0 +1,1081 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# Psicotécnico calibration items (round R5): one item frozen per generator level, key from
+# the solver. Never drawn: tests only. Rebuild with scripts/build_calibration_items.py.
+type: quiz
+shuffle: false
+variants:
+- id: cal-tablas-lectura-n1
+  prompt:
+    es: 'Responda a la siguiente pregunta según la tabla llamada Laboratorios: ¿Cuántos laboratorios cumplen estas condiciones:
+      más de 12 técnicos, menos de 281 informes emitidos y más de 452 muestras analizadas?'
+  table:
+    title: Laboratorios
+    header:
+    - Laboratorio
+    - Ciudad
+    - Titularidad
+    - Muestras analizadas
+    - Técnicos
+    - Presupuesto (miles de €)
+    - Informes emitidos
+    rows:
+    - - Kappa
+      - Valencia
+      - Privada
+      - '655'
+      - '10'
+      - '122'
+      - '222'
+    - - Alfa
+      - Sevilla
+      - Privada
+      - '923'
+      - '9'
+      - '69'
+      - '136'
+    - - Sigma
+      - Sevilla
+      - Mixta
+      - '537'
+      - '3'
+      - '154'
+      - '162'
+    - - Gamma
+      - Barcelona
+      - Pública
+      - '715'
+      - '7'
+      - '97'
+      - '288'
+    - - Épsilon
+      - Bilbao
+      - Pública
+      - '530'
+      - '14'
+      - '58'
+      - '256'
+    - - Delta
+      - Madrid
+      - Privada
+      - '489'
+      - '8'
+      - '69'
+      - '81'
+    - - Theta
+      - Barcelona
+      - Privada
+      - '522'
+      - '19'
+      - '337'
+      - '100'
+    - - Beta
+      - Barcelona
+      - Privada
+      - '298'
+      - '23'
+      - '244'
+      - '119'
+  options:
+  - id: a
+    text:
+      es: '3'
+  - id: b
+    text:
+      es: '4'
+  - id: c
+    text:
+      es: '2'
+    correct: true
+  - id: d
+    text:
+      es: '1'
+  explanation:
+    es: Cumplen las condiciones (más de 12 técnicos, menos de 281 informes emitidos y más de 452 muestras analizadas) exactamente
+      2.
+  difficulty: 1
+  tags:
+  - tablas-lectura
+  - seed:97358509024255603
+- id: cal-tablas-lectura-n2
+  prompt:
+    es: 'Responda a la siguiente pregunta según la tabla llamada Excursiones: ¿Cuál de los siguientes destinos cumple estas
+      condiciones: duración superior a 7, transporte «Autobús» y menos de 154 kilómetros?'
+  table:
+    title: Excursiones
+    header:
+    - Destino
+    - Tipo
+    - Transporte
+    - Participantes
+    - Precio por persona (€)
+    - Duración (horas)
+    - Kilómetros
+    rows:
+    - - Toledo
+      - Naturaleza
+      - Tren
+      - '13'
+      - '85'
+      - '29'
+      - '274'
+    - - Segovia
+      - Cultural
+      - Minibús
+      - '35'
+      - '67'
+      - '4'
+      - '373'
+    - - Teruel
+      - Gastronómica
+      - Autobús
+      - '51'
+      - '74'
+      - '5'
+      - '356'
+    - - Ávila
+      - Gastronómica
+      - Autobús
+      - '41'
+      - '52'
+      - '5'
+      - '217'
+    - - Mérida
+      - Naturaleza
+      - Tren
+      - '46'
+      - '85'
+      - '20'
+      - '467'
+    - - León
+      - Deportiva
+      - Tren
+      - '42'
+      - '92'
+      - '11'
+      - '441'
+    - - Lugo
+      - Cultural
+      - Tren
+      - '42'
+      - '75'
+      - '25'
+      - '91'
+    - - Cuenca
+      - Gastronómica
+      - Autobús
+      - '14'
+      - '26'
+      - '10'
+      - '107'
+    - - Ronda
+      - Deportiva
+      - Tren
+      - '56'
+      - '78'
+      - '19'
+      - '132'
+  options:
+  - id: a
+    text:
+      es: Cuenca.
+    correct: true
+  - id: b
+    text:
+      es: Toledo.
+  - id: c
+    text:
+      es: Teruel.
+  - id: d
+    text:
+      es: Mérida.
+  explanation:
+    es: 'Solo «Cuenca» cumple las 3 condiciones: duración superior a 7, transporte «Autobús» y menos de 154 kilómetros.'
+  difficulty: 2
+  tags:
+  - tablas-lectura
+  - seed:2881213062553793574
+- id: cal-tablas-lectura-n3
+  prompt:
+    es: 'Responda a la siguiente pregunta según la tabla llamada Excursiones: ¿Qué destino tiene el mayor cociente entre kilómetros
+      y duración?'
+  table:
+    title: Excursiones
+    header:
+    - Destino
+    - Tipo
+    - Transporte
+    - Participantes
+    - Precio por persona (€)
+    - Duración (horas)
+    - Kilómetros
+    rows:
+    - - Cuenca
+      - Cultural
+      - Autobús
+      - '31'
+      - '25'
+      - '22'
+      - '283'
+    - - León
+      - Gastronómica
+      - Autobús
+      - '30'
+      - '64'
+      - '7'
+      - '276'
+    - - Jaca
+      - Naturaleza
+      - Tren
+      - '60'
+      - '73'
+      - '26'
+      - '124'
+    - - Lugo
+      - Naturaleza
+      - Minibús
+      - '31'
+      - '60'
+      - '27'
+      - '47'
+    - - Segovia
+      - Deportiva
+      - Tren
+      - '33'
+      - '27'
+      - '18'
+      - '265'
+    - - Úbeda
+      - Gastronómica
+      - Minibús
+      - '39'
+      - '43'
+      - '23'
+      - '103'
+    - - Teruel
+      - Naturaleza
+      - Autobús
+      - '24'
+      - '26'
+      - '28'
+      - '189'
+    - - Ávila
+      - Naturaleza
+      - Autobús
+      - '45'
+      - '43'
+      - '13'
+      - '88'
+    - - Ronda
+      - Naturaleza
+      - Minibús
+      - '14'
+      - '25'
+      - '21'
+      - '227'
+    - - Soria
+      - Cultural
+      - Autobús
+      - '56'
+      - '59'
+      - '28'
+      - '286'
+    - - Mérida
+      - Deportiva
+      - Tren
+      - '17'
+      - '45'
+      - '24'
+      - '466'
+    - - Toledo
+      - Gastronómica
+      - Tren
+      - '22'
+      - '21'
+      - '15'
+      - '157'
+  options:
+  - id: a
+    text:
+      es: León.
+    correct: true
+  - id: b
+    text:
+      es: Segovia.
+  - id: c
+    text:
+      es: Ronda.
+  - id: d
+    text:
+      es: Toledo.
+  explanation:
+    es: 'Se divide kilómetros entre duración en cada fila: el mayor cociente es el de «León» (39,43).'
+  difficulty: 3
+  tags:
+  - tablas-lectura
+  - seed:1666632444905285522
+- id: cal-atencion-codificacion-n1
+  prompt:
+    es: 'Dadas las siguientes equivalencias: 1=h, 3=c, 4=r, 5=v. ¿Qué serie corresponde a la palabra «archivar» si cada letra
+      de la tabla se sustituye por su cifra?'
+  options:
+  - id: a
+    text:
+      es: a431i5a4
+    correct: true
+  - id: b
+    text:
+      es: a531i4a5
+  - id: c
+    text:
+      es: a435i1a4
+  - id: d
+    text:
+      es: a451i3a4
+  explanation:
+    es: 'Se sustituye cada letra de la tabla por su cifra (1=h, 3=c, 4=r, 5=v) y las demás se mantienen: archivar se escribe
+      a431i5a4.'
+  difficulty: 1
+  tags:
+  - atencion-codificacion
+  - seed:3210146478461029330
+- id: cal-atencion-codificacion-n2
+  prompt:
+    es: En un sistema de codificación cada consonante mayúscula vale 4, cada consonante minúscula vale 3, cada vocal mayúscula
+      vale 8, cada vocal minúscula vale 1. ¿Cuál es el valor de la palabra «tRÁMItES»?
+  options:
+  - id: a
+    text:
+      es: '39'
+  - id: b
+    text:
+      es: '46'
+  - id: c
+    text:
+      es: '42'
+    correct: true
+  - id: d
+    text:
+      es: '44'
+  explanation:
+    es: 'Se suma el valor de cada letra según su clase (t=3, R=4, Á=8, M=4, I=8, t=3, E=8, S=4): 42.'
+  difficulty: 2
+  tags:
+  - atencion-codificacion
+  - seed:409817324972122823
+- id: cal-verbal-sinonimos-n1
+  prompt:
+    es: Indique entre las siguientes palabras cuál es el sinónimo o afín de la palabra RECIO.
+  options:
+  - id: a
+    text:
+      es: Fuerte.
+    correct: true
+  - id: b
+    text:
+      es: Grato.
+  - id: c
+    text:
+      es: Deshilvanado.
+  - id: d
+    text:
+      es: Raro.
+  explanation:
+    es: Fuerte es sinónimo de recio; grato, deshilvanado y raro no guardan relación de significado con recio.
+  difficulty: 1
+  tags:
+  - verbal-sinonimos
+  - seed:2710144354753559929
+- id: cal-verbal-sinonimos-n2
+  prompt:
+    es: Señale la palabra cuyo significado es más parecido al de EXIGUO.
+  options:
+  - id: a
+    text:
+      es: Impetuoso.
+  - id: b
+    text:
+      es: Mínimo.
+    correct: true
+  - id: c
+    text:
+      es: Verídico.
+  - id: d
+    text:
+      es: Cuantioso.
+  explanation:
+    es: Mínimo es sinónimo de exiguo; cuantioso es su antónimo; impetuoso y verídico no guardan relación de significado con
+      exiguo.
+  difficulty: 2
+  tags:
+  - verbal-sinonimos
+  - seed:1515211560985104743
+- id: cal-verbal-antonimos-n1
+  prompt:
+    es: Indique entre las siguientes palabras cuál es el antónimo u opuesto de la palabra VETUSTO.
+  options:
+  - id: a
+    text:
+      es: Moderno.
+    correct: true
+  - id: b
+    text:
+      es: Antiguo.
+  - id: c
+    text:
+      es: Viejo.
+  - id: d
+    text:
+      es: Anticuado.
+  explanation:
+    es: Moderno es lo contrario de vetusto; las otras tres palabras significan lo mismo que vetusto.
+  difficulty: 1
+  tags:
+  - verbal-antonimos
+  - seed:4607422057087638134
+- id: cal-verbal-antonimos-n2
+  prompt:
+    es: Indique entre las siguientes palabras cuál es el antónimo u opuesto de la palabra OSTENSIBLE.
+  options:
+  - id: a
+    text:
+      es: Evidente.
+  - id: b
+    text:
+      es: Patente.
+  - id: c
+    text:
+      es: Oculto.
+    correct: true
+  - id: d
+    text:
+      es: Manifiesto.
+  explanation:
+    es: Oculto es lo contrario de ostensible; las otras tres palabras significan lo mismo que ostensible.
+  difficulty: 2
+  tags:
+  - verbal-antonimos
+  - seed:2252851559207508781
+- id: cal-calculo-ecuaciones-n1
+  prompt:
+    es: 'Halla el valor de x en la siguiente ecuación: 7(8x - 17) = 8x + 217'
+  options:
+  - id: a
+    text:
+      es: '7'
+    correct: true
+  - id: b
+    text:
+      es: '9'
+  - id: c
+    text:
+      es: '8'
+  - id: d
+    text:
+      es: '6'
+  explanation:
+    es: 'Se desarrolla el paréntesis y se pasan las x a un lado: 48x = 336, de donde x = 336 / 48 = 7.'
+  difficulty: 1
+  tags:
+  - calculo-ecuaciones
+  - seed:2192627455249058356
+- id: cal-calculo-ecuaciones-n2
+  prompt:
+    es: 'Halla el valor de x en la siguiente ecuación: 6(-9x - 57) = 3x - 3'
+  options:
+  - id: a
+    text:
+      es: -5,95
+    correct: true
+  - id: b
+    text:
+      es: -5,83
+  - id: c
+    text:
+      es: -5,86
+  - id: d
+    text:
+      es: -5,90
+  explanation:
+    es: 'Se desarrolla el paréntesis y se pasan las x a un lado: 57x = -339, de donde x = -339 / 57 = -5,95.'
+  difficulty: 2
+  tags:
+  - calculo-ecuaciones
+  - seed:4555005634541006761
+- id: cal-calculo-ecuaciones-n3
+  prompt:
+    es: 'Halla el valor de x en la siguiente ecuación: 20(-14x + 800) = 29x + 790'
+  options:
+  - id: a
+    text:
+      es: 49,31
+  - id: b
+    text:
+      es: 49,25
+  - id: c
+    text:
+      es: 47,22
+  - id: d
+    text:
+      es: 49,22
+    correct: true
+  explanation:
+    es: 'Se desarrolla el paréntesis y se pasan las x a un lado: 309x = 15210, de donde x = 15210 / 309 = 49,22.'
+  difficulty: 3
+  tags:
+  - calculo-ecuaciones
+  - seed:82646209660508262
+- id: cal-verbal-definicion-n1
+  prompt:
+    es: Señale la definición que corresponde a la palabra "cuantioso".
+  options:
+  - id: a
+    text:
+      es: Insuficiente, escaso.
+  - id: b
+    text:
+      es: Que no se puede explicar con palabras.
+  - id: c
+    text:
+      es: Grande en cantidad o número.
+    correct: true
+  - id: d
+    text:
+      es: Inclinado o propenso a algo, frecuentemente a lo malo.
+  explanation:
+    es: 'Cuantioso: grande en cantidad o número.'
+  difficulty: 1
+  tags:
+  - verbal-definicion
+  - seed:2109671209488660122
+- id: cal-verbal-definicion-n2
+  prompt:
+    es: 'Señale qué palabra corresponde a la siguiente definición: "Cosa que deslustra y desdora".'
+  options:
+  - id: a
+    text:
+      es: Mácula.
+    correct: true
+  - id: b
+    text:
+      es: Óbice.
+  - id: c
+    text:
+      es: Pábulo.
+  - id: d
+    text:
+      es: Alfaguara.
+  explanation:
+    es: 'Mácula: cosa que deslustra y desdora.'
+  difficulty: 2
+  tags:
+  - verbal-definicion
+  - seed:2914643072448679203
+- id: cal-verbal-definicion-n3
+  prompt:
+    es: 'Señale qué palabra corresponde a la siguiente definición: "Sitio en que nacen fuentes o manantiales".'
+  options:
+  - id: a
+    text:
+      es: Hontanar.
+    correct: true
+  - id: b
+    text:
+      es: Canícula.
+  - id: c
+    text:
+      es: Dilación.
+  - id: d
+    text:
+      es: Escisión.
+  explanation:
+    es: 'Hontanar: sitio en que nacen fuentes o manantiales.'
+  difficulty: 3
+  tags:
+  - verbal-definicion
+  - seed:1168013325800218558
+- id: cal-verbal-ortografia-n1
+  prompt:
+    es: 'Indique cuál de las siguientes palabras contiene un error ortográfico:'
+  options:
+  - id: a
+    text:
+      es: Excepción.
+  - id: b
+    text:
+      es: Hortaliza.
+  - id: c
+    text:
+      es: Periódico.
+  - id: d
+    text:
+      es: Desarollo.
+    correct: true
+  explanation:
+    es: Se escribe «desarrollo», no «desarollo».
+  difficulty: 1
+  tags:
+  - verbal-ortografia
+  - seed:2749854262704998115
+- id: cal-verbal-ortografia-n2
+  prompt:
+    es: ¿Cuántos errores ortográficos contiene la siguiente frase? Se prohibió aparcar cualquier vehículo en el ambito del
+      puerto, sin excepsión, los sabados y los miercoles.
+  options:
+  - id: a
+    text:
+      es: '1.'
+  - id: b
+    text:
+      es: '5.'
+  - id: c
+    text:
+      es: '6.'
+  - id: d
+    text:
+      es: '4.'
+    correct: true
+  explanation:
+    es: 'Tiene 4 errores: ambito, excepsión, sabados, miercoles.'
+  difficulty: 2
+  tags:
+  - verbal-ortografia
+  - seed:1328395126328944477
+- id: cal-calculo-problemas-n1
+  prompt:
+    es: Un edificio tiene 6 salas de formación y cada una tiene 9 filas de 14 sillas. ¿Cuántas sillas hay en total?
+  options:
+  - id: a
+    text:
+      es: '635.'
+  - id: b
+    text:
+      es: '756.'
+    correct: true
+  - id: c
+    text:
+      es: '968.'
+  - id: d
+    text:
+      es: '816.'
+  explanation:
+    es: 6 × 9 × 14 = 756 sillas.
+  difficulty: 1
+  tags:
+  - calculo-problemas
+  - seed:1197206153656479587
+- id: cal-calculo-problemas-n2
+  prompt:
+    es: En una papelería se compran 17 bolígrafos a 0,45 € cada uno y 5 carpetas a 2,60 € cada una. ¿Cuál es el importe total?
+  options:
+  - id: a
+    text:
+      es: 46,45 €
+  - id: b
+    text:
+      es: 18,05 €
+  - id: c
+    text:
+      es: 57,20 €
+  - id: d
+    text:
+      es: 20,65 €
+    correct: true
+  explanation:
+    es: 17 × 0,45 + 5 × 2,60 = 20,65 euros.
+  difficulty: 2
+  tags:
+  - calculo-problemas
+  - seed:2907082707727662505
+- id: cal-calculo-problemas-n3
+  prompt:
+    es: Un almacén tiene una capacidad de 1800 unidades. Si el almacén tiene 525 unidades en stock y todos los días se reciben
+      y almacenan 75 unidades, ¿cuántos días necesita para alcanzar su máxima capacidad?
+  options:
+  - id: a
+    text:
+      es: 18 días.
+  - id: b
+    text:
+      es: 16 días.
+  - id: c
+    text:
+      es: 14 días.
+  - id: d
+    text:
+      es: 17 días.
+    correct: true
+  explanation:
+    es: Faltan 1800 − 525 = 1275 unidades; entre 75 al día son 17 días.
+  difficulty: 3
+  tags:
+  - calculo-problemas
+  - seed:2178584979173298509
+- id: cal-calculo-porcentajes-n1
+  prompt:
+    es: El precio de un artículo es de 36 € y sube un 10 %. ¿Cuál es su nuevo precio?
+  options:
+  - id: a
+    text:
+      es: 46,00 €
+  - id: b
+    text:
+      es: 38,60 €
+  - id: c
+    text:
+      es: 41,60 €
+  - id: d
+    text:
+      es: 39,60 €
+    correct: true
+  explanation:
+    es: 'El nuevo precio es el 110 % del anterior: 36 × 110 / 100. Resultado: 39,60 €.'
+  difficulty: 1
+  tags:
+  - calculo-porcentajes
+  - seed:3940727978918788581
+- id: cal-calculo-porcentajes-n2
+  prompt:
+    es: En una urna hay 3 bolas rojas, 5 azules y 6 verdes. Si se extrae una al azar, ¿qué probabilidad, en porcentaje, hay
+      de que sea azul?
+  options:
+  - id: a
+    text:
+      es: 37,14 %
+  - id: b
+    text:
+      es: 64,29 %
+  - id: c
+    text:
+      es: 62,50 %
+  - id: d
+    text:
+      es: 35,71 %
+    correct: true
+  explanation:
+    es: 'Casos favorables 5 entre casos posibles 14: 5 / 14 × 100. Resultado: 35,71 %.'
+  difficulty: 2
+  tags:
+  - calculo-porcentajes
+  - seed:1299600887754204677
+- id: cal-calculo-porcentajes-n3
+  prompt:
+    es: De un presupuesto de 36.000 € se ha gastado el 28 %. ¿Cuántos euros quedan por gastar?
+  options:
+  - id: a
+    text:
+      es: 29.030,40 €
+  - id: b
+    text:
+      es: 26.956,80 €
+  - id: c
+    text:
+      es: 26.170,00 €
+  - id: d
+    text:
+      es: 25.920,00 €
+    correct: true
+  explanation:
+    es: 'Queda el 72 % del presupuesto: 36.000 × 72 / 100. Resultado: 25.920,00 €.'
+  difficulty: 3
+  tags:
+  - calculo-porcentajes
+  - seed:1757738937565314191
+- id: cal-serie-numerica-n1
+  prompt:
+    es: ¿Qué número continúa la secuencia 3, 12, 48, 192, 768, 3072, _?
+  options:
+  - id: a
+    text:
+      es: '14.288'
+  - id: b
+    text:
+      es: '10.288'
+  - id: c
+    text:
+      es: '12.288'
+    correct: true
+  - id: d
+    text:
+      es: '13.288'
+  explanation:
+    es: En 3, 12, 48, 192, 768, 3072, cada término es el anterior multiplicado por 4; el que sigue es 12.288.
+  difficulty: 1
+  tags:
+  - serie-numerica
+  - seed:2892622461985476363
+- id: cal-serie-numerica-n2
+  prompt:
+    es: ¿Qué número continúa la secuencia 4, 13, 31, 67, 139, 283, _?
+  options:
+  - id: a
+    text:
+      es: '551'
+  - id: b
+    text:
+      es: '561'
+  - id: c
+    text:
+      es: '422'
+  - id: d
+    text:
+      es: '571'
+    correct: true
+  explanation:
+    es: En 4, 13, 31, 67, 139, 283, cada término es el anterior multiplicado por 2 más 5; el que sigue es 571.
+  difficulty: 2
+  tags:
+  - serie-numerica
+  - seed:4117092936975005690
+- id: cal-serie-numerica-n3
+  prompt:
+    es: ¿Qué número continúa la secuencia 3, 11, 35, 107, 323, _?
+  options:
+  - id: a
+    text:
+      es: '961'
+  - id: b
+    text:
+      es: '951'
+  - id: c
+    text:
+      es: '971'
+    correct: true
+  - id: d
+    text:
+      es: '646'
+  explanation:
+    es: En 3, 11, 35, 107, 323, cada término es el anterior multiplicado por 3 más 2; el que sigue es 971.
+  difficulty: 3
+  tags:
+  - serie-numerica
+  - seed:1879068212654828540
+- id: cal-administrativo-clasificacion-n1
+  prompt:
+    es: 'En un almacén guardan cada tipo de cuerda en un armario: Polipropileno en el número 1, Nailon en el número 2, Poliéster
+      en el número 3, Yute en el número 4, Sisal en el número 5, Algodón en el número 6, Esparto en el número 7, Cáñamo en
+      el número 8. Cada armario tiene tres cajones para los distintos tamaños de rollos: el cajón A para 10 metros, el cajón
+      B para 15 metros, el cajón C para 25 metros. ¿En qué ubicación guardarán un rollo de 10 metros de Cáñamo?'
+  options:
+  - id: a
+    text:
+      es: 8B
+  - id: b
+    text:
+      es: 8A
+    correct: true
+  - id: c
+    text:
+      es: 8C
+  - id: d
+    text:
+      es: 7A
+  explanation:
+    es: 'Cáñamo está en el armario 8 y 10 metros van al cajón A: 8A.'
+  difficulty: 1
+  tags:
+  - administrativo-clasificacion
+  - seed:648645387699646638
+- id: cal-administrativo-clasificacion-n2
+  prompt:
+    es: 'Un archivo ordena los expedientes por apellido en seis cajones: cajón 1: de Abad a Durán; cajón 2: de Escudero a
+      Fernández; cajón 3: de Ferrer a García; cajón 4: de Gil a Pardo; cajón 5: de Peña a Ruiz; cajón 6: de Salas a Zamora.
+      ¿En qué cajón se archivará el expediente de Ramos?'
+  options:
+  - id: a
+    text:
+      es: Cajón 1.
+  - id: b
+    text:
+      es: Cajón 4.
+  - id: c
+    text:
+      es: Cajón 6.
+  - id: d
+    text:
+      es: Cajón 5.
+    correct: true
+  explanation:
+    es: 'Por orden alfabético, Ramos queda entre Peña y Ruiz: cajón 5.'
+  difficulty: 2
+  tags:
+  - administrativo-clasificacion
+  - seed:289589469747914236
+- id: cal-administrativo-clasificacion-n3
+  prompt:
+    es: Según la tabla de clasificación llamada Biblioteca, que ordena los libros por tema y por inicial del título, ¿en qué
+      estantería se colocará el libro «Trenes» del tema Viajes?
+  table:
+    title: Biblioteca
+    header:
+    - Tema
+    - Inicial del título
+    - Estantería
+    rows:
+    - - Ciencia
+      - A–H
+      - '1'
+    - - Ciencia
+      - I–P
+      - '2'
+    - - Ciencia
+      - Q–Z
+      - '3'
+    - - Arte
+      - A–H
+      - '4'
+    - - Arte
+      - I–P
+      - '5'
+    - - Arte
+      - Q–Z
+      - '6'
+    - - Viajes
+      - A–H
+      - '7'
+    - - Viajes
+      - I–P
+      - '8'
+    - - Viajes
+      - Q–Z
+      - '9'
+  options:
+  - id: a
+    text:
+      es: Estantería 9.
+    correct: true
+  - id: b
+    text:
+      es: Estantería 1.
+  - id: c
+    text:
+      es: Estantería 8.
+  - id: d
+    text:
+      es: Estantería 6.
+  explanation:
+    es: 'El tema es Viajes y el título empieza por T: estantería 9.'
+  difficulty: 3
+  tags:
+  - administrativo-clasificacion
+  - seed:2950242679394412690
+- id: cal-calculo-fracciones-proporciones-n1
+  prompt:
+    es: Tenemos que preparar 801 paquetes de bienvenida. El primer día preparamos un noveno del total de paquetes y el segundo
+      día preparamos dos novenos del total. ¿Cuántos paquetes nos quedan por preparar?
+  options:
+  - id: a
+    text:
+      es: '534.'
+    correct: true
+  - id: b
+    text:
+      es: '619.'
+  - id: c
+    text:
+      es: '577.'
+  - id: d
+    text:
+      es: '513.'
+  explanation:
+    es: Un noveno son 89 paquetes; se han preparado 1 + 2 = 3 de esas partes, así que quedan 534.
+  difficulty: 1
+  tags:
+  - calculo-fracciones-proporciones
+  - seed:2781896015248097250
+- id: cal-calculo-fracciones-proporciones-n2
+  prompt:
+    es: Un premio de 1098 euros se reparte entre tres personas de forma directamente proporcional a 1, 3 y 5. ¿Cuántos euros
+      recibe la segunda?
+  options:
+  - id: a
+    text:
+      es: '366.'
+    correct: true
+  - id: b
+    text:
+      es: '468.'
+  - id: c
+    text:
+      es: '395.'
+  - id: d
+    text:
+      es: '322.'
+  explanation:
+    es: 'El total son 9 partes y cada parte vale 122; la persona pedida tiene 3 partes: 366.'
+  difficulty: 2
+  tags:
+  - calculo-fracciones-proporciones
+  - seed:4043763266563247401
+- id: cal-calculo-fracciones-proporciones-n3
+  prompt:
+    es: Un depósito está lleno en 3/5 de su capacidad. Se utiliza 1/3 de lo que contiene. ¿Qué fracción de la capacidad del
+      depósito queda ocupada?
+  options:
+  - id: a
+    text:
+      es: 2/5.
+    correct: true
+  - id: b
+    text:
+      es: 4/15.
+  - id: c
+    text:
+      es: 14/15.
+  - id: d
+    text:
+      es: 1/5.
+  explanation:
+    es: 'Queda 2/3 de 3/5: (2 × 3) / (3 × 5) = 2/5.'
+  difficulty: 3
+  tags:
+  - calculo-fracciones-proporciones
+  - seed:787361465045242796
+- id: cal-administrativo-ordenacion-n1
+  prompt:
+    es: ¿Qué serie indica el orden alfabético correcto de las siguientes palabras?
+  options:
+  - id: a
+    text:
+      es: sentencia, septiembre, sentido, serio.
+  - id: b
+    text:
+      es: sentencia, sentido, septiembre, serio.
+    correct: true
+  - id: c
+    text:
+      es: sentencia, sentido, serio, septiembre.
+  - id: d
+    text:
+      es: sentencia, septiembre, serio, sentido.
+  explanation:
+    es: 'Todas empiezan por «se» y se ordenan por la primera letra distinta: sentencia va antes que sentido por la 5.ª letra
+      (e y i), sentido va antes que septiembre por la 3.ª (n y p), septiembre va antes que serio por la 3.ª (p y r).'
+  difficulty: 1
+  tags:
+  - administrativo-ordenacion
+  - seed:353228278747074808
+- id: cal-administrativo-ordenacion-n2
+  prompt:
+    es: ¿Qué serie indica el orden alfabético correcto de las siguientes palabras?
+  options:
+  - id: a
+    text:
+      es: preámbulo, precisar, precio, pregunta, preferir.
+  - id: b
+    text:
+      es: preámbulo, precisar, precio, preferir, pregunta.
+  - id: c
+    text:
+      es: precio, preámbulo, precisar, preferir, pregunta.
+  - id: d
+    text:
+      es: preámbulo, precio, precisar, preferir, pregunta.
+    correct: true
+  explanation:
+    es: 'Todas empiezan por «pre» y se ordenan por la primera letra distinta: preámbulo va antes que precio por la 4.ª letra
+      (a y c), precio va antes que precisar por la 6.ª (o y s), precisar va antes que preferir por la 4.ª (c y f), preferir
+      va antes que pregunta por la 4.ª (f y g).'
+  difficulty: 2
+  tags:
+  - administrativo-ordenacion
+  - seed:2360659934389860203

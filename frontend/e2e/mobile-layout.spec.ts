@@ -1,5 +1,5 @@
 import { expect, test, type Locator, type Page } from "@playwright/test";
-import { AGE, CRYPTO, abandonSitting, overflowingElements, signIn, startSitting, submittedSitting } from "./session";
+import { AGE, AGE_C2, CRYPTO, abandonSitting, overflowingElements, signIn, startSitting, submittedSitting } from "./session";
 
 /** Delta J at real widths: what jsdom cannot measure — fit, scrolling and what is on screen without it. */
 
@@ -38,7 +38,7 @@ async function expectNothingWiderThanTheScreen(page: Page): Promise<void> {
 }
 
 test.describe("tab bar", () => {
-  for (const course of [AGE, CRYPTO]) {
+  for (const course of [AGE, AGE_C2, CRYPTO]) {
     test.describe(`on ${course}`, () => {
       test.use(phone(360));
       test("is at the bottom at 360 px", async ({ page }) => {
@@ -135,8 +135,8 @@ test.describe("nothing wider than the screen", () => {
     test.describe(`at ${width} px`, () => {
       test.use(phone(width));
 
-      test("Exámenes, both courses", async ({ page }) => {
-        for (const course of [AGE, CRYPTO]) {
+      test("Exámenes, every course", async ({ page }) => {
+        for (const course of [AGE, AGE_C2, CRYPTO]) {
           await signIn(page, course);
           await page.goto(`/courses/${course}/exams`);
           await expect(page.getByRole("heading", { level: 1 })).toBeVisible();

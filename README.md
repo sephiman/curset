@@ -302,7 +302,7 @@ Open <http://localhost:5173>, register an account, and review the full course:
   checked to resolve in both languages, and no spec may sit unembedded.
 - **Exams** (`/exams`): each course declares its own exams as **presets** in `course.yaml` (see
   `content/README.md`): parts, question count, source (or several sources with a count each, shuffled
-  into one part, or single official exercises), draw mode, time limit, penalty, blank rule, score range and pass minimum, reserve
+  into one part or, with `order: by-source`, kept in declared order and shuffled within each, or single official exercises), draw mode, time limit, penalty, blank rule, score range and pass minimum, reserve
   questions, and "choose one case of N" (or random case pairs from R4 cases). The Exams tab lists them with title,
   description, parts, question count, time, and a **«Descargar PDF»** export. age-administrativo-c1 provides **«Simulacro oficial»** (70 questions drawn 40 from m01–m05 + 30 from m06 plus 5 reserve; Part 2 choosing 1 of 2 cases from an offered R4 pair, 20 questions + 5 reserve; 100 minutes shared clock; `pause: never`; tema labels hidden during the sitting; option letters A–D; CPS transformation formula; auto-submit at 100 minutes), standalone **«Parte 1»** and **«Parte 2»** (50 min each), and the **«Exámenes oficiales»** practice set (10 presets covering 2020–2025 convocatorias, with 1,187 questions, keys from definitive sheets, `shuffle: false`, official notes, and excluded questions accounted for). crypto-futures keeps the two it always had — **global** (one question
   per module with a bank, so the epilogue is skipped) and **per-block** (offered only for blocks that have
@@ -900,7 +900,7 @@ Screens at 1280 px in the three themes are in `docs/screens/desktop/`.
 **Courses.** Each directory `content/<slug>/` is one course, loaded at startup. A course that does not
 validate stops startup, and the error names it. `course.yaml` declares the course's `languages` (`[es]`
 or `[en, es]`, first = fallback), its `status` (`draft` courses are loaded and checked but never served)
-and its `exercise_types`. Three courses exist: `crypto-futures` (published), `age-auxiliar-c2` (draft, below) and `age-administrativo-c1`,
+and its `exercise_types`. Three courses exist: `crypto-futures` (published), `age-auxiliar-c2` (published, below) and `age-administrativo-c1`,
 the Spanish-only preparation for the Administrativo del Estado (C1) exam, published since AGE 1.0
 (deployment steps in `docs/deploy-age-1.0.md`): the theory of
 all six bloques is written, bloque VI as short list-shaped lessons citing saved official pages
@@ -921,7 +921,7 @@ presets: «Tema» (20 questions from one tema, no penalty, 25 minutes) and «Blo
 answer costs 1/3, 45 minutes); the «Simulacro oficial» and its two parts come with round R5, and pausing
 between questions waits for delta G.
 
-`age-auxiliar-c2` is the draft preparation for the Auxiliar Administrativo del Estado (C2) exam, Spanish
+`age-auxiliar-c2` is the preparation for the Auxiliar Administrativo del Estado (C2) exam, Spanish
 only, with no figures (requirements in `docs/age-auxiliar-course-requirements.md`, a delta to C1's). Round
 **Generated psicotécnicos (platform delta L, 2026-11-07).** A course lists `practice_generators` in
 `course.yaml` (a generator id, its Spanish `title`, its `weight` in the exam mix and its `difficulty` level
@@ -933,19 +933,33 @@ attempt ids are `gen:<generator>:<seed>`. An exam part can mix stored questions 
 (`source: generators`, split by the weights); Progress and results list each type as a row. The printed
 exam carries the seed in its footer and a key sheet computed by the solver. `scripts/export_psicotecnico_goldens.py`
 writes the 50 goldens per generator to `docs/age-verification/c2/psicotecnicos/`. age-auxiliar-c2 declares the
-first batch (13 types) and stays a draft.
+first batch (13 types).
 
 R1 built its skeleton (`docs/age-c2-round-1-handoff.md`): «Proceso de selección» holds «Cómo es el examen»
 (`m00-l01`) and «Cómo son los psicotécnicos» (`ps-l01`, the 16 psicotécnico types with one official
 question each), both written; «Programa» holds bloque I (`m01`, 16 temas) and bloque II (`m02`, 12
 temas, the ofimática ones list-shaped), all written in round R2 (`docs/age-c2-theory-ledger.md`). It
-declares `lesson_practice`, letter options and «tema» like C1, has no exam presets yet, and shares no file
+declares `lesson_practice`, letter options and «tema» like C1, and shares no file
 with C1: its `sources/` are its own copies. Round R3 built its question bank (`docs/age-c2-bank-plan.md`,
 `docs/age-c2-bank-ledger.md`): bloque II 2,384 questions, bloque I 2,312 (short of its 2,582 quota where a
 lesson ran out of facts; variant rounds close it). A question copied from C1 carries «verificado en C1»; an
 authored one a blind verifier's PASS (`docs/age-verification/c2/bank/<bloque>/provenance/`). Excerpts a blind
 check found short of the fact are built as «sin extracto» from `excerpt-exclusions.yaml`, each with its reason.
 The citation grammar accepts `art. único` (a protocol's or a law's single article: «art. único Protocolo n.º 6»).
+
+**Presets and publication (round R5, `docs/age-c2-bank-ledger.md`).** The course is published (Spanish only; blue accent,
+a sheet-with-folded-corner glyph). `exams:` in its `course.yaml`: «Simulacro oficial» (part 1 = 30 questions of bloque I,
+then 30 generated psicotécnicos in the generator weights (`order: by-source`) + 5 reserve; part 2 = 50 of bloque II + 5 reserve; 90 minutes
+for both, no pause, a wrong answer costs 1/3, each part 0–50 with the CPS transformation and the 2025 cut-offs as
+exact fractions, 29 and 64/3; part 2 is graded only if part 1 reaches its minimum, Anexo I 2.3.1 a)), «Parte 1» (49
+min) and «Parte 2» (41 min) alone, «Psicotécnicos» (30 generated, 25 min), «Bloque» and «Tema». The eight official
+questionnaires are presets `conv2025-a` … `conv2020-x` over stored exercises `ofi-*` (build:
+`backend/scripts/build_c2_official_exams.py`; excluded statuses out, notes in the solution, tables as printed). A
+stored quiz question may carry an optional `table:` (title, header, rows), shown above its options in the sitting, the
+review and the printed paper. 34 psicotécnico calibration items (`ps-calibracion`, one frozen generated item per
+generator level, `official: true` so no draw picks them; `backend/scripts/build_calibration_items.py`) serve the
+tests. Tests: `test_age_c2_simulation_presets.py`, `test_age_c2_official_exams.py`, `test_age_c2_calibration_items.py`;
+real-browser checks in `frontend/e2e/age-c2.spec.ts`. Deployment: `docs/deploy-age-c2.md`.
 
 **Provenance (R2.3).** A C2 sentence identical to a C1 one, with the same governing citations and the cited
 files at the same sha256 in both snapshots, inherits C1's verification; every other sentence needs its own

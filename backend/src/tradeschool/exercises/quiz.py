@@ -53,6 +53,21 @@ class MatchPair(BaseModel):
     right: LocalizedText
 
 
+class QuizTable(BaseModel):
+    """A table shown above the stem, as the official questionnaires print one for a group of questions."""
+
+    model_config = ConfigDict(extra="forbid")
+    title: str
+    header: list[str]
+    rows: list[list[str]]
+
+    @model_validator(mode="after")
+    def _rectangular(self) -> Self:
+        if any(len(row) != len(self.header) for row in self.rows):
+            raise ValueError(f"table {self.title!r} has a row that does not match its header")
+        return self
+
+
 class QuizVariant(BaseModel):
     model_config = ConfigDict(extra="forbid")
     id: str
@@ -74,10 +89,14 @@ class QuizVariant(BaseModel):
     difficulty: int | None = Field(default=None, ge=1, le=3, exclude=True)
     tags: list[str] = Field(default_factory=list, exclude=True)
     shuffle: bool = Field(default=True, exclude=True)
+    #: Single-choice only; excluded from dumps like the metadata above.
+    table: QuizTable | None = Field(default=None, exclude=True)
 
     @model_validator(mode="after")
     def _check(self) -> Self:
         k = self.kind
+        if self.table is not None and k is not QuizKind.SINGLE_CHOICE:
+            raise ValueError(f"variant {self.id!r}: a table belongs to a single_choice question")
         if k in (QuizKind.SINGLE_CHOICE, QuizKind.MULTI_SELECT):
             if len(self.options) < 2:
                 raise ValueError(f"variant {self.id!r} needs at least 2 options")
@@ -191,6 +210,9 @@ class QuizGenerator(ExerciseGenerator):
             payload["rights"] = [
                 {"id": f"r{slot}", "text": v.pairs[i].right.get(locale)} for slot, i in enumerate(rorder)
             ]
+
+        if v.table is not None:
+            payload["table"] = v.table.model_dump()
 
         return GeneratedInstance(prompt=v.prompt.get(locale), payload=payload)
 

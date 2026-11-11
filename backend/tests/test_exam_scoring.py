@@ -216,6 +216,25 @@ def test_a_composite_draw_is_shuffled_and_its_reserves_come_last(registry: Cours
     assert len({(question.exercise_id, question.seed) for question in drawn}) == 9
 
 
+def test_a_by_source_draw_keeps_the_sources_in_order_and_shuffles_within_each(
+    registry: CourseRegistry,
+) -> None:
+    part = {"id": "p", "sources": [_COMPOSITE_M02, _COMPOSITE_M01], "order": "by-source", "reserve": 2}
+    shuffled_within = False
+    for seed in range(1, 6):
+        drawn = draw_part(registry, _preset(part).parts[0], None, _Seeded(seed)).questions
+        assert [question.reserve for question in drawn] == [False] * 7 + [True] * 2
+        assert [question.exercise_id.split("-")[0] for question in drawn[:7]] == ["m02"] * 3 + ["m01"] * 4
+        ids = [question.exercise_id for question in drawn[3:7]]
+        shuffled_within |= ids != sorted(ids)
+    assert shuffled_within
+
+
+def test_order_belongs_to_a_part_with_sources() -> None:
+    with pytest.raises(ValidationError, match="`order` belongs to a part with `sources`"):
+        _preset({"id": "p", "source": "course", "questions": 3, "order": "by-source"})
+
+
 def test_composite_sources_that_overlap_or_run_short_fail_the_load_check(registry: CourseRegistry) -> None:
     overlapping = _preset(
         {"id": "p", "sources": [_COMPOSITE_M01, {"source": {"lesson": "m01-l2"}, "questions": 1}]}

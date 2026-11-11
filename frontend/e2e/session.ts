@@ -1,15 +1,16 @@
 import { expect, type APIRequestContext, type Page } from "@playwright/test";
 
 export const AGE = "age-administrativo-c1";
+export const AGE_C2 = "age-auxiliar-c2";
 export const CRYPTO = "crypto-futures";
 
 // One fixed account, so repeated runs reuse it instead of filling the local database with users.
 export const USER = { email: "e2e-mobile@example.com", password: "E2e-mobile-layout-2026!" };
 export const STATE_FILE = "e2e/.auth/state.json";
 
-/** Both courses active, `selected` the current one; the session itself comes from the global setup. */
+/** All three courses active, `selected` the current one; the session itself comes from the global setup. */
 export async function signIn(page: Page, selected: string = AGE): Promise<void> {
-  const courses = await page.request.put("/api/me/courses", { data: { active: [AGE, CRYPTO], selected } });
+  const courses = await page.request.put("/api/me/courses", { data: { active: [AGE, CRYPTO, AGE_C2], selected } });
   expect(courses.ok(), await courses.text()).toBe(true);
 }
 

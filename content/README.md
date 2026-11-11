@@ -392,7 +392,10 @@ questions at random (`random`, the default), one question per module with a bank
 count follows the course) or every question of the source (`all`). A part may instead list several
 `sources`, each `{source, draw, questions}`, drawn and shuffled together into one part with one time and
 one score («40 from bloques I–V + 30 from bloque VI»); the results still count each question under its
-lesson, and the load fails when two of them share a question. It may add `reserve` questions (shown
+lesson, and the load fails when two of them share a question. With `order: by-source` the sources keep
+their declared order and are shuffled only within each one, as the official papers print bloques I–V
+before VI (C1) and bloque I before the psicotécnicos (C2); both courses' «Simulacro oficial» and «Parte 1»
+use it. It may add `reserve` questions (shown
 last, never counted: the platform voids nothing), a `penalty` of `0`, `1/4` or `1/3` per wrong answer,
 a `blank` rule (`free` or `wrong`), a `scoring` block (`max`, `pass_minimum`, `minimum_raw`: the CPS
 transform, raw `minimum_raw` → `pass_minimum` and the maximum raw → `max`) and `requires_previous_pass`.

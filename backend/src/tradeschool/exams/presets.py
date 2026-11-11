@@ -133,6 +133,9 @@ class PresetPart(BaseModel):
     questions: int | None = Field(default=None, ge=1)
     #: Several sources, each with its own draw and count, shuffled together into one part.
     sources: list[PartSource] | None = Field(default=None, min_length=2)
+    #: Composite parts only. `by-source`: sources in declared order, each shuffled within itself, as the
+    #: official papers print the knowledge questions before the psicotécnicos.
+    order: Literal["shuffled", "by-source"] = "shuffled"
     #: Case parts only: how many cases are offered; the learner marks one and only that one is graded.
     choose: int | None = Field(default=None, ge=2)
     #: Case parts only: explicit pairs of case ids; one pair is picked at random and offered.
@@ -164,6 +167,8 @@ class PresetPart(BaseModel):
             return self._composite()
         if self.source is None:
             raise ValueError(f"part {self.id!r} declares `source` or `sources`")
+        if self.order != "shuffled":
+            raise ValueError(f"part {self.id!r}: `order` belongs to a part with `sources`")
         if self.source.cases:
             if self.choose is None or self.questions is None:
                 raise ValueError(f"part {self.id!r}: a case part needs `choose` and `questions`")

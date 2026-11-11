@@ -10,18 +10,18 @@ export function GeneratedTable({ table }: { table: Table }) {
         </caption>
         <thead>
           <tr className="border-y border-border text-left text-xs text-gray-600 dark:border-gray-700 dark:text-gray-300">
-            {table.header.map((cell) => (
-              <th key={cell} scope="col" className="px-3 py-1.5 font-semibold whitespace-nowrap">
+            {table.header.map((cell, column) => (
+              <th key={column} scope="col" className="px-3 py-1.5 font-semibold whitespace-nowrap">
                 {cell}
               </th>
             ))}
           </tr>
         </thead>
         <tbody className="divide-y divide-border dark:divide-gray-800">
-          {table.rows.map((row) => (
-            <tr key={row.join("|")}>
-              {row.map((cell, index) => (
-                <td key={table.header[index]} className="px-3 py-1.5 whitespace-nowrap tabular-nums">
+          {table.rows.map((row, line) => (
+            <tr key={line}>
+              {row.map((cell, column) => (
+                <td key={column} className="px-3 py-1.5 whitespace-nowrap tabular-nums">
                   {cell}
                 </td>
               ))}

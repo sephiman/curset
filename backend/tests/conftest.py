@@ -172,6 +172,20 @@ def multi_course_settings(settings: Settings, tmp_path_factory: pytest.TempPathF
     return settings.model_copy(update={"content_dir": root, "report_email_to": REPORT_ADDRESS})
 
 
+@pytest.fixture(scope="session")
+def c2_course_settings(settings: Settings, tmp_path_factory: pytest.TempPathFactory) -> Settings:
+    """The real age-auxiliar-c2 course alone: its simulation sits on its own bank and generators."""
+    root = tmp_path_factory.mktemp("c2-content")
+    (root / "age-auxiliar-c2").symlink_to(REPO_CONTENT / "age-auxiliar-c2", target_is_directory=True)
+    return settings.model_copy(update={"content_dir": root})
+
+
+@pytest_asyncio.fixture
+async def c2_client(c2_course_settings: Settings, _migrated: bool) -> AsyncGenerator[AsyncClient]:
+    async with _build_client(c2_course_settings, reconcile_content=True) as http:
+        yield http
+
+
 @pytest_asyncio.fixture
 async def multi_client(
     multi_course_settings: Settings, _migrated: bool, mailer: RecordingMailer

@@ -18,7 +18,7 @@ course:
       El programa del Cuerpo General Auxiliar de la Administración del Estado, ingreso libre, resumido tema a
       tema, con preguntas tipo test y psicotécnicos como los del examen.
   languages: [es]
-  status: draft
+  status: published
   exercise_types: [quiz, psicotecnico]
   # «Por tema» instead of «Por lección» in results and stats.
   lesson_noun:
@@ -97,8 +97,12 @@ course:
     difficulty: {1: 3, 2: 1}
   # The PDF exports theory only: questions stay on the practice and exam pages.
   pdf_exercises: false
-  # glyph / color: left for the identity round (docs/identity.md; R2.2 of the course requirements), with a glyph
-  # distinct from C1's in the same family. No figures: this course has no figures/ tree.
+  # The identity round (docs/identity.md): a glyph distinct from C1's in the same family, the accent on paper and
+  # on ink. No figures: this course has no figures/ tree.
+  glyph: document-sheet
+  color:
+    light: "#3a5aa6"
+    dark: "#7ea0dc"
 blocks:
 - id: block-a
   title:
@@ -117,6 +121,31 @@ blocks:
         es: El ejercicio único tiene dos partes, dura noventa minutos y cada error resta un tercio de acierto. La
           puntuación directa de cada parte se transforma en una calificación de 0 a 50, con 25 en la nota de corte.
           La lección da las notas de corte que fijó la Comisión en 2025.
+      exercises:
+      - id: ofi-conv2025-a
+        type: quiz
+        official: true
+      - id: ofi-conv2025-b
+        type: quiz
+        official: true
+      - id: ofi-conv2024-a
+        type: quiz
+        official: true
+      - id: ofi-conv2024-b
+        type: quiz
+        official: true
+      - id: ofi-conv2024-x
+        type: quiz
+        official: true
+      - id: ofi-conv2022
+        type: quiz
+        official: true
+      - id: ofi-conv2020
+        type: quiz
+        official: true
+      - id: ofi-conv2020-x
+        type: quiz
+        official: true
   - id: ps
     title:
       es: Psicotécnicos
@@ -129,6 +158,10 @@ blocks:
       summary:
         es: Las 30 preguntas psicotécnicas de la primera parte se agrupan en 16 tipos, sacados de los cuestionarios
           del Auxiliar de 2020 a 2025. Cada tipo lleva una pregunta oficial resuelta, con su clave.
+      exercises:
+      - id: ps-calibracion
+        type: quiz
+        official: true
 - id: block-b
   title:
     es: Programa
@@ -905,19 +938,6 @@ blocks:
           Origen de Internet, de ARPANET a la Web 4.0. Protocolos y servicios: TCP/IP, DNS, DHCP, VPN, HTTP
           y HTTPS, correo y alojamiento web. Funciones de Microsoft Edge: historial, favoritos, pestañas,
           InPrivate y extensiones.
-# exams: not declared yet. The presets need a bank to draw from (the load fails when a pool cannot supply a
-# preset) and part 1 mixes stored questions with generated psicotécnico items, which is platform delta section L.
-# R7.1 of the course requirements, scored per R7.2 (sources/programa.md: Anexo I 2.3 and the CPS notes):
-# - «Simulacro oficial»: 90 minutes for both parts, pause never, tema labels hidden, option letters A–D. Part 1:
-#   60 questions (30 from m01 + 30 generated psicotécnicos in the type weights of the last official exam) + 5
-#   reserve. Part 2: 50 questions from m02 + 5 reserve, graded only if part 1 reaches its minimum. A wrong answer
-#   costs 1/3, a blank nothing; each part 0–50, pass 25, CPS transformation with the 2025 cut-offs of the
-#   sistema general as exact fractions: part 1 minimum_raw 29, part 2 minimum_raw 64/3 (printed 21,33); 0–100.
-# - «Parte 1» and «Parte 2» alone, with the same counts, reserve and scoring.
-# - «Bloque N» per bloque (m01, m02) and «Tema» per tema.
-# - «Psicotécnicos»: 30 generated items in the official type weights, timed as the exam's share.
-# - The official-exam sets (2025 A/B, 2024 A/B, 2024 extraordinario, 2022, OEP 2020 and its extraordinario), real
-#   psicotécnico questions included, from docs/age-c2-official-exams-ledger.md.
       exercises:
       - id: m02-l12-ex-1
         type: quiz
@@ -943,3 +963,314 @@ blocks:
         type: quiz
       - id: m02-l12-ex-12
         type: quiz
+# Presets (R7.1 of the course requirements), scored per R7.2: Anexo I 2.2 and 2.3 of sources/programa.md and the CPS
+# notes of 2025. A wrong answer costs 1/3, a blank nothing; each part is 0-50 and 25 is its cut-off. The 2025 cut-offs
+# of the sistema general are exact fractions: part 1 minimum_raw 29 (N 60), part 2 minimum_raw 64/3 (N 50, printed
+# 21,33). Anexo I 2.3.1 a) says the CPS fixes the minimum of part 1 «para que pueda evaluarse la segunda», hence
+# requires_previous_pass. Time: 90 minutes for both parts together; a part or block alone gets its share of the 110
+# counted questions (49 seconds each), a decision of this course. The reserve of a mixed part comes from bloque I,
+# since generated items have none (the official reserve mixes both).
+exams:
+- id: simulacro
+  version: 1
+  title:
+    es: Simulacro oficial
+  description:
+    es: >-
+      El ejercicio único completo. Primera parte: 30 preguntas del bloque I y después 30 psicotécnicos, más 5 de
+      reserva.
+      Segunda parte: 50 preguntas del bloque II, más 5 de reserva. Noventa minutos para las dos partes, sin pausa.
+      Cada error resta un tercio de acierto y las respuestas en blanco no restan. Cada parte se califica de 0 a 50
+      con la transformación de la Comisión Permanente de Selección. Con las notas de corte de 2025, 25 puntos son
+      29 puntos directos en la primera parte y 21,33 en la segunda. La segunda parte solo se califica si superas
+      la primera.
+  time_limit_minutes: 90
+  pause: never
+  parts:
+  - id: parte-1
+    title:
+      es: Primera parte
+    sources:
+    - source:
+        module: m01
+      questions: 30
+    - source: generators
+      questions: 30
+    # The paper prints the bloque I questions first, then the psicotécnicos.
+    order: by-source
+    reserve: 5
+    penalty: 1/3
+    blank: free
+    scoring:
+      max: 50
+      pass_minimum: 25
+      minimum_raw: 29
+  - id: parte-2
+    title:
+      es: Segunda parte
+    source:
+      module: m02
+    questions: 50
+    reserve: 5
+    penalty: 1/3
+    blank: free
+    scoring:
+      max: 50
+      pass_minimum: 25
+      minimum_raw: 64/3
+    requires_previous_pass: true
+- id: parte-1
+  version: 1
+  title:
+    es: Parte 1
+  description:
+    es: >-
+      La primera parte sola: 30 preguntas del bloque I y después 30 psicotécnicos, más 5 de reserva. Los 49
+      minutos son una estimación del curso: la convocatoria da 90 minutos para las dos partes juntas, y aquí la
+      primera recibe su parte en proporción a sus preguntas. Sin pausa. Cada error resta un tercio de acierto. Se
+      califica de 0 a 50, y 29 puntos directos valen 25.
+  time_limit_minutes: 49
+  pause: never
+  parts:
+  - id: parte-1
+    title:
+      es: Primera parte
+    sources:
+    - source:
+        module: m01
+      questions: 30
+    - source: generators
+      questions: 30
+    # The paper prints the bloque I questions first, then the psicotécnicos.
+    order: by-source
+    reserve: 5
+    penalty: 1/3
+    blank: free
+    scoring:
+      max: 50
+      pass_minimum: 25
+      minimum_raw: 29
+- id: parte-2
+  version: 1
+  title:
+    es: Parte 2
+  description:
+    es: >-
+      La segunda parte sola: 50 preguntas del bloque II, más 5 de reserva. Los 41 minutos son una estimación del
+      curso: la convocatoria da 90 minutos para las dos partes juntas, y aquí la segunda recibe su parte en
+      proporción a sus preguntas. Sin pausa. Cada error resta un tercio de acierto. Se califica de 0 a 50, y
+      21,33 puntos directos valen 25.
+  time_limit_minutes: 41
+  pause: never
+  parts:
+  - id: parte-2
+    title:
+      es: Segunda parte
+    source:
+      module: m02
+    questions: 50
+    reserve: 5
+    penalty: 1/3
+    blank: free
+    scoring:
+      max: 50
+      pass_minimum: 25
+      minimum_raw: 64/3
+- id: psicotecnicos
+  version: 1
+  title:
+    es: Psicotécnicos
+  description:
+    es: >-
+      30 psicotécnicos generados, en la proporción de tipos de los cuestionarios oficiales. Los 25 minutos son una
+      estimación del curso, la mitad de los 49 de la primera parte redondeada hacia arriba: la convocatoria solo
+      da 90 minutos para todo el ejercicio. Cada error resta un tercio de acierto.
+  time_limit_minutes: 25
+  parts:
+  - id: psicotecnicos
+    title:
+      es: Psicotécnicos
+    source: generators
+    questions: 30
+    penalty: 1/3
+    blank: free
+- id: bloque
+  version: 1
+  title:
+    es: Bloque
+  description:
+    es: >-
+      50 preguntas del bloque que elijas, en 41 minutos. El tiempo es una estimación del curso, al ritmo de los 90
+      minutos que la convocatoria da para las 110 preguntas del ejercicio. Cada error resta un tercio de acierto.
+  time_limit_minutes: 41
+  parts:
+  - id: preguntas
+    title:
+      es: Preguntas
+    source:
+      each: module
+    questions: 50
+    penalty: 1/3
+    blank: free
+- id: tema
+  version: 1
+  title:
+    es: Tema
+  description:
+    es: >-
+      20 preguntas del tema que elijas, en 16 minutos. El tiempo es una estimación del curso, al ritmo de los 90
+      minutos que la convocatoria da para las 110 preguntas del ejercicio. Cada error resta un tercio de acierto.
+  time_limit_minutes: 16
+  parts:
+  - id: preguntas
+    title:
+      es: Preguntas
+    source:
+      each: lesson
+    questions: 20
+    penalty: 1/3
+    blank: free
+- id: conv2025-a
+  version: 1
+  title:
+    es: Examen oficial 2025 · Modelo A
+  description:
+    es: >-
+      Instituto Nacional de Administración Pública (INAP) · Convocatoria 2025, ejercicio realizado el 23-05-2026, modelo A. Cuestionario original de 120 preguntas, con las de reserva. Se incluyen 118 con la clave de la plantilla definitiva y se excluyen 2: 1 anulada y 1 por norma modificada. Ninguna pregunta lleva nota en la solución. Las opciones van en su orden y con sus letras originales, y los psicotécnicos son los del cuestionario.
+  time_limit_minutes: 90
+  pause: never
+  parts:
+  - id: examen
+    title:
+      es: Cuestionario oficial
+    source:
+      exercise: ofi-conv2025-a
+    draw: all
+    penalty: 1/3
+    blank: free
+- id: conv2025-b
+  version: 1
+  title:
+    es: Examen oficial 2025 · Modelo B
+  description:
+    es: >-
+      Instituto Nacional de Administración Pública (INAP) · Convocatoria 2025, ejercicio realizado el 23-05-2026, modelo B. Cuestionario original de 120 preguntas, con las de reserva. Se incluyen 118 con la clave de la plantilla definitiva y se excluyen 2: 1 anulada y 1 por norma modificada. Ninguna pregunta lleva nota en la solución. Las opciones van en su orden y con sus letras originales, y los psicotécnicos son los del cuestionario.
+  time_limit_minutes: 90
+  pause: never
+  parts:
+  - id: examen
+    title:
+      es: Cuestionario oficial
+    source:
+      exercise: ofi-conv2025-b
+    draw: all
+    penalty: 1/3
+    blank: free
+- id: conv2024-a
+  version: 1
+  title:
+    es: Examen oficial 2024 · Modelo A
+  description:
+    es: >-
+      Instituto Nacional de Administración Pública (INAP) · Convocatoria 2024 (OEP 2023-2024), modelo A. Cuestionario original de 120 preguntas, con las de reserva. Se incluyen 118 con la clave de la plantilla definitiva y se excluyen 2: 1 anulada y 1 dudosa. 2 preguntas llevan una nota en la solución. Las opciones van en su orden y con sus letras originales, y los psicotécnicos son los del cuestionario.
+  time_limit_minutes: 90
+  pause: never
+  parts:
+  - id: examen
+    title:
+      es: Cuestionario oficial
+    source:
+      exercise: ofi-conv2024-a
+    draw: all
+    penalty: 1/3
+    blank: free
+- id: conv2024-b
+  version: 1
+  title:
+    es: Examen oficial 2024 · Modelo B
+  description:
+    es: >-
+      Instituto Nacional de Administración Pública (INAP) · Convocatoria 2024 (OEP 2023-2024), modelo B. Cuestionario original de 120 preguntas, con las de reserva. Se incluyen 118 con la clave de la plantilla definitiva y se excluyen 2: 1 anulada y 1 dudosa. 2 preguntas llevan una nota en la solución. Las opciones van en su orden y con sus letras originales, y los psicotécnicos son los del cuestionario.
+  time_limit_minutes: 90
+  pause: never
+  parts:
+  - id: examen
+    title:
+      es: Cuestionario oficial
+    source:
+      exercise: ofi-conv2024-b
+    draw: all
+    penalty: 1/3
+    blank: free
+- id: conv2024-x
+  version: 1
+  title:
+    es: Examen oficial 2024 · Extraordinario
+  description:
+    es: >-
+      Instituto Nacional de Administración Pública (INAP) · Convocatoria 2024, llamamiento extraordinario. Cuestionario original de 120 preguntas, con las de reserva. Se incluyen 117 con la clave de la plantilla definitiva y se excluyen 3: 1 anulada, 1 dudosa y 1 por función retirada. 7 preguntas llevan una nota en la solución. Las opciones van en su orden y con sus letras originales, y los psicotécnicos son los del cuestionario.
+  time_limit_minutes: 90
+  pause: never
+  parts:
+  - id: examen
+    title:
+      es: Cuestionario oficial
+    source:
+      exercise: ofi-conv2024-x
+    draw: all
+    penalty: 1/3
+    blank: free
+- id: conv2022
+  version: 1
+  title:
+    es: Examen oficial 2022
+  description:
+    es: >-
+      Instituto Nacional de Administración Pública (INAP) · Convocatoria 2022 (OEP 2021-2022). Cuestionario original de 120 preguntas, con las de reserva. Se incluyen 115 con la clave de la plantilla definitiva y se excluyen 5: 3 anuladas, 1 dudosa y 1 por norma modificada. 3 preguntas llevan una nota en la solución. Las opciones van en su orden y con sus letras originales, y los psicotécnicos son los del cuestionario.
+  time_limit_minutes: 90
+  pause: never
+  parts:
+  - id: examen
+    title:
+      es: Cuestionario oficial
+    source:
+      exercise: ofi-conv2022
+    draw: all
+    penalty: 1/3
+    blank: free
+- id: conv2020
+  version: 1
+  title:
+    es: Examen oficial 2020 (OEP 2020)
+  description:
+    es: >-
+      Instituto Nacional de Administración Pública (INAP) · OEP 2020, programa anterior. Cuestionario original de 120 preguntas, con las de reserva. Se incluyen 116 con la clave de la plantilla definitiva y se excluyen 4: 2 anuladas y 2 por función retirada. 3 preguntas llevan una nota en la solución. Las opciones van en su orden y con sus letras originales, y los psicotécnicos son los del cuestionario.
+  time_limit_minutes: 90
+  pause: never
+  parts:
+  - id: examen
+    title:
+      es: Cuestionario oficial
+    source:
+      exercise: ofi-conv2020
+    draw: all
+    penalty: 1/3
+    blank: free
+- id: conv2020-x
+  version: 1
+  title:
+    es: Examen oficial 2020 (OEP 2020) · Extraordinario
+  description:
+    es: >-
+      Instituto Nacional de Administración Pública (INAP) · OEP 2020, ejercicio extraordinario, programa anterior. Cuestionario original de 120 preguntas, con las de reserva. Se incluyen 114 con la clave de la plantilla definitiva y se excluyen 6: 3 por función retirada, 2 anuladas y 1 por norma modificada. 2 preguntas llevan una nota en la solución. Las opciones van en su orden y con sus letras originales, y los psicotécnicos son los del cuestionario.
+  time_limit_minutes: 90
+  pause: never
+  parts:
+  - id: examen
+    title:
+      es: Cuestionario oficial
+    source:
+      exercise: ofi-conv2020-x
+    draw: all
+    penalty: 1/3
+    blank: free

@@ -167,6 +167,31 @@ def test_parte_1_and_parte_2_alone_presets(registry: CourseRegistry) -> None:
     assert pool_shortfalls(registry, p2_preset, None) == []
 
 
+@pytest.mark.parametrize("preset_id", ["simulacro", "parte-1"])
+def test_part_1_puts_bloques_i_to_v_first_and_bloque_vi_after_each_shuffled_within(
+    registry: CourseRegistry, preset_id: str
+) -> None:
+    part = next(p for p in registry.manifest.exams if p.id == preset_id).parts[0]
+    assert part.order == "by-source"
+    first_five = ("m01-", "m02-", "m03-", "m04-", "m05-")
+    shuffled_within = False
+    for seed in (1, 2, 3):
+        drawn = draw_part(registry, part, None, _SeededRng(seed)).questions
+        assert all(q.exercise_id.startswith(first_five) for q in drawn[:40])
+        assert all(q.exercise_id.startswith("m06-") for q in drawn[40:70])
+        modules = [q.exercise_id[:3] for q in drawn[:40]]
+        shuffled_within |= modules != sorted(modules)
+    assert shuffled_within
+    printed = build_exam_print(registry, preset_id, "es", seed=7)["parts"][0]["questions"]
+    assert all(q["id"].startswith(first_five) for q in printed[:40])
+    assert all(q["id"].startswith("m06-") for q in printed[40:70])
+
+
+def test_the_other_presets_keep_the_shuffle(registry: CourseRegistry) -> None:
+    by_source = {p.id for p in registry.manifest.exams for part in p.parts if part.order == "by-source"}
+    assert by_source == {"simulacro", "parte-1"}
+
+
 async def _sign_up(client: AsyncClient, name: str) -> None:
     email = f"{name}@example.com"
     body = {

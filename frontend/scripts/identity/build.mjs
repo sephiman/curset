@@ -52,8 +52,14 @@ const GLYPHS = {
     `<rect x="13.5" y="9" width="6" height="8" rx="${RADIUS}" fill="currentColor" stroke="currentColor" stroke-width="${STROKE}" stroke-linejoin="round"/>`,
   // A columned public building: the institution, with no flag, crest or seal.
   "public-building": `<path ${LINE} d="M3 9.5 12 4l9 5.5zM6 12.5v5M10 12.5v5M14 12.5v5M18 12.5v5M3 20.5h18"/>`,
+  // A sheet with a folded corner and two lines of text: the filed form of the administrative auxiliary's desk.
+  "document-sheet": `<path ${LINE} d="M7 3h7l5 5v12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM14 3v5h5M9.5 13h5M9.5 17h3.5"/>`,
 };
-const COURSE_GLYPHS = { "crypto-futures": "candlestick", "age-administrativo-c1": "public-building" };
+const COURSE_GLYPHS = {
+  "crypto-futures": "candlestick",
+  "age-administrativo-c1": "public-building",
+  "age-auxiliar-c2": "document-sheet",
+};
 
 const HEADER = "<!-- SPDX-License-Identifier: AGPL-3.0-only -->\n";
 const num = (n) => String(Math.round(n * 100) / 100);

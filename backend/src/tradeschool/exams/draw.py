@@ -232,34 +232,41 @@ def draw_all(registry: CourseRegistry, pool: list[PoolQuestion], rand: Rand) -> 
 def draw_composite(
     registry: CourseRegistry, part: PresetPart, target: str | None, rand: Rand
 ) -> list[DrawnQuestion]:
-    """Each source's questions, shuffled together; then `reserve` more from what the random sources left."""
-    counted: list[DrawnQuestion] = []
+    """Each source's questions, shuffled as the part's `order` says; then `reserve` more from what is left."""
+    groups: list[list[DrawnQuestion]] = []
     spare: list[PoolQuestion] = []
     for number, entry in enumerate(part.draws, start=1):
         if entry.source.generators:
             assert entry.questions is not None
-            counted += draw_generated(registry, entry.questions, rand)
+            groups.append(draw_generated(registry, entry.questions, rand))
             continue
         scope = source_scope(entry.source, target)
         if entry.draw == "per-module":
-            counted += draw_per_module(registry, per_module_scope(registry, scope), rand)
+            groups.append(draw_per_module(registry, per_module_scope(registry, scope), rand))
             continue
         pool = question_pool(registry, scope)
         if entry.draw == "all":
-            counted += draw_all(registry, pool, rand)
+            groups.append(draw_all(registry, pool, rand))
             continue
         assert entry.questions is not None
         if len(pool) < entry.questions:
             raise DrawError(f"source {number} holds {len(pool)} questions; it needs {entry.questions}")
         picked = _sample(rand, len(pool), entry.questions)
-        counted += [_drawn(registry, pool[i], rand) for i in sorted(picked)]
+        groups.append([_drawn(registry, pool[i], rand) for i in sorted(picked)])
         chosen = set(picked)
         spare += [question for i, question in enumerate(pool) if i not in chosen]
-    shuffled = [counted[i] for i in _sample(rand, len(counted), len(counted))]
+    if part.order == "by-source":
+        ordered = [question for group in groups for question in _shuffled(rand, group)]
+    else:
+        ordered = _shuffled(rand, [question for group in groups for question in group])
     if len(spare) < part.reserve:
         raise DrawError(f"the sources leave {len(spare)} questions; the part needs {part.reserve} in reserve")
     extra = sorted(_sample(rand, len(spare), part.reserve))
-    return shuffled + [_drawn(registry, spare[i], rand, reserve=True) for i in extra]
+    return ordered + [_drawn(registry, spare[i], rand, reserve=True) for i in extra]
+
+
+def _shuffled(rand: Rand, questions: list[DrawnQuestion]) -> list[DrawnQuestion]:
+    return [questions[i] for i in _sample(rand, len(questions), len(questions))]
 
 
 def draw_cases(

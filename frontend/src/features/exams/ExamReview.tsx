@@ -11,6 +11,7 @@ import { Prose } from "@/lib/markdown";
 import { scopeKey, useCourse } from "@/features/courses/CourseContext";
 import { ProseReferenceHost } from "@/features/references/ProseReferenceHost";
 import { ByLessonTable } from "@/features/byLesson/ByLessonTable";
+import { GeneratedTable } from "@/features/exercises/GeneratedTable";
 import { LessonLink } from "@/features/exercises/LessonLink";
 import { SolutionPanel } from "@/features/exercises/SolutionPanel";
 import { CopyableReference } from "@/components/ui/CopyableReference";
@@ -287,7 +288,7 @@ export function ExamReview() {
                     </span>
                   )}
                 </p>
-                <div className="flex items-center gap-2">
+                <div className="flex min-w-0 max-w-full flex-wrap items-center gap-2">
                   {reference && <CopyableReference reference={reference} />}
                   <StatusBadge q={q} t={t} />
                 </div>
@@ -302,6 +303,7 @@ export function ExamReview() {
               <div className="mt-2">
                 <Prose markdown={q.prompt} />
               </div>
+              {q.payload.table && <GeneratedTable table={q.payload.table} />}
               {CHART_TYPES.has(q.type) && q.lessonId && (
                 <div className="mt-2 flex flex-wrap items-start gap-3">
                   <LessonLink lessonId={q.lessonId} anchor={q.lessonAnchor} citation={q.citation} />
