@@ -930,7 +930,10 @@ C1's and C2's). Stage 1 is theory only; the first-exercise bank is stage 2 and t
 supuestos) gets no practice. Round R0a gathered its sources and ledger (`docs/aeat-round-0a-handoff.md`);
 round R1 built its skeleton (`docs/aeat-round-1-handoff.md`): «Proceso selectivo» holds «Cómo es el proceso
 selectivo» (`m00-l01`, written), and «Programa» holds the three parts of the BOE programme (`m01` 7 temas,
-`m02` 5, `m03` 20) as stubs. It has no exercises yet; `exercise_types: [quiz]` stands in until platform delta
+`m02` 5, `m03` 20). Round R2 wrote the common part (`m01`, `m02`; `docs/aeat-theory-ledger.md`): sections copied
+from C1/C2 lessons by script (`docs/age-verification/aeat/r2/derivation.yaml`), inheriting their verification under
+R2.3 (`backend/scripts/provenance.py --course aeat-agentes-hacienda`), the rest blind-verified; the 20 tax temas are
+still stubs. It has no exercises yet; `exercise_types: [quiz]` stands in until platform delta
 section M allows an empty list.
 
 **Generated psicotécnicos (platform delta L, 2026-11-07).** A course lists `practice_generators` in

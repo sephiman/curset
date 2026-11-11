@@ -35,6 +35,7 @@ from tradeschool.content.yaml_file import read_yaml  # noqa: E402
 REPO = REPO_CONTENT.parent
 C2_RECORDS = REPO / "docs" / "age-verification" / "c2"
 RECORDS = C2_RECORDS / "bloque-i"
+AEAT_RECORDS = REPO / "docs" / "age-verification" / "aeat" / "r2"
 REPORT = "docs/report.md"
 
 
@@ -106,14 +107,14 @@ def test_an_article_abbreviation_does_not_end_a_sentence() -> None:
 
 def test_identical_sentences_with_the_same_cited_file_inherit(repo: Path) -> None:
     target, source = _setup(repo, SOURCE)
-    audit = audit_lesson(target, _inherit_all(target), lambda _: source, repo)
+    audit = audit_lesson(target, _inherit_all(target), lambda *_: source, repo)
     assert audit.problems == []
     assert audit.inherited == 5
 
 
 def test_a_cited_file_with_another_sha256_breaks_inheritance(repo: Path) -> None:
     target, source = _setup(repo, SOURCE, same_file=False)
-    audit = audit_lesson(target, _inherit_all(target), lambda _: source, repo)
+    audit = audit_lesson(target, _inherit_all(target), lambda *_: source, repo)
     assert len(audit.problems) == 5
     assert "no identical counterpart" in audit.problems[0]
 
@@ -124,7 +125,7 @@ def test_a_sentence_whose_governing_citation_was_cut_does_not_inherit(repo: Path
     record = parse_record(
         _entry("El Rey es el Jefe del Estado.", "verificado en C1", f"{REPORT} · C1 m01-l02")
     )
-    audit = audit_lesson(target, record, lambda _: source, repo)
+    audit = audit_lesson(target, record, lambda *_: source, repo)
     assert any("no identical counterpart" in p for p in audit.problems)
 
 
@@ -132,17 +133,17 @@ def test_a_changed_sentence_needs_a_pass_in_its_report(repo: Path) -> None:
     changed = "El Rey es el Jefe del Estado (art. 56.1 CE)."
     target, source = _setup(repo, f"# Corona\n\n{changed}\n")
     record = parse_record(_entry(changed, "verificado", f"PASS · {REPORT}"))
-    assert audit_lesson(target, record, lambda _: source, repo).problems == [
+    assert audit_lesson(target, record, lambda *_: source, repo).problems == [
         f"m01-l02: {sentence_id(changed)} has no PASS in {REPORT}"
     ]
     (repo / REPORT).write_text(f"| `{sentence_id(changed)}` | PASS | ok |\n")
-    assert audit_lesson(target, record, lambda _: source, repo).verified == 1
+    assert audit_lesson(target, record, lambda *_: source, repo).verified == 1
 
 
 def test_a_sentence_without_a_record_and_a_record_without_a_sentence_both_fail(repo: Path) -> None:
     target, source = _setup(repo, "# Corona\n\nUna frase (art. 1 CE).\n")
     record = parse_record(_entry("Otra frase.", "verificado", f"PASS · {REPORT}"))
-    problems = audit_lesson(target, record, lambda _: source, repo).problems
+    problems = audit_lesson(target, record, lambda *_: source, repo).problems
     assert any("is not a sentence of the lesson" in p for p in problems)
     assert any("has no record" in p for p in problems)
 
@@ -152,7 +153,7 @@ def test_a_record_naming_a_missing_report_fails(repo: Path) -> None:
     records = parse_record(
         "".join(_entry(s.text, "verificado en C1", "docs/nope.md · C1 m01-l02") for s in sentences(SOURCE))
     )
-    assert all("missing report" in p for p in audit_lesson(target, records, lambda _: source, repo).problems)
+    assert all("missing report" in p for p in audit_lesson(target, records, lambda *_: source, repo).problems)
 
 
 # --------------------------------------------------------------------------------- the course itself
@@ -190,7 +191,7 @@ def test_every_sentence_of_a_written_c2_lesson_is_inherited_or_verified(lesson_i
             c1_lessons[lid] = text_of(c1, lid)
         return c1_lessons[lid]
 
-    audit = audit_lesson(lesson, parse_record(record_path.read_text()), c1_lesson, REPO)
+    audit = audit_lesson(lesson, parse_record(record_path.read_text()), lambda _, lid: c1_lesson(lid), REPO)
     assert audit.problems == []
 
 
@@ -210,7 +211,7 @@ def _glossary_audit(
     record = record or f"- `g-refrendo` · verificado en C1: {REPORT} · C1 m01-l02\n"
     audit = audit_glossary(
         [GlossaryEntry.of(c2_entry, c2, repo / "c2")],
-        {"g-refrendo": GlossaryEntry.of(c1_entry, c1, repo / "c1")},
+        {"C1": {"g-refrendo": GlossaryEntry.of(c1_entry, c1, repo / "c1")}},
         parse_glossary_record(record),
         repo,
     )
@@ -254,7 +255,7 @@ def test_every_c2_glossary_entry_is_inherited_or_verified() -> None:
     record = RECORDS / "glossary.md"
     assert record.exists(), "age-auxiliar-c2 has glossary entries but no glossary provenance record"
     c1_entries = {entry.id: entry for entry in entries(c1)}
-    audit = audit_glossary(c2_entries, c1_entries, parse_glossary_record(record.read_text()), REPO)
+    audit = audit_glossary(c2_entries, {"C1": c1_entries}, parse_glossary_record(record.read_text()), REPO)
     assert audit.problems == []
 
 
@@ -267,3 +268,106 @@ def test_a_c1_sentence_only_reflowed_by_a_c2_commit_keeps_the_report_from_before
     found = next(s for s in sentences(c1_lesson.read_text()) if s.text == text)
     report, _ = c1_report(REPO_CONTENT.parent, c1_lesson, found)
     assert report == "docs/age-theory-ledger.md"
+
+
+# ------------------------------------------------------------------ a course inheriting from C1 or C2 (AEAT)
+
+
+def test_a_sentence_inherited_from_c2_names_c2_and_needs_the_c2_pass(repo: Path) -> None:
+    target, source = _setup(
+        repo, "# Corona\n\nArbitra y modera el funcionamiento regular de las instituciones\n(art. 56.1 CE).\n"
+    )
+    text = "Arbitra y modera el funcionamiento regular de las instituciones (art. 56.1 CE)."
+    record = parse_record(_entry(text, "verificado en C2", f"{REPORT} · C2 m01-l02 l.4"))
+    assert record[0].origin == "C2"
+    seen: list[tuple[str, str]] = []
+
+    def lookup(origin: str, lesson_id: str) -> LessonText:
+        seen.append((origin, lesson_id))
+        return source
+
+    problems = audit_lesson(target, record, lookup, repo).problems
+    assert seen == [("C2", "m01-l02")]
+    assert problems == [f"m01-l02: {sentence_id(text)} has no PASS for the C2 origin in {REPORT}"]
+    (repo / REPORT).write_text(f"| `{sentence_id(text)}` | PASS | ok |\n")
+    assert audit_lesson(target, record, lookup, repo).inherited == 1
+
+
+def test_a_glossary_entry_inherits_from_the_course_its_record_names(repo: Path) -> None:
+    c2 = _course(repo / "c2", b"ce text")
+    aeat = _course(repo / "aeat", b"ce text")
+    entry = _term("Firma que valida los actos del Rey (art. 64.1 CE).")
+    record = f"- `g-refrendo` · verificado en C2: {REPORT} · C2 m01-l02\n"
+    audit = audit_glossary(
+        [GlossaryEntry.of(entry, aeat, repo / "aeat")],
+        {"C1": {}, "C2": {"g-refrendo": GlossaryEntry.of(entry, c2, repo / "c2")}},
+        parse_glossary_record(record),
+        repo,
+    )
+    assert audit.problems == []
+    assert audit.inherited == 1
+
+
+def _aeat_written_lessons() -> list[str]:
+    course = next(c for c in pipeline_courses() if c.slug == "aeat-agentes-hacienda")
+    lessons = course_dir(course) / "es" / "lessons"
+    return sorted(
+        path.stem for path in lessons.glob("m0[1-3]-l*.md") if "Tema sin redactar." not in path.read_text()
+    )
+
+
+@pytest.mark.parametrize("lesson_id", _aeat_written_lessons())
+def test_every_sentence_of_a_written_aeat_lesson_is_inherited_or_verified(lesson_id: str) -> None:
+    courses = {c.slug: c for c in pipeline_courses()}
+    target = courses["aeat-agentes-hacienda"]
+    origins = {"C1": courses["age-administrativo-c1"], "C2": courses["age-auxiliar-c2"]}
+
+    def text_of(course: CourseRegistry, lid: str) -> LessonText | None:
+        root = course_dir(course)
+        path = root / "es" / "lessons" / f"{lid}.md"
+        citations = course.citations.lesson(lid, "es")
+        if not path.exists() or citations is None:
+            return None
+        return LessonText(lid, path.read_text(), citations, root)
+
+    record_path = AEAT_RECORDS / f"{lesson_id}.md"
+    assert record_path.exists(), f"{lesson_id} is written but has no provenance record"
+    lesson = text_of(target, lesson_id)
+    assert lesson is not None
+    audit = audit_lesson(
+        lesson, parse_record(record_path.read_text()), lambda o, lid: text_of(origins[o], lid), REPO
+    )
+    assert audit.problems == []
+
+
+def test_every_aeat_glossary_entry_is_inherited_or_verified() -> None:
+    courses = {c.slug: c for c in pipeline_courses()}
+
+    def entries(slug: str) -> dict[str, GlossaryEntry]:
+        course = courses[slug]
+        root = course_dir(course)
+        raw = read_yaml(root / "glossary.yaml")
+        terms = raw.get("terms") if isinstance(raw, dict) else None
+        norms = course.citations.norms
+        assert norms is not None
+        return {str(t["id"]): GlossaryEntry.of(t, norms, root) for t in terms or []}
+
+    aeat = entries("aeat-agentes-hacienda")
+    if not aeat:
+        pytest.skip("aeat-agentes-hacienda has no glossary entries yet")
+    record = AEAT_RECORDS / "glossary.md"
+    assert record.exists(), "aeat-agentes-hacienda has glossary entries but no glossary provenance record"
+    sources = {"C1": entries("age-administrativo-c1"), "C2": entries("age-auxiliar-c2")}
+    audit = audit_glossary(list(aeat.values()), sources, parse_glossary_record(record.read_text()), REPO)
+    assert audit.problems == []
+
+
+def test_a_recheck_pass_overrides_the_first_report_fail(tmp_path: Path) -> None:
+    from scripts.provenance import _latest_verdicts
+
+    verify = tmp_path / "docs" / "age-verification" / "aeat" / "r2" / "verify"
+    verify.mkdir(parents=True)
+    (verify / "m01-l07.md").write_text("| `0123456789` | FAIL | x |\n")
+    (verify / "m01-l07-recheck-2.md").write_text("| `0123456789` | FAIL | x |\n")
+    (verify / "m01-l07-recheck-10.md").write_text("| `0123456789` | PASS | x |\n")
+    assert _latest_verdicts(verify)["0123456789"][0] == "PASS"

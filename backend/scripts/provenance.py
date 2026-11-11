@@ -1,9 +1,10 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Provenance of a course's lesson sentences against the course it was derived from (R2.3, C2 requirements).
+"""Provenance of a course's lesson sentences against the courses it was derived from (R2.3, C2 and AEAT).
 
-A sentence inherits the source course's verification when its text is identical, the citations that govern
-it are the same, and every file they cite has the same sha256 in both snapshots. Every other sentence needs
-its own PASS in a verifier report. A lesson's record lists each sentence once with exactly one of the two.
+A sentence inherits a source course's verification when its text is identical, the citations that govern
+it are the same, and every file they cite has the same sha256 in both snapshots. C2 inherits from C1; the
+AEAT course from C1 or C2, and a C2 origin also needs its PASS in the C2 report the record names. Every other
+sentence needs its own PASS in a verifier report. A lesson's record lists each sentence once.
 
 Text identity is compared after joining the hard-wrapped lines of a block with single spaces: the wrap is
 not part of the text a reader sees.
@@ -23,6 +24,7 @@ from tradeschool.citations.norms import NormIndex
 from tradeschool.content.registry import CourseRegistry
 
 INHERITED = "verificado en C1"
+INHERITED_C2 = "verificado en C2"
 #: C2 module → folder of its provenance records under docs/age-verification/c2/.
 BLOQUE_DIRS = {"m01": "bloque-i", "m02": "bloque-ii"}
 VERIFIED = "verificado"
@@ -241,7 +243,7 @@ def find_origin(
 
 # ----------------------------------------------------------------------------------------------- records
 
-_ENTRY = re.compile(r"^- `(?P<id>[0-9a-f]{10})` · (?P<kind>verificado en C1|verificado): (?P<rest>.+)$")
+_ENTRY = re.compile(r"^- `(?P<id>[0-9a-f]{10})` · (?P<kind>verificado en C[12]|verificado): (?P<rest>.+)$")
 
 
 @dataclass(frozen=True)
@@ -252,6 +254,8 @@ class Record:
     #: Inherited: the source lesson id. Verified: the verdict.
     detail: str
     text: str
+    #: Inherited: the source course, «C1» or «C2». Verified: empty.
+    origin: str = ""
 
 
 def parse_record(text: str) -> list[Record]:
@@ -265,12 +269,13 @@ def parse_record(text: str) -> list[Record]:
         if not quote.startswith("  > "):
             raise ValueError(f"record entry {match['id']} has no quoted sentence on the next line")
         fields = [part.strip() for part in match["rest"].split(" · ")]
-        inherited = match["kind"] == INHERITED
+        inherited = match["kind"] != VERIFIED
+        origin = match["kind"][-2:] if inherited else ""
         if inherited:
-            report, detail = fields[0], fields[1].removeprefix("C1 ").split(" ")[0]
+            report, detail = fields[0], fields[1].removeprefix(f"{origin} ").split(" ")[0]
         else:
             detail, report = fields[0], fields[1]
-        records.append(Record(match["id"], inherited, report, detail, quote[4:]))
+        records.append(Record(match["id"], inherited, report, detail, quote[4:], origin))
     return records
 
 
@@ -300,11 +305,12 @@ class Audit:
 def audit_lesson(
     lesson: LessonText,
     records: list[Record],
-    source_lesson: Callable[[str], LessonText | None],
+    source_lesson: Callable[[str, str], LessonText | None],
     repo_root: Path,
 ) -> Audit:
     """Every sentence of the lesson carries exactly one record, and each record holds: an inherited sentence
-    has a byte-identical counterpart with the same citations and file hashes; a verified one has a PASS."""
+    has a byte-identical counterpart with the same citations and file hashes (and, from C2, the C2 PASS); a
+    verified one has a PASS."""
     audit = Audit()
     keyed = lesson.keyed()
     by_id: dict[str, list[tuple[Sentence, frozenset[CitationKey] | None]]] = {}
@@ -327,7 +333,7 @@ def audit_lesson(
             audit.fail(f"{lesson.lesson_id}: {record.sentence_id} names a missing report: {record.report}")
             continue
         if record.inherited:
-            source = source_lesson(record.detail)
+            source = source_lesson(record.origin, record.detail)
             if source is None:
                 audit.fail(
                     f"{lesson.lesson_id}: {record.sentence_id} names an unknown source lesson {record.detail}"
@@ -341,6 +347,14 @@ def audit_lesson(
                     )
                     break
             else:
+                if record.origin == "C2" and (
+                    report_verdicts(repo_root / record.report).get(record.sentence_id) != "PASS"
+                ):
+                    audit.fail(
+                        f"{lesson.lesson_id}: {record.sentence_id} has no PASS for the C2 origin in "
+                        f"{record.report}"
+                    )
+                    continue
                 audit.inherited += 1
         else:
             verdict = report_verdicts(repo_root / record.report).get(record.sentence_id)
@@ -357,7 +371,7 @@ def audit_lesson(
 # ------------------------------------------------------------------------------------------- glossary
 
 _GLOSSARY_ENTRY = re.compile(
-    r"^- `(?P<id>g-[a-z0-9-]+)` · (?P<kind>verificado en C1|verificado): (?P<rest>.+)$"
+    r"^- `(?P<id>g-[a-z0-9-]+)` · (?P<kind>verificado en C[12]|verificado): (?P<rest>.+)$"
 )
 
 
@@ -387,20 +401,23 @@ def parse_glossary_record(text: str) -> list[Record]:
         if match is None:
             continue
         fields = [part.strip() for part in match["rest"].split(" · ")]
-        inherited = match["kind"] == INHERITED
+        inherited = match["kind"] != VERIFIED
         report, detail = (fields[0], fields[1]) if inherited else (fields[1], fields[0])
-        records.append(Record(match["id"], inherited, report, detail, ""))
+        records.append(
+            Record(match["id"], inherited, report, detail, "", match["kind"][-2:] if inherited else "")
+        )
     return records
 
 
 def audit_glossary(
     entries: list[GlossaryEntry],
-    sources: Mapping[str, GlossaryEntry],
+    sources: Mapping[str, Mapping[str, GlossaryEntry]],
     records: list[Record],
     repo_root: Path,
 ) -> Audit:
     """Each glossary entry carries one record: an inherited entry has the same term, definitions, citations
-    and cited-file hashes as the source entry of the same id; a verified one has a PASS row in its report."""
+    and cited-file hashes as the entry of the same id in the course its record names; a verified one has a
+    PASS row in its report."""
     audit = Audit()
     by_id = {record.sentence_id: record for record in records}
     for entry in entries:
@@ -412,10 +429,12 @@ def audit_glossary(
             audit.fail(f"glossary: {entry.id} names a report that does not exist: {record.report}")
             continue
         if record.inherited:
-            source = sources.get(entry.id)
+            source = sources.get(record.origin, {}).get(entry.id)
             same = source is not None and entry.keys is not None
             if not same or source is None or (source.texts, source.keys) != (entry.texts, entry.keys):
-                audit.fail(f"glossary: {entry.id} differs from C1 (text, citation or cited file)")
+                audit.fail(
+                    f"glossary: {entry.id} differs from {record.origin} (text, citation or cited file)"
+                )
                 continue
             audit.inherited += 1
         else:
@@ -430,6 +449,7 @@ def audit_glossary(
 
 # ------------------------------------------------------------------------------------------------ CLI
 # uv run python -m scripts.provenance plan|record <c2 lesson id> <c1 lesson id>...
+# uv run python -m scripts.provenance --course aeat-agentes-hacienda plan|record <lesson> c1:<id> c2:<id>...
 
 # Which C1 report verified a line, by the summary of the commit that last changed it (git blame). The R2
 # per-sentence tables were not kept; the theory ledger is their record.
@@ -512,12 +532,27 @@ def c1_report(repo: Path, file: Path, sentence: Sentence) -> tuple[str, str]:
 
 
 def _latest_verdicts(reports_dir: Path) -> dict[str, tuple[str, str]]:
-    """Sentence id → (verdict, report path) over every verifier report; later files (by name) win."""
+    """Sentence id → (verdict, report path) over every verifier report; a report's re-checks win over it, the
+    highest number last."""
+
+    def order(report: Path) -> tuple[str, int]:
+        base, _, number = report.stem.partition("-recheck-")
+        return base, int(number) if number.isdigit() else 0
+
     verdicts: dict[str, tuple[str, str]] = {}
-    for report in sorted(reports_dir.glob("*.md")):
+    for report in sorted(reports_dir.glob("*.md"), key=order):
         for sid, verdict in report_verdicts(report).items():
             verdicts[sid] = (verdict, str(report.relative_to(reports_dir.parents[4])))
     return verdicts
+
+
+def _c2_record(repo: Path, lesson_id: str, sid: str) -> Record | None:
+    path = repo / "docs" / "age-verification" / "c2" / BLOQUE_DIRS[lesson_id[:3]] / f"{lesson_id}.md"
+    return (
+        next((r for r in parse_record(path.read_text()) if r.sentence_id == sid), None)
+        if path.exists()
+        else None
+    )
 
 
 def main(argv: list[str]) -> int:
@@ -525,11 +560,16 @@ def main(argv: list[str]) -> int:
 
     from tests.pipeline_courses import REPO_CONTENT, course_dir, pipeline_courses
 
+    target_slug = "age-auxiliar-c2"
+    if argv[0] == "--course":
+        target_slug, argv = argv[1], argv[2:]
     command, lesson_id, *source_ids = argv
     repo = REPO_CONTENT.parent
-    out = repo / "docs" / "age-verification" / "c2" / BLOQUE_DIRS[lesson_id[:3]]
+    aeat = target_slug == "aeat-agentes-hacienda"
+    verification = repo / "docs" / "age-verification"
+    out = verification / "aeat" / "r2" if aeat else verification / "c2" / BLOQUE_DIRS[lesson_id[:3]]
     courses = {c.slug: c for c in pipeline_courses()}
-    c2, c1 = courses["age-auxiliar-c2"], courses["age-administrativo-c1"]
+    target, c1, c2 = courses[target_slug], courses["age-administrativo-c1"], courses["age-auxiliar-c2"]
 
     def text_of(course: CourseRegistry, lid: str) -> LessonText:
         root = course_dir(course)
@@ -539,8 +579,37 @@ def main(argv: list[str]) -> int:
             raise LookupError(f"{course.slug} has no lesson {lid}")
         return LessonText(lid, path.read_text(), citations, root)
 
-    lesson = text_of(c2, lesson_id)
-    sources = [text_of(c1, sid) for sid in source_ids]
+    tagged = [s.split(":", 1) if ":" in s else ["c1", s] for s in source_ids]
+    c1_sources = [text_of(c1, lid) for tag, lid in tagged if tag == "c1"]
+    c2_sources = [text_of(c2, lid) for tag, lid in tagged if tag == "c2"]
+    lesson = text_of(target, lesson_id)
+
+    def from_c1(sentence: Sentence, origin: Origin) -> str:
+        c1_file = course_dir(c1) / "es" / "lessons" / f"{origin.lesson_id}.md"
+        if sentence.id in _C1_SENTENCE_REPORTS:
+            report, sha = _C1_SENTENCE_REPORTS[sentence.id], "override"
+        else:
+            report, sha = c1_report(
+                repo, c1_file, Sentence(sentence.text, origin.first_line, origin.last_line, 0, "")
+            )
+        where = f"C1 {origin.lesson_id} l.{origin.first_line}"
+        return f"- `{sentence.id}` · {INHERITED}: {report} · {where} · {sha}"
+
+    def from_c2(sentence: Sentence, keys: frozenset[CitationKey] | None) -> str | None:
+        origin = find_origin(sentence, keys, c2_sources)
+        if origin is None:
+            return None
+        record = _c2_record(repo, origin.lesson_id, sentence.id)
+        if record is None:
+            return None
+        if record.inherited:
+            c1_origin = find_origin(sentence, keys, [text_of(c1, record.detail)])
+            return from_c1(sentence, c1_origin) if c1_origin else None
+        if record.detail != "PASS":
+            return None
+        where = f"C2 {origin.lesson_id} l.{origin.first_line}"
+        return f"- `{sentence.id}` · {INHERITED_C2}: {record.report} · {where}"
+
     verdicts = _latest_verdicts(out / "verify")
     entries: list[str] = []
     pending: list[str] = []
@@ -550,19 +619,10 @@ def main(argv: list[str]) -> int:
         if sentence.id in seen:
             continue
         seen.add(sentence.id)
-        origin = find_origin(sentence, keys, sources)
-        if origin is not None:
-            c1_file = course_dir(c1) / "es" / "lessons" / f"{origin.lesson_id}.md"
-            if sentence.id in _C1_SENTENCE_REPORTS:
-                report, sha = _C1_SENTENCE_REPORTS[sentence.id], "override"
-            else:
-                report, sha = c1_report(
-                    repo, c1_file, Sentence(sentence.text, origin.first_line, origin.last_line, 0, "")
-                )
-            entries.append(
-                f"- `{sentence.id}` · {INHERITED}: {report} · C1 {origin.lesson_id} "
-                f"l.{origin.first_line} · {sha}"
-            )
+        c1_origin = find_origin(sentence, keys, c1_sources)
+        entry = from_c1(sentence, c1_origin) if c1_origin is not None else from_c2(sentence, keys)
+        if entry is not None:
+            entries.append(entry)
             inherited += 1
         elif verdicts.get(sentence.id, ("", ""))[0] == "PASS":
             entries.append(f"- `{sentence.id}` · {VERIFIED}: PASS · {verdicts[sentence.id][1]}")
@@ -582,7 +642,7 @@ def main(argv: list[str]) -> int:
         (out / "pending").mkdir(parents=True, exist_ok=True)
         header = "| id | line | sentence | governing citations |\n|---|---|---|---|\n"
         (out / "pending" / f"{lesson_id}.md").write_text(
-            f"# Pending sentences — `{lesson_id}`\n\n{len(pending)} to verify; {inherited} inherited from C1 "
+            f"# Pending sentences — `{lesson_id}`\n\n{len(pending)} to verify; {inherited} inherited "
             f"({', '.join(source_ids)}); {verified} already PASS.\n\n" + header + "\n".join(pending) + "\n"
         )
         print(
@@ -593,11 +653,13 @@ def main(argv: list[str]) -> int:
     if pending:
         print(f"{lesson_id}: {len(pending)} sentences have neither provenance nor a PASS", file=sys.stderr)
         return 1
+    kinds = f"«{INHERITED}» o «{INHERITED_C2}»" if aeat else f"«{INHERITED}»"
+    origin_note = "idéntica a C1 o a C2" if aeat else "idéntica a C1"
     (out / f"{lesson_id}.md").write_text(
-        f"# Registro de procedencia — `{lesson_id}`\n\nR2.3: cada frase lleva «{INHERITED}: <informe>» "
-        f"(idéntica a C1, misma cita, mismo sha256) o «{VERIFIED}: PASS · <informe>». Generado por "
+        f"# Registro de procedencia — `{lesson_id}`\n\nR2.3: cada frase lleva {kinds}: <informe> "
+        f"({origin_note}, misma cita, mismo sha256) o «{VERIFIED}: PASS · <informe>». Generado por "
         f"`backend/scripts/provenance.py`; lo comprueba `backend/tests/test_provenance.py`.\n\n"
-        f"Frases: {inherited + verified} · heredadas de C1: {inherited} · verificadas: {verified}.\n\n"
+        f"Frases: {inherited + verified} · heredadas: {inherited} · verificadas: {verified}.\n\n"
         + "\n".join(entries)
         + "\n"
     )

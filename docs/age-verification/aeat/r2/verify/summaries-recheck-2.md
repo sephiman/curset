@@ -1,0 +1,9 @@
+# Summaries — recheck 2 (blind)
+
+Scope: `content/aeat-agentes-hacienda/course.yaml`, `summary.es` of m01-l02, m01-l03 and m01-l04. Ground truth: each lesson file. Voice: `docs/prose-voice.md`.
+
+| id | verdict | note | replacement |
+|---|---|---|---|
+| m01-l02 | PASS | 3 sentences. Composition and representation of the Cortes (l. 7–8, art. 66.1 CE), legislative power (l. 12, art. 66.2 CE), the Defensor del Pueblo as alto comisionado for the título I rights (l. 388–389, art. 54 CE), independent Jueces y Magistrados (l. 475–477, art. 117.1 CE), the CGPJ as órgano de gobierno (l. 542, art. 122.2 CE), and the Tribunal Supremo as superior in all orders except garantías constitucionales (l. 654–655, art. 123.1 CE). All of it is in the lesson and true. Nothing is promised that the lesson lacks. No fillers, triads, questions, closers or self-description. | — |
+| m01-l03 | PASS | 3 sentences. Composition follows art. 1.2 Ley 50/1997, and the lesson notes that the Ley adds no members beyond CE 98.1 (l. 11). Functions are from art. 97 CE (l. 9). The three AGE organisations are from art. 55.2 LRJSP (l. 192–196). The seven-item list of the sector público institucional estatal is complete and matches art. 84.1 LRJSP (l. 505–513). Everything is in the lesson and true. The long enumerations are lists from the law, not rhetorical triads. Voice is respected. | — |
+| m01-l04 | PASS | 3 sentences. Territorial organisation is from art. 137 CE (l. 18–20). Ceuta and Melilla each have their own Estatuto, LO 1/1995 and LO 2/1995 (l. 331). The LBRL is the basic law (l. 3), and municipio, provincia and isla are the territorial local entities (art. 3 LBRL, l. 391–393; sections at l. 401, 543, 605). The seven EU institutions are from art. 13.1 TUE (l. 617–625), and the five named all have sections in the lesson. Everything is in the lesson and true. Voice is respected. | — |
