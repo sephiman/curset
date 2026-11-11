@@ -37,7 +37,13 @@
 #                       de la norma o su tema: cifra, valor_2026, norma que la fija para el año en curso, boe_id, precepto,
 #                       desde (fecha de efectos o de entrada en vigor) y, si hace falta, nota; valor_2027 y norma_2027 cuando
 #                       la norma del año siguiente ya está publicada. Cada valor se leyó en el texto descargado. La ronda de
-#                       la convocatoria vuelve a comprobarlas todas para el año del examen.
+#                       la convocatoria vuelve a comprobarlas todas para el año del examen. Las que fija la Ley 31/2022
+#                       (interés legal, interés de demora, IPREM) llevan además texto (la disposición, literal),
+#                       vigencia_2026 y estado: «fuente legal; no contrastado con la sede de la AEAT». Ronda R1
+#                       (2026-11-11): un intento con el navegador (Playwright, Chromium) sobre la calculadora de
+#                       intereses de la sede (www2.agenciatributaria.gob.es/wlpl/TGIN-CONS/calc/af/calcAfA.faces) cargó
+#                       la página (200), pero su tabla de tipos se rellena al abrir un diálogo y quedó vacía («No se
+#                       encontraron registros»): no hay copia guardada y el estado no cambia.
 # Ficheros: 53 copiados de C2 o C1 (mismo nombre y sha256, comprobado fichero a fichero) y 41 de descarga
 # nueva del 2026-11-11 (PDF consolidado de boe.es, PDF del diario oficial para las normas modificadoras, Cellar para
 # la UE). El detalle, con los sha256, está en docs/age-verification/aeat/r0a/checks/norm_build_report.json.
@@ -48,7 +54,10 @@
 # Reales decretos-leyes pendientes de convalidación el 2026-11-11 (art. 86.2 CE; sin acuerdo publicado en el BOE): RDL 29/2026
 # (vivienda; modifica LIRPF, RIRPF, LIVA, RGAT, TRLRHL y LEC; el RDL 26/2026, de igual contenido, fue derogado por el Congreso
 # el 02-10-2026, BOE-A-2026-20526), RDL 31/2026, RDL 33/2026, RDL 35/2026 y RDL 36/2026. Si alguno se deroga, sus cambios
-# decaen y las entradas afectadas vuelven a la redacción anterior.
+# decaen y las entradas afectadas vuelven a la redacción anterior. Lista de reversión del RDL 29/2026 (precepto a precepto, con
+# dónde está la redacción anterior): docs/age-verification/aeat/r1/rdl-29-2026-revert-list.md. Plazo de convalidación del
+# RDL 29/2026: 19-11-2026 (publicación el 07-10-2026 más 30 días hábiles, sin sábados, domingos ni el 12-10; art. 86.2 CE,
+# arts. 90.1 y 151.1 del Reglamento del Congreso; fiestas de 2026 según BOE-A-2025-21667). Variantes y fuentes en esa lista.
 # Normas de C2/C1 que no entran: las de temas del Auxiliar o del Administrativo que este programa no tiene (información
 # administrativa, archivos, accesibilidad, ventanilla única, ENS, ofimática, contratos, subvenciones, gestión presupuestaria,
 # retribuciones e indemnizaciones, personal laboral).
@@ -1329,32 +1338,41 @@
   cifras_anuales:
   - cifra: Interés legal del dinero
     valor_2026: 3,25 %
-    norma: Ley 31/2022 (prorrogada)
+    norma: Ley 31/2022, de 23 de diciembre, de Presupuestos Generales del Estado para 2023 (PGE 2023)
     boe_id: BOE-A-2022-22128
     precepto: disposición adicional cuadragésima segunda, apartado Uno
     desde: '2023-01-01'
-    nota: Fijado «hasta el 31 de diciembre del año 2023» y aplicado desde entonces por la prórroga de los PGE; ninguna norma de 2024–2026 fija otro (análisis de la Ley 31/2022 en boe.es).
+    texto: '«Uno. De conformidad con lo dispuesto en el artículo 1 de la Ley 24/1984, de 29 de junio, sobre modificación del tipo de interés legal del dinero, este queda establecido en el 3,25 por ciento hasta el 31 de diciembre del año 2023.»'
+    vigencia_2026: por la prórroga de los PGE 2023 (art. 134.4 CE); no hay Ley de PGE para 2024, 2025 ni 2026 y ninguna norma de 2024–2026 fija otra cifra (análisis de la Ley 31/2022 en boe.es, 2026-11-11)
+    estado: fuente legal; no contrastado con la sede de la AEAT
   - cifra: Interés de demora tributario (art. 26.6 LGT)
     valor_2026: 4,0625 %
-    norma: Ley 31/2022 (prorrogada)
+    norma: Ley 31/2022, de 23 de diciembre, de Presupuestos Generales del Estado para 2023 (PGE 2023)
     boe_id: BOE-A-2022-22128
     precepto: disposición adicional cuadragésima segunda, apartado Dos
     desde: '2023-01-01'
-    nota: 'Igual que el interés legal: aplicado por la prórroga.'
+    texto: '«Dos. Durante el mismo periodo, el interés de demora a que se refiere al artículo 26.6 de la Ley 58/2003, de 17 de diciembre, General Tributaria, será el 4,0625 por ciento.»'
+    vigencia_2026: por la prórroga de los PGE 2023 (art. 134.4 CE); no hay Ley de PGE para 2024, 2025 ni 2026 y ninguna norma de 2024–2026 fija otra cifra (análisis de la Ley 31/2022 en boe.es, 2026-11-11)
+    estado: fuente legal; no contrastado con la sede de la AEAT
   - cifra: Interés de demora de las subvenciones (art. 38.2 Ley 38/2003)
     valor_2026: 4,0625 %
-    norma: Ley 31/2022 (prorrogada)
+    norma: Ley 31/2022, de 23 de diciembre, de Presupuestos Generales del Estado para 2023 (PGE 2023)
     boe_id: BOE-A-2022-22128
     precepto: disposición adicional cuadragésima segunda, apartado Tres
     desde: '2023-01-01'
+    texto: '«Tres. Durante el mismo periodo, el interés de demora a que se refiere el artículo 38.2 de Ley 38/2003, de 17 de noviembre, General de Subvenciones, será el 4,0625 por ciento.»'
+    vigencia_2026: por la prórroga de los PGE 2023 (art. 134.4 CE); no hay Ley de PGE para 2024, 2025 ni 2026 y ninguna norma de 2024–2026 fija otra cifra (análisis de la Ley 31/2022 en boe.es, 2026-11-11)
+    estado: fuente legal; no contrastado con la sede de la AEAT
   - cifra: Indicador público de renta de efectos múltiples (IPREM)
     valor_2026: 20 euros/día; 600 euros/mes; 7.200 euros/año; 8.400 euros/año cuando la norma sustituida se refiere al SMI anual sin excluir las pagas extraordinarias
-    norma: Ley 31/2022 (prorrogada)
+    norma: Ley 31/2022, de 23 de diciembre, de Presupuestos Generales del Estado para 2023 (PGE 2023)
     boe_id: BOE-A-2022-22128
     precepto: disposición adicional nonagésima
     desde: '2023-01-01'
-    nota: 'Fijado «durante 2023» y aplicado por la prórroga. Búsqueda de texto completo en la legislación consolidada publicada de 2025-01-01 a 2026-11-11 («indicador público de renta de efectos múltiples»):
-      ninguna norma fija otra cuantía.'
+    texto: '«De conformidad con lo establecido en el artículo 2.2 del Real Decreto-ley 3/2004, de 25 de junio, para la racionalización de la regulación del salario mínimo interprofesional y para el incremento de su cuantía, el indicador público de renta de efectos múltiples (IPREM) tendrá las siguientes cuantías durante 2023: a) El IPREM diario, 20 euros. b) El IPREM mensual, 600 euros. c) El IPREM anual, 7.200 euros. d) En los supuestos en que la referencia al salario mínimo interprofesional ha sido sustituida por la referencia al IPREM en aplicación de lo establecido en el Real Decreto-ley 3/2004, de 25 de junio, la cuantía anual del IPREM será de 8.400 euros cuando las correspondientes normas se refieran al salario mínimo interprofesional en cómputo anual, salvo que expresamente excluyeran las pagas extraordinarias; en este caso, la cuantía será de 7.200 euros.»'
+    vigencia_2026: por la prórroga de los PGE 2023 (art. 134.4 CE); no hay Ley de PGE para 2024, 2025 ni 2026 y ninguna norma de 2024–2026 fija otra cifra (análisis de la Ley 31/2022 en boe.es, 2026-11-11)
+    estado: fuente legal; no contrastado con la sede de la AEAT
+    nota: 'Búsqueda de texto completo en la legislación consolidada publicada de 2025-01-01 a 2026-11-11 («indicador público de renta de efectos múltiples»): ninguna norma fija otra cuantía.'
 
 - short: LGT (Ley 58/2003)
   aliases:
@@ -1394,19 +1412,22 @@
   cifras_anuales:
   - cifra: Interés de demora tributario (art. 26.6 LGT)
     valor_2026: 4,0625 %
-    norma: Ley 31/2022, de 23 de diciembre, de Presupuestos Generales del Estado para 2023 (prorrogada)
+    norma: Ley 31/2022, de 23 de diciembre, de Presupuestos Generales del Estado para 2023 (PGE 2023)
     boe_id: BOE-A-2022-22128
     precepto: disposición adicional cuadragésima segunda, apartado Dos
     desde: '2023-01-01'
-    nota: 'La DA 42.ª lo fija «hasta el 31 de diciembre del año 2023». No hay Ley de PGE para 2024, 2025 ni 2026 (búsqueda en la API de legislación consolidada, 2026-11-11): rige la de 2023 prorrogada (art.
-      134.4 CE) y ninguna norma de 2024–2026 fija otro tipo (análisis de la Ley 31/2022 y de la LGT en boe.es). Sin contraste con la sede de la AEAT en esta ronda.'
+    texto: '«Dos. Durante el mismo periodo, el interés de demora a que se refiere al artículo 26.6 de la Ley 58/2003, de 17 de diciembre, General Tributaria, será el 4,0625 por ciento.»'
+    vigencia_2026: por la prórroga de los PGE 2023 (art. 134.4 CE); no hay Ley de PGE para 2024, 2025 ni 2026 y ninguna norma de 2024–2026 fija otra cifra (análisis de la Ley 31/2022 en boe.es, 2026-11-11)
+    estado: fuente legal; no contrastado con la sede de la AEAT
   - cifra: Interés legal del dinero (art. 26.6, segundo párrafo, LGT; aplazamientos, fraccionamientos y suspensiones con aval solidario o seguro de caución)
     valor_2026: 3,25 %
-    norma: Ley 31/2022 (prorrogada)
+    norma: Ley 31/2022, de 23 de diciembre, de Presupuestos Generales del Estado para 2023 (PGE 2023)
     boe_id: BOE-A-2022-22128
     precepto: disposición adicional cuadragésima segunda, apartado Uno
     desde: '2023-01-01'
-    nota: 'Igual que el interés de demora: fijado para 2023 y aplicado por la prórroga de los PGE.'
+    texto: '«Uno. De conformidad con lo dispuesto en el artículo 1 de la Ley 24/1984, de 29 de junio, sobre modificación del tipo de interés legal del dinero, este queda establecido en el 3,25 por ciento hasta el 31 de diciembre del año 2023.»'
+    vigencia_2026: por la prórroga de los PGE 2023 (art. 134.4 CE); no hay Ley de PGE para 2024, 2025 ni 2026 y ninguna norma de 2024–2026 fija otra cifra (análisis de la Ley 31/2022 en boe.es, 2026-11-11)
+    estado: fuente legal; no contrastado con la sede de la AEAT
   - cifra: Límite exento de garantía en aplazamientos y fraccionamientos (art. 82.2.a) LGT)
     valor_2026: 50.000 euros
     norma: Orden HFP/311/2023, de 28 de marzo
@@ -2401,7 +2422,9 @@
   tags: []
   version_vigente:
     consolidated_as_of: '2026-11-01'
-    note: 'El Cellar no tiene PDF en español de esta consolidación: el fichero es su XHTML (29 MB, con los formularios de los anexos como imágenes incrustadas), descargado el 2026-11-11 y guardado sin cambios.'
+    note: 'El Cellar no tiene PDF en español de esta consolidación: el fichero es su XHTML, descargado el 2026-11-11. En la ronda R1 se
+      le quitaron las 37 imágenes incrustadas (los formularios de los anexos, escaneados) y los atributos onclick: de 29 MB a 12 MB, el
+      texto visible es el mismo (docs/age-verification/aeat/r1/customs-strip.tsv; original fuera del repositorio).'
   cambios_pendientes: []
   cambios_aplicados: []
   origen: descarga nueva el 2026-11-11 (ni C1 ni C2 la tienen)
@@ -2435,7 +2458,9 @@
   - cambio-pendiente
   version_vigente:
     consolidated_as_of: '2026-07-01'
-    note: 'XHTML del Cellar (37 MB, formularios como imágenes incrustadas; no hay PDF en español), descargado el 2026-11-11 y guardado sin cambios. No integra el Reglamento de Ejecución (UE) 2026/2403 (aplicable
+    note: 'XHTML del Cellar (no hay PDF en español), descargado el 2026-11-11. En la ronda R1 se le quitaron las 48 imágenes incrustadas
+      (formularios de los anexos) y los atributos onclick: de 37 MB a 5 MB, el texto visible es el mismo (docs/age-verification/aeat/r1/customs-strip.tsv).
+      No integra el Reglamento de Ejecución (UE) 2026/2403 (aplicable
       desde 01-11-2026): para las garantías globales en ventas a distancia hay que leer ese reglamento en el DOUE.'
   cambios_pendientes:
   - norma: Reglamento de Ejecución (UE) 2026/1183 de la Comisión, de 2 de junio de 2026

@@ -19,7 +19,8 @@ lesson-refs.*.txt     GENERATED, reviewed, frozen: every mXX / mXX-lN mention in
                       module/lesson it links to, per locale — zero dangling, asserted in suite
 sources/              what the course is written from (programme, legislation, official exams)
 sources/normativa.yaml the norms the course cites: short name, title, consolidated file and date; a course
-                      that has it gets citation links (below)     (age-administrativo-c1, age-auxiliar-c2)
+                      that has it gets citation links (below)     (age-administrativo-c1, age-auxiliar-c2,
+                      aeat-agentes-hacienda)
 sources/normativa/    the consolidated texts; served to readers as static files, opened at the article
 sources/otros/        dated copies of the non-legal pages and documents lessons cite (UN, OECD, EU,
                       Portal de la Transparencia), indexed in fuentes.yaml with URL, date and sha256;
