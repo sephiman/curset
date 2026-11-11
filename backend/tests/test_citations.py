@@ -149,7 +149,8 @@ def test_a_list_row_citation_may_end_in_a_letter_paragraph() -> None:
 def test_an_articulo_unico_heading_is_indexed_at_its_first_page() -> None:
     pages = [
         "PROTOCOLO (n.o 5)\nArtículo 1\nTexto.",
-        "PROTOCOLO (n.o 6)\n                    Artículo único\na) El Parlamento Europeo tendrá su sede en Estrasburgo.",
+        "PROTOCOLO (n.o 6)\n                    Artículo único\n"
+        "a) El Parlamento Europeo tendrá su sede en Estrasburgo.",
         "PROTOCOLO (n.o 7)\nArtículo único\nOtro texto.",
     ]
     assert index_pdf_pages(pages)["art-unico"] == 2

@@ -40,8 +40,9 @@ _ANEXO_NUMBER = r"[IVXL]+|\d+|único"
 # What may follow a rule or note number: «.II.a.1», «.2.b)».
 _RULE_SUB = r"(?:\.(?:\d+|[IVXL]+\b|[a-zñ]\)?|[A-Z]\b\)?|[ºª]))*"
 
-# One article designator: 14 · 14.2 · 4.1.b) · 148.1.8.ª · 610 bis.2 · 12.2 bis · 61.ñ · único — or a bare letter
-# paragraph continuing the article before it («e)» in «14.2.d) y e)», «D)» in «23.Uno.B)» dash «D)»).
+# One article designator: 14 · 14.2 · 4.1.b) · 148.1.8.ª · 610 bis.2 · 12.2 bis · 61.ñ · único — or a
+# bare letter paragraph continuing the article before it («e)» in «14.2.d) y e)», «D)» in
+# «23.Uno.B)» dash «D)»).
 _ITEM = (
     rf"(?:(?:\d+|único)(?:\s{LATIN}\b)?(?:\.(?:\d+|[a-zñ]\)?|[A-Z]\b\)?|{_SPELLED}\b|[ºª])|\s{LATIN}\b|[ºª])*\)?"
     r"|[a-zñ]\)|[A-Z]\))"
