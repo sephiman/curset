@@ -2,7 +2,7 @@
 
 R2.3: cada entrada copiada de C2 o de C1 con el mismo término, la misma definición, las mismas citas y los ficheros citados con el mismo sha256 lleva «verificado en C2» o «verificado en C1». Generado por `docs/age-verification/aeat/r2/tools/glossary_candidates.py --write`; lo comprueba `backend/tests/test_provenance.py`.
 
-Entradas: 147 · heredadas: 147 · verificadas: 0.
+Entradas: 193 · heredadas: 147 · verificadas: 46.
 
 - `g-consejo-general-del-poder-judicial` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l04 · C1 docs/age-theory-ledger.md
 - `g-cuestion-de-inconstitucionalidad` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l02 · C1 docs/age-theory-ledger.md
@@ -151,3 +151,49 @@ Entradas: 147 · heredadas: 147 · verificadas: 0.
 - `g-declaracion-responsable` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l11 · C1 docs/age-theory-ledger.md
 - `g-recurso-de-alzada` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l11 · C1 docs/age-theory-ledger.md
 - `g-recurso-potestativo-de-reposicion` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l11 · C1 docs/age-theory-ledger.md
+- `g-hecho-imponible` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-2.md
+- `g-devengo` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-2.md
+- `g-base-liquidable` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-2.md
+- `g-tipo-de-gravamen` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-2.md
+- `g-cuota-liquida` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-2.md
+- `g-cuota-diferencial` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-2.md
+- `g-deuda-tributaria` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-2.md
+- `g-obligado-tributario` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-2.md
+- `g-sujeto-pasivo` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-2.md
+- `g-contribuyente` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-2.md
+- `g-sustituto-del-contribuyente` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-2.md
+- `g-retenedor` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-2.md
+- `g-domicilio-fiscal` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-2.md
+- `g-liquidacion-tributaria` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-2.md
+- `g-certificado-tributario` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-2.md
+- `g-diligencia` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-2.md
+- `g-declaracion-tributaria` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-2.md
+- `g-autoliquidacion` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-2.md
+- `g-comunicacion-de-datos` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-2.md
+- `g-acta-de-inspeccion` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-2.md
+- `g-efectos-timbrados` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-2.md
+- `g-fallido` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-2.md
+- `g-credito-incobrable` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-2.md
+- `g-impuesto` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify.md
+- `g-tributos-cedidos` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify.md
+- `g-hacienda-publica-estatal` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify.md
+- `g-obligaciones-tributarias-conexas` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-3.md
+- `g-providencia-de-apremio` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-4.md
+- `g-recargo-ejecutivo` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-4.md
+- `g-recargo-de-apremio-reducido` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-4.md
+- `g-recargo-de-apremio-ordinario` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-4.md
+- `g-terceria` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-4.md
+- `g-infraccion-tributaria` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-4.md
+- `g-comision-repetida-de-infracciones-tributarias` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-4.md
+- `g-medios-fraudulentos` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-5.md
+- `g-minimo-personal-y-familiar` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-6.md
+- `g-sede-de-la-actividad-economica` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-6.md
+- `g-deuda-aduanera` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-6.md
+- `g-representante-aduanero` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-6.md
+- `g-deposito-temporal` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-6.md
+- `g-operador-economico` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-6.md
+- `g-renta-en-especie` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-8.md
+- `g-ganancias-y-perdidas-patrimoniales` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-8.md
+- `g-edificaciones` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-8.md
+- `g-levante-de-las-mercancias` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-8.md
+- `g-bienes-de-inversion` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-9.md

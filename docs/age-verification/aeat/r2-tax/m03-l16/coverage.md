@@ -1,0 +1,30 @@
+# Coverage — `m03-l16`
+
+Verifier: opus, 2026-11-11. Pack: `docs/age-verification/aeat/r2/questions/m03-l16.md`, 14 coverage questions. Keys checked against the snapshot (LIRPF `BOE-A-2006-20764_lirpf_2026-11-11.pdf`).
+
+| question | key | verdict | lesson sentence (line) | note |
+|---|---|---|---|---|
+| 2025-21 | A | COVERED | «La base liquidable general está constituida por el resultado de practicar en la base imponible general, exclusivamente y por este orden, las reducciones a que se refieren los artículos 51, 53, 54, 55 y disposición adicional undécima LIRPF …» and «Se reducen en la base imponible general estas aportaciones y contribuciones (art. 51 LIRPF):» (54, 60; also 283) | b), c) are applied in the rendimientos (l. 54); d) art. 32.3 is a reducción of the rendimiento neto (`m03-l15`) |
+| 2025-69 | D | COVERED | «Se puede solicitar a la Agencia Estatal de Administración Tributaria el abono de las deducciones de forma anticipada; en ese caso no se minora la cuota diferencial (art. 81 bis.3 LIRPF).» (192; also 279) | the fact is in art. 81 bis.3 of the snapshot, not 81 bis.4 as the pack's evidence says; the lesson cites 81 bis.3. a) especial +100 % (l. 187); b) requires the mínimo del art. 58 (l. 185); c) 8.000 €, not 12.000 (l. 188) |
+| 2025-78 | B | COVERED | «- 2.ª En los casos de separación legal, o cuando no exista vínculo matrimonial, la formada por el padre o la madre y todos los hijos que convivan con uno u otro y que reúnan los requisitos de la regla 1.ª.» (199; also 277) | — |
+| 2024-51 | A | COVERED | «Como límite máximo conjunto para las reducciones de los apartados 1, 2, 3, 4 y 5 del artículo 51 se aplica la menor de estas cantidades (art. 52.1 LIRPF): - a) El 30 por 100 … - b) 1.500 euros anuales.» (68–71; also 284) | — |
+| 2024-57 | A | COVERED | same sentence as 2025-69 (192; also 279) | evidence cites 81 bis.4; snapshot 81 bis.3. b) they can minorar (l. 190); c) +100 %, the 600 € is per extra hijo (l. 187, 190); d) «ni genere el derecho a las deducciones de las letras a) y b)» (l. 188) |
+| 2024-75 | C | COVERED | «En el período impositivo en que el hijo menor cumple tres años, el incremento puede resultar de aplicación respecto de los gastos incurridos con posterioridad al cumplimiento de dicha edad hasta el mes anterior a aquel en el que pueda comenzar el segundo ciclo de educación infantil (art. 81.2 LIRPF).» (179) | a) 1.000 €, not 1.200 (l. 179); b) only on death of the madre or exclusive custodia (l. 177); d) three years from the inscripción, whatever the age (l. 177) |
+| 2024-79 | C | COVERED | worked example, steps 1–5: «Las cantidades del segundo y del tercer pagador suman 700 + 300 = 1.000 euros, que no superan 1.500 euros anuales (art. 96.3.a).1.º LIRPF).» … «Los 18.000 euros no superan 22.000 euros: Lucía no está obligada a declarar (art. 96.2.a) LIRPF).» (236–242; also 227, 281) | — |
+| 2023-58 | D | COVERED | «El mínimo por discapacidad del contribuyente es … de 9.000 euros anuales cuando acredita un grado de discapacidad igual o superior al 65 por ciento (art. 60.1 LIRPF). Ese mínimo se aumenta, en concepto de gastos de asistencia, en 3.000 euros anuales cuando … un grado de discapacidad igual o superior al 65 por ciento (art. 60.1 LIRPF).» (101; also 285) | — |
+| 2023-59 | A | COVERED | same sentence as 2025-78 (199) | b) the two members of a pareja de hecho cannot form one unidad (l. 199); c) the hijo does not convive with him (l. 199); d) hijo mayor not incapacitado (l. 198) |
+| 2022-86 | B | COVERED | «Las remuneraciones en concepto de gastos de representación son rendimientos del trabajo (art. 17.1.c) LIRPF) y no figuran en el artículo 46 LIRPF.» (16) | a), c), d) are renta del ahorro (l. 16) |
+| 2022-87 | B | COVERED | «- c) Rentas inmobiliarias imputadas en virtud del artículo 85 LIRPF, … con el límite conjunto de 1.000 euros anuales.» (221; also 282) | 1.100 € exceeds 1.000. a) within the 1.600 € of letra b) (l. 220); c) each source within its limit (l. 219, 221); d) 14.000 € under 15.876 (l. 225, 228) |
+| 2022-88 | A | COVERED | «- 1.ª La integrada por los cónyuges no separados legalmente y, si los hubiera: a) los hijos menores …» (198; also 278) | «si los hubiera»: cónyuges sin hijos are a unidad. b) pareja de hecho, l. 199; c) the nieta is not a hija of the cónyuges (l. 198); d) hija mayor de edad (l. 198) |
+| 2022X-59 | D | COVERED | «La Administración notifica a ambos cónyuges, dentro del plazo previsto en el apartado 1 del artículo 103 LIRPF, el acuerdo …» and «… dentro de los seis meses siguientes al término del plazo establecido para la presentación de la declaración (art. 103.1 LIRPF).» (256, 271; also 286) | — |
+| 2022X-88 | B | COVERED | «Cuando el contribuyente tiene una edad superior a 65 años, el mínimo se aumenta en 1.150 euros anuales; si la edad es superior a 75 años, se aumenta adicionalmente en 1.400 euros anuales (art. 57.2 LIRPF).» (89) | key doubtful, see below |
+
+## Keys
+
+**2022X-88 — key doubtful.** The snapshot's art. 57.2 LIRPF reads «Cuando el contribuyente tenga una edad superior a 65 años, el mínimo se aumentará en 1.150 euros anuales. Si la edad es superior a 75 años, el mínimo se aumentará adicionalmente en 1.400 euros anuales.» The stem fixes the base at 5.550 euros and asks by how much the mínimo «aumentará si el contribuyente tiene más de 75 años». A contribuyente over 75 is also over 65, so his mínimo rises by 1.150 + 1.400 = 2.550 euros over the 5.550 (option c); the official B (1.400) is only the «adicionalmente» increment over the over-65 mínimo. B is defensible only as a literal echo of the second sentence of art. 57.2. The lesson states both facts and the 8.100 € total (l. 89), so it covers the key whichever reading is taken.
+
+**2022-88** holds: «y, si los hubiera» in art. 82.1.1.ª makes cónyuges sin hijos a unidad familiar; every other option fails on the snapshot text.
+
+Evidence citations off: 2025-69 and 2024-57 cite art. 81 bis.4 for the abono anticipado, which is art. 81 bis.3 in the snapshot (81 bis.4 is the reglamentary procedure).
+
+COVERED 14 · MISS 0

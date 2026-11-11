@@ -200,6 +200,216 @@ artículo 24.1 de la LPAC»; the verifier's «una norma» was wider than the art
 
 ## Where to resume
 
+Tax part in progress: see «Tax part — where to resume» at the end of this file.
+
 R2, common part: done. Next: R2 tax temas (III.1–III.20) in groups, then R2b (scope, coverage, currency), R2c
 (esquemas), M (platform: published course without exercises), P (publication). Before the tax temas: the RDL 29/2026
 convalidación outcome (19-11-2026) and the CAU XHTML indexer.
+
+---
+
+# Tax part (R2, III.1–III.20, `m03-l01` … `m03-l20`)
+
+Started 2026-11-11. Plan: `docs/aeat-tax-plan.md` (groups G1–G10, per-tema norms, questions asked, depth). Spec:
+`docs/age-verification/aeat/r2-tax/spec.md`. Working files and reports: `docs/age-verification/aeat/r2-tax/<lesson>/`
+(`writer.md`, `pending.md`, `verify.md`, `verify-recheck-N.md`, `coverage.md`). Facts asked per tema:
+`r2-tax/asked-digest.md`. Packs: `r2/questions/m03-lNN.md` (315 coverage questions).
+
+## Tax part — how it runs
+
+- Writers (Sonnet), one run per group, temas in sequence; blind verifiers (Opus), batches of 60; re-checks by a
+  different verifier; coverage (Opus) after each group; at most four agents at once.
+- `r2-tax/tools/taxprov.py plan|record|apply`: provenance for the tax lessons with the functions of
+  `backend/scripts/provenance.py`. Every C1 and C2 lesson is a candidate origin (no derivation map); verdicts come from
+  `r2-tax/<lesson>/verify*.md`, re-checks winning in number order; records go to `r2/<lesson>.md`, where
+  `test_provenance.py` reads them.
+- `r2-tax/tools/cites.py <lesson>`: the lesson's prose citations the parser leaves unresolved.
+
+## Tax part — per tema
+
+Words: `wc -w`. Sentences: provenance units of the record. FAIL: rows failed in first pass and re-checks, each fixed and
+re-verified by a different verifier (no sentence needed dropping). Coverage: coverage questions with their fact in the
+lesson after the misses were fixed. Examples: `### Ejemplo` sections, every step recomputed by the verifier.
+
+| Tema | Lesson | Words | Sentences | Inherited | Verified here | FAIL (fixed) | Coverage | Glossary | Examples |
+|---|---|---|---|---|---|---|---|---|---|
+| III.1 | `m03-l01` | 3,595 | 151 | 8 | 143 | 8 | 9 / 9 | 3 | 0 |
+| III.2 | `m03-l02` | 3,275 | 140 | 0 | 140 | 3 | 9 / 9 | 0 | 0 |
+| III.3 | `m03-l03` | 4,512 | 165 | 0 | 165 | 1 | 13 / 13 | 7 | 2 |
+| III.4 | `m03-l04` | 11,689 | 371 | 0 | 371 | 10 | 32 / 32 | 7 | 1 |
+| III.5 | `m03-l05` | 9,796 | 304 | 0 | 304 | 15 | 21 / 21 | 3 | 2 |
+| III.6 | `m03-l06` | 4,394 | 136 | 0 | 136 | 5 | 8 / 8 | 3 | 0 |
+| III.7 | `m03-l07` | 6,762 | 256 | 0 | 256 | 5 | 15 / 15 | 0 | 2 |
+| III.8 | `m03-l08` | 8,278 | 291 | 0 | 291 | 6 | 22 / 22 | 1 | 1 |
+| III.9 | `m03-l09` | 5,261 | 178 | 0 | 178 | 6 | 15 / 15 | 1 | 2 |
+| III.10 | `m03-l10` | 3,593 | 108 | 0 | 108 | 4 | 10 / 10 | 2 | 0 |
+| III.11 | `m03-l11` | 4,858 | 155 | 0 | 155 | 6 | 11 / 11 | 4 | 1 |
+| III.12 | `m03-l12` | 9,534 | 286 | 0 | 286 | 8 | 24 / 24 | 1 | 1 |
+| III.13 | `m03-l13` | 9,150 | 273 | 0 | 273 | 8 | 20 / 20 | 3 | 1 |
+| III.14 | `m03-l14` | 7,476 | 237 | 0 | 237 | 6 | 18 / 18 | 0 | 1 |
+| III.15 | `m03-l15` | 8,070 | 253 | 0 | 253 | 16 | 22 / 22 | 2 | 1 |
+| III.16 | `m03-l16` | 6,437 | 210 | 0 | 210 | 9 | 14 / 14 | 1 | 3 |
+| III.17 | `m03-l17` | 8,221 | 230 | 0 | 230 | 15 | 8 / 8 | 0 | 0 |
+| III.18 | `m03-l18` | 6,063 | 166 | 0 | 166 | 7 | 15 / 15 | 2 | 0 |
+| III.19 | `m03-l19` | 9,101 | 270 | 0 | 270 | 11 | 18 / 18 | 1 | 2 |
+| III.20 | `m03-l20` | 5,046 | 130 | 0 | 130 | 4 | 11 / 11 | 5 | 0 |
+| **Total** | | **135,111** | **4,310** | **8** | **4,302** | **153** | **315 / 315** | **46** | **20** |
+
+## Tax part — decisions taken without asking
+
+1. Reports live in `r2-tax/<lesson id>/` (lesson ids, as the packs and records are named), not one folder per tema
+   code.
+2. `provenance.py` reads verdicts only from `r2/verify/`; instead of changing it, the round tool `taxprov.py` reuses its
+   functions and reads `r2-tax/`. The record format and place are unchanged, so `test_provenance.py` audits the tax
+   lessons as it does the common ones.
+3. Ten groups instead of the brief's list: «Especiales» has no tema in the 2025 programme (dropped; Ley 38/1992 enters
+   only for III.1, art. 1); «customs and the rest» is III.20 alone; Sociedades is its own group.
+4. New norms for facts official questions asked (2022X-29 TRLITPAJD, 2023-87 Ley 38/2022, 2022X-45 Código de Comercio,
+   RD 1676/2009, Orden EHA/586/2011) and the art. 1 of each state tax for III.1 «impuestos de titularidad estatal y sus
+   características» (IP, ISD, IIEE, IRNR). The `normativa.yaml` header listed Ley 38/1992, TRLIRNR and Ley 38/2022 as not
+   entering; they enter for III.1 only.
+
+5. III.4 prescripción example: art. 67.1 LGT does not say whether a plazo counted in years ends on the anniversary or
+   on the day before, so the example gives the dies a quo and the interrupción but no exact last day (no norm in the
+   snapshot fixes it; the course does not choose).
+6. Official-key notes found by the III.4 writer, for the exams ledger (stage 2): 2024-43, where the key counts art. 66
+   bis.2's ten years from the end of the período impositivo and the article counts them from the end of the plazo
+   reglamentario de presentación (candidate «Clave oficial discutida»). The R0a evidence cites RGAT 3.3 for 2021-54 (the
+   text is 3.2.a)) and 20.3 for 2024-49 (it is 20.2). The III.2 writer found the same for 2022-34 and 2023-56 (the
+   Director General's rank is in art. 103.Tres.1 and the jefatura in Tres.3). The lessons cite the right paragraphs.
+7. III.8: LGT art. 159 (conflicto en la aplicación de la norma) is left out: the programme does not name it and no
+   coverage question asked it. Concierto and Convenio, named inside art. 150.3 LGT, are listed in «Normativa» «sin
+   precepto citado» (the common part's strict rule).
+8. Glossary: terms whose defining article belongs to another tema have their origin in that tema (declaración,
+   autoliquidación and comunicación de datos → III.6, not III.7). Too-generic terms («comunicaciones») are not
+   proposed. Course summaries state facts without citations, as the common part's do.
+9. Pack errors found by the III.8 writer: the 15-day ratification of medidas cautelares is in art. 146.3, not 146.2,
+   and the informe razonado is in 158.1, not 158.3. In 2022X-53, option d says 30 days and art. 150.4 says 60.
+   Unsourced reference facts left out: 2022-55 (internal AEAT instruction) and 2020-59 (RGAT 57.1).
+10. III.3 coverage miss 2024-66 (precios públicos): Ley 8/1989 (BOE-A-1989-8508, consolidated 2017-11-09) downloaded and
+    entered; art. 24 added to III.3, re-checked by a different verifier.
+11. III.7 example (interest on an IRPF refund): the verifier passed a six-month count «julio a diciembre»; a strict
+    date-to-date count ends on 30-12 with the same result. Kept, noted in the report.
+12. Official keys judged doubtful by the coverage checkers (for the exams ledger, stage 2): 2022X-69 (key A; the
+    snapshot gives C: arts. 161.2 and 65.5 LGT, art. 46.1.a) RGR), 2025-20 (art. 104.1 LGT, already noted in the ledger),
+    2024-43 (art. 66 bis.2 LGT). The lessons state the norm, never the disputed key.
+13. III.12 coverage miss 2024-26: art. 595.1 LEC (tercería de dominio, adquisición después de trabado el embargo)
+    added in the LEC's own words («ejecutado», not «obligado al pago»); the LEC «Normativa» line gains 595.1.
+14. III.13: the plan's «art. 209 plazo de tres meses» was wrong; art. 209.2 LGT gives six months, and the writer
+    followed the article. Glossary terms that are labels rather than the norm's terms («regularización voluntaria
+    (orden sancionador)») and definitions that are not definitions (medidas cautelares, anotación preventiva,
+    diligencia de embargo) were not staged.
+15. `g-sustituto-del-contribuyente` keeps its id. Its term is «sustituto», the word art. 36.3 LGT defines, because the
+    platform rejects a term the prose never uses («sustituto del contribuyente» appears only in the plural).
+16. «Normativa» lines start with the `short` name exactly: «Ley 39/2015 (LPAC)», not «LPAC (Ley 39/2015)» (III.9,
+    III.11 corrected and re-checked).
+17. RDL 29/2026 in III.15–III.16: arts. 24 and 85.1 stay in the text in force with «desde 01-01-2027» only (the 2027
+    scale is not written: «nothing else»); art. 85 named in III.16 without the mark (the change is III.15's).
+    2022X-88 (art. 57.2 LIRPF) flagged by the writer as a doubtful key. III.20 follows the consolidated CAU («efectúe
+    actividades», art. 5.5), not the original wording quoted in 2022-98. No CAU reglamento (2015/2446, 2015/2447) is cited:
+    the CAU states every fact asked, so nothing from III.20 goes to section M.
+18. Parser (for section M): «art. 31.1.3.ª b) a´)» is not read; the lesson cites «art. 31.1.3.ª.b)». A «disposición
+    adicional» needs the numeric form («disposición adicional 55.ª») in III.15.
+19. III.17: norms the LIS names by title and that normativa.yaml lacks (Ley 9/2012, Ley 49/2002, Ley 27/1984, LO 8/2007,
+    Ley 34/1998, Ley 19/1994) are listed in «Normativa» «nombrada en el art. N LIS», as Ley 25/2003 in III.5. The LIS
+    rates for 2026 come from its DT 44.ª (19 %/21 %, art. 101 entities 23 %) and are stated with it.
+20. `taxprov.py apply` pasted a verifier's «— add after it: «…»» instruction into III.17's «Normativa»; the
+    block was repaired by hand and re-checked. `apply` now refuses a replacement that holds an instruction («add after», «replace the»), and verifiers are told to put only the replacement text in that column.
+21. III.13 coverage miss 2022-46 (art. 27.2 LGT): the fact is III.3's, and III.13 now states it once, cited.
+22. Art. 85.1 LIRPF in III.15: the first writer put «desde 01-01-2027» on the 2026 rule. The re-checker read art.
+    6.tercero RDL 29/2026: the 2026 rule is the «Redacción anterior». So the 2026 sentences cite a plain «(art. 85.1
+    LIRPF)», and one sentence says a new wording applies from 01-01-2027 (RDL 29/2026, convalidación pendiente). The
+    2027 scale is not written.
+23. III.15 coverage miss 2022-80: art. 7.a) LIRPF (terrorism benefits) added to the exempt list. III.16 had a repeated
+    «Cambio pendiente» sentence; the duplicate was removed.
+24. More official keys judged doubtful (stage 2, exams ledger): 2025-24 (art. 80.Cuatro LIVA: options a) and c) both
+    hold), 2023-80 (art. 99.Tres LIVA: the four years run from the nacimiento del derecho, not «se soportó»),
+    2022X-88 (art. 57.2 LIRPF: over 75 adds 1.150 + 1.400 euros). 2022X-93 holds: 500.000 pesetas = 3.005,06 euros;
+    the lesson keeps the snapshot's pesetas.
+25. Glossary definitions keep the article's exclusions («no tendrán la consideración de…»), as the extras checks ruled.
+26. Platform nondeterminism (for section M): the citations golden flips run to run on the common part's parentheticals
+    citing two norms with the same unit («art. 1 LO 1/1995 y art. 1 LO 2/1995», 19 in `m01-l04`, committed in R2
+    common part): the anchor goes to Ceuta or Melilla at random. Not patched (platform); not worked around in content
+    (19 inherited sentences would lose their verification). `test_citations.py` frozen-golden test fails about half
+    the runs.
+
+## Programme phrases the R1 handoff listed without a mapping (tax part)
+
+- III.1 «impuestos de titularidad estatal y sus características»: art. 1 of each state tax law (LIRPF, LIS, LIVA,
+  TRLIRNR, Ley 19/1991, Ley 29/1987, TRLITPAJD, Ley 38/1992) and art. 3 Ley 38/2022, downloaded this round; Haciendas
+  autonómica y local: CE arts. 156–157, LOFCA, Ley 22/2009 art. 25, TRLRHL arts. 59–60, Concierto and Convenio art. 1.
+- III.2: art. 103 Ley 31/1990, Orden de 2 de junio de 1994 (apartados primero–decimotercero), Orden PRE/3581/2007,
+  Resoluciones de 13-01-2021; the lesson's «Normativa» pins the apartados.
+- III.6 «pagos a cuenta»: LGT art. 23, LIRPF arts. 99–101, RIRPF arts. 75–76 and 108–112, LIS art. 40, Orden
+  EHA/586/2011.
+- III.20 «Inclusión… disposiciones generales»: CAU arts. 158–163 suffice; the Reglamentos 2015/2446 and 2015/2447 are
+  not cited, so no citation waits on the XHTML indexer.
+- Reglamentos: each lesson's «Normativa» lists the RGAT, RGR, RIRPF, RIS, RIVA, RGRST and RGRVA articles it cites.
+
+## Tax part — sources added
+
+Downloaded from boe.es on 2026-11-11, entered in `normativa.yaml` (origen «descarga nueva»; no pending changes; RDLs
+29, 31, 33, 35 and 36/2026 read and none touches them), `source-index.json` rebuilt:
+
+- III.1: Ley 19/1991 (BOE-A-1991-14392, 2023-12-28), Ley 29/1987 (BOE-A-1987-28141, 2022-12-28), TRLITPAJD
+  (BOE-A-1993-25359, 2026-03-21), Ley 38/1992 (BOE-A-1992-28741, 2026-09-30), TRLIRNR (BOE-A-2004-4527, 2023-05-25),
+  Ley 38/2022 (BOE-A-2022-22684, 2024-12-21).
+- III.4: Código de Comercio (BOE-A-1885-6627, 2023-05-09); RD 1676/2009 (BOE-A-2009-19438, 2017-12-30).
+- III.6: Orden EHA/586/2011 (BOE-A-2011-4948, never amended).
+- **Models orders** (R0a handoff: «RIRPF art. 67 and RGAT art. 49 depend on an order approving the models (RD
+  117/2024)»). It is more than one order:
+  - RIRPF art. 67.4 → Orden HAC/1398/2003 (BOE-A-2003-11044, 2025-01-31; presentación telemática por entidades con
+    acuerdos).
+  - RIRPF art. 67 bis (the article RD 117/2024 modified) → the yearly order of the IRPF and Patrimonio models. In force:
+    Orden HAC/277/2026 (BOE-A-2026-7041, exercise 2025). This is an annual figure, and the 2026 campaign's order will
+    replace it.
+  - RGAT art. 49 → Orden HAC/342/2021 (BOE-A-2021-5780, models 234–236, 2024-03-22).
+  - RGAT art. 49 ter (enters into force with its order, DF 11.ª d) RD 117/2024) → Orden HAC/266/2024 (BOE-A-2024-5722,
+    model 239). It is not consolidated on boe.es, so the diario PDF is stored.
+  - **Not obtained:** the order of model 238 (DAC7, RGAT art. 54 ter). The boe.es consolidated search found nothing.
+    No lesson states a fact resting on it.
+
+## Tax part — checks and suites
+
+- Final `close_round.sh` (after the last publish): C1, C2 and crypto-futures unchanged; Android bundle byte-identical;
+  backend 3,145 passed, 23 skipped; frontend 738 passed, 114 skipped; `tsc -b` clean. The run before it failed only
+  the frozen citations golden (decision 26, intermittent; it passed on this run).
+- Goldens regenerated and read: `citations.es.txt` (4,504 prose citations, 192 Normativa norms, 18 naming a norm
+  normativa.yaml lacks, all «nombrado en» lines), `glossary-links.es.txt` (46 new terms; the stubs' RDL lines gone).
+- `test_provenance.py`: every m01–m03 lesson and the glossary (193 entries: 147 inherited, 46 verified) audited.
+
+## Tax part — where to resume
+
+R2 tax part: done (all 20 temas written, verified, recorded, covered; glossary and summaries published). Open for
+later rounds: section M (decision 26, parser items of decision 18), the RDL 29/2026 convalidación (19-11-2026; revert
+list), the doubtful official keys for stage 2 (decisions 6, 12, 24), R2b, R2c.
+
+## Handoff (R2 tax part → R2b / R2c / M)
+
+1. Temas III.1–III.20 (`m03-l01` … `m03-l20`) are written, 135,111 words, structured by the governing norm.
+2. 4,310 sentences: 8 inherited from C1, 4,302 verified blind (Opus); 153 FAILs, all fixed and re-checked by a
+   different verifier; no sentence dropped.
+3. Coverage: 315 / 315 vigente first-exercise questions of OEP 2022–2025 have their fact in their lesson (5 misses found
+   and fixed: 2022-33, 2024-66, 2024-26, 2022-46, 2022-80).
+4. 20 worked examples (art. 27 and 28 recargos, art. 62 plazos, prescripción, plazos de resolución and notificación,
+   inspection period, sanctions and reductions, recursos, IRPF, prorrata, bienes de inversión), each step recomputed.
+5. Glossary: 46 new verified entries (193 total); course.yaml: module m03 and all 20 lesson summaries, blind-checked.
+6. Records in `aeat/r2/m03-lNN.md`; reports in `aeat/r2-tax/<lesson>/`; `test_provenance.py` audits all of them.
+7. New sources (boe.es): 9 tax laws/orders for facts asked + Ley 8/1989 + the models orders (HAC/1398/2003,
+   HAC/277/2026, HAC/342/2021, HAC/266/2024). Not obtained: the model 238 order (no fact rests on it).
+8. Annual figures carry year and norm (Ley 31/2022 prorrogada, Orden HFP/311/2023, módulos orders, LIS DT 44.ª).
+9. RDL 29/2026: marks only on precepts it changed (checked against its text); convalidación deadline 19-11-2026;
+   revert list `r1/rdl-29-2026-revert-list.md` now also concerns III.15–III.16 sentences.
+10. 26 decisions taken without asking are logged above, with reasons.
+11. Doubtful official keys for stage 2: 2024-43, 2022X-69, 2025-20, 2025-24, 2023-80, 2022X-88.
+12. Pack evidence cites wrong apartados in about a dozen questions; the lessons cite the snapshot.
+13. Section M: the citations golden flips on two-norm parentheticals of `m01-l04` (decision 26); the parser misses
+    «art. 31.1.3.ª b) a´)», LIVA apartados from «Trece» and letters after «18.º » with a space.
+14. The CAU reglamentos 2015/2446 and 2015/2447 are not cited: the CAU states every fact asked; nothing waits on the
+    XHTML indexer.
+15. Norms named only inside other norms' text are listed «nombrado en…» in «Normativa» (12 not in normativa.yaml).
+16. Round tools: `r2-tax/tools/taxprov.py`, `cites.py`, `publish.py`; provenance.py and the platform untouched.
+17. Final close_round: C1, C2, crypto-futures unchanged; Android byte-identical; backend 3,145 passed; frontend 738
+    passed; tsc clean. Goldens regenerated and read.
+18. Nothing is committed.
+19. Next: R2b (scope, coverage, currency for the whole course), R2c (esquemas, incl. R4.5 tax esquemas), M, P.
