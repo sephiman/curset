@@ -25,7 +25,8 @@ They are built last, after bloque I, so they come from the generators as reviewe
 needs a platform change, that change goes to the next platform round and the items wait.
 
 Amended 2026-11-07 (Juanjo): bloque II built at 2,384 to pass the course-level answer-bias guard; bloque I's quota
-rises by 66 to keep 5,000 (ledger «Bloque II built»).
+rises by 66 to keep 5,000 (ledger «Bloque II built»). The 66 go to I.13 (+31) and I.14 (+35), filled from their
+held, already style-checked C1 candidates (ledger «Session 2»); the other bloque I quotas are unchanged.
 
 ## 2. Per-tema quotas
 
@@ -47,11 +48,11 @@ with a floor of 50 (largest remainders). No tema needed the floor: I.12, the lig
 | I.10 | 8 | 155 | | II.10 | 20 | 223 |
 | I.11 | 15 | 290 | | II.11 | 20 | 223 |
 | I.12 | 3 | 58 | | II.12 | 25 | 278 |
-| I.13 | 9 | 174 | | | | |
-| I.14 | 10 | 194 | | | | |
+| I.13 | 9 | 205 | | | | |
+| I.14 | 10 | 229 | | | | |
 | I.15 | 8 | 155 | | | | |
 | I.16 | 9 | 174 | | | | |
-| **I** | **130** | **2,516** | | **II** | **220** | **2,450** |
+| **I** | **130** | **2,582** | | **II** | **220** | **2,450** |
 
 ## 3. Stem-form mix and article naming
 
@@ -120,3 +121,26 @@ Bloque II first: the largest derivation, from C1's bloque VI. Bloque I second, t
 bloque the order is tema by tema, and a session stops at a tema boundary. Agents follow `CLAUDE.md`: writers Sonnet,
 verifiers Opus (the step-2 style check is Sonnet, as the round brief says), at most four at once (two writers, two
 checkers). Progress goes to the ledger after every part.
+
+## 6. Bloque I built short of quota (Juanjo, 2026-11-10)
+
+Bloque I is built at **2,312** (quota 2,582). The writers stopped where the C2 lesson ran out of facts at C2 depth
+(every further question would have repeated a fact from an angle already used), and verification dropped what
+failed. Variant rounds close the gap: other stem forms and angles of facts already tested (R5.1), and facts any
+later lesson round adds.
+
+| Tema | Kept | Quota | Short | Reason |
+|---|---|---|---|---|
+| I.1 | 101 | 136 | 35 | lesson out of facts at C2 depth |
+| I.2 | 131 | 174 | 43 | lesson out of facts at C2 depth |
+| I.4 | 129 | 135 | 6 | lesson out of facts at C2 depth (art. 561.1's catch-all left out) |
+| I.5 | 96 | 194 | 98 | lesson out of facts at C2 depth |
+| I.8 | 187 | 213 | 26 | lesson out of facts at C2 depth |
+| I.10 | 119 | 155 | 36 | lesson out of facts at C2 depth |
+| I.16 | 112 | 174 | 62 | lesson out of facts at C2 depth |
+
+The other nine temas are at or over quota. With bloque II at 2,384 and 34 calibration items, the bank is 4,730 and
+bloque I's share 48.9 %, under § 1's 50 % until the variant rounds. Residuals left for the variant round to
+rebalance (recorded, within the course limit ±3): length-edge z I.1 −2.59, I.4 −1.82, I.16 +1.86; I.6 stem mix
+(art-completar 15/41, señale 26/12; the lesson has few articles); I.7 art-completar 52/41 and I.11 directa 14/3
+(one point over each).

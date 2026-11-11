@@ -23,6 +23,7 @@ SERVED_FOLDERS = ("normativa", "otros")
 
 _HEADINGS: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(rf"^\s*Art[íi]culo\s+(\d+)(?:\s+({LATIN}))?\b"), "art"),
+    (re.compile(r"^\s*Art[íi]culo\s+único\b"), "unico"),
     # Older laws spell the number out: «Artículo treinta y tres.», «Artículo decimoquinto.».
     (
         re.compile(
@@ -103,6 +104,8 @@ def heading_unit(line: str) -> Unit | None:
             continue
         if kind == "art":
             return Unit("art", f"{match[1]} {match[2]}" if match[2] else match[1])
+        if kind == "unico":
+            return Unit("art", "único")
         if kind == "spelled":
             number = spelled_number(match[1])
             if number is None:

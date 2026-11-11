@@ -375,3 +375,394 @@ the first item of the next session.
 2. Bloque I: writer spec key-longest fix (above); fill I.13/I.14 and others from `bloque-i/held.tsv` before writing;
    quota 2,582; delta sheets in `bloque-i/delta/` (rerun `plan_delta.py bloque-i`).
 3. Calibration items (34) after bloque I.
+
+# Session 2 (2026-11-10): bloque II excerpts, bloque I
+
+## Rulings and findings at the start
+
+- **The +66 of bloque I (coordinator):** Juanjo's decision fills the raised quota first from the held C1 candidates,
+  all of which are I.13 and I.14. So I.13 rises 174 → 205 and I.14 194 → 229 (`plan_delta.py` QUOTA; plan § 2); the
+  other quotas stay as apportioned. `plan_delta.py bloque-i` re-trimmed: 31 + 35 more kept, 25 still held «over quota».
+- **Held candidates not all style-checked:** of the 374 held, 283 carry «pre-trim before style check (over 1.3 ×
+  quota)»: they passed the mechanical step only, never the Sonnet style check. The +66 was filled from the 91 that
+  were checked. The 283 stay held; they are style-checked only if I.13/I.14 need them to fix mix or bias.
+- **Style guide** (`docs/age-c2-exam-style.md`) unchanged since 2026-11-05, before the style check: not reapplied.
+- **I.13 and I.14 after the fill** (all derived): stem mix off ±10 on cual (7 % / 10 % against 22) and señale (1 %
+  against 12); key longest 15 % (longest z −2.52 / −2.08). To fix at their turn: cual/señale questions authored and
+  surplus art-form questions held.
+
+## Bloque II excerpts
+
+- **Derived inheritance** (`tools/excerpt_inherit.py bloque-ii` → `excerpts/bloque-ii-inherit.tsv`): of 1,320 derived
+  questions built, 1,297 have an excerpt byte-identical to C1's (heading, text, full text, file, flag) and inherit
+  C1's check. The other 23 are questions C1 builds as «sin extracto» (a C1 verifier found the fact neither in the
+  excerpt nor elsewhere on the page) for which C2, with no exclusion file, built an excerpt. They go through the check.
+- **To check:** the build log's 24 «no excerpt» and 112 «flagged fallback» (the round brief's 25 and 113 were the
+  ledger's figures; the log and `excerpts.json` hold 24 and 112), plus 22 of the 23 above (one is also flagged):
+  158 items, `excerpts/bloque-ii/batch-01..03.jsonl` (`tools/excerpt_batches.py`), spec `excerpts/spec.md` (C1's
+  full pass and re-citation in one step: verdict, and for a miss the exact label or «none: reason»). Two Opus
+  verifiers.
+- **Result (158 checked):** 47 yes as built (41 of them on a flagged fallback that does hold the fact); 81 misses
+  re-cited to the verifier's label; 30 «none» (spread over paragraphs, rows or steps 22, heading only 2, garbled 1,
+  no usable label 5). Of the 81 labels, 3 held «;», the citation grammar's separator: re-cited by the coordinator to
+  a «;»-free sentence of the same paragraph (m02-l12-q185, q186, q305; tested against the extractor); 3 did not
+  resolve and no single block holds the fact (m02-l05-q168, q171: the PDF text breaks the sentence over lines;
+  m02-l12-q300: clause (ii) mid-paragraph): citation restored, «sin extracto». Blind Opus recheck of the 78 re-cited
+  (`excerpts/bloque-ii/recheck/report-01..02.md`): 73 yes, 5 no (m02-l05-q029, q057, m02-l09-q295, m02-l12-q169,
+  q299): «sin extracto», C1's «re-cited, but the blind re-check found the cited paragraph short of the fact».
+- **Bloque II now:** 2,384 questions, **120 of the 158 with a checked excerpt, 38 «sin extracto»**
+  (`content/age-auxiliar-c2/excerpt-exclusions.yaml`, new; each with its reason). 2,346 excerpts. Re-citations logged
+  in `excerpts/bloque-ii-recited.tsv` (78 rows; question text and key unchanged; drafts edited and bloque II rebuilt:
+  81 citation lines changed in 29 exercise files, nothing else). Recheck notes passed as yes: m02-l12-q310's excerpt
+  heading names 4.12.1 though the text is 4.12.2's noscript element (extractor flag, not a content fault).
+- **Open (plan § 7, not in this round's brief):** the 1,064 authored bloque II questions whose excerpt is neither
+  flagged nor missing have not been blind-checked. A sampled or full pass is owed before R5.
+
+## I.13 and I.14: derived only, chosen for mix and bias
+
+- Held style check (Sonnet, `bloque-i/style/m01-l13.b5–b7`, `m01-l14.b6–b7`): 283 checked, 250 PASS, 33 FAIL
+  (standalone 25: case-bound stems; item 7: 4; item 10: 2; item 4: 1; item 13: 1, m01-l14-q331's «Ministerio para las
+  Administraciones Públicas»). Fails in `drops.tsv`; passes relabelled «over quota (style-checked 2026-11-10)».
+- `tools/select_derived.py` (new): swaps kept for held derived questions while the mix (±9), article share, the
+  longest/edge/slot z (±1.4), negatives and cited-unit coverage improve. **Do not rerun `plan_delta.py` on m01-l13 or
+  m01-l14**: its trim would undo the choice.
+
+| Tema | n | cual | señale | article | key longest | longest z | edge z | worst slot | Authored |
+|---|---|---|---|---|---|---|---|---|---|
+| I.13 | 205 | 13/22 | 3/12 | 66/69 | 19 % | −1.36 | +0.53 | 1.25 | 0 |
+| I.14 | 229 | 13/22 | 2/12 | 69/69 | 17 % | −1.10 | −1.31 | 0.95 | 0 |
+
+All stem forms within ±10 of 2025 (señale in I.14 at the edge). Held after the choice: I.13 and I.14 «over quota
+(selected out for mix and bias)».
+
+## Bloque I authored and verified (session 2)
+
+Writers Sonnet (`writer-spec.md`, the updated brief), verifiers Opus blind (`verify-spec.md`, batches ≤ 60 by cited
+unit, `tools/verify_batches.py`). Status per tema by `tools/tema_status.py` (kept derived + authored − drops − held).
+
+| Tema | Derived kept | Authored | Dropped (key/unique/citation/style/official) | Kept | Quota | Short | Mix ±10 | longest z | edge z | slot | Reports |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| I.1 | 26 | 78 + r1 10 | 11 + 2 (0/1/1/7/4) | 101 | 136 | 35 | ok | +0.12 | **−2.59** | 0.86 | `verify/m01-l01.v1–v2`, `.r1.v1` |
+| I.2 | 47 | 87 + r1 12 | 14 + 1 (0/3/2/6/4) | 131 | 174 | 43 | ok | +1.21 | −0.27 | 0.86 | `verify/m01-l02.v1–v2`, `.r1.v1` |
+| I.3 | 53 | 93 | 15 (0/3/1/9/2) | 131 | 116 | −15 (over) | ok | +0.59 | +1.24 | 0.96 | `verify/m01-l03.v1–v2` |
+| I.4 | 47 | 82 + r1 8 | 8 + 0 (0/2/0/2/4) | 129 | 135 | 6 | ok | −0.10 | **−1.82** | 0.56 | `verify/m01-l04.v1–v2`, `.r1.v1` |
+| I.5 | 30 | 66 + r1 4 | 4 + 0 (0/0/1/2/1) | 96 | 194 | 98 | ok | −0.25 | −1.20 | 0.24 | `verify/m01-l05.v1–v2`, `.r1.v1` |
+| I.9 | 82 | 49 | 8 (0/0/0/7/1) | 123 | 116 | −7 (over) | ok | +0.56 | −0.43 | 0.68 | `verify/m01-l09.v1` |
+| I.6 | 40 | 67 | 2 (0/0/0/2/0); 3 held for bias | 102 | 97 | −5 (over) | **art-completar 15/41, señale 26/12** | +0.96 | +1.42 | 0.57 | `verify/m01-l06.v1–v2` |
+| I.7 | 48 (3 held) | 97 + r1 20 | 21 + 2 (1/0/0/21/1); 4 held for bias | 135 | 135 | 0 | art-completar 52/41 (+1 over) | −0.51 | +1.26 | 0.84 | `verify/m01-l07.v1–v2`, `.r1.v1` |
+| I.8 | 52 | 135 + r1 3 | 3 + 0 (0/1/0/1/1) | 187 | 213 | 26 | ok | +0.17 | +1.46 | 0.63 | `verify/m01-l08.v1–v3`, `.r1.v1` |
+| I.10 | 41 | 80 + r1 4 | 4 + 2 (0/1/1/3/1) | 119 | 155 | 36 | ok | +0.28 | +0.09 | 0.26 | `verify/m01-l10.v1–v2`, `.r1.v1` |
+| I.15 | 144 (6 held) | 18 + mix 6 | 1 + 1 (0/1/0/1/0) | 160 | 155 | −5 (over) | ok (cual 13/22) | +0.14 | +0.97 | 0.91 | `verify/m01-l15.v1`, `.mix.v1` |
+| I.16 | 52 | 65 + r1 8 | 10 + 2 + q062 (0/2/2/3/6) | 112 | 174 | 62 | ok | +0.69 | **+1.86** | 0.65 | `verify/m01-l16.v1–v2`, `.r1.v1` |
+| I.11 | 239 (2 held) | 58 + r1 9 | 9 + 0 (0/0/0/7/2); 5 authored held | 290 | 290 | 0 | directa 14/3 (+1 over) | +0.21 | +1.34 | 0.88 | `verify/m01-l11.v1`, `.r1.v1` |
+| I.12 | 37 | 28 | 3 (0/1/0/2/0) | 62 | 58 | −4 (over) | ok | −0.45 | +0.83 | 0.73 | `verify/m01-l12.v1` |
+| I.13 | 205 | 0 | – | 205 | 205 | 0 | ok | −1.36 | +0.53 | 1.25 | derived only |
+| I.14 | 229 | 0 | – | 229 | 229 | 0 | ok | −1.10 | −1.31 | 0.95 | derived only |
+
+- **Capacity (rule 2d):** I.1's lesson holds about 78 new fact-and-angle pairs beyond the 26 kept (writer stopped at
+  78 of 110: 32 short before verification); I.2's about 87 (stopped at 87 of 127: 40 short). Replacements r1 cover
+  the facts of the dropped questions from another angle (I.1 11, I.2 14). I.4: writer stopped 6 short of 88 (art.
+  561.1's catch-all item left out); 8 verify drops, to replace. I.3: over quota by 15 with no bias to fix: kept
+  (rule 2d holds surplus only where its removal fixes a bias); the surplus offsets the bloque's capacity shortfalls.
+  I.3 q083's explanation miscounted the calendar (days 15/45 for 14/44): dropped (style), key was right.
+- **Verifier calls to note:** I.1 q062, q076, q077, q085, q092 ask which chapter or section holds a right; passed on
+  check 3 because the cited article sits under the heading that is the key (q085, citing art. 13.2 for the chapter's
+  subject, the weakest). `drops.tsv` check column mixes numbers and words between verifiers (append-only; same meaning).
+
+## Bloque I capacity: the quota is not reachable from the lessons alone (for Juanjo)
+
+The C2 lessons are thinner than the quotas assumed. Writers stopped on capacity: I.1 78 of 110, I.2 87 of 127,
+I.4 82 of 88, **I.5 66 of 164** (98 short; the lesson's sentences run out after the 30 kept candidates). Only I.3 had
+more facts than its quota. If I.6–I.12, I.15 and I.16 run the same way, bloque I ends a few hundred below 2,582 and
+may fall under its 50 % share (2,500 of 5,000). Levers, none applied yet (rule 2d: say so and move on):
+(a) the 160 or so held, style-checked C1-derived I.13/I.14 candidates not chosen (mix and bias permitting; tilts the
+tema weights); (b) a C2 lesson round adding facts (with `provenance.py record`); (c) a smaller bank total. To size
+at the end of the bloque, before the build.
+
+- **I.6 mix residual:** the lesson's facts are mostly the Plan de Gobierno Abierto, ODS and Agenda 2030 (saved
+  pages, no article), so art-completar cannot reach 41 % (article share 23 % against 69). Before the bias holds the
+  edge z was +2.75; `rebalance.py --apply` held q066, q077, q079 (worst |z| 1.42). Holding the 5 remaining surplus
+  would not bring the mix within ±10. For Juanjo: accept, or have the bank lean on I.6's article questions elsewhere.
+- **I.6 verifier notes:** `transparencia-v-plan.html`'s HTML title says 2024-2028, its body 2025-2029 (q069 offers
+  neither as a trap); Resolución 70/1 named without date in four stems (q092, q097, q098, q115), passed on item 10.
+
+- **I.7, item 10 (20 drops):** stems naming «Ley 19/2013, de 9 de diciembre» without its BOE title, where the
+  title fits within 40 words. The guide's item 10 and the C1 ruling (number and date only when the title would pass
+  40 words) agree; the step-2 style brief's looser line («number and date alone pass») was never needed for I.7's
+  derived set (none of its kept derived stems does it). Drops upheld; r1 re-asks those facts with the title.
+- **I.7 q086 and the lesson (open, for Juanjo / a C2 lesson round):** art. 16 Ley 19/2013 reads «deberá indicarse al
+  solicitante que parte de la información ha sido omitida» (no accent). The verifier reads «que» as a conjunction
+  (tell the applicant *that* part was omitted) and failed the key «Qué parte…»; the lesson (m01-l07.md line 127) says
+  «se le indica qué parte se ha omitido». Common usage reads «qué»; the BOE text has no accent. Not changed here.
+
+- **I.8:** writer stopped on capacity at 135 of 161. Verifier notes: the 14 RD 829/2023 ministry-name questions
+  (q083–q089, q111–q117) share three stems word for word (no checklist item; first to hold if I.8 runs over);
+  q179 names a second norm («la Ley 2/2014») by number inside a stem whose cited norm has its full title (passed).
+- **I.4 edge z −1.82** after r1 (under quota: residual).
+
+- **I.10, citation index gap (open):** the lesson's seat table cites «Protocolo n.º 6» with no article; no citation
+  form resolves to an anchor, so the writer left out four seat questions (kept q013 covers the Consejo's seat). Fix:
+  an index unit for the Protocol, or a lesson citation the index resolves (C2 lesson round).
+- **Written, verifying:** I.5 r1 4 (q111–q114, none skipped); I.9 49 (q107–q155; sheet 34, coverage of untested
+  facts took it over); I.10 80 (q055–q134; capacity: sheet 114).
+
+- **I.9 q114 dropped by the coordinator** (verifier passed it with a note): «¿Cuál … pueden» does not agree, and the
+  comma clause calls all four options art. 148.1 matters though three are art. 149.1. q146/q147 failed on option form
+  (the q065 ruling extended: a key alone in another construction gives itself away).
+
+- **I.10 q088 dropped by the coordinator** (verifier passed it with a note): the stem gives the Polonia–Dinamarca–
+  Chipre trio (Jan 2025–Jun 2026) in the present tense; the saved page names the current trio (item 15). Passed on
+  item 10 with a note: «Reglamento interno del Consejo, aprobado por la Decisión 2009/937/UE» (q065, q081, q085,
+  q086), the short name official 2022 P1-2 uses.
+
+- **I.15:** 161 kept, 6 over; its derived set was off the mix (cual 10/22, art-pregunta 17/6, norma-pregunta
+  18/6) and edge z +1.67. A greedy hold of the 6 surplus with `select_derived.py`'s penalty (q004, q015, q016, q027,
+  q040, q048: «mix and bias rebalance» in `held.tsv`) leaves only cual off (10/22); 6 cual-form questions written
+  (`m01-l15.authored-mix`): 6 PASS; the coordinator dropped q195, whose key names «el artículo 29» (no article
+  numbers in options). Verifier note: the lesson cites arts. 28.1 and 36.3 but does not state q192's and q195's facts.
+- **I.16:** capacity (writer 65 of 122). q103 failed check 5 (same stem, three of 2025-R1-1's options, other key).
+  The coordinator dropped q099 and q100 on the same ground (the verifier passed them, keys differ, three and two
+  of 2025-R1-1's options carried). I.16 edge z +1.63, just over ±1.5, under quota: residual.
+
+- **I.7 holds:** `rebalance.py --apply` held q081, q091, q122, q131 (bias), then a greedy mix-and-bias hold of the last 3
+  surplus (q002, q007, q014). Edge z 2.61 → 1.26; art-completar 52 % (one point over ±10), residual.
+- **I.11:** its derived set (239 of 288) is off on cual and directa and the edge z is +3.09; it sits 2 under quota, so
+  nothing can be held. r1 (9 replacements) written in cual form with mid-length keys, to verify.
+- **m01-l10 lesson line 119 (open, C2 lesson round):** «a fecha de 06-11-2026» names Polonia, Dinamarca y Chipre as
+  the trío; the saved `consilium-presidencia.html` gives Irlanda, Lituania y Grecia (verifier, `verify/m01-l10.r1.v1`).
+- **I.10 r1:** q135 (explanation says non-legislative deliberations are never public; art. 8 Reglamento interno
+  makes some public) and q136 (official 2020X-P1-11 copy) dropped; q137, q138 kept.
+
+- **I.11 final:** r1 9/9 PASS (all cual form, keys mid-length); the 7 surplus held by the mix-and-bias greedy
+  (q068, q104, q358, q364, q383, q389, q396): edge z 2.80 → 1.34; directa 14 % (one point over), residual.
+- **I.16 final:** r1 6/8 (q123: all four options of the official classification question; q125: key rests on art. 9.3
+  Ley 4/2023, citation names only art. 20.2 RD 829/2023); q103 and q114 not replaced (no clean angle). Kept q062
+  dropped by the coordinator on q123's ground (same four options as 2025-P1-30). Edge z +1.86, under quota: residual.
+
+## Replacements (r1) (done)
+
+- I.1 r1: 10 (q109–q118) for 11 drops; q087 skipped (its key needs art. 161.1.a, not cited by the I.1 lesson).
+- I.2 r1: 12 (q160–q171) for 14 drops; q102 (needs art. 35.3 LOTC) and q109 (needs art. 87 CE) skipped, not cited.
+- Verified: I.1 r1 8/10, I.2 r1 11/12. **I.1 edge z −2.59 stays a residual** (under quota, nothing to hold; the r1
+  writer was told to leave short keys short and long ones long, and the z still moved the wrong way: bloque II's
+  finding that key length cannot be steered in writing holds). Within the course limit ±3.
+- `tools/verify_batches.py` now names replacement batches `<lesson>.r1.v<k>` (it had overwritten `m01-l01.v1.ids`
+  and `m01-l02.v1.ids`; regenerated identically from the first drafts).
+
+## Bloque I after verification (2026-11-10)
+
+**2,312 kept of 2,582** (1,361 derived from C1 with provenance + 951 authored and verified blind; `tools/tema_status.py
+bloque-i`). Over or at quota: I.3, I.6, I.7, I.9, I.11, I.12, I.13, I.14, I.15. Short on lesson capacity: I.1 −35,
+I.2 −43, I.4 −6, I.5 −98, I.8 −26, I.10 −36, I.16 −62. Below the plan's 50 % share (2,500 of 5,000) by 188.
+**Residuals:** edge z I.1 −2.59, I.4 −1.82, I.16 +1.86 (under quota, nothing to hold; within the course limit ±3);
+mix I.6 (art-completar 15/41, señale 26/12: the lesson has few articles), I.7 art-completar 52/41, I.11 directa
+14/3 (one point over each). «Lo que más cae»: every line covered per the writers' notes for the authored temas; I.13
+and I.14 (derived only) not yet mapped — to check at the build.
+
+**Decision for Juanjo before the build (bloque I is 270 short):** (a) fill from the 275 held, style-checked C1
+candidates of I.13 (161) and I.14 (114), with `select_derived.py` for mix and bias, at the cost of tema weights
+(I.13 up to ~366 against 205); (b) a C2 lesson round adding facts to I.5, I.16, I.2, I.10, I.1, I.8, then a writing
+round; (c) a smaller bank (5,000 − 270), keeping bloque I at its current share (2,312 of 4,730 = 48.9 %, under 50 %).
+## Ten random bloque I questions (seed 20261110, from the 2312 kept)
+
+1. **m01-l03-q081** (I.3, authored) — ¿Cuál de los siguientes colectivos reúne a los electores y elegibles para el Congreso de los Diputados, según la Constitución Española de 1978?
+   - a) Todos los españoles mayores de edad, sin más requisito.
+   - b) Todos los españoles residentes en España en pleno uso de sus derechos civiles.
+   - c) Todos los españoles que estén en pleno uso de sus derechos políticos.  ✓
+   - d) Todos los ciudadanos de la Unión Europea residentes en España.
+   Cita: art. 68.5 CE. Explicación: El artículo 68.5 exige ser español y estar en pleno uso de los derechos políticos. La mayoría de edad, la residencia y los derechos civiles son otros requisitos que el artículo no pone. Los ciudadanos de la Unión Europea no son titulares del sufragio para el Congreso: el artículo 13.2 solo admite el sufragio de los extranjeros en elecciones municipales, por tratado o ley.
+
+2. **m01-l08-q093** (I.8, authored) — ¿Cuál de las siguientes funciones corresponde a los servicios comunes de los Ministerios, según el artículo 68.1 de la Ley 40/2015, de 1 de octubre, de Régimen Jurídico del Sector Público?
+   - a) Ejercer la potestad reglamentaria en las materias propias del Departamento.
+   - b) Imponer la sanción de separación del servicio por faltas muy graves.
+   - c) Prestar asesoramiento y apoyo técnico en materia de asistencia jurídica.  ✓
+   - d) Declarar la lesividad de los actos administrativos.
+   Cita: art. 68.1 LRJSP. Explicación: El artículo 68.1 incluye la asistencia jurídica entre las funciones de los servicios comunes, junto con la planificación, los recursos humanos o las publicaciones. La potestad reglamentaria, la separación del servicio y la declaración de lesividad son funciones de los Ministros según el artículo 61.
+
+3. **m01-l12-q016** (I.12, derived from C1 m02-l04-q019) — De acuerdo con el artículo 13.3 de la Ley Orgánica 3/2018, de 5 de diciembre, de Protección de Datos Personales y garantía de los derechos digitales, se podrá considerar repetitivo el ejercicio del derecho de acceso:
+   - a) En más de una ocasión durante el plazo de seis meses, salvo causa legítima para ello.  ✓
+   - b) En más de una ocasión durante el plazo de un año, salvo causa legítima para ello.
+   - c) En más de dos ocasiones durante el plazo de seis meses, salvo causa legítima para ello.
+   - d) En más de una ocasión durante el plazo de tres meses, aunque exista causa legítima.
+   Cita: art. 13.3 LOPDGDD. Explicación: El artículo 13.3 permite considerar repetitivo el acceso «en más de una ocasión durante el plazo de seis meses, a menos que exista causa legítima para ello». El periodo no es de un año ni de tres meses. Basta más de una ocasión, no más de dos. La causa legítima impide calificarlo de repetitivo.
+
+4. **m01-l13-q002** (I.13, derived from C1 m04-l01-q002) — Según el artículo 8.2 del texto refundido de la Ley del Estatuto Básico del Empleado Público, los empleados públicos se clasifican en:
+   - a) Funcionarios de carrera, funcionarios interinos, personal laboral y personal directivo.
+   - b) Funcionarios de carrera, funcionarios en prácticas, personal laboral y personal eventual.
+   - c) Funcionarios de carrera, personal laboral, personal eventual y personal directivo profesional.
+   - d) Funcionarios de carrera, funcionarios interinos, personal laboral y personal eventual.  ✓
+   Cita: art. 8.2 TREBEP. Explicación: El artículo 8.2 enumera cuatro clases: funcionarios de carrera, funcionarios interinos, personal laboral y personal eventual. El personal directivo no es una clase de esa lista; el Estatuto lo regula aparte, en su artículo 13. Los funcionarios en prácticas tampoco figuran en la lista del artículo 8.2. La lista que suprime a los interinos y añade el personal directivo profesional altera dos elementos.
+
+5. **m01-l13-q381** (I.13, derived from C1 m04-l05-q039) — Según el artículo 58.2 del Real Decreto 364/1995, de 10 de marzo, el requisito de que el puesto atribuido al funcionario cesado en libre designación esté en el mismo municipio solo se exceptúa:
+   - a) cuando el funcionario lo pida por razones de convivencia familiar.
+   - b) cuando en el municipio no haya un puesto vacante de su Cuerpo o Escala.
+   - c) cuando se trate del cese de funcionarios destinados en el exterior.  ✓
+   - d) cuando el cese se deba a la supresión del puesto en la relación.
+   Cita: art. 58.2 RD 364/1995. Explicación: El artículo 58.2 RD 364/1995 dice que «la necesidad de que el nuevo puesto que se atribuye al funcionario sea en el mismo municipio no será de aplicación cuando se trate del cese de funcionarios destinados en el exterior». Es la única excepción. El artículo no la extiende a la petición por convivencia familiar, a la falta de vacantes en el municipio ni a la supresión del puesto.
+
+6. **m01-l15-q071** (I.15, derived from C1 m05-l02-q303) — Conforme al artículo 40.1.c) de la Ley 47/2003, de 26 de noviembre, General Presupuestaria, en los créditos para operaciones de capital se distinguirán:
+   - a) las inversiones reales y los activos financieros.
+   - b) las inversiones reales y las transferencias de capital.  ✓
+   - c) los gastos financieros y las transferencias de capital.
+   - d) las transferencias de capital y los pasivos financieros.
+   Cita: art. 40.1.c) LGP. Explicación: Las operaciones de capital comprenden las inversiones reales y las transferencias de capital, los capítulos 6 y 7. Los activos y los pasivos financieros son las operaciones financieras, y los gastos financieros son operaciones corrientes.
+
+7. **m01-l15-q168** (I.15, derived from C1 sp-15/q20) — ¿Puede la Jefatura dotar otro programa del mismo servicio con 50.000 euros del crédito del capítulo 2 suplementado en febrero, mediante una transferencia de crédito?
+   - a) Sí, si el titular del Ministerio del Interior la autoriza previo informe favorable de la Intervención Delegada.
+   - b) Sí, porque la restricción de las transferencias solo afecta a los créditos de distintas secciones presupuestarias.
+   - c) Sí, si la persona titular de la Dirección del organismo la autoriza dentro de su presupuesto, sin otros requisitos.
+   - d) No, porque las transferencias de crédito no pueden minorar créditos suplementados en el ejercicio.  ✓
+   Cita: art. 52.1 LGP. Explicación: Las transferencias de crédito no pueden minorar créditos extraordinarios ni créditos que se hayan suplementado o ampliado en el ejercicio (art. 52.1.c) LGP). El capítulo 2 de la Jefatura recibió un suplemento de 200.000 euros en febrero, así que no puede dotar con él a otro programa. Que el titular del Ministerio, con informe de la Intervención Delegada, o la Dirección del organismo en su presupuesto autoricen ciertas transferencias, regula quién las autoriza y no levanta la restricción. La restricción tampoco se limita a las secciones distintas, que es otra regla de la misma lista.
+
+8. **m01-l16-q036** (I.16, derived from C1 m03-l07-q039) — ¿Cuánto dura, según la Ley 15/2022, de 12 de julio, integral para la igualdad de trato y la no discriminación, el mandato de quien preside la Autoridad Independiente para la Igualdad de Trato y la No Discriminación?
+   - a) Cinco años, renovable una sola vez por otros cinco
+   - b) Cinco años, sin posibilidad de renovación  ✓
+   - c) Seis años, sin posibilidad de renovación
+   - d) Cuatro años, renovable por una sola vez
+   Cita: art. 41.4 Ley 15/2022. Explicación: El artículo 41.4 dice: «Su mandato será de cinco años sin posibilidad de renovación». El mandato de cinco años no admite renovación. Seis y cuatro años no son la duración que fija la ley.
+
+9. **m01-l16-q039** (I.16, derived from C1 m03-l07-q042) — ¿Cómo define la Ley 4/2023, de 28 de febrero, para la igualdad real y efectiva de las personas trans y para la garantía de los derechos de las personas LGTBI a la persona trans?
+   - a) Persona que ha obtenido la rectificación registral de la mención relativa al sexo
+   - b) Persona cuya identidad sexual no se corresponde con el sexo asignado al nacer  ✓
+   - c) Persona cuya expresión de género no coincide con los roles sociales de su sexo
+   - d) Persona nacida con características sexuales que no encajan en las nociones binarias
+   Cita: art. 3.k) Ley 4/2023. Explicación: El artículo 3.k) define a la persona trans como aquella «cuya identidad sexual no se corresponde con el sexo asignado al nacer». La ley no exige haber rectificado la mención registral para ser persona trans. La expresión de género es la manifestación que cada persona hace de su identidad sexual (art. 3.j). Las características sexuales que no encajan en las nociones de cuerpo masculino o femenino describen la intersexualidad (art. 3.g).
+
+10. **m01-l16-q097** (I.16, authored) — ¿Cuál de las siguientes conductas es infracción grave según el artículo 95.3 del Real Decreto Legislativo 1/2013, de 29 de noviembre?
+   - a) Las vejaciones que padezcan las personas en sus derechos fundamentales por razón de su discapacidad.
+   - b) Las acciones que deliberadamente generen un grave perjuicio económico o profesional.
+   - c) La coacción, amenaza o represalia contra quien haya entablado o pretenda entablar una acción legal o reclamación para exigir la igualdad de oportunidades.  ✓
+   - d) Conculcar deliberadamente la dignidad de las personas con discapacidad imponiendo condiciones o cargas humillantes para el acceso a los bienes, productos y servicios a disposición del público.
+   Cita: art. 95.3 RDL 1/2013. Explicación: La coacción, amenaza o represalia contra quien reclama la igualdad de oportunidades es infracción grave según el artículo 95.3.h). Las vejaciones, el grave perjuicio económico o profesional deliberado y las situaciones de riesgo o grave daño deliberadas son muy graves en el artículo 95.4.
+
+## Session 2 summary (2026-11-10)
+
+1. Bloque II excerpts: 1,297 of 1,320 derived excerpts byte-identical to C1's (inherit its check); 23 differ (C1
+   «sin extracto»). 158 checked blind (Opus): 47 right as built, 81 re-cited, 30 none.
+2. Re-cited: 3 labels fixed by the coordinator (citation grammar «;»), 3 to «sin extracto»; blind recheck 73/78.
+3. Bloque II: 120 of 158 with a checked excerpt, 38 «sin extracto» in the new `excerpt-exclusions.yaml`; rebuilt
+   (81 citation lines changed, nothing else). Authored bloque II ordinary excerpts still unchecked (plan § 7).
+4. +66 of bloque I to I.13 (205) and I.14 (229) from held C1 candidates; 283 held never style-checked found and
+   checked (250 PASS, 33 FAIL).
+5. I.13/I.14 chosen from the derived pool for mix and bias (`select_derived.py`): no authoring needed.
+6. Bloque I written (Sonnet) tema by tema: 1,003 first drafts + 84 replacements and mix questions.
+7. All verified blind (Opus, ≤ 60 per batch by cited unit): reports `bloque-i/verify/`, drops in `drops.tsv`.
+8. Commonest drops: official copies with a distractor carried over, options off the stem's grammar, absurd
+   distractors, keys resting on an uncited article, explanations misdescribing a distractor, item 10 (I.7).
+9. Coordinator drops on verifier notes: I.9 q114, I.10 q088, I.15 q195, I.16 q062, q099, q100.
+10. Capacity: most bloque I lessons hold fewer facts than their quotas; writers stopped rather than repeat.
+11. Bias/mix: surplus held where it fixes a tema (I.6, I.7, I.11, I.15); residuals listed above.
+12. Lesson issues found (not changed): m01-l07 line 127 «qué/que parte»; m01-l10 line 119 stale trío;
+    m01-l10 «Protocolo n.º 6» has no index anchor.
+13. New tools: `excerpt_inherit.py`, `excerpt_batches.py`, `apply_excerpt_reports.py`, `select_derived.py`,
+    `verify_batches.py`, `tema_status.py`.
+14. Nothing committed. Bloque I not built; suites not run (bloque II rebuild changed only citations and excerpts).
+
+## Where to resume (after session 2)
+
+1. Juanjo's decision on the bloque I gap (a/b/c above). For (a): run `select_derived.py` per lesson with the held
+   pool and raised targets, then `tema_status.py`.
+2. Bloque I build: `tools/build_exercises.py bloque-i m01` (from `backend/`), course.yaml entries, loader,
+   cross-reference, `bias_per_tema.py bloque-i`, course-level bias test, i18n.
+3. Excerpts: `scripts/extract_excerpts.py --course age-auxiliar-c2`; `excerpt_inherit.py bloque-i`; blind check
+   (Opus, `excerpts/spec.md`) of every authored bloque I excerpt and every derived one not identical to C1's; apply
+   with `apply_excerpt_reports.py bloque-i`, recheck re-cited (`excerpts/recheck-spec.md`).
+4. «Lo que más cae» map for I.13 and I.14 (derived only). Goldens read; C1, crypto-futures, Android unchanged;
+   `docs/age-verification/c2/tools/close_round.sh`.
+5. Owed: blind check of authored bloque II ordinary excerpts; calibration items (34) after bloque I.
+6. Do not rerun `plan_delta.py` on bloque I lessons: it would undo `select_derived.py` and the rebalance holds.
+
+# Session 3 (2026-11-10): Juanjo's decisions, lesson fixes, excerpts, bloque I built
+
+**Decisions (Juanjo):** build bloque I at 2,312 (gap per tema in plan § 6, variant rounds close it); fix the three
+lesson problems first; blind-check the 1,064 authored bloque II excerpts now; leave the I.1/I.4/I.16 edge z and the
+I.6 mix as recorded residuals.
+
+## Lesson fixes (R2 rules)
+
+- **m01-l07 line 126:** «Al solicitante se le indica que se ha omitido parte de la información (art. 16 Ley
+  19/2013)», as art. 16 reads («que parte», a conjunction). No kept question rested on «qué parte» (q086 was dropped).
+- **m01-l10 line 119:** the trío per the Decisión 2016/1316 table: Irlanda (julio-diciembre de 2026), Lituania
+  (enero-junio de 2027), Grecia (julio-diciembre de 2027), as the saved consilium page presents them; holds on any
+  exam date through 31-12-2027.
+- **m01-l10 line 30, «Protocolo n.º 6»:** cited «(art. único Protocolo n.º 6)». Platform: the citation grammar and
+  the source indexer learnt the «art. único» unit (`grammar.py`, `sources.py`; two tests in `test_citations.py`,
+  failing first). New `normativa.yaml` entry «Protocolo n.º 6» on the consolidated TUE file, whose first «Artículo
+  único» is the Protocol's (page 96). C2 `source-index.json` regenerated (C1's untouched); `citations.es.txt` golden
+  +1 citation, +1 anchor. C1's lesson has the same sentence and gap, unchanged.
+- Blind check (Opus): 11 sentences PASS (`docs/age-verification/c2/bloque-i/verify/m01-l07.r3-2026-11-10.md`,
+  `m01-l10.r3-2026-11-10.md`). Records: `provenance.py record m01-l07 m01-l07` (144 inherited, 14 verified),
+  `record m01-l10 m01-l11` (157 inherited, 32 verified). `test_provenance.py` 41 passed.
+
+## Bloque II authored excerpts (953 not already in the 158)
+
+`excerpts/bloque-ii/authored/batch-01..16`, Opus, `excerpts/spec.md`: **813 yes**, 110 labels, 30 none. 11 labels
+were for norm citations (II.1–II.4: a sentence beyond the article's cut, a preámbulo paragraph, and three on RD
+366/2007 art. 13.1 whose fact is the wording in force until 01-01-2027 while the excerpt shows the RD 707/2026 text):
+«sin extracto». 99 re-cited, all resolving; blind recheck (`recheck2/`) 97 yes, 2 no (m02-l09-q230, m02-l11-q179):
+«sin extracto». **Bloque II now: 2,384 questions; 2,303 with a checked or inherited excerpt; 81 «sin extracto»
+with a reason; 0 unexplained.** Re-citations: `excerpts/bloque-ii-recited.tsv` (177 rows over both passes).
+- **RD 366/2007 art. 13.1 (m02-l01-q075, q076, q100):** they tested the wording in force until 01-01-2027;
+  resolved in session 4 (below).
+
+## Bloque I built and its excerpts
+
+- `build_exercises.py bloque-i m01`: **2,312 questions in 141 exercises**, one provenance record each. The builder
+  empties the bloque's exercise files before writing: a failed run (a citation that resolves to no lesson anchor)
+  leaves none until a clean rerun.
+- Excerpts: 1,353 derived identical to C1's (inherit; 10 of them C1's own «sin extracto»). 959 checked blind
+  (`excerpts/bloque-i/batch-01..16`, spec's new «Norm citations» section: a miss gets «cite:» or «none»): **888
+  yes**, 10 fixes, 61 none. Six «none» the verifiers gave only because the spec then barred letter citations were
+  re-cited by the coordinator to the letter (`coordinator-letters.md`: art. 2.2.k) and l) Ley 50/1997, 8.1.g) and h)
+  Ley 19/2013, 19.1.f) LJCA, 95.3.h) RDL 1/2013). Two «disposición derogatoria CE» cites resolve to no lesson
+  anchor and two OECD labels split over PDF lines: «sin extracto». Blind recheck of the 12 re-cited: 12 yes.
+  **Bloque I: 2,243 with a checked or inherited excerpt, 69 «sin extracto»** (59 from this check, 10 inherited from C1; most: ODS short names only in box
+  titles, chapter/section questions whose answer is a heading, letters past the cut where the citation has no
+  letter).
+- Extractor notes (not content faults): m01-l06-q069's excerpt runs into the page footer; m01-l06-q092 reads «pa
+  ra»; bloque II recheck flags garbled menu paths copied from the pages.
+- Course: **4,696 questions, 4,546 excerpts, 150 «sin extracto»** (140 in `excerpt-exclusions.yaml`, 10 inherited).
+- Bias: `test_quiz_answer_bias.py` 27 passed (course level, C2 included). Per tema as in the bloque I table.
+
+## close_round.sh (2026-11-10)
+
+- Goldens: `citations.es.txt` +1 citation, +1 anchor (Protocolo n.º 6, art. único, page 96), read. C1 and
+  crypto-futures: no path changed. Android bundle re-exported: byte-identical to `dist/bundle`.
+- Backend: 2,952 passed, 23 skipped, 1 failed: `test_question_identity` for C2, the expected «regenerate and
+  review» after adding bloque I. Regenerated (`UPDATE_QUESTION_KEYS=1`) and reviewed: 2,312 bloque I keys added, no
+  bloque II key removed or changed. Test then 6 passed.
+- Frontend: 723 passed, 81 skipped; `tsc -b` clean.
+- README (C2 section: bank sizes, «sin extracto», `art. único`) and `content/README.md` (the `art. único` form) updated.
+
+## Where to resume (after session 3)
+
+R3 is done for bloques I and II. Nothing committed. Next:
+1. Calibration items (34), plan § 1, after bloque I (platform side checked then).
+2. R5 (variant rounds): close bloque I's gap per plan § 6 (I.5 −98, I.16 −62, I.2 −43, I.10 −36, I.1 −35, I.8 −26,
+   I.4 −6); rebalance the edge z of I.1, I.4, I.16 and the I.6 mix.
+3. C1 carries the same «Protocolo n.º 6» sentence without an anchor and the same «qué parte» sentence; a C1 round
+   can now cite «art. único Protocolo n.º 6» (C1 provenance and C2 records follow the CLAUDE.md rule).
+4. Do not rerun `plan_delta.py` on bloque I lessons (it would undo `select_derived.py` and the rebalance holds).
+
+# Session 4 (2026-11-11): cambio-pendiente questions
+
+**Juanjo:** the exam falls after 01-01-2027 (R3.5: the version in force on the exam date). m02-l01-q075, q076 and
+q100 tested art. 13.1 RD 366/2007 as in force until then: dropped (`bloque-ii/drops.tsv`), replaced on the RD
+707/2026 wording. The lesson already states the new wording («art. 13.1 RD 366/2007, desde 02-01-2027», art. 10.2.a)
+of the Reglamento): no lesson change.
+
+- **Replacements:** m02-l01-q101 (the decree that approves the Reglamento), q102 (the documents art. 13.1 covers),
+  q103 (the art. 10.2.a) obligation lectura fácil serves). Written (Sonnet), verified blind 3/3 PASS
+  (`bloque-ii/verify/m02-l01.r3.v1.md`), excerpts checked blind 3/3 yes (`excerpts/bloque-ii/r3/report-01.md`).
+  II.1 stays at 82; mix and bias within bounds.
+- **Bank-wide scan** of every built question's citation against `normativa.yaml`'s `cambios_pendientes` in force
+  before the exam (RD 366/2007 art. 13, 02-01-2027; Reglamento del Congreso art. 23, XVI legislatura from
+  23-12-2026; RDL 4/2000 art. 19.1 and LGSS arts. 144.4, 169.1.a), 171, 172, 173.1, 01-12-2026; LGSS art. 309.1,
+  01-01-2027): **11 questions** cite an affected article (no question cites the LGSS ones). Each was checked blind
+  against the wording in force from 02-01-2027 (`bank/pending-changes-check-2026-11-11.md`): **3 changed** (the three
+  above) and **8 hold** (m02-l01-q077, q078, q079, q090; m01-l03-q050, q051, both already on the reformed art. 23.1;
+  m01-l14-q295, q296, on parts of art. 19 RDL 31/2026 leaves as they are). So the count of questions treated is 3.
+- Question keys regenerated: 3 removed, 3 added, nothing else moved.
+- `close_round.sh` (2026-11-11), exit 0: goldens as in session 3 (the Protocolo n.º 6 anchor, read); C1 and
+  crypto-futures untouched; Android bundle byte-identical; backend 2,953 passed, 23 skipped; frontend 723 passed,
+  81 skipped; `tsc -b` clean. Nothing committed.

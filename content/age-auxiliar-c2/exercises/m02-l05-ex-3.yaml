@@ -194,7 +194,7 @@ variants:
       es: "Destacarlas"
   explanation:
     es: "La página indica que se «destacan» las tareas más importantes. «Moverlas a Mi día» es el espacio donde se trabaja el día, no la forma de marcar la importancia. «Añadirles una nota» sirve para registrar detalles adicionales, no para marcar la importancia. «Asignarles un paso» sirve para dividir una tarea grande, no para marcar la importancia."
-  citation: "fuente: `ms-todo-bienvenida.html`; «Le damos la bienvenida a Microsoft To Do»"
+  citation: "fuente: `ms-todo-bienvenida.html`; «Mantén todo bajo control estableciendo fechas de vencimiento y recordatorios para cada tarea, y \"destaca\" tus tareas más importantes.»"
   difficulty: 1
   tags:
   - "concepto"
@@ -218,7 +218,7 @@ variants:
       es: "Los caracteres ASCII se codifican con un solo octeto de valor ASCII normal."
   explanation:
     es: "La RFC explica que cada carácter US-ASCII ocupa un octeto con su valor ASCII habitual. «Los caracteres ASCII se codifican con dos octetos para distinguirlos de los demás.» contradice la RFC, que los codifica con un único octeto. «Los caracteres ASCII necesitan una tabla de conversión propia para leerse como UTF-8.» contradice la RFC, para la que una cadena ASCII ya es una cadena UTF-8 válida. «Los caracteres ASCII se sustituyen por secuencias de cuatro octetos de longitud fija.» contradice la RFC, cuya longitud es variable y de un octeto para ASCII."
-  citation: "fuente: `rfc3629-utf8.txt`; «UTF-8, a transformation format of ISO 10646»"
+  citation: "fuente: `rfc3629-utf8.txt`; «It uses all bits of an octet, but has the quality of preserving the full US-ASCII [US-ASCII] range: US-ASCII characters are encoded in one octet having the normal US-ASCII value, and any octet with such a value can only stand for a US-ASCII character, and nothing else.»"
   difficulty: 1
   tags:
   - "concepto"
@@ -242,7 +242,7 @@ variants:
       es: "Se interpreta como una secuencia de varios octetos por carácter"
   explanation:
     es: "La RFC deduce que una cadena ASCII simple es a la vez una cadena UTF-8 válida. «Debe convertirse antes mediante un programa de transcodificación» no es lo que dice la RFC: la compatibilidad evita esa conversión. «Resulta ilegible porque UTF-8 reasigna los valores de 00 a 7F» contradice la RFC, que mantiene esos valores para US-ASCII. «Se interpreta como una secuencia de varios octetos por carácter» contradice la RFC, que usa un solo octeto para el repertorio ASCII. Lo que dice la fuente: «A direct consequence is that a plain ASCII string is also a valid UTF-8 string»."
-  citation: "fuente: `rfc3629-utf8.txt`; «UTF-8, a transformation format of ISO 10646»"
+  citation: "fuente: `rfc3629-utf8.txt`; «A direct consequence is that a plain ASCII string is also a valid UTF-8 string.»"
   difficulty: 1
   tags:
   - "comportamiento"
@@ -266,7 +266,7 @@ variants:
       es: "Se repite en todos los octetos siguientes de la secuencia."
   explanation:
     es: "La RFC señala que el primer octeto de una secuencia multiocteto indica cuántos octetos la forman. «Contiene siempre el valor del carácter ASCII más cercano.» no lo dice la RFC: ese valor solo corresponde a los caracteres ASCII de un octeto. «Marca la ordenación de los octetos en la secuencia, como un BOM.» es la función del BOM en otras codificaciones, que en UTF-8 resulta inútil. «Se repite en todos los octetos siguientes de la secuencia.» contradice la RFC, que da a los octetos siguientes un formato distinto. Lo que dice la fuente: «The first octet of a multi-octet sequence indicates the number of octets in the sequence»."
-  citation: "fuente: `rfc3629-utf8.txt`; «UTF-8, a transformation format of ISO 10646»"
+  citation: "fuente: `rfc3629-utf8.txt`; «The first octet of a multi-octet sequence indicates the number of octets in the sequence.»"
   difficulty: 1
   tags:
   - "concepto"
@@ -290,7 +290,7 @@ variants:
       es: "C0 C1 F5"
   explanation:
     es: "La RFC indica que, al tener UTF-8 una unidad de un octeto, el BOM aparece siempre como EF BB BF. «FE FF» no es la secuencia del BOM en UTF-8, que ocupa tres octetos. «00 00 FE FF» no es la secuencia del BOM en UTF-8, que ocupa tres octetos. «C0 C1 F5» son valores de octeto que, según la RFC, no aparecen nunca en UTF-8. Lo que dice la fuente: «the BOM will always appear as the octet sequence EF BB BF»."
-  citation: "fuente: `rfc3629-utf8.txt`; «UTF-8, a transformation format of ISO 10646»"
+  citation: "fuente: `rfc3629-utf8.txt`; «UTF-8 having a single-octet encoding unit, this last function is useless and the BOM will always appear as the octet sequence EF BB BF.»"
   difficulty: 1
   tags:
   - "concepto"
@@ -314,7 +314,7 @@ variants:
       es: "U+10FFFF, el último carácter del rango de UTF-8"
   explanation:
     es: "La RFC identifica el BOM con el carácter U+FEFF, espacio sin separación de ancho cero. «U+0000, el carácter nulo del rango ASCII» no recibe el nombre de BOM en la RFC. «U+007F, el último carácter del repertorio ASCII» es el límite del repertorio US-ASCII, no un BOM. «U+10FFFF, el último carácter del rango de UTF-8» es el límite superior del rango de caracteres, no un BOM."
-  citation: "fuente: `rfc3629-utf8.txt`; «UTF-8, a transformation format of ISO 10646»"
+  citation: "fuente: `rfc3629-utf8.txt`; «The UCS character U+FEFF \"ZERO WIDTH NO-BREAK SPACE\" is also known informally as \"BYTE ORDER MARK\" (abbreviated \"BOM\").»"
   difficulty: 1
   tags:
   - "concepto"
@@ -338,7 +338,7 @@ variants:
       es: "Un sistema de numeración de base hexadecimal para las direcciones de memoria"
   explanation:
     es: "La RFC presenta el UCS como un gran conjunto de caracteres con la mayoría de los sistemas de escritura. «Un conjunto de 128 caracteres de siete bits de la tabla ASCII, que UTF-8 conserva sin cambios» es el repertorio US-ASCII, que UTF-8 conserva pero que no es el UCS. «Un protocolo de transmisión de ficheros entre redes distintas y de uso general» no es lo que describe la RFC, que habla de un juego de caracteres. «Un sistema de numeración de base hexadecimal para las direcciones de memoria» no es lo que describe la RFC, que habla de un juego de caracteres. Lo que dice la fuente: «defines a large character set called the Universal Character Set (UCS) which encompasses most of the world's writing systems»."
-  citation: "fuente: `rfc3629-utf8.txt`; «UTF-8, a transformation format of ISO 10646»"
+  citation: "fuente: `rfc3629-utf8.txt`; «ISO/IEC 10646 [ISO.10646] defines a large character set called the Universal Character Set (UCS), which encompasses most of the world's writing systems.»"
   difficulty: 1
   tags:
   - "concepto"
@@ -554,7 +554,7 @@ variants:
       es: "El visor 3D Beta de HoloLens"
   explanation:
     es: "La página recomienda la herramienta de visor 3D Babylon.js para comprobar modelos. «El visor de modelos de AutoCAD y de Autodesk Inventor» es un programa CAD para crear modelos, no la herramienta de comprobación que cita la página. «El convertidor de recursos de Windows Mixed Reality» sirve para optimizar modelos glTF 2.0, no para comprobarlos. «El visor 3D Beta de HoloLens» es una aplicación solo para dispositivos HoloLens de primera generación, no la herramienta de comprobación."
-  citation: "fuente: `ms-mixed-reality-cad.html`; «Trabajar con modelos 3D»"
+  citation: "fuente: `ms-mixed-reality-cad.html`; «Para comprobar los modelos 3D, se recomienda usar la herramienta de visor 3D Babylon.js en el explorador de escenas.»"
   difficulty: 3
   tags:
   - "concepto"

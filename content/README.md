@@ -425,7 +425,7 @@ counted in progress as a question of its own lesson. A quiz variant takes the sa
 
 In a course with `sources/normativa.yaml`, the backend reads every citation in the lessons as written —
 `(art. 67 CE)`, `(arts. 14–38 CE)`, `(arts. 23.2 y 24.1–2 Ley 19/2013)` (articles 23 and 24),
-`(art. 14.2.d) y e) LPAC)`, `(art. 21.C) RD 1009/2023)`, `(disposición adicional cuarta Ley 19/2013)`,
+`(art. 14.2.d) y e) LPAC)`, `(art. 21.C) RD 1009/2023)`, `(art. único Protocolo n.º 6)`, `(disposición adicional cuarta Ley 19/2013)`,
 `(anexo I Orden HAC/557/2026)`, the rules of norms without articles — `(regla 34.II.a.1 IOC)`,
 `(apartado sexto.1 Orden …)`, `(nota 34 anexo I Orden …)` — and `(fuente: `file.html`)` — one grammar,
 `backend/src/tradeschool/citations/`. A paragraph letter's «)» never closes a citation, in prose or at

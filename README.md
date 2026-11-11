@@ -939,8 +939,13 @@ R1 built its skeleton (`docs/age-c2-round-1-handoff.md`): «Proceso de selecció
 (`m00-l01`) and «Cómo son los psicotécnicos» (`ps-l01`, the 16 psicotécnico types with one official
 question each), both written; «Programa» holds bloque I (`m01`, 16 temas) and bloque II (`m02`, 12
 temas, the ofimática ones list-shaped), all written in round R2 (`docs/age-c2-theory-ledger.md`). It
-declares `lesson_practice`, letter options and «tema» like C1, has no questions or exam presets yet, and
-shares no file with C1: its `sources/` are its own copies.
+declares `lesson_practice`, letter options and «tema» like C1, has no exam presets yet, and shares no file
+with C1: its `sources/` are its own copies. Round R3 built its question bank (`docs/age-c2-bank-plan.md`,
+`docs/age-c2-bank-ledger.md`): bloque II 2,384 questions, bloque I 2,312 (short of its 2,582 quota where a
+lesson ran out of facts; variant rounds close it). A question copied from C1 carries «verificado en C1»; an
+authored one a blind verifier's PASS (`docs/age-verification/c2/bank/<bloque>/provenance/`). Excerpts a blind
+check found short of the fact are built as «sin extracto» from `excerpt-exclusions.yaml`, each with its reason.
+The citation grammar accepts `art. único` (a protocol's or a law's single article: «art. único Protocolo n.º 6»).
 
 **Provenance (R2.3).** A C2 sentence identical to a C1 one, with the same governing citations and the cited
 files at the same sha256 in both snapshots, inherits C1's verification; every other sentence needs its own

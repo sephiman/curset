@@ -69,6 +69,8 @@ def _linked_courses() -> list[CourseRegistry]:
         ("arts. 24.1\u201324.2 Ley 19/2013", ["art-24"], "Ley 19/2013"),
         ("arts. 23.2, 24.1\u20132 y 25 Ley 19/2013", ["art-23", "art-24", "art-25"], "Ley 19/2013"),
         ("arts. 12.1\u201313.2 LPAC", ["art-12", "art-13"], "LPAC"),
+        ("art. único Protocolo n.º 6", ["art-unico"], "Protocolo n.º 6"),
+        ("art. único.b) Protocolo n.º 6", ["art-unico"], "Protocolo n.º 6"),
         ("regla 34 IOC", ["regla-34"], "IOC"),
         ("regla 34.II.a.1 IOC", ["regla-34"], "IOC"),
         ("regla 42.2.b) IOC", ["regla-42"], "IOC"),
@@ -142,6 +144,15 @@ def test_a_list_row_citation_may_end_in_a_letter_paragraph() -> None:
         (("Garantía definitiva", "siete días hábiles"), "art. 159.4.f) LCSP"),
         (("Adjudicación (anticipada)", "quince días"), "art. 23.Uno.B) Ley 31/2022"),
     ]
+
+
+def test_an_articulo_unico_heading_is_indexed_at_its_first_page() -> None:
+    pages = [
+        "PROTOCOLO (n.o 5)\nArtículo 1\nTexto.",
+        "PROTOCOLO (n.o 6)\n                    Artículo único\na) El Parlamento Europeo tendrá su sede en Estrasburgo.",
+        "PROTOCOLO (n.o 7)\nArtículo único\nOtro texto.",
+    ]
+    assert index_pdf_pages(pages)["art-unico"] == 2
 
 
 def test_rule_headings_ordinal_apartados_and_annex_notes_are_indexed_by_page() -> None:
