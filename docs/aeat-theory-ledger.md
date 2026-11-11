@@ -413,3 +413,154 @@ list), the doubtful official keys for stage 2 (decisions 6, 12, 24), R2b, R2c.
     passed; tsc clean. Goldens regenerated and read.
 18. Nothing is committed.
 19. Next: R2b (scope, coverage, currency for the whole course), R2c (esquemas, incl. R4.5 tax esquemas), M, P.
+
+---
+
+# R2b (scope, coverage, currency) and R2c (esquemas)
+
+Started 2026-11-11. Working files: `docs/age-verification/aeat/r2b/` (`scope/`, `currency/`, `tools/`, `verify/`),
+`docs/age-verification/aeat/r2c/` (spec, writer notes). Audit document: `docs/aeat-scope-audit.md`.
+
+## R2b / R2c — where to resume
+
+(Updated as the round goes; the last entry wins.)
+
+- 2026-11-11, first pass: scope auditors A (m00, I.1–I.4), B (I.5–II.5), C (III.1–III.10) done, D (III.11–III.20)
+  running. Cuts and notes of A, B, C applied; III.11–III.20 pending D. Currency done (`r2b/currency/normativa.md`,
+  `pages.md`; 13 norms entered; RDL 29/2026 not due). Common-part esquemas trimmed to four per lesson. Tax esquema
+  writers running (R2c spec). Next: D's cuts, one blind batch for every R2b edit, esquema verification, records, close.
+- 2026-11-11, second pass: all four scope reports in; every cut and note applied (A–D), plus the m02-l02 (107.4, 39.4)
+  and m02-l04 (80.2, 95.1) prose fixes. Tax esquemas written (writer notes in `r2c/`), common esquemas trimmed, m02-l04
+  given one. Coverage re-checked after the cuts: holds. `docs/aeat-scope-audit.md` drafted. Running: two blind Opus
+  verifiers over every pending item (spec `r2b/verify/spec.md`; reports `r2/verify/r2bc.md`,
+  `r2-tax/<lesson>/verify-r2bc.md`). Next: apply FAILs, re-check by a different verifier, records, goldens, close.
+
+## R2b / R2c — decisions taken without asking
+
+1. Scope evidence is AEAT questions only. A note naming an Administrativo or Auxiliar exam (m02-l01 «El procedimiento
+   de elaboración», inherited from C2) was re-audited: the section maps to II.1 «El Reglamento» (arts. 25–26 Ley 50/1997),
+   so the note was removed rather than re-pointed.
+2. Four auditors instead of three (the course has 958 sections); two at a time, as the concurrency rule allows.
+3. The Consejo Europeo is not «El Consejo» of I.4: its subsections no AEAT question needs were cut, «Composición» kept
+   under a note (2025-50). Wrong options alone (2022-8, 2021-10, 2025-79, 2020-34) are not evidence.
+4. III.5 consultas tributarias (arts. 88–89 LGT) cut: the 2025 programme dropped «la consulta tributaria» and the only
+   questions are `fuera de temario`. The auditor flagged it as a judgement call (art. 85.2.c names consultas as an
+   información instrument); the deliberate deletion from the programme decided it.
+5. III.11: the list of motivos de oposición (art. 167.3 LGT) cut at sentence level, though its section stays mapped;
+   the programme keeps «concepto y plazos» and the ledger rules 2022X-70 out for that reason.
+6. Container notes: one «Fuera del enunciado…» note on a `##` covers its `###` (III.13 «Infracciones y sanciones en
+   particular», III.20 «Regímenes de tránsito y de depósito»), as C2 did.
+7. Optional additions of the common-part handoff, by the same rule: art. 107.4 LPAC completed and art. 39.4 LPAC
+   added (asked; mapped to II.2 «eficacia»); the degree of affinity (2024-68) not written: no norm in the snapshots
+   states it.
+8. The 13 norms named inside other norms: the handoff said 12; the golden listed 13 (Ley 30/1992, derogated, included
+   so every name has a snapshot). `short` set to the exact «Normativa» wording so lines resolve; m03-l05's Ley 25/2003
+   line rewritten to start with the new short (tax decision 16) and re-checked.
+9. RGPD: the copied `version_vigente` note named corrigenda files this course did not hold; the two PDFs were copied
+   from C1 (same sha256) rather than editing the note, because m01-l05's art. 9.1 sentence follows the corrected text.
+10. consilium-presidencia.html: 403 in plain and browser fetch; the site's bot check is not worked around. Recorded as
+    not read (as C2's R2b did); the sentence resting on it is inherited from C2.
+11. «Cambio pendiente … sin convalidar, con efectos desde el <past date>» in the «Normativa» of III.15–III.16 is not a
+    stale «(desde …)» mark: the pending element is the convalidación (RDL 29/2026, deadline 19-11-2026, not reached).
+12. Common-part esquemas: the derivation had copied every C2/C1 esquema of the merged lessons (I.2: 6, I.3: 5, I.4: 8,
+    I.7: 9). Trimmed to four per lesson, keeping the subjects the AEAT questions ask most (organs, majorities, plazos;
+    counts in this round's notes); kept rows unchanged and inherited. No common esquema was re-derived from C1/C2 beyond
+    m02-l04, where no C1/C2 esquema could be copied byte-identical and a new one was written and checked.
+13. Esquema rows failed «drop» because the prose lacks the same rule: the prose is fixed first (brief), by a writer
+    other than the esquema writers, and both prose and row go to a re-check by a verifier who saw neither report.
+14. Two inherited m02-l04 sentences (arts. 80.2 and 95.1 LPAC) were shortened past the article in C1/C2's wording; fixed
+    here (they lose inheritance and are verified here). C1 and C2 are not touched; the same wording there is listed for
+    their next round.
+- 2026-11-11, third pass: first blind pass done (38 FAIL: replacements applied; ten «drop» rows fixed through the prose
+  by a separate writer, `r2c/prose-gaps.md`); re-check 1 done (11 FAIL; replacements applied; LIS DA 14.ª (III.6), LIVA
+  99.Tres/99.Cinco (III.19) and DA 15.ª on art. 11.12 LIS (III.17) sent to the prose-gap writer). Records written for
+  every lesson except m03-l03, l06, l15, l17, l19. Next: re-check 2 by a fourth verifier on those five, records, close.
+15. Two failed re-checks → drop, counted per item lineage: the m03-l03 «Presentación … 12 meses» row (failed in pass 1,
+    re-check 3 and re-check 4) was dropped; the esquema, left with the art. 27.5 row alone, was removed (the prose keeps
+    every rule of art. 27; m03-l03 keeps two esquemas). The m03-l17 «Lo que más cae» line on bases negativas (failed
+    re-checks 1 and 2) was dropped and replaced by a narrower line naming the limits without figures (PASS), so the block
+    keeps ten lines.
+16. LIS DA 14.ª and 15.ª: found by the esquema verifiers as prose gaps (the lessons gave the five-sevenths percentage and
+    the 70 % limits as general). Fixed in the prose in the DA's words; they are not RDL marks (in force since 2024).
+17. The 5 citations the golden still counts as «naming a norm normativa.yaml lacks» are parser cases (worded DT
+    numeral, «89.Uno y Tres»), not missing norms: section M, with the tax part's decision 18.
+
+## R2b / R2c — results
+
+- **Scope** (four blind Opus auditors, `r2b/scope/`): 958 sections; 902 mapped, 11 instrumental, 3 other tema, 29 kept
+  by AEAT exam evidence (21 notes; container notes cover their `###`), 13 removed (5 in part I, 8 in part III) plus the
+  art. 167.3 list; no gaps. Facts missing and written: arts. 107.4 and 39.4 LPAC. Wrong note removed: m02-l01. Detail and
+  tables: `docs/aeat-scope-audit.md`.
+- **Coverage:** 137 / 137 and 315 / 315 hold after the cuts.
+- **Currency** (`r2b/currency/`): norms and EU texts current; 13 norms entered (11 downloads, 2 C1 copies); RGPD corrigenda
+  copied from C1; annual figures re-found in their norms for 2026; RDL 29/2026 pending (19-11-2026); no past «desde».
+- **R2c esquemas** (spec `r2c/spec.md`; writers' notes `r2c/writer-*.md`, prose fixes `r2c/prose-gaps.md`):
+
+| Part | Lessons | Esquemas | Rows | Inherited | Verified here |
+|---|---|---|---|---|---|
+| I–II (common) | 12 | 33 | 218 | 204 | 14 (m02-l04, new) |
+| III (tax) | 20 | 48 | 287 | 0 | 287 |
+| **Total** | **32** | **81** | **505** | **204** | **301** |
+
+  Rows count table rows (headers included) and list items. Common part: four lessons trimmed to four esquemas (I.2, I.3,
+  I.4, I.7; 12 esquemas removed); the kept rows are byte-identical to C2/C1 (provenance «verificado en C1/C2»). Tax part,
+  per R4.5: plazos de pago (III.9; III.11 states the providencia plazos and the art. 28 recargos as a table of its own),
+  the art. 27 recargos (prose only after the drop above), infracciones, sanciones and reducciones (III.13), gestión,
+  inspección and recaudación plazos and effects (III.5, III.7, III.8, III.11, III.12), recursos and reclamaciones (III.14),
+  órganos of the AEAT (III.2, two `arbol`), structure of IRPF, IS, IVA and the deuda aduanera (III.15–III.20). All but one
+  are `tabla` (one `plazos` in III.5): the norms rarely state an order. Verification passes: 1st 38 FAIL; re-checks 11, 3,
+  2, 1; each by a verifier who had not seen the earlier reports.
+- **Records:** every m01–m03 lesson re-recorded (`aeat/r2/<lesson>.md`); `test_provenance.py` passes.
+
+## Open items after R2b / R2c
+
+1. RDL 29/2026: re-check the BOE from 18-11-2026; if derogated or lapsed, apply `r1/rdl-29-2026-revert-list.md` (III.1,
+   III.15, III.16, III.18) with blind checks. RDL 31/2026 (about 04-12-2026), RDL 33, 35, 36/2026 likewise.
+2. `consilium-presidencia.html` not read live (403); one inherited m01-l04 sentence rests on it.
+3. Section M (platform, not patched): the Ceuta/Melilla two-norm golden flip; the parser cases of tax decision 18 and
+   decision 17 above.
+4. C1 m03-l03 and C2 m01-l11 carry the same shortened arts. 80.2 and 95.1 LPAC sentences fixed here in m02-l04: for their
+   next round (with the C2 provenance rerun).
+5. Stage 2: the ledger's inconsistent retenciones classification (2021-59, 2021-61, 2022-89 vs 2023-64 onwards); the
+   doubtful keys of the tax part.
+6. Noted by the auditors, not acted on (no coverage question): `docs/aeat-scope-audit.md`, «Noted, not acted on».
+
+## Handoff (R2b / R2c → M / P)
+
+1. R2b and R2c are done for all three parts; nothing is committed.
+2. Scope: 958 sections audited by four blind auditors against the 2025 programme and the 680 AEAT questions.
+3. 13 sections removed (I.3 Comisión General; four Consejo Europeo subsections; III.5 consultas and prueba arts.
+   106–108; III.13 arts. 195–197; III.20 arts. 162–163) and the art. 167.3 list.
+4. 29 sections kept on AEAT exam evidence, each under a «Fuera del enunciado literal…» note (21 notes).
+5. The m02-l01 note citing an Auxiliar exam was wrong and is gone.
+6. Facts added: arts. 107.4 and 39.4 LPAC (II.2); the affinity degree (2024-68) not written: no norm states it.
+7. Coverage 137/137 and 315/315 hold after the cuts.
+8. Currency: all norms current on boe.es and Cellar; 11 saved pages checked (1 changed, nothing rests on it; 1 403).
+9. 13 norms named inside other norms entered with snapshots; the Normativa lines now resolve.
+10. Annual figures re-found in their norms for 2026; no PGE 2026; status «no contrastado con la sede» unchanged.
+11. RDL 29/2026 not convalidated or derogated; deadline 19-11-2026; revert list not applied.
+12. Esquemas: 81 in 32 lessons (33 common, 48 tax), 505 rows: 204 inherited, 301 verified blind.
+13. Common lessons trimmed to four esquemas each; m02-l04 has a new one.
+14. The esquema check found 16 prose gaps (incl. LIS DA 14.ª and DA 15.ª for grandes empresas); all fixed and checked.
+15. FAIL handling: replacement in the article's words, re-check by a different verifier; two items dropped after two
+    failed re-checks.
+16. Opus runs: 4 scope auditors, 2 first-pass verifiers, 4 re-checkers; writers on Sonnet; at most four agents at once.
+17. Records redone for every lesson; `test_provenance.py`, `test_citations.py`, `test_esquema.py` pass.
+18. Goldens regenerated and read (citations, glossary links; lesson refs unchanged).
+19. Close: C1, C2, crypto-futures unchanged; Android byte-identical; frontend 738 passed; `tsc -b` clean.
+20. Backend 3,144 passed; the only failure was the known Ceuta/Melilla golden flip; rerun once: passed (recorded).
+21. Audit document: `docs/aeat-scope-audit.md` (Run 1), verdict «dentro de alcance, cubierto y al día» per part.
+22. Reports: `aeat/r2b/` (scope, currency, verify spec), `aeat/r2c/`, `aeat/r2/verify/r2bc*`,
+    `aeat/r2-tax/<lesson>/verify-r2bc*`.
+23. Round tools: `r2b/tools/check_norms.py`, `eu_versions.py` (lint and mypy clean); taxprov/prov reused.
+24. Working folders `r2/pending/` and `r2-tax/*/pending.md` removed.
+25. 17 decisions taken without asking are logged above.
+26. Open: RDL 29/2026 re-check from 18-11; the 403 page; section M items; C1/C2 80.2/95.1 wording.
+27. Next: M (published course without exercises, R5.1), then P (publication).
+28. Before P: re-run `check_pages.py` and the norm check if more than a month has passed.
+29. Before stage 2: the doubtful keys and the retenciones classification.
+30. Nothing in C1, C2 or crypto-futures was changed by this round.
+
+## R2b / R2c — where to resume (final)
+
+R2b and R2c are done (2026-11-11), closed with `close_round.sh`. Next: M, then P. Watch RDL 29/2026 from 18-11-2026.

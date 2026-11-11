@@ -1,0 +1,16 @@
+# Blind check of the R2b/R2c edits — m03-l02, 2026-11-11
+
+Verifier spec `docs/age-verification/aeat/r2b/verify/spec.md`. Three esquemas: «Los órganos rectores de la Agencia» (tabla,
+after the «Órganos rectores» paragraphs), «Los departamentos de la organización central y sus Subdirecciones Generales»
+(arbol, after the departments' paragraphs) and «Los órganos territoriales de la Agencia» (arbol, after «Administraciones»).
+
+| id | verdict | reason | replacement |
+|---|---|---|---|
+| `52541d22a9` | PASS | Header; columns fit both rows (órgano, quién es, rango, cita). | |
+| `999e89edb6` | PASS | Art. 103.Tres.1 Ley 31/1990: «El Presidente será el Secretario de Estado de Hacienda o la persona que al efecto designe el Gobierno a propuesta del Ministro de Economía y Hacienda, y que tendrá rango de Secretario de Estado.» Verbatim; in the prose with that citation. | |
+| `b5f52335df` | PASS | Art. 103.Tres.1 Ley 31/1990: «El Director General, que tendrá rango de Subsecretario, será asimismo nombrado por el Gobierno a propuesta del Ministro de Economía y Hacienda.» Verbatim; in the prose. | |
+| `11bd427f54` | PASS | Art. 1.1 Orden PRE/3581/2007 lists the six departments a)–f) «con dependencia directa de la Dirección General… todos ellos con rango de dirección general». Orden de 2 de junio de 1994: apartados segundo, tercero, cuarto (SSGG «estará integrado por»), quinto.1 (Dirección Adjunta de Vigilancia Aduanera and SSGG a)–h)), quinto.2 («Dependerán directamente de la Dirección Adjunta de Vigilancia Aduanera las Subdirecciones Generales… g) y h)»: Operaciones and Logística correctly nested under it), séptimo (five SSGG), octavo (Dirección Adjunta de Recursos Humanos and three SSGG). Every node is in the norm and in the prose with the same citation; every child sits under the organ the text says it belongs to or depends on. | |
+| `a1c51e6898` | PASS | Apartado decimotercero.1–4 Orden de 2 de junio de 1994: Delegaciones Especiales «dependerán directamente del Director general»; Delegaciones «integradas en aquéllas»; Administraciones de la Agencia y de Aduanas e IIEE «se integran en las correspondientes Delegaciones Especiales»; ADI «se integran en las correspondientes Delegaciones Especiales». Apartado cuarto.3 Resolución de 13-01-2021 (organización territorial): the seven Dependencias Regionales integrate the Delegaciones Especiales, the de Relaciones Institucionales with its condition kept. All in the prose with the same citations; dependency as the text states. | |
+| title m03-l02 «Los órganos rectores de la Agencia» | PASS | Art. 103.Tres.1: «Los Organos rectores de la Agencia serán el Presidente y el Director General»; both rows, complete. | |
+| title m03-l02 «Los departamentos de la organización central y sus Subdirecciones Generales» | PASS | All six departments of art. 1.1 Orden PRE/3581/2007 and every Subdirección General of apartados segundo–octavo of the Orden de 1994 are present, so the title is not reading a selective list as complete; the two Direcciones Adjuntas are shown as the Orden places them. | |
+| title m03-l02 «Los órganos territoriales de la Agencia» | PASS | The five órganos territoriales of apartado primero of the Resolución de 13-01-2021 are all present (one as root, four as nodes it integrates); the Dependencias Regionales hang from the Delegaciones Especiales as their parts. | |

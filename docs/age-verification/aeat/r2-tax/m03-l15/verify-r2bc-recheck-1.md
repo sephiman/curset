@@ -1,0 +1,6 @@
+# Blind re-check 1 — R2b/R2c pending items, m03-l15, 2026-11-11
+
+| item | verdict | reason | replacement |
+|---|---|---|---|
+| `e6d66c73bf` | FAIL | Reads wider than art. 23.1.a) LIRPF: «todos los gastos necesarios» is stated with no cap, but art. 23.1.a).1.º says «El importe total a deducir por estos gastos [intereses y demás gastos de financiación, reparación y conservación] no podrá exceder, para cada bien o derecho, de la cuantía de los rendimientos íntegros obtenidos. El exceso se podrá deducir en los cuatro años siguientes». The prose (list item 1.º under art. 23.1.a) LIRPF) carries the cap. | \| Capital inmobiliario \| Para determinar el rendimiento neto se deducen de los rendimientos íntegros todos los gastos necesarios para su obtención; el importe total a deducir por los intereses de los capitales ajenos y demás gastos de financiación y por los gastos de reparación y conservación del inmueble no puede exceder, para cada bien o derecho, de la cuantía de los rendimientos íntegros obtenidos, y el exceso se puede deducir en los cuatro años siguientes \| art. 23.1.a) LIRPF \| |
+| `ae61929246` | PASS | Art. 23.1.b) LIRPF, verbatim. The 3 per cent rule says when amortisation counts as effective; leaving it out does not widen the row. | |
