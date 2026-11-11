@@ -1,6 +1,6 @@
 # Requirements delta — Curset platform: exam presets, grouped cases, source links, results by lesson
 
-Version 2.0 · 7 November 2026 · delta to docs/curset-multicourse-requirements.md. Four platform changes. A and B are required by the AGE course (docs/age-administrativo-course-requirements.md, R6.1 and R7.1) and precede that course's R5. C and D apply to every course and can run as their own rounds at any time after A.
+Version 2.1 · 11 November 2026 · delta to docs/curset-multicourse-requirements.md. Four platform changes. A and B are required by the AGE course (docs/age-administrativo-course-requirements.md, R6.1 and R7.1) and precede that course's R5. C and D apply to every course and can run as their own rounds at any time after A.
 
 ## A. Exam presets per course
 
@@ -120,6 +120,14 @@ Needed by age-auxiliar-c2 (its requirements, section 6). Reuses the platform's e
 - L5 Mixed parts: a preset part may combine sources of stored questions and generated items with counts per source («30 from m01 + 30 psicotécnicos in the index weights»), one time and one score; results attribute generated items to their type, which appears in the «Por tema» table and the two lists as if it were a lesson. Printable exams print generated items with a seed in the footer so the same paper can be regenerated; the key sheet is computed by the solver.
 - L6 Practice: a «Psicotécnicos» entry in the course tree (course.yaml `practice_generators`), by type or all, timed or not, solution panel with the rule; stable ids for attempts are `gen:<generator>:<seed>`.
 - L7 Also in this round: the extractor bug that skips elements whose id contains «copilot» (affects excerpts and page checks in both courses): fix with a failing test, rebuild excerpts, blind-check the affected questions' excerpts.
+
+## M. Published course without exercises
+
+- M1 A course may be `published` with no exercises and no `exams:`. The loader accepts it; the bank, excerpt and bias checks report «no exercises» for it instead of failing.
+- M2 Exámenes tab for such a course: a default page saying the course has no exams yet and that the theory is complete, no button. Lessons show no «Practicar»; the course page shows no practice entries.
+- M3 Progreso: reading progress only (lessons opened and marked read, reading time), per the existing honesty rules; no «Por tema» table.
+- M4 Selector, course sheet, Cuenta › Cursos and sign-up list it like any course. PDF export works. When exercises arrive later, nothing needs migrating: the default states disappear as soon as the course declares exercises or presets.
+- M5 Fixture: a published theory-only fixture course proves the states at 390 and 1280 px in e2e; C1, C2 and crypto-futures unchanged.
 
 ## Acceptance
 
