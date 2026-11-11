@@ -20,6 +20,8 @@ jobs:
         with:
           enable-cache: true
           cache-dependency-glob: backend/uv.lock
+      # test_age_c2_official_exams.py checks the stored questions against the official PDFs via pdftotext.
+      - run: sudo apt-get update && sudo apt-get install -y --no-install-recommends poppler-utils
       # uv downloads the pinned Python (3.14) automatically on first sync.
       - run: uv sync --frozen
       - run: uv run ruff check .
