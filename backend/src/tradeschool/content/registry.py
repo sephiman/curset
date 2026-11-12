@@ -401,6 +401,12 @@ class CourseRegistry:
         """Exercise ids in this module with a loaded, playable generator config — the exam-samplable set."""
         return [eid for eid in self.module_exercise_ids(module_id) if eid in self.exercise_configs]
 
+    @property
+    def theory_only(self) -> bool:
+        return not (
+            self.manifest.iter_exercises() or self.manifest.exams or self.manifest.course.practice_generators
+        )
+
     def course_meta(self, locale: str) -> dict[str, object]:
         """Root course identity for the course-page header (localized)."""
         course = self.manifest.course
@@ -414,6 +420,8 @@ class CourseRegistry:
             **({"lessonPractice": True} if course.lesson_practice else {}),
             **({"optionLabels": course.option_labels} if course.option_labels else {}),
             **({"pdfExercises": False} if not course.pdf_exercises else {}),
+            # The default states of a course with nothing to practise vanish once it declares exercises or exams.
+            **({"theoryOnly": True} if self.theory_only else {}),
             **(
                 {
                     "psicotecnicos": [

@@ -43,6 +43,7 @@ async def test_catalogue_lists_published_courses_alphabetically_and_hides_drafts
         "fixture-oposiciones",
         "age-administrativo-c1",
         "crypto-futures",
+        "fixture-teoria",
     ]
     spanish_only = catalogue[0]
     assert spanish_only["languages"] == ["es"]

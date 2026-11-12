@@ -16,7 +16,7 @@ import re
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from tradeschool.citations.grammar import LATIN, ORDINAL_WORD, Unit, slug
+from tradeschool.citations.grammar import LATIN, ORDINAL_WORD, Unit, compound_ordinal, slug
 
 INDEX_FILE = "source-index.json"
 SERVED_FOLDERS = ("normativa", "otros")
@@ -75,14 +75,6 @@ def _word_number(word: str) -> int | None:
     return None
 
 
-def _compound_ordinal(ordinal: str) -> str:
-    """«vigésima sexta» as a citation writes it: «vigesimosexta»."""
-    if " " not in ordinal:
-        return ordinal
-    tens, unit = ordinal.split()
-    return tens.replace("é", "e")[:-1] + "o" + unit
-
-
 def spelled_number(words: str) -> int | None:
     """«treinta y tres» → 33, «decimoquinto» → 15, «ciento dos» → 102; None when a word is not a number."""
     total = 0
@@ -112,7 +104,7 @@ def heading_unit(line: str) -> Unit | None:
                 continue
             return Unit("art", f"{number} {match[2]}" if match[2] else str(number))
         if kind == "disp":
-            ordinal = _compound_ordinal((match[2] or "").lower())
+            ordinal = compound_ordinal((match[2] or "").lower())
             return Unit(_DISPOSICION[match[1].lower()], "" if ordinal in ("de", "del") else ordinal)
         if kind == "anexo":
             return Unit("anexo", (match[1] or "").lower())
@@ -149,9 +141,33 @@ def index_pdf_pages(pages: list[str]) -> dict[str, int]:
 _HTML_BLOCK = re.compile(r'id="(?P<id>[^"]+)"(?P<after>.{0,600}?)<h5[^>]*>(?P<head>[^<]+)', re.S)
 
 
-def index_html(html: str) -> dict[str, str]:
-    """unit slug → the element id a BOE page gives the block that opens it."""
+# EUR-Lex (Cellar) XHTML: an article's id sits on its div, the heading in the first title paragraph inside.
+_EURLEX_ARTICLE = re.compile(
+    r'<div class="eli-subdivision" id="(?P<id>art_[^"]+)">'
+    r'(?:(?!<div class="eli-subdivision").){0,600}?<p class="title-article-norm"[^>]*>(?P<head>[^<]+)</p>',
+    re.S,
+)
+# Many annexes sit in no div of their own: the heading paragraph's id is the one every annex has.
+_EURLEX_ANNEX = re.compile(r'<p class="title-annex-1" id="(?P<id>[^"]+)">(?P<head>[^<]+)</p>')
+_EURLEX_ANNEX_NAME = re.compile(r"^ANEXO\s+([A-Z0-9][A-Z0-9-]*)$")
+
+
+def _index_eurlex(html: str) -> dict[str, str]:
     units: dict[str, str] = {}
+    for match in _EURLEX_ARTICLE.finditer(html):
+        unit = heading_unit(" ".join(match["head"].split()))
+        if unit is not None:
+            units.setdefault(unit.slug, match["id"])
+    for match in _EURLEX_ANNEX.finditer(html):
+        name = _EURLEX_ANNEX_NAME.match(" ".join(match["head"].split()))
+        if name is not None:  # annexes are lettered or numbered with a dash («A», «B-01», «12-01»)
+            units.setdefault(Unit("anexo", name[1].lower()).slug, match["id"])
+    return units
+
+
+def index_html(html: str) -> dict[str, str]:
+    """unit slug → the element id a BOE or EUR-Lex page gives the block that opens it."""
+    units = _index_eurlex(html)
     for match in _HTML_BLOCK.finditer(html):
         if "id=" in match["after"]:
             continue  # the heading belongs to a later block

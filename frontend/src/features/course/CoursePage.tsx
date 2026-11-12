@@ -162,7 +162,9 @@ export function CoursePage() {
     ...(course?.started
       ? [
           t("course.lessonProgress", { done: totals.lessonsDone, total: totals.lessonsTotal }),
-          t("course.exerciseProgress", { done: totals.exDone, total: totals.exTotal }),
+          ...(totals.exTotal > 0
+            ? [t("course.exerciseProgress", { done: totals.exDone, total: totals.exTotal })]
+            : []),
         ]
       : []),
     ...(timeLeft !== null ? [timeLeft] : []),

@@ -77,12 +77,14 @@ const SIMULACRO = {
 };
 
 let openSittings: unknown[] = [];
+let courseMeta: Record<string, unknown> = {};
 const startMutate = vi.fn();
 const navigate = vi.fn();
 
 vi.mock("@tanstack/react-query", () => ({
   useQuery: ({ queryKey }: { queryKey: unknown[] }) => {
     const which = queryKey.at(-1);
+    if (queryKey[0] === "course") return { data: { course: courseMeta, blocks: [] }, isLoading: false };
     if (which === "open") return { data: openSittings, isLoading: false };
     if (which === "history") return { data: [], isLoading: false };
     return { data: presets, isLoading: false };
@@ -159,6 +161,7 @@ function startGlobal(): HTMLButtonElement {
 beforeEach(() => {
   presets = CRYPTO_PRESETS;
   openSittings = [];
+  courseMeta = {};
   startMutate.mockClear();
   navigate.mockClear();
   document.body.innerHTML = "";
@@ -273,5 +276,16 @@ describe("the exam list", () => {
     expect(button("Foundations")).toHaveTextContent(translate("exam.questions_other", { count: 8 }));
     click(button("Instruments"));
     expect(startMutate).toHaveBeenCalledWith({ presetId: "block", target: "block-b" });
+  });
+});
+
+describe("a published course with no exercises and no exams", () => {
+  it("says it has no exams yet and that the theory is complete, with nothing to start", () => {
+    courseMeta = { theoryOnly: true };
+    presets = [];
+    page();
+    expect(document.body.textContent).toContain(translate("exam.theoryOnlyTitle"));
+    expect(document.body.textContent).toContain(translate("exam.theoryOnlyBody"));
+    expect(document.querySelectorAll("button")).toHaveLength(0);
   });
 });

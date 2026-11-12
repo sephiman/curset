@@ -32,7 +32,7 @@ docker run --detach --name curset-e2e-postgres --network "$network" --network-al
 docker run --detach --name curset-e2e-backend --network "$network" --publish 127.0.0.1:8000:8000 \
   --env DB_HOST=postgres --env DB_USERNAME=curset --env DB_PASSWORD=curset-e2e --env DB_NAME=curset \
   --env AUTH_SECRET=e2e-only-not-a-secret --env COOKIE_SECURE=false \
-  --env RUN_MIGRATIONS_ON_STARTUP=true --env SYNC_CONTENT_ON_STARTUP=true --env DEV_MODE=true \
+  --env RUN_MIGRATIONS_ON_STARTUP=true --env SYNC_CONTENT_ON_STARTUP=true --env DEV_MODE=true --env EXTRA_CONTENT_DIR=/app/e2e-content \
   --restart on-failure:20 \
   --health-cmd "curl -fsS http://localhost:8000/api/health" \
   --health-interval 3s --health-timeout 5s --health-start-period 5s --health-retries 40 \

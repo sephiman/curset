@@ -48,9 +48,13 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None]:
         await asyncio.to_thread(run_migrations, settings.database_url)
 
     # Load every course (validates each manifest + its content) and expose the catalogue for serving.
-    from tradeschool.content.registry import load_catalog
+    from tradeschool.content.registry import Catalog, load_catalog
 
     app.state.catalog = load_catalog(settings.content_dir)
+    if settings.extra_content_dir:
+        app.state.catalog = Catalog(
+            {**app.state.catalog.courses, **load_catalog(settings.extra_content_dir).courses}
+        )
 
     if settings.sync_content_on_startup:
         from tradeschool.attempts.backfill import backfill_variant_ids

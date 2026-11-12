@@ -1039,3 +1039,19 @@ Excursiones: Destino | Tipo | Transporte | Participantes | Precio por persona (�
 >   d) conserva, consenso, consola, consuelo, consumo.
 > Clave: a. Se comparan las palabras letra a letra, desde la primera en que dejan de coincidir (la 5.ª en las más parecidas): consenso, conserva, consola, consuelo, consumo.
 
+
+# Platform round — theory-only course and four fixes (delta v2.1 M, 2026-11-11)
+
+Nothing committed. Each fix has a test that failed first.
+
+**M1–M5.** `exercise_types: []` is valid (`schema.py`, `min_length` removed). `CourseRegistry.theory_only` (no exercises, no `exams:`, no generators) sends `theoryOnly: true` in `course_meta`; it vanishes when the course declares any. Exámenes shows a default page (no button), Progreso only «lecciones marcadas» and the percentage (`ReadingSection`; reading time and opens are not tracked, per the existing note), CoursePage hides «0/0 ejercicios». «Practicar» and psicotécnicos entries were already conditional. PDF data prints the lessons and no exercise. Bank, excerpt and bias suites pass over the new course (nothing reported failures). Fixture `backend/tests/fixtures/content/fixture-teoria` (published, es, 2 lessons). E2E serves it through the new `EXTRA_CONTENT_DIR` setting (image copy at `/app/e2e-content`; set only in `ci.yml` and `ci-local.sh`). `theory-only.spec.ts` runs at 390 and 1280 px; `age-c2.spec.ts` counts now say four courses (three active). `aeat-agentes-hacienda`: `exercise_types: []`, still draft.
+
+**Citations golden.** `NormIndex.resolve` iterated a set of number forms, so a citation naming two norms resolved by hash seed. `parse_segment` now splits «… LO 1/1995 y art. 1 LO 2/1995» into `Segment.also`; `LessonCitation.also` gives one anchor per norm in document order (`test_citation_two_norms.py`, 20 hash seeds). AEAT golden: 20 `m01-l04` rows changed (18 anchors added). C1 and C2: no such citations.
+
+**Grammar.** `art. 31.1.3.ª b) a´)` (primed letters, letter after a space), LIVA apartados «Trece» to «Treinta», a letter after `18.º`; also `89.Uno y Tres` and compound disposición ordinals («cuadragésima cuarta», keyed `cuadragesimocuarta`, as the indexer keys them; `compound_ordinal` moved to `grammar.py`). No lesson text edited. AEAT now resolves its 5 «naming a norm normativa.yaml lacks» rows (m03-l17 ×4: LIS DT 44.ª, now at page 160; m03-l19 art. 89). C1 m05-l04 and C2 m01-l14 «disposición adicional trigésima segunda Ley 31/2022» moved from `#da-30` (wrong) to `#da-32`.
+
+**EUR-Lex indexer.** `index_html` reads `eli-subdivision` articles (a `modref` paragraph may sit before the heading) and annex headings (`title-annex-1` id). 2015/2446: 260 articles, 39 annexes; 2015/2447: 354 and 42; only those two files changed in AEAT `source-index.json`. The grammar still does not parse annex letters or `12-01` (no lesson cites them).
+
+**Not done / for you.** C1 and C2 `source-index.json` are stale against the current indexer (`art-unico` missing); regenerating them was left out to keep C1/C2 unchanged. Re-running the full `index_sources.py` takes about 10 minutes.
+
+**CI.** Backend full suite passed locally; vitest and e2e see the closing note. goldens/Android: see below.

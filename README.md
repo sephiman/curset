@@ -933,8 +933,13 @@ selectivo» (`m00-l01`, written), and «Programa» holds the three parts of the 
 `m02` 5, `m03` 20). Round R2 wrote the common part (`m01`, `m02`; `docs/aeat-theory-ledger.md`): sections copied
 from C1/C2 lessons by script (`docs/age-verification/aeat/r2/derivation.yaml`), inheriting their verification under
 R2.3 (`backend/scripts/provenance.py --course aeat-agentes-hacienda`), the rest blind-verified; the 20 tax temas are
-still stubs. It has no exercises yet; `exercise_types: [quiz]` stands in until platform delta
-section M allows an empty list.
+still stubs. It has no exercises yet: `exercise_types: []`.
+
+**Published course without exercises (delta v2.1 M).** `exercise_types: []` is valid. A course with no exercises,
+no `exams:` and no generators is `theoryOnly` in its course payload: Exámenes shows a default page, Progreso shows
+only lessons marked read, and no «Practicar» entry appears; the states vanish once it declares exercises or exams.
+`backend/tests/fixtures/content/fixture-teoria` is the published fixture; the e2e stack serves it through
+`EXTRA_CONTENT_DIR=/app/e2e-content` (baked into the image, set only in CI and `ci-local.sh`).
 
 **Generated psicotécnicos (platform delta L, 2026-11-07).** A course lists `practice_generators` in
 `course.yaml` (a generator id, its Spanish `title`, its `weight` in the exam mix and its `difficulty` level
@@ -958,7 +963,11 @@ with C1: its `sources/` are its own copies. Round R3 built its question bank (`d
 lesson ran out of facts; variant rounds close it). A question copied from C1 carries «verificado en C1»; an
 authored one a blind verifier's PASS (`docs/age-verification/c2/bank/<bloque>/provenance/`). Excerpts a blind
 check found short of the fact are built as «sin extracto» from `excerpt-exclusions.yaml`, each with its reason.
-The citation grammar accepts `art. único` (a protocol's or a law's single article: «art. único Protocolo n.º 6»).
+The citation grammar accepts `art. único` (a protocol's or a law's single article: «art. único Protocolo n.º 6»),
+a segment naming two norms («art. 1 LO 1/1995 y art. 1 LO 2/1995», one anchor per norm in document order),
+a letter after an ordinal («18.º m)»), primed letters («3.ª b) a´)»), LIVA apartados spelled up to «Treinta», «89.Uno y Tres»
+and compound disposición ordinals («cuadragésima cuarta», keyed «cuadragesimocuarta»). The source indexer reads
+EUR-Lex XHTML (articles by their div, annexes by their heading id).
 
 **Presets and publication (round R5, `docs/age-c2-bank-ledger.md`).** The course is published (Spanish only; blue accent,
 a sheet-with-folded-corner glyph). `exams:` in its `course.yaml`: «Simulacro oficial» (part 1 = 30 questions of bloque I,

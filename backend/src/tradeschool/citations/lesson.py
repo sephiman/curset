@@ -14,7 +14,7 @@ prose citation of an anchor carries it; a question citing the same unit opens th
 from __future__ import annotations
 
 import re
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from typing import Literal
 
 from tradeschool.citations.grammar import (
@@ -55,16 +55,28 @@ class LessonCitation:
     ranges: tuple[tuple[int, int], ...] = ()
     #: A `fuente:` file, course-relative (`sources/otros/…`).
     source_file: str | None = None
+    #: The groups after the first when the text names a second norm, in the order written.
+    also: tuple[LessonCitation, ...] = ()
 
     @property
     def anchors(self) -> tuple[str, ...]:
         if self.source_file is not None:
             return (f"fuente-{slug(self.source_file.rsplit('/', 1)[-1])}",)
         prefix = f"{self.norm_slug}-" if self.norm_slug else ""
-        return tuple(f"{prefix}{unit.slug}" for unit in self.units)
+        own = tuple(f"{prefix}{unit.slug}" for unit in self.units)
+        return own + tuple(anchor for group in self.also for anchor in group.anchors)
+
+    def covering_anchor(self, norm_slug: str, unit: Unit) -> str | None:
+        """The first anchor of this citation whose group covers `unit` by an `arts.` range."""
+        for group in (replace(self, also=()), *self.also):
+            if group.covers(norm_slug, unit):
+                return group.anchors[0]
+        return None
 
     def covers(self, norm_slug: str, unit: Unit) -> bool:
         """Whether this citation cites `unit` of the norm, by name or inside an `arts.` range."""
+        if self.also:
+            return self.covering_anchor(norm_slug, unit) is not None
         if self.norm_slug != norm_slug:
             return False
         if unit in self.units:
@@ -105,8 +117,8 @@ class LessonCitations:
         if any(own in c.anchors for c in prose):
             return own
         for citation in prose:
-            if citation.covers(norm_slug, unit):
-                return citation.anchors[0]
+            if anchor := citation.covering_anchor(norm_slug, unit):
+                return anchor
         return None
 
 
@@ -122,6 +134,11 @@ def resolve_segment(segment: Segment, index: NormIndex) -> tuple[Norm | None, st
         return None
     norm = index.resolve(written)
     return (norm, norm.slug) if norm is not None else (None, slug(written.split(",")[0]))
+
+
+def _later_group(group: Segment, index: NormIndex) -> LessonCitation:
+    norm, norm_slug = resolve_segment(group, index) or (None, "")
+    return LessonCitation("prose", collapse(group.text), 0, norm, norm_slug, False, group.units, group.ranges)
 
 
 def _line_of(offsets: list[int], position: int) -> int:
@@ -228,10 +245,11 @@ def scan_lesson(lesson_id: str, markdown: str, index: NormIndex) -> LessonCitati
                 named = resolve_segment(segment, index)
                 implicit = named is None
                 norm, norm_slug = previous if named is None else named
-                previous = (norm, norm_slug)
+                later = tuple(_later_group(group, index) for group in segment.also)
+                previous = (later[-1].norm, later[-1].norm_slug) if later else (norm, norm_slug)
                 text = collapse(segment.text)
                 citation = LessonCitation(
-                    "prose", text, line, norm, norm_slug, implicit, segment.units, segment.ranges
+                    "prose", text, line, norm, norm_slug, implicit, segment.units, segment.ranges, also=later
                 )
                 found.append((line, position, citation))
         # A table's citation column cites without parentheses; a bare cell counts when it is only citations.
@@ -260,6 +278,7 @@ def scan_lesson(lesson_id: str, markdown: str, index: NormIndex) -> LessonCitati
                 False,
                 segment.units,
                 segment.ranges,
+                also=tuple(_later_group(group, index) for group in segment.also),
             )
             found.append((row.line, 0, citation))
 

@@ -23,7 +23,7 @@ from tradeschool.citations.course import CourseCitations
 from tradeschool.citations.grammar import parentheticals, parse_segment
 from tradeschool.citations.lesson import scan_lesson
 from tradeschool.citations.norms import NormIndex
-from tradeschool.citations.sources import INDEX_FILE, SourceIndex, index_pdf_pages, sha256
+from tradeschool.citations.sources import INDEX_FILE, SourceIndex, index_html, index_pdf_pages, sha256
 from tradeschool.content.esquema import parse_esquemas
 from tradeschool.content.registry import ContentError, CourseRegistry, load_registry
 
@@ -97,6 +97,17 @@ def _linked_courses() -> list[CourseRegistry]:
             ["anexo-i-nota-34"],
             ", Orden de documentos contables",
         ),
+        # A letter after an ordinal with a space, and primed letters: «b) a´)».
+        ("art. 31.1.3.ª b) a´) LIRPF", ["art-31"], "LIRPF"),
+        ("art. 31.1.3.ª b) a´) y c) LIRPF", ["art-31"], "LIRPF"),
+        ("art. 20.Uno.18.º m) LIVA", ["art-20"], "LIVA"),
+        ("arts. 9.1.º c), 20.Uno.26.º y 75.Uno LIVA", ["art-9", "art-20", "art-75"], "LIVA"),
+        # LIVA apartados written as ordinals from «Trece» onwards.
+        ("art. 20.Trece LIVA", ["art-20"], "LIVA"),
+        ("art. 20.Veintitrés.2.º LIVA", ["art-20"], "LIVA"),
+        ("art. 91.Veintiún.1 LIVA", ["art-91"], "LIVA"),
+        ("art. 89.Uno y Tres LIVA", ["art-89"], "LIVA"),
+        ("disposición transitoria cuadragésima cuarta.2.a) LIS", ["dt-cuadragesimocuarta"], "LIS"),
     ],
 )
 def test_a_segment_cites_the_units_it_names_as_written(written: str, units: list[str], norm: str) -> None:
@@ -124,6 +135,9 @@ def test_a_segment_without_a_lead_is_prose() -> None:
         ("(art. 23.Uno.B)\u2013D) Ley 31/2022).", "art. 23.Uno.B)\u2013D) Ley 31/2022"),
         ("(art. 159.4.f) LCSP).", "art. 159.4.f) LCSP"),
         ("(art. 8.1.a)\u2013b) RDL 4/2000). Estos", "art. 8.1.a)\u2013b) RDL 4/2000"),
+        ("(art. 31.1.3.ª b) a´) y c) LIRPF).", "art. 31.1.3.ª b) a´) y c) LIRPF"),
+        ("(art. 31.1.3.ª b) a´) LIRPF) y más", "art. 31.1.3.ª b) a´) LIRPF"),
+        ("(art. 20.Uno.18.º m) LIVA).", "art. 20.Uno.18.º m) LIVA"),
         # A capital after a space is a word, not a paragraph letter: «(… título I) Siguiente».
         ("(art. 2 TUE, título I) Siguiente frase.", "art. 2 TUE, título I"),
     ],
@@ -520,3 +534,62 @@ def test_an_esquema_row_without_a_citation_fails_the_load(tmp_path: Path) -> Non
     lesson.write_text(text, encoding="utf-8")
     with pytest.raises(ContentError, match="row «Interposición — un mes»: no citation"):
         load_registry(course)
+
+
+# --- EUR-Lex XHTML (Cellar) --------------------------------------------------------------------------
+
+_EURLEX = """
+<div class="eli-subdivision" id="enc_1"><p class="title-doc-first">Reglamento</p></div>
+<div class="eli-subdivision" id="art_1">
+   <p class="title-article-norm" id="id-1">Artículo 1</p>
+</div>
+<div class="eli-subdivision" id="art_112a">
+   <p class="title-article-norm" id="id-2">Artículo 112 bis</p>
+</div>
+<div id="anx_A"><p><br/></p><p class="title-annex-1" id="id-3">ANEXO A</p></div>
+<div id="anx_12-01"><p class="title-annex-1" id="id-4">ANEXO 12-01</p></div>
+<div id="anx_toc"><p class="title-annex-1" id="id-5">ÍNDICE</p></div>
+"""
+_CUSTOMS = Path(__file__).resolve().parents[2] / "content" / "aeat-agentes-hacienda" / "sources" / "normativa"
+
+
+def test_a_eurlex_xhtml_page_places_its_articles_and_annexes() -> None:
+    assert index_html(_EURLEX) == {
+        "art-1": "art_1",
+        "art-112-bis": "art_112a",
+        "anexo-a": "id-3",
+        "anexo-12-01": "id-4",
+    }
+
+
+@pytest.mark.parametrize(
+    ("file", "articles", "annexes", "sample"),
+    [
+        (
+            "CELEX-02015R2446-20261101_cau-reglamento-delegado_2026-11-01.html",
+            260,
+            39,
+            {
+                "art-1": "art_1",
+                "art-143-bis": "art_143a",
+            },
+        ),
+        (
+            "CELEX-02015R2447-20260701_cau-reglamento-ejecucion_2026-07-01.html",
+            354,
+            42,
+            {"art-1": "art_1", "art-200-bis": "art_200a"},
+        ),
+    ],
+)
+def test_the_customs_regulations_index_their_articles_and_annexes(
+    file: str, articles: int, annexes: int, sample: dict[str, str]
+) -> None:
+    path = _CUSTOMS / file
+    if not path.exists():
+        pytest.skip(f"{file} is not in this checkout")
+    units = index_html(path.read_text(encoding="utf-8", errors="replace"))
+    assert sum(unit.startswith("art-") for unit in units) == articles
+    assert sum(unit.startswith("anexo-") for unit in units) == annexes
+    assert {unit: units[unit] for unit in sample} == sample
+    assert {"anexo-a", "anexo-12-01"} <= units.keys()

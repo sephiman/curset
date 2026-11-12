@@ -118,7 +118,7 @@ class ManifestCourse(BaseModel):
     languages: list[Locale] = Field(min_length=1)
     status: CourseStatus
     #: The exercise kinds this course uses; an exercise of any other kind is a manifest error.
-    exercise_types: list[ExerciseType] = Field(min_length=1)
+    exercise_types: list[ExerciseType]
     #: What the course calls a lesson where results are listed per lesson («tema»); absent: «lección».
     lesson_noun: LocalizedText | None = None
     #: Each lesson's questions are practised one by one from a «Practicar» page instead of quizzes

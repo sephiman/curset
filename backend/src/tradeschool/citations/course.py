@@ -133,12 +133,16 @@ class CourseCitations:
         found = self.lesson(lesson_id, locale)
         if segment is not None and found is not None and segment.files:
             return _source_anchor(found, segment.files)
-        named = resolve_segment(segment, self.norms or NormIndex([], {})) if segment else None
-        if segment is None or found is None or named is None:
+        norms = self.norms or NormIndex([], {})
+        if segment is None or found is None:
             return None
-        for unit in segment.units:
-            if anchor := found.anchor_for(named[1], unit):
-                return anchor
+        for group in segment.groups:
+            named = resolve_segment(group, norms)
+            if named is None:
+                continue
+            for unit in group.units:
+                if anchor := found.anchor_for(named[1], unit):
+                    return anchor
         return None
 
     # --- checks ----------------------------------------------------------------------------------
@@ -183,7 +187,12 @@ def _esquema_problems(lesson_id: str, found: LessonCitations, norms: NormIndex) 
             if segment is None or named is None:
                 problems.append(f"{where}: no citation (norm and article)")
                 continue
-            missing = [unit for unit in segment.units if found.anchor_for(named[1], unit) is None]
+            missing = [
+                unit
+                for group in segment.groups
+                for unit in group.units
+                if found.anchor_for((resolve_segment(group, norms) or (None, ""))[1], unit) is None
+            ]
             if missing:
                 problems.append(f"{where}: cites «{segment.text}», which the lesson's prose never cites")
     return problems

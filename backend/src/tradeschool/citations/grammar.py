@@ -23,14 +23,23 @@ from __future__ import annotations
 
 import re
 import unicodedata
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 
 LATIN = r"(?:bis|ter|quater|quinquies|sexies|septies|octies|nonies|decies)"
 # A disposición's ordinal is one lowercase word («cuarta», «vigesimoctava», «única») or a number.
-_ORDINAL = r"(?!(?:de|del|la|los|las|y|e)\b)[a-záéíóúñ]+|\d+(?:\.ª)?"
+# «cuadragésima cuarta» is two words: a tens ordinal and a units one.
+_UNITS_ORDINAL = r"(?:primera|segunda|tercera|cuarta|quinta|sexta|séptima|octava|novena)"
+_ORDINAL = rf"(?!(?:de|del|la|los|las|y|e)\b)[a-záéíóúñ]+(?:\s+{_UNITS_ORDINAL}\b)?|\d+(?:\.ª)?"
 # What may follow a unit before the norm: «.1», «.4.a)», « b) y f)».
 _SUB = r"(?:\.(?:\d+|[a-zñ]\)?|[A-Z]\b)|\s[a-zñ]\)(?:\s+[ye]\s+[a-zñ]\))*)*"
-_SPELLED = r"(?:Uno|Dos|Tres|Cuatro|Cinco|Seis|Siete|Ocho|Nueve|Diez|Once|Doce)"
+_SPELLED_WORD = (
+    r"(?:Uno|Dos|Tres|Cuatro|Cinco|Seis|Siete|Ocho|Nueve|Diez|Once|Doce|Trece|Catorce|Quince|Dieciséis"
+    r"|Diecisiete|Dieciocho|Diecinueve|Veinte|Veintiuno|Veintiún|Veintidós|Veintitrés|Veinticuatro"
+    r"|Veinticinco|Veintiséis|Veintisiete|Veintiocho|Veintinueve|Treinta)"
+)
+# «89.Uno y Tres»: two spelled apartados of one article.
+_SPELLED = rf"{_SPELLED_WORD}(?:\s+[ye]\s+{_SPELLED_WORD}\b)*"
+_PRIMED_LETTER = r"[a-zñ][´′]?\)"
 # The ordinal an «apartado» of an orden or resolución is numbered with: «sexto», «decimoquinto».
 ORDINAL_WORD = (
     r"(?:(?:decimo)?(?:primer|segund|tercer|cuart|quint|sext|s[ée]ptim|octav|noven)o"
@@ -45,6 +54,7 @@ _RULE_SUB = r"(?:\.(?:\d+|[IVXL]+\b|[a-zñ]\)?|[A-Z]\b\)?|[ºª]))*"
 # «23.Uno.B)» dash «D)»).
 _ITEM = (
     rf"(?:(?:\d+|único)(?:\s{LATIN}\b)?(?:\.(?:\d+|[a-zñ]\)?|[A-Z]\b\)?|{_SPELLED}\b|[ºª])|\s{LATIN}\b|[ºª])*\)?"
+    rf"(?:\s{_PRIMED_LETTER})*"
     r"|[a-zñ]\)|[A-Z]\))"
 )
 # The en dash (U+2013) is how the lessons write a range; a hyphen is accepted too.
@@ -98,6 +108,14 @@ def slug(text: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", ascii_text.lower()).strip("-")
 
 
+def compound_ordinal(ordinal: str) -> str:
+    """«vigésima sexta» as the source index keys it: «vigesimosexta»."""
+    if " " not in ordinal:
+        return ordinal
+    tens, unit = ordinal.split()
+    return tens.replace("é", "e")[:-1] + "o" + unit
+
+
 def collapse(text: str) -> str:
     return " ".join(text.split())
 
@@ -128,6 +146,12 @@ class Segment:
     norm_text: str = ""
     #: A `fuente:` segment cites files, not a norm.
     files: tuple[str, ...] = ()
+    #: Further groups when the segment names a second norm: «art. 1 LO 1/1995 y art. 1 LO 2/1995».
+    also: tuple[Segment, ...] = ()
+
+    @property
+    def groups(self) -> tuple[Segment, ...]:
+        return (self, *self.also)
 
 
 @dataclass
@@ -177,8 +201,27 @@ def _norm_text(rest: str) -> str:
     return text if text.startswith(",") else _CONNECTOR.sub("", text)
 
 
+# «… LO 1/1995 y art. 1 LO 2/1995»: after a norm, «y» and a new lead start a group citing another norm.
+_NEXT_GROUP = re.compile(
+    r"\s+[ye]\s+(?=(?:arts?\.\s|disposici(?:ón|ones)\s|D[ATFD]\s\w|anexo\b|preámbulo\b))"
+)
+
+
 def parse_segment(raw: str) -> Segment | None:
     """The segment's citation, or None when it does not start with a lead."""
+    segment = _parse_group(raw)
+    if segment is None or not segment.norm_text or segment.norm_text.startswith(","):
+        return segment
+    split = _NEXT_GROUP.search(segment.norm_text)
+    if split is None:
+        return segment
+    later = parse_segment(segment.norm_text[split.end() :])
+    if later is None or not later.norm_text:
+        return segment
+    return replace(segment, norm_text=segment.norm_text[: split.start()], also=later.groups)
+
+
+def _parse_group(raw: str) -> Segment | None:
     text = collapse(raw)
     if not LEAD.match(text):
         return None
@@ -190,12 +233,12 @@ def parse_segment(raw: str) -> Segment | None:
             return None
         rest = article["rest"]
         if more := _AND_MORE.match(rest):
-            other = parse_segment(rest[more.end() :])
+            other = _parse_group(rest[more.end() :])
             if other is not None:
                 return Segment(text, tuple(found.units) + other.units, tuple(found.ranges), other.norm_text)
         return Segment(text, tuple(found.units), tuple(found.ranges), _norm_text(rest))
     if disposicion := _DISPOSICION.match(text):
-        unit = Unit(_KIND[disposicion["kind"]], disposicion["ord"] or "")
+        unit = Unit(_KIND[disposicion["kind"]], compound_ordinal(disposicion["ord"] or ""))
         return Segment(text, (unit,), norm_text=_norm_text(disposicion["rest"]))
     if short := _DISPOSICION_SHORT.match(text):
         return Segment(
@@ -311,7 +354,10 @@ def _letter_paren_continues(text: str, at: int) -> bool:
     """Whether the «)» at `at` closes a paragraph letter («b)», «21.C)») and the citation goes on."""
     if at < 2:
         return False
-    letter, before = text[at - 1], text[at - 2]
+    prime = int(text[at - 1] in "´′")
+    if at < 2 + prime:
+        return False
+    letter, before = text[at - 1 - prime], text[at - 2 - prime]
     lower = bool(re.match(r"[a-zñ]", letter)) and before in ". \n\u2013-"
     # A capital is a paragraph letter only after a dot or a dash: «(… título I) Siguiente» closes.
     upper = bool(re.match(r"[A-Z]", letter)) and before in ".\u2013-"
@@ -320,6 +366,7 @@ def _letter_paren_continues(text: str, at: int) -> bool:
     return bool(
         re.match(
             r"(?:\s+[ye]\s+[a-zñ\d]|\s*,\s*[a-zñ\d]|\s+[A-ZÁÉÍÓÚ]|\s+(?:del|de)\s|\.\d|\s+bis\b"
+            r"|\s+[a-zñ][´′]?\)"
             r"|\s*[\u2013-]\s*[A-Za-zñ]\))",
             text[at + 1 : at + 40],
         )

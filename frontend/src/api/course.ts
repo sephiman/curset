@@ -68,6 +68,8 @@ export interface CourseMeta {
   optionLabels?: "letters" | null;
   /** Whether the course PDF export includes in-lesson exercises and answer key; false for theory only. */
   pdfExercises?: boolean;
+  /** Published with no exercises and no exams yet: the Exámenes and Progreso pages show their default states. */
+  theoryOnly?: boolean;
   /** The psicotécnico types the course generates; absent: the course has no «Psicotécnicos» practice. */
   psicotecnicos?: PsicotecnicoType[];
 }

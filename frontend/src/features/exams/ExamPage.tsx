@@ -14,6 +14,7 @@ import {
 } from "@/api/exams";
 import { Badge, Button, Card, Spinner } from "@/components/ui/primitives";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
+import { useCourseTree } from "@/features/course/queries";
 import { scopeKey, useCourse } from "@/features/courses/CourseContext";
 import { examScore, sittingName } from "@/features/exams/format";
 import { generateExamPdf } from "@/lib/pdf/examDocument";
@@ -151,6 +152,7 @@ export function ExamPage() {
   const navigate = useNavigate();
   const qc = useQueryClient();
   const { scope: courseScope, path } = useCourse();
+  const { data: course } = useCourseTree();
 
   const { data: presets } = useQuery({
     queryKey: ["exam", ...scopeKey(courseScope), "presets"],
@@ -197,6 +199,18 @@ export function ExamPage() {
       done: session.questions.filter((q) => q.answered).length,
       total: session.questions.length,
     });
+
+  if (course?.course.theoryOnly) {
+    return (
+      <div className="space-y-4">
+        <h1 className="text-2xl font-bold">{t("nav.exams")}</h1>
+        <Card className="space-y-1 p-6">
+          <p className="font-semibold">{t("exam.theoryOnlyTitle")}</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400">{t("exam.theoryOnlyBody")}</p>
+        </Card>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-8">

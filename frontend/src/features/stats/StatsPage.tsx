@@ -3,7 +3,14 @@ import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import type { TFunction } from "i18next";
-import { getGlobalStats, getLessonProgress, getMeStats, type ModuleStat, type ReviewTarget } from "@/api/stats";
+import {
+  getGlobalStats,
+  getLessonProgress,
+  getMeStats,
+  type ModuleStat,
+  type Reading,
+  type ReviewTarget,
+} from "@/api/stats";
 import { ByLessonTable } from "@/features/byLesson/ByLessonTable";
 import { useCourseTree } from "@/features/course/queries";
 import { Card, MiniBar, Spinner } from "@/components/ui/primitives";
@@ -34,6 +41,27 @@ function StatTile({ label, value, note, bar }: { label: string; value: string; n
       <div className="mt-1 text-xs text-gray-500 dark:text-gray-400">{label}</div>
       {note && <div className="mt-0.5 text-xs text-gray-400 dark:text-gray-500">{note}</div>}
     </Card>
+  );
+}
+
+function ReadingSection({ reading }: { reading: Reading }) {
+  const { t } = useTranslation();
+  return (
+    <section>
+      <h2 className="mb-1 text-sm font-semibold tracking-wide text-gray-500 uppercase dark:text-gray-400">
+        {t("stats.reading")}
+      </h2>
+      {/* Says what the counter measures, so "0/35" can't be read as "you have read nothing". */}
+      <p className="mb-2 text-xs text-gray-500 dark:text-gray-400">{t("stats.readingNote")}</p>
+      <div className="grid grid-cols-2 gap-3">
+        <StatTile
+          label={t("stats.lessonsMarked")}
+          value={`${reading.lessonsCompleted}/${reading.lessonsTotal}`}
+          bar={<MiniBar value={reading.lessonsCompleted} total={reading.lessonsTotal} />}
+        />
+        <StatTile label={t("stats.courseMarked")} value={censusPct(reading.courseCompletion)} />
+      </div>
+    </section>
   );
 }
 
@@ -121,12 +149,25 @@ export function StatsPage() {
   }
 
   const { coverage, thresholds, reading, exercise, modules, costliestSections } = me.data;
+  const theoryOnly = course?.course.theoryOnly === true;
   const hasActivity = reading.lessonsCompleted > 0 || exercise.answered > 0;
   const { touched, untouched } = partitionModules(modules);
   // The explainer only earns its space while something on screen is actually a fraction.
   const showSampleNote =
     rate(exercise.correct, exercise.answered).kind === "fraction" ||
     rate(exercise.firstCorrect, exercise.firstSeen).kind === "fraction";
+
+  if (theoryOnly) {
+    return (
+      <div className="space-y-8">
+        <div>
+          <h1 className="text-2xl font-bold">{t("nav.progress")}</h1>
+          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{t("stats.theoryOnly")}</p>
+        </div>
+        <ReadingSection reading={reading} />
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-8">
@@ -142,22 +183,7 @@ export function StatsPage() {
         <Card className="p-6 text-sm text-gray-500 dark:text-gray-400">{t("stats.empty")}</Card>
       ) : (
         <>
-          {/* Reading (completion) and mastery (exercises) are shown as two separate rows. */}
-          <section>
-            <h2 className="mb-1 text-sm font-semibold tracking-wide text-gray-500 uppercase dark:text-gray-400">
-              {t("stats.reading")}
-            </h2>
-            {/* Says what the counter measures, so "0/35" can't be read as "you have read nothing". */}
-            <p className="mb-2 text-xs text-gray-500 dark:text-gray-400">{t("stats.readingNote")}</p>
-            <div className="grid grid-cols-2 gap-3">
-              <StatTile
-                label={t("stats.lessonsMarked")}
-                value={`${reading.lessonsCompleted}/${reading.lessonsTotal}`}
-                bar={<MiniBar value={reading.lessonsCompleted} total={reading.lessonsTotal} />}
-              />
-              <StatTile label={t("stats.courseMarked")} value={censusPct(reading.courseCompletion)} />
-            </div>
-          </section>
+          <ReadingSection reading={reading} />
 
           <section>
             <h2 className="mb-1 text-sm font-semibold tracking-wide text-gray-500 uppercase dark:text-gray-400">
