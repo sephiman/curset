@@ -1,5 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
-import { AGE, AGE_C2, CRYPTO, overflowingElements } from "./session";
+import { AEAT, AGE, AGE_C2, CRYPTO, overflowingElements } from "./session";
 
 /** Delta v2.1 section M: a published course with no exercises and no exams, at 390 and 1280 px. */
 
@@ -9,7 +9,7 @@ const LESSON = `/courses/${THEORY}/lessons/m01-l1`;
 
 async function selectTheoryCourse(page: Page): Promise<void> {
   const courses = await page.request.put("/api/me/courses", {
-    data: { active: [AGE, CRYPTO, AGE_C2, THEORY], selected: THEORY },
+    data: { active: [AGE, CRYPTO, AGE_C2, AEAT, THEORY], selected: THEORY },
   });
   expect(courses.ok(), await courses.text()).toBe(true);
 }
