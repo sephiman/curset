@@ -564,3 +564,48 @@ Started 2026-11-11. Working files: `docs/age-verification/aeat/r2b/` (`scope/`, 
 ## R2b / R2c — where to resume (final)
 
 R2b and R2c are done (2026-11-11), closed with `close_round.sh`. Next: M, then P. Watch RDL 29/2026 from 18-11-2026.
+
+---
+
+# P — publication (stage 1, theory only), 2026-11-12
+
+Nothing committed. Close: `close_round.sh`.
+
+## Decisions taken without asking
+
+1. m03-l03 art. 27 esquema rebuilt as a table of the article's rules, one row per paragraph (cuándo se exige, porcentaje,
+   base y exclusiones, 12 meses, liquidaciones de declaraciones, cuándo no se exigen, requisito del 27.4, reducción del
+   25 %), each row in the article's words with its conditions. Earlier attempts put every condition into one row's label
+   and failed; here each condition is its own row, and the title says «Algunas reglas» (art. 27.3 and the comprobación
+   paragraph are left out). Blind pass: 9 PASS (header and 8 rows), title FAIL (no «Algunas»); fixed and re-checked PASS
+   by a second verifier. Reports: `r2-tax/m03-l03/verify-r2bc-recheck-5.md` and `-6.md` (named in the r2bc series so
+   `taxprov.py` reads them after the old FAIL of the same row id). m03-l03 has three esquemas again.
+2. The five citations: resolve with no content change (`cites.py` over m03-l01–l20: none unresolved; golden «0 naming
+   a norm normativa.yaml lacks»).
+3. Glyph: a calculator (display bar over four keys), same box, stroke and radius; accent ochre `#88521d`/`#d48f4a`
+   (5.35:1 on paper, 5.98:1 on ink, 7.83:1 on black; luminance at the mean of the other three, within the 15 % test).
+4. RDL 29/2026: BOE analysis shows no convalidation or derogation (only RDL 28/2026 related); sumarios to 12-11 carry no
+   acuerdo; deadline 19-11-2026 not reached. Marks left; revert list not applied.
+5. e2e: `signIn` and the global setup now activate four real courses, so counts changed (selector 4, sign-up 5, Cuenta 5
+   with 4 active). The tax-lesson test matches «Practicar» by role: the lesson's own text says «practicar» (art. 54 LGT).
+
+## Results
+
+- Backend 3,192 passed, 21 skipped; frontend 752 passed, 116 skipped; `tsc -b` and `npm run lint` clean; e2e 99 passed
+  (first run 97: the loose «Practicar» text match above), including `aeat-agentes.spec.ts` at 390 and 1280 px (selector,
+  course page, tax lesson with esquema and example, Exámenes, Progreso) and the course PDF export (3.2 min).
+- Goldens regenerated and read: only `citations.es.txt` changed (the eight esquema rows). C1, C2, crypto-futures
+  unchanged; Android bundle byte-identical.
+
+## Handoff (P → stage 2 / watch)
+
+1. `aeat-agentes-hacienda` is `status: published`, `exercise_types: []`, no exams; glyph `calculator`, accent ochre.
+2. 33 lessons, 193 glossary entries, 81 + 0 esquemas (m03-l03 keeps three), records for every lesson.
+3. Platform: delta M behaviour confirmed in the browser tests; no migration, no new setting.
+4. Deploy steps: `docs/deploy-aeat.md`. README and `docs/identity.md` updated.
+5. Watch RDL 29/2026 from 18-11-2026 (revert list `r1/rdl-29-2026-revert-list.md`); RDL 31/2026 about 04-12-2026.
+6. Elections of 29-11-2026 may change two dated copied sentences (m01-l03, m01-l04).
+7. Open: `consilium-presidencia.html` not read live (403); C1/C2 80.2 and 95.1 LPAC wording; doubtful official keys
+   and the retenciones classification for stage 2.
+8. The browser checks ran on the throwaway e2e stack (Playwright), not on a deploy host.
+9. Next: stage 2 on Juanjo's go-ahead. Nothing is committed.
