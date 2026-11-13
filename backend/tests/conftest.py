@@ -157,6 +157,14 @@ async def content_client(settings: Settings, _migrated: bool) -> AsyncGenerator[
 
 REPO_CONTENT = Path(__file__).resolve().parents[2] / "content"
 FIXTURE_CONTENT = Path(__file__).resolve().parent / "fixtures" / "content"
+
+
+@cache
+def real_course(slug: str) -> registry.CourseRegistry:
+    """A real course loaded once per test process: content is read-only, and a full load takes seconds."""
+    return registry.load_registry(REPO_CONTENT / slug)
+
+
 REPORT_ADDRESS = "reports@curset.test"
 
 

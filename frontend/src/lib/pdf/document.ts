@@ -1,9 +1,16 @@
 import type { Content, ContentStack, TDocumentDefinitions } from "pdfmake/interfaces";
-import type { Root } from "mdast";
+import type { Parent, PhrasingContent, Root } from "mdast";
 import type { CourseExport, PrintExercise, PrintExercises } from "@/api/course";
-import { annotateLesson, annotateLessonRefs } from "@/lib/glossary/annotate";
+import type { PrintQuestionnaire } from "@/api/printQuestionnaire";
+import {
+  annotateLesson,
+  annotateLessonRefs,
+  LESSON_REF,
+  type LessonRefNode,
+} from "@/lib/glossary/annotate";
 import { buildTermIndex } from "@/lib/glossary/terms";
-import { buildRefRegistry, refModulesFromExport } from "@/lib/refs/registry";
+import { buildRefRegistry, type RefModule } from "@/lib/refs/registry";
+import { lessonReferenceLabel, type TemaCourse } from "@/lib/tema";
 import {
   answerKeySection,
   lessonExercises,
@@ -18,6 +25,7 @@ import { createSectionTracker, SECTION_ID, type SectionTracker } from "@/lib/pdf
 import { DEFAULT_STYLE, PAGE, PRINT_FONT, PRINT_STYLES, panelWidth } from "@/lib/pdf/page";
 import { PLATFORM_NAME } from "@/lib/platform";
 import type { CoverArt } from "@/lib/pdf/coverArt";
+import { questionnaireKeySection, temaQuestionnaire, type QuestionnaireLabels } from "@/lib/pdf/questionnaire";
 
 /**
  * The course as a print document: a pure function of (identity, theory export, figures, exercises).
@@ -37,19 +45,30 @@ export interface CapturedFigure {
   panels: string[];
 }
 
-export interface PdfLabels extends ExerciseLabels, GlossaryLabels {
+export interface PdfLabels extends ExerciseLabels, GlossaryLabels, QuestionnaireLabels {
   contents: string;
   /** Cover line crediting the author, label localized around `COURSE_AUTHOR`. */
   author: string;
   /** Cover line naming the language and the day the document was made. */
   generated: string;
   page: (current: number, total: number) => string;
+  /** A scoped document's page number: «3 de 12». */
+  pageOf: (current: number, total: number) => string;
+  /** A scoped cover's line for a course that keeps its norms: «Normativa consolidada a 2026-10-01». */
+  coverConsolidated: (date: string) => string;
   /** The header row of each list esquema printed as a table (step, plazo, article…). */
   esquemaColumns: Record<ListEsquemaKind, string[]>;
   /** After a «Normativa» norm's title: «texto consolidado a 2024-11-06». */
   consolidated: (date: string) => string;
   /** The label above a `:::judgement` callout: who the judgement is attributed to. */
   judgement: (source: string) => string;
+}
+
+/** One module (bloque) or lesson (tema) printed on its own; its title already carries the id. */
+export interface DocumentPart {
+  kind: "module" | "lesson";
+  id: string;
+  title: string;
 }
 
 export interface BuildCourseDocumentOptions {
@@ -67,6 +86,15 @@ export interface BuildCourseDocumentOptions {
   pdfExercises?: boolean;
   /** One captured PNG per chart exercise, keyed by exercise id. */
   exerciseCharts: Map<string, string>;
+  /** Set for a tema or bloque export; `export` then holds only that part. Absent: the whole course. */
+  part?: DocumentPart;
+  /** A question-bank course's drawn questions, printed after each tema, with their key at the back. */
+  questionnaire?: PrintQuestionnaire;
+  /**
+   * The whole course's tree, which labels lesson references («tema IV.1 · <title>») — including ones to
+   * lessons this document does not print. Absent: the export itself, read by lesson title.
+   */
+  outline?: TemaCourse;
   /** Called for a box too tall for any page, so the report can name it. Never a failure. */
   onOversizedBlock?: (block: OversizedBlock) => void;
   /** Which page each top-level section starts on, for the footer. Pass one in to read it back. */
@@ -142,8 +170,37 @@ function cover(o: BuildCourseDocumentOptions): Content {
   };
 }
 
-function toc(o: BuildCourseDocumentOptions): Content {
-  return { toc: { title: { text: o.labels.contents, style: "tocTitle" } }, pageBreak: "before" };
+/** The latest consolidation date among the part's norms; null for a course that keeps none. */
+export function consolidatedAsOf(doc: CourseExport): string | null {
+  const dates = doc.blocks.flatMap((b) =>
+    b.modules.flatMap((m) => m.lessons.flatMap((l) => (l.normativa ?? []).map((n) => n.consolidatedAsOf))),
+  );
+  const known = dates.filter((date): date is string => typeof date === "string").sort();
+  return known.at(-1) ?? null;
+}
+
+function partCover(o: BuildCourseDocumentOptions, part: DocumentPart): Content {
+  const consolidated = consolidatedAsOf(o.export);
+  return {
+    stack: [
+      ...(o.cover ? [{ svg: o.cover.mark, width: 44, margin: [0, 0, 0, 40] } satisfies Content] : []),
+      coverTitle(o),
+      { text: part.title, style: "partTitle" },
+      { text: o.labels.generated, style: "coverMeta" },
+      ...(consolidated ? [{ text: o.labels.coverConsolidated(consolidated), style: "coverMetaNext" }] : []),
+    ],
+    margin: [0, o.cover ? 86 : 170, 0, 0],
+  };
+}
+
+function lessonCount(doc: CourseExport): number {
+  return doc.blocks.reduce((n, b) => n + b.modules.reduce((k, m) => k + m.lessons.length, 0), 0);
+}
+
+function toc(o: BuildCourseDocumentOptions): Content[] {
+  // A tema prints on its own pages with nothing to find; only the book and a bloque get contents.
+  if (o.part && lessonCount(o.export) <= 1) return [];
+  return [{ toc: { title: { text: o.labels.contents, style: "tocTitle" } }, pageBreak: "before" }];
 }
 
 /** Panels two-up as in the app, then the caption, kept together on one page. */
@@ -184,6 +241,20 @@ export function runningTitle(courseSubtitle: string, section: string | undefined
   return section ? `${book} · ${section}` : book;
 }
 
+/** A tema's or bloque's footer: the wordmark, the book and section, the seed when it drew questions, «N de M». */
+function partFooter(o: BuildCourseDocumentOptions, section: string | undefined, current: number, total: number): Content {
+  const seed = o.questionnaire ? ` · ${o.labels.seed(o.questionnaire.seed)}` : "";
+  return {
+    columns: [
+      ...(o.cover?.wordmark ? [{ svg: o.cover.wordmark, width: 38, margin: [0, 1, 0, 0] } satisfies Content] : []),
+      { text: `${o.courseSubtitle}${section ? ` · ${section}` : ""}${seed}`, style: "footer", width: "*" },
+      { text: o.labels.pageOf(current, total), style: "footer", alignment: "right", width: "auto" },
+    ],
+    columnGap: 8,
+    margin: [PAGE.margins[0], 18, PAGE.margins[2], 0],
+  };
+}
+
 /** The captured chart for one exercise, or a stop — a chartless question is unanswerable. */
 function exerciseChart(charts: Map<string, string>): ExerciseChartLookup {
   return (exerciseId) => {
@@ -201,25 +272,108 @@ function exerciseChart(charts: Map<string, string>): ExerciseChartLookup {
  * A course with no glossary still gets its lesson references; only the term half stands down, so the
  * book never carries a link to a glossary page it does not print.
  */
-function proseAnnotator(doc: CourseExport, labels: PdfLabels) {
+function proseAnnotator(o: BuildCourseDocumentOptions, marked: Set<string>) {
+  const doc = o.export;
   const terms = doc.glossary.length > 0 ? buildTermIndex(doc.glossary, doc.locale) : null;
-  const marked = new Set<string>();
-  const registry = buildRefRegistry(refModulesFromExport(doc));
+  const outline = o.outline ?? outlineFromExport(doc);
+  // References resolve against the whole course, so one to a lesson this document leaves out is still
+  // recognised — and printed as its label, as text.
+  const registry = buildRefRegistry(refModulesFromOutline(outline));
+  const relabel = refRelabeler(outline, printedLessonIds(doc), printedModuleIds(doc, o.part));
   const norms = new Map(
     doc.blocks.flatMap((b) => b.modules.flatMap((m) => m.lessons.map((l) => [l.id, l.normativa ?? []] as const))),
   );
   return (lessonId: string) => (tree: Root) => {
     if (terms) annotateLesson(tree, { lessonId, terms, marked });
     annotateLessonRefs(tree, { lessonId, registry });
-    appendNormativa(tree, norms.get(lessonId) ?? [], labels.consolidated);
+    relabel(tree);
+    appendNormativa(tree, norms.get(lessonId) ?? [], o.labels.consolidated);
   };
+}
+
+/** The whole-course export is its own outline; a course without a lesson noun reads its lessons by title. */
+function outlineFromExport(doc: CourseExport): TemaCourse {
+  return {
+    course: { lessonNoun: null },
+    blocks: doc.blocks.map((block) => ({
+      modules: block.modules.map((module, m) => ({
+        id: module.id,
+        order: m + 1,
+        lessons: module.lessons.map((lesson, l) => ({ id: lesson.id, order: l + 1, title: lesson.title })),
+      })),
+    })),
+  };
+}
+
+function refModulesFromOutline(outline: TemaCourse): RefModule[] {
+  return outline.blocks.flatMap((block) =>
+    block.modules.map((module) => ({
+      id: module.id,
+      // A module reference keeps its authored text in print, so its target's title is never read.
+      title: module.id,
+      lessons: module.lessons.map((lesson) => ({ id: lesson.id, title: lesson.title })),
+    })),
+  );
+}
+
+/** Modules whose heading this document prints; a tema prints its module's heading but not the module. */
+function printedModuleIds(doc: CourseExport, part: DocumentPart | undefined): Set<string> {
+  if (part?.kind === "lesson") return new Set();
+  return new Set(doc.blocks.flatMap((b) => b.modules.map((m) => m.id)));
+}
+
+/**
+ * N5: a lesson reference prints as the lesson's label («tema IV.1 · <title>», or its title), never as the
+ * id the prose was written with; it stays a link when this document prints that lesson and becomes plain
+ * text otherwise. A module reference keeps its authored text and links only to a module printed whole.
+ */
+function refRelabeler(outline: TemaCourse, lessons: Set<string>, modules: Set<string>) {
+  const rewrite = (node: LessonRefNode): PhrasingContent => {
+    if (node.refKind === "lesson") {
+      const label = lessonReferenceLabel(outline, node.refId) ?? node.children.map((c) => c.value).join("");
+      if (!lessons.has(node.refId)) return { type: "text", value: label };
+      return { ...node, children: [{ type: "text", value: label }] };
+    }
+    return modules.has(node.refId) ? node : { type: "text", value: node.children.map((c) => c.value).join("") };
+  };
+  const walk = (parent: Parent): void => {
+    parent.children = parent.children.map((child) => {
+      if (child.type === LESSON_REF) return rewrite(child as LessonRefNode);
+      if ("children" in child) walk(child as Parent);
+      return child;
+    }) as Parent["children"];
+  };
+  return (tree: Root) => walk(tree);
+}
+
+function printedLessonIds(doc: CourseExport): Set<string> {
+  return new Set(doc.blocks.flatMap((b) => b.modules.flatMap((m) => m.lessons.map((l) => l.id))));
+}
+
+/**
+ * A scoped glossary: the terms the part's prose marked, the terms one of its lessons teaches (a term is
+ * never marked in its own origin), and the entries their aliases point to.
+ */
+function scopedGlossary(doc: CourseExport, marked: Set<string>): CourseExport["glossary"] {
+  const printed = printedLessonIds(doc);
+  const taughtHere = (entry: CourseExport["glossary"][number]) =>
+    [entry.origin, ...(entry.senses ?? []).map((sense) => sense.origin)].some((id) => id !== null && printed.has(id));
+  const kept = new Set(doc.glossary.filter((entry) => marked.has(entry.id) || taughtHere(entry)).map((e) => e.id));
+  for (const entry of doc.glossary) if (kept.has(entry.id) && entry.aliasOf) kept.add(entry.aliasOf.id);
+  return doc.glossary.filter((entry) => kept.has(entry.id));
 }
 
 export function buildCourseDocument(o: BuildCourseDocumentOptions): TDocumentDefinitions {
   const sections = o.sections ?? createSectionTracker();
   const keepPagesTogether = keepTogether({ onOversizedBlock: o.onOversizedBlock });
   const render = renderers(o.figures, o.labels);
-  const annotator = proseAnnotator(o.export, o.labels);
+  const marked = new Set<string>();
+  const annotator = proseAnnotator(o, marked);
+  const questionnaire = new Map((o.questionnaire?.temas ?? []).map((tema) => [tema.lessonId, tema]));
+  const questionnaireFor = (lessonId: string): Content[] => {
+    const tema = questionnaire.get(lessonId);
+    return tema ? temaQuestionnaire(tema, o.labels) : [];
+  };
   const chart = exerciseChart(o.exerciseCharts);
   const printExercises = o.pdfExercises ?? true;
   const byLesson = printExercises
@@ -233,7 +387,7 @@ export function buildCourseDocument(o: BuildCourseDocumentOptions): TDocumentDef
   }
   // The key follows the book: grouped by module, in the order the exercises were printed.
   const keyGroups: AnswerKeyGroup[] = [];
-  const content: Content[] = [cover(o), toc(o)];
+  const content: Content[] = [o.part ? partCover(o, o.part) : cover(o), ...toc(o)];
 
   for (const block of o.export.blocks) {
     let blockOpened = false;
@@ -324,6 +478,7 @@ export function buildCourseDocument(o: BuildCourseDocumentOptions): TDocumentDef
             ...(printExercises
               ? lessonExercises(exercises, excludedByLesson.get(lesson.id) ?? 0, o.labels, chart)
               : []),
+            ...questionnaireFor(lesson.id),
           ],
           pageBreak: "before",
           lessonId: lesson.id,
@@ -341,13 +496,27 @@ export function buildCourseDocument(o: BuildCourseDocumentOptions): TDocumentDef
   // ahead of the solutions you consult after.
   const glossaryId = printedId(SECTION_ID, "glossary", 0);
   sections.declare(glossaryId, o.labels.glossary);
-  const glossary = glossarySection(o.export.glossary, o.export.locale, o.labels, glossaryId);
+  const printed = printedLessonIds(o.export);
+  const glossary = glossarySection(
+    o.part ? scopedGlossary(o.export, marked) : o.export.glossary,
+    o.export.locale,
+    o.labels,
+    glossaryId,
+    o.part ? (lessonId) => printed.has(lessonId) : undefined,
+  );
   if (glossary) content.push(glossary);
 
   if (printExercises) {
     const answerKeyId = printedId(SECTION_ID, "answer-key", 0);
     sections.declare(answerKeyId, o.labels.answerKey);
     const key = answerKeySection(keyGroups, o.labels, answerKeyId);
+    if (key) content.push(key);
+  }
+
+  if (o.questionnaire) {
+    const questionnaireKeyId = printedId(SECTION_ID, "questionnaire-key", 0);
+    sections.declare(questionnaireKeyId, o.labels.questionnaireKey);
+    const key = questionnaireKeySection(o.questionnaire.temas, o.labels, questionnaireKeyId);
     if (key) content.push(key);
   }
 
@@ -364,13 +533,15 @@ export function buildCourseDocument(o: BuildCourseDocumentOptions): TDocumentDef
     footer: (currentPage: number, pageCount: number) =>
       currentPage === 1 // the cover carries no number; every page after it does
         ? { text: "" }
-        : {
-            columns: [
-              { text: runningTitle(o.courseSubtitle, sections.at(currentPage)), style: "footer" },
-              { text: o.labels.page(currentPage, pageCount), style: "footer", alignment: "right" },
-            ],
-            margin: [PAGE.margins[0], 18, PAGE.margins[2], 0],
-          },
+        : o.part
+          ? partFooter(o, sections.at(currentPage), currentPage, pageCount)
+          : {
+              columns: [
+                { text: runningTitle(o.courseSubtitle, sections.at(currentPage)), style: "footer" },
+                { text: o.labels.page(currentPage, pageCount), style: "footer", alignment: "right" },
+              ],
+              margin: [PAGE.margins[0], 18, PAGE.margins[2], 0],
+            },
     styles: PRINT_STYLES,
     defaultStyle: DEFAULT_STYLE,
     // Where pages may break: headings stay with their body, callouts print whole. The same hook is

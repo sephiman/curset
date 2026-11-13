@@ -1,5 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
-import { AEAT, abandonSitting, overflowingElements, signIn, startSitting, submittedSitting, startPracticeAndPickFirstOption } from "./session";
+import { AEAT, abandonSitting, activeCourses, catalogue, overflowingElements, signIn, startSitting, submittedSitting, startPracticeAndPickFirstOption } from "./session";
 
 /** aeat-agentes-hacienda at the two widths of the brief: theory, and since round R5 the first-exercise bank, presets and official sets. */
 
@@ -19,12 +19,13 @@ for (const { label, use } of WIDTHS) {
   test.describe(`aeat-agentes-hacienda at ${label}`, () => {
     test.use(use);
 
-    test("the selector lists four courses and marks this one", async ({ page }) => {
+    test("the selector lists the active courses and marks this one", async ({ page }) => {
       await signIn(page, AEAT);
+      const active = activeCourses(await catalogue(page.request));
       await page.goto(`/courses/${AEAT}`);
       await page.getByRole("button", { name: /Cambiar de curso/ }).click();
       const dialog = page.getByRole("dialog");
-      await expect(dialog.getByRole("listitem")).toHaveCount(4);
+      await expect(dialog.getByRole("listitem")).toHaveCount(active.length);
       await expect(dialog.getByRole("button", { name: /Agentes de la Hacienda Pública \(C1\)/ })).toHaveAttribute(
         "aria-current",
         "true",
@@ -36,7 +37,14 @@ for (const { label, use } of WIDTHS) {
       await signIn(page, AEAT);
       await page.goto(`/courses/${AEAT}`);
       await expect(page.getByRole("heading", { level: 1 })).toContainText(TITLE);
-      await expect(page.getByRole("button", { name: "Exportar PDF" })).toBeVisible();
+      // The whole-course export: on the page from 768 px, in the avatar menu on phones (N1).
+      if (label === "390 px") {
+        await page.getByRole("banner").getByRole("button", { name: "e2e-mobile", exact: true }).click();
+        await expect(page.getByRole("menuitem", { name: "Exportar PDF" })).toBeVisible();
+        await page.keyboard.press("Escape");
+      } else {
+        await expect(page.getByRole("main").getByRole("button", { name: "Exportar PDF", exact: true })).toBeVisible();
+      }
       await expectNothingWiderThanTheScreen(page);
     });
 
@@ -153,15 +161,17 @@ for (const { label, use } of WIDTHS) {
   });
 }
 
-test("the course PDF exports", async ({ page }) => {
-  test.setTimeout(600_000);
+test("the course PDF export asks for the whole course, theory only", async ({ page }) => {
+  // The PDF itself is never made in e2e (delta N8): the export request is recorded and aborted.
   await signIn(page, AEAT);
+  const off = await page.request.patch("/api/auth/me", { data: { pdf_exercises: false } });
+  expect(off.ok(), await off.text()).toBe(true);
   await page.goto(`/courses/${AEAT}`);
-  const download = page.waitForEvent("download", { timeout: 540_000 });
-  await page.getByRole("button", { name: "Exportar PDF" }).click();
-  const file = await download;
-  expect(file.suggestedFilename()).toMatch(/\.pdf$/);
-  const path = await file.path();
-  const { statSync } = await import("node:fs");
-  expect(statSync(path).size).toBeGreaterThan(100_000);
+  await page.getByRole("main").getByRole("button", { name: "Exportar PDF", exact: true }).click();
+  const dialog = page.getByRole("dialog", { name: "Exportar PDF" });
+  await expect(dialog.getByText("Solo teoría")).toBeVisible();
+  const asked = page.waitForRequest(`**/api/courses/${AEAT}/export?**`);
+  await page.route(`**/api/courses/${AEAT}/export?**`, (route) => route.abort());
+  await dialog.getByRole("button", { name: "Exportar", exact: true }).click();
+  expect(new URL((await asked).url()).searchParams.get("scope")).toBeNull();
 });

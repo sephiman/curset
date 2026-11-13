@@ -1,5 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
-import { AEAT, AGE, AGE_C2, abandonSitting, overflowingElements, signIn, startSitting, submittedSitting, startPracticeAndPickFirstOption } from "./session";
+import { AEAT, AGE, AGE_C2, abandonSitting, activeCourses, catalogue, onlyIn, overflowingElements, signIn, startSitting, submittedSitting, startPracticeAndPickFirstOption } from "./session";
 
 /** Round R5 of age-auxiliar-c2 at the two widths of the brief: what jsdom cannot measure. */
 
@@ -17,17 +17,18 @@ for (const { label, use } of WIDTHS) {
   test.describe(`age-auxiliar-c2 at ${label}`, () => {
     test.use(use);
 
-    test("the selector shows four courses and marks the three Spanish-only ones", async ({ page }) => {
+    test("the selector shows the active courses and marks the Spanish-only ones", async ({ page }) => {
       await signIn(page, AGE_C2);
+      const active = activeCourses(await catalogue(page.request));
       await page.goto(`/courses/${AGE_C2}`);
       await page.getByRole("button", { name: /Cambiar de curso/ }).click();
       const dialog = page.getByRole("dialog");
-      await expect(dialog.getByRole("listitem")).toHaveCount(4);
+      await expect(dialog.getByRole("listitem")).toHaveCount(active.length);
       await expect(dialog.getByRole("button", { name: /Auxiliar Administrativo del Estado \(C2\)/ })).toHaveAttribute(
         "aria-current",
         "true",
       );
-      await expect(dialog.getByText("Solo en español")).toHaveCount(3);
+      await expect(dialog.getByText("Solo en español")).toHaveCount(onlyIn(active, "es").length);
       await expectNothingWiderThanTheScreen(page);
     });
 
@@ -122,28 +123,30 @@ for (const { course, lesson } of [
   });
 }
 
-test("sign-up offers the five courses", async ({ browser }) => {
+test("sign-up offers every course of the catalogue", async ({ browser }) => {
   const context = await browser.newContext({ storageState: { cookies: [], origins: [] } });
   const page = await context.newPage();
+  const courses = await catalogue(page.request);
   await page.goto("/register");
   await page.getByLabel("Correo electrónico").fill("e2e-signup-list@example.com");
   await page.getByLabel("Contraseña").fill("E2e-signup-list-2026!");
   await page.getByRole("button", { name: "Continuar" }).click();
   const choices = page.getByRole("group", { name: "¿Qué cursos te interesan?" });
-  await expect(choices.getByRole("checkbox")).toHaveCount(5);
+  await expect(choices.getByRole("checkbox")).toHaveCount(courses.length);
   await expect(choices).toContainText("Auxiliar Administrativo del Estado (C2)");
   await expect(choices).toContainText("Administrativo del Estado (C1)");
-  await expect(choices.getByText("Solo en español")).toHaveCount(4);
+  await expect(choices.getByText("Solo en español")).toHaveCount(onlyIn(courses, "es").length);
   await context.close();
 });
 
-test("Cuenta › Cursos lists the five courses, four of them active", async ({ page }) => {
+test("Cuenta › Cursos lists every course of the catalogue, the signed-in ones active", async ({ page }) => {
   await signIn(page, AGE_C2);
+  const courses = await catalogue(page.request);
   await page.goto("/account");
   const section = page.locator("#courses");
   await expect(section.getByRole("heading", { name: "Cursos" })).toBeVisible();
-  await expect(section.getByRole("switch")).toHaveCount(5);
-  // The theory-only test course is served beside the four real ones, and `signIn` leaves it inactive.
-  await expect(section.getByRole("switch", { checked: true })).toHaveCount(4);
+  await expect(section.getByRole("switch")).toHaveCount(courses.length);
+  // Test courses are served beside the real ones, and `signIn` leaves them inactive.
+  await expect(section.getByRole("switch", { checked: true })).toHaveCount(activeCourses(courses).length);
   await expect(section).toContainText("Auxiliar Administrativo del Estado (C2)");
 });

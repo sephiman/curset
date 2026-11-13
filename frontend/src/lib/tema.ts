@@ -61,8 +61,14 @@ export interface TemaInfo {
  * lesson order, and formatted tema label («Tema III.3 · <title>»).
  * Returns null if course has no lessonNoun or lesson is not found.
  */
+/** The slice of the course tree the tema formatter reads; the app's `Course` is one. */
+export interface TemaCourse {
+  course: { lessonNoun?: string | null };
+  blocks: { modules: { id: string; order: number; lessons: { id: string; order: number; title: string }[] }[] }[];
+}
+
 export function findTemaInfo(
-  course: Course | null | undefined,
+  course: TemaCourse | null | undefined,
   lessonId: string | null | undefined,
 ): TemaInfo | null {
   if (!course || !lessonId || !course.course.lessonNoun) return null;
@@ -84,6 +90,22 @@ export function findTemaInfo(
         title: lesson.title,
         temaLabel,
       };
+    }
+  }
+  return null;
+}
+
+/**
+ * How a reference to a lesson reads in running text: «tema IV.1 · <title>» with the course's own noun,
+ * or the lesson's title where the course has none. Null for a lesson the course does not have.
+ */
+export function lessonReferenceLabel(course: TemaCourse, lessonId: string): string | null {
+  const info = findTemaInfo(course, lessonId);
+  if (info) return `${course.course.lessonNoun} ${info.temaCode} · ${info.title}`;
+  for (const block of course.blocks) {
+    for (const module of block.modules) {
+      const lesson = module.lessons.find((l) => l.id === lessonId);
+      if (lesson) return lesson.title;
     }
   }
   return null;

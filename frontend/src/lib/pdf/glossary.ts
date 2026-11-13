@@ -26,22 +26,24 @@ export interface GlossaryLabels {
  * `M19-L1 · The basis` — the pointer back, which is what makes the glossary a reference, and a
  * link to that lesson, because every other pointer in the book is one.
  */
+/** Whether the document prints a lesson, so a pointer to it can be a link. */
+export type PrintsLesson = (lessonId: string) => boolean;
+
 function originContent(
   entry: { origin: string | null; originTitle: string | null },
   labels: GlossaryLabels,
   style: string,
+  printsLesson: PrintsLesson,
 ): Content | null {
   if (!entry.origin) return null;
   const id = entry.origin.toUpperCase();
-  return {
-    text: labels.origin(entry.originTitle ? `${id} · ${entry.originTitle}` : id),
-    style,
-    linkToDestination: DEST.outline(entry.origin),
-    ...CROSS_REF,
-  };
+  const text = labels.origin(entry.originTitle ? `${id} · ${entry.originTitle}` : id);
+  // A tema or bloque export does not print the other lessons: the pointer stays, as text.
+  if (!printsLesson(entry.origin)) return { text, style };
+  return { text, style, linkToDestination: DEST.outline(entry.origin), ...CROSS_REF };
 }
 
-function entryContent(entry: GlossaryEntry, index: number, labels: GlossaryLabels): Content {
+function entryContent(entry: GlossaryEntry, index: number, labels: GlossaryLabels, printsLesson: PrintsLesson): Content {
   // The destination every marked term in the prose jumps to. It sits on the TERM's text node, not on
   // the stack around it: pdfmake only writes a destination where a line of text carries the id.
   const body: Content[] = [
@@ -69,14 +71,14 @@ function entryContent(entry: GlossaryEntry, index: number, labels: GlossaryLabel
       ],
       style: "glossarySense",
     });
-    const origin = originContent(sense, labels, "glossarySenseOrigin");
+    const origin = originContent(sense, labels, "glossarySenseOrigin", printsLesson);
     if (origin) body.push(origin);
   }
 
   // A homonym's origins are per-sense and already printed above; only a single-sense entry
   // (or an alias, which points into the lesson that uses the second name) prints one here.
   if (!entry.senses?.length) {
-    const origin = originContent(entry, labels, "glossaryOrigin");
+    const origin = originContent(entry, labels, "glossaryOrigin", printsLesson);
     if (origin) body.push(origin);
   }
 
@@ -92,6 +94,7 @@ export function glossarySection(
   labels: GlossaryLabels,
   /** Marks this heading as a top-level section, so the running footer can name it. */
   sectionId: string,
+  printsLesson: PrintsLesson = () => true,
 ): Content | null {
   if (terms.length === 0) return null;
   const ordered = sortGlossary(terms, locale);
@@ -111,7 +114,7 @@ export function glossarySection(
         sectionId,
       ),
       { text: labels.glossaryIntro, style: "moduleSummary" },
-      ...ordered.map((entry, index) => entryContent(entry, index, labels)),
+      ...ordered.map((entry, index) => entryContent(entry, index, labels, printsLesson)),
     ],
     pageBreak: "before",
   };

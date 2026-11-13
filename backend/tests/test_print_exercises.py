@@ -9,14 +9,17 @@ from __future__ import annotations
 
 import json
 import logging
+import shutil
 import subprocess
 import sys
 from collections.abc import Mapping
+from pathlib import Path
 from typing import Any
 
 import pytest
 from httpx import AsyncClient
 
+from conftest import FIXTURE_CONTENT
 from tradeschool.config import get_settings
 from tradeschool.content import print_export
 from tradeschool.content.print_export import (
@@ -366,9 +369,19 @@ async def test_the_theory_export_is_unchanged_by_all_this(content_client: AsyncC
     assert not [eid for eid in manifest_exercise_ids() if eid in text]
 
 
-def test_course_disabling_pdf_exercises_serves_no_print_exercises() -> None:
-    age_registry = load_registry(get_settings().content_dir / "age-administrativo-c1")
-    assert age_registry.manifest.course.pdf_exercises is False
-    assert age_registry.course_meta("es").get("pdfExercises") is False
-    doc = build_print_exercises(age_registry, "es")
+def test_course_disabling_pdf_exercises_serves_no_print_exercises(tmp_path: Path) -> None:
+    # Every real course with exercises declares `pdf_exercises: true` (delta N9); a copy of the fixture
+    # course that says false is the case the flag still has to handle.
+    course = tmp_path / "fixture-oposiciones"
+    shutil.copytree(FIXTURE_CONTENT / "fixture-oposiciones", course)
+    manifest = course / "course.yaml"
+    manifest.write_text(
+        manifest.read_text().replace(
+            "  lesson_practice: true\n", "  lesson_practice: true\n  pdf_exercises: false\n"
+        )
+    )
+    registry = load_registry(course)
+    assert registry.manifest.course.pdf_exercises is False
+    assert registry.course_meta("es").get("pdfExercises") is False
+    doc = build_print_exercises(registry, "es")
     assert doc == {"locale": "es", "lessons": [], "excluded": []}

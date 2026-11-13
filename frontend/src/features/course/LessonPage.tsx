@@ -19,6 +19,7 @@ import { formatReadingTime } from "@/features/course/readingTime";
 import { LessonMarkdown } from "@/lib/markdown";
 import { scopeKey, useCourse } from "@/features/courses/CourseContext";
 import { useCourseGlossary, useCourseTree } from "@/features/course/queries";
+import { ExportPdfAction } from "@/features/pdfExport/ExportPdfAction";
 import { useHeaderBack } from "@/components/layout/headerChrome";
 import { cn } from "@/lib/cn";
 import { useLessonWidth, type LessonWidth } from "@/lib/lessonWidth";
@@ -155,6 +156,14 @@ export function LessonPage() {
 
   const body = (
     <>
+      {/* On phones the export sits in the header menu; the action still mounts to offer it there. */}
+      <div className="mt-2 flex justify-end max-md:hidden">
+        <ExportPdfAction
+          course={course}
+          target={{ kind: "lesson", id: lesson.id, title: lesson.title }}
+          label={t("course.pdfAction")}
+        />
+      </div>
       <div className="mt-4">
         <TermPopoverHost entries={entriesById}>
           <ReferenceProvider registry={refRegistry}>

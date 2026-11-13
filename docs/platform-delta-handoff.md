@@ -1055,3 +1055,104 @@ Nothing committed. Each fix has a test that failed first.
 **Not done / for you.** C1 and C2 `source-index.json` are stale against the current indexer (`art-unico` missing); regenerating them was left out to keep C1/C2 unchanged. Re-running the full `index_sources.py` takes about 10 minutes.
 
 **CI.** Backend full suite passed locally; vitest and e2e see the closing note. goldens/Android: see below.
+
+
+# Platform round — PDF export per tema and per bloque, and the exercises switch (delta v2.4 N, 2026-11-13)
+
+Nothing committed. Implemented from the round prompt; checked against section N of the delta file once it landed
+(v2.5) — see «Closing N» below.
+
+## Scope parameter
+
+`GET /courses/<slug>/export?lang=…&scope=<id>`: `scope` is a module id (`m03`) or a lesson id (`m03-l04`) of the
+course, resolved by `CourseRegistry.export_scope` into `ExportScope(kind, id, module_id)`. `_export_blocks` keeps
+only that module (or that one lesson) and its block; the glossary is served whole, and the client cuts it. Unknown id:
+`404 EXPORT_SCOPE_NOT_FOUND` (message names the id; `errors.EXPORT_SCOPE_NOT_FOUND` in both catalogs). Language checks
+are unchanged and run first. `lang=all` takes a scope too. No scope: byte-identical to before.
+
+Client: `generateCoursePdf({ part, exercises, … })`. `part` = `{kind, id, title}` (`DocumentPart`); the builder gets
+it and prints a part cover (mark, glyph + course title, part title, language · date, «Normativa consolidada a <latest
+consolidatedAsOf of the part's norms>» when any), contents only for more than one lesson, the lessons as in the book,
+a glossary of the terms the part's prose marked or whose origin (or a sense's) is in the part, plus alias targets, and
+a footer of wordmark (`curset-wordmark-mono.svg`, ink) + `<subtitle> · <section>` + «N de M» (`course.pdfPageOf`).
+References resolve against the part only (`scopedRegistry`); in a tema a module mention prints as text too. Glossary
+origins outside the part print without a link (`glossarySection(..., printsLesson)`). The whole-course cover and
+footer are untouched. File name `curset-<slug>-<part>-<lang>-<date>.pdf`.
+
+## The setting
+
+`user.pdf_exercises boolean NOT NULL DEFAULT false` (migration `b3c4d5e6f7a8`, revises `a2b3c4d5e6f7`), in `UserRead`
+and `PATCH /auth/me {pdf_exercises}`. Cuenta has the switch. `pdfExerciseMode(course, include)` (`lib/pdf/exerciseMode.ts`):
+`none` when the switch is off, the course says `pdf_exercises: false`, or it is theory-only; otherwise `questionnaire`
+for a `lesson_practice` course and `inline` (crypto's book exercises + answer key) for the rest. crypto-futures, C1,
+C2 and AEAT declare `pdf_exercises: true` (closing round).
+
+## The questionnaire and the seed
+
+`GET /courses/<slug>/print/questionnaire?lang=…&scope=…&seed=…` (`exams/questionnaire.py`). Per tema in the scope:
+`question_pool(Scope("lesson", …))` (cases and `official: true` items out, which covers the C2 calibration items),
+then only stored single-choice variants — **C2's generated psicotécnicos are never drawn into a tema questionnaire**
+(they belong to no tema and have no citation for the key); `random.Random(f"{seed}:{lesson key}")` samples up to 20 and
+seeds each item, so a tema draws the same questions alone and inside its bloque. Options are lettered by
+`letter_quiz` (extracted from the exam print, which now shares it) in the order the seed shuffled them. Keys carry the
+variant's `citation` (null for a generated item). No seed: one is drawn and returned. The client prints the questions
+after each tema's prose (`questionFor` marks), «Plantilla de respuestas» at the back (number, letter, citation;
+`keyFor` marks) and «Semilla N» in the footer.
+
+## Tests
+
+- Backend `test_pdf_export_scope.py` (12): bloque and tema scopes, no scope, unknown id 404 on both endpoints,
+  language 404, seed returned and redrawn identically, letters in order and key among them, tema alone = tema in
+  bloque, ≤20 per tema with every key cited (C2), official/calibration never printed (C2 `m00-l01`, `ps-l01`), new
+  account off → on, and an account inserted at `a2b3c4d5e6f7` reads `false` after upgrading.
+- Vitest `scopedDocument.test.ts` (24, definition only), `generate.test.ts` (scope passed to both fetches, file name,
+  inline exercises cut to the part), `ExportPdfAction.test.tsx` (dialog line per switch and course, scope and mode
+  handed over, progress names the scope, retry, phone menu entry). `render.test.ts`/`emit.test.ts` now pass
+  `exercises: "inline"` for crypto (today's book) and `"none"` elsewhere.
+- `scopeSmoke.test.ts`: real renders of tema, bloque and course of `fixture-oposiciones`, only with `PDF_SMOKE=1`.
+- e2e `pdf-export.spec.ts` at 390 and 1280 px: the three buttons, «Solo teoría»/«Con ejercicios», and the `scope` of
+  the export request, which is aborted (no PDF is made).
+
+## Closing N (2026-11-13, delta v2.5)
+
+- **Flags.** `pdf_exercises: true` in age-administrativo-c1, age-auxiliar-c2, aeat-agentes-hacienda and, explicitly,
+  crypto-futures (N9 lists it; it was the schema default). Regenerated Android bundle identical to `dist/bundle`;
+  goldens unchanged. `test_print_exercises.py`'s «flag false» case now uses a copy of `fixture-oposiciones`.
+- **Three courses, one tema each.** `oposicionesExport.test.ts`: `m01-l01` of C1, C2 and AEAT through
+  `generateCoursePdf` (definition only). Off: theory only, no questions, no key, no seed. On: 20 questions after the
+  tema, options A–D in printed order, «Plantilla de respuestas» with each key's letter and citation, «Semilla 2026» in
+  the footer. The questionnaires are the backend's draw for seed 2026, pinned in
+  `frontend/src/test/fixtures/questionnaires/` by `test_the_pinned_questionnaire_the_frontend_prints_is_this_seeds_draw`
+  (regenerate: `REGEN_QUESTIONNAIRES=1`). Every tema of the three courses draws a full 20, all cited.
+- **e2e counts** (`age-c2.spec.ts`, `aeat-agentes.spec.ts`) come from `GET /api/courses` via `catalogue()`,
+  `activeCourses()` and `onlyIn(courses, "es")` in `e2e/session.ts`.
+- **`render.test.ts`** typesets only with `PDF_SMOKE=1`. In CI it asserts the crypto book on its definition: cover,
+  contents, a page per lesson, the key; filename; phases; no exercise id in printed text, text-node ids, bookmark
+  labels or info; exercises and key in, none without; section order (blocks, glossary, key); cover footer; >100
+  headings; tiny course a page per lesson; the fixture and draft courses. Pagination, footer pages, outline and link
+  bytes stay on request (the outline and links are asserted on the definition by `navigation.test.ts`).
+- **N1–N9 check.** N1: the course page's whole-course export now also moves to the header menu on phones (it was
+  only lesson and module). N9: crypto's explicit flag (above). N5: see below. F2 (amended): already implemented in
+  `citations/excerpts.py` (`WHOLE_PARAGRAPH = 120`, lead-in «:» lists); nothing changed.
+
+## N5 labels and backend duration (2026-11-13)
+
+- **N5.** In every export (course, bloque, tema) a lesson reference prints as `lessonReferenceLabel` (`lib/tema.ts`):
+  «tema IV.1 · <title>» with the course's `lesson_noun` and `findTemaInfo`'s numbering, the lesson title where the
+  course has no noun (crypto-futures). Rendering only: `document.ts` annotates against the whole course's tree
+  (`outline`, passed by the export hook from `useCourseTree`; absent, the export itself) and rewrites each
+  `lessonRef` node — a link when the document prints that lesson, plain text otherwise. Module references keep their
+  authored text and link only to a module printed whole. Glossary origins keep «M02-L1 · <title>» (id plus title),
+  linked only inside the part. Not covered: an id inside inline code (13 in AEAT, «el tema III.9 (`m03-l09`)») is
+  not a reference node and prints as written. The whole-course crypto PDF changes accordingly (ids → titles); the
+  golden link report is unchanged (same targets). Tests: `lessonRefLabels.test.ts` (C1 m01-l03 in its bloque, alone
+  and in the course; AEAT m02-l02; crypto m09-l1 in the book and in m09, both locales).
+- **Backend duration.** The round's tests cost about 26 s of CPU over the xdist workers; C2 was loaded twice and now
+  loads once per process through `real_course()` in `conftest.py` (the saved-draw drift test stays on C1, C2 and
+  AEAT). The growth from 233 s to 299 s was not the code. Per-test timings (JUnit) of this tree and of HEAD on the
+  same machine add up to the same CPU (2034 s against 2036 s). Every slower pair had run this tree first, straight
+  after vitest and e2e. Reversed, HEAD first: HEAD 253 s, this tree 248 s. Single runs swing by tens of seconds
+  with where each worker's Postgres container start and the 30-50 s psicotécnico property tests land
+  (`test_change_password_updates_password`, first on its worker, took 22 s in one run and 53 s in another).
+  Timed runs of this tree, back to back after the e2e suite: 312, 269 and 343 s; HEAD, run right after them:
+  256, 243 and 247 s.

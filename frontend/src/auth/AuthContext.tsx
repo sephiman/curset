@@ -18,6 +18,7 @@ interface AuthContextValue {
   setLocale: (locale: Locale) => Promise<void>;
   setName: (name: string | null) => Promise<void>;
   setEmail: (email: string) => Promise<void>;
+  setPdfExercises: (include: boolean) => Promise<void>;
   refresh: () => Promise<void>;
 }
 
@@ -94,6 +95,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(await authApi.updateEmail(email));
   }, []);
 
+  const setPdfExercises = useCallback(async (include: boolean) => {
+    setUser(await authApi.updatePdfExercises(include));
+  }, []);
+
   // After a change made outside this tab's session, such as opening a verification link.
   const refresh = useCallback(async () => {
     try {
@@ -104,8 +109,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const value = useMemo<AuthContextValue>(
-    () => ({ user, loading, login, register, logout, setLocale, setName, setEmail, refresh }),
-    [user, loading, login, register, logout, setLocale, setName, setEmail, refresh],
+    () => ({ user, loading, login, register, logout, setLocale, setName, setEmail, setPdfExercises, refresh }),
+    [user, loading, login, register, logout, setLocale, setName, setEmail, setPdfExercises, refresh],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

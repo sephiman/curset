@@ -10,6 +10,7 @@ import re
 from collections.abc import Callable
 from dataclasses import dataclass, field
 from pathlib import Path
+from typing import Literal
 
 from pydantic import BaseModel, ValidationError
 
@@ -71,6 +72,18 @@ class LessonLocation:
     block: ManifestBlock
     module: ManifestModule
     lesson: ManifestLesson
+
+
+@dataclass(frozen=True)
+class ExportScope:
+    """A part of the course the PDF prints on its own: one module (bloque) or one lesson (tema)."""
+
+    kind: Literal["module", "lesson"]
+    id: str
+    module_id: str
+
+    def includes(self, module_id: str, lesson_id: str) -> bool:
+        return module_id == self.module_id and (self.kind == "module" or lesson_id == self.id)
 
 
 @dataclass(frozen=True)
@@ -502,40 +515,48 @@ class CourseRegistry:
         localized: Callable[[LocalizedText], object],
         prose: Callable[[str], object],
         extra: Callable[[str], dict[str, object]] = lambda _lesson_id: {},
+        scope: ExportScope | None = None,
     ) -> list[dict[str, object]]:
         """The export tree, with how to render a localized field left to the caller.
 
         One walk serves both the single-locale and bilingual exports, so they cannot carry different
-        modules.
+        modules. A scope keeps only its module (or its one lesson) and the block around it.
         """
-        return [
-            {
-                "id": block.id,
-                "title": localized(block.title),
-                "modules": [
-                    {
-                        "id": module.id,
-                        "title": localized(module.title),
-                        "summary": localized(module.summary),
-                        "lessons": [
-                            {
-                                "id": lesson.id,
-                                "title": localized(lesson.title),
-                                "summary": localized(lesson.summary),
-                                "markdown": prose(lesson.id),
-                                **extra(lesson.id),
-                            }
-                            for lesson in module.lessons
-                        ],
-                    }
-                    for module in block.modules
-                ],
-            }
-            for block in self.manifest.blocks
-        ]
+        blocks: list[dict[str, object]] = []
+        for block in self.manifest.blocks:
+            modules = [
+                {
+                    "id": module.id,
+                    "title": localized(module.title),
+                    "summary": localized(module.summary),
+                    "lessons": [
+                        {
+                            "id": lesson.id,
+                            "title": localized(lesson.title),
+                            "summary": localized(lesson.summary),
+                            "markdown": prose(lesson.id),
+                            **extra(lesson.id),
+                        }
+                        for lesson in module.lessons
+                        if scope is None or scope.includes(module.id, lesson.id)
+                    ],
+                }
+                for module in block.modules
+                if scope is None or module.id == scope.module_id
+            ]
+            if modules or scope is None:
+                blocks.append({"id": block.id, "title": localized(block.title), "modules": modules})
+        return blocks
 
-    def course_export(self, locale: str) -> dict[str, object]:
-        """The whole course as structured theory in ONE language, prose only."""
+    def export_scope(self, scope_id: str) -> ExportScope | None:
+        """The module or lesson a scoped export names, or None when the course has neither."""
+        if scope_id in self._modules:
+            return ExportScope("module", scope_id, scope_id)
+        location = self._lessons.get(scope_id)
+        return ExportScope("lesson", scope_id, location.module.id) if location else None
+
+    def course_export(self, locale: str, scope: ExportScope | None = None) -> dict[str, object]:
+        """The course (or one scope of it) as structured theory in ONE language, prose only."""
         return {
             "locale": locale,
             "blocks": self._export_blocks(
@@ -547,11 +568,12 @@ class CourseRegistry:
                     if self.citations.links
                     else {}
                 ),
+                scope,
             ),
             "glossary": self.glossary_entries(locale),
         }
 
-    def course_export_all(self) -> dict[str, object]:
+    def course_export_all(self, scope: ExportScope | None = None) -> dict[str, object]:
         """The same document in EVERY language the course declares, each field as `{locale: …}`.
 
         Discriminated by the key: this carries `locales`, the single-locale document carries `locale`.
@@ -562,6 +584,7 @@ class CourseRegistry:
             "blocks": self._export_blocks(
                 lambda text: {loc: text.get(loc) for loc in languages},
                 lambda lesson_id: {loc: _theory_only(self.markdown[loc][lesson_id]) for loc in languages},
+                scope=scope,
             ),
             "glossary": {loc: self.glossary_entries(loc) for loc in languages},
         }

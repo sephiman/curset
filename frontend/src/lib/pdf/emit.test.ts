@@ -43,6 +43,7 @@ describe.runIf(OUT)("emit a PDF for review", () => {
         courseTitle: course.title[LOCALE],
         courseSubtitle: course.subtitle[LOCALE],
         courseDescription: course.description[LOCALE],
+        exercises: "inline",
         labels: testPdfLabels(LOCALE),
         date: new Date(2026, 7, 8),
         fetchExport: async (scope) => courseExportFromContent(scope.lang),

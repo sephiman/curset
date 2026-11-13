@@ -95,6 +95,11 @@ class UserManager(UUIDIDMixin, BaseUserManager[User, uuid.UUID]):  # type: ignor
         logger.info("user_name_changed name=%s->%s", name_before, name)
         return updated
 
+    async def set_pdf_exercises(self, user: User, include: bool) -> User:
+        updated = await self._user_db().update(user, {"pdf_exercises": include})
+        logger.info("user_pdf_exercises_changed include=%s", include)
+        return updated
+
     async def set_password(self, user: User, new_password: str) -> User:
         await self.validate_password(new_password)
         return await self._user_db().update(

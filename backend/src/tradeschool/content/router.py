@@ -22,10 +22,11 @@ from tradeschool.auth.models import User
 from tradeschool.citations.sources import SERVED_FOLDERS
 from tradeschool.content.models import LessonCompletion
 from tradeschool.content.print_export import build_print_exercises
-from tradeschool.content.registry import CourseRegistry
+from tradeschool.content.registry import CourseRegistry, ExportScope
 from tradeschool.db import get_async_session
 from tradeschool.deps import ReadingLocale, get_registry, language_not_available
 from tradeschool.errors import AppError
+from tradeschool.exams.questionnaire import SEED_LIMIT, build_questionnaire
 from tradeschool.exercises.figures import build_figure
 
 logger = logging.getLogger("tradeschool.content")
@@ -39,6 +40,21 @@ course_router = APIRouter(tags=["content"])
 # job is to hand over the whole course rather than to render it for the reader in front of it.
 # Everywhere else an absent `lang` means "the user's reading language for this course".
 ExportLangQuery = Annotated[str | None, Query(pattern="^(en|es|all)$")]
+# A module (`m03`) or lesson (`m03-l04`) id of the course; absent: the whole course.
+ScopeQuery = Annotated[str | None, Query(max_length=64)]
+
+
+def _export_scope(registry: CourseRegistry, scope: str | None) -> ExportScope | None:
+    if scope is None:
+        return None
+    found = registry.export_scope(scope)
+    if found is None:
+        raise AppError(
+            "EXPORT_SCOPE_NOT_FOUND",
+            f"{registry.slug!r} has no module or lesson {scope!r} to export.",
+            status_code=404,
+        )
+    return found
 
 
 async def _completed_lesson_ids(
@@ -129,8 +145,9 @@ async def export_course(
     registry: Annotated[CourseRegistry, Depends(get_registry)],
     lang: ExportLangQuery = None,
     download: Annotated[bool, Query()] = False,
+    scope: ScopeQuery = None,
 ) -> JSONResponse:
-    """The whole course as one JSON document — prose only, exercises stripped.
+    """The whole course (or one module or lesson of it, `scope`) as one JSON document — prose only.
 
     Every language the course declares by default, under a `locales` key; name a `lang` for one,
     under `locale`.
@@ -138,8 +155,9 @@ async def export_course(
     every = lang in (None, "all")
     if not every and lang not in registry.languages:
         raise language_not_available(registry, str(lang))
-    data = registry.course_export_all() if every else registry.course_export(str(lang))
-    suffix = "all" if every else str(lang)
+    part = _export_scope(registry, scope)
+    data = registry.course_export_all(part) if every else registry.course_export(str(lang), part)
+    suffix = "-".join(filter(None, [scope, "all" if every else str(lang)]))
     headers = (
         {"Content-Disposition": f'attachment; filename="curset-{registry.slug}-{suffix}.json"'}
         if download
@@ -168,6 +186,22 @@ async def export_print_exercises(
     if key not in cache:
         cache[key] = build_print_exercises(registry, locale)
     return cache[key]
+
+
+@course_router.get("/print/questionnaire")
+async def export_print_questionnaire(
+    user: Annotated[User, Depends(current_active_user)],
+    registry: Annotated[CourseRegistry, Depends(get_registry)],
+    locale: ReadingLocale,
+    scope: ScopeQuery = None,
+    seed: Annotated[int | None, Query(ge=0, lt=SEED_LIMIT)] = None,
+) -> dict[str, object]:
+    """Up to 20 questions per tema of the scope, lettered A-D, with a key citing each answer.
+
+    Reveals solutions like `/print/exercises`. Without a `seed` one is drawn and returned, so the printed
+    paper regenerates from the seed in its footer.
+    """
+    return build_questionnaire(registry, _export_scope(registry, scope), locale, seed)
 
 
 @router.get("/figures/{figure_id}")

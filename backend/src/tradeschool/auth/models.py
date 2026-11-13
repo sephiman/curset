@@ -12,7 +12,7 @@ from datetime import datetime
 
 from fastapi_users_db_sqlalchemy.access_token import SQLAlchemyBaseAccessTokenTableUUID
 from fastapi_users_db_sqlalchemy.generics import GUID
-from sqlalchemy import Boolean, DateTime, ForeignKey, String, func
+from sqlalchemy import Boolean, DateTime, ForeignKey, String, false, func
 from sqlalchemy.orm import Mapped, mapped_column
 
 from tradeschool.db import Base
@@ -33,6 +33,10 @@ class User(Base):
     # Whether `email` is verified; any change of address resets it.
     is_verified: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
     locale: Mapped[str] = mapped_column(String(2), nullable=False, default="en", server_default="en")
+    # «Incluir ejercicios al exportar PDF»: one switch for every course and scope.
+    pdf_exercises: Mapped[bool] = mapped_column(
+        Boolean, nullable=False, default=False, server_default=false()
+    )
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), nullable=False, server_default=func.now()
     )

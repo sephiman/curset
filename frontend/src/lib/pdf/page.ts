@@ -64,6 +64,8 @@ export const PRINT_STYLES: StyleDictionary = {
   courseTitle: { fontSize: 30, bold: true, color: PRINT.heading, lineHeight: 1.1 },
   courseDescription: { fontSize: 12.5, color: PRINT.muted, lineHeight: 1.4, margin: [0, 18, 0, 0] },
   coverMeta: { fontSize: 9.5, color: PRINT.muted, margin: [0, 28, 0, 0] },
+  coverMetaNext: { fontSize: 9.5, color: PRINT.muted, margin: [0, 4, 0, 0] },
+  partTitle: { fontSize: 17, bold: true, color: PRINT.primary, margin: [0, 18, 0, 0], lineHeight: 1.2 },
   tocTitle: { fontSize: 20, bold: true, color: PRINT.heading, margin: [0, 0, 0, 14] },
   tocBlock: { fontSize: 11.5, bold: true, color: PRINT.heading, margin: [0, 10, 0, 2] },
   tocModule: { fontSize: 10, color: PRINT.ink, margin: [0, 4, 0, 0] },

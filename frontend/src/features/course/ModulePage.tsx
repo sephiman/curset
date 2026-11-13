@@ -7,6 +7,7 @@ import { Badge, Card, Spinner } from "@/components/ui/primitives";
 import { scopeKey, useCourse } from "@/features/courses/CourseContext";
 import { OneLineSummary } from "@/features/course/OneLineSummary";
 import { useCourseTree } from "@/features/course/queries";
+import { ExportPdfAction } from "@/features/pdfExport/ExportPdfAction";
 
 export function ModulePage() {
   const { t } = useTranslation();
@@ -36,15 +37,24 @@ export function ModulePage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <Link to={path()} className="text-sm text-primary hover:underline">
-          ← {t("nav.course")}
-        </Link>
-        <h1 className="mt-2 text-2xl font-bold">{module.title}</h1>
-        <p className="mt-1 text-gray-500 dark:text-gray-400">{module.summary}</p>
-        {timeLeft !== null && (
-          <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">{timeLeft}</p>
-        )}
+      <div className="flex items-start justify-between gap-3">
+        <div>
+          <Link to={path()} className="text-sm text-primary hover:underline">
+            ← {t("nav.course")}
+          </Link>
+          <h1 className="mt-2 text-2xl font-bold">{module.title}</h1>
+          <p className="mt-1 text-gray-500 dark:text-gray-400">{module.summary}</p>
+          {timeLeft !== null && (
+            <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">{timeLeft}</p>
+          )}
+        </div>
+        <div className="shrink-0 pt-7">
+          <ExportPdfAction
+            course={tree}
+            target={{ kind: "module", id: module.id, title: module.title }}
+            label={t("course.pdfActionModule")}
+          />
+        </div>
       </div>
 
       {module.unmetPrereqs.length > 0 && module.lessons.some((l) => !l.completed) && (

@@ -228,6 +228,45 @@ function PasswordForm() {
   );
 }
 
+/** «Incluir ejercicios al exportar PDF»: one switch for every course and every export scope. */
+function PdfExercisesSetting({ user }: { user: Me }) {
+  const { t } = useTranslation();
+  const { setPdfExercises } = useAuth();
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  async function toggle(include: boolean) {
+    setError(null);
+    setBusy(true);
+    try {
+      await setPdfExercises(include);
+      showToast(t("common.saved"), "success");
+    } catch (err) {
+      setError(apiErrorMessage(err, t));
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <div className="space-y-1">
+      <label className="flex min-h-11 items-center gap-3 font-semibold">
+        <input
+          type="checkbox"
+          role="switch"
+          checked={user.pdf_exercises}
+          disabled={busy}
+          onChange={(e) => void toggle(e.target.checked)}
+          className="h-5 w-5 accent-primary"
+        />
+        {t("account.pdfExercises")}
+      </label>
+      <p className="text-xs text-gray-500 dark:text-gray-400">{t("account.pdfExercisesHint")}</p>
+      {error && <p className="text-sm text-red-600 dark:text-red-400">{error}</p>}
+    </div>
+  );
+}
+
 export function AccountPage() {
   const { t } = useTranslation();
   const { user } = useAuth();
@@ -246,6 +285,9 @@ export function AccountPage() {
       </Card>
       <Card className="p-4">
         <PasswordForm />
+      </Card>
+      <Card className="p-4">
+        <PdfExercisesSetting user={user} />
       </Card>
       <Card className="space-y-2 p-4">
         <h2 className="font-semibold">{t("common.lessonWidth")}</h2>

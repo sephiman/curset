@@ -1,8 +1,7 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import type { CourseBlock, CourseModule } from "@/api/course";
-import { ExportPdfButton } from "@/features/course/ExportPdfButton";
 import { flattenLessons, resumeTarget, stepLabel } from "@/features/course/courseNav";
 import {
   blockLessons,
@@ -11,7 +10,10 @@ import {
   moduleLessons,
   remainingSeconds,
 } from "@/features/course/readingTime";
-import { Badge, Card, Spinner } from "@/components/ui/primitives";
+import { Badge, Button, Card, Spinner } from "@/components/ui/primitives";
+import { useExportPdf, type ExportTarget } from "@/features/pdfExport/useExportPdf";
+import { useHeaderAction } from "@/components/layout/headerChrome";
+import { usePhoneLayout } from "@/lib/viewport";
 import { cn } from "@/lib/cn";
 import { OneLineSummary } from "@/features/course/OneLineSummary";
 import { useCourse } from "@/features/courses/CourseContext";
@@ -28,7 +30,71 @@ function BlockReadingTime({ block }: { block: CourseBlock }) {
   return <span className="ml-2 font-normal normal-case">· {timeLeft}</span>;
 }
 
-function ModuleCard({ module, suggested }: { module: CourseModule; suggested: boolean }) {
+/** A module card's «⋯» menu: its bloque's PDF export. Above the card's stretched link, so it stays tappable. */
+function ModuleMenu({ module, onExport }: { module: CourseModule; onExport: (target: ExportTarget) => void }) {
+  const { t } = useTranslation();
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const onDoc = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("mousedown", onDoc);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onDoc);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
+  return (
+    <div ref={ref} className="relative z-10">
+      <button
+        type="button"
+        aria-haspopup="menu"
+        aria-expanded={open}
+        aria-label={t("course.moduleActions", { module: module.id.toUpperCase() })}
+        onClick={() => setOpen((v) => !v)}
+        className="-my-2 -mr-2 inline-flex h-11 w-11 items-center justify-center rounded-md text-lg text-gray-500 hover:bg-gray-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary dark:text-gray-400 dark:hover:bg-gray-800 oled:hover:bg-oled-hover"
+      >
+        <span aria-hidden="true">⋯</span>
+      </button>
+      {open && (
+        <div
+          role="menu"
+          className="absolute right-0 z-50 mt-1 w-56 max-w-[calc(100vw-2rem)] rounded-lg border border-border bg-white p-1 shadow-lg dark:border-gray-800 dark:bg-gray-900 oled:border-oled-line-strong oled:bg-oled-bg"
+        >
+          <button
+            type="button"
+            role="menuitem"
+            onClick={() => {
+              setOpen(false);
+              onExport({ kind: "module", id: module.id, title: module.title });
+            }}
+            className="w-full rounded-md px-3 py-2 text-left text-sm max-md:min-h-11 hover:bg-gray-100 dark:hover:bg-gray-800 oled:hover:bg-oled-hover"
+          >
+            {t("course.pdfActionModule")}
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ModuleCard({
+  module,
+  suggested,
+  onExport,
+}: {
+  module: CourseModule;
+  suggested: boolean;
+  onExport: (target: ExportTarget) => void;
+}) {
   const { t } = useTranslation();
   const { path } = useCourse();
   const complete = isComplete(module);
@@ -72,10 +138,11 @@ function ModuleCard({ module, suggested }: { module: CourseModule; suggested: bo
             heading
           )}
         </h3>
-        <div className="flex shrink-0 gap-1">
+        <div className="flex shrink-0 items-start gap-1">
           {suggested && <Badge tone="indigo">{t("course.suggestedNext")}</Badge>}
           {complete && <Badge tone="green">{t("course.completed")}</Badge>}
           {!module.hasContent && <Badge tone="neutral">{t("course.comingSoon")}</Badge>}
+          {module.hasContent && <ModuleMenu module={module} onExport={onExport} />}
         </div>
       </div>
       <OneLineSummary text={module.summary} className="mt-1 text-sm text-gray-500 dark:text-gray-400" />
@@ -111,6 +178,12 @@ export function CoursePage() {
   const { t } = useTranslation();
   const { path, scope } = useCourse();
   const { data: course, isLoading } = useCourseTree();
+  const pdf = useExportPdf(course);
+  const phone = usePhoneLayout();
+  // On phones the whole-course export sits in the header menu (N1); the module cards keep their own.
+  useHeaderAction(
+    phone && course ? { label: t("course.pdfAction"), run: () => pdf.open({ kind: "course", id: null, title: "" }) } : null,
+  );
 
   // Suggested next = the first module in canonical order that isn't fully completed, whether or not
   // its content is published yet. It always points somewhere until the whole course is done.
@@ -192,9 +265,17 @@ export function CoursePage() {
             </p>
           )}
         </div>
-        <div className="shrink-0">
-          <ExportPdfButton course={course.course} />
-        </div>
+        {!phone && (
+          <div className="shrink-0 sm:text-right">
+            <Button
+              variant="secondary"
+              onClick={() => pdf.open({ kind: "course", id: null, title: "" })}
+              title={t("course.pdfHint")}
+            >
+              {t("course.pdfAction")}
+            </Button>
+          </div>
+        )}
       </div>
       {course.started && resume && (
         <Link to={path(`/lessons/${resume.lessonId}`)} className="block">
@@ -224,7 +305,12 @@ export function CoursePage() {
           </h2>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             {block.modules.map((module) => (
-              <ModuleCard key={module.id} module={module} suggested={module.id === suggestedModuleId} />
+              <ModuleCard
+                key={module.id}
+                module={module}
+                suggested={module.id === suggestedModuleId}
+                onExport={pdf.open}
+              />
             ))}
           </div>
         </section>
@@ -232,6 +318,7 @@ export function CoursePage() {
       <p className="border-t border-border pt-4 text-xs text-gray-400 dark:border-gray-800 dark:text-gray-500 oled:border-oled-line">
         {t("course.prereqFootnote")}
       </p>
+      {pdf.dialog}
     </div>
   );
 }

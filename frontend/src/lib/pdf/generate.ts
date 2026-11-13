@@ -6,7 +6,15 @@ import {
   type CourseExport,
   type PrintExercises,
 } from "@/api/course";
-import { buildCourseDocument, type CapturedFigure, type PdfLabels } from "@/lib/pdf/document";
+import { getPrintQuestionnaire, type PrintQuestionnaire } from "@/api/printQuestionnaire";
+import {
+  buildCourseDocument,
+  type CapturedFigure,
+  type DocumentPart,
+  type PdfLabels,
+} from "@/lib/pdf/document";
+import type { PdfExerciseMode } from "@/lib/pdf/exerciseMode";
+import type { TemaCourse } from "@/lib/tema";
 import { captureExerciseCharts, chartExercises } from "@/lib/pdf/exerciseCharts";
 import type { OversizedBlock } from "@/lib/pdf/pagination";
 import { captureFigures } from "@/lib/pdf/figures";
@@ -47,8 +55,12 @@ export interface GenerateCoursePdfOptions {
   courseDescription: string;
   /** The course accent's paper shade, for its glyph on the cover; absent: the glyph prints in ink. */
   accentOnPaper?: string;
-  /** When false, in-lesson exercises and the answer key are omitted from the export. */
-  pdfExercises?: boolean;
+  /** A tema or bloque on its own; absent: the whole course. */
+  part?: DocumentPart;
+  /** The course tree, so every lesson reference prints as its label (N5); the pages already hold it. */
+  outline?: TemaCourse;
+  /** What prints besides the theory, resolved from the account switch and the course (`pdfExerciseMode`). */
+  exercises: PdfExerciseMode;
   labels: PdfLabels;
   /** Injected, never read from the clock in here. */
   date: Date;
@@ -60,8 +72,9 @@ export interface GenerateCoursePdfOptions {
   /** Reports boxes too tall for any page, which therefore had to break. Defaults to the console. */
   onOversizedBlocks?: (blocks: OversizedBlock[]) => void;
   /** Seams, so the orchestration is testable without a canvas or a server. */
-  fetchExport?: (scope: CourseScope) => Promise<CourseExport>;
+  fetchExport?: (scope: CourseScope, part?: string) => Promise<CourseExport>;
   fetchExercises?: (scope: CourseScope) => Promise<PrintExercises>;
+  fetchQuestionnaire?: (scope: CourseScope, part?: string) => Promise<PrintQuestionnaire>;
   captureAll?: (
     ids: string[],
     onProgress?: (p: { done: number; total: number }) => void,
@@ -81,9 +94,20 @@ function isoDay(date: Date): string {
   return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
 }
 
-/** Platform + course slug + locale + date, so a folder of exports sorts and reads sensibly. */
-export function pdfFilename(courseId: string, locale: string, date: Date): string {
-  return `${PLATFORM_NAME.toLowerCase()}-${courseId}-${locale}-${isoDay(date)}.pdf`;
+/** Platform + course slug + part (`m03`, `m03-l04`) + locale + date, so a folder of exports sorts and reads sensibly. */
+export function pdfFilename(courseId: string, locale: string, date: Date, partId?: string): string {
+  const name = [PLATFORM_NAME.toLowerCase(), courseId, partId, locale, isoDay(date)].filter(Boolean);
+  return `${name.join("-")}.pdf`;
+}
+
+/** The print set cut to the lessons this export prints, so charts are captured and keys built for those only. */
+function withinExport(exercises: PrintExercises, exported: CourseExport): PrintExercises {
+  const printed = new Set(exported.blocks.flatMap((b) => b.modules.flatMap((m) => m.lessons.map((l) => l.id))));
+  return {
+    ...exercises,
+    lessons: exercises.lessons.filter((lesson) => printed.has(lesson.lessonId)),
+    excluded: exercises.excluded.filter((item) => printed.has(item.lessonId)),
+  };
 }
 
 /** Names the boxes taller than a page. Not a failure — the book is still complete. */
@@ -123,17 +147,22 @@ export async function generateCoursePdf(o: GenerateCoursePdfOptions): Promise<Ge
   const fetchGlyph = o.fetchGlyph ?? fetchCourseGlyph;
   const fetchExport = o.fetchExport ?? getCourseExport;
   const fetchExercises = o.fetchExercises ?? getPrintExercises;
+  const fetchQuestionnaire = o.fetchQuestionnaire ?? getPrintQuestionnaire;
   const captureAll = o.captureAll ?? ((ids, onProgress) => captureFigures(o.scope, ids, onProgress));
   const captureCharts = o.captureCharts ?? captureExerciseCharts;
 
   o.onProgress?.({ phase: "export", done: 0, total: 0 });
-  const [exported, glyph] = await Promise.all([fetchExport(o.scope), fetchGlyph(o.scope.slug)]);
+  const [exported, glyph] = await Promise.all([fetchExport(o.scope, o.part?.id), fetchGlyph(o.scope.slug)]);
 
   let exercises: PrintExercises = { locale: o.scope.lang, lessons: [], excluded: [] };
-  if (o.pdfExercises !== false) {
+  let questionnaire: PrintQuestionnaire | undefined;
+  if (o.exercises === "inline") {
     o.onProgress?.({ phase: "exercises", done: 0, total: 0 });
-    exercises = await fetchExercises(o.scope);
+    exercises = withinExport(await fetchExercises(o.scope), exported);
     (o.onExcluded ?? reportExcluded)(exercises.excluded);
+  } else if (o.exercises === "questionnaire") {
+    o.onProgress?.({ phase: "exercises", done: 0, total: 0 });
+    questionnaire = await fetchQuestionnaire(o.scope, o.part?.id);
   }
 
   const ids = exported.blocks.flatMap((block) =>
@@ -170,8 +199,11 @@ export async function generateCoursePdf(o: GenerateCoursePdfOptions): Promise<Ge
     export: exported,
     figures,
     exercises,
-    pdfExercises: o.pdfExercises,
+    pdfExercises: o.exercises === "inline",
     exerciseCharts,
+    part: o.part,
+    outline: o.outline,
+    questionnaire,
     onOversizedBlock: (block) => oversized.push(block),
     labels: o.labels,
   });
@@ -187,7 +219,7 @@ export async function generateCoursePdf(o: GenerateCoursePdfOptions): Promise<Ge
   await renderPdf(definition);
   const blob = await renderPdf(definition);
   if (oversized.length > 0) (o.onOversizedBlocks ?? reportOversized)(oversized);
-  return { blob, filename: pdfFilename(o.courseId, o.scope.lang, o.date) };
+  return { blob, filename: pdfFilename(o.courseId, o.scope.lang, o.date, o.part?.id) };
 }
 
 /** Hand the finished document to the browser under its own name. */

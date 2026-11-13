@@ -44,6 +44,7 @@ class UserRead(BaseModel):
     name: str | None
     locale: str
     email_verified: bool = Field(validation_alias="is_verified")
+    pdf_exercises: bool
 
 
 class UserCreate(BaseModel):
@@ -72,6 +73,7 @@ class UserUpdate(BaseModel):
     name: str | None = None
     locale: Locale | None = None
     email: str | None = None
+    pdf_exercises: bool | None = None
 
     @field_validator("email")
     @classmethod

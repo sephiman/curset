@@ -3,71 +3,18 @@
 
 import type { Content, TDocumentDefinitions } from "pdfmake/interfaces";
 import type { CourseScope } from "@/api/client";
-import type { GeneratedTable } from "@/api/exercises";
 import {
   getExamPrint,
   type ExamPrintCase,
   type ExamPrintData,
   type ExamPrintKey,
   type ExamPrintKeyGroup,
-  type ExamPrintOption,
   type ExamPrintPart,
-  type ExamPrintQuestion,
 } from "@/api/exams";
 import type { GeneratedPdf } from "@/lib/pdf/generate";
 import { DEFAULT_STYLE, PAGE, PRINT, PRINT_STYLES } from "@/lib/pdf/page";
+import { questionBlock } from "@/lib/pdf/questionBlock";
 import { loadPdfMake } from "@/lib/pdf/runtime";
-
-function optionRow(opt: ExamPrintOption): Content {
-  return {
-    columns: [
-      { text: `${opt.letter})`, width: 18, color: PRINT.muted, bold: true },
-      { text: opt.text, width: "*" },
-    ],
-    columnGap: 4,
-    margin: [6, 1, 0, 2],
-  };
-}
-
-function tableBlock(table: GeneratedTable): Content {
-  return {
-    stack: [
-      { text: table.title, bold: true, fontSize: 8.5, margin: [30, 2, 0, 2] },
-      {
-        table: {
-          headerRows: 1,
-          widths: table.header.map(() => "auto"),
-          body: [
-            table.header.map((cell) => ({ text: cell, bold: true, fontSize: 8 })),
-            ...table.rows.map((row) => row.map((cell) => ({ text: cell, fontSize: 8 }))),
-          ],
-        },
-        layout: "lightHorizontalLines",
-        margin: [30, 0, 0, 4],
-      },
-    ],
-  };
-}
-
-function questionBlock(q: ExamPrintQuestion): Content {
-  const label = q.reserve ? `${q.number} (Reserva)` : q.number;
-  return {
-    stack: [
-      {
-        columns: [
-          { text: `${label}.`, width: 26, bold: true, color: PRINT.heading },
-          { text: q.prompt, width: "*", bold: false },
-        ],
-        columnGap: 4,
-        margin: [0, 4, 0, 4],
-      },
-      ...(q.table ? [tableBlock(q.table)] : []),
-      ...q.options.map(optionRow),
-    ],
-    unbreakable: true,
-    margin: [0, 2, 0, 6],
-  };
-}
 
 function caseBlock(c: ExamPrintCase, caseIdx: number): Content {
   return {

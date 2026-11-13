@@ -4,6 +4,7 @@ import { load } from "js-yaml";
 import type { CourseExport, GlossaryEntry } from "@/api/course";
 import type { CapturedFigure } from "@/lib/pdf/document";
 import { FONT_DIR, PRINT_FONT_FILES } from "@/lib/pdf/fonts";
+import type { TemaCourse } from "@/lib/tema";
 import { testPng } from "@/test/png";
 
 /**
@@ -95,6 +96,9 @@ export interface Manifest {
     description: LocalizedText;
     languages: Locale[];
     status: "draft" | "published";
+    lesson_practice?: boolean;
+    lesson_noun?: Partial<LocalizedText>;
+    pdf_exercises?: boolean;
   };
   blocks: ManifestBlock[];
 }
@@ -380,4 +384,34 @@ export async function glyphFromContent(slug: string): Promise<string | null> {
   if (!existsSync(dir)) return null;
   const [file] = readdirSync(dir).filter((name) => name.endsWith(".svg"));
   return file ? readFileSync(resolve(dir, file), "utf8") : null;
+}
+
+/** The course tree the app would hand the PDF export, read off the manifest (orders are 1-based positions). */
+export function outlineFromManifest(manifest: Manifest, locale: Locale): TemaCourse {
+  return {
+    course: { lessonNoun: manifest.course.lesson_noun?.[locale] ?? null },
+    blocks: manifest.blocks.map((block) => ({
+      modules: block.modules.map((module, m) => ({
+        id: module.id,
+        order: m + 1,
+        lessons: (module.lessons ?? []).map((lesson, l) => ({ id: lesson.id, order: l + 1, title: lesson.title[locale] })),
+      })),
+    })),
+  };
+}
+
+/** What `/export?scope=<module or lesson id>` serves, cut from the whole-course export. */
+export function exportPart(doc: CourseExport, part: { kind: "module" | "lesson"; id: string }): CourseExport {
+  const keep = (moduleId: string, lessonId: string) => (part.kind === "module" ? moduleId === part.id : lessonId === part.id);
+  return {
+    ...doc,
+    blocks: doc.blocks
+      .map((block) => ({
+        ...block,
+        modules: block.modules
+          .map((module) => ({ ...module, lessons: module.lessons.filter((lesson) => keep(module.id, lesson.id)) }))
+          .filter((module) => module.lessons.length > 0),
+      }))
+      .filter((block) => block.modules.length > 0),
+  };
 }

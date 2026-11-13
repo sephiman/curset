@@ -156,6 +156,8 @@ async def update_me(
         user = await user_manager.set_locale(user, payload.locale)
     if "name" in payload.model_fields_set:
         user = await user_manager.set_name(user, payload.name)
+    if payload.pdf_exercises is not None:
+        user = await user_manager.set_pdf_exercises(user, payload.pdf_exercises)
     if payload.email is not None and payload.email != user.email:
         user = await email_verification.change_email(
             session, user, payload.email, mailer=mailer, public_url=settings.app_public_url

@@ -4,6 +4,8 @@ import { useTranslation } from "react-i18next";
 import type { Me } from "@/api/auth";
 import { useAuth } from "@/auth/AuthContext";
 import { LanguageControl, LessonWidthControl, ThemeControl } from "@/components/layout/controls";
+import { useHeaderActionTarget } from "@/components/layout/headerChrome";
+import { usePhoneLayout } from "@/lib/viewport";
 import { Button } from "@/components/ui/primitives";
 
 function displayName(user: Me): string {
@@ -22,6 +24,9 @@ export function AccountMenu({ user }: { user: Me }) {
   const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  // On phones the page's own action (its PDF export) lives here rather than on the page.
+  const pageAction = useHeaderActionTarget();
+  const phone = usePhoneLayout();
 
   useEffect(() => {
     if (!open) return;
@@ -81,6 +86,19 @@ export function AccountMenu({ user }: { user: Me }) {
           </div>
 
           <div className="space-y-3">
+            {phone && pageAction && (
+              <Button
+                role="menuitem"
+                variant="secondary"
+                onClick={() => {
+                  setOpen(false);
+                  pageAction.run();
+                }}
+                className="w-full"
+              >
+                {pageAction.label}
+              </Button>
+            )}
             <div>
               <p className="mb-1 px-1 text-xs text-gray-500 dark:text-gray-400">{t("common.language")}</p>
               <LanguageControl block />

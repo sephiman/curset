@@ -1,9 +1,12 @@
 import identity from "@/assets/identity/identity.json";
 import markSource from "@/assets/identity/curset-mark-mono.svg?raw";
+import wordmarkSource from "@/assets/identity/curset-wordmark-mono.svg?raw";
 
 /** The cover's drawings as SVG markup, already painted: pdfmake does not resolve currentColor. */
 export interface CoverArt {
   mark: string;
+  /** The monochrome wordmark a tema's or bloque's running footer carries. */
+  wordmark?: string;
   /** The course glyph in its accent; absent for a course without one. */
   glyph?: string;
 }
@@ -16,5 +19,6 @@ export function paint(svg: string, colour: string): string {
 export function coverArt(glyphSource: string | null, accentOnPaper: string | undefined): CoverArt {
   const ink = identity.colors.ink;
   const mark = paint(markSource, ink);
-  return glyphSource ? { mark, glyph: paint(glyphSource, accentOnPaper ?? ink) } : { mark };
+  const wordmark = paint(wordmarkSource, ink);
+  return glyphSource ? { mark, wordmark, glyph: paint(glyphSource, accentOnPaper ?? ink) } : { mark, wordmark };
 }

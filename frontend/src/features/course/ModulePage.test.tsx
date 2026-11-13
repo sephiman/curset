@@ -28,6 +28,8 @@ const MODULE = {
 vi.mock("@tanstack/react-query", () => ({
   useQuery: () => ({ data: MODULE, isLoading: false }),
 }));
+// The bloque's PDF export has its own suite (ExportPdfAction.test.tsx); this one reads the times.
+vi.mock("@/features/pdfExport/ExportPdfAction", () => ({ ExportPdfAction: () => null }));
 
 /** The real EN catalog, interpolated: the test asserts the strings a reader actually sees. */
 function translate(key: string, params?: Record<string, unknown>): string {

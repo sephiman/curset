@@ -2,9 +2,16 @@
 // Typesetting is pure bytes in, bytes out: no DOM, and — importantly — node's own Buffer/zlib rather
 // than jsdom's realm, where pdfkit's `src instanceof Uint8Array` font check silently fails.
 import { describe, expect, it } from "vitest";
-import type { NodeQueries, TDocumentDefinitions } from "pdfmake/interfaces";
+import type { Content, NodeQueries, TDocumentDefinitions } from "pdfmake/interfaces";
 import type { CourseExport, PrintExercises } from "@/api/course";
-import { PRINT_FONTS, buildCourseDocument, type CapturedFigure } from "@/lib/pdf/document";
+import {
+  PRINT_FONTS,
+  answerEntries,
+  buildCourseDocument,
+  exerciseBlocks,
+  lessonSections,
+  type CapturedFigure,
+} from "@/lib/pdf/document";
 import { createSectionTracker, type SectionTracker } from "@/lib/pdf/sections";
 import {
   MIN_BODY_HEIGHT,
@@ -40,11 +47,36 @@ import { printExercisesFromContent, stubExerciseCharts } from "@/test/printExerc
 import { testPdfLabels } from "@/test/printLabels";
 
 /**
- * The whole course, both languages, typeset by pdfmake into a real PDF.
+ * The whole course, both languages, through the real export pipeline.
  *
- * Two stand-ins: the figure bitmaps (canvas needs a browser) and the PDF writer. The layout engine,
- * document and pagination are the real ones.
+ * In CI the typesetter is a stand-in that keeps the document definition, and every assertion that can be
+ * made on it is (delta N8: no CI test renders a real PDF). With `PDF_SMOKE=1` pdfmake typesets the book
+ * for real and the byte- and layout-level checks run too:
+ *   PDF_SMOKE=1 npx vitest run src/lib/pdf/render.test.ts
+ * The figure bitmaps are stand-ins either way (canvas needs a browser).
  */
+
+const REAL_RENDER = Boolean(process.env.PDF_SMOKE);
+/** Byte and layout checks: only when the book is really typeset. */
+const itRendered = it.runIf(REAL_RENDER);
+const describeRendered = describe.runIf(REAL_RENDER);
+
+type Render = (definition: TDocumentDefinitions) => Promise<Blob>;
+
+/** pdfmake on request; otherwise the definition is handed to `keep` and a placeholder file returned. */
+async function typesetter(keep: (definition: TDocumentDefinitions) => void = () => undefined): Promise<Render> {
+  if (!REAL_RENDER) {
+    return async (definition) => {
+      keep(definition);
+      return new Blob(["%PDF-"], { type: "application/pdf" });
+    };
+  }
+  const pdfmake = await nodePdfMake();
+  return async (definition) => {
+    keep(definition);
+    return new Blob([new Uint8Array(await pdfmake.createPdf(definition).getBuffer())], { type: "application/pdf" });
+  };
+}
 
 async function nodePdfMake() {
   const pdfmake = (await import("pdfmake")).default;
@@ -57,6 +89,24 @@ function mapFontsToPaths(): Record<string, string> {
   const paths = printFontPaths();
   const family = PRINT_FONTS[Object.keys(PRINT_FONTS)[0] as keyof typeof PRINT_FONTS];
   return Object.fromEntries(Object.entries(family).map(([variant, file]) => [variant, paths[file]]));
+}
+
+/** Every value a key takes anywhere in a definition, in document order. */
+function valuesOf(
+  node: unknown,
+  key: string,
+  found: unknown[] = [],
+  seen = new WeakSet<object>(),
+  where: (node: object) => boolean = () => true,
+): unknown[] {
+  if (typeof node !== "object" || node === null || seen.has(node)) return found;
+  seen.add(node);
+  if (Array.isArray(node)) node.forEach((child) => valuesOf(child, key, found, seen, where));
+  else {
+    if (key in node && where(node)) found.push((node as Record<string, unknown>)[key]);
+    Object.values(node).forEach((child) => valuesOf(child, key, found, seen, where));
+  }
+  return found;
 }
 
 /** An exercise chart's stand-in bitmap, the size a real capture produces. */
@@ -74,6 +124,7 @@ interface Run {
   generated: GeneratedPdf;
   progress: GenerateProgress[];
   bytes: Uint8Array;
+  definition: TDocumentDefinitions;
 }
 
 async function generate(
@@ -83,7 +134,10 @@ async function generate(
 ): Promise<Run> {
   const course = readManifest().course;
   const progress: GenerateProgress[] = [];
-  const pdfmake = await nodePdfMake();
+  let definition: TDocumentDefinitions | null = null;
+  const render = await typesetter((built) => {
+    definition = built;
+  });
   const exercises = printed ?? printExercisesFromContent(locale);
   const generated = await generateCoursePdf({
     scope: { slug: course.id, lang: locale },
@@ -92,6 +146,8 @@ async function generate(
     courseTitle: course.title[locale],
     courseSubtitle: course.subtitle[locale],
     courseDescription: course.description[locale],
+    // The account switch on: today's book, exercises and answer key included.
+    exercises: "inline",
     labels: testPdfLabels(locale),
     date: new Date(2026, 7, 3),
     onProgress: (p) => progress.push(p),
@@ -105,15 +161,14 @@ async function generate(
       onProgress?.({ done: charts.length, total: charts.length });
       return stubExerciseCharts(exercises, STUB_CHART_PNG);
     },
-    renderPdf: async (definition: TDocumentDefinitions) =>
-      new Blob([new Uint8Array(await pdfmake.createPdf(definition).getBuffer())], {
-        type: "application/pdf",
-      }),
+    renderPdf: render,
   });
+  if (!definition) throw new Error("nothing was typeset");
   return {
     generated,
     progress,
     bytes: new Uint8Array(await generated.blob.arrayBuffer()),
+    definition,
   };
 }
 
@@ -129,7 +184,19 @@ function generateOnce(locale: Locale): Promise<Run> {
 }
 
 describe.each(LOCALES)("the generated PDF (%s)", (locale) => {
-  it("is a valid PDF with a page for the cover, the contents, every lesson and the answer key", async () => {
+  it("opens with the cover and the contents, gives every lesson its own page and ends with the key", async () => {
+    const { definition } = await generateOnce(locale);
+    const content = definition.content as Content[];
+    expect(valuesOf(content[0], "svg").length).toBeGreaterThan(0); // the cover's mark
+    expect(content[1]).toMatchObject({ pageBreak: "before" });
+    expect(Object.keys(content[1] as object)).toContain("toc");
+    const sections = lessonSections(definition);
+    expect(sections.map((s) => s.lessonId)).toEqual(manifestLessons().map((l) => l.id));
+    expect(sections.every((s) => s.pageBreak === "before")).toBe(true);
+    expect(JSON.stringify(content[content.length - 1])).toContain(testPdfLabels(locale).answerKey);
+  }, 300_000);
+
+  itRendered("is a valid PDF with a page for the cover, the contents, every lesson and the answer key", async () => {
     const { generated, bytes } = await generateOnce(locale);
     expect(new TextDecoder().decode(bytes.subarray(0, 5))).toBe("%PDF-");
     // Cover + contents + at least one page per lesson + at least one for the key at the back.
@@ -164,7 +231,26 @@ describe.each(LOCALES)("the generated PDF (%s)", (locale) => {
     expect(progress.find((p) => p.phase === "charts")?.total).toBe(charts.length);
   }, 300_000);
 
-  it("carries no exercise id in its bytes — the book speaks in numbers", async () => {
+  it("puts no exercise id where it would print or be written as a name — the book speaks in numbers", async () => {
+    // What reaches the file: printed text, destination names (pdfmake writes one only for an id on a
+    // text node; a stack's id is the keep-whole rule's handle), bookmark labels, the info dictionary.
+    // `exerciseId`/`answerFor` are the tests' own markers, which pdfmake ignores.
+    const { definition } = await generateOnce(locale);
+    const textNodeIds = valuesOf(definition.content, "id", [], new WeakSet(), (node) => "text" in node);
+    const written = [
+      ...valuesOf(definition.content, "text"),
+      ...textNodeIds,
+      ...valuesOf(definition.content, "linkToDestination"),
+      ...valuesOf(definition.content, "outlineText"),
+      ...Object.values(definition.info ?? {}),
+    ]
+      .flat(Infinity)
+      .filter((value): value is string => typeof value === "string")
+      .join("\n");
+    expect(manifestExerciseIds().filter((id) => new RegExp(`\\b${id}\\b`).test(written))).toEqual([]);
+  }, 300_000);
+
+  itRendered("carries no exercise id in its bytes — the book speaks in numbers", async () => {
     // The printed label is `11.5`, derived from `m11-ex-5`; the id itself is a database key and has no
     // business on a page. Ids are ASCII, so one in the metadata or an uncompressed stream shows here.
     // (Which exercises are printed, and that each has exactly one answer, is asserted on the built
@@ -175,7 +261,8 @@ describe.each(LOCALES)("the generated PDF (%s)", (locale) => {
     expect(manifestExerciseIds().filter((id) => text.includes(id))).toEqual([]);
   }, 300_000);
 
-  it("ships a real outline and real link annotations, not just a definition that asks for them", async () => {
+  // That the definition asks for them is `navigation.test.ts`; only the bytes prove pdfmake wrote them.
+  itRendered("ships a real outline and real link annotations, not just a definition that asks for them", async () => {
     // `navigation.test.ts` proves the document ASKS for these; only the bytes prove pdfmake wrote
     // them. Outline dictionaries and link annotations are objects, so they survive stream compression.
     const { bytes } = await generateOnce(locale);
@@ -190,7 +277,28 @@ describe.each(LOCALES)("the generated PDF (%s)", (locale) => {
     expect([...text.matchAll(/\/GoTo/g)].length).toBeGreaterThan(600);
   }, 300_000);
 
-  it("grows by the exercises: more pages than the same book without them", async () => {
+  it("grows by the exercises: each lesson's exercises after its prose, and the key at the back", async () => {
+    // Built here rather than read off a run: once pdfmake has laid a definition out it is cyclic.
+    const book = (exercises: PrintExercises) =>
+      buildCourseDocument({
+        courseTitle: "T",
+        courseSubtitle: "S",
+        courseDescription: "D",
+        export: courseExportFromContent(locale),
+        figures: stubFigures(figureDirectives(locale)),
+        exercises,
+        exerciseCharts: stubExerciseCharts(exercises, STUB_CHART_PNG),
+        labels: testPdfLabels(locale),
+      });
+    const withExercises = book(printExercisesFromContent(locale));
+    const without = book({ locale, lessons: [], excluded: [] });
+    expect(exerciseBlocks(withExercises).length).toBeGreaterThan(0);
+    expect(answerEntries(withExercises).length).toBe(exerciseBlocks(withExercises).length);
+    expect(exerciseBlocks(without)).toEqual([]);
+    expect(JSON.stringify(without.content)).not.toContain(testPdfLabels(locale).answerKey);
+  }, 600_000);
+
+  itRendered("grows by the exercises: more pages than the same book without them", async () => {
     const { bytes } = await generateOnce(locale);
     const withoutExercises = await generate(locale, undefined, {
       locale,
@@ -208,7 +316,62 @@ describe.each(LOCALES)("the generated PDF (%s)", (locale) => {
  * before they are fixed. The second keeps the inserted breaks, clears the "already decided" flags, and
  * observes every node at its final position.
  */
-describe.each(LOCALES)("the printed pages (%s)", (locale) => {
+/** What the book declares about its sections and headings, without laying it out. */
+describe.each(LOCALES)("the book's sections and headings (%s)", (locale) => {
+  const doc = () =>
+    buildCourseDocument({
+      courseTitle: "T",
+      courseSubtitle: readManifest().course.subtitle[locale],
+      courseDescription: "D",
+      export: courseExportFromContent(locale),
+      figures: stubFigures(figureDirectives(locale)),
+      exercises: printExercisesFromContent(locale),
+      exerciseCharts: stubExerciseCharts(printExercisesFromContent(locale), STUB_CHART_PNG),
+      labels: testPdfLabels(locale),
+    });
+
+  it("opens a footer section at every block, then the glossary, then the answer key, in that order", () => {
+    const sections = createSectionTracker();
+    const declared: string[] = [];
+    buildCourseDocument({
+      sections: {
+        ...sections,
+        declare: (id, title) => {
+          declared.push(title);
+          sections.declare(id, title);
+        },
+      },
+      courseTitle: "T",
+      courseSubtitle: "S",
+      courseDescription: "D",
+      export: courseExportFromContent(locale),
+      figures: stubFigures(figureDirectives(locale)),
+      exercises: printExercisesFromContent(locale),
+      exerciseCharts: stubExerciseCharts(printExercisesFromContent(locale), STUB_CHART_PNG),
+      labels: testPdfLabels(locale),
+    });
+    expect(declared).toEqual([
+      ...readManifest().blocks.map((block) => block.title[locale]),
+      testPdfLabels(locale).glossary,
+      testPdfLabels(locale).answerKey,
+    ]);
+  });
+
+  it("leaves the cover without a footer and names the book on every other page", () => {
+    const built = doc();
+    const footer = built.footer as (page: number, count: number) => { columns?: { text?: string }[]; text?: string };
+    expect(footer(1, 9).text).toBe("");
+    expect(footer(2, 9).columns?.[0]?.text).toBe(`Curset · ${readManifest().course.subtitle[locale]}`);
+  });
+
+  it("declares well over a hundred headings, every one under the keep-with-body rule", () => {
+    const built = doc();
+    expect(valuesOf(built.content, "headlineLevel").length).toBeGreaterThan(100);
+    expect(typeof built.pageBreakBefore).toBe("function");
+  });
+});
+
+describeRendered.each(LOCALES)("the printed pages (%s)", (locale) => {
   /** Walk the document's OWN container keys — pdfmake's post-layout internals are cyclic. */
   function walk(node: unknown, visit: (n: Record<string, unknown>) => void): void {
     if (Array.isArray(node)) {
@@ -322,7 +485,9 @@ describe.each(LOCALES)("the printed pages (%s)", (locale) => {
     return { observed, moved, oversized, sections, doc };
   }
 
-  const laid = layout();
+  // Laid out on first use: a skipped describe still runs its body to collect the tests.
+  let laidOut: ReturnType<typeof layout> | null = null;
+  const laid = { then: <T,>(next: (value: Awaited<ReturnType<typeof layout>>) => T) => (laidOut ??= layout()).then(next) };
 
   it("never leaves a heading stranded at the foot of a page", async () => {
     const { observed } = await laid;
@@ -433,7 +598,32 @@ describe("pagination in the produced file", () => {
     ],
   };
 
-  it("gives every lesson a page of its own, however short the lesson is", async () => {
+  it("starts every lesson on a page of its own, however short the lesson is", async () => {
+    let definition: TDocumentDefinitions | null = null;
+    await generateCoursePdf({
+      scope: { slug: "tiny", lang: "en" },
+      fetchGlyph: glyphFromContent,
+      courseId: "tiny",
+      courseTitle: "T",
+      courseSubtitle: "S",
+      courseDescription: "D",
+      exercises: "none",
+      labels: testPdfLabels("en"),
+      date: new Date(2026, 7, 3),
+      fetchExport: async () => tiny,
+      captureAll: async () => new Map(),
+      captureCharts: async () => new Map(),
+      renderPdf: await typesetter((built) => {
+        definition = built;
+      }),
+    });
+    if (!definition) throw new Error("nothing was typeset");
+    const sections = lessonSections(definition);
+    expect(sections).toHaveLength(tiny.blocks[0].modules.length);
+    expect(sections.every((s) => s.pageBreak === "before")).toBe(true);
+  });
+
+  itRendered("gives every lesson a page of its own, however short the lesson is", async () => {
     const pdfmake = await nodePdfMake();
     const { blob } = await generateCoursePdf({
       scope: { slug: "tiny", lang: "en" },
@@ -442,6 +632,7 @@ describe("pagination in the produced file", () => {
       courseTitle: "T",
       courseSubtitle: "S",
       courseDescription: "D",
+      exercises: "none",
       labels: testPdfLabels("en"),
       date: new Date(2026, 7, 3),
       fetchExport: async () => tiny,
@@ -473,7 +664,6 @@ describe("a course without figures (the Spanish-only test course)", () => {
   const course = courseContent(`${FIXTURE_CONTENT_ROOT}/fixture-oposiciones`);
 
   it("prints with no capture phase at all, and says so instead of reporting 0 of 0", async () => {
-    const pdfmake = await nodePdfMake();
     const progress: GenerateProgress[] = [];
     const skipped: string[] = [];
     const meta = course.manifest().course;
@@ -484,6 +674,8 @@ describe("a course without figures (the Spanish-only test course)", () => {
       courseTitle: meta.title.es,
       courseSubtitle: meta.subtitle.es,
       courseDescription: meta.description.es,
+      // The switch off: theory only, so there is no exercise phase either.
+      exercises: "none",
       labels: testPdfLabels("es"),
       date: new Date(2026, 9, 4),
       onProgress: (p) => progress.push(p),
@@ -497,16 +689,15 @@ describe("a course without figures (the Spanish-only test course)", () => {
       captureCharts: async () => {
         throw new Error("a course without exercise charts must never reach chart capture");
       },
-      renderPdf: async (definition) =>
-        new Blob([new Uint8Array(await pdfmake.createPdf(definition).getBuffer())]),
+      renderPdf: await typesetter(),
     });
 
     expect(course.languages).toEqual(["es"]);
     expect(course.figureDirectives("es")).toEqual([]);
-    expect(progress.map((p) => p.phase)).toEqual(["export", "exercises", "typeset"]);
+    expect(progress.map((p) => p.phase)).toEqual(["export", "typeset"]);
     expect(skipped).toEqual([`fixture-oposiciones: ${NO_FIGURES}`, `fixture-oposiciones: ${NO_CHARTS}`]);
     expect(generated.filename).toBe("curset-fixture-oposiciones-es-2026-10-04.pdf");
-    expect(pageCount(new Uint8Array(await generated.blob.arrayBuffer()))).toBeGreaterThan(1);
+    if (REAL_RENDER) expect(pageCount(new Uint8Array(await generated.blob.arrayBuffer()))).toBeGreaterThan(1);
   }, 120_000);
 });
 
@@ -528,7 +719,6 @@ const DRAFTS = allCourses(CONTENT_ROOT).filter((course) => course.manifest().cou
 
 describe.each(DRAFTS.map((course) => [course.slug, course] as const))("the draft course %s", (slug, course) => {
   it.each(course.languages)("prints every lesson under its title, with no capture phase (%s)", async (locale) => {
-    const pdfmake = await nodePdfMake();
     const skipped: string[] = [];
     let titles: string[] = [];
     const meta = course.manifest().course;
@@ -539,6 +729,7 @@ describe.each(DRAFTS.map((course) => [course.slug, course] as const))("the draft
       courseTitle: meta.title[locale],
       courseSubtitle: meta.subtitle[locale],
       courseDescription: meta.description[locale],
+      exercises: "none",
       labels: testPdfLabels(locale),
       date: new Date(2026, 9, 16),
       onSkipped: (line) => skipped.push(line),
@@ -550,15 +741,16 @@ describe.each(DRAFTS.map((course) => [course.slug, course] as const))("the draft
       captureCharts: async () => {
         throw new Error("a course without exercise charts must never reach chart capture");
       },
-      renderPdf: async (built) => {
-        // The document renders twice; the second pass sees what the first one's layout did to it.
+      // The document renders twice; the second pass sees what the first one's layout did to it.
+      renderPdf: await typesetter((built) => {
         if (titles.length === 0) titles = tocLessonTitles(built.content);
-        return new Blob([new Uint8Array(await pdfmake.createPdf(built).getBuffer())]);
-      },
+      }),
     });
 
     expect(skipped).toEqual([`${slug}: ${NO_FIGURES}`, `${slug}: ${NO_CHARTS}`]);
     expect(titles).toEqual(course.lessons().map((lesson) => lesson.title[locale]));
-    expect(pageCount(new Uint8Array(await generated.blob.arrayBuffer()))).toBeGreaterThan(course.lessons().length);
+    if (REAL_RENDER) {
+      expect(pageCount(new Uint8Array(await generated.blob.arrayBuffer()))).toBeGreaterThan(course.lessons().length);
+    }
   }, 300_000);
 });

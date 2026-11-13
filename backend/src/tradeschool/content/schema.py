@@ -128,7 +128,7 @@ class ManifestCourse(BaseModel):
     practice_scheduler: Literal["spaced"] | None = None
     #: How multiple-choice options are labelled (`letters` for A-D; absent for no labels).
     option_labels: Literal["letters"] | None = None
-    #: Whether the course PDF export prints in-lesson exercises and the answer key; false for theory only.
+    #: Whether the course can print exercises in its PDF at all; the account switch decides whether it does.
     pdf_exercises: bool = True
     #: The course's symbol, `identity/<glyph>.svg` in its directory; absent: the course shows none.
     glyph: str | None = Field(default=None, pattern=r"^[a-z0-9-]+$")

@@ -669,6 +669,54 @@ no section. The footer starts with the platform name: `Curset · <subtitle> · <
 printed in the course's reading language, labels included. A course without figures or charts skips
 the capture phases entirely instead of reporting "0 of 0".
 
+### A tema or a bloque on its own, and the exercises switch
+
+The same book can be printed for one part of the course (delta N). **Exportar PDF** on a lesson page
+prints that tema, **Exportar PDF del bloque** on a module page (and in the «⋯» menu of each module card
+on the course page) prints that module; the whole-course button stays where it was. On phones the
+page's own export (lesson, module or course) sits in the avatar menu; the module cards keep theirs. Every export opens a dialog naming what it prints,
+with one line — «Con ejercicios» or «Solo teoría» — and a link to the setting; the progress line names
+the scope.
+
+* **Request.** `GET /courses/<slug>/export?lang=es&scope=m03` (or `scope=m03-l04`) serves only that
+  module or lesson inside its block; an id the course lacks is `404 EXPORT_SCOPE_NOT_FOUND`, a language
+  it lacks is the usual `404 LANGUAGE_NOT_AVAILABLE`. No `scope`: the whole course, unchanged.
+* **Document.** Cover with the platform mark, the course glyph and title, the bloque or tema title, the
+  language and date, and — for a course that keeps its norms — «Normativa consolidada a <fecha>» (the
+  latest date among the part's norms). Contents only when the part has more than one lesson. Lessons
+  exactly as in the book. A glossary of the terms the part's prose uses or teaches (plus their alias
+  targets). Footer: the monochrome wordmark, `<subtitle> · <section>` and «N de M». A reference to
+  another lesson prints, in every export, as that lesson's label — «tema IV.1 · <title>» for a course
+  with a lesson noun (`lessonReferenceLabel` in `lib/tema.ts`, the tema formatter's numbering), the
+  lesson's title otherwise — never as the id the prose was written with; inside the part it links to
+  its page, outside it is plain text. The content is not edited: the export page hands the builder the
+  course tree (`outline`) so lessons outside the part can be labelled. Glossary origins outside the
+  part print without a link. An id inside an inline code span (AEAT writes «el tema III.9 (`m03-l09`)»)
+  is code, not a reference, and prints as written.
+  Figures are captured only for the part's lessons.
+* **File name.** `curset-<course>-<m03 | m03-l04>-<locale>-<YYYY-MM-DD>.pdf`; the whole course keeps
+  `curset-<course>-<locale>-<YYYY-MM-DD>.pdf`.
+* **Exercises.** Cuenta › «Incluir ejercicios al exportar PDF» (`user.pdf_exercises`, default **off**
+  for new and existing accounts) applies to every course and scope. `course.yaml`'s `pdf_exercises`
+  only says whether a course *can* print exercises; crypto-futures, C1, C2 and AEAT declare `true`, and
+  the flag never turns exercises on by itself. With the switch on, crypto-futures prints the part's
+  exercises and answer key as the book always did; a course with a question bank (`lesson_practice`)
+  prints, after each tema, up to 20 of its questions drawn from a seed by
+  `GET /courses/<slug>/print/questionnaire?scope=…&seed=…` (stored single-choice questions only:
+  official and calibration items, cases and C2's generated psicotécnicos are never drawn), lettered A–D in
+  printed order, with a «Plantilla de respuestas» at the back citing each answer's article and the seed
+  in the footer. A tema draws the same questions on its own and inside its bloque. With the switch off,
+  every export is theory only.
+* **Tests.** The document definition is unit-tested (`scopedDocument.test.ts`, `generate.test.ts`,
+  `oposicionesExport.test.ts` for one tema of C1, C2 and AEAT with the switch off and on, printing the
+  questionnaire the backend pins in `frontend/src/test/fixtures/questionnaires/`; regenerate with
+  `REGEN_QUESTIONNAIRES=1 uv run pytest tests/test_pdf_export_scope.py`). No CI test renders a PDF:
+  `PDF_SMOKE=1 npx vitest run src/lib/pdf/scopeSmoke.test.ts src/lib/pdf/render.test.ts` typesets a tema,
+  a bloque and the whole fixture course, and the whole crypto-futures book with its pagination checks,
+  on request only; in CI `render.test.ts` asserts the same book on its definition. The e2e spec
+  (`e2e/pdf-export.spec.ts`) checks the buttons, the dialog line and the scope of the request, and
+  aborts that request.
+
 ### Navigating the book
 
 The PDF is navigable, not just printable, and every one of these is a pdfmake feature rather than a

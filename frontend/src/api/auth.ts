@@ -8,6 +8,8 @@ export interface Me {
   name: string | null;
   locale: Locale;
   email_verified: boolean;
+  /** «Incluir ejercicios al exportar PDF»: off by default, for every course and scope. */
+  pdf_exercises: boolean;
 }
 
 export async function getMe(): Promise<Me> {
@@ -37,6 +39,11 @@ export async function logout(): Promise<void> {
 
 export async function updateLocale(locale: Locale): Promise<Me> {
   const { data } = await apiClient.patch<Me>("/auth/me", { locale });
+  return data;
+}
+
+export async function updatePdfExercises(include: boolean): Promise<Me> {
+  const { data } = await apiClient.patch<Me>("/auth/me", { pdf_exercises: include });
   return data;
 }
 

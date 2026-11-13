@@ -65,6 +65,14 @@ describe("the file the reader gets", () => {
     );
   });
 
+  it("names a bloque or tema between the course and the language", () => {
+    const day = new Date(2026, 10, 13);
+    expect(pdfFilename("age-administrativo-c1", "es", day, "m03")).toBe("curset-age-administrativo-c1-m03-es-2026-11-13.pdf");
+    expect(pdfFilename("age-administrativo-c1", "es", day, "m03-l04")).toBe(
+      "curset-age-administrativo-c1-m03-l04-es-2026-11-13.pdf",
+    );
+  });
+
   it("downloads under that name", () => {
     const created: string[] = [];
     vi.stubGlobal("URL", {
@@ -92,8 +100,8 @@ describe("the file the reader gets", () => {
   });
 });
 
-describe("generating course PDF with pdfExercises: false", () => {
-  it("skips fetching exercises and passes pdfExercises to buildCourseDocument", async () => {
+describe("generating with the account's switch off", () => {
+  it("fetches no exercises and prints the theory only", async () => {
     const fetchExercises = vi.fn();
     const fetchExport = vi.fn().mockResolvedValue({
       locale: "es",
@@ -110,7 +118,7 @@ describe("generating course PDF with pdfExercises: false", () => {
       courseTitle: "Admin",
       courseSubtitle: "Subtitle",
       courseDescription: "Desc",
-      pdfExercises: false,
+      exercises: "none",
       labels: testPdfLabels("es"),
       date: new Date(2026, 9, 4),
       onProgress: (p) => progress.push(p),
@@ -122,5 +130,69 @@ describe("generating course PDF with pdfExercises: false", () => {
     expect(fetchExercises).not.toHaveBeenCalled();
     expect(progress.map((p) => p.phase)).toEqual(["export", "typeset"]);
     expect(generated.filename).toBe("curset-age-administrativo-c1-en-2026-10-04.pdf");
+  });
+});
+
+describe("a tema or bloque export", () => {
+  const EXPORT = {
+    locale: "es",
+    glossary: [],
+    blocks: [
+      {
+        id: "b",
+        title: "Bloque",
+        modules: [{ id: "m01", title: "Uno", summary: "", lessons: [{ id: "m01-l1", title: "T", markdown: "# T\n" }] }],
+      },
+    ],
+  };
+  const base = {
+    scope: { slug: "fixture-oposiciones", lang: "es" } as const,
+    fetchGlyph: async () => null,
+    courseId: "fixture-oposiciones",
+    courseTitle: "Oposiciones",
+    courseSubtitle: "Sub",
+    courseDescription: "D",
+    labels: testPdfLabels("es"),
+    date: new Date(2026, 10, 13),
+    renderPdf: async () => new Blob(["%PDF-"]),
+    // The test's module mock replaces the API; every fetch is injected, so none reaches it.
+    fetchExercises: async () => ({ locale: "es", lessons: [], excluded: [] }),
+  };
+
+  it("asks the server for its part only, and is named for it", async () => {
+    const fetchExport = vi.fn().mockResolvedValue(EXPORT);
+    const fetchQuestionnaire = vi.fn().mockResolvedValue({ seed: 5, locale: "es", temas: [] });
+    const generated = await generateCoursePdf({
+      ...base,
+      part: { kind: "lesson", id: "m01-l1", title: "M01-L1 · T" },
+      exercises: "questionnaire",
+      fetchExport,
+      fetchQuestionnaire,
+    });
+    expect(fetchExport).toHaveBeenCalledWith(base.scope, "m01-l1");
+    expect(fetchQuestionnaire).toHaveBeenCalledWith(base.scope, "m01-l1");
+    expect(generated.filename).toBe("curset-fixture-oposiciones-m01-l1-es-2026-11-13.pdf");
+  });
+
+  it("captures and keys only the printed lessons' exercises", async () => {
+    const outside = { lessonId: "m02-l1", exercises: [{ id: "m02-ex-1", isChart: true }] };
+    const inside = { lessonId: "m01-l1", exercises: [] };
+    const captureCharts = vi.fn().mockResolvedValue(new Map());
+    const excluded: string[] = [];
+    await generateCoursePdf({
+      ...base,
+      part: { kind: "module", id: "m01", title: "M01 · Uno" },
+      exercises: "inline",
+      fetchExport: async () => EXPORT,
+      fetchExercises: async () => ({
+        locale: "es",
+        lessons: [inside, outside] as never,
+        excluded: [{ id: "m02-ex-9", number: "2.9", type: "quiz", lessonId: "m02-l1", reason: "r" }] as never,
+      }),
+      captureCharts,
+      onExcluded: (items) => excluded.push(...items.map((item) => item.id)),
+    });
+    expect(captureCharts).not.toHaveBeenCalled();
+    expect(excluded).toEqual([]);
   });
 });

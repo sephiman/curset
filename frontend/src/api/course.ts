@@ -66,7 +66,7 @@ export interface CourseMeta {
   lessonPractice?: boolean;
   /** How multiple-choice options are labelled (`letters` for A-D; absent for no labels). */
   optionLabels?: "letters" | null;
-  /** Whether the course PDF export includes in-lesson exercises and answer key; false for theory only. */
+  /** False: the course cannot print exercises in its PDF, whatever the account switch says. */
   pdfExercises?: boolean;
   /** Published with no exercises and no exams yet: the Exámenes and Progreso pages show their default states. */
   theoryOnly?: boolean;
@@ -240,8 +240,12 @@ export interface CourseExport {
 }
 
 /** The single-locale export document. `lang` must be explicit — omitting it returns the bilingual one. */
-export async function getCourseExport(scope: CourseScope): Promise<CourseExport> {
-  const { data } = await apiClient.get<CourseExport>(courseUrl(scope, "/export"), inReadingLanguage(scope));
+/** `part` names a module or lesson id for a bloque or tema export; absent: the whole course. */
+export async function getCourseExport(scope: CourseScope, part?: string): Promise<CourseExport> {
+  const { data } = await apiClient.get<CourseExport>(
+    courseUrl(scope, "/export"),
+    inReadingLanguage(scope, part ? { scope: part } : {}),
+  );
   return data;
 }
 

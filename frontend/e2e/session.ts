@@ -9,10 +9,38 @@ export const CRYPTO = "crypto-futures";
 export const USER = { email: "e2e-mobile@example.com", password: "E2e-mobile-layout-2026!" };
 export const STATE_FILE = "e2e/.auth/state.json";
 
+/** The courses `signIn` leaves active. */
+export const ACTIVE = [AGE, CRYPTO, AGE_C2, AEAT];
+
 /** All four real courses active, `selected` the current one; the session itself comes from the global setup. */
 export async function signIn(page: Page, selected: string = AGE): Promise<void> {
-  const courses = await page.request.put("/api/me/courses", { data: { active: [AGE, CRYPTO, AGE_C2, AEAT], selected } });
+  const courses = await page.request.put("/api/me/courses", { data: { active: ACTIVE, selected } });
   expect(courses.ok(), await courses.text()).toBe(true);
+}
+
+export interface CatalogueCourse {
+  slug: string;
+  languages: string[];
+}
+
+/**
+ * The published courses the stack under test serves, as sign-up lists them. Counts are derived from it, so
+ * publishing a course changes no assertion.
+ */
+export async function catalogue(api: APIRequestContext): Promise<CatalogueCourse[]> {
+  const response = await api.get("/api/courses");
+  expect(response.ok(), await response.text()).toBe(true);
+  return (await response.json()) as CatalogueCourse[];
+}
+
+/** The courses in `language` only: each is listed with «Solo en <language>». */
+export function onlyIn(courses: CatalogueCourse[], language: string): CatalogueCourse[] {
+  return courses.filter((course) => course.languages.length === 1 && course.languages[0] === language);
+}
+
+/** The catalogue's courses `signIn` leaves active: what the course selector lists. */
+export function activeCourses(courses: CatalogueCourse[]): CatalogueCourse[] {
+  return courses.filter((course) => ACTIVE.includes(course.slug));
 }
 
 interface Sitting {

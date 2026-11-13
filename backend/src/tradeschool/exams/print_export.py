@@ -10,14 +10,44 @@ Generates a complete printable exam session with:
 from __future__ import annotations
 
 import secrets
+from dataclasses import dataclass
 from typing import Any
 
 from tradeschool.content.registry import CourseRegistry
 from tradeschool.exams.draw import DrawError, SeededRand, draw_part
 from tradeschool.exams.presets import ExamPreset
 from tradeschool.exercises.psicotecnico import PsicotecnicoConfig, build_item, option_id
-from tradeschool.exercises.quiz import QuizConfig, QuizGenerator
+from tradeschool.exercises.quiz import QuizConfig, QuizGenerator, QuizVariant
 from tradeschool.psicotecnico.registry import load_generator
+
+
+@dataclass(frozen=True)
+class LetteredQuestion:
+    """A single-choice question as printed: options lettered A-D in the order the seed shuffled them."""
+
+    prompt: str
+    options: list[dict[str, Any]]
+    table: object | None
+    correct_option_id: str
+    correct_letter: str
+
+
+def letter_quiz(
+    generator: QuizGenerator, config: QuizConfig, variant: QuizVariant, seed: int, locale: str
+) -> LetteredQuestion:
+    instance = generator.generate(config.only(variant.id) or config, seed, locale)
+    raw_opts = instance.payload.get("options", [])
+    assert isinstance(raw_opts, list)
+    shown: list[dict[str, Any]] = [o for o in raw_opts if isinstance(o, dict)]
+    correct = next(o for o in variant.options if o.correct)
+    correct_idx = next(i for i, o in enumerate(shown) if o["id"] == correct.id)
+    return LetteredQuestion(
+        prompt=instance.prompt,
+        options=[{"id": str(o["id"]), "letter": chr(65 + i), "text": o["text"]} for i, o in enumerate(shown)],
+        table=instance.payload.get("table"),
+        correct_option_id=correct.id,
+        correct_letter=chr(65 + correct_idx),
+    )
 
 
 def build_exam_print(
@@ -124,37 +154,24 @@ def build_exam_print(
                     else quiz_config.variants[0]
                 )
 
-                # Option letters
-                instance = quiz_gen.generate(quiz_config.only(variant.id) or quiz_config, dq.seed, locale)
-                raw_opts = instance.payload.get("options", [])
-                assert isinstance(raw_opts, list)
-                payload_opts: list[dict[str, Any]] = [o for o in raw_opts if isinstance(o, dict)]
-                opts_with_letters = [
-                    {"id": str(o["id"]), "letter": chr(65 + i), "text": o["text"]}
-                    for i, o in enumerate(payload_opts)
-                ]
-
-                correct_opt = next(o for o in variant.options if o.correct)
-                correct_idx = next(i for i, o in enumerate(payload_opts) if o["id"] == correct_opt.id)
-                correct_letter = chr(65 + correct_idx)
-
+                lettered = letter_quiz(quiz_gen, quiz_config, variant, dq.seed, locale)
                 q_num = str(index)
                 printed_question: dict[str, Any] = {
                     "id": f"{dq.exercise_id}/{variant.id}",
                     "number": q_num,
                     "reserve": dq.reserve,
-                    "prompt": instance.prompt,
-                    "options": opts_with_letters,
+                    "prompt": lettered.prompt,
+                    "options": lettered.options,
                 }
-                if "table" in instance.payload:
-                    printed_question["table"] = instance.payload["table"]
+                if lettered.table is not None:
+                    printed_question["table"] = lettered.table
                 part_questions.append(printed_question)
                 part_keys.append(
                     {
                         "number": q_num,
                         "reserve": dq.reserve,
-                        "correctOptionId": correct_opt.id,
-                        "correctLetter": correct_letter,
+                        "correctOptionId": lettered.correct_option_id,
+                        "correctLetter": lettered.correct_letter,
                         "explanation": variant.explanation.get(locale) if variant.explanation else None,
                     }
                 )
