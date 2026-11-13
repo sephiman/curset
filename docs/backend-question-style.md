@@ -134,3 +134,35 @@ anchors, and does not read the writer's notes first.
 - A question passes only when the key follows from the cited anchor or the recorded execution, every
   distractor is contradicted by a cited fact, and every rule in sections 1 to 4 holds.
 - The verdict file ends with the counts: checked, passed, failed.
+
+## 7. Writer rules from module 06
+
+Module 06 kept 68 of 144 candidates. Of the 76 failures, 32 had a stem under 15 words, 14 dismissed a
+distractor by silence or bare denial, 12 left SQL or an identifier outside code, 8 ruled out two
+distractors with one sentence, and 8 were near-duplicates (`docs/backend-verification/s2/m06/*.verdicts.tsv`).
+Once these rules reached the writers, the pass rate rose from about 20 % to 65–85 %.
+`scripts.tech_course.lint_questions` checks the mechanical ones; run it and fix every failure before a
+verifier sees the batch.
+
+- Count the stem's words before handing over: 15 to 40 (20 to 50 in a case). A short stem is lengthened
+  with a condition the answer depends on (the version, the isolation level, the input size), never with
+  padding.
+- Every SQL keyword, statement, command, configuration key, class, method, annotation, flag, header and
+  status code is inline code, in the stem, the options and the explanation: `VACUUM`, `UPDATE … WHERE`,
+  `@Transactional`, `max_connections`, `ConcurrentHashMap`, `409`. Multi-line code is a fenced block.
+- The explanation has one sentence for the key and one sentence per distractor. Each distractor sentence
+  names the distractor by its content and states the cited fact that contradicts it.
+- Two distractors are never ruled out by one sentence, and one source sentence is not reused for two
+  distractors. If two distractors fall to the same fact, replace one.
+- "The documentation does not say so", "nothing indicates" and bare denials ("this is not the case") are
+  not refutations. If no cited sentence contradicts a distractor, replace the distractor.
+- A distractor taken from the same source must be false under the pinned version, not merely less
+  complete than the key. Read it as a learner who knows the source: if it could be defended, drop it.
+- The key states one item of the source in the source's sense. It never merges two items or adds an
+  alternative.
+- Before handing over, compare the batch with itself and with the lesson's other questions: same fact
+  and same distractors means a near-duplicate; keep one.
+- Keep the key the longest option in at most a third of the lesson's questions. Shorten the key or
+  lengthen a distractor with a real condition; do not trim every key to the shortest.
+- Code-reading and computed questions leave `key` empty and name the `snippet`; `fill_keys` copies the
+  recorded output into the key. Distractors still come from named mistakes.

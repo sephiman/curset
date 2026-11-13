@@ -1,0 +1,590 @@
+[
+  {
+    "id": "m01-l01-q01",
+    "stem": "In Java 25, a top-level record class is declared without any `final` or `sealed` modifier in its header. What does the Java Language Specification say about subclassing that record class?",
+    "key": "It is implicitly final, so no class can extend it",
+    "distractors": [
+      "It is non-final by default, so any class may extend it unless the record is declared `sealed`",
+      "It is final only when the declaration states the `final` modifier explicitly",
+      "It is implicitly `sealed`, so only classes declared in the same file may extend it"
+    ],
+    "explanation": "A record class is implicitly final, so no class can extend it. The claim that a record is non-final by default is wrong because it is final without any modifier, and `sealed` on a record is a compile-time error anyway. The claim that `final` must be stated explicitly is wrong because the declaration is merely permitted to redundantly specify the `final` modifier. A record is not implicitly `sealed` either, because the modifier `sealed` is rejected on a record declaration.",
+    "citation": "jls-8-records#jls-8.10",
+    "extract": "A record class is implicitly final.",
+    "snippet": null
+  },
+  {
+    "id": "m01-l01-q02",
+    "stem": "In Java 25, which of these declarations of a top-level record compiles according to the Java Language Specification, chapter 8?",
+    "key": "`final record Point(int x, int y) {}`",
+    "distractors": [
+      "`abstract record Point(int x, int y) {}`",
+      "`public protected record Point(int x, int y) {}`",
+      "`record Point(int x, int y) { private int cache; }`"
+    ],
+    "explanation": "A record may redundantly specify the `final` modifier, so the `final` declaration compiles. The `abstract` declaration fails because a record declaration with the modifier `abstract` is a compile-time error. The `public protected` declaration fails because more than one of the access modifiers `public`, `protected` and `private` is a compile-time error. The declaration with `private int cache;` fails because a record may not explicitly declare instance variables.",
+    "citation": "jls-8-records#jls-8.10",
+    "extract": "It is permitted for the declaration of a record class to redundantly specify the final modifier.",
+    "snippet": null
+  },
+  {
+    "id": "m01-l01-q03",
+    "stem": "In Java 25, a developer wants a record `Meters` to extend a class `Measure` written by the team. What does the Java Language Specification say about the direct superclass of a record class?",
+    "key": "It is `Record`, and a record declaration has no `extends` clause to name another superclass",
+    "distractors": [
+      "It is `Object`, and an `extends` clause may name another class when the class is not `final`",
+      "It is `Record`, and an `extends` clause may name a subclass of `Record` written by the team",
+      "It is `Object`, unless the record implements an interface, which then supplies the superclass"
+    ],
+    "explanation": "The direct superclass of a record class is `Record`, and a record declaration has no `extends` clause. The claim that the superclass is `Object` is wrong because it is `Record`, and a record is not allowed to name another class even when finality is not the issue. The claim that an `extends` clause may name a subclass of `Record` is wrong because a record declaration has no `extends` clause, not even for `Record`. The claim that an implemented interface supplies the superclass is wrong because the direct superclass type is fixed as `Record`.",
+    "citation": "jls-8-records#jls-8.10",
+    "extract": "The direct superclass type of a record class is Record",
+    "snippet": null
+  },
+  {
+    "id": "m01-l01-q04",
+    "stem": "In Java 25, a record `Order` has a component of type `List<String>`. How does the `Record` Javadoc describe the immutability of a record class like this one?",
+    "key": "A shallowly immutable, transparent carrier for a fixed set of values",
+    "distractors": [
+      "A deeply immutable carrier, because the canonical constructor copies every mutable component",
+      "An immutable carrier only when every component has a primitive type, and a mutable bean otherwise",
+      "A mutable carrier whose component fields are updated through generated setter methods"
+    ],
+    "explanation": "The Javadoc calls a record class a shallowly immutable, transparent carrier for a fixed set of values. The claim of deep immutability is wrong because copying mutable components is something the programmer provides with an explicit canonical constructor, not a guarantee. The claim that a record is immutable only with primitive components is wrong because the shallow immutability does not depend on component types. The claim of generated setters is wrong because each component has a `private` `final` field and only an accessor method.",
+    "citation": "javadoc-record#class-record; jls-8-records#jls-8.10.3",
+    "extract": null,
+    "snippet": null
+  },
+  {
+    "id": "m01-l01-q05",
+    "stem": "In Java 25, what does the Java Language Specification say about the field that a record class has for each record component?",
+    "key": "It is declared implicitly, and it is `private`, `final` and non-static",
+    "distractors": [
+      "It is declared implicitly, and it is `public` and `final` so callers can read it without an accessor",
+      "It is declared implicitly, and it is `private` but not `final`, so the canonical constructor can reassign it",
+      "It is declared implicitly, and it is `static` and `final` so all instances of the record share it"
+    ],
+    "explanation": "The component field is private, final and non-static, and it is declared implicitly. The `public` field claim is wrong because the field is `private` and callers read the value through the accessor method. The non-`final` claim is wrong because the component field is `final`. The shared `static` claim is wrong because the component field is non-static, so each instance has its own value.",
+    "citation": "jls-8-records#jls-8.10.3",
+    "extract": "A component field is private, final, and non-static.",
+    "snippet": null
+  },
+  {
+    "id": "m01-l01-q06",
+    "stem": "In Java 25, which of these can a record class explicitly declare in its body, according to the Java Language Specification?",
+    "key": "An instance method that is not an accessor method",
+    "distractors": [
+      "An instance variable that is not a record component",
+      "An `extends` clause that names a class other than `Record`",
+      "The modifier `abstract` on the record class itself"
+    ],
+    "explanation": "A record class may explicitly declare instance methods other than accessor methods. An extra instance variable is rejected because a record may not explicitly declare instance variables. An `extends` clause is rejected because a record declaration does not have one. The modifier `abstract` is rejected because a compile-time error occurs when a record declaration has it.",
+    "citation": "jls-8-records#jls-8.10.3",
+    "extract": "Record classes may explicitly declare instance methods other than accessor methods, but may not explicitly declare instance variables",
+    "snippet": null
+  },
+  {
+    "id": "m01-l01-q07",
+    "stem": "In Java 25, a record declares no `equals` method of its own. How does the `Record` Javadoc say the implicit `equals`, `hashCode` and `toString` are derived?",
+    "key": "From all of the component fields of the record",
+    "distractors": [
+      "From the first component only, which acts as the identity of the record",
+      "From the object identity of the instance, as `Object.equals` does",
+      "From the return values of the accessor methods, so an explicit accessor changes the result"
+    ],
+    "explanation": "The implicit declarations are derived from all of the component fields. The first-component claim is wrong because every component takes part. The object-identity claim is wrong because a copy built from the same components must be equal to the original under the required invariant. The accessor claim is wrong because equality, hash code values and string representations are determined by looking at the component fields directly, rather than by invoking accessor methods.",
+    "citation": "javadoc-record#class-record; jls-8-records#jls-8.10.3",
+    "extract": null,
+    "snippet": null
+  },
+  {
+    "id": "m01-l01-q08",
+    "stem": "In Java 25, which reasons does the `Record` Javadoc give as the primary ones to provide an explicit declaration of the canonical constructor or the accessor methods?",
+    "key": "To validate constructor arguments, perform defensive copies on mutable components, or normalize groups of components",
+    "distractors": [
+      "To add instance variables beyond the components and initialise them in the constructor",
+      "To make the record class non-final so that frameworks can create proxies of it",
+      "To supply `equals` and `hashCode`, which a record does not have unless they are written"
+    ],
+    "explanation": "The Javadoc names validation, defensive copies on mutable components and normalization of groups of components. Extra instance variables are not a reason because a record may not explicitly declare instance variables. Making the class non-final is not a reason because a record class is implicitly final. Supplying `equals` and `hashCode` is not a reason because implicit implementations are derived from all of the component fields.",
+    "citation": "javadoc-record#class-record; jls-8-records#jls-8.10.3; jls-8-records#jls-8.10",
+    "extract": null,
+    "snippet": null
+  },
+  {
+    "id": "m01-l01-q09",
+    "stem": "In Java 25, `SmallPoint(int x, int y)` declares accessors that clip values above 100. For `p1 = new SmallPoint(200, 300)` and `p3 = new SmallPoint(p1.x(), p1.y())`, what does `p1.equals(p3)` evaluate to?",
+    "key": "`false`, because the implicit `equals` compares the component fields directly while `p3` was built from the clipped values",
+    "distractors": [
+      "`true`, because the implicit `equals` calls the accessors and both sides clip to the same values",
+      "`true`, because every copy built from a record's own accessors equals the original",
+      "A compile-time error, because accessors that change the returned value are not allowed in a record"
+    ],
+    "explanation": "The result is `false`, because equality is determined from the component fields directly and the clipped values make `p3` differ from `p1`. The claim that `equals` calls the accessors is wrong because it looks at the fields rather than invoking accessor methods. The claim that every copy built from accessors is equal is wrong because it holds only when the accessors respect the invariant, and these clipping accessors do not. The compile-time error claim is wrong because the specification calls such accessors bad style and says a compiler cannot generally check them.",
+    "citation": "jls-8-records#jls-8.10.3",
+    "extract": "Note that equality, hash code values, and string representations are determined by looking at the values of component fields directly, rather than by invoking accessor methods.",
+    "snippet": null
+  },
+  {
+    "id": "m01-l01-q10",
+    "stem": "In Java 25, JEP 395 introduces records into the language. How does the JEP summary describe what records are?",
+    "key": "Classes that act as transparent carriers for immutable data",
+    "distractors": [
+      "Classes that act as opaque handles to mutable state managed by a framework",
+      "Interfaces that generate builders for immutable data on demand",
+      "Classes that deeply copy every component object when they are constructed"
+    ],
+    "explanation": "JEP 395 describes records as classes that act as transparent carriers for immutable data. The opaque handle claim is wrong because the JEP calls them transparent carriers of immutable data. The interface claim is wrong because records are classes. The deep copy claim is wrong because the `Record` Javadoc calls a record class shallowly immutable.",
+    "citation": "jep-395#Summary; javadoc-record#class-record",
+    "extract": null,
+    "snippet": null
+  },
+  {
+    "id": "m01-l01-q11",
+    "stem": "In Java 25, `Shape` is a `sealed` class and `Circle` extends it without declaring `final`, `sealed` or `non-sealed`. What does the Java Language Specification say about this?",
+    "key": "It is a compile-time error, because a direct subclass of a sealed class must be declared `final`, `sealed` or `non-sealed`",
+    "distractors": [
+      "It compiles, and `Circle` is treated as implicitly `non-sealed`",
+      "It compiles, and `Circle` is treated as implicitly `final` because it has no subclasses",
+      "It compiles only when `Circle` is declared in the same package as `Shape`"
+    ],
+    "explanation": "It is a compile-time error when a class with a sealed direct superclass is not declared `final`, `sealed` or `non-sealed`. The implicit `non-sealed` claim is wrong because the keyword effect is to force direct subclasses to declare explicitly which of the three they are. The implicit `final` claim is wrong for the same rule, since only records and enum classes are implicitly final or sealed. The same-package claim is wrong because the error depends on the modifiers and not on the package.",
+    "citation": "jls-8-records#jls-8.1.1.2",
+    "extract": "It is a compile-time error if a class has a sealed direct superclass or a sealed direct superinterface, and is not declared final, sealed, or non-sealed either explicitly or implicitly.",
+    "snippet": null
+  },
+  {
+    "id": "m01-l01-q12",
+    "stem": "In Java 25, can a record class implement a `sealed` interface, and what reason does the Java Language Specification give?",
+    "key": "Yes, because a record class is implicitly final",
+    "distractors": [
+      "Yes, because a record class is implicitly `non-sealed`",
+      "No, because a record class cannot declare an `implements` clause",
+      "No, because every direct subclass of a sealed interface must be declared `sealed`"
+    ],
+    "explanation": "A record class can implement a sealed interface because it is implicitly final. The implicitly `non-sealed` claim is wrong because the record is final and not `non-sealed`. The claim that a record cannot implement an interface is wrong because the specification shows a record with an `implements` clause that inherits a default method. The claim that every subclass must be `sealed` is wrong because a direct subclass may be `final`, `sealed` or `non-sealed`.",
+    "citation": "jls-8-records#jls-8.1.1.2; jls-8-records#jls-8.10.3",
+    "extract": "Similarly, a record class is implicitly final, so it can also implement a sealed interface.",
+    "snippet": null
+  },
+  {
+    "id": "m01-l01-q13",
+    "stem": "In Java 25, when can an interface be declared `sealed` according to the Java Language Specification, section 9.1.1.4?",
+    "key": "When all its direct subclasses and direct subinterfaces are known at the point of declaration",
+    "distractors": [
+      "When all its direct subclasses are known, while subinterfaces may be added later by any package",
+      "When it declares no `default` methods, so that subclasses cannot inherit behaviour",
+      "When it extends `Record`, which makes every implementing class a record"
+    ],
+    "explanation": "An interface can be `sealed` if all its direct subclasses and direct subinterfaces are known when it is declared. The claim that subinterfaces may be added later is wrong because the rule names direct subinterfaces too. The claim about `default` methods is wrong because the rule is about known direct subclasses and subinterfaces and not about method kinds. The claim about extending `Record` is wrong because an interface cannot extend a class, and the rule names no such requirement.",
+    "citation": "jls-9-interfaces#jls-9.1.1.4",
+    "extract": "An interface can be declared sealed if all its direct subclasses and direct subinterfaces are known when the interface is declared",
+    "snippet": null
+  },
+  {
+    "id": "m01-l01-q14",
+    "stem": "In Java 25, a `switch` expression over a `sealed` interface has one `case` pattern for each of its three permitted subclasses and no `default` label. What does the Java Language Specification say about it?",
+    "key": "The switch block is exhaustive, so a `default` label is permitted but not required",
+    "distractors": [
+      "The switch block is not exhaustive, so a `default` label is required",
+      "The switch block is exhaustive only if a `case null` label is added",
+      "The switch block is exhaustive only when the interface has two permitted subclasses or fewer"
+    ],
+    "explanation": "A switch block that covers every permitted direct subclass of a sealed interface is exhaustive, and a `default` label is permitted but not required. The claim that `default` is required is wrong because exhaustiveness comes from covering the permitted subclasses. The claim that `case null` is needed is wrong because the exhaustiveness conditions for a sealed type do not mention it. The claim about two subclasses or fewer is wrong because the rule applies to every permitted direct subclass or subinterface, however many there are.",
+    "citation": "jls-14-statements#jls-14.11.1.1",
+    "extract": "A default label is permitted, but not required, in the case where the switch block exhausts all the permitted direct subclasses and subinterfaces of an abstract sealed class or sealed interface.",
+    "snippet": null
+  },
+  {
+    "id": "m01-l01-q15",
+    "stem": "In Java 25, what use of a `sealed` class does the Java Language Specification describe as the case where explicit and exhaustive control over direct subclasses is useful?",
+    "key": "When the class hierarchy is used to model the kinds of values in a domain",
+    "distractors": [
+      "When the class hierarchy is used as a mechanism for code inheritance and reuse",
+      "When the class has a large number of direct subclasses that third parties will add",
+      "When the class must be serialized with the same wire format in every version"
+    ],
+    "explanation": "Control over direct subclasses is useful when the hierarchy models the kinds of values in a domain. The inheritance and reuse claim is wrong because the specification says the control suits modelling values rather than code inheritance and reuse. The third-party claim is wrong because a sealed class needs its direct subclasses known when it is declared. The serialization claim is wrong because the cited text says nothing of wire formats and ties the use to domain modelling.",
+    "citation": "jls-8-records#jls-8.1.1.2",
+    "extract": "Explicit and exhaustive control over a class's direct subclasses is useful when the class hierarchy is used to model the kinds of values in a domain",
+    "snippet": null
+  },
+  {
+    "id": "m01-l01-q16",
+    "stem": "In Java 25, JEP 441 extends pattern matching to `switch`. How does its summary say a `switch` expression can then be used?",
+    "key": "It can be tested against a number of patterns, each with a specific action",
+    "distractors": [
+      "It can be tested only against constants of a single type, each with a specific action",
+      "It can be tested against one pattern, with the default action for every other value",
+      "It can be tested against patterns only inside `if` statements rewritten by the compiler"
+    ],
+    "explanation": "The JEP says an expression can be tested against a number of patterns, each with a specific action. The single-type constants claim is wrong because the JEP extends `switch` beyond constants to patterns. The one-pattern claim is wrong because the JEP speaks of a number of patterns, each with its own action. The `if` statement claim is wrong because the extension applies to `switch` expressions and statements themselves.",
+    "citation": "jep-441#Summary",
+    "extract": null,
+    "snippet": null
+  },
+  {
+    "id": "m01-l01-q17",
+    "stem": "In Java 25, what does JEP 440 say about combining record patterns and type patterns in one pattern?",
+    "key": "They can be nested to enable a declarative and composable form of data navigation and processing",
+    "distractors": [
+      "They can be combined only when the record has at most two components",
+      "They cannot be nested, so each component needs its own `switch` statement",
+      "They can be nested only inside a `sealed` interface hierarchy"
+    ],
+    "explanation": "The JEP says record patterns and type patterns can be nested for declarative, composable data navigation and processing. The two-component claim is wrong because nesting is offered as a general form of composable data navigation. The claim that nesting is impossible is wrong because nesting is the stated feature. The `sealed` hierarchy claim is wrong because the JEP does not tie nesting to sealed types.",
+    "citation": "jep-440#Summary",
+    "extract": null,
+    "snippet": null
+  },
+  {
+    "id": "m01-l01-q18",
+    "stem": "In Java 25, what does a record pattern test, according to the Java Language Specification, section 14.30.1?",
+    "key": "Whether a value is an instance of a record class type and, if it is, it matches the component values recursively",
+    "distractors": [
+      "Whether a value has the same `equals` result as a record built from the pattern's variables",
+      "Whether a value is an instance of any class that declares a field for each pattern variable",
+      "Whether a value is an instance of a record class type, without looking at its component values"
+    ],
+    "explanation": "A record pattern tests for a record class type and then performs pattern matching on the component values recursively. The `equals` claim is wrong because the match is by type and by component patterns and not by an `equals` call. The claim about any class declaring fields is wrong because the pattern names a record class type. The claim that components are not examined is wrong because the match recurses into the record component values.",
+    "citation": "jls-14-statements#jls-14.30.1",
+    "extract": "A record pattern is used to test whether a value is an instance of a record class type and, if it is, to recursively perform pattern matching on the record component values.",
+    "snippet": null
+  },
+  {
+    "id": "m01-l01-q19",
+    "stem": "In Java 25, a `switch` has a record pattern `Card(var last4, var cents)` and its selector is the `null` reference. Does the null reference match that record pattern?",
+    "key": "No, the null reference does not match a record pattern",
+    "distractors": [
+      "Yes, and both `last4` and `cents` are initialized to the null reference",
+      "Yes, but only when the record has a single component",
+      "Yes, and the `switch` then runs the `default` label if present"
+    ],
+    "explanation": "The null reference does not match a record pattern. The claim that it matches with null components is wrong because the pattern variables of a record pattern are not initialized when it does not match. The single-component claim is wrong because the rule has no exception for the number of components. The `default` claim is wrong because a `default` label does not make the null reference match a record pattern.",
+    "citation": "jls-14-statements#jls-14.30.2",
+    "extract": "The null reference does not match a record pattern.",
+    "snippet": null
+  },
+  {
+    "id": "m01-l01-q20",
+    "stem": "In Java 25, a record pattern deconstructs a value whose accessor method completes abruptly with an `IllegalStateException`. What does pattern matching do, according to the Java Language Specification?",
+    "key": "It completes abruptly by throwing a `MatchException` whose cause is the `IllegalStateException`",
+    "distractors": [
+      "It lets the `IllegalStateException` propagate unchanged to the caller of the `switch`",
+      "It treats the value as not matching and goes on to the next pattern",
+      "It initializes the pattern variable to the null reference and goes on matching"
+    ],
+    "explanation": "Pattern matching completes abruptly by throwing a `MatchException` with the accessor's exception as its cause. The claim that the exception propagates unchanged is wrong because it is wrapped as the cause. The claim of a quiet non-match is wrong because matching completes abruptly instead of falling through. The claim of a null pattern variable is wrong because the variables are initialized only when all the patterns in the list match.",
+    "citation": "jls-14-statements#jls-14.30.2",
+    "extract": "If execution of the invocation of the accessor method completes abruptly for reason S, then pattern matching completes abruptly by throwing a MatchException with cause S.",
+    "snippet": null
+  },
+  {
+    "id": "m01-l01-q21",
+    "stem": "In Java 25, a member record class is declared inside another class without the `static` modifier. What does the Java Language Specification say about it?",
+    "key": "It is implicitly static, so it does not hold a reference to an enclosing instance",
+    "distractors": [
+      "It is an inner class, so every instance holds a reference to an enclosing instance",
+      "It is implicitly static only when the enclosing class is itself a record class",
+      "It is a compile-time error, because the declaration of a member record must state `static`"
+    ],
+    "explanation": "A nested record class is implicitly static, so it has no enclosing instance. The inner class claim is wrong because every member record class and local record class is static. The claim about an enclosing record is wrong because the rule covers every nested record. The compile-time error claim is wrong because a member record may redundantly specify `static` but is not required to.",
+    "citation": "jls-8-records#jls-8.10",
+    "extract": "A nested record class is implicitly static.",
+    "snippet": null
+  },
+  {
+    "id": "m01-l01-q22",
+    "stem": "In Java 25, how does the Java Language Specification say a record object is deserialized by the serialization mechanism?",
+    "key": "Using the canonical constructor",
+    "distractors": [
+      "By setting each component field directly, without running any constructor",
+      "By calling the no-argument constructor and then the accessor methods",
+      "By calling a `readObject` method declared in the record body"
+    ],
+    "explanation": "A record object is deserialized using the canonical constructor. The claim that fields are set without a constructor is wrong because ordinary serializable objects are the ones treated differently, and records go through the canonical constructor. The no-argument constructor claim is wrong because a record has the canonical constructor and no such default. The `readObject` claim is wrong because the Javadoc says serialization-related methods such as `readObject` are ignored for serializable records.",
+    "citation": "jls-8-records#jls-8.10; javadoc-record#class-record",
+    "extract": "a record object is deserialized using the canonical constructor",
+    "snippet": null
+  },
+  {
+    "id": "m01-l01-q23",
+    "stem": "In Java 25, a record pattern `Card(var last4)` is written for `record Card(String last4, long cents)`. What does the Java Language Specification say about it?",
+    "key": "It is a compile-time error, because the component pattern list must be as long as the record component list",
+    "distractors": [
+      "It compiles, and the second component is ignored by the match",
+      "It compiles, and `cents` is bound to a pattern variable named `_`",
+      "It compiles only inside a `switch` that has a `default` label"
+    ],
+    "explanation": "The pattern is a compile-time error because its list has one pattern and the record has two components. The claim that the second component is ignored is wrong because the lengths must be equal. The claim of an automatic `_` variable is wrong because a match-all pattern has to be written in the list. The `default` claim is wrong because the length rule holds for every record pattern, in every context.",
+    "citation": "jls-14-statements#jls-14.30.1",
+    "extract": "The length of the record pattern's component pattern list must be the same as the length of the record component list in the declaration of the record class named by ReferenceType otherwise a compile-time error occurs.",
+    "snippet": null
+  },
+  {
+    "id": "m01-l01-q24",
+    "stem": "In Java 25, what does the Java Language Specification say about the match-all pattern `_` in a record pattern?",
+    "key": "Every value matches it, and it can appear only directly in a record pattern's component list",
+    "distractors": [
+      "Only a non-null value matches it, and it can appear at the top level of a `case` label",
+      "Only a value of the component's declared type matches it, and it declares a pattern variable",
+      "Every value matches it, and it can appear anywhere a type pattern can"
+    ],
+    "explanation": "Every value matches a match-all pattern, and it can only appear directly in the component pattern list of a record pattern. The non-null claim is wrong because every value matches it, and a top-level position is not allowed. The declared-type claim is wrong because it declares no pattern variables. The claim that it can appear anywhere a type pattern can is wrong because its position is restricted to record pattern component lists.",
+    "citation": "jls-14-statements#jls-14.30.1; jls-14-statements#jls-14.30.2",
+    "extract": "The match-all pattern is a special pattern that declares no pattern variables and can only appear directly in the component pattern list of a record pattern r.",
+    "snippet": null
+  },
+  {
+    "id": "m01-l01-q25",
+    "stem": "In Java 25, for a record `R` with components `c1` to `cn`, an instance `r` is copied as `new R(r.c1(), ..., r.cn())`. Which invariant must hold for all record classes?",
+    "key": "`r.equals(copy)` must be true",
+    "distractors": [
+      "`r.hashCode()` must differ from `copy.hashCode()` because the copy is a new instance",
+      "`r.equals(copy)` must be true only when the record has no explicit canonical constructor",
+      "`r.toString()` must differ from `copy.toString()` by an instance identifier"
+    ],
+    "explanation": "The invariant is that `r.equals(copy)` holds, for all record classes. The claim that the hash codes differ is wrong because `hashCode` is derived from the component fields, which are the same in both. The claim about an implicit canonical constructor is wrong because the invariant must hold for all record classes. The claim about an instance identifier is wrong because the `toString` result is derived from the record name and the components, which the copy shares.",
+    "citation": "javadoc-record#class-record",
+    "extract": null,
+    "snippet": null
+  },
+  {
+    "id": "m01-l01-q26",
+    "stem": "In Java 25, JEP 409 introduces sealed classes and sealed interfaces. According to its summary, what do sealed classes and interfaces restrict?",
+    "key": "Which other classes or interfaces may extend or implement them",
+    "distractors": [
+      "Which classes may create instances of them with the `new` operator",
+      "Which packages may refer to them by name in an `import` declaration",
+      "Which methods of them subclasses may override in a record class"
+    ],
+    "explanation": "Sealed classes and interfaces restrict which other classes or interfaces may extend or implement them. The claim about `new` is wrong because the restriction is on subclassing and implementing. The claim about `import` declarations is wrong because the restriction concerns direct subclasses, not package references. The claim about overriding is wrong because a record class is implicitly final and the restriction names extending and implementing.",
+    "citation": "jep-409#Summary; jls-9-interfaces#jls-9.1.1.4",
+    "extract": null,
+    "snippet": null
+  },
+  {
+    "id": "m01-l01-q27",
+    "stem": "In Java 25, which kinds of record class can a record declaration specify according to the Java Language Specification?",
+    "key": "A top level record class, a member record class, or a local record class",
+    "distractors": [
+      "Only a top level record class, because member and local records are not allowed",
+      "A top level or member record class, but not a local one, because a local record could capture variables",
+      "A top level or local record class, but a member record must be declared inside an interface"
+    ],
+    "explanation": "A record declaration may specify a top level, a member or a local record class. The top-level-only claim is wrong because the specification names the member and local forms. The claim that a local record is excluded is wrong because the specification lists a local record class, and says it is implicitly static. The interface claim is wrong because a member record class is declared in a class or an interface, as section 8.5 and section 9.5 provide.",
+    "citation": "jls-8-records#jls-8.10",
+    "extract": "A record declaration may specify a top level record class (§7.6), a member record class (§8.5, §9.5), or a local record class (§14.3).",
+    "snippet": null
+  },
+  {
+    "id": "m01-l01-q28",
+    "stem": "In Java 25, this snippet copies a list into one record and not into the other, adds `milk` to the original list, and then validates a blank `id`. What does the program print?",
+    "key": "```text\nOrder[id=A1, lines=[tea, milk]]\nSafeOrder[id=A1, lines=[tea]]\ntrue\nid is blank\n```",
+    "distractors": [
+      "```text\nOrder[id=A1, lines=[tea]]\nSafeOrder[id=A1, lines=[tea, milk]]\ntrue\nid is blank\n```",
+      "```text\nOrder[id=A1, lines=[tea, milk]]\nSafeOrder[id=A1, lines=[tea, milk]]\ntrue\nid is blank\n```",
+      "```text\nOrder[id=A1, lines=[tea, milk]]\nSafeOrder[id=A1, lines=[tea]]\nfalse\nid is blank\n```"
+    ],
+    "explanation": "The first record holds the caller's list, so it shows `milk` after the later `add`. The second record stored a copy made by `List.copyOf`, so it keeps only `tea`. The output with the copy on the first record is wrong because only the second record copies the list. The output where both show `milk` is wrong because `List.copyOf` made an independent list. The `false` output is wrong because the first record equals a record rebuilt from its own accessors.",
+    "citation": "javadoc-record#class-record",
+    "extract": null,
+    "snippet": "m01-l01/ShallowRecord.java"
+  },
+  {
+    "id": "m01-l01-q29",
+    "stem": "In Java 25, this snippet switches over a sealed interface with record patterns and a nested record pattern, then switches over a `null` `Payment`. What does the program print?",
+    "key": "```text\ncard 4242 for 1500\nvoucher W-9\nAna paid by transfer from ES00\nNullPointerException\n```",
+    "distractors": [
+      "```text\ncard 4242 for 1500\nvoucher W-9\nAna paid by transfer from ES00\nMatchException\n```",
+      "```text\ncard 4242 for 1500\nvoucher W-9\nAna paid by voucher W-9\nNullPointerException\n```",
+      "```text\ncard 4242 for 1500\nvoucher W-9\nAna paid by transfer from ES00\nnull\n```"
+    ],
+    "explanation": "The three `describe` calls print one line each, and the `switch` over a `null` selector with no `case null` label throws `NullPointerException`, which the snippet prints. The `MatchException` output is wrong because the `null` selector fails the `switch` itself before any record pattern is tried. The `voucher` output is wrong because the receipt holds a `Transfer`. The `null` output is wrong because the snippet prints the exception name and not a null value.",
+    "citation": "jls-14-statements#jls-14.11.1.1",
+    "extract": "A default label is permitted, but not required",
+    "snippet": "m01-l01/PaymentSwitch.java"
+  },
+  {
+    "id": "m01-l01-q30",
+    "stem": "In Java 25, this snippet gives a record an accessor that always throws and then tests it with a record pattern and with a plain type test. What does the program print?",
+    "key": "```text\nMatchException caused by java.lang.IllegalStateException: sensor offline\ntrue\n```",
+    "distractors": [
+      "```text\nMatchException caused by java.lang.IllegalStateException: sensor offline\nfalse\n```",
+      "```text\n7\ntrue\n```",
+      "```text\nMatchException caused by java.lang.IllegalStateException: sensor offline\ntrue\ntrue\n```"
+    ],
+    "explanation": "The record pattern calls the accessor, which throws, so the `catch` prints the `MatchException` and its cause, and the plain type test then prints `true`. The output with `false` is wrong because the value is still a `Gauge`. The output `7` is wrong because the record pattern calls the accessor and never reads the component field. The three-line output is wrong because the snippet prints only two lines.",
+    "citation": "jls-14-statements#jls-14.30.2",
+    "extract": "pattern matching completes abruptly by throwing a MatchException with cause S",
+    "snippet": "m01-l01/AccessorFailure.java"
+  },
+  {
+    "id": "m01-l01-q31",
+    "stem": "In Java 25, which redundant modifier does the Java Language Specification explicitly permit on a record declaration, so that writing it does not cause a compile-time error?",
+    "key": "`static` on a member record class, which is implicitly static anyway",
+    "distractors": [
+      "`static` on a local record class declared inside a method body",
+      "`abstract` on a top-level record class",
+      "`public` written twice on a top-level record class"
+    ],
+    "explanation": "A member record class may redundantly specify `static` because a nested record class is implicitly static. A local record class may not specify `static`, because the specification says that is not permitted for a local record class. A record declaration with `abstract` is a compile-time error, because `abstract`, `sealed` and `non-sealed` are all rejected. Writing `public` twice is a compile-time error, because the same keyword may not appear more than once as a modifier.",
+    "citation": "jls-8-records#jls-8.10",
+    "extract": "It is permitted for the declaration of a member record class to redundantly specify the static modifier",
+    "snippet": null
+  },
+  {
+    "id": "m01-l01-q32",
+    "stem": "In Java 25, `record Money(long cents)` declares its own accessor for `cents` explicitly. According to the Java Language Specification, which declaration of that accessor method is allowed?",
+    "key": "`public long cents() { return this.cents; }`, with the same return type as the component",
+    "distractors": [
+      "`public int cents() { return (int) cents; }`",
+      "`public <T> long cents() { return cents; }`",
+      "`long cents() { return cents; }`, with no access modifier"
+    ],
+    "explanation": "The accessor `public long cents()` is allowed because it is a public instance method with no parameters and no `throws` clause. The `int` version fails because the return type must be the same as the declared type of the component. The generic version fails because an explicit accessor method must not be generic. The version without an access modifier fails because the accessor must be a public instance method.",
+    "citation": "jls-8-records#jls-8.10.3",
+    "extract": "The accessor method must be a public instance method with no formal parameters and no throws clause.",
+    "snippet": null
+  },
+  {
+    "id": "m01-l01-q33",
+    "stem": "In Java 25, `record Point(int i, int j) implements Logging` implements an interface `Logging` that has a `default` method `logAction` printing `Logged`. What does the Java Language Specification say about `logAction`?",
+    "key": "The record inherits it, and `p.logAction()` prints `Logged`",
+    "distractors": [
+      "Its body can read the component fields `i` and `j` of the record directly",
+      "It becomes the implicit accessor method for the component `i`",
+      "It is inherited only after the record redeclares it as a `public` method"
+    ],
+    "explanation": "The record inherits the `default` method and the specification's example prints `Logged`. The body cannot read the component fields, because default method bodies have no knowledge of them. The method does not become an accessor, because a superinterface method is never inherited as an accessor method. No redeclaration is needed, because all the rules of inheritance that apply to normal classes apply to record classes.",
+    "citation": "jls-8-records#jls-8.10.3",
+    "extract": "a record class can inherit default methods from its direct superinterfaces",
+    "snippet": null
+  },
+  {
+    "id": "m01-l01-q34",
+    "stem": "In Java 25, a record class `R` does not declare `toString`. According to the Java Language Specification, what is the implicitly declared `toString` method's result derived from?",
+    "key": "The name of the record class and the names and string representations of every record component",
+    "distractors": [
+      "Only the string representations of the components, without the record class name",
+      "The values returned by invoking the accessor method of every component, not the fields",
+      "The name of the record class and the string representations of the reference-type components only"
+    ],
+    "explanation": "The result is derived from the name of the record class and the names and string representations of every record component. The version without the class name is wrong because the result is derived from the record class name as well. The accessor-based version is wrong because values are determined by looking at the component fields directly, not by invoking accessor methods. The reference-only version is wrong because a primitive component also contributes, through the `toString` method of its wrapper class.",
+    "citation": "jls-8-records#jls-8.10.3",
+    "extract": "A method public final String toString() that returns a string derived from the name of the record class and the names and string representations of every record component of R",
+    "snippet": null
+  },
+  {
+    "id": "m01-l01-q35",
+    "stem": "In Java 25, with `record Card(String last4, long cents)` and `record Box<T>(T value)` declared, which of these record patterns does the Java Language Specification make a compile-time error?",
+    "key": "`String(var s)`, because `String` is not a record class type",
+    "distractors": [
+      "`Card(var a, _)`, which uses a match-all pattern for the second component",
+      "`Box(var v)`, which names the raw type `Box` instead of a parameterized type",
+      "`Card(var a, var b)`, which uses `var` for both component patterns"
+    ],
+    "explanation": "The pattern `String(var s)` is an error because a record pattern whose type is not a record class type is a compile-time error. The match-all pattern in `Card(var a, _)` is allowed because it can appear directly in the component pattern list of a record pattern. The raw type in `Box(var v)` is allowed because the type of the record pattern is inferred. The `var` patterns in `Card(var a, var b)` are allowed because `var` may appear directly in the component pattern list of a record pattern.",
+    "citation": "jls-14-statements#jls-14.30.1",
+    "extract": "If ReferenceType is not a record class type (§8.10) then a compile-time error occurs.",
+    "snippet": null
+  },
+  {
+    "id": "m01-l01-q36",
+    "stem": "In Java 25, `record Box(String s)` is matched by a `switch` against the pattern `Box(String s)`, and the value is `new Box(null)`. What does the Java Language Specification say about this match?",
+    "key": "The nested type pattern `String s` matches the null component, because it is unconditional for the component type `String`",
+    "distractors": [
+      "The match fails, because the null reference matches no pattern nested in a record pattern",
+      "The match throws a `MatchException`, because the accessor returns the null reference",
+      "The match succeeds, but `s` is initialized to the empty string instead of the null reference"
+    ],
+    "explanation": "A type pattern that appears directly in a component pattern list and is unconditional for the component type is null-matching, so it matches the null component. The claim that no nested pattern matches null is wrong because the null reference matches a null-matching type pattern. The `MatchException` claim is wrong because that exception is thrown only when an accessor method completes abruptly, and returning null is not abrupt. The empty-string claim is wrong because a matching null is stored in the pattern variable as the null reference.",
+    "citation": "jls-14-statements#jls-14.30.1; jls-14-statements#jls-14.30.2",
+    "extract": "A type pattern is said to be null-matching if it is appears directly in the component pattern list of a record pattern with type R, where the corresponding record component of R has type U, and the type pattern is unconditional for the type U",
+    "snippet": null
+  },
+  {
+    "id": "m01-l01-q37",
+    "stem": "In Java 25, `I` is a `sealed` interface permitting `A`, `B` and `record C(int j)`, and `record IPair(I i, I j)` is switched over with the labels shown. Which value matches none of them?\n\n```java\nswitch (p) {\n    case IPair(A a1, A a2) -> 0;\n    case IPair(B b1, B b2) -> 1;\n    case IPair(C c1, C c2) -> 2;\n}\n```",
+    "key": "`new IPair(new A(), new B())`",
+    "distractors": [
+      "`new IPair(new A(), new A())`",
+      "`new IPair(new B(), new B())`",
+      "`new IPair(new C(1), new C(2))`"
+    ],
+    "explanation": "The value `new IPair(new A(), new B())` matches none of the labels, because the switch block has no label for an `IPair` whose first component is an `A` and whose second is a `B`. The value `new IPair(new A(), new A())` matches the label `IPair(A a1, A a2)`. The value `new IPair(new B(), new B())` matches the label `IPair(B b1, B b2)`. The value `new IPair(new C(1), new C(2))` matches the label `IPair(C c1, C c2)`.",
+    "citation": "jls-14-statements#jls-14.11.1.1",
+    "extract": "the switch block does not actually have a label that matches an IPair value whose first component is an A value, and second component is a B value",
+    "snippet": null
+  },
+  {
+    "id": "m01-l01-q38",
+    "stem": "In Java 25, `Shape` is a `sealed` interface that permits `Tri`, `Oval` and `Dot`. Which of these declarations is a compile-time error according to the Java Language Specification?",
+    "key": "`non-sealed class Plain {}`, which has no sealed direct superclass or superinterface",
+    "distractors": [
+      "`final class Tri implements Shape {}`",
+      "`sealed class Oval implements Shape permits Disc {}`",
+      "`record Dot() implements Shape {}`"
+    ],
+    "explanation": "A class declared `non-sealed` without a sealed direct superclass or superinterface is a compile-time error. A `final` direct subclass is allowed because a subclass of a sealed type may be declared `final`, `sealed` or `non-sealed`. A `sealed` direct subclass is allowed because the direct subclasses may themselves be declared sealed. The record is allowed because a record class is implicitly final and can implement a sealed interface.",
+    "citation": "jls-8-records#jls-8.1.1.2",
+    "extract": "It is a compile-time error if a class is declared non-sealed but has neither a sealed direct superclass nor a sealed direct superinterface.",
+    "snippet": null
+  },
+  {
+    "id": "m01-l01-q39",
+    "stem": "In Java 25, with `record Card(String last4, long cents)` and `record Box(Card card)` declared, which pattern is a compile-time error when written as a top-level pattern of a `case` label?",
+    "key": "`var s`, a type pattern whose type is `var`",
+    "distractors": [
+      "`String s`, a type pattern with a reference type",
+      "`Box(Card(var a, var b))`, with `var` inside a nested record pattern",
+      "`Card(_, _)`, a record pattern made of two match-all patterns"
+    ],
+    "explanation": "A top-level type pattern whose type is `var` is a compile-time error, because the type of a top-level type pattern must denote a reference type and is not `var`. A top-level `String s` is allowed because it denotes a reference type. The nested `var` patterns are allowed because each appears directly in the component pattern list of a record pattern. The match-all patterns are allowed because they appear directly in the component pattern list of a record pattern.",
+    "citation": "jls-14-statements#jls-14.30.1",
+    "extract": "The LocalVariableType in a top level type pattern denotes a reference type (and furthermore is not var).",
+    "snippet": null
+  },
+  {
+    "id": "m01-l01-q40",
+    "stem": "In Java 25, according to section 8.10.3 of the Java Language Specification, which of these members can a record class explicitly declare in its body?",
+    "key": "A class variable, declared with the `static` modifier",
+    "distractors": [
+      "An instance field such as `private int cache`",
+      "A method `public void wait()` that serves as the accessor for a component named `wait`",
+      "An accessor method `x()` that declares a `throws` clause"
+    ],
+    "explanation": "A record class may explicitly declare class variables, since explicit declarations of class methods and class variables are permitted. An instance field is rejected because a record class may not explicitly declare instance variables. The `wait()` method is not an accessor method, because `wait` is never a record component name. The accessor with a `throws` clause is rejected because an explicit accessor must be a public instance method with no `throws` clause.",
+    "citation": "jls-8-records#jls-8.10.3",
+    "extract": "Explicit declarations of class methods and class variables are permitted.",
+    "snippet": null
+  },
+  {
+    "id": "m01-l01-q41",
+    "stem": "In Java 25, which requirement does the `Record` Javadoc state for the canonical constructor, one of the mandated members of a record class?",
+    "key": "Its descriptor is the same as the record descriptor",
+    "distractors": [
+      "It must be explicitly declared in the record body, because the compiler never generates one",
+      "It must be `private`, so that instances are created only through factory methods",
+      "Its implicit declaration leaves the component fields at their default values until the accessors are called"
+    ],
+    "explanation": "The canonical constructor must have the same descriptor as the record descriptor. The claim that it must be declared explicitly is wrong because implicit implementations are provided when the body does not declare the member. The claim that it must be `private` is wrong because it must provide at least as much access as the record class. The claim about default field values is wrong because the implicit declaration initializes the component fields from the corresponding constructor arguments.",
+    "citation": "javadoc-record#class-record",
+    "extract": null,
+    "snippet": null
+  },
+  {
+    "id": "m01-l01-q42",
+    "stem": "In Java 25, according to section 8.1.1.2 of the Java Language Specification, under what condition can a class be declared `final`?",
+    "key": "If its definition is complete and no subclasses are desired or required",
+    "distractors": [
+      "If all its direct subclasses are known when the class is declared, and no others are desired",
+      "If it is also declared `abstract`, because an abstract class has a complete definition",
+      "Only if it declares no methods, because the methods of a final class are never overridden"
+    ],
+    "explanation": "A class can be declared `final` if its definition is complete and no subclasses are desired or required. The first alternative describes `sealed`, which is the condition for declaring a class sealed. The `abstract` alternative is wrong because declaring a class both final and abstract is a compile-time error. The no-methods alternative is wrong because the methods of a final class exist and are simply never overridden, since it has no subclasses.",
+    "citation": "jls-8-records#jls-8.1.1.2",
+    "extract": "A class can be declared final if its definition is complete and no subclasses are desired or required.",
+    "snippet": null
+  }
+]

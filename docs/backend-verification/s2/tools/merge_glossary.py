@@ -20,7 +20,12 @@ REPO = Path(__file__).resolve().parents[4]
 def failed(verdicts: Path) -> set[str]:
     if not verdicts.exists():
         sys.exit(f"{verdicts}: no verdict file, refusing to merge unverified terms")
-    return {p[0] for p in (line.split("\t") for line in verdicts.read_text().splitlines()) if len(p) > 1 and "fail" in p[1:3]}
+    final: dict[str, bool] = {}
+    for line in verdicts.read_text().splitlines():
+        p = line.split("\t")
+        if len(p) > 1 and ("fail" in p[1:3] or "pass" in p[1:3]):
+            final[p[0]] = "fail" in p[1:4]  # a later recheck line replaces the first verdict
+    return {term for term, failed_ in final.items() if failed_}
 
 
 def entry_text(candidate: dict[str, object]) -> str:

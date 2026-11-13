@@ -11,15 +11,15 @@ variants:
     text:
       en: The latest row versions, with a shared lock held on each row until the statement ends
   - id: b
+    text:
+      en: The current state of the data, including changes that concurrent transactions have not committed yet
+  - id: c
+    text:
+      en: Only the rows that no concurrent transaction is updating, because blocked rows are skipped
+  - id: d
     correct: true
     text:
       en: A snapshot of the data as it was some time ago, regardless of its current state
-  - id: c
-    text:
-      en: The current state of the data, including changes that concurrent transactions have not committed yet
-  - id: d
-    text:
-      en: Only the rows that no concurrent transaction is updating, because blocked rows are skipped
   explanation:
     en: Each statement sees a snapshot as it was some time ago. Seeing the latest versions under shared locks is
       the locking approach that MVCC eschews. Uncommitted changes are excluded because MVCC prevents statements
@@ -36,12 +36,12 @@ variants:
     text:
       en: '`t_xmax`'
   - id: b
+    text:
+      en: '`t_ctid`'
+  - id: c
     correct: true
     text:
       en: '`t_xmin`'
-  - id: c
-    text:
-      en: '`t_ctid`'
   - id: d
     text:
       en: '`t_hoff`'
@@ -58,15 +58,15 @@ variants:
     text:
       en: 8 bytes
   - id: b
+    text:
+      en: 16 bytes
+  - id: c
+    text:
+      en: 40 bytes
+  - id: d
     correct: true
     text:
       en: 23 bytes
-  - id: c
-    text:
-      en: 16 bytes
-  - id: d
-    text:
-      en: 40 bytes
   explanation:
     en: The fixed-size header occupies 23 bytes on most machines, so the smaller sizes of 8 and 16 bytes and the
       larger size of 40 bytes do not match the documented size.
@@ -79,18 +79,18 @@ variants:
       can leave a page partly written?
   options:
   - id: a
-    text:
-      en: 8 sectors
-  - id: b
-    text:
-      en: 32 sectors
-  - id: c
-    text:
-      en: 4 sectors
-  - id: d
     correct: true
     text:
       en: 16 sectors
+  - id: b
+    text:
+      en: 8 sectors
+  - id: c
+    text:
+      en: 32 sectors
+  - id: d
+    text:
+      en: 4 sectors
   explanation:
     en: PostgreSQL typically writes 8192 bytes, or 16 sectors, at a time. Eight, thirty-two and four sectors would
       correspond to 4096, 16384 and 2048 bytes.
@@ -128,12 +128,12 @@ variants:
     text:
       en: It compacts the table file in place, so it needs no disk space beyond what the table already uses
   - id: b
-    text:
-      en: It lets `SELECT`, `INSERT`, `UPDATE` and `DELETE` run normally on the table while it works
-  - id: c
     correct: true
     text:
       en: It needs extra disk space for a new copy of the table until the operation completes
+  - id: c
+    text:
+      en: It lets `SELECT`, `INSERT`, `UPDATE` and `DELETE` run normally on the table while it works
   - id: d
     text:
       en: Autovacuum issues it automatically whenever a table has become bloated
@@ -179,19 +179,19 @@ variants:
       ID wraparound?
   options:
   - id: a
+    text:
+      en: It resets the XID counter to zero after every run
+  - id: b
+    text:
+      en: It rewrites each row's insertion XID to the current transaction's XID
+  - id: c
+    text:
+      en: It deletes every row version older than two billion transactions
+  - id: d
     correct: true
     text:
       en: It marks old rows as frozen, so their inserting transaction counts as committed far enough in the past
         to be visible to everyone
-  - id: b
-    text:
-      en: It resets the XID counter to zero after every run
-  - id: c
-    text:
-      en: It rewrites each row's insertion XID to the current transaction's XID
-  - id: d
-    text:
-      en: It deletes every row version older than two billion transactions
   explanation:
     en: '`VACUUM` marks rows as frozen, indicating they were inserted by a transaction that committed sufficiently
       far in the past to be visible to all current and future transactions. Resetting the counter is wrong because
@@ -211,13 +211,13 @@ variants:
     text:
       en: As plain 64-bit numbers, so a larger XID is always newer
   - id: b
-    text:
-      en: As numbers on a line with a start and an endpoint, so older XIDs always sit below newer ones
-  - id: c
     correct: true
     text:
       en: With modulo-2^32 arithmetic, so the XID space is circular and each XID has two billion older and two billion
         newer
+  - id: c
+    text:
+      en: As numbers on a line with a start and an endpoint, so older XIDs always sit below newer ones
   - id: d
     text:
       en: By the commit timestamp of the inserting transaction instead of by the XID value
@@ -257,3 +257,310 @@ variants:
   citation: pg-transaction-iso#XACT-REPEATABLE-READ
   extract:
     en: a snapshot as of the start of the first non-transaction-control statement in the transaction
+- id: m06-l01-q43
+  prompt:
+    en: Which statement about checksums and the protection of stored data in PostgreSQL 18 is correct, according
+      to its reliability documentation on write-ahead logging?
+  options:
+  - id: a
+    text:
+      en: Temporary data files used for sorts and intermediate results of larger SQL queries are checksummed, and
+        WAL records are written for changes to them
+  - id: b
+    correct: true
+    text:
+      en: Data pages are checksummed by default, and full page images recorded in WAL records are always checksum
+        protected
+  - id: c
+    text:
+      en: Internal data structures such as `pg_xact` and `pg_multixact` are directly checksummed, in the same way
+        as ordinary data pages are
+  - id: d
+    text:
+      en: Individual state files in `pg_twophase` are left without any integrity check, because they are rebuilt
+        from the WAL records after a crash
+  explanation:
+    en: Data pages are checksummed by default. Temporary files for sorts and intermediate results are not currently
+      checksummed, and no WAL records are written for changes to them. Structures such as `pg_xact` and `pg_multixact`
+      are not directly checksummed. Individual state files in `pg_twophase` are protected by CRC-32C.
+  citation: pg-wal-reliability#WAL-RELIABILITY
+  extract:
+    en: Data pages are checksummed by default
+- id: m06-l01-q44
+  prompt:
+    en: Which statement about the number of autovacuum processes in PostgreSQL 18 is correct when the installation
+      has several databases to process?
+  options:
+  - id: a
+    correct: true
+    text:
+      en: At most `autovacuum_max_workers` worker processes run at once, and the launcher is not counted in that
+        number
+  - id: b
+    text:
+      en: The launcher counts toward the `autovacuum_max_workers` limit, so one fewer worker than the setting can
+        run at once
+  - id: c
+    text:
+      en: Each worker process vacuums a single table and then exits, so a new worker is started for every table
+        that needs work
+  - id: d
+    text:
+      en: The launcher starts one worker for every database at the same time, however many databases the installation
+        has
+  explanation:
+    en: The setting is the maximum number of autovacuum processes other than the launcher. The launcher is not counted,
+      because the parameter excludes it. A worker checks each table within its database and runs `VACUUM` or `ANALYZE`
+      as needed, so it does not exit after one table. When there are more databases than `autovacuum_max_workers`,
+      the next one is processed as soon as the first worker finishes, so not every database gets a worker at once.
+  citation: pg-runtime-config-autovacuum#RUNTIME-CONFIG-AUTOVACUUM; pg-routine-vacuuming#AUTOVACUUM
+  extract:
+    en: Specifies the maximum number of autovacuum processes (other than the autovacuum launcher) that may be running
+      at any one time
+- id: m06-l01-q45
+  prompt:
+    en: According to the PostgreSQL 18 documentation on routine vacuuming, what is the usual goal of vacuuming a
+      heavily updated table over a long period?
+  options:
+  - id: a
+    text:
+      en: To keep every table at its minimum size, so that the disk space is returned to the operating system after
+        each run
+  - id: b
+    text:
+      en: To run `VACUUM FULL` instead of standard `VACUUM`, because the full form runs faster on tables with many
+        dead rows
+  - id: c
+    correct: true
+    text:
+      en: To run standard `VACUUM` often enough that `VACUUM FULL` is not needed, keeping disk space use steady
+  - id: d
+    text:
+      en: To have standard `VACUUM` hand the freed space back to the operating system after every run on every table
+  explanation:
+    en: The usual goal is standard `VACUUM` runs often enough to avoid `VACUUM FULL`, with steady-state disk usage.
+      The idea is explicitly not to keep tables at their minimum size. `VACUUM FULL` runs much more slowly than
+      the standard form, not faster. Standard `VACUUM` does not return space to the operating system, except when
+      pages at the end of a table become entirely free and an exclusive lock is easy to obtain.
+  citation: pg-routine-vacuuming#VACUUM-FOR-SPACE-RECOVERY; pg-routine-vacuuming#VACUUM-BASICS
+  extract:
+    en: The usual goal of routine vacuuming is to do standard VACUUMs often enough to avoid needing VACUUM FULL
+- id: m06-l01-q47
+  prompt:
+    en: In PostgreSQL 18, an application requests the Read Uncommitted isolation level for a transaction. What does
+      PostgreSQL do with that request?
+  options:
+  - id: a
+    text:
+      en: It rejects the request with an error, because only three distinct isolation levels are implemented
+  - id: b
+    text:
+      en: It accepts the request and lets the transaction read data written by concurrent uncommitted transactions
+  - id: c
+    text:
+      en: It accepts the request and keeps one snapshot for the whole transaction, as Repeatable Read does
+  - id: d
+    correct: true
+    text:
+      en: It accepts the request, but the transaction behaves like Read Committed
+  explanation:
+    en: PostgreSQL accepts any of the four standard levels, and Read Uncommitted behaves like Read Committed. The
+      request is not rejected, because you can request any of the four standard levels. A dirty read is listed as
+      allowed by the standard but not in PostgreSQL. Read Committed takes a new snapshot for each query, so two
+      successive `SELECT` commands can see different data, unlike Repeatable Read.
+  citation: pg-transaction-iso#TRANSACTION-ISO; pg-transaction-iso#XACT-READ-COMMITTED
+  extract:
+    en: PostgreSQL's Read Uncommitted mode behaves like Read Committed
+- id: m06-l01-q49
+  prompt:
+    en: In PostgreSQL 18, which technique known from academic database literature is used to implement the Repeatable
+      Read isolation level?
+  options:
+  - id: a
+    text:
+      en: Serializable Snapshot Isolation
+  - id: b
+    text:
+      en: Predicate locking
+  - id: c
+    correct: true
+    text:
+      en: Snapshot Isolation
+  - id: d
+    text:
+      en: A traditional locking technique that reduces concurrency
+  explanation:
+    en: Repeatable Read is implemented with Snapshot Isolation. Serializable Snapshot Isolation is the technique
+      of the Serializable level, which builds on it. Predicate locking is what PostgreSQL uses to guarantee true
+      serializability, at the Serializable level. Differences in behavior are noted against systems that use a traditional
+      locking technique that reduces concurrency, which PostgreSQL does not use here.
+  citation: pg-transaction-iso#XACT-REPEATABLE-READ; pg-transaction-iso#XACT-SERIALIZABLE
+  extract:
+    en: implemented using a technique known in academic database literature and in some other database products
+      as Snapshot Isolation
+- id: m06-l01-q51
+  prompt:
+    en: According to the PostgreSQL 18 reliability documentation, which disk controller cache is a reliability hazard
+      because it loses its contents in a power failure?
+  options:
+  - id: a
+    text:
+      en: A write-through cache, because it holds writes back until some later time
+  - id: b
+    text:
+      en: The operating system buffer cache, because applications have no way to force its writes to disk
+  - id: c
+    correct: true
+    text:
+      en: A write-back cache without a battery-backup unit, because its memory is volatile
+  - id: d
+    text:
+      en: A write-back cache with a battery-backup unit, because the data is lost when system power fails
+  explanation:
+    en: A write-back cache sends data to the drive later, and without a battery-backup unit its volatile memory
+      loses that data in a power failure. A write-through cache sends writes to the drive as soon as they arrive.
+      All operating systems give applications a way to force writes from the buffer cache to disk, and PostgreSQL
+      uses it. A battery-backup unit maintains power to the cache, and the data is written to the drives after power
+      is restored.
+  citation: pg-wal-reliability#WAL-RELIABILITY
+  extract:
+    en: Such caches can be a reliability hazard because the memory in the disk controller cache is volatile
+- id: m06-l01-q52
+  prompt:
+    en: In PostgreSQL 18, when does a row version count as being "in the future" and so stay invisible to the current
+      transaction, for a normal XID?
+  options:
+  - id: a
+    text:
+      en: When its insertion XID is older than the current transaction's XID, as for any row inserted earlier
+  - id: b
+    correct: true
+    text:
+      en: When its insertion XID is greater than the current transaction's XID
+  - id: c
+    text:
+      en: When it was inserted fewer than two billion transactions ago, before any wraparound has happened
+  - id: d
+    text:
+      en: When `VACUUM` has marked it as frozen, because a frozen row has an insertion XID of `FrozenTransactionId`
+  explanation:
+    en: A row version with an insertion XID greater than the current transaction's XID is in the future and not
+      visible. A row inserted earlier has a smaller XID and is in the past. A row version appears in the past for
+      the next two billion transactions after its creation, whichever normal XID it has. Frozen row versions are
+      treated as inserted by `FrozenTransactionId`, so they appear in the past to all normal transactions.
+  citation: pg-routine-vacuuming#VACUUM-FOR-WRAPAROUND
+  extract:
+    en: a row version with an insertion XID greater than the current transaction's XID is “in the future” and should
+      not be visible to the current transaction
+- id: m06-l01-q54
+  prompt:
+    en: In PostgreSQL 18, what does the `autovacuum_vacuum_max_threshold` setting limit when autovacuum decides
+      whether to vacuum a table?
+  options:
+  - id: a
+    text:
+      en: The number of autovacuum processes other than the launcher that may be running at any one time
+  - id: b
+    text:
+      en: The number of tuples in a table above which autovacuum stops processing that table altogether
+  - id: c
+    correct: true
+    text:
+      en: The number of updated or deleted tuples that triggers a `VACUUM` of a table, capping the base threshold
+        plus scale factor value
+  - id: d
+    text:
+      en: The minimum delay in seconds between autovacuum runs on any given database
+  explanation:
+    en: It is a limit on the value calculated from `autovacuum_vacuum_threshold` and `autovacuum_vacuum_scale_factor`,
+      so the vacuum threshold is the minimum of the two. The number of concurrent processes is limited by `autovacuum_max_workers`.
+      The threshold formula only caps the trigger value, and a table above it is vacuumed, not abandoned. The delay
+      between runs on a database is `autovacuum_naptime`.
+  citation: pg-runtime-config-autovacuum#RUNTIME-CONFIG-AUTOVACUUM; pg-routine-vacuuming#AUTOVACUUM
+  extract:
+    en: a limit on the value calculated with autovacuum_vacuum_threshold and autovacuum_vacuum_scale_factor
+- id: m06-l01-q55
+  prompt:
+    en: In PostgreSQL 18, a table's `relfrozenxid` is more than `autovacuum_freeze_max_age` transactions old, although
+      few tuples were obsoleted since the last `VACUUM`. What does autovacuum do?
+  options:
+  - id: a
+    text:
+      en: It vacuums the table only once the tuples obsoleted since the last `VACUUM` exceed the vacuum threshold
+  - id: b
+    correct: true
+    text:
+      en: It always vacuums the table, whatever the vacuum threshold says
+  - id: c
+    text:
+      en: It skips the table if its freeze max age was changed through storage parameters
+  - id: d
+    text:
+      en: It runs `VACUUM FULL` on the table to reclaim the space of the old transactions
+  explanation:
+    en: Tables whose `relfrozenxid` is more than `autovacuum_freeze_max_age` old are always vacuumed. The vacuum
+      threshold applies only otherwise, to tables that are not that old. The rule also applies to tables whose freeze
+      max age was modified through storage parameters. The autovacuum daemon never issues `VACUUM FULL`.
+  citation: pg-routine-vacuuming#AUTOVACUUM; pg-routine-vacuuming#VACUUM-FOR-SPACE-RECOVERY
+  extract:
+    en: Tables whose relfrozenxid value is more than autovacuum_freeze_max_age transactions old are always vacuumed
+- id: m06-l01-q56
+  prompt:
+    en: In PostgreSQL 18, which description matches a dirty read among the phenomena that the SQL standard defines
+      for the isolation levels?
+  options:
+  - id: a
+    correct: true
+    text:
+      en: A transaction reads data written by a concurrent uncommitted transaction
+  - id: b
+    text:
+      en: A transaction re-reads data it has previously read and finds that another transaction has modified it
+        since the initial read
+  - id: c
+    text:
+      en: A transaction re-executes a query that returns a set of rows satisfying a condition and finds that the
+        set of rows has changed
+  - id: d
+    text:
+      en: A group of transactions commits successfully and the result is inconsistent with every order of running
+        them one at a time
+  explanation:
+    en: A dirty read is a transaction reading data written by a concurrent uncommitted transaction. Finding previously
+      read data modified by a transaction that committed since the initial read is a nonrepeatable read. Finding
+      that the set of rows satisfying a search condition has changed because of another recently committed transaction
+      is a phantom read. A result inconsistent with all possible orderings of the transactions run one at a time
+      is a serialization anomaly.
+  citation: pg-transaction-iso#TRANSACTION-ISO
+  extract:
+    en: A transaction reads data written by a concurrent uncommitted transaction
+- id: m06-l01-q57
+  prompt:
+    en: In PostgreSQL 18 at the Serializable level, which statement about the predicate locks shown as `SIReadLock`
+      in the `pg_locks` system view is correct?
+  options:
+  - id: a
+    correct: true
+    text:
+      en: A `READ ONLY` transaction can often establish at startup that no conflict is possible and avoid taking
+        any predicate locks
+  - id: b
+    text:
+      en: Predicate locks appear in `pg_locks` with the mode `ACCESS EXCLUSIVE`, the mode that `VACUUM FULL` takes
+        on a table
+  - id: c
+    text:
+      en: A predicate lock is always released when its transaction commits, so no lock stays behind after the commit
+  - id: d
+    text:
+      en: Tuple locks are never combined, so each tuple read keeps its own lock until the transaction has finished
+  explanation:
+    en: A `READ ONLY` transaction will often be able to establish at startup that it is safe and avoid taking predicate
+      locks. Predicate locks show up in `pg_locks` with a mode of `SIReadLock`, not `ACCESS EXCLUSIVE`. SIRead locks
+      often need to be kept past transaction commit, until overlapping read write transactions complete. Multiple
+      finer-grained locks such as tuple locks may be combined into coarser-grained page locks, to prevent exhaustion
+      of the memory used to track the locks.
+  citation: pg-transaction-iso#XACT-SERIALIZABLE; pg-routine-vacuuming#VACUUM-BASICS
+  extract:
+    en: In fact, READ ONLY transactions will often be able to establish that fact at startup and avoid taking any
+      predicate locks

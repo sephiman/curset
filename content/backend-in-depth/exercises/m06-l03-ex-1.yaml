@@ -11,15 +11,15 @@ variants:
     text:
       en: Only the equality on `a`
   - id: b
-    text:
-      en: The equality on `a`, the inequality on `b` and the inequality on `c`
-  - id: c
-    text:
-      en: Only the inequality on `c`
-  - id: d
     correct: true
     text:
       en: The equality on `a` and the inequality on `b`
+  - id: c
+    text:
+      en: The equality on `a`, the inequality on `b` and the inequality on `c`
+  - id: d
+    text:
+      en: Only the inequality on `c`
   explanation:
     en: Equality constraints on leading columns, plus inequality constraints on the first column without an equality
       constraint, always limit the scan, which here means `a` and `b`. Stopping at the equality on `a` misses the
@@ -36,12 +36,12 @@ variants:
       choose a skip scan on that index?
   options:
   - id: a
-    text:
-      en: When `x` has many distinct values, so every repeated search is cheap
-  - id: b
     correct: true
     text:
       en: When `x` has so few distinct values that most of the index can be skipped
+  - id: b
+    text:
+      en: When `x` has many distinct values, so every repeated search is cheap
   - id: c
     text:
       en: Only when the query also has an equality constraint on `x`
@@ -118,12 +118,12 @@ variants:
     text:
       en: A bitmap heap scan, because it sorts row locations
   - id: c
+    text:
+      en: An index-only scan, because the page is cached
+  - id: d
     correct: true
     text:
       en: A sequential scan, whether or not indexes exist
-  - id: d
-    text:
-      en: An index-only scan, because the page is cached
   explanation:
     en: Reading the table takes one page read either way, so there is no value in spending more page reads on an
       index, and a sequential scan results. An index scan would need extra page reads. A bitmap heap scan is also
@@ -144,12 +144,12 @@ variants:
     text:
       en: Both partitions
   - id: c
+    text:
+      en: Neither partition, so the insert is rejected
+  - id: d
     correct: true
     text:
       en: The second partition
-  - id: d
-    text:
-      en: Neither partition, so the insert is rejected
   explanation:
     en: Range bounds are inclusive at the lower end and exclusive at the upper end, so 10 belongs to the second
       partition. It is excluded from the first because the first range's upper bound is exclusive. It cannot be
@@ -193,12 +193,12 @@ variants:
       en: The predicate column `amount` differs from the indexed column `order_nr`, which a partial index does not
         allow
   - id: b
+    text:
+      en: Inequality predicates are never recognized, so only an `=` predicate can match a query clause
+  - id: c
     correct: true
     text:
       en: Matching takes place at planning time, so the parameterized clause cannot be shown to imply the predicate
-  - id: c
-    text:
-      en: Inequality predicates are never recognized, so only an `=` predicate can match a query clause
   - id: d
     text:
       en: The planner defers the match to run time, when the parameter is bound, and that check fails for values
@@ -219,15 +219,15 @@ variants:
       scans?
   options:
   - id: a
+    text:
+      en: A GIN index stores its entries inside the table's heap pages, mixed with the table rows
+  - id: b
+    text:
+      en: GIN indexes cannot be defined on more than one column, so they never cover a query
+  - id: c
     correct: true
     text:
       en: Each index entry typically holds only part of the original data value
-  - id: b
-    text:
-      en: A GIN index stores its entries inside the table's heap pages, mixed with the table rows
-  - id: c
-    text:
-      en: GIN indexes cannot be defined on more than one column, so they never cover a query
   - id: d
     text:
       en: GIN index entries carry no visibility information, unlike the entries of every other index type
@@ -251,15 +251,15 @@ variants:
     text:
       en: It only plans the query and shows more precise cost estimates, without executing it
   - id: b
-    text:
-      en: Nothing changes, because the `ANALYZE` option defaults to `TRUE` and is already active
-  - id: c
-    text:
-      en: It executes the query but leaves out buffer usage unless the `BUFFERS` option is also given
-  - id: d
     correct: true
     text:
       en: It actually executes the query and shows the true row counts and run times of each plan node
+  - id: c
+    text:
+      en: Nothing changes, because the `ANALYZE` option defaults to `TRUE` and is already active
+  - id: d
+    text:
+      en: It executes the query but leaves out buffer usage unless the `BUFFERS` option is also given
   explanation:
     en: With `ANALYZE`, `EXPLAIN` actually executes the query and then displays the true row counts and true run
       time accumulated within each plan node (`pg-using-explain#USING-EXPLAIN-ANALYZE`). Planning only is ruled
@@ -305,15 +305,15 @@ variants:
       scan on the same index?
   options:
   - id: a
+    text:
+      en: Whenever the query references only columns stored in the index
+  - id: b
+    text:
+      en: When most rows were modified recently, because fresh rows are visible to every transaction
+  - id: c
     correct: true
     text:
       en: Only if a significant fraction of the table's heap pages have their all-visible map bits set
-  - id: b
-    text:
-      en: Whenever the query references only columns stored in the index
-  - id: c
-    text:
-      en: When most rows were modified recently, because fresh rows are visible to every transaction
   - id: d
     text:
       en: Whenever the index has `INCLUDE` columns, whatever the table's rate of change
@@ -329,3 +329,236 @@ variants:
   extract:
     en: it will be a win only if a significant fraction of the table's heap pages have their all-visible map bits
       set
+- id: m06-l03-q43
+  prompt:
+    en: In PostgreSQL 18 `EXPLAIN` output, what does the estimated cost of an upper-level plan node include, besides
+      the cost of the work of that node itself?
+  options:
+  - id: a
+    correct: true
+    text:
+      en: The cost of all its child nodes
+  - id: b
+    text:
+      en: Only the cost of the node itself, so that the costs of its children must be added separately
+  - id: c
+    text:
+      en: The time spent converting output values to text form and transmitting them to the client
+  - id: d
+    text:
+      en: The actual run time in milliseconds, which `EXPLAIN` measures even without `ANALYZE`
+  explanation:
+    en: The cost of an upper-level node includes the cost of all its child nodes. A cost counting only the node
+      itself would contradict that sentence, so the children are never added separately. The estimate does not consider
+      the time spent to convert output values to text form or to transmit them to the client. Run times in milliseconds
+      are shown with `ANALYZE`, whereas the estimate uses arbitrary units.
+  citation: pg-using-explain#USING-EXPLAIN-BASICS; pg-using-explain#USING-EXPLAIN-ANALYZE
+  extract:
+    en: the cost of an upper-level node includes the cost of all its child nodes
+- id: m06-l03-q45
+  prompt:
+    en: In PostgreSQL 18, an `UPDATE` changes the partition key of a row in a partitioned table so that the row
+      no longer satisfies the partition bounds of its partition. What happens?
+  options:
+  - id: a
+    text:
+      en: The row stays in its partition, which keeps the row even though its key is outside the bounds
+  - id: b
+    correct: true
+    text:
+      en: The row is moved into a different partition
+  - id: c
+    text:
+      en: The row is stored in the partitioned table itself, which keeps rows that fit no partition
+  - id: d
+    text:
+      en: The row is deleted, and the application must insert it again into the right partition
+  explanation:
+    en: Updating the partition key causes the row to be moved into a different partition. The partitioned table
+      itself is a virtual table with no storage of its own, so it cannot keep the row. A partition holds the subset
+      of data defined by its partition bounds, so the row cannot stay outside them. Rows are routed to a partition
+      based on the values of the partition key columns, so no manual insert is needed.
+  citation: pg-ddl-partitioning#DDL-PARTITIONING-DECLARATIVE
+  extract:
+    en: Updating the partition key of a row will cause it to be moved into a different partition
+- id: m06-l03-q47
+  prompt:
+    en: In Hibernate ORM 7.4 HQL, which statement about `join fetch` and `left join fetch` on an association is
+      correct?
+  options:
+  - id: a
+    text:
+      en: '`join fetch` returns all the base entities, including those with no associated entity'
+  - id: b
+    correct: true
+    text:
+      en: '`left join fetch` returns all the base entities, including those with no associated entity'
+  - id: c
+    text:
+      en: '`join fetch` is allowed in subqueries, where it limits the rows that the outer query reads'
+  - id: d
+    text:
+      en: Fetching several collections in parallel with `join fetch` avoids a Cartesian product at the database
+        level
+  explanation:
+    en: A `left join fetch` returns all the base entities, including those with no associated joined entity. A `join
+      fetch` returns only base entities with an associated entity. Fetch joins are disallowed in subqueries, where
+      they would make no sense. Fetching multiple collections or to-many associations in parallel results in a Cartesian
+      product at the database level.
+  citation: hibernate-user-guide#hql-explicit-fetch-join
+- id: m06-l03-q48
+  prompt:
+    en: In Spring Data JPA 4.1 keyset filtering, how does the keyset query mechanism make sure that each query result
+      is unique?
+  options:
+  - id: a
+    text:
+      en: It requires every sort property in the `Sort` to be unique across all rows
+  - id: b
+    text:
+      en: It adds an offset counter to the query and skips the rows that came before
+  - id: c
+    text:
+      en: It rewrites the criteria clause to include only the last sort property of the `Sort`
+  - id: d
+    correct: true
+    text:
+      en: It amends the sort order by including the primary key
+  explanation:
+    en: The keyset query mechanism amends the sort order by including the primary key, or the remainder of a composite
+      primary key. You do not need to ensure unique query results yourself, so sort properties need not be unique.
+      Keyset filtering passes keys into the query instead of an offset counter, which belongs to offset scrolling.
+      The criteria clause is rewritten to include all sort fields and the primary key, not only the last sort property.
+  citation: spring-data-jpa-query-methods#repositories.scrolling.keyset; spring-data-jpa-query-methods#repositories.scrolling.offset
+  extract:
+    en: The keyset query mechanism amends your sort order by including the primary key
+- id: m06-l03-q49
+  prompt:
+    en: Which of these is NOT possible in the `INCLUDE` clause of `CREATE INDEX` in PostgreSQL 18?
+  options:
+  - id: a
+    text:
+      en: Listing a column whose data type has no operator class for the index access method
+  - id: b
+    text:
+      en: Listing a column that is not part of the search key and serves only as payload
+  - id: c
+    text:
+      en: Listing a column in a unique index, without it being part of the uniqueness condition
+  - id: d
+    correct: true
+    text:
+      en: Listing an expression as an included column
+  explanation:
+    en: Expressions are not supported as included columns, since they cannot be used in index-only scans. Columns
+      in `INCLUDE` do not need appropriate operator classes, so a type without one is allowed. The clause lists
+      extra columns that are just payload and not part of the search key. In a unique index with an `INCLUDE` clause
+      the uniqueness condition applies only to the key column, so such a column is allowed there.
+  citation: pg-sql-createindex#id-1.9.3.69.6; pg-indexes-index-only-scans#INDEXES-INDEX-ONLY-SCANS
+  extract:
+    en: Expressions are not supported as included columns
+- id: m06-l03-q50
+  prompt:
+    en: Which drawback does the PostgreSQL 18 `CREATE INDEX` documentation give for adding non-key columns to an
+      index with the `INCLUDE` clause?
+  options:
+  - id: a
+    correct: true
+    text:
+      en: They duplicate data from the table and bloat the index, potentially slowing searches
+  - id: b
+    text:
+      en: They can no longer be returned by an index-only scan, so the heap has to be visited for them
+  - id: c
+    text:
+      en: They make a unique index reject rows whose key column is unique but whose payload column repeats
+  - id: d
+    text:
+      en: They are stored only in the heap, which makes every search on the key column visit the table
+  explanation:
+    en: Non-key columns duplicate data from the index's table and bloat the size of the index, thus potentially
+      slowing searches. Included columns are what allow an index-only scan, since a column such as `y` can be obtained
+      from the index without visiting the heap. In a unique index the uniqueness condition applies only to the key
+      column, so repeated payload values are accepted. Included columns are stored in the index itself, which is
+      why they bloat it.
+  citation: pg-sql-createindex#id-1.9.3.69.6; pg-indexes-index-only-scans#INDEXES-INDEX-ONLY-SCANS
+  extract:
+    en: non-key columns duplicate data from the index's table and bloat the size of the index, thus potentially
+      slowing searches
+- id: m06-l03-q51
+  prompt:
+    en: In PostgreSQL 18 `EXPLAIN ANALYZE`, an Index Scan node executed several times shows an `Index Searches`
+      line. What does that line report?
+  options:
+  - id: a
+    correct: true
+    text:
+      en: The total number of searches across all executions of the node
+  - id: b
+    text:
+      en: The average number of searches per execution, like the actual time and rows values
+  - id: c
+    text:
+      en: The number of shared blocks hit, read, dirtied and written by the node
+  - id: d
+    text:
+      en: The number of times the node was executed, which is also the `loops` value
+  explanation:
+    en: The `Index Searches` line reports the total number of searches across all node executions. The actual time
+      and rows values are averages per execution, but this line is a total. The number of blocks hit, read, dirtied
+      and written comes from the `BUFFERS` parameter. The number of executions is what the `loops` value reports.
+  citation: pg-using-explain#USING-EXPLAIN-ANALYZE; pg-sql-explain#id-1.9.3.148.8
+  extract:
+    en: reports the total number of searches across all node executions
+- id: m06-l03-q53
+  prompt:
+    en: In PostgreSQL 18, which statement is correct about a partial index that was built to exclude the common
+      values of a column?
+  options:
+  - id: a
+    text:
+      en: The planner still uses it for a query that searches for one of the common values, like for any other value
+  - id: b
+    text:
+      en: It saves no index space, because an entry is kept for every table row whether or not the row satisfies
+        the predicate
+  - id: c
+    correct: true
+    text:
+      en: It requires the common values to be predetermined, so it suits data distributions that do not change
+  - id: d
+    text:
+      en: It needs no maintenance, because the predicate adapts by itself when the distribution of the data changes
+  explanation:
+    en: Such a partial index requires the common values to be predetermined, so it is best used for data distributions
+      that do not change. A query searching for a common value will not use the index anyway. The index contains
+      entries only for the table rows that satisfy the predicate, which reduces its size. The index can be recreated
+      occasionally to adjust for new data distributions, which adds maintenance effort.
+  citation: pg-indexes-partial#INDEXES-PARTIAL
+  extract:
+    en: this kind of partial index requires that the common values be predetermined
+- id: m06-l03-q54
+  prompt:
+    en: In Spring Data JPA 4.1, which statement about the query method return types `Page<T>`, `Slice<T>` and `Window<T>`
+      is correct?
+  options:
+  - id: a
+    correct: true
+    text:
+      en: A `Page<T>` query can require an additional `COUNT(...)` query to determine the total number of elements
+  - id: b
+    text:
+      en: A `Window<T>` can navigate to the previous `Window<T>` as well as to the next one
+  - id: c
+    text:
+      en: A `Slice<T>` always needs a `COUNT(...)` query, because it cannot tell whether there is more data to fetch
+  - id: d
+    text:
+      en: A `Page<T>` fetches `limit + 1` rows using a rewritten `WHERE` condition, in the way a keyset-based window
+        does
+  explanation:
+    en: A `Page<T>` can require an additional `COUNT(...)` query for the total number of elements. A `Window` can
+      only navigate to the next `Window`. A `Slice` fetches the page size plus one row and provides details on whether
+      there is more data to fetch. A `Page` fetches the page size at `Pageable.getOffset()`, while the rewritten
+      `WHERE` condition belongs to the keyset-based window.
+  citation: spring-data-jpa-repositories-query-methods-details#repositories.scrolling.guidance

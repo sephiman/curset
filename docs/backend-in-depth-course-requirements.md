@@ -577,3 +577,7 @@ Built only from public material (Tier C). Everything is class J and attributed.
 2. Sources stored outside git are resolved through the environment variable `CURSET_SOURCES_LOCAL` (default `~/PycharmProjects/curset-saved-originals/backend-in-depth/local`). Scripts verify content when the folder is present and skip with a warning when it is absent; they never fail CI for that reason.
 3. Schema rows in this course cite `source_id#anchor`.
 4. Lesson `m00-l01` covers no programme bullet and is exempt from the scope audit.
+5. 2026-11-13, session S2. Source rule, overriding the default rules of section 3.3: a programme item whose
+   only stored source is Tier B or Tier C is written as class J, in a judgement block with attribution. It is
+   omitted only when no stored source supports it. "Stored" means registered in `sources.yaml` (Tier A or C,
+   with anchors) or in `docs/backend-verification/s0/tier-b.yaml` (Tier B, by chapter).

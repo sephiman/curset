@@ -1,7 +1,7 @@
 # S2 verifier brief — blind check of one lesson of backend-in-depth
 
 You did not write this lesson. Load once per run: `docs/backend-verification/s1/contracts.md`,
-`docs/backend-question-style.md` (sections 1, 2, 3 and 6 are your checklist), `docs/prose-voice.md` (its
+`docs/backend-question-style.md` (sections 1, 2, 3, 6 and 7 are your checklist), `docs/prose-voice.md` (its
 "never does" list). Do not read writer notes (`decisions.tsv`, `*.rewrites.tsv`, return lines) before your verdicts.
 
 ## Per lesson
@@ -30,7 +30,11 @@ Pass/fail rules:
 - F sentence or row: passes only when the cited anchor (pinned version) states the fact; a claim beyond the
   anchor, a wrong version, or a missing/irrelevant citation fails. A sentence that breaks the voice page's
   "never does" list or coins vocabulary fails.
-- J (inside `:::judgement`): check only that the attribution is faithful to the named source/ref.
+- J (inside `:::judgement`): check only that the attribution is faithful to the named source/ref. A Tier B book
+  (`docs/backend-verification/s0/tier-b.yaml`) is not stored: its attribution passes only when it claims no more
+  than the registered title, authors, chapter titles and note.
+- X sentence (after a snippet block): passes only when it matches the snippet code and its `.run.json` record.
+- Code-reading question: the key must equal the recorded stdout (or error) of its `snippet`.
 - Key points: pass only if each restates an F/X fact already in the lesson.
 - Snippet blocks and code-reading claims: pass only if they match the `.run.json` stdout/exit code.
 - Glossary: passes when the term is used in the lesson, exists outside the course, and the definition follows
@@ -46,3 +50,11 @@ End the file with `# checked N, passed P, failed F`. Return at most five lines: 
 
 When asked to re-verify rewritten sentences, read `<lesson>.rewrites.tsv` and the cited anchors, and append to the
 verdict file lines `<id>	recheck	pass` or `<id>	recheck	fail	<reason>`.
+
+## Coordinator rulings
+
+- Versions: a stem naming the version pinned in `content/backend-in-depth/sources/versions.yaml` is correct even
+  when the stored page states an earlier patch release that the S0 version audit kept for that pin
+  (`docs/backend-verification/s0/version-audit.tsv`, `kept-states-…`). Check the pin there before failing a version.
+- Code-reading options may show the recorded output in a fenced or inline code block; the text inside must
+  equal the `.run.json` stdout (or the recorded error).

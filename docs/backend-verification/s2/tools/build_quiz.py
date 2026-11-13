@@ -26,12 +26,14 @@ SLOTS = ("a", "b", "c", "d")
 def failed_ids(path: Path | None) -> set[str]:
     if path is None:
         return set()
-    failed: set[str] = set()
+    final: dict[str, str] = {}
     for line in path.read_text(encoding="utf-8").splitlines():
-        parts = line.split()
-        if len(parts) >= 2 and parts[1] == "fail":
-            failed.add(parts[0])
-    return failed
+        parts = [cell.strip() for cell in line.split("\t")]
+        # a `recheck` line replaces the first verdict
+        verdict = parts[2] if len(parts) > 2 and parts[1] == "recheck" else parts[1] if len(parts) > 1 else ""
+        if verdict in ("pass", "fail"):
+            final[parts[0]] = verdict
+    return {qid for qid, verdict in final.items() if verdict == "fail"}
 
 
 def slot_order(count: int, seed: str) -> list[int]:

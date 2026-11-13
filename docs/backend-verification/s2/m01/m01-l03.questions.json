@@ -1,0 +1,478 @@
+[
+ {
+  "id": "m01-l03-q01",
+  "stem": "In Spring Modulith 2.1.2, which part of an application module in a Spring Boot application is usually referred to as its provided interface, as opposed to its internals?",
+  "key": "The Spring bean instances and application events that the module publishes to other modules",
+  "distractors": [
+   "The internal implementation components that other modules are not supposed to access",
+   "The Spring bean dependencies, application events listened to and configuration properties exposed by the module",
+   "Every package of the module, because any package may receive incoming dependencies from other modules"
+  ],
+  "explanation": "The API exposed to other modules, implemented by Spring bean instances and the application events the module publishes, is the provided interface. Internal implementation components are not supposed to be accessed by other modules, so they are not an interface. References to other modules' API as bean dependencies, events listened to and configuration properties are the required interface, not the provided one. By default only the base package is the API package and allows incoming dependencies, so not every package is exposed.",
+  "citation": "spring-modulith-fundamentals#modules; spring-modulith-fundamentals#modules.named-interfaces",
+  "extract": "An API exposed to other modules implemented by Spring bean instances and application events published by the module, usually referred to as provided interface",
+  "snippet": null
+ },
+ {
+  "id": "m01-l03-q02",
+  "stem": "In Spring Modulith 2.1.2, which description matches what the reference documentation calls the required interface of an application module in a Spring Boot application?",
+  "key": "References to other modules' API as Spring bean dependencies, application events listened to and configuration properties exposed",
+  "distractors": [
+   "The Spring bean instances and application events that the module itself publishes to other modules as its API",
+   "The internal implementation components that other modules are not supposed to access",
+   "The packages annotated with `@NamedInterface` that expose additional packages to other modules"
+  ],
+  "explanation": "References to API exposed by other modules, in the form of bean dependencies, events listened to and exposed configuration properties, are the required interface. The beans and events the module publishes are its provided interface. Internal implementation components are the part not meant for other modules to access. A `@NamedInterface` package exposes the module's own code to others, so it describes what the module offers, not what it requires.",
+  "citation": "spring-modulith-fundamentals#modules; spring-modulith-fundamentals#modules.named-interfaces",
+  "extract": "References to API exposed by other modules in the form of Spring bean dependencies, application events listened to and configuration properties exposed, usually referred to as required interface",
+  "snippet": null
+ },
+ {
+  "id": "m01-l03-q03",
+  "stem": "In Spring Modulith 2.1.2, how do you expose an additional package, besides the base package, to the other application modules of a Spring Boot application?",
+  "key": "Annotate the `package-info.java` of that package with `@NamedInterface`",
+  "distractors": [
+   "Annotate the `package-info.java` of that package with `@ApplicationModule(allowedDependencies = …)`",
+   "Annotate the types of that package with `@Service` so other modules can inject them",
+   "Write `\"order :: *\"` in a `@NamedInterface` annotation on that package"
+  ],
+  "explanation": "Exposing an additional package means annotating its `package-info.java`, or a `@PackageInfo` type, with `@NamedInterface`. The `allowedDependencies` attribute is declared by the consuming module to name what it may depend on, so it does not expose a package. By default the base package is the only package that allows incoming dependencies, so a `@Service` annotation exposes nothing more. The asterisk form `order :: *` is a value of `allowedDependencies` for all declared named interfaces, not of `@NamedInterface`.",
+  "citation": "spring-modulith-fundamentals#modules.named-interfaces",
+  "extract": "You achieve that by annotating the package-info.java file of those packages with @NamedInterface",
+  "snippet": null
+ },
+ {
+  "id": "m01-l03-q04",
+  "stem": "In Spring Modulith 2.1.2, the `inventory` module declares `@ApplicationModule(allowedDependencies = \"order :: spi\")`. Which dependency on the `order` module may its code have?",
+  "key": "A dependency on `SomeSpiInterface` and other code in the `order.spi` named interface",
+  "distractors": [
+   "A dependency on `OrderManagement` in the `order` base package",
+   "A dependency on every named interface that `order` declares",
+   "A dependency on other application modules too, because the attribute only adds permitted targets"
+  ],
+  "explanation": "With `order :: spi`, code in `inventory` may depend on `SomeSpiInterface` and other code in the `order.spi` named interface. It may not depend on `OrderManagement`. The asterisk form, `order :: *`, is the one that covers all declared named interfaces. When allowed dependencies are configured, dependencies to other application modules are rejected, so the attribute restricts rather than adds.",
+  "citation": "spring-modulith-fundamentals#modules.named-interfaces; spring-modulith-verification#page-title",
+  "extract": "code in inventory would be allowed to depend on SomeSpiInterface and other code residing in the order.spi interface, but not on OrderManagement for example",
+  "snippet": null
+ },
+ {
+  "id": "m01-l03-q05",
+  "stem": "In Spring Modulith 2.1.2, a module `order` declares the `spi` named interface and the `inventory` module configures no `allowedDependencies`. Which parts of `order` can `inventory` depend on?",
+  "key": "Both the application module root package and the SPI package",
+  "distractors": [
+   "Only the application module root package",
+   "Only the `spi` named interface",
+   "Neither, until `allowedDependencies` is declared on `inventory`"
+  ],
+  "explanation": "For modules without explicitly described dependencies, both the root package and the SPI one are accessible. The root package alone would leave out the named interface that the `order` module exposes on purpose. The `spi` package alone would leave out the root package, which stays the API package. Requiring `allowedDependencies` first is the opposite: the verification rule on allowed dependencies applies only when they are configured.",
+  "citation": "spring-modulith-fundamentals#modules.named-interfaces; spring-modulith-verification#page-title",
+  "extract": "For modules without explicitly described dependencies, both the application module root package and the SPI one are accessible.",
+  "snippet": null
+ },
+ {
+  "id": "m01-l03-q06",
+  "stem": "In Spring Modulith 2.1.2, which problem does `ApplicationModules.of(Application.class).verify()` report at the level of application modules, before any dependency is checked against allowed targets?",
+  "key": "Cycles, because the dependencies between modules have to form a directed acyclic graph",
+  "distractors": [
+   "Dependencies into the internals of open application modules",
+   "Dependencies on modules that are not listed in `allowedDependencies`, even when none is configured",
+   "Modules that interact only through published application events"
+  ],
+  "explanation": "The verification rejects cycles, because module dependencies must form a directed acyclic graph. Dependencies into internals of open application modules are allowed. The rule on allowed dependencies is optional and applies only when `allowedDependencies` is configured. Event publication is the primary means of interaction between modules, so it is no violation.",
+  "citation": "spring-modulith-verification#page-title; spring-modulith-events#page-title",
+  "extract": "the dependencies between modules have to form a directed acyclic graph",
+  "snippet": null
+ },
+ {
+  "id": "m01-l03-q07",
+  "stem": "In Spring Modulith 2.1.2, which reference does the efferent-access rule of `ApplicationModules.verify()` reject in a project with no explicit `allowedDependencies`?",
+  "key": "A reference to a type that resides in an internal package of another module",
+  "distractors": [
+   "A reference to a type in the base package of another module",
+   "A reference to a type in an internal package of an open application module",
+   "A reference to a type in a named interface package of another module"
+  ],
+  "explanation": "All references to types that reside in application module internal packages are rejected. A reference to a type in the base package is accepted, because the base package is the API package by default. Dependencies into internals of open application modules are allowed. A named interface exposes its package to other modules, so references to it are accepted too.",
+  "citation": "spring-modulith-verification#page-title; spring-modulith-fundamentals#modules.named-interfaces",
+  "extract": "all references to types that reside in application module internal packages are rejected",
+  "snippet": null
+ },
+ {
+  "id": "m01-l03-q08",
+  "stem": "In Spring Modulith 2.1.2, when does the verification rule on explicitly allowed application module dependencies reject a dependency to another application module?",
+  "key": "When the module defines allowed dependencies via `@ApplicationModule(allowedDependencies = …)` and the target is not among them",
+  "distractors": [
+   "Always, for every module in the application, because each module has an empty list of allowed dependencies by default",
+   "Only when the `jMolecules` ArchUnit library is on the classpath",
+   "Only when the module is checked by a Maven plugin instead of calling `verify()`"
+  ],
+  "explanation": "The rule is optional: a module can define allowed dependencies, and when it does, dependencies to other modules are rejected. The rule is not applied by default to every module, because it is optional. The `jMolecules` integration is a separate, optional addition that triggers its own DDD rules when present. Verification runs by calling `verify()` on an `ApplicationModules` instance, not through a plugin.",
+  "citation": "spring-modulith-verification#page-title",
+  "extract": "an application module can optionally define allowed dependencies via @ApplicationModule(allowedDependencies = …)",
+  "snippet": null
+ },
+ {
+  "id": "m01-l03-q09",
+  "stem": "In Spring Modulith 2.1.2, how do you verify that the code arrangement of an application adheres to the intended module constraints?",
+  "key": "Call `verify()` on an `ApplicationModules` instance, for example `ApplicationModules.of(Application.class).verify()`",
+  "distractors": [
+   "Set the attribute `@ApplicationModule(verify = true)` on the class that holds the application entry point",
+   "Publish an event and read the event publication log for violations",
+   "Annotate every package with `@NamedInterface` and let the container reject bad references"
+  ],
+  "explanation": "The verification is a call to `verify()` on an `ApplicationModules` instance. Verification is a call to `verify()`, so `@ApplicationModule(verify = true)` is not how it is switched on. The event publication log records entries per transactional event listener, not module violations. `@NamedInterface` exposes packages to other modules and checks nothing at startup.",
+  "citation": "spring-modulith-verification#page-title; spring-modulith-events#publication-registry; spring-modulith-fundamentals#modules.named-interfaces",
+  "extract": "We can verify whether our code arrangement adheres to the intended constraints by calling the ….verify() method on our ApplicationModules instance",
+  "snippet": null
+ },
+ {
+  "id": "m01-l03-q10",
+  "stem": "In Spring Modulith 2.1.2, what does the reference documentation say should be the primary means of interaction between application modules, and why?",
+  "key": "Event publication and consumption, so the originating module need not know all interested parties",
+  "distractors": [
+   "Direct calls to Spring beans of the other module, which keep components easy to test",
+   "Event publication, delivered asynchronously by default to keep modules decoupled",
+   "Calls through `@NamedInterface` packages only, never through events"
+  ],
+  "explanation": "Interaction should primarily be event publication and consumption, which avoids the originating module knowing all interested parties. Depending on another module's beans makes the component harder to test, because instances of those beans are needed. Event publication happens synchronously by default, not asynchronously. Named interfaces expose packages for allowed dependencies, but events are the primary means.",
+  "citation": "spring-modulith-events#page-title",
+  "extract": "their primary means of interaction should be event publication and consumption",
+  "snippet": null
+ },
+ {
+  "id": "m01-l03-q11",
+  "stem": "In the Spring Modulith 2.1.2 `OrderManagement` example that uses `ApplicationEventPublisher`, when does `complete(…)` publish the `OrderCompleted` event?",
+  "key": "Once it has completed the state transitions on the primary aggregate",
+  "distractors": [
+   "Before the state transitions, so listeners can veto them",
+   "After the transaction commits, because publication is asynchronous by default",
+   "Only after `InventoryManagement.updateStockFor` has returned"
+  ],
+  "explanation": "The event is published once the state transitions on the primary aggregate are complete. Publishing before the state transitions so that listeners can veto them is not what the example does, because it publishes after they are complete. Publication is synchronous by default, so it does not wait for the commit. The example replaces the direct call to `InventoryManagement` with the event, so no such call exists.",
+  "citation": "spring-modulith-events#page-title",
+  "extract": "to publish a domain event once we have completed the state transitions on the primary aggregate",
+  "snippet": null
+ },
+ {
+  "id": "m01-l03-q12",
+  "stem": "In Spring Modulith 2.1.2, when does the event publication registry write entries into the event publication log for the transactional event listeners that will receive an event?",
+  "key": "On event publication, as part of the original business transaction",
+  "distractors": [
+   "After the listener has succeeded, in a separate transaction of its own",
+   "Only when a listener fails, so that it can be retried",
+   "At application startup, once for every listener found"
+  ],
+  "explanation": "On event publication the registry writes an entry per listener as part of the original business transaction. Entries exist before the listener runs, since a successful run marks the entry completed. A failed listener leaves its existing entry untouched, so the entry was not created by the failure. Outstanding events are republished on restart only when the property is enabled, and that is not when entries are written.",
+  "citation": "spring-modulith-events#publication-registry",
+  "extract": "writes entries for each of them (dark blue) into an event publication log as part of the original business transaction",
+  "snippet": null
+ },
+ {
+  "id": "m01-l03-q13",
+  "stem": "In Spring Modulith 2.1.2, what happens to the event publication log entry when its transactional event listener fails?",
+  "key": "The entry stays untouched so that retry mechanisms can be deployed",
+  "distractors": [
+   "The entry is marked completed anyway",
+   "The registry republishes the event immediately by default",
+   "The registry retries the listener until it succeeds"
+  ],
+  "explanation": "On failure the log entry stays untouched so that retry mechanisms can be deployed. Only a successful listener marks its entry completed. Automatic re-publication can be enabled through a property, so it is not on by default. Retry mechanisms are deployed depending on the application's needs, so the registry does not retry by itself.",
+  "citation": "spring-modulith-events#publication-registry",
+  "extract": "the log entry stays untouched so that retry mechanisms can be deployed",
+  "snippet": null
+ },
+ {
+  "id": "m01-l03-q14",
+  "stem": "In Spring Modulith 2.1.2, which event listeners does the event publication registry consider by default when it writes entries into the publication log?",
+  "key": "All listeners annotated or meta-annotated with `@TransactionalEventListener`",
+  "distractors": [
+   "All listeners annotated with `@EventListener`, transactional or not",
+   "Only the listeners selected by `spring.modulith.events.republish-outstanding-events-on-restart`",
+   "Only listeners of events published through `@DomainEvents` methods"
+  ],
+  "explanation": "By default all event listeners (meta-)annotated with `@TransactionalEventListener` are considered. Plain `@EventListener` methods are not triggers unless the trigger annotation is customised. The republish property enables automatic re-publication of outstanding events on restart and does not select listeners. Events published through `ApplicationEventPublisher` are considered, so the origin of the event does not limit the listeners.",
+  "citation": "spring-modulith-events#publication-registry",
+  "extract": "all event listeners (meta-)annotated with @TransactionalEventListener are considered",
+  "snippet": null
+ },
+ {
+  "id": "m01-l03-q15",
+  "stem": "In ArchUnit 1.5.1, which class is the entry point for specifying an architectural rule with the fluent API, such as services only being accessed by controllers?",
+  "key": "`ArchRuleDefinition`",
+  "distractors": [
+   "`Architectures`",
+   "`SlicesRuleDefinition`",
+   "`CycleDetector`"
+  ],
+  "explanation": "`ArchRuleDefinition` is the entry point for specifying a rule. `Architectures` is the entrance for checks of common architectural styles such as layered and onion. `SlicesRuleDefinition` is the entrance point for the slice rules. `CycleDetector` is the core class of cycle detection.",
+  "citation": "archunit-user-guide#_asserting_architectural_constraints; archunit-user-guide#_architectures; archunit-user-guide#_slices; archunit-user-guide#_the_cycle_detection_core_api",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m01-l03-q16",
+  "stem": "In ArchUnit 1.5.1, an `ArchRule` has been specified with the fluent API. How is it evaluated against a set of imported classes?",
+  "key": "By calling `check(importedClasses)` on the rule",
+  "distractors": [
+   "By calling `CycleDetector.detectCycles(nodes, edges)` with the rule",
+   "By calling `layeredArchitecture()` on the rule",
+   "By calling `matching(..)` on the rule"
+  ],
+  "explanation": "The rule is evaluated by calling `check(importedClasses)`. `CycleDetector.detectCycles` is the core cycle detection that custom checks use on nodes and edges. `layeredArchitecture()` is the entrance for layer checks, which build a rule instead of evaluating one. `matching(..)` takes a package pattern to sort classes into slices.",
+  "citation": "archunit-user-guide#_asserting_architectural_constraints; archunit-user-guide#_the_cycle_detection_core_api; archunit-user-guide#_layer_checks; archunit-user-guide#_slices",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m01-l03-q17",
+  "stem": "In the `layeredArchitecture()` example of the ArchUnit 1.5.1 user guide, which access to the `Service` layer is allowed?",
+  "key": "Only access from the `Controller` layer",
+  "distractors": [
+   "Access from the `Controller` and the `Persistence` layers",
+   "Access from any layer, because only `Controller` has an access rule",
+   "No access at all, because every layer is declared with `mayNotBeAccessedByAnyLayer()`"
+  ],
+  "explanation": "The rule `mayOnlyBeAccessedByLayers(\"Controller\")` on `Service` allows only the `Controller` layer. The `Persistence` layer is allowed only to be accessed by `Service`, so it is not a caller of `Service` in this setup. Each of the three layers has its own `whereLayer` rule, so `Controller` is not the only one. Only `Controller` is declared with `mayNotBeAccessedByAnyLayer()`.",
+  "citation": "archunit-user-guide#_layer_checks",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m01-l03-q18",
+  "stem": "In ArchUnit 1.5.1, which architectural styles does the `com.tngtech.archunit.library.Architectures` entrance point provide a convenient check for at the moment?",
+  "key": "A layered architecture and an onion architecture",
+  "distractors": [
+   "A layered architecture and a pipes-and-filters architecture",
+   "A hexagonal architecture and a layered architecture",
+   "An onion architecture and a separation of business logic from technical infrastructure"
+  ],
+  "explanation": "At the moment `Architectures` provides a check for a layered architecture and an onion architecture. Pipes and filters is named only as a style that the entrance might get in the future. A hexagonal check is not provided, since layered and onion are the only two. Separation of business logic and technical infrastructure is likewise listed as a possible future extension.",
+  "citation": "archunit-user-guide#_architectures",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m01-l03-q19",
+  "stem": "In ArchUnit 1.5.1, what does the rule `SlicesRuleDefinition.slices().matching(\"..myapp.(*)..\").should().beFreeOfCycles()` check about the classes of an application?",
+  "key": "That slices made of the classes sorted by the first package after `myapp` are free of cyclic dependencies",
+  "distractors": [
+   "That the slices sorted by the first package after `myapp` have no dependencies on each other",
+   "That all subpackages of `myapp` form one slice that is free of cycles",
+   "That slices assigned through a custom `SliceAssignment` are free of cycles"
+  ],
+  "explanation": "The rule sorts classes by the first package after `myapp` and checks those slices for cycles. Checking that slices have no dependencies on each other is the job of `notDependOnEachOther()`. Checking all subpackages for cycles is the `(**)` pattern, where the whole `myapp` subtree is taken as the unit. A custom `SliceAssignment` is set with `assignedFrom`, not with `matching`.",
+  "citation": "archunit-user-guide#_slices",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m01-l03-q20",
+  "stem": "In ArchUnit 1.5.1, what does the rule `slices().matching(\"..myapp.(**).service..\").should().notDependOnEachOther()` assert about the slices of an application?",
+  "key": "That the slices, sorted by the packages between `myapp` and `service`, have no dependencies on each other",
+  "distractors": [
+   "That the slices are free of cycles",
+   "That all subpackages of `myapp` are checked together as a single slice",
+   "That classes outside the package pattern are assigned to a `Legacy` slice"
+  ],
+  "explanation": "The rule sorts classes by the packages between `myapp` and `service` and checks that those slices do not depend on each other. Freedom from cycles is checked by `beFreeOfCycles()`. Taking all subpackages of `myapp` as slices is what the `..myapp.(**)` pattern in the cycle example does. A class that matches nothing is ignored with `SliceIdentifier.ignore()` in a custom assignment, not placed into a slice.",
+  "citation": "archunit-user-guide#_slices",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m01-l03-q21",
+  "stem": "In ArchUnit 1.5.1, which class holds the cycle detection that the `slices()` rule uses, so that custom checks can run it without any rule syntax?",
+  "key": "`CycleDetector`, in the `cycle_detection` package of the library",
+  "distractors": [
+   "`SlicesRuleDefinition`, the entrance point for slice rules in the library",
+   "`ArchRuleDefinition`, the entry point for specifying rules",
+   "`SliceAssignment`, which maps a `JavaClass` to a slice"
+  ],
+  "explanation": "`CycleDetector` is the core class of the cycle detection, and `CycleDetector.detectCycles(nodes, edges)` returns the cycles found. `SlicesRuleDefinition` is the entrance point of the rule syntax around it. `ArchRuleDefinition` is the entry point for specifying general rules. `SliceAssignment` maps classes to slice identifiers for custom slice creation.",
+  "citation": "archunit-user-guide#_the_cycle_detection_core_api; archunit-user-guide#_slices; archunit-user-guide#_asserting_architectural_constraints",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m01-l03-q22",
+  "stem": "In Spring Data Commons 4.1.2, which statement about a method of an aggregate root annotated with `@DomainEvents` is correct?",
+  "key": "It can return a single event instance or a collection of events, and it must not take any arguments",
+  "distractors": [
+   "It must return a `Collection<Object>` of events and it takes the aggregate root as its only argument",
+   "It must return `void` and publish through `ApplicationEventPublisher` itself",
+   "It is called only when `save(…)` is called on the repository"
+  ],
+  "explanation": "The method can return a single event instance or a collection and must not take arguments. It does not take the aggregate root, because it takes no arguments, and a single instance is allowed as well as a collection. It returns the events to publish rather than publishing them itself. It is called for `save(…)`, `saveAll(…)` and the delete methods listed, not for `save(…)` alone.",
+  "citation": "spring-data-commons-domain-events#page-title",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m01-l03-q23",
+  "stem": "In Spring Data Commons 4.1.2, when is the method annotated with `@AfterDomainEventPublication` on an aggregate root called, and what can it be used for?",
+  "key": "After all events have been published, to clean the list of events",
+  "distractors": [
+   "Before the events are published, to validate the whole list of events",
+   "Once per event, right after each single event is published",
+   "Only when `delete(…)` is called, to remove the events of the deleted instance"
+  ],
+  "explanation": "It is called after all events have been published and can be used to clean the list of events. Validating the list of events before publication is not its purpose, because it runs after publication. It does not run once per event after each single event is published, because it runs after all events have been published. The `@DomainEvents` and callback methods are called for the `save` and `delete` repository methods alike, so it is not limited to `delete(…)`.",
+  "citation": "spring-data-commons-domain-events#page-title",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m01-l03-q24",
+  "stem": "In Spring Data Commons 4.1.2, which repository method does NOT cause the aggregate root's `@DomainEvents` method to be called?",
+  "key": "`deleteById(…)`",
+  "distractors": [
+   "`saveAll(…)`",
+   "`deleteAllInBatch(…)`",
+   "`deleteInBatch(…)`"
+  ],
+  "explanation": "`deleteById(…)` is absent from the list because an implementation might issue a deleting query and never have access to the aggregate instance. `saveAll(…)` is on the list of methods that call the annotated method. `deleteAllInBatch(…)` is on the list as well. `deleteInBatch(…)` is also on the list.",
+  "citation": "spring-data-commons-domain-events#page-title",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m01-l03-q25",
+  "stem": "In Spring Modulith 2.1.1, an `@Async` listener annotated with `@TransactionalEventListener` handles `OrderCompleted`. Which risk does the documentation name when that listener fails for whatever reason?",
+  "key": "The event publication is lost, unless each listener implements its own safety net",
+  "distractors": [
+   "The original business transaction expands to include the failed listener and rolls back with it",
+   "The event is always delivered again, because the system cannot fail before the method is invoked",
+   "The status change of the order is rolled back together with the failed listener"
+  ],
+  "explanation": "The documentation warns that a failing listener loses the event publication unless the listener implements its own safety net. It says the arrangement avoids the expansion of the original business transaction, so the transaction does not grow to include the listener. It also says the system might fail before the method is even invoked, so delivery is not guaranteed. The arrangement decouples the original transaction from the execution of the listener, so the order's status change is not rolled back with it.",
+  "citation": "spring-modulith-events#page-title",
+  "extract": "if the listener fails for whatever reason, the event publication is lost, unless each listener actually implements its own safety net",
+  "snippet": null
+ },
+ {
+  "id": "m01-l03-q26",
+  "stem": "In Spring Modulith 2.1.1, `OrderManagement.complete(…)` publishes `OrderCompleted` with `ApplicationEventPublisher` and a plain listener updates the inventory. Which benefit does the documentation name for this default arrangement?",
+  "key": "A very simple consistency model: the order status change and the inventory update both succeed or none does",
+  "distractors": [
+   "The failure of the inventory listener never affects the transaction that publishes the event",
+   "The original business transaction is decoupled from the execution of the listener",
+   "The transaction boundary stays as narrow as before because listeners run after the commit"
+  ],
+  "explanation": "Because publication is synchronous by default, the order status change and the inventory update either both succeed or none does. The documentation names the opposite as the downside, because triggered functionality can cause the entire transaction to fail even if the failing functionality is not crucial. Decoupling the transaction from the listener belongs to the `@Async` plus `@TransactionalEventListener` variant, not to the synchronous default. Related functionality widens the transaction boundary, so the boundary does not stay narrow.",
+  "citation": "spring-modulith-events#page-title",
+  "extract": "either both the status change of the order and the inventory update succeed or none of them does",
+  "snippet": null
+ },
+ {
+  "id": "m01-l03-q27",
+  "stem": "In Spring Modulith 2.1.1, which part marks an entry of the event publication log as completed after the event reached a transactional event listener?",
+  "key": "An aspect wrapped around the listener, when its execution succeeds",
+  "distractors": [
+   "The registry itself, at the moment the event is published",
+   "The listener's own code, which has to update the log entry",
+   "A restart of the application with automatic re-publication enabled"
+  ],
+  "explanation": "Each transactional event listener is wrapped into an aspect that marks its log entry as completed if the execution succeeds. At publication the registry only writes the entries, so they exist before any listener ran. The aspect does the marking, so the listener's own code does not have to update the entry. The re-publication property only republishes outstanding events on restart and does not mark entries completed.",
+  "citation": "spring-modulith-events#publication-registry",
+  "extract": "Each transactional event listener is wrapped into an aspect that marks that log entry as completed if the execution of the listener succeeds",
+  "snippet": null
+ },
+ {
+  "id": "m01-l03-q28",
+  "stem": "In Spring Modulith 2.1.1, which setting enables the automatic re-publication of outstanding events from the event publication log when the application restarts?",
+  "key": "`spring.modulith.events.republish-outstanding-events-on-restart`",
+  "distractors": [
+   "`spring.modulith.events.registry-trigger-annotation`",
+   "Calling `verify()` on an `ApplicationModules` instance",
+   "Annotating the listener with `@Async`"
+  ],
+  "explanation": "Automatic re-publication is enabled via the `spring.modulith.events.republish-outstanding-events-on-restart` property. The `registry-trigger-annotation` property customises which listeners the registry considers. Calling `verify()` checks the module structure and republishes nothing. An `@Async` listener decouples the transaction and loses the publication on failure unless it has its own safety net.",
+  "citation": "spring-modulith-events#publication-registry; spring-modulith-verification#page-title; spring-modulith-events#page-title",
+  "extract": "Automatic re-publication of the events can be enabled via the spring.modulith.events.republish-outstanding-events-on-restart property",
+  "snippet": null
+ },
+ {
+  "id": "m01-l03-q29",
+  "stem": "In the ArchUnit 1.5.1 user guide, the rule `classes().that().resideInAPackage(\"..service..\").should().onlyBeAccessed().byAnyPackage(\"..controller..\", \"..service..\")` is specified. Which classes may access the classes in `..service..`?",
+  "key": "Classes in the `..controller..` or the `..service..` packages",
+  "distractors": [
+   "Only classes in the `..controller..` package",
+   "Classes in any package, because `resideInAPackage` selects who may call",
+   "Classes in `..controller..`, `..service..` and `..persistence..`"
+  ],
+  "explanation": "The rule lists two packages, so classes in `..controller..` or `..service..` may access them. A rule with only the controller package would stop services from using each other, but `..service..` is also listed. `onlyBeAccessed()` restricts the callers, and `resideInAPackage` selects the accessed classes. A `..persistence..` package is not among the listed ones.",
+  "citation": "archunit-user-guide#_asserting_architectural_constraints",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m01-l03-q30",
+  "stem": "In ArchUnit 1.5.1, which class imports the classes that an `ArchRule` is checked against in the complete example of the user guide, where `importPackages(\"com.mycompany.myapp\")` is called?",
+  "key": "`ClassFileImporter`",
+  "distractors": [
+   "`ArchRuleDefinition`, the entry point for specifying a rule",
+   "`Architectures`, the entrance for common architectural styles",
+   "`SlicesRuleDefinition`, the entrance point for slice rules"
+  ],
+  "explanation": "The complete example calls `importPackages` on a `ClassFileImporter` to get the `JavaClasses` that the rule checks. `ArchRuleDefinition` is the entry point for specifying rules, not for importing. `Architectures` is the entrance for checks of common architectural styles. `SlicesRuleDefinition` is the entrance point for the slice rules.",
+  "citation": "archunit-user-guide#_asserting_architectural_constraints; archunit-user-guide#_architectures; archunit-user-guide#_slices",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m01-l03-q31",
+  "stem": "In ArchUnit 1.5.1, a custom `SliceAssignment` returns `SliceIdentifier.ignore()` for a class that matches none of its mappings. What happens to that class when the slice rule is evaluated?",
+  "key": "It is left out of every slice, so the rule does not check it",
+  "distractors": [
+   "It is put into the `Legacy` slice together with the `com.oldapp` classes",
+   "It is put into the `ESB` slice together with the classes whose name contains `.esb.`",
+   "It makes the rule fail with the text from `getDescription()`"
+  ],
+  "explanation": "A class that matches nothing is ignored by returning `SliceIdentifier.ignore()`. The `Legacy` slice holds only classes whose package name starts with `com.oldapp`. The `ESB` slice holds only classes whose name contains `.esb.`. The text from `getDescription()` is part of the rule description when the test fails, and it is not an effect of ignoring a class.",
+  "citation": "archunit-user-guide#_slices",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m01-l03-q32",
+  "stem": "In Spring Modulith 2.1.1, which dependency is NOT rejected by the efferent-module-access rule when `ApplicationModules.verify()` runs?",
+  "key": "A dependency into an internal package of an open application module",
+  "distractors": [
+   "A reference to a type in an internal package of an ordinary module",
+   "A dependency on a module that is not among the configured `allowedDependencies`",
+   "A cycle between two application modules"
+  ],
+  "explanation": "Dependencies into internals of open application modules are allowed. References to types in internal packages of other modules are rejected. When `allowedDependencies` is configured, dependencies to other modules are rejected. Cycles are rejected because the module dependencies have to form a directed acyclic graph.",
+  "citation": "spring-modulith-verification#page-title",
+  "extract": "Dependencies into internals of Open Application Modules are allowed",
+  "snippet": null
+ },
+ {
+  "id": "m01-l03-q33",
+  "stem": "In Spring Modulith 2.1.1, the reference documentation calls it a key aspect for one benefit that the originating module does not need to know all potentially interested parties of an event. Which benefit?",
+  "key": "Application module integration testing",
+  "distractors": [
+   "Asynchronous execution of every event listener by default",
+   "Automatic re-publication of outstanding events after a restart",
+   "Dependencies into the internal packages of other modules"
+  ],
+  "explanation": "Avoiding that the originating module knows the interested parties is a key aspect to enable application module integration testing. Event publication happens synchronously by default, so listeners are not asynchronous. Re-publication after a restart has to be enabled with a property. References into internal packages of other modules are rejected by the verification.",
+  "citation": "spring-modulith-events#page-title; spring-modulith-events#publication-registry; spring-modulith-verification#page-title",
+  "extract": "which is a key aspect to enable application module integration testing",
+  "snippet": null
+ },
+ {
+  "id": "m01-l03-q34",
+  "stem": "The ArchUnit 1.5.1 user guide says the Library API currently offers two slice rules. Which pair of assertions do its slice examples use?",
+  "key": "`beFreeOfCycles()` and `notDependOnEachOther()`",
+  "distractors": [
+   "`beFreeOfCycles()` and `mayNotBeAccessedByAnyLayer()`",
+   "`notDependOnEachOther()` and `onlyBeAccessed()`",
+   "`beFreeOfCycles()` and `detectCycles(nodes, edges)`"
+  ],
+  "explanation": "The slice examples assert `beFreeOfCycles()` and `notDependOnEachOther()`. `mayNotBeAccessedByAnyLayer()` belongs to the layer checks. `onlyBeAccessed()` belongs to the `ArchRuleDefinition` rule syntax. `detectCycles(nodes, edges)` is the cycle detection core API that runs without any rule syntax.",
+  "citation": "archunit-user-guide#_slices; archunit-user-guide#_layer_checks; archunit-user-guide#_asserting_architectural_constraints; archunit-user-guide#_the_cycle_detection_core_api",
+  "extract": null,
+  "snippet": null
+ }
+]

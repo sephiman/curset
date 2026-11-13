@@ -1,0 +1,436 @@
+[
+ {
+  "id": "m01-l02-q01",
+  "stem": "In Java 25, what does the `java.lang.reflect.Proxy` class provide static methods for creating, according to its Javadoc?",
+  "key": "Objects that act like instances of interfaces but allow customized method invocation",
+  "distractors": [
+   "Subclasses of a concrete class that override every public method with a stub",
+   "Wrapper objects that copy an instance and freeze its fields against later changes",
+   "Instances of interfaces that are generated at compile time by an annotation processor"
+  ],
+  "explanation": "`Proxy` creates objects that act like instances of interfaces but allow customized method invocation. The subclass claim is wrong because a proxy class implements interfaces and extends `java.lang.reflect.Proxy`, not the target class. The frozen copy claim is wrong because a method call on a proxy is dispatched to an invocation handler, which may do anything. The compile-time claim is wrong because a proxy class is created at runtime.",
+  "citation": "javadoc-proxy#class-proxy",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m01-l02-q02",
+  "stem": "In Java 25, how does the `Proxy` Javadoc define a proxy class, the kind of class of which `Proxy.newProxyInstance` returns an instance?",
+  "key": "A class created at runtime that implements a specified list of interfaces, known as proxy interfaces",
+  "distractors": [
+   "A class created at build time that extends the target class and overrides its public methods",
+   "A class created at runtime that implements the target class's interfaces and its superclass",
+   "A class written by hand that forwards each interface method to a field of the target type"
+  ],
+  "explanation": "A proxy class is created at runtime and implements a specified list of interfaces, known as proxy interfaces. The build-time subclass claim is wrong because the class is created at runtime and implements interfaces. The claim that it implements the superclass is wrong because a proxy class implements exactly the interfaces specified at its creation. The hand-written claim is wrong because the class is generated at runtime.",
+  "citation": "javadoc-proxy#class-proxy; javadoc-proxy#class-proxy",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m01-l02-q03",
+  "stem": "In Java 25, every proxy instance has an associated invocation handler. Which interface does the `Proxy` Javadoc say that handler object implements?",
+  "key": "`InvocationHandler`",
+  "distractors": [
+   "`java.lang.reflect.Proxy`",
+   "`java.lang.reflect.Method`",
+   "`java.lang.Runnable`"
+  ],
+  "explanation": "The handler object implements the interface `InvocationHandler`. The class `java.lang.reflect.Proxy` is wrong because it is the class every proxy class extends, not what the handler implements. The class `java.lang.reflect.Method` is wrong because a `Method` object identifies the invoked method and is passed to `invoke`. The interface `java.lang.Runnable` is wrong because dispatching goes through the `invoke` method of `InvocationHandler`.",
+  "citation": "javadoc-proxy#class-proxy",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m01-l02-q04",
+  "stem": "In Java 25, a method is invoked on a proxy instance through one of its proxy interfaces. What does the invocation handler's `invoke` method receive, according to the `Proxy` Javadoc?",
+  "key": "The proxy instance, a `Method` object identifying the invoked method, and an array of `Object` arguments",
+  "distractors": [
+   "The target object, the name of the method as a `String`, and a `List` of arguments",
+   "Only the array of `Object` arguments, since the handler is bound to a single method",
+   "The proxy interface's `Class` object and the return value of the target's method"
+  ],
+  "explanation": "The `invoke` method receives the proxy instance, a `java.lang.reflect.Method` object and an array of `Object` containing the arguments. The target object and method name claim is wrong because the handler gets a `Method` object and the proxy, not the target. The arguments-only claim is wrong because one handler serves every method of the proxy interfaces. The return value claim is wrong because the handler produces the return value that is returned to the caller.",
+  "citation": "javadoc-proxy#class-proxy",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m01-l02-q05",
+  "stem": "In Java 25, what does the `Proxy` Javadoc say about the modifiers of a proxy class?",
+  "key": "A proxy class is final and non-abstract",
+  "distractors": [
+   "A proxy class is non-final, so a subclass can add behaviour to a proxy",
+   "A proxy class is abstract, and each interface method is implemented by the handler",
+   "A proxy class is final and abstract, so it can only be used through its interfaces"
+  ],
+  "explanation": "A proxy class is final and non-abstract. The non-final claim is wrong because the Javadoc lists the class as final. The abstract claim is wrong because the class is non-abstract, and the handler receives the invocations but the class itself is concrete. The final and abstract claim is wrong because a class cannot be both final and abstract, as the proxy class is non-abstract.",
+  "citation": "javadoc-proxy#class-proxy",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m01-l02-q06",
+  "stem": "In Java 25, which class does every proxy class created by `Proxy` extend, according to its Javadoc?",
+  "key": "`java.lang.reflect.Proxy`",
+  "distractors": [
+   "`java.lang.Object` directly, with no intermediate class",
+   "The class of the target object that the handler forwards to",
+   "`java.lang.reflect.InvocationHandler`, which supplies the dispatching"
+  ],
+  "explanation": "A proxy class extends `java.lang.reflect.Proxy`. The claim of `Object` directly is wrong because `Proxy` sits between them. The claim of the target's class is wrong because a proxy class implements the specified interfaces and does not extend the target class. The claim of `InvocationHandler` is wrong because that is an interface implemented by the handler object, not a superclass.",
+  "citation": "javadoc-proxy#class-proxy",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m01-l02-q07",
+  "stem": "In Java 25, a proxy class is created for the interfaces `A` and `B`, passed in that order. Which interfaces does it implement, according to the `Proxy` Javadoc?",
+  "key": "Exactly `A` and `B`, in the same order",
+  "distractors": [
+   "`A` and `B`, plus every interface that the target object's class implements",
+   "Only `A`, the first interface in the list, with `B` reached through delegation",
+   "`A` and `B`, in the alphabetical order of their fully qualified names"
+  ],
+  "explanation": "A proxy class implements exactly the interfaces specified at its creation, in the same order. The claim of extra target interfaces is wrong because only the specified interfaces are implemented. The claim of only the first interface is wrong because every specified interface is implemented. The alphabetical claim is wrong because the order is the one specified at creation.",
+  "citation": "javadoc-proxy#class-proxy",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m01-l02-q08",
+  "stem": "In Java 25, `proxy` is a proxy instance whose proxy class implements the interface `Foo`. What do `proxy instanceof Foo` and the cast `(Foo) proxy` do, according to the `Proxy` Javadoc?",
+  "key": "The `instanceof` expression returns true and the cast succeeds",
+  "distractors": [
+   "The `instanceof` expression returns false because the proxy class extends `Proxy`, and the cast fails",
+   "The `instanceof` expression returns true, but the cast throws a `ClassCastException` because the proxy class is final",
+   "The `instanceof` expression returns true only when `Foo` declares at least one `default` method"
+  ],
+  "explanation": "For an interface implemented by its proxy class, `proxy instanceof Foo` returns true and the cast succeeds. The false claim is wrong because the proxy class implements `Foo` in addition to extending `Proxy`. The `ClassCastException` claim is wrong because the cast succeeds rather than throwing, and being final does not matter for an interface cast. The `default` method claim is wrong because the result does not depend on the methods the interface declares.",
+  "citation": "javadoc-proxy#class-proxy",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m01-l02-q09",
+  "stem": "In Java 25, `hashCode` is called on a proxy instance. What does the `Proxy` Javadoc say happens to an invocation of `hashCode`, `equals` or `toString` declared in `java.lang.Object`?",
+  "key": "It is dispatched to the handler's `invoke` method, like an interface method invocation",
+  "distractors": [
+   "It runs the `Object` implementation directly, without involving the handler",
+   "It is forwarded to the target object's own method, bypassing the handler",
+   "It throws an `UnsupportedOperationException` unless the proxy interface redeclares it"
+  ],
+  "explanation": "These invocations are encoded and dispatched to the handler's `invoke` method in the same manner as interface method invocations. The claim that the `Object` implementation runs directly is wrong because the handler sees the call. The claim of bypassing the handler is wrong because the handler is the only place the call goes. The claim about `UnsupportedOperationException` is wrong because the Javadoc describes dispatch to `invoke` with no requirement that the interface redeclare the methods.",
+  "citation": "javadoc-proxy#class-proxy",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m01-l02-q10",
+  "stem": "In Spring Framework 7.0, where does the CGLIB library used by Spring AOP come from, as opposed to JDK dynamic proxies?",
+  "key": "It is a common open-source class definition library repackaged into `spring-core`",
+  "distractors": [
+   "It is built into the JDK, next to the dynamic proxies of `java.lang.reflect`",
+   "It is an annotation processor that generates proxy classes at compile time",
+   "It is an optional aspect weaving module that is added to the class path by `spring-aop`"
+  ],
+  "explanation": "CGLIB is a common open-source class definition library repackaged into `spring-core`. The claim that it is built into the JDK is wrong because it is JDK dynamic proxies that are built into the JDK. The claim of a compile-time annotation processor is wrong because a CGLIB proxy is a runtime-generated subclass. The aspect weaving module claim is wrong because the library is repackaged into `spring-core` itself.",
+  "citation": "spring-fw-aop-proxying#proxying-mechanisms",
+  "extract": "CGLIB is a common open-source class definition library (repackaged into spring-core)",
+  "snippet": null
+ },
+ {
+  "id": "m01-l02-q11",
+  "stem": "In Spring Framework 7.0, a target bean implements one interface. Which kind of proxy does Spring AOP create for it by default?",
+  "key": "A JDK dynamic proxy",
+  "distractors": [
+   "A CGLIB proxy, which is a runtime-generated subclass of the target type",
+   "A CGLIB proxy, but only when the interface declares no `default` methods",
+   "No proxy, because a bean that implements an interface is advised in place"
+  ],
+  "explanation": "If the target implements at least one interface, a JDK dynamic proxy is used. The CGLIB claim is wrong because a CGLIB proxy is created when the target implements no interface. The `default` method claim is wrong because the choice depends on whether the target implements at least one interface. The no-proxy claim is wrong because Spring AOP uses either JDK dynamic proxies or CGLIB to create the proxy for a given target object.",
+  "citation": "spring-fw-aop-proxying#proxying-mechanisms",
+  "extract": "If the target object to be proxied implements at least one interface, a JDK dynamic proxy is used",
+  "snippet": null
+ },
+ {
+  "id": "m01-l02-q12",
+  "stem": "In Spring Framework 7.0, a target bean implements the interfaces `Billing` and `Auditing`. Which of them are proxied when a JDK dynamic proxy is used?",
+  "key": "All of the interfaces implemented by the target type",
+  "distractors": [
+   "Only `Billing`, the first interface declared by the target type",
+   "Only the interfaces that carry an `@Transactional` annotation",
+   "None of them, because the proxy extends the target type instead"
+  ],
+  "explanation": "When a JDK dynamic proxy is used, all of the interfaces implemented by the target type are proxied. The first-interface claim is wrong because the rule covers all interfaces. The annotation claim is wrong because the interfaces are chosen by what the target type implements, not by annotations. The claim that the proxy extends the target is wrong because that is what a CGLIB proxy does when the target has no interface.",
+  "citation": "spring-fw-aop-proxying#proxying-mechanisms",
+  "extract": "all of the interfaces implemented by the target type are proxied",
+  "snippet": null
+ },
+ {
+  "id": "m01-l02-q13",
+  "stem": "In Spring Framework 7.0, a target bean implements no interface at all. Which kind of proxy does Spring AOP create, and what is it?",
+  "key": "A CGLIB proxy, which is a runtime-generated subclass of the target type",
+  "distractors": [
+   "A JDK dynamic proxy, which implements the interfaces of the target's superclass",
+   "A CGLIB proxy, which is a compile-time wrapper that holds the target in a field",
+   "A JDK dynamic proxy, which extends `java.lang.reflect.Proxy` and the target type"
+  ],
+  "explanation": "With no interfaces, a CGLIB proxy is created, which is a runtime-generated subclass of the target type. The claim of a JDK dynamic proxy over a superclass's interfaces is wrong because a JDK dynamic proxy needs at least one implemented interface on the target. The compile-time wrapper claim is wrong because the subclass is generated at runtime. The claim of a proxy extending both `Proxy` and the target is wrong because a class has one direct superclass, and a JDK proxy class extends `java.lang.reflect.Proxy`.",
+  "citation": "spring-fw-aop-proxying#proxying-mechanisms",
+  "extract": "If the target object does not implement any interfaces, a CGLIB proxy is created which is a runtime-generated subclass of the target type.",
+  "snippet": null
+ },
+ {
+  "id": "m01-l02-q14",
+  "stem": "In Spring Framework 7.0, a `final` class is a target for a CGLIB proxy. What does the reference documentation say?",
+  "key": "`final` classes cannot be proxied, because they cannot be extended",
+  "distractors": [
+   "`final` classes can be proxied, because CGLIB copies the class instead of extending it",
+   "`final` classes can be proxied only when every method of the class is also `final`",
+   "`final` classes are proxied by a JDK dynamic proxy that replaces the CGLIB proxy"
+  ],
+  "explanation": "`final` classes cannot be proxied, because they cannot be extended. The copy claim is wrong because a CGLIB proxy is a runtime-generated subclass. The all-methods claim is wrong because a `final` class cannot be extended whatever its methods are. The JDK fallback claim is wrong because a JDK dynamic proxy is chosen when the target implements at least one interface, and finality of the class does not change that choice.",
+  "citation": "spring-fw-aop-proxying#proxying-mechanisms",
+  "extract": "final classes cannot be proxied, because they cannot be extended.",
+  "snippet": null
+ },
+ {
+  "id": "m01-l02-q15",
+  "stem": "In Spring Framework 7.0 with forced CGLIB proxying, a `final` method of the target is called through the proxy. What does the reference documentation say about advising it?",
+  "key": "`final` methods cannot be advised, because they cannot be overridden",
+  "distractors": [
+   "`final` methods can be advised, because the proxy wraps the call instead of overriding it",
+   "`final` methods can be advised only when they are `public` and have no arguments",
+   "`final` methods are advised through the interfaces of the target, not through the subclass"
+  ],
+  "explanation": "`final` methods cannot be advised, because they cannot be overridden. The wrapping claim is wrong because advising a method relies on overriding it in the generated subclass. The `public` and no-arguments claim is wrong because visibility and arity do not make a `final` method overridable. The interface claim is wrong because the CGLIB case is the one where the subclass is used, and advice there needs overriding.",
+  "citation": "spring-fw-aop-proxying#proxying-mechanisms",
+  "extract": "final methods cannot be advised, because they cannot be overridden.",
+  "snippet": null
+ },
+ {
+  "id": "m01-l02-q16",
+  "stem": "In Spring Framework 7.0 with forced CGLIB proxying, why can a `private` method of the target not be advised, according to the reference documentation?",
+  "key": "Because a `private` method cannot be overridden",
+  "distractors": [
+   "Because CGLIB proxies only the methods that the target's interfaces declare",
+   "Because a `private` method is implicitly `final` and `final` classes cannot be proxied",
+   "Because Objenesis creates the proxy instance without calling any method of the target"
+  ],
+  "explanation": "A `private` method cannot be advised because it cannot be overridden. The interface-only claim is wrong because forcing CGLIB lets Spring proxy every method defined for the target, not only those implemented by its interfaces. The implicitly final claim is wrong because the stated reason is that the method cannot be overridden, a different rule from the one about `final` classes. The Objenesis claim is wrong because Objenesis explains why the constructor is not called twice, not which methods can be advised.",
+  "citation": "spring-fw-aop-proxying#proxying-mechanisms",
+  "extract": "private methods cannot be advised, because they cannot be overridden.",
+  "snippet": null
+ },
+ {
+  "id": "m01-l02-q17",
+  "stem": "In Spring Framework 7.0, a team forces the use of CGLIB proxying for a bean. Which methods of the target can then be proxied, according to the reference documentation?",
+  "key": "Every method defined for the target object, not only those implemented by its interfaces",
+  "distractors": [
+   "Only the methods that the target's interfaces declare, as with a JDK dynamic proxy",
+   "Only the `public` methods inherited from the target's superclass",
+   "Only the methods that are annotated with an advice annotation by the target"
+  ],
+  "explanation": "Forcing CGLIB proxying lets Spring proxy every method defined for the target object, not only those implemented by its interfaces. The interface-only claim describes a JDK dynamic proxy, which proxies the interfaces implemented by the target type. The inherited `public` claim is wrong because the example given is to proxy every method defined for the target object. The annotation claim is wrong because the reference text ties the choice to the proxy type and not to annotations on the target.",
+  "citation": "spring-fw-aop-proxying#proxying-mechanisms",
+  "extract": "to proxy every method defined for the target object, not only those implemented by its interfaces",
+  "snippet": null
+ },
+ {
+  "id": "m01-l02-q18",
+  "stem": "In Java 25, how does the `Proxy` Javadoc define a proxy instance, the object that `Proxy.newProxyInstance` returns for a list of interfaces?",
+  "key": "An instance of a proxy class",
+  "distractors": [
+   "An instance of the target class, wrapped so each call goes through reflection",
+   "An instance of `InvocationHandler` that forwards calls to the target",
+   "An instance of the first proxy interface's default implementation class"
+  ],
+  "explanation": "A proxy instance is an instance of a proxy class. The wrapped target claim is wrong because the instance belongs to a class created at runtime for the proxy interfaces. The `InvocationHandler` claim is wrong because the handler is a separate object associated with each proxy instance. The default implementation claim is wrong because an interface has no implementation class of its own, and the proxy class implements the specified interfaces.",
+  "citation": "javadoc-proxy#class-proxy",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m01-l02-q19",
+  "stem": "In Spring Framework 7.0, how does Spring AOP create the proxy for a given target object, according to the reference documentation?",
+  "key": "It uses either JDK dynamic proxies or CGLIB",
+  "distractors": [
+   "It uses load-time weaving, which rewrites the target class in place",
+   "It uses only JDK dynamic proxies, and rejects targets that implement no interface",
+   "It uses `Proxy` for classes and CGLIB for interfaces, chosen by bean name"
+  ],
+  "explanation": "Spring AOP uses either JDK dynamic proxies or CGLIB to create the proxy for a given target object. The weaving claim is wrong because the proxy is a separate object and not a rewrite of the target class. The JDK-only claim is wrong because a target with no interfaces gets a CGLIB proxy. The bean name claim is wrong because the choice follows whether the target implements at least one interface.",
+  "citation": "spring-fw-aop-proxying#proxying-mechanisms",
+  "extract": "Spring AOP uses either JDK dynamic proxies or CGLIB to create the proxy for a given target object.",
+  "snippet": null
+ },
+ {
+  "id": "m01-l02-q20",
+  "stem": "In Java 25, this snippet builds an `Invoice` through a builder with a `build` method that validates, once with both fields set and once without `cents`. What does the program print?",
+  "key": "```text\nInvoice F-1 1200\ncents must not be negative\n```",
+  "distractors": [
+   "```text\nInvoice F-1 1200\nInvoice F-2 -1\n```",
+   "```text\nInvoice F-1 1200\nnumber is required\n```",
+   "```text\ncents must not be negative\nInvoice F-1 1200\n```"
+  ],
+  "explanation": "The complete builder prints `Invoice F-1 1200`, and the builder without `cents` keeps the default `-1`, so `build` throws and the snippet prints the message `cents must not be negative`. The output with `Invoice F-2 -1` is wrong because `build` rejects a negative `cents` before constructing the object. The `number is required` message is wrong because the second builder did set a `number`. The reversed output is wrong because the statements run in source order.",
+  "citation": "javadoc-record#class-record",
+  "extract": null,
+  "snippet": "m01-l02/BuilderInvariants.java"
+ },
+ {
+  "id": "m01-l02-q21",
+  "stem": "In Java 25, this snippet creates a JDK dynamic proxy of a `Greeter` interface, calls `greet` and `toString` on it, and inspects the proxy class. What does the program print?",
+  "key": "```text\nhello Ana\nproxy\n[Greeter.greet, Object.toString]\ntrue\ntrue\njava.lang.reflect.Proxy\n```",
+  "distractors": [
+   "```text\nhello Ana\nproxy\n[Greeter.greet, Object.toString]\nfalse\ntrue\njava.lang.reflect.Proxy\n```",
+   "```text\nhello Ana\nProxyDispatch$Greeter\n[Greeter.greet]\ntrue\nfalse\njava.lang.Object\n```",
+   "```text\nhello Ana\nproxy\n[Greeter.greet]\ntrue\ntrue\njava.lang.reflect.Proxy\n```"
+  ],
+  "explanation": "The handler returns the target's result for `greet` and `proxy` for `toString`, records both calls, and the proxy class is a final subclass of `java.lang.reflect.Proxy`. The output with `[Greeter.greet]` alone is wrong because the `toString` call is dispatched to the handler too. The output with `false` and `java.lang.Object` is wrong because a proxy class is final and extends `java.lang.reflect.Proxy`. The output naming the interface for `toString` is wrong because the handler returned `proxy` for it.",
+  "citation": "javadoc-proxy#class-proxy",
+  "extract": null,
+  "snippet": "m01-l02/ProxyDispatch.java"
+ },
+ {
+  "id": "m01-l02-q22",
+  "stem": "In Java 25, this snippet gives a `Checkout` a discount function and two listeners, pays 1000 with a halving discount, and then pays 1000 with an identity discount. What does the program print?",
+  "key": "```text\naudit 500\nmail 500\n500\n1000\n```",
+  "distractors": [
+   "```text\n500\naudit 500\nmail 500\n1000\n```",
+   "```text\nmail 500\naudit 500\n500\n1000\n```",
+   "```text\naudit 500\nmail 500\n500\naudit 1000\nmail 1000\n1000\n```"
+  ],
+  "explanation": "The listeners run in subscription order inside `pay`, printing `audit 500` and `mail 500`, and then the caller prints the returned `500`, followed by `1000` from the checkout with no listeners. The output with the listeners reversed is wrong because the list keeps subscription order. The output with extra listener lines is wrong because the second `Checkout` has its own empty list of listeners. ",
+  "citation": "spring-fw-aop-proxying#proxying-mechanisms",
+  "extract": "Spring AOP uses either JDK dynamic proxies or CGLIB",
+  "snippet": "m01-l02/StrategyObserver.java"
+ },
+ {
+  "id": "m01-l02-q23",
+  "stem": "In Java 25, which statement about a proxy class created for a list of interfaces through `java.lang.reflect.Proxy` is correct, according to its Javadoc?",
+  "key": "It is final and non-abstract",
+  "distractors": [
+   "It is generated at compile time from the listed interfaces",
+   "It implements the listed interfaces plus every interface of the target object's class",
+   "It extends `InvocationHandler`, which supplies the method dispatching"
+  ],
+  "explanation": "The proxy class is final and non-abstract. The compile-time claim is wrong because a proxy class is a class created at runtime. The claim of extra interfaces is wrong because a proxy class implements exactly the interfaces specified at its creation. The claim about extending `InvocationHandler` is wrong because that is an interface implemented by the handler object associated with each proxy instance.",
+  "citation": "javadoc-proxy#class-proxy",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m01-l02-q24",
+  "stem": "In Spring Framework 7.0, which statement about the proxies that Spring AOP creates is correct, according to the reference documentation?",
+  "key": "A CGLIB proxy is a runtime-generated subclass of the target type, created when the target implements no interface",
+  "distractors": [
+   "CGLIB is built into the JDK, while JDK dynamic proxies come from a library repackaged into `spring-core`",
+   "A JDK dynamic proxy proxies only the first interface that the target type implements",
+   "A forced CGLIB proxy can advise `final` methods by wrapping the call instead of overriding it"
+  ],
+  "explanation": "A CGLIB proxy is a runtime-generated subclass of the target type, created when there is no interface. The reversed origin claim is wrong because JDK dynamic proxies are built into the JDK, whereas CGLIB is repackaged into `spring-core`. The first-interface claim is wrong because all of the interfaces implemented by the target type are proxied. The wrapping claim is wrong because `final` methods cannot be advised, since they cannot be overridden.",
+  "citation": "spring-fw-aop-proxying#proxying-mechanisms",
+  "extract": "a CGLIB proxy is created which is a runtime-generated subclass of the target type",
+  "snippet": null
+ },
+ {
+  "id": "m01-l02-q25",
+  "stem": "In Java 25, a method is called on a proxy instance. Which statement about that call is correct, according to the `Proxy` Javadoc?",
+  "key": "A call to `toString` is dispatched to the invocation handler's `invoke` method like a call to an interface method",
+  "distractors": [
+   "A call through a proxy interface is answered by the proxy class, and the handler only observes it",
+   "The handler receives only the array of arguments, because it is bound to one method",
+   "The call runs on an instance of the target's class, which the proxy class has wrapped"
+  ],
+  "explanation": "A `toString` call declared in `java.lang.Object` is dispatched to `invoke` in the same manner as an interface method call. The claim that the handler only observes is wrong because the call is dispatched to the `invoke` method of the handler. The arguments-only claim is wrong because `invoke` receives the proxy instance, a `Method` object and the arguments. The wrapped target claim is wrong because a proxy instance is an instance of a proxy class.",
+  "citation": "javadoc-proxy#class-proxy",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m01-l02-q26",
+  "stem": "In Spring Framework 7.0, which statement about proxying by Spring AOP is correct, according to the reference documentation?",
+  "key": "`final` classes cannot be proxied with CGLIB, because they cannot be extended",
+  "distractors": [
+   "A target that implements no interface is rejected, because a proxy needs an interface",
+   "A forced CGLIB proxy advises `private` methods as well as the methods that interfaces declare",
+   "A target that implements an interface always gets a runtime-generated subclass"
+  ],
+  "explanation": "`final` classes cannot be proxied, because they cannot be extended. The rejection claim is wrong because a target without interfaces gets a CGLIB proxy. The claim about advising `private` methods is wrong because `private` methods cannot be advised, since they cannot be overridden. The claim of a subclass for every target with an interface is wrong because such a target gets a JDK dynamic proxy.",
+  "citation": "spring-fw-aop-proxying#proxying-mechanisms",
+  "extract": "final classes cannot be proxied, because they cannot be extended.",
+  "snippet": null
+ },
+ {
+  "id": "m01-l02-q27",
+  "stem": "In Java 25, a proxy class is created for the interfaces `A` and `B` passed in that order. Which statement about it is correct, according to the `Proxy` Javadoc?",
+  "key": "It implements exactly `A` and `B`, in the order specified at its creation",
+  "distractors": [
+   "It extends the class of the target object and adds `A` and `B` on top of it",
+   "It is created when the application is built, and the class loader only looks it up",
+   "It is non-final, so a handler can subclass it to add behaviour"
+  ],
+  "explanation": "A proxy class implements exactly the interfaces specified at its creation, in the same order. The claim about extending the target class is wrong because a proxy class extends `java.lang.reflect.Proxy`. The build-time claim is wrong because a proxy class is created at runtime. The non-final claim is wrong because a proxy class is final.",
+  "citation": "javadoc-proxy#class-proxy",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m01-l02-q28",
+  "stem": "In Spring Framework 7.0, which statement about JDK dynamic proxies and CGLIB is correct, according to the reference documentation?",
+  "key": "JDK dynamic proxies are built into the JDK",
+  "distractors": [
+   "Spring AOP uses only CGLIB, so every proxy is a generated subclass",
+   "A CGLIB proxy is created whenever the target implements at least one interface",
+   "A CGLIB proxy is a JDK proxy class that extends `java.lang.reflect.Proxy`"
+  ],
+  "explanation": "JDK dynamic proxies are built into the JDK. The claim of CGLIB only is wrong because Spring AOP uses either JDK dynamic proxies or CGLIB. The claim about a target with an interface is wrong because a target that implements at least one interface gets a JDK dynamic proxy. The claim that a CGLIB proxy extends `Proxy` is wrong because it is a runtime-generated subclass of the target type.",
+  "citation": "spring-fw-aop-proxying#proxying-mechanisms",
+  "extract": "JDK dynamic proxies are built into the JDK",
+  "snippet": null
+ },
+ {
+  "id": "m01-l02-q29",
+  "stem": "In Java 25, this snippet builds an `Invoice` through a builder with a validating `build` method, once with both fields set and once without `cents`. What does it print?",
+  "key": "```text\nInvoice F-1 1200\ncents must not be negative\n```",
+  "distractors": [
+   "```text\nInvoice F-1 1200\nInvoice F-2 -1\n```",
+   "```text\nInvoice F-1 1200\nnumber is required\n```",
+   "```text\ncents must not be negative\nInvoice F-1 1200\n```"
+  ],
+  "explanation": "The first builder is complete, so the snippet prints `Invoice F-1 1200`, and the second keeps the default `-1` for `cents`, so `build` throws and the snippet prints its message. The output `Invoice F-2 -1` is wrong because `build` rejects a negative `cents` before it constructs an object. The message `number is required` is wrong because the second builder did set a number. The reversed output is wrong because the statements run in source order.",
+  "citation": "course-requirements#4-content-classes",
+  "extract": "The evidence is the snippet, the command and the sha256 of its output",
+  "snippet": "m01-l02/BuilderInvariants.java"
+ },
+ {
+  "id": "m01-l02-q30",
+  "stem": "In Java 25, this snippet creates a JDK dynamic proxy of a `Greeter`, calls `greet` and `toString` on it, and inspects the proxy class. What does it print?",
+  "key": "```text\nhello Ana\nproxy\n[Greeter.greet, Object.toString]\ntrue\ntrue\njava.lang.reflect.Proxy\n```",
+  "distractors": [
+   "```text\nhello Ana\nproxy\n[Greeter.greet, Object.toString]\nfalse\ntrue\njava.lang.reflect.Proxy\n```",
+   "```text\nhello Ana\nproxy\n[Greeter.greet]\ntrue\ntrue\njava.lang.reflect.Proxy\n```",
+   "```text\nhello Ana\nproxy\n[Greeter.greet, Object.toString]\ntrue\ntrue\njava.lang.Object\n```"
+  ],
+  "explanation": "The handler returns the target's result for `greet` and `proxy` for `toString`, records both calls, and the proxy class is a final subclass of `java.lang.reflect.Proxy`. The output with `false` for `Proxy.isProxyClass` is wrong because the class of the instance is a proxy class. The output with only `[Greeter.greet]` is wrong because `toString` is dispatched to the handler too. The output ending in `java.lang.Object` is wrong because the proxy class extends `java.lang.reflect.Proxy`.",
+  "citation": "javadoc-proxy#class-proxy",
+  "extract": null,
+  "snippet": "m01-l02/ProxyDispatch.java"
+ },
+ {
+  "id": "m01-l02-q31",
+  "stem": "In Java 25, this snippet pays 1000 through a `Checkout` with a halving discount and two listeners, then through one with an identity discount. What does it print?",
+  "key": "```text\naudit 500\nmail 500\n500\n1000\n```",
+  "distractors": [
+   "```text\n500\naudit 500\nmail 500\n1000\n```",
+   "```text\nmail 500\naudit 500\n500\n1000\n```",
+   "```text\naudit 500\nmail 500\n500\naudit 1000\nmail 1000\n1000\n```"
+  ],
+  "explanation": "The listeners run inside `pay` in subscription order, so the snippet prints `audit 500` and `mail 500`, then the returned `500`, then `1000` from the checkout with no listeners. The output that starts with `500` is wrong because the listeners run before `pay` returns. The output with `mail` first is wrong because the list keeps subscription order. The output with extra listener lines is wrong because the second checkout has its own empty list of listeners.",
+  "citation": "course-requirements#4-content-classes",
+  "extract": "The evidence is the snippet, the command and the sha256 of its output",
+  "snippet": "m01-l02/StrategyObserver.java"
+ }
+]

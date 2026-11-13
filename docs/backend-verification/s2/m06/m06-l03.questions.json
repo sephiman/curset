@@ -1,466 +1,466 @@
 [
- {
-  "id": "m06-l03-q01",
-  "stem": "In PostgreSQL 18, which kind of comparison can a hash index handle?",
-  "key": "Only simple equality comparisons",
-  "distractors": [
-   "Equality and range comparisons on sortable data",
-   "Anchored pattern matching such as `col LIKE 'foo%'`",
-   "Retrieval of rows in sorted order for an `ORDER BY`"
-  ],
-  "explanation": "A hash index stores a 32-bit hash code of the indexed value, so it can only handle simple equality comparisons. Range comparisons on sortable data are what a B-tree handles. Anchored `LIKE` patterns are also listed for B-tree indexes, not for hash indexes. Sorted retrieval is likewise described for B-tree indexes, while the hash anchor limits hash indexes to equality.",
-  "citation": "pg-indexes-types#INDEXES-TYPES-HASH",
-  "extract": "such indexes can only handle simple equality comparisons",
-  "snippet": null
- },
- {
-  "id": "m06-l03-q02",
-  "stem": "In PostgreSQL 18, which index type can NOT support index-only scans, because each index entry typically holds only part of the original data value?",
-  "key": "GIN",
-  "distractors": [
-   "B-tree",
-   "GiST for some operator classes",
-   "SP-GiST for some operator classes"
-  ],
-  "explanation": "GIN indexes cannot support index-only scans because each entry typically holds only part of the original value. B-tree indexes always support them. GiST and SP-GiST support them for some operator classes but not others, so they are not ruled out as a type.",
-  "citation": "pg-indexes-index-only-scans#INDEXES-INDEX-ONLY-SCANS",
-  "extract": "GIN indexes cannot support index-only scans because each index entry typically holds only part of the original data value",
-  "snippet": null
- },
- {
-  "id": "m06-l03-q03",
-  "stem": "In PostgreSQL 18, a table has a B-tree index on `(a, b, c)` and a query filters `WHERE a = 5 AND b >= 42 AND c < 77`. Which constraints are always used to limit the portion of the index that is scanned?",
-  "key": "The equality on `a` and the inequality on `b`",
-  "distractors": [
-   "Only the equality on `a`",
-   "The equality on `a`, the inequality on `b` and the inequality on `c`",
-   "Only the inequality on `c`"
-  ],
-  "explanation": "Equality constraints on leading columns, plus inequality constraints on the first column without an equality constraint, always limit the scan, which here means `a` and `b`. Stopping at the equality on `a` misses the inequality on `b`. The inequality on `c` is on a column to the right, which does not necessarily reduce the portion scanned, so it is not guaranteed to limit it. The inequality on `c` alone ignores the leading columns that carry the rule.",
-  "citation": "pg-indexes-multicolumn#INDEXES-MULTICOLUMN",
-  "extract": "equality constraints on leading columns, plus any inequality constraints on the first column that does not have an equality constraint, will always be used to limit the portion of the index that is scanned",
-  "snippet": null
- },
- {
-  "id": "m06-l03-q04",
-  "stem": "Which index types support multiple-key-column indexes in PostgreSQL 18?",
-  "key": "B-tree, GiST, GIN and BRIN",
-  "distractors": [
-   "B-tree indexes only",
-   "B-tree, GiST and hash indexes",
-   "B-tree, hash, GIN and SP-GiST indexes"
-  ],
-  "explanation": "PostgreSQL 18 supports multiple key columns in B-tree, GiST, GIN and BRIN indexes. B-tree alone leaves out three types the documentation lists. A combination with hash adds a type that is not listed and leaves out GIN and BRIN. The last combination adds hash and SP-GiST, neither of which is listed.",
-  "citation": "pg-indexes-multicolumn#INDEXES-MULTICOLUMN",
-  "extract": "only the B-tree, GiST, GIN, and BRIN index types support multiple-key-column indexes",
-  "snippet": null
- },
- {
-  "id": "m06-l03-q05",
-  "stem": "In PostgreSQL 18, an index on `(x, y)` meets the query `WHERE y = 7700`. When does the planner generally choose a skip scan on that index?",
-  "key": "When `x` has so few distinct values that most of the index can be skipped",
-  "distractors": [
-   "When `x` has many distinct values, so every repeated search is cheap",
-   "Only when the query also has an equality constraint on `x`",
-   "Never, because a query must constrain the leading column to use the index"
-  ],
-  "explanation": "The planner generally takes this approach only when there are so few distinct `x` values that the scan skips most of the index. With many distinct `x` values the entire index has to be scanned. Skip scan is meant for a column that lacks an equality constraint, so requiring one on `x` is wrong. A B-tree index scan might apply the skip scan optimization to a query without a constraint on the leading column, so it is not ruled out.",
-  "citation": "pg-indexes-multicolumn#INDEXES-MULTICOLUMN",
-  "extract": "This approach is generally only taken when there are so few distinct x values that the planner expects the scan to skip over most of the index",
-  "snippet": null
- },
- {
-  "id": "m06-l03-q06",
-  "stem": "In PostgreSQL 18 a partial index is created `ON orders (order_nr) WHERE billed is not true`. Which query cannot use it?",
-  "key": "`SELECT * FROM orders WHERE order_nr = 3501`",
-  "distractors": [
-   "`SELECT * FROM orders WHERE billed is not true AND order_nr < 10000`",
-   "`SELECT * FROM orders WHERE billed is not true AND amount > 5000.00`",
-   "`SELECT * FROM orders WHERE billed is not true AND order_nr = 3501`"
-  ],
-  "explanation": "Order 3501 might be among the billed or the unbilled orders, so the query's `WHERE` does not imply the predicate and the index is unusable. The query with `order_nr < 10000` implies the predicate and can use it. The query on `amount` can use it too, although it scans the entire index. The query that adds `order_nr = 3501` to the predicate implies it as well.",
-  "citation": "pg-indexes-partial#INDEXES-PARTIAL",
-  "extract": "The order 3501 might be among the billed or unbilled orders.",
-  "snippet": null
- },
- {
-  "id": "m06-l03-q07",
-  "stem": "A prepared query in PostgreSQL 18 filters on `x < ?` and a partial index has the predicate `x < 2`. What happens?",
-  "key": "The index is not usable, since `x < ?` does not imply `x < 2` for every value",
-  "distractors": [
-   "The index is used whenever the value bound at run time is below 2",
-   "The planner re-matches the predicate at run time with the actual parameter value",
-   "The planner proves the implication with a general theorem prover"
-  ],
-  "explanation": "Matching takes place at query planning time, so a parameterized clause cannot be shown to imply the predicate. Run-time values do not enter the match, which rules out both the run-time check and the re-matching. PostgreSQL has no sophisticated theorem prover either, and it recognizes only simple inequality implications.",
-  "citation": "pg-indexes-partial#INDEXES-PARTIAL",
-  "extract": "Matching takes place at query planning time, not at run time. As a result, parameterized query clauses do not work with a partial index.",
-  "snippet": null
- },
- {
-  "id": "m06-l03-q08",
-  "stem": "What does a unique partial index enforce in PostgreSQL 18?",
-  "key": "Uniqueness only among rows that satisfy the index predicate",
-  "distractors": [
-   "Uniqueness across all rows of the table",
-   "A rejection of every row that does not satisfy the predicate",
-   "Nothing, because a partial index can only be used by queries"
-  ],
-  "explanation": "A unique partial index enforces uniqueness among the rows that satisfy the predicate, without constraining the others. It does not constrain the whole table. Rows outside the predicate are not rejected, they are simply unconstrained. The documentation describes this use as one that does not require the index to be used in queries at all.",
-  "citation": "pg-indexes-partial#INDEXES-PARTIAL",
-  "extract": "This enforces uniqueness among the rows that satisfy the index predicate, without constraining those that do not.",
-  "snippet": null
- },
- {
-  "id": "m06-l03-q09",
-  "stem": "Given a PostgreSQL 18 index on columns `x` and `y` of a table that also has a column `z`, which query could use an index-only scan?",
-  "key": "`SELECT x FROM tab WHERE x = 'key' AND y < 42`",
-  "distractors": [
-   "`SELECT x, z FROM tab WHERE x = 'key'`",
-   "`SELECT x FROM tab WHERE x = 'key' AND z < 42`",
-   "`SELECT z FROM tab WHERE x = 'key' AND y < 42`"
-  ],
-  "explanation": "The query that references only `x` and `y` uses columns stored in the index. Selecting `z` needs a column the index does not store. Filtering on `z` references an unstored column as well. The last query selects `z` too, so it cannot be answered from the index alone.",
-  "citation": "pg-indexes-index-only-scans#INDEXES-INDEX-ONLY-SCANS",
-  "extract": "SELECT x FROM tab WHERE x = 'key' AND y < 42;",
-  "snippet": null
- },
- {
-  "id": "m06-l03-q10",
-  "stem": "During an index-only scan in PostgreSQL 18, a candidate index entry points to a heap page whose visibility map bit is not set. What does the scan do?",
-  "key": "It visits the heap entry to check visibility, gaining nothing over a standard index scan",
-  "distractors": [
-   "It skips the row as invisible",
-   "It returns the value from the index without a visibility check",
-   "It fails and the query restarts as a sequential scan"
-  ],
-  "explanation": "If the bit is not set, the heap entry must be visited to find out whether it is visible. Skipping the row would lose data that may well be visible. Visibility information is stored only in heap entries, so the index cannot answer it alone. Nothing in the documentation makes the scan fail over to a sequential scan.",
-  "citation": "pg-indexes-index-only-scans#INDEXES-INDEX-ONLY-SCANS",
-  "extract": "If it's not set, the heap entry must be visited to find out whether it's visible, so no performance advantage is gained over a standard index scan.",
-  "snippet": null
- },
- {
-  "id": "m06-l03-q11",
-  "stem": "When is an index-only scan a win in PostgreSQL 18?",
-  "key": "Only if a significant fraction of the table's heap pages have their all-visible bits set",
-  "distractors": [
-   "Whenever the index is a B-tree",
-   "Whenever the query references only columns stored in the index",
-   "Whenever the table is updated often, so the index entries are fresh"
-  ],
-  "explanation": "An index-only scan is a win only if a significant fraction of heap pages have their all-visible bits set. Meeting the two basic requirements, a supporting index type such as B-tree and only indexed columns, makes the scan possible but not a win. Frequent updates clear those bits, and rows modified recently need a heap access.",
-  "citation": "pg-indexes-index-only-scans#INDEXES-INDEX-ONLY-SCANS",
-  "extract": "it will be a win only if a significant fraction of the table's heap pages have their all-visible map bits set",
-  "snippet": null
- },
- {
-  "id": "m06-l03-q12",
-  "stem": "Which index access methods support included (`INCLUDE`) columns in PostgreSQL 18?",
-  "key": "B-tree, GiST and SP-GiST",
-  "distractors": [
-   "B-tree indexes only",
-   "B-tree, GIN and BRIN together",
-   "B-tree and hash, but no other type"
-  ],
-  "explanation": "The B-tree, GiST and SP-GiST access methods support `INCLUDE` columns. B-tree alone omits two of them. GIN and BRIN are not in the list, so that combination is wrong. Hash is not in the list either, and the list has more than B-tree and hash.",
-  "citation": "pg-sql-createindex#id-1.9.3.69.6",
-  "extract": "Currently, the B-tree, GiST and SP-GiST index access methods support this feature.",
-  "snippet": null
- },
- {
-  "id": "m06-l03-q13",
-  "stem": "For `CREATE INDEX tab_x_y ON tab(x) INCLUDE (y)` in PostgreSQL 18, how is the column `y` treated?",
-  "key": "It cannot be used in an index scan search qualification, but an index-only scan can return it",
-  "distractors": [
-   "It narrows the scanned portion of the index like a second key column",
-   "It is stored only in the upper-level entries used for tree navigation",
-   "It needs an operator class for its data type"
-  ],
-  "explanation": "A non-key column cannot be used in an index scan search qualification, and an index-only scan can return it from the index entry. It is therefore not a second key column. Included columns are stored in leaf tuples, not in upper-level entries. They also do not need operator classes.",
-  "citation": "pg-sql-createindex#id-1.9.3.69.6",
-  "extract": "A non-key column cannot be used in an index scan search qualification",
-  "snippet": null
- },
- {
-  "id": "m06-l03-q14",
-  "stem": "In PostgreSQL 18 `EXPLAIN` output, in what unit are the cost estimates expressed?",
-  "key": "Arbitrary units determined by the planner's cost parameters",
-  "distractors": [
-   "Milliseconds of real time, like the actual time values in the same output",
-   "Bytes of memory used by the node when it runs",
-   "The number of rows scanned by the node during execution"
-  ],
-  "explanation": "Costs are measured in arbitrary units determined by the planner's cost parameters. The actual time values are the ones in milliseconds. Costs say nothing about memory. The `rows` value is a separate figure, and it counts rows emitted, not scanned.",
-  "citation": "pg-using-explain#USING-EXPLAIN-BASICS",
-  "extract": "The costs are measured in arbitrary units determined by the planner's cost parameters",
-  "snippet": null
- },
- {
-  "id": "m06-l03-q15",
-  "stem": "In PostgreSQL 18 `EXPLAIN` output, what does the `rows` value of a plan node report?",
-  "key": "The number of rows emitted by the node",
-  "distractors": [
-   "The number of rows scanned by the node",
-   "The number of rows in the whole table",
-   "The number of rows read from disk pages"
-  ],
-  "explanation": "The value is the number of rows emitted by the node, which is often less than the number scanned because of `WHERE` filtering. It is not the scanned count. It is not the size of the whole table. It is not a count of rows read from disk pages either.",
-  "citation": "pg-using-explain#USING-EXPLAIN-BASICS",
-  "extract": "not the number of rows processed or scanned by the plan node, but rather the number emitted by the node",
-  "snippet": null
- },
- {
-  "id": "m06-l03-q16",
-  "stem": "In PostgreSQL 18 `EXPLAIN ANALYZE`, an index scan node shows `actual time=0.003..0.003 rows=1.00 loops=10`. About how much total time was spent in the node?",
-  "key": "About 0.030 ms, the per-execution time times 10",
-  "distractors": [
-   "0.003 ms, because the actual time is already the total",
-   "About 0.0003 ms, the per-execution time divided by 10",
-   "About 10 ms, one millisecond per loop"
-  ],
-  "explanation": "With `loops` above 1, the actual time and rows are averages per execution, so multiplying by `loops` gives the total, about 0.030 ms. Reading the actual time as the total ignores that it is a per-execution average. Dividing by `loops` goes the wrong way. The figure is in milliseconds already, so 10 ms is far too large.",
-  "citation": "pg-using-explain#USING-EXPLAIN-ANALYZE",
-  "extract": "Multiply by the loops value to get the total time actually spent in the node.",
-  "snippet": null
- },
- {
-  "id": "m06-l03-q17",
-  "stem": "In PostgreSQL 18, what does `EXPLAIN (ANALYZE)` do about buffers information when `BUFFERS` is not written?",
-  "key": "It includes buffers information automatically",
-  "distractors": [
-   "It omits buffers information until `BUFFERS` is written",
-   "It includes shared blocks only",
-   "It raises an error that asks for `BUFFERS`"
-  ],
-  "explanation": "Buffers information is automatically included when `ANALYZE` is used. The output therefore does not wait for `BUFFERS`. Shared, local and temp blocks are all reported, so shared blocks alone is wrong. Nothing in the option description makes the command fail without `BUFFERS`.",
-  "citation": "pg-sql-explain#id-1.9.3.148.8",
-  "extract": "Buffers information is automatically included when ANALYZE is used.",
-  "snippet": null
- },
- {
-  "id": "m06-l03-q18",
-  "stem": "In `EXPLAIN` output in PostgreSQL 18, what does a shared block `hit` mean?",
-  "key": "The block was already in cache, so a read was avoided",
-  "distractors": [
-   "A block was read from disk into the shared buffer cache",
-   "A previously unmodified block was changed by the query",
-   "A previously dirtied block was evicted by this backend"
-  ],
-  "explanation": "A hit means that a read was avoided because the block was already in cache. A block read from disk is counted as a read. A block changed by the query is counted as dirtied. A previously dirtied block evicted from cache is counted as written.",
-  "citation": "pg-sql-explain#id-1.9.3.148.8",
-  "extract": "A hit means that a read was avoided because the block was found already in cache when needed.",
-  "snippet": null
- },
- {
-  "id": "m06-l03-q19",
-  "stem": "In PostgreSQL 18, a `Limit` node stops after 2 rows, yet the child index scan shows estimates for 10 rows and an actual count of 2. What explains the gap?",
-  "key": "The child's estimates are shown as if it ran to completion, but the `Limit` stopped requesting rows",
-  "distractors": [
-   "The row estimate is wrong, so `ANALYZE` must be rerun",
-   "The index scan returned duplicate rows that were then removed",
-   "`Rows Removed by Filter` accounts for the missing rows"
-  ],
-  "explanation": "The estimates are shown as though the node were run to completion, but the `Limit` node stopped requesting rows after two, and this is not an estimation error. Rerunning `ANALYZE` would not change how the figures are displayed. Duplicate removal is not what the documentation describes. The rows removed by the filter are a separate count.",
-  "citation": "pg-using-explain#USING-EXPLAIN-CAVEATS",
-  "extract": "This is not an estimation error, only a discrepancy in the way the estimates and true values are displayed.",
-  "snippet": null
- },
- {
-  "id": "m06-l03-q20",
-  "stem": "In PostgreSQL 18, which plan do you nearly always get on a table that occupies only one disk page?",
-  "key": "A sequential scan, whether or not indexes exist",
-  "distractors": [
-   "An index scan, because it reads fewer rows",
-   "A bitmap heap scan, because it sorts row locations",
-   "An index-only scan, because the page is cached"
-  ],
-  "explanation": "Reading the table takes one page read either way, so there is no value in spending more page reads on an index, and a sequential scan results. An index scan would need extra page reads. A bitmap heap scan is also an index plan and shares that cost. An index-only scan has the same problem.",
-  "citation": "pg-using-explain#USING-EXPLAIN-CAVEATS",
-  "extract": "on a table that only occupies one disk page, you'll nearly always get a sequential scan plan whether indexes are available or not",
-  "snippet": null
- },
- {
-  "id": "m06-l03-q21",
-  "stem": "Why might a large `OFFSET` be inefficient in PostgreSQL 18?",
-  "key": "The skipped rows still have to be computed in the server",
-  "distractors": [
-   "`OFFSET` locks the table until the page is returned",
-   "`OFFSET` disables every index on the table",
-   "The skipped rows are sent to the client and discarded there"
-  ],
-  "explanation": "The skipped rows still have to be computed inside the server. No table lock is described. Nothing says that indexes are disabled. Offset scrolling is also meant to avoid large results being sent to the client application, so the skipped rows are not sent.",
-  "citation": "pg-queries-limit#QUERIES-LIMIT; spring-data-jpa-query-methods#repositories.scrolling.offset",
-  "extract": "The rows skipped by an OFFSET clause still have to be computed inside the server; therefore a large OFFSET might be inefficient.",
-  "snippet": null
- },
- {
-  "id": "m06-l03-q22",
-  "stem": "In PostgreSQL 18, which requirement applies to `FETCH FIRST 5 ROWS WITH TIES`?",
-  "key": "An `ORDER BY` clause is mandatory",
-  "distractors": [
-   "`OFFSET` must be written after `FETCH`",
-   "`SKIP LOCKED` must be added",
-   "The count must be a literal constant"
-  ],
-  "explanation": "With `WITH TIES`, `ORDER BY` is mandatory. PostgreSQL allows `OFFSET` and `FETCH` in either order. `SKIP LOCKED` is not allowed with this option. PostgreSQL also accepts other expressions for the count, usually in parentheses, as an extension.",
-  "citation": "pg-sql-select#SQL-LIMIT",
-  "extract": "ORDER BY is mandatory in this case",
-  "snippet": null
- },
- {
-  "id": "m06-l03-q23",
-  "stem": "In Spring Data JPA 4.1, what does Keyset-Filtering require of the properties used for sorting?",
-  "key": "They must be non-nullable",
-  "distractors": [
-   "They must be unique across the table",
-   "They must all be primary key columns",
-   "They may be nullable, because the database sorts null keys last"
-  ],
-  "explanation": "Keyset filtering requires the keyset properties to be non-nullable, and nullable ones lead to unexpected results. They need not be unique, because the mechanism amends the sort order with the primary key to make results unique. They are not limited to primary key columns either.",
-  "citation": "spring-data-jpa-query-methods#repositories.scrolling.keyset",
-  "extract": "Keyset-Filtering requires the keyset properties (those used for sorting) to be non-nullable.",
-  "snippet": null
- },
- {
-  "id": "m06-l03-q24",
-  "stem": "In Spring Data JPA 4.1, what does `ScrollPosition.offset(0)` do?",
-  "key": "It skips the first element and translates to an offset of 1",
-  "distractors": [
-   "It starts at the first element, at position 0",
-   "It throws an exception because the offset must be positive",
-   "It is identical to calling `ScrollPosition.offset()` with no argument"
-  ],
-  "explanation": "Given the exclusive nature of scrolling, `ScrollPosition.offset(0)` skips the first element and translates to an offset of 1. The no-argument form is the one that points to no specific offset, so the two differ. The documentation describes no exception for a zero offset.",
-  "citation": "spring-data-jpa-query-methods#repositories.scrolling.offset",
-  "extract": "using ScrollPosition.offset(0) skips the first element and translate to an offset of 1",
-  "snippet": null
- },
- {
-  "id": "m06-l03-q25",
-  "stem": "In PostgreSQL 18, one range partition is from 1 to 10 and the next from 10 to 20. In which partition does the value 10 belong?",
-  "key": "The second partition",
-  "distractors": [
-   "The first partition",
-   "Both partitions",
-   "Neither partition, so the insert is rejected"
-  ],
-  "explanation": "Range bounds are inclusive at the lower end and exclusive at the upper end, so 10 belongs to the second partition. It is excluded from the first because the first range's upper bound is exclusive. It cannot be in both, because ranges do not overlap. The second range includes 10, so the insert is accepted.",
-  "citation": "pg-ddl-partitioning#DDL-PARTITIONING-OVERVIEW",
-  "extract": "then value 10 belongs to the second partition not the first.",
-  "snippet": null
- },
- {
-  "id": "m06-l03-q26",
-  "stem": "In PostgreSQL 18, which statement about partition pruning is correct?",
-  "key": "It is driven only by the constraints implied by the partition keys, not by indexes",
-  "distractors": [
-   "It depends on an index existing on the partition key columns of each partition",
-   "It uses the `ANALYZE` statistics of each partition",
-   "It needs a hint in the query to be applied"
-  ],
-  "explanation": "Pruning is driven only by the constraints defined implicitly by the partition keys, not by the presence of indexes. It is enabled by the `enable_partition_pruning` setting, which defaults to on, so no hint is required. The word only also rules out statistics as a driver.",
-  "citation": "pg-ddl-partitioning#DDL-PARTITION-PRUNING",
-  "extract": "partition pruning is driven only by the constraints defined implicitly by the partition keys, not by the presence of indexes",
-  "snippet": null
- },
- {
-  "id": "m06-l03-q27",
-  "stem": "In PostgreSQL 18, a partition is pruned during initialization of the query plan using a `PREPARE` parameter. Which statement is true?",
-  "key": "It is hidden from `EXPLAIN`, but still locked when execution begins",
-  "distractors": [
-   "It shows as `(never executed)` in `EXPLAIN ANALYZE`",
-   "It is never locked at all, because it is excluded before execution begins",
-   "It is pruned only if the value is known at planning time"
-  ],
-  "explanation": "Partitions pruned at this stage do not show up in `EXPLAIN` or `EXPLAIN ANALYZE`, yet they are still locked at the start of execution. The `(never executed)` marker belongs to pruning during actual execution. Pruning can also happen during execution, so planning time is not the only moment.",
-  "citation": "pg-ddl-partitioning#DDL-PARTITION-PRUNING",
-  "extract": "any partitions removed by the partition pruning done at this stage are still locked at the beginning of execution",
-  "snippet": null
- },
- {
-  "id": "m06-l03-q28",
-  "stem": "In PostgreSQL 18, can a regular table be turned into a partitioned table?",
-  "key": "No, but an existing table can be added as a partition",
-  "distractors": [
-   "Yes, with `ALTER TABLE ... PARTITION BY`",
-   "Yes, but only if the table is empty",
-   "No, and an existing table cannot be attached as a partition either"
-  ],
-  "explanation": "It is not possible to turn a regular table into a partitioned table, but an existing regular table can be added as a partition. No `ALTER TABLE` form converts it. The empty-table condition is not stated. Attaching an existing table is explicitly possible.",
-  "citation": "pg-ddl-partitioning#DDL-PARTITIONING-DECLARATIVE",
-  "extract": "It is not possible to turn a regular table into a partitioned table or vice versa.",
-  "snippet": null
- },
- {
-  "id": "m06-l03-q29",
-  "stem": "In Hibernate ORM 7.4, which fetch strategy is the one generally termed N+1?",
-  "key": "`SELECT`",
-  "distractors": [
-   "`JOIN`",
-   "`BATCH`",
-   "`SUBSELECT`"
-  ],
-  "explanation": "The `SELECT` strategy performs a separate SQL select to load the data, and that is the one generally termed N+1. `JOIN` is inherently eager and uses an outer join. `BATCH` loads several items with an `IN` restriction. `SUBSELECT` loads associated data using the restriction applied to the owner.",
-  "citation": "hibernate-user-guide#fetching-basics",
-  "extract": null,
-  "snippet": null
- },
- {
-  "id": "m06-l03-q30",
-  "stem": "In Hibernate ORM 7.4, a fetch profile and an entity graph are both present for the same fetch. What takes effect?",
-  "key": "The entity graph, while the fetch profile is ignored",
-  "distractors": [
-   "The fetch profile, while the entity graph is ignored",
-   "Both, merged into one plan",
-   "Neither, because Hibernate throws an exception"
-  ],
-  "explanation": "The two are mutually exclusive, and when both are present the entity graph takes effect and the fetch profile is ignored. Merging contradicts mutual exclusion. The guide describes no exception.",
-  "citation": "hibernate-user-guide#fetching-basics",
-  "extract": null,
-  "snippet": null
- },
- {
-  "id": "m06-l03-q31",
-  "stem": "In Hibernate ORM 7.4, what does setting `hibernate.jdbc.batch_size` to zero do?",
-  "key": "It disables JDBC batching",
-  "distractors": [
-   "It batches an unlimited number of statements",
-   "It falls back to the driver's default batch size",
-   "It batches updates but not inserts"
-  ],
-  "explanation": "A zero or negative value disables the feature. An unlimited batch is not described. No fallback to a driver default is described. Disabling applies to the whole feature, not only to inserts.",
-  "citation": "hibernate-user-guide#batch-jdbcbatch",
-  "extract": null,
-  "snippet": null
- },
- {
-  "id": "m06-l03-q32",
-  "stem": "What is the default JDBC batching behavior for inserts in Hibernate ORM 7.4?",
-  "key": "Not enabled by default, so every insert needs a database round trip",
-  "distractors": [
-   "It is enabled by default with a batch size of 10 statements per batch",
-   "It is enabled by default, but only for entities with assigned identifiers",
-   "It is enabled by default for inserts, but not for updates or deletes"
-  ],
-  "explanation": "JDBC batching is not enabled by default, so every insert statement requires a database round trip, and enabling it means setting `hibernate.jdbc.batch_size`. The guide gives no default size of 10. No default exists for assigned identifiers or for inserts alone.",
-  "citation": "hibernate-user-guide#batch-session-batch",
-  "extract": null,
-  "snippet": null
- },
- {
-  "id": "m06-l03-q33",
-  "stem": "In Hibernate ORM 7.4, which relationship is the crux of the session-per-request pattern?",
-  "key": "A one-to-one relationship between the transaction and the `Session`",
-  "distractors": [
-   "One `Session` shared by all requests",
-   "One `Session` for each SQL statement",
-   "One `Session` holding many transactions, one per entity"
-  ],
-  "explanation": "The crux of the pattern is the one-to-one relationship between the transaction and the `Session`. A request opens a `Session`, starts a transaction, does the work, ends the transaction and closes the `Session`. A shared `Session` and one per statement both break that pairing. Several transactions in one `Session` do too.",
-  "citation": "hibernate-user-guide#session-per-request",
-  "extract": null,
-  "snippet": null
- },
+  {
+    "id": "m06-l03-q01",
+    "stem": "In PostgreSQL 18, which kind of comparison can a hash index handle?",
+    "key": "Only simple equality comparisons",
+    "distractors": [
+      "Equality and range comparisons on sortable data",
+      "Anchored pattern matching such as `col LIKE 'foo%'`",
+      "Retrieval of rows in sorted order for an `ORDER BY`"
+    ],
+    "explanation": "A hash index stores a 32-bit hash code of the indexed value, so it can only handle simple equality comparisons. Range comparisons on sortable data are what a B-tree handles. Anchored `LIKE` patterns are also listed for B-tree indexes, not for hash indexes. Sorted retrieval is likewise described for B-tree indexes, while the hash anchor limits hash indexes to equality.",
+    "citation": "pg-indexes-types#INDEXES-TYPES-HASH",
+    "extract": "such indexes can only handle simple equality comparisons",
+    "snippet": null
+  },
+  {
+    "id": "m06-l03-q02",
+    "stem": "In PostgreSQL 18, which index type can NOT support index-only scans, because each index entry typically holds only part of the original data value?",
+    "key": "GIN",
+    "distractors": [
+      "B-tree",
+      "GiST for some operator classes",
+      "SP-GiST for some operator classes"
+    ],
+    "explanation": "GIN indexes cannot support index-only scans because each entry typically holds only part of the original value. B-tree indexes always support them. GiST and SP-GiST support them for some operator classes but not others, so they are not ruled out as a type.",
+    "citation": "pg-indexes-index-only-scans#INDEXES-INDEX-ONLY-SCANS",
+    "extract": "GIN indexes cannot support index-only scans because each index entry typically holds only part of the original data value",
+    "snippet": null
+  },
+  {
+    "id": "m06-l03-q03",
+    "stem": "In PostgreSQL 18, a table has a B-tree index on `(a, b, c)` and a query filters `WHERE a = 5 AND b >= 42 AND c < 77`. Which constraints are always used to limit the portion of the index that is scanned?",
+    "key": "The equality on `a` and the inequality on `b`",
+    "distractors": [
+      "Only the equality on `a`",
+      "The equality on `a`, the inequality on `b` and the inequality on `c`",
+      "Only the inequality on `c`"
+    ],
+    "explanation": "Equality constraints on leading columns, plus inequality constraints on the first column without an equality constraint, always limit the scan, which here means `a` and `b`. Stopping at the equality on `a` misses the inequality on `b`. The inequality on `c` is on a column to the right, which does not necessarily reduce the portion scanned, so it is not guaranteed to limit it. The inequality on `c` alone ignores the leading columns that carry the rule.",
+    "citation": "pg-indexes-multicolumn#INDEXES-MULTICOLUMN",
+    "extract": "equality constraints on leading columns, plus any inequality constraints on the first column that does not have an equality constraint, will always be used to limit the portion of the index that is scanned",
+    "snippet": null
+  },
+  {
+    "id": "m06-l03-q04",
+    "stem": "Which index types support multiple-key-column indexes in PostgreSQL 18?",
+    "key": "B-tree, GiST, GIN and BRIN",
+    "distractors": [
+      "B-tree indexes only",
+      "B-tree, GiST and hash indexes",
+      "B-tree, hash, GIN and SP-GiST indexes"
+    ],
+    "explanation": "PostgreSQL 18 supports multiple key columns in B-tree, GiST, GIN and BRIN indexes. B-tree alone leaves out three types the documentation lists. A combination with hash adds a type that is not listed and leaves out GIN and BRIN. The last combination adds hash and SP-GiST, neither of which is listed.",
+    "citation": "pg-indexes-multicolumn#INDEXES-MULTICOLUMN",
+    "extract": "only the B-tree, GiST, GIN, and BRIN index types support multiple-key-column indexes",
+    "snippet": null
+  },
+  {
+    "id": "m06-l03-q05",
+    "stem": "In PostgreSQL 18, an index on `(x, y)` meets the query `WHERE y = 7700`. When does the planner generally choose a skip scan on that index?",
+    "key": "When `x` has so few distinct values that most of the index can be skipped",
+    "distractors": [
+      "When `x` has many distinct values, so every repeated search is cheap",
+      "Only when the query also has an equality constraint on `x`",
+      "Never, because a query must constrain the leading column to use the index"
+    ],
+    "explanation": "The planner generally takes this approach only when there are so few distinct `x` values that the scan skips most of the index. With many distinct `x` values the entire index has to be scanned. Skip scan is meant for a column that lacks an equality constraint, so requiring one on `x` is wrong. A B-tree index scan might apply the skip scan optimization to a query without a constraint on the leading column, so it is not ruled out.",
+    "citation": "pg-indexes-multicolumn#INDEXES-MULTICOLUMN",
+    "extract": "This approach is generally only taken when there are so few distinct x values that the planner expects the scan to skip over most of the index",
+    "snippet": null
+  },
+  {
+    "id": "m06-l03-q06",
+    "stem": "In PostgreSQL 18 a partial index is created `ON orders (order_nr) WHERE billed is not true`. Which query cannot use it?",
+    "key": "`SELECT * FROM orders WHERE order_nr = 3501`",
+    "distractors": [
+      "`SELECT * FROM orders WHERE billed is not true AND order_nr < 10000`",
+      "`SELECT * FROM orders WHERE billed is not true AND amount > 5000.00`",
+      "`SELECT * FROM orders WHERE billed is not true AND order_nr = 3501`"
+    ],
+    "explanation": "Order 3501 might be among the billed or the unbilled orders, so the query's `WHERE` does not imply the predicate and the index is unusable. The query with `order_nr < 10000` implies the predicate and can use it. The query on `amount` can use it too, although it scans the entire index. The query that adds `order_nr = 3501` to the predicate implies it as well.",
+    "citation": "pg-indexes-partial#INDEXES-PARTIAL",
+    "extract": "The order 3501 might be among the billed or unbilled orders.",
+    "snippet": null
+  },
+  {
+    "id": "m06-l03-q07",
+    "stem": "A prepared query in PostgreSQL 18 filters on `x < ?` and a partial index has the predicate `x < 2`. What happens?",
+    "key": "The index is not usable, since `x < ?` does not imply `x < 2` for every value",
+    "distractors": [
+      "The index is used whenever the value bound at run time is below 2",
+      "The planner re-matches the predicate at run time with the actual parameter value",
+      "The planner proves the implication with a general theorem prover"
+    ],
+    "explanation": "Matching takes place at query planning time, so a parameterized clause cannot be shown to imply the predicate. Run-time values do not enter the match, which rules out both the run-time check and the re-matching. PostgreSQL has no sophisticated theorem prover either, and it recognizes only simple inequality implications.",
+    "citation": "pg-indexes-partial#INDEXES-PARTIAL",
+    "extract": "Matching takes place at query planning time, not at run time. As a result, parameterized query clauses do not work with a partial index.",
+    "snippet": null
+  },
+  {
+    "id": "m06-l03-q08",
+    "stem": "What does a unique partial index enforce in PostgreSQL 18?",
+    "key": "Uniqueness only among rows that satisfy the index predicate",
+    "distractors": [
+      "Uniqueness across all rows of the table",
+      "A rejection of every row that does not satisfy the predicate",
+      "Nothing, because a partial index can only be used by queries"
+    ],
+    "explanation": "A unique partial index enforces uniqueness among the rows that satisfy the predicate, without constraining the others. It does not constrain the whole table. Rows outside the predicate are not rejected, they are simply unconstrained. The documentation describes this use as one that does not require the index to be used in queries at all.",
+    "citation": "pg-indexes-partial#INDEXES-PARTIAL",
+    "extract": "This enforces uniqueness among the rows that satisfy the index predicate, without constraining those that do not.",
+    "snippet": null
+  },
+  {
+    "id": "m06-l03-q09",
+    "stem": "Given a PostgreSQL 18 index on columns `x` and `y` of a table that also has a column `z`, which query could use an index-only scan?",
+    "key": "`SELECT x FROM tab WHERE x = 'key' AND y < 42`",
+    "distractors": [
+      "`SELECT x, z FROM tab WHERE x = 'key'`",
+      "`SELECT x FROM tab WHERE x = 'key' AND z < 42`",
+      "`SELECT z FROM tab WHERE x = 'key' AND y < 42`"
+    ],
+    "explanation": "The query that references only `x` and `y` uses columns stored in the index. Selecting `z` needs a column the index does not store. Filtering on `z` references an unstored column as well. The last query selects `z` too, so it cannot be answered from the index alone.",
+    "citation": "pg-indexes-index-only-scans#INDEXES-INDEX-ONLY-SCANS",
+    "extract": "SELECT x FROM tab WHERE x = 'key' AND y < 42;",
+    "snippet": null
+  },
+  {
+    "id": "m06-l03-q10",
+    "stem": "During an index-only scan in PostgreSQL 18, a candidate index entry points to a heap page whose visibility map bit is not set. What does the scan do?",
+    "key": "It visits the heap entry to check visibility, gaining nothing over a standard index scan",
+    "distractors": [
+      "It skips the row as invisible",
+      "It returns the value from the index without a visibility check",
+      "It fails and the query restarts as a sequential scan"
+    ],
+    "explanation": "If the bit is not set, the heap entry must be visited to find out whether it is visible. Skipping the row would lose data that may well be visible. Visibility information is stored only in heap entries, so the index cannot answer it alone. Nothing in the documentation makes the scan fail over to a sequential scan.",
+    "citation": "pg-indexes-index-only-scans#INDEXES-INDEX-ONLY-SCANS",
+    "extract": "If it's not set, the heap entry must be visited to find out whether it's visible, so no performance advantage is gained over a standard index scan.",
+    "snippet": null
+  },
+  {
+    "id": "m06-l03-q11",
+    "stem": "When is an index-only scan a win in PostgreSQL 18?",
+    "key": "Only if a significant fraction of the table's heap pages have their all-visible bits set",
+    "distractors": [
+      "Whenever the index is a B-tree",
+      "Whenever the query references only columns stored in the index",
+      "Whenever the table is updated often, so the index entries are fresh"
+    ],
+    "explanation": "An index-only scan is a win only if a significant fraction of heap pages have their all-visible bits set. Meeting the two basic requirements, a supporting index type such as B-tree and only indexed columns, makes the scan possible but not a win. Frequent updates clear those bits, and rows modified recently need a heap access.",
+    "citation": "pg-indexes-index-only-scans#INDEXES-INDEX-ONLY-SCANS",
+    "extract": "it will be a win only if a significant fraction of the table's heap pages have their all-visible map bits set",
+    "snippet": null
+  },
+  {
+    "id": "m06-l03-q12",
+    "stem": "Which index access methods support included (`INCLUDE`) columns in PostgreSQL 18?",
+    "key": "B-tree, GiST and SP-GiST",
+    "distractors": [
+      "B-tree indexes only",
+      "B-tree, GIN and BRIN together",
+      "B-tree and hash, but no other type"
+    ],
+    "explanation": "The B-tree, GiST and SP-GiST access methods support `INCLUDE` columns. B-tree alone omits two of them. GIN and BRIN are not in the list, so that combination is wrong. Hash is not in the list either, and the list has more than B-tree and hash.",
+    "citation": "pg-sql-createindex#id-1.9.3.69.6",
+    "extract": "Currently, the B-tree, GiST and SP-GiST index access methods support this feature.",
+    "snippet": null
+  },
+  {
+    "id": "m06-l03-q13",
+    "stem": "For `CREATE INDEX tab_x_y ON tab(x) INCLUDE (y)` in PostgreSQL 18, how is the column `y` treated?",
+    "key": "It cannot be used in an index scan search qualification, but an index-only scan can return it",
+    "distractors": [
+      "It narrows the scanned portion of the index like a second key column",
+      "It is stored only in the upper-level entries used for tree navigation",
+      "It needs an operator class for its data type"
+    ],
+    "explanation": "A non-key column cannot be used in an index scan search qualification, and an index-only scan can return it from the index entry. It is therefore not a second key column. Included columns are stored in leaf tuples, not in upper-level entries. They also do not need operator classes.",
+    "citation": "pg-sql-createindex#id-1.9.3.69.6",
+    "extract": "A non-key column cannot be used in an index scan search qualification",
+    "snippet": null
+  },
+  {
+    "id": "m06-l03-q14",
+    "stem": "In PostgreSQL 18 `EXPLAIN` output, in what unit are the cost estimates expressed?",
+    "key": "Arbitrary units determined by the planner's cost parameters",
+    "distractors": [
+      "Milliseconds of real time, like the actual time values in the same output",
+      "Bytes of memory used by the node when it runs",
+      "The number of rows scanned by the node during execution"
+    ],
+    "explanation": "Costs are measured in arbitrary units determined by the planner's cost parameters. The actual time values are the ones in milliseconds. Costs say nothing about memory. The `rows` value is a separate figure, and it counts rows emitted, not scanned.",
+    "citation": "pg-using-explain#USING-EXPLAIN-BASICS",
+    "extract": "The costs are measured in arbitrary units determined by the planner's cost parameters",
+    "snippet": null
+  },
+  {
+    "id": "m06-l03-q15",
+    "stem": "In PostgreSQL 18 `EXPLAIN` output, what does the `rows` value of a plan node report?",
+    "key": "The number of rows emitted by the node",
+    "distractors": [
+      "The number of rows scanned by the node",
+      "The number of rows in the whole table",
+      "The number of rows read from disk pages"
+    ],
+    "explanation": "The value is the number of rows emitted by the node, which is often less than the number scanned because of `WHERE` filtering. It is not the scanned count. It is not the size of the whole table. It is not a count of rows read from disk pages either.",
+    "citation": "pg-using-explain#USING-EXPLAIN-BASICS",
+    "extract": "not the number of rows processed or scanned by the plan node, but rather the number emitted by the node",
+    "snippet": null
+  },
+  {
+    "id": "m06-l03-q16",
+    "stem": "In PostgreSQL 18 `EXPLAIN ANALYZE`, an index scan node shows `actual time=0.003..0.003 rows=1.00 loops=10`. About how much total time was spent in the node?",
+    "key": "About 0.030 ms, the per-execution time times 10",
+    "distractors": [
+      "0.003 ms, because the actual time is already the total",
+      "About 0.0003 ms, the per-execution time divided by 10",
+      "About 10 ms, one millisecond per loop"
+    ],
+    "explanation": "With `loops` above 1, the actual time and rows are averages per execution, so multiplying by `loops` gives the total, about 0.030 ms. Reading the actual time as the total ignores that it is a per-execution average. Dividing by `loops` goes the wrong way. The figure is in milliseconds already, so 10 ms is far too large.",
+    "citation": "pg-using-explain#USING-EXPLAIN-ANALYZE",
+    "extract": "Multiply by the loops value to get the total time actually spent in the node.",
+    "snippet": null
+  },
+  {
+    "id": "m06-l03-q17",
+    "stem": "In PostgreSQL 18, what does `EXPLAIN (ANALYZE)` do about buffers information when `BUFFERS` is not written?",
+    "key": "It includes buffers information automatically",
+    "distractors": [
+      "It omits buffers information until `BUFFERS` is written",
+      "It includes shared blocks only",
+      "It raises an error that asks for `BUFFERS`"
+    ],
+    "explanation": "Buffers information is automatically included when `ANALYZE` is used. The output therefore does not wait for `BUFFERS`. Shared, local and temp blocks are all reported, so shared blocks alone is wrong. Nothing in the option description makes the command fail without `BUFFERS`.",
+    "citation": "pg-sql-explain#id-1.9.3.148.8",
+    "extract": "Buffers information is automatically included when ANALYZE is used.",
+    "snippet": null
+  },
+  {
+    "id": "m06-l03-q18",
+    "stem": "In `EXPLAIN` output in PostgreSQL 18, what does a shared block `hit` mean?",
+    "key": "The block was already in cache, so a read was avoided",
+    "distractors": [
+      "A block was read from disk into the shared buffer cache",
+      "A previously unmodified block was changed by the query",
+      "A previously dirtied block was evicted by this backend"
+    ],
+    "explanation": "A hit means that a read was avoided because the block was already in cache. A block read from disk is counted as a read. A block changed by the query is counted as dirtied. A previously dirtied block evicted from cache is counted as written.",
+    "citation": "pg-sql-explain#id-1.9.3.148.8",
+    "extract": "A hit means that a read was avoided because the block was found already in cache when needed.",
+    "snippet": null
+  },
+  {
+    "id": "m06-l03-q19",
+    "stem": "In PostgreSQL 18, a `Limit` node stops after 2 rows, yet the child index scan shows estimates for 10 rows and an actual count of 2. What explains the gap?",
+    "key": "The child's estimates are shown as if it ran to completion, but the `Limit` stopped requesting rows",
+    "distractors": [
+      "The row estimate is wrong, so `ANALYZE` must be rerun",
+      "The index scan returned duplicate rows that were then removed",
+      "`Rows Removed by Filter` accounts for the missing rows"
+    ],
+    "explanation": "The estimates are shown as though the node were run to completion, but the `Limit` node stopped requesting rows after two, and this is not an estimation error. Rerunning `ANALYZE` would not change how the figures are displayed. Duplicate removal is not what the documentation describes. The rows removed by the filter are a separate count.",
+    "citation": "pg-using-explain#USING-EXPLAIN-CAVEATS",
+    "extract": "This is not an estimation error, only a discrepancy in the way the estimates and true values are displayed.",
+    "snippet": null
+  },
+  {
+    "id": "m06-l03-q20",
+    "stem": "In PostgreSQL 18, which plan do you nearly always get on a table that occupies only one disk page?",
+    "key": "A sequential scan, whether or not indexes exist",
+    "distractors": [
+      "An index scan, because it reads fewer rows",
+      "A bitmap heap scan, because it sorts row locations",
+      "An index-only scan, because the page is cached"
+    ],
+    "explanation": "Reading the table takes one page read either way, so there is no value in spending more page reads on an index, and a sequential scan results. An index scan would need extra page reads. A bitmap heap scan is also an index plan and shares that cost. An index-only scan has the same problem.",
+    "citation": "pg-using-explain#USING-EXPLAIN-CAVEATS",
+    "extract": "on a table that only occupies one disk page, you'll nearly always get a sequential scan plan whether indexes are available or not",
+    "snippet": null
+  },
+  {
+    "id": "m06-l03-q21",
+    "stem": "Why might a large `OFFSET` be inefficient in PostgreSQL 18?",
+    "key": "The skipped rows still have to be computed in the server",
+    "distractors": [
+      "`OFFSET` locks the table until the page is returned",
+      "`OFFSET` disables every index on the table",
+      "The skipped rows are sent to the client and discarded there"
+    ],
+    "explanation": "The skipped rows still have to be computed inside the server. No table lock is described. Nothing says that indexes are disabled. Offset scrolling is also meant to avoid large results being sent to the client application, so the skipped rows are not sent.",
+    "citation": "pg-queries-limit#QUERIES-LIMIT; spring-data-jpa-query-methods#repositories.scrolling.offset",
+    "extract": "The rows skipped by an OFFSET clause still have to be computed inside the server; therefore a large OFFSET might be inefficient.",
+    "snippet": null
+  },
+  {
+    "id": "m06-l03-q22",
+    "stem": "In PostgreSQL 18, which requirement applies to `FETCH FIRST 5 ROWS WITH TIES`?",
+    "key": "An `ORDER BY` clause is mandatory",
+    "distractors": [
+      "`OFFSET` must be written after `FETCH`",
+      "`SKIP LOCKED` must be added",
+      "The count must be a literal constant"
+    ],
+    "explanation": "With `WITH TIES`, `ORDER BY` is mandatory. PostgreSQL allows `OFFSET` and `FETCH` in either order. `SKIP LOCKED` is not allowed with this option. PostgreSQL also accepts other expressions for the count, usually in parentheses, as an extension.",
+    "citation": "pg-sql-select#SQL-LIMIT",
+    "extract": "ORDER BY is mandatory in this case",
+    "snippet": null
+  },
+  {
+    "id": "m06-l03-q23",
+    "stem": "In Spring Data JPA 4.1, what does Keyset-Filtering require of the properties used for sorting?",
+    "key": "They must be non-nullable",
+    "distractors": [
+      "They must be unique across the table",
+      "They must all be primary key columns",
+      "They may be nullable, because the database sorts null keys last"
+    ],
+    "explanation": "Keyset filtering requires the keyset properties to be non-nullable, and nullable ones lead to unexpected results. They need not be unique, because the mechanism amends the sort order with the primary key to make results unique. They are not limited to primary key columns either.",
+    "citation": "spring-data-jpa-query-methods#repositories.scrolling.keyset",
+    "extract": "Keyset-Filtering requires the keyset properties (those used for sorting) to be non-nullable.",
+    "snippet": null
+  },
+  {
+    "id": "m06-l03-q24",
+    "stem": "In Spring Data JPA 4.1, what does `ScrollPosition.offset(0)` do?",
+    "key": "It skips the first element and translates to an offset of 1",
+    "distractors": [
+      "It starts at the first element, at position 0",
+      "It throws an exception because the offset must be positive",
+      "It is identical to calling `ScrollPosition.offset()` with no argument"
+    ],
+    "explanation": "Given the exclusive nature of scrolling, `ScrollPosition.offset(0)` skips the first element and translates to an offset of 1. The no-argument form is the one that points to no specific offset, so the two differ. The documentation describes no exception for a zero offset.",
+    "citation": "spring-data-jpa-query-methods#repositories.scrolling.offset",
+    "extract": "using ScrollPosition.offset(0) skips the first element and translate to an offset of 1",
+    "snippet": null
+  },
+  {
+    "id": "m06-l03-q25",
+    "stem": "In PostgreSQL 18, one range partition is from 1 to 10 and the next from 10 to 20. In which partition does the value 10 belong?",
+    "key": "The second partition",
+    "distractors": [
+      "The first partition",
+      "Both partitions",
+      "Neither partition, so the insert is rejected"
+    ],
+    "explanation": "Range bounds are inclusive at the lower end and exclusive at the upper end, so 10 belongs to the second partition. It is excluded from the first because the first range's upper bound is exclusive. It cannot be in both, because ranges do not overlap. The second range includes 10, so the insert is accepted.",
+    "citation": "pg-ddl-partitioning#DDL-PARTITIONING-OVERVIEW",
+    "extract": "then value 10 belongs to the second partition not the first.",
+    "snippet": null
+  },
+  {
+    "id": "m06-l03-q26",
+    "stem": "In PostgreSQL 18, which statement about partition pruning is correct?",
+    "key": "It is driven only by the constraints implied by the partition keys, not by indexes",
+    "distractors": [
+      "It depends on an index existing on the partition key columns of each partition",
+      "It uses the `ANALYZE` statistics of each partition",
+      "It needs a hint in the query to be applied"
+    ],
+    "explanation": "Pruning is driven only by the constraints defined implicitly by the partition keys, not by the presence of indexes. It is enabled by the `enable_partition_pruning` setting, which defaults to on, so no hint is required. The word only also rules out statistics as a driver.",
+    "citation": "pg-ddl-partitioning#DDL-PARTITION-PRUNING",
+    "extract": "partition pruning is driven only by the constraints defined implicitly by the partition keys, not by the presence of indexes",
+    "snippet": null
+  },
+  {
+    "id": "m06-l03-q27",
+    "stem": "In PostgreSQL 18, a partition is pruned during initialization of the query plan using a `PREPARE` parameter. Which statement is true?",
+    "key": "It is hidden from `EXPLAIN`, but still locked when execution begins",
+    "distractors": [
+      "It shows as `(never executed)` in `EXPLAIN ANALYZE`",
+      "It is never locked at all, because it is excluded before execution begins",
+      "It is pruned only if the value is known at planning time"
+    ],
+    "explanation": "Partitions pruned at this stage do not show up in `EXPLAIN` or `EXPLAIN ANALYZE`, yet they are still locked at the start of execution. The `(never executed)` marker belongs to pruning during actual execution. Pruning can also happen during execution, so planning time is not the only moment.",
+    "citation": "pg-ddl-partitioning#DDL-PARTITION-PRUNING",
+    "extract": "any partitions removed by the partition pruning done at this stage are still locked at the beginning of execution",
+    "snippet": null
+  },
+  {
+    "id": "m06-l03-q28",
+    "stem": "In PostgreSQL 18, can a regular table be turned into a partitioned table?",
+    "key": "No, but an existing table can be added as a partition",
+    "distractors": [
+      "Yes, with `ALTER TABLE ... PARTITION BY`",
+      "Yes, but only if the table is empty",
+      "No, and an existing table cannot be attached as a partition either"
+    ],
+    "explanation": "It is not possible to turn a regular table into a partitioned table, but an existing regular table can be added as a partition. No `ALTER TABLE` form converts it. The empty-table condition is not stated. Attaching an existing table is explicitly possible.",
+    "citation": "pg-ddl-partitioning#DDL-PARTITIONING-DECLARATIVE",
+    "extract": "It is not possible to turn a regular table into a partitioned table or vice versa.",
+    "snippet": null
+  },
+  {
+    "id": "m06-l03-q29",
+    "stem": "In Hibernate ORM 7.4, which fetch strategy is the one generally termed N+1?",
+    "key": "`SELECT`",
+    "distractors": [
+      "`JOIN`",
+      "`BATCH`",
+      "`SUBSELECT`"
+    ],
+    "explanation": "The `SELECT` strategy performs a separate SQL select to load the data, and that is the one generally termed N+1. `JOIN` is inherently eager and uses an outer join. `BATCH` loads several items with an `IN` restriction. `SUBSELECT` loads associated data using the restriction applied to the owner.",
+    "citation": "hibernate-user-guide#fetching-basics",
+    "extract": null,
+    "snippet": null
+  },
+  {
+    "id": "m06-l03-q30",
+    "stem": "In Hibernate ORM 7.4, a fetch profile and an entity graph are both present for the same fetch. What takes effect?",
+    "key": "The entity graph, while the fetch profile is ignored",
+    "distractors": [
+      "The fetch profile, while the entity graph is ignored",
+      "Both, merged into one plan",
+      "Neither, because Hibernate throws an exception"
+    ],
+    "explanation": "The two are mutually exclusive, and when both are present the entity graph takes effect and the fetch profile is ignored. Merging contradicts mutual exclusion. The guide describes no exception.",
+    "citation": "hibernate-user-guide#fetching-basics",
+    "extract": null,
+    "snippet": null
+  },
+  {
+    "id": "m06-l03-q31",
+    "stem": "In Hibernate ORM 7.4, what does setting `hibernate.jdbc.batch_size` to zero do?",
+    "key": "It disables JDBC batching",
+    "distractors": [
+      "It batches an unlimited number of statements",
+      "It falls back to the driver's default batch size",
+      "It batches updates but not inserts"
+    ],
+    "explanation": "A zero or negative value disables the feature. An unlimited batch is not described. No fallback to a driver default is described. Disabling applies to the whole feature, not only to inserts.",
+    "citation": "hibernate-user-guide#batch-jdbcbatch",
+    "extract": null,
+    "snippet": null
+  },
+  {
+    "id": "m06-l03-q32",
+    "stem": "What is the default JDBC batching behavior for inserts in Hibernate ORM 7.4?",
+    "key": "Not enabled by default, so every insert needs a database round trip",
+    "distractors": [
+      "It is enabled by default with a batch size of 10 statements per batch",
+      "It is enabled by default, but only for entities with assigned identifiers",
+      "It is enabled by default for inserts, but not for updates or deletes"
+    ],
+    "explanation": "JDBC batching is not enabled by default, so every insert statement requires a database round trip, and enabling it means setting `hibernate.jdbc.batch_size`. The guide gives no default size of 10. No default exists for assigned identifiers or for inserts alone.",
+    "citation": "hibernate-user-guide#batch-session-batch",
+    "extract": null,
+    "snippet": null
+  },
+  {
+    "id": "m06-l03-q33",
+    "stem": "In Hibernate ORM 7.4, which relationship is the crux of the session-per-request pattern?",
+    "key": "A one-to-one relationship between the transaction and the `Session`",
+    "distractors": [
+      "One `Session` shared by all requests",
+      "One `Session` for each SQL statement",
+      "One `Session` holding many transactions, one per entity"
+    ],
+    "explanation": "The crux of the pattern is the one-to-one relationship between the transaction and the `Session`. A request opens a `Session`, starts a transaction, does the work, ends the transaction and closes the `Session`. A shared `Session` and one per statement both break that pairing. Several transactions in one `Session` do too.",
+    "citation": "hibernate-user-guide#session-per-request",
+    "extract": null,
+    "snippet": null
+  },
   {
     "id": "m06-l03-q34",
     "stem": "In PostgreSQL 18, an index on `orders (order_nr)` has the predicate `WHERE amount < 2`, and a prepared query filters `WHERE amount < ?` with a parameter. Why is the partial index not usable for that query?",
@@ -543,6 +543,216 @@
     "explanation": "An index-only scan will be a win only if a significant fraction of the table's heap pages have their all-visible map bits set (`pg-indexes-index-only-scans#INDEXES-INDEX-ONLY-SCANS`). Referencing only index columns is ruled out because it makes the scan only physically possible, with the visibility requirement still pending (`pg-indexes-index-only-scans#INDEXES-INDEX-ONLY-SCANS`). Recent modification is ruled out because the heap access is still needed if the table row has been modified recently (`pg-indexes-index-only-scans#INDEXES-INDEX-ONLY-SCANS`). `INCLUDE` columns are ruled out because there is little point in them unless the table changes slowly enough that an index-only scan is likely to not need to access the heap (`pg-indexes-index-only-scans#INDEXES-INDEX-ONLY-SCANS`).",
     "citation": "pg-indexes-index-only-scans#INDEXES-INDEX-ONLY-SCANS",
     "extract": "it will be a win only if a significant fraction of the table's heap pages have their all-visible map bits set",
+    "snippet": null
+  },
+  {
+    "id": "m06-l03-q40",
+    "stem": "In PostgreSQL 18, what does a hash index store for each indexed value, which is why such an index can only handle simple equality comparisons?",
+    "key": "A 32-bit hash code derived from the value of the indexed column",
+    "distractors": [
+      "A copy of the value kept in sorted order, as a B-tree index keeps it, so range queries can use it too",
+      "A separate entry for each component value of the indexed value, as a GIN inverted index does",
+      "A 64-bit hash code derived from the whole table row that contains the indexed value"
+    ],
+    "explanation": "Hash indexes store a 32-bit hash code derived from the value of the indexed column. A sorted copy is what B-trees rely on, since they handle equality and range queries on data that can be sorted. A separate entry for each component value is how an inverted GIN index works, which suits arrays. The code is 32 bits and derived from the column value, not 64 bits of the row.",
+    "citation": "pg-indexes-types#INDEXES-TYPES-HASH; pg-indexes-types#INDEXES-TYPE-BTREE; pg-indexes-types#INDEXES-TYPES-GIN",
+    "extract": "Hash indexes store a 32-bit hash code derived from the value of the indexed column",
+    "snippet": null
+  },
+  {
+    "id": "m06-l03-q41",
+    "stem": "In PostgreSQL 18, a B-tree index exists on a text column `col` in a database that uses the C locale. Which condition can the optimizer use that index for?",
+    "key": "`col LIKE 'foo%'`, a constant pattern anchored to the beginning of the string",
+    "distractors": [
+      "`col LIKE '%bar'`, a constant pattern that ends in a fixed string",
+      "`col ILIKE 'foo%'`, a case-insensitive match on a pattern that starts with letters",
+      "`col ~ 'foo$'`, a pattern anchored to the end of the string"
+    ],
+    "explanation": "A constant pattern anchored to the beginning of the string, such as `col LIKE 'foo%'`, can use a B-tree index. The documentation names `col LIKE '%bar'` as a case that cannot. `ILIKE` and `~*` work only if the pattern starts with characters that are not affected by upper/lower case conversion, and letters are affected. A pattern anchored to the end is not anchored to the beginning, so it cannot use the index either.",
+    "citation": "pg-indexes-types#INDEXES-TYPES-BTREE",
+    "extract": "if the pattern is a constant and is anchored to the beginning of the string",
+    "snippet": null
+  },
+  {
+    "id": "m06-l03-q42",
+    "stem": "In PostgreSQL 18, for which type of multicolumn index is the condition on the first column the most important one for determining how much of the index is scanned?",
+    "key": "A GiST index",
+    "distractors": [
+      "A GIN index",
+      "A hash index",
+      "An SP-GiST index"
+    ],
+    "explanation": "For a multicolumn GiST index, the condition on the first column is the most important one, and the index is relatively ineffective if that column has few distinct values. For a multicolumn GIN index, search effectiveness is the same whichever columns the conditions use. A hash index cannot have several key columns, because only B-tree, GiST, GIN and BRIN support them. The same list excludes SP-GiST.",
+    "citation": "pg-indexes-multicolumn#INDEXES-MULTICOLUMN",
+    "extract": "the condition on the first column is the most important one for determining how much of the index needs to be scanned",
+    "snippet": null
+  },
+  {
+    "id": "m06-l03-q43",
+    "stem": "In PostgreSQL 18 `EXPLAIN` output, what does the estimated cost of an upper-level plan node include, besides the cost of the work of that node itself?",
+    "key": "The cost of all its child nodes",
+    "distractors": [
+      "Only the cost of the node itself, so that the costs of its children must be added separately",
+      "The time spent converting output values to text form and transmitting them to the client",
+      "The actual run time in milliseconds, which `EXPLAIN` measures even without `ANALYZE`"
+    ],
+    "explanation": "The cost of an upper-level node includes the cost of all its child nodes. A cost counting only the node itself would contradict that sentence, so the children are never added separately. The estimate does not consider the time spent to convert output values to text form or to transmit them to the client. Run times in milliseconds are shown with `ANALYZE`, whereas the estimate uses arbitrary units.",
+    "citation": "pg-using-explain#USING-EXPLAIN-BASICS; pg-using-explain#USING-EXPLAIN-ANALYZE",
+    "extract": "the cost of an upper-level node includes the cost of all its child nodes",
+    "snippet": null
+  },
+  {
+    "id": "m06-l03-q44",
+    "stem": "In PostgreSQL 18, which cost is NOT included in the run times that `EXPLAIN ANALYZE` measures for a `SELECT` when the `SERIALIZE` option is not given?",
+    "key": "The network transmission costs",
+    "distractors": [
+      "The overhead of the timing measurements themselves, which is added to the run times",
+      "The time spent in repeated executions of a node, which is reported through its `loops` value",
+      "The time of actually executing the query, because `EXPLAIN ANALYZE` only plans the statement"
+    ],
+    "explanation": "No output rows are delivered to the client, so network transmission costs are not included. The measurement overhead added by `EXPLAIN ANALYZE` is included and can be significant. Repeated executions are included, and multiplying the actual time by `loops` gives the total time spent in the node. With the `ANALYZE` option, `EXPLAIN` actually executes the query and displays the true run time.",
+    "citation": "pg-using-explain#USING-EXPLAIN-CAVEATS; pg-using-explain#USING-EXPLAIN-ANALYZE",
+    "extract": "network transmission costs are not included",
+    "snippet": null
+  },
+  {
+    "id": "m06-l03-q45",
+    "stem": "In PostgreSQL 18, an `UPDATE` changes the partition key of a row in a partitioned table so that the row no longer satisfies the partition bounds of its partition. What happens?",
+    "key": "The row is moved into a different partition",
+    "distractors": [
+      "The row stays in its partition, which keeps the row even though its key is outside the bounds",
+      "The row is stored in the partitioned table itself, which keeps rows that fit no partition",
+      "The row is deleted, and the application must insert it again into the right partition"
+    ],
+    "explanation": "Updating the partition key causes the row to be moved into a different partition. The partitioned table itself is a virtual table with no storage of its own, so it cannot keep the row. A partition holds the subset of data defined by its partition bounds, so the row cannot stay outside them. Rows are routed to a partition based on the values of the partition key columns, so no manual insert is needed.",
+    "citation": "pg-ddl-partitioning#DDL-PARTITIONING-DECLARATIVE",
+    "extract": "Updating the partition key of a row will cause it to be moved into a different partition",
+    "snippet": null
+  },
+  {
+    "id": "m06-l03-q46",
+    "stem": "In PostgreSQL 18 hash partitioning, which rows does each partition hold, given the modulus and the remainder specified for that partition?",
+    "key": "Rows for which the hash value of the partition key divided by the modulus produces the remainder",
+    "distractors": [
+      "Rows whose partition key falls in a range, inclusive at the lower end and exclusive at the upper end",
+      "Rows whose partition key values appear in a list written out explicitly for that partition",
+      "Rows whose partition key hash equals the hash of the partition's name, so each name gets its own rows"
+    ],
+    "explanation": "A hash partition holds the rows for which the hash value of the partition key divided by the specified modulus produces the specified remainder. A range of the key with an inclusive lower and exclusive upper bound is range partitioning. Explicitly listed key values are list partitioning. No hash of the partition's name is involved, because the modulus and remainder define the assignment.",
+    "citation": "pg-ddl-partitioning#DDL-PARTITIONING-OVERVIEW",
+    "extract": "Each partition will hold the rows for which the hash value of the partition key divided by the specified modulus will produce the specified remainder",
+    "snippet": null
+  },
+  {
+    "id": "m06-l03-q47",
+    "stem": "In Hibernate ORM 7.4 HQL, which statement about `join fetch` and `left join fetch` on an association is correct?",
+    "key": "`left join fetch` returns all the base entities, including those with no associated entity",
+    "distractors": [
+      "`join fetch` returns all the base entities, including those with no associated entity",
+      "`join fetch` is allowed in subqueries, where it limits the rows that the outer query reads",
+      "Fetching several collections in parallel with `join fetch` avoids a Cartesian product at the database level"
+    ],
+    "explanation": "A `left join fetch` returns all the base entities, including those with no associated joined entity. A `join fetch` returns only base entities with an associated entity. Fetch joins are disallowed in subqueries, where they would make no sense. Fetching multiple collections or to-many associations in parallel results in a Cartesian product at the database level.",
+    "citation": "hibernate-user-guide#hql-explicit-fetch-join",
+    "extract": null,
+    "snippet": null
+  },
+  {
+    "id": "m06-l03-q48",
+    "stem": "In Spring Data JPA 4.1 keyset filtering, how does the keyset query mechanism make sure that each query result is unique?",
+    "key": "It amends the sort order by including the primary key",
+    "distractors": [
+      "It requires every sort property in the `Sort` to be unique across all rows",
+      "It adds an offset counter to the query and skips the rows that came before",
+      "It rewrites the criteria clause to include only the last sort property of the `Sort`"
+    ],
+    "explanation": "The keyset query mechanism amends the sort order by including the primary key, or the remainder of a composite primary key. You do not need to ensure unique query results yourself, so sort properties need not be unique. Keyset filtering passes keys into the query instead of an offset counter, which belongs to offset scrolling. The criteria clause is rewritten to include all sort fields and the primary key, not only the last sort property.",
+    "citation": "spring-data-jpa-query-methods#repositories.scrolling.keyset; spring-data-jpa-query-methods#repositories.scrolling.offset",
+    "extract": "The keyset query mechanism amends your sort order by including the primary key",
+    "snippet": null
+  },
+  {
+    "id": "m06-l03-q49",
+    "stem": "Which of these is NOT possible in the `INCLUDE` clause of `CREATE INDEX` in PostgreSQL 18?",
+    "key": "Listing an expression as an included column",
+    "distractors": [
+      "Listing a column whose data type has no operator class for the index access method",
+      "Listing a column that is not part of the search key and serves only as payload",
+      "Listing a column in a unique index, without it being part of the uniqueness condition"
+    ],
+    "explanation": "Expressions are not supported as included columns, since they cannot be used in index-only scans. Columns in `INCLUDE` do not need appropriate operator classes, so a type without one is allowed. The clause lists extra columns that are just payload and not part of the search key. In a unique index with an `INCLUDE` clause the uniqueness condition applies only to the key column, so such a column is allowed there.",
+    "citation": "pg-sql-createindex#id-1.9.3.69.6; pg-indexes-index-only-scans#INDEXES-INDEX-ONLY-SCANS",
+    "extract": "Expressions are not supported as included columns",
+    "snippet": null
+  },
+  {
+    "id": "m06-l03-q50",
+    "stem": "Which drawback does the PostgreSQL 18 `CREATE INDEX` documentation give for adding non-key columns to an index with the `INCLUDE` clause?",
+    "key": "They duplicate data from the table and bloat the index, potentially slowing searches",
+    "distractors": [
+      "They can no longer be returned by an index-only scan, so the heap has to be visited for them",
+      "They make a unique index reject rows whose key column is unique but whose payload column repeats",
+      "They are stored only in the heap, which makes every search on the key column visit the table"
+    ],
+    "explanation": "Non-key columns duplicate data from the index's table and bloat the size of the index, thus potentially slowing searches. Included columns are what allow an index-only scan, since a column such as `y` can be obtained from the index without visiting the heap. In a unique index the uniqueness condition applies only to the key column, so repeated payload values are accepted. Included columns are stored in the index itself, which is why they bloat it.",
+    "citation": "pg-sql-createindex#id-1.9.3.69.6; pg-indexes-index-only-scans#INDEXES-INDEX-ONLY-SCANS",
+    "extract": "non-key columns duplicate data from the index's table and bloat the size of the index, thus potentially slowing searches",
+    "snippet": null
+  },
+  {
+    "id": "m06-l03-q51",
+    "stem": "In PostgreSQL 18 `EXPLAIN ANALYZE`, an Index Scan node executed several times shows an `Index Searches` line. What does that line report?",
+    "key": "The total number of searches across all executions of the node",
+    "distractors": [
+      "The average number of searches per execution, like the actual time and rows values",
+      "The number of shared blocks hit, read, dirtied and written by the node",
+      "The number of times the node was executed, which is also the `loops` value"
+    ],
+    "explanation": "The `Index Searches` line reports the total number of searches across all node executions. The actual time and rows values are averages per execution, but this line is a total. The number of blocks hit, read, dirtied and written comes from the `BUFFERS` parameter. The number of executions is what the `loops` value reports.",
+    "citation": "pg-using-explain#USING-EXPLAIN-ANALYZE; pg-sql-explain#id-1.9.3.148.8",
+    "extract": "reports the total number of searches across all node executions",
+    "snippet": null
+  },
+  {
+    "id": "m06-l03-q52",
+    "stem": "In PostgreSQL 18, which index type can optimize \"nearest-neighbor\" searches, such as finding the ten places closest to a given target point?",
+    "key": "GiST",
+    "distractors": [
+      "Hash",
+      "GIN",
+      "B-tree"
+    ],
+    "explanation": "GiST indexes can also optimize nearest-neighbor searches. Hash indexes can only handle simple equality comparisons. GIN indexes are inverted indexes for values that contain multiple component values, such as arrays. B-trees handle equality and range queries on data that can be sorted into some ordering.",
+    "citation": "pg-indexes-types#INDEXES-TYPE-GIST; pg-indexes-types#INDEXES-TYPES-HASH; pg-indexes-types#INDEXES-TYPES-GIN; pg-indexes-types#INDEXES-TYPES-BTREE",
+    "extract": null,
+    "snippet": null
+  },
+  {
+    "id": "m06-l03-q53",
+    "stem": "In PostgreSQL 18, which statement is correct about a partial index that was built to exclude the common values of a column?",
+    "key": "It requires the common values to be predetermined, so it suits data distributions that do not change",
+    "distractors": [
+      "The planner still uses it for a query that searches for one of the common values, like for any other value",
+      "It saves no index space, because an entry is kept for every table row whether or not the row satisfies the predicate",
+      "It needs no maintenance, because the predicate adapts by itself when the distribution of the data changes"
+    ],
+    "explanation": "Such a partial index requires the common values to be predetermined, so it is best used for data distributions that do not change. A query searching for a common value will not use the index anyway. The index contains entries only for the table rows that satisfy the predicate, which reduces its size. The index can be recreated occasionally to adjust for new data distributions, which adds maintenance effort.",
+    "citation": "pg-indexes-partial#INDEXES-PARTIAL",
+    "extract": "this kind of partial index requires that the common values be predetermined",
+    "snippet": null
+  },
+  {
+    "id": "m06-l03-q54",
+    "stem": "In Spring Data JPA 4.1, which statement about the query method return types `Page<T>`, `Slice<T>` and `Window<T>` is correct?",
+    "key": "A `Page<T>` query can require an additional `COUNT(...)` query to determine the total number of elements",
+    "distractors": [
+      "A `Window<T>` can navigate to the previous `Window<T>` as well as to the next one",
+      "A `Slice<T>` always needs a `COUNT(...)` query, because it cannot tell whether there is more data to fetch",
+      "A `Page<T>` fetches `limit + 1` rows using a rewritten `WHERE` condition, in the way a keyset-based window does"
+    ],
+    "explanation": "A `Page<T>` can require an additional `COUNT(...)` query for the total number of elements. A `Window` can only navigate to the next `Window`. A `Slice` fetches the page size plus one row and provides details on whether there is more data to fetch. A `Page` fetches the page size at `Pageable.getOffset()`, while the rewritten `WHERE` condition belongs to the keyset-based window.",
+    "citation": "spring-data-jpa-repositories-query-methods-details#repositories.scrolling.guidance",
+    "extract": null,
     "snippet": null
   }
 ]

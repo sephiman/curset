@@ -1,0 +1,6 @@
+According to Danilo Sato on Martin Fowler's site, parallel change, also known as expand and contract, is a pattern for making a backward-incompatible change to an interface safely, by splitting it into three phases: expand, migrate and contract.
+In the expand phase the interface supports both the old and the new version, so existing clients keep using the old one.
+In the migrate phase all clients are moved to the new version, which can be done incrementally and is the longest phase when the clients are external.
+In the contract phase, once every usage is migrated, the old version is removed.
+The page names database refactoring as an application: the migrate phase is the transition period between the original and the new schema, until all database access code works with the new schema.
+It also states a downside: during the migrate phase the supplier has to support two versions, and if the contract phase is never carried out the result can be worse than the starting point.

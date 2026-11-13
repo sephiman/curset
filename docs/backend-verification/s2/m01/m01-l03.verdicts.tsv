@@ -1,0 +1,93 @@
+S1.1	"According to Alistair Cockburn, the application"	pass
+S1.2	"According to him, a graphical user"	pass
+S1.3	"According to Vaughn Vernon, chapter 4"	pass
+S1.4	"According to Robert C. Martin, Clean"	pass
+S2.1	"In a Spring Boot application, an"	pass
+S2.2	"A module's internal implementation components are"	pass
+S2.3	"By default, a module's base package"	pass
+S2.4	"To expose an additional package to"	pass
+S2.5	"With `@ApplicationModule(allowedDependencies = "order :: spi")` on"	pass
+S2.6	"Calling `ApplicationModules.of(Application.class).verify()` rejects cycles at"	pass
+S2.7	"The same verification rejects every reference"	fail	"every" overclaims; anchor allows dependencies into internals of open application modules
+S2.8	"Spring Modulith says that the primary"	pass
+S2.9	"The event publication registry writes an"	pass
+S2.10	"According to Sam Newman, chapter 2"	pass
+S3.1	"ArchUnit offers a fluent, DSL-like API"	pass
+S3.2	"The entry point for specifying a"	pass
+S3.3	"A rule of type `ArchRule` is"	pass
+S3.4	"The `Architectures` entry point provides a"	pass
+S3.5	"Slice rules sort classes into slices"	pass
+S3.6	"`SlicesRuleDefinition.slices().matching("..myapp.(*)..").should().beFreeOfCycles()` sorts classes by"	pass
+S3.7	"`notDependOnEachOther()` checks that slices have no"	pass
+S3.8	"According to the authors of Building"	pass
+S3.9	"According to them, fitness functions encompass"	pass
+S4.1	"Entities managed by Spring Data repositories"	pass
+S4.2	"In a Domain-Driven Design application, aggregate"	pass
+S4.3	"A method of an aggregate root"	pass
+S4.4	"Spring Data calls that method every"	pass
+S4.5	"`deleteById(…)` is absent from that list"	pass
+S4.6	"According to Vaughn Vernon, Implementing Domain-Driven"	pass
+S4.7	"According to Eric Evans, the building"	pass
+S5.1	"A Spring Modulith module exposes its"	pass
+S5.2	"`verify()` rejects module-level cycles and references"	pass
+S5.3	"ArchUnit evaluates an `ArchRule` against imported"	pass
+S5.4	"`layeredArchitecture()` rules declare which layers may"	fail	names `layeredArchitecture()`, which no F sentence of the lesson states
+S5.5	"An aggregate root can publish events"	pass
+R1.1	"`layer("Controller").definedBy("..controller..")`"	pass
+R1.2	"`whereLayer("Service").mayOnlyBeAccessedByLayers("Controller")`"	pass
+R1.3	"`whereLayer("Controller").mayNotBeAccessedByAnyLayer()`"	pass
+g-application-module	pass
+g-aggregate-root	pass
+m01-l03-q01	fail	stem names Spring Modulith 2.1.2; registered anchor version is 2.1.1
+m01-l03-q02	fail	stem names Spring Modulith 2.1.2; registered anchor version is 2.1.1
+m01-l03-q03	fail	stem names Spring Modulith 2.1.2; registered anchor version is 2.1.1
+m01-l03-q04	fail	stem names Spring Modulith 2.1.2; registered anchor version is 2.1.1
+m01-l03-q05	fail	stem names Spring Modulith 2.1.2; registered anchor version is 2.1.1
+m01-l03-q06	fail	stem names Spring Modulith 2.1.2; registered anchor version is 2.1.1
+m01-l03-q07	fail	stem names Spring Modulith 2.1.2; registered anchor version is 2.1.1
+m01-l03-q08	fail	stem names Spring Modulith 2.1.2; registered anchor version is 2.1.1
+m01-l03-q09	fail	stem names 2.1.2 (anchor 2.1.1); `verify = true` dismissed by restating key
+m01-l03-q10	fail	stem names Spring Modulith 2.1.2; registered anchor version is 2.1.1
+m01-l03-q11	fail	stem names Spring Modulith 2.1.2; registered anchor version is 2.1.1
+m01-l03-q12	fail	stem names Spring Modulith 2.1.2; registered anchor version is 2.1.1
+m01-l03-q13	fail	stem names Spring Modulith 2.1.2; registered anchor version is 2.1.1
+m01-l03-q14	fail	stem names Spring Modulith 2.1.2; registered anchor version is 2.1.1
+m01-l03-q15	fail	`Architectures` layer check also expresses services-only-by-controllers; distractor defensible
+m01-l03-q16	pass
+m01-l03-q17	pass
+m01-l03-q18	fail	hexagonal distractor arguably true: ArchUnit's onion check targets onion/hexagonal architectures
+m01-l03-q19	fail	explanation claims `(**)` takes whole subtree as one unit; anchor does not
+m01-l03-q20	fail	"free of cycles" distractor arguably true: slices with no mutual dependencies are acyclic
+m01-l03-q21	pass
+m01-l03-q22	pass
+m01-l03-q23	fail	one source sentence ("after all events") rules out two distractors
+m01-l03-q24	fail	all three distractors ruled out by the same list sentence
+# checked 64, passed 42, failed 22
+m01-l03-q01	recheck	pass
+m01-l03-q02	recheck	fail	near-duplicate of q01: same module-parts fact, same provided/internal/required distractors
+m01-l03-q03	recheck	pass
+m01-l03-q04	recheck	pass
+m01-l03-q05	recheck	fail	one source sentence ("both … accessible") rules out two distractors
+m01-l03-q06	recheck	fail	stem's "before any dependency is checked" ordering is padding not in anchor
+m01-l03-q07	recheck	pass
+m01-l03-q08	recheck	fail	Maven plugin distractor dismissed by bare denial; anchor silent on plugins
+m01-l03-q09	recheck	fail	`verify = true` distractor dismissed by restating the key, not a cited fact
+m01-l03-q10	recheck	pass
+m01-l03-q11	recheck	pass
+m01-l03-q12	recheck	fail	startup distractor refuted by irrelevant republish fact plus bare denial
+m01-l03-q13	recheck	pass
+m01-l03-q14	recheck	pass
+# recheck D4: checked 14, passed 8, failed 6; lesson totals now checked 64, passed 50, failed 14
+S2.7	recheck	pass
+S5.4	recheck	pass
+m01-l03-q25	pass
+m01-l03-q26	fail	one source sentence ("widen … cause the entire transaction to fail") rules out two distractors
+m01-l03-q27	pass
+m01-l03-q28	fail	stem asks for a setting; two options are actions, not settings (shape)
+m01-l03-q29	fail	same `byAnyPackage(...)` list is the only refutation of two distractors
+m01-l03-q30	fail	key is a bare identifier while distractors carry giveaway appositives (shape)
+m01-l03-q31	pass
+m01-l03-q32	fail	allowedDependencies and cycle distractors are not rejected by the efferent rule; arguably true
+m01-l03-q33	fail	re-publication distractor refuted by irrelevant fact (needs a property), not contradicted
+m01-l03-q34	pass
+# replacements q25–q34: checked 10, passed 4, failed 6; lesson totals now checked 74, passed 56, failed 18
