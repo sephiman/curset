@@ -124,6 +124,8 @@ class ManifestCourse(BaseModel):
     #: Each lesson's questions are practised one by one from a «Practicar» page instead of quizzes
     #: embedded in its text; absent: practice is whatever the lesson embeds.
     lesson_practice: bool = False
+    #: `spaced`: practice serves unseen questions first, then failed ones as they fall due; absent: random.
+    practice_scheduler: Literal["spaced"] | None = None
     #: How multiple-choice options are labelled (`letters` for A-D; absent for no labels).
     option_labels: Literal["letters"] | None = None
     #: Whether the course PDF export prints in-lesson exercises and the answer key; false for theory only.

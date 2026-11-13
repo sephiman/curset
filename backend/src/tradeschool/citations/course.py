@@ -6,7 +6,8 @@ A course with `sources/normativa.yaml` gets citation links; one without gets non
 not scanned unless an esquema needs checking. The checks fail the load, naming the question or the row:
 
 * a question's citation must resolve to an anchor in its own lesson;
-* an esquema row needs a citation, and what it cites must also be cited in the same lesson's prose.
+* an esquema row needs a citation, and what it cites must also be cited in the same lesson's prose;
+* in a course with `sources/sources.yaml`, an esquema row cites `source_id#anchor`, which must resolve.
 """
 
 from __future__ import annotations
@@ -19,7 +20,8 @@ from tradeschool.citations.grammar import Segment, collapse, parse_segment, segm
 from tradeschool.citations.lesson import LessonCitation, LessonCitations, resolve_segment, scan_lesson
 from tradeschool.citations.norms import NormIndex
 from tradeschool.citations.sources import SourceIndex, source_url
-from tradeschool.content.esquema import EsquemaError, parse_esquemas
+from tradeschool.citations.tech import TechSourceIndex, parse_refs
+from tradeschool.content.esquema import Esquema, EsquemaError, parse_esquemas
 
 NORMATIVA = Path("sources") / "normativa.yaml"
 
@@ -48,6 +50,9 @@ class CourseCitations:
     sources: SourceIndex
     #: locale → lesson id → its citations, for the lessons that were scanned.
     lessons: dict[str, dict[str, LessonCitations]] = field(default_factory=dict)
+    #: A course on technical sources: its index, and locale → lesson id → esquemas to resolve.
+    tech: TechSourceIndex | None = None
+    tech_esquemas: dict[str, dict[str, list[Esquema]]] = field(default_factory=dict)
 
     @property
     def links(self) -> bool:
@@ -60,10 +65,14 @@ class CourseCitations:
         prose = [body for lessons in markdown.values() for body in lessons.values()]
         norms = NormIndex.load(normativa, prose) if normativa.exists() else None
         built = cls(slug, norms, SourceIndex.load(course_dir) if norms else SourceIndex())
+        built.tech = TechSourceIndex.load(course_dir)
         scan_with = norms or NormIndex([], {})
         for locale, lessons in markdown.items():
             for lesson_id, body in lessons.items():
                 try:
+                    if built.tech is not None:
+                        built.tech_esquemas.setdefault(locale, {})[lesson_id] = parse_esquemas(body)
+                        continue
                     if norms is None and not parse_esquemas(body):
                         continue
                     built.lessons.setdefault(locale, {})[lesson_id] = scan_lesson(lesson_id, body, scan_with)
@@ -156,6 +165,9 @@ class CourseCitations:
                 )
         for lesson_id, found in self.lessons.get(locale, {}).items():
             problems += _esquema_problems(lesson_id, found, self.norms or NormIndex([], {}))
+        if self.tech is not None:
+            for lesson_id, esquemas in self.tech_esquemas.get(locale, {}).items():
+                problems += _tech_esquema_problems(lesson_id, esquemas, self.tech)
         return problems
 
 
@@ -195,4 +207,18 @@ def _esquema_problems(lesson_id: str, found: LessonCitations, norms: NormIndex) 
             ]
             if missing:
                 problems.append(f"{where}: cites «{segment.text}», which the lesson's prose never cites")
+    return problems
+
+
+def _tech_esquema_problems(lesson_id: str, esquemas: list[Esquema], index: TechSourceIndex) -> list[str]:
+    problems: list[str] = []
+    for esquema in esquemas:
+        for row in esquema.rows:
+            row_text = " — ".join(row.fields)
+            where = f"lesson {lesson_id} line {row.line}, esquema «{esquema.title}», row «{row_text}»"
+            refs = parse_refs(row.citation) if row.citation else None
+            if refs is None:
+                problems.append(f"{where}: no citation (source_id#anchor)")
+                continue
+            problems += [f"{where}: {why}" for ref in refs if (why := index.problem(ref))]
     return problems

@@ -85,12 +85,16 @@ export type NoExcerptReason =
   | "no-label"
   | "no-match"
   | "no-parse"
-  | "no-fact";
+  | "no-fact"
+  | "licence"
+  | "no-extract";
 
 /** «Sin extracto»: why, and the source the question cites when the course keeps it. */
 export interface NoExcerpt {
   reason: NoExcerptReason;
   href: string | null;
+  /** What the reason cites: the licence that forbids quoting. Absent for the other reasons. */
+  detail?: string;
 }
 
 /** The table a generated item is asked on: a title, a header row and the rows. */

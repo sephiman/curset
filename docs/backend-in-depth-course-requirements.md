@@ -191,7 +191,7 @@ Each lesson goes through one pipeline, once. Theory, schemas and questions are w
 - Subagents write their output to files and return a status of at most five lines.
 - The orchestrating session never reads lesson bodies or sources; it reads the ledger and the status lines.
 - One session per module. A new session reads only the "where to resume" section of the ledger.
-- At most four subagents: two writers and two verifiers, each chaining lessons to reuse its context within a module.
+- At most eight subagents: four writers and four verifiers, each chaining lessons to reuse its context within a module.
 - Provenance first: an identical, already verified sentence or question with the same anchor hash is inherited, not re-verified.
 - Handoffs of at most thirty lines; no prose reports beyond the ledger and the verdict files.
 
@@ -563,8 +563,17 @@ Built only from public material (Tier C). Everything is class J and attributed.
 ## 10. Rules that do not change
 
 - A fact comes from the stored source or from an execution record, never from memory.
-- Blind verification by an agent that did not write the text. Verifiers run on Opus, writers on Sonnet, never Haiku for a key. At most four subagents.
+- Blind verification by an agent that did not write the text. Verifiers run on Opus, writers on Sonnet, never Haiku for a key. At most eight subagents.
 - Provenance: a sentence, row or question identical to an already verified one, with the same citation and the same source hash, inherits its verification with a record.
 - Nothing coined: every term exists outside the course with the same sense.
 - No streaks, points or other engagement mechanics anywhere in the course.
 - The agent never commits.
+
+## Amendments (v1.2)
+
+2026-11-13, session S1. Each amendment overrides the section it names.
+
+1. Class X also covers arithmetic computed by a script from assumptions stated in the lesson or the question (capacity estimation, quorum arithmetic). The evidence is the script and its output.
+2. Sources stored outside git are resolved through the environment variable `CURSET_SOURCES_LOCAL` (default `~/PycharmProjects/curset-saved-originals/backend-in-depth/local`). Scripts verify content when the folder is present and skip with a warning when it is absent; they never fail CI for that reason.
+3. Schema rows in this course cite `source_id#anchor`.
+4. Lesson `m00-l01` covers no programme bullet and is exempt from the scope audit.

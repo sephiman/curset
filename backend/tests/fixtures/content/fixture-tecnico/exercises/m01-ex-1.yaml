@@ -1,0 +1,63 @@
+type: quiz
+variants:
+  - id: isolation-quote
+    prompt:
+      en: "Which isolation level does the default PostgreSQL session use?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Read Committed."
+      - id: b
+        text:
+          en: "Serializable."
+      - id: c
+        text:
+          en: "Read Uncommitted."
+      - id: d
+        text:
+          en: "Repeatable Read."
+    explanation:
+      en: "PostgreSQL starts each transaction at Read Committed unless told otherwise."
+    citation: "pg-iso#XACT-READ-COMMITTED"
+    extract:
+      en: "Read Committed is the default isolation level in PostgreSQL."
+  - id: tests-that-fail
+    prompt:
+      en: "What does a test that cannot fail tell you?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "Nothing about reliability."
+      - id: b
+        text:
+          en: "That the system is reliable."
+      - id: c
+        text:
+          en: "That the code is fast."
+      - id: d
+        text:
+          en: "That the suite is complete."
+    explanation:
+      en: "A check that always passes carries no information."
+    citation: "sre-book#ch17"
+  - id: lost-update-fix
+    prompt:
+      en: "Which statement prevents a lost update in a single step?"
+    options:
+      - id: a
+        correct: true
+        text:
+          en: "An atomic UPDATE that adds to the stored value."
+      - id: b
+        text:
+          en: "Reading the balance and writing it back later."
+      - id: c
+        text:
+          en: "Caching the balance in the application."
+      - id: d
+        text:
+          en: "Retrying the read until it succeeds."
+    explanation:
+      en: "The database applies the increment under its own lock, so no writer overwrites another."

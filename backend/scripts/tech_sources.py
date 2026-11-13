@@ -7,12 +7,16 @@
     uv run python scripts/tech_sources.py show --course backend-in-depth SOURCE_ID#ANCHOR
     uv run python scripts/tech_sources.py list --course backend-in-depth SOURCE_ID
     uv run python scripts/tech_sources.py apply-licences --course backend-in-depth
+    uv run python scripts/tech_sources.py register-file --course backend-in-depth --id ID --file REPO_PATH \
+        --product P --version V --title T [--licence L]
 
 `fetch` tries a plain HTTP GET and falls back to headless Chromium (Playwright from frontend/node_modules)
 when the site refuses or serves a script shell. HTML is stored stripped (scripts/strip_saved_pages.py rules);
 the bytes as fetched go to ~/PycharmProjects/curset-saved-originals/<course>/, out of git. A new entry is
 registered with the licence of its `sources/licences.yaml` rule (none: `pending`); a copy whose rule does not
 allow extracts is kept outside git (`storage: local`, under the originals folder) with its sha256 and anchors.
+`register-file` registers a file already in the repo (tier `course`, Markdown anchors) without fetching; the
+licence rules never touch such an entry.
 """
 
 from __future__ import annotations
@@ -20,6 +24,7 @@ from __future__ import annotations
 import argparse
 import fcntl
 import json
+import os
 import re
 import subprocess
 import sys
@@ -184,6 +189,35 @@ def _deduplicated(anchors: list[Anchor]) -> list[Anchor]:
     return out
 
 
+_FENCE = re.compile(r"^\s*(```|~~~)")
+_MD_HEADING = re.compile(r"^(#{1,6})[ \t]+(.+?)[ \t#]*$")
+
+
+def markdown_anchors(text: str) -> list[Anchor]:
+    """One anchor per `#` heading (outside code fences), slugged from its title; text runs to the next one."""
+    anchors: list[Anchor] = []
+    level, title = 0, ""
+    lines: list[str] = []
+    fenced = False
+
+    def flush() -> None:
+        body = _normalise("\n".join([title, *lines]))
+        if body or level:
+            anchors.append(Anchor(_slug(title) if level else "top", title, level, body))
+
+    for line in text.splitlines():
+        if _FENCE.match(line):
+            fenced = not fenced
+        heading = None if fenced else _MD_HEADING.match(line)
+        if heading is None:
+            lines.append(line)
+            continue
+        flush()
+        level, title, lines = len(heading[1]), _collapse(heading[2]), []
+    flush()
+    return _deduplicated(anchors)
+
+
 def html_anchors(html: str) -> list[Anchor]:
     parser = _AnchorParser()
     parser.feed(html)
@@ -301,6 +335,8 @@ def fetch(args: argparse.Namespace) -> None:
 def anchors_of(path: Path) -> list[Anchor]:
     if path.suffix == ".pdf":
         return pdf_anchors(path)
+    if path.suffix == ".md":
+        return markdown_anchors(path.read_text(encoding="utf-8"))
     return html_anchors(path.read_text(encoding="utf-8", errors="replace"))
 
 
@@ -382,6 +418,35 @@ def _place(course: str, entry: dict[str, object], rules: list[dict[str, object]]
     return rule is not None
 
 
+def register_file(args: argparse.Namespace) -> None:
+    """A file already in the repo: the registry path is relative to the course folder."""
+    course = CONTENT / args.course
+    target = (REPO / args.file).resolve()
+    if not target.is_file():
+        raise SystemExit(f"{args.file}: not a file in the repo")
+    entry: dict[str, object] = {
+        "id": args.id,
+        "tier": "course",
+        "product": args.product,
+        "version": args.version,
+        "title": args.title,
+        "url": args.file,
+        "retrieved": date.today().isoformat(),
+        "method": "repo-file",
+        "sha256": sha256(target.read_bytes()).hexdigest(),
+        "path": os.path.relpath(target, course),
+        "licence": args.licence,
+        "extract_allowed": True,
+        "storage": "repo",
+    }
+    registry = course / "sources" / "sources.yaml"
+    with locked(registry):
+        entries = [e for e in read_registry(registry) if e["id"] != args.id]
+        write_registry(registry, [*entries, entry])
+    count = write_anchors(course / "sources", args.id, target)
+    print(f"{args.id}: {count} anchors, sha256 {str(entry['sha256'])[:12]}")
+
+
 def apply_licences(args: argparse.Namespace) -> None:
     sources = CONTENT / args.course / "sources"
     rules = licence_rules(sources)
@@ -392,6 +457,8 @@ def apply_licences(args: argparse.Namespace) -> None:
         with locked(registry):
             entries = read_registry(registry)
             for entry in entries:
+                if entry.get("tier") == "course":
+                    continue
                 if not _place(args.course, entry, rules):
                     unmatched.add(re.sub(r"^https?://(www\.)?([^/]+).*", r"\2", str(entry["url"])))
                 counts[str(entry["storage"])] += 1
@@ -431,6 +498,15 @@ def main() -> None:
     lic = commands.add_parser("apply-licences")
     lic.add_argument("--course", required=True)
     lic.set_defaults(run=apply_licences)
+    reg = commands.add_parser("register-file")
+    reg.add_argument("--course", required=True)
+    reg.add_argument("--id", required=True)
+    reg.add_argument("--file", required=True, help="path from the repo root")
+    reg.add_argument("--product", required=True)
+    reg.add_argument("--version", required=True)
+    reg.add_argument("--title", required=True)
+    reg.add_argument("--licence", default="AGPL-3.0-only")
+    reg.set_defaults(run=register_file)
     args = parser.parse_args()
     args.run(args)
 

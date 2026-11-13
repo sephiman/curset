@@ -45,6 +45,15 @@ function Paragraphs({ text }: { text: string }) {
 const LINK =
   "font-medium text-primary hover:underline max-md:flex max-md:min-h-11 max-md:items-center max-md:justify-center max-md:rounded-md max-md:border max-md:border-border max-md:px-3 max-md:text-center max-md:leading-tight max-md:hover:no-underline dark:max-md:border-gray-700 oled:max-md:border-oled-line-strong";
 
+/** A norm or saved page is served by the course; a web source is a link out. */
+function useSourceLabel(): (href: string, attribution: string | null) => string {
+  const { t } = useTranslation();
+  return (href, attribution) => {
+    if (/^https?:/.test(href)) return t("solution.webSource");
+    return (attribution || href.includes("/sources/otros/")) ? t("solution.savedPage") : t("solution.source");
+  };
+}
+
 /** The norm's own words, under «Art. 30.4 LPAC»; the whole article one tap away when it fits. */
 function ExcerptBlock({ excerpt }: { excerpt: SolutionExcerpt }) {
   const { t } = useTranslation();
@@ -123,6 +132,7 @@ export function SolutionPanel({
   open?: boolean;
 }) {
   const { t } = useTranslation();
+  const sourceLabel = useSourceLabel();
   const { path } = useCourse();
   const { data: course } = useCourseTree();
   const targetLessonId = lessonId ?? lessonLink?.lessonId;
@@ -147,7 +157,9 @@ export function SolutionPanel({
           {excerpt && <ExcerptBlock excerpt={excerpt} />}
           {!excerpt && noExcerpt && (
             <p className="text-xs text-gray-500 dark:text-gray-400">
-              {t("solution.noExcerpt", { reason: t(`noExcerptReason.${noExcerpt.reason}`) })}
+              {t("solution.noExcerpt", {
+                reason: t(`noExcerptReason.${noExcerpt.reason}`, { licence: noExcerpt.detail }),
+              })}
             </p>
           )}
           {(lessonLink || excerpt || noExcerpt?.href) && (
@@ -165,12 +177,12 @@ export function SolutionPanel({
               )}
               {!excerpt && noExcerpt?.href && (
                 <a href={noExcerpt.href} target="_blank" rel="noreferrer" className={LINK}>
-                  {noExcerpt.href.includes("/sources/otros/") ? t("solution.savedPage") : t("solution.source")}
+                  {sourceLabel(noExcerpt.href, null)}
                 </a>
               )}
               {excerpt && (
                 <a href={excerpt.href} target="_blank" rel="noreferrer" className={LINK}>
-                  {excerpt.attribution ? t("solution.savedPage") : t("solution.source")}
+                  {sourceLabel(excerpt.href, excerpt.attribution)}
                 </a>
               )}
             </nav>

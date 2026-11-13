@@ -1,11 +1,14 @@
-import { createContext, useContext, type ReactNode } from "react";
+import { Children, createContext, isValidElement, useContext, type ReactNode } from "react";
+import { useTranslation } from "react-i18next";
 import Markdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
 import type { Root } from "mdast";
 import type { LessonCitation } from "@/api/course";
 import { annotateCitations } from "@/lib/citations/annotate";
+import { remarkHideComments } from "@/lib/comments";
 import { remarkBlockDirectives } from "@/lib/directives";
 import { remarkEsquema, type EsquemaCellRole, type EsquemaKind } from "@/lib/esquema";
+import { CodeBlock } from "@/lib/CodeBlock";
 import { EsquemaBlock, EsquemaCell, EsquemaRow } from "@/lib/EsquemaBlock";
 import { remarkOutline } from "@/lib/outline";
 import {
@@ -42,6 +45,9 @@ function transform(node: DirectiveNode): void {
     if (node.name === "note") {
       data.hName = "div";
       data.hProperties = { "data-note-type": attrs.type ?? "info" };
+    } else if (node.name === "judgement") {
+      data.hName = "div";
+      data.hProperties = { "data-judgement-source": attrs.source ?? "", "data-judgement-ref": attrs.ref ?? "" };
     } else if (node.name === "exercise") {
       data.hName = "div";
       data.hProperties = { "data-exercise-id": attrs.id ?? "" };
@@ -73,6 +79,25 @@ function Callout({ tone, children }: { tone: string; children: ReactNode }) {
     <div className={cn("my-4 rounded-md border-l-4 px-4 py-3 text-sm [&>p]:my-1", NOTE_TONES[tone] ?? NOTE_TONES.info)}>
       {children}
     </div>
+  );
+}
+
+/** Class J: what the text attributes to a named source, set apart from the facts around it. */
+function Judgement({ source, reference, children }: { source: string; reference: string; children: ReactNode }) {
+  const { t } = useTranslation();
+  return (
+    <aside
+      data-judgement=""
+      aria-label={t("markdown.judgementFrom", { source })}
+      className="my-4 rounded-md border-2 border-dashed border-violet-300 bg-violet-50 px-4 py-3 text-sm text-violet-950 dark:border-violet-700 dark:bg-violet-950/40 dark:text-violet-100 [&>p]:my-1"
+    >
+      <p className="!mt-0 !mb-2 flex flex-wrap items-baseline gap-x-2 text-xs font-semibold tracking-wide text-violet-800 uppercase dark:text-violet-300">
+        <span>{t("markdown.judgement")}</span>
+        <cite className="font-medium tracking-normal normal-case not-italic">{source}</cite>
+        {reference && <code className="font-mono font-normal tracking-normal normal-case">{reference}</code>}
+      </p>
+      {children}
+    </aside>
   );
 }
 
@@ -141,6 +166,12 @@ function buildComponents(
         {children}
       </code>
     ),
+    pre: ({ children }) => {
+      const fence = Children.toArray(children)[0];
+      if (!isValidElement<{ className?: string; children?: ReactNode }>(fence)) return <pre>{children}</pre>;
+      const info = /language-(\S+)/.exec(fence.props.className ?? "")?.[1];
+      return <CodeBlock code={String(fence.props.children ?? "")} info={info} />;
+    },
     a: ({ href, children }) => (
       <a href={href} className="font-medium text-primary hover:underline" target="_blank" rel="noreferrer">
         {children}
@@ -165,6 +196,14 @@ function buildComponents(
       if (typeof exerciseId === "string") return <>{renderExercise(exerciseId)}</>;
       const figureId = attrs["data-figure-id"];
       if (typeof figureId === "string") return <>{renderFigure(figureId)}</>;
+      const judgementSource = attrs["data-judgement-source"];
+      if (typeof judgementSource === "string") {
+        return (
+          <Judgement source={judgementSource} reference={String(attrs["data-judgement-ref"] ?? "")}>
+            {attrs.children}
+          </Judgement>
+        );
+      }
       const noteType = attrs["data-note-type"];
       if (typeof noteType === "string") return <Callout tone={noteType}>{attrs.children}</Callout>;
       const esquemaKind = attrs["data-esquema-kind"];
@@ -221,7 +260,7 @@ export function LessonMarkdown({
   };
   return (
     <Markdown
-      remarkPlugins={[remarkGfm, remarkBlockDirectives, remarkEsquema, remarkOutline, annotate, remarkDirectiveToHast]}
+      remarkPlugins={[remarkGfm, remarkHideComments, remarkBlockDirectives, remarkEsquema, remarkOutline, annotate, remarkDirectiveToHast]}
       components={buildComponents(renderExercise, renderFigure, renderTerm, renderLessonRef)}
     >
       {markdown}
@@ -262,7 +301,7 @@ export function Prose({ markdown }: { markdown: string }) {
   };
   return (
     <Markdown
-      remarkPlugins={references ? [remarkGfm, annotate] : [remarkGfm]}
+      remarkPlugins={references ? [remarkGfm, remarkHideComments, annotate] : [remarkGfm, remarkHideComments]}
       components={buildComponents(() => null, () => null, (_id, children) => children, renderRef)}
     >
       {markdown}

@@ -33,6 +33,7 @@ export const PRINT = {
     info: { fill: "#eef2ff", border: "#6366f1" },
     warning: { fill: "#fffbeb", border: "#f59e0b" },
     tip: { fill: "#ecfdf5", border: "#10b981" },
+    judgement: { fill: "#f5f3ff", border: "#8b5cf6" },
   } as Record<string, { fill: string; border: string }>,
 } as const;
 

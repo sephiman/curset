@@ -1,0 +1,34 @@
+exercise: m03-l01-ex-generated
+lesson: m03-l01
+citation: "jls-ch14#jls-14.14.1"
+file: Main.java
+prompt: What does this program print?
+difficulty: 2
+tags: [loops]
+parameters:
+  limit: [3, 4]
+  step: [1, 2]
+template: |
+  public class Main {
+      public static void main(String[] args) {
+          int sum = 0;
+          for (int i = 0; i < @@limit@@; i += @@step@@) {
+              sum += i;
+          }
+          System.out.println(sum);
+      }
+  }
+explanation: "The loop adds the values of i below @@limit@@ in steps of @@step@@, so it prints @@key@@."
+mistakes:
+  - name: off-by-one, bound included
+    replace: ["i < @@limit@@", "i <= @@limit@@"]
+  - name: off-by-one, bound minus one
+    replace: ["i < @@limit@@", "i < @@limit@@ - 1"]
+  - name: counts iterations instead of summing
+    replace: ["sum += i;", "sum += 1;"]
+  - name: sum starts at one
+    replace: ["int sum = 0;", "int sum = 1;"]
+  - name: increment ignores the step
+    replace: ["i += @@step@@", "i++"]
+  - name: loop starts at one
+    replace: ["int i = 0;", "int i = 1;"]

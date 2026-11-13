@@ -91,6 +91,10 @@ class QuizVariant(BaseModel):
     shuffle: bool = Field(default=True, exclude=True)
     #: Single-choice only; excluded from dumps like the metadata above.
     table: QuizTable | None = Field(default=None, exclude=True)
+    #: Technical courses: a literal passage of the cited source; shown only when its licence allows quoting.
+    extract: LocalizedText | None = Field(default=None, exclude=True)
+    #: Technical courses: the lesson snippet the question rests on, `<lesson-id>/<File>.java|.kt`.
+    snippet: str | None = Field(default=None, exclude=True, pattern=r"^[\w-]+/[\w-]+\.(java|kt)$")
 
     @model_validator(mode="after")
     def _check(self) -> Self:

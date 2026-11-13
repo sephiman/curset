@@ -19,10 +19,79 @@ course:
   languages: [en]
   # Requirements 8.1: unpublished until S3; the platform's unpublished status is `draft`.
   status: draft
-  # S1 registers the question kinds (quiz, case, the generators of requirements 6.3); none exist yet.
-  exercise_types: []
+  # S1 registers the question kinds; the generators of requirements 6.3 are the psicotecnico type, quiz and case wait.
+  exercise_types: [psicotecnico]
+  # Requirements 6.5: unseen questions first, failed ones return at growing intervals.
+  practice_scheduler: spaced
   option_labels: letters
   pdf_exercises: false
+  # Requirements 6.3 runtime generators: equal weights, levels 1 and 2 drawn equally (no index fixes a mix).
+  practice_generators:
+  - generator: capacity-estimation
+    title:
+      en: Capacity estimation
+    weight: 1
+    difficulty: {1: 1, 2: 1}
+  - generator: quorum-reads
+    title:
+      en: Quorums and stale reads
+    weight: 1
+    difficulty: {1: 1, 2: 1}
+  - generator: rate-limiter-state
+    title:
+      en: Rate limiter state
+    weight: 1
+    difficulty: {1: 1, 2: 1}
+  - generator: circuit-breaker-state
+    title:
+      en: Circuit breaker state
+    weight: 1
+    difficulty: {1: 1, 2: 1}
+  - generator: retry-backoff-bounds
+    title:
+      en: Retry backoff bounds
+    weight: 1
+    difficulty: {1: 1, 2: 1}
+  - generator: logical-clocks
+    title:
+      en: Lamport and vector clocks
+    weight: 1
+    difficulty: {1: 1, 2: 1}
+  - generator: kafka-consumer-lag
+    title:
+      en: Kafka offsets and consumer lag
+    weight: 1
+    difficulty: {1: 1, 2: 1}
+  - generator: isolation-anomaly
+    title:
+      en: Isolation levels and anomalies
+    weight: 1
+    difficulty: {1: 1, 2: 1}
+  - generator: composite-index-usage
+    title:
+      en: Composite index usage
+    weight: 1
+    difficulty: {1: 1, 2: 1}
+  - generator: consistent-hashing-owner
+    title:
+      en: Consistent hashing
+    weight: 1
+    difficulty: {1: 1, 2: 1}
+  - generator: lru-cache-contents
+    title:
+      en: LRU cache contents
+    weight: 1
+    difficulty: {1: 1, 2: 1}
+  - generator: binary-heap-contents
+    title:
+      en: Binary heap contents
+    weight: 1
+    difficulty: {1: 1, 2: 1}
+  - generator: loop-complexity
+    title:
+      en: Loop complexity
+    weight: 1
+    difficulty: {1: 1, 2: 1}
   # glyph / color: left for S3 (docs/identity.md).
 blocks:
 - id: block-a

@@ -6,6 +6,7 @@ import { useCourseTree } from "@/features/course/queries";
 import { assignPair, isComplete, unassignPair, usedRights, type Pairs } from "@/features/exercises/matching";
 import { moveItem } from "@/features/exercises/ordering";
 import { GeneratedTable } from "@/features/exercises/GeneratedTable";
+import { OptionText } from "@/features/exercises/OptionText";
 import { cn } from "@/lib/cn";
 
 // In practice mode `onSubmit` is provided (select → submit → grade). In exam mode `deferred` is
@@ -100,7 +101,7 @@ function SingleChoice({
                 {String.fromCharCode(65 + idx)})
               </span>
             )}
-            <span>{opt.text}</span>
+            <OptionText text={opt.text ?? ""} />
           </label>
         ))}
       </div>
@@ -177,7 +178,7 @@ function MultiSelect({
                   {String.fromCharCode(65 + idx)})
                 </span>
               )}
-              <span>{opt.text}</span>
+              <OptionText text={opt.text ?? ""} />
             </label>
           );
         })}

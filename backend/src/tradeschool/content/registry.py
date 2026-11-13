@@ -22,7 +22,10 @@ from tradeschool.citations.excerpt_store import (
     solved_questions,
 )
 from tradeschool.citations.sources import SourceIndex
+from tradeschool.citations.tech import TechSourceIndex
+from tradeschool.citations.tech_solution import question_problems, tech_solution
 from tradeschool.content.glossary import Glossary, GlossaryTerm, load_glossary
+from tradeschool.content.judgement import judgement_problems
 from tradeschool.content.reading import estimate_seconds
 from tradeschool.content.schema import (
     CourseStatus,
@@ -109,6 +112,8 @@ class CourseRegistry:
     citations: CourseCitations = field(default_factory=lambda: CourseCitations("", None, SourceIndex()))
     # The norm's text per question for the solution panel; None for a course without sources/normativa.yaml.
     excerpts: ExcerptStore | None = None
+    # The registered technical sources (`sources/sources.yaml`); None for any other course.
+    tech: TechSourceIndex | None = None
     # reading_seconds[locale][lesson_id] -> estimated reading time. Derived from the markdown once
     # here, so every surface that shows time is summing the same per-lesson numbers.
     reading_seconds: dict[str, dict[str, int]] = field(default_factory=dict)
@@ -231,6 +236,8 @@ class CourseRegistry:
     def question_excerpt(self, ref: QuestionRef) -> SolutionText | None:
         """The cited text of the norm for the question an attempt showed, as `excerpts.json` holds it."""
         variant = self._shown_question(ref)
+        if self.tech is not None and variant is not None:
+            return tech_solution(self.tech, variant, self.manifest.course.languages[0])
         if self.excerpts is None or variant is None:
             return None
         case_key = self.exercise_key(ref.exercise_id) if ref.question_id is not None else None
@@ -737,6 +744,8 @@ def load_registry(content_dir: Path, *, check_excerpts: bool = True) -> CourseRe
     glyph_svg = _load_glyph(content_dir, manifest.course.glyph)
     exercise_configs = _load_exercise_configs(content_dir, manifest)
     exercise_configs.update(_load_generated_exercises(manifest))
+    tech = TechSourceIndex.load(content_dir)
+    _check_tech_content(manifest, markdown, exercise_configs, tech)
     _check_case_lessons(manifest, exercise_configs)
     figures = load_figures(content_dir)
     _check_figure_files(content_dir, figures)
@@ -782,6 +791,7 @@ def load_registry(content_dir: Path, *, check_excerpts: bool = True) -> CourseRe
         glossary=glossary,
         citations=citations,
         excerpts=excerpts,
+        tech=tech,
         source_root=content_dir / "sources" if citations.links else None,
         glyph_svg=glyph_svg,
     )
@@ -789,6 +799,25 @@ def load_registry(content_dir: Path, *, check_excerpts: bool = True) -> CourseRe
     if exam_problems:
         raise ContentError("exam presets the course cannot supply: " + "; ".join(exam_problems))
     return registry
+
+
+def _check_tech_content(
+    manifest: Manifest,
+    markdown: dict[str, dict[str, str]],
+    exercise_configs: dict[str, tuple[ExerciseType, BaseModel]],
+    tech: TechSourceIndex | None,
+) -> None:
+    """Judgement callouts that are malformed, and extracts or snippets a technical course may not carry."""
+    problems = [
+        problem
+        for lessons in markdown.values()
+        for lesson_id, body in lessons.items()
+        for problem in judgement_problems(lesson_id, body, tech)
+    ]
+    if tech is not None:
+        problems += question_problems(tech, exercise_configs)
+    if problems:
+        raise ContentError("; ".join(problems))
 
 
 def _load_excerpts(

@@ -59,6 +59,30 @@ async def draw_round(
     )
 
 
+class ReviewRequest(BaseModel):
+    count: int = Field(default=20, ge=1, le=100)
+
+
+class ReviewResponse(BaseModel):
+    questions: list[RoundQuestion]
+
+
+@router.post("/practice/review", response_model=ReviewResponse)
+async def draw_review_round(
+    user: Annotated[User, Depends(current_active_user)],
+    session: Annotated[AsyncSession, Depends(get_async_session)],
+    registry: Annotated[CourseRegistry, Depends(get_registry)],
+    rand: Annotated[Rand, Depends(practice_rand)],
+    payload: ReviewRequest | None = None,
+) -> ReviewResponse:
+    drawn = await service.draw_review_round(
+        session, registry, user.id, (payload or ReviewRequest()).count, rand
+    )
+    return ReviewResponse(
+        questions=[RoundQuestion(exerciseId=q.exercise_id, questionId=q.variant_id or "") for q in drawn]
+    )
+
+
 class GeneratedRoundRequest(BaseModel):
     #: One psicotécnico type; absent: every type in the course's weights.
     generator: str | None = None

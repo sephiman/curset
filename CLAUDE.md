@@ -16,7 +16,7 @@ prompt says, unless the prompt explicitly overrides it.
 - Verifiers (blind checks of keys, citations, style, copies) and any
   re-check: opus. Never haiku for anything that decides a key.
 - Coordinator: the session model.
-- At most 4 subagents running at once (2 writers, 2 verifiers).
+- At most 8 subagents running at once (4 writers, 4 verifiers).
 - A writer takes several parts in sequence in one run, reusing its
   loaded context; a verifier takes consecutive batches of 60 the same
   way. Spec, style guide and ofimática index are loaded once per agent

@@ -6,7 +6,7 @@ from __future__ import annotations
 import uuid
 from datetime import datetime
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from tradeschool.attempts.models import Attempt, AttemptState
 from tradeschool.attempts.service import AttemptReview, OpenedAttempt, OpenedCase
@@ -135,12 +135,14 @@ class NoExcerptOut(BaseModel):
 
     reason: str
     href: str | None
+    #: Omitted when unset, so the payload of a course without licensed sources is unchanged.
+    detail: str | None = Field(default=None, exclude_if=lambda value: value is None)
 
 
 def missing_reason(excerpt: SolutionText | None) -> NoExcerptOut | None:
     if not isinstance(excerpt, MissingExcerpt):
         return None
-    return NoExcerptOut(reason=excerpt.reason, href=excerpt.href)
+    return NoExcerptOut(reason=excerpt.reason, href=excerpt.href, detail=excerpt.detail)
 
 
 class GradeResponse(BaseModel):

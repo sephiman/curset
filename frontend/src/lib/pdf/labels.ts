@@ -47,5 +47,6 @@ export function pdfLabels(t: Translate, generated: string): PdfLabels {
       arbol: [t("esquema.node"), t("esquema.detail"), t("esquema.citation")],
     },
     consolidated: (date) => t("course.pdfConsolidated", { date }),
+    judgement: (source) => t("markdown.judgementFrom", { source }),
   };
 }

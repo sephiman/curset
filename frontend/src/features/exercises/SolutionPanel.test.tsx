@@ -221,3 +221,34 @@ describe("an exam that is still running", () => {
     expect(host.textContent).not.toContain(EXCERPT.heading);
   });
 });
+
+describe("the solution panel of a course with licensed sources (N3)", () => {
+  it("quotes the extract and links the source on the web", () => {
+    panel({
+      heading: "PostgreSQL transaction isolation (XACT-READ-COMMITTED)",
+      text: "Read Committed is the default isolation level in PostgreSQL.",
+      full: null,
+      fullTooLong: false,
+      href: "https://www.postgresql.org/docs/current/transaction-iso.html",
+      attribution: "Licence: PostgreSQL",
+    });
+    const text = details().textContent ?? "";
+    expect(text).toContain("Read Committed is the default isolation level in PostgreSQL.");
+    expect(text).toContain("Licence: PostgreSQL");
+    const link = [...details().querySelectorAll("a")].find((a) => a.textContent === en.solution.webSource);
+    expect(link?.getAttribute("href")).toBe("https://www.postgresql.org/docs/current/transaction-iso.html");
+  });
+
+  it("says «no extract» with the licence and links the source, quoting nothing", () => {
+    panel(null, {
+      reason: "licence",
+      href: "https://sre.google/sre-book/table-of-contents/",
+      detail: "CC BY-NC-ND 4.0",
+    });
+    const text = details().textContent ?? "";
+    expect(text).toContain("No excerpt: the source's licence (CC BY-NC-ND 4.0) does not allow quoting it.");
+    expect(details().querySelector("figure")).toBeNull();
+    const link = [...details().querySelectorAll("a")].find((a) => a.textContent === en.solution.webSource);
+    expect(link?.getAttribute("href")).toBe("https://sre.google/sre-book/table-of-contents/");
+  });
+});

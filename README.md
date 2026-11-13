@@ -960,6 +960,19 @@ repo. Coverage per bullet: `docs/backend-verification/s0/source-coverage.md`; qu
 `docs/backend-question-style.md`; ledgers `docs/backend-theory-ledger.md` and `docs/backend-bank-ledger.md`. The
 skeleton holds «How this course works» (`m00-l01`, written) and 68 stubs listing their bullets' source anchors.
 
+Session S1 added the build scripts of requirements 8.3 as `backend/scripts/tech_course/` (run from `backend/` as
+`uv run python -m scripts.tech_course.<name>`, `--course` defaults to `backend-in-depth`, non-zero exit on a real
+failure). A course with `sources/sources.yaml` cites `source_id#anchor` in esquema rows (checked at load) instead of
+norm and article. `check_citations` resolves every citation of lessons and questions and recomputes each cited
+anchor's sha256 (the version audit; `storage: local` sources are skipped with one warning when
+`$CURSET_SOURCES_LOCAL` is absent); `check_extracts`, `check_scope` (bullet metadata `<!-- bullets: 6.2.a -->` under
+each `##`) and `check_coverage` (pending lessons are counted, not failed); `lesson_quota` prints F, X and the quota
+per lesson; `run_snippets` runs `snippets/<lesson>/<File>.java|.kt` offline (`unshare -rn`) on the pinned JDK and
+the Kotlin compiler provisioned by `toolchain provision`, and records `<File>.run.json` (`--check` in CI);
+`build_variants` turns a family `variants/<family>.yaml` into a generated quiz with keys from running the code.
+`tech_sources.py register-file` registers a file already in the repo (tier `course`; Markdown anchors from `#`
+headings), as `course-requirements` is. `docs/backend-verification/tools/close_round.sh` runs the closing checks.
+
 Round R5 added the first-exercise presets and the official sets to `aeat-agentes-hacienda` (`exams:` in its `course.yaml`; ledger `docs/aeat-bank-ledger.md` «R5»).
 «Primer ejercicio» is the base 6.2 paper: 80 questions drawn 8 from I, 10 from II and 62 from III (the part counts of the 2025 paper;
 the printed paper mixes the parts, so the draw is shuffled), 90 minutes, `pause: never`, wrong = −1/4, blank = 0, tema labels hidden during the sitting.
@@ -978,6 +991,16 @@ no `exams:` and no generators is `theoryOnly` in its course payload: Exámenes s
 only lessons marked read, and no «Practicar» entry appears; the states vanish once it declares exercises or exams.
 `backend/tests/fixtures/content/fixture-teoria` is the published fixture; the e2e stack serves it through
 `EXTRA_CONTENT_DIR=/app/e2e-content` (baked into the image, set only in CI and `ci-local.sh`).
+
+**Technical courses (platform deltas N1-N3 of backend-in-depth).** Fenced blocks (`java`, `kotlin`, `sql`, `yaml`, `json`, `http`,
+`bash`, `text`) are highlighted by highlight.js with only those grammars registered (`lib/highlight.ts`, colours in `index.css`), in
+lessons, stems, options (when they hold backticks) and explanations; a block scrolls sideways inside its own box and the info string's
+meta (`java snippet=m06-l02/LostUpdate.java`) never shows. `<!-- bullets: … -->` comments are dropped on the page. `:::judgement{source="…"
+ref="…"}` renders as a labelled callout (web and PDF); `content/judgement.py` validates it at load. A course with `sources/sources.yaml`
+takes `extract:` and `snippet:` on its quiz questions (excluded from payloads): the solution panel quotes the extract only when the first
+citation's source has `extract_allowed: true`, else it says «no extract» with the licence and links the source; the loader rejects an
+extract on a source that forbids it. Fixture: `backend/tests/fixtures/content/fixture-tecnico`; tests `test_tech_platform.py`,
+`markdown.code.test.tsx`, `e2e/technical.spec.ts`.
 
 **Generated psicotécnicos (platform delta L, 2026-11-07).** A course lists `practice_generators` in
 `course.yaml` (a generator id, its Spanish `title`, its `weight` in the exam mix and its `difficulty` level

@@ -33,6 +33,7 @@ COPY --from=build --chown=app:app /app /app
 COPY --chown=app:app content /app/content
 # The published theory-only test course; served only where EXTRA_CONTENT_DIR points at it (the e2e stack).
 COPY --chown=app:app backend/tests/fixtures/content/fixture-teoria /app/e2e-content/fixture-teoria
+COPY --chown=app:app backend/tests/fixtures/content/fixture-tecnico /app/e2e-content/fixture-tecnico
 
 # Baked at build time so "what is this container actually running?" is one curl against /api/version
 # rather than an investigation. Unset in a plain `docker build` — the endpoint then says "unknown",

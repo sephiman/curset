@@ -3,7 +3,7 @@
 
 from __future__ import annotations
 
-from collections.abc import Collection, Sequence
+from collections.abc import Collection, Hashable, Sequence
 from typing import Protocol
 
 #: A question answered correctly this many times in practice counts as mastered.
@@ -16,14 +16,14 @@ class Rand(Protocol):
     def random(self) -> float: ...
 
 
-def practice_order(
-    question_ids: Sequence[str], mastered: Collection[str], count: int | None, rand: Rand
-) -> list[str]:
+def practice_order[Q: Hashable](
+    question_ids: Sequence[Q], mastered: Collection[Q], count: int | None, rand: Rand
+) -> list[Q]:
     """`count` questions (all when None) without repeats, as a weighted random order: each question
     gets the key u^(1/w) and the largest keys come first (Efraimidis-Spirakis)."""
     keyed = [
         (rand.random() ** (1 / (MASTERED_WEIGHT if qid in mastered else FRESH_WEIGHT)), qid)
         for qid in question_ids
     ]
-    ordered = [qid for _, qid in sorted(keyed, reverse=True)]
+    ordered = [qid for _, qid in sorted(keyed, key=lambda pair: pair[0], reverse=True)]
     return ordered if count is None else ordered[:count]

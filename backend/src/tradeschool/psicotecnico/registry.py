@@ -5,6 +5,7 @@ from __future__ import annotations
 
 from functools import cache
 
+from tradeschool.psicotecnico.backend.catalogue import BACKEND_GENERATORS
 from tradeschool.psicotecnico.contract import GeneratorLoadError, ItemGenerator, verify
 from tradeschool.psicotecnico.generators.administrativo_clasificacion import ClasificacionGenerator
 from tradeschool.psicotecnico.generators.administrativo_ordenacion import OrdenacionGenerator
@@ -40,13 +41,17 @@ GENERATORS: dict[str, ItemGenerator] = {
 }
 
 
+def _all_generators() -> dict[str, ItemGenerator]:
+    return {**GENERATORS, **BACKEND_GENERATORS}
+
+
 def is_known(generator_id: str) -> bool:
-    return generator_id in GENERATORS
+    return generator_id in _all_generators()
 
 
 def load_generator(generator_id: str, generators: dict[str, ItemGenerator] | None = None) -> ItemGenerator:
     """The generator, after its property tests passed once in this process."""
-    known = GENERATORS if generators is None else generators
+    known = _all_generators() if generators is None else generators
     try:
         generator = known[generator_id]
     except KeyError as exc:
@@ -61,7 +66,7 @@ def load_generator(generator_id: str, generators: dict[str, ItemGenerator] | Non
 
 @cache
 def _verified(generator_id: str) -> ItemGenerator:
-    generator = GENERATORS[generator_id]
+    generator = _all_generators()[generator_id]
     failures = verify(generator)
     if failures:
         raise GeneratorLoadError(f"{generator_id} failed its property tests: " + "; ".join(failures[:5]))

@@ -48,6 +48,8 @@ export interface PdfLabels extends ExerciseLabels, GlossaryLabels {
   esquemaColumns: Record<ListEsquemaKind, string[]>;
   /** After a «Normativa» norm's title: «texto consolidado a 2024-11-06». */
   consolidated: (date: string) => string;
+  /** The label above a `:::judgement` callout: who the judgement is attributed to. */
+  judgement: (source: string) => string;
 }
 
 export interface BuildCourseDocumentOptions {
@@ -169,6 +171,7 @@ function renderers(figures: Map<string, CapturedFigure>, labels: PdfLabels): Mar
       return figureContent(figure);
     },
     esquemaColumns: labels.esquemaColumns,
+    judgement: labels.judgement,
   };
 }
 

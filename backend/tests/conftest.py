@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import shutil
 from collections.abc import AsyncGenerator, Generator
 from contextlib import asynccontextmanager
 from dataclasses import dataclass, field
@@ -199,6 +200,50 @@ def aeat_course_settings(settings: Settings, tmp_path_factory: pytest.TempPathFa
 @pytest_asyncio.fixture
 async def aeat_client(aeat_course_settings: Settings, _migrated: bool) -> AsyncGenerator[AsyncClient]:
     async with _build_client(aeat_course_settings, reconcile_content=True) as http:
+        yield http
+
+
+@pytest.fixture(scope="session")
+def spaced_course_settings(settings: Settings, tmp_path_factory: pytest.TempPathFactory) -> Settings:
+    """The fixture-oposiciones course alone, copied with the `spaced` practice scheduler switched on."""
+    root = tmp_path_factory.mktemp("spaced-content")
+    course = shutil.copytree(FIXTURE_CONTENT / "fixture-oposiciones", root / "fixture-oposiciones")
+    manifest = course / "course.yaml"
+    manifest.write_text(
+        manifest.read_text().replace(
+            "  lesson_practice: true\n", "  lesson_practice: true\n  practice_scheduler: spaced\n"
+        )
+    )
+    return settings.model_copy(update={"content_dir": root})
+
+
+@pytest.fixture(scope="session")
+def shared_variant_settings(settings: Settings, tmp_path_factory: pytest.TempPathFactory) -> Settings:
+    """The spaced technical fixture course with a second exercise that reuses the first one's variant ids."""
+    root = tmp_path_factory.mktemp("shared-variant-content")
+    course = shutil.copytree(FIXTURE_CONTENT / "fixture-tecnico", root / "fixture-tecnico")
+    shutil.copy(course / "exercises" / "m01-ex-1.yaml", course / "exercises" / "m01-ex-2.yaml")
+    manifest = course / "course.yaml"
+    manifest.write_text(
+        manifest.read_text().replace(
+            "      - id: m01-ex-1\n        type: quiz\n",
+            "      - id: m01-ex-1\n        type: quiz\n      - id: m01-ex-2\n        type: quiz\n",
+        )
+    )
+    return settings.model_copy(update={"content_dir": root})
+
+
+@pytest_asyncio.fixture
+async def shared_variant_client(
+    shared_variant_settings: Settings, _migrated: bool
+) -> AsyncGenerator[AsyncClient]:
+    async with _build_client(shared_variant_settings, reconcile_content=True) as http:
+        yield http
+
+
+@pytest_asyncio.fixture
+async def spaced_client(spaced_course_settings: Settings, _migrated: bool) -> AsyncGenerator[AsyncClient]:
+    async with _build_client(spaced_course_settings, reconcile_content=True) as http:
         yield http
 
 

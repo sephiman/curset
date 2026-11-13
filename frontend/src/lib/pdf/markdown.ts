@@ -28,6 +28,8 @@ export interface MarkdownRenderers {
   figure: (figureId: string) => Content;
   /** The header row a list esquema prints as a table under; absent, it prints with none. */
   esquemaColumns?: Record<ListEsquemaKind, string[]>;
+  /** The bold line that opens a judgement callout; absent, the callout prints without one. */
+  judgement?: (source: string) => string;
 }
 
 interface Marks {
@@ -255,6 +257,10 @@ function blocks(nodes: RootContent[], r: MarkdownRenderers, ids: Ids): Content[]
           out.push(
             callout(node.attributes?.type ?? "info", blocks(node.children, r, ids), ids.for(CALLOUT_ID)),
           );
+        } else if (node.name === "judgement") {
+          const source = node.attributes?.source ?? "";
+          const label: Content[] = r.judgement ? [{ text: r.judgement(source), bold: true, style: "p" }] : [];
+          out.push(callout("judgement", [...label, ...blocks(node.children, r, ids)], ids.for(CALLOUT_ID)));
         } else if (node.name === "esquema") {
           out.push(esquema(node, r, ids));
         }

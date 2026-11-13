@@ -113,6 +113,8 @@ class MissingExcerpt:
 
     reason: str
     href: str | None = None
+    #: What the reason cites, when it needs a name (the licence that forbids quoting).
+    detail: str | None = None
 
 
 SolutionText = SolutionExcerpt | MissingExcerpt

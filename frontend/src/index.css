@@ -69,3 +69,32 @@ html, body, #root { height: 100%; }
   body { @apply font-sans; overflow-wrap: break-word; }
   input, button, select, textarea { font: inherit; }
 }
+
+/* Syntax colours for fenced code (lib/CodeBlock.tsx): all >= 4.5:1 on the block's gray-50 / gray-900 / black ground. */
+:root {
+  --code-keyword: #6d28d9;
+  --code-string: #047857;
+  --code-number: #b45309;
+  --code-comment: #6b7280;
+  --code-name: #1d4ed8;
+  --code-type: #0e7490;
+  --code-attr: #be185d;
+}
+.dark {
+  --code-keyword: #c4b5fd;
+  --code-string: #6ee7b7;
+  --code-number: #fcd34d;
+  --code-comment: #9ca3af;
+  --code-name: #93c5fd;
+  --code-type: #67e8f9;
+  --code-attr: #f9a8d4;
+}
+.hljs-keyword, .hljs-literal, .hljs-selector-tag, .hljs-meta .hljs-keyword { color: var(--code-keyword); }
+.hljs-string, .hljs-regexp, .hljs-addition { color: var(--code-string); }
+.hljs-number, .hljs-symbol, .hljs-bullet { color: var(--code-number); }
+.hljs-comment, .hljs-quote, .hljs-meta { color: var(--code-comment); }
+.hljs-title, .hljs-section, .hljs-function .hljs-title { color: var(--code-name); }
+.hljs-type, .hljs-built_in, .hljs-class .hljs-title { color: var(--code-type); }
+.hljs-attr, .hljs-attribute, .hljs-variable, .hljs-template-variable, .hljs-name, .hljs-deletion { color: var(--code-attr); }
+.hljs-emphasis { font-style: italic; }
+.hljs-strong { font-weight: 700; }

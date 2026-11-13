@@ -54,3 +54,26 @@ describe("lessonToContent", () => {
     expect(figureIds("::figure{id=fig-b}\n\ntexto\n\n::figure{id=fig-a}\n")).toEqual(["fig-b", "fig-a"]);
   });
 });
+
+describe("lessonToContent: technical content", () => {
+  const judgementRenderers = { ...renderers, judgement: (source: string) => `Judgement from ${source}` };
+
+  it("prints a code block whole, whatever its info string carries", () => {
+    const printed = printedText(
+      lessonToContent("```java snippet=m06-l02/LostUpdate.java\nint n = 1;\n```\n", renderers, "m06-l02"),
+    );
+    expect(printed).toBe("int n = 1;");
+  });
+
+  it("never prints a bullets comment", () => {
+    const printed = printedText(lessonToContent("## Locks\n\n<!-- bullets: 6.2.a -->\n\nA lock.", renderers, "m06-l02"));
+    expect(printed).toBe("LocksA lock.");
+  });
+
+  it("prints a judgement as a callout under a line naming its source", () => {
+    const printed = printedText(
+      lessonToContent(':::judgement{source="Fowler" ref="x#y"}\nPrefer composition.\n:::\n', judgementRenderers, "m01-l1"),
+    );
+    expect(printed).toBe("Judgement from FowlerPrefer composition.");
+  });
+});
