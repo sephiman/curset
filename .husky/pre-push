@@ -1,15 +1,22 @@
 #!/bin/sh
 set -e
 
-echo "=== Running pre-push compilation checks ==="
+echo "=== Running pre-push checks (the cheap part of CI) ==="
 
-echo "--> [1/3] Checking Frontend compilation (TypeScript & Vite build)..."
+echo "--> [1/5] Frontend build (TypeScript & Vite)..."
 (cd frontend && npm run build)
 
-echo "--> [2/3] Checking Backend compilation (Python mypy)..."
+echo "--> [2/5] Frontend lint (tsc, e2e project)..."
+(cd frontend && npm run lint)
+
+echo "--> [3/5] Backend types (mypy)..."
 (cd backend && uv run mypy src)
 
-echo "--> [3/3] Checking Backend lint and format (ruff)..."
+echo "--> [4/5] Backend lint and format (ruff)..."
 (cd backend && uv run ruff check . && uv run ruff format --check .)
 
-echo "=== All pre-push compilation checks passed successfully! ==="
+# Frozen goldens and provenance records are what a content round most often leaves stale.
+echo "--> [5/5] Content goldens: citations, provenance, esquemas..."
+(cd backend && uv run pytest tests/test_citations.py tests/test_provenance.py tests/test_esquema.py -q -p no:warnings)
+
+echo "=== All pre-push checks passed ==="

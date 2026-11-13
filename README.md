@@ -901,7 +901,7 @@ Screens at 1280 px in the three themes are in `docs/screens/desktop/`.
 validate stops startup, and the error names it. `course.yaml` declares the course's `languages` (`[es]`
 or `[en, es]`, first = fallback), its `status` (`draft` courses are loaded and checked but never served)
 and its `exercise_types`. Four courses exist: `crypto-futures` (published), `age-auxiliar-c2` (published, below),
-`aeat-agentes-hacienda` (published, theory only, below) and `age-administrativo-c1`,
+`aeat-agentes-hacienda` (published, theory and first-exercise bank, below) and `age-administrativo-c1`,
 the Spanish-only preparation for the Administrativo del Estado (C1) exam, published since AGE 1.0
 (deployment steps in `docs/deploy-age-1.0.md`): the theory of
 all six bloques is written, bloque VI as short list-shaped lessons citing saved official pages
@@ -926,7 +926,7 @@ between questions waits for delta G.
 only, with no figures (requirements in `docs/age-auxiliar-course-requirements.md`, a delta to C1's). Round
 `aeat-agentes-hacienda` is the preparation for Agentes de la Hacienda Pública (C1, AEAT), acceso libre,
 Spanish only, no figures, published since 2026-11-12 with theory only (deployment steps in `docs/deploy-aeat.md`; requirements in `docs/aeat-agentes-course-requirements.md`, a delta to
-C1's and C2's). Stage 1 is theory only; the first-exercise bank is stage 2 and the second exercise (written
+C1's and C2's). Stage 1 is the theory; stage 2 is the first-exercise bank, and the second exercise (written
 supuestos) gets no practice. Round R0a gathered its sources and ledger (`docs/aeat-round-0a-handoff.md`);
 round R1 built its skeleton (`docs/aeat-round-1-handoff.md`): «Proceso selectivo» holds «Cómo es el proceso
 selectivo» (`m00-l01`, written), and «Programa» holds the three parts of the BOE programme (`m01` 7 temas,
@@ -934,7 +934,7 @@ selectivo» (`m00-l01`, written), and «Programa» holds the three parts of the 
 from C1/C2 lessons by script (`docs/age-verification/aeat/r2/derivation.yaml`), inheriting their verification under
 R2.3 (`backend/scripts/provenance.py --course aeat-agentes-hacienda`), the rest blind-verified; the 20 tax temas
 (`m03`) were written new, then audited for scope, coverage and currency (`docs/aeat-scope-audit.md`) and given esquemas.
-Glyph: a calculator; accent ochre `#88521d` / `#d48f4a`. It has no exercises yet: `exercise_types: []`.
+Glyph: a calculator; accent ochre `#88521d` / `#d48f4a`. Stage 2 (round R3, `docs/aeat-bank-plan.md`, ledger `docs/aeat-bank-ledger.md`) built the first-exercise bank: 4,088 verified questions (`exercise_types: [quiz]`, `lesson_practice: true`, 228 exercises under `exercises/`), 777 derived from C1/C2 by script with provenance and the rest authored and blind-verified (`docs/age-verification/aeat/bank/`: tools, specs, drops, reserve, per-question provenance). The gap to 5,000 is recorded per tema in the ledger and is closed by variant rounds, tax temas first. Excerpts: 3,944 of 4,088 questions have one; 115 are withheld (`excerpt-exclusions.yaml`, blind-checked misses) and 29 more have none for platform limits listed in the ledger (the Orden de 1994's ordinal headings, sub-números the extractor does not reach). The second exercise stays without practice.
 
 **Published course without exercises (delta v2.1 M).** `exercise_types: []` is valid. A course with no exercises,
 no `exams:` and no generators is `theoryOnly` in its course payload: Exámenes shows a default page, Progreso shows
