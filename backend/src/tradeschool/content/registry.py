@@ -420,7 +420,7 @@ class CourseRegistry:
             **({"lessonPractice": True} if course.lesson_practice else {}),
             **({"optionLabels": course.option_labels} if course.option_labels else {}),
             **({"pdfExercises": False} if not course.pdf_exercises else {}),
-            # The default states of a course with nothing to practise vanish once it declares exercises or exams.
+            # A course with nothing to practise drops these defaults once it declares exercises or exams.
             **({"theoryOnly": True} if self.theory_only else {}),
             **(
                 {

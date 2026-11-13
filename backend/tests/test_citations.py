@@ -97,9 +97,9 @@ def _linked_courses() -> list[CourseRegistry]:
             ["anexo-i-nota-34"],
             ", Orden de documentos contables",
         ),
-        # A letter after an ordinal with a space, and primed letters: «b) a´)».
-        ("art. 31.1.3.ª b) a´) LIRPF", ["art-31"], "LIRPF"),
-        ("art. 31.1.3.ª b) a´) y c) LIRPF", ["art-31"], "LIRPF"),
+        # A letter after an ordinal with a space, and letters primed with an acute accent.
+        ("art. 31.1.3.ª b) a\u00b4) LIRPF", ["art-31"], "LIRPF"),
+        ("art. 31.1.3.ª b) a\u00b4) y c) LIRPF", ["art-31"], "LIRPF"),
         ("art. 20.Uno.18.º m) LIVA", ["art-20"], "LIVA"),
         ("arts. 9.1.º c), 20.Uno.26.º y 75.Uno LIVA", ["art-9", "art-20", "art-75"], "LIVA"),
         # LIVA apartados written as ordinals from «Trece» onwards.
@@ -135,8 +135,8 @@ def test_a_segment_without_a_lead_is_prose() -> None:
         ("(art. 23.Uno.B)\u2013D) Ley 31/2022).", "art. 23.Uno.B)\u2013D) Ley 31/2022"),
         ("(art. 159.4.f) LCSP).", "art. 159.4.f) LCSP"),
         ("(art. 8.1.a)\u2013b) RDL 4/2000). Estos", "art. 8.1.a)\u2013b) RDL 4/2000"),
-        ("(art. 31.1.3.ª b) a´) y c) LIRPF).", "art. 31.1.3.ª b) a´) y c) LIRPF"),
-        ("(art. 31.1.3.ª b) a´) LIRPF) y más", "art. 31.1.3.ª b) a´) LIRPF"),
+        ("(art. 31.1.3.ª b) a\u00b4) y c) LIRPF).", "art. 31.1.3.ª b) a\u00b4) y c) LIRPF"),
+        ("(art. 31.1.3.ª b) a\u00b4) LIRPF) y más", "art. 31.1.3.ª b) a\u00b4) LIRPF"),
         ("(art. 20.Uno.18.º m) LIVA).", "art. 20.Uno.18.º m) LIVA"),
         # A capital after a space is a word, not a paragraph letter: «(… título I) Siguiente».
         ("(art. 2 TUE, título I) Siguiente frase.", "art. 2 TUE, título I"),
@@ -544,7 +544,7 @@ _EURLEX = """
    <p class="title-article-norm" id="id-1">Artículo 1</p>
 </div>
 <div class="eli-subdivision" id="art_112a">
-   <p class="title-article-norm" id="id-2">Artículo 112 bis</p>
+   <p class="title-article-norm" id="id-2">Artículo\u00a0112 bis</p>
 </div>
 <div id="anx_A"><p><br/></p><p class="title-annex-1" id="id-3">ANEXO A</p></div>
 <div id="anx_12-01"><p class="title-annex-1" id="id-4">ANEXO 12-01</p></div>

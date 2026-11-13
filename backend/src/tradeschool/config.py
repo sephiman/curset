@@ -59,7 +59,7 @@ class Settings(BaseSettings):
 
     # --- Content / manifest ---
     content_dir: Path = _default_content_dir()
-    # Courses loaded beside `content_dir`; only the e2e stack sets it, to the test course baked into the image.
+    # Courses loaded beside `content_dir`; only the e2e stack sets it, to the test course in the image.
     extra_content_dir: Path | None = None
     sync_content_on_startup: bool = True
     run_migrations_on_startup: bool = True

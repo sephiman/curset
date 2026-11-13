@@ -39,7 +39,7 @@ _SPELLED_WORD = (
 )
 # «89.Uno y Tres»: two spelled apartados of one article.
 _SPELLED = rf"{_SPELLED_WORD}(?:\s+[ye]\s+{_SPELLED_WORD}\b)*"
-_PRIMED_LETTER = r"[a-zñ][´′]?\)"
+_PRIMED_LETTER = r"[a-zñ][\u00b4\u2032]?\)"
 # The ordinal an «apartado» of an orden or resolución is numbered with: «sexto», «decimoquinto».
 ORDINAL_WORD = (
     r"(?:(?:decimo)?(?:primer|segund|tercer|cuart|quint|sext|s[ée]ptim|octav|noven)o"
@@ -354,7 +354,7 @@ def _letter_paren_continues(text: str, at: int) -> bool:
     """Whether the «)» at `at` closes a paragraph letter («b)», «21.C)») and the citation goes on."""
     if at < 2:
         return False
-    prime = int(text[at - 1] in "´′")
+    prime = int(text[at - 1] in "\u00b4\u2032")
     if at < 2 + prime:
         return False
     letter, before = text[at - 1 - prime], text[at - 2 - prime]
@@ -366,7 +366,7 @@ def _letter_paren_continues(text: str, at: int) -> bool:
     return bool(
         re.match(
             r"(?:\s+[ye]\s+[a-zñ\d]|\s*,\s*[a-zñ\d]|\s+[A-ZÁÉÍÓÚ]|\s+(?:del|de)\s|\.\d|\s+bis\b"
-            r"|\s+[a-zñ][´′]?\)"
+            r"|\s+[a-zñ][\u00b4\u2032]?\)"
             r"|\s*[\u2013-]\s*[A-Za-zñ]\))",
             text[at + 1 : at + 40],
         )
