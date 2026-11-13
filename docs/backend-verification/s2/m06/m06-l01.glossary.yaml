@@ -1,0 +1,30 @@
+- id: g-mvcc
+  term: {en: Multiversion Concurrency Control (MVCC)}
+  definition: {en: "Data consistency is maintained by using a multiversion model, so that each SQL statement sees a snapshot of data as it was some time ago, regardless of the current state of the underlying data."}
+  origin: m06-l01
+  citation: "pg-mvcc-intro#MVCC-INTRO"
+- id: g-write-ahead-logging
+  term: {en: Write-Ahead Logging (WAL)}
+  definition: {en: "A standard method for ensuring data integrity: changes to data files must be written only after those changes have been logged, that is, after WAL records describing the changes have been flushed to permanent storage."}
+  origin: m06-l01
+  citation: "pg-wal-intro#WAL-INTRO"
+- id: g-transaction-id-wraparound
+  term: {en: transaction ID wraparound}
+  definition: {en: "Since transaction IDs have a limited size of 32 bits, a cluster that runs for more than 4 billion transactions would see the XID counter wrap around to zero, and transactions that were in the past appear to be in the future."}
+  origin: m06-l01
+  citation: "pg-routine-vacuuming#VACUUM-FOR-WRAPAROUND"
+- id: g-phantom-read
+  term: {en: phantom read}
+  definition: {en: "A transaction re-executes a query returning a set of rows that satisfy a search condition and finds that the set of rows satisfying the condition has changed due to another recently committed transaction."}
+  origin: m06-l01
+  citation: "pg-transaction-iso#TRANSACTION-ISO"
+- id: g-dirty-read
+  term: {en: dirty read}
+  definition: {en: "A transaction reads data written by a concurrent uncommitted transaction."}
+  origin: m06-l01
+  citation: "pg-transaction-iso#TRANSACTION-ISO"
+- id: g-predicate-locking
+  term: {en: predicate locking}
+  definition: {en: "Keeping locks that allow the database to determine when a write would have had an impact on the result of a previous read from a concurrent transaction, had it run first."}
+  origin: m06-l01
+  citation: "pg-transaction-iso#XACT-SERIALIZABLE"

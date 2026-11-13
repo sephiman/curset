@@ -1,0 +1,149 @@
+S1.1	"The SQL standard defines the three"	pass
+S1.2	"A dirty read is a transaction"	pass
+S1.3	"A nonrepeatable read is a transaction"	pass
+S1.4	"A phantom read is a transaction"	pass
+S1.5	"A serialization anomaly is a result"	pass
+R1.1	"Read uncommitted"	pass
+R1.2	"Read committed"	pass
+R1.3	"Repeatable read"	pass
+R1.4	"Serializable"	pass
+S2.1	"In PostgreSQL, a request for Read"	pass
+S2.2	"PostgreSQL's Repeatable Read implementation does not"	pass
+S2.3	"Repeatable Read prevents all the phenomena"	pass
+S2.4	"Under the SQL standard, none of"	pass
+S3.1	"A Read Committed `SELECT` sees only"	pass
+S3.2	"Two successive `SELECT` commands in one"	pass
+S3.3	"An updating command in Read Committed"	pass
+S3.4	"This behavior makes Read Committed unsuitable"	pass
+S3.5	"In a two-row table `website` with"	pass
+S3.6	"The `DELETE` has no effect because"	pass
+S4.1	"A Repeatable Read transaction that tries"	pass
+S4.2	"Even a read-only transaction at Repeatable"	pass
+S4.3	"In the `mytab` example, serializable transaction"	pass
+S4.4	"If either transaction were running at"	pass
+S4.5	"Under Serializable, one of the two"	pass
+S4.6	"Detection of the conditions that could"	pass
+S4.7	"Serialization failures always return with an"	pass
+S4.8	"Applications using Serializable must be prepared"	pass
+S5.1	"Write skew, called A5B in the"	pass
+S5.2	"If there is a constraint between"	fail	p9 holds only "If there were a constraint"; the fact completes on p10
+S5.3	"Write skew can occur in a"	pass
+S5.4	"Snapshot Isolation histories prohibit histories with"	pass
+S5.5	"The simplest snapshot isolation anomaly occurs"	pass
+S5.6	"In the doctors example, each of"	pass
+S5.7	"Under snapshot isolation, both doctors transactions"	pass
+S5.8	"The write locks taken on update"	pass
+S5.9	"Executing the two doctors transactions sequentially"	pass
+S5.10	"Serializable Snapshot Isolation runs transactions using"	pass
+S5.11	"PostgreSQL's Serializable level is implemented with"	pass
+S6.1	"Optimistic locking is a system of"	pass
+S6.2	"An optimistic lock failure occurs when"	pass
+S6.3	"Optimistic lock verification ensures that an"	pass
+S6.4	"Failure to use optimistic locking often"	pass
+S6.5	"The persistence provider is required to"	pass
+S6.6	"A portable application specifies the version"	pass
+S6.7	"When an optimistic lock failure is"	pass
+S6.8	"The persistence provider must update the"	pass
+S6.9	"The persistence provider must throw an"	pass
+S6.10	"The persistence provider may check the"	pass
+S6.11	"If an update involves entities with"	pass
+S6.12	"If an entity has no version,"	pass
+S6.13	"Hibernate provides two mechanisms for storing"	pass
+S6.14	"In Hibernate, the entity manager uses"	pass
+S6.15	"In Hibernate, an application is forbidden"	pass
+S6.16	"According to the Hibernate user guide,"	pass
+S6.17	"According to the Jakarta Persistence 3.2"	pass
+S7.1	"Once a transaction has obtained a"	pass
+S7.2	"When an entity instance is locked"	pass
+S7.3	"Whenever a pessimistically locked entity with"	pass
+S7.4	"Jakarta Persistence defines six distinct lock"	pass
+S7.5	"Hibernate always uses the locking mechanism"	pass
+S7.6	"`FOR UPDATE`, `FOR NO KEY UPDATE`,"	pass
+S7.7	"Row-level locks do not affect data"	pass
+S7.8	"`FOR UPDATE` prevents the retrieved rows"	pass
+S7.9	"Within a `REPEATABLE READ` or `SERIALIZABLE`"	pass
+S7.10	"`FOR SHARE` acquires a shared lock"	pass
+S7.11	"A shared lock blocks other transactions"	pass
+S7.12	"`SELECT FOR UPDATE` modifies the selected"	pass
+S7.13	"With `NOWAIT`, the statement reports an"	pass
+S7.14	"With `SKIP LOCKED`, any selected rows"	pass
+S7.15	"Skipping locked rows provides an inconsistent"	pass
+S8.1	"The HikariCP pool sizing guide gives"	pass
+S8.2	"The core count in that formula"	pass
+S8.3	"The effective spindle count is zero"	pass
+S8.4	"For a 4-core server with one"	pass
+S8.5	"The guide states that there has"	pass
+S8.6	"According to the HikariCP wiki, you"	pass
+S8.7	"The default value of the HikariCP"	pass
+S8.8	"When the pool reaches `maximumPoolSize` and"	pass
+S8.9	"The default value of `connectionTimeout` is"	pass
+S8.10	"If `connectionTimeout` is exceeded without a"	pass
+S8.11	"The pool size that makes deadlock"	pass
+S8.12	"With three threads that each require"	pass
+S8.13	"The result of that formula is"	pass
+S9.1	"The PgBouncer setting `pool_mode` specifies when"	pass
+S9.2	"In session pooling mode, the server"	pass
+S9.3	"In transaction pooling mode, the server"	pass
+S9.4	"In statement pooling mode, the server"	pass
+S9.5	"Transaction pooling breaks client expectations of"	pass
+R2.1	"`SET` / `RESET`"	pass
+R2.2	"`LISTEN`"	pass
+R2.3	"`NOTIFY`"	pass
+R2.4	"`PREPARE` / `DEALLOCATE`"	pass
+R2.5	"Session-level advisory locks"	pass
+R2.6	"Protocol-level prepared plans"	pass
+S9.6	"With `max_prepared_statements` set to a non-zero"	pass
+S9.7	"When `max_prepared_statements` is 0, prepared statement"	pass
+S9.8	"The default value of `max_prepared_statements` is"	pass
+S9.9	"SQL-level `PREPARE`, `EXECUTE` and `DEALLOCATE` commands"	pass
+S9.10	"The default value of `default_pool_size` is"	pass
+S10.1	"Read Uncommitted behaves like Read Committed"	pass
+S10.2	"Read Committed allows nonrepeatable reads, phantom"	pass
+S10.3	"Repeatable Read does not allow phantom"	pass
+S10.4	"Serializable fails one of two conflicting"	pass
+S10.5	"Optimistic locking verifies a version number"	pass
+S10.6	"`FOR UPDATE` blocks other writers and"	pass
+S10.7	"`SKIP LOCKED` skips rows that cannot"	pass
+S10.8	"The HikariCP guide gives `connections ="	pass
+S10.9	"PgBouncer releases a server connection after"	pass
+S10.10	"Transaction pooling does not support `SET`,"	pass
+g-nonrepeatable-read	pass
+g-serialization-anomaly	pass
+g-optimistic-locking	pass
+m06-l02-q01	pass
+m06-l02-q02	pass
+m06-l02-q03	pass
+m06-l02-q04	fail	stem asks for a pair; "Read Committed only" breaks shape and fit
+m06-l02-q05	pass
+m06-l02-q06	pass
+m06-l02-q07	pass
+m06-l02-q08	pass
+m06-l02-q09	pass
+m06-l02-q10	pass
+m06-l02-q11	fail	stem states "Both commit", which gives away the key
+m06-l02-q12	pass
+m06-l02-q13	pass
+m06-l02-q14	pass
+m06-l02-q15	pass
+m06-l02-q16	pass
+m06-l02-q17	pass
+m06-l02-q18	pass
+m06-l02-q19	pass
+m06-l02-q20	pass
+m06-l02-q21	pass
+m06-l02-q22	pass
+m06-l02-q23	pass
+m06-l02-q24	pass
+m06-l02-q25	fail	option "None, because pool_mode..." differs in shape from the three mode names
+m06-l02-q26	pass
+m06-l02-q27	pass
+m06-l02-q28	pass
+m06-l02-q29	pass
+m06-l02-q30	pass
+m06-l02-q31	pass
+m06-l02-q32	pass
+m06-l02-q33	fail	PostgreSQL write-lock fact cited to 2012 paper, not PostgreSQL 18 docs
+# checked 145, passed 140, failed 5
+S5.2	recheck	pass
+m06-l02-q30	fail	near-duplicate of m06-l01-q39
+# near-duplicate scan: pairs 1

@@ -1,0 +1,144 @@
+S1.1	"PostgreSQL maintains data consistency internally with"	pass
+S1.2	"Under MVCC, each SQL statement sees"	pass
+S1.3	"Locks acquired for reading data do"	pass
+S1.4	"PostgreSQL keeps that guarantee at the"	pass
+S1.5	"Every table row starts with a"	pass
+S1.6	"In that header, `t_xmin` holds the"	pass
+S1.7	"The header field `t_ctid` holds the"	pass
+S2.1	"The central concept of Write-Ahead Logging"	pass
+S2.2	"Logged means that the WAL records"	pass
+S2.3	"With this procedure PostgreSQL does not"	pass
+S2.4	"After a crash, any change not"	pass
+S2.5	"All data recorded by a committed"	pass
+S2.6	"PostgreSQL typically writes 8192 bytes, or"	pass
+S2.7	"To guard against partial page writes,"	pass
+S2.8	"Each individual record in a WAL"	pass
+S2.9	"Data pages are checksummed by default"	pass
+S3.1	"An `UPDATE` or `DELETE` of a"	pass
+S3.2	"The old version stays because the"	pass
+S3.3	"Standard `VACUUM` removes dead row versions"	pass
+S3.4	"Standard `VACUUM` does not return the"	pass
+S3.5	"Standard `VACUUM` can run in parallel"	pass
+S3.6	"`VACUUM FULL` writes a complete new"	pass
+S3.7	"`VACUUM FULL` requires an `ACCESS EXCLUSIVE`"	pass
+S3.8	"If a table has an unexpected"	pass
+S3.9	"According to the PostgreSQL 18 documentation,"	pass
+S4.1	"Autovacuum automates the execution of `VACUUM`"	pass
+S4.2	"In the default configuration, autovacuuming is"	pass
+S4.3	"Autovacuum cannot be used unless `track_counts`"	pass
+S4.4	"A persistent autovacuum launcher process starts"	pass
+S4.5	"Autovacuum never issues `VACUUM FULL`"	pass
+S4.6	"A table is vacuumed when the"	pass
+S4.7	"The number of tuples in that"	pass
+S4.8	"The settings can be overridden per"	pass
+R1.1	"`autovacuum_vacuum_threshold`"	pass
+R1.2	"`autovacuum_vacuum_scale_factor`"	pass
+R1.3	"`autovacuum_vacuum_max_threshold`"	pass
+R1.4	"`autovacuum_analyze_scale_factor`"	pass
+R1.5	"`autovacuum_max_workers`"	pass
+R1.6	"`autovacuum_naptime`"	pass
+S4.9	"Autovacuum does not process partitioned tables"	pass
+S4.10	"If a process requests a lock"	pass
+S4.11	"An autovacuum that runs to prevent"	pass
+S5.1	"Transaction IDs have a limited size"	pass
+S5.2	"A cluster that runs for more"	pass
+S5.3	"After wraparound, transactions that were in"	pass
+S5.4	"To avoid this, every table in"	pass
+S5.5	"Normal XIDs are compared using modulo-2^32"	pass
+S5.6	"`VACUUM` marks rows as frozen, which"	pass
+S5.7	"PostgreSQL reserves a special XID, `FrozenTransactionId`,"	pass
+S5.8	"A table whose `relfrozenxid` is more"	pass
+S5.9	"The default of `autovacuum_freeze_max_age` is 200"	pass
+S5.10	"The system launches autovacuum processes to"	pass
+S6.1	"The SQL standard defines four levels"	pass
+S6.2	"The other three levels are defined"	pass
+S6.3	"A dirty read is a transaction"	pass
+S6.4	"A phantom read is a transaction"	pass
+S6.5	"PostgreSQL accepts a request for any"	pass
+S6.6	"PostgreSQL's Read Uncommitted mode behaves like"	pass
+R2.1	"Read uncommitted"	pass
+R2.2	"Read committed"	pass
+R2.3	"Repeatable read"	pass
+R2.4	"Serializable"	pass
+S7.1	"Read Committed is the default isolation"	pass
+S7.2	"In Read Committed, a `SELECT` query"	pass
+S7.3	"Two successive `SELECT` commands in one"	pass
+S7.4	"When an `UPDATE` finds a target"	pass
+S7.5	"If the first updater commits, the"	pass
+S7.6	"An updating command in Read Committed"	pass
+S8.1	"A Repeatable Read transaction sees only"	pass
+S8.2	"Its snapshot is taken at the"	pass
+S8.3	"Repeatable Read prevents all the phenomena"	pass
+S8.4	"If a concurrent transaction commits an"	pass
+S8.5	"Applications using Repeatable Read must be"	pass
+S8.6	"Read-only transactions at this level never"	pass
+S8.7	"PostgreSQL implements Repeatable Read with a"	pass
+S9.1	"The Serializable level works exactly like"	pass
+S9.2	"This monitoring introduces no blocking beyond"	pass
+S9.3	"To guarantee true serializability, PostgreSQL uses"	pass
+S9.4	"In PostgreSQL, predicate locks do not"	pass
+S9.5	"Predicate locks show up in the"	pass
+S9.6	"When the monitoring detects a possible"	pass
+S9.7	"Two serializable transactions that each sum"	pass
+S9.8	"A `SERIALIZABLE READ ONLY DEFERRABLE` transaction"	pass
+S9.9	"This is the only case where"	pass
+S9.10	"The Serializable level is implemented with"	pass
+S9.11	"According to the PostgreSQL 18 documentation,"	pass
+S10.1	"PostgreSQL keeps row versions, so each"	pass
+S10.2	"Changes to data files are written"	pass
+S10.3	"An `UPDATE` or `DELETE` leaves the"	pass
+S10.4	"Standard `VACUUM` marks space for reuse"	pass
+S10.5	"Autovacuum is enabled by default and"	pass
+S10.6	"Transaction IDs are 32 bits, and"	pass
+S10.7	"Read Committed is the default level,"	pass
+S10.8	"Repeatable Read is Snapshot Isolation and"	pass
+S10.9	"Serializable adds monitoring of read/write dependencies"	pass
+g-mvcc	pass
+g-write-ahead-logging	pass
+g-transaction-id-wraparound	pass
+g-phantom-read	pass
+g-dirty-read	pass
+g-predicate-locking	pass
+m06-l01-q01	pass
+m06-l01-q02	fail	one sentence reused to dismiss two distractors; explanation says so
+m06-l01-q03	fail	one sentence (MVCC eschews locking) reused for all three distractors
+m06-l01-q04	pass
+m06-l01-q05	pass
+m06-l01-q06	fail	all three distractors dismissed by one reused sentence
+m06-l01-q07	fail	buffer-cache distractor dismissed by fact absent from cited anchor
+m06-l01-q08	pass
+m06-l01-q09	fail	distractors dismissed jointly by one inference, not by cited sentences
+m06-l01-q10	fail	SQL in stem and options not formatted as inline code
+m06-l01-q11	fail	VACUUM and VACUUM FULL in stem and options not inline code
+m06-l01-q12	fail	VACUUM in stem not formatted as inline code
+m06-l01-q13	fail	stem 10 words, under 15; SQL in options not inline code
+m06-l01-q14	fail	SQL in stem and options not formatted as inline code
+m06-l01-q15	fail	stem 12 words, under the 15-word minimum
+m06-l01-q16	fail	VACUUM in stem not formatted as inline code
+m06-l01-q17	fail	stem 10 words, under the 15-word minimum
+m06-l01-q18	fail	stem 10 words, under the 15-word minimum
+m06-l01-q19	fail	VACUUM and postgresql.conf not inline code; same-sentence reuse
+m06-l01-q20	fail	stem 12 words, under 15; ANALYZE and VACUUM not inline code
+m06-l01-q21	fail	SHARE UPDATE EXCLUSIVE not inline code; two distractors dismissed jointly
+m06-l01-q22	fail	stem 13 words, under the 15-word minimum
+m06-l01-q23	fail	VACUUM in option not formatted as inline code
+m06-l01-q24	fail	eight and 32 billion distractors are not real misconceptions
+m06-l01-q25	fail	stem 12 words, under the 15-word minimum
+m06-l01-q26	fail	stem 10 words, under the 15-word minimum
+m06-l01-q27	fail	VACUUM in option not inline code; distractors dismissed jointly
+m06-l01-q28	fail	stem 9 words, under the 15-word minimum
+m06-l01-q29	pass
+m06-l01-q30	fail	UPDATE and WHERE in stem and key not formatted as inline code
+m06-l01-q31	fail	skip-the-row distractor dismissed by bare assertion, no cited fact
+m06-l01-q32	fail	stem 11 words, under the 15-word minimum
+m06-l01-q33	fail	both-rolled-back distractor dismissed by silence, not cited sentence
+# checked 134, passed 106, failed 28
+m06-l01-q34	pass
+m06-l01-q35	pass
+m06-l01-q36	fail	stem misstates PG18 threshold formula, omits Minimum with max threshold
+m06-l01-q37	pass
+m06-l01-q38	pass
+m06-l01-q39	pass
+m06-l01-q40	fail	monitoring sentence reused to dismiss two distractors (blocking, detection-wait)
+m06-l01-q41	fail	no-error distractor contradicts stem's rolled-back premise; not a real misconception
+# replacements: checked 8, passed 5, failed 3

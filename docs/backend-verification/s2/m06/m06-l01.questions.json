@@ -1,0 +1,576 @@
+[
+ {
+  "id": "m06-l01-q01",
+  "stem": "In PostgreSQL 18, MVCC gives each SQL statement a view of the data. What does a statement see under this multiversion model?",
+  "key": "A snapshot of the data as it was some time ago, regardless of its current state",
+  "distractors": [
+   "The latest row versions, with a shared lock held on each row until the statement ends",
+   "The current state of the data, including changes that concurrent transactions have not committed yet",
+   "Only the rows that no concurrent transaction is updating, because blocked rows are skipped"
+  ],
+  "explanation": "Each statement sees a snapshot as it was some time ago. Seeing the latest versions under shared locks is the locking approach that MVCC eschews. Uncommitted changes are excluded because MVCC prevents statements from viewing inconsistent data produced by concurrent transactions. Skipping rows under update is wrong because reading does not block on writers and sees the snapshot version.",
+  "citation": "pg-mvcc-intro#MVCC-INTRO",
+  "extract": "as it was some time ago, regardless of the current state of the underlying data",
+  "snippet": null
+ },
+ {
+  "id": "m06-l01-q02",
+  "stem": "According to the PostgreSQL 18 description of MVCC, how do locks taken for reading data interact with locks taken for writing data?",
+  "key": "They do not conflict, so reading never blocks writing and writing never blocks reading",
+  "distractors": [
+   "Reading blocks writing on the same row until the reading statement has finished",
+   "Writing blocks reading on the same row until the writing transaction commits",
+   "They conflict only at the Serializable level, where readers wait for concurrent writers"
+  ],
+  "explanation": "Read locks and write locks do not conflict under MVCC. A reader holding up a writer and a writer holding up a reader are both ruled out by the same statement. The Serializable exception is ruled out because PostgreSQL maintains the guarantee even when providing the strictest level of transaction isolation.",
+  "citation": "pg-mvcc-intro#MVCC-INTRO",
+  "extract": "reading never blocks writing and writing never blocks reading",
+  "snippet": null
+ },
+ {
+  "id": "m06-l01-q03",
+  "stem": "PostgreSQL 18 keeps reading and writing from blocking each other even at its strictest isolation level. Which technique makes this possible?",
+  "key": "Serializable Snapshot Isolation (SSI)",
+  "distractors": [
+   "Strict two-phase locking of every row a transaction reads",
+   "A table-level lock taken by every serializable transaction",
+   "A single global write lock that serialises all updating transactions"
+  ],
+  "explanation": "The guarantee is kept through Serializable Snapshot Isolation. Locking every row read, locking whole tables and a global write lock are all locking methodologies, which MVCC eschews to minimise lock contention.",
+  "citation": "pg-mvcc-intro#MVCC-INTRO",
+  "extract": "through the use of an innovative Serializable Snapshot Isolation (SSI) level",
+  "snippet": null
+ },
+ {
+  "id": "m06-l01-q04",
+  "stem": "In the PostgreSQL 18 heap row header, which field holds the insert XID stamp of a row version?",
+  "key": "`t_xmin`",
+  "distractors": [
+   "`t_xmax`",
+   "`t_ctid`",
+   "`t_hoff`"
+  ],
+  "explanation": "`t_xmin` holds the insert XID stamp. `t_xmax` holds the delete XID stamp, `t_ctid` holds the current TID of this or a newer row version, and `t_hoff` holds the offset to the user data.",
+  "citation": "pg-storage-page-layout#STORAGE-TUPLE-LAYOUT",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m06-l01-q05",
+  "stem": "According to the PostgreSQL 18 documentation, how large is the fixed-size header that every table row begins with, on most machines?",
+  "key": "23 bytes",
+  "distractors": [
+   "8 bytes",
+   "16 bytes",
+   "40 bytes"
+  ],
+  "explanation": "The fixed-size header occupies 23 bytes on most machines, so the smaller sizes of 8 and 16 bytes and the larger size of 40 bytes do not match the documented size.",
+  "citation": "pg-storage-page-layout#STORAGE-TUPLE-LAYOUT",
+  "extract": "There is a fixed-size header (occupying 23 bytes on most machines)",
+  "snippet": null
+ },
+ {
+  "id": "m06-l01-q06",
+  "stem": "In PostgreSQL 18 write-ahead logging, what is the order between writing changes to data files and flushing the WAL records that describe them?",
+  "key": "The WAL records describing a change are flushed to permanent storage before the change is written to the data files",
+  "distractors": [
+   "The data files are written first, and the WAL records are flushed afterwards in the background",
+   "Data pages are flushed at every commit, and the WAL records are flushed once at the next checkpoint",
+   "The order is not fixed, because WAL records are only needed for tables without indexes"
+  ],
+  "explanation": "The central concept of WAL is that changes to data files must be written only after the WAL records describing them have been flushed. Writing data first, flushing data pages at every commit, and an unfixed order depending on indexes all contradict that rule.",
+  "citation": "pg-wal-intro#WAL-INTRO",
+  "extract": "changes to data files (where tables and indexes reside) must be written only after those changes have been logged",
+  "snippet": null
+ },
+ {
+  "id": "m06-l01-q07",
+  "stem": "Why does PostgreSQL 18 not need to flush data pages to disk on every transaction commit when it uses write-ahead logging?",
+  "key": "After a crash it recovers the database from the log, redoing changes not yet applied to the pages",
+  "distractors": [
+   "After a crash it restores data pages from the operating system's buffer cache",
+   "After a crash it rolls back every committed change and replays the clients' requests",
+   "Committed changes stay in memory only until the next checkpoint and are lost if the server crashes first"
+  ],
+  "explanation": "Any changes not yet applied to the data pages can be redone from the WAL records, which is roll-forward recovery. The buffer cache does not survive a crash. Rolling back committed changes is the opposite of roll-forward. Losing changes at a crash is ruled out because the log lets the database be recovered.",
+  "citation": "pg-wal-intro#WAL-INTRO",
+  "extract": "in the event of a crash we will be able to recover the database using the log",
+  "snippet": null
+ },
+ {
+  "id": "m06-l01-q08",
+  "stem": "How many 512-byte sectors does a typical 8192-byte write by PostgreSQL 18 cover, which is why a power loss can leave a page partly written?",
+  "key": "16 sectors",
+  "distractors": [
+   "8 sectors",
+   "32 sectors",
+   "4 sectors"
+  ],
+  "explanation": "PostgreSQL typically writes 8192 bytes, or 16 sectors, at a time. Eight, thirty-two and four sectors would correspond to 4096, 16384 and 2048 bytes.",
+  "citation": "pg-wal-reliability#WAL-RELIABILITY",
+  "extract": "PostgreSQL typically writes 8192 bytes, or 16 sectors, at a time",
+  "snippet": null
+ },
+ {
+  "id": "m06-l01-q09",
+  "stem": "To guard against partially written pages, PostgreSQL 18 periodically writes something to permanent WAL storage before it modifies the actual page on disk. What is it?",
+  "key": "Full page images",
+  "distractors": [
+   "Only the byte ranges of the page that are about to change",
+   "A CRC-32C checksum of the page without its contents",
+   "A copy of the row headers of the page"
+  ],
+  "explanation": "PostgreSQL writes full page images, so that during crash recovery it can restore partially written pages from WAL. Writing only changed byte ranges, a bare checksum or the row headers would not allow a partly written page to be restored.",
+  "citation": "pg-wal-reliability#WAL-RELIABILITY",
+  "extract": "PostgreSQL periodically writes full page images to permanent WAL storage before modifying the actual page on disk",
+  "snippet": null
+ },
+ {
+  "id": "m06-l01-q10",
+  "stem": "In PostgreSQL 18, why is the old version of a row not removed immediately when an UPDATE or DELETE changes the row?",
+  "key": "It must not be deleted while it is still potentially visible to other transactions",
+  "distractors": [
+   "Only a VACUUM FULL is allowed to delete row versions, and it runs only on request",
+   "Row versions are deleted only when the table is next analyzed to refresh planner statistics",
+   "Deleting a row version requires an ACCESS EXCLUSIVE lock on the table, which blocks other sessions"
+  ],
+  "explanation": "The old version may still be visible to other transactions, which MVCC needs. Standard VACUUM removes dead row versions, so VACUUM FULL is not required. Running VACUUM, not analyzing, reclaims the space. Standard VACUUM runs in parallel with normal operations, so it does not need an ACCESS EXCLUSIVE lock.",
+  "citation": "pg-routine-vacuuming#VACUUM-FOR-SPACE-RECOVERY; pg-routine-vacuuming#VACUUM-BASICS",
+  "extract": "the row version must not be deleted while it is still potentially visible to other transactions",
+  "snippet": null
+ },
+ {
+  "id": "m06-l01-q11",
+  "stem": "In PostgreSQL 18, what does a standard VACUUM do with the dead row versions it finds?",
+  "key": "It removes them from tables and indexes and marks the space for future reuse",
+  "distractors": [
+   "It writes a complete new copy of the table file with no dead space, shrinking the table",
+   "It removes them from tables only and leaves the indexes untouched until a reindex",
+   "It keeps them until a VACUUM FULL runs on the table, which is the only command that removes them"
+  ],
+  "explanation": "Standard VACUUM removes dead row versions in tables and indexes and marks the space for reuse. Writing a new copy of the table is what VACUUM FULL does. Leaving indexes untouched contradicts the removal in tables and indexes. Waiting for VACUUM FULL contradicts the purpose of routine vacuuming, which is to avoid needing it.",
+  "citation": "pg-routine-vacuuming#VACUUM-FOR-SPACE-RECOVERY",
+  "extract": "removes dead row versions in tables and indexes and marks the space available for future reuse",
+  "snippet": null
+ },
+ {
+  "id": "m06-l01-q12",
+  "stem": "In PostgreSQL 18, when can a standard VACUUM return disk space to the operating system?",
+  "key": "When pages at the end of the table become entirely free and an exclusive lock is easy to get",
+  "distractors": [
+   "Whenever the table has no indexes and no concurrent sessions are using it at that moment",
+   "Whenever more than half of the table's pages are free and the table is not being updated",
+   "Whenever autovacuum runs it with the default scale factor and the table has no dead tuples left"
+  ],
+  "explanation": "The special case is pages at the end of the table that become entirely free when an exclusive lock can be obtained easily. Standard VACUUM does not otherwise return space to the operating system, so the other conditions do not apply.",
+  "citation": "pg-routine-vacuuming#VACUUM-FOR-SPACE-RECOVERY",
+  "extract": "except in the special case where one or more pages at the end of a table become entirely free and an exclusive table lock can be easily obtained",
+  "snippet": null
+ },
+ {
+  "id": "m06-l01-q13",
+  "stem": "Which statement about VACUUM FULL in PostgreSQL 18 is correct?",
+  "key": "It writes a complete new version of the table file, which needs extra disk space meanwhile",
+  "distractors": [
+   "It runs in parallel with SELECT, INSERT, UPDATE and DELETE on the table while it works",
+   "It is issued by autovacuum whenever a table has become bloated beyond its scale factor",
+   "It compacts the table in place, so it needs no extra disk space while it runs"
+  ],
+  "explanation": "VACUUM FULL writes a new copy of the table, which needs extra disk space. It requires an ACCESS EXCLUSIVE lock, so it cannot run in parallel with other use of the table. Autovacuum never issues it. Compacting in place without extra space contradicts the new copy.",
+  "citation": "pg-routine-vacuuming#VACUUM-FOR-SPACE-RECOVERY; pg-routine-vacuuming#VACUUM-BASICS",
+  "extract": "VACUUM FULL actively compacts tables by writing a complete new version of the table file with no dead space",
+  "snippet": null
+ },
+ {
+  "id": "m06-l01-q14",
+  "stem": "Under a fixed vacuum schedule in PostgreSQL 18, a table has an unexpected spike in update activity. What can result?",
+  "key": "The table may get bloated until VACUUM FULL is really necessary to reclaim space",
+  "distractors": [
+   "Standard VACUUM can no longer run in parallel with production operations on that table",
+   "The old row versions are removed immediately by the next UPDATE that touches the table",
+   "Autovacuum issues VACUUM FULL by itself to shrink the table once the spike ends"
+  ],
+  "explanation": "A fixed schedule cannot react to a spike, so the table may bloat until VACUUM FULL is needed. Standard VACUUM keeps running alongside normal operations. Old versions are not removed immediately. Autovacuum never issues VACUUM FULL.",
+  "citation": "pg-routine-vacuuming#VACUUM-FOR-SPACE-RECOVERY; pg-routine-vacuuming#VACUUM-BASICS",
+  "extract": "it may get bloated to the point that VACUUM FULL is really necessary to reclaim space",
+  "snippet": null
+ },
+ {
+  "id": "m06-l01-q15",
+  "stem": "What must be enabled for autovacuum to be usable in PostgreSQL 18?",
+  "key": "`track_counts` must be set to true",
+  "distractors": [
+   "`log_autovacuum_min_duration` must be set to a positive value",
+   "`max_connections` must be raised above `autovacuum_max_workers`",
+   "`autovacuum_vacuum_max_threshold` must be set to -1"
+  ],
+  "explanation": "Autovacuum uses the statistics collection facility, so it cannot be used unless track_counts is true. log_autovacuum_min_duration is only a monitoring setting. Workers do not count toward max_connections. The max threshold only limits the vacuum threshold.",
+  "citation": "pg-routine-vacuuming#AUTOVACUUM; pg-runtime-config-autovacuum#RUNTIME-CONFIG-AUTOVACUUM",
+  "extract": "autovacuum cannot be used unless track_counts is set to true",
+  "snippet": null
+ },
+ {
+  "id": "m06-l01-q16",
+  "stem": "In PostgreSQL 18, how is the vacuum threshold computed that autovacuum compares with the number of tuples obsoleted since the last VACUUM?",
+  "key": "Minimum(vacuum max threshold, vacuum base threshold + vacuum scale factor * number of tuples)",
+  "distractors": [
+   "Maximum(vacuum max threshold, vacuum base threshold + vacuum scale factor * number of tuples)",
+   "vacuum base threshold * vacuum scale factor * number of tuples",
+   "Minimum(vacuum base threshold, vacuum scale factor * number of tuples)"
+  ],
+  "explanation": "The documented formula takes the minimum of the max threshold and the sum of the base threshold and the scale factor times the number of tuples. Taking the maximum, multiplying all three terms and dropping the sum each differ from that formula.",
+  "citation": "pg-routine-vacuuming#AUTOVACUUM",
+  "extract": "vacuum threshold = Minimum(vacuum max threshold, vacuum base threshold + vacuum scale factor * number of tuples)",
+  "snippet": null
+ },
+ {
+  "id": "m06-l01-q17",
+  "stem": "What is the default value of `autovacuum_vacuum_scale_factor` in PostgreSQL 18?",
+  "key": "0.2, which is 20% of table size",
+  "distractors": [
+   "0.1, which is 10% of table size",
+   "0.5, which is 50% of table size",
+   "0.02, which is 2% of table size"
+  ],
+  "explanation": "The default is 0.2. The value 0.1 is the default of autovacuum_analyze_scale_factor, not of the vacuum scale factor, and the other values are not defaults.",
+  "citation": "pg-runtime-config-autovacuum#RUNTIME-CONFIG-AUTOVACUUM",
+  "extract": "The default is 0.2 (20% of table size)",
+  "snippet": null
+ },
+ {
+  "id": "m06-l01-q18",
+  "stem": "What is the default value of `autovacuum_max_workers` in PostgreSQL 18?",
+  "key": "3",
+  "distractors": [
+   "1",
+   "5",
+   "16"
+  ],
+  "explanation": "The default is 3. The default of 16 belongs to the number of worker slots reserved by autovacuum_worker_slots, and 1 and 5 are not defaults.",
+  "citation": "pg-runtime-config-autovacuum#RUNTIME-CONFIG-AUTOVACUUM",
+  "extract": "The default is 3.",
+  "snippet": null
+ },
+ {
+  "id": "m06-l01-q19",
+  "stem": "In PostgreSQL 18, how can the autovacuum thresholds and scale factors of one table differ from the global settings in postgresql.conf?",
+  "key": "The table's storage parameters override them for that table",
+  "distractors": [
+   "They cannot differ, because every table in the cluster follows the global settings",
+   "Only the cost parameters can be overridden per table, while thresholds stay global",
+   "They differ only after the daemon is disabled and VACUUM is scheduled by hand"
+  ],
+  "explanation": "A setting changed through a table's storage parameters is used for that table. A single global setting for all tables contradicts this. The thresholds can be overridden too, not just the cost parameters. Overriding does not require disabling the daemon.",
+  "citation": "pg-routine-vacuuming#AUTOVACUUM; pg-runtime-config-autovacuum#RUNTIME-CONFIG-AUTOVACUUM",
+  "extract": "If a setting has been changed via a table's storage parameters, that value is used when processing that table",
+  "snippet": null
+ },
+ {
+  "id": "m06-l01-q20",
+  "stem": "How does PostgreSQL 18 autovacuum treat a partitioned table and its partitions?",
+  "key": "It does not process the partitioned table directly, but it processes its partitions",
+  "distractors": [
+   "It skips both the partitioned table and all of its partitions, which must be vacuumed by hand",
+   "It processes the partitioned table but skips its partitions",
+   "It processes the partitioned table only for ANALYZE and skips VACUUM on the partitions"
+  ],
+  "explanation": "Partitioned tables do not directly store tuples, so autovacuum does not process them, yet it does process partitions like other tables. Skipping the partitions, processing only the parent, and skipping partition VACUUM each contradict that.",
+  "citation": "pg-routine-vacuuming#AUTOVACUUM",
+  "extract": "Partitioned tables do not directly store tuples and consequently are not processed by autovacuum.",
+  "snippet": null
+ },
+ {
+  "id": "m06-l01-q21",
+  "stem": "In PostgreSQL 18, a process requests a lock that conflicts with the SHARE UPDATE EXCLUSIVE lock held by an ordinary autovacuum. What happens?",
+  "key": "The lock acquisition interrupts the autovacuum",
+  "distractors": [
+   "The requesting process waits until the autovacuum finishes",
+   "The requesting process fails with a serialization error",
+   "Both proceed, because autovacuum holds only a predicate lock"
+  ],
+  "explanation": "Lock acquisition interrupts the autovacuum, because autovacuum workers generally do not block other commands. Waiting for it to finish and failing with an error both contradict that. The lock held is SHARE UPDATE EXCLUSIVE, not a predicate lock.",
+  "citation": "pg-routine-vacuuming#AUTOVACUUM",
+  "extract": "lock acquisition will interrupt the autovacuum",
+  "snippet": null
+ },
+ {
+  "id": "m06-l01-q22",
+  "stem": "How many bits does a normal transaction ID (XID) have in PostgreSQL 18?",
+  "key": "32 bits",
+  "distractors": [
+   "16 bits",
+   "48 bits",
+   "64 bits"
+  ],
+  "explanation": "Transaction IDs have a limited size of 32 bits, which is why a cluster running more than 4 billion transactions would suffer wraparound.",
+  "citation": "pg-routine-vacuuming#VACUUM-FOR-WRAPAROUND",
+  "extract": "since transaction IDs have limited size (32 bits)",
+  "snippet": null
+ },
+ {
+  "id": "m06-l01-q23",
+  "stem": "In PostgreSQL 18, what happens when the XID counter wraps around to zero and the old rows have not been frozen?",
+  "key": "Past transactions appear to be in the future and their output becomes invisible",
+  "distractors": [
+   "Frozen rows start to look as if they had been inserted in the future",
+   "The affected data is physically deleted from the table files by the next VACUUM",
+   "Comparison keeps working, because modulo arithmetic hides the wraparound for old rows"
+  ],
+  "explanation": "After wraparound, past transactions appear to be in the future and their output is invisible. Frozen rows are always treated as in the past. The data is still there, only unreachable. The comparison breaks, which is the failure that vacuuming prevents.",
+  "citation": "pg-routine-vacuuming#VACUUM-FOR-WRAPAROUND",
+  "extract": "all of a sudden transactions that were in the past appear to be in the future",
+  "snippet": null
+ },
+ {
+  "id": "m06-l01-q24",
+  "stem": "To avoid transaction ID wraparound, how often must every table in every database be vacuumed in PostgreSQL 18?",
+  "key": "At least once every two billion transactions",
+  "distractors": [
+   "At least once every four billion transactions",
+   "At least once every eight billion transactions",
+   "At least once every 32 billion transactions"
+  ],
+  "explanation": "Every table in every database must be vacuumed at least once every two billion transactions. A longer interval lets row versions appear to be in the future, since for every normal XID only two billion are older.",
+  "citation": "pg-routine-vacuuming#VACUUM-FOR-WRAPAROUND",
+  "extract": "it is necessary to vacuum every table in every database at least once every two billion transactions",
+  "snippet": null
+ },
+ {
+  "id": "m06-l01-q25",
+  "stem": "How does PostgreSQL 18 compare the special XID `FrozenTransactionId` with normal XIDs?",
+  "key": "It is always considered older than every normal XID",
+  "distractors": [
+   "It is always considered newer than every normal XID",
+   "It is compared modulo 2^32 like any normal XID",
+   "It is treated as equal to XID zero and is reused after wraparound"
+  ],
+  "explanation": "FrozenTransactionId does not follow the normal comparison rules and is always older than every normal XID. It is therefore never in the future and not compared modulo 2^32.",
+  "citation": "pg-routine-vacuuming#VACUUM-FOR-WRAPAROUND",
+  "extract": "which does not follow the normal XID comparison rules and is always considered older than every normal XID",
+  "snippet": null
+ },
+ {
+  "id": "m06-l01-q26",
+  "stem": "In PostgreSQL 18, what is the default value of `autovacuum_freeze_max_age`?",
+  "key": "200 million transactions",
+  "distractors": [
+   "2 billion transactions",
+   "400 million transactions",
+   "100 million transactions"
+  ],
+  "explanation": "The default is a relatively low 200 million transactions. 400 million is the default of autovacuum_multixact_freeze_max_age, which counts multixacts, and 100,000,000 is the default maximum threshold in tuples.",
+  "citation": "pg-runtime-config-autovacuum#RUNTIME-CONFIG-AUTOVACUUM",
+  "extract": "which is why the default is a relatively low 200 million transactions",
+  "snippet": null
+ },
+ {
+  "id": "m06-l01-q27",
+  "stem": "In PostgreSQL 18, the `autovacuum` parameter is set to off and a table approaches transaction ID wraparound. What does the system do?",
+  "key": "It still launches autovacuum to prevent wraparound",
+  "distractors": [
+   "It waits for an administrator to run VACUUM by hand",
+   "It shuts down the server until the table is vacuumed",
+   "It starts only the launcher and leaves the workers stopped"
+  ],
+  "explanation": "The system launches autovacuum processes to prevent wraparound even when autovacuum is disabled. Waiting for an administrator, shutting down and leaving workers stopped contradict that.",
+  "citation": "pg-runtime-config-autovacuum#RUNTIME-CONFIG-AUTOVACUUM",
+  "extract": "even when this parameter is disabled, the system will launch autovacuum processes if necessary to prevent transaction ID wraparound",
+  "snippet": null
+ },
+ {
+  "id": "m06-l01-q28",
+  "stem": "Which isolation level does PostgreSQL 18 use by default?",
+  "key": "Read Committed",
+  "distractors": [
+   "Repeatable Read",
+   "Serializable",
+   "Read Uncommitted"
+  ],
+  "explanation": "Read Committed is the default. Repeatable Read and Serializable must be requested, and Read Uncommitted behaves like Read Committed.",
+  "citation": "pg-transaction-iso#XACT-READ-COMMITTED",
+  "extract": "Read Committed is the default isolation level in PostgreSQL",
+  "snippet": null
+ },
+ {
+  "id": "m06-l01-q29",
+  "stem": "In PostgreSQL 18, which phenomenon does the SQL standard allow at Repeatable Read although PostgreSQL's implementation does not allow it?",
+  "key": "Phantom read",
+  "distractors": [
+   "Dirty read",
+   "Nonrepeatable read",
+   "Serialization anomaly"
+  ],
+  "explanation": "The table marks phantom read as allowed but not in PG at Repeatable Read. Dirty reads and nonrepeatable reads are not possible at that level, and serialization anomalies are possible in PostgreSQL there.",
+  "citation": "pg-transaction-iso#TRANSACTION-ISO",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m06-l01-q30",
+  "stem": "In PostgreSQL 18 Read Committed, an UPDATE finds a row that another transaction has updated and then commits. What does the UPDATE do?",
+  "key": "It re-evaluates its WHERE clause on the updated row and proceeds if it still matches",
+  "distractors": [
+   "It rolls back with the error could not serialize access due to concurrent update",
+   "It applies its change to the original version of the row it first found",
+   "It always ignores the row, because the row was changed by a concurrent transaction"
+  ],
+  "explanation": "In Read Committed the second updater re-evaluates the search condition on the updated version and proceeds if it matches. The serialization error belongs to Repeatable Read. Applying the change to the original version ignores the commit. Ignoring the row happens only when the first updater deleted it.",
+  "citation": "pg-transaction-iso#XACT-READ-COMMITTED; pg-transaction-iso#XACT-REPEATABLE-READ",
+  "extract": "The search condition of the command (the WHERE clause) is re-evaluated to see if the updated version of the row still matches the search condition",
+  "snippet": null
+ },
+ {
+  "id": "m06-l01-q31",
+  "stem": "In PostgreSQL 18 Repeatable Read, a transaction tries to modify a row that a concurrent transaction updated and committed after the snapshot was taken. What happens?",
+  "key": "It is rolled back with the error could not serialize access due to concurrent update",
+  "distractors": [
+   "It updates the newer version of the row, as in Read Committed, after waiting for the commit",
+   "It waits until the other transaction rolls back, then updates the original row",
+   "It silently skips the row and continues with the rest of its statement"
+  ],
+  "explanation": "A repeatable read transaction cannot modify or lock rows changed by other transactions after it began, so it is rolled back. Updating the newer version is Read Committed behaviour. Waiting for a rollback applies only when the first updater rolls back. Silently skipping the row does not happen.",
+  "citation": "pg-transaction-iso#XACT-REPEATABLE-READ",
+  "extract": "then the repeatable read transaction will be rolled back with the message",
+  "snippet": null
+ },
+ {
+  "id": "m06-l01-q32",
+  "stem": "How does the PostgreSQL 18 Serializable level differ from Repeatable Read?",
+  "key": "It works exactly like Repeatable Read but also monitors for serialization anomalies",
+  "distractors": [
+   "It takes a table-level lock on every table the transaction reads, blocking concurrent writers",
+   "It runs concurrent transactions one at a time in a single queue, with no concurrency at all",
+   "It takes a fresh snapshot for each statement, as Read Committed does, and monitors nothing"
+  ],
+  "explanation": "Serializable works exactly the same as Repeatable Read except for the monitoring, which adds no blocking beyond Repeatable Read. Table locks and a single queue would add blocking. A fresh snapshot per statement is Read Committed behaviour.",
+  "citation": "pg-transaction-iso#XACT-SERIALIZABLE",
+  "extract": "this isolation level works exactly the same as Repeatable Read except that it also monitors for conditions",
+  "snippet": null
+ },
+ {
+  "id": "m06-l01-q33",
+  "stem": "Two PostgreSQL 18 transactions each sum one class of rows in `mytab` and insert the sum as a row of the other class, then both try to commit under Serializable. What happens?",
+  "key": "One commits and the other is rolled back with a read/write dependencies error",
+  "distractors": [
+   "Both commit, because their inserts touch different rows and neither reads a row the other wrote",
+   "Both are rolled back, because each one read rows that the other transaction later changed",
+   "One waits on a row lock until the other commits, and then both commit without any error"
+  ],
+  "explanation": "No serial order is consistent with both results, so one commits and the other is rolled back. Both committing is the outcome under Repeatable Read. Both being rolled back is not what is described. Predicate locks do not block, so no row lock wait occurs.",
+  "citation": "pg-transaction-iso#XACT-SERIALIZABLE",
+  "extract": "using Serializable transactions will allow one transaction to commit and will roll the other back",
+  "snippet": null
+ },
+ {
+  "id": "m06-l01-q34",
+  "stem": "In PostgreSQL 18, `VACUUM FULL` compacts a table to remove all dead space. Which statement about running it is correct?",
+  "key": "It needs extra disk space for a new copy of the table until the operation completes",
+  "distractors": [
+   "It compacts the table file in place, so it needs no disk space beyond what the table already uses",
+   "It lets `SELECT`, `INSERT`, `UPDATE` and `DELETE` run normally on the table while it works",
+   "Autovacuum issues it automatically whenever a table has become bloated"
+  ],
+  "explanation": "`VACUUM FULL` requires extra disk space for the new copy of the table until the operation completes. Compacting in place is wrong because it works by writing a complete new version of the table file with no dead space. Normal concurrent use is wrong because `VACUUM FULL` requires an `ACCESS EXCLUSIVE` lock on the table and therefore cannot be done in parallel with other use of the table. Automatic runs are wrong because the autovacuum daemon will never issue `VACUUM FULL`.",
+  "citation": "pg-routine-vacuuming#VACUUM-FOR-SPACE-RECOVERY; pg-routine-vacuuming#VACUUM-BASICS",
+  "extract": "It also requires extra disk space for the new copy of the table, until the operation completes",
+  "snippet": null
+ },
+ {
+  "id": "m06-l01-q35",
+  "stem": "In PostgreSQL 18, a table is partitioned and autovacuum is enabled with default settings. How does autovacuum treat the partitioned table and its partitions?",
+  "key": "It skips the partitioned table itself but processes each partition like any other table",
+  "distractors": [
+   "It processes the partitioned table directly, because a partitioned table stores its own tuples",
+   "It runs `ANALYZE` on the partitioned table, but never runs `VACUUM` on its partitions",
+   "It processes the partitioned table as one unit and leaves its partitions to manual `VACUUM`"
+  ],
+  "explanation": "Partitioned tables do not directly store tuples and consequently are not processed by autovacuum, while autovacuum does process their partitions like other tables. The claim that a partitioned table stores its own tuples is wrong because partitioned tables do not directly store tuples. The `ANALYZE` claim is wrong because autovacuum does not run `ANALYZE` on partitioned tables. Leaving partitions to manual `VACUUM` is wrong because autovacuum does process table partitions just like other tables.",
+  "citation": "pg-routine-vacuuming#AUTOVACUUM",
+  "extract": "Partitioned tables do not directly store tuples and consequently are not processed by autovacuum",
+  "snippet": null
+ },
+ {
+  "id": "m06-l01-q36",
+  "stem": "In PostgreSQL 18, autovacuum computes the vacuum threshold as a base threshold plus a scale factor times a number of tuples. Which value is that number of tuples?",
+  "key": "`pg_class.reltuples`",
+  "distractors": [
+   "The number of tuples obsoleted since the last `VACUUM`",
+   "The number of tuples inserted since the last vacuum",
+   "The `pg_class.relallfrozen` count of all-frozen pages"
+  ],
+  "explanation": "The number of tuples in the vacuum threshold formula is `pg_class.reltuples`. The count of tuples obsoleted since the last `VACUUM` is not the formula input: it is the quantity compared against the threshold, because the table is vacuumed when that count exceeds the vacuum threshold. The count of inserted tuples is likewise compared, against the separate insert threshold. `pg_class.relallfrozen` only enters the insert threshold, as part of the percent of the table not frozen, which is 1 - `pg_class.relallfrozen` / `pg_class.relpages`.",
+  "citation": "pg-routine-vacuuming#AUTOVACUUM",
+  "extract": "the number of tuples is pg_class.reltuples",
+  "snippet": null
+ },
+ {
+  "id": "m06-l01-q37",
+  "stem": "In PostgreSQL 18, a cluster has run for a very long time. How does `VACUUM` protect a table against transaction ID wraparound?",
+  "key": "It marks old rows as frozen, so their inserting transaction counts as committed far enough in the past to be visible to everyone",
+  "distractors": [
+   "It resets the XID counter to zero after every run",
+   "It rewrites each row's insertion XID to the current transaction's XID",
+   "It deletes every row version older than two billion transactions"
+  ],
+  "explanation": "`VACUUM` marks rows as frozen, indicating they were inserted by a transaction that committed sufficiently far in the past to be visible to all current and future transactions. Resetting the counter is wrong because the counter wrapping around to zero is the failure itself, which makes past transactions appear to be in the future. Rewriting insertion XIDs is wrong because frozen row versions are treated as if the inserting XID were `FrozenTransactionId`. Deleting old rows is wrong because frozen row versions stay valid until deleted, no matter how long that is.",
+  "citation": "pg-routine-vacuuming#VACUUM-FOR-WRAPAROUND",
+  "extract": "VACUUM will mark rows as frozen",
+  "snippet": null
+ },
+ {
+  "id": "m06-l01-q38",
+  "stem": "In PostgreSQL 18, how are normal transaction IDs (XIDs) compared with each other when a cluster runs for a very long time?",
+  "key": "With modulo-2^32 arithmetic, so the XID space is circular and each XID has two billion older and two billion newer",
+  "distractors": [
+   "As plain 64-bit numbers, so a larger XID is always newer",
+   "As numbers on a line with a start and an endpoint, so older XIDs always sit below newer ones",
+   "By the commit timestamp of the inserting transaction instead of by the XID value"
+  ],
+  "explanation": "Normal XIDs are compared using modulo-2^32 arithmetic, so for every normal XID there are two billion that are older and two billion that are newer. The 64-bit claim is wrong because transaction IDs have limited size, 32 bits. The line-with-endpoints claim is wrong because the normal XID space is circular with no endpoint. The timestamp claim is wrong because a row version whose insertion XID is greater than the current transaction's XID is in the future and not visible.",
+  "citation": "pg-routine-vacuuming#VACUUM-FOR-WRAPAROUND",
+  "extract": "there are two billion XIDs that are",
+  "snippet": null
+ },
+ {
+  "id": "m06-l01-q39",
+  "stem": "In PostgreSQL 18, a transaction runs at the Repeatable Read isolation level. At what point is the snapshot that all its queries see taken?",
+  "key": "At the start of the first non-transaction-control statement in the transaction",
+  "distractors": [
+   "At the start of each statement in the transaction, as at Read Committed",
+   "At the moment the transaction commits, so it sees every concurrent commit",
+   "At the first statement that modifies or locks a row of a table"
+  ],
+  "explanation": "A Repeatable Read query sees a snapshot as of the start of the first non-transaction-control statement in the transaction. A snapshot per statement is wrong because successive `SELECT` commands within a single transaction see the same data. A snapshot at commit is wrong because the transaction only sees data committed before it began. A snapshot at the first modification is wrong because `UPDATE`, `DELETE`, `SELECT FOR UPDATE` and `SELECT FOR SHARE` only find target rows committed as of the transaction start time.",
+  "citation": "pg-transaction-iso#XACT-REPEATABLE-READ",
+  "extract": "a snapshot as of the start of the first non-transaction-control statement in the transaction",
+  "snippet": null
+ },
+ {
+  "id": "m06-l01-q40",
+  "stem": "In PostgreSQL 18, which kind of transaction blocks at the Serializable level although it would not block at Repeatable Read?",
+  "key": "A `SERIALIZABLE READ ONLY DEFERRABLE` transaction, which waits until it can establish it is safe from conflicts",
+  "distractors": [
+   "A read-write serializable transaction, because the monitoring for anomalies adds blocking",
+   "A serializable transaction holding an `SIReadLock`, because predicate locks block writers",
+   "A serializable transaction that detects a possible anomaly, because it waits for the other transaction to finish"
+  ],
+  "explanation": "A `SERIALIZABLE READ ONLY DEFERRABLE` transaction blocks until it can establish it is safe, and this is the only case where Serializable transactions block but Repeatable Read transactions do not. Blocking from monitoring is wrong because the monitoring does not introduce any blocking beyond that present in Repeatable Read. Blocking from an `SIReadLock` is wrong because predicate locks in PostgreSQL do not cause any blocking. Waiting after detecting an anomaly is wrong because detecting the conditions triggers a serialization failure instead.",
+  "citation": "pg-transaction-iso#XACT-SERIALIZABLE",
+  "extract": "If you explicitly request a SERIALIZABLE READ ONLY DEFERRABLE transaction, it will block until it can establish this fact",
+  "snippet": null
+ },
+ {
+  "id": "m06-l01-q41",
+  "stem": "In PostgreSQL 18, two serializable transactions each sum one class of rows and insert the result into the other class. The rolled-back transaction receives which error message?",
+  "key": "`could not serialize access due to read/write dependencies among transactions`",
+  "distractors": [
+   "`could not serialize access due to concurrent update`",
+   "`deadlock detected`, after the two transactions wait for each other's predicate locks",
+   "No error: it waits until the other transaction commits and then proceeds"
+  ],
+  "explanation": "At Serializable, one transaction commits and the other is rolled back with `could not serialize access due to read/write dependencies among transactions`. The concurrent update message is wrong because it is what a Repeatable Read transaction gets when the first updater commits an update or delete of a row it tries to modify. The deadlock message is wrong because predicate locks do not cause any blocking and therefore cannot play any part in causing a deadlock. Waiting and proceeding is wrong because the monitoring does not introduce any blocking beyond that present in Repeatable Read.",
+  "citation": "pg-transaction-iso#XACT-SERIALIZABLE; pg-transaction-iso#XACT-REPEATABLE-READ",
+  "extract": "could not serialize access due to read/write dependencies among transactions",
+  "snippet": null
+ }
+]

@@ -1,0 +1,231 @@
+S1.1	"B-trees can handle equality and range"	pass
+S1.2	"The PostgreSQL query planner will consider"	pass
+S1.3	"Constructs equivalent to combinations of these"	pass
+S1.4	"The optimizer can use a B-tree"	pass
+S1.5	"B-tree indexes can also be used"	pass
+S1.6	"Hash indexes store a 32-bit hash"	pass
+S1.7	"Hash indexes can therefore only handle"	pass
+S2.1	"GiST indexes are not a single"	pass
+S2.2	"The operators with which a GiST"	pass
+S2.3	"GiST indexes can also optimize nearest-neighbor"	pass
+S2.4	"GIN indexes are "inverted indexes" which"	pass
+S2.5	"An inverted index contains a separate"	pass
+S2.6	"A GIN index can efficiently handle"	pass
+S2.7	"The standard distribution of PostgreSQL includes"	pass
+R1.1	"B-tree"	pass
+R1.2	"Hash"	pass
+R1.3	"GiST"	pass
+R1.4	"GIN"	pass
+S3.1	"An index can be defined on"	pass
+S3.2	"In PostgreSQL 18, only the B-tree,"	pass
+S3.3	"Indexes can have up to 32"	pass
+S3.4	"A multicolumn B-tree index can be"	pass
+S3.5	"The exact rule is that equality"	pass
+S3.6	"Constraints on columns to the right"	pass
+S3.7	"Given an index on `(a, b,"	pass
+S3.8	"If a B-tree index scan can"	pass
+S3.9	"Skip scan works by generating a"	pass
+S3.10	"Given an index on `(x, y)`"	pass
+S3.11	"The planner generally takes the skip"	pass
+S3.12	"For a multicolumn GiST index, the"	pass
+S3.13	"For a multicolumn GIN index, index"	pass
+S3.14	"According to the PostgreSQL 18 documentation,"	pass
+S3.15	"In most situations an index on"	pass
+S3.16	"Indexes with more than three columns"	pass
+S4.1	"A partial index is an index"	pass
+S4.2	"The index contains entries only for"	pass
+S4.3	"One major reason for using a"	pass
+S4.4	"A query searching for a common"	pass
+S4.5	"A partial index that excludes common"	pass
+S4.6	"A partial index can be used"	pass
+S4.7	"The system can recognize simple inequality"	pass
+S4.8	"Otherwise the predicate condition must exactly"	pass
+S4.9	"Matching takes place at query planning"	pass
+S4.10	"A unique partial index enforces uniqueness"	pass
+S4.11	"With a large set of non-overlapping"	pass
+S4.12	"With partitioning, the system does understand"	pass
+S5.1	"All indexes in PostgreSQL are secondary"	pass
+S5.2	"In an ordinary index scan, each"	pass
+S5.3	"Index-only scans can answer queries from"	pass
+S5.4	"The index type must support index-only"	pass
+S5.5	"GIN indexes cannot support index-only scans"	pass
+S5.6	"The query must reference only columns"	pass
+S5.7	"Given an index on columns `x`"	pass
+S5.8	"Visibility information is stored only in"	pass
+S5.9	"An index-only scan checks the visibility"	pass
+S5.10	"If that bit is not set,"	pass
+S5.11	"An index-only scan will be a"	pass
+S5.12	"A covering index is an index"	pass
+S5.13	"The `INCLUDE` clause lists extra columns"	pass
+S5.14	"An index defined like this could"	pass
+S5.15	"A non-key column cannot be used"	pass
+S5.16	"In a unique index with an"	pass
+S5.17	"Expressions are not supported as included"	pass
+S5.18	"The B-tree, GiST and SP-GiST index"	pass
+S5.19	"Columns listed in `INCLUDE` do not"	pass
+S5.20	"Non-key columns duplicate data from the"	pass
+S5.21	"According to the PostgreSQL 18 documentation,"	pass
+S5.22	"There is little point in including"	pass
+S6.1	"The structure of a query plan"	pass
+S6.2	"Nodes at the bottom level of"	pass
+S6.3	"The first line of the `EXPLAIN`"	pass
+S6.4	"The costs are measured in arbitrary"	pass
+S6.5	"The cost of an upper-level node"	pass
+S6.6	"The `rows` value is the number"	pass
+S6.7	"With the `ANALYZE` option, `EXPLAIN` actually"	pass
+S6.8	"The `ANALYZE` parameter defaults to `FALSE`"	pass
+S6.9	"The actual time values are in"	pass
+S6.10	"The thing that is usually most"	pass
+S6.11	"When a node is executed more"	pass
+S6.12	"Multiply the actual time by the"	pass
+S6.13	"Index Scan nodes show an `Index"	pass
+S6.14	"The `BUFFERS` parameter includes the number"	pass
+S6.15	"A hit means that a read"	pass
+S6.16	"Shared blocks contain data from regular"	pass
+S6.17	"The number of blocks shown for"	pass
+S6.18	"In PostgreSQL 18, buffers information is"	pass
+S6.19	"Network transmission costs are not included"	pass
+S6.20	"I/O conversion costs are not included"	pass
+S6.21	"The measurement overhead added by `EXPLAIN"	pass
+S6.22	"Results on a toy-sized table cannot"	pass
+S6.23	"On a table that only occupies"	pass
+S6.24	"When plan node execution is stopped"	pass
+S7.1	"`OFFSET` says to skip that many"	pass
+S7.2	"If both `OFFSET` and `LIMIT` appear,"	pass
+S7.3	"When using `LIMIT`, it is important"	pass
+S7.4	"The rows skipped by an `OFFSET`"	pass
+S7.5	"PostgreSQL also supports the SQL:2008 syntax"	pass
+S7.6	"The `WITH TIES` option returns any"	pass
+S7.7	"Spring Data offset scrolling uses an"	pass
+S7.8	"Most databases require materializing the full"	pass
+S7.9	"`ScrollPosition.offset(0)` skips the first element and"	pass
+S7.10	"Keyset filtering maintains a set of"	pass
+S7.11	"A `ScrollPosition` captures the keyset of"	pass
+S7.12	"With keyset filtering, the database needs"	pass
+S7.13	"Keyset filtering requires the keyset properties,"	pass
+S7.14	"Keyset filtering works best when your"	pass
+S7.15	"The keyset query mechanism amends your"	pass
+S7.16	"Scroll queries applying keyset filtering require"	pass
+S7.17	"An offset-based `Window` fetches `limit +"	pass
+S7.18	"A `Window` can only navigate to"	pass
+S7.19	"A `Page<T>` query can require a"	pass
+R2.1	"Window query"	pass
+R2.2	"How it resumes"	pass
+R2.3	"Cost of a deep position"	pass
+S8.1	"Partitioning refers to splitting what is"	pass
+S8.2	"The benefits of partitioning will normally"	pass
+S8.3	"A rule of thumb is that"	pass
+S8.4	"Bulk loads and deletes can be"	pass
+S8.5	"Dropping an individual partition with `DROP"	pass
+S8.6	"These commands also entirely avoid the"	pass
+S8.7	"PostgreSQL offers built-in support for range,"	pass
+S8.8	"In range partitioning, each range's bounds"	pass
+S8.9	"If one partition's range is from"	pass
+S8.10	"In hash partitioning, each partition holds"	pass
+R3.1	"Range"	pass
+R3.2	"List"	pass
+R3.3	"Hash"	pass
+S8.11	"The partitioned table itself is a"	pass
+S8.12	"All rows inserted into a partitioned"	pass
+S8.13	"Updating the partition key of a"	pass
+S8.14	"It is not possible to turn"	pass
+S8.15	"Partition pruning is a query optimization"	pass
+S8.16	"With partition pruning enabled, the planner"	pass
+S8.17	"Partition pruning is driven only by"	pass
+S8.18	"Partition pruning can be performed not"	pass
+S8.19	"Partitions pruned during initialization of the"	pass
+S8.20	"Partitions removed during initialization of the"	pass
+S8.21	"Partition pruning can be disabled using"	pass
+S8.22	"Too many partitions can mean longer"	pass
+S8.23	"The query planner is generally able"	pass
+S8.24	"An entire partition can be detached"	pass
+S8.25	"According to the PostgreSQL 18 documentation,"	pass
+S8.26	"It also advises never to assume"	pass
+S9.1	"Fetching breaks down into two questions:"	pass
+S9.2	""Now" is generally termed eager or"	pass
+S9.3	"The `SELECT` fetch strategy performs a"	pass
+S9.4	"The `JOIN` fetch strategy is inherently"	pass
+S9.5	"The `BATCH` fetch strategy performs a"	pass
+S9.6	"A fetch profile and an entity"	pass
+S9.7	"A fetch join overrides the laziness"	pass
+S9.8	"A `join fetch` only returns base"	pass
+S9.9	"Without `join fetch`, you will quickly"	pass
+S9.10	"Fetching multiple collections or to-many associations"	pass
+S9.11	"Fetch joins are disallowed in subqueries"	pass
+S9.12	"A query with `left join fetch"	pass
+S9.13	"The `@BatchSize` annotation can be used"	pass
+S9.14	"In the guide's example, only two"	pass
+S9.15	"According to the Hibernate ORM 7.4"	pass
+S9.16	"The select list of an HQL"	pass
+S9.17	"The guide says it is better"	pass
+S9.18	"With several expressions in the select"	pass
+S9.19	"If the class `Tuple` is passed"	pass
+S9.20	"The instantiation expression, `NEW`, is a"	pass
+S9.21	"In the session-per-request pattern, the application"	pass
+S9.22	"The crux of the session-per-request pattern"	pass
+S9.23	"JDBC batching means that drivers generally"	pass
+S9.24	"The `hibernate.jdbc.batch_size` setting controls the maximum"	pass
+S9.25	"A zero or negative `hibernate.jdbc.batch_size` disables"	pass
+S9.26	"JDBC batching is not enabled by"	pass
+S9.27	"Hibernate disables insert batching at the"	pass
+S9.28	"When 100 000 entities are persisted"	pass
+S9.29	"Long-running transactions can deplete a connection"	pass
+S9.30	"The setting `hibernate.order_inserts` forces Hibernate to"	pass
+S9.31	"Since version 5.2, Hibernate allows overriding"	pass
+S10.1	"A B-tree index handles equality and"	pass
+S10.2	"Equality constraints on leading columns, plus"	pass
+S10.3	"A partial index contains entries only"	pass
+S10.4	"An index-only scan needs an index"	pass
+S10.5	"`INCLUDE` columns are non-key columns that"	pass
+S10.6	"`EXPLAIN ANALYZE` executes the query, and"	pass
+S10.7	"A large `OFFSET` might be inefficient"	pass
+S10.8	"Keyset filtering requires non-nullable sort properties"	pass
+S10.9	"Partition pruning is driven only by"	pass
+S10.10	"A fetch join overrides the laziness"	pass
+S10.11	"JDBC batching is not enabled by"	pass
+g-partial-index	pass
+g-covering-index	pass
+g-index-only-scan	pass
+g-partition-pruning	pass
+g-inverted-index	pass
+m06-l03-q01	fail	stem has 12 words, under the 15-word minimum
+m06-l03-q02	fail	GiST/SP-GiST distractors arguably true: they lack support for some operator classes
+m06-l03-q03	pass
+m06-l03-q04	fail	stem has 9 words, under the 15-word minimum
+m06-l03-q05	pass
+m06-l03-q06	fail	negative stem "cannot" not in capitals; stem has 14 words
+m06-l03-q07	fail	one explanation sentence dismisses two distractors (run-time check and re-matching)
+m06-l03-q08	fail	stem has 10 words, under the 15-word minimum
+m06-l03-q09	pass
+m06-l03-q10	fail	sequential-scan distractor dismissed by silence ("Nothing in the documentation")
+m06-l03-q11	fail	stem has 10 words; one sentence dismisses two distractors
+m06-l03-q12	fail	stem has 11 words, under the 15-word minimum
+m06-l03-q13	fail	stem has 11 words, under the 15-word minimum
+m06-l03-q14	fail	stem has 13 words; memory distractor dismissed without a cited fact
+m06-l03-q15	fail	whole-table and disk-page distractors dismissed by bare denial, no fact given
+m06-l03-q16	pass
+m06-l03-q17	fail	error distractor dismissed by silence ("Nothing in the option description")
+m06-l03-q18	fail	stem has 13 words, under the 15-word minimum
+m06-l03-q19	fail	duplicate-removal distractor dismissed by silence ("not what the documentation describes")
+m06-l03-q20	pass
+m06-l03-q21	fail	stem has 10 words; lock and index distractors dismissed by silence
+m06-l03-q22	fail	stem has 8 words, under the 15-word minimum
+m06-l03-q23	fail	primary-key distractor dismissed by bare denial, no cited fact
+m06-l03-q24	fail	stem has 9 words; exception distractor dismissed by silence
+m06-l03-q25	pass
+m06-l03-q26	fail	stem has 10 words, under the 15-word minimum
+m06-l03-q27	pass
+m06-l03-q28	fail	stem has 13 words; empty-table distractor dismissed by silence
+m06-l03-q29	fail	stem has 13 words, under the 15-word minimum
+m06-l03-q30	fail	exception distractor dismissed by silence ("The guide describes no exception")
+m06-l03-q31	fail	stem has 11 words; two distractors dismissed by silence ("not described")
+m06-l03-q32	fail	stem has 13 words; size-10 distractor dismissed by silence
+m06-l03-q33	fail	stem has 13 words, under the 15-word minimum
+# checked 223, passed 197, failed 26
+m06-l03-q34	pass
+m06-l03-q35	pass
+m06-l03-q36	fail	stem has 14 words, under the 15-word minimum
+m06-l03-q37	pass
+m06-l03-q38	pass
+m06-l03-q39	pass
+# replacements: checked 6, passed 5, failed 1

@@ -1,0 +1,436 @@
+[
+ {
+  "id": "m06-l04-q01",
+  "stem": "In Liquibase 5.1, which combination uniquely tags one changeset, so that two changesets in different files or from different people never collide?",
+  "key": "The `author` and `id` attributes plus the changelog file path",
+  "distractors": [
+   "The `id` attribute alone, because deploying with `update` needs only the `id`",
+   "The `author` attribute plus a numeric `id` that grows with each deployment",
+   "The `id` attribute alone, written as an integer that sets the run order"
+  ],
+  "explanation": "A changeset is uniquely tagged by `author`, `id` and the changelog file path. The `id` alone is wrong because deploying with the `update` command requires both `author` and `id`. A numeric `id` that grows is wrong because the `id` does not have to be an integer. An integer `id` that sets the run order is wrong because the `id` does not direct the order in which changes are run.",
+  "citation": "liquibase-changeset#main-header",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m06-l04-q02",
+  "stem": "In Liquibase 5.1, which statement about what a changeset holds and how it is identified is correct?",
+  "key": "It contains change types, such as creating a table or adding a column",
+  "distractors": [
+   "It is uniquely tagged by its `id` attribute alone",
+   "Its `id` decides the order in which changesets run",
+   "It runs as a separate transaction for each statement by default"
+  ],
+  "explanation": "A changeset contains change types that specify what each change does. The `id` alone does not tag it, because the tag is `author`, `id` and the changelog file path. The `id` does not direct the order in which changes are run. By default Liquibase runs a changeset as a single transaction, not one per statement.",
+  "citation": "liquibase-changeset#main-header",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m06-l04-q03",
+  "stem": "In Liquibase 5.1, a changeset runs as part of an `update` and nothing else is configured. Which statement about how it is executed is correct?",
+  "key": "Liquibase runs it as a single transaction by default",
+  "distractors": [
+   "Liquibase runs it again on every later `update` command",
+   "Liquibase decides its position in the run from its `id` value",
+   "Liquibase tags it by `id` alone, whatever the changelog file path"
+  ],
+  "explanation": "By default Liquibase runs a changeset as a single transaction, and the `runInTransaction` attribute modifies that. It is not re-run on later updates unless `runAlways` or `runOnChange` is specified. The `id` does not direct the order that changes are run. The tag is the `author` and `id` plus the changelog file path, not the `id` alone.",
+  "citation": "liquibase-changeset#main-header",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m06-l04-q04",
+  "stem": "In Liquibase 5.1, a changeset has already been run against a database. Which statement about running `update` again is correct?",
+  "key": "Liquibase re-runs it only with `runAlways` or `runOnChange`",
+  "distractors": [
+   "Liquibase re-runs it when `runInTransaction` is set to false",
+   "Liquibase re-runs it whenever its `id` is edited in the changelog",
+   "Liquibase re-runs it when its `Labels` match the deployment"
+  ],
+  "explanation": "Once a changeset has run, it is not re-run unless `runAlways` or `runOnChange` is specified. The `runInTransaction` attribute only modifies the transaction behavior. The `id` is just an identifier. Labels are among the attributes that control when a changeset runs, but only `runAlways` and `runOnChange` allow a re-run.",
+  "citation": "liquibase-changeset#main-header",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m06-l04-q05",
+  "stem": "In Flyway 13, which statement about migrations and the environments they are deployed to is correct?",
+  "key": "The same scripts are run in the same order on each environment",
+  "distractors": [
+   "The scripts are kept out of version control and copied by hand",
+   "The scripts can capture schema changes only, never data changes",
+   "The scripts are captured from the production database after each release"
+  ],
+  "explanation": "The same scripts run in the same order on each environment, which makes the deployment repeatable. Migrations should be tracked in version control, so keeping them out is wrong. They can capture schema and data changes, such as `INSERT` and `UPDATE`. They capture incremental changes to a development database, not a production one.",
+  "citation": "flyway-migrations#migrations",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m06-l04-q06",
+  "stem": "In Flyway 13, which statement about the kinds of migration, and about the forms the versioned kind comes in, is correct?",
+  "key": "Versioned migrations come in two forms, regular and undo",
+  "distractors": [
+   "The scripts are run in an order each environment chooses",
+   "The scripts can capture schema changes only, never data changes",
+   "The scripts are kept out of version control and copied by hand"
+  ],
+  "explanation": "Versioned migrations come in two forms, regular and undo, next to repeatable and baseline ones. Running scripts in an order each environment chooses is wrong, because the same scripts run in the same order everywhere. Migrations capture schema and data changes. They should be tracked in version control.",
+  "citation": "flyway-migrations#migrations",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m06-l04-q07",
+  "stem": "In PostgreSQL 18, which statement about building an index with `CREATE INDEX CONCURRENTLY` on a table that live production traffic is writing to is correct?",
+  "key": "It performs two table scans and waits for existing transactions",
+  "distractors": [
+   "It leaves writers blocked until the build finishes, as a standard build does",
+   "It can be run inside a transaction block like a regular `CREATE INDEX`",
+   "It cannot build an expression index or a partial index"
+  ],
+  "explanation": "A concurrent build must perform two table scans and wait for all existing transactions that could modify or use the index to terminate. Leaving writers blocked describes a standard build, while this option builds without locking out writes. `CREATE INDEX CONCURRENTLY` cannot be performed within a transaction block. Concurrent builds of expression and partial indexes are supported.",
+  "citation": "pg-sql-createindex#SQL-CREATEINDEX-CONCURRENTLY",
+  "extract": "PostgreSQL must perform two scans of the table",
+  "snippet": null
+ },
+ {
+  "id": "m06-l04-q08",
+  "stem": "In PostgreSQL 18, which statement about the cost of `CREATE INDEX CONCURRENTLY` compared with a standard `CREATE INDEX` on the same large table is correct?",
+  "key": "It needs more total work and takes much longer",
+  "distractors": [
+   "It finishes faster because it performs a single scan of the table",
+   "It needs the same total work and only differs in the lock it takes",
+   "It adds no load, since other operations are never slowed"
+  ],
+  "explanation": "A concurrent build requires more total work and takes significantly longer. The standard build is the one that performs a single scan, while the concurrent build performs two. Because it does extra work, the total is not the same. The extra CPU and I/O load imposed by the index creation might slow other operations.",
+  "citation": "pg-sql-createindex#SQL-CREATEINDEX-CONCURRENTLY",
+  "extract": "this method requires more total work than a standard index build and takes significantly longer to complete",
+  "snippet": null
+ },
+ {
+  "id": "m06-l04-q09",
+  "stem": "In PostgreSQL 18, a `CREATE INDEX CONCURRENTLY` fails with a deadlock while scanning the table. Which statement about what remains is correct?",
+  "key": "An invalid index remains, ignored for queries but costing updates",
+  "distractors": [
+   "Nothing remains, because the failed command leaves no catalog entry",
+   "The command can be repaired by running `ANALYZE` and waiting",
+   "The invalid index is rebuilt by the planner on the next query"
+  ],
+  "explanation": "A failed build leaves behind an invalid index that is ignored for querying and still consumes update overhead. The command does fail but leaves that index, so nothing is not right. The recommended recovery is to drop the index and try again, not `ANALYZE`. The planner ignores the index because it might be incomplete, so it does not rebuild it.",
+  "citation": "pg-sql-createindex#SQL-CREATEINDEX-CONCURRENTLY",
+  "extract": "the CREATE INDEX command will fail but leave behind an “invalid” index",
+  "snippet": null
+ },
+ {
+  "id": "m06-l04-q10",
+  "stem": "In PostgreSQL 18, a unique index is built with `CREATE INDEX CONCURRENTLY` while other transactions write to the table. Which statement about uniqueness is correct?",
+  "key": "The uniqueness constraint is enforced against other transactions once the second scan begins",
+  "distractors": [
+   "An invalid index left by a failed second scan stops enforcing uniqueness",
+   "Two concurrent builds of unique indexes can run on the table at once",
+   "A concurrent build blocks all reads of the table until the index is valid"
+  ],
+  "explanation": "The uniqueness constraint is already enforced against other transactions when the second table scan begins. If the second scan fails, the invalid index continues to enforce its uniqueness constraint. Only one concurrent index build can occur on a table at a time. The method allows normal operations to continue while the index is built.",
+  "citation": "pg-sql-createindex#SQL-CREATEINDEX-CONCURRENTLY",
+  "extract": "the uniqueness constraint is already being enforced against other transactions when the second table scan begins",
+  "snippet": null
+ },
+ {
+  "id": "m06-l04-q11",
+  "stem": "In PostgreSQL 18, which statement about running several index builds on one table at the same time is correct?",
+  "key": "Only one concurrent index build can occur on a table at a time",
+  "distractors": [
+   "`CREATE INDEX CONCURRENTLY` lets writers wait until the build finishes",
+   "A concurrent build needs only a single scan of the table",
+   "Partial indexes cannot be built with `CREATE INDEX CONCURRENTLY`"
+  ],
+  "explanation": "Only one concurrent index build can occur on a table at a time. A concurrent build is the one that builds without locking out writes. It must perform two table scans, not one. Concurrent builds of expression indexes and partial indexes are supported.",
+  "citation": "pg-sql-createindex#SQL-CREATEINDEX-CONCURRENTLY",
+  "extract": "only one concurrent index build can occur on a table at a time",
+  "snippet": null
+ },
+ {
+  "id": "m06-l04-q12",
+  "stem": "In PostgreSQL 18, a team must index a partitioned table and keep write lock-out short. Which approach does the documentation give?",
+  "key": "Build the index concurrently on each partition, then create the partitioned index non-concurrently",
+  "distractors": [
+   "Run `CREATE INDEX CONCURRENTLY` on the partitioned table itself",
+   "Run a regular `CREATE INDEX`, since it never locks out writers",
+   "Run `CREATE INDEX CONCURRENTLY` on each partition inside one transaction block"
+  ],
+  "explanation": "You may build the index concurrently on each partition and then create the partitioned index non-concurrently, which is a metadata only operation. Concurrent builds on partitioned tables are currently not supported. A regular build normally locks the table against writes. `CREATE INDEX CONCURRENTLY` cannot be performed within a transaction block.",
+  "citation": "pg-sql-createindex#SQL-CREATEINDEX-CONCURRENTLY",
+  "extract": "you may concurrently build the index on each partition individually and then finally create the partitioned index non-concurrently",
+  "snippet": null
+ },
+ {
+  "id": "m06-l04-q13",
+  "stem": "In PostgreSQL 18, a `CREATE INDEX CONCURRENTLY` command has just terminated successfully. Which statement about using the new index for queries is correct?",
+  "key": "It may not be usable immediately, and in the worst case waits for transactions that predate the build",
+  "distractors": [
+   "It was marked valid right after the first table scan, so it is always usable",
+   "It is usable from the moment it is entered in the system catalogs",
+   "It is never usable until it is rebuilt with `REINDEX INDEX CONCURRENTLY`"
+  ],
+  "explanation": "Even after the command terminates, in the worst case the index cannot be used as long as transactions exist that predate the start of the build. The index is marked valid only after the last wait, not after the first scan. It is first entered in the catalogs as invalid. The `REINDEX INDEX CONCURRENTLY` command is mentioned as a recovery for a failed build, not as a step for a successful one.",
+  "citation": "pg-sql-createindex#SQL-CREATEINDEX-CONCURRENTLY",
+  "extract": "in the worst case, it cannot be used as long as transactions exist that predate the start of the index build",
+  "snippet": null
+ },
+ {
+  "id": "m06-l04-q14",
+  "stem": "In PostgreSQL 18, a standard `CREATE INDEX` runs on a busy table. Which statement about what other transactions can do meanwhile is correct?",
+  "key": "Reads continue, but inserts, updates and deletes block",
+  "distractors": [
+   "They are blocked from reading as well as from writing",
+   "The lock is only taken when the table is large enough",
+   "It takes no lock at all and scans the table twice in a row"
+  ],
+  "explanation": "A standard build locks the table against writes while other transactions can still read it. Reads are therefore not blocked. Even for smaller tables, a build can lock out writers for unacceptably long periods, so the lock does not depend on size. A standard build performs the entire build with a single scan under that lock.",
+  "citation": "pg-sql-createindex#SQL-CREATEINDEX-CONCURRENTLY",
+  "extract": "Other transactions can still read the table, but if they try to insert, update, or delete rows in the table they will block until the index build is finished.",
+  "snippet": null
+ },
+ {
+  "id": "m06-l04-q15",
+  "stem": "In PostgreSQL 18, which statement about the effect of `CREATE INDEX CONCURRENTLY` on a database that keeps serving traffic is correct?",
+  "key": "The extra CPU and I/O load of the build might slow other operations",
+  "distractors": [
+   "It blocks all other operations, reads included, until the build finishes",
+   "It locks out writers for the whole build",
+   "It starts without waiting for any existing transaction"
+  ],
+  "explanation": "The extra CPU and I/O load imposed by the index creation might slow other operations. It does not block readers, since it allows normal operations to continue while the index is built. It also builds without locking out writes. It must wait for all existing transactions that could modify or use the index.",
+  "citation": "pg-sql-createindex#SQL-CREATEINDEX-CONCURRENTLY",
+  "extract": "the extra CPU and I/O load imposed by the index creation might slow other operations",
+  "snippet": null
+ },
+ {
+  "id": "m06-l04-q16",
+  "stem": "In PostgreSQL 18, a concurrent build left an index shown as `INVALID` by the `psql` `\\d` command. Which is the recommended recovery?",
+  "key": "Drop the index and try `CREATE INDEX CONCURRENTLY` again, or rebuild it with `REINDEX INDEX CONCURRENTLY`",
+  "distractors": [
+   "Leave it, since the planner will use it once the checks finish",
+   "Run `ALTER TABLE ... VALIDATE CONSTRAINT` on the index",
+   "Re-run `CREATE INDEX CONCURRENTLY` without dropping the invalid index first"
+  ],
+  "explanation": "The recommended recovery is to drop the index and try again, or else to rebuild it with `REINDEX INDEX CONCURRENTLY`. An invalid index is ignored for querying because it might be incomplete. `VALIDATE CONSTRAINT` belongs to constraints added as `NOT VALID`, not to indexes. The recovery starts with dropping the index.",
+  "citation": "pg-sql-createindex#SQL-CREATEINDEX-CONCURRENTLY",
+  "extract": "The recommended recovery method in such cases is to drop the index and try again to perform CREATE INDEX CONCURRENTLY.",
+  "snippet": null
+ },
+ {
+  "id": "m06-l04-q17",
+  "stem": "In PostgreSQL 18, which of these can be built with `CREATE INDEX CONCURRENTLY` without running into any documented restriction on concurrent builds?",
+  "key": "A partial index",
+  "distractors": [
+   "An index on a partitioned table, built directly",
+   "A second index on a table that is already being indexed concurrently",
+   "An index inside a transaction block that also holds other statements"
+  ],
+  "explanation": "Concurrent builds of expression indexes and partial indexes are supported. Concurrent builds on partitioned tables are currently not supported. Only one concurrent index build can occur on a table at a time. `CREATE INDEX CONCURRENTLY` cannot be performed within a transaction block.",
+  "citation": "pg-sql-createindex#SQL-CREATEINDEX-CONCURRENTLY",
+  "extract": "Concurrent builds of expression indexes and partial indexes are supported.",
+  "snippet": null
+ },
+ {
+  "id": "m06-l04-q18",
+  "stem": "In PostgreSQL 18, which statement about concurrent index builds and other changes to the same table is correct?",
+  "key": "The extra CPU and I/O load of the build might slow other operations",
+  "distractors": [
+   "It waits for no transaction at all, so the build starts at once",
+   "It can be wrapped in a transaction block together with the schema change",
+   "A standard build needs two scans, which makes it slower"
+  ],
+  "explanation": "Schema modification of the table is not allowed while the index is being built. A concurrent build must wait for existing transactions that could modify or use the index. It cannot be performed within a transaction block. A standard build performs a single scan, and the concurrent method is the one that needs two.",
+  "citation": "pg-sql-createindex#SQL-CREATEINDEX-CONCURRENTLY",
+  "extract": "schema modification of the table is not allowed while the index is being built",
+  "snippet": null
+ },
+ {
+  "id": "m06-l04-q19",
+  "stem": "In PostgreSQL 18, a team asks why a standard `CREATE INDEX` is risky on a live production table. Which statement is correct?",
+  "key": "Even for smaller tables, a build can lock out writers for unacceptably long periods",
+  "distractors": [
+   "A standard build takes the same lock as a concurrent one",
+   "A standard build locks readers out of the table as well",
+   "A concurrent build finishes faster than a standard build"
+  ],
+  "explanation": "Even for smaller tables, an index build can lock out writers for periods that are unacceptably long for a production system. A concurrent build allows normal operations to continue, so it does not take the same lock. Other transactions can still read the table during a standard build. A concurrent build takes significantly longer to complete.",
+  "citation": "pg-sql-createindex#SQL-CREATEINDEX-CONCURRENTLY",
+  "extract": "even for smaller tables, an index build can lock out writers for periods that are unacceptably long for a production system",
+  "snippet": null
+ },
+ {
+  "id": "m06-l04-q20",
+  "stem": "In PostgreSQL 18, how does `CREATE INDEX CONCURRENTLY` first register the new index before the table scans?",
+  "key": "It enters the index as an \"invalid\" index in the system catalogs in one transaction",
+  "distractors": [
+   "It waits for existing transactions only before the second scan",
+   "It marks the index valid straight after the first scan",
+   "It needs no wait once the second scan has finished"
+  ],
+  "explanation": "The index is entered as an invalid index in the catalogs in one transaction, then two table scans occur in two more transactions. Before each scan, the build must wait for existing transactions that have modified the table, not only the second. The index is marked valid only at the end. After the second scan the build still waits for transactions with a snapshot predating it.",
+  "citation": "pg-sql-createindex#SQL-CREATEINDEX-CONCURRENTLY",
+  "extract": "the index is actually entered as an “invalid” index into the system catalogs in one transaction",
+  "snippet": null
+ },
+ {
+  "id": "m06-l04-q21",
+  "stem": "Which `ALTER TABLE` subform in PostgreSQL 18 acquires only a `SHARE ROW EXCLUSIVE` lock, where most constraint forms need `ACCESS EXCLUSIVE`?",
+  "key": "`ADD FOREIGN KEY`",
+  "distractors": [
+   "`ADD` a `CHECK` constraint",
+   "`SET STATISTICS`",
+   "`DROP COLUMN`"
+  ],
+  "explanation": "`ADD FOREIGN KEY` requires only a `SHARE ROW EXCLUSIVE` lock, and it takes one on the referenced table too. Most other forms of `ADD table_constraint`, such as a `CHECK` constraint, require `ACCESS EXCLUSIVE`. `SET STATISTICS` acquires a `SHARE UPDATE EXCLUSIVE` lock. `DROP COLUMN` is not noted otherwise, so it takes `ACCESS EXCLUSIVE`.",
+  "citation": "pg-sql-altertable#id-1.9.3.35.5",
+  "extract": "ADD FOREIGN KEY requires only a SHARE ROW EXCLUSIVE lock",
+  "snippet": null
+ },
+ {
+  "id": "m06-l04-q22",
+  "stem": "Which `ALTER TABLE` subform in PostgreSQL 18 acquires a `SHARE UPDATE EXCLUSIVE` lock instead of the default lock level?",
+  "key": "`SET STATISTICS`",
+  "distractors": [
+   "`ADD FOREIGN KEY`",
+   "`SET DATA TYPE`",
+   "`ADD` a `CHECK` constraint"
+  ],
+  "explanation": "`SET STATISTICS` acquires a `SHARE UPDATE EXCLUSIVE` lock. `ADD FOREIGN KEY` requires a `SHARE ROW EXCLUSIVE` lock. `SET DATA TYPE` is not explicitly noted, so it takes `ACCESS EXCLUSIVE`. Most forms of `ADD table_constraint`, a `CHECK` constraint included, require `ACCESS EXCLUSIVE`.",
+  "citation": "pg-sql-altertable#id-1.9.3.35.5",
+  "extract": "SET STATISTICS acquires a SHARE UPDATE EXCLUSIVE lock.",
+  "snippet": null
+ },
+ {
+  "id": "m06-l04-q23",
+  "stem": "In PostgreSQL 18, which `ALTER TABLE` subform rewrites the existing data of a stored generated column and applies the new generation expression to future changes?",
+  "key": "`SET EXPRESSION AS`",
+  "distractors": [
+   "`DROP EXPRESSION`",
+   "`SET COMPRESSION`",
+   "`DROP COLUMN` on the table"
+  ],
+  "explanation": "`SET EXPRESSION AS` replaces the expression, rewrites the existing data in a stored generated column and applies the new expression to future changes. `DROP EXPRESSION` retains the existing data. `SET COMPRESSION` does not cause the table to be rewritten. `SET STORAGE` does not itself change anything in the table.",
+  "citation": "pg-sql-altertable#id-1.9.3.35.5",
+  "extract": "Existing data in a stored generated column is rewritten and all the future changes will apply the new generation expression.",
+  "snippet": null
+ },
+ {
+  "id": "m06-l04-q24",
+  "stem": "In PostgreSQL 18, a team wants to add a `CHECK` constraint to a large table without the potentially lengthy scan of its existing rows. Which command does that?",
+  "key": "`ALTER TABLE ... ADD CONSTRAINT ... CHECK (...) NOT VALID`",
+  "distractors": [
+   "`ALTER TABLE ... ADD CONSTRAINT ... CHECK (...)` with no extra option",
+   "`ALTER TABLE ... ADD PRIMARY KEY (...) NOT VALID`",
+   "`ALTER TABLE ... ALTER COLUMN ... SET NOT NULL` with no `CHECK` constraint present"
+  ],
+  "explanation": "With `NOT VALID`, the scan that verifies existing rows is skipped. Without it, `ADD table_constraint` normally scans the table to verify all existing rows. `NOT VALID` is currently only allowed for foreign-key, `CHECK` and not-null constraints, so it is not allowed for a primary key. `SET NOT NULL` is ordinarily checked by scanning the entire table unless a valid `CHECK` constraint proves no `NULL` can exist.",
+  "citation": "pg-sql-altertable#id-1.9.3.35.5",
+  "extract": "if the NOT VALID option is used, this potentially-lengthy scan is skipped",
+  "snippet": null
+ },
+ {
+  "id": "m06-l04-q25",
+  "stem": "In PostgreSQL 18, which `ALTER TABLE` operation requires a full table scan to verify that the columns contain no nulls?",
+  "key": "`ADD PRIMARY KEY USING INDEX` on columns not yet marked `NOT NULL`",
+  "distractors": [
+   "`ADD UNIQUE USING INDEX` on an existing unique index",
+   "`ADD FOREIGN KEY ... NOT VALID`",
+   "`SET NOT NULL` when a valid `CHECK` constraint proves no `NULL` exists"
+  ],
+  "explanation": "If the index's columns are not already marked `NOT NULL`, `ADD PRIMARY KEY USING INDEX` attempts `SET NOT NULL` on each, which requires a full table scan. In all other cases, including a `UNIQUE` constraint, the operation is fast. `NOT VALID` skips the scan of existing rows. A valid `CHECK` constraint that proves no `NULL` can exist lets the table scan be skipped.",
+  "citation": "pg-sql-altertable#id-1.9.3.35.5",
+  "extract": "That requires a full table scan to verify the column(s) contain no nulls.",
+  "snippet": null
+ },
+ {
+  "id": "m06-l04-q26",
+  "stem": "In PostgreSQL 18, which index can `ALTER TABLE ... ADD CONSTRAINT ... UNIQUE USING INDEX` use?",
+  "key": "A unique b-tree index with default sort ordering on plain columns",
+  "distractors": [
+   "A unique index that is partial",
+   "A unique hash index on plain columns",
+   "A non-unique b-tree index on plain columns"
+  ],
+  "explanation": "The command is based on an existing unique b-tree index with default sort ordering and no expression columns. The index cannot be a partial index. It must be a b-tree index, which a hash index is not. The form is based on an existing unique index, so a non-unique index does not qualify.",
+  "citation": "pg-sql-altertable#id-1.9.3.35.5",
+  "extract": "The index cannot have expression columns nor be a partial index.",
+  "snippet": null
+ },
+ {
+  "id": "m06-l04-q27",
+  "stem": "In PostgreSQL 18, a column has no null values and `SET NOT NULL` is run on it. Which statement is correct?",
+  "key": "A valid `CHECK` constraint that proves no `NULL` can exist lets it skip the table scan",
+  "distractors": [
+   "It never scans the table, since it trusts the application",
+   "It succeeds on a column holding nulls and replaces them with the default",
+   "A column with an invalid not-null constraint stays unvalidated afterwards"
+  ],
+  "explanation": "If a valid `CHECK` constraint exists which proves no `NULL` can exist, the table scan is skipped. Otherwise the table is ordinarily scanned. `SET NOT NULL` may only be applied when none of the records contain a `NULL`, so nulls are not replaced. If a column has an invalid not-null constraint, `SET NOT NULL` validates it.",
+  "citation": "pg-sql-altertable#id-1.9.3.35.5",
+  "extract": "if a valid CHECK constraint exists (and is not dropped in the same command) which proves no NULL can exist, then the table scan is skipped",
+  "snippet": null
+ },
+ {
+  "id": "m06-l04-q28",
+  "stem": "In PostgreSQL 18, a partitioned table has a column marked `NOT NULL`. Which statement about its partitions is correct?",
+  "key": "`DROP NOT NULL` cannot be performed on that column of a single partition",
+  "distractors": [
+   "A partition cannot be marked `NOT NULL` unless its parent is too",
+   "`DROP NOT NULL` on the parent keeps the constraint on every partition",
+   "`DROP NOT NULL ... ONLY` on the parent also removes it from the children"
+  ],
+  "explanation": "If a column is marked `NOT NULL` in the parent table, one cannot perform `DROP NOT NULL` on it in a partition. A partition can be marked `NOT NULL` even where the parent allows nulls, so it does not depend on the parent. Performing `DROP NOT NULL` on the parent drops the constraint from all the partitions. Dropping it from `ONLY` the parent does not remove it from the children.",
+  "citation": "pg-sql-altertable#id-1.9.3.35.5",
+  "extract": "If this table is a partition, one cannot perform DROP NOT NULL on a column if it is marked NOT NULL in the parent table.",
+  "snippet": null
+ },
+ {
+  "id": "m06-l04-q29",
+  "stem": "In PostgreSQL 18, a `CHECK` constraint was added with `NOT VALID` and has not been validated. Which statement is correct?",
+  "key": "New inserts and updates are still checked against it",
+  "distractors": [
+   "The database assumes it holds for all rows already in the table",
+   "Adding it scanned the table to verify the existing rows",
+   "A `UNIQUE` constraint can be added with the same `NOT VALID` option"
+  ],
+  "explanation": "The constraint is still applied against subsequent inserts or updates. The database does not assume it holds for all rows until it is validated with `VALIDATE CONSTRAINT`. The `NOT VALID` option skips the scan of existing rows. It is currently only allowed for foreign-key, `CHECK` and not-null constraints, which leaves out `UNIQUE`.",
+  "citation": "pg-sql-altertable#id-1.9.3.35.5",
+  "extract": "The constraint will still be applied against subsequent inserts or updates",
+  "snippet": null
+ },
+ {
+  "id": "m06-l04-q30",
+  "stem": "In PostgreSQL 18, which statement about `ALTER TABLE ... ALTER COLUMN ... SET DATA TYPE` is correct?",
+  "key": "The column's statistics are removed, so running `ANALYZE` afterwards is recommended",
+  "distractors": [
+   "A `USING` clause is always required, even when an assignment cast exists",
+   "Indexes and simple constraints involving the column must be recreated",
+   "The `COLLATE` clause is mandatory to change the type"
+  ],
+  "explanation": "The column's statistics are removed, so running `ANALYZE` is recommended. A `USING` clause must be provided only if there is no implicit or assignment cast. Indexes and simple table constraints involving the column are converted automatically by reparsing the original expression. The `COLLATE` clause is optional.",
+  "citation": "pg-sql-altertable#id-1.9.3.35.5",
+  "extract": "the column's statistics are removed, so running ANALYZE on the table afterwards is recommended",
+  "snippet": null
+ },
+ {
+  "id": "m06-l04-q31",
+  "stem": "In PostgreSQL 18, which statement about the `USING` clause of `ALTER COLUMN ... SET DATA TYPE` is correct?",
+  "key": "It must be provided if there is no implicit or assignment cast from the old type to the new",
+  "distractors": [
+   "The column's statistics are kept, so `ANALYZE` is not needed",
+   "Indexes involving the column are dropped when the type changes",
+   "It is required for every type change, with no default conversion"
+  ],
+  "explanation": "A `USING` clause must be provided if there is no implicit or assignment cast from the old type to the new one. When it is omitted, the default conversion is the same as an assignment cast. The column's statistics are removed, so `ANALYZE` is recommended. Indexes and simple table constraints are converted automatically, not dropped.",
+  "citation": "pg-sql-altertable#id-1.9.3.35.5",
+  "extract": "A USING clause must be provided if there is no implicit or assignment cast from old to new type.",
+  "snippet": null
+ }
+]

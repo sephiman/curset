@@ -39,13 +39,17 @@ def _fails(message: str) -> str:
 
 class IsolationAnomalyGenerator(BackendGenerator[Interleaving]):
     id: ClassVar[str] = "isolation-anomaly"
+    # The long form only pads (it asserts nothing): without it the read-only keys are systematically short.
     forms: ClassVar[tuple[str, ...]] = (
         "{}",
         "{} in this interleaving",
-        "{}, which is what PostgreSQL 18 does at this isolation level",
+        "{}, given the isolation level and the order of statements above",
     )
     citation: ClassVar[Citation] = Citation(
-        "m06-l02", "pg-transaction-iso#TRANSACTION-ISO; pg-transaction-iso#XACT-SERIALIZABLE"
+        "m06-l02",
+        "pg-transaction-iso#TRANSACTION-ISO; pg-transaction-iso#XACT-SERIALIZABLE",
+        confirmed="pg-transaction-iso#TRANSACTION-ISO; pg-transaction-iso#XACT-READ-COMMITTED; "
+        "pg-transaction-iso#XACT-REPEATABLE-READ; pg-transaction-iso#XACT-SERIALIZABLE",
     )
 
     def scenario(self, rng: random.Random, level: int) -> Interleaving:

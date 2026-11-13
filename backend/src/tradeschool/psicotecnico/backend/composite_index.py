@@ -52,7 +52,11 @@ def _columns(columns: list[str]) -> str:
 
 class CompositeIndexGenerator(BackendGenerator[IndexedQuery]):
     id: ClassVar[str] = "composite-index-usage"
-    citation: ClassVar[Citation] = Citation("m06-l03", "pg-indexes-multicolumn#INDEXES-MULTICOLUMN")
+    citation: ClassVar[Citation] = Citation(
+        "m06-l03",
+        "pg-indexes-multicolumn#INDEXES-MULTICOLUMN",
+        confirmed="pg-indexes-multicolumn#INDEXES-MULTICOLUMN",
+    )
 
     def scenario(self, rng: random.Random, level: int) -> IndexedQuery:
         index = tuple(rng.sample(COLUMNS, rng.choice((3, 4))))

@@ -19,8 +19,8 @@ course:
   languages: [en]
   # Requirements 8.1: unpublished until S3; the platform's unpublished status is `draft`.
   status: draft
-  # S1 registers the question kinds; the generators of requirements 6.3 are the psicotecnico type, quiz and case wait.
-  exercise_types: [psicotecnico]
+  # Generators of requirements 6.3 are the psicotecnico type; the static bank (6.1) is quiz, from S2; case waits for m09.
+  exercise_types: [psicotecnico, quiz]
   # Requirements 6.5: unseen questions first, failed ones return at growing intervals.
   practice_scheduler: spaced
   option_labels: letters
@@ -287,28 +287,28 @@ blocks:
     title:
       en: 'Relational persistence, transactions and SQL optimisation'
     summary:
-      en: Summary pending.
+      en: 'Transactions and MVCC in PostgreSQL 18, concurrency anomalies and locking, indexes and query plans, and schema changes without downtime.'
     lessons:
     - id: m06-l01
       title:
         en: 'ACID, MVCC and PostgreSQL internals'
       summary:
-        en: Summary pending.
+        en: 'PostgreSQL 18''s multiversion model, write-ahead log, vacuuming and transaction ID wraparound, and the Read Committed, Repeatable Read and Serializable levels as it implements them.'
     - id: m06-l02
       title:
         en: 'Concurrency anomalies, locking and connection pooling'
       summary:
-        en: Summary pending.
+        en: 'The four isolation phenomena and what each PostgreSQL 18 level allows, optimistic and pessimistic locking, row locks, HikariCP pool sizing and PgBouncer pooling modes.'
     - id: m06-l03
       title:
         en: 'Advanced indexing, partitioning and SQL optimisation'
       summary:
-        en: Summary pending.
+        en: 'How PostgreSQL 18 index types, multicolumn, partial and covering indexes, EXPLAIN plans, offset versus keyset pagination and declarative partitioning work, and which ORM fetching and batching patterns cost extra queries.'
     - id: m06-l04
       title:
         en: 'Zero-downtime schema evolution'
       summary:
-        en: Summary pending.
+        en: 'Zero-downtime schema changes with Flyway and Liquibase, the lock levels of ALTER TABLE, CREATE INDEX CONCURRENTLY and its failure modes, and constraints added with NOT VALID.'
   - id: m07
     title:
       en: 'Networking and API design'

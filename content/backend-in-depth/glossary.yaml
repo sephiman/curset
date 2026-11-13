@@ -1,4 +1,134 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 # The course glossary (content/README.md, "The glossary"). Empty until S2: a term is added only after a lesson
 # uses it, in the wording of its cited source, and the loader rejects one that does not appear in the prose.
-terms: []
+terms:
+
+# pg-mvcc-intro#MVCC-INTRO
+- id: g-mvcc
+  en: Multiversion Concurrency Control (MVCC)
+  origin: m06-l01
+  definition:
+    en: Data consistency is maintained by using a multiversion model, so that each SQL statement sees a snapshot
+      of data as it was some time ago, regardless of the current state of the underlying data.
+
+# pg-wal-intro#WAL-INTRO
+- id: g-write-ahead-logging
+  en: Write-Ahead Logging (WAL)
+  origin: m06-l01
+  definition:
+    en: 'A standard method for ensuring data integrity: changes to data files must be written only after those changes
+      have been logged, that is, after WAL records describing the changes have been flushed to permanent storage.'
+
+# pg-routine-vacuuming#VACUUM-FOR-WRAPAROUND
+- id: g-transaction-id-wraparound
+  en: transaction ID wraparound
+  origin: m06-l01
+  definition:
+    en: Since transaction IDs have a limited size of 32 bits, a cluster that runs for more than 4 billion transactions
+      would see the XID counter wrap around to zero, and transactions that were in the past appear to be in the
+      future.
+
+# pg-transaction-iso#TRANSACTION-ISO
+- id: g-phantom-read
+  en: phantom read
+  origin: m06-l01
+  definition:
+    en: A transaction re-executes a query returning a set of rows that satisfy a search condition and finds that
+      the set of rows satisfying the condition has changed due to another recently committed transaction.
+
+# pg-transaction-iso#TRANSACTION-ISO
+- id: g-dirty-read
+  en: dirty read
+  origin: m06-l01
+  definition:
+    en: A transaction reads data written by a concurrent uncommitted transaction.
+
+# pg-transaction-iso#XACT-SERIALIZABLE
+- id: g-predicate-locking
+  en: predicate locking
+  origin: m06-l01
+  definition:
+    en: Keeping locks that allow the database to determine when a write would have had an impact on the result of
+      a previous read from a concurrent transaction, had it run first.
+
+# pg-transaction-iso#TRANSACTION-ISO
+- id: g-nonrepeatable-read
+  en: nonrepeatable read
+  origin: m06-l02
+  definition:
+    en: A transaction re-reads data it has previously read and finds that data has been modified by another transaction
+      (that committed since the initial read).
+
+# pg-transaction-iso#TRANSACTION-ISO
+- id: g-serialization-anomaly
+  en: serialization anomaly
+  origin: m06-l02
+  definition:
+    en: The result of successfully committing a group of transactions is inconsistent with all possible orderings
+      of running those transactions one at a time.
+
+# jakarta-persistence-spec#a2056
+- id: g-optimistic-locking
+  en: optimistic locking
+  origin: m06-l02
+  definition:
+    en: A system of concurrency control where each revision of an item of data is assigned a version number or timestamp.
+
+# pg-indexes-partial#INDEXES-PARTIAL
+- id: g-partial-index
+  en: partial index
+  origin: m06-l03
+  definition:
+    en: An index built over a subset of a table; the subset is defined by a conditional expression, called the predicate
+      of the partial index. The index contains entries only for those table rows that satisfy the predicate.
+
+# pg-indexes-index-only-scans#INDEXES-INDEX-ONLY-SCANS
+- id: g-covering-index
+  en: covering index
+  origin: m06-l03
+  definition:
+    en: An index specifically designed to include the columns needed by a particular type of query that you run
+      frequently, so that index-only scans can be used.
+
+# pg-indexes-index-only-scans#INDEXES-INDEX-ONLY-SCANS
+- id: g-index-only-scan
+  en: index-only scan
+  origin: m06-l03
+  definition:
+    en: A scan that can answer a query from an index alone, without any heap access, by returning values directly
+      out of each index entry instead of consulting the associated heap entry.
+
+# pg-ddl-partitioning#DDL-PARTITION-PRUNING
+- id: g-partition-pruning
+  en: partition pruning
+  origin: m06-l03
+  definition:
+    en: 'A query optimization technique that improves performance for declaratively partitioned tables: when the
+      planner can prove that a partition could not contain any rows meeting the query''s WHERE clause, it excludes
+      the partition from the query plan.'
+
+# pg-indexes-types#INDEXES-TYPES-GIN
+- id: g-inverted-index
+  en: inverted index
+  origin: m06-l03
+  definition:
+    en: An index that contains a separate entry for each component value of a data value that holds multiple component
+      values, such as an array, and can efficiently handle queries that test for the presence of specific component
+      values.
+
+# liquibase-changeset#main-header
+- id: g-changeset
+  en: changeset
+  origin: m06-l04
+  definition:
+    en: The basic unit of change in Liquibase. Changesets are stored in the changelog and contain change types that
+      specify what each change does, like creating a new table or adding a column to an existing table.
+
+# flyway-migrations#migrations
+- id: g-migrations
+  en: migrations
+  origin: m06-l04
+  definition:
+    en: SQL scripts that capture incremental changes to a development database, schema and data changes alike. The
+      same scripts are run in the same order on each environment, which gives a repeatable deployment process.
+  link_except: [m00-l01]  # "large migrations" there is the leadership sense, not a schema migration

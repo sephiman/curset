@@ -83,10 +83,19 @@ def test_the_learner_text_never_shows_a_placeholder_nor_names_an_option_by_lette
             assert not re.search(r"\b[A-D]\) ", item.explanation)
 
 
-def test_every_generator_still_owes_a_citation_for_its_module_session() -> None:
+def test_an_owed_citation_names_its_lesson_and_a_suggestion() -> None:
     owed = unfilled_citations()
-    assert sorted(generator for generator, _ in owed) == IDS
     assert all(re.fullmatch(r"m\d\d-l\d\d", citation.lesson) and citation.suggested for _, citation in owed)
+
+
+@pytest.mark.parametrize("generator", IDS)
+def test_a_confirmed_citation_is_cited_by_its_own_lesson(generator: str) -> None:
+    citation = BACKEND_GENERATORS[generator].citation
+    if citation.confirmed is None:
+        pytest.skip("owed by its module session")
+    lesson = (COURSE / "en" / "lessons" / f"{citation.lesson}.md").read_text(encoding="utf-8")
+    refs = [ref.strip() for ref in citation.confirmed.split(";")]
+    assert [ref for ref in refs if f"`{ref}`" not in lesson] == []
 
 
 def _declared() -> list[PsicotecnicoConfig]:

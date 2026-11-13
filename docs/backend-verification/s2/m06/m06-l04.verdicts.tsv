@@ -1,0 +1,109 @@
+S1.1	"Flyway migrations capture incremental changes to"	pass
+S1.2	"Flyway migrations are SQL scripts that"	pass
+S1.3	"Flyway migrations should be tracked in"	pass
+S1.4	"The same Flyway scripts are run"	pass
+S1.5	"Flyway migrations can be versioned, repeatable"	pass
+S1.6	"Versioned Flyway migrations come in two"	pass
+S1.7	"A changeset is the basic unit"	pass
+S1.8	"A Liquibase changeset contains change types"	pass
+S1.9	"A changeset is uniquely tagged by"	pass
+S1.10	"The `id` of a changeset does"	pass
+S1.11	"By default, Liquibase runs a changeset"	pass
+S1.12	"Once Liquibase has run a changeset,"	pass
+S1.13	"Each Liquibase changeset either succeeds or"	pass
+S1.14	"According to the Liquibase documentation, it"	pass
+S1.15	"Doing so avoids failed auto-commit statements"	pass
+S2.1	"`ALTER TABLE` changes the definition of"	pass
+S2.2	"The lock level required may differ"	pass
+S2.3	"An `ACCESS EXCLUSIVE` lock is acquired"	pass
+S2.4	"When multiple subcommands are given, the"	pass
+S2.5	"`SET STATISTICS` acquires a `SHARE UPDATE"	pass
+S2.6	"Most forms of `ADD table_constraint` require"	pass
+S2.7	"`ADD FOREIGN KEY` also acquires a"	pass
+R1.1	"Any subform not explicitly noted"	pass
+R1.2	"`ADD FOREIGN KEY`"	pass
+R1.3	"`SET STATISTICS`"	pass
+R1.4	"Several subcommands in one statement"	pass
+S3.1	"Normally PostgreSQL locks the table to"	pass
+S3.2	"While a standard index build runs,"	pass
+S3.3	"PostgreSQL supports building indexes without locking"	pass
+S3.4	"A concurrent index build must perform"	pass
+S3.5	"A concurrent index build must wait"	pass
+S3.6	"A concurrent index build requires more"	pass
+S3.7	"The extra CPU and I/O load"	pass
+S3.8	"In a concurrent index build, the"	pass
+S3.9	"After a concurrent build finishes, the"	pass
+S3.10	"If a problem arises while scanning"	pass
+S3.11	"An invalid index is ignored for"	pass
+S3.12	"The recommended recovery method is to"	pass
+S3.13	"Another possibility is to rebuild the"	pass
+S3.14	"When a unique index is built"	pass
+S3.15	"Concurrent builds of expression indexes and"	pass
+S3.16	"Only one concurrent index build can"	pass
+S3.17	"A regular `CREATE INDEX` command can"	pass
+S3.18	"Concurrent index builds on partitioned tables"	pass
+S3.19	"You may build the index concurrently"	pass
+S4.1	"`ADD COLUMN` adds a new column"	pass
+S4.2	"`SET DEFAULT` and `DROP DEFAULT` apply"	pass
+S4.3	"`ADD table_constraint` normally causes a scan"	pass
+S4.4	"With the `NOT VALID` option, `ADD"	pass
+S4.5	"`NOT VALID` is currently only allowed"	pass
+S4.6	"A constraint added as `NOT VALID`"	pass
+S4.7	"The database does not assume that"	pass
+S4.8	"`SET NOT NULL` may only be"	pass
+S4.9	"`SET NOT NULL` is ordinarily checked"	pass
+S4.10	"`ADD table_constraint_using_index` adds a new `PRIMARY"	pass
+S4.11	"The index used by `ADD table_constraint_using_index`"	pass
+S4.12	"If `PRIMARY KEY` is specified and"	pass
+S4.13	"`ADD table_constraint_using_index` is not currently supported"	pass
+S4.14	"`SET DATA TYPE` changes the type"	pass
+S4.15	"A `USING` clause must be provided"	pass
+S4.16	"After `SET DATA TYPE`, the column's"	pass
+S4.17	"`DROP COLUMN` drops a column from"	pass
+S4.18	"`DROP COLUMN` needs `CASCADE` if anything"	pass
+S5.1	"Flyway runs the same migration scripts"	pass
+S5.2	"A Liquibase changeset is uniquely tagged"	pass
+S5.3	"An `ACCESS EXCLUSIVE` lock is acquired"	pass
+S5.4	"A standard index build blocks inserts,"	pass
+S5.5	"`CREATE INDEX CONCURRENTLY` builds an index"	pass
+S5.6	"A failed concurrent build leaves an"	pass
+S5.7	"`CREATE INDEX CONCURRENTLY` cannot be performed"	pass
+S5.8	"`ADD table_constraint ... NOT VALID` skips"	pass
+S5.9	"`SET DEFAULT` does not change rows"	pass
+g-changeset	pass
+g-migrations	pass
+m06-l04-q01	fail	explanation's fact (id need not be integer) does not rule out distractor 2
+m06-l04-q02	pass
+m06-l04-q03	fail	near-duplicate of q02: same facts and distractors, only permuted
+m06-l04-q04	fail	"re-runs when id is edited" arguably true: edited id is a new changeset
+m06-l04-q05	pass
+m06-l04-q06	fail	reuses two q05 distractors verbatim; distractors off the stem's subject
+m06-l04-q07	pass
+m06-l04-q08	pass
+m06-l04-q09	pass
+m06-l04-q10	pass
+m06-l04-q11	pass
+m06-l04-q12	pass
+m06-l04-q13	pass
+m06-l04-q14	pass
+m06-l04-q15	pass
+m06-l04-q16	fail	key merges recommended recovery with REINDEX alternative; contradicts last distractor's dismissal
+m06-l04-q17	pass
+m06-l04-q18	fail	key text duplicates q15 and mismatches extract/explanation (schema modification)
+m06-l04-q19	pass
+m06-l04-q20	fail	distractors do not answer the stem's question about how the index is registered
+m06-l04-q21	pass
+m06-l04-q22	pass
+m06-l04-q23	fail	explanation skips the DROP COLUMN distractor, discusses SET STORAGE instead
+m06-l04-q24	pass
+m06-l04-q25	pass
+m06-l04-q26	fail	stem has 8 words, under the 15-word minimum
+m06-l04-q27	pass
+m06-l04-q28	pass
+m06-l04-q29	pass
+m06-l04-q30	fail	stem has 9 words, under the 15-word minimum
+m06-l04-q31	fail	stem has 13 words; near-duplicate of q30 with shared distractors
+# checked 105, passed 94, failed 11
+m06-l04-q17	fail	near-duplicate of m06-l04-q11
+m06-l04-q19	fail	near-duplicate of m06-l04-q14
+# near-duplicate scan: pairs 2
