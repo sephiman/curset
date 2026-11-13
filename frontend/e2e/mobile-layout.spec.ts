@@ -13,6 +13,9 @@ function phone(width: number) {
 }
 
 const TYPICAL_FIRST_QUESTION_SEED = 7;
+// This draw includes m06-l05-q158, whose stem holds an Excel formula with no break opportunity.
+const LONG_FORMULA_SEED = 1;
+const LONG_FORMULA = "=SI(Y(NO(B14<B7);NO(C14<B5));B14*B8;0)";
 
 /** The question's stem on screen, found by its opening words. */
 function stem(page: Page, prompt: string): Locator {
@@ -178,6 +181,15 @@ test.describe("nothing wider than the screen", () => {
         const id = await submittedSitting(page.request, AGE, "simulacro");
         await page.goto(`/courses/${AGE}/exams/${id}/review`);
         await expect(page.getByRole("heading", { name: "Por tema" })).toBeVisible();
+        await expectNothingWiderThanTheScreen(page);
+      });
+
+      test("a stem with a long formula wraps in the CI runner's wider font", async ({ page }) => {
+        await signIn(page);
+        const id = await submittedSitting(page.request, AGE, "simulacro", { seed: LONG_FORMULA_SEED });
+        await page.goto(`/courses/${AGE}/exams/${id}/review`);
+        await page.addStyleTag({ content: '* { font-family: "DejaVu Sans" !important; }' });
+        await expect(page.getByText(LONG_FORMULA).first()).toBeVisible();
         await expectNothingWiderThanTheScreen(page);
       });
 

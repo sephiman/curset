@@ -131,10 +131,10 @@ function buildComponents(
     h1: ({ children }) => <h1 className="mt-2 mb-4 text-2xl font-bold max-md:text-[1.625rem] max-md:leading-tight">{children}</h1>,
     h2: ({ id, children }) => <h2 id={id} className="mt-6 mb-3 scroll-mt-6 text-xl font-semibold max-md:text-[1.3125rem] max-md:leading-snug">{children}</h2>,
     h3: ({ id, children }) => <h3 id={id} className="mt-4 mb-2 scroll-mt-6 text-lg font-semibold max-md:text-[1.125rem] max-md:leading-snug">{children}</h3>,
-    p: ({ children }) => <p className="my-3 leading-relaxed text-gray-700 max-md:leading-[1.6] dark:text-gray-300">{children}</p>,
+    p: ({ children }) => <p className="my-3 leading-relaxed break-words text-gray-700 max-md:leading-[1.6] dark:text-gray-300">{children}</p>,
     ul: ({ children }) => <ul className="my-3 list-disc space-y-1 pl-6 text-gray-700 max-md:pl-5 dark:text-gray-300">{children}</ul>,
     ol: ({ children }) => <ol className="my-3 list-decimal space-y-1 pl-6 text-gray-700 max-md:pl-5 dark:text-gray-300">{children}</ol>,
-    li: ({ children }) => <li className="leading-relaxed max-md:leading-normal">{children}</li>,
+    li: ({ children }) => <li className="leading-relaxed break-words max-md:leading-normal">{children}</li>,
     strong: ({ children }) => <strong className="font-semibold text-gray-900 dark:text-gray-100">{children}</strong>,
     code: ({ children }) => (
       <code className="rounded bg-gray-100 px-1 py-0.5 font-mono text-[0.85em] text-gray-800 dark:bg-gray-800 dark:text-gray-200">
