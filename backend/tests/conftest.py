@@ -186,6 +186,22 @@ async def c2_client(c2_course_settings: Settings, _migrated: bool) -> AsyncGener
         yield http
 
 
+@pytest.fixture(scope="session")
+def aeat_course_settings(settings: Settings, tmp_path_factory: pytest.TempPathFactory) -> Settings:
+    """The real aeat-agentes-hacienda course alone: its first-exercise presets sit on its own bank."""
+    root = tmp_path_factory.mktemp("aeat-content")
+    (root / "aeat-agentes-hacienda").symlink_to(
+        REPO_CONTENT / "aeat-agentes-hacienda", target_is_directory=True
+    )
+    return settings.model_copy(update={"content_dir": root})
+
+
+@pytest_asyncio.fixture
+async def aeat_client(aeat_course_settings: Settings, _migrated: bool) -> AsyncGenerator[AsyncClient]:
+    async with _build_client(aeat_course_settings, reconcile_content=True) as http:
+        yield http
+
+
 @pytest_asyncio.fixture
 async def multi_client(
     multi_course_settings: Settings, _migrated: bool, mailer: RecordingMailer

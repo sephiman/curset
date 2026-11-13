@@ -936,6 +936,19 @@ R2.3 (`backend/scripts/provenance.py --course aeat-agentes-hacienda`), the rest 
 (`m03`) were written new, then audited for scope, coverage and currency (`docs/aeat-scope-audit.md`) and given esquemas.
 Glyph: a calculator; accent ochre `#88521d` / `#d48f4a`. Stage 2 (round R3, `docs/aeat-bank-plan.md`, ledger `docs/aeat-bank-ledger.md`) built the first-exercise bank: 4,088 verified questions (`exercise_types: [quiz]`, `lesson_practice: true`, 228 exercises under `exercises/`), 777 derived from C1/C2 by script with provenance and the rest authored and blind-verified (`docs/age-verification/aeat/bank/`: tools, specs, drops, reserve, per-question provenance). The gap to 5,000 is recorded per tema in the ledger and is closed by variant rounds, tax temas first. Excerpts: 3,944 of 4,088 questions have one; 115 are withheld (`excerpt-exclusions.yaml`, blind-checked misses) and 29 more have none for platform limits listed in the ledger (the Orden de 1994's ordinal headings, sub-números the extractor does not reach). The second exercise stays without practice.
 
+Round R5 added the first-exercise presets and the official sets to `aeat-agentes-hacienda` (`exams:` in its `course.yaml`; ledger `docs/aeat-bank-ledger.md` «R5»).
+«Primer ejercicio» is the base 6.2 paper: 80 questions drawn 8 from I, 10 from II and 62 from III (the part counts of the 2025 paper;
+the printed paper mixes the parts, so the draw is shuffled), 90 minutes, `pause: never`, wrong = −1/4, blank = 0, tema labels hidden during the sitting.
+The BOE marks the exercise 0–10 with 5 to pass and lets the Tribunal fix the raw score that equals 5 after each exam (2025: 41,00; the criteria
+ask for 50 % of the maximum in the general system, a floor the Tribunal may lower, as it did to 40 % for the disability quota). The preset therefore maps 40 raw points to 5 and 80 to 10 with the Tribunal's own two-piece formula
+(exact fractions) and states 41,00 as the 2025 figure, not as a prediction. «Bloque» (40 questions, 45 min) and «Tema» (10 questions, 11 min)
+say their time is a course estimate at the paper's pace of 90 minutes per 80 questions. The 13 official sets (OEP 2020–2025, each tipo, and the
+2022 extraordinario) are built by `backend/scripts/build_aeat_official_exams.py` from the parsed questionnaires, the answer sheets and the ledger:
+printed order and letters, no shuffle, `official: true` under `m00-l01`, excluded statuses (anulada, norma modificada, the 28 questions on topics
+the 2025 programme dropped) counted in each description, notes on the `vigente-con-nota` ones, raw score only. Platform: a sitting hides the tema
+label when its preset never pauses (it was a list of preset-id prefixes). Tests: `test_aeat_first_exercise_presets.py`,
+`test_aeat_official_exams.py` (stems, options and keys against the PDFs and the answer sheets), `e2e/aeat-agentes.spec.ts`.
+
 **Published course without exercises (delta v2.1 M).** `exercise_types: []` is valid. A course with no exercises,
 no `exams:` and no generators is `theoryOnly` in its course payload: Exámenes shows a default page, Progreso shows
 only lessons marked read, and no «Practicar» entry appears; the states vanish once it declares exercises or exams.

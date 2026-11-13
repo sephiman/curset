@@ -508,3 +508,35 @@ and official items 2024-5, 2023-91; III.15 art. 23.2, 24, 85.1 and DA 55.ª LIRP
 14. Specs: `writer-spec.md`, `verify-spec.md` (with the doubtful-key amendment), `style-check-brief.md`, `excerpts/verifier-spec.md`.
 15. Nothing is committed. `.husky/pre-push` (modified) and `backend/raw.json` (untracked) are not from this round: check before committing.
 16. Commit scope suggested: content/aeat-agentes-hacienda (exercises, course.yaml, excerpts.json, excerpt-exclusions.yaml, question-keys.tsv, citations golden, two lessons, normativa.yaml), docs/, README.md.
+
+## R5 — first-exercise presets and official sets (2026-11-13)
+
+Nothing committed. Handoff: `docs/aeat-round-5-handoff.md`.
+
+**Rules quoted.** Base 6.2: «un cuestionario de 80 preguntas», cuatro respuestas, «cada contestación errónea se penalizará descontando un cuarto del valor de una respuesta correcta. Las respuestas en blanco no penalizan.»,
+«una hora y media», «se calificará de 0 a 10 puntos, siendo necesario obtener un mínimo de 5 puntos para superarlo». Base 6: «La puntuación directa mínima que el Tribunal fije para superar el ejercicio equivaldrá a la calificación mínima necesaria
+para superarlo. La puntuación directa máxima obtenible equivaldrá a la calificación máxima del ejercicio.» Criteria 2025: direct score A − E/4; pass only with «el 50 por ciento de la puntuación máxima» at least (criterion 2), which point 3 lets the Tribunal lower (2025: 40 %, 32,00, for the disability quota);
+cut-off 41,00 of 80 in 2025 (nota de 9-04-2026); the formula t(d) is the course's `transformed_score`.
+
+**«Primer ejercicio».** 80 questions = 8 (I) + 10 (II) + 62 (III), the part counts of the 2025 paper (ledger table). The 2025 paper prints the parts mixed (Q1 II.1, Q2 III.4, Q3 III.10 …), so no `order: by-source`.
+90 min, `pause: never`, −1/4, blank 0, exact fractions, tema label hidden. **Mark:** the Tribunal fixes the raw score that equals 5 after each exam, so the preset pins the only figure the criteria state beforehand,
+the 50 % of criterion 2 (the Tribunal may lower it): 40 raw = 5, 80 = 10. 41,00 (2025) appears in the description as information. «Bloque» 40 q / 45 min, «Tema» 10 q / 11 min (1,125 min per question), both described as course estimates.
+
+**Official sets.** 13 presets `conv2025-a` … `conv2020-b`: 1,180 questions in (tipo A and 2022X 636, tipo B 544), raw score only, time as the convocatoria gave it (2025: 90, 2022–2024: 100, 2020–2021: 60 min), −1/4.
+Excluded per set, counted in its description: anulada, norma modificada, and the 28 `fuera de temario` (tipo A total). Seven notes («Clave oficial discutida», plus the 2021 errata) show in the solution.
+`summary.json` and `verify/` in `docs/age-verification/aeat/official/`.
+
+**Findings.** (1) The OEP 2022 sheets (A and B) are filed as definitive but their header reads «PLANTILLA PROVISIONAL». Confirmed definitive in content (review, 2026-11-13): the Tribunal's
+resolution of 9-05-2023 (`2023-04-22_conv2022_res-aprobados-1ej.pdf`, acuerdo primero) records that «vistas las alegaciones presentadas a las plantillas provisionales», in its session
+of 4-05-2023, it annulled A-43 and A-80 (B-40 and B-81) and changed A-42 → C, A-46 → A, A-47 → C, B-49 → A, B-50 → C, and approved the cut-off «en base a las plantillas de respuestas
+definitivas». Both files were created on 4-05-2023 and carry every one of those changes (A: 42-C, 43-ANULADA, 46-A, 47-C, 82-ANULADA; B: 40-ANULADA, 49-A, 50-C, 81-ANULADA); A-82 is
+the question the resolution calls «80» (B-81 = A-82, ledger OEP 2022). The header is a leftover; the key is the definitive one.
+(2) The papers have their own typos (kept as printed: «seguramiento» in 2022 A, «otro1.000» in 2020 B, «resoluciónes» in 2022X) and tipo A/B differ in a few commas and typos; each paper is stored as printed.
+(3) The parsed text left a space after a compound's hyphen at line ends (24 cases): the blind check found it, the generator now closes it and a test rejects it.
+(4) Platform: the sitting hid the tema by preset-id prefixes; it now follows `pause: never`.
+
+**Blind check.** Two opus verifiers read every included question of the 13 sets against the questionnaire and sheet PDFs (stems, options, order, keys, notes, exclusions, counts). The first (2025–2023) found only the hyphen defect;
+the second (2022–2020) re-ran on the corrected files: 0 FAIL, 0 UNREAD. Review re-check (2026-11-13): two fresh opus verifiers re-read the 2025–2023 sets on the
+corrected files (534 variants, wording and key against the PDFs): 0 FAIL, 0 UNREAD; their reports replace the pre-fix ones in `verify/`.
+
+**Close.** `close_round.sh`: goldens unchanged, C1, C2, crypto-futures untouched, Android bundle byte-identical; backend 3,377 passed, 34 skipped; frontend 753 passed; `tsc -b` clean; e2e 110 passed.

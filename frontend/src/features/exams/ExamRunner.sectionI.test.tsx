@@ -150,6 +150,7 @@ const { ExamReview } = await import("@/features/exams/ExamReview");
 function makeExamSession(
   presetId: string,
   status: "open" | "submitted" = "open",
+  pause: ExamSession["pause"] = presetId === "simulacro" ? "never" : "between-questions",
 ): ExamSession {
   return {
     id: "exam-test-1",
@@ -162,7 +163,7 @@ function makeExamSession(
     createdAt: "2026-10-30T10:00:00Z",
     finishedAt: status === "submitted" ? "2026-10-30T11:00:00Z" : null,
     deadline: null,
-    pause: "between-questions",
+    pause,
     paused: false,
     activeSeconds: 120,
     serverNow: "2026-10-30T10:00:00Z",
@@ -307,6 +308,14 @@ describe("Delta Section I — question number, tema label and shareable referenc
     // Shows question number
     expect(host.textContent).toContain("Question 1 of 2");
     // Does NOT show tema label during simulation sitting
+    expect(host.textContent).not.toContain("Tema III.3");
+  });
+
+  it("I2: hides the tema label in any sitting that never pauses, whatever its preset is called", async () => {
+    currentExamSession = makeExamSession("primer-ejercicio", "open", "never");
+    await render(<ExamRunner />);
+
+    expect(host.textContent).toContain("Question 1 of 2");
     expect(host.textContent).not.toContain("Tema III.3");
   });
 

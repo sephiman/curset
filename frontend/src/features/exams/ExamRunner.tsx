@@ -186,12 +186,8 @@ export function ExamRunner() {
   const casesById = new Map<string, ExamCase>(exam.parts.flatMap((part) => part.cases.map((c) => [c.exerciseId, c])));
   const caseOf = q.questionId ? casesById.get(q.exerciseId) : undefined;
   const part = exam.parts.find((p) => p.id === q.partId);
-  const isSimulation =
-    exam.presetId === "simulacro" ||
-    exam.presetId.startsWith("simulacro") ||
-    exam.presetId.startsWith("parte-") ||
-    exam.presetId.startsWith("conv") ||
-    exam.presetId.startsWith("ofi-");
+  // A sitting that never pauses is a simulation of the paper, and the paper prints no tema.
+  const isSimulation = exam.pause === "never";
   const showTema = Boolean(courseTree?.course.lessonNoun && !isSimulation);
   const currentTema = showTema ? (q.typeTitle ? { temaLabel: q.typeTitle } : findTemaInfo(courseTree, q.lessonId)) : null;
 

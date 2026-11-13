@@ -1,5 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
-import { AGE, AGE_C2, abandonSitting, overflowingElements, signIn, startSitting, submittedSitting } from "./session";
+import { AEAT, AGE, AGE_C2, abandonSitting, overflowingElements, signIn, startSitting, submittedSitting } from "./session";
 
 /** Round R5 of age-auxiliar-c2 at the two widths of the brief: what jsdom cannot measure. */
 
@@ -96,11 +96,12 @@ interface ReviewedQuestion {
   excerpt?: { heading: string } | null;
 }
 
-// A pinned «Tema» sitting per AGE course: its first question with an excerpt is the known one. A bank edit
+// A pinned «Tema» sitting per oposiciones course: its first question with an excerpt is the known one. A bank edit
 // may change the draw; the test then still finds the first question with an excerpt in the same tema.
 for (const { course, lesson } of [
   { course: AGE, lesson: "m01-l01" },
   { course: AGE_C2, lesson: "m01-l01" },
+  { course: AEAT, lesson: "m03-l04" },
 ]) {
   test(`the review's solution panel shows the excerpt of a known question in ${course}`, async ({ page }) => {
     await signIn(page, course);
