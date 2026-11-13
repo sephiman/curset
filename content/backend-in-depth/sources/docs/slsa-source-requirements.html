@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" /><!-- Begin Jekyll SEO tag v2.9.1 -->
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="Source: Requirements for producing source" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="This page covers the detailed technical requirements for producing source revisions at each SLSA level. The intended audience is source control system implementers and security engineers." />
+<meta name="twitter:description" property="og:description" content="This page covers the detailed technical requirements for producing source revisions at each SLSA level. The intended audience is source control system implementers and security engineers." />
+<meta property="og:site_name" content="SLSA" />
+<meta property="og:image" content="/images/icons/android-chrome-192x192.png" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="/images/icons/android-chrome-192x192.png" />
+<meta name="twitter:title" content="Source: Requirements for producing source" />
+
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/vendor/tailwindcss-2.2.19/tailwind.min.css">
+    <link rel="stylesheet" href="/assets/main.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/icons/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/icons/favicon-16x16.png">
+    <link rel="icon" type="image/x-icon" href="/images/icons/favicon.ico">
+    <link rel="mask-icon" href="/images/icons/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="msapplication-square150x150logo" content="/images/icons/mstile-150x150.png" />
+    <meta name="theme-color" content="#ffffff" />
+    <title>SLSA • Source: Requirements for producing source</title>
+
+    <link rel="stylesheet" href="/fonts/inter/inter.css">
+    <link rel="stylesheet" href="/fonts/ibm_plex/IBMPlexMono-Regular.css">
+    <link rel="stylesheet" href="/fonts/prodigy/ProdigySans.css">
+
+    
+    <link rel="stylesheet" href="/vendor/swiper-6.8.4/swiper-bundle.min.css">
+    <link type="application/atom+xml" rel="alternate" href="/feed.xml" title="SLSA" /></head>
+<body
+    x-data="{navOpen: false}"
+    x-init="$refs.body.style.setProperty('--scrollbar-width', `${window.innerWidth - document.body.offsetWidth}px`)"
+    x-ref="body"
+  ><aside
+  class="site-aside flex flex-col flex-none"
+  :class="{'is-open': navOpen}"
+>
+  <div class="aside-header p-5 flex justify-between items-center show-laptop">
+    <a rel="author" href="/" class="logo block">
+      <img class="logo-white" src="/images/logo.svg" alt="SLSA logo" />
+    </a>
+    <a class="desktop-github-icon" href="https://github.com/slsa-framework/slsa" target="_blank">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M11.2344 0.150879C5.28641 0.150879 0.468811 4.96848 0.468811 10.9165C0.468811 15.6803 3.55046 19.7039 7.82978 21.1303C8.36806 21.2245 8.56991 20.9016 8.56991 20.619C8.56991 20.3633 8.55646 19.5155 8.55646 18.6139C5.8516 19.1118 5.15184 17.9545 4.93653 17.3489C4.81541 17.0394 4.29059 16.084 3.83306 15.8283C3.45626 15.6264 2.91798 15.1285 3.8196 15.1151C4.66739 15.1016 5.27295 15.8956 5.47481 16.2185C6.44371 17.8468 7.99126 17.3893 8.61028 17.1067C8.70448 16.4069 8.98708 15.9359 9.29659 15.6668C6.90125 15.3977 4.39825 14.4691 4.39825 10.3513C4.39825 9.18051 4.81541 8.21161 5.50172 7.45802C5.39407 7.18888 5.01727 6.08541 5.60938 4.60514C5.60938 4.60514 6.51099 4.32254 8.56991 5.70861C9.43116 5.46639 10.3462 5.34527 11.2613 5.34527C12.1764 5.34527 13.0914 5.46639 13.9527 5.70861C16.0116 4.30909 16.9132 4.60514 16.9132 4.60514C17.5053 6.08541 17.1285 7.18888 17.0209 7.45802C17.7072 8.21161 18.1244 9.16706 18.1244 10.3513C18.1244 14.4826 15.6079 15.3977 13.2126 15.6668C13.6028 16.0032 13.9392 16.6492 13.9392 17.6584C13.9392 19.0983 13.9258 20.2556 13.9258 20.619C13.9258 20.9016 14.1276 21.238 14.6659 21.1303C16.8031 20.4088 18.6602 19.0353 19.9758 17.2031C21.2915 15.3708 21.9994 13.1721 22 10.9165C22 4.96848 17.1824 0.150879 11.2344 0.150879Z" />
+      </svg>
+    </a>
+  </div>
+  <div class="aside-content px-5 py-1 flex-1 overflow-auto">
+    
+  
+
+  
+
+  
+    
+    
+<nav class="site-nav"><ul><li>
+        <a class="nav-link" href="/">
+          Home
+        </a>
+    </li><li>
+        <a class="nav-link" href="/current-activities">
+          Current activities
+        </a>
+    </li><li>
+        <a class="nav-link" href="/spec/v1.2/">
+          SLSA v1.2
+        </a>
+          <ul><li>
+        <span class="section-title">Understanding SLSA</span>
+          <ul><li>
+        <a class="nav-link" href="/spec/v1.2/whats-new">
+          What&#39;s new
+        </a>
+    </li><li>
+        <a class="nav-link" href="/spec/v1.2/about">
+          About SLSA
+        </a>
+    </li><li>
+        <a class="nav-link" href="/spec/v1.2/threats-overview">
+          Supply chain threats
+        </a>
+    </li><li>
+        <a class="nav-link" href="/spec/v1.2/use-cases">
+          Use cases
+        </a>
+    </li><li>
+        <a class="nav-link" href="/spec/v1.2/principles">
+          Guiding principles
+        </a>
+    </li><li>
+        <a class="nav-link" href="/spec/v1.2/faq">
+          FAQ
+        </a>
+    </li><li>
+        <a class="nav-link" href="/spec/v1.2/future-directions">
+          Future directions
+        </a>
+    </li><li>
+        <a class="nav-link" href="/spec/v1.2/tracks">
+          Tracks
+        </a>
+    </li>
+  </ul>
+
+    </li><li>
+        <span class="section-title">Build Track</span>
+          <ul><li>
+        <a class="nav-link" href="/spec/v1.2/build-track-basics">
+          Basics
+        </a>
+    </li><li>
+        <a class="nav-link" href="/spec/v1.2/terminology">
+          Terminology
+        </a>
+    </li><li>
+        <a class="nav-link" href="/spec/v1.2/build-requirements">
+          Producing artifacts
+        </a>
+    </li><li>
+        <a class="nav-link" href="/spec/v1.2/distributing-provenance">
+          Distributing provenance
+        </a>
+    </li><li>
+        <a class="nav-link" href="/spec/v1.2/verifying-artifacts">
+          Verifying artifacts
+        </a>
+    </li><li>
+        <a class="nav-link" href="/spec/v1.2/assessing-build-platforms">
+          Assessing build platforms
+        </a>
+    </li>
+  </ul>
+
+    </li><li>
+        <span class="section-title">Source Track</span>
+          <ul><li>
+        <a class="nav-link is-active" href="/spec/v1.2/source-requirements">
+          Producing source
+        </a>
+    </li><li>
+        <a class="nav-link" href="/spec/v1.2/verifying-source">
+          Verifying source
+        </a>
+    </li><li>
+        <a class="nav-link" href="/spec/v1.2/assessing-source-systems">
+          Assessing source control systems
+        </a>
+    </li><li>
+        <a class="nav-link" href="/spec/v1.2/source-example-controls">
+          Example controls
+        </a>
+    </li>
+  </ul>
+
+    </li><li>
+        <span class="section-title">Cross Track Information</span>
+          <ul><li>
+        <a class="nav-link" href="/spec/v1.2/threats">
+          Threats &amp; mitigations
+        </a>
+    </li><li>
+        <a class="nav-link" href="/spec/v1.2/verified-properties">
+          Verified Properties
+        </a>
+    </li>
+  </ul>
+
+    </li><li>
+        <span class="section-title">Attestation formats</span>
+          <ul><li>
+        <a class="nav-link" href="/spec/v1.2/attestation-model">
+          General model
+        </a>
+    </li><li>
+        <a class="nav-link" href="/spec/v1.2/provenance">
+          Provenance
+        </a>
+    </li><li>
+        <a class="nav-link" href="/spec/v1.2/build-provenance">
+          Build Provenance
+        </a>
+    </li><li>
+        <a class="nav-link" href="/spec/v1.2/verification_summary">
+          Verification Summary
+        </a>
+    </li>
+  </ul>
+
+    </li><li>
+        <a class="nav-link" href="/spec/v1.2/zonepage">
+          Single-page view
+        </a>
+    </li>
+  </ul>
+
+    </li><li>
+        <a class="nav-link" href="/spec/v1.1/">
+          SLSA v1.1
+        </a>
+    </li><li>
+        <a class="nav-link" href="/spec/draft/">
+          SLSA Working Draft
+        </a>
+    </li><li>
+        <a class="nav-link" href="/how-to/">
+          How to SLSA
+        </a>
+    </li><li>
+        <a class="nav-link" href="/spec-stages">
+          Specification stages
+        </a>
+    </li><li>
+        <a class="nav-link" href="/community">
+          Community
+        </a>
+    </li><li>
+        <a class="nav-link" href="/blog">
+          Blog
+        </a>
+    </li>
+  </ul>
+
+</nav>
+
+  </div>
+</aside>
+<div class="site-main">
+
+<header
+  class="site-header flex-none"
+  x-data="{
+    fixed: false,
+    hidden: false,
+    lastPos: window.scrollY,
+    scrolledPast: false
+  }"
+  x-ref="navbar"
+  x-on:scroll.window="
+    fixed = window.scrollY > lastPos ? window.scrollY >= $refs.navbar.offsetHeight : window.scrollY > 0;
+    hidden = fixed && window.scrollY > lastPos;
+    if (window.scrollY > $refs.navbar.offsetHeight && !scrolledPast) {
+      setTimeout(() => $refs.navbar.classList.add('is-scrolled-past'), 500);
+      scrolledPast = true;
+    } else if (window.scrollY === 0) {
+      $refs.navbar.classList.remove('is-scrolled-past');
+      scrolledPast = false;
+    }
+    lastPos = window.scrollY;
+  "
+  x-bind:class="{
+    'is-fixed': fixed,
+    'is-hidden': hidden,
+    'menu-open': navOpen
+  }"
+>
+  <div
+    class="site-header-inner h-full flex items-center gap-5"
+  >
+    <button x-on:click="navOpen = !navOpen" :class="{ 'active': navOpen }" class="mobile-menu-button inline-block hide-laptop">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <a rel="author" href="/" class="logo block">
+      <img class="logo-white" src="/images/logo.svg" alt="SLSA logo" />
+    </a>
+    <a class="desktop-github-icon ml-auto" href="https://github.com/slsa-framework/slsa" target="_blank">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M11.2344 0.150879C5.28641 0.150879 0.468811 4.96848 0.468811 10.9165C0.468811 15.6803 3.55046 19.7039 7.82978 21.1303C8.36806 21.2245 8.56991 20.9016 8.56991 20.619C8.56991 20.3633 8.55646 19.5155 8.55646 18.6139C5.8516 19.1118 5.15184 17.9545 4.93653 17.3489C4.81541 17.0394 4.29059 16.084 3.83306 15.8283C3.45626 15.6264 2.91798 15.1285 3.8196 15.1151C4.66739 15.1016 5.27295 15.8956 5.47481 16.2185C6.44371 17.8468 7.99126 17.3893 8.61028 17.1067C8.70448 16.4069 8.98708 15.9359 9.29659 15.6668C6.90125 15.3977 4.39825 14.4691 4.39825 10.3513C4.39825 9.18051 4.81541 8.21161 5.50172 7.45802C5.39407 7.18888 5.01727 6.08541 5.60938 4.60514C5.60938 4.60514 6.51099 4.32254 8.56991 5.70861C9.43116 5.46639 10.3462 5.34527 11.2613 5.34527C12.1764 5.34527 13.0914 5.46639 13.9527 5.70861C16.0116 4.30909 16.9132 4.60514 16.9132 4.60514C17.5053 6.08541 17.1285 7.18888 17.0209 7.45802C17.7072 8.21161 18.1244 9.16706 18.1244 10.3513C18.1244 14.4826 15.6079 15.3977 13.2126 15.6668C13.6028 16.0032 13.9392 16.6492 13.9392 17.6584C13.9392 19.0983 13.9258 20.2556 13.9258 20.619C13.9258 20.9016 14.1276 21.238 14.6659 21.1303C16.8031 20.4088 18.6602 19.0353 19.9758 17.2031C21.2915 15.3708 21.9994 13.1721 22 10.9165C22 4.96848 17.1824 0.150879 11.2344 0.150879Z" />
+      </svg>
+    </a>
+  </div>
+</header>
+<main class="site-clamp" aria-label="Content">
+        <header class="content-header">
+          <h1 class="mb-16">Source: Requirements for producing source</h1>
+        </header>
+        <div class="site-content has-toc">
+          <aside class="table-of-contents flex flex-col">
+            
+<div class="rounded-lg p-4 border border-gray-400 mb-4">
+
+  Status: <a href="/spec-stages" style="display: inline">Approved</a>
+
+</div>
+
+            <div class="flex-auto rounded-lg p-4 border border-gray-400 overflow-auto">
+              <p class="header-small uppercase">On this page</p>
+              <ul><li><a href="#objective">Objective</a></li><li><a href="#definitions">Definitions</a><ul><li><a href="#source-roles">Source Roles</a></li></ul></li><li><a href="#onboarding">Onboarding</a></li><li><a href="#basics">Basics</a><ul><li><a href="#level-1-version-controlled">Level 1: Version controlled</a></li><li><a href="#level-2-history-amp-provenance">Level 2: History &amp; Provenance</a></li><li><a href="#level-3-continuous-technical-controls">Level 3: Continuous technical controls</a></li><li><a href="#level-4-two-party-review">Level 4: Two-party review</a></li></ul></li><li><a href="#requirements">Requirements</a><ul><li><a href="#organization">Organization</a></li><li><a href="#source-control-system">Source Control System</a></li></ul></li><li><a href="#communicating-source-levels">Communicating source levels</a><ul><li><a href="#source-verification-summary-attestation">Source verification summary attestation</a></li><li><a href="#source-provenance-attestations">Source provenance attestations</a></li></ul></li><li><a href="#future-considerations">Future Considerations</a><ul><li><a href="#authentication">Authentication</a></li></ul></li></ul>
+            </div>
+          </aside>
+          <div class="content markdown">
+            <h2 id="objective">Objective</h2>
+<p>The primary purpose of the SLSA Source track is to provide producers and consumers with increasing levels of trust in the source code they produce and consume.
+It describes increasing levels of trustworthiness and completeness of how a source revision was created.</p>
+<p>The expected process for creating a new revision is determined solely by that repository’s owner (the organization) who also determines the intent of the software in the repository and administers technical controls to enforce the process.</p>
+<p>Consumers can review attestations to verify whether a particular revision meets their standards.</p>
+<h2 id="definitions">Definitions</h2>
+<p>A <strong>Version Control System (VCS)</strong> is a system of software and protocols for
+managing the version history of a set of files. Git, Mercurial, and Subversion
+are all examples of version control systems.</p>
+<p>The following terms apply to Version Control Systems:</p>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Source Repository (Repo)</td>
+<td>A self-contained unit that holds the content and revision history for a set of files, along with related metadata like Branches and Tags.</td>
+</tr>
+<tr>
+<td>Source Revision</td>
+<td>A specific, logically immutable snapshot of the repository’s tracked files. It is uniquely identified by a revision identifier, such as a cryptographic hash like a Git commit SHA or a path-qualified sequential number like <code>25@trunk/</code> in SVN. A Source Revision includes both the content (the files) and its associated version control metadata, such as the author, timestamp, and parent revision(s). Note: Path qualification is needed for version control systems that represent Branches and Tags using paths, such as Subversion and Perforce.</td>
+</tr>
+<tr>
+<td>Named Reference</td>
+<td>A user-friendly name for a specific source revision, such as <code>main</code> or <code>v1.2.3</code>.</td>
+</tr>
+<tr>
+<td>Change</td>
+<td>A modification to the state of the Source Repository, such as creation of a new Source Revision based on a previous Source Revision, or creation, deletion, or modification of a Named Reference.</td>
+</tr>
+<tr>
+<td>Change History</td>
+<td>A record of the history of Source Revisions that preceded a specific revision.</td>
+</tr>
+<tr>
+<td>Branch</td>
+<td>A Named Reference that moves to track the Change History of a cohesive line of development within a Source Repository. E.g. <code>main</code>, <code>develop</code>, <code>feature-x</code></td>
+</tr>
+<tr>
+<td><span id="tag">Tag</span></td>
+<td>A Named Reference that is intended to be immutable. Once created, it is not moved to point to a different revision. E.g. <code>v1.2.3</code>, <code>release-20250722</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>NOTE:</strong> The ‘branch’ and ‘tag’ features within version control systems may
+not always align with the ‘Branch’ and ‘Tag’ definitions provided in this
+specification. For example, in git and other version control systems, the UX may
+allow ‘tags’ to be moved. Patterns like <code>latest</code> and <code>nightly</code> tags rely on this.
+For the purposes of this specification these would be classified as ‘Named References’ and not as ‘Tags’.</p>
+</blockquote>
+<p>A <strong>Source Control System (SCS)</strong> is a platform or combination of services
+(self-hosted or SaaS) that hosts a Source Repository and provides a trusted
+foundation for managing source revisions by enforcing policies for
+authentication, authorization, and change management, such as mandatory code
+reviews or passing status checks.</p>
+<p>The following terms apply to Source Control Systems:</p>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Organization</td>
+<td>A set of people who collectively create Source Revisions within a Source Repository. Examples of organizations include open-source projects, a company, or a team within a company. The organization defines the goals of a Source Repository and the methods used to produce new Source Revisions.</td>
+</tr>
+<tr>
+<td>Proposed Change</td>
+<td>A proposal to make a Change in a Source Repository.</td>
+</tr>
+<tr>
+<td>Source Provenance</td>
+<td>Information about how a Source Revision came to exist, where it was hosted, when it was generated, what process was used, who the contributors were, and which parent revisions preceded it.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="source-roles">Source Roles</h3>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Administrator</td>
+<td>A human who can perform privileged operations on one or more projects. Privileged actions include, but are not limited to, modifying the change history and modifying project- or organization-wide security policies.</td>
+</tr>
+<tr>
+<td>Trusted person</td>
+<td>A human who is authorized by the organization to propose and approve changes to the source.</td>
+</tr>
+<tr>
+<td>Trusted robot</td>
+<td>Automation authorized by the organization to act in explicitly defined contexts. The robot’s identity and codebase cannot be unilaterally influenced.</td>
+</tr>
+<tr>
+<td>Untrusted person</td>
+<td>A human who has limited access to the project. They MAY be able to read the source. They MAY be able to propose or review changes to the source. They MAY NOT approve changes to the source or perform any privileged actions on the project.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="onboarding">Onboarding</h2>
+<p>When onboarding a branch to the SLSA Source Track or increasing the level of
+that branch, organizations are making claims about how the branch is managed
+from that revision forward. This establishes <a href="#continuity">continuity</a>.</p>
+<p>No claims are made for prior revisions.</p>
+<h2 id="basics">Basics</h2>
+<p>NOTE: This table presents a simplified view of the requirements. See the
+<a href="#requirements">Requirements</a> section for the full list of requirements for each
+level.</p>
+<table>
+<thead>
+<tr>
+<th>Track/Level</th>
+<th>Requirements</th>
+<th>Focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#source-l1">Source L1</a></td>
+<td>Use a version control system.</td>
+<td>Generation of discrete Source Revisions for precise consumption.</td>
+</tr>
+<tr>
+<td><a href="#source-l2">Source L2</a></td>
+<td>Preserve Change History and generate Source Provenance.</td>
+<td>Reliable history through enforced controls and evidence.</td>
+</tr>
+<tr>
+<td><a href="#source-l3">Source L3</a></td>
+<td>Enforce organizational technical controls.</td>
+<td>Consumer knowledge of guaranteed technical controls.</td>
+</tr>
+<tr>
+<td><a href="#source-l4">Source L4</a></td>
+<td>Require code review.</td>
+<td>Improved code quality and resistance to insider threats.</td>
+</tr>
+</tbody>
+</table>
+<section id="source-l1">
+<h3 id="level-1-version-controlled">Level 1: Version controlled</h3>
+<dl class="as-table">
+<dt>Summary<dd>
+<p>The source is stored and managed through a modern version control system.</p>
+<dt>Intended for<dd>
+<p>Organizations currently storing source in non-standard ways who want to quickly gain some benefits of SLSA and better integrate with the SLSA ecosystem with minimal impact to their current workflows.</p>
+<dt>Benefits<dd>
+<p>Migrating to the appropriate tools is an important first step on the road to operational maturity.</p>
+</dl>
+</section>
+<section id="source-l2">
+<h3 id="level-2-history-amp-provenance">Level 2: History &amp; Provenance</h3>
+<dl class="as-table">
+<dt>Summary<dd>
+<p>Branch history is continuous, immutable, and retained, and the
+SCS issues Source Provenance Attestations for each new Source Revision.
+The attestations provide contemporaneous, tamper-resistant evidence of when
+changes were made, who made them, and which technical controls were enforced.</p>
+<dt>Intended for<dd>
+<p>All organizations of any size producing software of any kind.</p>
+<dt>Benefits<dd>
+<p>Reliable history allows organizations and consumers to track changes to software
+over time, enabling attribution of those changes to the actors that made them.
+Source Provenance provides strong, tamper-resistant evidence of the process that
+was followed to produce a Source Revision.</p>
+</dl>
+</section>
+<section id="source-l3">
+<h3 id="level-3-continuous-technical-controls">Level 3: Continuous technical controls</h3>
+<dl class="as-table">
+<dt>Summary<dd>
+<p>The SCS is configured to enforce the Organization’s technical controls for specific Named References within the Source Repository.</p>
+<dt>Intended for<dd>
+<p>Organizations that want to show evidence of their additional technical controls.</p>
+<dt>Benefits<dd>
+<p>A verifier can use this published data to ensure that a given Source Revision
+was created in the correct way by verifying the Source Provenance or VSA.
+Provides verifiers strong evidence of all technical controls enforced during the update of a Named Reference.</p>
+</dl>
+</section>
+<section id="source-l4">
+<h3 id="level-4-two-party-review">Level 4: Two-party review</h3>
+<dl class="as-table">
+<dt>Summary<dd>
+<p>The SCS requires two trusted persons to review all changes to protected
+branches.</p>
+<dt>Intended for<dd>
+<p>Organizations that want strong guarantees that the software they produce is not
+subject to unilateral changes that would subvert their intent.</p>
+<dt>Benefits<dd>
+<p>Makes it harder for an actor to introduce malicious changes into the software
+and makes it more likely that the source reflects the intent of the
+organization.</p>
+</dl>
+</section>
+<h2 id="requirements">Requirements</h2>
+<p>Many examples in this document use the
+<a href="https://git-scm.com/">git version control system</a>, but use of git is not a
+requirement to meet any level on the SLSA source track.</p>
+<h3 id="organization">Organization</h3>
+<table>
+<tr><th>Requirement<th>Description<th>L1<th>L2<th>L3<th>L4
+<tr id="choose-scs"><td>Choose an appropriate Source Control System <a href="#choose-scs">🔗</a><td>
+<p>An organization producing Source Revisions MUST select an SCS capable of reaching
+their desired SLSA Source Level.</p>
+<blockquote>
+<p>For example, if an organization wishes to produce revisions at Source Level 3,
+they MUST choose a Source Control System capable of producing Source Level 3
+attestations.</p>
+</blockquote>
+<td>✓<td>✓<td>✓<td>✓
+<tr id="access-and-history"><td>Configure the SCS to control access and enforce history <a href="#access-and-history">🔗</a><td>
+<p>The organization MUST configure access controls to restrict sensitive operations
+on the Source Repository. These controls MUST be implemented using the
+SCS-provided <a href="#identity-management">Identity Management capability</a>.</p>
+<blockquote>
+<p>For example, an organization may configure the SCS to assign users to a
+<code>maintainers</code> role and only allow users in <code>maintainers</code> to make updates to
+<code>main</code>.</p>
+</blockquote>
+<p>The SCS MUST be configured to produce a reliable <a href="#history">Change History</a> for
+its consumable Source Revisions.
+If the SCS provides this capability by design, no additional controls are needed.
+Otherwise the organization MUST provide evidence of <a href="#continuity">continuous enforcement</a>.</p>
+<p>If the SCS supports <a href="#tag">Tags</a>, the SCS MUST be configured to prevent them
+from being moved or deleted.</p>
+<blockquote>
+<p>For example, if a git tag <code>release1</code> is used to indicate a release revision
+with ID <code>abc123</code>, controls must be configured to prevent that tag from being
+updated to any other revision in the future.
+Evidence of these controls (and their continuity) will appear in the Source
+Provenance documents for revision <code>abc123</code>.</p>
+</blockquote>
+<td><td>✓<td>✓<td>✓
+<tr id="safe-expunging-process"><td>Safe Expunging Process <a href="#safe-expunging-process">🔗</a><td>
+<p>SCSs MAY allow the organization to expunge (remove) content from a repository
+and its change history without leaving a public record of the removed content,
+but the organization MUST only allow these changes in order to meet legal or
+privacy compliance requirements. Content changed under this process includes
+changing files, history, references, or any other metadata stored by the SCS.</p>
+<h4 id="warning">Warning</h4>
+<p>Removing a revision from a repository is similar to deleting a package version
+from a registry: it’s almost impossible to estimate the amount of downstream
+supply chain impact.</p>
+<blockquote>
+<p>For example, in Git, each revision ID is based on the ones before it.
+When you remove a revision, you must generate new revisions (and new revision IDs)
+for any revisions that were built on top of it. Consumers who took a dependency
+on the old revisions may now be unable to refer to the revision they’ve already
+integrated into their products.</p>
+</blockquote>
+<p>It may be the case that the specific set of changes targeted by a legal takedown
+can be expunged in ways that do not impact consumed revisions, which can mitigate
+these problems.</p>
+<p>It is also the case that removing content from a repository won’t necessarily
+remove it everywhere.
+The content may still exist in other copies of the repository, either in backups
+or on developer machines.</p>
+<h4 id="process">Process</h4>
+<p>An organization MUST document the Safe Expunging Process and describe how
+requests and actions are tracked and SHOULD log the fact that content was
+removed. Different organizations and tech stacks may have different approaches
+to the problem.</p>
+<p>SCSs SHOULD have technical mechanisms in place which require an Administrator
+plus at least one additional ‘trusted person’ to trigger any expunging
+(removals) made under this process.</p>
+<p>The application of the Safe Expunging Process and the resulting logs MAY be
+private to prevent calling attention to potentially sensitive data or to comply
+with local laws and regulations. Organizations SHOULD prefer to make logs public
+if possible.</p>
+<td><td>✓<td>✓<td>✓
+<tr id="technical-controls"><td>Continuous technical controls <a href="#technical-controls">🔗</a><td>
+<p>The organization MUST provide evidence of continuous enforcement via technical
+controls for any claims made in the Source Provenance attestations or VSAs (see
+<a href="#continuity">control continuity</a>).</p>
+<p>The organization MUST document the meaning of their enforced technical controls.</p>
+<blockquote>
+<p>For example, if an organization implements a technical control via a custom
+tool (such as required GitHub Actions workflow), it must indicate the name of
+this tool, what it accomplishes, and how to find its evidence in the provenance
+attestation.</p>
+</blockquote>
+<blockquote>
+<p>For another example, if the organization claims that all consumable Source
+Revisions on the <code>main</code> branch were tested prior to acceptance, this MUST be
+explicitly enforced in the SCS.</p>
+</blockquote>
+<td><td><td>✓<td>✓
+</table>
+<h3 id="source-control-system">Source Control System</h3>
+<table>
+<tr><th>Requirement<th>Description<th>L1<th>L2<th>L3<th>L4
+<tr id="repository-ids"><td>Repositories are uniquely identifiable <a href="#repository-ids">🔗</a><td>
+<p>The repository ID is defined by the SCS and MUST be uniquely identifiable within
+the context of the SCS with a stable locator, such as a URI.</p>
+<td>✓<td>✓<td>✓<td>✓
+<tr id="revision-ids"><td>Revisions are immutable and uniquely identifiable <a href="#revision-ids">🔗</a><td>
+The revision ID is defined by the SCS and MUST be uniquely identifiable within the context of the repository.
+When the revision ID is a digest of the content of the revision (as in git) nothing more is needed.
+When the revision ID is a number or otherwise not a digest, then the SCS MUST document how the immutability of the revision is established.
+The same revision ID MAY be present in multiple repositories.
+<p>See also <a href="https://github.com/in-toto/attestation/blob/main/spec/v1/digest_set.md#use-cases-for-non-cryptographic-immutable-digests">Use cases for non-cryptographic, immutable, digests</a>.</p>
+<td>✓<td>✓<td>✓<td>✓
+<tr id="human-readable-diff"><td>Human readable changes <a href="#human-readable-diff">🔗</a><td>
+<p>The SCS MUST provide tooling to display Changes between one Source Revision and
+another in a human readable form (e.g. ‘diffs’) for all plain-text changes and
+SHOULD provide mechanisms to provide human understandable interpretations of
+non-plain-text changes (e.g. render images, verify and display provenance for
+binaries, etc.).</p>
+<td>✓<td>✓<td>✓<td>✓
+<tr id="source-summary"><td>Source Verification Summary Attestations <a href="#source-summary">🔗</a><td>
+<p>The SCS MUST generate a
+<a href="#source-verification-summary-attestation">source verification summary attestation</a> (Source VSA)
+to indicate the SLSA Source Level of any revision at Level 1 or above.</p>
+<p>If a consumer is authorized to access a revision, they MUST be able to fetch the
+corresponding Source VSA.</p>
+<p>If the SCS DOES NOT generate a VSA for a revision, the revision has Source Level
+0.</p>
+<p>At Source Levels 1 and 2 the SCS MAY issue these attestations based on its
+understanding of the underlying system (e.g. based on design docs, security
+reviews, etc.), but at Level 2+ the SCS MUST use the SCS-issued
+<a href="#source-provenance">source provenance</a> when issuing the VSAs.</p>
+<td>✓<td>✓<td>✓<td>✓
+<tr id="history"><td>History <a href="#history">🔗</a><td>
+<p>There are three key aspects to change history:</p>
+<ol>
+<li>What were all the previous states of a Branch?</li>
+<li>How and when did they change?</li>
+<li>How does the current revision relate to previous revisions?</li>
+</ol>
+<p>To answer these questions, the SCS MUST record all changes to Named References,
+including when they occurred, who made them, and the new Source Revision ID.</p>
+<p>If Source Revisions have ancestry relationships in the VCS, the SCS MUST ensure
+that a Branch can only be updated to point to revisions that descend from the
+current revision.
+In git, this requires a technical control to prohibit <code>git push --force</code>.</p>
+<p>This requirement captures evidence that the organization intended to make the
+changes captured by the new revision.</p>
+<blockquote>
+<p>For example, if a branch currently points to revision <code>a</code>, it may only be
+moved to a new revision <code>b</code> if <code>a</code> is an ancestor of <code>b</code>.</p>
+</blockquote>
+<td><td>✓<td>✓<td>✓
+<tr id="continuity"><td>Continuity <a href="#continuity">🔗</a><td>
+<p>Technical Controls are only effective if they are used continuously in the
+history of a Branch.
+‘Control continuity’ reflects an organization’s ongoing commitment to a
+technical control.</p>
+<p>For each technical control claimed in a VSA, continuity MUST be established and
+tracked from a specific start revision.
+If there is a lapse in continuity for a specific control, continuity of that
+control MUST be re-established from a new revision.</p>
+<p>Exceptions to the continuity requirement are allowed via the <a href="#safe-expunging-process">safe expunging process</a>.</p>
+<blockquote>
+<p>For example, the <code>main</code> branch currently points to revision <code>a</code> when a new
+technical control <code>t</code> is configured.
+The next revision on the <code>main</code> branch, <code>b</code> will be the first revision that was
+protected by <code>t</code> and <code>b</code> is the first revision in the “continuity” of <code>t</code>.
+Any revisions added to <code>main</code> while <code>t</code> is disabled will reset the continuity of <code>t</code>.</p>
+</blockquote>
+<td><td>✓<td>✓<td>✓
+<tr id="identity-management"><td>Identity Management <a href="#identity-management">🔗</a><td>
+<p>The SCS MUST provide an identity management system or some other means of
+identifying and authenticating actors.</p>
+<p>The SCS MUST allow organizations to specify which actors and roles are allowed
+to perform sensitive actions within a repository (e.g. creation or updates of
+branches, approval of changes).</p>
+<p>Depending on the SCS, identity management may be provided by source control
+services (e.g., GitHub, GitLab), implemented using cryptographic signatures
+(e.g., using gittuf to manage public keys for actors), or extending existing
+authentication systems used by the organization (e.g., Active Directory, Okta,
+etc.).</p>
+<p>The SCS MUST document how actors are identified for the purposes of attribution.</p>
+<p>Activities conducted on the SCS SHOULD be attributed to authenticated
+identities.</p>
+<td><td>✓<td>✓<td>✓
+<tr id="source-provenance"><td>Source Provenance <a href="#source-provenance">🔗</a><td>
+<p><a href="#source-provenance-attestations">Source Provenance</a> are attestations that
+contain information about how a specific revision was created and how it came to
+exist on a protected branch or how a tag came to point at it. They are
+associated with the revision identifier delivered to consumers and are a
+statement of fact from the perspective of the SCS. The SCS MUST document the
+format and intent of all Source Provenance attestations it produces.</p>
+<p>Source Provenance MUST be created contemporaneously with the branch being
+updated such that they provide a credible, auditable, record of changes.</p>
+<p>If a consumer is authorized to access a revision, they MUST be able to access the
+corresponding Source Provenance documents for that revision.</p>
+<p>It is possible that an SCS can make no claims about a particular revision.</p>
+<blockquote>
+<p>For example, this would happen if the revision was created on another SCS,
+on an unprotected branch (such as a <code>topic</code> branch), or if the revision was not
+the result of the expected process.</p>
+</blockquote>
+<td><td>✓<td>✓<td>✓
+<tr id="protected-refs"><td>Protected Named References <a href="#protected-refs">🔗</a><td>
+<p>The SCS MUST provide the ability for an organization to enforce customized technical controls for Named References.</p>
+<p>The SCS MUST provide a mechanism for organizations to indicate which Named
+References should be protected by technical controls.</p>
+<blockquote>
+<p>For example, the organization may instruct the SCS to protect <code>main</code> and
+<code>refs/heads/releases/*</code>, but not <code>refs/heads/experimental/*</code> using branch
+protection rules (e.g. <a href="https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets">GitHub</a>,
+<a href="https://docs.gitlab.com/ee/user/project/repository/branches/protected.html">GitLab</a>)
+or via the application and verification of <a href="https://github.com/gittuf/gittuf">gittuf</a>
+policies.</p>
+</blockquote>
+<blockquote>
+<p>For another example, the organization may instruct the SCS to prevent the deletion of
+all <code>refs/tags/releases/*</code> using tag protection rules
+(e.g. <a href="https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets">GitHub</a>,
+<a href="https://docs.gitlab.com/user/project/protected_tags/">GitLab</a>)
+or via the application and verification of <a href="https://github.com/gittuf/gittuf">gittuf</a>
+policies.</p>
+</blockquote>
+<p>The SCS MUST</p>
+<ul>
+<li>Record technical controls enforced on Named References in contemporaneously
+produced attestations associated with the corresponding Source Revisions.</li>
+<li>Allow organizations to provide
+<a href="#additional-properties">organization-specified properties</a> to be included in the
+<a href="#source-verification-summary-attestation">Source VSA</a> when the corresponding controls are
+enforced.</li>
+<li>Allow organizations to distribute additional attestations related to their
+technical controls to consumers authorized to access the corresponding Source
+Revision.</li>
+<li>Prevent organization-specified properties from beginning with any value
+other than <code>ORG_SOURCE_</code>.</li>
+</ul>
+<td><td><td>✓<td>✓
+<tr id="two-party-review"><td>Two-party review <a href="#two-party-review">🔗</a><td>
+<p>Changes in protected branches MUST be agreed to by two or more trusted persons prior to submission.
+The following combinations are acceptable:</p>
+<ul>
+<li>Uploader and reviewer are two different trusted persons.</li>
+<li>Two different reviewers are trusted persons.</li>
+</ul>
+<p>Reviews SHOULD cover, at least, security relevant properties of the code.</p>
+<p><strong>[Final revision approved]</strong> This requirement applies to the final revision
+submitted. I.e., if additional changes are made during the review process, those changes MUST
+be reviewed as well.</p>
+<p><strong>[Context-specific approvals]</strong> Approvals are for a specific context, such as a
+repo + branch in git. Moving fully reviewed content from one context to another
+still requires review. The exact definition of “context” depends on the project,
+and this does not preclude well-understood automatic merges, such as cutting a release branch.</p>
+<p><strong>[Informed Review]</strong> The SCS MUST present reviewers with a clear representation of the result of accepting the proposed change. See <a href="#human-readable-diff">Human Readable Changes</a>.</p>
+<p><strong>[Trusted Robot Contributions]</strong> An organization MAY choose to grant a Trusted
+Robot a perpetual exception to a policy (e.g. a bot may be able to merge a change
+that has not been reviewed by two parties).</p>
+<p>Examples:</p>
+<ul>
+<li>Import and migration bots that move code from one repo to another.</li>
+<li>Dependabot</li>
+</ul>
+<td><td><td><td>✓
+</table>
+<h2 id="communicating-source-levels">Communicating source levels</h2>
+<p>SLSA source level details are communicated using attestations.
+These attestations either refer to a source revision itself or provide context needed to evaluate an attestation that <em>does</em> refer to a revision.</p>
+<p>There are two broad categories of source attestations within the source track:</p>
+<ol>
+<li>Source verification summary attestations (Source VSAs): Used to communicate to downstream users what high level security properties a given source revision meets.</li>
+<li>Source provenance attestations: Provide trustworthy, tamper-proof, metadata with the necessary information to determine what high level security properties a given source revision has.</li>
+</ol>
+<p>To provide interoperability and ensure ease of use, it’s essential that the Source VSAs are applicable across all Source Control Systems.
+However, due to the significant differences in how SCSs operate and how they may choose to meet the Source Track requirements, it is preferable to
+allow for flexibility with the full source provenance attestations. To that end, SLSA leaves source provenance attestations undefined and up to the SCSs to determine
+what works best in their environment.</p>
+<h3 id="source-verification-summary-attestation">Source verification summary attestation</h3>
+<p>Source verification summary attestations (Source VSAs) are issued by some authority that has sufficient evidence to make the determination of a given
+revision’s source level.  Source VSAs convey properties about the revision as a whole and summarize properties computed over all
+the changes that contributed to that revision over its history.</p>
+<p>The source track issues Source VSAs using the <a href="/spec/v1.2/verification_summary">Verification Summary Attestations</a> format as follows:</p>
+<ol>
+<li><code>subject.uri</code> SHOULD be set to a URI where a human can find details about
+the revision. This field is not intended for policy decisions. Instead, it
+is only intended to direct a human investigating verification failures.
+<ul>
+<li>For example: <code>https://github.com/slsa-framework/slsa/commit/6ff3cd75c8c9e0fcedc62bd6a79cf006f185cedb</code></li>
+</ul>
+</li>
+<li><code>subject.digest</code> MUST include the revision identifier (e.g. <code>gitCommit</code>) and MAY include other digests over the contents of the revision (e.g. <code>gitTree</code>, <code>dirHash</code>, etc.).
+SCSs that do not use cryptographic digests MUST define a canonical type that is used to identify immutable revisions and MUST include the repository within the type<sup class="footnote-ref"><a href="#fn1" id="fnref1">1</a></sup>.
+<ul>
+<li>For example: <code>svn_revision_id: svn+https://svn.myproject.org/svn/MyProject/trunk@2019</code></li>
+</ul>
+</li>
+<li><code>subject.annotations.sourceRefs</code> SHOULD be set to a list of references that pointed to this revision when the attestation was created. The list MAY be non-exhaustive.
+<ul>
+<li>git references MUST be fully qualified (e.g. <code>refs/heads/main</code> or <code>refs/tags/v1.0</code>) to reduce the likelihood of confusing downstream tooling.</li>
+</ul>
+</li>
+<li><code>resourceUri</code> MUST be set to the URI of the repository, preferably using <a href="https://spdx.github.io/spdx-spec/v2.3/package-information/#77-package-download-location-field">SPDX Download Location</a>.
+E.g. <code>git+https://github.com/foo/hello-world</code>.</li>
+<li><code>verifiedLevels</code> MUST include the SLSA source track level the SCS asserts the revision meets. One of <code>SLSA_SOURCE_LEVEL_0</code>, <code>SLSA_SOURCE_LEVEL_1</code>, <code>SLSA_SOURCE_LEVEL_2</code>, <code>SLSA_SOURCE_LEVEL_3</code>.
+MAY include additional properties as asserted by the SCS.  The SCS MUST include <em>only</em> the highest SLSA source level met by the revision.</li>
+<li><code>dependencyLevels</code> MAY be empty as source revisions are typically terminal nodes in a supply chain. For example, this could be used to indicate the source level of any git submodules present in the revision.</li>
+</ol>
+<h4 id="additional-properties">Additional properties</h4>
+<p>The SLSA source track MAY create additional properties to include in
+<code>verifiedLevels</code> which attest to other claims concerning a revision.</p>
+<p>The SCS MAY embed additional properties within <code>verifiedLevels</code> provided by the
+organization as long as they are prefixed by <code>ORG_SOURCE_</code>  to distinguish them
+from other properties the SCS may wish to use. The SCS MUST enforce the use of
+this prefix for such properties. An organization MAY further differentiate
+properties using:</p>
+<ul>
+<li><code>ORG_SOURCE_</code> to indicate a property that is meant for consumption by
+external consumers.</li>
+<li><code>ORG_SOURCE_INTERNAL_</code> to indicate a property that is not meant for
+consumption by external consumers.</li>
+</ul>
+<p>The meaning of the properties is left entirely to the organization.</p>
+<h4 id="populating-sourcerefs">Populating sourceRefs</h4>
+<p>The Source VSA issuer may choose to populate <code>sourceRefs</code> in any way they wish.
+Downstream users are expected to be familiar with the method used by the issuer.</p>
+<p>Example implementations:</p>
+<ul>
+<li>Issue a new VSA for each merged Pull Request and add the destination branch to <code>sourceRefs</code>.</li>
+<li>Issue a new VSA each time a Named Reference is updated to point to a new revision.</li>
+</ul>
+<h4 id="example">Example</h4>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">"_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://in-toto.io/Statement/v1"</span><span class="err">,</span><span class="w">
+</span><span class="nl">"subject"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+  </span><span class="nl">"uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://github.com/foo/hello-world/commit/9a04d1ee393b5be2773b1ce204f61fe0fd02366a"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"digest"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"gitCommit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9a04d1ee393b5be2773b1ce204f61fe0fd02366a"</span><span class="p">},</span><span class="w">
+  </span><span class="nl">"annotations"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"sourceRefs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"refs/heads/main"</span><span class="p">,</span><span class="w"> </span><span class="s2">"refs/heads/release_1.0"</span><span class="p">]}</span><span class="w">
+</span><span class="p">}]</span><span class="err">,</span><span class="w">
+
+</span><span class="nl">"predicateType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://slsa.dev/verification_summary/v1"</span><span class="err">,</span><span class="w">
+</span><span class="nl">"predicate"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"verifier"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com/source_verifier"</span><span class="p">,</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"timeVerified"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1985-04-12T23:20:50.52Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"resourceUri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"git+https://github.com/foo/hello-world"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"policy"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.com/slsa_source.policy"</span><span class="p">,</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"verificationResult"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PASSED"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"verifiedLevels"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"SLSA_SOURCE_LEVEL_3"</span><span class="p">],</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+<h4 id="how-to-verify">How to verify</h4>
+<p>See <a href="/spec/v1.2/verifying-source">Verifying Source</a> for instructions how to verify
+VSAs for Source Revisions.</p>
+<h3 id="source-provenance-attestations">Source provenance attestations</h3>
+<p>Source provenance attestations provide tamper-proof evidence (<a href="attestation-model">attestation model</a>)
+that can be used to determine what SLSA Source Level or other high-level properties a given revision meets.
+This evidence can be used by:</p>
+<ul>
+<li>an authority as the basis for issuing a <a href="#source-verification-summary-attestation">Source VSA</a></li>
+<li>a consumer to cross-check a <a href="#source-verification-summary-attestation">Source VSA</a> they received for a revision</li>
+<li>a consumer to enforce a more detailed policy than the organization’s own process</li>
+</ul>
+<p>SCSs may have different methods of operating that necessitate different forms of evidence.
+E.g. GitHub-based workflows may need different evidence than Gerrit-based workflows, which would both likely be different from workflows that
+operate over Subversion repositories.</p>
+<p>These differences also mean that, depending on the configuration, the issuers of provenance attestations may vary from implementation to implementation, often because entities with the knowledge to issue them may vary.
+The authority that issues <a href="#source-verification-summary-attestation">Source VSAs</a> MUST understand which entity should issue each provenance attestation type, and ensure all source provenance attestations come from their expected issuers.</p>
+<p>‘Source provenance attestations’ is a generic term used to refer to any type of attestation that provides evidence of the process used to create a revision.</p>
+<p>Example source provenance attestations:</p>
+<ul>
+<li>A TBD attestation which describes the revision’s parents and the actors involved in creating this revision.</li>
+<li>A “code review” attestation which describes the basics of any code review that took place.</li>
+<li>An “authentication” attestation which describes how the actors involved in any revision were authenticated.</li>
+<li>A <a href="https://github.com/in-toto/attestation/blob/main/spec/predicates/vuln.md">Vuln Scan attestation</a>
+which describes the results of a vulnerability scan over the contents of the revision.</li>
+<li>A <a href="https://github.com/in-toto/attestation/blob/main/spec/predicates/test-result.md">Test Results attestation</a>
+which describes the results of any tests run on the revision.</li>
+<li>An <a href="https://github.com/in-toto/attestation/blob/main/spec/predicates/spdx.md">SPDX attestation</a>
+which provides a software bill of materials for the revision.</li>
+<li>A <a href="https://github.com/in-toto/attestation/blob/main/spec/predicates/scai.md">SCAI attestation</a> used to
+describe which source quality tools were run on the revision.</li>
+</ul>
+<p>Irrespective of the types of provenance attestations generated by an SCS and
+their implementations, the SCS MUST document provenance
+formats, and how each provenance attestation can be used to reason about the
+revision’s properties recorded in the summary attestation.</p>
+<h2 id="future-considerations">Future Considerations</h2>
+<h3 id="authentication">Authentication</h3>
+<ul>
+<li>Better protection against phishing by forbidding second factors that are not
+phishing resistant.</li>
+<li>Protect against authentication token theft by forbidding bearer tokens
+(e.g. PATs).</li>
+<li>Including length of continuity in the VSAs</li>
+</ul>
+<section class="footnotes">
+<ol>
+<li id="fn1">
+<p>in-toto attestations allow non-cryptographic digest types: <a href="https://github.com/in-toto/attestation/blob/main/spec/v1/digest_set.md#supported-algorithms">https://github.com/in-toto/attestation/blob/main/spec/v1/digest_set.md#supported-algorithms</a>. <a href="#fnref1" class="footnote-backref">↩</a></p>
+</li>
+</ol>
+</section>
+
+  
+
+  
+
+  
+    
+    
+  <div class="mt-10 pt-10 border-t flex flex-col sm:flex-row space-between gap-5">
+      <a href="/spec/v1.2/assessing-build-platforms" class="border rounded px-4 py-2 text-left">&lsaquo; Assessing build platforms</a>
+      <a href="/spec/v1.2/verifying-source" class="sm:ml-auto border rounded px-4 py-2 text-right">Verifying source &rsaquo;</a>
+  </div>
+
+</div>
+        </div>
+      </main><footer class="site-footer flex-none h-card text-white">
+  <div class="site-clamp py-4 flex flex-wrap items-start justify-between w-full">
+    <div class="w-full md:w-1/3 mb-8 md:mb-0">
+      <p><strong>SLSA is a cross-industry collaboration.</strong><br>
+        © 2026 The Linux Foundation, under the terms of the <a href="https://github.com/slsa-framework/governance">Community Specification License 1.0</a></p>
+    </div>
+    <div class="w-full md:w-1/3 mb-8 md:mb-0">
+      <p><strong>Privacy statement</strong><br>
+        We use <a href="https://goatcounter.com">GoatCounter</a> to help us improve our website by collecting and reporting information on how it's used.
+        We do not store advertising or tracking cookies. The information we collect does not identify anyone and does not track an individual's use of the site.</p>
+    </div>
+    <div class="w-full md:w-1/4 mb-8 md:mb-0 flex md:justify-end">
+      <p>
+        
+        
+        <a href="https://github.com/slsa-framework/slsa/blob/releases/v1.2/spec/source-requirements.md?plain=1" target="_blank" class="flex gap-4 h5 font-normal">
+          View source on GitHub
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M11.2344 0.150879C5.28641 0.150879 0.468811 4.96848 0.468811 10.9165C0.468811 15.6803 3.55046 19.7039 7.82978 21.1303C8.36806 21.2245 8.56991 20.9016 8.56991 20.619C8.56991 20.3633 8.55646 19.5155 8.55646 18.6139C5.8516 19.1118 5.15184 17.9545 4.93653 17.3489C4.81541 17.0394 4.29059 16.084 3.83306 15.8283C3.45626 15.6264 2.91798 15.1285 3.8196 15.1151C4.66739 15.1016 5.27295 15.8956 5.47481 16.2185C6.44371 17.8468 7.99126 17.3893 8.61028 17.1067C8.70448 16.4069 8.98708 15.9359 9.29659 15.6668C6.90125 15.3977 4.39825 14.4691 4.39825 10.3513C4.39825 9.18051 4.81541 8.21161 5.50172 7.45802C5.39407 7.18888 5.01727 6.08541 5.60938 4.60514C5.60938 4.60514 6.51099 4.32254 8.56991 5.70861C9.43116 5.46639 10.3462 5.34527 11.2613 5.34527C12.1764 5.34527 13.0914 5.46639 13.9527 5.70861C16.0116 4.30909 16.9132 4.60514 16.9132 4.60514C17.5053 6.08541 17.1285 7.18888 17.0209 7.45802C17.7072 8.21161 18.1244 9.16706 18.1244 10.3513C18.1244 14.4826 15.6079 15.3977 13.2126 15.6668C13.6028 16.0032 13.9392 16.6492 13.9392 17.6584C13.9392 19.0983 13.9258 20.2556 13.9258 20.619C13.9258 20.9016 14.1276 21.238 14.6659 21.1303C16.8031 20.4088 18.6602 19.0353 19.9758 17.2031C21.2915 15.3708 21.9994 13.1721 22 10.9165C22 4.96848 17.1824 0.150879 11.2344 0.150879Z" fill="white"/>
+          </svg>
+        </a>
+        <br>
+        This site is powered by <a href="https://www.netlify.com">Netlify</a>
+      </p>
+    </div>
+  </div>
+  <div class="site-clamp py-4 flex items-start justify-between w-full mb-16 md:mb-0">
+    <a rel="author" href="/"><img src="/images/logo.svg" alt="SLSA logo" /></a>
+  </div>
+</footer>
+</div>
+  </body>
+
+</html>

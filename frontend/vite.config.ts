@@ -14,7 +14,8 @@ export default defineConfig({
   server: {
     port: 5173,
     proxy: {
-      "/api": "http://localhost:8000",
+      // The e2e container reaches the backend by its service name, not localhost.
+      "/api": process.env.API_PROXY_TARGET ?? "http://localhost:8000",
     },
   },
   test: {

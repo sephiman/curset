@@ -1,0 +1,359 @@
+{
+ "source": "w3c-trace-context",
+ "anchors": [
+  {
+   "anchor": "top",
+   "title": "",
+   "level": 0,
+   "sha256": "8fc8771306b696e2490f8d592196a5dea1fd13fc912f196efa0441faea69f4e2"
+  },
+  {
+   "anchor": "title",
+   "title": "Trace Context",
+   "level": 1,
+   "sha256": "551984723dcb4f6f9eff179f87fb388a815b1af919d981b3bcbae8103af7aabd"
+  },
+  {
+   "anchor": "abstract",
+   "title": "Abstract",
+   "level": 2,
+   "sha256": "4c949bfa2f835d6828fe3c1552b0e3342e1f6eb622ce1335f8d716b8b2a1503d"
+  },
+  {
+   "anchor": "sotd",
+   "title": "Status of This Document",
+   "level": 2,
+   "sha256": "852bc3cafc6e8a947e65bf4b8843af3477448fa134f39f112f82939ec53da52e"
+  },
+  {
+   "anchor": "x1-conformance",
+   "title": "1. Conformance",
+   "level": 2,
+   "sha256": "6a7d51235bc5e42d3b2736ae916f215d6a461a1b9446d42328a1a75db15d2a43"
+  },
+  {
+   "anchor": "x2-overview",
+   "title": "2. Overview",
+   "level": 2,
+   "sha256": "dd4987505c126e4ca6b7e61316f776c9b317c151a2118d5cf7db3fee08b11d7f"
+  },
+  {
+   "anchor": "x2-1-problem-statement",
+   "title": "2.1 Problem Statement",
+   "level": 3,
+   "sha256": "04468ee0dcf22a56e0caf07521c7722f2313bb5baa954d3d66181eacadf5c760"
+  },
+  {
+   "anchor": "x2-2-solution",
+   "title": "2.2 Solution",
+   "level": 3,
+   "sha256": "c3940f79adc22cefa0a4b65799489dd72dc6541366ca87113da669c8ea598ac5"
+  },
+  {
+   "anchor": "x2-3-design-overview",
+   "title": "2.3 Design Overview",
+   "level": 3,
+   "sha256": "9948bbfd47b1dd5282175b4c4e540434cea67b67789aa82a3678e3458c20c2be"
+  },
+  {
+   "anchor": "x3-trace-context-http-headers-format",
+   "title": "3. Trace Context HTTP Headers Format",
+   "level": 2,
+   "sha256": "bad4c6da08fd229f251be727fd81a874573a9893f02f94c08097f6c76b757fd1"
+  },
+  {
+   "anchor": "x3-1-relationship-between-the-headers",
+   "title": "3.1 Relationship Between the Headers",
+   "level": 3,
+   "sha256": "908a89142dfdbcae62d822e9ff1ae6e0d469468f48ac9090141764f097f9f014"
+  },
+  {
+   "anchor": "x3-2-traceparent-header",
+   "title": "3.2 Traceparent Header",
+   "level": 3,
+   "sha256": "8a24d471b312838f1fa79df0759aa26e22098e9ac5aa3c43c4ab44f9600c3c0b"
+  },
+  {
+   "anchor": "x3-2-1-header-name",
+   "title": "3.2.1 Header Name",
+   "level": 4,
+   "sha256": "93cc9b40cbc67ee4a1e6a788cb499fff29d032f6782ed729be17f392a077eb97"
+  },
+  {
+   "anchor": "x3-2-2-traceparent-header-field-values",
+   "title": "3.2.2 traceparent Header Field Values",
+   "level": 4,
+   "sha256": "57aa50cc273434afcd60a61bb98b401710cbaf1410858e1e9426545d3f91cab4"
+  },
+  {
+   "anchor": "x3-2-2-1-version",
+   "title": "3.2.2.1 version",
+   "level": 5,
+   "sha256": "49944e9a637fb1a141d7665e63e9989c3991c320ecf7714cb2699d09b06e95b3"
+  },
+  {
+   "anchor": "x3-2-2-2-version-format",
+   "title": "3.2.2.2 version-format",
+   "level": 5,
+   "sha256": "8b02ef772a66605e49107ae24e625173c99599c488408ccfff8e378e564e76d9"
+  },
+  {
+   "anchor": "x3-2-2-3-trace-id",
+   "title": "3.2.2.3 trace-id",
+   "level": 5,
+   "sha256": "16a0dbdbe3830a783b003f6a8633c9bc36162f95164a1362570ba1f47f81b287"
+  },
+  {
+   "anchor": "x3-2-2-4-parent-id",
+   "title": "3.2.2.4 parent-id",
+   "level": 5,
+   "sha256": "f171fe40bf04332df0c1c64205f49f488938d3490255f88d6829ae309452aaea"
+  },
+  {
+   "anchor": "x3-2-2-5-trace-flags",
+   "title": "3.2.2.5 trace-flags",
+   "level": 5,
+   "sha256": "4e98f675e192d71fe13e784120c97a01b0532634a61bb7b54a7bc20c1e9185fb"
+  },
+  {
+   "anchor": "x3-2-2-5-1-sampled-flag",
+   "title": "3.2.2.5.1 Sampled flag",
+   "level": 6,
+   "sha256": "38998a1167390b924d237a78fe69f5769f4d3f315b7120871cd51325ea98b52b"
+  },
+  {
+   "anchor": "x3-2-2-5-2-other-flags",
+   "title": "3.2.2.5.2 Other Flags",
+   "level": 6,
+   "sha256": "1c834562acf54d82905b016f32b6ca8235695658fc07a9b5ae78e40bf7a81817"
+  },
+  {
+   "anchor": "x3-2-3-examples-of-http-traceparent-headers",
+   "title": "3.2.3 Examples of HTTP traceparent Headers",
+   "level": 4,
+   "sha256": "8c18d369e7bf2d961d82f2df7ad4adb79aa690128e66d79fd25de4cd884f7672"
+  },
+  {
+   "anchor": "x3-2-4-versioning-of-traceparent",
+   "title": "3.2.4 Versioning of traceparent",
+   "level": 4,
+   "sha256": "9c436d03ef4bab2945e9b588e809a0a2c727fa8a6cdd04786425f63cd79be30e"
+  },
+  {
+   "anchor": "x3-3-tracestate-header",
+   "title": "3.3 Tracestate Header",
+   "level": 3,
+   "sha256": "86de3bff90e61fbe60d53db6a852b095383527d8deabae2b8d5a4a8452cc871d"
+  },
+  {
+   "anchor": "x3-3-1-header-name",
+   "title": "3.3.1 Header Name",
+   "level": 4,
+   "sha256": "3b60e9de6473fc388366aec3a877dceb6074199d0f273d067ed0ffff897987d8"
+  },
+  {
+   "anchor": "x3-3-1-1-tracestate-header-field-values",
+   "title": "3.3.1.1 tracestate Header Field Values",
+   "level": 5,
+   "sha256": "3e61137cddfbed913fd38db7869b26fd276178167534d371cefb887aa0c1bd30"
+  },
+  {
+   "anchor": "x3-3-1-2-list",
+   "title": "3.3.1.2 list",
+   "level": 5,
+   "sha256": "9492a12bff7ccef3010e3057f6c22c586075c196a4f9801975ff9e9d6c00667e"
+  },
+  {
+   "anchor": "x3-3-1-3-list-members",
+   "title": "3.3.1.3 list-members",
+   "level": 5,
+   "sha256": "e66497d174b19073fe7b3cdc1bb5d2566376ad438f45f2326658fa0b2a30e670"
+  },
+  {
+   "anchor": "x3-3-1-3-1-key",
+   "title": "3.3.1.3.1 Key",
+   "level": 6,
+   "sha256": "8ddd1d877db59e60517d5202a42ef0373f88670c20a8c6d7cbdb531805f524ed"
+  },
+  {
+   "anchor": "x3-3-1-3-2-value",
+   "title": "3.3.1.3.2 Value",
+   "level": 6,
+   "sha256": "97eab0f20848343757985a93fc4786234e8ca2be69deb42bd4f95cb4fc1bdeb4"
+  },
+  {
+   "anchor": "x3-3-1-4-combined-header-value",
+   "title": "3.3.1.4 Combined Header Value",
+   "level": 5,
+   "sha256": "70107200c50319570e4a30da76f549464eb95231b4c8456049a31bd91bea1a8c"
+  },
+  {
+   "anchor": "x3-3-1-5-tracestate-limits",
+   "title": "3.3.1.5 tracestate Limits:",
+   "level": 5,
+   "sha256": "406fcba174c6326aae83286a6c12aedf2ec3cf74b30722c01fc99d8ff8926fe4"
+  },
+  {
+   "anchor": "x3-3-2-examples-of-tracestate-http-headers",
+   "title": "3.3.2 Examples of tracestate HTTP Headers",
+   "level": 4,
+   "sha256": "717462c04cae22e6fe23562eaebffef4d82ad23be9616c22ce17a466738c0126"
+  },
+  {
+   "anchor": "x3-3-3-versioning-of-tracestate",
+   "title": "3.3.3 Versioning of tracestate",
+   "level": 4,
+   "sha256": "4e34b7377792a44ed8d8159afe74f3694eca91cdfd6ba02501e3da0bc5afa306"
+  },
+  {
+   "anchor": "x3-4-mutating-the-traceparent-field",
+   "title": "3.4 Mutating the traceparent Field",
+   "level": 3,
+   "sha256": "22bddabf46c671e4e595364d5711ccf934fdb7f9ebd8edb7b151ae43236e922e"
+  },
+  {
+   "anchor": "x3-5-mutating-the-tracestate-field",
+   "title": "3.5 Mutating the tracestate Field",
+   "level": 3,
+   "sha256": "aefb12d3a48bcc8e14b290c989c63ba6e809db25b39a2d5865b61fe1e21cc8fd"
+  },
+  {
+   "anchor": "x4-processing-model",
+   "title": "4. Processing Model",
+   "level": 2,
+   "sha256": "a55ea23a014a11c5cfe378add737f1de43f1fb32f872cd1414e694872cde11c4"
+  },
+  {
+   "anchor": "x4-1-processing-model-for-working-with-trace-context",
+   "title": "4.1 Processing Model for Working with Trace Context",
+   "level": 3,
+   "sha256": "34a053d1c313fb6cccfc78738e47b0b6a6f45272ff383a5f48931e128dc44a52"
+  },
+  {
+   "anchor": "x4-2-no-traceparent-received",
+   "title": "4.2 No traceparent Received",
+   "level": 3,
+   "sha256": "c68611a24a5459656a34bdae1cd3c0a5919fe4e9603bfe781b325ea5c6f4d77c"
+  },
+  {
+   "anchor": "x4-3-a-traceparent-is-received",
+   "title": "4.3 A traceparent is Received",
+   "level": 3,
+   "sha256": "14264dd24bfc85803b49286b7e1dd2f883d763e9f5e390bbc570eb4859e53360"
+  },
+  {
+   "anchor": "x4-4-alternative-processing",
+   "title": "4.4 Alternative Processing",
+   "level": 3,
+   "sha256": "4e4a2b9f5fb0d1de600bed9b16d61087d6329064955436c0aac7ce81a629a46d"
+  },
+  {
+   "anchor": "x5-other-communication-protocols",
+   "title": "5. Other Communication Protocols",
+   "level": 2,
+   "sha256": "cab4d3bc5957a0bdac4828bb29ebae7da8f6f7b10ee4ce69f44ac514d062ca30"
+  },
+  {
+   "anchor": "x6-privacy-considerations",
+   "title": "6. Privacy Considerations",
+   "level": 2,
+   "sha256": "073167b4abe06e0237eb37202d399669609a424d9a251daf34beb449f0857870"
+  },
+  {
+   "anchor": "x6-1-privacy-of-traceparent-field",
+   "title": "6.1 Privacy of traceparent field",
+   "level": 3,
+   "sha256": "8970c7e9dcfc19e50cdcab389fe85ec28a0c095230fee4711ae6118a60254174"
+  },
+  {
+   "anchor": "x6-2-privacy-of-tracestate-field",
+   "title": "6.2 Privacy of tracestate field",
+   "level": 3,
+   "sha256": "509ab7b40c73777d432b1fc8794deaba92de0700dc144f2339d9c079effc87f0"
+  },
+  {
+   "anchor": "x6-3-other-risks",
+   "title": "6.3 Other risks",
+   "level": 3,
+   "sha256": "55879b8f9308f1e9b8500aecf7fca178e66cac296f28d200b0e0a8db7ff9c9f4"
+  },
+  {
+   "anchor": "x7-security-considerations",
+   "title": "7. Security Considerations",
+   "level": 2,
+   "sha256": "e1a9e84be78134dc751995b8559cf0fd895dc0fe5ecd6acd5b03e4c544971350"
+  },
+  {
+   "anchor": "x7-1-information-exposure",
+   "title": "7.1 Information Exposure",
+   "level": 3,
+   "sha256": "203b5860564e122d23e7563731b84e2b31b0e6bfe91b6d9a72bef545b1bb6688"
+  },
+  {
+   "anchor": "x7-2-denial-of-service",
+   "title": "7.2 Denial of Service",
+   "level": 3,
+   "sha256": "41ba570cf7db7a1c4b040a83ecbdae8953ab8eb5f341c819808fb3b6c5642a87"
+  },
+  {
+   "anchor": "x7-3-other-risks",
+   "title": "7.3 Other Risks",
+   "level": 3,
+   "sha256": "da760b8c0f49ee5a048e4bd86a86216ee2beaabc0e5a8bc76ead8dc257e089f6"
+  },
+  {
+   "anchor": "x8-considerations-for-trace-id-field-generation",
+   "title": "8. Considerations for trace-id field generation",
+   "level": 2,
+   "sha256": "fed077b02171a942c37781a1fe243a16ba816d3dbf2a5679ec055458e9c270b5"
+  },
+  {
+   "anchor": "x8-1-uniqueness-of-trace-id",
+   "title": "8.1 Uniqueness of trace-id",
+   "level": 3,
+   "sha256": "2bc296f3329e8eea7ae920711b7f9c865618b3e28842219a08e807833a44613b"
+  },
+  {
+   "anchor": "x8-2-randomness-of-trace-id",
+   "title": "8.2 Randomness of trace-id",
+   "level": 3,
+   "sha256": "fd91531caeb12d747fd181dc2dc582d3a040f2bc9fa760fd755768796bdde9c6"
+  },
+  {
+   "anchor": "x8-3-handling-trace-id-for-compliant-platforms-with-shorter-internal-identifiers",
+   "title": "8.3 Handling trace-id for compliant platforms with shorter internal identifiers",
+   "level": 3,
+   "sha256": "1b18f286bab25c96f1b445aeef188c02655ec3a1669e2db138af5ca1f4f5aded"
+  },
+  {
+   "anchor": "x8-4-interoperating-with-existing-systems-which-use-shorter-identifiers",
+   "title": "8.4 Interoperating with existing systems which use shorter identifiers",
+   "level": 3,
+   "sha256": "260aaad039942c435864746df2474895fae4d1443be735370dd83f9a289548d1"
+  },
+  {
+   "anchor": "a-acknowledgments",
+   "title": "A. Acknowledgments",
+   "level": 2,
+   "sha256": "256c38505721757df21eab49e4e6a6dea8f6b731293e4a95404e72cc900a9ba2"
+  },
+  {
+   "anchor": "b-glossary",
+   "title": "B. Glossary",
+   "level": 2,
+   "sha256": "42ca451e993beb8c8b295a19663d661dfab7e057bf1cdeda8498cff300952f25"
+  },
+  {
+   "anchor": "c-references",
+   "title": "C. References",
+   "level": 2,
+   "sha256": "49b773cc46219f595aee4405d738d0311e3b1198bce87e29964bf81b3dd8b72f"
+  },
+  {
+   "anchor": "c-1-normative-references",
+   "title": "C.1 Normative references",
+   "level": 3,
+   "sha256": "f4f875ef47366d8829bb8fee7fa30ea132648c467b192687761bbd11f0b7f66f"
+  }
+ ]
+}

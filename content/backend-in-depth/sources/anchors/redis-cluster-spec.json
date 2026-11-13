@@ -1,0 +1,323 @@
+{
+ "source": "redis-cluster-spec",
+ "anchors": [
+  {
+   "anchor": "top",
+   "title": "",
+   "level": 0,
+   "sha256": "9a32210f550d57a75e8b4041ff4c0a6cdaa949bd5920794ce783094da99c0bd7"
+  },
+  {
+   "anchor": "search-button-mobile",
+   "title": "Redis cluster specification",
+   "level": 1,
+   "sha256": "9cbb6d5fb5e9a041ae03bb299d224512a00b960561902b2b1e04ff50db8b79fd"
+  },
+  {
+   "anchor": "main-properties-and-rationales-of-the-design",
+   "title": "Main properties and rationales of the design",
+   "level": 2,
+   "sha256": "3d33d9d505a5d5df27d521d935b107e44e2414b59604f198f26f888f3b970d9b"
+  },
+  {
+   "anchor": "redis-cluster-goals",
+   "title": "Redis Cluster goals",
+   "level": 3,
+   "sha256": "2cbfe49070b095e5b9c53c58b0f033e4f9a112f589240bc1f14e7186a8780822"
+  },
+  {
+   "anchor": "implemented-subset",
+   "title": "Implemented subset",
+   "level": 3,
+   "sha256": "4e8969339c7e8231fb09f02b3dc6083856626435059d50201cb1de346ac5605c"
+  },
+  {
+   "anchor": "client-and-server-roles-in-the-redis-cluster-protocol",
+   "title": "Client and Server roles in the Redis cluster protocol",
+   "level": 2,
+   "sha256": "532ecb5e5c9c0f2022f802a95c76cd09c6e6e1679a9dc40e2fd720472940efc4"
+  },
+  {
+   "anchor": "write-safety",
+   "title": "Write safety",
+   "level": 3,
+   "sha256": "7a60a43195440b9fb846f7533aabe1bb13c5d536ba7f4869ea3474a2cd1ddd34"
+  },
+  {
+   "anchor": "availability",
+   "title": "Availability",
+   "level": 3,
+   "sha256": "8a616475c6dc195bb8cc96fedfefdcf1cd86707a3547e5a37eb322375d6e18a2"
+  },
+  {
+   "anchor": "performance",
+   "title": "Performance",
+   "level": 3,
+   "sha256": "4d0d837bc8abca5afb3efa933b94e31f4175b97a2f9125856f2ffe8c0341acd8"
+  },
+  {
+   "anchor": "why-merge-operations-are-avoided",
+   "title": "Why merge operations are avoided",
+   "level": 3,
+   "sha256": "1564a7e94ae358a5bc3bf4654f7e534dfd667df26e081c36bb799af0ba69d0a7"
+  },
+  {
+   "anchor": "overview-of-redis-cluster-main-components",
+   "title": "Overview of Redis Cluster main components",
+   "level": 2,
+   "sha256": "b5255fb58964209554ccbbd4526a05f2ddee4689642ec05a8db47917762b4db0"
+  },
+  {
+   "anchor": "key-distribution-model",
+   "title": "Key distribution model",
+   "level": 3,
+   "sha256": "3e648383543c2aff008a1def717a857ffcb942d3a32f3012fbdc2ec73cd3ea38"
+  },
+  {
+   "anchor": "hash-tags",
+   "title": "Hash tags",
+   "level": 3,
+   "sha256": "0c5a87f24df1054541e8fed0e2f5892b9f749e1c3c37847d72f938384287d7e8"
+  },
+  {
+   "anchor": "glob-style-patterns",
+   "title": "Glob-style patterns",
+   "level": 4,
+   "sha256": "04405d1d262029f3ad7041b666753a1e9fbf42ed0600f82722c729603f05552c"
+  },
+  {
+   "anchor": "hash-slot-example-code",
+   "title": "Hash slot example code",
+   "level": 4,
+   "sha256": "5b50b7070c9d236ba5b21c664cc383b64ca4236fba9c4a775e62893c8ec3afbe"
+  },
+  {
+   "anchor": "cluster-node-attributes",
+   "title": "Cluster node attributes",
+   "level": 3,
+   "sha256": "ce8e10450cb9788df5d0b6ccc82df148648e8eeddb8548423abe885e8b7efdb0"
+  },
+  {
+   "anchor": "the-cluster-bus",
+   "title": "The cluster bus",
+   "level": 3,
+   "sha256": "a2c8189a932a5438cf33db7b7fdf8243d4808decc27582048f040cf3de225c6c"
+  },
+  {
+   "anchor": "cluster-topology",
+   "title": "Cluster topology",
+   "level": 3,
+   "sha256": "4ea9312a516210e700b7c708e0a57291950e29108af4ce51c144d82aebd37855"
+  },
+  {
+   "anchor": "node-handshake",
+   "title": "Node handshake",
+   "level": 3,
+   "sha256": "6a791f3462f1bb48d17b106bd0b991f32f25af6d43f031fb6e5994b558d193a0"
+  },
+  {
+   "anchor": "redirection-and-resharding",
+   "title": "Redirection and resharding",
+   "level": 2,
+   "sha256": "056d8afb905abf0dc7f95f82534918a7b9caeb673e5212b7ae2aa6efc9082058"
+  },
+  {
+   "anchor": "moved-redirection",
+   "title": "MOVED Redirection",
+   "level": 3,
+   "sha256": "0ce23ffabceaea035ca1f170b116939d28d55c356108c694421f113adb3e15d5"
+  },
+  {
+   "anchor": "live-reconfiguration",
+   "title": "Live reconfiguration",
+   "level": 3,
+   "sha256": "cca7e880a118fc100c508bfde09383805f139332703a2fb2549fa47ca646cb76"
+  },
+  {
+   "anchor": "ask-redirection",
+   "title": "ASK redirection",
+   "level": 3,
+   "sha256": "d4fe3adc61354b5d099cd80996fbe75dabaa5b8da182f224c675010af7cc4c03"
+  },
+  {
+   "anchor": "client-connections-and-redirection-handling",
+   "title": "Client connections and redirection handling",
+   "level": 3,
+   "sha256": "e7a1e130b3e018079930a1cd2e67302434df8f54d6308ab9eaf74acf754e29bc"
+  },
+  {
+   "anchor": "multi-keys-operations",
+   "title": "Multi-keys operations",
+   "level": 3,
+   "sha256": "bc98cd4a14e0839450c629195f5ed688c15ca8cc95a27fa718e8cf1de01d4369"
+  },
+  {
+   "anchor": "scaling-reads-using-replica-nodes",
+   "title": "Scaling reads using replica nodes",
+   "level": 3,
+   "sha256": "2712cd6a9c879fb5dec41626267abd3650f4c7a10ae0574014661055f1d169c0"
+  },
+  {
+   "anchor": "fault-tolerance",
+   "title": "Fault Tolerance",
+   "level": 2,
+   "sha256": "4bd5326c69cb6b7130cb8a8523912d32f8037cea9b8b70ac87b32887c2d82372"
+  },
+  {
+   "anchor": "heartbeat-and-gossip-messages",
+   "title": "Heartbeat and gossip messages",
+   "level": 3,
+   "sha256": "895b4175b2368fce55a4e9696256ec64618521f4e93ad34e9ed718bc3f379d00"
+  },
+  {
+   "anchor": "heartbeat-packet-content",
+   "title": "Heartbeat packet content",
+   "level": 3,
+   "sha256": "e5673e5e0c6ffe198ec1e86e26fd4c7c4affd792ef8c99236cf802746b4377d8"
+  },
+  {
+   "anchor": "failure-detection",
+   "title": "Failure detection",
+   "level": 3,
+   "sha256": "72986517d953ab8f75d985f76d200496c2574171c7ae67f9b30117faeb0265a8"
+  },
+  {
+   "anchor": "configuration-handling-propagation-and-failovers",
+   "title": "Configuration handling, propagation, and failovers",
+   "level": 2,
+   "sha256": "ec84e08463b31e4f700efb6e226820f2eaf5ff945655ede41b06abc5cd9db1dd"
+  },
+  {
+   "anchor": "cluster-current-epoch",
+   "title": "Cluster current epoch",
+   "level": 3,
+   "sha256": "e9687f7f57e847f1ac2421ade3339102a578ac74498f2210530a7877504a954b"
+  },
+  {
+   "anchor": "configuration-epoch",
+   "title": "Configuration epoch",
+   "level": 3,
+   "sha256": "c906568968f3389dbae0b7d48add9c9bb730b293652608def003480d2adf1038"
+  },
+  {
+   "anchor": "replica-election-and-promotion",
+   "title": "Replica election and promotion",
+   "level": 3,
+   "sha256": "a3eb30614898db43494c2d1461df5778845b28f549d295fff5902191d0bd9bf2"
+  },
+  {
+   "anchor": "replica-rank",
+   "title": "Replica rank",
+   "level": 3,
+   "sha256": "35efaa8d88ccdc4ba1d971f68e33cbdc5df8c1b8a2eed60848f8d77e97226714"
+  },
+  {
+   "anchor": "masters-reply-to-replica-vote-request",
+   "title": "Masters reply to replica vote request",
+   "level": 3,
+   "sha256": "70939da5a682b74d0f8bbbe281a75283efa1493336032de46a1003403cef13d8"
+  },
+  {
+   "anchor": "practical-example-of-configuration-epoch-usefulness-during-partitions",
+   "title": "Practical example of configuration epoch usefulness during partitions",
+   "level": 3,
+   "sha256": "f804c4deb6bdef8c1e76f0d6f919c7ef713e65e67f123dcd3c9713eb8fd38975"
+  },
+  {
+   "anchor": "hash-slots-configuration-propagation",
+   "title": "Hash slots configuration propagation",
+   "level": 3,
+   "sha256": "5617064b230accb272157b87a34ea4a48eeeaecea8e53c87d194aa010a4de893"
+  },
+  {
+   "anchor": "update-messages-a-closer-look",
+   "title": "UPDATE messages, a closer look",
+   "level": 3,
+   "sha256": "d3860ff394a019a317eb6187c985c699bfe7224ea305a92ce6ba390f2dbf317c"
+  },
+  {
+   "anchor": "how-nodes-rejoin-the-cluster",
+   "title": "How nodes rejoin the cluster",
+   "level": 3,
+   "sha256": "b6a9ee2c6ec2440c6499d83ce20834cafe0daf9f9d6717b06323cdc85a1996b2"
+  },
+  {
+   "anchor": "replica-migration",
+   "title": "Replica migration",
+   "level": 3,
+   "sha256": "a048dd7e3366701ce285028cfea212044243d7014b6d1bf7373e2373733ee497"
+  },
+  {
+   "anchor": "replica-migration-algorithm",
+   "title": "Replica migration algorithm",
+   "level": 3,
+   "sha256": "28b51ed5c57f87a1b3f9c411f229c51f3cf3134afc7ba6b263bdc94a8becb115"
+  },
+  {
+   "anchor": "configepoch-conflicts-resolution-algorithm",
+   "title": "configEpoch conflicts resolution algorithm",
+   "level": 3,
+   "sha256": "5ffca1bbb544796b339f987c1eb81155a093b711683f93bb67c35f8273c42d18"
+  },
+  {
+   "anchor": "node-resets",
+   "title": "Node resets",
+   "level": 3,
+   "sha256": "d1633dd031acd48bd3e23275e6d8e5d7a33594eea4c4cb38b887e60a02b4fc54"
+  },
+  {
+   "anchor": "removing-nodes-from-a-cluster",
+   "title": "Removing nodes from a cluster",
+   "level": 3,
+   "sha256": "6e54b8ff4bc373b4609e62996a7af4c595b3f69086746f16b0d91d310efd5b26"
+  },
+  {
+   "anchor": "publishsubscribe",
+   "title": "Publish/Subscribe",
+   "level": 2,
+   "sha256": "684433e0902a1b39720a96bc31846d50e9385c05fd7e65fb5fa51015f8f3c2dc"
+  },
+  {
+   "anchor": "appendix",
+   "title": "Appendix",
+   "level": 2,
+   "sha256": "2d4b3e2813c6058b5f056f91316db8c83f4d685cc5596bc61e4bb14d4b4b1680"
+  },
+  {
+   "anchor": "appendix-a-crc16-reference-implementation-in-ansi-c",
+   "title": "Appendix A: CRC16 reference implementation in ANSI C",
+   "level": 3,
+   "sha256": "4fad775e5b805414a639b25da6498b81c1f33783b89bb984df89ac14bcbffcb8"
+  },
+  {
+   "anchor": "submit-button",
+   "title": "On this page",
+   "level": 2,
+   "sha256": "59bacd1e24056eab46a0fe1523266a43e005272c89a74a8451c56d3af952577e"
+  },
+  {
+   "anchor": "compare",
+   "title": "Compare",
+   "level": 3,
+   "sha256": "93d98855de2fecad7236471d6d46808271751cbb9a3aee4c9525261be9dbb00f"
+  },
+  {
+   "anchor": "company",
+   "title": "Company",
+   "level": 3,
+   "sha256": "7111e812c4b27f25af15cf91690e939f8e55cd12da534e8bae09ba83c5e293b0"
+  },
+  {
+   "anchor": "partners",
+   "title": "Partners",
+   "level": 3,
+   "sha256": "60b87219bf4e3656c61ff6c0d37c628d8e6117b028c31cb98a2e02ad9ed4141e"
+  },
+  {
+   "anchor": "support",
+   "title": "Support",
+   "level": 3,
+   "sha256": "60e4939b6dbbe72c588754faf9380e44de30b151abb3355483d96bade37e4fbc"
+  }
+ ]
+}

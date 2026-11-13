@@ -1,0 +1,185 @@
+{
+ "source": "jep-439",
+ "anchors": [
+  {
+   "anchor": "top",
+   "title": "",
+   "level": 0,
+   "sha256": "9268221207a39330e4e22e33ff3330594b6760246b9d1a11e68091533e9151f6"
+  },
+  {
+   "anchor": "main",
+   "title": "JEP 439: Generational ZGC",
+   "level": 1,
+   "sha256": "8d4226a2411965446894fc298695241a18422117e62dc77f95e27a99d54e1f6e"
+  },
+  {
+   "anchor": "Summary",
+   "title": "Summary",
+   "level": 2,
+   "sha256": "8ef6df5459345541c6da8ac462b08b5d48fd9d50c7a22506ccb10be0309caa92"
+  },
+  {
+   "anchor": "Goals",
+   "title": "Goals",
+   "level": 2,
+   "sha256": "9620c9912de9def59ae92281f64fbf73cc7a59a347bccebe9be24617db783d08"
+  },
+  {
+   "anchor": "Non-Goals",
+   "title": "Non-Goals",
+   "level": 2,
+   "sha256": "d314c8defb42f640903824a7fc0445cca22802961613f1aab43c6b8b7bf18308"
+  },
+  {
+   "anchor": "Motivation",
+   "title": "Motivation",
+   "level": 2,
+   "sha256": "dcaca9afce3932dc89f9852351c3424e7b8df9f3e46caa4e8fd93ef456389496"
+  },
+  {
+   "anchor": "Description",
+   "title": "Description",
+   "level": 2,
+   "sha256": "526e0087cc3f254d9f86f6c7d8e23d954c4dfda2b312efc29194ae8a860106ba"
+  },
+  {
+   "anchor": "Enabling-Generational-ZGC",
+   "title": "Enabling Generational ZGC",
+   "level": 3,
+   "sha256": "4e0eb41dae3fa45388b90a2090e8f34f0c21e77d78d2c68e412850d11127657d"
+  },
+  {
+   "anchor": "Design",
+   "title": "Design",
+   "level": 3,
+   "sha256": "837d1ff15b5926251fa8cd5e412035ab6305c599e8505928004bc3c76991a405"
+  },
+  {
+   "anchor": "No-multi-mapped-memory",
+   "title": "No multi-mapped memory",
+   "level": 3,
+   "sha256": "3119d231dc33537c54a448e43f061869dd3336a1d77dc8aec18551d51bd0a8f3"
+  },
+  {
+   "anchor": "Optimized-barriers",
+   "title": "Optimized barriers",
+   "level": 3,
+   "sha256": "536ce777c688d3b0254a31de36413f017899b1be6262e65866b478c1861ef300"
+  },
+  {
+   "anchor": "Fast-paths-and-slow-paths",
+   "title": "Fast paths and slow paths",
+   "level": 4,
+   "sha256": "f4eb2e9f9fbedb647f4f28145d0b30d43ef898ae78e0208ff1c27797b04bbd75"
+  },
+  {
+   "anchor": "Minimizing-load-barrier-responsibilities",
+   "title": "Minimizing load barrier responsibilities",
+   "level": 4,
+   "sha256": "98095bc5f2263822c6d2669c7cb1efc79d1d458dc4e0e4b2c81455516122295f"
+  },
+  {
+   "anchor": "Remembered-set-barriers",
+   "title": "Remembered-set barriers",
+   "level": 4,
+   "sha256": "8f0dcf82284210e3a78608069bf22a2154d0b0e080b014837d3a18d31c7dad98"
+  },
+  {
+   "anchor": "SATB-marking-barriers",
+   "title": "SATB marking barriers",
+   "level": 4,
+   "sha256": "72b29ac5b7bfa0b5a33ddd47a8b5eb5c9cf57093f76911da9855972c69b3e687"
+  },
+  {
+   "anchor": "Fused-store-barrier-checks",
+   "title": "Fused store barrier checks",
+   "level": 4,
+   "sha256": "76b7f4543287b25058dec32933b8131637a219a3c5ca8b53f39d3b313a1bc86f"
+  },
+  {
+   "anchor": "Store-barrier-buffers",
+   "title": "Store barrier buffers",
+   "level": 4,
+   "sha256": "e88bada81f687dea67f1bd33a41b9721f87e32e2a76a8c0519f0e51a40e7922b"
+  },
+  {
+   "anchor": "Barrier-patching",
+   "title": "Barrier patching",
+   "level": 4,
+   "sha256": "bd77837ffc9db0e453fb58b4cb2f5c334cdbca879a47ecca8adb97850ac89939"
+  },
+  {
+   "anchor": "Double-buffered-remembered-sets",
+   "title": "Double-buffered remembered sets",
+   "level": 3,
+   "sha256": "997cd8ecf24406d7cb102be37b78c940bff0d083e90ee30feefb038a8d45a6d9"
+  },
+  {
+   "anchor": "Relocations-without-additional-heap-memory",
+   "title": "Relocations without additional heap memory",
+   "level": 3,
+   "sha256": "720ceee8117690ce30b46f4298a0f07261c18465a0ac6c8e063fa884343a587a"
+  },
+  {
+   "anchor": "Dense-heap-regions",
+   "title": "Dense heap regions",
+   "level": 3,
+   "sha256": "b20e3b10dafdcc6bdc56fed582ccde2b2b49cd9f4e819e746dc3068285ab495a"
+  },
+  {
+   "anchor": "Large-objects",
+   "title": "Large objects",
+   "level": 3,
+   "sha256": "98d4d9de76d31c075b68b39acf2f1daba1fbee8206c96262f8f0ab3d2ff25578"
+  },
+  {
+   "anchor": "Full-garbage-collections",
+   "title": "Full garbage collections",
+   "level": 3,
+   "sha256": "3ac4d963f17ae9a14872162279592ac9c2a1eb18877ef98dd28009b95fd66ec3"
+  },
+  {
+   "anchor": "Alternatives",
+   "title": "Alternatives",
+   "level": 2,
+   "sha256": "41055f72edad1559b8ba43440cd7938eb73685930c7141fede9b95000fd41299"
+  },
+  {
+   "anchor": "Simpler-barrier-and-pointer-coloring-schemes",
+   "title": "Simpler barrier and pointer-coloring schemes",
+   "level": 3,
+   "sha256": "91d1a48e2777581ff4981fadf22c168fccb03874178dc8680f9ccd13473bae36"
+  },
+  {
+   "anchor": "Keep-using-multi-mapped-memory",
+   "title": "Keep using multi-mapped memory",
+   "level": 3,
+   "sha256": "5cf694fc8511d3c991d27517750a67b39f5996e876fe2c62d310824c4915d363"
+  },
+  {
+   "anchor": "Testing",
+   "title": "Testing",
+   "level": 2,
+   "sha256": "61f64160bbcf2ae5cfbbb38224c0948b6756dbde2df9df9d493910835fd6147b"
+  },
+  {
+   "anchor": "Risks-and-Assumptions",
+   "title": "Risks and Assumptions",
+   "level": 2,
+   "sha256": "5e4799a558dcc601774ac80de2593eff5d4b31e791c7018572c24eb7afd3502c"
+  },
+  {
+   "anchor": "Implementation-complexity",
+   "title": "Implementation complexity",
+   "level": 3,
+   "sha256": "963b6789d9764f520f8760fc57bc7c019ae7248cc3eb9f37e143583fc83753e5"
+  },
+  {
+   "anchor": "Generational-ZGC-will-perform-differently-than-non-generational-ZGC",
+   "title": "Generational ZGC will perform differently than non-generational ZGC",
+   "level": 3,
+   "sha256": "2a1ac25f59078bf2adb293a39217ec4a7e3d9aa6137ace2b1b46e756fc7f1702"
+  }
+ ]
+}

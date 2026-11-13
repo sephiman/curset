@@ -30,6 +30,8 @@ sources/otros/        dated copies of the non-legal pages and documents lessons 
                       fetched go to a folder outside the repo); tests/test_saved_pages.py fails otherwise
 source-index.json     GENERATED (scripts/index_sources.py): the page or anchor each article starts at in
                       each sources/normativa/ file, with the file's sha256
+sources/sources.yaml  technical-documentation sources (backend-in-depth): tier, version, sha256, licence; split
+                      into anchors in sources/anchors/ by backend/scripts/tech_sources.py
 citations.*.txt       GENERATED, reviewed, frozen: every citation in the lessons, its anchors and where
                       it opens (backend/tests/test_citations.py)
 excerpts.json         GENERATED (scripts/extract_excerpts.py): per question, the cited text of the norm

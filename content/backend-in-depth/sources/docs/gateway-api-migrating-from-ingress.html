@@ -1,0 +1,1021 @@
+<!doctype html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en" class="no-js" data-theme-init>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)"  content="#000000">
+
+
+
+
+<meta name="robots" content="index, follow">
+<link rel="icon" type="image/png" href="/images/k8s-favicon.png">
+
+<title>Migrating from Ingress | Gateway API</title>
+<meta name="description" content="Gateway API is the successor to the Ingress API. This guide provides a general overview for migrating from any Ingress implementation to Gateway API. It focuses on the core concepts, differences, and feature mappings between Ingress and Gateway API, and provides a manual conversion example.
+Are you an Ingress-NGINX user? If you are specifically using Ingress-NGINX, we recommend also checking out the Ingress-NGINX Migration Guide for more tailored advice and resources.">
+<meta property="og:url" content="/guides/getting-started/migrating-from-ingress/">
+  <meta property="og:site_name" content="Gateway API">
+  <meta property="og:title" content="Migrating from Ingress">
+  <meta property="og:description" content="Gateway API is the successor to the Ingress API. This guide provides a general overview for migrating from any Ingress implementation to Gateway API. It focuses on the core concepts, differences, and feature mappings between Ingress and Gateway API, and provides a manual conversion example.
+Are you an Ingress-NGINX user? If you are specifically using Ingress-NGINX, we recommend also checking out the Ingress-NGINX Migration Guide for more tailored advice and resources.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="guides">
+
+  <meta itemprop="name" content="Migrating from Ingress">
+  <meta itemprop="description" content="Gateway API is the successor to the Ingress API. This guide provides a general overview for migrating from any Ingress implementation to Gateway API. It focuses on the core concepts, differences, and feature mappings between Ingress and Gateway API, and provides a manual conversion example.
+Are you an Ingress-NGINX user? If you are specifically using Ingress-NGINX, we recommend also checking out the Ingress-NGINX Migration Guide for more tailored advice and resources.">
+  <meta itemprop="wordCount" content="2433">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Migrating from Ingress">
+  <meta name="twitter:description" content="Gateway API is the successor to the Ingress API. This guide provides a general overview for migrating from any Ingress implementation to Gateway API. It focuses on the core concepts, differences, and feature mappings between Ingress and Gateway API, and provides a manual conversion example.
+Are you an Ingress-NGINX user? If you are specifically using Ingress-NGINX, we recommend also checking out the Ingress-NGINX Migration Guide for more tailored advice and resources.">
+<link rel="preload" href="/scss/main.min.c325abbc0daac5c00885e7762ecd7b26614ab35c4d12fdeefca7dca901020d32.css" as="style" integrity="sha256-wyWrvA2qxcAIhed2Ls17JmFKs1xNEv3u/KfcqQECDTI=" crossorigin="anonymous">
+<link href="/scss/main.min.c325abbc0daac5c00885e7762ecd7b26614ab35c4d12fdeefca7dca901020d32.css" rel="stylesheet" integrity="sha256-wyWrvA2qxcAIhed2Ls17JmFKs1xNEv3u/KfcqQECDTI=" crossorigin="anonymous">
+
+
+
+      
+      
+  </head>
+  <body class="td-page">
+    <header>
+      <nav class="td-navbar js-navbar-scroll" data-bs-theme="dark">
+<div class="td-navbar-container container-fluid flex-column flex-md-row">
+  <a class="navbar-brand" href="/"><span class="navbar-brand__logo navbar-logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 60" width="400" height="60"><image href="/images/logo/logo-text-large-horizontal-white.png" width="100%" height="100%"/></svg></span><span class="navbar-brand__name">Gateway API</span></a>
+  <div class="td-navbar__main td-navbar-nav-scroll td-navbar-nav-scroll--indicator" id="main_navbar">
+    <div class="scroll-indicator scroll-left"></div>
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="/docs/"><span>Overview</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/guides/"><span>Guides</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/reference/"><span>Reference</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/geps/"><span>Enhancements</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/contributing/"><span>Contributing</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="https://github.com/kubernetes-sigs/gateway-api" target="_blank" rel="noopener"><i class='fab fa-github pr-2'></i><span>GitHub</span></a>
+      </li>
+      <li class="nav-item td-navbar__light-dark-menu">
+        <div class="td-light-dark-menu dropdown"><svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="check2" viewBox="0 0 16 16">
+    <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+  </symbol>
+  <symbol id="circle-half" viewBox="0 0 16 16">
+    <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"/>
+  </symbol>
+  <symbol id="moon-stars-fill" viewBox="0 0 16 16">
+    <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/>
+    <path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"/>
+  </symbol>
+  <symbol id="sun-fill" viewBox="0 0 16 16">
+    <path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
+  </symbol>
+</svg>
+<button class="btn btn-link nav-link dropdown-toggle d-flex align-items-center"
+        id="bd-theme"
+        type="button"
+        aria-expanded="false"
+        data-bs-toggle="dropdown"
+        aria-label="Toggle theme (auto)">
+  <svg class="bi my-1 theme-icon-active"><use href="#circle-half"></use></svg>
+</button>
+<ul class="dropdown-menu" aria-labelledby="bd-theme">
+  <li>
+    <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
+      <svg class="bi me-2 opacity-50"><use href="#sun-fill"></use></svg>
+      Light
+      <svg class="bi ms-auto d-none"><use href="#check2"></use></svg>
+    </button>
+  </li>
+  <li>
+    <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
+      <svg class="bi me-2 opacity-50"><use href="#moon-stars-fill"></use></svg>
+      Dark
+      <svg class="bi ms-auto d-none"><use href="#check2"></use></svg>
+    </button>
+  </li>
+  <li>
+    <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="auto" aria-pressed="true">
+      <svg class="bi me-2 opacity-50"><use href="#circle-half"></use></svg>
+      Auto
+      <svg class="bi ms-auto d-none"><use href="#check2"></use></svg>
+    </button>
+  </li>
+</ul>
+</div>
+
+      </li>
+      </ul>
+    <div class="scroll-indicator scroll-right"></div>
+  </div>
+  <div class="td-navbar__search d-none d-lg-block">
+    <div class="td-search td-search--offline">
+  <div class="td-search__icon"></div>
+  <input
+    type="search"
+    name="q"
+    class="td-search__input form-control"
+    placeholder='Search this site…'
+    aria-label='Search this site…'
+    autocomplete="off"
+    
+    data-offline-search-index-json-src="/offline-search-index.af3fabda35ee6bded0c2fa132f2010f7.json"
+    data-offline-search-base-href="/"
+    data-offline-search-max-results="10"
+  >
+</div>
+  </div>
+</div>
+</nav>
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main" data-bs-spy="scroll" data-bs-target=".td-toc" data-bs-root-margin="0px 0px -10%">
+        <div class="row flex-xl-nowrap">
+          <aside class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+            <div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    <div class="td-search td-search--offline">
+  <div class="td-search__icon"></div>
+  <input
+    type="search"
+    name="q"
+    class="td-search__input form-control"
+    placeholder='Search this site…'
+    aria-label='Search this site…'
+    autocomplete="off"
+    
+    data-offline-search-index-json-src="/offline-search-index.af3fabda35ee6bded0c2fa132f2010f7.json"
+    data-offline-search-base-href="/"
+    data-offline-search-max-results="10"
+  >
+</div>
+    <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    </button>
+  </form>
+  <nav class="td-sidebar-nav collapse foldable-nav" id="td-section-nav">
+    <ul class="td-sidebar-nav__section pe-md-3 ul-0">
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-guides-li">
+    <a href="/guides/" class="align-left ps-0 td-sidebar-link td-sidebar-link__section tree-root" id="m-guides"><span class="">Guides</span></a>
+    <ul class="ul-1">
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-guidesgetting-started-li">
+    <input type="checkbox" id="m-guidesgetting-started-check" checked/>
+    <label for="m-guidesgetting-started-check"><a href="/guides/getting-started/" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-guidesgetting-started"><span class="">Getting Started</span></a></label>
+    
+    <ul class="ul-2 foldable">
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-guidesgetting-startedintroduction-li">
+    <input type="checkbox" id="m-guidesgetting-startedintroduction-check"/>
+    <label for="m-guidesgetting-startedintroduction-check"><a href="/guides/getting-started/introduction/" title="Getting started with Gateway API" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-guidesgetting-startedintroduction"><span class="">Introduction</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-guidesgetting-startedsimple-gateway-li">
+    <input type="checkbox" id="m-guidesgetting-startedsimple-gateway-check"/>
+    <label for="m-guidesgetting-startedsimple-gateway-check"><a href="/guides/getting-started/simple-gateway/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-guidesgetting-startedsimple-gateway"><span class="">Deploying a simple Gateway</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child active-path" id="m-guidesgetting-startedmigrating-from-ingress-li">
+    <input type="checkbox" id="m-guidesgetting-startedmigrating-from-ingress-check" checked/>
+    <label for="m-guidesgetting-startedmigrating-from-ingress-check"><a href="/guides/getting-started/migrating-from-ingress/" class="align-left ps-0  active td-sidebar-link td-sidebar-link__page" id="m-guidesgetting-startedmigrating-from-ingress"><span class="td-sidebar-nav-active-item">Migrating from Ingress</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-guidesgetting-startedmigrating-from-ingress-nginx-li">
+    <input type="checkbox" id="m-guidesgetting-startedmigrating-from-ingress-nginx-check"/>
+    <label for="m-guidesgetting-startedmigrating-from-ingress-nginx-check"><a href="/guides/getting-started/migrating-from-ingress-nginx/" title="A Welcome Guide for Ingress-NGINX Users" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-guidesgetting-startedmigrating-from-ingress-nginx"><span class="">Migrating from Ingress-NGINX</span></a></label>
+    
+  </li>
+    </ul>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-guidesuser-guides-li">
+    <input type="checkbox" id="m-guidesuser-guides-check"/>
+    <label for="m-guidesuser-guides-check"><a href="/guides/user-guides/" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-guidesuser-guides"><span class="">User Guides</span></a></label>
+    
+    <ul class="ul-2 foldable">
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-guidesuser-guideshttp-routing-li">
+    <input type="checkbox" id="m-guidesuser-guideshttp-routing-check"/>
+    <label for="m-guidesuser-guideshttp-routing-check"><a href="/guides/user-guides/http-routing/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-guidesuser-guideshttp-routing"><span class="">HTTP routing</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-guidesuser-guideshttp-redirect-rewrite-li">
+    <input type="checkbox" id="m-guidesuser-guideshttp-redirect-rewrite-check"/>
+    <label for="m-guidesuser-guideshttp-redirect-rewrite-check"><a href="/guides/user-guides/http-redirect-rewrite/" title="HTTP path redirects and rewrites" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-guidesuser-guideshttp-redirect-rewrite"><span class="">HTTP redirects and rewrites</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-guidesuser-guideshttp-header-modifier-li">
+    <input type="checkbox" id="m-guidesuser-guideshttp-header-modifier-check"/>
+    <label for="m-guidesuser-guideshttp-header-modifier-check"><a href="/guides/user-guides/http-header-modifier/" title="HTTP Header Modifiers" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-guidesuser-guideshttp-header-modifier"><span class="">HTTP header modifier</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-guidesuser-guidestraffic-splitting-li">
+    <input type="checkbox" id="m-guidesuser-guidestraffic-splitting-check"/>
+    <label for="m-guidesuser-guidestraffic-splitting-check"><a href="/guides/user-guides/traffic-splitting/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-guidesuser-guidestraffic-splitting"><span class="">HTTP traffic splitting</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-guidesuser-guideshttp-request-mirroring-li">
+    <input type="checkbox" id="m-guidesuser-guideshttp-request-mirroring-check"/>
+    <label for="m-guidesuser-guideshttp-request-mirroring-check"><a href="/guides/user-guides/http-request-mirroring/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-guidesuser-guideshttp-request-mirroring"><span class="">HTTP request mirroring</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-guidesuser-guideshttp-query-param-matching-li">
+    <input type="checkbox" id="m-guidesuser-guideshttp-query-param-matching-check"/>
+    <label for="m-guidesuser-guideshttp-query-param-matching-check"><a href="/guides/user-guides/http-query-param-matching/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-guidesuser-guideshttp-query-param-matching"><span class="">HTTP query parameter matching</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-guidesuser-guideshttp-method-matching-li">
+    <input type="checkbox" id="m-guidesuser-guideshttp-method-matching-check"/>
+    <label for="m-guidesuser-guideshttp-method-matching-check"><a href="/guides/user-guides/http-method-matching/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-guidesuser-guideshttp-method-matching"><span class="">HTTP method matching</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-guidesuser-guideshttp-retries-li">
+    <input type="checkbox" id="m-guidesuser-guideshttp-retries-check"/>
+    <label for="m-guidesuser-guideshttp-retries-check"><a href="/guides/user-guides/http-retries/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-guidesuser-guideshttp-retries"><span class="">HTTP retries</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-guidesuser-guideshttp-timeouts-li">
+    <input type="checkbox" id="m-guidesuser-guideshttp-timeouts-check"/>
+    <label for="m-guidesuser-guideshttp-timeouts-check"><a href="/guides/user-guides/http-timeouts/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-guidesuser-guideshttp-timeouts"><span class="">HTTP timeouts</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-guidesuser-guideshttp-cors-li">
+    <input type="checkbox" id="m-guidesuser-guideshttp-cors-check"/>
+    <label for="m-guidesuser-guideshttp-cors-check"><a href="/guides/user-guides/http-cors/" title="Cross-Origin Resource Sharing (CORS)" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-guidesuser-guideshttp-cors"><span class="">HTTP CORS</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-guidesuser-guidesmultiple-ns-li">
+    <input type="checkbox" id="m-guidesuser-guidesmultiple-ns-check"/>
+    <label for="m-guidesuser-guidesmultiple-ns-check"><a href="/guides/user-guides/multiple-ns/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-guidesuser-guidesmultiple-ns"><span class="">Cross-Namespace routing</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-guidesuser-guidestls-li">
+    <input type="checkbox" id="m-guidesuser-guidestls-check"/>
+    <label for="m-guidesuser-guidestls-check"><a href="/guides/user-guides/tls/" title="TLS Configuration" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-guidesuser-guidestls"><span class="">TLS</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-guidesuser-guidestls-routing-li">
+    <input type="checkbox" id="m-guidesuser-guidestls-routing-check"/>
+    <label for="m-guidesuser-guidestls-routing-check"><a href="/guides/user-guides/tls-routing/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-guidesuser-guidestls-routing"><span class="">TLS routing</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-guidesuser-guidesudp-li">
+    <input type="checkbox" id="m-guidesuser-guidesudp-check"/>
+    <label for="m-guidesuser-guidesudp-check"><a href="/guides/user-guides/udp/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-guidesuser-guidesudp"><span class="">UDP routing</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-guidesuser-guidestcp-li">
+    <input type="checkbox" id="m-guidesuser-guidestcp-check"/>
+    <label for="m-guidesuser-guidestcp-check"><a href="/guides/user-guides/tcp/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-guidesuser-guidestcp"><span class="">TCP routing</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-guidesuser-guidesgrpc-routing-li">
+    <input type="checkbox" id="m-guidesuser-guidesgrpc-routing-check"/>
+    <label for="m-guidesuser-guidesgrpc-routing-check"><a href="/guides/user-guides/grpc-routing/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-guidesuser-guidesgrpc-routing"><span class="">gRPC routing</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-guidesuser-guidesbackend-protocol-li">
+    <input type="checkbox" id="m-guidesuser-guidesbackend-protocol-check"/>
+    <label for="m-guidesuser-guidesbackend-protocol-check"><a href="/guides/user-guides/backend-protocol/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-guidesuser-guidesbackend-protocol"><span class="">Backend Protocol</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-guidesuser-guidesinfrastructure-li">
+    <input type="checkbox" id="m-guidesuser-guidesinfrastructure-check"/>
+    <label for="m-guidesuser-guidesinfrastructure-check"><a href="/guides/user-guides/infrastructure/" title="Gateway infrastructure labels and annotations" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-guidesuser-guidesinfrastructure"><span class="">Infrastructure attributes</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-guidesuser-guideslistener-set-li">
+    <input type="checkbox" id="m-guidesuser-guideslistener-set-check"/>
+    <label for="m-guidesuser-guideslistener-set-check"><a href="/guides/user-guides/listener-set/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-guidesuser-guideslistener-set"><span class="">ListenerSet</span></a></label>
+    
+  </li>
+    </ul>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-guidesapi-design-li">
+    <input type="checkbox" id="m-guidesapi-design-check"/>
+    <label for="m-guidesapi-design-check"><a href="/guides/api-design/" title="API Design Guide" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-guidesapi-design"><span class="">API Design</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-guidescrd-management-li">
+    <input type="checkbox" id="m-guidescrd-management-check"/>
+    <label for="m-guidescrd-management-check"><a href="/guides/crd-management/" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-guidescrd-management"><span class="">CRD Management</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-guidesimplementers-guide-li">
+    <input type="checkbox" id="m-guidesimplementers-guide-check"/>
+    <label for="m-guidesimplementers-guide-check"><a href="/guides/implementers-guide/" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-guidesimplementers-guide"><span class="">Implementer&#39;s Guide</span></a></label>
+    
+  </li>
+    </ul>
+  </li>
+    </ul>
+  </nav>
+</div>
+          </aside>
+          <aside class="td-sidebar-toc">
+            <div class="td-page-meta ms-2 pb-1 pt-2 mb-0">
+<a href="https://github.com/kubernetes-sigs/gateway-api/tree/main/site/content/en/guides/getting-started/migrating-from-ingress.md" class="td-page-meta--view td-page-meta__view" target="_blank" rel="noopener"><i class="fa-solid fa-file-lines fa-fw"></i> View page source</a>
+  <a href="https://github.com/kubernetes-sigs/gateway-api/edit/main/site/content/en/guides/getting-started/migrating-from-ingress.md" class="td-page-meta--edit td-page-meta__edit" target="_blank" rel="noopener"><i class="fa-solid fa-pen-to-square fa-fw"></i> Edit this page</a>
+  <a href="https://github.com/kubernetes-sigs/gateway-api/new/main/site/content/en/guides/getting-started?filename=change-me.md&amp;value=---%0Atitle%3A&#43;%22Long&#43;Page&#43;Title%22%0AlinkTitle%3A&#43;%22Short&#43;Nav&#43;Title%22%0Aweight%3A&#43;100%0Adescription%3A&#43;%3E-%0A&#43;&#43;&#43;&#43;&#43;Page&#43;description&#43;for&#43;heading&#43;and&#43;indexes.%0A---%0A%0A%23%23&#43;Heading%0A%0AEdit&#43;this&#43;template&#43;to&#43;create&#43;your&#43;new&#43;page.%0A%0A%2A&#43;Give&#43;it&#43;a&#43;good&#43;name%2C&#43;ending&#43;in&#43;%60.md%60&#43;-&#43;e.g.&#43;%60getting-started.md%60%0A%2A&#43;Edit&#43;the&#43;%22front&#43;matter%22&#43;section&#43;at&#43;the&#43;top&#43;of&#43;the&#43;page&#43;%28weight&#43;controls&#43;how&#43;its&#43;ordered&#43;amongst&#43;other&#43;pages&#43;in&#43;the&#43;same&#43;directory%3B&#43;lowest&#43;number&#43;first%29.%0A%2A&#43;Add&#43;a&#43;good&#43;commit&#43;message&#43;at&#43;the&#43;bottom&#43;of&#43;the&#43;page&#43;%28%3C80&#43;characters%3B&#43;use&#43;the&#43;extended&#43;description&#43;field&#43;for&#43;more&#43;detail%29.%0A%2A&#43;Create&#43;a&#43;new&#43;branch&#43;so&#43;you&#43;can&#43;preview&#43;your&#43;new&#43;file&#43;and&#43;request&#43;a&#43;review&#43;via&#43;Pull&#43;Request.%0A" class="td-page-meta--child td-page-meta__child" target="_blank" rel="noopener"><i class="fa-solid fa-pen-to-square fa-fw"></i> Create child page</a>
+  <a href="https://github.com/kubernetes-sigs/gateway-api/issues/new?title=Migrating%20from%20Ingress" class="td-page-meta--issue td-page-meta__issue" target="_blank" rel="noopener"><i class="fa-solid fa-list-check fa-fw"></i> Create documentation issue</a>
+  
+</div>
+
+            
+<div class="td-toc">
+  <details>
+    <summary class="td-toc-title" style="cursor: pointer;">On this Page</summary>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#reasons-to-switch-to-gateway-api">Reasons to Switch to Gateway API</a></li>
+    <li><a href="#key-differences-between-ingress-api-and-gateway-api">Key Differences Between Ingress API and Gateway API</a>
+      <ul>
+        <li><a href="#personas">Personas</a></li>
+        <li><a href="#available-features">Available Features</a></li>
+        <li><a href="#approach-to-extensibility">Approach to Extensibility</a></li>
+      </ul>
+    </li>
+    <li><a href="#mapping-ingress-api-features-to-gateway-api-features">Mapping Ingress API features to Gateway API Features</a>
+      <ul>
+        <li><a href="#entry-points">Entry Points</a></li>
+        <li><a href="#tls-termination">TLS Termination</a></li>
+        <li><a href="#routing-rules">Routing Rules</a>
+          <ul>
+            <li><a href="#rules-merging-and-conflict-resolution">Rules Merging and Conflict Resolution</a></li>
+            <li><a href="#default-backend">Default Backend</a></li>
+            <li><a href="#selecting-data-plane-to-attach-to">Selecting Data Plane to Attach to</a></li>
+          </ul>
+        </li>
+        <li><a href="#implementation-specific-ingress-features-annotations">Implementation-Specific Ingress Features (Annotations)</a></li>
+      </ul>
+    </li>
+    <li><a href="#example">Example</a>
+      <ul>
+        <li><a href="#assumptions">Assumptions</a></li>
+        <li><a href="#ingress-resource">Ingress Resource</a></li>
+        <li><a href="#conversion-step-1---define-gateway">Conversion Step 1 - Define Gateway</a></li>
+        <li><a href="#conversion-step-2---define-httproutes">Conversion Step 2 - Define HTTPRoutes</a></li>
+        <li><a href="#step-3---configure-tls-redirect">Step 3 - Configure TLS Redirect</a></li>
+      </ul>
+    </li>
+    <li><a href="#automatic-conversion-of-ingresses">Automatic Conversion of Ingresses</a></li>
+  </ul>
+</nav>
+  </details>
+</div>
+
+
+            
+
+          </aside>
+          <main class="col-12 col-md-9 col-xl-8 ps-md-5" role="main">
+            
+  
+
+            
+<div class="td-content">
+	<h1>Migrating from Ingress</h1>
+	
+	<header class="article-meta">
+		
+</header>
+	<p>Gateway API is the successor to the <a href="https://kubernetes.io/docs/concepts/services-networking/ingress/">Ingress API</a>. This guide provides a general overview for migrating from any Ingress implementation to Gateway API. It focuses on the core concepts, differences, and feature mappings between Ingress and Gateway API, and provides a manual conversion example.</p>
+<div class="alert alert-primary" role="alert">
+  <h4 class="alert-heading">Are you an Ingress-NGINX user?</h4>
+<p>If you are specifically using Ingress-NGINX, we recommend also checking out the <a href="/guides/getting-started/migrating-from-ingress-nginx/">Ingress-NGINX Migration Guide</a> for more tailored advice and resources.</p>
+</div>
+This guide will help you with the conversion. It will:
+<ul>
+<li>Explain why you may want to switch to Gateway API.</li>
+<li>Describe the key differences between the Ingress API and Gateway API.</li>
+<li>Map Ingress features to Gateway API features.</li>
+<li>Show an example of an Ingress resource converted to Gateway API resources.</li>
+<li>Mention <a href="https://github.com/kubernetes-sigs/ingress2gateway">ingress2gateway</a>
+for automatic conversion.</li>
+</ul>
+<p>At the same time, it will not prepare you for a live migration or explain how to
+convert some implementation-specific features of your Ingress controller.
+Additionally, since the Ingress API only covers HTTP/HTTPS traffic, this guide
+does not cover Gateway API support for other protocols.</p>
+<h2 id="reasons-to-switch-to-gateway-api">Reasons to Switch to Gateway API<a class="td-heading-self-link" href="#reasons-to-switch-to-gateway-api" aria-label="Heading self-link"></a></h2>
+<p>The <a href="https://kubernetes.io/docs/concepts/services-networking/ingress/">Ingress API</a>
+is the standard Kubernetes way to configure external HTTP/HTTPS load balancing
+for Services. It is widely adopted by Kubernetes users and well-supported by
+vendors with many implementations (<a href="https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/">Ingress controllers</a>)
+available. Additionally, several cloud-native projects integrate with the
+Ingress API, such as <a href="https://cert-manager.io/">cert-manager</a>
+and <a href="https://github.com/kubernetes-sigs/external-dns">ExternalDNS</a>.</p>
+<p>However, the Ingress API has several limitations:</p>
+<ul>
+<li><em>Limited features</em>. The Ingress API only supports TLS termination and
+simple content-based request routing of HTTP traffic.</li>
+<li><em>Reliance on annotations for extensibility</em>. The annotations approach to
+extensibility leads to limited portability as every implementation has its own
+supported extensions that may not translate to any other implementation.</li>
+<li><em>Insufficient permission model</em>. The Ingress API is not well-suited for
+multi-team clusters with shared load-balancing infrastructure.</li>
+</ul>
+<p>Gateway API addresses those limitations, as the next section will show.</p>
+<blockquote>
+<p>Read more about the <a href="/docs/introduction/#gateway-api-concepts">design goals</a>
+of Gateway API.</p>
+</blockquote>
+<h2 id="key-differences-between-ingress-api-and-gateway-api">Key Differences Between Ingress API and Gateway API<a class="td-heading-self-link" href="#key-differences-between-ingress-api-and-gateway-api" aria-label="Heading self-link"></a></h2>
+<p>There are three major differences between the Ingress API and Gateway API:</p>
+<ul>
+<li>Personas</li>
+<li>Available features</li>
+<li>Approach to extensibility (implementation-specific features)</li>
+</ul>
+<h3 id="personas">Personas<a class="td-heading-self-link" href="#personas" aria-label="Heading self-link"></a></h3>
+<p>At first, the Ingress API had only a single resource kind Ingress. As a result,
+it had only one persona &ndash; the user &ndash; the owner of Ingress resources. The
+Ingress features give the user a lot of control over how applications are
+exposed to their external clients, including TLS termination configuration and
+provisioning of the load balancing infrastructure (supported by some Ingress
+controllers). Such a level of control is called the self-service model.</p>
+<p>At the same time, the Ingress API also included two implicit personas to
+describe somebody responsible for provisioning and managing an Ingress
+controller: the infrastructure provider for provider-managed Ingress controllers
+and the cluster operator (or admin) for self-hosted Ingress controllers. With
+the late addition of
+the <a href="https://kubernetes.io/docs/concepts/services-networking/ingress/#ingress-class">IngressClass</a>
+resource, the infrastructure provider and cluster operator became the owners of
+that resource, and thus, explicit personas of the Ingress API.</p>
+<p>Gateway API
+includes <a href="/docs/concepts/security/#roles-and-personas">four explicit personas</a>:
+the application developer, the application admin, the cluster operator, and the
+infrastructure providers. This allows you to break away from the self-service
+model by splitting the responsibilities of the user persona across those
+personas (all except the infrastructure provider):</p>
+<ul>
+<li>The cluster operator/application admin defines entry points for the external
+client traffic including TLS termination configuration.</li>
+<li>The application developer defines routing rules for their applications that
+attach to those entry points.</li>
+</ul>
+<p>Such a split adheres to a common organizational structure where multiple teams
+share the same load-balancing infrastructure. At the same time, it is not
+mandatory to give up the self-service model &ndash; it is still possible to configure
+a single RBAC Role that will fulfill the application developer, application
+admin, and cluster operator responsibilities.</p>
+<p>The table below summarizes the mapping between the Ingress API and the Gateway
+API personas:</p>
+<table>
+  <thead>
+      <tr>
+          <th>Ingress API Persona</th>
+          <th>Gateway API Persona</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>User</td>
+          <td>Application developer, Application admin, Cluster operator</td>
+      </tr>
+      <tr>
+          <td>Cluster operator</td>
+          <td>Cluster operator</td>
+      </tr>
+      <tr>
+          <td>Infrastructure provider</td>
+          <td>Infrastructure provider</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="available-features">Available Features<a class="td-heading-self-link" href="#available-features" aria-label="Heading self-link"></a></h3>
+<p>The Ingress API comes with basic features only: TLS termination and
+content-based routing of HTTP traffic based on the host header and the URI of a
+request. To offer more features, Ingress controllers support them through
+<a href="https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/">annotations</a> on the Ingress resource which are implementation-specific
+extensions to the Ingress API.</p>
+<p>The annotations approach to extensibility has two negative consequences for
+users of the Ingress API:</p>
+<ul>
+<li><em>Limited portability</em>. Because so many features are available through
+annotations, switching between Ingress controllers becomes difficult or even
+impossible, as it is necessary to convert the annotations of one
+implementation to another (the other implementation might not even support
+some features of the first one). This limits the portability of the Ingress
+API.</li>
+<li><em>Awkwardness of the API</em>. Because annotations are key-value strings (as
+opposed to a structured scheme like the spec of the Ingress resource) and
+applied at the top of a resource (rather than in the relevant parts of the
+spec), the Ingress API can become awkward to use, especially when a large
+number of annotations are added to an Ingress resource.</li>
+</ul>
+<p>Gateway API supports all the features of the Ingress resources and many
+features that are only available through annotations. As a result, the Gateway
+API is more portable than the Ingress API. Additionally, as the next section
+will show, you will not need to use any annotations at all, which addresses the
+awkwardness problem.</p>
+<h3 id="approach-to-extensibility">Approach to Extensibility<a class="td-heading-self-link" href="#approach-to-extensibility" aria-label="Heading self-link"></a></h3>
+<p>The Ingress API has two extensions points:</p>
+<ul>
+<li>Annotations on the Ingress resource (described in the previous section)</li>
+<li><a href="https://kubernetes.io/docs/concepts/services-networking/ingress/#resource-backend">Resource backends</a>,
+which is the ability to specify a backend other than a Service</li>
+</ul>
+<p>Gateway API is feature-rich compared with the Ingress API. However, to
+configure some advanced features like authentication or common but non-portable
+across data planes features like connection timeouts and health checks, you will
+need to rely on the extensions of Gateway API.</p>
+<p>Gateway API has the following primary extension points:</p>
+<ul>
+<li><em>External references.</em> A feature (field) of a Gateway API resource can
+reference a custom resource specific to the Gateway implementation that
+configures that feature. For example:
+<ul>
+<li><a href="/reference/api-spec/main/spec/#httproutefilter">HTTPRouteFilter</a>
+can reference an external resource via the <code>extensionRef</code> field, thus
+configuring an implementation-specific filter.</li>
+<li><a href="/reference/api-spec/main/spec/#backendobjectreference">BackendObjectReference</a>
+supports resources other than Services.</li>
+<li><a href="/reference/api-spec/main/spec/#secretobjectreference">SecretObjectReference</a>
+supports resources other than Secrets.</li>
+</ul>
+</li>
+<li><em>Custom implementations</em>. For some features, it is left up to an
+implementation to define how to support them. Those features correspond to the
+implementation-specific
+(custom)  <a href="/docs/concepts/conformance/#2-support-levels">conformance level</a>. For
+example:
+<ul>
+<li>The <code>RegularExpression</code> type of
+the <a href="/reference/api-spec/main/spec/#httppathmatch">HTTPPathMatch</a>.</li>
+</ul>
+</li>
+<li><em>Policies.</em> A Gateway implementation can define custom resources called
+Policies for exposing data plane features like authentication. Gateway API
+does not prescribe the details of those resources. However, it prescribes a
+standard UX. See the <a href="/reference/policy-attachment/">Policy attachment guide</a>
+for more details. In contrast with the <em>external references</em> above, a Gateway
+API resource does not reference a Policy. Instead, a Policy must reference a
+Gateway API resource.</li>
+</ul>
+<p>The extension points do not include annotations on Gateway API resources.
+This approach is strongly discouraged for implementations of the API.</p>
+<h2 id="mapping-ingress-api-features-to-gateway-api-features">Mapping Ingress API features to Gateway API Features<a class="td-heading-self-link" href="#mapping-ingress-api-features-to-gateway-api-features" aria-label="Heading self-link"></a></h2>
+<p>This section will map the Ingress API features to the corresponding Gateway API
+features, covering three major areas:</p>
+<ul>
+<li>Entry points</li>
+<li>TLS termination</li>
+<li>Routing rules</li>
+</ul>
+<h3 id="entry-points">Entry Points<a class="td-heading-self-link" href="#entry-points" aria-label="Heading self-link"></a></h3>
+<p>Roughly speaking, an entry point is a combination of an IP address and port
+through which the data plane is accessible to external clients.</p>
+<p>Every Ingress resource has two implicit entry points &ndash; one for HTTP and the
+other for HTTPS traffic. An Ingress controller provides those entry points.
+Typically, they will either be shared by all Ingress resources, or every Ingress
+resource will get dedicated entry points.</p>
+<p>In Gateway API, entry points must be explicitly defined in
+a <a href="/reference/api-types/gateway/">Gateway</a> resource. For example, if you want the data
+plane to handle HTTP traffic on port 80, you need to define
+a <a href="/reference/api-spec/main/spec/#listener">listener</a> for
+that traffic. Typically, a Gateway implementation provides a dedicated data
+plane for each Gateway resource.</p>
+<p>Gateway resources are owned by the cluster operator and the application admin.</p>
+<h3 id="tls-termination">TLS Termination<a class="td-heading-self-link" href="#tls-termination" aria-label="Heading self-link"></a></h3>
+
+
+
+
+
+  
+
+
+<details open 
+         class="border border-primary rounded" 
+         style="display: table; padding: 0.5rem 1rem; margin: 1rem 0; max-width: 800px; ">
+  
+  <summary class="text-primary" style="cursor: pointer; font-weight: 600; margin-right: 5px; ">
+    Extended Support Feature: TLSRouteModeTerminate
+  </summary>
+
+  <div class="details-content" style="padding-top: 1rem; overflow-x: auto;">
+    This feature is part of extended support. For more information on support levels, refer to our <a href="/docs/concepts/conformance/">conformance guide</a>.
+  </div>
+
+</details>
+
+
+<p>The Ingress resource supports TLS termination via
+the <a href="https://kubernetes.io/docs/concepts/services-networking/ingress/#tls">TLS section</a>,
+where the TLS certificate and key are stored in a Secret.</p>
+<p>In Gateway API, TLS termination is a property of
+the <a href="/reference/api-spec/main/spec/#listener">Gateway listener</a>,
+and similarly to the Ingress, a TLS certificate and key are also stored in a
+Secret.</p>
+<p>Because the listener is part of the Gateway resource, the cluster operator and
+application admin own TLS termination.</p>
+<h3 id="routing-rules">Routing Rules<a class="td-heading-self-link" href="#routing-rules" aria-label="Heading self-link"></a></h3>
+<p>The <a href="https://kubernetes.io/docs/concepts/services-networking/ingress/#path-types">path-based routing rules</a>
+of the Ingress resource map directly to
+the <a href="/reference/api-spec/main/spec/#httprouterule">routing rules</a>
+of the <a href="/reference/api-types/httproute/">HTTPRoute</a>.</p>
+<p>The <a href="https://kubernetes.io/docs/concepts/services-networking/ingress/#name-based-virtual-hosting">host-header-based routing rules</a>
+map to
+the <a href="/reference/api-spec/main/spec/#hostname">hostnames</a> of
+the HTTPRoute. However, note that in the Ingress, each hostname has separate
+routing rules, while in the HTTPRoute the routing rules apply to all hostnames.</p>
+<blockquote>
+<p>The Ingress API uses the term host while Gateway API uses the hostname.
+This guide will use Gateway API term to refer to the Ingress host.</p>
+</blockquote>
+<blockquote>
+<p>The <code>hostnames</code> of an HTTPRoute must match the <code>hostname</code> of the <a href="/reference/api-spec/main/spec/#listener">Gateway listener</a>.
+Otherwise, the listener will ignore the routing rules for the unmatched
+hostnames. See the <a href="/reference/api-spec/main/spec/#httproutespec">HTTPRoute documentation</a>.</p>
+</blockquote>
+<p>HTTPRoutes are owned by the application developer.</p>
+<p>The next three sections map additional features of the Ingress routing rules.</p>
+<h4 id="rules-merging-and-conflict-resolution">Rules Merging and Conflict Resolution<a class="td-heading-self-link" href="#rules-merging-and-conflict-resolution" aria-label="Heading self-link"></a></h4>
+<p>Typically, Ingress controllers merge routing rules from all Ingress resources
+(unless they provision a data plane per each Ingress resource) and resolve
+potential conflicts among the rules. However, both merging and conflict
+resolution are not prescribed by the Ingress API, so Ingress controllers might
+implement them differently.</p>
+<p>In contrast, Gateway API specifies how to merge rules and resolve conflicts:</p>
+<ul>
+<li>A Gateway implementation must merge the routing rules from all HTTPRoutes
+attached to a listener.</li>
+<li>Conflicts must be handled as
+prescribed in <a href="/guides/api-design/#conflicts">API Design Guide: Conflicts</a>. For example, more specific
+matches in a routing rule win over the less specific ones.</li>
+</ul>
+<h4 id="default-backend">Default Backend<a class="td-heading-self-link" href="#default-backend" aria-label="Heading self-link"></a></h4>
+<p>The
+Ingress <a href="https://kubernetes.io/docs/concepts/services-networking/ingress/#default-backend">default backend</a>
+configures a backend that will respond to all unmatched HTTP requests related to
+that Ingress resource. Gateway API does not have a direct equivalent: it is
+necessary to define such a routing rule explicitly. For example, define a rule
+to route requests with the path prefix <code>/</code> to a Service that corresponds to the
+default backend.</p>
+<h4 id="selecting-data-plane-to-attach-to">Selecting Data Plane to Attach to<a class="td-heading-self-link" href="#selecting-data-plane-to-attach-to" aria-label="Heading self-link"></a></h4>
+<p>An Ingress resource must specify
+a <a href="https://kubernetes.io/docs/concepts/services-networking/ingress/#ingress-class">class</a>
+to select which Ingress controller to use. An HTTPRoute must specify which
+Gateway (or Gateways) to attach to via
+a <a href="/reference/api-spec/main/spec/#parentreference">parentRef</a>.</p>
+<h3 id="implementation-specific-ingress-features-annotations">Implementation-Specific Ingress Features (Annotations)<a class="td-heading-self-link" href="#implementation-specific-ingress-features-annotations" aria-label="Heading self-link"></a></h3>
+<p>Ingress annotations configure implementation-specific features. Thus, converting
+them to Gateway API depends both on the Ingress controller and Gateway
+implementations.</p>
+<p>Luckily, some of the features supported through annotations are now part of the
+Gateway API (HTTPRoute), primarily:</p>
+<ul>
+<li>Request redirects (including a TLS redirect)</li>
+<li>Request/response manipulation</li>
+<li>Traffic splitting</li>
+<li>Header, query param, or method-based routing</li>
+</ul>
+<p>However, the remaining features remain largely implementation-specific. To
+convert them, consult the Gateway implementation documentation to see
+which <a href="/guides/getting-started/migrating-from-ingress/#approach-to-extensibility">extension point</a> to use.</p>
+<h2 id="example">Example<a class="td-heading-self-link" href="#example" aria-label="Heading self-link"></a></h2>
+<p>This section shows an example of how to convert an Ingress resource to Gateway
+API resources.</p>
+<h3 id="assumptions">Assumptions<a class="td-heading-self-link" href="#assumptions" aria-label="Heading self-link"></a></h3>
+<p>The example includes the following assumptions:</p>
+<ul>
+<li>All resources belong to the same namespace.</li>
+<li>The Ingress controller:
+<ul>
+<li>Has the corresponding IngressClass resource  <code>prod</code> in the cluster.</li>
+<li>Supports the TLS redirect feature via
+the <code>example-ingress-controller.example.org/tls-redirect</code> annotation.</li>
+</ul>
+</li>
+<li>The Gateway implementation has the corresponding GatewayClass resource <code>prod</code>
+in the cluster.</li>
+</ul>
+<p>Additionally, the content of the referenced Secret and Services as well as
+IngressClass and GatewayClass are omitted for brevity.</p>
+<h3 id="ingress-resource">Ingress Resource<a class="td-heading-self-link" href="#ingress-resource" aria-label="Heading self-link"></a></h3>
+<p>The Ingress below defines the following configuration:</p>
+<ul>
+<li>Configure a TLS redirect for any HTTP request for  <code>foo.example.com</code>
+and <code>bar.example.com</code> hostnames using
+the  <code>example-ingress-controller.example.org/tls-redirect</code> annotation.</li>
+<li>Terminate TLS for the <code>foo.example.com</code> and <code>bar.example.com</code> hostnames using
+the TLS certificate and key from the Secret <code>example-com</code>.</li>
+<li>Route HTTPS requests for the <code>foo.example.com</code> hostname with the URI
+prefix <code>/orders</code> to the <code>foo-orders-app</code> Service.</li>
+<li>Route HTTPS requests for the  <code>foo.example.com</code> hostname with any other prefix
+to the <code>foo-app</code> Service.</li>
+<li>Route HTTPS requests for the <code>bar.example.com</code> hostname with any URI to
+the <code>bar-app</code> Service.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">networking.k8s.io/v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Ingress</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">example-ingress</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">annotations</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">example-ingress-controller.example.org/tls-redirect</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;True&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">ingressClassName</span><span class="p">:</span><span class="w"> </span><span class="l">prod</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">tls</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">hosts</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">foo.example.com</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">bar.example.com</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">secretName</span><span class="p">:</span><span class="w"> </span><span class="l">example-com</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">rules</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l">foo.example.com</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">http</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">paths</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">pathType</span><span class="p">:</span><span class="w"> </span><span class="l">Prefix</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">backend</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">service</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">foo-app</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">port</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/orders</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">pathType</span><span class="p">:</span><span class="w"> </span><span class="l">Prefix</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">backend</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">service</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">foo-orders-app</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">port</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l">bar.example.com</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">http</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">paths</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">pathType</span><span class="p">:</span><span class="w"> </span><span class="l">Prefix</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">backend</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">service</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">bar-app</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">port</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span></span></span></code></pre></div><p>The next three sections convert that Ingress into Gateway API resources.</p>
+<h3 id="conversion-step-1---define-gateway">Conversion Step 1 - Define Gateway<a class="td-heading-self-link" href="#conversion-step-1---define-gateway" aria-label="Heading self-link"></a></h3>
+<p>The following Gateway resource:</p>
+<ul>
+<li>Belongs to our GatewayClass <code>prod</code>.</li>
+<li>Provisions load balancing infrastructure (this depends on the Gateway
+implementation).</li>
+<li>Configures HTTP and HTTPS listeners (entry points), which the Ingress resource
+included implicitly:
+<ul>
+<li>The HTTP listener <code>http</code> on port <code>80</code></li>
+<li>The HTTPS listener <code>https</code> on port <code>443</code> with TLS termination with the
+cert and key stored in the <code>example-com</code> Secret, which is the same Secret
+used in the Ingress</li>
+</ul>
+</li>
+</ul>
+<p>Also, note that both listeners allow all HTTPRoutes from the same namespace
+(which is the default setting) and restrict HTTPRoute hostnames to
+the <code>example.com</code> subdomain (allow hostnames like <code>foo.example.com</code> but
+not <code>foo.kubernetes.io</code>).</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">gateway.networking.k8s.io/v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Gateway</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">example-gateway</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">gatewayClassName</span><span class="p">:</span><span class="w"> </span><span class="l">prod</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">listeners</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">http</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l">HTTP</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;*.example.com&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">https</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">443</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l">HTTPS</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;*.example.com&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">tls</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l">Terminate</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">certificateRefs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Secret</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">example-com</span><span class="w">
+</span></span></span></code></pre></div>
+
+
+<h3 id="conversion-step-2---define-httproutes">Conversion Step 2 - Define HTTPRoutes<a class="td-heading-self-link" href="#conversion-step-2---define-httproutes" aria-label="Heading self-link"></a></h3>
+<p>The Ingress is split into two HTTPRoutes &ndash; one for <code>foo.example.com</code> and one
+for <code>bar.example.com</code> hostnames.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">gateway.networking.k8s.io/v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">HTTPRoute</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">foo</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">parentRefs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">example-gateway</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">sectionName</span><span class="p">:</span><span class="w"> </span><span class="l">https</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">hostnames</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="l">foo.example.com</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">rules</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">matches</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">path</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">PathPrefix</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l">/</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">backendRefs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">foo-app</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">matches</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">path</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">PathPrefix</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l">/orders</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">backendRefs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">foo-orders-app</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span></span></span></code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">gateway.networking.k8s.io/v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">HTTPRoute</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">bar</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">parentRefs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">example-gateway</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">sectionName</span><span class="p">:</span><span class="w"> </span><span class="l">https</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">hostnames</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="l">bar.example.com</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">rules</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">matches</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">path</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">PathPrefix</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l">/</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">backendRefs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">bar-app</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span></span></span></code></pre></div>
+
+
+<p>Both HTTPRoutes:</p>
+<ul>
+<li>Attach to the <code>https</code> listener of the Gateway resource from Step 1.</li>
+<li>Define the same routing rules as in the Ingress rules for the corresponding
+hostname.</li>
+</ul>
+<h3 id="step-3---configure-tls-redirect">Step 3 - Configure TLS Redirect<a class="td-heading-self-link" href="#step-3---configure-tls-redirect" aria-label="Heading self-link"></a></h3>
+<p>The following HTTPRoute configures a TLS redirect, which the Ingress resource
+configured via an annotation. The HTTPRoute below:</p>
+<ul>
+<li>Attaches to the <code>http</code> listener of our Gateway.</li>
+<li>Issues a TLS redirect for any HTTP request for the <code>foo.example.com</code>
+or <code>bar.example.com</code> hostnames.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">gateway.networking.k8s.io/v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">HTTPRoute</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">tls-redirect</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">parentRefs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">example-gateway</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">sectionName</span><span class="p">:</span><span class="w"> </span><span class="l">http</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">hostnames</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="l">foo.example.com</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="l">bar.example.com</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">rules</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">filters</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">RequestRedirect</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">requestRedirect</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">scheme</span><span class="p">:</span><span class="w"> </span><span class="l">https</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">443</span><span class="w">
+</span></span></span></code></pre></div>
+
+
+<h2 id="automatic-conversion-of-ingresses">Automatic Conversion of Ingresses<a class="td-heading-self-link" href="#automatic-conversion-of-ingresses" aria-label="Heading self-link"></a></h2>
+<p>The <a href="https://github.com/kubernetes-sigs/ingress2gateway">Ingress to Gateway</a>
+project helps translate Ingress resources to Gateway API resources, specifically
+HTTPRoutes. The conversion results should always be tested and verified.</p>
+
+	
+</div>
+
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark py-3 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row">
+      <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="GitHub" aria-label="GitHub">
+    <a class="footer-link text-white" target="_blank" rel="noopener noreferrer" href="https://github.com/kubernetes-sigs/gateway-api">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Trademark" aria-label="Trademark">
+    <a class="footer-link text-white" target="_blank" rel="noopener noreferrer" href="https://www.linuxfoundation.org/legal/trademark-usage">
+      <i class=""></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+        
+        
+        
+      </div>
+      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">&copy; 2026 The Linux Foundation
+        </small>
+        
+      </div>
+    </div>
+    <div class="row text-center text-white small">
+      <div class="col-12 text-center py-2 order-sm-2">
+        <a href="https://www.linuxfoundation.org/terms" class="footer-link" style="color: #ffffff" target="_blank" rel="noopener">Terms of Use</a> |
+        <a href="https://www.linuxfoundation.org/privacy" class="footer-link" style="color: #ffffff" target="_blank" rel="noopener">Privacy Policy</a> |
+        <a href="https://www.linuxfoundation.org/trademark-usage" class="footer-link" style="color: #ffffff" target="_blank" rel="noopener">Trademark Usage</a> |
+        <a href="https://github.com/kubernetes-sigs/gateway-api/blob/main/LICENSE" class="footer-link" style="color: #ffffff" target="_blank" rel="noopener">License</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </div>
+    
+
+
+
+  </body>
+</html>

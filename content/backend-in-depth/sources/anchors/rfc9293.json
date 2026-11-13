@@ -1,0 +1,557 @@
+{
+ "source": "rfc9293",
+ "anchors": [
+  {
+   "anchor": "top",
+   "title": "",
+   "level": 0,
+   "sha256": "f0f3a1c226b03f4b816ee9a33fb85aebbcdfa221d88c62ac8ecc46cfc5bf9b1f"
+  },
+  {
+   "anchor": "rfcnum",
+   "title": "RFC 9293",
+   "level": 1,
+   "sha256": "a3a927d54158536750eab93674a8555c32c0decb9b800a05c1ce93d41704f6ce"
+  },
+  {
+   "anchor": "title",
+   "title": "Transmission Control Protocol (TCP)",
+   "level": 1,
+   "sha256": "c34c9e3eb92bb1d6826cc62a7c09947a06680bd20f05261e5e78d6beb57f68d0"
+  },
+  {
+   "anchor": "abstract",
+   "title": "Abstract",
+   "level": 2,
+   "sha256": "7fbb9a75e9b6cd2147c4315157b42f267fdf89072fdab704d8ffd8a67e4848ab"
+  },
+  {
+   "anchor": "section-boilerplate.1",
+   "title": "Status of This Memo",
+   "level": 2,
+   "sha256": "3c6ab253abbc45bbbd3327641ca84e78f5cab676a81f3928a3158d0d5747c42b"
+  },
+  {
+   "anchor": "section-boilerplate.2",
+   "title": "Copyright Notice",
+   "level": 2,
+   "sha256": "5fcdd417ca42fcadfb0fd4bf3c733eeb7193338427cee3e1779e9d0fa88103c5"
+  },
+  {
+   "anchor": "section-toc.1",
+   "title": "Table of Contents",
+   "level": 2,
+   "sha256": "a9360e0212a4d173581c91da68494d022ee55871188be00acf863d2ed0cf7a6a"
+  },
+  {
+   "anchor": "section-1",
+   "title": "1. Purpose and Scope",
+   "level": 2,
+   "sha256": "ab19917735c3c11843eb2108c995a5c706e83d130875723526a8c39f72b84284"
+  },
+  {
+   "anchor": "section-2",
+   "title": "2. Introduction",
+   "level": 2,
+   "sha256": "9dfafcd32f3d05af7b0712d44fdc4625913f19c1bfdf7e6e8ee3302b4119bc7b"
+  },
+  {
+   "anchor": "section-2.1",
+   "title": "2.1. Requirements Language",
+   "level": 3,
+   "sha256": "bedd9ef3698c41f35dad54aba40366e6f3f59904e4ccc3a95717fa2a70abd815"
+  },
+  {
+   "anchor": "section-2.2",
+   "title": "2.2. Key TCP Concepts",
+   "level": 3,
+   "sha256": "cc9f1418b652f38c155d9a1855a449d3ba56123ce1a050be135445cabaa4a640"
+  },
+  {
+   "anchor": "section-3",
+   "title": "3. Functional Specification",
+   "level": 2,
+   "sha256": "ae11a20ff233e8189ab515ac4b1b2b557a8d0a45fb6f1ea9885566f47e6143c9"
+  },
+  {
+   "anchor": "section-3.1",
+   "title": "3.1. Header Format",
+   "level": 3,
+   "sha256": "2559b574226dc880ff68256390a637bc6e9af98081d87805675737ae31606abb"
+  },
+  {
+   "anchor": "section-3.2",
+   "title": "3.2. Specific Option Definitions",
+   "level": 3,
+   "sha256": "67cc6141ac3803e671494539e62bd3d1fec20f833b2ce43b64637430ff0abb51"
+  },
+  {
+   "anchor": "section-3.2.1",
+   "title": "3.2.1. Other Common Options",
+   "level": 4,
+   "sha256": "52ff4ae5fc95c2942f4d6dbe8afd16e3cec105453d11975721be11b341533e0e"
+  },
+  {
+   "anchor": "section-3.2.2",
+   "title": "3.2.2. Experimental TCP Options",
+   "level": 4,
+   "sha256": "75fbfe776767c3b4552959936547ceb1240fcf00830a527e075fa65f2bd597b2"
+  },
+  {
+   "anchor": "section-3.3",
+   "title": "3.3. TCP Terminology Overview",
+   "level": 3,
+   "sha256": "1406390eba436e522b8f12adef921e6c0785463739a3efa12faf6e5a171c13c8"
+  },
+  {
+   "anchor": "section-3.3.1",
+   "title": "3.3.1. Key Connection State Variables",
+   "level": 4,
+   "sha256": "8a4813bd80c1af1777d05b1f14c5d428db417ea230adbe2c89b479131d083c1d"
+  },
+  {
+   "anchor": "section-3.3.2",
+   "title": "3.3.2. State Machine Overview",
+   "level": 4,
+   "sha256": "1b77f6e4c50311114856312db98012e943ab4f0ed9f845d730885beef0139d7e"
+  },
+  {
+   "anchor": "section-3.4",
+   "title": "3.4. Sequence Numbers",
+   "level": 3,
+   "sha256": "dce8337bb0f8e625ab48797fa611f8fa819a9ba74f9a4bba004b1274a67d44b5"
+  },
+  {
+   "anchor": "section-3.4.1",
+   "title": "3.4.1. Initial Sequence Number Selection",
+   "level": 4,
+   "sha256": "70312478c246f4070806293875efcab33938a4a570dde0c5465e0da8182e1e48"
+  },
+  {
+   "anchor": "section-3.4.2",
+   "title": "3.4.2. Knowing When to Keep Quiet",
+   "level": 4,
+   "sha256": "ec36c04f33d16259f8e2e8f8535ffcab47a4e1f5666487baadbeaf282d09df7f"
+  },
+  {
+   "anchor": "section-3.4.3",
+   "title": "3.4.3. The TCP Quiet Time Concept",
+   "level": 4,
+   "sha256": "16adfca525c5482be461086ffd682c589b731038def5d97135eb44a22f2c5fb5"
+  },
+  {
+   "anchor": "section-3.5",
+   "title": "3.5. Establishing a Connection",
+   "level": 3,
+   "sha256": "c186daecb0b881af86ad032ba37b924de103812e0f9ca3d86b11c50291679dec"
+  },
+  {
+   "anchor": "section-3.5.1",
+   "title": "3.5.1. Half-Open Connections and Other Anomalies",
+   "level": 4,
+   "sha256": "1534bfdd55198509225183c60541557bae9bba98b11ec807232874c3b74d7a46"
+  },
+  {
+   "anchor": "section-3.5.2",
+   "title": "3.5.2. Reset Generation",
+   "level": 4,
+   "sha256": "715a9202e6e8458c69fa536160de407ff807cbd8576e72c720b1d346298cf698"
+  },
+  {
+   "anchor": "section-3.5.3",
+   "title": "3.5.3. Reset Processing",
+   "level": 4,
+   "sha256": "f5af41c8a4a3d42d012fddaeb706b7b973c3070b22a8b2ec0ec2617366283e3a"
+  },
+  {
+   "anchor": "section-3.6",
+   "title": "3.6. Closing a Connection",
+   "level": 3,
+   "sha256": "df920f34372eee8898e05303d5cf9a90edddf219ba2537bf965b5fb65e080848"
+  },
+  {
+   "anchor": "section-3.6.1",
+   "title": "3.6.1. Half-Closed Connections",
+   "level": 4,
+   "sha256": "2ce8cfcc63a014e4de2dcc29672c1616cfb5b52a32beee5759b825441fde5f39"
+  },
+  {
+   "anchor": "section-3.7",
+   "title": "3.7. Segmentation",
+   "level": 3,
+   "sha256": "b51bc81eb96a99469b6509c77f12196892fdcc561a98b9fcb8b0f5f718887e01"
+  },
+  {
+   "anchor": "section-3.7.1",
+   "title": "3.7.1. Maximum Segment Size Option",
+   "level": 4,
+   "sha256": "f5ebe046c815326763e6f20a0775d3860dbeb0eb3fc051b6469cac093d454c2f"
+  },
+  {
+   "anchor": "section-3.7.2",
+   "title": "3.7.2. Path MTU Discovery",
+   "level": 4,
+   "sha256": "b289145e4f90a91e0541ced1287fd2ffd6f98cc6474fd891a574d4bf9cfde3f0"
+  },
+  {
+   "anchor": "section-3.7.3",
+   "title": "3.7.3. Interfaces with Variable MTU Values",
+   "level": 4,
+   "sha256": "cb2d6fd6c00e80680ac2238d0a03550d41a84e865a970e4969a2f6d998c8f257"
+  },
+  {
+   "anchor": "section-3.7.4",
+   "title": "3.7.4. Nagle Algorithm",
+   "level": 4,
+   "sha256": "056fcfb8aa2b0e1e56e2e1a4b021199503edbbb12b19d11418e3da1eec20e8b7"
+  },
+  {
+   "anchor": "section-3.7.5",
+   "title": "3.7.5. IPv6 Jumbograms",
+   "level": 4,
+   "sha256": "029d7e2a422c5093d115f0bbd7938887c4bff18cc6e584929faefb28309b8e59"
+  },
+  {
+   "anchor": "section-3.8",
+   "title": "3.8. Data Communication",
+   "level": 3,
+   "sha256": "bd9f1db002e391fa687a4857f54bff3fca3602509c3f300b89ce69759e75c8a2"
+  },
+  {
+   "anchor": "section-3.8.1",
+   "title": "3.8.1. Retransmission Timeout",
+   "level": 4,
+   "sha256": "f44f5dccacf0656f2e8ff5ce521257b515a31c425e0199460b290dfbbe3e4a3e"
+  },
+  {
+   "anchor": "section-3.8.2",
+   "title": "3.8.2. TCP Congestion Control",
+   "level": 4,
+   "sha256": "a1d38aeebd66ae3daee8c317adbdfd86bd2a7013062b3ce39b14dc4dfb4e66fa"
+  },
+  {
+   "anchor": "section-3.8.3",
+   "title": "3.8.3. TCP Connection Failures",
+   "level": 4,
+   "sha256": "5d344412b466f4d38346293e7f4f77d7a489a6360437b99ed81df390dd27d3a4"
+  },
+  {
+   "anchor": "section-3.8.4",
+   "title": "3.8.4. TCP Keep-Alives",
+   "level": 4,
+   "sha256": "b4284778d60a5405fc411a329ed434361f47037e40c3a2ccc2611cf018374ddb"
+  },
+  {
+   "anchor": "section-3.8.5",
+   "title": "3.8.5. The Communication of Urgent Information",
+   "level": 4,
+   "sha256": "7c897f36451abda79dcf3a4ed5476f06ebe0772150761caabd1194398de28427"
+  },
+  {
+   "anchor": "section-3.8.6",
+   "title": "3.8.6. Managing the Window",
+   "level": 4,
+   "sha256": "c159ad1b4b8299ee20ff158724917edbc6bc9e16c107463277af03e5c153f6d9"
+  },
+  {
+   "anchor": "section-3.8.6.1",
+   "title": "3.8.6.1. Zero-Window Probing",
+   "level": 5,
+   "sha256": "88dd8f21fa504379d8d5d7431654971eebafb588fdfa19b671142ee07d0a7c7b"
+  },
+  {
+   "anchor": "section-3.8.6.2",
+   "title": "3.8.6.2. Silly Window Syndrome Avoidance",
+   "level": 5,
+   "sha256": "1a6abf4d003514fe4b5239005e8265bbd7ae1b431c626a20eb38f435688dbd76"
+  },
+  {
+   "anchor": "section-3.8.6.2.1",
+   "title": "3.8.6.2.1. Sender's Algorithm -- When to Send Data",
+   "level": 6,
+   "sha256": "8ae2906de2fc6124f8e513ddb2f4cc9073df77845f5dc7f866c4d1027eb8adbc"
+  },
+  {
+   "anchor": "section-3.8.6.2.2",
+   "title": "3.8.6.2.2. Receiver's Algorithm -- When to Send a Window Update",
+   "level": 6,
+   "sha256": "d3ec8886a1bf4cfc61bf44b4b084d6193a968907b0b85a097b1f848bacb8e8b3"
+  },
+  {
+   "anchor": "section-3.8.6.3",
+   "title": "3.8.6.3. Delayed Acknowledgments -- When to Send an ACK Segment",
+   "level": 5,
+   "sha256": "bda7e0f35858f334029e87e09808e14ef63dda13af9a19e2a38790a0ce16c97b"
+  },
+  {
+   "anchor": "section-3.9",
+   "title": "3.9. Interfaces",
+   "level": 3,
+   "sha256": "adce38cb675f7603b7d8965f82e4bb2f1bf07ef911bcaf112bed565ca525cddc"
+  },
+  {
+   "anchor": "section-3.9.1",
+   "title": "3.9.1. User/TCP Interface",
+   "level": 4,
+   "sha256": "1eb45d9175e5d7472390f626cb888a65ebb06b200c23f2a90d6362882f0294f8"
+  },
+  {
+   "anchor": "section-3.9.1.1",
+   "title": "3.9.1.1. Open",
+   "level": 5,
+   "sha256": "35f73ba680db4c78b0fd221781063f11efca85d846e2002a13a9802292a40da8"
+  },
+  {
+   "anchor": "section-3.9.1.2",
+   "title": "3.9.1.2. Send",
+   "level": 5,
+   "sha256": "b8dbb610a7aa68350f5f24992f56eff8343ff82349fb94b9cd31a67e0e7a0c59"
+  },
+  {
+   "anchor": "section-3.9.1.3",
+   "title": "3.9.1.3. Receive",
+   "level": 5,
+   "sha256": "2fbaefbac1f1eb193a8c1411e62139cc7a53e2db2e5feb10ff43bc72072b6da4"
+  },
+  {
+   "anchor": "section-3.9.1.4",
+   "title": "3.9.1.4. Close",
+   "level": 5,
+   "sha256": "59655888ac93616bca0628328cbbc27455cea2b59f2a9f9ac4fe050cc99fdc50"
+  },
+  {
+   "anchor": "section-3.9.1.5",
+   "title": "3.9.1.5. Status",
+   "level": 5,
+   "sha256": "bf7c38be50db96d6fd738cf9b32fb20063945078d8096b5a34679f510a71820e"
+  },
+  {
+   "anchor": "section-3.9.1.6",
+   "title": "3.9.1.6. Abort",
+   "level": 5,
+   "sha256": "68b41a42aa999f9a7121bd58caefa52ba03bb72db52d37c4249cb0c798961115"
+  },
+  {
+   "anchor": "section-3.9.1.7",
+   "title": "3.9.1.7. Flush",
+   "level": 5,
+   "sha256": "7fc53c33d0848842eb3885b5ccce7a0d3d5dbbf95cf0a4804b42f6e6b2f6ee79"
+  },
+  {
+   "anchor": "section-3.9.1.8",
+   "title": "3.9.1.8. Asynchronous Reports",
+   "level": 5,
+   "sha256": "f89b7acc2a809ef928990754cebd444c49652c13fd32adb3fb4c3937811b16a5"
+  },
+  {
+   "anchor": "section-3.9.1.9",
+   "title": "3.9.1.9. Set Differentiated Services Field (IPv4 TOS or IPv6 Traffic Class)",
+   "level": 5,
+   "sha256": "9e42b044a5c4519144a08638b8f4775f3f1f23234c87d503fe094af6809a0664"
+  },
+  {
+   "anchor": "section-3.9.2",
+   "title": "3.9.2. TCP/Lower-Level Interface",
+   "level": 4,
+   "sha256": "20c0537a66b4a34a9a2f01eeda36a9be07ea1287c6aa70be0c53e19323cd68d3"
+  },
+  {
+   "anchor": "section-3.9.2.1",
+   "title": "3.9.2.1. Source Routing",
+   "level": 5,
+   "sha256": "56ddcf7d9f306bf433470c7b25cdbb57a330a61a48d91d4406561c0f6a44ae0f"
+  },
+  {
+   "anchor": "section-3.9.2.2",
+   "title": "3.9.2.2. ICMP Messages",
+   "level": 5,
+   "sha256": "fd17a1f329ad0e084cb41f475f974868097fd981a926e456add1568cf0cb9942"
+  },
+  {
+   "anchor": "section-3.9.2.3",
+   "title": "3.9.2.3. Source Address Validation",
+   "level": 5,
+   "sha256": "17b8373951c768f22d86219ee47777fb70f6f0c84e5e1bd02aa4c05b3edf0727"
+  },
+  {
+   "anchor": "section-3.10",
+   "title": "3.10. Event Processing",
+   "level": 3,
+   "sha256": "f756c99fa5c4ab7a4ed9e7e2a8cd6440c645a5d9d7157ab34af7cd055d4b0340"
+  },
+  {
+   "anchor": "section-3.10.1",
+   "title": "3.10.1. OPEN Call",
+   "level": 4,
+   "sha256": "00ce3bc04cf5fe9979d56d2df28d6a84f312ed689761cf072aa133b469899a50"
+  },
+  {
+   "anchor": "section-3.10.2",
+   "title": "3.10.2. SEND Call",
+   "level": 4,
+   "sha256": "6fdbc3326b1ea250717545303112392d6c8174bce1604c712cf3d2b922befcd7"
+  },
+  {
+   "anchor": "section-3.10.3",
+   "title": "3.10.3. RECEIVE Call",
+   "level": 4,
+   "sha256": "95c14b84fce4fef472c1df97e00fabb116d357ea0197497658a6ae1fec715448"
+  },
+  {
+   "anchor": "section-3.10.4",
+   "title": "3.10.4. CLOSE Call",
+   "level": 4,
+   "sha256": "9b7ef4900ab1b1a79f606db0eb43d336f3131def1c5c35328ed79b2f9808d03e"
+  },
+  {
+   "anchor": "section-3.10.5",
+   "title": "3.10.5. ABORT Call",
+   "level": 4,
+   "sha256": "6028995556c24518de7292f6c33bcb84c1175585cd9ef254d556a86665ac3c52"
+  },
+  {
+   "anchor": "section-3.10.6",
+   "title": "3.10.6. STATUS Call",
+   "level": 4,
+   "sha256": "cd22c7dcdb788e7c73cbb63da26a5b1e3bc0a0ec162a9f56875a7c915f8359d1"
+  },
+  {
+   "anchor": "section-3.10.7",
+   "title": "3.10.7. SEGMENT ARRIVES",
+   "level": 4,
+   "sha256": "480022c1b628f658da8d0eb02c670e5ee5f1a2cf74dbac78538a86f5a27334f8"
+  },
+  {
+   "anchor": "section-3.10.7.1",
+   "title": "3.10.7.1. CLOSED STATE",
+   "level": 5,
+   "sha256": "c358cf279a014483006440902aaad48d5349e50ca0afe365aa348c8be79706a2"
+  },
+  {
+   "anchor": "section-3.10.7.2",
+   "title": "3.10.7.2. LISTEN STATE",
+   "level": 5,
+   "sha256": "ec02977ebc02302646b101a327a25ee77f099cb3cc7b8f4934b53682c079b69b"
+  },
+  {
+   "anchor": "section-3.10.7.3",
+   "title": "3.10.7.3. SYN-SENT STATE",
+   "level": 5,
+   "sha256": "c0cdca17d2777b6b18f7b2dc3d97cf4174f51a1df7a49feec2ff608ef725c606"
+  },
+  {
+   "anchor": "section-3.10.7.4",
+   "title": "3.10.7.4. Other States",
+   "level": 5,
+   "sha256": "d594f50b641aacb6ee08f894d1c42c1cbd0a7427b58b4b94c71f326ec00374c2"
+  },
+  {
+   "anchor": "section-3.10.8",
+   "title": "3.10.8. Timeouts",
+   "level": 4,
+   "sha256": "1631b345d9065e70a5271f7d947d1c93aafdbdc2c399c15589b797a9ba90089f"
+  },
+  {
+   "anchor": "section-4",
+   "title": "4. Glossary",
+   "level": 2,
+   "sha256": "89671bced7e5d23d3b015c9ba5832fac0389dfaf9f948c6d6639a497361d1456"
+  },
+  {
+   "anchor": "section-5",
+   "title": "5. Changes from RFC 793",
+   "level": 2,
+   "sha256": "643479ab5dc8cc169e33e1fc625f0c63b43df89cb48e4ec97366f19f1b107326"
+  },
+  {
+   "anchor": "section-6",
+   "title": "6. IANA Considerations",
+   "level": 2,
+   "sha256": "fa3a081deed4c1fd07f257820431e97cce99d71ddb2f45dfbc890fa9a6a8bcb1"
+  },
+  {
+   "anchor": "section-7",
+   "title": "7. Security and Privacy Considerations",
+   "level": 2,
+   "sha256": "f4e9ba41606e61e176ad0b06aed20ed2a46adddfc0e8c3c30425a1c5675f2aeb"
+  },
+  {
+   "anchor": "section-8",
+   "title": "8. References",
+   "level": 2,
+   "sha256": "da5dc1823b9eb11015f44e423d2ccfac57c802767dc05c6e5188f2065f6166c8"
+  },
+  {
+   "anchor": "section-8.1",
+   "title": "8.1. Normative References",
+   "level": 3,
+   "sha256": "b803838dabc979c289fe566e2f51e79f20a0b28546ca524432b53192b19ae514"
+  },
+  {
+   "anchor": "section-8.2",
+   "title": "8.2. Informative References",
+   "level": 3,
+   "sha256": "19b4fba6df2e90e9ac707cf75e63189aba4a0d152e974957041f48de11bb8025"
+  },
+  {
+   "anchor": "name-other-implementation-notes",
+   "title": "Appendix A. Other Implementation Notes",
+   "level": 2,
+   "sha256": "29fea4351f90da69954bb7d9956da07429e34ffd0c9446ed4c2624c33f2e1da0"
+  },
+  {
+   "anchor": "name-ip-security-compartment-and",
+   "title": "A.1. IP Security Compartment and Precedence",
+   "level": 3,
+   "sha256": "0464a50f03f931424ead8cf17e196d79ab50bf5955c4aa3543ca9ca5be7f7588"
+  },
+  {
+   "anchor": "name-precedence",
+   "title": "A.1.1. Precedence",
+   "level": 4,
+   "sha256": "05e195190fb21a95becfb570001d97ea592fffb3f1d46cf167db4edbb29d43ca"
+  },
+  {
+   "anchor": "name-mls-systems",
+   "title": "A.1.2. MLS Systems",
+   "level": 4,
+   "sha256": "bf1850a3c331dc11b9c307916fdcd13a045433ebd6efb45d6db54f8233d1b485"
+  },
+  {
+   "anchor": "name-sequence-number-validation",
+   "title": "A.2. Sequence Number Validation",
+   "level": 3,
+   "sha256": "1bc70538036c07cbeff4c0d026f9be854f690158194e414e8ff156b9612100d7"
+  },
+  {
+   "anchor": "name-nagle-modification",
+   "title": "A.3. Nagle Modification",
+   "level": 3,
+   "sha256": "9ce0d787381e95fbfee1c8e71a31eedeb08900fa368b4f7c97c71ccb67e86c6f"
+  },
+  {
+   "anchor": "name-low-watermark-settings",
+   "title": "A.4. Low Watermark Settings",
+   "level": 3,
+   "sha256": "4524f1cc8eb8856b230c39352a4315abee55a1be1678493c0b60d2abd7da3a6d"
+  },
+  {
+   "anchor": "name-tcp-requirement-summary",
+   "title": "Appendix B. TCP Requirement Summary",
+   "level": 2,
+   "sha256": "8fb5a14afe2562cbcfbe07d7598ae4673d738c94524b3f103a4a0b995fee1406"
+  },
+  {
+   "anchor": "name-acknowledgments",
+   "title": "Acknowledgments",
+   "level": 2,
+   "sha256": "7a3cac3d22f96e7ac8f94cecd8a8d2c6aa55ce61f7e715f916ebc99197b02b16"
+  },
+  {
+   "anchor": "name-authors-address",
+   "title": "Author's Address",
+   "level": 2,
+   "sha256": "7725122555a36bfe2fecc80d3d1b594c89be0efa70a1e9ceac32f91866564625"
+  }
+ ]
+}

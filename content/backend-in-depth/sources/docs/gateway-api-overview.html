@@ -1,0 +1,844 @@
+<!doctype html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en" class="no-js" data-theme-init>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)"  content="#000000">
+
+
+
+
+<meta name="robots" content="index, follow">
+<link rel="icon" type="image/png" href="/images/k8s-favicon.png">
+
+<title>Security | Gateway API</title>
+<meta name="description" content="Introduction Gateway API has been designed to enable granular authorization for each role in a typical organization.
+Resources Gateway API has 3 primary API resources:
+GatewayClass defines a set of gateways with a common configuration and behavior. Gateway requests a point where traffic can be translated to Services within the cluster. Routes describe how traffic coming via the Gateway maps to the Services. Roles and personas There are 3 primary roles in Gateway API, as described in roles and personas:">
+<meta property="og:url" content="/docs/concepts/security/">
+  <meta property="og:site_name" content="Gateway API">
+  <meta property="og:title" content="Security">
+  <meta property="og:description" content="Introduction Gateway API has been designed to enable granular authorization for each role in a typical organization.
+Resources Gateway API has 3 primary API resources:
+GatewayClass defines a set of gateways with a common configuration and behavior. Gateway requests a point where traffic can be translated to Services within the cluster. Routes describe how traffic coming via the Gateway maps to the Services. Roles and personas There are 3 primary roles in Gateway API, as described in roles and personas:">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="docs">
+
+  <meta itemprop="name" content="Security">
+  <meta itemprop="description" content="Introduction Gateway API has been designed to enable granular authorization for each role in a typical organization.
+Resources Gateway API has 3 primary API resources:
+GatewayClass defines a set of gateways with a common configuration and behavior. Gateway requests a point where traffic can be translated to Services within the cluster. Routes describe how traffic coming via the Gateway maps to the Services. Roles and personas There are 3 primary roles in Gateway API, as described in roles and personas:">
+  <meta itemprop="wordCount" content="1498">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Security">
+  <meta name="twitter:description" content="Introduction Gateway API has been designed to enable granular authorization for each role in a typical organization.
+Resources Gateway API has 3 primary API resources:
+GatewayClass defines a set of gateways with a common configuration and behavior. Gateway requests a point where traffic can be translated to Services within the cluster. Routes describe how traffic coming via the Gateway maps to the Services. Roles and personas There are 3 primary roles in Gateway API, as described in roles and personas:">
+<link rel="preload" href="/scss/main.min.c325abbc0daac5c00885e7762ecd7b26614ab35c4d12fdeefca7dca901020d32.css" as="style" integrity="sha256-wyWrvA2qxcAIhed2Ls17JmFKs1xNEv3u/KfcqQECDTI=" crossorigin="anonymous">
+<link href="/scss/main.min.c325abbc0daac5c00885e7762ecd7b26614ab35c4d12fdeefca7dca901020d32.css" rel="stylesheet" integrity="sha256-wyWrvA2qxcAIhed2Ls17JmFKs1xNEv3u/KfcqQECDTI=" crossorigin="anonymous">
+
+
+
+      
+      
+  </head>
+  <body class="td-page">
+    <header>
+      <nav class="td-navbar js-navbar-scroll" data-bs-theme="dark">
+<div class="td-navbar-container container-fluid flex-column flex-md-row">
+  <a class="navbar-brand" href="/"><span class="navbar-brand__logo navbar-logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 60" width="400" height="60"><image href="/images/logo/logo-text-large-horizontal-white.png" width="100%" height="100%"/></svg></span><span class="navbar-brand__name">Gateway API</span></a>
+  <div class="td-navbar__main td-navbar-nav-scroll td-navbar-nav-scroll--indicator" id="main_navbar">
+    <div class="scroll-indicator scroll-left"></div>
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="/docs/"><span>Overview</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/guides/"><span>Guides</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/reference/"><span>Reference</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/geps/"><span>Enhancements</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/contributing/"><span>Contributing</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="https://github.com/kubernetes-sigs/gateway-api" target="_blank" rel="noopener"><i class='fab fa-github pr-2'></i><span>GitHub</span></a>
+      </li>
+      <li class="nav-item td-navbar__light-dark-menu">
+        <div class="td-light-dark-menu dropdown"><svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="check2" viewBox="0 0 16 16">
+    <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+  </symbol>
+  <symbol id="circle-half" viewBox="0 0 16 16">
+    <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"/>
+  </symbol>
+  <symbol id="moon-stars-fill" viewBox="0 0 16 16">
+    <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/>
+    <path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"/>
+  </symbol>
+  <symbol id="sun-fill" viewBox="0 0 16 16">
+    <path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
+  </symbol>
+</svg>
+<button class="btn btn-link nav-link dropdown-toggle d-flex align-items-center"
+        id="bd-theme"
+        type="button"
+        aria-expanded="false"
+        data-bs-toggle="dropdown"
+        aria-label="Toggle theme (auto)">
+  <svg class="bi my-1 theme-icon-active"><use href="#circle-half"></use></svg>
+</button>
+<ul class="dropdown-menu" aria-labelledby="bd-theme">
+  <li>
+    <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
+      <svg class="bi me-2 opacity-50"><use href="#sun-fill"></use></svg>
+      Light
+      <svg class="bi ms-auto d-none"><use href="#check2"></use></svg>
+    </button>
+  </li>
+  <li>
+    <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
+      <svg class="bi me-2 opacity-50"><use href="#moon-stars-fill"></use></svg>
+      Dark
+      <svg class="bi ms-auto d-none"><use href="#check2"></use></svg>
+    </button>
+  </li>
+  <li>
+    <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="auto" aria-pressed="true">
+      <svg class="bi me-2 opacity-50"><use href="#circle-half"></use></svg>
+      Auto
+      <svg class="bi ms-auto d-none"><use href="#check2"></use></svg>
+    </button>
+  </li>
+</ul>
+</div>
+
+      </li>
+      </ul>
+    <div class="scroll-indicator scroll-right"></div>
+  </div>
+  <div class="td-navbar__search d-none d-lg-block">
+    <div class="td-search td-search--offline">
+  <div class="td-search__icon"></div>
+  <input
+    type="search"
+    name="q"
+    class="td-search__input form-control"
+    placeholder='Search this site…'
+    aria-label='Search this site…'
+    autocomplete="off"
+    
+    data-offline-search-index-json-src="/offline-search-index.af3fabda35ee6bded0c2fa132f2010f7.json"
+    data-offline-search-base-href="/"
+    data-offline-search-max-results="10"
+  >
+</div>
+  </div>
+</div>
+</nav>
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main" data-bs-spy="scroll" data-bs-target=".td-toc" data-bs-root-margin="0px 0px -10%">
+        <div class="row flex-xl-nowrap">
+          <aside class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+            <div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    <div class="td-search td-search--offline">
+  <div class="td-search__icon"></div>
+  <input
+    type="search"
+    name="q"
+    class="td-search__input form-control"
+    placeholder='Search this site…'
+    aria-label='Search this site…'
+    autocomplete="off"
+    
+    data-offline-search-index-json-src="/offline-search-index.af3fabda35ee6bded0c2fa132f2010f7.json"
+    data-offline-search-base-href="/"
+    data-offline-search-max-results="10"
+  >
+</div>
+    <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    </button>
+  </form>
+  <nav class="td-sidebar-nav collapse foldable-nav" id="td-section-nav">
+    <ul class="td-sidebar-nav__section pe-md-3 ul-0">
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-docs-li">
+    <a href="/docs/" class="align-left ps-0 td-sidebar-link td-sidebar-link__section tree-root" id="m-docs"><span class="">Overview</span></a>
+    <ul class="ul-1">
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsintroduction-li">
+    <input type="checkbox" id="m-docsintroduction-check"/>
+    <label for="m-docsintroduction-check"><a href="/docs/introduction/" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-docsintroduction"><span class="">Introduction</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-docsconcepts-li">
+    <input type="checkbox" id="m-docsconcepts-check" checked/>
+    <label for="m-docsconcepts-check"><a href="/docs/concepts/" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-docsconcepts"><span class="">Concepts</span></a></label>
+    
+    <ul class="ul-2 foldable">
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsconceptsapi-overview-li">
+    <input type="checkbox" id="m-docsconceptsapi-overview-check"/>
+    <label for="m-docsconceptsapi-overview-check"><a href="/docs/concepts/api-overview/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsconceptsapi-overview"><span class="">API Overview</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsconceptstroubleshooting-li">
+    <input type="checkbox" id="m-docsconceptstroubleshooting-check"/>
+    <label for="m-docsconceptstroubleshooting-check"><a href="/docs/concepts/troubleshooting/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsconceptstroubleshooting"><span class="">Troubleshooting and Status</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsconceptsroles-and-personas-li">
+    <input type="checkbox" id="m-docsconceptsroles-and-personas-check"/>
+    <label for="m-docsconceptsroles-and-personas-check"><a href="/docs/concepts/roles-and-personas/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsconceptsroles-and-personas"><span class="">Roles and Personas</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child active-path" id="m-docsconceptssecurity-li">
+    <input type="checkbox" id="m-docsconceptssecurity-check" checked/>
+    <label for="m-docsconceptssecurity-check"><a href="/docs/concepts/security/" class="align-left ps-0  active td-sidebar-link td-sidebar-link__page" id="m-docsconceptssecurity"><span class="td-sidebar-nav-active-item">Security</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsconceptstooling-li">
+    <input type="checkbox" id="m-docsconceptstooling-check"/>
+    <label for="m-docsconceptstooling-check"><a href="/docs/concepts/tooling/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsconceptstooling"><span class="">Tools</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsconceptsuse-cases-li">
+    <input type="checkbox" id="m-docsconceptsuse-cases-check"/>
+    <label for="m-docsconceptsuse-cases-check"><a href="/docs/concepts/use-cases/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsconceptsuse-cases"><span class="">Use cases</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsconceptsversioning-li">
+    <input type="checkbox" id="m-docsconceptsversioning-check"/>
+    <label for="m-docsconceptsversioning-check"><a href="/docs/concepts/versioning/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsconceptsversioning"><span class="">Versioning</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsconceptstraffic-matching-li">
+    <input type="checkbox" id="m-docsconceptstraffic-matching-check"/>
+    <label for="m-docsconceptstraffic-matching-check"><a href="/docs/concepts/traffic-matching/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsconceptstraffic-matching"><span class="">Traffic Matching</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsconceptshostnames-li">
+    <input type="checkbox" id="m-docsconceptshostnames-check"/>
+    <label for="m-docsconceptshostnames-check"><a href="/docs/concepts/hostnames/" title="Hostnames in Gateway API" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsconceptshostnames"><span class="">Hostnames</span></a></label>
+    
+  </li>
+    </ul>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsconformance-li">
+    <input type="checkbox" id="m-docsconformance-check"/>
+    <label for="m-docsconformance-check"><a href="/docs/conformance/" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-docsconformance"><span class="">Conformance</span></a></label>
+    
+    <ul class="ul-2 foldable">
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsconformancelevels-li">
+    <input type="checkbox" id="m-docsconformancelevels-check"/>
+    <label for="m-docsconformancelevels-check"><a href="/docs/conformance/levels/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsconformancelevels"><span class="">Levels</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsconformancerunning-tests-li">
+    <input type="checkbox" id="m-docsconformancerunning-tests-check"/>
+    <label for="m-docsconformancerunning-tests-check"><a href="/docs/conformance/running-tests/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsconformancerunning-tests"><span class="">Running the suite</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsconformancechangelog-li">
+    <input type="checkbox" id="m-docsconformancechangelog-check"/>
+    <label for="m-docsconformancechangelog-check"><a href="/docs/conformance/changelog/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsconformancechangelog"><span class="">Changelog</span></a></label>
+    
+  </li>
+    </ul>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsimplementations-li">
+    <input type="checkbox" id="m-docsimplementations-check"/>
+    <label for="m-docsimplementations-check"><a href="/docs/implementations/" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-docsimplementations"><span class="">Implementations</span></a></label>
+    
+    <ul class="ul-2 foldable">
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsimplementationslist-li">
+    <input type="checkbox" id="m-docsimplementationslist-check"/>
+    <label for="m-docsimplementationslist-check"><a href="/docs/implementations/list/" title="Implementations" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsimplementationslist"><span class="">List</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsimplementationswizard-li">
+    <input type="checkbox" id="m-docsimplementationswizard-check"/>
+    <label for="m-docsimplementationswizard-check"><a href="/docs/implementations/wizard/" title="Controller Matching Wizard" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsimplementationswizard"><span class="">Matching Wizard</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsimplementationsversions-li">
+    <input type="checkbox" id="m-docsimplementationsversions-check"/>
+    <label for="m-docsimplementationsversions-check"><a href="/docs/implementations/versions/" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-docsimplementationsversions"><span class="">Implementations</span></a></label>
+    
+    <ul class="ul-3 foldable">
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsimplementationsversionsv17-li">
+    <input type="checkbox" id="m-docsimplementationsversionsv17-check"/>
+    <label for="m-docsimplementationsversionsv17-check"><a href="/docs/implementations/versions/v1.7/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsimplementationsversionsv17"><span class="">v1.7</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsimplementationsversionsv16-li">
+    <input type="checkbox" id="m-docsimplementationsversionsv16-check"/>
+    <label for="m-docsimplementationsversionsv16-check"><a href="/docs/implementations/versions/v1.6/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsimplementationsversionsv16"><span class="">v1.6</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsimplementationsversionsv15-li">
+    <input type="checkbox" id="m-docsimplementationsversionsv15-check"/>
+    <label for="m-docsimplementationsversionsv15-check"><a href="/docs/implementations/versions/v1.5/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsimplementationsversionsv15"><span class="">v1.5</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsimplementationsversionsv14-li">
+    <input type="checkbox" id="m-docsimplementationsversionsv14-check"/>
+    <label for="m-docsimplementationsversionsv14-check"><a href="/docs/implementations/versions/v1.4/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsimplementationsversionsv14"><span class="">v1.4</span></a></label>
+    
+  </li>
+    </ul>
+  </li>
+    </ul>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsmesh-li">
+    <input type="checkbox" id="m-docsmesh-check"/>
+    <label for="m-docsmesh-check"><a href="/docs/mesh/" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-docsmesh"><span class="">Service Mesh</span></a></label>
+    
+    <ul class="ul-2 foldable">
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsmeshmesh-overview-li">
+    <input type="checkbox" id="m-docsmeshmesh-overview-check"/>
+    <label for="m-docsmeshmesh-overview-check"><a href="/docs/mesh/mesh-overview/" title="Gateway API for Service Mesh" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsmeshmesh-overview"><span class="">Overview</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsmeshgamma-li">
+    <input type="checkbox" id="m-docsmeshgamma-check"/>
+    <label for="m-docsmeshgamma-check"><a href="/docs/mesh/gamma/" title="The GAMMA Initiative (Gateway API for Service Mesh)" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsmeshgamma"><span class="">GAMMA Initiative</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsmeshservice-facets-li">
+    <input type="checkbox" id="m-docsmeshservice-facets-check"/>
+    <label for="m-docsmeshservice-facets-check"><a href="/docs/mesh/service-facets/" title="The Different Facets of a Service" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsmeshservice-facets"><span class="">Service Facets</span></a></label>
+    
+  </li>
+    </ul>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsfaq-li">
+    <input type="checkbox" id="m-docsfaq-check"/>
+    <label for="m-docsfaq-check"><a href="/docs/faq/" title="Frequently Asked Questions (FAQ)" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-docsfaq"><span class="">FAQ</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsglossary-li">
+    <input type="checkbox" id="m-docsglossary-check"/>
+    <label for="m-docsglossary-check"><a href="/docs/glossary/" title="Gateway API Glossary" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-docsglossary"><span class="">Glossary</span></a></label>
+    
+  </li>
+    </ul>
+  </li>
+    </ul>
+  </nav>
+</div>
+          </aside>
+          <aside class="td-sidebar-toc">
+            <div class="td-page-meta ms-2 pb-1 pt-2 mb-0">
+<a href="https://github.com/kubernetes-sigs/gateway-api/tree/main/site/content/en/docs/concepts/security.md" class="td-page-meta--view td-page-meta__view" target="_blank" rel="noopener"><i class="fa-solid fa-file-lines fa-fw"></i> View page source</a>
+  <a href="https://github.com/kubernetes-sigs/gateway-api/edit/main/site/content/en/docs/concepts/security.md" class="td-page-meta--edit td-page-meta__edit" target="_blank" rel="noopener"><i class="fa-solid fa-pen-to-square fa-fw"></i> Edit this page</a>
+  <a href="https://github.com/kubernetes-sigs/gateway-api/new/main/site/content/en/docs/concepts?filename=change-me.md&amp;value=---%0Atitle%3A&#43;%22Long&#43;Page&#43;Title%22%0AlinkTitle%3A&#43;%22Short&#43;Nav&#43;Title%22%0Aweight%3A&#43;100%0Adescription%3A&#43;%3E-%0A&#43;&#43;&#43;&#43;&#43;Page&#43;description&#43;for&#43;heading&#43;and&#43;indexes.%0A---%0A%0A%23%23&#43;Heading%0A%0AEdit&#43;this&#43;template&#43;to&#43;create&#43;your&#43;new&#43;page.%0A%0A%2A&#43;Give&#43;it&#43;a&#43;good&#43;name%2C&#43;ending&#43;in&#43;%60.md%60&#43;-&#43;e.g.&#43;%60getting-started.md%60%0A%2A&#43;Edit&#43;the&#43;%22front&#43;matter%22&#43;section&#43;at&#43;the&#43;top&#43;of&#43;the&#43;page&#43;%28weight&#43;controls&#43;how&#43;its&#43;ordered&#43;amongst&#43;other&#43;pages&#43;in&#43;the&#43;same&#43;directory%3B&#43;lowest&#43;number&#43;first%29.%0A%2A&#43;Add&#43;a&#43;good&#43;commit&#43;message&#43;at&#43;the&#43;bottom&#43;of&#43;the&#43;page&#43;%28%3C80&#43;characters%3B&#43;use&#43;the&#43;extended&#43;description&#43;field&#43;for&#43;more&#43;detail%29.%0A%2A&#43;Create&#43;a&#43;new&#43;branch&#43;so&#43;you&#43;can&#43;preview&#43;your&#43;new&#43;file&#43;and&#43;request&#43;a&#43;review&#43;via&#43;Pull&#43;Request.%0A" class="td-page-meta--child td-page-meta__child" target="_blank" rel="noopener"><i class="fa-solid fa-pen-to-square fa-fw"></i> Create child page</a>
+  <a href="https://github.com/kubernetes-sigs/gateway-api/issues/new?title=Security" class="td-page-meta--issue td-page-meta__issue" target="_blank" rel="noopener"><i class="fa-solid fa-list-check fa-fw"></i> Create documentation issue</a>
+  
+</div>
+
+            
+<div class="td-toc">
+  <details>
+    <summary class="td-toc-title" style="cursor: pointer;">On this Page</summary>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#resources">Resources</a></li>
+    <li><a href="#roles-and-personas">Roles and personas</a>
+      <ul>
+        <li><a href="#rbac">RBAC</a>
+          <ul>
+            <li><a href="#write-permissions-for-simple-3-tier-model">Write Permissions for Simple 3 Tier Model</a></li>
+            <li><a href="#write-permissions-for-advanced-4-tier-model">Write Permissions for Advanced 4 Tier Model</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#crossing-namespace-boundaries">Crossing Namespace Boundaries</a>
+      <ul>
+        <li><a href="#1-route-binding">1. Route Binding</a>
+          <ul>
+            <li><a href="#risks-of-other-labels">Risks of Other Labels</a></li>
+          </ul>
+        </li>
+        <li><a href="#2-referencegrant">2. ReferenceGrant</a></li>
+      </ul>
+    </li>
+    <li><a href="#security-considerations">Security considerations</a>
+      <ul>
+        <li><a href="#avoiding-hostnamedomain-hijacking">Avoiding hostname/domain hijacking</a>
+          <ul>
+            <li><a href="#more-than-64-listeners">More than 64 listeners</a></li>
+            <li><a href="#example-of-a-validatingadmissionpolicy">Example of a ValidatingAdmissionPolicy</a></li>
+          </ul>
+        </li>
+        <li><a href="#limiting-cross-namespace-references">Limiting Cross-Namespace References</a></li>
+        <li><a href="#proper-definition-of-roles-and-rolebinding">Proper definition of Roles and RoleBinding</a></li>
+        <li><a href="#usage-and-limit-of-gatewayclass">Usage and limit of GatewayClass</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </details>
+</div>
+
+
+            
+
+          </aside>
+          <main class="col-12 col-md-9 col-xl-8 ps-md-5" role="main">
+            
+  
+
+            
+<div class="td-content">
+	<h1>Security</h1>
+	
+	<header class="article-meta">
+		
+</header>
+	<h2 id="introduction">Introduction<a class="td-heading-self-link" href="#introduction" aria-label="Heading self-link"></a></h2>
+<p>Gateway API has been designed to enable granular authorization for each role in
+a typical organization.</p>
+<h2 id="resources">Resources<a class="td-heading-self-link" href="#resources" aria-label="Heading self-link"></a></h2>
+<p>Gateway API has 3 primary API resources:</p>
+<ul>
+<li><strong>GatewayClass</strong> defines a set of gateways with a common configuration and
+behavior.</li>
+<li><strong>Gateway</strong> requests a point where traffic can be translated to Services
+within the cluster.</li>
+<li><strong>Routes</strong> describe how traffic coming via the Gateway maps to the Services.</li>
+</ul>
+<h2 id="roles-and-personas">Roles and personas<a class="td-heading-self-link" href="#roles-and-personas" aria-label="Heading self-link"></a></h2>
+<p>There are 3 primary roles in Gateway API, as described in <a href="/docs/concepts/roles-and-personas/">roles and personas</a>:</p>
+<ul>
+<li><strong>Ian</strong> (he/him): Infrastructure Provider</li>
+<li><strong>Chihiro</strong> (they/them): Cluster Operator</li>
+<li><strong>Ana</strong> (she/her): Application Developer</li>
+</ul>
+<h3 id="rbac">RBAC<a class="td-heading-self-link" href="#rbac" aria-label="Heading self-link"></a></h3>
+<p>RBAC (role-based access control) is the standard used for Kubernetes
+authorization. This allows users to configure who can perform actions on
+resources in specific scopes. RBAC can be used to enable each of the roles
+defined above. In most cases, it will be desirable to have all resources be
+readable by most roles, so instead we&rsquo;ll focus on write access for this model.</p>
+<h4 id="write-permissions-for-simple-3-tier-model">Write Permissions for Simple 3 Tier Model<a class="td-heading-self-link" href="#write-permissions-for-simple-3-tier-model" aria-label="Heading self-link"></a></h4>
+<table>
+  <thead>
+      <tr>
+          <th></th>
+          <th>GatewayClass</th>
+          <th>Gateway</th>
+          <th>Route</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Infrastructure Provider</td>
+          <td>Yes</td>
+          <td>Yes</td>
+          <td>Yes</td>
+      </tr>
+      <tr>
+          <td>Cluster Operators</td>
+          <td>No</td>
+          <td>Yes</td>
+          <td>Yes</td>
+      </tr>
+      <tr>
+          <td>Application Developers</td>
+          <td>No</td>
+          <td>No</td>
+          <td>Yes</td>
+      </tr>
+  </tbody>
+</table>
+<h4 id="write-permissions-for-advanced-4-tier-model">Write Permissions for Advanced 4 Tier Model<a class="td-heading-self-link" href="#write-permissions-for-advanced-4-tier-model" aria-label="Heading self-link"></a></h4>
+<table>
+  <thead>
+      <tr>
+          <th></th>
+          <th>GatewayClass</th>
+          <th>Gateway</th>
+          <th>Route</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Infrastructure Provider</td>
+          <td>Yes</td>
+          <td>Yes</td>
+          <td>Yes</td>
+      </tr>
+      <tr>
+          <td>Cluster Operators</td>
+          <td>Sometimes</td>
+          <td>Yes</td>
+          <td>Yes</td>
+      </tr>
+      <tr>
+          <td>Application Admins</td>
+          <td>No</td>
+          <td>In Specified Namespaces</td>
+          <td>In Specified Namespaces</td>
+      </tr>
+      <tr>
+          <td>Application Developers</td>
+          <td>No</td>
+          <td>No</td>
+          <td>In Specified Namespaces</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="crossing-namespace-boundaries">Crossing Namespace Boundaries<a class="td-heading-self-link" href="#crossing-namespace-boundaries" aria-label="Heading self-link"></a></h2>
+<p>Gateway API provides new ways to cross namespace boundaries. These
+cross-namespace capabilities are quite powerful but need to be used carefully to
+avoid accidental exposure. As a rule, every time we allow a namespace boundary
+to be crossed, we require a handshake between namespaces. There are 2 different
+ways that can occur:</p>
+<h3 id="1-route-binding">1. Route Binding<a class="td-heading-self-link" href="#1-route-binding" aria-label="Heading self-link"></a></h3>
+<p>Routes can be connected to Gateways in different namespaces. To accomplish this,
+The Gateway owner must explicitly allow Routes to bind from additional
+namespaces. This is accomplished by configuring allowedRoutes within a Gateway
+listener to look something like this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">namespaces</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">from</span><span class="p">:</span><span class="w"> </span><span class="l">Selector</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">selector</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">matchExpressions</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">kubernetes.io/metadata.name</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="l">In</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">values</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">foo</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">bar</span><span class="w">
+</span></span></span></code></pre></div><p>This will allow routes from the &ldquo;foo&rdquo; and &ldquo;bar&rdquo; namespaces to attach to this
+Gateway listener.</p>
+<h4 id="risks-of-other-labels">Risks of Other Labels<a class="td-heading-self-link" href="#risks-of-other-labels" aria-label="Heading self-link"></a></h4>
+<p>Although it&rsquo;s possible to use other labels with this selector, it is not quite
+as safe. While the <code>kubernetes.io/metadata.name</code> label is consistently set on
+namespaces to the name of the namespace, other labels do not have the same
+guarantee. If you used a custom label such as <code>env</code>, anyone that is able to
+label namespaces within your cluster would effectively be able to change the set
+of namespaces your Gateway supported.</p>
+<h3 id="2-referencegrant">2. ReferenceGrant<a class="td-heading-self-link" href="#2-referencegrant" aria-label="Heading self-link"></a></h3>
+<p>There are some cases where we allow other object references to cross namespace
+boundaries. This includes Gateways referencing Secrets and Routes referencing
+Backends (usually Services). In these cases, the required handshake is
+accomplished with a ReferenceGrant resource. This resource exists within a
+target namespace and can be used to allow references from other namespaces.</p>
+<p>For example, the following ReferenceGrant allows references from HTTPRoutes in
+the &ldquo;prod&rdquo; namespace to Services that are deployed in the same namespace as
+the ReferenceGrant.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">gateway.networking.k8s.io/v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ReferenceGrant</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">allow-prod-traffic</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">from</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l">gateway.networking.k8s.io</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">HTTPRoute</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">prod</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">to</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Service</span><span class="w">
+</span></span></span></code></pre></div>
+
+
+<p>For more information on ReferenceGrant, refer to our <a href="/reference/api-types/referencegrant/">detailed documentation
+for this resource</a>.</p>
+<h2 id="security-considerations">Security considerations<a class="td-heading-self-link" href="#security-considerations" aria-label="Heading self-link"></a></h2>
+<p>Gateway controllers can be deployed in a multi-tenant environment, where different
+namespaces are used by different users and customers.</p>
+<p>Some caution should be taken by the cluster administrators and Gateway owners to
+provide a safer environment.</p>
+<h3 id="avoiding-hostnamedomain-hijacking">Avoiding hostname/domain hijacking<a class="td-heading-self-link" href="#avoiding-hostnamedomain-hijacking" aria-label="Heading self-link"></a></h3>
+<p>On Gateway API, it is possible for distinct Routes and ListenerSets to claim the same hostname.
+Gateway controllers are responsible for the conflict resolution, that usually works on a first-come, first-served basis, where the first created resource wins in the  conflict management.</p>
+<p>The <a href="/reference/api-spec/main/spec/#httproutespec">hostname definition</a> on a Route or on ListenerSet is a list, and given the following scenario:</p>
+<ul>
+<li><code>Gateway</code> accepts routes from a set of namespaces</li>
+<li><code>HTTPRoute</code> with name <code>route1</code> is created on namespace <code>ns1</code>, with <code>creationTimestamp: 00:00:01</code>
+and defines hostname <code>something.tld</code>.</li>
+<li><code>HTTPRoute</code> with name <code>route2</code> is created on namespace <code>ns2</code>, with <code>creationTimestamp: 00:00:30</code>
+and defines hostname <code>otherthing.tld</code>.</li>
+</ul>
+<p>If the owner of <code>route1</code> adds later <code>otherthing.tld</code> to the list of hostnames, the
+route will be hijacked from <code>route2</code> because <code>route1</code> is older.</p>
+<p>To avoid this situation, the following actions should be taken:</p>
+<ul>
+<li>On Gateways, admins SHOULD ensure that hostnames are clearly delegated to a specific namespace or set of namespaces:</li>
+</ul>
+
+
+
+<ul class="nav nav-tabs" id="tabs-1" role="tablist">
+  <li class="nav-item">
+      <button class="nav-link active"
+          id="tabs-01-00-tab" data-bs-toggle="tab" data-bs-target="#tabs-01-00" role="tab"
+          data-td-tp-persist="good configuration" aria-controls="tabs-01-00" aria-selected="true">
+        Good configuration
+      </button>
+    </li><li class="nav-item">
+      <button class="nav-link"
+          id="tabs-01-01-tab" data-bs-toggle="tab" data-bs-target="#tabs-01-01" role="tab"
+          data-td-tp-persist="insecure configuration" aria-controls="tabs-01-01" aria-selected="false">
+        Insecure configuration
+      </button>
+    </li>
+</ul>
+
+<div class="tab-content" id="tabs-1-content">
+    <div class="tab-body tab-pane fade show active"
+        id="tabs-01-00" role="tabpanel" aria-labelled-by="tabs-01-00-tab" tabindex="1">
+        <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">gateway.networking.k8s.io/v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Gateway</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">gateway</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">gatewayClassName</span><span class="p">:</span><span class="w"> </span><span class="l">some-class</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">listeners</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;something.tld&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">listener1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l">HTTP</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">allowedRoutes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">namespaces</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">from</span><span class="p">:</span><span class="w"> </span><span class="l">Selector</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">selector</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">matchLabels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">kubernetes.io/metadata.name</span><span class="p">:</span><span class="w"> </span><span class="l">ns1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;otherthing.tld&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">listener2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l">HTTP</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">allowedRoutes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">namespaces</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">from</span><span class="p">:</span><span class="w"> </span><span class="l">Selector</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">selector</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">matchLabels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">kubernetes.io/metadata.name</span><span class="p">:</span><span class="w"> </span><span class="l">ns2</span><span class="w">
+</span></span></span></code></pre></div>
+    </div>
+    <div class="tab-body tab-pane fade"
+        id="tabs-01-01" role="tabpanel" aria-labelled-by="tabs-01-01-tab" tabindex="1">
+        <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">gateway.networking.k8s.io/v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Gateway</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">gateway</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">gatewayClassName</span><span class="p">:</span><span class="w"> </span><span class="l">some-class</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">listeners</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">listener1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l">HTTP</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">allowedRoutes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">namespaces</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">from</span><span class="p">:</span><span class="w"> </span><span class="l">All</span><span class="w">
+</span></span></span></code></pre></div>
+    </div>
+</div>
+
+<h4 id="more-than-64-listeners">More than 64 listeners<a class="td-heading-self-link" href="#more-than-64-listeners" aria-label="Heading self-link"></a></h4>
+<p>Gateway resource has a limitation of 64 listener entries. If you need more than 64
+listeners, you should consider allowing your users to set their hostnames directly
+on the routes of each namespaces but limiting what namespace can use what hostname
+by relying on a mechanism like <code>ValidatingAdmissionPolicy</code>.</p>
+<p>In case you opt to use <code>ListenerSet</code>, a similar mechanism
+should also be considered to limit what hostnames a <code>ListenerSet</code> can claim.</p>
+<h4 id="example-of-a-validatingadmissionpolicy">Example of a ValidatingAdmissionPolicy<a class="td-heading-self-link" href="#example-of-a-validatingadmissionpolicy" aria-label="Heading self-link"></a></h4>
+<p>A <a href="https://kubernetes.io/docs/reference/access-authn-authz/validating-admission-policy/">ValidatingAdmissionPolicy</a>
+can be used to add rules that limits what namespaces can use what domains.</p>
+<div class="alert alert-warning" role="alert">
+  <h4 class="alert-heading">Warning</h4>
+<p>The validation policy shown here <strong>IS AN EXAMPLE</strong> and the cluster-admin should do
+adjustments to their own environment! Do not copy/paste this example without proper
+adjustments</p>
+</div>
+The policy exemplified here will:
+<ul>
+<li>Read the allowed domains from a comma-separated value of the <code>annotation</code> &ldquo;domains&rdquo; present on the namespace.</li>
+<li>Validate if all of the hostnames within <code>.spec.hostnames</code> are contained on this annotation.</li>
+<li>In case any of the entries are not authorized, the policy denies its admission.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">admissionregistration.k8s.io/v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ValidatingAdmissionPolicy</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">httproute-hostname-policy</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">failurePolicy</span><span class="p">:</span><span class="w"> </span><span class="l">Fail</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">matchConstraints</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">resourceRules</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;gateway.networking.k8s.io&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">apiVersions</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;v1&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;v1beta1&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">operations</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;CREATE&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;UPDATE&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">resources</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;httproutes&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">variables</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">allowed_hostnames_str</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">expression</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">      has(namespaceObject.metadata.annotations) &amp;&amp; 
+</span></span></span><span class="line"><span class="cl"><span class="sd">      has(namespaceObject.metadata.annotations.domains) ?
+</span></span></span><span class="line"><span class="cl"><span class="sd">      namespaceObject.metadata.annotations[&#39;domains&#39;] : &#39;&#39; </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">allowed_hostnames_list</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">expression</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">      variables.allowed_hostnames_str.split(&#39;,&#39;).
+</span></span></span><span class="line"><span class="cl"><span class="sd">      map(h, h.trim()).filter(h, size(h) &gt; 0)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">validations</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">expression</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">      !has(object.spec.hostnames) || 
+</span></span></span><span class="line"><span class="cl"><span class="sd">      size(object.spec.hostnames) == 0 || 
+</span></span></span><span class="line"><span class="cl"><span class="sd">      object.spec.hostnames.all(hostname, hostname in variables.allowed_hostnames_list)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">message</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;HTTPRoute validation failed. It contains unauthorized hostnames&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nn">---</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">admissionregistration.k8s.io/v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ValidatingAdmissionPolicyBinding</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">httproute-hostname-binding</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">policyName</span><span class="p">:</span><span class="w"> </span><span class="l">httproute-hostname-policy</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">validationActions</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;Deny&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">matchResources</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">namespaceSelector</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span></span></span></code></pre></div><p>Once the policy is created, the cluster-admin should explicitly allow the usage of
+domains with a command like <code>kubectl annotate ns default domains=www.dom1.tld,www.dom2.tld</code></p>
+<p>Additionally, when dealing with environments that provide DNS record creations,
+admins should be aware and limit the DNS creation based on the same constraints above.</p>
+<h3 id="limiting-cross-namespace-references">Limiting Cross-Namespace References<a class="td-heading-self-link" href="#limiting-cross-namespace-references" aria-label="Heading self-link"></a></h3>
+<p>Owners of resources should be aware of the usage of <a href="/reference/api-types/referencegrant/">ReferenceGrants</a>.</p>
+<p>ReferenceGrant allows resource owners to make their resources available to
+Gateway API resources in other namespaces. It may be beneficial to restrict where
+this can be done.</p>
+<p>A <code>ValidatingAdmissionPolicy</code> can be used to limit what kind of <code>resource</code> and which <code>namespace</code>
+can create a <code>ReferenceGrant</code>.</p>
+<p>Below is an <strong>EXAMPLE</strong> that can be used to limit the usage of a <code>ReferenceGrant</code> just
+on namespaces labeled with <code>referencegrants=allow</code> and only allowing objects of kind <code>HTTPRoute</code>
+to reference an object of kind <code>Service</code> that MUST have a name:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">admissionregistration.k8s.io/v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ValidatingAdmissionPolicy</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">reference-grant-limit</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">failurePolicy</span><span class="p">:</span><span class="w"> </span><span class="l">Fail</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">matchConstraints</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">resourceRules</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;gateway.networking.k8s.io&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">apiVersions</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;v1&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;v1beta1&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">operations</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;CREATE&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;UPDATE&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">resources</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;referencegrants&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">variables</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">allowed_grant_ns</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">expression</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">      has(namespaceObject.metadata.labels) &amp;&amp; 
+</span></span></span><span class="line"><span class="cl"><span class="sd">      has(namespaceObject.metadata.labels.referencegrants) &amp;&amp;
+</span></span></span><span class="line"><span class="cl"><span class="sd">      namespaceObject.metadata.labels[&#39;referencegrants&#39;] == &#39;allow&#39; </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">allowed_from_kind</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">expression</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">      object.spec.from.all(f, f.kind==&#39;HTTPRoute&#39;)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">allowed_to_kind</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">expression</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">      object.spec.to.all(t, t.kind == &#39;Service&#39; &amp;&amp; has(t.name) &amp;&amp; t.name != &#39;&#39;)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">validations</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">expression</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">      variables.allowed_grant_ns &amp;&amp; variables.allowed_from_kind &amp;&amp; variables.allowed_to_kind</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">message</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;ReferenceGrant must be explicitly allowed on the namespace, from an HTTPRoute to a named service&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nn">---</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">admissionregistration.k8s.io/v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ValidatingAdmissionPolicyBinding</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">reference-grant-limit</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">policyName</span><span class="p">:</span><span class="w"> </span><span class="l">reference-grant-limit</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">validationActions</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;Deny&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">matchResources</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">namespaceSelector</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span></span></span></code></pre></div><p>ReferenceGrant owners should ensure that the reference permissions being granted are as minimal as possible.</p>
+<ul>
+<li>Specify <code>to</code> targets in all possible ways (<code>group</code>, <code>kind</code>, <strong>and</strong> <code>name</code>)</li>
+<li>In particular, DO NOT leave <code>name</code> unspecified, even though it is optional, without a <em>very</em> good reason, as that is granting a blanket</li>
+</ul>
+<h3 id="proper-definition-of-roles-and-rolebinding">Proper definition of Roles and RoleBinding<a class="td-heading-self-link" href="#proper-definition-of-roles-and-rolebinding" aria-label="Heading self-link"></a></h3>
+<p>The creation of a new Gateway should be considered as a privileged permission.
+The unguarded creation of Gateways may increase costs, infrastructure modifications
+(like a LoadBalancer and a DNS record creation) and as in such case, admins should
+be aware of it and create <a href="https://kubernetes.io/docs/reference/access-authn-authz/rbac/#role-and-clusterrole">Roles</a>
+and <a href="https://kubernetes.io/docs/reference/access-authn-authz/rbac/#rolebinding-and-clusterrolebinding">RoleBindings</a>
+that reflect proper user permissions.</p>
+<p>Additionally, it is highly recommended that the strict permissions are given, not
+allowing regular users to modify a Gateway API status.</p>
+<h3 id="usage-and-limit-of-gatewayclass">Usage and limit of GatewayClass<a class="td-heading-self-link" href="#usage-and-limit-of-gatewayclass" aria-label="Heading self-link"></a></h3>
+<p>A cluster may have different GatewayClasses, with different purposes. As an example,
+one GatewayClass may enforce that Gateways attached to it can only use internal load balancers.</p>
+<p>Cluster admins should be aware of these requirements, and define validation
+policies that limit the improper attachment of a Gateway to a GatewayClass by unauthorized users.</p>
+<p>A <a href="https://kubernetes.io/docs/reference/access-authn-authz/validating-admission-policy/">ValidatingAdmissionPolicy</a>
+can be used to limit what namespaces can use a <code>GatewayClass</code>.</p>
+
+	
+</div>
+
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark py-3 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row">
+      <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="GitHub" aria-label="GitHub">
+    <a class="footer-link text-white" target="_blank" rel="noopener noreferrer" href="https://github.com/kubernetes-sigs/gateway-api">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Trademark" aria-label="Trademark">
+    <a class="footer-link text-white" target="_blank" rel="noopener noreferrer" href="https://www.linuxfoundation.org/legal/trademark-usage">
+      <i class=""></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+        
+        
+        
+      </div>
+      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">&copy; 2026 The Linux Foundation
+        </small>
+        
+      </div>
+    </div>
+    <div class="row text-center text-white small">
+      <div class="col-12 text-center py-2 order-sm-2">
+        <a href="https://www.linuxfoundation.org/terms" class="footer-link" style="color: #ffffff" target="_blank" rel="noopener">Terms of Use</a> |
+        <a href="https://www.linuxfoundation.org/privacy" class="footer-link" style="color: #ffffff" target="_blank" rel="noopener">Privacy Policy</a> |
+        <a href="https://www.linuxfoundation.org/trademark-usage" class="footer-link" style="color: #ffffff" target="_blank" rel="noopener">Trademark Usage</a> |
+        <a href="https://github.com/kubernetes-sigs/gateway-api/blob/main/LICENSE" class="footer-link" style="color: #ffffff" target="_blank" rel="noopener">License</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </div>
+    
+
+
+
+  </body>
+</html>

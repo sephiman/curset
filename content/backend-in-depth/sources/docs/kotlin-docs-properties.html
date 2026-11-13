@@ -1,0 +1,306 @@
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html lang="en-US" data-preset="contrast" data-primary-color="#307FFF" data-external-links-in-new-tab="false"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="UTF-8"><meta name="built-on" content="2026-11-13T10:58:21.159114523"><meta name="build-number" content="1405"><link rel="canonical" href="/docs/properties.html" data-react-helmet="true">
+
+<title>Properties | Kotlin Documentation</title><link href="custom-frontend-app/app.css?149" rel="stylesheet"><link rel="icon" type="image/svg" sizes="16x16" href="https://kotlinlang.org/assets/images/favicon.svg?v2"><link rel="icon" type="image/x-icon" sizes="32x32" href="https://kotlinlang.org/assets/images/favicon.ico?v2"><link rel="icon" type="image/png" sizes="96x96" href="https://kotlinlang.org/assets/images/apple-touch-icon.png?v2"><link rel="icon" type="image/png" sizes="300x300" href="https://kotlinlang.org/assets/images/apple-touch-icon-72x72.png?v2"><link rel="icon" type="image/png" sizes="500x500" href="https://kotlinlang.org/assets/images/apple-touch-icon-114x114.png?v2"><meta name="image" content="https://kotlinlang.org/assets/images/open-graph/docs.png"><!-- Open Graph --><meta property="og:title" content="Properties | Kotlin"><meta property="og:description" content=""><meta property="og:image" content="https://kotlinlang.org/assets/images/open-graph/docs.png"><meta property="og:site_name" content="Kotlin Help"><meta property="og:type" content="website"><meta property="og:locale" content="en_US"><meta property="og:url" content="https://kotlinlang.org/docs/properties.html"><!-- End Open Graph --><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@kotlin"><meta name="twitter:title" content="Properties | Kotlin"><meta name="twitter:description" content=""><meta name="twitter:creator" content="@kotlin"><meta name="twitter:image:src" content="https://kotlinlang.org/assets/images/open-graph/docs.png"><!-- End Twitter Card --><!-- Schema.org WebPage --><!-- End Schema.org --><!-- Schema.org WebSite --><!-- End Schema.org --></head><body data-id="properties" data-main-title="Properties" data-article-props="{&quot;seeAlsoStyle&quot;:&quot;links&quot;}" data-template="article" data-breadcrumbs="Language guide///Classes and interfaces///Properties" data-edit-url="https://github.com/JetBrains/kotlin-web-site/edit/master/docs/topics/properties.md"><div class="wrapper"><main class="panel _main"><header class="panel__header"><div class="container"><h3>Kotlin  Help</h3><div class="panel-trigger"></div></div></header><section class="panel__content"><div class="container"><article class="article" data-shortcut-switcher="inactive"><h1 data-toc="properties" id="properties.md">Properties</h1><p id="z481h0u_2">In Kotlin, properties let you store and manage data without writing functions to access or change the data. You can use properties in <a href="classes.html" id="z481h0u_12">classes</a>, <a href="interfaces.html" id="z481h0u_13">interfaces</a>, <a href="object-declarations.html" id="z481h0u_14">objects</a>, <a href="object-declarations.html#companion-objects" id="z481h0u_15">companion objects</a>, and even outside these structures as top-level properties.</p><p id="z481h0u_3">Every property has a name, a type, and an automatically generated <code class="code" id="z481h0u_16">get()</code> function called a getter. You can use the getter to read the property's value. If the property is mutable, it also has a <code class="code" id="z481h0u_17">set()</code> function called a setter, which allows you to change the property's value.</p><aside class="prompt" data-type="tip" data-title="" id="z481h0u_4"><p id="z481h0u_18">Getters and setters are called <span class="emphasis" id="z481h0u_19">accessors</span>.</p></aside><section class="chapter"><h2 id="declaring-properties" data-toc="declaring-properties">Declaring properties</h2><p id="z481h0u_20">Properties can be mutable (<code class="code" id="z481h0u_29">var</code>) or read-only (<code class="code" id="z481h0u_30">val</code>). You can declare them as a top-level property in a <code class="code" id="z481h0u_31">.kt</code> file. Think of a top-level property as a global variable that belongs to a package:</p><div class="code-block" data-lang="kotlin">
+// File: Constants.kt
+package my.app
+
+val pi = 3.14159
+var counter = 0
+</div><p id="z481h0u_22">You can also declare properties inside a class, interface, or object:</p><div class="code-block" data-lang="kotlin">
+// Class with properties
+class Address {
+    var name: String = &quot;Holmes, Sherlock&quot;
+    var street: String = &quot;Baker&quot;
+    var city: String = &quot;London&quot;
+}
+
+// Interface with a property
+interface ContactInfo {
+    val email: String
+}
+
+// Object with properties
+object Company {
+    var name: String = &quot;Detective Inc.&quot;
+    val country: String = &quot;UK&quot;
+}
+
+// Class implementing the interface
+class PersonContact : ContactInfo {
+    override val email: String = &quot;sherlock@example.com&quot;
+}
+</div><p id="z481h0u_24">To use a property, refer to it by its name:</p><div class="code-block" data-lang="kotlin" data-runnable="true" id="kotlin-access-properties">
+class Address {
+    var name: String = &quot;Holmes, Sherlock&quot;
+    var street: String = &quot;Baker&quot;
+    var city: String = &quot;London&quot;
+}
+
+interface ContactInfo {
+    val email: String
+}
+
+object Company {
+    var name: String = &quot;Detective Inc.&quot;
+    val country: String = &quot;UK&quot;
+}
+
+class PersonContact : ContactInfo {
+    override val email: String = &quot;sherlock@example.com&quot;
+}
+
+//sampleStart
+fun copyAddress(address: Address): Address {
+    val result = Address()
+    // Accesses properties in the result instance
+    result.name = address.name
+    result.street = address.street
+    result.city = address.city
+    return result
+}
+
+fun main() {
+    val sherlockAddress = Address()
+    val copy = copyAddress(sherlockAddress)
+    // Accesses properties in the copy instance
+    println(&quot;Copied address: ${copy.name}, ${copy.street}, ${copy.city}&quot;)
+    // Copied address: Holmes, Sherlock, Baker, London
+
+    // Accesses properties in the Company object
+    println(&quot;Company: ${Company.name} in ${Company.country}&quot;)
+    // Company: Detective Inc. in UK
+    
+    val contact = PersonContact()
+    // Access properties in the contact instance
+    println(&quot;Email: ${contact.email}&quot;)
+    // Email: sherlock@email.com
+}
+//sampleEnd
+</div><p id="z481h0u_26">In Kotlin, we recommend initializing properties when you declare them to keep your code safe and easy to read. However, you can <a href="#late-initialized-properties-and-variables" id="z481h0u_32">initialize them later</a> in special cases.</p><p id="z481h0u_27">Declaring the property type is optional if the compiler can infer it from the initializer or the getter's return type:</p><div class="code-block" data-lang="kotlin">
+var initialized = 1 // The inferred type is Int
+var allByDefault    // ERROR: Property must be initialized.
+</div></section><section class="chapter"><h2 id="custom-getters-and-setters" data-toc="custom-getters-and-setters">Custom getters and setters</h2><p id="z481h0u_33">By default, Kotlin automatically generates getters and setters. You can define your own custom accessors when you need extra logic, such as validation, formatting, or calculations based on other properties.</p><p id="z481h0u_34">A custom getter runs every time the property is accessed:</p><div class="code-block" data-lang="kotlin" data-runnable="true" id="kotlin-custom-getter">
+//sampleStart
+class Rectangle(val width: Int, val height: Int) {
+    val area: Int
+        get() = this.width * this.height
+}
+//sampleEnd
+fun main() {
+    val rectangle = Rectangle(3, 4)
+    println(&quot;Width=${rectangle.width}, height=${rectangle.height}, area=${rectangle.area}&quot;)
+}
+</div><p id="z481h0u_36">You can omit the type if the compiler can infer it from the getter:</p><div class="code-block" data-lang="kotlin">
+val area get() = this.width * this.height
+</div><p id="z481h0u_38">A custom setter runs every time you assign a value to the property, except during initialization. By convention, the name of the setter parameter is <code class="code" id="z481h0u_41">value</code>, but you can choose a different name:</p><div class="code-block" data-lang="kotlin" data-runnable="true" id="kotlin-custom-setter">
+class Point(var x: Int, var y: Int) {
+    var coordinates: String
+        get() = &quot;$x,$y&quot;
+        set(value) {
+            val parts = value.split(&quot;,&quot;)
+            x = parts[0].toInt()
+            y = parts[1].toInt()
+        }
+}
+
+fun main() {
+    val location = Point(1, 2)
+    println(location.coordinates) 
+    // 1,2
+
+    location.coordinates = &quot;10,20&quot;
+    println(&quot;${location.x}, ${location.y}&quot;) 
+    // 10, 20
+}
+</div><section class="chapter"><h3 id="changing-visibility-or-adding-annotations" data-toc="changing-visibility-or-adding-annotations">Changing visibility or adding annotations</h3><p id="z481h0u_42">In Kotlin, you can change accessor visibility or add <a href="annotations.html" id="z481h0u_48">annotations</a> without replacing the default implementation. You don't have to make these changes within a body <code class="code" id="z481h0u_49">{}</code>.</p><p id="z481h0u_43">To change the visibility of an accessor, use the modifier before the <code class="code" id="z481h0u_50">get</code> or <code class="code" id="z481h0u_51">set</code> keyword:</p><div class="code-block" data-lang="kotlin" data-runnable="true" id="kotlin-private-setter">
+class BankAccount(initialBalance: Int) {
+    var balance: Int = initialBalance
+        // Only the class can modify the balance
+        private set 
+
+    fun deposit(amount: Int) {
+        if (amount &gt; 0) balance += amount
+    }
+
+    fun withdraw(amount: Int) {
+        if (amount &gt; 0 &amp;&amp; amount &lt;= balance) balance -= amount
+    }
+}
+
+fun main() {
+    val account = BankAccount(100)
+    println(&quot;Initial balance: ${account.balance}&quot;) 
+    // 100
+
+    account.deposit(50)
+    println(&quot;After deposit: ${account.balance}&quot;) 
+    // 150
+
+    account.withdraw(70)
+    println(&quot;After withdrawal: ${account.balance}&quot;) 
+    // 80
+
+    // account.balance = 1000  
+    // Error: cannot assign because setter is private
+}
+</div><p id="z481h0u_45">To annotate an accessor, use the annotation before the <code class="code" id="z481h0u_52">get</code> or <code class="code" id="z481h0u_53">set</code> keyword:</p><div class="code-block" data-lang="kotlin">
+// Defines an annotation that can be applied to a getter
+@Target(AnnotationTarget.PROPERTY_GETTER)
+annotation class Inject
+
+class Service {
+    var dependency: String = &quot;Default Service&quot;
+        // Annotates the getter
+        @Inject get 
+}
+
+fun main() {
+    val service = Service()
+    println(service.dependency)
+    // Default service
+    println(service::dependency.getter.annotations)
+    // [@Inject()]
+    println(service::dependency.setter.annotations)
+    // []
+}
+</div><p id="z481h0u_47">This example uses <a href="reflection.html" id="z481h0u_54">reflection</a> to show which annotations are present on the getter and setter.</p></section></section><section class="chapter"><h2 id="backing-fields" data-toc="backing-fields">Backing fields</h2><p id="z481h0u_55">The compiler automatically generates backing fields for properties when a value needs to be stored in memory.</p><p id="z481h0u_56">For example, the compiler creates a backing field when you use the default <code class="code" id="z481h0u_65">get()</code> and <code class="code" id="z481h0u_66">set()</code> functions because they read and write the stored value:</p><div class="code-block" data-lang="kotlin">
+var count = 0
+</div><p id="z481h0u_58">You can access backing fields by using the <code class="code" id="z481h0u_67">field</code> keyword in a <a href="#custom-getters-and-setters" id="z481h0u_68">custom <code class="code" id="z481h0u_69">get()</code> or <code class="code" id="z481h0u_70">set()</code> function</a>. For example, you can add extra logic to a getter or setter, or trigger an additional action when a property changes.</p><p id="z481h0u_59">In this example, the <code class="code" id="z481h0u_71">score</code> property uses the backing field inside the <code class="code" id="z481h0u_72">set()</code> function so that updating the value also triggers a log event:</p><div class="code-block" data-lang="kotlin" data-runnable="true" id="kotlin-backing-field">
+class Scoreboard {
+    var score: Int = 0
+        set(value) {
+            field = value
+            // Adds logging when updating the value
+            println(&quot;Score updated to $field&quot;)
+        }
+}
+
+fun main() {
+    val board = Scoreboard()
+    board.score = 10  
+    // Score updated to 10
+    board.score = 20  
+    // Score updated to 20
+}
+</div><p id="z481h0u_61">Backing fields aren't created by default for all properties because they might not need them. For example, the <code class="code" id="z481h0u_73">isEmpty</code> property doesn't have a backing field because the value is calculated from the <code class="code" id="z481h0u_74">size</code> property each time you access it:</p><div class="code-block" data-lang="kotlin">
+val isEmpty: Boolean
+    get() = this.size == 0
+</div><section class="chapter"><h3 id="explicit-backing-fields" data-toc="explicit-backing-fields">Explicit backing fields</h3><p id="z481h0u_75">Sometimes you might need more flexibility. For example, if you have an API where you want to be able to modify the property internally but not externally. In such cases, you can use an <span class="emphasis" id="z481h0u_82">explicit backing field</span>.</p><p id="z481h0u_76">In the following example, the <code class="code" id="z481h0u_83">ShoppingCart</code> class has an <code class="code" id="z481h0u_84">items</code> property that represents everything in the shopping cart. The class exposes the <code class="code" id="z481h0u_85">items</code> property as a read-only list of strings, but internally it stores the data in a mutable list with an explicit backing field:</p><div class="code-block" data-lang="kotlin" data-runnable="true" data-min-compiler-version="2.4" id="kotlin-explicit-backing-field">
+class ShoppingCart {
+    // Public read-only view with explicit backing field
+    val items: List&lt;String&gt;
+        field = mutableListOf()
+    
+    fun addItem(item: String) {
+        items.add(item)
+    }
+
+    fun removeItem(item: String) {
+        items.remove(item)
+    }
+}
+
+fun main() {
+    val cart = ShoppingCart()
+    cart.addItem(&quot;Apple&quot;)
+    cart.addItem(&quot;Banana&quot;)
+
+    println(cart.items) 
+    // [Apple, Banana]
+    
+    cart.removeItem(&quot;Apple&quot;)
+    println(cart.items) 
+    // [Banana]
+}
+</div><p id="z481h0u_78">In this example, the compiler infers the type of the backing field from the <code class="code" id="z481h0u_86">mutableListOf()</code> call: <code class="code" id="z481h0u_87">MutableList&lt;String&gt;</code>. You can also declare the type of the backing field explicitly:</p><div class="code-block" data-lang="kotlin">
+val items: List&lt;String&gt;
+    // Explicit backing field with explicit type
+    field: MutableList&lt;String&gt; = mutableListOf()
+</div><p id="z481h0u_80">In the example of the <code class="code" id="z481h0u_88">ShoppingCart</code> class, the compiler smart casts the <code class="code" id="z481h0u_89">items</code> property to the <code class="code" id="z481h0u_90">MutableList&lt;String&gt;</code> type, so the class can add and remove items from the cart through the <code class="code" id="z481h0u_91">add()</code> and <code class="code" id="z481h0u_92">remove()</code> functions. Outside the class, the compiler uses the public property type <code class="code" id="z481h0u_93">List&lt;String&gt;</code>, so API users can only read what's in the <code class="code" id="z481h0u_94">items</code> list.</p><section class="chapter"><h4 id="limitations" data-toc="limitations">Limitations</h4><p id="z481h0u_95">To use explicit backing fields, their properties and the backing fields themselves must follow certain rules. Properties can have explicit backing fields only if they:</p><ul class="list _bullet" id="z481h0u_96"><li class="list__item" id="z481h0u_99"><p id="z481h0u_104">Don't have a custom getter.</p></li><li class="list__item" id="z481h0u_100"><p id="z481h0u_105">Are read-only (<code class="code" id="z481h0u_106">val</code>).</p></li><li class="list__item" id="z481h0u_101"><p id="z481h0u_107">Aren't <code class="code" id="z481h0u_108">open</code>.</p></li><li class="list__item" id="z481h0u_102"><p id="z481h0u_109">Aren't a <a href="delegated-properties.html" id="z481h0u_110">delegated property</a>.</p></li><li class="list__item" id="z481h0u_103"><p id="z481h0u_111">Aren't <a href="#compile-time-constants" id="z481h0u_112">compile-time constants</a>.</p></li></ul><p id="z481h0u_97">In addition, the backing field type must be a subtype of the property's type and have <a href="visibility-modifiers.html" id="z481h0u_113"><code class="code" id="z481h0u_114">private</code> visibility</a>.</p><p id="z481h0u_98">You can work around these restrictions by using backing properties instead.</p></section></section><section class="chapter"><h3 id="backing-properties" data-toc="backing-properties">Backing properties</h3><p id="z481h0u_115">If explicit backing fields don't fit your use case, you can try using a coding pattern called a <span class="emphasis" id="z481h0u_120">backing property</span>.</p><p id="z481h0u_116">For example, if your property needs a custom getter:</p><div class="code-block" data-lang="kotlin" data-runnable="true" id="kotlin-backing-property-custom-getter">
+class UserDirectory {
+    private val _users = mutableListOf(
+        &quot;sarah&quot;,
+        &quot;mike&quot;,
+        &quot;emma&quot;
+    )
+
+    val users: List&lt;String&gt;
+        get() = _users.sorted()
+
+    fun addUser(username: String) {
+        _users.add(username)
+    }
+}
+
+fun main() {
+    val directory = UserDirectory()
+
+    directory.addUser(&quot;alex&quot;)
+    println(directory.users)
+    // [alex, emma, mike, sarah]
+}
+</div><aside class="prompt" data-type="tip" data-title="" id="z481h0u_118"><p id="z481h0u_121">Use a leading underscore when naming backing properties to follow Kotlin <a href="coding-conventions.html#names-for-backing-properties" id="z481h0u_122">coding conventions</a>.</p></aside><p id="z481h0u_119">In this example, the <code class="code" id="z481h0u_123">UserDirectory</code> class has a read-only <code class="code" id="z481h0u_124">users</code> property that lists every user in the directory. The <code class="code" id="z481h0u_125">_users</code> variable is the private backing property containing the real list. The getter for the public <code class="code" id="z481h0u_126">users</code> property sorts the entries before returning them.</p></section></section><section class="chapter"><h2 id="compile-time-constants" data-toc="compile-time-constants">Compile-time constants</h2><p id="z481h0u_127">If the value of a read-only property is known at compile time, mark it as a <span class="emphasis" id="z481h0u_134">compile-time constant</span> using the <code class="code" id="z481h0u_135">const</code> modifier. Compile-time constants are inlined at compile time, so each reference is replaced with its actual value. They are accessed more efficiently because no getter is called:</p><div class="code-block" data-lang="kotlin">
+// File: AppConfig.kt
+package com.example
+
+// Compile-time constant
+const val MAX_LOGIN_ATTEMPTS = 3
+</div><p id="z481h0u_129">Compile-time constants must meet the following requirements:</p><ul class="list _bullet" id="z481h0u_130"><li class="list__item" id="z481h0u_136"><p id="z481h0u_139">They must be either a top-level property, or a member of an <a href="object-declarations.html#object-declarations-overview" id="z481h0u_140"><code class="code" id="z481h0u_142">object</code> declaration</a> or a <a href="object-declarations.html#companion-objects" id="z481h0u_141">companion object</a>.</p></li><li class="list__item" id="z481h0u_137"><p id="z481h0u_143">They must be initialized with a value of type <code class="code" id="z481h0u_144">String</code> or a <a href="types-overview.html" id="z481h0u_145">primitive type</a>.</p></li><li class="list__item" id="z481h0u_138"><p id="z481h0u_146">They can't have a custom getter.</p></li></ul><p id="z481h0u_131">Compile-time constants still have a backing field, so you can interact with them using <a href="reflection.html" id="z481h0u_147">reflection</a>.</p><p id="z481h0u_132">You can also use these properties in annotations:</p><div class="code-block" data-lang="kotlin">
+const val SUBSYSTEM_DEPRECATED: String = &quot;This subsystem is deprecated&quot;
+
+@Deprecated(SUBSYSTEM_DEPRECATED) fun processLegacyOrders() { ... }
+</div></section><section class="chapter"><h2 id="late-initialized-properties-and-variables" data-toc="late-initialized-properties-and-variables">Late-initialized properties and variables</h2><p id="z481h0u_148">Normally, you must initialize properties in the constructor. However, this isn't always convenient. For example, you might initialize properties through dependency injection or inside the setup method of a unit test.</p><p id="z481h0u_149">To handle these situations, mark the property with the <code class="code" id="z481h0u_161">lateinit</code> modifier:</p><div class="code-block" data-lang="kotlin">
+public class OrderServiceTest {
+    lateinit var orderService: OrderService
+
+    @SetUp fun setup() {
+        orderService = OrderService()
+    }
+
+    @Test fun processesOrderSuccessfully() {
+        // Calls orderService directly without checking for null
+        // or initialization
+        orderService.processOrder()  
+    }
+}
+</div><p id="z481h0u_151">You can use the <code class="code" id="z481h0u_162">lateinit</code> modifier on <code class="code" id="z481h0u_163">var</code> properties declared as:</p><ul class="list _bullet" id="z481h0u_152"><li class="list__item" id="z481h0u_164"><p id="z481h0u_167">Top-level properties.</p></li><li class="list__item" id="z481h0u_165"><p id="z481h0u_168">Local variables.</p></li><li class="list__item" id="z481h0u_166"><p id="z481h0u_169">Properties inside the body of a class.</p></li></ul><p id="z481h0u_153">For class properties:</p><ul class="list _bullet" id="z481h0u_154"><li class="list__item" id="z481h0u_170"><p id="z481h0u_172">You can't declare them in the primary constructor.</p></li><li class="list__item" id="z481h0u_171"><p id="z481h0u_173">They must not have a custom getter or setter.</p></li></ul><p id="z481h0u_155">In all cases, the property or variable must be non-nullable and must not be a <a href="types-overview.html" id="z481h0u_174">primitive type</a>.</p><p id="z481h0u_156">If you access a <code class="code" id="z481h0u_175">lateinit</code> property before initializing it, Kotlin throws a specific exception that identifies the uninitialized property being accessed:</p><div class="code-block" data-lang="kotlin" data-runnable="true" id="kotlin-lateinit-property">
+class ReportGenerator {
+    lateinit var report: String
+
+    fun printReport() {
+        // Throws an exception as it's accessed before
+        // initialization
+        println(report)
+    }
+}
+
+fun main() {
+    val generator = ReportGenerator()
+    generator.printReport()
+    // Exception in thread &quot;main&quot; kotlin.UninitializedPropertyAccessException: lateinit property report has not been initialized
+}
+</div><p id="z481h0u_158">To check whether a <code class="code" id="z481h0u_176">lateinit var</code> has already been initialized, use the <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/is-initialized.html" id="z481h0u_177" data-external="true" rel="noopener noreferrer"><code class="code" id="z481h0u_179">isInitialized</code></a> property on the <a href="lambdas.html#property-references" id="z481h0u_178">reference to that property</a>:</p><div class="code-block" data-lang="kotlin" data-runnable="true" id="kotlin-lateinit-property-check-initialization">
+class WeatherStation {
+    lateinit var latestReading: String
+
+    fun printReading() {
+        // Checks whether the property is initialized
+        if (this::latestReading.isInitialized) {
+            println(&quot;Latest reading: $latestReading&quot;)
+        } else {
+            println(&quot;No reading available&quot;)
+        }
+    }
+}
+
+fun main() {
+    val station = WeatherStation()
+
+    station.printReading()
+    // No reading available
+    station.latestReading = &quot;22°C, sunny&quot;
+    station.printReading()
+    // Latest reading: 22°C, sunny
+}
+</div><p id="z481h0u_160">You can only use <code class="code" id="z481h0u_180">isInitialized</code> on a property if you can already access that property in your code. The property must be declared in the same class, in an outer class, or as a top-level property in the same file.</p></section><section class="chapter"><h2 id="overriding-properties" data-toc="overriding-properties">Overriding properties</h2><p id="z481h0u_181">See <a href="inheritance.html#overriding-properties" id="z481h0u_182">Overriding properties</a>.</p></section><section class="chapter"><h2 id="delegated-properties" data-toc="delegated-properties">Delegated properties</h2><p id="z481h0u_183">To reuse logic and reduce code duplication, you can delegate the responsibility of getting and setting a property to a separate object.</p><p id="z481h0u_184">Delegating accessor behavior keeps the property's accessor logic centralized, making it easier to reuse. This approach is useful when implementing behaviors like:</p><ul class="list _bullet" id="z481h0u_185"><li class="list__item" id="z481h0u_187"><p id="z481h0u_191">Computing a value lazily.</p></li><li class="list__item" id="z481h0u_188"><p id="z481h0u_192">Reading from a map by a given key.</p></li><li class="list__item" id="z481h0u_189"><p id="z481h0u_193">Accessing a database.</p></li><li class="list__item" id="z481h0u_190"><p id="z481h0u_194">Notifying a listener when a property is accessed.</p></li></ul><p id="z481h0u_186">You can implement these common behaviors in libraries yourself or use existing delegates provided by external libraries. For more information, see <a href="delegated-properties.html" id="z481h0u_195">delegated properties</a>.</p></section><div class="last-modified">29 September 2026</div><div data-feedback-placeholder="true"></div><div class="navigation-links _bottom"><a href="fun-interfaces.html" class="navigation-links__prev">Functional (SAM) interfaces</a><a href="delegated-properties.html" class="navigation-links__next">Delegated properties</a></div></article><div id="disqus_thread"></div></div></section></main></div></body></html>

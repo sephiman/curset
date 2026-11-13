@@ -1,0 +1,266 @@
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html lang="en-US" data-preset="contrast" data-primary-color="#307FFF" data-external-links-in-new-tab="false"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="UTF-8"><meta name="built-on" content="2026-11-13T10:58:16.222423167"><meta name="build-number" content="1405"><link rel="canonical" href="/docs/exception-handling.html" data-react-helmet="true">
+
+<title>Coroutine exceptions handling | Kotlin Documentation</title><link href="custom-frontend-app/app.css?149" rel="stylesheet"><link rel="icon" type="image/svg" sizes="16x16" href="https://kotlinlang.org/assets/images/favicon.svg?v2"><link rel="icon" type="image/x-icon" sizes="32x32" href="https://kotlinlang.org/assets/images/favicon.ico?v2"><link rel="icon" type="image/png" sizes="96x96" href="https://kotlinlang.org/assets/images/apple-touch-icon.png?v2"><link rel="icon" type="image/png" sizes="300x300" href="https://kotlinlang.org/assets/images/apple-touch-icon-72x72.png?v2"><link rel="icon" type="image/png" sizes="500x500" href="https://kotlinlang.org/assets/images/apple-touch-icon-114x114.png?v2"><meta name="image" content="https://kotlinlang.org/assets/images/open-graph/docs.png"><!-- Open Graph --><meta property="og:title" content="Coroutine exceptions handling | Kotlin"><meta property="og:description" content=""><meta property="og:image" content="https://kotlinlang.org/assets/images/open-graph/docs.png"><meta property="og:site_name" content="Kotlin Help"><meta property="og:type" content="website"><meta property="og:locale" content="en_US"><meta property="og:url" content="https://kotlinlang.org/docs/exception-handling.html"><!-- End Open Graph --><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@kotlin"><meta name="twitter:title" content="Coroutine exceptions handling | Kotlin"><meta name="twitter:description" content=""><meta name="twitter:creator" content="@kotlin"><meta name="twitter:image:src" content="https://kotlinlang.org/assets/images/open-graph/docs.png"><!-- End Twitter Card --><!-- Schema.org WebPage --><!-- End Schema.org --><!-- Schema.org WebSite --><!-- End Schema.org --></head><body data-id="exception-handling" data-main-title="Coroutine exceptions handling" data-article-props="{&quot;seeAlsoStyle&quot;:&quot;links&quot;}" data-template="article" data-breadcrumbs="Library guides///Coroutines (kotlinx.coroutines)" data-edit-url="https://github.com/Kotlin/kotlinx.coroutines/edit/master/docs/topics/exception-handling.md"><div class="wrapper"><main class="panel _main"><header class="panel__header"><div class="container"><h3>Kotlin  Help</h3><div class="panel-trigger"></div></div></header><section class="panel__content"><div class="container"><article class="article" data-shortcut-switcher="inactive"><h1 data-toc="exception-handling" id="exception-handling.md">Coroutine exceptions handling</h1><p id="n5ylmm_3">This section covers exception handling and cancellation on exceptions. We already know that a cancelled coroutine throws <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-cancellation-exception/index.html" id="n5ylmm_9" data-external="true" rel="noopener noreferrer">CancellationException</a> in suspension points and that it is ignored by the coroutines' machinery. Here we look at what happens if an exception is thrown during cancellation or multiple children of the same coroutine throw an exception.</p><section class="chapter"><h2 id="exception-propagation" data-toc="exception-propagation">Exception propagation</h2><p id="n5ylmm_10">Coroutine builders come in two flavors: propagating exceptions automatically (<a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/launch.html" id="n5ylmm_17" data-external="true" rel="noopener noreferrer">launch</a>) or exposing them to users (<a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/async.html" id="n5ylmm_18" data-external="true" rel="noopener noreferrer">async</a> and <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.channels/produce.html" id="n5ylmm_19" data-external="true" rel="noopener noreferrer">produce</a>). When these builders are used to create a <span class="emphasis" id="n5ylmm_20">root</span> coroutine, that is not a <span class="emphasis" id="n5ylmm_21">child</span> of another coroutine, the former builders treat exceptions as <span class="control" id="n5ylmm_22">uncaught</span> exceptions, similar to Java's <code class="code" id="n5ylmm_23">Thread.uncaughtExceptionHandler</code>, while the latter are relying on the user to consume the final exception, for example via <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-deferred/await.html" id="n5ylmm_24" data-external="true" rel="noopener noreferrer">await</a> or <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.channels/-receive-channel/receive.html" id="n5ylmm_25" data-external="true" rel="noopener noreferrer">receive</a> (<a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.channels/produce.html" id="n5ylmm_26" data-external="true" rel="noopener noreferrer">produce</a> and <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.channels/-receive-channel/receive.html" id="n5ylmm_27" data-external="true" rel="noopener noreferrer">receive</a> are covered in <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/docs/channels.md" id="n5ylmm_28" data-external="true" rel="noopener noreferrer">Channels</a> section).</p><p id="n5ylmm_11">It can be demonstrated by a simple example that creates root coroutines using the <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-global-scope/index.html" id="n5ylmm_29" data-external="true" rel="noopener noreferrer">GlobalScope</a>:</p><aside class="prompt" data-type="note" data-title="" id="n5ylmm_12"><p id="n5ylmm_30"><a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-global-scope/index.html" id="n5ylmm_31" data-external="true" rel="noopener noreferrer">GlobalScope</a> is a delicate API that can backfire in non-trivial ways. Creating a root coroutine for the whole application is one of the rare legitimate uses for <code class="code" id="n5ylmm_32">GlobalScope</code>, so you must explicitly opt-in into using <code class="code" id="n5ylmm_33">GlobalScope</code> with <code class="code" id="n5ylmm_34">@OptIn(DelicateCoroutinesApi::class)</code>.</p></aside><div class="code-block" data-lang="kotlin" data-runnable="true" data-min-compiler-version="1.3">
+import kotlinx.coroutines.*
+
+//sampleStart
+@OptIn(DelicateCoroutinesApi::class)
+fun main() = runBlocking {
+    val job = GlobalScope.launch { // root coroutine with launch
+        println(&quot;Throwing exception from launch&quot;)
+        throw IndexOutOfBoundsException() // Will be printed to the console by Thread.defaultUncaughtExceptionHandler
+    }
+    job.join()
+    println(&quot;Joined failed job&quot;)
+    val deferred = GlobalScope.async { // root coroutine with async
+        println(&quot;Throwing exception from async&quot;)
+        throw ArithmeticException() // Nothing is printed, relying on user to call await
+    }
+    try {
+        deferred.await()
+        println(&quot;Unreached&quot;)
+    } catch (e: ArithmeticException) {
+        println(&quot;Caught ArithmeticException&quot;)
+    }
+}
+//sampleEnd
+</div><aside class="prompt" data-type="note" data-title="" id="n5ylmm_14"><p id="n5ylmm_35">You can get the full code <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-exceptions-01.kt" id="n5ylmm_36" data-external="true" rel="noopener noreferrer">here</a>.</p></aside><p id="n5ylmm_15">The output of this code is (with <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/docs/coroutine-context-and-dispatchers.md#debugging-coroutines-and-threads" id="n5ylmm_37" data-external="true" rel="noopener noreferrer">debug</a>):</p><div class="code-block" data-lang="none">
+Throwing exception from launch
+Exception in thread &quot;DefaultDispatcher-worker-1 @coroutine#2&quot; java.lang.IndexOutOfBoundsException
+Joined failed job
+Throwing exception from async
+Caught ArithmeticException
+</div></section><section class="chapter"><h2 id="coroutineexceptionhandler" data-toc="coroutineexceptionhandler">CoroutineExceptionHandler</h2><p id="n5ylmm_38">It is possible to customize the default behavior of printing <span class="control" id="n5ylmm_45">uncaught</span> exceptions to the console. <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-exception-handler/index.html" id="n5ylmm_46" data-external="true" rel="noopener noreferrer">CoroutineExceptionHandler</a> context element on a <span class="emphasis" id="n5ylmm_47">root</span> coroutine can be used as a generic <code class="code" id="n5ylmm_48">catch</code> block for this root coroutine and all its children where custom exception handling may take place. It is similar to <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html#setUncaughtExceptionHandler-java.lang.Thread.UncaughtExceptionHandler-" id="n5ylmm_49" data-external="true" rel="noopener noreferrer"><code class="code" id="n5ylmm_51">Thread.uncaughtExceptionHandler</code></a>. You cannot recover from the exception in the <code class="code" id="n5ylmm_50">CoroutineExceptionHandler</code>. The coroutine had already completed with the corresponding exception when the handler is called. Normally, the handler is used to log the exception, show some kind of error message, terminate, and/or restart the application.</p><p id="n5ylmm_39"><code class="code" id="n5ylmm_52">CoroutineExceptionHandler</code> is invoked only on <span class="control" id="n5ylmm_53">uncaught</span> exceptions &mdash; exceptions that were not handled in any other way. In particular, all <span class="emphasis" id="n5ylmm_54">children</span> coroutines (coroutines created in the context of another <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-job/index.html" id="n5ylmm_55" data-external="true" rel="noopener noreferrer">Job</a>) delegate handling of their exceptions to their parent coroutine, which also delegates to the parent, and so on until the root, so the <code class="code" id="n5ylmm_56">CoroutineExceptionHandler</code> installed in their context is never used. In addition to that, <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/async.html" id="n5ylmm_57" data-external="true" rel="noopener noreferrer">async</a> builder always catches all exceptions and represents them in the resulting <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-deferred/index.html" id="n5ylmm_58" data-external="true" rel="noopener noreferrer">Deferred</a> object, so its <code class="code" id="n5ylmm_59">CoroutineExceptionHandler</code> has no effect either.</p><aside class="prompt" data-type="note" data-title="" id="n5ylmm_40"><p id="n5ylmm_60">Coroutines running in supervision scope do not propagate exceptions to their parent and are excluded from this rule. A further <a href="#supervision" id="n5ylmm_61" data-tooltip="As we have studied before, a failure of a coroutine is a bidirectional relationship propagating through the whole hierarchy of coroutines. Let us take a look at the case when unidirectional failure propagation is required.">Supervision</a> section of this document gives more details.</p></aside><div class="code-block" data-lang="kotlin" data-runnable="true" data-min-compiler-version="1.3">
+import kotlinx.coroutines.*
+
+@OptIn(DelicateCoroutinesApi::class)
+fun main() = runBlocking {
+//sampleStart
+    val handler = CoroutineExceptionHandler { _, exception -&gt; 
+        println(&quot;CoroutineExceptionHandler got $exception&quot;) 
+    }
+    val job = GlobalScope.launch(handler) { // root coroutine, running in GlobalScope
+        throw AssertionError()
+    }
+    val deferred = GlobalScope.async(handler) { // also root, but async instead of launch
+        throw ArithmeticException() // Nothing will be printed, relying on user to call deferred.await()
+    }
+    joinAll(job, deferred)
+//sampleEnd    
+}
+</div><aside class="prompt" data-type="note" data-title="" id="n5ylmm_42"><p id="n5ylmm_62">You can get the full code <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-exceptions-02.kt" id="n5ylmm_63" data-external="true" rel="noopener noreferrer">here</a>.</p></aside><p id="n5ylmm_43">The output of this code is:</p><div class="code-block" data-lang="none">
+CoroutineExceptionHandler got java.lang.AssertionError
+</div></section><section class="chapter"><h2 id="cancellation-and-exceptions" data-toc="cancellation-and-exceptions">Cancellation and exceptions</h2><p id="n5ylmm_64">Cancellation is closely related to exceptions. Coroutines internally use <code class="code" id="n5ylmm_76">CancellationException</code> for cancellation, these exceptions are ignored by all handlers, so they should be used only as the source of additional debug information, which can be obtained by <code class="code" id="n5ylmm_77">catch</code> block. When a coroutine is cancelled using <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/cancel.html" id="n5ylmm_78" data-external="true" rel="noopener noreferrer">Job.cancel</a>, it terminates, but it does not cancel its parent.</p><div class="code-block" data-lang="kotlin" data-runnable="true" data-min-compiler-version="1.3">
+import kotlinx.coroutines.*
+
+fun main() = runBlocking {
+//sampleStart
+    val job = launch {
+        val child = launch {
+            try {
+                delay(Long.MAX_VALUE)
+            } finally {
+                println(&quot;Child is cancelled&quot;)
+            }
+        }
+        yield()
+        println(&quot;Cancelling child&quot;)
+        child.cancel()
+        child.join()
+        yield()
+        println(&quot;Parent is not cancelled&quot;)
+    }
+    job.join()
+//sampleEnd    
+}
+</div><aside class="prompt" data-type="note" data-title="" id="n5ylmm_66"><p id="n5ylmm_79">You can get the full code <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-exceptions-03.kt" id="n5ylmm_80" data-external="true" rel="noopener noreferrer">here</a>.</p></aside><p id="n5ylmm_67">The output of this code is:</p><div class="code-block" data-lang="none">
+Cancelling child
+Child is cancelled
+Parent is not cancelled
+</div><p id="n5ylmm_69">If a coroutine encounters an exception other than <code class="code" id="n5ylmm_81">CancellationException</code>, it cancels its parent with that exception. This behaviour cannot be overridden and is used to provide stable coroutines hierarchies for <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/docs/composing-suspending-functions.md#structured-concurrency-with-async" id="n5ylmm_82" data-external="true" rel="noopener noreferrer">structured concurrency</a>. <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-exception-handler/index.html" id="n5ylmm_83" data-external="true" rel="noopener noreferrer">CoroutineExceptionHandler</a> implementation is not used for child coroutines.</p><aside class="prompt" data-type="note" data-title="" id="n5ylmm_70"><p id="n5ylmm_84">In these examples, <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-exception-handler/index.html" id="n5ylmm_85" data-external="true" rel="noopener noreferrer">CoroutineExceptionHandler</a> is always installed to a coroutine that is created in <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-global-scope/index.html" id="n5ylmm_86" data-external="true" rel="noopener noreferrer">GlobalScope</a>. It does not make sense to install an exception handler to a coroutine that is launched in the scope of the main <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/run-blocking.html" id="n5ylmm_87" data-external="true" rel="noopener noreferrer">runBlocking</a>, since the main coroutine is going to be always cancelled when its child completes with exception despite the installed handler.</p></aside><p id="n5ylmm_71">The original exception is handled by the parent only when all its children terminate, which is demonstrated by the following example.</p><div class="code-block" data-lang="kotlin" data-runnable="true" data-min-compiler-version="1.3">
+import kotlinx.coroutines.*
+
+@OptIn(DelicateCoroutinesApi::class)
+fun main() = runBlocking {
+//sampleStart
+    val handler = CoroutineExceptionHandler { _, exception -&gt; 
+        println(&quot;CoroutineExceptionHandler got $exception&quot;) 
+    }
+    val job = GlobalScope.launch(handler) {
+        launch { // the first child
+            try {
+                delay(Long.MAX_VALUE)
+            } finally {
+                withContext(NonCancellable) {
+                    println(&quot;Children are cancelled, but exception is not handled until all children terminate&quot;)
+                    delay(100)
+                    println(&quot;The first child finished its non cancellable block&quot;)
+                }
+            }
+        }
+        launch { // the second child
+            delay(10)
+            println(&quot;Second child throws an exception&quot;)
+            throw ArithmeticException()
+        }
+    }
+    job.join()
+//sampleEnd 
+}
+</div><aside class="prompt" data-type="note" data-title="" id="n5ylmm_73"><p id="n5ylmm_88">You can get the full code <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-exceptions-04.kt" id="n5ylmm_89" data-external="true" rel="noopener noreferrer">here</a>.</p></aside><p id="n5ylmm_74">The output of this code is:</p><div class="code-block" data-lang="none">
+Second child throws an exception
+Children are cancelled, but exception is not handled until all children terminate
+The first child finished its non cancellable block
+CoroutineExceptionHandler got java.lang.ArithmeticException
+</div></section><section class="chapter"><h2 id="exceptions-aggregation" data-toc="exceptions-aggregation">Exceptions aggregation</h2><p id="n5ylmm_90">When multiple children of a coroutine fail with an exception, the general rule is &quot;the first exception wins&quot;, so the first exception gets handled. All additional exceptions that happen after the first one are attached to the first exception as suppressed ones.</p><div class="code-block" data-lang="kotlin" data-runnable="true" data-min-compiler-version="1.3">
+import kotlinx.coroutines.*
+import java.io.*
+
+@OptIn(DelicateCoroutinesApi::class)
+fun main() = runBlocking {
+    val handler = CoroutineExceptionHandler { _, exception -&gt;
+        println(&quot;CoroutineExceptionHandler got $exception with suppressed ${exception.suppressed.contentToString()}&quot;)
+    }
+    val job = GlobalScope.launch(handler) {
+        launch {
+            try {
+                delay(Long.MAX_VALUE) // it gets cancelled when another sibling fails with IOException
+            } finally {
+                throw ArithmeticException() // the second exception
+            }
+        }
+        launch {
+            delay(100)
+            throw IOException() // the first exception
+        }
+        delay(Long.MAX_VALUE)
+    }
+    job.join()  
+}
+</div><aside class="prompt" data-type="note" data-title="" id="n5ylmm_92"><p id="n5ylmm_101">You can get the full code <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-exceptions-05.kt" id="n5ylmm_102" data-external="true" rel="noopener noreferrer">here</a>.</p></aside><p id="n5ylmm_93">The output of this code is:</p><div class="code-block" data-lang="none">
+CoroutineExceptionHandler got java.io.IOException with suppressed [java.lang.ArithmeticException]
+</div><aside class="prompt" data-type="note" data-title="" id="n5ylmm_95"><p id="n5ylmm_103">Note that this mechanism currently only works on Java version 1.7+. The JS and Native restrictions are temporary and will be lifted in the future.</p></aside><p id="n5ylmm_96">Cancellation exceptions are transparent and are unwrapped by default:</p><div class="code-block" data-lang="kotlin" data-runnable="true" data-min-compiler-version="1.3">
+import kotlinx.coroutines.*
+import java.io.*
+
+@OptIn(DelicateCoroutinesApi::class)
+fun main() = runBlocking {
+//sampleStart
+    val handler = CoroutineExceptionHandler { _, exception -&gt;
+        println(&quot;CoroutineExceptionHandler got $exception&quot;)
+    }
+    val job = GlobalScope.launch(handler) {
+        val innerJob = launch { // all this stack of coroutines will get cancelled
+            launch {
+                launch {
+                    throw IOException() // the original exception
+                }
+            }
+        }
+        try {
+            innerJob.join()
+        } catch (e: CancellationException) {
+            println(&quot;Rethrowing CancellationException with original cause&quot;)
+            throw e // cancellation exception is rethrown, yet the original IOException gets to the handler  
+        }
+    }
+    job.join()
+//sampleEnd    
+}
+</div><aside class="prompt" data-type="note" data-title="" id="n5ylmm_98"><p id="n5ylmm_104">You can get the full code <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-exceptions-06.kt" id="n5ylmm_105" data-external="true" rel="noopener noreferrer">here</a>.</p></aside><p id="n5ylmm_99">The output of this code is:</p><div class="code-block" data-lang="none">
+Rethrowing CancellationException with original cause
+CoroutineExceptionHandler got java.io.IOException
+</div></section><section class="chapter"><h2 id="supervision" data-toc="supervision">Supervision</h2><p id="n5ylmm_106">As we have studied before, a failure of a coroutine is a bidirectional relationship propagating through the whole hierarchy of coroutines. Let us take a look at the case when unidirectional failure propagation is required.</p><p id="n5ylmm_107">A good example of such a requirement is a UI component with the job defined in its scope. If any of the UI's child tasks have failed, it is not always necessary to cancel (effectively kill) the whole UI component, but if the UI component is destroyed (and its job is cancelled), then it is necessary to cancel all child jobs as their results are no longer needed.</p><p id="n5ylmm_108">Another example is a server process that spawns multiple child jobs and needs to <span class="emphasis" id="n5ylmm_111">supervise</span> their execution, tracking their failures and only restarting the failed ones.</p><section class="chapter"><h3 id="supervision-job" data-toc="supervision-job">Supervision job</h3><p id="n5ylmm_112">The <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-supervisor-job.html" id="n5ylmm_117" data-external="true" rel="noopener noreferrer">SupervisorJob</a> can be used for these purposes. It is similar to a regular <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-job.html" id="n5ylmm_118" data-external="true" rel="noopener noreferrer">Job</a> with the only exception that a failure or cancellation of a child does not propagate to the supervisor job or its other children. This can easily be demonstrated using the following example:</p><div class="code-block" data-lang="kotlin" data-runnable="true" data-min-compiler-version="1.3">
+import kotlinx.coroutines.*
+
+fun main() = runBlocking {
+//sampleStart
+    val supervisor = SupervisorJob()
+    with(CoroutineScope(coroutineContext + supervisor)) {
+        // launch the first child -- its exception is ignored for this example (don't do this in practice!)
+        val firstChild = launch(CoroutineExceptionHandler { _, _ -&gt;  }) {
+            println(&quot;The first child is failing&quot;)
+            throw AssertionError(&quot;The first child is cancelled&quot;)
+        }
+        // launch the second child
+        val secondChild = launch {
+            firstChild.join()
+            // Cancellation of the first child is not propagated to the second child
+            println(&quot;The first child is cancelled: ${firstChild.isCancelled}, but the second one is still active&quot;)
+            try {
+                delay(Long.MAX_VALUE)
+            } finally {
+                // But cancellation of the supervisor is propagated
+                println(&quot;The second child is cancelled because the supervisor was cancelled&quot;)
+            }
+        }
+        // wait until the first child fails &amp; completes
+        firstChild.join()
+        println(&quot;Cancelling the supervisor&quot;)
+        supervisor.cancel()
+        secondChild.join()
+    }
+//sampleEnd
+}
+</div><aside class="prompt" data-type="note" data-title="" id="n5ylmm_114"><p id="n5ylmm_119">You can get the full code <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-supervision-01.kt" id="n5ylmm_120" data-external="true" rel="noopener noreferrer">here</a>.</p></aside><p id="n5ylmm_115">The output of this code is:</p><div class="code-block" data-lang="none">
+The first child is failing
+The first child is cancelled: true, but the second one is still active
+Cancelling the supervisor
+The second child is cancelled because the supervisor was cancelled
+</div></section><section class="chapter"><h3 id="supervision-scope" data-toc="supervision-scope">Supervision scope</h3><p id="n5ylmm_121">Instead of <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/coroutine-scope.html" id="n5ylmm_127" data-external="true" rel="noopener noreferrer">coroutineScope</a>, we can use <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/supervisor-scope.html" id="n5ylmm_128" data-external="true" rel="noopener noreferrer">supervisorScope</a> for <span class="emphasis" id="n5ylmm_129">scoped</span> concurrency. It propagates the cancellation in one direction only and cancels all its children only if it failed itself. It also waits for all children before completion just like <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/coroutine-scope.html" id="n5ylmm_130" data-external="true" rel="noopener noreferrer">coroutineScope</a> does.</p><div class="code-block" data-lang="kotlin" data-runnable="true" data-min-compiler-version="1.3">
+import kotlin.coroutines.*
+import kotlinx.coroutines.*
+
+fun main() = runBlocking {
+//sampleStart
+    try {
+        supervisorScope {
+            val child = launch {
+                try {
+                    println(&quot;The child is sleeping&quot;)
+                    delay(Long.MAX_VALUE)
+                } finally {
+                    println(&quot;The child is cancelled&quot;)
+                }
+            }
+            // Give our child a chance to execute and print using yield 
+            yield()
+            println(&quot;Throwing an exception from the scope&quot;)
+            throw AssertionError()
+        }
+    } catch(e: AssertionError) {
+        println(&quot;Caught an assertion error&quot;)
+    }
+//sampleEnd
+}
+</div><aside class="prompt" data-type="note" data-title="" id="n5ylmm_123"><p id="n5ylmm_131">You can get the full code <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-supervision-02.kt" id="n5ylmm_132" data-external="true" rel="noopener noreferrer">here</a>.</p></aside><p id="n5ylmm_124">The output of this code is:</p><div class="code-block" data-lang="none">
+The child is sleeping
+Throwing an exception from the scope
+The child is cancelled
+Caught an assertion error
+</div><section class="chapter"><h4 id="exceptions-in-supervised-coroutines" data-toc="exceptions-in-supervised-coroutines">Exceptions in supervised coroutines</h4><p id="n5ylmm_133">Another crucial difference between regular and supervisor jobs is exception handling. Every child should handle its exceptions by itself via the exception handling mechanism. This difference comes from the fact that child's failure does not propagate to the parent. It means that coroutines launched directly inside the <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/supervisor-scope.html" id="n5ylmm_138" data-external="true" rel="noopener noreferrer">supervisorScope</a> <span class="emphasis" id="n5ylmm_139">do</span> use the <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-exception-handler/index.html" id="n5ylmm_140" data-external="true" rel="noopener noreferrer">CoroutineExceptionHandler</a> that is installed in their scope in the same way as root coroutines do (see the <a href="#coroutineexceptionhandler" id="n5ylmm_141" data-tooltip="It is possible to customize the default behavior of printing uncaught exceptions to the console. CoroutineExceptionHandler context element on a root coroutine can be used as a generic catch block for this root coroutine and all its children where custom exception handling may take…">CoroutineExceptionHandler</a> section for details).</p><div class="code-block" data-lang="kotlin" data-runnable="true" data-min-compiler-version="1.3">
+import kotlin.coroutines.*
+import kotlinx.coroutines.*
+
+fun main() = runBlocking {
+//sampleStart
+    val handler = CoroutineExceptionHandler { _, exception -&gt; 
+        println(&quot;CoroutineExceptionHandler got $exception&quot;) 
+    }
+    supervisorScope {
+        val child = launch(handler) {
+            println(&quot;The child throws an exception&quot;)
+            throw AssertionError()
+        }
+        println(&quot;The scope is completing&quot;)
+    }
+    println(&quot;The scope is completed&quot;)
+//sampleEnd
+}
+</div><aside class="prompt" data-type="note" data-title="" id="n5ylmm_135"><p id="n5ylmm_142">You can get the full code <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-supervision-03.kt" id="n5ylmm_143" data-external="true" rel="noopener noreferrer">here</a>.</p></aside><p id="n5ylmm_136">The output of this code is:</p><div class="code-block" data-lang="none">
+The scope is completing
+The child throws an exception
+CoroutineExceptionHandler got java.lang.AssertionError
+The scope is completed
+</div></section></section></section><div class="last-modified">20 July 2026</div><div data-feedback-placeholder="true"></div><div class="navigation-links _bottom"><a href="channels.html" class="navigation-links__prev">Channels</a><a href="shared-mutable-state-and-concurrency.html" class="navigation-links__next">Shared mutable state and concurrency</a></div></article><div id="disqus_thread"></div></div></section></main></div></body></html>

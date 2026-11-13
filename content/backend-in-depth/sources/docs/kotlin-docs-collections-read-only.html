@@ -1,0 +1,96 @@
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html lang="en-US" data-preset="contrast" data-primary-color="#307FFF" data-external-links-in-new-tab="false"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="UTF-8"><meta name="built-on" content="2026-11-13T10:58:22.44965695"><meta name="build-number" content="1405"><link rel="canonical" href="/docs/constructing-collections.html" data-react-helmet="true">
+
+<title>Create collections | Kotlin Documentation</title><link href="custom-frontend-app/app.css?149" rel="stylesheet"><link rel="icon" type="image/svg" sizes="16x16" href="https://kotlinlang.org/assets/images/favicon.svg?v2"><link rel="icon" type="image/x-icon" sizes="32x32" href="https://kotlinlang.org/assets/images/favicon.ico?v2"><link rel="icon" type="image/png" sizes="96x96" href="https://kotlinlang.org/assets/images/apple-touch-icon.png?v2"><link rel="icon" type="image/png" sizes="300x300" href="https://kotlinlang.org/assets/images/apple-touch-icon-72x72.png?v2"><link rel="icon" type="image/png" sizes="500x500" href="https://kotlinlang.org/assets/images/apple-touch-icon-114x114.png?v2"><meta name="image" content="https://kotlinlang.org/assets/images/open-graph/docs.png"><!-- Open Graph --><meta property="og:title" content="Create collections | Kotlin"><meta property="og:description" content=""><meta property="og:image" content="https://kotlinlang.org/assets/images/open-graph/docs.png"><meta property="og:site_name" content="Kotlin Help"><meta property="og:type" content="website"><meta property="og:locale" content="en_US"><meta property="og:url" content="https://kotlinlang.org/docs/constructing-collections.html"><!-- End Open Graph --><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@kotlin"><meta name="twitter:title" content="Create collections | Kotlin"><meta name="twitter:description" content=""><meta name="twitter:creator" content="@kotlin"><meta name="twitter:image:src" content="https://kotlinlang.org/assets/images/open-graph/docs.png"><!-- End Twitter Card --><!-- Schema.org WebPage --><!-- End Schema.org --><!-- Schema.org WebSite --><!-- End Schema.org --></head><body data-id="constructing-collections" data-main-title="Create collections" data-article-props="{&quot;seeAlsoStyle&quot;:&quot;links&quot;}" data-template="article" data-breadcrumbs="Library guides///Standard library///Collections///Collections basics" data-edit-url="https://github.com/JetBrains/kotlin-web-site/edit/master/docs/topics/collections/constructing-collections.md"><div class="wrapper"><main class="panel _main"><header class="panel__header"><div class="container"><h3>Kotlin  Help</h3><div class="panel-trigger"></div></div></header><section class="panel__content"><div class="container"><article class="article" data-shortcut-switcher="inactive"><h1 data-toc="constructing-collections" id="constructing-collections.md">Create collections</h1><section class="chapter"><h2 id="construct-from-elements" data-toc="construct-from-elements">Construct from elements</h2><p id="-k6xuj6_9">The most common way to create a collection is with the standard library functions <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/list-of.html" id="-k6xuj6_15" data-external="true" rel="noopener noreferrer"><code class="code" id="-k6xuj6_19">listOf&lt;T&gt;()</code></a>, <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/set-of.html" id="-k6xuj6_16" data-external="true" rel="noopener noreferrer"><code class="code" id="-k6xuj6_20">setOf&lt;T&gt;()</code></a>, <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/mutable-list-of.html" id="-k6xuj6_17" data-external="true" rel="noopener noreferrer"><code class="code" id="-k6xuj6_21">mutableListOf&lt;T&gt;()</code></a>, <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/mutable-set-of.html" id="-k6xuj6_18" data-external="true" rel="noopener noreferrer"><code class="code" id="-k6xuj6_22">mutableSetOf&lt;T&gt;()</code></a>. If you provide a comma-separated list of collection elements as arguments, the compiler detects the element type automatically. When creating empty collections, specify the type explicitly.</p><div class="code-block" data-lang="kotlin">
+val numbersSet = setOf(&quot;one&quot;, &quot;two&quot;, &quot;three&quot;, &quot;four&quot;)
+val emptySet = mutableSetOf&lt;String&gt;()
+</div><p id="-k6xuj6_11">The same is available for maps with the functions <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/map-of.html" id="-k6xuj6_23" data-external="true" rel="noopener noreferrer"><code class="code" id="-k6xuj6_27">mapOf()</code></a> and <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/mutable-map-of.html" id="-k6xuj6_24" data-external="true" rel="noopener noreferrer"><code class="code" id="-k6xuj6_28">mutableMapOf()</code></a>. The map's keys and values are passed as <code class="code" id="-k6xuj6_25">Pair</code> objects (usually created with <code class="code" id="-k6xuj6_26">to</code> infix function).</p><div class="code-block" data-lang="kotlin">
+val numbersMap = mapOf(&quot;key1&quot; to 1, &quot;key2&quot; to 2, &quot;key3&quot; to 3, &quot;key4&quot; to 1)
+</div><p id="-k6xuj6_13">Note that the <code class="code" id="-k6xuj6_29">to</code> notation creates a short-living <code class="code" id="-k6xuj6_30">Pair</code> object, so it's recommended that you use it only if performance isn't critical. To avoid excessive memory usage, use alternative ways. For example, you can create a mutable map and populate it using the write operations. The <a href="scope-functions.html#apply" id="-k6xuj6_31"><code class="code" id="-k6xuj6_32">apply()</code></a> function can help to keep the initialization fluent here.</p><div class="code-block" data-lang="kotlin">
+val numbersMap = mutableMapOf&lt;String, String&gt;().apply { this[&quot;one&quot;] = &quot;1&quot;; this[&quot;two&quot;] = &quot;2&quot; }
+</div></section><section class="chapter"><h2 id="create-with-collection-builder-functions" data-toc="create-with-collection-builder-functions">Create with collection builder functions</h2><p id="-k6xuj6_33">Another way of creating a collection is to call a builder function &ndash; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/build-list.html" id="-k6xuj6_35" data-external="true" rel="noopener noreferrer"><code class="code" id="-k6xuj6_39">buildList()</code></a>, <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/build-set.html" id="-k6xuj6_36" data-external="true" rel="noopener noreferrer"><code class="code" id="-k6xuj6_40">buildSet()</code></a>, or <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/build-map.html" id="-k6xuj6_37" data-external="true" rel="noopener noreferrer"><code class="code" id="-k6xuj6_41">buildMap()</code></a>. They create a new, mutable collection of the corresponding type, populate it using <a href="collection-write.html" id="-k6xuj6_38">write operations</a>, and return a read-only collection with the same elements:</p><div class="code-block" data-lang="kotlin">
+val map = buildMap { // this is MutableMap&lt;String, Int&gt;, types of key and value are inferred from the `put()` calls below
+    put(&quot;a&quot;, 1)
+    put(&quot;b&quot;, 0)
+    put(&quot;c&quot;, 4)
+}
+
+println(map) // {a=1, b=0, c=4}
+</div></section><section class="chapter"><h2 id="empty-collections" data-toc="empty-collections">Empty collections</h2><p id="-k6xuj6_42">There are also functions for creating collections without any elements: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/empty-list.html" id="-k6xuj6_44" data-external="true" rel="noopener noreferrer"><code class="code" id="-k6xuj6_47">emptyList()</code></a>, <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/empty-set.html" id="-k6xuj6_45" data-external="true" rel="noopener noreferrer"><code class="code" id="-k6xuj6_48">emptySet()</code></a>, and <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/empty-map.html" id="-k6xuj6_46" data-external="true" rel="noopener noreferrer"><code class="code" id="-k6xuj6_49">emptyMap()</code></a>. When creating empty collections, you should specify the type of elements that the collection will hold.</p><div class="code-block" data-lang="kotlin">
+val empty = emptyList&lt;String&gt;()
+</div></section><section class="chapter"><h2 id="initializer-functions-for-lists" data-toc="initializer-functions-for-lists">Initializer functions for lists</h2><p id="-k6xuj6_50">For lists, there is a constructor-like function that takes the list size and the initializer function that defines the element value based on its index.</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+fun main() {
+//sampleStart
+    val doubled = List(3, { it * 2 })  // or MutableList if you want to change its content later
+    println(doubled)
+//sampleEnd
+}
+</div></section><section class="chapter"><h2 id="concrete-type-constructors" data-toc="concrete-type-constructors">Concrete type constructors</h2><p id="-k6xuj6_52">To create a concrete type collection, such as an <code class="code" id="-k6xuj6_54">ArrayList</code> or <code class="code" id="-k6xuj6_55">LinkedList</code>, you can use the available constructors for these types. Similar constructors are available for implementations of <code class="code" id="-k6xuj6_56">Set</code> and <code class="code" id="-k6xuj6_57">Map</code>.</p><div class="code-block" data-lang="kotlin">
+val linkedList = LinkedList&lt;String&gt;(listOf(&quot;one&quot;, &quot;two&quot;, &quot;three&quot;))
+val presizedSet = HashSet&lt;Int&gt;(32)
+</div></section><section class="chapter"><h2 id="copy" data-toc="copy">Copy</h2><p id="-k6xuj6_58">To create a collection with the same elements as an existing collection, you can use copying functions. Collection copying functions from the standard library create <span class="emphasis" id="-k6xuj6_67">shallow</span> copy collections with references to the same elements. Thus, a change made to a collection element reflects in all its copies.</p><p id="-k6xuj6_59">Collection copying functions, such as <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-list.html" id="-k6xuj6_68" data-external="true" rel="noopener noreferrer"><code class="code" id="-k6xuj6_71">toList()</code></a>, <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-mutable-list.html" id="-k6xuj6_69" data-external="true" rel="noopener noreferrer"><code class="code" id="-k6xuj6_72">toMutableList()</code></a>, <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-set.html" id="-k6xuj6_70" data-external="true" rel="noopener noreferrer"><code class="code" id="-k6xuj6_73">toSet()</code></a> and others, create a snapshot of a collection at a specific moment. Their result is a new collection of the same elements. If you add or remove elements from the original collection, this won't affect the copies. Copies may be changed independently of the source as well.</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+class Person(var name: String)
+fun main() {
+//sampleStart
+    val alice = Person(&quot;Alice&quot;)
+    val sourceList = mutableListOf(alice, Person(&quot;Bob&quot;))
+    val copyList = sourceList.toList()
+    sourceList.add(Person(&quot;Charles&quot;))
+    alice.name = &quot;Alicia&quot;
+    println(&quot;First item's name is: ${sourceList[0].name} in source and ${copyList[0].name} in copy&quot;)
+    println(&quot;List size is: ${sourceList.size} in source and ${copyList.size} in copy&quot;)
+//sampleEnd
+}
+</div><p id="-k6xuj6_61">These functions can also be used for converting collections to other types, for example, build a set from a list or vice versa.</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+fun main() {
+//sampleStart
+    val sourceList = mutableListOf(1, 2, 3)    
+    val copySet = sourceList.toMutableSet()
+    copySet.add(3)
+    copySet.add(4)    
+    println(copySet)
+//sampleEnd
+}
+</div><p id="-k6xuj6_63">Alternatively, you can create new references to the same collection instance. New references are created when you initialize a collection variable with an existing collection. So, when the collection instance is altered through a reference, the changes are reflected in all its references.</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+fun main() {
+//sampleStart
+    val sourceList = mutableListOf(1, 2, 3)
+    val referenceList = sourceList
+    referenceList.add(4)
+    println(&quot;Source size: ${sourceList.size}&quot;)
+//sampleEnd
+}
+</div><p id="-k6xuj6_65">Collection initialization can be used for restricting mutability. For example, if you create a <code class="code" id="-k6xuj6_74">List</code> reference to a <code class="code" id="-k6xuj6_75">MutableList</code>, the compiler will produce errors if you try to modify the collection through this reference.</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+fun main() {
+//sampleStart 
+    val sourceList = mutableListOf(1, 2, 3)
+    val referenceList: List&lt;Int&gt; = sourceList
+    //referenceList.add(4)            //compilation error
+    sourceList.add(4)
+    println(referenceList) // shows the current state of sourceList
+//sampleEnd
+}
+</div></section><section class="chapter"><h2 id="invoke-functions-on-other-collections" data-toc="invoke-functions-on-other-collections">Invoke functions on other collections</h2><p id="-k6xuj6_76">Collections can be created as a result of various operations on other collections. For example, <a href="collection-filtering.html" id="-k6xuj6_83">filtering</a> a list creates a new list of elements that match the filter:</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+fun main() {
+//sampleStart 
+    val numbers = listOf(&quot;one&quot;, &quot;two&quot;, &quot;three&quot;, &quot;four&quot;)  
+    val longerThan3 = numbers.filter { it.length &gt; 3 }
+    println(longerThan3)
+//sampleEnd
+}
+</div><p id="-k6xuj6_78"><a href="collection-transformations.html#map" id="-k6xuj6_84">Mapping</a> produces a list from a transformation's results:</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+fun main() {
+//sampleStart 
+    val numbers = setOf(1, 2, 3)
+    println(numbers.map { it * 3 })
+    println(numbers.mapIndexed { idx, value -&gt; value * idx })
+//sampleEnd
+}
+</div><p id="-k6xuj6_80"><a href="collection-transformations.html#associate" id="-k6xuj6_85">Association</a> produces maps:</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+fun main() {
+//sampleStart
+    val numbers = listOf(&quot;one&quot;, &quot;two&quot;, &quot;three&quot;, &quot;four&quot;)
+    println(numbers.associateWith { it.length })
+//sampleEnd
+}
+</div><p id="-k6xuj6_82">For more information about operations on collections in Kotlin, see <a href="collection-operations.html" id="-k6xuj6_86">Collection operations overview</a>.</p></section><div class="last-modified">03 November 2026</div><div data-feedback-placeholder="true"></div><div class="navigation-links _bottom"><a href="collection-types.html" class="navigation-links__prev">Collection types</a><a href="iterators.html" class="navigation-links__next">Iterate collections</a></div></article><div id="disqus_thread"></div></div></section></main></div></body></html>

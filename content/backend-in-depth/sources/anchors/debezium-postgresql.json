@@ -1,0 +1,623 @@
+{
+ "source": "debezium-postgresql",
+ "anchors": [
+  {
+   "anchor": "top",
+   "title": "",
+   "level": 0,
+   "sha256": "f90b06d7fdc5db84e4dbea98b1c1f125bdd58afcf07547a762f52fc14c6ca308"
+  },
+  {
+   "anchor": "dbz-doc-main",
+   "title": "Debezium connector for PostgreSQL",
+   "level": 1,
+   "sha256": "f9c27e320aaabee9d73582b3e01e16e9f70bf2a0a8d10cc824d93a77b0c5cf83"
+  },
+  {
+   "anchor": "postgresql-overview",
+   "title": "Overview",
+   "level": 2,
+   "sha256": "96dba3e0c391ccf89c00f0e5f4f83db46616ee5fefe33aefac2274f4e8af93a0"
+  },
+  {
+   "anchor": "how-the-postgresql-connector-works",
+   "title": "How the connector works",
+   "level": 2,
+   "sha256": "b444a8409a780f0b49c3fd24ec25b1c52107072a287ff66d311a3da57137364c"
+  },
+  {
+   "anchor": "postgresql-security",
+   "title": "Security",
+   "level": 3,
+   "sha256": "e2ef6e87a15e6a8e11ae4e35d3fdf02d9ff0adf0ab4c200a1f1b5dbd794620e8"
+  },
+  {
+   "anchor": "postgresql-snapshots",
+   "title": "Snapshots",
+   "level": 3,
+   "sha256": "dbb1f4ea0bb6f3dfac29bc06bec0dfcf16e62b56f36aa36324b1fd049be913e6"
+  },
+  {
+   "anchor": "debezium-postgresql-chunk-based-parallel-snapshots",
+   "title": "Chunk-based parallel snapshots",
+   "level": 3,
+   "sha256": "28082d43c41a930825dd3604d64be93b721abbbdd2646f2f3276f11b3cf0ec32"
+  },
+  {
+   "anchor": "postgresql-ad-hoc-snapshots",
+   "title": "Ad hoc snapshots",
+   "level": 3,
+   "sha256": "c462aab709d779767c8717b7f81c85c7ee181e45e5c7a729ee3f98c58bfd7cab"
+  },
+  {
+   "anchor": "postgresql-incremental-snapshots",
+   "title": "Incremental snapshots",
+   "level": 3,
+   "sha256": "5c689a05360295aedcc8984d75442ad2c37f172d58685ab7c6bb4685e1c24080"
+  },
+  {
+   "anchor": "postgresql-incremental-snapshot-overview",
+   "title": "Overview of incremental snapshots",
+   "level": 4,
+   "sha256": "576a20871f8811c4186734fbcf7644e8dfd5b0ec6b0afc1532b146301d7102a2"
+  },
+  {
+   "anchor": "postgresql-incremental-snapshot-process",
+   "title": "Incremental snapshot process",
+   "level": 4,
+   "sha256": "75848779e1c6252a2b4109c32b99195bd15a122ca4ff420f5c3c7e2cd688ef14"
+  },
+  {
+   "anchor": "postgresql-incremental-snapshot-collisions",
+   "title": "How Debezium resolves collisions among records with the same primary key",
+   "level": 4,
+   "sha256": "d891ec495afe1765bb0f2a0e6b9f20a09e1714e162a025870128bd93a492558d"
+  },
+  {
+   "anchor": "postgresql-incremental-snapshot-snapshot-window",
+   "title": "Snapshot window",
+   "level": 4,
+   "sha256": "6d3d90a734c3dc2a0181a2d2956932b4f0062fe42431b25cf08ba1ce61c9ee7a"
+  },
+  {
+   "anchor": "postgresql-incremental-snapshot-initiation-methods",
+   "title": "Methods for initiating an incremental snapshot",
+   "level": 4,
+   "sha256": "bd8b0befb4789eb8d88133f5aa754152e646c47b1a3e22c94c9a5eaa126419a8"
+  },
+  {
+   "anchor": "postgresql-triggering-an-incremental-snapshot",
+   "title": "Triggering an incremental snapshot",
+   "level": 4,
+   "sha256": "6b06add513d182781e150420adab3697f937bfe7920d498369ee5f1678175680"
+  },
+  {
+   "anchor": "postgresql-incremental-snapshots-additional-conditions",
+   "title": "Running an ad hoc incremental snapshots with additional-conditions",
+   "level": 4,
+   "sha256": "65aed35223c0a9a07acd7a68071151bdc4da765ccc5adea06a109f3099571c81"
+  },
+  {
+   "anchor": "postgresql-triggering-an-incremental-snapshot-kafka",
+   "title": "Using the Kafka signaling channel to trigger an incremental snapshot",
+   "level": 4,
+   "sha256": "d23ad61c769d107e53109b56335e5a35d39381bdc4a641e91b8b622911ef756e"
+  },
+  {
+   "anchor": "postgresql-stopping-an-incremental-snapshot",
+   "title": "Stopping an incremental snapshot",
+   "level": 4,
+   "sha256": "0294aec8428726c12f859d273acfb8680e6f1e8ea635b6c5c9ffc77c0af17533"
+  },
+  {
+   "anchor": "postgresql-stopping-an-incremental-snapshot-kafka",
+   "title": "Using the Kafka signaling channel to stop an incremental snapshot",
+   "level": 4,
+   "sha256": "8a6e4b2c93078d2842dc19ad8d6992c48c561f086d09e7247a58c93dfa0e7179"
+  },
+  {
+   "anchor": "postgresql-read-only-incremental-snapshots",
+   "title": "Read-only incremental snapshots",
+   "level": 4,
+   "sha256": "9f95c97914c7841a07879755ab4ce0407a5511aea648b4aaaeffc9e6ed47a8e1"
+  },
+  {
+   "anchor": "_ad_hoc_read_only_incremental_snapshots",
+   "title": "Ad hoc read-only incremental snapshots",
+   "level": 4,
+   "sha256": "5a36a9bd41eba37e9cd8e86d71e74bb06677ab5bae13f0fe3b3f1184b7999757"
+  },
+  {
+   "anchor": "connector-custom-snapshot",
+   "title": "Custom snapshotter SPI",
+   "level": 3,
+   "sha256": "61024f557c11e6b8153bb35bac8135cc51fb636f4ba88721a7d9d6925a5a8998"
+  },
+  {
+   "anchor": "postgresql-blocking-snapshots",
+   "title": "Blocking snapshots",
+   "level": 3,
+   "sha256": "c556a01b64abd09da0332596ef82d0703e8a770e146cd141463a1d10fcd73f2d"
+  },
+  {
+   "anchor": "postgresql-streaming-changes",
+   "title": "Streaming changes",
+   "level": 3,
+   "sha256": "e73996e0b6cb04705a54eff74dedb7f6a1d5e58849a4d3358555ff5ad0585a9d"
+  },
+  {
+   "anchor": "postgresql-pgoutput",
+   "title": "PostgreSQL 10+ logical decoding support ( pgoutput )",
+   "level": 3,
+   "sha256": "71b6bc310169c844befeb146e11c88aefda220f0173093018369c038d62192e3"
+  },
+  {
+   "anchor": "postgresql-topic-names",
+   "title": "Topic names",
+   "level": 3,
+   "sha256": "e7f0a2b2d858f3078f8c81eb124a7fc2a141c1fe8a6eaeca43fb77ff79ad698a"
+  },
+  {
+   "anchor": "postgresql-transaction-metadata",
+   "title": "Transaction metadata",
+   "level": 3,
+   "sha256": "fe6e0dde47ebcebc4f6270a6a3a74e3f3be4d0aa478262853d79df4aa847d9fa"
+  },
+  {
+   "anchor": "postgresql-events",
+   "title": "Data change events",
+   "level": 2,
+   "sha256": "02fed7e8ecd3792f6835cfd1ffbbfefe45b3067a0f96656715e8e898d0c04faa"
+  },
+  {
+   "anchor": "postgresql-change-events-key",
+   "title": "Change event keys",
+   "level": 3,
+   "sha256": "779578ec5c1b26d1cb33f2b2aef8e30773a08a6617d533d3a0fd6b4dbc132de9"
+  },
+  {
+   "anchor": "postgresql-change-events-value",
+   "title": "Change event values",
+   "level": 3,
+   "sha256": "3722d0968c57a02cae1b163b70553f29366cad08004632002433e5e0bd43499d"
+  },
+  {
+   "anchor": "postgresql-replica-identity",
+   "title": "Replica identity",
+   "level": 3,
+   "sha256": "5e1ed30971cc37c0c7dd6eaf3618ae73f8bd06b159512fc5a76a48fa6ddf5c75"
+  },
+  {
+   "anchor": "postgresql-create-events",
+   "title": "create events",
+   "level": 3,
+   "sha256": "df2dc9ca7bf022e125f1d27a60d0ac7542ef9ab64b44045ed1095ac02eecaa53"
+  },
+  {
+   "anchor": "postgresql-update-events",
+   "title": "update events",
+   "level": 3,
+   "sha256": "63988c1831a37fbfa30d1275c4331e0105210c02165b459911fd7ff922ec5b6d"
+  },
+  {
+   "anchor": "postgresql-primary-key-updates",
+   "title": "Primary key updates",
+   "level": 3,
+   "sha256": "51eff18b4b795cd62e683dc555bcb4bc944cd156b317aeb1aece9fc9a6527b95"
+  },
+  {
+   "anchor": "postgresql-delete-events",
+   "title": "delete events",
+   "level": 3,
+   "sha256": "e3068d5aba06eb2f60bc91dcc7ef5d9f4825a874486d291cca9511953897a04e"
+  },
+  {
+   "anchor": "postgresql-truncate-events",
+   "title": "truncate events",
+   "level": 3,
+   "sha256": "cf7cd8202ff724ba1592e230ffbf8cd5a5b1cc40bea60e468be9581b3bb7da4a"
+  },
+  {
+   "anchor": "postgresql-message-events",
+   "title": "message events",
+   "level": 3,
+   "sha256": "b4fc2e9c61d8965061680bc31c4df55414805edbdd8ee4c01838dcad7a1eb906"
+  },
+  {
+   "anchor": "postgresql-data-types",
+   "title": "Data type mappings",
+   "level": 2,
+   "sha256": "6aada6d985a10db43ad9c7713c2452c5381703aff6299e6d6fcb6e58a3fb08ad"
+  },
+  {
+   "anchor": "postgresql-basic-types",
+   "title": "Basic types",
+   "level": 3,
+   "sha256": "3658077de9d985b661cb87bd60b8d7232e624e415d08539b65cb4242b72e84f1"
+  },
+  {
+   "anchor": "postgresql-temporal-types",
+   "title": "Temporal types",
+   "level": 3,
+   "sha256": "474ba5783f6999f581b13995b4f03416d05cfc8da4e7e6c914208a8b661c27c1"
+  },
+  {
+   "anchor": "postgresql-date-type",
+   "title": "DATE type",
+   "level": 3,
+   "sha256": "9ade16e573a96314c4b8cb01a4d2e7f832b9fd575a2bcdaf8137f8cef58c6843"
+  },
+  {
+   "anchor": "postgresql-timestamp-type",
+   "title": "TIMESTAMP type",
+   "level": 3,
+   "sha256": "6975b83212d538c9f6a1c373ddb0b9222af0a907a228cfb504c99352c3875a0a"
+  },
+  {
+   "anchor": "postgresql-decimal-types",
+   "title": "Decimal types",
+   "level": 3,
+   "sha256": "bf9389cd75d8a682c3d98cf1f08310b5781d71b3e9d76c5ffcc94ddcf82f49e5"
+  },
+  {
+   "anchor": "postgresql-hstore-type",
+   "title": "HSTORE type",
+   "level": 3,
+   "sha256": "3765daaed8a8df0eb2791c47d0dd76582bff3cad7aa3ef5b14fdce079c76086e"
+  },
+  {
+   "anchor": "postgresql-domain-types",
+   "title": "Domain types",
+   "level": 3,
+   "sha256": "b4f5817c931eda6cc6cde7bc2cd0acf2a7a810092fa4dcded3b579b3bd92999f"
+  },
+  {
+   "anchor": "postgresql-network-address-types",
+   "title": "Network address types",
+   "level": 3,
+   "sha256": "ee15cfcd454b6e6678a00606d669064519ab4edfb34ec46e14a73c4a4a52b1a8"
+  },
+  {
+   "anchor": "postgresql-postgis-types",
+   "title": "PostGIS types",
+   "level": 3,
+   "sha256": "88975ead9b95c54dc0c664f352daaa9083c3c86e9bb367f20ab0534abc0bba9e"
+  },
+  {
+   "anchor": "postgresql-pgvector-types",
+   "title": "pgvector types",
+   "level": 3,
+   "sha256": "69c1c2f63e335a804f24be57e6967c74839204bbcd87d68b999b281b5d52ac71"
+  },
+  {
+   "anchor": "postgresql-tsvector-types",
+   "title": "TSVECTOR types",
+   "level": 3,
+   "sha256": "c394801061b83ec7693aac0a618ab9599e695d6fe55a1bcb4314d12c08efaefb"
+  },
+  {
+   "anchor": "postgresql-toasted-values",
+   "title": "Toasted values",
+   "level": 3,
+   "sha256": "9f770cbdf4f97a59450ab6b9cf497da27e8909b4a939d55dbdfa410c5826958b"
+  },
+  {
+   "anchor": "postgresql-default-values",
+   "title": "Default values",
+   "level": 3,
+   "sha256": "070a2507028a8213ec7328e2b62e64a577ee9e086db44b692e22121a9a8f95a9"
+  },
+  {
+   "anchor": "custom-postgres-connector-converters",
+   "title": "Custom converters",
+   "level": 2,
+   "sha256": "ebee3d065241f1df808c7f6b79d9ca22e72e5f11df1e3fd910ba2019a24b5552"
+  },
+  {
+   "anchor": "setting-up-postgresql",
+   "title": "Setting up PostgreSQL",
+   "level": 2,
+   "sha256": "9ba6bcfda41ac9c3fa983f85e9db2020c2f961840935927dcb36da0bd0d186db"
+  },
+  {
+   "anchor": "_configuring_replication_slot",
+   "title": "Configuring replication slot",
+   "level": 3,
+   "sha256": "e4cca3a1a2dd7a8fafebecfbc2db3529ee09c89e4ad052d636d88641e71853ed"
+  },
+  {
+   "anchor": "postgresql-automatic-replication-slot-creation",
+   "title": "Automatic replication slot creation",
+   "level": 4,
+   "sha256": "fa927e73dbcad0f38d7c3a94fa928e6b34073d333af7f53c52d8f6658b9a90bc"
+  },
+  {
+   "anchor": "postgresql-create-a-replication-slot-manually",
+   "title": "Create a replication slot manually",
+   "level": 4,
+   "sha256": "3a16c54f7b21ee4f713cfccab8d8603d7d2894ed570cf670e09433ec098f899a"
+  },
+  {
+   "anchor": "postgresql-in-the-cloud",
+   "title": "PostgreSQL in the Cloud",
+   "level": 3,
+   "sha256": "5f4d0172bba42c458233983518abae752ec6e466c6624b0dcba39e0889f56519"
+  },
+  {
+   "anchor": "postgresql-on-amazon-rds",
+   "title": "PostgreSQL on Amazon RDS",
+   "level": 4,
+   "sha256": "7dba3c1806c23d212e43fa6b3f9fba8e3507d833ace517fce367158d14331151"
+  },
+  {
+   "anchor": "postgresql-on-azure",
+   "title": "PostgreSQL on Azure",
+   "level": 4,
+   "sha256": "83aff6f3165059f9fc5e266737fd0e7342005a0f175ce7fbb7fc13dec1955743"
+  },
+  {
+   "anchor": "cloud-sql-for-postgresql",
+   "title": "Cloud SQL for PostgreSQL",
+   "level": 4,
+   "sha256": "dd2d6f528983f478b5e2aaefb41f90b44ce5bfab3472915b39f39edf296ed1c0"
+  },
+  {
+   "anchor": "postgresql-on-crunchybridge",
+   "title": "PostgreSQL on CrunchyBridge",
+   "level": 4,
+   "sha256": "94067f66c92626a37200a896a9e358d438166212b141c0fc970a4eb260424e70"
+  },
+  {
+   "anchor": "installing-postgresql-output-plugin",
+   "title": "Installing the logical decoding output plug-in",
+   "level": 3,
+   "sha256": "171affda2e604878816e311f467cc3bf76040d8e8c15eaa7a9e2baaf4c20dc63"
+  },
+  {
+   "anchor": "postgresql-differences-between-plugins",
+   "title": "Plug-in differences",
+   "level": 3,
+   "sha256": "16fee5d83feb6c9daf3f6fb2fe072e798937177cfe2c9d4bdcc41c7a429cc419"
+  },
+  {
+   "anchor": "debezium-postgresql-connector-specify-the-plugin-name",
+   "title": "Specify the Debezium plugin.name",
+   "level": 3,
+   "sha256": "c021c9fa2977a4bc88fa5b284c42b28043bb085dacd0d75a64dfa3bba0b05a57"
+  },
+  {
+   "anchor": "debezium-postgresql-connector-create-a-replication-user",
+   "title": "Create a replication user",
+   "level": 3,
+   "sha256": "b283c41eb99c7086de18f6cc091db28ce4bdb1ddc0ee11a96cc42395458d4247"
+  },
+  {
+   "anchor": "postgresql-server-configuration",
+   "title": "Configuring the PostgreSQL server",
+   "level": 3,
+   "sha256": "fd2a9a8593efae306e02c5fed2fe17d3f0b73aed17a15a4ff775acdaf04d1ccf"
+  },
+  {
+   "anchor": "debezium-postgresql-connector-replication-parameters-and-performance-considerations",
+   "title": "Replication parameters and performance considerations",
+   "level": 4,
+   "sha256": "54123e6197485dd981c01e6caa0df0641e6e9c57502d7d7b97047600f38a904c"
+  },
+  {
+   "anchor": "enabling-postgresql-failover-slots",
+   "title": "Enable failover slots for the PostgreSQL connector",
+   "level": 4,
+   "sha256": "83f46b3c794f8eb60a88a68dfb65e6196f17c582aec1fc8ee49d04150b5673bc"
+  },
+  {
+   "anchor": "postgresql-permissions",
+   "title": "Setting up permissions",
+   "level": 4,
+   "sha256": "74e54c8661f8531eb494cd9ba9b7cd12678baf0c39d6cb11abfb8e6d669d9a94"
+  },
+  {
+   "anchor": "postgresql-replication-user-privileges",
+   "title": "Setting privileges to enable Debezium to create PostgreSQL publications when you use pgoutput",
+   "level": 3,
+   "sha256": "0912976f457aa7163a5c3775dec0c70de233cf54b826a5b4a735cbf6940f5187"
+  },
+  {
+   "anchor": "postgresql-host-replication-permissions",
+   "title": "Configuring PostgreSQL to allow replication with the Debezium connector host",
+   "level": 3,
+   "sha256": "7702a618722c8dcce0aa82384e4026781118147069a15dd6a030ddcbbd0d39f8"
+  },
+  {
+   "anchor": "supported-postgresql-topologies",
+   "title": "Supported PostgreSQL topologies",
+   "level": 3,
+   "sha256": "d1adfdb235d28daa66a1a29d0aa2d7c75e94a1ea02900c39fb011fe3ccab44f1"
+  },
+  {
+   "anchor": "postgresql-supported-topologies-pg15",
+   "title": "PostgreSQL 15 or earlier clusters",
+   "level": 4,
+   "sha256": "ae374c6064feab3b8a21cc6b587526f913545cdbdf557c66d40c7c6535a6a960"
+  },
+  {
+   "anchor": "postgresql-supported-topologies-pg16",
+   "title": "PostgreSQL 16 or later clusters",
+   "level": 4,
+   "sha256": "b9bddbac2c76c729d96fefa84cea26f12f39ae026720792b6399a9fe390df551"
+  },
+  {
+   "anchor": "postgresql-supported-topologies-pg17",
+   "title": "Debezium with PostgreSQL 17 or later clusters",
+   "level": 4,
+   "sha256": "6db4bca9a210afe76ab771ded8b718be075471d7932d7967c50181495702aace"
+  },
+  {
+   "anchor": "postgresql-wal-disk-space",
+   "title": "WAL disk space consumption",
+   "level": 3,
+   "sha256": "09db57a6ba11575f29710875ad41c7811d3b82771103467ffea2507f5c714bd5"
+  },
+  {
+   "anchor": "postgresql-deploying-multiple-connectors",
+   "title": "Setting up multiple connectors for the same database server",
+   "level": 3,
+   "sha256": "2b43ef051c73e39a6835a08ea149d92144249253061ccaca1bdfd516e0363ab6"
+  },
+  {
+   "anchor": "upgrading-postgresql",
+   "title": "Upgrading PostgreSQL",
+   "level": 3,
+   "sha256": "0d2b3dad8c6d670b28cd0ee2ccf8fc1ca99979484c705edf4b7b0fea78f0a8a8"
+  },
+  {
+   "anchor": "postgresql-deployment",
+   "title": "Deployment",
+   "level": 2,
+   "sha256": "e98b661973570a58bafacd11ee31feda6c396f0986604dd2e34a1f56d54646c4"
+  },
+  {
+   "anchor": "postgresql-example-configuration",
+   "title": "Connector configuration example",
+   "level": 3,
+   "sha256": "3766c7072ba844081ba19ff9a20daaa7d9e0bbe712a26ba8397845d394707b37"
+  },
+  {
+   "anchor": "postgresql-adding-connector-configuration",
+   "title": "Adding connector configuration",
+   "level": 3,
+   "sha256": "a68ea64185a9f31e304c3dd47817c9e2f88c7a755a4122fa2d94a11df55639dd"
+  },
+  {
+   "anchor": "postgresql-connector-properties",
+   "title": "Connector properties",
+   "level": 3,
+   "sha256": "fcc672fbd1c6cae89da0e3d1bf6ed5fc5102b8586e437b9978a568d6cfe7eed7"
+  },
+  {
+   "anchor": "postgresql-required-configuration-properties",
+   "title": "Required Debezium PostgreSQL connector configuration properties",
+   "level": 4,
+   "sha256": "82cce6aa289509aa068e2bc0c0f45b3486fa9c49f656121c1818bcb153172c93"
+  },
+  {
+   "anchor": "postgresql-advanced-configuration-properties",
+   "title": "Advanced Debezium PostgreSQL connector configuration properties",
+   "level": 4,
+   "sha256": "23cafd2fe64458aa555576af64e64f5ad1047b97ce7afc46d7068fb41054d98e"
+  },
+  {
+   "anchor": "debezium-postgresql-connector-pass-through-properties",
+   "title": "Pass-through PostgreSQL connector configuration properties",
+   "level": 4,
+   "sha256": "072872ecb1380cc214a3dc8b8c943e4e25c0aecfa143e46a4a74f88ef51d92c5"
+  },
+  {
+   "anchor": "debezium-postgresql-connector-pass-through-kafka-signals-configuration-properties",
+   "title": "Pass-through properties for configuring how the PostgreSQL connector interacts with the Kafka signaling topic",
+   "level": 5,
+   "sha256": "9cac86cf4df388fe11f18de043de099ae9375429895ce0c67df284da13749655"
+  },
+  {
+   "anchor": "debezium-postgresql-connector-pass-through-signals-kafka-consumer-client-configuration-properties",
+   "title": "Pass-through properties for configuring the Kafka consumer client for the signaling channel",
+   "level": 5,
+   "sha256": "8b9f3bfc3a8f8b633c169c7fe85c55c7525c05e37e46ce83693620b6865397c6"
+  },
+  {
+   "anchor": "debezium-postgresql-connector-pass-through-kafka-sink-notification-configuration-properties",
+   "title": "Pass-through properties for configuring the PostgreSQL connector sink notification channel",
+   "level": 5,
+   "sha256": "3aad1945aea033e2d6433b8c64f69519c5c6becd77024249e16861ba9a8dcd3c"
+  },
+  {
+   "anchor": "debezium-postgresql-connector-pass-through-database-driver-configuration-properties",
+   "title": "Debezium connector pass-through database driver configuration properties",
+   "level": 5,
+   "sha256": "b9cf0a3e7aeb8a058e06e4c427cb2b4bb120f453a5dc185eb12413ba1e989055"
+  },
+  {
+   "anchor": "postgresql-monitoring",
+   "title": "Monitoring",
+   "level": 2,
+   "sha256": "462bab55199abc9967d13ee52bbd283252a202900f9ab3a9bcd30c7317b57175"
+  },
+  {
+   "anchor": "_customized_mbean_names",
+   "title": "Customized MBean names",
+   "level": 3,
+   "sha256": "b059143c24e96da21441bee2e77297659a6083910fafb4bc16f50877d8a92bba"
+  },
+  {
+   "anchor": "postgresql-snapshot-metrics",
+   "title": "Snapshot metrics",
+   "level": 3,
+   "sha256": "a55bd00470030df93f64d193bc0f9f307b16ac1d6470a3c92ac19abeaf0d32c5"
+  },
+  {
+   "anchor": "postgresql-streaming-metrics",
+   "title": "Streaming metrics",
+   "level": 3,
+   "sha256": "ef39ba35d60a867e29a0f3f1a2e69770035b641b087c579d0a9c9a5cb6585240"
+  },
+  {
+   "anchor": "postgresql-when-things-go-wrong",
+   "title": "Behavior when things go wrong",
+   "level": 2,
+   "sha256": "9faa5c1dc0d11c3f1df8421f732ac7f41fd5feafa4d34926af6c48e7a55674da"
+  },
+  {
+   "anchor": "postgresql-connector-configuration-and-startup-errors",
+   "title": "Configuration and startup errors",
+   "level": 3,
+   "sha256": "c60a64e31c461173a38656c04b3939186a76e7a1f09d23239c2ea74dfa3bf22d"
+  },
+  {
+   "anchor": "postgresql-becomes-unavailable",
+   "title": "PostgreSQL becomes unavailable",
+   "level": 3,
+   "sha256": "998bf0847442f5fa94d52f3722972a14d131315ab11a38446e0838cfc99ad546"
+  },
+  {
+   "anchor": "postgresql-cluster-failures",
+   "title": "Cluster failures",
+   "level": 3,
+   "sha256": "b9dc11c2d765cfd4972250f694c1d84be5fb9107812d8bceac9ff3d6d3db041a"
+  },
+  {
+   "anchor": "postgresql-cluster-failures-recovering-from-failures-pg17-cluster",
+   "title": "Recovering from primary server failures in a PostgreSQL 17 cluster with failover replication slots",
+   "level": 4,
+   "sha256": "b2e7fadf4f55eae2e2a9c06fbaf49094e93b467594b7c31fe3a1dceb7fc33069"
+  },
+  {
+   "anchor": "postgresql-cluster-failures-capturing-from-new-pg16-primary",
+   "title": "Capturing data from a new primary server after a failure in a PostgreSQL 16 or earlier cluster, or in a PostgreSQL 17 or later cluster that does not use failover replication slots",
+   "level": 4,
+   "sha256": "4962931dc0a3ab0ad94b94b2131610a0ddc07fe32a679e84ecb2151574ed16c3"
+  },
+  {
+   "anchor": "postgresql-kafka-connect-process-stops-gracefully",
+   "title": "Kafka Connect process stops gracefully",
+   "level": 3,
+   "sha256": "a9541ef9cdf46587b10a88bd0b911a955092d6757baa46ce592ef417de61b228"
+  },
+  {
+   "anchor": "postgresql-kafka-connect-process-crashes",
+   "title": "Kafka Connect process crashes",
+   "level": 3,
+   "sha256": "200ec8345cbfb2dbb6f61536e6ab46b5e5b86ef33af854ad12d97a609173d265"
+  },
+  {
+   "anchor": "postgresql-kafka-becomes-unavailable",
+   "title": "Kafka becomes unavailable",
+   "level": 3,
+   "sha256": "5b4a570d1c0edf9ad450b400519a08a43deb07a6ba0a109122e2f32f7de7c9ff"
+  },
+  {
+   "anchor": "postgresql-connector-is-stopped-for-a-duration",
+   "title": "Connector is stopped for a duration",
+   "level": 3,
+   "sha256": "486ab3be001a6ba722787fcfbde546ffb64db7105287c308c5f50aa26c84dc35"
+  }
+ ]
+}

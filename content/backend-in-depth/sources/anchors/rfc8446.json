@@ -1,0 +1,815 @@
+{
+ "source": "rfc8446",
+ "anchors": [
+  {
+   "anchor": "top",
+   "title": "",
+   "level": 0,
+   "sha256": "2174d36ce44fbfb682d3ea30e190837e43332ac158c8a5a6c6cb89b7d41500a7"
+  },
+  {
+   "anchor": "content",
+   "title": "The Transport Layer Security (TLS) Protocol Version 1.3",
+   "level": 1,
+   "sha256": "c2876f4d3000729cea3797ed3fbaf8b9d3634e692f1c7cc35f7d6433825e1084"
+  },
+  {
+   "anchor": "section-1",
+   "title": "1 . Introduction",
+   "level": 2,
+   "sha256": "33dcaf6b1adb7ce85345efec33a8f01f85c7e6c8762186cbf520223c3f9b038a"
+  },
+  {
+   "anchor": "section-1.1",
+   "title": "1.1 . Conventions and Terminology",
+   "level": 3,
+   "sha256": "27bb0060de061bdf5a325ed718e17fa2aeded3cb20495716dd8f48a0decd25f3"
+  },
+  {
+   "anchor": "section-1.2",
+   "title": "1.2 . Major Differences from TLS 1.2",
+   "level": 3,
+   "sha256": "adf87f843008fa8d53071f90f9664a621e2035e708a108d12148e8b84002ec40"
+  },
+  {
+   "anchor": "section-1.3",
+   "title": "1.3 . Updates Affecting TLS 1.2",
+   "level": 3,
+   "sha256": "724751db974ded634d21645c3cd9b4aefde8ea7dd6083897ea5391d55ce01c6e"
+  },
+  {
+   "anchor": "section-2",
+   "title": "2 . Protocol Overview",
+   "level": 2,
+   "sha256": "28d94772aef84c578616ed7bc6de9c12a11d68f8b08c1c78552a04087824759f"
+  },
+  {
+   "anchor": "section-2.1",
+   "title": "2.1 . Incorrect DHE Share",
+   "level": 3,
+   "sha256": "589d67a74b0025bd00615a9924fb508198f9c557734f5a9c79f521fa2a9ccb19"
+  },
+  {
+   "anchor": "section-2.2",
+   "title": "2.2 . Resumption and Pre-Shared Key (PSK)",
+   "level": 3,
+   "sha256": "cdd53c13f4ff8311067483dacb8af59952a0e1b3a4334fb53e02fdb7c861d2fa"
+  },
+  {
+   "anchor": "section-2.3",
+   "title": "2.3 . 0-RTT Data",
+   "level": 3,
+   "sha256": "d5531b8d7044dcac9f482d964e7df77cc6b717f4f22344ca4d0aa677c3419c83"
+  },
+  {
+   "anchor": "section-3",
+   "title": "3 . Presentation Language",
+   "level": 2,
+   "sha256": "ac445f393a5b985722382fb1f3e9770608baa76fae4722c61c8e2e094ad69d42"
+  },
+  {
+   "anchor": "section-3.1",
+   "title": "3.1 . Basic Block Size",
+   "level": 3,
+   "sha256": "5e61595cad5da1982580ec043c86a8b2e807d5377654b97135cbfa90026b1c90"
+  },
+  {
+   "anchor": "section-3.2",
+   "title": "3.2 . Miscellaneous",
+   "level": 3,
+   "sha256": "5b3ec4b28f7201c17a6725ed2fdb90621b6f63c34d82539eb3530533f12d73b9"
+  },
+  {
+   "anchor": "section-3.3",
+   "title": "3.3 . Numbers",
+   "level": 3,
+   "sha256": "16c4d1196771f14c9967cbe294923da3cbdac81f3b1cd32a4b95e0b7e5651d22"
+  },
+  {
+   "anchor": "section-3.4",
+   "title": "3.4 . Vectors",
+   "level": 3,
+   "sha256": "19659e9b008db5d697a156921e0d2b63064d42cde39b42acbd2b0dfb66e2f6b1"
+  },
+  {
+   "anchor": "section-3.5",
+   "title": "3.5 . Enumerateds",
+   "level": 3,
+   "sha256": "d2f2c0f4807da6cecda9f30a6b9024e42e54406b01c133358d0e0002a54921e0"
+  },
+  {
+   "anchor": "section-3.6",
+   "title": "3.6 . Constructed Types",
+   "level": 3,
+   "sha256": "7253a3b5bdd1e0b97b93b8be45d03d95d6913675e584d2878ea032b89e1aebac"
+  },
+  {
+   "anchor": "section-3.7",
+   "title": "3.7 . Constants",
+   "level": 3,
+   "sha256": "29580722bcc603cc528a13a183b42358510bb6a69db8ab5af30c8886efa69186"
+  },
+  {
+   "anchor": "section-3.8",
+   "title": "3.8 . Variants",
+   "level": 3,
+   "sha256": "d214dfeb2415cd4c6df471ab1e9f9fce6b98cf924beacffa304205c79ebcc0ae"
+  },
+  {
+   "anchor": "section-4",
+   "title": "4 . Handshake Protocol",
+   "level": 2,
+   "sha256": "0218db5fcf4683298058076e6e7b65159ff73d8649eb91fd058a17c8fd6a5caf"
+  },
+  {
+   "anchor": "section-4.1",
+   "title": "4.1 . Key Exchange Messages",
+   "level": 3,
+   "sha256": "a3a7f7b34c473a0fb987cc2f3a0f18a27586b1c51b63935804b849482297b1a2"
+  },
+  {
+   "anchor": "section-4.1.1",
+   "title": "4.1.1 . Cryptographic Negotiation",
+   "level": 4,
+   "sha256": "3a0aed7f702fee5f9f57c94bba0bf2ff366f7394c288448c01c53ed0e7f76a25"
+  },
+  {
+   "anchor": "section-4.1.2",
+   "title": "4.1.2 . Client Hello",
+   "level": 4,
+   "sha256": "02558076eb0e9e4399b55bbfc371931e2a829aa25ad29cfe550bed8e345bf8b5"
+  },
+  {
+   "anchor": "section-4.1.3",
+   "title": "4.1.3 . Server Hello",
+   "level": 4,
+   "sha256": "d23fdc4f88ebfbc27629d4b5acdcdbe147578d7eb5ea11572f2954682988a3be"
+  },
+  {
+   "anchor": "section-4.1.4",
+   "title": "4.1.4 . Hello Retry Request",
+   "level": 4,
+   "sha256": "9e15df47959e52299816a255175f17a2d9869d27eced33a8fef60d270a20d0e7"
+  },
+  {
+   "anchor": "section-4.2",
+   "title": "4.2 . Extensions",
+   "level": 3,
+   "sha256": "20408847e8b81ecf492748fd768a5276f8667cf7eb005024e2107e96e70b49af"
+  },
+  {
+   "anchor": "section-4.2.1",
+   "title": "4.2.1 . Supported Versions",
+   "level": 4,
+   "sha256": "c5549f30992cd351161781870db12bed0600ef81d31c35ad15366836fefc325e"
+  },
+  {
+   "anchor": "section-4.2.2",
+   "title": "4.2.2 . Cookie",
+   "level": 4,
+   "sha256": "1618282c72613e95276eadf9ce1dacff878093796f4e22ad9867b0519bc1cde5"
+  },
+  {
+   "anchor": "section-4.2.3",
+   "title": "4.2.3 . Signature Algorithms",
+   "level": 4,
+   "sha256": "f5a80176fc60e5f015b86ba49c30a487434caecd29396271a34aaf4751bc8386"
+  },
+  {
+   "anchor": "section-4.2.4",
+   "title": "4.2.4 . Certificate Authorities",
+   "level": 4,
+   "sha256": "88ff4298e11b9b9aa47e45db998e31b21ce5beda9b0e342d43a7be20baec3399"
+  },
+  {
+   "anchor": "section-4.2.5",
+   "title": "4.2.5 . OID Filters",
+   "level": 4,
+   "sha256": "88a6a8fc356e15ab8d0da3623cffc8fbca89297acfa503ff64ec4ff8454c7425"
+  },
+  {
+   "anchor": "section-4.2.6",
+   "title": "4.2.6 . Post-Handshake Client Authentication",
+   "level": 4,
+   "sha256": "7d4ef633ad4822c4666fe1d587d4a8a632a8fabb7f3ae1f0ef29be46f5632602"
+  },
+  {
+   "anchor": "section-4.2.7",
+   "title": "4.2.7 . Supported Groups",
+   "level": 4,
+   "sha256": "025459653b878c22879d6259f96c6c9bcf53ae3c6735e3d4cad3634eac61c9ed"
+  },
+  {
+   "anchor": "section-4.2.8",
+   "title": "4.2.8 . Key Share",
+   "level": 4,
+   "sha256": "716143b35ab283b392d92c253e3f464319320c4af06135e3494baa3868933623"
+  },
+  {
+   "anchor": "section-4.2.8.1",
+   "title": "4.2.8.1 . Diffie-Hellman Parameters",
+   "level": 5,
+   "sha256": "20d4e0d1a51e3c689463eca3a38b1886908dc1ce79dda62ccec5bf86f17358f5"
+  },
+  {
+   "anchor": "section-4.2.8.2",
+   "title": "4.2.8.2 . ECDHE Parameters",
+   "level": 5,
+   "sha256": "8026d097d894a1b89e91de4e6e1e8fb58d27f31263682e619b23bae3f8b55c22"
+  },
+  {
+   "anchor": "section-4.2.9",
+   "title": "4.2.9 . Pre-Shared Key Exchange Modes",
+   "level": 4,
+   "sha256": "6f4b074811921da185e677ef519d18f731bd5511fb37fe3fd14f9e75d1ea9ee3"
+  },
+  {
+   "anchor": "section-4.2.10",
+   "title": "4.2.10 . Early Data Indication",
+   "level": 4,
+   "sha256": "170009ce8e996ae5f8ac8333b44dabe376c6f5c78be4d8d2e35fd957bd149a40"
+  },
+  {
+   "anchor": "section-4.2.11",
+   "title": "4.2.11 . Pre-Shared Key Extension",
+   "level": 4,
+   "sha256": "c6610cbd45df214cfa8be3cbca15b8ea32fc9d35b3506e9d2a715d4766d6856d"
+  },
+  {
+   "anchor": "section-4.2.11.1",
+   "title": "4.2.11.1 . Ticket Age",
+   "level": 5,
+   "sha256": "3043aab4d0b9473c06f932583b398582a902543c19290672ce74be0cfbe8d0ec"
+  },
+  {
+   "anchor": "section-4.2.11.2",
+   "title": "4.2.11.2 . PSK Binder",
+   "level": 5,
+   "sha256": "c6d3928d4a2e53fbd48ff4a2f8f14ebac87c32b77c65ad9084aa32532b866f31"
+  },
+  {
+   "anchor": "section-4.2.11.3",
+   "title": "4.2.11.3 . Processing Order",
+   "level": 5,
+   "sha256": "228f5aaddc27d4f64c5efe31c2b573f792807c7bf5a0e9f9aa8ef4ec3561b483"
+  },
+  {
+   "anchor": "section-4.3",
+   "title": "4.3 . Server Parameters",
+   "level": 3,
+   "sha256": "e9db5a493a2dec73d3ce3dd749031884a5e43b56f85be1e1128b3a04f422313c"
+  },
+  {
+   "anchor": "section-4.3.1",
+   "title": "4.3.1 . Encrypted Extensions",
+   "level": 4,
+   "sha256": "b56dd4306a04ce029012d03c5fcf7485f4dafc53b59ae56707bc55f46b7b2caf"
+  },
+  {
+   "anchor": "section-4.3.2",
+   "title": "4.3.2 . Certificate Request",
+   "level": 4,
+   "sha256": "a5e6eecd81298279f59fa8aa4cd8700b4423254aa2c2e859986e5bd676d4a2dc"
+  },
+  {
+   "anchor": "section-4.4",
+   "title": "4.4 . Authentication Messages",
+   "level": 3,
+   "sha256": "7944d41b64069e4b87aa161e589aa106cb8fe7e22937f9d759ad669951e2c622"
+  },
+  {
+   "anchor": "section-4.4.1",
+   "title": "4.4.1 . The Transcript Hash",
+   "level": 4,
+   "sha256": "bcb40e0df9f81ae70a4e1c8364bb5a3d321791bbbb82ad79a726a2670e9c6cc3"
+  },
+  {
+   "anchor": "section-4.4.2",
+   "title": "4.4.2 . Certificate",
+   "level": 4,
+   "sha256": "486cf1819f7f4bc1f8f7ae52edcf86d3e85021eb54fa28a57433ac9c38257d27"
+  },
+  {
+   "anchor": "section-4.4.2.1",
+   "title": "4.4.2.1 . OCSP Status and SCT Extensions",
+   "level": 5,
+   "sha256": "d7209b51fe52289a5038112db1036c9e17379305240ab1a9ea2646172434e62d"
+  },
+  {
+   "anchor": "section-4.4.2.2",
+   "title": "4.4.2.2 . Server Certificate Selection",
+   "level": 5,
+   "sha256": "d8d17fa11296d43d25435f1efb466bfdb6e5e4973ea8dd1f71d488be59a8964f"
+  },
+  {
+   "anchor": "section-4.4.2.3",
+   "title": "4.4.2.3 . Client Certificate Selection",
+   "level": 5,
+   "sha256": "1dff7df5b9ea8ff79edcac65abbd881339f09e349a7267bc2df71f4b2b734a23"
+  },
+  {
+   "anchor": "section-4.4.2.4",
+   "title": "4.4.2.4 . Receiving a Certificate Message",
+   "level": 5,
+   "sha256": "a585277e6c9062e55e816fb595f999281d4f6abb5936df678452cb2c06eb261e"
+  },
+  {
+   "anchor": "section-4.4.3",
+   "title": "4.4.3 . Certificate Verify",
+   "level": 4,
+   "sha256": "517b1b11110d92140687148784117348c59c2cd95775dcb28e5e258cefc0ffbd"
+  },
+  {
+   "anchor": "section-4.4.4",
+   "title": "4.4.4 . Finished",
+   "level": 4,
+   "sha256": "77e959af3e446f07318325a98cd6881a25058989bce065e36ef17262b142559f"
+  },
+  {
+   "anchor": "section-4.5",
+   "title": "4.5 . End of Early Data",
+   "level": 3,
+   "sha256": "c0b713990f0a7b708cb6a25c51cf40b36a557e61d3d5382431ff33c0c234edfa"
+  },
+  {
+   "anchor": "section-4.6",
+   "title": "4.6 . Post-Handshake Messages",
+   "level": 3,
+   "sha256": "7c511b7db64180ba14c5a888dffd2a22bd38ef27b212ab4c46aec47bbc46bccc"
+  },
+  {
+   "anchor": "section-4.6.1",
+   "title": "4.6.1 . New Session Ticket Message",
+   "level": 4,
+   "sha256": "a356bd18c7867cfec1970651848229213a9c9305440c75835f25fa32afd4f943"
+  },
+  {
+   "anchor": "section-4.6.2",
+   "title": "4.6.2 . Post-Handshake Authentication",
+   "level": 4,
+   "sha256": "32a8e3e1cb8580f72a1293163feea27c0515acbc90c0c94fdfa345124ba79526"
+  },
+  {
+   "anchor": "section-4.6.3",
+   "title": "4.6.3 . Key and Initialization Vector Update",
+   "level": 4,
+   "sha256": "4d26e6dadbc2d542232a8f6a7cbff1da603c15c43f2931ed07fa8dd7e63976d5"
+  },
+  {
+   "anchor": "section-5",
+   "title": "5 . Record Protocol",
+   "level": 2,
+   "sha256": "b7006c917767fd1d195f10bbae126c767af41a31cae4c0ea25e15c7b393bfdf2"
+  },
+  {
+   "anchor": "section-5.1",
+   "title": "5.1 . Record Layer",
+   "level": 3,
+   "sha256": "3c8df646ea425df7ed70c75553bf89fa0f334cda177fcc4d6f2d141c63592594"
+  },
+  {
+   "anchor": "section-5.2",
+   "title": "5.2 . Record Payload Protection",
+   "level": 3,
+   "sha256": "54acf04528fbbd5d51a04f781c01911877646d5a49f617ff874da35058a1a5a6"
+  },
+  {
+   "anchor": "section-5.3",
+   "title": "5.3 . Per-Record Nonce",
+   "level": 3,
+   "sha256": "b48fd1254d73fcd6d822996fabe140736b601baddc07b89397f2a53f4b3e1ca5"
+  },
+  {
+   "anchor": "section-5.4",
+   "title": "5.4 . Record Padding",
+   "level": 3,
+   "sha256": "143c1bf07f8b977f550a09bc0ccea6e2c425527cad854a4093f6f366f2a16c41"
+  },
+  {
+   "anchor": "section-5.5",
+   "title": "5.5 . Limits on Key Usage",
+   "level": 3,
+   "sha256": "c836d02deb19b22d15f770914cdfa6ae5d77aa96eababbab25d03211b91d7a5b"
+  },
+  {
+   "anchor": "section-6",
+   "title": "6 . Alert Protocol",
+   "level": 2,
+   "sha256": "b61e1c3be3c6363b279dd0fa91b737a630a6e18ea1247486964d08b8e59a7d0b"
+  },
+  {
+   "anchor": "section-6.1",
+   "title": "6.1 . Closure Alerts",
+   "level": 3,
+   "sha256": "ae0575a8d73481f95a5d83d231407e9f07c44ee920a713f12f6cc005b1e64cc3"
+  },
+  {
+   "anchor": "section-6.2",
+   "title": "6.2 . Error Alerts",
+   "level": 3,
+   "sha256": "1201020f51c57d38d530868f13f928cdcef8259314097cb3fe49cc52d7204560"
+  },
+  {
+   "anchor": "section-7",
+   "title": "7 . Cryptographic Computations",
+   "level": 2,
+   "sha256": "8b47ca68b4899591b68b288e555b0ae316efa2490ea15f1fdcf1b6595da49dcf"
+  },
+  {
+   "anchor": "section-7.1",
+   "title": "7.1 . Key Schedule",
+   "level": 3,
+   "sha256": "b3aa0c815ff5cc233fd4aacf4c7ad34a609a193398fa0af191f1d9262d7bd9cb"
+  },
+  {
+   "anchor": "section-7.2",
+   "title": "7.2 . Updating Traffic Secrets",
+   "level": 3,
+   "sha256": "d2b047bdf75f4294c6839c3fc8d699fefcd094582ac4b8a3e51206abcfa239c5"
+  },
+  {
+   "anchor": "section-7.3",
+   "title": "7.3 . Traffic Key Calculation",
+   "level": 3,
+   "sha256": "4a34c2733206b6a0cfcaa189bb6d226016427ce0c66dbaa9e335520d16988543"
+  },
+  {
+   "anchor": "section-7.4",
+   "title": "7.4 . (EC)DHE Shared Secret Calculation",
+   "level": 3,
+   "sha256": "ce2b74571653ae21ca5a3c6913e6031c2b9dc110c2766b37f6bf331f022d74f4"
+  },
+  {
+   "anchor": "section-7.4.1",
+   "title": "7.4.1 . Finite Field Diffie-Hellman",
+   "level": 4,
+   "sha256": "10cd71626d8f969219d4d2172ecb63afba9c17021eb0aca000bc19f16b8126dd"
+  },
+  {
+   "anchor": "section-7.4.2",
+   "title": "7.4.2 . Elliptic Curve Diffie-Hellman",
+   "level": 4,
+   "sha256": "e1b53681b4d1a58f8c3cf002430a3b4450251eb8dc6d2afdf341f9fc2e7dbfe3"
+  },
+  {
+   "anchor": "section-7.5",
+   "title": "7.5 . Exporters",
+   "level": 3,
+   "sha256": "b153ecd1d277f01bdfad5a4601c9955a9abdb3b096b63a17baa565dce06d84d1"
+  },
+  {
+   "anchor": "section-8",
+   "title": "8 . 0-RTT and Anti-Replay",
+   "level": 2,
+   "sha256": "5a2600997cf0ee7f5bac98f958aa9b0aa4503972f9a7f83b14e8b4c296c426e2"
+  },
+  {
+   "anchor": "section-8.1",
+   "title": "8.1 . Single-Use Tickets",
+   "level": 3,
+   "sha256": "62319a5ffff1f63872e958907bff8298ace79a812bcc2a50b71f05946be9e237"
+  },
+  {
+   "anchor": "section-8.2",
+   "title": "8.2 . Client Hello Recording",
+   "level": 3,
+   "sha256": "da357004ed772f6715eac4e05bfe8b8f8c033ff0abb9ff7aa67847641814b77e"
+  },
+  {
+   "anchor": "section-8.3",
+   "title": "8.3 . Freshness Checks",
+   "level": 3,
+   "sha256": "14b46141d4bdc5a59f9aa9d8f9aa2424b93adc80b971f7d7cc1b960937709deb"
+  },
+  {
+   "anchor": "section-9",
+   "title": "9 . Compliance Requirements",
+   "level": 2,
+   "sha256": "a78bd0676241e37a61fde341617dcd41939b1b5dec9da177fd9ef9f07dc46494"
+  },
+  {
+   "anchor": "section-9.1",
+   "title": "9.1 . Mandatory-to-Implement Cipher Suites",
+   "level": 3,
+   "sha256": "8716e89f601f48f3a8b5834e496559035bc2d73158a9f88ff70f2e1655732b6c"
+  },
+  {
+   "anchor": "section-9.2",
+   "title": "9.2 . Mandatory-to-Implement Extensions",
+   "level": 3,
+   "sha256": "0dd1dd739c93f2fc19d64efb74c7143edb2ecfe9a597aab116f69b5c330db15f"
+  },
+  {
+   "anchor": "section-9.3",
+   "title": "9.3 . Protocol Invariants",
+   "level": 3,
+   "sha256": "350e45829baaf0eb705f61eb49577584222b8e011596fddd0b2d9df1af39bf50"
+  },
+  {
+   "anchor": "section-10",
+   "title": "10 . Security Considerations",
+   "level": 2,
+   "sha256": "6fabe7c9dfe891de7ac202e4d4aad2fd84d9092f98db429f40b566f5754054c2"
+  },
+  {
+   "anchor": "section-11",
+   "title": "11 . IANA Considerations",
+   "level": 2,
+   "sha256": "b0980ad496fad0ed24b20ed579e3af01daa612d311d753df84f371474bec1fb7"
+  },
+  {
+   "anchor": "section-12",
+   "title": "12 . References",
+   "level": 2,
+   "sha256": "a6a33f8af939b5d8fe8f278f0bdffada0d8fd113145a2d988d2b1080b66f11f5"
+  },
+  {
+   "anchor": "section-12.1",
+   "title": "12.1 . Normative References",
+   "level": 3,
+   "sha256": "b68c5d1da4a016380e3299f5f33831811020f70960708a0bc5220f8ad79fe2a7"
+  },
+  {
+   "anchor": "section-12.2",
+   "title": "12.2 . Informative References",
+   "level": 3,
+   "sha256": "4314fa93fd56eee93df233f610bb83f2fe97f94d7773d1bc28714df2deea72d8"
+  },
+  {
+   "anchor": "appendix-A",
+   "title": "Appendix A . State Machine",
+   "level": 2,
+   "sha256": "43adc66cca66894389c86ac6ebae84f1d0f3907ef81cf363153719749356e95d"
+  },
+  {
+   "anchor": "appendix-A.1",
+   "title": "A.1 . Client",
+   "level": 3,
+   "sha256": "1a1836613dae63ba7ba2374035919d036f3751245c75fa9caa1291dfb3b2a2d7"
+  },
+  {
+   "anchor": "appendix-A.2",
+   "title": "A.2 . Server",
+   "level": 3,
+   "sha256": "1553464b3f595f3aff317a478e54b3ab2ce6f1bb4b11dac15cfca67e02bd2a07"
+  },
+  {
+   "anchor": "appendix-B",
+   "title": "Appendix B . Protocol Data Structures and Constant Values",
+   "level": 2,
+   "sha256": "f65ab354fe8aea2d9f6d149f7a2849cbc2ed73464f29056ed7188d46888eee60"
+  },
+  {
+   "anchor": "appendix-B.1",
+   "title": "B.1 . Record Layer",
+   "level": 3,
+   "sha256": "c6ba99391254e1691f5d10ab099559c993378089e17878e0696a622ebd4b40d6"
+  },
+  {
+   "anchor": "appendix-B.2",
+   "title": "B.2 . Alert Messages",
+   "level": 3,
+   "sha256": "cd363bc40cecc2e3f7509991f4e68ef6713aa923a62db05ac7521335574b1d74"
+  },
+  {
+   "anchor": "appendix-B.3",
+   "title": "B.3 . Handshake Protocol",
+   "level": 3,
+   "sha256": "5a0ead0bed90afa8162663d93b8b9109b1ebc6179bbe2607981a04303d449cfd"
+  },
+  {
+   "anchor": "appendix-B.3.1",
+   "title": "B.3.1 . Key Exchange Messages",
+   "level": 4,
+   "sha256": "d561b83e4d73b4d586f127a8d1cdb1aab25264359a7308ae98b18d13857228d0"
+  },
+  {
+   "anchor": "appendix-B.3.1.1",
+   "title": "B.3.1.1 . Version Extension",
+   "level": 5,
+   "sha256": "bd3984719e8ef4ed6ec7b7f8b6c1fe77cc16f3cac60e99d13a699682d41b9159"
+  },
+  {
+   "anchor": "appendix-B.3.1.2",
+   "title": "B.3.1.2 . Cookie Extension",
+   "level": 5,
+   "sha256": "eb042b92ce85ef9e5876d344d6e5c3542bd2f2c65c3e35bd0f332585504ed732"
+  },
+  {
+   "anchor": "appendix-B.3.1.3",
+   "title": "B.3.1.3 . Signature Algorithm Extension",
+   "level": 5,
+   "sha256": "f1750b3175ee4fcd5dbbdee867c4a9331d567bd11da05dfbfdb5a391e737268d"
+  },
+  {
+   "anchor": "appendix-B.3.1.4",
+   "title": "B.3.1.4 . Supported Groups Extension",
+   "level": 5,
+   "sha256": "e7eb00280d3fe72ca17cc223f00e0231956410b3564942d4112e02c75de159e7"
+  },
+  {
+   "anchor": "appendix-B.3.2",
+   "title": "B.3.2 . Server Parameters Messages",
+   "level": 4,
+   "sha256": "f87b58ab0b025f319e04c932b01c23c6d8096fbeeaa4e623afdf77beb2a2d004"
+  },
+  {
+   "anchor": "appendix-B.3.3",
+   "title": "B.3.3 . Authentication Messages",
+   "level": 4,
+   "sha256": "c6eeb6774b5fecbdb716eb4972866016efd8da37a0f776f20df42061b2423145"
+  },
+  {
+   "anchor": "appendix-B.3.4",
+   "title": "B.3.4 . Ticket Establishment",
+   "level": 4,
+   "sha256": "f5a0681bcddc627a6206a35ad1ea9e5c3d669a6a651436b8cddc76a86bc2b3e6"
+  },
+  {
+   "anchor": "appendix-B.3.5",
+   "title": "B.3.5 . Updating Keys",
+   "level": 4,
+   "sha256": "827d8083913c39a9830e6ac66fc54bc2780fd3a68e2ff12a0ce5595aed563c40"
+  },
+  {
+   "anchor": "appendix-B.4",
+   "title": "B.4 . Cipher Suites",
+   "level": 3,
+   "sha256": "d3d86c7485f3e41917a76cb7a1aafc70e3aaed5289253b2c8e0f9d86f38e6f40"
+  },
+  {
+   "anchor": "appendix-C",
+   "title": "Appendix C . Implementation Notes",
+   "level": 2,
+   "sha256": "759110f931b20e0fd09f43fc740e73f725e16a3ad14a69d2c0421544c5f2880b"
+  },
+  {
+   "anchor": "appendix-C.1",
+   "title": "C.1 . Random Number Generation and Seeding",
+   "level": 3,
+   "sha256": "7d03c27075c98a0eca87e53ff10f0948e4165b06b283d0a12553fc1bc8385ef0"
+  },
+  {
+   "anchor": "appendix-C.2",
+   "title": "C.2 . Certificates and Authentication",
+   "level": 3,
+   "sha256": "fdc05f9d9e0571da29342a4e68ee728d73d90a743fc23957e3439f64afb7a596"
+  },
+  {
+   "anchor": "appendix-C.3",
+   "title": "C.3 . Implementation Pitfalls",
+   "level": 3,
+   "sha256": "49751e37b9e84d97fca20edb1d8335f51c77bc92e034b50113326c4c20691aa0"
+  },
+  {
+   "anchor": "appendix-C.4",
+   "title": "C.4 . Client Tracking Prevention",
+   "level": 3,
+   "sha256": "7e61b720763205487e339a3fb4f3e6b5c6fce238edb921064eb48329452c6fc0"
+  },
+  {
+   "anchor": "appendix-C.5",
+   "title": "C.5 . Unauthenticated Operation",
+   "level": 3,
+   "sha256": "8affaee409bfdbbb3a1bd07787121d42923b52f5dc12689437e1e31fd74e0bba"
+  },
+  {
+   "anchor": "appendix-D",
+   "title": "Appendix D . Backward Compatibility",
+   "level": 2,
+   "sha256": "037815d1f7d118aa9885ed427c259568bcfd600657f9ae4ba6c52192cb3427ec"
+  },
+  {
+   "anchor": "appendix-D.1",
+   "title": "D.1 . Negotiating with an Older Server",
+   "level": 3,
+   "sha256": "7ae31f50c028b9638f8099e48839c8cc955007ecc9d5d4637c4daf35268b02cf"
+  },
+  {
+   "anchor": "appendix-D.2",
+   "title": "D.2 . Negotiating with an Older Client",
+   "level": 3,
+   "sha256": "b753320edb82cd4e77d4bf9c9b09fead94f9f68674dd670abefabab06b4ffcd8"
+  },
+  {
+   "anchor": "appendix-D.3",
+   "title": "D.3 . 0-RTT Backward Compatibility",
+   "level": 3,
+   "sha256": "47b53a93254d0732ed77c85d616fb99a001796fbb38ac0891cf500f72026253f"
+  },
+  {
+   "anchor": "appendix-D.4",
+   "title": "D.4 . Middlebox Compatibility Mode",
+   "level": 3,
+   "sha256": "014a826bd37126850210c8ab982a46195710a08b25e75b17709118e171f8eb60"
+  },
+  {
+   "anchor": "appendix-D.5",
+   "title": "D.5 . Security Restrictions Related to Backward Compatibility",
+   "level": 3,
+   "sha256": "e58baaad35ab3faad9be57ed616802dcd04479ca38bebe7b808ec36bd32cf97f"
+  },
+  {
+   "anchor": "appendix-E",
+   "title": "Appendix E . Overview of Security Properties",
+   "level": 2,
+   "sha256": "0f47fb089c1e39b0e83318fdf4330ebd755a4cd45a7c0d1898ac5e858bfba221"
+  },
+  {
+   "anchor": "appendix-E.1",
+   "title": "E.1 . Handshake",
+   "level": 3,
+   "sha256": "0748aabe9e4b43bcb9108ffac51889dea9426c18df5d961f3b480f54eed199e5"
+  },
+  {
+   "anchor": "appendix-E.1.1",
+   "title": "E.1.1 . Key Derivation and HKDF",
+   "level": 4,
+   "sha256": "773cfbfe065bb6ea196d6b25de1f08395bec1bfbd47fd3081c3d6f5cc6826fb3"
+  },
+  {
+   "anchor": "appendix-E.1.2",
+   "title": "E.1.2 . Client Authentication",
+   "level": 4,
+   "sha256": "e626ee2e92d432ec86eb26c38efbfb12eec5290041c04deaff847c6745b50f8a"
+  },
+  {
+   "anchor": "appendix-E.1.3",
+   "title": "E.1.3 . 0-RTT",
+   "level": 4,
+   "sha256": "5ccf19fbecaf11a981724095be5e28d1567744d30e62ac799d18d5150f370ef0"
+  },
+  {
+   "anchor": "appendix-E.1.4",
+   "title": "E.1.4 . Exporter Independence",
+   "level": 4,
+   "sha256": "b84b5fac77f6b4544c9ad5626187d65ef043d9735de1266c075710f29939500c"
+  },
+  {
+   "anchor": "appendix-E.1.5",
+   "title": "E.1.5 . Post-Compromise Security",
+   "level": 4,
+   "sha256": "7956cd1bfc628903787a61d05ad169cee520205e64e58593328b1b21213db668"
+  },
+  {
+   "anchor": "appendix-E.1.6",
+   "title": "E.1.6 . External References",
+   "level": 4,
+   "sha256": "b636e5251dde83d09d5d18090b2879cd4897c60db9b93d93a812d492648a3512"
+  },
+  {
+   "anchor": "appendix-E.2",
+   "title": "E.2 . Record Layer",
+   "level": 3,
+   "sha256": "a192475ad48014e55d4872e91c21476518bb9ccdeabe5616cba3c90198247f19"
+  },
+  {
+   "anchor": "appendix-E.2.1",
+   "title": "E.2.1 . External References",
+   "level": 4,
+   "sha256": "5dd0558973926ea986f164e06387d71cabfe2cd268c709180af066ac520fb5fe"
+  },
+  {
+   "anchor": "appendix-E.3",
+   "title": "E.3 . Traffic Analysis",
+   "level": 3,
+   "sha256": "ccea1eb9df03200b52a8d829b7290e53e337f1a23e34377e44b78547da42810e"
+  },
+  {
+   "anchor": "appendix-E.4",
+   "title": "E.4 . Side-Channel Attacks",
+   "level": 3,
+   "sha256": "77cf17cbb4dcededf44127e23f330b46605d9840099ba1d2187f537e8a4cb6ca"
+  },
+  {
+   "anchor": "appendix-E.5",
+   "title": "E.5 . Replay Attacks on 0-RTT",
+   "level": 3,
+   "sha256": "0890188e2483246c4f02f474e8146f202a7329547ce4959569ace6bc4d3d93f7"
+  },
+  {
+   "anchor": "appendix-E.5.1",
+   "title": "E.5.1 . Replay and Exporters",
+   "level": 4,
+   "sha256": "e01b947bb91456d5ab19ac5fba3ea9429825554084d2468c9948fcee6069ad09"
+  },
+  {
+   "anchor": "appendix-E.6",
+   "title": "E.6 . PSK Identity Exposure",
+   "level": 3,
+   "sha256": "7879c5ae798ae5525b06ddcd9a1103eab63772b5691bb08b86e99e04b7e30d14"
+  },
+  {
+   "anchor": "appendix-E.7",
+   "title": "E.7 . Sharing PSKs",
+   "level": 3,
+   "sha256": "c2f6c7f4ad7d6363d2e8eb05c19a172e8506517f90e2c679fc5a711c7199b251"
+  },
+  {
+   "anchor": "appendix-E.8",
+   "title": "E.8 . Attacks on Static RSA",
+   "level": 3,
+   "sha256": "5b01dabc70e95eedff3347e4bd6dee0e060893fa6f85c6dcddfd17509e448f1d"
+  }
+ ]
+}

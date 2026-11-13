@@ -1,0 +1,323 @@
+{
+ "source": "rfc7519",
+ "anchors": [
+  {
+   "anchor": "top",
+   "title": "",
+   "level": 0,
+   "sha256": "9fc738643bb8fa775d9c5a2b275cf608934a13b8ecc64e183eee9f95703bcd86"
+  },
+  {
+   "anchor": "content",
+   "title": "JSON Web Token (JWT)",
+   "level": 1,
+   "sha256": "ba937bfde0432d8b752a934428df21ae3ad055d47b5bcd395ec02e7bfd9da344"
+  },
+  {
+   "anchor": "section-1",
+   "title": "1 . Introduction",
+   "level": 2,
+   "sha256": "80f10d7b0040bca50ff95608300f85e3842b80bc8d1212bdb4f2952a38ea9a5f"
+  },
+  {
+   "anchor": "section-1.1",
+   "title": "1.1 . Notational Conventions",
+   "level": 3,
+   "sha256": "c07296b4d06ddcfe5d517aea4c4c3589e67a1146e94af875b1afcfbde966f467"
+  },
+  {
+   "anchor": "section-2",
+   "title": "2 . Terminology",
+   "level": 2,
+   "sha256": "052834e176742824bb0e84d525f1ddd1d9b4796617cb6cfdc4f3109c7feaec98"
+  },
+  {
+   "anchor": "section-3",
+   "title": "3 . JSON Web Token (JWT) Overview",
+   "level": 2,
+   "sha256": "89914140db62a622e4d379d14e8c71a642abbce2cb1406c29a60b27850fa1253"
+  },
+  {
+   "anchor": "section-3.1",
+   "title": "3.1 . Example JWT",
+   "level": 3,
+   "sha256": "280fb7c9496989411b58225425e5ede625d55fcc2e193051336c4f686521f95a"
+  },
+  {
+   "anchor": "section-4",
+   "title": "4 . JWT Claims",
+   "level": 2,
+   "sha256": "14ab60cf14b15d7af0da1761339d026b8067eb76c110bc93e07a9171b3b2cf1f"
+  },
+  {
+   "anchor": "section-4.1",
+   "title": "4.1 . Registered Claim Names",
+   "level": 3,
+   "sha256": "0a8444f07823e5f066aaeccf3193838f186026879ff4e61be883791fdfb34366"
+  },
+  {
+   "anchor": "section-4.1.1",
+   "title": "4.1.1 . \"iss\" (Issuer) Claim",
+   "level": 4,
+   "sha256": "ccf7c89c4fa79989b15c324c03eee0afad57ce252decd8b2d593f8d6bb782e76"
+  },
+  {
+   "anchor": "section-4.1.2",
+   "title": "4.1.2 . \"sub\" (Subject) Claim",
+   "level": 4,
+   "sha256": "d3fcf08c0ba27011afbc9ca6a97638166038c4eb5cf2139d5aa07f0dca417b74"
+  },
+  {
+   "anchor": "section-4.1.3",
+   "title": "4.1.3 . \"aud\" (Audience) Claim",
+   "level": 4,
+   "sha256": "b2ccf0e91cbd503268c6c2e9a83e91082d2812d341c20a1588007978512c1fcc"
+  },
+  {
+   "anchor": "section-4.1.4",
+   "title": "4.1.4 . \"exp\" (Expiration Time) Claim",
+   "level": 4,
+   "sha256": "0e84fc355832bb58fc04f71f985725cfc626112f744c039adcde7c5d71f02e80"
+  },
+  {
+   "anchor": "section-4.1.5",
+   "title": "4.1.5 . \"nbf\" (Not Before) Claim",
+   "level": 4,
+   "sha256": "93f9bc68c976c0b0b30c39cdcf9137a5bc2df922d92baa9c04c35ab1d3de3334"
+  },
+  {
+   "anchor": "section-4.1.6",
+   "title": "4.1.6 . \"iat\" (Issued At) Claim",
+   "level": 4,
+   "sha256": "bdf4da13353792b6392a97e52951ff8a34da1ae913dfab8e332cdda8b271c83b"
+  },
+  {
+   "anchor": "section-4.1.7",
+   "title": "4.1.7 . \"jti\" (JWT ID) Claim",
+   "level": 4,
+   "sha256": "889e95aaa95ba8be12b18852b7dc1c5b77a83f58bdde5cc4c0f2e9c46b941506"
+  },
+  {
+   "anchor": "section-4.2",
+   "title": "4.2 . Public Claim Names",
+   "level": 3,
+   "sha256": "87a757ec7ca9042329a1632de069d92e4eb179102b60c2a4828678bf03279672"
+  },
+  {
+   "anchor": "section-4.3",
+   "title": "4.3 . Private Claim Names",
+   "level": 3,
+   "sha256": "0292a6c072a4e2bc6799027658fa4725753c3fb327d18599c713417c492d217a"
+  },
+  {
+   "anchor": "section-5",
+   "title": "5 . JOSE Header",
+   "level": 2,
+   "sha256": "fbc2cf40d686a53efea59b66c83bddd891a3b244b1bd6254eed219630ac7b8b2"
+  },
+  {
+   "anchor": "section-5.1",
+   "title": "5.1 . \"typ\" (Type) Header Parameter",
+   "level": 3,
+   "sha256": "c07ef9d0cef0bbe8c6075c4663524d0a433dbdf9413691c8e0fdff45125522f2"
+  },
+  {
+   "anchor": "section-5.2",
+   "title": "5.2 . \"cty\" (Content Type) Header Parameter",
+   "level": 3,
+   "sha256": "18171e80223d454f9909aa32bcbdc93dbf60710509b999134318c27a8806e537"
+  },
+  {
+   "anchor": "section-5.3",
+   "title": "5.3 . Replicating Claims as Header Parameters",
+   "level": 3,
+   "sha256": "50eec7fa947dbe3cdee3abde2259aac1d0e0df2a2d06fc0a1bc8b4e26de090d8"
+  },
+  {
+   "anchor": "section-6",
+   "title": "6 . Unsecured JWTs",
+   "level": 2,
+   "sha256": "29a8488a3ad1f36d92b833e0319448019d54e3a81ecc878b1c45f7131c435a31"
+  },
+  {
+   "anchor": "section-6.1",
+   "title": "6.1 . Example Unsecured JWT",
+   "level": 3,
+   "sha256": "8ce1533f91cbc2d3e6f5884535316a7f67fe3218e07e368746356c731840c78f"
+  },
+  {
+   "anchor": "section-7",
+   "title": "7 . Creating and Validating JWTs",
+   "level": 2,
+   "sha256": "26239b94e617a0b7f37fd4e99a7f31ab6bb3d240489e517bca1d665c1cb8d37e"
+  },
+  {
+   "anchor": "section-7.1",
+   "title": "7.1 . Creating a JWT",
+   "level": 3,
+   "sha256": "cfa6a9e20d99e9434ee5c618a4e3ddb18016fc65b4e452cb214e3c66c83851e0"
+  },
+  {
+   "anchor": "section-7.2",
+   "title": "7.2 . Validating a JWT",
+   "level": 3,
+   "sha256": "ed4346fe19bbc67c462d59d5e4b15e4a373a8ab1dd3c509333b91c6892eb4cd2"
+  },
+  {
+   "anchor": "section-7.3",
+   "title": "7.3 . String Comparison Rules",
+   "level": 3,
+   "sha256": "1ec87ebf9e9ed9d5194dee9a4b81d5a8ff11e9cf1448e67bd463578563b4ad7f"
+  },
+  {
+   "anchor": "section-8",
+   "title": "8 . Implementation Requirements",
+   "level": 2,
+   "sha256": "ecd33e55a4762c56911d3ba688dbcdb935c7dbbaeaaa27941e69ae259b0437e1"
+  },
+  {
+   "anchor": "section-9",
+   "title": "9 . URI for Declaring that Content is a JWT",
+   "level": 2,
+   "sha256": "eaf87cedf130382e6151618117d08c77ee262754db214744378f227293f9caa0"
+  },
+  {
+   "anchor": "section-10",
+   "title": "10 . IANA Considerations",
+   "level": 2,
+   "sha256": "4742aaebdad81325b2712574ed831897b76637286573c50b93616835129f7fbe"
+  },
+  {
+   "anchor": "section-10.1",
+   "title": "10.1 . JSON Web Token Claims Registry",
+   "level": 3,
+   "sha256": "bc34ee9e4820f9667d5238d2230edad67487a9990d80483c17910e4fc0d431e8"
+  },
+  {
+   "anchor": "section-10.1.1",
+   "title": "10.1.1 . Registration Template",
+   "level": 4,
+   "sha256": "62a5b1e590bca8676a4b5c83db44edfca547293716cb12e3c292c20a164802cb"
+  },
+  {
+   "anchor": "section-10.1.2",
+   "title": "10.1.2 . Initial Registry Contents",
+   "level": 4,
+   "sha256": "3024fbd900bd776672e7014378dcaee5ee3e03fe9a4412268de67e2c99774387"
+  },
+  {
+   "anchor": "section-10.2",
+   "title": "10.2 . Sub-Namespace Registration of",
+   "level": 3,
+   "sha256": "80e57dee20ae19791b5b764653b8badd1a51f5f6e692d1e9ecbca4040fffc701"
+  },
+  {
+   "anchor": "urn-ietf-params-oauth-token-type-jwt",
+   "title": "urn:ietf:params:oauth:token-type:jwt",
+   "level": 3,
+   "sha256": "5118b126fb821d170b3dd0f81ad0a5f4bea4e670a7e4bfaa85eb366898788c55"
+  },
+  {
+   "anchor": "section-10.2.1",
+   "title": "10.2.1 . Registry Contents",
+   "level": 4,
+   "sha256": "28093d116827ef9010609e5833611f2051afbd2e478d441d32014f62027c77a7"
+  },
+  {
+   "anchor": "section-10.3",
+   "title": "10.3 . Media Type Registration",
+   "level": 3,
+   "sha256": "2d00e68a06974ce9d63b1ab311ec27405b5561b0643d27f6d5ed5a0a2bcf2728"
+  },
+  {
+   "anchor": "section-10.3.1",
+   "title": "10.3.1 . Registry Contents",
+   "level": 4,
+   "sha256": "8fab4f3b0d8797148a2cdea94621848e406504a21828c1ec2dda0dcefcb21f0f"
+  },
+  {
+   "anchor": "section-10.4",
+   "title": "10.4 . Header Parameter Names Registration",
+   "level": 3,
+   "sha256": "7e0952dc5e46a96b60c6d7b7c7ed362a79c1e0ebbb2c5987f288acbb373b2365"
+  },
+  {
+   "anchor": "section-10.4.1",
+   "title": "10.4.1 . Registry Contents",
+   "level": 4,
+   "sha256": "df46182bb34beb02515bf244f7f1f2af6fad1cc1d7306499cce6f4d5bf4fb056"
+  },
+  {
+   "anchor": "section-11",
+   "title": "11 . Security Considerations",
+   "level": 2,
+   "sha256": "dc081daae2e27a267878658df5849928a22a3fadbe519c334938e5d51ccb3169"
+  },
+  {
+   "anchor": "section-11.1",
+   "title": "11.1 . Trust Decisions",
+   "level": 3,
+   "sha256": "39bfc5cfbcb9ad6399a6b462f81c3474262a7536d3bcf32f192a87751dabdbe9"
+  },
+  {
+   "anchor": "section-11.2",
+   "title": "11.2 . Signing and Encryption Order",
+   "level": 3,
+   "sha256": "69a24814ff84be2a8d8a9dc7ad488caebc1d4cf1d95bacb006281c669a1a2007"
+  },
+  {
+   "anchor": "section-12",
+   "title": "12 . Privacy Considerations",
+   "level": 2,
+   "sha256": "018f38d1cb72081607ec4e2eba29431abf8346bc6616cc1e36d6e0c39a62a438"
+  },
+  {
+   "anchor": "section-13",
+   "title": "13 . References",
+   "level": 2,
+   "sha256": "650cc723a13ed9dff42381dfe6ed3e598c7ae46a6cc1efc00d3d9c52b5b31eb0"
+  },
+  {
+   "anchor": "section-13.1",
+   "title": "13.1 . Normative References",
+   "level": 3,
+   "sha256": "9956c61ada28be87fb1eb9c19cbc824f94c1d5ff8506e90320b0f5d5471d2a10"
+  },
+  {
+   "anchor": "section-13.2",
+   "title": "13.2 . Informative References",
+   "level": 3,
+   "sha256": "ab713bcbee92f1029d0be0d2cefef674c23087e5e00be7e376cadecd0258045b"
+  },
+  {
+   "anchor": "appendix-A",
+   "title": "Appendix A . JWT Examples",
+   "level": 2,
+   "sha256": "c241984a337f4f5512b682315f1a6e5b9cd09a6d93556c2c6a3192dffb7595cf"
+  },
+  {
+   "anchor": "appendix-A.1",
+   "title": "A.1 . Example Encrypted JWT",
+   "level": 3,
+   "sha256": "d084fc8d80b050a8ed49073403ac0f4bb3890f44f3a14ba6074baa161b3c1938"
+  },
+  {
+   "anchor": "appendix-A.2",
+   "title": "A.2 . Example Nested JWT",
+   "level": 3,
+   "sha256": "3d803e93644622c0cba375261c0adf231ea4eda6ac5a364dd8331a989442cddc"
+  },
+  {
+   "anchor": "appendix-B",
+   "title": "Appendix B . Relationship of JWTs to SAML Assertions",
+   "level": 2,
+   "sha256": "ce8979658dffb392ee487f2bf1a43b2318c05852c01233d7731ab5da79be55cf"
+  },
+  {
+   "anchor": "appendix-C",
+   "title": "Appendix C . Relationship of JWTs to Simple Web Tokens (SWTs)",
+   "level": 2,
+   "sha256": "2d01edb48561fe6110f439f65d2ee65a0720fee2b899aa6b2065da39706f2545"
+  }
+ ]
+}

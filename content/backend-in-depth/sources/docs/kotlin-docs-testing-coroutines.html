@@ -1,0 +1,582 @@
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html lang="en-US" data-preset="contrast" data-primary-color="#307FFF" data-external-links-in-new-tab="false"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="UTF-8"><meta name="built-on" content="2026-11-13T10:58:15.260834861"><meta name="build-number" content="1405"><link rel="canonical" href="/docs/coroutines-and-channels.html" data-react-helmet="true">
+
+<title>Coroutines and channels &minus; tutorial | Kotlin Documentation</title><link href="custom-frontend-app/app.css?149" rel="stylesheet"><link rel="icon" type="image/svg" sizes="16x16" href="https://kotlinlang.org/assets/images/favicon.svg?v2"><link rel="icon" type="image/x-icon" sizes="32x32" href="https://kotlinlang.org/assets/images/favicon.ico?v2"><link rel="icon" type="image/png" sizes="96x96" href="https://kotlinlang.org/assets/images/apple-touch-icon.png?v2"><link rel="icon" type="image/png" sizes="300x300" href="https://kotlinlang.org/assets/images/apple-touch-icon-72x72.png?v2"><link rel="icon" type="image/png" sizes="500x500" href="https://kotlinlang.org/assets/images/apple-touch-icon-114x114.png?v2"><meta name="image" content="https://kotlinlang.org/assets/images/open-graph/docs.png"><!-- Open Graph --><meta property="og:title" content="Coroutines and channels &minus; tutorial | Kotlin"><meta property="og:description" content=""><meta property="og:image" content="https://kotlinlang.org/assets/images/open-graph/docs.png"><meta property="og:site_name" content="Kotlin Help"><meta property="og:type" content="website"><meta property="og:locale" content="en_US"><meta property="og:url" content="https://kotlinlang.org/docs/coroutines-and-channels.html"><!-- End Open Graph --><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@kotlin"><meta name="twitter:title" content="Coroutines and channels &minus; tutorial | Kotlin"><meta name="twitter:description" content=""><meta name="twitter:creator" content="@kotlin"><meta name="twitter:image:src" content="https://kotlinlang.org/assets/images/open-graph/docs.png"><!-- End Twitter Card --><!-- Schema.org WebPage --><!-- End Schema.org --><!-- Schema.org WebSite --><!-- End Schema.org --></head><body data-id="coroutines-and-channels" data-main-title="Coroutines and channels − tutorial" data-article-props="{&quot;seeAlsoStyle&quot;:&quot;links&quot;}" data-template="article" data-breadcrumbs="Library guides///Coroutines (kotlinx.coroutines)" data-edit-url="https://github.com/Kotlin/kotlinx.coroutines/edit/master/docs/topics/coroutines-and-channels.md"><div class="wrapper"><main class="panel _main"><header class="panel__header"><div class="container"><h3>Kotlin  Help</h3><div class="panel-trigger"></div></div></header><section class="panel__content"><div class="container"><article class="article" data-shortcut-switcher="inactive"><h1 data-toc="coroutines-and-channels" id="coroutines-and-channels.md">Coroutines and channels − tutorial</h1><aside class="prompt" data-type="note" data-title="" id="wqoz2p_3"><p id="wqoz2p_21">An upcoming update will revise this tutorial. In the meantime, for an up-to-date guide to getting started with coroutines, see <a href="coroutines-basics.html" id="wqoz2p_22" data-tooltip="To create applications that perform multiple tasks at once, a concept known as concurrency, Kotlin uses coroutines. A coroutine is a suspendable computation that lets you write concurrent code in a clear, sequential style. Coroutines can run concurrently with other coroutines and…">Coroutines basics</a>.</p></aside><p id="wqoz2p_4">In this tutorial, you'll learn how to use coroutines in IntelliJ IDEA to perform network requests without blocking the underlying thread or callbacks.</p><aside class="prompt" data-type="tip" data-title="" id="wqoz2p_5"><p id="wqoz2p_23">No prior knowledge of coroutines is required, but you're expected to be familiar with basic Kotlin syntax.</p></aside><p id="wqoz2p_6">You'll learn:</p><ul class="list _bullet" id="wqoz2p_7"><li class="list__item" id="wqoz2p_24"><p id="wqoz2p_27">Why and how to use suspending functions to perform network requests.</p></li><li class="list__item" id="wqoz2p_25"><p id="wqoz2p_28">How to send requests concurrently using coroutines.</p></li><li class="list__item" id="wqoz2p_26"><p id="wqoz2p_29">How to share information between different coroutines using channels.</p></li></ul><p id="wqoz2p_8">For network requests, you'll need the <a href="https://lysine.dev/retrofit/" id="wqoz2p_30" data-external="true" rel="noopener noreferrer">Retrofit</a> library, but the approach shown in this tutorial works similarly for any other libraries that support coroutines.</p><aside class="prompt" data-type="tip" data-title="" id="wqoz2p_9"><p id="wqoz2p_31">You can find solutions for all of the tasks on the <code class="code" id="wqoz2p_32">solutions</code> branch of the <a href="http://github.com/kotlin-hands-on/intro-coroutines" id="wqoz2p_33" data-external="true" rel="noopener noreferrer">project's repository</a>.</p></aside><section class="chapter"><h2 id="before-you-start" data-toc="before-you-start">Before you start</h2><ol class="list _decimal" id="wqoz2p_34" type="1"><li class="list__item" id="wqoz2p_37"><p id="wqoz2p_39">Download and install the latest version of <a href="https://www.jetbrains.com/idea/download/index.html" id="wqoz2p_40" data-external="true" rel="noopener noreferrer">IntelliJ IDEA</a>.</p></li><li class="list__item" id="wqoz2p_38"><p id="wqoz2p_41">Clone the <a href="http://github.com/kotlin-hands-on/intro-coroutines" id="wqoz2p_44" data-external="true" rel="noopener noreferrer">project template</a> by choosing <span class="control" id="wqoz2p_45">Get from VCS</span> on the Welcome screen or selecting <span class="control" id="wqoz2p_46">File | New | Project from Version Control</span>.</p><p id="wqoz2p_42">You can also clone it from the command line:</p><div class="code-block" data-lang="bash">
+git clone https://github.com/kotlin-hands-on/intro-coroutines
+</div></li></ol><section class="chapter"><h3 id="generate-a-github-developer-token" data-toc="generate-a-github-developer-token">Generate a GitHub developer token</h3><p id="wqoz2p_47">You'll be using the GitHub API in your project. To get access, provide your GitHub account name and either a password or a token. If you have two-factor authentication enabled, a token will be enough.</p><p id="wqoz2p_48">Generate a new GitHub token to use the GitHub API with <a href="https://github.com/settings/tokens/new" id="wqoz2p_50" data-external="true" rel="noopener noreferrer">your account</a>:</p><ol class="list _decimal" id="wqoz2p_49" type="1"><li class="list__item" id="wqoz2p_51"><p id="wqoz2p_54">Specify the name of your token, for example, <code class="code" id="wqoz2p_56">coroutines-tutorial</code>:</p><figure id="wqoz2p_55"><img alt="Generate a new GitHub token" src="images/generating-token.png" title="Generate a new GitHub token" width="700" height="261"></figure></li><li class="list__item" id="wqoz2p_52"><p id="wqoz2p_57">Do not select any scopes. Click <span class="control" id="wqoz2p_58">Generate token</span> at the bottom of the page.</p></li><li class="list__item" id="wqoz2p_53"><p id="wqoz2p_59">Copy the generated token.</p></li></ol></section><section class="chapter"><h3 id="run-the-code" data-toc="run-the-code">Run the code</h3><p id="wqoz2p_60">The program loads the contributors for all of the repositories under the given organization (named &quot;kotlin&quot; by default). Later you'll add logic to sort the users by the number of their contributions.</p><ol class="list _decimal" id="wqoz2p_61" type="1"><li class="list__item" id="wqoz2p_63"><p id="wqoz2p_68">Open the <code class="code" id="wqoz2p_71">src/contributors/main.kt</code> file and run the <code class="code" id="wqoz2p_72">main()</code> function. You'll see the following window:</p><figure id="wqoz2p_69"><img alt="First window" src="images/initial-window.png" title="First window" width="500" height="454"></figure><p id="wqoz2p_70">If the font is too small, adjust it by changing the value of <code class="code" id="wqoz2p_73">setDefaultFontSize(18f)</code> in the <code class="code" id="wqoz2p_74">main()</code> function.</p></li><li class="list__item" id="wqoz2p_64"><p id="wqoz2p_75">Provide your GitHub username and token (or password) in the corresponding fields.</p></li><li class="list__item" id="wqoz2p_65"><p id="wqoz2p_76">Make sure that the <span class="emphasis" id="wqoz2p_77">BLOCKING</span> option is selected in the <span class="emphasis" id="wqoz2p_78">Variant</span> dropdown menu.</p></li><li class="list__item" id="wqoz2p_66"><p id="wqoz2p_79">Click <span class="emphasis" id="wqoz2p_80">Load contributors</span>. The UI should freeze for some time and then show the list of contributors.</p></li><li class="list__item" id="wqoz2p_67"><p id="wqoz2p_81">Open the program output to ensure the data has been loaded. The list of contributors is logged after each successful request.</p></li></ol><p id="wqoz2p_62">There are different ways of implementing this logic: by using <a href="#blocking-requests" id="wqoz2p_82" data-tooltip="You will use the Retrofit library to perform HTTP requests to GitHub. It allows requesting the list of repositories under the given organization and the list of contributors for each repository:">blocking requests</a> or <a href="#callbacks" id="wqoz2p_83" data-tooltip="The previous solution works, but it blocks the thread and therefore freezes the UI. A traditional approach that avoids this is to use callbacks.">callbacks</a>. You'll compare these solutions with one that uses <a href="#coroutines" id="wqoz2p_84" data-tooltip="The code with suspending functions looks similar to the &quot;blocking&quot; version. The major difference from the blocking version is that instead of blocking the thread, the coroutine is suspended:">coroutines</a> and see how <a href="#channels" id="wqoz2p_85" data-tooltip="Writing code with a shared mutable state is quite difficult and error-prone (like in the solution using callbacks). A simpler way is to share information by communication rather than by using a common mutable state. Coroutines can communicate with each other through channels.">channels</a> can be used to share information between different coroutines.</p></section></section><section class="chapter"><h2 id="blocking-requests" data-toc="blocking-requests">Blocking requests</h2><p id="wqoz2p_86">You will use the <a href="https://lysine.dev/retrofit/" id="wqoz2p_91" data-external="true" rel="noopener noreferrer">Retrofit</a> library to perform HTTP requests to GitHub. It allows requesting the list of repositories under the given organization and the list of contributors for each repository:</p><div class="code-block" data-lang="kotlin">
+interface GitHubService {
+    @GET(&quot;orgs/{org}/repos?per_page=100&quot;)
+    fun getOrgReposCall(
+        @Path(&quot;org&quot;) org: String
+    ): Call&lt;List&lt;Repo&gt;&gt;
+
+    @GET(&quot;repos/{owner}/{repo}/contributors?per_page=100&quot;)
+    fun getRepoContributorsCall(
+        @Path(&quot;owner&quot;) owner: String,
+        @Path(&quot;repo&quot;) repo: String
+    ): Call&lt;List&lt;User&gt;&gt;
+}
+</div><p id="wqoz2p_88">This API is used by the <code class="code" id="wqoz2p_92">loadContributorsBlocking()</code> function to fetch the list of contributors for the given organization.</p><ol class="list _decimal" id="wqoz2p_89" type="1"><li class="list__item" id="wqoz2p_93"><p id="wqoz2p_97">Open <code class="code" id="wqoz2p_100">src/tasks/Request1Blocking.kt</code> to see its implementation:</p><div class="code-block" data-lang="kotlin">
+fun loadContributorsBlocking(
+    service: GitHubService,
+    req: RequestData
+): List&lt;User&gt; {
+    val repos = service
+        .getOrgReposCall(req.org)   // #1
+        .execute()                  // #2
+        .also { logRepos(req, it) } // #3
+        .body() ?: emptyList()      // #4
+
+    return repos.flatMap { repo -&gt;
+        service
+            .getRepoContributorsCall(req.org, repo.name) // #1
+            .execute()                                   // #2
+            .also { logUsers(repo, it) }                 // #3
+            .bodyList()                                  // #4
+    }.aggregate()
+}
+</div><ul class="list _bullet" id="wqoz2p_99"><li class="list__item" id="wqoz2p_101"><p id="wqoz2p_106">At first, you get a list of the repositories under the given organization and store it in the <code class="code" id="wqoz2p_107">repos</code> list. Then for each repository, the list of contributors is requested, and all of the lists are merged into one final list of contributors.</p></li><li class="list__item" id="wqoz2p_102"><p id="wqoz2p_108"><code class="code" id="wqoz2p_109">getOrgReposCall()</code> and <code class="code" id="wqoz2p_110">getRepoContributorsCall()</code> both return an instance of the <code class="code" id="wqoz2p_111">*Call</code> class (<code class="code" id="wqoz2p_112">#1</code>). At this point, no request is sent.</p></li><li class="list__item" id="wqoz2p_103"><p id="wqoz2p_113"><code class="code" id="wqoz2p_114">*Call.execute()</code> is then invoked to perform the request (<code class="code" id="wqoz2p_115">#2</code>). <code class="code" id="wqoz2p_116">execute()</code> is a synchronous call that blocks the underlying thread.</p></li><li class="list__item" id="wqoz2p_104"><p id="wqoz2p_117">When you get the response, the result is logged by calling the specific <code class="code" id="wqoz2p_118">logRepos()</code> and <code class="code" id="wqoz2p_119">logUsers()</code> functions (<code class="code" id="wqoz2p_120">#3</code>). If the HTTP response contains an error, this error will be logged here.</p></li><li class="list__item" id="wqoz2p_105"><p id="wqoz2p_121">Finally, get the response's body, which contains the data you need. For this tutorial, you'll use an empty list as a result in case there is an error, and you'll log the corresponding error (<code class="code" id="wqoz2p_122">#4</code>).</p></li></ul></li><li class="list__item" id="wqoz2p_94"><p id="wqoz2p_123">To avoid repeating <code class="code" id="wqoz2p_125">.body() ?: emptyList()</code>, an extension function <code class="code" id="wqoz2p_126">bodyList()</code> is declared:</p><div class="code-block" data-lang="kotlin">
+fun &lt;T&gt; Response&lt;List&lt;T&gt;&gt;.bodyList(): List&lt;T&gt; {
+    return body() ?: emptyList()
+}
+</div></li><li class="list__item" id="wqoz2p_95"><p id="wqoz2p_127">Run the program again and take a look at the system output in IntelliJ IDEA. It should have something like this:</p><div class="code-block" data-lang="none">
+1770 [AWT-EventQueue-0] INFO  Contributors - kotlin: loaded 40 repos
+2025 [AWT-EventQueue-0] INFO  Contributors - kotlin-examples: loaded 23 contributors
+2229 [AWT-EventQueue-0] INFO  Contributors - kotlin-koans: loaded 45 contributors
+...
+</div><ul class="list _bullet" id="wqoz2p_129"><li class="list__item" id="wqoz2p_133"><p id="wqoz2p_135">The first item on each line is the number of milliseconds that have passed since the program started, then the thread name in square brackets. You can see from which thread the loading request is called.</p></li><li class="list__item" id="wqoz2p_134"><p id="wqoz2p_136">The final item on each line is the actual message: how many repositories or contributors were loaded.</p></li></ul><p id="wqoz2p_130">This log output demonstrates that all of the results were logged from the main thread. When you run the code with a <span class="emphasis" id="wqoz2p_137">BLOCKING</span> option, the window freezes and doesn't react to input until the loading is finished. All of the requests are executed from the same thread as the one called <code class="code" id="wqoz2p_138">loadContributorsBlocking()</code> is from, which is the main UI thread (in Swing, it's an AWT event dispatching thread). This main thread becomes blocked, and that's why the UI is frozen:</p><figure id="wqoz2p_131"><img alt="The blocked main thread" src="images/blocking.png" title="The blocked main thread" width="700" height="58"></figure><p id="wqoz2p_132">After the list of contributors has loaded, the result is updated.</p></li><li class="list__item" id="wqoz2p_96"><p id="wqoz2p_139">In <code class="code" id="wqoz2p_142">src/contributors/Contributors.kt</code>, find the <code class="code" id="wqoz2p_143">loadContributors()</code> function responsible for choosing how the contributors are loaded and look at how <code class="code" id="wqoz2p_144">loadContributorsBlocking()</code> is called:</p><div class="code-block" data-lang="kotlin">
+when (getSelectedVariant()) {
+    BLOCKING -&gt; { // Blocking UI thread
+        val users = loadContributorsBlocking(service, req)
+        updateResults(users, startTime)
+    }
+}
+</div><ul class="list _bullet" id="wqoz2p_141"><li class="list__item" id="wqoz2p_145"><p id="wqoz2p_148">The <code class="code" id="wqoz2p_149">updateResults()</code> call goes right after the <code class="code" id="wqoz2p_150">loadContributorsBlocking()</code> call.</p></li><li class="list__item" id="wqoz2p_146"><p id="wqoz2p_151"><code class="code" id="wqoz2p_152">updateResults()</code> updates the UI, so it must always be called from the UI thread.</p></li><li class="list__item" id="wqoz2p_147"><p id="wqoz2p_153">Since <code class="code" id="wqoz2p_154">loadContributorsBlocking()</code> is also called from the UI thread, the UI thread becomes blocked and the UI is frozen.</p></li></ul></li></ol><section class="chapter"><h3 id="task-1" data-toc="task-1">Task 1</h3><p id="wqoz2p_155">The first task helps you familiarize yourself with the task domain. Currently, each contributor's name is repeated several times, once for every project they have taken part in. Implement the <code class="code" id="wqoz2p_162">aggregate()</code> function combining the users so that each contributor is added only once. The <code class="code" id="wqoz2p_163">User.contributions</code> property should contain the total number of contributions of the given user to <span class="emphasis" id="wqoz2p_164">all</span> the projects. The resulting list should be sorted in descending order according to the number of contributions.</p><p id="wqoz2p_156">Open <code class="code" id="wqoz2p_165">src/tasks/Aggregation.kt</code> and implement the <code class="code" id="wqoz2p_166">List&lt;User&gt;.aggregate()</code> function. Users should be sorted by the total number of their contributions.</p><p id="wqoz2p_157">The corresponding test file <code class="code" id="wqoz2p_167">test/tasks/AggregationKtTest.kt</code> shows an example of the expected result.</p><aside class="prompt" data-type="tip" data-title="" id="wqoz2p_158"><p id="wqoz2p_168">You can jump between the source code and the test class automatically by using the <a href="https://www.jetbrains.com/help/idea/create-tests.html#test-code-navigation" id="wqoz2p_169" data-external="true" rel="noopener noreferrer">IntelliJ IDEA shortcut</a> <code class="code" id="wqoz2p_170">Ctrl+Shift+T</code>/<code class="code" id="wqoz2p_171">⇧ ⌘ T</code>.</p></aside><p id="wqoz2p_159">After implementing this task, the resulting list for the &quot;kotlin&quot; organization should be similar to the following:</p><figure id="wqoz2p_160"><img alt="The list for the &quot;kotlin&quot; organization" src="images/aggregate.png" title="The list for the &quot;kotlin&quot; organization" width="500" height="453"></figure><section class="chapter"><div class="collapse"><div class="collapse__title"><h4 id="solution-for-task-1" data-toc="solution-for-task-1">Solution for task 1</h4></div><div class="collapse__content"><ol class="list _decimal" id="wqoz2p_172" type="1"><li class="list__item" id="wqoz2p_174"><p id="wqoz2p_177">To group users by login, use <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/group-by.html" id="wqoz2p_178" data-external="true" rel="noopener noreferrer"><code class="code" id="wqoz2p_179">groupBy()</code></a>, which returns a map from a login to all occurrences of the user with this login in different repositories.</p></li><li class="list__item" id="wqoz2p_175"><p id="wqoz2p_180">For each map entry, count the total number of contributions for each user and create a new instance of the <code class="code" id="wqoz2p_181">User</code> class by the given name and total of contributions.</p></li><li class="list__item" id="wqoz2p_176"><p id="wqoz2p_182">Sort the resulting list in descending order:</p><div class="code-block" data-lang="kotlin">
+fun List&lt;User&gt;.aggregate(): List&lt;User&gt; =
+    groupBy { it.login }
+        .map { (login, group) -&gt; User(login, group.sumOf { it.contributions }) }
+        .sortedByDescending { it.contributions }
+</div></li></ol><p id="wqoz2p_173">An alternative solution is to use the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/grouping-by.html" id="wqoz2p_184" data-external="true" rel="noopener noreferrer"><code class="code" id="wqoz2p_186">groupingBy()</code></a> function instead of <code class="code" id="wqoz2p_185">groupBy()</code>.</p></div></div></section></section></section><section class="chapter"><h2 id="callbacks" data-toc="callbacks">Callbacks</h2><p id="wqoz2p_187">The previous solution works, but it blocks the thread and therefore freezes the UI. A traditional approach that avoids this is to use <span class="emphasis" id="wqoz2p_194">callbacks</span>.</p><p id="wqoz2p_188">Instead of calling the code that should be invoked right after the operation is completed, you can extract it into a separate callback, often a lambda, and pass that lambda to the caller in order for it to be called later.</p><p id="wqoz2p_189">To make the UI responsive, you can either move the whole computation to a separate thread or switch to the Retrofit API which uses callbacks instead of blocking calls.</p><section class="chapter"><h3 id="use-a-background-thread" data-toc="use-a-background-thread">Use a background thread</h3><ol class="list _decimal" id="wqoz2p_195" type="1"><li class="list__item" id="wqoz2p_197"><p id="wqoz2p_200">Open <code class="code" id="wqoz2p_204">src/tasks/Request2Background.kt</code> and see its implementation. First, the whole computation is moved to a different thread. The <code class="code" id="wqoz2p_205">thread()</code> function starts a new thread:</p><div class="code-block" data-lang="kotlin">
+thread {
+    loadContributorsBlocking(service, req)
+}
+</div><p id="wqoz2p_202">Now that all of the loading has been moved to a separate thread, the main thread is free and can be occupied by other tasks:</p><figure id="wqoz2p_203"><img alt="The freed main thread" src="images/background.png" title="The freed main thread" width="700" height="95"></figure></li><li class="list__item" id="wqoz2p_198"><p id="wqoz2p_206">The signature of the <code class="code" id="wqoz2p_208">loadContributorsBackground()</code> function changes. It takes an <code class="code" id="wqoz2p_209">updateResults()</code> callback as the last argument to call it after all the loading completes:</p><div class="code-block" data-lang="kotlin">
+fun loadContributorsBackground(
+    service: GitHubService, req: RequestData,
+    updateResults: (List&lt;User&gt;) -&gt; Unit
+)
+</div></li><li class="list__item" id="wqoz2p_199"><p id="wqoz2p_210">Now when the <code class="code" id="wqoz2p_213">loadContributorsBackground()</code> is called, the <code class="code" id="wqoz2p_214">updateResults()</code> call goes in the callback, not immediately afterward as it did before:</p><div class="code-block" data-lang="kotlin">
+loadContributorsBackground(service, req) { users -&gt;
+    SwingUtilities.invokeLater {
+        updateResults(users, startTime)
+    }
+}
+</div><p id="wqoz2p_212">By calling <code class="code" id="wqoz2p_215">SwingUtilities.invokeLater</code>, you ensure that the <code class="code" id="wqoz2p_216">updateResults()</code> call, which updates the results, happens on the main UI thread (AWT event dispatching thread).</p></li></ol><p id="wqoz2p_196">However, if you try to load the contributors via the <code class="code" id="wqoz2p_217">BACKGROUND</code> option, you can see that the list is updated but nothing changes in UI.</p></section><section class="chapter"><h3 id="task-2" data-toc="task-2">Task 2</h3><p id="wqoz2p_218">Fix the <code class="code" id="wqoz2p_220">loadContributorsBackground()</code> function in <code class="code" id="wqoz2p_221">src/tasks/Request2Background.kt</code> so that the resulting list is shown in the UI.</p><section class="chapter"><div class="collapse"><div class="collapse__title"><h4 id="solution-for-task-2" data-toc="solution-for-task-2">Solution for task 2</h4></div><div class="collapse__content"><p id="wqoz2p_222">If you try to load the contributors, you can see in the log that the contributors are loaded but the result isn't displayed. To fix this, call <code class="code" id="wqoz2p_225">updateResults()</code> on the resulting list of users:</p><div class="code-block" data-lang="kotlin">
+thread {
+    updateResults(loadContributorsBlocking(service, req))
+}
+</div><p id="wqoz2p_224">Make sure to call the logic passed in the callback explicitly. Otherwise, nothing will happen.</p></div></div></section></section><section class="chapter"><h3 id="use-the-retrofit-callback-api" data-toc="use-the-retrofit-callback-api">Use the Retrofit callback API</h3><p id="wqoz2p_226">In the previous solution, the whole loading logic is moved to the background thread, but that still isn't the best use of resources. All of the loading requests go sequentially and the thread is blocked while waiting for the loading result, while it could have been occupied by other tasks. Specifically, the thread could start loading another request to receive the entire result earlier.</p><p id="wqoz2p_227">Handling the data for each repository should then be divided into two parts: loading and processing the resulting response. The second <span class="emphasis" id="wqoz2p_236">processing</span> part should be extracted into a callback.</p><p id="wqoz2p_228">The loading for each repository can then be started before the result for the previous repository is received (and the corresponding callback is called):</p><figure id="wqoz2p_229"><img alt="Using callback API" src="images/callbacks.png" title="Using callback API" width="700" height="121"></figure><p id="wqoz2p_230">The Retrofit callback API can help achieve this. The <code class="code" id="wqoz2p_237">Call.enqueue()</code> function starts an HTTP request and takes a callback as an argument. In this callback, you need to specify what needs to be done after each request.</p><p id="wqoz2p_231">Open <code class="code" id="wqoz2p_238">src/tasks/Request3Callbacks.kt</code> and see the implementation of <code class="code" id="wqoz2p_239">loadContributorsCallbacks()</code> that uses this API:</p><div class="code-block" data-lang="kotlin">
+fun loadContributorsCallbacks(
+    service: GitHubService, req: RequestData,
+    updateResults: (List&lt;User&gt;) -&gt; Unit
+) {
+    service.getOrgReposCall(req.org).onResponse { responseRepos -&gt;  // #1
+        logRepos(req, responseRepos)
+        val repos = responseRepos.bodyList()
+
+        val allUsers = mutableListOf&lt;User&gt;()
+        for (repo in repos) {
+            service.getRepoContributorsCall(req.org, repo.name)
+                .onResponse { responseUsers -&gt;  // #2
+                    logUsers(repo, responseUsers)
+                    val users = responseUsers.bodyList()
+                    allUsers += users
+                }
+            }
+        }
+        // TODO: Why doesn't this code work? How to fix that?
+        updateResults(allUsers.aggregate())
+    }
+</div><ul class="list _bullet" id="wqoz2p_233"><li class="list__item" id="wqoz2p_240"><p id="wqoz2p_242">For convenience, this code fragment uses the <code class="code" id="wqoz2p_243">onResponse()</code> extension function declared in the same file. It takes a lambda as an argument rather than an object expression.</p></li><li class="list__item" id="wqoz2p_241"><p id="wqoz2p_244">The logic for handling the responses is extracted into callbacks: the corresponding lambdas start at lines <code class="code" id="wqoz2p_245">#1</code> and <code class="code" id="wqoz2p_246">#2</code>.</p></li></ul><p id="wqoz2p_234">However, the provided solution doesn't work. If you run the program and load contributors by choosing the <span class="emphasis" id="wqoz2p_247">CALLBACKS</span> option, you'll see that nothing is shown. However, the test from <code class="code" id="wqoz2p_248">Request3CallbacksKtTest</code> immediately returns the result that it successfully passed.</p><p id="wqoz2p_235">Think about why the given code doesn't work as expected and try to fix it, or see the solutions below.</p></section><section class="chapter"><h3 id="task-3-optional" data-toc="task-3-optional">Task 3 (optional)</h3><p id="wqoz2p_249">Rewrite the code in the <code class="code" id="wqoz2p_253">src/tasks/Request3Callbacks.kt</code> file so that the loaded list of contributors is shown.</p><section class="chapter"><div class="collapse"><div class="collapse__title"><h4 id="the-first-attempted-solution-for-task-3" data-toc="the-first-attempted-solution-for-task-3">The first attempted solution for task 3</h4></div><div class="collapse__content"><p id="wqoz2p_254">In the current solution, many requests are started concurrently, which decreases the total loading time. However, the result isn't loaded. This is because the <code class="code" id="wqoz2p_259">updateResults()</code> callback is called right after all of the loading requests are started, before the <code class="code" id="wqoz2p_260">allUsers</code> list has been filled with the data.</p><p id="wqoz2p_255">You could try to fix this with a change like the following:</p><div class="code-block" data-lang="kotlin">
+val allUsers = mutableListOf&lt;User&gt;()
+for ((index, repo) in repos.withIndex()) {   // #1
+    service.getRepoContributorsCall(req.org, repo.name)
+        .onResponse { responseUsers -&gt;
+            logUsers(repo, responseUsers)
+            val users = responseUsers.bodyList()
+            allUsers += users
+            if (index == repos.lastIndex) {    // #2
+                updateResults(allUsers.aggregate())
+            }
+        }
+}
+</div><ul class="list _bullet" id="wqoz2p_257"><li class="list__item" id="wqoz2p_261"><p id="wqoz2p_264">First, you iterate over the list of repos with an index (<code class="code" id="wqoz2p_265">#1</code>).</p></li><li class="list__item" id="wqoz2p_262"><p id="wqoz2p_266">Then, from each callback, you check whether it's the last iteration (<code class="code" id="wqoz2p_267">#2</code>).</p></li><li class="list__item" id="wqoz2p_263"><p id="wqoz2p_268">And if that's the case, the result is updated.</p></li></ul><p id="wqoz2p_258">However, this code also fails to achieve our objective. Try to find the answer yourself, or see the solution below.</p></div></div></section><section class="chapter"><div class="collapse"><div class="collapse__title"><h4 id="the-second-attempted-solution-for-task-3" data-toc="the-second-attempted-solution-for-task-3">The second attempted solution for task 3</h4></div><div class="collapse__content"><p id="wqoz2p_269">Since the loading requests are started concurrently, there's no guarantee that the result for the last one comes last. The results can come in any order.</p><p id="wqoz2p_270">Thus, if you compare the current index with the <code class="code" id="wqoz2p_275">lastIndex</code> as a condition for completion, you risk losing the results for some repos.</p><p id="wqoz2p_271">If the request that processes the last repo returns faster than some prior requests (which is likely to happen), all of the results for requests that take more time will be lost.</p><p id="wqoz2p_272">One way to fix this is to introduce an index and check whether all of the repositories have already been processed:</p><div class="code-block" data-lang="kotlin">
+val allUsers = Collections.synchronizedList(mutableListOf&lt;User&gt;())
+val numberOfProcessed = AtomicInteger()
+for (repo in repos) {
+    service.getRepoContributorsCall(req.org, repo.name)
+        .onResponse { responseUsers -&gt;
+            logUsers(repo, responseUsers)
+            val users = responseUsers.bodyList()
+            allUsers += users
+            if (numberOfProcessed.incrementAndGet() == repos.size) {
+                updateResults(allUsers.aggregate())
+            }
+        }
+}
+</div><p id="wqoz2p_274">This code uses a synchronized version of the list and <code class="code" id="wqoz2p_276">AtomicInteger()</code> because, in general, there's no guarantee that different callbacks that process <code class="code" id="wqoz2p_277">getRepoContributors()</code> requests will always be called from the same thread.</p></div></div></section><section class="chapter"><div class="collapse"><div class="collapse__title"><h4 id="the-third-attempted-solution-for-task-3" data-toc="the-third-attempted-solution-for-task-3">The third attempted solution for task 3</h4></div><div class="collapse__content"><p id="wqoz2p_278">An even better solution is to use the <code class="code" id="wqoz2p_283">CountDownLatch</code> class. It stores a counter initialized with the number of repositories. This counter is decremented after processing each repository. It then waits until the latch is counted down to zero before updating the results:</p><div class="code-block" data-lang="kotlin">
+val countDownLatch = CountDownLatch(repos.size)
+for (repo in repos) {
+    service.getRepoContributorsCall(req.org, repo.name)
+        .onResponse { responseUsers -&gt;
+            // processing repository
+            countDownLatch.countDown()
+        }
+}
+countDownLatch.await()
+updateResults(allUsers.aggregate())
+</div><p id="wqoz2p_280">The result is then updated from the main thread. This is more direct than delegating the logic to the child threads.</p><p id="wqoz2p_281">After reviewing these three attempts at a solution, you can see that writing correct code with callbacks is non-trivial and error-prone, especially when several underlying threads and synchronization occur.</p><aside class="prompt" data-type="tip" data-title="" id="wqoz2p_282"><p id="wqoz2p_284">As an additional exercise, you can implement the same logic using a reactive approach with the RxJava library. All of the necessary dependencies and solutions for using RxJava can be found in a separate <code class="code" id="wqoz2p_285">rx</code> branch. It is also possible to complete this tutorial and implement or check the proposed Rx versions for a proper comparison.</p></aside></div></div></section></section></section><section class="chapter"><h2 id="suspending-functions" data-toc="suspending-functions">Suspending functions</h2><p id="wqoz2p_286">You can implement the same logic using suspending functions. Instead of returning <code class="code" id="wqoz2p_293">Call&lt;List&lt;Repo&gt;&gt;</code>, define the API call as a <a href="composing-suspending-functions.html" id="wqoz2p_294" data-tooltip="This section covers various approaches to composition of suspending functions.">suspending function</a> as follows:</p><div class="code-block" data-lang="kotlin">
+interface GitHubService {
+    @GET(&quot;orgs/{org}/repos?per_page=100&quot;)
+    suspend fun getOrgRepos(
+        @Path(&quot;org&quot;) org: String
+    ): List&lt;Repo&gt;
+}
+</div><ul class="list _bullet" id="wqoz2p_288"><li class="list__item" id="wqoz2p_295"><p id="wqoz2p_297"><code class="code" id="wqoz2p_298">getOrgRepos()</code> is defined as a <code class="code" id="wqoz2p_299">suspend</code> function. When you use a suspending function to perform a request, the underlying thread isn't blocked. More details about how this works will come in later sections.</p></li><li class="list__item" id="wqoz2p_296"><p id="wqoz2p_300"><code class="code" id="wqoz2p_301">getOrgRepos()</code> returns the result directly instead of returning a <code class="code" id="wqoz2p_302">Call</code>. If the result is unsuccessful, an exception is thrown.</p></li></ul><p id="wqoz2p_289">Alternatively, Retrofit allows returning the result wrapped in <code class="code" id="wqoz2p_303">Response</code>. In this case, the result body is provided, and it is possible to check for errors manually. This tutorial uses the versions that return <code class="code" id="wqoz2p_304">Response</code>.</p><p id="wqoz2p_290">In <code class="code" id="wqoz2p_305">src/contributors/GitHubService.kt</code>, add the following declarations to the <code class="code" id="wqoz2p_306">GitHubService</code> interface:</p><div class="code-block" data-lang="kotlin">
+interface GitHubService {
+    // getOrgReposCall &amp; getRepoContributorsCall declarations
+
+    @GET(&quot;orgs/{org}/repos?per_page=100&quot;)
+    suspend fun getOrgRepos(
+        @Path(&quot;org&quot;) org: String
+    ): Response&lt;List&lt;Repo&gt;&gt;
+
+    @GET(&quot;repos/{owner}/{repo}/contributors?per_page=100&quot;)
+    suspend fun getRepoContributors(
+        @Path(&quot;owner&quot;) owner: String,
+        @Path(&quot;repo&quot;) repo: String
+    ): Response&lt;List&lt;User&gt;&gt;
+}
+</div><section class="chapter"><h3 id="task-4" data-toc="task-4">Task 4</h3><p id="wqoz2p_307">Your task is to change the code of the function that loads contributors to make use of two new suspending functions, <code class="code" id="wqoz2p_311">getOrgRepos()</code> and <code class="code" id="wqoz2p_312">getRepoContributors()</code>. The new <code class="code" id="wqoz2p_313">loadContributorsSuspend()</code> function is marked as <code class="code" id="wqoz2p_314">suspend</code> to use the new API.</p><aside class="prompt" data-type="note" data-title="" id="wqoz2p_308"><p id="wqoz2p_315">Suspending functions can't be called everywhere. Calling a suspending function from <code class="code" id="wqoz2p_316">loadContributorsBlocking()</code> will result in an error with the message &quot;Suspend function 'getOrgRepos' should be called only from a coroutine or another suspend function&quot;.</p></aside><ol class="list _decimal" id="wqoz2p_309" type="1"><li class="list__item" id="wqoz2p_317"><p id="wqoz2p_320">Copy the implementation of <code class="code" id="wqoz2p_321">loadContributorsBlocking()</code> that is defined in <code class="code" id="wqoz2p_322">src/tasks/Request1Blocking.kt</code> into the <code class="code" id="wqoz2p_323">loadContributorsSuspend()</code> that is defined in <code class="code" id="wqoz2p_324">src/tasks/Request4Suspend.kt</code>.</p></li><li class="list__item" id="wqoz2p_318"><p id="wqoz2p_325">Modify the code so that the new suspending functions are used instead of the ones that return <code class="code" id="wqoz2p_326">Call</code>s.</p></li><li class="list__item" id="wqoz2p_319"><p id="wqoz2p_327">Run the program by choosing the <span class="emphasis" id="wqoz2p_328">SUSPEND</span> option and ensure that the UI is still responsive while the GitHub requests are performed.</p></li></ol><section class="chapter"><div class="collapse"><div class="collapse__title"><h4 id="solution-for-task-4" data-toc="solution-for-task-4">Solution for task 4</h4></div><div class="collapse__content"><p id="wqoz2p_329">Replace <code class="code" id="wqoz2p_332">.getOrgReposCall(req.org).execute()</code> with <code class="code" id="wqoz2p_333">.getOrgRepos(req.org)</code> and repeat the same replacement for the second &quot;contributors&quot; request:</p><div class="code-block" data-lang="kotlin">
+suspend fun loadContributorsSuspend(service: GitHubService, req: RequestData): List&lt;User&gt; {
+    val repos = service
+        .getOrgRepos(req.org)
+        .also { logRepos(req, it) }
+        .bodyList()
+
+    return repos.flatMap { repo -&gt;
+        service.getRepoContributors(req.org, repo.name)
+            .also { logUsers(repo, it) }
+            .bodyList()
+    }.aggregate()
+}
+</div><ul class="list _bullet" id="wqoz2p_331"><li class="list__item" id="wqoz2p_334"><p id="wqoz2p_336"><code class="code" id="wqoz2p_337">loadContributorsSuspend()</code> should be defined as a <code class="code" id="wqoz2p_338">suspend</code> function.</p></li><li class="list__item" id="wqoz2p_335"><p id="wqoz2p_339">You no longer need to call <code class="code" id="wqoz2p_340">execute</code>, which returned the <code class="code" id="wqoz2p_341">Response</code> before, because now the API functions return the <code class="code" id="wqoz2p_342">Response</code> directly. Note that this detail is specific to the Retrofit library. With other libraries, the API will be different, but the concept is the same.</p></li></ul></div></div></section></section></section><section class="chapter"><h2 id="coroutines" data-toc="coroutines">Coroutines</h2><p id="wqoz2p_343">The code with suspending functions looks similar to the &quot;blocking&quot; version. The major difference from the blocking version is that instead of blocking the thread, the coroutine is suspended:</p><div class="code-block" data-lang="none">
+block -&gt; suspend
+thread -&gt; coroutine
+</div><aside class="prompt" data-type="note" data-title="" id="wqoz2p_345"><p id="wqoz2p_347">Coroutines are often called lightweight threads because you can run code on coroutines, similar to how you run code on threads. The operations that were blocking before (and had to be avoided) can now suspend the coroutine instead.</p></aside><section class="chapter"><h3 id="starting-a-new-coroutine" data-toc="starting-a-new-coroutine">Starting a new coroutine</h3><p id="wqoz2p_348">If you look at how <code class="code" id="wqoz2p_362">loadContributorsSuspend()</code> is used in <code class="code" id="wqoz2p_363">src/contributors/Contributors.kt</code>, you can see that it's called inside <code class="code" id="wqoz2p_364">launch</code>. <code class="code" id="wqoz2p_365">launch</code> is a library function that takes a lambda as an argument:</p><div class="code-block" data-lang="kotlin">
+launch {
+    val users = loadContributorsSuspend(req)
+    updateResults(users, startTime)
+}
+</div><p id="wqoz2p_350">Here <code class="code" id="wqoz2p_366">launch</code> starts a new computation that is responsible for loading the data and showing the results. The computation is suspendable &ndash; when performing network requests, it is suspended and releases the underlying thread. When the network request returns the result, the computation is resumed.</p><p id="wqoz2p_351">Such a suspendable computation is called a <span class="emphasis" id="wqoz2p_367">coroutine</span>. So, in this case, <code class="code" id="wqoz2p_368">launch</code> <span class="emphasis" id="wqoz2p_369">starts a new coroutine</span> responsible for loading data and showing the results.</p><p id="wqoz2p_352">Coroutines run on top of threads and can be suspended. When a coroutine is suspended, the corresponding computation is paused, removed from the thread, and stored in memory. Meanwhile, the thread is free to be occupied by other tasks:</p><figure data-theme="light" id="wqoz2p_353" width="700"><img alt="Suspending coroutines" class="js-gif article__bordered-element" data-gif-src="images/suspension-process.gif" width="700" style="width: 700px;"></figure><p id="wqoz2p_354">When the computation is ready to be continued, it is returned to a thread (not necessarily the same one).</p><p id="wqoz2p_355">In the <code class="code" id="wqoz2p_370">loadContributorsSuspend()</code> example, each &quot;contributors&quot; request now waits for the result using the suspension mechanism. First, the new request is sent. Then, while waiting for the response, the whole &quot;load contributors&quot; coroutine that was started by the <code class="code" id="wqoz2p_371">launch</code> function is suspended.</p><p id="wqoz2p_356">The coroutine resumes only after the corresponding response is received:</p><figure id="wqoz2p_357"><img alt="Suspending request" src="images/suspend-requests.png" title="Suspending request" width="700" height="144"></figure><p id="wqoz2p_358">While the response is waiting to be received, the thread is free to be occupied by other tasks. The UI stays responsive, despite all the requests taking place on the main UI thread:</p><ol class="list _decimal" id="wqoz2p_359" type="1"><li class="list__item" id="wqoz2p_372"><p id="wqoz2p_374">Run the program using the <span class="emphasis" id="wqoz2p_376">SUSPEND</span> option. The log confirms that all of the requests are sent from the main UI thread:</p><div class="code-block" data-lang="none">
+2538 [AWT-EventQueue-0 @coroutine#1] INFO  Contributors - kotlin: loaded 30 repos
+2729 [AWT-EventQueue-0 @coroutine#1] INFO  Contributors - ts2kt: loaded 11 contributors
+3029 [AWT-EventQueue-0 @coroutine#1] INFO  Contributors - kotlin-koans: loaded 45 contributors
+...
+11252 [AWT-EventQueue-0 @coroutine#1] INFO  Contributors - kotlin-coroutines-workshop: loaded 1 contributors
+</div></li><li class="list__item" id="wqoz2p_373"><p id="wqoz2p_377">The log can show you which coroutine the corresponding code is running on. To enable it, open <span class="control" id="wqoz2p_380">Run | Edit configurations</span> and add the <code class="code" id="wqoz2p_381">-Dkotlinx.coroutines.debug</code> VM option:</p><figure id="wqoz2p_378"><img alt="Edit run configuration" src="images/run-configuration.png" title="Edit run configuration" width="500" height="356"></figure><p id="wqoz2p_379">The coroutine name will be attached to the thread name while <code class="code" id="wqoz2p_382">main()</code> is run with this option. You can also modify the template for running all of the Kotlin files and enable this option by default.</p></li></ol><p id="wqoz2p_360">Now all of the code runs on one coroutine, the &quot;load contributors&quot; coroutine mentioned above, denoted as <code class="code" id="wqoz2p_383">@coroutine#1</code>. While waiting for the result, you shouldn't reuse the thread for sending other requests because the code is written sequentially. The new request is sent only when the previous result is received.</p><p id="wqoz2p_361">Suspending functions treat the thread fairly and don't block it for &quot;waiting&quot;. However, this doesn't yet bring any concurrency into the picture.</p></section></section><section class="chapter"><h2 id="concurrency" data-toc="concurrency">Concurrency</h2><p id="wqoz2p_384">Kotlin coroutines are much less resource-intensive than threads. Each time you want to start a new computation asynchronously, you can create a new coroutine instead.</p><p id="wqoz2p_385">To start a new coroutine, use one of the main <span class="emphasis" id="wqoz2p_399">coroutine builders</span>: <code class="code" id="wqoz2p_400">launch</code>, <code class="code" id="wqoz2p_401">async</code>, or <code class="code" id="wqoz2p_402">runBlocking</code>. Different libraries can define additional coroutine builders.</p><p id="wqoz2p_386"><code class="code" id="wqoz2p_403">async</code> starts a new coroutine and returns a <code class="code" id="wqoz2p_404">Deferred</code> object. <code class="code" id="wqoz2p_405">Deferred</code> represents a concept known by other names such as <code class="code" id="wqoz2p_406">Future</code> or <code class="code" id="wqoz2p_407">Promise</code>. It stores a computation, but it <span class="emphasis" id="wqoz2p_408">defers</span> the moment you get the final result; it <span class="emphasis" id="wqoz2p_409">promises</span> the result sometime in the <span class="emphasis" id="wqoz2p_410">future</span>.</p><p id="wqoz2p_387">The main difference between <code class="code" id="wqoz2p_411">async</code> and <code class="code" id="wqoz2p_412">launch</code> is that <code class="code" id="wqoz2p_413">launch</code> is used to start a computation that isn't expected to return a specific result. <code class="code" id="wqoz2p_414">launch</code> returns a <code class="code" id="wqoz2p_415">Job</code> that represents the coroutine. It is possible to wait until it completes by calling <code class="code" id="wqoz2p_416">Job.join()</code>.</p><p id="wqoz2p_388"><code class="code" id="wqoz2p_417">Deferred</code> is a generic type that extends <code class="code" id="wqoz2p_418">Job</code>. An <code class="code" id="wqoz2p_419">async</code> call can return a <code class="code" id="wqoz2p_420">Deferred&lt;Int&gt;</code> or a <code class="code" id="wqoz2p_421">Deferred&lt;CustomType&gt;</code>, depending on what the lambda returns (the last expression inside the lambda is the result).</p><p id="wqoz2p_389">To get the result of a coroutine, you can call <code class="code" id="wqoz2p_422">await()</code> on the <code class="code" id="wqoz2p_423">Deferred</code> instance. While waiting for the result, the coroutine that this <code class="code" id="wqoz2p_424">await()</code> is called from is suspended:</p><div class="code-block" data-lang="kotlin">
+import kotlinx.coroutines.*
+
+fun main() = runBlocking {
+    val deferred: Deferred&lt;Int&gt; = async {
+        loadData()
+    }
+    println(&quot;waiting...&quot;)
+    println(deferred.await())
+}
+
+suspend fun loadData(): Int {
+    println(&quot;loading...&quot;)
+    delay(1000L)
+    println(&quot;loaded!&quot;)
+    return 42
+}
+</div><p id="wqoz2p_391"><code class="code" id="wqoz2p_425">runBlocking</code> is used as a bridge between regular and suspending functions, or between the blocking and non-blocking worlds. It works as an adaptor for starting the top-level main coroutine. It is intended primarily to be used in <code class="code" id="wqoz2p_426">main()</code> functions and tests.</p><aside class="prompt" data-type="tip" data-title="" id="wqoz2p_392"><p id="wqoz2p_427">Watch <a href="https://www.youtube.com/watch?v=zEZc5AmHQhk" id="wqoz2p_428" data-external="true" rel="noopener noreferrer">this video</a> for a better understanding of coroutines.</p></aside><p id="wqoz2p_393">If there is a list of deferred objects, you can call <code class="code" id="wqoz2p_429">awaitAll()</code> to await the results of all of them:</p><div class="code-block" data-lang="kotlin">
+import kotlinx.coroutines.*
+
+fun main() = runBlocking {
+    val deferreds: List&lt;Deferred&lt;Int&gt;&gt; = (1..3).map {
+        async {
+            delay(1000L * it)
+            println(&quot;Loading $it&quot;)
+            it
+        }
+    }
+    val sum = deferreds.awaitAll().sum()
+    println(&quot;$sum&quot;)
+}
+</div><p id="wqoz2p_395">When each &quot;contributors&quot; request is started in a new coroutine, all of the requests are started asynchronously. A new request can be sent before the result for the previous one is received:</p><figure id="wqoz2p_396"><img alt="Concurrent coroutines" src="images/concurrency.png" title="Concurrent coroutines" width="700" height="153"></figure><p id="wqoz2p_397">The total loading time is approximately the same as in the <span class="emphasis" id="wqoz2p_430">CALLBACKS</span> version, but it doesn't need any callbacks. What's more, <code class="code" id="wqoz2p_431">async</code> explicitly emphasizes which parts run concurrently in the code.</p><section class="chapter"><h3 id="task-5" data-toc="task-5">Task 5</h3><p id="wqoz2p_432">In the <code class="code" id="wqoz2p_435">Request5Concurrent.kt</code> file, implement a <code class="code" id="wqoz2p_436">loadContributorsConcurrent()</code> function by using the previous <code class="code" id="wqoz2p_437">loadContributorsSuspend()</code> function.</p><section class="chapter"><div class="collapse"><div class="collapse__title"><h4 id="tip-for-task-5" data-toc="tip-for-task-5">Tip for task 5</h4></div><div class="collapse__content"><p id="wqoz2p_438">You can only start a new coroutine inside a coroutine scope. Copy the content from <code class="code" id="wqoz2p_442">loadContributorsSuspend()</code> to the <code class="code" id="wqoz2p_443">coroutineScope</code> call so that you can call <code class="code" id="wqoz2p_444">async</code> functions there:</p><div class="code-block" data-lang="kotlin">
+suspend fun loadContributorsConcurrent(
+    service: GitHubService,
+    req: RequestData
+): List&lt;User&gt; = coroutineScope {
+    // ...
+}
+</div><p id="wqoz2p_440">Base your solution on the following scheme:</p><div class="code-block" data-lang="kotlin">
+val deferreds: List&lt;Deferred&lt;List&lt;User&gt;&gt;&gt; = repos.map { repo -&gt;
+    async {
+        // load contributors for each repo
+    }
+}
+deferreds.awaitAll() // List&lt;List&lt;User&gt;&gt;
+</div></div></div></section><section class="chapter"><div class="collapse"><div class="collapse__title"><h4 id="solution-for-task-5" data-toc="solution-for-task-5">Solution for task 5</h4></div><div class="collapse__content"><p id="wqoz2p_445">Wrap each &quot;contributors&quot; request with <code class="code" id="wqoz2p_449">async</code> to create as many coroutines as there are repositories. <code class="code" id="wqoz2p_450">async</code> returns <code class="code" id="wqoz2p_451">Deferred&lt;List&lt;User&gt;&gt;</code>. This is not an issue because creating new coroutines is not very resource-intensive, so you can create as many as you need.</p><ol class="list _decimal" id="wqoz2p_446" type="1"><li class="list__item" id="wqoz2p_452"><p id="wqoz2p_457">You can no longer use <code class="code" id="wqoz2p_459">flatMap</code> because the <code class="code" id="wqoz2p_460">map</code> result is now a list of <code class="code" id="wqoz2p_461">Deferred</code> objects, not a list of lists. <code class="code" id="wqoz2p_462">awaitAll()</code> returns <code class="code" id="wqoz2p_463">List&lt;List&lt;User&gt;&gt;</code>, so call <code class="code" id="wqoz2p_464">flatten().aggregate()</code> to get the result:</p><div class="code-block" data-lang="kotlin">
+suspend fun loadContributorsConcurrent(
+    service: GitHubService, 
+    req: RequestData
+): List&lt;User&gt; = coroutineScope {
+    val repos = service
+        .getOrgRepos(req.org)
+        .also { logRepos(req, it) }
+        .bodyList()
+
+    val deferreds: List&lt;Deferred&lt;List&lt;User&gt;&gt;&gt; = repos.map { repo -&gt;
+        async {
+            service.getRepoContributors(req.org, repo.name)
+                .also { logUsers(repo, it) }
+                .bodyList()
+        }
+    }
+    deferreds.awaitAll().flatten().aggregate()
+}
+</div></li><li class="list__item" id="wqoz2p_453"><p id="wqoz2p_465">Run the code and check the log. All of the coroutines still run on the main UI thread because multithreading hasn't been employed yet, but you can already see the benefits of running coroutines concurrently.</p></li><li class="list__item" id="wqoz2p_454"><p id="wqoz2p_466">To change this code to run &quot;contributors&quot; coroutines on different threads from the common thread pool, specify <code class="code" id="wqoz2p_469">Dispatchers.Default</code> as the context argument for the <code class="code" id="wqoz2p_470">async</code> function:</p><div class="code-block" data-lang="kotlin">
+async(Dispatchers.Default) { }
+</div><ul class="list _bullet" id="wqoz2p_468"><li class="list__item" id="wqoz2p_471"><p id="wqoz2p_473"><code class="code" id="wqoz2p_474">CoroutineDispatcher</code> determines what thread or threads the corresponding coroutine should be run on. If you don't specify one as an argument, <code class="code" id="wqoz2p_475">async</code> will use the dispatcher from the outer scope.</p></li><li class="list__item" id="wqoz2p_472"><p id="wqoz2p_476"><code class="code" id="wqoz2p_477">Dispatchers.Default</code> represents a shared pool of threads on the JVM. This pool provides a means for parallel execution. It consists of as many threads as there are CPU cores available, but it will still have two threads if there's only one core.</p></li></ul></li><li class="list__item" id="wqoz2p_455"><p id="wqoz2p_478">Modify the code in the <code class="code" id="wqoz2p_480">loadContributorsConcurrent()</code> function to start new coroutines on different threads from the common thread pool. Also, add additional logging before sending the request:</p><div class="code-block" data-lang="kotlin">
+async(Dispatchers.Default) {
+    log(&quot;starting loading for ${repo.name}&quot;)
+    service.getRepoContributors(req.org, repo.name)
+        .also { logUsers(repo, it) }
+        .bodyList()
+}
+</div></li><li class="list__item" id="wqoz2p_456"><p id="wqoz2p_481">Run the program once again. In the log, you can see that each coroutine can be started on one thread from the thread pool and resumed on another:</p><div class="code-block" data-lang="none">
+1946 [DefaultDispatcher-worker-2 @coroutine#4] INFO  Contributors - starting loading for kotlin-koans
+1946 [DefaultDispatcher-worker-3 @coroutine#5] INFO  Contributors - starting loading for dokka
+1946 [DefaultDispatcher-worker-1 @coroutine#3] INFO  Contributors - starting loading for ts2kt
+...
+2178 [DefaultDispatcher-worker-1 @coroutine#4] INFO  Contributors - kotlin-koans: loaded 45 contributors
+2569 [DefaultDispatcher-worker-1 @coroutine#5] INFO  Contributors - dokka: loaded 36 contributors
+2821 [DefaultDispatcher-worker-2 @coroutine#3] INFO  Contributors - ts2kt: loaded 11 contributors
+</div><p id="wqoz2p_483">For instance, in this log excerpt, <code class="code" id="wqoz2p_484">coroutine#4</code> is started on the <code class="code" id="wqoz2p_485">worker-2</code> thread and continued on the <code class="code" id="wqoz2p_486">worker-1</code> thread.</p></li></ol><p id="wqoz2p_447">In <code class="code" id="wqoz2p_487">src/contributors/Contributors.kt</code>, check the implementation of the <span class="emphasis" id="wqoz2p_488">CONCURRENT</span> option:</p><ol class="list _decimal" id="wqoz2p_448" type="1"><li class="list__item" id="wqoz2p_489"><p id="wqoz2p_492">To run the coroutine only on the main UI thread, specify <code class="code" id="wqoz2p_495">Dispatchers.Main</code> as an argument:</p><div class="code-block" data-lang="kotlin">
+launch(Dispatchers.Main) {
+    updateResults()
+}
+</div><ul class="list _bullet" id="wqoz2p_494"><li class="list__item" id="wqoz2p_496"><p id="wqoz2p_499">If the main thread is busy when you start a new coroutine on it, the coroutine becomes suspended and scheduled for execution on this thread. The coroutine will only resume when the thread becomes free.</p></li><li class="list__item" id="wqoz2p_497"><p id="wqoz2p_500">It's considered good practice to use the dispatcher from the outer scope rather than explicitly specifying it on each end-point. If you define <code class="code" id="wqoz2p_501">loadContributorsConcurrent()</code> without passing <code class="code" id="wqoz2p_502">Dispatchers.Default</code> as an argument, you can call this function in any context: with a <code class="code" id="wqoz2p_503">Default</code> dispatcher, with the main UI thread, or with a custom dispatcher.</p></li><li class="list__item" id="wqoz2p_498"><p id="wqoz2p_504">As you'll see later, when calling <code class="code" id="wqoz2p_505">loadContributorsConcurrent()</code> from tests, you can call it in the context with <code class="code" id="wqoz2p_506">TestDispatcher</code>, which simplifies testing. That makes this solution much more flexible.</p></li></ul></li><li class="list__item" id="wqoz2p_490"><p id="wqoz2p_507">To specify the dispatcher on the caller side, apply the following change to the project while letting <code class="code" id="wqoz2p_510">loadContributorsConcurrent</code> start coroutines in the inherited context:</p><div class="code-block" data-lang="kotlin">
+launch(Dispatchers.Default) {
+    val users = loadContributorsConcurrent(service, req)
+    withContext(Dispatchers.Main) {
+        updateResults(users, startTime)
+    }
+}
+</div><ul class="list _bullet" id="wqoz2p_509"><li class="list__item" id="wqoz2p_511"><p id="wqoz2p_513"><code class="code" id="wqoz2p_514">updateResults()</code> should be called on the main UI thread, so you call it with the context of <code class="code" id="wqoz2p_515">Dispatchers.Main</code>.</p></li><li class="list__item" id="wqoz2p_512"><p id="wqoz2p_516"><code class="code" id="wqoz2p_517">withContext()</code> calls the given code with the specified coroutine context, is suspended until it completes, and returns the result. An alternative but more verbose way to express this would be to start a new coroutine and explicitly wait (by suspending) until it completes: <code class="code" id="wqoz2p_518">launch(context) { ... }.join()</code>.</p></li></ul></li><li class="list__item" id="wqoz2p_491"><p id="wqoz2p_519">Run the code and ensure that the coroutines are executed on the threads from the thread pool.</p></li></ol></div></div></section></section></section><section class="chapter"><h2 id="structured-concurrency" data-toc="structured-concurrency">Structured concurrency</h2><ul class="list _bullet" id="wqoz2p_520"><li class="list__item" id="wqoz2p_535"><p id="wqoz2p_537">The <span class="emphasis" id="wqoz2p_538">coroutine scope</span> is responsible for the structure and parent-child relationships between different coroutines. New coroutines usually need to be started inside a scope.</p></li><li class="list__item" id="wqoz2p_536"><p id="wqoz2p_539">The <span class="emphasis" id="wqoz2p_540">coroutine context</span> stores additional technical information used to run a given coroutine, like the coroutine custom name, or the dispatcher specifying the threads the coroutine should be scheduled on.</p></li></ul><p id="wqoz2p_521">When <code class="code" id="wqoz2p_541">launch</code>, <code class="code" id="wqoz2p_542">async</code>, or <code class="code" id="wqoz2p_543">runBlocking</code> are used to start a new coroutine, they automatically create the corresponding scope. All of these functions take a lambda with a receiver as an argument, and <code class="code" id="wqoz2p_544">CoroutineScope</code> is the implicit receiver type:</p><div class="code-block" data-lang="kotlin">
+launch { /* this: CoroutineScope */ }
+</div><ul class="list _bullet" id="wqoz2p_523"><li class="list__item" id="wqoz2p_545"><p id="wqoz2p_548">New coroutines can only be started inside a scope.</p></li><li class="list__item" id="wqoz2p_546"><p id="wqoz2p_549"><code class="code" id="wqoz2p_550">launch</code> and <code class="code" id="wqoz2p_551">async</code> are declared as extensions to <code class="code" id="wqoz2p_552">CoroutineScope</code>, so an implicit or explicit receiver must always be passed when you call them.</p></li><li class="list__item" id="wqoz2p_547"><p id="wqoz2p_553">The coroutine started by <code class="code" id="wqoz2p_554">runBlocking</code> is the only exception because <code class="code" id="wqoz2p_555">runBlocking</code> is defined as a top-level function. But because it blocks the current thread, it's intended primarily to be used in <code class="code" id="wqoz2p_556">main()</code> functions and tests as a bridge function.</p></li></ul><p id="wqoz2p_524">A new coroutine inside <code class="code" id="wqoz2p_557">runBlocking</code>, <code class="code" id="wqoz2p_558">launch</code>, or <code class="code" id="wqoz2p_559">async</code> is started automatically inside the scope:</p><div class="code-block" data-lang="kotlin">
+import kotlinx.coroutines.*
+
+fun main() = runBlocking { /* this: CoroutineScope */
+    launch { /* ... */ }
+    // the same as:   
+    this.launch { /* ... */ }
+}
+</div><p id="wqoz2p_526">When you call <code class="code" id="wqoz2p_560">launch</code> inside <code class="code" id="wqoz2p_561">runBlocking</code>, it's called as an extension to the implicit receiver of the <code class="code" id="wqoz2p_562">CoroutineScope</code> type. Alternatively, you could explicitly write <code class="code" id="wqoz2p_563">this.launch</code>.</p><p id="wqoz2p_527">The nested coroutine (started by <code class="code" id="wqoz2p_564">launch</code> in this example) can be considered as a child of the outer coroutine (started by <code class="code" id="wqoz2p_565">runBlocking</code>). This &quot;parent-child&quot; relationship works through scopes; the child coroutine is started from the scope corresponding to the parent coroutine.</p><p id="wqoz2p_528">It's possible to create a new scope without starting a new coroutine, by using the <code class="code" id="wqoz2p_566">coroutineScope</code> function. To start new coroutines in a structured way inside a <code class="code" id="wqoz2p_567">suspend</code> function without access to the outer scope, you can create a new coroutine scope that automatically becomes a child of the outer scope that this <code class="code" id="wqoz2p_568">suspend</code> function is called from. <code class="code" id="wqoz2p_569">loadContributorsConcurrent()</code> is a good example.</p><p id="wqoz2p_529">You can also start a new coroutine from the global scope using <code class="code" id="wqoz2p_570">GlobalScope.async</code> or <code class="code" id="wqoz2p_571">GlobalScope.launch</code>. This will create a top-level &quot;independent&quot; coroutine.</p><p id="wqoz2p_530">The mechanism behind the structure of the coroutines is called <span class="emphasis" id="wqoz2p_572">structured concurrency</span>. It provides the following benefits over global scopes:</p><ul class="list _bullet" id="wqoz2p_531"><li class="list__item" id="wqoz2p_573"><p id="wqoz2p_576">The scope is generally responsible for child coroutines, whose lifetime is attached to the lifetime of the scope.</p></li><li class="list__item" id="wqoz2p_574"><p id="wqoz2p_577">The scope can automatically cancel child coroutines if something goes wrong or a user changes their mind and decides to revoke the operation.</p></li><li class="list__item" id="wqoz2p_575"><p id="wqoz2p_578">The scope automatically waits for the completion of all child coroutines. Therefore, if the scope corresponds to a coroutine, the parent coroutine does not complete until all the coroutines launched in its scope have completed.</p></li></ul><p id="wqoz2p_532">When using <code class="code" id="wqoz2p_579">GlobalScope.async</code>, there is no structure that binds several coroutines to a smaller scope. Coroutines started from the global scope are all independent &ndash; their lifetime is limited only by the lifetime of the whole application. It's possible to store a reference to the coroutine started from the global scope and wait for its completion or cancel it explicitly, but that won't happen automatically as it would with structured concurrency.</p><section class="chapter"><h3 id="canceling-the-loading-of-contributors" data-toc="canceling-the-loading-of-contributors">Canceling the loading of contributors</h3><p id="wqoz2p_580">Create two versions of the function that loads the list of contributors. Compare how both versions behave when you try to cancel the parent coroutine. The first version will use <code class="code" id="wqoz2p_587">coroutineScope</code> to start all of the child coroutines, whereas the second will use <code class="code" id="wqoz2p_588">GlobalScope</code>.</p><ol class="list _decimal" id="wqoz2p_581" type="1"><li class="list__item" id="wqoz2p_589"><p id="wqoz2p_596">In <code class="code" id="wqoz2p_599">Request5Concurrent.kt</code>, add a 3-second delay to the <code class="code" id="wqoz2p_600">loadContributorsConcurrent()</code> function:</p><div class="code-block" data-lang="kotlin">
+suspend fun loadContributorsConcurrent(
+    service: GitHubService, 
+    req: RequestData
+): List&lt;User&gt; = coroutineScope {
+    // ...
+    async {
+        log(&quot;starting loading for ${repo.name}&quot;)
+        delay(3000)
+        // load repo contributors
+    }
+    // ...
+}
+</div><p id="wqoz2p_598">The delay affects all of the coroutines that send requests, so that there's enough time to cancel the loading after the coroutines are started but before the requests are sent.</p></li><li class="list__item" id="wqoz2p_590"><p id="wqoz2p_601">Create the second version of the loading function: copy the implementation of <code class="code" id="wqoz2p_602">loadContributorsConcurrent()</code> to <code class="code" id="wqoz2p_603">loadContributorsNotCancellable()</code> in <code class="code" id="wqoz2p_604">Request5NotCancellable.kt</code> and then remove the creation of a new <code class="code" id="wqoz2p_605">coroutineScope</code>.</p></li><li class="list__item" id="wqoz2p_591"><p id="wqoz2p_606">The <code class="code" id="wqoz2p_609">async</code> calls now fail to resolve, so start them by using <code class="code" id="wqoz2p_610">GlobalScope.async</code>:</p><div class="code-block" data-lang="kotlin">
+suspend fun loadContributorsNotCancellable(
+    service: GitHubService,
+    req: RequestData
+): List&lt;User&gt; {   // #1
+    // ...
+    GlobalScope.async {   // #2
+        log(&quot;starting loading for ${repo.name}&quot;)
+        // load repo contributors
+    }
+    // ...
+    return deferreds.awaitAll().flatten().aggregate()  // #3
+}
+</div><ul class="list _bullet" id="wqoz2p_608"><li class="list__item" id="wqoz2p_611"><p id="wqoz2p_613">The function now returns the result directly, not as the last expression inside the lambda (lines <code class="code" id="wqoz2p_614">#1</code> and <code class="code" id="wqoz2p_615">#3</code>).</p></li><li class="list__item" id="wqoz2p_612"><p id="wqoz2p_616">All of the &quot;contributors&quot; coroutines are started inside the <code class="code" id="wqoz2p_617">GlobalScope</code>, not as children of the coroutine scope (line <code class="code" id="wqoz2p_618">#2</code>).</p></li></ul></li><li class="list__item" id="wqoz2p_592"><p id="wqoz2p_619">Run the program and choose the <span class="emphasis" id="wqoz2p_620">CONCURRENT</span> option to load the contributors.</p></li><li class="list__item" id="wqoz2p_593"><p id="wqoz2p_621">Wait until all of the &quot;contributors&quot; coroutines are started, and then click <span class="emphasis" id="wqoz2p_623">Cancel</span>. The log shows no new results, which means that all of the requests were indeed canceled:</p><div class="code-block" data-lang="none">
+2896 [AWT-EventQueue-0 @coroutine#1] INFO  Contributors - kotlin: loaded 40 repos
+2901 [DefaultDispatcher-worker-2 @coroutine#4] INFO  Contributors - starting loading for kotlin-koans
+...
+2909 [DefaultDispatcher-worker-5 @coroutine#36] INFO  Contributors - starting loading for mpp-example
+/* click on 'cancel' */
+/* no requests are sent */
+</div></li><li class="list__item" id="wqoz2p_594"><p id="wqoz2p_624">Repeat step 5, but this time choose the <code class="code" id="wqoz2p_627">NOT_CANCELLABLE</code> option:</p><div class="code-block" data-lang="none">
+2570 [AWT-EventQueue-0 @coroutine#1] INFO  Contributors - kotlin: loaded 30 repos
+2579 [DefaultDispatcher-worker-1 @coroutine#4] INFO  Contributors - starting loading for kotlin-koans
+...
+2586 [DefaultDispatcher-worker-6 @coroutine#36] INFO  Contributors - starting loading for mpp-example
+/* click on 'cancel' */
+/* but all the requests are still sent: */
+6402 [DefaultDispatcher-worker-5 @coroutine#4] INFO  Contributors - kotlin-koans: loaded 45 contributors
+...
+9555 [DefaultDispatcher-worker-8 @coroutine#36] INFO  Contributors - mpp-example: loaded 8 contributors
+</div><p id="wqoz2p_626">In this case, no coroutines are canceled, and all the requests are still sent.</p></li><li class="list__item" id="wqoz2p_595"><p id="wqoz2p_628">Check how the cancellation is triggered in the &quot;contributors&quot; program. When the <span class="emphasis" id="wqoz2p_630">Cancel</span> button is clicked, the main &quot;loading&quot; coroutine is explicitly canceled and the child coroutines are canceled automatically:</p><div class="code-block" data-lang="kotlin">
+interface Contributors {
+
+    fun loadContributors() {
+        // ...
+        when (getSelectedVariant()) {
+            CONCURRENT -&gt; {
+                launch {
+                    val users = loadContributorsConcurrent(service, req)
+                    updateResults(users, startTime)
+                }.setUpCancellation()      // #1
+            }
+        }
+    }
+
+    private fun Job.setUpCancellation() {
+        val loadingJob = this              // #2
+
+        // cancel the loading job if the 'cancel' button was clicked:
+        val listener = ActionListener {
+            loadingJob.cancel()            // #3
+            updateLoadingStatus(CANCELED)
+        }
+        // add a listener to the 'cancel' button:
+        addCancelListener(listener)
+
+        // update the status and remove the listener
+        // after the loading job is completed
+    }
+}   
+</div></li></ol><p id="wqoz2p_582">The <code class="code" id="wqoz2p_631">launch</code> function returns an instance of <code class="code" id="wqoz2p_632">Job</code>. <code class="code" id="wqoz2p_633">Job</code> stores a reference to the &quot;loading coroutine&quot;, which loads all of the data and updates the results. You can call the <code class="code" id="wqoz2p_634">setUpCancellation()</code> extension function on it (line <code class="code" id="wqoz2p_635">#1</code>), passing an instance of <code class="code" id="wqoz2p_636">Job</code> as a receiver.</p><p id="wqoz2p_583">Another way you could express this would be to explicitly write:</p><div class="code-block" data-lang="kotlin">
+val job = launch { }
+job.setUpCancellation()
+</div><ul class="list _bullet" id="wqoz2p_585"><li class="list__item" id="wqoz2p_637"><p id="wqoz2p_639">For readability, you could refer to the <code class="code" id="wqoz2p_640">setUpCancellation()</code> function receiver inside the function with the new <code class="code" id="wqoz2p_641">loadingJob</code> variable (line <code class="code" id="wqoz2p_642">#2</code>).</p></li><li class="list__item" id="wqoz2p_638"><p id="wqoz2p_643">Then you could add a listener to the <span class="emphasis" id="wqoz2p_644">Cancel</span> button so that when it's clicked, the <code class="code" id="wqoz2p_645">loadingJob</code> is canceled (line <code class="code" id="wqoz2p_646">#3</code>).</p></li></ul><p id="wqoz2p_586">With structured concurrency, you only need to cancel the parent coroutine and this automatically propagates cancellation to all of the child coroutines.</p></section><section class="chapter"><h3 id="using-the-outer-scope-s-context" data-toc="using-the-outer-scope-s-context">Using the outer scope's context</h3><p id="wqoz2p_647">When you start new coroutines inside the given scope, it's much easier to ensure that all of them run with the same context. It is also much easier to replace the context if needed.</p><p id="wqoz2p_648">Now it's time to learn how using the dispatcher from the outer scope works. The new scope created by the <code class="code" id="wqoz2p_654">coroutineScope</code> or by the coroutine builders always inherits the context from the outer scope. In this case, the outer scope is the scope the <code class="code" id="wqoz2p_655">suspend loadContributorsConcurrent()</code> function was called from:</p><div class="code-block" data-lang="kotlin">
+launch(Dispatchers.Default) {  // outer scope
+    val users = loadContributorsConcurrent(service, req)
+    // ...
+}
+</div><p id="wqoz2p_650">All of the nested coroutines are automatically started with the inherited context. The dispatcher is a part of this context. That's why all of the coroutines started by <code class="code" id="wqoz2p_656">async</code> are started with the context of the default dispatcher:</p><div class="code-block" data-lang="kotlin">
+suspend fun loadContributorsConcurrent(
+    service: GitHubService, req: RequestData
+): List&lt;User&gt; = coroutineScope {
+    // this scope inherits the context from the outer scope
+    // ...
+    async {   // nested coroutine started with the inherited context
+        // ...
+    }
+    // ...
+}
+</div><p id="wqoz2p_652">With structured concurrency, you can specify the major context elements (like dispatcher) once, when creating the top-level coroutine. All the nested coroutines then inherit the context and modify it only if needed.</p><aside class="prompt" data-type="tip" data-title="" id="wqoz2p_653"><p id="wqoz2p_657">When you write code with coroutines for UI applications, for example Android ones, it's a common practice to use <code class="code" id="wqoz2p_658">CoroutineDispatchers.Main</code> by default for the top coroutine and then to explicitly put a different dispatcher when you need to run the code on a different thread.</p></aside></section></section><section class="chapter"><h2 id="showing-progress" data-toc="showing-progress">Showing progress</h2><p id="wqoz2p_659">Despite the information for some repositories being loaded rather quickly, the user only sees the resulting list after all of the data has been loaded. Until then, the loader icon runs showing the progress, but there's no information about the current state or what contributors are already loaded.</p><p id="wqoz2p_660">You can show the intermediate results earlier and display all of the contributors after loading the data for each of the repositories:</p><figure data-theme="light" id="wqoz2p_661" width="500"><img alt="Loading data" class="js-gif article__bordered-element" data-gif-src="images/loading.gif" width="500" style="width: 500px;"></figure><p id="wqoz2p_662">To implement this functionality, in the <code class="code" id="wqoz2p_668">src/tasks/Request6Progress.kt</code>, you'll need to pass the logic updating the UI as a callback, so that it's called on each intermediate state:</p><div class="code-block" data-lang="kotlin">
+suspend fun loadContributorsProgress(
+    service: GitHubService,
+    req: RequestData,
+    updateResults: suspend (List&lt;User&gt;, completed: Boolean) -&gt; Unit
+) {
+    // loading the data
+    // calling `updateResults()` on intermediate states
+}
+</div><p id="wqoz2p_664">On the call site in <code class="code" id="wqoz2p_669">Contributors.kt</code>, the callback is passed to update the results from the <code class="code" id="wqoz2p_670">Main</code> thread for the <span class="emphasis" id="wqoz2p_671">PROGRESS</span> option:</p><div class="code-block" data-lang="kotlin">
+launch(Dispatchers.Default) {
+    loadContributorsProgress(service, req) { users, completed -&gt;
+        withContext(Dispatchers.Main) {
+            updateResults(users, startTime, completed)
+        }
+    }
+}
+</div><ul class="list _bullet" id="wqoz2p_666"><li class="list__item" id="wqoz2p_672"><p id="wqoz2p_674">The <code class="code" id="wqoz2p_675">updateResults()</code> parameter is declared as <code class="code" id="wqoz2p_676">suspend</code> in <code class="code" id="wqoz2p_677">loadContributorsProgress()</code>. It's necessary to call <code class="code" id="wqoz2p_678">withContext</code>, which is a <code class="code" id="wqoz2p_679">suspend</code> function inside the corresponding lambda argument.</p></li><li class="list__item" id="wqoz2p_673"><p id="wqoz2p_680"><code class="code" id="wqoz2p_681">updateResults()</code> callback takes an additional Boolean parameter as an argument specifying whether the loading has completed and the results are final.</p></li></ul><section class="chapter"><h3 id="task-6" data-toc="task-6">Task 6</h3><p id="wqoz2p_682">In the <code class="code" id="wqoz2p_686">Request6Progress.kt</code> file, implement the <code class="code" id="wqoz2p_687">loadContributorsProgress()</code> function that shows the intermediate progress. Base it on the <code class="code" id="wqoz2p_688">loadContributorsSuspend()</code> function from <code class="code" id="wqoz2p_689">Request4Suspend.kt</code>.</p><ul class="list _bullet" id="wqoz2p_683"><li class="list__item" id="wqoz2p_690"><p id="wqoz2p_693">Use a simple version without concurrency; you'll add it later in the next section.</p></li><li class="list__item" id="wqoz2p_691"><p id="wqoz2p_694">The intermediate list of contributors should be shown in an &quot;aggregated&quot; state, not just the list of users loaded for each repository.</p></li><li class="list__item" id="wqoz2p_692"><p id="wqoz2p_695">The total number of contributions for each user should be increased when the data for each new repository is loaded.</p></li></ul><section class="chapter"><div class="collapse"><div class="collapse__title"><h4 id="solution-for-task-6" data-toc="solution-for-task-6">Solution for task 6</h4></div><div class="collapse__content"><p id="wqoz2p_696">To store the intermediate list of loaded contributors in the &quot;aggregated&quot; state, define an <code class="code" id="wqoz2p_698">allUsers</code> variable which stores the list of users, and then update it after contributors for each new repository are loaded:</p><div class="code-block" data-lang="kotlin">
+suspend fun loadContributorsProgress(
+    service: GitHubService,
+    req: RequestData,
+    updateResults: suspend (List&lt;User&gt;, completed: Boolean) -&gt; Unit
+) {
+    val repos = service
+        .getOrgRepos(req.org)
+        .also { logRepos(req, it) }
+        .bodyList()
+
+    var allUsers = emptyList&lt;User&gt;()
+    for ((index, repo) in repos.withIndex()) {
+        val users = service.getRepoContributors(req.org, repo.name)
+            .also { logUsers(repo, it) }
+            .bodyList()
+
+        allUsers = (allUsers + users).aggregate()
+        updateResults(allUsers, index == repos.lastIndex)
+    }
+}
+</div></div></div></section><section class="chapter"><h4 id="consecutive-vs-concurrent" data-toc="consecutive-vs-concurrent">Consecutive vs concurrent</h4><p id="wqoz2p_699">An <code class="code" id="wqoz2p_705">updateResults()</code> callback is called after each request is completed:</p><figure id="wqoz2p_700"><img alt="Progress on requests" src="images/progress.png" title="Progress on requests" width="700" height="208"></figure><p id="wqoz2p_701">This code doesn't include concurrency. It's sequential, so you don't need synchronization.</p><p id="wqoz2p_702">The best option would be to send requests concurrently and update the intermediate results after getting the response for each repository:</p><figure id="wqoz2p_703"><img alt="Concurrent requests" src="images/progress-and-concurrency.png" title="Concurrent requests" width="700" height="212"></figure><p id="wqoz2p_704">To add concurrency, use <span class="emphasis" id="wqoz2p_706">channels</span>.</p></section></section></section><section class="chapter"><h2 id="channels" data-toc="channels">Channels</h2><p id="wqoz2p_707">Writing code with a shared mutable state is quite difficult and error-prone (like in the solution using callbacks). A simpler way is to share information by communication rather than by using a common mutable state. Coroutines can communicate with each other through <span class="emphasis" id="wqoz2p_726">channels</span>.</p><p id="wqoz2p_708">Channels are communication primitives that allow data to be passed between coroutines. One coroutine can <span class="emphasis" id="wqoz2p_727">send</span> some information to a channel, while another can <span class="emphasis" id="wqoz2p_728">receive</span> that information from it:</p><figure id="wqoz2p_709"><img alt="Using channels" src="images/using-channel.png" title="Using channels" width="1920" height="238"></figure><p id="wqoz2p_710">A coroutine that sends (produces) information is often called a producer, and a coroutine that receives (consumes) information is called a consumer. One or multiple coroutines can send information to the same channel, and one or multiple coroutines can receive data from it:</p><figure id="wqoz2p_711"><img alt="Using channels with many coroutines" src="images/using-channel-many-coroutines.png" title="Using channels with many coroutines" width="1920" height="463"></figure><p id="wqoz2p_712">When many coroutines receive information from the same channel, each element is handled only once by one of the consumers. Once an element is handled, it is immediately removed from the channel.</p><p id="wqoz2p_713">You can think of a channel as similar to a collection of elements, or more precisely, a queue, in which elements are added to one end and received from the other. However, there's an important difference: unlike collections, even in their synchronized versions, a channel can <span class="emphasis" id="wqoz2p_729">suspend</span> <code class="code" id="wqoz2p_730">send()</code> and <code class="code" id="wqoz2p_731">receive()</code> operations. This happens when the channel is empty or full. The channel can be full if the channel size has an upper bound.</p><p id="wqoz2p_714"><code class="code" id="wqoz2p_732">Channel</code> is represented by three different interfaces: <code class="code" id="wqoz2p_733">SendChannel</code>, <code class="code" id="wqoz2p_734">ReceiveChannel</code>, and <code class="code" id="wqoz2p_735">Channel</code>, with the latter extending the first two. You usually create a channel and give it to producers as a <code class="code" id="wqoz2p_736">SendChannel</code> instance so that only they can send information to the channel. You give a channel to consumers as a <code class="code" id="wqoz2p_737">ReceiveChannel</code> instance so that only they can receive from it. Both <code class="code" id="wqoz2p_738">send</code> and <code class="code" id="wqoz2p_739">receive</code> methods are declared as <code class="code" id="wqoz2p_740">suspend</code>:</p><div class="code-block" data-lang="kotlin">
+interface SendChannel&lt;in E&gt; {
+    suspend fun send(element: E)
+    fun close(): Boolean
+}
+
+interface ReceiveChannel&lt;out E&gt; {
+    suspend fun receive(): E
+}
+
+interface Channel&lt;E&gt; : SendChannel&lt;E&gt;, ReceiveChannel&lt;E&gt;
+</div><p id="wqoz2p_716">The producer can close a channel to indicate that no more elements are coming.</p><p id="wqoz2p_717">Several types of channels are defined in the library. They differ in how many elements they can internally store and whether the <code class="code" id="wqoz2p_741">send()</code> call can be suspended or not. For all of the channel types, the <code class="code" id="wqoz2p_742">receive()</code> call behaves similarly: it receives an element if the channel is not empty; otherwise, it is suspended.</p><dl id="wqoz2p_718" data-style="title-top"><dt id="unlimited-channel" data-expandable="true" data-expanded="false">Unlimited channel</dt><dd><p id="wqoz2p_747">An unlimited channel is the closest analog to a queue: producers can send elements to this channel and it will keep growing indefinitely. The <code class="code" id="wqoz2p_749">send()</code> call will never be suspended. If the program runs out of memory, you'll get an <code class="code" id="wqoz2p_750">OutOfMemoryException</code>. The difference between an unlimited channel and a queue is that when a consumer tries to receive from an empty channel, it becomes suspended until some new elements are sent.</p><figure id="wqoz2p_748"><img alt="Unlimited channel" src="images/unlimited-channel.png" title="Unlimited channel" width="500" height="44"></figure></dd><dt id="buffered-channel" data-expandable="true" data-expanded="false">Buffered channel</dt><dd><p id="wqoz2p_751">The size of a buffered channel is constrained by the specified number. Producers can send elements to this channel until the size limit is reached. All of the elements are internally stored. When the channel is full, the next <code class="code" id="wqoz2p_753">send()</code> call on it is suspended until more free space becomes available.</p><figure id="wqoz2p_752"><img alt="Buffered channel" src="images/buffered-channel.png" title="Buffered channel" width="500" height="51"></figure></dd><dt id="rendezvous-channel" data-expandable="true" data-expanded="false">Rendezvous channel</dt><dd><p id="wqoz2p_754">The &quot;Rendezvous&quot; channel is a channel without a buffer, the same as a buffered channel with zero size. One of the functions (<code class="code" id="wqoz2p_758">send()</code> or <code class="code" id="wqoz2p_759">receive()</code>) is always suspended until the other is called.</p><p id="wqoz2p_755">If the <code class="code" id="wqoz2p_760">send()</code> function is called and there's no suspended <code class="code" id="wqoz2p_761">receive()</code> call ready to process the element, then <code class="code" id="wqoz2p_762">send()</code> is suspended. Similarly, if the <code class="code" id="wqoz2p_763">receive()</code> function is called and the channel is empty or, in other words, there's no suspended <code class="code" id="wqoz2p_764">send()</code> call ready to send the element, the <code class="code" id="wqoz2p_765">receive()</code> call is suspended.</p><p id="wqoz2p_756">The &quot;rendezvous&quot; name (&quot;a meeting at an agreed time and place&quot;) refers to the fact that <code class="code" id="wqoz2p_766">send()</code> and <code class="code" id="wqoz2p_767">receive()</code> should &quot;meet on time&quot;.</p><figure id="wqoz2p_757"><img alt="Rendezvous channel" src="images/rendezvous-channel.png" title="Rendezvous channel" width="500" height="51"></figure></dd><dt id="conflated-channel" data-expandable="true" data-expanded="false">Conflated channel</dt><dd><p id="wqoz2p_768">A new element sent to the conflated channel will overwrite the previously sent element, so the receiver will always get only the latest element. The <code class="code" id="wqoz2p_770">send()</code> call is never suspended.</p><figure data-theme="light" id="wqoz2p_769" width="500"><img alt="Conflated channel" class="js-gif article__bordered-element" data-gif-src="images/conflated-channel.gif" width="500" style="width: 500px;"></figure></dd></dl><p id="wqoz2p_719">When you create a channel, specify its type or the buffer size (if you need a buffered one):</p><div class="code-block" data-lang="kotlin">
+val rendezvousChannel = Channel&lt;String&gt;()
+val bufferedChannel = Channel&lt;String&gt;(10)
+val conflatedChannel = Channel&lt;String&gt;(CONFLATED)
+val unlimitedChannel = Channel&lt;String&gt;(UNLIMITED)
+</div><p id="wqoz2p_721">By default, a &quot;Rendezvous&quot; channel is created.</p><p id="wqoz2p_722">In the following task, you'll create a &quot;Rendezvous&quot; channel, two producer coroutines, and a consumer coroutine:</p><div class="code-block" data-lang="kotlin">
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.*
+
+fun main() = runBlocking&lt;Unit&gt; {
+    val channel = Channel&lt;String&gt;()
+    launch {
+        channel.send(&quot;A1&quot;)
+        channel.send(&quot;A2&quot;)
+        log(&quot;A done&quot;)
+    }
+    launch {
+        channel.send(&quot;B1&quot;)
+        log(&quot;B done&quot;)
+    }
+    launch {
+        repeat(3) {
+            val x = channel.receive()
+            log(x)
+        }
+    }
+}
+
+fun log(message: Any?) {
+    println(&quot;[${Thread.currentThread().name}] $message&quot;)
+}
+</div><aside class="prompt" data-type="tip" data-title="" id="wqoz2p_724"><p id="wqoz2p_771">Watch <a href="https://www.youtube.com/watch?v=HpWQUoVURWQ" id="wqoz2p_772" data-external="true" rel="noopener noreferrer">this video</a> for a better understanding of channels.</p></aside><section class="chapter"><h3 id="task-7" data-toc="task-7">Task 7</h3><p id="wqoz2p_773">In <code class="code" id="wqoz2p_777">src/tasks/Request7Channels.kt</code>, implement the function <code class="code" id="wqoz2p_778">loadContributorsChannels()</code> that requests all of the GitHub contributors concurrently and shows intermediate progress at the same time.</p><p id="wqoz2p_774">Use the previous functions, <code class="code" id="wqoz2p_779">loadContributorsConcurrent()</code> from <code class="code" id="wqoz2p_780">Request5Concurrent.kt</code> and <code class="code" id="wqoz2p_781">loadContributorsProgress()</code> from <code class="code" id="wqoz2p_782">Request6Progress.kt</code>.</p><section class="chapter"><div class="collapse"><div class="collapse__title"><h4 id="tip-for-task-7" data-toc="tip-for-task-7">Tip for task 7</h4></div><div class="collapse__content"><p id="wqoz2p_783">Different coroutines that concurrently receive contributor lists for different repositories can send all of the received results to the same channel:</p><div class="code-block" data-lang="kotlin">
+val channel = Channel&lt;List&lt;User&gt;&gt;()
+for (repo in repos) {
+    launch {
+        val users = TODO()
+        // ...
+        channel.send(users)
+    }
+}
+</div><p id="wqoz2p_785">Then the elements from this channel can be received one by one and processed:</p><div class="code-block" data-lang="kotlin">
+repeat(repos.size) {
+    val users = channel.receive()
+    // ...
+}
+</div><p id="wqoz2p_787">Since the <code class="code" id="wqoz2p_788">receive()</code> calls are sequential, no additional synchronization is needed.</p></div></div></section><section class="chapter"><div class="collapse"><div class="collapse__title"><h4 id="solution-for-task-7" data-toc="solution-for-task-7">Solution for task 7</h4></div><div class="collapse__content"><p id="wqoz2p_789">As with the <code class="code" id="wqoz2p_794">loadContributorsProgress()</code> function, you can create an <code class="code" id="wqoz2p_795">allUsers</code> variable to store the intermediate states of the &quot;all contributors&quot; list. Each new list received from the channel is added to the list of all users. You aggregate the result and update the state using the <code class="code" id="wqoz2p_796">updateResults</code> callback:</p><div class="code-block" data-lang="kotlin">
+suspend fun loadContributorsChannels(
+    service: GitHubService,
+    req: RequestData,
+    updateResults: suspend (List&lt;User&gt;, completed: Boolean) -&gt; Unit
+) = coroutineScope {
+
+    val repos = service
+        .getOrgRepos(req.org)
+        .also { logRepos(req, it) }
+        .bodyList()
+
+    val channel = Channel&lt;List&lt;User&gt;&gt;()
+    for (repo in repos) {
+        launch {
+            val users = service.getRepoContributors(req.org, repo.name)
+                .also { logUsers(repo, it) }
+                .bodyList()
+            channel.send(users)
+        }
+    }
+    var allUsers = emptyList&lt;User&gt;()
+    repeat(repos.size) {
+        val users = channel.receive()
+        allUsers = (allUsers + users).aggregate()
+        updateResults(allUsers, it == repos.lastIndex)
+    }
+}
+</div><ul class="list _bullet" id="wqoz2p_791"><li class="list__item" id="wqoz2p_797"><p id="wqoz2p_799">Results for different repositories are added to the channel as soon as they are ready. At first, when all of the requests are sent, and no data is received, the <code class="code" id="wqoz2p_800">receive()</code> call is suspended. In this case, the whole &quot;load contributors&quot; coroutine is suspended.</p></li><li class="list__item" id="wqoz2p_798"><p id="wqoz2p_801">Then, when the list of users is sent to the channel, the &quot;load contributors&quot; coroutine resumes, the <code class="code" id="wqoz2p_802">receive()</code> call returns this list, and the results are immediately updated.</p></li></ul><p id="wqoz2p_792">You can now run the program and choose the <span class="emphasis" id="wqoz2p_803">CHANNELS</span> option to load the contributors and see the result.</p><p id="wqoz2p_793">Although neither coroutines nor channels completely remove the complexity that comes with concurrency, they make life easier when you need to understand what's going on.</p></div></div></section></section></section><section class="chapter"><h2 id="testing-coroutines" data-toc="testing-coroutines">Testing coroutines</h2><p id="wqoz2p_804">Let's now test all solutions to check that the solution with concurrent coroutines is faster than the solution with the <code class="code" id="wqoz2p_830">suspend</code> functions, and check that the solution with channels is faster than the simple &quot;progress&quot; one.</p><p id="wqoz2p_805">In the following task, you'll compare the total running time of the solutions. You'll mock a GitHub service and make this service return results after the given timeouts:</p><div class="code-block" data-lang="none">
+repos request - returns an answer within 1000 ms delay
+repo-1 - 1000 ms delay
+repo-2 - 1200 ms delay
+repo-3 - 800 ms delay
+</div><p id="wqoz2p_807">The sequential solution with the <code class="code" id="wqoz2p_831">suspend</code> functions should take around 4000 ms (4000 = 1000 + (1000 + 1200 + 800)). The concurrent solution should take around 2200 ms (2200 = 1000 + max(1000, 1200, 800)).</p><p id="wqoz2p_808">For the solutions that show progress, you can also check the intermediate results with timestamps.</p><p id="wqoz2p_809">The corresponding test data is defined in <code class="code" id="wqoz2p_832">test/contributors/testData.kt</code>, and the files <code class="code" id="wqoz2p_833">Request4SuspendKtTest</code>, <code class="code" id="wqoz2p_834">Request7ChannelsKtTest</code>, and so on contain the straightforward tests that use mock service calls.</p><p id="wqoz2p_810">However, there are two problems here:</p><ul class="list _bullet" id="wqoz2p_811"><li class="list__item" id="wqoz2p_835"><p id="wqoz2p_837">These tests take too long to run. Each test takes around 2 to 4 seconds, and you need to wait for the results each time. It's not very efficient.</p></li><li class="list__item" id="wqoz2p_836"><p id="wqoz2p_838">You can't rely on the exact time the solution runs because it still takes additional time to prepare and run the code. You could add a constant, but then the time would differ from machine to machine. The mock service delays should be higher than this constant so you can see a difference. If the constant is 0.5 sec, making the delays 0.1 sec won't be enough.</p></li></ul><p id="wqoz2p_812">A better way would be to use special frameworks to test the timing while running the same code several times (which increases the total time even more), but that is complicated to learn and set up.</p><p id="wqoz2p_813">To solve these problems and make sure that solutions with provided test delays behave as expected, one faster than the other, use <span class="emphasis" id="wqoz2p_839">virtual</span> time with a special test dispatcher. This dispatcher keeps track of the virtual time passed from the start and runs everything immediately in real time. When you run coroutines on this dispatcher, the <code class="code" id="wqoz2p_840">delay</code> will return immediately and advance the virtual time.</p><p id="wqoz2p_814">Tests that use this mechanism run fast, but you can still check what happens at different moments in virtual time. The total running time drastically decreases:</p><figure id="wqoz2p_815"><img alt="Comparison for total running time" src="images/time-comparison.png" title="Comparison for total running time" width="700" height="99"></figure><p id="wqoz2p_816">To use virtual time, replace the <code class="code" id="wqoz2p_841">runBlocking</code> invocation with a <code class="code" id="wqoz2p_842">runTest</code>. <code class="code" id="wqoz2p_843">runTest</code> takes an extension lambda to <code class="code" id="wqoz2p_844">TestScope</code> as an argument. When you call <code class="code" id="wqoz2p_845">delay</code> in a <code class="code" id="wqoz2p_846">suspend</code> function inside this special scope, <code class="code" id="wqoz2p_847">delay</code> will increase the virtual time instead of delaying in real time:</p><div class="code-block" data-lang="kotlin">
+@Test
+fun testDelayInSuspend() = runTest {
+    val realStartTime = System.currentTimeMillis() 
+    val virtualStartTime = currentTime
+        
+    foo()
+    println(&quot;${System.currentTimeMillis() - realStartTime} ms&quot;) // ~ 6 ms
+    println(&quot;${currentTime - virtualStartTime} ms&quot;)             // 1000 ms
+}
+
+suspend fun foo() {
+    delay(1000)    // auto-advances without delay
+    println(&quot;foo&quot;) // executes eagerly when foo() is called
+}
+</div><p id="wqoz2p_818">You can check the current virtual time using the <code class="code" id="wqoz2p_848">currentTime</code> property of <code class="code" id="wqoz2p_849">TestScope</code>.</p><p id="wqoz2p_819">The actual running time in this example is several milliseconds, whereas virtual time equals the delay argument, which is 1000 milliseconds.</p><p id="wqoz2p_820">To get the full effect of &quot;virtual&quot; <code class="code" id="wqoz2p_850">delay</code> in child coroutines, start all of the child coroutines with <code class="code" id="wqoz2p_851">TestDispatcher</code>. Otherwise, it won't work. This dispatcher is automatically inherited from the other <code class="code" id="wqoz2p_852">TestScope</code>, unless you provide a different dispatcher:</p><div class="code-block" data-lang="kotlin">
+@Test
+fun testDelayInLaunch() = runTest {
+    val realStartTime = System.currentTimeMillis()
+    val virtualStartTime = currentTime
+
+    bar()
+
+    println(&quot;${System.currentTimeMillis() - realStartTime} ms&quot;) // ~ 11 ms
+    println(&quot;${currentTime - virtualStartTime} ms&quot;)             // 1000 ms
+}
+
+suspend fun bar() = coroutineScope {
+    launch {
+        delay(1000)    // auto-advances without delay
+        println(&quot;bar&quot;) // executes eagerly when bar() is called
+    }
+}
+</div><p id="wqoz2p_822">If <code class="code" id="wqoz2p_853">launch</code> is called with the context of <code class="code" id="wqoz2p_854">Dispatchers.Default</code> in the example above, the test will fail. You'll get an exception saying that the job has not been completed yet.</p><p id="wqoz2p_823">You can test the <code class="code" id="wqoz2p_855">loadContributorsConcurrent()</code> function this way only if it starts the child coroutines with the inherited context, without modifying it using the <code class="code" id="wqoz2p_856">Dispatchers.Default</code> dispatcher.</p><p id="wqoz2p_824">You can specify the context elements like the dispatcher when <span class="emphasis" id="wqoz2p_857">calling</span> a function rather than when <span class="emphasis" id="wqoz2p_858">defining</span> it, which allows for more flexibility and easier testing.</p><aside class="prompt" data-type="warning" data-title="" id="wqoz2p_825"><p id="wqoz2p_859">The testing API that supports virtual time is <a href="components-stability.html" id="wqoz2p_860">Experimental</a> and may change in the future.</p></aside><p id="wqoz2p_826">By default, the compiler shows warnings if you use the experimental testing API. To suppress these warnings, annotate the test function or the whole class containing the tests with <code class="code" id="wqoz2p_861">@OptIn(ExperimentalCoroutinesApi::class)</code>. Add the compiler argument instructing the compiler that you're using the experimental API:</p><div class="code-block" data-lang="kotlin">
+compileTestKotlin {
+    kotlinOptions {
+        freeCompilerArgs += &quot;-Xuse-experimental=kotlin.Experimental&quot;
+    }
+}
+</div><p id="wqoz2p_828">In the project corresponding to this tutorial, the compiler argument has already been added to the Gradle script.</p><section class="chapter"><h3 id="task-8" data-toc="task-8">Task 8</h3><p id="wqoz2p_862">Refactor the following tests in <code class="code" id="wqoz2p_867">tests/tasks/</code> to use virtual time instead of real time:</p><ul class="list _bullet" id="wqoz2p_863"><li class="list__item" id="wqoz2p_868"><p id="wqoz2p_872"><code class="code" id="wqoz2p_873">Request4SuspendKtTest.kt</code></p></li><li class="list__item" id="wqoz2p_869"><p id="wqoz2p_874"><code class="code" id="wqoz2p_875">Request5ConcurrentKtTest.kt</code></p></li><li class="list__item" id="wqoz2p_870"><p id="wqoz2p_876"><code class="code" id="wqoz2p_877">Request6ProgressKtTest.kt</code></p></li><li class="list__item" id="wqoz2p_871"><p id="wqoz2p_878"><code class="code" id="wqoz2p_879">Request7ChannelsKtTest.kt</code></p></li></ul><p id="wqoz2p_864">Compare the total running times before and after applying your refactoring.</p><section class="chapter"><div class="collapse"><div class="collapse__title"><h4 id="tip-for-task-8" data-toc="tip-for-task-8">Tip for task 8</h4></div><div class="collapse__content"><ol class="list _decimal" id="wqoz2p_880" type="1"><li class="list__item" id="wqoz2p_881"><p id="wqoz2p_884">Replace the <code class="code" id="wqoz2p_886">runBlocking</code> invocation with <code class="code" id="wqoz2p_887">runTest</code>, and replace <code class="code" id="wqoz2p_888">System.currentTimeMillis()</code> with <code class="code" id="wqoz2p_889">currentTime</code>:</p><div class="code-block" data-lang="kotlin">
+@Test
+fun test() = runTest {
+    val startTime = currentTime
+    // action
+    val totalTime = currentTime - startTime
+    // testing result
+}
+</div></li><li class="list__item" id="wqoz2p_882"><p id="wqoz2p_890">Uncomment the assertions that check the exact virtual time.</p></li><li class="list__item" id="wqoz2p_883"><p id="wqoz2p_891">Don't forget to add <code class="code" id="wqoz2p_892">@UseExperimental(ExperimentalCoroutinesApi::class)</code>.</p></li></ol></div></div></section><section class="chapter"><div class="collapse"><div class="collapse__title"><h4 id="solution-for-task-8" data-toc="solution-for-task-8">Solution for task 8</h4></div><div class="collapse__content"><p id="wqoz2p_893">Here are the solutions for the concurrent and channels cases:</p><div class="code-block" data-lang="kotlin">
+fun testConcurrent() = runTest {
+    val startTime = currentTime
+    val result = loadContributorsConcurrent(MockGithubService, testRequestData)
+    Assert.assertEquals(&quot;Wrong result for 'loadContributorsConcurrent'&quot;, expectedConcurrentResults.users, result)
+    val totalTime = currentTime - startTime
+
+    Assert.assertEquals(
+        &quot;The calls run concurrently, so the total virtual time should be 2200 ms: &quot; +
+                &quot;1000 for repos request plus max(1000, 1200, 800) = 1200 for concurrent contributors requests)&quot;,
+        expectedConcurrentResults.timeFromStart, totalTime
+    )
+}
+</div><p id="wqoz2p_895">First, check that the results are available exactly at the expected virtual time, and then check the results themselves:</p><div class="code-block" data-lang="kotlin">
+fun testChannels() = runTest {
+    val startTime = currentTime
+    var index = 0
+    loadContributorsChannels(MockGithubService, testRequestData) { users, _ -&gt;
+        val expected = concurrentProgressResults[index++]
+        val time = currentTime - startTime
+        Assert.assertEquals(
+            &quot;Expected intermediate results after ${expected.timeFromStart} ms:&quot;,
+            expected.timeFromStart, time
+        )
+        Assert.assertEquals(&quot;Wrong intermediate results after $time:&quot;, expected.users, users)
+    }
+}
+</div><p id="wqoz2p_897">The first intermediate result for the last version with channels becomes available sooner than the progress version, and you can see the difference in tests that use virtual time.</p><aside class="prompt" data-type="tip" data-title="" id="wqoz2p_898"><p id="wqoz2p_899">The tests for the remaining &quot;suspend&quot; and &quot;progress&quot; tasks are very similar &ndash; you can find them in the project's <code class="code" id="wqoz2p_900">solutions</code> branch.</p></aside></div></div></section></section></section><section class="chapter"><h2 id="what-s-next" data-toc="what-s-next">What's next</h2><ul class="list _bullet" id="wqoz2p_901"><li class="list__item" id="wqoz2p_902"><p id="wqoz2p_904">Check out the <a href="https://kotlinconf.com/workshops/" id="wqoz2p_905" data-external="true" rel="noopener noreferrer">Asynchronous Programming with Kotlin</a> workshop at KotlinConf.</p></li><li class="list__item" id="wqoz2p_903"><p id="wqoz2p_906">Find out more about using <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-test/" id="wqoz2p_907" data-external="true" rel="noopener noreferrer">virtual time and the experimental testing package</a>.</p></li></ul></section><div class="last-modified">12 October 2026</div><div data-feedback-placeholder="true"></div><div class="navigation-links _bottom"><a href="coroutines-flow-operators.html" class="navigation-links__prev">Flow operators</a><a href="composing-suspending-functions.html" class="navigation-links__next">Composing suspending functions</a></div></article><div id="disqus_thread"></div></div></section></main></div></body></html>

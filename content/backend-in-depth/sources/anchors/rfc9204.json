@@ -1,0 +1,503 @@
+{
+ "source": "rfc9204",
+ "anchors": [
+  {
+   "anchor": "top",
+   "title": "",
+   "level": 0,
+   "sha256": "fad3a7ed1121b873102818092bad1a276b8a99b7f0bd2483e4841287478b707f"
+  },
+  {
+   "anchor": "rfcnum",
+   "title": "RFC 9204",
+   "level": 1,
+   "sha256": "58a09729c631fa0463f07308947ffc558c18dbdd45547f26c13cd0d965e310ce"
+  },
+  {
+   "anchor": "title",
+   "title": "QPACK: Field Compression for HTTP/3",
+   "level": 1,
+   "sha256": "026a70260a654a0a0eea321b6ab2a9b6ce315ddc013c7d4ac6353caef57c64b7"
+  },
+  {
+   "anchor": "abstract",
+   "title": "Abstract",
+   "level": 2,
+   "sha256": "f53c661596aeb6d7de10c92ce1122066108ecb27eea22fa273e6bf28a0fb3f2a"
+  },
+  {
+   "anchor": "section-boilerplate.1",
+   "title": "Status of This Memo",
+   "level": 2,
+   "sha256": "021825bd65b9bede72b78c55160ba5720543892a973565403fa02b27612326d0"
+  },
+  {
+   "anchor": "section-boilerplate.2",
+   "title": "Copyright Notice",
+   "level": 2,
+   "sha256": "fe4ef6915e27f1ba379cd3ce4f49bfae88fcde5153ddea1c863d42f8ffbdaf01"
+  },
+  {
+   "anchor": "section-toc.1",
+   "title": "Table of Contents",
+   "level": 2,
+   "sha256": "a9360e0212a4d173581c91da68494d022ee55871188be00acf863d2ed0cf7a6a"
+  },
+  {
+   "anchor": "section-1",
+   "title": "1. Introduction",
+   "level": 2,
+   "sha256": "0848ff54fd0db9bf28fafe29a932bcffa724225ce4667ae948821d74774fe3a8"
+  },
+  {
+   "anchor": "section-1.1",
+   "title": "1.1. Conventions and Definitions",
+   "level": 3,
+   "sha256": "2ca2caa5641be8bd4ae6a541f68a46bb5ebe00abf66339b5b1c7570d108af80d"
+  },
+  {
+   "anchor": "section-1.2",
+   "title": "1.2. Notational Conventions",
+   "level": 3,
+   "sha256": "55fd83d4a648de2de500716d235252a28f819386e91dc6596f29ea98bf4e737b"
+  },
+  {
+   "anchor": "section-2",
+   "title": "2. Compression Process Overview",
+   "level": 2,
+   "sha256": "b2c3bc5c5fbdc449c7e7803d46cfad838aea73e511d2a92362d44a3200a26992"
+  },
+  {
+   "anchor": "section-2.1",
+   "title": "2.1. Encoder",
+   "level": 3,
+   "sha256": "95451639daa708db3b4edbf47a7ef4673334ba8de254a1152715ad82889592a3"
+  },
+  {
+   "anchor": "section-2.1.1",
+   "title": "2.1.1. Limits on Dynamic Table Insertions",
+   "level": 4,
+   "sha256": "b77907b73e788cff1593cbb01aa7604b2725f4a154ec60c8c9301e0662885f05"
+  },
+  {
+   "anchor": "section-2.1.1.1",
+   "title": "2.1.1.1. Avoiding Prohibited Insertions",
+   "level": 5,
+   "sha256": "1e0c4da467a2ddbeb5f863d1bca44126facd98270e5c039c4ac37decc38454e2"
+  },
+  {
+   "anchor": "section-2.1.2",
+   "title": "2.1.2. Blocked Streams",
+   "level": 4,
+   "sha256": "28f748de08c1dd629c8690ab723d101ddb16262d088785aac0f28ea1e060046f"
+  },
+  {
+   "anchor": "section-2.1.3",
+   "title": "2.1.3. Avoiding Flow-Control Deadlocks",
+   "level": 4,
+   "sha256": "40ce15ef8268f93f54def371441ffd7185f2556465d446347c061bddb908e578"
+  },
+  {
+   "anchor": "section-2.1.4",
+   "title": "2.1.4. Known Received Count",
+   "level": 4,
+   "sha256": "3a01f568b86e250197fb46eac7a498f65ce7a17bc109d09b4f9932a3b81ff099"
+  },
+  {
+   "anchor": "section-2.2",
+   "title": "2.2. Decoder",
+   "level": 3,
+   "sha256": "244ee3ad620c6a585c4e1a58c58780683da7f3c227b8811bd7556cece7e5c2bd"
+  },
+  {
+   "anchor": "section-2.2.1",
+   "title": "2.2.1. Blocked Decoding",
+   "level": 4,
+   "sha256": "c1920b094aa4e939471f1cb83730bf1c6f339d6cb50417826c73c5a02bfda5de"
+  },
+  {
+   "anchor": "section-2.2.2",
+   "title": "2.2.2. State Synchronization",
+   "level": 4,
+   "sha256": "b0506d5b64da560c0f87a7720307b92feb3c44b62bce41e66959b1d99bf7d967"
+  },
+  {
+   "anchor": "section-2.2.2.1",
+   "title": "2.2.2.1. Completed Processing of a Field Section",
+   "level": 5,
+   "sha256": "465b4071601a2a01806af0b2db674597f62f4433199b86258d4b5837cf9bda75"
+  },
+  {
+   "anchor": "section-2.2.2.2",
+   "title": "2.2.2.2. Abandonment of a Stream",
+   "level": 5,
+   "sha256": "a5741a6e7792ad206484d0eb1c6ac9f5761bbecb5e5a649e3d7937764e0916e8"
+  },
+  {
+   "anchor": "section-2.2.2.3",
+   "title": "2.2.2.3. New Table Entries",
+   "level": 5,
+   "sha256": "1be358924d1f766d01fede67408a6ff9c1a6691fc9f47643fd790c968fa7b93d"
+  },
+  {
+   "anchor": "section-2.2.3",
+   "title": "2.2.3. Invalid References",
+   "level": 4,
+   "sha256": "2b3362a021bff0a159333664cf7d7e6f20c41bca4bacc6b4d5d3f11d34a68490"
+  },
+  {
+   "anchor": "section-3",
+   "title": "3. Reference Tables",
+   "level": 2,
+   "sha256": "37fdef5d87615b47e6ee34f797cd2b1314d425217db92f6b33c6b580c6746326"
+  },
+  {
+   "anchor": "section-3.1",
+   "title": "3.1. Static Table",
+   "level": 3,
+   "sha256": "46b5f86558c7e2a822a3107e0364a16a0abf083db6120d777655b5741acb432e"
+  },
+  {
+   "anchor": "section-3.2",
+   "title": "3.2. Dynamic Table",
+   "level": 3,
+   "sha256": "d746fc83da39cb76b695f55f80196cbdde7b704051c23c26b68c0b4f554df61b"
+  },
+  {
+   "anchor": "section-3.2.1",
+   "title": "3.2.1. Dynamic Table Size",
+   "level": 4,
+   "sha256": "4122e6b522ef4f05788fd84145b9a2d0744ecf7b02c523db9d104a4beb58e864"
+  },
+  {
+   "anchor": "section-3.2.2",
+   "title": "3.2.2. Dynamic Table Capacity and Eviction",
+   "level": 4,
+   "sha256": "41a0d19adf3ac0dc563f008d9d8f25bee2b3f95309ed006d9b98b9309307b5b0"
+  },
+  {
+   "anchor": "section-3.2.3",
+   "title": "3.2.3. Maximum Dynamic Table Capacity",
+   "level": 4,
+   "sha256": "3e845fdc05797e29713f0544408b1758e56f8419eb355d5c4e07f5cd3c32ad60"
+  },
+  {
+   "anchor": "section-3.2.4",
+   "title": "3.2.4. Absolute Indexing",
+   "level": 4,
+   "sha256": "17e6104a0971ad408f1c2184a315a0ee7d195f0f1b6c905675d204837baeda47"
+  },
+  {
+   "anchor": "section-3.2.5",
+   "title": "3.2.5. Relative Indexing",
+   "level": 4,
+   "sha256": "06de5fec20eb2b6209eea656e2a57eb4d19f294e1a8caf9d091fb1d4c87d5ad5"
+  },
+  {
+   "anchor": "section-3.2.6",
+   "title": "3.2.6. Post-Base Indexing",
+   "level": 4,
+   "sha256": "2e80c6be2af4ad7e332a2c2dd0fbc34e86bb394a4a95ab7b100006f64587a171"
+  },
+  {
+   "anchor": "section-4",
+   "title": "4. Wire Format",
+   "level": 2,
+   "sha256": "f36bc3e7a9a32113ebb4cea7b2bd00bf49ff878f43d0e4513752012d72e4051c"
+  },
+  {
+   "anchor": "section-4.1",
+   "title": "4.1. Primitives",
+   "level": 3,
+   "sha256": "0640278ee0a49f25331fe9ad025df6241f5d57f91e398da6bcfc8af5d70280ac"
+  },
+  {
+   "anchor": "section-4.1.1",
+   "title": "4.1.1. Prefixed Integers",
+   "level": 4,
+   "sha256": "1337c85ec1e0f6c2f679a50ef0faaf7c294d2aca725fd0ff6f3ed9607b4742a5"
+  },
+  {
+   "anchor": "section-4.1.2",
+   "title": "4.1.2. String Literals",
+   "level": 4,
+   "sha256": "906e537e6c965ec33f349bef87b33cfae75f07f98aa517355f6e8f9a7a5f8346"
+  },
+  {
+   "anchor": "section-4.2",
+   "title": "4.2. Encoder and Decoder Streams",
+   "level": 3,
+   "sha256": "4a44b7ba68898ad822522704480eb12e964b619f0f2af5cc99f948846a150b4a"
+  },
+  {
+   "anchor": "section-4.3",
+   "title": "4.3. Encoder Instructions",
+   "level": 3,
+   "sha256": "ddf9414613f45476b8c613b6ea4eee0daa12fe0ca1120245e9adf7201d7cbb8d"
+  },
+  {
+   "anchor": "section-4.3.1",
+   "title": "4.3.1. Set Dynamic Table Capacity",
+   "level": 4,
+   "sha256": "f2a5634b5ad8605838c81941950d4e7da607c484506d7ecd33887c0ef38b2b62"
+  },
+  {
+   "anchor": "section-4.3.2",
+   "title": "4.3.2. Insert with Name Reference",
+   "level": 4,
+   "sha256": "f2a5b4ab703c68cf0c882ae720048755978afcb80c399394f79784f0da0f87d8"
+  },
+  {
+   "anchor": "section-4.3.3",
+   "title": "4.3.3. Insert with Literal Name",
+   "level": 4,
+   "sha256": "1257304c107ec6d69490d260037db233e2463b16164cf4ec427bd884a7dac2aa"
+  },
+  {
+   "anchor": "section-4.3.4",
+   "title": "4.3.4. Duplicate",
+   "level": 4,
+   "sha256": "bbf07fad4d1356cf09133412b71b5aeb149b5484f95456bdacf7ddf5ed8775cf"
+  },
+  {
+   "anchor": "section-4.4",
+   "title": "4.4. Decoder Instructions",
+   "level": 3,
+   "sha256": "2848993f849c56b036ed2bce405e8f3b06ad9936a7f2bfc3348a85e0a7fde5be"
+  },
+  {
+   "anchor": "section-4.4.1",
+   "title": "4.4.1. Section Acknowledgment",
+   "level": 4,
+   "sha256": "74d416a77d39b1996ee21ade20a13f7c2c799ff4b241f193a6948c4a7a365493"
+  },
+  {
+   "anchor": "section-4.4.2",
+   "title": "4.4.2. Stream Cancellation",
+   "level": 4,
+   "sha256": "e704187dcc03bfef8570c45f7f4d98f300ccee81bc626e637cfa482366126e70"
+  },
+  {
+   "anchor": "section-4.4.3",
+   "title": "4.4.3. Insert Count Increment",
+   "level": 4,
+   "sha256": "342227a7479bc99af4e93fdc5a3968ade506ff0343b3a7a841a96b240ecfbf72"
+  },
+  {
+   "anchor": "section-4.5",
+   "title": "4.5. Field Line Representations",
+   "level": 3,
+   "sha256": "a429d5b45b8da0ca1562c3139e1171edc97bacb151df98b694e824402dbae9a0"
+  },
+  {
+   "anchor": "section-4.5.1",
+   "title": "4.5.1. Encoded Field Section Prefix",
+   "level": 4,
+   "sha256": "281cb337d88c5376bdd21848ad2023d6c19336e5d627cdc4df661c2fcbe41140"
+  },
+  {
+   "anchor": "section-4.5.1.1",
+   "title": "4.5.1.1. Required Insert Count",
+   "level": 5,
+   "sha256": "7167790eb84182e4a6a23075e0a73276908de4606e4e9fa2c39f2b78d2812fe3"
+  },
+  {
+   "anchor": "section-4.5.1.2",
+   "title": "4.5.1.2. Base",
+   "level": 5,
+   "sha256": "59fb995bf3752b5142c251a4e9922ce12d93badaa0abf1a4d2a1195f36d2b38a"
+  },
+  {
+   "anchor": "section-4.5.2",
+   "title": "4.5.2. Indexed Field Line",
+   "level": 4,
+   "sha256": "49cc58d935caea4c4cf16fdf53c9827d75899546b7fdbe105dbb2c41d1a89995"
+  },
+  {
+   "anchor": "section-4.5.3",
+   "title": "4.5.3. Indexed Field Line with Post-Base Index",
+   "level": 4,
+   "sha256": "70c9a3ccb3662e9b9eecd01e33eda0039e14710fe8bd0d8341525e5e60309a79"
+  },
+  {
+   "anchor": "section-4.5.4",
+   "title": "4.5.4. Literal Field Line with Name Reference",
+   "level": 4,
+   "sha256": "8448cf3593ca14fad21a3cc49ae27a569640b949434767c6794f4a667544e3af"
+  },
+  {
+   "anchor": "section-4.5.5",
+   "title": "4.5.5. Literal Field Line with Post-Base Name Reference",
+   "level": 4,
+   "sha256": "3d48b02929afd59ed007820ed4f45f425aa12ce44c586381b1dd41b8c45a3216"
+  },
+  {
+   "anchor": "section-4.5.6",
+   "title": "4.5.6. Literal Field Line with Literal Name",
+   "level": 4,
+   "sha256": "cf5d78b04e5d840d6540335aa412cf2b055bc68903f2e91ba2e3b6ada0b039a6"
+  },
+  {
+   "anchor": "section-5",
+   "title": "5. Configuration",
+   "level": 2,
+   "sha256": "16bad5b2806dedb3247d80db9d1fb9177719cef88088fe75dba3ccc7babb924e"
+  },
+  {
+   "anchor": "section-6",
+   "title": "6. Error Handling",
+   "level": 2,
+   "sha256": "aba3bb2250d2b7d3c64887052cd11fb5d5b2945e18281d4415a7b055bfce6b52"
+  },
+  {
+   "anchor": "section-7",
+   "title": "7. Security Considerations",
+   "level": 2,
+   "sha256": "f85dbdd56720d83b887ce0c08686035cee37a837aebfd3f4c1c59d122913b91b"
+  },
+  {
+   "anchor": "section-7.1",
+   "title": "7.1. Probing Dynamic Table State",
+   "level": 3,
+   "sha256": "6ffee378600902814e9c57a04bab784899afe1f55676068e0e6ab462b5a6d0af"
+  },
+  {
+   "anchor": "section-7.1.1",
+   "title": "7.1.1. Applicability to QPACK and HTTP",
+   "level": 4,
+   "sha256": "8d03974be31bf9d1d698651323a55345240787c273d58896d8fe92afa44c4517"
+  },
+  {
+   "anchor": "section-7.1.2",
+   "title": "7.1.2. Mitigation",
+   "level": 4,
+   "sha256": "8c7ca8509d17e724856a61e7936c63c65b609debed2a589918f98dc73eb8902d"
+  },
+  {
+   "anchor": "section-7.1.3",
+   "title": "7.1.3. Never-Indexed Literals",
+   "level": 4,
+   "sha256": "53abedc0a98b7f0a51b5f38ea2e485856addfe0b8216ae7c00386a1160fcfe5e"
+  },
+  {
+   "anchor": "section-7.2",
+   "title": "7.2. Static Huffman Encoding",
+   "level": 3,
+   "sha256": "ecc4fa2a4c8822253987cbf6eb631f769548829af478e39279bb20dc25de32fa"
+  },
+  {
+   "anchor": "section-7.3",
+   "title": "7.3. Memory Consumption",
+   "level": 3,
+   "sha256": "208b1557710a68d695bfc0f6df1beafcbde181039e1d7f5ddf3c8b5e5dfc3089"
+  },
+  {
+   "anchor": "section-7.4",
+   "title": "7.4. Implementation Limits",
+   "level": 3,
+   "sha256": "13bb1461df9ae1cffdc6418d64faadd72730936f3f2a99938b6a728d14674fea"
+  },
+  {
+   "anchor": "section-8",
+   "title": "8. IANA Considerations",
+   "level": 2,
+   "sha256": "ada677836c9ca272bd16c5310a39ccb90a77e26418ad796aef6712e3c61790b2"
+  },
+  {
+   "anchor": "section-8.1",
+   "title": "8.1. Settings Registration",
+   "level": 3,
+   "sha256": "e4650ce9a6f55ddd67a5db5a36647034e2e2301ced54d29f7d0f92309d0e7acb"
+  },
+  {
+   "anchor": "section-8.2",
+   "title": "8.2. Stream Type Registration",
+   "level": 3,
+   "sha256": "9e59780c514c4a73739aa767c00e561892e806ab1d33e6f99f76e7b6730022f7"
+  },
+  {
+   "anchor": "section-8.3",
+   "title": "8.3. Error Code Registration",
+   "level": 3,
+   "sha256": "aa37a72951c925a57226594793545ea9e0e9e643a6c660c5d445dbc4317d79f0"
+  },
+  {
+   "anchor": "section-9",
+   "title": "9. References",
+   "level": 2,
+   "sha256": "6a27873c532b7ef1b2b24a8759305604b2326961e980a61776f8d9fb02a03032"
+  },
+  {
+   "anchor": "section-9.1",
+   "title": "9.1. Normative References",
+   "level": 3,
+   "sha256": "f7057f7242990b302a056f52080bc0e839b934396ef8ef694c6955004b7c4105"
+  },
+  {
+   "anchor": "section-9.2",
+   "title": "9.2. Informative References",
+   "level": 3,
+   "sha256": "8d86d242f33d4da8606af16bb400bc9536be13f420b02ee23dc5e13a31ae5609"
+  },
+  {
+   "anchor": "name-static-table-2",
+   "title": "Appendix A. Static Table",
+   "level": 2,
+   "sha256": "4d02c04e7a633bccb2fb87aec855eac36fe9c94bbd271d91ca112cfdda7a4a23"
+  },
+  {
+   "anchor": "name-encoding-and-decoding-examp",
+   "title": "Appendix B. Encoding and Decoding Examples",
+   "level": 2,
+   "sha256": "595f7c469baff7b7de39430f90de5c8ffb715461e5536bf7a50ce8c779cdd710"
+  },
+  {
+   "anchor": "name-literal-field-line-with-name-",
+   "title": "B.1. Literal Field Line with Name Reference",
+   "level": 3,
+   "sha256": "326920338e21167cc3ef4302227aa7980e0884d352de85e93e3a7b8931b50cfe"
+  },
+  {
+   "anchor": "name-dynamic-table-2",
+   "title": "B.2. Dynamic Table",
+   "level": 3,
+   "sha256": "760891990393fb43cfec76658e880c3a695e2798aafbb933d5fa2174b8e182b7"
+  },
+  {
+   "anchor": "name-speculative-insert",
+   "title": "B.3. Speculative Insert",
+   "level": 3,
+   "sha256": "1aad277fd2669601817e3061a3862e95755edb065002520e97719c322005267f"
+  },
+  {
+   "anchor": "name-duplicate-instruction-strea",
+   "title": "B.4. Duplicate Instruction, Stream Cancellation",
+   "level": 3,
+   "sha256": "0d6dc33d5293d313baeab92bd2607d2be46cc997ce2b648123e89488cddf263b"
+  },
+  {
+   "anchor": "name-dynamic-table-insert-evicti",
+   "title": "B.5. Dynamic Table Insert, Eviction",
+   "level": 3,
+   "sha256": "d88f42417398d5dd48e982d1975ae6b1189535111c7c49f004849ff940a596ee"
+  },
+  {
+   "anchor": "name-sample-single-pass-encoding",
+   "title": "Appendix C. Sample Single-Pass Encoding Algorithm",
+   "level": 2,
+   "sha256": "50943181b9e1345457139de99f5bfc113282f0ecf64255a8685cc962c3c26a17"
+  },
+  {
+   "anchor": "name-acknowledgments",
+   "title": "Acknowledgments",
+   "level": 2,
+   "sha256": "d282146f64a834624af798aff34a9a7ddc7ae7b9590d0c86389ea0e8a8928479"
+  },
+  {
+   "anchor": "name-authors-addresses",
+   "title": "Authors' Addresses",
+   "level": 2,
+   "sha256": "33f15ea09a8c6efcc00f7f43f3de4cb16e41a102f236bc9f6f65df141d57eb79"
+  }
+ ]
+}

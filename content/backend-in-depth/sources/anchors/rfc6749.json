@@ -1,0 +1,737 @@
+{
+ "source": "rfc6749",
+ "anchors": [
+  {
+   "anchor": "top",
+   "title": "",
+   "level": 0,
+   "sha256": "2131a7efa974340d44c743e1b355ffb2346fcd95b640e418c2d3df8fb685411a"
+  },
+  {
+   "anchor": "content",
+   "title": "The OAuth 2.0 Authorization Framework",
+   "level": 1,
+   "sha256": "0996dfeb6d5e256e8f6a122187f108b7eaf2f52731eca92ea0824afeb8c1ea12"
+  },
+  {
+   "anchor": "section-1",
+   "title": "1 . Introduction",
+   "level": 2,
+   "sha256": "3e1584236c14cc596de061fd3906ae2d2a268e94d88be047ef7615611fe2257b"
+  },
+  {
+   "anchor": "section-1.1",
+   "title": "1.1 . Roles",
+   "level": 3,
+   "sha256": "0839b0d0f36392d02564198ae52eadf47bc17b8110bdb6e426feb76727c18ad8"
+  },
+  {
+   "anchor": "section-1.2",
+   "title": "1.2 . Protocol Flow",
+   "level": 3,
+   "sha256": "70a15e2af6e14762e91359431791d4f5cad7e56ae34fca8ab643a6f9f8d245c4"
+  },
+  {
+   "anchor": "section-1.3",
+   "title": "1.3 . Authorization Grant",
+   "level": 3,
+   "sha256": "06588eafa8eac1f51a0c640b298a91cceef76c16e161a666e4ccfb55e95b37e6"
+  },
+  {
+   "anchor": "section-1.3.1",
+   "title": "1.3.1 . Authorization Code",
+   "level": 4,
+   "sha256": "92b217a4584efabfc3ec8da40db126e3a61b8d886450e32383a42ed60c751b91"
+  },
+  {
+   "anchor": "section-1.3.2",
+   "title": "1.3.2 . Implicit",
+   "level": 4,
+   "sha256": "28c92ab26bfb53a8e0e3eca444f531eefbc0f5aa86d74d66a86d72229f708d0e"
+  },
+  {
+   "anchor": "section-1.3.3",
+   "title": "1.3.3 . Resource Owner Password Credentials",
+   "level": 4,
+   "sha256": "fcf01a387c7e6462bcf89f9bf34175ab80434e4cb1e1d289f6163d32f9a148e2"
+  },
+  {
+   "anchor": "section-1.3.4",
+   "title": "1.3.4 . Client Credentials",
+   "level": 4,
+   "sha256": "c8315a45811f898a06d9199d5a7c8c4e6f1497a196d9f684b61ab1efd3396430"
+  },
+  {
+   "anchor": "section-1.4",
+   "title": "1.4 . Access Token",
+   "level": 3,
+   "sha256": "d4f8f05a07281597963ae373b105146361effb0be6b9918c76e8e135354dbf8b"
+  },
+  {
+   "anchor": "section-1.5",
+   "title": "1.5 . Refresh Token",
+   "level": 3,
+   "sha256": "2f7ff7216db65a7307c940c7cb6ccf0ea50735459957cdab5f692b158262b205"
+  },
+  {
+   "anchor": "section-1.6",
+   "title": "1.6 . TLS Version",
+   "level": 3,
+   "sha256": "19a8fcb4f8bdd7ac027224c0ed3e1f48b35c3118ac09a6ba2c708a95702637a0"
+  },
+  {
+   "anchor": "section-1.7",
+   "title": "1.7 . HTTP Redirections",
+   "level": 3,
+   "sha256": "e169ef44321aec83bac0e0a76ebb1f08db14236e7bd0ec28f40d40bc8d4903ca"
+  },
+  {
+   "anchor": "section-1.8",
+   "title": "1.8 . Interoperability",
+   "level": 3,
+   "sha256": "272bf9e3a6b09ac71b75130eaa6d60d874f70446bb451076ec05de0beed7bb48"
+  },
+  {
+   "anchor": "section-1.9",
+   "title": "1.9 . Notational Conventions",
+   "level": 3,
+   "sha256": "33b72002e2b0399aa8806e80c276f3cf5ca16a733681cb9a9f7dd3ba01238b32"
+  },
+  {
+   "anchor": "section-2",
+   "title": "2 . Client Registration",
+   "level": 2,
+   "sha256": "b24676a247fd9e8e142c9ee20b7740432d1776dbb48a7e613547c9331103a827"
+  },
+  {
+   "anchor": "section-2.1",
+   "title": "2.1 . Client Types",
+   "level": 3,
+   "sha256": "a6b5a17d566b728eb411d146bcdc2a75013be291bd39ea9a64b4c63dfa359c1d"
+  },
+  {
+   "anchor": "section-2.2",
+   "title": "2.2 . Client Identifier",
+   "level": 3,
+   "sha256": "97f2238163252b420e65a316ef65117bef1b5bd41b5a0bf5c25529d7090376b3"
+  },
+  {
+   "anchor": "section-2.3",
+   "title": "2.3 . Client Authentication",
+   "level": 3,
+   "sha256": "55dc55465e28da78181c4997dcc7f8bae6922acb4dc4abba6b14a86c693c7eab"
+  },
+  {
+   "anchor": "section-2.3.1",
+   "title": "2.3.1 . Client Password",
+   "level": 4,
+   "sha256": "8bfa8c6f04025e00ca8123bfbe213f59be6459aa6c7442c8704baabd8309af55"
+  },
+  {
+   "anchor": "section-2.3.2",
+   "title": "2.3.2 . Other Authentication Methods",
+   "level": 4,
+   "sha256": "9014d0b322523e2508527a050f4996fdc0746d66830d0ec18afd0c56191e6b9f"
+  },
+  {
+   "anchor": "section-2.4",
+   "title": "2.4 . Unregistered Clients",
+   "level": 3,
+   "sha256": "c1e1a3f4d4868f805e407f2c71b09396dfbe7a9bfb9868a4b7c898651b54bf15"
+  },
+  {
+   "anchor": "section-3",
+   "title": "3 . Protocol Endpoints",
+   "level": 2,
+   "sha256": "acfd9f7b16242988398b516e11d7e5850f9607c1bb7e98a6669c5edff5001751"
+  },
+  {
+   "anchor": "section-3.1",
+   "title": "3.1 . Authorization Endpoint",
+   "level": 3,
+   "sha256": "b56e4891d25dc73a1500dff41644d11b320c832ce65ac60e34eab70d562d88af"
+  },
+  {
+   "anchor": "section-3.1.1",
+   "title": "3.1.1 . Response Type",
+   "level": 4,
+   "sha256": "c58d893fa183a1973e7f7409aca80080951ef1c1c3591d84fdece8c764b62bf8"
+  },
+  {
+   "anchor": "section-3.1.2",
+   "title": "3.1.2 . Redirection Endpoint",
+   "level": 4,
+   "sha256": "bb013ed88505fb805dab8a29c7fddb9e1ae5ad1d1d41209213a15f8f608da6dd"
+  },
+  {
+   "anchor": "section-3.1.2.1",
+   "title": "3.1.2.1 . Endpoint Request Confidentiality",
+   "level": 5,
+   "sha256": "0a3e185514b64d2b11cfa610db6e446a8deec28300329e24547e62ddf109d414"
+  },
+  {
+   "anchor": "section-3.1.2.2",
+   "title": "3.1.2.2 . Registration Requirements",
+   "level": 5,
+   "sha256": "73976acbe7cb357ec7d9e651c04f876aba32a819cdfd1598957776908d57e0bd"
+  },
+  {
+   "anchor": "section-3.1.2.3",
+   "title": "3.1.2.3 . Dynamic Configuration",
+   "level": 5,
+   "sha256": "514f9dbc88bd7cd2cb238a8c6ba7c2764feb80c7281fc439733d47a831d08b4d"
+  },
+  {
+   "anchor": "section-3.1.2.4",
+   "title": "3.1.2.4 . Invalid Endpoint",
+   "level": 5,
+   "sha256": "539b81ce7d9f7cd6d20e6439775b6a22762ab08e3fdf39821c0e19f169b412ab"
+  },
+  {
+   "anchor": "section-3.1.2.5",
+   "title": "3.1.2.5 . Endpoint Content",
+   "level": 5,
+   "sha256": "4e3f950e3b1c1151a4119d0475ba732bac2c4de6e320add7a5ac3f845eaf24c7"
+  },
+  {
+   "anchor": "section-3.2",
+   "title": "3.2 . Token Endpoint",
+   "level": 3,
+   "sha256": "05a61b1a28afb2df98acb81721f37339ba9b9386336ae423a06339a2980c16cf"
+  },
+  {
+   "anchor": "section-3.2.1",
+   "title": "3.2.1 . Client Authentication",
+   "level": 4,
+   "sha256": "1dbdfc64304df369cf49f934786c909a73a00ea9193f46a24938c46cc0334b9b"
+  },
+  {
+   "anchor": "section-3.3",
+   "title": "3.3 . Access Token Scope",
+   "level": 3,
+   "sha256": "8321b8ab40bbdac61567c883e1b710deb3296533dfc772900f4580e97e66a51a"
+  },
+  {
+   "anchor": "section-4",
+   "title": "4 . Obtaining Authorization",
+   "level": 2,
+   "sha256": "5320c191a76335ea5053d9cb4ea4b8ea4db93b0e81eeac6c63ccdf45bd955d7c"
+  },
+  {
+   "anchor": "section-4.1",
+   "title": "4.1 . Authorization Code Grant",
+   "level": 3,
+   "sha256": "e09dabbc8f2e51832c350db75737c785ed993d437cf244f12ec39b830aff8da8"
+  },
+  {
+   "anchor": "section-4.1.1",
+   "title": "4.1.1 . Authorization Request",
+   "level": 4,
+   "sha256": "04cabde1cfd91581a1a68d0ab8e1663aa874e2c1e905ca91b1bf1ea6529d1448"
+  },
+  {
+   "anchor": "section-4.1.2",
+   "title": "4.1.2 . Authorization Response",
+   "level": 4,
+   "sha256": "ee76b8da28d60c85edb0b439807115237304627294d8572ca883bc44998e5446"
+  },
+  {
+   "anchor": "section-4.1.2.1",
+   "title": "4.1.2.1 . Error Response",
+   "level": 5,
+   "sha256": "006f6690a2509c2926b0ba18696845dbd97a27ea73460267950683dde63557dd"
+  },
+  {
+   "anchor": "section-4.1.3",
+   "title": "4.1.3 . Access Token Request",
+   "level": 4,
+   "sha256": "12583cccb549acee9eb5b94e81706dff1e1a2c2bfce96109de0f0eae11cd1648"
+  },
+  {
+   "anchor": "section-4.1.4",
+   "title": "4.1.4 . Access Token Response",
+   "level": 4,
+   "sha256": "2d94f9378dfea0ae4dca8a1a768e434c1ff286d22921c88d0313fd5d84cd9f8a"
+  },
+  {
+   "anchor": "section-4.2",
+   "title": "4.2 . Implicit Grant",
+   "level": 3,
+   "sha256": "88c202415cd0b8df1cf9a6ba270bbc1bdf56275bfe4e219223b2768c5087a6b2"
+  },
+  {
+   "anchor": "section-4.2.1",
+   "title": "4.2.1 . Authorization Request",
+   "level": 4,
+   "sha256": "c10764a9ce3479315ec59df5f050309ee706711f046485dc1943a1dab136d2fd"
+  },
+  {
+   "anchor": "section-4.2.2",
+   "title": "4.2.2 . Access Token Response",
+   "level": 4,
+   "sha256": "e6964ea04832f215f87635385c1a6b5b705d2f433c2a1c8bacef015af5b8cad0"
+  },
+  {
+   "anchor": "section-4.2.2.1",
+   "title": "4.2.2.1 . Error Response",
+   "level": 5,
+   "sha256": "ea58b678cb1557247b2af57a4eb8f4106437c36e2cbb734c431ce6eea30a1637"
+  },
+  {
+   "anchor": "section-4.3",
+   "title": "4.3 . Resource Owner Password Credentials Grant",
+   "level": 3,
+   "sha256": "9f261305f10ace7ed694e6557fff7ed9681657337077f1533ea776008d2bb929"
+  },
+  {
+   "anchor": "section-4.3.1",
+   "title": "4.3.1 . Authorization Request and Response",
+   "level": 4,
+   "sha256": "8c9c31d1282d251347a90c4299bbfde0457e41064358694c3355e08cbb390ee7"
+  },
+  {
+   "anchor": "section-4.3.2",
+   "title": "4.3.2 . Access Token Request",
+   "level": 4,
+   "sha256": "65042cf7b788ce31b31a5dc7eaef9b4568fedc6baaf52fc73581997d205d5c8f"
+  },
+  {
+   "anchor": "section-4.3.3",
+   "title": "4.3.3 . Access Token Response",
+   "level": 4,
+   "sha256": "e2c3195bac1b410331b8ffbaf0f7a73dfc1bb5ee4f1320f69660b32d85bc7581"
+  },
+  {
+   "anchor": "section-4.4",
+   "title": "4.4 . Client Credentials Grant",
+   "level": 3,
+   "sha256": "4555d3081b9be7671b9702bc8919a407073c862fa264c10e6a05236479569b1a"
+  },
+  {
+   "anchor": "section-4.4.1",
+   "title": "4.4.1 . Authorization Request and Response",
+   "level": 4,
+   "sha256": "9b793bea0fa514e70cca0cc140e9d2ddbae217c6132b4bef029c4938ff725f4a"
+  },
+  {
+   "anchor": "section-4.4.2",
+   "title": "4.4.2 . Access Token Request",
+   "level": 4,
+   "sha256": "b1c50a1b6fff1df70deb9021f4be884526e4ce31b2a77a7302d693d4d49fc745"
+  },
+  {
+   "anchor": "section-4.4.3",
+   "title": "4.4.3 . Access Token Response",
+   "level": 4,
+   "sha256": "51323abac4e2246170c26cb2dc3316f6841f01fc2c17eaa9e9ee956e4e4eda76"
+  },
+  {
+   "anchor": "section-4.5",
+   "title": "4.5 . Extension Grants",
+   "level": 3,
+   "sha256": "ee329c47a290706d45fac857ee0a6a050bbd569f01b5735dedb1f59025375bc3"
+  },
+  {
+   "anchor": "section-5",
+   "title": "5 . Issuing an Access Token",
+   "level": 2,
+   "sha256": "c5809532cca77c276ff85026180b8ea16bfcde096dd28681d3ed9c2051b7a02e"
+  },
+  {
+   "anchor": "section-5.1",
+   "title": "5.1 . Successful Response",
+   "level": 3,
+   "sha256": "93c6442ca912752c9247b5c22c0a9d9ea968fcb973bb670102f9881748f1706f"
+  },
+  {
+   "anchor": "section-5.2",
+   "title": "5.2 . Error Response",
+   "level": 3,
+   "sha256": "d48ade541e2ac68d0603af8d25d0e032a3eaa44e103c473441976f51e55e3949"
+  },
+  {
+   "anchor": "section-6",
+   "title": "6 . Refreshing an Access Token",
+   "level": 2,
+   "sha256": "e9929f271c6fb4f97553a35ef24286fab6162a2ce46357c335fddae243a51edd"
+  },
+  {
+   "anchor": "section-7",
+   "title": "7 . Accessing Protected Resources",
+   "level": 2,
+   "sha256": "eebb41311b6b539cdfa2fd6107729f1f131990f032d6bba2e73641e4da64ac83"
+  },
+  {
+   "anchor": "section-7.1",
+   "title": "7.1 . Access Token Types",
+   "level": 3,
+   "sha256": "9bfebf2a95ae0e128ee110f104b5e1ff1be3cb828891c8f5f7db31a5c184ecb9"
+  },
+  {
+   "anchor": "section-7.2",
+   "title": "7.2 . Error Response",
+   "level": 3,
+   "sha256": "487cd96dab343f5fca5c7174cb19b799eb455a94412eaa5ce2c4254d015bbf03"
+  },
+  {
+   "anchor": "section-8",
+   "title": "8 . Extensibility",
+   "level": 2,
+   "sha256": "72f48892d4944015af0b2de31e5c8715f7720d3666b9af5b79808912227bd8b6"
+  },
+  {
+   "anchor": "section-8.1",
+   "title": "8.1 . Defining Access Token Types",
+   "level": 3,
+   "sha256": "6bb66e9eda363a30b31fb01307abdd2c83c3be6f92eb0e995d8b65c90ec6a5bb"
+  },
+  {
+   "anchor": "section-8.2",
+   "title": "8.2 . Defining New Endpoint Parameters",
+   "level": 3,
+   "sha256": "1c69b518c7a9869f2bb45d76a0cadd398ba33311df9a8b0620ec794e3016f607"
+  },
+  {
+   "anchor": "section-8.3",
+   "title": "8.3 . Defining New Authorization Grant Types",
+   "level": 3,
+   "sha256": "7d2b3dc1477a11ba3635286c746aadcb57a76043b21d554a1b22649c3ebdafad"
+  },
+  {
+   "anchor": "section-8.4",
+   "title": "8.4 . Defining New Authorization Endpoint Response Types",
+   "level": 3,
+   "sha256": "040d0cffb2731b3463693632ba9b51c9e14dad3d045b527b585e16e3d4ea3c7c"
+  },
+  {
+   "anchor": "section-8.5",
+   "title": "8.5 . Defining Additional Error Codes",
+   "level": 3,
+   "sha256": "7870fa2d32e85cffaae646f9ae3099bc7fe7be31a2bc71f7fafbf912149134bf"
+  },
+  {
+   "anchor": "section-9",
+   "title": "9 . Native Applications",
+   "level": 2,
+   "sha256": "64490d92ac85190da5906b7364ed9453d18f67587225718a786a296e4d3194fd"
+  },
+  {
+   "anchor": "section-10",
+   "title": "10 . Security Considerations",
+   "level": 2,
+   "sha256": "4212ce495bcd7ff670680f13f6021f6c88a832d3d95b0501cba7397ba54ae420"
+  },
+  {
+   "anchor": "section-10.1",
+   "title": "10.1 . Client Authentication",
+   "level": 3,
+   "sha256": "b976f6afdd3865cd8f08cfbc3b7eea4187c67214ae8a74a20f5617a364c72b41"
+  },
+  {
+   "anchor": "section-10.2",
+   "title": "10.2 . Client Impersonation",
+   "level": 3,
+   "sha256": "4935c38bdabac0fd90fef4f372b768417ff9d99373bf8d7bbcf271fe01997f98"
+  },
+  {
+   "anchor": "section-10.3",
+   "title": "10.3 . Access Tokens",
+   "level": 3,
+   "sha256": "3a6c506d4bc3288349ab43b34454e5476169eeae318b698e947522549382a0f2"
+  },
+  {
+   "anchor": "section-10.4",
+   "title": "10.4 . Refresh Tokens",
+   "level": 3,
+   "sha256": "bc5108844e8cd340633360f1a5816302c408693d9f9daf76c36c71008eced303"
+  },
+  {
+   "anchor": "section-10.5",
+   "title": "10.5 . Authorization Codes",
+   "level": 3,
+   "sha256": "396a3b440721c31fb5cb740040f4dda1967f11f7160fc41dba30a7e45349021f"
+  },
+  {
+   "anchor": "section-10.6",
+   "title": "10.6 . Authorization Code Redirection URI Manipulation",
+   "level": 3,
+   "sha256": "62403f672517d26c8174950598e31c3f47e769a7beac33b0995a1043f45feb1a"
+  },
+  {
+   "anchor": "section-10.7",
+   "title": "10.7 . Resource Owner Password Credentials",
+   "level": 3,
+   "sha256": "c5bae1f66ad4fd0c0b2cb46afd8c8564360d855da8adcaf4db5b121e35c3ab31"
+  },
+  {
+   "anchor": "section-10.8",
+   "title": "10.8 . Request Confidentiality",
+   "level": 3,
+   "sha256": "a4df5af61dfc7202a20d2eea6b5a9c01f00c5a20ade88ad984a44685ac7e4371"
+  },
+  {
+   "anchor": "section-10.9",
+   "title": "10.9 . Ensuring Endpoint Authenticity",
+   "level": 3,
+   "sha256": "a98522c53bc6775b7fe6c1c452eaa2ffb22c8f5511f15921774319cc26ab9f56"
+  },
+  {
+   "anchor": "section-10.10",
+   "title": "10.10 . Credentials-Guessing Attacks",
+   "level": 3,
+   "sha256": "50dffeb8d799a2c69e5229c3a89523f3589da7be50c82103fb807feb79fc4f32"
+  },
+  {
+   "anchor": "section-10.11",
+   "title": "10.11 . Phishing Attacks",
+   "level": 3,
+   "sha256": "6e57e60b7fcaf4a5d6097f92221131fd0a9c7dc197b99b4d95ee64f60a548fcf"
+  },
+  {
+   "anchor": "section-10.12",
+   "title": "10.12 . Cross-Site Request Forgery",
+   "level": 3,
+   "sha256": "1258a41fc5c36f69dd5a35360bf5b6e0189511d7d26337ca0a8d204a9f5049ba"
+  },
+  {
+   "anchor": "section-10.13",
+   "title": "10.13 . Clickjacking",
+   "level": 3,
+   "sha256": "c31b90b07ce90a915140b54ba59246a834391afde1e2f24a151f817303df9b7d"
+  },
+  {
+   "anchor": "section-10.14",
+   "title": "10.14 . Code Injection and Input Validation",
+   "level": 3,
+   "sha256": "eec4e6b5e3643fea293f8bb33e4c37820a6db054c1d7e5864eb8672db6f36ce7"
+  },
+  {
+   "anchor": "section-10.15",
+   "title": "10.15 . Open Redirectors",
+   "level": 3,
+   "sha256": "0b973f29488e94e361d5eea9c1f1969cde1dec19fc5be1f7a6e82238404c6c46"
+  },
+  {
+   "anchor": "section-10.16",
+   "title": "10.16 . Misuse of Access Token to Impersonate Resource Owner in Implicit",
+   "level": 3,
+   "sha256": "144997af7f123a51a2a4e3683e6f37ba415f11ebb925034a858d9a609808b262"
+  },
+  {
+   "anchor": "flow",
+   "title": "Flow",
+   "level": 3,
+   "sha256": "54cf2adcf8257df8eb6967255510495b37dd4b448efcde42b6c1af304d977e8c"
+  },
+  {
+   "anchor": "section-11",
+   "title": "11 . IANA Considerations",
+   "level": 2,
+   "sha256": "bd9356328a601c51bee9eaa474124a92861194d57e228de22fc66e962aba7cf4"
+  },
+  {
+   "anchor": "section-11.1",
+   "title": "11.1 . OAuth Access Token Types Registry",
+   "level": 3,
+   "sha256": "96b9b89c9aaff1a6723ce8b50682c10bf51f15ff08d9e9a46f2316b8420a053d"
+  },
+  {
+   "anchor": "section-11.1.1",
+   "title": "11.1.1 . Registration Template",
+   "level": 4,
+   "sha256": "37673b9a79cc51dbfc74ed232353a48be119824c6b01c148d6098745e43f1e83"
+  },
+  {
+   "anchor": "section-11.2",
+   "title": "11.2 . OAuth Parameters Registry",
+   "level": 3,
+   "sha256": "8ea38c333fbdc111a376ded5e6f5e30a46f0997ed6387ef4d85d3f73c52a54e3"
+  },
+  {
+   "anchor": "section-11.2.1",
+   "title": "11.2.1 . Registration Template",
+   "level": 4,
+   "sha256": "2e506d7e8e6ce745f5a599ac278fe6487cc0c84dcf1909a69c1128f096ea15a9"
+  },
+  {
+   "anchor": "section-11.2.2",
+   "title": "11.2.2 . Initial Registry Contents",
+   "level": 4,
+   "sha256": "a9902da07de4b16811d9a5b3abdc8e1476db7dce464823317e9d199774b94389"
+  },
+  {
+   "anchor": "section-11.3",
+   "title": "11.3 . OAuth Authorization Endpoint Response Types Registry",
+   "level": 3,
+   "sha256": "ac928d42e30e5d6e89cc79f4552c7f2d49160859c1e0a6ab089f44a8abb79106"
+  },
+  {
+   "anchor": "section-11.3.1",
+   "title": "11.3.1 . Registration Template",
+   "level": 4,
+   "sha256": "d91f0bd90425ea07dede1275b19c77fd33d778940ef45a5303634e253b515a88"
+  },
+  {
+   "anchor": "section-11.3.2",
+   "title": "11.3.2 . Initial Registry Contents",
+   "level": 4,
+   "sha256": "124e79cc3001f842e153b89889778265330758184b0069ca098545337ed3c2b9"
+  },
+  {
+   "anchor": "section-11.4",
+   "title": "11.4 . OAuth Extensions Error Registry",
+   "level": 3,
+   "sha256": "e8b89492c575532759e41e31b56f9f2a9e9ca641a452b6b9a32ad033b41ab7b8"
+  },
+  {
+   "anchor": "section-11.4.1",
+   "title": "11.4.1 . Registration Template",
+   "level": 4,
+   "sha256": "e7ff6d64db632c54c2bae57453421db9bd6d70b30861cf0a59ade295ab4a29e7"
+  },
+  {
+   "anchor": "section-12",
+   "title": "12 . References",
+   "level": 2,
+   "sha256": "a6a33f8af939b5d8fe8f278f0bdffada0d8fd113145a2d988d2b1080b66f11f5"
+  },
+  {
+   "anchor": "section-12.1",
+   "title": "12.1 . Normative References",
+   "level": 3,
+   "sha256": "bf835ba7e881849291d10b793a7ed5ef80277714aab4fdf834ea35b0c576e3de"
+  },
+  {
+   "anchor": "section-12.2",
+   "title": "12.2 . Informative References",
+   "level": 3,
+   "sha256": "b4f2daa9171427d2ff3bfa346591fa9e9940699cf0b8374f0bb9cf4684558758"
+  },
+  {
+   "anchor": "appendix-A",
+   "title": "Appendix A . Augmented Backus-Naur Form (ABNF) Syntax",
+   "level": 2,
+   "sha256": "2dbcc729cc508405fd66a988c72388e47e62407cc51755d5a4a67139091849e5"
+  },
+  {
+   "anchor": "appendix-A.1",
+   "title": "A.1 . \"client_id\" Syntax",
+   "level": 3,
+   "sha256": "c2e0d0ec8dd488948b1d43197ce25f1f03764d6645ca117af03d9aaf13261fec"
+  },
+  {
+   "anchor": "appendix-A.2",
+   "title": "A.2 . \"client_secret\" Syntax",
+   "level": 3,
+   "sha256": "963f0174e696be7220f095cb61c9aefb20b43c95c3dc49d6410496170af2c75e"
+  },
+  {
+   "anchor": "appendix-A.3",
+   "title": "A.3 . \"response_type\" Syntax",
+   "level": 3,
+   "sha256": "119336900f06a7f75a84e8001241cda6222b1f2be668de939f26e033d2884a10"
+  },
+  {
+   "anchor": "appendix-A.4",
+   "title": "A.4 . \"scope\" Syntax",
+   "level": 3,
+   "sha256": "1996af393f135f20f14bbbd4c31a60b5c3046eed054e79c61f5b6b722a97c8b4"
+  },
+  {
+   "anchor": "appendix-A.5",
+   "title": "A.5 . \"state\" Syntax",
+   "level": 3,
+   "sha256": "f0f3b8b9ca9eac76a02c80a65f0f4d495efae6027a1809d208a27bd9b549dd62"
+  },
+  {
+   "anchor": "appendix-A.6",
+   "title": "A.6 . \"redirect_uri\" Syntax",
+   "level": 3,
+   "sha256": "e978192a458d1b00071f592a166811993fa1e87f274cf76ae331de05bffb3367"
+  },
+  {
+   "anchor": "appendix-A.7",
+   "title": "A.7 . \"error\" Syntax",
+   "level": 3,
+   "sha256": "3b1501a56d6c34a453dc2ebc328dff05a63c2bb26cada64097d325212049ee63"
+  },
+  {
+   "anchor": "appendix-A.8",
+   "title": "A.8 . \"error_description\" Syntax",
+   "level": 3,
+   "sha256": "90592b4d8f094d1effd1bdf20b803b43e41a8f9869be501ee439dc12d1671591"
+  },
+  {
+   "anchor": "appendix-A.9",
+   "title": "A.9 . \"error_uri\" Syntax",
+   "level": 3,
+   "sha256": "154cbc1fcc22a7de29692c5d5a6ad28aae0ce93835309f18b67acc9a9efaf965"
+  },
+  {
+   "anchor": "appendix-A.10",
+   "title": "A.10 . \"grant_type\" Syntax",
+   "level": 3,
+   "sha256": "0076b00341927c0d18fb0860fb92602bd8de7991b346259aa8f23eed8c25f261"
+  },
+  {
+   "anchor": "appendix-A.11",
+   "title": "A.11 . \"code\" Syntax",
+   "level": 3,
+   "sha256": "4445adfceec298e52095265709a664bb419a3f2e1cbc8f7fa7cf3327762d9fec"
+  },
+  {
+   "anchor": "appendix-A.12",
+   "title": "A.12 . \"access_token\" Syntax",
+   "level": 3,
+   "sha256": "915959b2ef9753189515d5956969d370d26c890f0cf8a8351264027b65001637"
+  },
+  {
+   "anchor": "appendix-A.13",
+   "title": "A.13 . \"token_type\" Syntax",
+   "level": 3,
+   "sha256": "a2d1c3d466f59ddb9cb80b47325496be34ab17f2ac0d2b5b498f1f652932d64b"
+  },
+  {
+   "anchor": "appendix-A.14",
+   "title": "A.14 . \"expires_in\" Syntax",
+   "level": 3,
+   "sha256": "b0b167119413c9066a1b5ea127bb4ede25a9d4cfb2f3a87e90b9fbedacffab36"
+  },
+  {
+   "anchor": "appendix-A.15",
+   "title": "A.15 . \"username\" Syntax",
+   "level": 3,
+   "sha256": "5135db5b4667542af8a7b84311627e36159ba0797a9bb055cb4607de9a332ca4"
+  },
+  {
+   "anchor": "appendix-A.16",
+   "title": "A.16 . \"password\" Syntax",
+   "level": 3,
+   "sha256": "1d87f4997ff37d881d0e7f11499069fe895f5783d38fe5189b7c8acf68561b13"
+  },
+  {
+   "anchor": "appendix-A.17",
+   "title": "A.17 . \"refresh_token\" Syntax",
+   "level": 3,
+   "sha256": "e57e760f4922e63d4f8d7298666f64c7b637e5758d47173eecb79be4e5b836d4"
+  },
+  {
+   "anchor": "appendix-A.18",
+   "title": "A.18 . Endpoint Parameter Syntax",
+   "level": 3,
+   "sha256": "e8291a0df166254210c576f876c2cc05237d6b6de90a03818bcdd4361c769a21"
+  },
+  {
+   "anchor": "appendix-B",
+   "title": "Appendix B . Use of application/x-www-form-urlencoded Media Type",
+   "level": 2,
+   "sha256": "062590d5534b8bbbeaacbde63bed1de483fb7125b70564349b6b2bead834355f"
+  },
+  {
+   "anchor": "appendix-C",
+   "title": "Appendix C . Acknowledgements",
+   "level": 2,
+   "sha256": "271c21a6ca6fe7d3044db4501bf8ac45cdd2518272abfe5e1f7bf8faff0cdec4"
+  }
+ ]
+}

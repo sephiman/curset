@@ -1,0 +1,356 @@
+<!DOCTYPE html><html lang="en" dir="ltr" data-theme="dark" data-has-toc data-has-sidebar class="astro-g5ptsecz"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>SPIFFE Overview | SPIFFE</title><link rel="canonical" href="https://spiffe.io/docs/latest/spiffe-about/overview/"/><link rel="sitemap" href="/sitemap-index.xml"/><link rel="alternate" type="application/rss+xml" title="SPIFFE Blog" href="/blog/index.xml"/><link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/><meta name="generator" content="Astro v7.4.2"/><meta name="generator" content="Starlight v0.42.6"/><meta property="og:title" content="SPIFFE Overview"/><meta property="og:type" content="article"/><meta property="og:url" content="https://spiffe.io/docs/latest/spiffe-about/overview/"/><meta property="og:locale" content="en"/><meta property="og:description" content="An overview of the SPIFFE specification"/><meta property="og:site_name" content="SPIFFE"/><meta name="description" content="An overview of the SPIFFE specification"/><meta name="twitter:site" content="@SPIFFEio"/><meta property="og:image" content="https://spiffe.io/img/logos/spiffe/horizontal/color/spiffe-horizontal-color.png"/><meta property="og:image:width" content="1501"/><meta property="og:image:height" content="426"/><meta property="og:image:type" content="image/png"/><meta property="og:image:alt" content="SPIFFE logo."/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:image" content="https://spiffe.io/img/logos/spiffe/horizontal/color/spiffe-horizontal-color.png"/><meta name="twitter:image:alt" content="SPIFFE logo."/><link rel="stylesheet" href="/_astro/print.ehPL0gv-.css" media="print"><link rel="stylesheet" href="/_astro/index.W-M3TCh0.css"></head><body class="astro-g5ptsecz"><a class="sl-skip-link astro-qb7clj6f" href="#_top">Skip to content</a><div class="page sl-flex astro-yntsjkba"><header class="header astro-yntsjkba"><div class="site-header"><a href="/" class="brand" aria-label="SPIFFE home"><img src="/img/logos/spiffe/horizontal/color/spiffe-horizontal-color.svg" width="131" height="38" alt="SPIFFE"></a><nav class="primary-nav" aria-label="Main navigation"><a href="/blog/">Blog</a></nav><div class="header-search"><site-search class=" astro-b5kgnn7o" data-translations="{&quot;placeholder&quot;:&quot;Search&quot;}"><button data-open-modal disabled aria-label="Search" aria-keyshortcuts="Control+K" class="astro-b5kgnn7o"><svg aria-hidden="true" class="astro-b5kgnn7o astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.71 20.29 18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 0-14 7 7 0 0 1 0 14Z"/></svg><span class="sl-hidden md:sl-block astro-b5kgnn7o" aria-hidden="true">Search</span><kbd class="sl-hidden md:sl-flex astro-b5kgnn7o" style="display: none;"><kbd class="astro-b5kgnn7o">Ctrl</kbd><kbd class="astro-b5kgnn7o">K</kbd></kbd></button><dialog style="padding:0" aria-label="Search" class="astro-b5kgnn7o"><div class="dialog-frame sl-flex astro-b5kgnn7o"><button data-close-modal class="sl-flex md:sl-hidden astro-b5kgnn7o">Cancel</button><div class="search-container astro-b5kgnn7o"><div id="starlight__search" class="astro-b5kgnn7o"></div></div></div></dialog></site-search></div><div class="header-social"><a href="https://x.com/SPIFFEio" rel="me" class="sl-flex astro-n2mnl6yq"><span class="sr-only astro-n2mnl6yq">X (formerly Twitter)</span><svg aria-hidden="true" class="astro-n2mnl6yq astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M 18.242188 2.25 L 21.554688 2.25 L 14.324219 10.507812 L 22.828125 21.75 L 16.171875 21.75 L 10.953125 14.933594 L 4.992188 21.75 L 1.679688 21.75 L 9.40625 12.914062 L 1.257812 2.25 L 8.082031 2.25 L 12.792969 8.480469 Z M 17.082031 19.773438 L 18.914062 19.773438 L 7.082031 4.125 L 5.113281 4.125 Z M 17.082031 19.773438 "/></svg></a><a href="https://github.com/spiffe" rel="me" class="sl-flex astro-n2mnl6yq"><span class="sr-only astro-n2mnl6yq">GitHub</span><svg aria-hidden="true" class="astro-n2mnl6yq astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3Z"/></svg></a><a href="https://slack.spiffe.io/" rel="me" class="sl-flex astro-n2mnl6yq"><span class="sr-only astro-n2mnl6yq">Slack</span><svg aria-hidden="true" class="astro-n2mnl6yq astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52Zm1.271 0a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313ZM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834Zm0 1.271a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312Zm10.122 2.521a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834Zm-1.268 0a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312Zm-2.523 10.122a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52Zm0-1.268a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313Z"/></svg></a><a href="https://stackoverflow.com/questions/tagged/spiffe" rel="me" class="sl-flex astro-n2mnl6yq"><span class="sr-only astro-n2mnl6yq">Stack Overflow</span><svg aria-hidden="true" class="astro-n2mnl6yq astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M15.72 0 14 1.28l6.4 8.58 1.7-1.26L15.73 0zm-3.94 3.42-1.36 1.64 8.22 6.85 1.37-1.64-8.23-6.85zM8.64 7.88l-.91 1.94 9.7 4.52.9-1.94-9.7-4.52zm-1.86 4.86-.44 2.1 10.48 2.2.44-2.1-10.47-2.2zM1.9 15.47V24h19.19v-8.53h-2.13v6.4H4.02v-6.4H1.9zm4.26 2.13v2.13h10.66V17.6H6.15Z"/></svg></a><a href="https://www.youtube.com/channel/UCVzeW7j02FDNggkI5JKPvJg/f" rel="me" class="sl-flex astro-n2mnl6yq"><span class="sr-only astro-n2mnl6yq">YouTube</span><svg aria-hidden="true" class="astro-n2mnl6yq astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M23.5 6.2A3 3 0 0 0 21.4 4c-1.9-.5-9.4-.5-9.4-.5s-7.5 0-9.4.5A3 3 0 0 0 .5 6.3C0 8 0 12 0 12s0 4 .5 5.8A3 3 0 0 0 2.6 20c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2c.5-2 .5-5.9.5-5.9s0-4-.5-5.8zm-14 9.4V8.4l6.3 3.6-6.3 3.6z"/></svg></a></div></div></header><nav class="sidebar print:hidden astro-yntsjkba" aria-label="Main"><button popovertarget="starlight__sidebar" class="sl-menu-button sl-flex md:sl-hidden print:hidden astro-r2osgdlg"><svg aria-hidden="true" class="open-menu astro-r2osgdlg astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M3 8h18a1 1 0 1 0 0-2H3a1 1 0 0 0 0 2Zm18 8H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Zm0-5H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Z"/></svg><svg aria-hidden="true" class="close-menu astro-r2osgdlg astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="m13.41 12 6.3-6.29a1.004 1.004 0 1 0-1.42-1.42L12 10.59l-6.29-6.3a1.004 1.004 0 0 0-1.42 1.42l6.3 6.29-6.3 6.29a1 1 0 0 0 0 1.42.998.998 0 0 0 1.42 0l6.29-6.3 6.29 6.3a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.42L13.41 12Z"/></svg><span class="sr-only astro-r2osgdlg">Menu</span></button><sl-sidebar-pane popover id="starlight__sidebar" class="sidebar-pane astro-yntsjkba"><div class="sidebar-content sl-flex astro-yntsjkba"><nav class="mobile-site-links astro-wv7whodv" aria-label="Site links"><a href="/blog/" class="astro-wv7whodv">Blog</a><a href="https://x.com/SPIFFEio" class="astro-wv7whodv">X (formerly Twitter)</a><a href="https://github.com/spiffe" class="astro-wv7whodv">GitHub</a><a href="https://slack.spiffe.io/" class="astro-wv7whodv">Slack</a><a href="https://stackoverflow.com/questions/tagged/spiffe" class="astro-wv7whodv">Stack Overflow</a><a href="https://www.youtube.com/channel/UCVzeW7j02FDNggkI5JKPvJg/f" class="astro-wv7whodv">YouTube</a></nav><sl-sidebar-state-persist data-hash="1v9byjr" class="astro-ipdry5cl"><ul class="top-level astro-rmhv4bp6"><li class="astro-rmhv4bp6"><details open class="astro-rmhv4bp6"><summary class="astro-rmhv4bp6"><span class="group-label astro-rmhv4bp6"><span class="large astro-rmhv4bp6">SPIFFE</span></span><svg aria-hidden="true" class="caret astro-rmhv4bp6 astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="0"></sl-sidebar-restore><ul class="astro-rmhv4bp6"><li class="astro-rmhv4bp6"><a href="/docs/latest/spiffe-about/overview/" aria-current="page" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Overview</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/spiffe-about/spiffe-concepts/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Concepts</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/spiffe-about/ecosystem/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Ecosystem</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/spiffe-about/community-presentations/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Community Presentations</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/spiffe-about/get-involved/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Get Involved</span></a></li><li class="astro-rmhv4bp6"><details open class="astro-rmhv4bp6"><summary class="astro-rmhv4bp6"><span class="group-label astro-rmhv4bp6"><span class="large astro-rmhv4bp6">Standards</span></span><svg aria-hidden="true" class="caret astro-rmhv4bp6 astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="1"></sl-sidebar-restore><ul class="astro-rmhv4bp6"><li class="astro-rmhv4bp6"><a href="/docs/latest/spiffe-specs/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Standards</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/spiffe-specs/spiffe/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">SPIFFE</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/spiffe-specs/spiffe-id/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">SPIFFE ID and Verifiable Identity Document</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/spiffe-specs/spiffe_trust_domain_and_bundle/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">SPIFFE Trust Domain and Bundle</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/spiffe-specs/jwt-svid/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">JWT-SVID</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/spiffe-specs/x509-svid/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">X509-SVID</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/spiffe-specs/wit-svid/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">WIT-SVID</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/spiffe-specs/spiffe_workload_api/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">SPIFFE Workload API</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/spiffe-specs/spiffe_workload_endpoint/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">SPIFFE Workload Endpoint</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/spiffe-specs/spiffe_broker_api/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">SPIFFE Broker API</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/spiffe-specs/spiffe_broker_endpoint/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">SPIFFE Broker Endpoint</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/spiffe-specs/spiffe_filesystem_delivery/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">SPIFFE Filesystem Delivery</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/spiffe-specs/spiffe_federation/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">SPIFFE Federation</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/spiffe-specs/stability/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Specification Stability</span></a></li></ul></details></li></ul></details></li><li class="astro-rmhv4bp6"><details open class="astro-rmhv4bp6"><summary class="astro-rmhv4bp6"><span class="group-label astro-rmhv4bp6"><span class="large astro-rmhv4bp6">SPIRE</span></span><svg aria-hidden="true" class="caret astro-rmhv4bp6 astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="2"></sl-sidebar-restore><ul class="astro-rmhv4bp6"><li class="astro-rmhv4bp6"><details open class="astro-rmhv4bp6"><summary class="astro-rmhv4bp6"><span class="group-label astro-rmhv4bp6"><span class="large astro-rmhv4bp6">About</span></span><svg aria-hidden="true" class="caret astro-rmhv4bp6 astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="3"></sl-sidebar-restore><ul class="astro-rmhv4bp6"><li class="astro-rmhv4bp6"><a href="/docs/latest/spire-about/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">About</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/spire-about/spire-concepts/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Concepts</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/spire-about/use-cases/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Use Cases</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/spire-about/comparisons/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Comparisons</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/spire-about/case-studies/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Case Studies</span></a></li></ul></details></li><li class="astro-rmhv4bp6"><details open class="astro-rmhv4bp6"><summary class="astro-rmhv4bp6"><span class="group-label astro-rmhv4bp6"><span class="large astro-rmhv4bp6">Try</span></span><svg aria-hidden="true" class="caret astro-rmhv4bp6 astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="4"></sl-sidebar-restore><ul class="astro-rmhv4bp6"><li class="astro-rmhv4bp6"><a href="/docs/latest/try/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Try</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/try/getting-started-linux-macos-x/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Quickstart for Linux and MacOS X</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/try/getting-started-k8s/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Quickstart for Kubernetes</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/try/spire101/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Quickstart for Docker</span></a></li></ul></details></li><li class="astro-rmhv4bp6"><details open class="astro-rmhv4bp6"><summary class="astro-rmhv4bp6"><span class="group-label astro-rmhv4bp6"><span class="large astro-rmhv4bp6">Plan</span></span><svg aria-hidden="true" class="caret astro-rmhv4bp6 astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="5"></sl-sidebar-restore><ul class="astro-rmhv4bp6"><li class="astro-rmhv4bp6"><a href="/docs/latest/planning/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Plan</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/planning/scaling_spire/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Scaling SPIRE</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/planning/extending/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Extending</span></a></li></ul></details></li><li class="astro-rmhv4bp6"><details open class="astro-rmhv4bp6"><summary class="astro-rmhv4bp6"><span class="group-label astro-rmhv4bp6"><span class="large astro-rmhv4bp6">Deploy</span></span><svg aria-hidden="true" class="caret astro-rmhv4bp6 astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="6"></sl-sidebar-restore><ul class="astro-rmhv4bp6"><li class="astro-rmhv4bp6"><a href="/docs/latest/deploying/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Deploy</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/deploying/using_spire/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Getting SPIRE</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/deploying/install-server/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Install Server</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/deploying/install-agents/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Install Agent</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/deploying/configuring/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Configuring</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/deploying/registering/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Registering workloads</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/deploying/svids/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Working with SVIDs</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/deploying/libraries/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">SPIFFE Library Usage Examples</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/deploying/spire_agent/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">SPIRE Agent Configuration Reference</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/deploying/spire_server/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">SPIRE Server Configuration Reference</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/deploying/telemetry_config/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">SPIRE Telemetry Configuration</span></a></li></ul></details></li><li class="astro-rmhv4bp6"><details open class="astro-rmhv4bp6"><summary class="astro-rmhv4bp6"><span class="group-label astro-rmhv4bp6"><span class="large astro-rmhv4bp6">Maintain</span></span><svg aria-hidden="true" class="caret astro-rmhv4bp6 astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="7"></sl-sidebar-restore><ul class="astro-rmhv4bp6"><li class="astro-rmhv4bp6"><a href="/docs/latest/maintenance/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Maintain</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/maintenance/upgrading/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Upgrade/Downgrade SPIRE</span></a></li></ul></details></li></ul></details></li><li class="astro-rmhv4bp6"><details open class="astro-rmhv4bp6"><summary class="astro-rmhv4bp6"><span class="group-label astro-rmhv4bp6"><span class="large astro-rmhv4bp6">Helm Charts Hardened</span></span><svg aria-hidden="true" class="caret astro-rmhv4bp6 astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="8"></sl-sidebar-restore><ul class="astro-rmhv4bp6"><li class="astro-rmhv4bp6"><details open class="astro-rmhv4bp6"><summary class="astro-rmhv4bp6"><span class="group-label astro-rmhv4bp6"><span class="large astro-rmhv4bp6">About</span></span><svg aria-hidden="true" class="caret astro-rmhv4bp6 astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="9"></sl-sidebar-restore><ul class="astro-rmhv4bp6"><li class="astro-rmhv4bp6"><a href="/docs/latest/spire-helm-charts-hardened-about/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">About</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/spire-helm-charts-hardened-about/installation/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Installation</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/spire-helm-charts-hardened-about/upgrading/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Upgrading</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/spire-helm-charts-hardened-about/service-selection/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Service Selection</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/spire-helm-charts-hardened-about/recommendations/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Recommendations</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/spire-helm-charts-hardened-about/exposing/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Exposing Services</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/spire-helm-charts-hardened-about/identifiers/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Identifiers</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/spire-helm-charts-hardened-about/namespaces/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Namespaces</span></a></li></ul></details></li><li class="astro-rmhv4bp6"><details open class="astro-rmhv4bp6"><summary class="astro-rmhv4bp6"><span class="group-label astro-rmhv4bp6"><span class="large astro-rmhv4bp6">Advanced</span></span><svg aria-hidden="true" class="caret astro-rmhv4bp6 astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="10"></sl-sidebar-restore><ul class="astro-rmhv4bp6"><li class="astro-rmhv4bp6"><a href="/docs/latest/spire-helm-charts-hardened-advanced/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Advanced</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/spire-helm-charts-hardened-advanced/nested-spire/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Nested SPIRE</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/spire-helm-charts-hardened-advanced/federation/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Federation</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/spire-helm-charts-hardened-advanced/mirror/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Local Mirrors</span></a></li></ul></details></li></ul></details></li><li class="astro-rmhv4bp6"><details open class="astro-rmhv4bp6"><summary class="astro-rmhv4bp6"><span class="group-label astro-rmhv4bp6"><span class="large astro-rmhv4bp6">Integrate SPIRE</span></span><svg aria-hidden="true" class="caret astro-rmhv4bp6 astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="11"></sl-sidebar-restore><ul class="astro-rmhv4bp6"><li class="astro-rmhv4bp6"><details open class="astro-rmhv4bp6"><summary class="astro-rmhv4bp6"><span class="group-label astro-rmhv4bp6"><span class="large astro-rmhv4bp6">Securing Microservices</span></span><svg aria-hidden="true" class="caret astro-rmhv4bp6 astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="12"></sl-sidebar-restore><ul class="astro-rmhv4bp6"><li class="astro-rmhv4bp6"><a href="/docs/latest/microservices/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Securing Microservices</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/microservices/envoy/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Using Envoy with SPIRE</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/microservices/envoy-x509/readme/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">SPIRE with Envoy and X.509-SVIDs</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/microservices/envoy-jwt/readme/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">SPIRE with Envoy and JWT-SVIDs</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/microservices/envoy-opa/readme/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Spire with OPA + Envoy + X.509-SVIDs</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/microservices/envoy-jwt-opa/readme/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Spire with OPA + Envoy + JWT-SVIDs</span></a></li></ul></details></li><li class="astro-rmhv4bp6"><details open class="astro-rmhv4bp6"><summary class="astro-rmhv4bp6"><span class="group-label astro-rmhv4bp6"><span class="large astro-rmhv4bp6">SVID Authentication</span></span><svg aria-hidden="true" class="caret astro-rmhv4bp6 astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="13"></sl-sidebar-restore><ul class="astro-rmhv4bp6"><li class="astro-rmhv4bp6"><a href="/docs/latest/keyless/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">SVID Authentication</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/keyless/oidc-federation-aws/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">AWS OIDC Authentication</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/keyless/vault/readme/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Vault Integration Example</span></a></li></ul></details></li><li class="astro-rmhv4bp6"><details open class="astro-rmhv4bp6"><summary class="astro-rmhv4bp6"><span class="group-label astro-rmhv4bp6"><span class="large astro-rmhv4bp6">SPIRE Architecture</span></span><svg aria-hidden="true" class="caret astro-rmhv4bp6 astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></summary><sl-sidebar-restore data-index="14"></sl-sidebar-restore><ul class="astro-rmhv4bp6"><li class="astro-rmhv4bp6"><a href="/docs/latest/architecture/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">SPIRE Architecture</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/architecture/nested/readme/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">Nested SPIRE Example</span></a></li><li class="astro-rmhv4bp6"><a href="/docs/latest/architecture/federation/readme/" class="astro-rmhv4bp6"><span class="astro-rmhv4bp6">SPIRE Federation Example</span></a></li></ul></details></li></ul></details></li></ul></sl-sidebar-state-persist><div class="md:sl-hidden"><div class="mobile-preferences sl-flex astro-p4azlveh"><div class="social-icons astro-p4azlveh"><a href="https://x.com/SPIFFEio" rel="me" class="sl-flex astro-n2mnl6yq"><span class="sr-only astro-n2mnl6yq">X (formerly Twitter)</span><svg aria-hidden="true" class="astro-n2mnl6yq astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M 18.242188 2.25 L 21.554688 2.25 L 14.324219 10.507812 L 22.828125 21.75 L 16.171875 21.75 L 10.953125 14.933594 L 4.992188 21.75 L 1.679688 21.75 L 9.40625 12.914062 L 1.257812 2.25 L 8.082031 2.25 L 12.792969 8.480469 Z M 17.082031 19.773438 L 18.914062 19.773438 L 7.082031 4.125 L 5.113281 4.125 Z M 17.082031 19.773438 "/></svg></a><a href="https://github.com/spiffe" rel="me" class="sl-flex astro-n2mnl6yq"><span class="sr-only astro-n2mnl6yq">GitHub</span><svg aria-hidden="true" class="astro-n2mnl6yq astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3Z"/></svg></a><a href="https://slack.spiffe.io/" rel="me" class="sl-flex astro-n2mnl6yq"><span class="sr-only astro-n2mnl6yq">Slack</span><svg aria-hidden="true" class="astro-n2mnl6yq astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52Zm1.271 0a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313ZM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834Zm0 1.271a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312Zm10.122 2.521a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834Zm-1.268 0a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312Zm-2.523 10.122a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52Zm0-1.268a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313Z"/></svg></a><a href="https://stackoverflow.com/questions/tagged/spiffe" rel="me" class="sl-flex astro-n2mnl6yq"><span class="sr-only astro-n2mnl6yq">Stack Overflow</span><svg aria-hidden="true" class="astro-n2mnl6yq astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M15.72 0 14 1.28l6.4 8.58 1.7-1.26L15.73 0zm-3.94 3.42-1.36 1.64 8.22 6.85 1.37-1.64-8.23-6.85zM8.64 7.88l-.91 1.94 9.7 4.52.9-1.94-9.7-4.52zm-1.86 4.86-.44 2.1 10.48 2.2.44-2.1-10.47-2.2zM1.9 15.47V24h19.19v-8.53h-2.13v6.4H4.02v-6.4H1.9zm4.26 2.13v2.13h10.66V17.6H6.15Z"/></svg></a><a href="https://www.youtube.com/channel/UCVzeW7j02FDNggkI5JKPvJg/f" rel="me" class="sl-flex astro-n2mnl6yq"><span class="sr-only astro-n2mnl6yq">YouTube</span><svg aria-hidden="true" class="astro-n2mnl6yq astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M23.5 6.2A3 3 0 0 0 21.4 4c-1.9-.5-9.4-.5-9.4-.5s-7.5 0-9.4.5A3 3 0 0 0 .5 6.3C0 8 0 12 0 12s0 4 .5 5.8A3 3 0 0 0 2.6 20c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2c.5-2 .5-5.9.5-5.9s0-4-.5-5.8zm-14 9.4V8.4l6.3 3.6-6.3 3.6z"/></svg></a></div></div></div></div></sl-sidebar-pane></nav><div class="main-frame astro-yntsjkba"><div class="lg:sl-flex astro-lrzkfocr"><aside class="right-sidebar-container print:hidden astro-lrzkfocr"><div class="right-sidebar astro-lrzkfocr"><div class="lg:sl-hidden astro-qok35upx"><mobile-starlight-toc data-min-h="1" data-max-h="4" class="astro-66cqc7ze"><nav aria-labelledby="starlight__on-this-page--mobile" class="astro-66cqc7ze"><details id="starlight__mobile-toc" class="astro-66cqc7ze"><summary id="starlight__on-this-page--mobile" class="sl-flex astro-66cqc7ze"><span class="toggle sl-flex astro-66cqc7ze">On this page<svg aria-hidden="true" class="caret astro-66cqc7ze astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></span><span class="display-current astro-66cqc7ze"></span></summary><div class="dropdown astro-66cqc7ze"><ul class="isMobile astro-jugkfwgx" style="--depth: 0;"><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#_top" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">Overview</span></a></li><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#which-tools-implement-spiffe" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">Which Tools Implement SPIFFE?</span></a><ul class="isMobile astro-jugkfwgx" style="--depth: 1;"><li style="--depth: 1;" class="astro-jugkfwgx"><a href="#open-source-software-that-implements-spiffe" style="--depth: 1;" class="astro-jugkfwgx"><span style="--depth: 1;" class="astro-jugkfwgx">Open Source Software That Implements SPIFFE</span></a></li><li style="--depth: 1;" class="astro-jugkfwgx"><a href="#commercial-software-that-implements-spiffe" style="--depth: 1;" class="astro-jugkfwgx"><span style="--depth: 1;" class="astro-jugkfwgx">Commercial Software That Implements SPIFFE</span></a><ul class="isMobile astro-jugkfwgx" style="--depth: 2;"><li style="--depth: 2;" class="astro-jugkfwgx"><a href="#explanation-of-columns---software-that-implements-spiffe" style="--depth: 2;" class="astro-jugkfwgx"><span style="--depth: 2;" class="astro-jugkfwgx">Explanation of Columns - Software that Implements SPIFFE</span></a></li></ul></li><li style="--depth: 1;" class="astro-jugkfwgx"><a href="#which-tools-work-with-spiffe" style="--depth: 1;" class="astro-jugkfwgx"><span style="--depth: 1;" class="astro-jugkfwgx">Which Tools Work with SPIFFE?</span></a><ul class="isMobile astro-jugkfwgx" style="--depth: 2;"><li style="--depth: 2;" class="astro-jugkfwgx"><a href="#open-source-software-that-works-with-spiffe" style="--depth: 2;" class="astro-jugkfwgx"><span style="--depth: 2;" class="astro-jugkfwgx">Open Source Software that Works with SPIFFE</span></a></li><li style="--depth: 2;" class="astro-jugkfwgx"><a href="#commercial-software-that-works-with-spiffe" style="--depth: 2;" class="astro-jugkfwgx"><span style="--depth: 2;" class="astro-jugkfwgx">Commercial Software that Works with SPIFFE</span></a></li><li style="--depth: 2;" class="astro-jugkfwgx"><a href="#explanation-of-columns---software-that-works-with-spiffe" style="--depth: 2;" class="astro-jugkfwgx"><span style="--depth: 2;" class="astro-jugkfwgx">Explanation of Columns - Software that Works with SPIFFE</span></a></li></ul></li></ul></li></ul></div></details></nav></mobile-starlight-toc></div><div class="right-sidebar-panel sl-hidden lg:sl-block astro-qok35upx"><div class="sl-container astro-qok35upx"><starlight-toc data-min-h="1" data-max-h="4"><nav aria-labelledby="starlight__on-this-page"><h2 id="starlight__on-this-page">On this page</h2><ul class="astro-jugkfwgx" style="--depth: 0;"><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#_top" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">Overview</span></a></li><li style="--depth: 0;" class="astro-jugkfwgx"><a href="#which-tools-implement-spiffe" style="--depth: 0;" class="astro-jugkfwgx"><span style="--depth: 0;" class="astro-jugkfwgx">Which Tools Implement SPIFFE?</span></a><ul class="astro-jugkfwgx" style="--depth: 1;"><li style="--depth: 1;" class="astro-jugkfwgx"><a href="#open-source-software-that-implements-spiffe" style="--depth: 1;" class="astro-jugkfwgx"><span style="--depth: 1;" class="astro-jugkfwgx">Open Source Software That Implements SPIFFE</span></a></li><li style="--depth: 1;" class="astro-jugkfwgx"><a href="#commercial-software-that-implements-spiffe" style="--depth: 1;" class="astro-jugkfwgx"><span style="--depth: 1;" class="astro-jugkfwgx">Commercial Software That Implements SPIFFE</span></a><ul class="astro-jugkfwgx" style="--depth: 2;"><li style="--depth: 2;" class="astro-jugkfwgx"><a href="#explanation-of-columns---software-that-implements-spiffe" style="--depth: 2;" class="astro-jugkfwgx"><span style="--depth: 2;" class="astro-jugkfwgx">Explanation of Columns - Software that Implements SPIFFE</span></a></li></ul></li><li style="--depth: 1;" class="astro-jugkfwgx"><a href="#which-tools-work-with-spiffe" style="--depth: 1;" class="astro-jugkfwgx"><span style="--depth: 1;" class="astro-jugkfwgx">Which Tools Work with SPIFFE?</span></a><ul class="astro-jugkfwgx" style="--depth: 2;"><li style="--depth: 2;" class="astro-jugkfwgx"><a href="#open-source-software-that-works-with-spiffe" style="--depth: 2;" class="astro-jugkfwgx"><span style="--depth: 2;" class="astro-jugkfwgx">Open Source Software that Works with SPIFFE</span></a></li><li style="--depth: 2;" class="astro-jugkfwgx"><a href="#commercial-software-that-works-with-spiffe" style="--depth: 2;" class="astro-jugkfwgx"><span style="--depth: 2;" class="astro-jugkfwgx">Commercial Software that Works with SPIFFE</span></a></li><li style="--depth: 2;" class="astro-jugkfwgx"><a href="#explanation-of-columns---software-that-works-with-spiffe" style="--depth: 2;" class="astro-jugkfwgx"><span style="--depth: 2;" class="astro-jugkfwgx">Explanation of Columns - Software that Works with SPIFFE</span></a></li></ul></li></ul></li></ul></nav></starlight-toc></div></div></div></aside><div class="main-pane astro-lrzkfocr"><main data-pagefind-body class="astro-g5ptsecz" lang="en" dir="ltr"><div class="content-panel astro-a7po4psb"><div class="sl-container astro-a7po4psb"><h1 id="_top" class="astro-bebwqqxs">SPIFFE Overview</h1><p class="page-description astro-u72m6wot">An overview of the SPIFFE specification</p></div></div><div class="content-panel astro-a7po4psb"><div class="sl-container astro-a7po4psb"><div class="sl-markdown-content"><p><strong>SPIFFE</strong>, the Secure Production Identity Framework for Everyone, is a set of open-source standards for securely identifying software systems in dynamic and heterogeneous environments. Systems that adopt SPIFFE can easily and reliably mutually authenticate wherever they are running.</p>
+<p>Distributed design patterns and practices such as micro-services, container orchestrators, and cloud computing have led to production environments that are increasingly dynamic and heterogeneous. Conventional security practices (such as network policies that only allow traffic between particular IP addresses) struggle to scale under this complexity. A first-class identity framework for workloads in an organization becomes necessary.</p>
+<p>Further, modern developers are expected to understand and play a role in how applications are deployed and managed in production environments. Operations teams require deeper visibility into the applications they are managing. As we move to a more evolved security stance, we must offer better tools to both teams so they can play an active role in building secure, distributed applications.</p>
+<p>SPIFFE is a set of open-source specifications for a framework capable of bootstrapping and issuing identity to services across heterogeneous environments and organizational boundaries. The heart of these specifications is the one that defines short lived cryptographic identity documents – called <a href="/docs/latest/spiffe/concepts/#spiffe-verifiable-identity-document-svid">SVIDs</a> via a <a href="/docs/latest/spiffe/concepts/#spiffe-workload-api">simple API</a>. Workloads can then use these identity documents when authenticating to other workloads, for example by establishing a TLS connection or by signing and verifying a JWT token.</p>
+<p>You can read more about how the SPIFFE APIs are defined and used in the <a href="/docs/latest/spiffe/concepts/">Concepts</a> guide.</p>
+<div class="sl-heading-wrapper level-h1"><h1 id="which-tools-implement-spiffe">Which Tools Implement SPIFFE?</h1><a class="sl-anchor-link" href="#which-tools-implement-spiffe"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Which Tools Implement SPIFFE?”</span></a></div>
+<p>SPIFFE comprises many specifications, each providing different parts of the SPIFFE functionality. Software that implements SPIFFE may support some or all of these functionalities. The following tables captures software that’s capable of providing your infrastructure with SPIFFE identities, along with the functionalities they support.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="open-source-software-that-implements-spiffe">Open Source Software That Implements SPIFFE</h2><a class="sl-anchor-link" href="#open-source-software-that-implements-spiffe"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Open Source Software That Implements SPIFFE”</span></a></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th align="left">Software</th><th align="center">X.509 SVID</th><th align="center">JWT SVID</th><th align="center">Attestation-based Issuance</th><th align="center">Workload API</th><th align="center">SDS API</th><th align="center">SPIFFE Federation</th><th align="center">OIDC Federation</th><th align="center">PKI Integration</th><th align="center">Kubernetes Support</th><th align="center">VM and Bare Metal Support</th><th align="center">Serverless Support</th></tr></thead><tbody><tr><td align="left">SPIRE</td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td></tr><tr><td align="left">Cert-manager</td><td align="center">✔</td><td align="center"></td><td align="center">✔</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✔</td><td align="center">✔</td><td align="center"></td><td align="center"></td></tr><tr><td align="left">Consul</td><td align="center">✔</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center">Beta</td></tr><tr><td align="left">Dapr</td><td align="center">✔</td><td align="center">✔</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center"></td></tr><tr><td align="left">Istio</td><td align="center">✔</td><td align="center"></td><td align="center">✔</td><td align="center"></td><td align="center">✔</td><td align="center"></td><td align="center"></td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center"></td></tr></tbody></table>
+<div class="sl-heading-wrapper level-h2"><h2 id="commercial-software-that-implements-spiffe">Commercial Software That Implements SPIFFE</h2><a class="sl-anchor-link" href="#commercial-software-that-implements-spiffe"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Commercial Software That Implements SPIFFE”</span></a></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th align="left">Software</th><th align="center">X.509 SVID</th><th align="center">JWT SVID</th><th align="center">Attestation-based Issuance</th><th align="center">Workload API</th><th align="center">SDS API</th><th align="center">SPIFFE Federation</th><th align="center">OIDC Federation</th><th align="center">PKI Integration</th><th align="center">Kubernetes Support</th><th align="center">VM and Bare Metal Support</th><th align="center">Serverless Support</th></tr></thead><tbody><tr><td align="left"><a href="https://cloud.google.com/">GCP</a></td><td align="center">✔</td><td align="center"></td><td align="center">✔</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center"></td></tr><tr><td align="left"><a href="https://greymatter.io">Greymatter.io</a></td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center"></td><td align="center"></td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td></tr><tr><td align="left"><a href="https://www.defakto.security">Defakto</a></td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td></tr><tr><td align="left"><a href="https://paloaltonetworks.com/idira/">Palo Alto Networks</a></td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center"></td><td align="center"></td><td align="center">✔</td><td align="center"></td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td></tr><tr><td align="left"><a href="https://goteleport.com/platform/machine-and-workload-identity/">Teleport</a></td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center"></td></tr><tr><td align="left"><a href="https://www.redhat.com/en/technologies/cloud-computing/openshift/what-is-openshift-service-mesh">Red Hat</a></td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center">✔**</td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center"></td></tr><tr><td align="left"><a href="https://www.cofide.io">Cofide</a></td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td></tr><tr><td align="left"><a href="https://aembit.io">Aembit</a></td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center"></td><td align="center"></td><td align="center"></td><td align="center">✔</td><td align="center"></td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td></tr></tbody></table>
+<p>** Supported via Red Hat’s OpenShift Service Mesh 3.0</p>
+<div class="sl-heading-wrapper level-h3"><h3 id="explanation-of-columns---software-that-implements-spiffe">Explanation of Columns - Software that Implements SPIFFE</h3><a class="sl-anchor-link" href="#explanation-of-columns---software-that-implements-spiffe"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Explanation of Columns - Software that Implements SPIFFE”</span></a></div>
+<dl><dt>X.509 SVID</dt><dd><p>Can generate X.509 SVIDs for workloads</p></dd></dl>
+<dl><dt>JWT SVID</dt><dd><p>Can generate JWT SVIDs for workloads</p></dd></dl>
+<dl><dt>Attestation-based Issuance</dt><dd><p>Leverages node and/or workload attestation for issuing SVIDs</p></dd></dl>
+<dl><dt>Workload API</dt><dd><p>Can serve the Workload API for automatic rotation</p></dd></dl>
+<dl><dt>SDS API</dt><dd><p>Can serve Envoy SDS API</p></dd></dl>
+<dl><dt>SPIFFE Federation</dt><dd><p>Can serve and consume the SPIFFE Federation API</p></dd></dl>
+<dl><dt>OIDC Federation</dt><dd><p>Can serve OIDC Federation API</p></dd></dl>
+<dl><dt>PKI Integration</dt><dd><p>Can leverage existing or external PKI for X.509 SVID issuance</p></dd></dl>
+<dl><dt>Kubernetes Support</dt><dd><p>Supports workloads running in Kubernetes</p></dd></dl>
+<dl><dt>VM and Bare Metal Support</dt><dd><p>Supports workloads running in VMs or on bare metal</p></dd></dl>
+<dl><dt>Serverless Support</dt><dd><p>Supports workloads running in serverless environments</p></dd></dl>
+<div class="sl-heading-wrapper level-h2"><h2 id="which-tools-work-with-spiffe">Which Tools Work with SPIFFE?</h2><a class="sl-anchor-link" href="#which-tools-work-with-spiffe"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Which Tools Work with SPIFFE?”</span></a></div>
+<p>SPIFFE enjoys a broad ecosystem, with many software projects, products, and platforms providing SPIFFE support in one way or another. While SPIFFE works with any software that knows how to use a JWT or an X.509 certificate, the following list captures software that supports SPIFFE as a first class citizen, along with the level of support they provide.</p>
+<div class="sl-heading-wrapper level-h3"><h3 id="open-source-software-that-works-with-spiffe">Open Source Software that Works with SPIFFE</h3><a class="sl-anchor-link" href="#open-source-software-that-works-with-spiffe"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Open Source Software that Works with SPIFFE”</span></a></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th align="left">Software</th><th align="center">X.509 SVID</th><th align="center">JWT SVID</th><th align="center">SPIFFE Authentication</th><th align="center">Workload API</th></tr></thead><tbody><tr><td align="left">Envoy</td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center"></td></tr><tr><td align="left">Ghostunnel</td><td align="center">✔</td><td align="center"></td><td align="center">✔</td><td align="center">✔</td></tr><tr><td align="left">Istio</td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center"></td></tr><tr><td align="left">Knox</td><td align="center">✔</td><td align="center"></td><td align="center">✔</td><td align="center"></td></tr><tr><td align="left">VMware Secrets Manager</td><td align="center">✔</td><td align="center"></td><td align="center">✔</td><td align="center">✔</td></tr><tr><td align="left">SPIKE</td><td align="center">✔</td><td align="center"></td><td align="center">✔</td><td align="center">✔</td></tr></tbody></table>
+<div class="sl-heading-wrapper level-h3"><h3 id="commercial-software-that-works-with-spiffe">Commercial Software that Works with SPIFFE</h3><a class="sl-anchor-link" href="#commercial-software-that-works-with-spiffe"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Commercial Software that Works with SPIFFE”</span></a></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th align="left">Software</th><th align="center">X.509 SVID</th><th align="center">JWT SVID</th><th align="center">SPIFFE Authentication</th><th align="center">Workload API</th></tr></thead><tbody><tr><td align="left"><a href="https://docs.aws.amazon.com/rolesanywhere/latest/userguide/introduction.html">AWS IAM Roles Anywhere</a></td><td align="center">✔</td><td align="center"></td><td align="center"></td><td align="center"></td></tr><tr><td align="left"><a href="https://cloud.google.com/iam/docs/workload-identity-federation">GCP Workload Identity Federation</a></td><td align="center">✔</td><td align="center">✔</td><td align="center"></td><td align="center"></td></tr><tr><td align="left"><a href="https://greymatter.gitbook.io/grey-matter-documentation/usage/fabric/security/spire">Greymatter.io</a></td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td></tr><tr><td align="left"><a href="https://www.paloaltonetworks.com/idira/machines/secrets-management">Idira® by Palo Alto Networks</a></td><td align="center">✔</td><td align="center">✔</td><td align="center">✔</td><td align="center"></td></tr><tr><td align="left"><a href="https://docs.warpstream.com/warpstream/kafka/manage-security/mutual-tls-mtls">WarpStream</a></td><td align="center">✔</td><td align="center"></td><td align="center"></td><td align="center"></td></tr></tbody></table>
+<div class="sl-heading-wrapper level-h3"><h3 id="explanation-of-columns---software-that-works-with-spiffe">Explanation of Columns - Software that Works with SPIFFE</h3><a class="sl-anchor-link" href="#explanation-of-columns---software-that-works-with-spiffe"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Explanation of Columns - Software that Works with SPIFFE”</span></a></div>
+<dl><dt>X.509 SVID</dt><dd><p>Supports X.509 SVID-based authentication</p></dd></dl>
+<dl><dt>JWT SVID</dt><dd><p>Supports JWT SVID-based authentication</p></dd></dl>
+<dl><dt>SPIFFE Authentication</dt><dd><p>Supports federated SPIFFE authentication based on trust domain name</p></dd></dl>
+<dl><dt>Workload API</dt><dd><p>Supports attaching to the SPIFFE Workload API</p></dd></dl></div><footer class="sl-flex astro-ddtxxk7k"><div class="meta sl-flex astro-ddtxxk7k"><a href="https://github.com/spiffe/spiffe.io/edit/master/content/docs/latest/spiffe-about/overview.md" class="sl-flex print:hidden astro-qlekgd3o"><svg aria-hidden="true" class="astro-qlekgd3o astro-hkc32dio" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.2em;"><path d="M22 7.24a1 1 0 0 0-.29-.71l-4.24-4.24a1 1 0 0 0-1.1-.22 1 1 0 0 0-.32.22l-2.83 2.83L2.29 16.05a1 1 0 0 0-.29.71V21a1 1 0 0 0 1 1h4.24a1 1 0 0 0 .76-.29l10.87-10.93L21.71 8c.1-.1.17-.2.22-.33a1 1 0 0 0 0-.24v-.14l.07-.05ZM6.83 20H4v-2.83l9.93-9.93 2.83 2.83L6.83 20ZM18.17 8.66l-2.83-2.83 1.42-1.41 2.82 2.82-1.41 1.42Z"/></svg>Edit page</a></div><div class="pagination-links print:hidden astro-b5raizh3" dir="ltr"></div></footer><footer class="site-footer" data-pagefind-ignore><div class="footer-identity"><a href="/" aria-label="SPIFFE home"><img src="/img/logos/spiffe/horizontal/color/spiffe-horizontal-color.svg" width="130" alt="SPIFFE"></a><p>© 2026 The SPIFFE authors</p></div><nav class="footer-links" aria-label="Legal"><a href="https://www.linuxfoundation.org/terms">Terms</a><a href="https://www.linuxfoundation.org/privacy">Privacy</a><a href="https://www.linuxfoundation.org/trademark-usage">Trademarks</a><a href="https://github.com/spiffe/spiffe.io/tree/master/LICENSE">License</a></nav></footer></div></div></main></div></div></div></div></body></html>

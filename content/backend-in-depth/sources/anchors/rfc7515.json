@@ -1,0 +1,509 @@
+{
+ "source": "rfc7515",
+ "anchors": [
+  {
+   "anchor": "top",
+   "title": "",
+   "level": 0,
+   "sha256": "404d2ff640531388a7722fd33fc32425fcca99d727d26013a8ba56baa9c4d9a5"
+  },
+  {
+   "anchor": "content",
+   "title": "JSON Web Signature (JWS)",
+   "level": 1,
+   "sha256": "71872fe23cc373699811bb68096435c8ab829f0d25518020be571388307cb9d0"
+  },
+  {
+   "anchor": "section-1",
+   "title": "1 . Introduction",
+   "level": 2,
+   "sha256": "4c48cb0a85bdf04c3ba43b61674e15f8bbe9610bfb31ae28aaee05bd30faafcc"
+  },
+  {
+   "anchor": "section-1.1",
+   "title": "1.1 . Notational Conventions",
+   "level": 3,
+   "sha256": "41a850b4b73aa523ba36ebe4c2d1ced369af032f2639132beaacb00424ca5c0d"
+  },
+  {
+   "anchor": "section-2",
+   "title": "2 . Terminology",
+   "level": 2,
+   "sha256": "db8eda202e41ae8fc3246e7dc5649220604a53b1bba8b3556db9ad28e3b8ffbb"
+  },
+  {
+   "anchor": "section-3",
+   "title": "3 . JSON Web Signature (JWS) Overview",
+   "level": 2,
+   "sha256": "39c1706a79c8228feb0f8c77e54a5947c90f667f4ff453fc3d10ac47d416eb19"
+  },
+  {
+   "anchor": "section-3.1",
+   "title": "3.1 . JWS Compact Serialization Overview",
+   "level": 3,
+   "sha256": "eda7f2d1bec59106a902817ebd9c356d2009c74fa1dec17e0c9dcdc7f478478a"
+  },
+  {
+   "anchor": "section-3.2",
+   "title": "3.2 . JWS JSON Serialization Overview",
+   "level": 3,
+   "sha256": "7774f80ad304a890310995b1897836fd4aa5603ebfb426b59bf6243fb799fca0"
+  },
+  {
+   "anchor": "section-3.3",
+   "title": "3.3 . Example JWS",
+   "level": 3,
+   "sha256": "a525eb89437ae30540f13a43a2826ddf1839bce5eab12126dd04e7089b2bc4d8"
+  },
+  {
+   "anchor": "section-4",
+   "title": "4 . JOSE Header",
+   "level": 2,
+   "sha256": "6a51c7a86cc5e8037f85b5c29cc945b7b6ffd6953b2d2f5e16669d118b27ad30"
+  },
+  {
+   "anchor": "section-4.1",
+   "title": "4.1 . Registered Header Parameter Names",
+   "level": 3,
+   "sha256": "81ca8521f83ef3c097c4294797c2c3742d6726ce59742b4ce25f585cf6603cbf"
+  },
+  {
+   "anchor": "section-4.1.1",
+   "title": "4.1.1 . \"alg\" (Algorithm) Header Parameter",
+   "level": 4,
+   "sha256": "918c25a87bb8094a5c480abbdf8e44f78f7d9f56523b14ce0d3bb10eeda7de81"
+  },
+  {
+   "anchor": "section-4.1.2",
+   "title": "4.1.2 . \"jku\" (JWK Set URL) Header Parameter",
+   "level": 4,
+   "sha256": "7e394a6d1679de5724606dfc94cee3bf6845b5debc9123fae357e15733e90922"
+  },
+  {
+   "anchor": "section-4.1.3",
+   "title": "4.1.3 . \"jwk\" (JSON Web Key) Header Parameter",
+   "level": 4,
+   "sha256": "f53224a854bff5f52c4975b99c3811cce08a27535071eedee598a2975230dd95"
+  },
+  {
+   "anchor": "section-4.1.4",
+   "title": "4.1.4 . \"kid\" (Key ID) Header Parameter",
+   "level": 4,
+   "sha256": "96865b1a2ebc0390560e6c2e45b7619aedaa260128633dd9dbf523968b573e23"
+  },
+  {
+   "anchor": "section-4.1.5",
+   "title": "4.1.5 . \"x5u\" (X.509 URL) Header Parameter",
+   "level": 4,
+   "sha256": "0edac2c297d76c5732248ed2291bdf1e9453dfe406332616cc4e75e7ccbd9ee3"
+  },
+  {
+   "anchor": "section-4.1.6",
+   "title": "4.1.6 . \"x5c\" (X.509 Certificate Chain) Header Parameter",
+   "level": 4,
+   "sha256": "3812766e54a390d78f7f23639f6e73027e29a9f2a99ce58d8c90b0aefd8a2180"
+  },
+  {
+   "anchor": "section-4.1.7",
+   "title": "4.1.7 . \"x5t\" (X.509 Certificate SHA-1 Thumbprint) Header Parameter",
+   "level": 4,
+   "sha256": "b8c7b1f200f0ae7facbcb12285c32c5a5f1ea952d07773b64b7fab20b566be1a"
+  },
+  {
+   "anchor": "section-4.1.8",
+   "title": "4.1.8 . \"x5t#S256\" (X.509 Certificate SHA-256 Thumbprint) Header",
+   "level": 4,
+   "sha256": "631fef88162010312899a39c87ebbd1baf829c64569856d722d5b860a468ba60"
+  },
+  {
+   "anchor": "parameter",
+   "title": "Parameter",
+   "level": 4,
+   "sha256": "fdd9add48c52d93fa1c6d3630da96edf34a5cea013ca588938dd11f886dcb3ae"
+  },
+  {
+   "anchor": "section-4.1.9",
+   "title": "4.1.9 . \"typ\" (Type) Header Parameter",
+   "level": 4,
+   "sha256": "b4828f3a15ec25aa79d6e2ce714741ef747edd21889c83c6ff545ef120b05a8e"
+  },
+  {
+   "anchor": "section-4.1.10",
+   "title": "4.1.10 . \"cty\" (Content Type) Header Parameter",
+   "level": 4,
+   "sha256": "ef72c7774a2921f761765ceaa9175697e3e312c40e5ad2164321fb3683f01a36"
+  },
+  {
+   "anchor": "section-4.1.11",
+   "title": "4.1.11 . \"crit\" (Critical) Header Parameter",
+   "level": 4,
+   "sha256": "c9c2b18e63d3ae477c070a38c3ec0985a04684ff4da324a856d4a0988ec70edc"
+  },
+  {
+   "anchor": "section-4.2",
+   "title": "4.2 . Public Header Parameter Names",
+   "level": 3,
+   "sha256": "d48e1f0e1aa2356265284134b5bbf71361c05ab789e0c032b1d5f1d06038519f"
+  },
+  {
+   "anchor": "section-4.3",
+   "title": "4.3 . Private Header Parameter Names",
+   "level": 3,
+   "sha256": "f8ebd586be88c44d5ad0855787997b1cdd45548c08c68b6cb154c498311e92cd"
+  },
+  {
+   "anchor": "section-5",
+   "title": "5 . Producing and Consuming JWSs",
+   "level": 2,
+   "sha256": "5e6b3f5b2a7586f52aa869428db1ddfe288485451d6f7373f7f206f36508d4f6"
+  },
+  {
+   "anchor": "section-5.1",
+   "title": "5.1 . Message Signature or MAC Computation",
+   "level": 3,
+   "sha256": "095b688e577df2687d49ae52510f5900548257659123b5e5e3b26d298f634d66"
+  },
+  {
+   "anchor": "section-5.2",
+   "title": "5.2 . Message Signature or MAC Validation",
+   "level": 3,
+   "sha256": "9b0e801d48e68c44d1eec8cdec2bd63ff958b54481c18f4b6b44712c9c1be23d"
+  },
+  {
+   "anchor": "section-5.3",
+   "title": "5.3 . String Comparison Rules",
+   "level": 3,
+   "sha256": "9975b0afc609d7c2cd1fe43b66f4390371afb15a4d67258878e4eddfe7bb74ad"
+  },
+  {
+   "anchor": "section-6",
+   "title": "6 . Key Identification",
+   "level": 2,
+   "sha256": "75d2d5e3482d53838984fdb6817ce080ba06dfd33d984b249fc4d7332bdf0873"
+  },
+  {
+   "anchor": "section-7",
+   "title": "7 . Serializations",
+   "level": 2,
+   "sha256": "f84861d006bb5c3b1d8b697545d95999a0cd3d0723132c6d6b93aae428cad11d"
+  },
+  {
+   "anchor": "section-7.1",
+   "title": "7.1 . JWS Compact Serialization",
+   "level": 3,
+   "sha256": "95a2bb6f7aa9c951e205867c9ffd41a124c9d924ee379c77c5999c2650a38bc2"
+  },
+  {
+   "anchor": "section-7.2",
+   "title": "7.2 . JWS JSON Serialization",
+   "level": 3,
+   "sha256": "162209a5bd496575188717298e1c6ee4caf155df5f94da632ce903f863708844"
+  },
+  {
+   "anchor": "section-7.2.1",
+   "title": "7.2.1 . General JWS JSON Serialization Syntax",
+   "level": 4,
+   "sha256": "d337453e6c9690ec6b59e76574a3b245979c9d6c0abd1e91753dc7f7d91c58d3"
+  },
+  {
+   "anchor": "section-7.2.2",
+   "title": "7.2.2 . Flattened JWS JSON Serialization Syntax",
+   "level": 4,
+   "sha256": "2e0fead026d1ebac44a8734d8da08921453b766059db5a14323b13c546289cb5"
+  },
+  {
+   "anchor": "section-8",
+   "title": "8 . TLS Requirements",
+   "level": 2,
+   "sha256": "05f62976391c94a29720c6028235cdcd11c5789935d74e7becbd358a49d50ce0"
+  },
+  {
+   "anchor": "section-9",
+   "title": "9 . IANA Considerations",
+   "level": 2,
+   "sha256": "eaae757028cf7d68c06cc249c8fd2c8d848037dee50e64206dc1512bef466465"
+  },
+  {
+   "anchor": "section-9.1",
+   "title": "9.1 . JSON Web Signature and Encryption Header Parameters Registry",
+   "level": 3,
+   "sha256": "c3f7717c0517b14b9f4921b59e74649907ca5e045a6e5caf9b82494645441a9b"
+  },
+  {
+   "anchor": "section-9.1.1",
+   "title": "9.1.1 . Registration Template",
+   "level": 4,
+   "sha256": "166d99d9d6c5a86b27568bc8312d873b133c31afe2b71f982ed6175925c536c3"
+  },
+  {
+   "anchor": "section-9.1.2",
+   "title": "9.1.2 . Initial Registry Contents",
+   "level": 4,
+   "sha256": "102f3d862ac0ae83d6dc723295ef9d44bf1b0ca4c96d7b9ded1bfc9011b2fa3f"
+  },
+  {
+   "anchor": "section-9.2",
+   "title": "9.2 . Media Type Registration",
+   "level": 3,
+   "sha256": "49a5e933b94ef69368704a37232d691119bef536f4bf2abfd697a848745e0e0b"
+  },
+  {
+   "anchor": "section-9.2.1",
+   "title": "9.2.1 . Registry Contents",
+   "level": 4,
+   "sha256": "afce3e87336341ab750b7a0ea1fa8743cb619b3a5e4c44cef27c5b0517285461"
+  },
+  {
+   "anchor": "section-10",
+   "title": "10 . Security Considerations",
+   "level": 2,
+   "sha256": "5d7b90a93817b441d8b0e91acadb1916846c99053050101484293353bc7ba608"
+  },
+  {
+   "anchor": "section-10.1",
+   "title": "10.1 . Key Entropy and Random Values",
+   "level": 3,
+   "sha256": "0338b311d2bf6e4a8ebc480e3fbc9f7c555e4486b161c9b8a72b7501162bc348"
+  },
+  {
+   "anchor": "section-10.2",
+   "title": "10.2 . Key Protection",
+   "level": 3,
+   "sha256": "99aeb48516b419132fa20e300822f9049492ffa30d374bf8e4f337a8af44146c"
+  },
+  {
+   "anchor": "section-10.3",
+   "title": "10.3 . Key Origin Authentication",
+   "level": 3,
+   "sha256": "b1fb7c48fabc5d7a21ca28d4ccf60f476ee30abdd02f4c760138e9fbd321cb3c"
+  },
+  {
+   "anchor": "section-10.4",
+   "title": "10.4 . Cryptographic Agility",
+   "level": 3,
+   "sha256": "a0d0f4d0c86cae2d37d4c384388fa44769f7724ab6484748e4055985cc100113"
+  },
+  {
+   "anchor": "section-10.5",
+   "title": "10.5 . Differences between Digital Signatures and MACs",
+   "level": 3,
+   "sha256": "07e92d507f960797d2295a5e782353c14bb70a21f568a79e5057ab1f69613bdf"
+  },
+  {
+   "anchor": "section-10.6",
+   "title": "10.6 . Algorithm Validation",
+   "level": 3,
+   "sha256": "c43a6a5d4aee19917a88f2f76c5155a64f6c255980c8f65a468cc8d5b1ebc6e1"
+  },
+  {
+   "anchor": "section-10.7",
+   "title": "10.7 . Algorithm Protection",
+   "level": 3,
+   "sha256": "006835132a64a7b8fc5050e95f85316069c41996f4abbe8a99446a36f2eb4039"
+  },
+  {
+   "anchor": "section-10.8",
+   "title": "10.8 . Chosen Plaintext Attacks",
+   "level": 3,
+   "sha256": "1849ded63746bd9192c29db258ee987abc1e70e4ad7f904cb7955191ad4411a1"
+  },
+  {
+   "anchor": "section-10.9",
+   "title": "10.9 . Timing Attacks",
+   "level": 3,
+   "sha256": "9a94a3111c553ce4e15e5fcb5325abd3bdde5db620bbce76a9f8618ca47f8ab0"
+  },
+  {
+   "anchor": "section-10.10",
+   "title": "10.10 . Replay Protection",
+   "level": 3,
+   "sha256": "77770db0d64e079a4ed4cadb14e37eeb77f65c6dc433232686367dc6d0051598"
+  },
+  {
+   "anchor": "section-10.11",
+   "title": "10.11 . SHA-1 Certificate Thumbprints",
+   "level": 3,
+   "sha256": "55926eda2bdb2c4484ac6118a33a37eae6009f5a791e246c4a70d5a399230c69"
+  },
+  {
+   "anchor": "section-10.12",
+   "title": "10.12 . JSON Security Considerations",
+   "level": 3,
+   "sha256": "5dcf273f8ed94499f68960b90665ba1c75392ccff5467f3c394db9f8588ba641"
+  },
+  {
+   "anchor": "section-10.13",
+   "title": "10.13 . Unicode Comparison Security Considerations",
+   "level": 3,
+   "sha256": "6a88cd97128f470b13eee62b2b85126c7ffec0c34c41809ddd7d71ebc37ed13d"
+  },
+  {
+   "anchor": "section-11",
+   "title": "11 . References",
+   "level": 2,
+   "sha256": "c65871e6e718fe3b52387eb602cd3c1bdb56635e3264214d8b469fdbf52bd1da"
+  },
+  {
+   "anchor": "section-11.1",
+   "title": "11.1 . Normative References",
+   "level": 3,
+   "sha256": "dfdc315e6e770e784e99200f52160edd71163bb8d749d5387a44df98a169f46d"
+  },
+  {
+   "anchor": "section-11.2",
+   "title": "11.2 . Informative References",
+   "level": 3,
+   "sha256": "1ac424c8e58b9d545e1a5fa21151dbe5bf5a693f374660da050a20d8ceb45288"
+  },
+  {
+   "anchor": "appendix-A",
+   "title": "Appendix A . JWS Examples",
+   "level": 2,
+   "sha256": "1ad323ad869697dc7ceea442daa83eb61c2626876864c3b6d6fc3eef21b66323"
+  },
+  {
+   "anchor": "appendix-A.1",
+   "title": "A.1 . Example JWS Using HMAC SHA-256",
+   "level": 3,
+   "sha256": "6f88ff09f392f927593dda3315c6b2ae6eb94a16343458b379cdb0a51a150268"
+  },
+  {
+   "anchor": "appendix-A.1.1",
+   "title": "A.1.1 . Encoding",
+   "level": 4,
+   "sha256": "c1052ac4dd5ffc89fd94bf6c7309ab43c88c7f09d192487dd9b1c1bd6faa7f28"
+  },
+  {
+   "anchor": "appendix-A.1.2",
+   "title": "A.1.2 . Validating",
+   "level": 4,
+   "sha256": "3f253551b7821c116276c6cf85995eeee9d4890542367a913c053c5e690248cd"
+  },
+  {
+   "anchor": "appendix-A.2",
+   "title": "A.2 . Example JWS Using RSASSA-PKCS1-v1_5 SHA-256",
+   "level": 3,
+   "sha256": "c9a9880111357497f7b4928fdcba5fc9ac2afc58dc1864e2b1a5ab8fff77c816"
+  },
+  {
+   "anchor": "appendix-A.2.1",
+   "title": "A.2.1 . Encoding",
+   "level": 4,
+   "sha256": "a719af50752d0464fb536c5f546e919b6d41ac1eb153e94b3255986cca434812"
+  },
+  {
+   "anchor": "appendix-A.2.2",
+   "title": "A.2.2 . Validating",
+   "level": 4,
+   "sha256": "fe677df61d56f1be0fa72576ce5224800aac5b82f444939addbd6c49e1c5325a"
+  },
+  {
+   "anchor": "appendix-A.3",
+   "title": "A.3 . Example JWS Using ECDSA P-256 SHA-256",
+   "level": 3,
+   "sha256": "9e8bb795833b30d14715692031e77e9ffe6a61e6f81e8911e23a9611032ed7ea"
+  },
+  {
+   "anchor": "appendix-A.3.1",
+   "title": "A.3.1 . Encoding",
+   "level": 4,
+   "sha256": "1a950e6588fc82825b85b437997c9daff835203bfcc9298569cb5d49f7fb1c64"
+  },
+  {
+   "anchor": "appendix-A.3.2",
+   "title": "A.3.2 . Validating",
+   "level": 4,
+   "sha256": "381b59de79c8a80b86f4cb1b2e3b3e4faf20afaa705e41069ea1d97da213cf24"
+  },
+  {
+   "anchor": "appendix-A.4",
+   "title": "A.4 . Example JWS Using ECDSA P-521 SHA-512",
+   "level": 3,
+   "sha256": "376ca2059c6f88d147938855c9f92b94efbf6fc28ad34711ec09ce74c9bc0901"
+  },
+  {
+   "anchor": "appendix-A.4.1",
+   "title": "A.4.1 . Encoding",
+   "level": 4,
+   "sha256": "0d13735273c6707bb8dcc1710fd16785008894f9657e4c0bc657bfda22dc7b59"
+  },
+  {
+   "anchor": "appendix-A.4.2",
+   "title": "A.4.2 . Validating",
+   "level": 4,
+   "sha256": "4c04a14a1a4006e4b045836da6db596f5c35390d89f66a78085b793a36bd5b26"
+  },
+  {
+   "anchor": "appendix-A.5",
+   "title": "A.5 . Example Unsecured JWS",
+   "level": 3,
+   "sha256": "700236347ca6e581d01764b580bb99dc1dcfa72d51e6d3811faa28c4a1ddab1b"
+  },
+  {
+   "anchor": "appendix-A.6",
+   "title": "A.6 . Example JWS Using General JWS JSON Serialization",
+   "level": 3,
+   "sha256": "6d26fc70e0183d64499b6db36fb24be72c4aa0cde02e956dc6b033971a285f68"
+  },
+  {
+   "anchor": "appendix-A.6.1",
+   "title": "A.6.1 . JWS Per-Signature Protected Headers",
+   "level": 4,
+   "sha256": "1a12a6ed37e033d105fb9f1579865ed340c72288cc06e3fcf55b0570c70634f3"
+  },
+  {
+   "anchor": "appendix-A.6.2",
+   "title": "A.6.2 . JWS Per-Signature Unprotected Headers",
+   "level": 4,
+   "sha256": "c1f25c2ca18d2914b5a72f38c66b8f3fd75b2dd3ce4ac8c32514c6dfbd16de6e"
+  },
+  {
+   "anchor": "appendix-A.6.3",
+   "title": "A.6.3 . Complete JOSE Header Values",
+   "level": 4,
+   "sha256": "47237319ca043781e36c56cc1c749ed630ca539502ecc4b0fb7912c331d1054f"
+  },
+  {
+   "anchor": "appendix-A.6.4",
+   "title": "A.6.4 . Complete JWS JSON Serialization Representation",
+   "level": 4,
+   "sha256": "12c6549da0bc14ef6820a17e6b8b78c6bef5e27854903a74b46a695164642d03"
+  },
+  {
+   "anchor": "appendix-A.7",
+   "title": "A.7 . Example JWS Using Flattened JWS JSON Serialization",
+   "level": 3,
+   "sha256": "f95875b865bcd0ab5aa606a757e9655c2b0f3b31ac9136d69d92324fe998bf82"
+  },
+  {
+   "anchor": "appendix-B",
+   "title": "Appendix B . \"x5c\" (X.509 Certificate Chain) Example",
+   "level": 2,
+   "sha256": "83071112b7df6593c041df5ee8d7227280ac430ccd9fea3c7c7a0a10e733f245"
+  },
+  {
+   "anchor": "appendix-C",
+   "title": "Appendix C . Notes on Implementing base64url Encoding without Padding",
+   "level": 2,
+   "sha256": "c2482ebc12fffc16f078cea513d3cb295ca17c17efdefc1cf379b506525de19a"
+  },
+  {
+   "anchor": "appendix-D",
+   "title": "Appendix D . Notes on Key Selection",
+   "level": 2,
+   "sha256": "66f0219fb86769caaf600a894105b5b3438eaad5069d9a25001cdce61d3d5245"
+  },
+  {
+   "anchor": "appendix-E",
+   "title": "Appendix E . Negative Test Case for \"crit\" Header Parameter",
+   "level": 2,
+   "sha256": "9457a6fac7d0634818c8fb3b0ebc043fa4967cd1abfddc48137bd89f9defa05a"
+  },
+  {
+   "anchor": "appendix-F",
+   "title": "Appendix F . Detached Content",
+   "level": 2,
+   "sha256": "cdf1fabf69b0bcc07026f7f1e60f8782791b3dae62feeb17d902714bf6ca0439"
+  }
+ ]
+}

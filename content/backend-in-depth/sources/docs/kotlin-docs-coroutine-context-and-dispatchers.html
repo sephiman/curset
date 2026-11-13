@@ -1,0 +1,280 @@
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html lang="en-US" data-preset="contrast" data-primary-color="#307FFF" data-external-links-in-new-tab="false"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="UTF-8"><meta name="built-on" content="2026-11-13T10:58:15.981801664"><meta name="build-number" content="1405"><link rel="canonical" href="/docs/coroutine-context-and-dispatchers.html" data-react-helmet="true">
+
+<title>Coroutine context and dispatchers | Kotlin Documentation</title><link href="custom-frontend-app/app.css?149" rel="stylesheet"><link rel="icon" type="image/svg" sizes="16x16" href="https://kotlinlang.org/assets/images/favicon.svg?v2"><link rel="icon" type="image/x-icon" sizes="32x32" href="https://kotlinlang.org/assets/images/favicon.ico?v2"><link rel="icon" type="image/png" sizes="96x96" href="https://kotlinlang.org/assets/images/apple-touch-icon.png?v2"><link rel="icon" type="image/png" sizes="300x300" href="https://kotlinlang.org/assets/images/apple-touch-icon-72x72.png?v2"><link rel="icon" type="image/png" sizes="500x500" href="https://kotlinlang.org/assets/images/apple-touch-icon-114x114.png?v2"><meta name="image" content="https://kotlinlang.org/assets/images/open-graph/docs.png"><!-- Open Graph --><meta property="og:title" content="Coroutine context and dispatchers | Kotlin"><meta property="og:description" content=""><meta property="og:image" content="https://kotlinlang.org/assets/images/open-graph/docs.png"><meta property="og:site_name" content="Kotlin Help"><meta property="og:type" content="website"><meta property="og:locale" content="en_US"><meta property="og:url" content="https://kotlinlang.org/docs/coroutine-context-and-dispatchers.html"><!-- End Open Graph --><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@kotlin"><meta name="twitter:title" content="Coroutine context and dispatchers | Kotlin"><meta name="twitter:description" content=""><meta name="twitter:creator" content="@kotlin"><meta name="twitter:image:src" content="https://kotlinlang.org/assets/images/open-graph/docs.png"><!-- End Twitter Card --><!-- Schema.org WebPage --><!-- End Schema.org --><!-- Schema.org WebSite --><!-- End Schema.org --></head><body data-id="coroutine-context-and-dispatchers" data-main-title="Coroutine context and dispatchers" data-article-props="{&quot;seeAlsoStyle&quot;:&quot;links&quot;}" data-template="article" data-breadcrumbs="Library guides///Coroutines (kotlinx.coroutines)" data-edit-url="https://github.com/Kotlin/kotlinx.coroutines/edit/master/docs/topics/coroutine-context-and-dispatchers.md"><div class="wrapper"><main class="panel _main"><header class="panel__header"><div class="container"><h3>Kotlin  Help</h3><div class="panel-trigger"></div></div></header><section class="panel__content"><div class="container"><article class="article" data-shortcut-switcher="inactive"><h1 data-toc="coroutine-context-and-dispatchers" id="coroutine-context-and-dispatchers.md">Coroutine context and dispatchers</h1><p id="jkm3nq_3">Coroutines always execute in some context represented by a value of the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines/-coroutine-context/" id="jkm3nq_15" data-external="true" rel="noopener noreferrer">CoroutineContext</a> type, defined in the Kotlin standard library.</p><p id="jkm3nq_4">The coroutine context is a set of various elements. The main elements are the <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-job/index.html" id="jkm3nq_16" data-external="true" rel="noopener noreferrer">Job</a> of the coroutine, which we've seen before, and its dispatcher, which is covered in this section.</p><section class="chapter"><h2 id="dispatchers-and-threads" data-toc="dispatchers-and-threads">Dispatchers and threads</h2><p id="jkm3nq_17">The coroutine context includes a <span class="emphasis" id="jkm3nq_28">coroutine dispatcher</span> (see <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-dispatcher/index.html" id="jkm3nq_29" data-external="true" rel="noopener noreferrer">CoroutineDispatcher</a>) that determines what thread or threads the corresponding coroutine uses for its execution. The coroutine dispatcher can confine coroutine execution to a specific thread, dispatch it to a thread pool, or let it run unconfined.</p><p id="jkm3nq_18">All coroutine builders like <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/launch.html" id="jkm3nq_30" data-external="true" rel="noopener noreferrer">launch</a> and <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/async.html" id="jkm3nq_31" data-external="true" rel="noopener noreferrer">async</a> accept an optional <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines/-coroutine-context/" id="jkm3nq_32" data-external="true" rel="noopener noreferrer">CoroutineContext</a> parameter that can be used to explicitly specify the dispatcher for the new coroutine and other context elements.</p><p id="jkm3nq_19">Try the following example:</p><div class="code-block" data-lang="kotlin" data-runnable="true" data-min-compiler-version="1.3">
+import kotlinx.coroutines.*
+
+fun main() = runBlocking&lt;Unit&gt; {
+//sampleStart
+    launch { // context of the parent, main runBlocking coroutine
+        println(&quot;main runBlocking      : I'm working in thread ${Thread.currentThread().name}&quot;)
+    }
+    launch(Dispatchers.Unconfined) { // not confined -- will work with main thread
+        println(&quot;Unconfined            : I'm working in thread ${Thread.currentThread().name}&quot;)
+    }
+    launch(Dispatchers.Default) { // will get dispatched to DefaultDispatcher 
+        println(&quot;Default               : I'm working in thread ${Thread.currentThread().name}&quot;)
+    }
+    launch(newSingleThreadContext(&quot;MyOwnThread&quot;)) { // will get its own new thread
+        println(&quot;newSingleThreadContext: I'm working in thread ${Thread.currentThread().name}&quot;)
+    }
+//sampleEnd    
+}
+</div><aside class="prompt" data-type="note" data-title="" id="jkm3nq_21"><p id="jkm3nq_33">You can get the full code <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-context-01.kt" id="jkm3nq_34" data-external="true" rel="noopener noreferrer">here</a>.</p></aside><p id="jkm3nq_22">It produces the following output (maybe in different order):</p><div class="code-block" data-lang="none">
+Unconfined            : I'm working in thread main
+Default               : I'm working in thread DefaultDispatcher-worker-1
+newSingleThreadContext: I'm working in thread MyOwnThread
+main runBlocking      : I'm working in thread main
+</div><p id="jkm3nq_24">When <code class="code" id="jkm3nq_35">launch { ... }</code> is used without parameters, it inherits the context (and thus dispatcher) from the <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-scope/index.html" id="jkm3nq_36" data-external="true" rel="noopener noreferrer">CoroutineScope</a> it is being launched from. In this case, it inherits the context of the main <code class="code" id="jkm3nq_37">runBlocking</code> coroutine which runs in the <code class="code" id="jkm3nq_38">main</code> thread.</p><p id="jkm3nq_25"><a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-dispatchers/-unconfined.html" id="jkm3nq_39" data-external="true" rel="noopener noreferrer">Dispatchers.Unconfined</a> is a special dispatcher that also appears to run in the <code class="code" id="jkm3nq_40">main</code> thread, but it is, in fact, a different mechanism that is explained later.</p><p id="jkm3nq_26">The default dispatcher is used when no other dispatcher is explicitly specified in the scope. It is represented by <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-dispatchers/-default.html" id="jkm3nq_41" data-external="true" rel="noopener noreferrer">Dispatchers.Default</a> and uses a shared background pool of threads.</p><p id="jkm3nq_27"><a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/new-single-thread-context.html" id="jkm3nq_42" data-external="true" rel="noopener noreferrer">newSingleThreadContext</a> creates a thread for the coroutine to run. A dedicated thread is a very expensive resource. In a real application it must be either released, when no longer needed, using the <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-executor-coroutine-dispatcher/close.html" id="jkm3nq_43" data-external="true" rel="noopener noreferrer">close</a> function, or stored in a top-level variable and reused throughout the application.</p></section><section class="chapter"><h2 id="unconfined-vs-confined-dispatcher" data-toc="unconfined-vs-confined-dispatcher">Unconfined vs confined dispatcher</h2><p id="jkm3nq_44">The <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-dispatchers/-unconfined.html" id="jkm3nq_52" data-external="true" rel="noopener noreferrer">Dispatchers.Unconfined</a> coroutine dispatcher starts a coroutine in the caller thread, but only until the first suspension point. After suspension it resumes the coroutine in the thread that is fully determined by the suspending function that was invoked. The unconfined dispatcher is appropriate for coroutines which neither consume CPU time nor update any shared data (like UI) confined to a specific thread.</p><p id="jkm3nq_45">On the other side, the dispatcher is inherited from the outer <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-scope/index.html" id="jkm3nq_53" data-external="true" rel="noopener noreferrer">CoroutineScope</a> by default. The default dispatcher for the <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/run-blocking.html" id="jkm3nq_54" data-external="true" rel="noopener noreferrer">runBlocking</a> coroutine, in particular, is confined to the invoker thread, so inheriting it has the effect of confining execution to this thread with predictable FIFO scheduling.</p><div class="code-block" data-lang="kotlin" data-runnable="true" data-min-compiler-version="1.3">
+import kotlinx.coroutines.*
+
+fun main() = runBlocking&lt;Unit&gt; {
+//sampleStart
+    launch(Dispatchers.Unconfined) { // not confined -- will work with main thread
+        println(&quot;Unconfined      : I'm working in thread ${Thread.currentThread().name}&quot;)
+        delay(500)
+        println(&quot;Unconfined      : After delay in thread ${Thread.currentThread().name}&quot;)
+    }
+    launch { // context of the parent, main runBlocking coroutine
+        println(&quot;main runBlocking: I'm working in thread ${Thread.currentThread().name}&quot;)
+        delay(1000)
+        println(&quot;main runBlocking: After delay in thread ${Thread.currentThread().name}&quot;)
+    }
+//sampleEnd    
+}
+</div><aside class="prompt" data-type="note" data-title="" id="jkm3nq_47"><p id="jkm3nq_55">You can get the full code <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-context-02.kt" id="jkm3nq_56" data-external="true" rel="noopener noreferrer">here</a>.</p></aside><p id="jkm3nq_48">Produces the output:</p><div class="code-block" data-lang="none">
+Unconfined      : I'm working in thread main
+main runBlocking: I'm working in thread main
+Unconfined      : After delay in thread kotlinx.coroutines.DefaultExecutor
+main runBlocking: After delay in thread main
+</div><p id="jkm3nq_50">So, the coroutine with the context inherited from <code class="code" id="jkm3nq_57">runBlocking {...}</code> continues to execute in the <code class="code" id="jkm3nq_58">main</code> thread, while the unconfined one resumes in the default executor thread that the <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/delay.html" id="jkm3nq_59" data-external="true" rel="noopener noreferrer">delay</a> function is using.</p><aside class="prompt" data-type="note" data-title="" id="jkm3nq_51"><p id="jkm3nq_60">The unconfined dispatcher is an advanced mechanism that can be helpful in certain corner cases where dispatching of a coroutine for its execution later is not needed or produces undesirable side-effects, because some operation in a coroutine must be performed right away. The unconfined dispatcher should not be used in general code.</p></aside></section><section class="chapter"><h2 id="debugging-coroutines-and-threads" data-toc="debugging-coroutines-and-threads">Debugging coroutines and threads</h2><p id="jkm3nq_61">Coroutines can suspend on one thread and resume on another thread. Even with a single-threaded dispatcher it might be hard to figure out what the coroutine was doing, where, and when if you don't have special tooling.</p><section class="chapter"><h3 id="debugging-with-idea" data-toc="debugging-with-idea">Debugging with IDEA</h3><p id="jkm3nq_64">The Coroutine Debugger of the Kotlin plugin simplifies debugging coroutines in IntelliJ IDEA.</p><aside class="prompt" data-type="note" data-title="" id="jkm3nq_65"><p id="jkm3nq_72">Debugging works for versions 1.3.8 or later of <code class="code" id="jkm3nq_73">kotlinx-coroutines-core</code>.</p></aside><p id="jkm3nq_66">The <span class="control" id="jkm3nq_74">Debug</span> tool window contains the <span class="control" id="jkm3nq_75">Coroutines</span> tab. In this tab, you can find information about both currently running and suspended coroutines. The coroutines are grouped by the dispatcher they are running on.</p><figure id="jkm3nq_67"><img alt="Debugging coroutines" src="images/coroutine-idea-debugging-1.png" title="Debugging coroutines" width="700" height="183"></figure><p id="jkm3nq_68">With the coroutine debugger, you can:</p><ul class="list _bullet" id="jkm3nq_69"><li class="list__item" id="jkm3nq_76"><p id="jkm3nq_80">Check the state of each coroutine.</p></li><li class="list__item" id="jkm3nq_77"><p id="jkm3nq_81">See the values of local and captured variables for both running and suspended coroutines.</p></li><li class="list__item" id="jkm3nq_78"><p id="jkm3nq_82">See a full coroutine creation stack, as well as a call stack inside the coroutine. The stack includes all frames with variable values, even those that would be lost during standard debugging.</p></li><li class="list__item" id="jkm3nq_79"><p id="jkm3nq_83">Get a full report that contains the state of each coroutine and its stack. To obtain it, right-click inside the <span class="control" id="jkm3nq_84">Coroutines</span> tab, and then click <span class="control" id="jkm3nq_85">Get Coroutines Dump</span>.</p></li></ul><p id="jkm3nq_70">To start coroutine debugging, you just need to set breakpoints and run the application in debug mode.</p><p id="jkm3nq_71">Learn more about coroutines debugging in the <a href="/docs/tutorials/coroutines/debug-coroutines-with-idea.html" id="jkm3nq_86" data-external="true" rel="noopener noreferrer">tutorial</a>.</p></section><section class="chapter"><h3 id="debugging-using-logging" data-toc="debugging-using-logging">Debugging using logging</h3><p id="jkm3nq_87">Another approach to debugging applications with threads without Coroutine Debugger is to print the thread name in the log file on each log statement. This feature is universally supported by logging frameworks. When using coroutines, the thread name alone does not give much of a context, so <code class="code" id="jkm3nq_95">kotlinx.coroutines</code> includes debugging facilities to make it easier.</p><p id="jkm3nq_88">Run the following code with <code class="code" id="jkm3nq_96">-Dkotlinx.coroutines.debug</code> JVM option:</p><div class="code-block" data-lang="kotlin" data-runnable="true" data-min-compiler-version="1.3">
+import kotlinx.coroutines.*
+
+fun log(msg: String) = println(&quot;[${Thread.currentThread().name}] $msg&quot;)
+
+fun main() = runBlocking&lt;Unit&gt; {
+//sampleStart
+    val a = async {
+        log(&quot;I'm computing a piece of the answer&quot;)
+        6
+    }
+    val b = async {
+        log(&quot;I'm computing another piece of the answer&quot;)
+        7
+    }
+    log(&quot;The answer is ${a.await() * b.await()}&quot;)
+//sampleEnd    
+}
+</div><aside class="prompt" data-type="note" data-title="" id="jkm3nq_90"><p id="jkm3nq_97">You can get the full code <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-context-03.kt" id="jkm3nq_98" data-external="true" rel="noopener noreferrer">here</a>.</p></aside><p id="jkm3nq_91">There are three coroutines. The main coroutine (#1) inside <code class="code" id="jkm3nq_99">runBlocking</code> and two coroutines computing the deferred values <code class="code" id="jkm3nq_100">a</code> (#2) and <code class="code" id="jkm3nq_101">b</code> (#3). They are all executing in the context of <code class="code" id="jkm3nq_102">runBlocking</code> and are confined to the main thread. The output of this code is:</p><div class="code-block" data-lang="none">
+[main @coroutine#2] I'm computing a piece of the answer
+[main @coroutine#3] I'm computing another piece of the answer
+[main @coroutine#1] The answer is 42
+</div><p id="jkm3nq_93">The <code class="code" id="jkm3nq_103">log</code> function prints the name of the thread in square brackets, and you can see that it is the <code class="code" id="jkm3nq_104">main</code> thread with the identifier of the currently executing coroutine appended to it. This identifier is consecutively assigned to all created coroutines when the debugging mode is on.</p><aside class="prompt" data-type="note" data-title="" id="jkm3nq_94"><p id="jkm3nq_105">Debugging mode is also turned on when JVM is run with <code class="code" id="jkm3nq_106">-ea</code> option. You can read more about debugging facilities in the documentation of the <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-d-e-b-u-g_-p-r-o-p-e-r-t-y_-n-a-m-e.html" id="jkm3nq_107" data-external="true" rel="noopener noreferrer">DEBUG_PROPERTY_NAME</a> property.</p></aside></section></section><section class="chapter"><h2 id="jumping-between-threads" data-toc="jumping-between-threads">Jumping between threads</h2><p id="jkm3nq_108">Run the following code with the <code class="code" id="jkm3nq_116">-Dkotlinx.coroutines.debug</code> JVM option (see <a href="#debugging-coroutines-and-threads" id="jkm3nq_117" data-tooltip="Coroutines can suspend on one thread and resume on another thread. Even with a single-threaded dispatcher it might be hard to figure out what the coroutine was doing, where, and when if you don't have special tooling.">debug</a>):</p><div class="code-block" data-lang="kotlin">
+import kotlinx.coroutines.*
+
+fun log(msg: String) = println(&quot;[${Thread.currentThread().name}] $msg&quot;)
+
+fun main() {
+    newSingleThreadContext(&quot;Ctx1&quot;).use { ctx1 -&gt;
+        newSingleThreadContext(&quot;Ctx2&quot;).use { ctx2 -&gt;
+            runBlocking(ctx1) {
+                log(&quot;Started in ctx1&quot;)
+                withContext(ctx2) {
+                    log(&quot;Working in ctx2&quot;)
+                }
+                log(&quot;Back to ctx1&quot;)
+            }
+        }
+    }
+}
+</div><aside class="prompt" data-type="note" data-title="" id="jkm3nq_110"><p id="jkm3nq_118">You can get the full code <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-context-04.kt" id="jkm3nq_119" data-external="true" rel="noopener noreferrer">here</a>.</p></aside><p id="jkm3nq_111">The example above demonstrates new techniques in coroutine usage.</p><p id="jkm3nq_112">The first technique shows how to use <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/run-blocking.html" id="jkm3nq_120" data-external="true" rel="noopener noreferrer">runBlocking</a> with a specified context. <br> The second technique involves calling <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/with-context.html" id="jkm3nq_122" data-external="true" rel="noopener noreferrer">withContext</a>, which may suspend the current coroutine and switch to a new context&mdash;provided the new context differs from the existing one. Specifically, if you specify a different <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-dispatcher/index.html" id="jkm3nq_123" data-external="true" rel="noopener noreferrer">CoroutineDispatcher</a>, extra dispatches are required: the block is scheduled on the new dispatcher, and once it finishes, execution returns to the original dispatcher.</p><p id="jkm3nq_113">As a result, the output of the above code is:</p><div class="code-block" data-lang="none">
+[Ctx1 @coroutine#1] Started in ctx1
+[Ctx2 @coroutine#1] Working in ctx2
+[Ctx1 @coroutine#1] Back to ctx1
+</div><p id="jkm3nq_115">The example above uses the <code class="code" id="jkm3nq_124">use</code> function from the Kotlin standard library to properly release thread resources created by <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/new-single-thread-context.html" id="jkm3nq_125" data-external="true" rel="noopener noreferrer">newSingleThreadContext</a> when they're no longer needed.</p></section><section class="chapter"><h2 id="job-in-the-context" data-toc="job-in-the-context">Job in the context</h2><p id="jkm3nq_126">The coroutine's <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-job/index.html" id="jkm3nq_132" data-external="true" rel="noopener noreferrer">Job</a> is part of its context, and can be retrieved from it using the <code class="code" id="jkm3nq_133">coroutineContext[Job]</code> expression:</p><div class="code-block" data-lang="kotlin" data-runnable="true" data-min-compiler-version="1.3">
+import kotlinx.coroutines.*
+
+fun main() = runBlocking&lt;Unit&gt; {
+//sampleStart
+    println(&quot;My job is ${coroutineContext[Job]}&quot;)
+//sampleEnd    
+}
+</div><aside class="prompt" data-type="note" data-title="" id="jkm3nq_128"><p id="jkm3nq_134">You can get the full code <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-context-05.kt" id="jkm3nq_135" data-external="true" rel="noopener noreferrer">here</a>.</p></aside><p id="jkm3nq_129">In <a href="#debugging-coroutines-and-threads" id="jkm3nq_136" data-tooltip="Coroutines can suspend on one thread and resume on another thread. Even with a single-threaded dispatcher it might be hard to figure out what the coroutine was doing, where, and when if you don't have special tooling.">debug mode</a>, it outputs something like this:</p><div class="code-block" data-lang="none">
+My job is &quot;coroutine#1&quot;:BlockingCoroutine{Active}@6d311334
+</div><p id="jkm3nq_131">Note that <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/is-active.html" id="jkm3nq_137" data-external="true" rel="noopener noreferrer">isActive</a> in <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-scope/index.html" id="jkm3nq_138" data-external="true" rel="noopener noreferrer">CoroutineScope</a> is just a convenient shortcut for <code class="code" id="jkm3nq_139">coroutineContext[Job]?.isActive == true</code>.</p></section><section class="chapter"><h2 id="children-of-a-coroutine" data-toc="children-of-a-coroutine">Children of a coroutine</h2><p id="jkm3nq_140">When a coroutine is launched in the <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-scope/index.html" id="jkm3nq_148" data-external="true" rel="noopener noreferrer">CoroutineScope</a> of another coroutine, it inherits its context via <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-scope/coroutine-context.html" id="jkm3nq_149" data-external="true" rel="noopener noreferrer">CoroutineScope.coroutineContext</a> and the <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-job/index.html" id="jkm3nq_150" data-external="true" rel="noopener noreferrer">Job</a> of the new coroutine becomes a <span class="emphasis" id="jkm3nq_151">child</span> of the parent coroutine's job. When the parent coroutine is cancelled, all its children are recursively cancelled, too.</p><p id="jkm3nq_141">However, this parent-child relation can be explicitly overridden in one of two ways:</p><ol class="list _decimal" id="jkm3nq_142" type="1"><li class="list__item" id="jkm3nq_152"><p id="jkm3nq_154">When a different scope is explicitly specified when launching a coroutine (for example, <code class="code" id="jkm3nq_155">GlobalScope.launch</code>), it does not inherit a <code class="code" id="jkm3nq_156">Job</code> from the parent scope.</p></li><li class="list__item" id="jkm3nq_153"><p id="jkm3nq_157">When a different <code class="code" id="jkm3nq_158">Job</code> object is passed as the context for the new coroutine (as shown in the example below), it overrides the <code class="code" id="jkm3nq_159">Job</code> of the parent scope.</p></li></ol><p id="jkm3nq_143">In both cases, the launched coroutine is not tied to the scope it was launched from and operates independently.</p><div class="code-block" data-lang="kotlin" data-runnable="true" data-min-compiler-version="1.3">
+import kotlinx.coroutines.*
+
+fun main() = runBlocking&lt;Unit&gt; {
+//sampleStart
+    // launch a coroutine to process some kind of incoming request
+    val request = launch {
+        // it spawns two other jobs
+        launch(Job()) { 
+            println(&quot;job1: I run in my own Job and execute independently!&quot;)
+            delay(1000)
+            println(&quot;job1: I am not affected by cancellation of the request&quot;)
+        }
+        // and the other inherits the parent context
+        launch {
+            delay(100)
+            println(&quot;job2: I am a child of the request coroutine&quot;)
+            delay(1000)
+            println(&quot;job2: I will not execute this line if my parent request is cancelled&quot;)
+        }
+    }
+    delay(500)
+    request.cancel() // cancel processing of the request
+    println(&quot;main: Who has survived request cancellation?&quot;)
+    delay(1000) // delay the main thread for a second to see what happens
+//sampleEnd
+}
+</div><aside class="prompt" data-type="note" data-title="" id="jkm3nq_145"><p id="jkm3nq_160">You can get the full code <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-context-06.kt" id="jkm3nq_161" data-external="true" rel="noopener noreferrer">here</a>.</p></aside><p id="jkm3nq_146">The output of this code is:</p><div class="code-block" data-lang="none">
+job1: I run in my own Job and execute independently!
+job2: I am a child of the request coroutine
+main: Who has survived request cancellation?
+job1: I am not affected by cancellation of the request
+</div></section><section class="chapter"><h2 id="parental-responsibilities" data-toc="parental-responsibilities">Parental responsibilities</h2><p id="jkm3nq_162">A parent coroutine always waits for the completion of all its children. A parent does not have to explicitly track all the children it launches, and it does not have to use <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-job/join.html" id="jkm3nq_167" data-external="true" rel="noopener noreferrer">Job.join</a> to wait for them at the end:</p><div class="code-block" data-lang="kotlin" data-runnable="true" data-min-compiler-version="1.3">
+import kotlinx.coroutines.*
+
+fun main() = runBlocking&lt;Unit&gt; {
+//sampleStart
+    // launch a coroutine to process some kind of incoming request
+    val request = launch {
+        repeat(3) { i -&gt; // launch a few children jobs
+            launch  {
+                delay((i + 1) * 200L) // variable delay 200ms, 400ms, 600ms
+                println(&quot;Coroutine $i is done&quot;)
+            }
+        }
+        println(&quot;request: I'm done and I don't explicitly join my children that are still active&quot;)
+    }
+    request.join() // wait for completion of the request, including all its children
+    println(&quot;Now processing of the request is complete&quot;)
+//sampleEnd
+}
+</div><aside class="prompt" data-type="note" data-title="" id="jkm3nq_164"><p id="jkm3nq_168">You can get the full code <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-context-07.kt" id="jkm3nq_169" data-external="true" rel="noopener noreferrer">here</a>.</p></aside><p id="jkm3nq_165">The result is going to be:</p><div class="code-block" data-lang="none">
+request: I'm done and I don't explicitly join my children that are still active
+Coroutine 0 is done
+Coroutine 1 is done
+Coroutine 2 is done
+Now processing of the request is complete
+</div></section><section class="chapter"><h2 id="naming-coroutines-for-debugging" data-toc="naming-coroutines-for-debugging">Naming coroutines for debugging</h2><p id="jkm3nq_170">Automatically assigned ids are good when coroutines log often and you just need to correlate log records coming from the same coroutine. However, when a coroutine is tied to the processing of a specific request or doing some specific background task, it is better to name it explicitly for debugging purposes. The <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-name/index.html" id="jkm3nq_176" data-external="true" rel="noopener noreferrer">CoroutineName</a> context element serves the same purpose as the thread name. It is included in the thread name that is executing this coroutine when the <a href="#debugging-coroutines-and-threads" id="jkm3nq_177" data-tooltip="Coroutines can suspend on one thread and resume on another thread. Even with a single-threaded dispatcher it might be hard to figure out what the coroutine was doing, where, and when if you don't have special tooling.">debugging mode</a> is turned on.</p><p id="jkm3nq_171">The following example demonstrates this concept:</p><div class="code-block" data-lang="kotlin" data-runnable="true" data-min-compiler-version="1.3">
+import kotlinx.coroutines.*
+
+fun log(msg: String) = println(&quot;[${Thread.currentThread().name}] $msg&quot;)
+
+fun main() = runBlocking(CoroutineName(&quot;main&quot;)) {
+//sampleStart
+    log(&quot;Started main coroutine&quot;)
+    // run two background value computations
+    val v1 = async(CoroutineName(&quot;v1coroutine&quot;)) {
+        delay(500)
+        log(&quot;Computing v1&quot;)
+        6
+    }
+    val v2 = async(CoroutineName(&quot;v2coroutine&quot;)) {
+        delay(1000)
+        log(&quot;Computing v2&quot;)
+        7
+    }
+    log(&quot;The answer for v1 * v2 = ${v1.await() * v2.await()}&quot;)
+//sampleEnd    
+}
+</div><aside class="prompt" data-type="note" data-title="" id="jkm3nq_173"><p id="jkm3nq_178">You can get the full code <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-context-08.kt" id="jkm3nq_179" data-external="true" rel="noopener noreferrer">here</a>.</p></aside><p id="jkm3nq_174">The output it produces with <code class="code" id="jkm3nq_180">-Dkotlinx.coroutines.debug</code> JVM option is similar to:</p><div class="code-block" data-lang="none">
+[main @main#1] Started main coroutine
+[main @v1coroutine#2] Computing v1
+[main @v2coroutine#3] Computing v2
+[main @main#1] The answer for v1 * v2 = 42
+</div></section><section class="chapter"><h2 id="combining-context-elements" data-toc="combining-context-elements">Combining context elements</h2><p id="jkm3nq_181">Sometimes we need to define multiple elements for a coroutine context. We can use the <code class="code" id="jkm3nq_186">+</code> operator for that. For example, we can launch a coroutine with an explicitly specified dispatcher and an explicitly specified name at the same time:</p><div class="code-block" data-lang="kotlin" data-runnable="true" data-min-compiler-version="1.3">
+import kotlinx.coroutines.*
+
+fun main() = runBlocking&lt;Unit&gt; {
+//sampleStart
+    launch(Dispatchers.Default + CoroutineName(&quot;test&quot;)) {
+        println(&quot;I'm working in thread ${Thread.currentThread().name}&quot;)
+    }
+//sampleEnd    
+}
+</div><aside class="prompt" data-type="note" data-title="" id="jkm3nq_183"><p id="jkm3nq_187">You can get the full code <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-context-09.kt" id="jkm3nq_188" data-external="true" rel="noopener noreferrer">here</a>.</p></aside><p id="jkm3nq_184">The output of this code with the <code class="code" id="jkm3nq_189">-Dkotlinx.coroutines.debug</code> JVM option is:</p><div class="code-block" data-lang="none">
+I'm working in thread DefaultDispatcher-worker-1 @test#2
+</div></section><section class="chapter"><h2 id="coroutine-scope" data-toc="coroutine-scope">Coroutine scope</h2><p id="jkm3nq_190">Let us put our knowledge about contexts, children, and jobs together. Assume that our application has an object with a lifecycle, but that object is not a coroutine. For example, we are writing an Android application, and launching various coroutines in the context of an Android activity to perform asynchronous operations to fetch and update data, do animations, etc. These coroutines must be cancelled when the activity is destroyed to avoid memory leaks. We, of course, can manipulate contexts and jobs manually to tie the lifecycles of the activity and its coroutines, but <code class="code" id="jkm3nq_203">kotlinx.coroutines</code> provides an abstraction encapsulating that: <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-scope/index.html" id="jkm3nq_204" data-external="true" rel="noopener noreferrer">CoroutineScope</a>. You should be already familiar with the coroutine scope as all coroutine builders are declared as extensions on it.</p><p id="jkm3nq_191">We manage the lifecycles of our coroutines by creating an instance of <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-scope/index.html" id="jkm3nq_205" data-external="true" rel="noopener noreferrer">CoroutineScope</a> tied to the lifecycle of our activity. A <code class="code" id="jkm3nq_206">CoroutineScope</code> instance can be created by the <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-scope.html" id="jkm3nq_207" data-external="true" rel="noopener noreferrer">CoroutineScope()</a> or <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-main-scope.html" id="jkm3nq_208" data-external="true" rel="noopener noreferrer">MainScope()</a> factory functions. The former creates a general-purpose scope, while the latter creates a scope for UI applications and uses <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-dispatchers/-main.html" id="jkm3nq_209" data-external="true" rel="noopener noreferrer">Dispatchers.Main</a> as the default dispatcher:</p><div class="code-block" data-lang="kotlin">
+class Activity {
+    private val mainScope = MainScope()
+    
+    fun destroy() {
+        mainScope.cancel()
+    }
+    // to be continued ...
+</div><p id="jkm3nq_193">Now, we can launch coroutines in the scope of this <code class="code" id="jkm3nq_210">Activity</code> using the defined <code class="code" id="jkm3nq_211">mainScope</code>. For the demo, we launch ten coroutines that delay for a different time:</p><div class="code-block" data-lang="kotlin">
+    // class Activity continues
+    fun doSomething() {
+        // launch ten coroutines for a demo, each working for a different time
+        repeat(10) { i -&gt;
+            mainScope.launch {
+                delay((i + 1) * 200L) // variable delay 200ms, 400ms, ... etc
+                println(&quot;Coroutine $i is done&quot;)
+            }
+        }
+    }
+} // class Activity ends
+</div><p id="jkm3nq_195">In our main function we create the activity, call our test <code class="code" id="jkm3nq_212">doSomething</code> function, and destroy the activity after 500ms. This cancels all the coroutines that were launched from <code class="code" id="jkm3nq_213">doSomething</code>. We can see that because after the destruction of the activity, no more messages are printed, even if we wait a little longer.</p><div class="code-block" data-lang="kotlin" data-runnable="true" data-min-compiler-version="1.3">
+import kotlinx.coroutines.*
+
+class Activity {
+    private val mainScope = CoroutineScope(Dispatchers.Default) // use Default for test purposes
+    
+    fun destroy() {
+        mainScope.cancel()
+    }
+
+    fun doSomething() {
+        // launch ten coroutines for a demo, each working for a different time
+        repeat(10) { i -&gt;
+            mainScope.launch {
+                delay((i + 1) * 200L) // variable delay 200ms, 400ms, ... etc
+                println(&quot;Coroutine $i is done&quot;)
+            }
+        }
+    }
+} // class Activity ends
+
+fun main() = runBlocking&lt;Unit&gt; {
+//sampleStart
+    val activity = Activity()
+    activity.doSomething() // run test function
+    println(&quot;Launched coroutines&quot;)
+    delay(500L) // delay for half a second
+    println(&quot;Destroying activity!&quot;)
+    activity.destroy() // cancels all coroutines
+    delay(1000) // visually confirm that they don't work
+//sampleEnd    
+}
+</div><aside class="prompt" data-type="note" data-title="" id="jkm3nq_197"><p id="jkm3nq_214">You can get the full code <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-context-10.kt" id="jkm3nq_215" data-external="true" rel="noopener noreferrer">here</a>.</p></aside><p id="jkm3nq_198">The output of this example is:</p><div class="code-block" data-lang="none">
+Launched coroutines
+Coroutine 0 is done
+Coroutine 1 is done
+Destroying activity!
+</div><p id="jkm3nq_200">As you can see, only the first two coroutines print a message and the others are cancelled by a single invocation of <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/cancel.html" id="jkm3nq_216" data-external="true" rel="noopener noreferrer"><code class="code" id="jkm3nq_218">mainScope.cancel()</code></a> in <code class="code" id="jkm3nq_217">Activity.destroy()</code>.</p><aside class="prompt" data-type="note" data-title="" id="jkm3nq_201"><p id="jkm3nq_219">Note that Android has first-party support for coroutine scope in all entities with the lifecycle. See <a href="https://developer.android.com/topic/libraries/architecture/coroutines#lifecyclescope" id="jkm3nq_220" data-external="true" rel="noopener noreferrer">the corresponding documentation</a>.</p></aside><section class="chapter"><h3 id="thread-local-data" data-toc="thread-local-data">Thread-local data</h3><p id="jkm3nq_221">Sometimes it is convenient to be able to pass some thread-local data to or between coroutines. However, since they are not bound to any particular thread, this will likely lead to boilerplate if done manually.</p><p id="jkm3nq_222">For <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/ThreadLocal.html" id="jkm3nq_232" data-external="true" rel="noopener noreferrer"><code class="code" id="jkm3nq_235">ThreadLocal</code></a>, the <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/as-context-element.html" id="jkm3nq_233" data-external="true" rel="noopener noreferrer">asContextElement</a> extension function is here for the rescue. It creates an additional context element which keeps the value of the given <code class="code" id="jkm3nq_234">ThreadLocal</code> and restores it every time the coroutine switches its context.</p><p id="jkm3nq_223">It is easy to demonstrate it in action:</p><div class="code-block" data-lang="kotlin" data-runnable="true" data-min-compiler-version="1.3">
+import kotlinx.coroutines.*
+
+val threadLocal = ThreadLocal&lt;String?&gt;() // declare thread-local variable
+
+fun main() = runBlocking&lt;Unit&gt; {
+//sampleStart
+    threadLocal.set(&quot;main&quot;)
+    println(&quot;Pre-main, current thread: ${Thread.currentThread()}, thread local value: '${threadLocal.get()}'&quot;)
+    val job = launch(Dispatchers.Default + threadLocal.asContextElement(value = &quot;launch&quot;)) {
+        println(&quot;Launch start, current thread: ${Thread.currentThread()}, thread local value: '${threadLocal.get()}'&quot;)
+        yield()
+        println(&quot;After yield, current thread: ${Thread.currentThread()}, thread local value: '${threadLocal.get()}'&quot;)
+    }
+    job.join()
+    println(&quot;Post-main, current thread: ${Thread.currentThread()}, thread local value: '${threadLocal.get()}'&quot;)
+//sampleEnd    
+}
+</div><aside class="prompt" data-type="note" data-title="" id="jkm3nq_225"><p id="jkm3nq_236">You can get the full code <a href="https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-core/jvm/test/guide/example-context-11.kt" id="jkm3nq_237" data-external="true" rel="noopener noreferrer">here</a>.</p></aside><p id="jkm3nq_226">In this example, we launch a new coroutine in a background thread pool using <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-dispatchers/-default.html" id="jkm3nq_238" data-external="true" rel="noopener noreferrer">Dispatchers.Default</a>, so it works on different threads from the thread pool, but it still has the value of the thread local variable that we specified using <code class="code" id="jkm3nq_239">threadLocal.asContextElement(value = &quot;launch&quot;)</code>, no matter which thread the coroutine is executed on. Thus, the output (with <a href="#debugging-coroutines-and-threads" id="jkm3nq_240" data-tooltip="Coroutines can suspend on one thread and resume on another thread. Even with a single-threaded dispatcher it might be hard to figure out what the coroutine was doing, where, and when if you don't have special tooling.">debug</a>) is:</p><div class="code-block" data-lang="none">
+Pre-main, current thread: Thread[main @coroutine#1,5,main], thread local value: 'main'
+Launch start, current thread: Thread[DefaultDispatcher-worker-1 @coroutine#2,5,main], thread local value: 'launch'
+After yield, current thread: Thread[DefaultDispatcher-worker-2 @coroutine#2,5,main], thread local value: 'launch'
+Post-main, current thread: Thread[main @coroutine#1,5,main], thread local value: 'main'
+</div><p id="jkm3nq_228">It's easy to forget to set the corresponding context element. The thread-local variable accessed from the coroutine may then have an unexpected value if the thread running the coroutine is different. To avoid such situations, it is recommended to use the <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/ensure-present.html" id="jkm3nq_241" data-external="true" rel="noopener noreferrer">ensurePresent</a> method and fail-fast on improper usages.</p><p id="jkm3nq_229"><code class="code" id="jkm3nq_242">ThreadLocal</code> has first-class support and can be used with any primitive <code class="code" id="jkm3nq_243">kotlinx.coroutines</code> provides. It has one key limitation, though: when a thread-local is mutated, a new value is not propagated to the coroutine caller (because a context element cannot track all <code class="code" id="jkm3nq_244">ThreadLocal</code> object accesses), and the updated value is lost on the next suspension. Use <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/with-context.html" id="jkm3nq_245" data-external="true" rel="noopener noreferrer">withContext</a> to update the value of the thread-local in a coroutine, see <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/as-context-element.html" id="jkm3nq_246" data-external="true" rel="noopener noreferrer">asContextElement</a> for more details.</p><p id="jkm3nq_230">Alternatively, a value can be stored in a mutable box like <code class="code" id="jkm3nq_247">class Counter(var i: Int)</code>, which is, in turn, stored in a thread-local variable. However, in this case, you are fully responsible to synchronize potentially concurrent modifications to the variable in this mutable box.</p><p id="jkm3nq_231">For advanced usage, for example, for integration with logging MDC, transactional contexts or any other libraries that internally use thread-locals for passing data, see the documentation of the <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-thread-context-element/index.html" id="jkm3nq_248" data-external="true" rel="noopener noreferrer">ThreadContextElement</a> interface that should be implemented.</p></section></section><div class="last-modified">27 February 2025</div><div data-feedback-placeholder="true"></div><div class="navigation-links _bottom"><a href="composing-suspending-functions.html" class="navigation-links__prev">Composing suspending functions</a><a href="channels.html" class="navigation-links__next">Channels</a></div></article><div id="disqus_thread"></div></div></section></main></div></body></html>

@@ -1,0 +1,2030 @@
+
+<!DOCTYPE html>
+
+
+
+
+
+
+<html data-bs-theme="auto" lang="en" prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#">
+    <head>
+        
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>
+            
+        RFC 9457 - Problem Details for HTTP APIs
+
+        </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="traceparent" content="">
+        <link href="https://static.ietf.org/fonts/inter/import.css" rel="stylesheet">
+        <link href="https://static.ietf.org/fonts/noto-sans-mono/import.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://static.ietf.org/dt/12.83.1/ietf/css/ietf.css">
+        <link rel="stylesheet" href="https://static.ietf.org/dt/12.83.1/ietf/css/select2.css">
+        
+        
+        
+        
+        
+    
+
+
+
+
+<meta property="og:title" content="RFC 9457: Problem Details for HTTP APIs">
+<meta property="og:url" content="https://datatracker.ietf.org/doc/rfc9457/">
+
+
+<link rel="canonical" href="https://www.rfc-editor.org/info/rfc9457/">
+
+<meta property="og:site_name" content="IETF Datatracker">
+<meta property="og:description" content="This document defines a &quot;problem detail&quot; to carry machine-readable details of errors in HTTP response content to avoid the need to define new error response formats for HTTP APIs. This document obsoletes RFC 7807.">
+<meta property="og:type" content="article">
+
+<meta property="og:image" content="https://static.ietf.org/dt/12.83.1/ietf/images/ietf-logo-card.png">
+<meta property="og:image:alt" content="Logo of the IETF">
+<meta property="article:section" content="IETF - Internet Engineering Task Force">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+
+<meta property="article:author" content="Mark Nottingham">
+<meta property="article:author" content="Erik Wilde">
+<meta property="article:author" content="Sanjay Dalal">
+
+
+
+    <link rel="alternate"
+          type="application/atom+xml"
+          title="Document changes"
+          href="/feed/document-changes/rfc9457/">
+    <meta name="description"
+          content="Problem Details for HTTP APIs (RFC 9457, July 2023)">
+
+        
+<link href="https://static.ietf.org/dt/12.83.1/assets/create-pinia-singleton-068be574.js" type="text/javascript" crossorigin="anonymous" rel="modulepreload" as="script" />
+<link href="https://static.ietf.org/dt/12.83.1/assets/Scrollbar-b25c72ad.js" type="text/javascript" crossorigin="anonymous" rel="modulepreload" as="script" />
+        
+
+<link rel="apple-touch-icon"
+      sizes="180x180"
+      href="https://static.ietf.org/dt/12.83.1/ietf/images/ietf-logo-nor-180.png">
+<link rel="icon"
+      sizes="32x32"
+      href="https://static.ietf.org/dt/12.83.1/ietf/images/ietf-logo-nor-32.png">
+<link rel="icon"
+      sizes="16x16"
+      href="https://static.ietf.org/dt/12.83.1/ietf/images/ietf-logo-nor-16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon"
+      href="https://static.ietf.org/dt/12.83.1/ietf/images/ietf-logo-nor-mask.svg"
+      color="#ffffff">
+<meta name="msapplication-TileColor"
+      content="#ffffff">
+<meta name="theme-color"
+      content="#ffffff">
+        
+        
+    </head>
+    <body  class="navbar-offset position-relative"
+          data-group-menu-data-url="/group/groupmenu.json">
+        
+        
+<div class="vue-embed" data-component="Status"></div>
+        <a class="visually-hidden visually-hidden-focusable" href="#content">Skip to main content</a>
+        <nav class="navbar navbar-expand-lg fixed-top bg-secondary-subtle">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">
+                    
+
+
+
+<img alt="IETF Logo"
+     class="d-lm-none me-2"
+     
+     
+        
+             src="https://static.ietf.org/dt/12.83.1/ietf/images/ietf-logo-nor-white.svg"
+        
+     
+     >
+
+<img alt="IETF Logo"
+     class="d-dm-none me-2"
+     
+     
+        
+             src="https://static.ietf.org/dt/12.83.1/ietf/images/ietf-logo-nor.svg"
+        
+     
+     >
+                    Datatracker
+                    
+                </a>
+                <div class="collapse navbar-collapse" id="navbar-collapse">
+                    <ul class="nav navbar-nav flex-nowrap">
+                        
+
+
+
+
+<li class="nav-item dropdown">
+    
+        <a href="#"
+           class="nav-link dropdown-toggle"
+           role="button"
+           data-bs-toggle="dropdown"
+           aria-expanded="false">
+            Groups
+        </a>
+        <ul class="dropdown-menu mt-n1">
+        
+    <li class="dropdown-header">By area/parent</li>
+    
+
+
+
+    
+    <li class="dropend group-menu group-parent-2010">
+        <a class="dropdown-item dropdown-toggle "
+           href="/wg/#ART">
+            Apps &amp; Realtime
+        </a>
+    </li>
+
+    
+    <li class="dropend group-menu group-parent-1008">
+        <a class="dropdown-item dropdown-toggle "
+           href="/wg/#GEN">
+            General
+        </a>
+    </li>
+
+    
+    <li class="dropend group-menu group-parent-1052">
+        <a class="dropdown-item dropdown-toggle "
+           href="/wg/#INT">
+            Internet
+        </a>
+    </li>
+
+    
+    <li class="dropend group-menu group-parent-1193">
+        <a class="dropdown-item dropdown-toggle "
+           href="/wg/#OPS">
+            Ops &amp; Management
+        </a>
+    </li>
+
+    
+    <li class="dropend group-menu group-parent-1249">
+        <a class="dropdown-item dropdown-toggle "
+           href="/wg/#RTG">
+            Routing
+        </a>
+    </li>
+
+    
+    <li class="dropend group-menu group-parent-1260">
+        <a class="dropdown-item dropdown-toggle "
+           href="/wg/#SEC">
+            Security
+        </a>
+    </li>
+
+    
+    <li class="dropend group-menu group-parent-2412">
+        <a class="dropdown-item dropdown-toggle "
+           href="/wg/#WIT">
+            Web and Internet Transport
+        </a>
+    </li>
+
+    
+        <li><a class="dropdown-item" href="/group/iesg/about/">IESG</a></li>
+    
+    <li class="dropend group-menu group-parent-7">
+        <a class="dropdown-item dropdown-toggle "
+           href="/program/">
+            IAB
+        </a>
+    </li>
+
+    
+    <li class="dropend group-menu group-parent-3">
+        <a class="dropdown-item dropdown-toggle "
+           href="/rg/">
+            IRTF
+        </a>
+    </li>
+
+    
+    <li class="dropend group-menu group-parent-2309">
+        <a class="dropdown-item dropdown-toggle "
+           href="/adm/">
+            IETF LLC
+        </a>
+    </li>
+
+    
+    <li class="dropend group-menu group-parent-1876">
+        <a class="dropdown-item dropdown-toggle "
+           href="/rfcedtyp/">
+            RFC Editor
+        </a>
+    </li>
+
+
+    <li class="dropend">
+        <a class="dropdown-item dropdown-toggle "
+           href="/group/">
+            Other
+        </a>
+        
+
+
+<ul class="dropdown-menu ms-n1">
+    
+        <li>
+            <a class="dropdown-item "
+               href="/ag/">Active AGs</a>
+        </li>
+    
+        <li>
+            <a class="dropdown-item "
+               href="/area/">Active Areas</a>
+        </li>
+    
+        <li>
+            <a class="dropdown-item "
+               href="/dir/">Active Directorates</a>
+        </li>
+    
+        <li>
+            <a class="dropdown-item "
+               href="/iabworkshop/">Active IAB Workshops</a>
+        </li>
+    
+        <li>
+            <a class="dropdown-item "
+               href="/program/">Active Programs</a>
+        </li>
+    
+        <li>
+            <a class="dropdown-item "
+               href="/rag/">Active RAGs</a>
+        </li>
+    
+        <li>
+            <a class="dropdown-item "
+               href="/team/">Active Teams</a>
+        </li>
+    
+    
+</ul>
+
+    </li>
+    <li><hr class="dropdown-divider"></li>
+    <li class="dropdown-header">New work</li>
+    <li>
+        <a class="dropdown-item"
+           href="/group/chartering/">
+            Chartering groups
+        </a>
+    </li>
+    <li>
+        <a class="dropdown-item"
+           href="/wg/bofs/">
+            BOFs
+        </a>
+    </li>
+    <li>
+        <a class="dropdown-item"
+           href="/doc/bof-requests">
+            BOF Requests
+        </a>
+    </li>
+    <li><hr class="dropdown-divider"></li>
+    <li class="dropdown-header">Other groups</li>
+    <li>
+        <a class="dropdown-item"
+           href="/group/concluded/">
+            Concluded groups
+        </a>
+    </li>
+    <li>
+        <a class="dropdown-item"
+           href="/list/nonwg">
+            Non-WG lists
+        </a>
+    </li>
+    
+    </ul>
+</li>
+
+<li class="nav-item dropdown">
+    
+        <a href="#"
+           class="nav-link dropdown-toggle"
+           role="button"
+           data-bs-toggle="dropdown"
+           aria-expanded="false">
+            Documents
+        </a>
+        <ul class="dropdown-menu mt-n1">
+        
+    <li>
+        <a class="dropdown-item"
+           href="/doc/search">
+            Search
+        </a>
+    </li>
+    <li>
+        <a class="dropdown-item"
+           href="/doc/recent">
+            Recent I-Ds
+        </a>
+    </li>
+    <li>
+        <a class="dropdown-item"
+           href="/submit/">
+            Submit an Internet-Draft
+        </a>
+    </li>
+    
+    
+        <li><hr class="dropdown-divider">
+        </li>
+    
+    <li class="dropdown-header">
+        RFC streams
+    </li>
+    <li>
+        <a class="dropdown-item"
+           href="/stream/iab/">
+            IAB
+        </a>
+    </li>
+    <li>
+        <a class="dropdown-item"
+           href="/stream/irtf/">
+            IRTF
+        </a>
+    </li>
+    <li>
+        <a class="dropdown-item"
+           href="/stream/ise/">
+            ISE
+        </a>
+    </li>
+    <li>
+        <a class="dropdown-item"
+           href="/stream/editorial/">
+            Editorial
+        </a>
+    </li>
+    
+        <li><hr class="dropdown-divider">
+        </li>
+    
+    <li class="dropdown-header">
+        Subseries
+    </li>
+    <li>
+        <a class="dropdown-item"
+           href="/doc/std">
+            STD
+        </a>
+        <a class="dropdown-item"
+           href="/doc/bcp">
+            BCP
+        </a>
+        <a class="dropdown-item"
+           href="/doc/fyi">
+            FYI
+        </a>
+    </li>
+    
+    </ul>
+</li>
+
+<li class="nav-item dropdown">
+    
+        <a href="#"
+           class="nav-link dropdown-toggle"
+           role="button"
+           data-bs-toggle="dropdown"
+           aria-expanded="false">
+            Meetings
+        </a>
+        <ul class="dropdown-menu mt-n1">
+        
+    <li>
+        <a class="dropdown-item"
+           href="/meeting/agenda">
+            Agenda
+        </a>
+    </li>
+    <li>
+        <a class="dropdown-item"
+           href="/meeting/materials">
+            Materials
+        </a>
+    </li>
+    <li>
+        <a class="dropdown-item"
+           href="/meeting/floor-plan">
+            Floor plan
+        </a>
+    </li>
+    <li>
+        <a class="dropdown-item"
+           href="https://www.ietf.org/how/meetings/register/">
+            Registration
+        </a>
+    </li>
+    <li>
+        <a class="dropdown-item"
+           href="/meeting/important-dates/">
+            Important dates
+        </a>
+    </li>
+    <li>
+        <a class="dropdown-item"
+           href="/meeting/session/request/">
+            Request a session
+        </a>
+    </li>
+    
+    <li>
+        <a class="dropdown-item"
+           href="/meeting/requests">
+            Session requests
+        </a>
+    </li>
+    
+    
+        
+            <li><hr class="dropdown-divider">
+            </li>
+        
+        <li class="dropdown-header">
+            Upcoming meetings
+        </li>
+    
+    <li>
+        <a class="dropdown-item"
+           href="/meeting/upcoming">
+            Upcoming meetings
+        </a>
+    </li>
+    
+        
+            <li><hr class="dropdown-divider">
+            </li>
+        
+        <li class="dropdown-header">
+            Past meetings
+        </li>
+    
+    <li>
+        <a class="dropdown-item"
+           href="/meeting/past">
+            Past IETF meetings
+        </a>
+    </li>
+    <li>
+        <a class="dropdown-item"
+           href="/meeting/past/interim">
+            Past interim meetings
+        </a>
+    </li>
+    
+    </ul>
+</li>
+
+<li class="nav-item dropdown">
+    
+        <a href="#"
+           class="nav-link dropdown-toggle"
+           role="button"
+           data-bs-toggle="dropdown"
+           aria-expanded="false">
+            Other
+        </a>
+        <ul class="dropdown-menu mt-n1">
+        
+    <li>
+        <a class="dropdown-item"
+           href="/ipr/">
+            IPR disclosures
+        </a>
+    </li>
+    <li>
+        <a class="dropdown-item"
+           href="/liaison/">
+            Liaison statements
+        </a>
+    </li>
+    
+    <li>
+        <a class="dropdown-item"
+           href="/iesg/agenda/">
+            IESG agenda
+        </a>
+    </li>
+    <li>
+        <a class="dropdown-item"
+           href="/nomcom/">
+            NomComs
+        </a>
+    </li>
+    <li>
+        <a class="dropdown-item"
+           href="/doc/downref">
+            Downref registry
+        </a>
+    </li>
+    <li class="dropend">
+        <a class="dropdown-item dropdown-toggle" href="#">
+            Statistics
+        </a>
+        <ul class="dropdown-menu">
+            <li>
+                <a class="dropdown-item"
+                   href="/stats/document/">
+                    I-Ds/RFCs
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item"
+                   href="/stats/meeting/">
+                    Meetings
+                </a>
+            </li>
+            
+            
+        </ul>
+    </li>
+    <li>
+        <a class="dropdown-item"
+           href="/api/">
+            API Help
+        </a>
+    </li>
+    <li>
+        <a class="dropdown-item"
+           href="/release/">
+            Release notes
+        </a>
+    </li>
+    <li>
+        <a class="dropdown-item"
+           target="_blank" href="https://status.ietf.org">
+            System status
+        </a>
+    </li>
+    
+        <li><hr class="dropdown-divider">
+        </li>
+    
+    <li>
+        <a class="dropdown-item text-danger "
+           target="_blank" href="https://github.com/ietf-tools/datatracker/issues/new/choose">
+            <i class="bi bi-bug">
+            </i>
+            Report a bug
+        </a>
+    </li>
+    
+    </ul>
+</li>
+
+
+    
+
+
+
+<li class="nav-item dropdown">
+    
+        <a href="#"
+           class="nav-link dropdown-toggle"
+           role="button"
+           data-bs-toggle="dropdown"
+           aria-expanded="false">
+            
+                User
+            
+        </a>
+        <ul class="dropdown-menu  mt-n1 ">
+        
+    
+    
+        
+            <li>
+                <a class="dropdown-item "
+                   rel="nofollow"
+                   href="/accounts/login/?next=/doc/rfc9457/">
+                    Sign in
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item "
+                   rel="nofollow"
+                   href="/accounts/reset/">
+                    Password reset
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item "
+                   href="/accounts/settings/"
+                   rel="nofollow">
+                    Preferences
+                </a>
+            </li>
+        
+    
+    
+        <li>
+            <a class="dropdown-item "
+               href="/accounts/create/">
+                New account
+            </a>
+        </li>
+    
+    <li class="dropend">
+      <a class="dropdown-item dropdown-toggle" href="#">
+        List subscriptions
+      </a>
+      <ul class="dropdown-menu">
+            <li>
+                <a class="dropdown-item "
+                href="https://mailman3.ietf.org/mailman3/lists/">
+                    IETF Lists
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item "
+                href="https://mailman3.irtf.org/mailman3/lists/">
+                IRTF Lists
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item "
+                href="https://mailman3.iab.org/mailman3/lists/">
+                    IAB Lists
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item "
+                href="https://mailman3.rfc-editor.org/mailman3/lists/">
+                    RFC-Editor Lists
+                </a>
+            </li>
+        </ul>
+    </li>
+    
+    
+    
+    </ul></li>
+
+
+                    </ul>
+                </div>
+                <div class="d-flex align-items-center">
+                    <a class="nav-link text-danger d-none d-xl-inline me-xl-4"
+                       target="_blank"
+                       href="https://github.com/ietf-tools/datatracker/issues/new/choose">
+                        Report a bug
+                        <i class="bi bi-bug"></i>
+                    </a>
+
+                    
+                        <a class="btn me-1  btn-warning  d-none d-sm-block"
+                           rel="nofollow"
+                           href="/accounts/login/?next=/doc/rfc9457/">
+                            Sign in
+                        </a>
+                    
+
+                    <div class="d-none d-md-block dropdown" id="navbar-doc-search-wrapper">
+                        <input class="form-control"
+                               id="navbar-doc-search"
+                               type="text"
+                               placeholder="Document search"
+                               autocomplete="off"
+                               data-ajax-url="/doc/select2search/document/all/"
+                               aria-label="Document search">
+                        <ul class="dropdown-menu" id="navbar-doc-search-results">
+                        </ul>
+                    </div>
+                </div>
+                <button class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbar-collapse"
+                        aria-controls="navbar-collapse"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+                    <i class="navbar-toggler-icon"></i>
+                </button>
+            </div>
+        </nav>
+        
+        <main class="pt-3 container-fluid" id="main">
+            <div class="row">
+                
+                <div class="col mx-lg-3 ietf-auto-nav" id="content">
+                    
+                    
+                    
+    
+    
+
+
+
+<h1>
+    Problem Details for HTTP APIs
+    <br>
+    <small class="text-body-secondary">RFC 9457</small>
+</h1>
+<ul class="nav nav-tabs my-3">
+    
+        <li  class="nav-item">
+            <a class="nav-link active"
+               href="/doc/rfc9457/">
+                Status
+            </a>
+        </li>
+    
+        <li  class="nav-item">
+            <a class="nav-link "
+               href="/doc/rfc9457/email/">
+                Email expansions
+            </a>
+        </li>
+    
+        <li  class="nav-item">
+            <a class="nav-link "
+               href="/doc/rfc9457/history/">
+                History
+            </a>
+        </li>
+    
+</ul>
+
+    
+
+
+
+
+    
+
+
+    <div id="doc-timeline"></div>
+    <table class="table table-sm table-borderless">
+        
+
+
+
+
+
+
+
+<tbody class="meta align-top  border-top">
+    <tr>
+        <th scope="row">Document</th>
+        <th scope="row">Type</th>
+        <td class="edit"></td>
+        <td>
+            
+
+
+
+
+
+<span class="text-success">RFC
+    
+    - Proposed Standard
+    
+</span>
+
+            
+                
+                    (July 2023)
+                
+                
+                
+                    <a class="badge rounded-pill text-bg-danger text-decoration-none"
+                       href="https://www.rfc-editor.org/errata_search.php?rfc=9457" title="Click to view errata." rel="nofollow">
+                        Errata
+                    </a>
+                
+                
+                
+                
+                
+                <div>Obsoletes <a href="/doc/rfc7807/" title="Problem Details for HTTP APIs">RFC 7807</a></div>
+                
+                
+                
+                
+                    <div>
+                        Was
+                        <a href="/doc/draft-ietf-httpapi-rfc7807bis/07/">draft-ietf-httpapi-rfc7807bis</a>
+                        (<a href="/wg/httpapi/about/">httpapi WG</a>)
+                    </div>
+                
+            
+            
+            
+        </td>
+    </tr>
+    
+    <tr>
+        <td></td>
+        <th scope="row">Authors</th>
+        <td class="edit">
+            
+        </td>
+        <td>
+            
+            
+                <span ><a 
+           title="Datatracker profile of Mark Nottingham"
+            href="/person/mnot@mnot.net" >M. Nottingham</a> <a 
+               href="mailto:mnot%40mnot.net"
+               aria-label="Compose email to mnot@mnot.net"
+               title="Compose email to mnot@mnot.net">
+                <i class="bi bi-envelope"></i></a></span>,
+            
+                <span ><a 
+           title="Datatracker profile of Erik Wilde"
+            href="/person/erik.wilde@dret.net" >E. Wilde</a> <a 
+               href="mailto:erik.wilde%40dret.net"
+               aria-label="Compose email to erik.wilde@dret.net"
+               title="Compose email to erik.wilde@dret.net">
+                <i class="bi bi-envelope"></i></a></span>,
+            
+                <span ><a 
+           title="Datatracker profile of Sanjay Dalal"
+            href="/person/sanjay.dalal@berkeley.edu" >S. Dalal</a> <a 
+               href="mailto:sanjay.dalal%40berkeley.edu"
+               aria-label="Compose email to sanjay.dalal@berkeley.edu"
+               title="Compose email to sanjay.dalal@berkeley.edu">
+                <i class="bi bi-envelope"></i></a></span>
+            
+            
+        </td>
+    </tr>
+    
+    
+    <tr>
+        <td></td>
+        <th scope="row">Last updated</th>
+        <td class="edit"></td>
+        <td>
+            2026-05-20
+            
+        </td>
+    </tr>
+    
+    
+    <tr>
+        <td></td>
+        <th scope="row">
+            RFC stream
+        </th>
+        <td class="edit">
+            
+        </td>
+        <td >
+            
+                
+                
+                    Internet Engineering Task Force (IETF)
+                
+                
+            
+        </td>
+    </tr>
+    
+    <tr>
+        <td></td>
+        <th scope="row">
+            Formats
+        </th>
+        <td class="edit">
+        </td>
+        <td>
+            
+                
+    <div class="buttonlist">
+    
+        
+        <a class="btn btn-primary btn-sm"
+          
+          target="_blank"
+          href="https://www.rfc-editor.org/rfc/rfc9457.txt">
+            
+                <i class="bi bi-file-text"></i> txt
+            
+        </a>
+        
+    
+        
+        <a class="btn btn-primary btn-sm"
+          
+          target="_blank"
+          href="https://www.rfc-editor.org/rfc/rfc9457.html">
+            
+                <i class="bi bi-file-code"></i> html
+            
+        </a>
+        
+    
+        
+        <a class="btn btn-primary btn-sm"
+          
+          target="_blank"
+          href="https://www.rfc-editor.org/rfc/rfc9457.xml">
+            
+                <i class="bi bi-file-code"></i> xml
+            
+        </a>
+        
+    
+        
+        <a class="btn btn-primary btn-sm"
+          
+            download="rfc9457.pdf"
+          
+         
+          target="_blank"
+          href="https://www.rfc-editor.org/rfc/rfc9457.pdf">
+            
+                <i class="bi bi-file-pdf"></i> pdf
+            
+        </a>
+        
+    
+        
+        <a class="btn btn-primary btn-sm"
+          
+          
+          href="/doc/html/rfc9457">
+            
+                <i class="bi bi-file-code"></i> htmlized
+            
+        </a>
+        
+    
+        
+        <a class="btn btn-primary btn-sm"
+          
+          target="_blank"
+          href="/doc/rfc9457/bibtex/">
+            
+                <i class="bi bi-file-ruled"></i> bibtex
+            
+        </a>
+        
+    
+</div>
+
+            
+        </td>
+    </tr>
+    
+    
+        
+    
+    
+        
+            <tr>
+                <td>
+                </td>
+                <th scope="row">
+                    Additional resources
+                </th>
+                <td class="edit">
+                    
+                </td>
+                <td>
+                    
+                        
+                        
+                            
+                                <a href="https://mailarchive.ietf.org/arch/browse/httpapi/?q=rfc9457 OR %22draft-ietf-httpapi-rfc7807bis%22">
+                                    Mailing list discussion
+                                </a>
+                            
+                        
+                    
+                </td>
+            </tr>
+        
+    
+</tbody>
+        <tbody class="meta border-top">
+        </tbody>
+        
+            <tbody class="meta border-top">
+                <tr>
+                    <th scope="row">
+                        IESG
+                    </th>
+                        <th scope="row">
+                            Responsible AD
+                        </th>
+                        <td class="edit">
+                            
+                        </td>
+                        <td>
+                            
+                                <span ><a 
+           title="Datatracker profile of Murray Kucherawy"
+            href="/person/superuser@gmail.com" >Murray Kucherawy</a> <a 
+               href="mailto:superuser%40gmail.com"
+               aria-label="Compose email to superuser@gmail.com"
+               title="Compose email to superuser@gmail.com">
+                <i class="bi bi-envelope"></i></a></span>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <th scope="row">
+                            Send notices to
+                        </th>
+                        <td class="edit">
+                            
+                        </td>
+                        <td>
+                            
+                                <span class="text-body-secondary">
+                                    (None)
+                                </span>
+                            
+                        </td>
+                    </tr>
+                </tbody>
+            
+        </table>
+        <div class="buttonlist">
+            
+                <a class="btn btn-primary btn-sm"
+                   href="mailto:draft-ietf-httpapi-rfc7807bis@ietf.org?subject=Mail%20regarding%20rfc9457">
+                    <i class="bi bi-envelope">
+                    </i>
+                    Email authors
+                </a>
+            
+            
+                <a class="btn btn-primary btn-sm"
+                   href="mailto:httpapi@ietf.org?subject=Mail%20regarding%20rfc9457">
+                    <i class="bi bi-envelope">
+                    </i>
+                    Email WG
+                </a>
+            
+            <a class="btn btn-primary btn-sm"
+               href="/ipr/search/?submit=draft&amp;id=rfc9457"
+               rel="nofollow">
+                <i class="bi bi-lightning">
+                </i>
+                IPR
+                
+            </a>
+            <a class="btn btn-primary btn-sm"
+               href="/doc/rfc9457/references/"
+               rel="nofollow">
+                <i class="bi bi-arrow-left">
+                </i>
+                References
+            </a>
+            <a class="btn btn-primary btn-sm"
+               href="/doc/rfc9457/referencedby/"
+               rel="nofollow">
+                <i class="bi bi-arrow-right">
+                </i>
+                Referenced by
+            </a>
+            
+            <a class="btn btn-primary btn-sm"
+              href="/doc/rfc9457/notprepped-wrapper/"
+              rel="nofollow">
+              <i class="bi bi-vector-pen">
+              </i>
+              Get editor source
+            </a>
+            
+            <a class="btn btn-primary btn-sm"
+                href="https://mailarchive.ietf.org/arch/search?q=%22rfc9457%22"
+                rel="nofollow"
+                target="_blank">
+                Search Lists
+            </a>
+            
+            
+        </div>
+        <div class="card mt-5">
+            <div class="card-header">
+                    RFC 9457
+            </div>
+            <div class="card-body">
+                <pre>﻿
+
+Internet Engineering Task Force (IETF)                     M. Nottingham
+Request for Comments: 9457                                              
+Obsoletes: 7807                                                 E. Wilde
+Category: Standards Track                                               
+ISSN: 2070-1721                                                 S. Dalal
+                                                               July 2023
+
+                     Problem Details for HTTP APIs
+
+<span>Abstract</span>
+
+   This document defines a &quot;problem detail&quot; to carry machine-readable
+   details of errors in HTTP response content to avoid the need to
+   define new error response formats for HTTP APIs.
+
+   This document obsoletes RFC 7807.
+
+<span>Status of This Memo</span>
+
+   This is an Internet Standards Track document.
+
+   This document is a product of the Internet Engineering Task Force
+   (IETF).  It represents the consensus of the IETF community.  It has
+   received public review and has been approved for publication by the
+   Internet Engineering Steering Group (IESG).  Further information on
+   Internet Standards is available in Section 2 of RFC 7841.
+
+   Information about the current status of this document, any errata,
+   and how to provide feedback on it may be obtained at
+   https://www.rfc-editor.org/info/rfc9457.
+
+<span>Copyright Notice</span>
+
+   Copyright (c) 2023 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to BCP 78 and the IETF Trust&#x27;s Legal
+   Provisions Relating to IETF Documents
+   (https://trustee.ietf.org/license-info) in effect on the date of
+   publication of this document.  Please review these documents
+   carefully, as they describe your rights and restrictions with respect
+   to this document.  Code Components extracted from this document must
+   include Revised BSD License text as described in Section 4.e of the
+   Trust Legal Provisions and are provided without warranty as described
+   in the Revised BSD License.
+
+<span>Table of Contents</span>
+
+   1.  Introduction
+   2.  Requirements Language
+   3.  The Problem Details JSON Object
+     3.1.  Members of a Problem Details Object
+       3.1.1.  &quot;type&quot;
+       3.1.2.  &quot;status&quot;
+       3.1.3.  &quot;title&quot;
+       3.1.4.  &quot;detail&quot;
+       3.1.5.  &quot;instance&quot;
+     3.2.  Extension Members
+   4.  Defining New Problem Types
+     4.1.  Example
+     4.2.  Registered Problem Types
+       4.2.1.  about:blank
+   5.  Security Considerations
+   6.  IANA Considerations
+   7.  References
+     7.1.  Normative References
+     7.2.  Informative References
+   Appendix A.  JSON Schema for HTTP Problems
+   Appendix B.  HTTP Problems and XML
+   Appendix C.  Using Problem Details with Other Formats
+   Appendix D.  Changes from RFC 7807
+   Acknowledgements
+   Authors&#x27; Addresses
+
+1.  Introduction
+
+   HTTP status codes (Section 15 of [HTTP]) cannot always convey enough
+   information about errors to be helpful.  While humans using web
+   browsers can often understand an HTML [HTML5] response content, non-
+   human consumers of HTTP APIs have difficulty doing so.
+
+   To address that shortcoming, this specification defines simple JSON
+   [JSON] and XML [XML] document formats to describe the specifics of a
+   problem encountered -- &quot;problem details&quot;.
+
+   For example, consider a response indicating that the client&#x27;s account
+   doesn&#x27;t have enough credit.  The API&#x27;s designer might decide to use
+   the 403 Forbidden status code to inform generic HTTP software (such
+   as client libraries, caches, and proxies) of the response&#x27;s general
+   semantics.  API-specific problem details (such as why the server
+   refused the request and the applicable account balance) can be
+   carried in the response content so that the client can act upon them
+   appropriately (for example, triggering a transfer of more credit into
+   the account).
+
+   This specification identifies the specific &quot;problem type&quot; (e.g., &quot;out
+   of credit&quot;) with a URI [URI].  HTTP APIs can use URIs under their
+   control to identify problems specific to them or can reuse existing
+   ones to facilitate interoperability and leverage common semantics
+   (see Section 4.2).
+
+   Problem details can contain other information, such as a URI
+   identifying the problem&#x27;s specific occurrence (effectively giving an
+   identifier to the concept &quot;The time Joe didn&#x27;t have enough credit
+   last Thursday&quot;), which can be useful for support or forensic
+   purposes.
+
+   The data model for problem details is a JSON [JSON] object; when
+   serialized as a JSON document, it uses the &quot;application/problem+json&quot;
+   media type.  Appendix B defines an equivalent XML format, which uses
+   the &quot;application/problem+xml&quot; media type.
+
+   When they are conveyed in an HTTP response, the contents of problem
+   details can be negotiated using proactive negotiation; see
+   Section 12.1 of [HTTP].  In particular, the language used for human-
+   readable strings (such as those in title and description) can be
+   negotiated using the Accept-Language request header field
+   (Section 12.5.4 of [HTTP]), although that negotiation may still
+   result in a non-preferred, default representation being returned.
+
+   Problem details can be used with any HTTP status code, but they most
+   naturally fit the semantics of 4xx and 5xx responses.  Note that
+   problem details are (naturally) not the only way to convey the
+   details of a problem in HTTP.  If the response is still a
+   representation of a resource, for example, it&#x27;s often preferable to
+   describe the relevant details in that application&#x27;s format.
+   Likewise, defined HTTP status codes cover many situations with no
+   need to convey extra detail.
+
+   This specification&#x27;s aim is to define common error formats for
+   applications that need one so that they aren&#x27;t required to define
+   their own or, worse, tempted to redefine the semantics of existing
+   HTTP status codes.  Even if an application chooses not to use it to
+   convey errors, reviewing its design can help guide the design
+   decisions faced when conveying errors in an existing format.
+
+   See Appendix D for a list of changes from [RFC7807].
+
+2.  Requirements Language
+
+   The key words &quot;MUST&quot;, &quot;MUST NOT&quot;, &quot;REQUIRED&quot;, &quot;SHALL&quot;, &quot;SHALL NOT&quot;,
+   &quot;SHOULD&quot;, &quot;SHOULD NOT&quot;, &quot;RECOMMENDED&quot;, &quot;NOT RECOMMENDED&quot;, &quot;MAY&quot;, and
+   &quot;OPTIONAL&quot; in this document are to be interpreted as described in
+   BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
+   capitals, as shown here.
+
+3.  The Problem Details JSON Object
+
+   The canonical model for problem details is a JSON [JSON] object.
+   When serialized in a JSON document, that format is identified with
+   the &quot;application/problem+json&quot; media type.
+
+   For example:
+
+   POST /purchase HTTP/1.1
+   Host: store.example.com
+   Content-Type: application/json
+   Accept: application/json, application/problem+json
+
+   {
+     &quot;item&quot;: 123456,
+     &quot;quantity&quot;: 2
+   }
+
+   HTTP/1.1 403 Forbidden
+   Content-Type: application/problem+json
+   Content-Language: en
+
+   {
+    &quot;type&quot;: &quot;https://example.com/probs/out-of-credit&quot;,
+    &quot;title&quot;: &quot;You do not have enough credit.&quot;,
+    &quot;detail&quot;: &quot;Your current balance is 30, but that costs 50.&quot;,
+    &quot;instance&quot;: &quot;/account/12345/msgs/abc&quot;,
+    &quot;balance&quot;: 30,
+    &quot;accounts&quot;: [&quot;/account/12345&quot;,
+                 &quot;/account/67890&quot;]
+   }
+
+   Here, the out-of-credit problem (identified by its type) indicates
+   the reason for the 403 in &quot;title&quot;, identifies the specific problem
+   occurrence with &quot;instance&quot;, gives occurrence-specific details in
+   &quot;detail&quot;, and adds two extensions: &quot;balance&quot; conveys the account&#x27;s
+   balance, and &quot;accounts&quot; lists links where the account can be topped
+   up.
+
+   When designed to accommodate it, problem-specific extensions can
+   convey more than one instance of the same problem type.  For example:
+
+   POST /details HTTP/1.1
+   Host: account.example.com
+   Accept: application/json
+
+   {
+     &quot;age&quot;: 42.3,
+     &quot;profile&quot;: {
+       &quot;color&quot;: &quot;yellow&quot;
+     }
+   }
+
+   HTTP/1.1 422 Unprocessable Content
+   Content-Type: application/problem+json
+   Content-Language: en
+
+   {
+    &quot;type&quot;: &quot;https://example.net/validation-error&quot;,
+    &quot;title&quot;: &quot;Your request is not valid.&quot;,
+    &quot;errors&quot;: [
+                {
+                  &quot;detail&quot;: &quot;must be a positive integer&quot;,
+                  &quot;pointer&quot;: &quot;#/age&quot;
+                },
+                {
+                  &quot;detail&quot;: &quot;must be &#x27;green&#x27;, &#x27;red&#x27; or &#x27;blue&#x27;&quot;,
+                  &quot;pointer&quot;: &quot;#/profile/color&quot;
+                }
+             ]
+   }
+
+   The fictional problem type here defines the &quot;errors&quot; extension, an
+   array that describes the details of each validation error.  Each
+   member is an object containing &quot;detail&quot; to describe the issue and
+   &quot;pointer&quot; to locate the problem within the request&#x27;s content using a
+   JSON Pointer [JSON-POINTER].
+
+   When an API encounters multiple problems that do not share the same
+   type, it is RECOMMENDED that the most relevant or urgent problem be
+   represented in the response.  While it is possible to create generic
+   &quot;batch&quot; problem types that convey multiple, disparate types, they do
+   not map well into HTTP semantics.
+
+   Note also that the API has responded with the &quot;application/
+   problem+json&quot; type, even though the client did not list it in Accept,
+   as is allowed by HTTP (see Section 12.5.1 of [HTTP]).
+
+3.1.  Members of a Problem Details Object
+
+   Problem detail objects can have the following members.  If a member&#x27;s
+   value type does not match the specified type, the member MUST be
+   ignored -- i.e., processing will continue as if the member had not
+   been present.
+
+3.1.1.  &quot;type&quot;
+
+   The &quot;type&quot; member is a JSON string containing a URI reference [URI]
+   that identifies the problem type.  Consumers MUST use the &quot;type&quot; URI
+   (after resolution, if necessary) as the problem type&#x27;s primary
+   identifier.
+
+   When this member is not present, its value is assumed to be
+   &quot;about:blank&quot;.
+
+   If the type URI is a locator (e.g., those with an &quot;http&quot; or &quot;https&quot;
+   scheme), dereferencing it SHOULD provide human-readable documentation
+   for the problem type (e.g., using HTML [HTML5]).  However, consumers
+   SHOULD NOT automatically dereference the type URI, unless they do so
+   when providing information to developers (e.g., when a debugging tool
+   is in use).
+
+   When &quot;type&quot; contains a relative URI, it is resolved relative to the
+   document&#x27;s base URI, as per [URI], Section 5.  However, using
+   relative URIs can cause confusion, and they might not be handled
+   correctly by all implementations.
+
+   For example, if the two resources &quot;https://api.example.org/foo/
+   bar/123&quot; and &quot;https://api.example.org/widget/456&quot; both respond with a
+   &quot;type&quot; equal to the relative URI reference &quot;example-problem&quot;, when
+   resolved they will identify different resources
+   (&quot;https://api.example.org/foo/bar/example-problem&quot; and
+   &quot;https://api.example.org/widget/example-problem&quot;, respectively).  As
+   a result, it is RECOMMENDED that absolute URIs be used in &quot;type&quot; when
+   possible and that when relative URIs are used, they include the full
+   path (e.g., &quot;/types/123&quot;).
+
+   The type URI is allowed to be a non-resolvable URI.  For example, the
+   tag URI scheme [TAG] can be used to uniquely identify problem types:
+
+   tag:example@example.org,2021-09-17:OutOfLuck
+
+   However, resolvable type URIs are encouraged by this specification
+   because it might become desirable to resolve the URI in the future.
+   For example, if an API designer used the URI above and later adopted
+   a tool that resolves type URIs to discover information about the
+   error, taking advantage of that capability would require switching to
+   a resolvable URI, creating a new identity for the problem type and
+   thus introducing a breaking change.
+
+3.1.2.  &quot;status&quot;
+
+   The &quot;status&quot; member is a JSON number indicating the HTTP status code
+   ([HTTP], Section 15) generated by the origin server for this
+   occurrence of the problem.
+
+   The &quot;status&quot; member, if present, is only advisory; it conveys the
+   HTTP status code used for the convenience of the consumer.
+   Generators MUST use the same status code in the actual HTTP response,
+   to assure that generic HTTP software that does not understand this
+   format still behaves correctly.  See Section 5 for further caveats
+   regarding its use.
+
+   Consumers can use the status member to determine what the original
+   status code used by the generator was when it has been changed (e.g.,
+   by an intermediary or cache) and when a message&#x27;s content is
+   persisted without HTTP information.  Generic HTTP software will still
+   use the HTTP status code.
+
+3.1.3.  &quot;title&quot;
+
+   The &quot;title&quot; member is a JSON string containing a short, human-
+   readable summary of the problem type.
+
+   It SHOULD NOT change from occurrence to occurrence of the problem,
+   except for localization (e.g., using proactive content negotiation;
+   see [HTTP], Section 12.1).
+
+   The &quot;title&quot; string is advisory and is included only for users who are
+   unaware of and cannot discover the semantics of the type URI (e.g.,
+   during offline log analysis).
+
+3.1.4.  &quot;detail&quot;
+
+   The &quot;detail&quot; member is a JSON string containing a human-readable
+   explanation specific to this occurrence of the problem.
+
+   The &quot;detail&quot; string, if present, ought to focus on helping the client
+   correct the problem, rather than giving debugging information.
+
+   Consumers SHOULD NOT parse the &quot;detail&quot; member for information;
+   extensions are more suitable and less error-prone ways to obtain such
+   information.
+
+3.1.5.  &quot;instance&quot;
+
+   The &quot;instance&quot; member is a JSON string containing a URI reference
+   that identifies the specific occurrence of the problem.
+
+   When the &quot;instance&quot; URI is dereferenceable, the problem details
+   object can be fetched from it.  It might also return information
+   about the problem occurrence in other formats through use of
+   proactive content negotiation (see [HTTP], Section 12.5.1).
+
+   When the &quot;instance&quot; URI is not dereferenceable, it serves as a unique
+   identifier for the problem occurrence that may be of significance to
+   the server but is opaque to the client.
+
+   When &quot;instance&quot; contains a relative URI, it is resolved relative to
+   the document&#x27;s base URI, as per [URI], Section 5.  However, using
+   relative URIs can cause confusion, and they might not be handled
+   correctly by all implementations.
+
+   For example, if the two resources &quot;https://api.example.org/foo/
+   bar/123&quot; and &quot;https://api.example.org/widget/456&quot; both respond with
+   an &quot;instance&quot; equal to the relative URI reference &quot;example-instance&quot;,
+   when resolved they will identify different resources
+   (&quot;https://api.example.org/foo/bar/example-instance&quot; and
+   &quot;https://api.example.org/widget/example-instance&quot;, respectively).  As
+   a result, it is RECOMMENDED that absolute URIs be used in &quot;instance&quot;
+   when possible, and that when relative URIs are used, they include the
+   full path (e.g., &quot;/instances/123&quot;).
+
+3.2.  Extension Members
+
+   Problem type definitions MAY extend the problem details object with
+   additional members that are specific to that problem type.
+
+   For example, our out-of-credit problem above defines two such
+   extensions -- &quot;balance&quot; and &quot;accounts&quot; to convey additional, problem-
+   specific information.
+
+   Similarly, the &quot;validation error&quot; example defines an &quot;errors&quot;
+   extension that contains a list of individual error occurrences found,
+   with details and a pointer to the location of each.
+
+   Clients consuming problem details MUST ignore any such extensions
+   that they don&#x27;t recognize; this allows problem types to evolve and
+   include additional information in the future.
+
+   When creating extensions, problem type authors should choose their
+   names carefully.  To be used in the XML format (see Appendix B), they
+   will need to conform to the Name rule in Section 2.3 of [XML].
+
+4.  Defining New Problem Types
+
+   When an HTTP API needs to define a response that indicates an error
+   condition, it might be appropriate to do so by defining a new problem
+   type.
+
+   Before doing so, it&#x27;s important to understand what they are good for
+   and what is better left to other mechanisms.
+
+   Problem details are not a debugging tool for the underlying
+   implementation; rather, they are a way to expose greater detail about
+   the HTTP interface itself.  Designers of new problem types need to
+   carefully take into account the Security Considerations (Section 5),
+   in particular, the risk of exposing attack vectors by exposing
+   implementation internals through error messages.
+
+   Likewise, truly generic problems -- i.e., conditions that might apply
+   to any resource on the Web -- are usually better expressed as plain
+   status codes.  For example, a &quot;write access disallowed&quot; problem is
+   probably unnecessary, since a 403 Forbidden status code in response
+   to a PUT request is self-explanatory.
+
+   Finally, an application might have a more appropriate way to carry an
+   error in a format that it already defines.  Problem details are
+   intended to avoid the necessity of establishing new &quot;fault&quot; or
+   &quot;error&quot; document formats, not to replace existing domain-specific
+   formats.
+
+   That said, it is possible to add support for problem details to
+   existing HTTP APIs using HTTP content negotiation (e.g., using the
+   Accept request header to indicate a preference for this format; see
+   [HTTP], Section 12.5.1).
+
+   New problem type definitions MUST document:
+
+   1.  a type URI (typically, with the &quot;http&quot; or &quot;https&quot; scheme)
+
+   2.  a title that appropriately describes it (think short)
+
+   3.  the HTTP status code for it to be used with
+
+   Problem type definitions MAY specify the use of the Retry-After
+   response header ([HTTP], Section 10.2.3) in appropriate
+   circumstances.
+
+   A problem type URI SHOULD resolve to HTML [HTML5] documentation that
+   explains how to resolve the problem.
+
+   A problem type definition MAY specify additional members on the
+   problem details object.  For example, an extension might use typed
+   links [WEB-LINKING] to another resource that machines can use to
+   resolve the problem.
+
+   If such additional members are defined, their names SHOULD start with
+   a letter (ALPHA, as per [ABNF], Appendix B.1) and SHOULD comprise
+   characters from ALPHA, DIGIT ([ABNF], Appendix B.1), and &quot;_&quot; (so that
+   it can be serialized in formats other than JSON), and they SHOULD be
+   three characters or longer.
+
+4.1.  Example
+
+   For example, if you are publishing an HTTP API to your online
+   shopping cart, you might need to indicate that the user is out of
+   credit (our example from above) and therefore cannot make the
+   purchase.
+
+   If you already have an application-specific format that can
+   accommodate this information, it&#x27;s probably best to do that.
+   However, if you don&#x27;t, you might use one of the problem detail
+   formats -- JSON if your API is JSON-based or XML if it uses that
+   format.
+
+   To do so, you might look in the registry (Section 4.2) for an
+   already-defined type URI that suits your purposes.  If one is
+   available, you can reuse that URI.
+
+   If one isn&#x27;t available, you could mint and document a new type URI
+   (which ought to be under your control and stable over time), an
+   appropriate title and the HTTP status code that it will be used with,
+   along with what it means and how it should be handled.
+
+4.2.  Registered Problem Types
+
+   This specification defines the &quot;HTTP Problem Types&quot; registry for
+   common, widely used problem type URIs, to promote reuse.
+
+   The policy for this registry is Specification Required, per
+   [RFC8126], Section 4.6.
+
+   When evaluating requests, the designated expert(s) should consider
+   community feedback, how well-defined the problem type is, and this
+   specification&#x27;s requirements.  Vendor-specific, application-specific,
+   and deployment-specific values are unable to be registered.
+   Specification documents should be published in a stable, freely
+   available manner (ideally located with a URL) but need not be
+   standards.
+
+   Registrations MAY use the prefix &quot;https://iana.org/assignments/http-
+   problem-types#&quot; for the type URI.  Note that those URIs may not be
+   able to be resolved.
+
+   The following template should be used for registration requests:
+
+   Type URI:  [a URI for the problem type]
+   Title:  [a short description of the problem type]
+   Recommended HTTP status code:  [what status code is most appropriate
+      to use with the type]
+   Reference:  [to a specification defining the type]
+
+   See the registry at &lt;https://iana.org/assignments/http-problem-types&gt;
+   for details on where to send registration requests.
+
+4.2.1.  about:blank
+
+   This specification registers one Problem Type, &quot;about:blank&quot;, as
+   follows.
+
+   Type URI:  about:blank
+   Title:  See HTTP Status Code
+   Recommended HTTP status code:  N/A
+   Reference:  RFC 9457
+
+   The &quot;about:blank&quot; URI [ABOUT], when used as a problem type, indicates
+   that the problem has no additional semantics beyond that of the HTTP
+   status code.
+
+   When &quot;about:blank&quot; is used, the title SHOULD be the same as the
+   recommended HTTP status phrase for that code (e.g., &quot;Not Found&quot; for
+   404, and so on), although it MAY be localized to suit client
+   preferences (expressed with the Accept-Language request header).
+
+   Please note that according to how the &quot;type&quot; member is defined
+   (Section 3.1), the &quot;about:blank&quot; URI is the default value for that
+   member.  Consequently, any problem details object not carrying an
+   explicit &quot;type&quot; member implicitly uses this URI.
+
+5.  Security Considerations
+
+   When defining a new problem type, the information included must be
+   carefully vetted.  Likewise, when actually generating a problem --
+   however it is serialized -- the details given must also be
+   scrutinized.
+
+   Risks include leaking information that can be exploited to compromise
+   the system, access to the system, or the privacy of users of the
+   system.
+
+   Generators providing links to occurrence information are encouraged
+   to avoid making implementation details such as a stack dump available
+   through the HTTP interface, since this can expose sensitive details
+   of the server implementation, its data, and so on.
+
+   The &quot;status&quot; member duplicates the information available in the HTTP
+   status code itself, bringing the possibility of disagreement between
+   the two.  Their relative precedence is not clear, since a
+   disagreement might indicate that (for example) an intermediary has
+   changed the HTTP status code in transit (e.g., by a proxy or cache).
+   Generic HTTP software (such as proxies, load balancers, firewalls,
+   and virus scanners) are unlikely to know of or respect the status
+   code conveyed in this member.
+
+6.  IANA Considerations
+
+   In the &quot;application&quot; registry under the &quot;Media Types&quot; registry, IANA
+   has updated the &quot;application/problem+json&quot; and &quot;application/
+   problem+xml&quot; registrations to refer to this document.
+
+   IANA has created the &quot;HTTP Problem Types&quot; registry as specified in
+   Section 4.2 and populated it with &quot;about:blank&quot; as per Section 4.2.1.
+
+7.  References
+
+7.1.  Normative References
+
+   [ABNF]     Crocker, D., Ed. and P. Overell, &quot;Augmented BNF for Syntax
+              Specifications: ABNF&quot;, STD 68, RFC 5234,
+              DOI 10.17487/RFC5234, January 2008,
+              &lt;https://www.rfc-editor.org/info/rfc5234&gt;.
+
+   [HTTP]     Fielding, R., Ed., Nottingham, M., Ed., and J. Reschke,
+              Ed., &quot;HTTP Semantics&quot;, STD 97, RFC 9110,
+              DOI 10.17487/RFC9110, June 2022,
+              &lt;https://www.rfc-editor.org/info/rfc9110&gt;.
+
+   [JSON]     Bray, T., Ed., &quot;The JavaScript Object Notation (JSON) Data
+              Interchange Format&quot;, STD 90, RFC 8259,
+              DOI 10.17487/RFC8259, December 2017,
+              &lt;https://www.rfc-editor.org/info/rfc8259&gt;.
+
+   [RFC2119]  Bradner, S., &quot;Key words for use in RFCs to Indicate
+              Requirement Levels&quot;, BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              &lt;https://www.rfc-editor.org/info/rfc2119&gt;.
+
+   [RFC8126]  Cotton, M., Leiba, B., and T. Narten, &quot;Guidelines for
+              Writing an IANA Considerations Section in RFCs&quot;, BCP 26,
+              RFC 8126, DOI 10.17487/RFC8126, June 2017,
+              &lt;https://www.rfc-editor.org/info/rfc8126&gt;.
+
+   [RFC8174]  Leiba, B., &quot;Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words&quot;, BCP 14, RFC 8174, DOI 10.17487/RFC8174,
+              May 2017, &lt;https://www.rfc-editor.org/info/rfc8174&gt;.
+
+   [URI]      Berners-Lee, T., Fielding, R., and L. Masinter, &quot;Uniform
+              Resource Identifier (URI): Generic Syntax&quot;, STD 66,
+              RFC 3986, DOI 10.17487/RFC3986, January 2005,
+              &lt;https://www.rfc-editor.org/info/rfc3986&gt;.
+
+   [XML]      Bray, T., Paoli, J., Sperberg-McQueen, C. M., Maler, E.,
+              and F. Yergeau, &quot;Extensible Markup Language (XML) 1.0
+              (Fifth Edition)&quot;, W3C Recommendation REC-xml-20081126,
+              November 2008,
+              &lt;https://www.w3.org/TR/2008/REC-xml-20081126/&gt;.
+
+7.2.  Informative References
+
+   [ABOUT]    Moonesamy, S., Ed., &quot;The &quot;about&quot; URI Scheme&quot;, RFC 6694,
+              DOI 10.17487/RFC6694, August 2012,
+              &lt;https://www.rfc-editor.org/info/rfc6694&gt;.
+
+   [HTML5]    WHATWG, &quot;HTML: Living Standard&quot;,
+              &lt;https://html.spec.whatwg.org&gt;.
+
+   [ISO-19757-2]
+              ISO, &quot;Information technology -- Document Schema Definition
+              Language (DSDL) -- Part 2: Regular-grammar-based
+              validation -- RELAX NG&quot;, ISO/IEC 19757-2:2008, December
+              2008, &lt;https://www.iso.org/standard/52348.html&gt;.
+
+   [JSON-POINTER]
+              Bryan, P., Ed., Zyp, K., and M. Nottingham, Ed.,
+              &quot;JavaScript Object Notation (JSON) Pointer&quot;, RFC 6901,
+              DOI 10.17487/RFC6901, April 2013,
+              &lt;https://www.rfc-editor.org/info/rfc6901&gt;.
+
+   [JSON-SCHEMA]
+              Wright, A., Ed., Andrews, H., Ed., Hutton, B., Ed., and G.
+              Dennis, &quot;JSON Schema: A Media Type for Describing JSON
+              Documents&quot;, Work in Progress, Internet-Draft, draft-
+              bhutton-json-schema-01, 10 June 2022,
+              &lt;https://datatracker.ietf.org/doc/html/draft-bhutton-json-
+              schema-01&gt;.
+
+   [RDFA]     Adida, B., Birbeck, M., McCarron, S., and I. Herman, &quot;RDFa
+              Core 1.1 - Third Edition&quot;, W3C Recommendation, March 2015,
+              &lt;https://www.w3.org/TR/2015/REC-rdfa-core-20150317/&gt;.
+
+   [RFC7807]  Nottingham, M. and E. Wilde, &quot;Problem Details for HTTP
+              APIs&quot;, RFC 7807, DOI 10.17487/RFC7807, March 2016,
+              &lt;https://www.rfc-editor.org/info/rfc7807&gt;.
+
+   [TAG]      Kindberg, T. and S. Hawke, &quot;The &#x27;tag&#x27; URI Scheme&quot;,
+              RFC 4151, DOI 10.17487/RFC4151, October 2005,
+              &lt;https://www.rfc-editor.org/info/rfc4151&gt;.
+
+   [WEB-LINKING]
+              Nottingham, M., &quot;Web Linking&quot;, RFC 8288,
+              DOI 10.17487/RFC8288, October 2017,
+              &lt;https://www.rfc-editor.org/info/rfc8288&gt;.
+
+   [XSLT]     Clark, J., Pieters, S., and H. Thompson, &quot;Associating
+              Style Sheets with XML documents 1.0 (Second Edition)&quot;, W3C
+              Recommendation, October 2010,
+              &lt;https://www.w3.org/TR/2010/REC-xml-stylesheet-20101028/&gt;.
+
+<span>Appendix A.  JSON Schema for HTTP Problems</span>
+
+   This section presents a non-normative JSON Schema [JSON-SCHEMA] for
+   HTTP problem details.  If there is any disagreement between it and
+   the text of the specification, the latter prevails.
+
+   # NOTE: &#x27;\&#x27; line wrapping per RFC 8792
+   {
+     &quot;$schema&quot;: &quot;https://json-schema.org/draft/2020-12/schema&quot;,
+     &quot;title&quot;: &quot;An RFC 7807 problem object&quot;,
+     &quot;type&quot;: &quot;object&quot;,
+     &quot;properties&quot;: {
+       &quot;type&quot;: {
+         &quot;type&quot;: &quot;string&quot;,
+         &quot;format&quot;: &quot;uri-reference&quot;,
+         &quot;description&quot;: &quot;A URI reference that identifies the \
+   problem type.&quot;
+       },
+       &quot;title&quot;: {
+         &quot;type&quot;: &quot;string&quot;,
+         &quot;description&quot;: &quot;A short, human-readable summary of the \
+   problem type.&quot;
+       },
+       &quot;status&quot;: {
+         &quot;type&quot;: &quot;integer&quot;,
+         &quot;description&quot;: &quot;The HTTP status code \
+   generated by the origin server for this occurrence of the problem.&quot;,
+         &quot;minimum&quot;: 100,
+         &quot;maximum&quot;: 599
+       },
+       &quot;detail&quot;: {
+         &quot;type&quot;: &quot;string&quot;,
+         &quot;description&quot;: &quot;A human-readable explanation specific to \
+   this occurrence of the problem.&quot;
+       },
+       &quot;instance&quot;: {
+         &quot;type&quot;: &quot;string&quot;,
+         &quot;format&quot;: &quot;uri-reference&quot;,
+         &quot;description&quot;: &quot;A URI reference that identifies the \
+   specific occurrence of the problem. It may or may not yield \
+   further information if dereferenced.&quot;
+       }
+     }
+   }
+
+<span>Appendix B.  HTTP Problems and XML</span>
+
+   HTTP-based APIs that use XML [XML] can express problem details using
+   the format defined in this appendix.
+
+   The RELAX NG schema [ISO-19757-2] for the XML format is:
+
+      default namespace ns = &quot;urn:ietf:rfc:7807&quot;
+
+      start = problem
+
+      problem =
+        element problem {
+          (  element  type            { xsd:anyURI }?
+           &amp; element  title           { xsd:string }?
+           &amp; element  detail          { xsd:string }?
+           &amp; element  status          { xsd:positiveInteger }?
+           &amp; element  instance        { xsd:anyURI }? ),
+          anyNsElement
+        }
+
+      anyNsElement =
+        (  element    ns:*  { anyNsElement | text }
+         | attribute  *     { text })*
+
+   Note that this schema is only intended as documentation and not as a
+   normative schema that captures all constraints of the XML format.  It
+   is possible to use other XML schema languages to define a similar set
+   of constraints (depending on the features of the chosen schema
+   language).
+
+   The media type for this format is &quot;application/problem+xml&quot;.
+
+   Extension arrays and objects are serialized into the XML format by
+   considering an element containing a child or children to represent an
+   object, except for elements containing only one or more child
+   elements named &quot;i&quot;, which are considered arrays.  For example, the
+   example above appears in XML as follows:
+
+   HTTP/1.1 403 Forbidden
+   Content-Type: application/problem+xml
+   Content-Language: en
+
+   &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+   &lt;problem xmlns=&quot;urn:ietf:rfc:7807&quot;&gt;
+     &lt;type&gt;https://example.com/probs/out-of-credit&lt;/type&gt;
+     &lt;title&gt;You do not have enough credit.&lt;/title&gt;
+     &lt;detail&gt;Your current balance is 30, but that costs 50.&lt;/detail&gt;
+     &lt;instance&gt;https://example.net/account/12345/msgs/abc&lt;/instance&gt;
+     &lt;balance&gt;30&lt;/balance&gt;
+     &lt;accounts&gt;
+       &lt;i&gt;https://example.net/account/12345&lt;/i&gt;
+       &lt;i&gt;https://example.net/account/67890&lt;/i&gt;
+     &lt;/accounts&gt;
+   &lt;/problem&gt;
+
+   This format uses an XML namespace, primarily to allow embedding it
+   into other XML-based formats; it does not imply that it can or should
+   be extended with elements or attributes in other namespaces.  The
+   RELAX NG schema explicitly only allows elements from the one
+   namespace used in the XML format.  Any extension arrays and objects
+   MUST be serialized into XML markup using only that namespace.
+
+   When using the XML format, it is possible to embed an XML processing
+   instruction in the XML that instructs clients to transform the XML,
+   using the referenced XSL Transformations (XSLT) code [XSLT].  If this
+   code is transforming the XML into (X)HTML, then it is possible to
+   serve the XML format, and yet have clients capable of performing the
+   transformation display human-friendly (X)HTML that is rendered and
+   displayed at the client.  Note that when using this method, it is
+   advisable to use XSLT 1.0 in order to maximize the number of clients
+   capable of executing the XSLT code.
+
+<span>Appendix C.  Using Problem Details with Other Formats</span>
+
+   In some situations, it can be advantageous to embed problem details
+   in formats other than those described here.  For example, an API that
+   uses HTML [HTML5] might want to also use HTML for expressing its
+   problem details.
+
+   Problem details can be embedded in other formats either by
+   encapsulating one of the existing serializations (JSON or XML) into
+   that format or by translating the model of a problem detail (as
+   specified in Section 3) into the format&#x27;s conventions.
+
+   For example, in HTML, a problem could be embedded by encapsulating
+   JSON in a script tag:
+
+   &lt;script type=&quot;application/problem+json&quot;&gt;
+     {
+      &quot;type&quot;: &quot;https://example.com/probs/out-of-credit&quot;,
+      &quot;title&quot;: &quot;You do not have enough credit.&quot;,
+      &quot;detail&quot;: &quot;Your current balance is 30, but that costs 50.&quot;,
+      &quot;instance&quot;: &quot;/account/12345/msgs/abc&quot;,
+      &quot;balance&quot;: 30,
+      &quot;accounts&quot;: [&quot;/account/12345&quot;,
+                   &quot;/account/67890&quot;]
+     }
+   &lt;/script&gt;
+
+   or by defining a mapping into a Resource Description Framework in
+   Attributes (RDFa) [RDFA].
+
+   This specification does not make specific recommendations regarding
+   embedding problem details in other formats; the appropriate way to
+   embed them depends both upon the format in use and application of
+   that format.
+
+<span>Appendix D.  Changes from RFC 7807</span>
+
+   This revision has made the following changes:
+
+   *  Section 4.2 introduces a registry of common problem type URIs
+
+   *  Section 3 clarifies how multiple problems should be treated
+
+   *  Section 3.1.1 provides guidance for using type URIs that cannot be
+      dereferenced
+
+<span>Acknowledgements</span>
+
+   The authors would like to thank Jan Algermissen, Subbu Allamaraju,
+   Mike Amundsen, Roy Fielding, Eran Hammer, Sam Johnston, Mike McCall,
+   Julian Reschke, and James Snell for their comments and suggestions.
+
+<span>Authors&#x27; Addresses</span>
+
+   Mark Nottingham
+   Prahran
+   Australia
+   Email: mnot@mnot.net
+   URI:   https://www.mnot.net/
+
+   Erik Wilde
+   Email: erik.wilde@dret.net
+   URI:   http://dret.net/netdret/
+
+   Sanjay Dalal
+   United States of America
+   Email: sanjay.dalal@cal.berkeley.edu
+   URI:   https://github.com/sdatspun2
+</pre>
+            </div>
+        </div>
+        
+
+    
+                    
+                </div>
+            </div>
+        </main>
+        
+            <footer class="col-md-12 col-sm-12 border-top mt-5 py-5 bg-light-subtle text-center position-sticky">
+                <a href="https://www.ietf.org/" class="p-3">IETF</a>
+                <a href="https://www.ietf.org/iesg/" class="p-3">IESG</a>
+                <a href="https://www.iab.org/" class="p-3">IAB</a>
+                <a href="https://www.irtf.org/" class="p-3">IRTF</a>
+                <a href="https://www.ietf.org/llc/" class="p-3 text-nowrap">IETF LLC</a>
+                <a href="https://trustee.ietf.org/" class="p-3 text-nowrap">IETF Trust</a>
+                <a href="https://www.rfc-editor.org/" class="p-3 text-nowrap">RFC Editor</a>
+                <a href="https://www.iana.org/" class="p-3">IANA</a>
+                <a href="https://www.ietf.org/privacy-statement/" class="p-3 text-nowrap">Privacy Statement</a>
+                <div class="small text-body-secondary py-3">
+                    
+                        <a class="mx-2" href="/release/about">About IETF Datatracker</a>
+                        <span class="mx-2">
+                            
+                                <a href="https://github.com/ietf-tools/datatracker/releases/tag/12.83.1">
+                            
+                            Version 12.83.1
+                            (release - 250a07d)
+                            
+                                </a>
+                            
+                        </span>
+                    
+                    <a class="mx-2" href="https://status.ietf.org" target="_blank">System Status</a>
+                    <span class="mx-2 text-danger">
+                        <i class="bi bi-bug"></i>
+                        Report a bug:
+                        <a class="text-reset" target="_blank" href="https://github.com/ietf-tools/datatracker/issues/new/choose">GitHub</a>
+                        
+                            <a class="text-reset" href="mailto:tools-help@ietf.org">Email</a>
+                        
+                    </span>
+                    
+                </div>
+            </footer>
+        
+        
+        
+        
+    
+        
+        
+      
+
+
+
+    </body>
+</html>

@@ -1,0 +1,133 @@
+<!doctype html><meta charset=utf-8><html lang=en><head><title>DORA | Capabilities: Trunk-based development</title><link rel=stylesheet href=/scss/main.b5ae96e0e39496f7835555d5fe3d223ce6c8aa3961c4ef4dd1bd5692a1673c77.css integrity="sha256-ta6W4OOUlveDVVXV/j0iPObIqjlhxO9N0b1WkqFnPHc="><link rel=stylesheet href=/css/quickcheck-variables.893d3e3acc263f6c37987aaa860c6ed32a88b3a286d6409d4fd06f0c1859cb82.css integrity="sha256-iT0+OswmP2w3mHqqhgxu0yqIs6KG1kCdT9BvDBhZy4I="><meta name=description content="DORA is a long running research program that seeks to understand the capabilities that drive software delivery and operations performance. DORA helps teams apply those capabilities, leading to better organizational performance."><meta name=keywords content="DevOps,Lead time,Deploy frequency,Change fail rate,MTTR,Time to restore,metrics,DORA"><meta name=viewport content="width=device-width,initial-scale=1"><link rel=preconnect href=https://fonts.googleapis.com><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link href="https://fonts.googleapis.com/css?family=Google+Material+Icons&amp;lang=en" rel=stylesheet><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content="#2d89ef"><meta name=theme-color content="#ffffff"><meta property="og:url" content="https://dora.dev"><meta property="og:type" content="website"><meta property="og:title" content="DORA | Capabilities: Trunk-based development"><meta property="og:description" content="DORA is a long running research program that seeks to understand the capabilities that drive software delivery and operations performance. DORA helps teams apply those capabilities, leading to better organizational performance."><meta property="og:image" content="/img/misc/dora_social_image.png"><meta name=twitter:card content="summary_large_image"><meta property="twitter:domain" content="dora.dev"><meta property="twitter:url" content="https://dora.dev"><meta name=twitter:title content="DORA | Capabilities: Trunk-based development"><meta name=twitter:description content="DORA is a long running research program that seeks to understand the capabilities that drive software delivery and operations performance. DORA helps teams apply those capabilities, leading to better organizational performance."><meta name=twitter:image content="/img/misc/dora_social_image.png"></head><body><header><div class=navContainer><div class=dora-logo-link><a href=/><img src=/img/dora-logo.svg height=48px class=dora-logo alt=DORA></a></div><nav><ul class=menuLinksDesktop><li><a href=/ai/>AI</a></li><li><a href=/research/>Research</a></li><li><a href=/capabilities/ class=active>Capabilities</a></li><li><a href=/guides/>Guides</a></li><li><a href=/insights/>Insights</a></li><li><a href=/quickcheck/>Quick Check</a></li><li id=searchLinkDesktop><a class=google-material-icons id=searchIcon aria-label="Search dora.dev">search</a></li><li><a href=https://dora.community/ target=_blank>Community&nbsp;&nbsp;<span class="google-material-icons open_in_new">open_in_new</span></a></li></ul><div id=searchInputPopover popover><div id=searchInputPopoverFields><form action=/search/ method=get id=searchForm><div class=searchInputContainer><input type=search name=q class=searchQuery placeholder="Search dora.dev for..." required><input type=submit value=search id=searchButton class=searchButton></div></form></div></div><div class=page-overlay></div><label id=hamburgerContainer><input type=checkbox id=mobileMenuController>
+<span class=google-material-icons aria-label=menu id=hamburgerIcon><span class=menu>menu</span>
+<span class=close>close</span></span></label></nav></div></header><div class=menuLinksMobile><ul><li><a href=/ai/>AI</a></li><li><a href=/research/>Research</a></li><li><a href=/capabilities/ class=active>Capabilities</a></li><li><a href=/guides/>Guides</a></li><li><a href=/insights/>Insights</a></li><li><a href=/quickcheck/>Quick Check</a></li><li id=searchLinkMobile><a href=/search/>Search</a></li><li><a href=https://dora.community/ target=_blank>Community&nbsp;&nbsp;<span class="google-material-icons open_in_new">open_in_new</span></a></li></ul></div><div class=site-banner><a href=https://cloud.google.com/resources/content/dora-roi-of-ai-assisted-software-development target=_blank>Download the ROI of AI-assisted Software Development report.</a></div><div class="section-header capabilities"><a href=/capabilities/ class=content><span>Capabilities</span></a></div><main><link rel=stylesheet href=/scss/capabilities.f5ad9915a83b06a14cd4936a20882382788bf0b7ebb68247d804723652395a29.css integrity="sha256-9a2ZFag7BqFM1JNqIIgjgniL8LfrtoJH2ARyNlI5Wik="><h1 class=tags>Trunk-based development
+<span class=labels></span></h1><section><article><p>There are two main patterns for developer teams to work together using version
+control. One is to use <em>feature branches</em>, where either a developer or a group
+of developers create a branch usually from trunk (also known as <em>main</em> or
+<em>mainline</em>) and then work in isolation on that branch until the feature they are
+building is complete. When the team considers the feature ready to go, they
+merge the feature branch back to trunk.</p><p>The second pattern is known as <em>trunk-based development</em>, where each developer
+divides their own
+<a href=/capabilities/working-in-small-batches>work into small batches</a>
+and merges that work into trunk at least once (and potentially several times) a
+day. The key difference between these approaches is scope. Feature branches
+typically involve multiple developers and take days or even weeks of work. In
+contrast, branches in trunk-based development typically last no more than a few
+hours, with many developers merging their individual changes into trunk
+frequently.</p><p>The following diagram shows a typical trunk-based development timeline:</p><p><img src=trunk-based-development-typical-trunk-timeline.svg alt="Timelines for versions 1.0 and 1.1, showing a bug fix merged from version 1.0 into the trunk for version 1.1." style=max-width:100%></p><p>In trunk-based development, developers push code directly into trunk. Changes
+made in the release branches—snapshots of the code when it&rsquo;s ready to be
+released—are usually merged back to trunk (depicted by the downward arrows) as
+soon as possible. In this approach, there are cases where bug fixes must be
+cherry picked and merged into releases (depicted by the upward arrow), but these
+cases are not as frequent as the development of new features in trunk. In cases
+where releases happen multiple times a day, release branches are not required at
+all, because changes can be pushed directly into trunk and deployed from there.
+One key benefit of the trunk-based approach is that it reduces the complexity of
+merging events and keeps code current by having fewer development lines and by
+doing small and frequent merges.</p><p>In contrast, the following diagram shows a typical non-trunk-based
+development style:</p><p><img src=trunk-based-development-typical-non-trunk-timeline.svg alt="Timelines for multiple long-lived branches, showing complex merge paths and many points at which merge conflicts can slow product release." style=max-width:100%></p><p>In this approach, developers make changes to long-lived branches. These changes
+require bigger and more complex merge events when compared to trunk-based
+development. This approach also requires additional stabilizing efforts and
+&ldquo;code lock&rdquo; or &ldquo;code freeze&rdquo; periods to make sure the software stays in a
+working state, because large merges frequently introduce bugs or regressions. As
+a result, you must test the post-merge code thoroughly and often have to make
+bug fixes.</p><h2 id=how-to-implement-trunk-based-development>How to implement trunk-based development</h2><p>Trunk-based development is a required practice for
+<a href=/capabilities/continuous-integration>continuous integration</a>.
+Continuous integration (CI) is the combination of practicing trunk-based
+development and maintaining a suite of fast automated tests that run after each
+commit to trunk to make sure the system is always working.</p><p>The point of using continuous integration is to eliminate long integration and
+stabilization phases by integrating small batches of code frequently. In this
+way, developers ensure they are communicating what they are doing, and the
+integration gets rid of big merges that can create substantial work for other
+developers and for testers.</p><p>In the CI paradigm, developers are responsible for keeping the build process
+<em>green</em>—that is, up and running. This means that if the CI process fails,
+developers must stop what they&rsquo;re doing either to fix the problem immediately or
+to revert the change if it can&rsquo;t be fixed in a few minutes.</p><p>Practicing trunk-based development requires in turn that developers understand
+how to
+<a href=/capabilities/working-in-small-batches>break their work up into small batches</a>.
+This is a significant change for developers who aren&rsquo;t used to working in this
+way.</p><p>Analysis of DORA data from
+<a href="/research/2016/2016-state-of-devops-report.pdf#page=31" target=_blank>2016</a>
+(PDF) and
+<a href="/research/2017/2017-state-of-devops-report.pdf#page=40" target=_blank>2017</a>
+(PDF) shows that teams achieve higher levels of software delivery and operational
+performance (delivery speed, stability, and availability) if they follow these
+practices:</p><ul><li>Have three or fewer active branches in the application&rsquo;s code repository.</li><li>Merge branches to trunk at least once a day.</li><li>Don&rsquo;t have code freezes and don&rsquo;t have integration phases.</li></ul><h2 id=common-pitfalls>Common pitfalls</h2><p>Some common obstacles to full adoption of trunk-based development include the
+following:</p><ul><li><p><strong>An overly heavy code-review process</strong>. Many organizations have a
+heavyweight code review process that requires multiple approvals before
+changes can be merged into trunk. When code review is laborious and takes
+hours or days, developers avoid working in small batches and instead batch
+up many changes. This in turn leads to a downward spiral where reviewers
+procrastinate with large code reviews due to their complexity.</p><p>Consequently, merge requests often languish because developers avoid
+them. Because it is hard to reason about the impact of large changes on a
+system through inspection, defects are likely to escape the attention of
+reviewers, and the benefits of trunk-based development are diminished.</p></li><li><p><strong>Performing code reviews asynchronously</strong>. If your team practices pair
+programming, then the code has already been reviewed by a second person. If
+further reviews are required, they should be performed synchronously: when
+the developer is ready to commit the code, they should ask somebody else on
+the team to review the code right then. They should not ask for
+asynchronous review—for example, by submitting a request into a tool and
+then starting on a new task while waiting for the review. The longer a
+merge is delayed, the more likely it is to create merge conflicts and
+associated issues. Implementing synchronous reviews requires the agreement
+of the team to prioritize reviewing each others&rsquo; code over other work.</p></li><li><p><strong>Not running automated tests before committing code</strong>. In order to
+ensure trunk is kept in a working state, it&rsquo;s essential that tests are run
+against code changes before commit. This can be done on developer
+workstations, and many tools also provide a facility to run tests remotely
+against local changes and then commit automatically when they pass. When
+developers know that they can get their code into trunk without a great
+deal of ceremony, the result is small code changes that are easy to
+understand, review, test, and which can be moved into production faster.</p></li></ul><h2 id=ways-to-improve-trunk-based-development>Ways to improve trunk-based development</h2><p>Based on the discussion earlier, here are some practices you can implement to
+improve trunk-based development:</p><ul><li><strong>Develop in small batches</strong>. One of the most important enablers of
+trunk-based development is teams learning how to
+<a href=/capabilities/working-in-small-batches>develop in small batches</a>.
+This requires training and organizational support for the development team.</li><li><strong>Perform synchronous code review.</strong> As discussed previously, moving to
+synchronous code review, or at least ensuring that developers prioritize
+code review, helps to ensure that changes don&rsquo;t have to wait hours, or even
+days, to get merged into trunk.</li><li><strong>Implement comprehensive automated testing</strong>. Make sure that you have a
+comprehensive and meaningful suite of
+<a href=/capabilities/test-automation>automated unit tests</a>.
+and that these are run before every
+commit. For example, if you&rsquo;re using GitHub, you can
+<a href=https://help.github.com/en/articles/about-protected-branches target=_blank>protect branches</a>
+to only allow pull request merges when all tests have passed. The
+<a href=https://cloud.google.com/build/docs/run-builds-with-github-checks target=_blank>Running builds with GitHub Checks</a>
+tutorial shows how to integrate
+<a href=https://developer.github.com/v3/checks/ target=_blank>GitHub Checks</a>
+with
+<a href=https://cloud.google.com/build/ target=_blank>Cloud Build</a>.</li><li><strong>Have a fast build</strong>. The build and test process should execute in
+<a href=https://www.infoq.com/presentations/Crazy-Fast-Build-Times-or-When-10-Seconds-Starts-to-Make-You-Nervous/ target=_blank>a few minutes</a>.
+If this seems hard to achieve, it probably indicates opportunities for
+improvement in the
+<a href=/capabilities/loosely-coupled-teams>architecture</a>
+of the system.</li><li><strong>Create a core group of advocates and mentors</strong>. Trunk-based
+development is a substantial change for many developers, and you should
+expect some resistance. Many developers simply can&rsquo;t imagine working in
+this way. A good practice is to find developers who have worked in this
+way, and have them coach other developers. It&rsquo;s also important to shift
+some teams over to work in a trunk-based style. One way to do this is to
+get a critical mass of developers who are experienced with trunk-based
+development together so that at least one team is following trunk-based
+development practices. You can then shift other teams over to this style
+when you feel confident that the team following this practice is performing
+as expected.</li></ul><h2 id=ways-to-measure-trunk-based-development>Ways to measure trunk-based development</h2><p>You can measure the effectiveness of trunk-based development by doing the
+following.</p><table><col width=30%><col width=35%><col width=35%><thead><tr><th>Factor to test</th><th>What to measure</th><th>Goal</th></tr></thead><tbody><tr><td>Active branches on the application's code repository.</td><td>Measure how many active branches you have on your application repositories'
+version control systems and make this number visible to all teams. Then
+track the incremental progress towards the goal state.</td><td>Three or fewer active branches.</td></tr><tr><td>Code freeze periods.</td><td>Measure how many code freezes your team has and how long they last. These
+measurements can also categorize how much time is spent on merging
+conflicts, on code freezes, on stabilization, and so on.</td><td>No code freezes when no one can submit code.</td></tr><tr><td>Frequency of merging branches and forks to trunk.</td><td>Measure either a binary (yes/no) value for each branch that's merged, or
+measure a percentage of branches and forks that are merged every day.</td><td>Merging at least once per day.</td></tr><tr><td>Check time taken to approve code changes.</td><td>If you perform code review asynchronously, measure the average time it
+takes to approve change requests, and pay particular attention to requests
+that take substantially longer than the average.</td><td>Find ways to make code review a synchronous activity that's performed as
+part of development.</td></tr></tbody></table><h2 id=whats-next>What&rsquo;s next</h2><ul><li><p>For links to other articles and resources, see the
+<a href=https://cloud.google.com/devops target=_blank>Google Cloud DevOps page</a>.</p></li><li><p>See
+<a href=https://cloud.google.com/build/docs/run-builds-with-github-checks target=_blank>Running builds with GitHub Checks</a>
+for learning how to connect Google Cloud to GitHub using
+<a href=https://github.com/marketplace/google-cloud-build target=_blank>Cloud Build</a>.</p></li><li><p>See an article by Martin Fowler on <a href=https://martinfowler.com/bliki/FeatureBranch.html target=_blank>feature branching</a>.</p></li><li><p>See Jez Humble&rsquo;s post on <a href=https://continuousdelivery.com/2011/07/on-dvcs-continuous-integration-and-feature-branches/ target=_blank>DVCS and feature branches</a>.</p></li><li><p>See Paul Hammant&rsquo;s <a href=https://trunkbaseddevelopment.com/ target=_blank>portal devoted to trunk-based development</a>.</p></li><li><p>Explore our DevOps
+<a href=/>research program</a>.</p></li><li><p>Take the
+<a href=/quickcheck/>DORA quick check</a>
+to understand where you stand in comparison with the rest of the industry.</p></li></ul></article></section></main><footer><div class=container><div class=logo><a href=https://cloud.google.com/ target=_blank><img src=/img/cloud-logo-dark.svg></a></div><div class=links><a href=/resources/>Resources</a>
+<a href=/faq/>FAQ</a>
+<a href=/contact/>Contact Us</a></div><div class=search><form action=/search/ method=get><input type=text name=q placeholder="Search this site"></form></div><div class=license>DORA is a program run by Google Cloud. All content on this site is licensed by Google LLC under <a href=https://creativecommons.org/licenses/by/4.0/>CC BY 4.0</a>, unless otherwise specified.</div><div class=socials><a class=google-material-icons href=https://www.linkedin.com/company/doradotdev/ target=_blank aria-label="Follow us on LinkedIn">post_linkedin</a>
+<a class=google-material-icons href=https://www.youtube.com/@dora-dev target=_blank aria-label="Watch DORA videos on YouTube">post_youtube</a>
+<a class=google-material-icons href=https://github.com/dora-team/dora.dev target=_blank aria-label="This site's source code">github</a></div></div></footer></body></html>

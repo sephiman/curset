@@ -1,0 +1,490 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# Pinned product versions and JEP status in the pinned JDK, from official pages; written by S0 on 2026-11-13.
+pinned_java: 25
+products:
+  - product: "Java (LTS)"
+    version: "25"
+    group: "3.1"
+    stated_by: https://www.oracle.com/java/technologies/java-se-support-roadmap.html
+    evidence: ver-java
+    quote: "Java SE 8, 11, 17, 21, and 25 are LTS releases."
+    note: "25 is the latest LTS; the page's next planned LTS is Java 29 in September 2027 (listed releases 26-28 are non-LTS)."
+  - product: "Java 25 update release"
+    version: "25.0.5"
+    group: "3.1"
+    stated_by: https://github.com/openjdk/jdk25u/tags
+    evidence: ver-java-update-tags
+    quote: "jdk-25.0.5.0.3-ga"
+    note: "Latest GA tag of the OpenJDK jdk25u update repository (tagged 2026-10-27); 25.0.6 build tags exist but no -ga tag. Oracle JDK release-notes pages could not be fetched."
+  - product: "PostgreSQL"
+    version: "18.7"
+    group: "3.1"
+    stated_by: https://www.postgresql.org/support/versioning/
+    evidence: ver-postgresql
+    quote: "PostgreSQL 18.7, 17.12, 16.16, 15.20, 14.25, and 19 RC 2 Released!"
+    note: "18 is the current major; 19 is a release candidate (excluded)."
+  - product: "Apache Kafka"
+    version: "4.4.0"
+    released: 2026-10-22
+    group: "3.1"
+    stated_by: https://kafka.apache.org/downloads
+    evidence: ver-kafka
+    quote: "Supported releases 4.4.0 Released October 22, 2026"
+  - product: "Spring Framework"
+    version: "7.0.10"
+    group: "3.1"
+    stated_by: https://github.com/spring-projects/spring-framework/releases/latest
+    evidence: ver-spring-framework-3
+    quote: "v7.0.10 Latest"
+    note: "Maven Central spring-core metadata (ver-spring-framework-2) lists 7.0.10 as newest non-milestone; reference docs mark 7.0.10 Stable, 7.1.0-RC2 Preview."
+    audit: "Corrected from 7.0.8: project-page header was stale; GitHub, Maven Central and reference docs state 7.0.10."
+  - product: "Spring Boot"
+    version: "4.1.2"
+    group: "3.1"
+    stated_by: https://spring.io/projects/spring-boot
+    evidence: ver-spring-boot
+    quote: "Spring Boot 4.1.2"
+    note: "Version label of the project page header (current GA)."
+    audit: "Confirmed: reference docs version menu marks 4.1.2 as Stable (fetched source pages, 2026-11-13)."
+  - product: "Spring Security"
+    version: "7.1.2"
+    group: "3.1"
+    stated_by: https://spring.io/projects/spring-security
+    evidence: ver-spring-security
+    quote: "Spring Security 7.1.2"
+    note: "Version label of the project page header (current GA)."
+    audit: "Confirmed: reference docs version menu marks 7.1.2 as Stable (fetched source pages, 2026-11-13)."
+  - product: "Spring Data (release train)"
+    version: "2026.0.2"
+    group: "3.1"
+    stated_by: https://spring.io/projects/spring-data
+    evidence: ver-spring-data
+    quote: "Spring Data 2026.0.2"
+    note: "Version label of the project page header (current GA)."
+    audit: "Confirmed: spring-data-bom Maven Central metadata (ver-spring-data-2) newest non-milestone is 2026.0.2."
+  - product: "Spring Data JPA"
+    version: "4.1.2"
+    group: "3.1"
+    stated_by: https://spring.io/projects/spring-data-jpa
+    evidence: ver-spring-data-jpa
+    quote: "Spring Data JPA 4.1.2"
+    note: "Version label of the project page header (current GA)."
+    audit: "Confirmed: reference docs version menu marks 4.1.2 as Stable (fetched source pages, 2026-11-13)."
+  - product: "Kotlin"
+    version: "2.4.21"
+    group: "3.1"
+    stated_by: https://kotlinlang.org/docs/releases.html
+    evidence: ver-kotlin
+    quote: "To update to Kotlin 2.4.21, change the version of the Kotlin Gradle plugin in your"
+    note: "Same page lists 2.5.0 as planned for December 2026."
+  - product: "kotlinx.coroutines"
+    version: "1.11.0"
+    group: "3.1"
+    stated_by: https://github.com/Kotlin/kotlinx.coroutines/releases/latest
+    evidence: ver-coroutines
+    quote: "1.11.0 Latest"
+    note: "GitHub releases page (project states no version elsewhere)."
+  - product: "Kubernetes"
+    version: "1.37.1"
+    released: 2026-09-15
+    group: "3.1"
+    stated_by: https://kubernetes.io/releases/
+    evidence: ver-kubernetes
+    quote: "Latest Release: 1.37.1 (released: 2026-09-15 )"
+  - product: "Redis Open Source"
+    version: "8.10.3"
+    group: "3.1"
+    stated_by: https://github.com/redis/redis/releases/latest
+    evidence: ver-redis
+    quote: "Release 8.10.3 · redis/redis · GitHub"
+    note: "GitHub releases page of redis/redis."
+  - product: "Elasticsearch"
+    version: "9.5.6"
+    group: "3.1"
+    stated_by: https://github.com/elastic/elasticsearch/releases/latest
+    evidence: ver-elasticsearch
+    quote: "Release Elasticsearch 9.5.6 · elastic/elasticsearch · GitHub"
+    note: "GitHub releases page."
+  - product: "Resilience4j"
+    version: "2.4.0"
+    group: "3.1"
+    stated_by: https://github.com/resilience4j/resilience4j/releases/latest
+    evidence: ver-resilience4j
+    quote: "v2.4.0 Latest"
+    note: "GitHub releases page."
+  - product: "Axon Framework"
+    version: "5.4.1"
+    group: "3.1"
+    stated_by: https://github.com/AxonFramework/AxonFramework/releases/latest
+    evidence: ver-axon
+    quote: "Axon Framework v5.4.1 Latest"
+    note: "GitHub releases page."
+  - product: "Debezium"
+    version: "3.7.1.Final"
+    released: 2026-11-06
+    group: "3.1"
+    stated_by: https://debezium.io/releases/3.7/
+    evidence: ver-debezium
+    quote: "Newest in this series: 3.7.1.Final · November 6, 2026"
+    note: "Releases page marks 3.7 'latest stable' and 3.8 'development'."
+  - product: "gRPC (grpc-java)"
+    version: "1.85.1"
+    group: "3.1"
+    stated_by: https://github.com/grpc/grpc-java/releases/latest
+    evidence: ver-grpc-java
+    quote: "Release v1.85.1 · grpc/grpc-java · GitHub"
+    note: "GitHub releases page."
+  - product: "Protocol Buffers"
+    version: "36.2"
+    group: "3.1"
+    stated_by: https://github.com/protocolbuffers/protobuf/releases/latest
+    evidence: ver-protobuf
+    quote: "Protocol Buffers v36.2 Latest"
+    note: "GitHub releases page; protobuf.dev version-support page shows 36.x active support."
+  - product: "OpenTelemetry specification"
+    version: "1.62.0"
+    group: "3.1"
+    stated_by: https://github.com/open-telemetry/opentelemetry-specification/releases/latest
+    evidence: ver-otel-spec
+    quote: "Release 1.62.0 Latest"
+    note: "GitHub releases page."
+  - product: "OpenTelemetry Java SDK"
+    version: "1.68.0"
+    group: "3.1"
+    stated_by: https://github.com/open-telemetry/opentelemetry-java/releases/latest
+    evidence: ver-otel-java
+    quote: "Version 1.68.0 Latest"
+    note: "GitHub releases page of opentelemetry-java."
+  - product: "Micrometer"
+    version: "1.17.2"
+    group: "3.1"
+    stated_by: https://github.com/micrometer-metrics/micrometer/releases/latest
+    evidence: ver-micrometer
+    quote: "1.17.2 Latest"
+    note: "GitHub releases page."
+  - product: "Testcontainers (Java)"
+    version: "2.0.5"
+    group: "3.1"
+    stated_by: https://github.com/testcontainers/testcontainers-java/releases/latest
+    evidence: ver-testcontainers
+    quote: "2.0.5 Latest"
+    note: "GitHub releases page."
+  - product: "JUnit"
+    version: "6.1.3"
+    group: "3.1"
+    stated_by: https://github.com/junit-team/junit-framework/releases/latest
+    evidence: ver-junit
+    quote: "JUnit 6.1.3 Latest"
+    note: "GitHub releases page."
+  - product: "Flyway"
+    version: "13.12.2"
+    group: "3.1"
+    stated_by: https://github.com/flyway/flyway/releases/latest
+    evidence: ver-flyway
+    quote: "Release Flyway 13.12.2 · flyway/flyway · GitHub"
+    note: "GitHub releases page."
+  - product: "Liquibase"
+    version: "5.0.4"
+    group: "3.1"
+    stated_by: https://github.com/liquibase/liquibase/releases/latest
+    evidence: ver-liquibase
+    quote: "Liquibase v5.0.4 Latest"
+    note: "GitHub releases page (Liquibase Community)."
+  - product: "PgBouncer"
+    version: "1.26.1"
+    released: 2026-10-14
+    group: "3.1"
+    stated_by: https://www.pgbouncer.org/changelog.html
+    evidence: ver-pgbouncer
+    quote: "2026-10-14 - PgBouncer 1.26.1 - “Only startup once”"
+  - product: "HikariCP"
+    version: "7.1.0"
+    group: "3.1"
+    stated_by: https://repo.maven.apache.org/maven2/com/zaxxer/HikariCP/maven-metadata.xml
+    evidence: ver-hikaricp
+    quote: "<release>7.1.0</release>"
+    note: "Maven Central maven-metadata.xml of com.zaxxer:HikariCP; the GitHub repository publishes no releases."
+  - product: "Hibernate ORM"
+    version: "7.4.15.Final"
+    released: 2026-11-06
+    group: "extra"
+    stated_by: https://hibernate.org/orm/releases/
+    evidence: ver-hibernate
+    quote: "7.4 7.4.15.Final 2026-11-06"
+    note: "Page marks 7.4 'latest stable'; 8.0 (8.0.0.CR1) is development."
+  - product: "Jakarta Persistence"
+    version: "3.2"
+    group: "extra"
+    stated_by: https://hibernate.org/orm/releases/7.4/
+    evidence: ver-hibernate-74
+    quote: "Jakarta Persistence 3.2 Javadoc"
+    note: "Spec version in the Hibernate ORM 7.4 documentation; the 8.0 development row lists Jakarta Persistence 4.0."
+  - product: "Spring Modulith"
+    version: "2.1.2"
+    group: "extra"
+    stated_by: https://spring.io/projects/spring-modulith
+    evidence: ver-spring-modulith
+    quote: "Spring Modulith 2.1.2"
+    note: "Version label of the project page header (current GA)."
+    audit: "Doubtful-kept: GitHub Latest is 2.1.2 (ver-spring-modulith-3), but reference docs still mark 2.1.1 Stable."
+  - product: "ArchUnit"
+    version: "1.5.1"
+    group: "extra"
+    stated_by: https://github.com/TNG/ArchUnit/releases/latest
+    evidence: ver-archunit
+    quote: "Release ArchUnit 1.5.1 · TNG/ArchUnit · GitHub"
+    note: "GitHub releases page."
+  - product: "JMH"
+    version: "1.37"
+    group: "extra"
+    stated_by: https://repo.maven.apache.org/maven2/org/openjdk/jmh/jmh-core/maven-metadata.xml
+    evidence: ver-jmh
+    quote: "<release>1.37</release>"
+    note: "Maven Central maven-metadata.xml of org.openjdk.jmh:jmh-core."
+  - product: "async-profiler"
+    version: "4.6"
+    group: "extra"
+    stated_by: https://github.com/async-profiler/async-profiler/releases/latest
+    evidence: ver-async-profiler
+    quote: "async-profiler 4.6 Latest"
+    note: "GitHub releases page."
+  - product: "JDK Mission Control"
+    version: "9.1.2"
+    released: 2026-03-23
+    group: "extra"
+    stated_by: https://github.com/openjdk/jmc/tags
+    evidence: ver-jmc
+    quote: "GA source release for JMC 9.1.2"
+    note: "Newest -ga tag of openjdk/jmc; the repository has no GitHub releases."
+  - product: "GraalVM (JDK 25 line)"
+    version: "25.5.5.0.3"
+    released: 2026-11-03
+    group: "extra"
+    stated_by: https://www.graalvm.org/release-calendar/
+    evidence: ver-graalvm
+    quote: "November 3, 2026 Feature 25.5.5.0.3 25.5.5.0.3"
+    note: "Page: 'The most recent feature release supersedes all previous feature releases'; MAJOR 25 = Java baseline. 25.0.5 is an Oracle-only CPU row."
+    audit: "Corrected from 25.0.5: newest GA feature release (both editions) is 25.5.5.0.3; 25.0.5 is Oracle-only CPU."
+  - product: "MockK"
+    version: "1.14.12"
+    group: "extra"
+    stated_by: https://github.com/mockk/mockk/releases/latest
+    evidence: ver-mockk
+    quote: "1.14.12 Latest"
+    note: "GitHub releases page."
+  - product: "Mockito"
+    version: "5.24.0"
+    group: "extra"
+    stated_by: https://github.com/mockito/mockito/releases/latest
+    evidence: ver-mockito
+    quote: "v5.24.0 Latest"
+    note: "GitHub releases page."
+  - product: "AssertJ"
+    version: "3.27.7"
+    group: "extra"
+    stated_by: https://github.com/assertj/assertj/releases/latest
+    evidence: ver-assertj
+    quote: "assertj-build-3.27.7 v3.27.7 Latest"
+    note: "GitHub releases page."
+  - product: "RabbitMQ"
+    version: "4.4.0"
+    released: 2026-10-20
+    group: "extra"
+    stated_by: https://www.rabbitmq.com/release-information
+    evidence: ver-rabbitmq
+    quote: "4.4 4.4.0 Release Notes Release Notes 20 Oct 2026"
+  - product: "Apache Flink"
+    version: "2.3.0"
+    group: "extra"
+    stated_by: https://flink.apache.org/downloads/
+    evidence: ver-flink
+    quote: "Apache Flink 2.3.0 # Apache Flink 2.3.0 (asc, sha512)"
+    note: "Page meta description calls 2.3.0 the latest stable release."
+  - product: "Apache ZooKeeper"
+    version: "3.9.7"
+    group: "extra"
+    stated_by: https://zookeeper.apache.org/releases.html
+    evidence: ver-zookeeper
+    quote: "The current version is 3.9.7 The stable version is 3.8.8"
+    note: "3.9.7 is the 'current' branch release; the 'stable' branch is 3.8.8."
+    audit: "Doubtful-kept: page calls 3.8.8 'latest stable'; 3.9.7 is the GA 'current' release, not a prerelease."
+  - product: "etcd"
+    version: "3.7.3"
+    group: "extra"
+    stated_by: https://github.com/etcd-io/etcd/releases/latest
+    evidence: ver-etcd
+    quote: "v3.7.3 Latest"
+    note: "GitHub releases page."
+  - product: "Prometheus"
+    version: "3.16.0"
+    released: 2026-11-04
+    group: "extra"
+    stated_by: https://github.com/prometheus/prometheus/releases/latest
+    evidence: ver-prometheus
+    quote: "3.16.0 / 2026-11-04"
+    note: "GitHub 'Latest' release; Prometheus also publishes LTS lines."
+  - product: "KEDA"
+    version: "2.21.0"
+    group: "extra"
+    stated_by: https://github.com/kedacore/keda/releases/latest
+    evidence: ver-keda
+    quote: "v2.21.0 Latest"
+    note: "GitHub releases page."
+  - product: "Kubernetes Gateway API"
+    version: "1.7.0"
+    group: "extra"
+    stated_by: https://github.com/kubernetes-sigs/gateway-api/releases/latest
+    evidence: ver-gateway-api
+    quote: "v1.7.0 Latest"
+    note: "GitHub releases page."
+  - product: "OpenAPI Specification"
+    version: "3.2.1"
+    group: "extra"
+    stated_by: https://spec.openapis.org/oas/latest.html
+    evidence: ver-openapi-2
+    quote: "OpenAPI Specification v3.2.1 Version 3.2.1 10 September 2026"
+    note: "The 'Latest published version' URL serves v3.2.1; the index (ver-openapi) lists v3.2.1 first."
+    audit: "Confirmed: /oas/latest.html serves Version 3.2.1."
+  - product: "AsyncAPI Specification"
+    version: "3.1.0"
+    group: "extra"
+    stated_by: https://www.asyncapi.com/docs/reference/specification/latest
+    evidence: ver-asyncapi
+    quote: "Version 3.1.0"
+    note: "The /latest URL of the specification."
+  - product: "GraphQL specification"
+    version: "September 2026"
+    group: "extra"
+    stated_by: https://spec.graphql.org/
+    evidence: ver-graphql
+    quote: "Latest Release September 2026"
+    note: "Page also lists a Working Draft (prerelease), excluded."
+  - product: "Model Context Protocol specification"
+    version: "2026-07-28"
+    group: "extra"
+    stated_by: https://modelcontextprotocol.io/specification/versioning
+    evidence: ver-mcp
+    quote: "Version 2026-07-28 (latest)"
+  - product: "OWASP Top 10"
+    version: "2025"
+    group: "extra"
+    stated_by: https://owasp.org/www-project-top-ten/
+    evidence: ver-owasp-top10
+    quote: "The most current released version is the OWASP Top 10 2025"
+  - product: "OWASP API Security Top 10"
+    version: "2023"
+    group: "extra"
+    stated_by: https://owasp.org/www-project-api-security/
+    evidence: ver-owasp-api-3
+    quote: "Latest Version 2023"
+    note: "Project page information box; the documentation site (ver-owasp-api) lists the 2023 and 2019 editions."
+    audit: "Confirmed: OWASP project page states Latest Version 2023."
+  - product: "SLSA specification"
+    version: "1.2"
+    group: "extra"
+    stated_by: https://slsa.dev/spec/
+    evidence: ver-slsa
+    quote: "This is Version 1.2 of the SLSA specification."
+jeps:
+  - jep: 444
+    title: "Virtual Threads"
+    status_in_pinned: "final"
+    delivered_in: "21"
+    notes: "Finalized in 21 after previews in 19 (JEP 425) and 20 (JEP 436)."
+    source: jep-444
+  - jep: 491
+    title: "Synchronize Virtual Threads without Pinning"
+    status_in_pinned: "final"
+    delivered_in: "24"
+    notes: "Virtual threads blocked in synchronized release their platform thread; Release 24."
+    source: jep-491
+  - jep: 505
+    title: "Structured Concurrency (Fifth Preview)"
+    status_in_pinned: "preview"
+    delivered_in: "25"
+    notes: "Fifth preview in 25; later JEPs 525 (Sixth, 26) and 533 (Seventh, 27) continue it."
+    source: jep-505
+  - jep: 506
+    title: "Scoped Values"
+    status_in_pinned: "final"
+    delivered_in: "25"
+    notes: "Finalized in 25 after incubation (JEP 429) and previews (446, 464, 481, 487)."
+    source: jep-506
+  - jep: 485
+    title: "Stream Gatherers"
+    status_in_pinned: "final"
+    delivered_in: "24"
+    notes: "Previewed by JEP 461 (22) and 473 (23); finalized in 24 without change."
+    source: jep-485
+  - jep: 395
+    title: "Records"
+    status_in_pinned: "final"
+    delivered_in: "16"
+    notes: "Preview in 14 (JEP 359) and 15 (JEP 384); final in 16."
+    source: jep-395
+  - jep: 409
+    title: "Sealed Classes"
+    status_in_pinned: "final"
+    delivered_in: "17"
+    notes: "Preview in 15 (JEP 360) and 16 (JEP 397); finalized in 17."
+    source: jep-409
+  - jep: 440
+    title: "Record Patterns"
+    status_in_pinned: "final"
+    delivered_in: "21"
+    notes: "Previewed by JEP 405 (19) and 432 (20); finalized in 21."
+    source: jep-440
+  - jep: 441
+    title: "Pattern Matching for switch"
+    status_in_pinned: "final"
+    delivered_in: "21"
+    notes: "Previews JEPs 406, 420, 427, 433; finalized in 21."
+    source: jep-441
+  - jep: 439
+    title: "Generational ZGC"
+    status_in_pinned: "final"
+    delivered_in: "21"
+    notes: "Extends ZGC with separate young and old generations; Release 21."
+    source: jep-439
+  - jep: 474
+    title: "ZGC: Generational Mode by Default"
+    status_in_pinned: "final"
+    delivered_in: "23"
+    notes: "Generational mode becomes ZGC default; non-generational mode deprecated; Release 23."
+    source: jep-474
+  - jep: 483
+    title: "Ahead-of-Time Class Loading & Linking"
+    status_in_pinned: "final"
+    delivered_in: "24"
+    notes: "Classes stored loaded and linked from a previous run for faster startup; Release 24."
+    source: jep-483
+  - jep: 514
+    title: "Ahead-of-Time Command-Line Ergonomics"
+    status_in_pinned: "final"
+    delivered_in: "25"
+    notes: "Simplifies the commands that create ahead-of-time caches; Release 25."
+    source: jep-514
+  - jep: 515
+    title: "Ahead-of-Time Method Profiling"
+    status_in_pinned: "final"
+    delivered_in: "25"
+    notes: "Method-execution profiles from a previous run available at startup; Release 25."
+    source: jep-515
+  - jep: 350
+    title: "Dynamic CDS Archives"
+    status_in_pinned: "final"
+    delivered_in: "13"
+    notes: "Application class-data sharing archived dynamically at application exit; Release 13."
+    source: jep-350
+  - jep: 525
+    title: "Structured Concurrency (Sixth Preview)"
+    status_in_pinned: "not in release"
+    delivered_in: "26"
+    notes: "Later JEP of the same feature as 505; Release 26 (after pinned 25)."
+    source: jep-525
+  - jep: 533
+    title: "Structured Concurrency (Seventh Preview)"
+    status_in_pinned: "not in release"
+    delivered_in: "27"
+    notes: "Later JEP of the same feature as 525; Release 27 (after pinned 25)."
+    source: jep-533

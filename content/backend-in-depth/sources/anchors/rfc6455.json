@@ -1,0 +1,545 @@
+{
+ "source": "rfc6455",
+ "anchors": [
+  {
+   "anchor": "top",
+   "title": "",
+   "level": 0,
+   "sha256": "8be6bd82bed8045c245e92025a1c5c68bb4f42659519f4e5fdc6b51a95be1d73"
+  },
+  {
+   "anchor": "content",
+   "title": "The WebSocket Protocol",
+   "level": 1,
+   "sha256": "20dd971c70906f12fb0621f87a3365b8cf98c78dcaba4cd5e1266308fd18f017"
+  },
+  {
+   "anchor": "section-1",
+   "title": "1 . Introduction",
+   "level": 2,
+   "sha256": "13bea921c31c73342989d05166cd1fcc1972a16f355af16787c184d910e2e2f5"
+  },
+  {
+   "anchor": "section-1.1",
+   "title": "1.1 . Background",
+   "level": 3,
+   "sha256": "eae468ada872d17ae4a9a021d929245b53b876f06c5f70ebdbca793d51c98910"
+  },
+  {
+   "anchor": "section-1.2",
+   "title": "1.2 . Protocol Overview",
+   "level": 3,
+   "sha256": "f6af40580987fe5109585611485aeaa79279bf4f7aa8ac739dc69e21e48bb4f3"
+  },
+  {
+   "anchor": "section-1.3",
+   "title": "1.3 . Opening Handshake",
+   "level": 3,
+   "sha256": "01867099eb778577b6035b4371d8917369248b1692a75622cec05403756b26d6"
+  },
+  {
+   "anchor": "section-1.4",
+   "title": "1.4 . Closing Handshake",
+   "level": 3,
+   "sha256": "0563a9472dc60cfde8b4a7f470b8eca84701327522ba4fce050af09a39db27f3"
+  },
+  {
+   "anchor": "section-1.5",
+   "title": "1.5 . Design Philosophy",
+   "level": 3,
+   "sha256": "17825a0d48c44e960b4fc7896952b53cb110cd3a0b3e7cb193a346afc19dcb05"
+  },
+  {
+   "anchor": "section-1.6",
+   "title": "1.6 . Security Model",
+   "level": 3,
+   "sha256": "ae04a61a556923fd226333f2a3c8d53d4edad9a260b8b9c9096e9d9b402d635a"
+  },
+  {
+   "anchor": "section-1.7",
+   "title": "1.7 . Relationship to TCP and HTTP",
+   "level": 3,
+   "sha256": "364a08d8a86fa5c98fab1291e754bf0a289f55b94d35e6ba72b46b36aa93bcc3"
+  },
+  {
+   "anchor": "section-1.8",
+   "title": "1.8 . Establishing a Connection",
+   "level": 3,
+   "sha256": "a51c959552f7c36d81fe83555413d8b2c23723ed2fa3fbdfcf8e2985daeb1a8c"
+  },
+  {
+   "anchor": "section-1.9",
+   "title": "1.9 . Subprotocols Using the WebSocket Protocol",
+   "level": 3,
+   "sha256": "0b0dea0167456b92352d9d533940d29253b0a1de1ed3d26ae61eba1e386ae658"
+  },
+  {
+   "anchor": "section-2",
+   "title": "2 . Conformance Requirements",
+   "level": 2,
+   "sha256": "cb8d667173f74750af358388de2af9d08104d24b8f0ab6c38705bbc288bcf82a"
+  },
+  {
+   "anchor": "section-2.1",
+   "title": "2.1 . Terminology and Other Conventions",
+   "level": 3,
+   "sha256": "62d39addfb3743c9c61067b9ca7a8e099bffa21d6456a75e36fca0a40dd6b45a"
+  },
+  {
+   "anchor": "section-3",
+   "title": "3 . WebSocket URIs",
+   "level": 2,
+   "sha256": "bf3af731bfacca12e8b8492a71395d9f99c2acc53402bcd763582ca12c5b0c8f"
+  },
+  {
+   "anchor": "section-4",
+   "title": "4 . Opening Handshake",
+   "level": 2,
+   "sha256": "039ffb2098b73c9037ad9fe69b7b52dab0e24e0afbaa0f413438832da836f782"
+  },
+  {
+   "anchor": "section-4.1",
+   "title": "4.1 . Client Requirements",
+   "level": 3,
+   "sha256": "196939b78477098914bfc9be50de0e5f122319263f718c47080bcccd0ec1788a"
+  },
+  {
+   "anchor": "section-4.2",
+   "title": "4.2 . Server-Side Requirements",
+   "level": 3,
+   "sha256": "85b66be0a9fbc2c28d490768a43d5115da8e9b1af79b3fc8b8e7df8a1fd966b7"
+  },
+  {
+   "anchor": "section-4.2.1",
+   "title": "4.2.1 . Reading the Client's Opening Handshake",
+   "level": 4,
+   "sha256": "cb5d78f1f63cdd1a2920aa39ae17a822786ca461398816611ca33a540e8f4fac"
+  },
+  {
+   "anchor": "section-4.2.2",
+   "title": "4.2.2 . Sending the Server's Opening Handshake",
+   "level": 4,
+   "sha256": "b460ef7723cc3456e17463a980e6008b9afa2daee7ce9ec6fe58f7b30fe36837"
+  },
+  {
+   "anchor": "section-4.3",
+   "title": "4.3 . Collected ABNF for New Header Fields Used in Handshake",
+   "level": 3,
+   "sha256": "2b51521bb3f1042b861ed2c4895b2284126c140dc2d9cc0bcae93ee8afaa9147"
+  },
+  {
+   "anchor": "section-4.4",
+   "title": "4.4 . Supporting Multiple Versions of WebSocket Protocol",
+   "level": 3,
+   "sha256": "61832c9cd157ed5efd65c1cac80f5477ce5a32a00ea8c2b1e3eafc70b448a4d7"
+  },
+  {
+   "anchor": "section-5",
+   "title": "5 . Data Framing",
+   "level": 2,
+   "sha256": "b09b8ed816b4f48bda8f920a961fbb707bc7d740606f53b92e075627fc146b24"
+  },
+  {
+   "anchor": "section-5.1",
+   "title": "5.1 . Overview",
+   "level": 3,
+   "sha256": "50b558c70f6794bf4036b985b73162e402fd5b602b069a8875fcafe5908c1ced"
+  },
+  {
+   "anchor": "section-5.2",
+   "title": "5.2 . Base Framing Protocol",
+   "level": 3,
+   "sha256": "9d8fb61e4ea872403ca9e9a765d81c3df41b1487308fb5e4060a27818d0355a9"
+  },
+  {
+   "anchor": "section-5.3",
+   "title": "5.3 . Client-to-Server Masking",
+   "level": 3,
+   "sha256": "69cff11f224f4a717e0431447fcc4c6a4667e86d3bbe69662549d410931a53b9"
+  },
+  {
+   "anchor": "section-5.4",
+   "title": "5.4 . Fragmentation",
+   "level": 3,
+   "sha256": "3654600e9892026105dfbc0f1cd3838cd1675fab6d7be5e9b6eb2a275094b4db"
+  },
+  {
+   "anchor": "section-5.5",
+   "title": "5.5 . Control Frames",
+   "level": 3,
+   "sha256": "0efc7db79413bf986c35f24451aa53dfddb9728b82b4ecc56c9ece2f405ce09c"
+  },
+  {
+   "anchor": "section-5.5.1",
+   "title": "5.5.1 . Close",
+   "level": 4,
+   "sha256": "29d82e8f602938ea98a4d045e242e490b7c2ecded34c2ff0d9b7ac6a79a7ed0e"
+  },
+  {
+   "anchor": "section-5.5.2",
+   "title": "5.5.2 . Ping",
+   "level": 4,
+   "sha256": "dbf1cacf98f654713acfdbdd0d4b7a5a160fd5949e8e28de246e4c0ac375e583"
+  },
+  {
+   "anchor": "section-5.5.3",
+   "title": "5.5.3 . Pong",
+   "level": 4,
+   "sha256": "2be71e417f15e998d893220b4ff294bc8a829b9b0ec9c50407afcb763e67ab31"
+  },
+  {
+   "anchor": "section-5.6",
+   "title": "5.6 . Data Frames",
+   "level": 3,
+   "sha256": "6b136b18302ea1dbc848376130b048f88835c2233dc8af441e1737bd4176adca"
+  },
+  {
+   "anchor": "section-5.7",
+   "title": "5.7 . Examples",
+   "level": 3,
+   "sha256": "a876d13b2a571969b5750a27e09113d218e4841ce5aa9e7dd7146f88f616934a"
+  },
+  {
+   "anchor": "section-5.8",
+   "title": "5.8 . Extensibility",
+   "level": 3,
+   "sha256": "412b5516afd608c92cd14469c9d76edd5f0e3a99b471b78ddadde95776a88b49"
+  },
+  {
+   "anchor": "section-6",
+   "title": "6 . Sending and Receiving Data",
+   "level": 2,
+   "sha256": "b9477daca8e837e4bbc152ba66673fe0d410fce0bf4fc5c80c6a0e8b2305edab"
+  },
+  {
+   "anchor": "section-6.1",
+   "title": "6.1 . Sending Data",
+   "level": 3,
+   "sha256": "aefafd1dfe79ebc524eefc3b5b436a921cefcae78772aa348d6b410b187137b1"
+  },
+  {
+   "anchor": "section-6.2",
+   "title": "6.2 . Receiving Data",
+   "level": 3,
+   "sha256": "813bd37fb129b78ce60dee887df74e3d5f1dd72901e09b35b9c8ef4f098c596e"
+  },
+  {
+   "anchor": "section-7",
+   "title": "7 . Closing the Connection",
+   "level": 2,
+   "sha256": "aeafeb9108f00a257257dcc14a9cd3477e1c56740783259eedd6c41845afb3cd"
+  },
+  {
+   "anchor": "section-7.1",
+   "title": "7.1 . Definitions",
+   "level": 3,
+   "sha256": "ac6085c54ad12cce792f1c280b7f30ba57b873441db73480c641c98d965908e6"
+  },
+  {
+   "anchor": "section-7.1.1",
+   "title": "7.1.1 . Close the WebSocket Connection",
+   "level": 4,
+   "sha256": "7b0f02b5dd6c76847adc56b4580a92ea7b50788bea8616f36e6c1ec272662e79"
+  },
+  {
+   "anchor": "section-7.1.2",
+   "title": "7.1.2 . Start the WebSocket Closing Handshake",
+   "level": 4,
+   "sha256": "943b2166a518d57a418857e728f0f156936e8d45a30f4ebef3296c507d9961ee"
+  },
+  {
+   "anchor": "section-7.1.3",
+   "title": "7.1.3 . The WebSocket Closing Handshake is Started",
+   "level": 4,
+   "sha256": "d961ab3182f546978f6a8e5792b0f522a33734d5c8e44429437d574ddbaaea9e"
+  },
+  {
+   "anchor": "section-7.1.4",
+   "title": "7.1.4 . The WebSocket Connection is Closed",
+   "level": 4,
+   "sha256": "e0efe3f2fd55653d9a873288f43e379c05b1c680e84da85c5f4e7fce6d684496"
+  },
+  {
+   "anchor": "section-7.1.5",
+   "title": "7.1.5 . The WebSocket Connection Close Code",
+   "level": 4,
+   "sha256": "9916d946eb22679d145db6b3212c1614e965d4659cbfbbbebf70b511e0eed5ae"
+  },
+  {
+   "anchor": "section-7.1.6",
+   "title": "7.1.6 . The WebSocket Connection Close Reason",
+   "level": 4,
+   "sha256": "04a7fb693d221b11d7e387d19fc6e76990df133cd7985bc28d980879cbff5364"
+  },
+  {
+   "anchor": "section-7.1.7",
+   "title": "7.1.7 . Fail the WebSocket Connection",
+   "level": 4,
+   "sha256": "711ba5414fa992b1b078bd90f7eacb32a08958f3c64d5c01e9251964512bf77c"
+  },
+  {
+   "anchor": "section-7.2",
+   "title": "7.2 . Abnormal Closures",
+   "level": 3,
+   "sha256": "db32639180bef778175c3bd8da8afc2e121720ae0a31655ceacb55454a3ca9f7"
+  },
+  {
+   "anchor": "section-7.2.1",
+   "title": "7.2.1 . Client-Initiated Closure",
+   "level": 4,
+   "sha256": "39d120008ddeaae85d7b3fbfb3dd6a38fdf909c8f5103c306ba53fea7ec9ef55"
+  },
+  {
+   "anchor": "section-7.2.2",
+   "title": "7.2.2 . Server-Initiated Closure",
+   "level": 4,
+   "sha256": "11664eff181515d493ecf9a5d79cff67d6327ab423cccc1bf3cd3f0b8a179172"
+  },
+  {
+   "anchor": "section-7.2.3",
+   "title": "7.2.3 . Recovering from Abnormal Closure",
+   "level": 4,
+   "sha256": "ca39ed58464de4ad3eefbac21df8909517127763384a7afc37f5760f87a76f70"
+  },
+  {
+   "anchor": "section-7.3",
+   "title": "7.3 . Normal Closure of Connections",
+   "level": 3,
+   "sha256": "d01a2b53b6a4bf3e0a6767b912945ba248e693d3d041db7d8c12f1ba69f74898"
+  },
+  {
+   "anchor": "section-7.4",
+   "title": "7.4 . Status Codes",
+   "level": 3,
+   "sha256": "e87d43a8dfc62774d57e2eb438932eaf8c6bf6813f02eadabba4ebed34be5b76"
+  },
+  {
+   "anchor": "section-7.4.1",
+   "title": "7.4.1 . Defined Status Codes",
+   "level": 4,
+   "sha256": "1c72683c84072034b8db67f32b10f3a5ee6fbcddf20f6dcabad1deaca4c0d93d"
+  },
+  {
+   "anchor": "section-7.4.2",
+   "title": "7.4.2 . Reserved Status Code Ranges",
+   "level": 4,
+   "sha256": "92d1619f0692d36aa2ac2cb75bae213381c971687545128187cac88c82120523"
+  },
+  {
+   "anchor": "section-8",
+   "title": "8 . Error Handling",
+   "level": 2,
+   "sha256": "6708e20537b861de593bdcd209da9767c9bebadf2a0b5b59ab3056dc01f35d12"
+  },
+  {
+   "anchor": "section-8.1",
+   "title": "8.1 . Handling Errors in UTF-8-Encoded Data",
+   "level": 3,
+   "sha256": "61064a20e49ccecdafe21e92443dc7c4c6e2f7d1db205711e02497be8e08831f"
+  },
+  {
+   "anchor": "section-9",
+   "title": "9 . Extensions",
+   "level": 2,
+   "sha256": "0fd50e5f41172bf31f6fdff0810418586ac464f083701b33514110aaa260aa00"
+  },
+  {
+   "anchor": "section-9.1",
+   "title": "9.1 . Negotiating Extensions",
+   "level": 3,
+   "sha256": "585bbe82c4b94600052ddccdef8e1c5ed8dc090c175c2ad0a31b41998cb92126"
+  },
+  {
+   "anchor": "section-9.2",
+   "title": "9.2 . Known Extensions",
+   "level": 3,
+   "sha256": "6e2a3fd9200d343d0d977d4d6b8e894a202eb5a8b270ccbc407a6ce805b780cb"
+  },
+  {
+   "anchor": "section-10",
+   "title": "10 . Security Considerations",
+   "level": 2,
+   "sha256": "09a15f11d5558577fb02ec2ae307744d179ac7006d3dcffbb14e263761dbce38"
+  },
+  {
+   "anchor": "section-10.1",
+   "title": "10.1 . Non-Browser Clients",
+   "level": 3,
+   "sha256": "3f10983c79fa640833f7347c42e7a252819d67aade9e6853c97f3f1b8edfe36f"
+  },
+  {
+   "anchor": "section-10.2",
+   "title": "10.2 . Origin Considerations",
+   "level": 3,
+   "sha256": "ab2a28620d41eb1e645644dc2cb6f7b2124e79f87823b16eb406fcaed752dc37"
+  },
+  {
+   "anchor": "section-10.3",
+   "title": "10.3 . Attacks On Infrastructure (Masking)",
+   "level": 3,
+   "sha256": "b8e6bfdeacb425fd4e119b284dcb281523f9e5ba5ddcca05a479ca79649eef1e"
+  },
+  {
+   "anchor": "section-10.4",
+   "title": "10.4 . Implementation-Specific Limits",
+   "level": 3,
+   "sha256": "6ac94aba5a56ad28e2f6bc9c62a42fd1453ee7840c015d13a0c33ca3a2f5dd5a"
+  },
+  {
+   "anchor": "section-10.5",
+   "title": "10.5 . WebSocket Client Authentication",
+   "level": 3,
+   "sha256": "44a9b17a42660534d1b7bfd0aabdd7bbf3a31bacfd1748920a55bc3253e6fa5d"
+  },
+  {
+   "anchor": "section-10.6",
+   "title": "10.6 . Connection Confidentiality and Integrity",
+   "level": 3,
+   "sha256": "60d7823903c5e0931ec0ece862d5dcbf54827d38ff99961689324d308344f390"
+  },
+  {
+   "anchor": "section-10.7",
+   "title": "10.7 . Handling of Invalid Data",
+   "level": 3,
+   "sha256": "48ebd9885c64bae7362e2e4aaca8c97f4fa96fa206832aa4f52031fc48e21dba"
+  },
+  {
+   "anchor": "section-10.8",
+   "title": "10.8 . Use of SHA-1 by the WebSocket Handshake",
+   "level": 3,
+   "sha256": "69819d9d81660799fe355e012ba85ba6e78c0e4ba337dcaac7eb4f9bf5ea4f13"
+  },
+  {
+   "anchor": "section-11",
+   "title": "11 . IANA Considerations",
+   "level": 2,
+   "sha256": "bd9356328a601c51bee9eaa474124a92861194d57e228de22fc66e962aba7cf4"
+  },
+  {
+   "anchor": "section-11.1",
+   "title": "11.1 . Registration of New URI Schemes",
+   "level": 3,
+   "sha256": "cf514f5cae3ab98c5da6305620676526bb4dea0b4839000624b18bf3db33d45c"
+  },
+  {
+   "anchor": "section-11.1.1",
+   "title": "11.1.1 . Registration of \"ws\" Scheme",
+   "level": 4,
+   "sha256": "bf4231fd5f00de98bcc81373403c221ab2418644c9c49bc8ec5697ce8e6c7832"
+  },
+  {
+   "anchor": "section-11.1.2",
+   "title": "11.1.2 . Registration of \"wss\" Scheme",
+   "level": 4,
+   "sha256": "dfb802b057df7fa43986069af698fa0c837fa23ce92145bd8022a4fdc956552d"
+  },
+  {
+   "anchor": "section-11.2",
+   "title": "11.2 . Registration of the \"WebSocket\" HTTP Upgrade Keyword",
+   "level": 3,
+   "sha256": "184a87e0f5e1bf4af77d087e50c0365aaf4e9d888bb8a5a9772e609762f2e152"
+  },
+  {
+   "anchor": "section-11.3",
+   "title": "11.3 . Registration of New HTTP Header Fields",
+   "level": 3,
+   "sha256": "32a86be5a9f83fab89e1e0f4353e704193919eda4567ba6e066375366510611e"
+  },
+  {
+   "anchor": "section-11.3.1",
+   "title": "11.3.1 . Sec-WebSocket-Key",
+   "level": 4,
+   "sha256": "7f0f52e30a9a55f1c997593946fcfa8b6850da7e059cfaaa66bfc40f9babf535"
+  },
+  {
+   "anchor": "section-11.3.2",
+   "title": "11.3.2 . Sec-WebSocket-Extensions",
+   "level": 4,
+   "sha256": "3bc38397c0cf2d78faa97645f02424ccc8726bb4b00958ec9b6cc1d03e4f7316"
+  },
+  {
+   "anchor": "section-11.3.3",
+   "title": "11.3.3 . Sec-WebSocket-Accept",
+   "level": 4,
+   "sha256": "bb8ca04edb4596678aa96943b7adc2efad509e3d85a9a3729d7076031d3ac2b3"
+  },
+  {
+   "anchor": "section-11.3.4",
+   "title": "11.3.4 . Sec-WebSocket-Protocol",
+   "level": 4,
+   "sha256": "86cd228e409c833b9a8bec55e48e1de535ee69465dc520ca9d10fcbf2ebed087"
+  },
+  {
+   "anchor": "section-11.3.5",
+   "title": "11.3.5 . Sec-WebSocket-Version",
+   "level": 4,
+   "sha256": "2fe8516f79cd946f4eb2d3019853c94d0a61b3388c41a9a049f9fcd5a6159592"
+  },
+  {
+   "anchor": "section-11.4",
+   "title": "11.4 . WebSocket Extension Name Registry",
+   "level": 3,
+   "sha256": "09348f42b0c19a4fd36028726272f056752e2e4d3bc225f69d0543359a0dbab3"
+  },
+  {
+   "anchor": "section-11.5",
+   "title": "11.5 . WebSocket Subprotocol Name Registry",
+   "level": 3,
+   "sha256": "c0cd5d61f309f98a5e645131b04f0d495a6e2276a91bb3e94b8779a010e536b2"
+  },
+  {
+   "anchor": "section-11.6",
+   "title": "11.6 . WebSocket Version Number Registry",
+   "level": 3,
+   "sha256": "67e4836bfc1d543afdb12d6b6bb284579238efc0bd51a3f9721613c4efe1f16d"
+  },
+  {
+   "anchor": "section-11.7",
+   "title": "11.7 . WebSocket Close Code Number Registry",
+   "level": 3,
+   "sha256": "bb2fc7dbe06eee1fb40162abb78e5169dee6fbb5c267b5f4457dd6ff45ba5d93"
+  },
+  {
+   "anchor": "section-11.8",
+   "title": "11.8 . WebSocket Opcode Registry",
+   "level": 3,
+   "sha256": "f0260dcaba319e352375b566421d1df9e0b98b61c4898d013c6cdc5352ca66d6"
+  },
+  {
+   "anchor": "section-11.9",
+   "title": "11.9 . WebSocket Framing Header Bits Registry",
+   "level": 3,
+   "sha256": "86c45c54fb16fb242a3e1ccc7b452f17bab4b9b5c1cd5fb9974ce7e7d1635366"
+  },
+  {
+   "anchor": "section-12",
+   "title": "12 . Using the WebSocket Protocol from Other Specifications",
+   "level": 2,
+   "sha256": "1e42f0bd6418dee2e6dd9f2e37b6fa6f085e4181a4a8da2437881b2467bafbb8"
+  },
+  {
+   "anchor": "section-13",
+   "title": "13 . Acknowledgements",
+   "level": 2,
+   "sha256": "373df3efb2eda32c41989035b5e6514ce40549ff6a3c8a14be6208336e8b13d3"
+  },
+  {
+   "anchor": "section-14",
+   "title": "14 . References",
+   "level": 2,
+   "sha256": "6862ee53db70ab960156964d8dff7880506587b6523ded4da331bdcee3316379"
+  },
+  {
+   "anchor": "section-14.1",
+   "title": "14.1 . Normative References",
+   "level": 3,
+   "sha256": "83a1d5ee1fba38e91a84661fe71dead1b4ec52971c63b5bb2464b2edc39be28b"
+  },
+  {
+   "anchor": "section-14.2",
+   "title": "14.2 . Informative References",
+   "level": 3,
+   "sha256": "60a6781fd4654d5d03b8564c47a2eb577dae46595b8b51edaa190ef1e6b3f3da"
+  }
+ ]
+}

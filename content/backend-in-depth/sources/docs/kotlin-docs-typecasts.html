@@ -1,0 +1,393 @@
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html lang="en-US" data-preset="contrast" data-primary-color="#307FFF" data-external-links-in-new-tab="false"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="UTF-8"><meta name="built-on" content="2026-11-13T10:58:18.833180301"><meta name="build-number" content="1405"><link rel="canonical" href="/docs/typecasts.html" data-react-helmet="true">
+
+<title>Type checks and casts | Kotlin Documentation</title><link href="custom-frontend-app/app.css?149" rel="stylesheet"><link rel="icon" type="image/svg" sizes="16x16" href="https://kotlinlang.org/assets/images/favicon.svg?v2"><link rel="icon" type="image/x-icon" sizes="32x32" href="https://kotlinlang.org/assets/images/favicon.ico?v2"><link rel="icon" type="image/png" sizes="96x96" href="https://kotlinlang.org/assets/images/apple-touch-icon.png?v2"><link rel="icon" type="image/png" sizes="300x300" href="https://kotlinlang.org/assets/images/apple-touch-icon-72x72.png?v2"><link rel="icon" type="image/png" sizes="500x500" href="https://kotlinlang.org/assets/images/apple-touch-icon-114x114.png?v2"><meta name="image" content="https://kotlinlang.org/assets/images/open-graph/docs.png"><!-- Open Graph --><meta property="og:title" content="Type checks and casts | Kotlin"><meta property="og:description" content=""><meta property="og:image" content="https://kotlinlang.org/assets/images/open-graph/docs.png"><meta property="og:site_name" content="Kotlin Help"><meta property="og:type" content="website"><meta property="og:locale" content="en_US"><meta property="og:url" content="https://kotlinlang.org/docs/typecasts.html"><!-- End Open Graph --><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@kotlin"><meta name="twitter:title" content="Type checks and casts | Kotlin"><meta name="twitter:description" content=""><meta name="twitter:creator" content="@kotlin"><meta name="twitter:image:src" content="https://kotlinlang.org/assets/images/open-graph/docs.png"><!-- End Twitter Card --><!-- Schema.org WebPage --><!-- End Schema.org --><!-- Schema.org WebSite --><!-- End Schema.org --></head><body data-id="typecasts" data-main-title="Type checks and casts" data-article-props="{&quot;seeAlsoStyle&quot;:&quot;links&quot;}" data-template="article" data-breadcrumbs="Language guide///Types" data-edit-url="https://github.com/JetBrains/kotlin-web-site/edit/master/docs/topics/typecasts.md"><div class="wrapper"><main class="panel _main"><header class="panel__header"><div class="container"><h3>Kotlin  Help</h3><div class="panel-trigger"></div></div></header><section class="panel__content"><div class="container"><article class="article" data-shortcut-switcher="inactive"><h1 data-toc="typecasts" id="typecasts.md">Type checks and casts</h1><p id="vu3c4v_2">In Kotlin, you can do two things with types at runtime: check whether an object is a specific type, or convert it to another type. Type <span class="control" id="vu3c4v_8">checks</span> help you confirm the kind of object you're dealing with, while type <span class="control" id="vu3c4v_9">casts</span> attempt to convert the object to another type.</p><aside class="prompt" data-type="tip" data-title="" id="vu3c4v_3"><p id="vu3c4v_10">To learn specifically about <span class="control" id="vu3c4v_11">generics</span> type checks and casts, for example <code class="code" id="vu3c4v_12">List&lt;T&gt;</code>, <code class="code" id="vu3c4v_13">Map&lt;K,V&gt;</code>, see <a href="generics.html#generics-type-checks-and-casts" id="vu3c4v_14">Generics type checks and casts</a>.</p></aside><section class="chapter"><h2 id="is-and-is-operators" data-toc="is-and-is-operators">Checks with <code class="code" id="vu3c4v_23">is</code> and <code class="code" id="vu3c4v_24">!is</code> operators</h2><p id="vu3c4v_16">Use the <code class="code" id="vu3c4v_25">is</code> operator (or <code class="code" id="vu3c4v_26">!is</code> to negate it) to check if an object matches a type at runtime:</p><div class="code-block" data-lang="kotlin" data-runnable="true" id="kotlin-typecasts-is-operator">
+fun main() {
+    val input: Any = &quot;Hello, Kotlin&quot;
+
+    if (input is String) {
+        println(&quot;Message length: ${input.length}&quot;)
+        // Message length: 13
+    }
+
+    if (input !is String) { // Same as !(input is String)
+        println(&quot;Input is not a valid message&quot;)
+    } else {
+        println(&quot;Processing message: ${input.length} characters&quot;)
+        // Processing message: 13 characters
+    }
+}
+</div><p id="vu3c4v_18">You can also use <code class="code" id="vu3c4v_27">is</code> and <code class="code" id="vu3c4v_28">!is</code> operators to check if an object matches a subtype:</p><div class="code-block" data-lang="kotlin" data-runnable="true" id="kotlin-typecasts-is-operator-subtype">
+interface Animal {
+    val name: String
+    fun speak()
+}
+
+class Dog(override val name: String) : Animal {
+    override fun speak() = println(&quot;$name says: Woof!&quot;)
+}
+
+class Cat(override val name: String) : Animal {
+    override fun speak() = println(&quot;$name says: Meow!&quot;)
+}
+//sampleStart
+fun handleAnimal(animal: Animal) {
+    println(&quot;Handling animal: ${animal.name}&quot;)
+    animal.speak()
+    
+    // Use is operator to check for subtypes
+    if (animal is Dog) {
+        println(&quot;Special care instructions: This is a dog.&quot;)
+    } else if (animal is Cat) {
+        println(&quot;Special care instructions: This is a cat.&quot;)
+    }
+}
+//sampleEnd
+fun main() {
+    val pets: List&lt;Animal&gt; = listOf(
+        Dog(&quot;Buddy&quot;),
+        Cat(&quot;Whiskers&quot;),
+        Dog(&quot;Rex&quot;)
+    )
+
+    for (pet in pets) {
+        handleAnimal(pet)
+        println(&quot;---&quot;)
+    }
+    // Handling animal: Buddy
+    // Buddy says: Woof!
+    // Special care instructions: This is a dog.
+    // ---
+    // Handling animal: Whiskers
+    // Whiskers says: Meow!
+    // Special care instructions: This is a cat.
+    // ---
+    // Handling animal: Rex
+    // Rex says: Woof!
+    // Special care instructions: This is a dog.
+    // ---
+}
+</div><p id="vu3c4v_20">This example uses the <code class="code" id="vu3c4v_29">is</code> operator to check if the <code class="code" id="vu3c4v_30">Animal</code> class instance has subtype <code class="code" id="vu3c4v_31">Dog</code> or <code class="code" id="vu3c4v_32">Cat</code> to print the relevant care instructions.</p><p id="vu3c4v_21">You can check if an object is a supertype of its declared type, but it's not worthwhile because the answer is always true. Every class instance is already an instance of its supertypes.</p><aside class="prompt" data-type="tip" data-title="" id="vu3c4v_22"><p id="vu3c4v_33">To identify the type of an object at runtime, see <a href="reflection.html" id="vu3c4v_34">Reflection</a>.</p></aside></section><section class="chapter"><h2 id="type-casts" data-toc="type-casts">Type casts</h2><p id="vu3c4v_35">To convert the type of an object in Kotlin to another type is called <span class="control" id="vu3c4v_38">casting</span>.</p><p id="vu3c4v_36">In some cases, the compiler automatically casts objects for you. This is called smart-casting.</p><p id="vu3c4v_37">If you need to explicitly cast a type, use <code class="code" id="vu3c4v_39">as?</code> or <code class="code" id="vu3c4v_40">as</code> <a href="#unsafe-cast-operator" id="vu3c4v_41">cast operators</a>.</p></section><section class="chapter"><h2 id="smart-casts" data-toc="smart-casts">Smart casts</h2><p id="vu3c4v_42">The compiler tracks the type checks and <a href="#unsafe-cast-operator" id="vu3c4v_52">explicit casts</a> for immutable values and inserts implicit (safe) casts automatically:</p><div class="code-block" data-lang="kotlin" data-runnable="true" id="kotlin-typecasts-smartcast">
+fun logMessage(data: Any) {
+    // data is automatically cast to String
+    if (data is String) {
+        println(&quot;Received text: ${data.length} characters&quot;)
+    }
+}
+
+fun main() {
+    logMessage(&quot;Server started&quot;)
+    // Received text: 14 characters
+    logMessage(404)
+}
+</div><p id="vu3c4v_44">The compiler is even smart enough to know that a cast is safe if a negative check leads to a return:</p><div class="code-block" data-lang="kotlin" data-runnable="true" id="kotlin-typecasts-smartcast-negative">
+fun logMessage(data: Any) {
+    // data is automatically cast to String
+    if (data !is String) return
+
+    println(&quot;Received text: ${data.length} characters&quot;)
+}
+
+fun main() {
+    logMessage(&quot;User signed in&quot;)
+    // Received text: 14 characters
+    logMessage(true)
+}
+</div><section class="chapter"><h3 id="control-flow" data-toc="control-flow">Control flow</h3><p id="vu3c4v_53">Smart casts work not only for <code class="code" id="vu3c4v_61">if</code> conditional expressions, but also for <a href="control-flow.html#when-expressions-and-statements" id="vu3c4v_62"><code class="code" id="vu3c4v_63">when</code> expressions</a>:</p><div class="code-block" data-lang="kotlin" data-runnable="true" id="kotlin-typecasts-smartcast-when">
+fun processInput(data: Any) {
+    when (data) {
+        // data is automatically cast to Int
+        is Int -&gt; println(&quot;Log: Assigned new ID ${data + 1}&quot;)
+        // data is automatically cast to String
+        is String -&gt; println(&quot;Log: Received message \&quot;$data\&quot;&quot;)
+        // data is automatically cast to IntArray
+        is IntArray -&gt; println(&quot;Log: Processed scores, total = ${data.sum()}&quot;)
+    }
+}
+
+fun main() {
+    processInput(1001)
+    // Log: Assigned new ID 1002
+    processInput(&quot;System rebooted&quot;)
+    // Log: Received message &quot;System rebooted&quot;
+    processInput(intArrayOf(10, 20, 30))
+    // Log: Processed scores, total = 60
+}
+</div><p id="vu3c4v_55">And for <a href="control-flow.html#while-loops" id="vu3c4v_64"><code class="code" id="vu3c4v_65">while</code> loops</a>:</p><div class="code-block" data-lang="kotlin" data-runnable="true" id="kotlin-typecasts-smartcast-while">
+sealed interface Status
+data class Ok(val currentRoom: String) : Status
+data object Error : Status
+
+class RobotVacuum(val rooms: List&lt;String&gt;) {
+    var index = 0
+
+    fun status(): Status =
+        if (index &lt; rooms.size) Ok(rooms[index])
+        else Error
+
+    fun clean(): Status {
+        println(&quot;Finished cleaning ${rooms[index]}&quot;)
+        index++
+        return status()
+    }
+}
+
+fun main() {
+    //sampleStart
+    val robo = RobotVacuum(listOf(&quot;Living Room&quot;, &quot;Kitchen&quot;, &quot;Hallway&quot;))
+
+    var status: Status = robo.status()
+    while (status is Ok) {
+        // The compiler smart casts status to OK type, so the currentRoom
+        // property is accessible.
+        println(&quot;Cleaning ${status.currentRoom}...&quot;)
+        status = robo.clean()
+    }
+    // Cleaning Living Room...
+    // Finished cleaning Living Room
+    // Cleaning Kitchen...
+    // Finished cleaning Kitchen
+    // Cleaning Hallway...
+    // Finished cleaning Hallway
+    //sampleEnd
+}
+</div><p id="vu3c4v_57">In this example, the sealed interface <code class="code" id="vu3c4v_66">Status</code> has two implementations: the data class <code class="code" id="vu3c4v_67">Ok</code> and the data object <code class="code" id="vu3c4v_68">Error</code>. Only the <code class="code" id="vu3c4v_69">Ok</code> data class has the <code class="code" id="vu3c4v_70">currentRoom</code> property. When the <code class="code" id="vu3c4v_71">while</code> loop condition evaluates to true, the compiler smart casts the <code class="code" id="vu3c4v_72">status</code> variable to <code class="code" id="vu3c4v_73">Ok</code> type, making the <code class="code" id="vu3c4v_74">currentRoom</code> property accessible within the loop body.</p><p id="vu3c4v_58">If you declare a variable of <code class="code" id="vu3c4v_75">Boolean</code> type before using it in your <code class="code" id="vu3c4v_76">if</code>, <code class="code" id="vu3c4v_77">when</code>, or <code class="code" id="vu3c4v_78">while</code> condition, any information collected by the compiler about the variable is accessible in the corresponding block for smart-casting.</p><p id="vu3c4v_59">This can be useful when you want to do things like extract boolean conditions into variables. Then, you can give the variable a meaningful name, which improves your code readability and makes it possible to reuse the variable later in your code. For example:</p><div class="code-block" data-lang="kotlin" data-runnable="true" data-min-compiler-version="2.0" id="kotlin-smart-casts-local-variables">
+class Cat {
+    fun purr() {
+        println(&quot;Purr purr&quot;)
+    }
+}
+//sampleStart
+fun petAnimal(animal: Any) {
+    val isCat = animal is Cat
+    if (isCat) {
+        // The compiler can access information about
+        // isCat, so it knows that animal was smart-cast
+        // to the type Cat.
+        // Therefore, the purr() function can be called.
+        animal.purr()
+    }
+}
+
+fun main(){
+    val kitty = Cat()
+    petAnimal(kitty)
+    // Purr purr
+}
+//sampleEnd
+</div></section><section class="chapter"><h3 id="logical-operators" data-toc="logical-operators">Logical operators</h3><p id="vu3c4v_79">The compiler can perform smart casts on the right-hand side of <code class="code" id="vu3c4v_85">&amp;&amp;</code> or <code class="code" id="vu3c4v_86">||</code> operators if there is a type check (regular or negative) on the left-hand side:</p><div class="code-block" data-lang="kotlin">
+// x is automatically cast to String on the right-hand side of `||`
+if (x !is String || x.length == 0) return
+
+// x is automatically cast to String on the right-hand side of `&amp;&amp;`
+if (x is String &amp;&amp; x.length &gt; 0) {
+    print(x.length) // x is automatically cast to String
+}
+</div><p id="vu3c4v_81">If you combine type checks for objects with an <code class="code" id="vu3c4v_87">and</code> operator (<code class="code" id="vu3c4v_88">&amp;&amp;</code>), the compiler smart-casts the object to all checked types simultaneously. Learn more in <a href="#intersection-types" id="vu3c4v_89">Intersection types</a>.</p><p id="vu3c4v_82">If you combine type checks for objects with an <code class="code" id="vu3c4v_90">or</code> operator (<code class="code" id="vu3c4v_91">||</code>), a smart cast is made to their closest common supertype:</p><div class="code-block" data-lang="kotlin">
+interface Status {
+    fun signal() {}
+}
+
+interface Ok : Status
+interface Postponed : Status
+interface Declined : Status
+
+fun signalCheck(signalStatus: Any) {
+    if (signalStatus is Postponed || signalStatus is Declined) {
+        // signalStatus is smart-cast to a common supertype Status
+        signalStatus.signal()
+    }
+}
+</div><aside class="prompt" data-type="note" data-title="" id="vu3c4v_84"><p id="vu3c4v_92">The common supertype is an <span class="control" id="vu3c4v_93">approximation</span> of a <a href="https://en.wikipedia.org/wiki/Union_type" id="vu3c4v_94" data-external="true" rel="noopener noreferrer">union type</a>. Union types are <a href="https://youtrack.jetbrains.com/issue/KT-13108/Denotable-union-and-intersection-types" id="vu3c4v_95" data-external="true" rel="noopener noreferrer">not currently supported in Kotlin</a>.</p></aside></section><section class="chapter"><h3 id="intersection-types" data-toc="intersection-types">Intersection types</h3><p id="vu3c4v_96">When the compiler smart-casts an object through multiple <code class="code" id="vu3c4v_100">&amp;&amp;</code> checks, it infers an <a href="https://kotlinlang.org/spec/type-system.html#intersection-types" id="vu3c4v_101" data-external="true" rel="noopener noreferrer"><span class="emphasis" id="vu3c4v_102">intersection type</span></a>. This is an internal type that simultaneously satisfies all the checked constraints:</p><div class="code-block" data-lang="kotlin">
+interface Bird {
+    fun fly()
+}
+
+interface Fish {
+    fun swim()
+}
+
+fun describe(animal: Any) {
+    // Infers the Bird and Fish types
+    if (animal is Bird &amp;&amp; animal is Fish) {
+        // Accesses fly() and swim() without additional checks or casts
+        animal.fly()
+        animal.swim()
+    }
+}
+</div><p id="vu3c4v_98">Intersection types are non-denotable. They only exist in the compiler's internal type system to preserve type information during type checking. You can't write them directly in Kotlin code. You may encounter intersection types in compiler error messages and IDE tooltips, typically displayed as <code class="code" id="vu3c4v_103">A &amp; B</code>. The one exception is <code class="code" id="vu3c4v_104">T &amp; Any</code> that declares a <a href="generics.html#definitely-non-nullable-types" id="vu3c4v_105">definitely non-nullable type</a>. This syntax is reserved specifically to combine a type parameter with <code class="code" id="vu3c4v_106">Any</code>.</p><div class="code-block" data-lang="kotlin">
+fun  &lt;T&gt; T.assertNotNull(): T &amp; Any = this ?: throw IllegalStateException(&quot;null value&quot;)
+</div></section><section class="chapter"><h3 id="inline-functions" data-toc="inline-functions">Inline functions</h3><p id="vu3c4v_107">The compiler can smart-cast variables captured within lambda functions that are passed to <a href="inline-functions.html" id="vu3c4v_111">inline functions</a>.</p><p id="vu3c4v_108">Inline functions are treated as having an implicit <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.contracts/-contract-builder/calls-in-place.html" id="vu3c4v_112" data-external="true" rel="noopener noreferrer"><code class="code" id="vu3c4v_113">callsInPlace</code></a> contract. This means that any lambda functions passed to an inline function are called in place. Since lambda functions are called in place, the compiler knows that a lambda function can't leak references to any variables contained within its function body.</p><p id="vu3c4v_109">The compiler uses this knowledge, along with other analyses, to decide whether it's safe to smart-cast any of the captured variables. For example:</p><div class="code-block" data-lang="kotlin">
+interface Processor {
+    fun process()
+}
+
+inline fun inlineAction(f: () -&gt; Unit) = f()
+
+fun nextProcessor(): Processor? = null
+
+fun runProcessor(): Processor? {
+    var processor: Processor? = null
+    inlineAction {
+        // The compiler knows that processor is a local variable and inlineAction()
+        // is an inline function, so references to processor can't be leaked.
+        // Therefore, it's safe to smart-cast processor.
+      
+        // If processor isn't null, processor is smart-cast
+        if (processor != null) {
+            // The compiler knows that processor isn't null, so no safe call 
+            // is needed
+            processor.process()
+        }
+
+        processor = nextProcessor()
+    }
+
+    return processor
+}
+</div></section><section class="chapter"><h3 id="exception-handling" data-toc="exception-handling">Exception handling</h3><p id="vu3c4v_114">Smart cast information is passed on to <code class="code" id="vu3c4v_116">catch</code> and <code class="code" id="vu3c4v_117">finally</code> blocks. This makes your code safer as the compiler tracks whether your object has a nullable type. For example:</p><div class="code-block" data-lang="kotlin" data-runnable="true" data-min-compiler-version="2.0" id="kotlin-smart-casts-exception-handling">
+//sampleStart
+fun testString() {
+    var stringInput: String? = null
+    // stringInput is smart-cast to String type
+    stringInput = &quot;&quot;
+    try {
+        // The compiler knows that stringInput isn't null
+        println(stringInput.length)
+        // 0
+
+        // The compiler rejects previous smart cast information for 
+        // stringInput. Now stringInput has the String? type.
+        stringInput = null
+
+        // Trigger an exception
+        if (2 &gt; 1) throw Exception()
+        stringInput = &quot;&quot;
+    } catch (exception: Exception) {
+        // The compiler knows stringInput can be null
+        // so stringInput stays nullable.
+        println(stringInput?.length)
+        // null
+    }
+}
+//sampleEnd
+fun main() {
+    testString()
+}
+</div></section><section class="chapter"><h3 id="smart-cast-prerequisites" data-toc="smart-cast-prerequisites">Smart cast prerequisites</h3><p id="vu3c4v_118">Smart casts work only when the compiler can guarantee that the variable won't change between the check and its usage. They can be used in the following conditions:</p><div class="table-wrapper"><table class="no_header wide" id="vu3c4v_119"><tbody><tr id="vu3c4v_120"><td id="vu3c4v_124"><p><code class="code" id="vu3c4v_126">val</code> local variables</p></td><td id="vu3c4v_125"><p>Always, except <a href="delegated-properties.html" id="vu3c4v_127">local delegated properties</a>.</p></td></tr><tr id="vu3c4v_121"><td id="vu3c4v_128"><p><code class="code" id="vu3c4v_130">val</code> properties</p></td><td id="vu3c4v_129"><p>If the property is <code class="code" id="vu3c4v_131">private</code>, <code class="code" id="vu3c4v_132">internal</code>, or if the check is performed in the same <a href="visibility-modifiers.html#modules" id="vu3c4v_133">module</a> where the property is declared. Smart casts can't be used on <code class="code" id="vu3c4v_134">open</code> properties or properties that have custom getters.</p></td></tr><tr id="vu3c4v_122"><td id="vu3c4v_135"><p><code class="code" id="vu3c4v_137">var</code> local variables</p></td><td id="vu3c4v_136"><p>If the variable is not modified between the check and its usage, is not captured in a lambda that modifies it, and is not a local delegated property.</p></td></tr><tr id="vu3c4v_123"><td id="vu3c4v_138"><p><code class="code" id="vu3c4v_140">var</code> properties</p></td><td id="vu3c4v_139"><p>Never, because the variable can be modified at any time by other code.</p></td></tr></tbody></table></div></section></section><section class="chapter"><h2 id="unsafe-cast-operator" data-toc="unsafe-cast-operator"><code class="code" id="vu3c4v_151">as</code> and <code class="code" id="vu3c4v_152">as?</code> cast operators</h2><p id="vu3c4v_142">Kotlin has two cast operators: <code class="code" id="vu3c4v_153">as</code> and <code class="code" id="vu3c4v_154">as?</code>. You can use both to cast, but they have different behaviors.</p><p id="vu3c4v_143">If a cast fails with the <code class="code" id="vu3c4v_155">as</code> operator, a <code class="code" id="vu3c4v_156">ClassCastException</code> is thrown at runtime. That's why it's also called the <span class="control" id="vu3c4v_157">unsafe</span> operator. You can use <code class="code" id="vu3c4v_158">as</code> when casting to a non-null type:</p><div class="code-block" data-lang="kotlin" data-runnable="true" data-min-compiler-version="2.0" id="kotlin-unsafe-cast-operator">
+fun main() {
+    val rawInput: Any = &quot;user-1234&quot;
+
+    // Casts to String successfully
+    val userId = rawInput as String
+    println(&quot;Logging in user with ID: $userId&quot;)
+    // Logging in user with ID: user-1234
+
+    // Triggers ClassCastException
+    val wrongCast = rawInput as Int
+    println(&quot;wrongCast contains: $wrongCast&quot;)
+    // Exception in thread &quot;main&quot; java.lang.ClassCastException
+}
+</div><p id="vu3c4v_145">If you use the <code class="code" id="vu3c4v_159">as?</code> operator instead, and the cast fails, the operator returns <code class="code" id="vu3c4v_160">null</code>. That's why it's also called the <span class="control" id="vu3c4v_161">safe</span> operator:</p><div class="code-block" data-lang="kotlin" data-runnable="true" data-min-compiler-version="2.0" id="kotlin-safe-cast-operator">
+fun main() {
+    val rawInput: Any = &quot;user-1234&quot;
+
+    // Casts to String successfully
+    val userId = rawInput as? String
+    println(&quot;Logging in user with ID: $userId&quot;)
+    // Logging in user with ID: user-1234
+
+    // Assigns a null value to wrongCast
+    val wrongCast = rawInput as? Int
+    println(&quot;wrongCast contains: $wrongCast&quot;)
+    // wrongCast contains: null
+}
+</div><p id="vu3c4v_147">To cast a nullable type safely, use the <code class="code" id="vu3c4v_162">as?</code> operator to prevent triggering a <code class="code" id="vu3c4v_163">ClassCastException</code> if the cast fails.</p><p id="vu3c4v_148">You <span class="emphasis" id="vu3c4v_164">can</span> use <code class="code" id="vu3c4v_165">as</code> with a nullable type. This allows the result to be <code class="code" id="vu3c4v_166">null</code>, but it still throws a <code class="code" id="vu3c4v_167">ClassCastException</code> if the cast is unsuccessful. For this reason, <code class="code" id="vu3c4v_168">as?</code> is the safer option:</p><div class="code-block" data-lang="kotlin" data-runnable="true" data-min-compiler-version="2.0" id="kotlin-cast-nullable-types">
+fun main() {
+    val config: Map&lt;String, Any?&gt; = mapOf(
+        &quot;username&quot; to &quot;kodee&quot;,
+        &quot;alias&quot; to null,
+        &quot;loginAttempts&quot; to 3
+    )
+
+    // Unsafely casts to a nullable String
+    val username: String? = config[&quot;username&quot;] as String?
+    println(&quot;Username: $username&quot;)
+    // Username: kodee
+
+    // Unsafely casts a null value to a nullable String
+    val alias: String? = config[&quot;alias&quot;] as String?
+    println(&quot;Alias: $alias&quot;)
+    // Alias: null
+
+    // Fails to cast to nullable String and throws ClassCastException
+    // val unsafeAttempts: String? = config[&quot;loginAttempts&quot;] as String?
+    // println(&quot;Login attempts (unsafe): $unsafeAttempts&quot;)
+    // Exception in thread &quot;main&quot; java.lang.ClassCastException
+
+    // Fails to cast to nullable String and returns null
+    val safeAttempts: String? = config[&quot;loginAttempts&quot;] as? String
+    println(&quot;Login attempts (safe): $safeAttempts&quot;)
+    // Login attempts (safe): null
+}
+</div><section class="chapter"><h3 id="up-and-downcasting" data-toc="up-and-downcasting">Up and downcasting</h3><p id="vu3c4v_169">In Kotlin, you can cast objects to supertypes and subtypes.</p><p id="vu3c4v_170">Casting an object to an instance of its superclass is called <span class="control" id="vu3c4v_179">upcasting</span>. Upcasting doesn't need any special syntax or cast operators. For example:</p><div class="code-block" data-lang="kotlin" data-runnable="true" data-min-compiler-version="2.0" id="kotlin-upcast">
+interface Animal {
+    fun makeSound()
+}
+
+class Dog : Animal {
+    // Implements behavior for makeSound()
+    override fun makeSound() {
+        println(&quot;Dog says woof!&quot;)
+    }
+}
+
+fun printAnimalInfo(animal: Animal) {
+    animal.makeSound()
+}
+
+fun main() {
+    val dog = Dog()
+    // Upcasts Dog instance to Animal
+    printAnimalInfo(dog)  
+    // Dog says woof!
+}
+</div><p id="vu3c4v_172">In this example, when the <code class="code" id="vu3c4v_180">printAnimalInfo()</code> function is called with a <code class="code" id="vu3c4v_181">Dog</code> instance, the compiler upcasts it to <code class="code" id="vu3c4v_182">Animal</code> because that's the expected parameter type. Since the actual object is still a <code class="code" id="vu3c4v_183">Dog</code> instance, the compiler dynamically resolves the <code class="code" id="vu3c4v_184">makeSound()</code> function from the <code class="code" id="vu3c4v_185">Dog</code> class, printing <code class="code" id="vu3c4v_186">&quot;Dog says woof!&quot;</code>.</p><p id="vu3c4v_173">You'll often see explicit upcasting in Kotlin APIs where behavior depends on an abstract type. It's also common in Jetpack Compose and UI toolkits, which typically treat all UI elements as supertypes and later operate on specific subclasses:</p><div class="code-block" data-lang="kotlin">
+    val textView = TextView(this)
+    textView.text = &quot;Hello, View!&quot;
+
+    // Upcasts from TextView to View
+    val view: View = textView  
+
+    // Use View functions
+    view.setPadding(20, 20, 20, 20)
+    // Activity expects a View type
+    setContentView(view)
+</div><p id="vu3c4v_175">Casting an object to an instance of a subclass is called <span class="control" id="vu3c4v_187">downcasting</span>. Because downcasting can be unsafe, you need to use explicit cast operators. To avoid throwing exceptions on failed casts, we recommend using the safe cast operator <code class="code" id="vu3c4v_188">as?</code>, to return <code class="code" id="vu3c4v_189">null</code> if the cast fails:</p><div class="code-block" data-lang="kotlin" data-runnable="true" data-min-compiler-version="2.0" id="kotlin-downcast">
+interface Animal {
+    fun makeSound()
+}
+
+class Dog : Animal {
+    override fun makeSound() {
+        println(&quot;Dog says woof!&quot;)
+    }
+
+    fun bark() {
+        println(&quot;BARK!&quot;)
+    }
+}
+
+fun main() {
+    // Creates animal as a Dog instance with Animal
+    // type
+    val animal: Animal = Dog()
+    
+    // Safely downcasts animal to Dog type
+    val dog: Dog? = animal as? Dog
+
+    // Uses a safe call to call bark() if dog isn't null
+    dog?.bark()
+    // &quot;BARK!&quot;
+}
+</div><p id="vu3c4v_177">In this example, <code class="code" id="vu3c4v_190">animal</code> is declared as type <code class="code" id="vu3c4v_191">Animal</code>, but it holds a <code class="code" id="vu3c4v_192">Dog</code> instance. The code safely casts <code class="code" id="vu3c4v_193">animal</code> to <code class="code" id="vu3c4v_194">Dog</code> type and uses a <a href="null-safety.html#safe-call-operator" id="vu3c4v_195">safe call</a> (<code class="code" id="vu3c4v_196">?.</code>) to access the <code class="code" id="vu3c4v_197">bark()</code> function.</p><p id="vu3c4v_178">You'll use downcasting in serialization when deserializing a base class to a specific subtype. It's also common when working with Java libraries that return supertype objects, which you may need to downcast in Kotlin.</p></section></section><div class="last-modified">29 September 2026</div><div data-feedback-placeholder="true"></div><div class="navigation-links _bottom"><a href="arrays.html" class="navigation-links__prev">Arrays</a><a href="type-aliases.html" class="navigation-links__next">Type aliases</a></div></article><div id="disqus_thread"></div></div></section></main></div></body></html>

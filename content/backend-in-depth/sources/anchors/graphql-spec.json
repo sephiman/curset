@@ -1,0 +1,2105 @@
+{
+ "source": "graphql-spec",
+ "anchors": [
+  {
+   "anchor": "top",
+   "title": "",
+   "level": 0,
+   "sha256": "ee27322554e46143c3c56f419fc28b71a445380e4e5af7332aabdb87c7d0ec26"
+  },
+  {
+   "anchor": "graphql",
+   "title": "GraphQL",
+   "level": 1,
+   "sha256": "ad919a64796f28c1f11581c313250f9e9c6d327393e5379e83cece871b0f4fe5"
+  },
+  {
+   "anchor": "sec-Introduction",
+   "title": "Introduction",
+   "level": 6,
+   "sha256": "68911f10ec1ef54fce4c02c87921184b77ee1977a6c6a9ab703cd44a82f4c2d7"
+  },
+  {
+   "anchor": "sec-Overview",
+   "title": "1 Overview",
+   "level": 1,
+   "sha256": "c8c67faba83dc6ba0d3c99fb4a489c7699178babb0ad84fcc1b93b49b5719ad9"
+  },
+  {
+   "anchor": "sec-Language",
+   "title": "2 Language",
+   "level": 1,
+   "sha256": "5a7a54a2128d22d85d07d0ee1af81c16d75f0d0b70537689e6f66b4dc4086fe1"
+  },
+  {
+   "anchor": "sec-Language.Lexical-Analysis-Syntactic-Parse",
+   "title": "Lexical Analysis & Syntactic Parse",
+   "level": 6,
+   "sha256": "6749c1a32519a4a77f44132225945fd0f05911c72200bd0070f184ae927e4f0a"
+  },
+  {
+   "anchor": "sec-Language.Source-Text",
+   "title": "2.1 Source Text",
+   "level": 2,
+   "sha256": "a61acaf828e12f10ed5163f8a03b17033f3d0467049dbd5619a1d7f2f879fbf2"
+  },
+  {
+   "anchor": "sec-White-Space",
+   "title": "2.1.1 White Space",
+   "level": 3,
+   "sha256": "4af2f6e942de28012cdcb671eea5b77b2f33e0390de3030ca5a4e9cf1243d03c"
+  },
+  {
+   "anchor": "sec-Line-Terminators",
+   "title": "2.1.2 Line Terminators",
+   "level": 3,
+   "sha256": "2e405f0c8f2a21d185618c9bcb1fc3eaf5442eb9946b455f37c559f2fbc6385f"
+  },
+  {
+   "anchor": "sec-Comments",
+   "title": "2.1.3 Comments",
+   "level": 3,
+   "sha256": "96670891520367e3e7a78aba7cad99803b3683ec9487e364ec6bea6d43f57962"
+  },
+  {
+   "anchor": "sec-Insignificant-Commas",
+   "title": "2.1.4 Insignificant Commas",
+   "level": 3,
+   "sha256": "8ae957a848d2827409a16b3982a9e7ab13c245a4c0344e486647e28a259ecfa3"
+  },
+  {
+   "anchor": "sec-Language.Source-Text.Lexical-Tokens",
+   "title": "2.1.5 Lexical Tokens",
+   "level": 3,
+   "sha256": "d9e526deb341d948154b6a2887e3c8228dd2b580bf968f8e5f9b971854a56fdd"
+  },
+  {
+   "anchor": "sec-Language.Source-Text.Ignored-Tokens",
+   "title": "2.1.6 Ignored Tokens",
+   "level": 3,
+   "sha256": "c9991c5e0d58a141e4244c959a8f5f07986987847dd3ebc547f70bfd81262b70"
+  },
+  {
+   "anchor": "sec-Language.Source-Text.Ignored-Tokens.Byte-Order-Mark",
+   "title": "Byte Order Mark",
+   "level": 6,
+   "sha256": "3945b5dd3c013213746a48e176655ec44b6de6bc88fb191752536dd8877a416f"
+  },
+  {
+   "anchor": "sec-Punctuators",
+   "title": "2.1.7 Punctuators",
+   "level": 3,
+   "sha256": "1d2fb4cbffe98962a57efb99c62358562293987afc707acdcae188ab61024829"
+  },
+  {
+   "anchor": "sec-Names",
+   "title": "2.1.8 Names",
+   "level": 3,
+   "sha256": "390d66101741b726d921fa200b4ca2792064340970c12364e31b8934cfbe1640"
+  },
+  {
+   "anchor": "sec-Names.Reserved-Names",
+   "title": "Reserved Names",
+   "level": 6,
+   "sha256": "ba978271b9843fc031ef9f7a86016a296f221a90134ce0ae42cee935cddbb207"
+  },
+  {
+   "anchor": "sec-Descriptions",
+   "title": "2.2 Descriptions",
+   "level": 2,
+   "sha256": "0799bb27c10635560edbac2160b19f03696bd13f0113d07b118a9af7e12491ff"
+  },
+  {
+   "anchor": "sec-Document",
+   "title": "2.3 Document",
+   "level": 2,
+   "sha256": "808d9356d0609e3aedb8e43d1f3d03bda38b75a364f0a6202d686fc8e699eef2"
+  },
+  {
+   "anchor": "sec-Language.Operations",
+   "title": "2.4 Operations",
+   "level": 2,
+   "sha256": "d933a01d302e1fadc8dd57228110248ac1bc0c1614ca1b2bca4e8fed324e039c"
+  },
+  {
+   "anchor": "sec-Language.Operations.Query-Shorthand",
+   "title": "Query Shorthand",
+   "level": 6,
+   "sha256": "ae21af92009a1d131c76c04ddb4179efad401479741088412485a3705922812d"
+  },
+  {
+   "anchor": "sec-Selection-Sets",
+   "title": "2.5 Selection Sets",
+   "level": 2,
+   "sha256": "34835ad6963ef488c4c10776d1f4931d417c035e4164a022f268b6e7ca7e77a4"
+  },
+  {
+   "anchor": "sec-Language.Fields",
+   "title": "2.6 Fields",
+   "level": 2,
+   "sha256": "e75b1bd52e564c273c958b6b1d44f31437a77ed35650b7bd3789af03e40213e4"
+  },
+  {
+   "anchor": "sec-Language.Arguments",
+   "title": "2.7 Arguments",
+   "level": 2,
+   "sha256": "800837337828f64c7bf83a2a3ea3327c913656e94cce86dd0070af247e1e734e"
+  },
+  {
+   "anchor": "sec-Language.Arguments.Arguments-Are-Unordered",
+   "title": "Arguments Are Unordered",
+   "level": 6,
+   "sha256": "24eff19180704542e99be44aaaa5e8a9e15fa595d73cbade5b14812038789260"
+  },
+  {
+   "anchor": "sec-Field-Alias",
+   "title": "2.8 Field Alias",
+   "level": 2,
+   "sha256": "36d855d23d4ba6e6feca1c2af6604b999b602a74c3de2c7228ac964511d9ba0f"
+  },
+  {
+   "anchor": "sec-Language.Fragments",
+   "title": "2.9 Fragments",
+   "level": 2,
+   "sha256": "8eec80b15754dd02b1b0bfe9c28fae659c20e12c171e5c69ffc5ecdbc188a107"
+  },
+  {
+   "anchor": "sec-Type-Conditions",
+   "title": "2.9.1 Type Conditions",
+   "level": 3,
+   "sha256": "89f99ecdcea57494533423ab596f7f4d6f585ee8296ec40670692c02b4f95e36"
+  },
+  {
+   "anchor": "sec-Inline-Fragments",
+   "title": "2.9.2 Inline Fragments",
+   "level": 3,
+   "sha256": "91fcebc0acdfbf22c020cf23c897d2d1d55ab46720eda37b770205396453dcd6"
+  },
+  {
+   "anchor": "sec-Input-Values",
+   "title": "2.10 Input Values",
+   "level": 2,
+   "sha256": "72730932a869a46736d0ae796ba17298b4bb1d145778f7edcfe4a6098ad4b5d0"
+  },
+  {
+   "anchor": "sec-Int-Value",
+   "title": "2.10.1 Int Value",
+   "level": 3,
+   "sha256": "c71cd1a9a56e68bc1a7a36256f60a9ba035dd4fa4195ccf717762c0ea2e33e5a"
+  },
+  {
+   "anchor": "sec-Float-Value",
+   "title": "2.10.2 Float Value",
+   "level": 3,
+   "sha256": "c66197d94d02ca40be4c2220e8321dc3dd2651304f5c5f83f73e2c76ded3145a"
+  },
+  {
+   "anchor": "sec-Boolean-Value",
+   "title": "2.10.3 Boolean Value",
+   "level": 3,
+   "sha256": "8e9b478bb7d8baf4d84f90f9d2dfbaf0074a8b13a7efc7187f11bbc89734b39d"
+  },
+  {
+   "anchor": "sec-String-Value",
+   "title": "2.10.4 String Value",
+   "level": 3,
+   "sha256": "80a9b276e3ced64b7fe0e501c5de76d661ab6bc7e249389ae9ab5cc7c771792c"
+  },
+  {
+   "anchor": "sec-String-Value.Escape-Sequences",
+   "title": "Escape Sequences",
+   "level": 6,
+   "sha256": "3ae59327bd308b9922ddf2267cdef991b66398dca8caeb9db7af12037a71388f"
+  },
+  {
+   "anchor": "sec-String-Value.Block-Strings",
+   "title": "Block Strings",
+   "level": 6,
+   "sha256": "9a0de83cc792c6c084a7512a4e6f2ad4bc4bc37ade74e79abacb378506225cc8"
+  },
+  {
+   "anchor": "sec-String-Value.Static-Semantics",
+   "title": "Static Semantics",
+   "level": 6,
+   "sha256": "5994b2792348494f7adcece447968edaec704d8393dc8803f7d1dddfc96c3fa4"
+  },
+  {
+   "anchor": "sec-Null-Value",
+   "title": "2.10.5 Null Value",
+   "level": 3,
+   "sha256": "6895f8ab33152170902b23ebf8585ef4552851d7c5cd6ce37007b9fd59372158"
+  },
+  {
+   "anchor": "sec-Enum-Value",
+   "title": "2.10.6 Enum Value",
+   "level": 3,
+   "sha256": "c7fb29a0bf1b23a53ab62783ff52221f5ba6c9aecb626cf0979d17004d140dbb"
+  },
+  {
+   "anchor": "sec-List-Value",
+   "title": "2.10.7 List Value",
+   "level": 3,
+   "sha256": "a1d475e9ce33c581f4e6b9b9977012a847d8f600790afc4b125e57f8eb8e6bdb"
+  },
+  {
+   "anchor": "sec-List-Value.Semantics",
+   "title": "Semantics",
+   "level": 6,
+   "sha256": "c86bdd6b1b4a0cf4bda20257dc40fce2fde52d20b9e7c0ef041ced7492f2a57f"
+  },
+  {
+   "anchor": "sec-Input-Object-Values",
+   "title": "2.10.8 Input Object Values",
+   "level": 3,
+   "sha256": "f8597e8aea46803a80275f16c4ea39ee8a67b8361bdb9b8a0ff6b1ed682b3030"
+  },
+  {
+   "anchor": "sec-Input-Object-Values.Input-Object-Fields-Are-Unordered",
+   "title": "Input Object Fields Are Unordered",
+   "level": 6,
+   "sha256": "84f6b0f2d5b4c8b3bfad3bd4c66100fd56a5184dcbfe2bc2f92ed99387d391c1"
+  },
+  {
+   "anchor": "sec-Input-Object-Values.Semantics",
+   "title": "Semantics",
+   "level": 6,
+   "sha256": "ee7f615414c6e4eb2fc6982f32b5ae6de9aa818c45788188cdde21732f7947dd"
+  },
+  {
+   "anchor": "sec-Language.Variables",
+   "title": "2.11 Variables",
+   "level": 2,
+   "sha256": "67c02aacbdfcd935d6b3677b838bcb333db255c4bb2e418eaa8a18b83a1162b7"
+  },
+  {
+   "anchor": "sec-Language.Variables.Variable-Use-Within-Fragments",
+   "title": "Variable Use Within Fragments",
+   "level": 6,
+   "sha256": "4662e20df40ea5184b793228771d06256771a96b774bef2edc2731f50662a956"
+  },
+  {
+   "anchor": "sec-Type-References",
+   "title": "2.12 Type References",
+   "level": 2,
+   "sha256": "ff2cc5cd1da6b78941d6f821c3c7e57e18b0920e6a6971183389546535f0ba2b"
+  },
+  {
+   "anchor": "sec-Type-References.Semantics",
+   "title": "Semantics",
+   "level": 6,
+   "sha256": "e559991dbf23af6eedec02ad1d8da8ced2e73ea3f104cb68cd2d9a1b397424e9"
+  },
+  {
+   "anchor": "sec-Language.Directives",
+   "title": "2.13 Directives",
+   "level": 2,
+   "sha256": "c7f8280092f388ccdfcaac661842fd1b5b44bce2087f2c6af10e51e73500ec63"
+  },
+  {
+   "anchor": "sec-Language.Directives.Directive-Order-Is-Significant",
+   "title": "Directive Order Is Significant",
+   "level": 6,
+   "sha256": "8d32c8b1bbea266462aed2939002c8ae5cfa75886ef840e3b1460386a6244034"
+  },
+  {
+   "anchor": "sec-Schema-Coordinates",
+   "title": "2.14 Schema Coordinates",
+   "level": 2,
+   "sha256": "690fadafd63854ccb7a2de6ea02b5bf29e28657e80b21921a94eb5c5e03d8246"
+  },
+  {
+   "anchor": "sec-Schema-Coordinates.Parsing-a-Schema-Coordinate",
+   "title": "Parsing a Schema Coordinate",
+   "level": 6,
+   "sha256": "acff8ffeca5fdc632d26820f087b5fa572f18c9e0850962454dcbc14c0a40d53"
+  },
+  {
+   "anchor": "sec-Schema-Coordinates.Resolving-a-Schema-Coordinate",
+   "title": "Resolving a Schema Coordinate",
+   "level": 6,
+   "sha256": "0559b657c30f2565c160f2759afeea41b413942403c09bea867c697b2646169e"
+  },
+  {
+   "anchor": "sec-Schema-Coordinates.Examples",
+   "title": "Examples",
+   "level": 6,
+   "sha256": "899cc6aae33021cd9f6cfa6299f05ded68919f4db928bcc49c8adf26e7e48bcb"
+  },
+  {
+   "anchor": "sec-Type-System",
+   "title": "3 Type System",
+   "level": 1,
+   "sha256": "18145a3d68ed95aea1721c8fd9ebfe921a91bd1eb196ad3cf2e3975abc60c10b"
+  },
+  {
+   "anchor": "sec-Type-System-Extensions",
+   "title": "3.1 Type System Extensions",
+   "level": 2,
+   "sha256": "e45e034193ea31b2cada292092de46d1b9fddb5fa7a509cb74f614e5278bee11"
+  },
+  {
+   "anchor": "sec-Type-System-Descriptions",
+   "title": "3.2 Type System Descriptions",
+   "level": 2,
+   "sha256": "32277430b612579147501349666e845692dcdf3528b096f6994e95dc26c94d7e"
+  },
+  {
+   "anchor": "sec-Schema",
+   "title": "3.3 Schema",
+   "level": 2,
+   "sha256": "c951ae8eb1f22b8b789bc4d23d634e8d30e63b225269b99e05d489bb1a8592ba"
+  },
+  {
+   "anchor": "sec-Root-Operation-Types",
+   "title": "3.3.1 Root Operation Types",
+   "level": 3,
+   "sha256": "f53eb878ac6c21514380c85ba7e3ee6dfb3ed6cef90f54862594cdb4b1c648af"
+  },
+  {
+   "anchor": "sec-Root-Operation-Types.Default-Root-Operation-Type-Names",
+   "title": "Default Root Operation Type Names",
+   "level": 6,
+   "sha256": "b6b3b3bfe5a38ff1d409f181b9b22ecda751eca355c3f76f5854560ff01136b7"
+  },
+  {
+   "anchor": "sec-Schema-Extension",
+   "title": "3.3.2 Schema Extension",
+   "level": 3,
+   "sha256": "33c92e7742ffe038a6e415390d225e9b523f282247a6a0ef4b3f608b50be6696"
+  },
+  {
+   "anchor": "sec-Schema-Extension.Schema-Validation",
+   "title": "Schema Validation",
+   "level": 6,
+   "sha256": "d44ecd99ee90adeb9a89be085a52fdf0501c68e19a77cdf8fc211c3b384d8a1d"
+  },
+  {
+   "anchor": "sec-Types",
+   "title": "3.4 Types",
+   "level": 2,
+   "sha256": "146dc36e043fd19b67a1bbe14d13f118536bec324db3504b6b6e0cad9d2ca0bc"
+  },
+  {
+   "anchor": "sec-Wrapping-Types",
+   "title": "3.4.1 Wrapping Types",
+   "level": 3,
+   "sha256": "e994614bb5cd0dea768f8d95921043343752e76876e3645edd01aa31e1331db1"
+  },
+  {
+   "anchor": "sec-Input-and-Output-Types",
+   "title": "3.4.2 Input and Output Types",
+   "level": 3,
+   "sha256": "9794fa973121d7c32f8a5056613ae14a1a010f66106dc6ea2b1989b89515072a"
+  },
+  {
+   "anchor": "sec-Type-Extensions",
+   "title": "3.4.3 Type Extensions",
+   "level": 3,
+   "sha256": "c606a098dc86c3edb3e5fa910debd217f7ead9711506cdd170f9684a45838a1c"
+  },
+  {
+   "anchor": "sec-Scalars",
+   "title": "3.5 Scalars",
+   "level": 2,
+   "sha256": "d86b2a61e39d8e457ebf7a90a2c58c64d5b85d03c26f6209e83011981021ce42"
+  },
+  {
+   "anchor": "sec-Scalars.Built-in-Scalars",
+   "title": "Built-in Scalars",
+   "level": 6,
+   "sha256": "d2ee91717b5eac63a238619ff73c214d948a4630124883f35fcd7cd35462208a"
+  },
+  {
+   "anchor": "sec-Scalars.Custom-Scalars",
+   "title": "Custom Scalars",
+   "level": 6,
+   "sha256": "6580ecbfac2f55d3ca58f1ae6c3df4653b59beb34bac89a2402cab8f60e9dba2"
+  },
+  {
+   "anchor": "sec-Scalars.Result-Coercion-and-Serialization",
+   "title": "Result Coercion and Serialization",
+   "level": 6,
+   "sha256": "5c370ec65c317114ffb4d4cc84ed1cb6eb304b00a3a2dbaf57a8d6e7855ba751"
+  },
+  {
+   "anchor": "sec-Scalars.Input-Coercion",
+   "title": "Input Coercion",
+   "level": 6,
+   "sha256": "129981de29b480745bcaa02c7a16ef8bd5e29bba7122ecd318922699d0de6606"
+  },
+  {
+   "anchor": "sec-Int",
+   "title": "3.5.1 Int",
+   "level": 3,
+   "sha256": "acb0eb2d8e167caffc9b845895ca7421d86f55c42fdfd98f5f78ea19287027b9"
+  },
+  {
+   "anchor": "sec-Int.Result-Coercion",
+   "title": "Result Coercion",
+   "level": 6,
+   "sha256": "2c2983cc0107c07cd6b4b0ec15b842ea5f36645e12b933c889636cd195773b38"
+  },
+  {
+   "anchor": "sec-Int.Input-Coercion",
+   "title": "Input Coercion",
+   "level": 6,
+   "sha256": "90d67354e14287258dd8b0e4e09c4c5e8130b10ffeec29dc89860339cbd5334c"
+  },
+  {
+   "anchor": "sec-Float",
+   "title": "3.5.2 Float",
+   "level": 3,
+   "sha256": "d56fd82c0718388fbb396c06f8e8d52ceed0bb1cdec5b5913b271c14ba5aee45"
+  },
+  {
+   "anchor": "sec-Float.Result-Coercion",
+   "title": "Result Coercion",
+   "level": 6,
+   "sha256": "f4de2da35bf00f48a52a035448119b150b534d779df14b90a7f1c009f3e1e826"
+  },
+  {
+   "anchor": "sec-Float.Input-Coercion",
+   "title": "Input Coercion",
+   "level": 6,
+   "sha256": "cd5b827cf6997541479ac78c2b0d821364872fdc4069414dc3eb46e3117a6830"
+  },
+  {
+   "anchor": "sec-String",
+   "title": "3.5.3 String",
+   "level": 3,
+   "sha256": "3af54fcebdca1f088f1c9eef39837a541ac0952f4bafbab67415dfdb01b47808"
+  },
+  {
+   "anchor": "sec-String.Result-Coercion",
+   "title": "Result Coercion",
+   "level": 6,
+   "sha256": "411471dc535539431815cb239be529e297b63536f59a6abdc2c4b581f02518b8"
+  },
+  {
+   "anchor": "sec-String.Input-Coercion",
+   "title": "Input Coercion",
+   "level": 6,
+   "sha256": "e6fbc96e699bcdc882de6108203f4bafff431014f11b3c0e7dd6ec029dc72bf1"
+  },
+  {
+   "anchor": "sec-Boolean",
+   "title": "3.5.4 Boolean",
+   "level": 3,
+   "sha256": "253006ca4847e74fbc46b73155ce1f3902a32bd955303b4524c31c269eb603e7"
+  },
+  {
+   "anchor": "sec-Boolean.Result-Coercion",
+   "title": "Result Coercion",
+   "level": 6,
+   "sha256": "d233e79cb02487dd541474df077e0afc4117d44b78b77d08ae348f34d258c6fb"
+  },
+  {
+   "anchor": "sec-Boolean.Input-Coercion",
+   "title": "Input Coercion",
+   "level": 6,
+   "sha256": "760a45708440b133524f82ba7acd2945fdbbf81532fb025d481d6040e789b547"
+  },
+  {
+   "anchor": "sec-ID",
+   "title": "3.5.5 ID",
+   "level": 3,
+   "sha256": "f9a0dbc033ed228d5ffd37a16134e49222c15434a1a31543d759639577509a8e"
+  },
+  {
+   "anchor": "sec-ID.Result-Coercion",
+   "title": "Result Coercion",
+   "level": 6,
+   "sha256": "2ec0c3aa4583a43f86594857793c3deef86751c5bc424e24559baaf7f2bbf430"
+  },
+  {
+   "anchor": "sec-ID.Input-Coercion",
+   "title": "Input Coercion",
+   "level": 6,
+   "sha256": "ca9d31eccf6d72a23fe0bc431e344e1e8a2e2aa48c5c6b07547b314964eab28c"
+  },
+  {
+   "anchor": "sec-Scalar-Extensions",
+   "title": "3.5.6 Scalar Extensions",
+   "level": 3,
+   "sha256": "b8debaa0152517269304534cf5cdad79139bdf24d58fb9be37656587083361cf"
+  },
+  {
+   "anchor": "sec-Scalar-Extensions.Type-Validation",
+   "title": "Type Validation",
+   "level": 6,
+   "sha256": "ce6336a78459f2756271a9595c8db4ae2d021e290563f2dd067aad6ac688d533"
+  },
+  {
+   "anchor": "sec-Objects",
+   "title": "3.6 Objects",
+   "level": 2,
+   "sha256": "cbfb42614a9ec74b38cf2cc7e041f4f8f0baafd3da132cb9131bcc2235976c8d"
+  },
+  {
+   "anchor": "sec-Objects.Field-Ordering",
+   "title": "Field Ordering",
+   "level": 6,
+   "sha256": "14b254eab9f5305d7ecaf6ff7b86511c4e6900faa691367de0c0bf490ccc5ccd"
+  },
+  {
+   "anchor": "sec-Objects.Result-Coercion",
+   "title": "Result Coercion",
+   "level": 6,
+   "sha256": "2863b41ef3abf28dacbe10e0104b714c32815c3f9737fa25118e1c65944e8db9"
+  },
+  {
+   "anchor": "sec-Objects.Input-Coercion",
+   "title": "Input Coercion",
+   "level": 6,
+   "sha256": "1db4c4e9930c4a805729c467038724dca50f9d52bf592815e9a6b9e18458189c"
+  },
+  {
+   "anchor": "sec-Objects.Type-Validation",
+   "title": "Type Validation",
+   "level": 6,
+   "sha256": "459caf6a433c855c7cf450e22f41c08f604e60939b734b4f3b368b88189492fc"
+  },
+  {
+   "anchor": "sec-Field-Arguments",
+   "title": "3.6.1 Field Arguments",
+   "level": 3,
+   "sha256": "26bd95da647a8c06340b569437043e2c8bd7839925a7427dee2e4b4d901ffa85"
+  },
+  {
+   "anchor": "sec-Field-Deprecation",
+   "title": "3.6.2 Field Deprecation",
+   "level": 3,
+   "sha256": "cf3ab45f1de7115d85e4de648e57feb1588f1ff71558df2074cb656cbaf00198"
+  },
+  {
+   "anchor": "sec-Object-Extensions",
+   "title": "3.6.3 Object Extensions",
+   "level": 3,
+   "sha256": "1d2b56109c95fd6111fb67a6b8c5a57b14463bddc5e069de29cf0d2529aba997"
+  },
+  {
+   "anchor": "sec-Object-Extensions.Type-Validation",
+   "title": "Type Validation",
+   "level": 6,
+   "sha256": "388b1eae3e5d073c6aeaa511606a873ed358850c662bc77e4a7c9b502148b709"
+  },
+  {
+   "anchor": "sec-Interfaces",
+   "title": "3.7 Interfaces",
+   "level": 2,
+   "sha256": "e0aa5e6878d211fb9de9622795be221876ef6011a462e774402ea03fe3043703"
+  },
+  {
+   "anchor": "sec-Interfaces.Interfaces-Implementing-Interfaces",
+   "title": "Interfaces Implementing Interfaces",
+   "level": 6,
+   "sha256": "398fd0e2a8ae237c927f72cd98cca527f999ab64015b0eaddae9961740b9934c"
+  },
+  {
+   "anchor": "sec-Interfaces.Result-Coercion",
+   "title": "Result Coercion",
+   "level": 6,
+   "sha256": "64ad7aafa9d53f61659f7bb2fe49c6c79e60583c06a41feef5cce42c22a678b5"
+  },
+  {
+   "anchor": "sec-Interfaces.Input-Coercion",
+   "title": "Input Coercion",
+   "level": 6,
+   "sha256": "98c35dcae281f1a72aa870fb3b6b05c852590ceef8e108f7ad292a7e2194556e"
+  },
+  {
+   "anchor": "sec-Interfaces.Type-Validation",
+   "title": "Type Validation",
+   "level": 6,
+   "sha256": "1a1b211d7d7d6c6728dc0f791490a30d34f57821b7cb85fbf9c6ec119a6cc6d8"
+  },
+  {
+   "anchor": "sec-Interface-Extensions",
+   "title": "3.7.1 Interface Extensions",
+   "level": 3,
+   "sha256": "aeeaab31eb425bdbda675b065068a065ba3bafc3cdf0d1637ff55bf47a53a17c"
+  },
+  {
+   "anchor": "sec-Interface-Extensions.Type-Validation",
+   "title": "Type Validation",
+   "level": 6,
+   "sha256": "d2103e08c27a14bdd78658619672a95ae2d7b0ea055edaf108c179d9ac7b5a8e"
+  },
+  {
+   "anchor": "sec-Unions",
+   "title": "3.8 Unions",
+   "level": 2,
+   "sha256": "d32650d5d6869ae271396a2d5951b5ffd67cda700ecc9b075f4af4ba229e2630"
+  },
+  {
+   "anchor": "sec-Unions.Result-Coercion",
+   "title": "Result Coercion",
+   "level": 6,
+   "sha256": "9095795707d848b202a906a00f261637ac558eee583585eef5268412021f8603"
+  },
+  {
+   "anchor": "sec-Unions.Input-Coercion",
+   "title": "Input Coercion",
+   "level": 6,
+   "sha256": "ac112f5c1bf541aa37eba7c37870bfd90e3472ba11490a7b3e4292e3215f0775"
+  },
+  {
+   "anchor": "sec-Unions.Type-Validation",
+   "title": "Type Validation",
+   "level": 6,
+   "sha256": "99c17f2ba969f4be7683df42c21aa5c987425c83670bd20dffd63fc93ae0fac3"
+  },
+  {
+   "anchor": "sec-Union-Extensions",
+   "title": "3.8.1 Union Extensions",
+   "level": 3,
+   "sha256": "a933d0335883f25c0a47245f6be12c929b5e42aad284b18b9fde135e350f5611"
+  },
+  {
+   "anchor": "sec-Union-Extensions.Type-Validation",
+   "title": "Type Validation",
+   "level": 6,
+   "sha256": "8af73c02e0df8992c89702a6d8e1e0588266e1478d495f3ccb6ace5ef2e9b66f"
+  },
+  {
+   "anchor": "sec-Enums",
+   "title": "3.9 Enums",
+   "level": 2,
+   "sha256": "5bdb412242cebcfe51a3f882a65df4d7fa337f8b14240e90eca53838569acb41"
+  },
+  {
+   "anchor": "sec-Enums.Result-Coercion",
+   "title": "Result Coercion",
+   "level": 6,
+   "sha256": "77b2bf5c1a10c5651457d981bb088415fffeda67113d96be6dffd5dc47f0ccdb"
+  },
+  {
+   "anchor": "sec-Enums.Input-Coercion",
+   "title": "Input Coercion",
+   "level": 6,
+   "sha256": "613c9b3c7dcc82a45d375817bf4e8c1530efc1efcd06081efd0a47b6262929af"
+  },
+  {
+   "anchor": "sec-Enums.Type-Validation",
+   "title": "Type Validation",
+   "level": 6,
+   "sha256": "198c75a3830ecc70a93d3e0c07dbc5dede0319cf28d634bd5c12466361534e5d"
+  },
+  {
+   "anchor": "sec-Enum-Extensions",
+   "title": "3.9.1 Enum Extensions",
+   "level": 3,
+   "sha256": "377e851fbc937bcafa655db3be967104f194342e3a7dd7cedab6ab823633d2eb"
+  },
+  {
+   "anchor": "sec-Enum-Extensions.Type-Validation",
+   "title": "Type Validation",
+   "level": 6,
+   "sha256": "15bd30744faeebcf13b3391e049e32d170ec88087a1f4040031cde6a6bb7b68e"
+  },
+  {
+   "anchor": "sec-Input-Objects",
+   "title": "3.10 Input Objects",
+   "level": 2,
+   "sha256": "5f362c6742cc0e875395fcc667effa2fe7b322a6c083650e8a6738edbe319888"
+  },
+  {
+   "anchor": "sec-Input-Objects.Circular-References",
+   "title": "Circular References",
+   "level": 6,
+   "sha256": "300653d95f077f9b9126b0605908cf2f6620663d91957b8a6c6eade711a2f09f"
+  },
+  {
+   "anchor": "sec-Input-Objects.Result-Coercion",
+   "title": "Result Coercion",
+   "level": 6,
+   "sha256": "860e3f47534ad62afc58d3aa708f8b571e6dd8b8e8c1c50946421531d0827f60"
+  },
+  {
+   "anchor": "sec-Input-Objects.Input-Coercion",
+   "title": "Input Coercion",
+   "level": 6,
+   "sha256": "9251d0bd43bbbf8366dcfd082caae4d59c1dcd3d449f8b5e324ba081b62ac10f"
+  },
+  {
+   "anchor": "sec-Input-Objects.Type-Validation",
+   "title": "Type Validation",
+   "level": 6,
+   "sha256": "892272e86e76399326458b0fadfd23115210263c60dea7b2bc05f6a53ed9a68f"
+  },
+  {
+   "anchor": "sec-OneOf-Input-Objects",
+   "title": "3.10.1 OneOf Input Objects",
+   "level": 3,
+   "sha256": "db1fc6b5b776508a1352205b26022c7f9a9697316a616f1bb40270bcb6f26e20"
+  },
+  {
+   "anchor": "sec-OneOf-Input-Objects.Input-Coercion",
+   "title": "Input Coercion",
+   "level": 6,
+   "sha256": "320c435004990220a535ba7d8c5cc1694364f4f1c9ad9ef4739eba4743d0dd63"
+  },
+  {
+   "anchor": "sec-Input-Object-Extensions",
+   "title": "3.10.2 Input Object Extensions",
+   "level": 3,
+   "sha256": "57b297b2adc9b21b89e5d2ec0428d0e9d7ac7d1efa54f325e1c912d19bcbdcaa"
+  },
+  {
+   "anchor": "sec-Input-Object-Extensions.Type-Validation",
+   "title": "Type Validation",
+   "level": 6,
+   "sha256": "d499a7803fdb821e7bb8e4d93fccb4dcc4c430fd02ce380bfa869d6b079d83ef"
+  },
+  {
+   "anchor": "sec-List",
+   "title": "3.11 List",
+   "level": 2,
+   "sha256": "9cacc82c1ef215186fd87f9b75dfef30735d869ac44a09931348a8b0642aad4c"
+  },
+  {
+   "anchor": "sec-List.Result-Coercion",
+   "title": "Result Coercion",
+   "level": 6,
+   "sha256": "2b569622ca94aa8b87d440f88b8a0acf81cadba0c9e013b94f028f01d8322a4b"
+  },
+  {
+   "anchor": "sec-List.Input-Coercion",
+   "title": "Input Coercion",
+   "level": 6,
+   "sha256": "6ef74c63cd76d6390bc60613121d1628b1871c27f10f94357cdc6b58724e0cb9"
+  },
+  {
+   "anchor": "sec-Non-Null",
+   "title": "3.12 Non-Null",
+   "level": 2,
+   "sha256": "fdf0163feeb9033f82fa84cc8d577ced86cdbdf04db15f359a27b9885ef65b5e"
+  },
+  {
+   "anchor": "sec-Non-Null.Nullable-vs-Optional",
+   "title": "Nullable vs. Optional",
+   "level": 6,
+   "sha256": "a2a1b0f24ca8156c03126e470d36fe6bad6120e44edaed6031520274b0f9f410"
+  },
+  {
+   "anchor": "sec-Non-Null.Result-Coercion",
+   "title": "Result Coercion",
+   "level": 6,
+   "sha256": "1e669ddd7ea1ef7e5bb5393fb7ac38bc9c6e767196f3050f525bd6a81eca38fa"
+  },
+  {
+   "anchor": "sec-Non-Null.Input-Coercion",
+   "title": "Input Coercion",
+   "level": 6,
+   "sha256": "bb77b98d0e9c7ed84fcff7b1668a2a5e5d998a5daeacdf20966fa8cc2333f411"
+  },
+  {
+   "anchor": "sec-Non-Null.Type-Validation",
+   "title": "Type Validation",
+   "level": 6,
+   "sha256": "7e0383404a118aa3e99ad9cb5e1886a44bc19c8f61f2e9bf0c599599ddf82758"
+  },
+  {
+   "anchor": "sec-Combining-List-and-Non-Null",
+   "title": "3.12.1 Combining List and Non-Null",
+   "level": 3,
+   "sha256": "da5a6d59ceb2cecec358dff9a686965c9cb53a58467dd47722c000139e4a8996"
+  },
+  {
+   "anchor": "sec-Type-System.Directives",
+   "title": "3.13 Directives",
+   "level": 2,
+   "sha256": "68570b37f55383225439ee5c1621bc343f1c34b189cffc0545cc2039d8315f09"
+  },
+  {
+   "anchor": "sec-Type-System.Directives.Built-in-Directives",
+   "title": "Built-in Directives",
+   "level": 6,
+   "sha256": "e7969b2976c46f63ee6f5acd2b5ed21cbd0a6e227c2752b6f02ca89a21420427"
+  },
+  {
+   "anchor": "sec-Type-System.Directives.Custom-Directives",
+   "title": "Custom Directives",
+   "level": 6,
+   "sha256": "382ff9aaa74f80ab0e74ef1bcdddccea0020adcf6903787a3703f4889b2b26be"
+  },
+  {
+   "anchor": "sec-Type-System.Directives.Type-Validation",
+   "title": "Type Validation",
+   "level": 6,
+   "sha256": "0e27887a1cdaa9b4a289109d47fcd2a2fc0bd9726177473c68db3db87629a5c6"
+  },
+  {
+   "anchor": "sec--skip",
+   "title": "3.13.1 @skip",
+   "level": 3,
+   "sha256": "a8393cfa324041a5982ff4ad5e35148cd3528840092de40cb7ae0ec27ad2c8ec"
+  },
+  {
+   "anchor": "sec--include",
+   "title": "3.13.2 @include",
+   "level": 3,
+   "sha256": "893362a18830465f0635225377a4c8057b5d34f65421d4f18ed8353d58dd99fd"
+  },
+  {
+   "anchor": "sec--deprecated",
+   "title": "3.13.3 @deprecated",
+   "level": 3,
+   "sha256": "67e88efc7bb376003a5aa322036ca2a582299a60c3b2663726308059ae28a901"
+  },
+  {
+   "anchor": "sec--specifiedBy",
+   "title": "3.13.4 @specifiedBy",
+   "level": 3,
+   "sha256": "9b208102de5948f1860b5db000305f2e2c80dbad865372f54b40e3eb865274cf"
+  },
+  {
+   "anchor": "sec--oneOf",
+   "title": "3.13.5 @oneOf",
+   "level": 3,
+   "sha256": "88b46c987e8417bf299a68aa79e04275343f680eed095d74669255b4bfc52fac"
+  },
+  {
+   "anchor": "sec-Directive-Extensions",
+   "title": "3.13.6 Directive Extensions",
+   "level": 3,
+   "sha256": "4efd2af1b098c7425e65e1a65628906b72ab9f7cec1970952a4dd23b44832298"
+  },
+  {
+   "anchor": "sec-Directive-Extensions.Type-Validation",
+   "title": "Type Validation",
+   "level": 6,
+   "sha256": "bf08f1db6fbff2c687c55806e3a1ffdcff22feacab2c41f7a3d76d299e3c066f"
+  },
+  {
+   "anchor": "sec-Introspection",
+   "title": "4 Introspection",
+   "level": 1,
+   "sha256": "daf02edb04b9dff332ec4b322a3ad8960f1b4a47c888d7e74a1d422841fea954"
+  },
+  {
+   "anchor": "sec-Introspection.Reserved-Names",
+   "title": "Reserved Names",
+   "level": 6,
+   "sha256": "c080863b98184cdc120884559ed1ecb291e013ec7bd8e3cd7cd726cab8698b22"
+  },
+  {
+   "anchor": "sec-Type-Name-Introspection",
+   "title": "4.1 Type Name Introspection",
+   "level": 2,
+   "sha256": "0c29bb6c623cfd2f8efc3c850eccc0f363b67528b2910f71eee500e90baca80c"
+  },
+  {
+   "anchor": "sec-Schema-Introspection",
+   "title": "4.2 Schema Introspection",
+   "level": 2,
+   "sha256": "2705b23d99227a584ccbeb0db5a9b7ecfce24456f78ebb7b04a9601ca4809153"
+  },
+  {
+   "anchor": "sec-Schema-Introspection.First-Class-Documentation",
+   "title": "First Class Documentation",
+   "level": 6,
+   "sha256": "6930363042bcc26093fe64f9e5b8d4b8d215fd31be8e0fb045710b67baef0665"
+  },
+  {
+   "anchor": "sec-Schema-Introspection.Deprecation",
+   "title": "Deprecation",
+   "level": 6,
+   "sha256": "4cefde227c5fa7f44be8faa70754ae1c368300251fab064ba99aba81650948e0"
+  },
+  {
+   "anchor": "sec-Schema-Introspection.Stable-Ordering",
+   "title": "Stable Ordering",
+   "level": 6,
+   "sha256": "6d0da090836a5d99a8a576123d41999ae68fc3fd5f659c2e693d9fa0464e19f2"
+  },
+  {
+   "anchor": "sec-Schema-Introspection.Schema-Introspection-Schema",
+   "title": "Schema Introspection Schema",
+   "level": 6,
+   "sha256": "07fbdd2be6f6cb702d54c9204736a5bf0eb1a502c34db357de5d32315a66ecfa"
+  },
+  {
+   "anchor": "sec-The-__Schema-Type",
+   "title": "4.2.1 The __Schema Type",
+   "level": 3,
+   "sha256": "da0e849079bb7ca076f256cd34c48573abb3390c41262ff938cc5f904ad92940"
+  },
+  {
+   "anchor": "sec-The-__Type-Type",
+   "title": "4.2.2 The __Type Type",
+   "level": 3,
+   "sha256": "059ce39316a8d373c8dcb8cf128a2d8150a6faae5ab00685677fd2d8e0c2291c"
+  },
+  {
+   "anchor": "sec-The-__Type-Type.Scalar",
+   "title": "Scalar",
+   "level": 6,
+   "sha256": "e6e9915820924d6c723a5c37c488e5281990cd0580a4bc8a10abb2f78d1d15c2"
+  },
+  {
+   "anchor": "sec-The-__Type-Type.Object",
+   "title": "Object",
+   "level": 6,
+   "sha256": "23e3cfc2675b68deb62d6eb0c991f8314310ba03789b6dc4478a6070732edae0"
+  },
+  {
+   "anchor": "sec-The-__Type-Type.Union",
+   "title": "Union",
+   "level": 6,
+   "sha256": "af3c18de780be8734b99263163c719f28eb35d002e6497725eb6390248d98da8"
+  },
+  {
+   "anchor": "sec-The-__Type-Type.Interface",
+   "title": "Interface",
+   "level": 6,
+   "sha256": "7c6b818cc3784f4204879b3738d81c639c1e513bb04c8b8243b5e86b2db34567"
+  },
+  {
+   "anchor": "sec-The-__Type-Type.Enum",
+   "title": "Enum",
+   "level": 6,
+   "sha256": "14938f87cdde10b37f9c80e5f1f4021b562ca16a0115d0a3b26702dfd10c58fa"
+  },
+  {
+   "anchor": "sec-The-__Type-Type.Input-Object",
+   "title": "Input Object",
+   "level": 6,
+   "sha256": "0a8d1105b6d4949355ed6d53f3411de8f620d509efb6dceb319dbb480b450d5c"
+  },
+  {
+   "anchor": "sec-The-__Type-Type.List",
+   "title": "List",
+   "level": 6,
+   "sha256": "2090fb47bf216a72fee02f1f552789a5d7b5de43063ef73a0528a9a96c07397a"
+  },
+  {
+   "anchor": "sec-The-__Type-Type.Non-Null",
+   "title": "Non-Null",
+   "level": 6,
+   "sha256": "9306a17b371b1b9a6e9477c22e0129cf4234767fa110d01fff63f62987728e1d"
+  },
+  {
+   "anchor": "sec-The-__Field-Type",
+   "title": "4.2.3 The __Field Type",
+   "level": 3,
+   "sha256": "eeed90fa03a6e13e88b95dda1865d7b97fd88ef9874912fce4d8eca722f0e8df"
+  },
+  {
+   "anchor": "sec-The-__InputValue-Type",
+   "title": "4.2.4 The __InputValue Type",
+   "level": 3,
+   "sha256": "86382ba7ca1acfd9886f46e9ae2240ec4987e67c91a1b0df0202fe0762b5c1db"
+  },
+  {
+   "anchor": "sec-The-__EnumValue-Type",
+   "title": "4.2.5 The __EnumValue Type",
+   "level": 3,
+   "sha256": "f4757a63f605a65b9fc913809c88f49e4b85c5939189bff2b1d5c87d8b660ca7"
+  },
+  {
+   "anchor": "sec-The-__Directive-Type",
+   "title": "4.2.6 The __Directive Type",
+   "level": 3,
+   "sha256": "a1b9783f7b5bba7bf662b497af49cf725e9c6b451f9d3db253a7e2491448a64f"
+  },
+  {
+   "anchor": "sec-Validation",
+   "title": "5 Validation",
+   "level": 1,
+   "sha256": "96c8ec43eb5f5e22d5c8c888044db0e8f0509f809aa6dc7cf1411e9265d74067"
+  },
+  {
+   "anchor": "sec-Validation.Type-System-Evolution",
+   "title": "Type System Evolution",
+   "level": 6,
+   "sha256": "37c9bcf76a354c9332438555157e047ea4eb6cabc4423af84c79516e1c9ec6b9"
+  },
+  {
+   "anchor": "sec-Validation.Examples",
+   "title": "Examples",
+   "level": 6,
+   "sha256": "daf355ba07d6ca05cb88e53353227820ad644d0c7688d24ed1766495ec72ffeb"
+  },
+  {
+   "anchor": "sec-Documents",
+   "title": "5.1 Documents",
+   "level": 2,
+   "sha256": "7fd390a7179244a332328506baeabac5f0149107bbdfe489af4e0a2685465986"
+  },
+  {
+   "anchor": "sec-Executable-Definitions",
+   "title": "5.1.1 Executable Definitions",
+   "level": 3,
+   "sha256": "78616b570345df52d77bd1b2acc52e7e647852f7433d57e8b4d711644913c1d7"
+  },
+  {
+   "anchor": "sec-Executable-Definitions.Formal-Specification",
+   "title": "Formal Specification",
+   "level": 6,
+   "sha256": "ffb65dc7a3bb68bc33474199efd50ccbd9d8c1049775e24d538617897fad8e15"
+  },
+  {
+   "anchor": "sec-Executable-Definitions.Explanatory-Text",
+   "title": "Explanatory Text",
+   "level": 6,
+   "sha256": "5f0a8b75e5bd14a75525557b222cf4b265b37d333ab6a74f25de1957422aba72"
+  },
+  {
+   "anchor": "sec-Validation.Operations",
+   "title": "5.2 Operations",
+   "level": 2,
+   "sha256": "ad3694544c07648034e40f7ba73dfcd387dd6b2fc7441e185dcfa04c388916ab"
+  },
+  {
+   "anchor": "sec-All-Operation-Definitions",
+   "title": "5.2.1 All Operation Definitions",
+   "level": 3,
+   "sha256": "bc248d430b9058022356f30ac800e3ec606e5c38fc57ef986eab25e2a2c1c2b6"
+  },
+  {
+   "anchor": "sec-Operation-Type-Existence",
+   "title": "5.2.1.1 Operation Type Existence",
+   "level": 4,
+   "sha256": "27fc27c493183a5107191bde8d5190fce2752551f42561b0b1045523ed9cf0b8"
+  },
+  {
+   "anchor": "sec-Operation-Type-Existence.Formal-Specification",
+   "title": "Formal Specification",
+   "level": 6,
+   "sha256": "6e3cc1a4f91fcf3949531ca4d556d538f3399d417b99be953e58b001358c583b"
+  },
+  {
+   "anchor": "sec-Operation-Type-Existence.Explanatory-Text",
+   "title": "Explanatory Text",
+   "level": 6,
+   "sha256": "34b31ed9567eb20f40f99aafbe9e274b02eecb1c1d447fb3cfd89020e3111473"
+  },
+  {
+   "anchor": "sec-Named-Operation-Definitions",
+   "title": "5.2.2 Named Operation Definitions",
+   "level": 3,
+   "sha256": "7ca5874460f66d6d8381e0015084db6d5ad1ebadac762efa605021a7b149d11d"
+  },
+  {
+   "anchor": "sec-Operation-Name-Uniqueness",
+   "title": "5.2.2.1 Operation Name Uniqueness",
+   "level": 4,
+   "sha256": "064c7e37ad815a960cc5847dc0fdcc18ff8f92d2aad777adf494c8efc8cd963c"
+  },
+  {
+   "anchor": "sec-Operation-Name-Uniqueness.Formal-Specification",
+   "title": "Formal Specification",
+   "level": 6,
+   "sha256": "6b98c992d6eec333aece9193df8bb81ce5b82397d6dbdb51d1d12d7e84895dd6"
+  },
+  {
+   "anchor": "sec-Operation-Name-Uniqueness.Explanatory-Text",
+   "title": "Explanatory Text",
+   "level": 6,
+   "sha256": "9e7dcab4ce816141864a3946d31ee551710fe271e917ef9b852457549382b7b1"
+  },
+  {
+   "anchor": "sec-Anonymous-Operation-Definitions",
+   "title": "5.2.3 Anonymous Operation Definitions",
+   "level": 3,
+   "sha256": "0e27b8e6da30452a84d80e69676dc492f16750036c79f72fa1501f3e4e2a80cf"
+  },
+  {
+   "anchor": "sec-Lone-Anonymous-Operation",
+   "title": "5.2.3.1 Lone Anonymous Operation",
+   "level": 4,
+   "sha256": "5240ba9b453931ba8c9452cd7d2dc35a039318e724344fa090ea8d4622401529"
+  },
+  {
+   "anchor": "sec-Lone-Anonymous-Operation.Formal-Specification",
+   "title": "Formal Specification",
+   "level": 6,
+   "sha256": "fa714d72061fdebca7030720329ec61533b0e880dd643fc93a7d5dcb8646065e"
+  },
+  {
+   "anchor": "sec-Lone-Anonymous-Operation.Explanatory-Text",
+   "title": "Explanatory Text",
+   "level": 6,
+   "sha256": "4dbbf59ce3891968bc9e351fc58d01a048cc36010761d0f9aaf9cb41e88e324d"
+  },
+  {
+   "anchor": "sec-Subscription-Operation-Definitions",
+   "title": "5.2.4 Subscription Operation Definitions",
+   "level": 3,
+   "sha256": "5aaa880ed2722fa2a9a5f1be9b54cc5691e4b84d0540216be584c2f5eedfca3f"
+  },
+  {
+   "anchor": "sec-Single-Root-Field",
+   "title": "5.2.4.1 Single Root Field",
+   "level": 4,
+   "sha256": "c8510ad4b9dacc0ae7b063152f0ac62bf8267453c28c7deab85e297cf98509cf"
+  },
+  {
+   "anchor": "sec-Single-Root-Field.Formal-Specification",
+   "title": "Formal Specification",
+   "level": 6,
+   "sha256": "17026dbee4436f05e826690890c71066c861e24b204be7e5653e6f824aca7200"
+  },
+  {
+   "anchor": "sec-Single-Root-Field.Explanatory-Text",
+   "title": "Explanatory Text",
+   "level": 6,
+   "sha256": "f6ff8e68ab77f237989a6ba16886ab79348545df7d865a844f3517569ef3450a"
+  },
+  {
+   "anchor": "sec-Validation.Fields",
+   "title": "5.3 Fields",
+   "level": 2,
+   "sha256": "1929ab7c3e4f4adf11ebfcb04ff214f7f2273e716ab2f3a2f5a9597e94e0add6"
+  },
+  {
+   "anchor": "sec-Field-Selections",
+   "title": "5.3.1 Field Selections",
+   "level": 3,
+   "sha256": "5112c28da489a7137242ce3f3f6b69a75c37241d63cd176409ac4d736fa70050"
+  },
+  {
+   "anchor": "sec-Field-Selections.Formal-Specification",
+   "title": "Formal Specification",
+   "level": 6,
+   "sha256": "3920c4fc2a4a821c21089cae8fd0db2e43c9bb8be3cde63b8cf0869973987f67"
+  },
+  {
+   "anchor": "sec-Field-Selections.Explanatory-Text",
+   "title": "Explanatory Text",
+   "level": 6,
+   "sha256": "3099b948d05ea48ac8678300a8ea8d9b1443d54acc0356d540236be3b459867f"
+  },
+  {
+   "anchor": "sec-Field-Selection-Merging",
+   "title": "5.3.2 Field Selection Merging",
+   "level": 3,
+   "sha256": "3d17ae22989acec5a569143aa115ed91946992d224b9196d8de1433f89bc519b"
+  },
+  {
+   "anchor": "sec-Field-Selection-Merging.Formal-Specification",
+   "title": "Formal Specification",
+   "level": 6,
+   "sha256": "c6e0cf290f7d1d019b2be2b17cf2593df39af932aad6e82bf32ddc4870d7501e"
+  },
+  {
+   "anchor": "sec-Field-Selection-Merging.Explanatory-Text",
+   "title": "Explanatory Text",
+   "level": 6,
+   "sha256": "e24d688ed5a54c2f19425ea006a914c4e86ee45ccc02ecadf9b697ff49be6cdb"
+  },
+  {
+   "anchor": "sec-Leaf-Field-Selections",
+   "title": "5.3.3 Leaf Field Selections",
+   "level": 3,
+   "sha256": "883dafd725e24355737c35809eca8c8c38c25d960c12336b969f946bdd946414"
+  },
+  {
+   "anchor": "sec-Leaf-Field-Selections.Formal-Specification",
+   "title": "Formal Specification",
+   "level": 6,
+   "sha256": "0d1260ec20eb78be2b40025ceb20dc06ae6713ba5e4d1103cc8394296b02957a"
+  },
+  {
+   "anchor": "sec-Leaf-Field-Selections.Explanatory-Text",
+   "title": "Explanatory Text",
+   "level": 6,
+   "sha256": "9989b03f37875978ad1cdd198b1b695b8a704be215584673315a504e58114d1a"
+  },
+  {
+   "anchor": "sec-Validation.Arguments",
+   "title": "5.4 Arguments",
+   "level": 2,
+   "sha256": "59833c0a662ef8654473395eee40d837a114c916bb7843f067293955be5b6214"
+  },
+  {
+   "anchor": "sec-Argument-Names",
+   "title": "5.4.1 Argument Names",
+   "level": 3,
+   "sha256": "02324824eaed16d2e8c6fc153c02f2f855e9c8b880fd74ebd428630570b2a475"
+  },
+  {
+   "anchor": "sec-Argument-Names.Formal-Specification",
+   "title": "Formal Specification",
+   "level": 6,
+   "sha256": "5116e289538c2e42624c34da5456a11cb640b3e62555a898141f039cda8e7122"
+  },
+  {
+   "anchor": "sec-Argument-Names.Explanatory-Text",
+   "title": "Explanatory Text",
+   "level": 6,
+   "sha256": "2710729b09e9fa900029da417a052d4d89a8f42b79971502ea5106a62005110c"
+  },
+  {
+   "anchor": "sec-Argument-Uniqueness",
+   "title": "5.4.2 Argument Uniqueness",
+   "level": 3,
+   "sha256": "0e832f99c21c532247e8ab4c94045dcc1e35a4d6d35d6faa4a8d3571d735883c"
+  },
+  {
+   "anchor": "sec-Argument-Uniqueness.Formal-Specification",
+   "title": "Formal Specification",
+   "level": 6,
+   "sha256": "781784b19f9f684efb142ddcd4aa2053921db300375df2f7e7ca03a2b25cd33e"
+  },
+  {
+   "anchor": "sec-Required-Arguments",
+   "title": "5.4.3 Required Arguments",
+   "level": 3,
+   "sha256": "63cd85d8d0ca80f8a7e86d0cbc1ce7e51db76f31f9572bbc71145952fff0ffaf"
+  },
+  {
+   "anchor": "sec-Required-Arguments.Explanatory-Text",
+   "title": "Explanatory Text",
+   "level": 6,
+   "sha256": "1a84081eac4bef78a124fec0de7c213157c685e9f22606e6a6909d244810f8a7"
+  },
+  {
+   "anchor": "sec-Validation.Fragments",
+   "title": "5.5 Fragments",
+   "level": 2,
+   "sha256": "7e4a3f81e5a9fabff8ef6abb630684a554c7eb250baf61803ea48d2177946022"
+  },
+  {
+   "anchor": "sec-Fragment-Declarations",
+   "title": "5.5.1 Fragment Declarations",
+   "level": 3,
+   "sha256": "81f2df910e8d72b50df6db19c2cec866e85a8da3341dfd4f7b24fb41f8a2de81"
+  },
+  {
+   "anchor": "sec-Fragment-Name-Uniqueness",
+   "title": "5.5.1.1 Fragment Name Uniqueness",
+   "level": 4,
+   "sha256": "723a802e434f25a322e92e6d29052ae6307cbba0452f77db46b78861719b3cf0"
+  },
+  {
+   "anchor": "sec-Fragment-Name-Uniqueness.Formal-Specification",
+   "title": "Formal Specification",
+   "level": 6,
+   "sha256": "e538953edbbb5cd2583d2aabacad4f8dd7d8ee51f2c2d5836772eadf83c56689"
+  },
+  {
+   "anchor": "sec-Fragment-Name-Uniqueness.Explanatory-Text",
+   "title": "Explanatory Text",
+   "level": 6,
+   "sha256": "82783a827552077ac0184a0dc77d3516c1916ac552d08c9346dbda8a23ddf4a6"
+  },
+  {
+   "anchor": "sec-Fragment-Spread-Type-Existence",
+   "title": "5.5.1.2 Fragment Spread Type Existence",
+   "level": 4,
+   "sha256": "35cf350fafb600ddd331da47060eaa7a2bf2c6731c3728e2e39e75247b68e789"
+  },
+  {
+   "anchor": "sec-Fragment-Spread-Type-Existence.Formal-Specification",
+   "title": "Formal Specification",
+   "level": 6,
+   "sha256": "a20150422eeaf051f58d5aae53ca2036dfd9f374d4542f1bcbe28188a7573a57"
+  },
+  {
+   "anchor": "sec-Fragment-Spread-Type-Existence.Explanatory-Text",
+   "title": "Explanatory Text",
+   "level": 6,
+   "sha256": "4dfb3dff6b9ecd912375d2cfc9c11c0890075ecdd8f72c887ed18f1be7df734d"
+  },
+  {
+   "anchor": "sec-Fragments-on-Object-Interface-or-Union-Types",
+   "title": "5.5.1.3 Fragments on Object, Interface or Union Types",
+   "level": 4,
+   "sha256": "b15b51a7736899e398c84ca282ecb666c9f019f9e9d2c9f832fcb15affbee6be"
+  },
+  {
+   "anchor": "sec-Fragments-on-Object-Interface-or-Union-Types.Formal-Specification",
+   "title": "Formal Specification",
+   "level": 6,
+   "sha256": "56536ff337223185fd3d94d576f025315b5771979dc6e00a7ebf9e3fa19e6a82"
+  },
+  {
+   "anchor": "sec-Fragments-on-Object-Interface-or-Union-Types.Explanatory-Text",
+   "title": "Explanatory Text",
+   "level": 6,
+   "sha256": "105fe62f266ef09ff0970cd2821c13d657aff56fa017b4382aa33734da5dfa06"
+  },
+  {
+   "anchor": "sec-Fragments-Must-Be-Used",
+   "title": "5.5.1.4 Fragments Must Be Used",
+   "level": 4,
+   "sha256": "f513e70a4a4fee54043d946b24def53d6398e6dc87686c938501bd7e8f8b2e01"
+  },
+  {
+   "anchor": "sec-Fragments-Must-Be-Used.Formal-Specification",
+   "title": "Formal Specification",
+   "level": 6,
+   "sha256": "6ee0400990c3f3357a7148aa4e1674de35b1e84c81e1c7220e91d57187889d19"
+  },
+  {
+   "anchor": "sec-Fragments-Must-Be-Used.Explanatory-Text",
+   "title": "Explanatory Text",
+   "level": 6,
+   "sha256": "230c7c20563db4420b6c07ed5e35d9dd653fc6520adc292f29e16a5e64d43636"
+  },
+  {
+   "anchor": "sec-Fragment-Spreads",
+   "title": "5.5.2 Fragment Spreads",
+   "level": 3,
+   "sha256": "96788a2ed7fb3c4b7f9bea92fb8fc450efcc3156ec3e4962a2aa10da73797dc1"
+  },
+  {
+   "anchor": "sec-Fragment-Spread-Target-Defined",
+   "title": "5.5.2.1 Fragment Spread Target Defined",
+   "level": 4,
+   "sha256": "5f358f55475eda5148811f76faaf9fdac1c663d6a9abff35202c85c17e2f5fd6"
+  },
+  {
+   "anchor": "sec-Fragment-Spread-Target-Defined.Formal-Specification",
+   "title": "Formal Specification",
+   "level": 6,
+   "sha256": "4a031a87303b37d0c274dc41de95544150cd2518751dc8509cd1198dc3248671"
+  },
+  {
+   "anchor": "sec-Fragment-Spread-Target-Defined.Explanatory-Text",
+   "title": "Explanatory Text",
+   "level": 6,
+   "sha256": "092b0d928a6d6ce6245d7f7d62f7eb2f77dede6515d48f140b02d1ec9e02de3f"
+  },
+  {
+   "anchor": "sec-Fragment-Spreads-Must-Not-Form-Cycles",
+   "title": "5.5.2.2 Fragment Spreads Must Not Form Cycles",
+   "level": 4,
+   "sha256": "8e28c9167b866f95a134d6d52e986d33d532821860f47813e1431f55baf8556f"
+  },
+  {
+   "anchor": "sec-Fragment-Spreads-Must-Not-Form-Cycles.Formal-Specification",
+   "title": "Formal Specification",
+   "level": 6,
+   "sha256": "8473eee49caa58d041c23dc84784759c6d402effdf8e2d8f5cc1c13b3975c853"
+  },
+  {
+   "anchor": "sec-Fragment-Spreads-Must-Not-Form-Cycles.Explanatory-Text",
+   "title": "Explanatory Text",
+   "level": 6,
+   "sha256": "824e5c33dde7114b818a0899e0be46c2778f5fa42497b3dc921901ccc7b6582e"
+  },
+  {
+   "anchor": "sec-Fragment-Spread-Is-Possible",
+   "title": "5.5.2.3 Fragment Spread Is Possible",
+   "level": 4,
+   "sha256": "361ef4110842e8bf38cae61822bc6ef18c3889b5130e5dbaec2c862f4d19cebe"
+  },
+  {
+   "anchor": "sec-Fragment-Spread-Is-Possible.Formal-Specification",
+   "title": "Formal Specification",
+   "level": 6,
+   "sha256": "6d9b04fcf50f957d4d4eef3b19952d6fecd09278470813a913e02c2f1443a7ed"
+  },
+  {
+   "anchor": "sec-Fragment-Spread-Is-Possible.Explanatory-Text",
+   "title": "Explanatory Text",
+   "level": 6,
+   "sha256": "6d1c8c05b71c83eec6545f4c4bb6441f6738183f63b0c46ec592d6e38e8cb253"
+  },
+  {
+   "anchor": "sec-Object-Spreads-in-Object-Scope",
+   "title": "5.5.2.3.1 Object Spreads in Object Scope",
+   "level": 5,
+   "sha256": "763045092c9a96f6ef4bceaa648aba09497373137e8d137f2c76f31e9a4c3691"
+  },
+  {
+   "anchor": "sec-Abstract-Spreads-in-Object-Scope",
+   "title": "5.5.2.3.2 Abstract Spreads in Object Scope",
+   "level": 5,
+   "sha256": "10458c7b4f9834ba5673161e49c3a0687cab81d53927239c572ad2c8147295a1"
+  },
+  {
+   "anchor": "sec-Object-Spreads-in-Abstract-Scope",
+   "title": "5.5.2.3.3 Object Spreads in Abstract Scope",
+   "level": 5,
+   "sha256": "223b9d7e3ad5d4c9ad4eb55f4c7406187fd317d65c7e58e268395a1ecfb245ba"
+  },
+  {
+   "anchor": "sec-Abstract-Spreads-in-Abstract-Scope",
+   "title": "5.5.2.3.4 Abstract Spreads in Abstract Scope",
+   "level": 5,
+   "sha256": "83c085386a5260362986ac5a653ec7cfa86b899cda51277cc3ae862d5f136672"
+  },
+  {
+   "anchor": "sec-Abstract-Spreads-in-Abstract-Scope.Interface-Spreads-in-Implemented-Interface-Scope",
+   "title": "Interface Spreads in Implemented Interface Scope",
+   "level": 6,
+   "sha256": "29a7d28800dde3de8bd8dc6e96dde42925a3bf85593a8245c1e5aa4f03edd952"
+  },
+  {
+   "anchor": "sec-Values",
+   "title": "5.6 Values",
+   "level": 2,
+   "sha256": "c41fb5c1b07067db5d2b3631a9a45ab2271cf361db7f9bcfc80bcff808c673ba"
+  },
+  {
+   "anchor": "sec-Values-of-Correct-Type",
+   "title": "5.6.1 Values of Correct Type",
+   "level": 3,
+   "sha256": "99adb097295a395c7b8a113b8f79aadd08f806fc327d8868bf5dbc75976ded0f"
+  },
+  {
+   "anchor": "sec-Values-of-Correct-Type.Formal-Specification",
+   "title": "Formal Specification",
+   "level": 6,
+   "sha256": "63efdd824683881bd4c5ccf181251ac8deb08e1a8bb36b767aef2a4b8366973a"
+  },
+  {
+   "anchor": "sec-Values-of-Correct-Type.Explanatory-Text",
+   "title": "Explanatory Text",
+   "level": 6,
+   "sha256": "730b00d0b7073711429baba7e8b2937019a4f63df800cd78d3425be50285c233"
+  },
+  {
+   "anchor": "sec-Input-Object-Field-Names",
+   "title": "5.6.2 Input Object Field Names",
+   "level": 3,
+   "sha256": "b90d4cb90aca78bb961e460c7ff793029dbef30d667fa843d2072ff4c425aa70"
+  },
+  {
+   "anchor": "sec-Input-Object-Field-Names.Formal-Specification",
+   "title": "Formal Specification",
+   "level": 6,
+   "sha256": "1c4ead4cbff889c917500ee85cee1d095fe97053efc1dae026e68a2a46af36bb"
+  },
+  {
+   "anchor": "sec-Input-Object-Field-Names.Explanatory-Text",
+   "title": "Explanatory Text",
+   "level": 6,
+   "sha256": "bf47d124d9f747febf9d3d06662713b2c9c4a7acfddd1e824661ce68a8190d69"
+  },
+  {
+   "anchor": "sec-Input-Object-Field-Uniqueness",
+   "title": "5.6.3 Input Object Field Uniqueness",
+   "level": 3,
+   "sha256": "238f0c4dcffc2d45badd81441ef113b0ef3943e0d5c46ac8e2bc44657da99455"
+  },
+  {
+   "anchor": "sec-Input-Object-Field-Uniqueness.Formal-Specification",
+   "title": "Formal Specification",
+   "level": 6,
+   "sha256": "d79b8bcced12a58a12beaa1fb8b3355bb0ffdb7ed16d2793acd785aa13ae1f88"
+  },
+  {
+   "anchor": "sec-Input-Object-Field-Uniqueness.Explanatory-Text",
+   "title": "Explanatory Text",
+   "level": 6,
+   "sha256": "1f4740b0dbd78a2e0d677fc4831fff1611f59d5b9dc4766bbc131612fdfb3f07"
+  },
+  {
+   "anchor": "sec-Input-Object-Required-Fields",
+   "title": "5.6.4 Input Object Required Fields",
+   "level": 3,
+   "sha256": "43763903172ae50968035933651592cc19f677ad6ac74c99e6e0c7a3c0a05ee2"
+  },
+  {
+   "anchor": "sec-Input-Object-Required-Fields.Formal-Specification",
+   "title": "Formal Specification",
+   "level": 6,
+   "sha256": "e2ff182da61f6078291ed31734d809833d2ee827a406088817000fd4492849a5"
+  },
+  {
+   "anchor": "sec-Input-Object-Required-Fields.Explanatory-Text",
+   "title": "Explanatory Text",
+   "level": 6,
+   "sha256": "b7777292fe3346defe59a01396b8ec94aa2e03789ac58efcb346f98165c8c11b"
+  },
+  {
+   "anchor": "sec-Validation.Directives",
+   "title": "5.7 Directives",
+   "level": 2,
+   "sha256": "67e8e734dc2452db7a81b32a05539f5b916ca00cec57a26266ad9cbf3025a37a"
+  },
+  {
+   "anchor": "sec-Directives-Are-Defined",
+   "title": "5.7.1 Directives Are Defined",
+   "level": 3,
+   "sha256": "0f143a88020caf56d042a60b58cf49e8fea33d2897ee27bc14030bf3fe56744c"
+  },
+  {
+   "anchor": "sec-Directives-Are-Defined.Formal-Specification",
+   "title": "Formal Specification",
+   "level": 6,
+   "sha256": "c6dd805ee83a7a1b9ee93a647d769d9bea33963a03ede2c430a4202ac91414de"
+  },
+  {
+   "anchor": "sec-Directives-Are-Defined.Explanatory-Text",
+   "title": "Explanatory Text",
+   "level": 6,
+   "sha256": "84030fb3148de2597115007563b0158963392a77a0c37c38eb4881560491d5b9"
+  },
+  {
+   "anchor": "sec-Directives-Are-in-Valid-Locations",
+   "title": "5.7.2 Directives Are in Valid Locations",
+   "level": 3,
+   "sha256": "c010ebf581e290b9b233e019f0ad961bc09afc5115a2a1571abb7f3a20dd31d6"
+  },
+  {
+   "anchor": "sec-Directives-Are-in-Valid-Locations.Formal-Specification",
+   "title": "Formal Specification",
+   "level": 6,
+   "sha256": "3fe5dac410e9d700227543d121e8f8f876bf57cff784eaf4ebb3fa71d04ced13"
+  },
+  {
+   "anchor": "sec-Directives-Are-in-Valid-Locations.Explanatory-Text",
+   "title": "Explanatory Text",
+   "level": 6,
+   "sha256": "20783b51f5c7e11228ca3bcdb9bd9aa589d2b1e3dfff2b6816325cc6ed870cb3"
+  },
+  {
+   "anchor": "sec-Directives-Are-Unique-per-Location",
+   "title": "5.7.3 Directives Are Unique per Location",
+   "level": 3,
+   "sha256": "dd799c983890116e624f2125755388805c854a384d8d66e1e628664c204f976a"
+  },
+  {
+   "anchor": "sec-Directives-Are-Unique-per-Location.Formal-Specification",
+   "title": "Formal Specification",
+   "level": 6,
+   "sha256": "acb2f2e497a40d8f0756e1183418f7e8199d7ea90d761fed8934bdaedca7d4f5"
+  },
+  {
+   "anchor": "sec-Directives-Are-Unique-per-Location.Explanatory-Text",
+   "title": "Explanatory Text",
+   "level": 6,
+   "sha256": "8703546f2b6b6bb6e3c26decd735a0e5a00fd08fdf252405551363e8d0fcd767"
+  },
+  {
+   "anchor": "sec-Validation.Variables",
+   "title": "5.8 Variables",
+   "level": 2,
+   "sha256": "f9659f23021bfc7999d09b9d4dca0145fd83026cd545aa8e1ccb990246c9079e"
+  },
+  {
+   "anchor": "sec-Variable-Uniqueness",
+   "title": "5.8.1 Variable Uniqueness",
+   "level": 3,
+   "sha256": "c3c394ebd21f446b4fd83f37f57745e31d63cf0550e57ec044d8751a3b8b9a78"
+  },
+  {
+   "anchor": "sec-Variable-Uniqueness.Formal-Specification",
+   "title": "Formal Specification",
+   "level": 6,
+   "sha256": "fa42a8d9ce4cc7f0bc0c47066d50522e30ec8b586a2ba3a783093582fff6cdc4"
+  },
+  {
+   "anchor": "sec-Variable-Uniqueness.Explanatory-Text",
+   "title": "Explanatory Text",
+   "level": 6,
+   "sha256": "52130ee01e7f56de8956fd9ab8bdec5df744c667277d4e58a7afa99d4eca6e68"
+  },
+  {
+   "anchor": "sec-Variables-Are-Input-Types",
+   "title": "5.8.2 Variables Are Input Types",
+   "level": 3,
+   "sha256": "192af623e3fa9bd87aaa1c36b5bc2448ad8642d55cf2ce13e21692c5a3c472c3"
+  },
+  {
+   "anchor": "sec-Variables-Are-Input-Types.Formal-Specification",
+   "title": "Formal Specification",
+   "level": 6,
+   "sha256": "b998ef0a86d59d5b2ed134c2e37565b5b5f8312686b7613b86260f87703fdb2b"
+  },
+  {
+   "anchor": "sec-Variables-Are-Input-Types.Explanatory-Text",
+   "title": "Explanatory Text",
+   "level": 6,
+   "sha256": "cf114b896dc1f0926e5053d4e19eb49c0fcb4b3a78d23485914731645f4c11ca"
+  },
+  {
+   "anchor": "sec-All-Variable-Uses-Defined",
+   "title": "5.8.3 All Variable Uses Defined",
+   "level": 3,
+   "sha256": "fc221f6fb1d876f225de8b2f5950c9f5de68e14d53dfc12c90070d71f3014758"
+  },
+  {
+   "anchor": "sec-All-Variable-Uses-Defined.Formal-Specification",
+   "title": "Formal Specification",
+   "level": 6,
+   "sha256": "cfaa105f23115afe9a7d6f1f0c2609b5c54f5c033897a2c1ebde39cb39bca229"
+  },
+  {
+   "anchor": "sec-All-Variable-Uses-Defined.Explanatory-Text",
+   "title": "Explanatory Text",
+   "level": 6,
+   "sha256": "84e13c036129540db13c3f145f39b12e43dcd55104b38452c29b76c659b5bfb5"
+  },
+  {
+   "anchor": "sec-All-Variables-Used",
+   "title": "5.8.4 All Variables Used",
+   "level": 3,
+   "sha256": "2205696e9ec4e00f733584a5427962d5539aa6d7cf902ee2c8cfe9b185b6bba1"
+  },
+  {
+   "anchor": "sec-All-Variables-Used.Formal-Specification",
+   "title": "Formal Specification",
+   "level": 6,
+   "sha256": "c8687c6e13b586135ca3d03ccbd8f51e86cf03e01695ff96898a374f408be38c"
+  },
+  {
+   "anchor": "sec-All-Variables-Used.Explanatory-Text",
+   "title": "Explanatory Text",
+   "level": 6,
+   "sha256": "9271ea17f209b4832c3c87f5c78b0139de8fb6280dcf1a58e369252e49920318"
+  },
+  {
+   "anchor": "sec-All-Variable-Usages-Are-Allowed",
+   "title": "5.8.5 All Variable Usages Are Allowed",
+   "level": 3,
+   "sha256": "6ac19af1eb6f0dcef522df2f8fb2915bfd89c3670a5b48384037d224f7ee4cfb"
+  },
+  {
+   "anchor": "sec-All-Variable-Usages-Are-Allowed.Formal-Specification",
+   "title": "Formal Specification",
+   "level": 6,
+   "sha256": "8c9d48a6cacc82a6da49cb14e4116cd99dd150a83a7f1da24e49cc3b61cf29c7"
+  },
+  {
+   "anchor": "sec-All-Variable-Usages-Are-Allowed.Explanatory-Text",
+   "title": "Explanatory Text",
+   "level": 6,
+   "sha256": "ea104c5947eca691c2d7843a98eef340d7ef1871e76bc048057b8c578970654d"
+  },
+  {
+   "anchor": "sec-All-Variable-Usages-Are-Allowed.Allowing-Optional-Variables-When-Default-Values-Exist",
+   "title": "Allowing Optional Variables When Default Values Exist",
+   "level": 6,
+   "sha256": "8949fa7c7611204acea982657355b6e123ab6bfb8be4b0c38ae55cf115bf8f11"
+  },
+  {
+   "anchor": "sec-Execution",
+   "title": "6 Execution",
+   "level": 1,
+   "sha256": "47f7edf398039fdbbca37432f33566e25792a6940f02d2320e81feb20da5d97c"
+  },
+  {
+   "anchor": "sec-Executing-Requests",
+   "title": "6.1 Executing Requests",
+   "level": 2,
+   "sha256": "806758662d2f7fb6cdb068908aee31c92579cdb96aaac6e87e03bbe395fe3f8c"
+  },
+  {
+   "anchor": "sec-Validating-Requests",
+   "title": "6.1.1 Validating Requests",
+   "level": 3,
+   "sha256": "8a45a780721256c275bcfec607dc10e37a451b30f2ec12f99bcd93c7088efb09"
+  },
+  {
+   "anchor": "sec-Coercing-Variable-Values",
+   "title": "6.1.2 Coercing Variable Values",
+   "level": 3,
+   "sha256": "b31a218f2aff014f2e06eb7c499bbf2097628d77e2d8bb8918e75794a4d356dc"
+  },
+  {
+   "anchor": "sec-Executing-Operations",
+   "title": "6.2 Executing Operations",
+   "level": 2,
+   "sha256": "4f782b7fbedaaa2a7350fced7e3359a6ea4abd41cb3c709bdd5784046f0c095f"
+  },
+  {
+   "anchor": "sec-Query",
+   "title": "6.2.1 Query",
+   "level": 3,
+   "sha256": "95507aa0a6d7d0caa86bd4e6cdf2ef0348e709eb5ba766056841ca70d66bd60f"
+  },
+  {
+   "anchor": "sec-Mutation",
+   "title": "6.2.2 Mutation",
+   "level": 3,
+   "sha256": "cf045ab86e80f2363408d99afe939859986e308fb43ff678fcb98524a6a00fe7"
+  },
+  {
+   "anchor": "sec-Subscription",
+   "title": "6.2.3 Subscription",
+   "level": 3,
+   "sha256": "cdd05c02f486c40dd6cdc456a3e49f146331f318b0b2c51534c1f79c0afd3c55"
+  },
+  {
+   "anchor": "sec-Subscription.Event-Streams",
+   "title": "Event Streams",
+   "level": 6,
+   "sha256": "5ce1968afd5144279bd078d7db23bae5a7a6293231c22cd42a2c7530b4dcd7ce"
+  },
+  {
+   "anchor": "sec-Subscription.Supporting-Subscriptions-at-Scale",
+   "title": "Supporting Subscriptions at Scale",
+   "level": 6,
+   "sha256": "edd6ef4b00090a09a11b2fc2448738854f9894c9a1592f7e17d80c054f55a43e"
+  },
+  {
+   "anchor": "sec-Subscription.Delivery-Agnostic",
+   "title": "Delivery Agnostic",
+   "level": 6,
+   "sha256": "df8107dd5f071da5cc3fb15c6faf2d2e4e825398525fc199ea807312b8759df0"
+  },
+  {
+   "anchor": "sec-Source-Stream",
+   "title": "6.2.3.1 Source Stream",
+   "level": 4,
+   "sha256": "ac15fdb174c9935033a3f338c0134637f20f1b2fa3148356da2fcf83dae60ca4"
+  },
+  {
+   "anchor": "sec-Subscription.Response-Stream",
+   "title": "6.2.3.2 Response Stream",
+   "level": 4,
+   "sha256": "415a4e91bbafa3024ffb15b0e2ce7ed8ffebce630763cd9d51fb3c5e52465b4f"
+  },
+  {
+   "anchor": "sec-Unsubscribe",
+   "title": "6.2.3.3 Unsubscribe",
+   "level": 4,
+   "sha256": "72eb5e35e324fe8a7719f845432dc73e3cbf69804e91d2ce53b19bfb716cedaf"
+  },
+  {
+   "anchor": "sec-Executing-Selection-Sets",
+   "title": "6.3 Executing Selection Sets",
+   "level": 2,
+   "sha256": "2204ffb46b77c35e0bfd0097c994de0e41f331f5b395ec3f09a03aad1af88b12"
+  },
+  {
+   "anchor": "sec-Executing-the-Root-Selection-Set",
+   "title": "6.3.1 Executing the Root Selection Set",
+   "level": 3,
+   "sha256": "1583f9f12b209e324c43fd66297b93567bfed466f2ca3000d0fc4107353e805c"
+  },
+  {
+   "anchor": "sec-Field-Collection",
+   "title": "6.3.2 Field Collection",
+   "level": 3,
+   "sha256": "9df0d4b61071c54a4ee3db92dec5abf4192fe202c5417ff94e7dd68959689a63"
+  },
+  {
+   "anchor": "sec-Field-Collection.Merging-Selection-Sets",
+   "title": "Merging Selection Sets",
+   "level": 6,
+   "sha256": "8cbf4aaf34c3b388475ce41b512eb6fa1691ac36ee21955770eac4470c54fa18"
+  },
+  {
+   "anchor": "sec-Executing-Collected-Fields",
+   "title": "6.3.3 Executing Collected Fields",
+   "level": 3,
+   "sha256": "20ef08b5d23c8f5ef20b6b8e8274e04e5cd73e2b14f64136a8c5d33c33bf4469"
+  },
+  {
+   "anchor": "sec-Executing-Collected-Fields.Errors-and-Non-Null-Types",
+   "title": "Errors and Non-Null Types",
+   "level": 6,
+   "sha256": "267bddfdd93eea11e07385ea549850506b476d207718a6fb57278df28d6d2411"
+  },
+  {
+   "anchor": "sec-Normal-and-Serial-Execution",
+   "title": "6.3.4 Normal and Serial Execution",
+   "level": 3,
+   "sha256": "dace02a4262c1816f3b240948e3046d3bbbee0eacd70d61968b3c9c9416dbfea"
+  },
+  {
+   "anchor": "sec-Executing-Fields",
+   "title": "6.4 Executing Fields",
+   "level": 2,
+   "sha256": "1c8c22855f78fc09f24fd50c0abd21ceede7e1076f5504475c9d3b44792845eb"
+  },
+  {
+   "anchor": "sec-Coercing-Field-Arguments",
+   "title": "6.4.1 Coercing Field Arguments",
+   "level": 3,
+   "sha256": "1fb7e35c9f9e126ac3f032cd9907ca43d2460037617126605dc83963d257ab48"
+  },
+  {
+   "anchor": "sec-Value-Resolution",
+   "title": "6.4.2 Value Resolution",
+   "level": 3,
+   "sha256": "e4a236d1c3c3d51338ae85fc4d870c27e3f58818609e3569a97d292fd66296ec"
+  },
+  {
+   "anchor": "sec-Value-Completion",
+   "title": "6.4.3 Value Completion",
+   "level": 3,
+   "sha256": "1b12ecdd225adc321fdd7ac3e22f93be562b1e5b64d4798e4c818579e4498c0e"
+  },
+  {
+   "anchor": "sec-Value-Completion.Coercing-Results",
+   "title": "Coercing Results",
+   "level": 6,
+   "sha256": "57367882efb5b2d558f4c558b10ea865834c80c651e054f2163fe526c29b75e6"
+  },
+  {
+   "anchor": "sec-Value-Completion.Resolving-Abstract-Types",
+   "title": "Resolving Abstract Types",
+   "level": 6,
+   "sha256": "437cb0748dc7d94e4f6e632cfb9574de3ccc8ad5bbec72a5305bd7583e4be05f"
+  },
+  {
+   "anchor": "sec-Handling-Execution-Errors",
+   "title": "6.4.4 Handling Execution Errors",
+   "level": 3,
+   "sha256": "eaea475c4183db6a3d0cc6c4bc910b77aeff7981c5feecc4db0d9ca2fc65d575"
+  },
+  {
+   "anchor": "sec-Response",
+   "title": "7 Response",
+   "level": 1,
+   "sha256": "93d7743d61e4acb70dabb86fd45099f08f4d54466813eee9f0feca8c0b879246"
+  },
+  {
+   "anchor": "sec-Response-Format",
+   "title": "7.1 Response Format",
+   "level": 2,
+   "sha256": "877b2b5f40f06d21cb98eea29a9a8b3f88e208a34e1b3f6cd73cb000e739a165"
+  },
+  {
+   "anchor": "sec-Execution-Result",
+   "title": "7.1.1 Execution Result",
+   "level": 3,
+   "sha256": "043675df75e6887be19428d96e59ac887eab0f8e073b9d4eb697858849604960"
+  },
+  {
+   "anchor": "sec-Response-Format.Response-Stream",
+   "title": "7.1.2 Response Stream",
+   "level": 3,
+   "sha256": "aed7ee56897fd764b48dd3a7339603415ff3e2783c0397cd9b210983a6a4a342"
+  },
+  {
+   "anchor": "sec-Request-Error-Result",
+   "title": "7.1.3 Request Error Result",
+   "level": 3,
+   "sha256": "746bfbeb6fb0414e177ca18e81173444367a953edf5e49469f9994106819cc15"
+  },
+  {
+   "anchor": "sec-Response-Position",
+   "title": "7.1.4 Response Position",
+   "level": 3,
+   "sha256": "09f5d867879f71525e8bae7ac888f429e754683b3f1f4f0a2dfece32f52429c2"
+  },
+  {
+   "anchor": "sec-Data",
+   "title": "7.1.5 Data",
+   "level": 3,
+   "sha256": "dbed2d35689ee58d8a5c1434c123e25e4ba9f3dea30b20ad58ebc08c8c46756b"
+  },
+  {
+   "anchor": "sec-Errors",
+   "title": "7.1.6 Errors",
+   "level": 3,
+   "sha256": "4817fe20ae7af628e71cdf14a6b8d181b8d4f20130d1a821e43f44bfb07e1bad"
+  },
+  {
+   "anchor": "sec-Errors.Request-Errors",
+   "title": "Request Errors",
+   "level": 6,
+   "sha256": "4c4dd68907800a505ecbdc3727ff17f54448e20d02ff28b5b2b26d08b876b77c"
+  },
+  {
+   "anchor": "sec-Errors.Execution-Errors",
+   "title": "Execution Errors",
+   "level": 6,
+   "sha256": "660267a653300fdeafd162d2b586a54ed1bc97b80106b3d9a7b3cbf3c1f9a250"
+  },
+  {
+   "anchor": "sec-Errors.Error-Result-Format",
+   "title": "Error Result Format",
+   "level": 6,
+   "sha256": "89aa4ebd25a776c40825bdb8a9917ec78cb4c4046a737b522f453feba6159703"
+  },
+  {
+   "anchor": "sec-Extensions",
+   "title": "7.1.7 Extensions",
+   "level": 3,
+   "sha256": "63ce70467f9635d727de398686cd79dfe7e759bf8897aef7cfcef40ad61fa9f3"
+  },
+  {
+   "anchor": "sec-Additional-Entries",
+   "title": "7.1.8 Additional Entries",
+   "level": 3,
+   "sha256": "1c9da665fb0f23ec16b34f84e554cceecf3ef84a13be82bdb03fcecec987140f"
+  },
+  {
+   "anchor": "sec-Serialization-Format",
+   "title": "7.2 Serialization Format",
+   "level": 2,
+   "sha256": "3636e61738b6f4178416c4cc53f5e92db5bcfa7829f44bf53d02a104a1090690"
+  },
+  {
+   "anchor": "sec-JSON-Serialization",
+   "title": "7.2.1 JSON Serialization",
+   "level": 3,
+   "sha256": "01de9601b9912abf7951be203d2318d72d1794ef8d2c1a0c48f65b2df1acff03"
+  },
+  {
+   "anchor": "sec-Serialized-Map-Ordering",
+   "title": "7.2.2 Serialized Map Ordering",
+   "level": 3,
+   "sha256": "d72ae1a7e6a5dfc94a04af2a590283e4a274b7b463fd601ebc2ccb670811c330"
+  },
+  {
+   "anchor": "sec-Appendix-Conformance",
+   "title": "A Appendix: Conformance",
+   "level": 1,
+   "sha256": "512e255022b48e3c2a765c940e8904bda806ed2c07d416b0a60cc4bdc2e97401"
+  },
+  {
+   "anchor": "sec-Appendix-Conformance.Conforming-Algorithms",
+   "title": "Conforming Algorithms",
+   "level": 6,
+   "sha256": "0dc644aca77a826f4fb9b9c9a104e76dc04ceb585ae802b8b5710c0afd026aa8"
+  },
+  {
+   "anchor": "sec-Appendix-Conformance.Non-Normative-Portions",
+   "title": "Non-Normative Portions",
+   "level": 6,
+   "sha256": "1b0408c0eba3b50d6e08c6a2e7ffb815bc6badf1c7694be9f9af1d41cac1713c"
+  },
+  {
+   "anchor": "sec-Appendix-Notation-Conventions",
+   "title": "B Appendix: Notation Conventions",
+   "level": 1,
+   "sha256": "fc1281b5cb0f635f7d81552a62d30e9669ec1b706a15f3115cf831becdc89c94"
+  },
+  {
+   "anchor": "sec-Context-Free-Grammar",
+   "title": "B.1 Context-Free Grammar",
+   "level": 2,
+   "sha256": "95234375981cfd1b35a73b41a1afe7c718743cd03097266d7d19fda1258e4667"
+  },
+  {
+   "anchor": "sec-Lexical-and-Syntactic-Grammar",
+   "title": "B.2 Lexical and Syntactic Grammar",
+   "level": 2,
+   "sha256": "f938f2f3e30bbd92d6824d94b1a21b3d46650db5b39b0e0e8ec3cb59670588e3"
+  },
+  {
+   "anchor": "sec-Grammar-Notation",
+   "title": "B.3 Grammar Notation",
+   "level": 2,
+   "sha256": "e82ec20bcdb2edcb0b55d2cdffd556ef2917e0c15d076af09677ddd42ebbd7e2"
+  },
+  {
+   "anchor": "sec-Grammar-Notation.Constraints",
+   "title": "Constraints",
+   "level": 6,
+   "sha256": "668e016248ae4d7457992bedfadfcf23a409352d78f0b5aca6a537ab6c905a19"
+  },
+  {
+   "anchor": "sec-Grammar-Notation.Lookahead-Restrictions",
+   "title": "Lookahead Restrictions",
+   "level": 6,
+   "sha256": "56a4500dd5a3e1bd2c3842a0e0c2763c6a76ba93cae41823ac05cf6d721bccb0"
+  },
+  {
+   "anchor": "sec-Grammar-Notation.Optionality-and-Lists",
+   "title": "Optionality and Lists",
+   "level": 6,
+   "sha256": "badf3745555494d1daecb1ecea259cb3d73f06185f02b371f86e7f71c80459b6"
+  },
+  {
+   "anchor": "sec-Grammar-Notation.Parameterized-Grammar-Productions",
+   "title": "Parameterized Grammar Productions",
+   "level": 6,
+   "sha256": "54547675c251543d4f4547580f66011fc62af3cddaae3c84999552ef15bdf2ef"
+  },
+  {
+   "anchor": "sec-Grammar-Semantics",
+   "title": "B.4 Grammar Semantics",
+   "level": 2,
+   "sha256": "d64e00118df65caffa5b2fa349870d8c2ce7c795e042afc6762aa272aecd1bfc"
+  },
+  {
+   "anchor": "sec-Algorithms",
+   "title": "B.5 Algorithms",
+   "level": 2,
+   "sha256": "c602b81e47ae6945e437fd3b710b53495ef1601a1f1367c1f4aefc6b65497c38"
+  },
+  {
+   "anchor": "sec-Data-Collections",
+   "title": "B.6 Data Collections",
+   "level": 2,
+   "sha256": "0c7050f207d5047dc7350cd5d78471a6e4c6a5a64b73ce8e5ecfab3eefedd7b3"
+  },
+  {
+   "anchor": "sec-Data-Collections.List",
+   "title": "List",
+   "level": 6,
+   "sha256": "01bc1c5fe8c9907eb2ec30c05b6e3eb1ee15d5f27bcb42d945169f4825fc8f98"
+  },
+  {
+   "anchor": "sec-Data-Collections.Set",
+   "title": "Set",
+   "level": 6,
+   "sha256": "c85395e3e7126a325f1f0c10794ed453d600ea2a5f3d281655886777257f0745"
+  },
+  {
+   "anchor": "sec-Data-Collections.Map",
+   "title": "Map",
+   "level": 6,
+   "sha256": "207a0786530a137ab572f12391060b96767a8a790e565941fbd11b209032adc7"
+  },
+  {
+   "anchor": "sec-Appendix-Grammar-Summary",
+   "title": "C Appendix: Grammar Summary",
+   "level": 1,
+   "sha256": "2ee04d43d1ddd09a0732da1a472294606e1de4d2a2680fea3361567b061abf7c"
+  },
+  {
+   "anchor": "sec-Appendix-Grammar-Summary.Source-Text",
+   "title": "C.1 Source Text",
+   "level": 2,
+   "sha256": "f34e24d8bf4abdd4ccdf68b87c40d29913f249f1bb39c1320d6748b0c8f56007"
+  },
+  {
+   "anchor": "sec-Appendix-Grammar-Summary.Ignored-Tokens",
+   "title": "C.2 Ignored Tokens",
+   "level": 2,
+   "sha256": "0c0fe05e9876c07ac05b7b9bf60e95ca09559ccf79489e7cdf815ba9d5d9636b"
+  },
+  {
+   "anchor": "sec-Appendix-Grammar-Summary.Lexical-Tokens",
+   "title": "C.3 Lexical Tokens",
+   "level": 2,
+   "sha256": "b490920dceeebd73a555f5587b698131ef197c6d69e4afad9772bca390ce6a82"
+  },
+  {
+   "anchor": "sec-Document-Syntax",
+   "title": "C.4 Document Syntax",
+   "level": 2,
+   "sha256": "57b5683a7f7054f7d29d622ef3ec2c6c036c15ad2ea8b6a9c0ed37a6cc20c490"
+  },
+  {
+   "anchor": "sec-Schema-Coordinate-Syntax",
+   "title": "C.5 Schema Coordinate Syntax",
+   "level": 2,
+   "sha256": "7efa54b8800ffa127da27f38375da398cbd8dcff35f92962c4da69e1853ca75b"
+  },
+  {
+   "anchor": "sec-Appendix-Type-System-Definitions",
+   "title": "D Appendix: Type System Definitions",
+   "level": 1,
+   "sha256": "beaaf662aaeef5e222edbdc7fe20eabcbd2d7248742389eb7569d9b8fe05ca2e"
+  },
+  {
+   "anchor": "sec-Appendix-Copyright-and-Licensing",
+   "title": "E Appendix: Copyright and Licensing",
+   "level": 1,
+   "sha256": "304f968bfa13c64fcffa768d87ee62ff3357252e8e06a966a65411c2180456a3"
+  },
+  {
+   "anchor": "sec-Appendix-Copyright-and-Licensing.Copyright-Notice",
+   "title": "Copyright Notice",
+   "level": 6,
+   "sha256": "99ee2efcfd1b5497cc4c499d3782700b715edfbb8b5e3be9758f65dc780a7431"
+  },
+  {
+   "anchor": "sec-Appendix-Copyright-and-Licensing.Licensing",
+   "title": "Licensing",
+   "level": 6,
+   "sha256": "a6870f551087bb208d9fd7cf6ed73520d6ff970fcc2477112a2d5673e4cf5a38"
+  },
+  {
+   "anchor": "index",
+   "title": "§ Index",
+   "level": 1,
+   "sha256": "a6c8243722faec192482190b994f5b5894520825b2795854dd878ed420ba8b46"
+  }
+ ]
+}

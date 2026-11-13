@@ -1,0 +1,1131 @@
+<!doctype html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en" class="no-js" data-theme-init>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)"  content="#000000">
+
+
+
+
+<meta name="robots" content="index, follow">
+<link rel="icon" type="image/png" href="/images/k8s-favicon.png">
+
+<title>API Overview | Gateway API</title>
+<meta name="description" content="Gateway API is a complex API, solving a complex problem. The designers of Gateway API have done our best to try to meet the dual demands of configuration flexibility and high usability.
+In order to do that, we’ve needed to create a number of new ideas and concepts, while still echoing ideas from the rest of Kubernetes. This page goes through the most important things to learn when you are starting out in Gateway API.">
+<meta property="og:url" content="/docs/concepts/api-overview/">
+  <meta property="og:site_name" content="Gateway API">
+  <meta property="og:title" content="API Overview">
+  <meta property="og:description" content="Gateway API is a complex API, solving a complex problem. The designers of Gateway API have done our best to try to meet the dual demands of configuration flexibility and high usability.
+In order to do that, we’ve needed to create a number of new ideas and concepts, while still echoing ideas from the rest of Kubernetes. This page goes through the most important things to learn when you are starting out in Gateway API.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="docs">
+
+  <meta itemprop="name" content="API Overview">
+  <meta itemprop="description" content="Gateway API is a complex API, solving a complex problem. The designers of Gateway API have done our best to try to meet the dual demands of configuration flexibility and high usability.
+In order to do that, we’ve needed to create a number of new ideas and concepts, while still echoing ideas from the rest of Kubernetes. This page goes through the most important things to learn when you are starting out in Gateway API.">
+  <meta itemprop="wordCount" content="3327">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="API Overview">
+  <meta name="twitter:description" content="Gateway API is a complex API, solving a complex problem. The designers of Gateway API have done our best to try to meet the dual demands of configuration flexibility and high usability.
+In order to do that, we’ve needed to create a number of new ideas and concepts, while still echoing ideas from the rest of Kubernetes. This page goes through the most important things to learn when you are starting out in Gateway API.">
+<link rel="preload" href="/scss/main.min.c325abbc0daac5c00885e7762ecd7b26614ab35c4d12fdeefca7dca901020d32.css" as="style" integrity="sha256-wyWrvA2qxcAIhed2Ls17JmFKs1xNEv3u/KfcqQECDTI=" crossorigin="anonymous">
+<link href="/scss/main.min.c325abbc0daac5c00885e7762ecd7b26614ab35c4d12fdeefca7dca901020d32.css" rel="stylesheet" integrity="sha256-wyWrvA2qxcAIhed2Ls17JmFKs1xNEv3u/KfcqQECDTI=" crossorigin="anonymous">
+
+
+
+      
+      
+  </head>
+  <body class="td-page">
+    <header>
+      <nav class="td-navbar js-navbar-scroll" data-bs-theme="dark">
+<div class="td-navbar-container container-fluid flex-column flex-md-row">
+  <a class="navbar-brand" href="/"><span class="navbar-brand__logo navbar-logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 60" width="400" height="60"><image href="/images/logo/logo-text-large-horizontal-white.png" width="100%" height="100%"/></svg></span><span class="navbar-brand__name">Gateway API</span></a>
+  <div class="td-navbar__main td-navbar-nav-scroll td-navbar-nav-scroll--indicator" id="main_navbar">
+    <div class="scroll-indicator scroll-left"></div>
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="/docs/"><span>Overview</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/guides/"><span>Guides</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/reference/"><span>Reference</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/geps/"><span>Enhancements</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/contributing/"><span>Contributing</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="https://github.com/kubernetes-sigs/gateway-api" target="_blank" rel="noopener"><i class='fab fa-github pr-2'></i><span>GitHub</span></a>
+      </li>
+      <li class="nav-item td-navbar__light-dark-menu">
+        <div class="td-light-dark-menu dropdown"><svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="check2" viewBox="0 0 16 16">
+    <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+  </symbol>
+  <symbol id="circle-half" viewBox="0 0 16 16">
+    <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"/>
+  </symbol>
+  <symbol id="moon-stars-fill" viewBox="0 0 16 16">
+    <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/>
+    <path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"/>
+  </symbol>
+  <symbol id="sun-fill" viewBox="0 0 16 16">
+    <path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
+  </symbol>
+</svg>
+<button class="btn btn-link nav-link dropdown-toggle d-flex align-items-center"
+        id="bd-theme"
+        type="button"
+        aria-expanded="false"
+        data-bs-toggle="dropdown"
+        aria-label="Toggle theme (auto)">
+  <svg class="bi my-1 theme-icon-active"><use href="#circle-half"></use></svg>
+</button>
+<ul class="dropdown-menu" aria-labelledby="bd-theme">
+  <li>
+    <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
+      <svg class="bi me-2 opacity-50"><use href="#sun-fill"></use></svg>
+      Light
+      <svg class="bi ms-auto d-none"><use href="#check2"></use></svg>
+    </button>
+  </li>
+  <li>
+    <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
+      <svg class="bi me-2 opacity-50"><use href="#moon-stars-fill"></use></svg>
+      Dark
+      <svg class="bi ms-auto d-none"><use href="#check2"></use></svg>
+    </button>
+  </li>
+  <li>
+    <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="auto" aria-pressed="true">
+      <svg class="bi me-2 opacity-50"><use href="#circle-half"></use></svg>
+      Auto
+      <svg class="bi ms-auto d-none"><use href="#check2"></use></svg>
+    </button>
+  </li>
+</ul>
+</div>
+
+      </li>
+      </ul>
+    <div class="scroll-indicator scroll-right"></div>
+  </div>
+  <div class="td-navbar__search d-none d-lg-block">
+    <div class="td-search td-search--offline">
+  <div class="td-search__icon"></div>
+  <input
+    type="search"
+    name="q"
+    class="td-search__input form-control"
+    placeholder='Search this site…'
+    aria-label='Search this site…'
+    autocomplete="off"
+    
+    data-offline-search-index-json-src="/offline-search-index.af3fabda35ee6bded0c2fa132f2010f7.json"
+    data-offline-search-base-href="/"
+    data-offline-search-max-results="10"
+  >
+</div>
+  </div>
+</div>
+</nav>
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main" data-bs-spy="scroll" data-bs-target=".td-toc" data-bs-root-margin="0px 0px -10%">
+        <div class="row flex-xl-nowrap">
+          <aside class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+            <div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    <div class="td-search td-search--offline">
+  <div class="td-search__icon"></div>
+  <input
+    type="search"
+    name="q"
+    class="td-search__input form-control"
+    placeholder='Search this site…'
+    aria-label='Search this site…'
+    autocomplete="off"
+    
+    data-offline-search-index-json-src="/offline-search-index.af3fabda35ee6bded0c2fa132f2010f7.json"
+    data-offline-search-base-href="/"
+    data-offline-search-max-results="10"
+  >
+</div>
+    <button class="btn btn-link td-sidebar__toggle" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    </button>
+  </form>
+  <nav class="td-sidebar-nav collapse foldable-nav" id="td-section-nav">
+    <ul class="td-sidebar-nav__section pe-md-3 ul-0">
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-docs-li">
+    <a href="/docs/" class="align-left ps-0 td-sidebar-link td-sidebar-link__section tree-root" id="m-docs"><span class="">Overview</span></a>
+    <ul class="ul-1">
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsintroduction-li">
+    <input type="checkbox" id="m-docsintroduction-check"/>
+    <label for="m-docsintroduction-check"><a href="/docs/introduction/" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-docsintroduction"><span class="">Introduction</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-docsconcepts-li">
+    <input type="checkbox" id="m-docsconcepts-check" checked/>
+    <label for="m-docsconcepts-check"><a href="/docs/concepts/" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-docsconcepts"><span class="">Concepts</span></a></label>
+    
+    <ul class="ul-2 foldable">
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child active-path" id="m-docsconceptsapi-overview-li">
+    <input type="checkbox" id="m-docsconceptsapi-overview-check" checked/>
+    <label for="m-docsconceptsapi-overview-check"><a href="/docs/concepts/api-overview/" class="align-left ps-0  active td-sidebar-link td-sidebar-link__page" id="m-docsconceptsapi-overview"><span class="td-sidebar-nav-active-item">API Overview</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsconceptstroubleshooting-li">
+    <input type="checkbox" id="m-docsconceptstroubleshooting-check"/>
+    <label for="m-docsconceptstroubleshooting-check"><a href="/docs/concepts/troubleshooting/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsconceptstroubleshooting"><span class="">Troubleshooting and Status</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsconceptsroles-and-personas-li">
+    <input type="checkbox" id="m-docsconceptsroles-and-personas-check"/>
+    <label for="m-docsconceptsroles-and-personas-check"><a href="/docs/concepts/roles-and-personas/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsconceptsroles-and-personas"><span class="">Roles and Personas</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsconceptssecurity-li">
+    <input type="checkbox" id="m-docsconceptssecurity-check"/>
+    <label for="m-docsconceptssecurity-check"><a href="/docs/concepts/security/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsconceptssecurity"><span class="">Security</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsconceptstooling-li">
+    <input type="checkbox" id="m-docsconceptstooling-check"/>
+    <label for="m-docsconceptstooling-check"><a href="/docs/concepts/tooling/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsconceptstooling"><span class="">Tools</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsconceptsuse-cases-li">
+    <input type="checkbox" id="m-docsconceptsuse-cases-check"/>
+    <label for="m-docsconceptsuse-cases-check"><a href="/docs/concepts/use-cases/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsconceptsuse-cases"><span class="">Use cases</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsconceptsversioning-li">
+    <input type="checkbox" id="m-docsconceptsversioning-check"/>
+    <label for="m-docsconceptsversioning-check"><a href="/docs/concepts/versioning/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsconceptsversioning"><span class="">Versioning</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsconceptstraffic-matching-li">
+    <input type="checkbox" id="m-docsconceptstraffic-matching-check"/>
+    <label for="m-docsconceptstraffic-matching-check"><a href="/docs/concepts/traffic-matching/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsconceptstraffic-matching"><span class="">Traffic Matching</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsconceptshostnames-li">
+    <input type="checkbox" id="m-docsconceptshostnames-check"/>
+    <label for="m-docsconceptshostnames-check"><a href="/docs/concepts/hostnames/" title="Hostnames in Gateway API" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsconceptshostnames"><span class="">Hostnames</span></a></label>
+    
+  </li>
+    </ul>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsconformance-li">
+    <input type="checkbox" id="m-docsconformance-check"/>
+    <label for="m-docsconformance-check"><a href="/docs/conformance/" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-docsconformance"><span class="">Conformance</span></a></label>
+    
+    <ul class="ul-2 foldable">
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsconformancelevels-li">
+    <input type="checkbox" id="m-docsconformancelevels-check"/>
+    <label for="m-docsconformancelevels-check"><a href="/docs/conformance/levels/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsconformancelevels"><span class="">Levels</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsconformancerunning-tests-li">
+    <input type="checkbox" id="m-docsconformancerunning-tests-check"/>
+    <label for="m-docsconformancerunning-tests-check"><a href="/docs/conformance/running-tests/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsconformancerunning-tests"><span class="">Running the suite</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsconformancechangelog-li">
+    <input type="checkbox" id="m-docsconformancechangelog-check"/>
+    <label for="m-docsconformancechangelog-check"><a href="/docs/conformance/changelog/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsconformancechangelog"><span class="">Changelog</span></a></label>
+    
+  </li>
+    </ul>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsimplementations-li">
+    <input type="checkbox" id="m-docsimplementations-check"/>
+    <label for="m-docsimplementations-check"><a href="/docs/implementations/" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-docsimplementations"><span class="">Implementations</span></a></label>
+    
+    <ul class="ul-2 foldable">
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsimplementationslist-li">
+    <input type="checkbox" id="m-docsimplementationslist-check"/>
+    <label for="m-docsimplementationslist-check"><a href="/docs/implementations/list/" title="Implementations" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsimplementationslist"><span class="">List</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsimplementationswizard-li">
+    <input type="checkbox" id="m-docsimplementationswizard-check"/>
+    <label for="m-docsimplementationswizard-check"><a href="/docs/implementations/wizard/" title="Controller Matching Wizard" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsimplementationswizard"><span class="">Matching Wizard</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsimplementationsversions-li">
+    <input type="checkbox" id="m-docsimplementationsversions-check"/>
+    <label for="m-docsimplementationsversions-check"><a href="/docs/implementations/versions/" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-docsimplementationsversions"><span class="">Implementations</span></a></label>
+    
+    <ul class="ul-3 foldable">
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsimplementationsversionsv17-li">
+    <input type="checkbox" id="m-docsimplementationsversionsv17-check"/>
+    <label for="m-docsimplementationsversionsv17-check"><a href="/docs/implementations/versions/v1.7/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsimplementationsversionsv17"><span class="">v1.7</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsimplementationsversionsv16-li">
+    <input type="checkbox" id="m-docsimplementationsversionsv16-check"/>
+    <label for="m-docsimplementationsversionsv16-check"><a href="/docs/implementations/versions/v1.6/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsimplementationsversionsv16"><span class="">v1.6</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsimplementationsversionsv15-li">
+    <input type="checkbox" id="m-docsimplementationsversionsv15-check"/>
+    <label for="m-docsimplementationsversionsv15-check"><a href="/docs/implementations/versions/v1.5/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsimplementationsversionsv15"><span class="">v1.5</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsimplementationsversionsv14-li">
+    <input type="checkbox" id="m-docsimplementationsversionsv14-check"/>
+    <label for="m-docsimplementationsversionsv14-check"><a href="/docs/implementations/versions/v1.4/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsimplementationsversionsv14"><span class="">v1.4</span></a></label>
+    
+  </li>
+    </ul>
+  </li>
+    </ul>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsmesh-li">
+    <input type="checkbox" id="m-docsmesh-check"/>
+    <label for="m-docsmesh-check"><a href="/docs/mesh/" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-docsmesh"><span class="">Service Mesh</span></a></label>
+    
+    <ul class="ul-2 foldable">
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsmeshmesh-overview-li">
+    <input type="checkbox" id="m-docsmeshmesh-overview-check"/>
+    <label for="m-docsmeshmesh-overview-check"><a href="/docs/mesh/mesh-overview/" title="Gateway API for Service Mesh" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsmeshmesh-overview"><span class="">Overview</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsmeshgamma-li">
+    <input type="checkbox" id="m-docsmeshgamma-check"/>
+    <label for="m-docsmeshgamma-check"><a href="/docs/mesh/gamma/" title="The GAMMA Initiative (Gateway API for Service Mesh)" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsmeshgamma"><span class="">GAMMA Initiative</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsmeshservice-facets-li">
+    <input type="checkbox" id="m-docsmeshservice-facets-check"/>
+    <label for="m-docsmeshservice-facets-check"><a href="/docs/mesh/service-facets/" title="The Different Facets of a Service" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsmeshservice-facets"><span class="">Service Facets</span></a></label>
+    
+  </li>
+    </ul>
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsfaq-li">
+    <input type="checkbox" id="m-docsfaq-check"/>
+    <label for="m-docsfaq-check"><a href="/docs/faq/" title="Frequently Asked Questions (FAQ)" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-docsfaq"><span class="">FAQ</span></a></label>
+    
+  </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsglossary-li">
+    <input type="checkbox" id="m-docsglossary-check"/>
+    <label for="m-docsglossary-check"><a href="/docs/glossary/" title="Gateway API Glossary" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-docsglossary"><span class="">Glossary</span></a></label>
+    
+  </li>
+    </ul>
+  </li>
+    </ul>
+  </nav>
+</div>
+          </aside>
+          <aside class="td-sidebar-toc">
+            <div class="td-page-meta ms-2 pb-1 pt-2 mb-0">
+<a href="https://github.com/kubernetes-sigs/gateway-api/tree/main/site/content/en/docs/concepts/api-overview.md" class="td-page-meta--view td-page-meta__view" target="_blank" rel="noopener"><i class="fa-solid fa-file-lines fa-fw"></i> View page source</a>
+  <a href="https://github.com/kubernetes-sigs/gateway-api/edit/main/site/content/en/docs/concepts/api-overview.md" class="td-page-meta--edit td-page-meta__edit" target="_blank" rel="noopener"><i class="fa-solid fa-pen-to-square fa-fw"></i> Edit this page</a>
+  <a href="https://github.com/kubernetes-sigs/gateway-api/new/main/site/content/en/docs/concepts?filename=change-me.md&amp;value=---%0Atitle%3A&#43;%22Long&#43;Page&#43;Title%22%0AlinkTitle%3A&#43;%22Short&#43;Nav&#43;Title%22%0Aweight%3A&#43;100%0Adescription%3A&#43;%3E-%0A&#43;&#43;&#43;&#43;&#43;Page&#43;description&#43;for&#43;heading&#43;and&#43;indexes.%0A---%0A%0A%23%23&#43;Heading%0A%0AEdit&#43;this&#43;template&#43;to&#43;create&#43;your&#43;new&#43;page.%0A%0A%2A&#43;Give&#43;it&#43;a&#43;good&#43;name%2C&#43;ending&#43;in&#43;%60.md%60&#43;-&#43;e.g.&#43;%60getting-started.md%60%0A%2A&#43;Edit&#43;the&#43;%22front&#43;matter%22&#43;section&#43;at&#43;the&#43;top&#43;of&#43;the&#43;page&#43;%28weight&#43;controls&#43;how&#43;its&#43;ordered&#43;amongst&#43;other&#43;pages&#43;in&#43;the&#43;same&#43;directory%3B&#43;lowest&#43;number&#43;first%29.%0A%2A&#43;Add&#43;a&#43;good&#43;commit&#43;message&#43;at&#43;the&#43;bottom&#43;of&#43;the&#43;page&#43;%28%3C80&#43;characters%3B&#43;use&#43;the&#43;extended&#43;description&#43;field&#43;for&#43;more&#43;detail%29.%0A%2A&#43;Create&#43;a&#43;new&#43;branch&#43;so&#43;you&#43;can&#43;preview&#43;your&#43;new&#43;file&#43;and&#43;request&#43;a&#43;review&#43;via&#43;Pull&#43;Request.%0A" class="td-page-meta--child td-page-meta__child" target="_blank" rel="noopener"><i class="fa-solid fa-pen-to-square fa-fw"></i> Create child page</a>
+  <a href="https://github.com/kubernetes-sigs/gateway-api/issues/new?title=API%20Overview" class="td-page-meta--issue td-page-meta__issue" target="_blank" rel="noopener"><i class="fa-solid fa-list-check fa-fw"></i> Create documentation issue</a>
+  
+</div>
+
+            
+<div class="td-toc">
+  <details>
+    <summary class="td-toc-title" style="cursor: pointer;">On this Page</summary>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#roles-and-personas">Roles and personas</a></li>
+    <li><a href="#resource-model">Resource model</a>
+      <ul>
+        <li><a href="#gatewayclass">GatewayClass</a></li>
+        <li><a href="#gateway">Gateway</a>
+          <ul>
+            <li><a href="#distinctiveness">Distinctiveness</a></li>
+          </ul>
+        </li>
+        <li><a href="#route-types">Route Types</a>
+          <ul>
+            <li><a href="#httproute">HTTPRoute</a></li>
+            <li><a href="#tlsroute">TLSRoute</a></li>
+            <li><a href="#tcproute-and-udproute">TCPRoute and UDPRoute</a></li>
+            <li><a href="#grpcroute">GRPCRoute</a></li>
+            <li><a href="#route-summary-table">Route summary table</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#attaching-routes-to-gateways">Attaching Routes to Gateways</a>
+      <ul>
+        <li><a href="#example">Example</a></li>
+        <li><a href="#how-it-works">How it Works</a>
+          <ul>
+            <li><a href="#referencing-gateways">Referencing Gateways</a></li>
+            <li><a href="#restricting-route-attachment">Restricting Route Attachment</a></li>
+            <li><a href="#further-gateway---route-attachment-examples">Further Gateway - Route attachment examples</a></li>
+          </ul>
+        </li>
+        <li><a href="#combined-types">Combined types</a></li>
+        <li><a href="#request-flow">Request flow</a></li>
+        <li><a href="#tls-configuration">TLS Configuration</a></li>
+      </ul>
+    </li>
+    <li><a href="#attaching-routes-to-services">Attaching Routes to Services</a></li>
+    <li><a href="#extension-points">Extension points</a></li>
+  </ul>
+</nav>
+  </details>
+</div>
+
+
+            
+
+          </aside>
+          <main class="col-12 col-md-9 col-xl-8 ps-md-5" role="main">
+            
+  
+
+            
+<div class="td-content">
+	<h1>API Overview</h1>
+	
+	<header class="article-meta">
+		
+</header>
+	<p>Gateway API is a complex API, solving a complex problem.
+The designers of Gateway API have done our best to try to meet the dual demands of configuration flexibility and high usability.</p>
+<p>In order to do that, we&rsquo;ve needed to create a number of new ideas and concepts, while still echoing ideas from the rest of Kubernetes.
+This page goes through the most important things to learn when you are starting out in Gateway API.</p>
+<p>On this page, important words and concepts that are used in other places in the Gateway API docs are written in <strong>bold text</strong>, as are other points that are really important to remember.</p>
+<h2 id="roles-and-personas">Roles and personas<a class="td-heading-self-link" href="#roles-and-personas" aria-label="Heading self-link"></a></h2>
+<p>There are 3 primary roles in Gateway API, as described in <a href="/docs/concepts/roles-and-personas/">roles and personas</a>:</p>
+<ul>
+<li><strong>Ian</strong> (he/him): Infrastructure Provider</li>
+<li><strong>Chihiro</strong> (they/them): Cluster Operator</li>
+<li><strong>Ana</strong> (she/her): Application Developer</li>
+</ul>
+<h2 id="resource-model">Resource model<a class="td-heading-self-link" href="#resource-model" aria-label="Heading self-link"></a></h2>
+<div class="alert alert-primary" role="alert">
+  <h4 class="alert-heading">Note</h4>
+<p>Gateway API resources are in the <code>gateway.networking.k8s.io</code> API group as
+Custom Resource Definitions (CRDs). Unqualified resource names below will
+implicitly be in this API group.</p>
+</div>
+There are three main types of objects in our resource model:
+<p><strong>GatewayClass</strong> defines a set of gateways with a common configuration and behavior.</p>
+<p><strong>Gateway</strong> requests a point where traffic can be translated to Services within the cluster.</p>
+<p><strong>Routes</strong> describe how traffic arriving via the Gateway maps to the Services.</p>
+<h3 id="gatewayclass">GatewayClass<a class="td-heading-self-link" href="#gatewayclass" aria-label="Heading self-link"></a></h3>
+
+
+
+
+
+  
+
+
+<details  
+         class="border border-success rounded" 
+         style="display: table; padding: 0.5rem 1rem; margin: 1rem 0; max-width: 800px; ">
+  
+  <summary class="text-success" style="cursor: pointer; font-weight: 600; margin-right: 5px; ">
+    Standard Channel since v0.5.0
+  </summary>
+
+  <div class="details-content" style="padding-top: 1rem; overflow-x: auto;">
+    The <code>GatewayClass</code> resource is GA and has been part of the Standard Channel since
+<code>v0.5.0</code>. For more information on release channels, refer to our <a href="/docs/concepts/versioning/">versioning
+guide</a>.
+  </div>
+
+</details>
+
+
+<p>GatewayClass defines a set of Gateways that share a common configuration and
+behaviour. Each GatewayClass will be handled by a single controller, although
+controllers may handle more than one GatewayClass.</p>
+<p>GatewayClass is a cluster-scoped resource. There must be at least one
+GatewayClass defined in order to be able to have functional Gateways. A
+controller that implements Gateway API does so by providing an associated
+GatewayClass resource that the user can reference from their Gateway(s).</p>
+<p>This is similar to
+<a href="https://kubernetes.io/docs/concepts/services-networking/ingress/#ingress-class">IngressClass</a>
+for Ingress and
+<a href="https://kubernetes.io/docs/concepts/storage/storage-classes/">StorageClass</a> for
+PersistentVolumes. In Ingress v1beta1, the closest analog to GatewayClass is the
+<code>ingress-class</code> annotation, and in IngressV1, the closest analog is the
+IngressClass object.</p>
+<h3 id="gateway">Gateway<a class="td-heading-self-link" href="#gateway" aria-label="Heading self-link"></a></h3>
+
+
+
+
+
+  
+
+
+<details  
+         class="border border-success rounded" 
+         style="display: table; padding: 0.5rem 1rem; margin: 1rem 0; max-width: 800px; ">
+  
+  <summary class="text-success" style="cursor: pointer; font-weight: 600; margin-right: 5px; ">
+    Standard Channel since v0.5.0
+  </summary>
+
+  <div class="details-content" style="padding-top: 1rem; overflow-x: auto;">
+    The <code>Gateway</code> resource is GA and has been part of the Standard Channel since
+<code>v0.5.0</code>. For more information on release channels, refer to our <a href="/docs/concepts/versioning/">versioning
+guide</a>.
+  </div>
+
+</details>
+
+
+<p>A Gateway describes how traffic can be translated to Services within the
+cluster. That is, it defines a request for a way to translate traffic from
+somewhere that does not know about Kubernetes to somewhere that does. For
+example, traffic sent to a Kubernetes Service by a cloud load balancer, an
+in-cluster proxy, or an external hardware load balancer. While many use cases
+have client traffic originating “outside” the cluster, this is not a
+requirement.</p>
+<p>It defines a request for a specific load balancer config that implements the
+GatewayClass’ configuration and behaviour contract. The resource may be created
+by an operator directly, or may be created by a controller handling a
+GatewayClass.</p>
+<p>As the Gateway spec captures user intent, it may not contain a complete
+specification for all attributes in the spec. For example, the user may omit
+fields such as addresses, TLS settings. This allows the controller
+managing the GatewayClass to provide these settings for the user, resulting in a
+more portable spec. This behaviour will be made clear using the GatewayClass
+Status object.</p>
+<p>Gateway objects bind one or more <strong>Addresses</strong> to one or more <strong>Listeners</strong>.</p>
+<p><strong>Addresses</strong> are how the Gateway is reached, and are usually IP addresses, although some implementations (particularly ones that route traffic via an AWS load balancer) use domain names instead.</p>
+<p><strong>Listeners</strong> describe how the Gateway should listen for traffic, and have a <code>port</code>, a <code>protocol</code>, and other protocol-specific details.
+Listeners that are not <strong>distinct</strong> are in conflict, and Gateway API includes instructions for what happens in various conflict cases. What makes Listeners distinct is a bit complicated and is discussed in the <a href="/docs/concepts/api-overview/#distinctiveness">Distinctiveness section</a>.</p>
+<p>A critical reason for the requirement that Listeners are distinct is that traffic flowing through a Gateway <strong>must only match a single Listener</strong>.
+Any particular traffic must only be able to be assigned to a single Listener, and once that Listener is chosen, the traffic <strong>must</strong> be routable via an attached, protocol-specific Route, <strong>or it must be dropped by the Gateway</strong>.</p>
+<p>The most important outcome here is that traffic can&rsquo;t fail to be routed by one Listener, then fall back to another for further processing.
+For more information on this, see the <a href="/docs/concepts/traffic-matching/">Traffic Matching</a> page.</p>
+<p>However, for the Route -&gt; Gateway relationship, the most important thing is that Routes <strong>attach</strong> to one or more Listeners on the the Gateway.</p>
+<h4 id="distinctiveness">Distinctiveness<a class="td-heading-self-link" href="#distinctiveness" aria-label="Heading self-link"></a></h4>
+<p>For the property that traffic must only match a <em>single</em> Listener to be true, then Listeners must be <strong>distinct</strong>.</p>
+<p>Gateway API defines <strong>distinctiveness</strong> according to the protocol selected on the Listener. For any given protocol, some fields (particularly <code>port</code>) MAY be shared, but exactly what that means depends on the protocol.</p>
+<p>Listeners that are <em>not</em> distinct are <strong>Conflicted</strong>, and may not be present on the same Gateway.
+If they are, then the entire Gateway is invalid and will not reach <code>Accepted</code> status.</p>
+<p>(Feel free to skip these exact definitions below if you are just starting out, they are very important, but you can learn by doing as well).</p>
+
+
+
+
+
+  
+     
+    
+  
+
+
+<details  
+         class="border  rounded" 
+         style="display: table; padding: 0.5rem 1rem; margin: 1rem 0; max-width: 800px; border-color: #9370DB !important;">
+  
+  <summary class="" style="cursor: pointer; font-weight: 600; margin-right: 5px; color: #9370DB !important;">
+    Distinctiveness rules, in increasing order of complexity
+  </summary>
+
+  <div class="details-content" style="padding-top: 1rem; overflow-x: auto;">
+    <ul>
+<li><code>TCP</code> and <code>UDP</code> Listeners are distinct only on the combination of <code>protocol</code> and <code>port</code>.
+So, two Listeners that listen on port <code>53</code>, but where one has <code>protocol</code> set to <code>TCP</code> and the other <code>UDP</code> are distinct, but two Listeners that both have <code>protocol</code> <code>TCP</code>, and <code>port</code> <code>22</code> are not distinct, and are thus Conflicted.</li>
+<li><code>TLS</code> Listeners are distinct based on the combination of the fields <code>protocol</code>, <code>port</code>, and <code>hostname</code>.
+In this case, the <code>hostname</code> describes the Server Name Indicator (SNI) used as part of the TLS handshake, which can be used as a routing discriminator.
+Note that, in this case the TLS config in the <code>tls</code> stanza is <em>not</em> relevant, as that allows you to specify whether or not the connection is terminated, which is not relevant in this case - because only the SNI, which applies in either terminated or not terminated cases, is defined.</li>
+<li><code>HTTP</code> Listeners are distinct via the combination of the fields <code>protocol</code>, <code>port</code>, <code>hostname</code>.
+Two Listeners that both expose <code>HTTP</code> on port <code>80</code>, with different <code>hostname</code> fields, are distinct.</li>
+<li><code>HTTPS</code> Listeners are distinct via the combination of the fields <code>protocol</code>, <code>port</code>, <code>hostname</code>, but there is an additional requirement.
+If the protocol is <code>HTTPS</code>, then you must have a Secret reference that points to a Kubernetes Secret of type <code>kubernetes.io/tls</code>. Listeners with different <code>hostnames</code> may point to different Secrets, but we don&rsquo;t mandate that (since a single certificate can support many hostnames).
+So, two Listeners that expose <code>HTTPS</code> on port <code>443</code> are distinct if they have different <code>hostname</code> fields.</li>
+</ul>
+
+  </div>
+
+</details>
+
+
+<h3 id="route-types">Route Types<a class="td-heading-self-link" href="#route-types" aria-label="Heading self-link"></a></h3>
+<p>Route resources define protocol-specific rules for mapping requests from a Gateway
+to Kubernetes Services.</p>
+<p>As of v1, four Route resource types are included with the API. Custom Route types
+that are implementation-specific are encouraged for other protocols. New route
+types may be added to the API in future.</p>
+<h4 id="httproute">HTTPRoute<a class="td-heading-self-link" href="#httproute" aria-label="Heading self-link"></a></h4>
+
+
+
+
+
+  
+
+
+<details  
+         class="border border-success rounded" 
+         style="display: table; padding: 0.5rem 1rem; margin: 1rem 0; max-width: 800px; ">
+  
+  <summary class="text-success" style="cursor: pointer; font-weight: 600; margin-right: 5px; ">
+    Standard Channel since v0.5.0
+  </summary>
+
+  <div class="details-content" style="padding-top: 1rem; overflow-x: auto;">
+    The <code>HTTPRoute</code> resource is GA and has been part of the Standard Channel since
+<code>v0.5.0</code>. For more information on release channels, refer to our <a href="/docs/concepts/versioning/">versioning
+guide</a>.
+  </div>
+
+</details>
+
+
+<p>HTTPRoute is for multiplexing HTTP or terminated HTTPS connections. It&rsquo;s intended
+for use in cases where you want to inspect the HTTP stream and use HTTP request data
+for either routing or modification, for example using HTTP Headers for routing, or
+modifying them in-flight.</p>
+<h4 id="tlsroute">TLSRoute<a class="td-heading-self-link" href="#tlsroute" aria-label="Heading self-link"></a></h4>
+
+
+
+
+
+  
+
+
+<details  
+         class="border border-success rounded" 
+         style="display: table; padding: 0.5rem 1rem; margin: 1rem 0; max-width: 800px; ">
+  
+  <summary class="text-success" style="cursor: pointer; font-weight: 600; margin-right: 5px; ">
+    Standard Channel since v1.5.0
+  </summary>
+
+  <div class="details-content" style="padding-top: 1rem; overflow-x: auto;">
+    The <code>TLSRoute</code> resource is GA and has been part of the Standard Channel since
+<code>v1.5.0</code>. For more information on release channels, refer to our <a href="/docs/concepts/versioning/">versioning
+guide</a>.
+  </div>
+
+</details>
+
+
+<p>TLSRoute is for multiplexing TLS connections, discriminated via SNI. It&rsquo;s intended
+for where you want to route based on TLS metadata, and are not interested in properties
+of the higher-level protocols like HTTP. When using a <code>Passthrough</code> TLS listener, the
+encrypted byte stream of the connection is proxied directly to the destination backend,
+which is then responsible for decrypting the stream. When using a <code>Terminate</code> TLS
+listener, encryption is terminated at the gateway.</p>
+<h4 id="tcproute-and-udproute">TCPRoute and UDPRoute<a class="td-heading-self-link" href="#tcproute-and-udproute" aria-label="Heading self-link"></a></h4>
+
+
+
+
+
+  
+     
+    
+  
+
+
+<details  
+         class="border  rounded" 
+         style="display: table; padding: 0.5rem 1rem; margin: 1rem 0; max-width: 800px; border-color: #9370DB !important;">
+  
+  <summary class="" style="cursor: pointer; font-weight: 600; margin-right: 5px; color: #9370DB !important;">
+    Experimental Channel since v0.3.0
+  </summary>
+
+  <div class="details-content" style="padding-top: 1rem; overflow-x: auto;">
+    The <code>TCPRoute</code> and <code>UDPRoute</code> resources are Alpha and have been part of the
+Experimental Channel since <code>v0.3.0</code>. For more information on release
+channels, refer to our <a href="/docs/concepts/versioning/">versioning guide</a>.
+  </div>
+
+</details>
+
+
+<p>TCPRoute (and UDPRoute) are intended for use for mapping one or more ports
+to a single backend. In this case, there is no discriminator you can
+use to choose different backends on the same port, so each TCPRoute really needs a
+different port on the listener (in general, anyway). You can terminate TLS in
+which case the unencrypted byte stream is passed through to the backend.
+You can choose to not terminate TLS, in which case the encrypted byte stream
+is passed through to the backend.</p>
+<h4 id="grpcroute">GRPCRoute<a class="td-heading-self-link" href="#grpcroute" aria-label="Heading self-link"></a></h4>
+
+
+
+
+
+  
+
+
+<details  
+         class="border border-success rounded" 
+         style="display: table; padding: 0.5rem 1rem; margin: 1rem 0; max-width: 800px; ">
+  
+  <summary class="text-success" style="cursor: pointer; font-weight: 600; margin-right: 5px; ">
+    Standard Channel since v1.1.0
+  </summary>
+
+  <div class="details-content" style="padding-top: 1rem; overflow-x: auto;">
+    The <code>GRPCRoute</code> resource is GA and has been part of the Standard Channel since
+<code>v1.1.0</code>. For more information on release channels, refer to our <a href="/docs/concepts/versioning/">versioning
+guide</a>.
+  </div>
+
+</details>
+
+
+<p>GRPCRoute is for idiomatically routing gRPC traffic. Gateways supporting
+GRPCRoute are required to support HTTP/2 without an initial upgrade from HTTP/1,
+so gRPC traffic is guaranteed to flow properly.</p>
+<h4 id="route-summary-table">Route summary table<a class="td-heading-self-link" href="#route-summary-table" aria-label="Heading self-link"></a></h4>
+<p>One of the most important use cases for Gateway API is to allow Ana the Application Developer and her peers to be able to multiplex Routes onto the same Listener.
+Each Route type has different information that can be used to accomplish this, and these sets of information are called <strong>Routing Discriminators</strong>.</p>
+<p>More precisely, <strong>Routing discriminators</strong> are the information that can be used to allow multiple Routes to share a single port on a Listener.</p>
+<p>This table summarizes the various Route types included in Gateway API, with their <strong>Routing Discriminators</strong>.</p>
+<table>
+  <thead>
+      <tr>
+          <th>Object</th>
+          <th>Protocol</th>
+          <th>OSI Layer</th>
+          <th>Routing Discriminator</th>
+          <th>Listener TLS Support</th>
+          <th>Backend TLS Support</th>
+          <th>Purpose</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>HTTPRoute</td>
+          <td>HTTP or HTTPS</td>
+          <td>Layer 7</td>
+          <td>Anything in the HTTP Protocol</td>
+          <td>Terminated only</td>
+          <td>Via BackendTLSPolicy</td>
+          <td>HTTP and HTTPS Routing</td>
+      </tr>
+      <tr>
+          <td>TLSRoute</td>
+          <td>TLS</td>
+          <td>Somewhere between layer 4 and 7</td>
+          <td>SNI or other TLS properties</td>
+          <td>Passthrough or Terminated</td>
+          <td>Via BackendTLSPolicy (Extended, when Terminated)</td>
+          <td>Routing of TLS protocols including HTTPS where inspection of the HTTP stream is not required.</td>
+      </tr>
+      <tr>
+          <td>GRPCRoute</td>
+          <td>HTTP or HTTPS</td>
+          <td>Layer 7</td>
+          <td>Anything in the gRPC Protocol</td>
+          <td>Terminated only</td>
+          <td>Via BackendTLSPolicy (Extended)</td>
+          <td>gRPC Routing over HTTP/2 and HTTP/2 cleartext</td>
+      </tr>
+      <tr>
+          <td>TCPRoute</td>
+          <td>TCP</td>
+          <td>Layer 4</td>
+          <td>None</td>
+          <td>Passthrough or Terminated</td>
+          <td>Via BackendTLSPolicy (Extended, when Terminated)</td>
+          <td>Allows for forwarding of a TCP stream from the Listener to the Backends</td>
+      </tr>
+      <tr>
+          <td>UDPRoute</td>
+          <td>UDP</td>
+          <td>Layer 4</td>
+          <td>None</td>
+          <td>None</td>
+          <td>None</td>
+          <td>Allows for forwarding of a UDP stream from the Listener to the Backends.</td>
+      </tr>
+  </tbody>
+</table>
+<p>Notably, because of their lack of other <strong>routing discriminators</strong>, TCPRoute and UDPRoute can only have a <em>single</em> Route attached to any particular Listener.</p>
+<h2 id="attaching-routes-to-gateways">Attaching Routes to Gateways<a class="td-heading-self-link" href="#attaching-routes-to-gateways" aria-label="Heading self-link"></a></h2>
+<p>When a Route attaches to a Gateway, it represents configuration that is applied
+on the Gateway that configures the underlying load balancer or proxy. How and
+which Routes attach to Gateways is controlled by the resources themselves. Route
+and Gateway resources have built-in controls to permit or constrain how they are
+attached. Together with Kubernetes RBAC, these allow organizations to enforce
+policies for how Routes are exposed and on which Gateways.</p>
+<p>There is a lot of flexibility in how Routes can attach to Gateways to achieve
+different organizational policies and scopes of responsibility. These are
+different relationships that Gateways and Routes can have:</p>
+<ul>
+<li><strong>One-to-one</strong> - A Gateway and Route may be deployed and used by a single
+owner and have a one-to-one relationship.</li>
+<li><strong>One-to-many</strong> - A Gateway can have many Routes bound to it that are owned by
+different teams from across different Namespaces.</li>
+<li><strong>Many-to-one</strong> - Routes can also be bound to more than one Gateway, allowing
+a single Route to control application exposure simultaneously across different
+IPs, load balancers, or networks.</li>
+</ul>
+<p>For a Route to attach to a Listener, two things have to be true:</p>
+<ul>
+<li>The Route must reference a Gateway (or one of its Listeners via a <code>sectionName</code>) in its <code>parentRefs</code> stanza. All Routes <strong>must</strong> contain a <code>parentRefs</code> stanza to be a Gateway API compliant Route object.</li>
+<li>The Listener must <em>accept</em> the Route&rsquo;s attachment. There are many ways for Listeners to describe the shape of what Routes should attach to a given Listener, and some attachments require agreement between the Listener and the Route about protocol-specific details (for example, matching hostnames between a Listener and a HTTPRoute).</li>
+</ul>
+<p>The Route side of this is intended to ensure that, at all times, control over where an application is exposed is in the hands of Ana, the Application Developer.
+Chihiro, the Cluster Admin and Gateway owner, can limit what <em>shapes</em> Routes that can attach to their Gateway can take (via their Kind or their namespace),but they can&rsquo;t force Ana to expose her application.
+The final decision, and control of the Route object, is always Ana&rsquo;s.</p>
+<p>The Listener side is intended to ensure that Ana&rsquo;s Route produces a valid configuration, and also matches Chihiro&rsquo;s requirements (if any) about what traffic is allowed to be exposed on that Gateway.</p>
+<h3 id="example">Example<a class="td-heading-self-link" href="#example" aria-label="Heading self-link"></a></h3>
+<p><a href="/docs/concepts/roles-and-personas/#chihiro">Chihiro</a> has deployed a Gateway <code>shared-gw</code> in the <code>infra</code> Namespace to be
+used by different application teams for exposing their applications outside
+the cluster. Teams A and B (in Namespaces <code>A</code> and <code>B</code> respectively) attach
+their Routes to this Gateway. They are unaware of each other and as long as
+their Route rules do not conflict with each other they can continue operating
+in isolation. Team C has special networking needs (perhaps performance,
+security, or criticality) and they need a dedicated Gateway to proxy their
+application to the outside world. Team C deploys their own Gateway
+<code>dedicated-gw</code>  in the <code>C</code> Namespace that can only be used by apps in the <code>C</code>
+Namespace.</p>
+<!-- source: https://docs.google.com/presentation/d/1neBkFDTZ__vRoDXIWvAcxk2Pb7-evdBT6ykw_frf9QQ/edit?usp=sharing -->
+<p><img src="/images/gateway-route-binding.png" alt="route binding" class="img-fluid img-light-only" />
+<img src="/images/gateway-route-binding-dark.png" alt="route binding" class="img-fluid img-dark-only" /></p>
+<h3 id="how-it-works">How it Works<a class="td-heading-self-link" href="#how-it-works" aria-label="Heading self-link"></a></h3>
+<p>As said above, the following is required for a Route to be attached to a Gateway:</p>
+<ol>
+<li>The Route needs an entry in its <code>parentRefs</code> field referencing the Gateway.</li>
+<li>At least one listener on the Gateway needs to allow this attachment.</li>
+</ol>
+<h4 id="referencing-gateways">Referencing Gateways<a class="td-heading-self-link" href="#referencing-gateways" aria-label="Heading self-link"></a></h4>
+
+
+
+
+
+  
+
+
+<details open 
+         class="border border-primary rounded" 
+         style="display: table; padding: 0.5rem 1rem; margin: 1rem 0; max-width: 800px; ">
+  
+  <summary class="text-primary" style="cursor: pointer; font-weight: 600; margin-right: 5px; ">
+    Extended Support Feature: HTTPRouteParentRefPort
+  </summary>
+
+  <div class="details-content" style="padding-top: 1rem; overflow-x: auto;">
+    This feature is part of extended support. For more information on support levels, refer to our <a href="/docs/concepts/conformance/">conformance guide</a>.
+  </div>
+
+</details>
+
+
+
+
+
+
+
+  
+     
+    
+  
+
+
+<details  
+         class="border  rounded" 
+         style="display: table; padding: 0.5rem 1rem; margin: 1rem 0; max-width: 800px; border-color: #9370DB !important;">
+  
+  <summary class="" style="cursor: pointer; font-weight: 600; margin-right: 5px; color: #9370DB !important;">
+    Extended Feature
+  </summary>
+
+  <div class="details-content" style="padding-top: 1rem; overflow-x: auto;">
+    The <code>Port</code> field described below is an Extended feature, and so is <em>optional</em> for implementations to support.
+The feature name for this feature is <code>HTTPRouteParentRefPort</code>, and you should be able to find out if your implementation supports it either in the implementation&rsquo;s GatewayClass (under <code>status.supportedFeatures</code>), or on one of the implementation comparison pages (like the <a href="/docs/implementations/versions/v1.4/">v1.4 comparison</a>.)
+  </div>
+
+</details>
+
+
+<p>A Route can reference a Gateway by specifying the namespace (optional if the
+Route and the Gateway are in the same namespace) and name of the Gateway in
+a <code>parentRef</code>. By default, a Route will attach to all listeners of a Gateway,
+however it can restrict the selection to a subset of listeners using the
+following fields in <code>parentRef</code>:</p>
+<ol>
+<li><strong>SectionName:</strong> When <code>sectionName</code> is set, the Route selects the listener with the specified name.</li>
+<li><strong>Port:</strong> When <code>port</code> is set, the Route selects all listeners listening on the specified port and with protocol compatible with this kind of Route.</li>
+</ol>
+<p>When multiple fields in <code>parentRef</code> are set, the Route selects listeners that
+satisfy all conditions specified in those fields. For example, when both
+<code>sectionName</code> and <code>port</code> are set, the Route selects listeners with the specified
+name AND listening on the specified port.</p>
+<h4 id="restricting-route-attachment">Restricting Route Attachment<a class="td-heading-self-link" href="#restricting-route-attachment" aria-label="Heading self-link"></a></h4>
+<p>Each Gateway listener can restrict which Routes can be attached with the
+following mechanisms:</p>
+<ol>
+<li><strong>Hostname:</strong> When the <code>hostname</code> field on a listener is set, attached Routes
+that specify a <code>hostnames</code> field must have at least one overlapping value.</li>
+<li><strong>Namespaces:</strong> The <code>allowedRoutes.namespaces</code> field on a listener can be
+used to restrict where Routes may be attached from. The <code>namespaces.from</code>
+field supports the following values:
+<ul>
+<li><code>Same</code> is the default option. Only Routes in the same namespace
+as this Gateway may be attached.</li>
+<li><code>All</code> will allow Routes from all Namespaces to be attached.</li>
+<li><code>Selector</code> means that Routes from a subset of Namespaces selected by a
+Namespace label selector may be attached to this Gateway. When <code>Selector</code>
+is used, the <code>namespaces.selector</code> field must be used to specify label
+selectors. This field is not supported with <code>All</code> or <code>Same</code>.</li>
+</ul>
+</li>
+<li><strong>Kinds:</strong> The <code>allowedRoutes.kinds</code> field on a listener can be used to
+restrict the kinds of Routes that may be attached.</li>
+</ol>
+<p>If none of the above are specified, a Gateway listener will trust Routes
+attached from the same namespace that support the listener protocol.</p>
+<h4 id="further-gateway---route-attachment-examples">Further Gateway - Route attachment examples<a class="td-heading-self-link" href="#further-gateway---route-attachment-examples" aria-label="Heading self-link"></a></h4>
+<p>The following <code>my-route</code> Route wants to attach to the <code>foo-gateway</code> in the
+<code>gateway-api-example-ns1</code> and will not attach to any other Gateways. Note that
+<code>foo-gateway</code> is in a different Namespace. The <code>foo-gateway</code> must allow
+attachment from HTTPRoutes in the namespace <code>gateway-api-example-ns2</code>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">gateway.networking.k8s.io/v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">HTTPRoute</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">my-route</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">gateway-api-example-ns2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">parentRefs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Gateway</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">foo-gateway</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">gateway-api-example-ns1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">rules</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">backendRefs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">foo-svc</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">8080</span><span class="w">
+</span></span></span></code></pre></div>
+
+
+<p>This <code>foo-gateway</code> allows the <code>my-route</code> HTTPRoute to attach.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">gateway.networking.k8s.io/v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Gateway</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">foo-gateway</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">gateway-api-example-ns1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">gatewayClassName</span><span class="p">:</span><span class="w"> </span><span class="l">foo-lb</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">listeners</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">prod-web</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l">HTTP</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">allowedRoutes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">kinds</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">HTTPRoute</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">namespaces</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">from</span><span class="p">:</span><span class="w"> </span><span class="l">Selector</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">selector</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">matchLabels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c"># This label is added automatically as of K8s 1.22</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c"># to all namespaces</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">kubernetes.io/metadata.name</span><span class="p">:</span><span class="w"> </span><span class="l">gateway-api-example-ns2</span><span class="w">
+</span></span></span></code></pre></div>
+
+
+<p>For a more permissive example, the below Gateway will allow all HTTPRoute resources
+to attach from Namespaces with the &ldquo;expose-apps: true&rdquo; label.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">gateway.networking.k8s.io/v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Gateway</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">prod-gateway</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">gateway-api-example-ns1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">gatewayClassName</span><span class="p">:</span><span class="w"> </span><span class="l">foo-lb</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">listeners</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">prod-web</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l">HTTP</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">allowedRoutes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">kinds</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">HTTPRoute</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">namespaces</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">from</span><span class="p">:</span><span class="w"> </span><span class="l">Selector</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">selector</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">matchLabels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">expose-apps</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;true&#34;</span><span class="w">
+</span></span></span></code></pre></div>
+
+
+<h3 id="combined-types">Combined types<a class="td-heading-self-link" href="#combined-types" aria-label="Heading self-link"></a></h3>
+<p>The combination of <code>GatewayClass</code>, <code>Gateway</code>, <code>xRoute</code> and <code>Service</code>(s)
+defines an implementable load-balancer. The diagram below illustrates the
+relationships between the different resources:</p>
+<!-- source: https://docs.google.com/document/d/1BxYbDovMwnEqe8lj8JwHo8YxHAt3oC7ezhlFsG_tyag/edit#heading=h.8du598fded3c -->
+<p><img src="/images/schema-uml.svg" alt="schema" class="img-fluid img-light-only" />
+<img src="/images/schema-uml-dark.svg" alt="schema" class="img-fluid img-dark-only" /></p>
+<h3 id="request-flow">Request flow<a class="td-heading-self-link" href="#request-flow" aria-label="Heading self-link"></a></h3>
+<p>A typical <a href="/docs/glossary/#northsouth-traffic">north/south</a> API request flow for a gateway implemented using a
+reverse proxy is:</p>
+<ol>
+<li>A client makes a request to <a href="http://foo.example.com">http://foo.example.com</a>.</li>
+<li>DNS resolves the name to a <code>Gateway</code> address.</li>
+<li>The reverse proxy receives the request on a <code>Listener</code> and uses the <a href="https://tools.ietf.org/html/rfc7230#section-5.4">Host
+header</a> to match an
+<code>HTTPRoute</code>.</li>
+<li>Optionally, the reverse proxy can perform request header and/or path
+matching based on <code>match</code> rules of the <code>HTTPRoute</code>.</li>
+<li>Optionally, the reverse proxy can modify the request, i.e. add/remove
+headers, based on <code>filter</code> rules of the <code>HTTPRoute</code>.</li>
+<li>Lastly, the reverse proxy forwards the request to one or more objects, i.e.
+<code>Service</code>, in the cluster based on <code>backendRefs</code> rules of the <code>HTTPRoute</code>.</li>
+</ol>
+<h3 id="tls-configuration">TLS Configuration<a class="td-heading-self-link" href="#tls-configuration" aria-label="Heading self-link"></a></h3>
+<p>TLS is configured on Gateway listeners, and may be referred to across namespaces.</p>
+<p>Please refer to the <a href="/guides/user-guides/tls/">TLS details</a> guide for a deep dive on TLS.</p>
+<h2 id="attaching-routes-to-services">Attaching Routes to Services<a class="td-heading-self-link" href="#attaching-routes-to-services" aria-label="Heading self-link"></a></h2>
+<p>When using Gateway API to configure a <a href="/docs/glossary/#service-mesh">service mesh</a>, the Route will
+attach directly to a Service, representing configuration meant to be applied
+to any traffic directed to the Service. How and which Routes attach to a given
+Service is controlled by the Routes themselves (working with Kubernetes RBAC),
+as covered in the <a href="/docs/mesh/mesh-overview/#connecting-routes-and-services">GAMMA routing documentation</a>.</p>
+<h2 id="extension-points">Extension points<a class="td-heading-self-link" href="#extension-points" aria-label="Heading self-link"></a></h2>
+<p>A number of extension points are provided in the API to provide flexibility in
+addressing the large number of use-cases that cannot be addressed by a general
+purpose API.</p>
+<p>Here is a summary of extension points in the API:</p>
+<ul>
+<li><strong>BackendRefs</strong>: This extension point should be used for forwarding
+traffic to network endpoints other than core Kubernetes Service resource.
+Examples include an S3 bucket, Lambda function, a file-server, etc.</li>
+<li><strong>HTTPRouteFilter</strong>: This API type in HTTPRoute provides a way to hook into
+the request/response lifecycle of an HTTP request.</li>
+<li><strong>Custom Routes</strong>: If none of the above extensions points suffice for a use
+case, Implementers can choose to create custom Route resources for protocols
+that are not currently supported in the API. Custom Route types need to share
+the same fields that core Route types do. These are contained within
+CommonRouteSpec and RouteStatus.</li>
+</ul>
+<p>Whenever you are using an extension point without any prior art, please let
+the community know. As we learn more about usage of extension points, we would
+like to find the common denominators and promote the features to core/extended
+API conformance.</p>
+
+	
+</div>
+
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark py-3 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row">
+      <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+        
+        
+        
+<ul class="list-inline mb-0">
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="GitHub" aria-label="GitHub">
+    <a class="footer-link text-white" target="_blank" rel="noopener noreferrer" href="https://github.com/kubernetes-sigs/gateway-api">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="Trademark" aria-label="Trademark">
+    <a class="footer-link text-white" target="_blank" rel="noopener noreferrer" href="https://www.linuxfoundation.org/legal/trademark-usage">
+      <i class=""></i>
+    </a>
+  </li>
+  
+</ul>
+
+        
+        
+      </div>
+      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+        
+        
+        
+      </div>
+      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">&copy; 2026 The Linux Foundation
+        </small>
+        
+      </div>
+    </div>
+    <div class="row text-center text-white small">
+      <div class="col-12 text-center py-2 order-sm-2">
+        <a href="https://www.linuxfoundation.org/terms" class="footer-link" style="color: #ffffff" target="_blank" rel="noopener">Terms of Use</a> |
+        <a href="https://www.linuxfoundation.org/privacy" class="footer-link" style="color: #ffffff" target="_blank" rel="noopener">Privacy Policy</a> |
+        <a href="https://www.linuxfoundation.org/trademark-usage" class="footer-link" style="color: #ffffff" target="_blank" rel="noopener">Trademark Usage</a> |
+        <a href="https://github.com/kubernetes-sigs/gateway-api/blob/main/LICENSE" class="footer-link" style="color: #ffffff" target="_blank" rel="noopener">License</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </div>
+    
+
+
+
+  </body>
+</html>

@@ -1,0 +1,1877 @@
+{
+ "source": "rfc9110",
+ "anchors": [
+  {
+   "anchor": "top",
+   "title": "",
+   "level": 0,
+   "sha256": "8ceb9134eb80954885d6b186cf66ed4a8e57eade30bc190420d306ce2fd6e458"
+  },
+  {
+   "anchor": "rfcnum",
+   "title": "RFC 9110",
+   "level": 1,
+   "sha256": "d999bb04a62f435182f2a9e4c3c6b055b6f5d10138e0b1d959e67099c864ff4b"
+  },
+  {
+   "anchor": "title",
+   "title": "HTTP Semantics",
+   "level": 1,
+   "sha256": "3357f14ad5303c83463bb7a4b46b8a242daff13ecc024222f0b637a0ab4c81dd"
+  },
+  {
+   "anchor": "abstract",
+   "title": "Abstract",
+   "level": 2,
+   "sha256": "530acd2ed21aa493bc26bac69bc3321a6f076bc491ed2ab93bf862cca02fe7de"
+  },
+  {
+   "anchor": "section-boilerplate.1",
+   "title": "Status of This Memo",
+   "level": 2,
+   "sha256": "0c857c896a3e0c8db005f167eaa8a534e3d2bf28a02fedd84993b19856454575"
+  },
+  {
+   "anchor": "section-boilerplate.2",
+   "title": "Copyright Notice",
+   "level": 2,
+   "sha256": "5fcdd417ca42fcadfb0fd4bf3c733eeb7193338427cee3e1779e9d0fa88103c5"
+  },
+  {
+   "anchor": "section-toc.1",
+   "title": "Table of Contents",
+   "level": 2,
+   "sha256": "a9360e0212a4d173581c91da68494d022ee55871188be00acf863d2ed0cf7a6a"
+  },
+  {
+   "anchor": "section-1",
+   "title": "1. Introduction",
+   "level": 2,
+   "sha256": "6e62ee82e3df2a7dfcaba91e18eab2a77c9c7f7b4a5dceb49528346078b636d2"
+  },
+  {
+   "anchor": "section-1.1",
+   "title": "1.1. Purpose",
+   "level": 3,
+   "sha256": "cd0d0a0800fc2fe6f10bf0d0bc3bdc591997849d8e422abf0dea138a0a09a5ee"
+  },
+  {
+   "anchor": "section-1.2",
+   "title": "1.2. History and Evolution",
+   "level": 3,
+   "sha256": "6946c3d86c4da3a3de2c3a7a0af3f969b1901f0d74fc2d9575f5a1b8dde7f01a"
+  },
+  {
+   "anchor": "section-1.3",
+   "title": "1.3. Core Semantics",
+   "level": 3,
+   "sha256": "76d03b15e3007b72c0589507adf9832d787b357a67d5d409676492af518ae2b3"
+  },
+  {
+   "anchor": "section-1.4",
+   "title": "1.4. Specifications Obsoleted by This Document",
+   "level": 3,
+   "sha256": "6e1bb691ade676f26a5d60decd8751abac308fdce2ec8533e2ade5ec7358eed3"
+  },
+  {
+   "anchor": "section-2",
+   "title": "2. Conformance",
+   "level": 2,
+   "sha256": "cbef8cdc03a1c19e7624c3cc80d8da6884fa35fca611192d88ab40abd1111cf7"
+  },
+  {
+   "anchor": "section-2.1",
+   "title": "2.1. Syntax Notation",
+   "level": 3,
+   "sha256": "7227985f8add7bb2fffc9be097e6bbe7a5027fcc16e653b416ec06a47f239d79"
+  },
+  {
+   "anchor": "section-2.2",
+   "title": "2.2. Requirements Notation",
+   "level": 3,
+   "sha256": "08d13f72a453af82fb2ea87e55bf414fe76fcbae7737b81da42150962f68bb2c"
+  },
+  {
+   "anchor": "section-2.3",
+   "title": "2.3. Length Requirements",
+   "level": 3,
+   "sha256": "6f17a3d7374dadcac72aee7dcdb14ebf64417f09675497e6753fa22534682efe"
+  },
+  {
+   "anchor": "section-2.4",
+   "title": "2.4. Error Handling",
+   "level": 3,
+   "sha256": "3f25ae706ce7c28a7173064fd4769dd535a9b1b1c3b00c6cf9652074adb038df"
+  },
+  {
+   "anchor": "section-2.5",
+   "title": "2.5. Protocol Version",
+   "level": 3,
+   "sha256": "8ad7fbb89bd2591227d9059fdda9729a256a03bd4de79acb7019b1ece70dd040"
+  },
+  {
+   "anchor": "section-3",
+   "title": "3. Terminology and Core Concepts",
+   "level": 2,
+   "sha256": "60a74a916faa746cec752ebe25acc7111eee69005a7981e8149e298624713bc4"
+  },
+  {
+   "anchor": "section-3.1",
+   "title": "3.1. Resources",
+   "level": 3,
+   "sha256": "3865650a9e8803d0609686b78ccffc61f1e46b319d02bee17f4cbac0b1f530da"
+  },
+  {
+   "anchor": "section-3.2",
+   "title": "3.2. Representations",
+   "level": 3,
+   "sha256": "c2745777fbca0e02907fce81f49b2df0e245e6ed76a4f5d225f2612743ef9c63"
+  },
+  {
+   "anchor": "section-3.3",
+   "title": "3.3. Connections, Clients, and Servers",
+   "level": 3,
+   "sha256": "1940bf95bf8f48180e704867b435a6e2aef16cc3d11340bf58d5635823f54f28"
+  },
+  {
+   "anchor": "section-3.4",
+   "title": "3.4. Messages",
+   "level": 3,
+   "sha256": "8c7e26387caa2ba81422b4859c276526926b0da049755d5eaa61eb0d636c2448"
+  },
+  {
+   "anchor": "section-3.5",
+   "title": "3.5. User Agents",
+   "level": 3,
+   "sha256": "00a0336832e66c746ac57ea9defd45158c161374b76a8681fed20a5c3fbac9ae"
+  },
+  {
+   "anchor": "section-3.6",
+   "title": "3.6. Origin Server",
+   "level": 3,
+   "sha256": "5911d31018d5be261a05a8d1e9f52d07b0d8629d70397d231c90f468cf9e01f8"
+  },
+  {
+   "anchor": "section-3.7",
+   "title": "3.7. Intermediaries",
+   "level": 3,
+   "sha256": "6aae7e0e70d4aa5fef16022aa204e2a6344ef10092eaaeaa4271da49597543b6"
+  },
+  {
+   "anchor": "section-3.8",
+   "title": "3.8. Caches",
+   "level": 3,
+   "sha256": "a57989d2c99edd82414fbc093c2097eef9f404e147b2086c5f3c492db98c28b0"
+  },
+  {
+   "anchor": "section-3.9",
+   "title": "3.9. Example Message Exchange",
+   "level": 3,
+   "sha256": "646a81342c1570bc1722b4baf73ca18941bcc0f2c2643b80c3804df5616fdb01"
+  },
+  {
+   "anchor": "section-4",
+   "title": "4. Identifiers in HTTP",
+   "level": 2,
+   "sha256": "20bde836fe50dc8aab62924d0b035b55ec2eda30cb42c0d98beccbeaf4fca366"
+  },
+  {
+   "anchor": "section-4.1",
+   "title": "4.1. URI References",
+   "level": 3,
+   "sha256": "9f8138b85baf587962feeb00de20d90c707ac7b5cc7a00f051474735089d7bf5"
+  },
+  {
+   "anchor": "section-4.2",
+   "title": "4.2. HTTP-Related URI Schemes",
+   "level": 3,
+   "sha256": "c9ad45774331e62432b717c53989d3a83ca0c95ee05139aa8b482d11b4043ffb"
+  },
+  {
+   "anchor": "section-4.2.1",
+   "title": "4.2.1. http URI Scheme",
+   "level": 4,
+   "sha256": "e7391114646d8d0234ab3e5bf32d3c15a28df456b9d293fafe2a34a081e7072b"
+  },
+  {
+   "anchor": "section-4.2.2",
+   "title": "4.2.2. https URI Scheme",
+   "level": 4,
+   "sha256": "6e433f2790f3acf1f78e234899acdafde9085d89badd6cff4944ceb9f2cf86e1"
+  },
+  {
+   "anchor": "section-4.2.3",
+   "title": "4.2.3. http(s) Normalization and Comparison",
+   "level": 4,
+   "sha256": "b205eeb4d08e62d0c6bef2845b22396e9e599d4a0fd081fb135e36506f9817e4"
+  },
+  {
+   "anchor": "section-4.2.4",
+   "title": "4.2.4. Deprecation of userinfo in http(s) URIs",
+   "level": 4,
+   "sha256": "0ecc70023609011acd5d2b94933c6da78d625dc0f5194976dc7683751045ed40"
+  },
+  {
+   "anchor": "section-4.2.5",
+   "title": "4.2.5. http(s) References with Fragment Identifiers",
+   "level": 4,
+   "sha256": "07435cbd63a37d15e62435094b18ae127b5b5b74ef4404d8feaf193951e587dd"
+  },
+  {
+   "anchor": "section-4.3",
+   "title": "4.3. Authoritative Access",
+   "level": 3,
+   "sha256": "7038cd2efb9425da87ed08cc097bf49351910e4a5c20073c33f4d1fef5bf96f3"
+  },
+  {
+   "anchor": "section-4.3.1",
+   "title": "4.3.1. URI Origin",
+   "level": 4,
+   "sha256": "4fa104ae5285f81a7ac65b93293b5a0f62da63277dc37fa4fc303cebef712531"
+  },
+  {
+   "anchor": "section-4.3.2",
+   "title": "4.3.2. http Origins",
+   "level": 4,
+   "sha256": "3d5de0b9baa73efe79e3661788505ba262790e9cdf5a9d37360ffac394a199e2"
+  },
+  {
+   "anchor": "section-4.3.3",
+   "title": "4.3.3. https Origins",
+   "level": 4,
+   "sha256": "b8495c1d0a01c3120af3f4d3fc47121a17f5bd626800de0a3eced0cd7084e00b"
+  },
+  {
+   "anchor": "section-4.3.4",
+   "title": "4.3.4. https Certificate Verification",
+   "level": 4,
+   "sha256": "c31fdb9b706c9338c45c1bdc7abd1bc27bef9ec692d1df7ad1076cf2bf95d47c"
+  },
+  {
+   "anchor": "section-4.3.5",
+   "title": "4.3.5. IP-ID Reference Identity",
+   "level": 4,
+   "sha256": "fc036d024cba426d6759d8cadcfca972371ca8021005755a36af963adf6f6a68"
+  },
+  {
+   "anchor": "section-5",
+   "title": "5. Fields",
+   "level": 2,
+   "sha256": "82424a4299212ea3d7f01a9881461527a75623a129694cd53d17c8ff2ec53005"
+  },
+  {
+   "anchor": "section-5.1",
+   "title": "5.1. Field Names",
+   "level": 3,
+   "sha256": "28ab76cbab8b67a252ccb08c989cbd8f43f29b21ca3479567083be43546ad7aa"
+  },
+  {
+   "anchor": "section-5.2",
+   "title": "5.2. Field Lines and Combined Field Value",
+   "level": 3,
+   "sha256": "cfc4c0a6d8ccd8d7df8b0522fd6a9bea872d0704ad9f2e979fdb83890bd522d6"
+  },
+  {
+   "anchor": "section-5.3",
+   "title": "5.3. Field Order",
+   "level": 3,
+   "sha256": "0fa84b1abb760e297b1885527322381370b8119e6c3e3e823a34a72fcc85d30a"
+  },
+  {
+   "anchor": "section-5.4",
+   "title": "5.4. Field Limits",
+   "level": 3,
+   "sha256": "7c4418dd11420288451dd3b0f131094b49d072534e100590d1c9b1a390438da3"
+  },
+  {
+   "anchor": "section-5.5",
+   "title": "5.5. Field Values",
+   "level": 3,
+   "sha256": "0dec34abd6a77bfc55df0f8fabd8421a80b62d8da8f55659bc9e53eaaf477231"
+  },
+  {
+   "anchor": "section-5.6",
+   "title": "5.6. Common Rules for Defining Field Values",
+   "level": 3,
+   "sha256": "a38174b1908aad641c7341cf37bb86c66c2d3d2d8b2e5cf6d3a1441e674cd346"
+  },
+  {
+   "anchor": "section-5.6.1",
+   "title": "5.6.1. Lists (#rule ABNF Extension)",
+   "level": 4,
+   "sha256": "65757bf74982c890accd22eb058ac58f28a3c45fbd78988de2e7ed4e430a5c50"
+  },
+  {
+   "anchor": "section-5.6.1.1",
+   "title": "5.6.1.1. Sender Requirements",
+   "level": 5,
+   "sha256": "061544a5c6d3846be2f9ca60fff1b75562d752350fe31187c591b94fae9b90b6"
+  },
+  {
+   "anchor": "section-5.6.1.2",
+   "title": "5.6.1.2. Recipient Requirements",
+   "level": 5,
+   "sha256": "ac4502b52e0003cf6556b8798f636aaf1bc936d0b41cbea95958ef15d06f5cc2"
+  },
+  {
+   "anchor": "section-5.6.2",
+   "title": "5.6.2. Tokens",
+   "level": 4,
+   "sha256": "2c23ffc6bed3f2c72bcec90d8055f80cd7ebb205844d5d3e336ac343e230cf2d"
+  },
+  {
+   "anchor": "section-5.6.3",
+   "title": "5.6.3. Whitespace",
+   "level": 4,
+   "sha256": "f8e6635bce2377132b46ace4a0222fc56c51b8ec34cf749871843558739b2000"
+  },
+  {
+   "anchor": "section-5.6.4",
+   "title": "5.6.4. Quoted Strings",
+   "level": 4,
+   "sha256": "53f0a5e3cab0df97b385e5f4513eb32f0c5d95a7540503f00c6ca62ee81dc63c"
+  },
+  {
+   "anchor": "section-5.6.5",
+   "title": "5.6.5. Comments",
+   "level": 4,
+   "sha256": "8e3a6867f93f5c0c872cb3fc7f92473c0ed6bc27d1f8b1155118eb5a472ddd19"
+  },
+  {
+   "anchor": "section-5.6.6",
+   "title": "5.6.6. Parameters",
+   "level": 4,
+   "sha256": "727bc9b12da2555aaebb74acc749c78f842e7a33ea212cb367595e3ffc1185f5"
+  },
+  {
+   "anchor": "section-5.6.7",
+   "title": "5.6.7. Date/Time Formats",
+   "level": 4,
+   "sha256": "4e7cb4a0ba5059a2a14ffdfcbb0604284e48d55fef32ee0997ff3861b9d8b633"
+  },
+  {
+   "anchor": "section-6",
+   "title": "6. Message Abstraction",
+   "level": 2,
+   "sha256": "1c823f34827d0ffb033b1c1a94141f67da2f5fae7fbab838b5c166abf8302df9"
+  },
+  {
+   "anchor": "section-6.1",
+   "title": "6.1. Framing and Completeness",
+   "level": 3,
+   "sha256": "a0a47924fdc397c3e730d9e5a938af5f744648a73cbdcc110c4be5c335f51c87"
+  },
+  {
+   "anchor": "section-6.2",
+   "title": "6.2. Control Data",
+   "level": 3,
+   "sha256": "07602d2de806cac4784750df2c80936f82e6919bfe9ac2e452e2ca88a52665db"
+  },
+  {
+   "anchor": "section-6.3",
+   "title": "6.3. Header Fields",
+   "level": 3,
+   "sha256": "12ac71c32b48aa382525cf2517f355b4926dfbc8aa983875cf456f792fea1b2a"
+  },
+  {
+   "anchor": "section-6.4",
+   "title": "6.4. Content",
+   "level": 3,
+   "sha256": "622f04d38ee845174b4e8ce1441d94f76127ae7124cb6b0008c666321a780e9e"
+  },
+  {
+   "anchor": "section-6.4.1",
+   "title": "6.4.1. Content Semantics",
+   "level": 4,
+   "sha256": "bc0d0cc24c3af8f5676aa7d7728c015a7b96f961887b6b54e35192408652c124"
+  },
+  {
+   "anchor": "section-6.4.2",
+   "title": "6.4.2. Identifying Content",
+   "level": 4,
+   "sha256": "5dc3b17dc7ec44f070cfb70fcb5af0a98b258c5c5efee919df994667c39699f8"
+  },
+  {
+   "anchor": "section-6.5",
+   "title": "6.5. Trailer Fields",
+   "level": 3,
+   "sha256": "342ce1cd52280d4ef971f8eda0969d3f9c9bd8e1e63dc662ace8785d2fc401ec"
+  },
+  {
+   "anchor": "section-6.5.1",
+   "title": "6.5.1. Limitations on Use of Trailers",
+   "level": 4,
+   "sha256": "85566e3cf45c0f3473f567ef5c2d3c7831beb9d7121abfaf0647b07edaa51a97"
+  },
+  {
+   "anchor": "section-6.5.2",
+   "title": "6.5.2. Processing Trailer Fields",
+   "level": 4,
+   "sha256": "827da5cc66055410b04cfeb22fc703a3ca14cc6f12b32778480684f7162d2a1e"
+  },
+  {
+   "anchor": "section-6.6",
+   "title": "6.6. Message Metadata",
+   "level": 3,
+   "sha256": "d6a2bb85c2b5db4b086a6c434623c7737174305c7a90c71bfb6a18d13d68adf9"
+  },
+  {
+   "anchor": "section-6.6.1",
+   "title": "6.6.1. Date",
+   "level": 4,
+   "sha256": "fad557aa0e0608d189d02eacbea411e712fdfd4781e6f909f28ba417c03b2d86"
+  },
+  {
+   "anchor": "section-6.6.2",
+   "title": "6.6.2. Trailer",
+   "level": 4,
+   "sha256": "bc6aa3b51069fb834e6d06a77d24c27f0b3c0eb1b8ca8a31459fea6386eeb359"
+  },
+  {
+   "anchor": "section-7",
+   "title": "7. Routing HTTP Messages",
+   "level": 2,
+   "sha256": "d152ec05456c43a8cf90d5f338b80aa1d63f1fd30bb244b519333797a1851e78"
+  },
+  {
+   "anchor": "section-7.1",
+   "title": "7.1. Determining the Target Resource",
+   "level": 3,
+   "sha256": "19a5e1eff5a6f520c2e67440f69b13e7a471c7de7a75f66aa43d1fec16314d88"
+  },
+  {
+   "anchor": "section-7.2",
+   "title": "7.2. Host and :authority",
+   "level": 3,
+   "sha256": "b5965ac19264c709b0b7d11f5d7f64015456663214a019a5a23e926416a4fe77"
+  },
+  {
+   "anchor": "section-7.3",
+   "title": "7.3. Routing Inbound Requests",
+   "level": 3,
+   "sha256": "e4bfd43237b82e05890a6d0e8d2c6466a9225a08f18b2794588d4472c61c304b"
+  },
+  {
+   "anchor": "section-7.3.1",
+   "title": "7.3.1. To a Cache",
+   "level": 4,
+   "sha256": "64499915858522bff85e1ccf857ae05f3db3e6539db7b68c82b38f563a76a730"
+  },
+  {
+   "anchor": "section-7.3.2",
+   "title": "7.3.2. To a Proxy",
+   "level": 4,
+   "sha256": "9e052a6f024099f90cf611a80eee4c2d00c6b0016f090fe329f14f9dcd51bd12"
+  },
+  {
+   "anchor": "section-7.3.3",
+   "title": "7.3.3. To the Origin",
+   "level": 4,
+   "sha256": "3e7316355dd2e2e2ad5ff9f6fd4685144ff9916cbb3f6e5164bddf9ff38f82b1"
+  },
+  {
+   "anchor": "section-7.4",
+   "title": "7.4. Rejecting Misdirected Requests",
+   "level": 3,
+   "sha256": "c9eb10e4b65e88e7cc0c0191cb097fecbc9bbc9b1c134ebe660fc08eacb34ffa"
+  },
+  {
+   "anchor": "section-7.5",
+   "title": "7.5. Response Correlation",
+   "level": 3,
+   "sha256": "58ec5e63da405745d8c942c61cdc6d36d0f6e5e461907b1782b46e1b064c79b7"
+  },
+  {
+   "anchor": "section-7.6",
+   "title": "7.6. Message Forwarding",
+   "level": 3,
+   "sha256": "2e836d821b1cf76b5522e7ce64efbc1626280441614764acac1c934e7f6d11df"
+  },
+  {
+   "anchor": "section-7.6.1",
+   "title": "7.6.1. Connection",
+   "level": 4,
+   "sha256": "7c3f1654bdaa090534061820499a9dbd30f82e4bafbac1b65818678463937601"
+  },
+  {
+   "anchor": "section-7.6.2",
+   "title": "7.6.2. Max-Forwards",
+   "level": 4,
+   "sha256": "08efac18de1a708969c3f44b992a76aad8dbfc79fdf13c353c1297585b452f20"
+  },
+  {
+   "anchor": "section-7.6.3",
+   "title": "7.6.3. Via",
+   "level": 4,
+   "sha256": "b7238a078b9e2bd9d30f585497dc28d7ee20c4c46087c876758e0d8cd972ab4e"
+  },
+  {
+   "anchor": "section-7.7",
+   "title": "7.7. Message Transformations",
+   "level": 3,
+   "sha256": "1e8ee88572e1cfd01b044bb2e0002bd07d339f514f15ccd39f483fabcf9209b3"
+  },
+  {
+   "anchor": "section-7.8",
+   "title": "7.8. Upgrade",
+   "level": 3,
+   "sha256": "741b79d3f74880782312b4f4c13c996cfd757868d56b0d8e19d298d679306bd9"
+  },
+  {
+   "anchor": "section-8",
+   "title": "8. Representation Data and Metadata",
+   "level": 2,
+   "sha256": "95cdff22503a1dbd5ad76e9a11456c0b09192558490db957e49e48d990a4ba72"
+  },
+  {
+   "anchor": "section-8.1",
+   "title": "8.1. Representation Data",
+   "level": 3,
+   "sha256": "f325de1aeaf0565b25c7302292933b1ae9f719fff8e73c7a5c3394400fc893ef"
+  },
+  {
+   "anchor": "section-8.2",
+   "title": "8.2. Representation Metadata",
+   "level": 3,
+   "sha256": "79ed6c543167275b4680ee34d5f0bda16c8c856ec71e7acaa3ccd648c9d6c0b1"
+  },
+  {
+   "anchor": "section-8.3",
+   "title": "8.3. Content-Type",
+   "level": 3,
+   "sha256": "4986b7bd711ed99f3e12732054f378c8651d69960df3c5d8c5ea46fb9b880d54"
+  },
+  {
+   "anchor": "section-8.3.1",
+   "title": "8.3.1. Media Type",
+   "level": 4,
+   "sha256": "555f4ece0c6a476e6ddfde00e00ef66cdacdee454776b3c24dfe6c819c647ec5"
+  },
+  {
+   "anchor": "section-8.3.2",
+   "title": "8.3.2. Charset",
+   "level": 4,
+   "sha256": "71a4e3b987b936217705dcb02773985de090f0e20d4e286f9918e99d15a10d13"
+  },
+  {
+   "anchor": "section-8.3.3",
+   "title": "8.3.3. Multipart Types",
+   "level": 4,
+   "sha256": "e701a270accfafea0afc00af7af2a841c6a3f9d564a873c9b61f77d946779cca"
+  },
+  {
+   "anchor": "section-8.4",
+   "title": "8.4. Content-Encoding",
+   "level": 3,
+   "sha256": "37bf0de40fc10de53547e92fd1deecceedbb606e09ae5a7d5003816b712bd6c6"
+  },
+  {
+   "anchor": "section-8.4.1",
+   "title": "8.4.1. Content Codings",
+   "level": 4,
+   "sha256": "ab15e2572eb72641183605349a04a2eb153ac997f41d80cc5d813e30c93e0293"
+  },
+  {
+   "anchor": "section-8.4.1.1",
+   "title": "8.4.1.1. Compress Coding",
+   "level": 5,
+   "sha256": "e40fd1cd19a9bf998a9a256fa3915f983ec1865f7cf38536c0d62eee2f206b43"
+  },
+  {
+   "anchor": "section-8.4.1.2",
+   "title": "8.4.1.2. Deflate Coding",
+   "level": 5,
+   "sha256": "de4a4e5d07671c42cd32b8637d6faac80cf0496a7171267e392d02342212a4f7"
+  },
+  {
+   "anchor": "section-8.4.1.3",
+   "title": "8.4.1.3. Gzip Coding",
+   "level": 5,
+   "sha256": "c2e41a61bcbdc619839de1791399a55778b6c03ec3ec5f72e77b453b022bb534"
+  },
+  {
+   "anchor": "section-8.5",
+   "title": "8.5. Content-Language",
+   "level": 3,
+   "sha256": "33dbd8aa8f41adbb7e28472a9bf4492aac24d8627604e8c43cd468addb2ad12c"
+  },
+  {
+   "anchor": "section-8.5.1",
+   "title": "8.5.1. Language Tags",
+   "level": 4,
+   "sha256": "d892616cd707f690d6c5c31f4c2828fdf50726ad4a00ceeb2b4c38a736e4a0eb"
+  },
+  {
+   "anchor": "section-8.6",
+   "title": "8.6. Content-Length",
+   "level": 3,
+   "sha256": "358eae7b6c2fd9a9c769e42e197a17cf1633274e48d9c0dc33b6df8e8c57237c"
+  },
+  {
+   "anchor": "section-8.7",
+   "title": "8.7. Content-Location",
+   "level": 3,
+   "sha256": "cae23fb3c181f89633c4ddd0c3001f6bb04e5b291300b7361dddc5b483f4a71e"
+  },
+  {
+   "anchor": "section-8.8",
+   "title": "8.8. Validator Fields",
+   "level": 3,
+   "sha256": "c6be691d2e26e77def9a7ab0ef0104be28d2745acc1c7ddfc8195ebee88b7fc4"
+  },
+  {
+   "anchor": "section-8.8.1",
+   "title": "8.8.1. Weak versus Strong",
+   "level": 4,
+   "sha256": "1f382902b5ff61a421607e3eb725013c7b517f798dcfd508a430b160248cdceb"
+  },
+  {
+   "anchor": "section-8.8.2",
+   "title": "8.8.2. Last-Modified",
+   "level": 4,
+   "sha256": "1ea089ce18022090badd9ad61f81b10ecefc270887f99a2504a0a732a49991a5"
+  },
+  {
+   "anchor": "section-8.8.2.1",
+   "title": "8.8.2.1. Generation",
+   "level": 5,
+   "sha256": "9cc182f989d42cb657d0c072da47d4d9e7eb9f85831e111d1969d9244c79bd21"
+  },
+  {
+   "anchor": "section-8.8.2.2",
+   "title": "8.8.2.2. Comparison",
+   "level": 5,
+   "sha256": "dbafdbd59a9e8e432aabc841dabaf589d412edb1fd278f3efc879f408e94f497"
+  },
+  {
+   "anchor": "section-8.8.3",
+   "title": "8.8.3. ETag",
+   "level": 4,
+   "sha256": "ef15e9d89e36cb523573b17853a74f3d4e0a54516311355dd390f4b34ec7c142"
+  },
+  {
+   "anchor": "section-8.8.3.1",
+   "title": "8.8.3.1. Generation",
+   "level": 5,
+   "sha256": "4218a806f8b21f3555c9f9a21bed657a16388d85b4047751290375d024f30f58"
+  },
+  {
+   "anchor": "section-8.8.3.2",
+   "title": "8.8.3.2. Comparison",
+   "level": 5,
+   "sha256": "a6353e6c07a30b08c0805a605d554fe6ca4c2a347da4de117a5476f08ac30144"
+  },
+  {
+   "anchor": "section-8.8.3.3",
+   "title": "8.8.3.3. Example: Entity Tags Varying on Content-Negotiated Resources",
+   "level": 5,
+   "sha256": "6b2585cd1eb06a9e39280bdcc4cb9695217b213c3bbd1d19d2ef28a602056980"
+  },
+  {
+   "anchor": "section-9",
+   "title": "9. Methods",
+   "level": 2,
+   "sha256": "23942ef779299ed7282a10a1ec85681e10f2df857ad9200bc2f35c94d178ac92"
+  },
+  {
+   "anchor": "section-9.1",
+   "title": "9.1. Overview",
+   "level": 3,
+   "sha256": "37eba446eabb57ef1a38efc93202db3a602c35475d5d3b1d35e72b9da4c38e0f"
+  },
+  {
+   "anchor": "section-9.2",
+   "title": "9.2. Common Method Properties",
+   "level": 3,
+   "sha256": "3e443a98730bfa3190f56382c1c82b3ea424c54eba642b43bf843170379777dd"
+  },
+  {
+   "anchor": "section-9.2.1",
+   "title": "9.2.1. Safe Methods",
+   "level": 4,
+   "sha256": "7a289f483ad0172647c4f4467a7eb62a7013b72fa60258c6acb1c52ca887aff5"
+  },
+  {
+   "anchor": "section-9.2.2",
+   "title": "9.2.2. Idempotent Methods",
+   "level": 4,
+   "sha256": "e7acc5fa4e1430631ddc27eaf13fffd6ead3e51318a85b80de2062262989f522"
+  },
+  {
+   "anchor": "section-9.2.3",
+   "title": "9.2.3. Methods and Caching",
+   "level": 4,
+   "sha256": "1f905788c268da122f201621c8da788ebd2adee1870ac713bec7717835859d2b"
+  },
+  {
+   "anchor": "section-9.3",
+   "title": "9.3. Method Definitions",
+   "level": 3,
+   "sha256": "fc17cd983600bdce0f8bfcd8fecb6943baf160688ec8747091e80ad8a08e80da"
+  },
+  {
+   "anchor": "section-9.3.1",
+   "title": "9.3.1. GET",
+   "level": 4,
+   "sha256": "bcf6615706c90de1b1006432bea8164d995e1cef70dd37a96440043a7455108e"
+  },
+  {
+   "anchor": "section-9.3.2",
+   "title": "9.3.2. HEAD",
+   "level": 4,
+   "sha256": "3dd800c60271dc508c44da88e25a53e323ad23f09f7ed60878b45b9b6402899c"
+  },
+  {
+   "anchor": "section-9.3.3",
+   "title": "9.3.3. POST",
+   "level": 4,
+   "sha256": "00cf079685ea200fb2e62e61f33194a0c78f63c112eb88d0db1d77cd3c946942"
+  },
+  {
+   "anchor": "section-9.3.4",
+   "title": "9.3.4. PUT",
+   "level": 4,
+   "sha256": "d0b3ee45932efa64a9a99c0a1db61f74adef1a74557ee752173efa045931b66c"
+  },
+  {
+   "anchor": "section-9.3.5",
+   "title": "9.3.5. DELETE",
+   "level": 4,
+   "sha256": "5bb70811a21cd6461615649fc444efe0012625b22f13c65b678ae71e892e8ee1"
+  },
+  {
+   "anchor": "section-9.3.6",
+   "title": "9.3.6. CONNECT",
+   "level": 4,
+   "sha256": "302c01f50a5bb2dbd06a83a449be8212e4f7d6cfafed86bfd8bc9bf81208994c"
+  },
+  {
+   "anchor": "section-9.3.7",
+   "title": "9.3.7. OPTIONS",
+   "level": 4,
+   "sha256": "0e02ff36ce3be4b834390f4e21b89f5e8bf5f31ed3546b5482477b8f8d514f2b"
+  },
+  {
+   "anchor": "section-9.3.8",
+   "title": "9.3.8. TRACE",
+   "level": 4,
+   "sha256": "5e6bfc840333ba6c886bca8ffd4e6ba0e5dfe7429ffc9cfb024222528e27990c"
+  },
+  {
+   "anchor": "section-10",
+   "title": "10. Message Context",
+   "level": 2,
+   "sha256": "79dfda54ae509f1a255c1600261ffb2f9eae8b7e4e912416f2874f72fc33d4b6"
+  },
+  {
+   "anchor": "section-10.1",
+   "title": "10.1. Request Context Fields",
+   "level": 3,
+   "sha256": "e200be2db408b8538b03cc8741e23c7b3cddf02e5f42d89e6aec33de70b3d472"
+  },
+  {
+   "anchor": "section-10.1.1",
+   "title": "10.1.1. Expect",
+   "level": 4,
+   "sha256": "9ed276f2393475ff1aebd319eec8500baca2a88719192f2b18f1469633855bfe"
+  },
+  {
+   "anchor": "section-10.1.2",
+   "title": "10.1.2. From",
+   "level": 4,
+   "sha256": "c469ca15ff2ca70576eb50d083abf89ee26fd72c7fdf548f39e03001855cce01"
+  },
+  {
+   "anchor": "section-10.1.3",
+   "title": "10.1.3. Referer",
+   "level": 4,
+   "sha256": "2540b0a726633a6056c45c9ff0f51f786e7c39e0dc80d35114d06bd578981c04"
+  },
+  {
+   "anchor": "section-10.1.4",
+   "title": "10.1.4. TE",
+   "level": 4,
+   "sha256": "508146b7d759ed006eac086c8895bfa6f4a4235bc370b465954e7155a095b9e8"
+  },
+  {
+   "anchor": "section-10.1.5",
+   "title": "10.1.5. User-Agent",
+   "level": 4,
+   "sha256": "a8afe7b21f36a426b26dcbe82859a83e8fb1fc125966b4c3583257ba10313925"
+  },
+  {
+   "anchor": "section-10.2",
+   "title": "10.2. Response Context Fields",
+   "level": 3,
+   "sha256": "a5e07e39b7b69fe0b565f9a06927164974dbe7f7b0b26a676571137233d2b649"
+  },
+  {
+   "anchor": "section-10.2.1",
+   "title": "10.2.1. Allow",
+   "level": 4,
+   "sha256": "1fde24ca2454161afafe31f23b8f7ed904c1a1ba5e550fad9ed1725c2b4f15cb"
+  },
+  {
+   "anchor": "section-10.2.2",
+   "title": "10.2.2. Location",
+   "level": 4,
+   "sha256": "8b606117a615cabb52154294d2717e2a2dadfa89d89be79a9f220c9e1ae35cad"
+  },
+  {
+   "anchor": "section-10.2.3",
+   "title": "10.2.3. Retry-After",
+   "level": 4,
+   "sha256": "1c7f98a90b93ae7b2b585dfce910d41e144b6ab96228e46e6716f5d51c4aab1c"
+  },
+  {
+   "anchor": "section-10.2.4",
+   "title": "10.2.4. Server",
+   "level": 4,
+   "sha256": "66d9314ce08bf6f7028c11d5b8f0b7d1fc068d40c2e1e1eeb9bd4efa90cf7032"
+  },
+  {
+   "anchor": "section-11",
+   "title": "11. HTTP Authentication",
+   "level": 2,
+   "sha256": "34fa707d92889b3eba54847390b68fe4c13fc15d2e9c4b822a708fc1088aab9c"
+  },
+  {
+   "anchor": "section-11.1",
+   "title": "11.1. Authentication Scheme",
+   "level": 3,
+   "sha256": "31b65dbac8374db540f484a3f5b726dbca5e91e84f3f2f78256defc7cfbd4904"
+  },
+  {
+   "anchor": "section-11.2",
+   "title": "11.2. Authentication Parameters",
+   "level": 3,
+   "sha256": "5719288db06635a94a5fd3214e699fc269aead24efcbd6e7a56c89120212656f"
+  },
+  {
+   "anchor": "section-11.3",
+   "title": "11.3. Challenge and Response",
+   "level": 3,
+   "sha256": "9f4c58bd7efb18b406baaddd289e2c22bc4b11a8edc60f41bcafbc74cd6d9d25"
+  },
+  {
+   "anchor": "section-11.4",
+   "title": "11.4. Credentials",
+   "level": 3,
+   "sha256": "2cac64a029c435f191b78529e097ffb94b70f61bc3285ecfc710852005e24b8f"
+  },
+  {
+   "anchor": "section-11.5",
+   "title": "11.5. Establishing a Protection Space (Realm)",
+   "level": 3,
+   "sha256": "69d8669cb1411580b0a00c332069977c8d45cf3965264235d246a02fdd849539"
+  },
+  {
+   "anchor": "section-11.6",
+   "title": "11.6. Authenticating Users to Origin Servers",
+   "level": 3,
+   "sha256": "4d96d54d6dc50048da07a019465fb1b8640fd402b2f4e511c15d80cbd661f0c0"
+  },
+  {
+   "anchor": "section-11.6.1",
+   "title": "11.6.1. WWW-Authenticate",
+   "level": 4,
+   "sha256": "d631d87c0843b53b5b4578e96e34c17f6f1adac5c4f9b6fa6192c89baf1ded32"
+  },
+  {
+   "anchor": "section-11.6.2",
+   "title": "11.6.2. Authorization",
+   "level": 4,
+   "sha256": "51f7ecb969c2d61b0df87b6cab7dc12881f038f59866219ff81ced93e60fedce"
+  },
+  {
+   "anchor": "section-11.6.3",
+   "title": "11.6.3. Authentication-Info",
+   "level": 4,
+   "sha256": "e7ca1d5e9258689d0ad8d6686a7d0297863c769a0003a28fb08140d0eb547e0c"
+  },
+  {
+   "anchor": "section-11.7",
+   "title": "11.7. Authenticating Clients to Proxies",
+   "level": 3,
+   "sha256": "cf99afb317fbaebd54b34b66df70bba4929f9eb1695206fedaf398a9e73575e2"
+  },
+  {
+   "anchor": "section-11.7.1",
+   "title": "11.7.1. Proxy-Authenticate",
+   "level": 4,
+   "sha256": "d52d14bcddf8232d5cbcc68b3afeba95dec333c76e9dfcc195f0b3f1476cb098"
+  },
+  {
+   "anchor": "section-11.7.2",
+   "title": "11.7.2. Proxy-Authorization",
+   "level": 4,
+   "sha256": "5eb71d3ccbae17388cb61d5302dbae666105b8018c39ad6f65694a1260e5ab9d"
+  },
+  {
+   "anchor": "section-11.7.3",
+   "title": "11.7.3. Proxy-Authentication-Info",
+   "level": 4,
+   "sha256": "bf711b52650b4d8b5618a3a107e083694e84c7a8550a2c166e878ee6414e1063"
+  },
+  {
+   "anchor": "section-12",
+   "title": "12. Content Negotiation",
+   "level": 2,
+   "sha256": "0731febab532abd8a9335abfc9c7a675b22b2c939792d7d83cf940ce89a35af6"
+  },
+  {
+   "anchor": "section-12.1",
+   "title": "12.1. Proactive Negotiation",
+   "level": 3,
+   "sha256": "cd4f8f7cf7126a68b93d82644d1de13348d4635604753e31b9abd6f349d2839d"
+  },
+  {
+   "anchor": "section-12.2",
+   "title": "12.2. Reactive Negotiation",
+   "level": 3,
+   "sha256": "031203f50be78639b71ae8f65135688afb88675f42399c5617abe78e58c6a6ac"
+  },
+  {
+   "anchor": "section-12.3",
+   "title": "12.3. Request Content Negotiation",
+   "level": 3,
+   "sha256": "6799e994e5758e753ec0565c5166ec3b1e64c86a26214e58228bc67928cac8c4"
+  },
+  {
+   "anchor": "section-12.4",
+   "title": "12.4. Content Negotiation Field Features",
+   "level": 3,
+   "sha256": "83de0075fd12b61321e5fbb0e27938195d8fda7f0a90e10277a03adf0c285e20"
+  },
+  {
+   "anchor": "section-12.4.1",
+   "title": "12.4.1. Absence",
+   "level": 4,
+   "sha256": "94222e7b540b3b6fa077a5aae7c87321625e31bd8bf996af4e243e9ee818875f"
+  },
+  {
+   "anchor": "section-12.4.2",
+   "title": "12.4.2. Quality Values",
+   "level": 4,
+   "sha256": "f3cbaafe47a7010308593761134458ff7d25a5e6cd0059578cd7e5adca736415"
+  },
+  {
+   "anchor": "section-12.4.3",
+   "title": "12.4.3. Wildcard Values",
+   "level": 4,
+   "sha256": "f323ec2298db21c1e00503f6c9314bf14ff08a12d3d681f7d82d9edb7d55c339"
+  },
+  {
+   "anchor": "section-12.5",
+   "title": "12.5. Content Negotiation Fields",
+   "level": 3,
+   "sha256": "c366960773625081ae71b9a610698bcec272905aa6f846db38178b5f19ca97e3"
+  },
+  {
+   "anchor": "section-12.5.1",
+   "title": "12.5.1. Accept",
+   "level": 4,
+   "sha256": "8ceb9dda05b4db6d45579be84170fd88d384d57d412561f5b7f5b9ee256fc608"
+  },
+  {
+   "anchor": "section-12.5.2",
+   "title": "12.5.2. Accept-Charset",
+   "level": 4,
+   "sha256": "5e85f61b2867b261b7f30dc3eafc4ab26048118b7cb67675315217d571865a88"
+  },
+  {
+   "anchor": "section-12.5.3",
+   "title": "12.5.3. Accept-Encoding",
+   "level": 4,
+   "sha256": "88b2bf4ddd90e0e99e5447cb0766f5377a3c2c96916776b5f44ab65ffe12e426"
+  },
+  {
+   "anchor": "section-12.5.4",
+   "title": "12.5.4. Accept-Language",
+   "level": 4,
+   "sha256": "de3e5ff10b8b7da9238b4f4e8bb36417226fb5b8f7fc3691c809268d88dfda91"
+  },
+  {
+   "anchor": "section-12.5.5",
+   "title": "12.5.5. Vary",
+   "level": 4,
+   "sha256": "cfe71fba7105cefed5dee5f72a8673a0a1f399e9bb92f782358d82e6187ddcbf"
+  },
+  {
+   "anchor": "section-13",
+   "title": "13. Conditional Requests",
+   "level": 2,
+   "sha256": "bd5e0f749844e4b16fab87f21c9359f2f669ff153129a5731dfcb6a0d33af880"
+  },
+  {
+   "anchor": "section-13.1",
+   "title": "13.1. Preconditions",
+   "level": 3,
+   "sha256": "80c52e6888cc3c752d3d8c4c70ae56ad4a284356c6a955516acb8443c67205ef"
+  },
+  {
+   "anchor": "section-13.1.1",
+   "title": "13.1.1. If-Match",
+   "level": 4,
+   "sha256": "210f051669b318c7dd7dda06ef67206b307a395f0156748f10813875cdf87ce2"
+  },
+  {
+   "anchor": "section-13.1.2",
+   "title": "13.1.2. If-None-Match",
+   "level": 4,
+   "sha256": "c13036def465590d2c9986a40c8ee4cd321b63020a789833240bb8a004ed11e6"
+  },
+  {
+   "anchor": "section-13.1.3",
+   "title": "13.1.3. If-Modified-Since",
+   "level": 4,
+   "sha256": "7163b10c006c279c513a427e3b3afe34e899cf0ba1cc4c61acff3f8a904d5732"
+  },
+  {
+   "anchor": "section-13.1.4",
+   "title": "13.1.4. If-Unmodified-Since",
+   "level": 4,
+   "sha256": "460f9feb893cf6ddfaf555bf5818d98e624fc8a561d2a01f160239fc656fd246"
+  },
+  {
+   "anchor": "section-13.1.5",
+   "title": "13.1.5. If-Range",
+   "level": 4,
+   "sha256": "1fe511e008c731c68ed4cf5d9ea1445f6b7ccd968bcf600ad67ebfaa40829fc6"
+  },
+  {
+   "anchor": "section-13.2",
+   "title": "13.2. Evaluation of Preconditions",
+   "level": 3,
+   "sha256": "69564a9fd42f2d5901a78121d096abc4f7dd5da092c6c8b62339f943825166f9"
+  },
+  {
+   "anchor": "section-13.2.1",
+   "title": "13.2.1. When to Evaluate",
+   "level": 4,
+   "sha256": "202f97e2ab9c51ff2d78219c46fd75bb75cf9326533a0c60e62c974d065c83c0"
+  },
+  {
+   "anchor": "section-13.2.2",
+   "title": "13.2.2. Precedence of Preconditions",
+   "level": 4,
+   "sha256": "0b620b3d2c8516d4af7e6ff72b390b0c91b7b62c97eb48608bcde25727ebacf6"
+  },
+  {
+   "anchor": "section-14",
+   "title": "14. Range Requests",
+   "level": 2,
+   "sha256": "5701c49070217076d222aada9ef7b20f15f36e464e01cb64a4328d4977bc1124"
+  },
+  {
+   "anchor": "section-14.1",
+   "title": "14.1. Range Units",
+   "level": 3,
+   "sha256": "be8e8868da00b13de3d1442b5625aaa6cb039e445701c37e3e36234bbe3db422"
+  },
+  {
+   "anchor": "section-14.1.1",
+   "title": "14.1.1. Range Specifiers",
+   "level": 4,
+   "sha256": "7550ed922a6ca2f392b3f6570328aede2d912bfeba02a0b71e549e0b9dc79e99"
+  },
+  {
+   "anchor": "section-14.1.2",
+   "title": "14.1.2. Byte Ranges",
+   "level": 4,
+   "sha256": "b0bf30707d36a0d3503da1c91a357a9a75f1e34a42f5a3318cef7b063cb27487"
+  },
+  {
+   "anchor": "section-14.2",
+   "title": "14.2. Range",
+   "level": 3,
+   "sha256": "e24afa78603b8dc239ab7725ebd633de26af2da0c359ffc5e91c758ce12e1c03"
+  },
+  {
+   "anchor": "section-14.3",
+   "title": "14.3. Accept-Ranges",
+   "level": 3,
+   "sha256": "7404bd46bf1d34d13de95f809cb4843255444fa205f111e7566fa165a4776ccd"
+  },
+  {
+   "anchor": "section-14.4",
+   "title": "14.4. Content-Range",
+   "level": 3,
+   "sha256": "7166eb1804249ca69424ca30a32a1f81522537fe0d5e09ae0321e67cc32f423d"
+  },
+  {
+   "anchor": "section-14.5",
+   "title": "14.5. Partial PUT",
+   "level": 3,
+   "sha256": "fe35941c07df2cb7bd931b696dda14875831ba8b649bfb1d948fdfb162209cfd"
+  },
+  {
+   "anchor": "section-14.6",
+   "title": "14.6. Media Type multipart/byteranges",
+   "level": 3,
+   "sha256": "7ee3095409559a671cfed966e969668f7bc47ed04449fdd708dd0858002bebe9"
+  },
+  {
+   "anchor": "section-15",
+   "title": "15. Status Codes",
+   "level": 2,
+   "sha256": "caffb14a9562ec54b27889d67092baadaf1f6e73e4e957e7cd8d31e9ea4bd261"
+  },
+  {
+   "anchor": "section-15.1",
+   "title": "15.1. Overview of Status Codes",
+   "level": 3,
+   "sha256": "b6f0e935963f52fc0cd28b11a50c1dc03b94d36da7c954a41cf748e4cfd4378e"
+  },
+  {
+   "anchor": "section-15.2",
+   "title": "15.2. Informational 1xx",
+   "level": 3,
+   "sha256": "7a2b464895899a7fcaef57276978472ee16d00626047f0298a81f9d29a9eb38f"
+  },
+  {
+   "anchor": "section-15.2.1",
+   "title": "15.2.1. 100 Continue",
+   "level": 4,
+   "sha256": "91965ffd9fb7c61f93db5d2311d616d17e1ee063aab93221dc0bb783ce529c73"
+  },
+  {
+   "anchor": "section-15.2.2",
+   "title": "15.2.2. 101 Switching Protocols",
+   "level": 4,
+   "sha256": "42c861a773949d9c4bdee9078a7970973ba60f78122cdcdd2fa9e7a47a24fadb"
+  },
+  {
+   "anchor": "section-15.3",
+   "title": "15.3. Successful 2xx",
+   "level": 3,
+   "sha256": "f97bb58496095dedc0efd98591bab316325b522ab47fcc293bc5566e07e8e170"
+  },
+  {
+   "anchor": "section-15.3.1",
+   "title": "15.3.1. 200 OK",
+   "level": 4,
+   "sha256": "ab2a4a63427e0aa8a01bb85d4a415459b1c0c77758afc0743c692b8803564335"
+  },
+  {
+   "anchor": "section-15.3.2",
+   "title": "15.3.2. 201 Created",
+   "level": 4,
+   "sha256": "83c5f6f90a313ebb9a498374f1509f7013b7c62aa8c0ea86b4460ca501c7c421"
+  },
+  {
+   "anchor": "section-15.3.3",
+   "title": "15.3.3. 202 Accepted",
+   "level": 4,
+   "sha256": "a04bcba0c81e8b4d623e59d00a4358ad4d47df30d271a484b92e48ae01b6887f"
+  },
+  {
+   "anchor": "section-15.3.4",
+   "title": "15.3.4. 203 Non-Authoritative Information",
+   "level": 4,
+   "sha256": "612f5b89d0e0eb86873a89d0f56a0c0c99bdbdc50358f54e0e9e462b57a63104"
+  },
+  {
+   "anchor": "section-15.3.5",
+   "title": "15.3.5. 204 No Content",
+   "level": 4,
+   "sha256": "a2118cb9f33c5f77a5d605ca7c3bb23b774f2e86de68db2ac99bc74fadffe0ff"
+  },
+  {
+   "anchor": "section-15.3.6",
+   "title": "15.3.6. 205 Reset Content",
+   "level": 4,
+   "sha256": "aaf3c159a9679bd137022cbda643a96f5bd6e2cf2faf9f1e4b1183daf6937bd4"
+  },
+  {
+   "anchor": "section-15.3.7",
+   "title": "15.3.7. 206 Partial Content",
+   "level": 4,
+   "sha256": "bf133c5e537a90f1396fac872e435e62c2ef82f327300f42a9c1a90e8bcb8562"
+  },
+  {
+   "anchor": "section-15.3.7.1",
+   "title": "15.3.7.1. Single Part",
+   "level": 5,
+   "sha256": "d65e3103e65ac89aa7243193e16b1899467557474eca7037280d549ed7dfc047"
+  },
+  {
+   "anchor": "section-15.3.7.2",
+   "title": "15.3.7.2. Multiple Parts",
+   "level": 5,
+   "sha256": "7ec7bf37396c95e3699b5f8fb5854f90bdccd6a205fe06eb9cb628c2c3d96a3f"
+  },
+  {
+   "anchor": "section-15.3.7.3",
+   "title": "15.3.7.3. Combining Parts",
+   "level": 5,
+   "sha256": "c224050bf2ef9d19d9e4c3e266982ac734dcef174c84f77caea7e020afc0675e"
+  },
+  {
+   "anchor": "section-15.4",
+   "title": "15.4. Redirection 3xx",
+   "level": 3,
+   "sha256": "1aa908e4542fc21fb3650a6d70a8fc632e77599574d1517aa5a5886b20df4ff0"
+  },
+  {
+   "anchor": "section-15.4.1",
+   "title": "15.4.1. 300 Multiple Choices",
+   "level": 4,
+   "sha256": "7eb8c3b15171cbd3a87559aa25cff5090498e9939282f9d3527e390b7246a154"
+  },
+  {
+   "anchor": "section-15.4.2",
+   "title": "15.4.2. 301 Moved Permanently",
+   "level": 4,
+   "sha256": "b732a5dcdcb12b41ce3ad57eed2440b8389b46700de1c49a1389af0d49c4eefe"
+  },
+  {
+   "anchor": "section-15.4.3",
+   "title": "15.4.3. 302 Found",
+   "level": 4,
+   "sha256": "6b42fa41abfc51a9af6c5acaac85888a735af428820c35d961de00dbe3b7c371"
+  },
+  {
+   "anchor": "section-15.4.4",
+   "title": "15.4.4. 303 See Other",
+   "level": 4,
+   "sha256": "d4f83c2f66e1b49483804e8567271555037e7f9e2843d5ce929fbac29f1804c6"
+  },
+  {
+   "anchor": "section-15.4.5",
+   "title": "15.4.5. 304 Not Modified",
+   "level": 4,
+   "sha256": "ef6a453e0012603a0387652458f60d26a6bec440774860678bec8e2c31589553"
+  },
+  {
+   "anchor": "section-15.4.6",
+   "title": "15.4.6. 305 Use Proxy",
+   "level": 4,
+   "sha256": "f569439d84231839d65513109ec9ebad692d404c4464d83ef23c721ede319028"
+  },
+  {
+   "anchor": "section-15.4.7",
+   "title": "15.4.7. 306 (Unused)",
+   "level": 4,
+   "sha256": "698c42c510736cf35b9f5c563b5ad52c594b3e078484e9b0f6275519629ab1bc"
+  },
+  {
+   "anchor": "section-15.4.8",
+   "title": "15.4.8. 307 Temporary Redirect",
+   "level": 4,
+   "sha256": "1398d385d8cf78978277497ff9aa1fedccdd6ee6ee8d43233e9a4e1b96493201"
+  },
+  {
+   "anchor": "section-15.4.9",
+   "title": "15.4.9. 308 Permanent Redirect",
+   "level": 4,
+   "sha256": "5073eb63353cb8fe7dfe7ff710d3a4430b418cf3cb89bf3f966ba089ee8185fd"
+  },
+  {
+   "anchor": "section-15.5",
+   "title": "15.5. Client Error 4xx",
+   "level": 3,
+   "sha256": "fb37acb83e6a0e33c3443f131ca8030cfebec7fc17b39d49b66f6f533ec705fb"
+  },
+  {
+   "anchor": "section-15.5.1",
+   "title": "15.5.1. 400 Bad Request",
+   "level": 4,
+   "sha256": "96fffe9482d76474c66a1e9e2e640c37da9f4b8c103fbdc3ded15baa614bc6f4"
+  },
+  {
+   "anchor": "section-15.5.2",
+   "title": "15.5.2. 401 Unauthorized",
+   "level": 4,
+   "sha256": "3f8350f5e4da539af1345a81cb567f4185d49e7972b4156ad67730bcf4872a2a"
+  },
+  {
+   "anchor": "section-15.5.3",
+   "title": "15.5.3. 402 Payment Required",
+   "level": 4,
+   "sha256": "f130bf4752fa8bbc19bcdc982efb58cf9ff7ab50491c36b3647270f015bc0f21"
+  },
+  {
+   "anchor": "section-15.5.4",
+   "title": "15.5.4. 403 Forbidden",
+   "level": 4,
+   "sha256": "2ff5b822ca766183e12cafb5f6d88b414257bf69f8a0efda2910836d186b7be1"
+  },
+  {
+   "anchor": "section-15.5.5",
+   "title": "15.5.5. 404 Not Found",
+   "level": 4,
+   "sha256": "c495d4f7758693c573bcff5688a7a0b5ad4db89cda4fb5052db7b32cfed19e1e"
+  },
+  {
+   "anchor": "section-15.5.6",
+   "title": "15.5.6. 405 Method Not Allowed",
+   "level": 4,
+   "sha256": "15ae8a08956b8de16e6ec33b2ec020a6b8542c7992d8393ee63a46f03ce402e9"
+  },
+  {
+   "anchor": "section-15.5.7",
+   "title": "15.5.7. 406 Not Acceptable",
+   "level": 4,
+   "sha256": "71cf231ec5789662831816ebfbea4f6551342f955227d2ac1dbe62db1c11fabf"
+  },
+  {
+   "anchor": "section-15.5.8",
+   "title": "15.5.8. 407 Proxy Authentication Required",
+   "level": 4,
+   "sha256": "a1dd82e9c620e825f1aa2c8fcd54e205043fd24d99e4134f3e7365ccec669783"
+  },
+  {
+   "anchor": "section-15.5.9",
+   "title": "15.5.9. 408 Request Timeout",
+   "level": 4,
+   "sha256": "d0f3f90c08f09cf62d8195b194d259dbe6df21028a15d03b4c665c7ae4fc4d57"
+  },
+  {
+   "anchor": "section-15.5.10",
+   "title": "15.5.10. 409 Conflict",
+   "level": 4,
+   "sha256": "26ca68fd2d152be9733840022e4098b1d48e6a1595d7fadc7b4f514c90beed1e"
+  },
+  {
+   "anchor": "section-15.5.11",
+   "title": "15.5.11. 410 Gone",
+   "level": 4,
+   "sha256": "1e756c1337c14d07d70d1c0978324f7f7b6e46eae3377d2db706ddf40955d05e"
+  },
+  {
+   "anchor": "section-15.5.12",
+   "title": "15.5.12. 411 Length Required",
+   "level": 4,
+   "sha256": "c04cb93f29b43481d64795f47bc5cc114cf708100a1140d9aae27b6deab34b47"
+  },
+  {
+   "anchor": "section-15.5.13",
+   "title": "15.5.13. 412 Precondition Failed",
+   "level": 4,
+   "sha256": "20de02e7071333836478c4c2363b3fbc36dbfdd4b049df1923bbb3f7beb58df3"
+  },
+  {
+   "anchor": "section-15.5.14",
+   "title": "15.5.14. 413 Content Too Large",
+   "level": 4,
+   "sha256": "3d3d8e157c69fd3450765cd04f481d510ea0633e7c315ba09086bc810e223c41"
+  },
+  {
+   "anchor": "section-15.5.15",
+   "title": "15.5.15. 414 URI Too Long",
+   "level": 4,
+   "sha256": "e668cb7e2b5e627ac248d55fe1bf1682eca8211cab1e0279750927dfbc42284a"
+  },
+  {
+   "anchor": "section-15.5.16",
+   "title": "15.5.16. 415 Unsupported Media Type",
+   "level": 4,
+   "sha256": "472ca08bf7382ead55415ee09aa64194f56d041b22b252172d55ca6a67c9de44"
+  },
+  {
+   "anchor": "section-15.5.17",
+   "title": "15.5.17. 416 Range Not Satisfiable",
+   "level": 4,
+   "sha256": "180cac1009fea33d550ad4f5a3230a019083feac4ddcdb905f659052872c088d"
+  },
+  {
+   "anchor": "section-15.5.18",
+   "title": "15.5.18. 417 Expectation Failed",
+   "level": 4,
+   "sha256": "5179199cf56639450c181dd1ef9651726f9022746b3b30f75d6d96cae89d8555"
+  },
+  {
+   "anchor": "section-15.5.19",
+   "title": "15.5.19. 418 (Unused)",
+   "level": 4,
+   "sha256": "59c899a92d00cb078ab1831611abeb73bb184f980070910a8fc51955c68254d9"
+  },
+  {
+   "anchor": "section-15.5.20",
+   "title": "15.5.20. 421 Misdirected Request",
+   "level": 4,
+   "sha256": "cd0ac15750d765093ca6d8695050bec68c082d9bf43d2ed812459bb2fb498944"
+  },
+  {
+   "anchor": "section-15.5.21",
+   "title": "15.5.21. 422 Unprocessable Content",
+   "level": 4,
+   "sha256": "802ce7cb1dfb0b97dd8bdf3967102ba2ca621d807fa666a145197c36a82295cc"
+  },
+  {
+   "anchor": "section-15.5.22",
+   "title": "15.5.22. 426 Upgrade Required",
+   "level": 4,
+   "sha256": "d48ba2128e7f3d7ba2daee6ca6afb8407f3176ddedff97d1187ea8424335d8d8"
+  },
+  {
+   "anchor": "section-15.6",
+   "title": "15.6. Server Error 5xx",
+   "level": 3,
+   "sha256": "018c937f372d34edd0321370b361f79da6cc45e4246b93609a5de25895976286"
+  },
+  {
+   "anchor": "section-15.6.1",
+   "title": "15.6.1. 500 Internal Server Error",
+   "level": 4,
+   "sha256": "62c84e4996d09313ca5885771aabd7b1371ae18b7dec93405cc085483f81043f"
+  },
+  {
+   "anchor": "section-15.6.2",
+   "title": "15.6.2. 501 Not Implemented",
+   "level": 4,
+   "sha256": "50aaba142e0aa3ed9502ce824054f3a81e792d36fb79876cf024e2b83a7a3509"
+  },
+  {
+   "anchor": "section-15.6.3",
+   "title": "15.6.3. 502 Bad Gateway",
+   "level": 4,
+   "sha256": "1e44d5239064986dc23e7cd801a0189264683190f8c81212c600704b3fe986be"
+  },
+  {
+   "anchor": "section-15.6.4",
+   "title": "15.6.4. 503 Service Unavailable",
+   "level": 4,
+   "sha256": "773e0e63cc7c729b231f7305330e6e756002027a7bfd4d21b2870702476aa616"
+  },
+  {
+   "anchor": "section-15.6.5",
+   "title": "15.6.5. 504 Gateway Timeout",
+   "level": 4,
+   "sha256": "9ce09349e81dd2c127e428159e93102fede60c1bcf001fc14af3bc55829ba007"
+  },
+  {
+   "anchor": "section-15.6.6",
+   "title": "15.6.6. 505 HTTP Version Not Supported",
+   "level": 4,
+   "sha256": "2c08508dc87d211631dcfd5d594a2ed859a8d09aceb930c2d10fae8e557a404c"
+  },
+  {
+   "anchor": "section-16",
+   "title": "16. Extending HTTP",
+   "level": 2,
+   "sha256": "56a1c0629263589782d2681c570f5891332cfb6b699b2bb90b1271c1982b89f3"
+  },
+  {
+   "anchor": "section-16.1",
+   "title": "16.1. Method Extensibility",
+   "level": 3,
+   "sha256": "a4e89b3e939fa63960434cc5f718b4e1dab670b3a32b41aae482d3651209e241"
+  },
+  {
+   "anchor": "section-16.1.1",
+   "title": "16.1.1. Method Registry",
+   "level": 4,
+   "sha256": "2d2b21da8f07b43a09c12b2e181379dabf20e009d1435fcb3a4b52ff9c9d630b"
+  },
+  {
+   "anchor": "section-16.1.2",
+   "title": "16.1.2. Considerations for New Methods",
+   "level": 4,
+   "sha256": "a5c7118c11a1861c3d6db341461bd7c4a5fa00610df276a946055a2b59f9ac51"
+  },
+  {
+   "anchor": "section-16.2",
+   "title": "16.2. Status Code Extensibility",
+   "level": 3,
+   "sha256": "3494b91bdddeb2af4d3817b749af54c46d2876b862033c48547de50061962418"
+  },
+  {
+   "anchor": "section-16.2.1",
+   "title": "16.2.1. Status Code Registry",
+   "level": 4,
+   "sha256": "0a3c66631dc3b0555c665625ce6e1a00380b96124b7e88b70f525478d0b58416"
+  },
+  {
+   "anchor": "section-16.2.2",
+   "title": "16.2.2. Considerations for New Status Codes",
+   "level": 4,
+   "sha256": "fc58193292880ff421d919ea834922e4dbbff68dd5883a4466251cfe8bcc4b48"
+  },
+  {
+   "anchor": "section-16.3",
+   "title": "16.3. Field Extensibility",
+   "level": 3,
+   "sha256": "57b3e451bded902bfa3965d8ced5f909771a624efdf9226c25cadc12dee99b11"
+  },
+  {
+   "anchor": "section-16.3.1",
+   "title": "16.3.1. Field Name Registry",
+   "level": 4,
+   "sha256": "0cce2ce621c743eb4f2eb3a053d104abd4c4fc23226c387b8bdfe034dff88510"
+  },
+  {
+   "anchor": "section-16.3.2",
+   "title": "16.3.2. Considerations for New Fields",
+   "level": 4,
+   "sha256": "0624e59c88ea47927471aa98e3b5a87747a17c779ae71d4c4f8fbdd48e78b205"
+  },
+  {
+   "anchor": "section-16.3.2.1",
+   "title": "16.3.2.1. Considerations for New Field Names",
+   "level": 5,
+   "sha256": "5aa29f372c881425a2c122bad90d51364fef2e8ad368ea56e1b9446858861d2b"
+  },
+  {
+   "anchor": "section-16.3.2.2",
+   "title": "16.3.2.2. Considerations for New Field Values",
+   "level": 5,
+   "sha256": "bfdb0429be80d603f55bc0c53c732501210f041d4d021a9c128bc0b815b44468"
+  },
+  {
+   "anchor": "section-16.4",
+   "title": "16.4. Authentication Scheme Extensibility",
+   "level": 3,
+   "sha256": "1c3356fa45f0066056bd2d22fb7bb007144264d2cb8b787d0b4f3ae8cc01ad51"
+  },
+  {
+   "anchor": "section-16.4.1",
+   "title": "16.4.1. Authentication Scheme Registry",
+   "level": 4,
+   "sha256": "90c46d2909f36d09c323ba96f27e6b4d8f3945144ce4c5c12cff4963a393fa28"
+  },
+  {
+   "anchor": "section-16.4.2",
+   "title": "16.4.2. Considerations for New Authentication Schemes",
+   "level": 4,
+   "sha256": "afeb9dd042f134509961aefbfa57e9623f0c9c17be62649d7b4a7938d1975124"
+  },
+  {
+   "anchor": "section-16.5",
+   "title": "16.5. Range Unit Extensibility",
+   "level": 3,
+   "sha256": "83f617b8047404ff48a138ddb0a10808b0be37ed745b6abc404acaa69bbaa360"
+  },
+  {
+   "anchor": "section-16.5.1",
+   "title": "16.5.1. Range Unit Registry",
+   "level": 4,
+   "sha256": "078d628e24ed06c8d4a38b91904fb3ddcb9a95bb2859b36632f8eff91d9fdcd0"
+  },
+  {
+   "anchor": "section-16.5.2",
+   "title": "16.5.2. Considerations for New Range Units",
+   "level": 4,
+   "sha256": "20d88dc2d495315297b696114298ffa69d2fad982cd9bca9491b0d7f448595c1"
+  },
+  {
+   "anchor": "section-16.6",
+   "title": "16.6. Content Coding Extensibility",
+   "level": 3,
+   "sha256": "ea71def7bb4974eae2ebfa8c333b81db1249d2d29f2cfa2612527719e4dac648"
+  },
+  {
+   "anchor": "section-16.6.1",
+   "title": "16.6.1. Content Coding Registry",
+   "level": 4,
+   "sha256": "37c335ce21d9e3d4a848349c4cb255a3bd700f3c342112149f7b90432ff21fff"
+  },
+  {
+   "anchor": "section-16.6.2",
+   "title": "16.6.2. Considerations for New Content Codings",
+   "level": 4,
+   "sha256": "cd89d21f626b416c0e5044c55839cb82d86370ef865c7f9596039c4dcf83b7d2"
+  },
+  {
+   "anchor": "section-16.7",
+   "title": "16.7. Upgrade Token Registry",
+   "level": 3,
+   "sha256": "f04e7e6160ef75185a909fe6c147379ba58978da0f60416c61cb7da62cb687bb"
+  },
+  {
+   "anchor": "section-17",
+   "title": "17. Security Considerations",
+   "level": 2,
+   "sha256": "02db2c212dbb76ad22437388d2462b329144e1ef8fa5917b7798b67b35e71f35"
+  },
+  {
+   "anchor": "section-17.1",
+   "title": "17.1. Establishing Authority",
+   "level": 3,
+   "sha256": "65ad2e30e2c6345304009e00145c306ce5873cfab872caf7b2d70c94a11b2554"
+  },
+  {
+   "anchor": "section-17.2",
+   "title": "17.2. Risks of Intermediaries",
+   "level": 3,
+   "sha256": "c0c0990a1a25922c60fb779248f3face05821fc34d6fa26e183a85595165a01c"
+  },
+  {
+   "anchor": "section-17.3",
+   "title": "17.3. Attacks Based on File and Path Names",
+   "level": 3,
+   "sha256": "5d8749d45c05763ecc850017068683ebf676ab5eedf5482f3a481a3d8f589e66"
+  },
+  {
+   "anchor": "section-17.4",
+   "title": "17.4. Attacks Based on Command, Code, or Query Injection",
+   "level": 3,
+   "sha256": "aad2912d7940414c3b3b254e2db5abf97d8dfc2a4bf6d68d00b1183f8e9863b1"
+  },
+  {
+   "anchor": "section-17.5",
+   "title": "17.5. Attacks via Protocol Element Length",
+   "level": 3,
+   "sha256": "b85c288b5af955d505f5b62624438d36e2381a34888d00d14542a8dffeffa147"
+  },
+  {
+   "anchor": "section-17.6",
+   "title": "17.6. Attacks Using Shared-Dictionary Compression",
+   "level": 3,
+   "sha256": "19795bba5b8b828882fbe0101cd7bc673f260f8ae68cb0c7594216820479f6b2"
+  },
+  {
+   "anchor": "section-17.7",
+   "title": "17.7. Disclosure of Personal Information",
+   "level": 3,
+   "sha256": "1080715f6fcec15c13a21f5d0f6b64784148d8a74124ede5e2aa8407b83ed10e"
+  },
+  {
+   "anchor": "section-17.8",
+   "title": "17.8. Privacy of Server Log Information",
+   "level": 3,
+   "sha256": "6981b3bdd7a3e0eaca30a7bf4d526c10e4099265fba8ffdeb522aae7cac8424a"
+  },
+  {
+   "anchor": "section-17.9",
+   "title": "17.9. Disclosure of Sensitive Information in URIs",
+   "level": 3,
+   "sha256": "b941fd5b6cb1b3e57bad7bbb42ccf6a96bcb13f3ebfda50709dbfe6a79440c93"
+  },
+  {
+   "anchor": "section-17.10",
+   "title": "17.10. Application Handling of Field Names",
+   "level": 3,
+   "sha256": "0f476da62cf858cfb30f11be27ede1c769ba22d367931e31a6194b767c6672e3"
+  },
+  {
+   "anchor": "section-17.11",
+   "title": "17.11. Disclosure of Fragment after Redirects",
+   "level": 3,
+   "sha256": "59793c80c4a2b6b9635f502f44edbc535b95169384c3adb759c22a7888cbd215"
+  },
+  {
+   "anchor": "section-17.12",
+   "title": "17.12. Disclosure of Product Information",
+   "level": 3,
+   "sha256": "47d9ac1d168e5ae83bad8d521ba45e090a5979d58c80a56c2e82ab47bfb3a001"
+  },
+  {
+   "anchor": "section-17.13",
+   "title": "17.13. Browser Fingerprinting",
+   "level": 3,
+   "sha256": "456b9f85754e648d8e1f0ab4e8c70a7b1f5b17dfccc33c3d846fe8b40c87fd3e"
+  },
+  {
+   "anchor": "section-17.14",
+   "title": "17.14. Validator Retention",
+   "level": 3,
+   "sha256": "f484855fafabfb316a1cb26960daf32169c3e5dfde00e65e1d09a8552d6783a9"
+  },
+  {
+   "anchor": "section-17.15",
+   "title": "17.15. Denial-of-Service Attacks Using Range",
+   "level": 3,
+   "sha256": "2fdd66e07b18fa3b51135d76dee2d85d252e0bd58fc2f858b5c65c7473cfe18c"
+  },
+  {
+   "anchor": "section-17.16",
+   "title": "17.16. Authentication Considerations",
+   "level": 3,
+   "sha256": "2f14dbdc2e9084031b7dec27e1989e0021c5ab96b41c16ab2429f50b7925dfc0"
+  },
+  {
+   "anchor": "section-17.16.1",
+   "title": "17.16.1. Confidentiality of Credentials",
+   "level": 4,
+   "sha256": "d26a80c2d08012b4580a1655143a1def12cd6f77b6987e29109afa8794f36e80"
+  },
+  {
+   "anchor": "section-17.16.2",
+   "title": "17.16.2. Credentials and Idle Clients",
+   "level": 4,
+   "sha256": "b82b07b72e090b45cf4d1a992b6ff24c78980b3f7360d196580b1aaeb6fdcc82"
+  },
+  {
+   "anchor": "section-17.16.3",
+   "title": "17.16.3. Protection Spaces",
+   "level": 4,
+   "sha256": "477a941643c637d64ce821f2aa3554913516e00d1a16f2a5993d4adea7312cd9"
+  },
+  {
+   "anchor": "section-17.16.4",
+   "title": "17.16.4. Additional Response Fields",
+   "level": 4,
+   "sha256": "98b7e3602bf5a6af8542f30f444d8898d013abb8ae95743da9625e896a68e527"
+  },
+  {
+   "anchor": "section-18",
+   "title": "18. IANA Considerations",
+   "level": 2,
+   "sha256": "8b123f08b5d64f2c55130c4db34d8c1c4081a6de44dfa07864362a8e89b91740"
+  },
+  {
+   "anchor": "section-18.1",
+   "title": "18.1. URI Scheme Registration",
+   "level": 3,
+   "sha256": "a7082e574b96badd90dfc2ca0cf78443d4c3accc0819d41755f5f0996bbdfc11"
+  },
+  {
+   "anchor": "section-18.2",
+   "title": "18.2. Method Registration",
+   "level": 3,
+   "sha256": "a4d3a1e5505552ff9372eef9d01d9a94b892185e8e26fc6c1978f7447b7d3465"
+  },
+  {
+   "anchor": "section-18.3",
+   "title": "18.3. Status Code Registration",
+   "level": 3,
+   "sha256": "68b5bdcf8f9b984bf0d9ace9d22dce947926d6a3732ab1e5c9b5967f2ec640c8"
+  },
+  {
+   "anchor": "section-18.4",
+   "title": "18.4. Field Name Registration",
+   "level": 3,
+   "sha256": "e1efdd2b749b9a3434e69c801950b2f2e22f0d8f261686256a01bb2344b3d21c"
+  },
+  {
+   "anchor": "section-18.5",
+   "title": "18.5. Authentication Scheme Registration",
+   "level": 3,
+   "sha256": "cc395ec560449396b3b4a1da513296badd683a72a01043fcca73df380940f03a"
+  },
+  {
+   "anchor": "section-18.6",
+   "title": "18.6. Content Coding Registration",
+   "level": 3,
+   "sha256": "d6f79c42cc27b5e26fc8b18d1ef7ffbb3b4075f99b303dd3d9acc836066c45bd"
+  },
+  {
+   "anchor": "section-18.7",
+   "title": "18.7. Range Unit Registration",
+   "level": 3,
+   "sha256": "6448998140dc454f8e1069d3c313dfcc9fb2ef16401f27fcbf8a90252e134328"
+  },
+  {
+   "anchor": "section-18.8",
+   "title": "18.8. Media Type Registration",
+   "level": 3,
+   "sha256": "d66a0544745e301397b6e58d210d4f0898c2267e4c7f158d35fa9ce04ddece25"
+  },
+  {
+   "anchor": "section-18.9",
+   "title": "18.9. Port Registration",
+   "level": 3,
+   "sha256": "c02d2baed5a8c22b0648d1a6e27416ed4ea6db78ef98d05dc69ae7a685df1034"
+  },
+  {
+   "anchor": "section-18.10",
+   "title": "18.10. Upgrade Token Registration",
+   "level": 3,
+   "sha256": "3a936aea21cdc9bdbb681b4ad0e5d27e4720992481fc8d1b3596194f196ddb77"
+  },
+  {
+   "anchor": "section-19",
+   "title": "19. References",
+   "level": 2,
+   "sha256": "8ed15c9be8d830e24a4ffd2715b6c20c0f94776a5f803ac7da621a1eaa8b9643"
+  },
+  {
+   "anchor": "section-19.1",
+   "title": "19.1. Normative References",
+   "level": 3,
+   "sha256": "b1bdeaa21df139139421b9dd9fc5e4b7d1d2a8ee3cac483dcf7e6ed76f4913dc"
+  },
+  {
+   "anchor": "section-19.2",
+   "title": "19.2. Informative References",
+   "level": 3,
+   "sha256": "ce6ce032c05d73f74281c7ff6d412e524a9bd28e4c7be5c2a84c2a1767ac1731"
+  },
+  {
+   "anchor": "name-collected-abnf",
+   "title": "Appendix A. Collected ABNF",
+   "level": 2,
+   "sha256": "0b534b4a130cc379fa8f4290b0217168057ab8abd9ccce8c2d856be9e0f1890b"
+  },
+  {
+   "anchor": "name-changes-from-previous-rfcs",
+   "title": "Appendix B. Changes from Previous RFCs",
+   "level": 2,
+   "sha256": "bff31d8fe6b1acdaf8446f8cbae0d08bf424df1a5480a1baa736c67a2cfec7b1"
+  },
+  {
+   "anchor": "name-changes-from-rfc-2818",
+   "title": "B.1. Changes from RFC 2818",
+   "level": 3,
+   "sha256": "aa3f93f84884bdbdbc8f4bbfc6db1b3175d471d9d56745b3c4056f86116be502"
+  },
+  {
+   "anchor": "name-changes-from-rfc-7230",
+   "title": "B.2. Changes from RFC 7230",
+   "level": 3,
+   "sha256": "bee82f8e1a3d0f0ac5816a61d4243ff10edd51099cf2c3e7547bd72fa9b5982e"
+  },
+  {
+   "anchor": "name-changes-from-rfc-7231",
+   "title": "B.3. Changes from RFC 7231",
+   "level": 3,
+   "sha256": "5199c340dc4117a6d7f4dfcdcaaefa09ab1b8477ac812682c092baa06f6297e2"
+  },
+  {
+   "anchor": "name-changes-from-rfc-7232",
+   "title": "B.4. Changes from RFC 7232",
+   "level": 3,
+   "sha256": "43532399dc565ec2104fae62181b2c5b4c95b153c2fe73a69b472f5b681ffb97"
+  },
+  {
+   "anchor": "name-changes-from-rfc-7233",
+   "title": "B.5. Changes from RFC 7233",
+   "level": 3,
+   "sha256": "77693f707bfa18cfd9328555f4e70d9bd96c95035d8161e94797a89a12b27e20"
+  },
+  {
+   "anchor": "name-changes-from-rfc-7235",
+   "title": "B.6. Changes from RFC 7235",
+   "level": 3,
+   "sha256": "067ee4c730762ab4aaedb4d73561c1058db1ae0766ad08d208451f15533e08ab"
+  },
+  {
+   "anchor": "name-changes-from-rfc-7538",
+   "title": "B.7. Changes from RFC 7538",
+   "level": 3,
+   "sha256": "bbf448109695828cfae230f561e9a5834790967315b5c2b90a83b695beaaa54a"
+  },
+  {
+   "anchor": "name-changes-from-rfc-7615",
+   "title": "B.8. Changes from RFC 7615",
+   "level": 3,
+   "sha256": "6461676a91e73e72e318fc153edc3c43341c88429a2902d66027bb5235c9f33c"
+  },
+  {
+   "anchor": "name-changes-from-rfc-7694",
+   "title": "B.9. Changes from RFC 7694",
+   "level": 3,
+   "sha256": "598c9cffab83e43db64f83e7e8f6181878a573b508f5ba9345b0d54302b96c75"
+  },
+  {
+   "anchor": "name-acknowledgements",
+   "title": "Acknowledgements",
+   "level": 2,
+   "sha256": "872dfd3e6b2e20404169389bb142f73a689246e3b97a1507292981c4ff971b55"
+  },
+  {
+   "anchor": "name-index",
+   "title": "Index",
+   "level": 2,
+   "sha256": "006e9d8ef8744dc6d38913b816849fd3984d8fd3f98dbec436d0a8328911248a"
+  },
+  {
+   "anchor": "name-authors-addresses",
+   "title": "Authors' Addresses",
+   "level": 2,
+   "sha256": "b0bfacae3416b485baf6a30d18376a2b3f43211b22a0f34cebb6f9f95649d121"
+  }
+ ]
+}

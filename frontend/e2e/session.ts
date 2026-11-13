@@ -60,6 +60,13 @@ export async function submittedSitting(
   return sitting.id;
 }
 
+/** Starts a practice round and picks its first option; the size picker's radios stay until the round is drawn. */
+export async function startPracticeAndPickFirstOption(page: Page): Promise<void> {
+  await page.getByRole("button", { name: "Empezar" }).click();
+  await page.getByText(/^Pregunta 1 de \d+$/).waitFor();
+  await page.getByRole("radio").first().locator("xpath=ancestor::label").click();
+}
+
 export async function abandonSitting(api: APIRequestContext, course: string, id: string): Promise<void> {
   await api.post(`/api/courses/${course}/exams/${id}/abandon`);
 }
@@ -77,14 +84,27 @@ export async function overflowingElements(page: Page): Promise<string[]> {
       }
       return false;
     };
+    const spillsPast = (element: Element, right: number): boolean =>
+      element.scrollWidth > element.clientWidth + 1 && getComputedStyle(element).overflowX === "visible" && right > width + 0.5;
     const found: string[] = [];
     if (window.innerWidth !== width) found.push(`layout viewport ${window.innerWidth}px for a ${width}px screen`);
     for (const element of document.body.querySelectorAll("*")) {
-      const box = element.getBoundingClientRect();
-      if (box.width === 0 || (box.right <= width + 0.5 && box.left >= -0.5)) continue;
       if (clipsSideways(element)) continue;
+      const box = element.getBoundingClientRect();
       const label = (element.textContent ?? "").trim().slice(0, 40);
-      found.push(`${element.tagName.toLowerCase()} ${Math.round(box.left)}→${Math.round(box.right)} «${label}»`);
+      if (box.width > 0 && (box.right > width + 0.5 || box.left < -0.5)) {
+        found.push(`${element.tagName.toLowerCase()} ${Math.round(box.left)}→${Math.round(box.right)} «${label}»`);
+        continue;
+      }
+      // Text that runs out of a box which itself fits: its box is fine, so only the scroll width shows it.
+      if (element.clientWidth === 0 || !spillsPast(element, box.left + element.scrollWidth)) continue;
+      const fromChild = [...element.children].some((child) => {
+        const childBox = child.getBoundingClientRect();
+        return childBox.right > box.right + 0.5 || spillsPast(child, childBox.left + child.scrollWidth);
+      });
+      if (!fromChild) {
+        found.push(`text in ${element.tagName.toLowerCase()} runs to ${Math.round(box.left + element.scrollWidth)} «${label}»`);
+      }
     }
     return found;
   });

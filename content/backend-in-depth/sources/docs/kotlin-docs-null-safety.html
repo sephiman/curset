@@ -1,0 +1,227 @@
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html lang="en-US" data-preset="contrast" data-primary-color="#307FFF" data-external-links-in-new-tab="false"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="UTF-8"><meta name="built-on" content="2026-11-13T10:58:21.416463009"><meta name="build-number" content="1405"><link rel="canonical" href="/docs/null-safety.html" data-react-helmet="true">
+
+<title>Null safety | Kotlin Documentation</title><link href="custom-frontend-app/app.css?149" rel="stylesheet"><link rel="icon" type="image/svg" sizes="16x16" href="https://kotlinlang.org/assets/images/favicon.svg?v2"><link rel="icon" type="image/x-icon" sizes="32x32" href="https://kotlinlang.org/assets/images/favicon.ico?v2"><link rel="icon" type="image/png" sizes="96x96" href="https://kotlinlang.org/assets/images/apple-touch-icon.png?v2"><link rel="icon" type="image/png" sizes="300x300" href="https://kotlinlang.org/assets/images/apple-touch-icon-72x72.png?v2"><link rel="icon" type="image/png" sizes="500x500" href="https://kotlinlang.org/assets/images/apple-touch-icon-114x114.png?v2"><meta name="image" content="https://kotlinlang.org/assets/images/open-graph/docs.png"><!-- Open Graph --><meta property="og:title" content="Null safety | Kotlin"><meta property="og:description" content=""><meta property="og:image" content="https://kotlinlang.org/assets/images/open-graph/docs.png"><meta property="og:site_name" content="Kotlin Help"><meta property="og:type" content="website"><meta property="og:locale" content="en_US"><meta property="og:url" content="https://kotlinlang.org/docs/null-safety.html"><!-- End Open Graph --><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@kotlin"><meta name="twitter:title" content="Null safety | Kotlin"><meta name="twitter:description" content=""><meta name="twitter:creator" content="@kotlin"><meta name="twitter:image:src" content="https://kotlinlang.org/assets/images/open-graph/docs.png"><!-- End Twitter Card --><!-- Schema.org WebPage --><!-- End Schema.org --><!-- Schema.org WebSite --><!-- End Schema.org --></head><body data-id="null-safety" data-main-title="Null safety" data-article-props="{&quot;seeAlsoStyle&quot;:&quot;links&quot;}" data-template="article" data-breadcrumbs="Language guide" data-edit-url="https://github.com/JetBrains/kotlin-web-site/edit/master/docs/topics/null-safety.md"><div class="wrapper"><main class="panel _main"><header class="panel__header"><div class="container"><h3>Kotlin  Help</h3><div class="panel-trigger"></div></div></header><section class="panel__content"><div class="container"><article class="article" data-shortcut-switcher="inactive"><h1 data-toc="null-safety" id="null-safety.md">Null safety</h1><p id="j51tip_2">Null safety is a Kotlin feature designed to significantly reduce the risk of null references, also known as <a href="https://en.wikipedia.org/wiki/Null_pointer#History" id="j51tip_19" data-external="true" rel="noopener noreferrer">The Billion-Dollar Mistake</a>.</p><p id="j51tip_3">One of the most common pitfalls in many programming languages, including Java, is that accessing a member of a null reference results in a null reference exception. In Java, this would be the equivalent of a <code class="code" id="j51tip_20">NullPointerException</code>, or an <span class="emphasis" id="j51tip_21">NPE</span> for short.</p><p id="j51tip_4">Kotlin explicitly supports nullability as part of its type system, meaning you can explicitly declare which variables or properties are allowed to be <code class="code" id="j51tip_22">null</code>. Also, when you declare non-null variables, the compiler enforces that these variables cannot hold a <code class="code" id="j51tip_23">null</code> value, preventing an NPE.</p><p id="j51tip_5">Kotlin's null safety ensures safer code by catching potential null-related issues at compile time rather than runtime. This feature improves code robustness, readability, and maintainability by explicitly expressing <code class="code" id="j51tip_24">null</code> values, making the code easier to understand and manage.</p><p id="j51tip_6">The only possible causes of an NPE in Kotlin are:</p><ul class="list _bullet" id="j51tip_7"><li class="list__item" id="j51tip_25"><p id="j51tip_29">An explicit call to <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-null-pointer-exception/" id="j51tip_30" data-external="true" rel="noopener noreferrer"><code class="code" id="j51tip_31">throw NullPointerException()</code></a>.</p></li><li class="list__item" id="j51tip_26"><p id="j51tip_32">Usage of the <a href="#not-null-assertion-operator" id="j51tip_33">not-null assertion operator <code class="code" id="j51tip_34">!!</code></a>.</p></li><li class="list__item" id="j51tip_27"><p id="j51tip_35">Data inconsistency during initialization, such as when:</p><ul class="list _bullet" id="j51tip_36"><li class="list__item" id="j51tip_37"><p id="j51tip_39">An uninitialized <code class="code" id="j51tip_40">this</code> available in a constructor is used somewhere else (<a href="https://youtrack.jetbrains.com/issue/KTIJ-9751" id="j51tip_41" data-external="true" rel="noopener noreferrer">a &quot;leaking <code class="code" id="j51tip_42">this</code> &quot;</a>).</p></li><li class="list__item" id="j51tip_38"><p id="j51tip_43">A <a href="inheritance.html#derived-class-initialization-order" id="j51tip_44">superclass constructor calling an open member</a> whose implementation in the derived class uses an uninitialized state.</p></li></ul></li><li class="list__item" id="j51tip_28"><p id="j51tip_45">Java interoperation:</p><ul class="list _bullet" id="j51tip_46"><li class="list__item" id="j51tip_47"><p id="j51tip_50">Attempts to access a member of a <code class="code" id="j51tip_51">null</code> reference of a <a href="java-interop.html#null-safety-and-platform-types" id="j51tip_52">platform type</a>.</p></li><li class="list__item" id="j51tip_48"><p id="j51tip_53">Nullability issues with generic types. For example, a piece of Java code adding <code class="code" id="j51tip_54">null</code> into a Kotlin <code class="code" id="j51tip_55">MutableList&lt;String&gt;</code>, which would require <code class="code" id="j51tip_56">MutableList&lt;String?&gt;</code> to handle it properly.</p></li><li class="list__item" id="j51tip_49"><p id="j51tip_57">Other issues caused by external Java code.</p></li></ul></li></ul><aside class="prompt" data-type="tip" data-title="" id="j51tip_8"><p id="j51tip_58">Besides NPE, another exception related to null safety is <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-uninitialized-property-access-exception/" id="j51tip_59" data-external="true" rel="noopener noreferrer"><code class="code" id="j51tip_61">UninitializedPropertyAccessException</code></a>. Kotlin throws this exception when you try to access a property that has not been initialized, ensuring that non-nullable properties are not used until they are ready. This typically happens with <a href="properties.html#late-initialized-properties-and-variables" id="j51tip_60"><code class="code" id="j51tip_62">lateinit</code> properties</a>.</p></aside><section class="chapter"><h2 id="nullable-types-and-non-nullable-types" data-toc="nullable-types-and-non-nullable-types">Nullable types and non-nullable types</h2><p id="j51tip_63">In Kotlin, the type system distinguishes between types that can hold <code class="code" id="j51tip_74">null</code> (nullable types) and those that cannot (non-nullable types). For example, a regular variable of type <code class="code" id="j51tip_75">String</code> cannot hold <code class="code" id="j51tip_76">null</code>:</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+fun main() {
+//sampleStart
+    // Assigns a non-null string to a variable
+    var a: String = &quot;abc&quot;
+    // Attempts to re-assign null to the non-nullable variable
+    a = null
+    print(a)
+    // Null can not be a value of a non-null type String
+//sampleEnd
+}
+</div><p id="j51tip_65">You can safely call a method or access a property on <code class="code" id="j51tip_77">a</code>. It's guaranteed not to cause an NPE because <code class="code" id="j51tip_78">a</code> is a non-nullable variable. The compiler ensures that <code class="code" id="j51tip_79">a</code> always holds a valid <code class="code" id="j51tip_80">String</code> value, so there's no risk of accessing its properties or methods when it's <code class="code" id="j51tip_81">null</code>:</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+fun main() {
+//sampleStart
+    // Assigns a non-null string to a variable
+    val a: String = &quot;abc&quot;
+    // Returns the length of a non-nullable variable
+    val l = a.length
+    print(l)
+    // 3
+//sampleEnd
+}
+</div><p id="j51tip_67">To allow <code class="code" id="j51tip_82">null</code> values, declare a variable with a <code class="code" id="j51tip_83">?</code> sign right after the variable type. For example, you can declare a nullable string by writing <code class="code" id="j51tip_84">String?</code>. This expression makes <code class="code" id="j51tip_85">String</code> a type that can accept <code class="code" id="j51tip_86">null</code>:</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+fun main() {
+//sampleStart
+    // Assigns a nullable string to a variable
+    var b: String? = &quot;abc&quot;
+    // Successfully re-assigns null to the nullable variable
+    b = null
+    print(b)
+    // null
+//sampleEnd
+}
+</div><p id="j51tip_69">If you try accessing <code class="code" id="j51tip_87">length</code> directly on <code class="code" id="j51tip_88">b</code>, the compiler reports an error. This is because <code class="code" id="j51tip_89">b</code> is declared as a nullable variable and can hold <code class="code" id="j51tip_90">null</code> values. Attempting to access properties on nullables directly leads to an NPE:</p><div class="code-block" data-lang="kotlin" data-runnable="true" data-min-compiler-version="2.0">
+fun main() {
+//sampleStart
+    // Assigns a nullable string to a variable
+    var b: String? = &quot;abc&quot;
+    // Re-assigns null to the nullable variable
+    b = null
+    // Tries to directly return the length of a nullable variable
+    val l = b.length
+    print(l)
+    // Only safe (?.) or non-null asserted (!!.) calls are allowed on a nullable receiver of type String? 
+//sampleEnd
+}
+</div><p id="j51tip_71">In the example above, the compiler requires you to use safe calls to check for nullability before accessing properties or performing operations. There are several ways to handle nullables:</p><ul class="list _bullet" id="j51tip_72"><li class="list__item" id="j51tip_91"><p id="j51tip_99"><a href="#check-for-null-with-the-if-conditional" id="j51tip_100">Check for <code class="code" id="j51tip_101">null</code> with the <code class="code" id="j51tip_102">if</code> conditional</a></p></li><li class="list__item" id="j51tip_92"><p id="j51tip_103"><a href="#safe-call-operator" id="j51tip_104">Safe call operator <code class="code" id="j51tip_105">?.</code></a></p></li><li class="list__item" id="j51tip_93"><p id="j51tip_106"><a href="#elvis-operator" id="j51tip_107">Elvis operator <code class="code" id="j51tip_108">?:</code></a></p></li><li class="list__item" id="j51tip_94"><p id="j51tip_109"><a href="#not-null-assertion-operator" id="j51tip_110">Not-null assertion operator <code class="code" id="j51tip_111">!!</code></a></p></li><li class="list__item" id="j51tip_95"><p id="j51tip_112"><a href="#nullable-receiver" id="j51tip_113">Nullable receiver</a></p></li><li class="list__item" id="j51tip_96"><p id="j51tip_114"><a href="#let-function" id="j51tip_115"><code class="code" id="j51tip_116">let</code> function</a></p></li><li class="list__item" id="j51tip_97"><p id="j51tip_117"><a href="#safe-casts" id="j51tip_118">Safe casts <code class="code" id="j51tip_119">as?</code></a></p></li><li class="list__item" id="j51tip_98"><p id="j51tip_120"><a href="#collections-of-a-nullable-type" id="j51tip_121">Collections of a nullable type</a></p></li></ul><p id="j51tip_73">Read the next sections for details and examples of <code class="code" id="j51tip_122">null</code> handling tools and techniques.</p></section><section class="chapter"><h2 id="check-for-null-with-the-if-conditional" data-toc="check-for-null-with-the-if-conditional">Check for null with the if conditional</h2><p id="j51tip_123">When working with nullable types, you need to handle nullability safely to avoid an NPE. One way to handle this is checking for nullability explicitly with the <code class="code" id="j51tip_130">if</code> conditional expression.</p><p id="j51tip_124">For example, check whether <code class="code" id="j51tip_131">b</code> is <code class="code" id="j51tip_132">null</code> and then access <code class="code" id="j51tip_133">b.length</code>:</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+fun main() {
+//sampleStart
+    // Assigns null to a nullable variable
+    val b: String? = null
+    // Checks for nullability first and then accesses length
+    val l = if (b != null) b.length else -1
+    print(l)
+    // -1
+//sampleEnd
+}
+</div><p id="j51tip_126">In the example above, the compiler performs a <a href="typecasts.html#smart-casts" id="j51tip_134">smart cast</a> to change the type from nullable <code class="code" id="j51tip_135">String?</code> to non-nullable <code class="code" id="j51tip_136">String</code>. It also tracks the information about the check you performed and allows the call to <code class="code" id="j51tip_137">length</code> inside the <code class="code" id="j51tip_138">if</code> conditional.</p><p id="j51tip_127">More complex conditions are supported as well:</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+fun main() {
+//sampleStart
+    // Assigns a nullable string to a variable
+    val b: String? = &quot;Kotlin&quot;
+
+    // Checks for nullability first and then accesses length
+    if (b != null &amp;&amp; b.length &gt; 0) {
+        print(&quot;String of length ${b.length}&quot;)
+        // String of length 6
+    } else {
+        // Provides alternative if the condition is not met
+        print(&quot;Empty string&quot;)
+    }
+//sampleEnd
+}
+</div><p id="j51tip_129">Note that the example above only works when the compiler can guarantee that <code class="code" id="j51tip_139">b</code> doesn't change between the check and its usage, same as the <a href="typecasts.html#smart-cast-prerequisites" id="j51tip_140">smart cast prerequisites</a>.</p></section><section class="chapter"><h2 id="safe-call-operator" data-toc="safe-call-operator">Safe call operator</h2><p id="j51tip_141">The safe call operator <code class="code" id="j51tip_153">?.</code> allows you to handle nullability safely in a shorter form. Instead of throwing an NPE, if the object is <code class="code" id="j51tip_154">null</code>, the <code class="code" id="j51tip_155">?.</code> operator simply returns <code class="code" id="j51tip_156">null</code>:</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+fun main() {
+//sampleStart
+    // Assigns a nullable string to a variable
+    val a: String? = &quot;Kotlin&quot;
+    // Assigns null to a nullable variable
+    val b: String? = null
+    
+    // Checks for nullability and returns length or null
+    println(a?.length)
+    // 6
+    println(b?.length)
+    // null
+//sampleEnd
+}
+</div><p id="j51tip_143">The <code class="code" id="j51tip_157">b?.length</code> expression checks for nullability and returns <code class="code" id="j51tip_158">b.length</code> if <code class="code" id="j51tip_159">b</code> is non-null, or <code class="code" id="j51tip_160">null</code> otherwise. The type of this expression is <code class="code" id="j51tip_161">Int?</code>.</p><p id="j51tip_144">You can use the <code class="code" id="j51tip_162">?.</code> operator with both <a href="basic-syntax.html#variables" id="j51tip_163"><code class="code" id="j51tip_164">var</code> and <code class="code" id="j51tip_165">val</code> variables</a> in Kotlin:</p><ul class="list _bullet" id="j51tip_145"><li class="list__item" id="j51tip_166"><p id="j51tip_168">A nullable <code class="code" id="j51tip_169">var</code> can hold a <code class="code" id="j51tip_170">null</code> (for example, <code class="code" id="j51tip_171">var nullableValue: String? = null</code>) or a non-null value (for example, <code class="code" id="j51tip_172">var nullableValue: String? = &quot;Kotlin&quot;</code>). If it's a non-null value, you can change it to <code class="code" id="j51tip_173">null</code> at any point.</p></li><li class="list__item" id="j51tip_167"><p id="j51tip_174">A nullable <code class="code" id="j51tip_175">val</code> can hold a <code class="code" id="j51tip_176">null</code> (for example, <code class="code" id="j51tip_177">val nullableValue: String? = null</code>) or a non-null value (for example, <code class="code" id="j51tip_178">val nullableValue: String? = &quot;Kotlin&quot;</code>). If it's a non-null value, you cannot change it to <code class="code" id="j51tip_179">null</code> subsequently.</p></li></ul><p id="j51tip_146">Safe calls are useful in chains. For example, Bob is an employee who may be assigned to a department (or not). That department may, in turn, have another employee as a department head. To obtain the name of Bob's department head (if there is one), you write the following:</p><div class="code-block" data-lang="kotlin">
+bob?.department?.head?.name
+</div><p id="j51tip_148">This chain returns <code class="code" id="j51tip_180">null</code> if any of its properties are <code class="code" id="j51tip_181">null</code>.</p><p id="j51tip_149">You can also place a safe call on the left side of an assignment:</p><div class="code-block" data-lang="kotlin">
+person?.department?.head = managersPool.getManager()
+</div><p id="j51tip_151">In the example above, if one of the receivers in the safe call chain is <code class="code" id="j51tip_182">null</code>, the assignment is skipped, and the expression on the right is not evaluated at all. For example, if either <code class="code" id="j51tip_183">person</code> or <code class="code" id="j51tip_184">person.department</code> is <code class="code" id="j51tip_185">null</code>, the function is not called. Here's the equivalent of the same safe call but with the <code class="code" id="j51tip_186">if</code> conditional:</p><div class="code-block" data-lang="kotlin">
+if (person != null &amp;&amp; person.department != null) {
+    person.department.head = managersPool.getManager()
+}
+</div></section><section class="chapter"><h2 id="elvis-operator" data-toc="elvis-operator">Elvis operator</h2><p id="j51tip_187">When working with nullable types, you can check for <code class="code" id="j51tip_194">null</code> and provide an alternative value. For example, if <code class="code" id="j51tip_195">b</code> is not <code class="code" id="j51tip_196">null</code>, access <code class="code" id="j51tip_197">b.length</code>. Otherwise, return an alternative value:</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+fun main() {
+//sampleStart
+    // Assigns null to a nullable variable  
+    val b: String? = null
+    // Checks for nullability. If not null, returns length. If null, returns 0
+    val l: Int = if (b != null) b.length else 0
+    println(l)
+    // 0
+//sampleEnd
+}
+</div><p id="j51tip_189">Instead of writing the complete <code class="code" id="j51tip_198">if</code> expression, you can handle this in a more concise way with the Elvis operator <code class="code" id="j51tip_199">?:</code>:</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+fun main() {
+//sampleStart
+    // Assigns null to a nullable variable  
+    val b: String? = null
+    // Checks for nullability. If not null, returns length. If null, returns a non-null value
+    val l = b?.length ?: 0
+    println(l)
+    // 0
+//sampleEnd
+}
+</div><p id="j51tip_191">If the expression to the left of <code class="code" id="j51tip_200">?:</code> is not <code class="code" id="j51tip_201">null</code>, the Elvis operator returns it. Otherwise, the Elvis operator returns the expression to the right. The expression on the right-hand side is evaluated only if the left-hand side is <code class="code" id="j51tip_202">null</code>.</p><p id="j51tip_192">Since <code class="code" id="j51tip_203">throw</code> and <code class="code" id="j51tip_204">return</code> are expressions in Kotlin, you can also use them on the right-hand side of the Elvis operator. This can be handy, for example, when checking function arguments:</p><div class="code-block" data-lang="kotlin">
+fun foo(node: Node): String? {
+    // Checks for getParent(). If not null, it's assigned to parent. If null, returns null
+    val parent = node.getParent() ?: return null
+    // Checks for getName(). If not null, it's assigned to name. If null, throws exception
+    val name = node.getName() ?: throw IllegalArgumentException(&quot;name expected&quot;)
+    // ...
+}
+</div></section><section class="chapter"><h2 id="not-null-assertion-operator" data-toc="not-null-assertion-operator">Not-null assertion operator</h2><p id="j51tip_205">The not-null assertion operator <code class="code" id="j51tip_212">!!</code> converts any value to a non-nullable type.</p><p id="j51tip_206">When you apply the <code class="code" id="j51tip_213">!!</code> operator to a variable whose value is not <code class="code" id="j51tip_214">null</code>, it's safely handled as a non-nullable type, and the code executes normally. However, if the value is <code class="code" id="j51tip_215">null</code>, the <code class="code" id="j51tip_216">!!</code> operator forces it to be treated as non-nullable, which results in an NPE.</p><p id="j51tip_207">When <code class="code" id="j51tip_217">b</code> is not <code class="code" id="j51tip_218">null</code> and the <code class="code" id="j51tip_219">!!</code> operator makes it return its non-null value (which is a <code class="code" id="j51tip_220">String</code> in this example), it accesses <code class="code" id="j51tip_221">length</code> correctly:</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+fun main() {
+//sampleStart
+    // Assigns a nullable string to a variable
+    val b: String? = &quot;Kotlin&quot;
+    // Treats b as non-null and accesses its length
+    val l = b!!.length
+    println(l)
+    // 6
+//sampleEnd
+}
+</div><p id="j51tip_209">When <code class="code" id="j51tip_222">b</code> is <code class="code" id="j51tip_223">null</code> and the <code class="code" id="j51tip_224">!!</code> operator makes it return its non-null value, and an NPE occurs:</p><div class="code-block" data-lang="kotlin" data-runnable="true" data-min-compiler-version="2.0">
+fun main() {
+//sampleStart
+    // Assigns null to a nullable variable  
+    val b: String? = null
+    // Treats b as non-null and tries to access its length
+    val l = b!!.length
+    println(l) 
+    // Exception in thread &quot;main&quot; java.lang.NullPointerException
+//sampleEnd
+}
+</div><p id="j51tip_211">The <code class="code" id="j51tip_225">!!</code> operator is particularly useful when you are confident that a value is not <code class="code" id="j51tip_226">null</code> and there's no chance of getting an NPE, but the compiler cannot guarantee this due to certain rules. In such cases, you can use the <code class="code" id="j51tip_227">!!</code> operator to explicitly tell the compiler that the value is not <code class="code" id="j51tip_228">null</code>.</p></section><section class="chapter"><h2 id="nullable-receiver" data-toc="nullable-receiver">Nullable receiver</h2><p id="j51tip_229">You can use extension functions with a <a href="extensions.html#nullable-receivers" id="j51tip_237">nullable receiver type</a>, allowing these functions to be called on variables that might be <code class="code" id="j51tip_238">null</code>.</p><p id="j51tip_230">By defining an extension function on a nullable receiver type, you can handle <code class="code" id="j51tip_239">null</code> values within the function itself instead of checking for <code class="code" id="j51tip_240">null</code> at every place where you call the function.</p><p id="j51tip_231">For example, the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/to-string.html" id="j51tip_241" data-external="true" rel="noopener noreferrer"><code class="code" id="j51tip_244">.toString()</code></a> extension function can be called on a nullable receiver. When invoked on a <code class="code" id="j51tip_242">null</code> value, it safely returns the string <code class="code" id="j51tip_243">&quot;null&quot;</code> without throwing an exception:</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+//sampleStart
+fun main() {
+    // Assigns null to a nullable Person object stored in the person variable
+    val person: Person? = null
+
+    // Applies .toString to the nullable person variable and prints a string
+    println(person.toString())
+    // null
+}
+
+// Defines a simple Person class
+data class Person(val name: String)
+//sampleEnd
+</div><p id="j51tip_233">In the example above, even though <code class="code" id="j51tip_245">person</code> is <code class="code" id="j51tip_246">null</code>, the <code class="code" id="j51tip_247">.toString()</code> function safely returns the string <code class="code" id="j51tip_248">&quot;null&quot;</code>. This can be helpful for debugging and logging.</p><p id="j51tip_234">If you expect the <code class="code" id="j51tip_249">.toString()</code> function to return a nullable string (either a string representation or <code class="code" id="j51tip_250">null</code>), use the <a href="#safe-call-operator" id="j51tip_251">safe-call operator <code class="code" id="j51tip_256">?.</code></a>. The <code class="code" id="j51tip_252">?.</code> operator calls <code class="code" id="j51tip_253">.toString()</code> only if the object is not <code class="code" id="j51tip_254">null</code>, otherwise it returns <code class="code" id="j51tip_255">null</code>:</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+//sampleStart
+fun main() {
+    // Assigns a nullable Person object to a variable
+    val person1: Person? = null
+    val person2: Person? = Person(&quot;Alice&quot;)
+
+    // Prints &quot;null&quot; if person is null; otherwise prints the result of person.toString()
+    println(person1?.toString())
+    // null
+    println(person2?.toString())
+    // Person(name=Alice)
+}
+
+// Defines a Person class
+data class Person(val name: String)
+//sampleEnd
+</div><p id="j51tip_236">The <code class="code" id="j51tip_257">?.</code> operator allows you to safely handle potential <code class="code" id="j51tip_258">null</code> values while still accessing properties or functions of objects that might be <code class="code" id="j51tip_259">null</code>.</p></section><section class="chapter"><h2 id="let-function" data-toc="let-function">Let function</h2><p id="j51tip_260">To handle <code class="code" id="j51tip_263">null</code> values and perform operations only on non-null types, you can use the safe call operator <code class="code" id="j51tip_264">?.</code> together with the <a href="scope-functions.html#let" id="j51tip_265"><code class="code" id="j51tip_266">let</code> function</a>.</p><p id="j51tip_261">This combination is useful for evaluating an expression, check the result for <code class="code" id="j51tip_267">null</code>, and execute code only if it's not <code class="code" id="j51tip_268">null</code>, avoiding manual null checks:</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+fun main() {
+//sampleStart
+    // Declares a list of nullable strings
+    val listWithNulls: List&lt;String?&gt; = listOf(&quot;Kotlin&quot;, null)
+
+    // Iterates over each item in the list
+    for (item in listWithNulls) {
+        // Checks if the item is null and only prints non-null values
+        item?.let { println(it) }
+        //Kotlin 
+    }
+//sampleEnd
+}
+</div></section><section class="chapter"><h2 id="safe-casts" data-toc="safe-casts">Safe casts</h2><p id="j51tip_269">The regular Kotlin operator for <a href="typecasts.html#unsafe-cast-operator" id="j51tip_273">type casts</a> is the <code class="code" id="j51tip_274">as</code> operator. However, regular casts can result in an exception if the object is not of the target type.</p><p id="j51tip_270">You can use the <code class="code" id="j51tip_275">as?</code> operator for safe casts. It tries to cast a value to the specified type and returns <code class="code" id="j51tip_276">null</code> if the value is not of that type:</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+fun main() {
+//sampleStart
+    // Declares a variable of type Any, which can hold any type of value
+    val a: Any = &quot;Hello, Kotlin!&quot;
+
+    // Safe casts to Int using the 'as?' operator
+    val aInt: Int? = a as? Int
+    // Safe casts to String using the 'as?' operator
+    val aString: String? = a as? String
+
+    println(aInt)
+    // null
+    println(aString)
+    // &quot;Hello, Kotlin!&quot;
+//sampleEnd
+}
+</div><p id="j51tip_272">The code above prints <code class="code" id="j51tip_277">null</code> because <code class="code" id="j51tip_278">a</code> is not an <code class="code" id="j51tip_279">Int</code>, so the cast fails safely. It also prints <code class="code" id="j51tip_280">&quot;Hello, Kotlin!&quot;</code> because it matches the <code class="code" id="j51tip_281">String?</code> type, so the safe cast succeeds.</p></section><section class="chapter"><h2 id="collections-of-a-nullable-type" data-toc="collections-of-a-nullable-type">Collections of a nullable type</h2><p id="j51tip_282">If you have a collection of nullable elements and want to keep only the non-null ones, use the <code class="code" id="j51tip_284">filterNotNull()</code> function:</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+fun main() {
+//sampleStart
+    // Declares a list containing some null and non-null integer values
+    val nullableList: List&lt;Int?&gt; = listOf(1, 2, null, 4)
+
+    // Filters out null values, resulting in a list of non-null integers
+    val intList: List&lt;Int&gt; = nullableList.filterNotNull()
+  
+    println(intList)
+    // [1, 2, 4]
+//sampleEnd
+}
+</div></section><section class="chapter"><h2 id="what-s-next" data-toc="what-s-next">What's next?</h2><ul class="list _bullet" id="j51tip_285"><li class="list__item" id="j51tip_286"><p id="j51tip_288">Learn how to <a href="java-to-kotlin-nullability-guide.html" id="j51tip_289">handle nullability in Java and Kotlin</a>.</p></li><li class="list__item" id="j51tip_287"><p id="j51tip_290">Learn about generic types that are <a href="generics.html#definitely-non-nullable-types" id="j51tip_291">definitely non-nullable</a>.</p></li></ul></section><div class="last-modified">28 August 2025</div><div data-feedback-placeholder="true"></div><div class="navigation-links _bottom"><a href="delegated-properties.html" class="navigation-links__prev">Delegated properties</a><a href="equality.html" class="navigation-links__next">Equality</a></div></article><div id="disqus_thread"></div></div></section></main></div></body></html>

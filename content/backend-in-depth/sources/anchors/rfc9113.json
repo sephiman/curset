@@ -1,0 +1,647 @@
+{
+ "source": "rfc9113",
+ "anchors": [
+  {
+   "anchor": "top",
+   "title": "",
+   "level": 0,
+   "sha256": "1cf48ef8d4708564653cd7445de527cae02ae2acd1a6dc21191cc73bd1dfb56a"
+  },
+  {
+   "anchor": "rfcnum",
+   "title": "RFC 9113",
+   "level": 1,
+   "sha256": "6900f698847b20ac6765ce057334f1c42319c2ce34b7de73bfcabf91cc1b7a42"
+  },
+  {
+   "anchor": "title",
+   "title": "HTTP/2",
+   "level": 1,
+   "sha256": "4e1e940bfae6d1f7f6b7c1d00be8da3ddd93e93383503a69d72d525ecff67081"
+  },
+  {
+   "anchor": "abstract",
+   "title": "Abstract",
+   "level": 2,
+   "sha256": "6a131ec7594b7d134e284c751a4ef90239842028b739933d263429dc9e0cede4"
+  },
+  {
+   "anchor": "section-boilerplate.1",
+   "title": "Status of This Memo",
+   "level": 2,
+   "sha256": "2b32339249186e6e4ac559c5f07054d37c8b16445191ddeb140f11dd2ca3fbe3"
+  },
+  {
+   "anchor": "section-boilerplate.2",
+   "title": "Copyright Notice",
+   "level": 2,
+   "sha256": "fe4ef6915e27f1ba379cd3ce4f49bfae88fcde5153ddea1c863d42f8ffbdaf01"
+  },
+  {
+   "anchor": "section-toc.1",
+   "title": "Table of Contents",
+   "level": 2,
+   "sha256": "a9360e0212a4d173581c91da68494d022ee55871188be00acf863d2ed0cf7a6a"
+  },
+  {
+   "anchor": "section-1",
+   "title": "1. Introduction",
+   "level": 2,
+   "sha256": "f9e4d131a69dad1a032ca97e6b65e779c73803c52d8a11f9b70218600cedee6e"
+  },
+  {
+   "anchor": "section-2",
+   "title": "2. HTTP/2 Protocol Overview",
+   "level": 2,
+   "sha256": "cfd2ebf18532da0adf70c8510b74997284960017e5c74238695d78df89f23c41"
+  },
+  {
+   "anchor": "section-2.1",
+   "title": "2.1. Document Organization",
+   "level": 3,
+   "sha256": "9457cb39801ad9d724ae8d82f9798ef16f5ff3d922498b131af6967c42dc99d8"
+  },
+  {
+   "anchor": "section-2.2",
+   "title": "2.2. Conventions and Terminology",
+   "level": 3,
+   "sha256": "c5dcf3d401fc6525eb968225746833a1368b451836160531429b490d334c0d06"
+  },
+  {
+   "anchor": "section-3",
+   "title": "3. Starting HTTP/2",
+   "level": 2,
+   "sha256": "3972cdccc7e12d81273a792e9c07605a7e41c467d522752dabfe7febc4960884"
+  },
+  {
+   "anchor": "section-3.1",
+   "title": "3.1. HTTP/2 Version Identification",
+   "level": 3,
+   "sha256": "f4b9b8e30cb327213f5fc4a4fbcdc116663bb7d2312be439c96a21993cc803ff"
+  },
+  {
+   "anchor": "section-3.2",
+   "title": "3.2. Starting HTTP/2 for \" https \" URIs",
+   "level": 3,
+   "sha256": "90dcf5813ff25a9f9b5a8ef38037848acf6e5c185f59a308b4ef4df7a0b22189"
+  },
+  {
+   "anchor": "section-3.3",
+   "title": "3.3. Starting HTTP/2 with Prior Knowledge",
+   "level": 3,
+   "sha256": "77afde1ebca93d590d7781dc2a9f6814bba53fcbebcfa1c5b53ba11ea2b30260"
+  },
+  {
+   "anchor": "section-3.4",
+   "title": "3.4. HTTP/2 Connection Preface",
+   "level": 3,
+   "sha256": "5459617df8d55336b72f984a6e74ec430ad783bb0cad167d6f749b4d349183bf"
+  },
+  {
+   "anchor": "section-4",
+   "title": "4. HTTP Frames",
+   "level": 2,
+   "sha256": "fa812b77f792f5bb1caac813b667e6b6155440cac81c22fe77d86e29a39fe268"
+  },
+  {
+   "anchor": "section-4.1",
+   "title": "4.1. Frame Format",
+   "level": 3,
+   "sha256": "3800c463c275b1fdaa6b32cd1ca4f03c4d48014f2dc36586c5843a89e80a1842"
+  },
+  {
+   "anchor": "section-4.2",
+   "title": "4.2. Frame Size",
+   "level": 3,
+   "sha256": "ed1dfb5609364aba1386add47e16eaa6cf5b9408645a133f0203fb93036f84ad"
+  },
+  {
+   "anchor": "section-4.3",
+   "title": "4.3. Field Section Compression and Decompression",
+   "level": 3,
+   "sha256": "47eadd3ee596a5180376a912eb0d62eb4af0f4130285a4d1edb761a66b20d87a"
+  },
+  {
+   "anchor": "section-4.3.1",
+   "title": "4.3.1. Compression State",
+   "level": 4,
+   "sha256": "ed001b7713304d85d6417ddf3ac0b782226389068759eee5ba3ef49326d15568"
+  },
+  {
+   "anchor": "section-5",
+   "title": "5. Streams and Multiplexing",
+   "level": 2,
+   "sha256": "3f609e9584bdca3222b2d067b350ea3477807630a15635328afcd3f4920a0a1d"
+  },
+  {
+   "anchor": "section-5.1",
+   "title": "5.1. Stream States",
+   "level": 3,
+   "sha256": "61c08f708541d03e8feeca2f06a22961cf782225feb7b7f4ef0fb541dedf5832"
+  },
+  {
+   "anchor": "section-5.1.1",
+   "title": "5.1.1. Stream Identifiers",
+   "level": 4,
+   "sha256": "ee200b04da03ab08100bf111162f7e7c1fd5a1ec650220d78e38121872b5cb42"
+  },
+  {
+   "anchor": "section-5.1.2",
+   "title": "5.1.2. Stream Concurrency",
+   "level": 4,
+   "sha256": "e5cc99dde6179ecdc64b029bcd8a88afd93e87b4163e4823e4badd56d915c181"
+  },
+  {
+   "anchor": "section-5.2",
+   "title": "5.2. Flow Control",
+   "level": 3,
+   "sha256": "1ba6cb50ef15d0db1f30e40dd0e9f0cdf11c2f0a0e12fc42eb91c72850ca86db"
+  },
+  {
+   "anchor": "section-5.2.1",
+   "title": "5.2.1. Flow-Control Principles",
+   "level": 4,
+   "sha256": "256b544e05c056631834e6181dc303358925f83b8302e948bac559dd43b2b4c7"
+  },
+  {
+   "anchor": "section-5.2.2",
+   "title": "5.2.2. Appropriate Use of Flow Control",
+   "level": 4,
+   "sha256": "5ca9c2482306d477bfc6c467ee796dd01bfdbddd7f72c783a0332047a6fcbe25"
+  },
+  {
+   "anchor": "section-5.2.3",
+   "title": "5.2.3. Flow-Control Performance",
+   "level": 4,
+   "sha256": "d6cb52056bc697c0a0587d486141b785295d94740c177be7a2eea2cadd13533b"
+  },
+  {
+   "anchor": "section-5.3",
+   "title": "5.3. Prioritization",
+   "level": 3,
+   "sha256": "3bbad8909e93082082bfab3ad1e112b2a1093f1d1ee13660246916d431da9d7f"
+  },
+  {
+   "anchor": "section-5.3.1",
+   "title": "5.3.1. Background on Priority in RFC 7540",
+   "level": 4,
+   "sha256": "bde868a3d22e53c4cae9b51e0613eef14dc47e5fb12113e5121ed3f90f782c3a"
+  },
+  {
+   "anchor": "section-5.3.2",
+   "title": "5.3.2. Priority Signaling in This Document",
+   "level": 4,
+   "sha256": "78a7d8e97981a8a9602715c298c0a52bfecacb91395a7b9406746b5e5180893d"
+  },
+  {
+   "anchor": "section-5.4",
+   "title": "5.4. Error Handling",
+   "level": 3,
+   "sha256": "a1d06b82b233fc32d66a899a9f76118f22fa5c4903594bc02e2556eca3c44bc9"
+  },
+  {
+   "anchor": "section-5.4.1",
+   "title": "5.4.1. Connection Error Handling",
+   "level": 4,
+   "sha256": "408d1f1a2857fadbc44c04a2f8977545f70997472bad43a340c579c6961f8fb9"
+  },
+  {
+   "anchor": "section-5.4.2",
+   "title": "5.4.2. Stream Error Handling",
+   "level": 4,
+   "sha256": "c1a41d7b7f35ac6a8e854287fc80655fea79461101500274af9da45f7f3f06d5"
+  },
+  {
+   "anchor": "section-5.4.3",
+   "title": "5.4.3. Connection Termination",
+   "level": 4,
+   "sha256": "1f22637c40d82a8c4700378b44595dc27ac411620475ae967b4aac0f01ea2eb5"
+  },
+  {
+   "anchor": "section-5.5",
+   "title": "5.5. Extending HTTP/2",
+   "level": 3,
+   "sha256": "aad4fc263922b248e60912d9f6fbea4e1a7592441b91f40d95160547b986c1af"
+  },
+  {
+   "anchor": "section-6",
+   "title": "6. Frame Definitions",
+   "level": 2,
+   "sha256": "c6a65036c116c905b3ab1a17d8ad133a6a0108287643962aad1165f9ee145a72"
+  },
+  {
+   "anchor": "section-6.1",
+   "title": "6.1. DATA",
+   "level": 3,
+   "sha256": "524179bc051b49a5889eda177ed8aa550a2b77fbc3145f45c8bc5582ab1a17ab"
+  },
+  {
+   "anchor": "section-6.2",
+   "title": "6.2. HEADERS",
+   "level": 3,
+   "sha256": "fdc278cd70486ebae8cb7108d57a66baffd8a07aff09680e48b9c673ab2d2173"
+  },
+  {
+   "anchor": "section-6.3",
+   "title": "6.3. PRIORITY",
+   "level": 3,
+   "sha256": "b8f1b65d588f6bd99f95378e4c54a7c4c6db75d1139b73c0e67a4b18bba50486"
+  },
+  {
+   "anchor": "section-6.4",
+   "title": "6.4. RST_STREAM",
+   "level": 3,
+   "sha256": "85a93b15d8ddb0f1cb5b7e36a77f88644b0ef0454d05e5afb704a18cd33c0f33"
+  },
+  {
+   "anchor": "section-6.5",
+   "title": "6.5. SETTINGS",
+   "level": 3,
+   "sha256": "21069f4cb63f0cf3e16ab0a1d7ac9681ab9d8a67263b81d87f48daadabdf758c"
+  },
+  {
+   "anchor": "section-6.5.1",
+   "title": "6.5.1. SETTINGS Format",
+   "level": 4,
+   "sha256": "1c9e597bb88d90d3978f3f3e4e447ce7e68fe05181f8e1cfdfd978a55491f8a3"
+  },
+  {
+   "anchor": "section-6.5.2",
+   "title": "6.5.2. Defined Settings",
+   "level": 4,
+   "sha256": "fb25ac2375f882f9a40582af8846e33354eb8e1b813475ec7febc003b612c309"
+  },
+  {
+   "anchor": "section-6.5.3",
+   "title": "6.5.3. Settings Synchronization",
+   "level": 4,
+   "sha256": "cc4c32b840b550d5ce617ac201087e209b082f53435d3c31e1ae8a504428839e"
+  },
+  {
+   "anchor": "section-6.6",
+   "title": "6.6. PUSH_PROMISE",
+   "level": 3,
+   "sha256": "56e05220991800a811f6309035db8fd4a10d52c69f03fe828b1db3d92d92d9f2"
+  },
+  {
+   "anchor": "section-6.7",
+   "title": "6.7. PING",
+   "level": 3,
+   "sha256": "3a8dbb7eac7ea689e7b2be0025562119e7055918169b47e18ee169d67888b486"
+  },
+  {
+   "anchor": "section-6.8",
+   "title": "6.8. GOAWAY",
+   "level": 3,
+   "sha256": "31f7f6629f916576c0223f932f7b0f515a5ba6fb775e8620588336cf6080e4c8"
+  },
+  {
+   "anchor": "section-6.9",
+   "title": "6.9. WINDOW_UPDATE",
+   "level": 3,
+   "sha256": "cdffbb1e6a85a0307e6b1e7ab2660dc0f7c23d7c71fa7d0b4cf4624802c86878"
+  },
+  {
+   "anchor": "section-6.9.1",
+   "title": "6.9.1. The Flow-Control Window",
+   "level": 4,
+   "sha256": "b5ace50222dc3b75aa1d8dd8cafd88845aa71d66c0cf75a0a021a254bdced267"
+  },
+  {
+   "anchor": "section-6.9.2",
+   "title": "6.9.2. Initial Flow-Control Window Size",
+   "level": 4,
+   "sha256": "e57e259cd079cd53318accf598f45ab89938a1fb7ddd47e491afc8fe2779db40"
+  },
+  {
+   "anchor": "section-6.9.3",
+   "title": "6.9.3. Reducing the Stream Window Size",
+   "level": 4,
+   "sha256": "1ae56d6eee61b24c9fb89ddbade3a1bc74f49f7db6d84016597b88f8972b64de"
+  },
+  {
+   "anchor": "section-6.10",
+   "title": "6.10. CONTINUATION",
+   "level": 3,
+   "sha256": "025e24a4ca73aa65cfc38ee855ea96646c42cd5401b56edb6e3cf21917846cc6"
+  },
+  {
+   "anchor": "section-7",
+   "title": "7. Error Codes",
+   "level": 2,
+   "sha256": "ca05d04e256d7f3dda850320f0dac23a1152eef125fdd2efba38e8e978a43b2c"
+  },
+  {
+   "anchor": "section-8",
+   "title": "8. Expressing HTTP Semantics in HTTP/2",
+   "level": 2,
+   "sha256": "2ce4008691c8ada3a859d46cb80887097f6071d5d483c7921862ea4a17a7bb9d"
+  },
+  {
+   "anchor": "section-8.1",
+   "title": "8.1. HTTP Message Framing",
+   "level": 3,
+   "sha256": "b0177790faf807dceec97972256d264e51ba623e23235755884c064c6a88a150"
+  },
+  {
+   "anchor": "section-8.1.1",
+   "title": "8.1.1. Malformed Messages",
+   "level": 4,
+   "sha256": "5fe0df2f84f3092598b4a17b7822b956b0532c78bd0dcecb0eb96972ff4707a1"
+  },
+  {
+   "anchor": "section-8.2",
+   "title": "8.2. HTTP Fields",
+   "level": 3,
+   "sha256": "e5a862fcc855f0beed9512b40e98eb53c607179658c09bfa58dfef71f6841dff"
+  },
+  {
+   "anchor": "section-8.2.1",
+   "title": "8.2.1. Field Validity",
+   "level": 4,
+   "sha256": "8ed70e4334a35dd1959b9065c4c3efdf67e6024bf0e4a6986c38474a548ac69d"
+  },
+  {
+   "anchor": "section-8.2.2",
+   "title": "8.2.2. Connection-Specific Header Fields",
+   "level": 4,
+   "sha256": "7350a3e6ef2aa0615a6b355323435826a0e05070891877ece2128d839367cffb"
+  },
+  {
+   "anchor": "section-8.2.3",
+   "title": "8.2.3. Compressing the Cookie Header Field",
+   "level": 4,
+   "sha256": "ccf2f72802e2cb4712ee6b2da7517584928c80f902d124b0bea8032e658a48e6"
+  },
+  {
+   "anchor": "section-8.3",
+   "title": "8.3. HTTP Control Data",
+   "level": 3,
+   "sha256": "6a63ee7290b3dcc981376b3069be8e73a7ff1f596e14abe3ee0637cdfc9141cb"
+  },
+  {
+   "anchor": "section-8.3.1",
+   "title": "8.3.1. Request Pseudo-Header Fields",
+   "level": 4,
+   "sha256": "a57b4d88640fa3c58d8c27152fc931b9c33beede23140323b461c3d21e5983eb"
+  },
+  {
+   "anchor": "section-8.3.2",
+   "title": "8.3.2. Response Pseudo-Header Fields",
+   "level": 4,
+   "sha256": "c70cc864d504f795df71e9c17316aa6ad133ce32b5ff3ee9cb7b48758103224a"
+  },
+  {
+   "anchor": "section-8.4",
+   "title": "8.4. Server Push",
+   "level": 3,
+   "sha256": "b6c0436ab06019e976f330934bc37b11aebaa0ac589489160998cc00ea9b9a7c"
+  },
+  {
+   "anchor": "section-8.4.1",
+   "title": "8.4.1. Push Requests",
+   "level": 4,
+   "sha256": "09c73c183b6f60090a5aef05e248469a280afe1540a357d0f0f87ed3b702ddbe"
+  },
+  {
+   "anchor": "section-8.4.2",
+   "title": "8.4.2. Push Responses",
+   "level": 4,
+   "sha256": "11b5631c3c02aa56f9c66e9d084c14ac91e608db792588eaf49f5b3582380982"
+  },
+  {
+   "anchor": "section-8.5",
+   "title": "8.5. The CONNECT Method",
+   "level": 3,
+   "sha256": "346dd4999b1d3f92cc554d138157b5462e2180b8bc44ded8d79ef70ca46613b9"
+  },
+  {
+   "anchor": "section-8.6",
+   "title": "8.6. The Upgrade Header Field",
+   "level": 3,
+   "sha256": "1ed9274f3de6fcb5f0c880dc3830da2157e31ecc660f343470310a4d3bbb0b3e"
+  },
+  {
+   "anchor": "section-8.7",
+   "title": "8.7. Request Reliability",
+   "level": 3,
+   "sha256": "369d4c4bcf118e9dcb51a0a6cf0c171afdf5321ae7378e18433997f1ed9f0402"
+  },
+  {
+   "anchor": "section-8.8",
+   "title": "8.8. Examples",
+   "level": 3,
+   "sha256": "f65846941be426eaf2777b954555f0a563cd0bb9374efa16eced42cf9aae9b3e"
+  },
+  {
+   "anchor": "section-8.8.1",
+   "title": "8.8.1. Simple Request",
+   "level": 4,
+   "sha256": "e4f5b57e22d2e61bedc3750ffe467c1060b33fc60cdfc37e92cebd890670751a"
+  },
+  {
+   "anchor": "section-8.8.2",
+   "title": "8.8.2. Simple Response",
+   "level": 4,
+   "sha256": "3c2dbde40d1816f2c441a5c7951bf3a6ad378cff5df9e5288f9209489b27f69e"
+  },
+  {
+   "anchor": "section-8.8.3",
+   "title": "8.8.3. Complex Request",
+   "level": 4,
+   "sha256": "ceaff4532cf4712490dd5c077626952e3f150f218747681c814265f74da2c85a"
+  },
+  {
+   "anchor": "section-8.8.4",
+   "title": "8.8.4. Response with Body",
+   "level": 4,
+   "sha256": "ff2c1fb8fe4d565623ad6d5e5d8b64084c185e76e57d16b57a99354015a34e20"
+  },
+  {
+   "anchor": "section-8.8.5",
+   "title": "8.8.5. Informational Responses",
+   "level": 4,
+   "sha256": "733adcac07b85589cb33396ebcb9811dbc62e888c2614fd0e4c59f8fa83a076b"
+  },
+  {
+   "anchor": "section-9",
+   "title": "9. HTTP/2 Connections",
+   "level": 2,
+   "sha256": "3809bd22ace2540914ef1830254aebcc1a274945c06c6e8011b2cb7a02c53dc7"
+  },
+  {
+   "anchor": "section-9.1",
+   "title": "9.1. Connection Management",
+   "level": 3,
+   "sha256": "130baa70d3a1f9e42ef1847d455d3109b6652511ccec2d1470c7a1b6fb6b8288"
+  },
+  {
+   "anchor": "section-9.1.1",
+   "title": "9.1.1. Connection Reuse",
+   "level": 4,
+   "sha256": "a862844d468cfbcb9798bba00036f54d27d5295a3be64cc3abe46daab0a0ba7e"
+  },
+  {
+   "anchor": "section-9.2",
+   "title": "9.2. Use of TLS Features",
+   "level": 3,
+   "sha256": "890983c75c06fd1486b0f6ca06d83b9f069d6501e762d65fecbfd5b45d0d3a23"
+  },
+  {
+   "anchor": "section-9.2.1",
+   "title": "9.2.1. TLS 1.2 Features",
+   "level": 4,
+   "sha256": "a64f27ec416d771dc73f80c9613091882e57acd9e317ef278b6dfb83c2ea2ade"
+  },
+  {
+   "anchor": "section-9.2.2",
+   "title": "9.2.2. TLS 1.2 Cipher Suites",
+   "level": 4,
+   "sha256": "13142e5cd7cdb8233c6b55234edb134768b0404ff9a0a53dc0c4d96533382486"
+  },
+  {
+   "anchor": "section-9.2.3",
+   "title": "9.2.3. TLS 1.3 Features",
+   "level": 4,
+   "sha256": "3e5c60aaaf78d04d67e02851cb97cceaa54281313bf0f69ab918837edf9e1df5"
+  },
+  {
+   "anchor": "section-10",
+   "title": "10. Security Considerations",
+   "level": 2,
+   "sha256": "58ea6bf31dbd198121b0cd83e63a1310e3e1301e2f0abad6d83a69b8c64459ae"
+  },
+  {
+   "anchor": "section-10.1",
+   "title": "10.1. Server Authority",
+   "level": 3,
+   "sha256": "343ddbf574297d4f9bc0db711da6a79783a270a06b5b069d9239d4189f5b3afb"
+  },
+  {
+   "anchor": "section-10.2",
+   "title": "10.2. Cross-Protocol Attacks",
+   "level": 3,
+   "sha256": "18ce076e363cd42a594f78f5de71e92281f6806acf349fb1ac324523eb8f9ce1"
+  },
+  {
+   "anchor": "section-10.3",
+   "title": "10.3. Intermediary Encapsulation Attacks",
+   "level": 3,
+   "sha256": "79abdaeddf1af51df88f03e7376912e8864d08f2c6ec618e11a8e101a94ea3f8"
+  },
+  {
+   "anchor": "section-10.4",
+   "title": "10.4. Cacheability of Pushed Responses",
+   "level": 3,
+   "sha256": "5eb2ea46204ab5b381d25ca0ba8b50f42991adb26d43a140b5db8a145565b99e"
+  },
+  {
+   "anchor": "section-10.5",
+   "title": "10.5. Denial-of-Service Considerations",
+   "level": 3,
+   "sha256": "52fe90cffa0b7f018d862b861d53268724859ab68550b303bebe20c74a364bf1"
+  },
+  {
+   "anchor": "section-10.5.1",
+   "title": "10.5.1. Limits on Field Block Size",
+   "level": 4,
+   "sha256": "6ba1539659d0b45670c1e6dad0157663ed56c37b145bd5f0432652486ef04e48"
+  },
+  {
+   "anchor": "section-10.5.2",
+   "title": "10.5.2. CONNECT Issues",
+   "level": 4,
+   "sha256": "1f10f8788aca0394d9d6c24e810a50f155537b2f50307e6de54191c11e21a907"
+  },
+  {
+   "anchor": "section-10.6",
+   "title": "10.6. Use of Compression",
+   "level": 3,
+   "sha256": "2bfa71dad4346384de3ed97ddfaa9081ccd84e0553460f4de35e0c986eb8bc28"
+  },
+  {
+   "anchor": "section-10.7",
+   "title": "10.7. Use of Padding",
+   "level": 3,
+   "sha256": "1870b490b8a045869debc91917b57453f9742291bd30faae4c35b4f68d9c769d"
+  },
+  {
+   "anchor": "section-10.8",
+   "title": "10.8. Privacy Considerations",
+   "level": 3,
+   "sha256": "05970144458640425158facaa24b0c9e7cde11b846acb183e9005ac943f5aa1c"
+  },
+  {
+   "anchor": "section-10.9",
+   "title": "10.9. Remote Timing Attacks",
+   "level": 3,
+   "sha256": "af943e5fa1c9c57c68df76554630a1e08df5cd5180ea23cb617e19d1e06cc5cc"
+  },
+  {
+   "anchor": "section-11",
+   "title": "11. IANA Considerations",
+   "level": 2,
+   "sha256": "1f69a0d287b9ab334e404a7f5e13ba5d942513ec81fe9d29af6de30fe730d145"
+  },
+  {
+   "anchor": "section-11.1",
+   "title": "11.1. HTTP2-Settings Header Field Registration",
+   "level": 3,
+   "sha256": "e1eaa751a095c577261a52e37a99362ad83f4ba241a114b992f21ddef2f4d600"
+  },
+  {
+   "anchor": "section-11.2",
+   "title": "11.2. The h2c Upgrade Token",
+   "level": 3,
+   "sha256": "9d50a573f5a8198a59a5d02f99c10f3cd3653c9a769f11f73bca19426fbe4f14"
+  },
+  {
+   "anchor": "section-12",
+   "title": "12. References",
+   "level": 2,
+   "sha256": "f26da6e016941f8b93ddda43a0ebb24e44d8f965894a4fa312b9984690ed5b9d"
+  },
+  {
+   "anchor": "section-12.1",
+   "title": "12.1. Normative References",
+   "level": 3,
+   "sha256": "7eb44c8eeb37011630c471e91fb8e1b51b63aab2a2d85a8df530849db1b332fb"
+  },
+  {
+   "anchor": "section-12.2",
+   "title": "12.2. Informative References",
+   "level": 3,
+   "sha256": "df3bb0933365f78bc0847dab41e9e99c26681189189e7a5bfd83a40e4714e17c"
+  },
+  {
+   "anchor": "name-prohibited-tls-12-cipher-su",
+   "title": "Appendix A. Prohibited TLS 1.2 Cipher Suites",
+   "level": 2,
+   "sha256": "fe85fe396d9ee8333d020e4e3dfe2f5a7a04ec2a7912813812283d0fcd90e038"
+  },
+  {
+   "anchor": "name-changes-from-rfc-7540",
+   "title": "Appendix B. Changes from RFC 7540",
+   "level": 2,
+   "sha256": "9506b0bc5156bdb9234537027f92bf6dc1fb534bff827ca6fc7cd68852c4303c"
+  },
+  {
+   "anchor": "name-acknowledgments",
+   "title": "Acknowledgments",
+   "level": 2,
+   "sha256": "ab3d952d473dcd52e4bbcf9383cdd744da46dce476034031da616b69782cdc50"
+  },
+  {
+   "anchor": "name-contributors",
+   "title": "Contributors",
+   "level": 2,
+   "sha256": "d14b9cd6ae4ed45a7d33b37f83b682bf9dfddd73c004dcb5ac1ed38d82a5fa38"
+  },
+  {
+   "anchor": "name-authors-addresses",
+   "title": "Authors' Addresses",
+   "level": 2,
+   "sha256": "ff5c4ea7707f002e74d8670f0ad0938c89bf1fe3df5fa8461f354dd1662620c0"
+  }
+ ]
+}

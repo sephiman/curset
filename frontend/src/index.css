@@ -65,6 +65,7 @@
 html, body, #root { height: 100%; }
 
 @layer base {
-  body { @apply font-sans; }
+  /* A token wider than its column (a formula, a URL) breaks instead of widening the page; text that fits is untouched. */
+  body { @apply font-sans; overflow-wrap: break-word; }
   input, button, select, textarea { font: inherit; }
 }

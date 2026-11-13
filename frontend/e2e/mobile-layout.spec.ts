@@ -1,5 +1,5 @@
 import { expect, test, type Locator, type Page } from "@playwright/test";
-import { AGE, AGE_C2, CRYPTO, abandonSitting, overflowingElements, signIn, startSitting, submittedSitting } from "./session";
+import { AGE, AGE_C2, CRYPTO, abandonSitting, overflowingElements, signIn, startSitting, submittedSitting, startPracticeAndPickFirstOption } from "./session";
 
 /** Delta J at real widths: what jsdom cannot measure — fit, scrolling and what is on screen without it. */
 
@@ -157,8 +157,7 @@ test.describe("nothing wider than the screen", () => {
       test("practice with the solution panel open", async ({ page }) => {
         await signIn(page);
         await page.goto(`${ESQUEMA_LESSON}/practice`);
-        await page.getByRole("button", { name: "Empezar" }).click();
-        await page.getByRole("radio").first().locator("xpath=ancestor::label").click();
+        await startPracticeAndPickFirstOption(page);
         await page.getByRole("button", { name: "Enviar" }).click();
         await expect(page.getByText("Ver solución")).toBeVisible();
         await expectNothingWiderThanTheScreen(page);

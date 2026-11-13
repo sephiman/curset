@@ -1,0 +1,72 @@
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html lang="en-US" data-preset="contrast" data-primary-color="#307FFF" data-external-links-in-new-tab="false"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="UTF-8"><meta name="built-on" content="2026-11-13T10:58:20.475368239"><meta name="build-number" content="1405"><link rel="canonical" href="/docs/delegation.html" data-react-helmet="true">
+
+<title>Delegation | Kotlin Documentation</title><link href="custom-frontend-app/app.css?149" rel="stylesheet"><link rel="icon" type="image/svg" sizes="16x16" href="https://kotlinlang.org/assets/images/favicon.svg?v2"><link rel="icon" type="image/x-icon" sizes="32x32" href="https://kotlinlang.org/assets/images/favicon.ico?v2"><link rel="icon" type="image/png" sizes="96x96" href="https://kotlinlang.org/assets/images/apple-touch-icon.png?v2"><link rel="icon" type="image/png" sizes="300x300" href="https://kotlinlang.org/assets/images/apple-touch-icon-72x72.png?v2"><link rel="icon" type="image/png" sizes="500x500" href="https://kotlinlang.org/assets/images/apple-touch-icon-114x114.png?v2"><meta name="image" content="https://kotlinlang.org/assets/images/open-graph/docs.png"><!-- Open Graph --><meta property="og:title" content="Delegation | Kotlin"><meta property="og:description" content=""><meta property="og:image" content="https://kotlinlang.org/assets/images/open-graph/docs.png"><meta property="og:site_name" content="Kotlin Help"><meta property="og:type" content="website"><meta property="og:locale" content="en_US"><meta property="og:url" content="https://kotlinlang.org/docs/delegation.html"><!-- End Open Graph --><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@kotlin"><meta name="twitter:title" content="Delegation | Kotlin"><meta name="twitter:description" content=""><meta name="twitter:creator" content="@kotlin"><meta name="twitter:image:src" content="https://kotlinlang.org/assets/images/open-graph/docs.png"><!-- End Twitter Card --><!-- Schema.org WebPage --><!-- End Schema.org --><!-- Schema.org WebSite --><!-- End Schema.org --></head><body data-id="delegation" data-main-title="Delegation" data-article-props="{&quot;seeAlsoStyle&quot;:&quot;links&quot;}" data-template="article" data-breadcrumbs="Language guide///Classes and interfaces" data-edit-url="https://github.com/JetBrains/kotlin-web-site/edit/master/docs/topics/delegation.md"><div class="wrapper"><main class="panel _main"><header class="panel__header"><div class="container"><h3>Kotlin  Help</h3><div class="panel-trigger"></div></div></header><section class="panel__content"><div class="container"><article class="article" data-shortcut-switcher="inactive"><h1 data-toc="delegation" id="delegation.md">Delegation</h1><p id="-yv4i3r_2">The <a href="https://en.wikipedia.org/wiki/Delegation_pattern" id="-yv4i3r_7" data-external="true" rel="noopener noreferrer">Delegation pattern</a> has proven to be a good alternative to implementation inheritance, and Kotlin supports it natively requiring zero boilerplate code.</p><p id="-yv4i3r_3">A class <code class="code" id="-yv4i3r_8">Derived</code> can implement an interface <code class="code" id="-yv4i3r_9">Base</code> by delegating all of its public members to a specified object:</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+interface Base {
+    fun print()
+}
+
+class BaseImpl(val x: Int) : Base {
+    override fun print() { print(x) }
+}
+
+class Derived(b: Base) : Base by b
+
+fun main() {
+    val base = BaseImpl(10)
+    val derived = Derived(base) 
+    
+    derived.print()
+    // 10
+}
+</div><p id="-yv4i3r_5">The <code class="code" id="-yv4i3r_10">by</code>-clause in the supertype list for <code class="code" id="-yv4i3r_11">Derived</code> indicates that <code class="code" id="-yv4i3r_12">b</code> will be stored internally in objects of <code class="code" id="-yv4i3r_13">Derived</code> and the compiler will generate all the methods of <code class="code" id="-yv4i3r_14">Base</code> that forward to <code class="code" id="-yv4i3r_15">b</code>.</p><section class="chapter"><h2 id="overriding-a-member-of-an-interface-implemented-by-delegation" data-toc="overriding-a-member-of-an-interface-implemented-by-delegation">Overriding a member of an interface implemented by delegation</h2><p id="-yv4i3r_16"><a href="inheritance.html#overriding-methods" id="-yv4i3r_21">Overrides</a> work as you expect: the compiler will use your <code class="code" id="-yv4i3r_22">override</code> implementations instead of those in the delegate object. If you want to add <code class="code" id="-yv4i3r_23">override fun printMessage() { print(&quot;abc&quot;) }</code> to <code class="code" id="-yv4i3r_24">Derived</code>, the program would print <span class="emphasis" id="-yv4i3r_25">abc</span> instead of <span class="emphasis" id="-yv4i3r_26">10</span> when <code class="code" id="-yv4i3r_27">printMessage</code> is called:</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+interface Base {
+    fun printMessage()
+    fun printMessageLine()
+}
+
+class BaseImpl(val x: Int) : Base {
+    override fun printMessage() { print(x) }
+    override fun printMessageLine() { println(x) }
+}
+
+class Derived(b: Base) : Base by b {
+    override fun printMessage() { println(&quot;abc&quot;) }
+}
+
+fun main() {
+    val base = BaseImpl(10)
+    val derived = Derived(base)
+
+    derived.printMessage()
+    // abc
+    derived.printMessageLine()
+    // 10
+}
+</div><p id="-yv4i3r_18">Note, however, that members overridden in this way do not get called from the members of the delegate object, which can only access its own implementations of the interface members:</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+interface Base {
+    val message: String
+    fun print()
+}
+
+class BaseImpl(x: Int) : Base {
+    override val message = &quot;BaseImpl: x = $x&quot;
+    override fun print() { println(message) }
+}
+
+class Derived(b: Base) : Base by b {
+    // This property is not accessible
+    // from b's implementation of `print()`
+    override val message = &quot;Message of Derived&quot;
+}
+
+fun main() {
+    val base = BaseImpl(10)
+    val derived = Derived(base)
+    
+    derived.print()
+    // BaseImpl: x = 10
+    println(derived.message)
+    // Message of Derived
+}
+</div><p id="-yv4i3r_20">Learn more about <a href="delegated-properties.html" id="-yv4i3r_28">delegated properties</a>.</p></section><div class="last-modified">10 September 2026</div><div data-feedback-placeholder="true"></div><div class="navigation-links _bottom"><a href="interfaces.html" class="navigation-links__prev">Interfaces</a><a href="inheritance.html" class="navigation-links__next">Inheritance</a></div></article><div id="disqus_thread"></div></div></section></main></div></body></html>

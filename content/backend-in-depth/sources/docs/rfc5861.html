@@ -1,0 +1,1298 @@
+
+<!DOCTYPE html>
+
+
+
+
+
+
+
+<html data-bs-theme="auto" lang="en">
+    <head>
+        
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>
+            
+                RFC 5861 - HTTP Cache-Control Extensions for Stale Content
+            
+        </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://static.ietf.org/fonts/inter/import.css" rel="stylesheet">
+        <link href="https://static.ietf.org/fonts/noto-sans-mono/import.css" rel="stylesheet">
+        
+            <link rel="stylesheet" href="https://static.ietf.org/dt/12.83.1/ietf/css/document_html_referenced.css">
+            
+            
+<link href="https://static.ietf.org/dt/12.83.1/assets/create-pinia-singleton-068be574.js" type="text/javascript" crossorigin="anonymous" rel="modulepreload" as="script" />
+<link href="https://static.ietf.org/dt/12.83.1/assets/Scrollbar-b25c72ad.js" type="text/javascript" crossorigin="anonymous" rel="modulepreload" as="script" />
+            
+            
+        
+        <link rel="alternate" type="application/atom+xml" title="Document changes" href="/feed/document-changes/rfc5861/">
+        <meta name="description"
+            
+                content="HTTP Cache-Control Extensions for Stale Content (RFC 5861, )"
+            >
+        
+
+<link rel="apple-touch-icon"
+      sizes="180x180"
+      href="https://static.ietf.org/dt/12.83.1/ietf/images/ietf-logo-nor-180.png">
+<link rel="icon"
+      sizes="32x32"
+      href="https://static.ietf.org/dt/12.83.1/ietf/images/ietf-logo-nor-32.png">
+<link rel="icon"
+      sizes="16x16"
+      href="https://static.ietf.org/dt/12.83.1/ietf/images/ietf-logo-nor-16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon"
+      href="https://static.ietf.org/dt/12.83.1/ietf/images/ietf-logo-nor-mask.svg"
+      color="#ffffff">
+<meta name="msapplication-TileColor"
+      content="#ffffff">
+<meta name="theme-color"
+      content="#ffffff">
+        
+
+
+
+
+<meta property="og:title" content="RFC 5861: HTTP Cache-Control Extensions for Stale Content">
+<meta property="og:url" content="https://datatracker.ietf.org/doc/html/rfc5861">
+
+
+<link rel="canonical" href="https://www.rfc-editor.org/info/rfc5861/">
+
+<meta property="og:site_name" content="IETF Datatracker">
+<meta property="og:description" content="This document defines two independent HTTP Cache-Control extensions that allow control over the use of stale responses by caches. This document is not an Internet Standards Track specification; it is published for informational purposes.">
+<meta property="og:type" content="article">
+
+<meta property="article:section" content="Individual Internet-Draft">
+
+<meta property="article:author" content="Mark Nottingham">
+
+
+
+        
+        
+    </head>
+    <body>
+        
+        
+<div class="vue-embed" data-component="Status"></div>
+        <div class="btn-toolbar sidebar-toolbar position-fixed top-0 end-0 m-2 m-lg-3 d-print-none">
+            <div class="dropdown">
+                <button class="btn btn-outline-secondary btn-sm me-1 dropdown-toggle d-flex align-items-center"
+                    id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown"
+                    aria-label="Toggle theme">
+                        <i class="theme-icon-active bi bi-circle-half"></i>
+                </button>
+
+                <ul class="dropdown-menu" aria-labelledby="bd-theme">
+                    <li>
+                        <button type="button" class="dropdown-item d-flex align-items-center"
+                            data-bs-theme-value="light" aria-pressed="false">
+                            <i class="me-2 opacity-50 theme-icon bi bi-sun-fill"></i>
+                            Light<i class="bi bi-check2 ms-auto d-none"></i>
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" class="dropdown-item d-flex align-items-center"
+                            data-bs-theme-value="dark" aria-pressed="false">
+                            <i class="me-2 opacity-50 theme-icon bi bi-moon-stars-fill"></i>
+                            Dark<i class="bi bi-check2 ms-auto d-none"></i>
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" class="dropdown-item d-flex align-items-center active"
+                            data-bs-theme-value="auto" aria-pressed="true">
+                            <i class="me-2 opacity-50 theme-icon bi bi-circle-half"></i>
+                            Auto<i class="bi bi-check2 ms-auto d-none"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+            <button class="btn btn-outline-secondary btn-sm sidebar-toggle"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#sidebar"
+                    aria-expanded="true"
+                    aria-controls="sidebar"
+                    aria-label="Toggle metadata sidebar"
+                    title="Toggle metadata sidebar">
+            <i class="bi bi-arrow-bar-left sidebar-shown"></i>
+            <i class="bi bi-arrow-bar-right sidebar-collapsed"></i>
+            </button>
+        </div>
+        <nav class="navbar bg-light-subtle px-1 fixed-top d-print-none d-md-none">
+            <a class="nav-link ps-1"
+               href="/doc/rfc5861/">
+                
+                    RFC 5861
+                
+                <br class="d-sm-none">
+
+                <span class="ms-sm-3 badge rounded-pill badge-inf">
+                    
+                        Informational
+                    
+                </span>
+            </a>
+            <button class="navbar-toggler p-1"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#docinfo-collapse"
+                    aria-controls="docinfo-collapse"
+                    aria-expanded="false"
+                    aria-label="Show document information">
+                <span class="navbar-toggler-icon small"></span>
+            </button>
+            <div class="navbar-nav navbar-nav-scroll overscroll-none collapse pt-1" id="docinfo-collapse">
+                <div class="bg-light-subtle p-0">
+                    <table class="table table-sm table-borderless small">
+                        <tbody class="meta align-top">
+                            <tr>
+                                <th scope="row"></th>
+                                <th scope="row">Title</th>
+                                <td class="edit"></td>
+                                <td>HTTP Cache-Control Extensions for Stale Content</td>
+                            </tr>
+                        </tbody>
+                        
+
+
+
+
+
+
+
+<tbody class="meta align-top ">
+    <tr>
+        <th scope="row">Document</th>
+        <th scope="row">Document type</th>
+        <td class="edit"></td>
+        <td>
+            
+
+
+
+
+
+<span class="text-success">RFC
+    
+    - Informational
+    
+</span>
+
+            
+                
+                    <br>May 2010
+                
+                <br>
+                
+                    <a class="btn btn-primary btn-sm my-1"
+                       href="https://www.rfc-editor.org/errata_search.php?rfc=5861" title="Click to view errata." rel="nofollow">
+                        View errata
+                    </a>
+                
+                
+                    <a class="btn btn-sm btn-warning"
+                       title="Click to report an error in the document."
+                       href="https://www.rfc-editor.org/errata.php#reportnew"
+                       target="_blank">
+                        Report errata
+                    </a>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                    <div>
+                        Was
+                        <a href="/doc/draft-nottingham-http-stale-controls/00/">draft-nottingham-http-stale-controls</a>
+                        (<a href="/group/app/about/">app</a>)
+                    </div>
+                
+            
+            
+            
+                
+
+
+
+
+    
+        <div class="alert alert-warning small p-2 mt-2" role="alert">
+            This RFC was published on the Independent Submission stream.
+            This RFC is <strong>not endorsed by the IETF</strong> and has <strong>no formal standing</strong> in the
+            <a href="/doc/rfc2026/">IETF standards process</a>.
+        </div>
+    
+
+
+            
+        </td>
+    </tr>
+    
+        <tr>
+            <td></td>
+            <th scope="row">Select version</th>
+            <td class="edit"></td>
+            <td>
+                
+
+
+
+    <ul class="revision-list pagination pagination-sm text-center flex-wrap my-0">
+        
+            
+            
+                
+                    <li class="page-item">
+                        <a class="page-link"
+                        href="/doc/html/draft-nottingham-http-stale-controls-00"
+                        rel="nofollow">
+                            00
+                        </a>
+                    </li>
+                
+            
+            
+            <li class="page-item rfc active">
+                <a class="page-link"
+                href="/doc/html/rfc5861">
+                    RFC 5861
+                </a>
+            </li>
+        
+    </ul>
+
+            </td>
+        </tr>
+        
+            <tr>
+                <td></td>
+                <th scope="row">Compare versions</th>
+                <td class="edit"></td>
+                <td>
+                    
+
+
+
+<form class="form-horizontal diff-form"
+      action="https://author-tools.ietf.org/iddiff"
+      method="get"
+      target="_blank">
+
+            <select class="form-select form-select-sm mb-1 select2-field"
+                    data-max-entries="1"
+                    data-width="resolve"
+                    data-allow-clear="false"
+                    data-minimum-input-length="0"
+                    aria-label="From revision"
+                    name="url1">
+                
+                    <option value="rfc5861">
+                        RFC 5861
+                        
+                    </option>
+                
+                    <option value="draft-nottingham-http-stale-controls-00" selected>
+                        draft-nottingham-http-stale-controls-00
+                        
+                    </option>
+                
+                
+            </select>
+
+            <select class="form-select form-select-sm mb-1 select2-field"
+                    data-max-entries="1"
+                    data-width="resolve"
+                    data-allow-clear="false"
+                    data-minimum-input-length="0"
+                    aria-label="To revision"
+                    name="url2">
+                
+                    <option value="rfc5861" selected>
+                        RFC 5861
+                        
+                    </option>
+                
+                    <option value="draft-nottingham-http-stale-controls-00">
+                        draft-nottingham-http-stale-controls-00
+                        
+                    </option>
+                
+                
+            </select>
+
+            <button type="submit"
+                    class="btn btn-primary btn-sm"
+                    value="--html"
+                    name="difftype">
+                Side-by-side
+            </button>
+            
+            <button type="submit"
+                    class="btn btn-primary btn-sm"
+                    value="--hwdiff"
+                    name="difftype">
+                Inline
+            </button>
+
+
+</form>
+
+                </td>
+            </tr>
+        
+    
+    <tr>
+        <td></td>
+        <th scope="row">Author</th>
+        <td class="edit">
+            
+        </td>
+        <td>
+            
+            
+                <span ><a 
+           title="Datatracker profile of Mark Nottingham"
+            href="/person/mnot@mnot.net" >M. Nottingham</a> <a 
+               href="mailto:mnot%40mnot.net"
+               aria-label="Compose email to mnot@mnot.net"
+               title="Compose email to mnot@mnot.net">
+                <i class="bi bi-envelope"></i></a></span>
+            
+            
+                <br>
+                <a class="btn btn-primary btn-sm mt-1" href="mailto:rfc5861@ietf.org?subject=rfc5861" title="Send email to the document authors">Email authors</a>
+            
+        </td>
+    </tr>
+    
+    
+    <tr>
+        <td></td>
+        <th scope="row">
+            RFC stream
+        </th>
+        <td class="edit">
+            
+        </td>
+        <td >
+            
+                
+                    <a href="/stream/ise/">
+                
+                
+                    
+                        Independent Submission
+                    
+                
+                
+                    </a>
+                
+            
+        </td>
+    </tr>
+    
+    <tr>
+        <td></td>
+        <th scope="row">
+            Other formats
+        </th>
+        <td class="edit">
+        </td>
+        <td>
+            
+                
+    <div class="buttonlist">
+    
+        
+        <a class="btn btn-primary btn-sm"
+          
+          target="_blank"
+          href="https://www.rfc-editor.org/rfc/rfc5861.txt">
+            
+                <i class="bi bi-file-text"></i> txt
+            
+        </a>
+        
+    
+        
+        <a class="btn btn-primary btn-sm"
+          
+          target="_blank"
+          href="https://www.rfc-editor.org/rfc/rfc5861.html">
+            
+                <i class="bi bi-file-code"></i> html
+            
+        </a>
+        
+    
+        
+    
+        
+        <a class="btn btn-primary btn-sm"
+          
+          target="_blank"
+          href="https://www.rfc-editor.org/rfc/inline-errata/rfc5861.html">
+            
+                <i class="bi bi-file-diff"></i> w/errata
+            
+        </a>
+        
+    
+        
+        <a class="btn btn-primary btn-sm"
+          
+          target="_blank"
+          href="/doc/rfc5861/bibtex/">
+            
+                <i class="bi bi-file-ruled"></i> bibtex
+            
+        </a>
+        
+    
+</div>
+
+            
+        </td>
+    </tr>
+    
+    
+        
+    
+</tbody>
+                        <tr>
+                            <th scope="row"></th>
+                            <th scope="row"></th>
+                            <td class="edit"></td>
+                            <td>
+                                <a class="btn btn-sm btn-warning mb-3"
+                                target="_blank"
+                                href="https://github.com/ietf-tools/datatracker/issues/new/choose">
+                                    Report a bug
+                                    <i class="bi bi-bug"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </nav>
+        <div class="row g-0">
+            <div class="col-md-9 d-flex justify-content-center lh-sm"
+                 data-bs-spy="scroll"
+                 data-bs-target="#toc-nav"
+                 data-bs-smooth-scroll="true"
+                 tabindex="0"
+                 id="content">
+                
+                    <div class="rfcmarkup">
+                        <br class="noprint">
+                        <!-- [html-validate-disable-block attr-quotes, void-style, element-permitted-content, heading-level -- FIXME: rfcmarkup/rfc2html generates HTML with issues] -->
+                        <div class="rfcmarkup"><pre>Independent Submission                                     M. Nottingham
+Request for Comments: 5861                                   Yahoo! Inc.
+Category: Informational                                         May 2010
+ISSN: 2070-1721
+
+
+            <h1>HTTP Cache-Control Extensions for Stale Content</h1>
+
+Abstract
+
+   This document defines two independent HTTP Cache-Control extensions
+   that allow control over the use of stale responses by caches.
+
+Status of This Memo
+
+   This document is not an Internet Standards Track specification; it is
+   published for informational purposes.
+
+   This is a contribution to the RFC Series, independently of any other
+   RFC stream.  The RFC Editor has chosen to publish this document at
+   its discretion and makes no statement about its value for
+   implementation or deployment.  Documents approved for publication by
+   the RFC Editor are not a candidate for any level of Internet
+   Standard; see <a href="/doc/html/rfc5741#section-2">Section&nbsp;2 of RFC 5741</a>.
+
+   Information about the current status of this document, any errata,
+   and how to provide feedback on it may be obtained at
+   <a href="http://www.rfc-editor.org/info/rfc5861">http://www.rfc-editor.org/info/rfc5861</a>.
+
+Copyright Notice
+
+   Copyright (c) 2010 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to <a href="/doc/html/bcp78">BCP 78</a> and the IETF Trust&#x27;s Legal
+   Provisions Relating to IETF Documents
+   (<a href="http://trustee.ietf.org/license-info">http://trustee.ietf.org/license-info</a>) in effect on the date of
+   publication of this document.  Please review these documents
+   carefully, as they describe your rights and restrictions with respect
+   to this document.
+
+
+
+
+
+
+
+
+
+
+
+<span class="grey">Nottingham                    Informational                     [Page 1]</span></pre>
+<pre class="newpage"><hr class="noprint" id="page-2"><span class="grey"><a href="/doc/html/rfc5861">RFC 5861</a>                   HTTP stale controls                  May 2010</span>
+
+
+Table of Contents
+
+   <a href="#section-1">1</a>.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . . . <a href="#page-2">2</a>
+   <a href="#section-2">2</a>.  Notational Conventions  . . . . . . . . . . . . . . . . . . . . <a href="#page-2">2</a>
+   <a href="#section-3">3</a>.  The stale-while-revalidate Cache-Control Extension  . . . . . . <a href="#page-2">2</a>
+     <a href="#section-3.1">3.1</a>.  Example . . . . . . . . . . . . . . . . . . . . . . . . . . <a href="#page-3">3</a>
+   <a href="#section-4">4</a>.  The stale-if-error Cache-Control Extension  . . . . . . . . . . <a href="#page-3">3</a>
+     <a href="#section-4.1">4.1</a>.  Example . . . . . . . . . . . . . . . . . . . . . . . . . . <a href="#page-4">4</a>
+   <a href="#section-5">5</a>.  Security Considerations . . . . . . . . . . . . . . . . . . . . <a href="#page-5">5</a>
+   <a href="#section-6">6</a>.  Normative References  . . . . . . . . . . . . . . . . . . . . . <a href="#page-5">5</a>
+   <a href="#appendix-A">Appendix A</a>.  Acknowledgements . . . . . . . . . . . . . . . . . . . <a href="#page-6">6</a>
+
+<h2><a class="selflink" id="section-1" href="#section-1">1</a>.  Introduction</h2>
+
+   HTTP [<a href="/doc/html/rfc2616" title="&quot;Hypertext Transfer Protocol -- HTTP/1.1&quot;">RFC2616</a>] requires that caches &quot;respond to a request with the
+   most up-to-date response held... that is appropriate to the request,&quot;
+   although &quot;in carefully considered circumstances&quot; a stale response is
+   allowed to be returned.  This document defines two independent Cache-
+   Control extensions that allow for such control, stale-if-error and
+   stale-while-revalidate.
+
+   The stale-if-error HTTP Cache-Control extension allows a cache to
+   return a stale response when an error -- e.g., a 500 Internal Server
+   Error, a network segment, or DNS failure -- is encountered, rather
+   than returning a &quot;hard&quot; error.  This improves availability.
+
+   The stale-while-revalidate HTTP Cache-Control extension allows a
+   cache to immediately return a stale response while it revalidates it
+   in the background, thereby hiding latency (both in the network and on
+   the server) from clients.
+
+<h2><a class="selflink" id="section-2" href="#section-2">2</a>.  Notational Conventions</h2>
+
+   The key words &quot;MUST&quot;, &quot;MUST NOT&quot;, &quot;REQUIRED&quot;, &quot;SHALL&quot;, &quot;SHALL NOT&quot;,
+   &quot;SHOULD&quot;, &quot;SHOULD NOT&quot;, &quot;RECOMMENDED&quot;, &quot;MAY&quot;, and &quot;OPTIONAL&quot; in this
+   document are to be interpreted as described in <a href="/doc/html/rfc2119">RFC 2119</a> [<a href="/doc/html/rfc2119" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
+
+   This specification uses the augmented Backus-Naur Form of <a href="/doc/html/rfc2616">RFC 2616</a>
+   [<a href="/doc/html/rfc2616" title="&quot;Hypertext Transfer Protocol -- HTTP/1.1&quot;">RFC2616</a>], and it includes the delta-seconds rule from that
+   specification.
+
+<h2><a class="selflink" id="section-3" href="#section-3">3</a>.  The stale-while-revalidate Cache-Control Extension</h2>
+
+   When present in an HTTP response, the stale-while-revalidate Cache-
+   Control extension indicates that caches MAY serve the response in
+   which it appears after it becomes stale, up to the indicated number
+   of seconds.
+
+
+
+
+<span class="grey">Nottingham                    Informational                     [Page 2]</span></pre>
+<pre class="newpage"><hr class="noprint" id="page-3"><span class="grey"><a href="/doc/html/rfc5861">RFC 5861</a>                   HTTP stale controls                  May 2010</span>
+
+
+     stale-while-revalidate = &quot;stale-while-revalidate&quot; &quot;=&quot; delta-seconds
+
+   If a cached response is served stale due to the presence of this
+   extension, the cache SHOULD attempt to revalidate it while still
+   serving stale responses (i.e., without blocking).
+
+   Note that &quot;stale&quot; implies that the response will have a non-zero Age
+   header and a warning header, as per HTTP&#x27;s requirements.
+
+   If delta-seconds passes without the cached entity being revalidated,
+   it SHOULD NOT continue to be served stale, absent other information.
+
+<h3><a class="selflink" id="section-3.1" href="#section-3.1">3.1</a>.  Example</h3>
+
+   A response containing:
+
+     Cache-Control: max-age=600, stale-while-revalidate=30
+
+   indicates that it is fresh for 600 seconds, and it may continue to be
+   served stale for up to an additional 30 seconds while an asynchronous
+   validation is attempted.  If validation is inconclusive, or if there
+   is not traffic that triggers it, after 30 seconds the stale-while-
+   revalidate function will cease to operate, and the cached response
+   will be &quot;truly&quot; stale (i.e., the next request will block and be
+   handled normally).
+
+   Generally, servers will want to set the combination of max-age and
+   stale-while-revalidate to the longest total potential freshness
+   lifetime that they can tolerate.  For example, with both set to 600,
+   the server must be able to tolerate the response being served from
+   cache for up to 20 minutes.
+
+   Since asynchronous validation will only happen if a request occurs
+   after the response has become stale, but before the end of the stale-
+   while-revalidate window, the size of that window and the likelihood
+   of a request during it determines how likely it is that all requests
+   will be served without delay.  If the window is too small, or traffic
+   is too sparse, some requests will fall outside of it, and block until
+   the server can validate the cached response.
+
+<h2><a class="selflink" id="section-4" href="#section-4">4</a>.  The stale-if-error Cache-Control Extension</h2>
+
+   The stale-if-error Cache-Control extension indicates that when an
+   error is encountered, a cached stale response MAY be used to satisfy
+   the request, regardless of other freshness information.
+
+     stale-if-error = &quot;stale-if-error&quot; &quot;=&quot; delta-seconds
+
+
+
+
+<span class="grey">Nottingham                    Informational                     [Page 3]</span></pre>
+<pre class="newpage"><hr class="noprint" id="page-4"><span class="grey"><a href="/doc/html/rfc5861">RFC 5861</a>                   HTTP stale controls                  May 2010</span>
+
+
+   When used as a request Cache-Control extension, its scope of
+   application is the request it appears in; when used as a response
+   Cache-Control extension, its scope is any request applicable to the
+   cached response in which it occurs.
+
+   Its value indicates the upper limit to staleness; when the cached
+   response is more stale than the indicated amount, the cached response
+   SHOULD NOT be used to satisfy the request, absent other information.
+
+   In this context, an error is any situation that would result in a
+   500, 502, 503, or 504 HTTP response status code being returned.
+
+   Note that this directive does not affect freshness; stale cached
+   responses that are used SHOULD still be visibly stale when sent
+   (i.e., have a non-zero Age header and a warning header, as per HTTP&#x27;s
+   requirements).
+
+<h3><a class="selflink" id="section-4.1" href="#section-4.1">4.1</a>.  Example</h3>
+
+   A response containing:
+
+     HTTP/1.1 200 OK
+     Cache-Control: max-age=600, stale-if-error=1200
+     Content-Type: text/plain
+
+     success
+
+   indicates that it is fresh for 600 seconds, and that it may be used
+   if an error is encountered after becoming stale for an additional
+   1200 seconds.
+
+   Thus, if the cache attempts to validate 900 seconds afterwards and
+   encounters:
+
+     HTTP/1.1 500 Internal Server Error
+     Content-Type: text/plain
+
+     failure
+
+   the successful response can be returned instead:
+
+     HTTP/1.1 200 OK
+     Cache-Control: max-age=600, stale-if-error=1200
+     Age: 900
+     Content-Type: text/plain
+
+     success
+
+
+
+
+<span class="grey">Nottingham                    Informational                     [Page 4]</span></pre>
+<pre class="newpage"><hr class="noprint" id="page-5"><span class="grey"><a href="/doc/html/rfc5861">RFC 5861</a>                   HTTP stale controls                  May 2010</span>
+
+
+   After the age is greater than 1800 seconds (i.e., it has been stale
+   for 1200 seconds), the cache must write the error message through.
+
+     HTTP/1.1 500 Internal Server Error
+     Content-Type: text/plain
+
+     failure
+
+<h2><a class="selflink" id="section-5" href="#section-5">5</a>.  Security Considerations</h2>
+
+   The stale-while-revalidate extension provides origin servers with a
+   mechanism for dictating that stale content should be served from
+   caches under certain circumstances, with the expectation that the
+   cached response will be revalidated in the background.  It is
+   suggested that such validation be predicated upon an incoming
+   request, to avoid the possibility of an amplification attack (as can
+   be seen in some other pre-fetching and automatic refresh mechanisms).
+   Cache implementers should keep this in mind when deciding the
+   circumstances under which they will generate a request that is not
+   directly initiated by a user or client.
+
+   The stale-if-error provides origin servers and clients a mechanism
+   for dictating that stale content should be served from caches under
+   certain circumstances, and does not pose additional security
+   considerations over those of <a href="/doc/html/rfc2616">RFC 2616</a>, which also allows stale
+   content to be served.
+
+<h2><a class="selflink" id="section-6" href="#section-6">6</a>.  Normative References</h2>
+
+   [<a id="ref-RFC2119">RFC2119</a>]  Bradner, S., &quot;Key words for use in RFCs to Indicate
+              Requirement Levels&quot;, <a href="/doc/html/bcp14">BCP 14</a>, <a href="/doc/html/rfc2119">RFC 2119</a>, March 1997.
+
+   [<a id="ref-RFC2616">RFC2616</a>]  Fielding, R., Gettys, J., Mogul, J., Frystyk, H.,
+              Masinter, L., Leach, P., and T. Berners-Lee, &quot;Hypertext
+              Transfer Protocol -- HTTP/1.1&quot;, <a href="/doc/html/rfc2616">RFC 2616</a>, June 1999.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="grey">Nottingham                    Informational                     [Page 5]</span></pre>
+<pre class="newpage"><hr class="noprint" id="page-6"><span class="grey"><a href="/doc/html/rfc5861">RFC 5861</a>                   HTTP stale controls                  May 2010</span>
+
+
+<h2><a class="selflink" id="appendix-A" href="#appendix-A">Appendix A</a>.  Acknowledgements</h2>
+
+   Thanks to Ben Drees, John Nienart, Henrik Nordstrom, Evan Torrie, and
+   Chris Westin for their suggestions.  The author takes all
+   responsibility for errors and omissions.
+
+Author&#x27;s Address
+
+   Mark Nottingham
+   Yahoo! Inc.
+
+   EMail: mnot@yahoo-inc.com
+   URI:   <a href="http://www.mnot.net/">http://www.mnot.net/</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Nottingham                    Informational                     [Page 6]
+</pre></div>
+                    </div>
+                
+            </div>
+            <div class="d-print-none col-md-3 bg-light-subtle collapse show" id="sidebar">
+                <div class="position-fixed border-start sidebar overflow-scroll overscroll-none no-scrollbar">
+                    <div class="d-flex flex-column vh-100 pt-2 pt-lg-3 ps-3 pl-md-2 pl-lg-3">
+                        <div>
+                            <a class="btn btn-primary btn-sm" href="/doc/rfc5861/">Datatracker</a>
+                            <p class="fw-bold pt-2">
+                                
+                                    RFC 5861
+                                
+                                <br>
+                                
+
+
+
+
+
+<span class="text-success">RFC
+    
+    - Informational
+    
+</span>
+
+                            </p>
+                        </div>
+                        
+                        <ul class="nav nav-tabs nav-fill small me-2" role="tablist">
+                            <li class="nav-item" role="presentation" title="Document information">
+                                <button class="nav-link px-2"
+                                        id="docinfo-tab"
+                                        data-bs-toggle="tab"
+                                        data-bs-target="#docinfo-tab-pane"
+                                        type="button"
+                                        role="tab"
+                                        aria-controls="docinfo-tab-pane"
+                                        aria-selected="true">
+                                    <i class="bi bi-info-circle"></i><span class="d-none d-md-block d-xl-inline ms-xl-1">Info</span>
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation" title="Table of contents">
+                                <button class="nav-link px-2"
+                                        id="toc-tab"
+                                        data-bs-toggle="tab"
+                                        data-bs-target="#toc-tab-pane"
+                                        type="button"
+                                        role="tab"
+                                        aria-controls="toc-tab-pane"
+                                        aria-selected="false">
+                                    <i class="bi bi-list-ol"></i><span class="d-none d-md-block d-xl-inline ms-xl-1">Contents</span>
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation" title="Preferences">
+                                <button class="nav-link px-2"
+                                        id="pref-tab"
+                                        data-bs-toggle="tab"
+                                        data-bs-target="#pref-tab-pane"
+                                        type="button"
+                                        role="tab"
+                                        aria-controls="pref-tab-pane"
+                                        aria-selected="false">
+                                    <i class="bi bi-gear"></i><span class="d-none d-md-block d-xl-inline ms-xl-1">Prefs</span>
+                                </button>
+                            </li>
+                        </ul>
+                        <div class="overflow-auto tab-content pt-2 me-2">
+                            <div class="tab-pane"
+                                 id="docinfo-tab-pane"
+                                 role="tabpanel"
+                                 aria-labelledby="docinfo-tab"
+                                 tabindex="0">
+                                <table class="table table-sm table-borderless">
+                                    
+
+
+
+
+
+
+
+<tbody class="meta align-top ">
+    <tr>
+        <th scope="row">Document</th>
+        <th scope="row">Document type</th>
+        <td class="edit"></td>
+        <td>
+            
+
+
+
+
+
+<span class="text-success">RFC
+    
+    - Informational
+    
+</span>
+
+            
+                
+                    <br>May 2010
+                
+                <br>
+                
+                    <a class="btn btn-primary btn-sm my-1"
+                       href="https://www.rfc-editor.org/errata_search.php?rfc=5861" title="Click to view errata." rel="nofollow">
+                        View errata
+                    </a>
+                
+                
+                    <a class="btn btn-sm btn-warning"
+                       title="Click to report an error in the document."
+                       href="https://www.rfc-editor.org/errata.php#reportnew"
+                       target="_blank">
+                        Report errata
+                    </a>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                    <div>
+                        Was
+                        <a href="/doc/draft-nottingham-http-stale-controls/00/">draft-nottingham-http-stale-controls</a>
+                        (<a href="/group/app/about/">app</a>)
+                    </div>
+                
+            
+            
+            
+                
+
+
+
+
+    
+        <div class="alert alert-warning small p-2 mt-2" role="alert">
+            This RFC was published on the Independent Submission stream.
+            This RFC is <strong>not endorsed by the IETF</strong> and has <strong>no formal standing</strong> in the
+            <a href="/doc/rfc2026/">IETF standards process</a>.
+        </div>
+    
+
+
+            
+        </td>
+    </tr>
+    
+        <tr>
+            <td></td>
+            <th scope="row">Select version</th>
+            <td class="edit"></td>
+            <td>
+                
+
+
+
+    <ul class="revision-list pagination pagination-sm text-center flex-wrap my-0">
+        
+            
+            
+                
+                    <li class="page-item">
+                        <a class="page-link"
+                        href="/doc/html/draft-nottingham-http-stale-controls-00"
+                        rel="nofollow">
+                            00
+                        </a>
+                    </li>
+                
+            
+            
+            <li class="page-item rfc active">
+                <a class="page-link"
+                href="/doc/html/rfc5861">
+                    RFC 5861
+                </a>
+            </li>
+        
+    </ul>
+
+            </td>
+        </tr>
+        
+            <tr>
+                <td></td>
+                <th scope="row">Compare versions</th>
+                <td class="edit"></td>
+                <td>
+                    
+
+
+
+<form class="form-horizontal diff-form"
+      action="https://author-tools.ietf.org/iddiff"
+      method="get"
+      target="_blank">
+
+            <select class="form-select form-select-sm mb-1 select2-field"
+                    data-max-entries="1"
+                    data-width="resolve"
+                    data-allow-clear="false"
+                    data-minimum-input-length="0"
+                    aria-label="From revision"
+                    name="url1">
+                
+                    <option value="rfc5861">
+                        RFC 5861
+                        
+                    </option>
+                
+                    <option value="draft-nottingham-http-stale-controls-00" selected>
+                        draft-nottingham-http-stale-controls-00
+                        
+                    </option>
+                
+                
+            </select>
+
+            <select class="form-select form-select-sm mb-1 select2-field"
+                    data-max-entries="1"
+                    data-width="resolve"
+                    data-allow-clear="false"
+                    data-minimum-input-length="0"
+                    aria-label="To revision"
+                    name="url2">
+                
+                    <option value="rfc5861" selected>
+                        RFC 5861
+                        
+                    </option>
+                
+                    <option value="draft-nottingham-http-stale-controls-00">
+                        draft-nottingham-http-stale-controls-00
+                        
+                    </option>
+                
+                
+            </select>
+
+            <button type="submit"
+                    class="btn btn-primary btn-sm"
+                    value="--html"
+                    name="difftype">
+                Side-by-side
+            </button>
+            
+            <button type="submit"
+                    class="btn btn-primary btn-sm"
+                    value="--hwdiff"
+                    name="difftype">
+                Inline
+            </button>
+
+
+</form>
+
+                </td>
+            </tr>
+        
+    
+    <tr>
+        <td></td>
+        <th scope="row">Author</th>
+        <td class="edit">
+            
+        </td>
+        <td>
+            
+            
+                <span ><a 
+           title="Datatracker profile of Mark Nottingham"
+            href="/person/mnot@mnot.net" >M. Nottingham</a> <a 
+               href="mailto:mnot%40mnot.net"
+               aria-label="Compose email to mnot@mnot.net"
+               title="Compose email to mnot@mnot.net">
+                <i class="bi bi-envelope"></i></a></span>
+            
+            
+                <br>
+                <a class="btn btn-primary btn-sm mt-1" href="mailto:rfc5861@ietf.org?subject=rfc5861" title="Send email to the document authors">Email authors</a>
+            
+        </td>
+    </tr>
+    
+    
+    <tr>
+        <td></td>
+        <th scope="row">
+            RFC stream
+        </th>
+        <td class="edit">
+            
+        </td>
+        <td >
+            
+                
+                    <a href="/stream/ise/">
+                
+                
+                    
+                        Independent Submission
+                    
+                
+                
+                    </a>
+                
+            
+        </td>
+    </tr>
+    
+    <tr>
+        <td></td>
+        <th scope="row">
+            Other formats
+        </th>
+        <td class="edit">
+        </td>
+        <td>
+            
+                
+    <div class="buttonlist">
+    
+        
+        <a class="btn btn-primary btn-sm"
+          
+          target="_blank"
+          href="https://www.rfc-editor.org/rfc/rfc5861.txt">
+            
+                <i class="bi bi-file-text"></i> txt
+            
+        </a>
+        
+    
+        
+        <a class="btn btn-primary btn-sm"
+          
+          target="_blank"
+          href="https://www.rfc-editor.org/rfc/rfc5861.html">
+            
+                <i class="bi bi-file-code"></i> html
+            
+        </a>
+        
+    
+        
+    
+        
+        <a class="btn btn-primary btn-sm"
+          
+          target="_blank"
+          href="https://www.rfc-editor.org/rfc/inline-errata/rfc5861.html">
+            
+                <i class="bi bi-file-diff"></i> w/errata
+            
+        </a>
+        
+    
+        
+        <a class="btn btn-primary btn-sm"
+          
+          target="_blank"
+          href="/doc/rfc5861/bibtex/">
+            
+                <i class="bi bi-file-ruled"></i> bibtex
+            
+        </a>
+        
+    
+</div>
+
+            
+        </td>
+    </tr>
+    
+    
+        
+    
+</tbody>
+                                </table>
+                                <a class="btn btn-sm btn-warning mb-3"
+                                target="_blank"
+                                href="https://github.com/ietf-tools/datatracker/issues/new/choose">
+                                    Report a datatracker bug
+                                    <i class="bi bi-bug"></i>
+                                </a>
+                            </div>
+                            <div class="tab-pane mb-5"
+                                 id="toc-tab-pane"
+                                 role="tabpanel"
+                                 aria-labelledby="toc-tab"
+                                 tabindex="0">
+                                <nav class="nav nav-pills flex-column small" id="toc-nav">
+                                </nav>
+                            </div>
+                            <div class="tab-pane mb-5 small"
+                                 id="pref-tab-pane"
+                                 role="tabpanel"
+                                 aria-labelledby="pref-tab"
+                                 tabindex="0">
+                                <label class="form-label fw-bold mb-2">Show sidebar by default</label>
+                                <div class="btn-group-vertical btn-group-sm d-flex" role="group">
+                                    <input type="radio" class="btn-check" name="sidebar" id="on-radio">
+                                    <label class="btn btn-outline-primary" for="on-radio">Yes</label>
+                                    <input type="radio" class="btn-check" name="sidebar" id="off-radio">
+                                    <label class="btn btn-outline-primary" for="off-radio">No</label>
+                                </div>
+                                <label class="form-label fw-bold mt-4 mb-2">Tab to show by default</label>
+                                <div class="btn-group-vertical btn-group-sm d-flex" role="group">
+                                    <input type="radio" class="btn-check" name="deftab" id="docinfo-radio">
+                                    <label class="btn btn-outline-primary" for="docinfo-radio">
+                                        <i class="bi bi-info-circle me-1"></i>Info
+                                    </label>
+                                    <input type="radio" class="btn-check" name="deftab" id="toc-radio">
+                                    <label class="btn btn-outline-primary" for="toc-radio">
+                                        <i class="bi bi-list-ol me-1"></i>Contents
+                                    </label>
+                                </div>
+                                <label class="form-label fw-bold mt-4 mb-2">HTMLization configuration</label>
+                                <div class="btn-group-vertical btn-group-sm d-flex" role="group">
+                                    <input type="radio" class="btn-check" name="htmlconf" id="txt-radio">
+                                    <label class="btn btn-outline-primary" for="txt-radio" title="This is the traditional HTMLization method.">
+                                        <i class="bi bi-badge-sd me-1"></i>HTMLize the plaintext
+                                    </label>
+                                    <input type="radio" class="btn-check" name="htmlconf" id="html-radio">
+                                    <label class="btn btn-outline-primary" for="html-radio" title="This is the modern HTMLization method.">
+                                        <i class="bi bi-badge-hd me-1"></i>Plaintextify the HTML
+                                    </label>
+                                </div>
+                                <label class="form-label fw-bold mt-4 mb-2" for="ptsize">Maximum font size</label>
+                                <input type="range" class="form-range" min="7" max="16" id="ptsize">
+                                <label class="form-label fw-bold mt-4 mb-2">Page dependencies</label>
+                                <div class="btn-group-vertical btn-group-sm d-flex" role="group">
+                                    <input type="radio" class="btn-check" name="pagedeps" id="inline-radio">
+                                    <label class="btn btn-outline-primary" for="inline-radio" title="Generate larger, standalone web pages that do not require network access to render.">
+                                        <i class="bi bi-box me-1"></i>Inline
+                                    </label>
+                                    <input type="radio" class="btn-check" name="pagedeps" id="reference-radio">
+                                    <label class="btn btn-outline-primary" for="reference-radio" title="Generate regular web pages that require network access to render.">
+                                        <i class="bi bi-link-45deg me-1"></i>Reference
+                                    </label>
+                                </div>
+                                <label class="form-label fw-bold mt-4 mb-2">Citation links</label>
+                                <div class="btn-group-vertical btn-group-sm d-flex" role="group">
+                                    <input type="radio" class="btn-check" name="reflinks" id="refsection-radio">
+                                    <label class="btn btn-outline-primary" for="refsection-radio" title="Citation links go to the reference section.">
+                                        <i class="bi bi-arrow-clockwise"></i> Go to reference section
+                                    </label>
+                                    <input type="radio" class="btn-check" name="reflinks" id="citation-radio">
+                                    <label class="btn btn-outline-primary" for="citation-radio" title="Citation links go directly to the cited document.">
+                                        <i class="bi bi-link-45deg me-1"></i>Go to linked document
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+
+
+
+    </body>
+</html>

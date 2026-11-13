@@ -1,0 +1,431 @@
+{
+ "source": "rfc7541",
+ "anchors": [
+  {
+   "anchor": "top",
+   "title": "",
+   "level": 0,
+   "sha256": "84781424c18410daf9540343e9868c89c7fc072e9ebcee6881bb49adaa0b72ad"
+  },
+  {
+   "anchor": "content",
+   "title": "HPACK: Header Compression for HTTP/2",
+   "level": 1,
+   "sha256": "41cdfb85b42bb8cf99168d025e1ec32afd00870104279b69a36cc78ef2836ff5"
+  },
+  {
+   "anchor": "section-1",
+   "title": "1 . Introduction",
+   "level": 2,
+   "sha256": "11018ee160bc7aa5a4b119933a437ef50067c7316cfae0ad401cbdac2f6aa8c4"
+  },
+  {
+   "anchor": "section-1.1",
+   "title": "1.1 . Overview",
+   "level": 3,
+   "sha256": "df269b0ae4fc2b01598b364049f23314b63b69470c30844169e86e6aeb1192d3"
+  },
+  {
+   "anchor": "section-1.2",
+   "title": "1.2 . Conventions",
+   "level": 3,
+   "sha256": "82ca282e1e431f3ae8363296e7e4309748486ceb2e1dc5da18556ffdf7ab94e0"
+  },
+  {
+   "anchor": "section-1.3",
+   "title": "1.3 . Terminology",
+   "level": 3,
+   "sha256": "1a8906bfdaaebb1b733edd4bdb855ff75022165772e65c3f6f3e8365965514b0"
+  },
+  {
+   "anchor": "section-2",
+   "title": "2 . Compression Process Overview",
+   "level": 2,
+   "sha256": "e969b649cb28e5ec1ff1e1afe62d8e0c39942419caadfbce6bc9dab25395aa60"
+  },
+  {
+   "anchor": "section-2.1",
+   "title": "2.1 . Header List Ordering",
+   "level": 3,
+   "sha256": "717fb3fef9c25d416a2a25ebc6c4447f72163653e7239a7f5c7ec25b5b4209bd"
+  },
+  {
+   "anchor": "section-2.2",
+   "title": "2.2 . Encoding and Decoding Contexts",
+   "level": 3,
+   "sha256": "25be9f2afb1ba3570e83de11ca6409012f565d65eb531ff777d66982abd6166a"
+  },
+  {
+   "anchor": "section-2.3",
+   "title": "2.3 . Indexing Tables",
+   "level": 3,
+   "sha256": "beba34415c1ecb5e13e1b6762c3ad5cd70143744eb44da849c784b150fa71ee4"
+  },
+  {
+   "anchor": "section-2.3.1",
+   "title": "2.3.1 . Static Table",
+   "level": 4,
+   "sha256": "6ca6ef4dfc6ac277811b13770ad870d287a7fb9b6e6f9749eb27a7cf4b389369"
+  },
+  {
+   "anchor": "section-2.3.2",
+   "title": "2.3.2 . Dynamic Table",
+   "level": 4,
+   "sha256": "cb40a94b00868e6aafe6855a07004f7fbe87382d7c3041b0ad820bd2e5512741"
+  },
+  {
+   "anchor": "section-2.3.3",
+   "title": "2.3.3 . Index Address Space",
+   "level": 4,
+   "sha256": "aa4398f7dec2193ccaee98dc59f31625e3482c698fc7947ef76999cf0b5b5757"
+  },
+  {
+   "anchor": "section-2.4",
+   "title": "2.4 . Header Field Representation",
+   "level": 3,
+   "sha256": "c3125c80cfc5ed60e7be926005c0bd0116ebcff22c606d94f53d754877285b06"
+  },
+  {
+   "anchor": "section-3",
+   "title": "3 . Header Block Decoding",
+   "level": 2,
+   "sha256": "8a51b693ccba485dbe7a063a7c881a8f6065a5b0e24dde73b3ac313292658706"
+  },
+  {
+   "anchor": "section-3.1",
+   "title": "3.1 . Header Block Processing",
+   "level": 3,
+   "sha256": "db5649572407334221bd2fe34ed86c3fa6ade37f8d6290c613089cfb5241c937"
+  },
+  {
+   "anchor": "section-3.2",
+   "title": "3.2 . Header Field Representation Processing",
+   "level": 3,
+   "sha256": "ed5201c309a5bd36573afff8bfb585f040532b5381e663b2ff0f98033be18926"
+  },
+  {
+   "anchor": "section-4",
+   "title": "4 . Dynamic Table Management",
+   "level": 2,
+   "sha256": "1a124df1dc030157e13db6025c9c8832f546d915bfefc67897ceab2e8aef3cfd"
+  },
+  {
+   "anchor": "section-4.1",
+   "title": "4.1 . Calculating Table Size",
+   "level": 3,
+   "sha256": "4859fe8f15d872e7f99701612c013034dbe948e13a358e93765b21bcb7a2948d"
+  },
+  {
+   "anchor": "section-4.2",
+   "title": "4.2 . Maximum Table Size",
+   "level": 3,
+   "sha256": "c5e3bf43e6239637bbd35c79911df489378ecce35e87f7094ef0de8d7e41e9c4"
+  },
+  {
+   "anchor": "section-4.3",
+   "title": "4.3 . Entry Eviction When Dynamic Table Size Changes",
+   "level": 3,
+   "sha256": "65389e1580953fa4f42e2efabc857a7a49a55c1c34a7caf5cd54bea5dda9bd39"
+  },
+  {
+   "anchor": "section-4.4",
+   "title": "4.4 . Entry Eviction When Adding New Entries",
+   "level": 3,
+   "sha256": "df6ba857b33fd61169695f8fcc428cd5d56a2ee64d4676d01049ba95064fa821"
+  },
+  {
+   "anchor": "section-5",
+   "title": "5 . Primitive Type Representations",
+   "level": 2,
+   "sha256": "6156be04a69c2890b1a7755af11b056cdbcecb60729732363dd9cf34d1959e60"
+  },
+  {
+   "anchor": "section-5.1",
+   "title": "5.1 . Integer Representation",
+   "level": 3,
+   "sha256": "103a13730f9a1add12276eefeffce9eaf6ff3a5e1c6f99a962f415930c9f7766"
+  },
+  {
+   "anchor": "section-5.2",
+   "title": "5.2 . String Literal Representation",
+   "level": 3,
+   "sha256": "f238a8230bc445875c8ce75a43eeb5c84b033835ea628f7f5fe96857c844f4ff"
+  },
+  {
+   "anchor": "section-6",
+   "title": "6 . Binary Format",
+   "level": 2,
+   "sha256": "01f2f268cea1ed310a5f4bb1e378f316b2ec8813f4f07948fe23434dabfcff63"
+  },
+  {
+   "anchor": "section-6.1",
+   "title": "6.1 . Indexed Header Field Representation",
+   "level": 3,
+   "sha256": "9ae2bb99ae73e1a7cd63f3d16259cf29ef9f2eeb731afb072544d8226b3c92b7"
+  },
+  {
+   "anchor": "section-6.2",
+   "title": "6.2 . Literal Header Field Representation",
+   "level": 3,
+   "sha256": "d5cc48d8475583ce9e70fc00768999d1bb4101b83d4e77e2938e58ea59ccb8f1"
+  },
+  {
+   "anchor": "section-6.2.1",
+   "title": "6.2.1 . Literal Header Field with Incremental Indexing",
+   "level": 4,
+   "sha256": "fd0fc8f7dcbf93b5f0176fa02da0c7bc707f6c2681bd0fa5024c5896af8f74e1"
+  },
+  {
+   "anchor": "section-6.2.2",
+   "title": "6.2.2 . Literal Header Field without Indexing",
+   "level": 4,
+   "sha256": "af3763390512a4079f062b8d524dc50a7da93b26088f20ce31334ebbc47cb6b4"
+  },
+  {
+   "anchor": "section-6.2.3",
+   "title": "6.2.3 . Literal Header Field Never Indexed",
+   "level": 4,
+   "sha256": "d0c5766ca202f93dd873578a251fca654cd95794a721a851a3b0c3e0b9a6b068"
+  },
+  {
+   "anchor": "section-6.3",
+   "title": "6.3 . Dynamic Table Size Update",
+   "level": 3,
+   "sha256": "048c5332ab9e2e39078384aeb15c3347b5a195e8e5bc30e7443237d69acc2e6e"
+  },
+  {
+   "anchor": "section-7",
+   "title": "7 . Security Considerations",
+   "level": 2,
+   "sha256": "53d653222c51eb0c1e00762bfac4aabbe63adcddadc598c5e533babf9425ee6f"
+  },
+  {
+   "anchor": "section-7.1",
+   "title": "7.1 . Probing Dynamic Table State",
+   "level": 3,
+   "sha256": "a012d0d48e86a206f69228e9c4783ee57cc386adc535fc298a33b8c03f0089ae"
+  },
+  {
+   "anchor": "section-7.1.1",
+   "title": "7.1.1 . Applicability to HPACK and HTTP",
+   "level": 4,
+   "sha256": "6f9f2f1c98791d1c8fa00898aaa6eb9105c26a0d5e729e664cb81ccd57db2a39"
+  },
+  {
+   "anchor": "section-7.1.2",
+   "title": "7.1.2 . Mitigation",
+   "level": 4,
+   "sha256": "7a83237b252add54603604e8ea6fe21667a45cb058374047e3012f584d9ff252"
+  },
+  {
+   "anchor": "section-7.1.3",
+   "title": "7.1.3 . Never-Indexed Literals",
+   "level": 4,
+   "sha256": "8fe16c671fd9336f494f61564e42a066c1e263c3509ba929b50264c0eac7bd9e"
+  },
+  {
+   "anchor": "section-7.2",
+   "title": "7.2 . Static Huffman Encoding",
+   "level": 3,
+   "sha256": "6f9f58081c179b6e945dec49fd31e94e6920a6d5cbb489c1ea16cf28b14ac153"
+  },
+  {
+   "anchor": "section-7.3",
+   "title": "7.3 . Memory Consumption",
+   "level": 3,
+   "sha256": "219f2346446fd87beafb3a3a77732da1c839c54755dfcf6bdb0a092df11b9f2d"
+  },
+  {
+   "anchor": "section-7.4",
+   "title": "7.4 . Implementation Limits",
+   "level": 3,
+   "sha256": "4f5a30a14c37c1541c30c6efcdb392f409f5d8f82dff60b519928502ae57573b"
+  },
+  {
+   "anchor": "section-8",
+   "title": "8 . References",
+   "level": 2,
+   "sha256": "d5b3a9760f749f52a485aedbc7de2f3aa0da26ed76ddbc74d3d4843614c1fa0f"
+  },
+  {
+   "anchor": "section-8.1",
+   "title": "8.1 . Normative References",
+   "level": 3,
+   "sha256": "a0ea003c2245aa295f009e3e9ad89e37543a40f766253a8f2d4754dc06365e2b"
+  },
+  {
+   "anchor": "section-8.2",
+   "title": "8.2 . Informative References",
+   "level": 3,
+   "sha256": "44e567aded7aa4928bf571b954ef1555e2364414b4422830aecea30dfda9721c"
+  },
+  {
+   "anchor": "appendix-A",
+   "title": "Appendix A . Static Table Definition",
+   "level": 2,
+   "sha256": "4b8a7988c2ce5225cd86b50d57a0060cfebf93240b6d01996fac45c5d9a684a8"
+  },
+  {
+   "anchor": "appendix-B",
+   "title": "Appendix B . Huffman Code",
+   "level": 2,
+   "sha256": "10efc60b8d2123fd532b468a36f85d121db68e408b35b7780556ebcfc42db1eb"
+  },
+  {
+   "anchor": "appendix-C",
+   "title": "Appendix C . Examples",
+   "level": 2,
+   "sha256": "60da9c5fe326ceb4646f15a8f1cd2d425559656b3ffeda247890d6701c8ede41"
+  },
+  {
+   "anchor": "appendix-C.1",
+   "title": "C.1 . Integer Representation Examples",
+   "level": 3,
+   "sha256": "b2c8cae8eca8dfc4d84a254a2c225aed8c6ccda756fbde0c9dd0b2e393b4cf77"
+  },
+  {
+   "anchor": "appendix-C.1.1",
+   "title": "C.1.1 . Example 1: Encoding 10 Using a 5-Bit Prefix",
+   "level": 4,
+   "sha256": "9c875ce79faa31bdbee65ced88e85bb2cae21d999396cbfd0a6d8c6a427ae977"
+  },
+  {
+   "anchor": "appendix-C.1.2",
+   "title": "C.1.2 . Example 2: Encoding 1337 Using a 5-Bit Prefix",
+   "level": 4,
+   "sha256": "3756bf9840bb35bd7d554553b8c1f6b5dff10d0253b76237961e41c215335cd9"
+  },
+  {
+   "anchor": "appendix-C.1.3",
+   "title": "C.1.3 . Example 3: Encoding 42 Starting at an Octet Boundary",
+   "level": 4,
+   "sha256": "d71005114abe908e2648f645f7b6a81337a10b251f04d9c2159a399d235a62a7"
+  },
+  {
+   "anchor": "appendix-C.2",
+   "title": "C.2 . Header Field Representation Examples",
+   "level": 3,
+   "sha256": "c7f1761b70deeaee18a95509fb57f9409d80a2b265706a99128cf917ab56208b"
+  },
+  {
+   "anchor": "appendix-C.2.1",
+   "title": "C.2.1 . Literal Header Field with Indexing",
+   "level": 4,
+   "sha256": "3c835a3b75177f263fdede47425dcbc52ef4684fdaaf9393cf7dd2e9a368c55b"
+  },
+  {
+   "anchor": "appendix-C.2.2",
+   "title": "C.2.2 . Literal Header Field without Indexing",
+   "level": 4,
+   "sha256": "455d36aa96abf4b27daab40729264ebc5e208d471ac84ec9e081b63a1088d9bc"
+  },
+  {
+   "anchor": "appendix-C.2.3",
+   "title": "C.2.3 . Literal Header Field Never Indexed",
+   "level": 4,
+   "sha256": "54f824c69b16e012170dcb80e292e2f84c4b2bed72282632be70d0fea3a9ad1c"
+  },
+  {
+   "anchor": "appendix-C.2.4",
+   "title": "C.2.4 . Indexed Header Field",
+   "level": 4,
+   "sha256": "9d9e5663f1765d65b4762a70cca18fd6df7965aab3566aedc8a80ffb61529c48"
+  },
+  {
+   "anchor": "appendix-C.3",
+   "title": "C.3 . Request Examples without Huffman Coding",
+   "level": 3,
+   "sha256": "5ba6f10b54b404908d9dc820798a39aa62bf2236c92e9269ddf2f4c2c6c38053"
+  },
+  {
+   "anchor": "appendix-C.3.1",
+   "title": "C.3.1 . First Request",
+   "level": 4,
+   "sha256": "0ac001afd76aab5c6335a541fb0282276593f9ba327c63d64f7d8f012297cfdb"
+  },
+  {
+   "anchor": "appendix-C.3.2",
+   "title": "C.3.2 . Second Request",
+   "level": 4,
+   "sha256": "c722005316b2b96c54fe2b10cce393991ec055f60a2f9468612084a56747f2cd"
+  },
+  {
+   "anchor": "appendix-C.3.3",
+   "title": "C.3.3 . Third Request",
+   "level": 4,
+   "sha256": "3e79b871899ac231d6d7605e8753cc96e528b0006a8ae3ea43093d6221e43703"
+  },
+  {
+   "anchor": "appendix-C.4",
+   "title": "C.4 . Request Examples with Huffman Coding",
+   "level": 3,
+   "sha256": "b3fc0fa9fd7dedd94bdb631deb83d25bfa3b57fc576f38929d886babb0fc760f"
+  },
+  {
+   "anchor": "appendix-C.4.1",
+   "title": "C.4.1 . First Request",
+   "level": 4,
+   "sha256": "461655deededf6522a5ffb02b6c58f6574445889b0c843a77020702497074d4f"
+  },
+  {
+   "anchor": "appendix-C.4.2",
+   "title": "C.4.2 . Second Request",
+   "level": 4,
+   "sha256": "0dbc37e472d15024e6b5e55d565a10548ab3224d7397bc6e2d623cf363cd63e9"
+  },
+  {
+   "anchor": "appendix-C.4.3",
+   "title": "C.4.3 . Third Request",
+   "level": 4,
+   "sha256": "66fe09396953f8a1f03174d6deab1956608dca8d55a9e5b6cb6ba10c99303d23"
+  },
+  {
+   "anchor": "appendix-C.5",
+   "title": "C.5 . Response Examples without Huffman Coding",
+   "level": 3,
+   "sha256": "8bc1bf9ad645b1c400e30a1c11f01d651cb745abc314e78468322a98dc39b8e7"
+  },
+  {
+   "anchor": "appendix-C.5.1",
+   "title": "C.5.1 . First Response",
+   "level": 4,
+   "sha256": "fc049203c7e2177fd60e82c592e7334355fae77c01b7d7c76ca83b50948f23da"
+  },
+  {
+   "anchor": "appendix-C.5.2",
+   "title": "C.5.2 . Second Response",
+   "level": 4,
+   "sha256": "bd75594ed1600bd44177f4a6b405753555dd8acb2b4c1bfaf6d006813efcc87f"
+  },
+  {
+   "anchor": "appendix-C.5.3",
+   "title": "C.5.3 . Third Response",
+   "level": 4,
+   "sha256": "19535e26091a33731d6754358eb076f907309a15da391a32dc9f2afed56e1310"
+  },
+  {
+   "anchor": "appendix-C.6",
+   "title": "C.6 . Response Examples with Huffman Coding",
+   "level": 3,
+   "sha256": "a4819b53bc351798b103b51369bbb0f020ecfa88be94e18ce8641d1c5fe883ab"
+  },
+  {
+   "anchor": "appendix-C.6.1",
+   "title": "C.6.1 . First Response",
+   "level": 4,
+   "sha256": "20a78869762e16b372acccb3f4b2cf27b903ebcfcdcaf5bbbb9f7ba4acece05c"
+  },
+  {
+   "anchor": "appendix-C.6.2",
+   "title": "C.6.2 . Second Response",
+   "level": 4,
+   "sha256": "2f161b958c7f66b71c6beaad5159b8997d1b3aeb115ded8fd6bad7055d4e557b"
+  },
+  {
+   "anchor": "appendix-C.6.3",
+   "title": "C.6.3 . Third Response",
+   "level": 4,
+   "sha256": "82fb900d959363ecc22626068e3cf8ab1e722f7c4e5e316b7f05d219d8022310"
+  }
+ ]
+}

@@ -1,5 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
-import { AEAT, abandonSitting, overflowingElements, signIn, startSitting, submittedSitting } from "./session";
+import { AEAT, abandonSitting, overflowingElements, signIn, startSitting, submittedSitting, startPracticeAndPickFirstOption } from "./session";
 
 /** aeat-agentes-hacienda at the two widths of the brief: theory, and since round R5 the first-exercise bank, presets and official sets. */
 
@@ -55,8 +55,7 @@ for (const { label, use } of WIDTHS) {
     test("a tema's practice opens the solution panel", async ({ page }) => {
       await signIn(page, AEAT);
       await page.goto(`/courses/${AEAT}/lessons/m03-l03/practice`);
-      await page.getByRole("button", { name: "Empezar" }).click();
-      await page.getByRole("radio").first().locator("xpath=ancestor::label").click();
+      await startPracticeAndPickFirstOption(page);
       await page.getByRole("button", { name: "Enviar" }).click();
       await expect(page.getByText("Ver solución")).toBeVisible();
       await expectNothingWiderThanTheScreen(page);

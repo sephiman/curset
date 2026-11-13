@@ -1,0 +1,3497 @@
+{
+ "source": "jakarta-persistence-spec",
+ "anchors": [
+  {
+   "anchor": "top",
+   "title": "",
+   "level": 0,
+   "sha256": "610ac4c04ff4a598bc468fd1d91942583d2d30702a9de275f6ba5ba784b6e8d4"
+  },
+  {
+   "anchor": "header",
+   "title": "Jakarta Persistence",
+   "level": 1,
+   "sha256": "90662c03e1f52696487d1e84ffe165b83d6a54570945d8dcbd9ece35ca366233"
+  },
+  {
+   "anchor": "eclipse-foundation-specification-license-v1-1",
+   "title": "Eclipse Foundation Specification License - v1.1",
+   "level": 2,
+   "sha256": "3d19b62d4edf8c0135997c68c89297370c95a0d267976d37af1d4fc39a349e7d"
+  },
+  {
+   "anchor": "disclaimers",
+   "title": "Disclaimers",
+   "level": 3,
+   "sha256": "3fd394285c8ff92fe9d94a1c56a2d97384459b0a2d0c62ab90af3bd8bf3ed00e"
+  },
+  {
+   "anchor": "introduction",
+   "title": "1. Introduction",
+   "level": 2,
+   "sha256": "c43ff7a10777297288af55030295108280d93ef3865e413256aa82370572d0cb"
+  },
+  {
+   "anchor": "authorship",
+   "title": "1.1. Authorship",
+   "level": 3,
+   "sha256": "4d390927d50b5b1c54af75a943cf8e4fe437d572b07fcf6c387e26f3f14653c7"
+  },
+  {
+   "anchor": "document-conventions",
+   "title": "1.2. Document Conventions",
+   "level": 3,
+   "sha256": "74bdbd1e15c13ee21b52ec67b265544301ddb8a096bf88121be5f211b6ebf45b"
+  },
+  {
+   "anchor": "entities",
+   "title": "2. Entities",
+   "level": 2,
+   "sha256": "4b9b189c5d99dcf65f88f3efc23cb71c01f17f7df0ac2bbfff387b564574cda2"
+  },
+  {
+   "anchor": "a18",
+   "title": "2.1. The Entity Class",
+   "level": 3,
+   "sha256": "92ee6c4944588a08fbf20f9a98b1a8f1eb416141b69a1715937305cbd46b11e8"
+  },
+  {
+   "anchor": "a19",
+   "title": "2.2. Persistent Fields and Properties",
+   "level": 3,
+   "sha256": "23230dae2ab264eb0b74c57cdd7928fbd16f4549643a4d67fa99d648b3f3f31a"
+  },
+  {
+   "anchor": "persistent-attribute-type",
+   "title": "2.2.1. Persistent Attribute Type",
+   "level": 4,
+   "sha256": "0188b94443db9ea1f89b0a795a9424843a79e0194c96ace21920ed89cfe49ff5"
+  },
+  {
+   "anchor": "property-access",
+   "title": "2.2.2. Property Access",
+   "level": 4,
+   "sha256": "da76e63206027398b97996a5ad50bfb93290b7c4490b06cfeae86e7c9aed1093"
+  },
+  {
+   "anchor": "a113",
+   "title": "2.3. Access Type",
+   "level": 3,
+   "sha256": "141fb32f0c206ed85b5abce79dc3dc0e5a75e45df682af84f2f58768f0cb575f"
+  },
+  {
+   "anchor": "default-access-type",
+   "title": "2.3.1. Default Access Type",
+   "level": 4,
+   "sha256": "8ac4ed455a4f922d01cf068c8b4c8f32da686fc33a60aa1a11445da42fd201f1"
+  },
+  {
+   "anchor": "a122",
+   "title": "2.3.2. Explicit Access Type",
+   "level": 4,
+   "sha256": "efb59b56b412c8c6b9865f66d1ba36ac4515412563133f8a59111cd5c9531101"
+  },
+  {
+   "anchor": "access-type-of-an-embeddable-class",
+   "title": "2.3.3. Access Type of an Embeddable Class",
+   "level": 4,
+   "sha256": "791f62cbda09de229dd0f6a0d092cccfdc92c03daa2dbad0a05820443b051ea3"
+  },
+  {
+   "anchor": "defaulted-access-types-of-embeddable-classes-and-mapped-superclasses",
+   "title": "2.3.4. Defaulted Access Types of Embeddable Classes and Mapped Superclasses",
+   "level": 4,
+   "sha256": "04b83fc4afb68a8f412978b36aa2315ee00743106a58a5a60b5448ab9225ed6e"
+  },
+  {
+   "anchor": "a132",
+   "title": "2.4. Primary Keys and Entity Identity",
+   "level": 3,
+   "sha256": "312b5a7f32a25333faa03ab41c689266ff3bc978a4c80f0ae98b9f860479f1f7"
+  },
+  {
+   "anchor": "composite-primary-keys",
+   "title": "2.4.1. Composite primary keys",
+   "level": 4,
+   "sha256": "f3dce75c4fab1c2cbdda9e2bf6c58d92f718b7f330b55f0054701e5e7ebbfd8a"
+  },
+  {
+   "anchor": "a149",
+   "title": "2.4.2. Primary Keys Corresponding to Derived Identities",
+   "level": 4,
+   "sha256": "e7b2c19d502179c3f862c196359eea79378b4f753a53eacff372945175e73d11"
+  },
+  {
+   "anchor": "a155",
+   "title": "2.4.2.1. Specification of Derived Identities",
+   "level": 5,
+   "sha256": "1dacee3b708eaac6b3047c91c95b1a239fda9d8462011a672a78d0a34e2cba87"
+  },
+  {
+   "anchor": "mapping-of-derived-identities",
+   "title": "2.4.2.2. Mapping of Derived Identities",
+   "level": 5,
+   "sha256": "8517e34850651ec96326c0dcef45b2860ae7652e2aa4425ad1a571da6b3042ee"
+  },
+  {
+   "anchor": "examples-of-derived-identities",
+   "title": "2.4.2.3. Examples of Derived Identities",
+   "level": 5,
+   "sha256": "456eb06e8a0efbe73a6ba96b3438a396bf739931ad9d4e0912f519d022d47caa"
+  },
+  {
+   "anchor": "a2060",
+   "title": "2.5. Entity Versions",
+   "level": 3,
+   "sha256": "6ac2b8796bd5e854bd13e336b2b26a77bad0fd09254d817858d1b39627809159"
+  },
+  {
+   "anchor": "a486",
+   "title": "2.6. Basic Types",
+   "level": 3,
+   "sha256": "06bd2f51e5ab7aba01b8e01cbd51bdb28ed8c05656bc2a3ca6198450d5ce44aa"
+  },
+  {
+   "anchor": "a487",
+   "title": "2.7. Embeddable Classes",
+   "level": 3,
+   "sha256": "8ec2b7f29d4d6d1088d61b5a1c9d4f8f4eafa64abe22ba1c9e4d59778dd04765"
+  },
+  {
+   "anchor": "a494",
+   "title": "2.8. Collections of Embeddable Classes and Basic Types",
+   "level": 3,
+   "sha256": "e236caf8669b96df57138370b18d603867e1ec858e8424af081b9dc925dc2990"
+  },
+  {
+   "anchor": "map-collections",
+   "title": "2.9. Map Collections",
+   "level": 3,
+   "sha256": "fc1c5dd84230fa2c824b626b6e773cc0423cb68149b9ec63ef3c1881019f3a8d"
+  },
+  {
+   "anchor": "map-keys",
+   "title": "2.9.1. Map Keys",
+   "level": 4,
+   "sha256": "f83beb0e982bcb769298f1e1a59de2deb5a7f96a8890307c943d9289c1555cba"
+  },
+  {
+   "anchor": "map-values",
+   "title": "2.9.2. Map Values",
+   "level": 4,
+   "sha256": "ba0a2fbe4f2ac0b942a6c670aed20f2495728eaffa0fe682b264e40c533451df"
+  },
+  {
+   "anchor": "a511",
+   "title": "2.10. Mapping Defaults for Non-Relationship Fields or Properties",
+   "level": 3,
+   "sha256": "0719eaeaca13f5048b49af7c440fcb62e59585ede743d99cf638f6172e52d039"
+  },
+  {
+   "anchor": "a516",
+   "title": "2.11. Entity Relationships",
+   "level": 3,
+   "sha256": "9ad4365fb39961352bc7ee47649cbc30d7d5e761a7bac3b51e512c8c2ac2359f"
+  },
+  {
+   "anchor": "a538",
+   "title": "2.12. Relationship Mapping Defaults",
+   "level": 3,
+   "sha256": "2e012fee47726b657f01e117f58aac5558c0b87e87d28b982f1ae77ddc54aabb"
+  },
+  {
+   "anchor": "bidirectional-onetoone-relationships",
+   "title": "2.12.1. Bidirectional OneToOne Relationships",
+   "level": 4,
+   "sha256": "6195835befc3ee602f356a89c31411c34c327bd6ef257c6b7b92d99a7a4f219d"
+  },
+  {
+   "anchor": "bidirectional-manytoone-onetomany-relationships",
+   "title": "2.12.2. Bidirectional ManyToOne / OneToMany Relationships",
+   "level": 4,
+   "sha256": "7310a10decd92942fc961d3c9c922271e8f4585f9f5f80ab29ab70dc5221664c"
+  },
+  {
+   "anchor": "unidirectional-single-valued-relationships",
+   "title": "2.12.3. Unidirectional Single-Valued Relationships",
+   "level": 4,
+   "sha256": "343488750ef00d7b85e32ff814b98688a429785b2d827f0c5c618d40b7ac4c83"
+  },
+  {
+   "anchor": "a640",
+   "title": "2.12.3.1. Unidirectional OneToOne Relationships",
+   "level": 5,
+   "sha256": "c89a5d5892af02277089d2022f202a5d7b2c4d40f67f80ac9f721da98dc88591"
+  },
+  {
+   "anchor": "unidirectional-manytoone-relationships",
+   "title": "2.12.3.2. Unidirectional ManyToOne Relationships",
+   "level": 5,
+   "sha256": "ba60e4ecb454b9d9f4a7fd751d81f72476a27de5bdd67c3a6058640943985ec0"
+  },
+  {
+   "anchor": "a708",
+   "title": "2.12.4. Bidirectional ManyToMany Relationships",
+   "level": 4,
+   "sha256": "6f973cb8040cd6818e24966edc18adb36682e48aaeccb7076d8909626f3fc05c"
+  },
+  {
+   "anchor": "a758",
+   "title": "2.12.5. Unidirectional Multi-Valued Relationships",
+   "level": 4,
+   "sha256": "8a2fa4dc23d7b53a271b9f1859394c141ddbeb68b4e2d3f4b5f6d5f266c40240"
+  },
+  {
+   "anchor": "a764",
+   "title": "2.12.5.1. Unidirectional OneToMany Relationships",
+   "level": 5,
+   "sha256": "a515aaa03da5314ddbe5716633cd73216f25dddbbf0026e7c777928bc01177c8"
+  },
+  {
+   "anchor": "a800",
+   "title": "2.12.5.2. Unidirectional ManyToMany Relationships",
+   "level": 5,
+   "sha256": "bb73cdb269afb5b358e8c9539a5105e611b6c6d3881c9e8d8c873bdfc186a36b"
+  },
+  {
+   "anchor": "a765",
+   "title": "2.13. Inheritance",
+   "level": 3,
+   "sha256": "62fd4a3d73bd18d8f9c820d80fd6e76a9c88db30270574ffcf95e2f9fb5711ba"
+  },
+  {
+   "anchor": "abstract-entity-classes",
+   "title": "2.13.1. Abstract Entity Classes",
+   "level": 4,
+   "sha256": "5834f5410c20a99b3b2ef0b32a29cc4f6a3e9c743a2e8684df8652ebad6d584f"
+  },
+  {
+   "anchor": "mapped-superclasses",
+   "title": "2.13.2. Mapped Superclasses",
+   "level": 4,
+   "sha256": "37f49a70932ebe441f7dee2bac2bbcea9219756d0c369680d5fb0eb0d22b40b0"
+  },
+  {
+   "anchor": "non-entity-classes-in-the-entity-inheritance-hierarchy",
+   "title": "2.13.3. Non-Entity Classes in the Entity Inheritance Hierarchy",
+   "level": 4,
+   "sha256": "6a04682b00d7cbc76ff1b2776e293399b72d9cf43aed3eaf5ade50b53f812143"
+  },
+  {
+   "anchor": "a966",
+   "title": "2.14. Inheritance Mapping Strategies",
+   "level": 3,
+   "sha256": "b965350a46e61d821fedb639a2836345cb33213972bbedf698e1f908cd443a02"
+  },
+  {
+   "anchor": "single-table-per-class-hierarchy-strategy",
+   "title": "2.14.1. Single Table per Class Hierarchy Strategy",
+   "level": 4,
+   "sha256": "e1008415d6fdc5320c71937a8bef0d285a9cc05b28657efe1f146cb891c5fa22"
+  },
+  {
+   "anchor": "joined-subclass-strategy",
+   "title": "2.14.2. Joined Subclass Strategy",
+   "level": 4,
+   "sha256": "cd12e60b052f04bdd7bc400e8d9924c5d545b5af4084abd993b176748748dffc"
+  },
+  {
+   "anchor": "table-per-concrete-class-strategy",
+   "title": "2.14.3. Table per Concrete Class Strategy",
+   "level": 4,
+   "sha256": "9bf9636e508b63bac37d45d5168c1ff110f7b436e17a2168ad316dc01665f5b8"
+  },
+  {
+   "anchor": "a988",
+   "title": "2.15. Naming of Database Objects",
+   "level": 3,
+   "sha256": "661a8c4ef441047848d9fb9561a9e54399e9e3b4dbe85082fca27810e68eaed8"
+  },
+  {
+   "anchor": "a1060",
+   "title": "3. Entity Operations",
+   "level": 2,
+   "sha256": "403e12b4b5ba8699e37bdaffb9aef5cfc302b86ddc093f309dc03817c8315c72"
+  },
+  {
+   "anchor": "overview",
+   "title": "3.1. Overview",
+   "level": 3,
+   "sha256": "0bed024fc6dbb8f5a62578e265b6cae68940bca2e51e580ccad9c178f35ba960"
+  },
+  {
+   "anchor": "a1066",
+   "title": "3.2. EntityManager Interface",
+   "level": 3,
+   "sha256": "89524c435d088720b6706e57a67cab735047ac29327e6b7ef2538afee73acee1"
+  },
+  {
+   "anchor": "a1929",
+   "title": "3.3. Entity Instance’s Life Cycle",
+   "level": 3,
+   "sha256": "5ab90b63c9af1524e40eb81d2e53b195634129a42f7b15e5ea0a9e51b64ccdc9"
+  },
+  {
+   "anchor": "entity-instance-creation",
+   "title": "3.3.1. Entity Instance Creation",
+   "level": 4,
+   "sha256": "eee096907819d01262bc4f2a0ba1c01389b74519e0d56ebb523e8df0b9fc045d"
+  },
+  {
+   "anchor": "persisting-an-entity-instance",
+   "title": "3.3.2. Persisting an Entity Instance",
+   "level": 4,
+   "sha256": "a6c5e5ab2a3c76fba73b529dcb4e7622a56102dc6ff779c353ad64eee5368d62"
+  },
+  {
+   "anchor": "a1946",
+   "title": "3.3.3. Removal",
+   "level": 4,
+   "sha256": "aacdc04ad2e3cda1431fd07bdacef0b1deb96502c61399a2aa880a109b8c301d"
+  },
+  {
+   "anchor": "a1955",
+   "title": "3.3.4. Synchronization to the Database",
+   "level": 4,
+   "sha256": "8f55a3d7c91b60e21cc72b3cfe7fa1d95720349669b0c4ebebff9d71f1a7ab74"
+  },
+  {
+   "anchor": "refreshing-an-entity-instance",
+   "title": "3.3.5. Refreshing an Entity Instance",
+   "level": 4,
+   "sha256": "c7eca2e31aaeb4396de0ca6893b3520d85ba52abe9846dacc27db62382474950"
+  },
+  {
+   "anchor": "evicting-an-entity-instance-from-the-persistence-context",
+   "title": "3.3.6. Evicting an Entity Instance from the Persistence Context",
+   "level": 4,
+   "sha256": "388838ad1a06bd94f04a9c0b2abb14dbc2eeb0929df51a3be9b5148d0984bc8f"
+  },
+  {
+   "anchor": "a1982",
+   "title": "3.3.7. Detached Entities",
+   "level": 4,
+   "sha256": "87643567295fc7562e9d6d61eff62fb7b9086ceeb552a5106a6d33dced2fb1da"
+  },
+  {
+   "anchor": "a1983",
+   "title": "3.3.7.1. Merging Detached Entity State",
+   "level": 5,
+   "sha256": "96a773eda48d85252bb7047e65a3bee81a7d3c9948b6ce3ed43eeaa015233772"
+  },
+  {
+   "anchor": "detached-entities-and-lazy-loading",
+   "title": "3.3.7.2. Detached Entities and Lazy Loading",
+   "level": 5,
+   "sha256": "9f447dba695f265d4522a7e33105c8de62e8549f005596a13c57146c1ff7c59d"
+  },
+  {
+   "anchor": "managed-instances",
+   "title": "3.3.8. Managed Instances",
+   "level": 4,
+   "sha256": "9cab15004405aa9d4c9a8318daef5cee1cc42e4c22f3a384ba1b3565c6b9e16d"
+  },
+  {
+   "anchor": "a2019",
+   "title": "3.3.9. Load State",
+   "level": 4,
+   "sha256": "4096e5d0f62c5e788b3634ef3db479400968dc33479a4a61b8d2a461c3a7bc60"
+  },
+  {
+   "anchor": "a2027",
+   "title": "3.4. Persistence Context Lifetime and Synchronization Type",
+   "level": 3,
+   "sha256": "6b7221379a177c40d0c52c7e273c87eedd3a94e62a025de67401a95dbdc499a6"
+  },
+  {
+   "anchor": "synchronization-with-the-current-transaction",
+   "title": "3.4.1. Synchronization with the Current Transaction",
+   "level": 4,
+   "sha256": "339742394235eef6e9d1355c74b5616e77a7672498078fedc8838bddbdfe4a20"
+  },
+  {
+   "anchor": "transaction-commit",
+   "title": "3.4.2. Transaction Commit",
+   "level": 4,
+   "sha256": "d9c61558bc008452194bf123a4ddee0937dd2a4c50790b124e9d326d7a601e6e"
+  },
+  {
+   "anchor": "a2049",
+   "title": "3.4.3. Transaction Rollback",
+   "level": 4,
+   "sha256": "3feaeecaf7ba5c56c8241290a89d3560529897d24137cc76edc1e8f2dc8a6f33"
+  },
+  {
+   "anchor": "a2052",
+   "title": "3.5. Locking and Concurrency",
+   "level": 3,
+   "sha256": "95bc612be690b598247cd119fef7d1b5c684fee4aa079b333778435e6c738afc"
+  },
+  {
+   "anchor": "a2056",
+   "title": "3.5.1. Optimistic Locking",
+   "level": 4,
+   "sha256": "55a494d19476c62538e8e5a9c2e44f0d106bd86517dd56de941f29fd6ffbc274"
+  },
+  {
+   "anchor": "a2059",
+   "title": "3.5.2. Entity Versions and Optimistic Locking",
+   "level": 4,
+   "sha256": "4cacb6f76ae2090c98a3de9e042aa640ee9a2a11e1fb35f4e16a096b0390a45e"
+  },
+  {
+   "anchor": "a2066",
+   "title": "3.5.3. Pessimistic Locking",
+   "level": 4,
+   "sha256": "f8bebf65e1da01fa34580bb14c5ff68c520187b9dc79e64935b0a81abb8e049a"
+  },
+  {
+   "anchor": "a2084",
+   "title": "3.5.4. Lock Modes",
+   "level": 4,
+   "sha256": "feebbeff5f982bbe437e745cec592b5030b103425f9b43c0de9169144ad3a6c1"
+  },
+  {
+   "anchor": "a2100",
+   "title": "3.5.4.1. OPTIMISTIC, OPTIMISTIC_FORCE_INCREMENT",
+   "level": 5,
+   "sha256": "d57de62ee74fe9b36562d1cbed7bbef16e84b47ef24dc9224d758e21ef4dc781"
+  },
+  {
+   "anchor": "a2113",
+   "title": "3.5.4.2. PESSIMISTIC_READ, PESSIMISTIC_WRITE, PESSIMISTIC_FORCE_INCREMENT",
+   "level": 5,
+   "sha256": "c0312709ddd57fd016d813434f7ee9a3ce3efeb9f92263d369e8d8e2ae17de63"
+  },
+  {
+   "anchor": "a2132",
+   "title": "3.5.4.3. Lock Mode Properties and Uses",
+   "level": 5,
+   "sha256": "e9010963b0eb4d5d595fbc1c242cf9fcffcfeb619ba961594abf4e579da131cf"
+  },
+  {
+   "anchor": "optimisticlockexception",
+   "title": "3.5.5. OptimisticLockException",
+   "level": 4,
+   "sha256": "be3552e7783750577b04d59d037a14fa8fa30d9f252b6af41db60edd88bf5d57"
+  },
+  {
+   "anchor": "a2153",
+   "title": "3.6. Entity Listeners and Callback Methods",
+   "level": 3,
+   "sha256": "ed23af9b8cbb6a9b9b52bc13e2f1cfc74cb6f66908bb696bed9e5088207828e3"
+  },
+  {
+   "anchor": "entity-listeners",
+   "title": "3.6.1. Entity Listeners",
+   "level": 4,
+   "sha256": "09648becd43cc0c80e13ff9ccd186df1c02f399f5da189da93bf2bd956537a7d"
+  },
+  {
+   "anchor": "lifecycle-callback-methods",
+   "title": "3.6.2. Lifecycle Callback Methods",
+   "level": 4,
+   "sha256": "1b5c6b00cef6016d0c9b22ccea9b130effe08fa24481f79942d29fb8af67c3ff"
+  },
+  {
+   "anchor": "a2202",
+   "title": "3.6.3. Semantics of the Life Cycle Callback Methods for Entities",
+   "level": 4,
+   "sha256": "fb422bab9fd7b72ab97ca56ff517dde4e0b069d6305a02af2c22292cb5d0e0dc"
+  },
+  {
+   "anchor": "a2251",
+   "title": "3.6.4. Multiple Lifecycle Callback Methods for an Entity Lifecycle Event",
+   "level": 4,
+   "sha256": "a7999a6850750ff723d58eca785edccd79e29e2e4eda3929e6bacb71103add3a"
+  },
+  {
+   "anchor": "exceptions",
+   "title": "3.6.5. Exceptions",
+   "level": 4,
+   "sha256": "a976e703ea19a7bf66e1af791fdd896b5f43933ee723e0117a9d749ff0e93b81"
+  },
+  {
+   "anchor": "specification-of-callback-listener-classes-and-lifecycle-methods-in-the-xml-descriptor",
+   "title": "3.6.6. Specification of Callback Listener Classes and Lifecycle Methods in the XML Descriptor",
+   "level": 4,
+   "sha256": "6d4562fb914b22c9668bb2d716c49d320c7c6c3c160f0de6d19de4ba68714ae6"
+  },
+  {
+   "anchor": "specification-of-callback-listeners",
+   "title": "3.6.6.1. Specification of Callback Listeners",
+   "level": 5,
+   "sha256": "2524b05a286d2c1e3a1dcf2d5e622255a1a62750b6addabc57103d39c2ba210f"
+  },
+  {
+   "anchor": "specification-of-the-binding-of-entity-listener-classes-to-entities",
+   "title": "3.6.6.2. Specification of the Binding of Entity Listener Classes to Entities",
+   "level": 5,
+   "sha256": "cf1c911b4f934f121c50ec973946f9a48bb5fe182fe8854a653e389ae802cc8b"
+  },
+  {
+   "anchor": "a2366",
+   "title": "3.7. Bean Validation",
+   "level": 3,
+   "sha256": "34756985ec55e00a975f8ac1f526d4357dc1a8555a6a0554cf0a273079c772d0"
+  },
+  {
+   "anchor": "automatic-validation-upon-lifecycle-events",
+   "title": "3.7.1. Automatic Validation Upon Lifecycle Events",
+   "level": 4,
+   "sha256": "1574d8b5c91ae7ca94e96ba172ce566fe65166d4cd9cab8848e8013a0c42f386"
+  },
+  {
+   "anchor": "a2374",
+   "title": "3.7.1.1. Enabling Automatic Validation",
+   "level": 5,
+   "sha256": "1cae48798a6b3f720226b412be0db47137f1bb2adceb60f2d963803daadecb54"
+  },
+  {
+   "anchor": "a2380",
+   "title": "3.7.1.2. Requirements for Automatic Validation upon Lifecycle Events",
+   "level": 5,
+   "sha256": "1a5a6dd7c46e2eba7e6a983337a6e526c2b172cd39b214435ef234107ebd4001"
+  },
+  {
+   "anchor": "a2394",
+   "title": "3.7.2. Providing the ValidatorFactory",
+   "level": 4,
+   "sha256": "96415b93cb7b0122f7bcaf6d5094e9be01f1a28219ee0e117a670f5c5713d737"
+  },
+  {
+   "anchor": "a2397",
+   "title": "3.8. Entity Graphs",
+   "level": 3,
+   "sha256": "a6f0d69ca900365eba7e287bc719d0519ec42acde846af35926d79b9c41e39f8"
+  },
+  {
+   "anchor": "a2814",
+   "title": "3.8.1. Use of Entity Graphs in find and query operations",
+   "level": 4,
+   "sha256": "407e33d762221978088a5d2d5dc604e2c5e10639d098f268756179e1d7c8a390"
+  },
+  {
+   "anchor": "fetch-graph-semantics",
+   "title": "3.8.1.1. Fetch Graph Semantics",
+   "level": 5,
+   "sha256": "b84d254452900a9543332709f843699e16c5f0559e9eda8a81d74e45ed3af6ae"
+  },
+  {
+   "anchor": "load-graph-semantics",
+   "title": "3.8.1.2. Load Graph Semantics",
+   "level": 5,
+   "sha256": "e2f4a2f1d361b846332e8603fa1e251569ab2df5bc3f758397d737833d7c7c2c"
+  },
+  {
+   "anchor": "a2999",
+   "title": "3.9. Type Conversion of Basic Attributes",
+   "level": 3,
+   "sha256": "497b70375c88a3b875e7933ba7e0be939c351222caf26268ec2cff70dbc3b2e1"
+  },
+  {
+   "anchor": "a3061",
+   "title": "3.10. Second-Level Cache",
+   "level": 3,
+   "sha256": "e7886003511be648382be7f356700a9581c0823e04867f84f85e1936cd89dff9"
+  },
+  {
+   "anchor": "a3065",
+   "title": "3.10.1. The Shared Cache Mode and Cacheable Annotation",
+   "level": 4,
+   "sha256": "e9352af4ee742f116eccc184387644782a023b4e676c5e461b574f2a5fe9188a"
+  },
+  {
+   "anchor": "cache-modes",
+   "title": "3.10.2. Cache Modes",
+   "level": 4,
+   "sha256": "5a56c6400f87c6aeca8e8b021341c61d586b335cf41f89dc522b4c91d374cc3f"
+  },
+  {
+   "anchor": "a12124",
+   "title": "3.10.3. Cache Interface",
+   "level": 4,
+   "sha256": "a0587604239a563dc89281bcb17c41d2ced8beef1505b9b4b78487fcc0581153"
+  },
+  {
+   "anchor": "a3125",
+   "title": "3.11. Query APIs",
+   "level": 3,
+   "sha256": "4f9d14f0bce4988355e34b24a821a065889da9c9fde519159d66bede45b662cf"
+  },
+  {
+   "anchor": "query-execution",
+   "title": "3.11.1. Query Execution",
+   "level": 4,
+   "sha256": "1deb70dd0b6427607d80e95a87628ce0c2d056723c9887e7cd3dc627bf3d4673"
+  },
+  {
+   "anchor": "a4374",
+   "title": "3.11.2. Queries and Flush Mode",
+   "level": 4,
+   "sha256": "aa2745c1664835cda4d5a01f61b7577199b2499690648326313eba8781ea2dba"
+  },
+  {
+   "anchor": "a4385",
+   "title": "3.11.3. Queries and Lock Mode",
+   "level": 4,
+   "sha256": "8f675f186fd95caf08319b4dacb3c1abd0731ad5508fd3c609887646408ab4e5"
+  },
+  {
+   "anchor": "a4391",
+   "title": "3.11.4. Query Hints",
+   "level": 4,
+   "sha256": "7b12c239a497c9e73dc90e6b254b4360ae7f005b235c29446a910ff5fbd42651"
+  },
+  {
+   "anchor": "a4397",
+   "title": "3.11.5. Parameter Objects",
+   "level": 4,
+   "sha256": "a930976373c8f827dd711eedfce478f248c5bc909957f2d48b3a7e8501ef43cb"
+  },
+  {
+   "anchor": "a4401",
+   "title": "3.11.6. Named Parameters",
+   "level": 4,
+   "sha256": "17a9760368a5c55416250a893dee7e996065439d71da0a3fd09645ca0ec38c02"
+  },
+  {
+   "anchor": "a4405",
+   "title": "3.11.7. Positional Parameters",
+   "level": 4,
+   "sha256": "64771d5f9713005c7175cd06841f777703a007e9f9c2ba9ecb9b6f1687f41637"
+  },
+  {
+   "anchor": "arguments-to-query-parameters",
+   "title": "3.11.8. Arguments to query parameters",
+   "level": 4,
+   "sha256": "2007c11d5a6e1aaa15bc62c95ad3f71b4928e6043bcd44b4e59592010cd88a3a"
+  },
+  {
+   "anchor": "named-queries",
+   "title": "3.11.9. Named Queries",
+   "level": 4,
+   "sha256": "1ccbb6240c4af0832a40cf21afe4ae7a4f24267711d69b08ff00ff98996fb5f3"
+  },
+  {
+   "anchor": "polymorphic-queries",
+   "title": "3.11.10. Polymorphic Queries",
+   "level": 4,
+   "sha256": "bd2ede55dca765a17638f2018a8efa80293e444a8456a29f46f4b081ade359e1"
+  },
+  {
+   "anchor": "a4427",
+   "title": "3.11.11. SQL Queries",
+   "level": 4,
+   "sha256": "f5abf91227fc27631fd6e490705c835699be5f63e1002e0e6e6766060660c481"
+  },
+  {
+   "anchor": "returning-managed-entities-from-native-queries",
+   "title": "3.11.11.1. Returning Managed Entities from Native Queries",
+   "level": 5,
+   "sha256": "30ada60ddc748629e68a9d702280161a724c5e9114ba7693534c10fe0114ac1f"
+  },
+  {
+   "anchor": "returning-unmanaged-instances",
+   "title": "3.11.11.2. Returning Unmanaged Instances",
+   "level": 5,
+   "sha256": "5a0ebea1f92d1f509f396a9fb71b6e3fd73a75324bfb8d6c527b7c587bdf1e81"
+  },
+  {
+   "anchor": "scalar-results",
+   "title": "Scalar Results",
+   "level": 6,
+   "sha256": "d6d39db105835995218882e3dfe0d0c540f23fdb8148c2097d8ba0929dd69f47"
+  },
+  {
+   "anchor": "constructor-results",
+   "title": "Constructor Results",
+   "level": 6,
+   "sha256": "5a3add71d0888f1fda4fe2d2a683242d8e4e38afb4d04e9ea970595300185e4a"
+  },
+  {
+   "anchor": "combinations-of-result-types",
+   "title": "3.11.11.3. Combinations of Result Types",
+   "level": 5,
+   "sha256": "a635b819976c70ca06776678274cd451b672a1815b4edd77a401299923cd1f33"
+  },
+  {
+   "anchor": "restrictions",
+   "title": "3.11.11.4. Restrictions",
+   "level": 5,
+   "sha256": "ac3497af2557d1564d228f7c546d4426795086bca082b9fd52d3b6cbc2c54302"
+  },
+  {
+   "anchor": "stored-procedures",
+   "title": "3.11.12. Stored Procedures",
+   "level": 4,
+   "sha256": "e5dbd15a2893dd4ab53e1b35f6250d6b348d06fef251b0e39d61cc8e19b46adf"
+  },
+  {
+   "anchor": "named-stored-procedure-queries",
+   "title": "3.11.12.1. Named Stored Procedure Queries",
+   "level": 5,
+   "sha256": "a211dd3c3eff355d976b380dbbaeacb52185f91d3fc5085342366883093a495b"
+  },
+  {
+   "anchor": "dynamically-specified-stored-procedure-queries",
+   "title": "3.11.12.2. Dynamically-specified Stored Procedure Queries",
+   "level": 5,
+   "sha256": "9a49b7af8c22cbc4beeb4caabdd40c68de2f1743d7f737e9c100f2a1c25c64bf"
+  },
+  {
+   "anchor": "a4625",
+   "title": "3.11.12.3. Stored Procedure Query Execution",
+   "level": 5,
+   "sha256": "d3d97a77ee2e76847c306b8e60d8db05880a22f15dcc8ad2e9bcef3dadea2815"
+  },
+  {
+   "anchor": "a4639",
+   "title": "3.12. Summary of Exceptions",
+   "level": 3,
+   "sha256": "5d13965f430a7e5325445875c54fded96ff1b154f7cf6748da41592a5d4e63b3"
+  },
+  {
+   "anchor": "a4665",
+   "title": "4. Query Language",
+   "level": 2,
+   "sha256": "7458de76e5ba2cdfee2ac1a3cd294b96250da4592ae6e21065059795f7322ee6"
+  },
+  {
+   "anchor": "overview-2",
+   "title": "4.1. Overview",
+   "level": 3,
+   "sha256": "cdc017c1ac35ff243e83820eb5d7711eda957c785ac5c0028c8f96cc45a71bb4"
+  },
+  {
+   "anchor": "statement-types",
+   "title": "4.2. Statement Types",
+   "level": 3,
+   "sha256": "d4ef8afef94753ea18f3ae8206c297210e3a3b10608e7094cf5d14ba0cf816f1"
+  },
+  {
+   "anchor": "select-statements",
+   "title": "4.2.1. Select Statements",
+   "level": 4,
+   "sha256": "391d58edee8c7805cb233157967ebc77566949bd70c0542a095c7ae78dc33530"
+  },
+  {
+   "anchor": "set-operators-in-select-statements",
+   "title": "4.2.1.1. Set Operators in Select Statements",
+   "level": 5,
+   "sha256": "cbeca50256649560a3a0d5e932b340a054ed80db9375e53761b0eb2a6b1ea27f"
+  },
+  {
+   "anchor": "update-and-delete-statements",
+   "title": "4.2.2. Update and Delete Statements",
+   "level": 4,
+   "sha256": "b20818f8c706455524d0820d4bdd5ac5f12a36d1c2abd678d20e860af3bef870"
+  },
+  {
+   "anchor": "abstract-schema-types-and-query-domains",
+   "title": "4.3. Abstract Schema Types and Query Domains",
+   "level": 3,
+   "sha256": "1cead7af494ffe2e303128e1c593cb84a02f9e3833f8d3d164bd9efff3ec410c"
+  },
+  {
+   "anchor": "naming",
+   "title": "4.3.1. Naming",
+   "level": 4,
+   "sha256": "e09848f85c5b3f9a4bccd94fcb7c95da7f7742e6c0a34c4ebe5652d760080176"
+  },
+  {
+   "anchor": "a4713",
+   "title": "4.3.2. Example",
+   "level": 4,
+   "sha256": "374c31d7ee1669aaec6fff28959dcad83b3d522db564c200d00fadfe037ea4cf"
+  },
+  {
+   "anchor": "the-from-clause-and-navigational-declarations",
+   "title": "4.4. The FROM Clause and Navigational Declarations",
+   "level": 3,
+   "sha256": "e6af0f120f92f60cdacf42d5f2537f393c8a373958467a470a37eb6eb4ee6ff0"
+  },
+  {
+   "anchor": "a4760",
+   "title": "4.4.1. Identifiers",
+   "level": 4,
+   "sha256": "fbf7ecb07239e9872fc9c311abc3d028c73427cd9c9ae81c6fc356d45564aeec"
+  },
+  {
+   "anchor": "a4765",
+   "title": "4.4.2. Identification Variables",
+   "level": 4,
+   "sha256": "957aec4a9f58bd3caeb117dae495ddce84239ee59ca2e74bbd5aec7b7b844d90"
+  },
+  {
+   "anchor": "a4766",
+   "title": "4.4.3. Range Variable Declarations",
+   "level": 4,
+   "sha256": "26979c6dec5338cc096c7d6dab52d974480b41e81b6cffa4bdadd697943832d5"
+  },
+  {
+   "anchor": "a4792",
+   "title": "4.4.4. Path Expressions",
+   "level": 4,
+   "sha256": "dbe80fa62442e94dbb5ce23a6f7bfc9379102da35ede403d62e34c42b32a2d2f"
+  },
+  {
+   "anchor": "path-expression-syntax",
+   "title": "4.4.4.1. Path Expression Syntax",
+   "level": 5,
+   "sha256": "ecdc2830f76b7135ffb607ecb549ebf041eac7a832a678b1e4f80914ae756ba8"
+  },
+  {
+   "anchor": "joins",
+   "title": "4.4.5. Joins",
+   "level": 4,
+   "sha256": "ddeb7bcb2334542be6fb0fd712d6e4c35f067b5618ac3a0f3624e5ce8c9603cd"
+  },
+  {
+   "anchor": "a4884",
+   "title": "4.4.5.1. Inner Joins",
+   "level": 5,
+   "sha256": "5b028e6bfc068af699d83b676e042dabc039e407b7fb2db58afd5a77fec076c0"
+  },
+  {
+   "anchor": "a4898",
+   "title": "4.4.5.2. Outer Joins",
+   "level": 5,
+   "sha256": "13a8e96c5ac2b5773d82de932f889673a244a8fc1aeae13c3261bbeec12226bf"
+  },
+  {
+   "anchor": "a4931",
+   "title": "4.4.5.3. Fetch Joins",
+   "level": 5,
+   "sha256": "0ffb2f6d50ca0a1da0d9fb3ef0508786f57803309d192ca4496252a9d90d99b9"
+  },
+  {
+   "anchor": "collection-member-declarations",
+   "title": "4.4.6. Collection Member Declarations",
+   "level": 4,
+   "sha256": "054e38fe1b0a096ef8c72c2f4eeb0d005f4507aa7124de9b327a8a67e13b44cd"
+  },
+  {
+   "anchor": "a4957",
+   "title": "4.4.7. FROM Clause and SQL",
+   "level": 4,
+   "sha256": "d19fb03472ea8e6ebc66dcf975147da563fc5c5989aaf0f6d9032ad4f22e3063"
+  },
+  {
+   "anchor": "polymorphism",
+   "title": "4.4.8. Polymorphism",
+   "level": 4,
+   "sha256": "c47f2f52a495f029da01bfa2fb174b8cd1627115143b6bf96c32a948739ebcba"
+  },
+  {
+   "anchor": "a4965",
+   "title": "4.4.9. Downcasting",
+   "level": 4,
+   "sha256": "687f4caf02a760b71ed1bc397ae532c7de18b5b9b556f96cbb9a669c2f7a9cac"
+  },
+  {
+   "anchor": "a4985",
+   "title": "4.5. WHERE Clause",
+   "level": 3,
+   "sha256": "1049ea34cd34f5a2988ef470e8bcf64e1d837930d1d22c358af3fa2215634ab2"
+  },
+  {
+   "anchor": "a4994",
+   "title": "4.6. Conditional Expressions",
+   "level": 3,
+   "sha256": "4d3c6b96413152e803c39cb92bf0aa87898c251bfb6e3ebd288319ab35a01906"
+  },
+  {
+   "anchor": "conditional-expression-composition",
+   "title": "4.6.1. Conditional Expression Composition",
+   "level": 4,
+   "sha256": "1ec9d4596a08b08b5977469b1b4c6ccb6b51169a7637f6fe5c9bbbdcb73aab25"
+  },
+  {
+   "anchor": "operators-and-operator-precedence",
+   "title": "4.6.2. Operators and Operator Precedence",
+   "level": 4,
+   "sha256": "1f3a7525d1d9efa199888ce3afb6e0076b1ccc5319373a257f30b94c8f4a1bb5"
+  },
+  {
+   "anchor": "a5066",
+   "title": "4.6.3. Comparison Expressions",
+   "level": 4,
+   "sha256": "fdbdd04748e3e0ead45ba6131abd74913542d7ebf2e43e5d58452e7392fc5b75"
+  },
+  {
+   "anchor": "between-expressions",
+   "title": "4.6.4. Between Expressions",
+   "level": 4,
+   "sha256": "f65a24b1311ddd4ef992feb59a3c1b546e4f746111af0511cb0ba8b5ec338bce"
+  },
+  {
+   "anchor": "a5107",
+   "title": "4.6.5. In Expressions",
+   "level": 4,
+   "sha256": "61871ef9cd41b3ad94655a83efc71e3448f0b559d3a8532d7b32aafe504e870b"
+  },
+  {
+   "anchor": "like-expressions",
+   "title": "4.6.6. Like Expressions",
+   "level": 4,
+   "sha256": "8442a7e7a26374d002bda0e51ed14cc04859ca6e592a0727c6a28d619b4b6568"
+  },
+  {
+   "anchor": "null-comparison-expressions",
+   "title": "4.6.7. Null Comparison Expressions",
+   "level": 4,
+   "sha256": "aa0e463a93e9abeb8e7ea4d7b07d8dd23be8b0ea9705a0fa490d4d02e2bca250"
+  },
+  {
+   "anchor": "a5139",
+   "title": "4.6.8. Empty Collection Comparison Expressions",
+   "level": 4,
+   "sha256": "27e780820e8a63a2b8d9d514cbc02b852a204a54e6fcf20497f046f6627a1df7"
+  },
+  {
+   "anchor": "a5150",
+   "title": "4.6.9. Collection Member Expressions",
+   "level": 4,
+   "sha256": "2f5f0f4f30c8e43d1f7c9ba7e68fef813daa1a0d2ecdb3a187a8a8509b041a83"
+  },
+  {
+   "anchor": "exists-expressions",
+   "title": "4.6.10. Exists Expressions",
+   "level": 4,
+   "sha256": "00f8dd78e6c1d0848ba840e32d5f4acd4799a828784a0eefe69a68710e8b45e4"
+  },
+  {
+   "anchor": "all-or-any-expressions",
+   "title": "4.6.11. All or Any Expressions",
+   "level": 4,
+   "sha256": "5294e7e38297bcbdfbd4eee47a87f0234e33977f41ed5b64edc17ab1ea57bd86"
+  },
+  {
+   "anchor": "a5196",
+   "title": "4.6.12. Subqueries",
+   "level": 4,
+   "sha256": "d50f26eee6743c4f8905c4af11f4dfbe0693ba143b3e8f9a5c89e623a107bff4"
+  },
+  {
+   "anchor": "a5676",
+   "title": "4.6.13. Null Values",
+   "level": 4,
+   "sha256": "3f034b85419069f53d4869f07385559b79fccdd205b1a5f771b213b3dbb1d45e"
+  },
+  {
+   "anchor": "a5735",
+   "title": "4.6.14. Equality and Comparison Semantics",
+   "level": 4,
+   "sha256": "e2176ec401ff498dee20e4cd3a9e7a7bdd8b66e023073dced61d5e1ff59b9252"
+  },
+  {
+   "anchor": "queries-using-input-parameters",
+   "title": "4.6.14.1. Queries Using Input Parameters",
+   "level": 5,
+   "sha256": "dd9004d48f272032bba657690d57aa10064a225c6f71079b956b7469c6f86a9d"
+  },
+  {
+   "anchor": "a5243",
+   "title": "4.7. Scalar Expressions",
+   "level": 3,
+   "sha256": "9088ea11a4daa78f3d53673926e5469b143448fc23ec3e6e2bc7ca0bc93d1c8d"
+  },
+  {
+   "anchor": "literals",
+   "title": "4.7.1. Literals",
+   "level": 4,
+   "sha256": "87ad9a11b86ea8bbf2befaf7451b8bdfc2a5603f851a330aa7db9553d2279116"
+  },
+  {
+   "anchor": "identification-variables",
+   "title": "4.7.2. Identification Variables",
+   "level": 4,
+   "sha256": "73665e07976987e1d9456201d4a37104e80747058e55cb8fc7fa0f6fd39fd568"
+  },
+  {
+   "anchor": "path-expressions",
+   "title": "4.7.3. Path Expressions",
+   "level": 4,
+   "sha256": "e403a0959f5491e0131508fb82766857a733d216b746f9b17f56549128cf5b57"
+  },
+  {
+   "anchor": "a5065",
+   "title": "4.7.4. Input Parameters",
+   "level": 4,
+   "sha256": "57e097b9ed2944076a124390bb0ded0600c4fda110c442f9ad0ed87be8e3ccd8"
+  },
+  {
+   "anchor": "positional-parameters",
+   "title": "4.7.4.1. Positional Parameters",
+   "level": 5,
+   "sha256": "b0b10313e99d6e60bc7582e43ff2cddbb543666ceeb7e392033081a2d653987c"
+  },
+  {
+   "anchor": "named-parameters",
+   "title": "4.7.4.2. Named Parameters",
+   "level": 5,
+   "sha256": "b67df276227fd5bb34237d649f048e80d77dca80cbe7c0b4e8ad836ca2bda3b5"
+  },
+  {
+   "anchor": "arithmetic-expressions",
+   "title": "4.7.5. Arithmetic Expressions",
+   "level": 4,
+   "sha256": "e5e0342b38a1c24e2b57523643d90fdc10f05bf0d8b40373a119d754fbfc9017"
+  },
+  {
+   "anchor": "string-concatenation-operator",
+   "title": "4.7.6. String concatenation operator",
+   "level": 4,
+   "sha256": "a91d41e79f8bef05c63af5694fe14793d024a5527214f28e3bfdbe49b02d585d"
+  },
+  {
+   "anchor": "built-in-string-arithmetic-and-datetime-functional-expressions",
+   "title": "4.7.7. Built-in String, Arithmetic, and Datetime Functional Expressions",
+   "level": 4,
+   "sha256": "79266cb90a857b913818c7c37760b6ec3218a9d328bc9f929f1a66973102e3e0"
+  },
+  {
+   "anchor": "a5264",
+   "title": "4.7.7.1. String Functions",
+   "level": 5,
+   "sha256": "adc6dd9ecec5bc46d90274c77ef2d449f4c7e4cbad10bed3503be49b91463b87"
+  },
+  {
+   "anchor": "a5284",
+   "title": "4.7.7.2. Arithmetic Functions",
+   "level": 5,
+   "sha256": "2bace07f3af80ddc47a32294a57c88c03606c703f8f04c1ba7e1772692ecca97"
+  },
+  {
+   "anchor": "a5304",
+   "title": "4.7.7.3. Datetime Functions",
+   "level": 5,
+   "sha256": "9b8bc2e6480672b47a853be1f630f3d5fdd4bac7f8b052f9855aec387ff5e73c"
+  },
+  {
+   "anchor": "typecasts",
+   "title": "4.7.8. Typecasts",
+   "level": 4,
+   "sha256": "85fa6805bce5843d31467a84d4949bf2a20a874e576c1fcc8414c45a345fb7c9"
+  },
+  {
+   "anchor": "a5311",
+   "title": "4.7.9. Invocation of Predefined and User-defined Database Functions",
+   "level": 4,
+   "sha256": "7dc5ab9961d97ccb9f9c56e2eb4e8e6fee0bb191a5a3831a38844d6a5258397e"
+  },
+  {
+   "anchor": "case-expressions",
+   "title": "4.7.10. Case Expressions",
+   "level": 4,
+   "sha256": "67c19f86a4a8e420db5692db069b3c3e53ff4c3b1aadf52b36d1f3e7deba8fac"
+  },
+  {
+   "anchor": "identifier-and-version-functions",
+   "title": "4.7.11. Identifier and Version Functions",
+   "level": 4,
+   "sha256": "d5f0a1f076cbdb7c4904f9b7f3acf352316cfa52e29f82155822f411194c1b0c"
+  },
+  {
+   "anchor": "a5381",
+   "title": "4.7.12. Entity Type Expressions and Literal Entity Types",
+   "level": 4,
+   "sha256": "8ec3b6f10763146d1e26d97b063c96b26649545369bbd311f7c6465c5860d084"
+  },
+  {
+   "anchor": "a5574",
+   "title": "4.7.13. Numeric Expressions and Type Promotion",
+   "level": 4,
+   "sha256": "6e3609a522a9968fe86333f4b8730af5e920219abc5935c5dfec92058c072b70"
+  },
+  {
+   "anchor": "a5410",
+   "title": "4.8. GROUP BY, HAVING",
+   "level": 3,
+   "sha256": "33580eeaac1842e2823bf8caf1c3d6b648aa948e0d906957719a7a6bac8c2af8"
+  },
+  {
+   "anchor": "a5438",
+   "title": "4.9. SELECT Clause",
+   "level": 3,
+   "sha256": "74a74a828c8d151ceccde0fb89f34106c7a198e96af3769ab7259b649bd9e7dc"
+  },
+  {
+   "anchor": "a5439",
+   "title": "4.9.1. Result Type of the SELECT Clause",
+   "level": 4,
+   "sha256": "7f524637886be1e1c431a8af781b9354b70f515e8a7d490455b96b8d6f04f82b"
+  },
+  {
+   "anchor": "a5500",
+   "title": "4.9.2. Constructor Expressions in the SELECT Clause",
+   "level": 4,
+   "sha256": "018ecf08fa55c9a8fd29f1603c7bd5ed480ac1dba0c7bdee3178109d4a54cd7b"
+  },
+  {
+   "anchor": "null-values-in-the-query-result",
+   "title": "4.9.3. Null Values in the Query Result",
+   "level": 4,
+   "sha256": "5684bc622239c775b079ddb8bda5c211846392793f043422bf964765ea846328"
+  },
+  {
+   "anchor": "a5511",
+   "title": "4.9.4. Embeddables in the Query Result",
+   "level": 4,
+   "sha256": "08d5649903beef1d165d1275294bca8696f2fc9a8b673f353e7c54144db3a036"
+  },
+  {
+   "anchor": "a5538",
+   "title": "4.9.5. Aggregate Functions in the SELECT Clause",
+   "level": 4,
+   "sha256": "ddde074b3533ada2eab36437bbcbd7823ed7bc30ea02553877ab5afbaf1deaf2"
+  },
+  {
+   "anchor": "a5587",
+   "title": "4.10. ORDER BY Clause",
+   "level": 3,
+   "sha256": "a4265831c19cc18c7a6508d5cd512a975fff2b670d1a68670d8beadb8c1e9e04"
+  },
+  {
+   "anchor": "a5636",
+   "title": "4.11. Bulk Update and Delete Operations",
+   "level": 3,
+   "sha256": "d3b6c904be88abab0aea0065b68da00b04330868535cd0f97da659907aa488a6"
+  },
+  {
+   "anchor": "bnf",
+   "title": "4.12. BNF",
+   "level": 3,
+   "sha256": "501e8ee8e9ead960a24e8e55163fca591bd6732f4fdededd2a9d95fc2692bfbb"
+  },
+  {
+   "anchor": "a6072",
+   "title": "5. Metamodel API",
+   "level": 2,
+   "sha256": "18efa28b060fd05b7ebfb46bcfb29f921d043516dbe2097702e9807904c714e7"
+  },
+  {
+   "anchor": "a6933",
+   "title": "5.1. Static Metamodel Classes",
+   "level": 3,
+   "sha256": "e8b9a4e560530a5090509c98e80680b094ce6d014e2d0e68dd91affc7b9f7df0"
+  },
+  {
+   "anchor": "canonical-metamodel",
+   "title": "5.1.1. Canonical Metamodel",
+   "level": 4,
+   "sha256": "603043b702e04ae6853dc78f522b900e11833dcaf5253222f5e89952ba398974"
+  },
+  {
+   "anchor": "a6961",
+   "title": "5.1.1.1. Example Canonical Metamodel",
+   "level": 5,
+   "sha256": "7801c0c3bea6073d4e99c30b5f4ca8677cfd1c44c152ade887e4ce490afdcc63"
+  },
+  {
+   "anchor": "bootstrapping-the-static-metamodel",
+   "title": "5.1.2. Bootstrapping the Static Metamodel",
+   "level": 4,
+   "sha256": "7b6dbdd22b49457f351ef4d1c14c81fbce5116d17d9ce256e9d6f7ad272d7bf6"
+  },
+  {
+   "anchor": "runtime-access-to-metamodel",
+   "title": "5.2. Runtime Access to Metamodel",
+   "level": 3,
+   "sha256": "47b4bf5a031c73c0968ab9a8dd490aae67aae0898abef392f546d05a613b067f"
+  },
+  {
+   "anchor": "a6925",
+   "title": "6. Criteria API",
+   "level": 2,
+   "sha256": "70f385aefc28ae8d2f5a037eb9cea2b83ff799ea7628543eae49bbb9854a4ffb"
+  },
+  {
+   "anchor": "overview-3",
+   "title": "6.1. Overview",
+   "level": 3,
+   "sha256": "9ce951791d3d923066ffbf281ace79c7f0df4c85fb596513bc632e5bda13c3f7"
+  },
+  {
+   "anchor": "a10608",
+   "title": "6.2. Criteria Query API Usage",
+   "level": 3,
+   "sha256": "c6f1ee042ce21107522312dab680535820dc7d0f0ebeadfb70072f6d5a74f519"
+  },
+  {
+   "anchor": "a10614",
+   "title": "6.3. Constructing Criteria Queries",
+   "level": 3,
+   "sha256": "602ae9e6cc9eb92ce5e7b0223237a27e412588573bb9c112998046b07879d1fc"
+  },
+  {
+   "anchor": "a10621",
+   "title": "6.3.1. CriteriaQuery Creation",
+   "level": 4,
+   "sha256": "e4b600f2a135eec321ede2cb9b2e8c8ef26799d7b6f182e8a1c4e74284dff6c5"
+  },
+  {
+   "anchor": "query-roots",
+   "title": "6.3.2. Query Roots",
+   "level": 4,
+   "sha256": "9135144bdc9fc7ba2e56c5b74e2a30bd0f0c45825403fc7702a947231ab3d0f5"
+  },
+  {
+   "anchor": "a10643",
+   "title": "6.3.3. Joins",
+   "level": 4,
+   "sha256": "9981e4be459e11b290834a55160b6a6f083cdca09f00774e98c05a74489810ad"
+  },
+  {
+   "anchor": "fetch-joins",
+   "title": "6.3.4. Fetch Joins",
+   "level": 4,
+   "sha256": "3eddb7d92c222a47da71ba24156b3445952e662aae207d0041490156e59f6b87"
+  },
+  {
+   "anchor": "a16277",
+   "title": "6.3.5. Path Navigation",
+   "level": 4,
+   "sha256": "7ab626136cf6eaeec2b03736fe107a403fb313131f8954834318d84fc928588e"
+  },
+  {
+   "anchor": "restricting-the-query-result",
+   "title": "6.3.6. Restricting the Query Result",
+   "level": 4,
+   "sha256": "d8ea9f8a71f8030098c53e86fc6bab5d81599726fd6b3f7366bb580a99d285ba"
+  },
+  {
+   "anchor": "downcasting",
+   "title": "6.3.7. Downcasting",
+   "level": 4,
+   "sha256": "d2a6dc8827de0fb8c508c6e78ff184ddb3695ccdf7573b3e2927172ec4d87bf2"
+  },
+  {
+   "anchor": "expressions",
+   "title": "6.3.8. Expressions",
+   "level": 4,
+   "sha256": "750eee6e9c0d36ab435c676b91b4cdc83dfc5c0114a5156bb0eba30ce6881c69"
+  },
+  {
+   "anchor": "result-types-of-expressions",
+   "title": "6.3.8.1. Result Types of Expressions",
+   "level": 5,
+   "sha256": "10f7d5955ed95b41924a8abae8089078186f6395873a74d73c7c78dca067d8ba"
+  },
+  {
+   "anchor": "literals-2",
+   "title": "6.3.9. Literals",
+   "level": 4,
+   "sha256": "522e44405bdd2fe2c6967b008a5299b8edf749f4b75be921ea25e136f74d9ce5"
+  },
+  {
+   "anchor": "parameter-expressions",
+   "title": "6.3.10. Parameter Expressions",
+   "level": 4,
+   "sha256": "1729d385050cc14685453634af22977d6dc16ffa526fc64384a99c5071725b98"
+  },
+  {
+   "anchor": "a10945",
+   "title": "6.3.11. Specifying the Select List",
+   "level": 4,
+   "sha256": "effc16ed3dca17a365670af8117ea8d9c069e337531356725a774d9c98772447"
+  },
+  {
+   "anchor": "assigning-aliases-to-selection-items",
+   "title": "6.3.11.1. Assigning Aliases to Selection Items",
+   "level": 5,
+   "sha256": "1423c421d93ee82b07cb4470a0af6b2b5026b1bed22c6359ba19c790f47ca8f0"
+  },
+  {
+   "anchor": "subqueries",
+   "title": "6.3.12. Subqueries",
+   "level": 4,
+   "sha256": "df6b8ce232124949041db912a49db18a9d7350f8e7729878341e9ef8c8b0bce0"
+  },
+  {
+   "anchor": "groupby-and-having",
+   "title": "6.3.13. GroupBy and Having",
+   "level": 4,
+   "sha256": "d23a573b9b7c1b2ea878dabacc3854866c896aaa03cd8fab80d35aed409f5feb"
+  },
+  {
+   "anchor": "ordering-the-query-results",
+   "title": "6.3.14. Ordering the Query Results",
+   "level": 4,
+   "sha256": "6eb81aaa92159065e40d41c5eff17e417aaa6fd5300980a52009244b6f298a2a"
+  },
+  {
+   "anchor": "a11239",
+   "title": "6.3.15. Bulk Update and Delete Operations",
+   "level": 4,
+   "sha256": "bca140ae91174b5d6ee11a39b3b50e615cf177017563f65ccc50fcc8722fc800"
+  },
+  {
+   "anchor": "a11305",
+   "title": "6.4. Constructing Strongly-typed Queries using the jakarta.persistence.metamodel Interfaces",
+   "level": 3,
+   "sha256": "d5ab428a68f3ceba2987e3c34461f4fde6410f249f3193b620cfc4800c6b6d33"
+  },
+  {
+   "anchor": "a11349",
+   "title": "6.5. Use of the Criteria API with Strings to Reference Attributes",
+   "level": 3,
+   "sha256": "96ed2e3c1d4152df6a36f1c39e91726ffafc6972ef5fd0c624e60234afd859ee"
+  },
+  {
+   "anchor": "a11413",
+   "title": "6.6. Query Modification",
+   "level": 3,
+   "sha256": "e7a2460a71683a2e14c6e3470a8a3f94ffddcd758f7f4ab9157e77fcb4da4fc8"
+  },
+  {
+   "anchor": "a11427",
+   "title": "6.7. Query Execution",
+   "level": 3,
+   "sha256": "ac0f564db0303631f4acd8a254e349cabe4c49b046acc3838ab06f19987d1ac9"
+  },
+  {
+   "anchor": "a11431",
+   "title": "7. Entity Managers and Persistence Contexts",
+   "level": 2,
+   "sha256": "101d037cabd664718bb8ba2ee013b8a72ae35d75178118e3cb452c4226ce3c22"
+  },
+  {
+   "anchor": "a11432",
+   "title": "7.1. Persistence Contexts",
+   "level": 3,
+   "sha256": "f9edcbc115366584e4b3647130253fd5581739733aecc651ea2fe1b37bec10cf"
+  },
+  {
+   "anchor": "obtaining-an-entitymanager",
+   "title": "7.2. Obtaining an EntityManager",
+   "level": 3,
+   "sha256": "8e5bda3398cf2e593c7155f3a82a71fb0b45bfe705f78c1bb52581092edc32ee"
+  },
+  {
+   "anchor": "obtaining-an-entity-manager-in-the-jakarta-ee-environment",
+   "title": "7.2.1. Obtaining an Entity Manager in the Jakarta EE Environment",
+   "level": 4,
+   "sha256": "b77866c9ce04bc384ef6e5476750a21088e220c09de491f967d4157112cebd6c"
+  },
+  {
+   "anchor": "a11465",
+   "title": "7.2.2. Obtaining an Application-managed Entity Manager",
+   "level": 4,
+   "sha256": "bad7ce5f7a06da2d02f04033f50be69c62effa267a31bbdf979aff2518b042bd"
+  },
+  {
+   "anchor": "obtaining-an-entity-manager-factory",
+   "title": "7.3. Obtaining an Entity Manager Factory",
+   "level": 3,
+   "sha256": "775bc396e972ce343d29cb0003cfee47cb9296df17a63060df56829f82de66b5"
+  },
+  {
+   "anchor": "obtaining-an-entity-manager-factory-in-a-jakarta-ee-container",
+   "title": "7.3.1. Obtaining an Entity Manager Factory in a Jakarta EE Container",
+   "level": 4,
+   "sha256": "958bb508a3091ba8dcfc7fbb0b9d02b42d3f861fdd58b29c0e1ececab3b4f5d0"
+  },
+  {
+   "anchor": "obtaining-an-entity-manager-factory-in-a-java-se-environment",
+   "title": "7.3.2. Obtaining an Entity Manager Factory in a Java SE Environment",
+   "level": 4,
+   "sha256": "3837c76212d0085216b0b05902219aa098eaba3bbcb796ca8788937d9d1bdd8d"
+  },
+  {
+   "anchor": "obtaining-an-entity-manager-factory-for-a-programmatically-defined-persistence-unit",
+   "title": "7.3.3. Obtaining an Entity Manager Factory for a programmatically-defined persistence unit",
+   "level": 4,
+   "sha256": "d1aef59f22ea48fbecde99c57393005fa2a6aa81db78e7fe380380f1cc159341"
+  },
+  {
+   "anchor": "entitymanagerfactory-interface",
+   "title": "7.4. EntityManagerFactory Interface",
+   "level": 3,
+   "sha256": "1e72d11e10eb0f4f4f1956c2867a23c08447f2ad472934bb955caf7fca3340f8"
+  },
+  {
+   "anchor": "controlling-transactions",
+   "title": "7.5. Controlling Transactions",
+   "level": 3,
+   "sha256": "af2765a0d782fe3c726bacdd190ca24cea85bd9c7100cc496d1268d6c505c942"
+  },
+  {
+   "anchor": "jta-entitymanagers",
+   "title": "7.5.1. JTA EntityManagers",
+   "level": 4,
+   "sha256": "df1097082179bebae67efc746f3a4cebed3b79fd15d8fd10a72439920e56f96e"
+  },
+  {
+   "anchor": "resource-local-entitymanagers",
+   "title": "7.5.2. Resource-local EntityManagers",
+   "level": 4,
+   "sha256": "7547110cbe30fb96599e03b179bd4bc31d0a1a0868277b74ee1784534c1a9c5b"
+  },
+  {
+   "anchor": "the-entitytransaction-interface",
+   "title": "7.5.3. The EntityTransaction Interface",
+   "level": 4,
+   "sha256": "974ee92997d175924d7b6323fb1b6044740c4cf674d2d89a459e3655c77ba7a7"
+  },
+  {
+   "anchor": "the-runintransaction-and-callintransaction-methods",
+   "title": "7.6. The runInTransaction and callInTransaction methods",
+   "level": 3,
+   "sha256": "fb5f999f55795da7bf823662c82fbd4e4ab6f996940a70ba8d08ffa277f5fcc4"
+  },
+  {
+   "anchor": "a11791",
+   "title": "7.7. Container-managed Persistence Contexts",
+   "level": 3,
+   "sha256": "960551740de013eee5f4c5adf979323eff943891fc9a3edc39eb3c806a7c19e7"
+  },
+  {
+   "anchor": "a11797",
+   "title": "7.7.1. Persistence Context Synchronization Type",
+   "level": 4,
+   "sha256": "f8908687972ce310c06c5621e9160a4de713979f25382a09b18a65fc8bef01d1"
+  },
+  {
+   "anchor": "a11805",
+   "title": "7.7.2. Container-managed Transaction-scoped Persistence Context",
+   "level": 4,
+   "sha256": "21a32e06141ae30ee493e7de65a9e8eb0a70011c2ae96722f0fe1bf494791eb0"
+  },
+  {
+   "anchor": "a11810",
+   "title": "7.7.3. Container-managed Extended Persistence Context",
+   "level": 4,
+   "sha256": "53bc3c96c0c3d9f45d4c95b0e79d0377623f46c13d0b181a485e1e9ed51e9f5c"
+  },
+  {
+   "anchor": "inheritance-of-extended-persistence-context",
+   "title": "7.7.3.1. Inheritance of Extended Persistence Context",
+   "level": 5,
+   "sha256": "c28dd4ba92468b27c32af59d475af5d3df19c8883f7ed94f698a4dd279b3daf3"
+  },
+  {
+   "anchor": "a11816",
+   "title": "7.7.4. Persistence Context Propagation",
+   "level": 4,
+   "sha256": "7258cbab8b85ac1c54640644d8024f45354166baffc3879416eb05e8e60ce1f3"
+  },
+  {
+   "anchor": "a11820",
+   "title": "7.7.4.1. Requirements for Persistence Context Propagation",
+   "level": 5,
+   "sha256": "f7b944de9eeb8360f2762366cfe8a9863f35945ae5bc0415f93cb38416e6903c"
+  },
+  {
+   "anchor": "a11894",
+   "title": "7.8. Application-managed Persistence Contexts",
+   "level": 3,
+   "sha256": "4764f258c79d3212f07e9f4da2607adfb772284e7a8231bdf58e9356b4b2fe9a"
+  },
+  {
+   "anchor": "requirements-on-the-container",
+   "title": "7.9. Requirements on the Container",
+   "level": 3,
+   "sha256": "442aaed5c36d15a607af55be5129dadf92a8d7bd55a0ec7e05c102d38b834377"
+  },
+  {
+   "anchor": "application-managed-persistence-contexts",
+   "title": "7.9.1. Application-managed Persistence Contexts",
+   "level": 4,
+   "sha256": "3bf2886605c4b2f6c5b6431cec11831fb080dc4d1298efad4884ef13e359e51e"
+  },
+  {
+   "anchor": "container-managed-persistence-contexts",
+   "title": "7.9.2. Container Managed Persistence Contexts",
+   "level": 4,
+   "sha256": "3ab02c7cc36a30fa9e46e4130d9b5fa1e9e46962591e32e80d61c5824fe1c87b"
+  },
+  {
+   "anchor": "a12100",
+   "title": "7.10. Runtime Contracts between the Container and Persistence Provider",
+   "level": 3,
+   "sha256": "88de09673c935711a96bda7c3f6457c1a759d627092013beb9be58bb3435049e"
+  },
+  {
+   "anchor": "container-responsibilities",
+   "title": "7.10.1. Container Responsibilities",
+   "level": 4,
+   "sha256": "d860c40aedfc50ad0866bcff6549b210023000f1935b9e4c9afcb24fabf089cb"
+  },
+  {
+   "anchor": "provider-responsibilities",
+   "title": "7.10.2. Provider Responsibilities",
+   "level": 4,
+   "sha256": "541ee3ee03645b09c77ef2fbd90f000887b82fb1ceecd39daea13a21c3a1dda8"
+  },
+  {
+   "anchor": "a12177",
+   "title": "7.11. PersistenceUnitUtil Interface",
+   "level": 3,
+   "sha256": "a44b6219a130b438f52fc99e1ba4e277241e6c3eebdfac03c07a9f643f404663"
+  },
+  {
+   "anchor": "a12178",
+   "title": "7.12. SchemaManager Interface",
+   "level": 3,
+   "sha256": "931eeccd74b5b687eb120ce64ba995be853966ce500c79a6290492530b3f3697"
+  },
+  {
+   "anchor": "a12229",
+   "title": "8. Entity Packaging",
+   "level": 2,
+   "sha256": "20e8aafa6674ab1dff465fa23f8f646bc519e1321006434bd1e14d8b0b7ca839"
+  },
+  {
+   "anchor": "a12235",
+   "title": "8.1. Persistence Unit",
+   "level": 3,
+   "sha256": "b5bbc2f4cba8ec4f89a6ac91fb833ac0e05b0e1c5a64d8f15997706ac044e90e"
+  },
+  {
+   "anchor": "a12236",
+   "title": "8.2. Persistence Unit Packaging",
+   "level": 3,
+   "sha256": "4c94f4f4d9e35c6bbc0c9c6e579d810e59236d5ba4ab02e4656920ec3605f625"
+  },
+  {
+   "anchor": "a12237",
+   "title": "8.2.1. persistence.xml file",
+   "level": 4,
+   "sha256": "6ee7aec322e1417cebe1ed2df3ba4c851b70e8d3daf570af8e358f258db58461"
+  },
+  {
+   "anchor": "name",
+   "title": "8.2.1.1. name",
+   "level": 5,
+   "sha256": "2b4525a346b4a3f1ee4eda9ae4430b7eed2052d7720f0e96f1e564d35e7d9c46"
+  },
+  {
+   "anchor": "a12296",
+   "title": "8.2.1.2. transaction-type",
+   "level": 5,
+   "sha256": "4e4f2758eda89331aba1fc7e919276fa6a0cbe6d709cc605a3a8af74df8f6db5"
+  },
+  {
+   "anchor": "description",
+   "title": "8.2.1.3. description",
+   "level": 5,
+   "sha256": "6cafd9a2c2b59758f228df4c4e2e6313d619c82e4f69f089cdd417d6d40ea62b"
+  },
+  {
+   "anchor": "a12300",
+   "title": "8.2.1.4. provider",
+   "level": 5,
+   "sha256": "f8761191444e1c7124e8194888c17a65788bfa9487c2516c06d7401cfb9ffedc"
+  },
+  {
+   "anchor": "a12310",
+   "title": "8.2.1.5. qualifier",
+   "level": 5,
+   "sha256": "6ffd5b7be53a00a74fe7b4efad99b27e7ead43c7429b1a244d21e77f97170651"
+  },
+  {
+   "anchor": "a12311",
+   "title": "8.2.1.6. scope",
+   "level": 5,
+   "sha256": "7e92dba32e110cf8a021c8dc60b17984e1eeab3716b32b6456bb1be1096a456e"
+  },
+  {
+   "anchor": "a12302",
+   "title": "8.2.1.7. jta-data-source, non-jta-data-source",
+   "level": 5,
+   "sha256": "2363d82b4570a96943175982921a7c14d490fb6e7a6dd77be363a3a98c7f55f8"
+  },
+  {
+   "anchor": "a12305",
+   "title": "8.2.1.8. mapping-file, jar-file, class, exclude-unlisted-classes",
+   "level": 5,
+   "sha256": "88726f4a5a84ba7145dd5663f3328522e606c4756de9953d592f3d989cfff873"
+  },
+  {
+   "anchor": "annotated-classes-in-the-root-of-the-persistence-unit",
+   "title": "Annotated Classes in the Root of the Persistence Unit",
+   "level": 6,
+   "sha256": "f85cfccfdf4f5bfbab8a9d53c615a2f472f4978eb86fd2e34999f344359f1f77"
+  },
+  {
+   "anchor": "objectrelational-mapping-files",
+   "title": "Object/relational Mapping Files",
+   "level": 6,
+   "sha256": "0718a85444680620b8d16e6d678fe063597606c7f7c38659bce4f6e94ce94655"
+  },
+  {
+   "anchor": "jar-files",
+   "title": "Jar Files",
+   "level": 6,
+   "sha256": "c23439bfd04c5f0042d8ec5a59f2b3d6afe6ba46edb036a8f2b8b0a1b089e1a0"
+  },
+  {
+   "anchor": "list-of-managed-classes",
+   "title": "List of Managed Classes",
+   "level": 6,
+   "sha256": "4cd0f95ff9e51e79130d65a297c97bf4dbb58c57a5a8498e7d7e542af20067f6"
+  },
+  {
+   "anchor": "a12380",
+   "title": "8.2.1.9. shared-cache-mode",
+   "level": 5,
+   "sha256": "b407aa6a04be14b88c77bba1178946f075fb9492bea3f2120ff87cd4dc4013b6"
+  },
+  {
+   "anchor": "a12382",
+   "title": "8.2.1.10. validation-mode",
+   "level": 5,
+   "sha256": "f992a46dd9b1d2e146b3dd3e2d8e83679ea43b5af8b0b7e1d3991d0f3f21545e"
+  },
+  {
+   "anchor": "a12384",
+   "title": "8.2.1.11. properties",
+   "level": 5,
+   "sha256": "dc37aa8b4d1ed865182bec0b764d9cc413b6b318799ff5101b9bdf6aecf5e4b5"
+  },
+  {
+   "anchor": "a12459",
+   "title": "8.2.2. Persistence Unit Scope",
+   "level": 4,
+   "sha256": "94e926a83f8f2dd53a4dd828ed89d4356a37cdf73c22a374bdfc45314043c4f5"
+  },
+  {
+   "anchor": "persistence-xml-schema",
+   "title": "8.3. persistence.xml Schema",
+   "level": 3,
+   "sha256": "6d386cc2ef96fab244acfab8f58e9ed9a3a71783a75410afa3e2a40ecf550588"
+  },
+  {
+   "anchor": "container-and-provider-contracts-for-deployment-and-bootstrapping",
+   "title": "9. Container and Provider Contracts for Deployment and Bootstrapping",
+   "level": 2,
+   "sha256": "0452ad905540d266edfe609370840cb5117d1e54bfc9bdf55f4b5ca604a57738"
+  },
+  {
+   "anchor": "a12802",
+   "title": "9.1. Jakarta EE Deployment",
+   "level": 3,
+   "sha256": "0c27e54e2da25fe24c4134753a0734c0e5ef5495728d01f4512de78088f6e6c9"
+  },
+  {
+   "anchor": "bootstrapping-in-java-se-environments",
+   "title": "9.2. Bootstrapping in Java SE Environments",
+   "level": 3,
+   "sha256": "c46deb4a13e17184337d86ae4274c8852a28ba560f8351c2ac8f1e15feade75d"
+  },
+  {
+   "anchor": "a12803",
+   "title": "9.2.1. Schema Generation",
+   "level": 4,
+   "sha256": "5f8195da2a63d0644f3ad57fa02a4fe11c21667ca4bb138f76d755aad868d671"
+  },
+  {
+   "anchor": "a12837",
+   "title": "9.3. Determining the Available Persistence Providers",
+   "level": 3,
+   "sha256": "b062c5abe7dc70d8900693f7a209bea8b5ed38bee61aa805a2bb4d95c80c26a8"
+  },
+  {
+   "anchor": "a12917",
+   "title": "9.4. Schema Generation",
+   "level": 3,
+   "sha256": "da5c5e3b33eb1d333b415a573410e6becfa4654b9101c8b2b30f2301127bc616"
+  },
+  {
+   "anchor": "data-loading",
+   "title": "9.4.1. Data Loading",
+   "level": 4,
+   "sha256": "31d0bf34b183684dfba6193de0b922a13e9eb96635cdea5f6dbd46e421e72517"
+  },
+  {
+   "anchor": "responsibilities-of-the-persistence-provider",
+   "title": "9.5. Responsibilities of the Persistence Provider",
+   "level": 3,
+   "sha256": "61f7b86ef0d289880c282eac3e739df596f2fcb357cf777fcb345df00ed3edcf"
+  },
+  {
+   "anchor": "jakarta-persistence-spi-persistenceprovider",
+   "title": "9.5.1. jakarta.persistence.spi.PersistenceProvider",
+   "level": 4,
+   "sha256": "056b9fbfa07d2559105e2a5614c02dffefc5d815610a47c38faf6e079338561f"
+  },
+  {
+   "anchor": "jakarta-persistence-spi-providerutil",
+   "title": "9.5.2. jakarta.persistence.spi.ProviderUtil",
+   "level": 4,
+   "sha256": "2ef02ebacb0c9c0dbda8549928a36deba167f84e9b559cd2a85aa76da58f8d24"
+  },
+  {
+   "anchor": "a13160",
+   "title": "9.6. jakarta.persistence.spi.PersistenceUnitInfo Interface",
+   "level": 3,
+   "sha256": "9aa0f850b02b2c8f65dd970c2461fee3374dc1d733cf0e8fa5250523313625fa"
+  },
+  {
+   "anchor": "jakarta-persistence-spi-classtransformer-interface",
+   "title": "9.6.1. jakarta.persistence.spi.ClassTransformer Interface",
+   "level": 4,
+   "sha256": "5c5bdf0128a8f2c1d8a3d16a9b6a24c7d03ef3fc8930c6cc1a2fdf18fc0cbc09"
+  },
+  {
+   "anchor": "a13443",
+   "title": "9.7. jakarta.persistence.Persistence Class",
+   "level": 3,
+   "sha256": "4b762c4e0424b6d08e7f30108dca101c6544282b729a9e011a1e9bfcdd142426"
+  },
+  {
+   "anchor": "a13444",
+   "title": "9.8. jakarta.persistence.PersistenceConfiguration Class",
+   "level": 3,
+   "sha256": "5e785687662beebda5d54f1adc14bede86e3895fecbbbad26621cae5541cb454"
+  },
+  {
+   "anchor": "persistenceutil-interface",
+   "title": "9.9. PersistenceUtil Interface",
+   "level": 3,
+   "sha256": "8a8c64a67542b7ecbd7a10b384e1bf16116f9876d1091c7851ca0c87533fb734"
+  },
+  {
+   "anchor": "a13592",
+   "title": "9.9.1. Contracts for Determining the Load State of an Entity or Entity Attribute",
+   "level": 4,
+   "sha256": "2de5dfe2ccfbcc1a0a4360c4ab52a6c6118be10d312b185f2fe5860ce82b68f7"
+  },
+  {
+   "anchor": "metadata-annotations",
+   "title": "10. Metadata Annotations",
+   "level": 2,
+   "sha256": "021ffdb7d0afe7ff87f2a753ea644ec3b22d3b565e00aa649bfdb31898904cb4"
+  },
+  {
+   "anchor": "entity",
+   "title": "10.1. Entity",
+   "level": 3,
+   "sha256": "aacfe00a47010a77bea87259a052045783cacdcb7e003c529434acb882b34193"
+  },
+  {
+   "anchor": "callback-annotations",
+   "title": "10.2. Callback Annotations",
+   "level": 3,
+   "sha256": "454c5cc2a1dd29304ac7842dd67984cd058ab0b55520743d3c915cef22ac0e6f"
+  },
+  {
+   "anchor": "a13662",
+   "title": "10.3. EntityGraph Annotations",
+   "level": 3,
+   "sha256": "3b1f85dc316e3e2488842e120921407c07dc804ce3332eed3a7694d1a01b5fdb"
+  },
+  {
+   "anchor": "namedentitygraph-and-namedentitygraphs-annotations",
+   "title": "10.3.1. NamedEntityGraph and NamedEntityGraphs Annotations",
+   "level": 4,
+   "sha256": "522e748aeff44196a9645a1d5a8f74b09bf9bb98f943fb873dd138e7cd446ec2"
+  },
+  {
+   "anchor": "namedattributenode-annotation",
+   "title": "10.3.2. NamedAttributeNode Annotation",
+   "level": 4,
+   "sha256": "f8102968f84cb25f1701e800e2a7fdb6ca38441f1ee3d6671fd3c80a46543514"
+  },
+  {
+   "anchor": "namedsubgraph-annotation",
+   "title": "10.3.3. NamedSubgraph Annotation",
+   "level": 4,
+   "sha256": "fbcfbaa73106eab2f557d24b54fd28e6679202ff3249cbd2d912a0061f85921f"
+  },
+  {
+   "anchor": "a13710",
+   "title": "10.4. Annotations for Queries",
+   "level": 3,
+   "sha256": "e8169f6040930fcebe9dc82d299f3c695e6998f8c5a0c52773f0f8f08c649712"
+  },
+  {
+   "anchor": "a13711",
+   "title": "10.4.1. NamedQuery Annotation",
+   "level": 4,
+   "sha256": "0c7a1cb527cce247af0b1597a5a11412699fbd03fb8922959ec297e1336e2759"
+  },
+  {
+   "anchor": "namednativequery-annotation",
+   "title": "10.4.2. NamedNativeQuery Annotation",
+   "level": 4,
+   "sha256": "03ea86080fc0d89db16c696a51d94744ce49918229138b1ead105073fc2799d3"
+  },
+  {
+   "anchor": "a13759",
+   "title": "10.4.3. NamedStoredProcedureQuery Annotation",
+   "level": 4,
+   "sha256": "6fcb8aa096246c804a7b38cc66a3b6512dbb664b882cba037099b47da3be1eea"
+  },
+  {
+   "anchor": "a13797",
+   "title": "10.4.4. Annotations for SQL Result Set Mappings",
+   "level": 4,
+   "sha256": "a8324ad0a929519c36374e0bf0846b610dd66237b1f7306d7c8982d8831c3918"
+  },
+  {
+   "anchor": "references-to-entitymanager-and-entitymanagerfactory",
+   "title": "10.5. References to EntityManager and EntityManagerFactory",
+   "level": 3,
+   "sha256": "a439238eff9d9f7b5abd025eeade4e386eb9eb8bf08776eb0bdeb948610f50be"
+  },
+  {
+   "anchor": "persistencecontext-annotation",
+   "title": "10.5.1. PersistenceContext Annotation",
+   "level": 4,
+   "sha256": "089226ec969bb0e6d3e97edd20f2170a3a905b2a8cc4c29a8655d34b3532fb33"
+  },
+  {
+   "anchor": "a13887",
+   "title": "10.5.2. PersistenceUnit Annotation",
+   "level": 4,
+   "sha256": "a12c22d23a5f8f3be8522f3dcd64abfad9895ff846df6e7b1806f20e54d6a169"
+  },
+  {
+   "anchor": "a13903",
+   "title": "10.6. Annotations for Attribute Converter Classes",
+   "level": 3,
+   "sha256": "98ac8483b7fb8e154a22a669002d04964a2354211dd54817e3b05b64d8e35982"
+  },
+  {
+   "anchor": "a13915",
+   "title": "11. Metadata for Object/Relational Mapping",
+   "level": 2,
+   "sha256": "299d050ee45c5c625de71bed93b321f032c5dd04f31f2d83e6ba02c8c441a30f"
+  },
+  {
+   "anchor": "annotations-for-objectrelational-mapping",
+   "title": "11.1. Annotations for Object/Relational Mapping",
+   "level": 3,
+   "sha256": "56daa2f277c3055258f4d49e35f075bbfeeda2aeae0738aaf083e7eaad276cce"
+  },
+  {
+   "anchor": "a13941",
+   "title": "11.1.1. Access Annotation",
+   "level": 4,
+   "sha256": "ace75e6d447292bc6e296bb86a1a1638ab3d60e819e86f150f54ccd7378d0c47"
+  },
+  {
+   "anchor": "a13942",
+   "title": "11.1.2. AssociationOverride Annotation",
+   "level": 4,
+   "sha256": "544b49bbaaf57c5fd9afbb3c682b07e74bce451de541d67e5eeada0ae82b9d62"
+  },
+  {
+   "anchor": "associationoverrides-annotation",
+   "title": "11.1.3. AssociationOverrides Annotation",
+   "level": 4,
+   "sha256": "4ce7ae96525badb457bec930b5bd7e42956c8c243308b1fa5e4524621aa9aae3"
+  },
+  {
+   "anchor": "a14084",
+   "title": "11.1.4. AttributeOverride Annotation",
+   "level": 4,
+   "sha256": "f337fbda8191ea32d90b12f98d8f4a7ed873737b0cf61591311e72acd237476c"
+  },
+  {
+   "anchor": "a14178",
+   "title": "11.1.5. AttributeOverrides Annotation",
+   "level": 4,
+   "sha256": "80b39ff74c24b5b4a3f07419c94b322136af2b9a6a5c7eecfba01fb9e00bc1b7"
+  },
+  {
+   "anchor": "a14205",
+   "title": "11.1.6. Basic Annotation",
+   "level": 4,
+   "sha256": "27511ea149fc81f1cba35be0b9399fca825db12109ba3fc71d1e76374ad36384"
+  },
+  {
+   "anchor": "cacheable-annotation",
+   "title": "11.1.7. Cacheable Annotation",
+   "level": 4,
+   "sha256": "3fbc6b16bed26c6d2a826854b906e4960bf4688a96f7f07b7c2906bb09bf692d"
+  },
+  {
+   "anchor": "a14250",
+   "title": "11.1.8. CollectionTable Annotation",
+   "level": 4,
+   "sha256": "4f9a141090f8b064c2241bed7f79f310c8fb812297a6b0f0b4978ccbe5841f6d"
+  },
+  {
+   "anchor": "a14330",
+   "title": "11.1.9. Column Annotation",
+   "level": 4,
+   "sha256": "bb5f558d1eb6914256f61f065f517757dbb4cbeacb5f739cfb0e1104afe043e8"
+  },
+  {
+   "anchor": "a14398",
+   "title": "11.1.10. Convert Annotation",
+   "level": 4,
+   "sha256": "c6856922631c75930398f6ab543c4414e3401da76874fd43e1d4880e3f5b152a"
+  },
+  {
+   "anchor": "converts-annotation",
+   "title": "11.1.11. Converts Annotation",
+   "level": 4,
+   "sha256": "afad73ad5e8e46561c91f0f8ab896413b972799500446cec9806d50f3c5fb6e1"
+  },
+  {
+   "anchor": "a14530",
+   "title": "11.1.12. DiscriminatorColumn Annotation",
+   "level": 4,
+   "sha256": "c154f6d32d18006332a6ae4304e312ebeb50e9f0621504362c3998af52e0f116"
+  },
+  {
+   "anchor": "discriminatorvalue-annotation",
+   "title": "11.1.13. DiscriminatorValue Annotation",
+   "level": 4,
+   "sha256": "1c664715937850dbfa27cf89a924be98ef95841f53dbd0b425bd307deb5949e8"
+  },
+  {
+   "anchor": "elementcollection-annotation",
+   "title": "11.1.14. ElementCollection Annotation",
+   "level": 4,
+   "sha256": "9ac79d1cbab25b83349233a4e91e3409e0b19ab99d8558ea5af427ddef8358c7"
+  },
+  {
+   "anchor": "a14634",
+   "title": "11.1.15. Embeddable Annotation",
+   "level": 4,
+   "sha256": "a536dd5fbbe7128e4bc4ca2e19d783b2c7a60b09d23bfba49f6e40d1b32ccd6b"
+  },
+  {
+   "anchor": "a14672",
+   "title": "11.1.16. Embedded Annotation",
+   "level": 4,
+   "sha256": "70e57fcba5fb8bbe8af6daee87d38374c31b590b753155a92ac9fd3220a5b795"
+  },
+  {
+   "anchor": "a14687",
+   "title": "11.1.17. EmbeddedId Annotation",
+   "level": 4,
+   "sha256": "1f097c30579cfed7ae754529dfd157247355e4b4c1e5e0aba0af06347f9567a7"
+  },
+  {
+   "anchor": "a14719",
+   "title": "11.1.18. Enumerated Annotation",
+   "level": 4,
+   "sha256": "cf07a76022d352ecd12a89fd3035391696697d23187dbcc7965c2fce7ed9c16e"
+  },
+  {
+   "anchor": "a14720",
+   "title": "11.1.19. EnumeratedValue Annotation",
+   "level": 4,
+   "sha256": "8bfb622cc23b7170f994452b1bdd772331a431e15fb47835726b6bb7c840818e"
+  },
+  {
+   "anchor": "a14754",
+   "title": "11.1.20. ForeignKey Annotation",
+   "level": 4,
+   "sha256": "ebfc98d10a850064e9aa950d7b44f38d0c77ddb6f010b20ea676124592a1752f"
+  },
+  {
+   "anchor": "a14790",
+   "title": "11.1.21. GeneratedValue Annotation",
+   "level": 4,
+   "sha256": "bd86f987116fa09fb3fec61badd8772a8c4c6ec56e66279a638383973e26935b"
+  },
+  {
+   "anchor": "a14827",
+   "title": "11.1.22. Id Annotation",
+   "level": 4,
+   "sha256": "d5529a9cb63f6e927a3ed65417879b91ffc4b2f26a62a37f36b50201d4dfd2cb"
+  },
+  {
+   "anchor": "a14836",
+   "title": "11.1.23. IdClass Annotation",
+   "level": 4,
+   "sha256": "4b5db5467e1155363c825b3071da924e2b36fc6f8ca52f56e800464674f19217"
+  },
+  {
+   "anchor": "a14862",
+   "title": "11.1.24. Index Annotation",
+   "level": 4,
+   "sha256": "1584870d7508a26196aa6397c54dfb2c32c0bf856f12f22750154e9769000998"
+  },
+  {
+   "anchor": "a14891",
+   "title": "11.1.25. Inheritance Annotation",
+   "level": 4,
+   "sha256": "ed108b9436ce763533be37395eee0bb6d8ae276a707e6313f083bf59988dd7a8"
+  },
+  {
+   "anchor": "a14922",
+   "title": "11.1.26. JoinColumn Annotation",
+   "level": 4,
+   "sha256": "592bf4c3bd09754093fd0e29a58c57b3efe4fd93ac2c2880d891c4033146ca76"
+  },
+  {
+   "anchor": "joincolumns-annotation",
+   "title": "11.1.27. JoinColumns Annotation",
+   "level": 4,
+   "sha256": "d95c76d3ae34af0fd11dc79641c2ae4ede5f81c1c97954877268a23adf97cd9c"
+  },
+  {
+   "anchor": "a15022",
+   "title": "11.1.28. JoinTable Annotation",
+   "level": 4,
+   "sha256": "0f1be30bfc7eb74155e97c4eb170951be9ea0e5febea3b70d3dd52f1ed27f93d"
+  },
+  {
+   "anchor": "a15087",
+   "title": "11.1.29. Lob Annotation",
+   "level": 4,
+   "sha256": "bc0af0bb6899a20111b3b90bada6c198ae85073c232d2efd7de6db273ae633c6"
+  },
+  {
+   "anchor": "a15100",
+   "title": "11.1.30. ManyToMany Annotation",
+   "level": 4,
+   "sha256": "d8d42230f955273d76acc78e222b39181008424b3527931b85332d59b9f3255a"
+  },
+  {
+   "anchor": "manytoone-annotation",
+   "title": "11.1.31. ManyToOne Annotation",
+   "level": 4,
+   "sha256": "df04bccc3ef4154f8caa05de093fed8c3dd9d4d22f0af25e88335f28104bee23"
+  },
+  {
+   "anchor": "mapkey-annotation",
+   "title": "11.1.32. MapKey Annotation",
+   "level": 4,
+   "sha256": "13f5115b5e90210ca57a51394fcfd5ce9260e280cd97c072ec164d21ba2d95b9"
+  },
+  {
+   "anchor": "mapkeyclass-annotation",
+   "title": "11.1.33. MapKeyClass Annotation",
+   "level": 4,
+   "sha256": "0bdb4c139d81e88ffd64d0baca5371554cbb1289b87e30ca19f286538372470e"
+  },
+  {
+   "anchor": "a15367",
+   "title": "11.1.34. MapKeyColumn Annotation",
+   "level": 4,
+   "sha256": "f461b6f06f6d8e8f9e0181c30beabf974de1d5672d715eecd0dd49c1f326ca96"
+  },
+  {
+   "anchor": "a15433",
+   "title": "11.1.35. MapKeyEnumerated Annotation",
+   "level": 4,
+   "sha256": "1dfa3ba1129ab68ec51a3c667c22737e9d1285cf453933bffdc273beea290543"
+  },
+  {
+   "anchor": "a15450",
+   "title": "11.1.36. MapKeyJoinColumn Annotation",
+   "level": 4,
+   "sha256": "21a96314af8b88082d4d5eccaac6a9bb1d20eeb3765657370963852392f1efb0"
+  },
+  {
+   "anchor": "mapkeyjoincolumns-annotation",
+   "title": "11.1.37. MapKeyJoinColumns Annotation",
+   "level": 4,
+   "sha256": "50a43d89a8eb2833a7705377ff3c26b5027a2ae419987dd80b56946e2b1cb649"
+  },
+  {
+   "anchor": "a15583",
+   "title": "11.1.38. MapKeyTemporal Annotation",
+   "level": 4,
+   "sha256": "8fe5943cdc38391d6bce3f1ed7cd9fcba80428ec7322f8ae76180d92e96a10dd"
+  },
+  {
+   "anchor": "mappedsuperclass-annotation",
+   "title": "11.1.39. MappedSuperclass Annotation",
+   "level": 4,
+   "sha256": "0c6962b26cb02a86cb81b98ee163bc4a19dc2270e184f4b177d5bf39495ed989"
+  },
+  {
+   "anchor": "mapsid-annotation",
+   "title": "11.1.40. MapsId Annotation",
+   "level": 4,
+   "sha256": "5f3f98adaa3d0b3aee16dfa28c44f78fa7d61f1164e385d32bbcf9fe50cd538a"
+  },
+  {
+   "anchor": "onetomany-annotation",
+   "title": "11.1.41. OneToMany Annotation",
+   "level": 4,
+   "sha256": "d6c87deaea6a0fa0362696149cee6e8e8c41a274957f1dbd0f7d5479af5a9cb6"
+  },
+  {
+   "anchor": "onetoone-annotation",
+   "title": "11.1.42. OneToOne Annotation",
+   "level": 4,
+   "sha256": "3c9a3946396433c7dacc70ef9e726dcf4b14f01c38d3b9f8cad04e68976510aa"
+  },
+  {
+   "anchor": "orderby-annotation",
+   "title": "11.1.43. OrderBy Annotation",
+   "level": 4,
+   "sha256": "5823ed23506050660343e8547f348049251a6f4a1de534d330d5eed58d63903b"
+  },
+  {
+   "anchor": "a15873",
+   "title": "11.1.44. OrderColumn Annotation",
+   "level": 4,
+   "sha256": "c60e5ecdd0b87821679c42ad44e737c79330db2711a658644ef69d583e7f9791"
+  },
+  {
+   "anchor": "a15947",
+   "title": "11.1.45. PrimaryKeyJoinColumn Annotation",
+   "level": 4,
+   "sha256": "92a74296ec9d9df66e115a9a786e4170e84aa2013348434993c7fd2ac5f1edc5"
+  },
+  {
+   "anchor": "primarykeyjoincolumns-annotation",
+   "title": "11.1.46. PrimaryKeyJoinColumns Annotation",
+   "level": 4,
+   "sha256": "c0cfd98b80cfb2521e941094c014b276bde1614aaf5e999b5ea7b40419320a2a"
+  },
+  {
+   "anchor": "a16062",
+   "title": "11.1.47. SecondaryTable Annotation",
+   "level": 4,
+   "sha256": "9d60251b5379a5d32a6269b52314f086385f95bd1e3d5ffae0a1c296fff17c03"
+  },
+  {
+   "anchor": "secondarytables-annotation",
+   "title": "11.1.48. SecondaryTables Annotation",
+   "level": 4,
+   "sha256": "b7ff5794b7aa39c1230e17a1b6976eb73a1f5701b2b87ebdb259f5c014600bc7"
+  },
+  {
+   "anchor": "a16164",
+   "title": "11.1.49. SequenceGenerator Annotation",
+   "level": 4,
+   "sha256": "9f3ee3fbc29a5fb22a424c2ef1e1a8ce18caa719847fa5735a3d9116a1293b49"
+  },
+  {
+   "anchor": "a16205",
+   "title": "11.1.50. SequenceGenerators Annotation",
+   "level": 4,
+   "sha256": "cb862a38777589e87100d061d1b36473e80f67c17858ca762b0709de333c1b7d"
+  },
+  {
+   "anchor": "table-annotation",
+   "title": "11.1.51. Table Annotation",
+   "level": 4,
+   "sha256": "78db3f999579540b9f39738704b5bb54286be9c2fed0f4ff5336292cbc1e7210"
+  },
+  {
+   "anchor": "a16256",
+   "title": "11.1.52. TableGenerator Annotation",
+   "level": 4,
+   "sha256": "2fc1f8078389730a3b99bb991de556abc88c839339dcbe6b1d1f310f0794756e"
+  },
+  {
+   "anchor": "tablegenerators-annotation",
+   "title": "11.1.53. TableGenerators Annotation",
+   "level": 4,
+   "sha256": "5b45af504b390c88edb92b97137299e69f4e2ba52cad8f6b6ad738f183753b04"
+  },
+  {
+   "anchor": "a16361",
+   "title": "11.1.54. Temporal Annotation",
+   "level": 4,
+   "sha256": "a210c748fc6c67f97c9837d6a9a6b19b53c5f4c03e87181db526edba67ae0df6"
+  },
+  {
+   "anchor": "transient-annotation",
+   "title": "11.1.55. Transient Annotation",
+   "level": 4,
+   "sha256": "1c556d531d4541f0e4884861484227cf67592f63c0edc74a38a2fde575cf0081"
+  },
+  {
+   "anchor": "a16403",
+   "title": "11.1.56. UniqueConstraint Annotation",
+   "level": 4,
+   "sha256": "fc56bc563f5530b75f0700d5fcd18e2b7e07de7f95ab4cb985f33c1c943f7898"
+  },
+  {
+   "anchor": "a16432",
+   "title": "11.1.57. Version Annotation",
+   "level": 4,
+   "sha256": "6c7f29753b7c06e86d84f66f2a6d1ef1ed4f1a3c115405c45f7813245d00d2df"
+  },
+  {
+   "anchor": "a16444",
+   "title": "11.2. Object/Relational Metadata Used in Schema Generation",
+   "level": 3,
+   "sha256": "70926ac9263c42445dee030e5c465fe638090ea4259ccff4a12aea9abe179fbd"
+  },
+  {
+   "anchor": "table-level-elements",
+   "title": "11.2.1. Table-level elements",
+   "level": 4,
+   "sha256": "a847e969c75f775594d12dd2e5c3d35f1081dcccaf40f37c1acef524253f047f"
+  },
+  {
+   "anchor": "table",
+   "title": "11.2.1.1. Table",
+   "level": 5,
+   "sha256": "cdb57bd3a6207300a61554b327d00b1b332b348ccae0dc4b871e03994655d605"
+  },
+  {
+   "anchor": "inheritance",
+   "title": "11.2.1.2. Inheritance",
+   "level": 5,
+   "sha256": "1e9452b3fc92be0c287957506e2bcae41d4744d14592c1eecbc7519b3cc9e4b4"
+  },
+  {
+   "anchor": "secondarytable",
+   "title": "11.2.1.3. SecondaryTable",
+   "level": 5,
+   "sha256": "c9396913a6cfe644527bab8cbed117fe2730f1c5d4819d55091a04c892ac50cc"
+  },
+  {
+   "anchor": "collectiontable",
+   "title": "11.2.1.4. CollectionTable",
+   "level": 5,
+   "sha256": "892cb01f13bcaedad9a5be86db269a0550244920609db82eca5366249de82774"
+  },
+  {
+   "anchor": "jointable",
+   "title": "11.2.1.5. JoinTable",
+   "level": 5,
+   "sha256": "0ef907795222c39828a6456297c9bb7bbbfb2a078d2cf31a6eeeab01428619df"
+  },
+  {
+   "anchor": "tablegenerator",
+   "title": "11.2.1.6. TableGenerator",
+   "level": 5,
+   "sha256": "a455f14a1548a113f0e3c25004d88ef722dd045755b9726d6032ee93f149f85b"
+  },
+  {
+   "anchor": "column-level-elements",
+   "title": "11.2.2. Column-level elements",
+   "level": 4,
+   "sha256": "f2e4292c35c5547e21b99ae9ee0e2360bbfd694c1ce64b46081d75417c5e6777"
+  },
+  {
+   "anchor": "column",
+   "title": "11.2.2.1. Column",
+   "level": 5,
+   "sha256": "1dd0489531e282ecbee70b1afec19715208c2cb35d0375591e4db1c7fb247804"
+  },
+  {
+   "anchor": "mapkeycolumn",
+   "title": "11.2.2.2. MapKeyColumn",
+   "level": 5,
+   "sha256": "9e95d48a6bd399aa5fad360cc25992ec824766eaa1078ebd77e9d1cdc03ba2cc"
+  },
+  {
+   "anchor": "enumerated-mapkeyenumerated",
+   "title": "11.2.2.3. Enumerated, MapKeyEnumerated",
+   "level": 5,
+   "sha256": "a7975430236ecd865f1d79e4d3ec3fcc7be293b9f066c0202818ec8aef6fefea"
+  },
+  {
+   "anchor": "temporal-mapkeytemporal",
+   "title": "11.2.2.4. Temporal, MapKeyTemporal",
+   "level": 5,
+   "sha256": "99d6e2d0cf7de36c2c7dbcd94c0036222a69e5d3a63a62068b040e75fc747f51"
+  },
+  {
+   "anchor": "lob",
+   "title": "11.2.2.5. Lob",
+   "level": 5,
+   "sha256": "9eb39204b0769fa22389479279503c5e0fd49e90a9dba16ec30d931f01ed221b"
+  },
+  {
+   "anchor": "ordercolumn",
+   "title": "11.2.2.6. OrderColumn",
+   "level": 5,
+   "sha256": "86deb4638765cc3aa654bc621dda0043f53b8e6c7ea8016eae837d9e660c0ae9"
+  },
+  {
+   "anchor": "discriminatorcolumn",
+   "title": "11.2.2.7. DiscriminatorColumn",
+   "level": 5,
+   "sha256": "1e714d8e3c289bcaa3e736ac5b85069528c4f89fecdd030f76a3dace050f36bb"
+  },
+  {
+   "anchor": "version",
+   "title": "11.2.2.8. Version",
+   "level": 5,
+   "sha256": "7ef99578cb0ee0d48e6b078ad3c2f10492681c9ca8853a7a58d938ec7d76b921"
+  },
+  {
+   "anchor": "primary-key-mappings",
+   "title": "11.2.3. Primary Key mappings",
+   "level": 4,
+   "sha256": "14151cefc003da41422a9e9a89c1d0843969a27b1e3787fad44df40648a7d532"
+  },
+  {
+   "anchor": "id",
+   "title": "11.2.3.1. Id",
+   "level": 5,
+   "sha256": "6c2cf5df16ea318aeb54cd73aec5b9612f66442d1ff2ca520e08070dc5e1e30d"
+  },
+  {
+   "anchor": "embeddedid",
+   "title": "11.2.3.2. EmbeddedId",
+   "level": 5,
+   "sha256": "b79788051a6ea80c6020c9290cc4b95a2a1d47d4e01cb963e17fb63456949066"
+  },
+  {
+   "anchor": "generatedvalue",
+   "title": "11.2.3.3. GeneratedValue",
+   "level": 5,
+   "sha256": "c93726bf29babcbd243deaaac9d9b3d2e777d8c7726e9ecdad938c009f14dbcc"
+  },
+  {
+   "anchor": "foreign-key-column-mappings",
+   "title": "11.2.4. Foreign Key Column Mappings",
+   "level": 4,
+   "sha256": "b0c54956e782ea137b0858b251524ff344dae96a64354df147c38296c7c2db4d"
+  },
+  {
+   "anchor": "joincolumn",
+   "title": "11.2.4.1. JoinColumn",
+   "level": 5,
+   "sha256": "5863ed4b727537f2826c09945e1090521dafaeccb8eeb615c1c2c62874bb7025"
+  },
+  {
+   "anchor": "mapkeyjoincolumn",
+   "title": "11.2.4.2. MapKeyJoinColumn",
+   "level": 5,
+   "sha256": "d5ac3f6f6025bce63de5299827556aae6c303187a2337bcf7e7941293d536acb"
+  },
+  {
+   "anchor": "a16567",
+   "title": "11.2.4.3. PrimaryKeyJoinColumn",
+   "level": 5,
+   "sha256": "92e37721ebf60ab91a3b0b0ddd881037531814f640cf8376a5f0e680ddd2144e"
+  },
+  {
+   "anchor": "foreignkey",
+   "title": "11.2.4.4. ForeignKey",
+   "level": 5,
+   "sha256": "6d23d1b4a2a3a1ef39ba0f66d959832a6a71e76171d53b1738b2c2fad751daa4"
+  },
+  {
+   "anchor": "other-elements",
+   "title": "11.2.5. Other Elements",
+   "level": 4,
+   "sha256": "500ffb25f677669f12f54bb5acc11d05ff8bf6a1b625e93269c7c87212f03e1a"
+  },
+  {
+   "anchor": "sequencegenerator",
+   "title": "11.2.5.1. SequenceGenerator",
+   "level": 5,
+   "sha256": "6d3d28b7ce89baa310a828e94d6c463bed3868fd52b0cc03be28c71a1ef477bf"
+  },
+  {
+   "anchor": "index",
+   "title": "11.2.5.2. Index",
+   "level": 5,
+   "sha256": "4a5becb2bf62b8825aa6e73077e6f2b3944a8630741e1ad77b3d93169a9f2911"
+  },
+  {
+   "anchor": "uniqueconstraint",
+   "title": "11.2.5.3. UniqueConstraint",
+   "level": 5,
+   "sha256": "e53c8cb6a137e6313249d3e7ecfc3e01e77d69c63177acdcfcb313a405bd5c9b"
+  },
+  {
+   "anchor": "examples-of-the-application-of-annotations-for-objectrelational-mapping",
+   "title": "11.3. Examples of the Application of Annotations for Object/Relational Mapping",
+   "level": 3,
+   "sha256": "b1b0b3aefba3d5c52b258f50c68e950630bd04b9fb5dd5cf5274347ceed0366c"
+  },
+  {
+   "anchor": "a16944",
+   "title": "12. XML Object/Relational Mapping Descriptor",
+   "level": 2,
+   "sha256": "df9284c5031f514da1a4e370902e36a103e4be766de0d7a7a5a7fd9f84a9f6c2"
+  },
+  {
+   "anchor": "use-of-the-xml-descriptor",
+   "title": "12.1. Use of the XML Descriptor",
+   "level": 3,
+   "sha256": "09e19dede2df8d71af6f1622837aaae3b370fb5d1a49cacabce38cda85d104c8"
+  },
+  {
+   "anchor": "a16953",
+   "title": "12.2. XML Overriding Rules",
+   "level": 3,
+   "sha256": "8105787a2fabb402d965c8bb1e4bc304678ae95da86e656490b148e3df95a2ef"
+  },
+  {
+   "anchor": "persistence-unit-defaults-subelements",
+   "title": "12.2.1. persistence-unit-defaults Subelements",
+   "level": 4,
+   "sha256": "a979ca56f2daa5a80e05e6703b5db5427d8145f3b0b5a61a528edbdce0855e75"
+  },
+  {
+   "anchor": "schema",
+   "title": "12.2.1.1. schema",
+   "level": 5,
+   "sha256": "e9fb2c89119164996eeaa8d051825547cf34fe162fcab1bd72c7288a7f1afb35"
+  },
+  {
+   "anchor": "catalog",
+   "title": "12.2.1.2. catalog",
+   "level": 5,
+   "sha256": "08ffbf774c0b3c8b4164d5e5374116f8948ff6c1041933f3da2b07ace284f11b"
+  },
+  {
+   "anchor": "delimited-identifiers",
+   "title": "12.2.1.3. delimited-identifiers",
+   "level": 5,
+   "sha256": "1567a5ac8ad78a60ccb46be637701c0b7a6faf6b670bcaa97033a61934367bd4"
+  },
+  {
+   "anchor": "access",
+   "title": "12.2.1.4. access",
+   "level": 5,
+   "sha256": "e3870220d428d4af7218245324748141d4655618de57993e6931ae9c7706fa5c"
+  },
+  {
+   "anchor": "cascade-persist",
+   "title": "12.2.1.5. cascade-persist",
+   "level": 5,
+   "sha256": "c4ad8ac400991fe0108626ed9efc10c45e22ac25550382a260186f6291078c65"
+  },
+  {
+   "anchor": "entity-listeners-2",
+   "title": "12.2.1.6. entity-listeners",
+   "level": 5,
+   "sha256": "34a742af6fa4daf9734dc56e1915209338263949708ac23991ca75492143a79c"
+  },
+  {
+   "anchor": "other-subelements-of-the-entity-mappings-element",
+   "title": "12.2.2. Other Subelements of the entity-mappings element",
+   "level": 4,
+   "sha256": "308e23f7e46dfdd2197cfcaadbf0b6657600766d13bd2df99d669018cfb62c78"
+  },
+  {
+   "anchor": "package",
+   "title": "12.2.2.1. package",
+   "level": 5,
+   "sha256": "5b0ba421e5e3d839c4af456949aff44b7beb4d700c736f5dcb7b4342552d3e09"
+  },
+  {
+   "anchor": "schema-2",
+   "title": "12.2.2.2. schema",
+   "level": 5,
+   "sha256": "6ee95583bc36e022ea46985ca7c9a4d8e47bdd5a5200ddb5c3ca65e19826c659"
+  },
+  {
+   "anchor": "catalog-2",
+   "title": "12.2.2.3. catalog",
+   "level": 5,
+   "sha256": "4060bf958a4cf50434d51e7c6df0fdfbe39e1f270525704eab7c96765e741cb1"
+  },
+  {
+   "anchor": "access-2",
+   "title": "12.2.2.4. access",
+   "level": 5,
+   "sha256": "7f2a80bf151df808ea2a63097236a12fdfa1f80c2b441402b727b41ddd2447c8"
+  },
+  {
+   "anchor": "sequence-generator",
+   "title": "12.2.2.5. sequence-generator",
+   "level": 5,
+   "sha256": "5b1ba84eff92593626e0461c920e9698ae88f2371dc7ad619be49c6dfeadce11"
+  },
+  {
+   "anchor": "table-generator",
+   "title": "12.2.2.6. table-generator",
+   "level": 5,
+   "sha256": "1a10ca77cdb6e36436f2fafa7ade6e8694ac9ac4c702a8a90a1089b4906be850"
+  },
+  {
+   "anchor": "named-query",
+   "title": "12.2.2.7. named-query",
+   "level": 5,
+   "sha256": "2ffcebc87004514b61d63f042b6bc428038edcf83ef5e8306304e7f19b4fb09b"
+  },
+  {
+   "anchor": "named-native-query",
+   "title": "12.2.2.8. named-native-query",
+   "level": 5,
+   "sha256": "7ad70a1d5666ffcda9a9554b005b9f6fc8ece441c30837ab484deb3e55ed03a1"
+  },
+  {
+   "anchor": "named-stored-procedure-query",
+   "title": "12.2.2.9. named-stored-procedure-query",
+   "level": 5,
+   "sha256": "d523b3253e54480478a9f8927fef050b9f52a639ce644127d97149ad850d0afb"
+  },
+  {
+   "anchor": "sql-result-set-mapping",
+   "title": "12.2.2.10. sql-result-set-mapping",
+   "level": 5,
+   "sha256": "636e1c4ed64e6e328a9734c3788966f33dac49b6196cd160cf1e69ce2b665651"
+  },
+  {
+   "anchor": "entity-2",
+   "title": "12.2.2.11. entity",
+   "level": 5,
+   "sha256": "1578290f6f2c41ca58d1d971a83fcb271cbc650ae8d9cdf186e845a8213f488d"
+  },
+  {
+   "anchor": "mapped-superclass",
+   "title": "12.2.2.12. mapped-superclass",
+   "level": 5,
+   "sha256": "582db9469f313f824989bed39dbd10aed607e4ea09d9e704d821d2eb4824bdfc"
+  },
+  {
+   "anchor": "embeddable",
+   "title": "12.2.2.13. embeddable",
+   "level": 5,
+   "sha256": "f5d41014071a334a2b4a1816ec8666f4ceed11dc8e1ad4325b5f078efd90d51a"
+  },
+  {
+   "anchor": "converter",
+   "title": "12.2.2.14. converter",
+   "level": 5,
+   "sha256": "a6b4200a91012cf6beefbc4bf78576ecd4994e9266719fa142e3479a81da7bed"
+  },
+  {
+   "anchor": "a17017",
+   "title": "12.2.3. entity Subelements and Attributes",
+   "level": 4,
+   "sha256": "a8da6ce4d036122ee644505157a295eb8620b2fa10182be6e0342a5f5eecde6e"
+  },
+  {
+   "anchor": "metadata-complete",
+   "title": "12.2.3.1. metadata-complete",
+   "level": 5,
+   "sha256": "c95686ba334b0d77b8502d217e113e53514662663c18ec0120393ae4de3ab405"
+  },
+  {
+   "anchor": "access-3",
+   "title": "12.2.3.2. access",
+   "level": 5,
+   "sha256": "44c435a7e138126838bc5c7ef30b8a98c6a1d31d9978ecfcb5bf60660e422c10"
+  },
+  {
+   "anchor": "cacheable",
+   "title": "12.2.3.3. cacheable",
+   "level": 5,
+   "sha256": "0b8e5773fb4d7dbbade815fb89101addaad15d5179c2ab1359b6db4cd7130bd0"
+  },
+  {
+   "anchor": "name-2",
+   "title": "12.2.3.4. name",
+   "level": 5,
+   "sha256": "27ea08503f24c3da885c15535cd6c9344079f51ae0be6636e938557558fbae8a"
+  },
+  {
+   "anchor": "table-2",
+   "title": "12.2.3.5. table",
+   "level": 5,
+   "sha256": "4b6a4a056424a79958ea5a3cedc8b2d8f4ecb420a58067c7c1139d193469188e"
+  },
+  {
+   "anchor": "secondary-table",
+   "title": "12.2.3.6. secondary-table",
+   "level": 5,
+   "sha256": "5409ffa0f8747bf26ff0508cdd27d1bcfae351efe469a07a0082de1f18e24212"
+  },
+  {
+   "anchor": "primary-key-join-column",
+   "title": "12.2.3.7. primary-key-join-column",
+   "level": 5,
+   "sha256": "341b36402e9cf9116c7ca035637e07f195231bb4ad88af0c6260f95ac8aef797"
+  },
+  {
+   "anchor": "id-class",
+   "title": "12.2.3.8. id-class",
+   "level": 5,
+   "sha256": "db443f5b3bf7f65b1013437a94ad023bbb7d020a32fa4d403c604be82a43720c"
+  },
+  {
+   "anchor": "inheritance-2",
+   "title": "12.2.3.9. inheritance",
+   "level": 5,
+   "sha256": "debc755c2c217c693a739ef92590c9e72129b208f3c3f3e81e12028dbb88563f"
+  },
+  {
+   "anchor": "discriminator-value",
+   "title": "12.2.3.10. discriminator-value",
+   "level": 5,
+   "sha256": "25f176e527f8e88bb61a8225010c17cdb99e4c8c7f48a2a71fdea9c15daa22c8"
+  },
+  {
+   "anchor": "discriminator-column",
+   "title": "12.2.3.11. discriminator-column",
+   "level": 5,
+   "sha256": "bd57bad5e8e77ebbf0c9307bed725d71f3b40f5d985c3c4935a13d18eba97a0f"
+  },
+  {
+   "anchor": "sequence-generator-2",
+   "title": "12.2.3.12. sequence-generator",
+   "level": 5,
+   "sha256": "7788d7ae967db7bdf5f7d677c8477acb5d45f4ff0e4616f3a7268b4d778b105d"
+  },
+  {
+   "anchor": "table-generator-2",
+   "title": "12.2.3.13. table-generator",
+   "level": 5,
+   "sha256": "6adff00121e4119de49c698bb8d155858010dd80355946c5ae2621331a7e0b1c"
+  },
+  {
+   "anchor": "attribute-override",
+   "title": "12.2.3.14. attribute-override",
+   "level": 5,
+   "sha256": "5422aeda642dea0cce87e69195c813165a248e7f169a1e4fb214204454f51cbf"
+  },
+  {
+   "anchor": "association-override",
+   "title": "12.2.3.15. association-override",
+   "level": 5,
+   "sha256": "57d346ff35662ff8e75a1e2bc5bf0c10b133c6ace58e1eeca98fa5a6fbdf0450"
+  },
+  {
+   "anchor": "convert",
+   "title": "12.2.3.16. convert",
+   "level": 5,
+   "sha256": "882106c105dd009f7bbd9e13626b802e275cef7b34b32baeb51ae8871aebe699"
+  },
+  {
+   "anchor": "named-entity-graph",
+   "title": "12.2.3.17. named-entity-graph",
+   "level": 5,
+   "sha256": "89b5ace6bdbcdbe01c8539a475f3c276a83b8d22c046cce049ea4221907fee9f"
+  },
+  {
+   "anchor": "named-query-2",
+   "title": "12.2.3.18. named-query",
+   "level": 5,
+   "sha256": "8eb19d7cde3549133380d24c7df4547ffa335d49b5de30daa45620bad9ae6c6b"
+  },
+  {
+   "anchor": "named-native-query-2",
+   "title": "12.2.3.19. named-native-query",
+   "level": 5,
+   "sha256": "f4033f44a8dc9915494dd6d59df561bc5b219829a995f4f5c39faba12642173e"
+  },
+  {
+   "anchor": "named-stored-procedure-query-2",
+   "title": "12.2.3.20. named-stored-procedure-query",
+   "level": 5,
+   "sha256": "8f71171b10977f7d06da7b0bef75966e9082809103b6758cdc03b52d2bb031f3"
+  },
+  {
+   "anchor": "sql-result-set-mapping-2",
+   "title": "12.2.3.21. sql-result-set-mapping",
+   "level": 5,
+   "sha256": "f1cd975ed854a8f868daced37a16514404c6b587bd6fa6318c95a380cee5e4aa"
+  },
+  {
+   "anchor": "exclude-default-listeners",
+   "title": "12.2.3.22. exclude-default-listeners",
+   "level": 5,
+   "sha256": "adbe77921bb3b14884f1bab839ff21cac3361365dbace0659a2b22fbdcf8f004"
+  },
+  {
+   "anchor": "exclude-superclass-listeners",
+   "title": "12.2.3.23. exclude-superclass-listeners",
+   "level": 5,
+   "sha256": "2cf651612ee6621562c71d8e6b4717e36a5c948dbc1ec1c5c7b0a24111400084"
+  },
+  {
+   "anchor": "entity-listeners-3",
+   "title": "12.2.3.24. entity-listeners",
+   "level": 5,
+   "sha256": "e29dfe0694e2a114c6aa495843e9e9f02e81f3833f35b72066c0a12a46e3d12e"
+  },
+  {
+   "anchor": "pre-persist-post-persist-pre-remove-post-remove-pre-update-post-update-post-load",
+   "title": "12.2.3.25. pre-persist, post-persist, pre-remove, post-remove, pre-update, post-update, post-load",
+   "level": 5,
+   "sha256": "783875c15f843f0b26b3d68f6e5b73c3ed145f3c618999b3f8cc3f1d4e0f9002"
+  },
+  {
+   "anchor": "a17082",
+   "title": "12.2.3.26. attributes",
+   "level": 5,
+   "sha256": "378d4819aa41402cfc33c5cc2d74e004e5fce3d01dc56f3983cc6b3d559be89c"
+  },
+  {
+   "anchor": "id-2",
+   "title": "id",
+   "level": 6,
+   "sha256": "07e1b1eb27ac5266ab2a441716e2de2c86ce47b740df7f1deb9bd0a2e150fe96"
+  },
+  {
+   "anchor": "embedded-id",
+   "title": "embedded-id",
+   "level": 6,
+   "sha256": "e9e2c47da2b1ba4472aaf44ffe2c6f5c941c793bf76b467c89c4e3a3cf58b602"
+  },
+  {
+   "anchor": "basic",
+   "title": "basic",
+   "level": 6,
+   "sha256": "8203def7037f993a516c048f6a8cee26e4fb357af6622c70d20a6cdfc06abf43"
+  },
+  {
+   "anchor": "version-2",
+   "title": "version",
+   "level": 6,
+   "sha256": "c8cb524a815d056e8cc544d0dd9b109adc4e83af0bb3023ae7bc820dc98bf739"
+  },
+  {
+   "anchor": "many-to-one",
+   "title": "many-to-one",
+   "level": 6,
+   "sha256": "a73aefe31c951b5658c10b032b6258bfeeb1bc275c2e20e6451cf3fb24d8254c"
+  },
+  {
+   "anchor": "one-to-many",
+   "title": "one-to-many",
+   "level": 6,
+   "sha256": "795237b6ee507c47b2ef3d31564b5dfd0cdc5c15d1ef8e6a828c9e7683cca564"
+  },
+  {
+   "anchor": "one-to-one",
+   "title": "one-to-one",
+   "level": 6,
+   "sha256": "40b3a01e5387a387e144de0b53883fb22bf43299cc390c5d93ee030df475e0e3"
+  },
+  {
+   "anchor": "many-to-many",
+   "title": "many-to-many",
+   "level": 6,
+   "sha256": "c8283bd63ad7a5b71f136ba5927a963438767b02608399fea0e3b3583794c1a6"
+  },
+  {
+   "anchor": "element-collection",
+   "title": "element-collection",
+   "level": 6,
+   "sha256": "d0c9abf7975a31734f86485eb9e50ee5cd4a47ee4e6e1ef83f47451292c67e8c"
+  },
+  {
+   "anchor": "embedded",
+   "title": "embedded",
+   "level": 6,
+   "sha256": "54f4e7be10928686c5483c508aa267093a4acea77f0d9fb5cfbc07b8e09d418e"
+  },
+  {
+   "anchor": "transient",
+   "title": "transient",
+   "level": 6,
+   "sha256": "c056a5ad30769bb1ffd263221380c572c4080e222069f45a0a9a58515d9042fe"
+  },
+  {
+   "anchor": "a17106",
+   "title": "12.2.4. mapped-superclass Subelements and Attributes",
+   "level": 4,
+   "sha256": "fb370d1b8d6d52c6cb173a8bac7cb11a38cb25c9143e0af01c6d3857243ea5d9"
+  },
+  {
+   "anchor": "metadata-complete-2",
+   "title": "12.2.4.1. metadata-complete",
+   "level": 5,
+   "sha256": "4266a039af8e1124030fa9c4e894d85b3e3c4968fae99b2871e02c2b25e5ea6d"
+  },
+  {
+   "anchor": "access-4",
+   "title": "12.2.4.2. access",
+   "level": 5,
+   "sha256": "a67cd17158851cf5922f526bd1416c3a3baee64a87a7d23b2a63bc4b870fd23a"
+  },
+  {
+   "anchor": "id-class-2",
+   "title": "12.2.4.3. id-class",
+   "level": 5,
+   "sha256": "fe530a74c241a3bba4ffb61b6ec3aac392e041a9bf8394eed92c6f1b94cdf31a"
+  },
+  {
+   "anchor": "exclude-default-listeners-2",
+   "title": "12.2.4.4. exclude-default-listeners",
+   "level": 5,
+   "sha256": "0467d0748d89e39cfc91313f476a95c88a4b37024b04f1edd7f335d25e3c993c"
+  },
+  {
+   "anchor": "exclude-superclass-listeners-2",
+   "title": "12.2.4.5. exclude-superclass-listeners",
+   "level": 5,
+   "sha256": "7f7ae40e56dd9134d2c90b8ad580c0c1dd01343e2425fa000aff7bf70dadadb4"
+  },
+  {
+   "anchor": "entity-listeners-4",
+   "title": "12.2.4.6. entity-listeners",
+   "level": 5,
+   "sha256": "3d09849ddc65b58d972016fc35e8d15d78a696e2a93f8715ad4b8ba33babb394"
+  },
+  {
+   "anchor": "pre-persist-post-persist-pre-remove-post-remove-pre-update-post-update-post-load-2",
+   "title": "12.2.4.7. pre-persist, post-persist, pre-remove, post-remove, pre-update, post-update, post-load",
+   "level": 5,
+   "sha256": "5f7de1b8a6ac9e2b351b48a980d8c2b4859833468943994519ea6f91cb7c0b03"
+  },
+  {
+   "anchor": "a17126",
+   "title": "12.2.4.8. attributes",
+   "level": 5,
+   "sha256": "bfc889803c816235d479123766b3f39488e068ca5f2688083473f238f1024cf8"
+  },
+  {
+   "anchor": "id-3",
+   "title": "id",
+   "level": 6,
+   "sha256": "07e1b1eb27ac5266ab2a441716e2de2c86ce47b740df7f1deb9bd0a2e150fe96"
+  },
+  {
+   "anchor": "embedded-id-2",
+   "title": "embedded-id",
+   "level": 6,
+   "sha256": "e9e2c47da2b1ba4472aaf44ffe2c6f5c941c793bf76b467c89c4e3a3cf58b602"
+  },
+  {
+   "anchor": "basic-2",
+   "title": "basic",
+   "level": 6,
+   "sha256": "8203def7037f993a516c048f6a8cee26e4fb357af6622c70d20a6cdfc06abf43"
+  },
+  {
+   "anchor": "version-3",
+   "title": "version",
+   "level": 6,
+   "sha256": "c8cb524a815d056e8cc544d0dd9b109adc4e83af0bb3023ae7bc820dc98bf739"
+  },
+  {
+   "anchor": "many-to-one-2",
+   "title": "many-to-one",
+   "level": 6,
+   "sha256": "a73aefe31c951b5658c10b032b6258bfeeb1bc275c2e20e6451cf3fb24d8254c"
+  },
+  {
+   "anchor": "one-to-many-2",
+   "title": "one-to-many",
+   "level": 6,
+   "sha256": "795237b6ee507c47b2ef3d31564b5dfd0cdc5c15d1ef8e6a828c9e7683cca564"
+  },
+  {
+   "anchor": "one-to-one-2",
+   "title": "one-to-one",
+   "level": 6,
+   "sha256": "40b3a01e5387a387e144de0b53883fb22bf43299cc390c5d93ee030df475e0e3"
+  },
+  {
+   "anchor": "many-to-many-2",
+   "title": "many-to-many",
+   "level": 6,
+   "sha256": "c8283bd63ad7a5b71f136ba5927a963438767b02608399fea0e3b3583794c1a6"
+  },
+  {
+   "anchor": "element-collection-2",
+   "title": "element-collection",
+   "level": 6,
+   "sha256": "d0c9abf7975a31734f86485eb9e50ee5cd4a47ee4e6e1ef83f47451292c67e8c"
+  },
+  {
+   "anchor": "embedded-2",
+   "title": "embedded",
+   "level": 6,
+   "sha256": "54f4e7be10928686c5483c508aa267093a4acea77f0d9fb5cfbc07b8e09d418e"
+  },
+  {
+   "anchor": "transient-2",
+   "title": "transient",
+   "level": 6,
+   "sha256": "c056a5ad30769bb1ffd263221380c572c4080e222069f45a0a9a58515d9042fe"
+  },
+  {
+   "anchor": "a17150",
+   "title": "12.2.5. embeddable Subelements and Attributes",
+   "level": 4,
+   "sha256": "c104454079b10b5b856a63e1ef27216573912381d48cf5806ae5c4e275ded78c"
+  },
+  {
+   "anchor": "metadata-complete-3",
+   "title": "12.2.5.1. metadata-complete",
+   "level": 5,
+   "sha256": "1aff5e7d4f16e46ee7234ea8cebedd5ab0e988f7b40cafcba811cf4a6c318971"
+  },
+  {
+   "anchor": "access-5",
+   "title": "12.2.5.2. access",
+   "level": 5,
+   "sha256": "4d142f7fda035e6a573835dae8c9b3bf807575b7561b6921709d1697c32e6429"
+  },
+  {
+   "anchor": "a17157",
+   "title": "12.2.5.3. attributes",
+   "level": 5,
+   "sha256": "1be4440efcd3c66f19ac64adbfdb4806d8a70268fa8968b1493052eb6026ca59"
+  },
+  {
+   "anchor": "basic-3",
+   "title": "basic",
+   "level": 6,
+   "sha256": "8203def7037f993a516c048f6a8cee26e4fb357af6622c70d20a6cdfc06abf43"
+  },
+  {
+   "anchor": "many-to-one-3",
+   "title": "many-to-one",
+   "level": 6,
+   "sha256": "a73aefe31c951b5658c10b032b6258bfeeb1bc275c2e20e6451cf3fb24d8254c"
+  },
+  {
+   "anchor": "one-to-many-3",
+   "title": "one-to-many",
+   "level": 6,
+   "sha256": "795237b6ee507c47b2ef3d31564b5dfd0cdc5c15d1ef8e6a828c9e7683cca564"
+  },
+  {
+   "anchor": "one-to-one-3",
+   "title": "one-to-one",
+   "level": 6,
+   "sha256": "40b3a01e5387a387e144de0b53883fb22bf43299cc390c5d93ee030df475e0e3"
+  },
+  {
+   "anchor": "many-to-many-3",
+   "title": "many-to-many",
+   "level": 6,
+   "sha256": "c8283bd63ad7a5b71f136ba5927a963438767b02608399fea0e3b3583794c1a6"
+  },
+  {
+   "anchor": "element-collection-3",
+   "title": "element-collection",
+   "level": 6,
+   "sha256": "d0c9abf7975a31734f86485eb9e50ee5cd4a47ee4e6e1ef83f47451292c67e8c"
+  },
+  {
+   "anchor": "embedded-3",
+   "title": "embedded",
+   "level": 6,
+   "sha256": "54f4e7be10928686c5483c508aa267093a4acea77f0d9fb5cfbc07b8e09d418e"
+  },
+  {
+   "anchor": "transient-3",
+   "title": "transient",
+   "level": 6,
+   "sha256": "c056a5ad30769bb1ffd263221380c572c4080e222069f45a0a9a58515d9042fe"
+  },
+  {
+   "anchor": "a17175",
+   "title": "12.3. XML Schema",
+   "level": 3,
+   "sha256": "650f625719ecc6f6435fd02014388b31c92a34e8a2306512c5883ee58a2ba343"
+  },
+  {
+   "anchor": "related-documents",
+   "title": "Related Documents",
+   "level": 2,
+   "sha256": "d4929759faf4c8b097074c722a5342817509fdec24c331da7c2257c190b48f54"
+  },
+  {
+   "anchor": "revision-history",
+   "title": "Appendix A: Revision History",
+   "level": 2,
+   "sha256": "a0789ca46c22641556a248b9b8d60d7eda557fbad23e2277cfe34e87e0493f54"
+  },
+  {
+   "anchor": "jakarta-persistence-3-2",
+   "title": "A.1. Jakarta Persistence 3.2",
+   "level": 3,
+   "sha256": "ff0dea23cd6aa11211fa27f3c6549c0cba964ce8964fe66b4002b8839af8e234"
+  },
+  {
+   "anchor": "deprecations",
+   "title": "A.1.1. Deprecations",
+   "level": 4,
+   "sha256": "d4d3c0d40daaa920c95731f79195d3179dc8f12eab662c85cffae18388cd6afd"
+  },
+  {
+   "anchor": "deprecations-for-removal",
+   "title": "A.1.2. Deprecations for removal",
+   "level": 4,
+   "sha256": "e42778bfd41605d58a283cecd44153b3e9fc194f9b0d8d6034b2aa96fb1f75f6"
+  },
+  {
+   "anchor": "jakarta-persistence-3-1",
+   "title": "A.2. Jakarta Persistence 3.1",
+   "level": 3,
+   "sha256": "94ffd1cac594d4fb1693eaef711cf8ec92dee81196fa6fd3a308c707d9e889ac"
+  },
+  {
+   "anchor": "jakarta-persistence-3-0",
+   "title": "A.3. Jakarta Persistence 3.0",
+   "level": 3,
+   "sha256": "5fdb721854e5464a934d9be1c430c8da7129ead43f2aac6782cd8bd93a584baf"
+  },
+  {
+   "anchor": "java-persistence-2-2-maintenance-release-draft",
+   "title": "A.4. Java Persistence 2.2 (Maintenance Release Draft)",
+   "level": 3,
+   "sha256": "2a23c229a2d8c4007b9c18f87b821bb33f7e49211e3a029803a96aefcedb8c1d"
+  },
+  {
+   "anchor": "persistence-api",
+   "title": "Appendix B: Persistence API Interfaces",
+   "level": 2,
+   "sha256": "b629966358fd9d8108e25db36a3dfa9f39aab2ef68fb40b7cfb53296a76c170b"
+  },
+  {
+   "anchor": "_entitymanager_",
+   "title": "B.1. EntityManager",
+   "level": 3,
+   "sha256": "cfc4cc95ae1d23c699cfc2ac736e672d2ecb9786ca4bd307a0ea74476f60c0fd"
+  },
+  {
+   "anchor": "_entitytransaction_",
+   "title": "B.2. EntityTransaction",
+   "level": 3,
+   "sha256": "d5b351d67a95bae8f1fdf37340e623388208960fc8a2dc80a6175ca7d729fd62"
+  },
+  {
+   "anchor": "_entitymanagerfactory_",
+   "title": "B.3. EntityManagerFactory",
+   "level": 3,
+   "sha256": "2cb739db3f18cfbfe1f6afd730996e2ad343e4034ffcbec3cb60a4c0e367b5f9"
+  },
+  {
+   "anchor": "_lockmodetype_",
+   "title": "B.4. LockModeType",
+   "level": 3,
+   "sha256": "f5ddaf86ce0ada65fbacf00548cb7f4365ff4479e7eafaa27c6d9b9fadea0930"
+  },
+  {
+   "anchor": "_cache_",
+   "title": "B.5. Cache",
+   "level": 3,
+   "sha256": "d683fe2ecd4596e0d05ee20dd019fe03df36c8837390d0009c75b507c5259ede"
+  },
+  {
+   "anchor": "_query_",
+   "title": "B.6. Query",
+   "level": 3,
+   "sha256": "b7b5544582a4ca63f585e251783d524e0face9c4dd553445ccd02e6ce7650d97"
+  },
+  {
+   "anchor": "typedquery",
+   "title": "B.7. TypedQuery",
+   "level": 3,
+   "sha256": "4556ac7436d66b5df7e975e6c81e3f15568d5387ef33e99595bc165d8e640248"
+  },
+  {
+   "anchor": "storedprocedurequery",
+   "title": "B.8. StoredProcedureQuery",
+   "level": 3,
+   "sha256": "065bf377e94fdbe61a2605e6016079b156153dad3b4d24411ef7853f45f27fea"
+  },
+  {
+   "anchor": "_tuple_",
+   "title": "B.9. Tuple",
+   "level": 3,
+   "sha256": "3fe2f96c28e69be2350405735819d843b010282af8f1a97f1a6dd39aa70d525a"
+  },
+  {
+   "anchor": "_tupleelement_",
+   "title": "B.10. TupleElement",
+   "level": 3,
+   "sha256": "1643ef341c7888ff02e3d48fd3f2b1930431fd3c1953d584ca7d06a37cc4c444"
+  },
+  {
+   "anchor": "parameter",
+   "title": "B.11. Parameter",
+   "level": 3,
+   "sha256": "810f1b8005e48de654aa712e02c55e6eecfb27347b774f7e84ccebf3ba8d38df"
+  },
+  {
+   "anchor": "graph",
+   "title": "B.12. Graph",
+   "level": 3,
+   "sha256": "77656ae55c24366673716ba663b8ef43cbadb6c37ed169e732025302ac1f887c"
+  },
+  {
+   "anchor": "entitygraph",
+   "title": "B.13. EntityGraph",
+   "level": 3,
+   "sha256": "593b1ab28601fab8bbc6c6b8358b3e96f615a33a2831bb0b53a8eb383c6e66cf"
+  },
+  {
+   "anchor": "subgraph",
+   "title": "B.14. Subgraph",
+   "level": 3,
+   "sha256": "58c76ada536d5546a4c48c3f9df2e20235a67255a76705b318527bd7d5c04030"
+  },
+  {
+   "anchor": "attributenode",
+   "title": "B.15. AttributeNode",
+   "level": 3,
+   "sha256": "cf68844552a6be053f0550e3f08ef4ed646594289d826a8370e55d74a848429b"
+  },
+  {
+   "anchor": "_schemamanager_",
+   "title": "B.16. SchemaManager",
+   "level": 3,
+   "sha256": "1ecdd953bee3f816d5bcb5f508ff1763ac30d9de6c6f4edf19ba6396c1ed5f49"
+  },
+  {
+   "anchor": "_persistence_",
+   "title": "B.17. Persistence",
+   "level": 3,
+   "sha256": "aff4cafff57499f5b5a7a389433b50bc6746d3931210bd654bc888ab1bdea4d5"
+  },
+  {
+   "anchor": "_persistenceconfiguration_",
+   "title": "B.18. PersistenceConfiguration",
+   "level": 3,
+   "sha256": "ad899db3b62a13fa713216e3b068b9f430b5558a1dde1cb4986fab09bee3ab8c"
+  },
+  {
+   "anchor": "_persistenceutil_",
+   "title": "B.19. PersistenceUtil",
+   "level": 3,
+   "sha256": "7ce8957b9b5afc31050857165202b5213f29f593b143bb014cbfa40fa49bb0ff"
+  },
+  {
+   "anchor": "_persistenceunitutil_",
+   "title": "B.20. PersistenceUnitUtil",
+   "level": 3,
+   "sha256": "6fb77ff6c5026c94cf5f2b3f6f6e6659dc9927285f4155e068cdfe4c9f48a321"
+  },
+  {
+   "anchor": "criteria-api",
+   "title": "Appendix C: Criteria API Interfaces",
+   "level": 2,
+   "sha256": "f42335e2533647c4dad9df262fbda1aecce20e65b70689fe28ae84d0199cd59f"
+  },
+  {
+   "anchor": "_criteriabuilder_",
+   "title": "C.1. CriteriaBuilder",
+   "level": 3,
+   "sha256": "1e822a6f2dd042ceca29a79264459fd748848cea3121ad422bbae11e6a7f9211"
+  },
+  {
+   "anchor": "criteriadelete",
+   "title": "C.2. CriteriaDelete",
+   "level": 3,
+   "sha256": "b93bfbc5317b5dc0147a8cdbdb4e5aa08ad80a84210f78539a3b826f5a1a2b7e"
+  },
+  {
+   "anchor": "_criteriaquery_",
+   "title": "C.3. CriteriaQuery",
+   "level": 3,
+   "sha256": "a54ec0067c64a606f723787b30be189a06a0d7cd0669f9af0f03bde754a8fb54"
+  },
+  {
+   "anchor": "criteriaselect",
+   "title": "C.4. CriteriaSelect",
+   "level": 3,
+   "sha256": "02d4281e5c9ed901fe4d4a29fa8740d8c45950154f447defe9f504f9aa1a570a"
+  },
+  {
+   "anchor": "criteriaupdate",
+   "title": "C.5. CriteriaUpdate",
+   "level": 3,
+   "sha256": "bb14095bc97ab314318912114bf3769297120e64929c00dd82d6e4a967392672"
+  },
+  {
+   "anchor": "abstractquery",
+   "title": "C.6. AbstractQuery",
+   "level": 3,
+   "sha256": "c2606a7fd660bc9cd02171e2944f82bd62c5ffed820707af0b0a3b1718d8d23f"
+  },
+  {
+   "anchor": "collectionjoin",
+   "title": "C.7. CollectionJoin",
+   "level": 3,
+   "sha256": "ed0e210a5ed0674266eef69b25b57a4ff1a59ee7e943eb9ee646fa4a862aca06"
+  },
+  {
+   "anchor": "commonabstractcriteria",
+   "title": "C.8. CommonAbstractCriteria",
+   "level": 3,
+   "sha256": "098e0725d01776563225ef18ad4865afb9aaac212950c9f005469b6792a59942"
+  },
+  {
+   "anchor": "compoundselection",
+   "title": "C.9. CompoundSelection",
+   "level": 3,
+   "sha256": "65df388609baaa20d8a35849b89bc8469325b93f5c7af2f52933c7740ab07e34"
+  },
+  {
+   "anchor": "expression",
+   "title": "C.10. Expression",
+   "level": 3,
+   "sha256": "cb537d44cbe12000f2efaa01f34582f31fbecad44b6a0b7645673e3cf4e8b9ff"
+  },
+  {
+   "anchor": "fetch",
+   "title": "C.11. Fetch",
+   "level": 3,
+   "sha256": "e79f1c04c7b12c3260a026fae058c4ba19df5ddf6e1fb591482dacfa7d84f458"
+  },
+  {
+   "anchor": "fetchparent",
+   "title": "C.12. FetchParent",
+   "level": 3,
+   "sha256": "29ac90aca5f010208f58c2e8a03041f013e49c4c16753fee74036f26d5ff6b66"
+  },
+  {
+   "anchor": "abstractquery-2",
+   "title": "C.13. AbstractQuery",
+   "level": 3,
+   "sha256": "952805fef1926128766be710e61f190cff291e50bd8e868f3d566f9ff7a839c1"
+  },
+  {
+   "anchor": "join",
+   "title": "C.14. Join",
+   "level": 3,
+   "sha256": "1de4e85363e2faa2664dbf4ad8f998b34bbdaca0ad83823bfd713a48232e152c"
+  },
+  {
+   "anchor": "jointype",
+   "title": "C.15. JoinType",
+   "level": 3,
+   "sha256": "56db89a2c85ac52bdee0a65c45f5e0a0b8ff140766c753fdcbe5fcdcd51ccefe"
+  },
+  {
+   "anchor": "listjoin",
+   "title": "C.16. ListJoin",
+   "level": 3,
+   "sha256": "589f220fdfeb28cf9ae72884827d44ee1a59ce5dcfe9a52ff9364a33dca08b40"
+  },
+  {
+   "anchor": "localdatefield",
+   "title": "C.17. LocalDateField",
+   "level": 3,
+   "sha256": "12e3f099bf0c6d1a9c1fde27562ea47e796d0f6563598054046fa6f89bae3fec"
+  },
+  {
+   "anchor": "localdatetimefield",
+   "title": "C.18. LocalDateTimeField",
+   "level": 3,
+   "sha256": "970ce4ee65082910d755e89bcdd0d24536caa0731f4cfe12f23d283fd9690f4e"
+  },
+  {
+   "anchor": "localtimefield",
+   "title": "C.19. LocalTimeField",
+   "level": 3,
+   "sha256": "eac27839bbb670be935e4bfb3e0af907875e8c639b6850f7eb1fac48b360a0b9"
+  },
+  {
+   "anchor": "mapjoin",
+   "title": "C.20. MapJoin",
+   "level": 3,
+   "sha256": "a10ee9adf880798d7688e85ca13792f44aea591da879459b1ef65f9e946e67ee"
+  },
+  {
+   "anchor": "nulls",
+   "title": "C.21. Nulls",
+   "level": 3,
+   "sha256": "befd6ba7df3dad413ca859b82d8b824beeb428ced686b9e941a4c0f46ea2e1ab"
+  },
+  {
+   "anchor": "order",
+   "title": "C.22. Order",
+   "level": 3,
+   "sha256": "e032f02bf7f65b14c8c25c6c0f8d77a707192ad15d6e7a67fb08739eeccb4c83"
+  },
+  {
+   "anchor": "parameterexpression",
+   "title": "C.23. ParameterExpression",
+   "level": 3,
+   "sha256": "9ab10504834d27b64a8c45a956e5b6d2ebc5e2954fd38d821542a527593408ba"
+  },
+  {
+   "anchor": "path",
+   "title": "C.24. Path",
+   "level": 3,
+   "sha256": "7ea3a5f27d4cfd7f71ae7a201e3ac80969df06847f6165c9954752ee3a38a2c2"
+  },
+  {
+   "anchor": "pluraljoin",
+   "title": "C.25. PluralJoin",
+   "level": 3,
+   "sha256": "85835b267b5cc2d4fc16b4fa98ed6a2dfa9f719c523d5880a07a42217b18cbc7"
+  },
+  {
+   "anchor": "predicate",
+   "title": "C.26. Predicate",
+   "level": 3,
+   "sha256": "39b4c57a7843218082750200e4f33ff5b43f3825e1411737bd2ba3ed0ff4fd37"
+  },
+  {
+   "anchor": "root",
+   "title": "C.27. Root",
+   "level": 3,
+   "sha256": "7d01e90194ed380434e733d1bbaa90bf0e2a4e427ec536a6008efe56921bfba5"
+  },
+  {
+   "anchor": "selection",
+   "title": "C.28. Selection",
+   "level": 3,
+   "sha256": "e58dd68ae5443b0654578ff5bf84e564e4c1dbc20ec6a5847ea204ff929d3770"
+  },
+  {
+   "anchor": "setjoin",
+   "title": "C.29. SetJoin",
+   "level": 3,
+   "sha256": "81a1c590a27f0611ae9e0b89455594ab8a00068ac8f83a2f1d1fc44366acff13"
+  },
+  {
+   "anchor": "subquery",
+   "title": "C.30. Subquery",
+   "level": 3,
+   "sha256": "54eea6641b73d3858115ae64b4ed8fbc4a7e6662365bbf0b1ec5bb69ba71f9bf"
+  },
+  {
+   "anchor": "temporalfield",
+   "title": "C.31. TemporalField",
+   "level": 3,
+   "sha256": "6de6e8b7de766945bb6741f51a2beea568d9026604df3496e87838e9657c8e8b"
+  },
+  {
+   "anchor": "metamodel-api",
+   "title": "Appendix D: Metamodel API Interfaces",
+   "level": 2,
+   "sha256": "fa0bee40b2bde3e502e62b4f7eb4ee70d7550a2da1fc92c2d4f173bd014da66e"
+  },
+  {
+   "anchor": "_metamodel_",
+   "title": "D.1. Metamodel",
+   "level": 3,
+   "sha256": "b0d4d603102a6fe34a69dbedaa0daaf9dffc88f776cc8cd5c12704dd3d7606e6"
+  },
+  {
+   "anchor": "_staticmetamodel_",
+   "title": "D.2. StaticMetamodel",
+   "level": 3,
+   "sha256": "5a1b0a495d5d25c68676ca75e2beed890edb865eb0158fac01e2a047bf783fb4"
+  },
+  {
+   "anchor": "attribute",
+   "title": "D.3. Attribute",
+   "level": 3,
+   "sha256": "a1887f760b6f746af28bf58f265596a7d60776cab2178319e34e33b24a193fca"
+  },
+  {
+   "anchor": "basictype",
+   "title": "D.4. BasicType",
+   "level": 3,
+   "sha256": "96476958adba12c2fe115773f94f5f17e40c0709929ee31b5f42e62a870796a8"
+  },
+  {
+   "anchor": "bindable",
+   "title": "D.5. Bindable",
+   "level": 3,
+   "sha256": "d002dca20a1683a0dcdb9ab170836c1f99dec98e2b5c0a77ddb8b1d850a11b56"
+  },
+  {
+   "anchor": "collectionattribute",
+   "title": "D.6. CollectionAttribute",
+   "level": 3,
+   "sha256": "d6128afc9643bb0451511cd2dff7721b343379f05aa1490275927bcf324850a8"
+  },
+  {
+   "anchor": "embeddabletype",
+   "title": "D.7. EmbeddableType",
+   "level": 3,
+   "sha256": "f33baed0010d0111aed5a6e39968a0e30c5a1b045b8b96c097f7374ad2eb7ba7"
+  },
+  {
+   "anchor": "entitytype",
+   "title": "D.8. EntityType",
+   "level": 3,
+   "sha256": "68d9fd9e519ddf5709fdf65d7b41a120dd776239c1d1298107bf329208480bce"
+  },
+  {
+   "anchor": "identifiabletype",
+   "title": "D.9. IdentifiableType",
+   "level": 3,
+   "sha256": "407e192262b882cc051d38652997cf319b37fc70fe842625dafcb7484b2114bb"
+  },
+  {
+   "anchor": "listattribute",
+   "title": "D.10. ListAttribute",
+   "level": 3,
+   "sha256": "2d3681abd181eb3fa397de8f2235c338f25ad4b54ee0010f40da34aa568bf3ea"
+  },
+  {
+   "anchor": "managedtype",
+   "title": "D.11. ManagedType",
+   "level": 3,
+   "sha256": "78e93d31e2fea042884983514cf02c2566f257c24a302f0de45eaa9dece38954"
+  },
+  {
+   "anchor": "mapattribute",
+   "title": "D.12. MapAttribute",
+   "level": 3,
+   "sha256": "ff772d2483e4b99b868fa58818cc63be5dab8007b6ca272cddbbf076459959c9"
+  },
+  {
+   "anchor": "mappedsuperclasstype",
+   "title": "D.13. MappedSuperclassType",
+   "level": 3,
+   "sha256": "719812b329c351b268bc23b224b6b69fe9b0cc6fb9b2ea904026f71f390162bb"
+  },
+  {
+   "anchor": "pluralattribute",
+   "title": "D.14. PluralAttribute",
+   "level": 3,
+   "sha256": "597eaf2138b9b109767797b610b27427ab9dd8a7213c3f2fe464ddc179971522"
+  },
+  {
+   "anchor": "setattribute",
+   "title": "D.15. SetAttribute",
+   "level": 3,
+   "sha256": "1d1894415652b9b529f9526194fc6ec17333bd7fb4acd8d617d7c44d1136eb84"
+  },
+  {
+   "anchor": "singularattribute",
+   "title": "D.16. SingularAttribute",
+   "level": 3,
+   "sha256": "6516545a2b05cf683f630663aeff7900d3aaf65cfa52d2670ab3f4dd87f1e1c0"
+  },
+  {
+   "anchor": "type",
+   "title": "D.17. Type",
+   "level": 3,
+   "sha256": "3bbd18b82bdcdede3ab59fec22e93133019e1197eaa6497909bfe372fe40b176"
+  },
+  {
+   "anchor": "persistence-spi",
+   "title": "Appendix E: Persistence SPI Interfaces",
+   "level": 2,
+   "sha256": "1b84a9ee9d483154008dca3c596db204887808bdeadcd924ae31e08be9e4cdae"
+  },
+  {
+   "anchor": "_classtransformer_",
+   "title": "E.1. ClassTransformer",
+   "level": 3,
+   "sha256": "8b90ad703bd95712dd075fdb9699870f9c177cd77d56eb578987ff2fc468655e"
+  },
+  {
+   "anchor": "loadstate",
+   "title": "E.2. LoadState",
+   "level": 3,
+   "sha256": "bcd82257c6f124d10a4dd501ae0e36af85c3e03594f5e948a463d5997985765c"
+  },
+  {
+   "anchor": "_persistenceprovider_",
+   "title": "E.3. PersistenceProvider",
+   "level": 3,
+   "sha256": "63db0bcec401f8958812cfb140ea0bf1a7b3fcfe3e23aaaafd4c906277c1cce5"
+  },
+  {
+   "anchor": "persistenceproviderresolver",
+   "title": "E.4. PersistenceProviderResolver",
+   "level": 3,
+   "sha256": "a8bdbf99487fb033d7e2d0a9797f38c95a46dfb21c7b604bbfe09e72d2397b9f"
+  },
+  {
+   "anchor": "persistenceproviderresolverholder",
+   "title": "E.5. PersistenceProviderResolverHolder",
+   "level": 3,
+   "sha256": "e0df666ba9da2e363ce97b83173b37a4af5024b695d89ee8ce21319e02457b52"
+  },
+  {
+   "anchor": "_persistenceunitinfo_",
+   "title": "E.6. PersistenceUnitInfo",
+   "level": 3,
+   "sha256": "4e13c04b9254e090b84cf484d503ce90be0e3740d1edfea4bb4e5226668ba093"
+  },
+  {
+   "anchor": "_providerutil_",
+   "title": "E.7. ProviderUtil",
+   "level": 3,
+   "sha256": "1720ac047946901e39b80c8eaaf182fb12543c987cdb3dbe8e58bd1a054fb589"
+  }
+ ]
+}

@@ -1,0 +1,397 @@
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html lang="en-US" data-preset="contrast" data-primary-color="#307FFF" data-external-links-in-new-tab="false"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="UTF-8"><meta name="built-on" content="2026-11-13T10:58:20.588999244"><meta name="build-number" content="1405"><link rel="canonical" href="/docs/object-declarations.html" data-react-helmet="true">
+
+<title>Object declarations and expressions | Kotlin Documentation</title><link href="custom-frontend-app/app.css?149" rel="stylesheet"><link rel="icon" type="image/svg" sizes="16x16" href="https://kotlinlang.org/assets/images/favicon.svg?v2"><link rel="icon" type="image/x-icon" sizes="32x32" href="https://kotlinlang.org/assets/images/favicon.ico?v2"><link rel="icon" type="image/png" sizes="96x96" href="https://kotlinlang.org/assets/images/apple-touch-icon.png?v2"><link rel="icon" type="image/png" sizes="300x300" href="https://kotlinlang.org/assets/images/apple-touch-icon-72x72.png?v2"><link rel="icon" type="image/png" sizes="500x500" href="https://kotlinlang.org/assets/images/apple-touch-icon-114x114.png?v2"><meta name="image" content="https://kotlinlang.org/assets/images/open-graph/docs.png"><!-- Open Graph --><meta property="og:title" content="Object declarations and expressions | Kotlin"><meta property="og:description" content=""><meta property="og:image" content="https://kotlinlang.org/assets/images/open-graph/docs.png"><meta property="og:site_name" content="Kotlin Help"><meta property="og:type" content="website"><meta property="og:locale" content="en_US"><meta property="og:url" content="https://kotlinlang.org/docs/object-declarations.html"><!-- End Open Graph --><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@kotlin"><meta name="twitter:title" content="Object declarations and expressions | Kotlin"><meta name="twitter:description" content=""><meta name="twitter:creator" content="@kotlin"><meta name="twitter:image:src" content="https://kotlinlang.org/assets/images/open-graph/docs.png"><!-- End Twitter Card --><!-- Schema.org WebPage --><!-- End Schema.org --><!-- Schema.org WebSite --><!-- End Schema.org --></head><body data-id="object-declarations" data-main-title="Object declarations and expressions" data-article-props="{&quot;seeAlsoStyle&quot;:&quot;links&quot;}" data-template="article" data-breadcrumbs="Language guide///Classes and interfaces" data-edit-url="https://github.com/JetBrains/kotlin-web-site/edit/master/docs/topics/object-declarations.md"><div class="wrapper"><main class="panel _main"><header class="panel__header"><div class="container"><h3>Kotlin  Help</h3><div class="panel-trigger"></div></div></header><section class="panel__content"><div class="container"><article class="article" data-shortcut-switcher="inactive"><h1 data-toc="object-declarations" id="object-declarations.md">Object declarations and expressions</h1><p id="-j6byla_2">In Kotlin, objects allow you to define a class and create an instance of it in a single step. This is useful when you need either a reusable singleton instance or a one-time object. To handle these scenarios, Kotlin provides two key approaches: <span class="emphasis" id="-j6byla_9">object declarations</span> for creating singletons and <span class="emphasis" id="-j6byla_10">object expressions</span> for creating anonymous, one-time objects.</p><aside class="prompt" data-type="tip" data-title="" id="-j6byla_3"><p id="-j6byla_11">A singleton ensures that a class has only one instance and provides a global point of access to it.</p></aside><p id="-j6byla_4">Object declarations and object expressions are best used for scenarios when:</p><ul class="list _bullet" id="-j6byla_5"><li class="list__item" id="-j6byla_12"><p id="-j6byla_16"><span class="control" id="-j6byla_17">Using singletons for shared resources:</span> You need to ensure that only one instance of a class exists throughout the application. For example, managing a database connection pool.</p></li><li class="list__item" id="-j6byla_13"><p id="-j6byla_18"><span class="control" id="-j6byla_19">Creating factory methods:</span> You need a convenient way to create instances efficiently. <a href="#companion-objects" id="-j6byla_20">Companion objects</a> allow you to define class-level functions and properties tied to a class, simplifying the creation and management of these instances.</p></li><li class="list__item" id="-j6byla_14"><p id="-j6byla_21"><span class="control" id="-j6byla_22">Modifying existing class behavior temporarily:</span> You want to modify the behavior of an existing class without the need to create a new subclass. For example, adding temporary functionality to an object for a specific operation.</p></li><li class="list__item" id="-j6byla_15"><p id="-j6byla_23"><span class="control" id="-j6byla_24">Type-safe design is required:</span> You require one-time implementations of interfaces or <a href="classes.html#abstract-classes" id="-j6byla_25">abstract classes</a> using object expressions. This can be useful for scenarios like a button click handler.</p></li></ul><section class="chapter"><h2 id="object-declarations-overview" data-toc="object-declarations-overview">Object declarations</h2><p id="-j6byla_26">You can create single instances of objects in Kotlin using object declarations, which always have a name following the <code class="code" id="-j6byla_40">object</code> keyword. This allows you to define a class and create an instance of it in a single step, which is useful for implementing singletons:</p><div class="code-block" data-lang="kotlin" data-runnable="true" id="object-declaration-register-provider">
+//sampleStart
+// Declares a Singleton object to manage data providers
+object DataProviderManager {
+    private val providers = mutableListOf&lt;DataProvider&gt;()
+
+    // Registers a new data provider
+    fun registerDataProvider(provider: DataProvider) {
+        providers.add(provider)
+    }
+
+    // Retrieves all registered data providers
+    val allDataProviders: Collection&lt;DataProvider&gt; 
+        get() = providers
+}
+//sampleEnd
+
+// Example data provider interface
+interface DataProvider {
+    fun provideData(): String
+}
+
+// Example data provider implementation
+class ExampleDataProvider : DataProvider {
+    override fun provideData(): String {
+        return &quot;Example data&quot;
+    }
+}
+
+fun main() {
+    // Creates an instance of ExampleDataProvider
+    val exampleProvider = ExampleDataProvider()
+
+    // To refer to the object, use its name directly
+    DataProviderManager.registerDataProvider(exampleProvider)
+
+    // Retrieves and prints all data providers
+    println(DataProviderManager.allDataProviders.map { it.provideData() })
+    // [Example data]
+}
+</div><aside class="prompt" data-type="tip" data-title="" id="-j6byla_28"><p id="-j6byla_41">The initialization of an object declaration is thread-safe and done on first access.</p></aside><p id="-j6byla_29">To refer to the <code class="code" id="-j6byla_42">object</code>, use its name directly:</p><div class="code-block" data-lang="kotlin">
+DataProviderManager.registerDataProvider(exampleProvider)
+</div><p id="-j6byla_31">Object declarations can also have supertypes, similar to how <a href="#inherit-anonymous-objects-from-supertypes" id="-j6byla_43">anonymous objects can inherit from existing classes or implement interfaces</a>:</p><div class="code-block" data-lang="kotlin">
+object DefaultListener : MouseAdapter() {
+    override fun mouseClicked(e: MouseEvent) { ... }
+
+    override fun mouseEntered(e: MouseEvent) { ... }
+}
+</div><p id="-j6byla_33">Like variable declarations, object declarations are not expressions, so they cannot be used on the right-hand side of an assignment statement:</p><div class="code-block" data-lang="kotlin">
+// Syntax error: An object expression cannot bind a name.
+val myObject = object MySingleton {
+    val name = &quot;Singleton&quot;
+}
+</div><p id="-j6byla_35">You can nest object declarations inside other object declarations or non-inner classes, but not directly inside functions, because object declarations can't be local. A nested object declaration is still a singleton, and you can access it through the name of its enclosing object or class.</p><p id="-j6byla_36">Since object declarations can't be nested directly inside a function, use <a href="#object-expressions" id="-j6byla_44">object expressions</a> instead. Such objects are anonymous: you can assign them to local variables, but you can't give the <code class="code" id="-j6byla_45">object</code> keyword a name:</p><div class="code-block" data-lang="kotlin" data-runnable="true" id="object-declaration-nested">
+// Declares an object nested inside another object declaration
+object Outer {
+    val name = &quot;Outer&quot;
+
+    object Nested {
+        val name = &quot;Nested in Outer&quot;
+    }
+}
+
+// Declares an object nested inside a class
+class Server {
+    object Config {
+        const val port = 8080
+    }
+}
+
+fun main() {
+    // To access a nested object, refer to it
+    // using the name of its enclosing object
+    println(Outer.Nested.name)
+    // Nested in Outer
+
+    println(Server.Config.port)
+    // 8080
+
+    // An object expression can be nested inside a function
+    val local = object {
+        val name = &quot;Nested in main()&quot;
+    }
+    println(local.name)
+    // Nested in main()
+
+    // An object declaration can't be nested inside a function
+    // object Local {
+    //     val name = &quot;Nested in main()&quot;
+    // }
+}
+</div><section class="chapter"><h3 id="data-objects" data-toc="data-objects">Data objects</h3><p id="-j6byla_46">When printing a plain object declaration in Kotlin, the string representation contains both its name and the hash of the <code class="code" id="-j6byla_58">object</code>:</p><div class="code-block" data-lang="kotlin" data-runnable="true" id="object-declaration-plain">
+object MyObject
+
+fun main() {
+    println(MyObject) 
+    // MyObject@hashcode
+}
+</div><p id="-j6byla_48">However, by marking an object declaration with the <code class="code" id="-j6byla_59">data</code> modifier, you can instruct the compiler to return the actual name of the object when calling <code class="code" id="-j6byla_60">toString()</code>, the same way it works for <a href="data-classes.html" id="-j6byla_61">data classes</a>:</p><div class="code-block" data-lang="kotlin" data-runnable="true" id="object-declaration-dataobject">
+data object MyDataObject {
+    val number: Int = 3
+}
+
+fun main() {
+    println(MyDataObject) 
+    // MyDataObject
+}
+</div><p id="-j6byla_50">Additionally, the compiler generates several functions for your <code class="code" id="-j6byla_62">data object</code>:</p><ul class="list _bullet" id="-j6byla_51"><li class="list__item" id="-j6byla_63"><p id="-j6byla_65"><code class="code" id="-j6byla_66">toString()</code> returns the name of the data object</p></li><li class="list__item" id="-j6byla_64"><p id="-j6byla_67"><code class="code" id="-j6byla_70">equals()</code>/<code class="code" id="-j6byla_71">hashCode()</code> enables equality checks and hash-based collections</p><aside class="prompt" data-type="note" data-title="" id="-j6byla_68"><p id="-j6byla_72">You can't provide a custom <code class="code" id="-j6byla_73">equals</code> or <code class="code" id="-j6byla_74">hashCode</code> implementation for a <code class="code" id="-j6byla_75">data object</code>.</p></aside><p id="-j6byla_69"></p></li></ul><p id="-j6byla_52">The <code class="code" id="-j6byla_76">equals()</code> function for a <code class="code" id="-j6byla_77">data object</code> ensures that all objects that have the type of your <code class="code" id="-j6byla_78">data object</code> are considered equal. In most cases, you will only have a single instance of your <code class="code" id="-j6byla_79">data object</code> at runtime, since a <code class="code" id="-j6byla_80">data object</code> declares a singleton. However, in the edge case where another object of the same type is generated at runtime (for example, by using platform reflection with <code class="code" id="-j6byla_81">java.lang.reflect</code> or a JVM serialization library that uses this API under the hood), this ensures that the objects are treated as being equal.</p><aside class="prompt" data-type="warning" data-title="" id="-j6byla_53"><p id="-j6byla_82">Make sure that you only compare <code class="code" id="-j6byla_83">data objects</code> structurally (using the <code class="code" id="-j6byla_84">==</code> operator) and never by reference (using the <code class="code" id="-j6byla_85">===</code> operator). This helps you to avoid pitfalls when more than one instance of a data object exists at runtime.</p></aside><div class="code-block" data-lang="kotlin">
+import java.lang.reflect.Constructor
+
+data object MySingleton
+
+fun main() {
+    val evilTwin = createInstanceViaReflection()
+
+    println(MySingleton) 
+    // MySingleton
+
+    println(evilTwin) 
+    // MySingleton
+
+    // Even when a library forcefully creates a second instance of MySingleton, 
+    // its equals() function returns true:
+    println(MySingleton == evilTwin) 
+    // true
+
+    // Don't compare data objects using ===
+    println(MySingleton === evilTwin) 
+    // false
+}
+
+fun createInstanceViaReflection(): MySingleton {
+    // Kotlin reflection does not permit the instantiation of data objects.
+    // This creates a new MySingleton instance &quot;by force&quot; (using Java platform reflection)
+    // Don't do this yourself!
+    return (MySingleton.javaClass.declaredConstructors[0].apply { isAccessible = true } as Constructor&lt;MySingleton&gt;).newInstance()
+}
+</div><p id="-j6byla_55">The generated <code class="code" id="-j6byla_86">hashCode()</code> function has a behavior that is consistent with the <code class="code" id="-j6byla_87">equals()</code> function, so that all runtime instances of a <code class="code" id="-j6byla_88">data object</code> have the same hash code.</p><section class="chapter"><h4 id="differences-between-data-objects-and-data-classes" data-toc="differences-between-data-objects-and-data-classes">Differences between data objects and data classes</h4><p id="-j6byla_89">While <code class="code" id="-j6byla_91">data object</code> and <code class="code" id="-j6byla_92">data class</code> declarations are often used together and have some similarities, there are some functions that are not generated for a <code class="code" id="-j6byla_93">data object</code>:</p><ul class="list _bullet" id="-j6byla_90"><li class="list__item" id="-j6byla_94"><p id="-j6byla_96">No <code class="code" id="-j6byla_97">copy()</code> function. Because a <code class="code" id="-j6byla_98">data object</code> declaration is intended to be used as singletons, no <code class="code" id="-j6byla_99">copy()</code> function is generated. Singletons restrict the instantiation of a class to a single instance, which would be violated by allowing copies of the instance to be created.</p></li><li class="list__item" id="-j6byla_95"><p id="-j6byla_100">No <code class="code" id="-j6byla_101">componentN()</code> function. Unlike a <code class="code" id="-j6byla_102">data class</code>, a <code class="code" id="-j6byla_103">data object</code> does not have any data properties. Since attempting to destructure such an object without data properties wouldn't make sense, no <code class="code" id="-j6byla_104">componentN()</code> functions are generated.</p></li></ul></section><section class="chapter"><h4 id="use-data-objects-with-sealed-hierarchies" data-toc="use-data-objects-with-sealed-hierarchies">Use data objects with sealed hierarchies</h4><p id="-j6byla_105">Data object declarations are particularly useful for sealed hierarchies like <a href="sealed-classes.html" id="-j6byla_108">sealed classes or sealed interfaces</a>. They allow you to maintain symmetry with any data classes you may have defined alongside the object.</p><p id="-j6byla_106">In this example, declaring <code class="code" id="-j6byla_109">EndOfFile</code> as a <code class="code" id="-j6byla_110">data object</code> instead of a plain <code class="code" id="-j6byla_111">object</code> means that it will get the <code class="code" id="-j6byla_112">toString()</code> function without the need to override it manually:</p><div class="code-block" data-lang="kotlin" data-runnable="true" id="data-objects-sealed-hierarchies">
+sealed interface ReadResult
+data class Number(val number: Int) : ReadResult
+data class Text(val text: String) : ReadResult
+data object EndOfFile : ReadResult
+
+fun main() {
+    println(Number(7)) 
+    // Number(number=7)
+    println(EndOfFile) 
+    // EndOfFile
+}
+</div></section></section><section class="chapter"><h3 id="companion-objects" data-toc="companion-objects">Companion objects</h3><p id="-j6byla_113"><span class="emphasis" id="-j6byla_127">Companion objects</span> allow you to define class-level functions and properties. This makes it easy to create factory methods, hold constants, and access shared utilities.</p><p id="-j6byla_114">An object declaration inside a class can be marked with the <code class="code" id="-j6byla_128">companion</code> keyword:</p><div class="code-block" data-lang="kotlin">
+class MyClass {
+    companion object Factory {
+        fun create(): MyClass = MyClass()
+    }
+}
+</div><p id="-j6byla_116">Members of the <code class="code" id="-j6byla_129">companion object</code> can be called simply by using the class name as the qualifier:</p><div class="code-block" data-lang="kotlin" data-runnable="true" id="object-expression-companion-object">
+class User(val name: String) {
+    // Defines a companion object that acts as a factory for creating User instances
+    companion object Factory {
+        fun create(name: String): User = User(name)
+    }
+}
+
+fun main(){
+    // Calls the companion object's factory method using the class name as the qualifier. 
+    // Creates a new User instance
+    val userInstance = User.create(&quot;John Doe&quot;)
+    println(userInstance.name)
+    // John Doe
+}
+</div><p id="-j6byla_118">The name of the <code class="code" id="-j6byla_130">companion object</code> can be omitted, in which case the name <code class="code" id="-j6byla_131">Companion</code> is used:</p><div class="code-block" data-lang="kotlin">
+class User(val name: String) {
+    // Defines a companion object without a name
+    companion object { }
+}
+
+// Accesses the companion object
+val companionUser = User.Companion
+</div><p id="-j6byla_120">Class members can access <code class="code" id="-j6byla_132">private</code> members of their corresponding <code class="code" id="-j6byla_133">companion object</code>:</p><div class="code-block" data-lang="kotlin">
+class User(val name: String) {
+    companion object {
+        private val defaultGreeting = &quot;Hello&quot;
+    }
+
+    fun sayHi() {
+        println(defaultGreeting)
+    }
+}
+User(&quot;Nick&quot;).sayHi()
+// Hello
+</div><p id="-j6byla_122">When a class name is used by itself, it acts as a reference to the companion object of the class, regardless of whether the companion object is named or not:</p><div class="code-block" data-lang="kotlin" data-runnable="true" id="object-expression-companion-object-names">
+//sampleStart
+class User1 {
+    // Defines a named companion object
+    companion object Named {
+        fun show(): String = &quot;User1's Named Companion Object&quot;
+    }
+}
+
+// References the companion object of User1 using the class name
+val reference1 = User1
+
+class User2 {
+    // Defines an unnamed companion object
+    companion object {
+        fun show(): String = &quot;User2's Companion Object&quot;
+    }
+}
+
+// References the companion object of User2 using the class name
+val reference2 = User2
+//sampleEnd
+
+fun main() {
+    // Calls the show() function from the companion object of User1
+    println(reference1.show()) 
+    // User1's Named Companion Object
+
+    // Calls the show() function from the companion object of User2
+    println(reference2.show()) 
+    // User2's Companion Object
+}
+</div><p id="-j6byla_124">Although members of companion objects in Kotlin look like static members from other languages, they are actually instance members of the companion object, meaning they belong to the object itself. This allows companion objects to implement interfaces:</p><div class="code-block" data-lang="kotlin" data-runnable="true" id="object-expression-factory">
+interface Factory&lt;T&gt; {
+    fun create(name: String): T
+}
+
+class User(val name: String) {
+    // Defines a companion object that implements the Factory interface
+    companion object : Factory&lt;User&gt; {
+        override fun create(name: String): User = User(name)
+    }
+}
+
+fun main() {
+    // Uses the companion object as a Factory
+    val userFactory: Factory&lt;User&gt; = User
+    val newUser = userFactory.create(&quot;Example User&quot;)
+    println(newUser.name)
+    // Example User
+}
+</div><p id="-j6byla_126">However, on the JVM, you can have members of companion objects generated as real static methods and fields if you use the <code class="code" id="-j6byla_134">@JvmStatic</code> annotation. See the <a href="java-to-kotlin-interop.html#static-fields" id="-j6byla_135">Java interoperability</a> section for more detail.</p></section></section><section class="chapter"><h2 id="object-expressions" data-toc="object-expressions">Object expressions</h2><p id="-j6byla_136">Object expressions declare a class and create an instance of that class, but without naming either of them. These classes are useful for one-time use. They can either be created from scratch, inherit from existing classes, or implement interfaces. Instances of these classes are also called <span class="emphasis" id="-j6byla_141">anonymous objects</span> because they are defined by an expression, not a name.</p><section class="chapter"><h3 id="create-anonymous-objects-from-scratch" data-toc="create-anonymous-objects-from-scratch">Create anonymous objects from scratch</h3><p id="-j6byla_142">Object expressions start with the <code class="code" id="-j6byla_145">object</code> keyword.</p><p id="-j6byla_143">If the object doesn't extend any classes or implement interfaces, you can define an object's members directly inside curly braces after the <code class="code" id="-j6byla_146">object</code> keyword:</p><div class="code-block" data-lang="kotlin" data-runnable="true" id="object-expression-object">
+fun main() {
+//sampleStart
+    val helloWorld = object {
+        val hello = &quot;Hello&quot;
+        val world = &quot;World&quot;
+        // Object expressions extend the Any class, which already has a toString() function,
+        // so it must be overridden
+        override fun toString() = &quot;$hello $world&quot;
+    }
+
+    print(helloWorld)
+    // Hello World
+//sampleEnd
+}
+</div></section><section class="chapter"><h3 id="inherit-anonymous-objects-from-supertypes" data-toc="inherit-anonymous-objects-from-supertypes">Inherit anonymous objects from supertypes</h3><p id="-j6byla_147">To create an anonymous object that inherits from some type (or types), specify this type after <code class="code" id="-j6byla_151">object</code> and a colon <code class="code" id="-j6byla_152">:</code>. Then implement or override the members of this class as if you were <a href="inheritance.html" id="-j6byla_153">inheriting</a> from it:</p><div class="code-block" data-lang="kotlin">
+window.addMouseListener(object : MouseAdapter() {
+    override fun mouseClicked(e: MouseEvent) { /*...*/ }
+
+    override fun mouseEntered(e: MouseEvent) { /*...*/ }
+})
+</div><p id="-j6byla_149">If a supertype has a constructor, pass the appropriate constructor parameters to it. Multiple supertypes can be specified, separated by commas, after the colon:</p><div class="code-block" data-lang="kotlin" data-runnable="true" id="object-expression-anonymous-object">
+//sampleStart
+// Creates an open class BankAccount with a balance property
+open class BankAccount(initialBalance: Int) {
+    open val balance: Int = initialBalance
+}
+
+// Defines an interface Transaction with an execute() function
+interface Transaction {
+    fun execute()
+}
+
+// A function to perform a special transaction on a BankAccount
+fun specialTransaction(account: BankAccount) {
+    // Creates an anonymous object that inherits from the BankAccount class and implements the Transaction interface
+    // The balance of the provided account is passed to the BankAccount superclass constructor
+    val temporaryAccount = object : BankAccount(account.balance), Transaction {
+
+        override val balance = account.balance + 500  // Temporary bonus
+
+        // Implements the execute() function from the Transaction interface
+        override fun execute() {
+            println(&quot;Executing special transaction. New balance is $balance.&quot;)
+        }
+    }
+    // Executes the transaction
+    temporaryAccount.execute()
+}
+//sampleEnd
+fun main() {
+    // Creates a BankAccount with an initial balance of 1000
+    val myAccount = BankAccount(1000)
+    // Performs a special transaction on the created account
+    specialTransaction(myAccount)
+    // Executing special transaction. New balance is 1500.
+}
+</div></section><section class="chapter"><h3 id="use-anonymous-objects-as-return-and-value-types" data-toc="use-anonymous-objects-as-return-and-value-types">Use anonymous objects as return and value types</h3><p id="-j6byla_154">When you return an anonymous object from a local or <a href="visibility-modifiers.html#packages" id="-j6byla_161"><code class="code" id="-j6byla_162">private</code></a> function or property, all the members of that anonymous object are accessible through that function or property:</p><div class="code-block" data-lang="kotlin" data-runnable="true" id="object-expression-object-return">
+//sampleStart
+class UserPreferences {
+    private fun getPreferences() = object {
+        val theme: String = &quot;Dark&quot;
+        val fontSize: Int = 14
+    }
+
+    fun printPreferences() {
+        val preferences = getPreferences()
+        println(&quot;Theme: ${preferences.theme}, Font Size: ${preferences.fontSize}&quot;)
+    }
+}
+//sampleEnd
+
+fun main() {
+    val userPreferences = UserPreferences()
+    userPreferences.printPreferences()
+    // Theme: Dark, Font Size: 14
+}
+</div><p id="-j6byla_156">This allows you to return an anonymous object with specific properties, offering a simple way to encapsulate data or behavior without creating a separate class.</p><p id="-j6byla_157">If a function or property that returns an anonymous object has <code class="code" id="-j6byla_163">public</code>, <code class="code" id="-j6byla_164">protected</code>, or <code class="code" id="-j6byla_165">internal</code> visibility, its actual type is:</p><ul class="list _bullet" id="-j6byla_158"><li class="list__item" id="-j6byla_166"><p id="-j6byla_169"><code class="code" id="-j6byla_170">Any</code> if the anonymous object doesn't have a declared supertype.</p></li><li class="list__item" id="-j6byla_167"><p id="-j6byla_171">The declared supertype of the anonymous object, if there is exactly one such type.</p></li><li class="list__item" id="-j6byla_168"><p id="-j6byla_172">The explicitly declared type if there is more than one declared supertype.</p></li></ul><p id="-j6byla_159">In all these cases, members added in the anonymous object are not accessible. Overridden members are accessible if they are declared in the actual type of the function or property. For example:</p><div class="code-block" data-lang="kotlin" data-runnable="true" id="object-expression-object-override">
+//sampleStart
+interface Notification {
+    // Declares notifyUser() in the Notification interface
+    fun notifyUser()
+}
+
+interface DetailedNotification
+
+class NotificationManager {
+    // The return type is Any. The message property is not accessible.
+    // When the return type is Any, only members of the Any class are accessible.
+    fun getNotification() = object {
+        val message: String = &quot;General notification&quot;
+    }
+
+    // The return type is Notification because the anonymous object implements only one interface
+    // The notifyUser() function is accessible because it is part of the Notification interface
+    // The message property is not accessible because it is not declared in the Notification interface
+    fun getEmailNotification() = object : Notification {
+        override fun notifyUser() {
+            println(&quot;Sending email notification&quot;)
+        }
+        val message: String = &quot;You've got mail!&quot;
+    }
+
+    // The return type is DetailedNotification. The notifyUser() function and the message property are not accessible
+    // Only members declared in the DetailedNotification interface are accessible
+    fun getDetailedNotification(): DetailedNotification = object : Notification, DetailedNotification {
+        override fun notifyUser() {
+            println(&quot;Sending detailed notification&quot;)
+        }
+        val message: String = &quot;Detailed message content&quot;
+    }
+}
+//sampleEnd
+fun main() {
+    // This produces no output
+    val notificationManager = NotificationManager()
+
+    // The message property is not accessible here because the return type is Any
+    // This produces no output
+    val notification = notificationManager.getNotification()
+
+    // The notifyUser() function is accessible
+    // The message property is not accessible here because the return type is Notification
+    val emailNotification = notificationManager.getEmailNotification()
+    emailNotification.notifyUser()
+    // Sending email notification
+
+    // The notifyUser() function and message property are not accessible here because the return type is DetailedNotification
+    // This produces no output
+    val detailedNotification = notificationManager.getDetailedNotification()
+}
+</div></section><section class="chapter"><h3 id="access-variables-from-anonymous-objects" data-toc="access-variables-from-anonymous-objects">Access variables from anonymous objects</h3><p id="-j6byla_173">Code within the body of object expressions can access variables from the enclosing scope:</p><div class="code-block" data-lang="kotlin">
+import java.awt.event.MouseAdapter
+import java.awt.event.MouseEvent
+
+fun countClicks(window: JComponent) {
+    var clickCount = 0
+    var enterCount = 0
+
+    // MouseAdapter provides default implementations for mouse event functions
+    // Simulates MouseAdapter handling mouse events
+    window.addMouseListener(object : MouseAdapter() {
+        override fun mouseClicked(e: MouseEvent) {
+            clickCount++
+        }
+
+        override fun mouseEntered(e: MouseEvent) {
+            enterCount++
+        }
+    })
+    // The clickCount and enterCount variables are accessible within the object expression
+}
+</div></section></section><section class="chapter"><h2 id="behavior-difference-between-object-declarations-and-expressions" data-toc="behavior-difference-between-object-declarations-and-expressions">Behavior difference between object declarations and expressions</h2><p id="-j6byla_175">There are differences in the initialization behavior between object declarations and object expressions:</p><ul class="list _bullet" id="-j6byla_176"><li class="list__item" id="-j6byla_177"><p id="-j6byla_180">Object expressions are executed (and initialized) <span class="emphasis" id="-j6byla_181">immediately</span>, where they are used.</p></li><li class="list__item" id="-j6byla_178"><p id="-j6byla_182">Object declarations are initialized <span class="emphasis" id="-j6byla_183">lazily</span>, when accessed for the first time.</p></li><li class="list__item" id="-j6byla_179"><p id="-j6byla_184">A companion object is initialized when the corresponding class is loaded (resolved) that matches the semantics of a Java static initializer.</p></li></ul></section><div class="last-modified">20 October 2026</div><div data-feedback-placeholder="true"></div><div class="navigation-links _bottom"><a href="inheritance.html" class="navigation-links__prev">Inheritance</a><a href="this-expressions.html" class="navigation-links__next">This expressions</a></div></article><div id="disqus_thread"></div></div></section></main></div></body></html>

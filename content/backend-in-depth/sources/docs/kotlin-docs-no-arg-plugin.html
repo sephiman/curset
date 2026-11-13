@@ -1,0 +1,62 @@
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html lang="en-US" data-preset="contrast" data-primary-color="#307FFF" data-external-links-in-new-tab="false"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="UTF-8"><meta name="built-on" content="2026-11-13T10:58:13.344326929"><meta name="build-number" content="1405"><link rel="canonical" href="/docs/no-arg-plugin.html" data-react-helmet="true">
+
+<title>No-arg compiler plugin | Kotlin Documentation</title><link href="custom-frontend-app/app.css?149" rel="stylesheet"><link rel="icon" type="image/svg" sizes="16x16" href="https://kotlinlang.org/assets/images/favicon.svg?v2"><link rel="icon" type="image/x-icon" sizes="32x32" href="https://kotlinlang.org/assets/images/favicon.ico?v2"><link rel="icon" type="image/png" sizes="96x96" href="https://kotlinlang.org/assets/images/apple-touch-icon.png?v2"><link rel="icon" type="image/png" sizes="300x300" href="https://kotlinlang.org/assets/images/apple-touch-icon-72x72.png?v2"><link rel="icon" type="image/png" sizes="500x500" href="https://kotlinlang.org/assets/images/apple-touch-icon-114x114.png?v2"><meta name="image" content="https://kotlinlang.org/assets/images/open-graph/docs.png"><!-- Open Graph --><meta property="og:title" content="No-arg compiler plugin | Kotlin"><meta property="og:description" content=""><meta property="og:image" content="https://kotlinlang.org/assets/images/open-graph/docs.png"><meta property="og:site_name" content="Kotlin Help"><meta property="og:type" content="website"><meta property="og:locale" content="en_US"><meta property="og:url" content="https://kotlinlang.org/docs/no-arg-plugin.html"><!-- End Open Graph --><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@kotlin"><meta name="twitter:title" content="No-arg compiler plugin | Kotlin"><meta name="twitter:description" content=""><meta name="twitter:creator" content="@kotlin"><meta name="twitter:image:src" content="https://kotlinlang.org/assets/images/open-graph/docs.png"><!-- End Twitter Card --><!-- Schema.org WebPage --><!-- End Schema.org --><!-- Schema.org WebSite --><!-- End Schema.org --></head><body data-id="no-arg-plugin" data-main-title="No-arg compiler plugin" data-article-props="{&quot;seeAlsoStyle&quot;:&quot;links&quot;}" data-template="article" data-breadcrumbs="Compiler and plugins///Kotlin compiler plugins" data-edit-url="https://github.com/JetBrains/kotlin-web-site/edit/master/docs/topics/compiler-plugins/no-arg-plugin.md"><div class="wrapper"><main class="panel _main"><header class="panel__header"><div class="container"><h3>Kotlin  Help</h3><div class="panel-trigger"></div></div></header><section class="panel__content"><div class="container"><article class="article" data-shortcut-switcher="inactive"><h1 data-toc="no-arg-plugin" id="no-arg-plugin.md">No-arg compiler plugin</h1><p id="fq5ak3_2">The <code class="code" id="fq5ak3_10">no-arg</code> compiler plugin generates a zero-argument constructor for classes with a specific annotation.</p><p id="fq5ak3_3">The generated constructor is annotated with <code class="code" id="fq5ak3_11">@Deprecated</code> at the <code class="code" id="fq5ak3_12">HIDDEN</code> level, so you can call it from Java but not from Kotlin. Frameworks can call it through reflection.</p><p id="fq5ak3_4">For example, this allows frameworks such as the Java Persistence API (JPA) to instantiate Kotlin classes that don't declare a zero-argument constructor.</p><aside class="prompt" data-type="note" data-title="" id="fq5ak3_5"><p id="fq5ak3_13">For JPA entities with Kotlin, you can use the <a href="kotlin-jpa-plugin.html" id="fq5ak3_14"><code class="code" id="fq5ak3_18">kotlin-jpa</code> compiler plugin</a>. It specifies JPA annotations such as <code class="code" id="fq5ak3_15">@Entity</code>, <code class="code" id="fq5ak3_16">@Embeddable</code>, and <code class="code" id="fq5ak3_17">@MappedSuperclass</code> automatically.</p></aside><section class="chapter"><h2 id="declare-an-annotation" data-toc="declare-an-annotation">Declare an annotation</h2><p id="fq5ak3_19">The <code class="code" id="fq5ak3_21">no-arg</code> plugin only processes classes marked with an annotation that you register in its configuration. So before enabling the plugin, declare an annotation to mark the classes that need a zero-argument constructor. For example, <code class="code" id="fq5ak3_22">NoArgAnnotation</code>:</p><div class="code-block" data-lang="kotlin">
+package com.example
+
+annotation class NoArgAnnotation
+</div></section><section class="chapter"><h2 id="apply-the-plugin" data-toc="apply-the-plugin">Apply the plugin</h2><section class="chapter"><h3 id="gradle" data-toc="gradle">Gradle</h3><p id="fq5ak3_25">Add the <code class="code" id="fq5ak3_31">no-arg</code> plugin in the <code class="code" id="fq5ak3_32">plugins {}</code> block of your <code class="code" id="fq5ak3_33">build.gradle(.kts)</code> file:</p><div class="tabs" id="fq5ak3_26" data-group="build-script" data-anchors="[fq5ak3_34,fq5ak3_35]"><div class="tabs__content" data-gtm="tab" id="fq5ak3_34" data-sync-tabs="kotlin" data-title="Kotlin"><div class="code-block" data-lang="kotlin" data-title="Kotlin">
+plugins {
+    kotlin(&quot;jvm&quot;) version &quot;2.4.21&quot;  // The version of Kotlin to use
+    kotlin(&quot;plugin.noarg&quot;) version &quot;2.4.21&quot; // The Kotlin no-arg plugin
+}
+</div></div><div class="tabs__content" data-gtm="tab" id="fq5ak3_35" data-sync-tabs="groovy" data-title="Groovy"><div class="code-block" data-lang="groovy" data-title="Groovy">
+plugins {
+    id &quot;org.jetbrains.kotlin.jvm&quot; version &quot;2.4.21&quot;
+    id &quot;org.jetbrains.kotlin.plugin.noarg&quot; version &quot;2.4.21&quot;
+}
+</div></div></div><p id="fq5ak3_27">Then specify the annotation you declared earlier (for example, <code class="code" id="fq5ak3_38">com.example.NoArgAnnotation</code>) to generate a zero-argument constructor for annotated classes:</p><div class="code-block" data-lang="groovy">
+noArg {
+    annotation(&quot;com.example.NoArgAnnotation&quot;)
+}
+</div><p id="fq5ak3_29">Enable the <code class="code" id="fq5ak3_39">invokeInitializers</code> option if you want the plugin to run the class initialization logic from the generated constructor. This option is disabled by default:</p><div class="code-block" data-lang="groovy">
+noArg {
+    invokeInitializers = true
+}
+</div></section><section class="chapter"><h3 id="maven" data-toc="maven">Maven</h3><p id="fq5ak3_40">Add the plugin to your <code class="code" id="fq5ak3_42">pom.xml</code> file:</p><div class="code-block" data-lang="markup">
+&lt;properties&gt;
+    &lt;kotlin.version&gt;2.4.21&lt;/kotlin.version&gt;
+&lt;/properties&gt;
+
+&lt;plugin&gt;
+    &lt;artifactId&gt;kotlin-maven-plugin&lt;/artifactId&gt;
+    &lt;groupId&gt;org.jetbrains.kotlin&lt;/groupId&gt;
+    &lt;version&gt;${kotlin.version}&lt;/version&gt;
+
+    &lt;configuration&gt;
+        &lt;compilerPlugins&gt;
+            &lt;plugin&gt;no-arg&lt;/plugin&gt;
+        &lt;/compilerPlugins&gt;
+
+        &lt;pluginOptions&gt;
+            &lt;option&gt;no-arg:annotation=com.example.NoArgAnnotation&lt;/option&gt;
+            &lt;!-- Call instance initializers in the generated constructor --&gt;
+            &lt;!-- &lt;option&gt;no-arg:invokeInitializers=true&lt;/option&gt; --&gt;
+        &lt;/pluginOptions&gt;
+    &lt;/configuration&gt;
+
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.jetbrains.kotlin&lt;/groupId&gt;
+            &lt;artifactId&gt;kotlin-maven-noarg&lt;/artifactId&gt;
+            &lt;version&gt;${kotlin.version}&lt;/version&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+&lt;/plugin&gt;
+</div></section></section><section class="chapter"><h2 id="use-the-no-arg-plugin" data-toc="use-the-no-arg-plugin">Use the <code class="code" id="fq5ak3_46">no-arg</code> plugin</h2><p id="fq5ak3_44">When the plugin is applied, classes annotated with a registered annotation get a zero-argument constructor at compile time. You don't need to declare the constructor manually:</p><div class="code-block" data-lang="kotlin">
+package com.example
+
+// The no-arg plugin generates a zero-argument constructor for this class
+@NoArgAnnotation
+class MyEntity(val id: Int)
+</div></section><section class="chapter"><h2 id="what-s-next" data-toc="what-s-next">What's next?</h2><ul class="list _bullet" id="fq5ak3_47"><li class="list__item" id="fq5ak3_48"><p id="fq5ak3_50">For JPA entities, use the <a href="kotlin-jpa-plugin.html" id="fq5ak3_51"><code class="code" id="fq5ak3_57">kotlin-jpa</code> plugin</a>, which configures the <code class="code" id="fq5ak3_52">no-arg</code> and <code class="code" id="fq5ak3_53">all-open</code> plugins with JPA annotations such as <code class="code" id="fq5ak3_54">@Entity</code>, <code class="code" id="fq5ak3_55">@Embeddable</code>, and <code class="code" id="fq5ak3_56">@MappedSuperclass</code>.</p></li><li class="list__item" id="fq5ak3_49"><p id="fq5ak3_58">Explore the source code of the <a href="https://github.com/JetBrains/kotlin/tree/master/plugins/noarg" id="fq5ak3_59" data-external="true" rel="noopener noreferrer"><code class="code" id="fq5ak3_60">no-arg</code> compiler plugin</a>.</p></li></ul></section><div class="last-modified">21 October 2026</div><div data-feedback-placeholder="true"></div><div class="navigation-links _bottom"><a href="lombok.html" class="navigation-links__prev">Lombok compiler plugin</a><a href="power-assert.html" class="navigation-links__next">Power-assert compiler plugin</a></div></article><div id="disqus_thread"></div></div></section></main></div></body></html>

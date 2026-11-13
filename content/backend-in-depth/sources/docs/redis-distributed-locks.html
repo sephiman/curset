@@ -1,0 +1,1752 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth w-full">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="generator" content="Hugo 0.143.1">
+    <link rel="alternate" type="text/markdown" href="https://redis.io/docs/latest/develop/clients/patterns/distributed-locks/index.html.md">
+    <link rel="alternate" type="application/json" href="https://redis.io/docs/latest/develop/clients/patterns/distributed-locks/index.json">
+    <meta name="robots" content="index, follow">
+      <meta name="google-site-verification" content="suIo51jDr2z6o48kiD53RKtRvp-JgZ-njy8SWMdrkMo">
+      <link rel="canonical" href="https://redis.io/docs/latest/develop/clients/patterns/distributed-locks/" />
+    <link rel="manifest" href="/docs/latest/images/favicons/site.webmanifest">
+<meta name="theme-color" content="#ffffff">
+
+<link rel="apple-touch-icon-precomposed" sizes="57x57" href="/docs/latest/images/favicons/apple-touch-icon-57x57.png" />
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/docs/latest/images/favicons/apple-touch-icon-114x114.png" />
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/docs/latest/images/favicons/apple-touch-icon-72x72.png" />
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/docs/latest/images/favicons/apple-touch-icon-144x144.png" />
+<link rel="apple-touch-icon-precomposed" sizes="60x60" href="/docs/latest/images/favicons/apple-touch-icon-60x60.png" />
+<link rel="apple-touch-icon-precomposed" sizes="120x120" href="/docs/latest/images/favicons/apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon-precomposed" sizes="76x76" href="/docs/latest/images/favicons/apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/docs/latest/images/favicons/apple-touch-icon-152x152.png" />
+<link rel="icon" type="image/png" href="/docs/latest/images/favicons/favicon-196x196.png" sizes="196x196" />
+<link rel="icon" type="image/png" href="/docs/latest/images/favicons/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/png" href="/docs/latest/images/favicons/favicon-32x32.png" sizes="32x32" />
+<link rel="icon" type="image/png" href="/docs/latest/images/favicons/favicon-16x16.png" sizes="16x16" />
+<link rel="icon" type="image/png" href="/docs/latest/images/favicons/favicon-128.png" sizes="128x128" />
+<meta name="application-name" content="&nbsp;"/>
+<meta name="msapplication-TileColor" content="#FFFFFF" />
+<meta name="msapplication-TileImage" content="/docs/latest/images/favicons/mstile-144x144.png" />
+<meta name="msapplication-square70x70logo" content="/docs/latest/images/favicons/mstile-70x70.png" />
+<meta name="msapplication-square150x150logo" content="/docs/latest/images/favicons/mstile-150x150.png" />
+<meta name="msapplication-wide310x150logo" content="/docs/latest/images/favicons/mstile-310x150.png" /> 
+<meta name="msapplication-square310x310logo" content="/docs/latest/images/favicons/mstile-310x310.png" />
+
+    <title>Distributed Locks with Redis | Docs</title>
+    <meta name="description" content="A distributed lock pattern with Redis
+">
+    <meta property="og:url" content="https://redis.io/docs/latest/develop/clients/patterns/distributed-locks/">
+  <meta property="og:site_name" content="Docs">
+  <meta property="og:title" content="Distributed Locks with Redis">
+  <meta property="og:description" content="A distributed lock pattern with Redis">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="develop">
+    <meta property="article:modified_time" content="2026-10-29T12:59:30+02:00">
+
+  <meta itemprop="name" content="Distributed Locks with Redis">
+  <meta itemprop="description" content="A distributed lock pattern with Redis">
+  <meta itemprop="dateModified" content="2026-10-29T12:59:30+02:00">
+  <meta itemprop="wordCount" content="3229">
+  <meta itemprop="keywords" content="Docs,Develop,Stack,Rs,Rc,Oss,Kubernetes,Clients">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Distributed Locks with Redis">
+  <meta name="twitter:description" content="A distributed lock pattern with Redis">
+
+  
+  <link rel="preload" href="/docs/latest/scss/style.min.ffd35a3be9b20fcc50a3caf3964670dfd229adc7a66c976768747546ae98a824.css" as="style">
+  <link href="/docs/latest/scss/style.min.ffd35a3be9b20fcc50a3caf3964670dfd229adc7a66c976768747546ae98a824.css" rel="stylesheet" integrity="">
+
+
+    
+
+
+  
+
+<link href="/docs/latest/css/index.min.53cbb78e7880859fd6d61a25eaed6c14185f91c9fb64f166e3eadff95bc826b4.css" rel="stylesheet" />
+    
+    
+    
+
+    
+  
+  
+
+
+<link rel="stylesheet" href='/docs/latest/css/redis-workbench.css'>
+
+
+
+    
+
+    
+
+
+<link rel="preload" href='/docs/latest/fonts/SpaceMono-Regular.ttf' as="font" type="font/ttf" crossorigin />
+<link rel="preload" href='/docs/latest/fonts/SpaceMono-Bold.ttf' as="font" type="font/ttf" crossorigin />
+<link rel="preload" href='/docs/latest/fonts/SpaceGrotesk-VariableFont_wght.ttf' as="font" type="font/ttf" crossorigin />
+<link rel="preload" href='/docs/latest/fonts/TT_Trailers_Bold.woff2' as="font" type="font/woff2" crossorigin />
+<link rel="preload" href='/docs/latest/fonts/Geist-Regular.woff2' as="font" type="font/woff2" crossorigin />
+<link rel="preload" href='/docs/latest/fonts/GeistMono-Regular.woff2' as="font" type="font/woff2" crossorigin />
+
+
+
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/docs/latest/css/ai-chat-pane.css">
+
+
+
+     
+ 
+
+
+
+
+    
+    
+  </head>
+  <body class="antialiased tracking-[-0.01em] bg-white w-full relative">
+    <span id="page-top" class="absolute top-0"></span>
+    <div hidden data-redis-metadata="page">{"categories":["docs","develop","stack","oss","rs","rc","oss","kubernetes","clients"],"description":"A distributed lock pattern with Redis\n","duplicateOf":"head:data-ai-metadata","location":"body","title":"Distributed Locks with Redis","tableOfContents":{"sections":[]},"codeExamples":[]}</div>
+
+    
+    
+
+    <header
+  class="sticky top-0 h-[70px] z-50 w-full border-b border-white border-opacity-30 bg-redis-ink-900 text-white font-mono text-[15px] flex justify-center">
+  
+  <div class="flex h-[70px] px-4 xl:pl-11 xl:pr-0 items-center self-center grow">
+    <a class="relative text-redis-red-500 w-[82px] -mt-[5px] mr-[4px]" href="https://redis.io/">
+      <svg width="100%" height="100%" viewBox="0 0 85 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0_8_219)">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M75.2909 13.8125C75.2909 10.8448 77.4892 9.12284 80.2371 9.12284C82.2888 9.12284 84.1207 10.1121 85 12.5668C84.7435 13.8125 83.2047 15.2047 82.5453 15.4246C81.9957 14.2522 81.3728 13.556 80.7866 13.556C80.0539 13.556 80.0172 14.069 80.0172 14.7284C80.0172 15.1955 80.151 15.8834 80.3119 16.7112C80.5549 17.9615 80.8599 19.5309 80.8599 21.1401C80.8599 24.0711 78.8082 26.2328 75.6573 26.2328C72.7721 26.2328 71.1778 24.3414 70.4665 21.3198C68.5818 24.6972 65.8257 26.2328 63.7134 26.2328C60.411 26.2328 59.6338 23.7919 59.7121 21.3161C58.3852 23.6612 55.831 26.2328 53.3815 26.2328C50.8809 26.2328 49.9976 24.0563 50.2002 21.5215C48.702 24.3122 45.9919 26.2328 43.3793 26.2328C40.5442 26.2328 39.141 23.9806 39.5951 21.189C37.6878 23.5333 34.1374 26.2328 30.4461 26.2328C26.2373 26.2328 24.4053 23.9632 24.1882 21.1193C22.1568 24.375 19.4187 26.3427 16.1573 26.3427C11.4493 26.3427 9.76537 22.1561 9.52032 18.7315C7.77547 21.0681 5.81377 23.4923 3.40733 26.1961C3.15086 26.4526 2.93103 26.5991 2.67457 26.5991C1.8319 26.5991 0.109914 22.8621 0 21.4698C0.723099 20.3478 5.28119 15.3398 8.95093 11.3079C10.2409 9.89066 11.4211 8.594 12.2863 7.6291C10.0389 8.30726 7.72169 9.65975 4.79957 11.7608C4.28664 12.1272 2.85776 8.7931 2.8944 6.22845C6.26509 3.73707 11.3944 2.16164 15.5345 2.16164C21.3233 2.16164 24.6573 5.38578 24.6573 9.8556C24.6573 13.5927 21.5431 17.6961 17 17.8427C14.6377 17.904 13.1237 16.578 12.3494 14.9405C12.4419 17.473 13.7587 20.5905 17.2931 20.5905C21.1462 20.5905 22.9965 18.2646 25.7559 14.7958C25.9352 14.5704 26.1183 14.3403 26.306 14.1056C28.6509 11.2112 31.3621 8.64655 35.319 8.64655C37.7371 8.64655 39.3858 10.1487 39.3858 12.4203C39.3858 15.1681 36.1616 18.9784 31.6552 18.9784C30.8855 18.9784 30.1839 18.877 29.5917 18.6766C29.5768 18.7921 29.5668 18.9058 29.5668 19.0151C29.5668 20.2974 30.0431 21.0668 32.1315 21.0668C35.2091 21.0668 38.1034 19.2349 41.6207 14.9483C45.0647 10.7349 47.6659 8.90302 50.4138 8.90302C52.2687 8.90302 53.6765 9.90832 54.2969 11.6014C57.9796 6.28253 61.1038 2.51388 63.75 0C66.3513 1.09914 68.2198 3.26078 67.7069 3.70043C65.7651 5.45905 59.2802 12.5302 56.7155 16.7435C56.056 17.8427 55.4332 19.0517 55.4332 19.6379C55.4332 20.1875 55.7629 20.3707 56.1293 20.3707C57.8898 20.3707 61.4176 16.2147 64.4645 12.6253C65.6026 11.2845 66.6736 10.0228 67.5603 9.08621C69.6121 9.92888 71.7004 11.7241 71.1875 12.347C68.4763 15.5711 66.4246 18.2091 66.4246 19.7112C66.4246 20.1142 66.5711 20.3707 67.1207 20.3707C68.1466 20.3707 69.0991 19.4547 70.6746 17.5129C71.0043 17.1099 71.4073 17.1099 71.6638 17.7328C72.3599 19.4181 73.3858 20.3341 74.1918 20.3341C75.1444 20.3341 75.6207 19.4914 75.6207 18.2091C75.6207 17.3327 75.5137 16.3138 75.4217 15.4365C75.3521 14.7733 75.2909 14.191 75.2909 13.8125ZM16.194 13.3362C18.1358 13.3362 20.2608 12.2737 20.2608 10.1121C20.2608 8.80024 19.4466 7.59084 17.2708 7.22257C17.156 7.40192 17.042 7.58017 16.9287 7.75739C15.8231 9.4858 14.7804 11.116 13.7281 12.7095C14.3586 13.0636 15.156 13.3362 16.194 13.3362ZM35.8319 13.9957C35.8319 13.4095 35.4655 13.0065 34.8793 13.0065C33.4094 13.0065 31.1923 15.0693 30.149 17.0613C30.5341 17.2101 30.9862 17.2931 31.472 17.2931C34.0733 17.2931 35.8319 15.3147 35.8319 13.9957ZM45.4677 19.3082C45.4677 19.9677 45.834 20.4073 46.6034 20.4073C48.9849 20.4073 51.9526 16.0841 51.9526 14.3254C51.9526 13.5927 51.5496 13.153 50.8901 13.153C48.7285 13.153 45.4677 17.2565 45.4677 19.3082ZM76.0599 6.08207C75.2172 7.47431 73.9349 9.04974 73.4586 9.52603C71.2603 8.61008 69.2086 6.77819 69.5017 6.26525C70.3077 4.83638 71.6267 3.29758 72.103 2.82129C74.3012 3.73724 76.353 5.60577 76.0599 6.08207Z" fill="currentColor"/>
+    </g>
+    <defs>
+        <clipPath id="clip0_8_219">
+            <rect width="85" height="26.5991" fill="white"/>
+        </clipPath>
+    </defs>
+</svg>
+    
+    </a>
+    <div class="h-full flex items-center mx-4 grow">
+      <div class="hidden xl:flex flex-row h-full items-center">
+        <div class="group h-full px-2 xl:px-[14px]">
+          <div class="flex flex-row h-full items-center cursor-pointer w-[22ch] justify-between">
+            <div class="relative flex rounded-[20px] border border-white border-opacity-50 px-4 pl-9 py-1 transition-all duration-500 group-hover:border-[#ff4438]">
+              <svg class="absolute left-2 top-1/2 -translate-y-1/2 w-4 h-4" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path class="transform origin-center transition-transform duration-300 group-hover:scale-150" id="star-bottom" d="M11.1718 9.68706C11.2845 9.38235 11.7155 9.38235 11.8282 9.68706L12.3895 11.2037C12.4249 11.2995 12.5005 11.3751 12.5963 11.4105L14.1129 11.9717C14.4176 12.0845 14.4176 12.5155 14.1129 12.6282L12.5963 13.1895C12.5005 13.2249 12.4249 13.3004 12.3895 13.3962L11.8282 14.9129C11.7155 15.2176 11.2845 15.2176 11.1718 14.9129L10.6105 13.3962C10.5751 13.3004 10.4995 13.2249 10.4037 13.1895L8.88708 12.6282C8.58236 12.5155 8.58236 12.0845 8.88708 11.9717L10.4037 11.4105C10.4995 11.3751 10.5751 11.2995 10.6105 11.2037L11.1718 9.68706Z" fill="#FF4438"></path>
+                <path class="transform origin-center transition-transform duration-300 group-hover:scale-50" id="star-top" d="M5.27175 1.68707C5.38451 1.38235 5.81549 1.38235 5.92825 1.68706L7.05666 4.73654C7.09211 4.83235 7.16764 4.90788 7.26344 4.94333L10.3129 6.07174C10.6176 6.18449 10.6176 6.61548 10.3129 6.72824L7.26344 7.85665C7.16764 7.8921 7.09211 7.96763 7.05666 8.06343L5.92825 11.1129C5.81549 11.4176 5.38451 11.4176 5.27175 11.1129L4.14334 8.06343C4.10789 7.96763 4.03236 7.8921 3.93656 7.85665L0.887077 6.72824C0.582361 6.61548 0.58236 6.18449 0.887077 6.07174L3.93656 4.94333C4.03236 4.90788 4.10789 4.83235 4.14334 4.73654L5.27175 1.68707Z" fill="#FF4438"></path>
+              </svg>
+              <a href="/docs/latest/develop/ai/context-engine/" class="inline-block group-hover:font-bold whitespace-nowrap">Redis Iris</a>
+            </div>
+          </div>
+        </div>
+        <a class="group h-full px-2 xl:px-[14px] flex flex-row items-center" href="/docs/latest/operate/oss_and_stack/install/install-stack/">
+          <span class="inline-block group-hover:font-bold">Redis install</span>
+          <span class="inline-block ml-2 mt-1 text-redis-red-500 -rotate-90"><svg width="12" height="6" viewBox="0 0 12 6" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M5.29289 6L0.646484 1.35359L1.35359 0.646484L6.00004 5.29293L10.6465 0.646484L11.3536 1.35359L6.70718 6H5.29289Z"/>
+</svg>
+</span>
+        </a>
+        <a class="group h-full px-2 xl:px-[14px] flex flex-row items-center" href="/docs/latest/develop/data-types/">
+          <span class="inline-block group-hover:font-bold">Data types</span>
+          <span class="inline-block ml-2 mt-1 text-redis-red-500 -rotate-90"><svg width="12" height="6" viewBox="0 0 12 6" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M5.29289 6L0.646484 1.35359L1.35359 0.646484L6.00004 5.29293L10.6465 0.646484L11.3536 1.35359L6.70718 6H5.29289Z"/>
+</svg>
+</span>
+        </a>
+      </div>
+      <a class="hidden xl:flex group flex-row items-center px-4" href="/docs/latest/develop/tools/"><span
+          class="group-hover:font-bold">Tools</span><span class="inline-block ml-2 mt-1 text-redis-red-500 -rotate-90"><svg width="12" height="6" viewBox="0 0 12 6" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M5.29289 6L0.646484 1.35359L1.35359 0.646484L6.00004 5.29293L10.6465 0.646484L11.3536 1.35359L6.70718 6H5.29289Z"/>
+</svg>
+</span></a>
+      <a class="hidden xl:flex group flex-row items-center px-4" href="/docs/latest/operate/oss_and_stack/"><span
+          class="group-hover:font-bold">Community</span></a>
+      <a class="hidden xl:flex group flex-row items-center px-4" href="https://redis.io/docs/"><span
+          class="font-bold">Docs</span></a>
+    </div>
+
+    <div class="h-full flex gap-[18px] xl:gap-7 items-center text-center">
+      <button id="search-button" type="button" class="hidden xl:flex items-center gap-2 px-6 py-2 bg-[#163341] text-white rounded-full border border-white border-opacity-30 hover:bg-[#1a3a4a] hover:border-opacity-50 transition-colors">
+        <svg width="18" height="19" viewBox="0 0 18 19" stroke="currentColor" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M14.25 7.72059C14.25 11.591 11.2076 14.6912 7.5 14.6912C3.79242 14.6912 0.75 11.591 0.75 7.72059C0.75 3.8502 3.79242 0.75 7.5 0.75C11.2076 0.75 14.25 3.8502 14.25 7.72059Z" stroke-width="1.5"/>
+  <path d="M12 12.3529L17 17.5" stroke-width="1.5"/>
+  </svg>
+  
+        Search
+      </button>
+      <a class="hidden xl:block py-1 transition-colors hover:text-redis-red-500"
+        href="https://cloud.redis.io/">Login</a>
+
+      <a class="hidden xl:inline-flex items-center justify-center px-6 py-2 mr-4 border-2 border-redis-red-500 text-white rounded-md hover:bg-redis-red-500 transition-colors"
+        href="https://redis.io/try-free/">Sign up</a>
+      <button id="search-button-mobile" type="button" class="xl:hidden p-1 mt-1 transition-colors hover:text-redis-red-500">
+        <span class="sr-only">Open search</span>
+        <svg width="18" height="19" viewBox="0 0 18 19" stroke="currentColor" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M14.25 7.72059C14.25 11.591 11.2076 14.6912 7.5 14.6912C3.79242 14.6912 0.75 11.591 0.75 7.72059C0.75 3.8502 3.79242 0.75 7.5 0.75C11.2076 0.75 14.25 3.8502 14.25 7.72059Z" stroke-width="1.5"/>
+  <path d="M12 12.3529L17 17.5" stroke-width="1.5"/>
+  </svg>
+  
+      </button>
+      <button data-menu-toggle aria-expanded="false" type="button"
+        class="menu-toggle xl:hidden p-1 mt-1 transition-colors hover:text-redis-red-500">
+        <span class="sr-only">Open main menu</span>
+        <svg width="24" height="18" viewBox="0 0 24 18" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <rect width="24" height="1.5"/>
+  <rect y="8.25" width="24" height="1.5" />
+  <rect y="16.5" width="24" height="1.5"/>
+</svg>
+  
+      </button>
+    </div>
+
+  </div>
+
+  <nav data-menu data-menu-container
+    class="hidden absolute left-0 top-[70px] h-[calc(100vh-70px)] w-full overflow-y-auto bg-redis-ink-900 pb-12 xl:hidden">
+    <ul class="space-y-4 bg-redis-ink-900 p-4">
+      <li class="border-b border-b-white border-opacity-30 py-4 last:border-none">
+        <div class="flex items-center justify-between">
+          <a href="/docs/latest/develop/ai/context-engine/" class="text-lg font-medium flex items-center gap-2 text-white">Redis Iris
+            <svg class="" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path class="transform origin-center transition-transform duration-300 group-hover:scale-150" id="star-bottom" d="M11.1718 9.68706C11.2845 9.38235 11.7155 9.38235 11.8282 9.68706L12.3895 11.2037C12.4249 11.2995 12.5005 11.3751 12.5963 11.4105L14.1129 11.9717C14.4176 12.0845 14.4176 12.5155 14.1129 12.6282L12.5963 13.1895C12.5005 13.2249 12.4249 13.3004 12.3895 13.3962L11.8282 14.9129C11.7155 15.2176 11.2845 15.2176 11.1718 14.9129L10.6105 13.3962C10.5751 13.3004 10.4995 13.2249 10.4037 13.1895L8.88708 12.6282C8.58236 12.5155 8.58236 12.0845 8.88708 11.9717L10.4037 11.4105C10.4995 11.3751 10.5751 11.2995 10.6105 11.2037L11.1718 9.68706Z" fill="#FF4438"></path>
+            <path class="transform origin-center transition-transform duration-300 group-hover:scale-50" id="star-top" d="M5.27175 1.68707C5.38451 1.38235 5.81549 1.38235 5.92825 1.68706L7.05666 4.73654C7.09211 4.83235 7.16764 4.90788 7.26344 4.94333L10.3129 6.07174C10.6176 6.18449 10.6176 6.61548 10.3129 6.72824L7.26344 7.85665C7.16764 7.8921 7.09211 7.96763 7.05666 8.06343L5.92825 11.1129C5.81549 11.4176 5.38451 11.4176 5.27175 11.1129L4.14334 8.06343C4.10789 7.96763 4.03236 7.8921 3.93656 7.85665L0.887077 6.72824C0.582361 6.61548 0.58236 6.18449 0.887077 6.07174L3.93656 4.94333C4.03236 4.90788 4.10789 4.83235 4.14334 4.73654L5.27175 1.68707Z" fill="#FF4438"></path>
+          </svg></a>
+        </div>
+      </li>
+      <li class="border-b border-b-white border-opacity-30">
+        <div class="flex items-center justify-between"><a href="/docs/latest/operate/oss_and_stack/install/install-stack/" class="block py-4 w-full text-lg font-medium text-white">Redis install</a></div>
+      </li>
+      <li class="border-b border-b-white border-opacity-30">
+        <div class="flex items-center justify-between"><a href="/docs/latest/develop/data-types/" class="block py-4 w-full text-lg font-medium text-white">Data types</a></div>
+      </li>
+      <li class="border-b border-b-white border-opacity-30">
+        <div class="flex items-center justify-between"><a href="/docs/latest/develop/tools/" class="block py-4 w-full text-lg font-medium text-white">Tools</a></div>
+      </li>
+      <li class="border-b border-b-white border-opacity-30">
+        <div class="flex items-center justify-between"><a href="/docs/latest/operate/oss_and_stack/" class="block py-4 w-full text-lg font-medium text-white">Community</a></div>
+      </li>
+      <li>
+        <div class="flex items-center justify-between"><a href="https://redis.io/docs/" class="block py-4 w-full text-lg font-medium text-white">Docs</a></div>
+      </li>
+    </ul>
+    <ul class="pt-6">
+      <li class="mx-auto flex w-11/12 text-center"><a
+          class="my-2 w-full rounded-md border border-redis-pen-600 bg-redis-red-700 py-3 text-redis-white-200 font-sans font-bold active:bg-redis-pen-900 active:text-white"
+          href="https://redis.io/try-free/">Sign up</a></li>
+
+      <li class="mx-auto flex w-11/12 text-center">
+        <a class="my-2 w-full py-3 active:text-redis-red-500" href="https://cloud.redis.io/">
+          Login
+          <svg style="display:inline" width="12" height="11" viewBox="0 0 12 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+        d="M12.0001 6.1931V4.6571L7.55212 0.209105L6.73612 1.0251L10.1441 4.4331L10.9441 4.8811L10.8641 5.0731L10.1441 4.8491L0 4.8491L-5.96046e-08 6.0011H10.1441L10.8641 5.7771L10.9441 5.9691L10.1441 6.4171L6.73612 9.8251L7.55212 10.6411L12.0001 6.1931Z"
+        fill="#091A23" />
+</svg>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+
+
+
+    
+  <main class="docs w-full max-w-[1920px] mx-auto px-5 flex flex-col md:flex-row overflow-hidden">
+    
+
+
+<div class="md:block w-full md:w-96 h-fit md:h-full shrink-0 text-base font-mono font-normal py-6">
+  <nav id="sidebar" class="max-h-[calc(100vh-7rem)] min-h-96 flex flex-col gap-4 w-full md:w-96 z-40 bg-white md:fixed md:pt-6 h-fit md:h-full leading-7">
+    
+    
+      
+      <div  class='min-h-0  border border-opacity-50 border-redis-ink-900 rounded-md flex flex-col '>
+        <a  class='px-6 py-4 rounded-t-md hover:bg-redis-pen-200  font-bold ' href='/docs/latest/develop'>Develop with Redis</a>
+        
+          <ul class="md:block overflow-y-auto grow pr-6 border-t border-opacity-50 border-redis-ink-900">
+            <li class="my-2">
+      <a class="pl-6 flex  text-redis-pen-700 hover:text-redis-pen-600 " href="/docs/latest/develop/setup/">
+        
+          <span class="pr-0"></span>
+          <span>Get started</span>
+      </a>
+      
+    <li class="my-2">
+      <a class="pl-6 flex  text-redis-pen-700 hover:text-redis-pen-600 " href="/docs/latest/develop/whats-new/">
+        
+          <span class="pr-0"></span>
+          <span>What&#39;s new?</span>
+      </a>
+      
+    <li class="my-2">
+      <a class="pl-6 flex  text-redis-pen-700 hover:text-redis-pen-600 " href="/docs/latest/develop/get-started/">
+        
+          <span class="pr-0"></span>
+          <span>Quick starts</span>
+      </a>
+      
+    <li class="my-2">
+      <a class="pl-6 flex  text-redis-pen-700 hover:text-redis-pen-600 " href="/docs/latest/develop/tools/">
+        
+          <span class="pr-0"></span>
+          <span>Client tools</span>
+      </a>
+      
+    <li class="my-2">
+      <a class="pl-6 flex  text-redis-pen-700 hover:text-redis-pen-600 " href="/docs/latest/develop/clients/">
+        
+          <span class="pr-0"></span>
+          <span>Client APIs</span>
+      </a>
+      
+    
+      <ul class="child-list">
+        <li class="my-2">
+      <a class="pl-6 flex  text-redis-pen-700 hover:text-redis-pen-600 " href="/docs/latest/develop/clients/redis-py/">
+        
+          <span class="pr-0"></span>
+          <span>redis-py (Python)</span>
+      </a>
+      
+    <li class="my-2">
+      <a class="pl-6 flex  text-redis-pen-700 hover:text-redis-pen-600 " href="/docs/latest/develop/clients/redis-vl/">
+        <span>RedisVL (Python)</span>
+      </a>
+      
+    <li class="my-2">
+      <a class="pl-6 flex  text-redis-pen-700 hover:text-redis-pen-600 " href="/docs/latest/develop/clients/dotnet/">
+        
+          <span class="pr-0"></span>
+          <span>StackExchange.Redis (C#/.NET)</span>
+      </a>
+      
+    <li class="my-2">
+      <a class="pl-6 flex  text-redis-pen-700 hover:text-redis-pen-600 " href="/docs/latest/develop/clients/nodejs/">
+        
+          <span class="pr-0"></span>
+          <span>node-redis (JavaScript)</span>
+      </a>
+      
+    <li class="my-2">
+      <a class="pl-6 flex  text-redis-pen-700 hover:text-redis-pen-600 " href="/docs/latest/develop/clients/ioredis/">
+        
+          <span class="pr-0"></span>
+          <span>ioredis (JavaScript)</span>
+      </a>
+      
+    <li class="my-2">
+      <a class="pl-6 flex  text-redis-pen-700 hover:text-redis-pen-600 " href="/docs/latest/develop/clients/jedis/">
+        
+          <span class="pr-0"></span>
+          <span>Jedis (Java)</span>
+      </a>
+      
+    <li class="my-2">
+      <a class="pl-6 flex  text-redis-pen-700 hover:text-redis-pen-600 " href="/docs/latest/develop/clients/lettuce/">
+        
+          <span class="pr-0"></span>
+          <span>Lettuce (Java)</span>
+      </a>
+      
+    <li class="my-2">
+      <a class="pl-6 flex  text-redis-pen-700 hover:text-redis-pen-600 " href="/docs/latest/develop/clients/go/">
+        
+          <span class="pr-0"></span>
+          <span>go-redis (Go)</span>
+      </a>
+      
+    <li class="my-2">
+      <a class="pl-6 flex  text-redis-pen-700 hover:text-redis-pen-600 " href="/docs/latest/develop/clients/php/">
+        
+          <span class="pr-0"></span>
+          <span>Predis (PHP)</span>
+      </a>
+      
+    <li class="my-2">
+      <a class="pl-6 flex  text-redis-pen-700 hover:text-redis-pen-600 " href="/docs/latest/develop/clients/rust/">
+        
+          <span class="pr-0"></span>
+          <span>redis-rs (Rust)</span>
+      </a>
+      
+    <li class="my-2">
+      <a class="pl-6 flex  text-redis-pen-700 hover:text-redis-pen-600 " href="/docs/latest/develop/clients/hiredis/">
+        
+          <span class="pr-0"></span>
+          <span>hiredis (C)</span>
+      </a>
+      
+    <li class="my-2">
+      <a class="pl-6 flex  text-redis-pen-700 hover:text-redis-pen-600 " href="/docs/latest/develop/clients/ruby/">
+        
+          <span class="pr-0"></span>
+          <span>redis-rb (Ruby)</span>
+      </a>
+      
+    <li class="my-2">
+      <a class="pl-6 flex  text-redis-pen-700 hover:text-redis-pen-600 " href="/docs/latest/develop/clients/om-clients/">
+        <span>Object mapping</span>
+      </a>
+      
+    <li class="my-2">
+      <a class="pl-6 flex  text-redis-pen-700 hover:text-redis-pen-600 " href="/docs/latest/develop/clients/client-side-caching/">
+        <span>Client-side caching</span>
+      </a>
+      
+    <li class="my-2">
+      <a class="pl-6 flex  text-redis-pen-700 hover:text-redis-pen-600 " href="/docs/latest/develop/clients/connection-urls/">
+        <span>Connection URLs</span>
+      </a>
+      
+    <li class="my-2">
+      <a class="pl-6 flex  text-redis-pen-700 hover:text-redis-pen-600 " href="/docs/latest/develop/clients/pools-and-muxing/">
+        <span>Pooling/multiplexing</span>
+      </a>
+      
+    <li class="my-2">
+      <a class="pl-6 flex  text-redis-pen-700 hover:text-redis-pen-600 " href="/docs/latest/develop/clients/error-handling/">
+        <span>Error handling</span>
+      </a>
+      
+    <li class="my-2">
+      <a class="pl-6 flex  text-redis-pen-700 hover:text-redis-pen-600 " href="/docs/latest/develop/clients/failover/">
+        <span>Geographic failover</span>
+      </a>
+      
+    <li class="my-2">
+      <a class="pl-6 flex  text-redis-pen-700 hover:text-redis-pen-600 " href="/docs/latest/develop/clients/sch/">
+        <span>Smart client handoffs</span>
+      </a>
+      
+    <li class="my-2">
+      <a class="pl-6 flex  text-redis-pen-700 hover:text-redis-pen-600 " href="/docs/latest/develop/clients/observability/">
+        <span>Observability</span>
+      </a>
+      
+    <li class="my-2">
+      <a class="pl-6 flex  text-redis-pen-700 hover:text-redis-pen-600 " href="/docs/latest/develop/clients/patterns/">
+        
+          <span class="pr-0"></span>
+          <span>Coding patterns</span>
+      </a>
+      
+    
+      <ul class="child-list">
+        <li class="my-2">
+      <a class="pl-6 flex  text-redis-pen-700 hover:text-redis-pen-600 " href="/docs/latest/develop/clients/patterns/bulk-loading/">
+        <span>Bulk loading</span>
+      </a>
+      
+    <li class="my-2">
+      <a class="pl-6 flex  active text-redis-ink-900 " href="/docs/latest/develop/clients/patterns/distributed-locks/">
+        <span>Distributed locks</span>
+      </a>
+      
+    <li class="my-2">
+      <a class="pl-6 flex  text-redis-pen-700 hover:text-redis-pen-600 " href="/docs/latest/develop/clients/patterns/indexes/">
+        <span>Secondary indexing</span>
+      </a>
+      
+    <li class="my-2">
+      <a class="pl-6 flex  text-redis-pen-700 hover:text-redis-pen-600 " href="/docs/latest/develop/clients/patterns/twitter-clone/">
+        <span>Patterns example</span>
+      </a>
+      
+    
+      </ul>
+    <li class="my-2">
+      <a class="pl-6 flex  text-redis-pen-700 hover:text-redis-pen-600 " href="/docs/latest/develop/clients/version-support/">
+        <span>Support &amp; versioning</span>
+      </a>
+      
+    
+      </ul>
+    <li class="my-2">
+      <a class="pl-6 flex  text-redis-pen-700 hover:text-redis-pen-600 " href="/docs/latest/develop/using-commands/">
+        
+          <span class="pr-0"></span>
+          <span>Using commands</span>
+      </a>
+      
+    <li class="my-2">
+      <a class="pl-6 flex  text-redis-pen-700 hover:text-redis-pen-600 " href="/docs/latest/develop/data-types/">
+        
+          <span class="pr-0"></span>
+          <span>Data types</span>
+      </a>
+      
+    <li class="my-2">
+      <a class="pl-6 flex  text-redis-pen-700 hover:text-redis-pen-600 " href="/docs/latest/develop/ai/">
+        
+          <span class="pr-0"></span>
+          <span>Redis for AI and search</span>
+      </a>
+      
+    <li class="my-2">
+      <a class="pl-6 flex  text-redis-pen-700 hover:text-redis-pen-600 " href="/docs/latest/develop/programmability/">
+        
+          <span class="pr-0"></span>
+          <span>Programmability</span>
+      </a>
+      
+    <li class="my-2">
+      <a class="pl-6 flex  text-redis-pen-700 hover:text-redis-pen-600 " href="/docs/latest/develop/use-cases/">
+        
+          <span class="pr-0"></span>
+          <span>Use cases</span>
+      </a>
+      
+    <li class="my-2">
+      <a class="pl-6 flex  text-redis-pen-700 hover:text-redis-pen-600 " href="/docs/latest/develop/pubsub/">
+        
+          <span class="pr-0"></span>
+          <span>Pub/sub</span>
+      </a>
+      
+    <li class="my-2">
+      <a class="pl-6 flex  text-redis-pen-700 hover:text-redis-pen-600 " href="/docs/latest/develop/reference/">
+        
+          <span class="pr-0"></span>
+          <span>Reference</span>
+      </a>
+      
+    
+          </ul>
+        
+        <a data-offline-hide class='px-6 py-4 hover:bg-redis-pen-200 border-t border-redis-ink-900 border-opacity-50 ' href='/docs/latest/integrate'>Libraries and tools</a>
+        
+        <a data-offline-hide class='px-6 py-4 rounded-b-md hover:bg-redis-pen-200 border-t border-redis-ink-900 border-opacity-50 ' href='/docs/latest/operate'>Redis products</a>
+        
+      </div>
+      <div data-offline-hide class='min-h-0 border border-opacity-50 border-redis-ink-900 rounded-md flex flex-col  shrink-0 '>
+        <a class='px-6 py-4 hover:bg-redis-pen-200 text-redis-red-600 ' href='/docs/latest/commands'>Commands</a>
+        
+      </div>
+    
+    <div class="mt-4 shrink-0 md:mt-0 md:pb-4">
+      
+
+<button type="button" data-open-download data-offline-hide
+        aria-haspopup="dialog" aria-controls="download-docs-dialog"
+        title="Download documentation" class="flex h-9 w-9 items-center justify-center rounded-md border border-opacity-50 border-redis-ink-900 text-redis-ink-900 hover:bg-redis-pen-200">
+  
+    <span class="sr-only">Download documentation</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"
+         stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" aria-hidden="true">
+      <path d="M12 3v11" />
+      <path d="M7.5 10.5 12 15l4.5-4.5" />
+      <path d="M4 17.5v1.5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-1.5" />
+    </svg>
+  
+</button>
+
+    </div>
+    
+<dialog id="download-docs-dialog" aria-labelledby="download-docs-title" data-offline-hide
+        class="w-[min(48rem,calc(100vw-2rem))] rounded-lg p-0 text-base font-sans
+               backdrop:bg-redis-ink-900 backdrop:bg-opacity-50">
+  <div class="p-6">
+    <div class="flex items-start gap-4">
+      <div>
+        <h2 id="download-docs-title" class="text-xl font-semibold text-redis-ink-900">
+          Download documentation
+        </h2>
+        <p class="mt-1 text-sm text-slate-600">
+          Choose the products and versions you want. Everything arrives as one
+          <code>.tar.gz</code>, with a directory per product.
+        </p>
+      </div>
+      <button type="button" data-close-download aria-label="Close"
+              class="ml-auto -mt-1 -mr-1 rounded p-1 text-slate-500 hover:bg-slate-100">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"
+             stroke-linecap="round" class="h-5 w-5" aria-hidden="true">
+          <path d="M6 6l12 12M18 6L6 18" />
+        </svg>
+      </button>
+    </div>
+
+    <form data-docs-download class="mt-5 text-sm"
+          data-bundle-base="/docs/latest/downloads/bundles">
+
+      <div class="flex flex-wrap items-center gap-3 pb-2">
+        <label for="download-docs-format" class="font-medium text-redis-ink-900">Format</label>
+        <select id="download-docs-format" name="format" class="h-8 rounded border border-slate-300 bg-white px-2 text-sm text-redis-ink-900">
+          
+            <option value="md" data-description="The same rendered Markdown that redis.io serves to AI agents. Best for offline reading, grepping, or dropping into a repository.">
+              Markdown &mdash; one .md file per page
+            </option>
+          
+            <option value="md-single" data-description="All the pages of a product concatenated into one file. Best for pasting into a model&#39;s context window or a Claude project.">
+              Markdown, single file &mdash; every page in one .md file
+            </option>
+          
+            <option value="html" data-description="The pages as published, with their styling, fonts, and images included and their links rewritten to work from disk. Open index.html in a browser.">
+              HTML &mdash; browse offline
+            </option>
+          
+            <option value="json" data-description="Structured per-page documents (title, description, table of contents, code examples, body). Best for search indexes and RAG pipelines.">
+              JSON &mdash; one .json file per page
+            </option>
+          
+        </select>
+      </div>
+      <p data-format-hint class="pb-4 text-xs text-slate-600"></p>
+
+      
+      <div class="mb-4 rounded border border-slate-200">
+        <table class="w-full border-collapse">
+          <thead>
+            <tr>
+              <th scope="col" class="sticky top-0 z-10 bg-slate-50 py-2 text-left font-medium text-redis-ink-900 shadow-[inset_0_-2px_0_0_#B9C2C6] pl-3">This page</th>
+              <th scope="col" class="sticky top-0 z-10 bg-slate-50 py-2 text-left font-medium text-redis-ink-900 shadow-[inset_0_-2px_0_0_#B9C2C6] pr-3"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-t border-slate-100 align-middle">
+              <td class="py-2.5 pl-3">
+                <span data-page-title class="block text-redis-ink-900"></span>
+                <span data-page-file class="block text-xs text-slate-600"></span>
+              </td>
+              <td class="w-32 py-2 pr-3 text-right">
+                <button type="button" data-download-page
+                        class="rounded-md border border-slate-300 px-4 py-1.5 font-medium
+                               text-redis-ink-900 hover:bg-slate-50">
+                  Download
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="max-h-[19rem] overflow-y-auto rounded border border-slate-200">
+        <table class="w-full border-collapse">
+          <thead>
+            <tr>
+              <th scope="col" class="sticky top-0 z-10 bg-slate-50 py-2 text-left font-medium text-redis-ink-900 shadow-[inset_0_-2px_0_0_#B9C2C6] w-10 pl-3">
+                <input type="checkbox" data-select-all aria-label="Select every product">
+              </th>
+              <th scope="col" class="sticky top-0 z-10 bg-slate-50 py-2 text-left font-medium text-redis-ink-900 shadow-[inset_0_-2px_0_0_#B9C2C6]">Products</th>
+              <th scope="col" class="sticky top-0 z-10 bg-slate-50 py-2 text-left font-medium text-redis-ink-900 shadow-[inset_0_-2px_0_0_#B9C2C6] pr-3">Version</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+              <tr class="border-t border-slate-100 hover:bg-slate-50 align-top">
+                <td class="py-2.5 pl-3">
+                  <input type="checkbox" id="download-docs-develop" name="docset" value="develop"
+                         data-title="Develop with Redis">
+                </td>
+                <td class="py-2.5 pr-4">
+                  <label for="download-docs-develop" class="block cursor-pointer text-redis-ink-900">
+                    Develop with Redis
+                  </label>
+                  
+                    <span class="block text-xs text-slate-600">Clients, data types, programmability, and Redis for AI. RedisVL is listed separately.</span>
+                  
+                </td>
+                <td class="py-2 pr-3">
+                  
+                </td>
+              </tr>
+            
+              <tr class="border-t border-slate-100 hover:bg-slate-50 align-top">
+                <td class="py-2.5 pl-3">
+                  <input type="checkbox" id="download-docs-integrations" name="docset" value="integrations"
+                         data-title="Libraries and tools">
+                </td>
+                <td class="py-2.5 pr-4">
+                  <label for="download-docs-integrations" class="block cursor-pointer text-redis-ink-900">
+                    Libraries and tools
+                  </label>
+                  
+                    <span class="block text-xs text-slate-600">Client libraries, observability, and cloud integrations. Redis Data Integration is listed separately.</span>
+                  
+                </td>
+                <td class="py-2 pr-3">
+                  
+                </td>
+              </tr>
+            
+              <tr class="border-t border-slate-100 hover:bg-slate-50 align-middle">
+                <td class="py-2.5 pl-3">
+                  <input type="checkbox" id="download-docs-redisvl" name="docset" value="redisvl"
+                         data-title="RedisVL">
+                </td>
+                <td class="py-2.5 pr-4">
+                  <label for="download-docs-redisvl" class="block cursor-pointer text-redis-ink-900">
+                    RedisVL
+                  </label>
+                  
+                </td>
+                <td class="py-2 pr-3">
+                  
+                    <select name="version-redisvl"
+                            aria-label="RedisVL version"
+                            class="h-8 rounded border border-slate-300 bg-white px-2 text-sm text-redis-ink-900 w-28 text-center">
+                      <option value="latest">latest</option>
+                      
+                        <option value="0.31.0">v0.31.0</option>
+                      
+                        <option value="0.30.0">v0.30.0</option>
+                      
+                        <option value="0.29.0">v0.29.0</option>
+                      
+                        <option value="0.28.0">v0.28.0</option>
+                      
+                        <option value="0.27.2">v0.27.2</option>
+                      
+                        <option value="0.27.1">v0.27.1</option>
+                      
+                        <option value="0.27.0">v0.27.0</option>
+                      
+                        <option value="0.26.0">v0.26.0</option>
+                      
+                        <option value="0.25.1">v0.25.1</option>
+                      
+                        <option value="0.25.0">v0.25.0</option>
+                      
+                        <option value="0.24.0">v0.24.0</option>
+                      
+                        <option value="0.23.0">v0.23.0</option>
+                      
+                        <option value="0.22.0">v0.22.0</option>
+                      
+                        <option value="0.20.1">v0.20.1</option>
+                      
+                        <option value="0.20.0">v0.20.0</option>
+                      
+                        <option value="0.19.0">v0.19.0</option>
+                      
+                        <option value="0.18.2">v0.18.2</option>
+                      
+                        <option value="0.18.1">v0.18.1</option>
+                      
+                        <option value="0.18.0">v0.18.0</option>
+                      
+                        <option value="0.17.1">v0.17.1</option>
+                      
+                        <option value="0.17.0">v0.17.0</option>
+                      
+                        <option value="0.16.0">v0.16.0</option>
+                      
+                        <option value="0.15.0">v0.15.0</option>
+                      
+                        <option value="0.14.0">v0.14.0</option>
+                      
+                        <option value="0.13.2">v0.13.2</option>
+                      
+                        <option value="0.13.0">v0.13.0</option>
+                      
+                        <option value="0.12.1">v0.12.1</option>
+                      
+                        <option value="0.12.0">v0.12.0</option>
+                      
+                        <option value="0.11.1">v0.11.1</option>
+                      
+                        <option value="0.11.0">v0.11.0</option>
+                      
+                        <option value="0.10.0">v0.10.0</option>
+                      
+                        <option value="0.9.1">v0.9.1</option>
+                      
+                        <option value="0.9.0">v0.9.0</option>
+                      
+                        <option value="0.8.2">v0.8.2</option>
+                      
+                        <option value="0.8.1">v0.8.1</option>
+                      
+                        <option value="0.8.0">v0.8.0</option>
+                      
+                        <option value="0.7.0">v0.7.0</option>
+                      
+                        <option value="0.6.0">v0.6.0</option>
+                      
+                    </select>
+                  
+                </td>
+              </tr>
+            
+              <tr class="border-t border-slate-100 hover:bg-slate-50 align-middle">
+                <td class="py-2.5 pl-3">
+                  <input type="checkbox" id="download-docs-redis-software" name="docset" value="redis-software"
+                         data-title="Redis Software">
+                </td>
+                <td class="py-2.5 pr-4">
+                  <label for="download-docs-redis-software" class="block cursor-pointer text-redis-ink-900">
+                    Redis Software
+                  </label>
+                  
+                </td>
+                <td class="py-2 pr-3">
+                  
+                    <select name="version-redis-software"
+                            aria-label="Redis Software version"
+                            class="h-8 rounded border border-slate-300 bg-white px-2 text-sm text-redis-ink-900 w-28 text-center">
+                      <option value="latest">latest</option>
+                      
+                        <option value="8.0">v8.0</option>
+                      
+                        <option value="7.22">v7.22</option>
+                      
+                        <option value="7.8">v7.8</option>
+                      
+                        <option value="7.4">v7.4</option>
+                      
+                    </select>
+                  
+                </td>
+              </tr>
+            
+              <tr class="border-t border-slate-100 hover:bg-slate-50 align-middle">
+                <td class="py-2.5 pl-3">
+                  <input type="checkbox" id="download-docs-redis-cloud" name="docset" value="redis-cloud"
+                         data-title="Redis Cloud">
+                </td>
+                <td class="py-2.5 pr-4">
+                  <label for="download-docs-redis-cloud" class="block cursor-pointer text-redis-ink-900">
+                    Redis Cloud
+                  </label>
+                  
+                </td>
+                <td class="py-2 pr-3">
+                  
+                </td>
+              </tr>
+            
+              <tr class="border-t border-slate-100 hover:bg-slate-50 align-middle">
+                <td class="py-2.5 pl-3">
+                  <input type="checkbox" id="download-docs-redis-kubernetes" name="docset" value="redis-kubernetes"
+                         data-title="Redis for Kubernetes">
+                </td>
+                <td class="py-2.5 pr-4">
+                  <label for="download-docs-redis-kubernetes" class="block cursor-pointer text-redis-ink-900">
+                    Redis for Kubernetes
+                  </label>
+                  
+                </td>
+                <td class="py-2 pr-3">
+                  
+                    <select name="version-redis-kubernetes"
+                            aria-label="Redis for Kubernetes version"
+                            class="h-8 rounded border border-slate-300 bg-white px-2 text-sm text-redis-ink-900 w-28 text-center">
+                      <option value="latest">latest</option>
+                      
+                        <option value="8.2.0">v8.2.0</option>
+                      
+                        <option value="8.0.18">v8.0.18</option>
+                      
+                        <option value="8.0">v8.0</option>
+                      
+                        <option value="7.22">v7.22</option>
+                      
+                        <option value="7.8.6">v7.8.6</option>
+                      
+                        <option value="7.8.4">v7.8.4</option>
+                      
+                        <option value="7.4.6">v7.4.6</option>
+                      
+                    </select>
+                  
+                </td>
+              </tr>
+            
+              <tr class="border-t border-slate-100 hover:bg-slate-50 align-middle">
+                <td class="py-2.5 pl-3">
+                  <input type="checkbox" id="download-docs-redis-open-source" name="docset" value="redis-open-source"
+                         data-title="Redis Open Source">
+                </td>
+                <td class="py-2.5 pr-4">
+                  <label for="download-docs-redis-open-source" class="block cursor-pointer text-redis-ink-900">
+                    Redis Open Source
+                  </label>
+                  
+                </td>
+                <td class="py-2 pr-3">
+                  
+                </td>
+              </tr>
+            
+              <tr class="border-t border-slate-100 hover:bg-slate-50 align-middle">
+                <td class="py-2.5 pl-3">
+                  <input type="checkbox" id="download-docs-redis-iris" name="docset" value="redis-iris"
+                         data-title="Redis Iris context engine">
+                </td>
+                <td class="py-2.5 pr-4">
+                  <label for="download-docs-redis-iris" class="block cursor-pointer text-redis-ink-900">
+                    Redis Iris context engine
+                  </label>
+                  
+                </td>
+                <td class="py-2 pr-3">
+                  
+                </td>
+              </tr>
+            
+              <tr class="border-t border-slate-100 hover:bg-slate-50 align-middle">
+                <td class="py-2.5 pl-3">
+                  <input type="checkbox" id="download-docs-redis-feature-form" name="docset" value="redis-feature-form"
+                         data-title="Redis Feature Form">
+                </td>
+                <td class="py-2.5 pr-4">
+                  <label for="download-docs-redis-feature-form" class="block cursor-pointer text-redis-ink-900">
+                    Redis Feature Form
+                  </label>
+                  
+                </td>
+                <td class="py-2 pr-3">
+                  
+                </td>
+              </tr>
+            
+              <tr class="border-t border-slate-100 hover:bg-slate-50 align-middle">
+                <td class="py-2.5 pl-3">
+                  <input type="checkbox" id="download-docs-redis-insight" name="docset" value="redis-insight"
+                         data-title="Redis Insight">
+                </td>
+                <td class="py-2.5 pr-4">
+                  <label for="download-docs-redis-insight" class="block cursor-pointer text-redis-ink-900">
+                    Redis Insight
+                  </label>
+                  
+                </td>
+                <td class="py-2 pr-3">
+                  
+                </td>
+              </tr>
+            
+              <tr class="border-t border-slate-100 hover:bg-slate-50 align-middle">
+                <td class="py-2.5 pl-3">
+                  <input type="checkbox" id="download-docs-redis-data-integration" name="docset" value="redis-data-integration"
+                         data-title="Redis Data Integration">
+                </td>
+                <td class="py-2.5 pr-4">
+                  <label for="download-docs-redis-data-integration" class="block cursor-pointer text-redis-ink-900">
+                    Redis Data Integration
+                  </label>
+                  
+                </td>
+                <td class="py-2 pr-3">
+                  
+                    <select name="version-redis-data-integration"
+                            aria-label="Redis Data Integration version"
+                            class="h-8 rounded border border-slate-300 bg-white px-2 text-sm text-redis-ink-900 w-28 text-center">
+                      <option value="latest">latest</option>
+                      
+                        <option value="2.0.0">v2.0.0</option>
+                      
+                        <option value="1.19.1">v1.19.1</option>
+                      
+                    </select>
+                  
+                </td>
+              </tr>
+            
+              <tr class="border-t border-slate-100 hover:bg-slate-50 align-middle">
+                <td class="py-2.5 pl-3">
+                  <input type="checkbox" id="download-docs-glossary" name="docset" value="glossary"
+                         data-title="Glossary">
+                </td>
+                <td class="py-2.5 pr-4">
+                  <label for="download-docs-glossary" class="block cursor-pointer text-redis-ink-900">
+                    Glossary
+                  </label>
+                  
+                </td>
+                <td class="py-2 pr-3">
+                  
+                </td>
+              </tr>
+            
+              <tr class="border-t border-slate-100 hover:bg-slate-50 align-middle">
+                <td class="py-2.5 pl-3">
+                  <input type="checkbox" id="download-docs-commands" name="docset" value="commands"
+                         data-title="Command reference">
+                </td>
+                <td class="py-2.5 pr-4">
+                  <label for="download-docs-commands" class="block cursor-pointer text-redis-ink-900">
+                    Command reference
+                  </label>
+                  
+                </td>
+                <td class="py-2 pr-3">
+                  
+                </td>
+              </tr>
+            
+          </tbody>
+        </table>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-end gap-3 pt-4">
+        <p data-download-status role="status" aria-live="polite"
+           class="mr-auto text-xs text-slate-600"></p>
+        <button type="button" data-close-download
+                class="rounded-md border border-slate-300 px-4 py-2 font-medium text-redis-ink-900
+                       hover:bg-slate-50">
+          Cancel
+        </button>
+        <button type="submit" data-download-submit disabled
+                class="rounded-md bg-redis-red-500 px-5 py-2 font-medium text-white
+                       hover:bg-redis-red-600 disabled:opacity-50 disabled:cursor-not-allowed">
+          Download
+        </button>
+      </div>
+    </form>
+  </div>
+</dialog>
+
+
+
+  </nav>
+</div>
+
+
+
+    <div class="w-full py-12 md:pl-4 xl:px-16 overflow-hidden">
+      
+<nav class="flex text-redis-ink-900 text-xs font-mono font-normal" aria-label="Breadcrumb"> 
+  <ol role="list" class="flex items-center">
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+  <li class="flex items-center ">
+    
+      <a class="hover:text-redis-red-500" href="/docs/latest/">
+        
+        
+        <span>Docs</span>
+        <span class="sr-only">Docs</span>
+      </a>
+    
+  </li>
+
+  
+  <li class="flex items-center ">
+    
+      <span class="px-2">→</span>
+      <a class="hover:text-redis-red-500" href="/docs/latest/develop/">
+        Develop with Redis
+      </a>
+    
+  </li>
+
+  
+  <li class="flex items-center ">
+    
+      <span class="px-2">→</span>
+      <a class="hover:text-redis-red-500" href="/docs/latest/develop/clients/">
+        Connect with Redis client API libraries
+      </a>
+    
+  </li>
+
+  
+  <li class="flex items-center ">
+    
+      <span class="px-2">→</span>
+      <a class="hover:text-redis-red-500" href="/docs/latest/develop/clients/patterns/">
+        Coding patterns
+      </a>
+    
+  </li>
+
+  
+  <li class="flex items-center  pointer-events-none">
+    
+      <span class="px-2">→</span>
+      <a class="hover:text-redis-red-500" href="/docs/latest/develop/clients/patterns/distributed-locks/">
+        Distributed Locks with Redis
+      </a>
+    
+  </li>
+
+  </ol>
+</nav>
+
+
+      <section class="prose w-full py-12 max-w-none">
+        <h1>
+          Distributed Locks with Redis</h1>
+        <p class="text-lg -mt-5 mb-10">A distributed lock pattern with Redis</p>
+        
+        
+        
+          
+          
+          
+            
+          
+          
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        
+        
+        <p>Distributed locks are a very useful primitive in many environments where
+different processes must operate with shared resources in a mutually
+exclusive way.</p>
+<p>There are a number of libraries and blog posts describing how to implement
+a DLM (Distributed Lock Manager) with Redis, but every library uses a different
+approach, and many use a simple approach with lower guarantees compared to
+what can be achieved with slightly more complex designs.</p>
+<p>This page describes a more canonical algorithm to implement
+distributed locks with Redis. We propose an algorithm, called <strong>Redlock</strong>,
+which implements a DLM which we believe to be safer than the vanilla single
+instance approach. We hope that the community will analyze it, provide
+feedback, and use it as a starting point for the implementations of more
+complex or alternative designs.</p>
+<h2 id="implementations" class="group relative">
+  Implementations
+  <a href="#implementations" class="header-link opacity-0 group-hover:opacity-100 transition-opacity duration-200 ml-1 align-baseline" aria-label="Link to this section" title="Copy link to clipboard">
+    <svg class="inline-block w-4 h-4 align-baseline" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"></path>
+    </svg>
+  </a>
+</h2>
+<p>Before describing the algorithm, here are a few links to implementations
+already available that can be used for reference.</p>
+<ul>
+<li><a href="https://github.com/antirez/redlock-rb">Redlock-rb</a> (Ruby implementation). There is also a <a href="https://github.com/leandromoreira/redlock-rb">fork of Redlock-rb</a> that adds a gem for easy distribution.</li>
+<li><a href="https://github.com/0exp/redis_queued_locks">RedisQueuedLocks</a> (Ruby implementation).</li>
+<li><a href="https://github.com/alwaysvivek/redlock">redlock-ng</a> (Modern Python implementation, sync &amp; async).</li>
+<li><a href="https://github.com/brainix/pottery#redlock">Pottery</a> (Python implementation).</li>
+<li><a href="https://github.com/joanvila/aioredlock">Aioredlock</a> (Asyncio Python implementation).</li>
+<li><a href="https://github.com/malkusch/lock#redismutex">RedisMutex</a> (PHP implementation with both <a href="https://github.com/phpredis/phpredis">Redis extension</a> and <a href="https://github.com/predis/predis">Predis library</a> clients support).</li>
+<li><a href="https://github.com/ronnylt/redlock-php">Redlock-php</a> (PHP implementation).</li>
+<li><a href="https://github.com/cheprasov/php-redis-lock">cheprasov/php-redis-lock</a> (PHP library for locks).</li>
+<li><a href="https://github.com/rtckit/reactphp-redlock">rtckit/react-redlock</a> (Async PHP implementation).</li>
+<li><a href="https://github.com/go-redsync/redsync">Redsync</a> (Go implementation).</li>
+<li><a href="https://github.com/mrniko/redisson">Redisson</a> (Java implementation).</li>
+<li><a href="https://github.com/sbertrang/redis-distlock">Redis::DistLock</a> (Perl implementation).</li>
+<li><a href="https://github.com/jacket-code/redlock-cpp">Redlock-cpp</a> (C++ implementation).</li>
+<li><a href="https://github.com/sewenew/redis-plus-plus/#redlock">Redis-plus-plus</a> (C++ implementation).</li>
+<li><a href="https://github.com/kidfashion/redlock-cs">Redlock-cs</a> (C#/.NET implementation).</li>
+<li><a href="https://github.com/samcook/RedLock.net">RedLock.net</a> (C#/.NET implementation). Includes async and lock extension support.</li>
+<li><a href="https://github.com/LiZhenNet/Redlock4Net">Redlock4Net</a> (C# .NET implementation).</li>
+<li><a href="https://github.com/mike-marcacci/node-redlock">node-redlock</a> (NodeJS implementation). Includes support for lock extension.</li>
+<li><a href="https://github.com/alexpota/redlock-universal">redlock-universal</a> (NodeJS implementation). Supports node-redis and ioredis, with automatic lock extension and Redis Cluster support.</li>
+<li><a href="https://github.com/oslabs-beta/Deno-Redlock">Deno DLM</a> (Deno implementation)</li>
+<li><a href="https://github.com/hexcowboy/rslock">Rslock</a> (Rust implementation). Includes async and lock extension support.</li>
+</ul>
+<h2 id="safety-and-liveness-guarantees" class="group relative">
+  Safety and Liveness Guarantees
+  <a href="#safety-and-liveness-guarantees" class="header-link opacity-0 group-hover:opacity-100 transition-opacity duration-200 ml-1 align-baseline" aria-label="Link to this section" title="Copy link to clipboard">
+    <svg class="inline-block w-4 h-4 align-baseline" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"></path>
+    </svg>
+  </a>
+</h2>
+<p>We are going to model our design with just three properties that, from our point of view, are the minimum guarantees needed to use distributed locks in an effective way.</p>
+<ol>
+<li>Safety property: Mutual exclusion. At any given moment, only one client can hold a lock.</li>
+<li>Liveness property A: Deadlock free. Eventually it is always possible to acquire a lock, even if the client that locked a resource crashes or gets partitioned.</li>
+<li>Liveness property B: Fault tolerance. As long as the majority of Redis nodes are up, clients are able to acquire and release locks.</li>
+</ol>
+<h2 id="why-failover-based-implementations-are-not-enough" class="group relative">
+  Why Failover-based Implementations Are Not Enough
+  <a href="#why-failover-based-implementations-are-not-enough" class="header-link opacity-0 group-hover:opacity-100 transition-opacity duration-200 ml-1 align-baseline" aria-label="Link to this section" title="Copy link to clipboard">
+    <svg class="inline-block w-4 h-4 align-baseline" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"></path>
+    </svg>
+  </a>
+</h2>
+<p>To understand what we want to improve, let’s analyze the current state of affairs with most Redis-based distributed lock libraries.</p>
+<p>The simplest way to use Redis to lock a resource is to create a key in an instance. The key is usually created with a limited time to live, using the Redis expires feature, so that eventually it will get released (property 2 in our list). When the client needs to release the resource, it deletes the key.</p>
+<p>Superficially this works well, but there is a problem: this is a single point of failure in our architecture. What happens if the Redis master goes down?
+Well, let’s add a replica! And use it if the master is unavailable. This is unfortunately not viable. By doing so we can’t implement our safety property of mutual exclusion, because Redis replication is asynchronous.</p>
+<p>There is a race condition with this model:</p>
+<ol>
+<li>Client A acquires the lock in the master.</li>
+<li>The master crashes before the write to the key is transmitted to the replica.</li>
+<li>The replica gets promoted to master.</li>
+<li>Client B acquires the lock to the same resource A already holds a lock for. <strong>SAFETY VIOLATION!</strong></li>
+</ol>
+<p>Sometimes it is perfectly fine that, under special circumstances, for example during a failure, multiple clients can hold the lock at the same time.
+If this is the case, you can use your replication based solution. Otherwise we suggest to implement the solution described in this document.</p>
+<h2 id="correct-implementation-with-a-single-instance" class="group relative">
+  Correct Implementation with a Single Instance
+  <a href="#correct-implementation-with-a-single-instance" class="header-link opacity-0 group-hover:opacity-100 transition-opacity duration-200 ml-1 align-baseline" aria-label="Link to this section" title="Copy link to clipboard">
+    <svg class="inline-block w-4 h-4 align-baseline" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"></path>
+    </svg>
+  </a>
+</h2>
+<p>Before trying to overcome the limitation of the single instance setup described above, let’s check how to do it correctly in this simple case, since this is actually a viable solution in applications where a race condition from time to time is acceptable, and because locking into a single instance is the foundation we’ll use for the distributed algorithm described here.</p>
+<p>To acquire the lock, the way to go is the following:</p>
+<pre><code>SET resource_name my_random_value NX PX 30000
+</code></pre>
+<p>The command will set the key only if it does not already exist (<code>NX</code> option), with an expire of 30000 milliseconds (<code>PX</code> option).
+The key is set to a value &quot;my_random_value&quot;. This value must be unique across all clients and all lock requests.</p>
+<p>Basically the random value is used in order to release the lock in a safe way, with a script that tells Redis: remove the key only if it exists and the value stored at the key is exactly the one I expect to be.
+This is accomplished with the following command:</p>
+<pre><code>DELEX key IFEQ my_random_value
+</code></pre>
+<p>The <code>DELEX</code> command was introduced in Redis 8.4. On previous Redis versions, this could be accomplished with the following Lua script:</p>
+<pre><code>if redis.call(&quot;get&quot;,KEYS[1]) == ARGV[1] then
+    return redis.call(&quot;del&quot;,KEYS[1])
+else
+    return 0
+end
+</code></pre>
+<p>This is important in order to avoid removing a lock that was created by another client. For example a client may acquire the lock, get blocked performing some operation for longer than the lock validity time (the time at which the key will expire), and later remove the lock, that was already acquired by some other client.
+Using just <a href="/docs/latest/commands/del/"><code>DEL</code></a> is not safe as a client may remove another client's lock. With the <code>DELEX</code> command or the above script instead every lock is &quot;signed&quot; with a random string, so the lock will be removed only if it is still the one that was set by the client trying to remove it.</p>
+<p>What should this random string be? We assume it’s 20 bytes from <code>/dev/urandom</code>, but you can find cheaper ways to make it unique enough for your tasks.
+For example a safe pick is to seed RC4 with <code>/dev/urandom</code>, and generate a pseudo random stream from that.
+A simpler solution is to use a UNIX timestamp with microsecond precision, concatenating the timestamp with a client ID. It is not as safe, but probably sufficient for most environments.</p>
+<p>The &quot;lock validity time&quot; is the time we use as the key's time to live. It is both the auto release time, and the time the client has in order to perform the operation required before another client may be able to acquire the lock again, without technically violating the mutual exclusion guarantee, which is only limited to a given window of time from the moment the lock is acquired.</p>
+<p>So now we have a good way to acquire and release the lock. With this system, reasoning about a non-distributed system composed of a single, always available, instance, is safe. Let’s extend the concept to a distributed system where we don’t have such guarantees.</p>
+<h2 id="the-redlock-algorithm" class="group relative">
+  The Redlock Algorithm
+  <a href="#the-redlock-algorithm" class="header-link opacity-0 group-hover:opacity-100 transition-opacity duration-200 ml-1 align-baseline" aria-label="Link to this section" title="Copy link to clipboard">
+    <svg class="inline-block w-4 h-4 align-baseline" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"></path>
+    </svg>
+  </a>
+</h2>
+<p>In the distributed version of the algorithm we assume we have N Redis masters. Those nodes are totally independent, so we don’t use replication or any other implicit coordination system. We already described how to acquire and release the lock safely in a single instance. We take for granted that the algorithm will use this method to acquire and release the lock in a single instance. In our examples we set N=5, which is a reasonable value, so we need to run 5 Redis masters on different computers or virtual machines in order to ensure that they’ll fail in a mostly independent way.</p>
+<p>In order to acquire the lock, the client performs the following operations:</p>
+<ol>
+<li>It gets the current time in milliseconds.</li>
+<li>It tries to acquire the lock in all the N instances in parallel, using the same key name and random value in all the instances. During step 2, when setting the lock in each instance, the client uses a timeout which is small compared to the total lock auto-release time in order to acquire it. For example if the auto-release time is 10 seconds, the timeout could be in the ~ 5-50 milliseconds range. This prevents the client from staying blocked too long when communicating with an unavailable Redis node, ensuring the connection attempt times out quickly.</li>
+<li>The client computes how much time elapsed in order to acquire the lock, by subtracting from the current time the timestamp obtained in step 1. If and only if the client was able to acquire the lock in the majority of the instances (at least 3), and the total time elapsed to acquire the lock is less than lock validity time, the lock is considered to be acquired.</li>
+<li>If the lock was acquired, its validity time is considered to be the initial validity time minus the time elapsed, as computed in step 3.</li>
+<li>If the client failed to acquire the lock for some reason (either it was not able to lock N/2+1 instances or the validity time is negative), it will try to unlock all the instances (even the instances it believed it was not able to lock).</li>
+</ol>
+<h3 id="is-the-algorithm-asynchronous" class="group relative">
+  Is the Algorithm Asynchronous?
+  <a href="#is-the-algorithm-asynchronous" class="header-link opacity-0 group-hover:opacity-100 transition-opacity duration-200 ml-1 align-baseline" aria-label="Link to this section" title="Copy link to clipboard">
+    <svg class="inline-block w-4 h-4 align-baseline" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"></path>
+    </svg>
+  </a>
+</h3>
+<p>The algorithm relies on the assumption that while there is no synchronized clock across the processes, the local time in every process updates at approximately at the same rate, with a small margin of error compared to the auto-release time of the lock. This assumption closely resembles a real-world computer: every computer has a local clock and we can usually rely on different computers to have a clock drift which is small.</p>
+<p>At this point we need to better specify our mutual exclusion rule: it is guaranteed only as long as the client holding the lock terminates its work within the lock validity time (as obtained in step 3), minus some time (just a few milliseconds in order to compensate for clock drift between processes).</p>
+<p>This paper contains more information about similar systems requiring a bound <em>clock drift</em>: <a href="http://dl.acm.org/citation.cfm?id=74870">Leases: an efficient fault-tolerant mechanism for distributed file cache consistency</a>.</p>
+<h3 id="retry-on-failure" class="group relative">
+  Retry on Failure
+  <a href="#retry-on-failure" class="header-link opacity-0 group-hover:opacity-100 transition-opacity duration-200 ml-1 align-baseline" aria-label="Link to this section" title="Copy link to clipboard">
+    <svg class="inline-block w-4 h-4 align-baseline" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"></path>
+    </svg>
+  </a>
+</h3>
+<p>When a client is unable to acquire the lock, it should try again after a random delay in order to try to desynchronize multiple clients trying to acquire the lock for the same resource at the same time (this may result in a split brain condition where nobody wins). Also the faster a client tries to acquire the lock in the majority of Redis instances, the smaller the window for a split brain condition (and the need for a retry), so ideally the client should try to send the <a href="/docs/latest/commands/set/"><code>SET</code></a> commands to the N instances at the same time using multiplexing.</p>
+<p>It is worth stressing how important it is for clients that fail to acquire the majority of locks, to release the (partially) acquired locks ASAP, so that there is no need to wait for key expiry in order for the lock to be acquired again (however if a network partition happens and the client is no longer able to communicate with the Redis instances, there is an availability penalty to pay as it waits for key expiration).</p>
+<h3 id="releasing-the-lock" class="group relative">
+  Releasing the Lock
+  <a href="#releasing-the-lock" class="header-link opacity-0 group-hover:opacity-100 transition-opacity duration-200 ml-1 align-baseline" aria-label="Link to this section" title="Copy link to clipboard">
+    <svg class="inline-block w-4 h-4 align-baseline" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"></path>
+    </svg>
+  </a>
+</h3>
+<p>Releasing the lock is simple, and can be performed whether or not the client believes it was able to successfully lock a given instance.</p>
+<h3 id="safety-arguments" class="group relative">
+  Safety Arguments
+  <a href="#safety-arguments" class="header-link opacity-0 group-hover:opacity-100 transition-opacity duration-200 ml-1 align-baseline" aria-label="Link to this section" title="Copy link to clipboard">
+    <svg class="inline-block w-4 h-4 align-baseline" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"></path>
+    </svg>
+  </a>
+</h3>
+<p>Is the algorithm safe? Let's examine what happens in different scenarios.</p>
+<p>To start let’s assume that a client is able to acquire the lock in the majority of instances. All the instances will contain a key with the same time to live. However, the key was set at different times, so the keys will also expire at different times. But if the first key was set at worst at time T1 (the time we sample before contacting the first server) and the last key was set at worst at time T2 (the time we obtained the reply from the last server), we are sure that the first key to expire in the set will exist for at least <code>MIN_VALIDITY=TTL-(T2-T1)-CLOCK_DRIFT</code>. All the other keys will expire later, so we are sure that the keys will be simultaneously set for at least this time.</p>
+<p>During the time that the majority of keys are set, another client will not be able to acquire the lock, since N/2+1 SET NX operations can’t succeed if N/2+1 keys already exist. So if a lock was acquired, it is not possible to re-acquire it at the same time (violating the mutual exclusion property).</p>
+<p>However we want to also make sure that multiple clients trying to acquire the lock at the same time can’t simultaneously succeed.</p>
+<p>If a client locked the majority of instances using a time near, or greater, than the lock maximum validity time (the TTL we use for SET basically), it will consider the lock invalid and will unlock the instances, so we only need to consider the case where a client was able to lock the majority of instances in a time which is less than the validity time. In this case for the argument already expressed above, for <code>MIN_VALIDITY</code> no client should be able to re-acquire the lock. So multiple clients will be able to lock N/2+1 instances at the same time (with &quot;time&quot; being the end of Step 2) only when the time to lock the majority was greater than the TTL time, making the lock invalid.</p>
+<h3 id="liveness-arguments" class="group relative">
+  Liveness Arguments
+  <a href="#liveness-arguments" class="header-link opacity-0 group-hover:opacity-100 transition-opacity duration-200 ml-1 align-baseline" aria-label="Link to this section" title="Copy link to clipboard">
+    <svg class="inline-block w-4 h-4 align-baseline" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"></path>
+    </svg>
+  </a>
+</h3>
+<p>The system liveness is based on three main features:</p>
+<ol>
+<li>The auto release of the lock (since keys expire): eventually keys are available again to be locked.</li>
+<li>The fact that clients, usually, will cooperate removing the locks when the lock was not acquired, or when the lock was acquired and the work terminated, making it likely that we don’t have to wait for keys to expire to re-acquire the lock.</li>
+<li>The fact that when a client needs to retry a lock, it waits a time which is comparably greater than the time needed to acquire the majority of locks, in order to probabilistically make split brain conditions during resource contention unlikely.</li>
+</ol>
+<p>However, we pay an availability penalty equal to <a href="/docs/latest/commands/ttl/"><code>TTL</code></a> time on network partitions, so if there are continuous partitions, we can pay this penalty indefinitely.
+This happens every time a client acquires a lock and gets partitioned away before being able to remove the lock.</p>
+<p>Basically if there are infinite continuous network partitions, the system may become not available for an infinite amount of time.</p>
+<h3 id="performance-crash-recovery-and-fsync" class="group relative">
+  Performance, Crash Recovery and fsync
+  <a href="#performance-crash-recovery-and-fsync" class="header-link opacity-0 group-hover:opacity-100 transition-opacity duration-200 ml-1 align-baseline" aria-label="Link to this section" title="Copy link to clipboard">
+    <svg class="inline-block w-4 h-4 align-baseline" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"></path>
+    </svg>
+  </a>
+</h3>
+<p>Many users using Redis as a lock server need high performance in terms of both latency to acquire and release a lock, and number of acquire / release operations that it is possible to perform per second. In order to meet this requirement, the strategy to talk with the N Redis servers to reduce latency is definitely multiplexing (putting the socket in non-blocking mode, send all the commands, and read all the commands later, assuming that the RTT between the client and each instance is similar).</p>
+<p>However there is another consideration around persistence if we want to target a crash-recovery system model.</p>
+<p>Basically to see the problem here, let’s assume we configure Redis without persistence at all. A client acquires the lock in 3 of 5 instances. One of the instances where the client was able to acquire the lock is restarted, at this point there are again 3 instances that we can lock for the same resource, and another client can lock it again, violating the safety property of exclusivity of lock.</p>
+<p>If we enable AOF persistence, things will improve quite a bit. For example we can upgrade a server by sending it a <a href="/docs/latest/commands/shutdown/"><code>SHUTDOWN</code></a> command and restarting it. Because Redis expires are semantically implemented so that time still elapses when the server is off, all our requirements are fine.
+However everything is fine as long as it is a clean shutdown. What about a power outage? If Redis is configured, as by default, to fsync on disk every second, it is possible that after a restart our key is missing. In theory, if we want to guarantee the lock safety in the face of any kind of instance restart, we need to enable <code>fsync=always</code> in the persistence settings. This will affect performance due to the additional sync overhead.</p>
+<p>However things are better than they look like at a first glance. Basically,
+the algorithm safety is retained as long as when an instance restarts after a
+crash, it no longer participates to any <strong>currently active</strong> lock.  This means that the
+set of currently active locks when the instance restarts were all obtained
+by locking instances other than the one which is rejoining the system.</p>
+<p>To guarantee this we just need to make an instance, after a crash, unavailable
+for at least a bit more than the max <a href="/docs/latest/commands/ttl/"><code>TTL</code></a> we use.  This is the time needed
+for all the keys about the locks that existed when the instance crashed to
+become invalid and be automatically released.</p>
+<p>Using <em>delayed restarts</em> it is basically possible to achieve safety even
+without any kind of Redis persistence available, however note that this may
+translate into an availability penalty. For example if a majority of instances
+crash, the system will become globally unavailable for <a href="/docs/latest/commands/ttl/"><code>TTL</code></a> (here globally means
+that no resource at all will be lockable during this time).</p>
+<h3 id="making-the-algorithm-more-reliable-extending-the-lock" class="group relative">
+  Making the algorithm more reliable: Extending the lock
+  <a href="#making-the-algorithm-more-reliable-extending-the-lock" class="header-link opacity-0 group-hover:opacity-100 transition-opacity duration-200 ml-1 align-baseline" aria-label="Link to this section" title="Copy link to clipboard">
+    <svg class="inline-block w-4 h-4 align-baseline" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"></path>
+    </svg>
+  </a>
+</h3>
+<p>If the work performed by clients consists of small steps, it is possible to
+use smaller lock validity times by default, and extend the algorithm implementing
+a lock extension mechanism. Basically the client, if in the middle of the
+computation while the lock validity is approaching a low value, may extend the
+lock by sending a Lua script to all the instances that extends the TTL of the key
+if the key exists and its value is still the random value the client assigned
+when the lock was acquired.</p>
+<p>The client should only consider the lock re-acquired if it was able to extend
+the lock into the majority of instances, and within the validity time
+(basically the algorithm to use is very similar to the one used when acquiring
+the lock).</p>
+<p>However this does not technically change the algorithm, so the maximum number
+of lock reacquisition attempts should be limited, otherwise one of the liveness
+properties is violated.</p>
+<h3 id="disclaimer-about-consistency" class="group relative">
+  Disclaimer about consistency
+  <a href="#disclaimer-about-consistency" class="header-link opacity-0 group-hover:opacity-100 transition-opacity duration-200 ml-1 align-baseline" aria-label="Link to this section" title="Copy link to clipboard">
+    <svg class="inline-block w-4 h-4 align-baseline" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"></path>
+    </svg>
+  </a>
+</h3>
+<p>Please consider thoroughly reviewing the <a href="#analysis-of-redlock">Analysis of Redlock</a> section at the end of this page.
+Martin Kleppman's article and antirez's answer to it are very relevant.
+If you are concerned about consistency and correctness, you should pay attention to the following topics:</p>
+<ol>
+<li>You should implement fencing tokens.
+This is especially important for processes that can take significant time and applies to any distributed locking system.
+Extending locks' lifetime is also an option, but don´t assume that a lock is retained as long as the process that had acquired it is alive.</li>
+<li>Redis is not using monotonic clock for TTL expiration mechanism.
+That means that a wall-clock shift may result in a lock being acquired by more than one process.
+Even though the problem can be mitigated by preventing admins from manually setting the server's time and setting up NTP properly, there's still a chance of this issue occurring in real life and compromising consistency.</li>
+</ol>
+<h2 id="want-to-help" class="group relative">
+  Want to help?
+  <a href="#want-to-help" class="header-link opacity-0 group-hover:opacity-100 transition-opacity duration-200 ml-1 align-baseline" aria-label="Link to this section" title="Copy link to clipboard">
+    <svg class="inline-block w-4 h-4 align-baseline" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"></path>
+    </svg>
+  </a>
+</h2>
+<p>If you are into distributed systems, it would be great to have your opinion / analysis. Also reference implementations in other languages could be great.</p>
+<p>Thanks in advance!</p>
+<h2 id="analysis-of-redlock" class="group relative">
+  Analysis of Redlock
+  <a href="#analysis-of-redlock" class="header-link opacity-0 group-hover:opacity-100 transition-opacity duration-200 ml-1 align-baseline" aria-label="Link to this section" title="Copy link to clipboard">
+    <svg class="inline-block w-4 h-4 align-baseline" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"></path>
+    </svg>
+  </a>
+</h2>
+<hr>
+<ol>
+<li>Martin Kleppmann <a href="http://martin.kleppmann.com/2016/02/08/how-to-do-distributed-locking.html">analyzed Redlock here</a>. A counterpoint to this analysis can be <a href="http://antirez.com/news/101">found here</a>.</li>
+</ol>
+
+        
+
+
+
+<form id="page-feedback" name="page-feedback" class="text-sm w-full mt-24 pt-5 border-t border-t-redis-pen-700 border-opacity-50">
+  <input name="origin" value="https://redis.io/docs/latest/develop/clients/patterns/distributed-locks/" class="hidden"/>
+  <div class="flex flex-row justify-between">
+    <div class="grid justify-center">
+      <span class="font-mono">RATE THIS PAGE</span>
+      <div class="star-rating">
+        
+        <input type="radio" id="5-stars" name="rating" value="5"/>
+        <label for="5-stars" class="star">&#9733;</label>
+        
+        <input type="radio" id="4-stars" name="rating" value="4"/>
+        <label for="4-stars" class="star">&#9733;</label>
+        
+        <input type="radio" id="3-stars" name="rating" value="3"/>
+        <label for="3-stars" class="star">&#9733;</label>
+        
+        <input type="radio" id="2-stars" name="rating" value="2"/>
+        <label for="2-stars" class="star">&#9733;</label>
+        
+        <input type="radio" id="1-stars" name="rating" value="1"/>
+        <label for="1-stars" class="star">&#9733;</label>
+        
+      </div>
+    </div>  
+    <a href="#page-top" class="font-mono no-underline">
+      Back to top ↑
+    </a>
+  </div>
+  <div id="feedback-form" class="hidden">
+    <div class="grid gap-2">
+      <textarea
+        name="comment"
+        placeholder="Why did you choose this rating?"
+        class=" p-2 mt-1 block w-full h-24 border border-opacity-50 border-redis-ink-900 rounded-md"
+        rows="3"
+      ></textarea>
+      <div class="cf-turnstile" data-sitekey="0x4AAAAAABpkO-YRJzl4qTBW" data-callback="enableSubmit"></div>
+      <button id="submit-button" disabled class="font-mono button text-redis-ink-900 border border-solid border-transparent bg-redis-red-500 hover:bg-redis-red-600 focus:bg-red-600 focus:ring-red-600; w-min justify-self-end" type="submit">
+        Submit
+      </button>
+    </div>
+  </div>
+</form>
+
+
+
+
+
+
+      </section>
+    </div>
+    
+      
+
+
+
+
+
+
+
+
+
+
+  <section class="hidden xl:block w-60 h-full shrink-0">
+    <div class="w-60 z-40 overflow-auto fixed top-28 h-full max-h-[calc(100vh-15rem)] text-sm">
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<nav data-offline-hide
+     class="flex flex-col gap-3 pb-3 w-52 text-redis-pencil-600 border-b border-b-redis-pen-700 border-opacity-50">
+  
+  <a href="https://github.com/redis/docs/edit/main/content/develop/clients/patterns/distributed-locks.md" target="_blank" class="group inline-flex items-center gap-1  hover:text-redis-pen-400 mt-auto self-start">
+    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+      <path d="M11 44q-1.2 0-2.1-.9Q8 42.2 8 41V7q0-1.2.9-2.1Q9.8 4 11 4h17l12 12v7.8h-3V18H26V7H11v34h15v3Zm0-3V7v34Zm26.8-11.15 1.4 1.4-8.2 8.2V42h2.55l8.2-8.2 1.4 1.4-8.8 8.8H29v-5.35Zm5.35 5.35-5.35-5.35 3.05-3.05q.45-.45 1.05-.45.6 0 1.05.45l3.25 3.25q.45.45.45 1.05 0 .6-.45 1.05Z" fill="currentColor" />
+    </svg>
+    Edit this page
+  </a>
+  <a href="https://github.com/redis/docs/issues/new?title=Feedback: Distributed Locks with Redis&body=Page https://redis.io/docs/latest/develop/clients/patterns/distributed-locks" target="_blank" class="group inline-flex items-center gap-1  hover:text-redis-pen-400 mt-auto self-start">
+    <svg class="w-4 h-4" viewBox="0 0 98 96" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z" fill="currentColor" />
+    </svg>
+    Create an issue
+  </a>
+  
+  
+  
+
+<button type="button" data-open-download data-offline-hide
+        aria-haspopup="dialog" aria-controls="download-docs-dialog"
+        title="Download documentation" class="group inline-flex items-center gap-1  hover:text-redis-pen-400 mt-auto self-start">
+  
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+         stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4" aria-hidden="true">
+      <path d="M12 3v11" />
+      <path d="M7.5 10.5 12 15l4.5-4.5" />
+      <path d="M4 17.5v1.5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-1.5" />
+    </svg>
+    Download documentation
+  
+</button>
+
+  <a href="/chat?q=Explain+this+Redis+documentation+page%3A+%22Distributed+Locks+with+Redis%22+%28https%3A%2F%2Fredis.io%2Fdocs%2Flatest%2Fdevelop%2Fclients%2Fpatterns%2Fdistributed-locks%2F%29" data-ai-chat-open data-ai-chat-title="Distributed Locks with Redis" class="group inline-flex items-center gap-1  hover:text-redis-pen-400 mt-auto self-start">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path d="M4 8L4.5 6L6 5.5L4.5 5L4 3L3.5 5L2 5.5L3.5 6L4 8Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M12 15L13 11L15 10L13 9L12 5L11 9L9 10L11 11L12 15Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+
+
+    Ask AI to explain this page
+  </a>
+</nav>
+
+
+      
+      
+        <h2 class="font-medium my-3">On this page</h2>
+        <nav class="text-slate-700">
+          <nav id="TableOfContents">
+  <ul>
+    <li><a href="#implementations">Implementations</a></li>
+    <li><a href="#safety-and-liveness-guarantees">Safety and Liveness Guarantees</a></li>
+    <li><a href="#why-failover-based-implementations-are-not-enough">Why Failover-based Implementations Are Not Enough</a></li>
+    <li><a href="#correct-implementation-with-a-single-instance">Correct Implementation with a Single Instance</a></li>
+    <li><a href="#the-redlock-algorithm">The Redlock Algorithm</a>
+      <ul>
+        <li><a href="#is-the-algorithm-asynchronous">Is the Algorithm Asynchronous?</a></li>
+        <li><a href="#retry-on-failure">Retry on Failure</a></li>
+        <li><a href="#releasing-the-lock">Releasing the Lock</a></li>
+        <li><a href="#safety-arguments">Safety Arguments</a></li>
+        <li><a href="#liveness-arguments">Liveness Arguments</a></li>
+        <li><a href="#performance-crash-recovery-and-fsync">Performance, Crash Recovery and fsync</a></li>
+        <li><a href="#making-the-algorithm-more-reliable-extending-the-lock">Making the algorithm more reliable: Extending the lock</a></li>
+        <li><a href="#disclaimer-about-consistency">Disclaimer about consistency</a></li>
+      </ul>
+    </li>
+    <li><a href="#want-to-help">Want to help?</a></li>
+    <li><a href="#analysis-of-redlock">Analysis of Redlock</a></li>
+  </ul>
+</nav>
+        </nav>
+        
+    </div>
+  </section>
+
+
+    
+    
+
+
+
+
+
+
+
+
+  </main>
+
+
+    
+
+    <footer
+  class="relative z-50 flex justify-center bg-redis-ink-900 px-0 py-10 text-gray-300 border-t border-t-white border-opacity-30 text-[13px] font-sans">
+  <div class="flex w-full max-w-7xl flex-col gap-6 px-4 md:flex-row lg:px-8">
+    <div class="flex flex-col gap-8 md:max-w-[40%] md:flex-[40%]">
+      <a class="relative hover:text-white w-[82px] mb-4" href="https://redis.io/">
+        <svg width="100%" height="100%" viewBox="0 0 85 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0_8_219)">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M75.2909 13.8125C75.2909 10.8448 77.4892 9.12284 80.2371 9.12284C82.2888 9.12284 84.1207 10.1121 85 12.5668C84.7435 13.8125 83.2047 15.2047 82.5453 15.4246C81.9957 14.2522 81.3728 13.556 80.7866 13.556C80.0539 13.556 80.0172 14.069 80.0172 14.7284C80.0172 15.1955 80.151 15.8834 80.3119 16.7112C80.5549 17.9615 80.8599 19.5309 80.8599 21.1401C80.8599 24.0711 78.8082 26.2328 75.6573 26.2328C72.7721 26.2328 71.1778 24.3414 70.4665 21.3198C68.5818 24.6972 65.8257 26.2328 63.7134 26.2328C60.411 26.2328 59.6338 23.7919 59.7121 21.3161C58.3852 23.6612 55.831 26.2328 53.3815 26.2328C50.8809 26.2328 49.9976 24.0563 50.2002 21.5215C48.702 24.3122 45.9919 26.2328 43.3793 26.2328C40.5442 26.2328 39.141 23.9806 39.5951 21.189C37.6878 23.5333 34.1374 26.2328 30.4461 26.2328C26.2373 26.2328 24.4053 23.9632 24.1882 21.1193C22.1568 24.375 19.4187 26.3427 16.1573 26.3427C11.4493 26.3427 9.76537 22.1561 9.52032 18.7315C7.77547 21.0681 5.81377 23.4923 3.40733 26.1961C3.15086 26.4526 2.93103 26.5991 2.67457 26.5991C1.8319 26.5991 0.109914 22.8621 0 21.4698C0.723099 20.3478 5.28119 15.3398 8.95093 11.3079C10.2409 9.89066 11.4211 8.594 12.2863 7.6291C10.0389 8.30726 7.72169 9.65975 4.79957 11.7608C4.28664 12.1272 2.85776 8.7931 2.8944 6.22845C6.26509 3.73707 11.3944 2.16164 15.5345 2.16164C21.3233 2.16164 24.6573 5.38578 24.6573 9.8556C24.6573 13.5927 21.5431 17.6961 17 17.8427C14.6377 17.904 13.1237 16.578 12.3494 14.9405C12.4419 17.473 13.7587 20.5905 17.2931 20.5905C21.1462 20.5905 22.9965 18.2646 25.7559 14.7958C25.9352 14.5704 26.1183 14.3403 26.306 14.1056C28.6509 11.2112 31.3621 8.64655 35.319 8.64655C37.7371 8.64655 39.3858 10.1487 39.3858 12.4203C39.3858 15.1681 36.1616 18.9784 31.6552 18.9784C30.8855 18.9784 30.1839 18.877 29.5917 18.6766C29.5768 18.7921 29.5668 18.9058 29.5668 19.0151C29.5668 20.2974 30.0431 21.0668 32.1315 21.0668C35.2091 21.0668 38.1034 19.2349 41.6207 14.9483C45.0647 10.7349 47.6659 8.90302 50.4138 8.90302C52.2687 8.90302 53.6765 9.90832 54.2969 11.6014C57.9796 6.28253 61.1038 2.51388 63.75 0C66.3513 1.09914 68.2198 3.26078 67.7069 3.70043C65.7651 5.45905 59.2802 12.5302 56.7155 16.7435C56.056 17.8427 55.4332 19.0517 55.4332 19.6379C55.4332 20.1875 55.7629 20.3707 56.1293 20.3707C57.8898 20.3707 61.4176 16.2147 64.4645 12.6253C65.6026 11.2845 66.6736 10.0228 67.5603 9.08621C69.6121 9.92888 71.7004 11.7241 71.1875 12.347C68.4763 15.5711 66.4246 18.2091 66.4246 19.7112C66.4246 20.1142 66.5711 20.3707 67.1207 20.3707C68.1466 20.3707 69.0991 19.4547 70.6746 17.5129C71.0043 17.1099 71.4073 17.1099 71.6638 17.7328C72.3599 19.4181 73.3858 20.3341 74.1918 20.3341C75.1444 20.3341 75.6207 19.4914 75.6207 18.2091C75.6207 17.3327 75.5137 16.3138 75.4217 15.4365C75.3521 14.7733 75.2909 14.191 75.2909 13.8125ZM16.194 13.3362C18.1358 13.3362 20.2608 12.2737 20.2608 10.1121C20.2608 8.80024 19.4466 7.59084 17.2708 7.22257C17.156 7.40192 17.042 7.58017 16.9287 7.75739C15.8231 9.4858 14.7804 11.116 13.7281 12.7095C14.3586 13.0636 15.156 13.3362 16.194 13.3362ZM35.8319 13.9957C35.8319 13.4095 35.4655 13.0065 34.8793 13.0065C33.4094 13.0065 31.1923 15.0693 30.149 17.0613C30.5341 17.2101 30.9862 17.2931 31.472 17.2931C34.0733 17.2931 35.8319 15.3147 35.8319 13.9957ZM45.4677 19.3082C45.4677 19.9677 45.834 20.4073 46.6034 20.4073C48.9849 20.4073 51.9526 16.0841 51.9526 14.3254C51.9526 13.5927 51.5496 13.153 50.8901 13.153C48.7285 13.153 45.4677 17.2565 45.4677 19.3082ZM76.0599 6.08207C75.2172 7.47431 73.9349 9.04974 73.4586 9.52603C71.2603 8.61008 69.2086 6.77819 69.5017 6.26525C70.3077 4.83638 71.6267 3.29758 72.103 2.82129C74.3012 3.73724 76.353 5.60577 76.0599 6.08207Z" fill="currentColor"/>
+    </g>
+    <defs>
+        <clipPath id="clip0_8_219">
+            <rect width="85" height="26.5991" fill="white"/>
+        </clipPath>
+    </defs>
+</svg>
+    
+      </a>
+      <div class="flex flex-col justify-between mt-8 lg:mt-0 lg:mr-8 gap-8">
+        
+        <div class="flex flex-row gap-5 order-first">
+          <a class="hover:text-white" href="https://www.facebook.com/Redisinc">
+            <svg width="11" height="20" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_63_373)">
+<path d="M11 0H8C6.67392 0 5.40215 0.526784 4.46447 1.46447C3.52678 2.40215 3 3.67392 3 5V8H0V12H3V20H7V12H10L11 8H7V5C7 4.73478 7.10536 4.48043 7.29289 4.29289C7.48043 4.10536 7.73478 4 8 4H11V0Z" fill="currentColor"/>
+</g>
+<defs>
+<clipPath id="clip0_63_373">
+<rect width="11" height="20" fill="white"/>
+</clipPath>
+</defs>
+</svg>
+
+          </a>
+          <a class="hover:text-white" href="https://www.youtube.com/c/redisinc">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M19.7667 5.96696C19.4553 3.63427 18.2882 3.23898 15.9926 3.04099C14.0084 2.88274 11.7512 2.80396 10.0003 2.80396C8.24945 2.80396 5.95381 2.88274 4.00809 3.04099C1.71245 3.23898 0.506322 3.63427 0.194843 5.96696C0.0782076 7.03432 0 8.49764 0 10C0 11.5024 0.0775334 13.0048 0.194843 14.0331C0.506322 16.4055 1.71245 16.7611 4.00809 16.959C5.95381 17.157 8.24945 17.1961 10.0003 17.1961C11.7512 17.1961 14.0077 17.1564 15.9926 16.959C18.2882 16.7611 19.4553 16.4055 19.7667 14.0331C19.9225 13.0048 20 11.5024 20 10C20 8.49764 19.9225 7.035 19.7667 5.96696ZM7.97707 13.0836V6.95553L13.1913 10L7.97707 13.0842V13.0836Z" fill="currentColor"/>
+</svg>
+
+          </a>
+          <a class="hover:text-white" href="https://www.linkedin.com/company/redisinc/">
+            <svg width="17" height="20" viewBox="0 0 17 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M0.893392 5.80254H4.03697V16.0894H0.893392V5.80254ZM2.44594 0.583496C3.49379 0.583496 4.34735 1.41532 4.34735 2.43651C4.34735 3.45769 3.49379 4.28952 2.44594 4.28952C1.39808 4.28952 0.583008 3.45769 0.583008 2.43651C0.583008 1.41532 1.39808 0.583496 2.44594 0.583496ZM5.89989 5.80254H9.00436V7.23993C9.66424 6.29437 10.7506 5.68941 11.9927 5.68941H12.8463C14.8253 5.68941 16.4163 7.27805 16.4163 9.16856V16.0894H13.3119V15.1438V10.5297C13.2728 9.35732 12.4583 8.44987 11.2553 8.44987C10.0522 8.44987 9.04347 9.35732 9.00436 10.5297V16.0894H5.89989V5.80254Z" fill="currentColor"/>
+</svg>
+
+          </a>
+          <a class="hover:text-white" href="https://www.instagram.com/redisinc/">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M5.39393 0H14.6061C17.5654 0 20 2.44044 20 5.40687V14.5931C20 17.5596 17.5654 20 14.6061 20H5.39393C2.43459 20 0 17.5596 0 14.5931V5.40687C0 2.44044 2.43459 0 5.39393 0ZM15.37 3.49319C15.9904 3.49319 16.5159 4.01918 16.5159 4.64186C16.5159 5.26377 15.9912 5.79053 15.37 5.79053C14.7017 5.79053 14.2241 5.26454 14.2241 4.64186C14.2241 4.01996 14.7017 3.49319 15.37 3.49319ZM9.97607 4.54595H10.0239C12.9832 4.54595 15.4657 7.03434 15.4657 10.0008C15.4657 13.0152 12.9832 15.4556 10.0239 15.4556H9.97607C7.01674 15.4556 4.58215 13.0152 4.58215 10.0008C4.58215 7.03434 7.01674 4.54595 9.97607 4.54595ZM9.97607 6.41166H10.0239C11.9809 6.41166 13.6037 8.03837 13.6037 10C13.6037 12.0096 11.9809 13.6363 10.0239 13.6363H9.97607C8.01913 13.6363 6.39633 12.0096 6.39633 10C6.39633 8.03837 8.01913 6.41166 9.97607 6.41166ZM5.44178 1.72262H14.559C16.6116 1.72262 18.2823 3.39728 18.2823 5.45483V14.5459C18.2823 16.6035 16.6116 18.2782 14.559 18.2782H5.44178C3.38915 18.2782 1.7185 16.6035 1.7185 14.5459V5.45483C1.7185 3.39728 3.38915 1.72262 5.44178 1.72262Z" fill="currentColor"/>
+</svg>
+
+          </a>
+          <a class="hover:text-white" href="https://twitter.com/Redisinc">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M11.9027 8.46864L19.3482 0H17.5838L11.119 7.3532L5.95547 0H0L7.8082 11.1193L0 20H1.76443L8.59152 12.2348L14.0445 20H20L11.9023 8.46864H11.9027ZM9.48608 11.2173L8.69495 10.1101L2.40018 1.29968H5.11025L10.1902 8.40994L10.9813 9.51718L17.5847 18.7594H14.8746L9.48608 11.2177V11.2173Z" fill="currentColor"/>
+</svg>
+
+          </a>
+          <a class="hover:text-white" href="https://github.com/redis/">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M9.9702 0C4.45694 0 0 4.35417 0 9.74086C0 14.0467 2.85571 17.6916 6.81735 18.9816C7.31265 19.0786 7.49408 18.772 7.49408 18.5141C7.49408 18.2883 7.47775 17.5142 7.47775 16.7077C4.70429 17.2884 4.12673 15.5466 4.12673 15.5466C3.68102 14.4176 3.02061 14.1275 3.02061 14.1275C2.11286 13.5308 3.08673 13.5308 3.08673 13.5308C4.09367 13.5953 4.62204 14.5306 4.62204 14.5306C5.51327 16.0142 6.94939 15.595 7.52714 15.337C7.60959 14.708 7.87388 14.2726 8.15449 14.0307C5.94245 13.8049 3.6151 12.9663 3.6151 9.2247C3.6151 8.1603 4.01102 7.28947 4.63837 6.6122C4.53939 6.37034 4.19265 5.37027 4.73755 4.03176C4.73755 4.03176 5.57939 3.77368 7.47755 5.03164C8.29022 4.81841 9.12832 4.70994 9.9702 4.70903C10.812 4.70903 11.6702 4.82204 12.4627 5.03164C14.361 3.77368 15.2029 4.03176 15.2029 4.03176C15.7478 5.37027 15.4008 6.37034 15.3018 6.6122C15.9457 7.28947 16.3253 8.1603 16.3253 9.2247C16.3253 12.9663 13.998 13.7887 11.7694 14.0307C12.1327 14.3371 12.4461 14.9176 12.4461 15.8369C12.4461 17.1431 12.4298 18.1915 12.4298 18.5139C12.4298 18.772 12.6114 19.0786 13.1065 18.9818C17.0682 17.6914 19.9239 14.0467 19.9239 9.74086C19.9402 4.35417 15.4669 0 9.9702 0Z" fill="currentColor"/>
+</svg>
+
+          </a>
+        </div>
+      </div>
+      <div class="hidden flex-row flex-wrap gap-x-6 gap-y-2 md:flex">
+        <a class="hover:text-white" href="https://trust.redis.io/">Trust</a>
+        <a class="hover:text-white" href="https://redis.io/legal/privacy-policy/">Privacy</a>
+        <a class="hover:text-white" href="https://redis.io/legal/redis-website-terms-of-use/">Terms of use</a>
+        <a class="hover:text-white" href="https://redis.io/legal/">Legal notices</a>
+      </div>
+    </div>
+    <div class="flex flex-col gap-8 md:grid md:max-w-[60%] md:flex-[60%] md:grid-cols-4 md:justify-between">
+      <div>
+        <h3 class="font-medium text-base uppercase text-white">Compare</h3>
+        <div class="flex flex-col gap-2 pt-3">
+          <a class="hover:text-white" href="https://redis.io/compare/elasticache/">Redis vs Elasticache</a>
+          <a class="hover:text-white" href="https://redis.io/compare/memcached/">Redis vs Memcached</a>
+          <a class="hover:text-white" href="https://redis.io/compare/memorystore/">Redis vs Memory Store</a>
+          <a class="hover:text-white" href="https://redis.io/compare/open-source">Redis vs. Open Source</a>
+        </div>
+      </div>
+      <div>
+        <h3 class="font-medium text-base uppercase text-white">Company</h3>
+        <div class="flex flex-col gap-2 pt-3">
+          <a class="hover:text-white" href="https://redis.io/company/">Mission &amp; values</a><a
+            class="hover:text-white" href="https://redis.io/company/team/">Leadership</a>
+          <a class="hover:text-white" href="https://redis.io/careers/">Careers</a>
+        </div>
+      </div>
+      <div>
+        <h3 class="font-medium text-base uppercase text-white">Partners</h3>
+        <div class="flex flex-col gap-2 pt-3">
+          <a class="hover:text-white" href="https://redis.io/cloud-partners/aws/">Amazon Web Services</a>
+          <a class="hover:text-white" href="https://redis.io/cloud-partners/google/">Google Cloud</a>
+          <a class="hover:text-white" href="https://redis.io/cloud-partners/azure/">Microsoft Azure</a>
+          <a class="hover:text-white" href="https://redis.io/partners/">All partners</a>
+        </div>
+      </div>
+      <div>
+        <h3 class="font-medium text-base uppercase text-white">Support</h3>
+        <div class="flex flex-col gap-2 pt-3">
+          <a class="hover:text-white" href="https://redis.io/services/professional-services/">Professional
+            services</a><a class="hover:text-white" href="https://redis.io/support/">Support</a>
+        </div>
+      </div>
+    </div>
+    <div class="absolute bottom-0 left-0 flex w-full flex-row gap-8 p-4 md:hidden">
+      <a class="hover:text-white" href="https://trust.redis.io/">Trust</a>
+      <a class="hover:text-white" href="https://redis.io/legal/privacy-policy/">Privacy</a>
+      <a class="hover:text-white" href="https://redis.io/legal/redis-website-terms-of-use/">Terms of use</a>
+      <a class="hover:text-white" href="https://redis.io/legal/">Legal notices</a>
+    </div>
+  </div>
+</footer>
+    
+
+    
+
+<div class="sr-only w-screen h-screen fixed z-[200] top-0 left-0 cursor-auto flex flex-col bg-redis-ink-900/75 p-4 sm:p-6 md:p-[10vh] lg:p-[12vh]" id="search-container" role="button" aria-expanded="true" aria-haspopup="listbox" aria-labelledby="search-label" tabindex="0">
+<div class="my-0 mx-auto w-full max-w-[47.375rem] flex flex-col min-h-0 rounded-lg shadow-lg bg-redis-ink-900 border border-white border-opacity-30 p-6 gap-4">
+  <header class="flex flex-row gap-4 p-2">
+    <form id="search-form" class="grow flex flex-row gap-3 items-center" style="position: relative;">
+      <label class="search-magnifier-label" for="search-input" id="search-label" style="position: absolute;  left:20px; pointer-events: none;">
+        <svg width="18" height="19" viewBox="0 0 18 19" stroke="currentColor" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M14.25 7.72059C14.25 11.591 11.2076 14.6912 7.5 14.6912C3.79242 14.6912 0.75 11.591 0.75 7.72059C0.75 3.8502 3.79242 0.75 7.5 0.75C11.2076 0.75 14.25 3.8502 14.25 7.72059Z" stroke-width="1.5"/>
+  <path d="M12 12.3529L17 17.5" stroke-width="1.5"/>
+  </svg>
+  
+      </label>
+      <input id="search-input" style="height: calc(3rem - 2px);" class="w-full pl-12 border border-white border-opacity-30 rounded-md search-input appearance-none focus:outline-none bg-redis-pen-800 text-white placeholder-gray-300" aria-autocomplete="both" aria-labelledby="search-label" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search&hellip;" type="text" value="">
+      <button type="reset" title="Clear the query" class="search-reset" aria-label="Clear the query" hidden="">
+        <svg width="20" height="20" viewBox="0 0 20 20">
+          <path d="M10 10l5.09-5.09L10 10l5.09 5.09L10 10zm0 0L4.91 4.91 10 10l-5.09 5.09L10 10z" stroke="currentColor" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </button>
+      <select id="search-select" style="height: calc(3rem - 2px);" class="w-2/5 pl-3 grow-0 border border-white border-opacity-30 rounded-md search-filter bg-redis-pen-800 text-white text-left pr-8 appearance-none hidden md:block" autocomplete="off">
+        <option value="all" selected>All products</option>
+        <option value="rs">Redis Software</option>
+        <option value="rc">Redis Cloud</option>
+        <option value="oss_and_stack">Redis Open Source</option>
+        <option value="redisinsight">Redis Insight</option>
+        <option value="kubernetes">Redis Enterprise for K8s</option>
+        <option value="redis-data-integration">Redis Data Integration</option>
+        <option value="clients">Client Libraries</option>
+      </select>
+    </form>
+    <button id="search-cancel" type="reset" aria-label="Cancel" class="px-3 border border-white border-opacity-30 rounded-md text-center bg-[#163341] text-white hover:bg-[#1a3a4a]">
+      ESC
+    </button>
+  </header>
+  <dl id="search-results" class="min-h-48 overflow-auto px-2 text-white" role="listbox"></dl>
+</div>
+</div>
+
+
+
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+  </body>
+</html>

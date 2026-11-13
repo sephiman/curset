@@ -1,0 +1,372 @@
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html lang="en-US" data-preset="contrast" data-primary-color="#307FFF" data-external-links-in-new-tab="false"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="UTF-8"><meta name="built-on" content="2026-11-13T10:58:20.362309442"><meta name="build-number" content="1405"><link rel="canonical" href="/docs/extensions.html" data-react-helmet="true">
+
+<title>Extensions | Kotlin Documentation</title><link href="custom-frontend-app/app.css?149" rel="stylesheet"><link rel="icon" type="image/svg" sizes="16x16" href="https://kotlinlang.org/assets/images/favicon.svg?v2"><link rel="icon" type="image/x-icon" sizes="32x32" href="https://kotlinlang.org/assets/images/favicon.ico?v2"><link rel="icon" type="image/png" sizes="96x96" href="https://kotlinlang.org/assets/images/apple-touch-icon.png?v2"><link rel="icon" type="image/png" sizes="300x300" href="https://kotlinlang.org/assets/images/apple-touch-icon-72x72.png?v2"><link rel="icon" type="image/png" sizes="500x500" href="https://kotlinlang.org/assets/images/apple-touch-icon-114x114.png?v2"><meta name="image" content="https://kotlinlang.org/assets/images/open-graph/docs.png"><!-- Open Graph --><meta property="og:title" content="Extensions | Kotlin"><meta property="og:description" content=""><meta property="og:image" content="https://kotlinlang.org/assets/images/open-graph/docs.png"><meta property="og:site_name" content="Kotlin Help"><meta property="og:type" content="website"><meta property="og:locale" content="en_US"><meta property="og:url" content="https://kotlinlang.org/docs/extensions.html"><!-- End Open Graph --><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@kotlin"><meta name="twitter:title" content="Extensions | Kotlin"><meta name="twitter:description" content=""><meta name="twitter:creator" content="@kotlin"><meta name="twitter:image:src" content="https://kotlinlang.org/assets/images/open-graph/docs.png"><!-- End Twitter Card --><!-- Schema.org WebPage --><!-- End Schema.org --><!-- Schema.org WebSite --><!-- End Schema.org --></head><body data-id="extensions" data-main-title="Extensions" data-article-props="{&quot;seeAlsoStyle&quot;:&quot;links&quot;}" data-template="article" data-breadcrumbs="Language guide///Classes and interfaces" data-edit-url="https://github.com/JetBrains/kotlin-web-site/edit/master/docs/topics/extensions.md"><div class="wrapper"><main class="panel _main"><header class="panel__header"><div class="container"><h3>Kotlin  Help</h3><div class="panel-trigger"></div></div></header><section class="panel__content"><div class="container"><article class="article" data-shortcut-switcher="inactive"><h1 data-toc="extensions" id="extensions.md">Extensions</h1><p id="-exgtg3_2">Kotlin <span class="emphasis" id="-exgtg3_12">extensions</span> let you extend a class or an interface with new functionality without using inheritance or design patterns like <span class="emphasis" id="-exgtg3_13">Decorator</span>. They are useful when working with third-party libraries you can't modify directly. Once created, you call these extensions as if they were members of the original class or interface.</p><p id="-exgtg3_3">The most common forms of extensions are <a href="#extension-functions" id="-exgtg3_14"><span class="emphasis" id="-exgtg3_16">extension functions</span></a> and <a href="#extension-properties" id="-exgtg3_15"><span class="emphasis" id="-exgtg3_17">extension properties</span></a>.</p><p id="-exgtg3_4">Importantly, extensions don't modify the classes or interfaces they extend. When you define an extension, you don't add new members. You make new functions callable or new properties accessible using the same syntax.</p><section class="chapter"><h2 id="receivers" data-toc="receivers">Receivers</h2><p id="-exgtg3_18">Extensions are always called on a receiver. The receiver has to have the same type as the class or interface being extended. To use an extension, prefix it with the receiver followed by a <code class="code" id="-exgtg3_21">.</code> and the function or property name.</p><p id="-exgtg3_19">For example, the <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/append-line.html" id="-exgtg3_22" data-external="true" rel="noopener noreferrer"><code class="code" id="-exgtg3_27">.appendLine()</code></a> extension function from the standard library extends the <code class="code" id="-exgtg3_23">StringBuilder</code> class. So in this case, the receiver is a <code class="code" id="-exgtg3_24">StringBuilder</code> instance, and the <span class="emphasis" id="-exgtg3_25">receiver type</span> is <code class="code" id="-exgtg3_26">StringBuilder</code>:</p><div class="code-block" data-lang="kotlin" data-runnable="true" id="kotlin-extension-function-stringbuilder">
+fun main() { 
+//sampleStart
+    // builder is an instance of StringBuilder
+    val builder = StringBuilder()
+        // Calls .appendLine() extension function on builder
+        .appendLine(&quot;Hello&quot;)
+        .appendLine()
+        .appendLine(&quot;World&quot;)
+    println(builder.toString())
+    // Hello
+    //
+    // World
+}
+//sampleEnd
+</div></section><section class="chapter"><h2 id="extension-functions" data-toc="extension-functions">Extension functions</h2><p id="-exgtg3_28">Before creating your own extension functions, see if what you are looking for is already available in the Kotlin <a href="https://kotlinlang.org/api/core/kotlin-stdlib/" id="-exgtg3_43" data-external="true" rel="noopener noreferrer">standard library</a>. The standard library provides many useful extension functions for:</p><ul class="list _bullet" id="-exgtg3_29"><li class="list__item" id="-exgtg3_44"><p id="-exgtg3_47">Operating on collections: <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/map.html" id="-exgtg3_48" data-external="true" rel="noopener noreferrer"><code class="code" id="-exgtg3_53">.map()</code></a>, <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/filter.html" id="-exgtg3_49" data-external="true" rel="noopener noreferrer"><code class="code" id="-exgtg3_54">.filter()</code></a>, <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/reduce.html" id="-exgtg3_50" data-external="true" rel="noopener noreferrer"><code class="code" id="-exgtg3_55">.reduce()</code></a>, <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/fold.html" id="-exgtg3_51" data-external="true" rel="noopener noreferrer"><code class="code" id="-exgtg3_56">.fold()</code></a>, <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/group-by.html" id="-exgtg3_52" data-external="true" rel="noopener noreferrer"><code class="code" id="-exgtg3_57">.groupBy()</code></a>.</p></li><li class="list__item" id="-exgtg3_45"><p id="-exgtg3_58">Converting to strings: <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/join-to-string.html" id="-exgtg3_59" data-external="true" rel="noopener noreferrer"><code class="code" id="-exgtg3_60">.joinToString()</code></a>.</p></li><li class="list__item" id="-exgtg3_46"><p id="-exgtg3_61">Working with null values: <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/filter-not-null.html" id="-exgtg3_62" data-external="true" rel="noopener noreferrer"><code class="code" id="-exgtg3_63">.filterNotNull()</code></a>.</p></li></ul><p id="-exgtg3_30">To create your own extension function, prefix its name with a receiver type followed by a <code class="code" id="-exgtg3_64">.</code>. In this example, the <code class="code" id="-exgtg3_65">.truncate()</code> function extends the <code class="code" id="-exgtg3_66">String</code> class, so the receiver type is <code class="code" id="-exgtg3_67">String</code>:</p><div class="code-block" data-lang="kotlin" data-runnable="true" id="kotlin-extension-function-truncate">
+fun String.truncate(maxLength: Int): String {
+    return if (this.length &lt;= maxLength) this else take(maxLength - 3) + &quot;...&quot;
+}
+
+fun main() {
+    val shortUsername = &quot;KotlinFan42&quot;
+    val longUsername = &quot;JetBrainsLoverForever&quot;
+
+    println(&quot;Short username: ${shortUsername.truncate(15)}&quot;) 
+    // KotlinFan42
+    println(&quot;Long username:  ${longUsername.truncate(15)}&quot;)
+    // JetBrainsLov...
+}
+</div><p id="-exgtg3_32">The <code class="code" id="-exgtg3_68">.truncate()</code> function truncates any string that it's called on by the number in the <code class="code" id="-exgtg3_69">maxLength</code> argument and adds an ellipsis <code class="code" id="-exgtg3_70">...</code>. If the string is shorter than <code class="code" id="-exgtg3_71">maxLength</code>, the function returns the original string.</p><p id="-exgtg3_33">In this example, the <code class="code" id="-exgtg3_72">.displayInfo()</code> function extends the <code class="code" id="-exgtg3_73">User</code> interface:</p><div class="code-block" data-lang="kotlin" data-runnable="true" id="kotlin-extension-function-interface">
+interface User {
+    val name: String
+    val email: String
+}
+
+fun User.displayInfo(): String = &quot;User(name=$name, email=$email)&quot;
+
+// Inherits from and implements the properties of the User interface
+class RegularUser(override val name: String, override val email: String) : User
+
+fun main() {
+    val user = RegularUser(&quot;Alice&quot;, &quot;alice@example.com&quot;)
+    println(user.displayInfo()) 
+    // User(name=Alice, email=alice@example.com)
+}
+</div><p id="-exgtg3_35">The <code class="code" id="-exgtg3_74">.displayInfo()</code> function returns a string containing the <code class="code" id="-exgtg3_75">name</code> and <code class="code" id="-exgtg3_76">email</code> of a <code class="code" id="-exgtg3_77">RegularUser</code> instance. Defining an extension on an interface like this is useful when you want to add functionality to all types that implement an interface only once.</p><p id="-exgtg3_36">In this example, the <code class="code" id="-exgtg3_78">.mostVoted()</code> function extends the <code class="code" id="-exgtg3_79">Map&lt;String, Int&gt;</code> class:</p><div class="code-block" data-lang="kotlin" data-runnable="true" id="kotlin-extension-function-mostvoted">
+fun Map&lt;String, Int&gt;.mostVoted(): String? {
+    return maxByOrNull { (key, value) -&gt; value }?.key
+}
+
+fun main() {
+    val poll = mapOf(
+        &quot;Cats&quot; to 37,
+        &quot;Dogs&quot; to 58,
+        &quot;Birds&quot; to 22
+    )
+
+    println(&quot;Top choice: ${poll.mostVoted()}&quot;) 
+    // Dogs
+}
+</div><p id="-exgtg3_38">The <code class="code" id="-exgtg3_80">.mostVoted()</code> function iterates through the key-value pairs of the map it's called on and uses the <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/max-by-or-null.html" id="-exgtg3_81" data-external="true" rel="noopener noreferrer"><code class="code" id="-exgtg3_88">maxByOrNull()</code></a> function to return the key of the pair containing the highest value. If the map is empty, the <code class="code" id="-exgtg3_82">maxByOrNull()</code> function returns <code class="code" id="-exgtg3_83">null</code>. The <code class="code" id="-exgtg3_84">mostVoted()</code> function uses a safe call <code class="code" id="-exgtg3_85">?.</code> to only access the <code class="code" id="-exgtg3_86">key</code> property when the <code class="code" id="-exgtg3_87">maxByOrNull()</code> function returns a non-null value.</p><section class="chapter"><h3 id="generic-extension-functions" data-toc="generic-extension-functions">Generic extension functions</h3><p id="-exgtg3_89">To create generic extension functions, declare the generic type parameter before the function name to make it available in the receiver type expression. In this example, the <code class="code" id="-exgtg3_93">.endpoints()</code> function extends <code class="code" id="-exgtg3_94">List&lt;T&gt;</code> where <code class="code" id="-exgtg3_95">T</code> can be any type:</p><div class="code-block" data-lang="kotlin" data-runnable="true" id="kotlin-extension-function-endpoints">
+fun &lt;T&gt; List&lt;T&gt;.endpoints(): Pair&lt;T, T&gt; {
+    return first() to last()
+}
+
+fun main() {
+    val cities = listOf(&quot;Paris&quot;, &quot;London&quot;, &quot;Berlin&quot;, &quot;Prague&quot;)
+    val temperatures = listOf(21.0, 19.5, 22.3)
+
+    val cityEndpoints = cities.endpoints()
+    val tempEndpoints = temperatures.endpoints()
+
+    println(&quot;First and last cities: $cityEndpoints&quot;)
+    // (Paris, Prague)
+    println(&quot;First and last temperatures: $tempEndpoints&quot;) 
+    // (21.0, 22.3)
+}
+</div><p id="-exgtg3_91">The <code class="code" id="-exgtg3_96">.endpoints()</code> function returns a pair containing the first and last elements of the list that it's called on. Inside the function body, it calls the <code class="code" id="-exgtg3_97">first()</code> and <code class="code" id="-exgtg3_98">last()</code> functions and combines their returned values into a <code class="code" id="-exgtg3_99">Pair</code> using the <code class="code" id="-exgtg3_100">to</code> infix function.</p><p id="-exgtg3_92">For more information about generics, see <a href="generics.html" id="-exgtg3_101">generic functions</a>.</p></section><section class="chapter"><h3 id="nullable-receivers" data-toc="nullable-receivers">Nullable receivers</h3><p id="-exgtg3_102">You can define extension functions with a nullable receiver type, which allows you to call them on a variable even if its value is null. When the receiver is <code class="code" id="-exgtg3_105">null</code>, <code class="code" id="-exgtg3_106">this</code> is also <code class="code" id="-exgtg3_107">null</code>. Make sure to handle nullability correctly within your functions. For example, use <code class="code" id="-exgtg3_108">this == null</code> checks inside function bodies, <a href="null-safety.html#safe-call-operator" id="-exgtg3_109">safe calls <code class="code" id="-exgtg3_111">?.</code></a>, or the <a href="null-safety.html#elvis-operator" id="-exgtg3_110">Elvis operator <code class="code" id="-exgtg3_112">?:</code></a>.</p><p id="-exgtg3_103">In this example, you can call the <code class="code" id="-exgtg3_113">.toString()</code> function without checking for <code class="code" id="-exgtg3_114">null</code> because the check already happens inside the extension function:</p><div class="code-block" data-lang="kotlin" data-runnable="true" id="kotlin-extension-function-nullable-receiver">
+fun main() {
+    //sampleStart
+    // Extension function on nullable Any
+    fun Any?.toString(): String {
+        if (this == null) return &quot;null&quot;
+        // After null check, `this` is smart-cast to non-nullable Any
+        // So this call resolves to the regular toString() function
+        return toString()
+    }
+    
+    val number: Int? = 42
+    val nothing: Any? = null
+    
+    println(number.toString())
+    // 42
+    println(nothing.toString()) 
+    // null
+    //sampleEnd
+}
+</div></section><section class="chapter"><h3 id="extension-or-member-functions" data-toc="extension-or-member-functions">Extension or member functions?</h3><p id="-exgtg3_115">Since extension and member function calls have the same notation, how does the compiler know which one to use? Extension functions are dispatched <span class="emphasis" id="-exgtg3_124">statically</span>, meaning the compiler determines which function to call based on the receiver type at compile time. For example:</p><div class="code-block" data-lang="kotlin" data-runnable="true" id="kotlin-extension-function-shape">
+fun main() {
+//sampleStart
+    open class Shape
+    class Rectangle: Shape()
+    
+    fun Shape.getName() = &quot;Shape&quot;
+    fun Rectangle.getName() = &quot;Rectangle&quot;
+    
+    fun printClassName(shape: Shape) {
+        println(shape.getName())
+    }
+    
+    printClassName(Rectangle())
+    // Shape
+//sampleEnd
+}
+</div><p id="-exgtg3_117">In this example, the compiler calls the <code class="code" id="-exgtg3_125">Shape.getName()</code> extension function because the parameter <code class="code" id="-exgtg3_126">shape</code> is declared as type <code class="code" id="-exgtg3_127">Shape</code>. Because extension functions are resolved statically, the compiler chooses the function based on the declared type, not the actual instance.</p><p id="-exgtg3_118">So even though the example passes a <code class="code" id="-exgtg3_128">Rectangle</code> instance, the <code class="code" id="-exgtg3_129">.getName()</code> function resolves to <code class="code" id="-exgtg3_130">Shape.getName()</code> since the variable is declared as type <code class="code" id="-exgtg3_131">Shape</code>.</p><p id="-exgtg3_119">If a class has a member function and there's an extension function with the same receiver type, the same name, and compatible arguments, the member function takes precedence. For example:</p><div class="code-block" data-lang="kotlin" data-runnable="true" id="kotlin-extension-function-member-function">
+fun main() {
+//sampleStart
+    class Example {
+        fun printFunctionType() { println(&quot;Member function&quot;) }
+    }
+    
+    fun Example.printFunctionType() { println(&quot;Extension function&quot;) }
+    
+    Example().printFunctionType()
+    // Member function
+//sampleEnd
+}
+</div><p id="-exgtg3_121">However, extension functions can overload member functions that have the same name but a <span class="emphasis" id="-exgtg3_132">different</span> signature:</p><div class="code-block" data-lang="kotlin" data-runnable="true" id="kotlin-extension-function-member-function-overload">
+fun main() {
+//sampleStart
+    class Example {
+        fun printFunctionType() { println(&quot;Member function&quot;) }
+    }
+    
+    // Same name but different signature
+    fun Example.printFunctionType(index: Int) { println(&quot;Extension function #$index&quot;) }
+    
+    Example().printFunctionType(1)
+    // Extension function #1
+//sampleEnd
+}
+</div><p id="-exgtg3_123">In this example, since an <code class="code" id="-exgtg3_133">Int</code> is passed to the <code class="code" id="-exgtg3_134">.printFunctionType()</code> function, the compiler chooses the extension function because it matches the signature. The compiler ignores the member function, which takes no arguments.</p></section><section class="chapter"><h3 id="anonymous-extension-functions" data-toc="anonymous-extension-functions">Anonymous extension functions</h3><p id="-exgtg3_135">You can define extension functions without giving them a name. This is useful when you want to avoid cluttering the global namespace or when you need to pass some extension behavior as a parameter.</p><p id="-exgtg3_136">For example, suppose you want to extend a data class with a one-time function to calculate shipping, without giving it a name:</p><div class="code-block" data-lang="kotlin" data-runnable="true" id="kotlin-extension-function-anonymous">
+fun main() {
+    //sampleStart
+    data class Order(val weight: Double)
+    val calculateShipping = fun Order.(rate: Double): Double = this.weight * rate
+    
+    val order = Order(2.5)
+    val cost = order.calculateShipping(3.0)
+    println(&quot;Shipping cost: $cost&quot;) 
+    // Shipping cost: 7.5
+}
+</div><p id="-exgtg3_138">To pass extension behavior as a parameter, use a <a href="lambdas.html#lambda-expression-syntax" id="-exgtg3_143">lambda expression</a> with a type annotation. For example, let's say you want to check if a number is within a range without defining a named function:</p><div class="code-block" data-lang="kotlin" data-runnable="true" id="kotlin-extension-function-anonymous-lambda">
+fun main() {
+    val isInRange: Int.(min: Int, max: Int) -&gt; Boolean = { min, max -&gt; this in min..max }
+
+    println(5.isInRange(1, 10))
+    // true
+    println(20.isInRange(1, 10))
+    // false
+}
+</div><p id="-exgtg3_140">In this example, the <code class="code" id="-exgtg3_144">isInRange</code> variable holds a function of type <code class="code" id="-exgtg3_145">Int.(min: Int, max: Int) -&gt; Boolean</code>. The type is an extension function on the <code class="code" id="-exgtg3_146">Int</code> class that takes <code class="code" id="-exgtg3_147">min</code> and <code class="code" id="-exgtg3_148">max</code> parameters and returns a <code class="code" id="-exgtg3_149">Boolean</code>.</p><p id="-exgtg3_141">The lambda body <code class="code" id="-exgtg3_150">{ min, max -&gt; this in min..max }</code> checks whether the <code class="code" id="-exgtg3_151">Int</code> value the function is called on falls within the range between <code class="code" id="-exgtg3_152">min</code> and <code class="code" id="-exgtg3_153">max</code> parameters. If the check is successful, the lambda returns <code class="code" id="-exgtg3_154">true</code>.</p><p id="-exgtg3_142">For more information, see <a href="lambdas.html" id="-exgtg3_155">Lambda expressions and anonymous functions</a>.</p></section></section><section class="chapter"><h2 id="extension-properties" data-toc="extension-properties">Extension properties</h2><p id="-exgtg3_156">Kotlin supports extension properties, which are useful for performing data transformations or creating UI display helpers without cluttering the class you're working with.</p><p id="-exgtg3_157">To create an extension property, write the name of the class that you want to extend, followed by a <code class="code" id="-exgtg3_163">.</code> and the name of your property.</p><p id="-exgtg3_158">For example, suppose you have a data class that represents a user with a first and last name, and you want to create a property that returns an email-style username when accessed. Your code might look like this:</p><div class="code-block" data-lang="kotlin" data-runnable="true" id="kotlin-extension-function-property">
+data class User(val firstName: String, val lastName: String)
+
+// An extension property to get a username-style email handle
+val User.emailUsername: String
+    get() = &quot;${firstName.lowercase()}.${lastName.lowercase()}&quot;
+
+fun main() {
+    val user = User(&quot;Mickey&quot;, &quot;Mouse&quot;)
+    // Calls extension property
+    println(&quot;Generated email username: ${user.emailUsername}&quot;)
+    // Generated email username: mickey.mouse
+}
+</div><p id="-exgtg3_160">Since extensions don't actually add members to classes, there's no efficient way for an extension property to have a <a href="properties.html#backing-fields" id="-exgtg3_164">backing field</a>. That's why initializers are not allowed for extension properties. You can define their behavior only by explicitly providing getters and setters. For example:</p><div class="code-block" data-lang="kotlin" data-runnable="true" id="kotlin-extension-function-property-error">
+data class House(val streetName: String)
+
+// Doesn't compile because there is no getter and setter
+// var House.number = 1
+// Error: Initializers are not allowed for extension properties
+
+// Compiles successfully
+val houseNumbers = mutableMapOf&lt;House, Int&gt;()
+var House.number: Int
+    get() = houseNumbers[this] ?: 1
+    set(value) {
+        println(&quot;Setting house number for ${this.streetName} to $value&quot;)
+        houseNumbers[this] = value
+    }
+
+fun main() {
+    val house = House(&quot;Maple Street&quot;)
+
+    // Shows the default
+    println(&quot;Default number: ${house.number} ${house.streetName}&quot;) 
+    // Default number: 1 Maple Street
+    
+    house.number = 99
+    // Setting house number for Maple Street to 99
+
+    // Shows the updated number
+    println(&quot;Updated number: ${house.number} ${house.streetName}&quot;) 
+    // Updated number: 99 Maple Street
+}
+</div><p id="-exgtg3_162">In this example, the getter uses the <a href="null-safety.html#elvis-operator" id="-exgtg3_165">Elvis operator</a> to return the house number if it exists in the <code class="code" id="-exgtg3_166">houseNumbers</code> map or <code class="code" id="-exgtg3_167">1</code>. To learn more about how to write getters and setters, see <a href="properties.html#custom-getters-and-setters" id="-exgtg3_168">Custom getters and setters</a>.</p></section><section class="chapter"><h2 id="companion-object-extensions" data-toc="companion-object-extensions">Companion object extensions</h2><p id="-exgtg3_169">If a class defines a <a href="object-declarations.html#companion-objects" id="-exgtg3_171">companion object</a>, you can also define extension functions and properties for the companion object. Just like regular members of the companion object, you can call them using only the class name as the qualifier. The compiler names the companion object <code class="code" id="-exgtg3_172">Companion</code> by default:</p><div class="code-block" data-lang="kotlin" data-runnable="true" id="kotlin-extension-function-companion-object">
+class Logger {
+    companion object { }
+}
+
+fun Logger.Companion.logStartupMessage() {
+    println(&quot;Application started.&quot;)
+}
+
+fun main() {
+    Logger.logStartupMessage()
+    // Application started.
+}
+</div></section><section class="chapter"><h2 id="declaring-extensions-as-members" data-toc="declaring-extensions-as-members">Declaring extensions as members</h2><p id="-exgtg3_173">You can declare extensions for one class inside another. Extensions like this have multiple <span class="emphasis" id="-exgtg3_181">implicit receivers</span>. An implicit receiver is an object whose members you can access without qualifying them with <a href="this-expressions.html#qualified-this" id="-exgtg3_182"><code class="code" id="-exgtg3_183">this</code></a>:</p><ul class="list _bullet" id="-exgtg3_174"><li class="list__item" id="-exgtg3_184"><p id="-exgtg3_186">The class where you declare the extension is the <span class="emphasis" id="-exgtg3_187">dispatch receiver</span>.</p></li><li class="list__item" id="-exgtg3_185"><p id="-exgtg3_188">The extension function's receiver type is the <span class="emphasis" id="-exgtg3_189">extension receiver</span>.</p></li></ul><p id="-exgtg3_175">Consider this example where the <code class="code" id="-exgtg3_190">Connection</code> class has an extension function for the <code class="code" id="-exgtg3_191">Host</code> class called <code class="code" id="-exgtg3_192">printConnectionString()</code>:</p><div class="code-block" data-lang="kotlin" data-runnable="true" id="kotlin-extension-function-members">
+class Host(val hostname: String) {
+    fun printHostname() { print(hostname) }
+}
+
+class Connection(val host: Host, val port: Int) {
+    fun printPort() { print(port) }
+
+    // Host is the extension receiver
+    fun Host.printConnectionString() {
+        // Calls Host.printHostname()
+        printHostname() 
+        print(&quot;:&quot;)
+        // Calls Connection.printPort()
+        // Connection is the dispatch receiver
+        printPort()
+    }
+
+    fun connect() {
+        /*...*/
+        // Calls the extension function
+        host.printConnectionString() 
+    }
+}
+
+fun main() {
+    Connection(Host(&quot;kotl.in&quot;), 443).connect()
+    // kotl.in:443
+    
+    // Triggers an error because the extension function isn't available outside Connection
+    // Host(&quot;kotl.in&quot;).printConnectionString()
+    // Unresolved reference 'printConnectionString'.
+}
+</div><p id="-exgtg3_177">This example declares the <code class="code" id="-exgtg3_193">printConnectionString()</code> function inside the <code class="code" id="-exgtg3_194">Connection</code> class, so the <code class="code" id="-exgtg3_195">Connection</code> class is the dispatch receiver. The extension function's receiver type is the <code class="code" id="-exgtg3_196">Host</code> class, so the <code class="code" id="-exgtg3_197">Host</code> class is the extension receiver.</p><p id="-exgtg3_178">If the dispatch receiver and the extension receiver have members with the same name, the extension receiver's member takes precedence. To access the dispatch receiver explicitly, use the <a href="this-expressions.html#qualified-this" id="-exgtg3_198">qualified <code class="code" id="-exgtg3_199">this</code> syntax</a>:</p><div class="code-block" data-lang="kotlin">
+class Connection {
+    fun Host.getConnectionString() {
+        // Calls Host.toString()
+        toString()
+        // Calls Connection.toString()
+        this@Connection.toString()
+    }
+}
+</div><section class="chapter"><h3 id="overriding-member-extensions" data-toc="overriding-member-extensions">Overriding member extensions</h3><p id="-exgtg3_200">You can declare member extensions as <code class="code" id="-exgtg3_205">open</code> and override them in subclasses, which is useful when you want to customize the extension's behavior for each subclass. The compiler handles each receiver type differently:</p><div class="table-wrapper"><table class="wide" id="-exgtg3_201"><thead><tr class="ijRowHead" id="-exgtg3_206"><th id="-exgtg3_209"><p>Receiver type</p></th><th id="-exgtg3_210"><p>Resolution time</p></th><th id="-exgtg3_211"><p>Dispatch type</p></th></tr></thead><tbody><tr id="-exgtg3_207"><td id="-exgtg3_212"><p>Dispatch receiver</p></td><td id="-exgtg3_213"><p>Runtime</p></td><td id="-exgtg3_214"><p>Virtual</p></td></tr><tr id="-exgtg3_208"><td id="-exgtg3_215"><p>Extension receiver</p></td><td id="-exgtg3_216"><p>Compile time</p></td><td id="-exgtg3_217"><p>Static</p></td></tr></tbody></table></div><p id="-exgtg3_202">Consider this example, where the <code class="code" id="-exgtg3_218">User</code> class is <code class="code" id="-exgtg3_219">open</code> and the <code class="code" id="-exgtg3_220">Admin</code> class inherits from it. The <code class="code" id="-exgtg3_221">NotificationSender</code> class defines <code class="code" id="-exgtg3_222">sendNotification()</code> extension functions for both <code class="code" id="-exgtg3_223">User</code> and <code class="code" id="-exgtg3_224">Admin</code> classes, and the <code class="code" id="-exgtg3_225">SpecialNotificationSender</code> class overrides them:</p><div class="code-block" data-lang="kotlin" data-runnable="true" id="kotlin-extension-open">
+open class User
+
+class Admin : User()
+
+open class NotificationSender {
+    open fun User.sendNotification() {
+        println(&quot;Sending user notification from normal sender&quot;)
+    }
+
+    open fun Admin.sendNotification() {
+        println(&quot;Sending admin notification from normal sender&quot;)
+    }
+
+    fun notify(user: User) {
+        user.sendNotification()
+    }
+}
+
+class SpecialNotificationSender : NotificationSender() {
+    override fun User.sendNotification() {
+        println(&quot;Sending user notification from special sender&quot;)
+    }
+
+    override fun Admin.sendNotification() {
+        println(&quot;Sending admin notification from special sender&quot;)
+    }
+}
+
+fun main() {
+    // Dispatch receiver is NotificationSender
+    // Extension receiver is User
+    // Resolves to User.sendNotification() in NotificationSender
+    NotificationSender().notify(User())
+    // Sending user notification from normal sender
+    
+    // Dispatch receiver is SpecialNotificationSender
+    // Extension receiver is User
+    // Resolves to User.sendNotification() in SpecialNotificationSender
+    SpecialNotificationSender().notify(User())
+    // Sending user notification from special sender 
+    
+    // Dispatch receiver is SpecialNotificationSender
+    // Extension receiver is User NOT Admin
+    // The notify() function declares user as type User
+    // Statically resolves to User.sendNotification() in SpecialNotificationSender
+    SpecialNotificationSender().notify(Admin())
+    // Sending user notification from special sender 
+}
+</div><p id="-exgtg3_204">The dispatch receiver is resolved at runtime using virtual dispatch, which makes the behavior in the <code class="code" id="-exgtg3_226">main()</code> function easier to follow. What may surprise you is that when you call the <code class="code" id="-exgtg3_227">notify()</code> function on an <code class="code" id="-exgtg3_228">Admin</code> instance, the compiler chooses the extension based on the declared type: <code class="code" id="-exgtg3_229">user: User</code>, because it resolves the extension receiver statically.</p></section></section><section class="chapter"><h2 id="extensions-and-visibility-modifiers" data-toc="extensions-and-visibility-modifiers">Extensions and visibility modifiers</h2><p id="-exgtg3_230">Extensions use the same <a href="visibility-modifiers.html" id="-exgtg3_237">visibility modifiers</a> as regular functions declared in the same scope, including extensions declared as members of other classes.</p><p id="-exgtg3_231">For example, an extension declared at the top level of a file can access other <code class="code" id="-exgtg3_238">private</code> top-level declarations in the same file:</p><div class="code-block" data-lang="kotlin" data-runnable="true" id="kotlin-extension-visibility-top-level">
+// File: StringUtils.kt
+
+private fun removeWhitespace(input: String): String {
+    return input.replace(&quot;\\s&quot;.toRegex(), &quot;&quot;)
+}
+
+fun String.cleaned(): String {
+    return removeWhitespace(this)
+}
+
+fun main() {
+    val rawEmail = &quot;  user @example. com  &quot;
+    val cleaned = rawEmail.cleaned()
+    println(&quot;Raw:     '$rawEmail'&quot;)
+    // Raw:     '  user @example. com  '
+    println(&quot;Cleaned: '$cleaned'&quot;)
+    // Cleaned: 'user@example.com'
+    println(&quot;Looks like an email: ${cleaned.contains(&quot;@&quot;) &amp;&amp; cleaned.contains(&quot;.&quot;)}&quot;) 
+    // Looks like an email: true
+}
+</div><p id="-exgtg3_233">And if an extension is declared outside its receiver type, it can't access the receiver's <code class="code" id="-exgtg3_239">private</code> or <code class="code" id="-exgtg3_240">protected</code> members:</p><div class="code-block" data-lang="kotlin" data-runnable="true" id="kotlin-extension-visibility-outside-receiver">
+class User(private val password: String) {
+    fun isLoggedIn(): Boolean = true
+    fun passwordLength(): Int = password.length
+}
+
+// Extension declared outside the class
+fun User.isSecure(): Boolean {
+    // Can't access password because it's private:
+    // return password.length &gt;= 8
+
+    // Instead, we rely on public members:
+    return passwordLength() &gt;= 8 &amp;&amp; isLoggedIn()
+}
+
+fun main() {
+    val user = User(&quot;supersecret&quot;)
+    println(&quot;Is user secure: ${user.isSecure()}&quot;) 
+    // Is user secure: true
+}
+</div><p id="-exgtg3_235">If an extension is marked as <code class="code" id="-exgtg3_241">internal</code>, it's only accessible within its <a href="visibility-modifiers.html#modules" id="-exgtg3_242">module</a>:</p><div class="code-block" data-lang="kotlin">
+// Networking module
+// JsonParser.kt
+internal fun String.parseJson(): Map&lt;String, Any&gt; {
+    return mapOf(&quot;fakeKey&quot; to &quot;fakeValue&quot;)
+}
+</div></section><section class="chapter"><h2 id="scope-of-extensions" data-toc="scope-of-extensions">Scope of extensions</h2><p id="-exgtg3_243">In most cases, you define extensions on the top level, directly under packages:</p><div class="code-block" data-lang="kotlin">
+package org.example.declarations
+
+fun List&lt;String&gt;.getLongestString() { /*...*/}
+</div><p id="-exgtg3_245">To use an extension outside its declaring package, import it at the call site:</p><div class="code-block" data-lang="kotlin">
+package org.example.usage
+
+import org.example.declarations.getLongestString
+
+fun main() {
+    val list = listOf(&quot;red&quot;, &quot;green&quot;, &quot;blue&quot;)
+    list.getLongestString()
+}
+</div><p id="-exgtg3_247">For more information, see <a href="packages.html#imports" id="-exgtg3_248">Imports</a>.</p></section><div class="last-modified">29 September 2026</div><div data-feedback-placeholder="true"></div><div class="navigation-links _bottom"><a href="data-classes.html" class="navigation-links__prev">Data classes</a><a href="interfaces.html" class="navigation-links__next">Interfaces</a></div></article><div id="disqus_thread"></div></div></section></main></div></body></html>

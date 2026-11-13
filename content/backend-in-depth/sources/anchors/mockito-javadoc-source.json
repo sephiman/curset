@@ -1,0 +1,407 @@
+{
+ "source": "mockito-javadoc-source",
+ "anchors": [
+  {
+   "anchor": "top",
+   "title": "",
+   "level": 0,
+   "sha256": "2c42f29293090658d9d45283161dd9250e26bf76e4782c8155bac2b2097c6512"
+  },
+  {
+   "anchor": "contents",
+   "title": "Contents",
+   "level": 1,
+   "sha256": "538745b16426cabb9a265db102c5d73f87463c69f78f4c243a12bd731048a9e3"
+  },
+  {
+   "anchor": "0",
+   "title": "0. Migrating to Mockito 2",
+   "level": 3,
+   "sha256": "5321c1bc633f674153bc6b37aaaac0ff718bc0e0697008193ebd6eb28b9dc87d"
+  },
+  {
+   "anchor": "0.1",
+   "title": "0.1. Mockito Android support",
+   "level": 3,
+   "sha256": "c8e82a5b8a2beae37f139eec833983a1de3346b89a66e8371aef5734b7a16e22"
+  },
+  {
+   "anchor": "0.2",
+   "title": "0.2. Configuration-free inline mock making",
+   "level": 3,
+   "sha256": "f1a383dfb7cfbab40cbf719525d112673acb87da5619a46316ee11137b457712"
+  },
+  {
+   "anchor": "0.3",
+   "title": "0.3. Explicitly setting up instrumentation for inline mocking (Java 21+)",
+   "level": 3,
+   "sha256": "4e6c750024c707a338402f696cdf41c16982b0ca7195b540c0726af3f2e7ae4f"
+  },
+  {
+   "anchor": "1",
+   "title": "1. Let's verify some behaviour!",
+   "level": 3,
+   "sha256": "e4a0e823a03c88d14163e5220d7611e11b6f981669886d5ab4b7080fe12386bd"
+  },
+  {
+   "anchor": "2",
+   "title": "2. How about some stubbing?",
+   "level": 3,
+   "sha256": "82984ffdd992a0be5b193e7acdfa7954f287c7f8bc5e5f9b71f22de2d7b3e080"
+  },
+  {
+   "anchor": "3",
+   "title": "3. Argument matchers",
+   "level": 3,
+   "sha256": "9552a2503e8dc84b875c31f6af383b1218bae670ad8b4d8dfa63f0034728616c"
+  },
+  {
+   "anchor": "4",
+   "title": "4. Verifying exact number of invocations / * at least x / never",
+   "level": 3,
+   "sha256": "fc4b8fe2a3a1cf5e3d406d61153b7954c7bb045b9a3c84042e1f8d9a161a36c1"
+  },
+  {
+   "anchor": "5",
+   "title": "5. Stubbing void methods with exceptions",
+   "level": 3,
+   "sha256": "78ee85c55bbcbd47f6208ef08210bc04d0c13fb4e750550213fdbec40945dc28"
+  },
+  {
+   "anchor": "6",
+   "title": "6. Verification in order",
+   "level": 3,
+   "sha256": "e9a02e5225b6180e2c242a1774098eeb87c18cdf4fb3b0b67e8ae5a835198388"
+  },
+  {
+   "anchor": "7",
+   "title": "7. Making sure interaction(s) never happened on mock",
+   "level": 3,
+   "sha256": "6da7b2c785dfdf6780704159168cc03e616d0d3a4086d029a889e591e8a2782e"
+  },
+  {
+   "anchor": "8",
+   "title": "8. Finding redundant invocations",
+   "level": 3,
+   "sha256": "8350efc291a42182f5969eec6a904e78eb3d60294264411a472fd3f4deecc74f"
+  },
+  {
+   "anchor": "9",
+   "title": "9. Shorthand for mocks creation - @Mock annotation",
+   "level": 3,
+   "sha256": "bd17244546e1e39d85ba6026c7d5a1adfe7083809255430010b8c821b7b36ab6"
+  },
+  {
+   "anchor": "10",
+   "title": "10. Stubbing consecutive calls (iterator-style stubbing)",
+   "level": 3,
+   "sha256": "fd73343068680279ccd2955804a6c56e89bce057bcb7b7305fd72475dce6db4f"
+  },
+  {
+   "anchor": "11",
+   "title": "11. Stubbing with callbacks",
+   "level": 3,
+   "sha256": "ba3f327389f456186b4962a983ab95f9f0629806d3bb3e077bf69dff0871faa3"
+  },
+  {
+   "anchor": "12",
+   "title": "12. doReturn() | doThrow() | * doAnswer() | doNothing() | doCallRealMethod() family of methods",
+   "level": 3,
+   "sha256": "d476c45c7849f9d98d559da2ae9263c05da7694e5710eda1aeab5bf4bf959aa5"
+  },
+  {
+   "anchor": "13",
+   "title": "13. Spying on real objects",
+   "level": 3,
+   "sha256": "f516a9d2ff53eeb5e900dcae701090279146bd175072697ec5e67e05baf14d7a"
+  },
+  {
+   "anchor": "important-gotcha-on-spying-real-objects",
+   "title": "Important gotcha on spying real objects!",
+   "level": 4,
+   "sha256": "6b02a0f12760a24a0c1c8d09f458639ccd484936cad5acc946d2020b2a9f8356"
+  },
+  {
+   "anchor": "14",
+   "title": "14. Changing default return values of un-stubbed invocations (Since 1.7)",
+   "level": 3,
+   "sha256": "532f4fddaaf307f17b9337b3dcc5b48399cb3ea75955dde85c2cf20aeb58d570"
+  },
+  {
+   "anchor": "15",
+   "title": "15. Capturing arguments for further assertions (Since 1.8.0)",
+   "level": 3,
+   "sha256": "bba3d389ff4c0289a6738a6175b08d415fea6c9703d4a2d544c14da9c3a2b77b"
+  },
+  {
+   "anchor": "16",
+   "title": "16. Real partial mocks (Since 1.8.0)",
+   "level": 3,
+   "sha256": "649212bfb716d7aeca5f30a53d13598cb67b25c027ff923bc044a2c0b6bf5a76"
+  },
+  {
+   "anchor": "17",
+   "title": "17. Resetting mocks (Since 1.8.0)",
+   "level": 3,
+   "sha256": "a17e875c28cd2d470e1db621e4eb3995338af1aa43a4a8339399b589e1f7ce13"
+  },
+  {
+   "anchor": "18",
+   "title": "18. Troubleshooting and validating framework usage (Since 1.8.0)",
+   "level": 3,
+   "sha256": "c1cd7b333cf6c898f6c67a47f2f5c5a8498dc03bfeb0658236dd1d775849bc07"
+  },
+  {
+   "anchor": "19",
+   "title": "19. Aliases for behavior driven development (Since 1.8.0)",
+   "level": 3,
+   "sha256": "7911516991eff254bd18cf47fd0b7fcc799abc04766aaff39d30c1fab8d0effe"
+  },
+  {
+   "anchor": "20",
+   "title": "20. Serializable mocks (Since 1.8.1)",
+   "level": 3,
+   "sha256": "c2130c42577ccfcc879c022b675949d212d442e17617abcab54b3ef147d8625d"
+  },
+  {
+   "anchor": "21",
+   "title": "21. New annotations: @Captor , * @Spy , * @InjectMocks (Since 1.8.3)",
+   "level": 3,
+   "sha256": "a45568c11d2785841430c9ecb66f235ab552f82f7c0959f666bba7bf15048dc1"
+  },
+  {
+   "anchor": "22",
+   "title": "22. Verification with timeout (Since 1.8.5)",
+   "level": 3,
+   "sha256": "3b476ad9db28ef94b5e6bacdcde3f6a080acf3d42a9b070b3b38e2655deebfb6"
+  },
+  {
+   "anchor": "23",
+   "title": "23. Automatic instantiation of @Spies , * @InjectMocks and constructor injection goodness (Since 1.9.0)",
+   "level": 3,
+   "sha256": "c1d8dd853bc9cf322bbf54b3428ecf95855bdf4332110744ec51158f0bd00091"
+  },
+  {
+   "anchor": "24",
+   "title": "24. One-liner stubs (Since 1.9.0)",
+   "level": 3,
+   "sha256": "6510b52b396ba802544f44bab348ac97a2247d70e81dd254487ae0594f9de80c"
+  },
+  {
+   "anchor": "25",
+   "title": "25. Verification ignoring stubs (Since 1.9.0)",
+   "level": 3,
+   "sha256": "3aa03685efb471e88479042a3eaa123f8772779b89be5c7a555bc77e2ed3ec4f"
+  },
+  {
+   "anchor": "26",
+   "title": "26. Mocking details (Improved in 2.2.x)",
+   "level": 3,
+   "sha256": "f5aa7819981961f96e1d09e51fac680f9f5e73428399c999d5f4d71ccb40eedd"
+  },
+  {
+   "anchor": "27",
+   "title": "27. Delegate calls to real instance (Since 1.9.5)",
+   "level": 3,
+   "sha256": "b4934b175da9dc660591aec138e9e3c3391a247f554abdb44c3a273e77f4c203"
+  },
+  {
+   "anchor": "28",
+   "title": "28. MockMaker API (Since 1.9.5)",
+   "level": 3,
+   "sha256": "562137afc6b5257f85b76c213520141e1d7ee455ce5d697ce4d61f8a94924a9b"
+  },
+  {
+   "anchor": "29",
+   "title": "29. BDD style verification (Since 1.10.0)",
+   "level": 3,
+   "sha256": "9dfc97835f82debf8ea7f72b28b3aef24faadb66a8f6d95a36c23acda5bcf1ac"
+  },
+  {
+   "anchor": "30",
+   "title": "30. Spying or mocking abstract classes (Since 1.10.12, further enhanced in 2.7.13 and 2.7.14)",
+   "level": 3,
+   "sha256": "a028278e73232fa2747c2bc1d0250c845f0804e49179b8502f18df80254a3daf"
+  },
+  {
+   "anchor": "31",
+   "title": "31. Mockito mocks can be serialized / deserialized across classloaders (Since 1.10.0)",
+   "level": 3,
+   "sha256": "44a002d5d79d4c3b22679a9eb288ba0839e6a02abcebf5c845af407983d97539"
+  },
+  {
+   "anchor": "32",
+   "title": "32. Better generic support with deep stubs (Since 1.10.0)",
+   "level": 3,
+   "sha256": "45bf275c3024e63643c7a3ffb92fa2744177c0badf883428232cb8503a0de10a"
+  },
+  {
+   "anchor": "33",
+   "title": "33. Mockito JUnit rule (Since 1.10.17)",
+   "level": 3,
+   "sha256": "68771060887aeff842f87e63f77f2f3055bf53b3d49bd6bbddd8cd8e8c910cd2"
+  },
+  {
+   "anchor": "34",
+   "title": "34. Switch on or off plugins (Since 1.10.15)",
+   "level": 3,
+   "sha256": "ab7c8fcf98e6971692764a2e89c193bc80f14a690a43708eef9203db7a8fe87d"
+  },
+  {
+   "anchor": "35",
+   "title": "35. Custom verification failure message (Since 2.1.0)",
+   "level": 3,
+   "sha256": "c85d539b013015eb6736540f7993024cc5ca2365156685eb8056b39287c29a2a"
+  },
+  {
+   "anchor": "36",
+   "title": "36. Java 8 Lambda Matcher Support (Since 2.1.0)",
+   "level": 3,
+   "sha256": "c2a39dc94cd80461a666552553da38c7e0a8e87efef3340ec8a3d12c14d20860"
+  },
+  {
+   "anchor": "37",
+   "title": "37. Java 8 Custom Answer Support (Since 2.1.0)",
+   "level": 3,
+   "sha256": "505bd8417cb97ba3432594572c508563f863b7bc2cb7b8c87a532445caf066eb"
+  },
+  {
+   "anchor": "38",
+   "title": "38. Meta data and generic type retention (Since 2.1.0)",
+   "level": 3,
+   "sha256": "ad6daa1f06de1e7da1d094f62308f33fe3c8d44da54c8e5cc2cd4182aec84081"
+  },
+  {
+   "anchor": "39",
+   "title": "39. Mocking final types, enums and final methods (Since 2.1.0)",
+   "level": 3,
+   "sha256": "0fedd5a398a0c4d5a8abc7fc838c3965e2b54c7f31616482cbfd19b9a2b9143b"
+  },
+  {
+   "anchor": "40",
+   "title": "40. * Improved productivity and cleaner tests with \"stricter\" Mockito (Since 2.+)",
+   "level": 3,
+   "sha256": "c2d44c35a632d6c98530bb31a95ede62ed9f2ad5674754a03db5e016d35ed559"
+  },
+  {
+   "anchor": "41",
+   "title": "41. * Advanced public API for framework integrations (Since 2.10.+)",
+   "level": 3,
+   "sha256": "08f1eec6767109e50ae26012756458504220c0704e59ddedaad7a05662f97e20"
+  },
+  {
+   "anchor": "42",
+   "title": "42. * New API for integrations: listening on verification start events (Since 2.11.+)",
+   "level": 3,
+   "sha256": "792800092fcd3d0eeb604a7c99e9b4782a8577e16ec4992bd60483808d358ec3"
+  },
+  {
+   "anchor": "43",
+   "title": "43. * New API for integrations: MockitoSession is usable by testing frameworks (Since 2.15.+)",
+   "level": 3,
+   "sha256": "c7b3fe676004884e602d604c69ea72132cf597fdc2207f4d3bfc80ad4a5eb5dd"
+  },
+  {
+   "anchor": "44",
+   "title": "44. * Deprecated org.mockito.plugins.InstantiatorProvider as it was leaking internal API. it was * replaced by org.mockito.plugins.InstantiatorProvider2 (Since 2.15.4)",
+   "level": 3,
+   "sha256": "4f520e4d027b371892e9f1d169a7e5dd807292f9e50884f9c700b354cdde227d"
+  },
+  {
+   "anchor": "45",
+   "title": "45. New JUnit Jupiter (JUnit5+) extension",
+   "level": 3,
+   "sha256": "0937dec31d54b952936075e594ba91aa7137ae689fe38bf023b8d4d6e7335086"
+  },
+  {
+   "anchor": "46",
+   "title": "46. * New Mockito.lenient() and MockSettings.lenient() methods (Since 2.20.0)",
+   "level": 3,
+   "sha256": "67022b49cee2f260081d6a2296955ded025302d02ec1ecd51c2ce917abfbd967"
+  },
+  {
+   "anchor": "47",
+   "title": "47. New API for clearing mock state in inline mocking (Since 2.25.0)",
+   "level": 3,
+   "sha256": "da76a7c80c3aeea531b1e011ed72c06af5873e7dee3ea52e91e6b4615b0d69fb"
+  },
+  {
+   "anchor": "48",
+   "title": "48. Mocking static methods (since 3.4.0)",
+   "level": 3,
+   "sha256": "a0c64bf82c00c3195a05b15895d8ab5e4e75873847581cc7b2dfca0f9cebe917"
+  },
+  {
+   "anchor": "49",
+   "title": "49. Mocking object construction (since 3.5.0)",
+   "level": 3,
+   "sha256": "6bc90eefab2b55d0f217e70d61ceb1e3c13a6128f856e02a04462ed9e59d5415"
+  },
+  {
+   "anchor": "50",
+   "title": "50. Avoiding code generation when only interfaces are mocked (since 3.12.2)",
+   "level": 3,
+   "sha256": "d13ce62f156d9fe11cfd8377c42eb863a04797748895c45600f5f0adab666b26"
+  },
+  {
+   "anchor": "51",
+   "title": "51. Mark classes as unmockable (since 4.1.0)",
+   "level": 3,
+   "sha256": "228ce60cbcea0bde7f9a7c74630ea726ea1ff7a57e643a3e00a298bed6753be2"
+  },
+  {
+   "anchor": "52",
+   "title": "52. * New strictness attribute for @Mock annotation and MockSettings.strictness() methods (Since 4.6.0)",
+   "level": 3,
+   "sha256": "0663c94086ba1cbb6b1ff37a0ca5957f3fe5f9f63b79135b4f0e26134fa21fbb"
+  },
+  {
+   "anchor": "53",
+   "title": "53. * Specifying mock maker for individual mocks (Since 4.8.0)",
+   "level": 3,
+   "sha256": "89f0fef87a0350beee12e4153dffae8515e99743e704ac6e307f86be7d3d855e"
+  },
+  {
+   "anchor": "54",
+   "title": "54. * Mocking/spying without specifying class (Since 4.10.0)",
+   "level": 3,
+   "sha256": "402bb1d61c7ce3089660633f3845e64fb52175b47f7a343f5b736c5e9f1423d7"
+  },
+  {
+   "anchor": "55",
+   "title": "55. * Verification with assertions (Since 5.3.0)",
+   "level": 3,
+   "sha256": "8941ddb4399b6694ef1ac4bf40384777790561e4ad49526b386261d05befe3b8"
+  },
+  {
+   "anchor": "56",
+   "title": "56. * Mocking singletons (like Java enums) (Since 5.22.0)",
+   "level": 3,
+   "sha256": "6d619d9e8b1eb48fbcab0df02780dde27a9712ff5ccc7ace32e994599a1d26a8"
+  },
+  {
+   "anchor": "57",
+   "title": "57. * Spying on static methods (Since 5.23.0)",
+   "level": 3,
+   "sha256": "8ccf8f067afd6022739ab01b3d9b193cc750bd2e554b38cad0ea536e5b5cb02a"
+  },
+  {
+   "anchor": "58",
+   "title": "58. * Suppressing static initializers",
+   "level": 3,
+   "sha256": "b5adee555207a9a264c5e9afedde9d0f0ef0abee91d4187c95d112f513e3bc1a"
+  },
+  {
+   "anchor": "important-gotcha-on-spying-real-objects~2",
+   "title": "Important gotcha on spying real objects!",
+   "level": 4,
+   "sha256": "0ca9365b8bf2be8cff6749d90b79ea2ab81278797c20bf19cf8ecacd01395b73"
+  },
+  {
+   "anchor": "elaborate-example",
+   "title": "Elaborate example",
+   "level": 3,
+   "sha256": "cbbfb7fd982ed6a55afb24c1088b40b69c302d4d7fba0ab82773ce94ce06b772"
+  }
+ ]
+}

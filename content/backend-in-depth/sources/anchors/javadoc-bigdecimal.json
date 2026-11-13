@@ -1,0 +1,611 @@
+{
+ "source": "javadoc-bigdecimal",
+ "anchors": [
+  {
+   "anchor": "top",
+   "title": "",
+   "level": 0,
+   "sha256": "ed709536d2aae99f44c086796fadb8987dcaed394ee18002f569028f8da7fc16"
+  },
+  {
+   "anchor": "class-bigdecimal",
+   "title": "Class BigDecimal",
+   "level": 1,
+   "sha256": "f9ba707785c12eaa0147dccb15cfac027eb27e1dcfdbbab3f3f049522776527a"
+  },
+  {
+   "anchor": "relation-to-ieee-754-decimal-arithmetic-heading",
+   "title": "Relation to IEEE 754 Decimal Arithmetic",
+   "level": 2,
+   "sha256": "c26429d443838374f8e2b7c2a27f42d2f1c883456a7d93b0d4e582b714239286"
+  },
+  {
+   "anchor": "algorithmicComplexity",
+   "title": "Algorithmic Complexity",
+   "level": 2,
+   "sha256": "87f10b2b99220db4b59218af85cd4ecfb5950142cec0b1b8776074d51a8d3453"
+  },
+  {
+   "anchor": "field-summary",
+   "title": "Field Summary",
+   "level": 2,
+   "sha256": "97ee195aa5e74eca4a5466c2ae0d90c738f8b758900bc9eb319675339c82e2f2"
+  },
+  {
+   "anchor": "constructor-summary",
+   "title": "Constructor Summary",
+   "level": 2,
+   "sha256": "c11350359c349e8ac00cabb2bbf7b72badabfd2b40384890e4c9f56ca56cfec6"
+  },
+  {
+   "anchor": "method-summary",
+   "title": "Method Summary",
+   "level": 2,
+   "sha256": "82f44b1f83bd7632020b1411d24db4cf59fdb26a5d9a3be0384cf6eaea6fb2c0"
+  },
+  {
+   "anchor": "methods-inherited-from-class-java.lang.Number",
+   "title": "Methods declared in class Number",
+   "level": 3,
+   "sha256": "9007f08ffcf25215014a6643087ce34e2147b8fc3dc02e4b3d9ec878960eb387"
+  },
+  {
+   "anchor": "methods-inherited-from-class-java.lang.Object",
+   "title": "Methods declared in class Object",
+   "level": 3,
+   "sha256": "4a03691fac3ab88fdc60469ee221595b6e5fe8cffa82e7d3b9f53a1f7a84c9ae"
+  },
+  {
+   "anchor": "field-detail",
+   "title": "Field Details",
+   "level": 2,
+   "sha256": "163500da38235de0b6e1321ffe301caf1447e7269beecb908131b6509a1b6aca"
+  },
+  {
+   "anchor": "ZERO",
+   "title": "ZERO",
+   "level": 3,
+   "sha256": "a682187373808060db40b762feefecbe1c02ab88ac2fbfe79303470b40b01631"
+  },
+  {
+   "anchor": "ONE",
+   "title": "ONE",
+   "level": 3,
+   "sha256": "2b855dc59d23a61723c03901e9b3253c4cb6068994cabc4f6c29b77824edc4ed"
+  },
+  {
+   "anchor": "TWO",
+   "title": "TWO",
+   "level": 3,
+   "sha256": "ad639c9f068fc8f184285735fad35d1d1be14103b12f22014ccfaea057829cc9"
+  },
+  {
+   "anchor": "TEN",
+   "title": "TEN",
+   "level": 3,
+   "sha256": "85d6d9b34e98c394045bc427dc5bf48d8725049527be1d423d3b0ec507ae853e"
+  },
+  {
+   "anchor": "ROUND_UP",
+   "title": "ROUND_UP",
+   "level": 3,
+   "sha256": "24ceb7b74992cf3d7d570e08739206266c857db76e1dcdf66f818b7563d364cd"
+  },
+  {
+   "anchor": "ROUND_DOWN",
+   "title": "ROUND_DOWN",
+   "level": 3,
+   "sha256": "704093c37808969b8b8c0e535310e2db5f5bd42e118e33a81a8000f7f3155107"
+  },
+  {
+   "anchor": "ROUND_CEILING",
+   "title": "ROUND_CEILING",
+   "level": 3,
+   "sha256": "1ee5c69f3e036fe18828687d6e7bd277c2cc5d40315ace45a74eea7c496fc752"
+  },
+  {
+   "anchor": "ROUND_FLOOR",
+   "title": "ROUND_FLOOR",
+   "level": 3,
+   "sha256": "f99ba56a92be7170c95611712e73d313c0cbd87271992f788c42b51ffa7a5bcb"
+  },
+  {
+   "anchor": "ROUND_HALF_UP",
+   "title": "ROUND_HALF_UP",
+   "level": 3,
+   "sha256": "c3cffdbd364695deab6876d4a4aa41a1ec4bde4580890c8503ff6f8b026a7593"
+  },
+  {
+   "anchor": "ROUND_HALF_DOWN",
+   "title": "ROUND_HALF_DOWN",
+   "level": 3,
+   "sha256": "ff3f46e0ce6c6afbb621a2448c71e525b45294f4035eb9cbe5b37239ccb96742"
+  },
+  {
+   "anchor": "ROUND_HALF_EVEN",
+   "title": "ROUND_HALF_EVEN",
+   "level": 3,
+   "sha256": "e7d8f12cfd06aaf7a4f3c40a5fdf945521c1e5cbd3d6e952bca1b2a05915a6cd"
+  },
+  {
+   "anchor": "ROUND_UNNECESSARY",
+   "title": "ROUND_UNNECESSARY",
+   "level": 3,
+   "sha256": "b9d5684be09a74863c8c77b4d8d0151e91699b5147fb9190ab0ab0d33a0dd284"
+  },
+  {
+   "anchor": "constructor-detail",
+   "title": "Constructor Details",
+   "level": 2,
+   "sha256": "a1264b2538d761936d5660e127b0810617c040b120f2b14dc8e58e04531fa382"
+  },
+  {
+   "anchor": "<init>(char[],int,int)",
+   "title": "BigDecimal",
+   "level": 3,
+   "sha256": "67e065a4d39d625f58d1dfda64651970afea82cf08a6fe72951a4a098e7f8943"
+  },
+  {
+   "anchor": "<init>(char[],int,int,java.math.MathContext)",
+   "title": "BigDecimal",
+   "level": 3,
+   "sha256": "c8df835141d425d094b37c427da803054e32d42287d3e67bdd80f50bdc924e26"
+  },
+  {
+   "anchor": "<init>(char[])",
+   "title": "BigDecimal",
+   "level": 3,
+   "sha256": "1e28e30a536a1e4b63fdccef717abf22e284628e7807a2088d8a9c35f6bcd651"
+  },
+  {
+   "anchor": "<init>(char[],java.math.MathContext)",
+   "title": "BigDecimal",
+   "level": 3,
+   "sha256": "25a7a9f10d2d9e43827bd0f09d8b50f0a50499788a40bef8eadd5a53fd85172b"
+  },
+  {
+   "anchor": "<init>(java.lang.String)",
+   "title": "BigDecimal",
+   "level": 3,
+   "sha256": "11fd7adf30077b2a2dbad74f2231e7efc9d46c7668ff529d44c3b0e22241905d"
+  },
+  {
+   "anchor": "<init>(java.lang.String,java.math.MathContext)",
+   "title": "BigDecimal",
+   "level": 3,
+   "sha256": "3747ea9e316e5a26b6872d589ce0448d2c26b63f28b5f038d62b33636a8a9a7f"
+  },
+  {
+   "anchor": "<init>(double)",
+   "title": "BigDecimal",
+   "level": 3,
+   "sha256": "b15daef73cb164ab43f6d5b6364487b32118441c4bd3793c4836a4f7ac7e80ef"
+  },
+  {
+   "anchor": "<init>(double,java.math.MathContext)",
+   "title": "BigDecimal",
+   "level": 3,
+   "sha256": "4d7dcecd5e0fcf80633fdaf2aa7a7af874e544b7b02d97c05a786863456d36ee"
+  },
+  {
+   "anchor": "<init>(java.math.BigInteger)",
+   "title": "BigDecimal",
+   "level": 3,
+   "sha256": "1036b488a70fa0a123695be17e24563f7b2fb1738f17c8554db3bccc57c1ae21"
+  },
+  {
+   "anchor": "<init>(java.math.BigInteger,java.math.MathContext)",
+   "title": "BigDecimal",
+   "level": 3,
+   "sha256": "90cb80443652145cbdc5acb91cea8462ee0ef2081de7d9e207d45e982277ffdf"
+  },
+  {
+   "anchor": "<init>(java.math.BigInteger,int)",
+   "title": "BigDecimal",
+   "level": 3,
+   "sha256": "0d46d0bf75d4bcbf5589bcabc8b5ed371797497d5913ce36719c774f199566e2"
+  },
+  {
+   "anchor": "<init>(java.math.BigInteger,int,java.math.MathContext)",
+   "title": "BigDecimal",
+   "level": 3,
+   "sha256": "fbb545f4d9ebc1258fa1efba74d468d3745ba95ee7ce9866f1d2afccfb53597a"
+  },
+  {
+   "anchor": "<init>(int)",
+   "title": "BigDecimal",
+   "level": 3,
+   "sha256": "6b882acd5e2997b3be2f5bc63c74c82d4ada7913eaac17616ebaf5a610cecb35"
+  },
+  {
+   "anchor": "<init>(int,java.math.MathContext)",
+   "title": "BigDecimal",
+   "level": 3,
+   "sha256": "ac3a9e526aedfa3e8a3abf9969a9b32700ce2a9f36e0a8a3c59e9813691d7650"
+  },
+  {
+   "anchor": "<init>(long)",
+   "title": "BigDecimal",
+   "level": 3,
+   "sha256": "4a54fefb8b93db416a471f1af2871591f619188f6bd15cc13438f61fb0e40b1d"
+  },
+  {
+   "anchor": "<init>(long,java.math.MathContext)",
+   "title": "BigDecimal",
+   "level": 3,
+   "sha256": "64c2a28fbb21dda7429adcce1db157b35cdce5556b1412a61e3a52d47b405f74"
+  },
+  {
+   "anchor": "method-detail",
+   "title": "Method Details",
+   "level": 2,
+   "sha256": "270c1f0257f5e15e1fe1cafc433ef6294d88fab12a607df5f8220f4d90bf833d"
+  },
+  {
+   "anchor": "valueOf(long,int)",
+   "title": "valueOf",
+   "level": 3,
+   "sha256": "281def4acbae252741485d192241e3c8539dd66de626ba14134e732c1e616549"
+  },
+  {
+   "anchor": "valueOf(long)",
+   "title": "valueOf",
+   "level": 3,
+   "sha256": "efc4f111f42f3b580ec2c4bc4883f6e55fe116742192e7bef62ac6b41195fdaa"
+  },
+  {
+   "anchor": "valueOf(double)",
+   "title": "valueOf",
+   "level": 3,
+   "sha256": "434bc6cfb9358cd80615aa8f37c22de22d337a69f2703a82cf31bf6679bf7670"
+  },
+  {
+   "anchor": "add(java.math.BigDecimal)",
+   "title": "add",
+   "level": 3,
+   "sha256": "d50ccb11488ad740a1b7804b526d4a93e84a726800d2f9474bab0755d991b235"
+  },
+  {
+   "anchor": "add(java.math.BigDecimal,java.math.MathContext)",
+   "title": "add",
+   "level": 3,
+   "sha256": "88f8142f2184a027c65665724679835cb7295252a973c417317634e0a1efa203"
+  },
+  {
+   "anchor": "subtract(java.math.BigDecimal)",
+   "title": "subtract",
+   "level": 3,
+   "sha256": "bb7a4992078644d7a1fea9f3e3ee6f04b69c014db0d4b07fb457d8722320e8e2"
+  },
+  {
+   "anchor": "subtract(java.math.BigDecimal,java.math.MathContext)",
+   "title": "subtract",
+   "level": 3,
+   "sha256": "63d1d986338f75971838f49622a74716d2e5254d57c082a2048d448c68498bc8"
+  },
+  {
+   "anchor": "multiply(java.math.BigDecimal)",
+   "title": "multiply",
+   "level": 3,
+   "sha256": "0532a1022c26c6278d53860fdb37b844cca2ba6f6ea64c0bb4087fa8f2a27981"
+  },
+  {
+   "anchor": "multiply(java.math.BigDecimal,java.math.MathContext)",
+   "title": "multiply",
+   "level": 3,
+   "sha256": "8700403e848244ca9b2d5b3298fb86152e5918eb3c3b865102b4af7b1f36395a"
+  },
+  {
+   "anchor": "divide(java.math.BigDecimal,int,int)",
+   "title": "divide",
+   "level": 3,
+   "sha256": "cd996a5b1350455b19c1f60d98369559739e6451a73bad7e5fab3b1c5fc6a9b5"
+  },
+  {
+   "anchor": "divide(java.math.BigDecimal,int,java.math.RoundingMode)",
+   "title": "divide",
+   "level": 3,
+   "sha256": "5132cfb873db293b40d409b3cf5558eedcd8e707ba14d958c97f8fcc906aae79"
+  },
+  {
+   "anchor": "divide(java.math.BigDecimal,int)",
+   "title": "divide",
+   "level": 3,
+   "sha256": "d92e7c9aab607c5bca499d6615fb9894b668f0302a0e67988b11cfe5513f788c"
+  },
+  {
+   "anchor": "divide(java.math.BigDecimal,java.math.RoundingMode)",
+   "title": "divide",
+   "level": 3,
+   "sha256": "cfa89143d4fd8e4e719f0d90a6eb91aeb600320d379c5b5429b8033de9cf57e9"
+  },
+  {
+   "anchor": "divide(java.math.BigDecimal)",
+   "title": "divide",
+   "level": 3,
+   "sha256": "8a9ade80b1d391b53aed1af82baf10632823c14ea1b03a532af87b9959f9ccf7"
+  },
+  {
+   "anchor": "divide(java.math.BigDecimal,java.math.MathContext)",
+   "title": "divide",
+   "level": 3,
+   "sha256": "3044e63478cd77d4dcaaffbf5f1aa3e2e88b3fbec487078717536d2f233044c4"
+  },
+  {
+   "anchor": "divideToIntegralValue(java.math.BigDecimal)",
+   "title": "divideToIntegralValue",
+   "level": 3,
+   "sha256": "43fc4d1e738798e4c2e85681b88b81af158bba66504dd319ffcf1093571143b7"
+  },
+  {
+   "anchor": "divideToIntegralValue(java.math.BigDecimal,java.math.MathContext)",
+   "title": "divideToIntegralValue",
+   "level": 3,
+   "sha256": "3d2abd91b30d0beb84bf1620bcb7e571c2793033e45ffc1be444e46c17c4ba59"
+  },
+  {
+   "anchor": "remainder(java.math.BigDecimal)",
+   "title": "remainder",
+   "level": 3,
+   "sha256": "4f96b23c0c87295c2a0d041a71347804aa66e625d7e58bb08ac952a082179e8b"
+  },
+  {
+   "anchor": "remainder(java.math.BigDecimal,java.math.MathContext)",
+   "title": "remainder",
+   "level": 3,
+   "sha256": "1c7ede3348913a218ab54bf61746e78bbac46bb30b312e0ad5aba042d3ccebfe"
+  },
+  {
+   "anchor": "divideAndRemainder(java.math.BigDecimal)",
+   "title": "divideAndRemainder",
+   "level": 3,
+   "sha256": "51c4521e12a1de154c808e73af6c144aa75b7702e36636ed687c9b63eb0f4f3d"
+  },
+  {
+   "anchor": "divideAndRemainder(java.math.BigDecimal,java.math.MathContext)",
+   "title": "divideAndRemainder",
+   "level": 3,
+   "sha256": "27766d773a29b7de070df12432d64481050232de5c9e6c6c5cf7dea8f0df4e7f"
+  },
+  {
+   "anchor": "sqrt(java.math.MathContext)",
+   "title": "sqrt",
+   "level": 3,
+   "sha256": "e40feb055cac8d9b5a2bfb8d18aa8592ed06e663d788fce15bcb79d27020222b"
+  },
+  {
+   "anchor": "pow(int)",
+   "title": "pow",
+   "level": 3,
+   "sha256": "3a7756b58e332b89a70795eb8ff46713ceaa65687baea42f8643318c5713f626"
+  },
+  {
+   "anchor": "pow(int,java.math.MathContext)",
+   "title": "pow",
+   "level": 3,
+   "sha256": "1ff8f132b992f3fbfb051b4c304cb45987d73037df751c6dbb1461147c58c2e9"
+  },
+  {
+   "anchor": "abs()",
+   "title": "abs",
+   "level": 3,
+   "sha256": "f5d23a3da208076a96c2ae893cfe57c3348245b0479e7edc74f5d2bb99e2a3ad"
+  },
+  {
+   "anchor": "abs(java.math.MathContext)",
+   "title": "abs",
+   "level": 3,
+   "sha256": "ae82fffd1261f91bbafe077b9929fcda3bcff8feb6c9c70984e2708219219c85"
+  },
+  {
+   "anchor": "negate()",
+   "title": "negate",
+   "level": 3,
+   "sha256": "dff944fa94ce7ece57481ba2285c9b192c8417d71a231400de6189d65a5a2185"
+  },
+  {
+   "anchor": "negate(java.math.MathContext)",
+   "title": "negate",
+   "level": 3,
+   "sha256": "0f275232d19722ccc943ec621dd0540780754056c85f45dec51795fac4a11425"
+  },
+  {
+   "anchor": "plus()",
+   "title": "plus",
+   "level": 3,
+   "sha256": "b50eeec592aa3c282f94a92a2df7719f8ceccb39c385a49f985faee9b76cc70e"
+  },
+  {
+   "anchor": "plus(java.math.MathContext)",
+   "title": "plus",
+   "level": 3,
+   "sha256": "1b7ab470de50cfe199d9475ab470d75eb3027452c058d83b1d2b230eeb497a97"
+  },
+  {
+   "anchor": "signum()",
+   "title": "signum",
+   "level": 3,
+   "sha256": "1c022cd6ac2d9d4722928e5d74a493c0e69793dda5ed14e40cd284fe3c1e5455"
+  },
+  {
+   "anchor": "scale()",
+   "title": "scale",
+   "level": 3,
+   "sha256": "dcf616cc6ee7f81a6cdc05bfd00de9b6503ba449b2378a041cf6a13773b63da5"
+  },
+  {
+   "anchor": "precision()",
+   "title": "precision",
+   "level": 3,
+   "sha256": "be0820d609274cd50341a144035f49a4b9f9199cedfd8a06e354d80ce98fe60f"
+  },
+  {
+   "anchor": "unscaledValue()",
+   "title": "unscaledValue",
+   "level": 3,
+   "sha256": "76179b0214c2c9156402319f96be3eff89070e92ef09ea379d6dbfbd07c04cb4"
+  },
+  {
+   "anchor": "round(java.math.MathContext)",
+   "title": "round",
+   "level": 3,
+   "sha256": "b6556bf5e49eba9353a6501d63d419ae21126f8869615a341f72478899b35993"
+  },
+  {
+   "anchor": "setScale(int,java.math.RoundingMode)",
+   "title": "setScale",
+   "level": 3,
+   "sha256": "b717217b2637be8c20b330ac9dd0966ef95be0adfcbc1aaaba7a83167ab586a9"
+  },
+  {
+   "anchor": "setScale(int,int)",
+   "title": "setScale",
+   "level": 3,
+   "sha256": "33efbfc05e85c179d419371c6b70e672fc9b922e82efb67c953e6ed38945cd69"
+  },
+  {
+   "anchor": "setScale(int)",
+   "title": "setScale",
+   "level": 3,
+   "sha256": "8bfa12c59adb82c7709493e7cf8777e37df850c6e53664bd53cc1970cec0945b"
+  },
+  {
+   "anchor": "movePointLeft(int)",
+   "title": "movePointLeft",
+   "level": 3,
+   "sha256": "236ed49fec2d6d23ea7dcc41fe8f111402fb5b5e1c6cbf078dd39f137cefe7f7"
+  },
+  {
+   "anchor": "movePointRight(int)",
+   "title": "movePointRight",
+   "level": 3,
+   "sha256": "04e3d09d4e9ec17b9136fc4ed134566a0e3a7074fbf73bbb1a25b640f0be3b13"
+  },
+  {
+   "anchor": "scaleByPowerOfTen(int)",
+   "title": "scaleByPowerOfTen",
+   "level": 3,
+   "sha256": "00ce0080286c8e35a5443598e99f2920f16a757f16019e6516eef04b9faacffb"
+  },
+  {
+   "anchor": "stripTrailingZeros()",
+   "title": "stripTrailingZeros",
+   "level": 3,
+   "sha256": "3bc9390743478b973102c721fa12cc0aff1dc404f21d586746fc86c3b021a6dd"
+  },
+  {
+   "anchor": "compareTo(java.math.BigDecimal)",
+   "title": "compareTo",
+   "level": 3,
+   "sha256": "89c1b95382d0e6b22adff257311e8a783808fa2fdf8483bcf29970dbb340b9cb"
+  },
+  {
+   "anchor": "equals(java.lang.Object)",
+   "title": "equals",
+   "level": 3,
+   "sha256": "e842190ab672e8dd783b773774d031250f8483420f9d930281890503a74aa985"
+  },
+  {
+   "anchor": "min(java.math.BigDecimal)",
+   "title": "min",
+   "level": 3,
+   "sha256": "b4b5b329a557c2a4ff76148cdcec42aa39cbbf13ecbc8d3e0b5e79b3831d0d4a"
+  },
+  {
+   "anchor": "max(java.math.BigDecimal)",
+   "title": "max",
+   "level": 3,
+   "sha256": "f1230dfe3fdc9ddbe4d880dea0751eb0d9e466e60ee167c31d3caf4ffdebd784"
+  },
+  {
+   "anchor": "hashCode()",
+   "title": "hashCode",
+   "level": 3,
+   "sha256": "1158c9f7f101abff26af5addbecc9822b54a87a2018ee60c8c97722a3112e5a7"
+  },
+  {
+   "anchor": "toString()",
+   "title": "toString",
+   "level": 3,
+   "sha256": "8bc80ce5c2cc7cae6582ad0fb1192986fa07f745bb97a9bd2067a273f01a8062"
+  },
+  {
+   "anchor": "toEngineeringString()",
+   "title": "toEngineeringString",
+   "level": 3,
+   "sha256": "d3be1bc96a8de7521c57af7b3c7347db602d0cd4cf5d02f49352555ccabade60"
+  },
+  {
+   "anchor": "toPlainString()",
+   "title": "toPlainString",
+   "level": 3,
+   "sha256": "17b63ed67c2d16d8f99f8aa98bc86fe1c792ba60735ba5597fde63d8e4ae0ab4"
+  },
+  {
+   "anchor": "toBigInteger()",
+   "title": "toBigInteger",
+   "level": 3,
+   "sha256": "ed4c0af59d5ab2318625cc1dc43ad5d4cba5da15cbb68bb0418b90ca497e57a0"
+  },
+  {
+   "anchor": "toBigIntegerExact()",
+   "title": "toBigIntegerExact",
+   "level": 3,
+   "sha256": "cec166dd183383953760764d398eb654059c69207f0e91b8b9b2d604f728eff6"
+  },
+  {
+   "anchor": "longValue()",
+   "title": "longValue",
+   "level": 3,
+   "sha256": "3b4f9629c31e039a74a017e8c8bdcd15439f99d6d8037b647fc4edd9af0f46e9"
+  },
+  {
+   "anchor": "longValueExact()",
+   "title": "longValueExact",
+   "level": 3,
+   "sha256": "645553e55a7e1a340eb9e6ae93a8ad8a80458470e687a454a53f8049187f62c4"
+  },
+  {
+   "anchor": "intValue()",
+   "title": "intValue",
+   "level": 3,
+   "sha256": "c64f390f5bb327f3923c08910b19e16a6d3b4c5fe9e71a5da8f20164838d8769"
+  },
+  {
+   "anchor": "intValueExact()",
+   "title": "intValueExact",
+   "level": 3,
+   "sha256": "85f9c26aba6cd8a8e44e7ec64db9428aca64cf8bb377f30626d3b6041ca525f0"
+  },
+  {
+   "anchor": "shortValueExact()",
+   "title": "shortValueExact",
+   "level": 3,
+   "sha256": "1b56531e66d7569104639784168b070c8c332310b054ebdc9fadcf8cfaf77f84"
+  },
+  {
+   "anchor": "byteValueExact()",
+   "title": "byteValueExact",
+   "level": 3,
+   "sha256": "a98269795602817192dd64d9f31f22df03356f3bec973994d32523aa89cb8557"
+  },
+  {
+   "anchor": "floatValue()",
+   "title": "floatValue",
+   "level": 3,
+   "sha256": "cbddb9552cf66b895dd32e4c506150477c2e706bcfae208d7aec2dce47373c49"
+  },
+  {
+   "anchor": "doubleValue()",
+   "title": "doubleValue",
+   "level": 3,
+   "sha256": "caf64fba5fef738a833d750e83546b064109459c92d2d9e82f67376ddcf0bc5f"
+  },
+  {
+   "anchor": "ulp()",
+   "title": "ulp",
+   "level": 3,
+   "sha256": "a420a491526fbd4be86b1271884b05f16f03536e31b1f9fc3bf0c0981f20a648"
+  }
+ ]
+}

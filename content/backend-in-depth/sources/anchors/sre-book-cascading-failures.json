@@ -1,0 +1,281 @@
+{
+ "source": "sre-book-cascading-failures",
+ "anchors": [
+  {
+   "anchor": "top",
+   "title": "",
+   "level": 0,
+   "sha256": "c5d643b4a34529e45d1658e3d5099b3d6b47103065ab713a92aaa6fc2d1b3121"
+  },
+  {
+   "anchor": "burger-menu",
+   "title": "Chapter 22 - Addressing Cascading Failures",
+   "level": 2,
+   "sha256": "acdd94c8c2204d1e3257ce2c0971168b679ebbc467e2c4e638117c3ff084a168"
+  },
+  {
+   "anchor": "addressing-cascading-failures",
+   "title": "Addressing Cascading Failures",
+   "level": 1,
+   "sha256": "1e09d2186e68eed01540e2840520ad52043a67bedbf4850a4f373a149e06226a"
+  },
+  {
+   "anchor": "causes-of-cascading-failures-and-designing-to-avoid-them",
+   "title": "Causes of Cascading Failures and Designing to Avoid Them",
+   "level": 2,
+   "sha256": "76411981fc576f71f8b41695bb223501e1950532e616951883317e0a780c4591"
+  },
+  {
+   "anchor": "xref_cascading-failure_server-overload",
+   "title": "Server Overload",
+   "level": 2,
+   "sha256": "76081de592c061e20f31bb6804103a2b34e9efa8cca92a0e075ca20c8f8dd26a"
+  },
+  {
+   "anchor": "resource-exhaustion",
+   "title": "Resource Exhaustion",
+   "level": 2,
+   "sha256": "7e08af275d48ee19364a01f858dd2a32a2001cec59255f49a90aa4ef75baea64"
+  },
+  {
+   "anchor": "cpu",
+   "title": "CPU",
+   "level": 3,
+   "sha256": "e41c5b97624fe1688ef336ff70268b82a4efeb13a01c87415f4eb6e0978e1f73"
+  },
+  {
+   "anchor": "memory",
+   "title": "Memory",
+   "level": 3,
+   "sha256": "862020c4ba245be0fa19e04363d9095dab1fb54e3b2bcc4a20742f3503832c3d"
+  },
+  {
+   "anchor": "threads",
+   "title": "Threads",
+   "level": 3,
+   "sha256": "56014b48428e81bbf9b86cbdb056dc405f0103ec5ffec450e2dbcdbd3e04119c"
+  },
+  {
+   "anchor": "file-descriptors",
+   "title": "File descriptors",
+   "level": 3,
+   "sha256": "d05fed420c530f79e72cd3237843405c835bff9fa2f7a8b26c6b8d440834eee5"
+  },
+  {
+   "anchor": "dependencies-among-resources",
+   "title": "Dependencies among resources",
+   "level": 3,
+   "sha256": "522b5f5c7de2ea22d0817fa70093a2a3ca874fb8d01b0fe612e41e55d4f45cb4"
+  },
+  {
+   "anchor": "service-unavailability",
+   "title": "Service Unavailability",
+   "level": 2,
+   "sha256": "d18cadaba092e73e411fd3fc70c3e1879ee46d31844c00655185a18e77493004"
+  },
+  {
+   "anchor": "xref_cascading-failure_preventing-server-overload",
+   "title": "Preventing Server Overload",
+   "level": 1,
+   "sha256": "0acd37ba0c02bec91dd94f3bc39276fadb3c35a68e2b680b2b7a3826b623e443"
+  },
+  {
+   "anchor": "xref_cascading-failure_queue-management",
+   "title": "Queue Management",
+   "level": 2,
+   "sha256": "d6f3e96a98d037c6fff3b3995545bfdfca86263770f3f83e478b53c3a4b6f4ad"
+  },
+  {
+   "anchor": "xref_cascading-failure_load-shed-graceful-degredation",
+   "title": "Load Shedding and Graceful Degradation",
+   "level": 2,
+   "sha256": "be6e9579b18d1b6b4ec3291483c0c8023c3e214b135621885361159d037e3d4c"
+  },
+  {
+   "anchor": "retires",
+   "title": "Retries",
+   "level": 2,
+   "sha256": "fedf6e7c4298da3fc0876530151f243f512197612177967cb53f4de5f77ec6e0"
+  },
+  {
+   "anchor": "xref_cascading-failure_latency-and-deadlines",
+   "title": "Latency and Deadlines",
+   "level": 2,
+   "sha256": "c9e229a1d80809c56fd9395f6e898263081c00bda49a78dd564ea7af906398fc"
+  },
+  {
+   "anchor": "picking-a-deadline",
+   "title": "Picking a deadline",
+   "level": 3,
+   "sha256": "4faaaac658c241b1381550b32ef3316eeb926f85193384141dcf37a84e1f3872"
+  },
+  {
+   "anchor": "missing-deadlines-1",
+   "title": "Missing deadlines",
+   "level": 3,
+   "sha256": "c876ba96d83a2d5da73151a03f8144d7da6899b39ee1053b3d9244615caa2366"
+  },
+  {
+   "anchor": "deadline-propagation-1",
+   "title": "Deadline propagation",
+   "level": 3,
+   "sha256": "784cbcabc1d2cceee88db532084fb8caa33388721900f58916e635d91441e896"
+  },
+  {
+   "anchor": "cancellation-propagation-1",
+   "title": "Cancellation propagation",
+   "level": 3,
+   "sha256": "208670242ab44245a61ee600718c05108de6bf1c201f5b191d4eb4eb316f38db"
+  },
+  {
+   "anchor": "bimodal-latency",
+   "title": "Bimodal latency",
+   "level": 3,
+   "sha256": "7ab3c9c0d1a09d94257cb5133ab6c69e0f12479e5ecccb21760791327dd515a9"
+  },
+  {
+   "anchor": "slow-startup-and-cold-caching",
+   "title": "Slow Startup and Cold Caching",
+   "level": 1,
+   "sha256": "4e8a76dbc7c2f1162d71136e3197d49c20540d661ecb4b783fa8e61e4f04370c"
+  },
+  {
+   "anchor": "always-go-downward-in-the-stack",
+   "title": "Always Go Downward in the Stack",
+   "level": 2,
+   "sha256": "762c1e56256d39f924a05e5fba149ef51394e5995f883c71f782b8ae260c45c8"
+  },
+  {
+   "anchor": "triggering-conditions-for-cascading-failures",
+   "title": "Triggering Conditions for Cascading Failures",
+   "level": 1,
+   "sha256": "4ad7aa0191e0ee4abef067f40128dce3001fbddc589628569dcb96dc62e61d6b"
+  },
+  {
+   "anchor": "process-death",
+   "title": "Process Death",
+   "level": 2,
+   "sha256": "68f728494a31387b2d843f247ecc9f7f17f1814facc4f66ccf77c50013101e71"
+  },
+  {
+   "anchor": "process-updates",
+   "title": "Process Updates",
+   "level": 2,
+   "sha256": "6017b24c7ecd60513d881eec29a6c7d90d447dc85e2a4ab43a4c64d1004ace54"
+  },
+  {
+   "anchor": "new-rollouts",
+   "title": "New Rollouts",
+   "level": 2,
+   "sha256": "e0dbb57d0793a87dba054e88b64876297425e238a52469c01826ad8aafdf6b6a"
+  },
+  {
+   "anchor": "organic-growth",
+   "title": "Organic Growth",
+   "level": 2,
+   "sha256": "ae369c73bdf0d65870770ce11611b4f5b3ea22d759a7c117346bf7e59991689b"
+  },
+  {
+   "anchor": "planned-changes-drains-or-turndowns",
+   "title": "Planned Changes, Drains, or Turndowns",
+   "level": 2,
+   "sha256": "65aaf7b582acad00592d237f9e00bc7bc3c1899ff9179277a50285ae8a2882e8"
+  },
+  {
+   "anchor": "request-profile-changes",
+   "title": "Request profile changes",
+   "level": 3,
+   "sha256": "189c83cb278d3859137c5eed500d767a4ca29c80a81eadb0bd1ee043a602db94"
+  },
+  {
+   "anchor": "resource-limits",
+   "title": "Resource limits",
+   "level": 3,
+   "sha256": "40f22fe14314e47605aa808efc3209416a6aeaea118df83545ca57d76ecc9783"
+  },
+  {
+   "anchor": "xref_cascading-failure_testing",
+   "title": "Testing for Cascading Failures",
+   "level": 1,
+   "sha256": "44ec903760ecb76fa6b03f932cdbc6309e22de27dc7408c03ea886bb6ab358b9"
+  },
+  {
+   "anchor": "test-until-failure-and-beyond",
+   "title": "Test Until Failure and Beyond",
+   "level": 2,
+   "sha256": "0062c80d85ea072537cce3eaefaa150ba691ad7ac1a7ba8a198a49102f391962"
+  },
+  {
+   "anchor": "test-popular-clients",
+   "title": "Test Popular Clients",
+   "level": 2,
+   "sha256": "31e329885aee09b3f3c9825cbe1c074422d9b6173f7cbdb34b6dfd3e6b2b7fd8"
+  },
+  {
+   "anchor": "test-noncritical-backends",
+   "title": "Test Noncritical Backends",
+   "level": 2,
+   "sha256": "fb80e98aa02b87ea3938879de2a63ac4edb50541a380f96bef3623b8ba297e51"
+  },
+  {
+   "anchor": "immediate-steps-to-address-cascading-failures",
+   "title": "Immediate Steps to Address Cascading Failures",
+   "level": 1,
+   "sha256": "7a00d74923aafc37fccdea1e8fa239062a7d6b2903ee6ecf4df3c0a1bf19c8ed"
+  },
+  {
+   "anchor": "increase-resources",
+   "title": "Increase Resources",
+   "level": 2,
+   "sha256": "8e0c60b8946785439a35acd1e7937a6a4b33d69adf76416688d3e03037bd91f3"
+  },
+  {
+   "anchor": "stop-health-check-failures-deaths",
+   "title": "Stop Health Check Failures/Deaths",
+   "level": 2,
+   "sha256": "a1c0578c3173f32199aa2867ade531945336d43e6765b39832dc7a71ab6a4c44"
+  },
+  {
+   "anchor": "restart-servers",
+   "title": "Restart Servers",
+   "level": 2,
+   "sha256": "580734c351cd9d1c0bcd6c5fe2ae77f8ddec160e651d717e9b8eaf09d2723f3f"
+  },
+  {
+   "anchor": "drop-traffic",
+   "title": "Drop Traffic",
+   "level": 2,
+   "sha256": "f9e633a4f6189f6e2fbdd1c2d934d6344bdcbe3e167f113f1316eeb71da9774b"
+  },
+  {
+   "anchor": "enter-degraded-modes",
+   "title": "Enter Degraded Modes",
+   "level": 2,
+   "sha256": "c0a44e67ea1b0a01c0a65c98cfea9adc97b2dc4240dee57362894c8e6f42a900"
+  },
+  {
+   "anchor": "eliminate-batch-load",
+   "title": "Eliminate Batch Load",
+   "level": 2,
+   "sha256": "4c516091ee3362db169d572ed224f15e7217702a9575d282b2840723012bbba3"
+  },
+  {
+   "anchor": "eliminate-bad-traffic",
+   "title": "Eliminate Bad Traffic",
+   "level": 2,
+   "sha256": "62c2848af1bc24fd144cf02adb49606db3e6b74c7fa1fb60be1e60d67d6229f1"
+  },
+  {
+   "anchor": "cascading-failure-and-shakespeare",
+   "title": "Cascading Failure and Shakespeare",
+   "level": 5,
+   "sha256": "92c89ffdff35f41311f8c804af38f7d35511e047c09fba1bbda7568582617fe9"
+  },
+  {
+   "anchor": "closing-remarks",
+   "title": "Closing Remarks",
+   "level": 1,
+   "sha256": "526a7b19e5080fc660d81d32bd2a876aa5893dd8c75426851dd3c2b26f9c8479"
+  }
+ ]
+}

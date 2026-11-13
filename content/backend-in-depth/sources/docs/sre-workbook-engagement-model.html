@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    
+    
+    
+    <meta charset="utf-8">
+    <meta content="initial-scale=1, minimum-scale=1, width=device-width" name="viewport"><title>Google SRE- Continuous Improvement for Reliable Service</title>
+    <meta name="description" content="Use continuous improvement strategies for service reliability throughout the service lifecycle, from architecture to deprecation and abandonment.">
+
+    
+    <meta name="referrer" content="no-referrer" />
+    <link rel="canonical" href="https://sre.google/workbook/engagement-model/">
+      <link rel="apple-touch-icon-precomposed" sizes="180x180" href="/img/dynamic/sre-book/5f9eb2a891f8e628eee90de8b7199e3b.webp">
+      <link rel="icon" type="image/png" sizes="32x32" href="/img/dynamic/sre-book/5f9eb2a891f8e628eee90de8b7199e3b.webp">
+      <link rel="icon" type="image/png" sizes="16x16" href="/img/dynamic/sre-book/5f9eb2a891f8e628eee90de8b7199e3b.webp">
+      <link rel="shortcut icon" href="/img/dynamic/sre-book/5f9eb2a891f8e628eee90de8b7199e3b.webp">
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Google+Sans:400|Roboto:400,400italic,500,500italic,700,700italic|Roboto+Mono:400,500,700|Material+Icons"><link href="/css/sre-book.min.css" rel="stylesheet">
+    
+  </head>
+
+  <body>
+    
+    
+    
+    
+    <main>
+      <div>
+  <div id="curtain" class="menu-closed"></div>
+  <div class="header clearfix">
+    <a id="burger-menu" class="expand"></a>
+    <h2 class="chapter-title">
+      Chapter 18 - SRE Engagement Model
+    </h2>
+  </div>
+  <div id="overlay-element" class="expands">
+    <div class="logo">
+      <a href="https://www.google.com">
+        <img src="/img/dynamic/sre-book/632142839b17938ba5b6f27f37695c51.webp" alt="Google">
+      </a>
+    </div>
+    <ol id="drop-down" class="dropdown-content"><li>
+        <a href="/workbook/table-of-contents/" class="menu-buttons">Table of Contents</a>
+      </li>
+        <li>
+          <a href="/workbook/foreword-I/" class="menu-buttons">
+            
+              Foreword I
+            
+          </a>
+        </li>
+      
+        <li>
+          <a href="/workbook/foreword-II/" class="menu-buttons">
+            
+              Foreword II
+            
+          </a>
+        </li>
+      
+        <li>
+          <a href="/workbook/preface/" class="menu-buttons">
+            
+              Preface
+            
+          </a>
+        </li>
+      
+        <li>
+          <a href="/workbook/how-sre-relates/" class="menu-buttons">
+            
+              1. How SRE Relates to DevOps
+            
+          </a>
+        </li>
+      
+        <li>
+          <a href="/workbook/part-I-foundations/" class="menu-buttons">
+            
+              Part I - Foundations
+            
+          </a>
+        </li>
+      
+        <li>
+          <a href="/workbook/implementing-slos/" class="menu-buttons">
+            
+              2. Implementing SLOs
+            
+          </a>
+        </li>
+      
+        <li>
+          <a href="/workbook/slo-engineering-case-studies/" class="menu-buttons">
+            
+              3. SLO Engineering Case Studies
+            
+          </a>
+        </li>
+      
+        <li>
+          <a href="/workbook/monitoring/" class="menu-buttons">
+            
+              4. Monitoring
+            
+          </a>
+        </li>
+      
+        <li>
+          <a href="/workbook/alerting-on-slos/" class="menu-buttons">
+            
+              5. Alerting on SLOs
+            
+          </a>
+        </li>
+      
+        <li>
+          <a href="/workbook/eliminating-toil/" class="menu-buttons">
+            
+              6. Eliminating Toil
+            
+          </a>
+        </li>
+      
+        <li>
+          <a href="/workbook/simplicity/" class="menu-buttons">
+            
+              7. Simplicity
+            
+          </a>
+        </li>
+      
+        <li>
+          <a href="/workbook/part-II-practices/" class="menu-buttons">
+            
+              Part II - Practices
+            
+          </a>
+        </li>
+      
+        <li>
+          <a href="/workbook/on-call/" class="menu-buttons">
+            
+              8. On-Call
+            
+          </a>
+        </li>
+      
+        <li>
+          <a href="/workbook/incident-response/" class="menu-buttons">
+            
+              9. Incident Response
+            
+          </a>
+        </li>
+      
+        <li>
+          <a href="/workbook/postmortem-culture/" class="menu-buttons">
+            
+              10. Postmortem Culture: Learning from Failure
+            
+          </a>
+        </li>
+      
+        <li>
+          <a href="/workbook/managing-load/" class="menu-buttons">
+            
+              11. Managing Load
+            
+          </a>
+        </li>
+      
+        <li>
+          <a href="/workbook/non-abstract-design/" class="menu-buttons">
+            
+              12. Introducing Non-Abstract Large System Design
+            
+          </a>
+        </li>
+      
+        <li>
+          <a href="/workbook/data-processing/" class="menu-buttons">
+            
+              13. Data Processing Pipelines
+            
+          </a>
+        </li>
+      
+        <li>
+          <a href="/workbook/configuration-design/" class="menu-buttons">
+            
+              14. Configuration Design and Best Practices
+            
+          </a>
+        </li>
+      
+        <li>
+          <a href="/workbook/configuration-specifics/" class="menu-buttons">
+            
+              15. Configuration Specifics
+            
+          </a>
+        </li>
+      
+        <li>
+          <a href="/workbook/canarying-releases/" class="menu-buttons">
+            
+              16. Canarying Releases
+            
+          </a>
+        </li>
+      
+        <li>
+          <a href="/workbook/part-III-processes/" class="menu-buttons">
+            
+              Part III - Processes
+            
+          </a>
+        </li>
+      
+        <li>
+          <a href="/workbook/overload/" class="menu-buttons">
+            
+              17. Identifying and Recovering from Overload
+            
+          </a>
+        </li>
+      
+        <li class="active">
+          <a href="/workbook/engagement-model/" class="menu-buttons">
+            
+              18. SRE Engagement Model
+            
+          </a>
+        </li>
+      
+        <li>
+          <a href="/workbook/reaching-beyond/" class="menu-buttons">
+            
+              19. SRE: Reaching Beyond Your Walls
+            
+          </a>
+        </li>
+      
+        <li>
+          <a href="/workbook/team-lifecycles/" class="menu-buttons">
+            
+              20. SRE Team Lifecycles
+            
+          </a>
+        </li>
+      
+        <li>
+          <a href="/workbook/organizational-change/" class="menu-buttons">
+            
+              21. Organizational Change Management in SRE
+            
+          </a>
+        </li>
+      
+        <li>
+          <a href="/workbook/conclusion/" class="menu-buttons">
+            
+              Conclusion
+            
+          </a>
+        </li>
+      
+        <li>
+          <a href="/workbook/slo-document/" class="menu-buttons">
+            
+              Appendix A. Example SLO Document
+            
+          </a>
+        </li>
+      
+        <li>
+          <a href="/workbook/error-budget-policy/" class="menu-buttons">
+            
+              Appendix B. Example Error Budget Policy
+            
+          </a>
+        </li>
+      
+        <li>
+          <a href="/workbook/postmortem-analysis/" class="menu-buttons">
+            
+              Appendix C. Results of Postmortem Analysis
+            
+          </a>
+        </li>
+      
+        <li>
+          <a href="/workbook/index/" class="menu-buttons">
+            
+              Index
+            
+          </a>
+        </li>
+      
+        <li>
+          <a href="/workbook/editors/" class="menu-buttons">
+            
+              About the Editors
+            
+          </a>
+        </li>
+      
+        <li>
+          <a href="/workbook/colophon/" class="menu-buttons">
+            
+              Colophon
+            
+          </a>
+        </li>
+      
+    </ol>
+  </div>
+</div>
+
+      
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+  
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+
+    
+    <div id="maia-main" role="main">
+      <div class="content" id="content">
+        
+        
+        
+        <h2 class="heading jumptargets" id="sre-engagement-model">SRE Engagement Model</h2>
+<p class="byline author">By Michael Wildpaner, Gráinne Sheerin, Daniel Rogers,<br>and Surya Prashanth Sanagavarapu (New York Times)<br>with Adrian Hilton and Shylaja Nukala</p>
+<p>
+  <a href="/sre-book/evolving-sre-engagement-model/">Chapter 32</a> in our first SRE book describes technical and procedural approaches that an SRE team can take to analyze and improve the reliability of a service. These strategies include Production Readiness Reviews (PRRs), early engagement, and continuous improvement.
+</p>
+<p>
+  Simply put, <a href="/resources/practices-and-processes/enterprise-roadmap-to-sre/">SRE principles</a> aim to maximize the engineering velocity of developer teams while keeping products reliable. This two-fold goal is good for the product users and good for the company. But there’s a limit to how much even the best SRE team can accomplish, and the SRE model is less effective when the domain is too large and overly complex. The current microservices movement makes this dynamic even more acute—a small company can easily have more microservices than a single SRE team can handle. Given a large production landscape, and with the knowledge that they can’t cover every service, an SRE team must decide where to focus their attention to achieve the best results. Product development and SRE teams can collaborate to identify the correct point of focus.
+</p>
+<p>
+  This chapter adopts the perspective of an SRE team that’s intending to provide support for a new service. We look at how to engage most effectively with the service, and with the developer and product teams who own it. Although <a href="/sre-book/communication-and-collaboration/">SRE engagement</a> often builds around one or more services, the engagement entails much more than the services themselves—it focuses on understanding the aims of developer and product teams and finding the right way to support them.
+</p>
+<p>
+  Most of this discussion is applicable regardless of your organization’s scale. While we use the word <span class="italic">team</span> frequently, a team could theoretically start off as a single person (although that person would be quite busy). Regardless of your team’s size, it’s important to proactively define the role of SRE and manage communication and collaboration with product development.
+</p>
+<h1 class="heading jumptargets" id="the-service-lifecycle">The Service Lifecycle</h1>
+<p>
+  As described in the <a href="/sre-book/preface/">preface</a> to the first SRE book, an SRE team’s contributions to service reliability happen throughout all phases of the service lifecycle. Their application of production knowledge and experience can substantially improve the reliability of a service well before any SRE picks up the pager for the service.
+</p>
+<p>
+  <a data-type="xref" href="#level-of-sre-engagement-during-the-service-lifecycle
+">Figure 18-1</a> shows the ideal levels of SRE engagement over the course of a service’s life. However, an SRE team might begin their engagement with a service at any stage in the lifecycle. For example, if the development team begins planning a replacement service for an SRE-supported service, SRE might be involved in the new service very early on. Alternatively, an SRE team might formally engage with a service once it has been generally available for months or years and is now facing reliability or scaling challenges. This section provides guidance on how SRE teams can effectively contribute at each phase.
+</p>
+<figure id="level-of-sre-engagement-during-the-service-lifecycle" class="horizontal vertical jumptarget">
+      <img src="/img/dynamic/sre-workbook/156b9b74b54781e5ba98d56b9e3d898d.webp" alt="level-of-sre-engagement-during-the-service-lifecycle">
+      <figcaption><span class="label">Figure 18-1. </span>Level of SRE engagement during the service lifecycle</figcaption>
+</figure>
+<h5 class="subheaders jumptargets" id="phase-1-architecture-and-design">Phase 1: Architecture and Design</h5>
+<p>
+  SRE can influence the architecture and design of a software system in different ways:
+</p>
+<ul>
+  <li>
+    Creating best practices, such as resilience to various single points of failure, that a developer team can employ when building a new product
+  </li>
+  <li>
+    Documenting the dos and don’ts of particular infrastructure systems (based upon prior experience) so developers can choose their building blocks wisely, use them correctly, and avoid known pitfalls
+  </li>
+  <li>
+    Providing early engagement consulting to discuss specific architectures and design choices in detail, and to help validate assumptions with the help of targeted prototypes
+  </li>
+  <li>
+    Joining the developer team and participating in development work
+  </li>
+  <li>
+    Codesigning part of the service
+  </li>
+</ul>
+<p>
+  Fixing architectural mistakes becomes more difficult later in the development cycle. Early SRE engagement can help avoid costly redesigns that become necessary when systems interact with real-world users and need to scale in response to service growth.
+</p>
+<h5 class="subheaders jumptargets" id="phase-2-active-development">Phase 2: Active Development</h5>
+<p>
+As the product takes shape during active development, SREs can start <a href="/sre-book/evolving-sre-engagement-model/"><span class="italic">productionizing</span> the service</a>—getting it in shape to be released into production. Productionalization typically includes capacity planning, setting up extra resources for redundancy, planning for spike and overload handling, implementing load balancing, and putting in place sustainable operational practices like monitoring, alerting, and performance tuning.
+</p>
+<h5 class="subheaders jumptargets" id="phase-3-limited-availability">Phase 3: Limited Availability</h5>
+<p>
+  As a service progresses toward Beta, the number of users, variety of use cases, intensity of usage, and availability and performance demands increase. At this stage, SRE can help measure and evaluate reliability. We strongly recommend defining SLOs before general availability (GA) so that the service teams have an objective measure of how reliable the service is. The product team still has the option to withdraw a product that can’t meet its target reliability.
+</p>
+<p>
+  During this phase, the SRE team can also help scale the system by building a capacity model, acquiring resources for upcoming launch phases, and automating turnups and in-place service resizing. SRE can ensure proper monitoring coverage and help create alerts that ideally match the upcoming service SLOs.
+</p>
+<p>
+  While service usage is still changing, the SRE team can expect an increased amount of work during incident response and operational duties because the teams are still learning how the service works and how to manage its failure modes. We recommend sharing this work between the developer and SRE teams. That way, the developer team gains operational experience with the service and the SREs gain experience with the service in general. Operational work and incident management will inform the system changes and updates the service owners need to make before GA.
+</p>
+<h5 class="subheaders jumptargets" id="phase-4-general-availability">Phase 4: General Availability</h5>
+<p>
+  In this phase, the service has passed the Production Readiness Review (see <a href="/sre-book/evolving-sre-engagement-model/">Chapter 32</a> in <span class="italic">Site Reliability Engineering</span> for more details) and is accepting all users. While SRE typically performs the majority of operational work, the developer team should continue to field a small part of all operational and incident response work so they don’t lose perspective on these aspects of the service. They might permanently include one developer in the on-call rotation to help the developers keep track of operational load.
+</p>
+<p>
+  In the early phase of GA, as the developer team focuses on maturing the service and launching the first batches of new features, it also needs to stay in the loop to understand system properties under real load. In the later stages of GA, the developer team provides small incremental features and fixes, some of which are informed by operational needs and any production incidents that occur.
+</p>
+<h5 class="subheaders jumptargets" id="phase-5-deprecation">Phase 5: Deprecation</h5>
+<p>
+  No system runs forever. If and when a better replacement system is available, the existing system is closed for new users and all engineering focuses on transitioning users from the existing system to the new one. SRE operates the existing system mostly without involvement from the developer team, and supports the transition with development and operational work.
+</p>
+<p>
+  While SRE effort required for the existing system is reduced, SRE is effectively supporting two full systems. Headcount and staffing should be adjusted accordingly.
+</p>
+<h5 class="subheaders jumptargets" id="phase-6-abandoned">Phase 6: Abandoned</h5>
+<p>
+  Once a service is abandoned, the developer team typically resumes operational support. SRE supports service incidents on a best-effort basis. For a service with internal users, SRE hands over <a href="/sre-book/introduction/">service management</a> to any remaining users. This chapter provides two case studies of how SRE can hand back a service to developer teams.
+</p>
+<h5 class="subheaders jumptargets" id="phase-7-unsupported">Phase 7: Unsupported</h5>
+<p>
+  There are no more users, and the service has been shut down. SRE helps to delete references to the service in production configurations and in documentation.
+</p>
+<h1 class="heading jumptargets" id="setting-up-the-relationship">Setting Up the Relationship</h1>
+<p>
+  A service does not exist in a vacuum: the SRE team engages with the developer team that builds the service and the product team that determines how it should evolve. This section recommends some strategies and tactics for building and maintaining good working relationships with those teams.
+</p>
+<h5 class="subheaders jumptargets" id="communicating-business-and-production-priorities">Communicating Business and Production Priorities</h5>
+<p>
+  Before you can help someone, you need to understand their needs. To that end, SREs need to understand what the product developers expect the SRE engagement to achieve. When engaging with a developer team, SREs should build a deep understanding of the product and business goals. SREs should be able to articulate their role and how SRE engagement can enable developers to execute toward these goals.
+</p>
+<p>
+  Teams need to regularly talk with each other about business and production priorities. The SRE and developer leadership teams should ideally work as a unit, meeting regularly and exchanging views about technical and prioritization challenges. Sometimes SRE leads join the product development leadership team.
+</p>
+<h5 class="subheaders jumptargets" id="identifying-risks">Identifying Risks</h5>
+<p>
+  Because an SRE team is focused on system reliability, they are well positioned to identify potential risks. Gauging the likelihood and potential impact of those risks as accurately as possible is important, as the cost of disrupting regular development and feature flow is significant to the product and to engineers.
+</p>
+<h5 class="subheaders jumptargets" id="aligning-goals">Aligning Goals</h5>
+<p>
+  The developer and SRE teams both care about reliability, availability, performance, scalability, efficiency, and feature and launch velocity. However, SRE operates under different incentives, mainly favoring service long-term viability over new feature launches.
+</p>
+<p>
+  In our experience, developer and SRE teams can strike the right balance here by maintaining their individual foci but also explicitly supporting the goals of the other group. SREs can have an explicit goal to support the developer team’s release velocity and ensure the success of all approved launches. For example, SRE might state, “We will support you in releasing as quickly as is safe,” where “safe” generally implies staying within error budget. Developers should then commit to dedicating a reasonable percentage of engineering time to fixing and preventing the things that are breaking reliability: resolving ongoing service issues at the design and implementation level, paying down technical debt, and including SREs in new feature development early so that they can participate in design conversations.
+</p>
+<aside data-type="sidebar" class="highlight pagebreak-before" id="shared-goals-sre-engagements-at-the-new-york-times">
+  <h5 class="subheaders jumptargets" align="center" id="shared-goals-sre-engagements-at-the-new-york-times">Shared Goals: SRE Engagements at the New York Times</h5>
+<p class="italic">
+by Surya Prashanth Sanagavarapu (New York Times)
+</p>
+<p>
+  In our organization, SRE resources are in high demand when it comes to cloud migrations, production ramp-ups, and applications moving toward containers. In addition, SRE teams have their own backlogs to tackle. In the face of limited resources, these competing priorities define success for the SRE team. While hiring SREs is one obvious way to address the demand for SRE time, not every team has the luxury, experience, or time to do so.
+</p>
+<p>
+  The core mission of the SRE function at the <span class="italic">New York Times</span> is to <span class="italic">empower product development teams</span> with tools and processes to maximize reliability and resilience in applications that support our newsroom, thus enabling distribution of high-quality journalism to readers. We adopted a <span class="italic">shared goals model</span> to achieve a balance between reducing the automation backlog and engaging with other teams.
+</p>
+<p>
+  Before engaging with teams, we review our overall backlog for the current quarter/year and clearly define its work items and categories. For instance, our backlog items might include:
+</p>
+<ul>
+  <li>
+    Add automation to set up baseline monitoring and alerting by hitting service status endpoints for applications.
+  </li>
+  <li>
+    Implement more reliable and/or faster build pipelines.
+  </li>
+</ul>
+<p>
+  When teams approach SREs for help, one of the factors we consider when prioritizing a request is whether a joint engagement might help reduce our backlog.
+</p>
+<h6 class="subheaders-small jumptargets" id="defining-the-engagement">Defining the Engagement</h6>
+<p>
+  Our SREs work with product development teams according to two different models:
+</p>
+<ul>
+  <li>
+    A full-time basis
+  </li>
+  <li>
+    A part-time basis for fairly brief and constrained projects
+  </li>
+</ul>
+<p>
+  We define the type of engagement based upon the SRE team’s bandwidth. For full-time engagements, we prefer to embed an SRE in a product development team. This helps provide focus and time to relieve some burden from the product engineering teams. The SRE and product teams have maximum time to learn about each other as the developers ramp up on SRE skills and capabilities. For long-term engagements, we prioritize applications that best fit into our company strategy.
+</p>
+<p>
+  When defining the engagement scope, we attempt to gauge the maturity of the team or the application in relation to SRE practices. We find that various teams are at different levels of maturity when it comes to thinking about SRE practices and principles. We are working on applying an application maturity model to help here.
+</p>
+<h6 class="subheaders-small jumptargets" id="setting-shared-goals-and-expectations">Setting Shared Goals and Expectations</h6>
+<p>
+  Setting the right expectations is critical for meeting deadlines and task completion. To this end, we work according to the following principles:
+</p>
+<ul>
+  <li>
+    We emphasize that the application owners, not SREs, are directly responsible for making changes to an application.
+  </li>
+  <li>
+    SRE engagement is for company-wide benefit. Any new automation or tooling should improve common tools and automation used across the company and avoid one-off script development.
+  </li>
+  <li>
+    SREs should give the developer team a heads up about any new processes the engagement might introduce (for example, load testing).
+  </li>
+  <li>
+    The engagements may involve Application Readiness Reviews (ARRs) and Production Readiness Reviews (PRRs), as described in <a href="/sre-book/evolving-sre-engagement-model/">Chapter 32</a> of <span class="italic">Site Reliability Engineering</span>. Proposed changes from ARR and PRR must be prioritized jointly by the developers and the SREs.
+  </li>
+  <li>
+    SREs are not traditional operations engineers. They do not support manual work such as running a job for deployment.
+  </li>
+</ul>
+<p>
+  When we set shared goals, we write them jointly with the development team and divide the goals into milestones. If you are an Agile-based company, you might write <a href="https://www.atlassian.com/agile/project-management/epics-stories-themes" target="_blank" rel="noopener noreferrer">epics</a> or stories. The SRE team can then map those goals into their own backlog.
+</p>
+<p>
+  Our common pattern when setting goals is to:
+</p>
+<ol>
+  <li>
+    Define the scope of the engagement.
+    <ul>
+      <li>
+        <em>Example 1:</em> In the next quarter, I want all members of my team to handle GKE/GAE deployments, become comfortable with production environments, and be able to handle a production outage.
+      </li>
+      <li>
+        <em>Example 2:</em> In the next quarter, I want SRE to work with the dev team to stabilize the app in terms of scaling and monitoring, and to develop runbooks and automation for outages.
+      </li>
+    </ul>
+  </li>
+  <li>
+    Identify the end result success story, and call it out explicitly.
+    <ul>
+      <li>
+        <em>Example:</em> After the engagement, the product development team can handle our service outages in Google Kubernetes Engine without escalation.
+      </li>
+    </ul>
+  </li>
+</ol>
+<h6 class="subheaders-small jumptargets" id="sprints-and-communication">Sprints and Communication</h6>
+<p>
+  Any engagement with product development teams begins with a kickoff and planning meeting. Prior to kickoff, our SRE team reviews the application architecture and our shared goal to verify that the expected outcome is realistic within the given time frame. A joint planning meeting that creates epics and stories can be a good starting point for the engagement.
+</p>
+<p>
+  A roadmap for this engagement might be:
+</p>
+<ol>
+  <li>
+    Review the application architecture.
+  </li>
+  <li>
+    Define shared goals.
+  </li>
+  <li>
+    Hold the kickoff and planning session.
+  </li>
+  <li>
+    Implement development cycles to reach milestones.
+  </li>
+  <li>
+    Set up retrospectives to solicit engagement feedback.
+  </li>
+  <li>
+    Conduct Production Readiness Reviews.
+  </li>
+  <li>
+    Implement development cycles to reach milestones.
+  </li>
+  <li>
+    <a href="/sre-book/reliable-product-launches/">Plan and execute launches</a>.
+  </li>
+</ol>
+<p>
+  We require that the teams define a feedback method and agree on its frequency. Both the SRE and development teams need feedback on what is working and what is not. For these engagements to be successful, we have found that providing a constant feedback loop outside of Agile sprint reviews via an agreed-upon method is useful—for example, setting up a biweekly retrospective or check-in with team managers. If an engagement isn’t working, we expect teams to not shy away from planning for disengagement.
+</p>
+<h6 class="subheaders-small jumptargets" id="measuring-impact">Measuring Impact</h6>
+<p>
+  We have found it important to measure the impact of the engagement to make sure that SREs are doing high-value work. We also measure the maturity level of each partner team so that the SREs can determine the most effective ways to work with them. One approach we adopted from working with Google’s Customer Reliability Engineering (CRE) team is to conduct a <span class="italic">point-in-time assessment</span> with leads of the product engineering team before starting the engagement.
+</p>
+<p>
+  A point-in-time assessment consists of walking through a maturity matrix, gauging the maturity of the service along the various axes of concern to SRE (as described in <a href="/sre-book/evolving-sre-engagement-model/">Chapter 32</a> of <span class="italic">Site Reliability Engineering</span>), and agreeing on scores for functional areas such as observability, capacity planning, change management, and incident response. This also helps tailor the engagement more appropriately after we learn more about the team’s strengths, weaknesses, and blind spots.
+</p>
+<p>
+  After the engagement ends and the development team is performing on its own, we perform the assessment again to measure the value SRE added. If we have a maturity model in place, we measure against the model to see if the engagement results in a higher level of maturity. As the engagement comes to an end, we plan for a celebration!
+</p>
+</aside>
+<h5 class="subheaders jumptargets" id="setting-ground-rules">Setting Ground Rules</h5>
+<p>At Google, every SRE team has two major goals:</p>
+<p class="italic">Short term</p>
+<ul style="list-style-type:none">
+  <li>
+    Fulfill the product’s business needs by providing an operationally stable system that is available and scales with demand, with an eye on maintainability.
+  </li>
+</ul>
+<p class="italic">Long term</p>
+<ul style="list-style-type:none">
+  <li>
+    Optimize service operations to a level where ongoing human work is no longer needed, so the SRE team can move on to work on the next high-value engagement.
+  </li>
+</ul>
+<p>
+  To this end, the teams should agree upon some principles of cooperation, such as:
+</p>
+<ul>
+  <li>
+    Definitions of (and a hard limit on) operational work.
+  </li>
+  <li>
+    An agreed-upon and measured SLO for the service that is used to prioritize engineering work for both the developer and SRE teams. You <span class="italic">can</span> start without an SLO in place, but our experience shows that not establishing this context from the beginning of the relationship means you’ll have to backtrack to this step later. For an example of how engineering work proceeds less than ideally in the absence of an SLO, see <a href="/workbook/organizational-change#case-study-1-scaling-waze—from-ad-hoc-to-planned-change">Case Study 1: Scaling Waze—From Ad Hoc to Planned Change</a>.
+  </li>
+  <li>
+    An agreed-upon quarterly error budget that determines release velocity and other safety parameters, such as excess service capacity to handle unexpected usage growth.
+  </li>
+  <li>
+    Developer involvement in daily operations to ensure that ongoing issues are visible, and that fixing their root causes is prioritized.
+  </li>
+</ul>
+<h5 class="subheaders jumptargets" id="planning-and-executing">Planning and Executing</h5>
+<p>
+  Proactive planning and coordinated execution ensure that SRE teams meet expectations and product goals while optimizing operations and reducing operational cost. We suggest planning at two (connected) levels:
+</p>
+<ul>
+  <li>
+    With developer leadership, set priorities for products and services and publish yearly roadmaps.
+  </li>
+  <li>
+    Review and update roadmaps on a regular basis, and derive goals (quarterly or otherwise) that line up with the roadmap.
+  </li>
+</ul>
+<p>
+  Roadmaps ensure that each team has a long-term time horizon of clear, high-impact work. There can be good reasons to forego roadmaps (for example, if the development organization is changing too quickly). However, in a stable environment, the absence of a roadmap may be a signal that the SRE team can merge with another team, move service management work back to the development teams, expand scope, or dissolve.
+</p>
+<p>
+  Holding ongoing strategy conversations with developer leadership helps to quickly identify shifts in focus, discuss new opportunities for SRE to add value to the business, or stop activities that are not cost-effective for the product.
+</p>
+<p>
+  Roadmaps can focus on more than just improving the product. They can also address how to apply and improve common SRE technologies and processes to drive down operational cost.
+</p>
+<h1 class="heading jumptargets" id="sustaining-an-effective-ongoing-relationship">Sustaining an Effective Ongoing Relationship</h1>
+<p>
+  Healthy and effective relationships require ongoing effort. The strategies outlined in this section have worked well for us.
+</p>
+<h5 class="subheaders jumptargets" id="investing-time-in-working-better-together">Investing Time in Working Better Together</h5>
+<p>
+  The simple act of spending time with each other helps SREs and developers collaborate more effectively. We recommend that SREs meet regularly with their counterparts for the services they run. It’s also a good idea for SREs to meet periodically with other SRE teams who run services that either send traffic to the service or provide common infrastructure that the service uses. The SRE team can then escalate confidently and quickly during outages or disagreements because the teams know each other and have already set expectations of how escalations should be initiated and managed.
+</p>
+<h5 class="subheaders jumptargets" id="maintaining-an-open-line-of-communication">Maintaining an Open Line of Communication</h5>
+<p>
+  In addition to the day-to-day communication between teams, we’ve found a couple methods of more formal information exchange to be particularly helpful over the course of the engagement.
+</p>
+<p>
+  SREs can give a quarterly “state of production” talk to product development leadership to help them understand where they should invest resources and how exactly SRE is helping their product or service. In a similar vein, developers can give a periodic “state of the product” talk to the SRE team or involve SRE in the developer team’s executive presentations. This gives the SRE team an overview of what the developer team has accomplished over the last quarter (and lets the SREs see how their own work enabled that). It also provides an update on where the product is going over the next few quarters, and where the product lead sees SRE engaging to make that happen.
+</p>
+<h5 class="subheaders jumptargets" id="performing-regular-service-reviews">Performing Regular Service Reviews</h5>
+<p>
+  As the decision makers for the service’s future, the SRE and developer team leads responsible for the service should meet face-to-face at least once a year. Meeting more frequently than this can be challenging—for example, because it may involve intercontinental travel. During this meeting, we typically share our roadmaps for the next 12–18 months and discuss new projects and launches.
+</p>
+<p>
+  SRE teams sometimes facilitate a retrospective exercise, where the leads discuss what the teams want to <span class="italic">stop doing</span>, <span class="italic">keep doing</span>, and <span class="italic">start doing</span>. Items can appear in more than one area, and all opinions are valid. These sessions need active facilitation because the best results come from full-team participation. This is often rated the most useful session in the service meeting because it yields details that can drive significant service changes.
+</p>
+<h5 class="subheaders jumptargets" id="reassessing-when-ground-rules-start-to-slip">Reassessing When Ground Rules Start to Slip</h5>
+<p>
+  If cooperation in any of the agreed-upon areas (see <a data-type="xref" href="#setting-ground-rules">Setting Ground Rules</a>) begins to regress, both developers and SRE need to change priorities to get the service back in shape. We have found that, depending on the urgency, this can mean any of the following:
+</p>
+<ul>
+  <li>
+    The teams identify specific engineers who must drop their lower-priority tasks to focus on the regression.
+  </li>
+  <li>
+    Both teams call a “reliability hackathon,” but usual team priorities continue outside of the hackathon days.
+  </li>
+  <li>
+    A feature freeze is declared and the majority of both teams focus on resolving the regression.
+  </li>
+  <li>
+    Technical leadership determines that the reliability of the product is at acute risk, and the teams call an “all hands on deck” response.
+  </li>
+</ul>
+<h5 class="subheaders jumptargets" id="adjusting-priorities-according-to-your-slos-and-error-budget">Adjusting Priorities According to Your SLOs and Error Budget</h5>
+<p>
+  The subtle art of crafting a well-defined SLO helps a team prioritize appropriately. If a service is in danger of missing the SLO or has exhausted the error budget, both teams can work with high priority to get the service back into safety. They can address the situation through both tactical measures (for example, overprovisioning to address traffic-related performance regressions) and more strategic software fixes (such as optimizations, caching, and graceful degradation).
+</p>
+<p>
+  If a service is well within SLO and has ample error budget left, we recommend using the spare error budget to increase feature velocity rather than spending overproportional efforts on service improvements.
+</p>
+<h5 class="subheaders jumptargets" id="handling-mistakes-appropriately">Handling Mistakes Appropriately</h5>
+<p>
+  Humans inevitably make mistakes. Consistent with our <a href="/sre-book/postmortem-culture/">postmortem culture</a>, we don’t blame people, and instead focus on system behavior. Your mileage may vary, but we have had success with the following tactics.
+</p>
+<h6 class="subheaders-small jumptargets" id="sleep-on-it">Sleep on it</h6>
+<p>
+  If possible, don’t conduct follow-up conversations when you’re tired or emotions are high. During high-stress situations, people can easily misinterpret tone in written communication like emails. Readers will remember how the words made them feel, not necessarily what was written. When you’re communicating across locations, it’s often worth the time to set up a video chat so that you can see facial expressions and hear the tone of voice that helps disambiguate words.
+</p>
+<h6 class="subheaders-small jumptargets" id="meet-in-person-or-as-close-to-it-as-possible-to-resolve-issues">Meet in person (or as close to it as possible) to resolve issues</h6>
+<p>
+  Interactions conducted solely via code reviews or documentation can quickly become drawn out and frustrating. When a behavior or decision from another team is at odds with our expectations, we talk with them about our assumptions and ask about missing context.
+</p>
+<h6 class="subheaders-small jumptargets" id="be-positive">Be positive</h6>
+<p>
+  Thank people for their positive behaviors. Doing so can be simple—for example, during code reviews, design reviews, and failure scenario training, we ask engineers to call out what was good and explain why. You might also recognize good code comments or thank people for their time when they invest in a rigorous design review.
+</p>
+<h6 class="subheaders-small jumptargets" id="understand-differences-in-communication">Understand differences in communication</h6>
+<p>
+  Different teams have different internal expectations for how information is disseminated. Understanding these differences can help strengthen relationships.
+</p>
+<h1 class="heading jumptargets" id="scaling-sre-to-larger-environments">Scaling SRE to Larger Environments</h1>
+<p>
+  The scenarios we’ve discussed so far involve a single SRE team, a single developer team, and one service. Larger companies, or even small companies that use a microservices model, may need to scale some or all of these numbers.
+</p>
+<h5 class="subheaders jumptargets" id="supporting-multiple-services-with-a-single-sre-team">Supporting Multiple Services with a Single SRE Team</h5>
+<p>
+  Because SREs have specialized skills and are a scarce resource, Google generally maintains an SRE-to-developer ratio of < 10%. Therefore, one SRE team commonly works with multiple developer teams in their product area (PA).
+</p>
+<p>
+  If SREs are scarce relative to the number of services that merit SRE support, an SRE team can focus their efforts on one service, or on a few services from a small number of developer teams.
+</p>
+<p>
+  In our experience, you can scale limited SRE resources to many services if those services have the following characteristics:
+</p>
+<ul>
+  <li>
+    Services are part of a single product. This provides end-to-end ownership of the user experience and alignment with the user.
+  </li>
+  <li>
+    Services are built on similar tech stacks. This minimizes cognitive load and enables effective reuse of technical skills.
+  </li>
+  <li>
+    Services are built by the same developer team or a small number of related developer teams. This minimizes the number of relationships and makes it easier to align priorities.
+  </li>
+</ul>
+<h5 class="subheaders jumptargets" id="structuring-a-multiple-sre-team-environment">Structuring a Multiple SRE Team Environment</h5>
+<p>
+  If your company is big enough to have multiple SRE teams, and perhaps multiple products, you need to choose a structure for how SRE and the product groups relate.
+</p>
+<p>
+  Within Google, we support a complex developer organization. As shown in <a data-type="xref" href="#large-scale-developer-to-sre-team-relationships">Figure 18-2</a>, each PA consists of multiple product groups that each contain multiple products. The SRE organization shadows the developer organization hierarchically, with shared priorities and best practices at each level. This model works when all teams in a group, or all groups in a PA, share the same or similar specific business goals, and when every product group has both a product leader and an SRE lead.
+</p>
+<figure id="large-scale-developer-to-sre-team-relationships" class="horizontal vertical jumptarget">
+      <img src="/img/dynamic/sre-workbook/9993d6e3b12074e7fd642f7aaa808444.webp" alt="large-scale-developer-to-sre-team-relationships">
+      <figcaption><span class="label">Figure 18-2. </span>Large-scale developer-to-SRE team relationships (per product area)</figcaption>
+</figure>
+<p>If your organization has multiple SRE teams, you’ll need to group them in some way. The two main approaches we’ve seen work well are:
+</p>
+<ul>
+  <li>
+    Group the teams within a product, so they don’t have to coordinate with too many different developer teams.
+  </li>
+  <li>
+    Group the teams within a technology stack (e.g., “storage” or “networking”).
+  </li>
+</ul>
+<p>
+  To prevent churn in SRE teams during developer reorgs, we recommend organizing SRE teams according to technology rather than developer PA reporting structure. For example, many teams that support storage systems are structured and operate in the same way. Grouping storage systems in technology-focused product groups may make more sense even if they come from different parts of the developer organization.
+</p>
+<h5 class="subheaders jumptargets" id="adapting-sre-team-structures-to-changing-circumstances">Adapting SRE Team Structures to Changing Circumstances</h5>
+<p>
+  If you need to modify the structure of your SRE teams to reflect changing PA needs, we recommend creating, splitting (sharding), merging, and dissolving SRE teams based on service needs and engineering and operational load. Each SRE team should have a clear charter that reflects their services, technology, and operations. When a single SRE team has too many services, rather than building new teams from scratch, we prefer to shard the existing team into multiple teams to transfer culture and grow existing leadership. Changes like this are inevitably disruptive to existing teams, so we’d recommend that you restructure teams only when necessary.
+</p>
+<h5 class="subheaders jumptargets" id="running-cohesive-distributed-sre-teams">Running Cohesive Distributed SRE Teams</h5>
+<p>
+  If you need to ensure 24/7 coverage and business continuity, and you have a global presence, it’s worth trying to distribute your SRE teams around the globe to provide even coverage. If you have a number of globally distributed teams, we recommend colocating teams based upon adjacency and upon similarity of services and shared technology. We’ve found that singleton teams are generally less effective and more vulnerable to the effects of reorgs outside the team—we create such teams only if clearly defined business needs call for them and we’ve considered all other options.
+</p>
+<p>
+  Many companies don’t have the resources for full global coverage, but even if you’re split only across buildings (never mind continents), it’s important to create and maintain a two-location arrangement.
+</p>
+<p>
+  It’s also important to create and maintain organizational standards that drive planning and execution and foster and maintain a shared team culture. To this end, we find it useful to gather the entire team in one physical location periodically—for example, at an org-wide summit every 12–18 months.
+</p>
+<p>
+  Sometimes it doesn’t make sense for everyone on the team to own certain responsibilities—for example, conducting regular test restores from backups or implementing cross-company technical mandates. When balancing these responsibilities between a team’s distributed sites, keep the following strategies in mind:
+</p>
+<ul>
+  <li>
+    Assign individual responsibilities to single locations, but rotate them regularly (e.g., yearly).
+  </li>
+  <li>
+    Share every responsibility between locations, making an active effort to balance the involvement and workload.
+  </li>
+  <li>
+    Don’t lock a responsibility to a single location for multiple years. We’ve found that the costs of this configuration ultimately outweigh the benefits. Although that location will tend to become really good at executing those responsibilities, this fosters an “us versus them” mentality, hinders distribution of knowledge, and presents a risk for business continuity.
+  </li>
+</ul>
+<p>All of these strategies require locations to maintain tactical and strategic communication.</p>
+<h1 class="heading jumptargets" id="ending-the-relationship">Ending the Relationship</h1>
+<p>
+  SRE engagements aren’t necessarily indefinite. SREs provide value by doing impactful engineering work. If the work is no longer impactful (i.e., the value proposition of an SRE engagement goes away), or if the majority of the work is no longer on the engineering (versus operations) side, you may need to revisit the ongoing SRE engagement. In general, individual SREs will move away from toil-heavy teams to teams with more interesting engineering work.
+</p>
+<p>
+  On a team level, you might hand back a service if SRE no longer provides sufficient business value to merit the costs. For example:
+</p>
+<ol>
+  <li>
+    If a service has been optimized to a level where ongoing SRE engagement is no longer necessary
+  </li>
+  <li>
+    If a service’s importance or relevance has diminished
+  </li>
+  <li>
+    If a service is reaching end of life
+  </li>
+</ol>
+<p>
+  The following case studies demonstrate how two Google SRE engagement models ended. The first ends with largely positive results, while the other ends with a more nuanced outcome.
+</p>
+<h5 class="subheaders jumptargets" id="case-study-1-ares">Case Study 1: Ares</h5>
+<p>
+  Google’s Abuse SRE and Common Abuse Tool (CAT) teams provided anti-abuse protection for most Google properties and worked with customer-facing products to keep users safe. The Abuse SRE team applied engineering work to lower CAT’s operational support burden so that the developers were able to take a direct role in supporting their users. These users were the Googlers operating the properties defended by CAT, who had high expectations about the efficacy of CAT and its response time to problems or new threats.
+</p>
+<p>
+  Efficient abuse fighting requires constant attention, rapid adaptive changes, and nimble flexibility in the face of new threats and attacks. These requirements clashed with the common SRE goals of reliable and planned feature development. CAT teams routinely needed to implement fast development and deploy new protections to properties under attack. However, Abuse SRE pushed back on requested changes, requesting more in-depth analysis of the consequences each new protection would have on the overall production system. Time constraints on consultations between teams and reviews compounded this tension.
+</p>
+<p>
+  To hopefully improve the situation, Abuse SRE and CAT leadership engaged in a multiyear project to create a dedicated infrastructure team within CAT. The newly formed “Ares” team had a mandate to unify abuse-fighting infrastructure for Google properties. This team was staffed by CAT engineers who had production infrastructure knowledge and experience building and running large services. The teams started an exchange program to transfer production management knowledge from Abuse SRE to the CAT infrastructure team members.
+</p>
+<p>
+  Abuse SREs taught the Ares team that the easiest way to launch a new service in production (when you’re already running large distributed services) is to minimize the additional cognitive load that the service imposes. To reduce this cognitive load, systems should be as homogeneous as possible. Deploying and managing a collection of production services together means they can share the same release structure, capacity planning, subservices for accessing storage, and so on. Following this advice, Ares redesigned the whole abuse-fighting stack, applying modularity concepts to shift toward a microservice model. They also built a new layer that provided abstractions for developers so that they didn’t have to worry about lower-level production details like monitoring, logging, and storage.
+</p>
+<p>
+  At this point, the Ares team started to act more like an SRE team for CAT by administering the new abuse-fighting infrastructure. Meanwhile, Abuse SRE focused on the production deployment and efficient day-to-day operation of the overall abuse-fighting infrastructure.
+</p>
+<p>
+  Collaboration between the Ares engineers and Abuse SRE resulted in the following improvements:
+</p>
+<ul>
+  <li>
+    Because the CAT team now had “in-house” production experts that were also experts in abuse fighting, Abuse SRE no longer had to vet new feature integration. This greatly reduced time to production for new features. At the same time, the CAT team’s developer velocity increased because the new infrastructure abstracted away production management details.
+  </li>
+  <li>
+    The Abuse SRE team now had many fewer requests from the CAT team to launch new features, as most of the requests did not require infrastructure changes. The team also needed less knowledge to evaluate the impact of a new feature, since infrastructure changes were rarely required. When infrastructure changes were necessary, Abuse SRE only needed to clarify the implications on the infrastructure rather than specific feature functionality.
+  </li>
+  <li>
+    Products that needed to integrate with abuse-fighting infrastructure had a faster and more predictable turnaround time since a product integration was now equivalent in effort to a feature launch.
+  </li>
+</ul>
+<p>
+  At the end of this project, Abuse SREs disengaged from directly supporting CAT, focusing instead on the underlying infrastructure. This did not compromise CAT’s reliability or overburden the CAT team with additional operational work; instead, it increased CAT’s overall development velocity.
+</p>
+<p>
+  Currently, Ares protects users across a large number of Google properties. Since the team’s inception, SREs and product development have partnered to make collaborative decisions on how infrastructure will work in production. This partnership was only possible because the Ares effort created a sense of shared destiny.
+</p>
+<h5 class="subheaders jumptargets" id="case-study-2-data-analysis-pipeline">Case Study 2: Data Analysis Pipeline</h5>
+<p>
+  Sometimes the cost of maintaining an SRE support relationship is higher than the value (perceived or measured) that SREs provide. In these cases, it makes sense to end the relationship by disbanding the SRE team.<sup><a class="jumptarget" data-type="noteref" id="ch18fn1-marker" href="#ch18fn1">1</a></sup>
+</p>
+<p>
+  When the value of a relationship declines over time, it is extremely difficult to identify a point in time when it makes sense to terminate that relationship. Two teams at Google that supported a revenue-critical data analysis pipeline had to face this challenge. Figuring out that a parting of the ways was appropriate was not a trivial task, especially after a decade of cooperation. In retrospect, we were able to identify several patterns within the team interaction that were strong indicators that we needed to reconsider the relationship between the SRE team and the product team.
+</p>
+<h6 class="subheaders-small jumptargets" id="the-pivot">The pivot</h6>
+<p>
+  Three years before the turndown, all involved parties recognized that their primary data analysis pipeline was running into scaling limitations. At that time, the developer team decided to start planning their new system and dedicated a small number of engineers to the new effort. As that effort began to coalesce, it made sense to deprioritize development of large, complex, or risky features for the existing system in favor of work on the new system. This had two important effects over time:
+</p>
+<ul>
+  <li>
+    An informal rule was applied to new projects: if the project’s complexity or the risk involved in modifying the existing system to accommodate the project was sufficiently high, then it was better to make that investment in the new system.
+  </li>
+  <li>
+    As resources shifted to developing the new system, even relatively conservative changes to the existing system became more difficult. Nevertheless, usage continued to grow at an extremely high rate.
+  </li>
+</ul>
+<h6 class="subheaders-small jumptargets" id="communication-breakdown">Communication breakdown</h6>
+<p>
+  Keeping an existing system operational while a replacement system is simultaneously designed, built, and launched is challenging for any engineering team. Stresses naturally build between the people focused on new versus old systems, and teams need to make difficult prioritization decisions. These difficulties can be compounded when the teams are separated organizationally—for example, an SRE team focused on maintaining and operating an existing system and a developer team working on the next-generation system.
+</p>
+<p>
+  Regular, open, and cooperative communication is vital throughout this entire cycle in order to maintain and preserve a good working relationship across teams. In this example, a gap in communication led to a breakdown in the working relationship between teams.
+</p>
+<h6 class="subheaders-small jumptargets" id="decommission">Decommission</h6>
+<p>
+  It took some time to realize that the disconnectedness between the SRE and developer teams was insurmountable. Ultimately, the simplest solution was to remove the organizational barrier and give the developer team full control over prioritizing work on old and new systems. The systems were expected to overlap for 18–24 months before the old system was fully phased out.
+</p>
+<p>
+  Combining SRE and product development functions into a single team allowed upper management to be maximally responsive to their areas of accountability. Meanwhile, the team could decide how to balance operational needs and velocity. Although decommissioning two SRE teams was not a pleasant experience, doing so resolved the continual tension over where to invest engineering effort.
+</p>
+<p>
+  Despite the inevitable extra operational load on the developer team, realigning ownership of the old system with people who had greater knowledge of service internals provided the opportunity to more quickly address operational problems. This team also had more insight into potential causes of outages, which generally resulted in more effective troubleshooting and quicker issue resolution. However, there were some unavoidable negative impacts while the developer team learned about the nuances of the operational work needed to support the service in a short amount of time. The SRE team’s final job was to make the transfer of this knowledge as smooth as possible, equipping the developer team to take on the work.
+</p>
+<p>
+  It is worth noting that if the working relationship were healthier—with teams working together effectively to solve problems—SRE would have handed production work back to the developer team for a short period of time. After the system was restabilized and hardened for expected growth needs, SRE would normally reassume responsibility of the system. SRE and development teams need to be willing to address issues head on and identify points of tension that need resetting. Part of SRE’s job is to help maintain production excellence in the face of changing business needs, and often this means engaging with developers to find solutions to challenging problems.
+</p>
+<h1 class="heading jumptargets" id="conclusion">Conclusion</h1>
+<p>
+  The form of an SRE team’s engagement changes over the various phases of a service’s lifecycle. This chapter provided advice specific to each phase. Examples from both the Google and the <span class="italic">New York Times</span> SRE teams show that effectively managing the engagement is just as important as making good technical design decisions. Sometimes an SRE engagement should reach a natural conclusion. Case studies from Ares and a data analysis pipeline team provided examples of how this can happen, and how best to end the engagement.
+</p>
+<p>
+  When it comes to best practices for setting up an effective relationship between SRE and product development teams, a shared sense of purpose and goals with regular and open communication is key. You can scale an SRE team’s impact in a number of ways, but these principles for relationship management should always hold true. For sustaining the long-term success of an engagement, investing in aligning team goals and understanding each other’s objectives is as important as defending SLOs.
+</p>
+<div data-type="footnotes" class="footnotes">
+<p data-type="footnote" id="ch18fn1"><sup><a class="jumptargets" href="#ch18fn1-marker">1</a></sup>Google HR supports employees by finding new opportunities when such transitions occur.
+</p>
+</div>
+      </div>
+    </div>
+
+    
+    <div class="footer">
+      <div class="maia-aux">
+        <div class="previous">
+          
+            
+            
+            
+
+            <a href="/workbook/overload/">
+              <p class="footer-caption">Previous</p>
+              <p class="chapter-link">
+                
+                  Chapter 17 - Identifying and Recovering from Overload
+                
+              </p>
+            </a>
+          
+        </div>
+        <div class="next">
+          
+            
+            
+            
+
+            <a href="/workbook/reaching-beyond/">
+              <p class="footer-caption">Next</p>
+              <p class="chapter-link">
+                
+                  Chapter 19 - SRE: Reaching Beyond Your Walls
+                
+              </p>
+            </a>
+          
+        </div>
+
+        
+          <p class="footer-link">Copyright © 2018 Google, Inc. Published by O'Reilly Media, Inc. Licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC-ND 4.0</a></p>
+        
+      </div>
+    </div>
+
+  
+
+      
+    </main>
+    
+    
+    
+    
+    <div style="display: none;"><svg xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <svg id="chevron-left" viewBox="0 0 24 24"><path d="M16.41 5.41L15 4l-8 8 8 8 1.41-1.41L9.83 12"></path></svg>
+    <svg id="chevron-right" viewBox="0 0 24 24"><path d="M7.59 18.59L9 20l8-8-8-8-1.41 1.41L14.17 12"></path></svg>
+    <svg id="expand-less" viewBox="0 0 24 24"><path d="M18.59 16.41L20 15l-8-8-8 8 1.41 1.41L12 9.83"></path></svg>
+    <svg id="expand-more" viewBox="0 0 24 24"><path d="M5.41 7.59L4 9l8 8 8-8-1.41-1.41L12 14.17"></path></svg>
+    <svg id="arrow-back" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"></path></svg>
+    <svg id="arrow-forward" viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8-8-8z"></path></svg>
+    <svg id="arrow-upward" viewBox="0 0 24 24"><path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"></path></svg>
+    <svg id="arrow-downward" viewBox="0 0 24 24"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"></path></svg>
+    <svg id="arrow-left" viewBox="0 0 24 24"><path d="M14 7l-5 5 5 5V7z"></path></svg>
+    <svg id="arrow-right" viewBox="0 0 24 24"><path d="M10 17l5-5-5-5v10z"></path></svg>
+    <svg id="arrow-drop-up" viewBox="0 0 24 24"><path d="M7 14l5-5 5 5H7z"></path></svg>
+    <svg id="arrow-drop-down" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z"></path></svg>
+    <svg id="help" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"></path></svg>
+    <svg id="menu" viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>
+    <svg id="more-vert" viewBox="0 0 24 24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path></svg>
+    <svg id="drive-pdf" viewBox="0 0 24 24"><path d="M7 11.5h1v-1H7v1zM19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9.5 8.5c0 .83-.67 1.5-1.5 1.5H7v2H5.5V9H8c.83 0 1.5.67 1.5 1.5v1zm10-1H17v1h1.5V13H17v2h-1.5V9h4v1.5zm-5 3c0 .83-.67 1.5-1.5 1.5h-2.5V9H13c.83 0 1.5.67 1.5 1.5v3zm-2.5 0h1v-3h-1v3z"></path></svg>
+    <svg id="file-download" viewBox="0 0 24 24"><path d="M4 15h2v3h12v-3h2v3c0 1.1-.9 2-2 2H6c-1.1 0-2-.9-2-2m11.59-8.41L13 12.17V4h-2v8.17L8.41 9.59 7 11l5 5 5-5-1.41-1.41z"></path></svg>
+    <svg id="open-in-new" viewBox="0 0 24 24"><path d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path></svg>
+    <svg id="phone" viewBox="0 0 24 24"><path d="M16.01 14.46l-2.62 2.62a16.141 16.141 0 0 1-6.5-6.5l2.62-2.62a.98.98 0 0 0 .27-.9L9.13 3.8c-.09-.46-.5-.8-.98-.8H4c-.56 0-1.03.47-1 1.03a17.92 17.92 0 0 0 2.43 8.01 18.08 18.08 0 0 0 6.5 6.5 17.92 17.92 0 0 0 8.01 2.43c.56.03 1.03-.44 1.03-1v-4.15c0-.48-.34-.89-.8-.98l-3.26-.65a.99.99 0 0 0-.9.27z"></path></svg>
+    <svg id="email" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-.8 2L12 10.8 4.8 6h14.4zM4 18V7.87l8 5.33 8-5.33V18H4z"></path></svg>
+    <svg id="instagram" viewBox="0 0 24 24"><path d="M12,0 C15.3,0 15.7,0 17,0 C18.3,0.1 19.1,0.3 19.9,0.6 C20.7,0.9 21.3,1.3 22,2 C22.7,2.7 23.1,3.4 23.3,4.2 C23.6,5 23.8,5.8 23.9,7.1 C24,8.3 24,8.7 24,12 C24,15.3 24,15.7 23.9,16.9 C23.8,18.2 23.6,19 23.3,19.8 C23,20.6 22.6,21.2 21.9,21.9 C21.3,22.6 20.6,23 19.8,23.3 C19,23.6 18.2,23.8 16.9,23.9 C15.7,24 15.3,24 12,24 C8.7,24 8.3,24 7,24 C5.7,23.9 4.9,23.7 4.1,23.4 C3.3,23.1 2.7,22.7 2,22 C1.3,21.3 0.9,20.6 0.7,19.8 C0.4,19 0.2,18.2 0.1,16.9 C0,15.7 0,15.3 0,12 C0,8.7 0,8.3 0.1,7.1 C0.1,5.8 0.3,4.9 0.6,4.1 C0.9,3.4 1.3,2.7 2,2 C2.7,1.3 3.4,0.9 4.1,0.6 C4.9,0.3 5.8,0.1 7.1,0.1 C8.3,0 8.7,0 12,0 Z M12,2.2 C8.8,2.2 8.4,2.2 7.2,2.2 C6,2.3 5.3,2.5 4.9,2.6 C4.4,2.9 4,3.1 3.5,3.5 C3.1,3.9 2.8,4.3 2.6,4.9 C2.5,5.3 2.3,6 2.3,7.2 C2.2,8.4 2.2,8.8 2.2,12 C2.2,15.2 2.2,15.5 2.3,16.8 C2.3,17.9 2.5,18.6 2.7,19 C2.9,19.6 3.2,20 3.6,20.4 C4,20.8 4.4,21.1 5,21.3 C5.4,21.5 6,21.6 7.2,21.7 C8.4,21.8 8.8,21.8 12,21.8 C15.2,21.8 15.5,21.8 16.8,21.7 C17.9,21.7 18.6,21.5 19,21.3 C19.6,21.1 20,20.8 20.4,20.4 C20.8,20 21.1,19.6 21.3,19 C21.5,18.6 21.6,18 21.7,16.8 C21.8,15.6 21.8,15.2 21.8,12 C21.8,8.8 21.8,8.5 21.7,7.2 C21.7,6.1 21.5,5.4 21.3,5 C21.1,4.4 20.8,4 20.4,3.6 C20,3.2 19.6,2.9 19,2.7 C18.6,2.5 18,2.4 16.8,2.3 C15.6,2.2 15.2,2.2 12,2.2 Z M12,5.8 C15.4,5.8 18.2,8.6 18.2,12 C18.2,15.4 15.4,18.2 12,18.2 C8.6,18.2 5.8,15.4 5.8,12 C5.8,8.6 8.6,5.8 12,5.8 Z M12,16 C14.2,16 16,14.2 16,12 C16,9.8 14.2,8 12,8 C9.8,8 8,9.8 8,12 C8,14.2 9.8,16 12,16 Z M18.4,7 C17.6268014,7 17,6.37319865 17,5.6 C17,4.82680135 17.6268014,4.2 18.4,4.2 C19.1731986,4.2 19.8,4.82680135 19.8,5.6 C19.8,6.37319865 19.1731986,7 18.4,7 Z"></path></svg>
+    <svg id="link" viewBox="0 0 24 24"><path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2z"></path><path d="M8 11h8v2H8z"></path></svg>
+    <svg id="post-blogger" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 20c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-4 7v1c0 .55.45 1 1 1s1 .45 1 1v3c0 1.66-1.34 3-3 3H9c-1.66 0-3-1.34-3-3V8c0-1.66 1.34-3 3-3h4c1.66 0 3 1.34 3 3v1zm-6.05 1h2.6c.55 0 1-.45 1-1s-.45-1-1-1h-2.6c-.55 0-1 .45-1 1s.45 1 1 1zM14 13H9.95c-.55 0-1 .45-1 1s.45 1 1 1H14c.55 0 1-.45 1-1s-.45-1-1-1z"></path></svg>
+    <svg id="post-facebook" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 20c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 2v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v7h-3v-7h-2v-3h2V7.5C13 5.57 14.57 4 16.5 4H19z"></path></svg>
+    <svg id="post-linkedin" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 20c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM8 19H5v-9h3v9zM6.5 8.31c-1 0-1.81-.81-1.81-1.81S5.5 4.69 6.5 4.69s1.81.81 1.81 1.81S7.5 8.31 6.5 8.31zM19 19h-3v-5.3c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5V19h-3v-9h3v1.2c.52-.84 1.59-1.4 2.5-1.4 1.93 0 3.5 1.57 3.5 3.5V19z"></path></svg>
+    <svg id="share" viewBox="0 0 24 24"><path d="M18 16c-.79 0-1.5.31-2.03.81L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.53.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.48.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.05 4.12c-.05.22-.09.45-.09.69 0 1.66 1.34 3 3 3s3-1.34 3-3-1.34-3-3-3zm0-12c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM6 13c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm12 7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"></path></svg>
+    <svg id="twitter" viewBox="0 0 24 24"><path d="M7.5,21.8c9.1,0,14-7.5,14-14c0-0.2,0-0.4,0-0.6c1-0.7,1.8-1.6,2.5-2.5c-0.9,0.4-1.8,0.7-2.8,0.8c1-0.6,1.8-1.6,2.2-2.7 c-1,0.6-2,1-3.1,1.2c-0.9-1-2.2-1.6-3.6-1.6c-2.7,0-4.9,2.2-4.9,4.9c0,0.4,0,0.8,0.1,1.1C7.7,8.1,4.1,6.1,1.7,3.1 C1.2,3.9,1,4.7,1,5.6c0,1.7,0.9,3.2,2.2,4.1C2.4,9.7,1.6,9.5,1,9.1c0,0,0,0,0,0.1c0,2.4,1.7,4.4,4,4.8c-0.4,0.1-0.8,0.2-1.3,0.2 c-0.3,0-0.6,0-0.9-0.1c0.6,2,2.4,3.4,4.6,3.4c-1.7,1.3-3.8,2.1-6.1,2.1c-0.4,0-0.8,0-1.2-0.1C2.2,20.9,4.8,21.8,7.5,21.8"></path></svg>
+    <svg id="video-youtube" viewBox="0 0 24 24"><path d="M23.74 7.1s-.23-1.65-.95-2.37c-.91-.96-1.93-.96-2.4-1.02C17.04 3.47 12 3.5 12 3.5s-5.02-.03-8.37.21c-.46.06-1.48.06-2.39 1.02C.52 5.45.28 7.1.28 7.1S.04 9.05 0 10.98V13c.04 1.94.28 3.87.28 3.87s.24 1.65.96 2.38c.91.95 2.1.92 2.64 1.02 1.88.18 7.91.22 8.12.22 0 0 5.05.01 8.4-.23.46-.06 1.48-.06 2.39-1.02.72-.72.96-2.37.96-2.37s.24-1.94.25-3.87v-2.02c-.02-1.93-.26-3.88-.26-3.88zM9.57 15.5V8.49L16 12.13 9.57 15.5z"></path></svg>
+    <svg id="video-youtube-white" viewBox="0 0 24 24"><path fill="#fff" d="M23.74 7.1s-.23-1.65-.95-2.37c-.91-.96-1.93-.96-2.4-1.02C17.04 3.47 12 3.5 12 3.5s-5.02-.03-8.37.21c-.46.06-1.48.06-2.39 1.02C.52 5.45.28 7.1.28 7.1S.04 9.05 0 10.98V13c.04 1.94.28 3.87.28 3.87s.24 1.65.96 2.38c.91.95 2.1.92 2.64 1.02 1.88.18 7.91.22 8.12.22 0 0 5.05.01 8.4-.23.46-.06 1.48-.06 2.39-1.02.72-.72.96-2.37.96-2.37s.24-1.94.25-3.87v-2.02c-.02-1.93-.26-3.88-.26-3.88zM9.57 15.5V8.49L16 12.13 9.57 15.5z"></path></svg>
+    <svg id="video-youtube-black" viewBox="0 0 24 24"><path fill="#000" d="M23.74 7.1s-.23-1.65-.95-2.37c-.91-.96-1.93-.96-2.4-1.02C17.04 3.47 12 3.5 12 3.5s-5.02-.03-8.37.21c-.46.06-1.48.06-2.39 1.02C.52 5.45.28 7.1.28 7.1S.04 9.05 0 10.98V13c.04 1.94.28 3.87.28 3.87s.24 1.65.96 2.38c.91.95 2.1.92 2.64 1.02 1.88.18 7.91.22 8.12.22 0 0 5.05.01 8.4-.23.46-.06 1.48-.06 2.39-1.02.72-.72.96-2.37.96-2.37s.24-1.94.25-3.87v-2.02c-.02-1.93-.26-3.88-.26-3.88zM9.57 15.5V8.49L16 12.13 9.57 15.5z"></path><polygon fill="#fff" points="9.6,15.5 9.6,8.5 16,12.1 "></polygon></svg>
+    <svg id="video-youtube-red" viewBox="0 0 24 24"><path fill="#f00" d="M23.74 7.1s-.23-1.65-.95-2.37c-.91-.96-1.93-.96-2.4-1.02C17.04 3.47 12 3.5 12 3.5s-5.02-.03-8.37.21c-.46.06-1.48.06-2.39 1.02C.52 5.45.28 7.1.28 7.1S.04 9.05 0 10.98V13c.04 1.94.28 3.87.28 3.87s.24 1.65.96 2.38c.91.95 2.1.92 2.64 1.02 1.88.18 7.91.22 8.12.22 0 0 5.05.01 8.4-.23.46-.06 1.48-.06 2.39-1.02.72-.72.96-2.37.96-2.37s.24-1.94.25-3.87v-2.02c-.02-1.93-.26-3.88-.26-3.88zM9.57 15.5V8.49L16 12.13 9.57 15.5z"></path><polygon fill="#fff" points="9.6,15.5 9.6,8.5 16,12.1 "></polygon></svg>
+    <svg id="video-youtube-white" viewBox="0 0 24 24"><path fill="#fff" d="M23.74 7.1s-.23-1.65-.95-2.37c-.91-.96-1.93-.96-2.4-1.02C17.04 3.47 12 3.5 12 3.5s-5.02-.03-8.37.21c-.46.06-1.48.06-2.39 1.02C.52 5.45.28 7.1.28 7.1S.04 9.05 0 10.98V13c.04 1.94.28 3.87.28 3.87s.24 1.65.96 2.38c.91.95 2.1.92 2.64 1.02 1.88.18 7.91.22 8.12.22 0 0 5.05.01 8.4-.23.46-.06 1.48-.06 2.39-1.02.72-.72.96-2.37.96-2.37s.24-1.94.25-3.87v-2.02c-.02-1.93-.26-3.88-.26-3.88zM9.57 15.5V8.49L16 12.13 9.57 15.5z"></path></svg>
+    <svg id="close" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"></path></svg>
+    <svg id="expand-all" viewBox="0 0 24 24"><path d="M16.59 9.41L18 8l-6-6-6 6 1.41 1.41L12 4.83l4.59 4.58zM12 19.17l-4.59-4.58L6 16l6 6 6-6-1.41-1.41L12 19.17z"></path></svg>
+    <svg id="play-circle-filled" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"></path></svg>
+    <svg id="search" viewBox="0 0 24 24"><path d="M20.49 19l-5.73-5.73C15.53 12.2 16 10.91 16 9.5A6.5 6.5 0 1 0 9.5 16c1.41 0 2.7-.47 3.77-1.24L19 20.49 20.49 19zM5 9.5C5 7.01 7.01 5 9.5 5S14 7.01 14 9.5 11.99 14 9.5 14 5 11.99 5 9.5z"></path></svg>
+    <svg id="google-color-logo" viewBox="0 0 74 24"><path fill="#4285F4" d="M9.24 8.19v2.46h5.88c-.18 1.38-.64 2.39-1.34 3.1-.86.86-2.2 1.8-4.54 1.8-3.62 0-6.45-2.92-6.45-6.54s2.83-6.54 6.45-6.54c1.95 0 3.38.77 4.43 1.76L15.4 2.5C13.94 1.08 11.98 0 9.24 0 4.28 0 .11 4.04.11 9s4.17 9 9.13 9c2.68 0 4.7-.88 6.28-2.52 1.62-1.62 2.13-3.91 2.13-5.75 0-.57-.04-1.1-.13-1.54H9.24z"></path><path fill="#EA4335" d="M25 6.19c-3.21 0-5.83 2.44-5.83 5.81 0 3.34 2.62 5.81 5.83 5.81s5.83-2.46 5.83-5.81c0-3.37-2.62-5.81-5.83-5.81zm0 9.33c-1.76 0-3.28-1.45-3.28-3.52 0-2.09 1.52-3.52 3.28-3.52s3.28 1.43 3.28 3.52c0 2.07-1.52 3.52-3.28 3.52z"></path><path fill="#4285F4" d="M53.58 7.49h-.09c-.57-.68-1.67-1.3-3.06-1.3C47.53 6.19 45 8.72 45 12c0 3.26 2.53 5.81 5.43 5.81 1.39 0 2.49-.62 3.06-1.32h.09v.81c0 2.22-1.19 3.41-3.1 3.41-1.56 0-2.53-1.12-2.93-2.07l-2.22.92c.64 1.54 2.33 3.43 5.15 3.43 2.99 0 5.52-1.76 5.52-6.05V6.49h-2.42v1zm-2.93 8.03c-1.76 0-3.1-1.5-3.1-3.52 0-2.05 1.34-3.52 3.1-3.52 1.74 0 3.1 1.5 3.1 3.54.01 2.03-1.36 3.5-3.1 3.5z"></path><path fill="#FBBC05" d="M38 6.19c-3.21 0-5.83 2.44-5.83 5.81 0 3.34 2.62 5.81 5.83 5.81s5.83-2.46 5.83-5.81c0-3.37-2.62-5.81-5.83-5.81zm0 9.33c-1.76 0-3.28-1.45-3.28-3.52 0-2.09 1.52-3.52 3.28-3.52s3.28 1.43 3.28 3.52c0 2.07-1.52 3.52-3.28 3.52z"></path><path fill="#34A853" d="M58 .24h2.51v17.57H58z"></path><path fill="#EA4335" d="M68.26 15.52c-1.3 0-2.22-.59-2.82-1.76l7.77-3.21-.26-.66c-.48-1.3-1.96-3.7-4.97-3.7-2.99 0-5.48 2.35-5.48 5.81 0 3.26 2.46 5.81 5.76 5.81 2.66 0 4.2-1.63 4.84-2.57l-1.98-1.32c-.66.96-1.56 1.6-2.86 1.6zm-.18-7.15c1.03 0 1.91.53 2.2 1.28l-5.25 2.17c0-2.44 1.73-3.45 3.05-3.45z"></path></svg>
+    <svg id="google-solid-logo" viewBox="0 0 74 24"><path d="M9.24 8.19v2.46h5.88c-.18 1.38-.64 2.39-1.34 3.1-.86.86-2.2 1.8-4.54 1.8-3.62 0-6.45-2.92-6.45-6.54s2.83-6.54 6.45-6.54c1.95 0 3.38.77 4.43 1.76L15.4 2.5C13.94 1.08 11.98 0 9.24 0 4.28 0 .11 4.04.11 9s4.17 9 9.13 9c2.68 0 4.7-.88 6.28-2.52 1.62-1.62 2.13-3.91 2.13-5.75 0-.57-.04-1.1-.13-1.54H9.24zm15.76-2c-3.21 0-5.83 2.44-5.83 5.81 0 3.34 2.62 5.81 5.83 5.81s5.83-2.46 5.83-5.81c0-3.37-2.62-5.81-5.83-5.81zm0 9.33c-1.76 0-3.28-1.45-3.28-3.52 0-2.09 1.52-3.52 3.28-3.52s3.28 1.43 3.28 3.52c0 2.07-1.52 3.52-3.28 3.52zm28.58-8.03h-.09c-.57-.68-1.67-1.3-3.06-1.3C47.53 6.19 45 8.72 45 12c0 3.26 2.53 5.81 5.43 5.81 1.39 0 2.49-.62 3.06-1.32h.09v.81c0 2.22-1.19 3.41-3.1 3.41-1.56 0-2.53-1.12-2.93-2.07l-2.22.92c.64 1.54 2.33 3.43 5.15 3.43 2.99 0 5.52-1.76 5.52-6.05V6.49h-2.42v1zm-2.93 8.03c-1.76 0-3.1-1.5-3.1-3.52 0-2.05 1.34-3.52 3.1-3.52 1.74 0 3.1 1.5 3.1 3.54.01 2.03-1.36 3.5-3.1 3.5zM38 6.19c-3.21 0-5.83 2.44-5.83 5.81 0 3.34 2.62 5.81 5.83 5.81s5.83-2.46 5.83-5.81c0-3.37-2.62-5.81-5.83-5.81zm0 9.33c-1.76 0-3.28-1.45-3.28-3.52 0-2.09 1.52-3.52 3.28-3.52s3.28 1.43 3.28 3.52c0 2.07-1.52 3.52-3.28 3.52zM58 .24h2.51v17.57H58zm10.26 15.28c-1.3 0-2.22-.59-2.82-1.76l7.77-3.21-.26-.66c-.48-1.3-1.96-3.7-4.97-3.7-2.99 0-5.48 2.35-5.48 5.81 0 3.26 2.46 5.81 5.76 5.81 2.66 0 4.2-1.63 4.84-2.57l-1.98-1.32c-.66.96-1.56 1.6-2.86 1.6zm-.18-7.15c1.03 0 1.91.53 2.2 1.28l-5.25 2.17c0-2.44 1.73-3.45 3.05-3.45z"></path></svg>
+    <svg id="pdf" viewBox="0 0 24 24">
+      <g id="Resources" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="SRE-Resources" transform="translate(-588.000000, -1354.000000)" fill-rule="nonzero">
+          <g id="Group-5" transform="translate(189.000000, 1096.000000)">
+            <g id="Group-9" transform="translate(32.000000, 258.000000)">
+              <g id="x-WebAssets-/-Card-Icons-/-PDF" transform="translate(367.000000, 0.000000)">
+                <g>
+                  <rect id="Rectangle-5-Copy" fill-opacity="0" fill="#FFFFFF" x="0" y="0" width="24" height="24"></rect>
+                  <path d="M12,14 L13.3333334,14 L13.3333334,10 L12,10 L12,14 Z M15.3333333,14 C15.3333333,15.1066666 14.44,16 13.3333334,16 L10,16 L10,8 L13.3333334,8 C14.44,8 15.3333333,8.89333337 15.3333333,10 L15.3333333,14 Z M22,10 L18.6666666,10 L18.6666666,11.3333333 L20.6666666,11.3333333 L20.6666666,13.3333334 L18.6666666,13.3333334 L18.6666666,16 L16.6666666,16 L16.6666666,8 L22,8 L22,10 Z M8.66666666,11.3333333 C8.66666666,12.44 7.77333333,13.3333334 6.66666667,13.3333334 L5.33333333,13.3333334 L5.33333333,16 L3.33333333,16 L3.33333333,8 L6.66666667,8 C7.77333333,8 8.66666666,8.89333337 8.66666666,10 L8.66666666,11.3333333 Z M2.66666667,0 C1.19333333,0 0,1.19333333 0,2.66666667 L0,21.3333333 C0,22.8066667 1.19333333,24 2.66666667,24 L21.3333333,24 C22.8066667,24 24,22.8066667 24,21.3333333 L24,2.66666667 C24,1.19333333 22.8066667,0 21.3333333,0 L2.66666667,0 Z M5.33333333,11.3333333 L6.66666667,11.3333333 L6.66666667,10 L5.33333333,10 L5.33333333,11.3333333 Z" id="icon-PDF/one-pager" fill="#1A73E8"></path>
+                </g>
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+    </svg>
+    <svg id="slides_icon" viewBox="0 0 32 32">
+      <g id="Resources" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="SRE-Resources" transform="translate(-221.000000, -1128.000000)" fill="#FFB800" fill-rule="nonzero">
+          <g id="Group-5" transform="translate(189.000000, 1096.000000)">
+            <path d="M60.442468,32 L35.5397443,32 C33.5831017,32 32,33.6 32,35.5555556 L32,60.4444444 C32,62.4 33.5831017,64 35.5397443,64 L60.442468,64 C62.3991106,64 64,62.4 64,60.4444444 L64,35.5555556 C64,33.6 62.3991106,32 60.442468,32 Z M60.442468,55.1111111 L35.5397443,55.1111111 L35.5397443,40.8888889 L60.442468,40.8888889 L60.442468,55.1111111 Z" id="Shape"></path>
+          </g>
+        </g>
+      </g>
+    </svg>
+    <svg id="video_icon" viewBox="0 0 24 24" fill="#1d72e8"><path d="M0 0h24v24H0z" fill="none"/><path d="M10 16.5l6-4.5-6-4.5v9zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
+    <svg id="rss-feed" xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 0 24 24" width="32px" fill="#1a73e8"><path d="M0 0h24v24H0V0z" fill="none"/><circle cx="6.18" cy="17.82" r="2.18"/><path d="M5.59 10.23c-.84-.14-1.59.55-1.59 1.4 0 .71.53 1.28 1.23 1.4 2.92.51 5.22 2.82 5.74 5.74.12.7.69 1.23 1.4 1.23.85 0 1.54-.75 1.41-1.59-.68-4.2-3.99-7.51-8.19-8.18zm-.03-5.71C4.73 4.43 4 5.1 4 5.93c0 .73.55 1.33 1.27 1.4 6.01.6 10.79 5.38 11.39 11.39.07.73.67 1.28 1.4 1.28.84 0 1.5-.73 1.42-1.56-.73-7.34-6.57-13.19-13.92-13.92z"/></svg>
+    <svg id="podcast" fill="none" height="32" viewBox="0 0 24 24" width="32" xmlns="http://www.w3.org/2000/svg"><path d="m14 12c0 .74-.4 1.38-1 1.72v8.28h-2v-8.28c-.6-.35-1-.98-1-1.72 0-1.1.9-2 2-2s2 .9 2 2zm-2-6c-3.31 0-6 2.69-6 6 0 1.74.75 3.31 1.94 4.4l1.42-1.42c-.83-.73-1.36-1.79-1.36-2.98 0-2.21 1.79-4 4-4s4 1.79 4 4c0 1.19-.53 2.25-1.36 2.98l1.42 1.42c1.19-1.09 1.94-2.66 1.94-4.4 0-3.31-2.69-6-6-6zm0-4c-5.52 0-10 4.48-10 10 0 2.85 1.2 5.41 3.11 7.24l1.42-1.42c-1.55-1.46-2.53-3.53-2.53-5.82 0-4.41 3.59-8 8-8s8 3.59 8 8c0 2.29-.98 4.36-2.53 5.82l1.42 1.42c1.91-1.83 3.11-4.39 3.11-7.24 0-5.52-4.48-10-10-10z" fill="#1a73e8"></path></svg>
+    <svg id="video-yt" width="64px" height="47px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 47" fill="none">
+      <path d="M62.5778 7.29166C61.92 4.43333 59.744 2.16667 56.8889 1.45833C52 0 32 0 32.7111 0C32 0 12 0 7.11111 1.45833C4.256 2.16667 2.08 4.43333 1.42222 7.29166C0 12.5 0 23.3333 0 23.3333C0 23.3333 0 34.1667 1.42222 39.375C2.08 42.2333 4.256 44.5 7.11111 45.2083C12 46.6667 32 46.6667 32.7111 46.6667C32 46.6667 52 46.6667 56.8889 45.2083C59.744 44.5 61.92 42.2333 62.5778 39.375C64 34.1667 64 23.3333 64 23.3333C64 23.3333 64 12.5 62.5778 7.29166Z" fill="#FF0000"/>
+      <path d="M24 32V13.3333L41.3333 23.3846L24 32Z" fill="white"/>
+    </svg>
+    <svg id="article" xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80" fill="none">
+      <path d="M23.0833 56.75H46V51.75H23.0833V56.75ZM23.0833 42.5H56.9167V37.5H23.0833V42.5ZM23.0833 28.25H56.9167V23.25H23.0833V28.25ZM15 70C13.6667 70 12.5 69.5 11.5 68.5C10.5 67.5 10 66.3333 10 65V15C10 13.6667 10.5 12.5 11.5 11.5C12.5 10.5 13.6667 10 15 10H65C66.3333 10 67.5 10.5 68.5 11.5C69.5 12.5 70 13.6667 70 15V65C70 66.3333 69.5 67.5 68.5 68.5C67.5 69.5 66.3333 70 65 70H15ZM15 65H65V15H15V65Z" fill="white"/>
+    </svg>
+    <svg id="filter-tick" xmlns="http://www.w3.org/2000/svg" width="18" height="14" viewBox="0 0 18 14" fill="none">
+      <path d="M5.59 11.1698L1.42 6.99984L0 8.40984L5.59 13.9998L17.59 1.99984L16.18 0.589844L5.59 11.1698Z" fill="#1A73E8"/>
+    </svg>
+    <svg id="developer_mode_icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" fill="#041E49"><path d="M344-296 160-480l184-184 42 44-140 140 140 140-42 44Zm-144 30h60v76h440v-76h60v166q0 24-18 42t-42 18H260q-24 0-42-18t-18-42v-166Zm60-440h-60v-154q0-24 18-42t42-18h440q24 0 42 18t18 42v154h-60v-64H260v64Zm0 576v30h440v-30H260Zm0-700h440v-30H260v30Zm356 534-42-44 140-140-140-140 42-44 184 184-184 184ZM260-830v-30 30Zm0 700v30-30Z"/></svg>
+    <svg id="play" fill="none" height="48" viewBox="0 0 48 48" width="48" xmlns="http://www.w3.org/2000/svg"><path d="m17 13h16v23h-16z" fill="#202124"/><g fill="#fff"><path d="m0 0h48v48h-48z" fill-opacity=".01"/><path clip-rule="evenodd" d="m24 4c-11.04 0-20 8.96-20 20s8.96 20 20 20 20-8.96 20-20-8.96-20-20-20zm-4 29v-18l12 9z" fill-rule="evenodd"/></g></svg>
+    <svg id="watch-video" fill="none" height="16" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="m8 .5c-4.14 0-7.5 3.36-7.5 7.5s3.36 7.5 7.5 7.5 7.5-3.36 7.5-7.5-3.36-7.5-7.5-7.5zm-1.5 10.875v-6.75l4.5 3.375z" fill="#1a73e8" fill-rule="evenodd"/></svg>
+    <svg id="modal-play" fill="none" height="48" viewBox="0 0 48 48" width="48" xmlns="http://www.w3.org/2000/svg"><path d="m17 13h16v23h-16z" fill="#202124"/><g fill="#fff"><path d="m0 0h48v48h-48z" fill-opacity=".01"/><path clip-rule="evenodd" d="m24 4c-11.04 0-20 8.96-20 20s8.96 20 20 20 20-8.96 20-20-8.96-20-20-20zm-4 29v-18l12 9z" fill-rule="evenodd"/></g></svg>
+    <svg id="modal-pause" fill="none" height="48" viewBox="0 0 48 48" width="48" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="m20 38h-8v-28h8zm8 0v-28h8v28z" fill="#fff" fill-rule="evenodd"/></svg>
+    <svg id="circle-1" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="14" fill="#4285F4"/><text x="14" y="20" font-size="14px" text-anchor="middle" fill="#FFFF">1</text></svg>
+    <svg id="circle-2" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="14" fill="#F9AB00"/><text x="14" y="20" text-anchor="middle" fill="#FFFF">2</text></svg>
+    <svg id="circle-3" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="14" fill="#34A853"/><text x="14" y="20" text-anchor="middle" fill="#FFFF">3</text></svg>
+    <svg id="twitter-X" height="24" viewBox="0 0 23 20" width="24" xmlns="http://www.w3.org/2000/svg" fill="none"><path d="m11.902344 8.464844 7.445312-8.464844h-1.765625l-6.464843 7.347656-5.160157-7.347656h-5.957031l7.808594 11.113281-7.808594 8.875h1.765625l6.824219-7.761719 5.453125 7.761719h5.957031zm-2.417969 2.746094-.789063-1.105469-6.296874-8.804688h2.710937l5.082031 7.105469.789063 1.105469 6.605469 9.238281h-2.710938zm0 0" fill="#000"/></svg>
+    <svg id="read-more-arrow" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M15 9L13.9425 7.9425L9.75 12.1275V3H8.25V12.1275L4.065 7.935L3 9L9 15L15 9Z" fill="white"/></svg>
+    <svg id="open-in-new-white" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none" style=""><path fill-rule="evenodd" clip-rule="evenodd" d="M12.25 12.25H1.75V1.75H7V0.25H1.75C0.9175 0.25 0.25 0.925 0.25 1.75V12.25C0.25 13.075 0.9175 13.75 1.75 13.75H12.25C13.075 13.75 13.75 13.075 13.75 12.25V7H12.25V12.25ZM8.5 0.25V1.75H11.1925L3.82 9.1225L4.8775 10.18L12.25 2.8075V5.5H13.75V0.25H8.5Z" fill="white"/></svg>
+    <svg id="load-more-arrow" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M15 9L13.9425 7.9425L9.75 12.1275V3H8.25V12.1275L4.065 7.935L3 9L9 15L15 9Z" fill="#1A73E8"/>
+    </svg>
+    <svg id="show-less-arrow" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M3 9L4.0575 10.0575L8.25 5.8725V15H9.75V5.8725L13.935 10.065L15 9L9 3L3 9Z" fill="#1A73E8"/>
+    </svg>
+
+  </defs>
+</svg></div>
+  </body>
+</html>

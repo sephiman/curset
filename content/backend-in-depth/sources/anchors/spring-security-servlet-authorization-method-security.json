@@ -1,0 +1,323 @@
+{
+ "source": "spring-security-servlet-authorization-method-security",
+ "anchors": [
+  {
+   "anchor": "top",
+   "title": "",
+   "level": 0,
+   "sha256": "a395418f3c54c3c1a839212889da72951b71a6c8a8a55160db6815c7afec841a"
+  },
+  {
+   "anchor": "page-title",
+   "title": "Method Security",
+   "level": 1,
+   "sha256": "635b03322def5e6cf93239fb9a296bd7787761dce3be63126380cbaa1dd2166e"
+  },
+  {
+   "anchor": "method-security-architecture",
+   "title": "How Method Security Works",
+   "level": 2,
+   "sha256": "cb06534bdd3bed0144bc59f091f16e3942d7888cc4192b95110196978c5af4ce"
+  },
+  {
+   "anchor": "unanimous-based-authorization-decisions",
+   "title": "Multiple Annotations Are Computed In Series",
+   "level": 3,
+   "sha256": "d727db81b43d0e2a3975071472f965724ed80fae530b0224dc38f5daaab10f12"
+  },
+  {
+   "anchor": "repeated-annotations",
+   "title": "Repeated Annotations Are Not Supported",
+   "level": 3,
+   "sha256": "54a352be31bfeb0af9739a2d11f673dc09a02dc8e66e519f3c6a05ade6ca5b60"
+  },
+  {
+   "anchor": "annotation-method-pointcuts",
+   "title": "Each Annotation Has Its Own Pointcut",
+   "level": 3,
+   "sha256": "84bf35af1fa2c7083ab9ebbc2caab8b9206626f6b865fc4ede6862b31d20c304"
+  },
+  {
+   "anchor": "annotation-method-interceptors",
+   "title": "Each Annotation Has Its Own Method Interceptor",
+   "level": 3,
+   "sha256": "171c23c6116394d67cecc716254dc119574b9620a30da0c31935004dde91a51c"
+  },
+  {
+   "anchor": "favor-granting-authorities",
+   "title": "Favor Granting Authorities Over Complicated SpEL Expressions",
+   "level": 3,
+   "sha256": "4c6247ae765637286315fdae30ef344bd1bb60b5f4afdecf5ace018b4471851d"
+  },
+  {
+   "anchor": "request-vs-method",
+   "title": "Comparing Request-level vs Method-level Authorization",
+   "level": 2,
+   "sha256": "b0f44781f99d6160befa2befe3ac8706fc4c642c762eebe0466e15575f0e2b72"
+  },
+  {
+   "anchor": "authorizing-with-annotations",
+   "title": "Authorizing with Annotations",
+   "level": 2,
+   "sha256": "7d911ba65c170d096cb3f4b4503b933db4c7bd8816307f78eb99a7c9b8232263"
+  },
+  {
+   "anchor": "use-preauthorize",
+   "title": "Authorizing Method Invocation with @PreAuthorize",
+   "level": 3,
+   "sha256": "65286ba00df25c8a8a18109703d3b56c8e998c16d3a40fe5ca3982f5a42539ab"
+  },
+  {
+   "anchor": "use-postauthorize",
+   "title": "Authorization Method Results with @PostAuthorize",
+   "level": 3,
+   "sha256": "c81ffdcb87e2ff7740b7d553cc9ac98c7b12a8f89da4c051b4b75a462b324b6b"
+  },
+  {
+   "anchor": "use-prefilter",
+   "title": "Filtering Method Parameters with @PreFilter",
+   "level": 3,
+   "sha256": "f99764a7094a7c12a7bb1ea2a78db726ce66113848996cab06c71bf2dae7ed69"
+  },
+  {
+   "anchor": "use-postfilter",
+   "title": "Filtering Method Results with @PostFilter",
+   "level": 3,
+   "sha256": "e9008cceaf292c6790175fe835a0d387c0ea68d309af7596510d0baaa8cc5e9f"
+  },
+  {
+   "anchor": "use-secured",
+   "title": "Authorizing Method Invocation with @Secured",
+   "level": 3,
+   "sha256": "a6ae0c4a691ffdaee4938ca73c11cda48a53fa09c8356533432c11e1efdee551"
+  },
+  {
+   "anchor": "use-jsr250",
+   "title": "Authorizing Method Invocation with JSR-250 Annotations",
+   "level": 3,
+   "sha256": "c003f68d6f2a4c35d4b923513f81f84c8a9bc50ecb9ab7b89a0c7642a7a59170"
+  },
+  {
+   "anchor": "class-or-interface-annotations",
+   "title": "Declaring Annotations at the Class or Interface Level",
+   "level": 3,
+   "sha256": "5e7c51d4d5e1a309bdfe8010a887aa305b967b953144c9525895d133c3297376"
+  },
+  {
+   "anchor": "meta-annotations",
+   "title": "Using Meta Annotations",
+   "level": 3,
+   "sha256": "047d1cfe5de7f0e135f031431f40590e7bd2509d418e67254de27cd8f03d7100"
+  },
+  {
+   "anchor": "_templating_meta_annotation_expressions",
+   "title": "Templating Meta-Annotation Expressions",
+   "level": 4,
+   "sha256": "89ea917dc9127deb0fd4dfdae6c63f4ca67206e8ce148c6d02e62d57b0ad86f4"
+  },
+  {
+   "anchor": "enable-annotation",
+   "title": "Enabling Certain Annotations",
+   "level": 3,
+   "sha256": "0bcbc7acabc384f1559b51040f5c99f5fb7d0fc61ce17247aaf92735af749968"
+  },
+  {
+   "anchor": "use-intercept-methods",
+   "title": "Authorizing with <intercept-methods>",
+   "level": 2,
+   "sha256": "444e7d72e5eea6402ba9eaa1f847ff046eebcdd4b29fb1d8ec6f5dbc6e8a84fc"
+  },
+  {
+   "anchor": "use-programmatic-authorization",
+   "title": "Authorizing Methods Programmatically",
+   "level": 2,
+   "sha256": "5fbf2971c6357ec2e0427387073f1a7f11854835facd0d7af12843c5e22a9780"
+  },
+  {
+   "anchor": "_using_a_custom_bean_in_spel",
+   "title": "Using a Custom Bean in SpEL",
+   "level": 3,
+   "sha256": "4c37f9a9325f1808463a46cc6476fcf72ff2a8aff241bad7e4f9213da8933318"
+  },
+  {
+   "anchor": "custom-authorization-managers",
+   "title": "Using a Custom Authorization Manager",
+   "level": 3,
+   "sha256": "92935ddd5069d7aefed5d13fa08b11a3425e7ed4c001678cd66ac4b5363b4b92"
+  },
+  {
+   "anchor": "customizing-expression-handling",
+   "title": "Customizing Expression Handling",
+   "level": 3,
+   "sha256": "bac46851e91958962a56a07f06fe5ba767ed177923b2568d9cf54646505c8903"
+  },
+  {
+   "anchor": "pre-post-authorize-aot",
+   "title": "Working with AOT",
+   "level": 3,
+   "sha256": "a81e78f5691b481dac2ba4d0345484cdb8a1b89b1d2f89b83cb697f28f066c2f"
+  },
+  {
+   "anchor": "use-aspectj",
+   "title": "Authorizing with AspectJ",
+   "level": 2,
+   "sha256": "2b1447f23014e419b3982e21cb0a02746d524122ac2602dca5b50e9f961f5aed"
+  },
+  {
+   "anchor": "match-by-pointcut",
+   "title": "Matching Methods with Custom Pointcuts",
+   "level": 3,
+   "sha256": "7b0640d0693d8cebb2a46d626d6e7e97db2c9ea4f309525af2e1739e050f0f68"
+  },
+  {
+   "anchor": "weave-aspectj",
+   "title": "Integrate with AspectJ Byte-weaving",
+   "level": 3,
+   "sha256": "f614e931e0a1ff94c863dcb00b94859f827afa8e7aa6fdb80eca90ca626592e1"
+  },
+  {
+   "anchor": "changing-the-order",
+   "title": "Specifying Order",
+   "level": 2,
+   "sha256": "08d9add596fc49fd348388349213f34ca76681e2739f203660fac81bc2ed068a"
+  },
+  {
+   "anchor": "authorization-expressions",
+   "title": "Expressing Authorization with SpEL",
+   "level": 2,
+   "sha256": "93db3aa61db417548d941140ff6cc2bb181e7bfb7db0586b2e6b303114a4c36a"
+  },
+  {
+   "anchor": "using-authorization-expression-fields-and-methods",
+   "title": "Using Authorization Expression Fields and Methods",
+   "level": 3,
+   "sha256": "6e36960880e894f702626c9768c9347c06f44d03176739aef4ebb07e216cf1a2"
+  },
+  {
+   "anchor": "using_method_parameters",
+   "title": "Using Method Parameters",
+   "level": 3,
+   "sha256": "d4ee2287e1ac5d5295f3c000e69a4f5fe6feb74ee79d6cd3b6477fb83ca1484e"
+  },
+  {
+   "anchor": "customizing-authorization-managers",
+   "title": "Customizing Authorization Managers",
+   "level": 2,
+   "sha256": "d76db8b2e9f5f8ce0467f836c37e16d858f9ef21ee48cf96bb980f6bb494818f"
+  },
+  {
+   "anchor": "authorize-object",
+   "title": "Authorizing Arbitrary Objects",
+   "level": 2,
+   "sha256": "e225624810ecbfdb5a77801e56238ca12c256058effd76fac845b8576393ad9a"
+  },
+  {
+   "anchor": "_using_authorizereturnobject_at_the_class_level",
+   "title": "Using @AuthorizeReturnObject at the class level",
+   "level": 3,
+   "sha256": "9667c6ec5cee945d10b3c1f94754fa3dbca4056029ff4b5abe69be3434eab1e3"
+  },
+  {
+   "anchor": "_programmatically_proxying",
+   "title": "Programmatically Proxying",
+   "level": 3,
+   "sha256": "7db48d50e56d9dbc1b55a21b810324ef8e3f4422ebe1b4e2fb2f33e9ee036bc1"
+  },
+  {
+   "anchor": "_manual_construction",
+   "title": "Manual Construction",
+   "level": 3,
+   "sha256": "035ba310fc5acab389abfd5db4286b1c8e194395dbaf9a93528291dfa6ac8801"
+  },
+  {
+   "anchor": "_proxying_collections",
+   "title": "Proxying Collections",
+   "level": 3,
+   "sha256": "f7932497ddf86c941eebfa897556aa21456b0581c31d934d9f94606a883b137a"
+  },
+  {
+   "anchor": "_proxying_classes",
+   "title": "Proxying Classes",
+   "level": 3,
+   "sha256": "0e6ff042253da18b3c24f8daa4ac3b6845a82850127c24d1907ed21f86e762e9"
+  },
+  {
+   "anchor": "_support_for_all_method_security_annotations",
+   "title": "Support for All Method Security Annotations",
+   "level": 3,
+   "sha256": "902062c02979682f9259d878c3631407f97ffba897bf19f78d4dad478d049ffe"
+  },
+  {
+   "anchor": "custom_advice",
+   "title": "Custom Advice",
+   "level": 3,
+   "sha256": "9368172cff12df10a8e7383559a54deecf6c84303ab2c7dd933768b21f7f2a2b"
+  },
+  {
+   "anchor": "_working_with_jackson",
+   "title": "Working with Jackson",
+   "level": 3,
+   "sha256": "a2d25722e8facada4ca4575e91533bc36edbf7e05f741bcf33e94f7b711cc151"
+  },
+  {
+   "anchor": "authorize-return-object-aot",
+   "title": "Working with AOT",
+   "level": 3,
+   "sha256": "f9121856e2ad2e3f1d8ab7c08aa731e97e1feef13bf35c9b474ec1117e7a76dc"
+  },
+  {
+   "anchor": "fallback-values-authorization-denied",
+   "title": "Providing Fallback Values When Authorization is Denied",
+   "level": 2,
+   "sha256": "cf0374084411c113e45b51c747675448959251bacfcebc2efce7eb4b0704417c"
+  },
+  {
+   "anchor": "_using_the_denied_result_from_the_method_invocation",
+   "title": "Using the Denied Result From the Method Invocation",
+   "level": 3,
+   "sha256": "d1ccbacead68382f392e0bb04c6a779a6e7a1702e577d1ab7000cfd5eec651de"
+  },
+  {
+   "anchor": "deciding-return-based-parameters",
+   "title": "Deciding What to Return Based on Available Parameters",
+   "level": 3,
+   "sha256": "63ceaa5f2f1b8d003130759841b559631d5eb60af6c1c68392df811278e92613"
+  },
+  {
+   "anchor": "_combining_with_meta_annotation_support",
+   "title": "Combining with Meta Annotation Support",
+   "level": 3,
+   "sha256": "ee8d6f303e9d2ca8965c2b11f0fc7c161eedce7ae071a16cf6e3def3a2913696"
+  },
+  {
+   "anchor": "migration-enableglobalmethodsecurity",
+   "title": "Migrating from @EnableGlobalMethodSecurity",
+   "level": 2,
+   "sha256": "e601c814cdb5a3584793d0fb61ebd76378ee3ffae8cbcc3e80996bc491695cf4"
+  },
+  {
+   "anchor": "servlet-replace-globalmethodsecurity-with-methodsecurity",
+   "title": "Replace global method security with method security",
+   "level": 3,
+   "sha256": "734a1246e2432fca0129164ef9481ade9f9ada52d8160a8a013eb5601758cfd6"
+  },
+  {
+   "anchor": "_use_a_custom_bean_instead_of_subclassing_defaultmethodsecurityexpressionhandler",
+   "title": "Use a Custom @Bean instead of subclassing DefaultMethodSecurityExpressionHandler",
+   "level": 3,
+   "sha256": "f169387a920f252ea3e6de6ab1c6fa46cd988da71b1ef8aedec78a60bf25de5b"
+  },
+  {
+   "anchor": "subclass-defaultmethodsecurityexpressionhandler",
+   "title": "I’d still prefer to subclass DefaultMethodSecurityExpressionHandler",
+   "level": 4,
+   "sha256": "73a86523caa32193ac02c70578d4a7da932b828035ef3b847c9ad5c913b0ad5e"
+  },
+  {
+   "anchor": "_further_reading",
+   "title": "Further Reading",
+   "level": 2,
+   "sha256": "d17d22c03b390623c4c41d8bf30672c1fc3f5fb22b62fee9713a4b3d1677a621"
+  }
+ ]
+}

@@ -1,0 +1,1845 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Working with Application Events :: Spring Modulith</title>
+    <link rel="canonical" href="https://docs.spring.io/spring-modulith/reference/events.html">
+    <link rel="prev" href="verification.html">
+    <link rel="next" href="testing.html">
+    <meta name="generator" content="Antora 3.2.0-alpha.2">
+    
+    <link rel="stylesheet" href="./_/css/site.css">
+    <link rel="stylesheet" href="./_/css/vendor/search.css">
+    <link rel="stylesheet" href="./_/css/vendor/page-search.css">
+    <link rel="stylesheet" href="./_/css/vendor/onetrust.css">
+    <link rel="stylesheet" href="./_/css/vendor/asciidoctor-tabs.css">
+
+    <meta name="antora-ui-version" content="v0.4.26"> 
+    <meta name="version" content="2.1.1">
+    <meta name="generation" content="2.1">
+    <meta name="versioned-url" content="https://docs.spring.io/spring-modulith/reference/2.1/events.html">
+    <meta name="component" content="modulith">
+    <meta name="latest-version" content="true">
+    <link rel="icon" href="./_/img/favicon.ico" type="image/vnd.microsoft.icon">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://spring.io">
+        <img
+          id="springlogo"
+          class="block"
+          src="./_/img/spring-logo.svg"
+          alt="Spring"
+        />
+      </a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Why Spring</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://spring.io/why-spring">Overview</a>
+            <li class="navbar-item navbar-item-special-3">Trending</li>
+            <a class="navbar-item" href="https://spring.io/ai">Generative AI</a>
+            <a class="navbar-item" href="https://spring.io/cloud">Cloud</a>
+            <li class="navbar-item navbar-item-special-3">Architecture Patterns</li>
+            <a class="navbar-item" href="https://spring.io/microservices">Microservices</a>
+            <a class="navbar-item" href="https://spring.io/reactive">Reactive</a>
+            <a class="navbar-item" href="https://spring.io/event-driven">Event Driven</a>
+            <li class="navbar-item navbar-item-special-3">Application Types</li>
+            <a class="navbar-item" href="https://spring.io/web-applications">Web Applications</a>
+            <a class="navbar-item" href="https://spring.io/serverless">Serverless</a>
+            <a class="navbar-item" href="https://spring.io/batch">Batch</a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Learn</a>
+          <div class="navbar-dropdown">
+            <li class="navbar-item navbar-item-special-3">Getting Started</li>
+            <a class="navbar-item" href="https://spring.io/quickstart">Quickstart</a>
+            <a class="navbar-item" href="https://spring.io/guides">Guides</a>
+            <li class="navbar-item navbar-item-special-3">Academy</li>
+            <a class="navbar-item" href="https://spring.academy/courses">Courses
+              <svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><polyline points="15 10.94 15 15 1 15 1 1 5.06 1" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"></polyline><polyline points="8.93 1 15 1 15 7.07" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"></polyline><line x1="15" y1="1" x2="8" y2="8" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"></line></svg>
+            </a>
+            <a class="navbar-item" href="https://spring.academy/learning-path">Get Certified
+              <svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><polyline points="15 10.94 15 15 1 15 1 1 5.06 1" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"></polyline><polyline points="8.93 1 15 1 15 7.07" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"></polyline><line x1="15" y1="1" x2="8" y2="8" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"></line></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Projects</a>
+          <div class="navbar-dropdown" style="min-width: 280px">
+            <a class="navbar-item" href="https://spring.io/projects">Overview</a>
+            <li class="navbar-item navbar-item-special-3">Projects</li>
+            <a class="navbar-item" href="https://spring.io/projects/spring-boot">Spring Boot</a>
+            <a class="navbar-item" href="https://spring.io/projects/spring-framework">Spring Framework</a>
+            <a class="navbar-item" href="https://spring.io/projects/spring-cloud">Spring Cloud</a>
+            <a class="navbar-item" href="https://spring.io/projects/spring-ai">Spring AI</a>
+            <a class="navbar-item" href="https://spring.io/projects/spring-data">Spring Data</a>
+            <a class="navbar-item" href="https://spring.io/projects/spring-integration">Spring Integration</a>
+            <a class="navbar-item" href="https://spring.io/projects/spring-batch">Spring Batch</a>
+            <a class="navbar-item" href="https://spring.io/projects/spring-security">Spring Security</a>
+            <li class="navbar-item navbar-item-special-3">Foundational Projects</li>
+            <a class="navbar-item" href="https://micrometer.io">Micrometer
+              <svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><polyline points="15 10.94 15 15 1 15 1 1 5.06 1" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"></polyline><polyline points="8.93 1 15 1 15 7.07" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"></polyline><line x1="15" y1="1" x2="8" y2="8" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"></line></svg>
+            </a>
+            <a class="navbar-item" href="https://projectreactor.io">Reactor
+              <svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><polyline points="15 10.94 15 15 1 15 1 1 5.06 1" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"></polyline><polyline points="8.93 1 15 1 15 7.07" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"></polyline><line x1="15" y1="1" x2="8" y2="8" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"></line></svg>
+            </a>
+            <li class="navbar-item navbar-item-special-3">Development Tools</li>
+            <a class="navbar-item" href="https://spring.io/tools">Spring Tools</a>
+            <a class="navbar-item navbar-item-special-2" href="https://start.spring.io">Spring Initializr
+              <svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><polyline points="15 10.94 15 15 1 15 1 1 5.06 1" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"></polyline><polyline points="8.93 1 15 1 15 7.07" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"></polyline><line x1="15" y1="1" x2="8" y2="8" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"></line></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Resources</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://spring.io/blog">Blog</a>
+            <a class="navbar-item" href="https://spring.io/projects#release-calendar">Release Calendar</a>
+            <a class="navbar-item" href="https://spring.io/projects/generations">Version Mappings</a>
+            <a class="navbar-item" href="https://spring.io/projects/release-highlights">Release Highlights</a>
+            <a class="navbar-item" href="https://spring.io/security">Security Advisories</a>
+            <li class="navbar-item navbar-item-special-3">GitHub Orgs</li>
+            <a class="navbar-item" href="https://github.com/spring-projects">Spring Projects
+              <svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><polyline points="15 10.94 15 15 1 15 1 1 5.06 1" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"></polyline><polyline points="8.93 1 15 1 15 7.07" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"></polyline><line x1="15" y1="1" x2="8" y2="8" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"></line></svg>
+            </a>
+            <a class="navbar-item" href="https://github.com/spring-cloud">Spring Cloud
+              <svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><polyline points="15 10.94 15 15 1 15 1 1 5.06 1" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"></polyline><polyline points="8.93 1 15 1 15 7.07" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"></polyline><line x1="15" y1="1" x2="8" y2="8" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"></line></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Community</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://spring.io/community">Overview</a>
+            <a class="navbar-item" href="https://spring.io/events">Events</a>
+            <a class="navbar-item" href="https://spring.io/authors">Authors</a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable is-enterprise">
+          <a class="navbar-link" href="#">Enterprise</a>
+          <div class="navbar-dropdown lg is-right">
+            <a class="navbar-item" href="https://enterprise.spring.io/">Overview</a>
+            <a class="navbar-item" href="https://enterprise.spring.io/lts-releases">Long-term Support</a>
+            <a class="navbar-item" href="https://enterprise.spring.io/spring-application-advisor">Automated Upgrades</a>
+            <a class="navbar-item" href="https://enterprise.spring.io/enterprise-extensions">Governance and Compliance</a>
+            <a class="navbar-item" href="https://enterprise.spring.io/enterprise-components">Modern App Development</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <label class="theme-toggler">
+      <input
+        type="checkbox"
+        type="checkbox"
+        id="switch-theme-checkbox"
+        name="switch-theme-checkbox"
+      />
+      <span class="icon"><svg
+          aria-hidden="true"
+          focusable="false"
+          data-prefix="fas"
+          data-icon="moon"
+          class="svg-inline--fa fa-moon moon"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 384 512"
+        ><path
+            fill="currentColor"
+            d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"
+          ></path>
+        </svg>
+        <svg
+          aria-hidden="true"
+          focusable="false"
+          data-prefix="fas"
+          data-icon="sun"
+          class="svg-inline--fa fa-sun sun"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512"
+        ><path
+            fill="currentColor"
+            d="M361.5 1.2c5 2.1 8.6 6.6 9.6 11.9L391 121l107.9 19.8c5.3 1 9.8 4.6 11.9 9.6s1.5 10.7-1.6 15.2L446.9 256l62.3 90.3c3.1 4.5 3.7 10.2 1.6 15.2s-6.6 8.6-11.9 9.6L391 391 371.1 498.9c-1 5.3-4.6 9.8-9.6 11.9s-10.7 1.5-15.2-1.6L256 446.9l-90.3 62.3c-4.5 3.1-10.2 3.7-15.2 1.6s-8.6-6.6-9.6-11.9L121 391 13.1 371.1c-5.3-1-9.8-4.6-11.9-9.6s-1.5-10.7 1.6-15.2L65.1 256 2.8 165.7c-3.1-4.5-3.7-10.2-1.6-15.2s6.6-8.6 11.9-9.6L121 121 140.9 13.1c1-5.3 4.6-9.8 9.6-11.9s10.7-1.5 15.2 1.6L256 65.1 346.3 2.8c4.5-3.1 10.2-3.7 15.2-1.6zM160 256a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zm224 0a128 128 0 1 0 -256 0 128 128 0 1 0 256 0z"
+          ></path>
+        </svg></span>
+      <span class="text">light</span>
+    </label>
+  </nav>
+</header>
+
+<div class="body">
+<div class="nav-container" data-component="modulith" data-version="2.1.1">
+  <aside class="nav">
+    <div class="panels">
+      <div class="nav-panel-menu is-active" data-panel="menu">
+        <nav class="nav-menu">
+<div class="context">
+  <span class="title">Spring Modulith</span>
+  <span class="version">2.1.1</span>
+  <button class="browse-version" id="browse-version">
+    <svg
+      height="24px"
+      id="Layer_1"
+      style="enable-background:new 0 0 512 512;"
+      version="1.1"
+      viewBox="0 0 512 512"
+      width="24px"
+      xml:space="preserve"
+    ><g><path
+          d="M256,224c-17.7,0-32,14.3-32,32s14.3,32,32,32c17.7,0,32-14.3,32-32S273.7,224,256,224L256,224z"
+        ></path><path
+          d="M128.4,224c-17.7,0-32,14.3-32,32s14.3,32,32,32c17.7,0,32-14.3,32-32S146,224,128.4,224L128.4,224z"
+        ></path><path
+          d="M384,224c-17.7,0-32,14.3-32,32s14.3,32,32,32s32-14.3,32-32S401.7,224,384,224L384,224z"
+        ></path></g></svg>
+  </button>
+  <div class="search">
+  <button class="DocSearch-Button search-button">
+    <svg enable-background="new 0 0 32 32" id="Glyph" version="1.1" viewBox="0 0 32 32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <path d="M27.414,24.586l-5.077-5.077C23.386,17.928,24,16.035,24,14c0-5.514-4.486-10-10-10S4,8.486,4,14  s4.486,10,10,10c2.035,0,3.928-0.614,5.509-1.663l5.077,5.077c0.78,0.781,2.048,0.781,2.828,0  C28.195,26.633,28.195,25.367,27.414,24.586z M7,14c0-3.86,3.14-7,7-7s7,3.14,7,7s-3.14,7-7,7S7,17.86,7,14z" id="XMLID_223_"/>
+    </svg>
+    <span>Search</span>
+    <span class="search-key"></span>
+  </button>
+</div>
+</div><ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link"  href="index.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link"  href="fundamentals.html">Fundamentals</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link"  href="verification.html">Verifying Application Module Structure</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link"  href="events.html">Working with Application Events</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link"  href="testing.html">Integration Testing Application Modules</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link"  href="moments.html">Moments&#8201;&#8212;&#8201;a Passage of Time Events API</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link"  href="documentation.html">Documenting Application Modules</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link"  href="runtime.html">Spring Modulith Runtime Support</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link"  href="production-ready.html">Production-ready Features</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link"  href="appendix.html">Appendix</a>
+  </li>
+</ul>
+  </li>
+</ul>
+          <div class="toggle-sm">
+            <button id="nav-toggle-2" class="nav-toggle"></button>
+          </div>
+        </nav>
+      </div>
+      <div class="nav-collapse">
+        <button id="nav-collapse-toggle"><span></span></button>        
+      </div>
+    </div>
+    <div class="nav-resize"></div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+  <button id="nav-toggle-1" class="nav-toggle"></button>
+<div class="search">
+  <button class="DocSearch-Button search-button">
+    <svg enable-background="new 0 0 32 32" id="Glyph" version="1.1" viewBox="0 0 32 32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <path d="M27.414,24.586l-5.077-5.077C23.386,17.928,24,16.035,24,14c0-5.514-4.486-10-10-10S4,8.486,4,14  s4.486,10,10,10c2.035,0,3.928-0.614,5.509-1.663l5.077,5.077c0.78,0.781,2.048,0.781,2.828,0  C28.195,26.633,28.195,25.367,27.414,24.586z M7,14c0-3.86,3.14-7,7-7s7,3.14,7,7s-3.14,7-7,7S7,17.86,7,14z" id="XMLID_223_"/>
+    </svg>
+    <span>Search</span>
+    <span class="search-key"></span>
+  </button>
+</div>
+</div>
+  <div class="content">
+<aside class="sidebar">
+  <div class="content">
+    <div
+      class="toc"
+      data-title="Working with Application Events"
+      data-levels="2"
+    >
+      <div class="toc-menu"></div>
+    </div>
+    <div class="sidebar-links">
+        <a href="https://github.com/spring-projects/spring-modulith/blob/2.1.1/src/docs/antora/modules/ROOT/pages/events.adoc">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="24"
+            viewBox="0 0 24 24"
+            width="24"
+          ><path
+              d="m16 2.012 3 3L16.713 7.3l-3-3zM4 14v3h3l8.299-8.287-3-3zm0 6h16v2H4z"
+            ></path></svg>
+          Edit this Page
+        </a>
+              <a href="https://github.com/spring-projects/spring-modulith" title="GitHub">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="512px"
+            id="Layer_1"
+            version="1.1"
+            viewBox="0 0 512 512"
+            width="512px"
+          ><g><path
+                class="st0"
+                d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"
+              ></path></g></svg>
+          GitHub Project
+        </a>
+    </div>
+  </div>
+</aside>
+<article class="doc">
+<div class="breadcrumbs-container">
+  <nav class="breadcrumbs" aria-label="breadcrumbs">
+    <ul>
+      <li id="copy-url" title="Copy versioned URL"></li>
+      <li><a href="index.html">Spring Modulith</a></li>
+      <li><a href="events.html">Working with Application Events</a></li>
+    </ul>
+  </nav>
+</div><h1 id="page-title" class="page">Working with Application Events</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>To keep application modules as decoupled as possible from each other, their primary means of interaction should be event publication and consumption.
+This avoids the originating module to know about all potentially interested parties, which is a key aspect to enable application module integration testing (see <a href="testing.html" class="xref page">Integration Testing Application Modules</a>).</p>
+</div>
+<div class="paragraph">
+<p>Often we will find application components defined like this:</p>
+</div>
+<div id="_tabs_1" class="openblock tabs is-sync is-loading">
+<div class="content">
+<div class="ulist tablist">
+<ul>
+<li id="_tabs_1_java" class="tab">
+<p>Java</p>
+</li>
+<li id="_tabs_1_kotlin" class="tab">
+<p>Kotlin</p>
+</li>
+</ul>
+</div>
+<div id="_tabs_1_java--panel" class="tabpanel" aria-labelledby="_tabs_1_java">
+<div class="listingblock primary">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Service
+@RequiredArgsConstructor
+public class OrderManagement {
+
+  private final InventoryManagement inventory;
+
+  @Transactional
+  public void complete(Order order) {
+
+    // State transition on the order aggregate go here
+
+    // Invoke related functionality
+    inventory.updateStockFor(order);
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+<div id="_tabs_1_kotlin--panel" class="tabpanel" aria-labelledby="_tabs_1_kotlin">
+<div class="listingblock secondary">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">@Service
+class OrderManagement(val inventory: InventoryManagement) {
+
+  @Transactional
+  fun complete(order: Order) {
+    inventory.updateStockFor(order)
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>complete(…)</code> method creates functional gravity in the sense that it attracts related functionality and thus interaction with Spring beans defined in other application modules.
+This especially makes the component harder to test as we need to have instances available of those depended on beans just to create an instance of <code>OrderManagement</code> (see <a href="testing.html#efferent-dependencies" class="xref page">Dealing with Efferent Dependencies</a>).
+It also means that we will have to touch the class whenever we would like to integrate further functionality with the business event order completion.</p>
+</div>
+<div class="paragraph">
+<p>We can change the application module interaction as follows:</p>
+</div>
+<div id="_tabs_2" class="openblock tabs is-sync is-loading">
+<div class="title">Publishing an application event via Spring&#8217;s <code>ApplicationEventPublisher</code></div>
+<div class="content">
+<div class="ulist tablist">
+<ul>
+<li id="_tabs_2_java" class="tab">
+<p>Java</p>
+</li>
+<li id="_tabs_2_kotlin" class="tab">
+<p>Kotlin</p>
+</li>
+</ul>
+</div>
+<div id="_tabs_2_java--panel" class="tabpanel" aria-labelledby="_tabs_2_java">
+<div class="listingblock primary">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Service
+@RequiredArgsConstructor
+public class OrderManagement {
+
+  private final ApplicationEventPublisher events;
+  private final OrderInternal dependency;
+
+  @Transactional
+  public void complete(Order order) {
+
+    // State transition on the order aggregate go here
+
+    events.publishEvent(new OrderCompleted(order.getId()));
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+<div id="_tabs_2_kotlin--panel" class="tabpanel" aria-labelledby="_tabs_2_kotlin">
+<div class="listingblock secondary">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">@Service
+class OrderManagement(val events: ApplicationEventPublisher, val dependency: OrderInternal) {
+
+  @Transactional
+  fun complete(order: Order) {
+    events.publishEvent(OrderCompleted(order.id))
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Note how, instead of depending on the other application module&#8217;s Spring bean, we use Spring&#8217;s <code>ApplicationEventPublisher</code> to publish a domain event once we have completed the state transitions on the primary aggregate.
+For a more aggregate-driven approach to event publication, see <a href="https://docs.spring.io/spring-data/commons/reference/repositories/core-domain-events.html">Spring Data&#8217;s application event publication mechanism</a> for details.
+As event publication happens synchronously by default, the transactional semantics of the overall arrangement stay the same as in the example above.
+Both for the good, as we get to a very simple consistency model (either both the status change of the order <em>and</em> the inventory update succeed or none of them does), but also for the bad as more triggered related functionality will widen the transaction boundary and potentially cause the entire transaction to fail, even if the functionality that is causing the error is not crucial.</p>
+</div>
+<div class="paragraph">
+<p>A different way of approaching this is by moving the event consumption to asynchronous handling at transaction commit and treat secondary functionality exactly as that:</p>
+</div>
+<div id="_tabs_3" class="openblock tabs is-sync is-loading">
+<div class="title">An async, transactional event listener</div>
+<div class="content">
+<div class="ulist tablist">
+<ul>
+<li id="_tabs_3_java" class="tab">
+<p>Java</p>
+</li>
+<li id="_tabs_3_kotlin" class="tab">
+<p>Kotlin</p>
+</li>
+</ul>
+</div>
+<div id="_tabs_3_java--panel" class="tabpanel" aria-labelledby="_tabs_3_java">
+<div class="listingblock primary">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Component
+class InventoryManagement {
+
+  @Async
+  @TransactionalEventListener
+  void on(OrderCompleted event) { /* … */ }
+}</code></pre>
+</div>
+</div>
+</div>
+<div id="_tabs_3_kotlin--panel" class="tabpanel" aria-labelledby="_tabs_3_kotlin">
+<div class="listingblock secondary">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">@Component
+class InventoryManagement {
+
+  @Async
+  @TransactionalEventListener
+  fun on(event: OrderCompleted) { /* … */ }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>This now effectively decouples the original transaction from the execution of the listener.
+While this avoids the expansion of the original business transaction, it also creates a risk: if the listener fails for whatever reason, the event publication is lost, unless each listener actually implements its own safety net.
+Even worse, that doesn&#8217;t even fully work, as the system might fail before the method is even invoked.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="aml"><a class="anchor" href="#aml"></a>Application Module Listener</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To run a transactional event listener in a transaction itself, it would need to be annotated with <code>@Transactional</code> in turn.</p>
+</div>
+<div id="_tabs_4" class="openblock tabs is-sync is-loading">
+<div class="title">An async, transactional event listener running in a transaction itself</div>
+<div class="content">
+<div class="ulist tablist">
+<ul>
+<li id="_tabs_4_java" class="tab">
+<p>Java</p>
+</li>
+<li id="_tabs_4_kotlin" class="tab">
+<p>Kotlin</p>
+</li>
+</ul>
+</div>
+<div id="_tabs_4_java--panel" class="tabpanel" aria-labelledby="_tabs_4_java">
+<div class="listingblock primary">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Component
+class InventoryManagement {
+
+  @Async
+  @Transactional(propagation = Propagation.REQUIRES_NEW)
+  @TransactionalEventListener
+  void on(OrderCompleted event) { /* … */ }
+}</code></pre>
+</div>
+</div>
+</div>
+<div id="_tabs_4_kotlin--panel" class="tabpanel" aria-labelledby="_tabs_4_kotlin">
+<div class="listingblock secondary">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">@Component
+class InventoryManagement {
+
+  @Async
+  @Transactional(propagation = Propagation.REQUIRES_NEW)
+  @TransactionalEventListener
+  fun on(event: OrderCompleted) { /* … */ }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>To ease the declaration of what is supposed to describe the default way of integrating modules via events, Spring Modulith provides <code>@ApplicationModuleListener</code> as a shortcut.</p>
+</div>
+<div id="_tabs_5" class="openblock tabs is-sync is-loading">
+<div class="title">An application module listener</div>
+<div class="content">
+<div class="ulist tablist">
+<ul>
+<li id="_tabs_5_java" class="tab">
+<p>Java</p>
+</li>
+<li id="_tabs_5_kotlin" class="tab">
+<p>Kotlin</p>
+</li>
+</ul>
+</div>
+<div id="_tabs_5_java--panel" class="tabpanel" aria-labelledby="_tabs_5_java">
+<div class="listingblock primary">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Component
+class InventoryManagement {
+
+  @ApplicationModuleListener
+  void on(OrderCompleted event) { /* … */ }
+}</code></pre>
+</div>
+</div>
+</div>
+<div id="_tabs_5_kotlin--panel" class="tabpanel" aria-labelledby="_tabs_5_kotlin">
+<div class="listingblock secondary">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">@Component
+class InventoryManagement {
+
+  @ApplicationModuleListener
+  fun on(event: OrderCompleted) { /* … */ }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="publication-registry"><a class="anchor" href="#publication-registry"></a>The Event Publication Registry</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Spring Modulith ships with an event publication registry that hooks into the core event publication mechanism of Spring Framework.
+On event publication, it finds out about the transactional event listeners that will get the event delivered and writes entries for each of them (dark blue) into an event publication log as part of the original business transaction.
+By default, all event listeners (meta-)annotated with <code>@TransactionalEventListener</code> are considered.
+If you want to customize this, check out the <a href="appendix.html#configuration-properties" class="xref page"> <code>spring.modulith.events.registry-trigger-annotation</code> property</a>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/event-publication-registry-start.png" alt="event publication registry start">
+</div>
+<div class="title">Figure 1. The transactional event listener arrangement before execution</div>
+</div>
+<div class="paragraph">
+<p>Each transactional event listener is wrapped into an aspect that marks that log entry as completed if the execution of the listener succeeds.
+In case the listener fails, the log entry stays untouched so that retry mechanisms can be deployed depending on the application&#8217;s needs.
+Automatic re-publication of the events can be enabled via the <a href="appendix.html#configuration-properties" class="xref page"><code>spring.modulith.events.republish-outstanding-events-on-restart</code></a> property.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/event-publication-registry-end.png" alt="event publication registry end">
+</div>
+<div class="title">Figure 2. The transactional event listener arrangement after execution</div>
+</div>
+<div class="sect2">
+<h3 id="publication-registry.lifecycle"><a class="anchor" href="#publication-registry.lifecycle"></a>Event Publication Lifecycle (since 2.0)</h3>
+<div class="paragraph">
+<p>Spring Modulith 2.0 introduces a dedicated lifecycle for event publications so that you can distinguish publications that are about to be processed, currently in progress, completed, or failed.
+That makes it easier to resubmit only failed publications and to recover from crashes without incorrectly treating in-progress ones as failed.</p>
+</div>
+<div class="sect3">
+<h4 id="publication-registry.lifecycle.states"><a class="anchor" href="#publication-registry.lifecycle.states"></a>Publication states</h4>
+<div class="paragraph">
+<p>Each event publication has a <code>EventPublication.Status</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>PUBLISHED</code> – The publication was stored and is waiting to be processed (or is about to be picked up).</p>
+</li>
+<li>
+<p><code>PROCESSING</code> – A listener has claimed the publication and is executing. The interceptor around the listener sets this before invoking the listener and sets it to <code>COMPLETED</code> or <code>FAILED</code> when the listener returns.</p>
+</li>
+<li>
+<p><code>COMPLETED</code> – The listener finished successfully. A completion date is set (unless the completion <a href="#publication-registry.completion">mode is <code>DELETE</code></a>).</p>
+</li>
+<li>
+<p><code>FAILED</code> – The listener threw an exception, or the publication was marked failed by the staleness mechanism (see <a href="#publication-registry.lifecycle.staleness">Event Publication Staleness and Automatic Marking as Failed</a>).</p>
+</li>
+<li>
+<p><code>RESUBMITTED</code> – A previously failed publication was resubmitted and is again pending processing.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock kroki">
+<div class="content">
+<img src="modulith/_images/event-publication-lifecycle-ab8d6ffd06f5cc626c7bceebcede14fad3d0ccac.svg" alt="event-publication-lifecycle">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="publication-registry.lifecycle.details"><a class="anchor" href="#publication-registry.lifecycle.details"></a>Publication details</h4>
+<div class="paragraph">
+<p>In addition to the status, each publication tracks:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><em>Last resubmission date</em> – When the publication was last resubmitted (if ever). Exposed via <code>EventPublication.getLastResubmissionDate()</code>.</p>
+</li>
+<li>
+<p><em>Completion attempts</em> – How often the listener was invoked (including the current run). Incremented when moving to <code>PROCESSING</code>, so a crash during the listener still leaves the attempt count updated. Exposed via <code>EventPublication.getCompletionAttempts()</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>These allow you to implement policies such as "resubmit only if failed longer than X" or "stop after N attempts" using the resubmission APIs and options.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="publication-registry.lifecycle.staleness"><a class="anchor" href="#publication-registry.lifecycle.staleness"></a>Event Publication Staleness and Automatic Marking as Failed</h4>
+<div class="paragraph">
+<p>Publications can remain in <code>PUBLISHED</code>, <code>PROCESSING</code>, or <code>RESUBMITTED</code> if the application crashes or a listener hangs.
+So that they can be treated as failed and resubmitted (or ignored), you can configure after which duration each of these states is considered <em>stale</em>. Stale publications are periodically marked as <code>FAILED</code> by a background task.</p>
+</div>
+<div class="paragraph">
+<p>Spring Modulith provides a <em>Staleness Monitor</em> (since 2.0) that runs as a scheduled task at a configurable interval.
+When any of the staleness durations is set to a non-zero value, the monitor is active: on each run it finds event publications in <code>PUBLISHED</code>, <code>PROCESSING</code>, or <code>RESUBMITTED</code> that are older than the corresponding duration and marks them as <code>FAILED</code>. That allows recovery (e.g. via <code>FailedEventPublications.resubmit(…)</code>) or other handling of publications that would otherwise remain stuck.
+You customize it via the <a href="appendix.html#configuration-properties" class="xref page"><code>spring.modulith.events.staleness</code> configuration properties</a>.
+If all of <code>published</code>, <code>processing</code>, and <code>resubmitted</code> are zero (default), the Staleness Monitor does not register the scheduled task and no automatic marking as failed occurs.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="publication-registry.lifecycle.failed-and-resubmission"><a class="anchor" href="#publication-registry.lifecycle.failed-and-resubmission"></a>Failed publications and resubmission</h4>
+<div class="paragraph">
+<p>The registry lets you work explicitly with failed publications:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><em>FailedEventPublications</em> (since 2.0) – Use the bean of this type to resubmit only failed publications: <code>resubmit(ResubmissionOptions)</code>.</p>
+</li>
+<li>
+<p><em>ResubmissionOptions</em> – Control how resubmission works: batch size, maximum in-flight, minimum age of the publication, and an optional filter (e.g. by event type or <code>completionAttempts</code>). Create with <code>ResubmissionOptions.defaults()</code> and customize with <code>withBatchSize(…)</code>, <code>withMinAge(…)</code>, <code>withFilter(…)</code>, etc.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Resubmission changes the status from <code>FAILED</code> to <code>RESUBMITTED</code> and updates the last resubmission date; when a listener is about to run, the publication moves to <code>PROCESSING</code> and the completion attempt count is incremented.</p>
+</div>
+<div class="paragraph">
+<p>For "incomplete" publications in general (including failed and, depending on configuration, stale ones), the existing <code>IncompleteEventPublications</code> API still applies; as of 2.0 it supports <code>resubmitIncompletePublications(ResubmissionOptions)</code> in addition to the predicate- and duration-based overloads.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="publication-registry.starters"><a class="anchor" href="#publication-registry.starters"></a>Spring Boot Event Registry Starters</h3>
+<div class="paragraph">
+<p>Using the transactional event publication log requires a combination of artifacts added to your application.
+To ease that task, Spring Modulith provides starter POMs that are centered around the <a href="#publication-registry.publication-repositories">persistence technology</a> to be used and default to the Jackson-based <a href="#publication-registry.serialization">EventSerializer</a> implementation.
+The following starters are available:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 10%;">
+<col style="width: 30%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Persistence Technology</th>
+<th class="tableblock halign-left valign-top">Artifact</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JPA</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>spring-modulith-starter-jpa</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Using JPA as persistence technology.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JDBC</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>spring-modulith-starter-jdbc</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Using JDBC as persistence technology. Also works in JPA-based applications but bypasses your JPA provider for actual event persistence.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MongoDB</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>spring-modulith-starter-mongodb</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Using MongoDB as persistence technology. Also enables MongoDB transactions and requires a replica set setup of the server to interact with. The transaction auto-configuration can be disabled by setting the <code>spring.modulith.events.mongodb.transaction-management.enabled</code> property to <code>false</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Neo4j</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>spring-modulith-starter-neo4j</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Using Neo4j behind Spring Data Neo4j.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="publication-registry.managing-publications"><a class="anchor" href="#publication-registry.managing-publications"></a>Managing Event Publications</h3>
+<div class="paragraph">
+<p>Event publications may need to be managed in a variety of ways during the runtime of an application.
+Incomplete publications might have to be re-submitted to the corresponding listeners after a given amount of time.
+Completed publications on the other hand, will likely have to be purged from the database or moved into an archive store.
+As the needs for that kind of housekeeping strongly vary from application to application, Spring Modulith offers an API to deal with both kinds of publications.
+That API is available through the <code>spring-modulith-events-api</code> artifact that you can add to your application:</p>
+</div>
+<div id="_tabs_6" class="openblock tabs is-sync is-loading">
+<div class="title">Using Spring Modulith Events API artifact</div>
+<div class="content">
+<div class="ulist tablist">
+<ul>
+<li id="_tabs_6_maven" class="tab">
+<p>Maven</p>
+</li>
+<li id="_tabs_6_gradle" class="tab">
+<p>Gradle</p>
+</li>
+</ul>
+</div>
+<div id="_tabs_6_maven--panel" class="tabpanel" aria-labelledby="_tabs_6_maven">
+<div class="listingblock primary">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
+  &lt;groupId&gt;org.springframework.modulith&lt;/groupId&gt;
+  &lt;artifactId&gt;spring-modulith-events-api&lt;/artifactId&gt;
+  &lt;version&gt;2.1.1&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+</div>
+<div id="_tabs_6_gradle--panel" class="tabpanel" aria-labelledby="_tabs_6_gradle">
+<div class="listingblock secondary">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">dependencies {
+  implementation 'org.springframework.modulith:spring-modulith-events-api:2.1.1'
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>This artifact contains primary abstractions that are available to application code as Spring Beans:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>CompletedEventPublications</code>&#8201;&#8212;&#8201;This interface allows accessing all completed event publications, and provides an API to immediately purge all of them from the database or the completed publications older than a given duration (for example, 1 minute).</p>
+</li>
+<li>
+<p><code>IncompleteEventPublications</code>&#8201;&#8212;&#8201;This interface allows accessing all incomplete event publications to resubmit either the ones matching a given predicate, older than a given <code>Duration</code> relative to the original publishing date, or matching custom criteria via <code>resubmitIncompletePublications(ResubmissionOptions)</code> (since 2.0).</p>
+</li>
+<li>
+<p><code>FailedEventPublications</code> (since 2.0)&#8201;&#8212;&#8201;This interface allows resubmitting only failed event publications via <code>resubmit(ResubmissionOptions)</code>, as described in <a href="#publication-registry.lifecycle.failed-and-resubmission">Failed publications and resubmission</a>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="publication-registry.completion"><a class="anchor" href="#publication-registry.completion"></a>Event Publication Completion</h3>
+<div class="paragraph">
+<p>Event publications are marked as completed when a transactional or <code>@ApplicationModuleListener</code> execution completes successfully.
+By default, the completion is registered by setting the completion date on an <code>EventPublication</code>.
+This means that completed publications will remain in the Event Publication Registry so that they can be inspected through the <code>CompletedEventPublications</code> interface as described <a href="#publication-registry.managing-publications">above</a>.
+A consequence of this is that you&#8217;ll need to put some code in place that will periodically purge old, completed <code>EventPublication</code>s.
+Otherwise, the persistent abstraction of them, for example a relational database table, will grow unbounded and the interaction with the store creating and completing new <code>EventPublication</code> might slow down.</p>
+</div>
+<div class="paragraph">
+<p>Spring Modulith 1.3 introduces a configuration property <code>spring.modulith.events.completion-mode</code> to support two additional modes of completion.
+It defaults to <code>UPDATE</code> which is backed by the strategy described above.
+Alternatively, the completion mode can be set to <code>DELETE</code>, which alters the registry&#8217;s persistence mechanisms to rather delete <code>EventPublication</code>s on completion.
+This means that <code>CompletedEventPublications</code> will not return any publications anymore, but at the same time, you don&#8217;t have to worry about purging the completed events from the persistence store manually anymore.</p>
+</div>
+<div class="paragraph">
+<p>The third option is the <code>ARCHIVE</code> mode, which copies the entry into an archive table, collection or node.
+For that archive entry, the completion date is set and the original entry is removed.
+Contrary to the <code>DELETE</code> mode, completed event publications are then still accessible via the <code>CompletedEventPublications</code> abstraction.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="publication-registry.publication-repositories"><a class="anchor" href="#publication-registry.publication-repositories"></a>Event Publication Repositories</h3>
+<div class="paragraph">
+<p>To actually write the event publication log, Spring Modulith exposes an <code>EventPublicationRepository</code> SPI and implementations for popular persistence technologies that support transactions, like JPA, JDBC and MongoDB.
+You select the persistence technology to be used by adding the corresponding JAR to your Spring Modulith application.
+We have prepared dedicated <a href="#starters">starters</a> to ease that task.</p>
+</div>
+<div class="paragraph">
+<p>The JDBC-based implementation will create a dedicated table for the event publication log unless the respective configuration property (<code>spring.modulith.events.jdbc.schema-initialization.enabled</code>) is set to <code>false</code>.
+The schema creation will of course also back off if the required tables already exist, for example if created via database migration tools such as Flyway or Liquibase.
+For details, please consult the <a href="appendix.html#schemas" class="xref page">schema overview</a> in the appendix.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="publication-registry.serialization"><a class="anchor" href="#publication-registry.serialization"></a>Event Serializer</h3>
+<div class="paragraph">
+<p>Each log entry contains the original event in serialized form.
+The <code>EventSerializer</code> abstraction contained in <code>spring-modulith-events-core</code> allows plugging different strategies for how to turn the event instances into a format suitable for the datastore.
+Spring Modulith provides a Jackson-based JSON implementation through the <code>spring-modulith-events-jackson</code> artifact, which registers a <code>JacksonEventSerializer</code> consuming an <code>ObjectMapper</code> through standard Spring Boot auto-configuration by default.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="publication-registry.customize-publication-date"><a class="anchor" href="#publication-registry.customize-publication-date"></a>Customizing the Event Publication Date</h3>
+<div class="paragraph">
+<p>By default, the Event Publication Registry will use the date returned by the <code>Clock.systemUTC()</code> as event publication date.
+If you want to customize this, register a bean of type clock with the application context:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Configuration
+class MyConfiguration {
+
+  @Bean
+  Clock myCustomClock() {
+    return … // Your custom Clock instance created here.
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="externalization"><a class="anchor" href="#externalization"></a>Externalizing Events</h2>
+<div class="sectionbody">
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+The following section describes the Spring Modulith-native event externalization that is based on a asynchronous event listener.
+While this is a pragmatic, simple solution, it lacks critical features developers might expect from actual outbox pattern implementations.
+Spring Modulith 2.1 introduced support event externalization through the <a href="https://outbox.namastack.io/">Namastack Outbox</a> and <a href="http://jobrunr.io/">JobRunr</a>.
+See the corresponding section (<a href="#externalization.namastack">Namastack</a>, <a href="#externalization.jobrunr">JobRunr</a>) of the docs for details.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Some of the events exchanged between application modules might be interesting to external systems.
+Spring Modulith allows publishing selected events to a variety of message brokers.
+To use that support you need to take the following steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Add the <a href="#externalization.infrastructure">broker-specific Spring Modulith artifact</a> to your project.</p>
+</li>
+<li>
+<p>Select event types to be externalized by annotating them with either Spring Modulith&#8217;s or jMolecules' <code>@Externalized</code> annotation.</p>
+</li>
+<li>
+<p>Specify the broker-specific routing target in the annotation&#8217;s value.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>To find out how to use other ways of selecting events for externalization, or customize their routing within the broker, check out <a href="#externalization.fundamentals">Fundamentals of Event Externalization</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="externalization.infrastructure"><a class="anchor" href="#externalization.infrastructure"></a>Supported Infrastructure</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 10%;">
+<col style="width: 30%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Broker</th>
+<th class="tableblock halign-left valign-top">Artifact</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kafka</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>spring-modulith-events-kafka</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Uses Spring Kafka for the interaction with the broker.
+The logical routing key will be used as Kafka&#8217;s topic and message key.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AMQP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>spring-modulith-events-amqp</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Uses Spring AMQP for the interaction with any compatible broker.
+Requires an explicit dependency declaration for Spring Rabbit for example.
+The logical routing key will be used as AMQP routing key.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JMS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>spring-modulith-events-jms</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Uses Spring&#8217;s core JMS support.
+Does not support routing keys.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Spring Messaging</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>spring-modulith-events-messaging</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Uses Spring&#8217;s core <code>Message</code> and <code>MessageChannel</code> support.
+Resolves the target <code>MessageChannel</code> by its bean name given the <code>target</code> in the <code>Externalized</code> annotation.
+Forwards routing information as a header - called <code>springModulith_routingTarget</code> - to be processed in whatever way by downstream components, typically in a Spring Integration <code>IntegrationFlow</code>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="externalization.fundamentals"><a class="anchor" href="#externalization.fundamentals"></a>Fundamentals of Event Externalization</h3>
+<div class="paragraph">
+<p>Spring Modulith&#8217;s event externalization is implemented as <a href="#aml">transactional event listener</a> delegating to broker specific publication implementations.
+That means that Spring Modulith&#8217;s <a href="#publication-registry">Event Publication Registry</a> guards the externalization against failures during the interaction with the broker so that the publications can be resubmitted through the APIs provided.</p>
+</div>
+<div class="paragraph">
+<p>The event externalization performs three steps on each application event published.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><em>Determining whether the event is supposed to be externalized</em>&#8201;&#8212;&#8201;We refer to this as &#8220;event selection&#8221;.
+By default, only event types located within a Spring Boot auto-configuration package and annotated with one of the supported <code>@Externalized</code> annotations are selected for externalization.</p>
+</li>
+<li>
+<p><em>Preparing the message (optional)</em>&#8201;&#8212;&#8201;By default, the event is serialized as is by the corresponding broker infrastructure.
+An optional mapping step allows developers to customize or even completely replace the original event with a payload suitable for external parties.
+For Kafka and AMQP, developers can also add headers to the message to be published.</p>
+</li>
+<li>
+<p><em>Determining a routing target</em>&#8201;&#8212;&#8201;Message broker clients need a logical target to publish the message to.
+The target usually identifies physical infrastructure (a topic, exchange, or queue depending on the broker) and is often statically derived from the event type.
+Unless defined in the <code>@Externalized</code> annotation specifically, Spring Modulith uses the application-local type name as target.
+In other words, in a Spring Boot application with a base package of <code>com.acme.app</code>, an event type <code>com.acme.app.sample.SampleEvent</code> would get published to <code>sample.SampleEvent</code>.</p>
+<div class="paragraph">
+<p>Some brokers also allow to define a rather dynamic routing key, that is used for different purposes within the actual target.
+By default, no routing key is used.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="externalization.annotations"><a class="anchor" href="#externalization.annotations"></a>Annotation-based Event Externalization Configuration</h3>
+<div class="paragraph">
+<p>To define a custom routing key via the <code>@Externalized</code> annotations, a pattern of <code>$target::$key</code> can be used for the target/value attribute available in each of the particular annotations.
+Both the target and key can be a SpEL expression which will get the event instance configured as root object.</p>
+</div>
+<div id="_tabs_7" class="openblock tabs is-sync is-loading">
+<div class="title">Defining a dynamic routing key via SpEL expression</div>
+<div class="content">
+<div class="ulist tablist">
+<ul>
+<li id="_tabs_7_java" class="tab">
+<p>Java</p>
+</li>
+<li id="_tabs_7_kotlin" class="tab">
+<p>Kotlin</p>
+</li>
+</ul>
+</div>
+<div id="_tabs_7_java--panel" class="tabpanel" aria-labelledby="_tabs_7_java">
+<div class="listingblock primary">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Externalized("customer-created::#{#this.getLastname()}") <i class="conum" data-value="2"></i><b>(2)</b>
+class CustomerCreated {
+
+  String getLastname() { <i class="conum" data-value="1"></i><b>(1)</b>
+    // …
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+<div id="_tabs_7_kotlin--panel" class="tabpanel" aria-labelledby="_tabs_7_kotlin">
+<div class="listingblock secondary">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">@Externalized("customer-created::#{#this.getLastname()}") <i class="conum" data-value="2"></i><b>(2)</b>
+class CustomerCreated {
+  fun getLastname(): String { <i class="conum" data-value="1"></i><b>(1)</b>
+    // …
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>CustomerCreated</code> event exposes the last name of the customer via an accessor method.
+That method is then used via the <code>&#35;this.getLastname()</code> expression in key expression following the <code>::</code> delimiter of the target declaration.</p>
+</div>
+<div class="paragraph">
+<p>If the key calculation becomes more involved, it is advisable to rather delegate that into a Spring bean that takes the event as argument:</p>
+</div>
+<div id="_tabs_8" class="openblock tabs is-sync is-loading">
+<div class="title">Invoking a Spring bean to calculate a routing key</div>
+<div class="content">
+<div class="ulist tablist">
+<ul>
+<li id="_tabs_8_java" class="tab">
+<p>Java</p>
+</li>
+<li id="_tabs_8_kotlin" class="tab">
+<p>Kotlin</p>
+</li>
+</ul>
+</div>
+<div id="_tabs_8_java--panel" class="tabpanel" aria-labelledby="_tabs_8_java">
+<div class="listingblock primary">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Externalized("…::#{@beanName.someMethod(#this)}")</code></pre>
+</div>
+</div>
+</div>
+<div id="_tabs_8_kotlin--panel" class="tabpanel" aria-labelledby="_tabs_8_kotlin">
+<div class="listingblock secondary">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">@Externalized("…::#{@beanName.someMethod(#this)}")</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="externalization.api"><a class="anchor" href="#externalization.api"></a>Programmatic Event Externalization Configuration</h3>
+<div class="paragraph">
+<p>The <code>spring-modulith-events-api</code> artifact contains <code>EventExternalizationConfiguration</code> that allows developers to customize all of the above mentioned steps.</p>
+</div>
+<div id="_tabs_9" class="openblock tabs is-sync is-loading">
+<div class="title">Programmatically configuring event externalization</div>
+<div class="content">
+<div class="ulist tablist">
+<ul>
+<li id="_tabs_9_java" class="tab">
+<p>Java</p>
+</li>
+<li id="_tabs_9_kotlin" class="tab">
+<p>Kotlin</p>
+</li>
+</ul>
+</div>
+<div id="_tabs_9_java--panel" class="tabpanel" aria-labelledby="_tabs_9_java">
+<div class="listingblock primary">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Configuration
+class ExternalizationConfiguration {
+
+  @Bean
+  EventExternalizationConfiguration eventExternalizationConfiguration() {
+
+    return EventExternalizationConfiguration.externalizing()                 <i class="conum" data-value="1"></i><b>(1)</b>
+      .select(EventExternalizationConfiguration.annotatedAsExternalized())   <i class="conum" data-value="2"></i><b>(2)</b>
+      .mapping(SomeEvent.class, event -&gt; …)                                  <i class="conum" data-value="3"></i><b>(3)</b>
+      .headers(event -&gt; …)                                                   <i class="conum" data-value="4"></i><b>(4)</b>
+      .routeKey(WithKeyProperty.class, WithKeyProperty::getKey)              <i class="conum" data-value="5"></i><b>(5)</b>
+      .build();
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+<div id="_tabs_9_kotlin--panel" class="tabpanel" aria-labelledby="_tabs_9_kotlin">
+<div class="listingblock secondary">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">@Configuration
+class ExternalizationConfiguration {
+
+  @Bean
+  fun eventExternalizationConfiguration(): EventExternalizationConfiguration {
+
+    EventExternalizationConfiguration.externalizing()                         <i class="conum" data-value="1"></i><b>(1)</b>
+      .select(EventExternalizationConfiguration.annotatedAsExternalized())    <i class="conum" data-value="2"></i><b>(2)</b>
+      .mapping(SomeEvent::class.java) { event -&gt; … }                          <i class="conum" data-value="3"></i><b>(3)</b>
+      .headers() { event -&gt; … }                                               <i class="conum" data-value="4"></i><b>(4)</b>
+      .routeKey(WithKeyProperty::class.java, WithKeyProperty::getKey)         <i class="conum" data-value="5"></i><b>(5)</b>
+      .build()
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>We start by creating a default instance of <code>EventExternalizationConfiguration</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>We customize the event selection by calling one of the <code>select(…)</code> methods on the <code>Selector</code> instance returned by the previous call.
+This step fundamentally disables the application base package filter as we only look for the annotation now.
+Convenience methods to easily select events by type, by packages, packages and annotation exist.
+Also, a shortcut to define selection and routing in one step.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>We define a mapping step for <code>SomeEvent</code> instances.
+Note that the routing will still be determined by the original event instance, unless you additionally call <code>….routeMapped()</code> on the router.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>We add custom headers to the message to be sent out either generally as shown or specific to a certain payload type.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>We finally determine a routing key by defining a method handle to extract a value of the event instance.
+Alternatively, a full <code>RoutingKey</code> can be produced for individual events by using the general <code>route(…)</code> method on the <code>Router</code> instance returned from the previous call.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="externalization.serialization"><a class="anchor" href="#externalization.serialization"></a>Serializing Event Externalization</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Spring Modulith&#8217;s event externalization is implemented as transactional event listener.
+This means that multiple threads might trigger the interaction with the broker at the same time.
+This can become particularly relevant when event publications are resubmitted.
+As the broker might see a sudden spike in interactions, some interactions might take a bit longer so that the externalization of later events might overtake former ones.</p>
+</div>
+<div class="paragraph">
+<p>To prevent that, the interaction with the broker can be serialized so that only one event is sent out at a time by setting the <code>spring.modulith.events.externalization.serialize-externalization</code> property to <code>true</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="externalization.namastack"><a class="anchor" href="#externalization.namastack"></a>Namastack Outbox Support</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If advanced outbox features are required, the event externalization can be delegated to the <a href="https://outbox.namastack.io/">Namastack Outbox</a>.
+This feature is currently only availble for relational databases.
+To activate the feature, start by adding the Spring Modulith Namastack starter to your project:</p>
+</div>
+<div id="_tabs_10" class="openblock tabs is-sync is-loading">
+<div class="title">Declaring the Spring Modulith Namastack starter</div>
+<div class="content">
+<div class="ulist tablist">
+<ul>
+<li id="_tabs_10_maven" class="tab">
+<p>Maven</p>
+</li>
+<li id="_tabs_10_gradle" class="tab">
+<p>Gradle</p>
+</li>
+</ul>
+</div>
+<div id="_tabs_10_maven--panel" class="tabpanel" aria-labelledby="_tabs_10_maven">
+<div class="listingblock primary">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
+  &lt;groupId&gt;org.springframework.modulith&lt;/groupId&gt;
+  &lt;artifactId&gt;spring-modulith-starter-namastack&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+</div>
+<div id="_tabs_10_gradle--panel" class="tabpanel" aria-labelledby="_tabs_10_gradle">
+<div class="listingblock secondary">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">dependencies {
+  implementation 'org.springframework.modulith:spring-modulith-starter-namastack'
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>To automatically delegate event externalization to Namastack, switch the <code>spring.modulith.events.externalization.mode</code> property to <code>outbox</code>.
+For more information on how to customize the way that the Namastack Outbox works in general, consult the Namastack <a href="https://outbox.namastack.io/">reference documentation</a>.
+Find an <a href="https://github.com/spring-projects/spring-modulith/tree/main/spring-modulith-examples/spring-modulith-example-outbox">example</a> in our Github repository.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="externalization.jobrunr"><a class="anchor" href="#externalization.jobrunr"></a>JobRunr Outbox Support</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Similar to the <a href="#externalization.namastack">Namastack support</a> to externalize events we provide support for <a href="http://jobrunr.io/">JobRunr</a>.
+To activate the feature, start by adding the Spring Modulith JobRunr starter to your project:</p>
+</div>
+<div id="_tabs_11" class="openblock tabs is-sync is-loading">
+<div class="title">Declaring the Spring Modulith JobRunr starter</div>
+<div class="content">
+<div class="ulist tablist">
+<ul>
+<li id="_tabs_11_maven" class="tab">
+<p>Maven</p>
+</li>
+<li id="_tabs_11_gradle" class="tab">
+<p>Gradle</p>
+</li>
+</ul>
+</div>
+<div id="_tabs_11_maven--panel" class="tabpanel" aria-labelledby="_tabs_11_maven">
+<div class="listingblock primary">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
+  &lt;groupId&gt;org.springframework.modulith&lt;/groupId&gt;
+  &lt;artifactId&gt;spring-modulith-starter-jobrunr&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+</div>
+<div id="_tabs_11_gradle--panel" class="tabpanel" aria-labelledby="_tabs_11_gradle">
+<div class="listingblock secondary">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">dependencies {
+  implementation 'org.springframework.modulith:spring-modulith-starter-jobrunr'
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>To automatically delegate event externalization to JobRunr, switch the <code>spring.modulith.events.externalization.mode</code> property to <code>outbox</code>.
+For more information on how to JobRunr please consult its <a href="https://www.jobrunr.io/en/documentation/">reference documentation</a>.
+Find an <a href="https://github.com/spring-projects/spring-modulith/tree/main/spring-modulith-examples/spring-modulith-example-outbox">example</a> in our Github repository.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="testing"><a class="anchor" href="#testing"></a>Testing published events</h2>
+<div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The following section describes a testing approach solely focused on tracking Spring application events.
+For a more holistic approach on testing modules that use <a href="testing.html" class="xref page"><code>@ApplicationModuleListener</code></a>, please check out the <a href="testing.html#scenarios" class="xref page"><code>Scenario</code> API</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Spring Modulith&#8217;s <code>@ApplicationModuleTest</code> enables the ability to get a <code>PublishedEvents</code> instance injected into the test method to verify a particular set of events has been published during the course of the business operation under test.</p>
+</div>
+<div id="_tabs_12" class="openblock tabs is-sync is-loading">
+<div class="title">Event-based integration testing of the application module arrangement</div>
+<div class="content">
+<div class="ulist tablist">
+<ul>
+<li id="_tabs_12_java" class="tab">
+<p>Java</p>
+</li>
+<li id="_tabs_12_kotlin" class="tab">
+<p>Kotlin</p>
+</li>
+</ul>
+</div>
+<div id="_tabs_12_java--panel" class="tabpanel" aria-labelledby="_tabs_12_java">
+<div class="listingblock primary">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@ApplicationModuleTest
+class OrderIntegrationTests {
+
+  @Test
+  void someTestMethod(<strong>PublishedEvents events</strong>) {
+
+    // …
+    var matchingMapped = events.ofType(OrderCompleted.class)
+      .matching(OrderCompleted::getOrderId, reference.getId());
+
+    assertThat(matchingMapped).hasSize(1);
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+<div id="_tabs_12_kotlin--panel" class="tabpanel" aria-labelledby="_tabs_12_kotlin">
+<div class="listingblock secondary">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">@ApplicationModuleTest
+class OrderIntegrationTests {
+
+  @Test
+  fun someTestMethod(events: PublishedEvents events) {
+
+    // …
+    val matchingMapped = events.ofType(OrderCompleted::class.java)
+      .matching(OrderCompleted::getOrderId, reference.getId())
+
+    assertThat(matchingMapped).hasSize(1)
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Note how <code>PublishedEvents</code> exposes an API to select events matching a certain criteria.
+The verification is concluded by an AssertJ assertion that verifies the number of elements expected.
+If you are using AssertJ for those assertions anyway, you can also use <code>AssertablePublishedEvents</code> as test method parameter type and use the fluent assertion APIs provided through that.</p>
+</div>
+<div id="_tabs_13" class="openblock tabs is-sync is-loading">
+<div class="title">Using <code>AssertablePublishedEvents</code> to verify event publications</div>
+<div class="content">
+<div class="ulist tablist">
+<ul>
+<li id="_tabs_13_java" class="tab">
+<p>Java</p>
+</li>
+<li id="_tabs_13_kotlin" class="tab">
+<p>Kotlin</p>
+</li>
+</ul>
+</div>
+<div id="_tabs_13_java--panel" class="tabpanel" aria-labelledby="_tabs_13_java">
+<div class="listingblock primary">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@ApplicationModuleTest
+class OrderIntegrationTests {
+
+  @Test
+  void someTestMethod(<strong>AssertablePublishedEvents events</strong>) {
+
+    // …
+    assertThat(events)
+      .contains(OrderCompleted.class)
+      .matching(OrderCompleted::getOrderId, reference.getId());
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+<div id="_tabs_13_kotlin--panel" class="tabpanel" aria-labelledby="_tabs_13_kotlin">
+<div class="listingblock secondary">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">@ApplicationModuleTest
+class OrderIntegrationTests {
+
+  @Test
+  fun someTestMethod(events: AssertablePublishedEvents) {
+
+    // …
+    assertThat(events)
+      .contains(OrderCompleted::class.java)
+      .matching(OrderCompleted::getOrderId, reference.getId())
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Note how the type returned by the <code>assertThat(…)</code> expression allows to define constraints on the published events directly.</p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="verification.html">Verifying Application Module Structure</a></span>
+  <span class="next"><a href="testing.html">Integration Testing Application Modules</a></span>
+</nav>
+</article>  </div>
+</main>
+<div class="modal micromodal-slide" id="modal-versions" aria-hidden="true">
+    <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+        <div class="modal__container" role="dialog" aria-modal="true">
+            <main class="modal__content" id="modal-versions-content">
+              <button data-micromodal-close class="modal-versions-close">
+                <svg width="28px" height="28px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><defs></defs><title/><g id="cross"><line class="cls-1h" x1="7" x2="25" y1="7" y2="25"/><line class="cls-1h" x1="7" x2="25" y1="25" y2="7"/></g></svg>
+              </button>
+              <div class="colset">
+                <div class="col-left">
+
+                  <ul class="nav-versions">
+                      <li class="component">
+                        <div>
+                          <a class="title" href="index.html">Spring Modulith</a>
+                        </div>                        <div class="version-item is-active">
+                          <div>
+                            <button class="version-toggle" type="button">
+                              <span></span>
+                              Stable
+                            </button>
+                          </div>
+                          <ul class="versions">
+  <li class="version">
+    <a href="events.html">
+      2.1.1
+    </a>
+  </li>
+  <li class="version">
+    <a href="2.0/events.html">
+      2.0.8
+    </a>
+  </li>
+  <li class="version">
+    <a href="1.4/events.html">
+      1.4.13
+    </a>
+  </li>
+  <li class="version">
+    <a href="1.3/events.html">
+      1.3.12
+    </a>
+  </li>
+  <li class="version">
+    <a href="1.2/events.html">
+      1.2.13
+    </a>
+  </li>
+  <li class="version">
+    <a href="1.1/events.html">
+      1.1.12
+    </a>
+  </li>
+</ul>                        </div>
+                        <div class="version-item">
+                          <div>
+                            <button class="version-toggle" type="button">
+                              <span></span>
+                              Preview
+                            </button>
+                          </div>
+                          <ul class="versions">
+  <li class="version">
+    <a href="2.2/events.html">
+      2.2.0-M2
+    </a>
+  </li>
+</ul>                        </div>
+                        <div class="version-item">
+                          <div>
+                            <button class="version-toggle" type="button">
+                              <span></span>
+                              Snapshot
+                            </button>
+                          </div>
+                          <ul class="versions">
+  <li class="version">
+    <a href="2.2-SNAPSHOT/events.html">
+      2.2.0-SNAPSHOT
+    </a>
+  </li>
+  <li class="version">
+    <a href="2.1-SNAPSHOT/events.html">
+      2.1.2-SNAPSHOT
+    </a>
+  </li>
+  <li class="version">
+    <a href="2.0-SNAPSHOT/events.html">
+      2.0.9-SNAPSHOT
+    </a>
+  </li>
+  <li class="version">
+    <a href="1.4-SNAPSHOT/events.html">
+      1.4.14-SNAPSHOT
+    </a>
+  </li>
+  <li class="version">
+    <a href="1.3-SNAPSHOT/events.html">
+      1.3.13-SNAPSHOT
+    </a>
+  </li>
+  <li class="version">
+    <a href="1.2-SNAPSHOT/events.html">
+      1.2.14-SNAPSHOT
+    </a>
+  </li>
+  <li class="version">
+    <a href="1.1-SNAPSHOT/events.html">
+      1.1.13-SNAPSHOT
+    </a>
+  </li>
+</ul>                        </div>
+                        
+                      </li>
+                  </ul>
+                </div>
+                <div class="col-right">
+                  <ul class="projects">
+  <li>
+    Related Spring Documentation
+    <ul class="projects-list">
+        <li>
+<a href="https://docs.spring.io/spring-boot/">
+  Spring Boot
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-framework/reference/">
+  Spring Framework
+</a>
+</li>
+        <li>
+<a class="anchor"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+  Spring Cloud
+<ul>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-build/reference/">
+  Spring Cloud Build
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-bus/reference/">
+  Spring Cloud Bus
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-circuitbreaker/reference/">
+  Spring Cloud Circuit Breaker
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-commons/reference/">
+  Spring Cloud Commons
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-config/reference/">
+  Spring Cloud Config
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-consul/reference/">
+  Spring Cloud Consul
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-contract/reference/">
+  Spring Cloud Contract
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-function/reference/">
+  Spring Cloud Function
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-gateway/reference/">
+  Spring Cloud Gateway
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-kubernetes/reference/">
+  Spring Cloud Kubernetes
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-netflix/reference/">
+  Spring Cloud Netflix
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-openfeign/reference/">
+  Spring Cloud OpenFeign
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-stream/reference/">
+  Spring Cloud Stream
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-task/reference/">
+  Spring Cloud Task
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-vault/reference/">
+  Spring Cloud Vault
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-zookeeper/reference/">
+  Spring Cloud Zookeeper
+</a>
+</li>
+</ul>
+</li>
+        <li>
+<a class="anchor"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+  Spring Data
+<ul>
+    <li>
+<a href="https://docs.spring.io/spring-data/cassandra/reference/">
+  Spring Data Cassandra
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/commons/reference/">
+  Spring Data Commons
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/couchbase/reference/">
+  Spring Data Couchbase
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/elasticsearch/reference/">
+  Spring Data Elasticsearch
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/jpa/reference/">
+  Spring Data JPA
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/keyvalue/reference/">
+  Spring Data KeyValue
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/ldap/reference/">
+  Spring Data LDAP
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/mongodb/reference/">
+  Spring Data MongoDB
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/neo4j/reference/">
+  Spring Data Neo4j
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/redis/reference/">
+  Spring Data Redis
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/relational/reference/">
+  Spring Data JDBC &amp; R2DBC
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/rest/reference/">
+  Spring Data REST
+</a>
+</li>
+</ul>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-integration/reference/">
+  Spring Integration
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-batch/reference/">
+  Spring Batch
+</a>
+</li>
+        <li>
+<a class="anchor"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+<a href="https://docs.spring.io/spring-security/reference/">
+  Spring Security
+</a>
+<ul>
+    <li>
+<a href="https://docs.spring.io/spring-authorization-server/reference/">
+  Spring Authorization Server
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-ldap/reference/">
+  Spring LDAP
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-security-kerberos/reference/">
+  Spring Security Kerberos
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-session/reference/">
+  Spring Session
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-vault/reference/">
+  Spring Vault
+</a>
+</li>
+</ul>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-ai/reference/">
+  Spring AI
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-amqp/reference/">
+  Spring AMQP
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-cli/reference/">
+  Spring CLI
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-graphql/reference/">
+  Spring GraphQL
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-kafka/reference/">
+  Spring for Apache Kafka
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-modulith/reference/">
+  Spring Modulith
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-pulsar/reference/">
+  Spring for Apache Pulsar
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-shell/reference/">
+  Spring Shell
+</a>
+</li>
+    </ul>
+  </li
+  <li><a href="spring-projects.html">All Docs...</a></li>
+</ul>
+                </div>
+              </div>
+            </main>
+        </div>
+    </div>
+</div>
+
+</div>
+<footer class="footer flex">
+    <div id="spring-links flex">
+        <img id="springlogo" src="./_/img/spring-logo.svg" alt="Spring">
+        <p class="smallest antialiased">Copyright © 2005 -  Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.<br /><a href="https://www.vmware.com/help/legal.html">Terms of Use</a> • <a href="https://www.vmware.com/help/privacy.html" rel="noopener noreferrer">Privacy</a> • <a href="https://spring.io/trademarks">Trademark Guidelines</a> <span id="thank-you-mobile">• <a href="https://spring.io/thank-you">Thank you</a></span> • <a href="https://www.vmware.com/help/privacy/california-privacy-rights.html">Your California Privacy Rights</a> • <a class="ot-sdk-show-settings">Cookie Settings</a> <span id="teconsent"></span></p>
+        <p class="smallest antialiased has-gray-text">Apache®, Apache Tomcat®, Apache Kafka®, Apache Cassandra&trade;, and Apache Geode&trade; are trademarks or registered trademarks of the Apache Software Foundation in the United States and/or other countries. Java&trade;, Java&trade; SE, Java&trade; EE, and OpenJDK&trade; are trademarks of Oracle and/or its affiliates. Kubernetes® is a registered trademark of the Linux Foundation in the United States and other countries. Linux® is the registered trademark of Linus Torvalds in the United States and other countries. Windows® and Microsoft® Azure are registered trademarks of Microsoft Corporation. “AWS” and “Amazon Web Services” are trademarks or registered trademarks of Amazon.com Inc. or its affiliates. All other trademarks and copyrights are property of their respective owners and are only mentioned for informative purposes. Other names may be trademarks of their respective owners.</p>
+    </div>
+    <div id="social-icons" class="flex jc-between">
+        <a href="https://www.youtube.com/user/SpringSourceDev" title="Youtube"><svg id="youtube-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><circle class="cls-1" cx="20" cy="20" r="20"/><path class="cls-2" d="M30.91,14.53a2.89,2.89,0,0,0-2-2C27.12,12,20,12,20,12s-7.12,0-8.9.47a2.9,2.9,0,0,0-2,2A30.56,30.56,0,0,0,8.63,20a30.44,30.44,0,0,0,.46,5.47,2.89,2.89,0,0,0,2,2C12.9,28,20,28,20,28s7.12,0,8.9-.47a2.87,2.87,0,0,0,2-2A30.56,30.56,0,0,0,31.37,20,28.88,28.88,0,0,0,30.91,14.53ZM17.73,23.41V16.59L23.65,20Z"/></svg></a>
+        <a href="https://github.com/spring-projects" title="GitHub"><svg id="github-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75.93 75.93"><path class="cls-1" d="M38,0a38,38,0,1,0,38,38A38,38,0,0,0,38,0Z"/></g><path class="cls-2" d="M38,15.59A22.95,22.95,0,0,0,30.71,60.3c1.15.21,1.57-.5,1.57-1.11s0-2,0-3.9c-6.38,1.39-7.73-3.07-7.73-3.07A6.09,6.09,0,0,0,22,48.86c-2.09-1.42.15-1.39.15-1.39a4.81,4.81,0,0,1,3.52,2.36c2,3.5,5.37,2.49,6.67,1.91a4.87,4.87,0,0,1,1.46-3.07c-5.09-.58-10.45-2.55-10.45-11.34a8.84,8.84,0,0,1,2.36-6.15,8.29,8.29,0,0,1,.23-6.07s1.92-.62,6.3,2.35a21.82,21.82,0,0,1,11.49,0c4.38-3,6.3-2.35,6.3-2.35a8.29,8.29,0,0,1,.23,6.07,8.84,8.84,0,0,1,2.36,6.15c0,8.81-5.37,10.75-10.48,11.32a5.46,5.46,0,0,1,1.56,4.25c0,3.07,0,5.54,0,6.29s.42,1.33,1.58,1.1A22.94,22.94,0,0,0,38,15.59Z"/></svg></a>
+        <a href="https://twitter.com/springcentral" title="Twitter"><svg id="twitter-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75.93 75.93"><circle class="cls-1" cx="37.97" cy="37.97" r="37.97"/><path id="Twitter-2" data-name="Twitter" class="cls-2" d="M55.2,22.73a15.43,15.43,0,0,1-4.88,1.91,7.56,7.56,0,0,0-5.61-2.49A7.78,7.78,0,0,0,37,30a7.56,7.56,0,0,0,.2,1.79,21.63,21.63,0,0,1-15.84-8.23,8,8,0,0,0,2.37,10.52,7.66,7.66,0,0,1-3.48-1v.09A7.84,7.84,0,0,0,26.45,41a7.54,7.54,0,0,1-2,.28A7.64,7.64,0,0,1,23,41.09a7.71,7.71,0,0,0,7.18,5.47,15.21,15.21,0,0,1-9.55,3.37,15.78,15.78,0,0,1-1.83-.11,21.41,21.41,0,0,0,11.78,3.54c14.13,0,21.86-12,21.86-22.42,0-.34,0-.68,0-1a15.67,15.67,0,0,0,3.83-4.08,14.9,14.9,0,0,1-4.41,1.24A7.8,7.8,0,0,0,55.2,22.73Z"/></svg></a>
+    </div>
+</footer>
+
+
+
+
+
+<div class="modal micromodal-slide" id="modal-1" aria-hidden="true">
+    <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+        <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+            <main class="modal__content" id="modal-1-content">
+                <div id="searchbox"></div>
+                <div id="counter"></div>
+                <div class="search-link-box">
+                    <a class="search-link" href="search.html">Search in all Spring Docs</a>
+                </div>
+                <div class="search-by">
+                    <a target="_blank" rel="noopener noreferrer" href="https://www.algolia.com/" aria-label="Search by Algolia">
+                        <img class="light" width="140" src="./_/img/algolia-light.svg" />
+                        <img class="dark" width="140" src="./_/img/algolia-dark.svg" />
+                    </a>
+                </div>
+                <div id="hits"></div>
+            </main>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+  </body>
+</html>

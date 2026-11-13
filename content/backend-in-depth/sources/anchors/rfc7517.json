@@ -1,0 +1,353 @@
+{
+ "source": "rfc7517",
+ "anchors": [
+  {
+   "anchor": "top",
+   "title": "",
+   "level": 0,
+   "sha256": "ad46e660582698a32575832657179c4f7d744a9399ecd149a147e03a932d8e06"
+  },
+  {
+   "anchor": "content",
+   "title": "JSON Web Key (JWK)",
+   "level": 1,
+   "sha256": "a39e9e7fc4bada5fcade9e42491f3af72416f26658f63002bc899e0bc3ec5a4b"
+  },
+  {
+   "anchor": "section-1",
+   "title": "1 . Introduction",
+   "level": 2,
+   "sha256": "f7e06b9c2dbe67fdb7da83b0655300cf88a2b0f8965eed3a208f61a6ce15c7d0"
+  },
+  {
+   "anchor": "section-1.1",
+   "title": "1.1 . Notational Conventions",
+   "level": 3,
+   "sha256": "6e30c65905dbc3ec11a1f5ac9ac1e025bbd133829e67985195729eaa12d7c66b"
+  },
+  {
+   "anchor": "section-2",
+   "title": "2 . Terminology",
+   "level": 2,
+   "sha256": "8034ab5f345513a44c226112c9e8f1661933459546e2445d3c23ca21efc59dd2"
+  },
+  {
+   "anchor": "section-3",
+   "title": "3 . Example JWK",
+   "level": 2,
+   "sha256": "6edbd53b65e10a818dcb5009d7b65f11dd6c9f0f8a77a02cb0d7a0b31611bf56"
+  },
+  {
+   "anchor": "section-4",
+   "title": "4 . JSON Web Key (JWK) Format",
+   "level": 2,
+   "sha256": "44e70cafe3282e6259911764dff6cdc5558f87b92747b64d6f7187b587a7a52e"
+  },
+  {
+   "anchor": "section-4.1",
+   "title": "4.1 . \"kty\" (Key Type) Parameter",
+   "level": 3,
+   "sha256": "62a7c06e16afe0a0b42f440753d8f5b918937f5dfb5d36fc23ab409a35d2d73f"
+  },
+  {
+   "anchor": "section-4.2",
+   "title": "4.2 . \"use\" (Public Key Use) Parameter",
+   "level": 3,
+   "sha256": "99927cacb8a7ea9f1bad6c7269247421ee9579f086c56cc8a1dca7cc54533495"
+  },
+  {
+   "anchor": "section-4.3",
+   "title": "4.3 . \"key_ops\" (Key Operations) Parameter",
+   "level": 3,
+   "sha256": "0d9bce13dfcd018876e386cea4d054923ecfa880535be7bd9f3ff3b84dc94ab5"
+  },
+  {
+   "anchor": "section-4.4",
+   "title": "4.4 . \"alg\" (Algorithm) Parameter",
+   "level": 3,
+   "sha256": "800c09d6a84ab969fc98df01cfb5c09e43fcaff941fc9523f4f3f0d092dca9ed"
+  },
+  {
+   "anchor": "section-4.5",
+   "title": "4.5 . \"kid\" (Key ID) Parameter",
+   "level": 3,
+   "sha256": "524bb316fee79a310be1ab2b4048a48fe020c41a7e53570831c67a40badb55b6"
+  },
+  {
+   "anchor": "section-4.6",
+   "title": "4.6 . \"x5u\" (X.509 URL) Parameter",
+   "level": 3,
+   "sha256": "6e82e8bdeb9b7fd845bec6df4876f68ae0ef866e5d6c5303a979df2bc041d151"
+  },
+  {
+   "anchor": "section-4.7",
+   "title": "4.7 . \"x5c\" (X.509 Certificate Chain) Parameter",
+   "level": 3,
+   "sha256": "4519eec5ce3e1ecf62de9e5499212a734def3c84549c0eb750e7e3701754ac0e"
+  },
+  {
+   "anchor": "section-4.8",
+   "title": "4.8 . \"x5t\" (X.509 Certificate SHA-1 Thumbprint) Parameter",
+   "level": 3,
+   "sha256": "3807ce3dfc41b585f15a5290b03967bae6a58ad3a9bf6f123370d46c0dccc247"
+  },
+  {
+   "anchor": "section-4.9",
+   "title": "4.9 . \"x5t#S256\" (X.509 Certificate SHA-256 Thumbprint) Parameter",
+   "level": 3,
+   "sha256": "8f1721506a41df9d91538f8b575f97ad3c39eb9f91c1ed2d22f8bed19121f2a6"
+  },
+  {
+   "anchor": "section-5",
+   "title": "5 . JWK Set Format",
+   "level": 2,
+   "sha256": "c3fe02119df94ff2cea600ef35d4383e4cf0b9192d7ceac5e849a683c4d0bb1b"
+  },
+  {
+   "anchor": "section-5.1",
+   "title": "5.1 . \"keys\" Parameter",
+   "level": 3,
+   "sha256": "ed66452c26d39e0d99b98f41a9840d2cf5a204025a8b8ae41b53b6a51b6bd13c"
+  },
+  {
+   "anchor": "section-6",
+   "title": "6 . String Comparison Rules",
+   "level": 2,
+   "sha256": "78264b877d09167e034bd627e9688ac7a76490c3c2bba9d38ae3ad173deea631"
+  },
+  {
+   "anchor": "section-7",
+   "title": "7 . Encrypted JWK and Encrypted JWK Set Formats",
+   "level": 2,
+   "sha256": "c5d381ac92d09f3ff820f005b27ab329b59e54acad1c86c4c7b17c2830f2bfb3"
+  },
+  {
+   "anchor": "section-8",
+   "title": "8 . IANA Considerations",
+   "level": 2,
+   "sha256": "614559f13a6d4e0ab8f511d844630d701adf208e9d0d541dc8e9940e2bed62c5"
+  },
+  {
+   "anchor": "section-8.1",
+   "title": "8.1 . JSON Web Key Parameters Registry",
+   "level": 3,
+   "sha256": "88198fd2262339749bdd79459f8a5c1dbb27506618632a2e0a1a5d414886e460"
+  },
+  {
+   "anchor": "section-8.1.1",
+   "title": "8.1.1 . Registration Template",
+   "level": 4,
+   "sha256": "4cbe4ab3153856660f3e08941e62643b5d8984532d09b623af897f3962046205"
+  },
+  {
+   "anchor": "section-8.1.2",
+   "title": "8.1.2 . Initial Registry Contents",
+   "level": 4,
+   "sha256": "ec1a85b530e7dfcdc57bcc8099d2189e67d8681fe04e9781dd634e23fab4cb41"
+  },
+  {
+   "anchor": "section-8.2",
+   "title": "8.2 . JSON Web Key Use Registry",
+   "level": 3,
+   "sha256": "a2370f12741b172bfa5556b209a9fd981ffb35c5f6e390d3a14fd2bbbf9763d2"
+  },
+  {
+   "anchor": "section-8.2.1",
+   "title": "8.2.1 . Registration Template",
+   "level": 4,
+   "sha256": "7c2d38b5b617ed0cdf6b5d667c37383b26784cccd3fbdd7b22ce9a045b8fd00c"
+  },
+  {
+   "anchor": "section-8.2.2",
+   "title": "8.2.2 . Initial Registry Contents",
+   "level": 4,
+   "sha256": "7a739a5667f9a3e546d46bba78dbd52b9fb6d9f7813c6dd556878e759e33dba1"
+  },
+  {
+   "anchor": "section-8.3",
+   "title": "8.3 . JSON Web Key Operations Registry",
+   "level": 3,
+   "sha256": "49d1886ee2b89d4835b22395ce05f582a9a7cb1d0c5a6231f09fe519222e0219"
+  },
+  {
+   "anchor": "section-8.3.1",
+   "title": "8.3.1 . Registration Template",
+   "level": 4,
+   "sha256": "91e9261fe9f66c781328448f582e082b05694be05533afd9c29a995970890c0f"
+  },
+  {
+   "anchor": "section-8.3.2",
+   "title": "8.3.2 . Initial Registry Contents",
+   "level": 4,
+   "sha256": "93ad04feabd0142ace8375786b533fcd9e37301f90bd05856807871b3b922b21"
+  },
+  {
+   "anchor": "section-8.4",
+   "title": "8.4 . JSON Web Key Set Parameters Registry",
+   "level": 3,
+   "sha256": "fa94f864affa38218b3a8a174cc3b5ede2a4724e4dff00a468d73df02ac1796e"
+  },
+  {
+   "anchor": "section-8.4.1",
+   "title": "8.4.1 . Registration Template",
+   "level": 4,
+   "sha256": "9e5b075c0b58d839397db1c85ab4a661252af072c18dfcddf36340da432f7bdd"
+  },
+  {
+   "anchor": "section-8.4.2",
+   "title": "8.4.2 . Initial Registry Contents",
+   "level": 4,
+   "sha256": "8870333129de8ee6eba1f04343f69ef489a8d028322cb615c63a6ec4b71c3f1f"
+  },
+  {
+   "anchor": "section-8.5",
+   "title": "8.5 . Media Type Registration",
+   "level": 3,
+   "sha256": "9752d8409ba1e22ee99377b7ad845082afc2ed386c2acb3218394b0bcfc3bb52"
+  },
+  {
+   "anchor": "section-8.5.1",
+   "title": "8.5.1 . Registry Contents",
+   "level": 4,
+   "sha256": "39a7510cd554e9f46e21180f11a1c5c556990d13570b755cdcaf006c805b4077"
+  },
+  {
+   "anchor": "section-9",
+   "title": "9 . Security Considerations",
+   "level": 2,
+   "sha256": "9b501a0483dc65c99c98f89b968e417a64d4c1e952537046f5d317539cac6644"
+  },
+  {
+   "anchor": "section-9.1",
+   "title": "9.1 . Key Provenance and Trust",
+   "level": 3,
+   "sha256": "1275cfc4ed01371542d34fef092ac15da99d54c22cdeb15a49fad41f4f654b5e"
+  },
+  {
+   "anchor": "section-9.2",
+   "title": "9.2 . Preventing Disclosure of Non-public Key Information",
+   "level": 3,
+   "sha256": "cafa0a2f799d5a768bdb8199574482755c9a04be56627264190c918d76801ace"
+  },
+  {
+   "anchor": "section-9.3",
+   "title": "9.3 . RSA Private Key Representations and Blinding",
+   "level": 3,
+   "sha256": "367dc5a5f5a8eb2490afa62ad8f96435fa9da70a8417ffa737c849970a2fea39"
+  },
+  {
+   "anchor": "section-9.4",
+   "title": "9.4 . Key Entropy and Random Values",
+   "level": 3,
+   "sha256": "1f1f319d53c45fefa4d0dbec152df145735c4566c4bca3b8010541994590e6a4"
+  },
+  {
+   "anchor": "section-10",
+   "title": "10 . References",
+   "level": 2,
+   "sha256": "c90ab970d0f245d75e56101caf201efa8e4d1e48c5daa5e3e801ddf6c4931078"
+  },
+  {
+   "anchor": "section-10.1",
+   "title": "10.1 . Normative References",
+   "level": 3,
+   "sha256": "f25862441dba98c1264ef5777c54d228faa14111b6c7895a0dc4e29a9a6d505d"
+  },
+  {
+   "anchor": "section-10.2",
+   "title": "10.2 . Informative References",
+   "level": 3,
+   "sha256": "e4f20680b12be229dd0d650efb94fcd01a0dbc9394fcb80552a59367b48138ca"
+  },
+  {
+   "anchor": "appendix-A",
+   "title": "Appendix A . Example JSON Web Key Sets",
+   "level": 2,
+   "sha256": "fb6ee38d1f2ca5eb9ae8be69359435b962b333bca82420c6b8be1ea93b0e91f6"
+  },
+  {
+   "anchor": "appendix-A.1",
+   "title": "A.1 . Example Public Keys",
+   "level": 3,
+   "sha256": "5db0a28d2c2f6a515344719bd805568ca54e0cfb89bfe4da7a6b31b839396a7f"
+  },
+  {
+   "anchor": "appendix-A.2",
+   "title": "A.2 . Example Private Keys",
+   "level": 3,
+   "sha256": "df99cfcaa687f8f34eb23f0c9652678e4d2543cd4add93a7dbb19da511ae33a1"
+  },
+  {
+   "anchor": "appendix-A.3",
+   "title": "A.3 . Example Symmetric Keys",
+   "level": 3,
+   "sha256": "35342c17b6d5710bf43ea8e596dd66e9d606ad5008694351649f14867d53c8d0"
+  },
+  {
+   "anchor": "appendix-B",
+   "title": "Appendix B . Example Use of \"x5c\" (X.509 Certificate Chain) Parameter",
+   "level": 2,
+   "sha256": "25424a7723470ebd1ce882382c81159e062bcd62d570549921c89cb2a1a82e88"
+  },
+  {
+   "anchor": "appendix-C",
+   "title": "Appendix C . Example Encrypted RSA Private Key",
+   "level": 2,
+   "sha256": "db42cb29a29133c0866afc034032b6bcede39063d5b33fa13fd4d54fa6d1a095"
+  },
+  {
+   "anchor": "appendix-C.1",
+   "title": "C.1 . Plaintext RSA Private Key",
+   "level": 3,
+   "sha256": "99c65555e902d0ba7551b5a792963cd973ad291701848aea7face5e5fb10291c"
+  },
+  {
+   "anchor": "appendix-C.2",
+   "title": "C.2 . JOSE Header",
+   "level": 3,
+   "sha256": "e2b2c7f859033fd8a80178fae64631c95e04c887f95c08170bd1611ee56152db"
+  },
+  {
+   "anchor": "appendix-C.3",
+   "title": "C.3 . Content Encryption Key (CEK)",
+   "level": 3,
+   "sha256": "4e808f8b34b6c47c33887a2f28b5865ce028d481ae83f4e3b10e972d987d63b2"
+  },
+  {
+   "anchor": "appendix-C.4",
+   "title": "C.4 . Key Derivation",
+   "level": 3,
+   "sha256": "b230a0f1591e1e32e9147d0111efaf3230596c4fbc913d03a3a98152827cb032"
+  },
+  {
+   "anchor": "appendix-C.5",
+   "title": "C.5 . Key Encryption",
+   "level": 3,
+   "sha256": "563899f16af46a239d3781b3bee33019ac326b2f93c9306890168133fb167dc4"
+  },
+  {
+   "anchor": "appendix-C.6",
+   "title": "C.6 . Initialization Vector",
+   "level": 3,
+   "sha256": "0225d7760d52b991880e30c6401aafc44e2a090bbce80a0cba6169de83cbe3eb"
+  },
+  {
+   "anchor": "appendix-C.7",
+   "title": "C.7 . Additional Authenticated Data",
+   "level": 3,
+   "sha256": "8bebd895331afe00560aa9f77baae8f1640401625350d18a389c115d3079ed24"
+  },
+  {
+   "anchor": "appendix-C.8",
+   "title": "C.8 . Content Encryption",
+   "level": 3,
+   "sha256": "fe21c9e92e04acde361dd56a81eb25bee22b05e15a2f0cba81ff5d311082586f"
+  },
+  {
+   "anchor": "appendix-C.9",
+   "title": "C.9 . Complete Representation",
+   "level": 3,
+   "sha256": "61ef34e4f4e8da090837a73b4e614e3146091d3dd46a1e9d74c7ed055db7008a"
+  }
+ ]
+}

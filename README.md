@@ -73,11 +73,19 @@ npm run test:e2e       # real-browser layout checks; needs the backend running (
 scrolling) and the desktop layout (header tabs, the lesson index beside a centred column, the sitting's
 grid panel, the results' two lists side by side, «Por tema» cards at 360 px), and that no element is
 wider than the screen on the five J8 screens and the course page at every phone width and at 768, 1024,
-1280 and 1440 px. Point it at a local stack only, never at a deploy host.
+1280 and 1440 px. That check names an element whose box crosses the edge and also text that runs out of a
+box which fits (a long formula in a stem). Point it at a local stack only, never at a deploy host.
 
 CI runs the same suite in the `e2e` job, with this commit's backend image and a throwaway Postgres as
-job services. `e2e/ci-local.sh` builds the image from the working tree, starts the same two containers
-with the same settings, runs the suite and removes them; it needs port 8000 free. The backend must run
+job services, inside the Playwright image `mcr.microsoft.com/playwright:v1.64.1-noble`: the layout checks
+measure text, and a host's fallback fonts differ (Noto here, DejaVu on a bare runner), so the browser and
+its fonts come from the image, and `e2e/fonts.conf` (through `FONTCONFIG_FILE`) sets the text face to
+Liberation Sans, with Arial's metrics, since the image's default sans is a CJK face. The image tag follows
+`@playwright/test` in the lockfile; a job step fails when they differ. Vite reaches the backend through `API_PROXY_TARGET` (default `http://localhost:8000`).
+`e2e/ci-local.sh` builds the backend image from the working tree, starts the same two containers with the
+same settings, runs the suite in the same Playwright image (extra arguments go to Playwright) and removes
+them; it needs ports 8000 and 5173 free. A plain `npm run test:e2e` uses the host's fonts, so a layout
+result can differ from CI's. The backend must run
 in dev mode (`DEV_MODE=true`): the phone sitting test pins its draw with a `seed` on the exam start,
 which only a dev-mode server accepts.
 
@@ -900,8 +908,9 @@ Screens at 1280 px in the three themes are in `docs/screens/desktop/`.
 **Courses.** Each directory `content/<slug>/` is one course, loaded at startup. A course that does not
 validate stops startup, and the error names it. `course.yaml` declares the course's `languages` (`[es]`
 or `[en, es]`, first = fallback), its `status` (`draft` courses are loaded and checked but never served)
-and its `exercise_types`. Four courses exist: `crypto-futures` (published), `age-auxiliar-c2` (published, below),
-`aeat-agentes-hacienda` (published, theory and first-exercise bank, below) and `age-administrativo-c1`,
+and its `exercise_types`. Five courses exist: `crypto-futures` (published), `age-auxiliar-c2` (published, below),
+`aeat-agentes-hacienda` (published, theory and first-exercise bank, below), `backend-in-depth` (draft, below) and
+`age-administrativo-c1`,
 the Spanish-only preparation for the Administrativo del Estado (C1) exam, published since AGE 1.0
 (deployment steps in `docs/deploy-age-1.0.md`): the theory of
 all six bloques is written, bloque VI as short list-shaped lessons citing saved official pages
@@ -935,6 +944,21 @@ from C1/C2 lessons by script (`docs/age-verification/aeat/r2/derivation.yaml`), 
 R2.3 (`backend/scripts/provenance.py --course aeat-agentes-hacienda`), the rest blind-verified; the 20 tax temas
 (`m03`) were written new, then audited for scope, coverage and currency (`docs/aeat-scope-audit.md`) and given esquemas.
 Glyph: a calculator; accent ochre `#88521d` / `#d48f4a`. Stage 2 (round R3, `docs/aeat-bank-plan.md`, ledger `docs/aeat-bank-ledger.md`) built the first-exercise bank: 4,088 verified questions (`exercise_types: [quiz]`, `lesson_practice: true`, 228 exercises under `exercises/`), 777 derived from C1/C2 by script with provenance and the rest authored and blind-verified (`docs/age-verification/aeat/bank/`: tools, specs, drops, reserve, per-question provenance). The gap to 5,000 is recorded per tema in the ledger and is closed by variant rounds, tax temas first. Excerpts: 3,944 of 4,088 questions have one; 115 are withheld (`excerpt-exclusions.yaml`, blind-checked misses) and 29 more have none for platform limits listed in the ledger (the Orden de 1994's ordinal headings, sub-números the extractor does not reach). The second exercise stays without practice.
+
+`backend-in-depth` is a self-paced, English-only course for senior backend engineers (requirements in
+`docs/backend-in-depth-course-requirements.md`, a delta to the oposiciones requirements), `draft` until session S3.
+Session S0 (2026-11-13) locked the programme (`content/backend-in-depth/programme.md`: 68 subsections, 249 bullets
+with stable ids such as `6.2.b` and their (J) marks), pinned a version per product (`sources/versions.yaml`, Java 25
+LTS, with the page that states each version stored under `sources/evidence/`) and stored the Tier A and Tier C
+sources (`sources/sources.yaml`: tier, product, version, URL, date, sha256, licence, `extract_allowed`, `storage`).
+`backend/scripts/tech_sources.py` fetches a page (curl, then headless Chromium from `frontend/node_modules` when the
+site refuses), strips it as saved pages are stripped, applies the site's rule from `sources/licences.yaml` and
+splits it into anchors (`sources/anchors/<id>.json`: heading, sha256); `show ID#ANCHOR` prints one anchor, which is
+how writers and verifiers read sources. A copy whose site does not clearly allow reproduction is kept outside git
+(`storage: local`, in `~/PycharmProjects/curset-saved-originals/backend-in-depth/local/`) with its hashes in the
+repo. Coverage per bullet: `docs/backend-verification/s0/source-coverage.md`; question style:
+`docs/backend-question-style.md`; ledgers `docs/backend-theory-ledger.md` and `docs/backend-bank-ledger.md`. The
+skeleton holds «How this course works» (`m00-l01`, written) and 68 stubs listing their bullets' source anchors.
 
 Round R5 added the first-exercise presets and the official sets to `aeat-agentes-hacienda` (`exams:` in its `course.yaml`; ledger `docs/aeat-bank-ledger.md` «R5»).
 «Primer ejercicio» is the base 6.2 paper: 80 questions drawn 8 from I, 10 from II and 62 from III (the part counts of the 2025 paper;

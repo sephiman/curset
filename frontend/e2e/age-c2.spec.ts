@@ -1,5 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
-import { AEAT, AGE, AGE_C2, abandonSitting, overflowingElements, signIn, startSitting, submittedSitting } from "./session";
+import { AEAT, AGE, AGE_C2, abandonSitting, overflowingElements, signIn, startSitting, submittedSitting, startPracticeAndPickFirstOption } from "./session";
 
 /** Round R5 of age-auxiliar-c2 at the two widths of the brief: what jsdom cannot measure. */
 
@@ -42,8 +42,7 @@ for (const { label, use } of WIDTHS) {
     test("a Psicotécnicos round shows the rule after the answer", async ({ page }) => {
       await signIn(page, AGE_C2);
       await page.goto(`/courses/${AGE_C2}/practice/psicotecnicos`);
-      await page.getByRole("button", { name: "Empezar" }).click();
-      await page.getByRole("radio").first().locator("xpath=ancestor::label").click();
+      await startPracticeAndPickFirstOption(page);
       await page.getByRole("button", { name: "Enviar" }).click();
       await expect(page.getByText("Ver solución")).toBeVisible();
       await expectNothingWiderThanTheScreen(page);
@@ -52,8 +51,7 @@ for (const { label, use } of WIDTHS) {
     test("a tema's practice opens the solution panel", async ({ page }) => {
       await signIn(page, AGE_C2);
       await page.goto(`/courses/${AGE_C2}/lessons/m01-l01/practice`);
-      await page.getByRole("button", { name: "Empezar" }).click();
-      await page.getByRole("radio").first().locator("xpath=ancestor::label").click();
+      await startPracticeAndPickFirstOption(page);
       await page.getByRole("button", { name: "Enviar" }).click();
       await expect(page.getByText("Ver solución")).toBeVisible();
       await expectNothingWiderThanTheScreen(page);

@@ -1,0 +1,3514 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Ahead of Time Optimizations :: Spring Framework</title>
+    <link rel="canonical" href="https://docs.spring.io/spring-framework/reference/core/aot.html">
+    <link rel="prev" href="databuffer-codec.html">
+    <link rel="next" href="appendix.html">
+    <meta name="generator" content="Antora 3.2.0-alpha.12">
+    
+    <link rel="stylesheet" href="../_/css/site.css">
+    <link rel="stylesheet" href="../_/css/vendor/search.css">
+    <link rel="stylesheet" href="../_/css/vendor/page-search.css">
+    <link rel="stylesheet" href="../_/css/vendor/onetrust.css">
+    <link rel="stylesheet" href="../_/css/vendor/asciidoctor-tabs.css">
+
+    <meta name="antora-ui-version" content="v0.4.26"> 
+    <meta name="version" content="7.0.10">
+    <meta name="generation" content="7.0">
+    <meta name="versioned-url" content="https://docs.spring.io/spring-framework/reference/7.0/core/aot.html">
+    <meta name="component" content="framework">
+    <meta name="latest-version" content="true">
+    <link rel="icon" href="../_/img/favicon.ico" type="image/vnd.microsoft.icon">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://spring.io">
+        <img
+          id="springlogo"
+          class="block"
+          src="../_/img/spring-logo.svg"
+          alt="Spring"
+        />
+      </a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Why Spring</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://spring.io/why-spring">Overview</a>
+            <li class="navbar-item navbar-item-special-3">Trending</li>
+            <a class="navbar-item" href="https://spring.io/ai">Generative AI</a>
+            <a class="navbar-item" href="https://spring.io/cloud">Cloud</a>
+            <li class="navbar-item navbar-item-special-3">Architecture Patterns</li>
+            <a class="navbar-item" href="https://spring.io/microservices">Microservices</a>
+            <a class="navbar-item" href="https://spring.io/reactive">Reactive</a>
+            <a class="navbar-item" href="https://spring.io/event-driven">Event Driven</a>
+            <li class="navbar-item navbar-item-special-3">Application Types</li>
+            <a class="navbar-item" href="https://spring.io/web-applications">Web Applications</a>
+            <a class="navbar-item" href="https://spring.io/serverless">Serverless</a>
+            <a class="navbar-item" href="https://spring.io/batch">Batch</a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Learn</a>
+          <div class="navbar-dropdown">
+            <li class="navbar-item navbar-item-special-3">Getting Started</li>
+            <a class="navbar-item" href="https://spring.io/quickstart">Quickstart</a>
+            <a class="navbar-item" href="https://spring.io/guides">Guides</a>
+            <li class="navbar-item navbar-item-special-3">Academy</li>
+            <a class="navbar-item" href="https://spring.academy/courses">Courses
+              <svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><polyline points="15 10.94 15 15 1 15 1 1 5.06 1" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"></polyline><polyline points="8.93 1 15 1 15 7.07" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"></polyline><line x1="15" y1="1" x2="8" y2="8" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"></line></svg>
+            </a>
+            <a class="navbar-item" href="https://spring.academy/learning-path">Get Certified
+              <svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><polyline points="15 10.94 15 15 1 15 1 1 5.06 1" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"></polyline><polyline points="8.93 1 15 1 15 7.07" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"></polyline><line x1="15" y1="1" x2="8" y2="8" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"></line></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Projects</a>
+          <div class="navbar-dropdown" style="min-width: 280px">
+            <a class="navbar-item" href="https://spring.io/projects">Overview</a>
+            <li class="navbar-item navbar-item-special-3">Projects</li>
+            <a class="navbar-item" href="https://spring.io/projects/spring-boot">Spring Boot</a>
+            <a class="navbar-item" href="https://spring.io/projects/spring-framework">Spring Framework</a>
+            <a class="navbar-item" href="https://spring.io/projects/spring-cloud">Spring Cloud</a>
+            <a class="navbar-item" href="https://spring.io/projects/spring-ai">Spring AI</a>
+            <a class="navbar-item" href="https://spring.io/projects/spring-data">Spring Data</a>
+            <a class="navbar-item" href="https://spring.io/projects/spring-integration">Spring Integration</a>
+            <a class="navbar-item" href="https://spring.io/projects/spring-batch">Spring Batch</a>
+            <a class="navbar-item" href="https://spring.io/projects/spring-security">Spring Security</a>
+            <li class="navbar-item navbar-item-special-3">Foundational Projects</li>
+            <a class="navbar-item" href="https://micrometer.io">Micrometer
+              <svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><polyline points="15 10.94 15 15 1 15 1 1 5.06 1" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"></polyline><polyline points="8.93 1 15 1 15 7.07" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"></polyline><line x1="15" y1="1" x2="8" y2="8" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"></line></svg>
+            </a>
+            <a class="navbar-item" href="https://projectreactor.io">Reactor
+              <svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><polyline points="15 10.94 15 15 1 15 1 1 5.06 1" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"></polyline><polyline points="8.93 1 15 1 15 7.07" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"></polyline><line x1="15" y1="1" x2="8" y2="8" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"></line></svg>
+            </a>
+            <li class="navbar-item navbar-item-special-3">Development Tools</li>
+            <a class="navbar-item" href="https://spring.io/tools">Spring Tools</a>
+            <a class="navbar-item navbar-item-special-2" href="https://start.spring.io">Spring Initializr
+              <svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><polyline points="15 10.94 15 15 1 15 1 1 5.06 1" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"></polyline><polyline points="8.93 1 15 1 15 7.07" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"></polyline><line x1="15" y1="1" x2="8" y2="8" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"></line></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Resources</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://spring.io/blog">Blog</a>
+            <a class="navbar-item" href="https://spring.io/projects#release-calendar">Release Calendar</a>
+            <a class="navbar-item" href="https://spring.io/projects/generations">Version Mappings</a>
+            <a class="navbar-item" href="https://spring.io/projects/release-highlights">Release Highlights</a>
+            <a class="navbar-item" href="https://spring.io/security">Security Advisories</a>
+            <li class="navbar-item navbar-item-special-3">GitHub Orgs</li>
+            <a class="navbar-item" href="https://github.com/spring-projects">Spring Projects
+              <svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><polyline points="15 10.94 15 15 1 15 1 1 5.06 1" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"></polyline><polyline points="8.93 1 15 1 15 7.07" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"></polyline><line x1="15" y1="1" x2="8" y2="8" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"></line></svg>
+            </a>
+            <a class="navbar-item" href="https://github.com/spring-cloud">Spring Cloud
+              <svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><polyline points="15 10.94 15 15 1 15 1 1 5.06 1" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"></polyline><polyline points="8.93 1 15 1 15 7.07" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"></polyline><line x1="15" y1="1" x2="8" y2="8" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"></line></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Community</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://spring.io/community">Overview</a>
+            <a class="navbar-item" href="https://spring.io/events">Events</a>
+            <a class="navbar-item" href="https://spring.io/authors">Authors</a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable is-enterprise">
+          <a class="navbar-link" href="#">Enterprise</a>
+          <div class="navbar-dropdown lg is-right">
+            <a class="navbar-item" href="https://enterprise.spring.io/">Overview</a>
+            <a class="navbar-item" href="https://enterprise.spring.io/lts-releases">Long-term Support</a>
+            <a class="navbar-item" href="https://enterprise.spring.io/spring-application-advisor">Automated Upgrades</a>
+            <a class="navbar-item" href="https://enterprise.spring.io/enterprise-extensions">Governance and Compliance</a>
+            <a class="navbar-item" href="https://enterprise.spring.io/enterprise-components">Modern App Development</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <label class="theme-toggler">
+      <input
+        type="checkbox"
+        type="checkbox"
+        id="switch-theme-checkbox"
+        name="switch-theme-checkbox"
+      />
+      <span class="icon"><svg
+          aria-hidden="true"
+          focusable="false"
+          data-prefix="fas"
+          data-icon="moon"
+          class="svg-inline--fa fa-moon moon"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 384 512"
+        ><path
+            fill="currentColor"
+            d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"
+          ></path>
+        </svg>
+        <svg
+          aria-hidden="true"
+          focusable="false"
+          data-prefix="fas"
+          data-icon="sun"
+          class="svg-inline--fa fa-sun sun"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512"
+        ><path
+            fill="currentColor"
+            d="M361.5 1.2c5 2.1 8.6 6.6 9.6 11.9L391 121l107.9 19.8c5.3 1 9.8 4.6 11.9 9.6s1.5 10.7-1.6 15.2L446.9 256l62.3 90.3c3.1 4.5 3.7 10.2 1.6 15.2s-6.6 8.6-11.9 9.6L391 391 371.1 498.9c-1 5.3-4.6 9.8-9.6 11.9s-10.7 1.5-15.2-1.6L256 446.9l-90.3 62.3c-4.5 3.1-10.2 3.7-15.2 1.6s-8.6-6.6-9.6-11.9L121 391 13.1 371.1c-5.3-1-9.8-4.6-11.9-9.6s-1.5-10.7 1.6-15.2L65.1 256 2.8 165.7c-3.1-4.5-3.7-10.2-1.6-15.2s6.6-8.6 11.9-9.6L121 121 140.9 13.1c1-5.3 4.6-9.8 9.6-11.9s10.7-1.5 15.2 1.6L256 65.1 346.3 2.8c4.5-3.1 10.2-3.7 15.2-1.6zM160 256a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zm224 0a128 128 0 1 0 -256 0 128 128 0 1 0 256 0z"
+          ></path>
+        </svg></span>
+      <span class="text">light</span>
+    </label>
+  </nav>
+</header>
+
+<div class="body">
+<div class="nav-container" data-component="framework" data-version="7.0.10">
+  <aside class="nav">
+    <div class="panels">
+      <div class="nav-panel-menu is-active" data-panel="menu">
+        <nav class="nav-menu">
+<div class="context">
+  <span class="title">Spring Framework</span>
+  <span class="version">7.0.10</span>
+  <button class="browse-version" id="browse-version">
+    <svg
+      height="24px"
+      id="Layer_1"
+      style="enable-background:new 0 0 512 512;"
+      version="1.1"
+      viewBox="0 0 512 512"
+      width="24px"
+      xml:space="preserve"
+    ><g><path
+          d="M256,224c-17.7,0-32,14.3-32,32s14.3,32,32,32c17.7,0,32-14.3,32-32S273.7,224,256,224L256,224z"
+        ></path><path
+          d="M128.4,224c-17.7,0-32,14.3-32,32s14.3,32,32,32c17.7,0,32-14.3,32-32S146,224,128.4,224L128.4,224z"
+        ></path><path
+          d="M384,224c-17.7,0-32,14.3-32,32s14.3,32,32,32s32-14.3,32-32S401.7,224,384,224L384,224z"
+        ></path></g></svg>
+  </button>
+  <div class="search">
+  <button class="DocSearch-Button search-button">
+    <svg enable-background="new 0 0 32 32" id="Glyph" version="1.1" viewBox="0 0 32 32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <path d="M27.414,24.586l-5.077-5.077C23.386,17.928,24,16.035,24,14c0-5.514-4.486-10-10-10S4,8.486,4,14  s4.486,10,10,10c2.035,0,3.928-0.614,5.509-1.663l5.077,5.077c0.78,0.781,2.048,0.781,2.828,0  C28.195,26.633,28.195,25.367,27.414,24.586z M7,14c0-3.86,3.14-7,7-7s7,3.14,7,7s-3.14,7-7,7S7,17.86,7,14z" id="XMLID_223_"/>
+    </svg>
+    <span>Search</span>
+    <span class="search-key"></span>
+  </button>
+</div>
+</div><ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link"  href="../overview.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="../core.html">Core Technologies</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="beans.html">The IoC Container</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="beans/introduction.html">Introduction to the Spring IoC Container and Beans</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="beans/basics.html">Container Overview</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="beans/definition.html">Bean Overview</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="beans/dependencies.html">Dependencies</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="beans/dependencies/factory-collaborators.html">Dependency Injection</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="beans/dependencies/factory-properties-detailed.html">Dependencies and Configuration in Detail</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="beans/dependencies/factory-dependson.html">Using <code>depends-on</code></a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="beans/dependencies/factory-lazy-init.html">Lazy-initialized Beans</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="beans/dependencies/factory-autowire.html">Autowiring Collaborators</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="beans/dependencies/factory-method-injection.html">Method Injection</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="beans/factory-scopes.html">Bean Scopes</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="beans/factory-nature.html">Customizing the Nature of a Bean</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="beans/child-bean-definitions.html">Bean Definition Inheritance</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="beans/factory-extension.html">Container Extension Points</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="beans/annotation-config.html">Annotation-based Container Configuration</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="beans/annotation-config/autowired.html">Using <code>@Autowired</code></a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="beans/annotation-config/autowired-primary.html">Fine-tuning Annotation-based Autowiring with <code>@Primary</code> or <code>@Fallback</code></a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="beans/annotation-config/autowired-qualifiers.html">Fine-tuning Annotation-based Autowiring with Qualifiers</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="beans/annotation-config/generics-as-qualifiers.html">Using Generics as Autowiring Qualifiers</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="beans/annotation-config/custom-autowire-configurer.html">Using <code>CustomAutowireConfigurer</code></a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="beans/annotation-config/resource.html">Injection with <code>@Resource</code></a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="beans/annotation-config/value-annotations.html">Using <code>@Value</code></a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="beans/annotation-config/postconstruct-and-predestroy-annotations.html">Using <code>@PostConstruct</code> and <code>@PreDestroy</code></a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="beans/classpath-scanning.html">Classpath Scanning and Managed Components</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="beans/standard-annotations.html">Using JSR-330 Standard Annotations</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="beans/java.html">Java-based Container Configuration</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="beans/java/basic-concepts.html">Basic Concepts: <code>@Bean</code> and <code>@Configuration</code></a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="beans/java/instantiating-container.html">Instantiating the Spring Container by Using <code>AnnotationConfigApplicationContext</code></a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="beans/java/bean-annotation.html">Using the <code>@Bean</code> Annotation</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="beans/java/configuration-annotation.html">Using the <code>@Configuration</code> annotation</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="beans/java/composing-configuration-classes.html">Composing Java-based Configurations</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="beans/java/programmatic-bean-registration.html">Programmatic Bean Registration</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="beans/environment.html">Environment Abstraction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="beans/context-load-time-weaver.html">Registering a <code>LoadTimeWeaver</code></a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="beans/context-introduction.html">Additional Capabilities of the <code>ApplicationContext</code></a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="beans/beanfactory.html">The <code>BeanFactory</code> API</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="resources.html">Resources</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="validation.html">Validation, Data Binding, and Type Conversion</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="validation/validator.html">Validation Using Spring&#8217;s Validator Interface</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="validation/data-binding.html">Data Binding</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="validation/error-code-resolution.html">Resolving Error Codes to Error Messages</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="validation/convert.html">Spring Type Conversion</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="validation/format.html">Spring Field Formatting</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="validation/format-configuring-formatting-globaldatetimeformat.html">Configuring a Global Date and Time Format</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="validation/beanvalidation.html">Java Bean Validation</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="expressions.html">Spring Expression Language (SpEL)</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="expressions/evaluation.html">Evaluation</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="expressions/beandef.html">Expressions in Bean Definitions</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="expressions/language-ref.html">Language Reference</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="expressions/language-ref/literal.html">Literal Expressions</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="expressions/language-ref/properties-arrays.html">Properties, Arrays, Lists, Maps, and Indexers</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="expressions/language-ref/inline-lists.html">Inline Lists</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="expressions/language-ref/inline-maps.html">Inline Maps</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="expressions/language-ref/array-construction.html">Array Construction</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="expressions/language-ref/methods.html">Methods</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="expressions/language-ref/operators.html">Operators</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="expressions/language-ref/types.html">Types</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="expressions/language-ref/constructors.html">Constructors</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="expressions/language-ref/variables.html">Variables</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="expressions/language-ref/functions.html">Functions</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="expressions/language-ref/varargs.html">Varargs Invocations</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="expressions/language-ref/bean-references.html">Bean References</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="expressions/language-ref/operator-ternary.html">Ternary Operator (If-Then-Else)</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="expressions/language-ref/operator-elvis.html">The Elvis Operator</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="expressions/language-ref/operator-safe-navigation.html">Safe Navigation Operator</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="expressions/language-ref/collection-selection.html">Collection Selection</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="expressions/language-ref/collection-projection.html">Collection Projection</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="expressions/language-ref/templating.html">Expression Templating</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="expressions/example-classes.html">Classes Used in the Examples</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="aop.html">Aspect Oriented Programming with Spring</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="aop/introduction-defn.html">AOP Concepts</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="aop/introduction-spring-defn.html">Spring AOP Capabilities and Goals</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="aop/introduction-proxies.html">AOP Proxies</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="aop/ataspectj.html">@AspectJ support</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="aop/ataspectj/aspectj-support.html">Enabling @AspectJ Support</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="aop/ataspectj/at-aspectj.html">Declaring an Aspect</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="aop/ataspectj/pointcuts.html">Declaring a Pointcut</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="aop/ataspectj/advice.html">Declaring Advice</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="aop/ataspectj/introductions.html">Introductions</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="aop/ataspectj/instantiation-models.html">Aspect Instantiation Models</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="aop/ataspectj/example.html">An AOP Example</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="aop/schema.html">Schema-based AOP Support</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="aop/choosing.html">Choosing which AOP Declaration Style to Use</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="aop/mixing-styles.html">Mixing Aspect Types</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="aop/proxying.html">Proxying Mechanisms</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="aop/aspectj-programmatic.html">Programmatic Creation of @AspectJ Proxies</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="aop/using-aspectj.html">Using AspectJ with Spring Applications</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="aop/resources.html">Further Resources</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="aop-api.html">Spring AOP APIs</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="aop-api/pointcuts.html">Pointcut API in Spring</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="aop-api/advice.html">Advice API in Spring</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="aop-api/advisor.html">The Advisor API in Spring</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="aop-api/pfb.html">Using the <code>ProxyFactoryBean</code> to Create AOP Proxies</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="aop-api/concise-proxy.html">Concise Proxy Definitions</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="aop-api/prog.html">Creating AOP Proxies Programmatically with the <code>ProxyFactory</code></a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="aop-api/advised.html">Manipulating Advised Objects</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="aop-api/autoproxy.html">Using the "auto-proxy" facility</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="aop-api/targetsource.html">Using <code>TargetSource</code> Implementations</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="aop-api/extensibility.html">Defining New Advice Types</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="resilience.html">Resilience Features</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="null-safety.html">Null-safety</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="databuffer-codec.html">Data Buffers and Codecs</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link"  href="aot.html">Ahead of Time Optimizations</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="appendix.html">Appendix</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="appendix/xsd-schemas.html">XML Schemas</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="appendix/xml-custom.html">XML Schema Authoring</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="appendix/application-startup-steps.html">Application Startup Steps</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="../data-access.html">Data Access</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="../data-access/transaction.html">Transaction Management</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../data-access/transaction/motivation.html">Advantages of the Spring Framework&#8217;s Transaction Support Model</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../data-access/transaction/strategies.html">Understanding the Spring Framework Transaction Abstraction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../data-access/transaction/tx-resource-synchronization.html">Synchronizing Resources with Transactions</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="../data-access/transaction/declarative.html">Declarative Transaction Management</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../data-access/transaction/declarative/tx-decl-explained.html">Understanding the Spring Framework&#8217;s Declarative Transaction Implementation</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../data-access/transaction/declarative/first-example.html">Example of Declarative Transaction Implementation</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../data-access/transaction/declarative/rolling-back.html">Rolling Back a Declarative Transaction</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../data-access/transaction/declarative/diff-tx.html">Configuring Different Transactional Semantics for Different Beans</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../data-access/transaction/declarative/txadvice-settings.html">&lt;tx:advice/&gt; Settings</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../data-access/transaction/declarative/annotations.html">Using <code>@Transactional</code></a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../data-access/transaction/declarative/tx-propagation.html">Transaction Propagation</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../data-access/transaction/declarative/applying-more-than-just-tx-advice.html">Advising Transactional Operations</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../data-access/transaction/declarative/aspectj.html">Using <code>@Transactional</code> with AspectJ</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../data-access/transaction/programmatic.html">Programmatic Transaction Management</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../data-access/transaction/tx-decl-vs-prog.html">Choosing Between Programmatic and Declarative Transaction Management</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../data-access/transaction/event.html">Transaction-bound Events</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../data-access/transaction/application-server-integration.html">Application server-specific integration</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../data-access/transaction/solutions-to-common-problems.html">Solutions to Common Problems</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../data-access/transaction/resources.html">Further Resources</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="../data-access/dao.html">DAO Support</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="../data-access/jdbc.html">Data Access with JDBC</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../data-access/jdbc/choose-style.html">Choosing an Approach for JDBC Database Access</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../data-access/jdbc/packages.html">Package Hierarchy</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../data-access/jdbc/core.html">Using the JDBC Core Classes to Control Basic JDBC Processing and Error Handling</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../data-access/jdbc/connections.html">Controlling Database Connections</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../data-access/jdbc/advanced.html">JDBC Batch Operations</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../data-access/jdbc/simple.html">Simplifying JDBC Operations with the <code>SimpleJdbc</code> Classes</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../data-access/jdbc/object.html">Modeling JDBC Operations as Java Objects</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../data-access/jdbc/parameter-handling.html">Common Problems with Parameter and Data Value Handling</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../data-access/jdbc/embedded-database-support.html">Embedded Database Support</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../data-access/jdbc/initializing-datasource.html">Initializing a <code>DataSource</code></a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="../data-access/r2dbc.html">Data Access with R2DBC</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="../data-access/orm.html">Object Relational Mapping (ORM) Data Access</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../data-access/orm/introduction.html">Introduction to ORM with Spring</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../data-access/orm/general.html">General ORM Integration Considerations</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../data-access/orm/hibernate.html">Hibernate</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../data-access/orm/jpa.html">JPA</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="../data-access/oxm.html">Marshalling XML by Using Object-XML Mappers</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="../data-access/appendix.html">Appendix</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="../web.html">Web on Servlet Stack</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="../web/webmvc.html">Spring Web MVC</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="../web/webmvc/mvc-servlet.html">DispatcherServlet</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webmvc/mvc-servlet/context-hierarchy.html">Context Hierarchy</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webmvc/mvc-servlet/special-bean-types.html">Special Bean Types</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webmvc/mvc-servlet/config.html">Web MVC Config</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webmvc/mvc-servlet/container-config.html">Servlet Config</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webmvc/mvc-servlet/sequence.html">Processing</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webmvc/mvc-servlet/handlermapping-path.html">Path Matching</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webmvc/mvc-servlet/handlermapping-interceptor.html">Interception</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webmvc/mvc-servlet/exceptionhandlers.html">Exceptions</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webmvc/mvc-servlet/viewresolver.html">View Resolution</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webmvc/mvc-servlet/localeresolver.html">Locale</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webmvc/mvc-servlet/multipart.html">Multipart Resolver</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webmvc/mvc-servlet/logging.html">Logging</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../web/webmvc/filters.html">Filters</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../web/webmvc/message-converters.html">HTTP Message Conversion</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="../web/webmvc/mvc-controller.html">Annotated Controllers</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webmvc/mvc-controller/ann.html">Declaration</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webmvc/mvc-controller/ann-requestmapping.html">Mapping Requests</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="../web/webmvc/mvc-controller/ann-methods.html">Handler Methods</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../web/webmvc/mvc-controller/ann-methods/arguments.html">Method Arguments</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../web/webmvc/mvc-controller/ann-methods/return-types.html">Return Values</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../web/webmvc/mvc-controller/ann-methods/typeconversion.html">Type Conversion</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../web/webmvc/mvc-controller/ann-methods/matrix-variables.html">Matrix Variables</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../web/webmvc/mvc-controller/ann-methods/requestparam.html"><code>@RequestParam</code></a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../web/webmvc/mvc-controller/ann-methods/requestheader.html"><code>@RequestHeader</code></a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../web/webmvc/mvc-controller/ann-methods/cookievalue.html"><code>@CookieValue</code></a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../web/webmvc/mvc-controller/ann-methods/modelattrib-method-args.html"><code>@ModelAttribute</code></a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../web/webmvc/mvc-controller/ann-methods/sessionattributes.html"><code>@SessionAttributes</code></a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../web/webmvc/mvc-controller/ann-methods/sessionattribute.html"><code>@SessionAttribute</code></a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../web/webmvc/mvc-controller/ann-methods/requestattrib.html"><code>@RequestAttribute</code></a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../web/webmvc/mvc-controller/ann-methods/redirecting-passing-data.html">Redirect Attributes</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../web/webmvc/mvc-controller/ann-methods/flash-attributes.html">Flash Attributes</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../web/webmvc/mvc-controller/ann-methods/multipart-forms.html">Multipart</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../web/webmvc/mvc-controller/ann-methods/requestbody.html"><code>@RequestBody</code></a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../web/webmvc/mvc-controller/ann-methods/httpentity.html">HttpEntity</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../web/webmvc/mvc-controller/ann-methods/responsebody.html"><code>@ResponseBody</code></a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../web/webmvc/mvc-controller/ann-methods/responseentity.html">ResponseEntity</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../web/webmvc/mvc-controller/ann-methods/jackson.html">Jackson JSON</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webmvc/mvc-controller/ann-modelattrib-methods.html">Model</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webmvc/mvc-controller/ann-initbinder.html"><code>@InitBinder</code></a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webmvc/mvc-controller/ann-validation.html">Validation</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webmvc/mvc-controller/ann-exceptionhandler.html">Exceptions</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webmvc/mvc-controller/ann-advice.html">Controller Advice</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../web/webmvc-functional.html">Functional Endpoints</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../web/webmvc/mvc-uri-building.html">URI Links</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../web/webmvc/mvc-ann-async.html">Asynchronous Requests</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../web/webmvc/mvc-range.html">Range Requests</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../web/webmvc/mvc-data-binding.html">Data Binding</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../web/webmvc-cors.html">CORS</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../web/webmvc-versioning.html">API Versioning</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../web/webmvc/mvc-ann-rest-exceptions.html">Error Responses</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../web/webmvc/mvc-security.html">Web Security</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../web/webmvc/mvc-caching.html">HTTP Caching</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="../web/webmvc-view.html">View Technologies</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webmvc-view/mvc-thymeleaf.html">Thymeleaf</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webmvc-view/mvc-freemarker.html">FreeMarker</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webmvc-view/mvc-groovymarkup.html">Groovy Markup</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webmvc-view/mvc-script.html">Script Views</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webmvc-view/mvc-fragments.html">HTML Fragments</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webmvc-view/mvc-jsp.html">JSP and JSTL</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webmvc-view/mvc-feeds.html">RSS and Atom</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webmvc-view/mvc-document.html">PDF and Excel</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webmvc-view/mvc-jackson.html">Jackson</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webmvc-view/mvc-xml-marshalling.html">XML Marshalling</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webmvc-view/mvc-xslt.html">XSLT Views</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="../web/webmvc/mvc-config.html">MVC Config</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webmvc/mvc-config/enable.html">Enable MVC Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webmvc/mvc-config/customize.html">MVC Config API</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webmvc/mvc-config/conversion.html">Type Conversion</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webmvc/mvc-config/validation.html">Validation</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webmvc/mvc-config/interceptors.html">Interceptors</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webmvc/mvc-config/content-negotiation.html">Content Types</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webmvc/mvc-config/message-converters.html">Message Converters</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webmvc/mvc-config/view-controller.html">View Controllers</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webmvc/mvc-config/view-resolvers.html">View Resolvers</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webmvc/mvc-config/static-resources.html">Static Resources</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webmvc/mvc-config/default-servlet-handler.html">Default Servlet</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webmvc/mvc-config/path-matching.html">Path Matching</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webmvc/mvc-config/api-version.html">API Version</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webmvc/mvc-config/advanced-java.html">Advanced Java Config</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webmvc/mvc-config/advanced-xml.html">Advanced XML Config</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../web/webmvc/mvc-http2.html">HTTP/2</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="../web/webmvc-client.html">REST Clients</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="../web/webmvc-test.html">Testing</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="../web/websocket.html">WebSockets</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../web/websocket/server.html">WebSocket API</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../web/websocket/fallback.html">SockJS Fallback</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="../web/websocket/stomp.html">STOMP</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/websocket/stomp/overview.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/websocket/stomp/benefits.html">Benefits</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/websocket/stomp/enable.html">Enable STOMP</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/websocket/stomp/server-config.html">WebSocket Transport</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/websocket/stomp/message-flow.html">Flow of Messages</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/websocket/stomp/handle-annotations.html">Annotated Controllers</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/websocket/stomp/handle-send.html">Sending Messages</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/websocket/stomp/handle-simple-broker.html">Simple Broker</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/websocket/stomp/handle-broker-relay.html">External Broker</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/websocket/stomp/handle-broker-relay-configure.html">Connecting to a Broker</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/websocket/stomp/destination-separator.html">Dots as Separators</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/websocket/stomp/authentication.html">Authentication</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/websocket/stomp/authentication-token-based.html">Token Authentication</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/websocket/stomp/authorization.html">Authorization</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/websocket/stomp/user-destination.html">User Destinations</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/websocket/stomp/ordered-messages.html">Order of Messages</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/websocket/stomp/application-context-events.html">Events</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/websocket/stomp/interceptors.html">Interception</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/websocket/stomp/client.html">STOMP Client</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/websocket/stomp/scope.html">WebSocket Scope</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/websocket/stomp/configuration-performance.html">Performance</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/websocket/stomp/stats.html">Monitoring</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/websocket/stomp/testing.html">Testing</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="../web-reactive.html">Web on Reactive Stack</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="../web/webflux.html">Spring WebFlux</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../web/webflux/new-framework.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../web/webflux/reactive-spring.html">Reactive Core</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../web/webflux/dispatcher-handler.html"><code>DispatcherHandler</code></a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="../web/webflux/controller.html">Annotated Controllers</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webflux/controller/ann.html"><code>@Controller</code></a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webflux/controller/ann-requestmapping.html">Mapping Requests</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="../web/webflux/controller/ann-methods.html">Handler Methods</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../web/webflux/controller/ann-methods/arguments.html">Method Arguments</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../web/webflux/controller/ann-methods/return-types.html">Return Values</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../web/webflux/controller/ann-methods/typeconversion.html">Type Conversion</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../web/webflux/controller/ann-methods/matrix-variables.html">Matrix Variables</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../web/webflux/controller/ann-methods/requestparam.html"><code>@RequestParam</code></a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../web/webflux/controller/ann-methods/requestheader.html"><code>@RequestHeader</code></a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../web/webflux/controller/ann-methods/cookievalue.html"><code>@CookieValue</code></a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../web/webflux/controller/ann-methods/modelattrib-method-args.html"><code>@ModelAttribute</code></a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../web/webflux/controller/ann-methods/sessionattributes.html"><code>@SessionAttributes</code></a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../web/webflux/controller/ann-methods/sessionattribute.html"><code>@SessionAttribute</code></a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../web/webflux/controller/ann-methods/requestattrib.html"><code>@RequestAttribute</code></a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../web/webflux/controller/ann-methods/multipart-forms.html">Multipart Content</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../web/webflux/controller/ann-methods/requestbody.html"><code>@RequestBody</code></a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../web/webflux/controller/ann-methods/httpentity.html"><code>HttpEntity</code></a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../web/webflux/controller/ann-methods/responsebody.html"><code>@ResponseBody</code></a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../web/webflux/controller/ann-methods/responseentity.html"><code>ResponseEntity</code></a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../web/webflux/controller/ann-methods/jackson.html">Jackson JSON</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webflux/controller/ann-modelattrib-methods.html"><code>Model</code></a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webflux/controller/ann-initbinder.html"><code>DataBinder</code></a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webflux/controller/ann-validation.html">Validation</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webflux/controller/ann-exceptions.html">Exceptions</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../web/webflux/controller/ann-advice.html">Controller Advice</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../web/webflux-functional.html">Functional Endpoints</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../web/webflux/uri-building.html">URI Links</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../web/webflux/range.html">Range Requests</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../web/webflux/data-binding.html">Data Binding</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../web/webflux-cors.html">CORS</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../web/webflux-versioning.html">API Versioning</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../web/webflux/ann-rest-exceptions.html">Error Responses</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../web/webflux/security.html">Web Security</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../web/webflux/caching.html">HTTP Caching</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../web/webflux-view.html">View Technologies</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../web/webflux/config.html">WebFlux Config</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../web/webflux/http2.html">HTTP/2</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="../web/webflux-webclient.html">WebClient</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../web/webflux-webclient/client-builder.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../web/webflux-webclient/client-retrieve.html"><code>retrieve()</code></a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../web/webflux-webclient/client-exchange.html">Exchange</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../web/webflux-webclient/client-body.html">Request Body</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../web/webflux-webclient/client-filter.html">Filters</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../web/webflux-webclient/client-attributes.html">Attributes</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../web/webflux-webclient/client-context.html">Context</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../web/webflux-webclient/client-synchronous.html">Synchronous Use</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../web/webflux-webclient/client-testing.html">Testing</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="../web/webflux-http-service-client.html">HTTP Service Client</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="../web/webflux-websocket.html">WebSockets</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="../web/webflux-test.html">Testing</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="../rsocket.html">RSocket</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="../web/webflux-reactive-libraries.html">Reactive Libraries</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="../testing.html">Testing</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="../testing/introduction.html">Introduction to Spring Testing</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="../testing/unit.html">Unit Testing</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="../testing/integration.html">Integration Testing</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="../testing/support-jdbc.html">JDBC Testing Support</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="../testing/testcontext-framework.html">Spring TestContext Framework</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../testing/testcontext-framework/key-abstractions.html">Key Abstractions</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../testing/testcontext-framework/bootstrapping.html">Bootstrapping the TestContext Framework</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../testing/testcontext-framework/tel-config.html"><code>TestExecutionListener</code> Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../testing/testcontext-framework/application-events.html">Application Events</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../testing/testcontext-framework/test-execution-events.html">Test Execution Events</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="../testing/testcontext-framework/ctx-management.html">Context Management</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../testing/testcontext-framework/ctx-management/javaconfig.html">Context Configuration with Component Classes</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../testing/testcontext-framework/ctx-management/xml.html">Context Configuration with XML Resources</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../testing/testcontext-framework/ctx-management/groovy.html">Context Configuration with Groovy Scripts</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../testing/testcontext-framework/ctx-management/default-config.html">Default Context Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../testing/testcontext-framework/ctx-management/mixed-config.html">Mixing Component Classes, XML, and Groovy Scripts</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../testing/testcontext-framework/ctx-management/context-customizers.html">Context Configuration with Context Customizers</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../testing/testcontext-framework/ctx-management/initializers.html">Context Configuration with Context Initializers</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../testing/testcontext-framework/ctx-management/inheritance.html">Context Configuration Inheritance</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../testing/testcontext-framework/ctx-management/env-profiles.html">Context Configuration with Environment Profiles</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../testing/testcontext-framework/ctx-management/property-sources.html">Context Configuration with Test Property Sources</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../testing/testcontext-framework/ctx-management/dynamic-property-sources.html">Context Configuration with Dynamic Property Sources</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../testing/testcontext-framework/ctx-management/web.html">Loading a <code>WebApplicationContext</code></a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../testing/testcontext-framework/ctx-management/web-mocks.html">Working with Web Mocks</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../testing/testcontext-framework/ctx-management/caching.html">Context Caching</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../testing/testcontext-framework/ctx-management/context-pausing.html">Context Pausing</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../testing/testcontext-framework/ctx-management/failure-threshold.html">Context Failure Threshold</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../testing/testcontext-framework/ctx-management/hierarchies.html">Context Hierarchies</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../testing/testcontext-framework/fixture-di.html">Dependency Injection of Test Fixtures</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../testing/testcontext-framework/bean-overriding.html">Bean Overriding in Tests</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../testing/testcontext-framework/web-scoped-beans.html">Testing Request- and Session-scoped Beans</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../testing/testcontext-framework/tx.html">Transaction Management</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../testing/testcontext-framework/executing-sql.html">Executing SQL Scripts</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../testing/testcontext-framework/parallel-test-execution.html">Parallel Test Execution</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../testing/testcontext-framework/support-classes.html">TestContext Framework Support Classes</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../testing/testcontext-framework/aot.html">Ahead of Time Support for Tests</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="../testing/webtestclient.html">WebTestClient</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="../testing/resttestclient.html">RestTestClient</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="../testing/mockmvc.html">MockMvc</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../testing/mockmvc/overview.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../testing/mockmvc/setup-options.html">Setup Options</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="../testing/mockmvc/hamcrest.html">Hamcrest Integration</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../testing/mockmvc/hamcrest/static-imports.html">Static Imports</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../testing/mockmvc/hamcrest/setup.html">Configuring MockMvc</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../testing/mockmvc/hamcrest/setup-steps.html">Setup Features</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../testing/mockmvc/hamcrest/requests.html">Performing Requests</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../testing/mockmvc/hamcrest/expectations.html">Defining Expectations</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../testing/mockmvc/hamcrest/async-requests.html">Async Requests</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../testing/mockmvc/hamcrest/vs-streaming-response.html">Streaming Responses</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../testing/mockmvc/hamcrest/filters.html">Filter Registrations</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="../testing/mockmvc/assertj.html">AssertJ Integration</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../testing/mockmvc/assertj/setup.html">Configuring MockMvcTester</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../testing/mockmvc/assertj/requests.html">Performing Requests</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../testing/mockmvc/assertj/assertions.html">Defining Expectations</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../testing/mockmvc/assertj/integration.html">MockMvc integration</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="../testing/mockmvc/htmlunit.html">HtmlUnit Integration</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../testing/mockmvc/htmlunit/why.html">Why HtmlUnit Integration?</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../testing/mockmvc/htmlunit/mah.html">MockMvc and HtmlUnit</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../testing/mockmvc/htmlunit/webdriver.html">MockMvc and WebDriver</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../testing/mockmvc/htmlunit/geb.html">MockMvc and Geb</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../testing/mockmvc/vs-end-to-end-integration-tests.html">MockMvc vs End-to-End Tests</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../testing/mockmvc/resources.html">Further Examples</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="../testing/spring-mvc-test-client.html">Testing Client Applications</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="../testing/appendix.html">Appendix</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="../testing/annotations.html">Annotations</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../testing/annotations/integration-standard.html">Standard Annotation Support</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="../testing/annotations/integration-spring.html">Spring Testing Annotations</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../testing/annotations/integration-spring/annotation-bootstrapwith.html"><code>@BootstrapWith</code></a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../testing/annotations/integration-spring/annotation-contextconfiguration.html"><code>@ContextConfiguration</code></a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../testing/annotations/integration-spring/annotation-webappconfiguration.html"><code>@WebAppConfiguration</code></a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../testing/annotations/integration-spring/annotation-contexthierarchy.html"><code>@ContextHierarchy</code></a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../testing/annotations/integration-spring/annotation-contextcustomizerfactories.html"><code>@ContextCustomizerFactories</code></a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../testing/annotations/integration-spring/annotation-activeprofiles.html"><code>@ActiveProfiles</code></a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../testing/annotations/integration-spring/annotation-testpropertysource.html"><code>@TestPropertySource</code></a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../testing/annotations/integration-spring/annotation-dynamicpropertysource.html"><code>@DynamicPropertySource</code></a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../testing/annotations/integration-spring/annotation-testbean.html"><code>@TestBean</code></a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../testing/annotations/integration-spring/annotation-mockitobean.html"><code>@MockitoBean</code> and <code>@MockitoSpyBean</code></a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../testing/annotations/integration-spring/annotation-dirtiescontext.html"><code>@DirtiesContext</code></a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../testing/annotations/integration-spring/annotation-testexecutionlisteners.html"><code>@TestExecutionListeners</code></a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../testing/annotations/integration-spring/annotation-recordapplicationevents.html"><code>@RecordApplicationEvents</code></a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../testing/annotations/integration-spring/annotation-commit.html"><code>@Commit</code></a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../testing/annotations/integration-spring/annotation-rollback.html"><code>@Rollback</code></a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../testing/annotations/integration-spring/annotation-beforetransaction.html"><code>@BeforeTransaction</code></a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../testing/annotations/integration-spring/annotation-aftertransaction.html"><code>@AfterTransaction</code></a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../testing/annotations/integration-spring/annotation-sql.html"><code>@Sql</code></a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../testing/annotations/integration-spring/annotation-sqlconfig.html"><code>@SqlConfig</code></a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../testing/annotations/integration-spring/annotation-sqlmergemode.html"><code>@SqlMergeMode</code></a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../testing/annotations/integration-spring/annotation-sqlgroup.html"><code>@SqlGroup</code></a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link"  href="../testing/annotations/integration-spring/annotation-disabledinaotmode.html"><code>@DisabledInAotMode</code></a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../testing/annotations/integration-junit4.html">Spring JUnit 4 Testing Annotations</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../testing/annotations/integration-junit-jupiter.html">Spring JUnit Jupiter Testing Annotations</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link"  href="../testing/annotations/integration-meta.html">Meta-Annotation Support for Testing</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../testing/resources.html">Further Resources</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="../integration.html">Integration</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="../integration/rest-clients.html">REST Clients</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="../integration/jms.html">JMS (Java Message Service)</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../integration/jms/using.html">Using Spring JMS</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../integration/jms/sending.html">Sending a Message</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../integration/jms/receiving.html">Receiving a Message</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../integration/jms/jca-message-endpoint-manager.html">Support for JCA Message Endpoints</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../integration/jms/annotated.html">Annotation-driven Listener Endpoints</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../integration/jms/namespace.html">JMS Namespace Support</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="../integration/jmx.html">JMX</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../integration/jmx/exporting.html">Exporting Your Beans to JMX</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../integration/jmx/interface.html">Controlling the Management Interface of Your Beans</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../integration/jmx/naming.html">Controlling  <code>ObjectName</code> Instances for Your Beans</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../integration/jmx/jsr160.html">Using JSR-160 Connectors</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../integration/jmx/proxy.html">Accessing MBeans through Proxies</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../integration/jmx/notifications.html">Notifications</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../integration/jmx/resources.html">Further Resources</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="../integration/email.html">Email</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="../integration/scheduling.html">Task Execution and Scheduling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="../integration/cache.html">Cache Abstraction</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../integration/cache/strategies.html">Understanding the Cache Abstraction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../integration/cache/annotations.html">Declarative Annotation-based Caching</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../integration/cache/jsr-107.html">JCache (JSR-107) Annotations</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../integration/cache/declarative-xml.html">Declarative XML-based Caching</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../integration/cache/store-configuration.html">Configuring the Cache Storage</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../integration/cache/plug.html">Plugging-in Different Back-end Caches</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../integration/cache/specific-config.html">How can I Set the TTL/TTI/Eviction policy/XXX feature?</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="../integration/observability.html">Observability Support</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="../integration/aot-cache.html">JVM AOT Cache</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="../integration/checkpoint-restore.html">JVM Checkpoint Restore</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="../integration/appendix.html">Appendix</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="../languages.html">Language Support</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="../languages/kotlin.html">Kotlin</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../languages/kotlin/requirements.html">Requirements</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../languages/kotlin/extensions.html">Extensions</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../languages/kotlin/null-safety.html">Null-safety</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../languages/kotlin/classes-interfaces.html">Classes and Interfaces</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../languages/kotlin/annotations.html">Annotations</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../languages/kotlin/bean-registration-dsl.html">Bean Registration DSL</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../languages/kotlin/web.html">Web</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../languages/kotlin/coroutines.html">Coroutines</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../languages/kotlin/spring-projects-in.html">Spring Projects in Kotlin</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../languages/kotlin/getting-started.html">Getting Started</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../languages/kotlin/resources.html">Resources</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="../languages/groovy.html">Apache Groovy</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link"  href="../appendix.html">Appendix</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link link-external"  target="_blank" href="https://docs.spring.io/spring-framework/docs/7.0.10/javadoc-api/">Java API</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link link-external"  target="_blank" href="https://docs.spring.io/spring-framework/docs/7.0.10/kdoc-api/">Kotlin API</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link link-external"  target="_blank" href="https://github.com/spring-projects/spring-framework/wiki">Wiki</a>
+  </li>
+</ul>
+  </li>
+</ul>
+          <div class="toggle-sm">
+            <button id="nav-toggle-2" class="nav-toggle"></button>
+          </div>
+        </nav>
+      </div>
+      <div class="nav-collapse">
+        <button id="nav-collapse-toggle"><span></span></button>        
+      </div>
+    </div>
+    <div class="nav-resize"></div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+  <button id="nav-toggle-1" class="nav-toggle"></button>
+<div class="search">
+  <button class="DocSearch-Button search-button">
+    <svg enable-background="new 0 0 32 32" id="Glyph" version="1.1" viewBox="0 0 32 32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <path d="M27.414,24.586l-5.077-5.077C23.386,17.928,24,16.035,24,14c0-5.514-4.486-10-10-10S4,8.486,4,14  s4.486,10,10,10c2.035,0,3.928-0.614,5.509-1.663l5.077,5.077c0.78,0.781,2.048,0.781,2.828,0  C28.195,26.633,28.195,25.367,27.414,24.586z M7,14c0-3.86,3.14-7,7-7s7,3.14,7,7s-3.14,7-7,7S7,17.86,7,14z" id="XMLID_223_"/>
+    </svg>
+    <span>Search</span>
+    <span class="search-key"></span>
+  </button>
+</div>
+</div>
+  <div class="content">
+<aside class="sidebar">
+  <div class="content">
+    <div
+      class="toc"
+      data-title="Ahead of Time Optimizations"
+      data-levels="2"
+    >
+      <div class="toc-menu"></div>
+    </div>
+    <div class="sidebar-links">
+        <a href="https://github.com/spring-projects/spring-framework/blob/v7.0.10/framework-docs/modules/ROOT/pages/core/aot.adoc">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="24"
+            viewBox="0 0 24 24"
+            width="24"
+          ><path
+              d="m16 2.012 3 3L16.713 7.3l-3-3zM4 14v3h3l8.299-8.287-3-3zm0 6h16v2H4z"
+            ></path></svg>
+          Edit this Page
+        </a>
+              <a href="https://github.com/spring-projects/spring-framework" title="GitHub">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="512px"
+            id="Layer_1"
+            version="1.1"
+            viewBox="0 0 512 512"
+            width="512px"
+          ><g><path
+                class="st0"
+                d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"
+              ></path></g></svg>
+          GitHub Project
+        </a>
+        <a href="https://stackoverflow.com/questions/tagged/spring">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path
+              d="M290.7 311L95 269.7 86.8 309l195.7 41zm51-87L188.2 95.7l-25.5 30.8 153.5 128.3zm-31.2 39.7L129.2 179l-16.7 36.5L293.7 300zM262 32l-32 24 119.3 160.3 32-24zm20.5 328h-200v39.7h200zm39.7 80H42.7V320h-40v160h359.5V320h-40z"
+            ></path></svg>
+          Stack Overflow
+        </a>
+    </div>
+  </div>
+</aside>
+<article class="doc">
+<div class="breadcrumbs-container">
+  <nav class="breadcrumbs" aria-label="breadcrumbs">
+    <ul>
+      <li id="copy-url" title="Copy versioned URL"></li>
+      <li><a href="../index.html">Spring Framework</a></li>
+      <li><a href="../core.html">Core Technologies</a></li>
+      <li><a href="aot.html">Ahead of Time Optimizations</a></li>
+    </ul>
+  </nav>
+</div><h1 id="page-title" class="page">Ahead of Time Optimizations</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This chapter covers Spring&#8217;s Ahead of Time (AOT) optimizations.</p>
+</div>
+<div class="paragraph">
+<p>For AOT support specific to integration tests, see <a href="../testing/testcontext-framework/aot.html" class="xref page">Ahead of Time Support for Tests</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="aot.introduction"><a class="anchor" href="#aot.introduction"></a>Introduction to Ahead of Time Optimizations</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Spring&#8217;s support for AOT optimizations is meant to inspect an <code>ApplicationContext</code> at build time and apply decisions and discovery logic that usually happens at runtime.
+Doing so allows building an application startup arrangement that is more straightforward and focused on a fixed set of features based mainly on the classpath and the <code>Environment</code>.</p>
+</div>
+<div class="paragraph">
+<p>Applying such optimizations early implies the following restrictions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The classpath is fixed and fully defined at build time.</p>
+</li>
+<li>
+<p>The beans defined in your application cannot change at runtime, meaning:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>@Profile</code>, in particular profile-specific configuration, needs to be chosen at build time and is automatically enabled at runtime when AOT is enabled.</p>
+</li>
+<li>
+<p><code>Environment</code> properties that impact the presence of a bean (<code>@Conditional</code>) are only considered at build time.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Bean definitions with instance suppliers (lambdas or method references) cannot be transformed ahead of time.</p>
+</li>
+<li>
+<p>Beans registered as singletons (using <code>registerSingleton</code>, typically from
+<code>ConfigurableListableBeanFactory</code>) cannot be transformed ahead of time either.</p>
+</li>
+<li>
+<p>As we cannot rely on the instance, make sure that the bean type is as precise as
+possible.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+See also the <a href="#aot.bestpractices">Best Practices</a> section.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>When these restrictions are in place, it becomes possible to perform ahead-of-time processing at build time and generate additional assets.
+A Spring AOT processed application typically generates:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Java source code</p>
+</li>
+<li>
+<p>Bytecode (usually for dynamic proxies)</p>
+</li>
+<li>
+<p><a href="https://docs.spring.io/spring-framework/docs/7.0.10/javadoc-api/org/springframework/aot/hint/RuntimeHints.html"><code>RuntimeHints</code></a> for the use of reflection, resource loading, serialization, and JDK proxies</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+At the moment, AOT is focused on allowing Spring applications to be deployed as native images using GraalVM.
+We intend to support more JVM-based use cases in future generations.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="aot.basics"><a class="anchor" href="#aot.basics"></a>AOT Engine Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The entry point of the AOT engine for processing an <code>ApplicationContext</code> is <code>ApplicationContextAotGenerator</code>. It takes care of the following steps, based on a <code>GenericApplicationContext</code> that represents the application to optimize and a <a href="https://docs.spring.io/spring-framework/docs/7.0.10/javadoc-api/org/springframework/aot/generate/GenerationContext.html"><code>GenerationContext</code></a>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Refresh an <code>ApplicationContext</code> for AOT processing. Contrary to a traditional refresh, this version only creates bean definitions, not bean instances.</p>
+</li>
+<li>
+<p>Invoke the available <code>BeanFactoryInitializationAotProcessor</code> implementations and apply their contributions against the <code>GenerationContext</code>.
+For instance, a core implementation iterates over all candidate bean definitions and generates the necessary code to restore the state of the <code>BeanFactory</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Once this process completes, the <code>GenerationContext</code> will have been updated with the generated code, resources, and classes that are necessary for the application to run.
+The <code>RuntimeHints</code> instance can also be used to generate the relevant GraalVM native image configuration files.</p>
+</div>
+<div class="paragraph">
+<p><code>ApplicationContextAotGenerator#processAheadOfTime</code> returns the class name of the <code>ApplicationContextInitializer</code> entry point that allows the context to be started with AOT optimizations.</p>
+</div>
+<div class="paragraph">
+<p>Those steps are covered in greater detail in the sections below.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="aot.refresh"><a class="anchor" href="#aot.refresh"></a>Refresh for AOT Processing</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Refresh for AOT processing is supported on all <code>GenericApplicationContext</code> implementations.
+An application context is created with any number of entry points, usually in the form of <code>@Configuration</code>-annotated classes.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s look at a basic example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">	@Configuration(proxyBeanMethods=false)
+	@ComponentScan
+	@Import({DataSourceConfiguration.class, ContainerConfiguration.class})
+	public class MyApplication {
+	}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Starting this application with the regular runtime involves a number of steps including classpath scanning, configuration class parsing, bean instantiation, and lifecycle callback handling.
+Refresh for AOT processing only applies a subset of what happens with a <a href="beans/introduction.html" class="xref page">regular <code>refresh</code></a>.
+AOT processing can be triggered as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">		RuntimeHints hints = new RuntimeHints();
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+		context.register(MyApplication.class);
+		context.refreshForAotProcessing(hints);
+		// ...
+		context.close();</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this mode, <a href="beans/factory-extension.html#beans-factory-extension-factory-postprocessors" class="xref page"><code>BeanFactoryPostProcessor</code> implementations</a> are invoked as usual.
+This includes configuration class parsing, import selectors, classpath scanning, etc.
+Such steps make sure that the <code>BeanRegistry</code> contains the relevant bean definitions for the application.
+If bean definitions are guarded by conditions (such as <code>@Profile</code>), these are evaluated,
+and bean definitions that don&#8217;t match their conditions are discarded at this stage.</p>
+</div>
+<div class="paragraph">
+<p>If custom code needs to register extra beans programmatically, make sure that custom
+registration code uses <code>BeanDefinitionRegistry</code> instead of <code>BeanFactory</code> as only bean
+definitions are taken into account. A good pattern is to implement
+<code>ImportBeanDefinitionRegistrar</code> and register it via an <code>@Import</code> on one of your
+configuration classes.</p>
+</div>
+<div class="paragraph">
+<p>Because this mode does not actually create bean instances, <code>BeanPostProcessor</code> implementations are not invoked, except for specific variants that are relevant for AOT processing.
+These are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>MergedBeanDefinitionPostProcessor</code> implementations post-process bean definitions to extract additional settings, such as <code>init</code> and <code>destroy</code> methods.</p>
+</li>
+<li>
+<p><code>SmartInstantiationAwareBeanPostProcessor</code> implementations determine a more precise bean type if necessary.
+This makes sure to create any proxy that will be required at runtime.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Once this part completes, the <code>BeanFactory</code> contains the bean definitions that are necessary for the application to run. It does not trigger bean instantiation but allows the AOT engine to inspect the beans that will be created at runtime.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="aot.bean-factory-initialization-contributions"><a class="anchor" href="#aot.bean-factory-initialization-contributions"></a>Bean Factory Initialization AOT Contributions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Components that want to participate in this step can implement the <a href="https://docs.spring.io/spring-framework/docs/7.0.10/javadoc-api/org/springframework/beans/factory/aot/BeanFactoryInitializationAotProcessor.html"><code>BeanFactoryInitializationAotProcessor</code></a> interface.
+Each implementation can return an AOT contribution, based on the state of the bean factory.</p>
+</div>
+<div class="paragraph">
+<p>An AOT contribution is a component that contributes generated code which reproduces a particular behavior.
+It can also contribute <code>RuntimeHints</code> to indicate the need for reflection, resource loading, serialization, or JDK proxies.</p>
+</div>
+<div class="paragraph">
+<p>A <code>BeanFactoryInitializationAotProcessor</code> implementation can be registered in <code>META-INF/spring/aot.factories</code> with a key equal to the fully-qualified name of the interface.</p>
+</div>
+<div class="paragraph">
+<p>The <code>BeanFactoryInitializationAotProcessor</code> interface can also be implemented directly by a bean.
+In this mode, the bean provides an AOT contribution equivalent to the feature it provides with a regular runtime.
+Consequently, such a bean is automatically excluded from the AOT-optimized context.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If a bean implements the <code>BeanFactoryInitializationAotProcessor</code> interface, the bean and <strong>all</strong> of its dependencies will be initialized during AOT processing.
+We generally recommend that this interface is only implemented by infrastructure beans, such as a <code>BeanFactoryPostProcessor</code>, which have limited dependencies and are already initialized early in the bean factory lifecycle.
+If such a bean is registered using an <code>@Bean</code> factory method, ensure the method is <code>static</code> so that its enclosing <code>@Configuration</code> class does not have to be initialized.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="aot.bean-registration-contributions"><a class="anchor" href="#aot.bean-registration-contributions"></a>Bean Registration AOT Contributions</h3>
+<div class="paragraph">
+<p>A core <code>BeanFactoryInitializationAotProcessor</code> implementation is responsible for collecting the necessary contributions for each candidate <code>BeanDefinition</code>.
+It does so using a dedicated <code>BeanRegistrationAotProcessor</code>.</p>
+</div>
+<div class="paragraph">
+<p>This interface is used as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Implemented by a <code>BeanPostProcessor</code> bean, to replace its runtime behavior.
+For instance <a href="beans/factory-extension.html#beans-factory-extension-bpp-examples-aabpp" class="xref page"><code>AutowiredAnnotationBeanPostProcessor</code></a> implements this interface to generate code that injects members annotated with <code>@Autowired</code>.</p>
+</li>
+<li>
+<p>Implemented by a type registered in <code>META-INF/spring/aot.factories</code> with a key equal to the fully-qualified name of the interface.
+Typically used when the bean definition needs to be tuned for specific features of the core framework.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If a bean implements the <code>BeanRegistrationAotProcessor</code> interface, the bean and <strong>all</strong> of its dependencies will be initialized during AOT processing.
+We generally recommend that this interface is only implemented by infrastructure beans, such as a <code>BeanFactoryPostProcessor</code>, which have limited dependencies and are already initialized early in the bean factory lifecycle.
+If such a bean is registered using an <code>@Bean</code> factory method, ensure the method is <code>static</code> so that its enclosing <code>@Configuration</code> class does not have to be initialized.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>If no <code>BeanRegistrationAotProcessor</code> handles a particular registered bean, a default implementation processes it.
+This is the default behavior, since tuning the generated code for a bean definition should be restricted to corner cases.</p>
+</div>
+<div class="paragraph">
+<p>Taking our previous example, let&#8217;s assume that <code>DataSourceConfiguration</code> is as follows:</p>
+</div>
+<div id="_tabs_1" class="openblock tabs is-sync is-loading">
+<div class="content">
+<div class="ulist tablist">
+<ul>
+<li id="_tabs_1_java" class="tab">
+<p>Java</p>
+</li>
+<li id="_tabs_1_kotlin" class="tab">
+<p>Kotlin</p>
+</li>
+</ul>
+</div>
+<div id="_tabs_1_java--panel" class="tabpanel" aria-labelledby="_tabs_1_java">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Configuration(proxyBeanMethods = false)
+public class DataSourceConfiguration {
+
+	@Bean
+	public SimpleDataSource dataSource() {
+		return new SimpleDataSource();
+	}
+
+}</code></pre>
+</div>
+</div>
+</div>
+<div id="_tabs_1_kotlin--panel" class="tabpanel" aria-labelledby="_tabs_1_kotlin">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">@Configuration(proxyBeanMethods = false)
+class DataSourceConfiguration {
+
+	@Bean
+	fun dataSource() = SimpleDataSource()
+
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Kotlin class names with backticks that use invalid Java identifiers (not starting with a letter, containing spaces, etc.) are not supported.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Since there isn&#8217;t any particular condition on this class, <code>dataSourceConfiguration</code> and <code>dataSource</code> are identified as candidates.
+The AOT engine will convert the configuration class above to code similar to the following:</p>
+</div>
+<div id="_tabs_2" class="openblock tabs is-sync is-loading">
+<div class="content">
+<div class="ulist tablist">
+<ul>
+<li id="_tabs_2_java" class="tab">
+<p>Java</p>
+</li>
+</ul>
+</div>
+<div id="_tabs_2_java--panel" class="tabpanel" aria-labelledby="_tabs_2_java">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">/**
+ * Bean definitions for {@link DataSourceConfiguration}
+ */
+@Generated
+public class DataSourceConfiguration__BeanDefinitions {
+	/**
+	 * Get the bean definition for 'dataSourceConfiguration'
+	 */
+	public static BeanDefinition getDataSourceConfigurationBeanDefinition() {
+		Class&lt;?&gt; beanType = DataSourceConfiguration.class;
+		RootBeanDefinition beanDefinition = new RootBeanDefinition(beanType);
+		beanDefinition.setInstanceSupplier(DataSourceConfiguration::new);
+		return beanDefinition;
+	}
+
+	/**
+	 * Get the bean instance supplier for 'dataSource'.
+	 */
+	private static BeanInstanceSupplier&lt;SimpleDataSource&gt; getDataSourceInstanceSupplier() {
+		return BeanInstanceSupplier.&lt;SimpleDataSource&gt;forFactoryMethod(DataSourceConfiguration.class, "dataSource")
+				.withGenerator((registeredBean) -&gt; registeredBean.getBeanFactory().getBean(DataSourceConfiguration.class).dataSource());
+	}
+
+	/**
+	 * Get the bean definition for 'dataSource'
+	 */
+	public static BeanDefinition getDataSourceBeanDefinition() {
+		Class&lt;?&gt; beanType = SimpleDataSource.class;
+		RootBeanDefinition beanDefinition = new RootBeanDefinition(beanType);
+		beanDefinition.setInstanceSupplier(getDataSourceInstanceSupplier());
+		return beanDefinition;
+	}
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The exact code generated may differ depending on the exact nature of your bean definitions.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Each generated class is annotated with <code>org.springframework.aot.generate.Generated</code> to
+identify them if they need to be excluded, for instance by static analysis tools.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The generated code above creates bean definitions equivalent to the <code>@Configuration</code> class, but in a direct way and without the use of reflection at all if possible.
+There is a bean definition for <code>dataSourceConfiguration</code> and one for <code>dataSourceBean</code>.
+When a <code>datasource</code> instance is required, a <code>BeanInstanceSupplier</code> is called.
+This supplier invokes the <code>dataSource()</code> method on the <code>dataSourceConfiguration</code> bean.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="aot.running"><a class="anchor" href="#aot.running"></a>Running with AOT Optimizations</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>AOT is a mandatory step to transform a Spring application to a native executable, so it
+is automatically enabled when running within a native image. However it is also possible to use AOT optimizations
+on the JVM by setting the <code>spring.aot.enabled</code> System property to <code>true</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+When AOT optimizations are included, some decisions that have been made at build time
+are hard coded in the application setup. For instance, profiles that have been enabled at
+build time are automatically enabled at runtime as well.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="aot.bestpractices"><a class="anchor" href="#aot.bestpractices"></a>Best Practices</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The AOT engine is designed to handle as many use cases as possible, with no code change in applications.
+However, keep in mind that some optimizations are made at build time based on a static definition of the beans.</p>
+</div>
+<div class="paragraph">
+<p>This section lists the best practices that make sure your application is ready for AOT.</p>
+</div>
+<div class="sect2">
+<h3 id="aot.bestpractices.bean-registration"><a class="anchor" href="#aot.bestpractices.bean-registration"></a>Programmatic Bean Registration</h3>
+<div class="paragraph">
+<p>The AOT engine takes care of the <code>@Configuration</code> model and any callback that might be
+invoked as part of processing your configuration. If you need to register additional
+beans programmatically, make sure to use a <code>BeanDefinitionRegistry</code> to register
+bean definitions.</p>
+</div>
+<div class="paragraph">
+<p>This can typically be done via a <code>BeanDefinitionRegistryPostProcessor</code>. Note that, if it
+is registered itself as a bean, it will be invoked again at runtime unless you make
+sure to implement <code>BeanFactoryInitializationAotProcessor</code> as well. A more idiomatic
+way is to implement <code>ImportBeanDefinitionRegistrar</code> and register it using <code>@Import</code> on
+one of your configuration classes. This invokes your custom code as part of configuration
+class parsing.</p>
+</div>
+<div class="paragraph">
+<p>If you declare additional beans programmatically using a different callback, they are
+likely not going to be handled by the AOT engine, and therefore no hints are going to be
+generated for them. Depending on the environment, those beans may not be registered at
+all. For instance, classpath scanning does not work in a native image as there is no
+notion of a classpath. For cases like this, it is crucial that the scanning happens at
+build time.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="aot.bestpractices.bean-type"><a class="anchor" href="#aot.bestpractices.bean-type"></a>Expose the Most Precise Bean Type</h3>
+<div class="paragraph">
+<p>While your application may interact with an interface that a bean implements, it is still very important to declare the most precise type.
+The AOT engine performs additional checks on the bean type, such as detecting the presence of <code>@Autowired</code> members or lifecycle callback methods.</p>
+</div>
+<div class="paragraph">
+<p>For <code>@Configuration</code> classes, make sure that the return type of an <code>@Bean</code> factory method is as precise as possible.
+Consider the following example:</p>
+</div>
+<div id="_tabs_3" class="openblock tabs is-sync is-loading">
+<div class="content">
+<div class="ulist tablist">
+<ul>
+<li id="_tabs_3_java" class="tab">
+<p>Java</p>
+</li>
+<li id="_tabs_3_kotlin" class="tab">
+<p>Kotlin</p>
+</li>
+</ul>
+</div>
+<div id="_tabs_3_java--panel" class="tabpanel" aria-labelledby="_tabs_3_java">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Configuration(proxyBeanMethods = false)
+public class UserConfiguration {
+
+	@Bean
+	public MyInterface myInterface() {
+		return new MyImplementation();
+	}
+
+}</code></pre>
+</div>
+</div>
+</div>
+<div id="_tabs_3_kotlin--panel" class="tabpanel" aria-labelledby="_tabs_3_kotlin">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">@Configuration(proxyBeanMethods = false)
+class UserConfiguration {
+
+	@Bean
+	fun myInterface(): MyInterface = MyImplementation()
+
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>In the example above, the declared type for the <code>myInterface</code> bean is <code>MyInterface</code>.
+During AOT processing, none of the usual post-processing will take <code>MyImplementation</code> into account.
+For instance, if there is an annotated handler method on <code>MyImplementation</code> that the context should register, it will not be detected during AOT processing.</p>
+</div>
+<div class="paragraph">
+<p>The example above should therefore be rewritten as follows:</p>
+</div>
+<div id="_tabs_4" class="openblock tabs is-sync is-loading">
+<div class="content">
+<div class="ulist tablist">
+<ul>
+<li id="_tabs_4_java" class="tab">
+<p>Java</p>
+</li>
+<li id="_tabs_4_kotlin" class="tab">
+<p>Kotlin</p>
+</li>
+</ul>
+</div>
+<div id="_tabs_4_java--panel" class="tabpanel" aria-labelledby="_tabs_4_java">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Configuration(proxyBeanMethods = false)
+public class UserConfiguration {
+
+	@Bean
+	public MyImplementation myInterface() {
+		return new MyImplementation();
+	}
+
+}</code></pre>
+</div>
+</div>
+</div>
+<div id="_tabs_4_kotlin--panel" class="tabpanel" aria-labelledby="_tabs_4_kotlin">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">@Configuration(proxyBeanMethods = false)
+class UserConfiguration {
+
+	@Bean
+	fun myInterface() = MyImplementation()
+
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>If you are registering bean definitions programmatically, consider using <code>RootBeanBefinition</code> as it allows to specify a <code>ResolvableType</code> that handles generics.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="aot.bestpractices.constructors"><a class="anchor" href="#aot.bestpractices.constructors"></a>Avoid Multiple Constructors</h3>
+<div class="paragraph">
+<p>The container is able to choose the most appropriate constructor to use based on several candidates.
+However, relying on that is not a best practice, and flagging the preferred constructor with <code>@Autowired</code> if necessary is preferred.</p>
+</div>
+<div class="paragraph">
+<p>In case you are working on a code base that you cannot modify, you can set the <a href="https://docs.spring.io/spring-framework/docs/7.0.10/javadoc-api/org/springframework/beans/factory/support/AbstractBeanDefinition.html#PREFERRED_CONSTRUCTORS_ATTRIBUTE"><code>preferredConstructors</code> attribute</a> on the related bean definition to indicate which constructor should be used.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="aot.bestpractices.complex-data-structures"><a class="anchor" href="#aot.bestpractices.complex-data-structures"></a>Avoid Complex Data Structures for Constructor Parameters and Properties</h3>
+<div class="paragraph">
+<p>When crafting a <code>RootBeanDefinition</code> programmatically, you are not constrained in terms of types that you can use.
+For instance, you may have a custom <code>record</code> with several properties that your bean takes as a constructor argument.</p>
+</div>
+<div class="paragraph">
+<p>While this works fine with the regular runtime, AOT does not know how to generate the code of your custom data structure.
+A good rule of thumb is to keep in mind that bean definitions are an abstraction on top of several models.
+Rather than using such structures, decomposing to simple types or referring to a bean that is built as such is recommended.</p>
+</div>
+<div class="paragraph">
+<p>As a last resort, you can implement your own <code>org.springframework.aot.generate.ValueCodeGenerator$Delegate</code>.
+To use it, register its fully-qualified name in <code>META-INF/spring/aot.factories</code> using <code>org.springframework.aot.generate.ValueCodeGenerator$Delegate</code> as the key.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="aot.bestpractices.custom-arguments"><a class="anchor" href="#aot.bestpractices.custom-arguments"></a>Avoid Creating Beans with Custom Arguments</h3>
+<div class="paragraph">
+<p>Spring AOT detects what needs to be done to create a bean and translates that into generated code that uses an instance supplier.
+The container also supports creating a bean with <a href="https://docs.spring.io/spring-framework/docs/7.0.10/javadoc-api/org/springframework/beans/factory/BeanFactory.html#getBean(java.lang.String,java.lang.Object...)">custom arguments</a> which can lead to several issues with AOT:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The custom arguments require dynamic introspection of a matching constructor or factory method.
+Those arguments cannot be detected by AOT, so the necessary reflection hints will have to be provided manually.</p>
+</li>
+<li>
+<p>Bypassing the instance supplier means that all other optimizations after creation are skipped as well.
+For instance, autowiring on fields and methods will be skipped as they are handled in the instance supplier.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Rather than having prototype-scoped beans created with custom arguments, we recommend a manual factory pattern where a bean is responsible for the creation of the instance.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="aot.bestpractices.circular-dependencies"><a class="anchor" href="#aot.bestpractices.circular-dependencies"></a>Avoid Circular Dependencies</h3>
+<div class="paragraph">
+<p>Certain use cases can result in circular dependencies between one or more beans. With the
+regular runtime, it may be possible to wire those circular dependencies via <code>@Autowired</code>
+on setter methods or fields. However, an AOT-optimized context will fail to start with
+explicit circular dependencies.</p>
+</div>
+<div class="paragraph">
+<p>In an AOT-optimized application, you should therefore strive to avoid circular
+dependencies. If that is not possible, you can use <code>@Lazy</code> injection points or
+<code>ObjectProvider</code> to lazily access or retrieve the necessary collaborating beans. See
+<a href="beans/classpath-scanning.html#beans-factorybeans-annotations-lazy-injection-points" class="xref page">this tip</a>
+for further information.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="aot.bestpractices.factory-bean"><a class="anchor" href="#aot.bestpractices.factory-bean"></a>FactoryBean</h3>
+<div class="paragraph">
+<p><code>FactoryBean</code> should be used with care as it introduces an intermediate layer in terms of bean type resolution that may not be conceptually necessary.
+As a rule of thumb, if a <code>FactoryBean</code> instance does not hold long-term state and is not needed at a later point at runtime, it should be replaced by a regular <code>@Bean</code> factory method, possibly with a <code>FactoryBean</code> adapter layer on top (for declarative configuration purposes).</p>
+</div>
+<div class="paragraph">
+<p>If your <code>FactoryBean</code> implementation does not resolve the object type (i.e. <code>T</code>), extra care is necessary.
+Consider the following example:</p>
+</div>
+<div id="_tabs_5" class="openblock tabs is-sync is-loading">
+<div class="content">
+<div class="ulist tablist">
+<ul>
+<li id="_tabs_5_java" class="tab">
+<p>Java</p>
+</li>
+<li id="_tabs_5_kotlin" class="tab">
+<p>Kotlin</p>
+</li>
+</ul>
+</div>
+<div id="_tabs_5_java--panel" class="tabpanel" aria-labelledby="_tabs_5_java">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class ClientFactoryBean&lt;T extends AbstractClient&gt; implements FactoryBean&lt;T&gt; {
+	// ...
+}</code></pre>
+</div>
+</div>
+</div>
+<div id="_tabs_5_kotlin--panel" class="tabpanel" aria-labelledby="_tabs_5_kotlin">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">class ClientFactoryBean&lt;T : AbstractClient&gt; : FactoryBean&lt;T&gt; {
+	// ...
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>A concrete client declaration should provide a resolved generic for the client, as shown in the following example:</p>
+</div>
+<div id="_tabs_6" class="openblock tabs is-sync is-loading">
+<div class="content">
+<div class="ulist tablist">
+<ul>
+<li id="_tabs_6_java" class="tab">
+<p>Java</p>
+</li>
+<li id="_tabs_6_kotlin" class="tab">
+<p>Kotlin</p>
+</li>
+</ul>
+</div>
+<div id="_tabs_6_java--panel" class="tabpanel" aria-labelledby="_tabs_6_java">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Configuration(proxyBeanMethods = false)
+public class UserConfiguration {
+
+	@Bean
+	public ClientFactoryBean&lt;MyClient&gt; myClient() {
+		return new ClientFactoryBean&lt;&gt;(...);
+	}
+
+}</code></pre>
+</div>
+</div>
+</div>
+<div id="_tabs_6_kotlin--panel" class="tabpanel" aria-labelledby="_tabs_6_kotlin">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">@Configuration(proxyBeanMethods = false)
+class UserConfiguration {
+
+	@Bean
+	fun myClient() = ClientFactoryBean&lt;MyClient&gt;(...)
+
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>If a <code>FactoryBean</code> bean definition is registered programmatically, make sure to follow these steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Use <code>RootBeanDefinition</code>.</p>
+</li>
+<li>
+<p>Set the <code>beanClass</code> to the <code>FactoryBean</code> class so that AOT knows that it is an intermediate layer.</p>
+</li>
+<li>
+<p>Set the <code>ResolvableType</code> to a resolved generic, which makes sure the most precise type is exposed.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The following example showcases a basic definition:</p>
+</div>
+<div id="_tabs_7" class="openblock tabs is-sync is-loading">
+<div class="content">
+<div class="ulist tablist">
+<ul>
+<li id="_tabs_7_java" class="tab">
+<p>Java</p>
+</li>
+<li id="_tabs_7_kotlin" class="tab">
+<p>Kotlin</p>
+</li>
+</ul>
+</div>
+<div id="_tabs_7_java--panel" class="tabpanel" aria-labelledby="_tabs_7_java">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">RootBeanDefinition beanDefinition = new RootBeanDefinition(ClientFactoryBean.class);
+beanDefinition.setTargetType(ResolvableType.forClassWithGenerics(ClientFactoryBean.class, MyClient.class));
+// ...
+registry.registerBeanDefinition("myClient", beanDefinition);</code></pre>
+</div>
+</div>
+</div>
+<div id="_tabs_7_kotlin--panel" class="tabpanel" aria-labelledby="_tabs_7_kotlin">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">val beanDefinition = RootBeanDefinition(ClientFactoryBean::class.java)
+beanDefinition.setTargetType(ResolvableType.forClassWithGenerics(ClientFactoryBean::class.java, MyClient::class.java));
+// ...
+registry.registerBeanDefinition("myClient", beanDefinition)</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="aot.bestpractices.jpa"><a class="anchor" href="#aot.bestpractices.jpa"></a>JPA</h3>
+<div class="paragraph">
+<p>The JPA persistence unit has to be known upfront for certain optimizations to apply. Consider the following basic example:</p>
+</div>
+<div id="_tabs_8" class="openblock tabs is-sync is-loading">
+<div class="content">
+<div class="ulist tablist">
+<ul>
+<li id="_tabs_8_java" class="tab">
+<p>Java</p>
+</li>
+<li id="_tabs_8_kotlin" class="tab">
+<p>Kotlin</p>
+</li>
+</ul>
+</div>
+<div id="_tabs_8_java--panel" class="tabpanel" aria-labelledby="_tabs_8_java">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Bean
+LocalContainerEntityManagerFactoryBean customDBEntityManagerFactory(DataSource dataSource) {
+	LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
+	factoryBean.setDataSource(dataSource);
+	factoryBean.setPackagesToScan("com.example.app");
+	return factoryBean;
+}</code></pre>
+</div>
+</div>
+</div>
+<div id="_tabs_8_kotlin--panel" class="tabpanel" aria-labelledby="_tabs_8_kotlin">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">@Bean
+fun customDBEntityManagerFactory(dataSource: DataSource): LocalContainerEntityManagerFactoryBean {
+	val factoryBean = LocalContainerEntityManagerFactoryBean()
+	factoryBean.dataSource = dataSource
+	factoryBean.setPackagesToScan("com.example.app")
+	return factoryBean
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>To ensure that entity scanning occurs ahead of time, a <code>PersistenceManagedTypes</code> bean must be declared and used by the
+factory bean definition, as shown by the following example:</p>
+</div>
+<div id="_tabs_9" class="openblock tabs is-sync is-loading">
+<div class="content">
+<div class="ulist tablist">
+<ul>
+<li id="_tabs_9_java" class="tab">
+<p>Java</p>
+</li>
+<li id="_tabs_9_kotlin" class="tab">
+<p>Kotlin</p>
+</li>
+</ul>
+</div>
+<div id="_tabs_9_java--panel" class="tabpanel" aria-labelledby="_tabs_9_java">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Bean
+PersistenceManagedTypes persistenceManagedTypes(ResourceLoader resourceLoader) {
+	return new PersistenceManagedTypesScanner(resourceLoader)
+			.scan("com.example.app");
+}
+
+@Bean
+LocalContainerEntityManagerFactoryBean customDBEntityManagerFactory(DataSource dataSource, PersistenceManagedTypes managedTypes) {
+	LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
+	factoryBean.setDataSource(dataSource);
+	factoryBean.setManagedTypes(managedTypes);
+	return factoryBean;
+}</code></pre>
+</div>
+</div>
+</div>
+<div id="_tabs_9_kotlin--panel" class="tabpanel" aria-labelledby="_tabs_9_kotlin">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">@Bean
+fun persistenceManagedTypes(resourceLoader: ResourceLoader): PersistenceManagedTypes {
+	return PersistenceManagedTypesScanner(resourceLoader)
+			.scan("com.example.app")
+}
+
+@Bean
+fun customDBEntityManagerFactory(dataSource: DataSource, managedTypes: PersistenceManagedTypes): LocalContainerEntityManagerFactoryBean {
+	val factoryBean = LocalContainerEntityManagerFactoryBean()
+	factoryBean.dataSource = dataSource
+	factoryBean.setManagedTypes(managedTypes)
+	return factoryBean
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="aot.hints"><a class="anchor" href="#aot.hints"></a>Runtime Hints</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Running an application as a native image requires additional information compared to a regular JVM runtime.
+For instance, GraalVM needs to know ahead of time if a component uses reflection.
+Similarly, classpath resources are not included in a native image unless specified explicitly.
+Consequently, if the application needs to load a resource, it must be referenced from the corresponding GraalVM native image configuration file.</p>
+</div>
+<div class="paragraph">
+<p>The <a href="https://docs.spring.io/spring-framework/docs/7.0.10/javadoc-api/org/springframework/aot/hint/RuntimeHints.html"><code>RuntimeHints</code></a> API collects the need for reflection, resource loading, serialization, and JDK proxies at runtime.
+The following example makes sure that <code>config/app.properties</code> can be loaded from the classpath at runtime within a native image:</p>
+</div>
+<div id="_tabs_10" class="openblock tabs is-sync is-loading">
+<div class="content">
+<div class="ulist tablist">
+<ul>
+<li id="_tabs_10_java" class="tab">
+<p>Java</p>
+</li>
+<li id="_tabs_10_kotlin" class="tab">
+<p>Kotlin</p>
+</li>
+</ul>
+</div>
+<div id="_tabs_10_java--panel" class="tabpanel" aria-labelledby="_tabs_10_java">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">runtimeHints.resources().registerPattern("config/app.properties");</code></pre>
+</div>
+</div>
+</div>
+<div id="_tabs_10_kotlin--panel" class="tabpanel" aria-labelledby="_tabs_10_kotlin">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">runtimeHints.resources().registerPattern("config/app.properties")</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>A number of contracts are handled automatically during AOT processing.
+For instance, the return type of a <code>@Controller</code> method is inspected, and relevant reflection hints are added if Spring detects that the type should be serialized (typically to JSON).</p>
+</div>
+<div class="paragraph">
+<p>For cases that the core container cannot infer, you can register such hints programmatically.
+A number of convenient annotations are also provided for common use cases.</p>
+</div>
+<div class="sect2">
+<h3 id="aot.hints.import-runtime-hints"><a class="anchor" href="#aot.hints.import-runtime-hints"></a><code>@ImportRuntimeHints</code></h3>
+<div class="paragraph">
+<p><a href="https://docs.spring.io/spring-framework/docs/7.0.10/javadoc-api/org/springframework/aot/hint/RuntimeHintsRegistrar.html"><code>RuntimeHintsRegistrar</code></a>
+implementations allow you to get a callback to the <code>RuntimeHints</code> instance managed by the
+AOT engine. Implementations of this interface can be registered using
+<a href="https://docs.spring.io/spring-framework/docs/7.0.10/javadoc-api/org/springframework/context/annotation/ImportRuntimeHints.html"><code>@ImportRuntimeHints</code></a>
+on any Spring bean or <code>@Bean</code> factory method. <code>RuntimeHintsRegistrar</code> implementations are
+detected and invoked at build time.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java"><span class="fold-block is-hidden-folded">import java.util.Locale;
+
+import org.springframework.aot.hint.RuntimeHints;
+import org.springframework.aot.hint.RuntimeHintsRegistrar;
+import org.springframework.context.annotation.ImportRuntimeHints;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.stereotype.Component;
+
+</span><span class="fold-block">@Component
+@ImportRuntimeHints(SpellCheckService.SpellCheckServiceRuntimeHints.class)
+public class SpellCheckService {
+
+	public void loadDictionary(Locale locale) {
+		ClassPathResource resource = new ClassPathResource("dicts/" + locale.getLanguage() + ".txt");
+		//...
+	}
+
+	static class SpellCheckServiceRuntimeHints implements RuntimeHintsRegistrar {
+
+		@Override
+		public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
+			hints.resources().registerPattern("dicts/*");
+		}
+	}
+
+}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If at all possible, <code>@ImportRuntimeHints</code> should be used as close as possible to the component that requires the hints.
+This way, if the component is not contributed to the <code>BeanFactory</code>, the hints will not be contributed either.</p>
+</div>
+<div class="paragraph">
+<p>It is also possible to register an implementation statically by adding an entry in <code>META-INF/spring/aot.factories</code> with a key equal to the fully-qualified name of the <code>RuntimeHintsRegistrar</code> interface.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="aot.hints.reflective"><a class="anchor" href="#aot.hints.reflective"></a><code>@Reflective</code></h3>
+<div class="paragraph">
+<p><a href="https://docs.spring.io/spring-framework/docs/7.0.10/javadoc-api/org/springframework/aot/hint/annotation/Reflective.html"><code>@Reflective</code></a> provides an idiomatic way to flag the need for reflection on an annotated element.
+For instance, <code>@EventListener</code> is meta-annotated with <code>@Reflective</code> since the underlying implementation invokes the annotated method using reflection.</p>
+</div>
+<div class="paragraph">
+<p>Out-of-the-box, only Spring beans are considered, but you can opt-in for scanning using
+<a href="https://docs.spring.io/spring-framework/docs/7.0.10/javadoc-api/org/springframework/context/annotation/ReflectiveScan.html"><code>@ReflectiveScan</code></a>. In the
+example below, all types in the <code>com.example.app</code> package and its subpackages are
+considered:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java"><span class="fold-block is-hidden-folded">import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ReflectiveScan;
+
+</span><span class="fold-block">@Configuration
+@ReflectiveScan("com.example.app")
+public class MyConfiguration {
+}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Scanning happens during AOT processing, and the types in the target packages do not need to have a class-level annotation to be considered.
+This performs a <em>deep scan</em>, and the presence of <code>@Reflective</code>, either directly or as a meta-annotation, is checked on types, fields, constructors, methods, and enclosed elements.</p>
+</div>
+<div class="paragraph">
+<p>By default, <code>@Reflective</code> registers an invocation hint for the annotated element.
+This can be tuned by specifying a custom <code>ReflectiveProcessor</code> implementation via the <code>@Reflective</code> annotation.</p>
+</div>
+<div class="paragraph">
+<p>Library authors can reuse this annotation for their own purposes.
+An example of such customization is covered in the next section.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="aot.hints.register-reflection"><a class="anchor" href="#aot.hints.register-reflection"></a><code>@RegisterReflection</code></h3>
+<div class="paragraph">
+<p><a href="https://docs.spring.io/spring-framework/docs/7.0.10/javadoc-api/org/springframework/aot/hint/annotation/RegisterReflection.html"><code>@RegisterReflection</code></a> is a specialization of <code>@Reflective</code> that provides a declarative way to register reflection for arbitrary types.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+As a specialization of <code>@Reflective</code>, <code>@RegisterReflection</code> is also detected if you are using <code>@ReflectiveScan</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>In the following example, public constructors and public methods can be invoked via reflection on <code>AccountService</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Configuration
+@RegisterReflection(classes = AccountService.class, memberCategories =
+		{ MemberCategory.INVOKE_PUBLIC_CONSTRUCTORS, MemberCategory.INVOKE_PUBLIC_METHODS })
+class MyConfiguration {
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>@RegisterReflection</code> can be applied to any target type at the class level, but it can also be applied directly to a method to better indicate where the hints are actually required.</p>
+</div>
+<div class="paragraph">
+<p><code>@RegisterReflection</code> can be used as a meta-annotation to support more specific needs.
+<a href="https://docs.spring.io/spring-framework/docs/7.0.10/javadoc-api/org/springframework/aot/hint/annotation/RegisterReflectionForBinding.html"><code>@RegisterReflectionForBinding</code></a> is a composed annotation that is meta-annotated with <code>@RegisterReflection</code> and registers the need for serializing arbitrary types.
+A typical use case is the use of DTOs that the container cannot infer, such as using a web client within a method body.</p>
+</div>
+<div class="paragraph">
+<p>The following example registers <code>Order</code> for serialization.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Component
+class OrderService {
+
+	@RegisterReflectionForBinding(Order.class)
+	public void process(Order order) {
+		// ...
+	}
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This registers hints for constructors, fields, properties, and record components of <code>Order</code>.
+Hints are also registered for types transitively used on properties and record components.
+In other words, if <code>Order</code> exposes others types, hints are registered for those as well.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="aot.hints.convention-based-conversion"><a class="anchor" href="#aot.hints.convention-based-conversion"></a>Runtime Hints for Convention-based Conversion</h3>
+<div class="paragraph">
+<p>Although the core container provides built-in support for automatic conversion of many
+common types (see <a href="validation/convert.html" class="xref page">Spring Type Conversion</a>), some
+conversions are supported via a convention-based algorithm that relies on reflection.</p>
+</div>
+<div class="paragraph">
+<p>Specifically, if there is no explicit <code>Converter</code> registered with the <code>ConversionService</code>
+for a particular source &#8594; target type pair, the internal <code>ObjectToObjectConverter</code>
+will attempt to use conventions to convert a source object to a target type by delegating
+to a method on the source object or to a static factory method or constructor on the
+target type. Since this convention-based algorithm can be applied to arbitrary types at
+runtime, the core container is not able to infer the runtime hints necessary to support
+such reflection.</p>
+</div>
+<div class="paragraph">
+<p>If you encounter convention-based conversion issues within a native image resulting from
+lacking runtime hints, you can register the necessary hints programmatically. For
+example, if your application requires a conversion from <code>java.time.Instant</code> to
+<code>java.sql.Timestamp</code> and relies on <code>ObjectToObjectConverter</code> to invoke
+<code>java.sql.Timestamp.from(Instant)</code> using reflection, you could implement a custom
+<code>RuntimeHintsRegitrar</code> to support this use case within a native image, as demonstrated in
+the following example.</p>
+</div>
+<div id="_tabs_11" class="openblock tabs is-sync is-loading">
+<div class="content">
+<div class="ulist tablist">
+<ul>
+<li id="_tabs_11_java" class="tab">
+<p>Java</p>
+</li>
+</ul>
+</div>
+<div id="_tabs_11_java--panel" class="tabpanel" aria-labelledby="_tabs_11_java">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class TimestampConversionRuntimeHints implements RuntimeHintsRegistrar {
+
+	public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
+		ReflectionHints reflectionHints = hints.reflection();
+
+		reflectionHints.registerTypeIfPresent(classLoader, "java.sql.Timestamp", hint -&gt; hint
+				.withMethod("from", List.of(TypeReference.of(Instant.class)), ExecutableMode.INVOKE)
+				.onReachableType(TypeReference.of("java.sql.Timestamp")));
+	}
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p><code>TimestampConversionRuntimeHints</code> can then be registered declaratively via
+<a href="#aot.hints.import-runtime-hints"><code>@ImportRuntimeHints</code></a> or statically via a <code>META-INF/spring/aot.factories</code>
+configuration file.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The above <code>TimestampConversionRuntimeHints</code> class is a simplified version of the
+<code>ObjectToObjectConverterRuntimeHints</code> class that is included in the framework and
+registered by default.</p>
+</div>
+<div class="paragraph">
+<p>Thus, this specific <code>Instant</code>-to-<code>Timestamp</code> use case is already handled by the framework.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="aot.hints.testing"><a class="anchor" href="#aot.hints.testing"></a>Testing Runtime Hints</h3>
+<div class="paragraph">
+<p>Spring Core also ships <code>RuntimeHintsPredicates</code>, a utility for checking that existing hints match a particular use case.
+This can be used in your own tests to validate that a <code>RuntimeHintsRegistrar</code> produces the expected results.
+We can write a test for our <code>SpellCheckService</code> and ensure that we will be able to load a dictionary at runtime:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">	@Test
+	void shouldRegisterResourceHints() {
+		RuntimeHints hints = new RuntimeHints();
+		new SpellCheckServiceRuntimeHints().registerHints(hints, getClass().getClassLoader());
+		assertThat(RuntimeHintsPredicates.resource().forResource("dicts/en.txt"))
+				.accepts(hints);
+	}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>With <code>RuntimeHintsPredicates</code>, we can check for reflection, resource, serialization, or proxy generation hints.
+This approach works well for unit tests but implies that the runtime behavior of a component is well known.</p>
+</div>
+<div class="paragraph">
+<p>You can learn more about the global runtime behavior of an application by running its test suite (or the app itself) with the <a href="https://www.graalvm.org/22.3/reference-manual/native-image/metadata/AutomaticMetadataCollection/">GraalVM tracing agent</a>.
+This agent will record all relevant calls requiring GraalVM hints at runtime and write them out as JSON configuration files.</p>
+</div>
+<div class="paragraph">
+<p>For more targeted discovery and testing, Spring Framework ships a dedicated module with core AOT testing utilities, <code>"org.springframework:spring-core-test"</code>.
+This module contains the RuntimeHints Agent, a Java agent that records all method invocations that are related to runtime hints and helps you to assert that a given <code>RuntimeHints</code> instance covers all recorded invocations.
+Let&#8217;s consider a piece of infrastructure for which we&#8217;d like to test the hints we&#8217;re contributing during the AOT processing phase.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java"><span class="fold-block is-hidden-folded">import java.lang.reflect.Method;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import org.springframework.util.ClassUtils;
+
+</span><span class="fold-block">public class SampleReflection {
+
+	private final Log logger = LogFactory.getLog(SampleReflection.class);
+
+	public void performReflection() {
+		try {
+			Class&lt;?&gt; springVersion = ClassUtils.forName("org.springframework.core.SpringVersion", null);
+			Method getVersion = ClassUtils.getMethod(springVersion, "getVersion");
+			String version = (String) getVersion.invoke(null);
+			logger.info("Spring version: " + version);
+		}
+		catch (Exception exc) {
+			logger.error("reflection failed", exc);
+		}
+	}
+
+}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We can then write a unit test (no native compilation required) that checks our contributed hints:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java"><span class="fold-block is-hidden-folded">import java.util.List;
+
+import org.junit.jupiter.api.Test;
+
+import org.springframework.aot.hint.ExecutableMode;
+import org.springframework.aot.hint.RuntimeHints;
+import org.springframework.aot.test.agent.EnabledIfRuntimeHintsAgent;
+import org.springframework.aot.test.agent.RuntimeHintsInvocations;
+import org.springframework.core.SpringVersion;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+</span><span class="fold-block">// @EnabledIfRuntimeHintsAgent signals that the annotated test class or test
+// method is only enabled if the RuntimeHintsAgent is loaded on the current JVM.
+// It also tags tests with the "RuntimeHints" JUnit tag.
+@EnabledIfRuntimeHintsAgent
+class SampleReflectionRuntimeHintsTests {
+
+	@Test
+	void shouldRegisterReflectionHints() {
+		RuntimeHints runtimeHints = new RuntimeHints();
+		// Call a RuntimeHintsRegistrar that contributes hints like:
+		runtimeHints.reflection().registerType(SpringVersion.class, typeHint -&gt;
+				typeHint.withMethod("getVersion", List.of(), ExecutableMode.INVOKE));
+
+		// Invoke the relevant piece of code we want to test within a recording lambda
+		RuntimeHintsInvocations invocations = org.springframework.aot.test.agent.RuntimeHintsRecorder.record(() -&gt; {
+			SampleReflection sample = new SampleReflection();
+			sample.performReflection();
+		});
+		// assert that the recorded invocations are covered by the contributed hints
+		assertThat(invocations).match(runtimeHints);
+	}
+
+}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you forgot to contribute a hint, the test will fail and provide some details about the invocation:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-txt hljs" data-lang="txt">org.springframework.docs.core.aot.hints.testing.SampleReflection performReflection
+INFO: Spring version: 6.2.0
+
+Missing &lt;"ReflectionHints"&gt; for invocation &lt;java.lang.Class#forName&gt;
+with arguments ["org.springframework.core.SpringVersion",
+    false,
+    jdk.internal.loader.ClassLoaders$AppClassLoader@251a69d7].
+Stacktrace:
+&lt;"org.springframework.util.ClassUtils#forName, Line 284
+io.spring.runtimehintstesting.SampleReflection#performReflection, Line 19
+io.spring.runtimehintstesting.SampleReflectionRuntimeHintsTests#lambda$shouldRegisterReflectionHints$0, Line 25</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>There are various ways to configure this Java agent in your build, so please refer to the documentation of your build tool and test execution plugin.
+The agent itself can be configured to instrument specific packages (by default, only <code>org.springframework</code> is instrumented).
+You&#8217;ll find more details in the <a href="https://github.com/spring-projects/spring-framework/tree/7.0.x/buildSrc/README.md">Spring Framework <code>buildSrc</code> README</a> file.</p>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="databuffer-codec.html">Data Buffers and Codecs</a></span>
+  <span class="next"><a href="appendix.html">Appendix</a></span>
+</nav>
+</article>  </div>
+</main>
+<div class="modal micromodal-slide" id="modal-versions" aria-hidden="true">
+    <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+        <div class="modal__container" role="dialog" aria-modal="true">
+            <main class="modal__content" id="modal-versions-content">
+              <button data-micromodal-close class="modal-versions-close">
+                <svg width="28px" height="28px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><defs></defs><title/><g id="cross"><line class="cls-1h" x1="7" x2="25" y1="7" y2="25"/><line class="cls-1h" x1="7" x2="25" y1="25" y2="7"/></g></svg>
+              </button>
+              <div class="colset">
+                <div class="col-left">
+
+                  <ul class="nav-versions">
+                      <li class="component">
+                        <div>
+                          <a class="title" href="../index.html">Spring Framework</a>
+                        </div>                        <div class="version-item is-active">
+                          <div>
+                            <button class="version-toggle" type="button">
+                              <span></span>
+                              Stable
+                            </button>
+                          </div>
+                          <ul class="versions">
+  <li class="version">
+    <a href="aot.html">
+      7.0.10
+    </a>
+  </li>
+  <li class="version">
+    <a href="../6.2/core/aot.html">
+      6.2.19
+    </a>
+  </li>
+</ul>                        </div>
+                        <div class="version-item">
+                          <div>
+                            <button class="version-toggle" type="button">
+                              <span></span>
+                              Preview
+                            </button>
+                          </div>
+                          <ul class="versions">
+  <li class="version">
+    <a href="../7.1/core/aot.html">
+      7.1.0-RC2
+    </a>
+  </li>
+</ul>                        </div>
+                        <div class="version-item">
+                          <div>
+                            <button class="version-toggle" type="button">
+                              <span></span>
+                              Snapshot
+                            </button>
+                          </div>
+                          <ul class="versions">
+  <li class="version">
+    <a href="../7.1-SNAPSHOT/core/aot.html">
+      7.1.0-SNAPSHOT
+    </a>
+  </li>
+  <li class="version">
+    <a href="../7.0-SNAPSHOT/core/aot.html">
+      7.0.11-SNAPSHOT
+    </a>
+  </li>
+  <li class="version">
+    <a href="../6.2-SNAPSHOT/core/aot.html">
+      6.2.20-SNAPSHOT
+    </a>
+  </li>
+</ul>                        </div>
+                        
+                      </li>
+                  </ul>
+                </div>
+                <div class="col-right">
+                  <ul class="projects">
+  <li>
+    Related Spring Documentation
+    <ul class="projects-list">
+        <li>
+<a href="https://docs.spring.io/spring-boot/">
+  Spring Boot
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-framework/reference/">
+  Spring Framework
+</a>
+</li>
+        <li>
+<a class="anchor"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+  Spring Cloud
+<ul>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-build/reference/">
+  Spring Cloud Build
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-bus/reference/">
+  Spring Cloud Bus
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-circuitbreaker/reference/">
+  Spring Cloud Circuit Breaker
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-commons/reference/">
+  Spring Cloud Commons
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-config/reference/">
+  Spring Cloud Config
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-consul/reference/">
+  Spring Cloud Consul
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-contract/reference/">
+  Spring Cloud Contract
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-function/reference/">
+  Spring Cloud Function
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-gateway/reference/">
+  Spring Cloud Gateway
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-kubernetes/reference/">
+  Spring Cloud Kubernetes
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-netflix/reference/">
+  Spring Cloud Netflix
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-openfeign/reference/">
+  Spring Cloud OpenFeign
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-stream/reference/">
+  Spring Cloud Stream
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-task/reference/">
+  Spring Cloud Task
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-vault/reference/">
+  Spring Cloud Vault
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-zookeeper/reference/">
+  Spring Cloud Zookeeper
+</a>
+</li>
+</ul>
+</li>
+        <li>
+<a class="anchor"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+  Spring Data
+<ul>
+    <li>
+<a href="https://docs.spring.io/spring-data/cassandra/reference/">
+  Spring Data Cassandra
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/commons/reference/">
+  Spring Data Commons
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/couchbase/reference/">
+  Spring Data Couchbase
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/elasticsearch/reference/">
+  Spring Data Elasticsearch
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/jpa/reference/">
+  Spring Data JPA
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/keyvalue/reference/">
+  Spring Data KeyValue
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/ldap/reference/">
+  Spring Data LDAP
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/mongodb/reference/">
+  Spring Data MongoDB
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/neo4j/reference/">
+  Spring Data Neo4j
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/redis/reference/">
+  Spring Data Redis
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/relational/reference/">
+  Spring Data JDBC &amp; R2DBC
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/rest/reference/">
+  Spring Data REST
+</a>
+</li>
+</ul>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-integration/reference/">
+  Spring Integration
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-batch/reference/">
+  Spring Batch
+</a>
+</li>
+        <li>
+<a class="anchor"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+<a href="https://docs.spring.io/spring-security/reference/">
+  Spring Security
+</a>
+<ul>
+    <li>
+<a href="https://docs.spring.io/spring-authorization-server/reference/">
+  Spring Authorization Server
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-ldap/reference/">
+  Spring LDAP
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-security-kerberos/reference/">
+  Spring Security Kerberos
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-session/reference/">
+  Spring Session
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-vault/reference/">
+  Spring Vault
+</a>
+</li>
+</ul>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-ai/reference/">
+  Spring AI
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-amqp/reference/">
+  Spring AMQP
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-cli/reference/">
+  Spring CLI
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-graphql/reference/">
+  Spring GraphQL
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-kafka/reference/">
+  Spring for Apache Kafka
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-modulith/reference/">
+  Spring Modulith
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-pulsar/reference/">
+  Spring for Apache Pulsar
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-shell/reference/">
+  Spring Shell
+</a>
+</li>
+    </ul>
+  </li
+  <li><a href="../spring-projects.html">All Docs...</a></li>
+</ul>
+                </div>
+              </div>
+            </main>
+        </div>
+    </div>
+</div>
+
+</div>
+<footer class="footer flex">
+    <div id="spring-links flex">
+        <img id="springlogo" src="../_/img/spring-logo.svg" alt="Spring">
+        <p class="smallest antialiased">Copyright © 2005 -  Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.<br /><a href="https://www.vmware.com/help/legal.html">Terms of Use</a> • <a href="https://www.vmware.com/help/privacy.html" rel="noopener noreferrer">Privacy</a> • <a href="https://spring.io/trademarks">Trademark Guidelines</a> <span id="thank-you-mobile">• <a href="https://spring.io/thank-you">Thank you</a></span> • <a href="https://www.vmware.com/help/privacy/california-privacy-rights.html">Your California Privacy Rights</a> • <a class="ot-sdk-show-settings">Cookie Settings</a> <span id="teconsent"></span></p>
+        <p class="smallest antialiased has-gray-text">Apache®, Apache Tomcat®, Apache Kafka®, Apache Cassandra&trade;, and Apache Geode&trade; are trademarks or registered trademarks of the Apache Software Foundation in the United States and/or other countries. Java&trade;, Java&trade; SE, Java&trade; EE, and OpenJDK&trade; are trademarks of Oracle and/or its affiliates. Kubernetes® is a registered trademark of the Linux Foundation in the United States and other countries. Linux® is the registered trademark of Linus Torvalds in the United States and other countries. Windows® and Microsoft® Azure are registered trademarks of Microsoft Corporation. “AWS” and “Amazon Web Services” are trademarks or registered trademarks of Amazon.com Inc. or its affiliates. All other trademarks and copyrights are property of their respective owners and are only mentioned for informative purposes. Other names may be trademarks of their respective owners.</p>
+    </div>
+    <div id="social-icons" class="flex jc-between">
+        <a href="https://www.youtube.com/user/SpringSourceDev" title="Youtube"><svg id="youtube-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><circle class="cls-1" cx="20" cy="20" r="20"/><path class="cls-2" d="M30.91,14.53a2.89,2.89,0,0,0-2-2C27.12,12,20,12,20,12s-7.12,0-8.9.47a2.9,2.9,0,0,0-2,2A30.56,30.56,0,0,0,8.63,20a30.44,30.44,0,0,0,.46,5.47,2.89,2.89,0,0,0,2,2C12.9,28,20,28,20,28s7.12,0,8.9-.47a2.87,2.87,0,0,0,2-2A30.56,30.56,0,0,0,31.37,20,28.88,28.88,0,0,0,30.91,14.53ZM17.73,23.41V16.59L23.65,20Z"/></svg></a>
+        <a href="https://github.com/spring-projects" title="GitHub"><svg id="github-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75.93 75.93"><path class="cls-1" d="M38,0a38,38,0,1,0,38,38A38,38,0,0,0,38,0Z"/></g><path class="cls-2" d="M38,15.59A22.95,22.95,0,0,0,30.71,60.3c1.15.21,1.57-.5,1.57-1.11s0-2,0-3.9c-6.38,1.39-7.73-3.07-7.73-3.07A6.09,6.09,0,0,0,22,48.86c-2.09-1.42.15-1.39.15-1.39a4.81,4.81,0,0,1,3.52,2.36c2,3.5,5.37,2.49,6.67,1.91a4.87,4.87,0,0,1,1.46-3.07c-5.09-.58-10.45-2.55-10.45-11.34a8.84,8.84,0,0,1,2.36-6.15,8.29,8.29,0,0,1,.23-6.07s1.92-.62,6.3,2.35a21.82,21.82,0,0,1,11.49,0c4.38-3,6.3-2.35,6.3-2.35a8.29,8.29,0,0,1,.23,6.07,8.84,8.84,0,0,1,2.36,6.15c0,8.81-5.37,10.75-10.48,11.32a5.46,5.46,0,0,1,1.56,4.25c0,3.07,0,5.54,0,6.29s.42,1.33,1.58,1.1A22.94,22.94,0,0,0,38,15.59Z"/></svg></a>
+        <a href="https://twitter.com/springcentral" title="Twitter"><svg id="twitter-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75.93 75.93"><circle class="cls-1" cx="37.97" cy="37.97" r="37.97"/><path id="Twitter-2" data-name="Twitter" class="cls-2" d="M55.2,22.73a15.43,15.43,0,0,1-4.88,1.91,7.56,7.56,0,0,0-5.61-2.49A7.78,7.78,0,0,0,37,30a7.56,7.56,0,0,0,.2,1.79,21.63,21.63,0,0,1-15.84-8.23,8,8,0,0,0,2.37,10.52,7.66,7.66,0,0,1-3.48-1v.09A7.84,7.84,0,0,0,26.45,41a7.54,7.54,0,0,1-2,.28A7.64,7.64,0,0,1,23,41.09a7.71,7.71,0,0,0,7.18,5.47,15.21,15.21,0,0,1-9.55,3.37,15.78,15.78,0,0,1-1.83-.11,21.41,21.41,0,0,0,11.78,3.54c14.13,0,21.86-12,21.86-22.42,0-.34,0-.68,0-1a15.67,15.67,0,0,0,3.83-4.08,14.9,14.9,0,0,1-4.41,1.24A7.8,7.8,0,0,0,55.2,22.73Z"/></svg></a>
+    </div>
+</footer>
+
+
+
+
+
+<div class="modal micromodal-slide" id="modal-1" aria-hidden="true">
+    <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+        <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+            <main class="modal__content" id="modal-1-content">
+                <div id="searchbox"></div>
+                <div id="counter"></div>
+                <div class="search-link-box">
+                    <a class="search-link" href="../search.html">Search in all Spring Docs</a>
+                </div>
+                <div class="search-by">
+                    <a target="_blank" rel="noopener noreferrer" href="https://www.algolia.com/" aria-label="Search by Algolia">
+                        <img class="light" width="140" src="../_/img/algolia-light.svg" />
+                        <img class="dark" width="140" src="../_/img/algolia-dark.svg" />
+                    </a>
+                </div>
+                <div id="hits"></div>
+            </main>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+  </body>
+</html>

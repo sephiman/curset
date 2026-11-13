@@ -1,0 +1,312 @@
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html lang="en-US" data-preset="contrast" data-primary-color="#307FFF" data-external-links-in-new-tab="false"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="UTF-8"><meta name="built-on" content="2026-11-13T10:58:13.992682595"><meta name="build-number" content="1405"><link rel="canonical" href="/docs/coroutines-basics.html" data-react-helmet="true">
+
+<title>Coroutines basics | Kotlin Documentation</title><link href="custom-frontend-app/app.css?149" rel="stylesheet"><link rel="icon" type="image/svg" sizes="16x16" href="https://kotlinlang.org/assets/images/favicon.svg?v2"><link rel="icon" type="image/x-icon" sizes="32x32" href="https://kotlinlang.org/assets/images/favicon.ico?v2"><link rel="icon" type="image/png" sizes="96x96" href="https://kotlinlang.org/assets/images/apple-touch-icon.png?v2"><link rel="icon" type="image/png" sizes="300x300" href="https://kotlinlang.org/assets/images/apple-touch-icon-72x72.png?v2"><link rel="icon" type="image/png" sizes="500x500" href="https://kotlinlang.org/assets/images/apple-touch-icon-114x114.png?v2"><meta name="image" content="https://kotlinlang.org/assets/images/open-graph/docs.png"><!-- Open Graph --><meta property="og:title" content="Coroutines basics | Kotlin"><meta property="og:description" content=""><meta property="og:image" content="https://kotlinlang.org/assets/images/open-graph/docs.png"><meta property="og:site_name" content="Kotlin Help"><meta property="og:type" content="website"><meta property="og:locale" content="en_US"><meta property="og:url" content="https://kotlinlang.org/docs/coroutines-basics.html"><!-- End Open Graph --><!-- Twitter Card --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@kotlin"><meta name="twitter:title" content="Coroutines basics | Kotlin"><meta name="twitter:description" content=""><meta name="twitter:creator" content="@kotlin"><meta name="twitter:image:src" content="https://kotlinlang.org/assets/images/open-graph/docs.png"><!-- End Twitter Card --><!-- Schema.org WebPage --><!-- End Schema.org --><!-- Schema.org WebSite --><!-- End Schema.org --></head><body data-id="coroutines-basics" data-main-title="Coroutines basics" data-article-props="{&quot;seeAlsoStyle&quot;:&quot;links&quot;}" data-template="article" data-breadcrumbs="Library guides///Coroutines (kotlinx.coroutines)" data-edit-url="https://github.com/Kotlin/kotlinx.coroutines/edit/master/docs/topics/coroutines-basics.md"><div class="wrapper"><main class="panel _main"><header class="panel__header"><div class="container"><h3>Kotlin  Help</h3><div class="panel-trigger"></div></div></header><section class="panel__content"><div class="container"><article class="article" data-shortcut-switcher="inactive"><h1 data-toc="coroutines-basics" id="coroutines-basics.md">Coroutines basics</h1><p id="k2t7zm_3">To create applications that perform multiple tasks at once, a concept known as concurrency, Kotlin uses <span class="emphasis" id="k2t7zm_15">coroutines</span>. A coroutine is a suspendable computation that lets you write concurrent code in a clear, sequential style. Coroutines can run concurrently with other coroutines and potentially in parallel.</p><p id="k2t7zm_4">On the JVM and in Kotlin/Native, all concurrent code, such as coroutines, runs on <span class="emphasis" id="k2t7zm_16">threads</span>, managed by the operating system. Coroutines can suspend their execution instead of blocking a thread. This allows one coroutine to suspend while waiting for some data to arrive and another coroutine to run on the same thread, ensuring effective resource utilization.</p><figure id="k2t7zm_5"><img alt="Comparing parallel and concurrent threads" src="images/parallelism-and-concurrency.svg" title="Comparing parallel and concurrent threads" width="700" height="440"></figure><p id="k2t7zm_6">For more information about the differences between coroutines and threads, see <a href="#comparing-coroutines-and-jvm-threads" id="k2t7zm_17" data-tooltip="While coroutines are suspendable computations that run code concurrently like threads on the JVM, they work differently under the hood.">Comparing coroutines and JVM threads</a>.</p><section class="chapter"><h2 id="suspending-functions" data-toc="suspending-functions">Suspending functions</h2><p id="k2t7zm_18">The most basic building block of coroutines is the <span class="emphasis" id="k2t7zm_25">suspending function</span>. It allows a running operation to pause and resume later without affecting the structure of your code.</p><p id="k2t7zm_19">To declare a suspending function, use the <code class="code" id="k2t7zm_26">suspend</code> keyword:</p><div class="code-block" data-lang="kotlin">
+suspend fun greet() {
+    println(&quot;Hello world from a suspending function&quot;)
+}
+</div><p id="k2t7zm_21">You can only call a suspending function from another suspending function. To call suspending functions at the entry point of a Kotlin application, mark the <code class="code" id="k2t7zm_27">main()</code> function with the <code class="code" id="k2t7zm_28">suspend</code> keyword:</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+suspend fun main() {
+    showUserInfo()
+}
+
+suspend fun showUserInfo() {
+    println(&quot;Loading user...&quot;)
+    greet()
+    println(&quot;User: John Smith&quot;)
+}
+
+suspend fun greet() {
+    println(&quot;Hello world from a suspending function&quot;)
+}
+</div><p id="k2t7zm_23">This example doesn't use concurrency yet, but by marking the functions with the <code class="code" id="k2t7zm_29">suspend</code> keyword, you allow them to call other suspending functions and run concurrent code inside.</p><p id="k2t7zm_24">While the <code class="code" id="k2t7zm_30">suspend</code> keyword is part of the core Kotlin language, most coroutine features are available through the <a href="https://github.com/Kotlin/kotlinx.coroutines" id="k2t7zm_31" data-external="true" rel="noopener noreferrer"><code class="code" id="k2t7zm_32">kotlinx.coroutines</code></a> library.</p></section><section class="chapter"><h2 id="add-the-kotlinx-coroutines-library-to-your-project" data-toc="add-the-kotlinx-coroutines-library-to-your-project">Add the kotlinx.coroutines library to your project</h2><p id="k2t7zm_33">To include the <code class="code" id="k2t7zm_35">kotlinx.coroutines</code> library in your project, add the corresponding dependency configuration based on your build tool:</p><div class="tabs" id="k2t7zm_34" data-group="build-tool" data-anchors="[k2t7zm_36,k2t7zm_37,k2t7zm_38]"><div class="tabs__content" data-gtm="tab" id="k2t7zm_36" data-sync-tabs="kotlin" data-title="Kotlin"><div class="code-block" data-lang="kotlin" data-title="Kotlin">
+// build.gradle.kts
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation(&quot;org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0&quot;)
+}
+</div></div><div class="tabs__content" data-gtm="tab" id="k2t7zm_37" data-sync-tabs="groovy" data-title="Groovy"><div class="code-block" data-lang="groovy" data-title="Groovy">
+// build.gradle
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0'
+}
+</div></div><div class="tabs__content" data-gtm="tab" id="k2t7zm_38" data-sync-tabs="maven" data-title="Maven"><div class="code-block" data-lang="markup" data-title="XML">
+&lt;!-- pom.xml --&gt;
+&lt;project&gt;
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.jetbrains.kotlinx&lt;/groupId&gt;
+            &lt;artifactId&gt;kotlinx-coroutines-core&lt;/artifactId&gt;
+            &lt;version&gt;1.11.0&lt;/version&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+    ...
+&lt;/project&gt;
+</div></div></div></section><section class="chapter"><h2 id="create-your-first-coroutines" data-toc="create-your-first-coroutines">Create your first coroutines</h2><aside class="prompt" data-type="note" data-title="" id="k2t7zm_42"><p id="k2t7zm_49">The examples on this page use the explicit <code class="code" id="k2t7zm_51">this</code> expression with the coroutine builder functions <code class="code" id="k2t7zm_52">CoroutineScope.launch()</code> and <code class="code" id="k2t7zm_53">CoroutineScope.async()</code>. These coroutine builders are <a href="extensions.html" id="k2t7zm_54">extension functions</a> on <code class="code" id="k2t7zm_55">CoroutineScope</code>, and the <code class="code" id="k2t7zm_56">this</code> expression refers to the current <code class="code" id="k2t7zm_57">CoroutineScope</code> as the receiver.</p><p id="k2t7zm_50">For a practical example, see <a href="#extract-coroutine-builders-from-the-coroutine-scope" id="k2t7zm_58" data-tooltip="In some cases, you may want to extract coroutine builder calls, such as CoroutineScope.launch(), into separate functions.">Extract coroutine builders from the coroutine scope</a>.</p></aside><p id="k2t7zm_43">To create a coroutine in Kotlin, you need the following:</p><ul class="list _bullet" id="k2t7zm_44"><li class="list__item" id="k2t7zm_59"><p id="k2t7zm_63">A <a href="#suspending-functions" id="k2t7zm_64" data-tooltip="The most basic building block of coroutines is the suspending function. It allows a running operation to pause and resume later without affecting the structure of your code.">suspending function</a>.</p></li><li class="list__item" id="k2t7zm_60"><p id="k2t7zm_65">A <a href="#coroutine-scope-and-structured-concurrency" id="k2t7zm_66" data-tooltip="When you run many coroutines in an application, you need a way to manage them as groups. Kotlin coroutines rely on a principle called structured concurrency to provide this structure.">coroutine scope</a> in which it can run, for example inside the <code class="code" id="k2t7zm_67">withContext()</code> function.</p></li><li class="list__item" id="k2t7zm_61"><p id="k2t7zm_68">A <a href="#coroutine-builder-functions" id="k2t7zm_69" data-tooltip="A coroutine builder function is a function that accepts a suspend lambda that defines a coroutine to run. Here are some examples:">coroutine builder</a> like <code class="code" id="k2t7zm_70">CoroutineScope.launch()</code> to start it.</p></li><li class="list__item" id="k2t7zm_62"><p id="k2t7zm_71">A <a href="#coroutine-dispatchers" id="k2t7zm_72" data-tooltip="A coroutine dispatcher controls which thread or thread pool coroutines use for their execution. Coroutines aren't always tied to a single thread. They can pause on one thread and resume on another, depending on the dispatcher. This lets you run many coroutines at the same time…">dispatcher</a> to control which threads it uses.</p></li></ul><p id="k2t7zm_45">Let's look at an example that uses multiple coroutines in a multithreaded environment:</p><ol class="list _decimal" id="k2t7zm_46" type="1"><li class="list__item" id="k2t7zm_73"><p id="k2t7zm_79">Import the <code class="code" id="k2t7zm_81">kotlinx.coroutines</code> library:</p><div class="code-block" data-lang="kotlin">
+import kotlinx.coroutines.*
+</div></li><li class="list__item" id="k2t7zm_74"><p id="k2t7zm_82">Mark functions that can pause and resume with the <code class="code" id="k2t7zm_86">suspend</code> keyword:</p><div class="code-block" data-lang="kotlin">
+suspend fun greet() {
+    println(&quot;The greet() on the thread: ${Thread.currentThread().name}&quot;)
+}
+
+suspend fun main() {}
+</div><aside class="prompt" data-type="note" data-title="" id="k2t7zm_84"><p id="k2t7zm_87">While you can mark the <code class="code" id="k2t7zm_88">main()</code> function as <code class="code" id="k2t7zm_89">suspend</code> in some projects, it may not be possible when integrating with existing code or using a framework. In that case, check the framework's documentation to see if it supports calling suspending functions. If not, use <a href="#runblocking" id="k2t7zm_90" data-tooltip="The runBlocking() coroutine builder function creates a coroutine scope and blocks the current thread until the coroutines launched in that scope finish."><code class="code" id="k2t7zm_91">runBlocking()</code></a> to call them by blocking the current thread.</p></aside><p id="k2t7zm_85"></p></li><li class="list__item" id="k2t7zm_75"><p id="k2t7zm_92">Add the <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/delay.html#" id="k2t7zm_94" data-external="true" rel="noopener noreferrer"><code class="code" id="k2t7zm_95">delay()</code></a> function to simulate a suspending task, such as fetching data or writing to a database:</p><div class="code-block" data-lang="kotlin">
+suspend fun greet() {
+    println(&quot;The greet() on the thread: ${Thread.currentThread().name}&quot;)
+    delay(1000L)
+}
+</div></li><li class="list__item" id="k2t7zm_76"><p id="k2t7zm_96">Use <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/with-context.html#" id="k2t7zm_100" data-external="true" rel="noopener noreferrer"><code class="code" id="k2t7zm_101">withContext(Dispatchers.Default)</code></a> to define an entry point for multithreaded concurrent code that runs on a shared thread pool:</p><div class="code-block" data-lang="kotlin">
+suspend fun main() {
+    withContext(Dispatchers.Default) {
+        // Add the coroutine builders here
+    }
+}
+</div><aside class="prompt" data-type="note" data-title="" id="k2t7zm_98"><p id="k2t7zm_102">The suspending <code class="code" id="k2t7zm_104">withContext()</code> function is typically used for <a href="coroutine-context-and-dispatchers.html#jumping-between-threads" id="k2t7zm_105" data-tooltip="Run the following code with the -Dkotlinx.coroutines.debug JVM option (see debug):">context switching</a>, but in this example, it also defines a non-blocking entry point for concurrent code. It uses the <a href="#coroutine-dispatchers" id="k2t7zm_106" data-tooltip="A coroutine dispatcher controls which thread or thread pool coroutines use for their execution. Coroutines aren't always tied to a single thread. They can pause on one thread and resume on another, depending on the dispatcher. This lets you run many coroutines at the same time…"><code class="code" id="k2t7zm_107">Dispatchers.Default</code> dispatcher</a> to run code on a shared thread pool for multithreaded execution. By default, this pool uses up to as many threads as there are CPU cores available at runtime, with a minimum of two threads.</p><p id="k2t7zm_103">The coroutines launched inside the <code class="code" id="k2t7zm_108">withContext()</code> block share the same coroutine scope, which ensures <a href="#coroutine-scope-and-structured-concurrency" id="k2t7zm_109" data-tooltip="When you run many coroutines in an application, you need a way to manage them as groups. Kotlin coroutines rely on a principle called structured concurrency to provide this structure.">structured concurrency</a>.</p></aside><p id="k2t7zm_99"></p></li><li class="list__item" id="k2t7zm_77"><p id="k2t7zm_110">Use a <a href="#coroutine-builder-functions" id="k2t7zm_112" data-tooltip="A coroutine builder function is a function that accepts a suspend lambda that defines a coroutine to run. Here are some examples:">coroutine builder function</a> like <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/launch.html" id="k2t7zm_113" data-external="true" rel="noopener noreferrer"><code class="code" id="k2t7zm_114">CoroutineScope.launch()</code></a> to start the coroutine:</p><div class="code-block" data-lang="kotlin">
+suspend fun main() {
+    withContext(Dispatchers.Default) { // this: CoroutineScope
+        // Starts a coroutine inside the scope with CoroutineScope.launch()
+        this.launch { greet() }
+        println(&quot;The withContext() on the thread: ${Thread.currentThread().name}&quot;)
+    }
+}
+</div></li><li class="list__item" id="k2t7zm_78"><p id="k2t7zm_115">Combine these pieces to run multiple coroutines at the same time on a shared pool of threads:</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+// Imports the coroutines library
+import kotlinx.coroutines.*
+
+// Imports the kotlin.time.Duration to express duration in seconds
+import kotlin.time.Duration.Companion.seconds
+
+// Defines a suspending function
+suspend fun greet() {
+    println(&quot;The greet() on the thread: ${Thread.currentThread().name}&quot;)
+    // Suspends for 1 second and releases the thread
+    delay(1.seconds) 
+    // The delay() function simulates a suspending API call here
+    // You can add suspending API calls here like a network request
+}
+
+suspend fun main() {
+    // Runs the code inside this block on a shared thread pool
+    withContext(Dispatchers.Default) { // this: CoroutineScope
+        this.launch() {
+            greet()
+        }
+
+        // Starts another coroutine
+        this.launch() {
+            println(&quot;The CoroutineScope.launch() on the thread: ${Thread.currentThread().name}&quot;)
+            delay(1.seconds)
+            // The delay function simulates a suspending API call here
+            // You can add suspending API calls here like a network request
+        }
+
+        println(&quot;The withContext() on the thread: ${Thread.currentThread().name}&quot;)
+    }
+}
+</div><p id="k2t7zm_117"></p></li></ol><p id="k2t7zm_47">Try running the example multiple times. You may notice that the output order and thread names may change each time you run the program, because the OS decides when threads run.</p><aside class="prompt" data-type="tip" data-title="" id="k2t7zm_48"><p id="k2t7zm_118">You can display coroutine names next to thread names in the output of your code for additional information. To do so, pass the <code class="code" id="k2t7zm_120">-Dkotlinx.coroutines.debug</code> VM option in your build tool or IDE run configuration.</p><p id="k2t7zm_119">See <a href="coroutines-debugging.html" id="k2t7zm_121" data-tooltip="Debugging applications that use coroutines can be challenging because multiple coroutines can run concurrently, suspend on one thread, and resume on another. Their execution order and the threads they use can also change between runs, making it difficult to follow the execution of a…">Debug coroutines</a> for more information.</p></aside></section><section class="chapter"><h2 id="coroutine-scope-and-structured-concurrency" data-toc="coroutine-scope-and-structured-concurrency">Coroutine scope and structured concurrency</h2><p id="k2t7zm_122">When you run many coroutines in an application, you need a way to manage them as groups. Kotlin coroutines rely on a principle called <span class="emphasis" id="k2t7zm_129">structured concurrency</span> to provide this structure.</p><p id="k2t7zm_123">According to this principle, coroutines form a tree hierarchy of parent and child tasks with linked lifecycles. A coroutine's lifecycle is the sequence of states from its creation until completion, failure, or cancellation.</p><p id="k2t7zm_124">A parent coroutine waits for its children to complete before it finishes. If the parent coroutine fails or gets canceled, all its child coroutines are recursively canceled too. Keeping coroutines connected this way makes cancellation and error handling predictable and safe.</p><p id="k2t7zm_125">To maintain structured concurrency, new coroutines can only be launched in a <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-scope/" id="k2t7zm_130" data-external="true" rel="noopener noreferrer"><code class="code" id="k2t7zm_133">CoroutineScope</code></a> that defines and manages their lifecycle. The <code class="code" id="k2t7zm_131">CoroutineScope</code> includes the <span class="emphasis" id="k2t7zm_132">coroutine context</span>, which defines the dispatcher and other execution properties. When you start a coroutine inside another coroutine, it automatically becomes a child of its parent scope.</p><p id="k2t7zm_126">Calling a <a href="#coroutine-builder-functions" id="k2t7zm_134" data-tooltip="A coroutine builder function is a function that accepts a suspend lambda that defines a coroutine to run. Here are some examples:">coroutine builder function</a>, such as <code class="code" id="k2t7zm_135">CoroutineScope.launch()</code> on a <code class="code" id="k2t7zm_136">CoroutineScope</code>, starts a child coroutine of the coroutine associated with that scope. Inside the builder's block, the <a href="lambdas.html#function-literals-with-receiver" id="k2t7zm_137">receiver</a> is a nested <code class="code" id="k2t7zm_138">CoroutineScope</code>, so any coroutines you launch there become its children.</p><section class="chapter"><h3 id="create-a-coroutine-scope-with-the-coroutinescope-function" data-toc="create-a-coroutine-scope-with-the-coroutinescope-function">Create a coroutine scope with the <code class="code" id="k2t7zm_144">coroutineScope()</code> function</h3><p id="k2t7zm_140">To create a new coroutine scope with the current coroutine context, use the <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/coroutine-scope.html" id="k2t7zm_145" data-external="true" rel="noopener noreferrer"><code class="code" id="k2t7zm_147">coroutineScope()</code></a> function. This function creates a root coroutine of the coroutine subtree. It's the direct parent of coroutines launched inside the block and the indirect parent of any coroutines they launch. <code class="code" id="k2t7zm_146">coroutineScope()</code> executes the suspending block and waits until the block and any coroutines launched in it complete.</p><p id="k2t7zm_141">Here's an example:</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+// Imports the kotlin.time.Duration to express duration in seconds
+import kotlin.time.Duration.Companion.seconds
+
+import kotlinx.coroutines.*
+
+// If the coroutine context doesn't specify a dispatcher,
+// CoroutineScope.launch() uses Dispatchers.Default
+//sampleStart
+suspend fun main() {
+    // Root of the coroutine subtree
+    coroutineScope { // this: CoroutineScope
+        this.launch {
+            this.launch {
+                delay(2.seconds)
+                println(&quot;Child of the enclosing coroutine completed&quot;)
+            }
+            println(&quot;Child coroutine 1 completed&quot;)
+        }
+        this.launch {
+            delay(1.seconds)
+            println(&quot;Child coroutine 2 completed&quot;)
+        }
+    }
+    // Runs only after all children in the coroutineScope have completed
+    println(&quot;Coroutine scope completed&quot;)
+}
+//sampleEnd
+</div><p id="k2t7zm_143">Since no <a href="#coroutine-dispatchers" id="k2t7zm_148" data-tooltip="A coroutine dispatcher controls which thread or thread pool coroutines use for their execution. Coroutines aren't always tied to a single thread. They can pause on one thread and resume on another, depending on the dispatcher. This lets you run many coroutines at the same time…">dispatcher</a> is specified in this example, the <code class="code" id="k2t7zm_149">CoroutineScope.launch()</code> builder functions in the <code class="code" id="k2t7zm_150">coroutineScope()</code> block inherit the current context. If that context doesn't have a specified dispatcher, <code class="code" id="k2t7zm_151">CoroutineScope.launch()</code> uses <code class="code" id="k2t7zm_152">Dispatchers.Default</code>, which runs on a shared pool of threads.</p></section><section class="chapter"><h3 id="extract-coroutine-builders-from-the-coroutine-scope" data-toc="extract-coroutine-builders-from-the-coroutine-scope">Extract coroutine builders from the coroutine scope</h3><p id="k2t7zm_153">In some cases, you may want to extract coroutine builder calls, such as <a href="#coroutinescope-launch" id="k2t7zm_161" data-tooltip="The CoroutineScope.launch() coroutine builder function is an extension function on CoroutineScope. It starts a new coroutine without blocking the rest of the scope, inside an existing coroutine scope."><code class="code" id="k2t7zm_162">CoroutineScope.launch()</code></a>, into separate functions.</p><p id="k2t7zm_154">Consider the following example:</p><div class="code-block" data-lang="kotlin">
+suspend fun main() {
+    coroutineScope { // this: CoroutineScope
+        // Calls CoroutineScope.launch() where CoroutineScope is the receiver
+        this.launch { println(&quot;1&quot;) }
+        this.launch { println(&quot;2&quot;) }
+    } 
+}
+</div><aside class="prompt" data-type="tip" data-title="" id="k2t7zm_156"><p id="k2t7zm_163">You can also write <code class="code" id="k2t7zm_165">this.launch</code> without the explicit <code class="code" id="k2t7zm_166">this</code> expression, as <code class="code" id="k2t7zm_167">launch</code>. These examples use explicit <code class="code" id="k2t7zm_168">this</code> expressions to highlight that it's an extension function on <code class="code" id="k2t7zm_169">CoroutineScope</code>.</p><p id="k2t7zm_164">For more information on how lambdas with receivers work in Kotlin, see <a href="lambdas.html#function-literals-with-receiver" id="k2t7zm_170">Function literals with receiver</a>.</p></aside><p id="k2t7zm_157">The <code class="code" id="k2t7zm_171">coroutineScope()</code> function takes a lambda with a <code class="code" id="k2t7zm_172">CoroutineScope</code> receiver. Inside this lambda, the implicit receiver is a <code class="code" id="k2t7zm_173">CoroutineScope</code>, so builder functions like <code class="code" id="k2t7zm_174">CoroutineScope.launch()</code> and <a href="#coroutinescope-async" id="k2t7zm_175" data-tooltip="The CoroutineScope.async() coroutine builder function is an extension function on CoroutineScope. It starts a concurrent computation inside an existing coroutine scope and returns a Deferred handle that represents an eventual result. Use the .await() function to suspend the code…"><code class="code" id="k2t7zm_177">CoroutineScope.async()</code></a> resolve as <a href="extensions.html#extension-functions" id="k2t7zm_176">extension functions</a> on that receiver.</p><p id="k2t7zm_158">To extract the coroutine builders into another function, that function must declare a <code class="code" id="k2t7zm_178">CoroutineScope</code> receiver, otherwise a compilation error occurs:</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+import kotlinx.coroutines.*
+//sampleStart
+suspend fun main() {
+    coroutineScope {
+        launchAll()
+    }
+}
+
+fun CoroutineScope.launchAll() { // this: CoroutineScope
+    // Calls .launch() on CoroutineScope
+    this.launch { println(&quot;1&quot;) }
+    this.launch { println(&quot;2&quot;) } 
+}
+//sampleEnd
+/* -- Calling launch without declaring CoroutineScope as the receiver results in a compilation error --
+
+fun launchAll() {
+    // Compilation error: this is not defined
+    this.launch { println(&quot;1&quot;) }
+    this.launch { println(&quot;2&quot;) }
+}
+ */
+</div><p id="k2t7zm_160">In this example, the <code class="code" id="k2t7zm_179">launchAll()</code> function doesn't need the <code class="code" id="k2t7zm_180">suspend</code> keyword, because it only starts the coroutines in the current <code class="code" id="k2t7zm_181">CoroutineScope</code> and then returns immediately. Only mark functions with <code class="code" id="k2t7zm_182">suspend</code> when it makes sense for them to pause and resume before returning.</p></section></section><section class="chapter"><h2 id="coroutine-builder-functions" data-toc="coroutine-builder-functions">Coroutine builder functions</h2><p id="k2t7zm_183">A coroutine builder function is a function that accepts a <code class="code" id="k2t7zm_189">suspend</code> <a href="lambdas.html" id="k2t7zm_190">lambda</a> that defines a coroutine to run. Here are some examples:</p><ul class="list _bullet" id="k2t7zm_184"><li class="list__item" id="k2t7zm_191"><p id="k2t7zm_196"><a href="#coroutinescope-launch" id="k2t7zm_197" data-tooltip="The CoroutineScope.launch() coroutine builder function is an extension function on CoroutineScope. It starts a new coroutine without blocking the rest of the scope, inside an existing coroutine scope."><code class="code" id="k2t7zm_198">CoroutineScope.launch()</code></a></p></li><li class="list__item" id="k2t7zm_192"><p id="k2t7zm_199"><a href="#coroutinescope-async" id="k2t7zm_200" data-tooltip="The CoroutineScope.async() coroutine builder function is an extension function on CoroutineScope. It starts a concurrent computation inside an existing coroutine scope and returns a Deferred handle that represents an eventual result. Use the .await() function to suspend the code…"><code class="code" id="k2t7zm_201">CoroutineScope.async()</code></a></p></li><li class="list__item" id="k2t7zm_193"><p id="k2t7zm_202"><a href="#runblocking" id="k2t7zm_203" data-tooltip="The runBlocking() coroutine builder function creates a coroutine scope and blocks the current thread until the coroutines launched in that scope finish."><code class="code" id="k2t7zm_204">runBlocking()</code></a></p></li><li class="list__item" id="k2t7zm_194"><p id="k2t7zm_205"><a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/with-context.html" id="k2t7zm_206" data-external="true" rel="noopener noreferrer"><code class="code" id="k2t7zm_207">withContext()</code></a></p></li><li class="list__item" id="k2t7zm_195"><p id="k2t7zm_208"><a href="#create-a-coroutine-scope-with-the-coroutinescope-function" id="k2t7zm_209" data-tooltip="To create a new coroutine scope with the current coroutine context, use the coroutineScope() function. This function creates a root coroutine of the coroutine subtree. It's the direct parent of coroutines launched inside the block and the indirect parent of any coroutines they…"><code class="code" id="k2t7zm_210">coroutineScope()</code></a></p></li></ul><p id="k2t7zm_185">Coroutine builder functions require a <code class="code" id="k2t7zm_211">CoroutineScope</code> to run in. This can be an existing scope or one you create with helper functions such as <code class="code" id="k2t7zm_212">coroutineScope()</code>, <a href="#runblocking" id="k2t7zm_213" data-tooltip="The runBlocking() coroutine builder function creates a coroutine scope and blocks the current thread until the coroutines launched in that scope finish."><code class="code" id="k2t7zm_215">runBlocking()</code></a>, or <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/with-context.html#" id="k2t7zm_214" data-external="true" rel="noopener noreferrer"><code class="code" id="k2t7zm_216">withContext()</code></a>. Each builder defines how the coroutine starts and how you interact with its result.</p><section class="chapter"><h3 id="coroutinescope-launch" data-toc="coroutinescope-launch"><code class="code" id="k2t7zm_223">CoroutineScope.launch()</code></h3><p id="k2t7zm_218">The <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/launch.html#" id="k2t7zm_224" data-external="true" rel="noopener noreferrer"><code class="code" id="k2t7zm_227">CoroutineScope.launch()</code></a> coroutine builder function is an extension function on <code class="code" id="k2t7zm_225">CoroutineScope</code>. It starts a new coroutine without blocking the rest of the scope, inside an existing <a href="#coroutine-scope-and-structured-concurrency" id="k2t7zm_226" data-tooltip="When you run many coroutines in an application, you need a way to manage them as groups. Kotlin coroutines rely on a principle called structured concurrency to provide this structure.">coroutine scope</a>.</p><p id="k2t7zm_219">Use <code class="code" id="k2t7zm_228">CoroutineScope.launch()</code> to run a task alongside other work when the result isn't needed or you don't want to wait for it:</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+// Imports the kotlin.time.Duration to enable expressing duration in milliseconds
+import kotlin.time.Duration.Companion.milliseconds
+
+import kotlinx.coroutines.*
+
+suspend fun main() {
+    withContext(Dispatchers.Default) {
+        performBackgroundWork()
+    }
+}
+
+//sampleStart
+suspend fun performBackgroundWork() = coroutineScope { // this: CoroutineScope
+    // Starts a coroutine that runs without blocking the scope
+    this.launch {
+        // Suspends to simulate background work
+        delay(100.milliseconds)
+        println(&quot;Sending notification in background&quot;)
+    }
+
+    // Main coroutine continues while a previous one suspends
+    println(&quot;Scope continues&quot;)
+}
+//sampleEnd
+</div><p id="k2t7zm_221">After running this example, you can see that the <code class="code" id="k2t7zm_229">main()</code> function isn't blocked by <code class="code" id="k2t7zm_230">CoroutineScope.launch()</code> and keeps running other code while the coroutine works in the background.</p><aside class="prompt" data-type="tip" data-title="" id="k2t7zm_222"><p id="k2t7zm_231">The <code class="code" id="k2t7zm_232">CoroutineScope.launch()</code> function returns a <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-job/" id="k2t7zm_233" data-external="true" rel="noopener noreferrer"><code class="code" id="k2t7zm_235">Job</code></a> handle. Use this handle to wait for the launched coroutine to complete. For more information, see <a href="coroutines-cancellation.html#cancel-coroutines" id="k2t7zm_234" data-tooltip="A coroutine is canceled when the cancel() function is invoked on its Job handle. Coroutine builder functions such as .launch() return a Job. The .async() function returns a Deferred, which implements Job and supports the same cancellation behavior.">Cancellation and timeouts</a>.</p></aside></section><section class="chapter"><h3 id="coroutinescope-async" data-toc="coroutinescope-async"><code class="code" id="k2t7zm_239">CoroutineScope.async()</code></h3><p id="k2t7zm_237">The <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/async.html" id="k2t7zm_240" data-external="true" rel="noopener noreferrer"><code class="code" id="k2t7zm_245">CoroutineScope.async()</code></a> coroutine builder function is an extension function on <code class="code" id="k2t7zm_241">CoroutineScope</code>. It starts a concurrent computation inside an existing <a href="#coroutine-scope-and-structured-concurrency" id="k2t7zm_242" data-tooltip="When you run many coroutines in an application, you need a way to manage them as groups. Kotlin coroutines rely on a principle called structured concurrency to provide this structure.">coroutine scope</a> and returns a <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-deferred/" id="k2t7zm_243" data-external="true" rel="noopener noreferrer"><code class="code" id="k2t7zm_246">Deferred</code></a> handle that represents an eventual result. Use the <code class="code" id="k2t7zm_244">.await()</code> function to suspend the code until the result is ready:</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+// Imports the kotlin.time.Duration to enable expressing duration in milliseconds
+import kotlin.time.Duration.Companion.milliseconds
+
+import kotlinx.coroutines.*
+
+//sampleStart
+suspend fun main() = withContext(Dispatchers.Default) { // this: CoroutineScope
+    // Starts downloading the first page
+    val firstPage = this.async {
+        delay(50.milliseconds)
+        &quot;First page&quot;
+    }
+
+    // Starts downloading the second page in parallel
+    val secondPage = this.async {
+        delay(100.milliseconds)
+        &quot;Second page&quot;
+    }
+
+    // Awaits both results and compares them
+    val pagesAreEqual = firstPage.await() == secondPage.await()
+    println(&quot;Pages are equal: $pagesAreEqual&quot;)
+}
+//sampleEnd
+</div></section><section class="chapter"><h3 id="runblocking" data-toc="runblocking"><code class="code" id="k2t7zm_251">runBlocking()</code></h3><p id="k2t7zm_248">The <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/run-blocking.html" id="k2t7zm_252" data-external="true" rel="noopener noreferrer"><code class="code" id="k2t7zm_254">runBlocking()</code></a> coroutine builder function creates a coroutine scope and blocks the current <a href="#comparing-coroutines-and-jvm-threads" id="k2t7zm_253" data-tooltip="While coroutines are suspendable computations that run code concurrently like threads on the JVM, they work differently under the hood.">thread</a> until the coroutines launched in that scope finish.</p><p id="k2t7zm_249">Use <code class="code" id="k2t7zm_255">runBlocking()</code> only when there is no other option to call suspending code from non-suspending code:</p><div class="code-block" data-lang="kotlin">
+import kotlin.time.Duration.Companion.milliseconds
+import kotlinx.coroutines.*
+
+// A third-party interface you can't change
+interface Repository {
+    fun readItem(): Int
+}
+
+object MyRepository : Repository {
+    override fun readItem(): Int {
+        // Bridges to a suspending function
+        return runBlocking {
+            myReadItem()
+        }
+    }
+}
+
+suspend fun myReadItem(): Int {
+    delay(100.milliseconds)
+    return 4
+}
+</div></section></section><section class="chapter"><h2 id="coroutine-dispatchers" data-toc="coroutine-dispatchers">Coroutine dispatchers</h2><p id="k2t7zm_256">A <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-dispatchers/#" id="k2t7zm_266" data-external="true" rel="noopener noreferrer"><span class="emphasis" id="k2t7zm_267">coroutine dispatcher</span></a> controls which thread or thread pool coroutines use for their execution. Coroutines aren't always tied to a single thread. They can pause on one thread and resume on another, depending on the dispatcher. This lets you run many coroutines at the same time without allocating a separate thread for every coroutine.</p><aside class="prompt" data-type="tip" data-title="" id="k2t7zm_257"><p id="k2t7zm_268">Even though coroutines can suspend and resume on different threads, values written before the coroutine suspends are still guaranteed to be available within the same coroutine when it resumes.</p></aside><p id="k2t7zm_258">A dispatcher works together with the <a href="#coroutine-scope-and-structured-concurrency" id="k2t7zm_269" data-tooltip="When you run many coroutines in an application, you need a way to manage them as groups. Kotlin coroutines rely on a principle called structured concurrency to provide this structure.">coroutine scope</a> to define when coroutines run and where they run. While the coroutine scope controls the coroutine's lifecycle, the dispatcher controls which threads are used for execution.</p><aside class="prompt" data-type="note" data-title="" id="k2t7zm_259"><p id="k2t7zm_270">You don't have to specify a dispatcher for every coroutine. By default, coroutines inherit the dispatcher from their parent scope. You can specify a dispatcher to run a coroutine in a different context.</p><p id="k2t7zm_271">If the coroutine context doesn't include a dispatcher, coroutine builders use <code class="code" id="k2t7zm_272">Dispatchers.Default</code>.</p></aside><p id="k2t7zm_260">The <code class="code" id="k2t7zm_273">kotlinx.coroutines</code> library includes different dispatchers for different use cases. For example, <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-dispatchers/-default.html" id="k2t7zm_274" data-external="true" rel="noopener noreferrer"><code class="code" id="k2t7zm_275">Dispatchers.Default</code></a> runs coroutines on a shared pool of threads, performing work in the background, separate from the main thread. This makes it an ideal choice for CPU-intensive operations like data processing.</p><p id="k2t7zm_261">To specify a dispatcher for a coroutine builder like <code class="code" id="k2t7zm_276">CoroutineScope.launch()</code>, pass it as an argument:</p><div class="code-block" data-lang="kotlin">
+suspend fun runWithDispatcher() = coroutineScope { // this: CoroutineScope
+    this.launch(Dispatchers.Default) {
+        println(&quot;Running on ${Thread.currentThread().name}&quot;)
+    }
+}
+</div><p id="k2t7zm_263">Alternatively, you can use a <code class="code" id="k2t7zm_277">withContext()</code> block to run all code in it on a specified dispatcher:</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+// Imports the kotlin.time.Duration to enable expressing duration in milliseconds
+import kotlin.time.Duration.Companion.milliseconds
+
+import kotlinx.coroutines.*
+
+//sampleStart
+suspend fun main() = withContext(Dispatchers.Default) { // this: CoroutineScope
+    println(&quot;Running withContext block on ${Thread.currentThread().name}&quot;)
+
+    val one = this.async {
+        println(&quot;First calculation starting on ${Thread.currentThread().name}&quot;)
+        val sum = (1L..500_000L).sum()
+        delay(200L)
+        println(&quot;First calculation done on ${Thread.currentThread().name}&quot;)
+        sum
+    }
+
+    val two = this.async {
+        println(&quot;Second calculation starting on ${Thread.currentThread().name}&quot;)
+        val sum = (500_001L..1_000_000L).sum()
+        println(&quot;Second calculation done on ${Thread.currentThread().name}&quot;)
+        sum
+    }
+
+    // Waits for both calculations and prints the result
+    println(&quot;Combined total: ${one.await() + two.await()}&quot;)
+}
+//sampleEnd
+</div><p id="k2t7zm_265">To learn more about coroutine dispatchers and their uses, including other dispatchers like <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-dispatchers/-i-o.html" id="k2t7zm_278" data-external="true" rel="noopener noreferrer"><code class="code" id="k2t7zm_281">Dispatchers.IO</code></a> and <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-dispatchers/-main.html" id="k2t7zm_279" data-external="true" rel="noopener noreferrer"><code class="code" id="k2t7zm_282">Dispatchers.Main</code></a>, see <a href="coroutine-context-and-dispatchers.html" id="k2t7zm_280" data-tooltip="Coroutines always execute in some context represented by a value of the CoroutineContext type, defined in the Kotlin standard library.">Coroutine context and dispatchers</a>.</p></section><section class="chapter"><h2 id="comparing-coroutines-and-jvm-threads" data-toc="comparing-coroutines-and-jvm-threads">Comparing coroutines and JVM threads</h2><p id="k2t7zm_283">While coroutines are suspendable computations that run code concurrently like threads on the JVM, they work differently under the hood.</p><p id="k2t7zm_284">A <span class="emphasis" id="k2t7zm_293">thread</span> is managed by the operating system. Threads can run tasks in parallel on multiple CPU cores and represent a standard approach to concurrency on the JVM. When you create a thread, the operating system allocates memory for its stack and uses the kernel to switch between threads. This makes threads powerful but also resource-intensive. Each thread usually needs a few megabytes of memory, and typically the JVM can only handle a few thousand threads at once.</p><p id="k2t7zm_285">On the other hand, a coroutine isn't bound to a specific thread. It can suspend on one thread and resume on another, so many coroutines can share the same thread pool. When a coroutine suspends, the thread isn't blocked and remains free to run other tasks. This makes coroutines much lighter than threads and allows running millions of them in one process without exhausting system resources.</p><figure id="k2t7zm_286"><img alt="Comparing coroutines and threads" src="images/coroutines-and-threads.svg" title="Comparing coroutines and threads" width="700" height="376"></figure><p id="k2t7zm_287">Let's look at an example where 50,000 coroutines each wait five seconds and then print a period (<code class="code" id="k2t7zm_294">.</code>):</p><div class="code-block" data-lang="kotlin" data-runnable="true" data-min-compiler-version="1.3">
+import kotlin.time.Duration.Companion.seconds
+import kotlinx.coroutines.*
+
+suspend fun main() {
+    withContext(Dispatchers.Default) {
+        // Launches 50,000 coroutines that each wait five seconds, then print a period
+        printPeriods()
+    }
+}
+
+//sampleStart
+suspend fun printPeriods() = coroutineScope { // this: CoroutineScope
+    // Launches 50,000 coroutines that each wait five seconds, then print a period
+    repeat(50_000) {
+        this.launch {
+            delay(5.seconds)
+            print(&quot;.&quot;)
+        }
+    }
+}
+//sampleEnd
+</div><p id="k2t7zm_289">Now let's look at the same example using JVM threads:</p><div class="code-block" data-lang="kotlin" data-runnable="true">
+import kotlin.concurrent.thread
+
+fun main() {
+    repeat(50_000) {
+        thread {
+            Thread.sleep(5000L)
+            print(&quot;.&quot;)
+        }
+    }
+}
+</div><p id="k2t7zm_291">Running this version uses much more memory because each thread needs its own memory stack. For 50,000 threads, that can be up to 100 GB, compared to roughly 500 MB for the same number of coroutines.</p><p id="k2t7zm_292">Depending on your operating system, JDK version, and settings, the JVM thread version may throw an out-of-memory error or slow down thread creation to avoid running too many threads at once.</p></section><section class="chapter"><h2 id="what-s-next" data-toc="what-s-next">What's next</h2><ul class="list _bullet" id="k2t7zm_295"><li class="list__item" id="k2t7zm_296"><p id="k2t7zm_300">Discover more about combining suspending functions in <a href="composing-suspending-functions.html" id="k2t7zm_301" data-tooltip="This section covers various approaches to composition of suspending functions.">Composing suspending functions</a>.</p></li><li class="list__item" id="k2t7zm_297"><p id="k2t7zm_302">Learn how to cancel coroutines and handle timeouts in <a href="coroutines-cancellation.html" id="k2t7zm_303" data-tooltip="Cancellation lets you request to stop a coroutine before it completes. It stops work that's no longer needed, such as when a user closes a window or navigates away in a user interface while a coroutine is still running.">Cancellation and timeouts</a>.</p></li><li class="list__item" id="k2t7zm_298"><p id="k2t7zm_304">Dive deeper into coroutine execution and thread management in <a href="coroutine-context-and-dispatchers.html" id="k2t7zm_305" data-tooltip="Coroutines always execute in some context represented by a value of the CoroutineContext type, defined in the Kotlin standard library.">Coroutine context and dispatchers</a>.</p></li><li class="list__item" id="k2t7zm_299"><p id="k2t7zm_306">Learn how to return multiple asynchronously computed values in <a href="coroutines-flow.html" id="k2t7zm_307" data-tooltip="A flow represents a sequential stream of values that can be produced asynchronously. Unlike a suspending function, which returns one value, you can use flows to work with multiple sequential values over time.">Flows</a>.</p></li></ul></section><div class="last-modified">07 September 2026</div><div data-feedback-placeholder="true"></div><div class="navigation-links _bottom"><a href="coroutines-guide.html" class="navigation-links__prev">Coroutines guide</a><a href="coroutines-cancellation.html" class="navigation-links__next">Cancellation and timeouts</a></div></article><div id="disqus_thread"></div></div></section></main></div></body></html>

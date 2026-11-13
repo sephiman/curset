@@ -1,5 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
-import { AGE, abandonSitting, overflowingElements, signIn, startSitting, submittedSitting } from "./session";
+import { AGE, abandonSitting, overflowingElements, signIn, startSitting, submittedSitting, startPracticeAndPickFirstOption } from "./session";
 
 /** Delta K at real widths: the desktop layout, and the «Por tema» cards on a phone. */
 
@@ -151,8 +151,7 @@ test.describe("nothing wider than the screen", () => {
       test("practice with the solution panel open", async ({ page }) => {
         await signIn(page);
         await page.goto(`${ESQUEMA_LESSON}/practice`);
-        await page.getByRole("button", { name: "Empezar" }).click();
-        await page.getByRole("radio").first().locator("xpath=ancestor::label").click();
+        await startPracticeAndPickFirstOption(page);
         await page.getByRole("button", { name: "Enviar" }).click();
         await expect(page.getByText("Ver solución")).toBeVisible();
         await expectNothingWiderThanTheScreen(page);

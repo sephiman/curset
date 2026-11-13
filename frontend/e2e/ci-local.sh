@@ -1,13 +1,15 @@
 #!/usr/bin/env bash
 # SPDX-License-Identifier: AGPL-3.0-only
 # The CI `e2e` job on this machine: the backend image built from the working tree and a throwaway
-# Postgres, as two containers with the job's service settings, then the same `npm run test:e2e`.
-# Keep in step with `.github/workflows/ci.yml` (jobs.e2e). Needs :8000 free; reuses a Vite on :5173.
+# Postgres, as two containers with the job's service settings, then the same `npm run test:e2e` inside
+# the job's Playwright image, so the fonts the layout checks measure are CI's.
+# Keep in step with `.github/workflows/ci.yml` (jobs.e2e). Needs :8000 and :5173 free.
 set -euo pipefail
 
 repo="$(cd "$(dirname "$0")/../.." && pwd)"
 network=curset-e2e
 image=curset-backend:e2e
+playwright_image=mcr.microsoft.com/playwright:v1.64.1-noble
 
 if curl -fsS -o /dev/null http://localhost:8000/api/health 2>/dev/null; then
   echo "Something already answers on :8000; stop the dev backend first." >&2
@@ -29,7 +31,7 @@ docker run --detach --name curset-e2e-postgres --network "$network" --network-al
   --health-cmd "pg_isready -U curset -d curset" --health-interval 2s --health-timeout 5s --health-retries 30 \
   postgres:17 >/dev/null
 
-docker run --detach --name curset-e2e-backend --network "$network" --publish 127.0.0.1:8000:8000 \
+docker run --detach --name curset-e2e-backend --network "$network" --network-alias backend --publish 127.0.0.1:8000:8000 \
   --env DB_HOST=postgres --env DB_USERNAME=curset --env DB_PASSWORD=curset-e2e --env DB_NAME=curset \
   --env AUTH_SECRET=e2e-only-not-a-secret --env COOKIE_SECURE=false \
   --env RUN_MIGRATIONS_ON_STARTUP=true --env SYNC_CONTENT_ON_STARTUP=true --env DEV_MODE=true --env EXTRA_CONTENT_DIR=/app/e2e-content \
@@ -49,5 +51,7 @@ fi
 
 # A fresh database: the session file from a run against another stack would name an account it lacks.
 rm -rf "$repo/frontend/e2e/.auth"
-cd "$repo/frontend"
-npm run test:e2e
+docker run --rm --network "$network" --ipc=host --user "$(id -u):$(id -g)" --env HOME=/tmp \
+  --env API_PROXY_TARGET=http://backend:8000 --env FONTCONFIG_FILE="$repo/frontend/e2e/fonts.conf" --env CI="${CI:-}" \
+  --volume "$repo:$repo" --workdir "$repo/frontend" \
+  "$playwright_image" npm run test:e2e -- "$@"
