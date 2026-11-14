@@ -1,0 +1,574 @@
+{
+  "seed": 2026,
+  "locale": "en",
+  "temas": [
+    {
+      "lessonId": "m09-l04",
+      "title": "Blueprints",
+      "questions": [
+        {
+          "id": "m09-l04-ex-1/m09-l04-q07",
+          "number": "1",
+          "prompt": "Which drawback does the PostgreSQL documentation give for `SKIP LOCKED`, even though it can reduce lock contention among consumers of a queue-like table?",
+          "options": [
+            {
+              "letter": "A",
+              "text": "It also skips the table-level lock, so concurrent schema changes can run"
+            },
+            {
+              "letter": "B",
+              "text": "It locks every row the query scans before it skips any"
+            },
+            {
+              "letter": "C",
+              "text": "It cannot be combined with a `LIMIT` clause"
+            },
+            {
+              "letter": "D",
+              "text": "It provides an inconsistent view of the data, so it is not suitable for general purpose work"
+            }
+          ]
+        },
+        {
+          "id": "m09-l04-ex-1/m09-l04-q12",
+          "number": "2",
+          "prompt": "In RabbitMQ, a queue has a dead letter exchange configured. Which of these events does NOT cause its messages to be dead-lettered?",
+          "options": [
+            {
+              "letter": "A",
+              "text": "The whole queue expires"
+            },
+            {
+              "letter": "B",
+              "text": "A consumer rejects a message with `basic.nack` and `requeue` set to false"
+            },
+            {
+              "letter": "C",
+              "text": "A message expires due to per-message TTL"
+            },
+            {
+              "letter": "D",
+              "text": "A message is dropped because its queue exceeded a length limit"
+            }
+          ]
+        },
+        {
+          "id": "m09-l04-ex-1/m09-l04-q06",
+          "number": "3",
+          "prompt": "In PostgreSQL, a query uses `SELECT … FOR UPDATE NOWAIT`. What happens when one of the selected rows cannot be locked immediately because another transaction holds a conflicting lock?",
+          "options": [
+            {
+              "letter": "A",
+              "text": "The statement waits until the other transaction commits and then locks the row"
+            },
+            {
+              "letter": "B",
+              "text": "The statement takes a table-level lock to get past the row lock"
+            },
+            {
+              "letter": "C",
+              "text": "The row is skipped and the statement returns the remaining rows"
+            },
+            {
+              "letter": "D",
+              "text": "The statement reports an error instead of waiting for the lock"
+            }
+          ]
+        },
+        {
+          "id": "m09-l04-ex-1/m09-l04-q22",
+          "number": "4",
+          "prompt": "In Elasticsearch full-text search, an inverted index is made up of two key components. What does its dictionary contain?",
+          "options": [
+            {
+              "letter": "A",
+              "text": "For each term, a list of document IDs where the term appears"
+            },
+            {
+              "letter": "B",
+              "text": "The analyzers that transform the text before it is indexed"
+            },
+            {
+              "letter": "C",
+              "text": "The relevance score of each document for the query"
+            },
+            {
+              "letter": "D",
+              "text": "A sorted list of all unique terms in the collection of documents in the index"
+            }
+          ]
+        },
+        {
+          "id": "m09-l04-ex-1/m09-l04-q04",
+          "number": "5",
+          "prompt": "In the `RateLimit` header fields draft, a quota policy item sets `q` and gives no `qu` parameter. In which quota unit is the quota measured by default?",
+          "options": [
+            {
+              "letter": "A",
+              "text": "`tokens`"
+            },
+            {
+              "letter": "B",
+              "text": "`content-bytes`"
+            },
+            {
+              "letter": "C",
+              "text": "`concurrent-requests`"
+            },
+            {
+              "letter": "D",
+              "text": "`requests`"
+            }
+          ]
+        },
+        {
+          "id": "m09-l04-ex-1/m09-l04-q01",
+          "number": "6",
+          "prompt": "In Resilience4j, the immutable `AtomicRateLimiter.State` records data about the last call. Which statement about its `activePermissions` field is correct?",
+          "options": [
+            {
+              "letter": "A",
+              "text": "It counts the available permissions after the last call and can be negative when permissions were reserved"
+            },
+            {
+              "letter": "B",
+              "text": "It never goes below zero, because permissions cannot be reserved ahead of a cycle"
+            },
+            {
+              "letter": "C",
+              "text": "It holds the cycle number that the last call used"
+            },
+            {
+              "letter": "D",
+              "text": "It holds the number of nanoseconds the last call had to wait for permission"
+            }
+          ]
+        },
+        {
+          "id": "m09-l04-ex-1/m09-l04-q16",
+          "number": "7",
+          "prompt": "In UUIDv7 as defined by RFC 9562, which value occupies the most significant 48 bits of the identifier?",
+          "options": [
+            {
+              "letter": "A",
+              "text": "The Media Access Control (MAC) address of the generating node"
+            },
+            {
+              "letter": "B",
+              "text": "A Unix Epoch timestamp in milliseconds"
+            },
+            {
+              "letter": "C",
+              "text": "A 100-nanosecond Gregorian Epoch timestamp"
+            },
+            {
+              "letter": "D",
+              "text": "Random bits, with the timestamp in the least significant bits"
+            }
+          ]
+        },
+        {
+          "id": "m09-l04-ex-1/m09-l04-q10",
+          "number": "8",
+          "prompt": "A Kafka application uses default producer and consumer settings and writes processed data to an external database. Which delivery guarantee does Kafka itself provide by default?",
+          "options": [
+            {
+              "letter": "A",
+              "text": "At-least-once delivery"
+            },
+            {
+              "letter": "B",
+              "text": "Exactly-once delivery to the external database without its cooperation"
+            },
+            {
+              "letter": "C",
+              "text": "No guarantee, because a committed message can be lost even while a broker replicating its partition is alive"
+            },
+            {
+              "letter": "D",
+              "text": "At-most-once delivery, because the producer disables retries by default"
+            }
+          ]
+        },
+        {
+          "id": "m09-l04-ex-1/m09-l04-q13",
+          "number": "9",
+          "prompt": "A team configures non-blocking retries and dead-letter topics in Spring for Apache Kafka with `@RetryableTopic`. Which statement about this feature is correct?",
+          "options": [
+            {
+              "letter": "A",
+              "text": "It is supported with batch listeners"
+            },
+            {
+              "letter": "B",
+              "text": "Since 3.2, it is supported with `@KafkaListener` on a class"
+            },
+            {
+              "letter": "C",
+              "text": "The `@RetryableTopic` annotation was introduced in version 3.2"
+            },
+            {
+              "letter": "D",
+              "text": "It can be combined with container transactions"
+            }
+          ]
+        },
+        {
+          "id": "m09-l04-ex-1/m09-l04-q23",
+          "number": "10",
+          "prompt": "In the Model Context Protocol, which JSON-RPC method does a client send to invoke a tool on a server?",
+          "options": [
+            {
+              "letter": "A",
+              "text": "`tools/call`"
+            },
+            {
+              "letter": "B",
+              "text": "`tools/invoke`"
+            },
+            {
+              "letter": "C",
+              "text": "`tools/run`"
+            },
+            {
+              "letter": "D",
+              "text": "`tools/execute`"
+            }
+          ]
+        },
+        {
+          "id": "m09-l04-ex-1/m09-l04-q19",
+          "number": "11",
+          "prompt": "For a `search_as_you_type` field in Elasticsearch, what is the default `max_shingle_size`, and which values are valid?",
+          "options": [
+            {
+              "letter": "A",
+              "text": "The default is 2, and valid values are the integers 2 to 4 inclusive"
+            },
+            {
+              "letter": "B",
+              "text": "The default is 4, and valid values are the integers 3 to 8 inclusive"
+            },
+            {
+              "letter": "C",
+              "text": "The default is 3, and valid values are the integers 2 to 4 inclusive"
+            },
+            {
+              "letter": "D",
+              "text": "The default is 3, and valid values are the integers 1 to 3 inclusive"
+            }
+          ]
+        },
+        {
+          "id": "m09-l04-ex-1/m09-l04-q17",
+          "number": "12",
+          "prompt": "An application needs UUIDs whose timestamp comes from a custom Epoch instead of the Unix Epoch. Which UUID version does RFC 9562 say MUST be used?",
+          "options": [
+            {
+              "letter": "A",
+              "text": "UUIDv8"
+            },
+            {
+              "letter": "B",
+              "text": "UUIDv7"
+            },
+            {
+              "letter": "C",
+              "text": "UUIDv6"
+            },
+            {
+              "letter": "D",
+              "text": "UUIDv1"
+            }
+          ]
+        },
+        {
+          "id": "m09-l04-ex-1/m09-l04-q15",
+          "number": "13",
+          "prompt": "A Kafka producer sends a compressed batch of messages. How does Kafka handle that batch in the broker's log and on the way to the consumer?",
+          "options": [
+            {
+              "letter": "A",
+              "text": "The broker compresses each message separately when it appends the batch to the log"
+            },
+            {
+              "letter": "B",
+              "text": "The batch stays compressed in the log and is also sent to the consumer in compressed form"
+            },
+            {
+              "letter": "C",
+              "text": "The broker stores the messages uncompressed after validating them"
+            },
+            {
+              "letter": "D",
+              "text": "The broker never decompresses the batch, so it cannot validate the record count"
+            }
+          ]
+        },
+        {
+          "id": "m09-l04-ex-1/m09-l04-q14",
+          "number": "14",
+          "prompt": "On a JBOD array of six 7200rpm SATA drives in a RAID-5 configuration, how much faster are linear writes than random writes, according to Kafka's design documentation?",
+          "options": [
+            {
+              "letter": "A",
+              "text": "More than 6000 times faster"
+            },
+            {
+              "letter": "B",
+              "text": "About 60 times faster"
+            },
+            {
+              "letter": "C",
+              "text": "About 100 times faster"
+            },
+            {
+              "letter": "D",
+              "text": "About 600 times faster"
+            }
+          ]
+        },
+        {
+          "id": "m09-l04-ex-1/m09-l04-q11",
+          "number": "15",
+          "prompt": "A Kafka consumer reads messages, saves its position in the log, and only then processes them. It crashes after saving the position but before processing. Which semantics does this ordering give?",
+          "options": [
+            {
+              "letter": "A",
+              "text": "Exactly-once, because the position and the processing result are saved together"
+            },
+            {
+              "letter": "B",
+              "text": "At-most-once, because messages before the saved position may never be processed"
+            },
+            {
+              "letter": "C",
+              "text": "At-least-once, because the new process re-reads messages that were already processed"
+            },
+            {
+              "letter": "D",
+              "text": "No guarantee, because the new process restarts from the beginning of the partition"
+            }
+          ]
+        },
+        {
+          "id": "m09-l04-ex-1/m09-l04-q18",
+          "number": "16",
+          "prompt": "Which formula does Redis Cluster use to map a key to a hash slot, leaving aside the hash tag exception?",
+          "options": [
+            {
+              "letter": "A",
+              "text": "`CRC32(key) mod 16384`"
+            },
+            {
+              "letter": "B",
+              "text": "`CRC16(key) mod 65536`"
+            },
+            {
+              "letter": "C",
+              "text": "`CRC16(key) mod 16384`"
+            },
+            {
+              "letter": "D",
+              "text": "`SHA1(key) mod 16384`"
+            }
+          ]
+        },
+        {
+          "id": "m09-l04-ex-1/m09-l04-q03",
+          "number": "17",
+          "prompt": "In the `RateLimit-Policy` header field draft, a quota policy item carries several parameters. Which parameter is REQUIRED, while the others are OPTIONAL?",
+          "options": [
+            {
+              "letter": "A",
+              "text": "`qu`, the quota unit"
+            },
+            {
+              "letter": "B",
+              "text": "`q`, the quota allocated by the policy"
+            },
+            {
+              "letter": "C",
+              "text": "`w`, the time window"
+            },
+            {
+              "letter": "D",
+              "text": "`pk`, the partition key"
+            }
+          ]
+        },
+        {
+          "id": "m09-l04-ex-1/m09-l04-q21",
+          "number": "18",
+          "prompt": "An application pages through Elasticsearch results with `search_after`, sorts on a field that is not unique, and uses no point in time. What can happen to its paged results?",
+          "options": [
+            {
+              "letter": "A",
+              "text": "Only the first page is returned, because `search_after` runs a single request"
+            },
+            {
+              "letter": "B",
+              "text": "They could miss or duplicate hits, so the sort should include a tiebreaker field"
+            },
+            {
+              "letter": "C",
+              "text": "Elasticsearch adds an implicit `_shard_doc` tiebreaker, so the pages stay complete"
+            },
+            {
+              "letter": "D",
+              "text": "The request is rejected, because `search_after` always requires a point in time"
+            }
+          ]
+        },
+        {
+          "id": "m09-l04-ex-1/m09-l04-q05",
+          "number": "19",
+          "prompt": "In the `RateLimit` header fields draft, what does the `w` parameter of a quota policy item hold?",
+          "options": [
+            {
+              "letter": "A",
+              "text": "A UNIX timestamp marking when the window ends"
+            },
+            {
+              "letter": "B",
+              "text": "A non-negative, non-zero integer interval in seconds"
+            },
+            {
+              "letter": "C",
+              "text": "An integer number of milliseconds, so sub-second windows are possible"
+            },
+            {
+              "letter": "D",
+              "text": "An integer number of minutes"
+            }
+          ]
+        },
+        {
+          "id": "m09-l04-ex-1/m09-l04-q26",
+          "number": "20",
+          "prompt": "According to the OWASP LLM01:2025 entry on prompt injection, how is jailbreaking related to prompt injection as an attack on a model's safety protocols?",
+          "options": [
+            {
+              "letter": "A",
+              "text": "Jailbreaking is a form of prompt injection in which the inputs make the model disregard its safety protocols entirely"
+            },
+            {
+              "letter": "B",
+              "text": "Jailbreaking is the only form of prompt injection, so indirect injections do not count"
+            },
+            {
+              "letter": "C",
+              "text": "Preventing jailbreaking only needs safeguards in system prompts and input handling"
+            },
+            {
+              "letter": "D",
+              "text": "Jailbreaking is an unrelated vulnerability that prompt injection cannot cause"
+            }
+          ]
+        }
+      ],
+      "keys": [
+        {
+          "number": "1",
+          "letter": "D",
+          "citation": "pg-sql-select#SQL-FOR-UPDATE-SHARE"
+        },
+        {
+          "number": "2",
+          "letter": "A",
+          "citation": "rabbitmq-dlx#overview"
+        },
+        {
+          "number": "3",
+          "letter": "D",
+          "citation": "pg-sql-select#SQL-FOR-UPDATE-SHARE"
+        },
+        {
+          "number": "4",
+          "letter": "D",
+          "citation": "es-how-full-text-works#elastic-docs-v3"
+        },
+        {
+          "number": "5",
+          "letter": "D",
+          "citation": "ietf-httpapi-ratelimit-headers#content"
+        },
+        {
+          "number": "6",
+          "letter": "A",
+          "citation": "resilience4j-ratelimiter#internals"
+        },
+        {
+          "number": "7",
+          "letter": "B",
+          "citation": "rfc9562#section-5.7"
+        },
+        {
+          "number": "8",
+          "letter": "A",
+          "citation": "kafka-design#message-delivery-semantics"
+        },
+        {
+          "number": "9",
+          "letter": "B",
+          "citation": "spring-kafka-retrytopic#page-title"
+        },
+        {
+          "number": "10",
+          "letter": "A",
+          "citation": "mcp-tools#calling-tools"
+        },
+        {
+          "number": "11",
+          "letter": "C",
+          "citation": "es-search-as-you-type#elastic-docs-v3"
+        },
+        {
+          "number": "12",
+          "letter": "A",
+          "citation": "rfc9562#section-6.1"
+        },
+        {
+          "number": "13",
+          "letter": "B",
+          "citation": "kafka-design#end-to-end-batch-compression"
+        },
+        {
+          "number": "14",
+          "letter": "A",
+          "citation": "kafka-design#dont-fear-the-filesystem"
+        },
+        {
+          "number": "15",
+          "letter": "B",
+          "citation": "kafka-design#message-delivery-semantics"
+        },
+        {
+          "number": "16",
+          "letter": "C",
+          "citation": "redis-cluster-spec#key-distribution-model"
+        },
+        {
+          "number": "17",
+          "letter": "B",
+          "citation": "ietf-httpapi-ratelimit-headers#content"
+        },
+        {
+          "number": "18",
+          "letter": "B",
+          "citation": "es-paginate-search-results#search-after"
+        },
+        {
+          "number": "19",
+          "letter": "B",
+          "citation": "ietf-httpapi-ratelimit-headers#content"
+        },
+        {
+          "number": "20",
+          "letter": "A",
+          "citation": "owasp-llm-top10-prompt-injection#main"
+        }
+      ]
+    }
+  ]
+}

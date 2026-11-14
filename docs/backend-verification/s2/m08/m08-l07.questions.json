@@ -1,0 +1,227 @@
+[
+ {
+  "id": "m08-l07-q01",
+  "fact": "m08-l07-f20",
+  "stem": "In Kafka Streams, which statement about hopping windows is correct, given that they are defined by a window size and an advance interval?",
+  "key": "A data record may belong to more than one window, because hopping windows can overlap",
+  "distractors": [
+   "A hopping window is defined by its size alone, without an advance interval",
+   "Kafka Streams uses the name hopping window for what it calls a sliding window",
+   "Hopping windows are aligned to the timestamp of the first record, not to the epoch"
+  ],
+  "explanation": "A record may belong to more than one hopping window, because hopping windows can overlap. A window defined by its size alone is wrong, because a hopping window has two properties, the size and the advance interval. Using the name for sliding windows is wrong, because Kafka Streams follows the academic terminology where sliding windows have different semantics. Alignment to the first record is wrong, because hopping windows are aligned to the epoch.",
+  "citation": "kafka-streams-dsl-api#hopping-time-windows",
+  "extract": "Since hopping windows can overlap - and in general they do - a data record may belong to more than one such windows.",
+  "snippet": null
+ },
+ {
+  "id": "m08-l07-q02",
+  "fact": "m08-l07-f26",
+  "stem": "In Kafka Streams session windows, what happens to an event that falls outside the inactivity gap of every existing session for its key?",
+  "key": "A new session is created for the event",
+  "distractors": [
+   "The event is merged into the nearest existing session",
+   "The event is dropped, because every session has a fixed size",
+   "The event extends the session with the latest end time, whatever the gap"
+  ],
+  "explanation": "An event outside the session gap creates a new session. Merging into the nearest session is wrong, because only events that fall within the inactivity gap of an existing session are merged. Dropping the event is wrong, because session window sizes vary, even for the same key. Extending the latest session regardless of the gap is wrong, because sessions are periods of activity separated by a defined gap of inactivity.",
+  "citation": "kafka-streams-dsl-api#session-windows",
+  "extract": "If an event falls outside of the session gap, then a new session will be created.",
+  "snippet": null
+ },
+ {
+  "id": "m08-l07-q03",
+  "fact": "m08-l07-f32",
+  "stem": "In a Kafka Streams hourly window with a grace period of 10 minutes, until what time does the 09:00 to 10:00 window accept out-of-order records?",
+  "key": "10:10",
+  "distractors": [
+   "10:00",
+   "10:30",
+   "11:00"
+  ],
+  "explanation": "The window accepts out-of-order records until 10:10, when it is closed. 10:00, 10:30 and 11:00 are all excluded, because the documentation gives 10:10 as the point at which the 09:00 to 10:00 window is closed under a 10-minute grace period.",
+  "citation": "kafka-streams-dsl-api#window-final-results",
+  "extract": "the 09:00 to 10:00 window will accept out-of-order records until 10:10, at which point, the window is closed.",
+  "snippet": null
+ },
+ {
+  "id": "m08-l07-q04",
+  "fact": "m08-l07-f36",
+  "stem": "In Flink, what does a `Watermark(t)` flowing through a stream declare about event time and the elements that can still arrive?",
+  "key": "Event time has reached t, so no more elements with a timestamp at or below t should arrive",
+  "distractors": [
+   "The wall clock of the machine has reached t, so processing of earlier elements has finished",
+   "No element with a timestamp at or below t can ever arrive again, and Flink guarantees it",
+   "The operator has received exactly t elements since the previous watermark"
+  ],
+  "explanation": "A `Watermark(t)` declares that event time has reached t, so no more elements with a timestamp at or below t should arrive. The wall clock reading is wrong, because event time can progress independently of processing time. A guarantee that nothing late arrives is wrong, because certain elements can violate the watermark condition. An element count is wrong, because a watermark is a declaration about timestamps, that all events up to a certain timestamp should have arrived.",
+  "citation": "flink-time#event-time-and-watermarks",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m08-l07-q05",
+  "fact": "m08-l07-f38",
+  "stem": "A Flink operator consumes several input streams, for example after a `keyBy(…)` function. How does Flink define the current event time of that operator?",
+  "key": "The minimum of its input streams' event times",
+  "distractors": [
+   "The maximum of its input streams' event times",
+   "The average of its input streams' event times",
+   "The event time of the input stream that delivered a watermark last"
+  ],
+  "explanation": "The current event time of such an operator is the minimum of its input streams' event times. The maximum, the average and the event time of the last stream to deliver a watermark are all excluded, because the documentation defines it as the minimum.",
+  "citation": "flink-time#watermarks-in-parallel-streams",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m08-l07-q06",
+  "fact": "m08-l07-f62",
+  "stem": "A Kafka Streams application sums the values per user over a `KStream` that receives the records (alice, 1) and then (alice, 3). What does the sum for alice equal?",
+  "key": "4",
+  "distractors": [
+   "3",
+   "1",
+   "7"
+  ],
+  "explanation": "A `KStream` record is an insert, so the sum for alice is 4. A sum of 3 is wrong, because the second record would not be considered an update of the previous record, which is what a `KTable` does. A sum of 1 and a sum of 7 are both excluded, because the documentation gives 4 as the sum for alice.",
+  "citation": "kafka-streams-dsl-api#kstream",
+  "extract": "If your stream processing application were to sum the values per user, it would return 4 for alice.",
+  "snippet": null
+ },
+ {
+  "id": "m08-l07-q07",
+  "fact": "m08-l07-f73",
+  "stem": "Which statement about co-partitioning of the input topics for an equi-join in Kafka Streams is correct, according to the Kafka documentation?",
+  "key": "The input topics of the join must have the same number of partitions",
+  "distractors": [
+   "Kafka Streams verifies at runtime that the partitioning strategy of both sides matches",
+   "A `KTable`-`KTable` foreign-key join needs co-partitioned inputs like any other join",
+   "A `KStream`-`GlobalKTable` join needs co-partitioning, because each instance holds only some partitions"
+  ],
+  "explanation": "The input topics of an equi-join must have the same number of partitions. A runtime check of the partitioning strategy is wrong, because Kafka Streams cannot verify whether the partitioning strategy matches. Co-partitioning for a foreign-key join is wrong, because `KTable`-`KTable` foreign-key joins do not require it. Co-partitioning for a `GlobalKTable` join is wrong, because each instance has a full copy of the changelog stream.",
+  "citation": "kafka-streams-dsl-api#join-co-partitioning-requirements",
+  "extract": "The input topics of the join (left side and right side) must have the same number of partitions.",
+  "snippet": null
+ },
+ {
+  "id": "m08-l07-q08",
+  "fact": "m08-l07-f80",
+  "stem": "A Kafka Streams application reads one input topic with 5 partitions, and 8 instances of the application are started. What happens to the 3 instances beyond the number of partitions?",
+  "key": "They launch but remain idle",
+  "distractors": [
+   "They share the partitions with the others by reading parts of each partition",
+   "Kafka Streams refuses to start them and throws an exception",
+   "Kafka Streams adds partitions to the input topic so that they have work"
+  ],
+  "explanation": "The excess instances launch but remain idle. Sharing partitions is wrong, because the assignment of partitions to tasks never changes and each task is a fixed unit of parallelism. Refusing to start them is wrong, because the excess instances launch. Adding partitions is wrong, because Kafka Streams creates a fixed number of tasks based on the input stream partitions.",
+  "citation": "kafka-streams-architecture#stream-partitions-and-tasks",
+  "extract": "the “excess” app instances will launch but remain idle",
+  "snippet": null
+ },
+ {
+  "id": "m08-l07-q09",
+  "fact": "m08-l07-f104",
+  "stem": "Which value of the Kafka Streams `processing.guarantee` setting is the default, before any exactly-once option is enabled?",
+  "key": "`at_least_once`",
+  "distractors": [
+   "`exactly_once_v2`",
+   "`exactly_once`",
+   "`exactly_once_beta`"
+  ],
+  "explanation": "The default is `at_least_once`. `exactly_once_v2`, `exactly_once` and `exactly_once_beta` are all excluded, because the documentation marks `at_least_once` as the default value.",
+  "citation": "kafka-streams-config#processingguarantee",
+  "extract": "Possible values are \"at_least_once\" (default) and \"exactly_once_v2\" (for EOS version 2).",
+  "snippet": null
+ },
+ {
+  "id": "m08-l07-q10",
+  "fact": "m08-l07-f108",
+  "stem": "When exactly-once processing is enabled in Kafka Streams, what default does it set for `transaction.timeout.ms`, which bounds how long a transaction may stay open?",
+  "key": "10000 milliseconds",
+  "distractors": [
+   "1000 milliseconds",
+   "60000 milliseconds",
+   "100 milliseconds"
+  ],
+  "explanation": "Kafka Streams sets `transaction.timeout.ms` to 10000 milliseconds by default. 1000, 60000 and 100 milliseconds are all excluded, because the documentation states 10000 (10 seconds) as the default.",
+  "citation": "kafka-streams-config#processingguarantee",
+  "extract": "When exactly-once processing is enabled, Kafka Streams sets transaction.timeout.ms to 10000 (10 seconds) by default.",
+  "snippet": null
+ },
+ {
+  "id": "m08-l07-q11",
+  "fact": "m08-l07-f93",
+  "stem": "A Kafka producer is configured without a `transactional.id`. Which statement describes what that producer can do, according to the producer configuration reference?",
+  "key": "It is limited to idempotent delivery",
+  "distractors": [
+   "It has no delivery guarantee beyond a plain retry, so duplicates are always possible",
+   "It uses transactions with an id that the broker generates for it",
+   "It cannot enable idempotence, because only transactional producers can"
+  ],
+  "explanation": "Without a `transactional.id` the producer is limited to idempotent delivery. Duplicates always being possible is wrong, because idempotence is enabled by default if no conflicting configurations are set. A broker-generated id is wrong, because by default the transactional id is not configured, which means transactions cannot be used. Idempotence being reserved for transactional producers is wrong, because a configured transactional id merely implies `enable.idempotence`, which is on by default.",
+  "citation": "kafka-producer-configs#transactional.id",
+  "extract": "If no TransactionalId is provided, then the producer is limited to idempotent delivery.",
+  "snippet": null
+ },
+ {
+  "id": "m08-l07-q12",
+  "fact": "m08-l07-f115",
+  "stem": "In Flink's distributed snapshots, how do stream barriers move relative to the records of the data stream?",
+  "key": "They flow strictly in line and never overtake records",
+  "distractors": [
+   "They overtake records so that the sinks learn about a snapshot first",
+   "They pause the flow of the stream while the snapshot is taken",
+   "They carry the timestamp of the latest record that they follow"
+  ],
+  "explanation": "Barriers flow strictly in line and never overtake records. Overtaking records is wrong, because barriers never overtake records. Pausing the stream is wrong, because barriers do not interrupt the flow of the stream and are very lightweight. Carrying a timestamp is wrong, because each barrier carries the ID of the snapshot whose records it pushed in front of it.",
+  "citation": "flink-stateful-stream-processing#barriers",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m08-l07-q13",
+  "fact": "m08-l07-f122",
+  "stem": "In Flink, the stream alignment during a checkpoint is skipped, so an operator processes elements of checkpoint n+1 before the snapshot of checkpoint n. What follows on a restore?",
+  "key": "Those records occur as duplicates",
+  "distractors": [
+   "Those records are lost, because the snapshot of checkpoint n does not contain them",
+   "A dataflow of only `map`, `flatMap` and `filter` operators loses its exactly once guarantee",
+   "The checkpoint is discarded and the job restarts from scratch"
+  ],
+  "explanation": "Those records occur as duplicates, because they are both in the state snapshot of checkpoint n and replayed after it. Records being lost is wrong, because the operator processes the elements of checkpoint n+1 before the state snapshot of checkpoint n is taken, so they are in the snapshot. Losing exactly once for a `map`, `flatMap` and `filter` dataflow is wrong, because such dataflows give exactly once guarantees even in at least once mode. Discarding the checkpoint is wrong, because checkpoint snapshots are still drawn once an operator has seen the barrier from each input.",
+  "citation": "flink-stateful-stream-processing#exactly-once-vs-at-least-once",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m08-l07-q14",
+  "fact": "m08-l07-f52",
+  "stem": "After the machine running a Kafka Streams task fails and the task restarts on another machine, how does Kafka Streams restore the task's state stores?",
+  "key": "By replaying the corresponding changelog topics before processing resumes",
+  "distractors": [
+   "By copying the local store files from the failed machine",
+   "By re-reading the whole input topic from its first offset",
+   "By reading a per-task `.checkpoint` file, in Kafka 4.3 and later"
+  ],
+  "explanation": "Kafka Streams replays the corresponding changelog topics before it resumes processing. Copying local files is wrong, because the state is tracked in a replicated changelog Kafka topic per state store. Re-reading the whole input topic is wrong, because the cost of task initialization depends primarily on the time for replaying the changelog topics of the state stores. A `.checkpoint` file is wrong, because since Kafka 4.3 the changelog offset of each persistent store is stored inside `RocksDB` rather than in a per-task `.checkpoint` file.",
+  "citation": "kafka-streams-architecture#fault-tolerance",
+  "extract": "If tasks run on a machine that fails and are restarted on another machine, Kafka Streams guarantees to restore their associated state stores to the content before the failure by replaying the corresponding changelog topics prior to resuming the processing on the newly started tasks.",
+  "snippet": null
+ },
+ {
+  "id": "m08-l07-q15",
+  "fact": "m08-l07-f132",
+  "stem": "In the Flink web interface, which share of the time must a subtask be back pressured for its back pressure status to be HIGH?",
+  "key": "More than 50% and up to 100%",
+  "distractors": [
+   "Up to 10%",
+   "More than 10% and up to 50%",
+   "Exactly 100%, and never less"
+  ],
+  "explanation": "A subtask is HIGH when it is back pressured more than 50% and up to 100% of the time. Up to 10%, more than 10% and up to 50%, and exactly 100% are all excluded, because the status definition gives more than 50% and up to 100% for HIGH.",
+  "citation": "flink-back-pressure#back-pressure-status",
+  "extract": null,
+  "snippet": null
+ }
+]

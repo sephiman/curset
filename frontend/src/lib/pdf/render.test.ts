@@ -5,7 +5,6 @@ import { describe, expect, it } from "vitest";
 import type { Content, NodeQueries, TDocumentDefinitions } from "pdfmake/interfaces";
 import type { CourseExport, PrintExercises } from "@/api/course";
 import {
-  PRINT_FONTS,
   answerEntries,
   buildCourseDocument,
   exerciseBlocks,
@@ -36,7 +35,7 @@ import {
   figureDirectives,
   manifestExerciseIds,
   manifestLessons,
-  printFontPaths,
+  printFontFamiliesOnDisk,
   readManifest,
   stubFigures,
   LOCALES,
@@ -80,15 +79,8 @@ async function typesetter(keep: (definition: TDocumentDefinitions) => void = () 
 
 async function nodePdfMake() {
   const pdfmake = (await import("pdfmake")).default;
-  pdfmake.addFonts({ [Object.keys(PRINT_FONTS)[0]]: mapFontsToPaths() });
+  pdfmake.addFonts(printFontFamiliesOnDisk());
   return pdfmake;
-}
-
-/** The four variants the browser resolves out of the vfs, as paths on disk. */
-function mapFontsToPaths(): Record<string, string> {
-  const paths = printFontPaths();
-  const family = PRINT_FONTS[Object.keys(PRINT_FONTS)[0] as keyof typeof PRINT_FONTS];
-  return Object.fromEntries(Object.entries(family).map(([variant, file]) => [variant, paths[file]]));
 }
 
 /** Every value a key takes anywhere in a definition, in document order. */

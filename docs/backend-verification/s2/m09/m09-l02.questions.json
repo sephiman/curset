@@ -1,0 +1,302 @@
+[
+ {
+  "id": "m09-l02-q01",
+  "fact": "m09-l02-f12",
+  "stem": "In PostgreSQL range partitioning, one partition's range is from 1 to 10 and the next one's range is from 10 to 20. Which partition does the value 10 belong to?",
+  "key": "The second partition, the one whose range runs from 10 to 20",
+  "distractors": [
+   "The first partition, because the upper bound of a range is inclusive",
+   "Both partitions, because adjacent ranges share their boundary value",
+   "Whichever of the two partitions was created first, because the boundary is ambiguous"
+  ],
+  "explanation": "The value 10 belongs to the second partition because the lower end of a range is inclusive. The first partition is wrong because the upper end of a range is exclusive. Both partitions is wrong because the ranges assigned to different partitions have no overlap. Creation order is wrong because the documentation states that the value 10 belongs to the second partition, not the first.",
+  "citation": "pg-ddl-partitioning#DDL-PARTITIONING-OVERVIEW",
+  "extract": "then value 10 belongs to the second partition not the first.",
+  "snippet": null
+ },
+ {
+  "id": "m09-l02-q02",
+  "fact": "m09-l02-f17",
+  "stem": "In PostgreSQL declarative partitioning, where is the row data of a partitioned table physically stored once rows have been inserted into it?",
+  "key": "In the partitions, which are otherwise-ordinary tables associated with the partitioned table",
+  "distractors": [
+   "In the partitioned table itself, which keeps its own copy of every row",
+   "In one shared heap that all partitions read through their partition bounds",
+   "In foreign tables only, because every partition must be a foreign table"
+  ],
+  "explanation": "The storage belongs to the partitions, which are otherwise-ordinary tables. A copy in the partitioned table itself is wrong because the partitioned table is a virtual table with no storage of its own. A shared heap is wrong because each partition stores its own subset of the data as defined by its partition bounds. Foreign tables only is wrong because partitions can also be foreign tables, not that they must be.",
+  "citation": "pg-ddl-partitioning#DDL-PARTITIONING-DECLARATIVE",
+  "extract": "Instead, the storage belongs to partitions, which are otherwise-ordinary tables associated with the partitioned table.",
+  "snippet": null
+ },
+ {
+  "id": "m09-l02-q03",
+  "fact": "m09-l02-f19",
+  "stem": "In PostgreSQL, an `UPDATE` changes the partition key of a row so that it no longer satisfies the partition bounds of its original partition. What happens to the row?",
+  "key": "The row is moved into a different partition",
+  "distractors": [
+   "The `UPDATE` fails with a constraint error and the row stays unchanged",
+   "The row stays in its original partition, outside the partition bounds",
+   "The row is copied, so it exists in both partitions"
+  ],
+  "explanation": "Updating the partition key moves the row into a different partition when it no longer satisfies the bounds of its original partition. The failing `UPDATE`, the row staying in its original partition, and the row existing in both partitions are three other outcomes than the single move the documentation describes.",
+  "citation": "pg-ddl-partitioning#DDL-PARTITIONING-DECLARATIVE",
+  "extract": "Updating the partition key of a row will cause it to be moved into a different partition if it no longer satisfies the partition bounds of its original partition.",
+  "snippet": null
+ },
+ {
+  "id": "m09-l02-q04",
+  "fact": "m09-l02-f21",
+  "stem": "In PostgreSQL declarative partitioning, how can an existing regular table that already holds rows become a partition of a partitioned table?",
+  "key": "By attaching it as a partition of the partitioned table",
+  "distractors": [
+   "By converting it in place into a partitioned table",
+   "By detaching it from the partitioned table with `DETACH PARTITION`",
+   "Only by copying its rows into a newly created partition, because a table cannot be added as it is"
+  ],
+  "explanation": "An existing regular table can be added as a partition of a partitioned table. Converting a regular table in place is wrong because it is not possible to turn a regular table into a partitioned table. Detaching is wrong because removing a partition turns it into a standalone table. Copying the rows is wrong because an existing table can be added as a partition as it is.",
+  "citation": "pg-ddl-partitioning#DDL-PARTITIONING-DECLARATIVE",
+  "extract": "it is possible to add an existing regular or partitioned table as a partition of a partitioned table",
+  "snippet": null
+ },
+ {
+  "id": "m09-l02-q05",
+  "fact": "m09-l02-f71",
+  "stem": "In Java 25, the snippet tests whether read and write quorums overlap, that is whether `R + W > N`, for six settings of `N`, `R` and `W`. What does it print?",
+  "key": "N=3 R=2 W=2 R+W=4 overlap=true\nN=3 R=1 W=1 R+W=2 overlap=false\nN=3 R=1 W=3 R+W=4 overlap=true\nN=3 R=2 W=1 R+W=3 overlap=false\nN=5 R=3 W=3 R+W=6 overlap=true\nN=5 R=2 W=2 R+W=4 overlap=false",
+  "distractors": [
+   "N=3 R=2 W=2 R+W=4 overlap=true\nN=3 R=1 W=1 R+W=2 overlap=false\nN=3 R=1 W=3 R+W=4 overlap=true\nN=3 R=2 W=1 R+W=3 overlap=true\nN=5 R=3 W=3 R+W=6 overlap=true\nN=5 R=2 W=2 R+W=4 overlap=false",
+   "N=3 R=2 W=2 R+W=4 overlap=true\nN=3 R=1 W=1 R+W=2 overlap=false\nN=3 R=1 W=3 R+W=4 overlap=false\nN=3 R=2 W=1 R+W=3 overlap=false\nN=5 R=3 W=3 R+W=6 overlap=true\nN=5 R=2 W=2 R+W=4 overlap=false",
+   "N=3 R=2 W=2 R+W=4 overlap=true\nN=3 R=1 W=1 R+W=2 overlap=false\nN=3 R=1 W=3 R+W=4 overlap=false\nN=3 R=2 W=1 R+W=3 overlap=true\nN=5 R=3 W=3 R+W=6 overlap=true\nN=5 R=2 W=2 R+W=4 overlap=false"
+  ],
+  "explanation": "The snippet reports an overlap only when `R + W` is greater than `N`, which gives the recorded output. The output with `overlap=true` for `N=3 R=2 W=1` is wrong because the sum 3 is not greater than 3. The output with `overlap=false` for `N=3 R=1 W=3` is wrong because the sum 4 is greater than 3. The output that mixes both errors is wrong for the same two settings.",
+  "citation": "paper-dynamo#p7",
+  "extract": null,
+  "snippet": "m09-l02/QuorumOverlap.java"
+ },
+ {
+  "id": "m09-l02-q06",
+  "fact": "m09-l02-f89",
+  "stem": "In Java 25, the snippet computes Redis Cluster hash slots with CRC16 (XMODEM) modulo 16384 and the hash tag rule, then runs six checks. What does it print?",
+  "key": "crc16 of 123456789: 31C3\nslot of 123456789: 12739\n{user1000}.following and {user1000}.followers share a slot: true\nfoo{}{bar} is hashed as a whole key: true\nfoo{{bar}}zap hashes {bar: true\nfoo{bar}{zap} hashes bar: true",
+  "distractors": [
+   "crc16 of 123456789: 31C3\nslot of 123456789: 12739\n{user1000}.following and {user1000}.followers share a slot: false\nfoo{}{bar} is hashed as a whole key: true\nfoo{{bar}}zap hashes {bar: false\nfoo{bar}{zap} hashes bar: false",
+   "crc16 of 123456789: 31C3\nslot of 123456789: 12739\n{user1000}.following and {user1000}.followers share a slot: true\nfoo{}{bar} is hashed as a whole key: false\nfoo{{bar}}zap hashes {bar: false\nfoo{bar}{zap} hashes bar: false",
+   "crc16 of 123456789: 29B1\nslot of 123456789: 10673\n{user1000}.following and {user1000}.followers share a slot: true\nfoo{}{bar} is hashed as a whole key: true\nfoo{{bar}}zap hashes {bar: true\nfoo{bar}{zap} hashes bar: true"
+  ],
+  "explanation": "The snippet hashes only the substring between the first `{` and the first `}` when it is not empty, which gives the recorded output. The output with `false` on the shared slot check is wrong because both keys hash only `user1000`. The output with `false` for `foo{}{bar}` is wrong because the empty first pair makes the whole key hashed. The output starting with `29B1` is wrong because the XMODEM CRC16 of `123456789` is `31C3`.",
+  "citation": "redis-cluster-spec#hash-tags",
+  "extract": "If the key contains a \"{...}\" pattern only the substring between { and } is hashed in order to obtain the hash slot.",
+  "snippet": "m09-l02/HashSlot.java"
+ },
+ {
+  "id": "m09-l02-q07",
+  "fact": "m09-l02-f75",
+  "stem": "According to the Redis Cluster documentation, into how many hash slots is the key space divided, with the slot of a key computed as the CRC16 of the key modulo that number?",
+  "key": "16384",
+  "distractors": [
+   "4096",
+   "65536",
+   "1024"
+  ],
+  "explanation": "Redis Cluster has 16384 hash slots, and the slot of a key is the CRC16 of the key modulo 16384. The numbers 4096, 65536 and 1024 are other slot counts than the 16384 the documentation states.",
+  "citation": "redis-scaling#redis-cluster-data-sharding",
+  "extract": "There are 16384 hash slots in Redis Cluster, and to compute the hash slot for a given key, we simply take the CRC16 of the key modulo 16384.",
+  "snippet": null
+ },
+ {
+  "id": "m09-l02-q08",
+  "fact": "m09-l02-f78",
+  "stem": "According to the Redis documentation on data sharding, what does adding a new node D to a running Redis Cluster require?",
+  "key": "Moving some hash slots from the existing nodes to the new node",
+  "distractors": [
+   "Stopping all operations until every key is rehashed onto the new node",
+   "Recomputing every key's slot with the new node count as the modulus",
+   "Waiting for `redis-cli` to rebalance the cluster automatically"
+  ],
+  "explanation": "Adding node D means moving some hash slots from the existing nodes to D. Stopping all operations is wrong because hash slots move from one node to another while operations continue, so adding a node causes no downtime. Recomputing slots is wrong because the slot of a key is always the CRC16 of the key modulo 16384, whatever the node count. Waiting for `redis-cli` is wrong because it cannot check the distribution of keys and move slots by itself, so slots are moved by an explicit reshard.",
+  "citation": "redis-scaling#redis-cluster-data-sharding; redis-scaling#reshard-the-cluster",
+  "extract": "if I want to add a new node D, I need to move some hash slots from nodes A, B, C to D.",
+  "snippet": null
+ },
+ {
+  "id": "m09-l02-q09",
+  "fact": "m09-l02-f57",
+  "stem": "In the Elasticsearch basic write model, when does the primary shard acknowledge the successful completion of an indexing request to the client?",
+  "key": "Once all in-sync replicas have performed the operation and responded to the primary",
+  "distractors": [
+   "As soon as the primary has executed the operation locally",
+   "Once a majority of all replica copies have responded",
+   "Once the coordinating node has forwarded the operation to the primary shard"
+  ],
+  "explanation": "The primary acknowledges once all in-sync replicas have performed the operation and responded. Acknowledging after the local execution is wrong because the primary stage does not complete until the in-sync replicas have finished indexing. A majority of replicas is wrong because the primary has to replicate all operations to each copy in the in-sync set. Acknowledging after forwarding is wrong because the coordinating stage is not complete until each primary stage has completed.",
+  "citation": "es-reading-and-writing-documents#basic-write-model",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m09-l02-q10",
+  "fact": "m09-l02-f31",
+  "stem": "In PostgreSQL with its default streaming replication, the primary server crashes. How does the amount of committed data lost relate to replication?",
+  "key": "It is proportional to the replication delay at the time of failover",
+  "distractors": [
+   "No committed data is lost, because WAL records are streamed as they are generated",
+   "It equals the size of the WAL file being filled when the primary crashed",
+   "It is proportional to the number of standbys connected to the primary"
+  ],
+  "explanation": "The data loss is proportional to the replication delay at the time of failover. Losing no committed data is wrong because some committed transactions may not have been replicated to the standby. The size of the WAL file is wrong because WAL records are streamed without waiting for the WAL file to be filled. The number of standbys is wrong because the loss is proportional to the replication delay.",
+  "citation": "pg-warm-standby#SYNCHRONOUS-REPLICATION; pg-warm-standby#STREAMING-REPLICATION",
+  "extract": "The amount of data loss is proportional to the replication delay at the time of failover.",
+  "snippet": null
+ },
+ {
+  "id": "m09-l02-q11",
+  "fact": "m09-l02-f36",
+  "stem": "In PostgreSQL synchronous replication, which of these operations must wait for confirmation from the synchronous standby before it completes?",
+  "key": "The commit of a top-level write transaction",
+  "distractors": [
+   "A read-only transaction",
+   "The commit of a subtransaction",
+   "Each statement of a long data load, before its final commit"
+  ],
+  "explanation": "The commit of a top-level write transaction waits until the commit is written to the write-ahead log of both the primary and the standby. A read-only transaction is wrong because read-only transactions need not wait for replies from standby servers. A subtransaction commit is wrong because subtransaction commits do not wait, only top-level commits. A data load statement is wrong because long running actions do not wait until the very final commit message.",
+  "citation": "pg-warm-standby#SYNCHRONOUS-REPLICATION",
+  "extract": "each commit of a write transaction will wait until confirmation is received that the commit has been written to the write-ahead log on disk of both the primary and standby server",
+  "snippet": null
+ },
+ {
+  "id": "m09-l02-q12",
+  "fact": "m09-l02-f50",
+  "stem": "According to the Redis replication documentation, which statement about full resynchronization between a master and a replica is correct?",
+  "key": "It happens when the master has not enough backlog in its buffers, or the replica refers to a replication ID the master no longer knows",
+  "distractors": [
+   "It happens at every reconnection, because the replica always asks for a copy of the dataset",
+   "It uses the `SYNC` command, which newer Redis instances prefer over `PSYNC`",
+   "It makes the master run a separate background save for each replica that requests it"
+  ],
+  "explanation": "A full resynchronization happens when the master lacks enough backlog or the replica refers to an unknown replication ID. Resynchronizing at every reconnection is wrong because the master can send just the incremental part needed. Using `SYNC` is wrong because it is an old protocol no longer used by newer Redis instances. A separate background save per replica is wrong because the master performs a single background save for concurrent requests.",
+  "citation": "redis-replication#how-redis-replication-works",
+  "extract": "However if there is not enough backlog in the master buffers, or if the replica is referring to an history (replication ID) which is no longer known, then a full resynchronization happens",
+  "snippet": null
+ },
+ {
+  "id": "m09-l02-q13",
+  "fact": "m09-l02-f46",
+  "stem": "In PostgreSQL hot standby, a WAL record to be applied conflicts with a query running on the standby. Which choice does the standby have?",
+  "key": "Delay applying the WAL records and everything after them, or cancel the conflicting query",
+  "distractors": [
+   "Skip the conflicting record and apply the records that follow it",
+   "Make the primary wait until the standby query finishes",
+   "Keep WAL application waiting indefinitely, because the standby falling behind is harmless"
+  ],
+  "explanation": "The standby must either delay applying the WAL records and everything after them or cancel the conflicting query. Skipping the record is wrong because the standby must not fail to apply a WAL-logged action. Making the primary wait is wrong because the primary has no information about standby queries and does not wait for them. Waiting indefinitely is wrong because it may be very undesirable as the standby state falls further behind.",
+  "citation": "pg-hot-standby#HOT-STANDBY-CONFLICT",
+  "extract": "The standby server must either delay application of the WAL records (and everything after them, too) or else cancel the conflicting query",
+  "snippet": null
+ },
+ {
+  "id": "m09-l02-q14",
+  "fact": "m09-l02-f105",
+  "stem": "In Redis client-side caching, what does the server do when any client writes new data to a key that other clients have previously read?",
+  "key": "It sends an invalidation message to all clients that have accessed that key previously",
+  "distractors": [
+   "It pushes the new value to every client so that each cache is overwritten",
+   "It sends an invalidation message to every connected client, whether or not it read the key",
+   "It sends nothing, and each client keeps its cached copy until one of its connections is disconnected"
+  ],
+  "explanation": "The server sends an invalidation message to all clients that have accessed the key previously. Pushing the new value is wrong because the message only warns that cached copies are no longer valid, and the clients evict the stale data. Messaging every connected client is wrong because the server tracks the set of keys that each client connection has read. Sending nothing is wrong because the server sends an invalidation message on every write to a tracked key.",
+  "citation": "redis-client-side-caching#tracking",
+  "extract": "When any client writes new data to a tracked key, the server sends an invalidation message to all clients that have accessed that key previously.",
+  "snippet": null
+ },
+ {
+  "id": "m09-l02-q15",
+  "fact": "m09-l02-f113",
+  "stem": "In Redis, which `maxmemory-policy` returns an error when you try to execute commands that cache new data once the `maxmemory` limit is reached?",
+  "key": "`noeviction`",
+  "distractors": [
+   "`allkeys-lru`",
+   "`volatile-ttl`",
+   "`allkeys-random`"
+  ],
+  "explanation": "The `noeviction` policy does not evict keys and returns an error instead. The `allkeys-lru` policy evicts the least recently used keys. The `volatile-ttl` policy evicts keys with the shortest remaining TTL. The `allkeys-random` policy evicts keys at random.",
+  "citation": "redis-eviction#eviction-policies",
+  "extract": "noeviction: Keys are not evicted but the server will return an error when you try to execute commands that cache new data.",
+  "snippet": null
+ },
+ {
+  "id": "m09-l02-q16",
+  "fact": "m09-l02-f124",
+  "stem": "In Redis LFU eviction, which default configuration describes when the frequency counter saturates and how often the counter is decayed?",
+  "key": "It saturates at around one million requests and decays every one minute",
+  "distractors": [
+   "It saturates at around one thousand requests and decays every one minute",
+   "It saturates at around one million requests and decays every one hour",
+   "It saturates at around one hundred thousand requests and decays every ten minutes"
+  ],
+  "explanation": "Redis saturates the counter at around one million requests and decays it every one minute. The saturation points of one thousand requests and of one hundred thousand requests are other values than the one million that the configuration sets. A decay of one hour is wrong because the counter is decayed every one minute.",
+  "citation": "redis-eviction#lfu-eviction",
+  "extract": "Saturate the counter at, around, one million requests. Decay the counter every one minute.",
+  "snippet": null
+ },
+ {
+  "id": "m09-l02-q17",
+  "fact": "m09-l02-f123",
+  "stem": "In which Redis version did the Least Frequently Used (LFU) eviction mode first become available, according to the Redis eviction documentation?",
+  "key": "Redis 4.0",
+  "distractors": [
+   "Redis 2.8",
+   "Redis 3.0",
+   "Redis 5.0"
+  ],
+  "explanation": "LFU eviction is available starting with Redis 4.0. Redis 2.8, Redis 3.0 and Redis 5.0 are other versions than the one the documentation names as the start of LFU availability.",
+  "citation": "redis-eviction#lfu-eviction",
+  "extract": "Starting with Redis 4.0, the Least Frequently Used eviction mode is available.",
+  "snippet": null
+ },
+ {
+  "id": "m09-l02-q18",
+  "fact": "m09-l02-f42",
+  "stem": "In the PostgreSQL comparison of high availability, load balancing and replication solutions, which solution does the documentation say PostgreSQL does not offer?",
+  "key": "Synchronous multimaster replication",
+  "distractors": [
+   "Write-ahead log shipping to warm and hot standby servers",
+   "Logical replication of data changes on a per-table basis",
+   "Synchronous replication of commits to a standby server"
+  ],
+  "explanation": "The documentation says PostgreSQL does not offer synchronous multimaster replication. Write-ahead log shipping is wrong because standby servers can be kept current by reading a stream of WAL records. Logical replication is wrong because it lets a server send a stream of data modifications to another server. Synchronous replication to a standby is wrong because it confirms that all changes of a transaction reached one or more synchronous standby servers.",
+  "citation": "pg-different-replication-solutions#DIFFERENT-REPLICATION-SOLUTIONS; pg-warm-standby#SYNCHRONOUS-REPLICATION",
+  "extract": "PostgreSQL does not offer this type of replication",
+  "snippet": null
+ },
+ {
+  "id": "m09-l02-q19",
+  "fact": "m09-l02-f101",
+  "stem": "In Elasticsearch, which property of an index is fixed at the time that the index is created?",
+  "key": "The number of primary shards",
+  "distractors": [
+   "The number of replica shards",
+   "The number of nodes in the cluster",
+   "The node that holds each shard copy"
+  ],
+  "explanation": "The number of primary shards of an index is fixed at index creation. The number of replica shards is wrong because it can be changed at any time without interrupting indexing or query operations. The number of nodes is wrong because servers can be added to a cluster to increase capacity. The node of each shard copy is wrong because shard copies are automatically balanced across nodes.",
+  "citation": "es-clusters-nodes-shards#elastic-docs-v3",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m09-l02-q20",
+  "fact": "m09-l02-f111",
+  "stem": "In the Redis client-side caching guide, a cache of 10MB (10485760 bytes) holds items whose average size is 80 bytes. Approximately how many items fit in that cache?",
+  "key": "131072",
+  "distractors": [
+   "13107",
+   "1048576",
+   "104857"
+  ],
+  "explanation": "The guide divides 10485760 bytes by 80 bytes to get approximately 131072 items. The counts 13107, 1048576 and 104857 are other results than the 131072 that the division gives.",
+  "citation": "redis-client-side-caching#usage-recommendations",
+  "extract": "you could fit approximately 10485760 / 80 = 131072 items in the cache.",
+  "snippet": null
+ }
+]

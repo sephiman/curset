@@ -1,0 +1,320 @@
+m03-l01-q01:
+  key:
+    anchor: jvms-2#jvms-2.5.2
+    sentence: Each Java Virtual Machine thread has a private Java Virtual Machine stack, created at the same time as the thread.
+  wrong:
+  - option: The heap
+    anchor: jvms-2#jvms-2.5.3
+    sentence: The Java Virtual Machine has a heap that is shared among all Java Virtual Machine threads.
+  - option: The method area
+    anchor: jvms-2#jvms-2.5.4
+    sentence: The Java Virtual Machine has a method area that is shared among all Java Virtual Machine threads.
+  - option: The run-time constant pool
+    anchor: jvms-2#jvms-2.5.5
+    sentence: A run-time constant pool is a per-class or per-interface run-time representation of the constant_pool table in a class file
+m03-l01-q02:
+  key:
+    anchor: jdk-tool-java#advanced-garbage-collection-options-for-java
+    sentence: By default, the size isn't limited.
+  wrong:
+  - option: 256 MB
+    anchor: jdk-tool-java#advanced-garbage-collection-options-for-java
+    sentence: By default, the size isn't limited.
+    exclusive: true
+  - option: 25 percent of the available memory
+    anchor: jdk-tool-java#advanced-garbage-collection-options-for-java
+    sentence: By default, the size isn't limited.
+    exclusive: true
+  - option: The maximum size of the Java heap
+    anchor: jdk-tool-java#advanced-garbage-collection-options-for-java
+    sentence: By default, the size isn't limited.
+    exclusive: true
+m03-l01-q03:
+  key:
+    anchor: jdk-tool-java#advanced-garbage-collection-options-for-java
+    sentence: The default value is 25 percent.
+  wrong:
+  - option: 50 percent
+    anchor: jdk-tool-java#advanced-garbage-collection-options-for-java
+    sentence: The default value is 25 percent.
+    exclusive: true
+  - option: 75 percent
+    anchor: jdk-tool-java#advanced-garbage-collection-options-for-java
+    sentence: The default value is 25 percent.
+    exclusive: true
+  - option: 10 percent
+    anchor: jdk-tool-java#advanced-garbage-collection-options-for-java
+    sentence: The default value is 25 percent.
+    exclusive: true
+m03-l01-q04:
+  key:
+    anchor: jdk-tool-java#advanced-garbage-collection-options-for-java
+    sentence: By default, for G1 the maximum pause time target is 200 milliseconds.
+  wrong:
+  - option: 50 milliseconds
+    anchor: jdk-tool-java#advanced-garbage-collection-options-for-java
+    sentence: By default, for G1 the maximum pause time target is 200 milliseconds.
+    exclusive: true
+  - option: 500 milliseconds
+    anchor: jdk-tool-java#advanced-garbage-collection-options-for-java
+    sentence: By default, for G1 the maximum pause time target is 200 milliseconds.
+    exclusive: true
+  - option: 1 second
+    anchor: jdk-tool-java#advanced-garbage-collection-options-for-java
+    sentence: By default, for G1 the maximum pause time target is 200 milliseconds.
+    exclusive: true
+m03-l01-q05:
+  key:
+    anchor: jdk-tool-java#application-class-data-sharing
+    sentence: Classes in the CDS archive are stored in an optimized format that's about 2 to 5 times larger than classes stored in JAR files or the JDK runtime image.
+  wrong:
+  - option: About 2 to 5 times smaller
+    anchor: jdk-tool-java#application-class-data-sharing
+    sentence: Classes in the CDS archive are stored in an optimized format that's about 2 to 5 times larger than classes stored in JAR files or the JDK runtime image.
+    exclusive: true
+  - option: About the same size
+    anchor: jdk-tool-java#application-class-data-sharing
+    sentence: Classes in the CDS archive are stored in an optimized format that's about 2 to 5 times larger than classes stored in JAR files or the JDK runtime image.
+    exclusive: true
+  - option: About 10 to 20 times larger
+    anchor: jdk-tool-java#application-class-data-sharing
+    sentence: Classes in the CDS archive are stored in an optimized format that's about 2 to 5 times larger than classes stored in JAR files or the JDK runtime image.
+    exclusive: true
+m03-l01-q06:
+  key:
+    anchor: jdk-gctuning-g1#JSGCT-GUID-F1BE86FA-3EDC-4D4F-BDB4-4B044AD83180
+    sentence: This phase consists of multiple young collections that in addition to young generation regions, also evacuate live objects of sets of old generation regions.
+  wrong:
+  - option: The Young-Only phase
+    anchor: jdk-gctuning-g1#JSGCT-GUID-F1BE86FA-3EDC-4D4F-BDB4-4B044AD83180
+    sentence: The Young-Only phase contains garbage collections that fill up the currently available memory with objects in the old generation gradually.
+  - option: The Concurrent Start collection
+    anchor: jdk-gctuning-g1#JSGCT-GUID-F1BE86FA-3EDC-4D4F-BDB4-4B044AD83180
+    sentence: This type of collection starts the marking process in addition to performing a Normal young collection.
+  - option: The Remark pause
+    anchor: jdk-gctuning-g1#JSGCT-GUID-F1BE86FA-3EDC-4D4F-BDB4-4B044AD83180
+    sentence: This pause finalizes the marking itself, performs reference processing and class unloading, reclaims completely empty regions and cleans up internal data structures.
+m03-l01-q07:
+  key:
+    anchor: jdk-gctuning-g1#JSGCT-GUID-15921907-B297-43A4-8C48-DC88035BC7CF
+    sentence: G1 partitions the heap into a set of equally sized heap regions
+  wrong:
+  - option: As one contiguous young space followed by one contiguous old space
+    anchor: jdk-gctuning-g1#JSGCT-GUID-15921907-B297-43A4-8C48-DC88035BC7CF
+    sentence: in G1 these regions are typically laid out in a noncontiguous pattern in memory
+  - option: As regions whose size is chosen per object by each allocation request
+    anchor: jdk-gctuning-g1#JSGCT-GUID-15921907-B297-43A4-8C48-DC88035BC7CF
+    sentence: G1 partitions the heap into a set of equally sized heap regions
+  - option: As fixed young and old areas, with no region as the unit of reclamation
+    anchor: jdk-gctuning-g1#JSGCT-GUID-15921907-B297-43A4-8C48-DC88035BC7CF
+    sentence: A region is the unit of memory allocation and memory reclamation.
+m03-l01-q08:
+  key:
+    anchor: jdk-gctuning-zgc#JSGCT-GUID-8637B158-4F35-4E2D-8E7B-9DAEF15BB3CD
+    sentence: As of JDK 24 ZGC is a generational garbage collector.
+  wrong:
+  - option: ZGC is non-generational, and generational mode must be enabled with `-XX:+ZGenerational`
+    anchor: jdk-gctuning-zgc#JSGCT-GUID-8637B158-4F35-4E2D-8E7B-9DAEF15BB3CD
+    sentence: As of JDK 24 ZGC is a generational garbage collector.
+  - option: ZGC is generational by default, and `-XX:-ZGenerational` still selects the non-generational mode
+    anchor: jdk-gctuning-zgc#JSGCT-GUID-8637B158-4F35-4E2D-8E7B-9DAEF15BB3CD
+    sentence: The ZGenerational option has been removed.
+  - option: ZGC is generational, but young and old objects share a single generation
+    anchor: jep-439#Summary
+    sentence: extending the Z Garbage Collector (ZGC) to maintain separate generations for young and old objects.
+m03-l01-q09:
+  key:
+    anchor: jdk-gctuning-zgc#JSGCT-GUID-8637B158-4F35-4E2D-8E7B-9DAEF15BB3CD
+    sentence: Pause times are independent of the heap size that is being used.
+  wrong:
+  - option: Its pause times grow in proportion to the heap size, so it suits only small heaps
+    anchor: jdk-gctuning-zgc#JSGCT-GUID-8637B158-4F35-4E2D-8E7B-9DAEF15BB3CD
+    sentence: Pause times are independent of the heap size that is being used.
+  - option: It supports heap sizes of up to 1TB
+    anchor: jdk-gctuning-zgc#JSGCT-GUID-8637B158-4F35-4E2D-8E7B-9DAEF15BB3CD
+    sentence: ZGC works well with heap sizes from a few hundred megabytes to 16TB.
+  - option: It does its expensive work in long stop-the-world pauses
+    anchor: jdk-gctuning-zgc#JSGCT-GUID-8637B158-4F35-4E2D-8E7B-9DAEF15BB3CD
+    sentence: ZGC performs all expensive work concurrently, without stopping the execution of application threads for more than a millisecond.
+m03-l01-q10:
+  key:
+    anchor: jdk-gctuning-g1#JSGCT-GUID-98E80C82-24D8-41D4-BC39-B2583F04F1FF
+    sentence: Parallel GC can compact and reclaim space in the old generation only as a whole.
+  wrong:
+  - option: G1 compacts the old generation only as a whole, while Parallel GC does it incrementally
+    anchor: jdk-gctuning-g1#JSGCT-GUID-98E80C82-24D8-41D4-BC39-B2583F04F1FF
+    sentence: Parallel GC can compact and reclaim space in the old generation only as a whole.
+  - option: G1 reclaims nothing in the old generation before a Full GC
+    anchor: jdk-gctuning-g1#JSGCT-GUID-98E80C82-24D8-41D4-BC39-B2583F04F1FF
+    sentence: G1 performs part of the old generation Space-Reclamation concurrently.
+  - option: G1 has lower overhead than the other collectors, so its throughput is always higher
+    anchor: jdk-gctuning-g1#JSGCT-GUID-98E80C82-24D8-41D4-BC39-B2583F04F1FF
+    sentence: G1 may exhibit higher overhead than the above collectors, affecting throughput due to its concurrent nature.
+m03-l01-q11:
+  key:
+    anchor: jdk-troubleshoot-memleaks#JSTGD-GUID-19F6D28E-75A1-4480-9879-D0932B2F305B
+    sentence: The detail message Java heap space indicates that an object could not be allocated in the Java heap.
+  wrong:
+  - option: The application certainly has a memory leak, whatever the heap size
+    anchor: jdk-troubleshoot-memleaks#JSTGD-GUID-19F6D28E-75A1-4480-9879-D0932B2F305B
+    sentence: This error does not necessarily imply a memory leak.
+  - option: The Metaspace for class metadata has been exhausted
+    anchor: jdk-troubleshoot-memleaks#JSTGD-GUID-19F6D28E-75A1-4480-9879-D0932B2F305B
+    sentence: If the Metaspace for class metadata is exhausted, a java.lang.OutOfMemoryError error with a detail message Metaspace is thrown.
+  - option: An array larger than the VM implementation limit was requested
+    anchor: jdk-troubleshoot-memleaks#JSTGD-GUID-19F6D28E-75A1-4480-9879-D0932B2F305B
+    sentence: attempted to allocate an array with a size larger than the VM implementation limit, irrespective of how much heap size is available.
+m03-l01-q12:
+  key:
+    anchor: jdk-tool-jcmd#commands-for-jcmd
+    sentence: Request a full GC unless the -all option is specified.
+  wrong:
+  - option: It dumps all objects, including unreachable objects
+    anchor: jdk-tool-jcmd#commands-for-jcmd
+    sentence: '-all: (Optional) Dump all objects, including unreachable objects (BOOLEAN, false)'
+  - option: It writes the dump in JSON format
+    anchor: jdk-tool-jcmd#commands-for-jcmd
+    sentence: Generates a HPROF format dump of the Java heap.
+  - option: It writes the dump in gzipped format at the strongest compression
+    anchor: jdk-tool-jcmd#commands-for-jcmd
+    sentence: '-gz: (Optional) If specified, the heap dump is written in gzipped format using the given compression level.'
+m03-l01-q13:
+  key:
+    anchor: jdk-tool-jcmd#commands-for-jcmd
+    sentence: Provides statistics about the Java heap usage.
+  wrong:
+  - option: '`GC.heap_dump`'
+    anchor: jdk-tool-jcmd#commands-for-jcmd
+    sentence: Generates a HPROF format dump of the Java heap.
+  - option: '`Thread.print`'
+    anchor: jdk-tool-jcmd#commands-for-jcmd
+    sentence: Prints all threads with stacktraces.
+  - option: '`GC.finalizer_info`'
+    anchor: jdk-tool-jcmd#commands-for-jcmd
+    sentence: Provides information about the Java finalization queue.
+m03-l01-q14:
+  key:
+    anchor: jdk-troubleshoot-tools#JSTGD-GUID-0110914C-4E91-4983-9CDB-412BC6C36AEA
+    sentence: The thread is waiting indefinitely for another thread to perform a particular action.
+  wrong:
+  - option: '`BLOCKED`'
+    anchor: jdk-troubleshoot-tools#JSTGD-GUID-0110914C-4E91-4983-9CDB-412BC6C36AEA
+    sentence: The thread is blocked, waiting for a monitor lock.
+  - option: '`TIMED_WAITING`'
+    anchor: jdk-troubleshoot-tools#JSTGD-GUID-0110914C-4E91-4983-9CDB-412BC6C36AEA
+    sentence: The thread is waiting for another thread to perform an action for up to a specified waiting time.
+  - option: '`RUNNABLE`'
+    anchor: jdk-troubleshoot-tools#JSTGD-GUID-0110914C-4E91-4983-9CDB-412BC6C36AEA
+    sentence: The thread is executing in the JVM.
+m03-l01-q15:
+  key:
+    anchor: jdk-troubleshoot-hangs#JSTGD-GUID-5A88BA3D-D0FC-466F-B5B9-566ED0D62DF1
+    sentence: The default deadlock detection works with locks that are obtained using the synchronized keyword, as well as with locks that are obtained using the java.util.concurrent package.
+  wrong:
+  - option: Only locks obtained with the `synchronized` keyword
+    anchor: jdk-troubleshoot-hangs#JSTGD-GUID-5A88BA3D-D0FC-466F-B5B9-566ED0D62DF1
+    sentence: The default deadlock detection works with locks that are obtained using the synchronized keyword, as well as with locks that are obtained using the java.util.concurrent package.
+  - option: Only `java.util.concurrent` locks, and only once `-XX:+PrintConcurrentLocks` is set
+    anchor: jdk-troubleshoot-hangs#JSTGD-GUID-5A88BA3D-D0FC-466F-B5B9-566ED0D62DF1
+    sentence: If the Java VM flag -XX:+PrintConcurrentLocks is set, then the stack trace also shows a list of lock owners.
+  - option: No locks, because a deadlock is never printed in a thread dump
+    anchor: jdk-troubleshoot-hangs#JSTGD-GUID-5A88BA3D-D0FC-466F-B5B9-566ED0D62DF1
+    sentence: If a deadlock is detected, then it will be printed along with the stack trace of the threads involved in the deadlock.
+m03-l01-q16:
+  key:
+    anchor: jdk-tool-java#ahead-of-time-cache
+    sentence: 'create: Perform the Assembly phase.'
+  wrong:
+  - option: '`record`'
+    anchor: jdk-tool-java#ahead-of-time-cache
+    sentence: 'record: Execute the application in the training phase.'
+  - option: '`on`'
+    anchor: jdk-tool-java#ahead-of-time-cache
+    sentence: 'on: Execute the application in the Production phase.'
+  - option: '`off`'
+    anchor: jdk-tool-java#ahead-of-time-cache
+    sentence: 'off: No AOT cache is used. Other AOT command line options are ignored.'
+m03-l01-q17:
+  key:
+    anchor: jdk-tool-java#ahead-of-time-cache
+    sentence: If AOTMode is on, the JVM will print an error message and exit immediately.
+  wrong:
+  - option: '`auto`'
+    anchor: jdk-tool-java#ahead-of-time-cache
+    sentence: If AOTMode was originally auto, the JVM will continue execution without using the AOT cache.
+  - option: '`off`'
+    anchor: jdk-tool-java#ahead-of-time-cache
+    sentence: 'off: No AOT cache is used. Other AOT command line options are ignored.'
+  - option: '`record`'
+    anchor: jdk-tool-java#ahead-of-time-cache
+    sentence: 'record: Execute the application in the training phase.'
+m03-l01-q18:
+  key:
+    anchor: jdk-tool-java#ahead-of-time-cache
+    sentence: If any of the above changes, you must recreate the AOT cache.
+  wrong:
+  - option: Keep it, because only the JDK release makes an AOT cache specific
+    anchor: jdk-tool-java#ahead-of-time-cache
+    sentence: A particular OS and CPU architecture.
+  - option: Keep it, because the JVM rebuilds a stale cache automatically on the next run
+    anchor: jdk-tool-java#ahead-of-time-cache
+    sentence: If any of the above changes, you must recreate the AOT cache.
+  - option: Keep it, because only the application class path matters
+    anchor: jdk-tool-java#ahead-of-time-cache
+    sentence: A particular JDK release.
+m03-l01-q19:
+  key:
+    anchor: jep-514#Description
+    sentence: 'When used alone, with no other AOT options, this option causes the launcher to, in effect, split its invocation into two sub-invocations: The first does a training run (AOTMode=record) and then the second creates the AOT cache (AOTMode=create).'
+  wrong:
+  - option: '`-XX:AOTCache=app.aot`'
+    anchor: jep-514#Description
+    sentence: 'A production run that uses the AOT cache is started the same way as before:'
+  - option: '`-XX:AOTMode=create`'
+    anchor: jdk-tool-java#ahead-of-time-cache
+    sentence: Note that the application itself is not executed in this phase.
+  - option: '`-XX:AOTMode=on`'
+    anchor: jdk-tool-java#ahead-of-time-cache
+    sentence: 'on: Execute the application in the Production phase.'
+m03-l01-q20:
+  key:
+    anchor: jep-515#Description
+    sentence: The net effect of cached profiles is that the JIT runs earlier and with more accuracy, using the profiles to optimize the hot methods so that the application experiences a shorter warmup period.
+  wrong:
+  - option: The JIT is no longer needed, because the cached profiles replace online profiling
+    anchor: jep-515#Description
+    sentence: Even with cached profiles, the HotSpot JVM continues to profile and optimize the application as it runs
+  - option: Online profiling is switched off during production runs
+    anchor: jep-515#Description
+    sentence: Profiles cached during training runs do not prevent additional profiling during production runs.
+  - option: Production runs start slower, because the profiles must be loaded first
+    anchor: jep-515#Description
+    sentence: Accordingly, production runs of the application are both faster to start and faster to achieve peak performance.
+m03-l01-q21:
+  key:
+    anchor: spring-fw-aot#aot.introduction
+    sentence: 'The beans defined in your application cannot change at runtime, meaning:'
+  wrong:
+  - option: '`@Profile` configuration can still be chosen freely when the application starts'
+    anchor: spring-fw-aot#aot.introduction
+    sentence: '@Profile, in particular profile-specific configuration, needs to be chosen at build time and is automatically enabled at runtime when AOT is enabled.'
+  - option: Environment properties still decide at runtime whether a `@Conditional` bean exists
+    anchor: spring-fw-aot#aot.introduction
+    sentence: Environment properties that impact the presence of a bean (@Conditional) are only considered at build time.
+  - option: The classpath can still change at runtime, as long as the beans stay fixed
+    anchor: spring-fw-aot#aot.introduction
+    sentence: The classpath is fixed and fully defined at build time.
+m03-l01-q22:
+  key:
+    anchor: spring-boot-native-intro#packaging.native-image.introducing-graalvm-native-images.key-differences-with-jvm-deployments
+    sentence: Code that cannot be reached when the native image is created will be removed and won’t be part of the executable.
+  wrong:
+  - option: It is kept and loaded lazily the first time it is used
+    anchor: spring-boot-native-intro#packaging.native-image.introducing-graalvm-native-images.key-differences-with-jvm-deployments
+    sentence: There is no lazy class loading, everything shipped in the executables will be loaded in memory on startup.
+  - option: It is kept, and can still be added later through class loading
+    anchor: graalvm-native-image-basics#static-analysis
+    sentence: Once a native image is built, no new elements can be added at run time, for example, through class loading.
+  - option: It is kept in the image but never initialized
+    anchor: graalvm-native-image-basics#static-analysis
+    sentence: Only reachable elements are included in the final image.

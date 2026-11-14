@@ -1,0 +1,12 @@
+# S3: practice presets (requirements 6.6)
+
+- Built as practice rounds, not exam presets: the exam engine scores and has no scheduler; practice rounds already use the 6.5 `spaced` scheduler, and the "existing clock" is the generators page's optional timer.
+- `practice_presets` in course.yaml (schema `ManifestCourse`, `PracticePreset` literal): `lesson, module, review, code-reading, generators`; the load fails when `lesson` lacks `lesson_practice`, `review` lacks `practice_scheduler: spaced`, `generators` lacks `practice_generators`. backend-in-depth also gets `lesson_practice: true` (two-key edit, nothing else touched).
+- New endpoints, both scheduler-ordered and refused (409) unless the course declares the preset: `POST /modules/{id}/practice` (`{all}`, 20 by default) and `POST /practice/code-reading` (`{count}`, 20). Existing: lesson practice, `POST /practice/review`, `POST /practice/psicotecnicos`.
+- Code-reading selector: `CourseRegistry.code_reading_questions()`, the quiz variants with a `snippet` (66 today). `module_questions()` is the module's lessons' questions.
+- Course meta gains `practicePresets` and `practiceScheduler` only when set, so other courses serve what they did.
+- UI: a «Practice» card on the course page with one button per preset (lesson and module open a picker of scopes with questions); it replaces the generators card only in a course with presets. Module page: «Practise the whole module». Pages `modules/:id/practice`, `practice/review`, `practice/code-reading` share `PracticeRound`, extracted from the lesson practice page. The spaced intro text replaces the "right twice" text where the scheduler is on.
+- `lesson_practice: true` engages the lesson practice pages and `practiceQuestions` counts, and switches this course's PDF exercises to the questionnaire mode, like the AGE courses (tested: counts equal each lesson's bank).
+- The six `case` exercises of m09-l04 enter no preset: a case question needs its scenario, so they stay embedded in their lesson; every preset round draws quiz questions only (tested on m09-l04, m09, review, code reading).
+- No mock exam, no streaks or points; no `exams:` key added.
+- Tests: `backend/tests/test_practice_presets.py` (14, over a published copy of the real course: `backend_client` in conftest); `frontend/src/features/practice/PracticePresets.test.tsx` (each preset at 390 and 1280 px). Android bundle and label catalogs re-exported: byte-identical to `dist/`.

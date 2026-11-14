@@ -1,0 +1,147 @@
+m08-l05-q01:
+  key:
+    anchor: paper-raft-dissertation#p35
+    sentence: election timeouts are chosen randomly from a fixed interval (e.g., 150–300 ms).
+  wrong:
+  - option: As a fixed value derived from the server's unique rank in the cluster
+    anchor: paper-raft-dissertation#p35
+    sentence: Eventually we concluded that the randomized retry approach is more obvious and understandable.
+  - option: As one identical value on every server, so that all of them time out together
+    anchor: paper-raft-dissertation#p35
+    sentence: This spreads out the servers so that in most cases only a single server will time out; it wins the election and sends heartbeats before any other servers time out.
+  - option: As a value doubled after every failed election until a leader emerges
+    anchor: paper-raft-dissertation#p35
+    sentence: Each candidate restarts its randomized election timeout at the start of an election, and it waits for that timeout to elapse before starting the next election
+m08-l05-q02:
+  key:
+    anchor: kafka-operations-kraft#deploying-considerations
+    sentence: For the KRaft controller cluster to withstand N concurrent failures the controller cluster must include 2N + 1 controllers.
+  wrong:
+  - option: '`N + 1` controllers'
+    anchor: kafka-operations-kraft#deploying-considerations
+    sentence: For the KRaft controller cluster to withstand N concurrent failures the controller cluster must include 2N + 1 controllers.
+    exclusive: true
+  - option: '`2N` controllers'
+    anchor: kafka-operations-kraft#deploying-considerations
+    sentence: For the KRaft controller cluster to withstand N concurrent failures the controller cluster must include 2N + 1 controllers.
+    exclusive: true
+  - option: '`3N` controllers'
+    anchor: kafka-operations-kraft#controllers
+    sentence: with 5 controllers, the cluster can tolerate 2 controller failures
+m08-l05-q03:
+  key:
+    anchor: etcd-faq#should-i-add-a-member-before-removing-an-unhealthy-member
+    sentence: However, adding a new member to a 3-member cluster will increase the quorum to 3 because 3 votes are required for a majority of 4 members.
+  wrong:
+  - option: The quorum stays at 2, because the unhealthy member no longer counts as a member
+    anchor: etcd-faq#should-i-add-a-member-before-removing-an-unhealthy-member
+    sentence: etcd employs distributed consensus based on a quorum model; (n/2)+1 members, a majority, must agree on a proposal before it can be committed to the cluster.
+  - option: The cluster can now tolerate two failures instead of one
+    anchor: etcd-faq#should-i-add-a-member-before-removing-an-unhealthy-member
+    sentence: Since the quorum increased, this extra member buys nothing in terms of fault tolerance; the cluster is still one node failure away from being unrecoverable.
+  - option: A misconfigured new member can always be removed again by the remaining live members
+    anchor: etcd-faq#should-i-add-a-member-before-removing-an-unhealthy-member
+    sentence: In that case, there’s no way to recover quorum because the cluster has two members down and two members up, but needs three votes to change membership to undo the botched membership addition.
+m08-l05-q04:
+  key:
+    anchor: redis-sentinel#example-1-just-two-sentinels-dont-do-this
+    sentence: The Sentinel running in the other box S2 will not be able to authorize a failover, so the system will become not available.
+  wrong:
+  - option: The remaining Sentinel can authorize the failover alone, because a majority is not needed to order failovers
+    anchor: redis-sentinel#example-1-just-two-sentinels-dont-do-this
+    sentence: Note that a majority is needed in order to order different failovers, and later propagate the latest configuration to all the Sentinels.
+  - option: Letting the replica's Sentinel fail over without agreement is safe, because it leaves a single master
+    anchor: redis-sentinel#example-1-just-two-sentinels-dont-do-this
+    sentence: In the above configuration we created two masters (assuming S2 could failover without authorization) in a perfectly symmetrical way.
+  - option: After a partition heals, Sentinel can tell which side holds the right configuration
+    anchor: redis-sentinel#example-1-just-two-sentinels-dont-do-this
+    sentence: Clients may write indefinitely to both sides, and there is no way to understand when the partition heals what configuration is the right one, in order to prevent a permanent split brain condition.
+m08-l05-q05:
+  key:
+    anchor: etcd-failures#network-partition
+    sentence: The majority side becomes the available cluster and the minority side is unavailable.
+  wrong:
+  - option: Both sides stay available and reconcile their writes after the partition clears
+    anchor: etcd-failures#network-partition
+    sentence: There is no “split-brain” in etcd because cluster members are explicitly added/removed with each such change is approved by the current majority of members.
+  - option: The side that holds the leader stays available, whatever its size
+    anchor: etcd-failures#network-partition
+    sentence: The leader on the minority side steps down and the majority side elects a new leader.
+  - option: Neither side stays available, because a partition fails the whole cluster
+    anchor: etcd-failures#majority-failure
+    sentence: Once a majority of members works, the etcd cluster elects a new leader automatically and returns to a healthy state.
+m08-l05-q06:
+  key:
+    anchor: zk-internals#sc_quorum
+    sentence: If we have, for example, 9 servers, we split them into 3 groups, and assign a weight of 1 to each server, then we are able to form quorums of size 4.
+  wrong:
+  - option: 5, the plain majority of nine
+    anchor: zk-internals#sc_quorum
+    sentence: Interestingly, this construction enables smaller quorums.
+  - option: 2, one server from each of two groups
+    anchor: zk-internals#sc_quorum
+    sentence: If we have, for example, 9 servers, we split them into 3 groups, and assign a weight of 1 to each server, then we are able to form quorums of size 4.
+    exclusive: true
+  - option: 9, every server in the cluster
+    anchor: zk-internals#sc_quorum
+    sentence: If we have, for example, 9 servers, we split them into 3 groups, and assign a weight of 1 to each server, then we are able to form quorums of size 4.
+    exclusive: true
+m08-l05-q07:
+  key:
+    anchor: paper-raft-dissertation#p69
+    sentence: the index and term of the last entry included in the snapshot and the latest configuration as of that index.
+  wrong:
+  - option: The index and term of the first entry that follows the snapshot
+    anchor: paper-raft-dissertation#p70
+    sentence: to position the snapshot in the log preceding entry 6
+  - option: The highest index the leader has committed and the leader's current term
+    anchor: paper-raft-dissertation#p69
+    sentence: Each server takes snapshots independently, covering just the committed entries in its log.
+  - option: The index and term of the oldest entry the server still keeps in its log
+    anchor: paper-raft-dissertation#p69
+    sentence: Then it discards the prefix of its log up through that index.
+m08-l05-q08:
+  key:
+    anchor: zk-recipes#sc_recipes_twoPhasedCommit
+    sentence: One is the message complexity, which is O(n²).
+  wrong:
+  - option: '`O(n)`'
+    anchor: zk-recipes#sc_recipes_twoPhasedCommit
+    sentence: One is the message complexity, which is O(n²).
+    exclusive: true
+  - option: '`O(log n)`'
+    anchor: zk-recipes#sc_recipes_twoPhasedCommit
+    sentence: One is the message complexity, which is O(n²).
+    exclusive: true
+  - option: '`O(1)`'
+    anchor: zk-recipes#sc_recipes_twoPhasedCommit
+    sentence: One is the message complexity, which is O(n²).
+    exclusive: true
+m08-l05-q09:
+  key:
+    anchor: etcd-failures#leader-failure
+    sentence: It takes about an election timeout to elect a new leader since the failure detection model is timeout based.
+  wrong:
+  - option: The election happens instantly once the leader fails
+    anchor: etcd-failures#leader-failure
+    sentence: The election does not happen instantly once the leader fails.
+  - option: The cluster keeps processing writes through the election
+    anchor: etcd-failures#leader-failure
+    sentence: During the leader election the cluster cannot process any writes.
+  - option: Writes that the old leader had already committed can be lost
+    anchor: etcd-failures#leader-failure
+    sentence: However, no committed writes are ever lost.
+m08-l05-q10:
+  key:
+    anchor: paper-raft-dissertation#p62
+    sentence: To ensure safety across arbitrary configuration changes, the cluster first switches to a transitional configuration we call joint consensus; once the joint consensus has been committed, the system then transitions to the new configuration.
+  wrong:
+  - option: All servers switch directly to the new configuration in one step
+    anchor: paper-raft-dissertation#p52
+    sentence: Switching directly from one configuration to another can be unsafe because
+  - option: Each server adopts the new configuration only once that configuration entry is committed
+    anchor: paper-raft-dissertation#p63
+    sentence: each server starts using a new configuration as soon as it stores the configuration in its log
+  - option: Only servers of the old configuration may lead during the change, so the new servers never take part in elections
+    anchor: paper-raft-dissertation#p62
+    sentence: Any server from either configuration may serve as leader.

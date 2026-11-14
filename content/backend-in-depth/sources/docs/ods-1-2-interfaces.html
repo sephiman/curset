@@ -1,0 +1,1157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>1.2 Interfaces</TITLE>
+<META NAME="description" CONTENT="1.2 Interfaces">
+<META NAME="keywords" CONTENT="ods-java-html">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="../ods-book.css">
+
+<LINK REL="next" HREF="1_3_Mathematical_Background.html">
+<LINK REL="previous" HREF="1_1_Need_Efficiency.html">
+<LINK REL="up" HREF="1_Introduction.html">
+<LINK REL="next" HREF="1_3_Mathematical_Background.html">
+</HEAD>
+
+<BODY text="#000000" bgcolor="#FFFFFF">
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html273"
+  HREF="1_3_Mathematical_Background.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html267"
+  HREF="1_Introduction.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html261"
+  HREF="1_1_Need_Efficiency.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html269"
+  HREF="Contents.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html271"
+  HREF="Index.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html274"
+  HREF="1_3_Mathematical_Background.html">1.3 Mathematical Background</A>
+<B> Up:</B> <A NAME="tex2html268"
+  HREF="1_Introduction.html">1. Introduction</A>
+<B> Previous:</B> <A NAME="tex2html262"
+  HREF="1_1_Need_Efficiency.html">1.1 The Need for</A>
+ &nbsp; <B>  <A NAME="tex2html270"
+  HREF="Contents.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html272"
+  HREF="Index.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html275"
+  HREF="1_2_Interfaces.html#SECTION00421000000000000000"><SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">1</SPAN> The <TT>Queue</TT>, <TT>Stack</TT>, and <TT>Deque</TT> Interfaces</A>
+<LI><A NAME="tex2html276"
+  HREF="1_2_Interfaces.html#SECTION00422000000000000000"><SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">2</SPAN> The <TT>List</TT> Interface: Linear Sequences</A>
+<LI><A NAME="tex2html277"
+  HREF="1_2_Interfaces.html#SECTION00423000000000000000"><SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">3</SPAN> The <TT>USet</TT> Interface: Unordered Sets</A>
+<LI><A NAME="tex2html278"
+  HREF="1_2_Interfaces.html#SECTION00424000000000000000"><SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">4</SPAN> The <TT>SSet</TT> Interface: Sorted Sets</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00420000000000000000"></A>
+<A NAME="sec:interfaces"></A>
+<BR>
+<SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">2</SPAN> Interfaces
+</H1>
+When discussing data structures, it is important to understand the
+difference between a data structure's interface and its implementation.
+An interface describes what a data structure does, while an implementation
+describes how the data structure does it.
+
+<P>
+An <SPAN  CLASS="textit">interface</SPAN>,
+<A NAME="611"></A><A NAME="1028"></A>sometimes also called an <SPAN  CLASS="textit">abstract data
+type</SPAN>, defines the set of operations supported by a data structure and
+the semantics, or meaning, of those operations.  An interface tells us
+nothing about how the data structure implements these operations; it only
+provides a list of supported operations along with specifications about
+what types of arguments each operation accepts and the value returned
+by each operation.
+
+<P>
+A data structure <SPAN  CLASS="textit">implementation</SPAN>, on the other hand, includes the
+internal representation of the data structure as well as the definitions
+of the algorithms that implement the operations supported by the data
+structure.  Thus, there can be many implementations of a single interface.
+For example, in Chapter&nbsp;<A HREF="2_Array_Based_Lists.html#chap:arrays">2</A>, we will see implementations of the
+<TT>List</TT> interface using arrays and in Chapter&nbsp;<A HREF="3_Linked_Lists.html#chap:linkedlists">3</A> we will
+see implementations of the <TT>List</TT> interface using pointer-based data
+structures.  Each implements the same interface, <TT>List</TT>,
+but in different ways.
+
+<P>
+
+<H2><A NAME="SECTION00421000000000000000">
+<SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">1</SPAN> The <TT>Queue</TT>, <TT>Stack</TT>, and <TT>Deque</TT> Interfaces</A>
+</H2>
+
+<P>
+The <TT>Queue</TT> interface represents a collection of elements to which we
+can add elements and remove the next element.  More precisely, the operations
+supported by the <TT>Queue</TT> interface are
+
+<UL>
+<LI><!-- MATH
+ $\mathtt{add(x)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="49" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img56.png"
+ ALT="$ \mathtt{add(x)}$"></SPAN>: add the value <!-- MATH
+ $\mathtt{x}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img57.png"
+ ALT="$ \mathtt{x}$"></SPAN> to the <TT>Queue</TT>
+</LI>
+<LI><!-- MATH
+ $\mathtt{remove()}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="65" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img58.png"
+ ALT="$ \mathtt{remove()}$"></SPAN>: remove the next (previously added) value, <!-- MATH
+ $\mathtt{y}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img59.png"
+ ALT="$ \mathtt{y}$"></SPAN>, from the <TT>Queue</TT> and return <!-- MATH
+ $\mathtt{y}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img60.png"
+ ALT="$ \mathtt{y}$"></SPAN>
+</LI>
+</UL>
+Notice that the <!-- MATH
+ $\mathtt{remove()}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="65" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img61.png"
+ ALT="$ \mathtt{remove()}$"></SPAN> operation takes no argument.  The <TT>Queue</TT>'s
+<SPAN  CLASS="textit">queueing discipline</SPAN> decides which element should be removed.
+There are many possible queueing disciplines, the most common of which
+include FIFO, priority, and LIFO.
+
+<P>
+A <SPAN  CLASS="textit">FIFO (first-in-first-out) <TT>Queue</TT></SPAN>,
+<A NAME="638"></A><A NAME="639"></A>which is illustrated in
+Figure&nbsp;<A HREF="#fig:queue">1.1</A>, removes items in the same order they were added, much
+in the same way a queue (or line-up) works when checking out at a cash
+register in a grocery store.  This is the most common kind of <TT>Queue</TT>
+so the qualifier FIFO is often omitted.  In other texts, the <!-- MATH
+ $\mathtt{add(x)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="49" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img62.png"
+ ALT="$ \mathtt{add(x)}$"></SPAN>
+and <!-- MATH
+ $\mathtt{remove()}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="65" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img63.png"
+ ALT="$ \mathtt{remove()}$"></SPAN> operations on a FIFO <TT>Queue</TT> are often called <!-- MATH
+ $\mathtt{enqueue(x)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="82" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img64.png"
+ ALT="$ \mathtt{enqueue(x)}$"></SPAN>
+and <!-- MATH
+ $\mathtt{dequeue()}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="74" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img65.png"
+ ALT="$ \mathtt{dequeue()}$"></SPAN>, respectively.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:queue"></A><A NAME="1042"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 1.1:</STRONG>
+A FIFO <TT>Queue</TT>.</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+
+</DIV><IMG
+ WIDTH="552" HEIGHT="69" ALIGN="BOTTOM" BORDER="0"
+ SRC="img66.png"
+ ALT="\includegraphics[width=\textwidth ]{figs/queue}"></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+A <SPAN  CLASS="textit">priority <TT>Queue</TT></SPAN>,
+<A NAME="653"></A><A NAME="1044"></A><A NAME="655"></A>illustrated in Figure&nbsp;<A HREF="#fig:prioqueue">1.2</A>, always
+removes the smallest element from the <TT>Queue</TT>, breaking ties arbitrarily.
+This is similar to the way in which patients are triaged in a hospital
+emergency room.  As patients arrive they are evaluated and then placed in
+a waiting room.  When a doctor becomes available he or she first treats
+the patient with the most life-threatening condition.  The <!-- MATH
+ $\mathtt{remove(x)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="74" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img67.png"
+ ALT="$ \mathtt{remove(x)}$"></SPAN>
+operation on a priority <TT>Queue</TT> is usually called <!-- MATH
+ $\mathtt{deleteMin()}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="91" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img68.png"
+ ALT="$ \mathtt{deleteMin()}$"></SPAN> in
+other texts.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:prioqueue"></A><A NAME="1048"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 1.2:</STRONG>
+A priority <TT>Queue</TT>.</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+
+</DIV><IMG
+ WIDTH="550" HEIGHT="225" ALIGN="BOTTOM" BORDER="0"
+ SRC="img69.png"
+ ALT="\includegraphics[width=\textwidth ]{figs/prioqueue}"></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+A very common queueing discipline is the LIFO (last-in-first-out)
+<A NAME="666"></A><A NAME="1049"></A><A NAME="668"></A><A NAME="669"></A>discipline, illustrated in Figure&nbsp;<A HREF="#fig:stack">1.3</A>.  In a <SPAN  CLASS="textit">LIFO Queue</SPAN>,
+the most recently added element is the next one removed.  This is best
+visualized in terms of a stack of plates; plates are placed on the top of
+the stack and also removed from the top of the stack. This structure is
+so common that it gets its own name: <TT>Stack</TT>.  Often, when discussing a
+<TT>Stack</TT>, the names of <!-- MATH
+ $\mathtt{add(x)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="49" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img70.png"
+ ALT="$ \mathtt{add(x)}$"></SPAN> and <!-- MATH
+ $\mathtt{remove()}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="65" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img71.png"
+ ALT="$ \mathtt{remove()}$"></SPAN> are changed to <!-- MATH
+ $\mathtt{push(x)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="57" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img72.png"
+ ALT="$ \mathtt{push(x)}$"></SPAN>
+and <!-- MATH
+ $\mathtt{pop()}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="40" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img73.png"
+ ALT="$ \mathtt{pop()}$"></SPAN>; this is to avoid confusing the LIFO and FIFO queueing
+disciplines.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:stack"></A><A NAME="680"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 1.3:</STRONG>
+A stack.</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+
+</DIV><IMG
+ WIDTH="552" HEIGHT="163" ALIGN="BOTTOM" BORDER="0"
+ SRC="img74.png"
+ ALT="\includegraphics[width=\textwidth ]{figs/stack}"></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+A <TT>Deque</TT>
+<A NAME="684"></A>is a generalization of both the FIFO <TT>Queue</TT> and LIFO <TT>Queue</TT> (<TT>Stack</TT>).
+A <TT>Deque</TT> represents a sequence of elements, with a front and a back.
+Elements can be added at the front of the sequence or the back of the
+sequence.  The names of the <TT>Deque</TT> operations are self-explanatory:
+<!-- MATH
+ $\mathtt{addFirst(x)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="91" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img75.png"
+ ALT="$ \mathtt{addFirst(x)}$"></SPAN>, <!-- MATH
+ $\mathtt{removeFirst()}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="108" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img76.png"
+ ALT="$ \mathtt{removeFirst()}$"></SPAN>, <!-- MATH
+ $\mathtt{addLast(x)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="82" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img77.png"
+ ALT="$ \mathtt{addLast(x)}$"></SPAN>, and <!-- MATH
+ $\mathtt{removeLast()}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="99" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img78.png"
+ ALT="$ \mathtt{removeLast()}$"></SPAN>.  It is
+worth noting that a <TT>Stack</TT> can be implemented using only <!-- MATH
+ $\mathtt{addFirst(x)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="91" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img79.png"
+ ALT="$ \mathtt{addFirst(x)}$"></SPAN>
+and <!-- MATH
+ $\mathtt{removeFirst()}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="108" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img80.png"
+ ALT="$ \mathtt{removeFirst()}$"></SPAN> while a FIFO <TT>Queue</TT> can be implemented using
+<!-- MATH
+ $\mathtt{addLast(x)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="82" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img81.png"
+ ALT="$ \mathtt{addLast(x)}$"></SPAN> and <!-- MATH
+ $\mathtt{removeFirst()}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="108" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img82.png"
+ ALT="$ \mathtt{removeFirst()}$"></SPAN>.
+
+<P>
+
+<H2><A NAME="SECTION00422000000000000000">
+<SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">2</SPAN> The <TT>List</TT> Interface: Linear Sequences</A>
+</H2>
+
+<P>
+This book will talk very little about the FIFO <TT>Queue</TT>, <TT>Stack</TT>, or
+<TT>Deque</TT> interfaces.  This is because these interfaces are subsumed by the
+<TT>List</TT> interface.  A <TT>List</TT>,
+<A NAME="1064"></A>illustrated in Figure&nbsp;<A HREF="#fig:list">1.4</A>, represents a
+sequence, <!-- MATH
+ $\ensuremath{\mathtt{x}}_0,\ldots,\ensuremath{\mathtt{x}}_{\ensuremath{\mathtt{n}}-1}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="78" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img83.png"
+ ALT="$ \ensuremath{\mathtt{x}}_0,\ldots,\ensuremath{\mathtt{x}}_{\ensuremath{\mathtt{n}}-1}$"></SPAN>, of values.  The <TT>List</TT> interface
+includes the following operations:
+
+<P>
+
+<OL>
+<LI><!-- MATH
+ $\mathtt{size()}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="49" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img84.png"
+ ALT="$ \mathtt{size()}$"></SPAN>: return <!-- MATH
+ $\mathtt{n}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img85.png"
+ ALT="$ \mathtt{n}$"></SPAN>, the length of the list
+</LI>
+<LI><!-- MATH
+ $\mathtt{get(i)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="49" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img86.png"
+ ALT="$ \mathtt{get(i)}$"></SPAN>: return the value <!-- MATH
+ $\ensuremath{\mathtt{x}}_{\ensuremath{\mathtt{i}}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="20" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img87.png"
+ ALT="$ \ensuremath{\mathtt{x}}_{\ensuremath{\mathtt{i}}}$"></SPAN>
+</LI>
+<LI><!-- MATH
+ $\mathtt{set(i,x)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="63" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img88.png"
+ ALT="$ \mathtt{set(i,x)}$"></SPAN>: set the value of <!-- MATH
+ $\ensuremath{\mathtt{x}}_{\ensuremath{\mathtt{i}}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="20" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img89.png"
+ ALT="$ \ensuremath{\mathtt{x}}_{\ensuremath{\mathtt{i}}}$"></SPAN> equal to <!-- MATH
+ $\mathtt{x}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img90.png"
+ ALT="$ \mathtt{x}$"></SPAN>
+</LI>
+<LI><!-- MATH
+ $\mathtt{add(i,x)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="63" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img91.png"
+ ALT="$ \mathtt{add(i,x)}$"></SPAN>: add <!-- MATH
+ $\mathtt{x}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img92.png"
+ ALT="$ \mathtt{x}$"></SPAN> at position <!-- MATH
+ $\mathtt{i}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img93.png"
+ ALT="$ \mathtt{i}$"></SPAN>, displacing
+    <!-- MATH
+ $\ensuremath{\mathtt{x}}_{\ensuremath{\mathtt{i}}},\ldots,\ensuremath{\mathtt{x}}_{\ensuremath{\mathtt{n}}-1}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="78" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img94.png"
+ ALT="$ \ensuremath{\mathtt{x}}_{\ensuremath{\mathtt{i}}},\ldots,\ensuremath{\mathtt{x}}_{\ensuremath{\mathtt{n}}-1}$"></SPAN>; 
+<BR>
+Set <!-- MATH
+ $\ensuremath{\mathtt{x}}_{j+1}=\ensuremath{\mathtt{x}}_j$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="64" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img95.png"
+ ALT="$ \ensuremath{\mathtt{x}}_{j+1}=\ensuremath{\mathtt{x}}_j$"></SPAN>, for all
+    <!-- MATH
+ $j\in\{\ensuremath{\mathtt{n}}-1,\ldots,\ensuremath{\mathtt{i}}\}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="106" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img96.png"
+ ALT="$ j\in\{\ensuremath{\mathtt{n}}-1,\ldots,\ensuremath{\mathtt{i}}\}$"></SPAN>, increment <!-- MATH
+ $\mathtt{n}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img97.png"
+ ALT="$ \mathtt{n}$"></SPAN>, and set <!-- MATH
+ $\ensuremath{\mathtt{x}}_i=\ensuremath{\mathtt{x}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="44" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img98.png"
+ ALT="$ \ensuremath{\mathtt{x}}_i=\ensuremath{\mathtt{x}}$"></SPAN>
+</LI>
+<LI><!-- MATH
+ $\mathtt{remove(i)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="74" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img99.png"
+ ALT="$ \mathtt{remove(i)}$"></SPAN> remove the value <!-- MATH
+ $\ensuremath{\mathtt{x}}_{\ensuremath{\mathtt{i}}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="20" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img100.png"
+ ALT="$ \ensuremath{\mathtt{x}}_{\ensuremath{\mathtt{i}}}$"></SPAN>, displacing
+    <!-- MATH
+ $\ensuremath{\mathtt{x}}_{\ensuremath{\mathtt{i+1}}},\ldots,\ensuremath{\mathtt{x}}_{\ensuremath{\mathtt{n}}-1}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="92" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img101.png"
+ ALT="$ \ensuremath{\mathtt{x}}_{\ensuremath{\mathtt{i+1}}},\ldots,\ensuremath{\mathtt{x}}_{\ensuremath{\mathtt{n}}-1}$"></SPAN>; 
+<BR>
+Set <!-- MATH
+ $\ensuremath{\mathtt{x}}_{j}=\ensuremath{\mathtt{x}}_{j+1}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="64" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img102.png"
+ ALT="$ \ensuremath{\mathtt{x}}_{j}=\ensuremath{\mathtt{x}}_{j+1}$"></SPAN>, for all
+    <!-- MATH
+ $j\in\{\ensuremath{\mathtt{i}},\ldots,\ensuremath{\mathtt{n}}-2\}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="106" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img103.png"
+ ALT="$ j\in\{\ensuremath{\mathtt{i}},\ldots,\ensuremath{\mathtt{n}}-2\}$"></SPAN> and decrement <!-- MATH
+ $\mathtt{n}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img104.png"
+ ALT="$ \mathtt{n}$"></SPAN>
+</LI>
+</OL>
+Notice that these operations are easily sufficient to implement the
+<TT>Deque</TT> interface:
+<BR>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<!-- MATH
+ \begin{eqnarray*}
+\ensuremath{\mathtt{addFirst(x)}} &\Rightarrow& \ensuremath{\mathtt{add(0,x)}} \\
+  \ensuremath{\mathtt{removeFirst()}} &\Rightarrow& \ensuremath{\mathtt{remove(0)}}  \\
+  \ensuremath{\mathtt{addLast(x)}} &\Rightarrow& \ensuremath{\mathtt{add(size(),x)}} \\
+  \ensuremath{\mathtt{removeLast()}} &\Rightarrow& \ensuremath{\mathtt{remove(size()-1)}}
+\end{eqnarray*}
+ -->
+<TABLE CELLPADDING="0" ALIGN="CENTER" WIDTH="100%">
+<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><IMG
+ WIDTH="91" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img105.png"
+ ALT="$\displaystyle \ensuremath{\mathtt{addFirst(x)}}$"></TD>
+<TD WIDTH="10" ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="20" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img106.png"
+ ALT="$\displaystyle \Rightarrow$"></TD>
+<TD ALIGN="LEFT" NOWRAP WIDTH="50%"><IMG
+ WIDTH="63" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img107.png"
+ ALT="$\displaystyle \ensuremath{\mathtt{add(0,x)}}$"></TD>
+<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
+&nbsp;</TD></TR>
+<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><IMG
+ WIDTH="108" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img108.png"
+ ALT="$\displaystyle \ensuremath{\mathtt{removeFirst()}}$"></TD>
+<TD WIDTH="10" ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="20" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img109.png"
+ ALT="$\displaystyle \Rightarrow$"></TD>
+<TD ALIGN="LEFT" NOWRAP WIDTH="50%"><IMG
+ WIDTH="74" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img110.png"
+ ALT="$\displaystyle \ensuremath{\mathtt{remove(0)}}$"></TD>
+<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
+&nbsp;</TD></TR>
+<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><IMG
+ WIDTH="82" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img111.png"
+ ALT="$\displaystyle \ensuremath{\mathtt{addLast(x)}}$"></TD>
+<TD WIDTH="10" ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="20" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img112.png"
+ ALT="$\displaystyle \Rightarrow$"></TD>
+<TD ALIGN="LEFT" NOWRAP WIDTH="50%"><IMG
+ WIDTH="99" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img113.png"
+ ALT="$\displaystyle \ensuremath{\mathtt{add(size(),x)}}$"></TD>
+<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
+&nbsp;</TD></TR>
+<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT"><IMG
+ WIDTH="99" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img114.png"
+ ALT="$\displaystyle \ensuremath{\mathtt{removeLast()}}$"></TD>
+<TD WIDTH="10" ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="20" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img115.png"
+ ALT="$\displaystyle \Rightarrow$"></TD>
+<TD ALIGN="LEFT" NOWRAP WIDTH="50%"><IMG
+ WIDTH="133" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img116.png"
+ ALT="$\displaystyle \ensuremath{\mathtt{remove(size()-1)}}$"></TD>
+<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
+&nbsp;</TD></TR>
+</TABLE></DIV>
+<BR CLEAR="ALL">
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:list"></A><A NAME="1226"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 1.4:</STRONG>
+A <TT>List</TT> represents a sequence indexed by
+   <!-- MATH
+ $0,1,2,\ldots,\ensuremath{\mathtt{n}}-1$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="102" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img118.png"
+ ALT="$ 0,1,2,\ldots,\ensuremath{\mathtt{n}}-1$"></SPAN>.  In this <TT>List</TT> a call to <!-- MATH
+ $\mathtt{get(2)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="49" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img119.png"
+ ALT="$ \mathtt{get(2)}$"></SPAN> would return
+   the value <SPAN CLASS="MATH"><IMG
+ WIDTH="11" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img120.png"
+ ALT="$ c$"></SPAN>.</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+
+</DIV><IMG
+ WIDTH="551" HEIGHT="53" ALIGN="BOTTOM" BORDER="0"
+ SRC="img117.png"
+ ALT="\includegraphics[width=\textwidth ]{figs/list}"></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+Although we will normally not discuss the <TT>Stack</TT>, <TT>Deque</TT> and FIFO
+<TT>Queue</TT> interfaces in subsequent chapters, the terms <TT>Stack</TT> and <TT>Deque</TT>
+are sometimes used in the names of data structures that implement the
+<TT>List</TT> interface.  When this happens, it highlights the fact that
+these data structures can be used to implement the <TT>Stack</TT> or <TT>Deque</TT>
+interface very efficiently.  For example, the <TT>ArrayDeque</TT> class is an
+implementation of the <TT>List</TT> interface that implements all the <TT>Deque</TT>
+operations in constant time per operation.
+
+<P>
+
+<H2><A NAME="SECTION00423000000000000000">
+<SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">3</SPAN> The <TT>USet</TT> Interface: Unordered Sets</A>
+</H2>
+
+<P>
+The <TT>USet</TT>
+<A NAME="1115"></A>interface represents an unordered set of unique elements, which
+mimics a mathematical <SPAN  CLASS="textit">set</SPAN>. A <TT>USet</TT> contains <!-- MATH
+ $\mathtt{n}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img121.png"
+ ALT="$ \mathtt{n}$"></SPAN> <SPAN  CLASS="textit">distinct</SPAN>
+elements; no element appears more than once; the elements are in no
+specific order.  A <TT>USet</TT> supports the following operations:
+
+<P>
+
+<OL>
+<LI><!-- MATH
+ $\mathtt{size()}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="49" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img122.png"
+ ALT="$ \mathtt{size()}$"></SPAN>: return the number, <!-- MATH
+ $\mathtt{n}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img123.png"
+ ALT="$ \mathtt{n}$"></SPAN>, of elements in the set
+</LI>
+<LI><!-- MATH
+ $\mathtt{add(x)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="49" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img124.png"
+ ALT="$ \mathtt{add(x)}$"></SPAN>: add the element <!-- MATH
+ $\mathtt{x}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img125.png"
+ ALT="$ \mathtt{x}$"></SPAN> to the set if not already present; 
+<BR>
+Add <!-- MATH
+ $\mathtt{x}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img126.png"
+ ALT="$ \mathtt{x}$"></SPAN> to the set provided that there
+    is no element <!-- MATH
+ $\mathtt{y}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img127.png"
+ ALT="$ \mathtt{y}$"></SPAN> in the set such that <!-- MATH
+ $\mathtt{x}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img128.png"
+ ALT="$ \mathtt{x}$"></SPAN> equals <!-- MATH
+ $\mathtt{y}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img129.png"
+ ALT="$ \mathtt{y}$"></SPAN>.  Return <!-- MATH
+ $\mathtt{true}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="38" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img130.png"
+ ALT="$ \mathtt{true}$"></SPAN>
+    if <!-- MATH
+ $\mathtt{x}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img131.png"
+ ALT="$ \mathtt{x}$"></SPAN> was added to the set and <!-- MATH
+ $\mathtt{false}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="46" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img132.png"
+ ALT="$ \mathtt{false}$"></SPAN> otherwise.
+</LI>
+<LI><!-- MATH
+ $\mathtt{remove(x)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="74" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img133.png"
+ ALT="$ \mathtt{remove(x)}$"></SPAN>: remove <!-- MATH
+ $\mathtt{x}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img134.png"
+ ALT="$ \mathtt{x}$"></SPAN> from the set; 
+<BR>
+Find an element <!-- MATH
+ $\mathtt{y}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img135.png"
+ ALT="$ \mathtt{y}$"></SPAN> in the set such that <!-- MATH
+ $\mathtt{x}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img136.png"
+ ALT="$ \mathtt{x}$"></SPAN> equals
+    <!-- MATH
+ $\mathtt{y}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img137.png"
+ ALT="$ \mathtt{y}$"></SPAN> and remove <!-- MATH
+ $\mathtt{y}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img138.png"
+ ALT="$ \mathtt{y}$"></SPAN>.  Return <!-- MATH
+ $\mathtt{y}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img139.png"
+ ALT="$ \mathtt{y}$"></SPAN>, or <!-- MATH
+ $\mathtt{null}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="38" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img140.png"
+ ALT="$ \mathtt{null}$"></SPAN> if no such element exists.
+</LI>
+<LI><!-- MATH
+ $\mathtt{find(x)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="57" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img141.png"
+ ALT="$ \mathtt{find(x)}$"></SPAN>: find <!-- MATH
+ $\mathtt{x}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img142.png"
+ ALT="$ \mathtt{x}$"></SPAN> in the set if it exists; 
+<BR>
+Find an element <!-- MATH
+ $\mathtt{y}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img143.png"
+ ALT="$ \mathtt{y}$"></SPAN> in the set such that <!-- MATH
+ $\mathtt{y}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img144.png"
+ ALT="$ \mathtt{y}$"></SPAN> equals
+    <!-- MATH
+ $\mathtt{x}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img145.png"
+ ALT="$ \mathtt{x}$"></SPAN>.  Return <!-- MATH
+ $\mathtt{y}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img146.png"
+ ALT="$ \mathtt{y}$"></SPAN>, or <!-- MATH
+ $\mathtt{null}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="38" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img147.png"
+ ALT="$ \mathtt{null}$"></SPAN> if no such element exists.
+</LI>
+</OL>
+
+<P>
+These definitions are a bit fussy about distinguishing <!-- MATH
+ $\mathtt{x}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img148.png"
+ ALT="$ \mathtt{x}$"></SPAN>, the element
+we are removing or finding, from <!-- MATH
+ $\mathtt{y}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img149.png"
+ ALT="$ \mathtt{y}$"></SPAN>, the element we may remove or find.
+This is because <!-- MATH
+ $\mathtt{x}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img150.png"
+ ALT="$ \mathtt{x}$"></SPAN> and <!-- MATH
+ $\mathtt{y}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img151.png"
+ ALT="$ \mathtt{y}$"></SPAN> might actually be distinct objects that
+are nevertheless treated as equal.<A NAME="tex2html11"
+  HREF="#foot1247"><SUP><SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A>Such a distinction is  useful because it allows for the creation of
+<SPAN  CLASS="textit">dictionaries</SPAN> or <SPAN  CLASS="textit">maps</SPAN> that map keys onto values.
+<A NAME="826"></A><A NAME="827"></A>
+<P>
+To create a dictionary/map, one forms compound objects called <TT>Pair</TT>s,
+<A NAME="829"></A>each of which contains a <SPAN  CLASS="textit">key</SPAN> and a <SPAN  CLASS="textit">value</SPAN>. Two <TT>Pair</TT>s
+are treated as equal if their keys are equal.  If we store some pair
+<!-- MATH
+ $(\ensuremath{\mathtt{k}},\ensuremath{\mathtt{v}})$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="37" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img154.png"
+ ALT="$ (\ensuremath{\mathtt{k}},\ensuremath{\mathtt{v}})$"></SPAN> in a <TT>USet</TT> and then later call the <!-- MATH
+ $\mathtt{find(x)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="57" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img155.png"
+ ALT="$ \mathtt{find(x)}$"></SPAN> method using
+the pair <!-- MATH
+ $\ensuremath{\mathtt{x}}=(\ensuremath{\mathtt{k}},\ensuremath{\mathtt{null}})$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="89" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img156.png"
+ ALT="$ \ensuremath{\mathtt{x}}=(\ensuremath{\mathtt{k}},\ensuremath{\mathtt{null}})$"></SPAN> the result will be <!-- MATH
+ $\ensuremath{\mathtt{y}}=(\ensuremath{\mathtt{k}},\ensuremath{\mathtt{v}})$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="63" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img157.png"
+ ALT="$ \ensuremath{\mathtt{y}}=(\ensuremath{\mathtt{k}},\ensuremath{\mathtt{v}})$"></SPAN>.  In other
+words, it is possible to recover the value, <!-- MATH
+ $\mathtt{v}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img158.png"
+ ALT="$ \mathtt{v}$"></SPAN>, given only the key, <!-- MATH
+ $\mathtt{k}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img159.png"
+ ALT="$ \mathtt{k}$"></SPAN>.
+
+<P>
+
+<H2><A NAME="SECTION00424000000000000000"></A>
+<A NAME="sec:sset"></A>
+<BR>
+<SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">4</SPAN> The <TT>SSet</TT> Interface: Sorted Sets
+</H2>
+
+<P>
+<A NAME="1161"></A>The <TT>SSet</TT> interface represents a sorted set of elements.  An <TT>SSet</TT>
+stores elements from some total order, so that any two elements <!-- MATH
+ $\mathtt{x}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img160.png"
+ ALT="$ \mathtt{x}$"></SPAN>
+and <!-- MATH
+ $\mathtt{y}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img161.png"
+ ALT="$ \mathtt{y}$"></SPAN> can be compared.  In code examples, this will be done with a
+method called <!-- MATH
+ $\mathtt{compare(x,y)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="96" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img162.png"
+ ALT="$ \mathtt{compare(x,y)}$"></SPAN> in which
+<P><!-- MATH
+ \begin{displaymath}
+\ensuremath{\mathtt{compare(x,y)}}
+      \begin{cases}
+        {}<0 & \text{if $\ensuremath{\mathtt{x}}<\ensuremath{\mathtt{y}}$} \\
+        {}>0 & \text{if $\ensuremath{\mathtt{x}}>\ensuremath{\mathtt{y}}$} \\
+        {}=0 & \text{if $\ensuremath{\mathtt{x}}=\ensuremath{\mathtt{y}}$}
+      \end{cases}
+\end{displaymath}
+ -->
+</P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<IMG
+ WIDTH="201" HEIGHT="84" ALIGN="MIDDLE" BORDER="0"
+ SRC="img163.png"
+ ALT="$\displaystyle \ensuremath{\mathtt{compare(x,y)}}
+\begin{cases}
+{}&lt;0 &amp; \text{...
+...{}=0 &amp; \text{if $\ensuremath{\mathtt{x}}=\ensuremath{\mathtt{y}}$}
+\end{cases}$">
+</DIV><P></P>
+<A NAME="1231"></A>An <TT>SSet</TT> supports the <!-- MATH
+ $\mathtt{size()}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="49" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img165.png"
+ ALT="$ \mathtt{size()}$"></SPAN>, <!-- MATH
+ $\mathtt{add(x)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="49" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img166.png"
+ ALT="$ \mathtt{add(x)}$"></SPAN>, and <!-- MATH
+ $\mathtt{remove(x)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="74" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img167.png"
+ ALT="$ \mathtt{remove(x)}$"></SPAN> methods with
+exactly the same semantics as in the <TT>USet</TT> interface.  The difference
+between a <TT>USet</TT> and an <TT>SSet</TT> is in the <!-- MATH
+ $\mathtt{find(x)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="57" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img168.png"
+ ALT="$ \mathtt{find(x)}$"></SPAN> method:
+
+<OL>
+<LI><!-- MATH
+ $\mathtt{find(x)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="57" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img169.png"
+ ALT="$ \mathtt{find(x)}$"></SPAN>: locate <!-- MATH
+ $\mathtt{x}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img170.png"
+ ALT="$ \mathtt{x}$"></SPAN> in the sorted set; 
+<BR>
+Find the smallest element <!-- MATH
+ $\mathtt{y}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img171.png"
+ ALT="$ \mathtt{y}$"></SPAN> in the set such that <!-- MATH
+ $\ensuremath{\mathtt{y}} \ge \ensuremath{\mathtt{x}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="39" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img172.png"
+ ALT="$ \ensuremath{\mathtt{y}} \ge \ensuremath{\mathtt{x}}$"></SPAN>.
+   Return <!-- MATH
+ $\mathtt{y}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img173.png"
+ ALT="$ \mathtt{y}$"></SPAN> or <!-- MATH
+ $\mathtt{null}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="38" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img174.png"
+ ALT="$ \mathtt{null}$"></SPAN> if no such element exists.
+</LI>
+</OL>
+
+<P>
+This version of the <!-- MATH
+ $\mathtt{find(x)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="57" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img175.png"
+ ALT="$ \mathtt{find(x)}$"></SPAN> operation is sometimes referred to
+as a <SPAN  CLASS="textit">successor search</SPAN>.
+<A NAME="887"></A>It differs in a fundamental way from
+<!-- MATH
+ $\mathtt{USet.find(x)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="95" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img176.png"
+ ALT="$ \mathtt{USet.find(x)}$"></SPAN> since it returns a meaningful result even when there is
+no element equal to <!-- MATH
+ $\mathtt{x}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img177.png"
+ ALT="$ \mathtt{x}$"></SPAN> in the set.
+
+<P>
+The distinction between the <TT>USet</TT> and <TT>SSet</TT> <!-- MATH
+ $\mathtt{find(x)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="57" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img178.png"
+ ALT="$ \mathtt{find(x)}$"></SPAN> operations is
+very important and often missed.  The extra functionality provided
+by an <TT>SSet</TT> usually comes with a price that includes both a larger
+running time and a higher implementation complexity.  For example, most
+of the <TT>SSet</TT> implementations discussed in this book all have <!-- MATH
+ $\mathtt{find(x)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="57" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img179.png"
+ ALT="$ \mathtt{find(x)}$"></SPAN>
+operations with running times that are logarithmic in the size of the set.
+On the other hand, the implementation of a <TT>USet</TT> as a <TT>ChainedHashTable</TT>
+in Chapter&nbsp;<A HREF="5_Hash_Tables.html#chap:hashing">5</A> has a <!-- MATH
+ $\mathtt{find(x)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="57" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img180.png"
+ ALT="$ \mathtt{find(x)}$"></SPAN> operation that runs in constant
+expected time.  When choosing which of these structures to use, one should
+always use a <TT>USet</TT> unless the extra functionality offered by an <TT>SSet</TT>
+is truly needed.
+
+<P>
+<BR><HR><H4>Footnotes</H4>
+<DL>
+<DT><A NAME="foot1247">... equal.</A><A
+ HREF="1_2_Interfaces.html#tex2html11"><SUP><SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A></DT>
+<DD>In Java, this is
+done by overriding the class's <!-- MATH
+ $\mathtt{equals(y)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="74" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img152.png"
+ ALT="$ \mathtt{equals(y)}$"></SPAN> and <!-- MATH
+ $\mathtt{hashCode()}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="82" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img153.png"
+ ALT="$ \mathtt{hashCode()}$"></SPAN> methods.
+
+</DD>
+</DL>
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html273"
+  HREF="1_3_Mathematical_Background.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html267"
+  HREF="1_Introduction.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html261"
+  HREF="1_1_Need_Efficiency.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html269"
+  HREF="Contents.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html271"
+  HREF="Index.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html274"
+  HREF="1_3_Mathematical_Background.html">1.3 Mathematical Background</A>
+<B> Up:</B> <A NAME="tex2html268"
+  HREF="1_Introduction.html">1. Introduction</A>
+<B> Previous:</B> <A NAME="tex2html262"
+  HREF="1_1_Need_Efficiency.html">1.1 The Need for</A>
+ &nbsp; <B>  <A NAME="tex2html270"
+  HREF="Contents.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html272"
+  HREF="Index.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<a href="http://opendatastructures.org/">opendatastructures.org</a>
+    
+
+</ADDRESS>
+</BODY>
+</HTML>

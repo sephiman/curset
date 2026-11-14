@@ -1,0 +1,77 @@
+[
+ {
+  "id": "m04-l05-q01",
+  "fact": "m04-l05-f02",
+  "stem": "Which Kotlin annotation generates static methods for functions defined in named objects or companion objects, so that Java code can call them on the enclosing class?",
+  "key": "`@JvmStatic`",
+  "distractors": [
+   "`@JvmOverloads`",
+   "`@Throws`",
+   "`@IntroducedAt`"
+  ],
+  "explanation": "`@JvmStatic` generates static methods for functions defined in named objects or companion objects. `@JvmOverloads` does not, because it generates overloads for optional parameters. `@Throws` does not, because it alerts callers about possible exceptions. `@IntroducedAt` does not, because it makes the generated overloads reflect the version in which each optional parameter was introduced.",
+  "citation": "kotlin-docs-java-to-kotlin-interop#static-methods",
+  "extract": "You can also generate static methods for functions defined in named objects or companion objects if you annotate such functions with the @JvmStatic annotation.",
+  "snippet": null
+ },
+ {
+  "id": "m04-l05-q02",
+  "fact": "m04-l05-f16",
+  "stem": "A Kotlin function throws `IOException` and has no `@Throws` annotation. Java code calls it inside a `try` block with `catch (IOException e)`. What does the Java compiler do?",
+  "key": "It reports an error, because the Kotlin function does not declare `IOException`",
+  "distractors": [
+   "It compiles, because Kotlin declares every exception it throws in the Java signature",
+   "It compiles, because Kotlin treats all exceptions as checked exceptions",
+   "It reports an error until the Java caller is annotated with `@Throws`"
+  ],
+  "explanation": "The Java compiler reports an error, because the Kotlin function does not declare `IOException`. The code does not compile cleanly through declared exceptions, because normally the Java signatures of Kotlin functions do not declare exceptions thrown. Kotlin does not make the exception checked, because in Kotlin all exceptions are unchecked. Annotating the Java caller does not help, because the `@Throws` annotation is used in Kotlin.",
+  "citation": "kotlin-docs-java-to-kotlin-interop#checked-exceptions",
+  "extract": "You get an error message from the Java compiler, because writeToFile() does not declare IOException.",
+  "snippet": null
+ },
+ {
+  "id": "m04-l05-q03",
+  "fact": "m04-l05-f10",
+  "stem": "Which of these Kotlin declarations can NOT be annotated with `@JvmOverloads` to generate overloads for its default parameter values?",
+  "key": "An abstract method, including one defined in an interface",
+  "distractors": [
+   "A constructor",
+   "A static method",
+   "A member function of a class that has default parameter values"
+  ],
+  "explanation": "`@JvmOverloads` can't be used on abstract methods, including methods defined in interfaces. A constructor is allowed, because the annotation also works for constructors. A static method is allowed, because the annotation also works for static methods. A member function with default parameter values is allowed, because the annotation generates overloads for optional parameters.",
+  "citation": "kotlin-docs-java-to-kotlin-interop#overloads-generation",
+  "extract": "It can't be used on abstract methods, including methods defined in interfaces.",
+  "snippet": null
+ },
+ {
+  "id": "m04-l05-q04",
+  "fact": "m04-l05-f03",
+  "stem": "A function in a Kotlin companion object is annotated with `@JvmStatic`. What does the compiler generate for it, according to Kotlin's documentation on calling Kotlin from Java?",
+  "key": "A static method in the enclosing class and an instance method in the companion object",
+  "distractors": [
+   "A static method in the enclosing class only, with no method in the companion object",
+   "An instance method in the companion object only, which Java must call through `Companion`",
+   "A static method that replaces the instance method, so the call through `Companion` stops working"
+  ],
+  "explanation": "The compiler generates both a static method in the enclosing class and an instance method in the companion object. A static method alone is not generated, because the compiler generates both methods. An instance method alone is not generated, because Java can call the function on both the enclosing class and the companion object. The instance method is not replaced, because the call through `Companion` still works and the instance method remains.",
+  "citation": "kotlin-docs-java-to-kotlin-interop#static-methods",
+  "extract": "If you use @JvmStatic on a function in a companion object, the compiler generates both a static method in the enclosing class and an instance method in the companion object:",
+  "snippet": null
+ },
+ {
+  "id": "m04-l05-q05",
+  "fact": "m04-l05-f20",
+  "stem": "A Kotlin function calls a Java method that declares a checked `IOException`. According to Kotlin's Java interoperability documentation, what does the Kotlin compiler force the caller to do?",
+  "key": "Nothing, because Kotlin does not force you to do anything",
+  "distractors": [
+   "Catch the exception with `try` and `catch`",
+   "Annotate the calling function with `@Throws(IOException::class)`",
+   "Declare `IOException` in a `throws` clause of the Kotlin function"
+  ],
+  "explanation": "Kotlin does not force you to do anything when you call a Java method that declares a checked exception. It does not force a `try` and `catch`, because in Kotlin all exceptions are unchecked and the compiler does not force you to catch any of them. It does not force `@Throws` on the caller, because Kotlin does not have checked exceptions. It does not force a `throws` clause, because normally the Java signatures of Kotlin functions do not declare exceptions thrown.",
+  "citation": "kotlin-docs-java-interop#checked-exceptions",
+  "extract": "So, when you call a Java method that declares a checked exception, Kotlin does not force you to do anything:",
+  "snippet": null
+ }
+]

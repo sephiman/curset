@@ -1,0 +1,72 @@
+S1.1	"Spring AOP is proxy-based"	pass
+S1.2	"Client code that holds a proxy"	pass
+S1.3	"Once the call has reached the"	pass
+S1.4	"Self invocation via an explicit or"	pass
+S1.5	"In proxy mode, which is the"	pass
+S1.6	"Self-invocation, a method within the target"	pass
+S1.7	"The mere presence of the `@Transactional`"	pass
+S1.8	"The proxy must be fully initialized"	pass
+S1.9	"The snippet calls `foo` on a"	pass
+S1.10	"The target's `foo` calls `this.bar()`."	pass
+S1.11	"This is the same mechanism with"	fail	uncited claim of mechanism equivalence; 'This is' split opener on voice blacklist
+S1.12	"The snippet prints `[foo]` after `pojo.foo()`,"	pass
+S1.13	"It prints `[bar]` after `pojo.bar()`,"	pass
+S1.14	"AspectJ compile-time weaving and load-time weaving"	pass
+R1.1	"Avoid self invocation"	pass
+R1.2	"Inject a self reference"	pass
+R1.3	"`AopContext.currentProxy()`"	pass
+R1.4	"AspectJ mode"	pass
+S2.1	"`CompletableFuture.supplyAsync(Supplier)` returns a new `CompletableFuture`"	pass
+S2.2	"The common pool is used by"	pass
+S2.3	"A `ForkJoinPool` differs from other kinds"	pass
+S2.4	"The pool attempts to maintain enough"	pass
+S2.5	"No such adjustments are guaranteed in"	pass
+S2.6	"The nested `ForkJoinPool.ManagedBlocker` interface enables extension"	pass
+S2.7	"All worker threads of a `ForkJoinPool`"	pass
+S2.8	"The common pool is statically constructed,"	pass
+S2.9	"The common pool and any ongoing"	pass
+S2.10	"A program that relies on asynchronous"	pass
+S2.11	"The snippet runs `supplyAsync` without an"	pass
+S2.12	"The snippet prints `true` for the"	pass
+S2.13	"It prints `true` for the daemon"	pass
+S2.14	"It prints `false` for `isShutdown()` after"	pass
+S2.15	"It prints `still runs` for the"	pass
+S3.1	"If a thread is blocked in"	pass
+S3.2	"If a thread is blocked in"	pass
+S3.3	"If a thread is blocked in"	pass
+S3.4	"If none of those conditions holds,"	pass
+S3.5	"Interrupting a thread that is not"	pass
+S3.6	"`Thread.interrupted()` tests whether the current thread"	pass
+S3.7	"`Thread.interrupted()` clears the interrupted status of"	pass
+S3.8	"Two successive calls to `Thread.interrupted()` return"	pass
+S3.9	"The snippet interrupts the main thread"	pass
+S3.10	"It then sleeps while interrupted, once"	pass
+S3.11	"The snippet prints `true` and then"	pass
+S3.12	"It prints `caught, status false` for"	pass
+S3.13	"It prints `caught, status true` for"	pass
+S4.1	"Spring AOP is proxy-based, and a"	pass
+S4.2	"In proxy mode, self-invocation of a"	pass
+S4.3	"AspectJ weaving applies advice within the"	pass
+S4.4	"`CompletableFuture.supplyAsync(Supplier)` without an executor runs the"	pass
+S4.5	"A `ForkJoinPool` does not guarantee thread"	pass
+S4.6	"The common pool's run state is"	pass
+S4.7	"`Thread.interrupt()` clears the interrupt status when"	fail	reads as interrupt() throwing InterruptedException; lesson says the thread receives it
+S4.8	"`Thread.interrupted()` clears the interrupted status, so"	pass
+g-self-invocation	pass
+g-common-pool	pass
+g-work-stealing	pass
+g-interrupt-status	fail	'tests and clears' rests on javadoc-thread#interrupted(), which is not cited
+m01-l04-q01	pass
+m01-l04-q02	pass
+m01-l04-q03	pass
+m01-l04-q04	fail	stem omits second task's value; first line depends on common-pool parallelism
+m01-l04-q05	pass
+m01-l04-q06	fail	distractor 3 denies the stem's premise, does not answer the why-stem
+m01-l04-q07	fail	self-injection refutation sentence does not contradict 'highly discouraged'; silence
+m01-l04-q08	pass
+S1.11	recheck	pass
+S4.7	recheck	pass
+m01-l04-q09	pass
+m01-l04-q10	pass
+m01-l04-q11	fail	one sentence rules out two distractors; shutdown() not exclusive with awaitQuiescence
+# checked 71, passed 64, failed 7

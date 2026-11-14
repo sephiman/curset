@@ -1,0 +1,152 @@
+[
+ {
+  "id": "m08-l05-q01",
+  "fact": "m08-l05-f26",
+  "stem": "In the Raft consensus algorithm, how does each server choose its election timeout so that split votes stay rare and are resolved quickly when they do happen?",
+  "key": "Randomly, from a fixed interval such as 150 to 300 ms",
+  "distractors": [
+   "As a fixed value derived from the server's unique rank in the cluster",
+   "As one identical value on every server, so that all of them time out together",
+   "As a value doubled after every failed election until a leader emerges"
+  ],
+  "explanation": "Raft chooses election timeouts randomly from a fixed interval such as 150 to 300 ms. A timeout derived from a unique server rank is wrong, because the authors dropped the ranking system and concluded that the randomized retry approach is more obvious and understandable. One identical value on every server is wrong, because randomness spreads the servers out so that in most cases only a single server times out. Doubling after each failed election is wrong, because each candidate restarts its randomized election timeout at the start of an election.",
+  "citation": "paper-raft-dissertation#p35",
+  "extract": "election timeouts are chosen randomly from a fixed interval (e.g., 150–300 ms).",
+  "snippet": null
+ },
+ {
+  "id": "m08-l05-q02",
+  "fact": "m08-l05-f65",
+  "stem": "According to the Kafka documentation on `KRaft`, for the controller cluster to withstand N concurrent failures without losing availability, how many controllers must the cluster include?",
+  "key": "`2N + 1` controllers",
+  "distractors": [
+   "`N + 1` controllers",
+   "`2N` controllers",
+   "`3N` controllers"
+  ],
+  "explanation": "The controller cluster must include `2N + 1` controllers to withstand N concurrent failures. `N + 1` controllers and `2N` controllers are both excluded, because the documentation fixes the count at `2N + 1`. `3N` controllers is wrong, because the documentation says 5 controllers already tolerate 2 controller failures, where `3N` would ask for 6.",
+  "citation": "kafka-operations-kraft#deploying-considerations",
+  "extract": "For the KRaft controller cluster to withstand N concurrent failures the controller cluster must include 2N + 1 controllers.",
+  "snippet": null
+ },
+ {
+  "id": "m08-l05-q03",
+  "fact": "m08-l05-f60",
+  "stem": "A 3-member etcd cluster has one unhealthy member. According to the etcd FAQ, what happens if the operator adds a replacement member before removing the unhealthy one?",
+  "key": "The quorum rises to 3, so the extra member adds no fault tolerance",
+  "distractors": [
+   "The quorum stays at 2, because the unhealthy member no longer counts as a member",
+   "The cluster can now tolerate two failures instead of one",
+   "A misconfigured new member can always be removed again by the remaining live members"
+  ],
+  "explanation": "Adding a member to a 3-member cluster raises the quorum to 3 because 3 votes are required for a majority of 4 members. A quorum that stays at 2 is wrong, because the quorum model needs (n/2)+1 members, a majority of all members, to agree. Tolerating two failures is wrong, because the quorum rose and the cluster stays one node failure away from being unrecoverable. Removing a misconfigured member again is wrong, because with two members down and two up the cluster has no way to recover quorum to undo the addition.",
+  "citation": "etcd-faq#should-i-add-a-member-before-removing-an-unhealthy-member",
+  "extract": "However, adding a new member to a 3-member cluster will increase the quorum to 3 because 3 votes are required for a majority of 4 members.",
+  "snippet": null
+ },
+ {
+  "id": "m08-l05-q04",
+  "fact": "m08-l05-f62",
+  "stem": "A Redis deployment runs just two Sentinels, one on the master's box and one on the replica's box. Which statement about this setup is correct?",
+  "key": "If the master's box stops working, the remaining Sentinel cannot authorize a failover",
+  "distractors": [
+   "The remaining Sentinel can authorize the failover alone, because a majority is not needed to order failovers",
+   "Letting the replica's Sentinel fail over without agreement is safe, because it leaves a single master",
+   "After a partition heals, Sentinel can tell which side holds the right configuration"
+  ],
+  "explanation": "With two Sentinels, losing the master's box also stops one Sentinel, and the other cannot authorize a failover. Failing over without a majority is wrong, because a majority is needed to order different failovers and propagate the latest configuration. Failing over without agreement being safe is wrong, because it would create two masters in a perfectly symmetrical way. A healed partition being resolvable is wrong, because clients may write to both sides and there is no way to tell which configuration is the right one, which leaves a permanent split brain.",
+  "citation": "redis-sentinel#example-1-just-two-sentinels-dont-do-this",
+  "extract": "The Sentinel running in the other box S2 will not be able to authorize a failover, so the system will become not available.",
+  "snippet": null
+ },
+ {
+  "id": "m08-l05-q05",
+  "fact": "m08-l05-f54",
+  "stem": "In etcd, a network partition divides the cluster into a side holding a member majority and a side holding a member minority. Which statement about availability is correct?",
+  "key": "The majority side becomes the available cluster and the minority side is unavailable",
+  "distractors": [
+   "Both sides stay available and reconcile their writes after the partition clears",
+   "The side that holds the leader stays available, whatever its size",
+   "Neither side stays available, because a partition fails the whole cluster"
+  ],
+  "explanation": "The majority side becomes the available cluster and the minority side is unavailable. Both sides staying available is wrong, because etcd has no split-brain, as every membership change is approved by the current majority. Availability following the leader is wrong, because a leader on the minority side steps down and the majority side elects a new leader. A whole-cluster failure is wrong, because once a majority of members works, etcd elects a new leader automatically and returns to a healthy state.",
+  "citation": "etcd-failures#network-partition",
+  "extract": "The majority side becomes the available cluster and the minority side is unavailable.",
+  "snippet": null
+ },
+ {
+  "id": "m08-l05-q06",
+  "fact": "m08-l05-f48",
+  "stem": "In ZooKeeper's hierarchical quorum construction, 9 servers are split into 3 groups and every server has weight 1. What size of quorum can this construction form?",
+  "key": "4",
+  "distractors": [
+   "5, the plain majority of nine",
+   "2, one server from each of two groups",
+   "9, every server in the cluster"
+  ],
+  "explanation": "The construction forms quorums of size 4 from 9 servers in 3 groups. A quorum of 5, the plain majority, is wrong, because this construction enables smaller quorums. A quorum of 2 and a quorum of 9 are both excluded, because the documentation gives 4 as the size of the quorums it forms in this example.",
+  "citation": "zk-internals#sc_quorum",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m08-l05-q07",
+  "fact": "m08-l05-f41",
+  "stem": "When a Raft server writes a snapshot for log compaction, which two values does it store to position the snapshot in the log?",
+  "key": "The index and term of the last entry included in the snapshot",
+  "distractors": [
+   "The index and term of the first entry that follows the snapshot",
+   "The highest index the leader has committed and the leader's current term",
+   "The index and term of the oldest entry the server still keeps in its log"
+  ],
+  "explanation": "Raft stores the index and term of the last entry included in the snapshot. The first entry after the snapshot is wrong, because the saved index and term position the snapshot in the log preceding that entry. The leader's highest committed index is wrong, because each server takes snapshots independently, covering just the committed entries in its own log. The oldest entry still kept is wrong, because Raft discards the log prefix up through the last included index.",
+  "citation": "paper-raft-dissertation#p69",
+  "extract": "the index and term of the last entry included in the snapshot and the latest configuration as of that index.",
+  "snippet": null
+ },
+ {
+  "id": "m08-l05-q08",
+  "fact": "m08-l05-f82",
+  "stem": "In the ZooKeeper two-phase commit recipe where every site watches the transaction nodes, what is the message complexity in the number of sites n?",
+  "key": "`O(n²)`",
+  "distractors": [
+   "`O(n)`",
+   "`O(log n)`",
+   "`O(1)`"
+  ],
+  "explanation": "The message complexity of this recipe is `O(n²)`. `O(n)`, `O(log n)` and `O(1)` are all excluded, because the documentation states `O(n²)` as the message complexity of the approach.",
+  "citation": "zk-recipes#sc_recipes_twoPhasedCommit",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m08-l05-q09",
+  "fact": "m08-l05-f06",
+  "stem": "In etcd, the leader fails and the cluster starts electing a new one. According to the etcd documentation, which statement about that period is correct?",
+  "key": "Electing a new leader takes about an election timeout, because failure detection is timeout based",
+  "distractors": [
+   "The election happens instantly once the leader fails",
+   "The cluster keeps processing writes through the election",
+   "Writes that the old leader had already committed can be lost"
+  ],
+  "explanation": "Electing a new leader takes about an election timeout, since the failure detection model is timeout based. An instant election is wrong, because the election does not happen instantly once the leader fails. Writes continuing through the election is wrong, because during the leader election the cluster cannot process any writes. Losing committed writes is wrong, because no committed writes are ever lost.",
+  "citation": "etcd-failures#leader-failure",
+  "extract": "It takes about an election timeout to elect a new leader since the failure detection model is timeout based.",
+  "snippet": null
+ },
+ {
+  "id": "m08-l05-q10",
+  "fact": "m08-l05-f36",
+  "stem": "How does the Raft dissertation make an arbitrary change of the cluster configuration safe, given that servers cannot all switch to the new configuration at the same instant?",
+  "key": "The cluster first moves to a transitional joint consensus configuration and then to the new one",
+  "distractors": [
+   "All servers switch directly to the new configuration in one step",
+   "Each server adopts the new configuration only once that configuration entry is committed",
+   "Only servers of the old configuration may lead during the change, so the new servers never take part in elections"
+  ],
+  "explanation": "Raft first switches to a transitional joint consensus configuration and, once that is committed, to the new configuration. A direct switch is wrong, because switching directly can be unsafe when different servers switch at different times. Adopting the new configuration only once committed is wrong, because each server starts using a new configuration as soon as it stores it in its log. Leadership limited to the old configuration is wrong, because under joint consensus any server from either configuration may serve as leader.",
+  "citation": "paper-raft-dissertation#p62",
+  "extract": "To ensure safety across arbitrary configuration changes, the cluster first switches to a transitional configuration we call joint consensus; once the joint consensus has been committed, the system then transitions to the new configuration.",
+  "snippet": null
+ }
+]

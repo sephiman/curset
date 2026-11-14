@@ -1,0 +1,197 @@
+[
+ {
+  "id": "m10-l04-q01",
+  "fact": "m10-l04-f05",
+  "stem": "An MCP client sends HTTP requests to a protected MCP server and must present its OAuth access token. Which statement about how the client handles the token under the MCP authorization specification is correct?",
+  "key": "The client puts the access token in the `Authorization` request header",
+  "distractors": [
+   "The client may pass the access token in the URI query string when a header is awkward",
+   "The client sends the access token only in the first request, and the server then keeps the session",
+   "The client sends the access token in the request body instead of any header"
+  ],
+  "explanation": "The client puts the access token in the `Authorization` request header, as the client MUST use that header field. Passing the access token in the URI query string is ruled out because access tokens MUST NOT be included in the URI query string. Sending the access token only in the first request is ruled out because authorization MUST be included in every HTTP request from client to server. A token in the request body is ruled out because the client MUST use the Authorization request header field defined in OAuth 2.1.",
+  "citation": "mcp-authorization#token-requirements",
+  "extract": "MCP client MUST use the Authorization request header field defined in OAuth 2.1 Section 5.1.1:",
+  "snippet": null
+ },
+ {
+  "id": "m10-l04-q02",
+  "fact": "m10-l04-f09",
+  "stem": "An MCP server answers `401` with a `WWW-Authenticate` header whose `scope` parameter names scopes. Which statement about how the client uses those challenged scopes under the MCP authorization specification is correct?",
+  "key": "The client treats them as authoritative for the current operation",
+  "distractors": [
+   "The client assumes they are always a subset of the scopes in `scopes_supported`",
+   "The client ignores them whenever `scopes_supported` lists other scopes",
+   "The server must list every dynamically issued scope in `scopes_supported`"
+  ],
+  "explanation": "The client treats the challenged scopes as authoritative for the current operation, because clients MUST do so. Assuming a subset of `scopes_supported` is ruled out because clients MUST NOT assume any particular set relationship between the challenged scope set and `scopes_supported`. Ignoring the challenge in favour of `scopes_supported` is ruled out because the first priority is the `scope` parameter from the `WWW-Authenticate` header of the `401` response. Listing every dynamically issued scope is ruled out because servers are not required to surface every dynamically issued scope through `scopes_supported`.",
+  "citation": "mcp-authorization#scope-selection-strategy",
+  "extract": "Clients MUST treat the scopes provided in the challenge as authoritative for the current operation.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l04-q03",
+  "fact": "m10-l04-f01",
+  "stem": "A team plans the authorization of several MCP servers that use different transports. Which statement about authorization in the MCP authorization specification is correct for these implementations?",
+  "key": "Authorization is optional for MCP implementations",
+  "distractors": [
+   "Authorization is mandatory for every MCP implementation, whatever its transport",
+   "An implementation with an STDIO transport should follow the specification instead of reading credentials from the environment",
+   "An implementation with an alternative transport may skip established security practices for its protocol"
+  ],
+  "explanation": "Authorization is optional for MCP implementations. A mandatory requirement for every implementation is ruled out because the specification marks authorization as OPTIONAL. Following the specification over STDIO is ruled out because an STDIO implementation should not follow it and should retrieve credentials from the environment. Skipping security practices on an alternative transport is ruled out because such implementations MUST follow established security best practices for their protocol.",
+  "citation": "mcp-authorization#protocol-requirements",
+  "extract": "Authorization is OPTIONAL for MCP implementations.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l04-q04",
+  "fact": "m10-l04-f22",
+  "stem": "An MCP server accepts bearer tokens without verifying that they were issued for it. Which statement about this weakness in the MCP security best practices is correct?",
+  "key": "Attackers can reuse legitimate tokens across services other than the ones intended",
+  "distractors": [
+   "The pattern is safe whenever the downstream API validates the token on its own",
+   "The confused deputy attack lets malicious clients obtain authorization codes only after the user consented",
+   "Skipping the audience check affects only the first request, not later tokens"
+  ],
+  "explanation": "Attackers can reuse legitimate tokens across services other than the ones intended, because the failure breaks a fundamental OAuth security boundary. A pattern that is safe when the downstream API validates the token is ruled out because token passthrough is called an anti-pattern. Obtaining authorization codes only after consent is ruled out because the confused deputy attack obtains authorization codes without proper user consent. An effect limited to the first request is ruled out because a server that does not verify the audience may accept tokens originally issued for other services.",
+  "citation": "mcp-security-best-practices#token-passthrough",
+  "extract": "This breaks a fundamental OAuth security boundary, allowing attackers to reuse legitimate tokens across different services than intended.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l04-q05",
+  "fact": "m10-l04-f25",
+  "stem": "An MCP proxy server connects clients to a third-party API through OAuth. Which behaviour does the MCP security best practices guidance require of the proxy server?",
+  "key": "It checks its registry of approved `client_id` values before starting the third-party authorization flow",
+  "distractors": [
+   "It compares `redirect_uri` with the registered URI using wildcard patterns that allow subdomains",
+   "It sets the consent cookie before showing the consent screen so the callback can be validated",
+   "It keeps one `state` value and reuses it across authorization requests for a day"
+  ],
+  "explanation": "The proxy checks its registry of approved `client_id` values before initiating the third-party authorization flow. Wildcard matching of `redirect_uri` is ruled out because the comparison uses exact string matching, not pattern matching or wildcards. Setting the consent cookie before the consent screen is ruled out because the cookie or session with the `state` value MUST NOT be set until the user has approved consent. Reusing one `state` value for a day is ruled out because `state` values are single-use and have a short expiration time.",
+  "citation": "mcp-security-best-practices#required-protections",
+  "extract": "Check this registry before initiating the third-party authorization flow",
+  "snippet": null
+ },
+ {
+  "id": "m10-l04-q06",
+  "fact": "m10-l04-f29",
+  "stem": "An MCP proxy server tracks consent decisions with a cookie. Which statement about that consent cookie and consent page is correct under the MCP security best practices?",
+  "key": "The cookie name uses the `__Host-` prefix",
+  "distractors": [
+   "The cookie binds to the user only, without naming the specific `client_id`",
+   "The cookie is marked `SameSite=None` so that other sites can read it",
+   "The consent page may be framed by any origin to support embedded flows"
+  ],
+  "explanation": "The cookie name uses the `__Host-` prefix. Binding to the user only is ruled out because the cookie must bind to the specific `client_id`, not just to “user has consented”. A `SameSite=None` cookie is ruled out because the cookie must set the `Secure`, `HttpOnly` and `SameSite=Lax` attributes. Framing by any origin is ruled out because the consent page must prevent iframing through `frame-ancestors` or `X-Frame-Options: DENY`.",
+  "citation": "mcp-security-best-practices#required-protections",
+  "extract": "Use __Host- prefix for cookie names",
+  "snippet": null
+ },
+ {
+  "id": "m10-l04-q07",
+  "fact": "m10-l04-f37",
+  "stem": "The MCP tools specification lists security considerations for servers and for clients. Which statement about those duties is correct for an MCP server that exposes tools?",
+  "key": "The server must rate limit tool invocations",
+  "distractors": [
+   "The server may leave the validation of tool inputs to the client",
+   "The server returns tool outputs to the client without sanitizing them",
+   "The server skips access controls when the client is trusted"
+  ],
+  "explanation": "The server must rate limit tool invocations. Leaving input validation to the client is ruled out because servers MUST validate all tool inputs. Returning outputs unsanitized is ruled out because servers MUST sanitize tool outputs. Skipping access controls for a trusted client is ruled out because servers MUST implement proper access controls.",
+  "citation": "mcp-tools#security-considerations",
+  "extract": "Rate limit tool invocations",
+  "snippet": null
+ },
+ {
+  "id": "m10-l04-q08",
+  "fact": "m10-l04-f44",
+  "stem": "OWASP guidance for LLM02:2025 Sensitive Information Disclosure describes how an LLM application can reduce the exposure of sensitive data. Which statement about that guidance is correct?",
+  "key": "Access to sensitive data is limited by the principle of least privilege",
+  "distractors": [
+   "System prompt restrictions on returned data types are always honored by the model",
+   "Sensitive information in an LLM application is limited to personal identifiable information",
+   "Users cannot be offered a way to opt out of having their data used for training"
+  ],
+  "explanation": "Access to sensitive data is limited by the principle of least privilege. Always-honored system prompt restrictions are ruled out because such restrictions may not always be honored and could be bypassed via prompt injection. A scope limited to personal identifiable information is ruled out because sensitive information also includes financial details, health records, confidential business data, security credentials and legal documents. Denying users an opt-out is ruled out because application owners should provide Terms of Use policies that allow users to opt out of training.",
+  "citation": "owasp-llm-sensitive-disclosure#1-enforce-strict-access-controls; owasp-llm-sensitive-disclosure#main",
+  "extract": "Limit access to sensitive data based on the principle of least privilege.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l04-q09",
+  "fact": "m10-l04-f52",
+  "stem": "OWASP describes indirect prompt injection in its LLM Top 10. Which statement about indirect prompt injection and its prevention is correct?",
+  "key": "It occurs when an LLM accepts input from external sources such as websites or files",
+  "distractors": [
+   "Its impact depends only on the model, not on the business context or the agency given to it",
+   "It affects text only, because other modalities cannot carry instructions to the model",
+   "Input filtering is a fool-proof method of prevention that removes the risk"
+  ],
+  "explanation": "Indirect prompt injection occurs when an LLM accepts input from external sources such as websites or files. An impact that depends only on the model is ruled out because it is largely dependent on both the business context and the agency with which the model is architected. A text-only risk is ruled out because malicious actors could hide instructions in images that accompany benign text. A fool-proof input filter is ruled out because it is unclear whether fool-proof methods of prevention exist.",
+  "citation": "owasp-llm-top10-prompt-injection#indirect-prompt-injections",
+  "extract": "Indirect prompt injections occur when an LLM accepts input from external sources, such as websites or files.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l04-q10",
+  "fact": "m10-l04-f63",
+  "stem": "An LLM application handles sensitive customer data. Which practice follows the OWASP guidance on prompt injection and sensitive information disclosure for such an application?",
+  "key": "Running penetration tests that treat the model as an untrusted user",
+  "distractors": [
+   "Relying on system prompt restrictions as the control that stops disclosure",
+   "Giving the model broad read access so that it can answer any question",
+   "Skipping data sanitization because user data never reaches the training model"
+  ],
+  "explanation": "Running penetration tests that treat the model as an untrusted user tests trust boundaries and access controls. Relying on system prompt restrictions is ruled out because such restrictions could be bypassed via prompt injection or other methods. Broad read access is ruled out because only data necessary for the specific user or process should be granted. Skipping data sanitization is ruled out because LLM applications should perform adequate data sanitization to prevent user data from entering the training model.",
+  "citation": "owasp-llm-top10-prompt-injection#7-conduct-adversarial-testing-and-attack-simulations",
+  "extract": "Perform regular penetration testing and breach simulations, treating the model as an untrusted user to test the effectiveness of trust boundaries and access controls.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l04-q11",
+  "fact": "m10-l04-f14",
+  "stem": "Which statement about the `scopes_supported` field of the Protected Resource Metadata in the MCP authorization specification is correct?",
+  "key": "It represents the minimal set of scopes necessary for basic functionality",
+  "distractors": [
+   "Servers must list every dynamically issued scope in it",
+   "Clients may assume that the challenged scopes are always a subset of it",
+   "Clients prefer it over the `scope` parameter of the `401` challenge"
+  ],
+  "explanation": "The `scopes_supported` field is intended to represent the minimal set of scopes necessary for basic functionality. Listing every dynamically issued scope is ruled out because servers are not required to surface every dynamically issued scope through `scopes_supported`. Assuming a subset is ruled out because clients MUST NOT assume any particular set relationship between the challenged scope set and `scopes_supported`. Preferring it to the challenge is ruled out because the first source of scopes is the `scope` parameter from the initial `WWW-Authenticate` header in the `401` response.",
+  "citation": "mcp-authorization#scope-selection-strategy",
+  "extract": "The scopes_supported field is intended to represent the minimal set of scopes necessary for basic functionality",
+  "snippet": null
+ },
+ {
+  "id": "m10-l04-q12",
+  "fact": "m10-l04-f06",
+  "stem": "Which statement about presenting an OAuth access token to an MCP server over HTTP is correct under the MCP authorization specification?",
+  "key": "The authorization is included in every HTTP request from client to server",
+  "distractors": [
+   "The token may go in the URI query string when a header is awkward",
+   "The token goes in a custom header agreed with the server instead of `Authorization`",
+   "STDIO implementations also send the token in an `Authorization` header"
+  ],
+  "explanation": "The authorization is included in every HTTP request from client to server, because authorization MUST be included in every request. A token in the URI query string is ruled out because access tokens MUST NOT be included in the URI query string. A custom header is ruled out because the client MUST use the `Authorization` request header field defined in OAuth 2.1. An `Authorization` header over STDIO is ruled out because STDIO implementations should not follow this specification and should retrieve credentials from the environment instead.",
+  "citation": "mcp-authorization#token-requirements",
+  "extract": "Note that authorization MUST be included in every HTTP request from client to server.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l04-q13",
+  "fact": "m10-l04-f41",
+  "stem": "Which duty does the MCP tools specification give to clients that call the tools of an MCP server?",
+  "key": "Validating tool results before passing them to the LLM",
+  "distractors": [
+   "Hiding tool inputs from the user to avoid confirmation fatigue",
+   "Calling tools without timeouts so that long operations finish",
+   "Asking for user confirmation only on non-sensitive operations"
+  ],
+  "explanation": "Clients validate tool results before passing them to the LLM. Hiding tool inputs is ruled out because clients should show tool inputs to the user before calling the server. Calling without timeouts is ruled out because clients should implement timeouts for tool calls. Confirming only non-sensitive operations is ruled out because clients should prompt for user confirmation on sensitive operations.",
+  "citation": "mcp-tools#security-considerations",
+  "extract": "Validate tool results before passing to LLM",
+  "snippet": null
+ }
+]

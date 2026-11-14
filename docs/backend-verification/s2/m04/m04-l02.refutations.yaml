@@ -1,0 +1,280 @@
+m04-l02-q01:
+  key:
+    anchor: kotlin-docs-object-declarations#data-objects
+    sentence: by marking an object declaration with the data modifier, you can instruct the compiler to return the actual name of the object when calling toString()
+  wrong:
+  - option: It returns the properties of the object in the form `Name(a=1)`
+    anchor: kotlin-docs-object-declarations#data-objects
+    sentence: toString() returns the name of the data object
+  - option: It still returns the name of the object followed by its hash
+    anchor: kotlin-docs-object-declarations#data-objects
+    sentence: by marking an object declaration with the data modifier, you can instruct the compiler to return the actual name of the object when calling toString()
+  - option: It makes `equals()` compare references, so two instances are different
+    anchor: kotlin-docs-object-declarations#data-objects
+    sentence: The equals() function for a data object ensures that all objects that have the type of your data object are considered equal.
+m04-l02-q02:
+  key:
+    anchor: kotlin-docs-object-declarations#data-objects
+    sentence: Make sure that you only compare data objects structurally (using the == operator) and never by reference (using the === operator).
+  wrong:
+  - option: By reference with `===`, because a data object is a singleton
+    anchor: kotlin-docs-object-declarations#data-objects
+    sentence: Make sure that you only compare data objects structurally (using the == operator) and never by reference (using the === operator).
+  - option: With a custom `equals` implementation that compares an identifier
+    anchor: kotlin-docs-object-declarations#data-objects
+    sentence: You can't provide a custom equals or hashCode implementation for a data object.
+  - option: By comparing `hashCode()` values, which differ for each instance
+    anchor: kotlin-docs-object-declarations#data-objects
+    sentence: The generated hashCode() function has a behavior that is consistent with the equals() function, so that all runtime instances of a data object have the same hash code.
+m04-l02-q03:
+  key:
+    anchor: kotlin-docs-inline-classes#inline-classes.md
+    sentence: They don't have an identity and can only hold values.
+  wrong:
+  - option: It has an identity, so two wrappers of the same value are different objects
+    anchor: kotlin-docs-inline-classes#inline-classes.md
+    sentence: They don't have an identity and can only hold values.
+  - option: It is represented at runtime by an instance with a field for each property
+    anchor: kotlin-docs-inline-classes#inline-classes.md
+    sentence: At runtime, instances of the inline class will be represented using this single property
+  - option: It can hold any number of properties initialized in the primary constructor
+    anchor: kotlin-docs-inline-classes#inline-classes.md
+    sentence: An inline class must have a single property initialized in the primary constructor.
+m04-l02-q04:
+  key:
+    anchor: kotlin-docs-control-flow#guard-conditions-in-when-expressions
+    sentence: Unlike statements, when expressions must cover all cases.
+  wrong:
+  - option: It requires nothing, because when no condition matches, no code is run
+    anchor: kotlin-docs-control-flow#guard-conditions-in-when-expressions
+    sentence: Since when statements don't need to cover all cases, using guard conditions in when statements without an else branch means that if no conditions match, no code is run.
+  - option: It requires the conditions of each branch to be separated by commas
+    anchor: kotlin-docs-control-flow#guard-conditions-in-when-expressions
+    sentence: You can't use guard conditions when you have multiple conditions separated by a comma.
+  - option: It requires the `when` to have no subject
+    anchor: kotlin-docs-control-flow#guard-conditions-in-when-expressions
+    sentence: You can use guard conditions with when as long as it has a subject.
+m04-l02-q05:
+  key:
+    anchor: kotlin-docs-control-flow#guard-conditions-in-when-expressions
+    sentence: If the primary condition doesn't match, the guard condition isn't evaluated.
+  wrong:
+  - option: Always, even when the primary condition does not match
+    anchor: kotlin-docs-control-flow#guard-conditions-in-when-expressions
+    sentence: If the primary condition doesn't match, the guard condition isn't evaluated.
+  - option: Before the primary condition, so the type check can use its result
+    anchor: kotlin-docs-control-flow#guard-conditions-in-when-expressions
+    sentence: Place a guard condition after the primary condition in the same branch, separated by if
+  - option: Only when the `when` has no subject
+    anchor: kotlin-docs-control-flow#guard-conditions-in-when-expressions
+    sentence: You can use guard conditions with when as long as it has a subject.
+m04-l02-q06:
+  key:
+    anchor: kotlin-docs-scope-functions#also
+    sentence: The return value is the object itself.
+  wrong:
+  - option: '`let`'
+    anchor: kotlin-docs-scope-functions#let
+    sentence: The return value is the lambda result.
+  - option: '`run`'
+    anchor: kotlin-docs-scope-functions#run
+    sentence: The context object is available as a receiver (this).
+  - option: '`apply`'
+    anchor: kotlin-docs-scope-functions#apply
+    sentence: The context object is available as a receiver (this).
+m04-l02-q07:
+  key:
+    anchor: kotlin-docs-delegation#delegation.md
+    sentence: The by-clause in the supertype list for Derived indicates that b will be stored internally in objects of Derived and the compiler will generate all the methods of Base that forward to b.
+  wrong:
+  - option: Make `Derived` inherit the implementation of the class of `b`, without storing `b`
+    anchor: kotlin-docs-delegation#delegation.md
+    sentence: b will be stored internally in objects of Derived
+  - option: Require `Derived` to override each method of `Base` by hand
+    anchor: kotlin-docs-delegation#delegation.md
+    sentence: Kotlin supports it natively requiring zero boilerplate code
+  - option: Replace the delegation pattern with implementation inheritance from the class of `b`
+    anchor: kotlin-docs-delegation#delegation.md
+    sentence: The Delegation pattern has proven to be a good alternative to implementation inheritance
+m04-l02-q08:
+  key:
+    anchor: kotlin-docs-delegated-properties#lazy-properties
+    sentence: 'By default, the evaluation of lazy properties is synchronized: the value is computed only in one thread, but all threads will see the same value.'
+  wrong:
+  - option: It is computed once in each thread, so each thread keeps its own value
+    anchor: kotlin-docs-delegated-properties#lazy-properties
+    sentence: 'By default, the evaluation of lazy properties is synchronized: the value is computed only in one thread, but all threads will see the same value.'
+  - option: It is computed without thread-safety guarantees, as with `LazyThreadSafetyMode.NONE`
+    anchor: kotlin-docs-delegated-properties#lazy-properties
+    sentence: If you're sure that the initialization will always happen in the same thread as the one where you use the property, you can use LazyThreadSafetyMode.NONE.
+  - option: It may be computed by several threads at once, as with `LazyThreadSafetyMode.PUBLICATION`
+    anchor: kotlin-docs-delegated-properties#lazy-properties
+    sentence: pass LazyThreadSafetyMode.PUBLICATION as a parameter to lazy().
+m04-l02-q09:
+  key:
+    anchor: jep-409#Summary
+    sentence: Sealed classes and interfaces restrict which other classes or interfaces may extend or implement them.
+  wrong:
+  - option: Records
+    anchor: jep-395#Summary
+    sentence: records, which are classes that act as transparent carriers for immutable data.
+  - option: Record patterns
+    anchor: jep-440#Summary
+    sentence: record patterns to deconstruct record values.
+  - option: Pattern matching for `switch`
+    anchor: jep-441#Summary
+    sentence: Extending pattern matching to switch allows an expression to be tested against a number of patterns, each with a specific action
+m04-l02-q10:
+  key:
+    execution: m04-l02/DataClassAndSealed.kt
+  wrong:
+  - option: 'User(name=John, age=42)
+
+      false
+
+      User(name=John, age=43)
+
+      Empty
+
+      large circle
+
+      circle'
+    execution: m04-l02/DataClassAndSealed.kt
+    mistake: reference equality for a data class
+  - option: 'User(name=John, age=42)
+
+      true
+
+      User(name=John, age=42)
+
+      Empty
+
+      large circle
+
+      circle'
+    execution: m04-l02/DataClassAndSealed.kt
+    mistake: copy ignores the named argument
+  - option: 'User(name=John, age=42)
+
+      true
+
+      User(name=John, age=43)
+
+      Empty
+
+      large circle
+
+      large circle'
+    execution: m04-l02/DataClassAndSealed.kt
+    mistake: guard condition ignored
+m04-l02-q11:
+  key:
+    execution: m04-l02/ScopeFunctions.kt
+  wrong:
+  - option: 'kotlin
+
+      7
+
+      localhost:8080
+
+      [a, b]
+
+      8081
+
+      null'
+    execution: m04-l02/ScopeFunctions.kt
+    mistake: let returns the context object
+  - option: '6
+
+      7
+
+      localhost:8080
+
+      [a, b]
+
+      8080
+
+      null'
+    execution: m04-l02/ScopeFunctions.kt
+    mistake: with ignores the lambda result
+  - option: '6
+
+      7
+
+      localhost:8080
+
+      true
+
+      8081
+
+      null'
+    execution: m04-l02/ScopeFunctions.kt
+    mistake: also returns the lambda result
+m04-l02-q12:
+  key:
+    execution: m04-l02/CollectionsAndSequences.kt
+  wrong:
+  - option: '[1, 2]
+
+      f:The f:quick f:brown f:fox f:jumps m:quick m:brown m:jumps
+
+      true
+
+      f:The f:quick m:quick f:brown m:brown
+
+      true'
+    execution: m04-l02/CollectionsAndSequences.kt
+    mistake: read-only view read as a copy
+  - option: '[1, 2, 3]
+
+      f:The f:quick f:brown f:fox f:jumps m:quick m:brown m:jumps
+
+      true
+
+      f:The f:quick f:brown f:fox f:jumps m:quick m:brown m:jumps
+
+      true'
+    execution: m04-l02/CollectionsAndSequences.kt
+    mistake: sequence run stage by stage
+  - option: '[1, 2, 3]
+
+      f:The f:quick f:brown f:fox f:jumps m:quick m:brown m:jumps
+
+      true
+
+      f:The f:quick m:quick f:brown m:brown
+
+      false'
+    execution: m04-l02/CollectionsAndSequences.kt
+    mistake: laziness changes the result
+m04-l02-q13:
+  key:
+    execution: m04-l02/DelegationAndLazy.kt
+  wrong:
+  - option: '10
+
+      computed!
+
+      Hello
+
+      computed!
+
+      Hello'
+    execution: m04-l02/DelegationAndLazy.kt
+    mistake: lambda re-run on each access
+  - option: 'computed!
+
+      10
+
+      Hello
+
+      Hello'
+    execution: m04-l02/DelegationAndLazy.kt
+    mistake: eager initialization
+  - option: '10
+
+      Hello
+
+      Hello'
+    execution: m04-l02/DelegationAndLazy.kt
+    mistake: ignored the side effect of the lambda

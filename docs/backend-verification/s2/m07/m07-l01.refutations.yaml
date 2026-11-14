@@ -1,0 +1,292 @@
+m07-l01-q01:
+  key:
+    anchor: rfc5681#section-3.2
+    sentence: The fast retransmit algorithm uses the arrival of 3 duplicate ACKs (as defined in section 2, without any intervening ACKs which move SND.UNA) as an indication that a segment has been lost.
+  wrong:
+  - option: The arrival of a single duplicate ACK
+    anchor: rfc5681#section-3.2
+    sentence: The fast retransmit algorithm uses the arrival of 3 duplicate ACKs (as defined in section 2, without any intervening ACKs which move SND.UNA) as an indication that a segment has been lost.
+    exclusive: true
+  - option: The arrival of 5 duplicate ACKs for the same segment
+    anchor: rfc5681#section-3.2
+    sentence: The fast retransmit algorithm uses the arrival of 3 duplicate ACKs (as defined in section 2, without any intervening ACKs which move SND.UNA) as an indication that a segment has been lost.
+    exclusive: true
+  - option: The expiry of the retransmission timer for that segment
+    anchor: rfc5681#section-3.2
+    sentence: After receiving 3 duplicate ACKs, TCP performs a retransmission of what appears to be the missing segment, without waiting for the retransmission timer to expire.
+m07-l01-q02:
+  key:
+    anchor: rfc9293#section-3.8.4
+    sentence: This interval MUST be configurable (MUST-27) and MUST default to no less than two hours (MUST-28).
+  wrong:
+  - option: 30 seconds
+    anchor: rfc9293#section-3.8.4
+    sentence: This interval MUST be configurable (MUST-27) and MUST default to no less than two hours (MUST-28).
+    exclusive: true
+  - option: 10 minutes
+    anchor: rfc9293#section-3.8.4
+    sentence: This interval MUST be configurable (MUST-27) and MUST default to no less than two hours (MUST-28).
+    exclusive: true
+  - option: None, because keep-alives are on by default and probe from the first idle second
+    anchor: rfc9293#section-3.8.4
+    sentence: If keep-alives are included, the application MUST be able to turn them on or off for each TCP connection (MUST-24), and they MUST default to off (MUST-25).
+m07-l01-q03:
+  key:
+    anchor: rfc9293#section-3.8.4
+    sentence: It is extremely important to remember that ACK segments that contain no data are not reliably transmitted by TCP.
+  wrong:
+  - option: TCP never retransmits segments, so a lost probe is not recovered
+    anchor: rfc9293#section-3.6
+    sentence: All segments preceding and including FIN will be retransmitted until acknowledged.
+  - option: Every probe carries one garbage octet, so the peer always answers it
+    anchor: rfc9293#section-3.8.4
+    sentence: An implementation SHOULD send a keep-alive segment with no data (SHLD-12); however, it MAY be configurable to send a keep-alive segment containing one garbage octet (MAY-6), for compatibility with erroneous TCP implementations.
+  - option: Probes are sent while data is outstanding, so a missing answer is expected
+    anchor: rfc9293#section-3.8.4
+    sentence: Keep-alive packets MUST only be sent when no sent data is outstanding, and no data or acknowledgment packets have been received for the connection within an interval (MUST-26).
+m07-l01-q04:
+  key:
+    anchor: rfc9293#section-3.3.2
+    sentence: represents waiting for a connection termination request from the local user.
+  wrong:
+  - option: '`FIN-WAIT-2`'
+    anchor: rfc9293#section-3.3.2
+    sentence: FIN-WAIT-2 - represents waiting for a connection termination request from the remote TCP peer.
+  - option: '`LAST-ACK`'
+    anchor: rfc9293#section-3.3.2
+    sentence: represents waiting for an acknowledgment of the connection termination request previously sent to the remote TCP peer
+  - option: '`TIME-WAIT`'
+    anchor: rfc9293#section-3.3.2
+    sentence: represents waiting for enough time to pass to be sure the remote TCP peer received the acknowledgment of its connection termination request
+m07-l01-q05:
+  key:
+    anchor: rfc9293#section-3.6
+    sentence: The user will respond with a CLOSE, upon which the TCP endpoint can send a FIN to the other TCP peer after sending any remaining data.
+  wrong:
+  - option: Immediately, in the same segment that acknowledges the received FIN
+    anchor: rfc9293#section-3.6
+    sentence: Note that a TCP endpoint receiving a FIN will ACK but not send its own FIN until its user has CLOSED the connection also.
+  - option: Never, because the first FIN closes both directions of the connection
+    anchor: rfc9293#section-3.6
+    sentence: We have chosen to treat CLOSE in a simplex fashion.
+  - option: Never, because it answers with an RST that aborts the connection
+    anchor: rfc9293#section-3.6
+    sentence: If an unsolicited FIN arrives from the network, the receiving TCP endpoint can ACK it and tell the user that the connection is closing.
+m07-l01-q06:
+  key:
+    anchor: rfc9113#section-1
+    sentence: Note, however, that TCP head-of-line blocking is not addressed by this protocol.
+  wrong:
+  - option: Repetitive and verbose HTTP fields
+    anchor: rfc9113#section-1
+    sentence: Specifically, it allows interleaving of messages on the same connection and uses an efficient coding for HTTP fields.
+  - option: Having to open several connections to make requests concurrently
+    anchor: rfc9113#section-1
+    sentence: The resulting protocol is more friendly to the network because fewer TCP connections can be used in comparison to HTTP/1.x.
+  - option: Inefficient processing of messages without binary framing
+    anchor: rfc9113#section-1
+    sentence: Finally, HTTP/2 also enables more efficient processing of messages through use of binary message framing.
+m07-l01-q07:
+  key:
+    anchor: rfc2308#section-5
+    sentence: When the authoritative server creates this record its TTL is taken from the minimum of the SOA.MINIMUM field and SOA's TTL.
+  wrong:
+  - option: The TTL of the A record of the queried name
+    anchor: rfc2308#section-5
+    sentence: As there is no record in the answer section to which this TTL can be applied, the TTL must be carried by another method.
+  - option: No TTL applies, and each resolver picks its own cache time
+    anchor: rfc2308#section-5
+    sentence: Like normal answers negative answers have a time to live (TTL).
+  - option: The largest TTL among all records in the authority section
+    anchor: rfc2308#section-3
+    sentence: The TTL of this record is set from the minimum of the MINIMUM field of the SOA record and the TTL of the SOA itself, and indicates how long a resolver may cache the negative answer.
+m07-l01-q08:
+  key:
+    anchor: javadoc-java-net-inetaddress#inetaddress-caching-heading
+    sentence: The result of unsuccessful host name resolution is cached for a very short period of time (10 seconds) to improve performance.
+  wrong:
+  - option: It is not cached at all
+    anchor: java-net-properties#address-cache-heading
+    sentence: 'networkaddress.cache.negative.ttl (default: 10)'
+    exclusive: true
+  - option: It is cached forever
+    anchor: java-net-properties#address-cache-heading
+    sentence: 'networkaddress.cache.negative.ttl (default: 10)'
+    exclusive: true
+  - option: It follows `networkaddress.cache.ttl`, because one property covers both outcomes
+    anchor: javadoc-java-net-inetaddress#inetaddress-caching-heading
+    sentence: Indicates the caching policy for un-successful name lookups from the name service.
+m07-l01-q09:
+  key:
+    anchor: javadoc-java-net-inetaddress#inetaddress-caching-heading
+    sentence: A value of -1 indicates "cache forever".
+  wrong:
+  - option: Never cache the lookup
+    anchor: java-net-properties#address-cache-heading
+    sentence: while a value of 0 (zero) means no caching.
+  - option: Use an implementation specific period
+    anchor: javadoc-java-net-inetaddress#inetaddress-caching-heading
+    sentence: The default setting is to cache for an implementation specific period of time.
+  - option: Cache only the unsuccessful lookups
+    anchor: javadoc-java-net-inetaddress#inetaddress-caching-heading
+    sentence: Indicates the caching policy for un-successful name lookups from the name service.
+m07-l01-q10:
+  key:
+    anchor: java-net-properties#address-cache-heading
+    sentence: Since these 3 properties are part of the security policy, they are not set by either the -D option or the System.setProperty() API, instead they are set as security properties.
+  wrong:
+  - option: With the `-D` option on the `java` command line
+    anchor: java-net-properties#address-cache-heading
+    sentence: they are not set by either the -D option or the System.setProperty() API
+    exclusive: true
+  - option: With `System.setProperty()` before the first lookup
+    anchor: java-net-properties#address-cache-heading
+    sentence: they are not set by either the -D option or the System.setProperty() API
+    exclusive: true
+  - option: In the `dnsPolicy` field of the Pod spec
+    anchor: k8s-dns-service-pod#pod-s-dns-policy
+    sentence: DNS policies can be set on a per-Pod basis.
+m07-l01-q11:
+  key:
+    anchor: k8s-service#headless-services
+    sentence: In this case, you can create what are termed headless Services, by explicitly specifying "None" for the cluster IP address (.spec.clusterIP).
+  wrong:
+  - option: Set `.spec.type` to `None`
+    anchor: k8s-service#headless-services
+    sentence: To define a headless Service, you make a Service with .spec.type set to ClusterIP (which is also the default for type), and you additionally set .spec.clusterIP to None.
+  - option: Leave `.spec.clusterIP` unset
+    anchor: k8s-service#headless-services
+    sentence: The string value None is a special case and is not the same as leaving the .spec.clusterIP field unset.
+  - option: Set `.spec.type` to `LoadBalancer` and remove the selector
+    anchor: k8s-service#headless-services
+    sentence: For headless Services, a cluster IP is not allocated, kube-proxy does not handle these Services, and there is no load balancing or proxying done by the platform for them.
+m07-l01-q12:
+  key:
+    anchor: rfc8446#section-2.3
+    sentence: There are no guarantees of non-replay between connections.
+  wrong:
+  - option: The data can be duplicated within one connection
+    anchor: rfc8446#section-2.3
+    sentence: 0-RTT data cannot be duplicated within a connection (i.e., the server will not process the same data twice for the same connection)
+  - option: An attacker can make the data appear to be 1-RTT data
+    anchor: rfc8446#section-2.3
+    sentence: an attacker will not be able to make 0-RTT data appear to be 1-RTT data
+  - option: The data is forward secret only under the server's long-term key
+    anchor: rfc8446#section-2.3
+    sentence: This data is not forward secret, as it is encrypted solely under keys derived using the offered PSK.
+m07-l01-q13:
+  key:
+    anchor: rfc8446#section-4.4.2
+    sentence: The client MUST send a Certificate message if and only if the server has requested client authentication via a CertificateRequest message (Section 4.3.2).
+  wrong:
+  - option: In every full handshake, to prove its identity before `Finished`
+    anchor: rfc8446#section-4.4.2
+    sentence: The client MUST send a Certificate message if and only if the server has requested client authentication via a CertificateRequest message (Section 4.3.2).
+    exclusive: true
+  - option: Only when the server has sent the `certificate_authorities` extension
+    anchor: rfc8446#section-4.2.4
+    sentence: The client MAY send the "certificate_authorities" extension in the ClientHello message. The server MAY send it in the CertificateRequest message.
+  - option: Only when it holds a suitable certificate, otherwise it sends nothing
+    anchor: rfc8446#section-4.4.2
+    sentence: If the server requests client authentication but no suitable certificate is available, the client MUST send a Certificate message containing no certificates (i.e., with the "certificate_list" field having length 0).
+m07-l01-q14:
+  key:
+    anchor: rfc6066#section-3
+    sentence: clients MAY include an extension of type "server_name" in the (extended) client hello.
+  wrong:
+  - option: '`application_layer_protocol_negotiation`'
+    anchor: rfc7301#section-3.1
+    sentence: '"ProtocolNameList" contains the list of protocols advertised by the client, in descending order of preference.'
+  - option: '`certificate_authorities`'
+    anchor: rfc8446#section-4.2.4
+    sentence: The "certificate_authorities" extension is used to indicate the certificate authorities (CAs) which an endpoint supports and which SHOULD be used by the receiving endpoint to guide certificate selection.
+  - option: '`pre_shared_key`'
+    anchor: rfc8446#section-2
+    sentence: If PSK key establishment is in use, then the ServerHello contains a "pre_shared_key" extension indicating which of the client's offered PSKs was selected.
+m07-l01-q15:
+  key:
+    anchor: rfc7301#section-3.2
+    sentence: the server SHOULD select the most highly preferred protocol that it supports and that is also advertised by the client.
+  wrong:
+  - option: It returns the whole list of protocols that it supports
+    anchor: rfc7301#section-3.1
+    sentence: except that the "ProtocolNameList" MUST contain exactly one "ProtocolName".
+  - option: It continues with its default protocol when it supports none of them
+    anchor: rfc7301#section-3.2
+    sentence: In the event that the server supports no protocols that the client advertises, then the server SHALL respond with a fatal "no_application_protocol" alert.
+  - option: It may switch to another protocol for the application data
+    anchor: rfc7301#section-3.2
+    sentence: The server SHALL NOT respond with a selected protocol and subsequently use a different protocol for application data exchange.
+m07-l01-q16:
+  key:
+    anchor: javadoc-java-net-socket#setSoTimeout(int)
+    sentence: A timeout of zero is interpreted as an infinite timeout.
+  wrong:
+  - option: Setting it while a `read()` is already blocked cuts that read short
+    anchor: javadoc-java-net-socket#setSoTimeout(int)
+    sentence: The option must be enabled prior to entering the blocking operation to have effect.
+  - option: A negative value is accepted and means no timeout
+    anchor: javadoc-java-net-socket#setSoTimeout(int)
+    sentence: IllegalArgumentException - if timeout is negative
+  - option: When it expires the `Socket` is closed
+    anchor: javadoc-java-net-socket#setSoTimeout(int)
+    sentence: If the timeout expires, a java.net.SocketTimeoutException is raised, though the Socket is still valid.
+m07-l01-q17:
+  key:
+    anchor: javadoc-java-net-http-httpclient#connectTimeout()
+    sentence: If the connect timeout duration was not set in the client's builder, then the Optional is empty.
+  wrong:
+  - option: An `Optional` holding a zero duration
+    anchor: javadoc-java-net-http-httpclient#connectTimeout()
+    sentence: Returns an Optional containing the connect timeout duration for this client.
+  - option: '`null`'
+    anchor: javadoc-java-net-http-httpclient#connectTimeout()
+    sentence: public abstract Optional<Duration> connectTimeout()
+  - option: An `Optional` holding an infinite duration
+    anchor: javadoc-java-net-http-httpclient#connectTimeout()
+    sentence: an Optional containing this client's connect timeout duration
+m07-l01-q18:
+  key:
+    anchor: rfc9112#section-9.5
+    sentence: A client, server, or proxy MAY close the transport connection at any time.
+  wrong:
+  - option: A server may close an idle connection only after sending a `close` connection option
+    anchor: rfc9112#section-9.3
+    sentence: A server that does not support persistent connections MUST send the "close" connection option in every response message that does not have a 1xx (Informational) status code.
+  - option: A persistent connection stays open until the client sends a `close` option
+    anchor: rfc9112#section-9.5
+    sentence: Servers will usually have some timeout value beyond which they will no longer maintain an inactive connection.
+  - option: A client must read the response body to the end before the server may close
+    anchor: rfc9112#section-9.3
+    sentence: Likewise, a client MUST read the entire response message body if it intends to reuse the same connection for a subsequent request.
+m07-l01-q19:
+  key:
+    execution: m07-l01/Timeouts.java
+  wrong:
+  - option: 'none
+
+      PT2S
+
+      none
+
+      none'
+    execution: m07-l01/Timeouts.java
+    mistake: ignored the request builder setting
+  - option: 'PT0S
+
+      PT2S
+
+      PT0S
+
+      PT1S'
+    execution: m07-l01/Timeouts.java
+    mistake: unset timeout read as zero
+  - option: 'none
+
+      PT2M
+
+      none
+
+      PT1M'
+    execution: m07-l01/Timeouts.java
+    mistake: wrong unit

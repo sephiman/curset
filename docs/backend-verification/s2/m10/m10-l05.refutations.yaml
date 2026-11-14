@@ -1,0 +1,196 @@
+m10-l05-q01:
+  key:
+    anchor: k8s-pod-lifecycle#liveness-probe
+    sentence: Liveness probes do not wait for readiness probes to succeed.
+  wrong:
+  - option: A failed readiness probe makes the kubelet restart the container
+    anchor: k8s-pod-lifecycle#readiness-probe
+    sentence: If the readiness probe returns a failed state, the EndpointSlice controller removes the Pod's IP address from the EndpointSlices of all Services that match the Pod.
+  - option: A startup probe keeps running periodically for the whole life of the container
+    anchor: k8s-pod-lifecycle#startup-probe
+    sentence: This type of probe is only executed at startup, unlike liveness and readiness probes, which are run periodically.
+  - option: A failed startup probe only removes the Pod from the Service endpoints
+    anchor: k8s-pod-lifecycle#startup-probe
+    sentence: If the startup probe fails, the kubelet kills the container, and the container is subjected to its restart policy.
+m10-l05-q02:
+  key:
+    anchor: spring-boot-actuator-endpoints#actuator.endpoints.kubernetes-probes.external-state
+    sentence: The “liveness” probe should not depend on health checks for external systems.
+  wrong:
+  - option: The readiness group includes custom health indicators by default
+    anchor: spring-boot-actuator-endpoints#actuator.endpoints.kubernetes-probes.external-state
+    sentence: By default, Spring Boot does not add other health indicators to these groups.
+  - option: A Service whose instances are all unready answers with HTTP `503` for a `ClusterIP` type
+    anchor: spring-boot-actuator-endpoints#actuator.endpoints.kubernetes-probes.external-state
+    sentence: There is no HTTP error response (503 and so on), since there is no connection.
+  - option: A `startupProbe` is always required because readiness passes before the startup tasks finish
+    anchor: spring-boot-actuator-endpoints#actuator.endpoints.kubernetes-probes
+    sentence: Generally speaking, the "startupProbe" is not necessarily needed here as the "readinessProbe" fails until all startup tasks are done.
+m10-l05-q03:
+  key:
+    anchor: k8s-pod-lifecycle#pod-termination
+    sentence: Once the grace period has expired, the KILL signal is sent to any remaining processes, and the Pod is then deleted from the API Server.
+  wrong:
+  - option: A `preStop` hook still running at expiry gets an extension of 30 seconds
+    anchor: k8s-pod-lifecycle#pod-termination-flow
+    sentence: If the preStop hook is still running after the grace period expires, the kubelet requests a small, one-off grace period extension of 2 seconds.
+  - option: Container runtimes always send TERM, whatever `STOPSIGNAL` the image defines
+    anchor: k8s-pod-lifecycle#pod-termination
+    sentence: Many container runtimes respect the STOPSIGNAL value defined in the container image and, if different, send the container image configured STOPSIGNAL instead of TERM.
+  - option: Hooks are delivered exactly once, so a hook handler never needs to expect repeats
+    anchor: k8s-container-lifecycle-hooks#hook-delivery-guarantees
+    sentence: Hook delivery is intended to be at least once, which means that a hook may be called multiple times for any given event, such as for PostStart or PreStop.
+m10-l05-q04:
+  key:
+    anchor: k8s-endpoint-slices#terminating
+    sentence: For endpoints backed by a Pod, this condition is set when the Pod is first deleted (that is, when it receives a deletion timestamp, but most likely before the Pod's containers exit).
+  wrong:
+  - option: Service proxies never route to terminating endpoints, even when all endpoints are terminating
+    anchor: k8s-endpoint-slices#terminating
+    sentence: Service proxies will normally ignore endpoints that are terminating, but they may route traffic to endpoints that are both serving and terminating if all available endpoints are terminating.
+  - option: During node shutdown the kubelet still accepts new Pods that are already bound to the node
+    anchor: k8s-kubelet-graceful-shutdown#graceful-node-shutdown
+    sentence: During node shutdown, the kubelet does not accept new Pods (even if those Pods are already bound to the node).
+  - option: During node shutdown the kubelet skips the normal Pod termination process to save time
+    anchor: k8s-kubelet-graceful-shutdown#graceful-node-shutdown
+    sentence: Kubelet ensures that pods follow the normal pod termination process during the node shutdown.
+m10-l05-q05:
+  key:
+    anchor: spring-boot-web-graceful-shutdown#page-title
+    sentence: Graceful shutdown is enabled by default with all three embedded web servers (Jetty, Reactor Netty, and Tomcat) and with both reactive and servlet-based web applications.
+  wrong:
+  - option: New requests keep being accepted during the grace period so that no client sees an error
+    anchor: spring-boot-web-graceful-shutdown#page-title
+    sentence: This stop processing uses a timeout which provides a grace period during which existing requests will be allowed to complete but no new requests will be permitted.
+  - option: Only Tomcat stops accepting new requests at the network layer, while Jetty and Reactor Netty keep serving them
+    anchor: spring-boot-web-graceful-shutdown#web.graceful-shutdown.rejecting-requests-during-the-grace-period
+    sentence: Jetty, Reactor Netty, and Tomcat will stop accepting new requests at the network layer.
+  - option: A shutdown started from an IDE is always graceful because the IDE sends `SIGTERM`
+    anchor: spring-boot-web-graceful-shutdown#page-title
+    sentence: Shutdown in your IDE may be immediate rather than graceful if it does not send a proper SIGTERM signal.
+m10-l05-q06:
+  key:
+    anchor: kafka-javadoc-kafkaconsumer#close()
+    sentence: If auto-commit is enabled, this will commit the current offsets if possible within the default timeout.
+  wrong:
+  - option: A call to `wakeup()` from another thread interrupts it
+    anchor: kafka-javadoc-kafkaconsumer#close()
+    sentence: Note that wakeup() cannot be used to interrupt close.
+  - option: It stops at the first failing shutdown step and skips the remaining ones
+    anchor: kafka-javadoc-kafkaconsumer#close()
+    sentence: This close operation will attempt all shutdown steps even if one of them fails.
+  - option: It waits up to 5 seconds by default for any needed cleanup
+    anchor: kafka-javadoc-kafkaconsumer#close()
+    sentence: Close the consumer with default leave group behavior, waiting for up to the default timeout of 30 seconds for any needed cleanup.
+m10-l05-q07:
+  key:
+    anchor: k8s-deployment#max-unavailable
+    sentence: The absolute number is calculated from percentage by rounding down.
+  wrong:
+  - option: At least 7 available and at most 13 in total
+    anchor: k8s-deployment#max-unavailable
+    sentence: The absolute number is calculated from percentage by rounding down.
+  - option: At least 8 available and at most 12 in total
+    anchor: k8s-deployment#max-surge
+    sentence: The absolute number is calculated from the percentage by rounding up.
+  - option: At least 8 available and at most 10 in total
+    anchor: k8s-deployment#max-surge
+    sentence: The default value is 25%.
+m10-l05-q08:
+  key:
+    anchor: k8s-disruptions#pod-disruption-budgets
+    sentence: Involuntary disruptions cannot be prevented by PDBs; however they do count against the budget.
+  wrong:
+  - option: It stops a Deployment's rolling update from replacing more Pods than the budget allows
+    anchor: k8s-disruptions#pod-disruption-budgets
+    sentence: but workload resources (such as Deployment and StatefulSet) are not limited by PDBs when doing rolling upgrades.
+  - option: It prevents involuntary disruptions such as a node crash from taking Pods down
+    anchor: k8s-disruptions#pod-disruption-budgets
+    sentence: A PDB limits the number of Pods of a replicated application that are down simultaneously from voluntary disruptions.
+  - option: '`kubectl drain` deletes the Pods directly and so bypasses the budget'
+    anchor: k8s-disruptions#pod-disruption-budgets
+    sentence: When you run kubectl drain, the tool tries to evict all of the Pods on the Node you're taking out of service.
+m10-l05-q09:
+  key:
+    anchor: argo-rollouts-concepts#blue-green
+    sentence: has both the new and old version of the application deployed at the same time. During this time, only the old version of the application will receive production traffic.
+  wrong:
+  - option: In a canary deployment the new version receives all traffic as soon as it is deployed
+    anchor: argo-rollouts-concepts#canary
+    sentence: A Canary deployment exposes a subset of users to the new version of the application while serving the rest of the traffic to the old version.
+  - option: Progressive delivery releases to all users at once and analyzes metrics afterwards
+    anchor: argo-rollouts-concepts#progressive-delivery
+    sentence: This is accomplished by limiting the exposure of the new version to a subset of users, observing and analyzing for correct behavior, then progressively increasing the exposure to a broader and wider audience while continuously verifying correctness.
+  - option: A Deployment cannot be rolled back once its update completes because the history is discarded
+    anchor: k8s-deployment#rolling-back-a-deployment
+    sentence: By default, all of the Deployment's rollout history is kept in the system so that you can rollback anytime you want (you can change that by modifying revision history limit).
+m10-l05-q10:
+  key:
+    anchor: opengitops-principles#continuously-reconciled
+    sentence: Software agents continuously observe actual system state and attempt to apply the desired state.
+  wrong:
+  - option: The desired state is kept in a mutable store so that operators can edit it in place
+    anchor: opengitops-principles#versioned-and-immutable
+    sentence: Desired state is stored in a way that enforces immutability, versioning and retains a complete version history.
+  - option: A CI pipeline pushes the desired state into the system whenever a commit is merged
+    anchor: opengitops-principles#pulled-automatically
+    sentence: Software agents automatically pull the desired state declarations from the source.
+  - option: The desired state is expressed as imperative scripts that the agents run in order
+    anchor: opengitops-principles#declarative
+    sentence: A system managed by GitOps must have its desired state expressed declaratively.
+m10-l05-q11:
+  key:
+    anchor: argocd-core-concepts#core-concepts
+    sentence: Sync status Whether or not the live state matches the target state.
+  wrong:
+  - option: Whether the last sync operation succeeded
+    anchor: argocd-core-concepts#core-concepts
+    sentence: Sync operation status Whether or not a sync succeeded.
+  - option: Whether the application is running correctly and can serve requests
+    anchor: argocd-core-concepts#core-concepts
+    sentence: Health The health of the application, is it running correctly? Can it serve requests?
+  - option: What is different between the latest code in Git and the live state
+    anchor: argocd-core-concepts#core-concepts
+    sentence: Refresh Compare the latest code in Git with the live state.
+m10-l05-q12:
+  key:
+    anchor: dora-capabilities-trunk#searchLinkMobile
+    sentence: The second pattern is known as trunk-based development, where each developer divides their own work into small batches and merges that work into trunk at least once (and potentially several times) a day.
+  wrong:
+  - option: Branches in trunk-based development typically take days or even weeks of work
+    anchor: dora-capabilities-trunk#searchLinkMobile
+    sentence: In contrast, branches in trunk-based development typically last no more than a few hours, with many developers merging their individual changes into trunk frequently.
+  - option: Teams perform better when they schedule code freezes to stabilize the release
+    anchor: dora-capabilities-trunk#how-to-implement-trunk-based-development
+    sentence: Don’t have code freezes and don’t have integration phases.
+  - option: Continuous integration means feature branches plus a nightly build of each branch
+    anchor: dora-capabilities-trunk#how-to-implement-trunk-based-development
+    sentence: Continuous integration (CI) is the combination of practicing trunk-based development and maintaining a suite of fast automated tests that run after each commit to trunk to make sure the system is always working.
+m10-l05-q13:
+  key:
+    anchor: flyway-migrations#Migrations-Transactionhandling
+    sentence: By default Flyway wraps the execution of each migration script in a single transaction and applies them in order.
+  wrong:
+  - option: Flyway reruns every migration on each start so the schema always matches the scripts
+    anchor: flyway-migrations#Migrations-Migrate
+    sentence: It will compare them to the migrations that have been applied to the database.
+  - option: Flyway keeps its record of applied migrations only in the scripts folder, not in the database
+    anchor: flyway-migrations#Migrations-Schemahistory
+    sentence: To keep track of which migrations have already been applied when and by whom, Flyway adds a schema history table to your schema.
+  - option: Liquibase reruns a changeset on every update unless told otherwise
+    anchor: liquibase-changeset#main-header
+    sentence: Once you run a changeset, Liquibase does not re-run it unless you specify runAlways or runOnChange for that changeset.
+m10-l05-q14:
+  key:
+    anchor: dora-metrics#throughput
+    sentence: 'DORA uses three factors to measure software delivery throughput:'
+  wrong:
+  - option: DORA currently defines four metrics, the original four keys
+    anchor: dora-metrics#by-nathen-harvey
+    sentence: 'These metrics have evolved alongside the technology landscape: shifting from the original four keys to the current five-metric model.'
+  - option: Instability is measured with change lead time and deployment frequency
+    anchor: dora-metrics#instability
+    sentence: 'DORA uses two factors to measure software delivery instability:'
+  - option: Change fail rate is the ratio of deployments that are unplanned because of a production incident
+    anchor: dora-metrics#instability
+    sentence: 'Deployment rework rate: The ratio of deployments that are unplanned but happen as a result of an incident in production.'

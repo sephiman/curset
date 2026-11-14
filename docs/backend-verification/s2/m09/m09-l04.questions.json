@@ -1,0 +1,392 @@
+[
+ {
+  "id": "m09-l04-q01",
+  "fact": "m09-l04-f14",
+  "stem": "In Resilience4j, the immutable `AtomicRateLimiter.State` records data about the last call. Which statement about its `activePermissions` field is correct?",
+  "key": "It counts the available permissions after the last call and can be negative when permissions were reserved",
+  "distractors": [
+   "It holds the cycle number that the last call used",
+   "It holds the number of nanoseconds the last call had to wait for permission",
+   "It never goes below zero, because permissions cannot be reserved ahead of a cycle"
+  ],
+  "explanation": "`activePermissions` is the count of available permissions after the last call, and it can be negative if some permissions were reserved. The cycle number that the last call used lives in the separate field `activeCycle`. The number of nanoseconds to wait for permission lives in the separate field `nanosToWait`. A value that never goes below zero is wrong because the field can be negative when some permissions were reserved.",
+  "citation": "resilience4j-ratelimiter#internals",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m09-l04-q02",
+  "fact": "m09-l04-f11",
+  "stem": "Which implementation of `RateLimiter` is the default in Resilience4j, and how does it hold its state?",
+  "key": "`AtomicRateLimiter`, whose state is an immutable object held in an `AtomicReference`",
+  "distractors": [
+   "`SemaphoreBasedRateLimiter`, whose state is held in an `AtomicReference`",
+   "`AtomicRateLimiter`, whose state is a mutable object updated in place",
+   "`AtomicRateLimiter`, whose permissions a scheduler refreshes after each `limitRefreshPeriod`"
+  ],
+  "explanation": "The default implementation of `RateLimiter` is `AtomicRateLimiter`, which manages its state via `AtomicReference`. `SemaphoreBasedRateLimiter` is wrong because it is a second implementation, not the default. A mutable state object is wrong because the `AtomicRateLimiter.State` is completely immutable. A scheduler that refreshes permissions after each `limitRefreshPeriod` is wrong because that belongs to the `SemaphoreBasedRateLimiter`, which uses Semaphores.",
+  "citation": "resilience4j-ratelimiter#internals",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m09-l04-q03",
+  "fact": "m09-l04-f20",
+  "stem": "In the `RateLimit-Policy` header field draft, a quota policy item carries several parameters. Which parameter is REQUIRED, while the others are OPTIONAL?",
+  "key": "`q`, the quota allocated by the policy",
+  "distractors": [
+   "`w`, the time window",
+   "`qu`, the quota unit",
+   "`pk`, the partition key"
+  ],
+  "explanation": "The REQUIRED `q` parameter indicates the quota allocated by the policy measured in quota units. The `w` parameter is wrong because the time window is conveyed by the OPTIONAL `w` parameter. The `qu` parameter is wrong because the quota unit is conveyed by the OPTIONAL `qu` parameter. The `pk` parameter is wrong because the partition key is conveyed by the OPTIONAL `pk` parameter.",
+  "citation": "ietf-httpapi-ratelimit-headers#content",
+  "extract": "The REQUIRED \"q\" parameter indicates the quota allocated by this policy measured in quota units.",
+  "snippet": null
+ },
+ {
+  "id": "m09-l04-q04",
+  "fact": "m09-l04-f22",
+  "stem": "In the `RateLimit` header fields draft, a quota policy item sets `q` and gives no `qu` parameter. In which quota unit is the quota measured by default?",
+  "key": "`requests`",
+  "distractors": [
+   "`content-bytes`",
+   "`concurrent-requests`",
+   "`tokens`"
+  ],
+  "explanation": "The default quota unit is `requests`. That single default rules out `content-bytes`, `concurrent-requests` and `tokens`.",
+  "citation": "ietf-httpapi-ratelimit-headers#content",
+  "extract": "The default quota unit is \"requests\".",
+  "snippet": null
+ },
+ {
+  "id": "m09-l04-q05",
+  "fact": "m09-l04-f24",
+  "stem": "In the `RateLimit` header fields draft, what does the `w` parameter of a quota policy item hold?",
+  "key": "A non-negative, non-zero integer interval in seconds",
+  "distractors": [
+   "An integer number of milliseconds, so sub-second windows are possible",
+   "An integer number of minutes",
+   "A UNIX timestamp marking when the window ends"
+  ],
+  "explanation": "The time window MUST be a non-negative, non-zero Integer value expressing an interval in seconds. An integer number of milliseconds is wrong because sub-second precision is not supported. An integer number of minutes is wrong because the window is an Integer value expressing an interval in seconds. A UNIX timestamp is wrong because the draft uses delay-seconds, which aligns with `Retry-After`.",
+  "citation": "ietf-httpapi-ratelimit-headers#content",
+  "extract": "The time window MUST be a non-negative, non-zero, Integer value expressing an interval in seconds",
+  "snippet": null
+ },
+ {
+  "id": "m09-l04-q06",
+  "fact": "m09-l04-f40",
+  "stem": "In PostgreSQL, a query uses `SELECT … FOR UPDATE NOWAIT`. What happens when one of the selected rows cannot be locked immediately because another transaction holds a conflicting lock?",
+  "key": "The statement reports an error instead of waiting for the lock",
+  "distractors": [
+   "The row is skipped and the statement returns the remaining rows",
+   "The statement waits until the other transaction commits and then locks the row",
+   "The statement takes a table-level lock to get past the row lock"
+  ],
+  "explanation": "With `NOWAIT`, the statement reports an error, rather than waiting, if a selected row cannot be locked immediately. Skipping the row is wrong because that is the behavior of `SKIP LOCKED`. Waiting for the other transaction is wrong because `NOWAIT` is the option used to prevent the operation from waiting for other transactions to commit. A table-level lock is wrong because `NOWAIT` and `SKIP LOCKED` apply only to the row-level lock(s).",
+  "citation": "pg-sql-select#SQL-FOR-UPDATE-SHARE",
+  "extract": "With NOWAIT, the statement reports an error, rather than waiting, if a selected row cannot be locked immediately.",
+  "snippet": null
+ },
+ {
+  "id": "m09-l04-q07",
+  "fact": "m09-l04-f42",
+  "stem": "Which drawback does the PostgreSQL documentation give for `SKIP LOCKED`, even though it can reduce lock contention among consumers of a queue-like table?",
+  "key": "It provides an inconsistent view of the data, so it is not suitable for general purpose work",
+  "distractors": [
+   "It also skips the table-level lock, so concurrent schema changes can run",
+   "It cannot be combined with a `LIMIT` clause",
+   "It locks every row the query scans before it skips any"
+  ],
+  "explanation": "Skipping locked rows provides an inconsistent view of the data, so it is not suitable for general purpose work. Skipping the table-level lock is wrong because the required `ROW SHARE` table-level lock is still taken in the ordinary way. Incompatibility with `LIMIT` is wrong because, if a `LIMIT` is used, locking stops once enough rows have been returned. Locking every scanned row is wrong because the rows that are locked are exactly those that are returned by the query.",
+  "citation": "pg-sql-select#SQL-FOR-UPDATE-SHARE",
+  "extract": "Skipping locked rows provides an inconsistent view of the data, so this is not suitable for general purpose work, but can be used to avoid lock contention with multiple consumers accessing a queue-like table.",
+  "snippet": null
+ },
+ {
+  "id": "m09-l04-q08",
+  "fact": "m09-l04-f47",
+  "stem": "An application relies on `SERIALIZABLE` transactions in PostgreSQL to prevent anomalies. Which practice does the documentation require of the application?",
+  "key": "It must be prepared to retry transactions that fail with a serialization failure",
+  "distractors": [
+   "It must lock the entire table before each read, as `READ COMMITTED` transactions do",
+   "It may rely on data read in a transaction that later aborted",
+   "It must expect predicate locks to block other transactions and cause deadlocks"
+  ],
+  "explanation": "Applications using this level must be prepared to retry transactions due to serialization failures. Locking the entire table before each read is wrong because only a `READ COMMITTED` or `REPEATABLE READ` transaction may need to take out a lock on an entire table. Relying on data from an aborted transaction is wrong because applications must not depend on results read during a transaction that later aborted. Blocking predicate locks are wrong because in PostgreSQL these locks do not cause any blocking and cannot cause a deadlock.",
+  "citation": "pg-transaction-iso#XACT-SERIALIZABLE",
+  "extract": "applications using this level must be prepared to retry transactions due to serialization failures",
+  "snippet": null
+ },
+ {
+  "id": "m09-l04-q09",
+  "fact": "m09-l04-f62",
+  "stem": "A client reuses an `Idempotency-Key` value on a new request with a different payload. Which HTTP status code does the draft say the resource SHOULD reply with?",
+  "key": "`422`",
+  "distractors": [
+   "`409`",
+   "`400`",
+   "`200`"
+  ],
+  "explanation": "If there is an attempt to reuse an idempotency key with a different request payload, the resource SHOULD reply with an HTTP `422` status code. The `409` status code is wrong because it is the reply to a retry while the original request is still being processed. The `400` status code is wrong because it is the reply to a missing `Idempotency-Key` header. The `200` status code is wrong because a reused key with a different payload gets `422`.",
+  "citation": "ietf-httpapi-idempotency-key#content",
+  "extract": "If there is an attempt to reuse an idempotency key with a different request payload, the resource SHOULD reply with an HTTP 422 status code",
+  "snippet": null
+ },
+ {
+  "id": "m09-l04-q10",
+  "fact": "m09-l04-f78",
+  "stem": "A Kafka application uses default producer and consumer settings and writes processed data to an external database. Which delivery guarantee does Kafka itself provide by default?",
+  "key": "At-least-once delivery",
+  "distractors": [
+   "At-most-once delivery, because the producer disables retries by default",
+   "Exactly-once delivery to the external database without its cooperation",
+   "No guarantee, because a committed message can be lost even while a broker replicating its partition is alive"
+  ],
+  "explanation": "Kafka guarantees at-least-once delivery by default. At-most-once delivery is wrong because the user has to implement it by disabling retries on the producer and committing offsets in the consumer prior to processing a batch. Exactly-once delivery to the external database is wrong because exactly-once delivery for other destination systems generally requires cooperation with such systems. Having no guarantee is wrong because once a published message is committed, it will not be lost as long as one broker that replicates the partition remains alive.",
+  "citation": "kafka-design#message-delivery-semantics",
+  "extract": "Kafka guarantees at-least-once delivery by default, and allows the user to implement at-most-once delivery by disabling retries on the producer and committing offsets in the consumer prior to processing a batch of messages.",
+  "snippet": null
+ },
+ {
+  "id": "m09-l04-q11",
+  "fact": "m09-l04-f72",
+  "stem": "A Kafka consumer reads messages, saves its position in the log, and only then processes them. It crashes after saving the position but before processing. Which semantics does this ordering give?",
+  "key": "At-most-once, because messages before the saved position may never be processed",
+  "distractors": [
+   "At-least-once, because the new process re-reads messages that were already processed",
+   "Exactly-once, because the position and the processing result are saved together",
+   "No guarantee, because the new process restarts from the beginning of the partition"
+  ],
+  "explanation": "This ordering corresponds to at-most-once semantics, because on a consumer failure messages may not be processed. At-least-once is wrong because it comes from reading the messages, processing them, and finally saving the position. Exactly-once is wrong because the position is saved before the processing result, so messages may not be processed. Restarting from the beginning of the partition is wrong because the process that took over would start at the saved position.",
+  "citation": "kafka-design#message-delivery-semantics",
+  "extract": "It can read the messages, then save its position in the log, and finally process the messages. In this case there is a possibility that the consumer process crashes after saving its position but before saving the output of its message processing. In this case the process that took over processing would start at the saved position even though a few messages prior to that position had not been processed. This corresponds to “at-most-once” semantics as in the case of a consumer failure messages may not be processed.",
+  "snippet": null
+ },
+ {
+  "id": "m09-l04-q12",
+  "fact": "m09-l04-f84",
+  "stem": "In RabbitMQ, a queue has a dead letter exchange configured. Which of these events does NOT cause its messages to be dead-lettered?",
+  "key": "The whole queue expires",
+  "distractors": [
+   "A consumer rejects a message with `basic.nack` and `requeue` set to false",
+   "A message expires due to per-message TTL",
+   "A message is dropped because its queue exceeded a length limit"
+  ],
+  "explanation": "If an entire queue expires, the messages in the queue are not dead-lettered. A rejection with `basic.nack` and `requeue` set to false is wrong because it is listed as an event that dead-letters a message. Expiry due to per-message TTL is wrong because it is listed as an event that dead-letters a message. A drop because the queue exceeded a length limit is wrong because it is listed as an event that dead-letters a message.",
+  "citation": "rabbitmq-dlx#overview",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m09-l04-q13",
+  "fact": "m09-l04-f90",
+  "stem": "A team configures non-blocking retries and dead-letter topics in Spring for Apache Kafka with `@RetryableTopic`. Which statement about this feature is correct?",
+  "key": "Since 3.2, it is supported with `@KafkaListener` on a class",
+  "distractors": [
+   "It is supported with batch listeners",
+   "It can be combined with container transactions",
+   "The `@RetryableTopic` annotation was introduced in version 3.2"
+  ],
+  "explanation": "Since 3.2, Spring for Apache Kafka supports non-blocking retries with `@KafkaListener` on a class. Support for batch listeners is wrong because non-blocking retries are not supported with Batch Listeners. Combining with container transactions is wrong because non-blocking retries cannot combine with Container Transactions. A 3.2 introduction of `@RetryableTopic` is wrong because Spring for Apache Kafka has offered support through that annotation since 2.7.",
+  "citation": "spring-kafka-retrytopic#page-title",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m09-l04-q14",
+  "fact": "m09-l04-f94",
+  "stem": "On a JBOD array of six 7200rpm SATA drives in a RAID-5 configuration, how much faster are linear writes than random writes, according to Kafka's design documentation?",
+  "key": "More than 6000 times faster",
+  "distractors": [
+   "About 600 times faster",
+   "About 60 times faster",
+   "About 100 times faster"
+  ],
+  "explanation": "The documentation gives a difference of over 6000X between linear and random writes. That single figure rules out about 600 times, about 60 times and about 100 times.",
+  "citation": "kafka-design#dont-fear-the-filesystem",
+  "extract": "the performance of linear writes on a JBOD configuration with six 7200rpm SATA RAID-5 array is about 600MB/sec but the performance of random writes is only about 100kB/sec–a difference of over 6000X",
+  "snippet": null
+ },
+ {
+  "id": "m09-l04-q15",
+  "fact": "m09-l04-f109",
+  "stem": "A Kafka producer sends a compressed batch of messages. How does Kafka handle that batch in the broker's log and on the way to the consumer?",
+  "key": "The batch stays compressed in the log and is also sent to the consumer in compressed form",
+  "distractors": [
+   "The broker stores the messages uncompressed after validating them",
+   "The broker never decompresses the batch, so it cannot validate the record count",
+   "The broker compresses each message separately when it appends the batch to the log"
+  ],
+  "explanation": "The batch will remain compressed in the log and it will also be transmitted to the consumer in compressed form. Storing the messages uncompressed is wrong because the batch is written to disk in compressed form. Never decompressing the batch is wrong because the broker decompresses the batch in order to validate it. Compressing each message separately is wrong because a batch of messages is grouped together, compressed, and sent to the server in this form.",
+  "citation": "kafka-design#end-to-end-batch-compression",
+  "extract": "The batch will remain compressed in the log and it will also be transmitted to the consumer in compressed form.",
+  "snippet": null
+ },
+ {
+  "id": "m09-l04-q16",
+  "fact": "m09-l04-f124",
+  "stem": "In UUIDv7 as defined by RFC 9562, which value occupies the most significant 48 bits of the identifier?",
+  "key": "A Unix Epoch timestamp in milliseconds",
+  "distractors": [
+   "A 100-nanosecond Gregorian Epoch timestamp",
+   "The Media Access Control (MAC) address of the generating node",
+   "Random bits, with the timestamp in the least significant bits"
+  ],
+  "explanation": "UUIDv7 allocates a Unix timestamp in milliseconds in the most significant 48 bits and fills the remaining bits with random bits. A 100-nanosecond Gregorian Epoch timestamp is wrong because that epoch is used in UUIDv1 timestamps. A MAC address is wrong because UUIDv1 uses it in the node field. Putting the timestamp in the least significant bits is wrong because `unix_ts_ms` occupies bits 0 through 47.",
+  "citation": "rfc9562#section-5.7",
+  "extract": "UUIDv7 values are created by allocating a Unix timestamp in milliseconds in the most significant 48 bits and filling the remaining 74 bits, excluding the required version and variant bits, with random bits for each new UUIDv7 generated to provide uniqueness",
+  "snippet": null
+ },
+ {
+  "id": "m09-l04-q17",
+  "fact": "m09-l04-f128",
+  "stem": "An application needs UUIDs whose timestamp comes from a custom Epoch instead of the Unix Epoch. Which UUID version does RFC 9562 say MUST be used?",
+  "key": "UUIDv8",
+  "distractors": [
+   "UUIDv7",
+   "UUIDv6",
+   "UUIDv1"
+  ],
+  "explanation": "If other timestamp sources or a custom timestamp Epoch are required, UUIDv8 MUST be used. UUIDv7 is wrong because it features a millisecond level of precision by default within the Unix Epoch. UUIDv6 is wrong because UUIDv1 and UUIDv6 both utilize a Gregorian Epoch timestamp. UUIDv1 is wrong because its timestamps use the 100-nanosecond Gregorian Epoch.",
+  "citation": "rfc9562#section-6.1",
+  "extract": "If other timestamp sources or a custom timestamp Epoch are required, UUIDv8 MUST be used.",
+  "snippet": null
+ },
+ {
+  "id": "m09-l04-q18",
+  "fact": "m09-l04-f133",
+  "stem": "Which formula does Redis Cluster use to map a key to a hash slot, leaving aside the hash tag exception?",
+  "key": "`CRC16(key) mod 16384`",
+  "distractors": [
+   "`CRC16(key) mod 65536`",
+   "`CRC32(key) mod 16384`",
+   "`SHA1(key) mod 16384`"
+  ],
+  "explanation": "The base algorithm maps a key to a hash slot with `HASH_SLOT = CRC16(key) mod 16384`. The modulo 65536 variant is wrong because 14 out of 16 CRC16 output bits are used, which is why the formula has a modulo 16384 operation. The formula uses `CRC16`, which rules out `CRC32(key) mod 16384` and `SHA1(key) mod 16384`.",
+  "citation": "redis-cluster-spec#key-distribution-model",
+  "extract": "The base algorithm used to map keys to hash slots is the following (read the next paragraph for the hash tag exception to this rule): HASH_SLOT = CRC16(key) mod 16384",
+  "snippet": null
+ },
+ {
+  "id": "m09-l04-q19",
+  "fact": "m09-l04-f139",
+  "stem": "For a `search_as_you_type` field in Elasticsearch, what is the default `max_shingle_size`, and which values are valid?",
+  "key": "The default is 3, and valid values are the integers 2 to 4 inclusive",
+  "distractors": [
+   "The default is 2, and valid values are the integers 2 to 4 inclusive",
+   "The default is 3, and valid values are the integers 1 to 3 inclusive",
+   "The default is 4, and valid values are the integers 3 to 8 inclusive"
+  ],
+  "explanation": "The default is 3, and valid values are the integers 2 to 4 inclusive. That single statement rules out a default of 2, the range 1 to 3, and a default of 4 with the range 3 to 8.",
+  "citation": "es-search-as-you-type#elastic-docs-v3",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m09-l04-q20",
+  "fact": "m09-l04-f156",
+  "stem": "In Elasticsearch, the default BM25 similarity has the options `k1` and `b`. Which pair gives their default values?",
+  "key": "`k1` is 1.2 and `b` is 0.75",
+  "distractors": [
+   "`k1` is 0.75 and `b` is 1.2",
+   "`k1` is 2.0 and `b` is 0.75",
+   "`k1` is 1.2 and `b` is 1.0"
+  ],
+  "explanation": "The default `k1` is 1.2 and the default `b` is 0.75. A `k1` of 0.75 and a `k1` of 2.0 are wrong because the default value of `k1` is 1.2. A `b` of 1.0 is wrong because the default value of `b` is 0.75.",
+  "citation": "es-similarity#bm25",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m09-l04-q21",
+  "fact": "m09-l04-f164",
+  "stem": "An application pages through Elasticsearch results with `search_after`, sorts on a field that is not unique, and uses no point in time. What can happen to its paged results?",
+  "key": "They could miss or duplicate hits, so the sort should include a tiebreaker field",
+  "distractors": [
+   "Elasticsearch adds an implicit `_shard_doc` tiebreaker, so the pages stay complete",
+   "The request is rejected, because `search_after` always requires a point in time",
+   "Only the first page is returned, because `search_after` runs a single request"
+  ],
+  "explanation": "If you don’t include a tiebreaker field, your paged results could miss or duplicate hits. The implicit `_shard_doc` tiebreaker is wrong because it is added only to PIT search requests. Rejection without a point in time is wrong because, if you cannot use a PIT, the documentation recommends a tiebreaker field in your sort. A single request is wrong because `search_after` requires multiple search requests with the same query and sort values.",
+  "citation": "es-paginate-search-results#search-after",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m09-l04-q22",
+  "fact": "m09-l04-f151",
+  "stem": "In Elasticsearch full-text search, an inverted index is made up of two key components. What does its dictionary contain?",
+  "key": "A sorted list of all unique terms in the collection of documents in the index",
+  "distractors": [
+   "For each term, a list of document IDs where the term appears",
+   "The relevance score of each document for the query",
+   "The analyzers that transform the text before it is indexed"
+  ],
+  "explanation": "The dictionary is a sorted list of all unique terms in the collection of documents in the index. The list of document IDs for each term is wrong because that is the posting list. The relevance score of each document is wrong because it is the `_score` produced by relevance scoring, a separate step. The analyzers are wrong because the dictionary is a sorted list of terms, and the text analysis happens before the inverted index is built.",
+  "citation": "es-how-full-text-works#elastic-docs-v3",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m09-l04-q23",
+  "fact": "m09-l04-f169",
+  "stem": "In the Model Context Protocol, which JSON-RPC method does a client send to invoke a tool on a server?",
+  "key": "`tools/call`",
+  "distractors": [
+   "`tools/invoke`",
+   "`tools/run`",
+   "`tools/execute`"
+  ],
+  "explanation": "To invoke a tool, clients send a `tools/call` request. That single method rules out `tools/invoke`, `tools/run` and `tools/execute`.",
+  "citation": "mcp-tools#calling-tools",
+  "extract": "To invoke a tool, clients send a tools/call request",
+  "snippet": null
+ },
+ {
+  "id": "m09-l04-q24",
+  "fact": "m09-l04-f172",
+  "stem": "An MCP proxy server talks to a third-party authorization server using a static client ID. Which statement about that static client ID is correct?",
+  "key": "It is the same value for all interactions between the MCP server and the third-party API, whichever MCP client initiated the request",
+  "distractors": [
+   "It is issued to each MCP client separately through dynamic client registration",
+   "It identifies the end user rather than the MCP server",
+   "It is optional because the third-party authorization server always supports dynamic client registration"
+  ],
+  "explanation": "The static client ID is the same value for all MCP server to third-party API interactions regardless of which MCP client initiated the request. A per-client ID from dynamic client registration is wrong because the proxy uses one static client ID for all requests. Identifying the end user is wrong because the ID refers to the MCP server acting as a client to the third-party API. Optional use is wrong because the third-party authorization server may lack dynamic client registration support, which requires the static client ID.",
+  "citation": "mcp-security-best-practices#terminology",
+  "extract": "This Client ID refers to the MCP server acting as a client to the Third-Party API. It is the same value for all MCP server to Third-Party API interactions regardless of which MCP client initiated the request.",
+  "snippet": null
+ },
+ {
+  "id": "m09-l04-q25",
+  "fact": "m09-l04-f177",
+  "stem": "According to the OWASP LLM01:2025 entry on prompt injection, which of the following statements about prompt injection vulnerabilities is correct?",
+  "key": "Injected input does not need to be human-visible or readable, as long as the model parses the content",
+  "distractors": [
+   "Injected input works only when a human reader can see it",
+   "Injected input comes only from prompts that the user types directly",
+   "Retrieval Augmented Generation (RAG) and fine-tuning fully mitigate the vulnerability"
+  ],
+  "explanation": "Prompt injections do not need to be human-visible or readable, as long as the content is parsed by the model. Visibility to a human reader is wrong because that is not required for the model to be affected. Input only from direct user prompts is wrong because indirect prompt injections occur when an LLM accepts input from external sources, such as websites or files. Full mitigation by RAG and fine-tuning is wrong because research shows that they do not fully mitigate prompt injection vulnerabilities.",
+  "citation": "owasp-llm-top10-prompt-injection#main",
+  "extract": "prompt injections do not need to be human-visible/readable, as long as the content is parsed by the model.",
+  "snippet": null
+ },
+ {
+  "id": "m09-l04-q26",
+  "fact": "m09-l04-f179",
+  "stem": "According to the OWASP LLM01:2025 entry on prompt injection, how is jailbreaking related to prompt injection as an attack on a model's safety protocols?",
+  "key": "Jailbreaking is a form of prompt injection in which the inputs make the model disregard its safety protocols entirely",
+  "distractors": [
+   "Jailbreaking is an unrelated vulnerability that prompt injection cannot cause",
+   "Preventing jailbreaking only needs safeguards in system prompts and input handling",
+   "Jailbreaking is the only form of prompt injection, so indirect injections do not count"
+  ],
+  "explanation": "Jailbreaking is a form of prompt injection where the attacker provides inputs that cause the model to disregard its safety protocols entirely. An unrelated vulnerability is wrong because prompt injection and jailbreaking are related concepts. Prevention through system prompt safeguards alone is wrong because effective prevention of jailbreaking requires ongoing updates to the model’s training and safety mechanisms. Jailbreaking as the only form is wrong because indirect prompt injections occur when an LLM accepts input from external sources.",
+  "citation": "owasp-llm-top10-prompt-injection#main",
+  "extract": "Jailbreaking is a form of prompt injection where the attacker provides inputs that cause the model to disregard its safety protocols entirely.",
+  "snippet": null
+ }
+]

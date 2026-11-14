@@ -276,6 +276,23 @@ class CourseRegistry:
             for variant in config.variants
         ]
 
+    def module_questions(self, module_id: str) -> list[QuestionRef]:
+        """Every quiz question of a module's lessons, in course order: the «by module» practice."""
+        found = self._modules.get(module_id)
+        if found is None:
+            return []
+        return [question for lesson in found[1].lessons for question in self.lesson_questions(lesson.id)]
+
+    def code_reading_questions(self) -> list[QuestionRef]:
+        """Every quiz question that rests on a lesson snippet, in course order: «code reading» practice."""
+        return [
+            QuestionRef(exercise.id, variant_id=variant.id)
+            for _, _, exercise in self.manifest.iter_exercises()
+            if isinstance(config := self.exercise_configs.get(exercise.id, (None, None))[1], QuizConfig)
+            for variant in config.variants
+            if variant.snippet
+        ]
+
     def _practice_count(self, lesson_id: str) -> dict[str, int]:
         if not self.manifest.course.lesson_practice:
             return {}
@@ -440,6 +457,8 @@ class CourseRegistry:
             **({"lessonPractice": True} if course.lesson_practice else {}),
             **({"optionLabels": course.option_labels} if course.option_labels else {}),
             **({"pdfExercises": False} if not course.pdf_exercises else {}),
+            **({"practiceScheduler": course.practice_scheduler} if course.practice_scheduler else {}),
+            **({"practicePresets": course.practice_presets} if course.practice_presets else {}),
             # A course with nothing to practise drops these defaults once it declares exercises or exams.
             **({"theoryOnly": True} if self.theory_only else {}),
             **(

@@ -62,6 +62,7 @@ class KafkaOffsetsGenerator(BackendGenerator[Partition]):
         "m08-l02",
         "kafka-javadoc-kafkaconsumer#offsets-and-consumer-position-heading; "
         "kafka-javadoc-kafkaconsumer#commitSync(java.util.Map)",
+        confirmed="kafka-design#consumer-position",
     )
 
     def scenario(self, rng: random.Random, level: int) -> Partition | None:

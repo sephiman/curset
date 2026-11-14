@@ -1,0 +1,407 @@
+[
+ {
+  "id": "m10-l03-q01",
+  "fact": "m10-l03-f04",
+  "stem": "On a Linux node, how does the kernel enforce the `cpu` limit of a container when the container approaches that limit?",
+  "key": "By CPU throttling",
+  "distractors": [
+   "By out of memory (OOM) kills",
+   "By terminating the Pod through the container runtime",
+   "By lowering the weighting of the container below its request"
+  ],
+  "explanation": "The kernel enforces `cpu` limits by CPU throttling. OOM kills are wrong because they enforce `memory` limits. Terminating the Pod is wrong because container runtimes do not terminate Pods or containers for excessive CPU usage. Lowering the weighting is wrong because the weighting comes from the CPU request, not the limit.",
+  "citation": "k8s-resource-management#requests-and-limits; k8s-resource-management#how-pods-with-resource-limits-are-run",
+  "extract": "cpu limits are enforced by CPU throttling.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l03-q02",
+  "fact": "m10-l03-f10",
+  "stem": "On a Linux node, when does the kernel enforce the `memory` limit of a container?",
+  "key": "Reactively: the container may use more than the limit, but it may get killed if it does",
+  "distractors": [
+   "Proactively, at the moment the container tries to allocate above the limit",
+   "Proactively, when the scheduler places the Pod on the node",
+   "Never, because the limit is only a hint to the container runtime"
+  ],
+  "explanation": "Memory limits are enforced reactively. Enforcement at the moment of allocation, enforcement at scheduling time and no enforcement at all are all excluded, because a container that over allocates may not be killed immediately and is killed only when the kernel detects memory pressure.",
+  "citation": "k8s-resource-management#requests-and-limits",
+  "extract": "This means memory limits are enforced reactively.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l03-q03",
+  "fact": "m10-l03-f18",
+  "stem": "When a Node runs out of resources and Kubernetes must evict some of its Pods under node pressure, which Pods does it evict first?",
+  "key": "`BestEffort` Pods",
+  "distractors": [
+   "`Burstable` Pods",
+   "`Guaranteed` Pods",
+   "Pods that stay below their resource requests"
+  ],
+  "explanation": "`BestEffort` Pods are evicted first. `Burstable` Pods and `Guaranteed` Pods are both excluded, because eviction goes `BestEffort` first, then `Burstable`, and `Guaranteed` last. Pods below their requests are wrong because under resource pressure only Pods exceeding resource requests are candidates for eviction.",
+  "citation": "k8s-qos#quality-of-service-classes",
+  "extract": "When a Node runs out of resources, Kubernetes will first evict BestEffort Pods running on that Node, followed by Burstable and finally Guaranteed Pods.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l03-q04",
+  "fact": "m10-l03-f17",
+  "stem": "Which are the quality of service classes that Kubernetes assigns to every Pod based on the resource requests and limits of its Containers?",
+  "key": "`Guaranteed`, `Burstable` and `BestEffort`",
+  "distractors": [
+   "`Guaranteed`, `Standard` and `BestEffort`",
+   "`Critical`, `Burstable` and `BestEffort`",
+   "`Guaranteed`, `Burstable`, `BestEffort` and `Preemptible`"
+  ],
+  "explanation": "The classes are `Guaranteed`, `Burstable` and `BestEffort`. The sets with `Standard`, with `Critical` and with `Preemptible` are all excluded, because those three are the only possible quality of service classes.",
+  "citation": "k8s-qos#quality-of-service-classes",
+  "extract": "The possible QoS classes are Guaranteed, Burstable, and BestEffort.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l03-q05",
+  "fact": "m10-l03-f21",
+  "stem": "A `HorizontalPodAutoscaler` sees a current metric value of 200m against a desired value of 100m. What happens to the number of replicas?",
+  "key": "It is doubled",
+  "distractors": [
+   "It is halved",
+   "It stays unchanged",
+   "It is increased by one"
+  ],
+  "explanation": "The number of replicas is doubled. The options that it is halved, that it stays unchanged and that it is increased by one are all excluded, because a ratio of 200 to 100 doubles the number of replicas.",
+  "citation": "k8s-hpa#algorithm-details",
+  "extract": "if the current metric value is 200m, and the desired value is 100m, the number of replicas will be doubled",
+  "snippet": null
+ },
+ {
+  "id": "m10-l03-q06",
+  "fact": "m10-l03-f23",
+  "stem": "By default, within which tolerance of 1.0 does the `HorizontalPodAutoscaler` control plane skip a scaling action because the ratio is sufficiently close?",
+  "key": "0.1",
+  "distractors": [
+   "0.01",
+   "0.25",
+   "0.5"
+  ],
+  "explanation": "The default tolerance is 0.1. The tolerances 0.01, 0.25 and 0.5 are all excluded, because the control plane documents 0.1 as the default.",
+  "citation": "k8s-hpa#algorithm-details",
+  "extract": "The control plane skips any scaling action if the ratio is sufficiently close to 1.0 (within a configurable tolerance, 0.1 by default).",
+  "snippet": null
+ },
+ {
+  "id": "m10-l03-q07",
+  "fact": "m10-l03-f29",
+  "stem": "What is the default of the `--horizontal-pod-autoscaler-downscale-stabilization` command line option, which sets the window of scale recommendations the `HorizontalPodAutoscaler` considers?",
+  "key": "5 minutes",
+  "distractors": [
+   "30 seconds",
+   "15 minutes",
+   "1 hour"
+  ],
+  "explanation": "The default is 5 minutes. The defaults 30 seconds, 15 minutes and 1 hour are all excluded, because the option defaults to 5 minutes.",
+  "citation": "k8s-hpa#algorithm-details",
+  "extract": "You can configure this value using the --horizontal-pod-autoscaler-downscale-stabilization command line option, which defaults to 5 minutes.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l03-q08",
+  "fact": "m10-l03-f27",
+  "stem": "A `HorizontalPodAutoscaler` specifies several metrics. How does it choose its desired replica count once it has calculated one for each metric?",
+  "key": "It chooses the largest of the desired replica counts",
+  "distractors": [
+   "It chooses the smallest of the desired replica counts",
+   "It chooses the average of the desired replica counts",
+   "It chooses the count of the first metric listed"
+  ],
+  "explanation": "The largest of the desired replica counts is chosen. The smallest, the average and the count of the first metric are all excluded, because the calculation is done per metric and the largest result wins.",
+  "citation": "k8s-hpa#algorithm-details",
+  "extract": "If multiple metrics are specified in a HorizontalPodAutoscaler, this calculation is done for each metric, and then the largest of the desired replica counts is chosen.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l03-q09",
+  "fact": "m10-l03-f25",
+  "stem": "A scale down is suggested while some pods are missing metrics. The `HorizontalPodAutoscaler` control plane recomputes the average more conservatively. What does it assume about those pods?",
+  "key": "That they were consuming 100% of the desired value",
+  "distractors": [
+   "That they were consuming 0% of the desired value",
+   "That they were consuming 50% of the desired value",
+   "That they do not exist and drop out of the count"
+  ],
+  "explanation": "It assumes those pods were consuming 100% of the desired value in case of a scale down. The assumptions of 0%, of 50% and of non-existence are all excluded, because 0% applies only to a scale up and no other value is documented.",
+  "citation": "k8s-hpa#algorithm-details",
+  "extract": "If there were any missing metrics, the control plane recomputes the average more conservatively, assuming those pods were consuming 100% of the desired value in case of a scale down, and 0% in case of a scale up.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l03-q10",
+  "fact": "m10-l03-f28",
+  "stem": "Right before the `HorizontalPodAutoscaler` scales its target, it considers all recommendations within a configurable window. Which recommendation from that window does it choose?",
+  "key": "The highest recommendation",
+  "distractors": [
+   "The lowest recommendation",
+   "The most recent recommendation",
+   "The average of the recommendations"
+  ],
+  "explanation": "The highest recommendation is chosen. The lowest, the most recent and the average are all excluded, because the controller chooses the highest recommendation within the window.",
+  "citation": "k8s-hpa#algorithm-details",
+  "extract": "The controller considers all recommendations within a configurable window choosing the highest recommendation from within that window.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l03-q11",
+  "fact": "m10-l03-f34",
+  "stem": "Since which Kubernetes version is the configurable scaling behavior of the `HorizontalPodAutoscaler`, set with the `behavior` field, a stable feature?",
+  "key": "v1.23",
+  "distractors": [
+   "v1.18",
+   "v1.27",
+   "v1.30"
+  ],
+  "explanation": "It is stable since v1.23. The versions v1.18, v1.27 and v1.30 are all excluded, because the documentation names v1.23 as the version since which the feature is stable.",
+  "citation": "k8s-hpa#configurable-scaling-behavior",
+  "extract": "Feature state: Stable since Kubernetes v1.23",
+  "snippet": null
+ },
+ {
+  "id": "m10-l03-q12",
+  "fact": "m10-l03-f39",
+  "stem": "How does KEDA relate to the Horizontal Pod Autoscaler (HPA) that Kubernetes already provides to scale the number of running pods?",
+  "key": "It works alongside the HPA, feeding it external metrics",
+  "distractors": [
+   "It replaces the HPA with its own scaling controller",
+   "It disables the HPA for every workload it scales",
+   "It is used instead of the HPA only for CPU and memory metrics"
+  ],
+  "explanation": "KEDA works alongside the existing HPA rather than replacing it. Replacing the HPA, disabling the HPA and handling only CPU and memory metrics are all excluded, because KEDA feeds the HPA with external metrics that extend it beyond CPU and memory.",
+  "citation": "keda-concepts#how-keda-works",
+  "extract": "It does this by working alongside Kubernetes’ existing Horizontal Pod Autoscaler rather than replacing it.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l03-q13",
+  "fact": "m10-l03-f38",
+  "stem": "When the event sources of a workload go quiet, down to how many running pods can KEDA scale it back?",
+  "key": "Zero",
+  "distractors": [
+   "One",
+   "Two",
+   "The number the workload had before the load arrived"
+  ],
+  "explanation": "KEDA can scale all the way to zero. One pod, two pods and the number the workload had before the load arrived are all excluded, because KEDA scales back down to zero if needed.",
+  "citation": "keda-concepts#how-keda-works",
+  "extract": "When things go quiet, it scales back down, all the way to zero if needed.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l03-q14",
+  "fact": "m10-l03-f41",
+  "stem": "For batch workloads, what does KEDA do instead of scaling a running deployment up or down?",
+  "key": "It creates new Kubernetes Jobs in response to events",
+  "distractors": [
+   "It patches the resource requests of the running pods",
+   "It suspends the deployment until the queue is empty",
+   "It scales a `CronJob` schedule in response to events"
+  ],
+  "explanation": "KEDA creates new Kubernetes Jobs in response to events. Patching resource requests, suspending the deployment and scaling a `CronJob` schedule are all excluded, because for batch workloads KEDA creates Jobs, for example one job per message in a queue.",
+  "citation": "keda-concepts#how-keda-works",
+  "extract": "instead of scaling a running deployment up or down, it creates new Kubernetes Jobs in response to events",
+  "snippet": null
+ },
+ {
+  "id": "m10-l03-q15",
+  "fact": "m10-l03-f48",
+  "stem": "In a multi-zone Kubernetes cluster, what does Topology Aware Routing help keep the traffic of a Service within?",
+  "key": "The zone it originated from",
+  "distractors": [
+   "The node it originated from",
+   "The namespace it originated from",
+   "The region it originated from"
+  ],
+  "explanation": "It helps keep traffic within the zone it originated from. The node, the namespace and the region are all excluded, because the mechanism keeps traffic within the zone.",
+  "citation": "k8s-topology-aware-routing#motivation",
+  "extract": "Topology Aware Routing provides a mechanism to help keep traffic within the zone it originated from.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l03-q16",
+  "fact": "m10-l03-f54",
+  "stem": "In Kubernetes 1.37, what does the `.spec.trafficDistribution` value `PreferSameZone` indicate when it is set on a Service to influence traffic routing?",
+  "key": "A preference for routing traffic to endpoints in the same zone as the client",
+  "distractors": [
+   "A strict guarantee that traffic never leaves the zone",
+   "A preference for routing traffic to endpoints on the same node as the client",
+   "A deprecated alias of `PreferClose`"
+  ],
+  "explanation": "`PreferSameZone` indicates a preference for endpoints in the same zone as the client. A strict guarantee is wrong because traffic distribution expresses preferences while traffic policies carry strict semantic guarantees. The same-node preference is wrong because that is what `PreferSameNode` indicates. The deprecated alias is wrong because `PreferClose` is the older alias for `PreferSameZone`.",
+  "citation": "k8s-service#traffic-distribution",
+  "extract": "Indicates a preference for routing traffic to endpoints that are in the same zone as the client.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l03-q17",
+  "fact": "m10-l03-f53",
+  "stem": "According to the Kubernetes documentation on traffic distribution, which three goals can the `.spec.trafficDistribution` field of a Service help optimize?",
+  "key": "Performance, cost, or reliability",
+  "distractors": [
+   "Latency, cost, or security",
+   "Throughput, durability, or compliance",
+   "Performance, availability, or portability"
+  ],
+  "explanation": "It can help optimize for performance, cost, or reliability. The sets with security, with compliance and with portability are all excluded, because the documentation names exactly performance, cost and reliability.",
+  "citation": "k8s-service#traffic-distribution",
+  "extract": "This can help optimize for performance, cost, or reliability.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l03-q18",
+  "fact": "m10-l03-f62",
+  "stem": "According to OpenTelemetry, for high-volume systems, what sampling rate is quite common for accurately representing the other 99% of the data?",
+  "key": "1% or lower",
+  "distractors": [
+   "10%",
+   "25%",
+   "50%"
+  ],
+  "explanation": "A sampling rate of 1% or lower is quite common. The rates 10%, 25% and 50% are all excluded, because the documentation names 1% or lower as the common rate for high-volume systems.",
+  "citation": "otel-sampling#why-sampling",
+  "extract": "For high-volume systems, it is quite common for a sampling rate of 1% or lower to very accurately represent the other 99% of data.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l03-q19",
+  "fact": "m10-l03-f69",
+  "stem": "Which of these is one of the primary downsides of tail sampling that OpenTelemetry lists for sampling decisions on whole traces?",
+  "key": "It can be difficult to operate, because its components must be stateful systems that store a large amount of data",
+  "distractors": [
+   "It cannot sample traces based on their overall latency",
+   "It cannot always sample the traces that contain an error",
+   "It cannot be combined with head sampling in the same system"
+  ],
+  "explanation": "Tail sampling can be difficult to operate because its components must be stateful systems that can accept and store a large amount of data. Sampling by overall latency is wrong because that is one of the listed uses of tail sampling. Always sampling traces that contain an error is wrong because that is another listed use. Combination with head sampling is wrong because tail sampling might be used in conjunction with head sampling.",
+  "citation": "otel-sampling#tail-sampling",
+  "extract": "The component(s) that implement tail sampling must be stateful systems that can accept and store a large amount of data.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l03-q20",
+  "fact": "m10-l03-f73",
+  "stem": "In Prometheus 3, what does the retention time default to when neither `--storage.tsdb.retention.time` nor `storage.tsdb.retention.size` is set?",
+  "key": "15d",
+  "distractors": [
+   "7d",
+   "30d",
+   "90d"
+  ],
+  "explanation": "The retention time defaults to 15d. The values 7d, 30d and 90d are all excluded, because the documented default is 15d.",
+  "citation": "prom-storage#operational-aspects",
+  "extract": "If neither this flag nor storage.tsdb.retention.size is set, the retention time defaults to 15d.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l03-q21",
+  "fact": "m10-l03-f74",
+  "stem": "In Prometheus 3, what is the default of the `--storage.tsdb.retention.size` flag that sets the maximum number of bytes of storage blocks to retain?",
+  "key": "0, which means the size limit is disabled",
+  "distractors": [
+   "10GB",
+   "512MB",
+   "80% of the disk"
+  ],
+  "explanation": "The flag defaults to 0, which means disabled. The values 10GB, 512MB and 80% of the disk are all excluded, because the documented default is 0 or disabled.",
+  "citation": "prom-storage#operational-aspects",
+  "extract": "The maximum number of bytes of storage blocks to retain. The oldest data will be removed first. Defaults to 0 or disabled.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l03-q22",
+  "fact": "m10-l03-f75",
+  "stem": "In Prometheus, both a time retention policy and a size retention policy are specified. Which of the two policies is used?",
+  "key": "Whichever triggers first",
+  "distractors": [
+   "Whichever triggers last",
+   "The time policy only",
+   "The size policy only"
+  ],
+  "explanation": "Whichever triggers first is used. The policy that triggers last, the time policy only and the size policy only are all excluded, because when both are specified the first one to trigger applies.",
+  "citation": "prom-storage#operational-aspects",
+  "extract": "If both time and size retention policies are specified, whichever triggers first will be used.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l03-q23",
+  "fact": "m10-l03-f76",
+  "stem": "Prometheus documentation gives a rough formula for capacity planning. On average, how many bytes per sample does Prometheus store?",
+  "key": "1-2 bytes",
+  "distractors": [
+   "16 bytes",
+   "8 bytes",
+   "64 bytes"
+  ],
+  "explanation": "Prometheus stores an average of 1-2 bytes per sample. The values 16, 8 and 64 bytes are all excluded, because the documentation gives an average of only 1-2 bytes.",
+  "citation": "prom-storage#operational-aspects",
+  "extract": "Prometheus stores an average of only 1-2 bytes per sample.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l03-q24",
+  "fact": "m10-l03-f84",
+  "stem": "Prometheus recommends a limit for `storage.tsdb.retention.size` relative to the disk space allocated to Prometheus. Which statement matches that recommendation?",
+  "key": "At most 80-85% of the allocated disk space",
+  "distractors": [
+   "The full 100% of the allocated disk space",
+   "At least 90% of the allocated disk space",
+   "Between 95% and 100% of the allocated disk space"
+  ],
+  "explanation": "The recommendation is at most 80-85% of the allocated disk space. Using all of it, at least 90% and 95% to 100% are all excluded, because the remaining 15-20% buffer is reserved for in-progress compactions.",
+  "citation": "prom-storage#right-sizing-retention-size",
+  "extract": "At present, we recommend setting the retention size to, at most, 80-85% of your allocated Prometheus disk space.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l03-q25",
+  "fact": "m10-l03-f96",
+  "stem": "If no `reclaimPolicy` is specified when a Kubernetes `StorageClass` object is created, what does the `reclaimPolicy` default to?",
+  "key": "`Delete`",
+  "distractors": [
+   "`Retain`",
+   "`Recycle`",
+   "`Archive`"
+  ],
+  "explanation": "The `reclaimPolicy` defaults to `Delete`. The values `Retain`, `Recycle` and `Archive` are all excluded, because the documented default is `Delete`.",
+  "citation": "k8s-storage-classes#reclaim-policy",
+  "extract": "If no reclaimPolicy is specified when a StorageClass object is created, it will default to Delete.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l03-q26",
+  "fact": "m10-l03-f97",
+  "stem": "Which reclaim policy does a `PersistentVolume` have when it is created manually and managed via a `StorageClass`?",
+  "key": "Whatever reclaim policy it was assigned at creation",
+  "distractors": [
+   "The reclaim policy of the `StorageClass`",
+   "Always `Delete`",
+   "Always `Retain`"
+  ],
+  "explanation": "It has whatever reclaim policy it was assigned at creation. The policy of the class, always `Delete` and always `Retain` are all excluded, because only dynamically created `PersistentVolume` objects take the policy of the class.",
+  "citation": "k8s-storage-classes#reclaim-policy",
+  "extract": "PersistentVolumes that are created manually and managed via a StorageClass will have whatever reclaim policy they were assigned at creation.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l03-q27",
+  "fact": "m10-l03-f89",
+  "stem": "In Java 25, this snippet applies the Prometheus capacity formula, the `HorizontalPodAutoscaler` formula and an 85% cap with integer arithmetic. What does the program print?",
+  "key": "retention seconds: 1296000\nneeded bytes: 259200000000\ndesired replicas for 4 pods at 200m against 100m: 8\ndesired replicas for 3 pods at 150m against 100m: 5\nretention size cap for a 500 GB disk at 85%: 425",
+  "distractors": [
+   "retention seconds: 1296000\nneeded bytes: 129600000000\ndesired replicas for 4 pods at 200m against 100m: 8\ndesired replicas for 3 pods at 150m against 100m: 5\nretention size cap for a 500 GB disk at 85%: 425",
+   "retention seconds: 1296000\nneeded bytes: 259200000000\ndesired replicas for 4 pods at 200m against 100m: 8\ndesired replicas for 3 pods at 150m against 100m: 4\nretention size cap for a 500 GB disk at 85%: 425",
+   "retention seconds: 360\nneeded bytes: 72000000\ndesired replicas for 4 pods at 200m against 100m: 8\ndesired replicas for 3 pods at 150m against 100m: 5\nretention size cap for a 500 GB disk at 85%: 425"
+  ],
+  "explanation": "The program prints 1296000 seconds, 259200000000 bytes, 8 and 5 replicas, and a cap of 425. The first wrong output is wrong because it leaves out the 2 bytes per sample. The second wrong output is wrong because the ceiling of 4.5 is 5, not 4. The third wrong output is wrong because it counts 360 hours instead of 1296000 seconds.",
+  "citation": "k8s-hpa#algorithm-details",
+  "extract": "the HorizontalPodAutoscaler controller operates on the ratio between desired metric value and current metric value",
+  "snippet": "m10-l03/SizingArithmetic.java"
+ }
+]

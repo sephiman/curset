@@ -1,0 +1,155 @@
+S1.1	"`flatMap` replaces each element of a"	pass
+S1.2	"If a mapped stream is null,"	pass
+S1.3	"Each stream produced by the mapping"	pass
+S1.4	"`flatMap` applies a one-to-many transformation to"	pass
+S1.5	"On an ordered stream, `takeWhile` returns"	pass
+S1.6	"On an ordered stream, `dropWhile` returns"	pass
+S1.7	"The longest prefix of an ordered"	pass
+S1.8	"If some but not all elements"	pass
+S1.9	"`takeWhile` is a short-circuiting stateful intermediate"	pass
+S1.10	"`dropWhile` is a stateful intermediate operation"	pass
+S1.11	"`takeWhile` can be quite expensive on"	pass
+S1.12	"The snippet flattens three lists, then"	pass
+S1.13	"The snippet prints `[1, 2, 3]`"	pass
+S1.14	"It prints `[1, 2, 1]` for"	pass
+S1.15	"It prints `[1, 2]` for `takeWhile(n"	pass
+S1.16	"It prints `[5, 1, 6]` for"	pass
+S1.17	"It prints `20` for `reduce(10, Integer::sum)`"	pass
+S1.18	"`reduce` takes an identity value and"	pass
+S1.19	"The identity value of `reduce` must"	pass
+S1.20	"A reduction operation, also called a"	pass
+S1.21	"A properly constructed reduce operation is"	pass
+S1.22	"In the three-argument form of `reduce`,"	pass
+S1.23	"In the three-argument form of `reduce`,"	pass
+S1.24	"The combiner is necessary in parallel"	pass
+S1.25	"The three-argument form of `reduce` generalizes"	pass
+S2.1	"`thenComparing(other)` returns a lexicographic-order comparator: if"	pass
+S2.2	"`Comparator.comparing(keyExtractor, keyComparator)` compares by the extracted"	pass
+S2.3	"`Comparator.nullsFirst` returns a null-friendly comparator that"	pass
+S2.4	"When both values are null, the"	pass
+S2.5	"If both values are non-null, the"	pass
+S2.6	"If the comparator given to `nullsFirst`"	pass
+S2.7	"The snippet sorts four people by"	pass
+S2.8	"The first comparator puts null cities"	pass
+S2.9	"The second puts null cities last"	pass
+S2.10	"The snippet prints `[Cid, amy, Zed,"	pass
+S2.11	"It prints `[Zed, amy, Dee, Cid]`"	pass
+S3.1	"`groupingBy` implements a cascaded "group by""	pass
+S3.2	"The map produced by `groupingBy` is"	pass
+S3.3	"The collector returned by `groupingBy` is"	pass
+S3.4	"In a parallel pipeline, the combiner"	pass
+S3.5	"`partitioningBy` reduces the values of each"	pass
+S3.6	"The map returned by `partitioningBy` always"	pass
+S3.7	"There are no guarantees on the"	pass
+S3.8	"If a partition has no elements,"	pass
+S3.9	"The snippet groups six words by"	pass
+S3.10	"The snippet prints `{a={5=2, 7=1}, b={6=1,"	pass
+S3.11	"It prints `{false=4, true=2}` for the"	pass
+S3.12	"It prints `{false=0, true=0}` for the"	pass
+S3.13	"If the mapped keys contain duplicates"	pass
+S3.14	"The other forms of `toMap` use"	pass
+S3.15	"The merge function of `toMap` resolves"	pass
+S3.16	"There are no guarantees on the"	pass
+S3.17	"`teeing` returns a collector that is"	pass
+S3.18	"Every element passed to the collector"	pass
+S3.19	"A mutable reduction operation accumulates input"	pass
+S3.20	"A `collect` operation requires a supplier"	pass
+S3.21	"Concatenating strings with `reduce("", String::concat)` does"	pass
+S3.22	"Packaging mutable reductions into a `Collector`"	pass
+S3.23	"For any partially accumulated result, combining"	pass
+S3.24	"The snippet sums word lengths per"	pass
+S3.25	"The snippet prints `{a=17, b=15, c=6}`"	pass
+S3.26	"It prints `38 letters in 6"	pass
+S3.27	"It prints `Duplicate key apple (attempted"	pass
+S3.28	"It prints `[5, 6, 7, 9]`"	pass
+S4.1	"JEP 485 enhances the Stream API"	pass
+S4.2	"Custom intermediate operations let stream pipelines"	pass
+S4.3	"`Stream.gather` is a stateful intermediate operation"	pass
+S4.4	"A `Gatherer` is specified by four"	pass
+S4.5	"Gatherer operations can be parallelized if"	pass
+S4.6	"Gatherers are designed to be composed,"	pass
+S4.7	"A `Gatherer` uses an `Integrator` instead"	pass
+S4.8	"A `Gatherer` uses a `BiConsumer` for"	pass
+R1.1	"`fold`"	pass
+R1.2	"`scan`"	pass
+R1.3	"`windowFixed`"	pass
+R1.4	"`windowSliding`"	pass
+R1.5	"`mapConcurrent`"	pass
+S4.9	"If the stream is empty, `windowFixed`"	pass
+S4.10	"`windowFixed` throws `IllegalArgumentException` when `windowSize` is"	pass
+S4.11	"Each window produced by `windowFixed` is"	pass
+S4.12	"In `windowSliding`, each subsequent window includes"	pass
+S4.13	"If the stream is smaller than"	pass
+S4.14	"`fold` performs an ordered, reduction-like transformation"	pass
+S4.15	"If no exceptions are thrown during"	pass
+S4.16	"`scan` starts with an initial value"	pass
+S4.17	"The snippet applies the built-in gatherers"	fail	snippet never mutates a window: add throws UnsupportedOperationException
+S4.18	"The snippet prints `[[1, 2, 3],"	pass
+S4.19	"It prints `[[1, 2, 3], [2,"	pass
+S4.20	"It prints `[[1, 2, 3, 4]]`"	pass
+S4.21	"It prints `[]` for `windowFixed(3)` over"	pass
+S4.22	"It prints `[15]` for `fold` with"	pass
+S4.23	"It prints `[1, 3, 6, 10,"	pass
+S4.24	"It prints `windows are unmodifiable` when"	pass
+S5.1	"A stream pipeline consists of a"	pass
+S5.2	"Intermediate operations return a new stream"	pass
+S5.3	"Traversal of the pipeline source does"	pass
+S5.4	"After the terminal operation is performed,"	pass
+S5.5	"Stateless operations such as `filter` and"	pass
+S5.6	"Stateful operations such as `distinct` and"	pass
+S5.7	"Stateful operations may need to process"	pass
+S5.8	"One cannot produce any results from"	pass
+S5.9	"Under parallel computation, some pipelines with"	pass
+S5.10	"Pipelines that contain only stateless intermediate"	pass
+S5.11	"Having a short-circuiting operation in the"	pass
+S5.12	"Whether a stream has an encounter"	pass
+S5.13	"Streams from a `List` or an"	pass
+S5.14	"`sorted()` may impose an encounter order"	pass
+S5.15	"`forEach()` is a terminal operation that"	pass
+S5.16	"For sequential streams, the presence or"	pass
+S5.17	"Side-effects in the behavioral parameters of"	pass
+S5.18	"With side-effects in behavioral parameters, there"	pass
+S5.19	"With side-effects in behavioral parameters, there"	pass
+S5.20	"With side-effects in behavioral parameters, there"	pass
+S5.21	"Even when a pipeline must produce"	pass
+S5.22	"Adding to an `ArrayList` from `forEach`"	pass
+S5.23	"A stateful lambda is one whose"	pass
+S5.24	"Stream pipeline results may be nondeterministic"	pass
+S5.25	"The stream implementations in the JDK"	pass
+S5.26	"Except for operations identified as explicitly"	pass
+S5.27	"An implementation of `count()` may choose"	pass
+S5.28	"The snippet traces a pipeline with"	pass
+S5.29	"The snippet prints `peek a`, `peek"	pass
+S5.30	"It prints `3` for `count()` over"	pass
+S5.31	"It prints `[1, 2, 4, 8,"	pass
+S5.32	"It prints `stream has already been"	pass
+S6.1	"`flatMap` replaces each element with the"	pass
+S6.2	"`takeWhile` keeps the longest prefix that"	pass
+S6.3	"`reduce` needs an identity and an"	pass
+S6.4	"`thenComparing` applies only when the first"	pass
+S6.5	"`groupingBy` reduces each group with a"	pass
+S6.6	"`toMap` with a merge function merges"	pass
+S6.7	"`teeing` sends every element to two"	pass
+S6.8	"A `collect` operation needs a supplier,"	pass
+S6.9	"A `Gatherer` is a custom intermediate"	pass
+S6.10	"`windowFixed` may end with a short"	pass
+S6.11	"Intermediate operations are lazy, and nothing"	pass
+S6.12	"Stateful operations such as `sorted` may"	pass
+S6.13	"Behavioral parameters with side-effects may run"	pass
+g-mutable-reduction	pass
+g-gatherer	pass
+g-stateful-lambda	pass
+m11-l01-q01	pass
+m11-l01-q02	pass
+m11-l01-q03	pass
+m11-l01-q04	pass
+m11-l01-q05	pass
+m11-l01-q06	pass
+m11-l01-q07	pass
+m11-l01-q08	pass
+m11-l01-q09	pass
+m11-l01-q10	pass
+m11-l01-q11	pass
+m11-l01-q12	pass
+# checked 153, passed 152, failed 1
+S4.17	recheck	pass

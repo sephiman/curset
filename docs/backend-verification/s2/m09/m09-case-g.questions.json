@@ -1,0 +1,242 @@
+[
+ {
+  "id": "m09-case-g-q01",
+  "lesson": "m10-l04",
+  "fact": "m10-l04-f05",
+  "stem": "A diagnostics agent calls an MCP server that uses an HTTP-based transport and needs to present its access token on each request. Where must the MCP client place the access token?",
+  "key": "In the `Authorization` header as a `Bearer` token",
+  "distractors": [
+   "In the query string of the request URI",
+   "In the first request only, since the session then stays authorized",
+   "In a `Cookie` header that the server sets after the first call"
+  ],
+  "explanation": "An MCP client must send the access token in the `Authorization` request header as `Authorization: Bearer <access-token>`. The URI query string is wrong, because access tokens must not be included in the URI query string. Sending it once is wrong, because authorization must be included in every HTTP request from client to server. A `Cookie` header is wrong, because the client must send the token as `Authorization: Bearer <access-token>`.",
+  "citation": "mcp-authorization#token-requirements",
+  "extract": "MCP client MUST use the Authorization request header field defined in OAuth 2.1 Section 5.1.1:",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-g-q02",
+  "lesson": "m10-l04",
+  "fact": "m10-l04-f11",
+  "stem": "An AI gateway holds a token for an MCP server and gets a scope challenge for one more operation. When it re-authorizes, which scopes should the MCP client include in its request?",
+  "key": "The challenged scopes together with the scopes already granted",
+  "distractors": [
+   "Only the challenged scopes, replacing the earlier grant",
+   "The whole `scopes_supported` list instead of the challenge",
+   "No scope, reusing the token it already has"
+  ],
+  "explanation": "When re-authorizing, clients should include the challenged scopes alongside any previously granted scopes to avoid losing permissions needed for other operations. Only the challenged scopes is wrong, because including the earlier scopes avoids losing permissions needed for other operations. The whole list is wrong, because clients must treat the scopes provided in the challenge as authoritative for the current operation. Reusing the token is wrong, because scope challenge handling covers insufficient scope errors where a client holds a token but needs additional permissions.",
+  "citation": "mcp-authorization#scope-selection-strategy",
+  "extract": "When re-authorizing, clients SHOULD include these scopes alongside any previously granted scopes to avoid losing permissions needed for other operations",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-g-q03",
+  "lesson": "m10-l04",
+  "fact": "m10-l04-f13",
+  "stem": "An MCP client receives a `401` response with no `scope` parameter in `WWW-Authenticate`, and the Protected Resource Metadata document does not define `scopes_supported`. What should the client do?",
+  "key": "Omit the `scope` parameter",
+  "distractors": [
+   "Send an empty `scope` value in its authorization request",
+   "Request every scope that it knows from earlier sessions",
+   "Stop the authorization flow and report an error"
+  ],
+  "explanation": "If no `scope` is available, the client should use all scopes in `scopes_supported`, and omit the `scope` parameter if `scopes_supported` is undefined. An empty `scope` value is wrong, because the client should omit the `scope` parameter if `scopes_supported` is undefined. Requesting every known scope is wrong, because the client should omit the `scope` parameter when `scopes_supported` is undefined. Stopping the flow is wrong, because the client should omit the `scope` parameter and carry on.",
+  "citation": "mcp-authorization#scope-selection-strategy",
+  "extract": "If scope is not available, use all scopes defined in scopes_supported from the Protected Resource Metadata document, omitting the scope parameter if scopes_supported is undefined.",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-g-q04",
+  "lesson": "m10-l04",
+  "fact": "m10-l04-f14",
+  "stem": "An MCP server publishes `scopes_supported` in its Protected Resource Metadata for an agent platform. According to the MCP authorization specification, what is that field intended to represent?",
+  "key": "The minimal set of scopes necessary for basic functionality",
+  "distractors": [
+   "The complete list of every scope the server ever issues",
+   "Only scopes that clients request through step-up authorization",
+   "A set that clients must treat as a superset of challenged scopes"
+  ],
+  "explanation": "The `scopes_supported` field is intended to represent the minimal set of scopes necessary for basic functionality. The complete list is wrong, because servers are not required to surface every dynamically issued scope through `scopes_supported`. Step-up only is wrong, because additional scopes are requested incrementally through step-up while `scopes_supported` holds the minimal set. A required superset is wrong, because clients must not assume any particular set relationship between the challenged scope set and `scopes_supported`.",
+  "citation": "mcp-authorization#scope-selection-strategy",
+  "extract": "The scopes_supported field is intended to represent the minimal set of scopes necessary for basic functionality",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-g-q05",
+  "lesson": "m10-l04",
+  "fact": "m10-l04-f20",
+  "stem": "An MCP server accepts a token sent by a client and forwards it unchanged to a downstream API, without checking that the token was issued to the MCP server itself. What does the MCP security guidance call this?",
+  "key": "Token passthrough, an anti-pattern",
+  "distractors": [
+   "Step-up authorization, which requests extra scopes",
+   "Scope challenge handling after insufficient scope",
+   "A static client ID shared by all clients"
+  ],
+  "explanation": "“Token passthrough” is an anti-pattern where an MCP server accepts tokens from an MCP client without validating that they were issued to the MCP server. Step-up authorization is wrong, because it is the flow through which additional scopes are requested incrementally. Scope challenge handling is wrong, because it covers insufficient scope errors during runtime operations. A static client ID is wrong, because it is a fixed OAuth client identifier that the MCP proxy server uses with the third-party authorization server.",
+  "citation": "mcp-security-best-practices#token-passthrough",
+  "extract": "“Token passthrough” is an anti-pattern where an MCP server accepts tokens from an MCP client without validating that the tokens were properly issued to the MCP server and passes them through to the downstream API.",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-g-q06",
+  "lesson": "m10-l04",
+  "fact": "m10-l04-f27",
+  "stem": "An MCP proxy server checks the `redirect_uri` of each authorization request against the registered URI. How must the comparison be made, according to the MCP security guidance?",
+  "key": "By exact string matching",
+  "distractors": [
+   "By prefix matching against the registered URI",
+   "By wildcard matching on the host name",
+   "By regular expression supplied by the client"
+  ],
+  "explanation": "The `redirect_uri` comparison must use exact string matching, not pattern matching or wildcards. Prefix matching is wrong, because the comparison must use exact string matching, not pattern matching or wildcards. Wildcard matching is wrong, because the comparison must use exact string matching, not pattern matching or wildcards. A client regular expression is wrong, because the comparison must use exact string matching, not pattern matching.",
+  "citation": "mcp-security-best-practices#required-protections",
+  "extract": "Use exact string matching (not pattern matching or wildcards)",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-g-q07",
+  "lesson": "m10-l04",
+  "fact": "m10-l04-f30",
+  "stem": "An MCP proxy server stores a consent cookie after the user approves a client. Which attributes must the consent cookie set, according to the MCP security best practices?",
+  "key": "`Secure`, `HttpOnly` and `SameSite=Lax`",
+  "distractors": [
+   "`Secure` and `SameSite=None`",
+   "`HttpOnly` only, without `Secure`",
+   "`Secure` with `SameSite=Lax`, readable from scripts"
+  ],
+  "explanation": "A consent cookie must set the `Secure`, `HttpOnly` and `SameSite=Lax` attributes. `SameSite=None` is wrong, because the consent cookie must set `Secure`, `HttpOnly` and `SameSite=Lax`. `HttpOnly` alone is wrong, because the consent cookie must also set `Secure` and `SameSite=Lax`. A cookie readable from scripts is wrong, because it must set `HttpOnly` too.",
+  "citation": "mcp-security-best-practices#required-protections",
+  "extract": "Set Secure, HttpOnly, and SameSite=Lax attributes",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-g-q08",
+  "lesson": "m10-l04",
+  "fact": "m10-l04-f33",
+  "stem": "An MCP proxy server generates a `state` value for each authorization request it starts. Which handling of `state` values do the MCP security best practices require?",
+  "key": "Single-use, deleted after validation, with a short expiry such as 10 minutes",
+  "distractors": [
+   "Reusable for 24 hours, then deleted by a nightly job",
+   "Reusable until the user logs out of the proxy",
+   "Single-use, but valid for a full day"
+  ],
+  "explanation": "`state` values must be single-use, deleted after validation, and have a short expiration time such as 10 minutes. Reuse for 24 hours is wrong, because `state` values must be single-use and have a short expiration time such as 10 minutes. Reuse until the user logs out of the proxy is wrong, because `state` values must be single-use and deleted after validation. A full day is wrong, because `state` values must have a short expiration time such as 10 minutes.",
+  "citation": "mcp-security-best-practices#required-protections",
+  "extract": "Ensure state values are single-use (delete after validation) and have a short expiration time (e.g., 10 minutes)",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-g-q09",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f182",
+  "stem": "A diagnostics agent reads a web page that contains a hidden instruction, and the model follows it. According to OWASP, what is this kind of attack called, where input comes from external sources such as websites or files?",
+  "key": "Indirect prompt injection",
+  "distractors": [
+   "Direct prompt injection by the user",
+   "Jailbreaking of the safety protocols",
+   "Token passthrough in an MCP server"
+  ],
+  "explanation": "Indirect prompt injections occur when an LLM accepts input from external sources, such as websites or files. Direct injection is wrong, because it occurs when user prompts alter the LLM's behavior, not external input. Jailbreaking is wrong, because it is a form of prompt injection where the attacker supplies inputs that make the model disregard its safety protocols entirely. Token passthrough is wrong, because it is an anti-pattern where an MCP server accepts client tokens without validating them.",
+  "citation": "owasp-llm-top10-prompt-injection#indirect-prompt-injections",
+  "extract": "Indirect prompt injections occur when an LLM accepts input from external sources, such as websites or files.",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-g-q10",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f178",
+  "stem": "An AI gateway uses Retrieval Augmented Generation (RAG) and a fine-tuned model to defend against prompt injection. According to OWASP, what does research show about these two measures?",
+  "key": "They do not fully mitigate prompt injection",
+  "distractors": [
+   "RAG fully mitigates it, but fine-tuning does not",
+   "Fine-tuning fully mitigates it, but RAG does not",
+   "Together they fully mitigate it"
+  ],
+  "explanation": "Research shows that RAG and fine-tuning do not fully mitigate prompt injection vulnerabilities. RAG alone fully mitigating is wrong, because research shows RAG and fine-tuning do not fully mitigate prompt injection vulnerabilities. Fine-tuning alone fully mitigating is wrong, because research shows RAG and fine-tuning do not fully mitigate prompt injection. Full mitigation together is wrong, because research shows RAG and fine-tuning do not fully mitigate prompt injection vulnerabilities.",
+  "citation": "owasp-llm-top10-prompt-injection#main",
+  "extract": "While techniques like Retrieval Augmented Generation (RAG) and fine-tuning aim to make LLM outputs more relevant and accurate, research shows that they do not fully mitigate prompt injection vulnerabilities.",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-g-q11",
+  "lesson": "m10-l04",
+  "fact": "m10-l04-f44",
+  "stem": "An AI gateway lets agents query internal systems that hold personal data. Which measure follows OWASP guidance for reducing sensitive information disclosure from an LLM application?",
+  "key": "Limit access to sensitive data by the principle of least privilege",
+  "distractors": [
+   "Rely on system prompt restrictions as the only control",
+   "Skip data sanitization because user data never reaches training",
+   "Offer no way for users to opt out of training"
+  ],
+  "explanation": "Access to sensitive data is limited based on the principle of least privilege, so only the data necessary for the specific user or process is granted. Relying only on system prompt restrictions is wrong, because such restrictions may not always be honored and could be bypassed via prompt injection. Skipping sanitization is wrong, because applications should sanitize data to prevent user data from entering the training model. Offering no opt-out is wrong, because owners should provide Terms of Use that allow users to opt out of having their data included in the training model.",
+  "citation": "owasp-llm-sensitive-disclosure#1-enforce-strict-access-controls",
+  "extract": "Limit access to sensitive data based on the principle of least privilege.",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-g-q12",
+  "lesson": "m10-l04",
+  "fact": "m10-l04-f02",
+  "stem": "A team builds an MCP server that is reached over an HTTP-based transport. According to the MCP authorization section, what should that implementation do about authorization?",
+  "key": "It should conform to the MCP authorization specification",
+  "distractors": [
+   "It should retrieve credentials from the environment",
+   "It must implement authorization, which is mandatory",
+   "It should follow only the security practices of its own protocol"
+  ],
+  "explanation": "An MCP implementation that uses an HTTP-based transport should conform to the MCP authorization specification. Retrieving credentials from the environment is wrong, because that applies to an implementation that uses an STDIO transport. Mandatory authorization is wrong, because authorization is optional for MCP implementations. Following only its own protocol is wrong, because that applies to implementations using an alternative transport.",
+  "citation": "mcp-authorization#protocol-requirements",
+  "extract": "Implementations using an HTTP-based transport SHOULD conform to this specification.",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-g-q13",
+  "lesson": "m10-l04",
+  "fact": "m10-l04-f63",
+  "stem": "A security team runs adversarial testing against an AI gateway that connects agents to internal tools. According to OWASP, how does adversarial testing treat the model?",
+  "key": "As an untrusted user, to test trust boundaries and access controls",
+  "distractors": [
+   "As a trusted administrator, to confirm that its access is sufficient",
+   "As a read-only auditor, to confirm that logs are complete",
+   "As a trusted component, to confirm that its output needs no checks"
+  ],
+  "explanation": "Adversarial testing treats the model as an untrusted user to test the effectiveness of trust boundaries and access controls. A trusted administrator is wrong, because adversarial testing treats the model as an untrusted user. A read-only auditor is wrong, because adversarial testing treats the model as an untrusted user to test trust boundaries and access controls. A trusted component is wrong, because adversarial testing treats the model as an untrusted user.",
+  "citation": "owasp-llm-top10-prompt-injection#7-conduct-adversarial-testing-and-attack-simulations",
+  "extract": "Perform regular penetration testing and breach simulations, treating the model as an untrusted user to test the effectiveness of trust boundaries and access controls.",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-g-q14",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f169",
+  "stem": "An agent platform wants a language model to run a tool exposed by an MCP server. Which request does a client send to invoke a tool, according to the MCP specification?",
+  "key": "`tools/call`",
+  "distractors": [
+   "`tools/invoke`",
+   "`tools/run`",
+   "`tools/execute`"
+  ],
+  "explanation": "To invoke a tool, clients send a `tools/call` request. `tools/invoke` is wrong, because to invoke a tool clients send a `tools/call` request. `tools/run` is wrong, because to invoke a tool clients send a `tools/call` request. `tools/execute` is wrong, because to invoke a tool clients send a `tools/call` request.",
+  "citation": "mcp-tools#calling-tools",
+  "extract": "To invoke a tool, clients send a tools/call request",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-g-q15",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f172",
+  "stem": "An MCP proxy server uses one static client ID with a third-party API for all of its users. Which value does that static client ID take across the MCP clients that use the proxy?",
+  "key": "The same value for every MCP client",
+  "distractors": [
+   "A different value for each MCP client",
+   "A different value for each user",
+   "A new value for each session"
+  ],
+  "explanation": "The static client ID is the same value for all MCP server to third-party API interactions, regardless of which MCP client initiated the request. A different value per client is wrong, because the static client ID is the same value regardless of which MCP client initiated the request. A different value per user is wrong, because the static client ID is the same value for all interactions. A new value per session is wrong, because the static client ID is the same value for all interactions.",
+  "citation": "mcp-security-best-practices#terminology",
+  "extract": "This Client ID refers to the MCP server acting as a client to the Third-Party API. It is the same value for all MCP server to Third-Party API interactions regardless of which MCP client initiated the request.",
+  "snippet": null
+ }
+]

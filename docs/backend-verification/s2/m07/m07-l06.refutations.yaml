@@ -1,0 +1,210 @@
+m07-l06-q01:
+  key:
+    anchor: grpc-core-concepts#client-streaming-rpc
+    sentence: A client-streaming RPC is similar to a unary RPC, except that the client sends a stream of messages to the server instead of a single message.
+  wrong:
+  - option: Unary RPC
+    anchor: grpc-core-concepts#unary-rpc
+    sentence: First consider the simplest type of RPC where the client sends a single request and gets back a single response.
+  - option: Server-streaming RPC
+    anchor: grpc-core-concepts#server-streaming-rpc
+    sentence: A server-streaming RPC is similar to a unary RPC, except that the server returns a stream of messages in response to a client’s request.
+  - option: Bidirectional streaming RPC
+    anchor: grpc-core-concepts#bidirectional-streaming-rpc
+    sentence: Since the two streams are independent, the client and server can read and write messages in any order.
+m07-l06-q02:
+  key:
+    anchor: grpc-core-concepts#bidirectional-streaming-rpc
+    sentence: Since the two streams are independent, the client and server can read and write messages in any order.
+  wrong:
+  - option: The server may write only after it has received all of the client's messages
+    anchor: grpc-core-concepts#bidirectional-streaming-rpc
+    sentence: a server can wait until it has received all of a client’s messages before writing its messages, or the server and client can play “ping-pong”
+  - option: The client must send its first message before the server may send its initial metadata
+    anchor: grpc-core-concepts#bidirectional-streaming-rpc
+    sentence: The server can choose to send back its initial metadata or wait for the client to start streaming messages.
+  - option: Each request must be followed by exactly one response, in a fixed order
+    anchor: grpc-core-concepts#bidirectional-streaming-rpc
+    sentence: Client- and server-side stream processing is application specific.
+m07-l06-q03:
+  key:
+    anchor: grpc-core-concepts#deadlines
+    sentence: gRPC allows clients to specify how long they are willing to wait for an RPC to complete before the RPC is terminated with a DEADLINE_EXCEEDED error.
+  wrong:
+  - option: '`INVALID_ARGUMENT`'
+    anchor: grpc-status-codes#the-full-list-of-status-codes
+    sentence: The client specified an invalid argument.
+  - option: '`UNAVAILABLE`'
+    anchor: grpc-status-codes#the-full-list-of-status-codes
+    sentence: The service is currently unavailable.
+  - option: '`RESOURCE_EXHAUSTED`'
+    anchor: grpc-status-codes#the-full-list-of-status-codes
+    sentence: Some resource has been exhausted, perhaps a per-user quota
+m07-l06-q04:
+  key:
+    anchor: grpc-deadlines#deadline-propagation
+    sentence: In some languages this behavior needs to be explicitly enabled (e.g. C++) and in others it is enabled by default (e.g. Java and Go).
+  wrong:
+  - option: Every implementation propagates the deadline automatically, so no configuration is ever needed
+    anchor: grpc-deadlines#deadline-propagation
+    sentence: Automatically propagating the deadline from an incoming RPC to an outgoing one is supported by some gRPC implementations.
+  - option: The server must always copy the deadline into each outgoing call by hand, because no implementation does it
+    anchor: grpc-deadlines#deadline-propagation
+    sentence: Using this capability lets you avoid the error-prone approach of manually including the deadline for each outgoing RPC.
+  - option: The server should give each outgoing call its own fresh deadline, whatever the original client set
+    anchor: grpc-deadlines#deadline-propagation
+    sentence: In these cases where your server also acts as a client you would want to honor the deadline set by the original client.
+m07-l06-q05:
+  key:
+    anchor: grpc-deadlines#deadline-propagation
+    sentence: Since a deadline is set point in time, propagating it as-is to a server can be problematic as the clocks on the two servers might not be synchronized.
+  wrong:
+  - option: So that the downstream server can restart the full original timeout from zero
+    anchor: grpc-deadlines#deadline-propagation
+    sentence: In these cases where your server also acts as a client you would want to honor the deadline set by the original client.
+  - option: Because no gRPC language API can express a deadline as a fixed point in time
+    anchor: grpc-core-concepts#deadlines
+    sentence: some language APIs work in terms of a deadline (a fixed point in time) and may or may not have a default deadline.
+  - option: Because the server is never able to include the deadline in its outgoing calls itself
+    anchor: grpc-deadlines#deadline-propagation
+    sentence: Using this capability lets you avoid the error-prone approach of manually including the deadline for each outgoing RPC.
+m07-l06-q06:
+  key:
+    anchor: grpc-cancellation#overview
+    sentence: When an RPC is cancelled, the server should stop any ongoing computation and end its side of the stream.
+  wrong:
+  - option: Finish the work in progress and then discard the result
+    anchor: grpc-core-concepts#cancelling-an-rpc
+    sentence: A cancellation terminates the RPC immediately so that no further work is done.
+  - option: Keep the calls it made to upstream servers running, since only the client side is cancelled
+    anchor: grpc-cancellation#overview
+    sentence: so that cancellation operation should ideally propagate to all ongoing computation in the system that was initiated due to the original client RPC call.
+  - option: Ignore the cancellation, because only the server is allowed to cancel an RPC
+    anchor: grpc-core-concepts#cancelling-an-rpc
+    sentence: Either the client or the server can cancel an RPC at any time.
+m07-l06-q07:
+  key:
+    anchor: grpc-status-codes#the-full-list-of-status-codes
+    sentence: (b) Use ABORTED if the client should retry at a higher level (e.g., when a client-specified test-and-set fails, indicating the client should restart a read-modify-write sequence).
+  wrong:
+  - option: '`UNAVAILABLE`'
+    anchor: grpc-status-codes#the-full-list-of-status-codes
+    sentence: (a) Use UNAVAILABLE if the client can retry just the failing call.
+  - option: '`FAILED_PRECONDITION`'
+    anchor: grpc-status-codes#the-full-list-of-status-codes
+    sentence: (c) Use FAILED_PRECONDITION if the client should not retry until the system state has been explicitly fixed.
+  - option: '`INVALID_ARGUMENT`'
+    anchor: grpc-status-codes#the-full-list-of-status-codes
+    sentence: INVALID_ARGUMENT indicates arguments that are problematic regardless of the state of the system (e.g., a malformed file name).
+m07-l06-q08:
+  key:
+    anchor: grpc-status-codes#the-full-list-of-status-codes
+    sentence: PERMISSION_DENIED must not be used for rejections caused by exhausting some resource (use RESOURCE_EXHAUSTED instead for those errors).
+  wrong:
+  - option: '`UNAUTHENTICATED`'
+    anchor: grpc-status-codes#the-full-list-of-status-codes
+    sentence: The request does not have valid authentication credentials for the operation.
+  - option: '`FAILED_PRECONDITION`'
+    anchor: grpc-status-codes#the-full-list-of-status-codes
+    sentence: The operation was rejected because the system is not in a state required for the operation’s execution.
+  - option: '`OUT_OF_RANGE`'
+    anchor: grpc-status-codes#the-full-list-of-status-codes
+    sentence: The operation was attempted past the valid range.
+m07-l06-q09:
+  key:
+    anchor: grpc-status-codes#the-full-list-of-status-codes
+    sentence: For operations that change the state of the system, this error may be returned even if the operation has completed successfully.
+  wrong:
+  - option: The operation was certainly not applied, so retrying it is always safe
+    anchor: grpc-status-codes#the-full-list-of-status-codes
+    sentence: Note that it is not always safe to retry non-idempotent operations.
+  - option: The operation was cancelled by the caller before the server started it
+    anchor: grpc-status-codes#the-full-list-of-status-codes
+    sentence: The operation was cancelled, typically by the caller.
+  - option: The server was down, so the operation never reached it
+    anchor: grpc-status-codes#the-full-list-of-status-codes
+    sentence: The deadline expired before the operation could complete.
+m07-l06-q10:
+  key:
+    anchor: grpc-status-codes#the-full-list-of-status-codes
+    sentence: This is most likely a transient condition, which can be corrected by retrying with a backoff.
+  wrong:
+  - option: '`INTERNAL`'
+    anchor: grpc-status-codes#the-full-list-of-status-codes
+    sentence: Internal errors. This means that some invariants expected by the underlying system have been broken.
+  - option: '`DATA_LOSS`'
+    anchor: grpc-status-codes#the-full-list-of-status-codes
+    sentence: Unrecoverable data loss or corruption.
+  - option: '`UNIMPLEMENTED`'
+    anchor: grpc-status-codes#the-full-list-of-status-codes
+    sentence: The operation is not implemented or is not supported/enabled in this service.
+m07-l06-q11:
+  key:
+    anchor: protobuf-proto3#wire-unsafe-changes
+    sentence: Changing field numbers for any existing field is not safe.
+  wrong:
+  - option: Adding a new field to the message
+    anchor: protobuf-proto3#wire-safe-changes
+    sentence: Adding new fields is safe.
+  - option: Adding an additional value to an enum used in the message
+    anchor: protobuf-proto3#wire-safe-changes
+    sentence: Adding additional values to an enum is safe.
+  - option: Removing a field and never using its number again
+    anchor: protobuf-proto3#wire-safe-changes
+    sentence: Removing fields is safe.
+m07-l06-q12:
+  key:
+    anchor: protobuf-proto3#unknowns
+    sentence: when an old binary parses data sent by a new binary with new fields, those new fields become unknown fields in the old binary.
+  wrong:
+  - option: They are dropped, and the old binary does not write them out again
+    anchor: protobuf-proto3#unknowns
+    sentence: Proto3 messages preserve unknown fields and include them during parsing and in the serialized output, which matches proto2 behavior.
+  - option: The parse of the whole message fails with an error in the old binary
+    anchor: protobuf-proto3#wire-safe-changes
+    sentence: Wire-safe changes are ones where it is fully safe to evolve the schema in this way without risk of data loss or new parse failures.
+  - option: They are merged into the nearest known field whose type matches
+    anchor: protobuf-proto3#unknowns
+    sentence: Unknown fields are well-formed Protobuf serialized data representing fields that the parser does not recognize.
+m07-l06-q13:
+  key:
+    anchor: protobuf-proto3#assigning
+    sentence: You should use the field numbers 1 through 15 for the most-frequently-set fields.
+  wrong:
+  - option: 16 through 2047
+    anchor: protobuf-proto3#assigning
+    sentence: Field numbers in the range 16 through 2047 take two bytes.
+  - option: 19,000 through 19,999
+    anchor: protobuf-proto3#assigning
+    sentence: Field numbers 19,000 to 19,999 are reserved for the Protobuf implementation.
+  - option: Any number above 536,870,911
+    anchor: protobuf-proto3#assigning
+    sentence: 'You must give each field in your message definition a number between 1 and 536,870,911 with the following restrictions:'
+m07-l06-q14:
+  key:
+    anchor: spring-graphql-controllers#controllers.batch-mapping
+    sentence: If your use case requires more information about the parent @SchemaMapping call (such as @Argument or context data), for example for filtering the entities to load, using the BatchLoaderRegistry is required.
+  wrong:
+  - option: When the field name must differ from the name of the method
+    anchor: spring-graphql-controllers#controllers.batch-mapping
+    sentence: Both can be customized through annotation attributes.
+  - option: When the batch loading function must return a `Mono` of a map
+    anchor: spring-graphql-controllers#controllers.batch-mapping
+    sentence: '@BatchMapping public Mono<Map<Book, Author>> author(List<Book> books) {'
+  - option: When the loaded entities must be registered in the `BatchLoaderRegistry` at all
+    anchor: spring-graphql-controllers#controllers.batch-mapping
+    sentence: The above becomes a batch loading function in the BatchLoaderRegistry where keys are Book instances and the loaded values their authors.
+m07-l06-q15:
+  key:
+    anchor: asyncapi-spec#introduction
+    sentence: It's NOT RECOMMENDED to derive a receiver AsyncAPI document from a sender one or vice versa.
+  wrong:
+  - option: Yes, because both applications always use the same channel
+    anchor: asyncapi-spec#introduction
+    sentence: There are no guarantees that the channel used by an application to receive messages will be the same channel where another application is sending them.
+  - option: Yes, because the summary and description stay valid for the opposite direction
+    anchor: asyncapi-spec#introduction
+    sentence: certain fields in the document like summary, description, and the id of the operation might stop making sense.
+  - option: Yes, because a system always reads and writes through one single channel
+    anchor: asyncapi-spec#introduction
+    sentence: a system may use a read-only channel for receiving messages, a different one for sending them, and an intermediary process that will forward messages from one channel to the other.

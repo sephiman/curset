@@ -1,0 +1,163 @@
+m03-l04-q01:
+  key:
+    anchor: jdk-troubleshoot-tools#JSTGD-GUID-D38849B6-61C7-4ED6-A395-EA4BC32A9FD6
+    sentence: 'Instant events: occurs instantly and gets logged immediately, for example, a thread gets blocked.'
+  wrong:
+  - option: Duration events
+    anchor: jdk-troubleshoot-tools#JSTGD-GUID-D38849B6-61C7-4ED6-A395-EA4BC32A9FD6
+    sentence: 'Duration events: occurs at a particular duration with specific start time and stop time.'
+  - option: Sample events
+    anchor: jdk-troubleshoot-tools#JSTGD-GUID-D38849B6-61C7-4ED6-A395-EA4BC32A9FD6
+    sentence: 'Sample events: occurs at regular intervals to check the overall health of the system, for example, printing heap diagnostics every minute.'
+  - option: Custom events
+    anchor: jdk-troubleshoot-tools#JSTGD-GUID-D38849B6-61C7-4ED6-A395-EA4BC32A9FD6
+    sentence: 'Custom events: user defined events created using JMC or APIs.'
+m03-l04-q02:
+  key:
+    anchor: jdk-troubleshoot-tools#JSTGD-GUID-D38849B6-61C7-4ED6-A395-EA4BC32A9FD6
+    sentence: When the global buffer fills up, the oldest data is discarded.
+  wrong:
+  - option: The recording stops and keeps the buffer as it is
+    anchor: jdk-troubleshoot-tools#JSTGD-GUID-D38849B6-61C7-4ED6-A395-EA4BC32A9FD6
+    sentence: 'Continuous recordings: A continuous recording is a recording that is always on and saves, for example, the last six hours of data.'
+  - option: The buffer is written to the specified file every time it fills up
+    anchor: jdk-troubleshoot-tools#JSTGD-GUID-D38849B6-61C7-4ED6-A395-EA4BC32A9FD6
+    sentence: The data currently in the buffer is written to the specified file whenever you request a dump, or if the dump is triggered by a rule.
+  - option: The newest events are dropped while the oldest stay in the buffer
+    anchor: jdk-troubleshoot-tools#JSTGD-GUID-D38849B6-61C7-4ED6-A395-EA4BC32A9FD6
+    sentence: When the global buffer fills up, the oldest data is discarded.
+m03-l04-q03:
+  key:
+    anchor: jdk-troubleshoot-jfr#JSTGD-GUID-85F8E796-5FEC-451F-885D-2A4518A5FE68
+    sentence: The overhead for recording a standard time fixed recording (profiling recording) using the default settings is less than two percent for most applications.
+  wrong:
+  - option: About ten percent
+    anchor: jdk-troubleshoot-jfr#JSTGD-GUID-85F8E796-5FEC-451F-885D-2A4518A5FE68
+    sentence: The overhead for recording a standard time fixed recording (profiling recording) using the default settings is less than two percent for most applications.
+    exclusive: true
+  - option: About twenty-five percent
+    anchor: jdk-troubleshoot-jfr#JSTGD-GUID-85F8E796-5FEC-451F-885D-2A4518A5FE68
+    sentence: The overhead for recording a standard time fixed recording (profiling recording) using the default settings is less than two percent for most applications.
+    exclusive: true
+  - option: About fifty percent
+    anchor: jdk-troubleshoot-jfr#JSTGD-GUID-85F8E796-5FEC-451F-885D-2A4518A5FE68
+    sentence: The overhead for recording a standard time fixed recording (profiling recording) using the default settings is less than two percent for most applications.
+    exclusive: true
+m03-l04-q04:
+  key:
+    anchor: jdk-troubleshoot-tools#JSTGD-GUID-88CC453C-0CED-45D6-9E93-28A03F3752F2
+    sentence: By default, synchronization events above 10 ms are collected.
+  wrong:
+  - option: 1 ms
+    anchor: jdk-troubleshoot-tools#JSTGD-GUID-88CC453C-0CED-45D6-9E93-28A03F3752F2
+    sentence: By default, synchronization events above 10 ms are collected.
+    exclusive: true
+  - option: 100 ms
+    anchor: jdk-troubleshoot-tools#JSTGD-GUID-88CC453C-0CED-45D6-9E93-28A03F3752F2
+    sentence: By default, synchronization events above 10 ms are collected.
+    exclusive: true
+  - option: 1 s
+    anchor: jdk-troubleshoot-tools#JSTGD-GUID-88CC453C-0CED-45D6-9E93-28A03F3752F2
+    sentence: By default, synchronization events above 10 ms are collected.
+    exclusive: true
+m03-l04-q05:
+  key:
+    execution: m03-l04/JfrEvents.java
+  wrong:
+  - option: 'threshold 0 ns: 3 events threshold 1 h: 3 events'
+    execution: m03-l04/JfrEvents.java
+    mistake: believes the threshold is ignored
+  - option: 'threshold 0 ns: 0 events threshold 1 h: 3 events'
+    execution: m03-l04/JfrEvents.java
+    mistake: swaps the two thresholds
+  - option: 'threshold 0 ns: 2 events threshold 1 h: 0 events'
+    execution: m03-l04/JfrEvents.java
+    mistake: off-by-one on the loop count
+m03-l04-q06:
+  key:
+    anchor: jdk-jfr-api-package#package-jdk-jfr
+    sentence: Flight Recorder can be controlled locally by using the jcmd command line tool or remotely by using the FlightRecorderMXBean interface, registered in the platform MBeanServer.
+  wrong:
+  - option: Locally through the `FlightRecorderMXBean` interface, remotely with the `jcmd` tool
+    anchor: jdk-jfr-api-package#package-jdk-jfr
+    sentence: Flight Recorder can be controlled locally by using the jcmd command line tool or remotely by using the FlightRecorderMXBean interface, registered in the platform MBeanServer.
+    exclusive: true
+  - option: Locally with the `jcmd` tool, remotely with the `jfr` command
+    anchor: jdk-jfr-api-package#package-jdk-jfr
+    sentence: Flight Recorder can be controlled locally by using the jcmd command line tool or remotely by using the FlightRecorderMXBean interface, registered in the platform MBeanServer.
+    exclusive: true
+  - option: Only through the `jfr` command, which starts and stops recordings
+    anchor: jdk-tool-jfr#description
+    sentence: The main function is to filter, summarize and output flight recording files into human readable format.
+m03-l04-q07:
+  key:
+    anchor: jmh-sample-constantfold#_R_7lcpala9lik5_
+    sentence: This can be prevented by always reading the inputs from non-final * instance fields of @State objects, computing the result based on those
+  wrong:
+  - option: A constant such as `Math.PI` passed directly to the computation
+    anchor: jmh-sample-constantfold#_R_7lcpala9lik5_
+    sentence: 'This is wrong: the source is predictable, and computation is foldable.'
+  - option: Local variables, as an IDE suggests when it flags the field
+    anchor: jmh-sample-constantfold#_R_7lcpala9lik5_
+    sentence: IDEs will say "Oh, you can convert this field to local variable". Don't. Trust. Them.
+  - option: Fields declared `final`, as an IDE suggests
+    anchor: jmh-sample-constantfold#_R_7lcpala9lik5_
+    sentence: IDEs will probably also say "Look, it could be final". Don't. Trust. Them. Either.
+m03-l04-q08:
+  key:
+    anchor: wrk2-readme#acknowledgements
+    sentence: Rather than measure response latency from the time that the actual transmission of a request occurred, wrk2 measures response latency from the time the transmission should have occurred according to the constant throughput configured for the run.
+  wrong:
+  - option: From the first byte of the request sent to the complete response received
+    anchor: wrk2-readme#acknowledgements
+    sentence: wrk's model, which is similar to the model found in many current load generators, computes the latency for a given request as the time from the sending of the first byte of the request to the time the complete response was received.
+  - option: From individual request samples kept in a separate buffer per request
+    anchor: wrk2-readme#wrk2
+    sentence: wrk2 replaces wrk's individual request sample buffers with HdrHistograms.
+  - option: By sending requests without waiting for earlier responses, which works for every protocol
+    anchor: wrk2-readme#acknowledgements
+    sentence: However, this (asynchronous) technique is normally only effective with non-blocking protocols or single-request-per-connection workloads.
+m03-l04-q09:
+  key:
+    anchor: wrk2-readme#wrk2
+    sentence: In addition to wrk's arguments, wrk2 takes a throughput argument (in total requests per second) via either the --rate or -R parameters (default is 1000).
+  wrong:
+  - option: '`--rate` or `-R`, in requests per second per connection, with a default of 1000'
+    anchor: wrk2-readme#wrk2
+    sentence: In addition to wrk's arguments, wrk2 takes a throughput argument (in total requests per second) via either the --rate or -R parameters (default is 1000).
+    exclusive: true
+  - option: '`--rate` or `-R`, in total requests per second, with a default of 100'
+    anchor: wrk2-readme#wrk2
+    sentence: In addition to wrk's arguments, wrk2 takes a throughput argument (in total requests per second) via either the --rate or -R parameters (default is 1000).
+    exclusive: true
+  - option: '`--rate` or `-R`, in total requests per second, with a default of 10000'
+    anchor: wrk2-readme#wrk2
+    sentence: In addition to wrk's arguments, wrk2 takes a throughput argument (in total requests per second) via either the --rate or -R parameters (default is 1000).
+    exclusive: true
+m03-l04-q10:
+  key:
+    anchor: hdrhistogram-readme#untitled
+    sentence: A Histogram's memory footprint is constant, with no allocation operations involved in recording data values or in iterating through them.
+  wrong:
+  - option: The memory footprint grows with the number of samples recorded
+    anchor: hdrhistogram-readme#untitled
+    sentence: The memory footprint is fixed regardless of the number of data value samples recorded, and depends solely on the dynamic range and precision chosen.
+  - option: Recording a value searches the stored values, so its cost grows with the sample count
+    anchor: hdrhistogram-readme#untitled
+    sentence: The amount of work involved in recording a sample is constant, and directly computes storage index locations such that no iteration or searching is ever involved in recording data values.
+  - option: Value precision is expressed as the number of decimal places of the largest value
+    anchor: hdrhistogram-readme#untitled
+    sentence: Value precision is expressed as the number of significant digits in the value recording, and provides control over value quantization behavior across the value range and the subsequent value resolution at any given level.
+m03-l04-q11:
+  key:
+    execution: m03-l04/CoordinatedOmission.java
+  wrong:
+  - option: raw samples=10001 raw percent at or below 1 ms=99.99 added samples=9999 corrected samples=20000 corrected percent at or below 1 ms=50.00
+    execution: m03-l04/CoordinatedOmission.java
+    mistake: 'off-by-one: includes the value equal to the interval'
+  - option: raw samples=10001 raw percent at or below 1 ms=99.99 added samples=0 corrected samples=10001 corrected percent at or below 1 ms=99.99
+    execution: m03-l04/CoordinatedOmission.java
+    mistake: ignores the correction
+  - option: raw samples=10001 raw percent at or below 1 ms=99.99 added samples=99998 corrected samples=109999 corrected percent at or below 1 ms=9.09
+    execution: m03-l04/CoordinatedOmission.java
+    mistake: 'wrong unit: steps of 1 ms'

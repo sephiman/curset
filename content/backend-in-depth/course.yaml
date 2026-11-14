@@ -17,14 +17,17 @@ course:
       systems, system design, operations and technical leadership, written from the primary documentation of pinned
       versions.
   languages: [en]
-  # Requirements 8.1: unpublished until S3; the platform's unpublished status is `draft`.
-  status: draft
-  # Generators of requirements 6.3 are the psicotecnico type; the static bank (6.1) is quiz, from S2; case waits for m09.
-  exercise_types: [psicotecnico, quiz]
+  # Requirements 8.1: published at the end of S3 (2026-11-14).
+  status: published
+  # Generators of requirements 6.3 are the psicotecnico type; the static bank (6.1) is quiz; the design cases (6.4) are case.
+  exercise_types: [psicotecnico, quiz, case]
   # Requirements 6.5: unseen questions first, failed ones return at growing intervals.
   practice_scheduler: spaced
+  # Requirements 6.6: the practice presets the course page offers; no official mock exam, the generators' clock optional.
+  lesson_practice: true
+  practice_presets: [lesson, module, review, code-reading, generators]
   option_labels: letters
-  pdf_exercises: false
+  pdf_exercises: true
   # Requirements 6.3 runtime generators: equal weights, levels 1 and 2 drawn equally (no index fixes a mix).
   practice_generators:
   - generator: capacity-estimation
@@ -92,7 +95,12 @@ course:
       en: Loop complexity
     weight: 1
     difficulty: {1: 1, 2: 1}
-  # glyph / color: left for S3 (docs/identity.md).
+  # The identity round (docs/identity.md): a server rack, distinct from the other four glyphs; green accent on paper
+  # and on ink.
+  glyph: server-rack
+  color:
+    light: "#296c2e"
+    dark: "#44b34d"
 blocks:
 - id: block-a
   title:
@@ -124,21 +132,33 @@ blocks:
         en: 'Design principles, pragmatism and data-oriented programming'
       summary:
         en: 'Records, sealed types and pattern matching in Java 25 as the building blocks of data-oriented design, with the single responsibility principle, DRY, KISS and yagni attributed to their authors.'
+      exercises:
+      - id: m01-l01-ex-1
+        type: quiz
     - id: m01-l02
       title:
         en: 'GoF patterns in modern backend code'
       summary:
         en: 'JDK dynamic proxies and Spring AOP proxying mechanics, with the Gang of Four catalogue pointed to by chapter and a builder, a proxy and a strategy-with-observer run as snippets.'
+      exercises:
+      - id: m01-l02-ex-1
+        type: quiz
     - id: m01-l03
       title:
         en: 'Application architecture and modular evolution'
       summary:
         en: 'Spring Modulith modules and ArchUnit rules keep module boundaries and layers checked by tests, and Spring Data aggregate roots publish domain events.'
+      exercises:
+      - id: m01-l03-ex-1
+        type: quiz
     - id: m01-l04
       title:
         en: 'Auditing and defending AI-assisted code'
       summary:
-        en: Summary pending.
+        en: 'Self-invocation silently skips Spring proxies, `CompletableFuture` defaults to the shared common pool, and swallowing an `InterruptedException` loses the interrupt status.'
+      exercises:
+      - id: m01-l04-ex-1
+        type: quiz
   - id: m02
     title:
       en: 'Algorithms and data structures'
@@ -149,37 +169,55 @@ blocks:
       title:
         en: 'Complexity and Java collections internals'
       summary:
-        en: Summary pending.
+        en: 'Amortised cost averages a sequence of operations, each Java collection documents the structure and cost of its operations, and `equals`, `hashCode` and `compareTo` carry contracts that hash tables and sorted maps rely on.'
+      exercises:
+      - id: m02-l01-ex-1
+        type: quiz
     - id: m02-l02
       title:
         en: 'Arrays, strings and hashing'
       summary:
-        en: Summary pending.
+        en: 'Two pointers, sliding windows, prefix sums and map counting are shown as running code, `binarySearch` returns `-(insertion point) - 1` for a missing key, and Java sorts primitives with a Dual-Pivot Quicksort and objects with a stable merge sort.'
+      exercises:
+      - id: m02-l02-ex-1
+        type: quiz
     - id: m02-l03
       title:
         en: 'Linear structures and trees'
       summary:
-        en: Summary pending.
+        en: 'A `Deque` serves as stack and queue, a binary tree is walked recursively, iteratively or level by level, and a `BinaryHeap` stored in an array keeps the smallest element at position 0.'
+      exercises:
+      - id: m02-l03-ex-1
+        type: quiz
     - id: m02-l04
       title:
         en: 'Graphs'
       summary:
-        en: Summary pending.
+        en: 'Graphs are stored as adjacency matrices or lists and searched breadth-first or depth-first, which gives components, cycle detection and topological order, with union-find for components and Dijkstra''s algorithm for shortest paths.'
+      exercises:
+      - id: m02-l04-ex-1
+        type: quiz
     - id: m02-l05
       title:
         en: 'Algorithm design techniques'
       summary:
-        en: Summary pending.
+        en: 'Recursion, backtracking, dynamic programming, greedy algorithms and bit manipulation, with runnable snippets that show what pruning, memoisation and greedy choices change.'
+      exercises:
+      - id: m02-l05-ex-1
+        type: quiz
     - id: m02-l06
       title:
         en: 'Design structures common in interviews'
       summary:
-        en: Summary pending.
+        en: 'An access-ordered linked hash map as an LRU cache, an iterator over nested lists and two priority queues for a running median, each with a recorded snippet run.'
+      exercises:
+      - id: m02-l06-ex-1
+        type: quiz
     - id: m02-l07
       title:
         en: 'Pattern recognition'
       summary:
-        en: Summary pending.
+        en: 'Naive and better solutions are told apart by the signals Erickson names for backtracking, dynamic programming and greedy algorithms, with the costs he states for text segmentation and the longest increasing subsequence.'
   - id: m03
     title:
       en: 'Modern JVM, concurrency and performance'
@@ -190,22 +228,34 @@ blocks:
       title:
         en: 'JVM internals, memory management and cloud efficiency'
       summary:
-        en: Summary pending.
+        en: 'The JVM''s run-time data areas, allocation with TLABs, how G1 and generational ZGC collect and are tuned, how to find memory leaks with heap dumps and thread dumps, and what AppCDS, the AOT cache, Spring AOT and GraalVM Native Image change at start-up.'
+      exercises:
+      - id: m03-l01-ex-1
+        type: quiz
     - id: m03-l02
       title:
         en: 'Classic concurrency and the Java Memory Model'
       summary:
-        en: Summary pending.
+        en: 'Visibility, atomicity and ordering under the Java Memory Model with `volatile`, happens-before and the `Atomic*` classes, then `CompletableFuture`, executors, locks, semaphores and the concurrent collections, and what makes a data race or a deadlock.'
+      exercises:
+      - id: m03-l02-ex-1
+        type: quiz
     - id: m03-l03
       title:
         en: 'Project Loom: virtual threads, structured concurrency and scoped values'
       summary:
-        en: Summary pending.
+        en: 'Virtual threads and their carriers, pinning before and after JEP 491, the Java 25 state of structured concurrency (still a preview API) and scoped values as the alternative to thread-local variables.'
+      exercises:
+      - id: m03-l03-ex-1
+        type: quiz
     - id: m03-l04
       title:
         en: 'Profiling, benchmarking and measuring performance'
       summary:
-        en: Summary pending.
+        en: 'Java Flight Recorder and JDK Mission Control, async-profiler, the JMH pitfalls of dead-code elimination, constant folding and forks, coordinated omission in latency measurement, and the SRE book''s hypothesis-driven troubleshooting attributed as judgement.'
+      exercises:
+      - id: m03-l04-ex-1
+        type: quiz
   - id: m04
     title:
       en: 'Kotlin for Java developers'
@@ -216,27 +266,42 @@ blocks:
       title:
         en: 'Type system and null safety'
       summary:
-        en: Summary pending.
+        en: 'How Kotlin separates nullable from non-nullable types and what smart casts and lateinit add, how platform types and nullability annotations cover Java values, and how declaration-site variance, projections and reified type parameters work.'
+      exercises:
+      - id: m04-l01-ex-1
+        type: quiz
     - id: m04-l02
       title:
         en: 'Idiomatic Kotlin'
       summary:
-        en: Summary pending.
+        en: 'The members the compiler generates for data classes and data objects, sealed hierarchies with exhaustive when and guard conditions, object declarations and value classes, extension and scope functions, read-only collections, sequences and delegation, and how these compare with Java records, sealed classes and pattern matching.'
+      exercises:
+      - id: m04-l02-ex-1
+        type: quiz
     - id: m04-l03
       title:
         en: 'Coroutines'
       summary:
-        en: Summary pending.
+        en: 'How suspend functions become continuation-passing state machines, how structured concurrency, Job, SupervisorJob and cooperative cancellation scope coroutines and their failures, how dispatchers move work between threads, how cold and hot flows and their buffers behave, and how coroutines differ from JVM threads and virtual threads.'
+      exercises:
+      - id: m04-l03-ex-1
+        type: quiz
     - id: m04-l04
       title:
         en: 'Kotlin in Spring Boot'
       summary:
-        en: Summary pending.
+        en: 'Why Spring and JPA need the all-open and no-arg compiler plugins, what data classes do to JPA entities, how suspend functions and Flow appear in controllers, repositories and transactions, and how MockK and runTest test them.'
+      exercises:
+      - id: m04-l04-ex-1
+        type: quiz
     - id: m04-l05
       title:
         en: 'Interoperability and migration from Java'
       summary:
-        en: Summary pending.
+        en: 'How Kotlin functions look to Java callers with @JvmStatic, @JvmOverloads and @Throws, how Kotlin treats Java checked exceptions, and what the Kotlin documentation says about adding Kotlin to a Java project.'
+      exercises:
+      - id: m04-l05-ex-1
+        type: quiz
   - id: m05
     title:
       en: 'Spring Framework and Spring Boot internals'
@@ -247,42 +312,66 @@ blocks:
       title:
         en: 'IoC container and bean lifecycle'
       summary:
-        en: Summary pending.
+        en: 'How the Spring container defines, creates, wires and destroys beans, including scopes, post-processors, injection styles, configuration classes, conditions and profiles.'
+      exercises:
+      - id: m05-l01-ex-1
+        type: quiz
     - id: m05-l02
       title:
         en: 'Spring Boot auto-configuration'
       summary:
-        en: Summary pending.
+        en: 'How Spring Boot discovers, orders and conditions auto-configurations, how starters and externalised configuration work, and how an auto-configuration and a starter are written and tested.'
+      exercises:
+      - id: m05-l02-ex-1
+        type: quiz
     - id: m05-l03
       title:
         en: 'AOP and proxies'
       summary:
-        en: Summary pending.
+        en: 'How Spring AOP proxies work, with JDK dynamic proxies, CGLIB, self-invocation and proxy limits, and how proxy-based annotations and advice are ordered.'
+      exercises:
+      - id: m05-l03-ex-1
+        type: quiz
     - id: m05-l04
       title:
         en: 'Transaction management'
       summary:
-        en: Summary pending.
+        en: 'How Spring manages transactions with a transaction manager strategy, the @Transactional settings, rollback rules, transactional event listeners and asynchronous or reactive execution.'
+      exercises:
+      - id: m05-l04-ex-1
+        type: quiz
     - id: m05-l05
       title:
         en: 'Web layer'
       summary:
-        en: Summary pending.
+        en: 'How a request travels from the servlet filters through the DispatcherServlet and message converters, how validation and controller advice build the error model, when MVC or WebFlux and virtual threads fit, and how RestClient, WebClient and HTTP service interfaces call other services.'
+      exercises:
+      - id: m05-l05-ex-1
+        type: quiz
     - id: m05-l06
       title:
         en: 'Spring Security'
       summary:
-        en: Summary pending.
+        en: 'How DelegatingFilterProxy, FilterChainProxy and SecurityFilterChain order the security filters, how the SecurityContext and ProviderManager authenticate a request and cross threads, how request and method authorization differ, and how a JWT resource server validates tokens and maps issuers.'
+      exercises:
+      - id: m05-l06-ex-1
+        type: quiz
     - id: m05-l07
       title:
         en: 'Spring Data and JPA'
       summary:
-        en: Summary pending.
+        en: 'How Spring Data repositories, derived queries, @Query, projections and specifications work, how Hibernate''s persistence context tracks entity states, flushes and orders statements, and how auditing, optimistic locking and JDBC batching are configured.'
+      exercises:
+      - id: m05-l07-ex-1
+        type: quiz
     - id: m05-l08
       title:
         en: 'Operating and testing Spring Boot applications'
       summary:
-        en: Summary pending.
+        en: 'How Actuator exposes endpoints, health groups and metrics, which events a SpringApplication sends and how it shuts down gracefully, and how test slices, the test context cache and Testcontainers service connections behave.'
+      exercises:
+      - id: m05-l08-ex-1
+        type: quiz
   - id: m06
     title:
       en: 'Relational persistence, transactions and SQL optimisation'
@@ -294,21 +383,33 @@ blocks:
         en: 'ACID, MVCC and PostgreSQL internals'
       summary:
         en: 'PostgreSQL 18''s multiversion model, write-ahead log, vacuuming and transaction ID wraparound, and the Read Committed, Repeatable Read and Serializable levels as it implements them.'
+      exercises:
+      - id: m06-l01-ex-1
+        type: quiz
     - id: m06-l02
       title:
         en: 'Concurrency anomalies, locking and connection pooling'
       summary:
         en: 'The four isolation phenomena and what each PostgreSQL 18 level allows, optimistic and pessimistic locking, row locks, HikariCP pool sizing and PgBouncer pooling modes.'
+      exercises:
+      - id: m06-l02-ex-1
+        type: quiz
     - id: m06-l03
       title:
         en: 'Advanced indexing, partitioning and SQL optimisation'
       summary:
         en: 'How PostgreSQL 18 index types, multicolumn, partial and covering indexes, EXPLAIN plans, offset versus keyset pagination and declarative partitioning work, and which ORM fetching and batching patterns cost extra queries.'
+      exercises:
+      - id: m06-l03-ex-1
+        type: quiz
     - id: m06-l04
       title:
         en: 'Zero-downtime schema evolution'
       summary:
         en: 'Zero-downtime schema changes with Flyway and Liquibase, the lock levels of ALTER TABLE, CREATE INDEX CONCURRENTLY and its failure modes, and constraints added with NOT VALID.'
+      exercises:
+      - id: m06-l04-ex-1
+        type: quiz
   - id: m07
     title:
       en: 'Networking and API design'
@@ -319,37 +420,58 @@ blocks:
       title:
         en: 'Networking fundamentals for backend engineers'
       summary:
-        en: Summary pending.
+        en: 'TCP set-up, teardown, congestion control and keep-alives, DNS caching in the JVM and Kubernetes, the TLS 1.3 handshake with certificates, SNI and ALPN, and timeouts and stale connections in HTTP clients.'
+      exercises:
+      - id: m07-l01-ex-1
+        type: quiz
     - id: m07-l02
       title:
         en: 'HTTP/1.1, HTTP/2 and HTTP/3'
       summary:
-        en: Summary pending.
+        en: 'What persistent connections and pipelining give HTTP/1.1, how HTTP/2 streams, flow control and HPACK work, how QUIC and HTTP/3 change the transport, and how WebSockets and Server-Sent Events keep a channel open.'
+      exercises:
+      - id: m07-l02-ex-1
+        type: quiz
     - id: m07-l03
       title:
         en: 'Load balancing and the edge'
       summary:
-        en: Summary pending.
+        en: 'How Kubernetes Services, readiness and termination steer traffic, what reverse proxies, Ingress and Gateway API are, and which HTTP cache rules apply to shared caches and CDNs.'
+      exercises:
+      - id: m07-l03-ex-1
+        type: quiz
     - id: m07-l04
       title:
         en: 'HTTP semantics'
       summary:
-        en: Summary pending.
+        en: 'Safe and idempotent methods and when requests may be retried, the five status code classes and the redirect codes, HTTP caching with Cache-Control, ETag, conditional requests and Vary, and content negotiation and content codings.'
+      exercises:
+      - id: m07-l04-ex-1
+        type: quiz
     - id: m07-l05
       title:
         en: 'REST API design'
       summary:
-        en: Summary pending.
+        en: 'Resource modelling, idempotency keys and safe retries, ETag and If-Match, links for paging, Problem Details, 202 for long-running work, 429 with Retry-After and RateLimit fields, and what an OpenAPI description holds.'
+      exercises:
+      - id: m07-l05-ex-1
+        type: quiz
     - id: m07-l06
       title:
         en: 'gRPC, GraphQL and asynchronous APIs'
       summary:
-        en: Summary pending.
+        en: 'gRPC call types, deadlines, cancellation, status codes and Protocol Buffers field-number rules; the GraphQL schema, resolvers and the N+1 problem with DataLoader; AsyncAPI documents; and where REST, gRPC, GraphQL and messaging fit.'
+      exercises:
+      - id: m07-l06-ex-1
+        type: quiz
     - id: m07-l07
       title:
         en: 'API evolution and governance'
       summary:
-        en: Summary pending.
+        en: 'Which Protocol Buffers changes are wire-safe, conditionally safe or unsafe, how Spring maps API versions, why the tolerant reader is no longer a blanket rule, the Deprecation and Sunset signals, and how Google''s AIPs govern API design.'
+      exercises:
+      - id: m07-l07-ex-1
+        type: quiz
   - id: m08
     title:
       en: 'Distributed systems, messaging and resilience'
@@ -360,37 +482,58 @@ blocks:
       title:
         en: 'Fundamentals of distributed systems'
       summary:
-        en: Summary pending.
+        en: 'CAP and PACELC, the consistency guarantees etcd and ZooKeeper actually give, and how NTP and logical clocks order events.'
+      exercises:
+      - id: m08-l01-ex-1
+        type: quiz
     - id: m08-l02
       title:
         en: 'Event-driven architecture (Kafka and RabbitMQ)'
       summary:
-        en: Summary pending.
+        en: 'Kafka replication, acknowledgements, consumer groups and rebalancing, schema compatibility, partition keys, dead letters and retries, and delivery semantics, with RabbitMQ as the contrast.'
+      exercises:
+      - id: m08-l02-ex-1
+        type: quiz
     - id: m08-l03
       title:
         en: 'Distributed transactions without 2PC'
       summary:
-        en: Summary pending.
+        en: 'Why a database write and a broker publish cannot be one transaction, and how an outbox read by polling or by Debezium and a saga with compensating actions replace two-phase commit.'
+      exercises:
+      - id: m08-l03-ex-1
+        type: quiz
     - id: m08-l04
       title:
         en: 'Stability, resilience and traffic control'
       summary:
-        en: Summary pending.
+        en: 'Circuit breaker states and windows, retries with exponential backoff and jitter, bulkheads, rate limits and quotas, load shedding, deadline propagation and backpressure.'
+      exercises:
+      - id: m08-l04-ex-1
+        type: quiz
     - id: m08-l05
       title:
         en: 'Consensus and coordination'
       summary:
-        en: Summary pending.
+        en: 'Failure models and detectors, Raft and Paxos, quorums and split brain in etcd, ZooKeeper, Redis Sentinel and KRaft, leases and fencing tokens, two-phase commit, and SWIM gossip membership.'
+      exercises:
+      - id: m08-l05-ex-1
+        type: quiz
     - id: m08-l06
       title:
         en: 'Event sourcing and CQRS'
       summary:
-        en: Summary pending.
+        en: 'Event-sourced entities, snapshots and the consistency marker, CQRS with Axon queries and event processors, event versioning, token-based projections with replay, the Axon command bus and sagas, crypto-shredding, and Martin Fowler''s cautions on when not to use them.'
+      exercises:
+      - id: m08-l06-ex-1
+        type: quiz
     - id: m08-l07
       title:
         en: 'Stream processing'
       summary:
-        en: Summary pending.
+        en: 'Batch versus stream and event time versus processing time, tumbling, hopping, sliding and session windows with watermarks and grace periods, Kafka Streams state stores, tables and joins, exactly-once with idempotent producers and transactions, and Flink checkpoints, savepoints and back pressure.'
+      exercises:
+      - id: m08-l07-ex-1
+        type: quiz
   - id: m09
     title:
       en: 'System design and data scalability'
@@ -401,27 +544,54 @@ blocks:
       title:
         en: 'A step-by-step framework for system design'
       summary:
-        en: Summary pending.
+        en: 'Quantiles and percentiles, capacity estimates computed from stated assumptions, API contract and storage-engine choices, and the diagram types of a high-level design.'
+      exercises:
+      - id: m09-l01-ex-1
+        type: quiz
     - id: m09-l02
       title:
         en: 'Data scalability: replication, sharding and caching'
       summary:
-        en: Summary pending.
+        en: 'Choosing between scaling up, replicas, partitions and shards, how PostgreSQL, Redis, Elasticsearch and Dynamo replicate and shard data, and how Redis caches and evicts keys.'
+      exercises:
+      - id: m09-l02-ex-1
+        type: quiz
     - id: m09-l03
       title:
         en: 'Multi-tenant architecture and data isolation'
       summary:
-        en: Summary pending.
+        en: 'Schema per tenant and row-level security in PostgreSQL, Kafka quotas, bulkheads and Kubernetes limits as isolation between tenants, and per-customer limits that may exceed capacity.'
+      exercises:
+      - id: m09-l03-ex-1
+        type: quiz
     - id: m09-l04
       title:
         en: 'Blueprints'
       summary:
-        en: Summary pending.
+        en: 'Distributed rate limiters, contention-safe booking, notification delivery, telemetry ingestion, ID generation, search and autocomplete, and MCP-based agent platforms, each from the documentation of the tools involved.'
+      exercises:
+      - id: m09-l04-ex-1
+        type: quiz
+      - id: m09-case-a
+        type: case
+      - id: m09-case-b
+        type: case
+      - id: m09-case-c
+        type: case
+      - id: m09-case-e
+        type: case
+      - id: m09-case-f
+        type: case
+      - id: m09-case-g
+        type: case
     - id: m09-l05
       title:
         en: 'Storage engines and non-relational databases'
       summary:
-        en: Summary pending.
+        en: 'LSM-trees against B-trees with Bigtable and Bloom filters, Elasticsearch index modes, Redis persistence, eviction, Sentinel and Cluster, Elasticsearch shards, refresh, translog and merges, and a sourced guide to choosing a data store model.'
+      exercises:
+      - id: m09-l05-ex-1
+        type: quiz
   - id: m10
     title:
       en: 'Platform, observability, security and AI integration'
@@ -432,32 +602,50 @@ blocks:
       title:
         en: 'Observability of distributed systems'
       summary:
-        en: Summary pending.
+        en: 'Structured logs with trace correlation, OpenTelemetry spans and context propagation, Micrometer and Prometheus metric types and percentiles, the USE and RED methods, and SLO burn-rate alerting.'
+      exercises:
+      - id: m10-l01-ex-1
+        type: quiz
     - id: m10-l02
       title:
         en: 'Security, identity and compliance'
       summary:
-        en: Summary pending.
+        en: 'Zero trust between services with SPIFFE identities, TLS client authentication, default-deny NetworkPolicies and dynamic secrets, OAuth 2.0 and OpenID Connect flows, JWT validation and key identifiers, RBAC and ABAC, and GDPR, encryption and audit-log obligations.'
+      exercises:
+      - id: m10-l02-ex-1
+        type: quiz
     - id: m10-l03
       title:
         en: 'FinOps and infrastructure efficiency'
       summary:
-        en: Summary pending.
+        en: 'Kubernetes requests, limits and QoS classes, HPA and KEDA autoscaling, zone-aware traffic routing, telemetry sampling and Prometheus retention sizing, and StorageClass reclaim policy, with the sizing arithmetic run in a snippet.'
+      exercises:
+      - id: m10-l03-ex-1
+        type: quiz
     - id: m10-l04
       title:
         en: 'Platform engineering and architecture of systems with AI'
       summary:
-        en: Summary pending.
+        en: 'Threat-modelling and agent-versus-workflow judgement, then the facts of MCP authorization and security, least privilege for sensitive data and indirect prompt injection.'
+      exercises:
+      - id: m10-l04-ex-1
+        type: quiz
     - id: m10-l05
       title:
         en: 'Kubernetes in production and continuous delivery'
       summary:
-        en: Summary pending.
+        en: 'Probes, graceful shutdown, rolling updates and disruption budgets, deployment strategies, feature flags, GitOps and trunk-based delivery, migrations inside a deployment and the DORA metrics.'
+      exercises:
+      - id: m10-l05-ex-1
+        type: quiz
     - id: m10-l06
       title:
         en: 'Application security and supply chain'
       summary:
-        en: Summary pending.
+        en: 'OWASP Top 10 and API Top 10 applied to Java and Spring, access-control flaws, injection, SSRF, deserialization and path traversal, the HTTP surface, secrets in logs and traces, supply-chain controls and STRIDE.'
+      exercises:
+      - id: m10-l06-ex-1
+        type: quiz
   - id: m11
     title:
       en: 'Code reading, debugging and testing'
@@ -468,32 +656,50 @@ blocks:
       title:
         en: 'Java Streams, gatherers and collections in depth'
       summary:
-        en: Summary pending.
+        en: 'Reading Java stream pipelines: flatMap, takeWhile, dropWhile, reduce, composed comparators, collectors, JEP 485 gatherers, laziness and side-effects.'
+      exercises:
+      - id: m11-l01-ex-1
+        type: quiz
     - id: m11-l02
       title:
         en: 'Refactoring legacy code and reviewing AI-generated changes'
       summary:
-        en: Summary pending.
+        en: 'Finding subtle bugs in clean-looking Java: resource leaks, lost causes, races, BigDecimal and overflow, time-zone gaps, fixed clocks and transactional proxies, with attributed review advice.'
+      exercises:
+      - id: m11-l02-ex-1
+        type: quiz
     - id: m11-l03
       title:
         en: 'Production debugging and incident triage'
       summary:
-        en: Summary pending.
+        en: 'Isolating a root cause in a Java service: cause chains in stack traces, thread dumps, percentile latency, connection-pool deadlock arithmetic and GC pause sums, with SRE triage advice attributed.'
+      exercises:
+      - id: m11-l03-ex-1
+        type: quiz
     - id: m11-l04
       title:
         en: 'Deterministic testing'
       summary:
-        en: Summary pending.
+        en: 'Unit tests that take the clock as a parameter run on a fixed instant, and a Mockito mock, a JUnit Jupiter test instance and a Testcontainers container each have a lifetime that decides what state a test can see.'
+      exercises:
+      - id: m11-l04-ex-1
+        type: quiz
     - id: m11-l05
       title:
         en: 'Thinking aloud'
       summary:
-        en: Summary pending.
+        en: 'An interviewer''s coding and design questions reward checking edge cases and bad input, testing the solution and stating its runtime complexity, shown here on a first-unique-character search.'
+      exercises:
+      - id: m11-l05-ex-1
+        type: quiz
     - id: m11-l06
       title:
         en: 'Advanced testing and test strategy'
       summary:
-        en: Summary pending.
+        en: 'Test strategy covers the shape of the suite, consumer-driven contracts with Pact, jqwik properties and shrinking, PIT mutation testing, k6 open and closed load models and soak tests, flaky-test causes, and chaos experiments with a controlled blast radius.'
+      exercises:
+      - id: m11-l06-ex-1
+        type: quiz
   - id: m12
     title:
       en: 'Staff-level technical leadership'
@@ -504,24 +710,24 @@ blocks:
       title:
         en: 'Architecture documentation, decision making and governance'
       summary:
-        en: Summary pending.
+        en: 'How published sources describe architecture decision records, resolving review disagreements, and delivery metrics and trunk-based development.'
     - id: m12-l02
       title:
         en: 'Remote work and asynchronous communication'
       summary:
-        en: Summary pending.
+        en: 'How Google and GitLab describe written communication, asynchronous work, documentation kept like code and review across time zones.'
     - id: m12-l03
       title:
         en: 'Behavioural interviews: STAR and story archetypes'
       summary:
-        en: Summary pending.
+        en: 'The STAR format and Amazon''s interview guidance, Staff archetypes and levels, and published accounts of incidents and postmortems.'
     - id: m12-l04
       title:
         en: 'Cultural fit and product alignment'
       summary:
-        en: Summary pending.
+        en: 'What the SRE books say about postmortem culture, incident management, toil, on-call load and engagement between SRE and product teams.'
     - id: m12-l05
       title:
         en: 'Technical strategy and large migrations'
       summary:
-        en: Summary pending.
+        en: 'Staff archetypes, published career ladders, writing engineering strategy, gradual migrations, build versus buy, technical debt, risk and deprecation.'

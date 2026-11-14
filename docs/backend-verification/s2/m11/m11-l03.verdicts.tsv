@@ -1,0 +1,91 @@
+S1.1	"Instances of `Error` and `Exception` are"	pass
+S1.2	"These instances are typically created in"	pass
+S1.3	"A throwable contains a snapshot of"	pass
+S1.4	"A throwable can also contain a"	pass
+S1.5	"The recording of causal information is"	pass
+S1.6	"The snippet throws a `TimeoutException` in"	pass
+S1.7	"It then walks the chain of"	pass
+S1.8	"The snippet prints `request failed (thrown"	pass
+S1.9	"It prints the root cause last,"	pass
+S2.1	"A thread dump consists of the"	pass
+S2.2	"A thread dump does not terminate"	pass
+S2.3	"Java threads are printed first in"	pass
+S2.4	"Each thread entry consists of a"	pass
+R1.1	"Thread ID (`tid`)"	pass
+R1.2	"Native thread ID (`nid`)"	pass
+R1.3	"Thread state"	pass
+R1.4	"Address range"	pass
+S3.1	"In `wrk`, the `done()` function receives"	pass
+S3.2	"In `wrk`, duration and latency are"	pass
+S3.3	"In `wrk`, `latency:percentile(99.0)` gives the 99th"	pass
+S3.4	"In `wrk`, `summary.errors.status` counts the total"	pass
+S3.5	"In `wrk`, `summary.errors.timeout` counts the total"	pass
+S3.6	"The snippet holds 100 latencies: 98"	pass
+S3.7	"It reads a percentile by the"	pass
+S3.8	"The snippet prints `mean 29.8`, which"	pass
+S3.9	"It prints `p50 10` and `p98"	pass
+S3.10	"It prints `p99 1000`, because rank"	pass
+S4.1	"A pool should be small, a"	pass
+S4.2	"A properly tuned pool is set"	pass
+S4.3	"A pool of 10,000 connections for"	pass
+S4.4	""Pool-locking" is largely an application-level issue"	pass
+S4.5	"Increasing the pool size can alleviate"	pass
+S4.6	"The pool size that avoids deadlock"	pass
+S4.7	"In that formula, `Tn` is the"	pass
+S4.8	"For 3 threads that each need"	pass
+S4.9	"For 8 threads that each need"	pass
+S4.10	"The formula gives the minimum pool"	pass
+S4.11	"Using a JTA transaction manager can"	pass
+S4.12	"The snippet models the pool as"	pass
+S4.13	"Three threads each take 3 permits,"	pass
+S4.14	"It runs once with the formula"	pass
+S4.15	"The snippet prints `minimum pool 10`"	pass
+S4.16	"It prints `pool 9: 0 of"	pass
+S4.17	"It prints `pool 10: 3 of"	pass
+S5.1	"Recordings from Flight Recorder can help"	pass
+S5.2	"To investigate garbage collection issues, take"	pass
+S5.3	"The `jfr` tool prints the `jdk.GCPhasePause`"	pass
+S5.4	"From the `jdk.GCPhasePause` events, one can"	pass
+S5.5	"The sum of pauses is the"	pass
+S5.6	"For GCs that do most of"	pass
+S5.7	"The main performance problems with garbage"	pass
+S5.8	"When an individual GC takes too"	pass
+S5.9	"A Full GC event in a"	pass
+S5.10	"The bigger the Java heap, the"	pass
+S5.11	"Memory leaks may cause more and"	pass
+S5.12	"To reduce the number of GCs,"	pass
+S5.13	"The `jdk.ObjectAllocationInNewTLAB` and `jdk.ObjectAllocationOutsideTLAB` events provide"	pass
+S5.14	"To reduce the need of GCs,"	pass
+S5.15	"The `jdk.ThreadAllocationStatistics` event provides information about"	pass
+S5.16	"The snippet groups five pauses by"	pass
+S5.17	"The snippet prints `sum of pauses"	pass
+S5.18	"It prints `total 17 ms` and"	pass
+S5.19	"It prints `average sum 5.67 ms`,"	pass
+S6.1	"According to Chris Jones, in chapter"	pass
+S6.2	"The priority is to make the"	pass
+S6.3	"According to the same chapter, the"	pass
+S6.4	"Logs show what a process was"	pass
+S6.5	"According to the same chapter, it"	pass
+S6.6	"Depending on the traffic, statistical sampling,"	pass
+S6.7	"According to Andrew Stribblehill, in chapter"	pass
+S7.1	"A throwable holds a snapshot of"	pass
+S7.2	"A thread dump lists the stack"	pass
+S7.3	"In a thread dump header, `tid`"	pass
+S7.4	"In `wrk`, latencies are in microseconds"	pass
+S7.5	"A mean can sit far from"	pass
+S7.6	"A properly tuned pool is small,"	pass
+S7.7	"`Tn x (Cm - 1) +"	pass
+S7.8	"The sum of pauses is the"	pass
+S7.9	"A bigger heap lengthens the time"	pass
+g-sum-of-pauses	pass
+g-chained-exception-facility	pass
+m11-l03-q01	fail	catching-method mistake yields main, controller, service; not controller three times
+m11-l03-q02	pass
+m11-l03-q03	fail	plus-one-omitted distractor impossible: pool 8 run blocks forever on acquire(3)
+m11-l03-q04	pass
+m11-l03-q05	pass
+m11-l03-q06	pass
+m11-l03-q07	pass
+# checked 88, passed 86, failed 2
+m11-l03-q08	recheck	fail	repair of discarded q01 (same snippet, fixed distractor) (L1)
+m11-l03-q09	recheck	fail	repair of discarded q03 (same snippet, replaced distractor) (L1)

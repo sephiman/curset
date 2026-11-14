@@ -1,0 +1,257 @@
+[
+ {
+  "id": "m10-l01-q01",
+  "fact": "m10-l01-f06",
+  "stem": "In Spring Boot's default log output, Logback has no `FATAL` level of its own. Which level does a message logged at `FATAL` map to?",
+  "key": "`ERROR`",
+  "distractors": [
+   "`WARN`",
+   "`INFO`",
+   "`TRACE`"
+  ],
+  "explanation": "`FATAL` is mapped to `ERROR`. The levels `WARN`, `INFO` and `TRACE` are all excluded by that mapping, because Logback has no `FATAL` level and maps it to `ERROR` alone.",
+  "citation": "spring-boot-features-logging#features.logging.log-format",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m10-l01-q02",
+  "fact": "m10-l01-f10",
+  "stem": "In the OpenTelemetry log data model, which statement about the `TraceId` and `SpanId` fields of a log record is correct?",
+  "key": "If `SpanId` is present, `TraceId` should also be present",
+  "distractors": [
+   "`TraceId` is a required field of every log record",
+   "`SpanId` is a required field of every log record",
+   "`TraceId` is a vendor-specific identifier that W3C Trace Context does not define"
+  ],
+  "explanation": "If `SpanId` is present, `TraceId` should also be present. A required `TraceId` on every record is wrong because the field can be set only for logs that are part of request processing with an assigned trace ID. A required `SpanId` on every record is wrong because the data model marks the field as optional. A vendor-specific `TraceId` is wrong because the field is the request trace ID as defined in W3C Trace Context.",
+  "citation": "otel-spec-logs-data-model#field-spanid; otel-spec-logs-data-model#field-traceid",
+  "extract": "If SpanId is present TraceId SHOULD be also present.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l01-q03",
+  "fact": "m10-l01-f14",
+  "stem": "In OpenTelemetry, a span records the ID of its parent span. Which value does the parent span ID of a root span hold?",
+  "key": "It is empty",
+  "distractors": [
+   "The trace ID of the trace",
+   "The span ID of the root span itself",
+   "The span ID of the first child span"
+  ],
+  "explanation": "The parent span ID of a root span is empty. The trace ID, the root span's own span ID and the span ID of a child span are all excluded, because the parent span ID is empty for root spans.",
+  "citation": "otel-traces#spans",
+  "extract": "Parent span ID (empty for root spans)",
+  "snippet": null
+ },
+ {
+  "id": "m10-l01-q04",
+  "fact": "m10-l01-f19",
+  "stem": "Which headers does the default propagator of OpenTelemetry use to move the context of a request between two services that exchange HTTP calls?",
+  "key": "The headers specified by the W3C `TraceContext` specification",
+  "distractors": [
+   "The `b3` headers of the Zipkin B3 specification",
+   "The `uber-trace-id` header of the Jaeger format",
+   "The `X-Amzn-Trace-Id` header of AWS X-Ray"
+  ],
+  "explanation": "The default propagator uses the headers specified by the W3C `TraceContext` specification. The Zipkin `b3` headers, the Jaeger `uber-trace-id` header and the AWS `X-Amzn-Trace-Id` header are all excluded, because the default propagator uses the W3C `TraceContext` headers.",
+  "citation": "otel-context-propagation#propagation",
+  "extract": "The default propagator uses the headers specified by the W3C TraceContext specification.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l01-q05",
+  "fact": "m10-l01-f21",
+  "stem": "According to the W3C Trace Context specification, which fields does the `traceparent` HTTP header have?",
+  "key": "Four fields: version, trace-id, parent-id and trace-flags",
+  "distractors": [
+   "Two fields: trace-id and parent-id",
+   "Three fields: version, trace-id and trace-flags",
+   "Five fields: version, trace-id, parent-id, trace-flags and trace-state"
+  ],
+  "explanation": "The header has four fields: version, trace-id, parent-id and trace-flags. The options with two, three and five fields are all excluded, because the header has exactly four and `trace-state` is not one of them.",
+  "citation": "w3c-trace-context#x3-2-traceparent-header",
+  "extract": "It has four fields: version trace-id parent-id trace-flags",
+  "snippet": null
+ },
+ {
+  "id": "m10-l01-q06",
+  "fact": "m10-l01-f27",
+  "stem": "By default, Spring Boot does not reinstate `ThreadLocal` values in reactive operators. Which property, set to `auto`, turns on automatic context propagation there?",
+  "key": "`spring.reactor.context-propagation`",
+  "distractors": [
+   "`spring.task.execution.propagate-context`",
+   "`management.tracing.exemplars.include`",
+   "`logging.structured.format.console`"
+  ],
+  "explanation": "Setting `spring.reactor.context-propagation` to `auto` enables automatic propagation in reactive operators. The property `spring.task.execution.propagate-context` is wrong because it is the opt-in for `@Async` methods. The property `management.tracing.exemplars.include` is wrong because it controls which traces are included as Prometheus exemplars. The property `logging.structured.format.console` is wrong because it selects the structured log format for console output.",
+  "citation": "spring-boot-actuator-observability#actuator.observability.context-propagation; spring-boot-actuator-metrics#actuator.metrics.export.prometheus; spring-boot-features-logging#features.logging.structured",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m10-l01-q07",
+  "fact": "m10-l01-f33",
+  "stem": "In the Spring Boot Observation API, which tags are added only to traces and never to metrics?",
+  "key": "High cardinality tags",
+  "distractors": [
+   "Low cardinality tags",
+   "Tags of both kinds",
+   "Tags of neither kind"
+  ],
+  "explanation": "High cardinality tags are the ones added only to traces. Low cardinality tags, tags of both kinds and tags of neither kind are all excluded, because low cardinality tags go to metrics and traces while high cardinality tags go only to traces.",
+  "citation": "spring-boot-actuator-observability#page-title",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m10-l01-q08",
+  "fact": "m10-l01-f31",
+  "stem": "According to the Spring Boot documentation on observability, which three pillars does the ability to observe a running system from the outside consist of?",
+  "key": "Logging, metrics and traces",
+  "distractors": [
+   "Metrics, traces and profiles",
+   "Logging, metrics and alerts",
+   "Logging, tracing and health checks"
+  ],
+  "explanation": "The three pillars are logging, metrics and traces. Metrics, traces and profiles, logging, metrics and alerts, and logging, tracing and health checks are all excluded, because the documentation names exactly logging, metrics and traces.",
+  "citation": "spring-boot-actuator-observability#page-title",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m10-l01-q09",
+  "fact": "m10-l01-f48",
+  "stem": "Which time series of a classic Prometheus histogram with the base metric name `<basename>` exposes the total sum of all observed values?",
+  "key": "`<basename>_sum`",
+  "distractors": [
+   "`<basename>_count`",
+   "`<basename>_bucket{le=\"+Inf\"}`",
+   "`<basename>{quantile=\"0.5\"}`"
+  ],
+  "explanation": "The total sum of all observed values is exposed as `<basename>_sum`. The series `<basename>_count` is wrong because it exposes the count of events that have been observed. The series `<basename>_bucket{le=\"+Inf\"}` is wrong because the `_bucket` series are cumulative counters for the observation buckets. The series `<basename>{quantile=\"0.5\"}` is wrong because it belongs to a summary and exposes a streaming φ-quantile.",
+  "citation": "prom-metric-types#histogram; prom-metric-types#summary",
+  "extract": "the total sum of all observed values, exposed as <basename>_sum",
+  "snippet": null
+ },
+ {
+  "id": "m10-l01-q10",
+  "fact": "m10-l01-f49",
+  "stem": "In a classic Prometheus histogram, which observations does the bucket series with the label `le=\"0.3\"` count?",
+  "key": "All observations less than or equal to 0.3",
+  "distractors": [
+   "Only observations greater than 0.2 and at most 0.3",
+   "Only observations equal to 0.3",
+   "All observations greater than 0.3"
+  ],
+  "explanation": "The bucket counts all observations less than or equal to 0.3. The band between 0.2 and 0.3, only the value 0.3 and everything above 0.3 are all excluded, because every bucket is cumulative and counts all observations up to the upper boundary in its label.",
+  "citation": "prom-metric-types#histogram",
+  "extract": "these buckets are cumulative , i.e. every bucket counts all observations less than or equal to the upper boundary provided as a label",
+  "snippet": null
+ },
+ {
+  "id": "m10-l01-q11",
+  "fact": "m10-l01-f51",
+  "stem": "Which metric name for the duration of HTTP requests follows the Prometheus guidance on base units and unit suffixes?",
+  "key": "`http_request_duration_seconds`",
+  "distractors": [
+   "`http_request_duration_milliseconds`",
+   "`http_request_duration`",
+   "`http_request_size_and_duration_seconds`"
+  ],
+  "explanation": "The name `http_request_duration_seconds` uses a base unit as its suffix. The name `http_request_duration_milliseconds` is wrong because names should use base units, not milliseconds. The name `http_request_duration` is wrong because a name should have a suffix describing the unit, in plural form. The name `http_request_size_and_duration_seconds` is wrong because a name must refer to a single quantity and must not mix request size with request duration.",
+  "citation": "prom-naming#metric-names",
+  "extract": "SHOULD use base units (e.g. seconds, bytes, meters - not milliseconds, megabytes, kilometers)",
+  "snippet": null
+ },
+ {
+  "id": "m10-l01-q12",
+  "fact": "m10-l01-f56",
+  "stem": "In Spring Boot, what is the default state of the `/actuator/prometheus` endpoint that presents a Prometheus scrape of one application instance?",
+  "key": "It is not available until you expose it",
+  "distractors": [
+   "It is exposed over HTTP automatically",
+   "It is exposed over JMX only",
+   "It is available once a Pushgateway dependency is present"
+  ],
+  "explanation": "The endpoint is not available by default and must be exposed. Automatic exposure over HTTP, exposure over JMX only and availability once a Pushgateway dependency is present are all excluded, because by default the endpoint is not available at all until it is exposed.",
+  "citation": "spring-boot-actuator-metrics#actuator.metrics.export.prometheus",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m10-l01-q13",
+  "fact": "m10-l01-f59",
+  "stem": "In Spring Boot, with a `SpanContext` bean present so that Prometheus exemplars are enabled, which traces are included as exemplars by default?",
+  "key": "Only sampled traces",
+  "distractors": [
+   "All traces, sampled or not",
+   "Only traces that ended with an error",
+   "Only traces started by a scrape request"
+  ],
+  "explanation": "By default, only sampled traces are included as exemplars. All traces, sampled or not, is wrong because the value `all` of `management.tracing.exemplars.include` is not supported with Prometheus. Traces that ended with an error only, and traces started by a scrape request only, are both excluded, because the default includes only sampled traces.",
+  "citation": "spring-boot-actuator-metrics#actuator.metrics.export.prometheus",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m10-l01-q14",
+  "fact": "m10-l01-f63",
+  "stem": "A service runs as several replicas and you want one overall 95th percentile of request duration. Which approach does the Prometheus documentation present as the working one?",
+  "key": "Sum the `_bucket` series by `le` of a classic histogram, then apply `histogram_quantile()`",
+  "distractors": [
+   "Average the `quantile=\"0.95\"` series of the summaries of all replicas",
+   "Configure a summary with a 0.95-quantile on every replica and add the results",
+   "Publish client-side percentiles from every replica with `publishPercentiles` and combine them across tags"
+  ],
+  "explanation": "Summing the `_bucket` series by `le` and then applying `histogram_quantile()` gives an aggregated percentile. Averaging the `quantile=\"0.95\"` series is wrong because averaging the quantiles yields statistically nonsensical values. Adding the results of per-replica summaries is wrong because aggregating the precomputed quantiles from a summary rarely makes sense. Combining client-side percentiles across tags is wrong because it is not possible to aggregate percentile approximations across tags.",
+  "citation": "prom-histograms#quantiles; micrometer-concepts-histogram#page-title",
+  "extract": "histogram_quantile(0.95, sum by (le) (rate(http_request_duration_seconds_bucket[5m]))) // GOOD.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l01-q15",
+  "fact": "m10-l01-f68",
+  "stem": "Which Micrometer timer option publishes percentile values computed in the application, which cannot be aggregated across dimensions?",
+  "key": "`publishPercentiles`",
+  "distractors": [
+   "`publishPercentileHistogram`",
+   "`serviceLevelObjectives`",
+   "`minimumExpectedValue`"
+  ],
+  "explanation": "The option `publishPercentiles` publishes percentile values computed in the application, and they are non-aggregable across dimensions. The option `publishPercentileHistogram` is wrong because it publishes a histogram suitable for aggregable percentile approximations. The option `serviceLevelObjectives` is wrong because it publishes a cumulative histogram with buckets defined by your SLOs. The option `minimumExpectedValue` is wrong because it controls the number of buckets shipped by `publishPercentileHistogram`.",
+  "citation": "micrometer-concepts-histogram#page-title",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m10-l01-q16",
+  "fact": "m10-l01-f36",
+  "stem": "Starting from which Micrometer version does the library provide the Observation API and a plugin mechanism that lets you add capabilities, including tracing?",
+  "key": "1.10",
+  "distractors": [
+   "1.5",
+   "1.8",
+   "1.14"
+  ],
+  "explanation": "The Observation API starts with Micrometer 1.10. The versions 1.5, 1.8 and 1.14 are all excluded as starting points, because the documentation states that Micrometer provides the Observation API starting from 1.10.",
+  "citation": "micrometer-concepts#concepts-purpose",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m10-l01-q17",
+  "fact": "m10-l01-f75",
+  "stem": "In Java 25, this snippet computes error-budget figures for a 30-day period of 720 hours with integer arithmetic. What does the program print?",
+  "key": "burn rate for 5% in 1 hour: 36\nbudget consumed at 14.4 over 1 hour: 2%\nhours to exhaust at burn rate 10: 72",
+  "distractors": [
+   "burn rate for 5% in 1 hour: 1\nbudget consumed at 14.4 over 1 hour: 48%\nhours to exhaust at burn rate 10: 3",
+   "burn rate for 5% in 1 hour: 3600\nbudget consumed at 14.4 over 1 hour: 2%\nhours to exhaust at burn rate 10: 72",
+   "burn rate for 5% in 1 hour: 36\nbudget consumed at 14.4 over 1 hour: 2%\nhours to exhaust at burn rate 10: 7200"
+  ],
+  "explanation": "The program prints 36 for the burn rate, 2% for the budget consumed and 72 hours to exhaust. The first wrong output is wrong because it divides by 30 days instead of 720 hours. The second wrong output is wrong because it treats the 5% as 5 instead of 0.05. The third wrong output is wrong because the hours to exhaust come from dividing 720 by the burn rate, not multiplying.",
+  "citation": "sre-workbook-slo-alerting#4-alert-on-burn-rate",
+  "extract": "Five percent of a 30-day error budget spend over one hour requires a burn rate of 36.",
+  "snippet": "m10-l01/BurnRate.java"
+ }
+]

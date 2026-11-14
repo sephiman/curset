@@ -1,0 +1,128 @@
+m08-l02-q01:
+  key:
+    anchor: kafka-design#availability-and-durability-guarantees
+    sentence: then writes that specify acks=all will succeed.
+  wrong:
+  - option: The write fails, because `acks=all` requires every assigned replica to acknowledge it
+    anchor: kafka-design#availability-and-durability-guarantees
+    sentence: does not guarantee that the full set of assigned replicas have received the message
+  - option: The write fails with `NotEnoughReplicas`, because the default `min.insync.replicas` is 2
+    anchor: kafka-topic-configs#min.insync.replicas
+    sentence: 'Default: 1 Valid Values: [1,...]'
+  - option: The write succeeds only once the failed replica has caught up and rejoined the ISR
+    anchor: kafka-design#availability-and-durability-guarantees
+    sentence: By default, when acks=all, acknowledgement happens as soon as all the current in-sync replicas have received the message.
+m08-l02-q02:
+  key:
+    anchor: kafka-design#availability-and-durability-guarantees
+    sentence: This setting offers a trade-off between consistency and availability.
+  wrong:
+  - option: It trades consistency for availability, because fewer replicas have to acknowledge each write
+    anchor: kafka-design#availability-and-durability-guarantees
+    sentence: A higher setting for minimum ISR size guarantees better consistency since the message is guaranteed to be written to more replicas
+  - option: It also applies to producers that use `acks=1`, so their writes wait for the minimum ISR size
+    anchor: kafka-design#availability-and-durability-guarantees
+    sentence: This setting only takes effect if the producer uses acks=all
+  - option: It makes the producer wait for every assigned replica, including replicas outside the ISR
+    anchor: kafka-design#availability-and-durability-guarantees
+    sentence: does not guarantee that the full set of assigned replicas have received the message
+m08-l02-q03:
+  key:
+    anchor: kafka-consumer-rebalance-protocol#consumer
+    sentence: 'the following configurations and APIs are no longer usable: heartbeat.interval.ms session.timeout.ms partition.assignment.strategy'
+  wrong:
+  - option: '`group.consumer.assignors`'
+    anchor: kafka-consumer-rebalance-protocol#server
+    sentence: The group.consumer.assignors configuration can be used to specify the list of available assignors for Consumer groups.
+  - option: '`group.remote.assignor`'
+    anchor: kafka-consumer-rebalance-protocol#server
+    sentence: via the client config group.remote.assignor
+  - option: '`group.protocol`'
+    anchor: kafka-consumer-rebalance-protocol#consumer
+    sentence: The group.protocol configuration must be set to consumer to enable it.
+m08-l02-q04:
+  key:
+    anchor: confluent-schema-evolution#avro-backward-compatibility
+    sentence: The Confluent Schema Registry default compatibility type is BACKWARD, not BACKWARD_TRANSITIVE.
+  wrong:
+  - option: '`BACKWARD_TRANSITIVE`'
+    anchor: confluent-schema-evolution#transitive-property
+    sentence: default compatibility type BACKWARD is non-transitive, which means that it
+  - option: '`FORWARD`'
+    anchor: confluent-schema-evolution#avro-backward-compatibility
+    sentence: The main reason that BACKWARD compatibility mode is the default, and preferred for Kafka
+    exclusive: true
+  - option: '`FULL`'
+    anchor: confluent-schema-evolution#avro-backward-compatibility
+    sentence: The main reason that BACKWARD compatibility mode is the default, and preferred for Kafka
+    exclusive: true
+m08-l02-q05:
+  key:
+    anchor: kafka-design#message-delivery-semantics
+    sentence: Kafka guarantees at-least-once delivery by default
+  wrong:
+  - option: At-most-once delivery, because the producer has retries disabled by default
+    anchor: kafka-design#message-delivery-semantics
+    sentence: allows the user to implement at-most-once delivery by disabling retries on the producer
+  - option: Exactly-once delivery, because the consumer isolation level defaults to `read_committed`
+    anchor: kafka-consumer-configs#isolation.level
+    sentence: read_uncommitted (the default)
+  - option: Exactly-once delivery to any destination system, because Kafka coordinates every write with the consumer position
+    anchor: kafka-design#message-delivery-semantics
+    sentence: Exactly-once delivery for other destination systems generally requires cooperation with such systems
+m08-l02-q06:
+  key:
+    anchor: kafka-consumer-configs#isolation.level
+    sentence: in read_committed mode, consumer.poll() will only return messages up to the last stable offset (LSO), which is the one less than the offset of the first open transaction.
+  wrong:
+  - option: The high watermark, because messages committed after the open transaction are already visible
+    anchor: kafka-consumer-configs#isolation.level
+    sentence: read_committed consumers will not be able to read up to the high watermark when there are in flight transactions.
+  - option: Every committed message, skipping the open transaction and returning the messages that follow it
+    anchor: kafka-consumer-configs#isolation.level
+    sentence: any messages appearing after messages belonging to ongoing transactions will be withheld until the relevant transaction has been completed.
+  - option: The log end offset, because the poll returns non-transactional messages out of offset order
+    anchor: kafka-consumer-configs#isolation.level
+    sentence: Messages will always be returned in offset order.
+m08-l02-q07:
+  key:
+    anchor: kafka-producer-configs#enable.idempotence
+    sentence: and acks must be 'all'
+  wrong:
+  - option: '`acks=1`'
+    anchor: kafka-producer-configs#acks
+    sentence: Note that enabling idempotence requires this config value to be 'all'.
+  - option: '`retries=0`'
+    anchor: kafka-producer-configs#enable.idempotence
+    sentence: retries to be greater than 0
+  - option: '`max.in.flight.requests.per.connection=10`'
+    anchor: kafka-producer-configs#enable.idempotence
+    sentence: less than or equal to 5
+m08-l02-q08:
+  key:
+    anchor: rabbitmq-dlx#overview
+    sentence: If an entire queue expires, the messages in the queue are not dead-lettered.
+  wrong:
+  - option: The message expires due to its per-message TTL
+    anchor: rabbitmq-dlx#overview
+    sentence: The message expires due to per-message TTL
+  - option: A consumer rejects the message with `basic.nack` and `requeue` set to false
+    anchor: rabbitmq-dlx#overview
+    sentence: basic.reject or basic.nack with requeue parameter set to false
+  - option: The message is dropped because its queue exceeded a length limit
+    anchor: rabbitmq-dlx#overview
+    sentence: The message is dropped because its queue exceeded a length limit
+m08-l02-q09:
+  key:
+    anchor: spring-kafka-error-handling#default-eh
+    sentence: By default, after ten failures, the failed record is logged (at the ERROR level).
+  wrong:
+  - option: The record is published to a topic named after the original topic with the `-dlt` suffix
+    anchor: spring-kafka-error-handling#default-eh
+    sentence: The default recoverer logs the failed record after retries are exhausted.
+  - option: The record is retried indefinitely until the listener succeeds
+    anchor: spring-kafka-error-handling#default-eh
+    sentence: Using a FixedBackOff with FixedBackOff.UNLIMITED_ATTEMPTS causes (effectively) infinite retries.
+  - option: The container stops and rethrows the exception to the application
+    anchor: spring-kafka-error-handling#default-eh
+    sentence: Failures are simply logged after retries are exhausted.

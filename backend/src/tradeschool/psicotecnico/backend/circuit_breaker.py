@@ -67,7 +67,9 @@ class CircuitBreakerGenerator(BackendGenerator[Breaker]):
     id: ClassVar[str] = "circuit-breaker-state"
     forms: ClassVar[tuple[str, ...]] = ("{}", "{} in total", "{} over the whole sequence")
     citation: ClassVar[Citation] = Citation(
-        "m08-l04", "resilience4j-circuitbreaker#failure-rate-and-slow-call-rate-thresholds"
+        "m08-l04",
+        "resilience4j-circuitbreaker#failure-rate-and-slow-call-rate-thresholds",
+        confirmed="resilience4j-circuitbreaker#failure-rate-and-slow-call-rate-thresholds",
     )
 
     def scenario(self, rng: random.Random, level: int) -> Breaker | None:

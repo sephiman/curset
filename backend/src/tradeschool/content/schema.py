@@ -103,6 +103,11 @@ class CourseColor(BaseModel):
     dark: str = Field(pattern=r"^#[0-9a-f]{6}$")
 
 
+#: `lesson` and `module`: one scope's questions; `review`: the scheduler's pick across the course;
+#: `code-reading`: the questions that rest on a lesson snippet; `generators`: the generated items only.
+type PracticePreset = Literal["lesson", "module", "review", "code-reading", "generators"]
+
+
 class ManifestCourse(BaseModel):
     """The root course entity; its blocks live at the manifest's top level."""
 
@@ -135,11 +140,27 @@ class ManifestCourse(BaseModel):
     color: CourseColor | None = None
     #: The psicotécnico generators the course uses, for the «Psicotécnicos» practice and its mixed exam parts.
     practice_generators: list[GeneratorUse] = Field(default_factory=list)
+    #: The practice presets the course page offers, in the order listed; absent: it offers none.
+    practice_presets: list[PracticePreset] = Field(default_factory=list)
 
     @model_validator(mode="after")
     def _distinct_languages(self) -> Self:
         if len(set(self.languages)) != len(self.languages):
             raise ValueError(f"course {self.id!r}: duplicate language in {self.languages}")
+        return self
+
+    @model_validator(mode="after")
+    def _presets_backed(self) -> Self:
+        if len(set(self.practice_presets)) != len(self.practice_presets):
+            raise ValueError(f"course {self.id!r}: duplicate practice preset in {self.practice_presets}")
+        needs = {
+            "lesson": ("lesson_practice: true", self.lesson_practice),
+            "review": ("practice_scheduler: spaced", self.practice_scheduler == "spaced"),
+            "generators": ("practice_generators", bool(self.practice_generators)),
+        }
+        for preset in self.practice_presets:
+            if preset in needs and not needs[preset][1]:
+                raise ValueError(f"course {self.id!r}: practice preset {preset!r} needs {needs[preset][0]}")
         return self
 
 

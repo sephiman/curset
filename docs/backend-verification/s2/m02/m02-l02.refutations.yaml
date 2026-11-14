@@ -1,0 +1,255 @@
+m02-l02-q01:
+  key:
+    anchor: javadoc-arrays#binarySearch(int[],int)
+    sentence: index of the search key, if it is contained in the array; otherwise, (-(insertion point) - 1).
+  wrong:
+  - option: It returns `-1` for every missing key, whatever position the key would take in the array
+    anchor: javadoc-arrays#binarySearch(int[],int)
+    sentence: index of the search key, if it is contained in the array; otherwise, (-(insertion point) - 1).
+  - option: It returns the insertion point itself, a non-negative index, and the caller tests that index against the array
+    anchor: javadoc-arrays#binarySearch(int[],int)
+    sentence: Note that this guarantees that the return value will be >= 0 if and only if the key is found.
+  - option: It returns `-(insertion point) - 1`, where the insertion point is the index of the last element smaller than the key
+    anchor: javadoc-arrays#binarySearch(int[],int)
+    sentence: 'The insertion point is defined as the point at which the key would be inserted into the array: the index of the first element greater than the key, or a.length if all elements in the array are less than the specified key.'
+m02-l02-q02:
+  key:
+    anchor: javadoc-collections#binarySearch(java.util.List,java.lang.Object)
+    sentence: If the specified list does not implement the RandomAccess interface and is large, this method will do an iterator-based binary search that performs O(n) link traversals and O(log n) element comparisons.
+  wrong:
+  - option: It does O(log n) link traversals and O(n) element comparisons, because it walks the links only once per probe
+    anchor: javadoc-collections#binarySearch(java.util.List,java.lang.Object)
+    sentence: If the specified list does not implement the RandomAccess interface and is large, this method will do an iterator-based binary search that performs O(n) link traversals and O(log n) element comparisons.
+  - option: It runs in log(n) time, because `LinkedList` provides near-constant-time positional access
+    anchor: javadoc-collections#binarySearch(java.util.List,java.lang.Object)
+    sentence: This method runs in log(n) time for a "random access" list (which provides near-constant-time positional access).
+  - option: It first copies the list into an array and then runs the search in constant time
+    anchor: javadoc-collections#binarySearch(java.util.List,java.lang.Object)
+    sentence: The list must be sorted into ascending order according to the natural ordering of its elements (as by the sort(List) method) prior to making this call.
+m02-l02-q03:
+  key:
+    anchor: javadoc-arrays#sort(java.lang.Object[])
+    sentence: 'This sort is guaranteed to be stable: equal elements will not be reordered as a result of the sort.'
+  wrong:
+  - option: Equal elements may swap places, because the sort is a Dual-Pivot Quicksort
+    anchor: javadoc-arrays#sort(java.lang.Object[])
+    sentence: 'Implementation note: This implementation is a stable, adaptive, iterative mergesort that requires far fewer than n lg(n) comparisons when the input array is partially sorted'
+  - option: Equal elements end up in the reverse of their original order
+    anchor: javadoc-arrays#sort(java.lang.Object[])
+    sentence: 'This sort is guaranteed to be stable: equal elements will not be reordered as a result of the sort.'
+  - option: Equal elements keep their order only when a `Comparator` is passed, not under natural ordering
+    anchor: javadoc-collections#sort(java.util.List)
+    sentence: 'This sort is guaranteed to be stable: equal elements will not be reordered as a result of the sort.'
+m02-l02-q04:
+  key:
+    anchor: javadoc-arrays#sort(java.lang.Object[])
+    sentence: If the input array is nearly sorted, the implementation requires approximately n comparisons.
+  wrong:
+  - option: '`Arrays.sort(Object[])` always needs n lg(n) comparisons, because it is a mergesort'
+    anchor: javadoc-arrays#sort(java.lang.Object[])
+    sentence: 'Implementation note: This implementation is a stable, adaptive, iterative mergesort that requires far fewer than n lg(n) comparisons when the input array is partially sorted'
+  - option: '`Collections.sort(List)` uses its own algorithm, unrelated to `List.sort(Comparator)`'
+    anchor: javadoc-collections#sort(java.util.List)
+    sentence: This implementation defers to the List.sort(Comparator) method using the specified list and a null comparator.
+  - option: '`Arrays.sort(int[])` is a stable mergesort adapted from the Python list sort'
+    anchor: javadoc-arrays#sort(int[])
+    sentence: The sorting algorithm is a Dual-Pivot Quicksort by Vladimir Yaroslavskiy, Jon Bentley, and Joshua Bloch.
+m02-l02-q05:
+  key:
+    anchor: ods-11-2-counting-sort-radix-so#SECTION001422000000000000000
+    sentence: uses several passes of counting-sort to allow for a much greater range of maximum values.
+  wrong:
+  - option: Radix-sort sorts the integers by their most significant bits first and the least significant bits last
+    anchor: ods-11-2-counting-sort-radix-so#SECTION001422000000000000000
+    sentence: radix sort first sorts the integers by their least significant bits, then their next significant bits, and so on until, in the last pass, the integers are sorted by their most significant bits.
+  - option: Counting-sort is most efficient when the array length is much smaller than the maximum value
+    anchor: ods-11-2-counting-sort-radix-so#SECTION001422000000000000000
+    sentence: of the array is not much smaller than the maximum value
+  - option: Heap-sort needs a second array of the same size, so it is not an in-place algorithm
+    anchor: ods-11-1-comparison-based-sorti#SECTION001413000000000000000
+    sentence: The heap-sort algorithm is another in-place sorting algorithm.
+m02-l02-q06:
+  key:
+    anchor: ods-11-1-comparison-based-sorti#SECTION001412000000000000000
+    sentence: Unlike merge-sort, which does merging after solving the two subproblems, quicksort does all of its work upfront.
+  wrong:
+  - option: Merge-sort partitions around a pivot first, and quicksort does the merging after solving the subproblems
+    anchor: ods-11-1-comparison-based-sorti#SECTION001412000000000000000
+    sentence: Unlike merge-sort, which does merging after solving the two subproblems, quicksort does all of its work upfront.
+  - option: Quicksort and merge-sort both finish with a merge step, in which the hard work happens
+    anchor: erickson-recursion#p9
+    sentence: In this algorithm, the hard work is splitting the array into smaller subarrays before recursion, so that merging the sorted subarrays is trivial.
+  - option: Quicksort copies each subarray at every level, so it cannot sort in place
+    anchor: ods-11-1-comparison-based-sorti#SECTION001412000000000000000
+    sentence: All of this is done in place, so that instead of making copies of subarrays being sorted, the method only sorts the subarray
+m02-l02-q07:
+  key:
+    anchor: javadoc-collections#sort(java.util.List)
+    sentence: The specified list must be modifiable, but need not be resizable.
+  wrong:
+  - option: The list must be resizable, because the sort moves elements by adding and removing them
+    anchor: javadoc-collections#sort(java.util.List)
+    sentence: The specified list must be modifiable, but need not be resizable.
+  - option: The elements need not implement `Comparable`, because a null comparator sorts by identity
+    anchor: javadoc-collections#sort(java.util.List)
+    sentence: All elements in the list must implement the Comparable interface.
+  - option: A `ClassCastException` is thrown only for null elements, and strings with integers compare fine
+    anchor: javadoc-collections#sort(java.util.List)
+    sentence: ClassCastException - if the list contains elements that are not mutually comparable (for example, strings and integers).
+m02-l02-q08:
+  key:
+    execution: m02-l02/ArrayTechniques.java
+  wrong:
+  - option: 'pair indices [2, 3]
+
+      max window sum 8
+
+      range sum 19
+
+      subarrays with sum 2: 2
+
+      letter counts {i=4, m=1, p=2, s=4}'
+    execution: m02-l02/ArrayTechniques.java
+    mistake: ignored the sliding of the window
+  - option: 'pair indices [2, 3]
+
+      max window sum 9
+
+      range sum 15
+
+      subarrays with sum 2: 2
+
+      letter counts {i=4, m=1, p=2, s=4}'
+    execution: m02-l02/ArrayTechniques.java
+    mistake: off-by-one on the start index
+  - option: 'pair indices [2, 3]
+
+      max window sum 9
+
+      range sum 19
+
+      subarrays with sum 2: 1
+
+      letter counts {i=4, m=1, p=2, s=4}'
+    execution: m02-l02/ArrayTechniques.java
+    mistake: ignored the seeded empty prefix
+m02-l02-q09:
+  key:
+    execution: m02-l02/BinarySearchResults.java
+  wrong:
+  - option: 'found 7 at 3
+
+      missing 6 gives 3
+
+      missing 10 gives 5
+
+      linked list finds 3 at 1
+
+      smallest capacity 15
+
+      overflowing mid -397483648
+
+      unsigned shift mid 1750000000
+
+      safe mid 1750000000'
+    execution: m02-l02/BinarySearchResults.java
+    mistake: forgot the negative encoding
+  - option: 'found 7 at 3
+
+      missing 6 gives -4
+
+      missing 10 gives -6
+
+      linked list finds 3 at 1
+
+      smallest capacity 15
+
+      overflowing mid 1750000000
+
+      unsigned shift mid 1750000000
+
+      safe mid 1750000000'
+    execution: m02-l02/BinarySearchResults.java
+    mistake: ignored integer overflow
+  - option: 'found 7 at 3
+
+      missing 6 gives -4
+
+      missing 10 gives -6
+
+      linked list finds 3 at 1
+
+      smallest capacity 10
+
+      overflowing mid -397483648
+
+      unsigned shift mid 1750000000
+
+      safe mid 1750000000'
+    execution: m02-l02/BinarySearchResults.java
+    mistake: ignored the days limit
+m02-l02-q10:
+  key:
+    execution: m02-l02/SortingBehaviour.java
+  wrong:
+  - option: 'by priority [di, bo, cy, ana, ed]
+
+      sorted ints [1, 3, 5, 7, 9]
+
+      mixed types cannot be sorted
+
+      by length [fig, pear, kiwi, apple]
+
+      counts [1, 2, 0, 3]'
+    execution: m02-l02/SortingBehaviour.java
+    mistake: ignored stability
+  - option: 'by priority [bo, di, ana, cy, ed]
+
+      sorted ints [1, 3, 5, 7, 9]
+
+      mixed types cannot be sorted
+
+      by length [fig, kiwi, pear, apple]
+
+      counts [1, 2, 0, 3]'
+    execution: m02-l02/SortingBehaviour.java
+    mistake: ignored stability on strings
+  - option: 'by priority [bo, di, ana, cy, ed]
+
+      sorted ints [1, 3, 5, 7, 9]
+
+      mixed types cannot be sorted
+
+      by length [fig, pear, kiwi, apple]
+
+      counts [3, 2, 0, 1]'
+    execution: m02-l02/SortingBehaviour.java
+    mistake: reversed the index order
+m02-l02-q11:
+  key:
+    anchor: javadoc-arrays#binarySearch(int[],int)
+    sentence: If the array contains multiple elements with the specified value, there is no guarantee which one will be found.
+  wrong:
+  - option: It is always the lowest index holding 4, so the result is index 2
+    anchor: javadoc-arrays#binarySearch(int[],int)
+    sentence: If the array contains multiple elements with the specified value, there is no guarantee which one will be found.
+  - option: It is negative, because the array contains more than one element equal to the key
+    anchor: javadoc-arrays#binarySearch(int[],int)
+    sentence: Note that this guarantees that the return value will be >= 0 if and only if the key is found.
+  - option: It is the insertion point of 4, the index where a new 4 would be placed
+    anchor: javadoc-arrays#binarySearch(int[],int)
+    sentence: index of the search key, if it is contained in the array; otherwise, (-(insertion point) - 1).
+m02-l02-q12:
+  key:
+    anchor: ods-11-1-comparison-based-sorti#SECTION001412000000000000000
+    sentence: All of this is done in place, so that instead of making copies of subarrays being sorted, the method only sorts the subarray
+  wrong:
+  - option: It copies each half into new arrays, as merge-sort does, and merges them back afterwards
+    anchor: ods-11-1-comparison-based-sorti#SECTION001412000000000000000
+    sentence: All of this is done in place, so that instead of making copies of subarrays being sorted, the method only sorts the subarray
+  - option: It partitions into a second array of the same length, and the result is copied back at the end
+    anchor: ods-11-1-comparison-based-sorti#SECTION001412000000000000000
+    sentence: This algorithm, without using any extra space, swaps elements
+  - option: It picks the median element as the pivot so that the two parts always have equal size
+    anchor: ods-11-1-comparison-based-sorti#SECTION001412000000000000000
+    sentence: Pick a random pivot element

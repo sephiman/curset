@@ -1,0 +1,11 @@
+# S3: PDF export of backend-in-depth (delta N, N9)
+
+- Question bank: the N9 questionnaire already works for this course (`build_questionnaire`: 62 of 69 lessons have a bank, up to 20 per tema, key citations print verbatim as `source_id#anchor`). Pinned draw `frontend/src/test/fixtures/questionnaires/backend-in-depth-m09-l04.json` (seed 2026, EN), held by `test_the_technical_course_prints_its_bank_with_source_anchor_citations_and_no_case` and read by `technicalExport.test.ts`. Regenerate with `REGEN_QUESTIONNAIRES=1` after an m09-l04 bank edit.
+- Open, not mine to fix: `course.yaml` lacks `lesson_practice: true`, so `pdfExerciseMode` picks `inline` (crypto's embedded form) instead of `questionnaire`. Practice rounds and `practice_scheduler: spaced` need the same flag (fixture-tecnico has it).
+- The six `case` exercises are not drawn: `question_pool` keeps cases for case parts, and a case question needs its scenario. Decision: questionnaire = bank only.
+- Code: fenced blocks print in Liberation Mono 8 pt (≈98 columns) on a filled panel, leading spaces kept; backtick spans in printed question stems and options (questionnaire and exam papers) become tinted mono runs; an unpaired backtick stays literal. Inline code in lesson prose keeps the existing sans chip, so crypto's formulas print unchanged.
+- One snippet (m11-l05) prints `"😀😁"`: no Liberation face has glyphs above U+FFFF, so `codeRuns` routes those code points to DejaVu Sans. `fonts.test.ts` checks every face against backend-in-depth's characters and that such characters occur only inside code.
+- Judgement: own box, dashed violet border on all four sides (a note keeps its solid left rule), first line «Judgement from <source>» plus the `ref` in mono; keeps the callout id, so it is never split across pages.
+- Other courses: no paired backticks in their stems or options, no fenced code, no judgement. pdfkit embeds a face only when a page uses it (checked with pdffonts: the age-c1 tema embeds Liberation Sans only), so their PDFs are unchanged.
+- Fonts: `PRINT_FONTS` has three families; on-request render tests register them all through `printFontFamiliesOnDisk()`.
+- Checks: `npx vitest run` 82 files passed (1:39), `npx tsc -b` clean, `tests/test_pdf_export_scope.py` 17 passed, ruff clean.

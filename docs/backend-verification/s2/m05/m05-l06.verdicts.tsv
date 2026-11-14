@@ -1,0 +1,90 @@
+S1.1	"DelegatingFilterProxy allows delaying looking up Filter"	pass
+S1.2	"Delaying the lookup is important because"	pass
+S1.3	"SecurityFilterChain is used by FilterChainProxy to"	pass
+S1.4	"The security filters in a SecurityFilterChain"	pass
+S1.5	"FilterChainProxy provides a number of advantages"	pass
+S1.6	"FilterChainProxy clears out the SecurityContext to"	pass
+S1.7	"FilterChainProxy also applies Spring Security’s HttpFirewall"	pass
+S1.8	"In a Servlet container, Filter instances"	pass
+S1.9	"FilterChainProxy can determine invocation based upon"	pass
+S1.10	"Only the first SecurityFilterChain that matches"	pass
+S1.11	"A request for /api/messages/ first matches"	pass
+S1.12	"A SecurityFilterChain might have zero security"	pass
+S1.13	"The security filters are inserted into"	pass
+S1.14	"The filters are executed in a"	pass
+S1.15	"These security filters are most often"	pass
+S1.16	"With csrf, httpBasic, formLogin and authorizeHttpRequests"	pass
+S1.17	"With the same configuration, the AuthorizationFilter"	pass
+S2.1	"The SecurityContextHolder is where Spring Security"	pass
+S2.2	"Spring Security does not care how"	pass
+S2.3	"You should create a new SecurityContext"	pass
+S2.4	"By default, SecurityContextHolder uses a ThreadLocal"	pass
+S2.5	"AuthenticationManager is the API that defines"	pass
+S2.6	"The Authentication that is returned is"	pass
+S2.7	"While the implementation of AuthenticationManager could"	pass
+S2.8	"ProviderManager delegates to a List of"	pass
+S2.9	"Each AuthenticationProvider has an opportunity to"	pass
+S2.10	"ProviderManager also allows configuring an optional"	pass
+S2.11	"By default, ProviderManager tries to clear"	pass
+S2.12	"Clearing credentials prevents information, such as"	pass
+S2.13	"If the Authentication contains a reference"	pass
+S2.14	"DaoAuthenticationProvider supports username/password-based authentication, while JwtAuthenticationProvider"	pass
+S2.15	"DelegatingSecurityContextRunnable wraps a delegate Runnable in"	pass
+S2.16	"DelegatingSecurityContextRunnable then invokes the delegate Runnable,"	pass
+S2.17	"DelegatingSecurityContextRunnable makes it seamless to transfer"	pass
+S2.18	"Transferring the SecurityContext is important since,"	pass
+S3.1	"The AuthorizationFilter first constructs a Supplier"	pass
+S3.2	"If authorization is denied, an AuthorizationDeniedEvent"	pass
+S3.3	"The ExceptionTranslationFilter handles the AccessDeniedException (spring-security-servlet-authorization-authorize-http-requests#request-authorization-architecture)."	pass
+S3.4	"If access is granted, an AuthorizationGrantedEvent"	pass
+S3.5	"hasRole is a shortcut for hasAuthority"	pass
+S3.6	"Each authorization rule is considered in"	pass
+S3.7	"With anyRequest().denyAll() last, any URL that"	pass
+S3.8	"Method Security is built using Spring"	pass
+S3.9	"@EnableMethodSecurity supersedes @EnableGlobalMethodSecurity (spring-security-servlet-authorization-method-security#method-security-architecture)."	pass
+S3.10	"@EnableMethodSecurity enables @PreAuthorize, @PostAuthorize, @PreFilter and"	pass
+S3.11	"If the @PreAuthorize evaluation passes, Spring"	pass
+S3.12	"If the evaluation does not pass,"	pass
+S3.13	"A method annotated with @PreAuthorize("hasRole('ADMIN')") can"	pass
+S3.14	"When you use annotation-based Method Security,"	pass
+S3.15	"To protect against unsecured methods, declare"	pass
+S4.1	"JwtAuthenticationProvider is an AuthenticationProvider implementation that"	pass
+S4.2	"The authentication Filter passes a BearerTokenAuthenticationToken"	pass
+S4.3	"JwtAuthenticationProvider decodes, verifies, and validates the"	pass
+S4.4	"JwtAuthenticationProvider then uses the JwtAuthenticationConverter to"	pass
+S4.5	"Resource Server maps each scope to"	pass
+S4.6	"As the authorization server makes available"	pass
+S4.7	"By default, Authentication#getPrincipal is a Spring"	pass
+S4.8	"Exposing a JwtDecoder bean has the"	pass
+S4.9	"Spring Security ships with JwtAuthenticationConverter, which"	pass
+S4.10	"By default, Spring Security wires the"	pass
+S4.11	"A resource server is considered multi-tenant"	pass
+S4.12	"One way to differentiate tenants is"	pass
+S4.13	"The issuer endpoints are loaded lazily,"	pass
+S4.14	"Lazy loading allows for an application"	pass
+S4.15	"It would be unsafe to simply"	pass
+S4.16	"The issuer should be one that"	pass
+S5.1	"DelegatingFilterProxy delays looking up Filter beans,"	pass
+S5.2	"FilterChainProxy invokes only the first SecurityFilterChain"	pass
+S5.3	"The security filters run in a"	pass
+S5.4	"SecurityContextHolder stores who is authenticated and"	pass
+S5.5	"ProviderManager is the most common AuthenticationManager"	pass
+S5.6	"DelegatingSecurityContextRunnable transfers the SecurityContext to another"	pass
+S5.7	"AuthorizationFilter denies a request with an"	pass
+S5.8	"Unannotated methods are not secured by"	pass
+S5.9	"JwtAuthenticationProvider decodes the Jwt with a"	pass
+S5.10	"JwtIssuerAuthenticationManagerResolver loads issuers lazily and should"	fail	JwtIssuerAuthenticationManagerResolver is never named in the lesson body
+g-security-context-holder	pass
+g-provider-manager	pass
+g-security-filter-chain	pass
+m05-l06-q01	fail	zero-filter sentence does not refute merged chains; 'configured in isolation' unsupported
+m05-l06-q02	pass
+m05-l06-q03	fail	cached UserDetails distractor arguably true; anchor states only a conditional
+m05-l06-q04	pass
+m05-l06-q05	pass
+S5.10	recheck	pass
+m05-l06-q06	pass
+m05-l06-q07	pass
+m05-l06-q08	pass
+m05-l06-q09	pass
+# checked 88, passed 86, failed 2

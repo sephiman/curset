@@ -1,0 +1,152 @@
+[
+ {
+  "id": "m05-l03-q01",
+  "fact": "m05-l03-f06",
+  "stem": "In the core Spring Framework with default proxy settings, a Spring AOP target object implements one interface. Which kind of proxy is used, and what does it proxy?",
+  "key": "A JDK dynamic proxy, which proxies all of the interfaces implemented by the target type",
+  "distractors": [
+   "A CGLIB proxy, which is a runtime-generated subclass of the target class",
+   "A JDK dynamic proxy, but only for the first interface that the target implements",
+   "No proxy, because a class that implements an interface is woven at compile time"
+  ],
+  "explanation": "A JDK dynamic proxy is used, and all of the interfaces implemented by the target type are proxied. The claim that a CGLIB proxy is used is wrong, because CGLIB is used by default only if a business object does not implement an interface. The claim that only the first interface is proxied is wrong, because all of the interfaces implemented by the target type are proxied. The claim that the class is woven instead of proxied is wrong, because Spring AOP is proxy-based.",
+  "citation": "spring-fw-aop-proxying#proxying-mechanisms; spring-fw-aop-pfb#page-title",
+  "extract": "If the target object to be proxied implements at least one interface, a JDK dynamic proxy is used, and all of the interfaces implemented by the target type are proxied.",
+  "snippet": null
+ },
+ {
+  "id": "m05-l03-q02",
+  "fact": "m05-l03-f21",
+  "stem": "In Spring AOP, a CGLIB proxy is a runtime-generated subclass of the target type. Why can a `final` class not be proxied that way?",
+  "key": "Because a `final` class cannot be extended",
+  "distractors": [
+   "Because a `final` class cannot be overridden",
+   "Because a `final` class implements no interface",
+   "Because the constructor of a `final` class would be called twice"
+  ],
+  "explanation": "A `final` class cannot be proxied, because it cannot be extended. The claim that the class cannot be overridden is wrong, because methods are what cannot be overridden, and `final` methods cannot be advised for that reason. The claim that the class implements no interface is wrong, because a target that implements no interface is the case for which a CGLIB proxy is created. The claim that the constructor would be called twice is wrong, because the constructor of a proxied object is not called twice, since the CGLIB proxy instance is created through Objenesis.",
+  "citation": "spring-fw-aop-proxying#proxying-mechanisms",
+  "extract": "final classes cannot be proxied, because they cannot be extended.",
+  "snippet": null
+ },
+ {
+  "id": "m05-l03-q03",
+  "fact": "m05-l03-f14",
+  "stem": "A bean is wrapped by a Spring AOP proxy. Its method `foo()` calls `this.bar()`, and `bar()` has advice. What happens to the advice of `bar()` in that call?",
+  "key": "It does not run, because self invocation via `this` bypasses the advice",
+  "distractors": [
+   "It runs, because the proxy intercepts every call made inside the target object",
+   "It runs, because `AopContext.currentProxy()` is applied automatically to self invocations",
+   "It runs only if `bar()` is declared `public`"
+  ],
+  "explanation": "Self invocation via an explicit or implicit `this` reference bypasses the advice. The claim that the proxy intercepts every call is wrong, because calls the target makes on itself are invoked against the `this` reference and not the proxy. The claim that `AopContext.currentProxy()` is applied automatically is wrong, because that approach requires that the `ProxyFactory` is configured to expose the proxy. The claim that `bar()` runs its advice only when it is declared `public` is wrong, because the call is invoked against the `this` reference, whatever the method.",
+  "citation": "spring-fw-aop-proxying#aop-understanding-aop-proxies",
+  "extract": "In other words, self invocation via an explicit or implicit this reference will bypass the advice.",
+  "snippet": null
+ },
+ {
+  "id": "m05-l03-q04",
+  "fact": "m05-l03-f16",
+  "stem": "The Spring reference lists several ways to deal with self invocation in a proxied bean. Which one does it call the best, least-invasive approach?",
+  "key": "Refactor the code so that the self invocation does not happen",
+  "distractors": [
+   "Use self injection and invoke the methods on the proxy through the self reference",
+   "Call `AopContext.currentProxy()` inside the class",
+   "Declare the called method `final` so that the call is not lost"
+  ],
+  "explanation": "The documentation calls refactoring so that the self invocation does not happen the best, least-invasive approach. The claim that self injection is the best approach is wrong, because it is presented as an alternative approach, while refactoring is the best, least-invasive one. The claim that `AopContext.currentProxy()` is the best approach is wrong, because this last approach is highly discouraged. The claim that a `final` method keeps the advice is wrong, because `final` methods cannot be advised, since they cannot be overridden.",
+  "citation": "spring-fw-aop-proxying#aop-understanding-aop-proxies; spring-fw-aop-proxying#proxying-mechanisms",
+  "extract": "is to refactor your code such that the self invocation does not happen.",
+  "snippet": null
+ },
+ {
+  "id": "m05-l03-q05",
+  "fact": "m05-l03-f42",
+  "stem": "Can `@Async` be used on a method that is invoked as a lifecycle callback such as `@PostConstruct`, according to the Spring Framework reference?",
+  "key": "No, you can not use `@Async` in conjunction with lifecycle callbacks such as `@PostConstruct`",
+  "distractors": [
+   "Yes, because the proxy is fully initialized when the callback runs",
+   "Yes, but only when the method returns `void`",
+   "Yes, as long as a `TaskExecutor` bean is defined"
+  ],
+  "explanation": "You can not use `@Async` in conjunction with lifecycle callbacks such as `@PostConstruct`. The claim that the proxy is fully initialized in the callback is wrong, because the proxy must be fully initialized to provide the expected behavior, so you should not rely on proxy features in your initialization code. The claims that `@Async` works on a `void` method or with a `TaskExecutor` bean in a callback are wrong, because you can not use `@Async` in conjunction with lifecycle callbacks.",
+  "citation": "spring-fw-async#scheduling-annotation-support-async; spring-fw-tx-declarative-annotations#using-transactional",
+  "extract": "You can not use @Async in conjunction with lifecycle callbacks such as @PostConstruct.",
+  "snippet": null
+ },
+ {
+  "id": "m05-l03-q06",
+  "fact": "m05-l03-f48",
+  "stem": "A method annotated with `@Retryable` has `maxRetries` set to 4 and always fails. How many times is the method invoked at most?",
+  "key": "5 times: the initial attempt plus 4 retries",
+  "distractors": [
+   "4 times, because `maxRetries` counts the total attempts",
+   "3 times, which is the default number of attempts",
+   "Without limit, until an invocation succeeds"
+  ],
+  "explanation": "With `maxRetries` set to 4, the method is invoked at least once and at most 5 times. The claim that `maxRetries` counts total attempts is wrong, because total attempts are 1 initial attempt plus `maxRetries` attempts. The claim that 3 is the limit is wrong, because 3 retry attempts is the default and this method sets `maxRetries` to 4. The claim that there is no limit is wrong, because a `@Retryable` method is retried at most `maxRetries` times.",
+  "citation": "spring-fw-resilience#resilience-annotations-retryable",
+  "extract": "For example, if maxRetries is set to 4, the @Retryable method will be invoked at least once and at most 5 times.",
+  "snippet": null
+ },
+ {
+  "id": "m05-l03-q07",
+  "fact": "m05-l03-f52",
+  "stem": "A method carries both `@Retryable` and `@Transactional`, with default advice ordering. How do the two advices nest, and what follows for each retry attempt?",
+  "key": "The retry advice is outermost, so each retry attempt runs in its own transaction",
+  "distractors": [
+   "The transaction advice is outermost, so all attempts run inside one transaction",
+   "The retry advice is outermost only if the `order` of `@EnableResilientMethods` is set to the lowest precedence",
+   "The two orders are undefined, so attempts may or may not share a transaction"
+  ],
+  "explanation": "When `@Transactional` is combined with `@Retryable`, the retry advice is applied outermost, so each retry attempt runs in its own transaction. The claim that the transaction advice is outermost is wrong, because retry advice is always applied outside `@Transactional`, regardless of the order configured on `@EnableResilientMethods`. The claim that the `order` attribute decides is wrong, because the technique of changing the order does not apply to `@Transactional` or `@Cacheable`. The claim that the order is undefined is wrong, because the retry advice is applied outermost when `@Transactional` is combined with `@Retryable`.",
+  "citation": "spring-fw-tx-declarative-annotations#using-transactional; spring-fw-resilience#resilience-annotations-retryable-combining-order",
+  "extract": "When @Transactional is combined with @Retryable, the retry advice is applied outermost, so each retry attempt runs in its own transaction.",
+  "snippet": null
+ },
+ {
+  "id": "m05-l03-q08",
+  "fact": "m05-l03-f54",
+  "stem": "`@EnableAsync` and `@EnableResilientMethods` are configured so that retry is the outermost advice and async the innermost. What happens to exceptions thrown during asynchronous execution?",
+  "key": "They are not retried, because the retry interceptor only sees the `Future` handle",
+  "distractors": [
+   "They are retried, because retry now wraps the asynchronous task",
+   "They are retried on the async executor thread, as in the default order",
+   "The application context fails to start, because the two order values conflict"
+  ],
+  "explanation": "With the reversed order, exceptions thrown during asynchronous execution are not retried, because the retry interceptor only sees the `Future` handle. The claim that retry wraps the asynchronous task is wrong, because such an arrangement only retries synchronous submission failures, such as a rejected task submission. The claim that retries run on the executor thread is wrong, because that is the result of the default order, in which the async advice is applied outermost. The claim that the context fails to start is wrong, because you can change the relative ordering by setting the `order` attribute on `@EnableResilientMethods` and `@EnableAsync`.",
+  "citation": "spring-fw-resilience#resilience-annotations-retryable-combining-order; spring-fw-async#scheduling-annotation-support-async",
+  "extract": "With the reversed order shown above, exceptions thrown during asynchronous execution are not retried: the retry interceptor only sees the Future handle, which is returned immediately, rather than the outcome of the asynchronous invocation.",
+  "snippet": null
+ },
+ {
+  "id": "m05-l03-q09",
+  "fact": "m05-l03-f63",
+  "stem": "Advice methods of five different types are defined in the same `@Aspect` class and need to run at the same join point. How does Spring assign their precedence, from highest to lowest?",
+  "key": "`@Around`, `@Before`, `@After`, `@AfterReturning`, `@AfterThrowing`",
+  "distractors": [
+   "`@AfterThrowing`, `@AfterReturning`, `@After`, `@Before`, `@Around`",
+   "`@Before`, `@After`, `@AfterReturning`, `@AfterThrowing`, `@Around`",
+   "The order in which the advice methods are declared in the class"
+  ],
+  "explanation": "Precedence by advice type runs from highest to lowest as `@Around`, `@Before`, `@After`, `@AfterReturning`, `@AfterThrowing`. The orders that start with `@AfterThrowing` or end with `@Around` do not match the documented order, which runs from `@Around` as highest to `@AfterThrowing` as lowest precedence. The claim that declaration order decides is wrong, because for the same type of advice the ordering is undefined, since there is no way to retrieve the source code declaration order through reflection.",
+  "citation": "spring-fw-aop-ataspectj-advice-ordering#aop-ataspectj-advice-ordering",
+  "extract": "are assigned precedence based on their advice type in the following order, from highest to lowest precedence: @Around, @Before, @After, @AfterReturning, @AfterThrowing.",
+  "snippet": null
+ },
+ {
+  "id": "m05-l03-q10",
+  "fact": "m05-l03-f62",
+  "stem": "Two aspects define advice for the same join point, one annotated `@Order(1)` and the other `@Order(2)`. Which aspect has the higher precedence, and why?",
+  "key": "The aspect with `@Order(1)`, because the lower value gives the higher precedence",
+  "distractors": [
+   "The aspect with `@Order(2)`, because the higher value gives the higher precedence",
+   "Neither, because `@Order` has no effect on the order of aspects",
+   "The aspect that is declared first in the source"
+  ],
+  "explanation": "The aspect returning the lower value from `Ordered.getOrder()`, or the annotation value, has the higher precedence. The claim that the higher value wins is wrong, because the aspect returning the lower value has the higher precedence. The claim that `@Order` has no effect is wrong, because annotating the aspect class with `@Order` is a way to control the order of execution. The claim that declaration order decides is wrong, because when advice in different aspects runs at the same join point without a specified order, the order of execution is undefined.",
+  "citation": "spring-fw-aop-ataspectj-advice-ordering#aop-ataspectj-advice-ordering",
+  "extract": "Given two aspects, the aspect returning the lower value from Ordered.getOrder() (or the annotation value) has the higher precedence.",
+  "snippet": null
+ }
+]

@@ -418,6 +418,13 @@ tables, no images. Each generator follows the verbatim examples of `docs/age-c2-
 generator or its word bank changes, rerun `scripts/export_psicotecnico_goldens.py`, review the 50 items it writes,
 and commit the new fingerprints (`tests/test_psicotecnico_generators.py` fails until then).
 
+## Practice presets
+
+`practice_presets` in `course.yaml` lists the practice rounds the course page offers, in order, from `lesson`, `module`,
+`review`, `code-reading` and `generators`. The load fails when `lesson` lacks `lesson_practice: true`, `review` lacks
+`practice_scheduler: spaced` or `generators` lacks `practice_generators`. `code-reading` draws the quiz questions that
+carry a `snippet`. A course without the key offers none, exactly as before.
+
 ## Case exercises
 
 `type: case` (declare `case` in `exercise_types`): a `title`, a one-page `scenario` in Markdown with no

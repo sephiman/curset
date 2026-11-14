@@ -1,0 +1,7 @@
+S1.1	The benefits of partitioning will normally be worthwhile only when a table would otherwise be very large (`pg-ddl-partitioning#DDL-PARTITIONING-OVERVIEW`).
+S1.12	Multiple-server parallel query execution is usually accomplished by splitting the data among servers and having each server execute its part of the query and return results to a central server where they are combined and returned to the user (`pg-different-replication-solutions#DIFFERENT-REPLICATION-SOLUTIONS`).
+S2.4	In hash partitioning, the table is partitioned by specifying a modulus and a remainder for each partition (`pg-ddl-partitioning#DDL-PARTITIONING-OVERVIEW`).
+S5.10	The primary shard has to replicate all operations to each copy in the in-sync copies, the set of "good" shard copies that are guaranteed to have processed all of the index and delete operations that have been acknowledged to the user (`es-reading-and-writing-documents#basic-write-model`).
+S10.2	According to the same guide, the disadvantages of lazy loading are the cache miss penalty, where each miss results in three trips, and stale data, because there are no updates to the cache when data is changed in the database (ref Strategies.LazyLoading.Evaluation).
+S10.5	According to the same guide, adding a time to live to each write keeps data from getting too stale, although this approach does not guarantee that a value is not stale (ref Strategies.WithTTL).
+S11.9	Setting R and W such that R + W > N yields a quorum-like system; with N=3, R=2 and W=1 the sum is 3, so `R + W > N` does not hold.

@@ -1,0 +1,218 @@
+m09-l05-q01:
+  key:
+    anchor: paper-oneil-lsm-tree#p4
+    sentence: The operation of inserting an index entry into the memory resident C0 tree has no I/O cost.
+  wrong:
+  - option: Into the disk-resident C1 tree, at the cost of one page write
+    anchor: paper-oneil-lsm-tree#p4
+    sentence: The index entry for the History row is then inserted into the memory resident C0 tree
+  - option: Into the memory-resident C0 tree, at the cost of one random disk read
+    anchor: paper-oneil-lsm-tree#p4
+    sentence: The operation of inserting an index entry into the memory resident C0 tree has no I/O cost.
+  - option: Into the C0 and C1 trees at once, at the cost of one page write each
+    anchor: paper-oneil-lsm-tree#p4
+    sentence: after which it will in time migrate out to the C1 tree on disk
+m09-l05-q02:
+  key:
+    anchor: pg-indexes-types#INDEXES-TYPES-BTREE
+    sentence: The optimizer can also use a B-tree index for queries involving the pattern matching operators LIKE and ~ if the pattern is a constant and is anchored to the beginning of the string
+  wrong:
+  - option: '`col LIKE ''%bar''`, because the pattern ends with a constant'
+    anchor: pg-indexes-types#INDEXES-TYPES-BTREE
+    sentence: but not col LIKE '%bar'
+  - option: '`col ILIKE ''foo%''`, because case-insensitive patterns are always supported'
+    anchor: pg-indexes-types#INDEXES-TYPES-BTREE
+    sentence: but only if the pattern starts with non-alphabetic characters
+  - option: '`col ~ ''bar$''`, because a regular expression anchored at its end is supported'
+    anchor: pg-indexes-types#INDEXES-TYPES-BTREE
+    sentence: if the pattern is a constant and is anchored to the beginning of the string
+m09-l05-q03:
+  key:
+    anchor: redis-persistence#how-durable-is-the-append-only-file
+    sentence: The suggested (and default) policy is to fsync every second.
+  wrong:
+  - option: '`appendfsync always`, which may lose 1 second of data'
+    anchor: redis-persistence#how-durable-is-the-append-only-file
+    sentence: The suggested (and default) policy is to fsync every second.
+    exclusive: true
+  - option: '`appendfsync no`, which may lose 1 second of data'
+    anchor: redis-persistence#how-durable-is-the-append-only-file
+    sentence: The suggested (and default) policy is to fsync every second.
+    exclusive: true
+  - option: '`appendfsync everysec`, which may lose 30 seconds of data'
+    anchor: redis-persistence#how-durable-is-the-append-only-file
+    sentence: you may lose 1 second of data if there is a disaster
+m09-l05-q04:
+  key:
+    anchor: redis-persistence#snapshotting
+    sentence: this configuration will make Redis automatically dump the dataset to disk every 60 seconds if at least 1000 keys changed
+  wrong:
+  - option: Every 1000 seconds, if at least 60 keys changed
+    anchor: redis-persistence#snapshotting
+    sentence: this configuration will make Redis automatically dump the dataset to disk every 60 seconds if at least 1000 keys changed
+    exclusive: true
+  - option: Every 60 seconds, whether or not any key changed
+    anchor: redis-persistence#snapshotting
+    sentence: this configuration will make Redis automatically dump the dataset to disk every 60 seconds if at least 1000 keys changed
+    exclusive: true
+  - option: After 60 changes, once at least 1000 seconds have passed
+    anchor: redis-persistence#snapshotting
+    sentence: this configuration will make Redis automatically dump the dataset to disk every 60 seconds if at least 1000 keys changed
+    exclusive: true
+m09-l05-q05:
+  key:
+    anchor: redis-eviction#eviction-policies
+    sentence: 'noeviction: Keys are not evicted but the server will return an error when you try to execute commands that cache new data.'
+  wrong:
+  - option: The server evicts the least recently used keys to make room
+    anchor: redis-eviction#eviction-policies
+    sentence: 'allkeys-lru: Evict the least recently used (LRU) keys.'
+  - option: The server evicts keys at random to make room
+    anchor: redis-eviction#eviction-policies
+    sentence: 'allkeys-random: Evict keys at random.'
+  - option: The server returns the same error for read commands as well
+    anchor: redis-eviction#eviction-policies
+    sentence: Note that commands that only read existing data still work as normal.
+m09-l05-q06:
+  key:
+    anchor: redis-eviction#eviction-policies
+    sentence: The volatile-xxx policies behave like noeviction if no keys have an associated expiration.
+  wrong:
+  - option: 'Like `allkeys-lru`: it evicts the least recently used keys whether or not they expire'
+    anchor: redis-eviction#eviction-policies
+    sentence: 'volatile-lru: Evict the least recently used keys that have an associated expiration (TTL).'
+  - option: 'Like `volatile-ttl`: it evicts the keys with the shortest remaining TTL'
+    anchor: redis-eviction#eviction-policies
+    sentence: 'volatile-ttl: Evict keys with an associated expiration (TTL) that have the shortest remaining TTL value.'
+  - option: 'Like `allkeys-random`: it evicts keys at random until memory is free'
+    anchor: redis-eviction#eviction-policies
+    sentence: 'allkeys-random: Evict keys at random.'
+m09-l05-q07:
+  key:
+    anchor: redis-scaling#redis-cluster-consistency-guarantees
+    sentence: if your client writes something, B acknowledges the write, but crashes before being able to send the write to its replicas, one of the replicas (that did not receive the write) can be promoted to master, losing the write forever.
+  wrong:
+  - option: The replicas refuse promotion until they hold the write, so no acknowledged write is lost
+    anchor: redis-scaling#redis-cluster-consistency-guarantees
+    sentence: one of the replicas (that did not receive the write) can be promoted to master, losing the write forever
+  - option: The `WAIT` command makes losing the write impossible even in this case
+    anchor: redis-scaling#redis-cluster-consistency-guarantees
+    sentence: However, note that Redis Cluster does not implement strong consistency even when synchronous replication is used
+  - option: The master had waited for its replicas to acknowledge the write before replying OK
+    anchor: redis-scaling#redis-cluster-consistency-guarantees
+    sentence: does not wait for an acknowledgement from B1, B2, B3 before replying to the client
+m09-l05-q08:
+  key:
+    anchor: redis-sentinel#sentinel-as-a-distributed-system
+    sentence: Failure detection is performed when multiple Sentinels agree about the fact a given master is no longer available. This lowers the probability of false positives.
+  wrong:
+  - option: Failover only works while every Sentinel process is running
+    anchor: redis-sentinel#sentinel-as-a-distributed-system
+    sentence: Sentinel works even if not all the Sentinel processes are working, making the system robust against failures.
+  - option: Failure detection is faster because one Sentinel can declare a master unavailable alone
+    anchor: redis-sentinel#sentinel-as-a-distributed-system
+    sentence: Failure detection is performed when multiple Sentinels agree about the fact a given master is no longer available.
+  - option: One Sentinel is enough, because a failover system cannot be a single point of failure
+    anchor: redis-sentinel#sentinel-as-a-distributed-system
+    sentence: There is no fun in having a failover system which is itself a single point of failure, after all.
+m09-l05-q09:
+  key:
+    anchor: es-index-modules#dynamic-index-settings
+    sentence: The value defaults to 1s in Elastic Stack and 5s in Serverless.
+  wrong:
+  - option: '`5s`'
+    anchor: es-index-modules#dynamic-index-settings
+    sentence: The value defaults to 1s in Elastic Stack and 5s in Serverless.
+  - option: '`30s`'
+    anchor: es-index-modules#dynamic-index-settings
+    sentence: How long a shard can not receive a search or get request until it’s considered search idle. (default is 30s)
+  - option: '`-1`'
+    anchor: es-index-modules#dynamic-index-settings
+    sentence: the setting can be set to -1 to disable periodic refresh operations.
+m09-l05-q10:
+  key:
+    anchor: es-translog#elastic-docs-v3
+    sentence: In the event of a crash, recent operations that have been acknowledged but not yet included in the last Lucene commit are instead recovered from the translog when the shard recovers.
+  wrong:
+  - option: From the segments in the filesystem cache, which are always flushed before the acknowledgement
+    anchor: es-near-real-time-search#elastic-docs-v3
+    sentence: The new segment is written to the filesystem cache first (which is cheap) and only later is it flushed to disk (which is expensive).
+  - option: It cannot be recovered, because changes after a commit are kept only in memory
+    anchor: es-translog#elastic-docs-v3
+    sentence: recent operations that have been acknowledged but not yet included in the last Lucene commit are instead recovered from the translog when the shard recovers.
+  - option: From the last refresh, which persisted the operation to disk
+    anchor: es-near-real-time-search#elastic-docs-v3
+    sentence: Lucene allows new segments to be written and opened, making the documents they contain visible to search without performing a full commit.
+m09-l05-q11:
+  key:
+    anchor: es-translog#elastic-docs-v3
+    sentence: An Elasticsearch flush is the process of performing a Lucene commit and starting a new translog generation.
+  wrong:
+  - option: It writes and opens a new segment so that documents become visible to search
+    anchor: es-near-real-time-search#elastic-docs-v3
+    sentence: In Elasticsearch, this process of writing and opening a new segment is called a refresh.
+  - option: It merges small segments into larger ones in the background
+    anchor: es-merge-settings#merge-scheduling
+    sentence: The merge scheduler controls the execution of merge operations when they are needed.
+  - option: It creates a replica shard as a copy of a primary shard
+    anchor: es-clusters-nodes-shards#elastic-docs-v3
+    sentence: A replica shard is a copy of a primary shard.
+m09-l05-q12:
+  key:
+    anchor: es-index-basics#how-an-index-stores-data
+    sentence: The number of primary shards is fixed at index creation
+  wrong:
+  - option: The number of primary shards can be changed at any time with `index.number_of_shards`
+    anchor: es-index-basics#how-an-index-stores-data
+    sentence: The number of primary shards is fixed at index creation
+  - option: A replica shard holds a different subset of the documents than its primary shard
+    anchor: es-clusters-nodes-shards#elastic-docs-v3
+    sentence: A replica shard is a copy of a primary shard.
+  - option: Every document belongs to several primary shards, which share its storage
+    anchor: es-index-basics#how-an-index-stores-data
+    sentence: Every document belongs to exactly one primary shard.
+m09-l05-q13:
+  key:
+    anchor: es-reading-and-writing-documents#basic-write-model
+    sentence: Once all in-sync replicas have successfully performed the operation and responded to the primary, the primary acknowledges the successful completion of the request to the client.
+  wrong:
+  - option: As soon as the primary has executed the operation locally, before the replicas
+    anchor: es-reading-and-writing-documents#basic-write-model
+    sentence: these are the set of "good" shard copies that are guaranteed to have processed all of the index and delete operations that have been acknowledged to the user.
+  - option: Once every replica shard, including offline ones, has indexed the document
+    anchor: es-reading-and-writing-documents#basic-write-model
+    sentence: Since replicas can be offline, the primary is not required to replicate to all replicas.
+  - option: After the next Lucene commit has persisted the operation to disk
+    anchor: es-translog#elastic-docs-v3
+    sentence: recent operations that have been acknowledged but not yet included in the last Lucene commit are instead recovered from the translog when the shard recovers.
+m09-l05-q14:
+  key:
+    anchor: es-merge-settings#merge-scheduling
+    sentence: Smaller merges are prioritized over larger ones, across all shards on the node.
+  wrong:
+  - option: Larger merges are prioritized over smaller ones, so that segments shrink faster
+    anchor: es-merge-settings#merge-scheduling
+    sentence: Smaller merges are prioritized over larger ones, across all shards on the node.
+  - option: Merges run without any disk IO throttling, so bursts proceed at full disk speed
+    anchor: es-merge-settings#merge-scheduling
+    sentence: Merges are disk IO throttled so that bursts, while merging activity is otherwise low, are smoothed out in order to not impact indexing throughput.
+  - option: At most a fixed number of merges can be enqueued for the thread pool
+    anchor: es-merge-settings#merge-scheduling
+    sentence: There is no limit on the number of merges that can be enqueued for execution on the thread pool.
+m09-l05-q15:
+  key:
+    anchor: es-merge-settings#merge-scheduling
+    sentence: Defaults to half the number of processors the JVM sees on the node, with a minimum of 1
+  wrong:
+  - option: 16, one thread per processor
+    anchor: es-merge-settings#merge-scheduling
+    sentence: Defaults to half the number of processors the JVM sees on the node, with a minimum of 1
+    exclusive: true
+  - option: 4, a quarter of the processors
+    anchor: es-merge-settings#merge-scheduling
+    sentence: Defaults to half the number of processors the JVM sees on the node, with a minimum of 1
+    exclusive: true
+  - option: 32, twice the number of processors
+    anchor: es-merge-settings#merge-scheduling
+    sentence: Defaults to half the number of processors the JVM sees on the node, with a minimum of 1
+    exclusive: true

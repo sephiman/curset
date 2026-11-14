@@ -1,0 +1,181 @@
+m11-l04-q01:
+  key:
+    anchor: junit-writing-lifecycle#test-instance-lifecycle
+    sentence: the test class will still be instantiated if a given test method is disabled via a condition
+  wrong:
+  - option: One, shared by all three test methods
+    anchor: junit-writing-lifecycle#test-instance-lifecycle
+    sentence: This "per-method" test instance lifecycle is the default behavior in JUnit Jupiter
+    exclusive: true
+  - option: One for the whole test run, shared with other test classes
+    anchor: junit-writing-lifecycle#test-instance-lifecycle
+    sentence: This "per-method" test instance lifecycle is the default behavior in JUnit Jupiter
+    exclusive: true
+  - option: Two, because no instance is created for the disabled method
+    anchor: junit-writing-lifecycle#test-instance-lifecycle
+    sentence: the test class will still be instantiated if a given test method is disabled via a condition
+m11-l04-q02:
+  key:
+    anchor: junit-writing-assertions#assertions
+    sentence: it is only evaluated when the assertion fails
+  wrong:
+  - option: It is evaluated before the assertion runs, on every call
+    anchor: junit-writing-assertions#assertions
+    sentence: the message is evaluated lazily
+    exclusive: true
+  - option: It is evaluated once, when the test class is instantiated
+    anchor: junit-writing-assertions#assertions
+    sentence: the message is evaluated lazily
+    exclusive: true
+  - option: It is rejected, because the message parameter must be a `String`
+    anchor: junit-writing-assertions#assertions
+    sentence: which can be either a String or a Supplier<String>
+m11-l04-q03:
+  key:
+    anchor: junit-writing-assertions#assertions
+    sentence: such actions will be committed to the persistent store (e.g., relational database) even though the test-managed transaction is rolled back
+  wrong:
+  - option: They are rolled back together with the test-managed transaction
+    anchor: junit-writing-assertions#assertions
+    sentence: any actions taken by those components will not be rolled back with the test-managed transaction
+  - option: They are rolled back, because the executable runs in the thread of the calling code
+    anchor: junit-writing-assertions#assertions
+    sentence: execute the provided executable or supplier in a different thread than that of the calling code
+  - option: They are rolled back, because Spring binds transaction state to the whole JVM
+    anchor: junit-writing-assertions#assertions
+    sentence: Spring’s testing support binds transaction state to the current thread (via a ThreadLocal) before a test method is invoked.
+m11-l04-q04:
+  key:
+    anchor: mockito-javadoc-source#2
+    sentence: Last stubbing is more important - when you stubbed the same method with
+  wrong:
+  - option: '`"a"`, because the first stubbing is kept'
+    anchor: mockito-javadoc-source#2
+    sentence: Last stubbing is more important - when you stubbed the same method with
+  - option: '`null`, because the second stubbing resets the mock'
+    anchor: mockito-javadoc-source#2
+    sentence: Once stubbed, the method will always return a stubbed value
+  - option: An exception, because the same call was stubbed twice
+    anchor: mockito-javadoc-source#2
+    sentence: 'Stubbing can be overridden: for example common stubbing can go to'
+m11-l04-q05:
+  key:
+    anchor: testcontainers-junit5#shared-containers
+    sentence: Shared containers are defined as static fields in a top level test class and have to be annotated with @Container.
+  wrong:
+  - option: As a non-static field in a top level test class
+    anchor: testcontainers-junit5#shared-containers
+    sentence: Shared containers are defined as static fields in a top level test class and have to be annotated with @Container.
+  - option: As a non-static field in a `@Nested` test class
+    anchor: testcontainers-junit5#shared-containers
+    sentence: Note that shared containers can't be declared inside nested test classes.
+  - option: As a static field in a `@Nested` test class
+    anchor: testcontainers-junit5#shared-containers
+    sentence: This is because nested test classes have to be defined non-static and can't therefore have static fields.
+m11-l04-q06:
+  key:
+    execution: m11-l04/FixedClockDemo.java
+  wrong:
+  - option: '2026-03-31
+
+      2026-03-31
+
+      false
+
+      false
+
+      true'
+    execution: m11-l04/FixedClockDemo.java
+    mistake: zone ignored
+  - option: '2026-03-31
+
+      2026-04-01
+
+      false
+
+      true
+
+      false'
+    execution: m11-l04/FixedClockDemo.java
+    mistake: zone changes the instant
+  - option: '2026-03-31
+
+      2026-04-01
+
+      true
+
+      true
+
+      true'
+    execution: m11-l04/FixedClockDemo.java
+    mistake: off-by-one on the due date
+m11-l04-q07:
+  key:
+    execution: m11-l04/ExpiryBoundary.java
+  wrong:
+  - option: 'offset -1: false
+
+      offset 0: true
+
+      offset 1: true
+
+      same instant twice: true'
+    execution: m11-l04/ExpiryBoundary.java
+    mistake: 'off-by-one: isAfter read as at-or-after'
+  - option: 'offset -1: false
+
+      offset 0: false
+
+      offset 1: true
+
+      same instant twice: false'
+    execution: m11-l04/ExpiryBoundary.java
+    mistake: clock assumed to tick
+  - option: 'offset -1: true
+
+      offset 0: false
+
+      offset 1: false
+
+      same instant twice: true'
+    execution: m11-l04/ExpiryBoundary.java
+    mistake: comparison reversed
+m11-l04-q08:
+  key:
+    execution: m11-l04/MidpointCases.java
+  wrong:
+  - option: '0,10 -> 5 expected 5
+
+      4,4 -> 4 expected 4
+
+      2147483646,2147483647 -> 2147483646 expected 2147483646'
+    execution: m11-l04/MidpointCases.java
+    mistake: ignored overflow
+  - option: '0,10 -> 5 expected 5
+
+      4,4 -> 4 expected 4
+
+      2147483646,2147483647 -> -2 expected 2147483646'
+    execution: m11-l04/MidpointCases.java
+    mistake: division rounds down
+  - option: '0,10 -> 5 expected 5
+
+      4,4 -> 4 expected 4
+
+      2147483646,2147483647 -> -1 expected -1'
+    execution: m11-l04/MidpointCases.java
+    mistake: expected computed in int
+m11-l04-q09:
+  key:
+    anchor: mockito-javadoc-source#2
+    sentence: Although it is possible to verify a stubbed invocation, usually it's just redundant
+  wrong:
+  - option: Impossible, because a stubbed call is not recorded as an interaction
+    anchor: mockito-javadoc-source#1
+    sentence: Once created, a mock will remember all interactions.
+  - option: Required, because a wrong return value would otherwise go unnoticed
+    anchor: mockito-javadoc-source#2
+    sentence: If your code cares what get(0) returns, then something else breaks (often before verify() even gets executed).
+  - option: Required, because `verify` works only on calls that were stubbed first
+    anchor: mockito-javadoc-source#2
+    sentence: If your code doesn't care what get(0) returns, then it should not be stubbed.

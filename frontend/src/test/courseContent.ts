@@ -3,7 +3,8 @@ import { dirname, resolve } from "node:path";
 import { load } from "js-yaml";
 import type { CourseExport, GlossaryEntry } from "@/api/course";
 import type { CapturedFigure } from "@/lib/pdf/document";
-import { FONT_DIR, PRINT_FONT_FILES } from "@/lib/pdf/fonts";
+import { PRINT_FONTS } from "@/lib/pdf/document";
+import { PRINT_FONT_SOURCES } from "@/lib/pdf/fonts";
 import type { TemaCourse } from "@/lib/tema";
 import { testPng } from "@/test/png";
 
@@ -41,8 +42,20 @@ export const CONTENT_DIR = CONTENT;
 
 /** The print font as absolute paths, by pdfmake vfs file name. */
 export function printFontPaths(): Record<string, string> {
-  const dir = resolve(REPO, "frontend", "src", FONT_DIR);
-  return Object.fromEntries(PRINT_FONT_FILES.map((file) => [file, resolve(dir, file)]));
+  return Object.fromEntries(
+    Object.entries(PRINT_FONT_SOURCES).map(([file, source]) => [file, resolve(REPO, "frontend", "src", source)]),
+  );
+}
+
+/** Every print family with its four slots as paths on disk: what node pdfmake's `addFonts` takes. */
+export function printFontFamiliesOnDisk(): Record<string, Record<string, string>> {
+  const paths = printFontPaths();
+  return Object.fromEntries(
+    Object.entries(PRINT_FONTS).map(([family, slots]) => [
+      family,
+      Object.fromEntries(Object.entries(slots).map(([slot, file]) => [slot, paths[file]])),
+    ]),
+  );
 }
 
 /** The same font as base64 bytes — the shape the browser hands pdfmake through its vfs. */
@@ -342,18 +355,18 @@ export function courseExportFromContent(locale: Locale): CourseExport {
 }
 
 /** Every distinct character in the authored course: both languages, plus manifest and figure specs. */
-export function contentCharacters(): Set<string> {
+export function contentCharacters(root: string = CONTENT): Set<string> {
   const chars = new Set<string>();
   const walk = (dir: string): void => {
     for (const entry of readdirSync(dir, { withFileTypes: true })) {
       const path = resolve(dir, entry.name);
       if (entry.isDirectory()) walk(path);
-      else if (/\.(md|yaml)$/.test(entry.name)) {
+      else if (/\.(md|yaml|java|kt)$/.test(entry.name)) {
         for (const char of readFileSync(path, "utf8")) chars.add(char);
       }
     }
   };
-  walk(CONTENT);
+  walk(root);
   return chars;
 }
 

@@ -1,0 +1,287 @@
+[
+ {
+  "id": "m07-l01-q01",
+  "fact": "m07-l01-f25",
+  "stem": "According to RFC 5681, which event makes a TCP sender perform a fast retransmit of what appears to be the missing segment, without waiting for the retransmission timer?",
+  "key": "The arrival of 3 duplicate ACKs with no intervening ACK that moves `SND.UNA`",
+  "distractors": [
+   "The arrival of a single duplicate ACK",
+   "The arrival of 5 duplicate ACKs for the same segment",
+   "The expiry of the retransmission timer for that segment"
+  ],
+  "explanation": "Fast retransmit treats the arrival of 3 duplicate ACKs, with no intervening ACK that moves `SND.UNA`, as the sign of a lost segment. A single duplicate ACK and 5 duplicate ACKs are both excluded, because the algorithm names 3 as the count. The expiry of the retransmission timer is wrong because TCP retransmits after 3 duplicate ACKs without waiting for that timer.",
+  "citation": "rfc5681#section-3.2",
+  "extract": "The fast retransmit algorithm uses the arrival of 3 duplicate ACKs (as defined in section 2, without any intervening ACKs which move SND.UNA) as an indication that a segment has been lost.",
+  "snippet": null
+ },
+ {
+  "id": "m07-l01-q02",
+  "fact": "m07-l01-f31",
+  "stem": "RFC 9293 lets a TCP implementation include keep-alives. If it does, what is the smallest default idle interval before the first keep-alive probe may be sent?",
+  "key": "No less than two hours",
+  "distractors": [
+   "30 seconds",
+   "10 minutes",
+   "None, because keep-alives are on by default and probe from the first idle second"
+  ],
+  "explanation": "The interval must default to no less than two hours. A default of 30 seconds and a default of 10 minutes are both excluded, because both fall below that floor. Keep-alives on by default is wrong because they must default to off.",
+  "citation": "rfc9293#section-3.8.4",
+  "extract": "This interval MUST be configurable (MUST-27) and MUST default to no less than two hours (MUST-28).",
+  "snippet": null
+ },
+ {
+  "id": "m07-l01-q03",
+  "fact": "m07-l01-f32",
+  "stem": "Why does RFC 9293 forbid a keep-alive mechanism from treating one unanswered probe as proof that the connection is dead?",
+  "key": "ACK segments that contain no data are not reliably transmitted by TCP",
+  "distractors": [
+   "TCP never retransmits segments, so a lost probe is not recovered",
+   "Every probe carries one garbage octet, so the peer always answers it",
+   "Probes are sent while data is outstanding, so a missing answer is expected"
+  ],
+  "explanation": "A pure ACK carries no data, and TCP does not reliably transmit such segments, so one missing answer proves nothing. The claim that TCP never retransmits is wrong because segments up to the FIN are retransmitted until acknowledged. The claim that every probe carries a garbage octet is wrong because an implementation should send a probe with no data. The claim that probes go out while data is outstanding is wrong because keep-alive packets are sent only when no sent data is outstanding.",
+  "citation": "rfc9293#section-3.8.4",
+  "extract": "It is extremely important to remember that ACK segments that contain no data are not reliably transmitted by TCP.",
+  "snippet": null
+ },
+ {
+  "id": "m07-l01-q04",
+  "fact": "m07-l01-f12",
+  "stem": "In the RFC 9293 state machine, which TCP state represents waiting for a connection termination request from the local user?",
+  "key": "`CLOSE-WAIT`",
+  "distractors": [
+   "`FIN-WAIT-2`",
+   "`LAST-ACK`",
+   "`TIME-WAIT`"
+  ],
+  "explanation": "`CLOSE-WAIT` waits for a termination request from the local user. `FIN-WAIT-2` is wrong because it waits for a termination request from the remote TCP peer. `LAST-ACK` is wrong because it waits for an acknowledgment of the termination request already sent to the remote peer. `TIME-WAIT` is wrong because it waits for enough time to pass so that the remote peer is known to have received the acknowledgment.",
+  "citation": "rfc9293#section-3.3.2",
+  "extract": "represents waiting for a connection termination request from the local user.",
+  "snippet": null
+ },
+ {
+  "id": "m07-l01-q05",
+  "fact": "m07-l01-f07",
+  "stem": "A TCP endpoint receives an unsolicited FIN from the remote peer. When does it send its own FIN?",
+  "key": "After its user has closed the connection and any remaining data has been sent",
+  "distractors": [
+   "Immediately, in the same segment that acknowledges the received FIN",
+   "Never, because the first FIN closes both directions of the connection",
+   "Never, because it answers with an RST that aborts the connection"
+  ],
+  "explanation": "The endpoint ACKs the FIN, the user responds with a CLOSE, and only then can it send its own FIN after any remaining data. Sending its own FIN immediately, in the same segment as the ACK, is wrong because the endpoint does not send its own FIN until its user has closed the connection. The claim that the first FIN closes both directions is wrong because CLOSE is treated in a simplex fashion. The RST answer is wrong because the endpoint ACKs the FIN and tells the user that the connection is closing.",
+  "citation": "rfc9293#section-3.6",
+  "extract": "The user will respond with a CLOSE, upon which the TCP endpoint can send a FIN to the other TCP peer after sending any remaining data.",
+  "snippet": null
+ },
+ {
+  "id": "m07-l01-q06",
+  "fact": "m07-l01-f37",
+  "stem": "According to RFC 9113, which problem of HTTP/1.x over TCP does HTTP/2 explicitly leave unsolved?",
+  "key": "TCP head-of-line blocking",
+  "distractors": [
+   "Repetitive and verbose HTTP fields",
+   "Having to open several connections to make requests concurrently",
+   "Inefficient processing of messages without binary framing"
+  ],
+  "explanation": "HTTP/2 does not address TCP head-of-line blocking. Verbose fields are wrong because HTTP/2 uses an efficient coding for HTTP fields. Needing several connections is wrong because fewer TCP connections can be used than in HTTP/1.x. Inefficient message processing is wrong because binary message framing makes processing more efficient.",
+  "citation": "rfc9113#section-1",
+  "extract": "Note, however, that TCP head-of-line blocking is not addressed by this protocol.",
+  "snippet": null
+ },
+ {
+  "id": "m07-l01-q07",
+  "fact": "m07-l01-f46",
+  "stem": "Per RFC 2308, an authoritative server answers with a negative response. Where does the TTL of that cached negative answer come from?",
+  "key": "The minimum of the SOA record's `MINIMUM` field and the SOA record's own TTL",
+  "distractors": [
+   "The TTL of the A record of the queried name",
+   "No TTL applies, and each resolver picks its own cache time",
+   "The largest TTL among all records in the authority section"
+  ],
+  "explanation": "The SOA record in the authority section carries the TTL, taken from the minimum of `SOA.MINIMUM` and the SOA's TTL. The TTL of the queried name's A record is wrong because no record in the answer section exists to carry it. The claim that no TTL applies is wrong because negative answers have a time to live like normal answers. The largest TTL is wrong because the SOA record's TTL is set from a minimum, not a maximum.",
+  "citation": "rfc2308#section-5",
+  "extract": "When the authoritative server creates this record its TTL is taken from the minimum of the SOA.MINIMUM field and SOA's TTL.",
+  "snippet": null
+ },
+ {
+  "id": "m07-l01-q08",
+  "fact": "m07-l01-f49",
+  "stem": "In the JDK, how long is the result of an unsuccessful host name resolution cached by default?",
+  "key": "10 seconds",
+  "distractors": [
+   "It is not cached at all",
+   "It is cached forever",
+   "It follows `networkaddress.cache.ttl`, because one property covers both outcomes"
+  ],
+  "explanation": "Unsuccessful resolutions are cached for 10 seconds. Never caching and caching forever are both excluded, because `networkaddress.cache.negative.ttl` defaults to 10. Following `networkaddress.cache.ttl` is wrong because the negative lookups have their own property.",
+  "citation": "javadoc-java-net-inetaddress#inetaddress-caching-heading",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m07-l01-q09",
+  "fact": "m07-l01-f51",
+  "stem": "In the JDK address cache, what does a `networkaddress.cache.ttl` value of -1 indicate for successful name lookups?",
+  "key": "Cache forever",
+  "distractors": [
+   "Never cache the lookup",
+   "Use an implementation specific period",
+   "Cache only the unsuccessful lookups"
+  ],
+  "explanation": "A value of -1 means cache forever. Never caching is wrong because a value of 0 means no caching. An implementation specific period is wrong because that is the default when the property is not set. Caching only unsuccessful lookups is wrong because those are governed by `networkaddress.cache.negative.ttl`.",
+  "citation": "javadoc-java-net-inetaddress#inetaddress-caching-heading",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m07-l01-q10",
+  "fact": "m07-l01-f54",
+  "stem": "How do you set the `networkaddress.cache.ttl` and the other two address-cache properties of the `java.net` package?",
+  "key": "As Java security properties",
+  "distractors": [
+   "With the `-D` option on the `java` command line",
+   "With `System.setProperty()` before the first lookup",
+   "In the `dnsPolicy` field of the Pod spec"
+  ],
+  "explanation": "The three properties are part of the security policy, so they are set as security properties. The `-D` option and `System.setProperty()` are both excluded, because these properties are not set by either. The `dnsPolicy` field is wrong because it sets the DNS policy of a Pod, which is a per-Pod Kubernetes setting and not a JDK cache property.",
+  "citation": "java-net-properties#address-cache-heading",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m07-l01-q11",
+  "fact": "m07-l01-f55",
+  "stem": "In Kubernetes, a Service must give no cluster IP, no load balancing and no proxying, and expose Pod addresses through DNS. How do you create such a headless Service?",
+  "key": "Specify `None` for the cluster IP address, `.spec.clusterIP`",
+  "distractors": [
+   "Set `.spec.type` to `None`",
+   "Leave `.spec.clusterIP` unset",
+   "Set `.spec.type` to `LoadBalancer` and remove the selector"
+  ],
+  "explanation": "A headless Service sets `.spec.clusterIP` to `None`. Setting `.spec.type` to `None` is wrong because the type stays `ClusterIP`. Leaving `.spec.clusterIP` unset is wrong because `None` is a special case that differs from unset. Using `LoadBalancer` is wrong because a headless Service gets no load balancing or proxying from the platform.",
+  "citation": "k8s-service#headless-services",
+  "extract": "In this case, you can create what are termed headless Services, by explicitly specifying \"None\" for the cluster IP address (.spec.clusterIP).",
+  "snippet": null
+ },
+ {
+  "id": "m07-l01-q12",
+  "fact": "m07-l01-f70",
+  "stem": "Which security property is weaker for TLS 1.3 0-RTT data than for ordinary 1-RTT data?",
+  "key": "There are no guarantees of non-replay between connections",
+  "distractors": [
+   "The data can be duplicated within one connection",
+   "An attacker can make the data appear to be 1-RTT data",
+   "The data is forward secret only under the server's long-term key"
+  ],
+  "explanation": "0-RTT data has no guarantee of non-replay between connections. Duplication inside one connection is wrong because the server will not process the same data twice for the same connection. Passing as 1-RTT data is wrong because an attacker cannot make 0-RTT data appear to be 1-RTT data. The long-term-key claim is wrong because 0-RTT data is not forward secret and is encrypted solely under keys derived from the offered PSK.",
+  "citation": "rfc8446#section-2.3",
+  "extract": "There are no guarantees of non-replay between connections.",
+  "snippet": null
+ },
+ {
+  "id": "m07-l01-q13",
+  "fact": "m07-l01-f77",
+  "stem": "During a TLS 1.3 handshake, under which condition must the client send a `Certificate` message to the server, according to RFC 8446?",
+  "key": "If and only if the server has requested client authentication with a `CertificateRequest`",
+  "distractors": [
+   "In every full handshake, to prove its identity before `Finished`",
+   "Only when the server has sent the `certificate_authorities` extension",
+   "Only when it holds a suitable certificate, otherwise it sends nothing"
+  ],
+  "explanation": "The client sends a `Certificate` message if and only if the server requested client authentication with a `CertificateRequest`. Sending it in every full handshake is wrong because the message is tied to the `CertificateRequest`. Waiting for the `certificate_authorities` extension is wrong because that extension is optional for both sides. Sending nothing without a suitable certificate is wrong because the client sends a `Certificate` message containing no certificates.",
+  "citation": "rfc8446#section-4.4.2",
+  "extract": "The client MUST send a Certificate message if and only if the server has requested client authentication via a CertificateRequest message (Section 4.3.2).",
+  "snippet": null
+ },
+ {
+  "id": "m07-l01-q14",
+  "fact": "m07-l01-f82",
+  "stem": "Which TLS extension lets a client tell a server the host name it is contacting, so that one network address can host several virtual servers?",
+  "key": "`server_name`",
+  "distractors": [
+   "`application_layer_protocol_negotiation`",
+   "`certificate_authorities`",
+   "`pre_shared_key`"
+  ],
+  "explanation": "The `server_name` extension carries the name of the server the client contacts. `application_layer_protocol_negotiation` is wrong because it carries the protocols advertised by the client, in descending order of preference. `certificate_authorities` is wrong because it lists the certificate authorities an endpoint supports. `pre_shared_key` is wrong because it indicates which of the client's offered PSKs the server selected.",
+  "citation": "rfc6066#section-3",
+  "extract": "clients MAY include an extension of type \"server_name\" in the (extended) client hello.",
+  "snippet": null
+ },
+ {
+  "id": "m07-l01-q15",
+  "fact": "m07-l01-f89",
+  "stem": "In ALPN, how should a server choose the protocol when the client advertises several in its `ClientHello`?",
+  "key": "It selects the most highly preferred protocol that it supports and that the client also advertises",
+  "distractors": [
+   "It returns the whole list of protocols that it supports",
+   "It continues with its default protocol when it supports none of them",
+   "It may switch to another protocol for the application data"
+  ],
+  "explanation": "The server selects the most highly preferred protocol that it supports and that the client advertises. Returning its whole list is wrong because the `ServerHello` list must contain exactly one protocol name. Continuing with a default protocol is wrong because the server must send a fatal `no_application_protocol` alert. Switching protocol is wrong because the server must not use a different protocol than the one it selected.",
+  "citation": "rfc7301#section-3.2",
+  "extract": "the server SHOULD select the most highly preferred protocol that it supports and that is also advertised by the client.",
+  "snippet": null
+ },
+ {
+  "id": "m07-l01-q16",
+  "fact": "m07-l01-f102",
+  "stem": "Which statement about the timeout value, in milliseconds, that you pass to `Socket.setSoTimeout(int)` is correct according to the Java documentation?",
+  "key": "A timeout of zero is interpreted as an infinite timeout",
+  "distractors": [
+   "Setting it while a `read()` is already blocked cuts that read short",
+   "A negative value is accepted and means no timeout",
+   "When it expires the `Socket` is closed"
+  ],
+  "explanation": "A timeout of zero means an infinite timeout. Cutting an already blocked read short is wrong because the option must be enabled before entering the blocking operation. A negative value is wrong because it throws `IllegalArgumentException`. Closing the socket is wrong because the `SocketTimeoutException` leaves the `Socket` valid.",
+  "citation": "javadoc-java-net-socket#setSoTimeout(int)",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m07-l01-q17",
+  "fact": "m07-l01-f97",
+  "stem": "In the `java.net.http` API, what does `HttpClient.connectTimeout()` return for a client whose builder never set a connect timeout on it?",
+  "key": "An empty `Optional`",
+  "distractors": [
+   "An `Optional` holding a zero duration",
+   "`null`",
+   "An `Optional` holding an infinite duration"
+  ],
+  "explanation": "An unset connect timeout returns an empty `Optional`. A zero duration is wrong because the `Optional` holds the connect timeout duration only when the builder set one. `null` is wrong because the method is declared to return `Optional<Duration>`. An infinite duration is wrong because the `Optional` contains the client's connect timeout duration, and none was set.",
+  "citation": "javadoc-java-net-http-httpclient#connectTimeout()",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m07-l01-q18",
+  "fact": "m07-l01-f111",
+  "stem": "An HTTP/1.1 client reuses a persistent connection and sends a request just as the server closes the idle connection. Which rule of RFC 9112 explains this race?",
+  "key": "A client, server or proxy may close the transport connection at any time",
+  "distractors": [
+   "A server may close an idle connection only after sending a `close` connection option",
+   "A persistent connection stays open until the client sends a `close` option",
+   "A client must read the response body to the end before the server may close"
+  ],
+  "explanation": "Either side may close the transport connection at any time, so a request can cross the close. The `close` option as a precondition is wrong because only a server that does not support persistent connections must send it, in every response. A connection that waits for the client is wrong because servers usually time out an inactive connection. The body rule is wrong because it only conditions the client's own reuse of the connection.",
+  "citation": "rfc9112#section-9.5",
+  "extract": "A client, server, or proxy MAY close the transport connection at any time.",
+  "snippet": null
+ },
+ {
+  "id": "m07-l01-q19",
+  "fact": "m07-l01-f99",
+  "stem": "In Java 25, the snippet prints `connectTimeout()` of a default `HttpClient` and of one built with a two-second connect timeout, then `timeout()` of two requests, one with a one-second timeout. What does it print?",
+  "key": "none\nPT2S\nnone\nPT1S",
+  "distractors": [
+   "none\nPT2S\nnone\nnone",
+   "PT0S\nPT2S\nPT0S\nPT1S",
+   "none\nPT2M\nnone\nPT1M"
+  ],
+  "explanation": "The default client and the request without a timeout print `none`, while the other two print `PT2S` and `PT1S`. The output with `none` on the last line is wrong because the request builder set a one-second timeout. The output with `PT0S` for unset timeouts is wrong because an unset timeout gives an empty `Optional`, not a zero duration. The output with `PT2M` and `PT1M` is wrong because `Duration.ofSeconds` builds seconds, not minutes.",
+  "citation": "javadoc-java-net-http-httpclient#connectTimeout()",
+  "extract": null,
+  "snippet": "m07-l01/Timeouts.java"
+ }
+]

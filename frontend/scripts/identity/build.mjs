@@ -56,12 +56,15 @@ const GLYPHS = {
   "document-sheet": `<path ${LINE} d="M7 3h7l5 5v12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM14 3v5h5M9.5 13h5M9.5 17h3.5"/>`,
   // A pocket calculator, a display bar over four keys: the tax desk, with no flag, crest, seal or AEAT logo.
   calculator: `<path ${LINE} d="M7 3h10a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM9 7h6M9.5 12h.01M14.5 12h.01M9.5 16.5h.01M14.5 16.5h.01"/>`,
+  // Two stacked server units, each with a status light and a vent: the machine room, with no language or framework logo.
+  "server-rack": `<path ${LINE} d="M4 4h16a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1zM4 14h16a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1zM7 7h.01M7 17h.01M13 7h4M13 17h4"/>`,
 };
 const COURSE_GLYPHS = {
   "crypto-futures": "candlestick",
   "age-administrativo-c1": "public-building",
   "age-auxiliar-c2": "document-sheet",
   "aeat-agentes-hacienda": "calculator",
+  "backend-in-depth": "server-rack",
 };
 
 const HEADER = "<!-- SPDX-License-Identifier: AGPL-3.0-only -->\n";

@@ -1,0 +1,152 @@
+[
+ {
+  "id": "m05-l05-q01",
+  "fact": "m05-l05-f41",
+  "stem": "According to the Spring Framework documentation, how do non-blocking servers such as those behind Spring WebFlux handle requests, compared with the servlet containers used by Spring MVC?",
+  "key": "They use a small, fixed-size thread pool of event loop workers",
+  "distractors": [
+   "They use a large thread pool to absorb potential blocking during request handling",
+   "They add extra threads to the pool each time a request makes a blocking call",
+   "They use one thread per connection, created and discarded for each request"
+  ],
+  "explanation": "Non-blocking servers use a small, fixed-size thread pool of event loop workers to handle requests. A large thread pool is not used, because non-blocking servers assume that applications do not block, so there is no blocking to absorb. Extra threads are not added for blocking calls, because never blocking the current thread means that no extra threads are needed. Per-request threads are the servlet-container style, because servlet containers rely on a large thread pool to absorb blocking, which is not how event loop workers operate.",
+  "citation": "spring-fw-webflux-new-framework#webflux-concurrency-model",
+  "extract": "Therefore, non-blocking servers use a small, fixed-size thread pool (event loop workers) to handle requests.",
+  "snippet": null
+ },
+ {
+  "id": "m05-l05-q02",
+  "fact": "m05-l05-f45",
+  "stem": "According to the Spring Framework documentation, what is the key expected benefit of reactive and non-blocking request handling in Spring WebFlux?",
+  "key": "It scales with a small, fixed number of threads and less memory",
+  "distractors": [
+   "It makes applications run faster in every case",
+   "It shows its strengths even when no call has any latency",
+   "It removes the extra work of writing code the non-blocking way"
+  ],
+  "explanation": "The key expected benefit is the ability to scale with a small, fixed number of threads and less memory. Faster execution is not the benefit, because reactive and non-blocking generally do not make applications run faster. The benefit does not appear without latency, because observing it requires some latency such as slow and unpredictable network I/O. The extra work is not removed, because doing things the non-blocking way requires more work and can slightly increase processing time.",
+  "citation": "spring-fw-webflux-new-framework#webflux-performance",
+  "extract": "The key expected benefit of reactive and non-blocking is the ability to scale with a small, fixed number of threads and less memory.",
+  "snippet": null
+ },
+ {
+  "id": "m05-l05-q03",
+  "fact": "m05-l05-f53",
+  "stem": "In a Spring Boot application with no `Executor` bean, on Java 21 or later, with `spring.threads.virtual.enabled` set to `true`, which `AsyncTaskExecutor` does Spring Boot auto-configure?",
+  "key": "A `SimpleAsyncTaskExecutor` that uses virtual threads",
+  "distractors": [
+   "A `ThreadPoolTaskExecutor` with sensible defaults",
+   "No executor, so the application must declare an `Executor` bean itself",
+   "A `SimpleAsyncTaskScheduler` that ignores any pooling related properties"
+  ],
+  "explanation": "When virtual threads are enabled, the auto-configured executor is a `SimpleAsyncTaskExecutor` that uses virtual threads. A `ThreadPoolTaskExecutor` is the result only when virtual threads are not enabled, as the Otherwise case states. Declaring one is not required, because Spring Boot auto-configures an `AsyncTaskExecutor` when no `Executor` bean exists. A scheduler is not the executor, because the auto-configured `AsyncTaskExecutor` is the `SimpleAsyncTaskExecutor` when virtual threads are enabled.",
+  "citation": "spring-boot-features-task-execution-and-scheduling#page-title",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m05-l05-q04",
+  "fact": "m05-l05-f27",
+  "stem": "In Spring Framework 7, which statement about methods declared in an `@ControllerAdvice` class and methods declared in the controller itself is correct?",
+  "key": "Global `@ModelAttribute` and `@InitBinder` methods are applied before the local ones",
+  "distractors": [
+   "Global `@ExceptionHandler` methods are applied before the local ones",
+   "Such methods apply only to the `@Controller` class in which they are declared",
+   "`@ControllerAdvice` applies to `@Controller` classes but never to `@RestController` classes"
+  ],
+  "explanation": "Global `@ModelAttribute` and `@InitBinder` methods are applied before the local ones. Global `@ExceptionHandler` methods do not come first, because they are applied after the local ones. The restriction to one class holds only for methods declared in the controller, because methods in an `@ControllerAdvice` or `@RestControllerAdvice` class apply to any controller. `@RestController` classes are not excluded, because by default both annotations apply to any controller, including `@Controller` and `@RestController`.",
+  "citation": "spring-fw-webmvc-controller-advice#page-title",
+  "extract": "By contrast, global @ModelAttribute and @InitBinder methods are applied before local ones.",
+  "snippet": null
+ },
+ {
+  "id": "m05-l05-q05",
+  "fact": "m05-l05-f28",
+  "stem": "In Spring Framework 7, several `@ExceptionHandler` methods match a thrown exception, one on the thrown type and one on a nested cause. Which match does Spring MVC generally prefer?",
+  "key": "The root exception match over the cause exception match",
+  "distractors": [
+   "The cause exception match over the root exception match",
+   "The method declared first in the class, whatever the exception depth",
+   "Only an immediate cause is considered, so deeper causes never match"
+  ],
+  "explanation": "A root exception match is generally preferred to a cause exception match. The cause match is not preferred, because a root exception match is generally preferred to it. Declaration order does not decide, because `ExceptionDepthComparator` sorts exceptions based on their depth from the thrown exception type. Deeper causes can match, because since 5.3 matching works at arbitrary cause levels.",
+  "citation": "spring-fw-webmvc-exceptionhandler#mvc-ann-exceptionhandler-exc",
+  "extract": "When multiple exception methods match, a root exception match is generally preferred to a cause exception match.",
+  "snippet": null
+ },
+ {
+  "id": "m05-l05-q06",
+  "fact": "m05-l05-f61",
+  "stem": "A `RestClient` is built without a request factory. Neither Apache nor Jetty `HttpClient` is on the classpath, and the `java.net.http` module is loaded. Which library does it use?",
+  "key": "Java’s `HttpClient`",
+  "distractors": [
+   "The `SimpleClientHttpRequestFactory` default",
+   "The Apache HTTP Components `HttpClient`",
+   "Jetty’s `HttpClient`"
+  ],
+  "explanation": "Otherwise, if the `java.net.http` module is loaded, the `RestClient` uses Java’s `HttpClient`. The simple default is not chosen yet, because the `RestClient` resorts to it only finally, after the Java `HttpClient` check fails. The Apache HTTP Components `HttpClient` and the Jetty `HttpClient` are not used, because the `RestClient` picks either of them only if it is available on the classpath.",
+  "citation": "spring-fw-integration-rest-clients#rest-request-factories",
+  "extract": "Otherwise, if the java.net.http module is loaded, it will use Java’s HttpClient.",
+  "snippet": null
+ },
+ {
+  "id": "m05-l05-q07",
+  "fact": "m05-l05-f14",
+  "stem": "In a Spring MVC controller method, what does declaring a `jakarta.servlet.http.HttpSession` argument enforce, according to the Spring Framework documentation?",
+  "key": "The presence of a session",
+  "distractors": [
+   "Thread-safe access to the session attributes",
+   "A `null` argument when the request has no session yet",
+   "A reactive session type resolved lazily"
+  ],
+  "explanation": "A `HttpSession` argument enforces the presence of a session. Session access is not made thread-safe, because the documentation notes that session access is not thread-safe. The argument is not `null`, because such an argument is never null. A reactive type is not supported, because reactive types are not supported for any controller method arguments.",
+  "citation": "spring-fw-webmvc-controller-ann-arguments#page-title",
+  "extract": "Enforces the presence of a session.",
+  "snippet": null
+ },
+ {
+  "id": "m05-l05-q08",
+  "fact": "m05-l05-f17",
+  "stem": "In Spring Boot 4, in which character encoding does Spring MVC encode strings by default when it converts HTTP requests and responses with `HttpMessageConverter`?",
+  "key": "UTF-8",
+  "distractors": [
+   "ISO-8859-1",
+   "UTF-16",
+   "US-ASCII"
+  ],
+  "explanation": "By default, strings are encoded in UTF-8. ISO-8859-1, UTF-16 and US-ASCII are not the default, because by default strings are encoded in UTF-8.",
+  "citation": "spring-boot-web-servlet#web.servlet.spring-mvc.message-converters",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m05-l05-q09",
+  "fact": "m05-l05-f48",
+  "stem": "According to the Spring Framework documentation, which web stack is the best choice for common architectures when the application has to use blocking persistence APIs such as JPA or JDBC?",
+  "key": "Spring MVC",
+  "distractors": [
+   "Spring WebFlux with annotated controllers",
+   "Spring WebFlux functional endpoints",
+   "Spring WebFlux, because every Spring MVC application should be migrated"
+  ],
+  "explanation": "If you have blocking persistence APIs (JPA, JDBC) or networking APIs to use, Spring MVC is the best choice for common architectures at least. Neither WebFlux style is the best choice, because blocking calls on a non-blocking web stack mean you would not be making the most of it. Migration is not required, because a Spring MVC application that works fine has no need to change.",
+  "citation": "spring-fw-webflux-new-framework#webflux-framework-choice",
+  "extract": "If you have blocking persistence APIs (JPA, JDBC) or networking APIs to use, Spring MVC is the best choice for common architectures at least.",
+  "snippet": null
+ },
+ {
+  "id": "m05-l05-q10",
+  "fact": "m05-l05-f35",
+  "stem": "In Spring Boot 4, which mapping does the default error handling provide so that all errors are handled in a sensible way and registered as a global error page?",
+  "key": "`/error`",
+  "distractors": [
+   "`/errors`",
+   "`/exception`",
+   "`/problems`"
+  ],
+  "explanation": "Spring Boot provides an `/error` mapping that handles all errors in a sensible way. `/errors`, `/exception` and `/problems` are not the mapping, because Spring Boot provides an `/error` mapping.",
+  "citation": "spring-boot-web-servlet#web.servlet.spring-mvc.error-handling",
+  "extract": null,
+  "snippet": null
+ }
+]

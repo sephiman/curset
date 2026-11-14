@@ -1,0 +1,588 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>3.1 SLList: A Singly-Linked List</TITLE>
+<META NAME="description" CONTENT="3.1 SLList: A Singly-Linked List">
+<META NAME="keywords" CONTENT="ods-java-html">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="../ods-book.css">
+
+<LINK REL="next" HREF="3_2_DLList_Doubly_Linked_Li.html">
+<LINK REL="previous" HREF="3_Linked_Lists.html">
+<LINK REL="up" HREF="3_Linked_Lists.html">
+<LINK REL="next" HREF="3_2_DLList_Doubly_Linked_Li.html">
+</HEAD>
+
+<BODY text="#000000" bgcolor="#FFFFFF">
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html523"
+  HREF="3_2_DLList_Doubly_Linked_Li.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html517"
+  HREF="3_Linked_Lists.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html511"
+  HREF="3_Linked_Lists.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html519"
+  HREF="Contents.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html521"
+  HREF="Index.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html524"
+  HREF="3_2_DLList_Doubly_Linked_Li.html">3.2 DLList: A Doubly-Linked</A>
+<B> Up:</B> <A NAME="tex2html518"
+  HREF="3_Linked_Lists.html">3. Linked Lists</A>
+<B> Previous:</B> <A NAME="tex2html512"
+  HREF="3_Linked_Lists.html">3. Linked Lists</A>
+ &nbsp; <B>  <A NAME="tex2html520"
+  HREF="Contents.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html522"
+  HREF="Index.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html525"
+  HREF="3_1_SLList_Singly_Linked_Li.html#SECTION00611000000000000000"><SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">1</SPAN> Queue Operations</A>
+<LI><A NAME="tex2html526"
+  HREF="3_1_SLList_Singly_Linked_Li.html#SECTION00612000000000000000"><SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">2</SPAN> Summary</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00610000000000000000"></A>
+<A NAME="sec:sllist"></A>
+<BR>
+<SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">1</SPAN> <TT>SLList</TT>: A Singly-Linked List
+</H1>
+
+<P>
+<A NAME="9712"></A><A NAME="8884"></A><A NAME="8885"></A>An <TT>SLList</TT> (singly-linked list) is a sequence of <TT>Node</TT>s.  Each node
+<!-- MATH
+ $\mathtt{u}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1187.png"
+ ALT="$ \mathtt{u}$"></SPAN> stores a data value <!-- MATH
+ $\mathtt{u.x}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="25" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1188.png"
+ ALT="$ \mathtt{u.x}$"></SPAN> and a reference <!-- MATH
+ $\mathtt{u.next}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="50" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1189.png"
+ ALT="$ \mathtt{u.next}$"></SPAN> to the next node in
+the sequence.  For the last node <!-- MATH
+ $\mathtt{w}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1190.png"
+ ALT="$ \mathtt{w}$"></SPAN> in the sequence, <!-- MATH
+ $\ensuremath{\mathtt{w.next}} = \ensuremath{\mathtt{null}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="101" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1191.png"
+ ALT="$ \ensuremath{\mathtt{w.next}} = \ensuremath{\mathtt{null}}$"></SPAN>
+
+<P>
+<PRE>
+    class Node {
+        T x;
+        Node next;
+    }
+</PRE>
+
+<P>
+For efficiency, an <TT>SLList</TT> uses variables <!-- MATH
+ $\mathtt{head}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="38" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1192.png"
+ ALT="$ \mathtt{head}$"></SPAN> and <!-- MATH
+ $\mathtt{tail}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="38" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1193.png"
+ ALT="$ \mathtt{tail}$"></SPAN> to keep
+track of the first and last node in the sequence, as well as an integer
+<!-- MATH
+ $\mathtt{n}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1194.png"
+ ALT="$ \mathtt{n}$"></SPAN> to keep track of the length of the sequence:
+<PRE>
+    Node head;
+    Node tail;
+    int n;
+</PRE>
+A sequence of <TT>Stack</TT> and <TT>Queue</TT> operations on an <TT>SLList</TT> is
+illustrated in Figure&nbsp;<A HREF="#fig:sllist">3.1</A>.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:sllist"></A><A NAME="10202"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 3.1:</STRONG>
+A sequence of <TT>Queue</TT> (<!-- MATH
+ $\mathtt{add(x)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="49" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1196.png"
+ ALT="$ \mathtt{add(x)}$"></SPAN> and <!-- MATH
+ $\mathtt{remove()}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="65" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1197.png"
+ ALT="$ \mathtt{remove()}$"></SPAN>) and <TT>Stack</TT> (<!-- MATH
+ $\mathtt{push(x)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="57" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1198.png"
+ ALT="$ \mathtt{push(x)}$"></SPAN> and <!-- MATH
+ $\mathtt{pop()}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="40" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1199.png"
+ ALT="$ \mathtt{pop()}$"></SPAN>) operations on an <TT>SLList</TT>.</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="548" HEIGHT="267" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1195.png"
+ ALT="\includegraphics[width=\textwidth ]{figs/sllist}">
+  
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+An <TT>SLList</TT> can efficiently implement the <TT>Stack</TT> operations <!-- MATH
+ $\mathtt{push()}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="49" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1200.png"
+ ALT="$ \mathtt{push()}$"></SPAN>
+and <!-- MATH
+ $\mathtt{pop()}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="40" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1201.png"
+ ALT="$ \mathtt{pop()}$"></SPAN> by adding and removing elements at the head of the sequence.
+The <!-- MATH
+ $\mathtt{push()}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="49" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1202.png"
+ ALT="$ \mathtt{push()}$"></SPAN> operation simply creates a new node <!-- MATH
+ $\mathtt{u}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1203.png"
+ ALT="$ \mathtt{u}$"></SPAN> with data value <!-- MATH
+ $\mathtt{x}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1204.png"
+ ALT="$ \mathtt{x}$"></SPAN>,
+sets <!-- MATH
+ $\mathtt{u.next}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="50" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1205.png"
+ ALT="$ \mathtt{u.next}$"></SPAN> to the old head of the list and makes <!-- MATH
+ $\mathtt{u}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1206.png"
+ ALT="$ \mathtt{u}$"></SPAN> the new head
+of the list. Finally, it increments <!-- MATH
+ $\mathtt{n}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1207.png"
+ ALT="$ \mathtt{n}$"></SPAN> since the size of the <TT>SLList</TT>
+has increased by one:
+
+<P>
+<PRE>
+    T push(T x) {
+        Node u = new Node();
+        u.x = x;
+        u.next = head;
+        head = u;
+        if (n == 0)
+            tail = u;
+        n++;
+        return x;
+    }
+</PRE>
+
+<P>
+The <!-- MATH
+ $\mathtt{pop()}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="40" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1208.png"
+ ALT="$ \mathtt{pop()}$"></SPAN> operation, after checking that the <TT>SLList</TT> is not empty,
+removes the head by setting <!-- MATH
+ $\ensuremath{\mathtt{head=head.next}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="127" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1209.png"
+ ALT="$ \ensuremath{\mathtt{head=head.next}}$"></SPAN> and decrementing <!-- MATH
+ $\mathtt{n}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1210.png"
+ ALT="$ \mathtt{n}$"></SPAN>.
+A special case occurs when the last element is being removed, in which case <!-- MATH
+ $\mathtt{tail}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="38" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1211.png"
+ ALT="$ \mathtt{tail}$"></SPAN> is set to <!-- MATH
+ $\mathtt{null}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="38" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1212.png"
+ ALT="$ \mathtt{null}$"></SPAN>:
+
+<P>
+<PRE>
+    T pop() {
+        if (n == 0)    return null;
+        T x = head.x;
+        head = head.next;
+        if (--n == 0) tail = null;
+        return x;
+    }
+</PRE>
+
+<P>
+Clearly, both the <!-- MATH
+ $\mathtt{push(x)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="57" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1213.png"
+ ALT="$ \mathtt{push(x)}$"></SPAN> and <!-- MATH
+ $\mathtt{pop()}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="40" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1214.png"
+ ALT="$ \mathtt{pop()}$"></SPAN> operations run in <SPAN CLASS="MATH"><IMG
+ WIDTH="36" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1215.png"
+ ALT="$ O(1)$"></SPAN> time.
+
+<P>
+
+<H2><A NAME="SECTION00611000000000000000">
+<SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">1</SPAN> Queue Operations</A>
+</H2>
+
+<P>
+An <TT>SLList</TT> can also implement the FIFO queue operations <!-- MATH
+ $\mathtt{add(x)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="49" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1216.png"
+ ALT="$ \mathtt{add(x)}$"></SPAN> and
+<!-- MATH
+ $\mathtt{remove()}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="65" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1217.png"
+ ALT="$ \mathtt{remove()}$"></SPAN> in constant time.  Removals are done from the head of the list,
+and are identical to the <!-- MATH
+ $\mathtt{pop()}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="40" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1218.png"
+ ALT="$ \mathtt{pop()}$"></SPAN> operation:
+
+<P>
+<PRE>
+    T remove() {
+        if (n == 0)    return null;
+        T x = head.x;
+        head = head.next;
+        if (--n == 0) tail = null;
+        return x;
+    }
+</PRE>
+
+<P>
+Additions, on the other hand, are done at the tail of the list.  In most
+cases, this is done by setting <!-- MATH
+ $\ensuremath{\mathtt{tail.next}}=\ensuremath{\mathtt{u}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="101" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1219.png"
+ ALT="$ \ensuremath{\mathtt{tail.next}}=\ensuremath{\mathtt{u}}$"></SPAN>, where <!-- MATH
+ $\mathtt{u}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1220.png"
+ ALT="$ \mathtt{u}$"></SPAN> is the newly
+created node that contains <!-- MATH
+ $\mathtt{x}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1221.png"
+ ALT="$ \mathtt{x}$"></SPAN>.  However, a special case occurs when
+<!-- MATH
+ $\ensuremath{\mathtt{n}}=0$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="39" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1222.png"
+ ALT="$ \ensuremath{\mathtt{n}}=0$"></SPAN>, in which case <!-- MATH
+ $\ensuremath{\mathtt{tail}}=\ensuremath{\mathtt{head}}=\ensuremath{\mathtt{null}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="140" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1223.png"
+ ALT="$ \ensuremath{\mathtt{tail}}=\ensuremath{\mathtt{head}}=\ensuremath{\mathtt{null}}$"></SPAN>.  In this case, both <!-- MATH
+ $\mathtt{tail}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="38" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1224.png"
+ ALT="$ \mathtt{tail}$"></SPAN>
+and <!-- MATH
+ $\mathtt{head}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="38" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1225.png"
+ ALT="$ \mathtt{head}$"></SPAN> are set to <!-- MATH
+ $\mathtt{u}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1226.png"
+ ALT="$ \mathtt{u}$"></SPAN>.
+
+<P>
+<PRE>
+    boolean add(T x) {
+        Node u = new Node();
+        u.x = x;
+        if (n == 0) {
+            head = u;
+        } else {
+            tail.next = u;
+        }
+        tail = u;
+        n++;
+        return true;
+    }
+</PRE>
+
+<P>
+Clearly, both <!-- MATH
+ $\mathtt{add(x)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="49" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1227.png"
+ ALT="$ \mathtt{add(x)}$"></SPAN> and <!-- MATH
+ $\mathtt{remove()}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="65" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1228.png"
+ ALT="$ \mathtt{remove()}$"></SPAN> take constant time.
+
+<P>
+
+<H2><A NAME="SECTION00612000000000000000">
+<SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">2</SPAN> Summary</A>
+</H2>
+
+<P>
+The following theorem summarizes the performance of an <TT>SLList</TT>:
+
+<P>
+<P>
+<DIV><A NAME="thm:sllist"><B>Theorem  <SPAN CLASS="arabic">3</SPAN>..<SPAN CLASS="arabic">1</SPAN></B></A> &nbsp; 
+<I>An <TT>SLList</TT> implements the <TT>Stack</TT> and (FIFO) <TT>Queue</TT> interfaces.  
+  The <!-- MATH
+ $\mathtt{push(x)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="57" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1229.png"
+ ALT="$ \mathtt{push(x)}$"></SPAN>, <!-- MATH
+ $\mathtt{pop()}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="40" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1230.png"
+ ALT="$ \mathtt{pop()}$"></SPAN>, <!-- MATH
+ $\mathtt{add(x)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="49" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1231.png"
+ ALT="$ \mathtt{add(x)}$"></SPAN> and <!-- MATH
+ $\mathtt{remove()}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="65" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1232.png"
+ ALT="$ \mathtt{remove()}$"></SPAN> operations run
+  in <SPAN CLASS="MATH"><IMG
+ WIDTH="36" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1233.png"
+ ALT="$ O(1)$"></SPAN> time per operation.</I></DIV><P></P>
+
+<P>
+An <TT>SLList</TT> nearly implements the full set of <TT>Deque</TT> operations.
+The only missing operation is removing from the tail of an <TT>SLList</TT>.
+Removing from the tail of an <TT>SLList</TT> is difficult because it requires
+updating the value of <!-- MATH
+ $\mathtt{tail}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="38" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1234.png"
+ ALT="$ \mathtt{tail}$"></SPAN> so that it points to the node <!-- MATH
+ $\mathtt{w}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1235.png"
+ ALT="$ \mathtt{w}$"></SPAN>
+that precedes <!-- MATH
+ $\mathtt{tail}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="38" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1236.png"
+ ALT="$ \mathtt{tail}$"></SPAN> in the <TT>SLList</TT>; this is the node <!-- MATH
+ $\mathtt{w}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1237.png"
+ ALT="$ \mathtt{w}$"></SPAN> such that
+<!-- MATH
+ $\ensuremath{\mathtt{w.next}}=\ensuremath{\mathtt{tail}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="101" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1238.png"
+ ALT="$ \ensuremath{\mathtt{w.next}}=\ensuremath{\mathtt{tail}}$"></SPAN>.  Unfortunately, the only way to get to <!-- MATH
+ $\mathtt{w}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1239.png"
+ ALT="$ \mathtt{w}$"></SPAN> is by
+traversing the <TT>SLList</TT> starting at <!-- MATH
+ $\mathtt{head}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="38" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1240.png"
+ ALT="$ \mathtt{head}$"></SPAN> and taking <!-- MATH
+ $\ensuremath{\mathtt{n}}-2$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="36" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1241.png"
+ ALT="$ \ensuremath{\mathtt{n}}-2$"></SPAN> steps.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html523"
+  HREF="3_2_DLList_Doubly_Linked_Li.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html517"
+  HREF="3_Linked_Lists.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html511"
+  HREF="3_Linked_Lists.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html519"
+  HREF="Contents.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html521"
+  HREF="Index.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html524"
+  HREF="3_2_DLList_Doubly_Linked_Li.html">3.2 DLList: A Doubly-Linked</A>
+<B> Up:</B> <A NAME="tex2html518"
+  HREF="3_Linked_Lists.html">3. Linked Lists</A>
+<B> Previous:</B> <A NAME="tex2html512"
+  HREF="3_Linked_Lists.html">3. Linked Lists</A>
+ &nbsp; <B>  <A NAME="tex2html520"
+  HREF="Contents.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html522"
+  HREF="Index.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<a href="http://opendatastructures.org/">opendatastructures.org</a>
+    
+
+</ADDRESS>
+</BODY>
+</HTML>

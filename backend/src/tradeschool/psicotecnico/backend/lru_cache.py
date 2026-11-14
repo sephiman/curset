@@ -41,7 +41,11 @@ def _text(keys: list[str]) -> str:
 
 class LruCacheGenerator(BackendGenerator[CacheRun]):
     id: ClassVar[str] = "lru-cache-contents"
-    citation: ClassVar[Citation] = Citation("m02-l06", "javadoc-linkedhashmap#class-linkedhashmap-k-v")
+    citation: ClassVar[Citation] = Citation(
+        "m02-l06",
+        "javadoc-linkedhashmap#class-linkedhashmap-k-v",
+        confirmed="javadoc-linkedhashmap#class-linkedhashmap-k-v",
+    )
 
     def scenario(self, rng: random.Random, level: int) -> CacheRun | None:
         capacity = rng.choice((3, 4))

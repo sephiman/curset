@@ -1,0 +1,116 @@
+m05-l04-q01:
+  key:
+    anchor: spring-fw-tx-declarative-annotations#transaction-declarative-attransactional-settings
+    sentence: Any RuntimeException or Error triggers rollback, and any checked Exception does not.
+  wrong:
+  - option: Any `Exception`, checked or unchecked
+    anchor: spring-fw-tx-declarative-rolling-back#page-title
+    sentence: Checked exceptions that are thrown from a transactional method do not result in a rollback in the default configuration.
+  - option: Only a checked `Exception`
+    anchor: spring-fw-tx-declarative-rolling-back#page-title
+    sentence: marks a transaction for rollback only in the case of runtime, unchecked exceptions.
+  - option: Only a `RuntimeException`, because an `Error` ends the thread
+    anchor: spring-fw-tx-declarative-rolling-back#page-title
+    sentence: (Error instances also, by default, result in a rollback).
+m05-l04-q02:
+  key:
+    anchor: spring-fw-tx-declarative-rolling-back#page-title
+    sentence: a value of jakarta.servlet.ServletException.class will only match thrown exceptions of type jakarta.servlet.ServletException and its subclasses.
+  wrong:
+  - option: Only `ServletException` itself, never its subclasses
+    anchor: spring-fw-tx-declarative-rolling-back#page-title
+    sentence: given a configured exception type C, a thrown exception of type T will be considered a match against C if T is equal to C or a subclass of C.
+  - option: Any exception whose class name contains `ServletException`
+    anchor: spring-fw-tx-declarative-rolling-back#page-title
+    sentence: This provides type safety and avoids any unintentional matches that may occur when using a pattern.
+  - option: '`ServletException` and its superclasses'
+    anchor: spring-fw-tx-declarative-rolling-back#page-title
+    sentence: will only match thrown exceptions of type jakarta.servlet.ServletException and its subclasses.
+m05-l04-q03:
+  key:
+    anchor: spring-fw-tx-event#page-title
+    sentence: The valid phases are BEFORE_COMMIT, AFTER_COMMIT (default), AFTER_ROLLBACK, as well as AFTER_COMPLETION
+  wrong:
+  - option: '`BEFORE_COMMIT`'
+    anchor: spring-fw-tx-event#page-title
+    sentence: AFTER_COMMIT (default)
+    exclusive: true
+  - option: '`AFTER_ROLLBACK`'
+    anchor: spring-fw-tx-event#page-title
+    sentence: AFTER_COMMIT (default)
+    exclusive: true
+  - option: 'No phase: the listener runs as soon as the event is published, like a regular `@EventListener`'
+    anchor: spring-fw-tx-event#page-title
+    sentence: When you do so, the listener is bound to the commit phase of the transaction by default.
+m05-l04-q04:
+  key:
+    anchor: spring-fw-tx-event#page-title
+    sentence: If no transaction is running, the listener is not invoked at all, since we cannot honor the required semantics.
+  wrong:
+  - option: The listener runs immediately, like a regular event listener
+    anchor: spring-fw-tx-event#page-title
+    sentence: You can, however, override that behavior by setting the fallbackExecution attribute of the annotation to true.
+  - option: The listener fails with an exception, because no transaction exists
+    anchor: spring-fw-tx-event#page-title
+    sentence: If no transaction is running, the listener is not invoked at all
+    exclusive: true
+  - option: The listener runs in the `AFTER_COMPLETION` phase of an implicit new transaction
+    anchor: spring-fw-tx-event#page-title
+    sentence: If no transaction is running, the listener is not invoked at all
+    exclusive: true
+m05-l04-q05:
+  key:
+    anchor: spring-fw-tx-declarative-annotations#transaction-declarative-attransactional-settings
+    sentence: The propagation setting is PROPAGATION_REQUIRED.
+  wrong:
+  - option: '`PROPAGATION_REQUIRES_NEW`, `ISOLATION_DEFAULT` and the default timeout of the underlying transaction system'
+    anchor: spring-fw-tx-declarative-annotations#transaction-declarative-attransactional-settings
+    sentence: The propagation setting is PROPAGATION_REQUIRED.
+  - option: '`PROPAGATION_REQUIRED`, `ISOLATION_SERIALIZABLE` and the default timeout of the underlying transaction system'
+    anchor: spring-fw-tx-declarative-annotations#transaction-declarative-attransactional-settings
+    sentence: The isolation level is ISOLATION_DEFAULT.
+  - option: '`PROPAGATION_REQUIRED`, `ISOLATION_DEFAULT` and a fixed timeout of 30 seconds'
+    anchor: spring-fw-tx-declarative-annotations#transaction-declarative-attransactional-settings
+    sentence: The transaction timeout defaults to the default timeout of the underlying transaction system, or to none if timeouts are not supported.
+m05-l04-q06:
+  key:
+    anchor: spring-fw-tx-strategies#understanding-the-spring-framework-transaction-abstraction
+    sentence: the TransactionException that can be thrown by any of the PlatformTransactionManager interface’s methods is unchecked (that is, it extends the java.lang.RuntimeException class).
+  wrong:
+  - option: It is checked, so every caller must catch it or declare it
+    anchor: spring-fw-tx-strategies#understanding-the-spring-framework-transaction-abstraction
+    sentence: The salient point is that developers are not forced to do so.
+  - option: It is checked, because transaction infrastructure failures are usually recoverable
+    anchor: spring-fw-tx-strategies#understanding-the-spring-framework-transaction-abstraction
+    sentence: Transaction infrastructure failures are almost invariably fatal.
+  - option: It is unchecked, because it extends `Error`
+    anchor: spring-fw-tx-strategies#understanding-the-spring-framework-transaction-abstraction
+    sentence: (that is, it extends the java.lang.RuntimeException class)
+m05-l04-q07:
+  key:
+    anchor: spring-boot-features-task-execution-and-scheduling#page-title
+    sentence: When virtual threads are enabled (using Java 21+ and spring.threads.virtual.enabled set to true) this will be a SimpleAsyncTaskExecutor that uses virtual threads.
+  wrong:
+  - option: A `ThreadPoolTaskExecutor` with sensible defaults
+    anchor: spring-boot-features-task-execution-and-scheduling#page-title
+    sentence: Otherwise, it will be a ThreadPoolTaskExecutor with sensible defaults.
+  - option: No executor, because `@EnableAsync` requires a custom `Executor` bean
+    anchor: spring-boot-features-task-execution-and-scheduling#page-title
+    sentence: In the absence of an Executor bean in the context, Spring Boot auto-configures an AsyncTaskExecutor.
+  - option: A `ForkJoinPool` shared by the whole JVM
+    anchor: spring-boot-features-task-execution-and-scheduling#page-title
+    sentence: this will be a SimpleAsyncTaskExecutor that uses virtual threads.
+m05-l04-q08:
+  key:
+    anchor: spring-fw-tx-declarative-annotations#transaction-declarative-attransactional-settings
+    sentence: leading to a rollback for all exceptions raised within a transaction, including any checked exception.
+  wrong:
+  - option: It makes the rollback rules on individual `@Transactional` annotations ignored
+    anchor: spring-fw-tx-declarative-annotations#transaction-declarative-attransactional-settings
+    sentence: Note that transaction-specific rollback rules override the default behavior but retain the chosen default for unspecified exceptions.
+  - option: It changes the rollback behavior only for the class that declares it
+    anchor: spring-fw-tx-declarative-annotations#transaction-declarative-attransactional-settings
+    sentence: you can globally change the default rollback behavior
+  - option: It disables rollback for a `RuntimeException`, so that only checked exceptions roll back
+    anchor: spring-fw-tx-declarative-annotations#transaction-declarative-attransactional-settings
+    sentence: leading to a rollback for all exceptions raised within a transaction

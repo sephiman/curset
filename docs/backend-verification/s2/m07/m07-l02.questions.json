@@ -1,0 +1,212 @@
+[
+ {
+  "id": "m07-l02-q01",
+  "fact": "m07-l02-f14",
+  "stem": "An HTTP/1.1 server receives a sequence of pipelined requests that all use safe methods. According to RFC 9112, what does it do with them and their responses?",
+  "key": "It may process them in parallel, but it must send the responses in the order the requests arrived",
+  "distractors": [
+   "It must process them one at a time, and may send the responses in any order",
+   "It sends each response as soon as it is ready, so the order of responses may differ from the requests",
+   "It closes the connection after the first response, because pipelining is not allowed on persistent connections"
+  ],
+  "explanation": "The server may process safe pipelined requests in parallel but must answer them in request order. Processing one at a time with responses in any order and sending responses as soon as they are ready are both excluded, because the responses must follow the order of the requests. Closing after the first response is wrong because a client that supports persistent connections may pipeline its requests.",
+  "citation": "rfc9112#section-9.3.2",
+  "extract": "A server MAY process a sequence of pipelined requests in parallel if they all have safe methods (Section 9.2.1 of [HTTP]), but it MUST send the corresponding responses in the same order that the requests were received.",
+  "snippet": null
+ },
+ {
+  "id": "m07-l02-q02",
+  "fact": "m07-l02-f21",
+  "stem": "In HTTP/2, how does a peer limit the number of streams that are concurrently active on a connection?",
+  "key": "With the `SETTINGS_MAX_CONCURRENT_STREAMS` parameter in a `SETTINGS` frame",
+  "distractors": [
+   "With the `WINDOW_UPDATE` frame, which caps the open streams",
+   "It cannot, because a connection carries one stream at a time",
+   "With one connection-wide value that applies equally to both peers"
+  ],
+  "explanation": "A peer sets `SETTINGS_MAX_CONCURRENT_STREAMS` in a `SETTINGS` frame. The `WINDOW_UPDATE` frame is wrong because it provides flow control. The claim of one stream at a time is wrong because a single connection can contain multiple concurrently open streams. A connection-wide value for both peers is wrong because the setting is specific to each endpoint and applies only to the peer that receives it.",
+  "citation": "rfc9113#section-5.1.2",
+  "extract": "A peer can limit the number of concurrently active streams using the SETTINGS_MAX_CONCURRENT_STREAMS parameter (see Section 6.5.2) within a SETTINGS frame.",
+  "snippet": null
+ },
+ {
+  "id": "m07-l02-q03",
+  "fact": "m07-l02-f36",
+  "stem": "In HPACK as defined in RFC 7541, which statement about the dynamic table of header fields is correct?",
+  "key": "The newest entry is at the lowest index and the oldest entry is at the highest index",
+  "distractors": [
+   "Entries are kept in least-recently-used order, so a reused entry moves to the lowest index",
+   "The table starts filled with the most common header fields of HTTP",
+   "A decoder must report an error when the table holds two entries with the same name and value"
+  ],
+  "explanation": "The first and newest entry has the lowest index, and the oldest entry the highest. Least-recently-used order is wrong because the table is maintained in first-in, first-out order. A table that starts filled is wrong because the dynamic table is initially empty. Reporting an error on duplicates is wrong because a decoder must not treat duplicate entries as an error.",
+  "citation": "rfc7541#section-2.3.2",
+  "extract": "The first and newest entry in a dynamic table is at the lowest index, and the oldest entry of a dynamic table is at the highest index.",
+  "snippet": null
+ },
+ {
+  "id": "m07-l02-q04",
+  "fact": "m07-l02-f56",
+  "stem": "In QUIC as defined in RFC 9000, which statement about the creation of streams is correct?",
+  "key": "A single `STREAM` frame can open a stream, carry data for it, and close it",
+  "distractors": [
+   "Only the client can create streams, and the server can only answer on them",
+   "A stream must be opened with a separate round trip before any data is sent",
+   "Streams are always bidirectional, so a single endpoint cannot be the only sender"
+  ],
+  "explanation": "A single `STREAM` frame can open, carry data for, and close a stream. Client-only creation is wrong because streams can be created by either endpoint. A separate opening round trip is wrong because streams can be created by sending data. Always-bidirectional streams are wrong because streams can be unidirectional or bidirectional.",
+  "citation": "rfc9000#section-2",
+  "extract": "For instance, a single STREAM frame (Section 19.8) can open, carry data for, and close a stream.",
+  "snippet": null
+ },
+ {
+  "id": "m07-l02-q05",
+  "fact": "m07-l02-f60",
+  "stem": "What is the primary function of a connection ID in QUIC, according to RFC 9000?",
+  "key": "To keep packets of a connection from reaching the wrong endpoint when addressing changes at lower layers such as UDP or IP",
+  "distractors": [
+   "To limit how many streams the peer may initiate on the connection",
+   "To order the bytes of different streams on the same connection",
+   "To let an observer correlate all packets of the same connection"
+  ],
+  "explanation": "A connection ID keeps packets from being delivered to the wrong endpoint when addressing changes in UDP or IP. Limiting streams is wrong because a QUIC endpoint controls the cumulative number of streams its peer can initiate. Ordering bytes across streams is wrong because QUIC provides no ordering between bytes on different streams. Letting an observer correlate packets is wrong because multiple connection IDs are used so that observers cannot identify packets as belonging to the same connection.",
+  "citation": "rfc9000#section-5.1",
+  "extract": "The primary function of a connection ID is to ensure that changes in addressing at lower protocol layers (UDP, IP) do not cause packets for a QUIC connection to be delivered to the wrong endpoint.",
+  "snippet": null
+ },
+ {
+  "id": "m07-l02-q06",
+  "fact": "m07-l02-f64",
+  "stem": "In QUIC version 1 as specified in RFC 9000, which endpoints can initiate connection migration to a new network path?",
+  "key": "Only clients",
+  "distractors": [
+   "Only servers, because they hold the connection IDs",
+   "Either endpoint, at any time, including during the handshake",
+   "No endpoint, because a connection is bound to its first address"
+  ],
+  "explanation": "Only clients are able to migrate in version 1. Servers alone is wrong because clients are responsible for initiating all migrations. Either endpoint at any time is wrong because an endpoint must not initiate migration before the handshake is confirmed. A connection bound to its first address is wrong because a connection ID lets connections survive changes of endpoint addresses.",
+  "citation": "rfc9000#section-1",
+  "extract": "Only clients are able to migrate in this version of QUIC.",
+  "snippet": null
+ },
+ {
+  "id": "m07-l02-q07",
+  "fact": "m07-l02-f74",
+  "stem": "Which HTTP status code does the server use in the first line of its response to complete the WebSocket opening handshake?",
+  "key": "`101`",
+  "distractors": [
+   "`200`",
+   "`426`",
+   "No status code, since the server switches to WebSocket frames without an HTTP response"
+  ],
+  "explanation": "The server's handshake starts with an HTTP Status-Line with the status code `101`. `200` and `426` are both excluded, because any status code other than 101 means the WebSocket handshake has not completed. Sending no status code is wrong because the `Connection` and `Upgrade` header fields complete the HTTP Upgrade in an HTTP response.",
+  "citation": "rfc6455#section-1.3",
+  "extract": "The first line is an HTTP Status-Line, with the status code 101:",
+  "snippet": null
+ },
+ {
+  "id": "m07-l02-q08",
+  "fact": "m07-l02-f76",
+  "stem": "How does a WebSocket server build the value of the `Sec-WebSocket-Accept` header field from the `Sec-WebSocket-Key` of the client handshake?",
+  "key": "It hashes the client's key together with a predefined GUID using SHA-1 and base64-encodes the result",
+  "distractors": [
+   "It hashes the value of the `Origin` header field with SHA-1",
+   "It hashes the key and the GUID with SHA-256 instead of SHA-1",
+   "It returns a random value chosen by the server in clear text"
+  ],
+  "explanation": "The server hashes the client's key with a predefined GUID using SHA-1 and base64-encodes the result. Hashing the `Origin` value is wrong because that field protects against unauthorized cross-origin use. SHA-256 is wrong because the concatenation is hashed with a 160-bit SHA-1. A random clear-text value is wrong because any value other than the hash must not be interpreted as acceptance.",
+  "citation": "rfc6455#section-1.3",
+  "extract": "If present, this header field must include a hash of the client's nonce sent in |Sec-WebSocket-Key| along with a predefined GUID.",
+  "snippet": null
+ },
+ {
+  "id": "m07-l02-q09",
+  "fact": "m07-l02-f79",
+  "stem": "In Java 25, the snippet hashes the sample `Sec-WebSocket-Key` of the WebSocket specification followed by its GUID with SHA-1, prints the digest in hexadecimal, then compares its base64 form with the sample accept value. What does it print?",
+  "key": "b37a4f2cc0624f1690f64606cf385945b2bec4ea\ntrue",
+  "distractors": [
+   "d8e65fd9279e77dcb3229923fb3bc2f4a4bd323c\nfalse",
+   "8472ed7f657593c6834197cd8f0dc86b5842c2dd\nfalse",
+   "b37a4f2cc0624f1690f64606cf385945b2bec4ea\nfalse"
+  ],
+  "explanation": "The digest of the key followed by the GUID is `b37a4f2c...c4ea`, and its base64 form equals the sample accept value, so the second line is `true`. The output with the GUID before the key is wrong because the snippet appends the GUID to the key. The output of the key alone is wrong because the GUID is part of the hashed text. The output ending in `false` after the right digest is wrong because the base64 form of that digest matches the sample accept value.",
+  "citation": "rfc6455#section-1.3",
+  "extract": null,
+  "snippet": "m07-l02/WebSocketAccept.java"
+ },
+ {
+  "id": "m07-l02-q10",
+  "fact": "m07-l02-f85",
+  "stem": "A WebSocket peer receives a control frame that begins the closing handshake and has not yet sent a Close frame itself. What does RFC 6455 say it does?",
+  "key": "It sends a Close frame in response",
+  "distractors": [
+   "It closes the TCP connection at once without replying",
+   "It keeps sending its pending data until the first peer closes",
+   "It waits for the TCP FIN/ACK exchange to finish before answering"
+  ],
+  "explanation": "The other peer answers with a Close frame, if it has not already sent one. Closing the TCP connection at once is wrong because the first peer is the one that closes after receiving the response. Continuing to send data is wrong because a peer that has sent a closing control frame sends no further data. Waiting for the TCP exchange is wrong because the closing handshake complements the TCP handshake, which is not always reliable end-to-end.",
+  "citation": "rfc6455#section-1.4",
+  "extract": "Upon receiving such a frame, the other peer sends a Close frame in response, if it hasn't already sent one.",
+  "snippet": null
+ },
+ {
+  "id": "m07-l02-q11",
+  "fact": "m07-l02-f97",
+  "stem": "How can a server tell an `EventSource` client, which reconnects whenever its connection closes, to stop reconnecting?",
+  "key": "By answering with the HTTP `204 No Content` response code",
+  "distractors": [
+   "By answering with a `301` redirect to the same URL",
+   "By closing the connection after the last event",
+   "By sending a `Last-Event-ID` header with the final event ID"
+  ],
+  "explanation": "The `204 No Content` response code tells the client to stop reconnecting. A `301` redirect is wrong because redirects are followed like in normal HTTP requests. Closing the connection is wrong because clients reconnect if the connection is closed. `Last-Event-ID` is wrong because it is a request header the client uses to report its last event ID when it reconnects.",
+  "citation": "whatwg-html-sse#server-sent-events-intro",
+  "extract": "Clients will reconnect if the connection is closed; a client can be told to stop reconnecting using the HTTP 204 No Content response code.",
+  "snippet": null
+ },
+ {
+  "id": "m07-l02-q12",
+  "fact": "m07-l02-f92",
+  "stem": "Which character encoding does an event stream of Server-Sent Events use, according to the HTML Standard?",
+  "key": "UTF-8, always",
+  "distractors": [
+   "The one named in the charset parameter of the `Content-Type` header",
+   "ISO-8859-1 unless the stream starts with a byte order mark",
+   "US-ASCII with other characters escaped"
+  ],
+  "explanation": "Event streams must always be encoded as UTF-8. A `charset` parameter is wrong because there is no way to specify another character encoding. ISO-8859-1 with a byte order mark and US-ASCII with escapes are both excluded, because the encoding must always be UTF-8.",
+  "citation": "whatwg-html-sse#parsing-an-event-stream",
+  "extract": "Event streams in this format must always be encoded as UTF-8.",
+  "snippet": null
+ },
+ {
+  "id": "m07-l02-q13",
+  "fact": "m07-l02-f28",
+  "stem": "Which HTTP/2 frame type provides flow control for individual streams and for the connection as a whole?",
+  "key": "`WINDOW_UPDATE`",
+  "distractors": [
+   "`CONTINUATION`",
+   "`SETTINGS`",
+   "`HEADERS`"
+  ],
+  "explanation": "`WINDOW_UPDATE` provides the flow control. `CONTINUATION` is wrong because it carries subsequent field block fragments. `SETTINGS` is wrong because it carries parameters such as the concurrent stream limit. `HEADERS` is wrong because it transmits the first field block fragment.",
+  "citation": "rfc9113#section-5.2",
+  "extract": "HTTP/2 provides for flow control through use of the WINDOW_UPDATE frame (Section 6.9).",
+  "snippet": null
+ },
+ {
+  "id": "m07-l02-q14",
+  "fact": "m07-l02-f40",
+  "stem": "In HTTP/2, how must a field block be transmitted on a connection that carries several streams?",
+  "key": "As a contiguous sequence of frames, with no interleaved frames of any other type or from any other stream",
+  "distractors": [
+   "Interleaved with `DATA` frames of other streams so the connection stays busy",
+   "Interleaved with `HEADERS` frames of other streams, which all share one compression context",
+   "In one `HEADERS` frame only, because continuation frames are not allowed"
+  ],
+  "explanation": "A field block goes out as a contiguous sequence of frames with nothing interleaved. Interleaving `DATA` frames of other streams and interleaving `HEADERS` frames of other streams are both excluded, because no frames of any other type or from any other stream may be interleaved. A single `HEADERS` frame is wrong because a field block may continue in one or more `CONTINUATION` frames.",
+  "citation": "rfc9113#section-4.3",
+  "extract": "Field blocks MUST be transmitted as a contiguous sequence of frames, with no interleaved frames of any other type or from any other stream.",
+  "snippet": null
+ }
+]

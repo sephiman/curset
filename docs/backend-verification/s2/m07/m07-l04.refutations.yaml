@@ -1,0 +1,203 @@
+m07-l04-q01:
+  key:
+    anchor: rfc9110#section-9.2.2
+    sentence: Of the request methods defined by this specification, PUT, DELETE, and safe request methods are idempotent.
+  wrong:
+  - option: '`GET`'
+    anchor: rfc9110#section-9.2.1
+    sentence: Of the request methods defined by this specification, the GET, HEAD, OPTIONS, and TRACE methods are defined to be safe.
+    exclusive: true
+  - option: '`OPTIONS`'
+    anchor: rfc9110#section-9.2.1
+    sentence: Of the request methods defined by this specification, the GET, HEAD, OPTIONS, and TRACE methods are defined to be safe.
+    exclusive: true
+  - option: '`POST`'
+    anchor: rfc9110#section-9.2.2
+    sentence: Of the request methods defined by this specification, PUT, DELETE, and safe request methods are idempotent.
+m07-l04-q02:
+  key:
+    anchor: rfc9110#section-9.2.2
+    sentence: A request method is considered "idempotent" if the intended effect on the server of multiple identical requests with that method is the same as the effect for a single such request.
+  wrong:
+  - option: Every identical request gets a byte-identical response from the server
+    anchor: rfc9110#section-9.2.2
+    sentence: It knows that repeating the request will have the same intended effect, even if the original request succeeded, though the response might differ.
+  - option: The server does not log or record the repeated requests
+    anchor: rfc9110#section-9.2.2
+    sentence: Like the definition of safe, the idempotent property only applies to what has been requested by the user; a server is free to log each request separately, retain a revision control history, or implement other non-idempotent side effects for each idempotent request.
+  - option: The client does not request or expect any state change on the origin server
+    anchor: rfc9110#section-9.2.1
+    sentence: Request methods are considered "safe" if their defined semantics are essentially read-only; i.e., the client does not request, and does not expect, any state change on the origin server as a result of applying a safe method to a target resource.
+m07-l04-q03:
+  key:
+    anchor: rfc9110#section-9.2.2
+    sentence: A proxy MUST NOT automatically retry non-idempotent requests.
+  wrong:
+  - option: A client can always retry a `POST` request after the connection closed, because the server never applied it
+    anchor: rfc9110#section-9.2.2
+    sentence: A client SHOULD NOT automatically retry a request with a non-idempotent method unless it has some means to know that the request semantics are actually idempotent, regardless of the method, or some means to detect that the original request was never applied.
+  - option: A client should keep retrying a failed automatic retry until it succeeds
+    anchor: rfc9110#section-9.2.2
+    sentence: A client SHOULD NOT automatically retry a failed automatic retry.
+  - option: Idempotent requests cannot be repeated automatically, because the first request may have succeeded
+    anchor: rfc9110#section-9.2.2
+    sentence: Idempotent methods are distinguished because the request can be repeated automatically if a communication failure occurs before the client is able to read the server's response.
+m07-l04-q04:
+  key:
+    anchor: rfc9110#section-15.4
+    sentence: 307 (Temporary Redirect) and 308 (Permanent Redirect) [RFC7538] were later added to unambiguously indicate method-preserving redirects, and status codes 301 and 302 have been adjusted to allow a POST request to be redirected as GET.
+  wrong:
+  - option: '`301` and `302`'
+    anchor: rfc9110#section-15.4
+    sentence: However, early user agents split on whether to redirect POST requests as POST (according to then-current specification) or as GET (the safer alternative when redirected to a different site).
+  - option: '`303` alone'
+    anchor: rfc9110#section-15.4
+    sentence: 303 (See Other) was defined for a redirection that changed its method to GET.
+  - option: '`300` and `304`'
+    anchor: rfc9110#section-15.4
+    sentence: Redirection to a previously stored result, as in the 304 (Not Modified) status code.
+m07-l04-q05:
+  key:
+    anchor: rfc9110#section-15.1
+    sentence: Responses with status codes that are defined as heuristically cacheable (e.g., 200, 203, 204, 206, 300, 301, 308, 404, 405, 410, 414, and 501 in this specification) can be reused by a cache with heuristic expiration unless otherwise indicated by the method definition or explicit cache controls [CACHING]; all other status codes are not heuristically cacheable.
+  wrong:
+  - option: '`201`'
+    anchor: rfc9110#section-15.1
+    sentence: all other status codes are not heuristically cacheable.
+    exclusive: true
+  - option: '`302`'
+    anchor: rfc9110#section-15.1
+    sentence: all other status codes are not heuristically cacheable.
+    exclusive: true
+  - option: '`500`'
+    anchor: rfc9110#section-15.1
+    sentence: all other status codes are not heuristically cacheable.
+    exclusive: true
+m07-l04-q06:
+  key:
+    anchor: rfc9111#section-5.2
+    sentence: Cache directives are unidirectional, in that the presence of a directive in a request does not imply that the same directive is present or copied in the response.
+  wrong:
+  - option: A proxy that implements no cache may drop the directives it forwards, because nothing in it can use them
+    anchor: rfc9111#section-5.2
+    sentence: A proxy, whether or not it implements a cache, MUST pass cache directives through in forwarded messages, regardless of their significance to that application, since the directives might apply to all recipients along the request/response chain.
+  - option: A directive can be addressed to one specific cache along the chain
+    anchor: rfc9111#section-5.2
+    sentence: It is not possible to target a directive to a specific cache.
+  - option: Directive names are case-sensitive tokens
+    anchor: rfc9111#section-5.2
+    sentence: Cache directives are identified by a token, to be compared case-insensitively
+m07-l04-q07:
+  key:
+    execution: m07-l04/Freshness.java
+  wrong:
+  - option: 'lifetime 60, age 59: fresh\nlifetime 60, age 60: fresh\nlifetime 60, age 61: stale'
+    execution: m07-l04/Freshness.java
+    mistake: 'off-by-one: greater than or equal'
+  - option: 'lifetime 60, age 59: stale\nlifetime 60, age 60: stale\nlifetime 60, age 61: fresh'
+    execution: m07-l04/Freshness.java
+    mistake: comparison reversed
+  - option: 'lifetime 60, age 59: fresh\nlifetime 60, age 60: fresh\nlifetime 60, age 61: fresh'
+    execution: m07-l04/Freshness.java
+    mistake: age ignored
+m07-l04-q08:
+  key:
+    anchor: rfc9110#section-8.8.3
+    sentence: then the origin server MUST mark the entity tag as weak by prefixing its opaque value with "W/" (case-sensitive).
+  wrong:
+  - option: Omit the `ETag` field, because only strong validators may be sent
+    anchor: rfc9110#section-8.8.3
+    sentence: An entity tag can be either a weak or strong validator, with strong being the default.
+  - option: Send the entity tag only in a trailer section
+    anchor: rfc9110#section-8.8.3
+    sentence: However, since trailers are often ignored, it is preferable to send ETag as a header field unless the entity tag is generated while sending the content.
+  - option: Prefix the opaque value with a lowercase `w/`
+    anchor: rfc9110#section-8.8.3
+    sentence: then the origin server MUST mark the entity tag as weak by prefixing its opaque value with "W/" (case-sensitive).
+m07-l04-q09:
+  key:
+    anchor: rfc9110#section-13.1.2
+    sentence: An origin server that evaluates an If-None-Match condition MUST NOT perform the requested method if the condition evaluates to false; instead, the origin server MUST respond with either a) the 304 (Not Modified) status code if the request method is GET or HEAD or b) the 412 (Precondition Failed) status code for all other request methods.
+  wrong:
+  - option: '`200`'
+    anchor: rfc9110#section-13.1.2
+    sentence: An origin server that evaluates an If-None-Match condition MUST NOT perform the requested method if the condition evaluates to false; instead, the origin server MUST respond with either a) the 304 (Not Modified) status code if the request method is GET or HEAD or b) the 412 (Precondition Failed) status code for all other request methods.
+    exclusive: true
+  - option: '`412`'
+    anchor: rfc9110#section-13.1.2
+    sentence: An origin server that evaluates an If-None-Match condition MUST NOT perform the requested method if the condition evaluates to false; instead, the origin server MUST respond with either a) the 304 (Not Modified) status code if the request method is GET or HEAD or b) the 412 (Precondition Failed) status code for all other request methods.
+    exclusive: true
+  - option: '`204`'
+    anchor: rfc9110#section-13.1.2
+    sentence: An origin server that evaluates an If-None-Match condition MUST NOT perform the requested method if the condition evaluates to false; instead, the origin server MUST respond with either a) the 304 (Not Modified) status code if the request method is GET or HEAD or b) the 412 (Precondition Failed) status code for all other request methods.
+    exclusive: true
+m07-l04-q10:
+  key:
+    anchor: rfc9110#section-13.1.2
+    sentence: If-None-Match can also be used with a value of "*" to prevent an unsafe request method (e.g., PUT) from inadvertently modifying an existing representation of the target resource when the client believes that the resource does not have a current representation (Section 9.2.1).
+  wrong:
+  - option: It makes the `PUT` succeed only when a current representation already exists
+    anchor: rfc9110#section-13.1.2
+    sentence: If the field value is "*", the condition is false if the origin server has a current representation for the target resource.
+  - option: It makes the server answer the `PUT` with `304 Not Modified`
+    anchor: rfc9110#section-13.1.2
+    sentence: An origin server that evaluates an If-None-Match condition MUST NOT perform the requested method if the condition evaluates to false; instead, the origin server MUST respond with either a) the 304 (Not Modified) status code if the request method is GET or HEAD or b) the 412 (Precondition Failed) status code for all other request methods.
+  - option: It can be combined with entity tags in one list, such as `*, "xyzzy"`
+    anchor: rfc9110#section-13.1.2
+    sentence: Note that an If-None-Match header field with a list value containing "*" and other values (including other instances of "*") is syntactically invalid
+m07-l04-q11:
+  key:
+    anchor: rfc9110#section-12.5.5
+    sentence: In other words, Vary expands the cache key required to match a new request to the stored cache entry.
+  wrong:
+  - option: It tells caches how long the response stays fresh
+    anchor: rfc9111#section-4.2
+    sentence: The primary mechanism for determining freshness is for an origin server to provide an explicit expiration time in the future, using either the Expires header field (Section 5.3) or the max-age response directive (Section 5.2.2.1).
+  - option: It carries the entity tag that validates the stored response
+    anchor: rfc9110#section-8.8.3
+    sentence: The "ETag" field in a response provides the current entity tag for the selected representation, as determined at the conclusion of handling the request.
+  - option: It forbids caches from storing the response at all
+    anchor: rfc9110#section-12.5.5
+    sentence: An origin server SHOULD generate a Vary header field on a cacheable response when it wishes that response to be selectively reused for subsequent requests.
+m07-l04-q12:
+  key:
+    anchor: rfc9110#section-12.1
+    sentence: It limits the reusability of responses for shared caching.
+  wrong:
+  - option: The server must send the user agent a list of representations to choose from
+    anchor: rfc9110#section-12
+    sentence: '"reactive" negotiation, where the server provides a list of representations for the user agent to choose from;'
+  - option: A user agent can rely on its preferences always being honored by the origin server
+    anchor: rfc9110#section-12.1
+    sentence: A user agent cannot rely on proactive negotiation preferences being consistently honored
+  - option: It avoids exposing the user agent's capabilities, since few request header fields are sent
+    anchor: rfc9110#section-12.1
+    sentence: Having the user agent describe its capabilities in every request can be both very inefficient (given that only a small percentage of responses have multiple representations) and a potential risk to the user's privacy;
+m07-l04-q13:
+  key:
+    anchor: rfc9110#section-12.5.3
+    sentence: (As defined in Section 12.4.2, a qvalue of 0 means "not acceptable".)
+  wrong:
+  - option: The content coding is preferred over every other listed coding
+    anchor: rfc9110#section-12.5.3
+    sentence: the acceptable content coding with the highest non-zero qvalue is preferred.
+  - option: The content coding is acceptable but has the lowest priority
+    anchor: rfc9110#section-12.5.3
+    sentence: If the representation's content coding is one of the content codings listed in the Accept-Encoding field value, then it is acceptable unless it is accompanied by a qvalue of 0.
+  - option: The content coding has no weight, which is treated like an omitted weight
+    anchor: rfc9110#section-12.5.4
+    sentence: (no value is the same as q=1)
+m07-l04-q14:
+  key:
+    anchor: rfc9110#section-8.4
+    sentence: Content-Encoding is primarily used to allow a representation's data to be compressed without losing the identity of its underlying media type.
+  wrong:
+  - option: To list the content codings that the user agent accepts in the response
+    anchor: rfc9110#section-12.5.3
+    sentence: When sent by a user agent in a request, Accept-Encoding indicates the content codings acceptable in a response.
+  - option: To list the content codings in the order that the server prefers them
+    anchor: rfc9110#section-8.4
+    sentence: If one or more encodings have been applied to a representation, the sender that applied the encodings MUST generate a Content-Encoding header field that lists the content codings in the order in which they were applied.
+  - option: To apply a coding to one connection hop only, between two intermediaries
+    anchor: rfc9110#section-8.4
+    sentence: Unlike Transfer-Encoding (Section 6.1 of [HTTP/1.1]), the codings listed in Content-Encoding are a characteristic of the representation

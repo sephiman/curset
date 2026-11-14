@@ -1,0 +1,469 @@
+m10-l03-q01:
+  key:
+    anchor: k8s-resource-management#requests-and-limits
+    sentence: cpu limits are enforced by CPU throttling.
+  wrong:
+  - option: By out of memory (OOM) kills
+    anchor: k8s-resource-management#requests-and-limits
+    sentence: memory limits are enforced by the kernel with out of memory (OOM) kills.
+  - option: By terminating the Pod through the container runtime
+    anchor: k8s-resource-management#how-pods-with-resource-limits-are-run
+    sentence: container runtimes don't terminate Pods or containers for excessive CPU usage.
+  - option: By lowering the weighting of the container below its request
+    anchor: k8s-resource-management#how-pods-with-resource-limits-are-run
+    sentence: The CPU request typically defines a weighting.
+m10-l03-q02:
+  key:
+    anchor: k8s-resource-management#requests-and-limits
+    sentence: This means memory limits are enforced reactively.
+  wrong:
+  - option: Proactively, at the moment the container tries to allocate above the limit
+    anchor: k8s-resource-management#requests-and-limits
+    sentence: This means memory limits are enforced reactively.
+    exclusive: true
+  - option: Proactively, when the scheduler places the Pod on the node
+    anchor: k8s-resource-management#requests-and-limits
+    sentence: This means memory limits are enforced reactively.
+    exclusive: true
+  - option: Never, because the limit is only a hint to the container runtime
+    anchor: k8s-resource-management#requests-and-limits
+    sentence: This means memory limits are enforced reactively.
+    exclusive: true
+m10-l03-q03:
+  key:
+    anchor: k8s-qos#quality-of-service-classes
+    sentence: When a Node runs out of resources, Kubernetes will first evict BestEffort Pods running on that Node, followed by Burstable and finally Guaranteed Pods.
+  wrong:
+  - option: '`Burstable` Pods'
+    anchor: k8s-qos#quality-of-service-classes
+    sentence: When a Node runs out of resources, Kubernetes will first evict BestEffort Pods running on that Node, followed by Burstable and finally Guaranteed Pods.
+    exclusive: true
+  - option: '`Guaranteed` Pods'
+    anchor: k8s-qos#quality-of-service-classes
+    sentence: When a Node runs out of resources, Kubernetes will first evict BestEffort Pods running on that Node, followed by Burstable and finally Guaranteed Pods.
+    exclusive: true
+  - option: Pods that stay below their resource requests
+    anchor: k8s-qos#quality-of-service-classes
+    sentence: When this eviction is due to resource pressure, only Pods exceeding resource requests are candidates for eviction.
+m10-l03-q04:
+  key:
+    anchor: k8s-qos#quality-of-service-classes
+    sentence: The possible QoS classes are Guaranteed, Burstable, and BestEffort.
+  wrong:
+  - option: '`Guaranteed`, `Standard` and `BestEffort`'
+    anchor: k8s-qos#quality-of-service-classes
+    sentence: The possible QoS classes are Guaranteed, Burstable, and BestEffort.
+    exclusive: true
+  - option: '`Critical`, `Burstable` and `BestEffort`'
+    anchor: k8s-qos#quality-of-service-classes
+    sentence: The possible QoS classes are Guaranteed, Burstable, and BestEffort.
+    exclusive: true
+  - option: '`Guaranteed`, `Burstable`, `BestEffort` and `Preemptible`'
+    anchor: k8s-qos#quality-of-service-classes
+    sentence: The possible QoS classes are Guaranteed, Burstable, and BestEffort.
+    exclusive: true
+m10-l03-q05:
+  key:
+    anchor: k8s-hpa#algorithm-details
+    sentence: if the current metric value is 200m, and the desired value is 100m, the number of replicas will be doubled
+  wrong:
+  - option: It is halved
+    anchor: k8s-hpa#algorithm-details
+    sentence: if the current metric value is 200m, and the desired value is 100m, the number of replicas will be doubled
+    exclusive: true
+  - option: It stays unchanged
+    anchor: k8s-hpa#algorithm-details
+    sentence: if the current metric value is 200m, and the desired value is 100m, the number of replicas will be doubled
+    exclusive: true
+  - option: It is increased by one
+    anchor: k8s-hpa#algorithm-details
+    sentence: if the current metric value is 200m, and the desired value is 100m, the number of replicas will be doubled
+    exclusive: true
+m10-l03-q06:
+  key:
+    anchor: k8s-hpa#algorithm-details
+    sentence: The control plane skips any scaling action if the ratio is sufficiently close to 1.0 (within a configurable tolerance, 0.1 by default).
+  wrong:
+  - option: '0.01'
+    anchor: k8s-hpa#algorithm-details
+    sentence: The control plane skips any scaling action if the ratio is sufficiently close to 1.0 (within a configurable tolerance, 0.1 by default).
+    exclusive: true
+  - option: '0.25'
+    anchor: k8s-hpa#algorithm-details
+    sentence: The control plane skips any scaling action if the ratio is sufficiently close to 1.0 (within a configurable tolerance, 0.1 by default).
+    exclusive: true
+  - option: '0.5'
+    anchor: k8s-hpa#algorithm-details
+    sentence: The control plane skips any scaling action if the ratio is sufficiently close to 1.0 (within a configurable tolerance, 0.1 by default).
+    exclusive: true
+m10-l03-q07:
+  key:
+    anchor: k8s-hpa#algorithm-details
+    sentence: You can configure this value using the --horizontal-pod-autoscaler-downscale-stabilization command line option, which defaults to 5 minutes.
+  wrong:
+  - option: 30 seconds
+    anchor: k8s-hpa#algorithm-details
+    sentence: You can configure this value using the --horizontal-pod-autoscaler-downscale-stabilization command line option, which defaults to 5 minutes.
+    exclusive: true
+  - option: 15 minutes
+    anchor: k8s-hpa#algorithm-details
+    sentence: You can configure this value using the --horizontal-pod-autoscaler-downscale-stabilization command line option, which defaults to 5 minutes.
+    exclusive: true
+  - option: 1 hour
+    anchor: k8s-hpa#algorithm-details
+    sentence: You can configure this value using the --horizontal-pod-autoscaler-downscale-stabilization command line option, which defaults to 5 minutes.
+    exclusive: true
+m10-l03-q08:
+  key:
+    anchor: k8s-hpa#algorithm-details
+    sentence: If multiple metrics are specified in a HorizontalPodAutoscaler, this calculation is done for each metric, and then the largest of the desired replica counts is chosen.
+  wrong:
+  - option: It chooses the smallest of the desired replica counts
+    anchor: k8s-hpa#algorithm-details
+    sentence: If multiple metrics are specified in a HorizontalPodAutoscaler, this calculation is done for each metric, and then the largest of the desired replica counts is chosen.
+    exclusive: true
+  - option: It chooses the average of the desired replica counts
+    anchor: k8s-hpa#algorithm-details
+    sentence: If multiple metrics are specified in a HorizontalPodAutoscaler, this calculation is done for each metric, and then the largest of the desired replica counts is chosen.
+    exclusive: true
+  - option: It chooses the count of the first metric listed
+    anchor: k8s-hpa#algorithm-details
+    sentence: If multiple metrics are specified in a HorizontalPodAutoscaler, this calculation is done for each metric, and then the largest of the desired replica counts is chosen.
+    exclusive: true
+m10-l03-q09:
+  key:
+    anchor: k8s-hpa#algorithm-details
+    sentence: If there were any missing metrics, the control plane recomputes the average more conservatively, assuming those pods were consuming 100% of the desired value in case of a scale down, and 0% in case of a scale up.
+  wrong:
+  - option: That they were consuming 0% of the desired value
+    anchor: k8s-hpa#algorithm-details
+    sentence: If there were any missing metrics, the control plane recomputes the average more conservatively, assuming those pods were consuming 100% of the desired value in case of a scale down, and 0% in case of a scale up.
+    exclusive: true
+  - option: That they were consuming 50% of the desired value
+    anchor: k8s-hpa#algorithm-details
+    sentence: If there were any missing metrics, the control plane recomputes the average more conservatively, assuming those pods were consuming 100% of the desired value in case of a scale down, and 0% in case of a scale up.
+    exclusive: true
+  - option: That they do not exist and drop out of the count
+    anchor: k8s-hpa#algorithm-details
+    sentence: If there were any missing metrics, the control plane recomputes the average more conservatively, assuming those pods were consuming 100% of the desired value in case of a scale down, and 0% in case of a scale up.
+    exclusive: true
+m10-l03-q10:
+  key:
+    anchor: k8s-hpa#algorithm-details
+    sentence: The controller considers all recommendations within a configurable window choosing the highest recommendation from within that window.
+  wrong:
+  - option: The lowest recommendation
+    anchor: k8s-hpa#algorithm-details
+    sentence: The controller considers all recommendations within a configurable window choosing the highest recommendation from within that window.
+    exclusive: true
+  - option: The most recent recommendation
+    anchor: k8s-hpa#algorithm-details
+    sentence: The controller considers all recommendations within a configurable window choosing the highest recommendation from within that window.
+    exclusive: true
+  - option: The average of the recommendations
+    anchor: k8s-hpa#algorithm-details
+    sentence: The controller considers all recommendations within a configurable window choosing the highest recommendation from within that window.
+    exclusive: true
+m10-l03-q11:
+  key:
+    anchor: k8s-hpa#configurable-scaling-behavior
+    sentence: 'Feature state: Stable since Kubernetes v1.23'
+  wrong:
+  - option: v1.18
+    anchor: k8s-hpa#configurable-scaling-behavior
+    sentence: 'Feature state: Stable since Kubernetes v1.23'
+    exclusive: true
+  - option: v1.27
+    anchor: k8s-hpa#configurable-scaling-behavior
+    sentence: 'Feature state: Stable since Kubernetes v1.23'
+    exclusive: true
+  - option: v1.30
+    anchor: k8s-hpa#configurable-scaling-behavior
+    sentence: 'Feature state: Stable since Kubernetes v1.23'
+    exclusive: true
+m10-l03-q12:
+  key:
+    anchor: keda-concepts#how-keda-works
+    sentence: It does this by working alongside Kubernetes’ existing Horizontal Pod Autoscaler rather than replacing it.
+  wrong:
+  - option: It replaces the HPA with its own scaling controller
+    anchor: keda-concepts#how-keda-works
+    sentence: It does this by working alongside Kubernetes’ existing Horizontal Pod Autoscaler rather than replacing it.
+    exclusive: true
+  - option: It disables the HPA for every workload it scales
+    anchor: keda-concepts#how-keda-works
+    sentence: It does this by working alongside Kubernetes’ existing Horizontal Pod Autoscaler rather than replacing it.
+    exclusive: true
+  - option: It is used instead of the HPA only for CPU and memory metrics
+    anchor: keda-concepts#how-keda-works
+    sentence: It does this by working alongside Kubernetes’ existing Horizontal Pod Autoscaler rather than replacing it.
+    exclusive: true
+m10-l03-q13:
+  key:
+    anchor: keda-concepts#how-keda-works
+    sentence: When things go quiet, it scales back down, all the way to zero if needed.
+  wrong:
+  - option: One
+    anchor: keda-concepts#how-keda-works
+    sentence: When things go quiet, it scales back down, all the way to zero if needed.
+    exclusive: true
+  - option: Two
+    anchor: keda-concepts#how-keda-works
+    sentence: When things go quiet, it scales back down, all the way to zero if needed.
+    exclusive: true
+  - option: The number the workload had before the load arrived
+    anchor: keda-concepts#how-keda-works
+    sentence: When things go quiet, it scales back down, all the way to zero if needed.
+    exclusive: true
+m10-l03-q14:
+  key:
+    anchor: keda-concepts#how-keda-works
+    sentence: instead of scaling a running deployment up or down, it creates new Kubernetes Jobs in response to events
+  wrong:
+  - option: It patches the resource requests of the running pods
+    anchor: keda-concepts#how-keda-works
+    sentence: instead of scaling a running deployment up or down, it creates new Kubernetes Jobs in response to events
+    exclusive: true
+  - option: It suspends the deployment until the queue is empty
+    anchor: keda-concepts#how-keda-works
+    sentence: instead of scaling a running deployment up or down, it creates new Kubernetes Jobs in response to events
+    exclusive: true
+  - option: It scales a `CronJob` schedule in response to events
+    anchor: keda-concepts#how-keda-works
+    sentence: instead of scaling a running deployment up or down, it creates new Kubernetes Jobs in response to events
+    exclusive: true
+m10-l03-q15:
+  key:
+    anchor: k8s-topology-aware-routing#motivation
+    sentence: Topology Aware Routing provides a mechanism to help keep traffic within the zone it originated from.
+  wrong:
+  - option: The node it originated from
+    anchor: k8s-topology-aware-routing#motivation
+    sentence: Topology Aware Routing provides a mechanism to help keep traffic within the zone it originated from.
+    exclusive: true
+  - option: The namespace it originated from
+    anchor: k8s-topology-aware-routing#motivation
+    sentence: Topology Aware Routing provides a mechanism to help keep traffic within the zone it originated from.
+    exclusive: true
+  - option: The region it originated from
+    anchor: k8s-topology-aware-routing#motivation
+    sentence: Topology Aware Routing provides a mechanism to help keep traffic within the zone it originated from.
+    exclusive: true
+m10-l03-q16:
+  key:
+    anchor: k8s-service#traffic-distribution
+    sentence: Indicates a preference for routing traffic to endpoints that are in the same zone as the client.
+  wrong:
+  - option: A strict guarantee that traffic never leaves the zone
+    anchor: k8s-service#traffic-distribution
+    sentence: While traffic policies focus on strict semantic guarantees, traffic distribution allows you to express preferences (such as routing to topologically closer endpoints).
+  - option: A preference for routing traffic to endpoints on the same node as the client
+    anchor: k8s-service#traffic-distribution
+    sentence: Indicates a preference for routing traffic to endpoints that are on the same node as the client.
+  - option: A deprecated alias of `PreferClose`
+    anchor: k8s-service#traffic-distribution
+    sentence: This is an older alias for PreferSameZone that is less clear about the semantics.
+m10-l03-q17:
+  key:
+    anchor: k8s-service#traffic-distribution
+    sentence: This can help optimize for performance, cost, or reliability.
+  wrong:
+  - option: Latency, cost, or security
+    anchor: k8s-service#traffic-distribution
+    sentence: This can help optimize for performance, cost, or reliability.
+    exclusive: true
+  - option: Throughput, durability, or compliance
+    anchor: k8s-service#traffic-distribution
+    sentence: This can help optimize for performance, cost, or reliability.
+    exclusive: true
+  - option: Performance, availability, or portability
+    anchor: k8s-service#traffic-distribution
+    sentence: This can help optimize for performance, cost, or reliability.
+    exclusive: true
+m10-l03-q18:
+  key:
+    anchor: otel-sampling#why-sampling
+    sentence: For high-volume systems, it is quite common for a sampling rate of 1% or lower to very accurately represent the other 99% of data.
+  wrong:
+  - option: 10%
+    anchor: otel-sampling#why-sampling
+    sentence: For high-volume systems, it is quite common for a sampling rate of 1% or lower to very accurately represent the other 99% of data.
+    exclusive: true
+  - option: 25%
+    anchor: otel-sampling#why-sampling
+    sentence: For high-volume systems, it is quite common for a sampling rate of 1% or lower to very accurately represent the other 99% of data.
+    exclusive: true
+  - option: 50%
+    anchor: otel-sampling#why-sampling
+    sentence: For high-volume systems, it is quite common for a sampling rate of 1% or lower to very accurately represent the other 99% of data.
+    exclusive: true
+m10-l03-q19:
+  key:
+    anchor: otel-sampling#tail-sampling
+    sentence: The component(s) that implement tail sampling must be stateful systems that can accept and store a large amount of data.
+  wrong:
+  - option: It cannot sample traces based on their overall latency
+    anchor: otel-sampling#tail-sampling
+    sentence: Sampling traces based on overall latency
+  - option: It cannot always sample the traces that contain an error
+    anchor: otel-sampling#tail-sampling
+    sentence: Always sampling traces that contain an error
+  - option: It cannot be combined with head sampling in the same system
+    anchor: otel-sampling#tail-sampling
+    sentence: for some systems, tail sampling might be used in conjunction with Head Sampling.
+m10-l03-q20:
+  key:
+    anchor: prom-storage#operational-aspects
+    sentence: If neither this flag nor storage.tsdb.retention.size is set, the retention time defaults to 15d.
+  wrong:
+  - option: 7d
+    anchor: prom-storage#operational-aspects
+    sentence: If neither this flag nor storage.tsdb.retention.size is set, the retention time defaults to 15d.
+    exclusive: true
+  - option: 30d
+    anchor: prom-storage#operational-aspects
+    sentence: If neither this flag nor storage.tsdb.retention.size is set, the retention time defaults to 15d.
+    exclusive: true
+  - option: 90d
+    anchor: prom-storage#operational-aspects
+    sentence: If neither this flag nor storage.tsdb.retention.size is set, the retention time defaults to 15d.
+    exclusive: true
+m10-l03-q21:
+  key:
+    anchor: prom-storage#operational-aspects
+    sentence: The maximum number of bytes of storage blocks to retain. The oldest data will be removed first. Defaults to 0 or disabled.
+  wrong:
+  - option: 10GB
+    anchor: prom-storage#operational-aspects
+    sentence: The maximum number of bytes of storage blocks to retain. The oldest data will be removed first. Defaults to 0 or disabled.
+    exclusive: true
+  - option: 512MB
+    anchor: prom-storage#operational-aspects
+    sentence: The maximum number of bytes of storage blocks to retain. The oldest data will be removed first. Defaults to 0 or disabled.
+    exclusive: true
+  - option: 80% of the disk
+    anchor: prom-storage#operational-aspects
+    sentence: The maximum number of bytes of storage blocks to retain. The oldest data will be removed first. Defaults to 0 or disabled.
+    exclusive: true
+m10-l03-q22:
+  key:
+    anchor: prom-storage#operational-aspects
+    sentence: If both time and size retention policies are specified, whichever triggers first will be used.
+  wrong:
+  - option: Whichever triggers last
+    anchor: prom-storage#operational-aspects
+    sentence: If both time and size retention policies are specified, whichever triggers first will be used.
+    exclusive: true
+  - option: The time policy only
+    anchor: prom-storage#operational-aspects
+    sentence: If both time and size retention policies are specified, whichever triggers first will be used.
+    exclusive: true
+  - option: The size policy only
+    anchor: prom-storage#operational-aspects
+    sentence: If both time and size retention policies are specified, whichever triggers first will be used.
+    exclusive: true
+m10-l03-q23:
+  key:
+    anchor: prom-storage#operational-aspects
+    sentence: Prometheus stores an average of only 1-2 bytes per sample.
+  wrong:
+  - option: 16 bytes
+    anchor: prom-storage#operational-aspects
+    sentence: Prometheus stores an average of only 1-2 bytes per sample.
+    exclusive: true
+  - option: 8 bytes
+    anchor: prom-storage#operational-aspects
+    sentence: Prometheus stores an average of only 1-2 bytes per sample.
+    exclusive: true
+  - option: 64 bytes
+    anchor: prom-storage#operational-aspects
+    sentence: Prometheus stores an average of only 1-2 bytes per sample.
+    exclusive: true
+m10-l03-q24:
+  key:
+    anchor: prom-storage#right-sizing-retention-size
+    sentence: At present, we recommend setting the retention size to, at most, 80-85% of your allocated Prometheus disk space.
+  wrong:
+  - option: The full 100% of the allocated disk space
+    anchor: prom-storage#right-sizing-retention-size
+    sentence: At present, we recommend setting the retention size to, at most, 80-85% of your allocated Prometheus disk space.
+    exclusive: true
+  - option: At least 90% of the allocated disk space
+    anchor: prom-storage#right-sizing-retention-size
+    sentence: At present, we recommend setting the retention size to, at most, 80-85% of your allocated Prometheus disk space.
+    exclusive: true
+  - option: Between 95% and 100% of the allocated disk space
+    anchor: prom-storage#right-sizing-retention-size
+    sentence: At present, we recommend setting the retention size to, at most, 80-85% of your allocated Prometheus disk space.
+    exclusive: true
+m10-l03-q25:
+  key:
+    anchor: k8s-storage-classes#reclaim-policy
+    sentence: If no reclaimPolicy is specified when a StorageClass object is created, it will default to Delete.
+  wrong:
+  - option: '`Retain`'
+    anchor: k8s-storage-classes#reclaim-policy
+    sentence: If no reclaimPolicy is specified when a StorageClass object is created, it will default to Delete.
+    exclusive: true
+  - option: '`Recycle`'
+    anchor: k8s-storage-classes#reclaim-policy
+    sentence: If no reclaimPolicy is specified when a StorageClass object is created, it will default to Delete.
+    exclusive: true
+  - option: '`Archive`'
+    anchor: k8s-storage-classes#reclaim-policy
+    sentence: If no reclaimPolicy is specified when a StorageClass object is created, it will default to Delete.
+    exclusive: true
+m10-l03-q26:
+  key:
+    anchor: k8s-storage-classes#reclaim-policy
+    sentence: PersistentVolumes that are created manually and managed via a StorageClass will have whatever reclaim policy they were assigned at creation.
+  wrong:
+  - option: The reclaim policy of the `StorageClass`
+    anchor: k8s-storage-classes#reclaim-policy
+    sentence: PersistentVolumes that are created manually and managed via a StorageClass will have whatever reclaim policy they were assigned at creation.
+    exclusive: true
+  - option: Always `Delete`
+    anchor: k8s-storage-classes#reclaim-policy
+    sentence: PersistentVolumes that are created manually and managed via a StorageClass will have whatever reclaim policy they were assigned at creation.
+    exclusive: true
+  - option: Always `Retain`
+    anchor: k8s-storage-classes#reclaim-policy
+    sentence: PersistentVolumes that are created manually and managed via a StorageClass will have whatever reclaim policy they were assigned at creation.
+    exclusive: true
+m10-l03-q27:
+  key:
+    execution: m10-l03/SizingArithmetic.java
+  wrong:
+  - option: 'retention seconds: 1296000
+
+      needed bytes: 129600000000
+
+      desired replicas for 4 pods at 200m against 100m: 8
+
+      desired replicas for 3 pods at 150m against 100m: 5
+
+      retention size cap for a 500 GB disk at 85%: 425'
+    execution: m10-l03/SizingArithmetic.java
+    mistake: 'forgotten factor: leaves out the 2 bytes per sample'
+  - option: 'retention seconds: 1296000
+
+      needed bytes: 259200000000
+
+      desired replicas for 4 pods at 200m against 100m: 8
+
+      desired replicas for 3 pods at 150m against 100m: 4
+
+      retention size cap for a 500 GB disk at 85%: 425'
+    execution: m10-l03/SizingArithmetic.java
+    mistake: 'rounding: floors 4.5 instead of taking the ceiling'
+  - option: 'retention seconds: 360
+
+      needed bytes: 72000000
+
+      desired replicas for 4 pods at 200m against 100m: 8
+
+      desired replicas for 3 pods at 150m against 100m: 5
+
+      retention size cap for a 500 GB disk at 85%: 425'
+    execution: m10-l03/SizingArithmetic.java
+    mistake: 'wrong unit: counts hours instead of seconds'

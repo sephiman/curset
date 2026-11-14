@@ -1,0 +1,974 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>10.2 MeldableHeap: A Randomized Meldable Heap</TITLE>
+<META NAME="description" CONTENT="10.2 MeldableHeap: A Randomized Meldable Heap">
+<META NAME="keywords" CONTENT="ods-java-html">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="../ods-book.css">
+
+<LINK REL="next" HREF="10_3_Discussion_Exercises.html">
+<LINK REL="previous" HREF="10_1_BinaryHeap_Implicit_Bi.html">
+<LINK REL="up" HREF="10_Heaps.html">
+<LINK REL="next" HREF="10_3_Discussion_Exercises.html">
+</HEAD>
+
+<BODY text="#000000" bgcolor="#FFFFFF">
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html1033"
+  HREF="10_3_Discussion_Exercises.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1027"
+  HREF="10_Heaps.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1021"
+  HREF="10_1_BinaryHeap_Implicit_Bi.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1029"
+  HREF="Contents.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html1031"
+  HREF="Index.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html1034"
+  HREF="10_3_Discussion_Exercises.html">10.3 Discussion and Exercises</A>
+<B> Up:</B> <A NAME="tex2html1028"
+  HREF="10_Heaps.html">10. Heaps</A>
+<B> Previous:</B> <A NAME="tex2html1022"
+  HREF="10_1_BinaryHeap_Implicit_Bi.html">10.1 BinaryHeap: An Implicit</A>
+ &nbsp; <B>  <A NAME="tex2html1030"
+  HREF="Contents.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html1032"
+  HREF="Index.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html1035"
+  HREF="10_2_MeldableHeap_Randomize.html#SECTION001321000000000000000"><SPAN CLASS="arabic">10</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">1</SPAN> Analysis of <!-- MATH
+ $\mathtt{merge(h1,h2)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="96" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3942.png"
+ ALT="$ \mathtt{merge(h1,h2)}$"></SPAN></A>
+<LI><A NAME="tex2html1036"
+  HREF="10_2_MeldableHeap_Randomize.html#SECTION001322000000000000000"><SPAN CLASS="arabic">10</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">2</SPAN> Summary</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION001320000000000000000"></A>
+<A NAME="sec:meldableheap"></A>
+<BR>
+<SPAN CLASS="arabic">10</SPAN>.<SPAN CLASS="arabic">2</SPAN> <TT>MeldableHeap</TT>: A Randomized Meldable Heap
+</H1>
+
+<P>
+<A NAME="27615"></A>In this section, we describe the <TT>MeldableHeap</TT>, a priority <TT>Queue</TT>
+implementation in which the underlying structure is also a heap-ordered
+binary tree.  However, unlike a <TT>BinaryHeap</TT> in which the underlying
+binary tree is completely defined by the number of elements, there
+are no restrictions on the shape of the binary tree that underlies
+a <TT>MeldableHeap</TT>; anything goes.
+
+<P>
+The <!-- MATH
+ $\mathtt{add(x)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="49" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3890.png"
+ ALT="$ \mathtt{add(x)}$"></SPAN> and <!-- MATH
+ $\mathtt{remove()}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="65" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3891.png"
+ ALT="$ \mathtt{remove()}$"></SPAN> operations in a <TT>MeldableHeap</TT> are
+implemented in terms of the <!-- MATH
+ $\mathtt{merge(h1,h2)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="96" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3892.png"
+ ALT="$ \mathtt{merge(h1,h2)}$"></SPAN> operation.  This operation
+takes two heap nodes <!-- MATH
+ $\mathtt{h1}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="21" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3893.png"
+ ALT="$ \mathtt{h1}$"></SPAN> and <!-- MATH
+ $\mathtt{h2}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="21" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3894.png"
+ ALT="$ \mathtt{h2}$"></SPAN> and merges them, returning a heap
+node that is the root of a heap that contains all elements in the subtree
+rooted at <!-- MATH
+ $\mathtt{h1}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="21" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3895.png"
+ ALT="$ \mathtt{h1}$"></SPAN> and all elements in the subtree rooted at <!-- MATH
+ $\mathtt{h2}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="21" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3896.png"
+ ALT="$ \mathtt{h2}$"></SPAN>.
+
+<P>
+The nice thing about a <!-- MATH
+ $\mathtt{merge(h1,h2)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="96" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3897.png"
+ ALT="$ \mathtt{merge(h1,h2)}$"></SPAN> operation is that it can be
+defined recursively. See Figure&nbsp;<A HREF="#fig:meldable-merge">10.4</A>.  If either <!-- MATH
+ $\mathtt{h1}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="21" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3898.png"
+ ALT="$ \mathtt{h1}$"></SPAN> or
+<!-- MATH
+ $\mathtt{h2}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="21" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3899.png"
+ ALT="$ \mathtt{h2}$"></SPAN> is <!-- MATH
+ $\mathtt{nil}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="29" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3900.png"
+ ALT="$ \mathtt{nil}$"></SPAN>, then we are merging with an empty set, so we return <!-- MATH
+ $\mathtt{h2}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="21" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3901.png"
+ ALT="$ \mathtt{h2}$"></SPAN>
+or <!-- MATH
+ $\mathtt{h1}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="21" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3902.png"
+ ALT="$ \mathtt{h1}$"></SPAN>, respectively.  Otherwise, assume <!-- MATH
+ $\ensuremath{\mathtt{h1.x}} \le \ensuremath{\mathtt{h2.x}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="80" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3903.png"
+ ALT="$ \ensuremath{\mathtt{h1.x}} \le \ensuremath{\mathtt{h2.x}}$"></SPAN> since,
+if <!-- MATH
+ $\ensuremath{\mathtt{h1.x}} > \ensuremath{\mathtt{h2.x}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="79" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3904.png"
+ ALT="$ \ensuremath{\mathtt{h1.x}} &gt; \ensuremath{\mathtt{h2.x}}$"></SPAN>, then we can reverse the roles of <!-- MATH
+ $\mathtt{h1}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="21" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3905.png"
+ ALT="$ \mathtt{h1}$"></SPAN> and <!-- MATH
+ $\mathtt{h2}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="21" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3906.png"
+ ALT="$ \mathtt{h2}$"></SPAN>.
+Then we know that the root of the merged heap will contain <!-- MATH
+ $\mathtt{h1.x}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="33" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3907.png"
+ ALT="$ \mathtt{h1.x}$"></SPAN>, and
+we can recursively merge <!-- MATH
+ $\mathtt{h2}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="21" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3908.png"
+ ALT="$ \mathtt{h2}$"></SPAN> with <!-- MATH
+ $\mathtt{h1.left}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="59" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3909.png"
+ ALT="$ \mathtt{h1.left}$"></SPAN> or <!-- MATH
+ $\mathtt{h1.right}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="67" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3910.png"
+ ALT="$ \mathtt{h1.right}$"></SPAN>, as we wish.
+This is where randomization comes in, and we toss a coin to decide
+whether to merge <!-- MATH
+ $\mathtt{h2}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="21" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3911.png"
+ ALT="$ \mathtt{h2}$"></SPAN> with <!-- MATH
+ $\mathtt{h1.left}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="59" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3912.png"
+ ALT="$ \mathtt{h1.left}$"></SPAN> or <!-- MATH
+ $\mathtt{h1.right}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="67" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3913.png"
+ ALT="$ \mathtt{h1.right}$"></SPAN>:
+<PRE>
+    Node&lt;T&gt; merge(Node&lt;T&gt; h1, Node&lt;T&gt; h2) {
+        if (h1 == nil) return h2;
+        if (h2 == nil) return h1;
+        if (compare(h2.x, h1.x) &lt; 0) return merge(h2, h1);
+        // now we know h1.x &lt;= h2.x
+        if (rand.nextBoolean()) {
+            h1.left = merge(h1.left, h2);
+            h1.left.parent = h1;
+        } else {
+            h1.right = merge(h1.right, h2);
+            h1.right.parent = h1;
+        }
+        return h1;
+    }
+</PRE>
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:meldable-merge"></A><A NAME="27759"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 10.4:</STRONG>
+Merging <!-- MATH
+ $\mathtt{h1}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="21" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3915.png"
+ ALT="$ \mathtt{h1}$"></SPAN> and <!-- MATH
+ $\mathtt{h2}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="21" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3916.png"
+ ALT="$ \mathtt{h2}$"></SPAN> is done by merging <!-- MATH
+ $\mathtt{h2}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="21" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3917.png"
+ ALT="$ \mathtt{h2}$"></SPAN> with one of
+  <!-- MATH
+ $\mathtt{h1.left}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="59" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3918.png"
+ ALT="$ \mathtt{h1.left}$"></SPAN> or <!-- MATH
+ $\mathtt{h1.right}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="67" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3919.png"
+ ALT="$ \mathtt{h1.right}$"></SPAN>.</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+
+</DIV><IMG
+ WIDTH="552" HEIGHT="493" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3914.png"
+ ALT="\includegraphics[width=\textwidth ]{figs/meldable-merge}"></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+In the next section, we show that <!-- MATH
+ $\mathtt{merge(h1,h2)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="96" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3920.png"
+ ALT="$ \mathtt{merge(h1,h2)}$"></SPAN> runs in <!-- MATH
+ $O(\log \ensuremath{\mathtt{n}})$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="59" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3921.png"
+ ALT="$ O(\log \ensuremath{\mathtt{n}})$"></SPAN>
+expected time, where <!-- MATH
+ $\mathtt{n}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3922.png"
+ ALT="$ \mathtt{n}$"></SPAN> is the total number of elements in <!-- MATH
+ $\mathtt{h1}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="21" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3923.png"
+ ALT="$ \mathtt{h1}$"></SPAN> and <!-- MATH
+ $\mathtt{h2}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="21" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3924.png"
+ ALT="$ \mathtt{h2}$"></SPAN>.
+
+<P>
+With access to a <!-- MATH
+ $\mathtt{merge(h1,h2)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="96" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3925.png"
+ ALT="$ \mathtt{merge(h1,h2)}$"></SPAN> operation, the <!-- MATH
+ $\mathtt{add(x)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="49" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3926.png"
+ ALT="$ \mathtt{add(x)}$"></SPAN> operation is easy.  We create a new node <!-- MATH
+ $\mathtt{u}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3927.png"
+ ALT="$ \mathtt{u}$"></SPAN> containing <!-- MATH
+ $\mathtt{x}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3928.png"
+ ALT="$ \mathtt{x}$"></SPAN> and then merge <!-- MATH
+ $\mathtt{u}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3929.png"
+ ALT="$ \mathtt{u}$"></SPAN> with the root of our heap:
+<PRE>
+    boolean add(T x) {
+        Node&lt;T&gt; u = newNode();
+        u.x = x;
+        r = merge(u, r);
+        r.parent = nil;
+        n++;
+        return true;
+    }
+</PRE>
+This takes <!-- MATH
+ $O(\log (\ensuremath{\mathtt{n}}+1)) = O(\log \ensuremath{\mathtt{n}})$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="165" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3930.png"
+ ALT="$ O(\log (\ensuremath{\mathtt{n}}+1)) = O(\log \ensuremath{\mathtt{n}})$"></SPAN> expected time.
+
+<P>
+The <!-- MATH
+ $\mathtt{remove()}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="65" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3931.png"
+ ALT="$ \mathtt{remove()}$"></SPAN> operation is similarly easy.  The node we want to remove
+is the root, so we just merge its two children and make the result the root:
+<PRE>
+    T remove() {
+        T x = r.x;
+        r = merge(r.left, r.right);
+        if (r != nil) r.parent = nil;
+        n--;
+        return x;
+    }
+</PRE>
+Again, this takes <!-- MATH
+ $O(\log \ensuremath{\mathtt{n}})$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="59" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3932.png"
+ ALT="$ O(\log \ensuremath{\mathtt{n}})$"></SPAN> expected time.
+
+<P>
+Additionally, a <TT>MeldableHeap</TT> can implement many other operations in
+<!-- MATH
+ $O(\log \ensuremath{\mathtt{n}})$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="59" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3933.png"
+ ALT="$ O(\log \ensuremath{\mathtt{n}})$"></SPAN> expected time, including:
+
+<UL>
+<LI><!-- MATH
+ $\mathtt{remove(u)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="74" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3934.png"
+ ALT="$ \mathtt{remove(u)}$"></SPAN>: remove the node <!-- MATH
+ $\mathtt{u}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3935.png"
+ ALT="$ \mathtt{u}$"></SPAN> (and its key <!-- MATH
+ $\mathtt{u.x}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="25" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3936.png"
+ ALT="$ \mathtt{u.x}$"></SPAN>) from the heap.
+</LI>
+<LI><!-- MATH
+ $\mathtt{absorb(h)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="74" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3937.png"
+ ALT="$ \mathtt{absorb(h)}$"></SPAN>: add all the elements of the <TT>MeldableHeap</TT> <!-- MATH
+ $\mathtt{h}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3938.png"
+ ALT="$ \mathtt{h}$"></SPAN> to this heap, emptying <!-- MATH
+ $\mathtt{h}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3939.png"
+ ALT="$ \mathtt{h}$"></SPAN> in the process.
+</LI>
+</UL>
+Each of these operations can be implemented using a constant number of
+<!-- MATH
+ $\mathtt{merge(h1,h2)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="96" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3940.png"
+ ALT="$ \mathtt{merge(h1,h2)}$"></SPAN> operations that each take <!-- MATH
+ $O(\log \ensuremath{\mathtt{n}})$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="59" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3941.png"
+ ALT="$ O(\log \ensuremath{\mathtt{n}})$"></SPAN> expected time.
+
+<P>
+
+<H2><A NAME="SECTION001321000000000000000">
+<SPAN CLASS="arabic">10</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">1</SPAN> Analysis of <!-- MATH
+ $\mathtt{merge(h1,h2)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="96" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3942.png"
+ ALT="$ \mathtt{merge(h1,h2)}$"></SPAN></A>
+</H2>
+
+<P>
+The analysis of <!-- MATH
+ $\mathtt{merge(h1,h2)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="96" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3943.png"
+ ALT="$ \mathtt{merge(h1,h2)}$"></SPAN> is based on the analysis of a random walk
+in a binary tree.  A <SPAN  CLASS="textit">random walk</SPAN> in a binary tree starts at the
+root of the tree.  At each step in the random walk, a coin is tossed and,
+depending on the result of this coin toss, the walk proceeds to the left
+or to the right child of the current node.  The walk ends when it falls
+off the tree (the current node becomes <!-- MATH
+ $\mathtt{nil}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="29" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3944.png"
+ ALT="$ \mathtt{nil}$"></SPAN>).
+
+<P>
+The following lemma is somewhat remarkable because it does not depend
+at all on the shape of the binary tree:
+
+<P>
+<P>
+<DIV><A NAME="lem:tree-random-walk"><B>Lemma  <SPAN CLASS="arabic">10</SPAN>..<SPAN CLASS="arabic">1</SPAN></B></A> &nbsp; 
+<I>The expected length of a random walk in a binary tree with <!-- MATH
+ $\mathtt{n}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3945.png"
+ ALT="$ \mathtt{n}$"></SPAN> nodes is at most <!-- MATH
+ $\mathtt{\log (n+1)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="69" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3946.png"
+ ALT="$ \mathtt{\log (n+1)}$"></SPAN>.</I></DIV><P></P>
+
+<P>
+<P></P>
+<DIV><I>Proof</I>.
+
+The proof is by induction on <!-- MATH
+ $\mathtt{n}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3948.png"
+ ALT="$ \mathtt{n}$"></SPAN>. In the base case, <!-- MATH
+ $\ensuremath{\mathtt{n}}=0$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="39" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3949.png"
+ ALT="$ \ensuremath{\mathtt{n}}=0$"></SPAN> and the walk
+has length <!-- MATH
+ $0=\log (\ensuremath{\mathtt{n}}+1)$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="95" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3950.png"
+ ALT="$ 0=\log (\ensuremath{\mathtt{n}}+1)$"></SPAN>.  Suppose now that the result is true for
+all non-negative integers <!-- MATH
+ $\ensuremath{\mathtt{n}}'< \ensuremath{\mathtt{n}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="42" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3951.png"
+ ALT="$ \ensuremath{\mathtt{n}}'&lt; \ensuremath{\mathtt{n}}$"></SPAN>.
+
+<P>
+Let <!-- MATH
+ $\ensuremath{\mathtt{n}}_1$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="20" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3952.png"
+ ALT="$ \ensuremath{\mathtt{n}}_1$"></SPAN> denote the size of the root's left subtree, so that
+<!-- MATH
+ $\ensuremath{\mathtt{n}}_2=\ensuremath{\mathtt{n}}-\ensuremath{\mathtt{n}}_1-1$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="100" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3953.png"
+ ALT="$ \ensuremath{\mathtt{n}}_2=\ensuremath{\mathtt{n}}-\ensuremath{\mathtt{n}}_1-1$"></SPAN> is the size of the root's right subtree.  Starting at
+the root, the walk takes one step and then continues in a subtree of
+size <!-- MATH
+ $\ensuremath{\mathtt{n}}_1$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="20" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3954.png"
+ ALT="$ \ensuremath{\mathtt{n}}_1$"></SPAN> or <!-- MATH
+ $\ensuremath{\mathtt{n}}_2$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="20" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3955.png"
+ ALT="$ \ensuremath{\mathtt{n}}_2$"></SPAN>.  By our inductive hypothesis, the expected
+length of the walk is then
+<P><!-- MATH
+ \begin{displaymath}
+\mathrm{E}[W] = 1 + \frac{1}{2}\log (\ensuremath{\mathtt{n}}_1+1) + \frac{1}{2}\log (\ensuremath{\mathtt{n}}_2+1)  \enspace ,
+\end{displaymath}
+ -->
+</P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<IMG
+ WIDTH="282" HEIGHT="50" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3956.png"
+ ALT="$\displaystyle \mathrm{E}[W] = 1 + \frac{1}{2}\log (\ensuremath{\mathtt{n}}_1+1) + \frac{1}{2}\log (\ensuremath{\mathtt{n}}_2+1) \enspace ,
+$">
+</DIV><P></P>
+since each of <!-- MATH
+ $\ensuremath{\mathtt{n}}_1$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="20" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3957.png"
+ ALT="$ \ensuremath{\mathtt{n}}_1$"></SPAN> and <!-- MATH
+ $\ensuremath{\mathtt{n}}_2$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="20" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3958.png"
+ ALT="$ \ensuremath{\mathtt{n}}_2$"></SPAN> are less than <!-- MATH
+ $\ensuremath{\mathtt{n}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3959.png"
+ ALT="$ \ensuremath{\mathtt{n}}$"></SPAN>.  Since <SPAN CLASS="MATH"><IMG
+ WIDTH="26" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3960.png"
+ ALT="$ \log$"></SPAN>
+is a concave function, <!-- MATH
+ $\mathrm{E}[W]$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="41" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3961.png"
+ ALT="$ \mathrm{E}[W]$"></SPAN> is maximized when <!-- MATH
+ $\ensuremath{\mathtt{n}}_1=\ensuremath{\mathtt{n}}_2=(\ensuremath{\mathtt{n}}-1)/2$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="128" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3962.png"
+ ALT="$ \ensuremath{\mathtt{n}}_1=\ensuremath{\mathtt{n}}_2=(\ensuremath{\mathtt{n}}-1)/2$"></SPAN>.
+Therefore,
+ the expected number of steps taken by the random walk is 
+<P></P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay"><TABLE CELLPADDING="0" WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE">
+<TD NOWRAP ALIGN="RIGHT"><SPAN CLASS="MATH"><IMG
+ WIDTH="41" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3963.png"
+ ALT="$\displaystyle \mathrm{E}[W]$"></SPAN></TD>
+<TD NOWRAP ALIGN="LEFT"><SPAN CLASS="MATH"><IMG
+ WIDTH="230" HEIGHT="50" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3964.png"
+ ALT="$\displaystyle = 1 + \frac{1}{2}\log (\ensuremath{\mathtt{n}}_1+1) + \frac{1}{2}\log (\ensuremath{\mathtt{n}}_2+1)$"></SPAN></TD>
+<TD NOWRAP CLASS="eqno" WIDTH="10" ALIGN="RIGHT">
+&nbsp;&nbsp;&nbsp;</TD></TR>
+<TR VALIGN="MIDDLE">
+<TD>&nbsp;</TD>
+<TD NOWRAP ALIGN="LEFT"><SPAN CLASS="MATH"><IMG
+ WIDTH="156" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3965.png"
+ ALT="$\displaystyle \le 1 + \log ((\ensuremath{\mathtt{n}}-1)/2+1)$"></SPAN></TD>
+<TD NOWRAP CLASS="eqno" WIDTH="10" ALIGN="RIGHT">
+&nbsp;&nbsp;&nbsp;</TD></TR>
+<TR VALIGN="MIDDLE">
+<TD>&nbsp;</TD>
+<TD NOWRAP ALIGN="LEFT"><SPAN CLASS="MATH"><IMG
+ WIDTH="132" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3966.png"
+ ALT="$\displaystyle = 1 + \log ((\ensuremath{\mathtt{n}}+1)/2)$"></SPAN></TD>
+<TD NOWRAP CLASS="eqno" WIDTH="10" ALIGN="RIGHT">
+&nbsp;&nbsp;&nbsp;</TD></TR>
+<TR VALIGN="MIDDLE">
+<TD>&nbsp;</TD>
+<TD NOWRAP ALIGN="LEFT"><SPAN CLASS="MATH"><IMG
+ WIDTH="95" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3967.png"
+ ALT="$\displaystyle = \log (\ensuremath{\mathtt{n}}+1) \enspace . \qedhere$"></SPAN></TD>
+<TD NOWRAP CLASS="eqno" WIDTH="10" ALIGN="RIGHT">
+&nbsp;&nbsp;&nbsp;</TD></TR>
+</TABLE></DIV>
+<BR CLEAR="ALL"><P></P> <IMG
+ WIDTH="17" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3947.png"
+ ALT="$ \qedsymbol$">
+</DIV><P></P>
+
+<P>
+We make a quick digression to note that, for readers who know a little
+about information theory, the proof of Lemma&nbsp;<A HREF="#lem:tree-random-walk">10.1</A> can
+be stated in terms of entropy.  
+<P></P>
+<DIV><I>Proof</I>.
+[Information Theoretic Proof of Lemma&nbsp;<A HREF="#lem:tree-random-walk">10.1</A>]
+Let <SPAN CLASS="MATH"><IMG
+ WIDTH="18" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3969.png"
+ ALT="$ d_i$"></SPAN> denote the depth of the <SPAN CLASS="MATH"><IMG
+ WIDTH="10" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3970.png"
+ ALT="$ i$"></SPAN>th external node and recall that a
+binary tree with <!-- MATH
+ $\mathtt{n}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3971.png"
+ ALT="$ \mathtt{n}$"></SPAN> nodes has <!-- MATH
+ $\mathtt{n+1}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="36" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3972.png"
+ ALT="$ \mathtt{n+1}$"></SPAN> external nodes.  The probability
+of the random walk reaching the <SPAN CLASS="MATH"><IMG
+ WIDTH="10" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3973.png"
+ ALT="$ i$"></SPAN>th external node is exactly
+<!-- MATH
+ $p_i=1/2^{d_i}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="70" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3974.png"
+ ALT="$ p_i=1/2^{d_i}$"></SPAN>, so the expected length of the random walk is given by
+<P><!-- MATH
+ \begin{displaymath}
+H=\sum_{i=0}^{\ensuremath{\mathtt{n}}} p_id_i
+    =\sum_{i=0}^{\ensuremath{\mathtt{n}}} p_i\log\left(2^{d_i}\right)
+    = \sum_{i=0}^{\ensuremath{\mathtt{n}}}p_i\log({1/p_i})
+\end{displaymath}
+ -->
+</P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<IMG
+ WIDTH="320" HEIGHT="61" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3975.png"
+ ALT="$\displaystyle H=\sum_{i=0}^{\ensuremath{\mathtt{n}}} p_id_i
+=\sum_{i=0}^{\ensu...
+...og\left(2^{d_i}\right)
+= \sum_{i=0}^{\ensuremath{\mathtt{n}}}p_i\log({1/p_i})
+$">
+</DIV><P></P>
+The right hand side of this equation is easily recognizable as the
+entropy of a probability distribution over <!-- MATH
+ $\ensuremath{\mathtt{n}}+1$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="36" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3976.png"
+ ALT="$ \ensuremath{\mathtt{n}}+1$"></SPAN> elements.  A basic
+fact about the entropy of a distribution over <!-- MATH
+ $\ensuremath{\mathtt{n}}+1$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="36" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3977.png"
+ ALT="$ \ensuremath{\mathtt{n}}+1$"></SPAN> elements is that
+it does not exceed <!-- MATH
+ $\log(\ensuremath{\mathtt{n}}+1)$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="69" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3978.png"
+ ALT="$ \log(\ensuremath{\mathtt{n}}+1)$"></SPAN>, which proves the lemma.
+ <IMG
+ WIDTH="17" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3968.png"
+ ALT="$ \qedsymbol$">
+</DIV><P></P>
+
+<P>
+With this result on random walks, we can now easily prove that the
+running time of the <!-- MATH
+ $\mathtt{merge(h1,h2)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="96" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3979.png"
+ ALT="$ \mathtt{merge(h1,h2)}$"></SPAN> operation is <!-- MATH
+ $O(\log \ensuremath{\mathtt{n}})$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="59" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3980.png"
+ ALT="$ O(\log \ensuremath{\mathtt{n}})$"></SPAN>.
+
+<P>
+<P>
+<DIV><B>Lemma  <SPAN CLASS="arabic">10</SPAN>..<SPAN CLASS="arabic">2</SPAN></B> &nbsp; 
+<I>If <!-- MATH
+ $\mathtt{h1}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="21" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3981.png"
+ ALT="$ \mathtt{h1}$"></SPAN> and <!-- MATH
+ $\mathtt{h2}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="21" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3982.png"
+ ALT="$ \mathtt{h2}$"></SPAN> are the roots of two heaps containing <!-- MATH
+ $\ensuremath{\mathtt{n}}_1$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="20" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3983.png"
+ ALT="$ \ensuremath{\mathtt{n}}_1$"></SPAN>
+  and <!-- MATH
+ $\ensuremath{\mathtt{n}}_2$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="20" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3984.png"
+ ALT="$ \ensuremath{\mathtt{n}}_2$"></SPAN> nodes, respectively, then the expected running time of
+  <!-- MATH
+ $\mathtt{merge(h1,h2)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="96" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3985.png"
+ ALT="$ \mathtt{merge(h1,h2)}$"></SPAN> is at most <!-- MATH
+ $O(\log \ensuremath{\mathtt{n}})$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="59" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3986.png"
+ ALT="$ O(\log \ensuremath{\mathtt{n}})$"></SPAN>, where <!-- MATH
+ $\ensuremath{\mathtt{n}}=\ensuremath{\mathtt{n}}_1+\ensuremath{\mathtt{n}}_2$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="77" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3987.png"
+ ALT="$ \ensuremath{\mathtt{n}}=\ensuremath{\mathtt{n}}_1+\ensuremath{\mathtt{n}}_2$"></SPAN>.</I></DIV><P></P>
+
+<P>
+<P></P>
+<DIV><I>Proof</I>.
+
+  Each step of the merge algorithm takes one step of a random walk,
+  either in the heap rooted at <!-- MATH
+ $\mathtt{h1}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="21" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3989.png"
+ ALT="$ \mathtt{h1}$"></SPAN> or the heap rooted at <!-- MATH
+ $\mathtt{h2}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="21" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3990.png"
+ ALT="$ \mathtt{h2}$"></SPAN>.
+  The algorithm terminates when either of these two random walks fall
+  out of its corresponding tree (when <!-- MATH
+ $\ensuremath{\mathtt{h1}}=\ensuremath{\mathtt{null}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="72" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3991.png"
+ ALT="$ \ensuremath{\mathtt{h1}}=\ensuremath{\mathtt{null}}$"></SPAN> or <!-- MATH
+ $\ensuremath{\mathtt{h2}}=\ensuremath{\mathtt{null}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="72" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3992.png"
+ ALT="$ \ensuremath{\mathtt{h2}}=\ensuremath{\mathtt{null}}$"></SPAN>).
+  Therefore, the expected number of steps performed by the merge algorithm
+  is at most
+  <P><!-- MATH
+ \begin{displaymath}
+\log (\ensuremath{\mathtt{n}}_1+1) + \log (\ensuremath{\mathtt{n}}_2+1) \le 2\log \ensuremath{\mathtt{n}} \enspace . \qedhere
+\end{displaymath}
+ -->
+</P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<IMG
+ WIDTH="235" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3993.png"
+ ALT="$\displaystyle \log (\ensuremath{\mathtt{n}}_1+1) + \log (\ensuremath{\mathtt{n}}_2+1) \le 2\log \ensuremath{\mathtt{n}} \enspace . \qedhere
+$">
+</DIV><P></P> <IMG
+ WIDTH="17" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3988.png"
+ ALT="$ \qedsymbol$">
+</DIV><P></P>
+
+<P>
+
+<H2><A NAME="SECTION001322000000000000000">
+<SPAN CLASS="arabic">10</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">2</SPAN> Summary</A>
+</H2>
+
+<P>
+The following theorem summarizes the performance of a <TT>MeldableHeap</TT>:
+
+<P>
+<P>
+<DIV><A NAME="thm:meldableheap"><B>Theorem  <SPAN CLASS="arabic">10</SPAN>..<SPAN CLASS="arabic">2</SPAN></B></A> &nbsp; 
+<I>A <TT>MeldableHeap</TT> implements the (priority) <TT>Queue</TT> interface.
+  A <TT>MeldableHeap</TT> supports the operations <!-- MATH
+ $\mathtt{add(x)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="49" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3994.png"
+ ALT="$ \mathtt{add(x)}$"></SPAN> and <!-- MATH
+ $\mathtt{remove()}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="65" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3995.png"
+ ALT="$ \mathtt{remove()}$"></SPAN>
+  in <!-- MATH
+ $O(\log \ensuremath{\mathtt{n}})$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="59" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3996.png"
+ ALT="$ O(\log \ensuremath{\mathtt{n}})$"></SPAN> expected time per operation.</I></DIV><P></P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html1033"
+  HREF="10_3_Discussion_Exercises.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1027"
+  HREF="10_Heaps.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1021"
+  HREF="10_1_BinaryHeap_Implicit_Bi.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1029"
+  HREF="Contents.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html1031"
+  HREF="Index.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html1034"
+  HREF="10_3_Discussion_Exercises.html">10.3 Discussion and Exercises</A>
+<B> Up:</B> <A NAME="tex2html1028"
+  HREF="10_Heaps.html">10. Heaps</A>
+<B> Previous:</B> <A NAME="tex2html1022"
+  HREF="10_1_BinaryHeap_Implicit_Bi.html">10.1 BinaryHeap: An Implicit</A>
+ &nbsp; <B>  <A NAME="tex2html1030"
+  HREF="Contents.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html1032"
+  HREF="Index.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<a href="http://opendatastructures.org/">opendatastructures.org</a>
+    
+
+</ADDRESS>
+</BODY>
+</HTML>

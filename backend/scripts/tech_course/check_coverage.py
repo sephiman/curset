@@ -10,8 +10,9 @@ import argparse
 import sys
 from dataclasses import dataclass
 
+from scripts.tech_course.bullet_sources import dropped_bullets
 from scripts.tech_course.lessons import Lesson, add_course_argument, read_lessons, written
-from scripts.tech_course.programme import dropped_bullets, lesson_of, programme_bullets
+from scripts.tech_course.programme import lesson_of, programme_bullets
 
 
 @dataclass(frozen=True)
@@ -45,7 +46,7 @@ def main(argv: list[str] | None = None) -> int:
     add_course_argument(parser)
     course = parser.parse_args(argv).course
     programme = programme_bullets(course)
-    found = coverage(read_lessons(course), programme, dropped_bullets())
+    found = coverage(read_lessons(course), programme, dropped_bullets(course))
     for bullet in found.uncovered:
         print(f"FAIL {bullet}: its lesson {lesson_of(bullet)} is written but no section declares it")
     print(

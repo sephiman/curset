@@ -406,6 +406,9 @@ Everything whose data belongs to a course hangs off the course:
 /api/courses/{course}/attempts/{id}/report "Report this question" (see Courses, languages and reports)
 /api/courses/{course}/lessons/{id}/practice A lesson's practice round (courses with `lesson_practice`)
 /api/courses/{course}/practice/psicotecnicos A «Psicotécnicos» round: generated exercise ids, one type or all in the course's weights
+/api/courses/{course}/modules/{id}/practice A module's practice round (courses whose `practice_presets` list `module`)
+/api/courses/{course}/practice/review      The mixed review: the `spaced` scheduler's pick across the course
+/api/courses/{course}/practice/code-reading Code-reading questions only (those with a `snippet`; preset `code-reading`)
 /api/courses/{course}/stats/me             …/stats/global (anonymous aggregate, within the course)
 ```
 
@@ -843,7 +846,9 @@ a prose-integrity guard in the same family as the reference report's zero-dangli
 `frontend/src/assets/fonts/liberation-sans/` therefore ships **Liberation Sans** (SIL OFL 1.1,
 unmodified, `LICENSE` alongside it), which is metric-compatible with the app's Helvetica/Arial stack.
 `fonts.test.ts` asserts it covers **every character in `content/`**, so a new symbol in a lesson fails a
-test instead of printing a box.
+test instead of printing a box. Code prints in **Liberation Mono** (`liberation-mono/`, same release and
+licence), and the code characters above U+FFFF it lacks (the emoji of an m11-l05 snippet) in **DejaVu Sans**
+(`dejavu-sans/`); pdfkit embeds a face only when a page uses it, so a course without code prints as before.
 
 The frontend test suite builds the real course — read straight off `content/course.yaml`, the lesson
 files and the exercise configs, in both languages — and typesets it with pdfmake: lesson count and order
@@ -1044,11 +1049,19 @@ only lessons marked read, and no «Practicar» entry appears; the states vanish 
 `bash`, `text`) are highlighted by highlight.js with only those grammars registered (`lib/highlight.ts`, colours in `index.css`), in
 lessons, stems, options (when they hold backticks) and explanations; a block scrolls sideways inside its own box and the info string's
 meta (`java snippet=m06-l02/LostUpdate.java`) never shows. `<!-- bullets: … -->` comments are dropped on the page. `:::judgement{source="…"
-ref="…"}` renders as a labelled callout (web and PDF); `content/judgement.py` validates it at load. A course with `sources/sources.yaml`
+ref="…"}` renders as a labelled callout (web and PDF; the PDF draws it dashed on every side, the `ref` in the code face);
+`content/judgement.py` validates it at load. In the PDF, fenced blocks and the backtick spans of printed questions set in Liberation Mono. A course with `sources/sources.yaml`
 takes `extract:` and `snippet:` on its quiz questions (excluded from payloads): the solution panel quotes the extract only when the first
 citation's source has `extract_allowed: true`, else it says «no extract» with the licence and links the source; the loader rejects an
 extract on a source that forbids it. Fixture: `backend/tests/fixtures/content/fixture-tecnico`; tests `test_tech_platform.py`,
 `markdown.code.test.tsx`, `e2e/technical.spec.ts`.
+
+**Practice presets (requirements 6.6 of backend-in-depth).** `practice_presets` in `course.yaml` lists what the course page's
+«Practice» card offers, in order: `lesson` and `module` (a picker, then a round of that scope's questions), `review` (the mixed review,
+needs `practice_scheduler: spaced`), `code-reading` (only questions with a `snippet`) and `generators` (the existing generated-items
+page). A module page also offers its own round. Only the generators page keeps a clock, and it stays optional; there is no mock
+exam, no penalty and no streak or points.
+Tests: `backend/tests/test_practice_presets.py`, `frontend/src/features/practice/PracticePresets.test.tsx`.
 
 **Generated psicotécnicos (platform delta L, 2026-11-07).** A course lists `practice_generators` in
 `course.yaml` (a generator id, its Spanish `title`, its `weight` in the exam mix and its `difficulty` level

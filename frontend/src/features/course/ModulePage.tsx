@@ -8,6 +8,7 @@ import { scopeKey, useCourse } from "@/features/courses/CourseContext";
 import { OneLineSummary } from "@/features/course/OneLineSummary";
 import { useCourseTree } from "@/features/course/queries";
 import { ExportPdfAction } from "@/features/pdfExport/ExportPdfAction";
+import { PracticeEntry } from "@/features/practice/PracticeEntry";
 
 export function ModulePage() {
   const { t } = useTranslation();
@@ -108,6 +109,13 @@ export function ModulePage() {
           );
         })}
       </div>
+      {tree?.course?.practicePresets?.includes("module") && (
+        <PracticeEntry
+          to={`/modules/${module.id}/practice`}
+          questions={module.lessons.reduce((sum, lesson) => sum + (lesson.practiceQuestions ?? 0), 0)}
+          title={t("practice.moduleEntry")}
+        />
+      )}
     </div>
   );
 }

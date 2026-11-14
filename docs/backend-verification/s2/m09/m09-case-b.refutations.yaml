@@ -1,0 +1,232 @@
+m09-case-b-q01:
+  key:
+    anchor: pg-sql-select#SQL-FOR-UPDATE-SHARE
+    sentence: With NOWAIT, the statement reports an error, rather than waiting, if a selected row cannot be locked immediately.
+  wrong:
+  - option: '`SKIP LOCKED`'
+    anchor: pg-sql-select#SQL-FOR-UPDATE-SHARE
+    sentence: With SKIP LOCKED, any selected rows that cannot be immediately locked are skipped.
+  - option: '`FOR SHARE`'
+    anchor: pg-explicit-locking#LOCKING-ROWS
+    sentence: A shared lock blocks other transactions from performing UPDATE, DELETE, SELECT FOR UPDATE or SELECT FOR NO KEY UPDATE on these rows
+  - option: '`FOR KEY SHARE`'
+    anchor: pg-explicit-locking#LOCKING-ROWS
+    sentence: 'Behaves similarly to FOR SHARE, except that the lock is weaker: SELECT FOR UPDATE is blocked, but not SELECT FOR NO KEY UPDATE.'
+m09-case-b-q02:
+  key:
+    anchor: pg-explicit-locking#LOCKING-ROWS
+    sentence: Row-level locks do not affect data querying; they block only writers and lockers to the same row.
+  wrong:
+  - option: It waits until the booking transaction ends
+    anchor: pg-explicit-locking#LOCKING-ROWS
+    sentence: Row-level locks do not affect data querying; they block only writers and lockers to the same row.
+    exclusive: true
+  - option: It fails at once with a lock error
+    anchor: pg-explicit-locking#LOCKING-ROWS
+    sentence: Row-level locks do not affect data querying; they block only writers and lockers to the same row.
+    exclusive: true
+  - option: It returns no row, because locked rows are hidden from queries
+    anchor: pg-explicit-locking#LOCKING-ROWS
+    sentence: Row-level locks do not affect data querying; they block only writers and lockers to the same row.
+    exclusive: true
+m09-case-b-q03:
+  key:
+    anchor: pg-explicit-locking#LOCKING-ROWS
+    sentence: Row-level locks are released at transaction end or during savepoint rollback, just like table-level locks.
+  wrong:
+  - option: When the `SELECT` statement that took them finishes
+    anchor: pg-explicit-locking#LOCKING-ROWS
+    sentence: Row-level locks are released at transaction end or during savepoint rollback, just like table-level locks.
+    exclusive: true
+  - option: Only when the database connection is closed
+    anchor: pg-explicit-locking#LOCKING-ROWS
+    sentence: Row-level locks are released at transaction end or during savepoint rollback, just like table-level locks.
+    exclusive: true
+  - option: After a lock timeout that the application configures
+    anchor: pg-explicit-locking#LOCKING-ROWS
+    sentence: Row-level locks are released at transaction end or during savepoint rollback, just like table-level locks.
+    exclusive: true
+m09-case-b-q04:
+  key:
+    anchor: pg-explicit-locking#LOCKING-ROWS
+    sentence: Within a REPEATABLE READ or SERIALIZABLE transaction, however, an error will be thrown if a row to be locked has changed since the transaction started.
+  wrong:
+  - option: The statement locks the old row version and succeeds
+    anchor: pg-explicit-locking#LOCKING-ROWS
+    sentence: Within a REPEATABLE READ or SERIALIZABLE transaction, however, an error will be thrown if a row to be locked has changed since the transaction started.
+    exclusive: true
+  - option: The statement waits and then returns the old row version
+    anchor: pg-explicit-locking#LOCKING-ROWS
+    sentence: Within a REPEATABLE READ or SERIALIZABLE transaction, however, an error will be thrown if a row to be locked has changed since the transaction started.
+    exclusive: true
+  - option: The statement silently locks the newest row version
+    anchor: pg-explicit-locking#LOCKING-ROWS
+    sentence: Within a REPEATABLE READ or SERIALIZABLE transaction, however, an error will be thrown if a row to be locked has changed since the transaction started.
+    exclusive: true
+m09-case-b-q05:
+  key:
+    anchor: pg-transaction-iso#XACT-SERIALIZABLE
+    sentence: This monitoring does not introduce any blocking beyond that present in repeatable read
+  wrong:
+  - option: Its predicate locks block other transactions and can cause deadlocks
+    anchor: pg-transaction-iso#XACT-SERIALIZABLE
+    sentence: In PostgreSQL these locks do not cause any blocking and therefore can not play any part in causing a deadlock.
+  - option: It needs no retries, because conflicts are resolved by waiting
+    anchor: pg-transaction-iso#XACT-SERIALIZABLE
+    sentence: applications using this level must be prepared to retry transactions due to serialization failures
+  - option: It enforces serializability by locking every row the transaction reads
+    anchor: pg-transaction-iso#XACT-SERIALIZABLE
+    sentence: To guarantee true serializability PostgreSQL uses predicate locking
+m09-case-b-q06:
+  key:
+    anchor: ietf-httpapi-idempotency-key#content
+    sentence: Per [RFC9110], the methods OPTIONS, HEAD, GET, PUT and DELETE are idempotent while methods POST and PATCH are not.
+  wrong:
+  - option: '`PUT` and `DELETE`'
+    anchor: ietf-httpapi-idempotency-key#content
+    sentence: Per [RFC9110], the methods OPTIONS, HEAD, GET, PUT and DELETE are idempotent while methods POST and PATCH are not.
+    exclusive: true
+  - option: '`GET` and `HEAD`'
+    anchor: ietf-httpapi-idempotency-key#content
+    sentence: Per [RFC9110], the methods OPTIONS, HEAD, GET, PUT and DELETE are idempotent while methods POST and PATCH are not.
+    exclusive: true
+  - option: '`OPTIONS` and `DELETE`'
+    anchor: ietf-httpapi-idempotency-key#content
+    sentence: Per [RFC9110], the methods OPTIONS, HEAD, GET, PUT and DELETE are idempotent while methods POST and PATCH are not.
+    exclusive: true
+m09-case-b-q07:
+  key:
+    anchor: ietf-httpapi-idempotency-key#content
+    sentence: If the request is retried, while the original request is still being processed, the resource SHOULD reply with an HTTP 409 status code
+  wrong:
+  - option: '`400`'
+    anchor: ietf-httpapi-idempotency-key#content
+    sentence: If the Idempotency-Key request header is missing for a documented idempotent operation requiring this header, the resource SHOULD reply with an HTTP 400 status code
+  - option: '`422`'
+    anchor: ietf-httpapi-idempotency-key#content
+    sentence: If there is an attempt to reuse an idempotency key with a different request payload, the resource SHOULD reply with an HTTP 422 status code
+  - option: '`503`'
+    anchor: ietf-httpapi-idempotency-key#content
+    sentence: If the request is retried, while the original request is still being processed, the resource SHOULD reply with an HTTP 409 status code
+    exclusive: true
+m09-case-b-q08:
+  key:
+    anchor: ietf-httpapi-idempotency-key#content
+    sentence: If there is an attempt to reuse an idempotency key with a different request payload, the resource SHOULD reply with an HTTP 422 status code
+  wrong:
+  - option: '`400`'
+    anchor: ietf-httpapi-idempotency-key#content
+    sentence: If the Idempotency-Key request header is missing for a documented idempotent operation requiring this header, the resource SHOULD reply with an HTTP 400 status code
+  - option: '`409`'
+    anchor: ietf-httpapi-idempotency-key#content
+    sentence: If the request is retried, while the original request is still being processed, the resource SHOULD reply with an HTTP 409 status code
+  - option: '`500`'
+    anchor: ietf-httpapi-idempotency-key#content
+    sentence: If there is an attempt to reuse an idempotency key with a different request payload, the resource SHOULD reply with an HTTP 422 status code
+    exclusive: true
+m09-case-b-q09:
+  key:
+    anchor: pg-explicit-locking#LOCKING-ROWS
+    sentence: locking a row might cause a disk write, e.g., SELECT FOR UPDATE modifies selected rows to mark them locked, and so will result in disk writes.
+  wrong:
+  - option: None, because lock state lives only in shared memory
+    anchor: pg-explicit-locking#LOCKING-ROWS
+    sentence: locking a row might cause a disk write, e.g., SELECT FOR UPDATE modifies selected rows to mark them locked, and so will result in disk writes.
+    exclusive: true
+  - option: It writes only to the write-ahead log, never to table rows
+    anchor: pg-explicit-locking#LOCKING-ROWS
+    sentence: locking a row might cause a disk write, e.g., SELECT FOR UPDATE modifies selected rows to mark them locked, and so will result in disk writes.
+    exclusive: true
+  - option: It writes to disk only when `NOWAIT` is also given
+    anchor: pg-explicit-locking#LOCKING-ROWS
+    sentence: locking a row might cause a disk write, e.g., SELECT FOR UPDATE modifies selected rows to mark them locked, and so will result in disk writes.
+    exclusive: true
+m09-case-b-q10:
+  key:
+    anchor: pg-sql-select#SQL-FOR-UPDATE-SHARE
+    sentence: NOWAIT and SKIP LOCKED apply only to the row-level lock(s) — the required ROW SHARE table-level lock is still taken in the ordinary way
+  wrong:
+  - option: The row-level lock on each selected row
+    anchor: pg-sql-select#SQL-FOR-UPDATE-SHARE
+    sentence: With NOWAIT, the statement reports an error, rather than waiting, if a selected row cannot be locked immediately.
+  - option: An `ACCESS EXCLUSIVE` table-level lock
+    anchor: pg-sql-select#SQL-FOR-UPDATE-SHARE
+    sentence: NOWAIT and SKIP LOCKED apply only to the row-level lock(s) — the required ROW SHARE table-level lock is still taken in the ordinary way
+    exclusive: true
+  - option: A `SHARE` table-level lock
+    anchor: pg-sql-select#SQL-FOR-UPDATE-SHARE
+    sentence: NOWAIT and SKIP LOCKED apply only to the row-level lock(s) — the required ROW SHARE table-level lock is still taken in the ordinary way
+    exclusive: true
+m09-case-b-q11:
+  key:
+    anchor: pg-transaction-iso#XACT-SERIALIZABLE
+    sentence: a Read Committed or Repeatable Read transaction which wants to ensure data consistency may need to take out a lock on an entire table
+  wrong:
+  - option: A predicate lock that blocks the conflicting writers
+    anchor: pg-transaction-iso#XACT-SERIALIZABLE
+    sentence: In PostgreSQL these locks do not cause any blocking and therefore can not play any part in causing a deadlock.
+  - option: A row-level lock released at the end of each statement
+    anchor: pg-explicit-locking#LOCKING-ROWS
+    sentence: Row-level locks are released at transaction end or during savepoint rollback, just like table-level locks.
+  - option: A shared lock that lets other transactions update the rows
+    anchor: pg-explicit-locking#LOCKING-ROWS
+    sentence: A shared lock blocks other transactions from performing UPDATE, DELETE, SELECT FOR UPDATE or SELECT FOR NO KEY UPDATE on these rows
+m09-case-b-q12:
+  key:
+    anchor: ietf-httpapi-idempotency-key#content
+    sentence: It is RECOMMENDED that a UUID [RFC9562] or a similar random identifier be used as an idempotency key.
+  wrong:
+  - option: A sequential number taken from a counter shared by all clients
+    anchor: rfc9562#section-2.1
+    sentence: 'do not work well: the effort required to coordinate sequential numeric identifiers across a network can easily become a burden.'
+  - option: The same key for every booking made by one user
+    anchor: ietf-httpapi-idempotency-key#content
+    sentence: The idempotency key MUST be unique and MUST NOT be reused with another request with a different request payload.
+  - option: An idempotency fingerprint alone, with no key at all
+    anchor: ietf-httpapi-idempotency-key#content
+    sentence: An idempotency fingerprint MAY be used in conjunction with an idempotency key to determine the uniqueness of a request.
+m09-case-b-q13:
+  key:
+    anchor: pg-sql-select#SQL-FOR-UPDATE-SHARE
+    sentence: If a LIMIT is used, locking stops once enough rows have been returned to satisfy the limit
+  wrong:
+  - option: '10'
+    anchor: pg-sql-select#SQL-FOR-UPDATE-SHARE
+    sentence: If a LIMIT is used, locking stops once enough rows have been returned to satisfy the limit
+    exclusive: true
+  - option: '5'
+    anchor: pg-sql-select#SQL-FOR-UPDATE-SHARE
+    sentence: If a LIMIT is used, locking stops once enough rows have been returned to satisfy the limit
+    exclusive: true
+  - option: '1'
+    anchor: pg-sql-select#SQL-FOR-UPDATE-SHARE
+    sentence: If a LIMIT is used, locking stops once enough rows have been returned to satisfy the limit
+    exclusive: true
+m09-case-b-q14:
+  key:
+    anchor: pg-sql-select#SQL-FOR-UPDATE-SHARE
+    sentence: The locking clauses cannot be used in contexts where returned rows cannot be clearly identified with individual table rows; for example they cannot be used with aggregation.
+  wrong:
+  - option: '`SELECT * FROM seats WHERE id = 7 FOR UPDATE`'
+    anchor: pg-explicit-locking#LOCKING-ROWS
+    sentence: FOR UPDATE causes the rows retrieved by the SELECT statement to be locked as though for update.
+  - option: '`SELECT * FROM seats FOR UPDATE SKIP LOCKED LIMIT 1`'
+    anchor: pg-sql-select#SQL-FOR-UPDATE-SHARE
+    sentence: With SKIP LOCKED, any selected rows that cannot be immediately locked are skipped.
+  - option: '`SELECT * FROM seats FOR UPDATE NOWAIT`'
+    anchor: pg-sql-select#SQL-FOR-UPDATE-SHARE
+    sentence: With NOWAIT, the statement reports an error, rather than waiting, if a selected row cannot be locked immediately.
+m09-case-b-q15:
+  key:
+    anchor: pg-explicit-locking#LOCKING-ROWS
+    sentence: Behaves similarly to FOR NO KEY UPDATE, except that it acquires a shared lock rather than exclusive lock on each retrieved row.
+  wrong:
+  - option: It lets another transaction run `SELECT FOR UPDATE` on those rows
+    anchor: pg-explicit-locking#LOCKING-ROWS
+    sentence: A shared lock blocks other transactions from performing UPDATE, DELETE, SELECT FOR UPDATE or SELECT FOR NO KEY UPDATE on these rows
+  - option: It releases the lock at the end of the statement
+    anchor: pg-explicit-locking#LOCKING-ROWS
+    sentence: Row-level locks are released at transaction end or during savepoint rollback, just like table-level locks.
+  - option: It blocks plain `SELECT` queries on those rows
+    anchor: pg-explicit-locking#LOCKING-ROWS
+    sentence: Row-level locks do not affect data querying; they block only writers and lockers to the same row.

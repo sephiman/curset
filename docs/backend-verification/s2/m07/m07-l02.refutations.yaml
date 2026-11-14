@@ -1,0 +1,209 @@
+m07-l02-q01:
+  key:
+    anchor: rfc9112#section-9.3.2
+    sentence: A server MAY process a sequence of pipelined requests in parallel if they all have safe methods (Section 9.2.1 of [HTTP]), but it MUST send the corresponding responses in the same order that the requests were received.
+  wrong:
+  - option: It must process them one at a time, and may send the responses in any order
+    anchor: rfc9112#section-9.3.2
+    sentence: A server MAY process a sequence of pipelined requests in parallel if they all have safe methods (Section 9.2.1 of [HTTP]), but it MUST send the corresponding responses in the same order that the requests were received.
+    exclusive: true
+  - option: It sends each response as soon as it is ready, so the order of responses may differ from the requests
+    anchor: rfc9112#section-9.3.2
+    sentence: A server MAY process a sequence of pipelined requests in parallel if they all have safe methods (Section 9.2.1 of [HTTP]), but it MUST send the corresponding responses in the same order that the requests were received.
+    exclusive: true
+  - option: It closes the connection after the first response, because pipelining is not allowed on persistent connections
+    anchor: rfc9112#section-9.3.2
+    sentence: A client that supports persistent connections MAY "pipeline" its requests (i.e., send multiple requests without waiting for each response).
+m07-l02-q02:
+  key:
+    anchor: rfc9113#section-5.1.2
+    sentence: A peer can limit the number of concurrently active streams using the SETTINGS_MAX_CONCURRENT_STREAMS parameter (see Section 6.5.2) within a SETTINGS frame.
+  wrong:
+  - option: With the `WINDOW_UPDATE` frame, which caps the open streams
+    anchor: rfc9113#section-5.2
+    sentence: HTTP/2 provides for flow control through use of the WINDOW_UPDATE frame (Section 6.9).
+  - option: It cannot, because a connection carries one stream at a time
+    anchor: rfc9113#section-5
+    sentence: A single HTTP/2 connection can contain multiple concurrently open streams, with either endpoint interleaving frames from multiple streams.
+  - option: With one connection-wide value that applies equally to both peers
+    anchor: rfc9113#section-5.1.2
+    sentence: The maximum concurrent streams setting is specific to each endpoint and applies only to the peer that receives the setting.
+m07-l02-q03:
+  key:
+    anchor: rfc7541#section-2.3.2
+    sentence: The first and newest entry in a dynamic table is at the lowest index, and the oldest entry of a dynamic table is at the highest index.
+  wrong:
+  - option: Entries are kept in least-recently-used order, so a reused entry moves to the lowest index
+    anchor: rfc7541#section-2.3.2
+    sentence: The dynamic table consists of a list of header fields maintained in first-in, first-out order.
+  - option: The table starts filled with the most common header fields of HTTP
+    anchor: rfc7541#section-2.3.2
+    sentence: The dynamic table is initially empty.
+  - option: A decoder must report an error when the table holds two entries with the same name and value
+    anchor: rfc7541#section-2.3.2
+    sentence: Therefore, duplicate entries MUST NOT be treated as an error by a decoder.
+m07-l02-q04:
+  key:
+    anchor: rfc9000#section-2
+    sentence: For instance, a single STREAM frame (Section 19.8) can open, carry data for, and close a stream.
+  wrong:
+  - option: Only the client can create streams, and the server can only answer on them
+    anchor: rfc9000#section-2
+    sentence: Streams can be created by either endpoint, can concurrently send data interleaved with other streams, and can be canceled.
+  - option: A stream must be opened with a separate round trip before any data is sent
+    anchor: rfc9000#section-2
+    sentence: Streams can be created by sending data.
+  - option: Streams are always bidirectional, so a single endpoint cannot be the only sender
+    anchor: rfc9000#section-2
+    sentence: Streams can be unidirectional or bidirectional.
+m07-l02-q05:
+  key:
+    anchor: rfc9000#section-5.1
+    sentence: The primary function of a connection ID is to ensure that changes in addressing at lower protocol layers (UDP, IP) do not cause packets for a QUIC connection to be delivered to the wrong endpoint.
+  wrong:
+  - option: To limit how many streams the peer may initiate on the connection
+    anchor: rfc9000#section-4
+    sentence: Similarly, to limit concurrency within a connection, a QUIC endpoint controls the maximum cumulative number of streams that its peer can initiate, as described in Section 4.6.
+  - option: To order the bytes of different streams on the same connection
+    anchor: rfc9000#section-2
+    sentence: QUIC does not provide any means of ensuring ordering between bytes on different streams.
+  - option: To let an observer correlate all packets of the same connection
+    anchor: rfc9000#section-5.1
+    sentence: Multiple connection IDs are used so that endpoints can send packets that cannot be identified by an observer as being for the same connection without cooperation from an endpoint; see Section 9.5.
+m07-l02-q06:
+  key:
+    anchor: rfc9000#section-1
+    sentence: Only clients are able to migrate in this version of QUIC.
+  wrong:
+  - option: Only servers, because they hold the connection IDs
+    anchor: rfc9000#section-9
+    sentence: Clients are responsible for initiating all migrations.
+  - option: Either endpoint, at any time, including during the handshake
+    anchor: rfc9000#section-9
+    sentence: An endpoint MUST NOT initiate connection migration before the handshake is confirmed, as defined in Section 4.1.2 of [QUIC-TLS].
+  - option: No endpoint, because a connection is bound to its first address
+    anchor: rfc9000#section-9
+    sentence: The use of a connection ID allows connections to survive changes to endpoint addresses (IP address and port), such as those caused by an endpoint migrating to a new network.
+m07-l02-q07:
+  key:
+    anchor: rfc6455#section-1.3
+    sentence: 'The first line is an HTTP Status-Line, with the status code 101:'
+  wrong:
+  - option: '`200`'
+    anchor: rfc6455#section-1.3
+    sentence: Any status code other than 101 indicates that the WebSocket handshake has not completed and that the semantics of HTTP still apply.
+    exclusive: true
+  - option: '`426`'
+    anchor: rfc6455#section-1.3
+    sentence: Any status code other than 101 indicates that the WebSocket handshake has not completed and that the semantics of HTTP still apply.
+    exclusive: true
+  - option: No status code, since the server switches to WebSocket frames without an HTTP response
+    anchor: rfc6455#section-1.3
+    sentence: The |Connection| and |Upgrade| header fields complete the HTTP Upgrade.
+m07-l02-q08:
+  key:
+    anchor: rfc6455#section-1.3
+    sentence: If present, this header field must include a hash of the client's nonce sent in |Sec-WebSocket-Key| along with a predefined GUID.
+  wrong:
+  - option: It hashes the value of the `Origin` header field with SHA-1
+    anchor: rfc6455#section-1.3
+    sentence: The |Origin| header field [RFC6454] is used to protect against unauthorized cross-origin use of a WebSocket server by scripts using the WebSocket API in a web browser.
+  - option: It hashes the key and the GUID with SHA-256 instead of SHA-1
+    anchor: rfc6455#section-1.3
+    sentence: A SHA-1 hash (160 bits) [FIPS.180-3], base64-encoded (see Section 4 of [RFC4648]), of this concatenation is then returned in the server's handshake.
+  - option: It returns a random value chosen by the server in clear text
+    anchor: rfc6455#section-1.3
+    sentence: Any other value must not be interpreted as an acceptance of the connection by the server.
+m07-l02-q09:
+  key:
+    execution: m07-l02/WebSocketAccept.java
+  wrong:
+  - option: 'd8e65fd9279e77dcb3229923fb3bc2f4a4bd323c
+
+      false'
+    execution: m07-l02/WebSocketAccept.java
+    mistake: GUID placed before the key
+  - option: '8472ed7f657593c6834197cd8f0dc86b5842c2dd
+
+      false'
+    execution: m07-l02/WebSocketAccept.java
+    mistake: hash of the key without the GUID
+  - option: 'b37a4f2cc0624f1690f64606cf385945b2bec4ea
+
+      false'
+    execution: m07-l02/WebSocketAccept.java
+    mistake: base64 comparison ignored
+m07-l02-q10:
+  key:
+    anchor: rfc6455#section-1.4
+    sentence: Upon receiving such a frame, the other peer sends a Close frame in response, if it hasn't already sent one.
+  wrong:
+  - option: It closes the TCP connection at once without replying
+    anchor: rfc6455#section-1.4
+    sentence: Upon receiving _that_ control frame, the first peer then closes the connection, safe in the knowledge that no further data is forthcoming.
+  - option: It keeps sending its pending data until the first peer closes
+    anchor: rfc6455#section-1.4
+    sentence: After sending a control frame indicating the connection should be closed, a peer does not send any further data; after receiving a control frame indicating the connection should be closed, a peer discards any further data received.
+  - option: It waits for the TCP FIN/ACK exchange to finish before answering
+    anchor: rfc6455#section-1.4
+    sentence: The closing handshake is intended to complement the TCP closing handshake (FIN/ACK), on the basis that the TCP closing handshake is not always reliable end-to-end, especially in the presence of intercepting proxies and other intermediaries.
+m07-l02-q11:
+  key:
+    anchor: whatwg-html-sse#server-sent-events-intro
+    sentence: Clients will reconnect if the connection is closed; a client can be told to stop reconnecting using the HTTP 204 No Content response code.
+  wrong:
+  - option: By answering with a `301` redirect to the same URL
+    anchor: whatwg-html-sse#server-sent-events-intro
+    sentence: Event stream requests can be redirected using HTTP 301 and 307 redirects as with normal HTTP requests.
+  - option: By closing the connection after the last event
+    anchor: whatwg-html-sse#server-sent-events-intro
+    sentence: Clients will reconnect if the connection is closed; a client can be told to stop reconnecting using the HTTP 204 No Content response code.
+  - option: By sending a `Last-Event-ID` header with the final event ID
+    anchor: whatwg-html-sse#the-last-event-id-header
+    sentence: HTTP request header reports an EventSource object's last event ID string to the server when the user agent is to reestablish the connection.
+m07-l02-q12:
+  key:
+    anchor: whatwg-html-sse#parsing-an-event-stream
+    sentence: Event streams in this format must always be encoded as UTF-8.
+  wrong:
+  - option: The one named in the charset parameter of the `Content-Type` header
+    anchor: whatwg-html-sse#server-sent-events-intro
+    sentence: Event streams are always decoded as UTF-8. There is no way to specify another character encoding.
+  - option: ISO-8859-1 unless the stream starts with a byte order mark
+    anchor: whatwg-html-sse#parsing-an-event-stream
+    sentence: Event streams in this format must always be encoded as UTF-8.
+    exclusive: true
+  - option: US-ASCII with other characters escaped
+    anchor: whatwg-html-sse#parsing-an-event-stream
+    sentence: Event streams in this format must always be encoded as UTF-8.
+    exclusive: true
+m07-l02-q13:
+  key:
+    anchor: rfc9113#section-5.2
+    sentence: HTTP/2 provides for flow control through use of the WINDOW_UPDATE frame (Section 6.9).
+  wrong:
+  - option: '`CONTINUATION`'
+    anchor: rfc9113#section-4.3
+    sentence: each of which could be followed by CONTINUATION (Section 6.10) frames to carry subsequent field block fragments.
+  - option: '`SETTINGS`'
+    anchor: rfc9113#section-5.1.2
+    sentence: A peer can limit the number of concurrently active streams using the SETTINGS_MAX_CONCURRENT_STREAMS parameter (see Section 6.5.2) within a SETTINGS frame.
+  - option: '`HEADERS`'
+    anchor: rfc9113#section-4.3
+    sentence: The first field block fragment is transmitted within the frame payload of HEADERS (Section 6.2) or PUSH_PROMISE (Section 6.6)
+m07-l02-q14:
+  key:
+    anchor: rfc9113#section-4.3
+    sentence: Field blocks MUST be transmitted as a contiguous sequence of frames, with no interleaved frames of any other type or from any other stream.
+  wrong:
+  - option: Interleaved with `DATA` frames of other streams so the connection stays busy
+    anchor: rfc9113#section-4.3
+    sentence: Field blocks MUST be transmitted as a contiguous sequence of frames, with no interleaved frames of any other type or from any other stream.
+    exclusive: true
+  - option: Interleaved with `HEADERS` frames of other streams, which all share one compression context
+    anchor: rfc9113#section-4.3
+    sentence: Field blocks MUST be transmitted as a contiguous sequence of frames, with no interleaved frames of any other type or from any other stream.
+    exclusive: true
+  - option: In one `HEADERS` frame only, because continuation frames are not allowed
+    anchor: rfc9113#section-4.3
+    sentence: a HEADERS or PUSH_PROMISE frame with the END_HEADERS flag unset and one or more CONTINUATION frames, where the last CONTINUATION frame has the END_HEADERS flag set.

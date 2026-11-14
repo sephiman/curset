@@ -1,0 +1,152 @@
+[
+ {
+  "id": "m02-l05-q01",
+  "fact": "m02-l05-f10",
+  "stem": "A recursive method adds the current choice list as a subset on entry, then extends it with each later element of 1, 2, 3 and undoes the choice. Another method builds all permutations in the same way. What is printed?",
+  "key": "subsets [[], [1], [1, 2], [1, 2, 3], [1, 3], [2], [2, 3], [3]]\npermutations 6 first [1, 2, 3] last [3, 2, 1]",
+  "distractors": [
+   "subsets [[], [1], [2], [3], [1, 2], [1, 3], [2, 3], [1, 2, 3]]\npermutations 6 first [1, 2, 3] last [3, 2, 1]",
+   "subsets [[1], [1, 2], [1, 2, 3], [1, 3], [2], [2, 3], [3]]\npermutations 6 first [1, 2, 3] last [3, 2, 1]",
+   "subsets [[], [1], [1, 2], [1, 2, 3], [1, 3], [2], [2, 3], [3]]\npermutations 8 first [1, 2, 3] last [3, 2, 1]"
+  ],
+  "explanation": "Each call records the list on entry and then extends it, so the output is `subsets [[], [1], [1, 2], [1, 2, 3], [1, 3], [2], [2, 3], [3]]` with 6 permutations. The order `[[], [1], [2], [3], [1, 2]` lists subsets by size, but the recursion goes deep before it moves to the next element. The list without `[]` leaves out the empty subset, but the method records the list before it adds anything. The count `permutations 8` is the number of subsets of three elements, but three elements have 3 x 2 x 1 = 6 orderings.",
+  "citation": "erickson-backtracking#p9; erickson-backtracking#p3",
+  "extract": "Backtracking algorithms are commonly used to make a sequence of decisions, with the goal of building a recursively defined structure satisfying certain constraints.",
+  "snippet": "m02-l05/SubsetsAndPermutations.java"
+ },
+ {
+  "id": "m02-l05-q02",
+  "fact": "m02-l05-f14",
+  "stem": "A recursive search over the items 1 to 5 includes or skips each item and records every subset that sums to 5. It runs with and without a test that stops when the remaining target is negative. What is printed?",
+  "key": "subsets that sum to 5 [[1, 4], [2, 3], [5]]\ncalls with pruning 41\ncalls without pruning 55",
+  "distractors": [
+   "subsets that sum to 5 [[1, 4], [2, 3], [5]]\ncalls with pruning 55\ncalls without pruning 41",
+   "subsets that sum to 5 [[1, 4], [2, 3]]\ncalls with pruning 41\ncalls without pruning 55",
+   "subsets that sum to 5 [[1, 4], [2, 3], [5]]\ncalls with pruning 41\ncalls without pruning 41"
+  ],
+  "explanation": "The three subsets are `[1, 4]`, `[2, 3]` and `[5]`, and the test that stops negative targets cuts the calls from 55 to 41. The pair `calls with pruning 55` and `calls without pruning 41` swaps the two runs, but cutting branches cannot add calls. The list without `[5]` drops a solution, but the single item 5 already reaches the target. The line `calls without pruning 41` assumes the test changes nothing, but the unpruned search also explores the branches with a negative target.",
+  "citation": "erickson-backtracking#p7; erickson-backtracking#p3",
+  "extract": "Otherwise, if T is negative or the set X is empty, then no subset of X sums to T",
+  "snippet": "m02-l05/SubsetSumPruning.java"
+ },
+ {
+  "id": "m02-l05-q03",
+  "fact": "m02-l05-f22",
+  "stem": "A naive recursive method and a method that stores each result in a map both compute the Fibonacci number for n = 20, and each counts its calls. The base cases are 0 and 1. What is printed?",
+  "key": "fib(20) 6765\nnaive calls 21891\nmemoised calls 39",
+  "distractors": [
+   "fib(20) 6765\nnaive calls 10946\nmemoised calls 39",
+   "fib(20) 6765\nnaive calls 21891\nmemoised calls 21",
+   "fib(20) 6765\nnaive calls 6765\nmemoised calls 39"
+  ],
+  "explanation": "The naive method makes 21891 calls and the memoised one makes 39, so it prints `naive calls 21891` and `memoised calls 39`. The count `naive calls 10946` counts only the leaves of the recursion tree, but the internal calls count as well. The count `memoised calls 21` is the number of distinct arguments, but every cached lookup is a call too. The count `naive calls 6765` assumes one call per unit of the result, but the tree has about twice as many nodes as its leaves.",
+  "citation": "erickson-dynamic-programming#p3",
+  "extract": "We can speed up our recursive algorithm considerably by writing down the results of our recursive calls and looking them up again if we need them later.",
+  "snippet": "m02-l05/FibonacciMemoisation.java"
+ },
+ {
+  "id": "m02-l05-q04",
+  "fact": "m02-l05-f33",
+  "stem": "Dynamic programming tables solve four problems on the data below: 0/1 knapsack, longest increasing subsequence, edit distance from FOOD to MONEY, and right-or-down paths in a 3 by 3 grid. What is printed?\n```text\nweights 1 3 4 5, values 1 4 5 7, capacity 7\nsequence 3 1 4 1 5 9 2 6\n```",
+  "key": "knapsack 9\nlongest increasing subsequence 4\nedit distance 4\ngrid paths 6",
+  "distractors": [
+   "knapsack 8\nlongest increasing subsequence 4\nedit distance 4\ngrid paths 6",
+   "knapsack 9\nlongest increasing subsequence 5\nedit distance 4\ngrid paths 6",
+   "knapsack 9\nlongest increasing subsequence 4\nedit distance 5\ngrid paths 6"
+  ],
+  "explanation": "The tables give `knapsack 9`, a subsequence of length 4, an edit distance of 4 and 6 grid paths. The value `knapsack 8` is what picking by value per weight gives, but the items of weight 3 and 4 together are worth 9. The length `longest increasing subsequence 5` counts the sentinel element, but the sentinel is not part of the sequence. The distance `edit distance 5` is the length of `MONEY`, but the source shows that `FOOD` becomes `MONEY` in four edits.",
+  "citation": "erickson-dynamic-programming#p15; erickson-dynamic-programming#p13",
+  "extract": "The edit distance between two strings is the minimum number of letter inser- tions, letter deletions, and letter substitutions required to transform one string into the other.",
+  "snippet": "m02-l05/TabulatedPatterns.java"
+ },
+ {
+  "id": "m02-l05-q05",
+  "fact": "m02-l05-f43",
+  "stem": "Classes are scheduled greedily, first by earliest start and then by earliest finish, and knapsack items are taken by value per weight. The data is below. What is printed?\n```text\nclasses 1-10, 2-3, 4-5, 6-7\nweights 1 3 4 5, values 1 4 5 7, capacity 7\n```",
+  "key": "earliest start 1\nearliest finish 3\ngreedy knapsack 8",
+  "distractors": [
+   "earliest start 3\nearliest finish 1\ngreedy knapsack 8",
+   "earliest start 1\nearliest finish 3\ngreedy knapsack 9",
+   "earliest start 1\nearliest finish 4\ngreedy knapsack 8"
+  ],
+  "explanation": "Earliest start takes the long class 1-10 first and nothing else fits, and earliest finish takes three short classes, so it prints `earliest start 1`, `earliest finish 3` and `greedy knapsack 8`. The pair `earliest start 3` and `earliest finish 1` swaps the rules, but taking the class 1-10 first blocks every other class. The line `greedy knapsack 9` assumes the greedy choice is optimal, but taking the item of weight 5 first leaves room only for the item of weight 1. The line `earliest finish 4` counts every class, but the class 1-10 overlaps the other three.",
+  "citation": "erickson-greedy#p7",
+  "extract": "Argue that we can exchange the optimal choice for the greedy choice without making the solution worse (although the exchange might not make it better).",
+  "snippet": "m02-l05/GreedyChoices.java"
+ },
+ {
+  "id": "m02-l05-q06",
+  "fact": "m02-l05-f49",
+  "stem": "A program applies `Integer.bitCount` to 11, `Integer.highestOneBit` to 100 and `Integer.numberOfTrailingZeros` to 40. It also tests 64 and 48 for a power of two with `n & (n - 1)`. What is printed?",
+  "key": "ones in 11: 3\nhighest one-bit of 100: 64\ntrailing zeros of 40: 3\n64 is a power of two: true\n48 is a power of two: false",
+  "distractors": [
+   "ones in 11: 4\nhighest one-bit of 100: 64\ntrailing zeros of 40: 3\n64 is a power of two: true\n48 is a power of two: false",
+   "ones in 11: 3\nhighest one-bit of 100: 6\ntrailing zeros of 40: 3\n64 is a power of two: true\n48 is a power of two: false",
+   "ones in 11: 3\nhighest one-bit of 100: 64\ntrailing zeros of 40: 3\n64 is a power of two: true\n48 is a power of two: true"
+  ],
+  "explanation": "The value 11 is 1011, which has 3 one-bits, 100 has its highest one-bit at the value 64, and 40 is 101000 with 3 trailing zeros. The line `ones in 11: 4` counts the four bits of 1011, but `bitCount` counts only the one-bits. The line `highest one-bit of 100: 6` gives a position, but the method returns an int value with a single one-bit. The line `48 is a power of two: true` treats a non-zero result as true, but `48 & 47` is 32, so the test is false.",
+  "citation": "javadoc-integer#bitCount(int); javadoc-integer#highestOneBit(int); javadoc-integer#numberOfTrailingZeros(int)",
+  "extract": null,
+  "snippet": "m02-l05/BitOperations.java"
+ },
+ {
+  "id": "m02-l05-q07",
+  "fact": "m02-l05-f58",
+  "stem": "A program prints `Math.floorMod(-4, 3)`, then the remainder `-4 % 3`, then the length and the number of set bits of a `BitSet` in which bits 1, 3 and 5 are set. What is printed?",
+  "key": "floor modulus of -4 and 3: 2\nremainder of -4 and 3: -1\nbit set length 6, set bits 3",
+  "distractors": [
+   "floor modulus of -4 and 3: -1\nremainder of -4 and 3: -1\nbit set length 6, set bits 3",
+   "floor modulus of -4 and 3: 2\nremainder of -4 and 3: 2\nbit set length 6, set bits 3",
+   "floor modulus of -4 and 3: 2\nremainder of -4 and 3: -1\nbit set length 3, set bits 3"
+  ],
+  "explanation": "The floor modulus takes the sign of the divisor 3 and gives 2, the `%` operator keeps the sign of the dividend and gives -1, and bits 1, 3 and 5 give a length of 6 and a cardinality of 3. The line `floor modulus of -4 and 3: -1` gives the result of `%`, but `floorMod` follows the divisor. The line `remainder of -4 and 3: 2` gives the result of `floorMod`, but `%` is -1 for a negative dividend. The line `bit set length 3` takes the length for the count of set bits, but the length is one more than the highest set bit.",
+  "citation": "javadoc-math#floorMod(int,int)",
+  "extract": null,
+  "snippet": "m02-l05/FloorModAndBitSet.java"
+ },
+ {
+  "id": "m02-l05-q08",
+  "fact": "m02-l05-f48",
+  "stem": "Which method returns the number of zero bits following the lowest-order one-bit of an int value, and returns 32 when the value is zero?",
+  "key": "`Integer.numberOfTrailingZeros(int)`",
+  "distractors": [
+   "`Integer.bitCount(int)`",
+   "`Integer.highestOneBit(int)`",
+   "`Math.floorMod(int, int)`"
+  ],
+  "explanation": "`Integer.numberOfTrailingZeros(int)` counts the zero bits after the lowest-order one-bit and returns 32 for zero. `Integer.bitCount(int)` counts the one-bits, not the zero bits. `Integer.highestOneBit(int)` returns a value with a single one-bit at the highest-order position. `Math.floorMod(int, int)` returns the floor modulus of two int arguments.",
+  "citation": "javadoc-integer#numberOfTrailingZeros(int); javadoc-integer#bitCount(int); javadoc-integer#highestOneBit(int); javadoc-math#floorMod(int,int)",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m02-l05-q09",
+  "fact": "m02-l05-f53",
+  "stem": "In Java, `Math.floorMod(x, y)` is called with arguments of different signs. According to the Javadoc, which sign does a non-zero result have?",
+  "key": "The sign of the divisor `y`",
+  "distractors": [
+   "The sign of the dividend `x`",
+   "Always positive",
+   "The sign of the product `x * y`"
+  ],
+  "explanation": "The result has the same sign as the divisor `y`, or is zero. The sign of the dividend is wrong, because `floorMod(+4, -3)` is -2 although 4 is positive. A result that is always positive is wrong, because `floorMod(-4, -3)` is -1. The sign of the product is wrong, because `floorMod(-4, +3)` is +2 although the product of the arguments is negative.",
+  "citation": "javadoc-math#floorMod(int,int)",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m02-l05-q10",
+  "fact": "m02-l05-f18",
+  "stem": "Erickson analyses the naive recursive algorithm for the Fibonacci numbers and finds it slow. What does he give as the obvious reason for its lack of speed?",
+  "key": "It computes the same Fibonacci numbers over and over and over",
+  "distractors": [
+   "Each call does an amount of work besides its recursive calls that grows with n",
+   "The number of recursive calls grows only linearly with n, and the cost lies in the additions",
+   "It stores the result of every recursive call in a table that grows with n"
+  ],
+  "explanation": "The naive algorithm recomputes the same Fibonacci numbers over and over. Work besides the recursive calls is not the cause, because it takes only a constant number of steps, one comparison and possibly one addition. A linear number of calls is wrong, because the running time is exponential in n. Storing results in a table is the remedy, not the cause, because writing down the results of recursive calls speeds the algorithm up considerably.",
+  "citation": "erickson-dynamic-programming#p3",
+  "extract": "The obvious reason for the recursive algorithm’s lack of speed is that it com- putes the same Fibonacci numbers over and over and over.",
+  "snippet": null
+ }
+]

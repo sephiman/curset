@@ -2,14 +2,16 @@
 
 You did not write this lesson. Load once per run: `docs/backend-verification/s1/contracts.md`,
 `docs/backend-question-style.md` (sections 1, 2, 3, 6 and 7 are your checklist), `docs/prose-voice.md` (its
-"never does" list). Do not read writer notes (`decisions.tsv`, `*.rewrites.tsv`, return lines) before your verdicts.
+"never does" list). Helper scripts go only in your own folder `<scratchpad>/<your lesson ids>/`; the scratchpad is shared.
+Do not read writer notes (`decisions.tsv`, `*.rewrites.tsv`, return lines) before your verdicts.
 
 ## Per lesson
 
-Load the lesson `content/backend-in-depth/en/lessons/<lesson>.md`, its candidates
-`docs/backend-verification/s2/<module>/<lesson>.questions.json`, its glossary candidates
+Load the lesson `content/backend-in-depth/en/lessons/<lesson>.md`, its fact list `<lesson>.facts.tsv`, its
+candidates `docs/backend-verification/s2/<module>/<lesson>.questions.json` with their refutation map
+`<lesson>.refutations.yaml`, its glossary candidates
 `<lesson>.glossary.yaml`, its snippets and `.run.json` records, and **only the anchors they cite**, from
-`backend/`: `uv run python scripts/tech_sources.py show SOURCE#ANCHOR`. Never open whole source files.
+`backend/`: `uv run python scripts/tech_sources.py show --course backend-in-depth SOURCE#ANCHOR`. Never open whole source files.
 
 Write `docs/backend-verification/s2/<module>/<lesson>.verdicts.tsv`, one line per item, tab-separated:
 
@@ -39,9 +41,13 @@ Pass/fail rules:
 - Snippet blocks and code-reading claims: pass only if they match the `.run.json` stdout/exit code.
 - Glossary: passes when the term is used in the lesson, exists outside the course, and the definition follows
   the cited anchor.
-- Question: passes only when the key follows from the cited anchor or execution record, every distractor is
-  contradicted by a cited fact (not by silence), the version is named where it matters, and every rule of the
-  style guide holds. Do not repair anything.
+- Question: passes only when the key is the only defensible answer and follows from the map's key sentence (or
+  execution record), each refutation sentence of the map really rules out its wrong option (not by silence, not
+  merely "less complete"), entries marked `exclusive: true` name values that are mutually exclusive with the
+  key's, the version is named only where it matters and by major (amendment 9), and every rule of the style
+  guide holds. A script already checked that each sentence is a literal substring of its anchor. Do not repair
+  anything.
+- J content: check only the attribution (the named author wrote what is attributed), not the truth.
 
 End the file with `# checked N, passed P, failed F`. Return at most five lines: lesson id and the counts
 (sentences, rows, glossary, questions: passed/failed).
@@ -58,3 +64,7 @@ verdict file lines `<id>	recheck	pass` or `<id>	recheck	fail	<reason>`.
   (`docs/backend-verification/s0/version-audit.tsv`, `kept-states-…`). Check the pin there before failing a version.
 - Code-reading options may show the recorded output in a fenced or inline code block; the text inside must
   equal the `.run.json` stdout (or the recorded error).
+- Exclusive groups (S2+S3 run, ruling C001): wrong options whose map entries are all `exclusive: true` and share one
+  sentence may be ruled out together by one explanation sentence that names each of them. That is not a
+  "shared sentence" failure. Check instead that their values exclude each other and the key (one default, one
+  version, one count). Options that are not marked exclusive still need one explanation sentence each.

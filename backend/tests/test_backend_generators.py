@@ -46,7 +46,7 @@ def test_the_age_c2_registry_is_untouched_by_the_backend_generators() -> None:
 def test_the_course_declares_every_generator() -> None:
     registry = load_registry(COURSE, check_excerpts=False)
     assert sorted(use.generator for use in registry.generator_uses()) == IDS
-    assert not registry.published
+    assert registry.published  # published at the end of S3 (requirements 8.1)
 
 
 @pytest.mark.parametrize("generator_id", IDS)

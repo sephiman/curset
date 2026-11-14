@@ -22,7 +22,7 @@ import { glossarySection, type GlossaryLabels } from "@/lib/pdf/glossary";
 import { appendNormativa, lessonToContent, type ListEsquemaKind, type MarkdownRenderers } from "@/lib/pdf/markdown";
 import { DEST, keepTogether, printedId, withId, type OversizedBlock } from "@/lib/pdf/pagination";
 import { createSectionTracker, SECTION_ID, type SectionTracker } from "@/lib/pdf/sections";
-import { DEFAULT_STYLE, PAGE, PRINT_FONT, PRINT_STYLES, panelWidth } from "@/lib/pdf/page";
+import { CODE_FONT, DEFAULT_STYLE, PAGE, PRINT_FONT, PRINT_STYLES, SYMBOL_FONT, panelWidth } from "@/lib/pdf/page";
 import { PLATFORM_NAME } from "@/lib/platform";
 import type { CoverArt } from "@/lib/pdf/coverArt";
 import { questionnaireKeySection, temaQuestionnaire, type QuestionnaireLabels } from "@/lib/pdf/questionnaire";
@@ -553,12 +553,24 @@ export function buildCourseDocument(o: BuildCourseDocumentOptions): TDocumentDef
   };
 }
 
-/** One family, four variants, resolved from pdfmake's vfs by file name. */
+/** Three families, four slots each, resolved from pdfmake's vfs by file name. Code never prints italic. */
 export const PRINT_FONTS = {
   [PRINT_FONT]: {
     normal: "LiberationSans-Regular.ttf",
     bold: "LiberationSans-Bold.ttf",
     italics: "LiberationSans-Italic.ttf",
     bolditalics: "LiberationSans-BoldItalic.ttf",
+  },
+  [CODE_FONT]: {
+    normal: "LiberationMono-Regular.ttf",
+    bold: "LiberationMono-Bold.ttf",
+    italics: "LiberationMono-Regular.ttf",
+    bolditalics: "LiberationMono-Bold.ttf",
+  },
+  [SYMBOL_FONT]: {
+    normal: "DejaVuSans.ttf",
+    bold: "DejaVuSans.ttf",
+    italics: "DejaVuSans.ttf",
+    bolditalics: "DejaVuSans.ttf",
   },
 } as const;

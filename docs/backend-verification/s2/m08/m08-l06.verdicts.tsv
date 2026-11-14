@@ -1,0 +1,144 @@
+S1.1	"An event-sourced entity stores no state"	pass
+S1.2	"Every state change is recorded as"	pass
+S1.3	"This makes the event log the"	pass
+S1.4	"Every command that targets an entity"	pass
+S1.5	"Axon filters the event stream of"	pass
+S1.6	"An entity creator method can be"	pass
+S1.7	"Snapshots can significantly reduce the number"	pass
+S1.8	"With a snapshot, the system restores"	pass
+S1.9	"Snapshotting is activated by configuring a"	pass
+S1.10	"If a snapshot is available and"	pass
+S1.11	"Any events that occurred after the"	pass
+S1.12	"The dynamic consistency boundary replaces the"	pass
+S1.13	"The consistency marker is returned as"	pass
+S1.14	"When appending events with tags, Axon"	pass
+S1.15	"This prevents write conflicts, because concurrent"	pass
+S1.16	"An `AppendCondition` combines an `EventCriteria` with"	pass
+S1.17	"If events matching the criteria were"	pass
+R1.1	"`AppendCondition`"	pass
+R1.2	"`SourcingCondition`"	pass
+R1.3	"`StreamingCondition`"	pass
+S2.1	"Queries are messages that express the"	pass
+S2.2	"Axon routes queries by the query's"	pass
+S2.3	"When following CQRS, publishing an event"	pass
+S2.4	"Handling an event to update an"	pass
+S2.5	"A Subscribing Processor that reads from"	pass
+S2.6	"With the `EventBus` as source, a"	pass
+S2.7	"The `EventBus` delivers events to subscribers"	pass
+S2.8	"The Streaming Processor receives events from"	pass
+S2.9	"The Pooled Streaming Event Processor is"	pass
+S2.10	"The `SubscribingEventProcessor` is not the default"	pass
+S2.11	"All event handling components assigned to"	pass
+S2.12	"To advance and replay multiple projections"	pass
+S2.13	"According to Martin Fowler, CQRS stands"	pass
+S2.14	"At its heart is the notion"	pass
+S2.15	"The models may share one database"	pass
+S2.16	"He adds that having separate models"	pass
+S3.1	"Because events are stored indefinitely, the"	pass
+S3.2	"Axon calls its approach payload conversion"	pass
+S3.3	"Stored events retain their serialized form"	pass
+S3.4	"When a handler needs to process"	pass
+S3.5	"Different handlers can process the same"	pass
+S3.6	"With payload conversion, event handling can"	pass
+S3.7	"A converter changes an event's representation,"	pass
+S3.8	"Adding fields with defaults, dropping fields"	pass
+S3.9	"A change needs a transformation when"	pass
+S3.10	"Axon Framework 5 keys events off"	pass
+S3.11	"An Axon Framework 4 upcaster could"	pass
+S3.12	"According to Martin Fowler, an event"	pass
+S3.13	"If the input events are not"	pass
+S3.14	"He adds that reversal is never"	pass
+S4.1	"A streaming processor keeps its progress"	pass
+S4.2	"The streaming processor uses the `TokenStore`"	pass
+S4.3	"To process any events, a streaming"	pass
+S4.4	"If a token claim is not"	pass
+S4.5	"A processor updates its claim every"	pass
+S4.6	"`tokenClaimInterval` defaults to 5000 milliseconds (`axon-event-processors-streaming#token_claim_config`)."	pass
+S4.7	"A processor starting for the first"	pass
+S4.8	"The events of that initial pass"	pass
+S4.9	"When no token store is explicitly"	pass
+S4.10	"The `InMemoryTokenStore` is not recommended in"	pass
+S4.11	"Axon recommends a token store in"	pass
+S4.12	"That way, changes to the view"	pass
+S4.13	"Each token instance represents a segment"	pass
+S4.14	"The default number of segments for"	pass
+S4.15	"A streaming processor can only initialize"	pass
+S4.16	"Axon guarantees that events in the"	pass
+S4.17	"`FullConcurrencyPolicy` tells Axon that the processor"	pass
+S4.18	"`SequentialPolicy` tells Axon that it can"	pass
+S4.19	"`SequentialPerAggregatePolicy` forces events raised from the"	pass
+S4.20	"The default `PropagatingErrorHandler` rethrows, so the"	pass
+S4.21	"Handler work and the token update"	pass
+S4.22	"Events within a segment are processed"	pass
+S4.23	"Handling events again by adjusting the"	pass
+S4.24	"Replaying events is not yet available"	pass
+S4.25	"A replay is done by adjusting"	pass
+S4.26	"A `@ResetHandler` is a hook to"	pass
+S4.27	"After a partial replay, event handlers"	pass
+S4.28	"The `DeadLetter` parameter of an event"	pass
+S5.1	"The `SimpleCommandBus` is the standard command"	pass
+S5.2	"The `SimpleCommandBus` runs in a single"	pass
+S5.3	"Spring Boot configures a `SimpleCommandBus` through"	pass
+S5.4	"Axon provides distributed command bus implementations"	pass
+S5.5	"The `DistributedCommandBus` takes a local `CommandBus`"	pass
+S5.6	"The `CommandBusConnector` dispatches and receives commands"	pass
+S5.7	"Command handlers come in three styles,"	pass
+S5.8	"In an event-sourced entity the command"	pass
+S5.9	"Stateful command handlers live in a"	pass
+S5.10	"A saga coordinates a process through"	pass
+S5.11	"Association values route events to the"	pass
+S5.12	"A workflow expresses the process as"	pass
+S5.13	"Workflows source their state from dedicated"	pass
+S5.14	"Workflows are an Axoniq Framework feature"	pass
+S5.15	"A retry in a workflow can"	pass
+R2.1	"Timeouts"	pass
+R2.2	"Retries"	pass
+R2.3	"Compensation"	pass
+S6.1	"With event sourcing, all data is"	pass
+S6.2	"Encrypting parts of the data and"	pass
+S6.3	"Changing the immutable events is another"	pass
+S6.4	"Axon Data Protection encrypts and decrypts"	pass
+S6.5	"The GDPR became enforceable in 2018"	pass
+S6.6	"When encrypting, it retrieves the existing"	pass
+S6.7	"The `FieldEncryptingConverter` wraps any other Axon"	pass
+S7.1	"According to Martin Fowler, many systems"	pass
+S7.2	"He calls CQRS a significant mental"	pass
+S7.3	"He says CQRS should only be"	pass
+S7.4	"He sees benefits in a few"	pass
+S7.5	"According to Martin Fowler, packaging up"	pass
+S7.6	"He names the audit log and"	pass
+S7.7	"He says event sourcing is the"	pass
+S7.8	"He warns that reader systems fed"	pass
+S7.9	"According to Martin Fowler, rules that"	pass
+S7.10	"He says that bi-temporal behavior can"	pass
+S8.1	"An event-sourced entity stores no state"	pass
+S8.2	"A snapshot lets Axon initialize an"	pass
+S8.3	"The consistency marker is returned when"	pass
+S8.4	"Axon routes queries by `MessageType`, and"	pass
+S8.5	"Axon converts a stored payload to"	fail	adds "most changes need no upcaster", which the lesson does not state
+S8.6	"A streaming processor keeps its position"	pass
+S8.7	"Each token represents a segment of"	pass
+S8.8	"A replay adjusts the token position"	pass
+S8.9	"The `SimpleCommandBus` runs in a single"	pass
+S8.10	"A workflow sources its state from"	pass
+S8.11	"Axon Data Protection encrypts personal fields"	pass
+g-tracking-token	pass
+g-consistency-marker	pass
+g-dynamic-consistency-boundary	pass
+g-saga	pass
+g-replay	pass
+m08-l06-q01	pass
+m08-l06-q02	pass
+m08-l06-q03	pass
+m08-l06-q04	pass
+m08-l06-q05	pass
+m08-l06-q06	pass
+m08-l06-q07	pass
+m08-l06-q08	pass
+m08-l06-q09	pass
+m08-l06-q10	pass
+m08-l06-q11	pass
+m08-l06-q12	fail	two non-single-valued distractors share one sentence; exclusive invalid here
+m08-l06-q13	fail	refutation sentence for "Never" does not itself contradict the option
+# checked 142, passed 139, failed 3
+S8.5	recheck	pass

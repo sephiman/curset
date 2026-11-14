@@ -13,6 +13,8 @@ import { CoursePage } from "@/features/course/CoursePage";
 import { ModulePage } from "@/features/course/ModulePage";
 import { LessonPage } from "@/features/course/LessonPage";
 import { PracticePage } from "@/features/practice/PracticePage";
+import { ModulePracticePage } from "@/features/practice/ModulePracticePage";
+import { CoursePracticePage } from "@/features/practice/CoursePracticePage";
 import { PsicotecnicoPracticePage } from "@/features/practice/PsicotecnicoPracticePage";
 import { CourseRoutes } from "@/features/courses/CourseRoute";
 import { SelectedCourseRedirect } from "@/features/courses/SelectedCourseRedirect";
@@ -33,7 +35,10 @@ const COURSE_PAGES = [
   { path: "modules/:moduleId", element: <ModulePage /> },
   { path: "lessons/:lessonId", element: <LessonPage /> },
   { path: "lessons/:lessonId/practice", element: <PracticePage /> },
+  { path: "modules/:moduleId/practice", element: <ModulePracticePage /> },
   { path: "practice/psicotecnicos", element: <PsicotecnicoPracticePage /> },
+  { path: "practice/review", element: <CoursePracticePage preset="review" /> },
+  { path: "practice/code-reading", element: <CoursePracticePage preset="code-reading" /> },
   { path: "glossary", element: <GlossaryPage /> },
   { path: "stats", element: <StatsPage /> },
   { path: "exams", element: <ExamPage /> },

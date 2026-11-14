@@ -1,0 +1,174 @@
+S1.1	"The most basic building block of"	pass
+S1.2	"A suspending function allows a running"	pass
+S1.3	"To declare a suspending function, use"	pass
+S1.4	"You can only call a suspending"	pass
+S1.5	"To call suspending functions at the"	pass
+S1.6	"While the `suspend` keyword is part"	pass
+S1.7	"A suspending function is different from"	pass
+S1.8	"Non-suspending functions may not call suspending"	pass
+S1.9	"Suspending functions may call non-suspending functions"	pass
+S1.10	"This restriction is also known as"	pass
+S1.11	"Suspending functions may pause only at"	pass
+S1.12	"Constructors cannot be marked as suspending"	pass
+S1.13	"Property getters and setters cannot be"	pass
+S1.14	"Each suspendable function goes through a"	pass
+S1.15	"The CPS transformation generates a new"	pass
+S1.16	"The calling convention of such a"	pass
+S1.17	"If the function returns a result,"	pass
+S1.18	"If the function suspends, it returns"	pass
+S1.19	"Kotlin implements suspendable functions as state"	pass
+S1.20	"This dictates the explicit `suspend` marking"	pass
+S1.21	"Each suspendable lambda is compiled to"	pass
+S1.22	"`kotlin.coroutines.Continuation<T>` is the main supertype of"	pass
+S1.23	"Every suspending function is associated with"	pass
+S1.24	"The return type of the suspending"	pass
+S1.25	"The `resumeWith` function is used to"	pass
+S1.26	"The `resumeWith` function is called with"	pass
+S1.27	"The snippet uses only the standard"	pass
+S1.28	"A suspending function stores its continuation,"	pass
+S1.29	"The snippet prints `before suspension` and"	pass
+S1.30	"After `saved?.resume("Kotlin")`, it prints `after suspension`"	pass
+S1.31	"The generated `greet` method has the"	pass
+S2.1	"Kotlin coroutines rely on a principle"	fail	"this structure" has no antecedent in the lesson
+S2.2	"According to this principle, coroutines form"	pass
+S2.3	"A parent coroutine waits for its"	pass
+S2.4	"If the parent coroutine fails or"	pass
+S2.5	"To maintain structured concurrency, new coroutines"	pass
+S2.6	"The `CoroutineScope` includes the coroutine context,"	pass
+S2.7	"When you start a coroutine inside"	pass
+S2.8	"`CoroutineScope.launch()` starts a new coroutine without"	pass
+S2.9	"The `CoroutineScope.launch()` function returns a `Job`"	pass
+S2.10	"`CoroutineScope.async()` starts a concurrent computation inside"	pass
+S2.11	"Use the `.await()` function to suspend"	pass
+S2.12	"Since `async` is a `CoroutineScope` extension,"	pass
+S2.13	"If something goes wrong inside the"	fail	names concurrentSum, a source example absent from the lesson
+S2.14	"Coroutine builders come in two flavors:"	pass
+S2.15	"For a root coroutine, `launch` treats"	pass
+S2.16	"For a root coroutine, `async` relies"	pass
+S2.17	"`GlobalScope` is a delicate API that"	pass
+S2.18	"A `SupervisorJob` is similar to a"	pass
+S2.19	"Children of a supervisor job can"	pass
+S2.20	"A failure of a child job"	pass
+S2.21	"A failure of a child job"	pass
+S2.22	"If a parent job is specified,"	pass
+S2.23	"All of the supervisor's children are"	pass
+S2.24	"`supervisorScope` propagates the cancellation in one"	pass
+S2.25	"`supervisorScope` also waits for all children"	pass
+S2.26	"In Kotlin, coroutine cancellation is cooperative"	pass
+S2.27	"Coroutines react to cancellation only when"	pass
+S2.28	"Structured concurrency ensures that canceling a"	pass
+S2.29	"Usually, a job is created in"	pass
+S2.30	"Coroutine builders that provide an optional"	pass
+S2.31	"Failure of an active job with"	pass
+S2.32	"A job can be cancelled at"	pass
+S2.33	"The job becomes cancelled when it"	pass
+S2.34	"Completion of an active coroutine's body"	pass
+S2.35	"For an outside observer, a completing"	pass
+S2.36	"In the cancelling state, `isActive` is"	pass
+R1.1	"New (optional initial state)"	pass
+R1.2	"Active (default initial state)"	pass
+R1.3	"Completing (transient state)"	pass
+R1.4	"Cancelling (transient state)"	pass
+R1.5	"Cancelled (final state)"	pass
+R1.6	"Completed (final state)"	pass
+S3.1	"The coroutine context includes a coroutine"	pass
+S3.2	"The coroutine dispatcher can confine coroutine"	pass
+S3.3	"When `launch { ... }` is"	pass
+S3.4	"`Dispatchers.Default` uses a shared background pool"	pass
+S3.5	"If the coroutine context doesn't include"	pass
+S3.6	"`Dispatchers.Default` is an ideal choice for"	pass
+S3.7	"`Dispatchers.IO` is designed for offloading blocking"	pass
+S3.8	"The default `Dispatchers.IO` pool size is"	pass
+S3.9	"`Dispatchers.Main` is confined to the Main"	pass
+S3.10	"`Dispatchers.Unconfined` is not confined to any"	pass
+S3.11	"A dedicated thread created by `newSingleThreadContext`"	pass
+S3.12	"Even though coroutines can suspend and"	pass
+S3.13	"`withContext` calls the specified suspending block"	pass
+S3.14	"If you specify a different `CoroutineDispatcher`"	pass
+S3.15	"It is incorrect to pass a"	pass
+S3.16	"On the JVM, some blocking functions,"	pass
+S3.17	"When you call blocking functions from"	pass
+S3.18	"To interrupt the thread when canceling"	pass
+S4.1	"To create a cold flow, use"	pass
+S4.2	"The `flow()` builder function returns a"	pass
+S4.3	"A cold flow is like a"	fail	metaphor followed by its explanation (voice never-does list)
+S4.4	"`flowOf()` creates a flow from provided"	pass
+S4.5	"`.asFlow()` converts an existing iterable, such"	pass
+S4.6	"Intermediate operators apply operations to an"	pass
+S4.7	"Intermediate operators are cold, so the"	pass
+S4.8	"Hot flows are shared streams that"	pass
+S4.9	"Hot flows keep emitting values even"	pass
+S4.10	"A collector of a hot flow"	pass
+S4.11	"`SharedFlow` broadcasts values to multiple subscribers"	pass
+S4.12	"`StateFlow` is a specialized `SharedFlow` that"	pass
+S4.13	"You can create a `SharedFlow` with"	pass
+S4.14	"To set how many previous emissions"	pass
+S4.15	"Collecting a hot flow doesn't complete"	pass
+S4.16	"A shared flow keeps a specific"	pass
+S4.17	"Every new subscriber first gets the"	pass
+S4.18	"Additional buffer capacity beyond replay can"	pass
+S4.19	"A shared flow with a buffer"	pass
+S4.20	"In the absence of subscribers, only"	pass
+S4.21	"`StateFlow` is a hot flow that"	pass
+S4.22	"New `StateFlow` subscribers receive the current"	pass
+S4.23	"To create a `StateFlow`, use the"	pass
+S4.24	"State flow never completes (`coroutines-api-state-flow#content`)."	pass
+S4.25	"Updates to the value of a"	pass
+S4.26	"The current value of a state"	pass
+S4.27	"Normally, flows are sequential, which means"	pass
+S4.28	"The `buffer` operator creates a separate"	pass
+S4.29	"`buffer` buffers flow emissions via a"	pass
+S4.30	"By default, the emitter is suspended"	pass
+S4.31	"With the `DROP_OLDEST` strategy, the oldest"	pass
+S5.1	"A thread is managed by the"	pass
+S5.2	"When you create a thread, the"	pass
+S5.3	"Each thread usually needs a few"	pass
+S5.4	"A coroutine isn't bound to a"	pass
+S5.5	"A coroutine can suspend on one"	pass
+S5.6	"When a coroutine suspends, the thread"	pass
+S5.7	"Coroutines are much lighter than threads"	pass
+S5.8	"For 50,000 threads, memory can be"	pass
+S5.9	"JEP 444 introduces virtual threads to"	pass
+S5.10	"Virtual threads are lightweight threads that"	pass
+R2.1	"JVM thread"	pass
+R2.2	"Kotlin coroutine"	pass
+R2.3	"Java virtual thread"	pass
+S6.1	"A suspending function can only be"	pass
+S6.2	"The compiler turns a suspendable function"	pass
+S6.3	"A parent coroutine waits for its"	pass
+S6.4	"`launch` returns a `Job`, `async` returns"	pass
+S6.5	"A failure of a child of"	pass
+S6.6	"Cancellation is cooperative, and a job"	pass
+S6.7	"A dispatcher decides the threads of"	pass
+S6.8	"Cancellation does not interrupt a blocking"	pass
+S6.9	"A cold flow starts producing values"	pass
+S6.10	"A `StateFlow` holds the latest value,"	pass
+S6.11	"The `buffer` operator runs the upstream"	pass
+S6.12	"A coroutine is not bound to"	pass
+g-structured-concurrency	fail	"this structure" has no antecedent in the definition
+g-supervisor-job	pass
+g-coroutine-dispatcher	pass
+g-cold-flow	fail	metaphor followed by its explanation (voice never-does list)
+g-hot-flow	pass
+g-virtual-thread	pass
+m04-l03-q01	fail	constructor and getter distractors are declarations, not calls; misfit the stem
+m04-l03-q02	fail	map sentences for thread and Int-parameter distractors do not contradict them
+m04-l03-q03	pass
+m04-l03-q04	pass
+m04-l03-q05	pass
+m04-l03-q06	fail	parent-cancellation distractor does not answer the child-failure stem
+m04-l03-q07	fail	not-waiting distractor does not answer the propagation stem
+m04-l03-q08	pass
+m04-l03-q09	pass
+m04-l03-q10	pass
+m04-l03-q11	pass
+m04-l03-q12	fail	two distractors ruled out by the same fact (block not started)
+m04-l03-q13	pass
+m04-l03-q14	pass
+m04-l03-q15	pass
+m04-l03-q16	pass
+m04-l03-q17	pass
+# checked 170, passed 160, failed 10
+S2.1	recheck	pass
+S2.13	recheck	pass
+S4.3	recheck	pass

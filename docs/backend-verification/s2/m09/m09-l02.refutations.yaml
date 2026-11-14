@@ -1,0 +1,352 @@
+m09-l02-q01:
+  key:
+    anchor: pg-ddl-partitioning#DDL-PARTITIONING-OVERVIEW
+    sentence: then value 10 belongs to the second partition not the first.
+  wrong:
+  - option: The first partition, because the upper bound of a range is inclusive
+    anchor: pg-ddl-partitioning#DDL-PARTITIONING-OVERVIEW
+    sentence: Each range's bounds are understood as being inclusive at the lower end and exclusive at the upper end.
+  - option: Both partitions, because adjacent ranges share their boundary value
+    anchor: pg-ddl-partitioning#DDL-PARTITIONING-OVERVIEW
+    sentence: with no overlap between the ranges of values assigned to different partitions.
+  - option: Whichever of the two partitions was created first, because the boundary is ambiguous
+    anchor: pg-ddl-partitioning#DDL-PARTITIONING-OVERVIEW
+    sentence: then value 10 belongs to the second partition not the first.
+m09-l02-q02:
+  key:
+    anchor: pg-ddl-partitioning#DDL-PARTITIONING-DECLARATIVE
+    sentence: Instead, the storage belongs to partitions, which are otherwise-ordinary tables associated with the partitioned table.
+  wrong:
+  - option: In the partitioned table itself, which keeps its own copy of every row
+    anchor: pg-ddl-partitioning#DDL-PARTITIONING-DECLARATIVE
+    sentence: The partitioned table itself is a “virtual” table having no storage of its own.
+  - option: In one shared heap that all partitions read through their partition bounds
+    anchor: pg-ddl-partitioning#DDL-PARTITIONING-DECLARATIVE
+    sentence: Each partition stores a subset of the data as defined by its partition bounds.
+  - option: In foreign tables only, because every partition must be a foreign table
+    anchor: pg-ddl-partitioning#DDL-PARTITIONING-DECLARATIVE
+    sentence: Partitions can also be foreign tables, although considerable care is needed because it is then the user's responsibility that the contents of the foreign table satisfy the partitioning rule.
+m09-l02-q03:
+  key:
+    anchor: pg-ddl-partitioning#DDL-PARTITIONING-DECLARATIVE
+    sentence: Updating the partition key of a row will cause it to be moved into a different partition if it no longer satisfies the partition bounds of its original partition.
+  wrong:
+  - option: The `UPDATE` fails with a constraint error and the row stays unchanged
+    anchor: pg-ddl-partitioning#DDL-PARTITIONING-DECLARATIVE
+    sentence: Updating the partition key of a row will cause it to be moved into a different partition if it no longer satisfies the partition bounds of its original partition.
+    exclusive: true
+  - option: The row stays in its original partition, outside the partition bounds
+    anchor: pg-ddl-partitioning#DDL-PARTITIONING-DECLARATIVE
+    sentence: Updating the partition key of a row will cause it to be moved into a different partition if it no longer satisfies the partition bounds of its original partition.
+    exclusive: true
+  - option: The row is copied, so it exists in both partitions
+    anchor: pg-ddl-partitioning#DDL-PARTITIONING-DECLARATIVE
+    sentence: Updating the partition key of a row will cause it to be moved into a different partition if it no longer satisfies the partition bounds of its original partition.
+    exclusive: true
+m09-l02-q04:
+  key:
+    anchor: pg-ddl-partitioning#DDL-PARTITIONING-DECLARATIVE
+    sentence: it is possible to add an existing regular or partitioned table as a partition of a partitioned table
+  wrong:
+  - option: By converting it in place into a partitioned table
+    anchor: pg-ddl-partitioning#DDL-PARTITIONING-DECLARATIVE
+    sentence: It is not possible to turn a regular table into a partitioned table or vice versa.
+  - option: By detaching it from the partitioned table with `DETACH PARTITION`
+    anchor: pg-ddl-partitioning#DDL-PARTITIONING-DECLARATIVE
+    sentence: or remove a partition from a partitioned table turning it into a standalone table
+  - option: Only by copying its rows into a newly created partition, because a table cannot be added as it is
+    anchor: pg-ddl-partitioning#DDL-PARTITIONING-DECLARATIVE
+    sentence: it is possible to add an existing regular or partitioned table as a partition of a partitioned table
+m09-l02-q05:
+  key:
+    execution: m09-l02/QuorumOverlap.java
+  wrong:
+  - option: 'N=3 R=2 W=2 R+W=4 overlap=true
+
+      N=3 R=1 W=1 R+W=2 overlap=false
+
+      N=3 R=1 W=3 R+W=4 overlap=true
+
+      N=3 R=2 W=1 R+W=3 overlap=true
+
+      N=5 R=3 W=3 R+W=6 overlap=true
+
+      N=5 R=2 W=2 R+W=4 overlap=false'
+    execution: m09-l02/QuorumOverlap.java
+    mistake: 'off-by-one: tested R + W >= N'
+  - option: 'N=3 R=2 W=2 R+W=4 overlap=true
+
+      N=3 R=1 W=1 R+W=2 overlap=false
+
+      N=3 R=1 W=3 R+W=4 overlap=false
+
+      N=3 R=2 W=1 R+W=3 overlap=false
+
+      N=5 R=3 W=3 R+W=6 overlap=true
+
+      N=5 R=2 W=2 R+W=4 overlap=false'
+    execution: m09-l02/QuorumOverlap.java
+    mistake: 'wrong operation: tested R * W > N'
+  - option: 'N=3 R=2 W=2 R+W=4 overlap=true
+
+      N=3 R=1 W=1 R+W=2 overlap=false
+
+      N=3 R=1 W=3 R+W=4 overlap=false
+
+      N=3 R=2 W=1 R+W=3 overlap=true
+
+      N=5 R=3 W=3 R+W=6 overlap=true
+
+      N=5 R=2 W=2 R+W=4 overlap=false'
+    execution: m09-l02/QuorumOverlap.java
+    mistake: 'ignored the write quorum: tested R > N / 2'
+m09-l02-q06:
+  key:
+    execution: m09-l02/HashSlot.java
+  wrong:
+  - option: 'crc16 of 123456789: 31C3
+
+      slot of 123456789: 12739
+
+      {user1000}.following and {user1000}.followers share a slot: false
+
+      foo{}{bar} is hashed as a whole key: true
+
+      foo{{bar}}zap hashes {bar: false
+
+      foo{bar}{zap} hashes bar: false'
+    execution: m09-l02/HashSlot.java
+    mistake: 'hash tags ignored: the whole key is always hashed'
+  - option: 'crc16 of 123456789: 31C3
+
+      slot of 123456789: 12739
+
+      {user1000}.following and {user1000}.followers share a slot: true
+
+      foo{}{bar} is hashed as a whole key: false
+
+      foo{{bar}}zap hashes {bar: false
+
+      foo{bar}{zap} hashes bar: false'
+    execution: m09-l02/HashSlot.java
+    mistake: 'wrong evaluation order: last brace pair instead of the first'
+  - option: 'crc16 of 123456789: 29B1
+
+      slot of 123456789: 10673
+
+      {user1000}.following and {user1000}.followers share a slot: true
+
+      foo{}{bar} is hashed as a whole key: true
+
+      foo{{bar}}zap hashes {bar: true
+
+      foo{bar}{zap} hashes bar: true'
+    execution: m09-l02/HashSlot.java
+    mistake: wrong initial CRC value 0xFFFF
+m09-l02-q07:
+  key:
+    anchor: redis-scaling#redis-cluster-data-sharding
+    sentence: There are 16384 hash slots in Redis Cluster, and to compute the hash slot for a given key, we simply take the CRC16 of the key modulo 16384.
+  wrong:
+  - option: '4096'
+    anchor: redis-scaling#redis-cluster-data-sharding
+    sentence: There are 16384 hash slots in Redis Cluster, and to compute the hash slot for a given key, we simply take the CRC16 of the key modulo 16384.
+    exclusive: true
+  - option: '65536'
+    anchor: redis-scaling#redis-cluster-data-sharding
+    sentence: There are 16384 hash slots in Redis Cluster, and to compute the hash slot for a given key, we simply take the CRC16 of the key modulo 16384.
+    exclusive: true
+  - option: '1024'
+    anchor: redis-scaling#redis-cluster-data-sharding
+    sentence: There are 16384 hash slots in Redis Cluster, and to compute the hash slot for a given key, we simply take the CRC16 of the key modulo 16384.
+    exclusive: true
+m09-l02-q08:
+  key:
+    anchor: redis-scaling#redis-cluster-data-sharding
+    sentence: if I want to add a new node D, I need to move some hash slots from nodes A, B, C to D.
+  wrong:
+  - option: Stopping all operations until every key is rehashed onto the new node
+    anchor: redis-scaling#redis-cluster-data-sharding
+    sentence: Moving hash slots from a node to another does not require stopping any operations;
+  - option: Recomputing every key's slot with the new node count as the modulus
+    anchor: redis-scaling#redis-cluster-data-sharding
+    sentence: There are 16384 hash slots in Redis Cluster, and to compute the hash slot for a given key, we simply take the CRC16 of the key modulo 16384.
+  - option: Waiting for `redis-cli` to rebalance the cluster automatically
+    anchor: redis-scaling#reshard-the-cluster
+    sentence: currently there is no way for redis-cli to automatically rebalance the cluster checking the distribution of keys across the cluster nodes and intelligently moving slots as needed
+m09-l02-q09:
+  key:
+    anchor: es-reading-and-writing-documents#basic-write-model
+    sentence: Once all in-sync replicas have successfully performed the operation and responded to the primary, the primary acknowledges the successful completion of the request to the client.
+  wrong:
+  - option: As soon as the primary has executed the operation locally
+    anchor: es-reading-and-writing-documents#basic-write-model
+    sentence: Each primary stage will not complete until the in-sync replicas have finished indexing the docs locally and responded to the replica requests.
+  - option: Once a majority of all replica copies have responded
+    anchor: es-reading-and-writing-documents#basic-write-model
+    sentence: The primary is responsible for maintaining this invariant and thus has to replicate all operations to each copy in this set.
+  - option: Once the coordinating node has forwarded the operation to the primary shard
+    anchor: es-reading-and-writing-documents#basic-write-model
+    sentence: the coordinating stage is not complete until each primary stage, which may be spread out across different primary shards, has completed.
+m09-l02-q10:
+  key:
+    anchor: pg-warm-standby#SYNCHRONOUS-REPLICATION
+    sentence: The amount of data loss is proportional to the replication delay at the time of failover.
+  wrong:
+  - option: No committed data is lost, because WAL records are streamed as they are generated
+    anchor: pg-warm-standby#SYNCHRONOUS-REPLICATION
+    sentence: If the primary server crashes then some transactions that were committed may not have been replicated to the standby server, causing data loss.
+  - option: It equals the size of the WAL file being filled when the primary crashed
+    anchor: pg-warm-standby#STREAMING-REPLICATION
+    sentence: which streams WAL records to the standby as they're generated, without waiting for the WAL file to be filled.
+  - option: It is proportional to the number of standbys connected to the primary
+    anchor: pg-warm-standby#SYNCHRONOUS-REPLICATION
+    sentence: The amount of data loss is proportional to the replication delay at the time of failover.
+m09-l02-q11:
+  key:
+    anchor: pg-warm-standby#SYNCHRONOUS-REPLICATION
+    sentence: each commit of a write transaction will wait until confirmation is received that the commit has been written to the write-ahead log on disk of both the primary and standby server
+  wrong:
+  - option: A read-only transaction
+    anchor: pg-warm-standby#SYNCHRONOUS-REPLICATION
+    sentence: Read-only transactions and transaction rollbacks need not wait for replies from standby servers.
+  - option: The commit of a subtransaction
+    anchor: pg-warm-standby#SYNCHRONOUS-REPLICATION
+    sentence: Subtransaction commits do not wait for responses from standby servers, only top-level commits.
+  - option: Each statement of a long data load, before its final commit
+    anchor: pg-warm-standby#SYNCHRONOUS-REPLICATION
+    sentence: Long running actions such as data loading or index building do not wait until the very final commit message.
+m09-l02-q12:
+  key:
+    anchor: redis-replication#how-redis-replication-works
+    sentence: However if there is not enough backlog in the master buffers, or if the replica is referring to an history (replication ID) which is no longer known, then a full resynchronization happens
+  wrong:
+  - option: It happens at every reconnection, because the replica always asks for a copy of the dataset
+    anchor: redis-replication#how-redis-replication-works
+    sentence: This way the master can send just the incremental part needed.
+  - option: It uses the `SYNC` command, which newer Redis instances prefer over `PSYNC`
+    anchor: redis-replication#how-redis-replication-works
+    sentence: Actually SYNC is an old protocol no longer used by newer Redis instances, but is still there for backward compatibility
+  - option: It makes the master run a separate background save for each replica that requests it
+    anchor: redis-replication#how-redis-replication-works
+    sentence: If the master receives multiple concurrent replica synchronization requests, it performs a single background save in to serve all of them.
+m09-l02-q13:
+  key:
+    anchor: pg-hot-standby#HOT-STANDBY-CONFLICT
+    sentence: The standby server must either delay application of the WAL records (and everything after them, too) or else cancel the conflicting query
+  wrong:
+  - option: Skip the conflicting record and apply the records that follow it
+    anchor: pg-hot-standby#HOT-STANDBY-CONFLICT
+    sentence: the WAL-logged action already occurred on the primary so the standby must not fail to apply it
+  - option: Make the primary wait until the standby query finishes
+    anchor: pg-hot-standby#HOT-STANDBY-CONFLICT
+    sentence: the primary doesn't have information about what queries are running on the standby, so it will not wait for any such standby queries.
+  - option: Keep WAL application waiting indefinitely, because the standby falling behind is harmless
+    anchor: pg-hot-standby#HOT-STANDBY-CONFLICT
+    sentence: allowing WAL application to wait indefinitely may be very undesirable, because the standby's state will become increasingly far behind the primary's.
+m09-l02-q14:
+  key:
+    anchor: redis-client-side-caching#tracking
+    sentence: When any client writes new data to a tracked key, the server sends an invalidation message to all clients that have accessed that key previously.
+  wrong:
+  - option: It pushes the new value to every client so that each cache is overwritten
+    anchor: redis-client-side-caching#tracking
+    sentence: This message warns the clients that their cached copies of the data are no longer valid and the clients will evict the stale data in response.
+  - option: It sends an invalidation message to every connected client, whether or not it read the key
+    anchor: redis-client-side-caching#tracking
+    sentence: the Redis server remembers or tracks the set of keys that each client connection has previously read.
+  - option: It sends nothing, and each client keeps its cached copy until one of its connections is disconnected
+    anchor: redis-client-side-caching#tracking
+    sentence: When any client writes new data to a tracked key, the server sends an invalidation message to all clients that have accessed that key previously.
+m09-l02-q15:
+  key:
+    anchor: redis-eviction#eviction-policies
+    sentence: 'noeviction: Keys are not evicted but the server will return an error when you try to execute commands that cache new data.'
+  wrong:
+  - option: '`allkeys-lru`'
+    anchor: redis-eviction#eviction-policies
+    sentence: 'allkeys-lru: Evict the least recently used (LRU) keys.'
+  - option: '`volatile-ttl`'
+    anchor: redis-eviction#eviction-policies
+    sentence: 'volatile-ttl: Evict keys with an associated expiration (TTL) that have the shortest remaining TTL value.'
+  - option: '`allkeys-random`'
+    anchor: redis-eviction#eviction-policies
+    sentence: 'allkeys-random: Evict keys at random.'
+m09-l02-q16:
+  key:
+    anchor: redis-eviction#lfu-eviction
+    sentence: Saturate the counter at, around, one million requests. Decay the counter every one minute.
+  wrong:
+  - option: It saturates at around one thousand requests and decays every one minute
+    anchor: redis-eviction#lfu-eviction
+    sentence: Saturate the counter at, around, one million requests.
+    exclusive: true
+  - option: It saturates at around one million requests and decays every one hour
+    anchor: redis-eviction#lfu-eviction
+    sentence: Decay the counter every one minute.
+  - option: It saturates at around one hundred thousand requests and decays every ten minutes
+    anchor: redis-eviction#lfu-eviction
+    sentence: Saturate the counter at, around, one million requests.
+    exclusive: true
+m09-l02-q17:
+  key:
+    anchor: redis-eviction#lfu-eviction
+    sentence: Starting with Redis 4.0, the Least Frequently Used eviction mode is available.
+  wrong:
+  - option: Redis 2.8
+    anchor: redis-eviction#lfu-eviction
+    sentence: Starting with Redis 4.0, the Least Frequently Used eviction mode is available.
+    exclusive: true
+  - option: Redis 3.0
+    anchor: redis-eviction#lfu-eviction
+    sentence: Starting with Redis 4.0, the Least Frequently Used eviction mode is available.
+    exclusive: true
+  - option: Redis 5.0
+    anchor: redis-eviction#lfu-eviction
+    sentence: Starting with Redis 4.0, the Least Frequently Used eviction mode is available.
+    exclusive: true
+m09-l02-q18:
+  key:
+    anchor: pg-different-replication-solutions#DIFFERENT-REPLICATION-SOLUTIONS
+    sentence: PostgreSQL does not offer this type of replication
+  wrong:
+  - option: Write-ahead log shipping to warm and hot standby servers
+    anchor: pg-different-replication-solutions#DIFFERENT-REPLICATION-SOLUTIONS
+    sentence: Warm and hot standby servers can be kept current by reading a stream of write-ahead log (WAL) records.
+  - option: Logical replication of data changes on a per-table basis
+    anchor: pg-different-replication-solutions#DIFFERENT-REPLICATION-SOLUTIONS
+    sentence: Logical replication allows a database server to send a stream of data modifications to another server.
+  - option: Synchronous replication of commits to a standby server
+    anchor: pg-warm-standby#SYNCHRONOUS-REPLICATION
+    sentence: Synchronous replication offers the ability to confirm that all changes made by a transaction have been transferred to one or more synchronous standby servers.
+m09-l02-q19:
+  key:
+    anchor: es-clusters-nodes-shards#elastic-docs-v3
+    sentence: The number of primary shards in an index is fixed at the time that an index is created
+  wrong:
+  - option: The number of replica shards
+    anchor: es-clusters-nodes-shards#elastic-docs-v3
+    sentence: the number of replica shards can be changed at any time, without interrupting indexing or query operations
+  - option: The number of nodes in the cluster
+    anchor: es-clusters-nodes-shards#elastic-docs-v3
+    sentence: You can add servers (nodes) to a cluster to increase capacity
+  - option: The node that holds each shard copy
+    anchor: es-clusters-nodes-shards#elastic-docs-v3
+    sentence: Shard copies in your cluster are automatically balanced across nodes to provide scale and high availability.
+m09-l02-q20:
+  key:
+    anchor: redis-client-side-caching#usage-recommendations
+    sentence: you could fit approximately 10485760 / 80 = 131072 items in the cache.
+  wrong:
+  - option: '13107'
+    anchor: redis-client-side-caching#usage-recommendations
+    sentence: you could fit approximately 10485760 / 80 = 131072 items in the cache.
+    exclusive: true
+  - option: '1048576'
+    anchor: redis-client-side-caching#usage-recommendations
+    sentence: you could fit approximately 10485760 / 80 = 131072 items in the cache.
+    exclusive: true
+  - option: '104857'
+    anchor: redis-client-side-caching#usage-recommendations
+    sentence: you could fit approximately 10485760 / 80 = 131072 items in the cache.
+    exclusive: true

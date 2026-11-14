@@ -1,5 +1,5 @@
 import { PRINT_FONTS } from "@/lib/pdf/document";
-import { PRINT_FONT } from "@/lib/pdf/page";
+import { CODE_FONT, PRINT_FONT, SYMBOL_FONT } from "@/lib/pdf/page";
 
 /**
  * The embedded print face, installed into pdfmake's virtual file system.
@@ -13,10 +13,27 @@ export type PdfMakeLike = {
   addVirtualFileSystem: (vfs: Record<string, string>) => void;
 };
 
-export const PRINT_FONT_FILES: string[] = Object.values(PRINT_FONTS[PRINT_FONT]);
+type PrintFamily = keyof typeof PRINT_FONTS;
 
-/** Where the .ttf files live relative to `src/`: shared by the browser loader and the tests. */
-export const FONT_DIR = "assets/fonts/liberation-sans";
+function familyFiles(family: PrintFamily): string[] {
+  return [...new Set(Object.values(PRINT_FONTS[family]))];
+}
+
+export const PRINT_FONT_FILES: string[] = (Object.keys(PRINT_FONTS) as PrintFamily[]).flatMap(familyFiles);
+
+/** Where each family's .ttf files live relative to `src/`: shared by the browser loader and the tests. */
+const FONT_DIRS: Record<PrintFamily, string> = {
+  [PRINT_FONT]: "assets/fonts/liberation-sans",
+  [CODE_FONT]: "assets/fonts/liberation-mono",
+  [SYMBOL_FONT]: "assets/fonts/dejavu-sans",
+};
+
+/** Each print file's path relative to `src/`. */
+export const PRINT_FONT_SOURCES: Record<string, string> = Object.fromEntries(
+  (Object.keys(PRINT_FONTS) as PrintFamily[]).flatMap((family) =>
+    familyFiles(family).map((file) => [file, `${FONT_DIRS[family]}/${file}`]),
+  ),
+);
 
 /** `bytes` maps each file in `PRINT_FONT_FILES` to its base64 contents. */
 export function installPrintFonts(pdfMake: PdfMakeLike, bytes: Record<string, string>): void {
@@ -37,7 +54,7 @@ function toBase64(bytes: ArrayBuffer): string {
   return btoa(binary);
 }
 
-/** Fetch the assets Vite emitted, once per session: the four files are ~1.6 MB. */
+/** Fetch the assets Vite emitted, once per session: the seven files are ~3 MB. */
 let cached: Promise<Record<string, string>> | null = null;
 
 export function loadPrintFontBytes(urls: Record<string, string>): Promise<Record<string, string>> {

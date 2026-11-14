@@ -1,0 +1,137 @@
+[
+ {
+  "id": "m08-l04-q01",
+  "fact": "m08-l04-f08",
+  "stem": "In Resilience4j, a `CircuitBreaker` is `OPEN` and the configured wait duration has elapsed. What happens next to the `CircuitBreaker`?",
+  "key": "It changes to `HALF_OPEN` and permits a configurable number of calls to see whether the backend has recovered",
+  "distractors": [
+   "It changes to `CLOSED` at once, because the elapsed wait duration shows that the backend has recovered",
+   "It changes to `HALF_OPEN` and permits every call, because `HALF_OPEN` allows access as `CLOSED` does",
+   "It stays `OPEN` and rejects every call until someone resets it manually"
+  ],
+  "explanation": "After the wait time duration, the `CircuitBreaker` changes from `OPEN` to `HALF_OPEN` and permits a configurable number of calls to see whether the backend has recovered. Changing straight to `CLOSED` is wrong, because the state changes back to `CLOSED` only if the failure rate and slow call rate are below the threshold after the permitted calls. Permitting every call in `HALF_OPEN` is wrong, because further calls are rejected with a `CallNotPermittedException` until all permitted calls have completed. Staying `OPEN` until a manual reset is wrong, because the state changes from `OPEN` to `HALF_OPEN` after the wait time duration has elapsed.",
+  "citation": "resilience4j-circuitbreaker#failure-rate-and-slow-call-rate-thresholds",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m08-l04-q02",
+  "fact": "m08-l04-f44",
+  "stem": "In Kafka 4, a producer retries failed requests to a broker with `retry.backoff.max.ms` set. In which range does each computed backoff fall after the randomized jitter is applied?",
+  "key": "Between 20% below and 20% above the computed value",
+  "distractors": [
+   "Between zero and the computed value",
+   "Between the computed value and twice the computed value",
+   "Exactly the computed value, because the jitter applies only once the maximum is reached"
+  ],
+  "explanation": "A randomized jitter with a factor of 0.2 puts the backoff within a range between 20% below and 20% above the computed value. A range from zero to the computed value is wrong, because the jitter keeps the backoff within 20% below and 20% above that value. A range from the computed value to twice that value is wrong, because the jitter also lowers the backoff below the computed value, by up to 20%. Exactly the computed value is wrong, because the jitter is applied to the backoff of every retry to keep clients from being synchronized, not only at the maximum.",
+  "citation": "kafka-producer-configs#retry.backoff.max.ms",
+  "extract": "a randomized jitter with a factor of 0.2 will be applied to the backoff",
+  "snippet": null
+ },
+ {
+  "id": "m08-l04-q03",
+  "fact": "m08-l04-f76",
+  "stem": "In gRPC, a server that received an RPC with a deadline calls another server. How does gRPC pass the deadline on to the outgoing call?",
+  "key": "It converts the deadline to a timeout with the already elapsed time deducted, which shields the system from clock skew",
+  "distractors": [
+   "It forwards the absolute deadline unchanged, because both servers share a synchronized clock",
+   "It resets the deadline to the full original timeout for every hop in the chain",
+   "It drops the deadline, because each server has to include its own deadline for each outgoing RPC"
+  ],
+  "explanation": "gRPC converts the deadline to a timeout from which the already elapsed time is deducted. Forwarding the absolute deadline unchanged is wrong, because propagating it as-is can be problematic when the clocks on the two servers are not synchronized. Resetting the deadline for every hop is wrong, because the server is meant to honor the deadline set by the original client. Dropping the deadline is wrong, because propagation lets you avoid the error-prone approach of manually including the deadline for each outgoing RPC.",
+  "citation": "grpc-deadlines#deadline-propagation",
+  "extract": "gRPC converts the deadline to a timeout from which the already elapsed time is already deducted.",
+  "snippet": null
+ },
+ {
+  "id": "m08-l04-q04",
+  "fact": "m08-l04-f68",
+  "stem": "How does a Kafka broker measure byte-rate and thread utilization to detect quota violations and correct them quickly?",
+  "key": "Over multiple small windows, for example 30 windows of 1 second each",
+  "distractors": [
+   "Over a few large windows, for example 10 windows of 30 seconds each",
+   "At the cluster level, with a quota shared among all the brokers",
+   "By the client alone, which counts its own requests and throttles itself"
+  ],
+  "explanation": "Byte-rate and thread utilization are measured over multiple small windows, for example 30 windows of 1 second each. A few large windows are wrong, because large measurement windows lead to large bursts of traffic followed by long delays. A cluster-wide shared quota is wrong, because Kafka defines quotas per broker, as sharing client quota usage among all the brokers would require a mechanism harder to get right than the quota implementation itself. Client-only throttling is wrong, because the broker first computes the delay needed to bring the violating client under its quota.",
+  "citation": "kafka-design#enforcement",
+  "extract": "Byte-rate and thread utilization are measured over multiple small windows (e.g. 30 windows of 1 second each) in order to detect and correct quota violations quickly.",
+  "snippet": null
+ },
+ {
+  "id": "m08-l04-q05",
+  "fact": "m08-l04-f31",
+  "stem": "In Resilience4j, a `CircuitBreaker` is `CLOSED` with a sliding window size of 15. Twenty concurrent threads ask permission to execute a function. How many of them are allowed to invoke it?",
+  "key": "All twenty, because the sliding window does not limit concurrency",
+  "distractors": [
+   "Fifteen, because the sliding window size caps the number of concurrent calls",
+   "One at a time, because the `CircuitBreaker` synchronizes the function call",
+   "None, because the `CircuitBreaker` rejects calls until the window is full"
+  ],
+  "explanation": "When the `CircuitBreaker` is closed, all twenty threads are allowed to invoke the function, because the sliding window does not limit concurrency. A cap of fifteen is wrong, because the sliding window does not mean that only 15 calls are allowed to run concurrently. One at a time is wrong, because the `CircuitBreaker` does not synchronize the function call. Rejecting all calls is wrong, because the `CircuitBreaker` rejects calls with a `CallNotPermittedException` only when it is `OPEN`.",
+  "citation": "resilience4j-circuitbreaker#failure-rate-and-slow-call-rate-thresholds",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m08-l04-q06",
+  "fact": "m08-l04-f49",
+  "stem": "The program computes six waits of a capped exponential backoff with an initial wait of 1000 ms, a multiplier of 2 and a maximum of 10000 ms, then a 0.2 jitter range around the maximum. What does it print?",
+  "key": "1000, 2000, 4000, 8000, 10000, 10000\n8000 to 12000",
+  "distractors": [
+   "1000, 2000, 4000, 8000, 16000, 32000\n8000 to 12000",
+   "1000, 2000, 3000, 4000, 5000, 6000\n8000 to 12000",
+   "1000, 2000, 4000, 8000, 10000, 10000\n0 to 10000"
+  ],
+  "explanation": "The waits double from 1000 ms and stop growing at the maximum, so the six retries wait 1000, 2000, 4000, 8000, 10000 and 10000 ms. The jitter factor of 0.2 puts the maximum wait of 10000 ms in the range 8000 to 12000. The waits 16000 and 32000 are wrong because the multiplier of 2 is capped at the maximum of 10000 ms. The waits 3000 to 6000 are wrong because each wait is the previous one times the multiplier, not the previous one plus the initial wait. The range 0 to 10000 is wrong because the factor of 0.2 gives 20% below and 20% above the computed wait, not zero up to it.",
+  "citation": "kafka-producer-configs#retry.backoff.max.ms; resilience4j-retry#use-a-custom-intervalfunction",
+  "extract": "resulting in the backoff falling within a range between 20% below and 20% above the computed value",
+  "snippet": "m08-l04/BackoffSchedule.java"
+ },
+ {
+  "id": "m08-l04-q07",
+  "fact": "m08-l04-f03",
+  "stem": "In Resilience4j, besides the failure rate reaching its configurable threshold, which condition also changes a `CircuitBreaker` from `CLOSED` to `OPEN`?",
+  "key": "The percentage of slow calls reaching a configurable threshold",
+  "distractors": [
+   "The number of concurrent calls exceeding the sliding window size",
+   "A call being rejected with a `CallNotPermittedException`",
+   "The wait duration elapsing while the `CircuitBreaker` is `CLOSED`"
+  ],
+  "explanation": "A `CircuitBreaker` also changes from `CLOSED` to `OPEN` when the percentage of slow calls reaches a configurable threshold. Concurrent calls above the window size are wrong, because the sliding window does not limit how many calls run concurrently. A rejected call is wrong, because the `CircuitBreaker` rejects calls with a `CallNotPermittedException` only once it is `OPEN`. An elapsed wait duration is wrong, because it moves the state from `OPEN` to `HALF_OPEN`.",
+  "citation": "resilience4j-circuitbreaker#failure-rate-and-slow-call-rate-thresholds",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m08-l04-q08",
+  "fact": "m08-l04-f18",
+  "stem": "In Resilience4j, a `CircuitBreaker` uses a time-based sliding window of size 10. What does the window aggregate?",
+  "key": "The outcomes of the calls of the last 10 seconds",
+  "distractors": [
+   "The outcome of the last 10 calls",
+   "The outcome of every call, stored individually for the last 10 seconds",
+   "The outcomes of the calls of the last 10 milliseconds"
+  ],
+  "explanation": "The time-based sliding window aggregates the outcome of the calls of the last N seconds. The last 10 calls is wrong, because that is what the count-based sliding window aggregates. Storing every outcome individually is wrong, because the sliding window does not store call outcomes individually. Milliseconds are wrong, because every bucket aggregates the outcome of all calls which happen in a certain epoch second.",
+  "citation": "resilience4j-circuitbreaker#introduction; resilience4j-circuitbreaker#time-based-sliding-window",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m08-l04-q09",
+  "fact": "m08-l04-f65",
+  "stem": "In Kafka 4, over which scope is a client quota defined on a broker by default?",
+  "key": "Per broker, for each unique client group",
+  "distractors": [
+   "Cluster-wide, with the usage shared among all the brokers",
+   "Per topic partition that the client writes to",
+   "Per client, with no grouping of clients that share a quota"
+  ],
+  "explanation": "The quota is defined on a per-broker basis, for each unique client group. A cluster-wide quota is wrong, because Kafka decided that per-broker quotas are much better than a fixed cluster wide bandwidth per client. A per-partition quota is wrong, because each unique client group receives a fixed quota as configured by the cluster. A per-client quota without grouping is wrong, because quotas are enforced for each group of clients sharing a quota.",
+  "citation": "kafka-design#enforcement; kafka-design#quotas",
+  "extract": "This quota is defined on a per-broker basis.",
+  "snippet": null
+ }
+]

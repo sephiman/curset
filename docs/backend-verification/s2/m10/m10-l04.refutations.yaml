@@ -1,0 +1,182 @@
+m10-l04-q01:
+  key:
+    anchor: mcp-authorization#token-requirements
+    sentence: 'MCP client MUST use the Authorization request header field defined in OAuth 2.1 Section 5.1.1:'
+  wrong:
+  - option: The client may pass the access token in the URI query string when a header is awkward
+    anchor: mcp-authorization#token-requirements
+    sentence: Access tokens MUST NOT be included in the URI query string
+  - option: The client sends the access token only in the first request, and the server then keeps the session
+    anchor: mcp-authorization#token-requirements
+    sentence: Note that authorization MUST be included in every HTTP request from client to server.
+  - option: The client sends the access token in the request body instead of any header
+    anchor: mcp-authorization#token-requirements
+    sentence: 'MCP client MUST use the Authorization request header field defined in OAuth 2.1 Section 5.1.1:'
+m10-l04-q02:
+  key:
+    anchor: mcp-authorization#scope-selection-strategy
+    sentence: Clients MUST treat the scopes provided in the challenge as authoritative for the current operation.
+  wrong:
+  - option: The client assumes they are always a subset of the scopes in `scopes_supported`
+    anchor: mcp-authorization#scope-selection-strategy
+    sentence: Clients MUST NOT assume any particular set relationship between the challenged scope set and scopes_supported.
+  - option: The client ignores them whenever `scopes_supported` lists other scopes
+    anchor: mcp-authorization#scope-selection-strategy
+    sentence: Use scope parameter from the initial WWW-Authenticate header in the 401 response, if provided
+  - option: The server must list every dynamically issued scope in `scopes_supported`
+    anchor: mcp-authorization#scope-selection-strategy
+    sentence: they are not required to surface every dynamically issued scope through scopes_supported
+m10-l04-q03:
+  key:
+    anchor: mcp-authorization#protocol-requirements
+    sentence: Authorization is OPTIONAL for MCP implementations.
+  wrong:
+  - option: Authorization is mandatory for every MCP implementation, whatever its transport
+    anchor: mcp-authorization#protocol-requirements
+    sentence: Authorization is OPTIONAL for MCP implementations.
+  - option: An implementation with an STDIO transport should follow the specification instead of reading credentials from the environment
+    anchor: mcp-authorization#protocol-requirements
+    sentence: Implementations using an STDIO transport SHOULD NOT follow this specification, and instead retrieve credentials from the environment.
+  - option: An implementation with an alternative transport may skip established security practices for its protocol
+    anchor: mcp-authorization#protocol-requirements
+    sentence: Implementations using alternative transports MUST follow established security best practices for their protocol.
+m10-l04-q04:
+  key:
+    anchor: mcp-security-best-practices#token-passthrough
+    sentence: This breaks a fundamental OAuth security boundary, allowing attackers to reuse legitimate tokens across different services than intended.
+  wrong:
+  - option: The pattern is safe whenever the downstream API validates the token on its own
+    anchor: mcp-security-best-practices#token-passthrough
+    sentence: “Token passthrough” is an anti-pattern where an MCP server accepts tokens from an MCP client without validating that the tokens were properly issued to the MCP server and passes them through to the downstream API.
+  - option: The confused deputy attack lets malicious clients obtain authorization codes only after the user consented
+    anchor: mcp-security-best-practices#confused-deputy-problem
+    sentence: This attack allows malicious clients to obtain authorization codes without proper user consent by exploiting the combination of static client IDs, dynamic client registration, and consent cookies.
+  - option: Skipping the audience check affects only the first request, not later tokens
+    anchor: mcp-security-best-practices#token-passthrough
+    sentence: When an MCP server doesn’t verify that tokens were specifically intended for it (for example, via the audience claim, as mentioned in RFC9068), it may accept tokens originally issued for other services.
+m10-l04-q05:
+  key:
+    anchor: mcp-security-best-practices#required-protections
+    sentence: Check this registry before initiating the third-party authorization flow
+  wrong:
+  - option: It compares `redirect_uri` with the registered URI using wildcard patterns that allow subdomains
+    anchor: mcp-security-best-practices#required-protections
+    sentence: Use exact string matching (not pattern matching or wildcards)
+  - option: It sets the consent cookie before showing the consent screen so the callback can be validated
+    anchor: mcp-security-best-practices#required-protections
+    sentence: The consent cookie or session containing the state value MUST NOT be set until after the user has approved the consent screen at the MCP server’s authorization endpoint.
+  - option: It keeps one `state` value and reuses it across authorization requests for a day
+    anchor: mcp-security-best-practices#required-protections
+    sentence: Ensure state values are single-use (delete after validation) and have a short expiration time (e.g., 10 minutes)
+m10-l04-q06:
+  key:
+    anchor: mcp-security-best-practices#required-protections
+    sentence: Use __Host- prefix for cookie names
+  wrong:
+  - option: The cookie binds to the user only, without naming the specific `client_id`
+    anchor: mcp-security-best-practices#required-protections
+    sentence: Bind to the specific client_id (not just “user has consented”)
+  - option: The cookie is marked `SameSite=None` so that other sites can read it
+    anchor: mcp-security-best-practices#required-protections
+    sentence: Set Secure, HttpOnly, and SameSite=Lax attributes
+  - option: The consent page may be framed by any origin to support embedded flows
+    anchor: mcp-security-best-practices#required-protections
+    sentence: 'Prevent iframing via frame-ancestors CSP directive or X-Frame-Options: DENY to prevent clickjacking'
+m10-l04-q07:
+  key:
+    anchor: mcp-tools#security-considerations
+    sentence: Rate limit tool invocations
+  wrong:
+  - option: The server may leave the validation of tool inputs to the client
+    anchor: mcp-tools#security-considerations
+    sentence: Validate all tool inputs
+  - option: The server returns tool outputs to the client without sanitizing them
+    anchor: mcp-tools#security-considerations
+    sentence: Sanitize tool outputs
+  - option: The server skips access controls when the client is trusted
+    anchor: mcp-tools#security-considerations
+    sentence: Implement proper access controls
+m10-l04-q08:
+  key:
+    anchor: owasp-llm-sensitive-disclosure#1-enforce-strict-access-controls
+    sentence: Limit access to sensitive data based on the principle of least privilege.
+  wrong:
+  - option: System prompt restrictions on returned data types are always honored by the model
+    anchor: owasp-llm-sensitive-disclosure#main
+    sentence: However, such restrictions may not always be honored and could be bypassed via prompt injection or other methods.
+  - option: Sensitive information in an LLM application is limited to personal identifiable information
+    anchor: owasp-llm-sensitive-disclosure#main
+    sentence: This includes personal identifiable information (PII), financial details, health records, confidential business data, security credentials, and legal documents.
+  - option: Users cannot be offered a way to opt out of having their data used for training
+    anchor: owasp-llm-sensitive-disclosure#main
+    sentence: Application owners should also provide clear Terms of Use policies, allowing users to opt out of having their data included in the training model.
+m10-l04-q09:
+  key:
+    anchor: owasp-llm-top10-prompt-injection#indirect-prompt-injections
+    sentence: Indirect prompt injections occur when an LLM accepts input from external sources, such as websites or files.
+  wrong:
+  - option: Its impact depends only on the model, not on the business context or the agency given to it
+    anchor: owasp-llm-top10-prompt-injection#indirect-prompt-injections
+    sentence: The severity and nature of the impact of a successful prompt injection attack can vary greatly and are largely dependent on both the business context the model operates in, and the agency with which the model is architected.
+  - option: It affects text only, because other modalities cannot carry instructions to the model
+    anchor: owasp-llm-top10-prompt-injection#indirect-prompt-injections
+    sentence: Malicious actors could exploit interactions between modalities, such as hiding instructions in images that accompany benign text.
+  - option: Input filtering is a fool-proof method of prevention that removes the risk
+    anchor: owasp-llm-top10-prompt-injection#prevention-and-mitigation-strategies
+    sentence: Given the stochastic influence at the heart of the way models work, it is unclear if there are fool-proof methods of prevention for prompt injection.
+m10-l04-q10:
+  key:
+    anchor: owasp-llm-top10-prompt-injection#7-conduct-adversarial-testing-and-attack-simulations
+    sentence: Perform regular penetration testing and breach simulations, treating the model as an untrusted user to test the effectiveness of trust boundaries and access controls.
+  wrong:
+  - option: Relying on system prompt restrictions as the control that stops disclosure
+    anchor: owasp-llm-sensitive-disclosure#main
+    sentence: However, such restrictions may not always be honored and could be bypassed via prompt injection or other methods.
+  - option: Giving the model broad read access so that it can answer any question
+    anchor: owasp-llm-sensitive-disclosure#1-enforce-strict-access-controls
+    sentence: Only grant access to data that is necessary for the specific user or process.
+  - option: Skipping data sanitization because user data never reaches the training model
+    anchor: owasp-llm-sensitive-disclosure#main
+    sentence: To reduce this risk, LLM applications should perform adequate data sanitization to prevent user data from entering the training model.
+m10-l04-q11:
+  key:
+    anchor: mcp-authorization#scope-selection-strategy
+    sentence: The scopes_supported field is intended to represent the minimal set of scopes necessary for basic functionality
+  wrong:
+  - option: Servers must list every dynamically issued scope in it
+    anchor: mcp-authorization#scope-selection-strategy
+    sentence: they are not required to surface every dynamically issued scope through scopes_supported
+  - option: Clients may assume that the challenged scopes are always a subset of it
+    anchor: mcp-authorization#scope-selection-strategy
+    sentence: Clients MUST NOT assume any particular set relationship between the challenged scope set and scopes_supported.
+  - option: Clients prefer it over the `scope` parameter of the `401` challenge
+    anchor: mcp-authorization#scope-selection-strategy
+    sentence: Use scope parameter from the initial WWW-Authenticate header in the 401 response, if provided
+m10-l04-q12:
+  key:
+    anchor: mcp-authorization#token-requirements
+    sentence: Note that authorization MUST be included in every HTTP request from client to server.
+  wrong:
+  - option: The token may go in the URI query string when a header is awkward
+    anchor: mcp-authorization#token-requirements
+    sentence: Access tokens MUST NOT be included in the URI query string
+  - option: The token goes in a custom header agreed with the server instead of `Authorization`
+    anchor: mcp-authorization#token-requirements
+    sentence: 'MCP client MUST use the Authorization request header field defined in OAuth 2.1 Section 5.1.1:'
+  - option: STDIO implementations also send the token in an `Authorization` header
+    anchor: mcp-authorization#protocol-requirements
+    sentence: Implementations using an STDIO transport SHOULD NOT follow this specification, and instead retrieve credentials from the environment.
+m10-l04-q13:
+  key:
+    anchor: mcp-tools#security-considerations
+    sentence: Validate tool results before passing to LLM
+  wrong:
+  - option: Hiding tool inputs from the user to avoid confirmation fatigue
+    anchor: mcp-tools#security-considerations
+    sentence: Show tool inputs to the user before calling the server, to avoid malicious or accidental data exfiltration
+  - option: Calling tools without timeouts so that long operations finish
+    anchor: mcp-tools#security-considerations
+    sentence: Implement timeouts for tool calls
+  - option: Asking for user confirmation only on non-sensitive operations
+    anchor: mcp-tools#security-considerations
+    sentence: Prompt for user confirmation on sensitive operations

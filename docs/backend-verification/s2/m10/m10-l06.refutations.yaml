@@ -1,0 +1,268 @@
+m10-l06-q01:
+  key:
+    anchor: owasp-top10-2025#top-102025-list
+    sentence: A01:2025 - Broken Access Control
+  wrong:
+  - option: Injection is A01:2025 in the Top 10:2025
+    anchor: owasp-top10-2025#top-102025-list
+    sentence: A05:2025 - Injection
+  - option: Software Supply Chain Failures is A10:2025 in the Top 10:2025
+    anchor: owasp-top10-2025#top-102025-list
+    sentence: A03:2025 - Software Supply Chain Failures
+  - option: Server Side Request Forgery is API3:2023 in the API Security Top 10
+    anchor: owasp-api-top10-2023#owasp-top-10-api-security-risks-2023
+    sentence: API7:2023 - Server Side Request Forgery
+m10-l06-q02:
+  key:
+    anchor: owasp-api1-bola#is-the-api-vulnerable
+    sentence: Every API endpoint that receives an ID of an object, and performs any action on the object, should implement object-level authorization checks.
+  wrong:
+  - option: Comparing the session user ID from the JWT token with the ID parameter fully solves it
+    anchor: owasp-api1-bola#is-the-api-vulnerable
+    sentence: Comparing the user ID of the current session (e.g. by extracting it from the JWT token) with the vulnerable ID parameter isn't a sufficient solution to solve Broken Object Level Authorization (BOLA).
+  - option: Reaching an endpoint the attacker should not access at all counts as BOLA
+    anchor: owasp-api1-bola#is-the-api-vulnerable
+    sentence: If an attacker manages to access an API endpoint/function they should not have access to - this is a case of Broken Function Level Authorization (BFLA) rather than BOLA.
+  - option: Only sequential integer IDs can be manipulated, so UUIDs remove the problem
+    anchor: owasp-api1-bola#api12023-broken-object-level-authorization
+    sentence: Object IDs can be anything from sequential integers, UUIDs, or generic strings.
+m10-l06-q03:
+  key:
+    anchor: owasp-api3-bopla#how-to-prevent
+    sentence: Instead, cherry-pick specific object properties you specifically want to return.
+  wrong:
+  - option: Returning the whole object with `to_json()` and letting clients ignore extra fields
+    anchor: owasp-api3-bopla#how-to-prevent
+    sentence: Avoid using generic methods such as to_json() and to_string().
+  - option: Binding client input automatically into internal objects to save code
+    anchor: owasp-api3-bopla#how-to-prevent
+    sentence: If possible, avoid using functions that automatically bind a client's input into code variables, internal objects, or object properties ("Mass Assignment").
+  - option: Letting clients change every property that they can see in the response
+    anchor: owasp-api3-bopla#how-to-prevent
+    sentence: Allow changes only to the object's properties that should be updated by the client.
+m10-l06-q04:
+  key:
+    anchor: owasp-cs-authorization#validate-the-permissions-on-every-request
+    sentence: The technology used to perform such checks should allow for global, application-wide configuration rather than needing to be applied individually to every method or class.
+  wrong:
+  - option: Requests initiated by an AJAX script are exempt because the page already checked
+    anchor: owasp-cs-authorization#validate-the-permissions-on-every-request
+    sentence: Permission should be validated correctly on every request, regardless of whether the request was initiated by an AJAX script, server-side, or any other source.
+  - option: One missed check is tolerable because an attacker needs several unprotected paths
+    anchor: owasp-cs-authorization#validate-the-permissions-on-every-request
+    sentence: Remember an attacker only needs to find one way in.
+  - option: Checking most requests correctly is enough as long as the sensitive ones are covered
+    anchor: owasp-cs-authorization#validate-the-permissions-on-every-request
+    sentence: Validating permissions correctly on just the majority of requests is insufficient.
+m10-l06-q05:
+  key:
+    anchor: owasp-cs-sql-injection#primary-defenses
+    sentence: parameterized queries when including dynamic data in SQL requests;
+  wrong:
+  - option: Manually escaping the dynamic inputs before concatenating them
+    anchor: owasp-cs-sql-injection#primary-defenses
+    sentence: Relying on manually escaping dynamic inputs is error-prone and is strongly discouraged.
+  - option: Escaping the table and column names that users choose
+    anchor: owasp-top10-2025-a05#how-to-prevent
+    sentence: 'Note: SQL structures such as table names, column names, and so on cannot be escaped, and thus user-supplied structure names are dangerous.'
+  - option: Positive server-side input validation as the only defence
+    anchor: owasp-top10-2025-a05#how-to-prevent
+    sentence: Use positive server-side input validation. This is not a complete defense as many applications require special characters, such as text areas or APIs for mobile applications.
+m10-l06-q06:
+  key:
+    anchor: owasp-api7-ssrf#how-to-prevent
+    sentence: 'Whenever possible, use allow lists of:'
+  wrong:
+  - option: Following HTTP redirections so that moved resources still resolve
+    anchor: owasp-api7-ssrf#how-to-prevent
+    sentence: Disable HTTP redirections.
+  - option: Returning the raw response of the fetched resource to the client for debugging
+    anchor: owasp-api7-ssrf#how-to-prevent
+    sentence: Do not send raw responses to clients.
+  - option: Writing a custom URL parser that handles parsing inconsistencies
+    anchor: owasp-api7-ssrf#how-to-prevent
+    sentence: Use a well-tested and maintained URL parser to avoid issues caused by URL parsing inconsistencies.
+m10-l06-q07:
+  key:
+    anchor: owasp-cs-deserialization#java
+    sentence: Configure serialization filters with an application-specific class allowlist and resource limits before reading objects.
+  wrong:
+  - option: A `resolveClass()` override that allows one class is a complete defense
+    anchor: owasp-cs-deserialization#harden-your-own-javaioobjectinputstream
+    sentence: 'The following example allows only Bicycle through resolveClass(). It is an illustrative class check, not a complete deserialization defense:'
+  - option: Filtering makes arbitrary untrusted deserialization safe
+    anchor: owasp-cs-deserialization#harden-your-own-javaioobjectinputstream
+    sentence: Filtering does not make arbitrary untrusted deserialization safe.
+  - option: Serialization filters also bound concretely encoded strings, so no separate size limit is needed
+    anchor: owasp-cs-deserialization#harden-your-own-javaioobjectinputstream
+    sentence: 'Also bound the serialized input size separately: filters are not called for concretely encoded strings or primitives.'
+m10-l06-q08:
+  key:
+    anchor: owasp-cs-file-upload#filename-safety
+    sentence: In order to avoid the above mentioned threat, creating a random string as a filename, such as generating a UUID/GUID, is essential.
+  wrong:
+  - option: Keeping the user's filename and block-listing dangerous characters as the preferred defence
+    anchor: owasp-cs-file-upload#filename-safety
+    sentence: If this is not possible, block-list dangerous characters that could endanger the framework and system that is storing and using the files.
+  - option: Allowing sequential periods because they only separate file extensions
+    anchor: owasp-cs-file-upload#filename-safety
+    sentence: Restrict use of leading periods (hidden files) and sequential periods (directory traversal).
+  - option: Checking only the long filename on Windows because it is the file's only name
+    anchor: owasp-cs-file-upload#filename-safety
+    sentence: If an overwrite or collision check validates only the long filename supplied by the user, an attacker who can predict the short alias of an existing sensitive file may reference it directly to overwrite that file, bypassing an exact-name or extension check.
+m10-l06-q09:
+  key:
+    anchor: spring-security-servlet-exploits-csrf#csrf-components
+    sentence: If the actual CSRF token is invalid (or missing), an AccessDeniedException is passed to the AccessDeniedHandler and processing ends.
+  wrong:
+  - option: Fetch Metadata headers replace origin verification, so legacy browsers need no fallback
+    anchor: owasp-cs-csrf#fetch-metadata-headers
+    sentence: Because some legacy browsers do not send Sec-Fetch-* headers, a fallback to standard origin verification headers is a mandatory requirement for any Fetch Metadata implementation.
+  - option: '`Sec-Fetch-Mode` is the primary signal for CSRF protection, ahead of `Sec-Fetch-Site`'
+    anchor: owasp-cs-csrf#fetch-metadata-headers
+    sentence: Sec-Fetch-Site — the primary signal for CSRF protection.
+  - option: The synchronizer token pattern is discouraged because it keeps state on the server
+    anchor: owasp-cs-csrf#token-based-mitigation
+    sentence: The synchronizer token pattern is one of the most popular and recommended methods to mitigate CSRF.
+m10-l06-q10:
+  key:
+    anchor: spring-security-servlet-integrations-cors#cors-configuration-source
+    sentence: Note that Spring Security will automatically configure CORS only if a UrlBasedCorsConfigurationSource instance is present.
+  wrong:
+  - option: '`defaultsDisabled()` followed by `cacheControl(withDefaults())` keeps all of the default headers'
+    anchor: spring-security-servlet-exploits-headers#servlet-headers-default
+    sentence: 'If you use Spring Security’s configuration, the following adds only Cache Control:'
+  - option: '`headers.disable()` removes only the cache control header'
+    anchor: spring-security-servlet-exploits-headers#servlet-headers-default
+    sentence: 'If necessary, you can disable all of the HTTP Security response headers with the following configuration:'
+  - option: To change one default header, all the defaults must be disabled first
+    anchor: spring-security-servlet-exploits-headers#servlet-headers-default
+    sentence: For example, assume that you want the defaults but you wish to specify SAMEORIGIN for X-Frame-Options.
+m10-l06-q11:
+  key:
+    anchor: owasp-cs-input-validation#input-validation-strategies
+    sentence: Validate both syntax (the expected type and format) and semantics (whether the value makes sense for the operation).
+  wrong:
+  - option: Blocking apostrophes makes a database query safe against injection
+    anchor: owasp-cs-input-validation#allowlist-vs-denylist
+    sentence: Blocking apostrophes, for example, rejects legitimate names without making a database query safe.
+  - option: The application should recognize every malicious string and reject it
+    anchor: owasp-cs-input-validation#allowlist-vs-denylist
+    sentence: Do not try to recognize every malicious string.
+  - option: Free-form comments must be restricted to letters and digits
+    anchor: owasp-cs-input-validation#allowlist-vs-denylist
+    sentence: For free-form comments, an allowlist can permit broad Unicode text while limiting its length; it need not restrict users to letters and digits.
+m10-l06-q12:
+  key:
+    anchor: spring-boot-actuator-endpoints#actuator.endpoints.sanitization
+    sentence: Information returned by the /env, /configprops and /quartz endpoints can be sensitive, so by default values are always fully sanitized (replaced by ******).
+  wrong:
+  - option: With `show-values` set to `never`, the values are shown to all authenticated users
+    anchor: spring-boot-actuator-endpoints#actuator.endpoints.sanitization
+    sentence: never - values are always fully sanitized (replaced by ******)
+  - option: With `when-authorized`, JMX endpoints show values only to users with the configured roles
+    anchor: spring-boot-actuator-endpoints#actuator.endpoints.sanitization
+    sentence: For JMX endpoints, all users are always authorized.
+  - option: With `when-authorized`, HTTP endpoints show values to unauthenticated users too
+    anchor: spring-boot-actuator-endpoints#actuator.endpoints.sanitization
+    sentence: For HTTP endpoints, a user is considered to be authorized if they have authenticated and have the roles configured by the endpoint’s roles property.
+m10-l06-q13:
+  key:
+    anchor: k8s-secrets#information-security-for-secrets
+    sentence: For example, granting list or watch permissions on Secrets allows a subject to read all Secret data in that namespace, not only the Secrets explicitly referenced by its Pods.
+  wrong:
+  - option: The kubelet writes a mounted Secret to durable node storage so that it survives restarts
+    anchor: k8s-secrets#information-security-for-secrets
+    sentence: For mounting Secrets into Pods, the kubelet stores a copy of the data into a tmpfs so that the confidential data is not written to durable storage.
+  - option: Every Secret of a namespace is sent to every node, in case a Pod needs it
+    anchor: k8s-secrets#information-security-for-secrets
+    sentence: A Secret is only sent to a node if a Pod on that node requires it.
+  - option: A Pod can read the Secrets of other Pods that run on the same node
+    anchor: k8s-secrets#information-security-for-secrets
+    sentence: Therefore, one Pod does not have access to the Secrets of another Pod.
+m10-l06-q14:
+  key:
+    anchor: owasp-cs-secrets#25-handling-secrets-in-memory
+    sentence: Instead, use primitive types such as byte arrays or char arrays, where the memory can be directly overwritten.
+  wrong:
+  - option: Storing it in a `String`, because immutable objects are collected promptly
+    anchor: owasp-cs-secrets#25-handling-secrets-in-memory
+    sentence: In .NET and Java, do not use immutable structures such as Strings to store secrets, since it is impossible to force them to be garbage collected.
+  - option: Keeping it in memory for the whole life of the process so it is always available
+    anchor: owasp-cs-secrets#25-handling-secrets-in-memory
+    sentence: Remember, the goal is to minimize the time window where the secret is in plaintext in memory as much as possible.
+  - option: Skipping any protection of secrets in memory, because it is always overkill
+    anchor: owasp-cs-secrets#25-handling-secrets-in-memory
+    sentence: Despite the implementation difficulties, in highly sensitive environments, protecting secrets in memory can be a valuable additional layer of security.
+m10-l06-q15:
+  key:
+    anchor: slsa-build-track-basics#build-l2-hosted-build-platform
+    sentence: In practice, this means that builds run on a hosted platform that generates and signs
+  wrong:
+  - option: At Build L1, the build platform signs the provenance so tampering is prevented
+    anchor: slsa-build-track-basics#build-l1-provenance-exists
+    sentence: Provenance may be incomplete and/or unsigned at L1.
+  - option: At Build L3, the signing material may be reachable by user-defined build steps
+    anchor: slsa-build-track-basics#build-l3-hardened-builds
+    sentence: prevent secret material used to sign the provenance from being accessible to the user-defined build steps.
+  - option: Source L1 requires code review of every change
+    anchor: slsa-source-requirements#basics
+    sentence: Source L1 Use a version control system.
+m10-l06-q16:
+  key:
+    anchor: owasp-cs-threat-modeling#threat-identification
+    sentence: Tampering Integrity An attacker abuses the application to perform unintended updates to a database.
+  wrong:
+  - option: Authentication
+    anchor: owasp-cs-threat-modeling#threat-identification
+    sentence: Tampering Integrity An attacker abuses the application to perform unintended updates to a database.
+    exclusive: true
+  - option: Confidentiality
+    anchor: owasp-cs-threat-modeling#threat-identification
+    sentence: Tampering Integrity An attacker abuses the application to perform unintended updates to a database.
+    exclusive: true
+  - option: Availability
+    anchor: owasp-cs-threat-modeling#threat-identification
+    sentence: Tampering Integrity An attacker abuses the application to perform unintended updates to a database.
+    exclusive: true
+m10-l06-q17:
+  key:
+    anchor: cyclonedx-spec#dependencies
+    sentence: The dependency graph is capable of representing both direct and transitive relationships.
+  wrong:
+  - option: It inventories only third-party components, not first-party ones
+    anchor: cyclonedx-spec#components
+    sentence: Components describe the complete inventory of first-party and third-party components.
+  - option: It describes software only, not hardware devices or machine learning models
+    anchor: cyclonedx-spec#components
+    sentence: The specification can represent software, hardware devices, machine learning models, source code, and configurations
+  - option: Components that depend on services cannot be represented in it
+    anchor: cyclonedx-spec#dependencies
+    sentence: Components that depend on services can be represented in the dependency graph
+m10-l06-q18:
+  key:
+    anchor: sigstore-cosign-signing#overview
+    sentence: Keyless signing associates identities, rather than keys, with an artifact signature.
+  wrong:
+  - option: Fulcio issues long-lived certificates bound to a developer's permanent private key
+    anchor: sigstore-cosign-signing#overview
+    sentence: Fulcio issues short-lived certificates binding an ephemeral key to an OpenID Connect identity.
+  - option: Signing events are recorded only on the signer's own machine
+    anchor: sigstore-cosign-signing#overview
+    sentence: Signing events are logged in Rekor, a signature transparency log, providing an auditable record of when a signature was created.
+  - option: Verification relies on the signature alone, without comparing a log entry
+    anchor: sigstore-cosign-signing#verifying-the-signed-artifact
+    sentence: When a software consumer wants to verify the software’s signature, Sigstore compares a tuple of signature, key/certificate, and artifact from the timestamped object against the timestamped Rekor entry.
+m10-l06-q19:
+  key:
+    execution: m10-l06/PathTraversal.java
+  wrong:
+  - option: /var/uploads/../etc/passwd true
+    execution: m10-l06/PathTraversal.java
+    mistake: forgot to normalize
+  - option: /var/etc/passwd true
+    execution: m10-l06/PathTraversal.java
+    mistake: assumed the path stays inside the directory
+  - option: /etc/passwd false
+    execution: m10-l06/PathTraversal.java
+    mistake: off-by-one on the parent segment

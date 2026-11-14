@@ -131,7 +131,7 @@ terms:
   definition:
     en: SQL scripts that capture incremental changes to a development database, schema and data changes alike. The
       same scripts are run in the same order on each environment, which gives a repeatable deployment process.
-  link_except: [m00-l01]  # "large migrations" there is the leadership sense, not a schema migration
+  link_except: [m00-l01, m08-l05]  # leadership sense in m00-l01, virtual machine migrations in m08-l05
 
 # jls-8-records#jls-8.10
 - id: g-record-class
@@ -152,6 +152,7 @@ terms:
 - id: g-pattern-matching
   en: pattern matching
   origin: m01-l01
+  link_except: [m09-l01, m09-l05, m10-l04]  # SQL LIKE operators and exact-string matching, not Java pattern matching
   definition:
     en: The process of testing a value against a pattern at run time.
 
@@ -193,3 +194,1645 @@ terms:
   definition:
     en: An entity managed by a repository. In a Domain-Driven Design application, aggregate roots usually publish
       domain events.
+
+# spring-fw-tx-declarative-annotations#using-transactional
+- id: g-self-invocation
+  en: self invocation
+  origin: m01-l04
+  definition:
+    en: A method within the target object calling another method of the target object, which in proxy mode does
+      not lead to an actual transaction at runtime even if the invoked method is marked with @Transactional.
+
+# javadoc-forkjoinpool#class-forkjoinpool
+- id: g-common-pool
+  en: common pool
+  origin: m01-l04
+  definition:
+    en: The static ForkJoinPool returned by ForkJoinPool.commonPool(), used by any ForkJoinTask that is not explicitly
+      submitted to a specified pool.
+
+# javadoc-forkjoinpool#class-forkjoinpool
+- id: g-work-stealing
+  en: work-stealing
+  origin: m01-l04
+  definition:
+    en: 'The way a ForkJoinPool runs tasks: all threads in the pool attempt to find and execute tasks submitted
+      to the pool and/or created by other active tasks.'
+
+# jdk-troubleshoot-memleaks#JSTGD-GUID-4B841E7E-C533-447B-B093-58CEE13B962A
+- id: g-heap-dump
+  en: heap dump
+  origin: m03-l01
+  definition:
+    en: The most important data to troubleshoot memory leaks; it can be collected using jcmd, jmap, JConsole tools,
+      and the -XX:+HeapDumpOnOutOfMemoryError Java option.
+
+# jdk-troubleshoot-tools#JSTGD-GUID-489BB790-A7C7-4CF0-9A6B-63FA12230238
+- id: g-thread-dump
+  en: thread dump
+  origin: m03-l01
+  definition:
+    en: The thread stack, including the thread state, for all Java threads in the virtual machine. It does not terminate
+      the application.
+
+# jdk-troubleshoot-memleaks#JSTGD-GUID-2A57EA14-3A39-4E6D-90FA-95788A9C3605
+- id: g-memory-leak
+  en: memory leak
+  origin: m03-l01
+  definition:
+    en: A memory leak occurs when an application unintentionally holds references to Java objects or classes, preventing
+      them from being garbage collected.
+
+# jdk-troubleshoot-memleaks#JSTGD-GUID-2A57EA14-3A39-4E6D-90FA-95788A9C3605
+- id: g-live-set
+  en: live set
+  origin: m03-l01
+  definition:
+    en: The amount of Java heap space or Metaspace being used after a full garbage collection.
+
+# jdk-troubleshoot-memleaks#JSTGD-GUID-19F6D28E-75A1-4480-9879-D0932B2F305B
+- id: g-metaspace
+  en: Metaspace
+  origin: m03-l01
+  definition:
+    en: Native memory in which Java class metadata is allocated.
+
+# jdk-troubleshoot-jfr#JSTGD-GUID-3839D694-F0F7-4E43-93BE-3BF13F4D2102
+- id: g-tlab
+  en: TLAB
+  origin: m03-l01
+  definition:
+    en: A small memory area where new objects are allocated. Once a TLAB is full, the thread gets a new one.
+
+# jdk-tool-java#ahead-of-time-cache
+- id: g-ahead-of-time-cache
+  en: AOT cache
+  origin: m03-l01
+  definition:
+    en: A container, introduced in JDK 24, for storing artifacts produced by ahead-of-time optimizations.
+
+# graalvm-native-image-basics#static-analysis
+- id: g-closed-world-assumption
+  en: closed-world assumption
+  origin: m03-l01
+  definition:
+    en: The constraint that once a native image is built, no new elements can be added at run time, for example
+      through class loading.
+
+# jls-17#jls-17.4.5
+- id: g-happens-before
+  en: happens-before
+  origin: m03-l02
+  definition:
+    en: If one action happens-before another, then the first is visible to and ordered before the second.
+
+# jls-17#jls-17.4.5
+- id: g-data-race
+  en: data race
+  origin: m03-l02
+  definition:
+    en: When a program contains two conflicting accesses that are not ordered by a happens-before relationship,
+      it is said to contain a data race.
+
+# javadoc-semaphore#class-semaphore
+- id: g-binary-semaphore
+  en: binary semaphore
+  origin: m03-l02
+  definition:
+    en: 'A semaphore initialized to one and used such that it only has at most one permit available, so it only
+      has two states: one permit available, or zero permits available.'
+
+# jls-17#jls-17.4.5
+- id: g-correctly-synchronized
+  en: correctly synchronized
+  origin: m03-l02
+  definition:
+    en: A program is correctly synchronized if and only if all sequentially consistent executions are free of data
+      races.
+
+# jls-17#jls-17.4.3
+- id: g-sequential-consistency
+  en: sequentially consistent
+  origin: m03-l02
+  definition:
+    en: A set of actions is sequentially consistent if all actions occur in a total order that is consistent with
+      program order, and each read of a variable sees the value written by the latest preceding write to it in that
+      order.
+
+# jep-444#Summary
+- id: g-virtual-thread
+  en: virtual thread
+  origin: m03-l03
+  definition:
+    en: A lightweight thread that dramatically reduces the effort of writing, maintaining, and observing high-throughput
+      concurrent applications.
+
+# javadoc-thread#platform-threads
+- id: g-platform-thread
+  en: platform thread
+  origin: m03-l03
+  definition:
+    en: A thread that is typically mapped 1:1 to a kernel thread scheduled by the operating system.
+
+# jep-444#Scheduling-virtual-threads
+- id: g-carrier-thread
+  en: carrier
+  origin: m03-l03
+  link_except: [m01-l01, m04-l02]  # there "carrier" is a record as a data carrier, a false friend
+  definition:
+    en: The platform thread to which the scheduler assigns a virtual thread.
+
+# jep-505#Summary
+- id: g-structured-concurrency
+  en: structured concurrency
+  origin: m03-l03
+  definition:
+    en: An approach that treats groups of related tasks running in different threads as single units of work, thereby
+      streamlining error handling and cancellation, improving reliability, and enhancing observability.
+
+# javadoc-scopedvalue#class-scopedvalue-t
+- id: g-scoped-value
+  en: scoped value
+  origin: m03-l03
+  definition:
+    en: A value that may be safely and efficiently shared to methods without using method parameters.
+
+# javadoc-threadlocal#class-threadlocal-t
+- id: g-thread-local-variable
+  en: thread-local variable
+  origin: m03-l03
+  definition:
+    en: A variable of which each thread that accesses it has its own, independently initialized copy.
+
+# jdk-troubleshoot-tools#JSTGD-GUID-D38849B6-61C7-4ED6-A395-EA4BC32A9FD6
+- id: g-flight-recorder
+  en: Flight Recorder
+  origin: m03-l04
+  definition:
+    en: A profiling and event collection framework built into the JDK.
+
+# jdk-troubleshoot-tools#JSTGD-GUID-47A98C88-95B1-4842-9B0D-67BBDB266214
+- id: g-jdk-mission-control
+  en: JDK Mission Control
+  origin: m03-l04
+  definition:
+    en: A production-time profiling and diagnostics tool that includes tools to monitor and manage your Java application
+      with a very small performance overhead.
+
+# jmh-sample-deadcode#_R_7lcpala9lik5_
+- id: g-dead-code-elimination
+  en: dead-code elimination
+  origin: m03-l04
+  definition:
+    en: The optimization in which compilers deduce that some computations are redundant and eliminate them completely.
+
+# jmh-sample-constantfold#_R_7lcpala9lik5_
+- id: g-constant-folding
+  en: constant folding
+  origin: m03-l04
+  definition:
+    en: The optimization in which, if the JVM realizes the result of the computation is the same no matter what,
+      it can cleverly optimize it, for example by moving the computation outside of the internal loop.
+
+# wrk2-readme#acknowledgements
+- id: g-coordinated-omission
+  en: Coordinated Omission
+  origin: m03-l04
+  definition:
+    en: An effect in a load generator through which most of the high latency artifacts exhibited by the measured
+      server are ignored, because each connection only begins to send a request after receiving a response.
+
+# javadoc-hashmap#class-hashmap-k-v
+- id: g-load-factor
+  en: load factor
+  origin: m02-l01
+  definition:
+    en: The load factor is a measure of how full the hash table is allowed to get before its capacity is automatically
+      increased.
+
+# erickson-hashing#p4
+- id: g-chained-hash-table
+  en: chained hash table
+  origin: m02-l01
+  definition:
+    en: In a chained hash table, each entry T [i] is not just a single item, but rather (a pointer to) a linked
+      list of all the items that hash to T [i].
+
+# javadoc-arrays#binarySearch(int[],int)
+- id: g-insertion-point
+  en: insertion point
+  origin: m02-l02
+  definition:
+    en: 'The insertion point is defined as the point at which the key would be inserted into the array: the index
+      of the first element greater than the key, or a.length if all elements in the array are less than the specified
+      key.'
+
+# javadoc-deque#interface-deque-e
+- id: g-deque
+  en: deque
+  origin: m02-l03
+  definition:
+    en: A linear collection that supports element insertion and removal at both ends.
+
+# ods-6-1-binarytree-basic-binary#SECTION00912000000000000000
+- id: g-breadth-first-traversal
+  en: breadth-first traversal
+  origin: m02-l03
+  definition:
+    en: In a breadth-first traversal, the nodes are visited level-by-level starting at the root and moving down,
+      visiting the nodes at each level from left to right
+
+# ods-12-1-adjacencymatrix-repres#SECTION001510000000000000000
+- id: g-adjacency-matrix
+  en: adjacency matrix
+  origin: m02-l04
+  definition:
+    en: A way of representing a graph with n vertices by an n by n matrix whose entries are boolean values.
+
+# ods-12-3-graph-traversal#SECTION001531000000000000000
+- id: g-breadth-first-search
+  en: breadth-first search
+  origin: m02-l04
+  definition:
+    en: An algorithm that starts at a vertex and visits first the neighbours of that vertex, then the neighbours
+      of the neighbours, and so on.
+
+# ods-12-3-graph-traversal#SECTION001532000000000000000
+- id: g-depth-first-search
+  en: depth-first search
+  origin: m02-l04
+  definition:
+    en: An algorithm similar to breadth-first search except that it uses a stack instead of a queue.
+
+# erickson-dfs#p7
+- id: g-directed-acyclic-graph
+  en: directed acyclic graph
+  origin: m02-l04
+  definition:
+    en: A directed graph with no directed cycles, also called a dag.
+
+# erickson-union-find#p4
+- id: g-path-compression
+  en: path compression
+  origin: m02-l04
+  definition:
+    en: A modification to Find that, once the leader of an object x is determined, redirects the parent pointer
+      of x directly to that leader.
+
+# erickson-backtracking#p9
+- id: g-backtracking
+  en: backtracking
+  origin: m02-l05
+  definition:
+    en: A recursive technique commonly used to make a sequence of decisions, with the goal of building a recursively
+      defined structure satisfying certain constraints.
+
+# erickson-dynamic-programming#p3
+- id: g-memoization
+  en: memoisation
+  origin: m02-l05
+  definition:
+    en: Writing down the results of recursive calls and looking them up again if they are needed later.
+
+# erickson-dynamic-programming#p9
+- id: g-dynamic-programming
+  en: dynamic programming
+  origin: m02-l05
+  definition:
+    en: 'Recursion without repetition: the algorithm stores the solutions of intermediate subproblems, often but
+      not always in some kind of array or table.'
+
+# erickson-dynamic-programming#p11
+- id: g-greedy-algorithm
+  en: greedy algorithm
+  origin: m02-l05
+  definition:
+    en: An algorithm that constructs a solution through a series of decisions, like a backtracking algorithm, but
+      makes those decisions directly, without solving any recursive subproblems.
+
+# erickson-dynamic-programming#p15
+- id: g-edit-distance
+  en: edit distance
+  origin: m02-l05
+  definition:
+    en: The minimum number of letter insertions, letter deletions and letter substitutions required to transform
+      one string into the other.
+
+# javadoc-iterator#interface-iterator-e
+- id: g-iterator
+  en: iterator
+  origin: m02-l06
+  definition:
+    en: An iterator over a collection; iterators allow the caller to remove elements from the underlying collection
+      during the iteration with well-defined semantics.
+
+# ods-10-1-binaryheap-implicit-bi#SECTION001310000000000000000
+- id: g-binary-heap
+  en: binary heap
+  origin: m02-l06
+  definition:
+    en: A structure that implicitly represents a complete binary tree in which the elements are heap-ordered.
+
+# kotlin-docs-java-interop#null-safety-and-platform-types
+- id: g-platform-type
+  en: platform type
+  origin: m04-l01
+  definition:
+    en: Types of Java declarations are treated in Kotlin as non-denotable and called platform types.
+
+# kotlin-docs-typecasts#smart-casts
+- id: g-smart-cast
+  en: smart cast
+  origin: m04-l01
+  definition:
+    en: The compiler tracks the type checks and explicit casts for immutable values and inserts implicit (safe)
+      casts automatically.
+
+# kotlin-docs-null-safety#elvis-operator
+- id: g-elvis-operator
+  en: Elvis operator
+  origin: m04-l01
+  definition:
+    en: 'If the expression to the left of ?: is not null, the Elvis operator returns it. Otherwise, the Elvis operator
+      returns the expression to the right.'
+
+# kotlin-docs-generics#declaration-site-variance
+- id: g-declaration-site-variance
+  en: declaration-site variance
+  origin: m04-l01
+  definition:
+    en: The out modifier is called a variance annotation, and since it is provided at the type parameter declaration
+      site, it provides declaration-site variance.
+
+# kotlin-docs-generics#type-erasure
+- id: g-type-erasure
+  en: type erasure
+  origin: m04-l01
+  definition:
+    en: At runtime, the instances of generic types do not hold any information about their actual type arguments.
+      The type information is said to be erased.
+
+# kotlin-docs-data-classes#data-classes.md
+- id: g-data-class
+  en: data class
+  origin: m04-l02
+  definition:
+    en: Data classes in Kotlin are primarily used to hold data.
+
+# jep-409#Summary
+- id: g-sealed-class
+  en: sealed class
+  origin: m04-l02
+  definition:
+    en: Sealed classes and interfaces restrict which other classes or interfaces may extend or implement them.
+
+# kotlin-docs-object-declarations#object-declarations-overview
+- id: g-object-declaration
+  en: object declaration
+  origin: m04-l02
+  definition:
+    en: You can create single instances of objects in Kotlin using object declarations, which always have a name
+      following the object keyword.
+
+# kotlin-docs-inline-classes#inline-classes.md
+- id: g-inline-class
+  en: inline class
+  origin: m04-l02
+  definition:
+    en: Inline classes are a subset of value-based classes. They don't have an identity and can only hold values.
+
+# kotlin-docs-control-flow#guard-conditions-in-when-expressions
+- id: g-guard-condition
+  en: guard condition
+  origin: m04-l02
+  definition:
+    en: Guard conditions allow you to include more than one condition to the branches of a when expression or statement,
+      making complex control flow more explicit and concise.
+
+# coroutines-api-supervisor-job#content
+- id: g-supervisor-job
+  en: SupervisorJob
+  origin: m04-l03
+  definition:
+    en: Children of a supervisor job can fail independently of each other.
+
+# kotlin-docs-coroutines-basics#coroutine-dispatchers
+- id: g-coroutine-dispatcher
+  en: coroutine dispatcher
+  origin: m04-l03
+  definition:
+    en: A coroutine dispatcher controls which thread or thread pool coroutines use for their execution.
+
+# kotlin-docs-flow#hot-flows
+- id: g-hot-flow
+  en: hot flow
+  origin: m04-l03
+  definition:
+    en: Hot flows are shared streams that emit values independently of collectors.
+
+# mockk-docs#relaxed-mock
+- id: g-relaxed-mock
+  en: relaxed mock
+  origin: m04-l04
+  definition:
+    en: A relaxed mock is the mock that returns some simple value for all functions. This allows you to skip specifying
+      behavior for each case, while still stubbing things you need.
+
+# coroutines-api-test-scheduler#content
+- id: g-test-coroutine-scheduler
+  en: TestCoroutineScheduler
+  origin: m04-l04
+  definition:
+    en: A scheduler for coroutines used in tests, providing the delay-skipping behavior.
+
+# spring-fw-beans-factory-extension#beans-factory-extension-bpp
+- id: g-bean-post-processor
+  en: BeanPostProcessor
+  origin: m05-l01
+  definition:
+    en: The BeanPostProcessor interface defines callback methods that you can implement to provide your own (or
+      override the container’s default) instantiation logic, dependency resolution logic, and so forth.
+
+# spring-fw-beans-factory-scopes#beans-factory-scopes-prototype
+- id: g-prototype-scope
+  en: prototype scope
+  origin: m05-l01
+  definition:
+    en: The non-singleton prototype scope of bean deployment results in the creation of a new bean instance every
+      time a request for that specific bean is made.
+
+# spring-fw-beans-dependencies-factory-collaborators#beans-dependency-resolution
+- id: g-circular-dependency
+  en: circular dependency
+  origin: m05-l01
+  definition:
+    en: A circular dependency between bean A and bean B forces one of the beans to be injected into the other prior
+      to being fully initialized itself.
+
+# spring-boot-using-auto-configuration#page-title
+- id: g-auto-configuration
+  en: auto-configuration
+  origin: m05-l02
+  definition:
+    en: Spring Boot auto-configuration attempts to automatically configure your Spring application based on the
+      jar dependencies that you have added.
+
+# spring-boot-using-build-systems#using.build-systems.starters
+- id: g-starter
+  en: starter
+  origin: m05-l02
+  link_except: [m12-l01]  # there the word means conversation starters
+  definition:
+    en: Starters are a set of convenient dependency descriptors that you can include in your application.
+
+# spring-fw-aop-proxying#proxying-mechanisms
+- id: g-jdk-dynamic-proxy
+  en: JDK dynamic proxy
+  origin: m05-l03
+  definition:
+    en: If the target object to be proxied implements at least one interface, a JDK dynamic proxy is used, and all
+      of the interfaces implemented by the target type are proxied.
+
+# spring-fw-aop-proxying#proxying-mechanisms
+- id: g-cglib-proxy
+  en: CGLIB proxy
+  origin: m05-l03
+  definition:
+    en: If the target object does not implement any interfaces, a CGLIB proxy is created which is a runtime-generated
+      subclass of the target type.
+
+# spring-fw-tx-declarative-rolling-back#page-title
+- id: g-rollback-rule
+  en: rollback rule
+  origin: m05-l04
+  definition:
+    en: Rollback rules determine if a transaction should be rolled back when a given exception is thrown, and the
+      rules are based on exception types or exception patterns.
+
+# spring-fw-webmvc-dispatcher-special-beans#page-title
+- id: g-handler-mapping
+  en: HandlerMapping
+  origin: m05-l05
+  definition:
+    en: Map a request to a handler along with a list of interceptors for pre- and post-processing.
+
+# spring-fw-webmvc-dispatcher-special-beans#page-title
+- id: g-handler-adapter
+  en: HandlerAdapter
+  origin: m05-l05
+  definition:
+    en: Help the DispatcherServlet to invoke a handler mapped to a request, regardless of how the handler is actually
+      invoked.
+
+# spring-security-servlet-authentication-architecture#servlet-authentication-securitycontextholder
+- id: g-security-context-holder
+  en: SecurityContextHolder
+  origin: m05-l06
+  definition:
+    en: The SecurityContextHolder is where Spring Security stores the details of who is authenticated.
+
+# spring-security-servlet-authentication-architecture#servlet-authentication-providermanager
+- id: g-provider-manager
+  en: ProviderManager
+  origin: m05-l06
+  definition:
+    en: ProviderManager is the most commonly used implementation of AuthenticationManager.
+
+# spring-security-servlet-architecture#servlet-securityfilterchain
+- id: g-security-filter-chain
+  en: SecurityFilterChain
+  origin: m05-l06
+  definition:
+    en: SecurityFilterChain is used by FilterChainProxy to determine which Spring Security Filter instances should
+      be invoked for the current request.
+
+# hibernate-user-guide#pc
+- id: g-persistence-context
+  en: persistence context
+  origin: m05-l07
+  definition:
+    en: Both the org.hibernate.Session API and jakarta.persistence.EntityManager API represent a context for dealing
+      with persistent data. This concept is called a persistence context.
+
+# jakarta-persistence-spec#a1929
+- id: g-detached-entity
+  en: detached entity
+  origin: m05-l07
+  definition:
+    en: A detached entity instance is an instance with a persistent identity that is not (or no longer) associated
+      with a persistence context.
+
+# spring-boot-actuator-endpoints#actuator.endpoints.health
+- id: g-health-indicator
+  en: HealthIndicator
+  origin: m05-l08
+  definition:
+    en: A HealthIndicator provides actual health information, including a Status.
+
+# spring-boot-testing-testcontainers#testing.testcontainers.service-connections
+- id: g-service-connection
+  en: service connection
+  origin: m05-l08
+  definition:
+    en: A service connection is a connection to any remote service.
+
+# rfc9293#section-3.5
+- id: g-three-way-handshake
+  en: three-way handshake
+  origin: m07-l01
+  definition:
+    en: The procedure used to establish a connection. It normally is initiated by one TCP peer and responded to
+      by another TCP peer.
+
+# rfc9293#section-3.3.2
+- id: g-time-wait
+  en: TIME-WAIT
+  origin: m07-l01
+  definition:
+    en: A TCP state that represents waiting for enough time to pass to be sure the remote TCP peer received the
+      acknowledgment of its connection termination request and to avoid new connections being impacted by delayed
+      segments from previous connections.
+
+# rfc5681#section-3.1
+- id: g-congestion-window
+  en: congestion window (cwnd)
+  origin: m07-l01
+  definition:
+    en: A sender-side limit on the amount of data the sender can transmit into the network before receiving an acknowledgment
+      (ACK).
+
+# rfc5681#section-3.1
+- id: g-slow-start-threshold
+  en: slow start threshold (ssthresh)
+  origin: m07-l01
+  definition:
+    en: A state variable used to determine whether the slow start or congestion avoidance algorithm is used to control
+      data transmission.
+
+# rfc6066#section-3
+- id: g-server-name-indication
+  en: Server Name Indication (SNI)
+  origin: m07-l01
+  definition:
+    en: An extension of type "server_name" that clients may include in the extended client hello to tell a server
+      the name of the server they are contacting.
+
+# rfc7301#section-3.1
+- id: g-application-layer-protocol-negotiation
+  en: Application-Layer Protocol Negotiation (ALPN)
+  origin: m07-l01
+  definition:
+    en: A TLS extension that the client may include in its ClientHello message to advertise a list of protocols,
+      in descending order of preference, from which the server selects one.
+
+# k8s-service#headless-services
+- id: g-headless-service
+  en: headless Service
+  origin: m07-l01
+  definition:
+    en: A Kubernetes Service created by explicitly specifying "None" for the cluster IP address (.spec.clusterIP),
+      for which there is no load balancing or proxying done by the platform.
+
+# rfc9112#section-9.3.2
+- id: g-http-pipelining
+  en: pipelining
+  origin: m07-l02
+  definition:
+    en: A client that supports persistent connections may "pipeline" its requests, that is, send multiple requests
+      without waiting for each response.
+
+# rfc7541#section-1.1
+- id: g-hpack
+  en: HPACK
+  origin: m07-l02
+  definition:
+    en: 'The header compression format of HTTP/2: it treats a list of header fields as an ordered collection of
+      name-value pairs that can include duplicate pairs, and encodes them with header field tables that map header
+      fields to indexed values.'
+
+# rfc9000#section-5.1
+- id: g-connection-id
+  en: connection ID
+  origin: m07-l02
+  definition:
+    en: One of the identifiers that each QUIC connection possesses, each of which can identify the connection; its
+      primary function is to ensure that changes in addressing at lower protocol layers do not cause packets to
+      be delivered to the wrong endpoint.
+
+# rfc9000#section-9
+- id: g-nat-rebinding
+  en: NAT rebinding
+  origin: m07-l02
+  definition:
+    en: A change of address due to a middlebox, usually a NAT, allocating a new outgoing port or even a new outgoing
+      IP address for a flow.
+
+# rfc9110#section-3.7
+- id: g-reverse-proxy
+  en: reverse proxy
+  origin: m07-l03
+  definition:
+    en: An intermediary, also called a gateway, that acts as an origin server for the outbound connection but translates
+      received requests and forwards them inbound to another server or servers.
+
+# k8s-ingress#what-is-ingress
+- id: g-ingress
+  en: Ingress
+  origin: m07-l03
+  link_except: [m10-l02]  # there the word means ingress traffic, not the Kubernetes resource
+  definition:
+    en: A Kubernetes resource that exposes HTTP and HTTPS routes from outside the cluster to services within the
+      cluster, with traffic routing controlled by rules defined on the resource.
+
+# rfc9111#section-4.2
+- id: g-fresh-response
+  en: fresh response
+  origin: m07-l03
+  definition:
+    en: A cached response whose age has not yet exceeded its freshness lifetime.
+
+# rfc9111#section-4.2
+- id: g-stale-response
+  en: stale response
+  origin: m07-l03
+  definition:
+    en: A cached response whose age has exceeded its freshness lifetime.
+
+# rfc5861#section-3
+- id: g-stale-while-revalidate
+  en: stale-while-revalidate
+  origin: m07-l03
+  definition:
+    en: A Cache-Control extension that indicates that caches may serve the response in which it appears after it
+      becomes stale, up to the indicated number of seconds.
+
+# rfc9110#section-9.2.1
+- id: g-safe-method
+  en: safe method
+  origin: m07-l04
+  definition:
+    en: A request method whose defined semantics are essentially read-only, so that the client does not request,
+      and does not expect, any state change on the origin server as a result of applying it to a target resource.
+
+# rfc9110#section-9.2.2
+- id: g-idempotent-method
+  en: idempotent method
+  origin: m07-l04
+  definition:
+    en: A request method for which the intended effect on the server of multiple identical requests is the same
+      as the effect for a single such request.
+
+# rfc9110#section-8.8.3
+- id: g-entity-tag
+  en: entity tag
+  origin: m07-l04
+  definition:
+    en: An opaque validator for differentiating between multiple representations of the same resource, consisting
+      of an opaque quoted string possibly prefixed by a weakness indicator.
+
+# rfc9110#section-8.8.1
+- id: g-strong-validator
+  en: strong validator
+  origin: m07-l04
+  definition:
+    en: Representation metadata that changes value whenever a change occurs to the representation data that would
+      be observable in the content of a 200 (OK) response to GET.
+
+# rfc9110#section-8.8.1
+- id: g-weak-validator
+  en: weak validator
+  origin: m07-l04
+  definition:
+    en: Representation metadata that might not change for every change to the representation data.
+
+# rfc9110#section-13
+- id: g-conditional-request
+  en: conditional request
+  origin: m07-l04
+  definition:
+    en: An HTTP request with one or more request header fields that indicate a precondition to be tested before
+      applying the request method to the target resource.
+
+# rfc9110#section-12.1
+- id: g-proactive-negotiation
+  en: proactive negotiation
+  origin: m07-l04
+  definition:
+    en: Content negotiation in which preferences are sent by the user agent in a request to encourage an algorithm
+      located at the server to select the preferred representation; also called server-driven negotiation.
+
+# ietf-httpapi-idempotency-key#content
+- id: g-idempotency-key
+  en: idempotency key
+  origin: m07-l05
+  definition:
+    en: An idempotency key is a unique value generated by the client which the resource uses to recognize subsequent
+      retries of the same request.
+
+# rfc9110#section-13
+- id: g-lost-update-problem
+  en: lost update problem
+  origin: m07-l05
+  definition:
+    en: One client accidentally overwriting the work of another client that has been acting in parallel.
+
+# rfc9457#section-3
+- id: g-problem-details
+  en: problem details
+  origin: m07-l05
+  definition:
+    en: The canonical model for problem details is a JSON object, identified with the application/problem+json media
+      type.
+
+# grpc-core-concepts#deadlines
+- id: g-deadline
+  en: deadline
+  origin: m07-l06
+  link_except: [m08-l03, m08-l06, m12-l02, m12-l05]  # Axon saga deadlines; a work deadline in m12
+  definition:
+    en: gRPC allows clients to specify how long they are willing to wait for an RPC to complete before the RPC is
+      terminated with a DEADLINE_EXCEEDED error.
+
+# protobuf-proto3#unknowns
+- id: g-unknown-fields
+  en: unknown fields
+  origin: m07-l06
+  definition:
+    en: Unknown fields are well-formed Protobuf serialized data representing fields that the parser does not recognize.
+
+# graphql-spec#sec-Schema
+- id: g-graphql-schema
+  en: GraphQL schema
+  origin: m07-l06
+  definition:
+    en: A GraphQL service’s collective type system capabilities are referred to as that service’s “schema”.
+
+# asyncapi-spec#introduction
+- id: g-asyncapi
+  en: AsyncAPI
+  origin: m07-l06
+  definition:
+    en: The AsyncAPI Specification is a project used to describe message-driven APIs in a machine-readable format.
+
+# protobuf-proto3#wire-safe-changes
+- id: g-wire-safe-change
+  en: wire-safe change
+  origin: m07-l07
+  definition:
+    en: Wire-safe changes are ones where it is fully safe to evolve the schema in this way without risk of data
+      loss or new parse failures.
+
+# rfc9413#section-2
+- id: g-robustness-principle
+  en: robustness principle
+  origin: m07-l07
+  definition:
+    en: Be strict when sending and tolerant when receiving. Implementations must follow specifications precisely
+      when sending to the network, and tolerate faulty input from the network.
+
+# paper-gilbert-lynch-cap#p3
+- id: g-safety-property
+  en: safety property
+  origin: m08-l01
+  definition:
+    en: A safety property is one that states nothing bad ever happens. It requires that at every point in every
+      execution, the property holds.
+
+# paper-gilbert-lynch-cap#p3
+- id: g-liveness-property
+  en: liveness property
+  origin: m08-l01
+  definition:
+    en: A liveness property is one that states that eventually something good happens. It says nothing about the
+      state at any instant in time.
+
+# etcd-api-guarantees#linearizability
+- id: g-linearizability
+  en: linearizability
+  origin: m08-l01
+  definition:
+    en: Linearizability provides the illusion that each operation applied by concurrent processes takes effect instantaneously
+      at some point between its invocation and its response.
+
+# rfc5905#top
+- id: g-stratum
+  en: stratum
+  origin: m08-l01
+  definition:
+    en: The level of a server in the NTP hierarchy. Primary servers are assigned stratum one, and secondary servers
+      at each lower level are assigned stratum numbers one greater than the preceding level.
+
+# kafka-design#replication
+- id: g-replication-factor
+  en: replication factor
+  origin: m08-l02
+  definition:
+    en: The total number of replicas of a Kafka partition, including the leader.
+
+# kafka-implementation-distribution#consumer-offset-tracking
+- id: g-group-coordinator
+  en: group coordinator
+  origin: m08-l02
+  definition:
+    en: A designated broker for a consumer group, where Kafka can store all the offsets for that group.
+
+# kafka-consumer-configs#isolation.level
+- id: g-last-stable-offset
+  en: last stable offset
+  origin: m08-l02
+  definition:
+    en: The offset one less than the offset of the first open transaction, up to which a read_committed consumer
+      returns messages.
+
+# debezium-outbox-event-router#dbz-doc-main
+- id: g-outbox-pattern
+  en: outbox pattern
+  origin: m08-l03
+  definition:
+    en: A way to safely and reliably exchange data between multiple (micro) services. An implementation avoids inconsistencies
+      between a service's internal state and the state in events consumed by services that need the same data.
+
+# debezium-postgresql#postgresql-overview
+- id: g-logical-decoding
+  en: logical decoding
+  origin: m08-l03
+  definition:
+    en: A PostgreSQL mechanism that allows the extraction of the changes that were committed to the transaction
+      log and the processing of these changes with the help of an output plug-in.
+
+# pg-sql-select#SQL-FOR-UPDATE-SHARE
+- id: g-skip-locked
+  en: SKIP LOCKED
+  origin: m08-l03
+  definition:
+    en: A locking option of SELECT where any selected rows that cannot be immediately locked are skipped.
+
+# flink-back-pressure#back-pressure
+- id: g-back-pressure
+  en: back pressure
+  origin: m08-l04
+  link_except: [m05-l05]  # there the word means Reactive Streams back pressure, not the Flink task metric
+  definition:
+    en: A task producing data faster than the downstream operators can consume it. Records flow downstream, and
+      back pressure is propagated in the opposite direction, up the stream.
+
+# grpc-deadlines#deadline-propagation
+- id: g-deadline-propagation-grpc
+  en: deadline propagation
+  origin: m08-l04
+  definition:
+    en: Automatically propagating the deadline from an incoming RPC to an outgoing one, so that a server that also
+      acts as a client honors the deadline set by the original client.
+
+# paper-raft-dissertation#p34
+- id: g-election-timeout
+  en: election timeout
+  origin: m08-l05
+  definition:
+    en: The period of time without communication after which a follower assumes there is no viable leader and begins
+      an election to choose a new leader.
+
+# paper-raft-dissertation#p62
+- id: g-joint-consensus
+  en: joint consensus
+  origin: m08-l05
+  definition:
+    en: A transitional configuration to which the cluster first switches when its configuration changes. It combines
+      both the old and new configurations.
+
+# zk-recipes#Shared+Locks
+- id: g-herd-effect
+  en: herd effect
+  origin: m08-l05
+  definition:
+    en: Releasing a "herd" of waiting clients when in fact only a single or a small number of machines can proceed.
+
+# kleppmann-distributed-locking#making-the-lock-safe-with-fencing
+- id: g-fencing-token
+  en: fencing token
+  origin: m08-l05
+  definition:
+    en: A number that increases every time a client acquires the lock, included with every write request to the
+      storage service.
+
+# axon-event-processors-streaming#tracking_tokens
+- id: g-tracking-token
+  en: tracking token
+  origin: m08-l06
+  definition:
+    en: A position on the event stream that accompanies each message a streaming processor receives. The processor
+      uses it to open the stream at the desired position on start-up.
+
+# axon-event-store-internals#consistency_marker
+- id: g-consistency-marker
+  en: consistency marker
+  origin: m08-l06
+  definition:
+    en: A marker returned as the final entry when sourcing events from an event store. It tracks the logical grouping
+      of sourced events and is attached to the append condition.
+
+# axon-event-store-internals#dynamic_consistency_boundaries_dcb
+- id: g-dynamic-consistency-boundary
+  en: dynamic consistency boundary
+  origin: m08-l06
+  definition:
+    en: A flexible boundary to what should be appended consistently with other existing event streams in the event
+      store. It replaces the focus on the aggregate identifier with user defined tags.
+
+# axon-migration-sagas-to-workflows#sagas-and-workflows
+- id: g-saga
+  en: saga
+  origin: m08-l06
+  definition:
+    en: A coordination of a process through event handlers and persisted fields. Association values route events
+      to the right instance.
+
+# axon-event-processors-streaming#replaying-events
+- id: g-replay
+  en: replay
+  origin: m08-l06
+  link_except: [m04-l03, m08-l03, m08-l07, m09-l05, m10-l02]  # there the word means SharedFlow cache, workflow, Flink, Redis AOF or token replay, not Axon event replay
+  definition:
+    en: Handling events again by adjusting the position on the stream. It is a feature supported by the streaming
+      event processor.
+
+# flink-time#notions-of-time-event-time-and-processing-time
+- id: g-event-time
+  en: event time
+  origin: m08-l07
+  definition:
+    en: The time that each individual event occurred on its producing device.
+
+# flink-time#notions-of-time-event-time-and-processing-time
+- id: g-processing-time
+  en: processing time
+  origin: m08-l07
+  link_except: [m05-l05]  # there the word means plain request processing time
+  definition:
+    en: The system time of the machine that is executing the respective operation.
+
+# flink-time#event-time-and-watermarks
+- id: g-watermark
+  en: watermark
+  origin: m08-l07
+  link_except: [m08-l02]  # there the word means Kafka's high watermark, not Flink's
+  definition:
+    en: The mechanism in Flink to measure progress in event time. A Watermark(t) declares that event time has reached
+      time t in that stream, meaning that there should be no more elements from the stream with a timestamp t' <=
+      t.
+
+# kafka-streams-dsl-api#tumbling-time-windows
+- id: g-tumbling-window
+  en: tumbling window
+  origin: m08-l07
+  definition:
+    en: A window that models fixed-size, non-overlapping, gap-less windows. It is a hopping window whose window
+      size is equal to its advance interval.
+
+# kafka-streams-dsl-api#hopping-time-windows
+- id: g-hopping-window
+  en: hopping window
+  origin: m08-l07
+  definition:
+    en: 'A window that models fixed-sized, possibly overlapping windows. It is defined by two properties: the window''s
+      size and its advance interval.'
+
+# kafka-streams-dsl-api#session-windows
+- id: g-session-window
+  en: session window
+  origin: m08-l07
+  definition:
+    en: A window used to aggregate key-based events into sessions. Sessions represent a period of activity separated
+      by a defined gap of inactivity.
+
+# kafka-streams-architecture#fault-tolerance
+- id: g-changelog-topic
+  en: changelog topic
+  origin: m08-l07
+  definition:
+    en: A replicated Kafka topic that Kafka Streams maintains for each state store, in which it tracks any state
+      updates.
+
+# flink-savepoints#what-is-a-savepoint
+- id: g-savepoint
+  en: savepoint
+  origin: m08-l07
+  link_except: [m08-l03, m09-l04]  # there the word means a SQL savepoint, not a Flink savepoint
+  definition:
+    en: A consistent image of the execution state of a streaming job, created via Flink's checkpointing mechanism.
+
+# nygard-adr#decision
+- id: g-architecture-decision-record
+  en: architecture decision record
+  origin: m12-l01
+  definition:
+    en: A short text file that describes a set of forces and a single decision in response to those forces.
+
+# sre-book-eliminating-toil#toil-defined
+- id: g-toil
+  en: toil
+  origin: m12-l04
+  definition:
+    en: The kind of work tied to running a production service that tends to be manual, repetitive, automatable,
+      tactical, devoid of enduring value, and that scales linearly as a service grows.
+
+# fowler-technical-debt#banner
+- id: g-technical-debt
+  en: technical debt
+  origin: m12-l05
+  definition:
+    en: A metaphor, coined by Ward Cunningham, that frames how to think about dealing with cruft, thinking of it
+      like a financial debt.
+
+# fowler-branch-by-abstraction#banner
+- id: g-branch-by-abstraction
+  en: branch by abstraction
+  origin: m12-l05
+  definition:
+    en: A technique for making a large-scale change to a software system in gradual way that allows you to release
+      the system regularly while the change is still in-progress.
+
+# abseil-swe-ch15#deprecation
+- id: g-deprecation
+  en: deprecation
+  origin: m12-l05
+  definition:
+    en: The process of orderly migration away from and eventual removal of obsolete systems.
+
+# otel-logs#structured-logs
+- id: g-structured-log
+  en: structured log
+  origin: m10-l01
+  definition:
+    en: A log with a defined, consistent schema or typed fields that downstream systems can reliably parse and interpret.
+
+# otel-traces#spans
+- id: g-span
+  en: span
+  origin: m10-l01
+  link_except: [m03-l01]  # there the word means the verb "span"
+  definition:
+    en: A unit of work or operation. Spans are the building blocks of traces.
+
+# otel-traces#span-context
+- id: g-span-context
+  en: span context
+  origin: m10-l01
+  definition:
+    en: An immutable object on every span that contains the trace ID, the span ID, the trace flags and the trace
+      state.
+
+# otel-context-propagation#propagation
+- id: g-propagation
+  en: propagation
+  origin: m10-l01
+  link_except: [m05-l04, m08-l06]  # there the word means transaction or event propagation, not context propagation
+  definition:
+    en: The mechanism that moves context between services and processes. It serializes or deserializes the context
+      object and provides the relevant information to be propagated from one service to another.
+
+# spring-boot-actuator-observability#page-title
+- id: g-observability
+  en: observability
+  origin: m10-l01
+  definition:
+    en: 'The ability to observe the internal state of a running system from the outside. It consists of the three
+      pillars: logging, metrics and traces.'
+
+# prom-metric-types#gauge
+- id: g-gauge
+  en: gauge
+  origin: m10-l01
+  definition:
+    en: A metric that represents a single numerical value that can arbitrarily go up and down.
+
+# prom-histograms#quantiles
+- id: g-quantile
+  en: φ-quantile
+  origin: m10-l01
+  definition:
+    en: The observation value that ranks at number φ × N among the N observations.
+
+# spiffe-overview#_top
+- id: g-svid
+  en: SVID
+  origin: m10-l02
+  definition:
+    en: A short lived cryptographic identity document defined by the SPIFFE specifications. Workloads use it when
+      authenticating to other workloads, for example by establishing a TLS connection or by signing and verifying
+      a JWT token.
+
+# rfc6749#section-1.3
+- id: g-authorization-grant
+  en: authorization grant
+  origin: m10-l02
+  definition:
+    en: A credential representing the resource owner's authorization (to access its protected resources) used by
+      the client to obtain an access token.
+
+# oidc-core#rfc.section.2
+- id: g-id-token
+  en: ID Token
+  origin: m10-l02
+  definition:
+    en: A security token that contains Claims about the Authentication of an End-User by an Authorization Server
+      when using a Client, and potentially other requested Claims. It is represented as a JSON Web Token (JWT).
+
+# rfc8693#section-1
+- id: g-security-token-service
+  en: Security Token Service
+  origin: m10-l02
+  definition:
+    en: A service capable of validating security tokens provided to it and issuing new security tokens in response,
+      which enables clients to obtain appropriate access credentials for resources in heterogeneous environments
+      or across security domains.
+
+# owasp-cs-authorization#prefer-attribute-and-relationship-based-access-control-over-rbac
+- id: g-role-based-access-control
+  en: Role-Based Access Control
+  origin: m10-l02
+  definition:
+    en: A model of access control in which access is granted or denied based upon the roles assigned to a user.
+
+# owasp-cs-authorization#prefer-attribute-and-relationship-based-access-control-over-rbac
+- id: g-relationship-based-access-control
+  en: Relationship-Based Access Control
+  origin: m10-l02
+  definition:
+    en: An access control model that grants access based on the relationships between resources.
+
+# k8s-qos#quality-of-service-classes
+- id: g-quality-of-service-class
+  en: quality of service (QoS) class
+  origin: m10-l03
+  definition:
+    en: A classification Kubernetes assigns to every Pod, based on the resource requests and limits of its component
+      Containers. The possible QoS classes are Guaranteed, Burstable, and BestEffort.
+
+# k8s-topology-aware-routing#motivation
+- id: g-topology-aware-routing
+  en: Topology Aware Routing
+  origin: m10-l03
+  definition:
+    en: A mechanism that helps keep traffic within the zone it originated from.
+
+# otel-sampling#why-sampling
+- id: g-representativeness
+  en: representativeness
+  origin: m10-l03
+  definition:
+    en: The principle that a smaller group can accurately represent a larger group.
+
+# otel-sampling#tail-sampling
+- id: g-tail-sampling
+  en: tail sampling
+  origin: m10-l03
+  definition:
+    en: Sampling where the decision to sample a trace takes place by considering all or most of the spans within
+      the trace.
+
+# mcp-security-best-practices#token-passthrough
+- id: g-token-passthrough
+  en: token passthrough
+  origin: m10-l04
+  definition:
+    en: “Token passthrough” is an anti-pattern where an MCP server accepts tokens from an MCP client without validating
+      that the tokens were properly issued to the MCP server and passes them through to the downstream API.
+
+# owasp-llm-top10-prompt-injection#indirect-prompt-injections
+- id: g-indirect-prompt-injection
+  en: indirect prompt injection
+  origin: m10-l04
+  definition:
+    en: Indirect prompt injections occur when an LLM accepts input from external sources, such as websites or files.
+      Like direct injections, indirect injections can be either intentional or unintentional.
+
+# owasp-cs-threat-modeling#overview
+- id: g-threat-modeling
+  en: threat modeling
+  origin: m10-l04
+  definition:
+    en: In the context of application security, threat modeling is a structured, repeatable process used to gain
+      actionable insights into the security characteristics of a particular system. It involves modeling a system
+      from a security perspective, identifying applicable threats based on this model, and determining responses
+      to these threats.
+
+# k8s-pod-lifecycle#liveness-probe
+- id: g-liveness-probe
+  en: liveness probe
+  origin: m10-l05
+  definition:
+    en: Liveness probes determine when to restart a container. For example, liveness probes could catch a deadlock,
+      where an application is running, but unable to make progress.
+
+# k8s-pod-lifecycle#readiness-probe
+- id: g-readiness-probe
+  en: readiness probe
+  origin: m10-l05
+  definition:
+    en: Readiness probes determine when a container is ready to accept traffic.
+
+# k8s-pod-lifecycle#startup-probe
+- id: g-startup-probe
+  en: startup probe
+  origin: m10-l05
+  definition:
+    en: Startup probes verify whether the application within a container is started.
+
+# k8s-disruptions#pod-disruption-budgets
+- id: g-pod-disruption-budget
+  en: PodDisruptionBudget
+  origin: m10-l05
+  definition:
+    en: A PDB limits the number of Pods of a replicated application that are down simultaneously from voluntary
+      disruptions.
+
+# argo-rollouts-concepts#progressive-delivery
+- id: g-progressive-delivery
+  en: progressive delivery
+  origin: m10-l05
+  definition:
+    en: Progressive delivery is the process of releasing updates of a product in a controlled and gradual manner,
+      thereby reducing the risk of the release, typically coupling automation and metric analysis to drive the automated
+      promotion or rollback of the update.
+
+# argo-rollouts-concepts#canary
+- id: g-canary-deployment
+  en: canary deployment
+  origin: m10-l05
+  definition:
+    en: A Canary deployment exposes a subset of users to the new version of the application while serving the rest
+      of the traffic to the old version.
+
+# argo-rollouts-concepts#blue-green
+- id: g-blue-green-deployment
+  en: blue-green deployment
+  origin: m10-l05
+  definition:
+    en: A Blue-Green deployment has both the new and old version of the application deployed at the same time. During
+      this time, only the old version of the application will receive production traffic.
+
+# owasp-cs-idor#introduction
+- id: g-insecure-direct-object-reference
+  en: Insecure Direct Object Reference
+  origin: m10-l06
+  definition:
+    en: Insecure Direct Object Reference (IDOR) is a vulnerability that arises when attackers can access or modify
+      objects by manipulating identifiers used in a web application's URLs or parameters.
+
+# owasp-cs-mass-assignment#definition
+- id: g-mass-assignment
+  en: Mass Assignment
+  origin: m10-l06
+  definition:
+    en: Software frameworks sometimes allow developers to automatically bind HTTP request parameters into program
+      code variables or objects to make using that framework easier on developers. Attackers can sometimes use this
+      methodology to create new parameters that the developer never intended.
+
+# owasp-api-top10-2023#owasp-top-10-api-security-risks-2023
+- id: g-server-side-request-forgery
+  en: Server-Side Request Forgery
+  origin: m10-l06
+  definition:
+    en: Server-Side Request Forgery (SSRF) flaws can occur when an API is fetching a remote resource without validating
+      the user-supplied URI.
+
+# owasp-cs-threat-modeling#threat-identification
+- id: g-stride
+  en: STRIDE
+  origin: m10-l06
+  definition:
+    en: STRIDE is a mature and popular threat modeling technique and mnemonic originally developed by Microsoft
+      employees.
+
+# slsa-tracks#build-track
+- id: g-provenance
+  en: provenance
+  origin: m10-l06
+  definition:
+    en: Provenance describes what entity built the artifact, what process they used, and what the inputs were.
+
+# reproducible-builds-definition#when-is-a-build-reproducible
+- id: g-reproducible-build
+  en: reproducible build
+  origin: m10-l06
+  definition:
+    en: A build is reproducible if given the same source code, build environment and build instructions, any party
+      can recreate bit-by-bit identical copies of all specified artifacts.
+
+# javadoc-stream-package#MutableReduction
+- id: g-mutable-reduction
+  en: mutable reduction
+  origin: m11-l01
+  definition:
+    en: A mutable reduction operation accumulates input elements into a mutable result container, such as a Collection
+      or StringBuilder, as it processes the elements in the stream.
+
+# javadoc-gatherer#interface-gatherer-t-a-r
+- id: g-gatherer
+  en: gatherer
+  origin: m11-l01
+  definition:
+    en: An intermediate operation that transforms a stream of input elements into a stream of output elements, optionally
+      applying a final action when the end of the upstream is reached.
+
+# javadoc-stream-package#Statelessness
+- id: g-stateful-lambda
+  en: stateful lambda
+  origin: m11-l01
+  definition:
+    en: A stateful lambda is one whose result depends on any state which might change during the execution of the
+      stream pipeline.
+
+# javadoc-throwable#class-throwable
+- id: g-checked-exception
+  en: checked exception
+  origin: m11-l02
+  definition:
+    en: Throwable and any subclass of Throwable that is not also a subclass of either RuntimeException or Error
+      are regarded as checked exceptions.
+
+# javadoc-throwable#class-throwable
+- id: g-wrapped-exception
+  en: wrapped exception
+  origin: m11-l02
+  definition:
+    en: A wrapped exception is an exception containing a cause.
+
+# jdk-troubleshoot-jfr#JSTGD-GUID-E9C795D6-3D7A-4CD8-84DD-4F7DE3200614
+- id: g-sum-of-pauses
+  en: sum of pauses
+  origin: m11-l03
+  definition:
+    en: The Sum of Pauses is the total amount of time that the application was paused during a GC.
+
+# javadoc-throwable#class-throwable
+- id: g-chained-exception-facility
+  en: chained exception facility
+  origin: m11-l03
+  definition:
+    en: The recording of this causal information is referred to as the chained exception facility, as the cause
+      can, itself, have a cause, and so on, leading to a "chain" of exceptions, each caused by another.
+
+# javadoc-clock#fixed(java.time.Instant,java.time.ZoneId)
+- id: g-fixed-clock
+  en: fixed clock
+  origin: m11-l04
+  definition:
+    en: A clock that always returns the same instant. Its main use case is in testing, where the fixed clock ensures
+      tests are not dependent on the current clock.
+
+# junit-writing-parameterized#parameterized-classes-and-tests
+- id: g-parameterized-test
+  en: parameterized test
+  origin: m11-l04
+  definition:
+    en: Parameterized tests make it possible to run a test method multiple times with different arguments. They
+      are declared just like regular @Test methods but use the @ParameterizedTest annotation instead.
+
+# testcontainers-junit5#shared-containers
+- id: g-shared-container
+  en: shared container
+  origin: m11-l04
+  definition:
+    en: Shared containers are defined as static fields in a top level test class and have to be annotated with @Container.
+      Shared containers can't be declared inside nested test classes.
+
+# pact-how-it-works#consumer-testing
+- id: g-provider-state
+  en: provider state
+  origin: m11-l06
+  definition:
+    en: Provider states allow you describe the preconditions on the provider required to generate the expected response
+      - for example, the existence of specific user data.
+
+# jqwik-user-guide#result-shrinking
+- id: g-shrinking
+  en: shrinking
+  origin: m11-l06
+  definition:
+    en: If a property could be falsified with a generated set of values, jqwik will try to “shrink” this sample
+      in order to find a “smaller” sample that also falsifies the property.
+
+# pitest-basic-concepts#mutants
+- id: g-mutant
+  en: mutant
+  origin: m11-l06
+  definition:
+    en: Mutants are Java classes which contain a mutation (or fault) which should make them behave differently from
+      the unmutated class.
+
+# pitest-basic-concepts#equivalent-mutations
+- id: g-equivalent-mutation
+  en: equivalent mutation
+  origin: m11-l06
+  definition:
+    en: Not all mutations will behave differently than the unmutated class. These mutants are referred to as equivalent
+      mutations.
+
+# k6-open-vs-closed#closed-model
+- id: g-closed-model
+  en: closed model
+  origin: m11-l06
+  definition:
+    en: In a closed model, the execution time of each iteration dictates the number of iterations executed in your
+      test. The next iteration doesn’t start until the previous one finishes.
+
+# k6-open-vs-closed#open-model
+- id: g-open-model
+  en: open model
+  origin: m11-l06
+  definition:
+    en: Compared to the closed model, the open model decouples VU iterations from the iteration duration. The response
+      times of the target system no longer influence the load on the target system.
+
+# k6-soak#soak-testing
+- id: g-soak-test
+  en: soak test
+  origin: m11-l06
+  definition:
+    en: Soak testing is another variation of the Average-Load test. It focuses on extended periods.
+
+# paper-basiri-chaos-engineering#p2
+- id: g-chaos-engineering
+  en: Chaos Engineering
+  origin: m11-l06
+  definition:
+    en: Chaos Engineering is the discipline of experimenting on a distributed system in order to build confidence
+      in its capability to withstand turbulent conditions in production.
+
+# pg-ddl-partitioning#DDL-PARTITIONING-DECLARATIVE
+- id: g-partitioned-table
+  en: partitioned table
+  origin: m09-l02
+  definition:
+    en: PostgreSQL allows you to declare that a table is divided into partitions. The table that is divided is referred
+      to as a partitioned table.
+
+# redis-scaling#redis-cluster-data-sharding
+- id: g-hash-slot
+  en: hash slot
+  origin: m09-l02
+  definition:
+    en: Redis Cluster uses a form of sharding where every key is conceptually part of what is called a hash slot.
+      There are 16384 hash slots, and the hash slot of a key is the CRC16 of the key modulo 16384.
+
+# redis-cluster-spec#hash-tags
+- id: g-hash-tag
+  en: hash tag
+  origin: m09-l02
+  definition:
+    en: Hash tags are a way to ensure that multiple keys are allocated in the same hash slot. If the key contains
+      a "{...}" pattern, only the substring between { and } is hashed in order to obtain the hash slot.
+
+# paper-dynamo#p5
+- id: g-consistent-hashing
+  en: consistent hashing
+  origin: m09-l02
+  definition:
+    en: In consistent hashing, the output range of a hash function is treated as a fixed circular space or "ring",
+      where the largest hash value wraps around to the smallest hash value.
+
+# paper-dynamo#p6
+- id: g-virtual-node
+  en: virtual node
+  origin: m09-l02
+  definition:
+    en: A virtual node looks like a single node in the system, but each node can be responsible for more than one
+      virtual node.
+
+# paper-dynamo#p8
+- id: g-sloppy-quorum
+  en: sloppy quorum
+  origin: m09-l02
+  definition:
+    en: In a sloppy quorum, all read and write operations are performed on the first N healthy nodes from the preference
+      list, which may not always be the first N nodes encountered while walking the consistent hashing ring.
+
+# pg-ddl-rowsecurity#DDL-ROWSECURITY
+- id: g-row-security-policy
+  en: row security policy
+  origin: m09-l03
+  definition:
+    en: Tables can have row security policies that restrict, on a per-user basis, which rows can be returned by
+      normal queries or inserted, updated, or deleted by data modification commands. This feature is also known
+      as Row-Level Security.
+
+# pg-ddl-rowsecurity#DDL-ROWSECURITY
+- id: g-default-deny-policy
+  en: default-deny policy
+  origin: m09-l03
+  definition:
+    en: If row security is enabled on a table and no policy exists for it, a default-deny policy is used, meaning
+      that no rows are visible or can be modified.
+
+# k8s-qos#quality-of-service-classes
+- id: g-qos-class
+  en: QoS class
+  origin: m09-l03
+  definition:
+    en: Kubernetes assigns every Pod a quality of service (QoS) class based on the resource requests and limits
+      of its component Containers. Kubernetes uses QoS classes to decide which Pods to evict from a Node experiencing
+      Node Pressure.
+
+# ietf-httpapi-ratelimit-headers#content
+- id: g-quota-policy
+  en: quota policy
+  origin: m09-l04
+  definition:
+    en: A quota policy is implemented by the server to regulate the activity within a specified quota partition,
+      quantified in quota units, over a defined time window.
+
+# rfc9562#section-5.7
+- id: g-uuidv7
+  en: UUIDv7
+  origin: m09-l04
+  definition:
+    en: UUIDv7 features a time-ordered value field derived from the widely implemented and well-known Unix Epoch
+      timestamp source, the number of milliseconds since midnight 1 Jan 1970 UTC, leap seconds excluded.
+
+# owasp-llm-top10-prompt-injection#main
+- id: g-prompt-injection
+  en: prompt injection
+  origin: m09-l04
+  definition:
+    en: A Prompt Injection Vulnerability occurs when user prompts alter the LLM's behavior or output in unintended
+      ways.
+
+# paper-bigtable#p6
+- id: g-memtable
+  en: memtable
+  origin: m09-l05
+  definition:
+    en: A sorted buffer in memory in which the recently committed updates of a Bigtable tablet are stored.
+
+# paper-oneil-lsm-tree#p4
+- id: g-lsm-tree
+  en: LSM-tree
+  origin: m09-l05
+  definition:
+    en: An LSM-tree is composed of two or more tree-like component data structures.
+
+# paper-broder-bloom-filters#p2
+- id: g-bloom-filter
+  en: Bloom filter
+  origin: m09-l05
+  definition:
+    en: A Bloom filter for representing a set S of n elements is described by an array of m bits, initially all
+      set to 0, and uses k independent hash functions.
+
+# es-translog#elastic-docs-v3
+- id: g-translog
+  en: translog
+  origin: m09-l05
+  definition:
+    en: The transaction log in which each Elasticsearch shard copy writes index and delete operations, so that operations
+      not yet included in the last Lucene commit can be recovered.
+
+# redis-persistence#append-only-file
+- id: g-append-only-file
+  en: append-only file
+  origin: m09-l05
+  definition:
+    en: An alternative, fully-durable persistence strategy for Redis, to which every command that changes the dataset
+      is appended.

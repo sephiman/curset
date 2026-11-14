@@ -1,0 +1,137 @@
+[
+ {
+  "id": "m11-l04-q01",
+  "fact": "m11-l04-f23",
+  "stem": "A JUnit Jupiter test class has no `@TestInstance` annotation and declares three test methods, one of them disabled with `@Disabled`. How many instances of the class does JUnit create?",
+  "key": "Three, including one for the disabled method",
+  "distractors": [
+   "One, shared by all three test methods",
+   "One for the whole test run, shared with other test classes",
+   "Two, because no instance is created for the disabled method"
+  ],
+  "explanation": "The test class is still instantiated when a test method is disabled via a condition, so three instances are created. One instance shared by all three methods is wrong because the per-method lifecycle is the default behavior in JUnit Jupiter, and so is one instance for the whole test run. Two instances are wrong because a method disabled via a condition does not stop the class from being instantiated for it.",
+  "citation": "junit-writing-lifecycle#test-instance-lifecycle",
+  "extract": "the test class will still be instantiated if a given test method is disabled via a condition",
+  "snippet": null
+ },
+ {
+  "id": "m11-l04-q02",
+  "fact": "m11-l04-f09",
+  "stem": "A JUnit Jupiter test passes a `Supplier<String>` as the failure message of an assertion, for example `() -> buildReport()`. Which statement about that message is correct?",
+  "key": "It is evaluated only when the assertion fails",
+  "distractors": [
+   "It is evaluated before the assertion runs, on every call",
+   "It is evaluated once, when the test class is instantiated",
+   "It is rejected, because the message parameter must be a `String`"
+  ],
+  "explanation": "A message given as a `Supplier<String>` is only evaluated when the assertion fails. Evaluating it before the assertion on every call is wrong because the message is evaluated lazily, and so is evaluating it once at instantiation. Rejecting it is wrong because the message can be either a `String` or a `Supplier<String>`.",
+  "citation": "junit-writing-assertions#assertions",
+  "extract": "it is only evaluated when the assertion fails",
+  "snippet": null
+ },
+ {
+  "id": "m11-l04-q03",
+  "fact": "m11-l04-f16",
+  "stem": "A test calls a Spring-managed bean from inside `assertTimeoutPreemptively` while Spring's test-managed transaction is active. What happens to the bean's database changes after the test finishes?",
+  "key": "They are committed, even though the test-managed transaction is rolled back",
+  "distractors": [
+   "They are rolled back together with the test-managed transaction",
+   "They are rolled back, because the executable runs in the thread of the calling code",
+   "They are rolled back, because Spring binds transaction state to the whole JVM"
+  ],
+  "explanation": "The bean's actions are committed to the persistent store even though the test-managed transaction is rolled back. A rollback together with the test-managed transaction is wrong because those actions will not be rolled back with it. A rollback in the calling thread is wrong because `assertTimeoutPreemptively` runs the executable in a different thread. A rollback through JVM-wide transaction state is wrong because Spring binds transaction state to the current thread through a `ThreadLocal`.",
+  "citation": "junit-writing-assertions#assertions",
+  "extract": "such actions will be committed to the persistent store (e.g., relational database) even though the test-managed transaction is rolled back",
+  "snippet": null
+ },
+ {
+  "id": "m11-l04-q04",
+  "fact": "m11-l04-f31",
+  "stem": "A Mockito test stubs `when(list.get(0)).thenReturn(\"a\")` and, later in the same test, `when(list.get(0)).thenReturn(\"b\")`. What does `list.get(0)` return afterwards?",
+  "key": "`\"b\"`, because the last stubbing wins",
+  "distractors": [
+   "`\"a\"`, because the first stubbing is kept",
+   "`null`, because the second stubbing resets the mock",
+   "An exception, because the same call was stubbed twice"
+  ],
+  "explanation": "When the same method is stubbed with the same arguments many times, the last stubbing is more important, so `\"b\"` is returned. Keeping the first stubbing is wrong for the same reason: the last one wins. Returning `null` is wrong because once stubbed, the method will always return a stubbed value. An exception is wrong because stubbing can be overridden.",
+  "citation": "mockito-javadoc-source#2",
+  "extract": "Last stubbing is more important - when you stubbed the same method with",
+  "snippet": null
+ },
+ {
+  "id": "m11-l04-q05",
+  "fact": "m11-l04-f52",
+  "stem": "A JUnit 5 test class uses the Testcontainers extension and must share one container between all its test methods. How is the `@Container` field declared?",
+  "key": "As a static field in a top level test class",
+  "distractors": [
+   "As a non-static field in a top level test class",
+   "As a non-static field in a `@Nested` test class",
+   "As a static field in a `@Nested` test class"
+  ],
+  "explanation": "Shared containers are defined as static fields in a top level test class and annotated with `@Container`. A non-static field in a top level class is wrong because a shared container must be a static field. A non-static field in a `@Nested` class is wrong because shared containers can't be declared inside nested test classes. A static field in a `@Nested` class is wrong because nested test classes are non-static and therefore can't have static fields.",
+  "citation": "testcontainers-junit5#shared-containers",
+  "extract": "Shared containers are defined as static fields in a top level test class and have to be annotated with @Container.",
+  "snippet": null
+ },
+ {
+  "id": "m11-l04-q06",
+  "fact": "m11-l04-f40",
+  "stem": "The snippet builds fixed clocks for the instant `2026-03-31T23:30:00Z` in `UTC` and `Europe/Madrid`, then checks an invoice due on `2026-03-31` against each clock. What does it print?",
+  "key": "2026-03-31\n2026-04-01\nfalse\ntrue\ntrue",
+  "distractors": [
+   "2026-03-31\n2026-03-31\nfalse\nfalse\ntrue",
+   "2026-03-31\n2026-04-01\nfalse\ntrue\nfalse",
+   "2026-03-31\n2026-04-01\ntrue\ntrue\ntrue"
+  ],
+  "explanation": "The same instant is `2026-03-31` in `UTC` and `2026-04-01` in `Europe/Madrid`, so only the second clock finds the invoice overdue, and both clocks hold equal instants. The output with equal dates is wrong because the zone converts the instant to a different date. The output with `false` for the last line is wrong because the zone does not change the instant. The output with `true` for `UTC` is wrong because `isAfter` is false for a date equal to the due date.",
+  "citation": "javadoc-clock#fixed(java.time.Instant,java.time.ZoneId)",
+  "extract": null,
+  "snippet": "m11-l04/FixedClockDemo.java"
+ },
+ {
+  "id": "m11-l04-q07",
+  "fact": "m11-l04-f44",
+  "stem": "The snippet checks `isExpired` with a fixed clock one second before, exactly at and one second after the expiry, then reads the clock twice. What does it print?",
+  "key": "offset -1: false\noffset 0: false\noffset 1: true\nsame instant twice: true",
+  "distractors": [
+   "offset -1: false\noffset 0: true\noffset 1: true\nsame instant twice: true",
+   "offset -1: false\noffset 0: false\noffset 1: true\nsame instant twice: false",
+   "offset -1: true\noffset 0: false\noffset 1: false\nsame instant twice: true"
+  ],
+  "explanation": "`isAfter` is false at the expiry and true one second later, and a fixed clock returns an equal instant each time. The output with `true` at the expiry is wrong because `isAfter` excludes an equal instant. The output ending in `false` is wrong because a fixed clock does not tick. The output starting with `true` is wrong because one second before the expiry the instant is not after it.",
+  "citation": "javadoc-clock#fixed(java.time.Instant,java.time.ZoneId)",
+  "extract": null,
+  "snippet": "m11-l04/ExpiryBoundary.java"
+ },
+ {
+  "id": "m11-l04-q08",
+  "fact": "m11-l04-f47",
+  "stem": "The snippet runs `midpoint` as `(low + high) / 2` on three input pairs, the last one near `Integer.MAX_VALUE`, and prints the expected value computed with `long`. What does it print?",
+  "key": "0,10 -> 5 expected 5\n4,4 -> 4 expected 4\n2147483646,2147483647 -> -1 expected 2147483646",
+  "distractors": [
+   "0,10 -> 5 expected 5\n4,4 -> 4 expected 4\n2147483646,2147483647 -> 2147483646 expected 2147483646",
+   "0,10 -> 5 expected 5\n4,4 -> 4 expected 4\n2147483646,2147483647 -> -2 expected 2147483646",
+   "0,10 -> 5 expected 5\n4,4 -> 4 expected 4\n2147483646,2147483647 -> -1 expected -1"
+  ],
+  "explanation": "The sum of the last pair overflows `int` to `-3`, and `-3 / 2` truncates to `-1`, while the `long` computation gives `2147483646`. The output without a difference is wrong because `int` addition overflows silently. The output with `-2` is wrong because integer division truncates toward zero. The output with `expected -1` is wrong because the expected value is computed with `long`.",
+  "citation": "javadoc-integer#MAX_VALUE",
+  "extract": null,
+  "snippet": "m11-l04/MidpointCases.java"
+ },
+ {
+  "id": "m11-l04-q09",
+  "fact": "m11-l04-f33",
+  "stem": "In the Mockito Javadoc example, `get(0)` on a mocked `LinkedList` is stubbed with `thenReturn(\"first\")`. What does the Javadoc say about also calling `verify(mockedList).get(0)`?",
+  "key": "Possible, but usually redundant",
+  "distractors": [
+   "Impossible, because a stubbed call is not recorded as an interaction",
+   "Required, because a wrong return value would otherwise go unnoticed",
+   "Required, because `verify` works only on calls that were stubbed first"
+  ],
+  "explanation": "Verifying a stubbed invocation is possible but usually redundant. Calling it impossible is wrong because a mock remembers all interactions. Calling it required to notice a wrong return value is wrong because if the code cares what `get(0)` returns, something else breaks, often before `verify()` is executed. Calling it required for `verify` to work is wrong because code that does not care what `get(0)` returns should not stub it.",
+  "citation": "mockito-javadoc-source#2",
+  "extract": "Although it is possible to verify a stubbed invocation, usually it's just redundant",
+  "snippet": null
+ }
+]

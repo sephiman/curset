@@ -1,0 +1,89 @@
+S1.1	"Spring AOP is proxy-based (`spring-fw-aop-pfb#page-title`)."	pass
+S1.2	"Spring AOP defaults to using standard"	pass
+S1.3	"JDK dynamic proxies enable any interface,"	pass
+S1.4	"Spring AOP can also use CGLIB"	pass
+S1.5	"By default, CGLIB is used if"	pass
+S1.6	"If the target object implements at"	pass
+S1.7	"If the target object does not"	pass
+S1.8	"You can force the use of"	pass
+S1.9	"To force CGLIB proxies, set the"	pass
+S1.10	"`@EnableAspectJAutoProxy`, `@EnableTransactionManagement` and related configuration annotations"	pass
+S1.11	"The core framework suggests interface-based proxies"	pass
+S1.12	"As of 7.0, `@Proxyable` on a"	pass
+S1.13	"Once the call has reached the"	pass
+S1.14	"Self invocation via an explicit or"	pass
+S1.15	"The best approach is to refactor"	pass
+S1.16	"The documentation calls refactoring the best,"	pass
+S1.17	"An alternative approach is to make"	pass
+S1.18	"`AopContext.currentProxy()` totally couples your code to"	pass
+S1.19	"`AopContext.currentProxy()` also requires that the `ProxyFactory`"	pass
+S1.20	"AspectJ compile-time weaving and load-time weaving"	pass
+S2.1	"`final` classes cannot be proxied, because"	pass
+S2.2	"`final` methods cannot be advised, because"	pass
+S2.3	"`private` methods cannot be advised, because"	pass
+S2.4	"Methods that are not visible, for"	pass
+S2.5	"The constructor of your proxied object"	pass
+S2.6	"If your JVM does not allow"	pass
+S2.7	"You cannot create a CGLIB proxy"	pass
+S2.8	"The proxy must be fully initialized"	pass
+S2.9	"The `@Transactional` annotation is typically used"	pass
+S2.10	"As of 6.0, protected or package-visible"	pass
+S2.11	"Transactional methods in interface-based proxies must"	pass
+S2.12	"A class-level `@Transactional` annotation does not"	pass
+S2.13	"The Spring team recommends that you"	pass
+S3.1	"In proxy mode, which is the"	pass
+S3.2	"The mere presence of the `@Transactional`"	pass
+S3.3	"You make the bean instance transactional"	pass
+S3.4	"Consider using AspectJ mode if you"	pass
+S3.5	"The default advice mode for processing"	pass
+S3.6	"`@Async` makes the caller return immediately,"	pass
+S3.7	"A method that returns a value"	pass
+S3.8	"`@Async` methods may declare `CompletableFuture` as"	pass
+S3.9	"You can not use `@Async` in"	pass
+S3.10	"`@Cacheable` demarcates methods for which the"	pass
+S3.11	"`@Retryable` specifies retry characteristics for an"	pass
+S3.12	"By default, the invocation is retried"	pass
+S3.13	"A `@Retryable` method is invoked at"	pass
+S3.14	"Total attempts are 1 initial attempt"	pass
+S3.15	"If `maxRetries` is set to 4,"	pass
+S3.16	"If all attempts have failed and"	pass
+S3.17	"When `@Async` is combined with `@Retryable`,"	pass
+S3.18	"When `@Cacheable` is combined with `@Retryable`,"	pass
+S3.19	"When `@Transactional` is combined with `@Retryable`,"	pass
+S3.20	"Both the retry and the async"	pass
+S3.21	"With the reversed order, in which"	pass
+S3.22	"Such an arrangement only retries synchronous"	pass
+S3.23	"The technique of changing the order"	pass
+S3.24	"The advisors of `@Transactional` and `@Cacheable`"	pass
+S3.25	"Retry advice is always applied outside"	pass
+S3.26	"Spring AOP follows the same precedence"	pass
+S3.27	"When two pieces of advice defined"	pass
+S3.28	"You control the order by implementing"	pass
+S3.29	"Given two aspects, the aspect returning"	pass
+S3.30	"Advice methods defined in the same"	pass
+S3.31	"Two pieces of the same type"	pass
+S4.1	"Spring AOP is proxy-based."	pass
+S4.2	"A target that implements an interface"	pass
+S4.3	"The core framework suggests interface-based proxies"	pass
+S4.4	"Self invocation through `this` bypasses the"	pass
+S4.5	"`final` classes, `final` methods and `private`"	pass
+S4.6	"The proxy must be fully initialized,"	pass
+S4.7	"`@Async` cannot be used with lifecycle"	pass
+S4.8	"A `@Retryable` method is invoked at"	pass
+S4.9	"Retry advice is applied outermost with"	fail	contradicts lesson: with @Async the async advice is outermost, not retry
+S4.10	"Two aspects without an order have"	pass
+S4.11	"In one `@Aspect` class, precedence by"	pass
+g-jdk-dynamic-proxy	pass
+g-cglib-proxy	pass
+m05-l03-q01	pass
+m05-l03-q02	fail	"final class cannot be overridden" is not contradicted by the final-methods sentence
+m05-l03-q03	pass
+m05-l03-q04	pass
+m05-l03-q05	fail	void/TaskExecutor exclusive group are not mutually exclusive values
+m05-l03-q06	pass
+m05-l03-q07	pass
+m05-l03-q08	pass
+m05-l03-q09	pass
+m05-l03-q10	pass
+S4.9	recheck	pass
+# checked 87, passed 85, failed 2

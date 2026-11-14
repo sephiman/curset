@@ -1,0 +1,122 @@
+[
+ {
+  "id": "m05-l04-q01",
+  "fact": "m05-l04-f36",
+  "stem": "In the default configuration of `@Transactional`, which thrown exceptions cause the Spring transaction infrastructure to roll the transaction back?",
+  "key": "Any `RuntimeException` and any `Error`, but no checked `Exception`",
+  "distractors": [
+   "Any `Exception`, checked or unchecked",
+   "Only a checked `Exception`",
+   "Only a `RuntimeException`, because an `Error` ends the thread"
+  ],
+  "explanation": "By default, any `RuntimeException` or `Error` triggers rollback, and any checked `Exception` does not. The claim that any exception rolls back is wrong, because checked exceptions thrown from a transactional method do not result in a rollback in the default configuration. The claim that only checked exceptions roll back is wrong, because the default marks a transaction for rollback only in the case of runtime, unchecked exceptions. The claim that an `Error` does not roll back is wrong, because `Error` instances also, by default, result in a rollback.",
+  "citation": "spring-fw-tx-declarative-annotations#transaction-declarative-attransactional-settings; spring-fw-tx-declarative-rolling-back#page-title",
+  "extract": "Any RuntimeException or Error triggers rollback, and any checked Exception does not.",
+  "snippet": null
+ },
+ {
+  "id": "m05-l04-q02",
+  "fact": "m05-l04-f45",
+  "stem": "A transaction has a rollback rule defined with `rollbackFor = ServletException.class`. Which thrown exception types does Spring consider a match for that rule?",
+  "key": "`ServletException` and its subclasses",
+  "distractors": [
+   "Only `ServletException` itself, never its subclasses",
+   "Any exception whose class name contains `ServletException`",
+   "`ServletException` and its superclasses"
+  ],
+  "explanation": "A rule of this kind only matches thrown exceptions of that type and its subclasses. The claim that only the exact type matches is wrong, because a thrown exception of type T is a match against type C if T is equal to C or a subclass of C. The claim that a name containing `ServletException` matches is wrong, because a rule defined with a type provides type safety and avoids the unintentional matches that a pattern can cause. The claim that superclasses match is wrong, because the rule only matches the configured type and its subclasses.",
+  "citation": "spring-fw-tx-declarative-rolling-back#page-title",
+  "extract": "a value of jakarta.servlet.ServletException.class will only match thrown exceptions of type jakarta.servlet.ServletException and its subclasses.",
+  "snippet": null
+ },
+ {
+  "id": "m05-l04-q03",
+  "fact": "m05-l04-f57",
+  "stem": "A method is annotated with `@TransactionalEventListener` and its `phase` attribute is left unset. To which phase of the transaction is the listener bound by default?",
+  "key": "`AFTER_COMMIT`",
+  "distractors": [
+   "`BEFORE_COMMIT`",
+   "`AFTER_ROLLBACK`",
+   "No phase: the listener runs as soon as the event is published, like a regular `@EventListener`"
+  ],
+  "explanation": "The valid phases are `BEFORE_COMMIT`, `AFTER_COMMIT` as the default, `AFTER_ROLLBACK` and `AFTER_COMPLETION`. The phases `BEFORE_COMMIT` and `AFTER_ROLLBACK` are wrong, because `AFTER_COMMIT` is the one marked as the default. The claim that the listener is not bound to any phase is wrong, because a listener that you bind to the transaction with `@TransactionalEventListener` is bound to the commit phase by default.",
+  "citation": "spring-fw-tx-event#page-title",
+  "extract": "The valid phases are BEFORE_COMMIT, AFTER_COMMIT (default), AFTER_ROLLBACK, as well as AFTER_COMPLETION",
+  "snippet": null
+ },
+ {
+  "id": "m05-l04-q04",
+  "fact": "m05-l04-f59",
+  "stem": "A method annotated with `@TransactionalEventListener` handles an event published while no transaction is running, and `fallbackExecution` keeps its default. What happens?",
+  "key": "The listener is not invoked at all",
+  "distractors": [
+   "The listener runs immediately, like a regular event listener",
+   "The listener fails with an exception, because no transaction exists",
+   "The listener runs in the `AFTER_COMPLETION` phase of an implicit new transaction"
+  ],
+  "explanation": "If no transaction is running, the listener is not invoked at all, since the required semantics cannot be honored. The claim that the listener runs immediately is wrong, because running it without a transaction needs the `fallbackExecution` attribute of the annotation set to `true`. The claims that the listener fails with an exception or runs in an implicit transaction are wrong, because without a running transaction the listener is not invoked at all.",
+  "citation": "spring-fw-tx-event#page-title",
+  "extract": "If no transaction is running, the listener is not invoked at all, since we cannot honor the required semantics.",
+  "snippet": null
+ },
+ {
+  "id": "m05-l04-q05",
+  "fact": "m05-l04-f21",
+  "stem": "What are the default propagation setting, isolation level and transaction timeout of `@Transactional` in the Spring Framework?",
+  "key": "`PROPAGATION_REQUIRED`, `ISOLATION_DEFAULT` and the default timeout of the underlying transaction system, or none",
+  "distractors": [
+   "`PROPAGATION_REQUIRES_NEW`, `ISOLATION_DEFAULT` and the default timeout of the underlying transaction system",
+   "`PROPAGATION_REQUIRED`, `ISOLATION_SERIALIZABLE` and the default timeout of the underlying transaction system",
+   "`PROPAGATION_REQUIRED`, `ISOLATION_DEFAULT` and a fixed timeout of 30 seconds"
+  ],
+  "explanation": "The defaults are `PROPAGATION_REQUIRED`, `ISOLATION_DEFAULT`, and the default timeout of the underlying transaction system, or none if timeouts are not supported. The default propagation of `PROPAGATION_REQUIRES_NEW` is wrong, because the default propagation setting is `PROPAGATION_REQUIRED`. The default isolation of `ISOLATION_SERIALIZABLE` is wrong, because the default isolation level is `ISOLATION_DEFAULT`. The fixed timeout of 30 seconds is wrong, because the timeout defaults to the default timeout of the underlying transaction system, or to none if timeouts are not supported.",
+  "citation": "spring-fw-tx-declarative-annotations#transaction-declarative-attransactional-settings",
+  "extract": "The propagation setting is PROPAGATION_REQUIRED.",
+  "snippet": null
+ },
+ {
+  "id": "m05-l04-q06",
+  "fact": "m05-l04-f04",
+  "stem": "What does the Spring Framework reference say about the `TransactionException` that any `PlatformTransactionManager` method can throw?",
+  "key": "It is unchecked, because it extends `RuntimeException`",
+  "distractors": [
+   "It is checked, so every caller must catch it or declare it",
+   "It is checked, because transaction infrastructure failures are usually recoverable",
+   "It is unchecked, because it extends `Error`"
+  ],
+  "explanation": "The `TransactionException` is unchecked, because it extends the `java.lang.RuntimeException` class. The claim that every caller must catch it is wrong, because developers are not forced to catch and handle `TransactionException`. The claim that infrastructure failures are usually recoverable is wrong, because transaction infrastructure failures are almost invariably fatal. The claim that it extends `Error` is wrong, because it extends the `java.lang.RuntimeException` class.",
+  "citation": "spring-fw-tx-strategies#understanding-the-spring-framework-transaction-abstraction",
+  "extract": "the TransactionException that can be thrown by any of the PlatformTransactionManager interface’s methods is unchecked (that is, it extends the java.lang.RuntimeException class).",
+  "snippet": null
+ },
+ {
+  "id": "m05-l04-q07",
+  "fact": "m05-l04-f66",
+  "stem": "A Spring Boot application defines no `Executor` bean and runs on Java 21 or later with `spring.threads.virtual.enabled` set to `true`. Which executor does Boot auto-configure for asynchronous tasks?",
+  "key": "A `SimpleAsyncTaskExecutor` that uses virtual threads",
+  "distractors": [
+   "A `ThreadPoolTaskExecutor` with sensible defaults",
+   "No executor, because `@EnableAsync` requires a custom `Executor` bean",
+   "A `ForkJoinPool` shared by the whole JVM"
+  ],
+  "explanation": "With virtual threads enabled, the auto-configured executor is a `SimpleAsyncTaskExecutor` that uses virtual threads. The claim that a `ThreadPoolTaskExecutor` is configured is wrong, because that is the executor Boot configures otherwise, when virtual threads are not enabled. The claim that no executor is configured is wrong, because in the absence of an `Executor` bean Spring Boot auto-configures an `AsyncTaskExecutor`. The claim that a shared `ForkJoinPool` is configured is wrong, because the auto-configured executor is a `SimpleAsyncTaskExecutor` when virtual threads are enabled.",
+  "citation": "spring-boot-features-task-execution-and-scheduling#page-title",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m05-l04-q08",
+  "fact": "m05-l04-f50",
+  "stem": "In Spring Framework 6.2 and later, what does `@EnableTransactionManagement(rollbackOn=ALL_EXCEPTIONS)` change for transactions declared with `@Transactional`?",
+  "key": "The default rollback behavior, which leads to a rollback for all exceptions, including checked ones",
+  "distractors": [
+   "It makes the rollback rules on individual `@Transactional` annotations ignored",
+   "It changes the rollback behavior only for the class that declares it",
+   "It disables rollback for a `RuntimeException`, so that only checked exceptions roll back"
+  ],
+  "explanation": "It leads to a rollback for all exceptions raised within a transaction, including any checked exception. The claim that individual rules are ignored is wrong, because transaction-specific rollback rules override the default behavior but retain the chosen default for unspecified exceptions. The claim that it applies to one class is wrong, because the setting changes the default rollback behavior globally. The claim that a `RuntimeException` no longer rolls back is wrong, because the setting leads to a rollback for all exceptions raised within a transaction.",
+  "citation": "spring-fw-tx-declarative-annotations#transaction-declarative-attransactional-settings",
+  "extract": "leading to a rollback for all exceptions raised within a transaction, including any checked exception.",
+  "snippet": null
+ }
+]

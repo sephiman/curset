@@ -644,3 +644,11 @@ def test_explanation_the_verifier_passed_lints_clean(question_id: str) -> None:
 def test_explanation_the_verifier_failed_for_silence_or_sharing_is_flagged(question_id: str) -> None:
     q = from_fixture(question_id, VERIFIED_FAIL_BY_SILENCE_OR_SHARING[question_id])
     assert explanation_failures(q)
+
+
+def test_an_accepted_key_longest_share_is_not_a_failure() -> None:
+    longest = make(key="Writers block while readers continue and a long tail")
+    result = lint_lesson("m00-l00", [longest], {}, frozenset({("m00-l00", "key-longest-share")}))
+    assert [f.rule for f in result.failures if f.rule == "key-longest-share"] == []
+    assert result.accepted == 1
+    assert not result.over

@@ -120,3 +120,9 @@ def is_dropped(row: Row, storage: Storage) -> bool:
 
 def rows_of_lesson(rows: dict[str, Row], lesson: str) -> list[Row]:
     return [row for row in rows.values() if lesson_of(row.bullet) == lesson]
+
+
+def dropped_bullets(course: str, s0: Path = S0) -> set[str]:
+    """Bullets marked `drop`, or left out under R2 with no stored source: the same rule the stubs show."""
+    storage = load_storage(course, s0)
+    return {bullet for bullet, row in load_rows(s0).items() if is_dropped(row, storage)}

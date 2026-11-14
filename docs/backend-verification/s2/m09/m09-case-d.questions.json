@@ -1,0 +1,242 @@
+[
+ {
+  "id": "m09-case-d-q01",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f94",
+  "stem": "A telemetry broker stores events on six 7200rpm SATA drives in a RAID-5 array. According to the Kafka design documentation, how do linear writes compare with random writes on that array?",
+  "key": "Over 6000 times faster, 600MB/sec against 100kB/sec",
+  "distractors": [
+   "About 6 times faster, at 600MB/sec for linear writes against 100MB/sec for random writes",
+   "About 60 times faster, at 600MB/sec for linear writes against 10MB/sec for random writes",
+   "About 600 times faster, at 600MB/sec for linear writes against 1MB/sec for random writes"
+  ],
+  "explanation": "Linear writes run at about 600MB/sec and random writes at about 100kB/sec, a difference of over 6000X. About 6 times is wrong, because the documentation gives about 600MB/sec for linear and about 100kB/sec for random writes. About 60 times is wrong, because the documentation reports a difference of over 6000X. About 600 times is wrong, because the documentation reports a difference of over 6000X.",
+  "citation": "kafka-design#dont-fear-the-filesystem",
+  "extract": "the performance of linear writes on a JBOD configuration with six 7200rpm SATA RAID-5 array is about 600MB/sec but the performance of random writes is only about 100kB/sec–a difference of over 6000X",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-d-q02",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f95",
+  "stem": "A telemetry service appends millions of events per minute to Kafka. According to the Kafka design documentation, what happens to each message the broker receives?",
+  "key": "It goes to a persistent filesystem log at once, without necessarily being flushed",
+  "distractors": [
+   "It stays in an in-process cache in the broker that remains warm across restarts",
+   "It stays on the JVM heap of the broker, where garbage collection cost stays flat as data grows",
+   "It is buffered in memory first, because disks are always far slower than the network"
+  ],
+  "explanation": "All data is immediately written to a persistent log on the filesystem without necessarily flushing to disk. An in-process cache that stays warm is wrong, because the pagecache stays warm after a restart whereas an in-process cache must be rebuilt. Heap storage with flat GC cost is wrong, because Java garbage collection becomes increasingly fiddly and slow as the in-heap data increases. Disks always being far slower is wrong, because a properly designed disk structure can often be as fast as the network.",
+  "citation": "kafka-design#dont-fear-the-filesystem",
+  "extract": "All data is immediately written to a persistent log on the filesystem without necessarily flushing to disk.",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-d-q03",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f102",
+  "stem": "Kafka serves telemetry consumers from the page cache and uses `sendfile` on a plain-text listener. According to the Kafka design documentation, how does `sendfile` change the path of data from file to socket?",
+  "key": "The OS sends it from the pagecache to the network directly",
+  "distractors": [
+   "Data still takes four copies and two system calls on every fetch",
+   "`sendfile` still applies when SSL is enabled on the listener of the broker",
+   "Consumers that are caught up still cause constant reads on the disks"
+  ],
+  "explanation": "Using `sendfile`, the OS sends the data from the pagecache to the network directly, so only the final copy to the NIC buffer is needed. Four copies and two system calls is wrong, because that is the common data path that `sendfile` replaces. `sendfile` with SSL is wrong, because `sendfile` is not used when SSL is enabled. Constant disk reads is wrong, because with consumers mostly caught up there is no read activity on the disks as data is served from cache.",
+  "citation": "kafka-design#efficiency",
+  "extract": "Using sendfile, this re-copying is avoided by allowing the OS to send the data from pagecache to the network directly. So in this optimized path, only the final copy to the NIC buffer is needed.",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-d-q04",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f110",
+  "stem": "A Kafka producer compresses batches of telemetry events before sending them to the broker. Which set of compression protocols does Kafka support, according to the Kafka design documentation?",
+  "key": "`GZIP`, `Snappy`, `LZ4` and `ZStandard`",
+  "distractors": [
+   "`GZIP` only",
+   "`GZIP` and `Snappy` only",
+   "`LZ4` and `ZStandard` only"
+  ],
+  "explanation": "Kafka supports `GZIP`, `Snappy`, `LZ4` and `ZStandard` compression protocols. `GZIP` only is wrong, because Kafka supports `GZIP`, `Snappy`, `LZ4` and `ZStandard`. `GZIP` and `Snappy` only is wrong, because Kafka also supports `LZ4` and `ZStandard`. `LZ4` and `ZStandard` only is wrong, because Kafka also supports `GZIP` and `Snappy`.",
+  "citation": "kafka-design#end-to-end-batch-compression",
+  "extract": "Kafka supports GZIP, Snappy, LZ4 and ZStandard compression protocols.",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-d-q05",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f103",
+  "stem": "A telemetry producer sets the user id as the record key for every event it sends to a Kafka topic with several partitions. Where does Kafka send all events of a given user?",
+  "key": "To the same partition",
+  "distractors": [
+   "To partitions chosen in round robin for each record",
+   "To every partition of the topic",
+   "To a random partition chosen for each record"
+  ],
+  "explanation": "If the key chosen was a user id then all data for a given user would be sent to the same partition. Round robin is wrong, because with a user id as key all data for a given user is sent to the same partition. Every partition is wrong, because all data for a given user goes to the same partition. A random partition is wrong, because the key is hashed to a partition so a given user always lands on the same one.",
+  "citation": "kafka-design#efficiency",
+  "extract": "on a Kafka cluster where the consumers are mostly caught up you will see no read activity on the disks whatsoever as they will be serving data entirely from cache.",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-d-q06",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f111",
+  "stem": "A Flink job aggregates telemetry streams and takes checkpoints. According to the Flink documentation, which operators perform stream alignment during a checkpoint?",
+  "key": "Joins and operators after a shuffle",
+  "distractors": [
+   "Only operators with multiple predecessors, which are the join operators",
+   "Only the sink operators of the job",
+   "Every operator of the job, including `map()` and `filter()` operators"
+  ],
+  "explanation": "Alignment happens only for operators with multiple predecessors (joins) as well as operators with multiple senders (after a repartitioning or shuffle). Only joins is wrong, because alignment also happens for operators with multiple senders after a repartitioning or shuffle. Only sinks is wrong, because alignment happens for operators with multiple predecessors and operators with multiple senders. Every operator is wrong, because alignment happens only for operators with multiple predecessors or multiple senders.",
+  "citation": "flink-stateful-stream-processing#exactly-once-vs-at-least-once",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m09-case-d-q07",
+  "lesson": "m08-l04",
+  "fact": "m08-l04-f65",
+  "stem": "A shared Kafka cluster gives each unique client group a fixed quota configured by the cluster. On which basis is that quota defined, according to the Kafka design documentation?",
+  "key": "Per broker",
+  "distractors": [
+   "Per topic, summed over all brokers",
+   "Per partition of each topic",
+   "Once for the whole cluster, shared by all brokers"
+  ],
+  "explanation": "Each unique client group receives a fixed quota as configured by the cluster, defined on a per-broker basis. A per-topic quota is wrong, because the quota is defined on a per-broker basis. A per-partition quota is wrong, because the quota is defined on a per-broker basis. A single cluster-wide quota is wrong, because the quota is defined on a per-broker basis.",
+  "citation": "kafka-design#enforcement",
+  "extract": "By default, each unique client group receives a fixed quota as configured by the cluster. This quota is defined on a per-broker basis.",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-d-q08",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f98",
+  "stem": "According to the Kafka design documentation, once poor disk access patterns have been eliminated, a telemetry system of this type has two common causes of inefficiency. Which are they?",
+  "key": "Small I/O operations and byte copying",
+  "distractors": [
+   "Too many large sequential writes and slow compression of batches",
+   "Garbage collection pauses and too few partitions per topic",
+   "Too many consumers and excessive replication between brokers"
+  ],
+  "explanation": "The two common causes are too many small I/O operations and excessive byte copying. Large sequential writes and slow compression are wrong, because the two causes are small I/O operations and byte copying. Garbage collection pauses and too few partitions are wrong, because the two causes are small I/O operations and byte copying. Too many consumers and excessive replication are wrong, because the two causes are small I/O operations and byte copying.",
+  "citation": "kafka-design#efficiency",
+  "extract": "Once poor disk access patterns have been eliminated, there are two common causes of inefficiency in this type of system: too many small I/O operations, and excessive byte copying.",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-d-q09",
+  "lesson": "m09-l02",
+  "fact": "m09-l02-f65",
+  "stem": "A telemetry store replicates each item on N=5 nodes and requires W=3 nodes for a successful write. According to the Dynamo paper, what is the smallest read quorum R that yields a quorum-like system?",
+  "key": "3",
+  "distractors": [
+   "2",
+   "1",
+   "4"
+  ],
+  "explanation": "Setting R and W such that R + W > N yields a quorum-like system, so with W of 3 and N of 5 the smallest R is 3. R of 2 is wrong, because R + W of 5 is not greater than N of 5, so the system is not quorum-like. R of 1 is wrong, because R + W of 4 is not greater than N of 5, so the system is not quorum-like. R of 4 is wrong as the smallest value, because R of 3 already gives R + W above N, which is enough.",
+  "citation": "paper-dynamo#p7",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m09-case-d-q10",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f99",
+  "stem": "A telemetry pipeline sends events to Kafka, and the Kafka protocol groups messages together. According to the Kafka design documentation, around which abstraction is the protocol built?",
+  "key": "A message set grouping messages",
+  "distractors": [
+   "A single-message request that the broker never combines",
+   "A byte stream with no message boundaries",
+   "A key-value record that is always compressed alone"
+  ],
+  "explanation": "The Kafka protocol is built around a message set abstraction that naturally groups messages together. A single-message request is wrong, because the protocol is built around a message set abstraction that groups messages together. A byte stream with no boundaries is wrong, because the protocol is built around a message set abstraction. A record compressed alone is wrong, because efficient compression requires compressing multiple messages together rather than each message individually.",
+  "citation": "kafka-design#efficiency",
+  "extract": "our protocol is built around a “message set” abstraction that naturally groups messages together.",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-d-q11",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f101",
+  "stem": "A broker sends log data to a consumer socket on the common data path, without `sendfile`. According to the Kafka design documentation, how many copies and system calls does that path take?",
+  "key": "Four copies and two system calls",
+  "distractors": [
+   "Two copies and one system call",
+   "Three copies and three system calls",
+   "Six copies and four system calls"
+  ],
+  "explanation": "The common data path for transfer of data from file to socket has four copies and two system calls. Two copies and one system call is wrong, because the common path has four copies and two system calls. Three copies and three system calls is wrong, because the common path has four copies and two system calls. Six copies and four system calls is wrong, because the common path has four copies and two system calls.",
+  "citation": "kafka-design#efficiency",
+  "extract": "there are four copies and two system calls",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-d-q12",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f106",
+  "stem": "A producer compresses telemetry events before sending them to Kafka. According to the Kafka design documentation, what does efficient compression require?",
+  "key": "Compressing multiple messages together",
+  "distractors": [
+   "Compressing each message individually",
+   "Compressing only the message keys",
+   "Compressing only at the broker after the write"
+  ],
+  "explanation": "Efficient compression requires compressing multiple messages together rather than compressing each message individually. Individual compression is wrong, because efficient compression requires compressing multiple messages together rather than each message individually. Key-only compression is wrong, because efficient compression requires compressing multiple messages together. Broker-side compression after the write is wrong, because efficient compression requires compressing multiple messages together.",
+  "citation": "kafka-design#end-to-end-batch-compression",
+  "extract": "Efficient compression requires compressing multiple messages together rather than compressing each message individually.",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-d-q13",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f114",
+  "stem": "A telemetry pipeline stores vehicle readings in Elasticsearch. According to the Elasticsearch documentation, what do metrics consist of?",
+  "key": "Data point and timestamp pairs identified by dimension fields",
+  "distractors": [
+   "Log lines and traces kept in a logs data stream",
+   "Posting lists of document IDs for each term",
+   "Relevance scores from term frequency and document length"
+  ],
+  "explanation": "Metrics consist of data point-timestamp pairs, identified by dimension fields, that can be used in aggregation queries. Logs and traces are wrong, because logs or traces use a logs data stream or a regular data stream, not metrics. Posting lists are wrong, because a posting list is the part of an inverted index that lists document IDs for a term. Relevance scores are wrong, because BM25 calculates those from term frequency, document frequency and document length.",
+  "citation": "es-time-series-data-stream#when-to-use-tsds",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m09-case-d-q14",
+  "lesson": "m09-l02",
+  "fact": "m09-l02-f99",
+  "stem": "A telemetry index in Elasticsearch has 5 primary shards and 1 replica per shard. According to the Elasticsearch documentation, to how many primary shards does each document belong?",
+  "key": "One primary shard",
+  "distractors": [
+   "Every primary shard of the index",
+   "All shards, including the replica shards",
+   "Two primary shards, for redundancy"
+  ],
+  "explanation": "Each document in an index belongs to one primary shard. Every primary shard is wrong, because each shard holds only a subset of the documents in the index. All shards is wrong, because a replica shard is a copy of a primary shard, not a second home of the document. Two primary shards is wrong, because each document belongs to one primary shard.",
+  "citation": "es-clusters-nodes-shards#elastic-docs-v3",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m09-case-d-q15",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f112",
+  "stem": "A Flink job runs in at-least-once checkpointing mode. According to the Flink documentation, which dataflows still give exactly-once guarantees in that mode?",
+  "key": "Dataflows with only embarrassingly parallel operations such as `map()` and `filter()`",
+  "distractors": [
+   "Dataflows that contain joins of several input streams",
+   "Dataflows that repartition streams with a shuffle",
+   "Every dataflow, whatever its operators"
+  ],
+  "explanation": "Dataflows with only embarrassingly parallel streaming operations (`map()`, `flatMap()`, `filter()`) give exactly once guarantees even in at least once mode. Dataflows with joins are wrong, because only dataflows with just embarrassingly parallel operations give exactly once in at-least-once mode. Dataflows with a shuffle are wrong, because only dataflows with just embarrassingly parallel operations give exactly once in this mode. Every dataflow is wrong, because only dataflows with just embarrassingly parallel operations give exactly once in this mode.",
+  "citation": "flink-stateful-stream-processing#exactly-once-vs-at-least-once",
+  "extract": null,
+  "snippet": null
+ }
+]

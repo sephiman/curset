@@ -1,0 +1,257 @@
+[
+ {
+  "id": "m04-l03-q01",
+  "fact": "m04-l03-f09",
+  "stem": "According to the Kotlin language specification, which of these calls between functions is allowed, without any limitation on the function being called?",
+  "key": "A suspending function calling a non-suspending function",
+  "distractors": [
+   "A non-suspending function calling a suspending function directly",
+   "A constructor declared as a suspending function",
+   "A property getter declared as a suspending function"
+  ],
+  "explanation": "Suspending functions may call non-suspending functions without any limitations. A direct call from a non-suspending function is wrong because non-suspending functions do not support suspension points. A suspending constructor is wrong because constructors cannot be marked as suspending. A suspending getter is wrong because property getters and setters cannot be marked as suspending.",
+  "citation": "kotlin-spec-coroutines#suspending-functions",
+  "extract": "Suspending functions may call non-suspending functions without any limitations; such calls do not create suspension points.",
+  "snippet": null
+ },
+ {
+  "id": "m04-l03-q02",
+  "fact": "m04-l03-f15",
+  "stem": "How does the Kotlin compiler change the signature of a suspendable function with result type `T` in the continuation passing style transformation?",
+  "key": "It adds a `Continuation<T>` parameter and changes the return type to `Any?`",
+  "distractors": [
+   "It keeps the signature and runs the body on a new thread",
+   "It adds a `Continuation<T>` parameter and always returns `COROUTINE_SUSPENDED`",
+   "It adds an `Int` state parameter to every call and keeps the return type `T` unchanged"
+  ],
+  "explanation": "The generated function has an additional `Continuation<T>` parameter and the return type `kotlin.Any?`. Running the body on a new thread is wrong because suspendable functions are implemented as state machines that do not require specific runtime support. Always returning the marker is wrong because a function that returns a result returns it directly from the function as normal. An `Int` state parameter is wrong because the new parameter has the type `kotlin.coroutines.Continuation<T>` and the return type is changed.",
+  "citation": "kotlin-spec-coroutines#continuation-passing-style",
+  "extract": "of type kotlin.coroutines.Continuation<T> and return type changed to kotlin.Any?",
+  "snippet": null
+ },
+ {
+  "id": "m04-l03-q03",
+  "fact": "m04-l03-f20",
+  "stem": "According to the Kotlin specification, why must a function be explicitly marked `suspend`, a rule known as function colouring?",
+  "key": "The compiler has to know which function can potentially suspend, to turn it into a state machine",
+  "distractors": [
+   "The JVM requires every suspending function to run inside a coroutine scope",
+   "It lets the runtime schedule each suspending function on its own thread",
+   "It prevents suspending functions from calling non-suspending functions"
+  ],
+  "explanation": "The compiler has to know which function can potentially suspend, to turn it into a state machine. A JVM requirement is wrong because Kotlin implements suspendable functions as state machines, which require no specific runtime support. A thread per function is wrong because the interleaving of suspending functions may happen on a single platform thread. Blocking those calls is wrong because suspending functions may call non-suspending functions without any limitations.",
+  "citation": "kotlin-spec-coroutines#coroutine-state-machine",
+  "extract": "This dictates the explicit suspend marking (function colouring) of Kotlin coroutines: the compiler has to know which function can potentially suspend, to turn it into a state machine.",
+  "snippet": null
+ },
+ {
+  "id": "m04-l03-q04",
+  "fact": "m04-l03-f32",
+  "stem": "In Kotlin structured concurrency, a parent coroutine reaches the end of its body while some of its child coroutines are still running. What does the parent do?",
+  "key": "It waits for its children to complete before it finishes",
+  "distractors": [
+   "It finishes at once, and its children keep running as root coroutines",
+   "It cancels its children and then finishes",
+   "It reports `isCompleted` as true while it waits for its children"
+  ],
+  "explanation": "A parent coroutine waits for its children to complete before it finishes. Finishing at once is wrong because a parent coroutine waits for its children to complete before it finishes. Cancelling the children is wrong because they are cancelled when the parent fails or gets canceled, not when its body ends. Reporting completion is wrong because for an outside observer a completing job is still active while it waits for its children.",
+  "citation": "kotlin-docs-coroutines-basics#coroutine-scope-and-structured-concurrency",
+  "extract": "A parent coroutine waits for its children to complete before it finishes.",
+  "snippet": null
+ },
+ {
+  "id": "m04-l03-q05",
+  "fact": "m04-l03-f43",
+  "stem": "Two root coroutines are created with `GlobalScope`, one with `launch` and one with `async`, and each throws an exception. How does each builder treat the exception?",
+  "key": "`launch` treats it as uncaught, while `async` leaves it to `await`",
+  "distractors": [
+   "`async` treats it as uncaught, while `launch` relies on the user to call `await`",
+   "Both treat it as uncaught, like `Thread.uncaughtExceptionHandler`",
+   "Both drop it silently unless the parent coroutine handles it"
+  ],
+  "explanation": "Builders come in two flavors: `launch` propagates exceptions automatically and `async` exposes them to users. The swapped behaviour is wrong because `launch` is the builder that propagates exceptions automatically and `async` exposes them to users. Treating the two builders alike as uncaught is wrong because `async` relies on the user to consume the final exception, for example via `await`. Dropping the exception in each builder is wrong because a root coroutine has no parent, and `launch` treats its exceptions as uncaught exceptions.",
+  "citation": "kotlin-docs-exception-handling#exception-propagation",
+  "extract": "Coroutine builders come in two flavors: propagating exceptions automatically (launch) or exposing them to users (async and produce).",
+  "snippet": null
+ },
+ {
+  "id": "m04-l03-q06",
+  "fact": "m04-l03-f47",
+  "stem": "A child coroutine of a `SupervisorJob` fails with an exception. What happens to the supervisor job and to the other children of that supervisor?",
+  "key": "Neither: the failure does not propagate to the supervisor or its other children",
+  "distractors": [
+   "The failure propagates to the supervisor job, which cancels the other children",
+   "The supervisor job fails, but the other children keep running",
+   "The other children keep running even if the parent job of the supervisor is cancelled"
+  ],
+  "explanation": "A failure or cancellation of a child does not propagate to the supervisor job or its other children. Propagation to the supervisor is wrong because a failure of a child does not propagate to the supervisor job or its other children. A failing supervisor is wrong because a failure of a child does not cause the supervisor job to fail. Surviving the parent is wrong because a supervisor with a parent is cancelled when the parent is cancelled, and all its children are cancelled too.",
+  "citation": "kotlin-docs-exception-handling#supervision-job",
+  "extract": "It is similar to a regular Job with the only exception that a failure or cancellation of a child does not propagate to the supervisor job or its other children.",
+  "snippet": null
+ },
+ {
+  "id": "m04-l03-q07",
+  "fact": "m04-l03-f53",
+  "stem": "In `kotlinx.coroutines`, how does `supervisorScope` propagate cancellation between itself and its children when a child fails or when the scope itself fails?",
+  "key": "In one direction only: it cancels all its children only if it failed itself",
+  "distractors": [
+   "In both directions: a failing child cancels the scope and its other children",
+   "It does not wait for its children before completion",
+   "It never cancels its children, even when the scope itself fails"
+  ],
+  "explanation": "`supervisorScope` propagates the cancellation in one direction only and cancels its children only if it failed itself. Two-way propagation is wrong because cancellation travels in one direction only, and a failure of a child does not affect its other children. Not waiting is wrong because it also waits for all children before completion just like `coroutineScope` does. Never cancelling is wrong because it cancels all its children if it failed itself.",
+  "citation": "kotlin-docs-exception-handling#supervision-scope",
+  "extract": "It propagates the cancellation in one direction only and cancels all its children only if it failed itself.",
+  "snippet": null
+ },
+ {
+  "id": "m04-l03-q08",
+  "fact": "m04-l03-f65",
+  "stem": "In `kotlinx.coroutines`, a `Job` is in the cancelling state. What do `isActive`, `isCompleted` and `isCancelled` return, in that order?",
+  "key": "`false`, `false`, `true`",
+  "distractors": [
+   "`true`, `false`, `false`",
+   "`false`, `true`, `true`",
+   "`false`, `true`, `false`"
+  ],
+  "explanation": "In the cancelling state, `isActive` and `isCompleted` are false and `isCancelled` is true. The values `true`, `false`, `false` are wrong because they belong to the active state. The values `false`, `true`, `true` are wrong because they belong to the cancelled final state. The values `false`, `true`, `false` are wrong because they belong to the completed final state.",
+  "citation": "coroutines-api-job#job-states",
+  "extract": "Cancelling (transient state) false false true",
+  "snippet": null
+ },
+ {
+  "id": "m04-l03-q09",
+  "fact": "m04-l03-f60",
+  "stem": "In `kotlinx.coroutines`, an active `Job` fails with an exception. To which state does the job transition?",
+  "key": "The cancelling state",
+  "distractors": [
+   "The cancelled state, at once",
+   "The completing state",
+   "The new state"
+  ],
+  "explanation": "Failure of an active job with an exception transitions the state to the cancelling state. The cancelled state at once is wrong because the job becomes cancelled when it finishes executing its work and all its children complete. The completing state is wrong because it is reached by the completion of the coroutine body or a call to `CompletableJob.complete`. The new state is wrong because it is an optional initial state, reached only for builders started with `CoroutineStart.LAZY`.",
+  "citation": "coroutines-api-job#job-states",
+  "extract": "Failure of an active job with an exception transitions the state to the cancelling state.",
+  "snippet": null
+ },
+ {
+  "id": "m04-l03-q10",
+  "fact": "m04-l03-f70",
+  "stem": "A coroutine is started in a scope whose coroutine context includes no dispatcher. Which dispatcher do the coroutine builders use?",
+  "key": "`Dispatchers.Default`",
+  "distractors": [
+   "`Dispatchers.IO`",
+   "`Dispatchers.Main`",
+   "`Dispatchers.Unconfined`"
+  ],
+  "explanation": "Coroutine builders use `Dispatchers.Default` when the context has no dispatcher. `Dispatchers.IO` is wrong because builders use `Dispatchers.Default` when the context has no dispatcher. `Dispatchers.Main` is wrong for the same reason. `Dispatchers.Unconfined` is wrong for the same reason.",
+  "citation": "kotlin-docs-coroutines-basics#coroutine-dispatchers",
+  "extract": "If the coroutine context doesn't include a dispatcher, coroutine builders use Dispatchers.Default.",
+  "snippet": null
+ },
+ {
+  "id": "m04-l03-q11",
+  "fact": "m04-l03-f79",
+  "stem": "In `kotlinx.coroutines`, `withContext` is called with a `CoroutineDispatcher` that differs from the current one. What happens to the block and to the execution after it?",
+  "key": "The block is scheduled on the new dispatcher, and execution returns to the original dispatcher once it finishes",
+  "distractors": [
+   "The block runs on the new dispatcher, and the rest of the coroutine stays there",
+   "The current thread blocks until the block finishes on the new dispatcher",
+   "A new child coroutine is launched and a `Job` handle is returned"
+  ],
+  "explanation": "With a different dispatcher, the block is scheduled on the new dispatcher and execution returns to the original one afterwards. Staying on the new dispatcher is wrong because once the block finishes, execution returns to the original dispatcher. Blocking the thread is wrong because `withContext` may suspend the current coroutine and switch to a new context. Returning a `Job` is wrong because `withContext` suspends until the block completes and returns the result.",
+  "citation": "kotlin-docs-coroutine-context-and-dispatchers#jumping-between-threads",
+  "extract": "if you specify a different CoroutineDispatcher, extra dispatches are required: the block is scheduled on the new dispatcher, and once it finishes, execution returns to the original dispatcher.",
+  "snippet": null
+ },
+ {
+  "id": "m04-l03-q12",
+  "fact": "m04-l03-f85",
+  "stem": "A cold flow is created with the `flow()` builder, but no code ever collects it. What happens to the block passed to `flow()`?",
+  "key": "It does not run until the flow is collected",
+  "distractors": [
+   "It runs once, as soon as `flow()` returns",
+   "It runs when the first intermediate operator is applied to the flow",
+   "It runs in the background like a hot flow, and the values are lost"
+  ],
+  "explanation": "The `flow()` builder returns a `Flow<T>` but does not start executing its block. Running at once is wrong because a cold flow only starts producing values when you collect it. Running at the first operator is wrong because the flow returned by an intermediate operator does not start processing values until it is collected. Running in the background is wrong because the block does not start executing when the flow is created.",
+  "citation": "kotlin-docs-flow#create-a-cold-flow",
+  "extract": "the flow() builder function returns a Flow<T>, but it doesn't start executing its block.",
+  "snippet": null
+ },
+ {
+  "id": "m04-l03-q13",
+  "fact": "m04-l03-f108",
+  "stem": "Which statement about a Kotlin `StateFlow` and its collectors is correct when a slow collector falls behind fast updates of the value?",
+  "key": "A slow collector skips fast updates and collects the latest value",
+  "distractors": [
+   "Every update is delivered to each collector, however slow the collector is",
+   "Collecting it completes normally after the last update",
+   "It has no value until the first update and exposes no `value` property"
+  ],
+  "explanation": "Updates to the value of a state flow are always conflated, so a slow collector skips fast updates. Delivering every update is wrong because updates are always conflated and a slow collector skips fast updates. Normal completion is wrong because a state flow never completes. Having no value is wrong because a mutable state flow is created with an initial value, and its current value can be retrieved via the `value` property.",
+  "citation": "coroutines-api-state-flow#content",
+  "extract": "Updates to the value are always conflated. So a slow collector skips fast updates, but always collects the most recently emitted value.",
+  "snippet": null
+ },
+ {
+  "id": "m04-l03-q14",
+  "fact": "m04-l03-f97",
+  "stem": "Which parameter of `MutableSharedFlow()` sets how many previous emissions a new subscriber of a Kotlin `SharedFlow` receives when it starts collecting?",
+  "key": "`replay`",
+  "distractors": [
+   "`extraBufferCapacity`",
+   "`onBufferOverflow`",
+   "`initialValue`"
+  ],
+  "explanation": "The `replay` parameter sets how many previous emissions a new subscriber receives. `extraBufferCapacity` is wrong because it reserves additional buffer capacity beyond replay. `onBufferOverflow` is wrong because it configures the strategy on buffer overflow, one of the entries of the `BufferOverflow` enum. `initialValue` is wrong because the initial value belongs to `MutableStateFlow(value)`, which is created with an initial value.",
+  "citation": "kotlin-docs-flow#create-a-sharedflow",
+  "extract": "To set how many previous emissions a new subscriber receives, use the replay parameter in MutableSharedFlow():",
+  "snippet": null
+ },
+ {
+  "id": "m04-l03-q15",
+  "fact": "m04-l03-f111",
+  "stem": "What does the `buffer` operator do to a Kotlin `Flow` when it is placed between `onEach` and `collect`?",
+  "key": "It runs the code before it in a separate coroutine, concurrently with the collector",
+  "distractors": [
+   "It keeps all operators sequential in the coroutine that calls `collect`",
+   "It turns the flow into a hot flow that emits without a collector",
+   "It drops values by default when the collector is slower than the emitter"
+  ],
+  "explanation": "The `buffer` operator creates a separate coroutine during execution for the flow it applies to. Keeping them sequential is wrong because that is the behaviour without `buffer`, where the code of all operators is executed in the same coroutine. Turning it hot is wrong because the flow returned by an intermediate operator is cold and does not start processing values until it is collected. Dropping by default is wrong because by default the emitter is suspended when the buffer overflows, to let the collector catch up.",
+  "citation": "coroutines-api-flow-buffer#content",
+  "extract": "The buffer operator creates a separate coroutine during execution for the flow it applies to.",
+  "snippet": null
+ },
+ {
+  "id": "m04-l03-q16",
+  "fact": "m04-l03-f120",
+  "stem": "According to the Kotlin documentation, what happens to the thread that runs a coroutine at the moment when that coroutine suspends?",
+  "key": "The thread is not blocked and remains free to run other tasks",
+  "distractors": [
+   "The thread stays blocked until the coroutine resumes, as with `Thread.sleep()`",
+   "The coroutine must resume on that same thread",
+   "The operating system keeps a dedicated multi-megabyte stack for the coroutine"
+  ],
+  "explanation": "When a coroutine suspends, the thread isn't blocked and remains free to run other tasks. A blocked thread is wrong because the thread is not blocked when a coroutine suspends. Resuming on the same thread is wrong because a coroutine can suspend on one thread and resume on another. A dedicated stack is wrong because coroutines are much lighter than threads, which are the ones that need a few megabytes each.",
+  "citation": "kotlin-docs-coroutines-basics#comparing-coroutines-and-jvm-threads",
+  "extract": "When a coroutine suspends, the thread isn't blocked and remains free to run other tasks.",
+  "snippet": null
+ },
+ {
+  "id": "m04-l03-q17",
+  "fact": "m04-l03-f29",
+  "stem": "The snippet starts `greet` as a coroutine with the standard library, suspends it in `awaitName`, resumes it from `main`, and lists the parameter types of the generated `greet` method. What does it print?",
+  "key": "before suspension\nmain continues\nafter suspension\nresult: hello Kotlin\n[Continuation]\nObject",
+  "distractors": [
+   "before suspension\nafter suspension\nresult: hello Kotlin\nmain continues\n[Continuation]\nObject",
+   "before suspension\nmain continues\nafter suspension\nresult: hello Kotlin\n[]\nObject",
+   "before suspension\nmain continues\nafter suspension\nresult: hello Kotlin\n[Continuation]\nString"
+  ],
+  "explanation": "`greet` prints `before suspension` and suspends, `main` continues and resumes it with `Kotlin`, and the generated method has a `Continuation` parameter and returns `Object`. The output with `main continues` after the result is wrong because `greet` suspends in `awaitName` and returns control to `main` before it is resumed. The output with an empty parameter list is wrong because the CPS transformation adds a `Continuation` parameter. The output ending with `String` is wrong because the return type changes to `Any?`, which is `Object` on the JVM.",
+  "citation": "kotlin-spec-coroutines#continuation-passing-style; kotlin-spec-coroutines#suspending-functions",
+  "extract": null,
+  "snippet": "m04-l03/ContinuationDemo.kt"
+ }
+]

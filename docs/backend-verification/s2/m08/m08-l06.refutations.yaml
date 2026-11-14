@@ -1,0 +1,190 @@
+m08-l06-q01:
+  key:
+    anchor: axon-snapshotting#_snapshot_lifecycle
+    sentence: Any events that occurred after the snapshot’s position are then applied to bring the entity up to date.
+  wrong:
+  - option: It replays every event from the first one and uses the snapshot only to verify the result
+    anchor: axon-snapshotting#_snapshot_lifecycle
+    sentence: If a snapshot is available and can be used, the entity is initialized from that snapshot.
+  - option: It deletes the events that precede the snapshot from the event store
+    anchor: axon-event-sourced-entity#cmdk-launch
+    sentence: This makes the event log the single source of truth, giving you a complete and immutable audit trail of everything that ever happened to the entity.
+  - option: It applies only the events that occurred before the snapshot's position
+    anchor: axon-snapshotting#_why_use_snapshots
+    sentence: the system can restore the entity directly from that snapshot and only apply the events that occurred afterwards
+m08-l06-q02:
+  key:
+    anchor: axon-event-processors-subscribing#cmdk-launch
+    sentence: a failing handler propagates its failure back to the publisher, failing the event publication.
+  wrong:
+  - option: The processor resumes from its last token after a restart and retries the event
+    anchor: axon-event-processors-subscribing#cmdk-launch
+    sentence: When using a simple bus solution like the EventBus as the event source, the Subscribing Processor will only receive current events.
+  - option: The publication completes at once, because the handler runs on a separate thread
+    anchor: axon-event-processors-subscribing#cmdk-launch
+    sentence: Furthermore, when the EventBus is used as the event source, the event publishing thread is the same one that handles the event in the Subscribing Processor.
+  - option: The publication is rolled back only for that handler, and the other handlers still receive the event
+    anchor: axon-event-processors-subscribing#cmdk-launch
+    sentence: As a result, publication through the EventBus completes only after every subscribed handler has finished
+m08-l06-q03:
+  key:
+    anchor: axon-event-processors-streaming#tracking_tokens
+    sentence: Replaying events by adjusting the token position of that processor.
+  wrong:
+  - option: By rewriting the stored events in the event store with corrected payloads
+    anchor: axon-event-sourced-entity#cmdk-launch
+    sentence: This makes the event log the single source of truth, giving you a complete and immutable audit trail of everything that ever happened to the entity.
+  - option: By clearing the token store, so that the processor handles the stream from the start as a replay
+    anchor: axon-event-processors-streaming#initial_token
+    sentence: These events are handled as regular events, not as a replay.
+  - option: By starting a Subscribing Processor on the `EventBus`, which re-delivers old events
+    anchor: axon-event-processors-subscribing#cmdk-launch
+    sentence: Operations like replaying are, therefore, not an option for any Subscribing Processor.
+m08-l06-q04:
+  key:
+    anchor: axon-event-processors-streaming#parallel_processing
+    sentence: The default number of segments for a PooledStreamingEventProcessor is sixteen.
+  wrong:
+  - option: One
+    anchor: axon-event-processors-streaming#parallel_processing
+    sentence: The default number of segments for a PooledStreamingEventProcessor is sixteen.
+    exclusive: true
+  - option: Four
+    anchor: axon-event-processors-streaming#parallel_processing
+    sentence: The default number of segments for a PooledStreamingEventProcessor is sixteen.
+    exclusive: true
+  - option: Sixty-four
+    anchor: axon-event-processors-streaming#parallel_processing
+    sentence: The default number of segments for a PooledStreamingEventProcessor is sixteen.
+    exclusive: true
+m08-l06-q05:
+  key:
+    anchor: axon-event-processors-streaming#token_claim_config
+    sentence: 'tokenClaimInterval: Defines how long to wait between attempts to claim a segment. A processor uses this value to steal token claims from other processor threads. This value defaults to 5000 milliseconds.'
+  wrong:
+  - option: 500 milliseconds
+    anchor: axon-event-processors-streaming#token_claim_config
+    sentence: 'tokenClaimInterval: Defines how long to wait between attempts to claim a segment. A processor uses this value to steal token claims from other processor threads. This value defaults to 5000 milliseconds.'
+    exclusive: true
+  - option: 30000 milliseconds
+    anchor: axon-event-processors-streaming#token_claim_config
+    sentence: 'tokenClaimInterval: Defines how long to wait between attempts to claim a segment. A processor uses this value to steal token claims from other processor threads. This value defaults to 5000 milliseconds.'
+    exclusive: true
+  - option: 60000 milliseconds
+    anchor: axon-event-processors-streaming#token_claim_config
+    sentence: 'tokenClaimInterval: Defines how long to wait between attempts to claim a segment. A processor uses this value to steal token claims from other processor threads. This value defaults to 5000 milliseconds.'
+    exclusive: true
+m08-l06-q06:
+  key:
+    anchor: axon-event-processors-streaming#sequencing_policies
+    sentence: 'FullConcurrencyPolicy: This policy will tell Axon that this Event Processor may handle all events concurrently.'
+  wrong:
+  - option: It must handle all events one after another, starting each when the previous one finishes
+    anchor: axon-event-processors-streaming#sequencing_policies
+    sentence: 'SequentialPolicy: This policy tells Axon that it can process all events sequentially.'
+  - option: It must handle events of the same entity one after another, while different entities run concurrently
+    anchor: axon-event-processors-streaming#sequencing_policies
+    sentence: 'SequentialPerAggregatePolicy: The policy that forces events raised from the same aggregate / entity to be handled sequentially.'
+  - option: It must handle events that share a metadata value one after another
+    anchor: axon-event-processors-streaming#sequencing_policies
+    sentence: 'MetadataSequencingPolicy: When configuring this policy, the user is required to provide a metaDataKey to be used.'
+m08-l06-q07:
+  key:
+    anchor: axon-event-processors-streaming#stalled_segments
+    sentence: The default PropagatingErrorHandler rethrows, so the segment retries the same event indefinitely.
+  wrong:
+  - option: It skips the event and advances the token so that the segment keeps moving
+    anchor: axon-event-processors-streaming#stalled_segments
+    sentence: This is the intended behaviour when silently skipping the event would corrupt a read model, but it stalls the segment for as long as the cause persists.
+  - option: It stops the whole processor and halts every segment
+    anchor: axon-event-processors-streaming#stalled_segments
+    sentence: that segment stops advancing while others continue
+  - option: It rolls back only the event and still commits the token update
+    anchor: axon-event-processors-streaming#stalled_segments
+    sentence: Handler work and the token update share one transaction.
+m08-l06-q08:
+  key:
+    anchor: axon-migration-sagas#workflows
+    sentence: they source it from dedicated workflow events in the regular event store instead of a persistent SagaStore blob.
+  wrong:
+  - option: From a serialized instance kept in a `SagaStore`
+    anchor: axon-migration-sagas#workflows
+    sentence: A running saga holding a serialized instance in a SagaStore cannot be handed to a workflow.
+  - option: From association values stored on each event handler
+    anchor: axon-migration-sagas#workflows
+    sentence: The association value becomes the workflow’s identifier
+  - option: From persisted saga fields updated by handlers
+    anchor: axon-migration-sagas-to-workflows#sagas-and-workflows
+    sentence: Step history and workflow payload; local control flow reconstructed during replay.
+m08-l06-q09:
+  key:
+    anchor: axon-command-infrastructure#_simplecommandbus
+    sentence: 'Single JVM: Cannot distribute commands across multiple instances'
+  wrong:
+  - option: It routes commands to other nodes through a `CommandBusConnector`
+    anchor: axon-command-infrastructure#_distributed_command_bus
+    sentence: The CommandBusConnector is in charge of dispatching and receiving commands to and from other JVM.
+  - option: Spring Boot configures it only after Axon Server has been configured in the application
+    anchor: axon-command-infrastructure#_simplecommandbus
+    sentence: Spring Boot automatically configures a SimpleCommandBus when using the Axon Spring Boot starter (unless Axon Server is configured).
+  - option: It is the bus that wraps a local segment and adds distribution
+    anchor: axon-command-infrastructure#_distributed_command_bus
+    sentence: The DistributedCommandBus takes in a local CommandBus (called the localSegment), a CommandBusConnector, and DistributedCommandBusConfiguration
+m08-l06-q10:
+  key:
+    anchor: axon-data-protection#_about
+    sentence: 'By encrypting parts of that data, and storing a key outside of the event stream so that it can be deleted, this becomes possible again: deleting the key will effectively delete the data.'
+  wrong:
+  - option: The events that hold the personal data, removed from the event store
+    anchor: axon-data-protection#_about
+    sentence: With event sourcing, all data is stored as a series of immutable, undeletable events.
+  - option: The encrypted field values, rewritten in place inside each stored event
+    anchor: axon-data-protection#_about
+    sentence: Of course, other approaches are possible (including changing the immutable events anyway), but these suffer from significant drawbacks and potential operations costs.
+  - option: The key that encrypted the personal fields, stored inside the event stream
+    anchor: axon-data-protection#_about
+    sentence: storing a key outside of the event stream so that it can be deleted
+m08-l06-q11:
+  key:
+    anchor: axon-event-versioning#event_versioning_at_handling_time
+    sentence: When a handler needs to process an event, Axon converts the payload to the handler’s expected type at that moment.
+  wrong:
+  - option: At storing time, when the event is written once in every format a handler needs
+    anchor: axon-event-versioning#event_versioning_at_handling_time
+    sentence: When events are stored in the event store, they retain their serialized form (for example JSON or Avro binary) along with metadata about their MessageType.
+  - option: Only after an upcaster has rewritten the stored events
+    anchor: axon-event-versioning#event_versioning_at_handling_time
+    sentence: You can evolve your event handling without modifying stored events.
+  - option: Never, because every handler of an event must use the same Java class
+    anchor: axon-event-versioning#event_versioning_at_handling_time
+    sentence: Different handlers can process the same event using different Java representations.
+m08-l06-q12:
+  key:
+    anchor: axon-message-transformation#_when_to_reach_for_a_transformation
+    sentence: 'You need to restructure the payload itself: combine firstName and lastName into a single fullName, or wrap minCapacity and maxCapacity into a range object.'
+  wrong:
+  - option: Adding a new field that has a default value
+    anchor: axon-message-transformation#_when_to_reach_for_a_transformation
+    sentence: Adding fields with defaults, dropping fields a handler no longer reads, renaming fields, and changing compatible field types are all typically handled here.
+    exclusive: true
+  - option: Renaming a field of the payload
+    anchor: axon-message-transformation#_when_to_reach_for_a_transformation
+    sentence: Adding fields with defaults, dropping fields a handler no longer reads, renaming fields, and changing compatible field types are all typically handled here.
+    exclusive: true
+  - option: A change that one handler can absorb by declaring the type it wants
+    anchor: axon-message-transformation#_when_to_reach_for_a_transformation
+    sentence: 'Payload conversion at handling time: each handler declares the type it wants, and the converter produces it from the stored payload.'
+m08-l06-q13:
+  key:
+    anchor: axon-event-processors-streaming#tracking_tokens
+    sentence: If a token claim is not extended for a configurable amount of time, other processor threads can "steal" the claim.
+  wrong:
+  - option: As soon as the owning thread finishes handling a batch of events
+    anchor: axon-event-processors-streaming#tracking_tokens
+    sentence: The processor will update this claim every time it has finished handling a batch of events.
+  - option: Never, because a claim is held until the processor shuts down
+    anchor: axon-event-processors-streaming#token_claim_config
+    sentence: There are several scenarios where a processor may keep the claim for too long.
+  - option: Whenever the event stream has no new events to deliver
+    anchor: axon-event-processors-streaming#token_claim_config
+    sentence: 'claimExtensionThreshold: Threshold to extend the claim in the absence of events.'

@@ -1,0 +1,225 @@
+m02-l01-q01:
+  key:
+    anchor: javadoc-hashmap#class-hashmap-k-v
+    sentence: Iteration over collection views requires time proportional to the "capacity" of the HashMap instance (the number of buckets) plus its size
+  wrong:
+  - option: Iteration requires time proportional to the size only, so the capacity has no effect on it
+    anchor: javadoc-linkedhashmap#class-linkedhashmap-k-v
+    sentence: Iteration over the collection-views of a LinkedHashMap requires time proportional to the size of the map, regardless of its capacity.
+  - option: Iteration requires constant time, because the basic operations of `HashMap` are constant-time
+    anchor: javadoc-hashmap#class-hashmap-k-v
+    sentence: Thus, it's very important not to set the initial capacity too high (or the load factor too low) if iteration performance is important.
+  - option: Iteration visits entries in a stable order, so its cost stays the same as the map is resized
+    anchor: javadoc-hashmap#class-hashmap-k-v
+    sentence: This class makes no guarantees as to the order of the map; in particular, it does not guarantee that the order will remain constant over time.
+m02-l01-q02:
+  key:
+    anchor: javadoc-arraydeque#class-arraydeque-e
+    sentence: Null elements are prohibited.
+  wrong:
+  - option: It is thread-safe, so several threads can share one instance without external synchronization
+    anchor: javadoc-arraydeque#class-arraydeque-e
+    sentence: They are not thread-safe; in the absence of external synchronization, they do not support concurrent access by multiple threads.
+  - option: Its capacity is fixed at construction, so `addLast` fails once the array is full
+    anchor: javadoc-arraydeque#class-arraydeque-e
+    sentence: Array deques have no capacity restrictions; they grow as necessary to support usage.
+  - option: Used as a queue it is likely to be slower than `LinkedList`, because it is backed by an array
+    anchor: javadoc-arraydeque#class-arraydeque-e
+    sentence: This class is likely to be faster than Stack when used as a stack, and faster than LinkedList when used as a queue.
+m02-l01-q03:
+  key:
+    anchor: javadoc-treemap#class-treemap-k-v
+    sentence: This implementation provides guaranteed log(n) time cost for the containsKey, get, put and remove operations.
+  wrong:
+  - option: It is a hash table whose keys are sorted only when the map is iterated
+    anchor: javadoc-treemap#class-treemap-k-v
+    sentence: A Red-Black tree based NavigableMap implementation.
+  - option: '`putFirst` places an entry at the head of the encounter order, ahead of the sorted keys'
+    anchor: javadoc-treemap#class-treemap-k-v
+    sentence: The putFirst and putLast methods of this class throw UnsupportedOperationException.
+  - option: Keys can be ordered only by their natural ordering, never by a separate `Comparator`
+    anchor: javadoc-treemap#class-treemap-k-v
+    sentence: The map is sorted according to the natural ordering of its keys, or by a Comparator provided at map creation time, depending on which constructor is used.
+m02-l01-q04:
+  key:
+    anchor: javadoc-priorityqueue#class-priorityqueue-e
+    sentence: 'Implementation note: this implementation provides O(log(n)) time for the enqueuing and dequeuing methods (offer, poll, remove() and add); linear time for the remove(Object) and contains(Object) methods; and constant time for the retrieval methods (peek, element, and size).'
+  wrong:
+  - option: The iterator returns the elements in ascending order, from the head to the greatest element
+    anchor: javadoc-priorityqueue#class-priorityqueue-e
+    sentence: The Iterator provided in method iterator() and the Spliterator provided in method spliterator() are not guaranteed to traverse the elements of the priority queue in any particular order.
+  - option: '`contains(Object)` takes constant time, because the head is always the least element'
+    anchor: javadoc-priorityqueue#class-priorityqueue-e
+    sentence: 'Implementation note: this implementation provides O(log(n)) time for the enqueuing and dequeuing methods (offer, poll, remove() and add); linear time for the remove(Object) and contains(Object) methods; and constant time for the retrieval methods (peek, element, and size).'
+  - option: A `null` element is accepted and sorts as the least element, so it becomes the head
+    anchor: javadoc-priorityqueue#class-priorityqueue-e
+    sentence: A priority queue does not permit null elements.
+m02-l01-q05:
+  key:
+    anchor: javadoc-linkedhashmap#class-linkedhashmap-k-v
+    sentence: Iteration over the collection-views of a LinkedHashMap requires time proportional to the size of the map, regardless of its capacity.
+  wrong:
+  - option: It requires time proportional to the capacity plus the size, exactly like a `HashMap`
+    anchor: javadoc-linkedhashmap#class-linkedhashmap-k-v
+    sentence: Iteration over a HashMap is likely to be more expensive, requiring time proportional to its capacity.
+  - option: It is slower by more than a constant factor, because every `get` walks the linked list
+    anchor: javadoc-linkedhashmap#class-linkedhashmap-k-v
+    sentence: Like HashMap, it provides constant-time performance for the basic operations (add, contains and remove), assuming the hash function disperses elements properly among the buckets.
+  - option: It returns the entries sorted by key, so it needs time proportional to size times log(n)
+    anchor: javadoc-linkedhashmap#class-linkedhashmap-k-v
+    sentence: This linked list defines the encounter order (the order of iteration), which is normally the order in which keys were inserted into the map (insertion-order).
+m02-l01-q06:
+  key:
+    anchor: erickson-amortized-analysis#p2
+    sentence: Thus, the worst-case cost of Increment is O(log n), but the amortized cost is only O(1).
+  wrong:
+  - option: The amortized cost equals the worst-case cost of one call, which is O(log n)
+    anchor: erickson-amortized-analysis#p2
+    sentence: The amortized time for each operation is T (n)/n.
+  - option: The amortized cost is an average over the possible running times of one call, weighted by probability
+    anchor: erickson-amortized-analysis#p2
+    sentence: There is no probability involved; we are averaging over a sequence of operations, not the possible running times of a single operation.
+  - option: The amortized time bounds are unique, so one analysis gives the only correct cost
+    anchor: erickson-amortized-analysis#p7
+    sentence: It’s also important to remember that amortized time bounds are not unique.
+m02-l01-q07:
+  key:
+    anchor: javadoc-object#hashCode()
+    sentence: It is not required that if two objects are unequal according to the equals method, then calling the hashCode method on each of the two objects must produce distinct integer results.
+  wrong:
+  - option: Their hash codes must be distinct, otherwise the contract is broken
+    anchor: javadoc-object#hashCode()
+    sentence: However, the programmer should be aware that producing distinct integer results for unequal objects may improve the performance of hash tables.
+  - option: Their hash codes must stay the same in every execution of the application
+    anchor: javadoc-object#hashCode()
+    sentence: This integer need not remain consistent from one execution of an application to another execution of the same application.
+  - option: Their hash codes must be the same, because every `equals` call is backed by the hash code
+    anchor: javadoc-object#hashCode()
+    sentence: If two objects are equal according to the equals method, then calling the hashCode method on each of the two objects must produce the same integer result.
+m02-l01-q08:
+  key:
+    anchor: javadoc-comparable#compareTo(java.lang.Object)
+    sentence: 'The implementor must also ensure that the relation is transitive: (x.compareTo(y) > 0 && y.compareTo(z) > 0) implies x.compareTo(z) > 0.'
+  wrong:
+  - option: '`x.compareTo(y) == 0` must imply `x.equals(y)` for every `x` and `y`'
+    anchor: javadoc-comparable#compareTo(java.lang.Object)
+    sentence: It is strongly recommended, but not strictly required that (x.compareTo(y)==0) == (x.equals(y)).
+  - option: '`e.compareTo(null)` must return a negative integer, because `null` sorts first'
+    anchor: javadoc-comparable#interface-comparable-t
+    sentence: e.compareTo(null) should throw a NullPointerException even though e.equals(null) returns false.
+  - option: '`x.compareTo(y)` and `y.compareTo(x)` must return the same sign, so the order is symmetric'
+    anchor: javadoc-comparable#compareTo(java.lang.Object)
+    sentence: The implementor must ensure signum(x.compareTo(y)) == -signum(y.compareTo(x)) for all x and y.
+m02-l01-q09:
+  key:
+    anchor: javadoc-comparable#interface-comparable-t
+    sentence: the second add operation returns false (and the size of the sorted set does not increase) because a and b are equivalent from the sorted set's perspective.
+  wrong:
+  - option: The `add` returns `true`, because `equals` decides membership in a sorted set and `equals` returns `false`
+    anchor: javadoc-treemap#class-treemap-k-v
+    sentence: a sorted map performs all key comparisons using its compareTo (or compare) method, so two keys that are deemed equal by this method are, from the standpoint of the sorted map, equal.
+  - option: The `add` throws a `ClassCastException`, because the two representations are not comparable to each other
+    anchor: javadoc-comparable#compareTo(java.lang.Object)
+    sentence: ClassCastException - if the specified object's type prevents it from being compared to this object.
+  - option: The `add` returns `true`, because the natural ordering of `BigDecimal` is consistent with equals
+    anchor: javadoc-comparable#interface-comparable-t
+    sentence: One exception is BigDecimal, whose natural ordering equates BigDecimal objects with equal numerical values and different representations (such as 4.0 and 4.00).
+m02-l01-q10:
+  key:
+    execution: m02-l01/MapOrder.java
+  wrong:
+  - option: '[a, b, c]
+
+      [a, b, c]
+
+      [b, c]'
+    execution: m02-l01/MapOrder.java
+    mistake: ignored access order
+  - option: '[b, a, c]
+
+      [a, b, c]
+
+      [a, c]'
+    execution: m02-l01/MapOrder.java
+    mistake: wrong evaluation order
+  - option: '[a, b, c]
+
+      [b, c, a]
+
+      [b, c]'
+    execution: m02-l01/MapOrder.java
+    mistake: ignored get as an access
+m02-l01-q11:
+  key:
+    execution: m02-l01/BinaryCounter.java
+  wrong:
+  - option: 'total flips 2000
+
+      most flips in one increment 10
+
+      2n minus ones 2000'
+    execution: m02-l01/BinaryCounter.java
+    mistake: ignored the 1-bit count
+  - option: 'total flips 1994
+
+      most flips in one increment 1000
+
+      2n minus ones 1994'
+    execution: m02-l01/BinaryCounter.java
+    mistake: confused the worst increment with the total
+  - option: 'total flips 1000
+
+      most flips in one increment 2
+
+      2n minus ones 1994'
+    execution: m02-l01/BinaryCounter.java
+    mistake: ignored the carry resets
+m02-l01-q12:
+  key:
+    execution: m02-l01/EqualityContracts.java
+  wrong:
+  - option: 'equals: true
+
+      contains, equals only: true
+
+      contains, equals and hash code: true
+
+      decimal equals: false
+
+      decimal compare: 0
+
+      hashed size: 2
+
+      sorted size: 1'
+    execution: m02-l01/EqualityContracts.java
+    mistake: ignored the hash code lookup
+  - option: 'equals: true
+
+      contains, equals only: false
+
+      contains, equals and hash code: true
+
+      decimal equals: true
+
+      decimal compare: 0
+
+      hashed size: 1
+
+      sorted size: 1'
+    execution: m02-l01/EqualityContracts.java
+    mistake: ignored the scale of BigDecimal
+  - option: 'equals: true
+
+      contains, equals only: false
+
+      contains, equals and hash code: true
+
+      decimal equals: false
+
+      decimal compare: 1
+
+      hashed size: 2
+
+      sorted size: 2'
+    execution: m02-l01/EqualityContracts.java
+    mistake: ignored the natural ordering

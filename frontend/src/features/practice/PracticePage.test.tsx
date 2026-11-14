@@ -167,12 +167,12 @@ describe("practising a lesson", () => {
 
 describe("the way into practice", () => {
   it("shows nothing for a lesson without practice (crypto-futures keeps its embedded quizzes)", () => {
-    render(<PracticeEntry lessonId="m01-l1" questions={undefined} />, "/x");
+    render(<PracticeEntry to="/lessons/m01-l1/practice" questions={undefined} />, "/x");
     expect(host.textContent).toBe("");
   });
 
   it("leads to the lesson's practice page", () => {
-    render(<PracticeEntry lessonId="m01-l01" questions={41} />, "/x");
+    render(<PracticeEntry to="/lessons/m01-l01/practice" questions={41} />, "/x");
     expect(host.textContent).toContain("41 questions");
     expect(button(en.practice.entry)).toBeTruthy();
   });

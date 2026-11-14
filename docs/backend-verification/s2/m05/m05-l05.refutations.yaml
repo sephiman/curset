@@ -1,0 +1,150 @@
+m05-l05-q01:
+  key:
+    anchor: spring-fw-webflux-new-framework#webflux-concurrency-model
+    sentence: Therefore, non-blocking servers use a small, fixed-size thread pool (event loop workers) to handle requests.
+  wrong:
+  - option: They use a large thread pool to absorb potential blocking during request handling
+    anchor: spring-fw-webflux-new-framework#webflux-concurrency-model
+    sentence: In Spring WebFlux (and non-blocking servers in general), it is assumed that applications do not block.
+  - option: They add extra threads to the pool each time a request makes a blocking call
+    anchor: spring-fw-webflux-new-framework#webflux-concurrency-model
+    sentence: “To scale” and “small number of threads” may sound contradictory, but to never block the current thread (and rely on callbacks instead) means that you do not need extra threads, as there are no blocking calls to absorb.
+  - option: They use one thread per connection, created and discarded for each request
+    anchor: spring-fw-webflux-new-framework#webflux-concurrency-model
+    sentence: For this reason, servlet containers use a large thread pool to absorb potential blocking during request handling.
+m05-l05-q02:
+  key:
+    anchor: spring-fw-webflux-new-framework#webflux-performance
+    sentence: The key expected benefit of reactive and non-blocking is the ability to scale with a small, fixed number of threads and less memory.
+  wrong:
+  - option: It makes applications run faster in every case
+    anchor: spring-fw-webflux-new-framework#webflux-performance
+    sentence: Reactive and non-blocking generally do not make applications run faster.
+  - option: It shows its strengths even when no call has any latency
+    anchor: spring-fw-webflux-new-framework#webflux-performance
+    sentence: In order to observe those benefits, however, you need to have some latency (including a mix of slow and unpredictable network I/O).
+  - option: It removes the extra work of writing code the non-blocking way
+    anchor: spring-fw-webflux-new-framework#webflux-performance
+    sentence: However, it requires more work to do things the non-blocking way, and that can slightly increase the required processing time.
+m05-l05-q03:
+  key:
+    anchor: spring-boot-features-task-execution-and-scheduling#page-title
+    sentence: When virtual threads are enabled (using Java 21+ and spring.threads.virtual.enabled set to true) this will be a SimpleAsyncTaskExecutor that uses virtual threads.
+  wrong:
+  - option: A `ThreadPoolTaskExecutor` with sensible defaults
+    anchor: spring-boot-features-task-execution-and-scheduling#page-title
+    sentence: Otherwise, it will be a ThreadPoolTaskExecutor with sensible defaults.
+  - option: No executor, so the application must declare an `Executor` bean itself
+    anchor: spring-boot-features-task-execution-and-scheduling#page-title
+    sentence: In the absence of an Executor bean in the context, Spring Boot auto-configures an AsyncTaskExecutor.
+  - option: A `SimpleAsyncTaskScheduler` that ignores any pooling related properties
+    anchor: spring-boot-features-task-execution-and-scheduling#page-title
+    sentence: When virtual threads are enabled (using Java 21+ and spring.threads.virtual.enabled set to true) this will be a SimpleAsyncTaskExecutor that uses virtual threads.
+m05-l05-q04:
+  key:
+    anchor: spring-fw-webmvc-controller-advice#page-title
+    sentence: By contrast, global @ModelAttribute and @InitBinder methods are applied before local ones.
+  wrong:
+  - option: Global `@ExceptionHandler` methods are applied before the local ones
+    anchor: spring-fw-webmvc-controller-advice#page-title
+    sentence: Global @ExceptionHandler methods, from an @ControllerAdvice, are applied after local ones, from the @Controller.
+  - option: Such methods apply only to the `@Controller` class in which they are declared
+    anchor: spring-fw-webmvc-controller-advice#page-title
+    sentence: If, instead, they are declared in an @ControllerAdvice or @RestControllerAdvice class, then they apply to any controller.
+  - option: '`@ControllerAdvice` applies to `@Controller` classes but never to `@RestController` classes'
+    anchor: spring-fw-webmvc-controller-advice#page-title
+    sentence: By default, both @ControllerAdvice and @RestControllerAdvice apply to any controller, including @Controller and @RestController.
+m05-l05-q05:
+  key:
+    anchor: spring-fw-webmvc-exceptionhandler#mvc-ann-exceptionhandler-exc
+    sentence: When multiple exception methods match, a root exception match is generally preferred to a cause exception match.
+  wrong:
+  - option: The cause exception match over the root exception match
+    anchor: spring-fw-webmvc-exceptionhandler#mvc-ann-exceptionhandler-exc
+    sentence: When multiple exception methods match, a root exception match is generally preferred to a cause exception match.
+  - option: The method declared first in the class, whatever the exception depth
+    anchor: spring-fw-webmvc-exceptionhandler#mvc-ann-exceptionhandler-exc
+    sentence: More specifically, the ExceptionDepthComparator is used to sort exceptions based on their depth from the thrown exception type.
+  - option: Only an immediate cause is considered, so deeper causes never match
+    anchor: spring-fw-webmvc-exceptionhandler#mvc-ann-exceptionhandler-exc
+    sentence: As of 5.3, this can match at arbitrary cause levels, whereas previously only an immediate cause was considered.
+m05-l05-q06:
+  key:
+    anchor: spring-fw-integration-rest-clients#rest-request-factories
+    sentence: Otherwise, if the java.net.http module is loaded, it will use Java’s HttpClient.
+  wrong:
+  - option: The `SimpleClientHttpRequestFactory` default
+    anchor: spring-fw-integration-rest-clients#rest-request-factories
+    sentence: Finally, it will resort to the simple default.
+  - option: The Apache HTTP Components `HttpClient`
+    anchor: spring-fw-integration-rest-clients#rest-request-factories
+    sentence: If no request factory is specified when the RestClient was built, it will use the Apache or Jetty HttpClient if they are available on the classpath.
+    exclusive: true
+  - option: Jetty’s `HttpClient`
+    anchor: spring-fw-integration-rest-clients#rest-request-factories
+    sentence: If no request factory is specified when the RestClient was built, it will use the Apache or Jetty HttpClient if they are available on the classpath.
+    exclusive: true
+m05-l05-q07:
+  key:
+    anchor: spring-fw-webmvc-controller-ann-arguments#page-title
+    sentence: Enforces the presence of a session.
+  wrong:
+  - option: Thread-safe access to the session attributes
+    anchor: spring-fw-webmvc-controller-ann-arguments#page-title
+    sentence: Note that session access is not thread-safe.
+  - option: A `null` argument when the request has no session yet
+    anchor: spring-fw-webmvc-controller-ann-arguments#page-title
+    sentence: As a consequence, such an argument is never null.
+  - option: A reactive session type resolved lazily
+    anchor: spring-fw-webmvc-controller-ann-arguments#page-title
+    sentence: Reactive types are not supported for any arguments.
+m05-l05-q08:
+  key:
+    anchor: spring-boot-web-servlet#web.servlet.spring-mvc.message-converters
+    sentence: By default, strings are encoded in UTF-8.
+  wrong:
+  - option: ISO-8859-1
+    anchor: spring-boot-web-servlet#web.servlet.spring-mvc.message-converters
+    sentence: By default, strings are encoded in UTF-8.
+    exclusive: true
+  - option: UTF-16
+    anchor: spring-boot-web-servlet#web.servlet.spring-mvc.message-converters
+    sentence: By default, strings are encoded in UTF-8.
+    exclusive: true
+  - option: US-ASCII
+    anchor: spring-boot-web-servlet#web.servlet.spring-mvc.message-converters
+    sentence: By default, strings are encoded in UTF-8.
+    exclusive: true
+m05-l05-q09:
+  key:
+    anchor: spring-fw-webflux-new-framework#webflux-framework-choice
+    sentence: If you have blocking persistence APIs (JPA, JDBC) or networking APIs to use, Spring MVC is the best choice for common architectures at least.
+  wrong:
+  - option: Spring WebFlux with annotated controllers
+    anchor: spring-fw-webflux-new-framework#webflux-framework-choice
+    sentence: It is technically feasible with both Reactor and RxJava to perform blocking calls on a separate thread but you would not be making the most of a non-blocking web stack.
+    exclusive: true
+  - option: Spring WebFlux functional endpoints
+    anchor: spring-fw-webflux-new-framework#webflux-framework-choice
+    sentence: It is technically feasible with both Reactor and RxJava to perform blocking calls on a separate thread but you would not be making the most of a non-blocking web stack.
+    exclusive: true
+  - option: Spring WebFlux, because every Spring MVC application should be migrated
+    anchor: spring-fw-webflux-new-framework#webflux-framework-choice
+    sentence: If you have a Spring MVC application that works fine, there is no need to change.
+m05-l05-q10:
+  key:
+    anchor: spring-boot-web-servlet#web.servlet.spring-mvc.error-handling
+    sentence: By default, Spring Boot provides an /error mapping that handles all errors in a sensible way, and it is registered as a “global” error page in the servlet container.
+  wrong:
+  - option: '`/errors`'
+    anchor: spring-boot-web-servlet#web.servlet.spring-mvc.error-handling
+    sentence: By default, Spring Boot provides an /error mapping that handles all errors in a sensible way, and it is registered as a “global” error page in the servlet container.
+    exclusive: true
+  - option: '`/exception`'
+    anchor: spring-boot-web-servlet#web.servlet.spring-mvc.error-handling
+    sentence: By default, Spring Boot provides an /error mapping that handles all errors in a sensible way, and it is registered as a “global” error page in the servlet container.
+    exclusive: true
+  - option: '`/problems`'
+    anchor: spring-boot-web-servlet#web.servlet.spring-mvc.error-handling
+    sentence: By default, Spring Boot provides an /error mapping that handles all errors in a sensible way, and it is registered as a “global” error page in the servlet container.
+    exclusive: true

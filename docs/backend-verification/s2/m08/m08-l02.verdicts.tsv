@@ -1,0 +1,162 @@
+S1.1	"Kafka replicates the log for each"	pass
+S1.2	"Under non-failure conditions, each partition in"	pass
+S1.3	"The total number of replicas including"	pass
+S1.4	"All writes go to the leader"	pass
+S1.5	"Replicas that cannot catch up to"	pass
+S1.6	"A write to a Kafka partition"	pass
+S1.7	"Only members of the ISR are"	pass
+S1.8	"With the ISR model and f+1"	pass
+S1.9	"If the controller detects the failure"	pass
+S1.10	"If the leader's choice of acknowledgements"	fail	'leader's choice of acknowledgements' misstates anchor: the designer chooses the numbers
+S1.11	"With a majority vote, tolerating one"	pass
+S1.12	"Only committed messages are ever given"	pass
+S1.13	"Eligible Leader Replicas are enabled by"	pass
+S2.1	"With `acks=0`, the producer will not"	pass
+S2.2	"With `acks=1`, the leader writes the"	pass
+S2.3	"With `acks=all`, the leader waits for"	pass
+S2.4	"The default value of `acks` is"	pass
+S2.5	"By default, when `acks=all`, acknowledgement happens"	pass
+S2.6	"If a topic has only two"	pass
+S2.7	"`min.insync.replicas` specifies the minimum number of"	pass
+S2.8	"If `acks=all` and the ISR has"	pass
+S2.9	"The default value of `min.insync.replicas` is"	pass
+S2.10	"A topic with a replication factor"	pass
+S2.11	"A minimum ISR size makes the"	pass
+S2.12	"The minimum ISR size only takes"	pass
+S2.13	"A higher minimum ISR size guarantees"	pass
+S2.14	"A higher minimum ISR size reduces"	pass
+S2.15	"Acknowledgement by all replicas does not"	pass
+S2.16	"Disabling unclean leader election keeps the"	pass
+R1.1	"`acks=0`"	pass
+R1.2	"`acks=1`"	pass
+R1.3	"`acks=all`"	pass
+S3.1	"Each partition is consumed by exactly"	pass
+S3.2	"The position of a consumer in"	pass
+S3.3	"A consumer can deliberately rewind back"	pass
+S3.4	"Kafka can store the offsets for"	pass
+S3.5	"The group coordinator appends an `OffsetCommitRequest`"	pass
+S3.6	"The broker sends a successful offset"	pass
+S3.7	"`StickyAssignor` guarantees an assignment that is"	pass
+S3.8	"`CooperativeStickyAssignor` follows the `StickyAssignor` logic but"	pass
+S3.9	"The default assignor is `[RangeAssignor, CooperativeStickyAssignor]`,"	pass
+S3.10	"The supported values of `group.protocol` are"	pass
+S3.11	"Starting from Apache Kafka 4.0, the"	pass
+S3.12	"The new protocol decreases rebalance times"	pass
+S3.13	"The `group.protocol` configuration must be set"	pass
+S3.14	"The new protocol is not enabled"	pass
+S3.15	"When the new rebalance protocol is"	pass
+S3.16	"With the new protocol, the assignment"	pass
+S3.17	"The `group.consumer.assignors` configuration specifies the list"	pass
+S3.18	"The `uniform` assignor is the default,"	pass
+R2.1	"Where the assignment strategy is controlled"	fail	cited server anchor does not state classic side's partition.assignment.strategy
+R2.2	"Default assignor"	fail	uniform default not stated in cited partition.assignment.strategy anchor
+R2.3	"How the consumer enables it"	pass
+S4.1	"BACKWARD compatibility means that consumers using"	pass
+S4.2	"FORWARD compatibility means that data produced"	pass
+S4.3	"FULL compatibility means schemas are both"	pass
+S4.4	"The Confluent Schema Registry default compatibility"	pass
+S4.5	"Transitive compatibility checks a new schema"	pass
+S4.6	"An example of a backward compatible"	pass
+S4.7	"An example of a forward compatible"	pass
+S4.8	"In Avro and Protobuf, adding or"	pass
+S4.9	"Under `BACKWARD` or `BACKWARD_TRANSITIVE`, all consumers"	pass
+S4.10	"Under `FORWARD` or `FORWARD_TRANSITIVE`, all producers"	pass
+S4.11	"Under `FULL` or `FULL_TRANSITIVE`, producers and"	pass
+S4.12	"The client controls which partition it"	pass
+S4.13	"The producer can specify a key"	pass
+S4.14	"If the key chosen is a"	pass
+S4.15	"In the default partitioning logic, if"	pass
+S4.16	"In the default partitioning logic, if"	pass
+S4.17	"With `partitioner.adaptive.partitioning.enable` set to `true`, the"	pass
+R3.1	"`BACKWARD` or `BACKWARD_TRANSITIVE`"	pass
+R3.2	"`FORWARD` or `FORWARD_TRANSITIVE`"	pass
+R3.3	"`FULL` or `FULL_TRANSITIVE`"	pass
+S5.1	"In Spring for Apache Kafka, the"	pass
+S5.2	"The default recoverer logs the failed"	pass
+S5.3	"Failures are simply logged after retries"	fail	anchor sentence describes one FixedBackOff example; stated generally, contradicts DLT recovery
+S5.4	"Using a `FixedBackOff` with `FixedBackOff.UNLIMITED_ATTEMPTS` causes"	pass
+S5.5	"The framework provides the `DeadLetterPublishingRecoverer`, which"	pass
+S5.6	"By default, the dead-letter record is"	pass
+S5.7	"With the default resolver, the dead-letter"	pass
+S5.8	"The record sent to the dead-letter"	pass
+S5.9	"With non-blocking retries, a message whose"	pass
+S5.10	"With non-blocking retries, a retry topic"	pass
+S5.11	"With an exponential backoff of 1000ms,"	pass
+S5.12	"By using non-blocking retries, a topic"	pass
+S5.13	"Non-blocking retries are not supported with"	pass
+S5.14	"If no DLT handler is provided,"	pass
+S5.15	"`ExponentialBackOffWithMaxRetries(6)` with an initial interval of"	pass
+S5.16	"An Axon Dead-Letter Queue parks an"	pass
+S5.17	"An Axon Dead-Letter Queue prevents handling"	pass
+S5.18	"RabbitMQ dead-letters a message by republishing"	pass
+R4.1	"Negative acknowledgement"	pass
+R4.2	"Expiry"	pass
+R4.3	"Length limit"	pass
+R4.4	"Delivery limit"	pass
+S5.19	"If an entire queue expires, the"	pass
+S5.20	"Quorum queues natively support delayed retry,"	pass
+S5.21	"RabbitMQ detects a dead-letter cycle and"	pass
+S5.22	"The Kafka consumer's `currentLag` returns the"	pass
+S5.23	"The `currentLag` method returns an empty"	pass
+S5.24	"The `currentLag` method uses locally cached"	pass
+S6.1	"At most once means messages may"	pass
+S6.2	"At least once means messages are"	pass
+S6.3	"Exactly once means each message is"	pass
+S6.4	"Since 0.11.0.0, the Kafka producer supports"	pass
+S6.5	"For idempotent delivery, the broker assigns"	pass
+S6.6	"When `enable.idempotence` is `true`, the producer"	pass
+S6.7	"Enabling idempotence requires `max.in.flight.requests.per.connection` to be"	pass
+S6.8	"Idempotence is enabled by default if"	pass
+S6.9	"A consumer that reads the messages,"	pass
+S6.10	"A consumer that reads the messages,"	pass
+S6.11	"In many cases messages have a"	pass
+S6.12	"Kafka guarantees at-least-once delivery by default,"	pass
+S6.13	"Exactly-once delivery for destination systems other"	pass
+S6.14	"In Kafka, the consumer and producer"	pass
+S6.15	"The consumer configuration for exactly-once processing"	pass
+S6.16	"The producer must set `transactional.id`, and"	pass
+S6.17	"With `isolation.level` set to `read_committed`, `consumer.poll()`"	pass
+S6.18	"With `read_uncommitted`, which is the default,"	pass
+S6.19	"In `read_committed` mode, `consumer.poll()` only returns"	pass
+S6.20	"Messages after messages belonging to ongoing"	pass
+S6.21	"Messages are always returned in offset"	pass
+S6.22	"In `read_committed` mode, consumers cannot read"	pass
+S6.23	"To enable exactly-once semantics in Kafka"	pass
+S6.24	"In Spring for Apache Kafka, using"	pass
+S6.25	"In RabbitMQ, messages can be redelivered"	pass
+S6.26	"RabbitMQ recommends that a consumer is"	pass
+S6.27	"If the redelivered flag is not"	pass
+S6.28	"A RabbitMQ publisher cannot assume that"	pass
+S6.29	"In RabbitMQ, a transactional channel cannot"	pass
+S6.30	"In AMQP 0-9-1, transactions are unnecessarily"	pass
+S7.1	"Kafka replicates each partition's log, a"	pass
+S7.2	"With `acks=all`, acknowledgement happens as soon"	pass
+S7.3	"A higher minimum ISR size guarantees"	pass
+S7.4	"A consumer's position in a partition"	pass
+S7.5	"In Apache Kafka 4 the new"	pass
+S7.6	"The Confluent Schema Registry default compatibility"	pass
+S7.7	"A message key hashes to a"	pass
+S7.8	"After retries are exhausted, the Spring"	pass
+S7.9	"Non-blocking retries lose Kafka's ordering guarantees"	pass
+S7.10	"RabbitMQ dead-letters a message on rejection,"	pass
+S7.11	"Kafka guarantees at-least-once delivery by default,"	pass
+S7.12	"A `read_committed` consumer reads only up"	pass
+S7.13	"RabbitMQ consumers must be prepared for"	pass
+g-replication-factor	pass
+g-quorum	fail	definition is a condition clause; does not say what a quorum is
+g-group-coordinator	pass
+g-last-stable-offset	pass
+m08-l02-q01	pass
+m08-l02-q02	pass
+m08-l02-q03	pass
+m08-l02-q04	fail	BACKWARD written outside inline code in explanation (rule 7)
+m08-l02-q05	pass
+m08-l02-q06	pass
+m08-l02-q07	pass
+m08-l02-q08	pass
+m08-l02-q09	pass
+S1.10	recheck	pass
+S5.3	recheck	pass
+R2.1	recheck	pass
+R2.2	recheck	pass
+# checked 157, passed 155, failed 2

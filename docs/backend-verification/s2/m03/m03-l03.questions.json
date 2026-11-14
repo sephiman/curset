@@ -1,0 +1,287 @@
+[
+ {
+  "id": "m03-l03-q01",
+  "fact": "m03-l03-f19",
+  "stem": "Virtual threads are not scheduled by the operating system. Which component assigns them to platform threads for execution, and how does it work?",
+  "key": "A work-stealing `ForkJoinPool` in FIFO mode that the JDK runs itself",
+  "distractors": [
+   "The operating system scheduler, which maps each virtual thread 1:1 to a kernel thread",
+   "The common `ForkJoinPool` used by parallel streams, which operates in LIFO mode",
+   "A time-sharing scheduler that preempts a virtual thread when it has used its allotted CPU time"
+  ],
+  "explanation": "The JDK's virtual thread scheduler is a work-stealing `ForkJoinPool` that operates in FIFO mode. The operating system scheduler is wrong because virtual threads are scheduled by the Java runtime rather than the operating system. The common pool of parallel streams is wrong because the scheduler's `ForkJoinPool` is distinct from it. The time-sharing scheduler is wrong because the scheduler does not currently implement time sharing for virtual threads.",
+  "citation": "jep-444#Scheduling-virtual-threads; javadoc-thread#virtual-threads",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m03-l03-q02",
+  "fact": "m03-l03-f54",
+  "stem": "In Java 21, a virtual thread blocks on socket I/O while it runs inside a `synchronized` method. What happens to its carrier and to the underlying OS thread?",
+  "key": "Both stay blocked for the duration of the operation, because the virtual thread is pinned",
+  "distractors": [
+   "The virtual thread unmounts, and the carrier is free to run another virtual thread",
+   "The scheduler adds a carrier thread to compensate for the blocked one",
+   "The JVM throws an exception, because blocking inside `synchronized` makes the application incorrect"
+  ],
+  "explanation": "While it is pinned, a blocking operation blocks the carrier and the underlying OS thread for the duration of the operation. Unmounting is wrong because pinning prevents the virtual thread from unmounting. A compensating carrier is wrong because the scheduler does not compensate for pinning by expanding its parallelism. The exception is wrong because pinning does not make an application incorrect, it only might hinder its scalability.",
+  "citation": "jep-444#Executing-virtual-threads; jep-491#Virtual-threads-are-pinned-in-synchronized-methods",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m03-l03-q03",
+  "fact": "m03-l03-f58",
+  "stem": "JEP 491 stops virtual threads from being pinned when they block inside `synchronized` methods and statements. In which Java release was this JEP delivered?",
+  "key": "Java 24",
+  "distractors": [
+   "Java 21",
+   "Java 23",
+   "Java 25"
+  ],
+  "explanation": "JEP 491 lists Java 24 as its release. Java 21 is wrong because JEP 444 for that release says pinning inside `synchronized` could only be removed in a future release. Java 23 and Java 25 are wrong because the release recorded in JEP 491 is 24.",
+  "citation": "jep-491#main; jep-444#Executing-virtual-threads",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m03-l03-q04",
+  "fact": "m03-l03-f88",
+  "stem": "HikariCP's pool sizing page gives the formula `((core_count * 2) + effective_spindle_count)`. How many connections does it compute for a 4-core server with one hard disk?",
+  "key": "9 connections",
+  "distractors": [
+   "8 connections",
+   "5 connections",
+   "100 connections"
+  ],
+  "explanation": "The page computes 9 = ((4 * 2) + 1) for a 4-core i7 server with one hard disk. Eight and five connections are wrong because that same computation gives 9. A pool of 100 connections is wrong because the page calls even 100 connections overkill.",
+  "citation": "hikaricp-pool-sizing#connections--core_count--2--effective_spindle_count; hikaricp-pool-sizing#axiom-you-want-a-small-pool-saturated-with-threads-waiting-for-connections",
+  "extract": "9 = ((4 * 2) + 1)",
+  "snippet": null
+ },
+ {
+  "id": "m03-l03-q05",
+  "fact": "m03-l03-f86",
+  "stem": "In HikariCP's pool sizing formula, what value does the effective spindle count take when the database's active data set is fully cached in memory?",
+  "key": "Zero",
+  "distractors": [
+   "One, the single disk that backs the cache",
+   "The number of CPU cores of the server",
+   "The number of connections in the pool"
+  ],
+  "explanation": "The effective spindle count is zero if the active data set is fully cached. One is wrong because the page gives zero for a fully cached data set. The number of CPU cores is wrong for the same reason, since the value is zero. The pool's connection count is wrong because it is the result of the formula, not an input, and the spindle count for a fully cached data set is zero.",
+  "citation": "hikaricp-pool-sizing#connections--core_count--2--effective_spindle_count",
+  "extract": "Effective spindle count is zero if the active data set is fully cached",
+  "snippet": null
+ },
+ {
+  "id": "m03-l03-q06",
+  "fact": "m03-l03-f80",
+  "stem": "In Java 25, this snippet creates a `Semaphore` with two permits, calls `tryAcquire()` three times, then calls `release()` once. What does the program print?",
+  "key": "available=2\nfirst=true\nsecond=true\nthird=false\nafter release available=1",
+  "distractors": [
+   "available=3\nfirst=true\nsecond=true\nthird=true\nafter release available=1",
+   "available=2\nfirst=true\nsecond=true\nthird=true\nafter release available=3",
+   "available=2\nfirst=true\nsecond=true\nthird=false\nafter release available=2"
+  ],
+  "explanation": "The first two `tryAcquire()` calls take the two permits, so the third returns `false`, and `release()` then leaves one permit available. The output starting with `available=3` is wrong because the semaphore is created with two permits. The output where all three calls print `true` is wrong because each successful `tryAcquire()` takes a permit. The output ending in `available=2` is wrong because `release()` adds one permit to the zero that remain instead of restoring the initial count.",
+  "citation": "javadoc-semaphore#class-semaphore",
+  "extract": null,
+  "snippet": "m03-l03/SemaphoreLimit.java"
+ },
+ {
+  "id": "m03-l03-q07",
+  "fact": "m03-l03-f148",
+  "stem": "In Java 25, this snippet binds a `ScopedValue` with `ScopedValue.where(NAME, \"duke\").run(...)`, rebinds it in a nested `run`, and binds it again in a second thread. What does it print?",
+  "key": "before bound=false\ninside bound=true value=duke\nrebound bound=true value=nested\nafter-rebound bound=true value=duke\nafter bound=false\nother thread bound=true value=duke2\nmain thread bound=true value=duke1",
+  "distractors": [
+   "before bound=false\ninside bound=true value=duke\nrebound bound=true value=nested\nafter-rebound bound=true value=nested\nafter bound=false\nother thread bound=true value=duke2\nmain thread bound=true value=duke1",
+   "before bound=false\ninside bound=true value=duke\nrebound bound=true value=nested\nafter-rebound bound=true value=duke\nafter bound=true value=duke\nother thread bound=true value=duke2\nmain thread bound=true value=duke1",
+   "before bound=false\ninside bound=true value=duke\nrebound bound=true value=nested\nafter-rebound bound=true value=duke\nafter bound=false\nother thread bound=true value=duke2\nmain thread bound=true value=duke2"
+  ],
+  "explanation": "A `ScopedValue` is bound only while the `run` executes, a nested `run` rebinds it only for its own duration, and each thread sees its own binding. The output with `after-rebound` showing `nested` is wrong because the value reverts when the nested method completes. The output with `after bound=true` is wrong because the value reverts to unbound when the original method completes. The output with `duke2` in the main thread is wrong because a binding is per-thread.",
+  "citation": "javadoc-scopedvalue#class-scopedvalue-t; javadoc-scopedvalue#bindings-are-per-thread-heading",
+  "extract": null,
+  "snippet": "m03-l03/ScopedValueBinding.java"
+ },
+ {
+  "id": "m03-l03-q08",
+  "fact": "m03-l03-f12",
+  "stem": "In Java 25, this snippet creates an unstarted virtual thread and an unstarted platform thread, prints their properties, and then prints a property of the current thread inside a started virtual thread. What does it print?",
+  "key": "virtual-thread virtual=true\nvirtual-thread name=[]\nvirtual-thread daemon=true\nplatform-thread virtual=false\nplatform-thread daemon=false\ncurrent-thread inside virtual=true",
+  "distractors": [
+   "virtual-thread virtual=true\nvirtual-thread name=[virtual-0]\nvirtual-thread daemon=true\nplatform-thread virtual=false\nplatform-thread daemon=false\ncurrent-thread inside virtual=true",
+   "virtual-thread virtual=true\nvirtual-thread name=[]\nvirtual-thread daemon=false\nplatform-thread virtual=false\nplatform-thread daemon=false\ncurrent-thread inside virtual=true",
+   "virtual-thread virtual=true\nvirtual-thread name=[]\nvirtual-thread daemon=true\nplatform-thread virtual=false\nplatform-thread daemon=false\ncurrent-thread inside virtual=false"
+  ],
+  "explanation": "A virtual thread has the empty name and is a daemon, a platform thread created here is not a daemon, and `Thread.currentThread()` inside the virtual thread is the virtual thread. The output with `virtual-0` is wrong because virtual threads do not have a thread name by default. The output with `virtual-thread daemon=false` is wrong because virtual threads are daemon threads. The output with `current-thread inside virtual=false` is wrong because `currentThread()` always returns the virtual thread, not its carrier.",
+  "citation": "javadoc-thread#virtual-threads; jep-444#Scheduling-virtual-threads",
+  "extract": null,
+  "snippet": "m03-l03/VirtualThreadFacts.java"
+ },
+ {
+  "id": "m03-l03-q09",
+  "fact": "m03-l03-f154",
+  "stem": "A parent thread has a `ScopedValue` bound, and it forks a child thread with `StructuredTaskScope.fork`. How does code in the child thread get the parent's binding, according to JEP 506?",
+  "key": "It reads the parent's binding directly, with minimal overhead",
+  "distractors": [
+   "The binding is copied into the child thread when the child is created",
+   "It cannot read the binding, because scoped values are not visible outside the thread that bound them",
+   "Only if the child runs in a `ForkJoinPool`, which supports scoped value inheritance"
+  ],
+  "explanation": "Code in a child thread can use bindings established in the parent thread with minimal overhead. Copying is wrong because there is no copying of a parent thread's scoped value bindings to the child thread. Invisibility is wrong because scoped values in the parent thread are automatically inherited by child threads created with `StructuredTaskScope`. The `ForkJoinPool` option is wrong because legacy thread management classes such as `ForkJoinPool` do not support inheritance of scoped values.",
+  "citation": "jep-506#Inheriting-scoped-values",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m03-l03-q10",
+  "fact": "m03-l03-f141",
+  "stem": "A thread pool runs task A, which sets a thread-local variable and never calls `remove`, and then runs task B on the same thread. What can happen, according to JEP 506?",
+  "key": "Task B can see the value that task A set, which leaks into an unrelated task",
+  "distractors": [
+   "The value is cleared automatically as soon as task A finishes",
+   "The value is garbage-collected once no code references the `ThreadLocal` object",
+   "The value stays visible only to task A, because each task has its own copy"
+  ],
+  "explanation": "If a thread pool is used, a thread-local value set in one task and not properly cleared can accidentally leak into an unrelated task. Automatic clearing is wrong because the value is retained for the lifetime of the thread or until `remove` is called. Garbage collection is wrong because per-thread data is not garbage-collected until the thread exits. The per-task copy is wrong because each thread, not each task, has its own independently initialized copy of the variable.",
+  "citation": "jep-506#Problems-with-thread-local-variables; javadoc-threadlocal#class-threadlocal-t",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m03-l03-q11",
+  "fact": "m03-l03-f90",
+  "stem": "In Java 25, what is required before a program can use the `StructuredTaskScope` API, and why?",
+  "key": "Preview features must be enabled, because the API is a preview API",
+  "distractors": [
+   "Nothing, because the API became a final feature of the platform in Java 21",
+   "The `jdk.incubator.concurrent` module must be added, because the API is still incubating",
+   "The program must be launched only through the source code launcher, never compiled with `javac`"
+  ],
+  "explanation": "Programs can only use `StructuredTaskScope` when preview features are enabled. Being final is wrong because JEP 505 states that this is a preview API. The incubator module is wrong because the API incubated in JDK 19 and 20 and previewed from JDK 21. The source-launcher-only option is wrong because the JEP also shows compiling with `javac --release 25 --enable-preview` and running with `java --enable-preview`.",
+  "citation": "javadoc-structuredtaskscope#interface-structuredtaskscope-t-r; jep-505#Summary; jep-505#History; jep-505#StructuredTaskScope-is-a-preview-API-disabled-by-default",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m03-l03-q12",
+  "fact": "m03-l03-f118",
+  "stem": "A task forks two redundant subtasks and needs only the result of whichever succeeds first, cancelling the other. Which Java 25 `Joiner` factory method fits this policy?",
+  "key": "`Joiner.anySuccessfulResultOrThrow()`",
+  "distractors": [
+   "`Joiner.allSuccessfulOrThrow()`",
+   "`Joiner.awaitAll()`",
+   "`Joiner.awaitAllSuccessfulOrThrow()`"
+  ],
+  "explanation": "`anySuccessfulResultOrThrow()` yields the result of the first subtask to succeed and makes `join` throw only if all subtasks fail. `allSuccessfulOrThrow()` is wrong because it yields a stream of the completed subtasks when all subtasks complete successfully. `awaitAll()` is wrong because it only waits for all subtasks. `awaitAllSuccessfulOrThrow()` is wrong because it waits for all successful subtasks.",
+  "citation": "javadoc-structuredtaskscope-joiner#interface-structuredtaskscope-joiner-t-r",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m03-l03-q13",
+  "fact": "m03-l03-f100",
+  "stem": "In JDK 26, JEP 525 renamed the `Joiner` factory method `anySuccessfulResultOrThrow()` in the structured concurrency API. What is its new name?",
+  "key": "`anySuccessfulOrThrow()`",
+  "distractors": [
+   "`firstSuccessfulOrThrow()`",
+   "`anyResultOrThrow()`",
+   "`awaitAnySuccessful()`"
+  ],
+  "explanation": "JEP 525 states that the method is now named `anySuccessfulOrThrow()`. `firstSuccessfulOrThrow()`, `anyResultOrThrow()` and `awaitAnySuccessful()` are wrong because the JEP gives `anySuccessfulOrThrow()` as the only new name.",
+  "citation": "jep-525#History",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m03-l03-q14",
+  "fact": "m03-l03-f101",
+  "stem": "In JDK 27, JEP 533 removed one `Joiner` factory method from the structured concurrency API while keeping the others. Which factory method was removed?",
+  "key": "`awaitAll()`",
+  "distractors": [
+   "`allSuccessfulOrThrow()`",
+   "`anySuccessfulOrThrow()`",
+   "`awaitAllSuccessfulOrThrow()`"
+  ],
+  "explanation": "JEP 533 states that the factory method `awaitAll()` has been removed. `allSuccessfulOrThrow()`, `anySuccessfulOrThrow()` and `awaitAllSuccessfulOrThrow()` are wrong because the JEP describes all three as still creating joiners.",
+  "citation": "jep-533#History",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m03-l03-q15",
+  "fact": "m03-l03-f127",
+  "stem": "A scope's owner thread is interrupted while it waits in `join()`. What does the try-with-resources statement then do with the scope and its subtasks?",
+  "key": "It cancels the scope, which cancels all subtasks and waits for them to terminate",
+  "distractors": [
+   "It returns at once and leaves the unfinished subtasks running in the background",
+   "It ignores the interrupt, so `join()` completes normally",
+   "It terminates the subtask threads forcibly, even those blocked in non-interruptible methods"
+  ],
+  "explanation": "The try-with-resources statement cancels the scope, which cancels all the subtasks and waits for them to terminate. Returning at once is wrong because the `close` method always waits for threads executing subtasks to finish. Ignoring the interrupt is wrong because `join()` throws an exception when the owner is interrupted. Forcible termination is wrong because subtasks that do not respond to interrupts may delay the closing of a scope indefinitely.",
+  "citation": "jep-505#Cancellation",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m03-l03-q16",
+  "fact": "m03-l03-f98",
+  "stem": "Which API change did the first preview of structured concurrency, in JDK 21 via JEP 453, make compared with the earlier incubator versions?",
+  "key": "The `fork` method returns a `Subtask` rather than a `Future`",
+  "distractors": [
+   "A scope is opened with static factory methods instead of public constructors",
+   "`Joiner::anySuccessfulResultOrThrow()` is renamed `anySuccessfulOrThrow()`",
+   "The `Joiner` factory method `awaitAll()` is removed"
+  ],
+  "explanation": "The JDK 21 preview changed the `fork` method to return a `Subtask` rather than a `Future`. Static factory methods are wrong because they arrived with JEP 505 in JDK 25. The rename of `anySuccessfulResultOrThrow()` is wrong because it came with JEP 525 in JDK 26. The removal of `awaitAll()` is wrong because it came with JEP 533 in JDK 27.",
+  "citation": "jep-505#History; jep-525#History; jep-533#History",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m03-l03-q17",
+  "fact": "m03-l03-f06",
+  "stem": "Virtual threads are scheduled by the Java runtime onto a small set of carrier threads. According to the `Thread` Javadoc, which workload suits them?",
+  "key": "Tasks that spend most of the time blocked, often waiting for I/O operations",
+  "distractors": [
+   "Long running CPU intensive operations that keep a core busy for minutes",
+   "Tasks that must change their own thread priority at run time",
+   "Background work that must keep the JVM running after `main` returns"
+  ],
+  "explanation": "Virtual threads are suitable for executing tasks that spend most of the time blocked, often waiting for I/O operations to complete. CPU intensive work is wrong because virtual threads are not intended for long running CPU intensive operations. Changing the priority is wrong because virtual threads have a fixed thread priority that cannot be changed. Keeping the JVM alive is wrong because virtual threads are daemon threads and do not prevent the shutdown sequence from beginning.",
+  "citation": "javadoc-thread#virtual-threads",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m03-l03-q18",
+  "fact": "m03-l03-f47",
+  "stem": "Which statement about the new thread dump that `jcmd` can produce to present virtual threads alongside platform threads, as JEP 444 describes it, is correct?",
+  "key": "It can be written in JSON format as well as plain text",
+  "distractors": [
+   "It is produced by extending the traditional `jstack` thread dump",
+   "It pauses the application while it lists the threads",
+   "It lists the object addresses and locks held by each thread"
+  ],
+  "explanation": "`jcmd` can emit the new thread dump in JSON format in addition to plain text. Extending the traditional dump is wrong because the JEP says traditional thread dumps will not be extended to include virtual threads. Pausing is wrong because generating a new thread dump does not pause the application. Listing object addresses and locks is wrong because the new format does not include them.",
+  "citation": "jep-444#Observing-virtual-threads",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m03-l03-q19",
+  "fact": "m03-l03-f74",
+  "stem": "In Java 24 and later, `synchronized` no longer pins virtual threads. Which recommendation does JEP 491 give for choosing between `synchronized` and `ReentrantLock` in new code?",
+  "key": "Use `synchronized` where practical and `ReentrantLock` when more flexibility is required",
+  "distractors": [
+   "Migrate `synchronized` code to `ReentrantLock` before running it on virtual threads",
+   "Convert every `ReentrantLock` back to `synchronized` in code that was already migrated",
+   "Choose by thread type alone: `ReentrantLock` for virtual threads and `synchronized` for platform threads"
+  ],
+  "explanation": "For new code JEP 491 says to use `synchronized` where practical and `ReentrantLock` and the other `java.util.concurrent.locks` APIs when more flexibility is required. Migrating before running is wrong because such migration is no longer necessary once `synchronized` no longer pins. Converting back is wrong because migrated code need not be reverted. Choosing by thread type is wrong because the choice is based solely upon which best solves the problem at hand.",
+  "citation": "jep-491#Choosing-between-synchronized-and-java-util-concurrent-locks",
+  "extract": null,
+  "snippet": null
+ }
+]

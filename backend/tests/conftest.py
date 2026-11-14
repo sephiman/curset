@@ -212,6 +212,26 @@ async def aeat_client(aeat_course_settings: Settings, _migrated: bool) -> AsyncG
 
 
 @pytest.fixture(scope="session")
+def backend_course_settings(settings: Settings, tmp_path_factory: pytest.TempPathFactory) -> Settings:
+    """The real backend-in-depth course alone, published: a draft is as absent as an unknown slug."""
+    course = tmp_path_factory.mktemp("backend-content") / "backend-in-depth"
+    course.mkdir()
+    real = REPO_CONTENT / "backend-in-depth"
+    for entry in real.iterdir():
+        if entry.name != "course.yaml":
+            (course / entry.name).symlink_to(entry, target_is_directory=entry.is_dir())
+    manifest = (real / "course.yaml").read_text()
+    (course / "course.yaml").write_text(manifest.replace("  status: draft\n", "  status: published\n", 1))
+    return settings.model_copy(update={"content_dir": course.parent})
+
+
+@pytest_asyncio.fixture
+async def backend_client(backend_course_settings: Settings, _migrated: bool) -> AsyncGenerator[AsyncClient]:
+    async with _build_client(backend_course_settings, reconcile_content=True) as http:
+        yield http
+
+
+@pytest.fixture(scope="session")
 def spaced_course_settings(settings: Settings, tmp_path_factory: pytest.TempPathFactory) -> Settings:
     """The fixture-oposiciones course alone, copied with the `spaced` practice scheduler switched on."""
     root = tmp_path_factory.mktemp("spaced-content")

@@ -1,0 +1,91 @@
+S1.1	"A transaction strategy is defined by"	pass
+S1.2	"`PlatformTransactionManager` is primarily a service provider"	pass
+S1.3	"Because `PlatformTransactionManager` is an interface, it"	pass
+S1.4	"The `TransactionException` that can be thrown"	pass
+S1.5	"Transaction infrastructure failures are almost invariably"	pass
+S1.6	"The `getTransaction(..)` method returns a `TransactionStatus`"	pass
+S1.7	"The returned `TransactionStatus` might represent a"	pass
+S1.8	"A `TransactionStatus` is associated with a"	pass
+S1.9	"You typically define the `TransactionManager` implementation"	pass
+S1.10	"The `JtaTransactionManager` does not need to"	pass
+S1.11	"In all Spring transaction setups, application"	pass
+S1.12	"The preferred approach is to use"	pass
+S1.13	"Classes such as `DataSourceUtils` for JDBC,"	pass
+S1.14	"If an existing transaction already has"	pass
+S1.15	"Otherwise, the call creates a new"	pass
+S1.16	"Any `SQLException` is wrapped in a"	pass
+S1.17	"This approach also works without Spring"	pass
+S1.18	"The Spring Framework provides two means"	pass
+S1.19	"The Spring team generally recommends the"	pass
+S2.1	"The `@Transactional` annotation is metadata that"	pass
+S2.2	"The default `propagation` setting of `@Transactional`"	pass
+S2.3	"The default isolation level of `@Transactional`"	pass
+S2.4	"The transaction timeout defaults to the"	pass
+S2.5	"The `isolation` attribute of `@Transactional` applies"	pass
+S2.6	"The `timeout` attribute of `@Transactional` applies"	pass
+S2.7	"The `readOnly` attribute of `@Transactional` selects"	pass
+S2.8	"For declarative transactions, the transaction name"	pass
+S2.9	"Propagation lets you specify the behavior"	pass
+S2.10	"Spring offers all of the transaction"	pass
+S2.11	"Isolation is the degree to which"	pass
+S2.12	"Timeout is how long a transaction"	pass
+S2.13	"You can use a read-only transaction"	pass
+S2.14	"Read-only transactions can be a useful"	pass
+S2.15	"The default `<tx:advice/>` propagation setting is"	pass
+S2.16	"The isolation level of a `<tx:method/>`"	pass
+S3.1	"By default, any `RuntimeException` or `Error`"	pass
+S3.2	"The recommended way to roll back"	pass
+S3.3	"In its default configuration, the transaction"	pass
+S3.4	"`Error` instances also, by default, result"	pass
+S3.5	"Checked exceptions that are thrown from"	pass
+S3.6	"You can configure exactly which `Exception`"	pass
+S3.7	"Rollback rules determine if a transaction"	pass
+S3.8	"With `@Transactional`, rollback rules may be"	pass
+S3.9	"Given a configured exception type C,"	pass
+S3.10	"A rule defined with an exception"	pass
+S3.11	"A pattern can be a fully"	pass
+S3.12	"A thrown exception is a match"	pass
+S3.13	"When the infrastructure consults the configured"	pass
+S3.14	"Transaction-specific rollback rules override the default"	pass
+S3.15	"As of 6.2, you can globally"	pass
+S3.16	"The `ALL_EXCEPTIONS` setting leads to a"	pass
+S3.17	"As of 6.1, a `CompletableFuture` or"	pass
+S3.18	"You can also indicate a required"	pass
+S3.19	"You are strongly encouraged to use"	pass
+S4.1	"As of Spring 4.2, the listener"	pass
+S4.2	"If you need to bind a"	pass
+S4.3	"The valid phases are `BEFORE_COMMIT`, `AFTER_COMMIT`"	pass
+S4.4	"`AFTER_COMPLETION` aggregates the transaction completion, be"	pass
+S4.5	"If no transaction is running, the"	pass
+S4.6	"You can override that behavior by"	pass
+S4.7	"As of 6.1, `@TransactionalEventListener` can work"	pass
+S4.8	"For thread-bound transactions, listeners are guaranteed"	pass
+S4.9	"Reactive transactions use the Reactor context"	pass
+S4.10	"With `@Async`, the caller returns immediately"	pass
+S4.11	"In the absence of an `Executor`"	pass
+S4.12	"When virtual threads are enabled, using"	pass
+S4.13	"Otherwise, the auto-configured executor is a"	pass
+S4.14	"The auto-configured `AsyncTaskExecutor` is used for"	pass
+S4.15	"By default, when a custom `Executor`"	pass
+S4.16	"Spring MVC, Spring WebFlux and Spring"	pass
+S5.1	"A transaction strategy is a `TransactionManager`:"	pass
+S5.2	"`TransactionException` is unchecked, and a `TransactionStatus`"	pass
+S5.3	"`@Transactional` defaults to `PROPAGATION_REQUIRED`, `ISOLATION_DEFAULT` and"	pass
+S5.4	"The `isolation`, `timeout` and `readOnly` attributes"	pass
+S5.5	"By default, a `RuntimeException` or an"	pass
+S5.6	"`rollbackFor` matches the configured type and"	pass
+S5.7	"As of 6.2, `@EnableTransactionManagement(rollbackOn=ALL_EXCEPTIONS)` rolls back"	pass
+S5.8	"`@TransactionalEventListener` is bound to `AFTER_COMMIT` by"	pass
+S5.9	"Reactive transactions carry the transaction context"	pass
+S5.10	"With virtual threads enabled on Java"	pass
+g-rollback-rule	pass
+g-transactional-event-listener	fail	dangling "it" from the source; not a self-contained definition of the term
+m05-l04-q01	pass
+m05-l04-q02	pass
+m05-l04-q03	pass
+m05-l04-q04	pass
+m05-l04-q05	pass
+m05-l04-q06	pass
+m05-l04-q07	pass
+m05-l04-q08	pass
+# checked 90, passed 89, failed 1

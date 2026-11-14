@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Per-lesson counts of an S2 module and its stop-gate figures, from the verdict, question and lint files.
+"""Per-lesson counts of an S2 module (sentences, facts, questions) from the verdict, fact, question and lint files.
 
     python module_report.py MODULE_DIR
 """
@@ -18,6 +18,7 @@ class LessonCounts:
     sentences: int
     deleted: int
     rows: int
+    facts: int
     written: int
     lint_fixed: int
     passed: int
@@ -47,11 +48,14 @@ def lesson_counts(module_dir: Path, lesson: str, lint: dict[str, int]) -> Lesson
     passed_q = {qid for qid, verdict in final.items() if verdict == "pass"}
     candidates = module_dir / f"{lesson}.questions.json"
     written = len(json.loads(candidates.read_text(encoding="utf-8"))) if candidates.exists() else 0
+    fact_file = module_dir / f"{lesson}.facts.tsv"
+    facts = sum(1 for line in fact_file.read_text(encoding="utf-8").splitlines() if line.strip()) if fact_file.exists() else 0
     return LessonCounts(
         lesson=lesson,
         sentences=len(sentences),
         deleted=len(deleted),
         rows=sum(1 for r in first if r[0].startswith("R")),
+        facts=facts,
         written=written,
         lint_fixed=lint.get(lesson, 0),
         passed=len(passed_q),
@@ -76,16 +80,18 @@ def main(argv: list[str]) -> int:
     lint = lint_fixes(module_dir)
     lessons = sorted({p.name.split(".")[0] for p in module_dir.glob("m*-l*.questions.json")})
     counts = [lesson_counts(module_dir, lesson, lint) for lesson in lessons]
-    print("lesson\tsentences\tdeleted\trows\tq_written\tlint_fixed\tq_passed\tq_discarded")
+    print("lesson\tsentences\tdeleted\trows\tfacts\tq_written\tlint_fixed\tq_passed\tq_discarded\tflag")
     for c in counts:
+        flag = "QUARANTINE" if c.sentences and c.deleted / c.sentences > 0.05 else "thin" if c.passed < 8 else ""
         print(
-            f"{c.lesson}\t{c.sentences}\t{c.deleted}\t{c.rows}\t{c.written}\t{c.lint_fixed}\t{c.passed}\t{c.discarded}"
+            f"{c.lesson}\t{c.sentences}\t{c.deleted}\t{c.rows}\t{c.facts}\t{c.written}\t{c.lint_fixed}"
+            f"\t{c.passed}\t{c.discarded}\t{flag}"
         )
     verified = sum(c.passed + c.discarded for c in counts)
     sentences = sum(c.sentences for c in counts)
     pass_rate = sum(c.passed for c in counts) / verified if verified else 0.0
     deleted_share = sum(c.deleted for c in counts) / sentences if sentences else 0.0
-    print(f"# gate: question pass rate {pass_rate:.0%} (stop under 60 %), deleted sentences {deleted_share:.1%} (stop over 5 %)")
+    print(f"# question pass rate {pass_rate:.0%}, deleted sentences {deleted_share:.1%}")
     return 0
 
 

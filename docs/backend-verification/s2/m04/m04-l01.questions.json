@@ -1,0 +1,197 @@
+[
+ {
+  "id": "m04-l01-q01",
+  "fact": "m04-l01-f04",
+  "stem": "In Kotlin, the variable `b` is declared as `String?` and holds null. What happens when the expression `b?.length` is evaluated?",
+  "key": "It returns `null` and no exception is thrown",
+  "distractors": [
+   "It returns `0`, the default value of `Int`",
+   "It throws a `NullPointerException` at runtime",
+   "It fails to compile, because `length` is not available on `String?`"
+  ],
+  "explanation": "The `?.` operator returns null instead of throwing an NPE when the object is null. Returning `0` is wrong because the expression returns `b.length` if `b` is non-null, or null otherwise. Throwing a `NullPointerException` is wrong because the `?.` operator returns null instead of throwing an NPE when the object is null. A compile error is wrong because safe calls are allowed on a nullable receiver of type `String?`.",
+  "citation": "kotlin-docs-null-safety#safe-call-operator",
+  "extract": "Instead of throwing an NPE, if the object is null, the ?. operator simply returns null",
+  "snippet": null
+ },
+ {
+  "id": "m04-l01-q02",
+  "fact": "m04-l01-f10",
+  "stem": "Which statement about the right-hand side of the Elvis operator in Kotlin, as in `left ?: right`, is correct?",
+  "key": "It is evaluated only if the left-hand side is null",
+  "distractors": [
+   "It is returned whenever the left-hand side has a nullable type, even if its value is not null",
+   "It is always evaluated first, and its result is dropped when the left-hand side is not null",
+   "It must be a `throw` or `return` expression and never a plain value"
+  ],
+  "explanation": "The right-hand side is evaluated only if the left-hand side is null. Returning the right side for every nullable left side is wrong because the Elvis operator returns the left expression when it is not null. Evaluating it first is wrong because the right-hand side is evaluated only if the left-hand side is null. Allowing only `throw` or `return` is wrong because they are expressions that you can also use on the right-hand side, next to plain values.",
+  "citation": "kotlin-docs-null-safety#elvis-operator",
+  "extract": "The expression on the right-hand side is evaluated only if the left-hand side is null.",
+  "snippet": null
+ },
+ {
+  "id": "m04-l01-q03",
+  "fact": "m04-l01-f19",
+  "stem": "Which of these Kotlin properties can be marked with the `lateinit` modifier, assuming that none of them has a custom getter or setter?",
+  "key": "A `var` of type `String` declared in the class body",
+  "distractors": [
+   "A `val` of type `String` declared in the class body",
+   "A `var` of type `Int` declared in the class body",
+   "A `var` of type `String` declared in the primary constructor"
+  ],
+  "explanation": "The `lateinit` modifier is allowed on `var` properties inside the body of a class, and a non-nullable `String` qualifies. A `val` is wrong because the modifier is used on `var` properties. A `var` of type `Int` is wrong because the property must not be a primitive type. A property in the primary constructor is wrong because a `lateinit` class property cannot be declared there.",
+  "citation": "kotlin-docs-properties#late-initialized-properties-and-variables",
+  "extract": "Properties inside the body of a class.",
+  "snippet": null
+ },
+ {
+  "id": "m04-l01-q04",
+  "fact": "m04-l01-f46",
+  "stem": "In Kotlin, which modifier on a type parameter declaration makes the type parameter contravariant, so that it can only be consumed and never produced?",
+  "key": "`in`, as in `Comparable<in T>`",
+  "distractors": [
+   "`out`, as in `Source<out T>`",
+   "`reified`, as in `inline fun <reified T>`",
+   "A star-projection, as in `Foo<*>`"
+  ],
+  "explanation": "The `in` modifier makes a type parameter contravariant, so it can only be consumed. `out` is wrong because a type parameter declared `out` may occur only in the out-position, as a producer. `reified` is wrong because it only makes the type parameter of an inline function accessible inside the function, almost as if it were a normal class. A star-projection is wrong because it projects a type parameter that is already contravariant, as in `Foo<in T>`, to `Foo<in Nothing>`.",
+  "citation": "kotlin-docs-generics#declaration-site-variance",
+  "extract": "It makes a type parameter contravariant, meaning it can only be consumed and never produced.",
+  "snippet": null
+ },
+ {
+  "id": "m04-l01-q05",
+  "fact": "m04-l01-f27",
+  "stem": "In Kotlin, a variable receives a value of a Java type that has no nullability annotation. How does Kotlin treat the type of that Java declaration?",
+  "key": "As a platform type, which Kotlin treats as non-denotable",
+  "distractors": [
+   "As a non-nullable type, with every null check enforced at compile time",
+   "As a nullable type, so every call on it needs `?.` or `!!`",
+   "As a denotable type that the variable must name explicitly"
+  ],
+  "explanation": "Types of Java declarations are treated in Kotlin as non-denotable platform types. A non-nullable type with enforced checks is wrong because null checks are relaxed for platform types. A nullable type is wrong because Kotlin does not issue nullability errors at compile time when you call methods on variables of platform types. A type that must be named is wrong because you cannot write the non-denotable types in the code explicitly.",
+  "citation": "kotlin-docs-java-interop#null-safety-and-platform-types",
+  "extract": "Types of Java declarations are treated in Kotlin as non-denotable and called platform types.",
+  "snippet": null
+ },
+ {
+  "id": "m04-l01-q06",
+  "fact": "m04-l01-f37",
+  "stem": "Of the nullability annotation flavors that the Kotlin compiler supports for Java declarations, which is the only one that uses the strict report level by default?",
+  "key": "`JSpecify`, from `org.jspecify.annotations`",
+  "distractors": [
+   "`JetBrains`, from `org.jetbrains.annotations`",
+   "`JSR-305`, from `javax.annotation`",
+   "`Eclipse`, from `org.eclipse.jdt.annotation`"
+  ],
+  "explanation": "`JSpecify` is the only supported flavor that uses the strict report level by default. `JetBrains` is wrong because only `JSpecify` is strict by default. `JSR-305` is wrong for the same reason, since only `JSpecify` is strict by default. `Eclipse` is wrong for the same reason, since only `JSpecify` is strict by default.",
+  "citation": "kotlin-docs-java-interop#nullability-annotations",
+  "extract": "JSpecify is the only supported flavor that uses strict report level by default.",
+  "snippet": null
+ },
+ {
+  "id": "m04-l01-q07",
+  "fact": "m04-l01-f42",
+  "stem": "Kotlin reads the JSR-305 annotation `@Nonnull(when = ...)` on a Java type. Which `when` value forces Kotlin to treat the type as a platform type?",
+  "key": "`When.UNKNOWN`",
+  "distractors": [
+   "`When.ALWAYS`",
+   "`When.MAYBE`",
+   "`When.NEVER`"
+  ],
+  "explanation": "`When.UNKNOWN` forces the type to be a platform type. `When.ALWAYS` is wrong because it makes the annotated type non-nullable. `When.MAYBE` is wrong because it denotes a nullable type. `When.NEVER` is wrong because it also denotes a nullable type.",
+  "citation": "kotlin-docs-java-interop#jsr-305-support",
+  "extract": "When.UNKNOWN forces the type to be platform one.",
+  "snippet": null
+ },
+ {
+  "id": "m04-l01-q08",
+  "fact": "m04-l01-f39",
+  "stem": "Among the `JSpecify` annotations that Kotlin supports, which one reverses the effect of `@NullMarked` and makes all types within its scope platform types?",
+  "key": "`@NullUnmarked`",
+  "distractors": [
+   "`@Nullable`",
+   "`@NonNull`",
+   "`@NullMarked`"
+  ],
+  "explanation": "`@NullUnmarked` reverses `@NullMarked` and makes the types in its scope platform types. `@Nullable` is wrong because it only marks a type as nullable. `@NonNull` is wrong because it only marks a type as non-nullable. `@NullMarked` is wrong because it marks all types within a scope as non-nullable by default, which is the effect being reversed.",
+  "citation": "kotlin-docs-java-interop#jspecify-support",
+  "extract": "@NullUnmarked reverses the effect of @NullMarked, making all types within the scope as platform types.",
+  "snippet": null
+ },
+ {
+  "id": "m04-l01-q09",
+  "fact": "m04-l01-f59",
+  "stem": "In Kotlin, the interface `Function<in T, out U>` is declared. How is the star-projection `Function<Int, *>` written out, with its variance modifier?",
+  "key": "`Function<Int, out Any?>`",
+  "distractors": [
+   "`Function<in Nothing, out Any?>`",
+   "`Function<in Nothing, String>`",
+   "`Function<Int, in Nothing>`"
+  ],
+  "explanation": "`Function<Int, *>` means `Function<Int, out Any?>`. This is `Function<*, *>`, where both type arguments are projected, not the one that keeps `Int`. This is `Function<*, String>`, where the first argument is the star. Projecting the covariant `U` to `in Nothing` is wrong because `U` is declared `out`, so a star-projection reads values of its upper bound.",
+  "citation": "kotlin-docs-generics#star-projections",
+  "extract": "Function<Int, *> means Function<Int, out Any?>.",
+  "snippet": null
+ },
+ {
+  "id": "m04-l01-q10",
+  "fact": "m04-l01-f13",
+  "stem": "In the snippet, `lengthOrZero` uses `text?.length ?: 0` and `expensiveDefault` prints a line before it returns `-1`. What does the program print, one value per line?",
+  "key": "null\n6\n0\n3\ndefault evaluated\n-1",
+  "distractors": [
+   "null\n6\n0\ndefault evaluated\n3\ndefault evaluated\n-1",
+   "null\n6\n0\n3\n-1",
+   "0\n6\n0\n3\ndefault evaluated\n-1"
+  ],
+  "explanation": "The safe call on null prints `null`, `lengthOrZero` prints `6` and `0`, and `expensiveDefault` runs only for the null left side. The output where `expensiveDefault` also runs for the non-null left side is wrong because the right-hand side is evaluated only if the left-hand side is null. The output without `default evaluated` is wrong because `expensiveDefault` prints that line before it returns `-1`. The output that starts with `0` is wrong because the safe call on null returns null, not a default.",
+  "citation": "kotlin-docs-null-safety#elvis-operator; kotlin-docs-null-safety#safe-call-operator",
+  "extract": null,
+  "snippet": "m04-l01/SafeCallAndElvis.kt"
+ },
+ {
+  "id": "m04-l01-q11",
+  "fact": "m04-l01-f24",
+  "stem": "The snippet calls `describe` with a `String` and an `Int`, then reads a `lateinit` property before it is set. What does the program print, one line per step?",
+  "key": "text of 6 characters\nnot text\nlateinit property body has not been initialized",
+  "distractors": [
+   "text of 6 characters\nnot text\nnull",
+   "not text\ntext of 3 characters\nlateinit property body has not been initialized",
+   "text of 6 characters\ntext of 3 characters\nlateinit property body has not been initialized"
+  ],
+  "explanation": "The `String` takes the smart cast and the `Int` returns early, and reading the unset `lateinit` property throws `UninitializedPropertyAccessException` with its message. The output that ends with `null` is wrong because reading an unset `lateinit` property throws instead of returning null. The output with the first two lines swapped is wrong because `describe(\"Kotlin\")` is the first call and `404` is not a `String`. The output with `text of 3 characters` is wrong because `404` is an `Int`, so the negative check returns early.",
+  "citation": "kotlin-docs-typecasts#smart-casts; kotlin-docs-properties#late-initialized-properties-and-variables",
+  "extract": null,
+  "snippet": "m04-l01/SmartCastAndLateinit.kt"
+ },
+ {
+  "id": "m04-l01-q12",
+  "fact": "m04-l01-f34",
+  "stem": "The snippet assigns the result of `System.getProperty` for a missing property to a `String?` and then to a `String`, catching `NullPointerException`. What does it print?",
+  "key": "null\nnull pointer on assignment",
+  "distractors": [
+   "null\nnull",
+   "null pointer on assignment",
+   "null pointer on assignment\nnull pointer on assignment"
+  ],
+  "explanation": "The `String?` holds `null`, and the assignment to a `String` makes the compiler assertion throw a `NullPointerException`. The output with two `null` lines is wrong because the compiler emits an assertion when a platform value is assigned to a non-nullable type. The output without `null` is wrong because assigning a platform value to a `String?` always works. The output with two exception lines is wrong because the assignment to the nullable variable does not throw.",
+  "citation": "kotlin-docs-java-interop#null-safety-and-platform-types",
+  "extract": null,
+  "snippet": "m04-l01/PlatformTypes.kt"
+ },
+ {
+  "id": "m04-l01-q13",
+  "fact": "m04-l01-f51",
+  "stem": "The snippet widens a `Source<String>` to a `Source<Any>`, runs a `reified` check twice, and compares the classes of two `ArrayList` instances with different type arguments. What does it print?",
+  "key": "kotlin\ntrue\nfalse\ntrue",
+  "distractors": [
+   "kotlin\ntrue\ntrue\ntrue",
+   "kotlin\ntrue\nfalse\nfalse",
+   "kotlin\nfalse\nfalse\ntrue"
+  ],
+  "explanation": "`nextT()` prints `kotlin`, the reified checks give `true` and `false`, and the two classes are equal because the type arguments are erased. The output with a second `true` is wrong because `isInstance<Int>(\"kotlin\")` checks against the real type `Int`. The output ending with `false` is wrong because generic type arguments are erased at runtime. The output with a first `false` is wrong because `\"kotlin\"` is a `String`, so `isInstance<String>` is true.",
+  "citation": "kotlin-docs-generics#type-erasure; kotlin-docs-inline-functions#reified-type-parameters",
+  "extract": null,
+  "snippet": "m04-l01/VarianceAndReified.kt"
+ }
+]

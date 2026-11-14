@@ -3,7 +3,8 @@
 
 uv run python -m scripts.tech_course.lint_questions [--exclude-failed] [--lesson ID | --module mNN | FILE ...]
 
-One tab-separated failure per line, a `key-longest` line per lesson; exit 1 on a failure.
+One tab-separated failure per line, a `key-longest` line per lesson; then `check_refutations` on the same
+selection; exit 1 on a failure of either.
 With `--exclude-failed`, questions that failed verification (`<lesson>.verdicts.tsv`) are not linted.
 """
 
@@ -15,10 +16,12 @@ import sys
 from dataclasses import dataclass
 from pathlib import Path
 
+from scripts.tech_course import check_refutations
 from scripts.tech_course.candidates import (
     S2_DIR,
     Candidate,
     add_selection_arguments,
+    failed_ids,
     lesson_of,
     read_candidates,
     select_files,
@@ -462,19 +465,6 @@ def key_longest_share(questions: list[Candidate]) -> tuple[int, int]:
     return sum(key_is_longest(q) for q in keyed), len(keyed)
 
 
-def failed_ids(verdicts: Path) -> frozenset[str]:
-    if not verdicts.is_file():
-        return frozenset()
-    final: dict[str, str] = {}
-    for line in verdicts.read_text(encoding="utf-8").splitlines():
-        row = [cell.strip() for cell in line.split("\t")]
-        # a `recheck` line, written after a re-verification, replaces the first verdict
-        verdict = row[2] if len(row) > 2 and row[1] == "recheck" else row[1] if len(row) > 1 else ""
-        if verdict in ("pass", "fail"):
-            final[row[0]] = verdict
-    return frozenset(qid for qid, verdict in final.items() if verdict == "fail")
-
-
 @dataclass(frozen=True)
 class LessonLint:
     failures: list[Failure]
@@ -506,10 +496,15 @@ def lint_lesson(
     longest, total = key_longest_share(questions)
     share = longest / total if total else 0.0
     over = share > KEY_LONGEST_LIMIT
-    if over:
+    share_accepted = over and (lesson, "key-longest-share") in accepted
+    if over and not share_accepted:
         failures.append(Failure(lesson, "key-longest-share", f"{share:.0%} of keys are the longest option"))
     return LessonLint(
-        failures, warnings, len(honoured), f"{lesson}\tkey-longest\t{longest}/{total}\t{share:.0%}", over
+        failures,
+        warnings,
+        len(honoured) + share_accepted,
+        f"{lesson}\tkey-longest\t{longest}/{total}\t{share:.0%}",
+        over and not share_accepted,
     )
 
 
@@ -545,7 +540,8 @@ def main(argv: list[str] | None = None) -> int:
         f"# questions {questions_seen}, failures {failures_seen}, lessons over 40 %: {lessons_over}, "
         f"accepted {accepted_seen}"
     )
-    return 1 if failures_seen else 0
+    refuted = check_refutations.main(argv)
+    return 1 if failures_seen or refuted else 0
 
 
 if __name__ == "__main__":

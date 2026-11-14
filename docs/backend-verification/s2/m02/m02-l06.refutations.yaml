@@ -1,0 +1,131 @@
+m02-l06-q01:
+  key:
+    execution: m02-l06/LruCache.java
+  wrong:
+  - option: 'access-ordered [b, c, d]
+
+      insertion-ordered [a, b, c]'
+    execution: m02-l06/LruCache.java
+    mistake: ignored the access
+  - option: 'access-ordered [c, a, d]
+
+      insertion-ordered [b, c, a]'
+    execution: m02-l06/LruCache.java
+    mistake: re-insertion moves the key
+  - option: 'access-ordered [b, c, a]
+
+      insertion-ordered [a, b, c]'
+    execution: m02-l06/LruCache.java
+    mistake: removed the youngest entry
+m02-l06-q02:
+  key:
+    execution: m02-l06/PriorityQueueOrder.java
+  wrong:
+  - option: 'queue as printed [1, 3, 5]
+
+      queue polled [1, 3, 5]'
+    execution: m02-l06/PriorityQueueOrder.java
+    mistake: assumed the printed queue is sorted
+  - option: 'queue as printed [5, 1, 3]
+
+      queue polled [1, 3, 5]'
+    execution: m02-l06/PriorityQueueOrder.java
+    mistake: insertion order
+  - option: 'queue as printed [1, 5, 3]
+
+      queue polled [5, 3, 1]'
+    execution: m02-l06/PriorityQueueOrder.java
+    mistake: largest first
+m02-l06-q03:
+  key:
+    execution: m02-l06/RunningMedian.java
+  wrong:
+  - option: medians [5.0, 10.0, 5.0, 3.0]
+    execution: m02-l06/RunningMedian.java
+    mistake: lower middle for an even count
+  - option: medians [5.0, 15.0, 5.0, 5.0]
+    execution: m02-l06/RunningMedian.java
+    mistake: upper middle for an even count
+  - option: medians [5.0, 10.0, 1.0, 3.0]
+    execution: m02-l06/RunningMedian.java
+    mistake: latest value instead of the median
+m02-l06-q04:
+  key:
+    execution: m02-l06/NestedIterator.java
+  wrong:
+  - option: 'values [1, 2]
+
+      values of two empty lists []'
+    execution: m02-l06/NestedIterator.java
+    mistake: stopped at the first empty list
+  - option: 'values [1, 2, null, 3, null]
+
+      values of two empty lists [null, null]'
+    execution: m02-l06/NestedIterator.java
+    mistake: empty lists yield null
+  - option: 'values [1, 2, 3]
+
+      values of two empty lists [null]'
+    execution: m02-l06/NestedIterator.java
+    mistake: an extra element at the end
+m02-l06-q05:
+  key:
+    anchor: javadoc-linkedhashmap#class-linkedhashmap-k-v
+    sentence: Invoking the put, putIfAbsent, get, getOrDefault, compute, computeIfAbsent, computeIfPresent, or merge methods results in an access to the corresponding entry
+  wrong:
+  - option: '`containsKey(key)`'
+    anchor: javadoc-linkedhashmap#class-linkedhashmap-k-v
+    sentence: No other methods generate entry accesses.
+  - option: '`putFirst(key, value)`'
+    anchor: javadoc-linkedhashmap#class-linkedhashmap-k-v
+    sentence: Explicit-positioning methods such as putFirst or lastEntry, whether on the map or on its reverse-ordered view, perform the positioning operation and do not generate entry accesses.
+  - option: '`keySet().contains(key)`'
+    anchor: javadoc-linkedhashmap#class-linkedhashmap-k-v
+    sentence: Operations on the keySet, values, and entrySet views or on their sequenced counterparts do not affect the encounter order of the backing map.
+m02-l06-q06:
+  key:
+    anchor: javadoc-priorityqueue#class-priorityqueue-e
+    sentence: linear time for the remove(Object) and contains(Object) methods
+  wrong:
+  - option: '`poll()`'
+    anchor: javadoc-priorityqueue#class-priorityqueue-e
+    sentence: this implementation provides O(log(n)) time for the enqueuing and dequeuing methods (offer, poll, remove() and add)
+    exclusive: true
+  - option: '`offer(E)`'
+    anchor: javadoc-priorityqueue#class-priorityqueue-e
+    sentence: this implementation provides O(log(n)) time for the enqueuing and dequeuing methods (offer, poll, remove() and add)
+    exclusive: true
+  - option: '`peek()`'
+    anchor: javadoc-priorityqueue#class-priorityqueue-e
+    sentence: and constant time for the retrieval methods (peek, element, and size).
+m02-l06-q07:
+  key:
+    anchor: javadoc-linkedhashmap#removeEldestEntry(java.util.Map.Entry)
+    sentence: This method is invoked by put and putAll after inserting a new entry into the map.
+  wrong:
+  - option: Before `put` inserts the new entry, with the eldest entry still in the map
+    anchor: javadoc-linkedhashmap#removeEldestEntry(java.util.Map.Entry)
+    sentence: This method is invoked by put and putAll after inserting a new entry into the map.
+    exclusive: true
+  - option: After each `get` that reads an entry of an access-ordered map
+    anchor: javadoc-linkedhashmap#removeEldestEntry(java.util.Map.Entry)
+    sentence: This method is invoked by put and putAll after inserting a new entry into the map.
+    exclusive: true
+  - option: When the table is resized, whatever the call that caused the resize
+    anchor: javadoc-linkedhashmap#removeEldestEntry(java.util.Map.Entry)
+    sentence: This method is invoked by put and putAll after inserting a new entry into the map.
+    exclusive: true
+m02-l06-q08:
+  key:
+    anchor: javadoc-iterator#interface-iterator-e
+    sentence: Iterator takes the place of Enumeration in the Java Collections Framework.
+  wrong:
+  - option: '`ListIterator`'
+    anchor: javadoc-iterator#interface-iterator-e
+    sentence: 'All Known Subinterfaces: EventIterator, ListIterator<E>'
+  - option: '`Collection`'
+    anchor: javadoc-iterator#interface-iterator-e
+    sentence: An iterator over a collection.
+  - option: '`Scanner`'
+    anchor: javadoc-iterator#interface-iterator-e
+    sentence: 'All Known Implementing Classes: BeanContextSupport.BCSIterator, EventReaderDelegate, Scanner'

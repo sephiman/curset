@@ -1,0 +1,212 @@
+[
+ {
+  "id": "m02-l03-q01",
+  "fact": "m02-l03-f05",
+  "stem": "A developer uses an `ArrayDeque` as a LIFO stack in Java 25 and calls `push(e)` and `pop()`. Which `Deque` methods do these two stack methods correspond to?",
+  "key": "`push(e)` is `addFirst(e)` and `pop()` is `removeFirst()`",
+  "distractors": [
+   "`push(e)` is `addLast(e)` and `pop()` is `removeLast()`, so the stack grows at the end",
+   "`push(e)` is `offerLast(e)` and `pop()` is `removeFirst()`, which mixes the two ends",
+   "`push(e)` is `addFirst(e)` and `pop()` is `pollLast()`, which draws from the tail"
+  ],
+  "explanation": "A stack maps `push(e)` to `addFirst(e)` and `pop()` to `removeFirst()`. The claim that the stack grows at the end is wrong, because elements are pushed and popped from the beginning of the deque. The claim that `push(e)` is `offerLast(e)` is wrong, because `push(e)` is equivalent to `addFirst(e)`. The claim that `pop()` is `pollLast()` is wrong, because `pop()` is equivalent to `removeFirst()`.",
+  "citation": "javadoc-deque#interface-deque-e",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m02-l03-q02",
+  "fact": "m02-l03-f11",
+  "stem": "In Java 25, what does the `Deque` interface say about implementations that allow null elements, and what reason does it give for its advice?",
+  "key": "Implementations are strongly encouraged to prohibit null, because null is the special return value that signals an empty deque",
+  "distractors": [
+   "Implementations are required to reject null with a `NullPointerException`, because the interface forbids it",
+   "Implementations are encouraged to accept null, because `peekFirst` uses it to mark the end of the deque",
+   "Implementations may accept null freely, because every empty-deque case is reported by an exception"
+  ],
+  "explanation": "Implementations are strongly encouraged to prohibit null, because null is used as the special return value for an empty deque. The claim that rejection is required is wrong, because implementations are not strictly required to prohibit null. The claim that null is encouraged is wrong, because users are strongly encouraged not to take advantage of the ability to insert nulls. The claim that an exception reports every empty case is wrong, because one form of each method returns a special value, either null or false.",
+  "citation": "javadoc-deque#interface-deque-e",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m02-l03-q03",
+  "fact": "m02-l03-f14",
+  "stem": "In Java 25, which statement about the `Deque` interface is correct when it is compared with the `List` interface and with the legacy `Stack` class?",
+  "key": "It provides no indexed access to elements, unlike the `List` interface",
+  "distractors": [
+   "Its implementations generally define element-based `equals` and `hashCode` methods",
+   "It should be avoided in favor of the legacy `Stack` class when a LIFO structure is needed",
+   "Every implementation places a fixed limit on the number of elements it may contain"
+  ],
+  "explanation": "`Deque` provides no indexed access to elements, unlike `List`. The claim of element-based `equals` and `hashCode` is wrong, because implementations generally inherit the identity-based versions from `Object`. The claim that it should be avoided is wrong, because the interface should be used in preference to the legacy `Stack` class. The claim of a fixed limit is wrong, because most implementations place no fixed limits on the number of elements.",
+  "citation": "javadoc-deque#interface-deque-e",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m02-l03-q04",
+  "fact": "m02-l03-f23",
+  "stem": "According to Open Data Structures, when are linked list structures such as `DLList` well-suited, and what makes them so?",
+  "key": "When references to list nodes can be obtained externally, because the work at a known node takes constant time",
+  "distractors": [
+   "When elements are read by index, because finding the relevant node takes constant time",
+   "When elements are rarely added or removed, because shifting array items is cheap in array-based lists",
+   "When a `LinkedHashSet` removes an element, because it has to traverse the list to find the node"
+  ],
+  "explanation": "Linked list structures are well-suited when references to list nodes can be obtained through external means, because the work at a known node takes constant time. The claim about reading by index is wrong, because the only expensive part of operations on a `DLList` is finding the relevant node. The claim that shifting array items is cheap is wrong, because addition or removal in an array requires shifting elements and takes non-constant time. The claim about traversal in a `LinkedHashSet` is wrong, because its hash table finds the relevant list node in constant time.",
+  "citation": "ods-3-2-dllist-doubly-linked-li#SECTION00622000000000000000",
+  "extract": "linked list structures are well-suited to applications where references to list nodes can be obtained through external means.",
+  "snippet": null
+ },
+ {
+  "id": "m02-l03-q05",
+  "fact": "m02-l03-f38",
+  "stem": "According to Open Data Structures, which statement about the breadth-first traversal of a binary tree is correct?",
+  "key": "It is implemented using a queue",
+  "distractors": [
+   "It is implemented using a stack, so the most recently added child is visited next",
+   "It follows the same pattern as the recursive size and height functions",
+   "It visits the nodes from the deepest level up to the root, left to right"
+  ],
+  "explanation": "Breadth-first traversal is implemented using a queue. The claim of a stack is wrong, because the traversal uses a queue to hold the nodes still to be processed. The claim of the recursive pattern is wrong, because breadth-first traversal does not fit the pattern of the recursive functions. The claim of a bottom-up visit is wrong, because the nodes are visited level by level starting at the root and moving down.",
+  "citation": "ods-6-1-binarytree-basic-binary#SECTION00912000000000000000",
+  "extract": "Breadth-first traversal is implemented using a queue",
+  "snippet": null
+ },
+ {
+  "id": "m02-l03-q06",
+  "fact": "m02-l03-f36",
+  "stem": "According to Open Data Structures, which statement about traversing a binary tree without recursion is correct?",
+  "key": "If the nodes have no parent field, a non-recursive traversal still works but must keep the path to the root in a `List` or `Stack`",
+  "distractors": [
+   "Without recursion a binary tree can be traversed only breadth-first, never by following its links",
+   "A non-recursive traversal needs a parent field and is impossible without one",
+   "A recursive traversal never crashes, because the recursion depth is bounded by the number of nodes in the call"
+  ],
+  "explanation": "Without a parent field, a non-recursive traversal is still possible but must use a `List` or `Stack` to keep track of the path to the root. The claim that only breadth-first works is wrong, because an algorithm that relies on where it came from determines where it goes next. The claim that a parent field is required is wrong, because the non-recursive implementation is still possible without it. The claim that recursion never crashes is wrong, because a very large height can use more stack space than is available and cause a crash.",
+  "citation": "ods-6-1-binarytree-basic-binary#SECTION00912000000000000000",
+  "extract": "a non-recursive implementation is still possible, but the implementation has to use a List (or Stack) to keep track of the path from the current node to the root.",
+  "snippet": null
+ },
+ {
+  "id": "m02-l03-q07",
+  "fact": "m02-l03-f52",
+  "stem": "In Java 25, `PriorityQueue.offer(e)` is called once with `null` and once with an element that cannot be compared with the elements already in the queue. Which exceptions does it throw?",
+  "key": "`NullPointerException` for `null` and `ClassCastException` for the element that cannot be compared",
+  "distractors": [
+   "`ClassCastException` for `null` and `NullPointerException` for the element that cannot be compared",
+   "`null` is accepted and sorts first, and `ClassCastException` is thrown for the element that cannot be compared",
+   "`NullPointerException` for `null`, while the element that cannot be compared is accepted and sorts last"
+  ],
+  "explanation": "`offer` throws `NullPointerException` for `null` and `ClassCastException` for an element that cannot be compared. The claim of swapped exceptions is wrong, because `NullPointerException` is thrown if the specified element is null. The claim that null sorts first is wrong, because a priority queue does not permit null elements. The claim that an incomparable element is accepted is wrong, because `ClassCastException` is thrown when the element cannot be compared with the elements currently in the queue.",
+  "citation": "javadoc-priorityqueue#offer(java.lang.Object); javadoc-priorityqueue#class-priorityqueue-e",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m02-l03-q08",
+  "fact": "m02-l03-f59",
+  "stem": "In the `BinaryHeap` of Open Data Structures, the tree lives in an array in breadth-first order. Which statement about the position of the smallest value and the child indexes is correct?",
+  "key": "The smallest value is at position 0, and the children of index `i` are at `2*i + 1` and `2*i + 2`",
+  "distractors": [
+   "The smallest value is at the last position, and the children of index `i` are at `2*i + 1` and `2*i + 2`",
+   "The smallest value is at position 0, and the left child of index `i` is at `i + 1`",
+   "The smallest value is at position 0, and the parent of index `i` is at `i/2`"
+  ],
+  "explanation": "The smallest value is at position 0, the root, and the children of index `i` are at `2*i + 1` and `2*i + 2`. The claim of the last position is wrong, because the smallest value in the priority queue is stored at position 0. The claim that the left child is at `i + 1` is wrong, because the code puts the left child at `2*i + 1`. The claim that the parent is at `i/2` is wrong, because the code puts the parent at `(i-1)/2`.",
+  "citation": "ods-10-1-binaryheap-implicit-bi#SECTION001310000000000000000",
+  "extract": "the smallest value in the priority Queue is therefore stored at position 0 (the root).",
+  "snippet": null
+ },
+ {
+  "id": "m02-l03-q09",
+  "fact": "m02-l03-f30",
+  "stem": "The program reverses a linked list, finds the middle of lists with five and four nodes, tests two lists for a cycle, uses an `ArrayDeque` as stack and queue, and prints the next greater values. What does it print?",
+  "key": "reversed 54321\nmiddle of five 3\nmiddle of four 3\ncycle found true\ncycle found in a plain list false\nstack contents [3, 2, 1]\nstack pop 3\nqueue poll 1\nnext greater [4, 2, 4, -1, -1]",
+  "distractors": [
+   "reversed 12345\nmiddle of five 3\nmiddle of four 3\ncycle found true\ncycle found in a plain list false\nstack contents [3, 2, 1]\nstack pop 3\nqueue poll 1\nnext greater [4, 2, 4, -1, -1]",
+   "reversed 54321\nmiddle of five 3\nmiddle of four 2\ncycle found true\ncycle found in a plain list false\nstack contents [3, 2, 1]\nstack pop 3\nqueue poll 1\nnext greater [4, 2, 4, -1, -1]",
+   "reversed 54321\nmiddle of five 3\nmiddle of four 3\ncycle found true\ncycle found in a plain list false\nstack contents [1, 2, 3]\nstack pop 1\nqueue poll 1\nnext greater [4, 2, 4, -1, -1]"
+  ],
+  "explanation": "The reversal prints 54321, the slow pointer ends on the third node for both lengths, and the stack pushes at the beginning, so it holds [3, 2, 1] and `pop` returns 3. The queue returns 1 and the next greater values are [4, 2, 4, -1, -1]. The lines starting with reversed 12345 are wrong because the list is reversed. The lines with middle of four 2 are wrong because the fast pointer ends on the last step with the slow pointer on the third node. The lines with stack contents [1, 2, 3] are wrong because `push` adds at the beginning.",
+  "citation": "javadoc-deque#interface-deque-e",
+  "extract": null,
+  "snippet": "m02-l03/LinkedStructures.java"
+ },
+ {
+  "id": "m02-l03-q10",
+  "fact": "m02-l03-f47",
+  "stem": "The program walks a binary search tree in order recursively and with a stack, collects its levels, finds two lowest common ancestors, validates two trees and takes the height of a chain of a million nodes. What does it print?",
+  "key": "inorder [1, 3, 4, 6, 7, 8, 10, 13, 14]\niterative inorder [1, 3, 4, 6, 7, 8, 10, 13, 14]\nlevels [[8], [3, 10], [1, 6, 14], [4, 7, 13]]\nlca of 4 and 7 6\nlca of 4 and 14 8\nlocal check true\nbounds check false\nrecursive height overflows the stack\niterative levels 1000000",
+  "distractors": [
+   "inorder [8, 3, 1, 6, 4, 7, 10, 14, 13]\niterative inorder [1, 3, 4, 6, 7, 8, 10, 13, 14]\nlevels [[8], [3, 10], [1, 6, 14], [4, 7, 13]]\nlca of 4 and 7 6\nlca of 4 and 14 8\nlocal check true\nbounds check false\nrecursive height overflows the stack\niterative levels 1000000",
+   "inorder [1, 3, 4, 6, 7, 8, 10, 13, 14]\niterative inorder [1, 3, 4, 6, 7, 8, 10, 13, 14]\nlevels [[8], [3, 10], [1, 6, 14], [4, 7, 13]]\nlca of 4 and 7 6\nlca of 4 and 14 8\nlocal check false\nbounds check false\nrecursive height overflows the stack\niterative levels 1000000",
+   "inorder [1, 3, 4, 6, 7, 8, 10, 13, 14]\niterative inorder [1, 3, 4, 6, 7, 8, 10, 13, 14]\nlevels [[8], [3, 10], [1, 6, 14], [4, 7, 13]]\nlca of 4 and 7 3\nlca of 4 and 14 8\nlocal check true\nbounds check false\nrecursive height overflows the stack\niterative levels 1000000"
+  ],
+  "explanation": "The in-order walk gives the values in ascending order, the queue gives one list per level, and the lowest common ancestors are 6 and 8. The local check passes while the bounds check fails, and the chain overflows the stack when walked recursively but not level by level. The lines starting with inorder [8, 3, 1 are wrong because in-order visits the left subtree before the node. The lines with local check false are wrong because the local check sees only the children of each node and accepts that tree. The lines with lca of 4 and 7 3 are wrong because 3 is an ancestor of 4 only, while 6 is the first node between 4 and 7.",
+  "citation": "ods-6-1-binarytree-basic-binary#SECTION00912000000000000000",
+  "extract": "the nodes are visited level-by-level starting at the root and moving down",
+  "snippet": "m02-l03/TreeAlgorithms.java"
+ },
+ {
+  "id": "m02-l03-q11",
+  "fact": "m02-l03-f66",
+  "stem": "The program keeps the three largest of seven numbers in a `PriorityQueue`, prints a max-heap head, the index arithmetic of a heap, an `offer(null)` result and prefix counts in a trie. What does it print?",
+  "key": "kth largest 7\ntop 3 [7, 8, 9]\nmax-heap head 9\nchildren of 4: 9 and 10, parent of 4: 1\nnull is rejected\nwords with prefix car: 3\nwords with prefix ca: 4\nwords with prefix x: 0",
+  "distractors": [
+   "kth largest 7\ntop 3 [7, 8, 9]\nmax-heap head 1\nchildren of 4: 9 and 10, parent of 4: 1\nnull is rejected\nwords with prefix car: 3\nwords with prefix ca: 4\nwords with prefix x: 0",
+   "kth largest 7\ntop 3 [7, 8, 9]\nmax-heap head 9\nchildren of 4: 8 and 9, parent of 4: 2\nnull is rejected\nwords with prefix car: 3\nwords with prefix ca: 4\nwords with prefix x: 0",
+   "kth largest 7\ntop 3 [7, 8, 9]\nmax-heap head 9\nchildren of 4: 9 and 10, parent of 4: 1\nnull is rejected\nwords with prefix car: 2\nwords with prefix ca: 4\nwords with prefix x: 0"
+  ],
+  "explanation": "The queue never holds more than three numbers, so its head is the third largest, 7, and the queue holds 7, 8 and 9. The reversed comparator puts the greatest element at the head, the children of index 4 are at 9 and 10 and its parent at 1, and `null` is rejected. The prefix `car` matches `car`, `card` and `care`. The lines with max-heap head 1 are wrong because `Comparator.reverseOrder()` puts the greatest element first. The lines with children of 4: 8 and 9 are wrong because the children of index `i` are at `2*i + 1` and `2*i + 2`. The lines with words with prefix car: 2 are wrong because the prefix matches every word below it.",
+  "citation": "ods-10-1-binaryheap-implicit-bi#SECTION001310000000000000000; javadoc-priorityqueue#class-priorityqueue-e",
+  "extract": "the root is stored at position 0",
+  "snippet": "m02-l03/HeapAndTrie.java"
+ },
+ {
+  "id": "m02-l03-q12",
+  "fact": "m02-l03-f13",
+  "stem": "In Java 25, each insert, remove and examine method of the `Deque` interface exists in two forms. How do the two forms behave when the operation fails?",
+  "key": "One form throws an exception, and the other returns a special value, either null or false",
+  "distractors": [
+   "One form blocks until the operation can succeed, and the other gives up after a timeout",
+   "The exception form is the one that matters in practice, because insert operations fail often in most implementations",
+   "The special-value form of insert is meant for deques with no fixed size limit"
+  ],
+  "explanation": "One form throws an exception and the other returns null or false. The claim of blocking and timeouts is wrong, because the two forms are an exception and a special value. The claim that inserts fail often is wrong, because in most implementations insert operations cannot fail. The claim about unbounded deques is wrong, because the special-value insert is designed specifically for capacity-restricted implementations.",
+  "citation": "javadoc-deque#interface-deque-e",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m02-l03-q13",
+  "fact": "m02-l03-f21",
+  "stem": "According to Open Data Structures, which part of an operation on a `DLList` is the only expensive one?",
+  "key": "Finding the relevant node",
+  "distractors": [
+   "Adding, removing or accessing the data once the node has been found",
+   "Shifting the following elements to make room, as in an array-based list",
+   "Allocating the new list node, which grows with the length of the list"
+  ],
+  "explanation": "The only expensive part of operations on a `DLList` is finding the relevant node. The claim about work at a found node is wrong, because adding, removing or accessing the data at that node takes only constant time. The claim about shifting is wrong, because shifting elements is what array-based lists need, not a `DLList`. The claim about allocation is wrong, because apart from finding the node all operations on a `DLList` take constant time.",
+  "citation": "ods-3-2-dllist-doubly-linked-li#SECTION00622000000000000000",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m02-l03-q14",
+  "fact": "m02-l03-f43",
+  "stem": "A value `x` is added to a `BinarySearchTree` that already contains `x`. According to Open Data Structures, which statement about this addition is correct?",
+  "key": "Nothing is inserted, because finding the value means there is no need to insert it",
+  "distractors": [
+   "A second node holding `x` is stored as a leaf below the last node of the search",
+   "The new value is stored at the root, and the old root becomes its child",
+   "The most time-consuming part is rebuilding the tree after the value is stored"
+  ],
+  "explanation": "Nothing is inserted when the search finds the value. The claim of a second node is wrong, because there is no need to insert a value that is found. The claim of a new root is wrong, because a new value is stored at a leaf child of the last node encountered. The claim of rebuilding is wrong, because the most time-consuming part of an addition is the initial search.",
+  "citation": "ods-6-2-binarysearchtree-unbala#SECTION00922000000000000000",
+  "extract": null,
+  "snippet": null
+ }
+]

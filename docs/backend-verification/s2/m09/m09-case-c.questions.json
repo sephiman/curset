@@ -1,0 +1,258 @@
+[
+ {
+  "id": "m09-case-c-q01",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f72",
+  "stem": "A notification consumer reads a batch of messages from a Kafka partition, saves its position in the log, and only then sends the notifications. Which delivery semantics does it get when the consumer fails?",
+  "key": "At-most-once, because messages may not be processed",
+  "distractors": [
+   "At-least-once, because every message is processed before it is lost",
+   "Exactly-once, because the sends are covered by Kafka transactions",
+   "At-least-once, because Kafka guarantees it by default"
+  ],
+  "explanation": "Saving the position before processing gives at-most-once semantics, because on a consumer failure messages may not be processed. At-least-once is wrong, because that result comes from processing the messages first and saving the position last. Exactly-once is wrong, because exactly-once delivery to other destination systems generally requires cooperation with such systems. Default at-least-once is wrong, because committing offsets before processing a batch is how a user implements at-most-once.",
+  "citation": "kafka-design#message-delivery-semantics",
+  "extract": "It can read the messages, then save its position in the log, and finally process the messages. In this case there is a possibility that the consumer process crashes after saving its position but before saving the output of its message processing. In this case the process that took over processing would start at the saved position even though a few messages prior to that position had not been processed. This corresponds to “at-most-once” semantics as in the case of a consumer failure messages may not be processed.",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-c-q02",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f74",
+  "stem": "A push-notification consumer reads messages from a Kafka partition, sends the notifications, and finally saves its position in the log. What semantics does it get when the consumer fails in between?",
+  "key": "At-least-once",
+  "distractors": [
+   "At-most-once, because the position is saved after the work",
+   "Exactly-once, because Kafka makes every consumer idempotent",
+   "At-most-once, because producer retries are off by default"
+  ],
+  "explanation": "Processing the messages and saving the position last gives at-least-once semantics on a consumer failure. At-most-once is wrong, because that result comes from saving the position before processing the messages. Exactly-once is wrong, because exactly-once delivery to other destination systems generally requires cooperation with such systems. Default-off retries are wrong, because Kafka guarantees at-least-once delivery by default.",
+  "citation": "kafka-design#message-delivery-semantics",
+  "extract": "It can read the messages, process the messages, and finally save its position. In this case there is a possibility that the consumer process crashes after processing messages but before saving its position. In this case when the new process takes over the first few messages it receives will already have been processed. This corresponds to the “at-least-once” semantics in the case of consumer failure.",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-c-q03",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f84",
+  "stem": "A RabbitMQ queue holds notification messages and is bound to a dead letter exchange. Which of these events does NOT cause messages to be dead-lettered?",
+  "key": "The whole queue expires",
+  "distractors": [
+   "A consumer rejects a message with `basic.nack` and `requeue` set to false",
+   "A message outlives its per-message TTL",
+   "The queue drops a message because it exceeded its length limit"
+  ],
+  "explanation": "If an entire queue expires, the messages in the queue are not dead-lettered. A negative acknowledgement without requeue is wrong, because it is one of the events that dead-letters the message. Per-message TTL expiry is wrong, because a message that expires due to per-message TTL is dead-lettered. Dropping for length is wrong, because a message dropped when its queue exceeded a length limit is dead-lettered.",
+  "citation": "rabbitmq-dlx#overview",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m09-case-c-q04",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f83",
+  "stem": "A notification message keeps being returned to a RabbitMQ quorum queue and finally exceeds the queue's `delivery-limit`. What happens to the message?",
+  "key": "It is dead-lettered",
+  "distractors": [
+   "It is dropped silently without any dead-lettering",
+   "It is requeued again without limit",
+   "It stays in the queue until the whole queue expires"
+  ],
+  "explanation": "A message returned to a quorum queue more times than the delivery-limit is dead-lettered. Silent dropping is wrong, because a message returned more times to a quorum queue than the delivery-limit is dead-lettered. Unlimited requeueing is wrong, because exceeding the delivery-limit dead-letters the message. Waiting for queue expiry is wrong, because exceeding the delivery-limit dead-letters the message.",
+  "citation": "rabbitmq-dlx#overview",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m09-case-c-q05",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f89",
+  "stem": "A team using Spring for Apache Kafka wants non-blocking retry and dead-letter handling through the `@RetryableTopic` annotation. Since which version does Spring for Apache Kafka offer it?",
+  "key": "2.7",
+  "distractors": [
+   "3.2",
+   "2.2",
+   "1.3"
+  ],
+  "explanation": "Since 2.7 Spring for Apache Kafka offers non-blocking retry and dead-letter support through `@RetryableTopic` and `RetryTopicConfiguration`. Version 3.2 is wrong, because support through `@RetryableTopic` has existed since 2.7. Version 2.2 is wrong, because support through `@RetryableTopic` arrived with 2.7. Version 1.3 is wrong, because support through `@RetryableTopic` arrived with 2.7.",
+  "citation": "spring-kafka-retrytopic#page-title",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m09-case-c-q06",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f90",
+  "stem": "A Spring for Apache Kafka application uses non-blocking retries for its notification listeners. Which statement from the Spring documentation about those retries is correct?",
+  "key": "Since 3.2 they work with `@KafkaListener` on a class",
+  "distractors": [
+   "They work with batch listeners",
+   "They combine with container transactions",
+   "They need no extra topics or listeners"
+  ],
+  "explanation": "Since 3.2, Spring for Apache Kafka supports non-blocking retries with `@KafkaListener` on a class. Batch listener support is wrong, because non-blocking retries are not supported with batch listeners. Combination with container transactions is wrong, because non-blocking retries cannot combine with container transactions. Needing no extra topics is wrong, because non-blocking retry and dead-letter handling with Kafka usually requires extra topics and corresponding listeners.",
+  "citation": "spring-kafka-retrytopic#page-title",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m09-case-c-q07",
+  "lesson": "m08-l04",
+  "fact": "m08-l04-f45",
+  "stem": "A Kafka producer client in a notification service enables exponential retry backoff and sets no value for `retry.backoff.max.ms`. What is the default of `retry.backoff.max.ms`?",
+  "key": "1000 milliseconds",
+  "distractors": [
+   "100 milliseconds",
+   "500 milliseconds",
+   "30000 milliseconds"
+  ],
+  "explanation": "The default of `retry.backoff.max.ms` is 1000, which is one second. 100 milliseconds is wrong, because the default of `retry.backoff.max.ms` is 1000. 500 milliseconds is wrong, because the default of `retry.backoff.max.ms` is 1000. 30000 milliseconds is wrong, because the default of `retry.backoff.max.ms` is 1000.",
+  "citation": "kafka-producer-configs#retry.backoff.max.ms",
+  "extract": "Default: 1000 (1 second)",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-c-q08",
+  "lesson": "m08-l04",
+  "fact": "m08-l04-f44",
+  "stem": "A Kafka client retries a failed notification request with a computed backoff of 10,000 ms and the randomized jitter factor of 0.2 that Kafka applies. In which range does the actual backoff fall?",
+  "key": "Between 8,000 ms and 12,000 ms",
+  "distractors": [
+   "Between 10,000 ms and 12,000 ms",
+   "Between 9,800 ms and 10,200 ms",
+   "Between 5,000 ms and 15,000 ms"
+  ],
+  "explanation": "Kafka applies a randomized jitter factor of 0.2, so the backoff falls between 20% below and 20% above the computed value. A range only above 10,000 ms is wrong, because the jitter falls between 20% below and 20% above the backoff. A range of 2% either side is wrong, because the jitter factor of 0.2 allows 20% below and 20% above. A range of 50% either side is wrong, because the jitter factor of 0.2 allows 20% below and 20% above.",
+  "citation": "kafka-producer-configs#retry.backoff.max.ms",
+  "extract": "To prevent all clients from being synchronized upon retry, a randomized jitter with a factor of 0.2 will be applied to the backoff, resulting in the backoff falling within a range between 20% below and 20% above the computed value.",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-c-q09",
+  "lesson": "m08-l04",
+  "fact": "m08-l04-f37",
+  "stem": "A notification sender wraps a call in a Resilience4j `Retry` with default settings, and every attempt fails. How many attempts does the `Retry` make in total with the default `maxAttempts`?",
+  "key": "3, counting the initial call as the first attempt",
+  "distractors": [
+   "4, because 3 retries follow the initial call",
+   "2, because the initial call is not retried",
+   "1, because retries must be enabled explicitly"
+  ],
+  "explanation": "In Resilience4j, `maxAttempts` defaults to 3 and counts the initial call as the first attempt. Four attempts is wrong, because `maxAttempts` defaults to 3 and counts the initial call. Two attempts is wrong, because `maxAttempts` defaults to 3 and counts the initial call. A single attempt because retries must be enabled explicitly is wrong, since `maxAttempts` defaults to 3 and counts the initial call.",
+  "citation": "resilience4j-retry#create-and-configure-retry",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m09-case-c-q10",
+  "lesson": "m08-l04",
+  "fact": "m08-l04-f39",
+  "stem": "A notification sender uses a Resilience4j `Retry` configured with no `IntervalFunction`. How does the wait duration between its retry attempts behave by default?",
+  "key": "It stays constant at 500 ms",
+  "distractors": [
+   "It doubles after each failed attempt",
+   "It grows with randomized jitter on every attempt",
+   "It shrinks after each failed attempt"
+  ],
+  "explanation": "By default the wait duration of a Resilience4j `Retry` remains constant, and `waitDuration` defaults to 500 ms. Doubling is wrong, because by default the wait duration of a Resilience4j `Retry` remains constant. Growing jitter is wrong, because by default the wait duration remains constant. Shrinking is wrong, because by default the wait duration remains constant.",
+  "citation": "resilience4j-retry#create-and-configure-retry",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m09-case-c-q11",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f61",
+  "stem": "A notification API documents an operation that requires the `Idempotency-Key` header, and a client calls it without that header. Which HTTP status code SHOULD the resource reply with, according to the IETF draft?",
+  "key": "`400`",
+  "distractors": [
+   "`409`",
+   "`422`",
+   "`404`"
+  ],
+  "explanation": "A missing `Idempotency-Key` on an operation that requires it SHOULD get a `400` reply. `409` is wrong, because that code is for a retry while the original request is still being processed. `422` is wrong, because that code is for reusing a key with a different request payload. `404` is wrong, because the draft says a missing header on such an operation SHOULD get `400`.",
+  "citation": "ietf-httpapi-idempotency-key#content",
+  "extract": "If the Idempotency-Key request header is missing for a documented idempotent operation requiring this header, the resource SHOULD reply with an HTTP 400 status code",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-c-q12",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f75",
+  "stem": "A notification consumer reads a Kafka topic that producers write with transactions, and it keeps the default isolation level. Which messages does the consumer see?",
+  "key": "All messages, even those of aborted transactions",
+  "distractors": [
+   "Only messages from committed transactions",
+   "Only messages of the most recent transaction",
+   "No messages until the transaction coordinator releases them"
+  ],
+  "explanation": "In the default `read_uncommitted` isolation level, all messages are visible to consumers even if they were part of an aborted transaction. Only committed messages is wrong, because that is `read_committed`, while the default `read_uncommitted` shows all messages. Only the latest transaction is wrong, because the default `read_uncommitted` level shows all messages. Waiting for a release is wrong, because the default `read_uncommitted` level shows all messages.",
+  "citation": "kafka-design#message-delivery-semantics",
+  "extract": "In the default “read_uncommitted” isolation level, all messages are visible to consumers even if they were part of an aborted transaction, but in “read_committed” isolation level, the consumer will only return messages from transactions which were committed (and any messages which were not part of a transaction).",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-c-q13",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f70",
+  "stem": "Since Kafka 0.11 a producer can resend a notification after a network error without creating duplicate log entries. How does the broker deduplicate the resent messages?",
+  "key": "It assigns each producer an ID and checks a sequence number sent with each message",
+  "distractors": [
+   "It writes the messages atomically to several partitions in one transaction",
+   "It waits until every in-sync replica has applied the message",
+   "It reads an `Idempotency-Key` HTTP header sent with each record"
+  ],
+  "explanation": "The broker assigns each producer an ID and deduplicates messages using a sequence number sent by the producer along with every message. Atomic multi-partition writes are wrong, because that is the separate transaction feature, which makes all messages be written or none. Waiting for all in-sync replicas is wrong, because that rule only defines when a message is committed. An `Idempotency-Key` header is wrong, because that header makes non-idempotent HTTP methods such as `POST` fault-tolerant, not Kafka records.",
+  "citation": "kafka-design#message-delivery-semantics",
+  "extract": "To achieve this, the broker assigns each producer an ID and deduplicates messages using a sequence number that is sent by the producer along with every message.",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-c-q14",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f67",
+  "stem": "A Kafka partition has a leader and two followers, and all three are in the in-sync replica set. When does Kafka consider a message committed for that partition?",
+  "key": "When every in-sync replica has applied it to its log",
+  "distractors": [
+   "As soon as the leader appends it to its own log",
+   "When a majority of all replicas have acknowledged it",
+   "When a consumer has read it for the first time"
+  ],
+  "explanation": "A message is considered committed only when all replicas in the in-sync replicas (ISR) for that partition have applied it to their log. Leader-only append is wrong, because a message is committed only when all in-sync replicas have applied it. A majority of all replicas is wrong, because the rule uses all replicas in the in-sync set. A first consumer read is wrong, because commitment depends on all in-sync replicas applying it to their log.",
+  "citation": "kafka-design#message-delivery-semantics",
+  "extract": "A message is considered committed only when all replicas in the in-sync replicas (ISR) for that partition have applied it to their log.",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-c-q15",
+  "lesson": "m08-l04",
+  "fact": "m08-l04-f48",
+  "stem": "A notification service uses Spring for Apache Kafka and wants an exponential backoff that stops after a fixed number of retries without computing `maxElapsedTime` by hand. Since which version does `ExponentialBackOffWithMaxRetries` exist?",
+  "key": "2.7.3",
+  "distractors": [
+   "2.2.0",
+   "3.0.0",
+   "2.8.0"
+  ],
+  "explanation": "Since version 2.7.3, Spring for Apache Kafka provides `ExponentialBackOffWithMaxRetries`, which receives `maxRetries` and calculates `maxElapsedTime`. Version 2.2.0 is wrong, because `ExponentialBackOffWithMaxRetries` has been provided since 2.7.3. Version 3.0.0 is wrong, because `ExponentialBackOffWithMaxRetries` has been provided since 2.7.3. Version 2.8.0 is wrong, because `ExponentialBackOffWithMaxRetries` has been provided since 2.7.3.",
+  "citation": "spring-kafka-error-handling#exp-backoff",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m09-case-c-q16",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f76",
+  "stem": "A notification pipeline needs exactly-once processing and wants to stay inside the Kafka ecosystem. Where does Kafka support exactly-once delivery, according to its design documentation?",
+  "key": "In Kafka Streams",
+  "distractors": [
+   "In any consumer that calls an external provider",
+   "In a plain consumer that saves its position before processing",
+   "In a plain consumer that saves its position after processing"
+  ],
+  "explanation": "Kafka supports exactly-once delivery in Kafka Streams. Any consumer calling a provider is wrong, because exactly-once delivery to other destination systems generally requires cooperation with such systems. Saving the position first is wrong, because that order gives at-most-once semantics. Saving the position last is wrong, because that order gives at-least-once semantics.",
+  "citation": "kafka-design#message-delivery-semantics",
+  "extract": "Kafka supports exactly-once delivery in Kafka Streams",
+  "snippet": null
+ }
+]

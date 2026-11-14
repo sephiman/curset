@@ -1,0 +1,242 @@
+[
+ {
+  "id": "m09-case-e-q01",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f117",
+  "stem": "A URL shortener runs on 20 nodes that all mint identifiers for new short links. According to RFC 9562, which statement about UUIDs in distributed systems is correct?",
+  "key": "UUIDs give unique, reasonably short values without coordination",
+  "distractors": [
+   "Coordinating sequential identifiers across the network is cheap",
+   "UUIDv4 values have good database-index locality",
+   "UUIDv1 timestamps use the familiar Unix Epoch"
+  ],
+  "explanation": "UUIDs can be used to create unique, reasonably short values in distributed systems without requiring coordination. Cheap coordination is wrong, because the effort to coordinate sequential numeric identifiers across a network can easily become a burden. Good index locality is wrong, because UUID versions that are not time ordered, such as UUIDv4, have poor database-index locality. A Unix Epoch for UUIDv1 is wrong, because its 100-nanosecond Gregorian Epoch is uncommon and difficult to represent accurately.",
+  "citation": "rfc9562#section-2.1",
+  "extract": "The fact that UUIDs can be used to create unique, reasonably short values in distributed systems without requiring coordination makes them a good alternative",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-e-q02",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f120",
+  "stem": "A link table uses a random UUIDv4 as its primary key and receives thousands of inserts per second in a B-tree index. What problem does RFC 9562 describe for such identifiers?",
+  "key": "New values are not close to each other, so inserts land at random index locations",
+  "distractors": [
+   "Their node field exposes MAC addresses that locate network interfaces",
+   "Their time-ordered value field makes every insert hit the newest page",
+   "Their Gregorian Epoch timestamp is hard to represent accurately"
+  ],
+  "explanation": "UUID versions that are not time ordered, such as UUIDv4, have poor database-index locality: new values are not close to each other, so inserts happen at random locations. Exposed MAC addresses is wrong for UUIDv4, because the exposed MAC address problem belongs to the node field of UUIDv1. A time-ordered value field is wrong for UUIDv4, because the time-ordered field is a feature of UUIDv7 and UUIDv4 is not time ordered. A Gregorian Epoch timestamp is wrong for UUIDv4, because the Gregorian Epoch is used by UUIDv1 timestamps.",
+  "citation": "rfc9562#section-2.1",
+  "extract": "new values created in succession are not close to each other in the index; thus, they require inserts to be performed at random locations.",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-e-q03",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f124",
+  "stem": "A service generates UUIDv7 identifiers for short links. According to RFC 9562, which timestamp does a UUIDv7 allocate in its most significant 48 bits?",
+  "key": "A Unix timestamp in milliseconds",
+  "distractors": [
+   "A Unix timestamp in whole seconds",
+   "A Gregorian Epoch timestamp in 100-nanosecond units",
+   "A custom epoch chosen by each service"
+  ],
+  "explanation": "UUIDv7 allocates a Unix timestamp in milliseconds in the most significant 48 bits. Whole seconds is wrong, because UUIDv7 features millisecond precision by default within the Unix Epoch. A Gregorian Epoch is wrong, because UUIDv1 and UUIDv6 use it while UUIDv7 uses a Unix Epoch timestamp. A custom epoch is wrong, because if a custom timestamp Epoch is required UUIDv8 MUST be used.",
+  "citation": "rfc9562#section-5.7",
+  "extract": "UUIDv7 values are created by allocating a Unix timestamp in milliseconds in the most significant 48 bits and filling the remaining 74 bits, excluding the required version and variant bits, with random bits for each new UUIDv7 generated to provide uniqueness",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-e-q04",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f126",
+  "stem": "A team needs time-ordered identifiers for a link table and may pick any UUID version, with no custom epoch required. According to RFC 9562, which version SHOULD implementations use if possible?",
+  "key": "UUIDv7",
+  "distractors": [
+   "UUIDv1",
+   "UUIDv6",
+   "UUIDv8"
+  ],
+  "explanation": "Implementations SHOULD utilize UUIDv7 instead of UUIDv1 and UUIDv6 if possible. UUIDv1 is wrong, because implementations SHOULD use UUIDv7 instead of UUIDv1 and UUIDv6. UUIDv6 is wrong, because implementations SHOULD use UUIDv7 instead of UUIDv1 and UUIDv6. UUIDv8 is wrong, because it MUST be used only if other timestamp sources or a custom timestamp Epoch are required.",
+  "citation": "rfc9562#section-5.7",
+  "extract": "Implementations SHOULD utilize UUIDv7 instead of UUIDv1 and UUIDv6 if possible.",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-e-q05",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f128",
+  "stem": "A short-link service must derive the timestamp of its identifiers from a custom timestamp epoch of its own. Which UUID version does RFC 9562 say MUST be used?",
+  "key": "UUIDv8",
+  "distractors": [
+   "UUIDv7",
+   "UUIDv4",
+   "UUIDv1"
+  ],
+  "explanation": "If other timestamp sources or a custom timestamp Epoch are required, UUIDv8 MUST be used. UUIDv7 is wrong, because a custom timestamp Epoch requires UUIDv8. UUIDv4 is wrong, because a custom timestamp Epoch requires UUIDv8. UUIDv1 is wrong, because a custom timestamp Epoch requires UUIDv8.",
+  "citation": "rfc9562#section-6.1",
+  "extract": "If other timestamp sources or a custom timestamp Epoch are required, UUIDv8 MUST be used.",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-e-q06",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f130",
+  "stem": "A short-link service plans to keep UUIDv7 identifiers for decades. According to RFC 9562, until which year is the 48-bit timestamp of a UUIDv7 valid?",
+  "key": "The year 10889 AD",
+  "distractors": [
+   "The year 2038 AD",
+   "The year 2106 AD",
+   "The year 5138 AD"
+  ],
+  "explanation": "UUIDv7 features a 48-bit timestamp valid until the year 10889 AD. The year 2038 is wrong, because the 48-bit timestamp is valid until the year 10889 AD. The year 2106 is wrong, because the 48-bit timestamp is valid until the year 10889 AD. The year 5138 is wrong, because the 48-bit timestamp is valid until the year 10889 AD.",
+  "citation": "rfc9562#section-6.1",
+  "extract": "UUIDv7 features a 48-bit timestamp valid until the year 10889 AD.",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-e-q07",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f132",
+  "stem": "A short-link store runs on Redis Cluster and spreads keys across its nodes. Into how many slots is the key space of a Redis Cluster split?",
+  "key": "16384",
+  "distractors": [
+   "1024",
+   "4096",
+   "65536"
+  ],
+  "explanation": "The key space of a Redis Cluster is split into 16384 slots. 1024 slots is wrong, because the key space of a Redis Cluster is split into 16384 slots. 4096 slots is wrong, because the key space of a Redis Cluster is split into 16384 slots. 65536 slots is wrong, because only 14 of the 16 CRC16 output bits are used, which gives 16384 slots.",
+  "citation": "redis-cluster-spec#key-distribution-model",
+  "extract": "key space is split into 16384 slots",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-e-q08",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f133",
+  "stem": "A short-link store on Redis Cluster must find the hash slot of the key `abc123`. Which formula does the Redis Cluster specification give as the base algorithm for mapping keys to hash slots?",
+  "key": "`HASH_SLOT = CRC16(key) mod 16384`",
+  "distractors": [
+   "`HASH_SLOT = CRC32(key) mod 1024`",
+   "`HASH_SLOT = SHA1(key) mod 16384`",
+   "`HASH_SLOT = CRC16(key) mod 65536`"
+  ],
+  "explanation": "The base algorithm is `HASH_SLOT = CRC16(key) mod 16384`. A CRC32 formula modulo 1024 is wrong, because the base algorithm is `CRC16(key) mod 16384`. A SHA1 formula is wrong, because the base algorithm uses `CRC16(key)`. A modulo of 65536 is wrong, because only 14 of the 16 CRC16 output bits are used, which is why the modulo is 16384.",
+  "citation": "redis-cluster-spec#key-distribution-model",
+  "extract": "The base algorithm used to map keys to hash slots is the following (read the next paragraph for the hash tag exception to this rule): HASH_SLOT = CRC16(key) mod 16384",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-e-q09",
+  "lesson": "m09-l02",
+  "fact": "m09-l02-f74",
+  "stem": "A short-link store is sharded over several Redis Cluster nodes. According to the Redis documentation, how does Redis Cluster map each key to a node?",
+  "key": "Each key belongs to a hash slot, not to a consistent hashing ring",
+  "distractors": [
+   "It places keys on a consistent hashing ring with virtual nodes",
+   "It assigns keys to range partitions with explicit bounds",
+   "It assigns keys to list partitions naming the key values"
+  ],
+  "explanation": "Redis Cluster does not use consistent hashing, but a form of sharding where every key is conceptually part of a hash slot. A consistent hashing ring is wrong, because Redis Cluster does not use consistent hashing. Range partitions are wrong, because Redis Cluster uses a form of sharding in which every key is part of a hash slot. List partitions are wrong, because every key is conceptually part of a hash slot.",
+  "citation": "redis-scaling#redis-cluster-data-sharding",
+  "extract": "Redis Cluster does not use consistent hashing, but a different form of sharding where every key is conceptually part of what we call a hash slot",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-e-q10",
+  "lesson": "m09-l02",
+  "fact": "m09-l02-f83",
+  "stem": "A short-link store on Redis Cluster uses the key `{user1000}.following`. According to the Redis documentation, which part of that key is hashed to obtain its hash slot?",
+  "key": "Only `user1000`, the substring between the braces",
+  "distractors": [
+   "The whole string `{user1000}.following`",
+   "Only `.following`, the part after the braces",
+   "Only `following`, without the dot"
+  ],
+  "explanation": "If the key contains a `{...}` pattern, only the substring between `{` and `}` is hashed to obtain the hash slot. The whole string is wrong, because when the key has a `{...}` pattern only the substring between `{` and `}` is hashed. The part after the braces is wrong, because only the substring between `{` and `}` is hashed. The word `following` is wrong, because only the substring between `{` and `}` is hashed.",
+  "citation": "redis-cluster-spec#hash-tags",
+  "extract": "If the key contains a \"{...}\" pattern only the substring between { and } is hashed in order to obtain the hash slot",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-e-q11",
+  "lesson": "m09-l02",
+  "fact": "m09-l02-f95",
+  "stem": "Dynamo-style consistent hashing places each node at a random point on the ring, which leaves data and load unevenly spread. How does Dynamo address that problem?",
+  "key": "It assigns each node to multiple points on the ring as virtual nodes",
+  "distractors": [
+   "It maps each node to exactly one point on the ring",
+   "It replaces the ring with a fixed set of 16384 hash slots",
+   "It gives every node the same number of virtual nodes whatever its capacity"
+  ],
+  "explanation": "Each node in Dynamo gets assigned to multiple points in the ring, using the concept of virtual nodes. One point per node is wrong, because instead of mapping a node to a single point each node gets multiple points on the ring. Replacing the ring with 16384 hash slots is wrong, because that is the Redis Cluster scheme, which does not use consistent hashing, while Dynamo relies on it. An equal number of virtual nodes is wrong, because the number of virtual nodes can be decided based on the capacity of a node.",
+  "citation": "paper-dynamo#p6",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m09-case-e-q12",
+  "lesson": "m09-l02",
+  "fact": "m09-l02-f92",
+  "stem": "A short-link service uses a consistent hashing ring to place its keys, and one node leaves the ring. According to the Dynamo paper, whom does the departure of a node affect?",
+  "key": "Only its immediate neighbours on the ring",
+  "distractors": [
+   "Every node on the ring, which all remap their keys",
+   "Only the nodes on the opposite side of the ring",
+   "No node at all, because the keys are lost"
+  ],
+  "explanation": "The principal advantage of consistent hashing is that departure or arrival of a node only affects its immediate neighbours. Every node is wrong, because departure or arrival of a node only affects its immediate neighbours and other nodes remain unaffected. The opposite side is wrong, because only the immediate neighbours are affected. No effect is wrong, because the immediate neighbours of the departing node are affected.",
+  "citation": "paper-dynamo#p6",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m09-case-e-q13",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f131",
+  "stem": "A UUID generator is asked for more UUIDs within one system-time interval than it can produce uniquely. What does RFC 9562 allow the UUID service to do?",
+  "key": "Return an error or stall until the system clock catches up",
+  "distractors": [
+   "Return the previous UUID again for the extra requests",
+   "Return a duplicate and log a warning for the operator",
+   "Return the same UUID to every caller in that interval"
+  ],
+  "explanation": "The UUID service can return an error or stall the generator until the system clock catches up, and MUST NOT knowingly return duplicate values. Returning the previous UUID is wrong, because the service MUST NOT knowingly return duplicate values. Returning a duplicate with a warning is wrong, because the service MUST NOT knowingly return duplicate values. Returning one UUID to every caller is wrong, because the service MUST NOT knowingly return duplicate values.",
+  "citation": "rfc9562#section-6.1",
+  "extract": "If a system overruns the generator by requesting too many UUIDs within a single system-time interval, the UUID service can return an error or stall the UUID generator until the system clock catches up and MUST NOT knowingly return duplicate values due to a counter rollover.",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-e-q14",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f135",
+  "stem": "A short-link store runs a stable Redis Cluster with no resharding in progress. According to the Redis Cluster specification, how many nodes serve a given hash slot?",
+  "key": "A single node",
+  "distractors": [
+   "Every node of the cluster",
+   "Exactly two nodes sharing the load",
+   "Three nodes chosen by majority"
+  ],
+  "explanation": "When the cluster is stable, a single hash slot is served by a single node. Every node is wrong, because a single hash slot is served by a single node when the cluster is stable. Two nodes is wrong, because a single hash slot is served by a single node when the cluster is stable. Three nodes is wrong, because a single hash slot is served by a single node when the cluster is stable.",
+  "citation": "redis-cluster-spec#key-distribution-model",
+  "extract": "When the cluster is stable, a single hash slot will be served by a single node",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-e-q15",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f134",
+  "stem": "In the Redis Cluster formula that maps a key to a hash slot, the CRC16 value is reduced modulo 16384. How many of the 16 CRC16 output bits does Redis Cluster use?",
+  "key": "14",
+  "distractors": [
+   "16",
+   "12",
+   "10"
+  ],
+  "explanation": "14 out of 16 CRC16 output bits are used, which is why the formula has a modulo 16384 operation. Using all 16 bits is wrong, because only 14 out of 16 CRC16 output bits are used. Using 12 bits is wrong, because the specification counts 14 bits. Using 10 bits is wrong, because the specification counts 14 bits.",
+  "citation": "redis-cluster-spec#key-distribution-model",
+  "extract": "14 out of 16 CRC16 output bits are used (this is why there is a modulo 16384 operation in the formula above).",
+  "snippet": null
+ }
+]

@@ -1,0 +1,201 @@
+m09-case-a-q01:
+  key:
+    anchor: redis-rate-limiter#why-the-problem-is-hard
+    sentence: The rate limiter needs a centralized store fast enough to sit on the request path without adding meaningful latency.
+  wrong:
+  - option: Hold counters for the client IP address only, never for API keys or tenants
+    anchor: redis-rate-limiter#how-redis-supports-the-solution
+    sentence: Counters live behind keys scoped to the dimension you are limiting on (user, IP, API key, tenant, model)
+  - option: Remove expired counters only through a cleanup job that the team schedules
+    anchor: redis-rate-limiter#how-redis-supports-the-solution
+    sentence: INCR and EXPIRE give you atomic fixed-window counters with automatic time-window cleanup.
+  - option: Keep one counter per instance so that instances never need to coordinate
+    anchor: redis-rate-limiter#why-the-problem-is-hard
+    sentence: 'Local per-process counters break behind load balancers: the same client bypasses limits by hitting different instances.'
+m09-case-a-q02:
+  key:
+    anchor: resilience4j-ratelimiter#internals
+    sentence: The default implementation of RateLimiter is AtomicRateLimiter which manages its state via AtomicReference.
+  wrong:
+  - option: '`SemaphoreBasedRateLimiter`'
+    anchor: resilience4j-ratelimiter#internals
+    sentence: The default implementation of RateLimiter is AtomicRateLimiter which manages its state via AtomicReference.
+    exclusive: true
+  - option: '`TokenBucketRateLimiter`'
+    anchor: resilience4j-ratelimiter#internals
+    sentence: The default implementation of RateLimiter is AtomicRateLimiter which manages its state via AtomicReference.
+    exclusive: true
+  - option: '`FixedWindowRateLimiter`'
+    anchor: resilience4j-ratelimiter#internals
+    sentence: The default implementation of RateLimiter is AtomicRateLimiter which manages its state via AtomicReference.
+    exclusive: true
+m09-case-a-q03:
+  key:
+    anchor: resilience4j-ratelimiter#internals
+    sentence: activeCycle - cycle number that was used by the last call
+  wrong:
+  - option: The count of permissions available after the last call
+    anchor: resilience4j-ratelimiter#internals
+    sentence: activePermissions - count of available permissions after the last call. Can be negative if some permissions were reserved
+  - option: The count of nanoseconds to wait for permission on the last call
+    anchor: resilience4j-ratelimiter#internals
+    sentence: nanosToWait - count of nanoseconds to wait for permission for the last call
+  - option: The duration of one cycle configured in `limitRefreshPeriod`
+    anchor: resilience4j-ratelimiter#internals
+    sentence: Each cycle has a duration configured by RateLimiterConfig.limitRefreshPeriod.
+m09-case-a-q04:
+  key:
+    anchor: ietf-httpapi-ratelimit-headers#content
+    sentence: If a response contains both the RateLimit and Retry-After fields, the Retry-After field MUST take precedence and the effective window MAY be ignored.
+  wrong:
+  - option: '`RateLimit`, because it carries the quota currently available'
+    anchor: ietf-httpapi-ratelimit-headers#content
+    sentence: If a response contains both the RateLimit and Retry-After fields, the Retry-After field MUST take precedence and the effective window MAY be ignored.
+    exclusive: true
+  - option: '`RateLimit-Policy`, because the policy is defined by the server'
+    anchor: ietf-httpapi-ratelimit-headers#content
+    sentence: If a response contains both the RateLimit and Retry-After fields, the Retry-After field MUST take precedence and the effective window MAY be ignored.
+    exclusive: true
+  - option: Whichever of the two fields appears first in the response
+    anchor: ietf-httpapi-ratelimit-headers#content
+    sentence: If a response contains both the RateLimit and Retry-After fields, the Retry-After field MUST take precedence and the effective window MAY be ignored.
+    exclusive: true
+m09-case-a-q05:
+  key:
+    anchor: ietf-httpapi-ratelimit-headers#content
+    sentence: The field value SHOULD remain consistent over a sequence of HTTP responses. It is this characteristic that differentiates it from the RateLimit (Section 4) field that contains information that MAY change on every request.
+  wrong:
+  - option: '`RateLimit`'
+    anchor: ietf-httpapi-ratelimit-headers#content
+    sentence: The field value SHOULD remain consistent over a sequence of HTTP responses. It is this characteristic that differentiates it from the RateLimit (Section 4) field that contains information that MAY change on every request.
+    exclusive: true
+  - option: Both `RateLimit-Policy` and `RateLimit`
+    anchor: ietf-httpapi-ratelimit-headers#content
+    sentence: The field value SHOULD remain consistent over a sequence of HTTP responses. It is this characteristic that differentiates it from the RateLimit (Section 4) field that contains information that MAY change on every request.
+    exclusive: true
+  - option: Neither field, since the draft sets no consistency rule
+    anchor: ietf-httpapi-ratelimit-headers#content
+    sentence: The field value SHOULD remain consistent over a sequence of HTTP responses. It is this characteristic that differentiates it from the RateLimit (Section 4) field that contains information that MAY change on every request.
+    exclusive: true
+m09-case-a-q06:
+  key:
+    anchor: ietf-httpapi-ratelimit-headers#content
+    sentence: The default quota unit is "requests".
+  wrong:
+  - option: '`content-bytes`'
+    anchor: ietf-httpapi-ratelimit-headers#content
+    sentence: The default quota unit is "requests".
+    exclusive: true
+  - option: '`concurrent-requests`'
+    anchor: ietf-httpapi-ratelimit-headers#content
+    sentence: The default quota unit is "requests".
+    exclusive: true
+  - option: '`tokens`'
+    anchor: ietf-httpapi-ratelimit-headers#content
+    sentence: 'This specification defines three quota units:'
+m09-case-a-q07:
+  key:
+    anchor: ietf-httpapi-ratelimit-headers#content
+    sentence: The time window MUST be a non-negative, non-zero, Integer value expressing an interval in seconds
+  wrong:
+  - option: A number of milliseconds such as 1500
+    anchor: ietf-httpapi-ratelimit-headers#content
+    sentence: Sub-second precision is not supported.
+  - option: An ISO 8601 duration such as `PT1M`
+    anchor: ietf-httpapi-ratelimit-headers#content
+    sentence: The time window MUST be a non-negative, non-zero, Integer value expressing an interval in seconds
+    exclusive: true
+  - option: The name of a quota unit such as `requests`
+    anchor: ietf-httpapi-ratelimit-headers#content
+    sentence: The REQUIRED "q" parameter indicates the quota allocated by this policy measured in quota units.
+m09-case-a-q08:
+  key:
+    anchor: ietf-httpapi-ratelimit-headers#content
+    sentence: This specification does not mandate a specific throttling algorithm.
+  wrong:
+  - option: Token bucket only, because quota `q` is consumed by requests
+    anchor: ietf-httpapi-ratelimit-headers#content
+    sentence: This specification does not mandate a specific throttling algorithm.
+    exclusive: true
+  - option: Fixed window only, because the window `w` is a number of seconds
+    anchor: ietf-httpapi-ratelimit-headers#content
+    sentence: This specification does not mandate a specific throttling algorithm.
+    exclusive: true
+  - option: Sliding window only, because `RateLimit` reports the remaining quota
+    anchor: ietf-httpapi-ratelimit-headers#content
+    sentence: This specification does not mandate a specific throttling algorithm.
+    exclusive: true
+m09-case-a-q09:
+  key:
+    anchor: kafka-design#quotas
+    sentence: Request rate quotas define CPU utilization thresholds as a percentage of network and I/O threads (since 0.11)
+  wrong:
+  - option: A byte-rate threshold in bytes per second
+    anchor: kafka-design#quotas
+    sentence: Network bandwidth quotas define byte-rate thresholds (since 0.9)
+  - option: A maximum count of requests per second
+    anchor: kafka-design#quotas
+    sentence: Request rate quotas define CPU utilization thresholds as a percentage of network and I/O threads (since 0.11)
+    exclusive: true
+  - option: A maximum number of open connections per client group
+    anchor: kafka-design#quotas
+    sentence: Request rate quotas define CPU utilization thresholds as a percentage of network and I/O threads (since 0.11)
+    exclusive: true
+m09-case-a-q10:
+  key:
+    anchor: kafka-design#enforcement
+    sentence: Byte-rate and thread utilization are measured over multiple small windows (e.g. 30 windows of 1 second each) in order to detect and correct quota violations quickly.
+  wrong:
+  - option: To smooth traffic, since large windows average bursts out
+    anchor: kafka-design#enforcement
+    sentence: Typically, having large measurement windows (for e.g. 10 windows of 30 seconds each) leads to large bursts of traffic followed by long delays
+  - option: To share one quota across all brokers of the cluster
+    anchor: kafka-design#enforcement
+    sentence: By default, each unique client group receives a fixed quota as configured by the cluster. This quota is defined on a per-broker basis.
+  - option: To let a throttled client keep sending without being blocked
+    anchor: kafka-design#enforcement
+    sentence: Therefore, requests from a throttled client are effectively blocked from both sides.
+m09-case-a-q11:
+  key:
+    anchor: resilience4j-ratelimiter#internals
+    sentence: There is also a SemaphoreBasedRateLimiter which uses Semaphores and a scheduler that will refresh permissions after each RateLimiterConfig#limitRefreshPeriod.
+  wrong:
+  - option: '`AtomicRateLimiter`'
+    anchor: resilience4j-ratelimiter#internals
+    sentence: The default implementation of RateLimiter is AtomicRateLimiter which manages its state via AtomicReference.
+  - option: '`SemaphoreBulkhead`'
+    anchor: resilience4j-bulkhead#introduction
+    sentence: 'Resilience4j provides two implementations of a bulkhead pattern that can be used to limit the number of concurrent execution: a SemaphoreBulkhead which uses Semaphores a FixedThreadPoolBulkhead which uses a bounded queue and a fixed thread pool.'
+  - option: '`TimeLimiter`'
+    anchor: resilience4j-timeout#create-and-configure-timelimiter
+    sentence: the timeout duration whether cancel should be called on the running future
+m09-case-a-q12:
+  key:
+    anchor: ietf-httpapi-ratelimit-headers#content
+    sentence: defines the RateLimit-Policy and RateLimit HTTP header fields for servers to advertise their quota policies and the current service limits, thereby allowing clients to avoid being throttled
+  wrong:
+  - option: Mandate one throttling algorithm that every client must follow
+    anchor: ietf-httpapi-ratelimit-headers#content
+    sentence: This specification does not mandate a specific throttling algorithm.
+  - option: Replace `Retry-After`, which they make obsolete on `429` responses
+    anchor: ietf-httpapi-ratelimit-headers#content
+    sentence: If a response contains both the RateLimit and Retry-After fields, the Retry-After field MUST take precedence and the effective window MAY be ignored.
+  - option: Advertise windows with millisecond precision
+    anchor: ietf-httpapi-ratelimit-headers#content
+    sentence: Sub-second precision is not supported.
+m09-case-a-q13:
+  key:
+    anchor: redis-rate-limiter#how-redis-supports-the-solution
+    sentence: Counters live behind keys scoped to the dimension you are limiting on (user, IP, API key, tenant, model)
+  wrong:
+  - option: By client IP address only, whatever the limited dimension
+    anchor: redis-rate-limiter#how-redis-supports-the-solution
+    sentence: Counters live behind keys scoped to the dimension you are limiting on (user, IP, API key, tenant, model)
+    exclusive: true
+  - option: By API key only, with tenants derived afterwards
+    anchor: redis-rate-limiter#how-redis-supports-the-solution
+    sentence: Counters live behind keys scoped to the dimension you are limiting on (user, IP, API key, tenant, model)
+    exclusive: true
+  - option: By instance identifier, so each instance keeps its own counters
+    anchor: redis-rate-limiter#why-the-problem-is-hard
+    sentence: 'Local per-process counters break behind load balancers: the same client bypasses limits by hitting different instances.'

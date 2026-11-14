@@ -1,0 +1,167 @@
+[
+ {
+  "id": "m01-l04-q01",
+  "fact": "m01-l04-f06",
+  "stem": "In Spring Framework's default proxy mode, `a()` of a bean calls `this.b()`, and `b()` is annotated `@Transactional`. What does the Spring reference say about a transaction for `b()` in that call?",
+  "key": "Self-invocation does not lead to an actual transaction at runtime, even though `b()` is marked `@Transactional`",
+  "distractors": [
+   "The annotation on `b()` is enough to activate the transactional behavior, so a transaction starts",
+   "The proxy intercepts the call that `a()` makes on its own bean, so a transaction starts for `b()`",
+   "Spring rejects the call with an exception, because self-invocation of an annotated method is not allowed"
+  ],
+  "explanation": "In proxy mode, self-invocation does not lead to an actual transaction even if the invoked method is marked `@Transactional`. The claim that the annotation alone starts a transaction is wrong, because the mere presence of `@Transactional` is not enough to activate transactional behavior. The claim that the proxy intercepts the call is wrong, because in proxy mode only external method calls coming in through the proxy are intercepted. The claim that Spring rejects the call is wrong, because a self invocation through `this` bypasses the advice and the call simply proceeds.",
+  "citation": "spring-fw-tx-declarative-annotations#using-transactional; spring-fw-aop-proxying#aop-understanding-aop-proxies",
+  "extract": "This means that self-invocation (in effect, a method within the target object calling another method of the target object) does not lead to an actual transaction at runtime even if the invoked method is marked with @Transactional.",
+  "snippet": null
+ },
+ {
+  "id": "m01-l04-q02",
+  "fact": "m01-l04-f20",
+  "stem": "In Java 25, what happens to the common pool returned by `ForkJoinPool.commonPool()` and to its ongoing processing when the program calls `System.exit(int)`?",
+  "key": "They are automatically terminated",
+  "distractors": [
+   "The pool waits for its ongoing processing to complete before the program terminates",
+   "The pool keeps running until `shutdownNow()` is called on it",
+   "The pool keeps the program alive, because its worker threads are not daemon threads"
+  ],
+  "explanation": "The common pool and any ongoing processing are automatically terminated upon `System.exit(int)`. The claim that the pool waits is wrong, because a program that needs asynchronous tasks to complete before termination should invoke `commonPool().awaitQuiescence` before exit. The claim that the pool runs until `shutdownNow()` is wrong, because its run state is unaffected by attempts to `shutdown()` or `shutdownNow()`. The claim that the workers keep the program alive is wrong, because all worker threads are initialized with `Thread.isDaemon()` set to true.",
+  "citation": "javadoc-forkjoinpool#commonPool(); javadoc-forkjoinpool#class-forkjoinpool",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m01-l04-q03",
+  "fact": "m01-l04-f09",
+  "stem": "A JDK dynamic proxy handler records each intercepted method name, and the target's `foo()` calls `this.bar()`. The list is printed after `pojo.foo()` and printed again, after being cleared, following `pojo.bar()`. What is printed?",
+  "key": "[foo]\n[bar]",
+  "distractors": [
+   "[foo, bar]\n[bar]",
+   "[bar]\n[bar]",
+   "[foo]\n[]"
+  ],
+  "explanation": "The first list is `[foo]`, because `this.bar()` inside `foo` is invoked against the target and never reaches the handler. The second list is `[bar]`, because the direct call on the proxy is intercepted. The lines [foo, bar] [bar] are wrong because the inner call through `this` bypasses the proxy and never reaches the handler. The lines [bar] [bar] are wrong because the handler sees the outer call to `foo` made on the proxy. The lines [foo] [] are wrong because the call to `bar` made on the proxy is intercepted.",
+  "citation": "spring-fw-aop-proxying#aop-understanding-aop-proxies",
+  "extract": "In other words, self invocation via an explicit or implicit this reference will bypass the advice.",
+  "snippet": "m01-l04/SelfInvocation.java"
+ },
+ {
+  "id": "m01-l04-q04",
+  "fact": "m01-l04-f22",
+  "stem": "A program calls `CompletableFuture.supplyAsync` with no executor and prints whether the thread name starts with `ForkJoinPool.commonPool-worker-`, then whether that thread is a daemon, then `isShutdown()` after `shutdown()` on the common pool, then a second task's result. What does it print?",
+  "key": "true\ntrue\nfalse\nstill runs",
+  "distractors": [
+   "true\nfalse\nfalse\nstill runs",
+   "true\ntrue\ntrue\nstill runs",
+   "false\ntrue\nfalse\nstill runs"
+  ],
+  "explanation": "The task runs in a `ForkJoinPool.commonPool-worker-` thread, so the name check prints `true`, and that worker is a daemon thread, so the second line is `true`. The common pool's run state is unaffected by `shutdown()`, so `isShutdown()` prints `false`, and the next task prints `still runs`. The output true false false still runs is wrong because the worker threads are daemon threads. The output true true true still runs is wrong because `shutdown()` does not change the run state of the common pool. The output false true false still runs is wrong because the task runs in the common pool.",
+  "citation": "javadoc-forkjoinpool#commonPool()",
+  "extract": null,
+  "snippet": "m01-l04/CommonPoolDefault.java"
+ },
+ {
+  "id": "m01-l04-q05",
+  "fact": "m01-l04-f34",
+  "stem": "The main thread interrupts itself and prints `Thread.interrupted()` twice. It then sleeps while interrupted inside a catch block that ignores the exception, and again inside one that calls `interrupt()`. Each catch block prints the status. What is printed?",
+  "key": "true\nfalse\ncaught, status false\ncaught, status true",
+  "distractors": [
+   "true\ntrue\ncaught, status true\ncaught, status true",
+   "true\nfalse\ncaught, status true\ncaught, status true",
+   "true\nfalse\ncaught, status false\ncaught, status false"
+  ],
+  "explanation": "The first call returns `true` and clears the status, so the second returns `false`. The `InterruptedException` arrives with the status already cleared, so the catch block that ignores it prints `caught, status false`, and the one that calls `interrupt()` again prints `caught, status true`. The output true true caught, status true caught, status true is wrong because `Thread.interrupted()` clears the status on the first call. The output true false caught, status true caught, status true is wrong because the exception arrives with the status already cleared, so the ignoring block sees a cleared status. The output true false caught, status false caught, status false is wrong because the second block calls `interrupt()` again and sets the status.",
+  "citation": "javadoc-thread#interrupted()",
+  "extract": null,
+  "snippet": "m01-l04/InterruptStatus.java"
+ },
+ {
+  "id": "m01-l04-q06",
+  "fact": "m01-l04-f11",
+  "stem": "According to the Spring Framework reference, why do `AspectJ` compile-time weaving and load-time weaving not have the self-invocation issue that Spring AOP proxies have?",
+  "key": "They apply advice within the bytecode instead of via a proxy",
+  "distractors": [
+   "They wrap the `this` reference in a proxy that is injected into the target at startup",
+   "They apply advice only to calls that enter through a method declared on a public interface",
+   "They have the same issue, so inner calls need the self-injection workaround as well"
+  ],
+  "explanation": "`AspectJ` compile-time weaving and load-time weaving apply advice within the bytecode instead of via a proxy. The claim that they inject a proxy is wrong, because with `AspectJ` mode there is no proxy in the first place. The claim that only public interface methods are advised is wrong, because the woven target class supports `@Transactional` behavior on any kind of method. The claim that they share the issue is wrong, because the reference states that they do not have this self-invocation issue.",
+  "citation": "spring-fw-aop-proxying#aop-understanding-aop-proxies; spring-fw-tx-declarative-annotations#using-transactional",
+  "extract": "AspectJ compile-time weaving and load-time weaving do not have this self-invocation issue because they apply advice within the bytecode instead of via a proxy.",
+  "snippet": null
+ },
+ {
+  "id": "m01-l04-q07",
+  "fact": "m01-l04-f04",
+  "stem": "Among the ways the Spring Framework reference lists to deal with self invocation in proxied beans, which one does it describe as highly discouraged, hesitating even to point it out?",
+  "key": "Calling `AopContext.currentProxy()` from inside the class",
+  "distractors": [
+   "Refactoring the code so that the self invocation does not happen",
+   "Injecting a self reference and invoking the methods through it instead of through `this`",
+   "Switching to `AspectJ` mode, which weaves the target class and uses no proxy"
+  ],
+  "explanation": "The reference calls `AopContext.currentProxy()` highly discouraged, as a last resort that couples the class to Spring AOP. Refactoring is wrong because the reference calls it the best, least-invasive approach. Self injection is wrong because the reference offers it as an alternative approach. `AspectJ` mode is wrong because the reference suggests considering it when self-invocations should be wrapped with transactions.",
+  "citation": "spring-fw-aop-proxying#aop-understanding-aop-proxies; spring-fw-tx-declarative-annotations#using-transactional",
+  "extract": "This last approach is highly discouraged, and we hesitate to point it out, in favor of the previous options.",
+  "snippet": null
+ },
+ {
+  "id": "m01-l04-q08",
+  "fact": "m01-l04-f07",
+  "stem": "In the Spring Framework reference's programmatic configuration examples for `@Transactional`, what switches on actual transaction management at runtime, given that the annotation is merely metadata?",
+  "key": "The `@EnableTransactionManagement` annotation",
+  "distractors": [
+   "The `@Transactional` annotation itself, as soon as the bean is defined",
+   "The `<tx:annotation-driven/>` element placed in the same programmatic configuration",
+   "A `DataSourceTransactionManager` bean declared in the configuration class and nothing else"
+  ],
+  "explanation": "In programmatic configuration, the `@EnableTransactionManagement` annotation switches on actual transaction management at runtime. The claim that `@Transactional` alone does it is wrong, because the mere presence of the annotation is not enough. The claim about `<tx:annotation-driven/>` is wrong, because that element switches transactions on in the XML configuration, not in programmatic configuration. The claim about the manager bean alone is wrong, because the annotation is what switches transaction management on and then uses a `TransactionManager` bean.",
+  "citation": "spring-fw-tx-declarative-annotations#using-transactional",
+  "extract": "In the preceding examples that use programmatic configuration, the @EnableTransactionManagement annotation switches on actual transaction management at runtime.",
+  "snippet": null
+ },
+ {
+  "id": "m01-l04-q09",
+  "fact": "m01-l04-f08",
+  "stem": "In Spring Framework 7 proxy mode, why does the reference advise against relying on `@Transactional` in initialization code, such as a `@PostConstruct` method?",
+  "key": "The proxy must be fully initialized to provide the expected behavior",
+  "distractors": [
+   "Only methods with `public` visibility can be made transactional, for any kind of proxy",
+   "Only `jakarta.transaction.Transactional` is honored there, and Spring's own annotation is ignored",
+   "The annotation applies only to interface definitions and never to methods of a class"
+  ],
+  "explanation": "The reference gives the proxy as the reason: it must be fully initialized to provide the expected behavior. The claim that only `public` methods qualify is wrong, because since 6.0 protected or package-visible methods can be transactional for class-based proxies by default. The claim that only the jakarta annotation is honored is wrong, because `jakarta.transaction.Transactional` is supported as a drop-in replacement for Spring's own annotation, not in place of it. The claim about interface definitions is wrong, because the annotation can be applied to a class definition or a method on a class.",
+  "citation": "spring-fw-tx-declarative-annotations#using-transactional",
+  "extract": "the proxy must be fully initialized to provide the expected behavior",
+  "snippet": null
+ },
+ {
+  "id": "m01-l04-q10",
+  "fact": "m01-l04-f32",
+  "stem": "A thread whose interrupted status is set calls the static method `Thread.interrupted()`. According to the Javadoc, which description of what the method does is correct?",
+  "key": "It clears the interrupted status of the thread as part of testing it",
+  "distractors": [
+   "It leaves the interrupted status set, so two successive calls both return true",
+   "It tests whether a thread passed to it as an argument has been interrupted",
+   "It sets the interrupted status again after testing it, restoring the value it read"
+  ],
+  "explanation": "The method clears the interrupted status of the thread as part of testing it. The claim that the status stays set is wrong, because the second of two successive calls would return false. The claim that it takes a thread as an argument is wrong, because it tests whether the current thread has been interrupted. The claim that it restores the status is wrong, because the status is cleared by the method.",
+  "citation": "javadoc-thread#interrupted()",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m01-l04-q11",
+  "fact": "m01-l04-f21",
+  "stem": "A program relies on asynchronous task processing in the common pool completing before the program terminates. According to the `ForkJoinPool.commonPool()` Javadoc, what should it invoke before exit?",
+  "key": "`commonPool().awaitQuiescence`",
+  "distractors": [
+   "`ForkJoinPool.commonPool().shutdown()`, which stops the pool once its tasks finish",
+   "`System.exit(int)`, which waits for the ongoing processing to complete",
+   "`ForkJoinPool.commonPool().shutdownNow()`, which cancels the pool's tasks and then terminates it"
+  ],
+  "explanation": "The Javadoc says such a program should invoke `commonPool().awaitQuiescence` before exit. The claim about `shutdown()` is wrong, because the run state of the common pool is unaffected by attempts to `shutdown()` or `shutdownNow()`. The claim that `System.exit(int)` waits is wrong, because the pool and its ongoing processing are automatically terminated upon `System.exit(int)`. The claim about `shutdownNow()` is wrong for the same unaffected run state, which excludes both calls.",
+  "citation": "javadoc-forkjoinpool#commonPool()",
+  "extract": null,
+  "snippet": null
+ }
+]

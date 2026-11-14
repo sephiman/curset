@@ -41,6 +41,7 @@ tech check_extracts || fail "check_extracts"
 tech check_scope || fail "check_scope"
 tech check_coverage || fail "check_coverage"
 tech lint_questions --exclude-failed || fail "lint_questions"
+tech check_refutations --exclude-failed || fail "check_refutations"
 
 step "lesson quota report"
 tech lesson_quota | tee "$scratch/lesson_quota.tsv" | awk -F'\t' 'NR==1 || $2=="written"'

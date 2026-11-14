@@ -1,0 +1,160 @@
+m09-l01-q01:
+  key:
+    anchor: prom-histograms#quantiles
+    sentence: The 0.95-quantile is also called the 95th percentile.
+  wrong:
+  - option: The median of the observations
+    anchor: prom-histograms#quantiles
+    sentence: The 0.5-quantile is known as the median.
+  - option: The 99th percentile of the observations
+    anchor: prom-histograms#quantiles
+    sentence: The 0.95-quantile is also called the 95th percentile.
+    exclusive: true
+  - option: The 5th percentile of the observations
+    anchor: prom-histograms#quantiles
+    sentence: The 0.95-quantile is also called the 95th percentile.
+    exclusive: true
+m09-l01-q02:
+  key:
+    anchor: prom-histograms#errors-of-quantile-estimation
+    sentence: The interpolation would estimate 295ms in this case, with the guarantee that the true value is between 200ms and 300ms.
+  wrong:
+  - option: Between 210ms and 229ms
+    anchor: prom-histograms#errors-of-quantile-estimation
+    sentence: The interpolation would estimate 295ms in this case, with the guarantee that the true value is between 200ms and 300ms.
+    exclusive: true
+  - option: Between 297ms and 324ms
+    anchor: prom-histograms#errors-of-quantile-estimation
+    sentence: The interpolation would estimate 295ms in this case, with the guarantee that the true value is between 200ms and 300ms.
+    exclusive: true
+  - option: Between 300ms and 450ms
+    anchor: prom-histograms#errors-of-quantile-estimation
+    sentence: The interpolation would estimate 295ms in this case, with the guarantee that the true value is between 200ms and 300ms.
+    exclusive: true
+m09-l01-q03:
+  key:
+    execution: m09-l01/IndexCapacity.java
+  wrong:
+  - option: 'seconds per day: 86400
+
+      entries: 1728000000
+
+      bytes: 27648000000
+
+      gigabytes: 27.6
+
+      leaf pages: 6912000'
+    execution: m09-l01/IndexCapacity.java
+    mistake: 'wrong unit: a 24-hour day instead of eight hours'
+  - option: 'seconds per day: 28800
+
+      entries: 576000000
+
+      bytes: 576000000
+
+      gigabytes: 0.6
+
+      leaf pages: 144000'
+    execution: m09-l01/IndexCapacity.java
+    mistake: 'forgotten factor: the 16 bytes per entry'
+  - option: 'seconds per day: 28800
+
+      entries: 576000000
+
+      bytes: 9216000000
+
+      gigabytes: 8.6
+
+      leaf pages: 2304000'
+    execution: m09-l01/IndexCapacity.java
+    mistake: 'wrong unit: gigabytes counted as 2^30 bytes'
+m09-l01-q04:
+  key:
+    anchor: protobuf-proto-best-practices#reserve-tag-numbers
+    sentence: When you delete a field that’s no longer used, reserve its tag number so that no one accidentally re-uses it in the future.
+  wrong:
+  - option: Give it to the next field you add, so that tag numbers stay compact
+    anchor: protobuf-proto-best-practices#reuse-number
+    sentence: Never re-use a tag number.
+  - option: Keep it for a field of another type, because only the number is encoded
+    anchor: protobuf-proto-best-practices#change-type
+    sentence: Almost never change the type of a field; it’ll mess up deserialization, same as re-using a tag number.
+  - option: Leave it undeclared, because a deleted number cannot be used by mistake
+    anchor: protobuf-proto-best-practices#reserve-tag-numbers
+    sentence: reserve its tag number so that no one accidentally re-uses it in the future.
+m09-l01-q05:
+  key:
+    anchor: ietf-httpapi-idempotency-key#content
+    sentence: If there is an attempt to reuse an idempotency key with a different request payload, the resource SHOULD reply with an HTTP 422 status code
+  wrong:
+  - option: '`400`'
+    anchor: ietf-httpapi-idempotency-key#content
+    sentence: If the Idempotency-Key request header is missing for a documented idempotent operation requiring this header, the resource SHOULD reply with an HTTP 400 status code
+  - option: '`409`'
+    anchor: ietf-httpapi-idempotency-key#content
+    sentence: If the request is retried, while the original request is still being processed, the resource SHOULD reply with an HTTP 409 status code
+  - option: '`429`'
+    anchor: ietf-httpapi-idempotency-key#content
+    sentence: For other 4xx/5xx errors, such as 401, 403, 500, 502, 503, 504, 429, or any other HTTP error code that is not listed here, the client SHOULD act appropriately by following the resource's documentation.
+m09-l01-q06:
+  key:
+    anchor: pg-indexes-types#INDEXES-TYPES-BTREE
+    sentence: The optimizer can also use a B-tree index for queries involving the pattern matching operators LIKE and ~ if the pattern is a constant and is anchored to the beginning of the string
+  wrong:
+  - option: '`col LIKE ''%bar''`'
+    anchor: pg-indexes-types#INDEXES-TYPES-BTREE
+    sentence: but not col LIKE '%bar'
+  - option: '`col ILIKE ''foo%''`'
+    anchor: pg-indexes-types#INDEXES-TYPES-BTREE
+    sentence: It is also possible to use B-tree indexes for ILIKE and ~*, but only if the pattern starts with non-alphabetic characters, i.e., characters that are not affected by upper/lower case conversion.
+  - option: '`col LIKE other_col || ''%''`'
+    anchor: pg-indexes-types#INDEXES-TYPES-BTREE
+    sentence: if the pattern is a constant
+m09-l01-q07:
+  key:
+    anchor: prom-histograms#quantiles
+    sentence: The φ-quantile is the observation value that ranks at number φ*N among the N observations.
+  wrong:
+  - option: Number N/φ
+    anchor: prom-histograms#quantiles
+    sentence: The φ-quantile is the observation value that ranks at number φ*N among the N observations.
+    exclusive: true
+  - option: Number (1 − φ)*N
+    anchor: prom-histograms#quantiles
+    sentence: The φ-quantile is the observation value that ranks at number φ*N among the N observations.
+    exclusive: true
+  - option: Number φ + N
+    anchor: prom-histograms#quantiles
+    sentence: The φ-quantile is the observation value that ranks at number φ*N among the N observations.
+    exclusive: true
+m09-l01-q08:
+  key:
+    anchor: paper-oneil-lsm-tree#p3
+    sentence: this implies 576,000,000 entries on 9.2 GBytes of disk
+  wrong:
+  - option: 1,728,000,000 entries
+    anchor: paper-oneil-lsm-tree#p3
+    sentence: this implies 576,000,000 entries on 9.2 GBytes of disk
+    exclusive: true
+  - option: 57,600,000 entries
+    anchor: paper-oneil-lsm-tree#p3
+    sentence: this implies 576,000,000 entries on 9.2 GBytes of disk
+    exclusive: true
+  - option: 5,760,000,000 entries
+    anchor: paper-oneil-lsm-tree#p3
+    sentence: this implies 576,000,000 entries on 9.2 GBytes of disk
+    exclusive: true
+m09-l01-q09:
+  key:
+    anchor: protobuf-proto-best-practices#change-type
+    sentence: Almost never change the type of a field; it’ll mess up deserialization, same as re-using a tag number.
+  wrong:
+  - option: Reserving the tag number of a deleted field
+    anchor: protobuf-proto-best-practices#reserve-tag-numbers
+    sentence: When you delete a field that’s no longer used, reserve its tag number so that no one accidentally re-uses it in the future.
+  - option: Reserving the name of a deleted field
+    anchor: protobuf-proto-best-practices#reserve-tag-numbers
+    sentence: 'You can also reserve names to avoid recycling now-deleted field names: reserved foo, bar;.'
+  - option: Reserving tag numbers without declaring a type
+    anchor: protobuf-proto-best-practices#reserve-tag-numbers
+    sentence: No type required (lets you trim dependencies!).

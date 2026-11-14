@@ -1,0 +1,323 @@
+m11-l02-q01:
+  key:
+    execution: m11-l02/ResourceLeak.java
+  wrong:
+  - option: 'open manual
+
+      close manual
+
+      manual: query failed on manual
+
+      open resource
+
+      close resource
+
+      resource: query failed on resource
+
+      suppressed: close failed on resource'
+    execution: m11-l02/ResourceLeak.java
+    mistake: manual close assumed to run despite the exception
+  - option: 'open manual
+
+      manual: query failed on manual
+
+      open resource
+
+      close resource
+
+      resource: close failed on resource'
+    execution: m11-l02/ResourceLeak.java
+    mistake: close exception assumed to replace the original one
+  - option: 'open manual
+
+      manual: query failed on manual
+
+      open resource
+
+      resource: query failed on resource
+
+      close resource
+
+      suppressed: close failed on resource'
+    execution: m11-l02/ResourceLeak.java
+    mistake: resource assumed to close after the catch clause
+m11-l02-q02:
+  key:
+    execution: m11-l02/ExceptionCause.java
+  wrong:
+  - option: 'swallowed: disk full
+
+      kept: disk full'
+    execution: m11-l02/ExceptionCause.java
+    mistake: cause assumed to be attached automatically
+  - option: 'swallowed: no cause
+
+      kept: no cause'
+    execution: m11-l02/ExceptionCause.java
+    mistake: constructor argument assumed to be ignored
+  - option: 'swallowed: disk full
+
+      kept: no cause'
+    execution: m11-l02/ExceptionCause.java
+    mistake: the two constructors swapped
+m11-l02-q03:
+  key:
+    execution: m11-l02/ConcurrencyChecks.java
+  wrong:
+  - option: 'check then act: 1
+
+      atomic insert: 1
+
+      after join: 42'
+    execution: m11-l02/ConcurrencyChecks.java
+    mistake: check then act assumed atomic on a concurrent map
+  - option: 'check then act: 2
+
+      atomic insert: 2
+
+      after join: 42'
+    execution: m11-l02/ConcurrencyChecks.java
+    mistake: putIfAbsent assumed to behave like check then act
+  - option: 'check then act: 2
+
+      atomic insert: 1
+
+      after join: 0'
+    execution: m11-l02/ConcurrencyChecks.java
+    mistake: write of the joined thread assumed invisible
+m11-l02-q04:
+  key:
+    execution: m11-l02/MoneyMath.java
+  wrong:
+  - option: '0.3
+
+      0.3
+
+      2.200
+
+      Non-terminating decimal expansion; no exact representable decimal result.
+
+      33.33
+
+      99.99'
+    execution: m11-l02/MoneyMath.java
+    mistake: double sum assumed exact
+  - option: '0.30000000000000004
+
+      0.3
+
+      2.20
+
+      Non-terminating decimal expansion; no exact representable decimal result.
+
+      33.33
+
+      99.99'
+    execution: m11-l02/MoneyMath.java
+    mistake: multiplication scale taken as the larger scale
+  - option: '0.30000000000000004
+
+      0.3
+
+      2.200
+
+      Non-terminating decimal expansion; no exact representable decimal result.
+
+      33.33
+
+      100.00'
+    execution: m11-l02/MoneyMath.java
+    mistake: three rounded shares assumed to add up to the total
+m11-l02-q05:
+  key:
+    execution: m11-l02/OverflowCheck.java
+  wrong:
+  - option: '2147483648
+
+      integer overflow
+
+      705032704
+
+      5000000000'
+    execution: m11-l02/OverflowCheck.java
+    mistake: int addition assumed to widen
+  - option: '-2147483648
+
+      integer overflow
+
+      5000000000
+
+      5000000000'
+    execution: m11-l02/OverflowCheck.java
+    mistake: assignment to long assumed to widen the product
+  - option: '-2147483648
+
+      705032704
+
+      5000000000'
+    execution: m11-l02/OverflowCheck.java
+    mistake: addExact assumed not to throw
+m11-l02-q06:
+  key:
+    execution: m11-l02/ZoneTransitions.java
+  wrong:
+  - option: '2026-03-29T02:30+01:00[Europe/Paris]
+
+      2026-10-25T02:30+02:00[Europe/Paris]
+
+      2026-10-25T02:30+01:00[Europe/Paris]
+
+      2026-03-29T12:00+02:00[Europe/Paris]
+
+      2026-03-29T13:00+02:00[Europe/Paris]'
+    execution: m11-l02/ZoneTransitions.java
+    mistake: gap time kept with the earlier offset
+  - option: '2026-03-29T03:30+02:00[Europe/Paris]
+
+      2026-10-25T02:30+01:00[Europe/Paris]
+
+      2026-10-25T02:30+02:00[Europe/Paris]
+
+      2026-03-29T12:00+02:00[Europe/Paris]
+
+      2026-03-29T13:00+02:00[Europe/Paris]'
+    execution: m11-l02/ZoneTransitions.java
+    mistake: overlap resolved to the later offset by default
+  - option: '2026-03-29T03:30+02:00[Europe/Paris]
+
+      2026-10-25T02:30+02:00[Europe/Paris]
+
+      2026-10-25T02:30+01:00[Europe/Paris]
+
+      2026-03-29T13:00+02:00[Europe/Paris]
+
+      2026-03-29T13:00+02:00[Europe/Paris]'
+    execution: m11-l02/ZoneTransitions.java
+    mistake: plusDays assumed to add 24 hours
+m11-l02-q07:
+  key:
+    execution: m11-l02/FixedClock.java
+  wrong:
+  - option: 'true
+
+      true
+
+      2026-01-01
+
+      2026-01-02'
+    execution: m11-l02/FixedClock.java
+    mistake: boundary instant assumed expired
+  - option: 'false
+
+      true
+
+      2026-01-01
+
+      2026-01-01'
+    execution: m11-l02/FixedClock.java
+    mistake: time zone of the clock ignored
+  - option: 'false
+
+      false
+
+      2026-01-01
+
+      2026-01-02'
+    execution: m11-l02/FixedClock.java
+    mistake: offset clock assumed unchanged
+m11-l02-q08:
+  key:
+    anchor: javadoc-concurrent-package#MemoryVisibility
+    sentence: A write to a volatile field happens-before every subsequent read of that same field.
+  wrong:
+  - option: A write to a plain field happens-before any read of it by another thread, with no further synchronization
+    anchor: jls-17#jls-17.4.5
+    sentence: Writes in one thread that are in a data race with reads in another thread may, for example, appear to occur out of order to those reads.
+  - option: A call to `join()` on a thread happens-before every action performed by the joined thread
+    anchor: javadoc-concurrent-package#MemoryVisibility
+    sentence: All actions in a thread happen-before any other thread successfully returns from a join on that thread.
+  - option: Exiting a `synchronized` block happens-before the next lock of any monitor
+    anchor: javadoc-concurrent-package#MemoryVisibility
+    sentence: An unlock (synchronized block or method exit) of a monitor happens-before every subsequent lock (synchronized block or method entry) of that same monitor.
+m11-l02-q09:
+  key:
+    anchor: spring-fw-tx-declarative-annotations#using-transactional
+    sentence: The @Transactional annotation is merely metadata that can be consumed by corresponding runtime infrastructure which uses that metadata to configure the appropriate beans with transactional behavior.
+  wrong:
+  - option: Putting the annotation on a bean is enough to start a transaction for each call
+    anchor: spring-fw-tx-declarative-annotations#using-transactional
+    sentence: However, the mere presence of the @Transactional annotation is not enough to activate the transactional behavior.
+  - option: A `@PostConstruct` method of the bean runs inside a transaction when it carries the annotation
+    anchor: spring-fw-tx-declarative-annotations#using-transactional
+    sentence: Also, the proxy must be fully initialized to provide the expected behavior, so you should not rely on this feature in your initialization code — for example, in a @PostConstruct method.
+  - option: In proxy mode, a method that calls another `@Transactional` method of the same bean starts a transaction for that call
+    anchor: spring-fw-tx-declarative-annotations#using-transactional
+    sentence: This means that self-invocation (in effect, a method within the target object calling another method of the target object) does not lead to an actual transaction at runtime even if the invoked method is marked with @Transactional.
+m11-l02-q10:
+  key:
+    execution: m11-l02/ZoneTransitions.java
+  wrong:
+  - option: '2026-03-29T02:30+01:00[Europe/Paris]
+
+      2026-10-25T02:30+02:00[Europe/Paris]
+
+      2026-10-25T02:30+01:00[Europe/Paris]
+
+      2026-03-29T12:00+02:00[Europe/Paris]
+
+      2026-03-29T13:00+02:00[Europe/Paris]'
+    execution: m11-l02/ZoneTransitions.java
+    mistake: gap time kept with the earlier offset
+  - option: '2026-03-29T03:30+02:00[Europe/Paris]
+
+      2026-10-25T02:30+01:00[Europe/Paris]
+
+      2026-10-25T02:30+01:00[Europe/Paris]
+
+      2026-03-29T12:00+02:00[Europe/Paris]
+
+      2026-03-29T13:00+02:00[Europe/Paris]'
+    execution: m11-l02/ZoneTransitions.java
+    mistake: overlap resolved to the later offset by default
+  - option: '2026-03-29T03:30+02:00[Europe/Paris]
+
+      2026-10-25T02:30+02:00[Europe/Paris]
+
+      2026-10-25T02:30+01:00[Europe/Paris]
+
+      2026-03-29T13:00+02:00[Europe/Paris]
+
+      2026-03-29T13:00+02:00[Europe/Paris]'
+    execution: m11-l02/ZoneTransitions.java
+    mistake: plusDays assumed to add 24 hours
+m11-l02-q11:
+  key:
+    execution: m11-l02/FixedClock.java
+  wrong:
+  - option: 'true
+
+      true
+
+      2026-01-01
+
+      2026-01-02'
+    execution: m11-l02/FixedClock.java
+    mistake: boundary instant assumed expired
+  - option: 'false
+
+      true
+
+      2026-01-01
+
+      2026-01-01'
+    execution: m11-l02/FixedClock.java
+    mistake: time zone of the clock ignored
+  - option: 'false
+
+      false
+
+      2026-01-01
+
+      2026-01-02'
+    execution: m11-l02/FixedClock.java
+    mistake: offset clock assumed unchanged

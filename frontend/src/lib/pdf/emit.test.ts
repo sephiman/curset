@@ -4,12 +4,11 @@
 import { writeFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import type { TDocumentDefinitions } from "pdfmake/interfaces";
-import { PRINT_FONTS } from "@/lib/pdf/document";
 import { generateCoursePdf } from "@/lib/pdf/generate";
 import {
   glyphFromContent,
   courseExportFromContent,
-  printFontPaths,
+  printFontFamiliesOnDisk,
   readManifest,
   stubFigures,
   type Locale,
@@ -26,13 +25,7 @@ describe.runIf(OUT)("emit a PDF for review", () => {
     "writes the whole course",
     async () => {
       const pdfmake = (await import("pdfmake")).default;
-      const paths = printFontPaths();
-      const family = PRINT_FONTS[Object.keys(PRINT_FONTS)[0] as keyof typeof PRINT_FONTS];
-      pdfmake.addFonts({
-        [Object.keys(PRINT_FONTS)[0]]: Object.fromEntries(
-          Object.entries(family).map(([variant, file]) => [variant, paths[file]]),
-        ),
-      });
+      pdfmake.addFonts(printFontFamiliesOnDisk());
 
       const course = readManifest().course;
       const exercises = printExercisesFromContent(LOCALE);

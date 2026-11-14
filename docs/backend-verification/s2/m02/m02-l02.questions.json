@@ -1,0 +1,182 @@
+[
+ {
+  "id": "m02-l02-q01",
+  "fact": "m02-l02-f09",
+  "stem": "In Java 25, `Arrays.binarySearch(int[], int)` is called on a sorted array with a key that is not in the array. Which statement about the value it returns is correct?",
+  "key": "It returns `-(insertion point) - 1`, where the insertion point is the index of the first element greater than the key",
+  "distractors": [
+   "It returns `-1` for every missing key, whatever position the key would take in the array",
+   "It returns the insertion point itself, a non-negative index, and the caller tests that index against the array",
+   "It returns `-(insertion point) - 1`, where the insertion point is the index of the last element smaller than the key"
+  ],
+  "explanation": "A missing key gives `-(insertion point) - 1`, with the insertion point at the first element greater than the key. The claim of `-1` for every missing key is wrong, because the returned value depends on the insertion point. The claim of a non-negative insertion point is wrong, because the return value is >= 0 if and only if the key is found. The claim that the insertion point follows the last smaller element is wrong, because the insertion point is defined as the index of the first element greater than the key.",
+  "citation": "javadoc-arrays#binarySearch(int[],int)",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m02-l02-q02",
+  "fact": "m02-l02-f14",
+  "stem": "A sorted `LinkedList<Integer>` with a million elements is searched with `Collections.binarySearch` in Java 25. Which statement about the cost of that search is correct?",
+  "key": "It does an iterator-based binary search with O(n) link traversals and O(log n) element comparisons",
+  "distractors": [
+   "It does O(log n) link traversals and O(n) element comparisons, because it walks the links only once per probe",
+   "It runs in log(n) time, because `LinkedList` provides near-constant-time positional access",
+   "It first copies the list into an array and then runs the search in constant time"
+  ],
+  "explanation": "For a large list that does not implement `RandomAccess`, the search does O(n) link traversals and O(log n) element comparisons. The claim of O(log n) traversals is wrong, because the traversals are O(n) and the comparisons are O(log n). The claim of log(n) time is wrong, because that cost is documented only for a random access list. The claim of a copy into an array is wrong, because the method does an iterator-based binary search over the list itself, which the caller has already sorted into ascending order.",
+  "citation": "javadoc-collections#binarySearch(java.util.List,java.lang.Object)",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m02-l02-q03",
+  "fact": "m02-l02-f40",
+  "stem": "In Java 25, `Arrays.sort(Object[])` sorts an array whose elements are mutually comparable, and two of them are equal. Which statement about their relative order after the sort is correct?",
+  "key": "Equal elements keep their original order, because the sort is guaranteed to be stable",
+  "distractors": [
+   "Equal elements may swap places, because the sort is a Dual-Pivot Quicksort",
+   "Equal elements end up in the reverse of their original order",
+   "Equal elements keep their order only when a `Comparator` is passed, not under natural ordering"
+  ],
+  "explanation": "Equal elements keep their original order, because `Arrays.sort(Object[])` is guaranteed to be stable. The claim of a Dual-Pivot Quicksort is wrong, because the implementation is a stable, adaptive, iterative mergesort. The claim of a reversed order is wrong, because equal elements will not be reordered as a result of the sort. The claim that stability needs a `Comparator` is wrong, because `Collections.sort(List)`, which uses the natural ordering, is guaranteed to be stable too.",
+  "citation": "javadoc-arrays#sort(java.lang.Object[]); javadoc-collections#sort(java.util.List)",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m02-l02-q04",
+  "fact": "m02-l02-f43",
+  "stem": "A developer compares the sorting methods of Java 25. Which statement about them is correct?",
+  "key": "`Arrays.sort(Object[])` requires approximately n comparisons when the input array is nearly sorted",
+  "distractors": [
+   "`Arrays.sort(Object[])` always needs n lg(n) comparisons, because it is a mergesort",
+   "`Collections.sort(List)` uses its own algorithm, unrelated to `List.sort(Comparator)`",
+   "`Arrays.sort(int[])` is a stable mergesort adapted from the Python list sort"
+  ],
+  "explanation": "`Arrays.sort(Object[])` requires approximately n comparisons when the input array is nearly sorted. The claim of always n lg(n) comparisons is wrong, because the mergesort requires far fewer than n lg(n) comparisons when the input array is partially sorted. The claim that `Collections.sort(List)` is unrelated to `List.sort(Comparator)` is wrong, because it defers to that method with a null comparator. The claim that `Arrays.sort(int[])` is a stable mergesort is wrong, because it is a Dual-Pivot Quicksort.",
+  "citation": "javadoc-arrays#sort(java.lang.Object[]); javadoc-collections#sort(java.util.List); javadoc-arrays#sort(int[])",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m02-l02-q05",
+  "fact": "m02-l02-f34",
+  "stem": "According to Open Data Structures, which statement about the sorting algorithms of its chapter 11 is correct?",
+  "key": "Radix-sort uses several passes of counting-sort to allow for a much greater range of maximum values",
+  "distractors": [
+   "Radix-sort sorts the integers by their most significant bits first and the least significant bits last",
+   "Counting-sort is most efficient when the array length is much smaller than the maximum value",
+   "Heap-sort needs a second array of the same size, so it is not an in-place algorithm"
+  ],
+  "explanation": "Radix-sort uses several passes of counting-sort to allow for a much greater range of maximum values. The claim of most significant bits first is wrong, because radix sort first sorts the integers by their least significant bits. The claim about a length much smaller than the maximum is wrong, because counting-sort is very efficient when the length is not much smaller than the maximum value. The claim that heap-sort is not in place is wrong, because it is another in-place sorting algorithm.",
+  "citation": "ods-11-2-counting-sort-radix-so#SECTION001422000000000000000; ods-11-1-comparison-based-sorti#SECTION001413000000000000000",
+  "extract": "uses several passes of counting-sort to allow for a much greater range of maximum values.",
+  "snippet": null
+ },
+ {
+  "id": "m02-l02-q06",
+  "fact": "m02-l02-f28",
+  "stem": "Open Data Structures compares quicksort with merge-sort as two divide-and-conquer algorithms. Which statement about where each does its work is correct?",
+  "key": "Quicksort does all of its work upfront, while merge-sort does merging after solving the two subproblems",
+  "distractors": [
+   "Merge-sort partitions around a pivot first, and quicksort does the merging after solving the subproblems",
+   "Quicksort and merge-sort both finish with a merge step, in which the hard work happens",
+   "Quicksort copies each subarray at every level, so it cannot sort in place"
+  ],
+  "explanation": "Quicksort does all of its work upfront, while merge-sort does merging after solving the two subproblems. The claim that merge-sort partitions first is wrong, because the order is the other way round. The claim that both end with a hard merge is wrong, because in quicksort the hard work is splitting the array before recursion and merging is trivial. The claim that quicksort copies subarrays is wrong, because the work is done in place and the method only sorts the subarray.",
+  "citation": "ods-11-1-comparison-based-sorti#SECTION001412000000000000000; erickson-recursion#p9",
+  "extract": "quicksort does all of its work upfront.",
+  "snippet": null
+ },
+ {
+  "id": "m02-l02-q07",
+  "fact": "m02-l02-f49",
+  "stem": "A list is passed to `Collections.sort(List)` in Java 25. Which requirement does its Javadoc place on the list and on its elements?",
+  "key": "The list must be modifiable but need not be resizable, and its elements must be mutually comparable",
+  "distractors": [
+   "The list must be resizable, because the sort moves elements by adding and removing them",
+   "The elements need not implement `Comparable`, because a null comparator sorts by identity",
+   "A `ClassCastException` is thrown only for null elements, and strings with integers compare fine"
+  ],
+  "explanation": "The list must be modifiable but need not be resizable, and its elements must be mutually comparable. The claim that the list must be resizable is wrong, because it need not be resizable. The claim that `Comparable` is optional is wrong, because all elements in the list must implement `Comparable`. The claim about null elements only is wrong, because a `ClassCastException` is thrown when the elements are not mutually comparable, for example strings and integers.",
+  "citation": "javadoc-collections#sort(java.util.List)",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m02-l02-q08",
+  "fact": "m02-l02-f06",
+  "stem": "The program runs two pointers, a sliding window, a prefix array, a map of earlier prefix sums and a letter count over small inputs and prints one line per technique. What does it print?",
+  "key": "pair indices [2, 3]\nmax window sum 9\nrange sum 19\nsubarrays with sum 2: 2\nletter counts {i=4, m=1, p=2, s=4}",
+  "distractors": [
+   "pair indices [2, 3]\nmax window sum 8\nrange sum 19\nsubarrays with sum 2: 2\nletter counts {i=4, m=1, p=2, s=4}",
+   "pair indices [2, 3]\nmax window sum 9\nrange sum 15\nsubarrays with sum 2: 2\nletter counts {i=4, m=1, p=2, s=4}",
+   "pair indices [2, 3]\nmax window sum 9\nrange sum 19\nsubarrays with sum 2: 1\nletter counts {i=4, m=1, p=2, s=4}"
+  ],
+  "explanation": "Two pointers find the values 4 and 6 at indices 2 and 3, the best window of width 3 sums to 9, and the range sum is `prefix[6] - prefix[2]` = 19. Two subarrays of 1, 1, 1 sum to 2, and the letter counts are `i=4, m=1, p=2, s=4`. The lines with max window sum 8 are wrong because that is the first window only. The lines with range sum 15 are wrong because they subtract `prefix[3]` and start one index late. The lines with subarrays with sum 2: 1 are wrong because the empty prefix is seeded with a count of one, so the first pair is counted too.",
+  "citation": "ods-1-2-interfaces#SECTION00423000000000000000",
+  "extract": "Two Pairs are treated as equal if their keys are equal.",
+  "snippet": "m02-l02/ArrayTechniques.java"
+ },
+ {
+  "id": "m02-l02-q09",
+  "fact": "m02-l02-f20",
+  "stem": "The program searches a sorted array and a `LinkedList`, runs a binary search over ship capacities for the weights 1 to 10 within 5 days, and computes a middle of two large ints three ways. What does it print?",
+  "key": "found 7 at 3\nmissing 6 gives -4\nmissing 10 gives -6\nlinked list finds 3 at 1\nsmallest capacity 15\noverflowing mid -397483648\nunsigned shift mid 1750000000\nsafe mid 1750000000",
+  "distractors": [
+   "found 7 at 3\nmissing 6 gives 3\nmissing 10 gives 5\nlinked list finds 3 at 1\nsmallest capacity 15\noverflowing mid -397483648\nunsigned shift mid 1750000000\nsafe mid 1750000000",
+   "found 7 at 3\nmissing 6 gives -4\nmissing 10 gives -6\nlinked list finds 3 at 1\nsmallest capacity 15\noverflowing mid 1750000000\nunsigned shift mid 1750000000\nsafe mid 1750000000",
+   "found 7 at 3\nmissing 6 gives -4\nmissing 10 gives -6\nlinked list finds 3 at 1\nsmallest capacity 10\noverflowing mid -397483648\nunsigned shift mid 1750000000\nsafe mid 1750000000"
+  ],
+  "explanation": "The key 7 sits at index 3, and the missing keys 6 and 10 give -4 and -6, which is `-(insertion point) - 1` with insertion points 3 and 5. The search over capacities ends at 15, and the sum of two large ints overflows to a negative middle, while `>>> 1` and `low + (high - low) / 2` give 1750000000. The lines with missing 6 gives 3 are wrong because a missing key returns `-(insertion point) - 1`, never the insertion point. The lines with overflowing mid 1750000000 are wrong because `low + high` overflows an `int`. The lines with smallest capacity 10 are wrong because a capacity of 10 needs more than 5 days.",
+  "citation": "javadoc-arrays#binarySearch(int[],int); javadoc-collections#binarySearch(java.util.List,java.lang.Object)",
+  "extract": null,
+  "snippet": "m02-l02/BinarySearchResults.java"
+ },
+ {
+  "id": "m02-l02-q10",
+  "fact": "m02-l02-f52",
+  "stem": "The program sorts records by priority with a comparator, sorts an `int[]`, sorts a mixed `Object[]`, sorts strings by length and counts values in an array, printing one line each. What does it print?",
+  "key": "by priority [bo, di, ana, cy, ed]\nsorted ints [1, 3, 5, 7, 9]\nmixed types cannot be sorted\nby length [fig, pear, kiwi, apple]\ncounts [1, 2, 0, 3]",
+  "distractors": [
+   "by priority [di, bo, cy, ana, ed]\nsorted ints [1, 3, 5, 7, 9]\nmixed types cannot be sorted\nby length [fig, pear, kiwi, apple]\ncounts [1, 2, 0, 3]",
+   "by priority [bo, di, ana, cy, ed]\nsorted ints [1, 3, 5, 7, 9]\nmixed types cannot be sorted\nby length [fig, kiwi, pear, apple]\ncounts [1, 2, 0, 3]",
+   "by priority [bo, di, ana, cy, ed]\nsorted ints [1, 3, 5, 7, 9]\nmixed types cannot be sorted\nby length [fig, pear, kiwi, apple]\ncounts [3, 2, 0, 1]"
+  ],
+  "explanation": "The sort by priority keeps each group in input order, `Arrays.sort(Object[])` on a string and an integer throws `ClassCastException`, and equal-length strings keep their order, so `pear` stays before `kiwi`. The counts at indices 0 to 3 are 1, 2, 0 and 3. The lines starting with by priority [di, bo, cy, ana, ed] are wrong because a stable sort does not reorder equal elements. The lines with by length [fig, kiwi, pear, apple] are wrong because the object sort is stable. The lines ending in counts [3, 2, 0, 1] are wrong because index 0 holds the count of the value 0.",
+  "citation": "javadoc-collections#sort(java.util.List); javadoc-arrays#sort(java.lang.Object[])",
+  "extract": null,
+  "snippet": "m02-l02/SortingBehaviour.java"
+ },
+ {
+  "id": "m02-l02-q11",
+  "fact": "m02-l02-f08",
+  "stem": "A sorted `int[]` holds the value 4 at indexes 2, 3 and 5, and `Arrays.binarySearch(a, 4)` is called in Java 25. Which statement about the returned index is correct?",
+  "key": "It is the index of one of the elements equal to 4, and there is no guarantee which one",
+  "distractors": [
+   "It is always the lowest index holding 4, so the result is index 2",
+   "It is negative, because the array contains more than one element equal to the key",
+   "It is the insertion point of 4, the index where a new 4 would be placed"
+  ],
+  "explanation": "The result is the index of one element equal to 4, and no guarantee says which one. The claim of always the lowest index is wrong, because there is no guarantee which element will be found. The claim of a negative result is wrong, because the return value is >= 0 if and only if the key is found. The claim of the insertion point is wrong, because a key that is contained in the array gives its index and only a missing key gives the encoded insertion point.",
+  "citation": "javadoc-arrays#binarySearch(int[],int)",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m02-l02-q12",
+  "fact": "m02-l02-f30",
+  "stem": "According to Open Data Structures, how does its quicksort partition the array while it sorts it, and what does that mean for memory use?",
+  "key": "It partitions in place without extra space, sorting a subarray of the original array",
+  "distractors": [
+   "It copies each half into new arrays, as merge-sort does, and merges them back afterwards",
+   "It partitions into a second array of the same length, and the result is copied back at the end",
+   "It picks the median element as the pivot so that the two parts always have equal size"
+  ],
+  "explanation": "The quicksort partitions in place, without extra space, and sorts a subarray of the original array. The claim of copied halves is wrong, because the method only sorts the subarray instead of making copies of the subarrays. The claim of a second array is wrong, because the partitioning algorithm swaps elements without using any extra space. The claim of a median pivot is wrong, because the algorithm picks a random pivot element.",
+  "citation": "ods-11-1-comparison-based-sorti#SECTION001412000000000000000",
+  "extract": null,
+  "snippet": null
+ }
+]

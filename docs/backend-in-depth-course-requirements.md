@@ -581,3 +581,11 @@ Built only from public material (Tier C). Everything is class J and attributed.
    only stored source is Tier B or Tier C is written as class J, in a judgement block with attribution. It is
    omitted only when no stored source supports it. "Stored" means registered in `sources.yaml` (Tier A or C,
    with anchors) or in `docs/backend-verification/s0/tier-b.yaml` (Tier B, by chapter).
+6. 2026-11-13, session S2+S3. Openly licensed textbooks by identifiable academic authors (for example
+   Erickson's "Algorithms" and Morin's "Open Data Structures") count as Tier A. They are stored in full with
+   their licence and anchors, and extracts follow the licence.
+7. 2026-11-13, session S2+S3. The source guard counts only programme bullets that are not dropped.
+8. 2026-11-13, session S2+S3. Questions are sized to facts, not to a quota. Section 6.1's quota and the 1,500
+   target no longer apply; `lesson_quota` becomes an upper bound only.
+9. 2026-11-13, session S2+S3. A question stem names a product version only when the fact differs between
+   versions, and then by major version (or major.minor), never by patch.

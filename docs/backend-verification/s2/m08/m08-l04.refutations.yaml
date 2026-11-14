@@ -1,0 +1,134 @@
+m08-l04-q01:
+  key:
+    anchor: resilience4j-circuitbreaker#failure-rate-and-slow-call-rate-thresholds
+    sentence: permits a configurable number of calls to see if the backend is still unavailable or has become available again.
+  wrong:
+  - option: It changes to `CLOSED` at once, because the elapsed wait duration shows that the backend has recovered
+    anchor: resilience4j-circuitbreaker#failure-rate-and-slow-call-rate-thresholds
+    sentence: If the failure rate and slow call rate is below the threshold, the state changes back to CLOSED.
+  - option: It changes to `HALF_OPEN` and permits every call, because `HALF_OPEN` allows access as `CLOSED` does
+    anchor: resilience4j-circuitbreaker#failure-rate-and-slow-call-rate-thresholds
+    sentence: Further calls are rejected with a CallNotPermittedException, until all permitted calls have completed.
+  - option: It stays `OPEN` and rejects every call until someone resets it manually
+    anchor: resilience4j-circuitbreaker#failure-rate-and-slow-call-rate-thresholds
+    sentence: After a wait time duration has elapsed, the CircuitBreaker state changes from OPEN to HALF_OPEN
+m08-l04-q02:
+  key:
+    anchor: kafka-producer-configs#retry.backoff.max.ms
+    sentence: resulting in the backoff falling within a range between 20% below and 20% above the computed value.
+  wrong:
+  - option: Between zero and the computed value
+    anchor: kafka-producer-configs#retry.backoff.max.ms
+    sentence: resulting in the backoff falling within a range between 20% below and 20% above the computed value.
+    exclusive: true
+  - option: Between the computed value and twice the computed value
+    anchor: kafka-producer-configs#retry.backoff.max.ms
+    sentence: resulting in the backoff falling within a range between 20% below and 20% above the computed value.
+    exclusive: true
+  - option: Exactly the computed value, because the jitter applies only once the maximum is reached
+    anchor: kafka-producer-configs#retry.backoff.max.ms
+    sentence: resulting in the backoff falling within a range between 20% below and 20% above the computed value.
+    exclusive: true
+m08-l04-q03:
+  key:
+    anchor: grpc-deadlines#deadline-propagation
+    sentence: To address this gRPC converts the deadline to a timeout from which the already elapsed time is already deducted.
+  wrong:
+  - option: It forwards the absolute deadline unchanged, because both servers share a synchronized clock
+    anchor: grpc-deadlines#deadline-propagation
+    sentence: propagating it as-is to a server can be problematic as the clocks on the two servers might not be synchronized.
+  - option: It resets the deadline to the full original timeout for every hop in the chain
+    anchor: grpc-deadlines#deadline-propagation
+    sentence: you would want to honor the deadline set by the original client.
+  - option: It drops the deadline, because each server has to include its own deadline for each outgoing RPC
+    anchor: grpc-deadlines#deadline-propagation
+    sentence: Using this capability lets you avoid the error-prone approach of manually including the deadline for each outgoing RPC.
+m08-l04-q04:
+  key:
+    anchor: kafka-design#enforcement
+    sentence: Byte-rate and thread utilization are measured over multiple small windows (e.g. 30 windows of 1 second each) in order to detect and correct quota violations quickly.
+  wrong:
+  - option: Over a few large windows, for example 10 windows of 30 seconds each
+    anchor: kafka-design#enforcement
+    sentence: Typically, having large measurement windows (for e.g. 10 windows of 30 seconds each) leads to large bursts of traffic followed by long delays
+  - option: At the cluster level, with a quota shared among all the brokers
+    anchor: kafka-design#enforcement
+    sentence: would require a mechanism to share client quota usage among all the brokers.
+  - option: By the client alone, which counts its own requests and throttles itself
+    anchor: kafka-design#enforcement
+    sentence: the broker first computes the amount of delay needed to bring the violating client under its quota
+m08-l04-q05:
+  key:
+    anchor: resilience4j-circuitbreaker#failure-rate-and-slow-call-rate-thresholds
+    sentence: all threads are allowed to invoke the function.
+  wrong:
+  - option: Fifteen, because the sliding window size caps the number of concurrent calls
+    anchor: resilience4j-circuitbreaker#failure-rate-and-slow-call-rate-thresholds
+    sentence: The sliding window does not mean that only 15 calls are allowed to run concurrently.
+  - option: One at a time, because the `CircuitBreaker` synchronizes the function call
+    anchor: resilience4j-circuitbreaker#failure-rate-and-slow-call-rate-thresholds
+    sentence: But the CircuitBreaker does not synchronize the function call.
+  - option: None, because the `CircuitBreaker` rejects calls until the window is full
+    anchor: resilience4j-circuitbreaker#failure-rate-and-slow-call-rate-thresholds
+    sentence: The CircuitBreaker rejects calls with a CallNotPermittedException when it is OPEN.
+m08-l04-q06:
+  key:
+    execution: m08-l04/BackoffSchedule.java
+  wrong:
+  - option: '1000, 2000, 4000, 8000, 16000, 32000
+
+      8000 to 12000'
+    execution: m08-l04/BackoffSchedule.java
+    mistake: ignored the maximum
+  - option: '1000, 2000, 3000, 4000, 5000, 6000
+
+      8000 to 12000'
+    execution: m08-l04/BackoffSchedule.java
+    mistake: added the initial wait instead of multiplying
+  - option: '1000, 2000, 4000, 8000, 10000, 10000
+
+      0 to 10000'
+    execution: m08-l04/BackoffSchedule.java
+    mistake: used full jitter instead of the 0.2 factor
+m08-l04-q07:
+  key:
+    anchor: resilience4j-circuitbreaker#failure-rate-and-slow-call-rate-thresholds
+    sentence: when the percentage of slow calls is equal or greater than a configurable threshold.
+  wrong:
+  - option: The number of concurrent calls exceeding the sliding window size
+    anchor: resilience4j-circuitbreaker#failure-rate-and-slow-call-rate-thresholds
+    sentence: The sliding window does not mean that only 15 calls are allowed to run concurrently.
+  - option: A call being rejected with a `CallNotPermittedException`
+    anchor: resilience4j-circuitbreaker#failure-rate-and-slow-call-rate-thresholds
+    sentence: The CircuitBreaker rejects calls with a CallNotPermittedException when it is OPEN.
+  - option: The wait duration elapsing while the `CircuitBreaker` is `CLOSED`
+    anchor: resilience4j-circuitbreaker#failure-rate-and-slow-call-rate-thresholds
+    sentence: After a wait time duration has elapsed, the CircuitBreaker state changes from OPEN to HALF_OPEN
+m08-l04-q08:
+  key:
+    anchor: resilience4j-circuitbreaker#introduction
+    sentence: The time-based sliding window aggregrates the outcome of the calls of the last N seconds.
+  wrong:
+  - option: The outcome of the last 10 calls
+    anchor: resilience4j-circuitbreaker#introduction
+    sentence: The count-based sliding window aggregrates the outcome of the last N calls.
+  - option: The outcome of every call, stored individually for the last 10 seconds
+    anchor: resilience4j-circuitbreaker#time-based-sliding-window
+    sentence: The sliding window does not store call outcomes (tuples) individually
+  - option: The outcomes of the calls of the last 10 milliseconds
+    anchor: resilience4j-circuitbreaker#time-based-sliding-window
+    sentence: Every bucket aggregates the outcome of all calls which happen in a certain epoch second.
+m08-l04-q09:
+  key:
+    anchor: kafka-design#enforcement
+    sentence: This quota is defined on a per-broker basis.
+  wrong:
+  - option: Cluster-wide, with the usage shared among all the brokers
+    anchor: kafka-design#enforcement
+    sentence: defining these quotas per broker is much better than having a fixed cluster wide bandwidth per client
+  - option: Per topic partition that the client writes to
+    anchor: kafka-design#enforcement
+    sentence: By default, each unique client group receives a fixed quota as configured by the cluster.
+  - option: Per client, with no grouping of clients that share a quota
+    anchor: kafka-design#quotas
+    sentence: Two types of client quotas can be enforced by Kafka brokers for each group of clients sharing a quota

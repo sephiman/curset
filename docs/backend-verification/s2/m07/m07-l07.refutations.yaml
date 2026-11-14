@@ -1,0 +1,168 @@
+m07-l07-q01:
+  key:
+    anchor: protobuf-proto3#conditionally-safe-changes
+    sentence: if a value larger than INT32_MAX is written, a client that reads it as an int32 will discard the high order bits of the number.
+  wrong:
+  - option: A parse failure for the whole message
+    anchor: protobuf-proto3#conditionally-safe-changes
+    sentence: Unlike Wire-safe changes, wire-compatible means that the same data can be parsed both before and after a given change.
+  - option: A value saturated at `INT32_MAX`
+    anchor: protobuf-proto3#conditionally-safe-changes
+    sentence: (for example, if a 64-bit number is read as an int32, it will be truncated to 32 bits).
+  - option: A value converted to `sint32` through zigzag decoding
+    anchor: protobuf-proto3#conditionally-safe-changes
+    sentence: sint32 and sint64 are compatible with each other but are not compatible with the other integer types.
+m07-l07-q02:
+  key:
+    anchor: protobuf-proto3#conditionally-safe-changes
+    sentence: If your schema is published outside of your organization, you should generally not make wire-compatible changes, as you cannot manage the deployment of the new schema to know when the different range of values may be safe to use.
+  wrong:
+  - option: Whenever a client still runs the old schema
+    anchor: protobuf-proto3#conditionally-safe-changes
+    sentence: you may change an int32 to an int64 but ensure you continue to only write legal int32 values until the new schema is deployed to all endpoints, and then subsequently start writing larger values after that.
+  - option: Always, because compatible changes can never be made safely
+    anchor: protobuf-proto3#conditionally-safe-changes
+    sentence: You can make compatible changes to your schema only if you manage the roll out to your system carefully.
+  - option: When the change widens `int32` to `int64`, because wider integers are never compatible
+    anchor: protobuf-proto3#conditionally-safe-changes
+    sentence: int32, uint32, int64, uint64, and bool are all compatible.
+m07-l07-q03:
+  key:
+    anchor: protobuf-proto-best-practices#change-type
+    sentence: Almost never change the type of a field; it’ll mess up deserialization, same as re-using a tag number.
+  wrong:
+  - option: Change it freely whenever the new schema can parse the old data
+    anchor: protobuf-proto-best-practices#change-type
+    sentence: However, changing a field’s type can be difficult to roll out safely even when the new schema can successfully parse old data.
+  - option: Change it if the field also takes a new tag number that was used before
+    anchor: protobuf-proto-best-practices#reuse-number
+    sentence: Never re-use a tag number. It messes up deserialization.
+  - option: Change it between `sint32` and `int32`, which are compatible
+    anchor: protobuf-proto3#conditionally-safe-changes
+    sentence: sint32 and sint64 are compatible with each other but are not compatible with the other integer types.
+m07-l07-q04:
+  key:
+    anchor: spring-fw-webmvc-controller-ann-requestmapping#mvc-ann-requestmapping-version
+    sentence: Baseline version ("1.2+") — matches the given and supported versions above
+  wrong:
+  - option: Only version 1.2
+    anchor: spring-fw-webmvc-controller-ann-requestmapping#mvc-ann-requestmapping-version
+    sentence: Fixed version ("1.2") — matches the given version only
+  - option: Any version, but a more specific mapping supersedes it
+    anchor: spring-fw-webmvc-controller-ann-requestmapping#mvc-ann-requestmapping-version
+    sentence: No value — matches any version, but is superseded by a more specific version match
+  - option: Version 1.2 and every version below it
+    anchor: spring-fw-webmvc-controller-ann-requestmapping#mvc-ann-requestmapping-version
+    sentence: (3) matches as it matches 1.2 and above, and is chosen as the highest match
+m07-l07-q05:
+  key:
+    anchor: spring-fw-webmvc-controller-ann-requestmapping#mvc-ann-requestmapping-version
+    sentence: A request with version "1.6" does not have a match.
+  wrong:
+  - option: The `1.2+` method handles it, as the highest baseline mapping
+    anchor: spring-fw-webmvc-controller-ann-requestmapping#mvc-ann-requestmapping-version
+    sentence: (1) and (3) do match, but are superseded by (4), which allows only a strict match, and therefore does not match.
+  - option: The unversioned method handles it, as the fallback for every version
+    anchor: spring-fw-webmvc-controller-ann-requestmapping#mvc-ann-requestmapping-version
+    sentence: it is in fact given the lowest priority, and is effectively superseded by any alternative controller method with a version.
+  - option: A `404` response results, because no handler exists for the path
+    anchor: spring-fw-webmvc-controller-ann-requestmapping#mvc-ann-requestmapping-version
+    sentence: In this scenario, a NotAcceptableApiVersionException results in a 400 response.
+m07-l07-q06:
+  key:
+    anchor: spring-boot-io-rest-client#io.rest-client.apiversioning
+    sentence: You can configure API versioning using methods on WebClient.Builder or RestClient.Builder.
+  wrong:
+  - option: It is auto-configured from the server-side versioning of the same application
+    anchor: spring-boot-io-rest-client#io.rest-client.apiversioning
+    sentence: The server-side API versioning configuration is not taken into account to auto-configure the client.
+  - option: It can send the version only as an HTTP header, never as a query parameter
+    anchor: spring-boot-io-rest-client#io.rest-client.apiversioning
+    sentence: Commonly this involves sending an HTTP header, a query parameter or URL path segment that indicates the version of the API that should be used.
+  - option: Only `WebClient` supports versioned calls, and `RestClient` does not
+    anchor: spring-boot-io-rest-client#io.rest-client.apiversioning
+    sentence: Both WebClient and RestClient support making versioned remote HTTP calls so that APIs can be evolved over time.
+m07-l07-q07:
+  key:
+    anchor: rfc9413#section-2
+    sentence: However, an interpretation that advocates for tolerating unexpected inputs is no longer considered best practice in all scenarios.
+  wrong:
+  - option: Following specifications precisely when sending to the network
+    anchor: rfc9413#section-2
+    sentence: Implementations must follow specifications precisely when sending to the network, and tolerate faulty input from the network.
+  - option: Recovering gracefully from software defects without aborting unrelated processing
+    anchor: rfc9413#section-2
+    sentence: In particular, it is critical for software to gracefully recover from these issues without aborting unrelated processing.
+  - option: Being resilient to input that is intentionally crafted to cause unexpected consequences
+    anchor: rfc9413#section-2
+    sentence: Since not all actors on the Internet are benevolent, networking software needs to be resilient to input that is intentionally crafted to cause unexpected consequences.
+m07-l07-q08:
+  key:
+    anchor: rfc9413#section-2
+    sentence: Time and experience show that negative consequences to interoperability accumulate over time if implementations silently accept faulty input.
+  wrong:
+  - option: Flaws stay isolated in the implementation that tolerates them
+    anchor: rfc9413#section-4.1
+    sentence: A flaw can become entrenched as a de facto standard.
+  - option: Implementations drop the logic that permitted the variations
+    anchor: rfc9413#section-4.1
+    sentence: Implementations progressively add logic to constrain how data is transmitted or to permit variations in what is received.
+  - option: The cost of interoperability problems falls, because the effort is deferred
+    anchor: rfc9413#section-4.1
+    sentence: However, this deferral can amplify the ultimate cost of handling interoperability problems.
+m07-l07-q09:
+  key:
+    anchor: rfc8594#section-3
+    sentence: The Sunset HTTP response header field allows a server to communicate the fact that a resource is expected to become unresponsive at a specific point in time.
+  wrong:
+  - option: '`Deprecation`'
+    anchor: rfc9745#section-2
+    sentence: The Deprecation HTTP response header field allows a server to communicate to a client application that the resource in the context of the message will be or has been deprecated.
+  - option: '`Retry-After`'
+    anchor: rfc9110#section-10.2.3
+    sentence: Servers send the "Retry-After" header field to indicate how long the user agent ought to wait before making a follow-up request.
+  - option: '`Link`'
+    anchor: rfc8288#section-3
+    sentence: The Link header field provides a means for serialising one or more links into HTTP headers.
+m07-l07-q10:
+  key:
+    anchor: rfc8594#section-1.4
+    sentence: 'For the second stage (the API or a specific version of the API gets decommissioned), the Sunset header field is appropriate: that is when the API or a version does become unresponsive.'
+  wrong:
+  - option: The first stage, when the API is no longer preferred but still operational
+    anchor: rfc8594#section-1.4
+    sentence: 'the Sunset header field is not appropriate: at this stage, the API remains operational and can still be used.'
+  - option: Neither stage, because the header names the preferred replacement version
+    anchor: rfc8594#section-3
+    sentence: The Sunset header field contains a single timestamp that advertises the point in time when the resource is expected to become unresponsive.
+  - option: Only a single resource, never a whole API or a set of resources
+    anchor: rfc8594#section-1.4
+    sentence: the announced sunset date typically affects all of the deprecated API or parts of it (i.e., just deprecated sets of resources), and not just a single resource.
+m07-l07-q11:
+  key:
+    anchor: rfc8594#section-3
+    sentence: The Sunset value is an HTTP-date timestamp, as defined in Section 7.1.1.1 of [RFC7231], and SHOULD be a timestamp in the future.
+  wrong:
+  - option: A number of seconds until the resource becomes unresponsive
+    anchor: rfc8594#section-3
+    sentence: Sunset = HTTP-date
+  - option: A list of dates, one for each affected resource
+    anchor: rfc8594#section-3
+    sentence: The Sunset header field contains a single timestamp that advertises the point in time when the resource is expected to become unresponsive.
+  - option: A past date that tells clients the resource was already removed
+    anchor: rfc8594#section-3
+    sentence: It is safest to consider timestamps in the past mean the present time, meaning that the resource is expected to become unavailable at any time.
+m07-l07-q12:
+  key:
+    anchor: rfc9745#section-3
+    sentence: the server can use links with the deprecation link relation type to communicate to the client application developer where to find more information about deprecation of the context.
+  wrong:
+  - option: The date on which the resource becomes unresponsive
+    anchor: rfc8594#section-3
+    sentence: The Sunset header field contains a single timestamp that advertises the point in time when the resource is expected to become unresponsive.
+  - option: A deprecation policy that must be machine-readable
+    anchor: rfc9745#section-3
+    sentence: In particular, the deprecation policy may be available as human-readable documentation or as a machine-readable description.
+  - option: A notice that can only be sent after the resource is already deprecated
+    anchor: rfc9745#section-3
+    sentence: This can happen before the actual deprecation to make a deprecation policy discoverable or after deprecation when there may be documentation about the deprecation and how to manage it.

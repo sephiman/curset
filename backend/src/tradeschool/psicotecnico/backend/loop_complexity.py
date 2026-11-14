@@ -183,6 +183,7 @@ class LoopComplexityGenerator(BackendGenerator[Loop]):
     citation: ClassVar[Citation] = Citation(
         "m02-l01",
         "no stored Tier A anchor states asymptotic analysis (coverage 2.1.a is J); amendment 1: stated model",
+        confirmed="ods-1-3-mathematical-background#SECTION00433000000000000000",
     )
 
     def scenario(self, rng: random.Random, level: int) -> Loop:

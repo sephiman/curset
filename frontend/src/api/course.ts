@@ -72,7 +72,13 @@ export interface CourseMeta {
   theoryOnly?: boolean;
   /** The psicotécnico types the course generates; absent: the course has no «Psicotécnicos» practice. */
   psicotecnicos?: PsicotecnicoType[];
+  /** `spaced`: rounds serve unseen questions first and failed ones as they fall due; absent: weighted random. */
+  practiceScheduler?: "spaced";
+  /** The practice presets the course page offers, in order; absent: it offers none. */
+  practicePresets?: PracticePresetId[];
 }
+
+export type PracticePresetId = "lesson" | "module" | "review" | "code-reading" | "generators";
 
 /** One generator the course uses: its exercise id opens attempts, its title names its row in the tables. */
 export interface PsicotecnicoType {

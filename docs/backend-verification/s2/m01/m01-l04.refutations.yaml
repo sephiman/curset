@@ -1,0 +1,195 @@
+m01-l04-q01:
+  key:
+    anchor: spring-fw-tx-declarative-annotations#using-transactional
+    sentence: This means that self-invocation (in effect, a method within the target object calling another method of the target object) does not lead to an actual transaction at runtime even if the invoked method is marked with @Transactional.
+  wrong:
+  - option: The annotation on `b()` is enough to activate the transactional behavior, so a transaction starts
+    anchor: spring-fw-tx-declarative-annotations#using-transactional
+    sentence: However, the mere presence of the @Transactional annotation is not enough to activate the transactional behavior.
+  - option: The proxy intercepts the call that `a()` makes on its own bean, so a transaction starts for `b()`
+    anchor: spring-fw-tx-declarative-annotations#using-transactional
+    sentence: In proxy mode (which is the default), only external method calls coming in through the proxy are intercepted.
+  - option: Spring rejects the call with an exception, because self-invocation of an annotated method is not allowed
+    anchor: spring-fw-aop-proxying#aop-understanding-aop-proxies
+    sentence: In other words, self invocation via an explicit or implicit this reference will bypass the advice.
+m01-l04-q02:
+  key:
+    anchor: javadoc-forkjoinpool#commonPool()
+    sentence: However this pool and any ongoing processing are automatically terminated upon program System.exit(int).
+  wrong:
+  - option: The pool waits for its ongoing processing to complete before the program terminates
+    anchor: javadoc-forkjoinpool#commonPool()
+    sentence: Any program that relies on asynchronous task processing to complete before program termination should invoke commonPool().awaitQuiescence, before exit.
+  - option: The pool keeps running until `shutdownNow()` is called on it
+    anchor: javadoc-forkjoinpool#commonPool()
+    sentence: This pool is statically constructed; its run state is unaffected by attempts to shutdown() or shutdownNow().
+  - option: The pool keeps the program alive, because its worker threads are not daemon threads
+    anchor: javadoc-forkjoinpool#class-forkjoinpool
+    sentence: All worker threads are initialized with Thread.isDaemon() set true.
+m01-l04-q03:
+  key:
+    execution: m01-l04/SelfInvocation.java
+  wrong:
+  - option: '[foo, bar]
+
+      [bar]'
+    execution: m01-l04/SelfInvocation.java
+    mistake: ignored this-reference bypass
+  - option: '[bar]
+
+      [bar]'
+    execution: m01-l04/SelfInvocation.java
+    mistake: wrong evaluation order
+  - option: '[foo]
+
+      []'
+    execution: m01-l04/SelfInvocation.java
+    mistake: mutated shared state
+m01-l04-q04:
+  key:
+    execution: m01-l04/CommonPoolDefault.java
+  wrong:
+  - option: 'true
+
+      false
+
+      false
+
+      still runs'
+    execution: m01-l04/CommonPoolDefault.java
+    mistake: non-daemon worker
+  - option: 'true
+
+      true
+
+      true
+
+      still runs'
+    execution: m01-l04/CommonPoolDefault.java
+    mistake: shutdown takes effect
+  - option: 'false
+
+      true
+
+      false
+
+      still runs'
+    execution: m01-l04/CommonPoolDefault.java
+    mistake: task runs in a private pool
+m01-l04-q05:
+  key:
+    execution: m01-l04/InterruptStatus.java
+  wrong:
+  - option: 'true
+
+      true
+
+      caught, status true
+
+      caught, status true'
+    execution: m01-l04/InterruptStatus.java
+    mistake: mutated shared state
+  - option: 'true
+
+      false
+
+      caught, status true
+
+      caught, status true'
+    execution: m01-l04/InterruptStatus.java
+    mistake: ignored cleared status
+  - option: 'true
+
+      false
+
+      caught, status false
+
+      caught, status false'
+    execution: m01-l04/InterruptStatus.java
+    mistake: restore ignored
+m01-l04-q06:
+  key:
+    anchor: spring-fw-aop-proxying#aop-understanding-aop-proxies
+    sentence: AspectJ compile-time weaving and load-time weaving do not have this self-invocation issue because they apply advice within the bytecode instead of via a proxy.
+  wrong:
+  - option: They wrap the `this` reference in a proxy that is injected into the target at startup
+    anchor: spring-fw-tx-declarative-annotations#using-transactional
+    sentence: In this case, there is no proxy in the first place.
+  - option: They apply advice only to calls that enter through a method declared on a public interface
+    anchor: spring-fw-tx-declarative-annotations#using-transactional
+    sentence: Instead, the target class is woven (that is, its byte code is modified) to support @Transactional runtime behavior on any kind of method.
+  - option: They have the same issue, so inner calls need the self-injection workaround as well
+    anchor: spring-fw-aop-proxying#aop-understanding-aop-proxies
+    sentence: AspectJ compile-time weaving and load-time weaving do not have this self-invocation issue because they apply advice within the bytecode instead of via a proxy.
+m01-l04-q07:
+  key:
+    anchor: spring-fw-aop-proxying#aop-understanding-aop-proxies
+    sentence: This last approach is highly discouraged, and we hesitate to point it out, in favor of the previous options.
+  wrong:
+  - option: Refactoring the code so that the self invocation does not happen
+    anchor: spring-fw-aop-proxying#aop-understanding-aop-proxies
+    sentence: This does entail some work on your part, but it is the best, least-invasive approach.
+  - option: Injecting a self reference and invoking the methods through it instead of through `this`
+    anchor: spring-fw-aop-proxying#aop-understanding-aop-proxies
+    sentence: An alternative approach is to make use of self injection, and invoke methods on the proxy via the self reference instead of via this.
+  - option: Switching to `AspectJ` mode, which weaves the target class and uses no proxy
+    anchor: spring-fw-tx-declarative-annotations#using-transactional
+    sentence: Consider using AspectJ mode (see the mode attribute in the following table) if you expect self-invocations to be wrapped with transactions as well.
+m01-l04-q08:
+  key:
+    anchor: spring-fw-tx-declarative-annotations#using-transactional
+    sentence: In the preceding examples that use programmatic configuration, the @EnableTransactionManagement annotation switches on actual transaction management at runtime.
+  wrong:
+  - option: The `@Transactional` annotation itself, as soon as the bean is defined
+    anchor: spring-fw-tx-declarative-annotations#using-transactional
+    sentence: However, the mere presence of the @Transactional annotation is not enough to activate the transactional behavior.
+  - option: The `<tx:annotation-driven/>` element placed in the same programmatic configuration
+    anchor: spring-fw-tx-declarative-annotations#using-transactional
+    sentence: Whereas, in the preceding example that uses XML configuration, the <tx:annotation-driven/> element switches on actual transaction management at runtime.
+  - option: A `DataSourceTransactionManager` bean declared in the configuration class and nothing else
+    anchor: spring-fw-tx-declarative-annotations#using-transactional
+    sentence: In the preceding examples that use programmatic configuration, the @EnableTransactionManagement annotation switches on actual transaction management at runtime.
+m01-l04-q09:
+  key:
+    anchor: spring-fw-tx-declarative-annotations#using-transactional
+    sentence: Also, the proxy must be fully initialized to provide the expected behavior, so you should not rely on this feature in your initialization code — for example, in a @PostConstruct method.
+  wrong:
+  - option: Only methods with `public` visibility can be made transactional, for any kind of proxy
+    anchor: spring-fw-tx-declarative-annotations#using-transactional
+    sentence: As of 6.0, protected or package-visible methods can also be made transactional for class-based proxies by default.
+  - option: Only `jakarta.transaction.Transactional` is honored there, and Spring's own annotation is ignored
+    anchor: spring-fw-tx-declarative-annotations#using-transactional
+    sentence: The standard jakarta.transaction.Transactional annotation is also supported as a drop-in replacement for Spring’s own annotation.
+  - option: The annotation applies only to interface definitions and never to methods of a class
+    anchor: spring-fw-tx-declarative-annotations#using-transactional
+    sentence: You can apply the @Transactional annotation to an interface definition, a method on an interface, a class definition, or a method on a class.
+m01-l04-q10:
+  key:
+    anchor: javadoc-thread#interrupted()
+    sentence: The interrupted status of the thread is cleared by this method.
+  wrong:
+  - option: It leaves the interrupted status set, so two successive calls both return true
+    anchor: javadoc-thread#interrupted()
+    sentence: In other words, if this method were to be called twice in succession, the second call would return false (unless the current thread were interrupted again, after the first call had cleared its interrupted status and before the second call had examined it).
+  - option: It tests whether a thread passed to it as an argument has been interrupted
+    anchor: javadoc-thread#interrupted()
+    sentence: Tests whether the current thread has been interrupted.
+  - option: It sets the interrupted status again after testing it, restoring the value it read
+    anchor: javadoc-thread#interrupted()
+    sentence: The interrupted status of the thread is cleared by this method.
+m01-l04-q11:
+  key:
+    anchor: javadoc-forkjoinpool#commonPool()
+    sentence: Any program that relies on asynchronous task processing to complete before program termination should invoke commonPool().awaitQuiescence, before exit.
+  wrong:
+  - option: '`ForkJoinPool.commonPool().shutdown()`, which stops the pool once its tasks finish'
+    anchor: javadoc-forkjoinpool#commonPool()
+    sentence: This pool is statically constructed; its run state is unaffected by attempts to shutdown() or shutdownNow().
+    exclusive: true
+  - option: '`System.exit(int)`, which waits for the ongoing processing to complete'
+    anchor: javadoc-forkjoinpool#commonPool()
+    sentence: However this pool and any ongoing processing are automatically terminated upon program System.exit(int).
+  - option: '`ForkJoinPool.commonPool().shutdownNow()`, which cancels the pool''s tasks and then terminates it'
+    anchor: javadoc-forkjoinpool#commonPool()
+    sentence: This pool is statically constructed; its run state is unaffected by attempts to shutdown() or shutdownNow().
+    exclusive: true

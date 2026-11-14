@@ -1,0 +1,738 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>12.1 AdjacencyMatrix: Representing a Graph by a Matrix</TITLE>
+<META NAME="description" CONTENT="12.1 AdjacencyMatrix: Representing a Graph by a Matrix">
+<META NAME="keywords" CONTENT="ods-java-html">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="../ods-book.css">
+
+<LINK REL="next" HREF="12_2_AdjacencyLists_Graph_a.html">
+<LINK REL="previous" HREF="12_Graphs.html">
+<LINK REL="up" HREF="12_Graphs.html">
+<LINK REL="next" HREF="12_2_AdjacencyLists_Graph_a.html">
+</HEAD>
+
+<BODY text="#000000" bgcolor="#FFFFFF">
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html1142"
+  HREF="12_2_AdjacencyLists_Graph_a.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1136"
+  HREF="12_Graphs.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1130"
+  HREF="12_Graphs.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1138"
+  HREF="Contents.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html1140"
+  HREF="Index.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html1143"
+  HREF="12_2_AdjacencyLists_Graph_a.html">12.2 AdjacencyLists: A Graph</A>
+<B> Up:</B> <A NAME="tex2html1137"
+  HREF="12_Graphs.html">12. Graphs</A>
+<B> Previous:</B> <A NAME="tex2html1131"
+  HREF="12_Graphs.html">12. Graphs</A>
+ &nbsp; <B>  <A NAME="tex2html1139"
+  HREF="Contents.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html1141"
+  HREF="Index.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION001510000000000000000"></A>
+<A NAME="sec:adjacency-matrix"></A>
+<BR>
+<SPAN CLASS="arabic">12</SPAN>.<SPAN CLASS="arabic">1</SPAN> <TT>AdjacencyMatrix</TT>: Representing a Graph by a Matrix
+</H1>
+
+<P>
+<A NAME="31670"></A>An <SPAN  CLASS="textit">adjacency matrix</SPAN> is a way of representing an <!-- MATH
+ $\mathtt{n}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img4529.png"
+ ALT="$ \mathtt{n}$"></SPAN> vertex graph
+<SPAN CLASS="MATH"><IMG
+ WIDTH="73" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4530.png"
+ ALT="$ G=(V,E)$"></SPAN> by an <!-- MATH
+ $\ensuremath{\mathtt{n}}\times\ensuremath{\mathtt{n}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="36" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img4531.png"
+ ALT="$ \ensuremath{\mathtt{n}}\times\ensuremath{\mathtt{n}}$"></SPAN> matrix, <!-- MATH
+ $\mathtt{a}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4532.png"
+ ALT="$ \mathtt{a}$"></SPAN>, whose entries are boolean
+values.
+<PRE>
+    int n;
+    boolean[][] a;
+    AdjacencyMatrix(int n0) {
+        n = n0;
+        a = new boolean[n][n];
+    }
+</PRE>
+
+<P>
+The matrix entry <!-- MATH
+ $\mathtt{a[i][j]}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="50" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4533.png"
+ ALT="$ \mathtt{a[i][j]}$"></SPAN> is defined as
+<P><!-- MATH
+ \begin{displaymath}
+\ensuremath{\mathtt{a[i][j]}}=
+    \begin{cases}
+      \ensuremath{\mathtt{true}} & \text{if $\ensuremath{\mathtt{(i,j)}}\in E$} \\
+      \ensuremath{\mathtt{false}} & \text{otherwise}
+    \end{cases}
+\end{displaymath}
+ -->
+</P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<IMG
+ WIDTH="211" HEIGHT="65" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4534.png"
+ ALT="$\displaystyle \ensuremath{\mathtt{a[i][j]}}=
+\begin{cases}
+\ensuremath{\math...
+...(i,j)}}\in E$} \\
+\ensuremath{\mathtt{false}} &amp; \text{otherwise}
+\end{cases}$">
+</DIV><P></P>
+The adjacency matrix for the graph in Figure&nbsp;<A HREF="12_Graphs.html#fig:graph">12.1</A> is
+shown in Figure&nbsp;<A HREF="#fig:graph-adj">12.2</A>.
+
+<P>
+In this representation, the operations <!-- MATH
+ $\mathtt{addEdge(i,j)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="96" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4535.png"
+ ALT="$ \mathtt{addEdge(i,j)}$"></SPAN>,
+<!-- MATH
+ $\mathtt{removeEdge(i,j)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="122" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4536.png"
+ ALT="$ \mathtt{removeEdge(i,j)}$"></SPAN>, and <!-- MATH
+ $\mathtt{hasEdge(i,j)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="96" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4537.png"
+ ALT="$ \mathtt{hasEdge(i,j)}$"></SPAN> just
+involve setting or reading the matrix entry <!-- MATH
+ $\mathtt{a[i][j]}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="50" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4538.png"
+ ALT="$ \mathtt{a[i][j]}$"></SPAN>:
+<PRE>
+    void addEdge(int i, int j) {
+        a[i][j] = true;
+    }
+    void removeEdge(int i, int j) {
+        a[i][j] = false;
+    }
+    boolean hasEdge(int i, int j) {
+        return a[i][j];
+    }
+</PRE>
+These operations clearly take constant time per operation.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:graph-adj"></A><A NAME="31701"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 12.2:</STRONG>
+A graph and its adjacency matrix.</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="308" HEIGHT="215" ALIGN="BOTTOM" BORDER="0"
+ SRC="img4539.png"
+ ALT="\includegraphics[scale=0.90909]{figs/graph}"> <BR>
+<BR>
+<BR>
+<BR>    <TABLE CELLPADDING=3 BORDER="1" ALIGN="CENTER">
+<TR><TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="CENTER">2</TD>
+<TD ALIGN="CENTER">3</TD>
+<TD ALIGN="CENTER">4</TD>
+<TD ALIGN="CENTER">5</TD>
+<TD ALIGN="CENTER">6</TD>
+<TD ALIGN="CENTER">7</TD>
+<TD ALIGN="CENTER">8</TD>
+<TD ALIGN="CENTER">9</TD>
+<TD ALIGN="CENTER">10</TD>
+<TD ALIGN="CENTER">11</TD>
+</TR>
+<TR><TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+</TR>
+<TR><TD ALIGN="CENTER">1</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+</TR>
+<TR><TD ALIGN="CENTER">2</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+</TR>
+<TR><TD ALIGN="CENTER">3</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+</TR>
+<TR><TD ALIGN="CENTER">4</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+</TR>
+<TR><TD ALIGN="CENTER">5</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+</TR>
+<TR><TD ALIGN="CENTER">6</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="CENTER">0</TD>
+</TR>
+<TR><TD ALIGN="CENTER">7</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">1</TD>
+</TR>
+<TR><TD ALIGN="CENTER">8</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+</TR>
+<TR><TD ALIGN="CENTER">9</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="CENTER">0</TD>
+</TR>
+<TR><TD ALIGN="CENTER">10</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">1</TD>
+</TR>
+<TR><TD ALIGN="CENTER">11</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="CENTER">0</TD>
+</TR>
+</TABLE>
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+Where the adjacency matrix performs poorly is with the <!-- MATH
+ $\mathtt{outEdges(i)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="91" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4540.png"
+ ALT="$ \mathtt{outEdges(i)}$"></SPAN> and
+<!-- MATH
+ $\mathtt{inEdges(i)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="82" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4541.png"
+ ALT="$ \mathtt{inEdges(i)}$"></SPAN> operations.  To implement these, we must scan all <!-- MATH
+ $\mathtt{n}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img4542.png"
+ ALT="$ \mathtt{n}$"></SPAN>
+entries in the corresponding row or column of <!-- MATH
+ $\mathtt{a}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4543.png"
+ ALT="$ \mathtt{a}$"></SPAN> and gather up all the
+indices, <!-- MATH
+ $\mathtt{j}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4544.png"
+ ALT="$ \mathtt{j}$"></SPAN>, where <!-- MATH
+ $\mathtt{a[i][j]}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="50" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4545.png"
+ ALT="$ \mathtt{a[i][j]}$"></SPAN>, respectively <!-- MATH
+ $\mathtt{a[j][i]}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="50" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4546.png"
+ ALT="$ \mathtt{a[j][i]}$"></SPAN>, is true.
+<PRE>
+    List&lt;Integer&gt; outEdges(int i) {
+        List&lt;Integer&gt; edges = new ArrayList&lt;Integer&gt;();
+        for (int j = 0; j &lt; n; j++) 
+            if (a[i][j]) edges.add(j);
+        return edges;
+    }
+    List&lt;Integer&gt; inEdges(int i) {
+        List&lt;Integer&gt; edges = new ArrayList&lt;Integer&gt;();
+        for (int j = 0; j &lt; n; j++)
+            if (a[j][i]) edges.add(j);
+        return edges;
+    }
+</PRE>
+These operations clearly take <!-- MATH
+ $O(\ensuremath{\mathtt{n}})$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="36" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4547.png"
+ ALT="$ O(\ensuremath{\mathtt{n}})$"></SPAN> time per operation.  
+
+<P>
+Another drawback of the adjacency matrix representation is that it
+is large.  It stores an <!-- MATH
+ $\ensuremath{\mathtt{n}}\times \ensuremath{\mathtt{n}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="36" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img4548.png"
+ ALT="$ \ensuremath{\mathtt{n}}\times \ensuremath{\mathtt{n}}$"></SPAN> boolean matrix, so it requires at
+least <!-- MATH
+ $\ensuremath{\mathtt{n}}^2$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="20" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img4549.png"
+ ALT="$ \ensuremath{\mathtt{n}}^2$"></SPAN> bits of memory.  The implementation here uses a matrix
+of <!-- MATH
+ $\mathtt{boolean}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="63" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4550.png"
+ ALT="$ \mathtt{boolean}$"></SPAN> values so it actually uses on the
+order of <!-- MATH
+ $\ensuremath{\mathtt{n}}^2$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="20" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img4551.png"
+ ALT="$ \ensuremath{\mathtt{n}}^2$"></SPAN> bytes of memory.  A more careful implementation, which
+packs <!-- MATH
+ $\mathtt{w}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img4552.png"
+ ALT="$ \mathtt{w}$"></SPAN> boolean values into each word of memory, could reduce this
+space usage to <!-- MATH
+ $O(\ensuremath{\mathtt{n}}^2/\ensuremath{\mathtt{w}})$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="58" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4553.png"
+ ALT="$ O(\ensuremath{\mathtt{n}}^2/\ensuremath{\mathtt{w}})$"></SPAN> words of memory.
+
+<P>
+<P>
+<DIV><B>Theorem  <SPAN CLASS="arabic">12</SPAN>..<SPAN CLASS="arabic">1</SPAN></B> &nbsp; 
+<I>The <TT>AdjacencyMatrix</TT> data structure implements the <TT>Graph</TT> interface.
+An <TT>AdjacencyMatrix</TT> supports the operations
+</I>
+<UL>
+<LI><!-- MATH
+ $\mathtt{addEdge(i,j)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="96" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4554.png"
+ ALT="$ \mathtt{addEdge(i,j)}$"></SPAN>, <!-- MATH
+ $\mathtt{removeEdge(i,j)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="122" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4555.png"
+ ALT="$ \mathtt{removeEdge(i,j)}$"></SPAN>, and <!-- MATH
+ $\mathtt{hasEdge(i,j)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="96" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4556.png"
+ ALT="$ \mathtt{hasEdge(i,j)}$"></SPAN> in constant
+  time per operation; and
+</LI>
+<LI><!-- MATH
+ $\mathtt{inEdges(i)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="82" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4557.png"
+ ALT="$ \mathtt{inEdges(i)}$"></SPAN>, and <!-- MATH
+ $\mathtt{outEdges(i)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="91" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4558.png"
+ ALT="$ \mathtt{outEdges(i)}$"></SPAN> in <!-- MATH
+ $O(\ensuremath{\mathtt{n}})$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="36" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4559.png"
+ ALT="$ O(\ensuremath{\mathtt{n}})$"></SPAN> time per operation.
+</LI>
+</UL><I>
+The space used by an <TT>AdjacencyMatrix</TT> is  <!-- MATH
+ $O(\ensuremath{\mathtt{n}}^2)$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="43" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4560.png"
+ ALT="$ O(\ensuremath{\mathtt{n}}^2)$"></SPAN>.</I></DIV><P></P>
+
+<P>
+Despite its high memory requirements and poor performance of the <!-- MATH
+ $\mathtt{inEdges(i)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="82" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4561.png"
+ ALT="$ \mathtt{inEdges(i)}$"></SPAN>
+and <!-- MATH
+ $\mathtt{outEdges(i)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="91" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4562.png"
+ ALT="$ \mathtt{outEdges(i)}$"></SPAN> operations, an <TT>AdjacencyMatrix</TT> can still be useful for
+some applications.  In particular, when the graph <SPAN CLASS="MATH"><IMG
+ WIDTH="16" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4563.png"
+ ALT="$ G$"></SPAN> is <SPAN  CLASS="textit">dense</SPAN>,
+i.e., it has close to <!-- MATH
+ $\ensuremath{\mathtt{n}}^2$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="20" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img4564.png"
+ ALT="$ \ensuremath{\mathtt{n}}^2$"></SPAN> edges, then a memory usage of <!-- MATH
+ $\ensuremath{\mathtt{n}}^2$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="20" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img4565.png"
+ ALT="$ \ensuremath{\mathtt{n}}^2$"></SPAN>
+may be acceptable.
+
+<P>
+The <TT>AdjacencyMatrix</TT> data structure is also commonly used because
+algebraic operations on the matrix <!-- MATH
+ $\mathtt{a}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4566.png"
+ ALT="$ \mathtt{a}$"></SPAN> can be used to efficiently compute
+properties of the graph <SPAN CLASS="MATH"><IMG
+ WIDTH="16" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4567.png"
+ ALT="$ G$"></SPAN>.  This is a topic for a course on algorithms,
+but we point out one such property here:  If we treat the entries of <!-- MATH
+ $\mathtt{a}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4568.png"
+ ALT="$ \mathtt{a}$"></SPAN>
+as integers (1 for <!-- MATH
+ $\mathtt{true}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="38" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4569.png"
+ ALT="$ \mathtt{true}$"></SPAN> and 0 for <!-- MATH
+ $\mathtt{false}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="46" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4570.png"
+ ALT="$ \mathtt{false}$"></SPAN>) and multiply <!-- MATH
+ $\mathtt{a}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4571.png"
+ ALT="$ \mathtt{a}$"></SPAN> by itself
+using matrix multiplication then we get the matrix <!-- MATH
+ $\ensuremath{\mathtt{a}}^2$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="20" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4572.png"
+ ALT="$ \ensuremath{\mathtt{a}}^2$"></SPAN>.  Recall,
+from the definition of matrix multiplication, that
+<P><!-- MATH
+ \begin{displaymath}
+\ensuremath{\mathtt{a^2[i][j]}} = \sum_{k=0}^{\ensuremath{\mathtt{n}}-1} \ensuremath{\mathtt{a[i][k]}}\cdot \ensuremath{\mathtt{a[k][j]}} \enspace .
+\end{displaymath}
+ -->
+</P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<IMG
+ WIDTH="213" HEIGHT="67" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4573.png"
+ ALT="$\displaystyle \ensuremath{\mathtt{a^2[i][j]}} = \sum_{k=0}^{\ensuremath{\mathtt...
+...1} \ensuremath{\mathtt{a[i][k]}}\cdot \ensuremath{\mathtt{a[k][j]}} \enspace .
+$">
+</DIV><P></P>
+Interpreting this sum in terms of the graph <SPAN CLASS="MATH"><IMG
+ WIDTH="16" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4574.png"
+ ALT="$ G$"></SPAN>, this formula counts the
+number of vertices, <!-- MATH
+ $\ensuremath{\mathtt{k}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img4575.png"
+ ALT="$ \ensuremath{\mathtt{k}}$"></SPAN>, such that <SPAN CLASS="MATH"><IMG
+ WIDTH="16" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4576.png"
+ ALT="$ G$"></SPAN> contains both edges <!-- MATH
+ $\mathtt{(i,k)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="37" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4577.png"
+ ALT="$ \mathtt{(i,k)}$"></SPAN>
+and <!-- MATH
+ $\mathtt{(k,j)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="37" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4578.png"
+ ALT="$ \mathtt{(k,j)}$"></SPAN>.  That is, it counts the number of paths from <!-- MATH
+ $\ensuremath{\mathtt{i}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img4579.png"
+ ALT="$ \ensuremath{\mathtt{i}}$"></SPAN> to <!-- MATH
+ $\ensuremath{\mathtt{j}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4580.png"
+ ALT="$ \ensuremath{\mathtt{j}}$"></SPAN>
+(through intermediate vertices, <!-- MATH
+ $\ensuremath{\mathtt{k}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img4581.png"
+ ALT="$ \ensuremath{\mathtt{k}}$"></SPAN>) whose length is exactly two.
+This observation is the foundation of an algorithm that computes the
+shortest paths between all pairs of vertices in <SPAN CLASS="MATH"><IMG
+ WIDTH="16" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4582.png"
+ ALT="$ G$"></SPAN> using only <!-- MATH
+ $O(\log
+\ensuremath{\mathtt{n}})$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="59" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4583.png"
+ ALT="$ O(\log
+\ensuremath{\mathtt{n}})$"></SPAN> matrix multiplications.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html1142"
+  HREF="12_2_AdjacencyLists_Graph_a.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1136"
+  HREF="12_Graphs.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1130"
+  HREF="12_Graphs.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1138"
+  HREF="Contents.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html1140"
+  HREF="Index.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html1143"
+  HREF="12_2_AdjacencyLists_Graph_a.html">12.2 AdjacencyLists: A Graph</A>
+<B> Up:</B> <A NAME="tex2html1137"
+  HREF="12_Graphs.html">12. Graphs</A>
+<B> Previous:</B> <A NAME="tex2html1131"
+  HREF="12_Graphs.html">12. Graphs</A>
+ &nbsp; <B>  <A NAME="tex2html1139"
+  HREF="Contents.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html1141"
+  HREF="Index.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<a href="http://opendatastructures.org/">opendatastructures.org</a>
+    
+
+</ADDRESS>
+</BODY>
+</HTML>

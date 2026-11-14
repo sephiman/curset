@@ -1,0 +1,194 @@
+m09-l03-q01:
+  key:
+    anchor: pg-ddl-rowsecurity#DDL-ROWSECURITY
+    sentence: If no policy exists for the table, a default-deny policy is used, meaning that no rows are visible or can be modified.
+  wrong:
+  - option: See and modify all rows, because the SQL privilege system alone decides access
+    anchor: pg-ddl-rowsecurity#DDL-ROWSECURITY
+    sentence: all normal access to the table for selecting rows or modifying rows must be allowed by a row security policy
+  - option: See all rows but update none of them
+    anchor: pg-sql-createpolicy#id-1.9.3.75.5
+    sentence: so that no rows will be visible or updatable.
+  - option: Nothing, because every query fails with an error until a policy is created
+    anchor: pg-sql-createpolicy#id-1.9.3.75.5
+    sentence: Typically, no error occurs when a row is not visible, but see Table 301 for exceptions.
+m09-l03-q02:
+  key:
+    anchor: pg-sql-createpolicy#id-1.9.3.75.5
+    sentence: For policies that can have both USING and WITH CHECK expressions (ALL and UPDATE), if no WITH CHECK expression is defined, then the USING expression will be used both to determine which rows are visible (normal USING case) and which new rows will be allowed to be added (WITH CHECK case).
+  wrong:
+  - option: Against no expression, so any new row value is allowed
+    anchor: pg-sql-createpolicy#id-1.9.3.75.5
+    sentence: For policies that can have both USING and WITH CHECK expressions (ALL and UPDATE), if no WITH CHECK expression is defined, then the USING expression will be used both to determine which rows are visible (normal USING case) and which new rows will be allowed to be added (WITH CHECK case).
+    exclusive: true
+  - option: Against an implicit `WITH CHECK (true)` expression
+    anchor: pg-sql-createpolicy#id-1.9.3.75.5
+    sentence: For policies that can have both USING and WITH CHECK expressions (ALL and UPDATE), if no WITH CHECK expression is defined, then the USING expression will be used both to determine which rows are visible (normal USING case) and which new rows will be allowed to be added (WITH CHECK case).
+    exclusive: true
+  - option: Against the `USING` expressions of the `SELECT` policies only
+    anchor: pg-sql-createpolicy#id-1.9.3.75.5
+    sentence: For policies that can have both USING and WITH CHECK expressions (ALL and UPDATE), if no WITH CHECK expression is defined, then the USING expression will be used both to determine which rows are visible (normal USING case) and which new rows will be allowed to be added (WITH CHECK case).
+    exclusive: true
+m09-l03-q03:
+  key:
+    anchor: pg-sql-createpolicy#id-1.9.3.75.6.4
+    sentence: Thus all the PERMISSIVE policy expressions are combined using OR, all the RESTRICTIVE policy expressions are combined using AND, and the results are combined using AND.
+  wrong:
+  - option: All three expressions are combined with OR, so any one of them grants access
+    anchor: pg-ddl-rowsecurity#DDL-ROWSECURITY
+    sentence: When multiple policies apply to a given query, they are combined using either OR (for permissive policies, which are the default) or using AND (for restrictive policies).
+  - option: All three expressions are combined with AND, so every policy must pass
+    anchor: pg-sql-createpolicy#id-1.9.3.75.6.4
+    sentence: then there must be at least one PERMISSIVE policy granting access to the relation, and all of the RESTRICTIVE policies must pass.
+  - option: Only the restrictive policy is applied, because the stricter policy overrides the others
+    anchor: pg-sql-createpolicy#id-1.9.3.75.6.4
+    sentence: If there are no PERMISSIVE policies, then access is denied.
+m09-l03-q04:
+  key:
+    anchor: pg-ddl-rowsecurity#DDL-ROWSECURITY
+    sentence: though a table owner can choose to be subject to row security with ALTER TABLE ... FORCE ROW LEVEL SECURITY.
+  wrong:
+  - option: With `ALTER TABLE ... ENABLE ROW LEVEL SECURITY`, which applies to every role including the owner
+    anchor: pg-ddl-rowsecurity#DDL-ROWSECURITY
+    sentence: However, the table's owner is typically not subject to row security policies.
+  - option: By granting the owner the `BYPASSRLS` attribute
+    anchor: pg-ddl-rowsecurity#DDL-ROWSECURITY
+    sentence: Superusers and roles with the BYPASSRLS attribute always bypass the row security system when accessing a table.
+  - option: It is not possible, because table owners always bypass row security
+    anchor: pg-ddl-rowsecurity#DDL-ROWSECURITY
+    sentence: though a table owner can choose to be subject to row security with ALTER TABLE ... FORCE ROW LEVEL SECURITY.
+m09-l03-q05:
+  key:
+    anchor: pg-ddl-schemas#DDL-SCHEMAS-PATTERNS
+    sentence: In PostgreSQL 15 and later, the default configuration supports this usage pattern.
+  wrong:
+  - option: Keeping the default search path and granting privileges to create in the public schema
+    anchor: pg-ddl-schemas#DDL-SCHEMAS-PATTERNS
+    sentence: In databases upgraded from PostgreSQL 14 or earlier, this is the default.
+  - option: Removing the public schema from the default search path
+    anchor: pg-ddl-schemas#DDL-SCHEMAS-PATTERNS
+    sentence: Remove the public schema from the default search path, by modifying postgresql.conf or by issuing ALTER ROLE ALL SET search_path
+  - option: Installing the shared applications into the private schema of each user
+    anchor: pg-ddl-schemas#DDL-SCHEMAS-PATTERNS
+    sentence: For any pattern, to install shared applications (tables to be used by everyone, additional functions provided by third parties, etc.), put them into separate schemas.
+m09-l03-q06:
+  key:
+    anchor: kafka-design#client-groups
+    sentence: For a given connection, the most specific quota matching the connection is applied.
+  wrong:
+  - option: The smallest of the matching quotas
+    anchor: kafka-design#client-groups
+    sentence: For a given connection, the most specific quota matching the connection is applied.
+    exclusive: true
+  - option: The sum of the matching quotas
+    anchor: kafka-design#client-groups
+    sentence: For a given connection, the most specific quota matching the connection is applied.
+    exclusive: true
+  - option: The client-id quota, whatever other quotas match
+    anchor: kafka-design#client-groups
+    sentence: For a given connection, the most specific quota matching the connection is applied.
+    exclusive: true
+m09-l03-q07:
+  key:
+    anchor: kafka-design#enforcement
+    sentence: This quota is defined on a per-broker basis.
+  wrong:
+  - option: Per cluster, as one fixed bandwidth for each client
+    anchor: kafka-design#enforcement
+    sentence: We decided that defining these quotas per broker is much better than having a fixed cluster wide bandwidth per client
+  - option: Per topic, so that each topic has its own quota for each client
+    anchor: kafka-design#client-groups
+    sentence: Quotas can be applied to (user, client-id), user or client-id groups.
+  - option: Per partition, so that each partition leader enforces its own quota
+    anchor: kafka-design#quotas
+    sentence: Two types of client quotas can be enforced by Kafka brokers for each group of clients sharing a quota
+m09-l03-q08:
+  key:
+    execution: m09-l03/QuotaShare.java
+  wrong:
+  - option: 'per-broker quota MB/s: 10.0
+
+      cluster-wide ceiling MB/s: 10.0
+
+      share per producer instance at the ceiling MB/s: 2.5
+
+      share per producer instance on one broker MB/s: 0.8'
+    execution: m09-l03/QuotaShare.java
+    mistake: 'forgotten factor: quota read as cluster-wide'
+  - option: 'per-broker quota MB/s: 10.0
+
+      cluster-wide ceiling MB/s: 30.0
+
+      share per producer instance at the ceiling MB/s: 120.0
+
+      share per producer instance on one broker MB/s: 40.0'
+    execution: m09-l03/QuotaShare.java
+    mistake: 'wrong operation: multiplied by instances instead of dividing'
+  - option: 'per-broker quota MB/s: 10.0
+
+      cluster-wide ceiling MB/s: 3.3
+
+      share per producer instance at the ceiling MB/s: 0.8
+
+      share per producer instance on one broker MB/s: 2.5'
+    execution: m09-l03/QuotaShare.java
+    mistake: 'wrong operation: divided by brokers instead of multiplying'
+m09-l03-q09:
+  key:
+    anchor: resilience4j-bulkhead#introduction
+    sentence: It is up to the client to ensure correct thread pool sizing that will be consistent with bulkhead configuration.
+  wrong:
+  - option: It limits concurrency with a bounded queue and a fixed thread pool
+    anchor: resilience4j-bulkhead#introduction
+    sentence: a FixedThreadPoolBulkhead which uses a bounded queue and a fixed thread pool
+  - option: It provides a shadow thread pool for each bulkhead, as Hystrix does
+    anchor: resilience4j-bulkhead#introduction
+    sentence: It is based on a semaphore, and unlike Hystrix, does not provide "shadow" thread pool option.
+  - option: It sizes the thread pool automatically from the bulkhead configuration
+    anchor: resilience4j-bulkhead#introduction
+    sentence: It is up to the client to ensure correct thread pool sizing that will be consistent with bulkhead configuration.
+m09-l03-q10:
+  key:
+    anchor: k8s-resource-management#requests-and-limits
+    sentence: cpu limits are enforced by CPU throttling.
+  wrong:
+  - option: By terminating the container with an out of memory (OOM) kill
+    anchor: k8s-resource-management#requests-and-limits
+    sentence: memory limits are enforced by the kernel with out of memory (OOM) kills.
+  - option: Loosely, since a container may use more CPU than its limit when the node has spare CPU
+    anchor: k8s-resource-management#requests-and-limits
+    sentence: Containers may not use more CPU than is specified in their cpu limit.
+  - option: By the scheduler, which refuses to place Pods whose containers could exceed the limit
+    anchor: k8s-resource-management#requests-and-limits
+    sentence: Both cpu and memory limits are applied by the kubelet (and container runtime), and are ultimately enforced by the kernel.
+m09-l03-q11:
+  key:
+    anchor: k8s-qos#quality-of-service-classes
+    sentence: When a Node runs out of resources, Kubernetes will first evict BestEffort Pods running on that Node, followed by Burstable and finally Guaranteed Pods.
+  wrong:
+  - option: '`Guaranteed` first, then `Burstable`, and finally `BestEffort` Pods'
+    anchor: k8s-qos#quality-of-service-classes
+    sentence: When a Node runs out of resources, Kubernetes will first evict BestEffort Pods running on that Node, followed by Burstable and finally Guaranteed Pods.
+    exclusive: true
+  - option: '`Burstable` first, then `BestEffort`, and finally `Guaranteed` Pods'
+    anchor: k8s-qos#quality-of-service-classes
+    sentence: When a Node runs out of resources, Kubernetes will first evict BestEffort Pods running on that Node, followed by Burstable and finally Guaranteed Pods.
+    exclusive: true
+  - option: '`Burstable` first, then `Guaranteed`, and finally `BestEffort` Pods'
+    anchor: k8s-qos#quality-of-service-classes
+    sentence: When a Node runs out of resources, Kubernetes will first evict BestEffort Pods running on that Node, followed by Burstable and finally Guaranteed Pods.
+    exclusive: true
+m09-l03-q12:
+  key:
+    anchor: k8s-resource-management#requests-and-limits
+    sentence: When a container uses more than its memory limit, the kernel may terminate it.
+  wrong:
+  - option: It is slowed down by CPU throttling until its memory use falls
+    anchor: k8s-resource-management#requests-and-limits
+    sentence: cpu limits are enforced by CPU throttling.
+  - option: It is killed immediately, at the moment it goes over the limit
+    anchor: k8s-resource-management#requests-and-limits
+    sentence: Thus, a container that over allocates memory may not be immediately killed.
+  - option: It is never terminated, because the limit only affects scheduling
+    anchor: k8s-resource-management#requests-and-limits
+    sentence: memory limits are enforced by the kernel with out of memory (OOM) kills.

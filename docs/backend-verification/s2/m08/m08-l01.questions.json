@@ -1,0 +1,122 @@
+[
+ {
+  "id": "m08-l01-q01",
+  "fact": "m08-l01-f02",
+  "stem": "In Gilbert and Lynch's statement of the CAP Theorem, which of these is impossible for a web service in a network subject to communication failures?",
+  "key": "Implementing an atomic read/write shared memory that guarantees a response to every request",
+  "distractors": [
+   "Returning any response at all, because a partitioned server has to stay silent",
+   "Implementing a trivial service, such as one that returns the value of a constant",
+   "Implementing a weakly consistent service, such as a distributed web cache"
+  ],
+  "explanation": "In a network subject to communication failures, it is impossible for a web service to implement an atomic read/write shared memory that guarantees a response to every request. A partitioned server can still return a response, at the risk of returning the wrong one, so returning any response at all is not ruled out. A trivial service needs no coordination among the servers, so it falls outside the scope of the CAP Theorem. A weakly consistent service such as a distributed web cache avoids sacrificing availability, so the theorem does not rule it out.",
+  "citation": "paper-gilbert-lynch-cap#p3; paper-gilbert-lynch-cap#p2",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m08-l01-q02",
+  "fact": "m08-l01-f06",
+  "stem": "Gilbert and Lynch classify properties as safety or liveness properties. Which classification do they give to consistency requirements and to availability, respectively?",
+  "key": "Consistency requirements are almost always safety properties, and availability is a liveness property",
+  "distractors": [
+   "Both are safety properties, because each states that nothing bad ever happens",
+   "Both are liveness properties, because each states that eventually something good happens",
+   "Consistency requirements are liveness properties, and availability is a safety property"
+  ],
+  "explanation": "Consistency requirements are almost always safety properties, and availability is a classic liveness property. Treating both as safety properties fails because availability states that eventually every request receives a response. Treating both as liveness properties and treating consistency as a liveness property both fail for one reason: consistency requirements are almost always safety properties.",
+  "citation": "paper-gilbert-lynch-cap#p3",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m08-l01-q03",
+  "fact": "m08-l01-f18",
+  "stem": "In etcd, a client sets a read request's consistency mode to serializable. What does the client accept in exchange for lower latencies and higher throughput?",
+  "key": "The read may access stale data with respect to quorum, because it avoids relying on live consensus",
+  "distractors": [
+   "Nothing, because etcd already serves every read in serializable mode by default",
+   "The read still goes through the Raft consensus process on the leader, but it may return stale data afterwards",
+   "Linearizable ordering of writes, because serializable mode also applies to write requests"
+  ],
+  "explanation": "A serializable read may access stale data with respect to quorum, because it removes the reliance on live consensus. Serving every read in serializable mode by default is wrong, because etcd ensures linearizability for all other operations by default. A serializable read that still goes through the Raft consensus process on the leader is wrong, because the mode removes the performance penalty of linearized accesses. Giving up the ordering of writes is wrong, because the mode is configured for read requests.",
+  "citation": "etcd-api-guarantees#linearizability",
+  "extract": "which may access stale data with respect to quorum",
+  "snippet": null
+ },
+ {
+  "id": "m08-l01-q04",
+  "fact": "m08-l01-f21",
+  "stem": "In ZooKeeper, which property of read operations explains why a read can return stale data shortly after another client's write has completed?",
+  "key": "A read is not a quorum operation, so the server responds immediately to the client",
+  "distractors": [
+   "Updates from one client are applied in an arbitrary order, so an older write can overwrite a newer one",
+   "A client that moves to a second server sees an older view of the service than the first server showed",
+   "Write operations are not linearizable, so a read after a write can return the value from before it"
+  ],
+  "explanation": "A read in ZooKeeper is not a quorum operation, so the server responds immediately to the client that is performing it. Applying updates from one client in an arbitrary order is wrong, because ZooKeeper applies updates from a client in the order that they were sent. A second server showing an older view is wrong, because a client never sees an older view of the system even when it fails over to a different server with the same session. Non-linearizable writes are wrong, because write operations in ZooKeeper are linearizable.",
+  "citation": "zk-internals#sc_consistency; zk-over#Guarantees",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m08-l01-q05",
+  "fact": "m08-l01-f38",
+  "stem": "In an NTP version 4 packet as specified by RFC 5905, which stratum value identifies a primary server, such as one equipped with a GPS receiver?",
+  "key": "1",
+  "distractors": [
+   "0",
+   "2",
+   "16"
+  ],
+  "explanation": "Stratum value 1 identifies a primary server, for example one equipped with a GPS receiver. Stratum value 0 is unspecified or invalid, so it does not identify a primary server. Stratum value 2 falls in the range 2 to 15, which marks a secondary server reached via NTP. Stratum value 16 means unsynchronized.",
+  "citation": "rfc5905#top",
+  "extract": "primary server (e.g., equipped with a GPS receiver)",
+  "snippet": null
+ },
+ {
+  "id": "m08-l01-q06",
+  "fact": "m08-l01-f17",
+  "stem": "In etcd, which cost do linearizable requests carry, compared with requests in the serializable consistency mode?",
+  "key": "Linearizable requests must go through the Raft consensus process",
+  "distractors": [
+   "They return data that may be stale with respect to quorum",
+   "They keep the performance penalty of live consensus only for writes, never for reads",
+   "They are available only for write operations, because a read cannot be linearized"
+  ],
+  "explanation": "Linearizable requests in etcd must go through the Raft consensus process. Stale data is wrong, because linearizability guarantees the read returns the most current value. Keeping the penalty only for writes is wrong, because the serializable mode removes the performance penalty of linearized accesses for read requests. Write-only availability is wrong, because a client issuing a read after a completed write should receive a value at least as recent as that write.",
+  "citation": "etcd-api-guarantees#linearizability",
+  "extract": "linearized requests must go through the Raft consensus process",
+  "snippet": null
+ },
+ {
+  "id": "m08-l01-q07",
+  "fact": "m08-l01-f41",
+  "stem": "According to RFC 5905, NTP version 4 extends the potential accuracy to which order of magnitude with modern workstations and fast LANs?",
+  "key": "Tens of microseconds",
+  "distractors": [
+   "Tens of milliseconds",
+   "Tens of nanoseconds",
+   "Single seconds"
+  ],
+  "explanation": "NTPv4 extends the potential accuracy to the tens of microseconds with modern workstations and fast LANs. Tens of milliseconds is wrong, because the stated accuracy is in microseconds. Tens of nanoseconds is wrong, because the stated accuracy is in microseconds. Single seconds is wrong, because the stated accuracy is in microseconds.",
+  "citation": "rfc5905#top",
+  "extract": "extend the potential accuracy to the tens of microseconds with modern workstations and fast LANs",
+  "snippet": null
+ },
+ {
+  "id": "m08-l01-q08",
+  "fact": "m08-l01-f08",
+  "stem": "In Gilbert and Lynch's CAP argument, communication is asynchronous and the message delay to one server is large enough that it believes the system is partitioned. What may that server do?",
+  "key": "Return an incorrect response, despite the lack of partitions",
+  "distractors": [
+   "Return the correct response, because only real partitions can cause an inconsistent answer",
+   "Never return a response, because it has to wait until the missing message arrives",
+   "Wait until the partition heals, which keeps both consistency and availability"
+  ],
+  "explanation": "The server may return an incorrect response, despite the lack of partitions. Returning the correct response is wrong, because it is even impossible to guarantee consistency when there are no partitions. Never returning a response is wrong, because the server eventually must return a response. Waiting to keep both properties is wrong, because the server can only choose between eventually returning a response, at the risk of a wrong one, and never returning one.",
+  "citation": "paper-gilbert-lynch-cap#p3",
+  "extract": null,
+  "snippet": null
+ }
+]

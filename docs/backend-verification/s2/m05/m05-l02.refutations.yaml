@@ -1,0 +1,158 @@
+m05-l02-q01:
+  key:
+    anchor: spring-boot-features-developing-auto-configuration#features.developing-auto-configuration.locating-auto-configuration-candidates
+    sentence: Auto-configurations must be loaded only by being named in the imports file.
+  wrong:
+  - option: By component scanning of the application's packages
+    anchor: spring-boot-features-developing-auto-configuration#features.developing-auto-configuration.locating-auto-configuration-candidates
+    sentence: Make sure that they are defined in a specific package space and that they are never the target of component scanning.
+  - option: By an auto-configuration class that enables component scanning to find the other ones
+    anchor: spring-boot-features-developing-auto-configuration#features.developing-auto-configuration.locating-auto-configuration-candidates
+    sentence: auto-configuration classes should not enable component scanning to find additional components.
+  - option: By a `@Bean` method of the application class that returns each auto-configuration
+    anchor: spring-boot-features-developing-auto-configuration#features.developing-auto-configuration.locating-auto-configuration-candidates
+    sentence: Specific @Import annotations should be used instead.
+m05-l02-q02:
+  key:
+    anchor: spring-boot-using-build-systems#using.build-systems.starters
+    sentence: a third-party starter project called thirdpartyproject would typically be named thirdpartyproject-spring-boot-starter.
+  wrong:
+  - option: '`spring-boot-starter-thirdpartyproject`'
+    anchor: spring-boot-using-build-systems#using.build-systems.starters
+    sentence: third party starters should not start with spring-boot, as it is reserved for official Spring Boot artifacts.
+    exclusive: true
+  - option: '`spring-boot-thirdpartyproject-starter`'
+    anchor: spring-boot-using-build-systems#using.build-systems.starters
+    sentence: third party starters should not start with spring-boot, as it is reserved for official Spring Boot artifacts.
+    exclusive: true
+  - option: '`starter-thirdpartyproject`'
+    anchor: spring-boot-using-build-systems#using.build-systems.starters
+    sentence: Rather, a third-party starter typically starts with the name of the project.
+m05-l02-q03:
+  key:
+    anchor: spring-boot-features-external-config#features.external-config.typesafe-configuration-properties.relaxed-binding
+    sentence: my.main-project.person.first-name Kebab case, which is recommended for use in .properties and YAML files.
+  wrong:
+  - option: Underscore notation, such as `my.main-project.person.first_name`
+    anchor: spring-boot-features-external-config#features.external-config.typesafe-configuration-properties.relaxed-binding
+    sentence: my.main-project.person.first_name Underscore notation, which is an alternative format for use in .properties and YAML files.
+  - option: Upper case format, such as `MY_MAINPROJECT_PERSON_FIRSTNAME`
+    anchor: spring-boot-features-external-config#features.external-config.typesafe-configuration-properties.relaxed-binding
+    sentence: MY_MAINPROJECT_PERSON_FIRSTNAME Upper case format, which is recommended when using system environment variables.
+  - option: Camel case, such as `my.main-project.person.firstName`
+    anchor: spring-boot-features-external-config#features.external-config.typesafe-configuration-properties.relaxed-binding
+    sentence: We recommend that, when possible, properties are stored in lower-case kebab format, such as my.person.first-name=Rod.
+m05-l02-q04:
+  key:
+    anchor: spring-boot-features-external-config#features.external-config.files
+    sentence: If you prefer to add additional locations, rather than replacing them, you can use spring.config.additional-location.
+  wrong:
+  - option: '`spring.config.location`, which takes a comma-separated list of locations'
+    anchor: spring-boot-features-external-config#features.external-config.files
+    sentence: Locations configured by using spring.config.location replace the default locations.
+  - option: '`spring.config.name`, which takes the base name of the files'
+    anchor: spring-boot-features-external-config#features.external-config.files
+    sentence: you can switch to another file name by specifying a spring.config.name environment property.
+  - option: The `optional:` prefix, put in front of each location
+    anchor: spring-boot-features-external-config#features.external-config.files
+    sentence: 'Use the prefix optional: if the locations are optional and you do not mind if they do not exist.'
+m05-l02-q05:
+  key:
+    anchor: spring-boot-features-external-config#page-title
+    sentence: Properties from SPRING_APPLICATION_JSON (inline JSON embedded in an environment variable or system property). Command line arguments.
+  wrong:
+  - option: Config data such as `application.properties` files
+    anchor: spring-boot-features-external-config#page-title
+    sentence: Config data (such as application.properties files). A RandomValuePropertySource that has properties only in random.*. OS environment variables.
+  - option: OS environment variables
+    anchor: spring-boot-features-external-config#page-title
+    sentence: OS environment variables. Java System properties (System.getProperties()). JNDI attributes from java:comp/env.
+  - option: Java System properties
+    anchor: spring-boot-features-external-config#page-title
+    sentence: Java System properties (System.getProperties()). JNDI attributes from java:comp/env. ServletContext init parameters.
+m05-l02-q06:
+  key:
+    anchor: spring-boot-using-auto-configuration#page-title
+    sentence: We generally recommend that you add one or the other to your primary @Configuration class only.
+  wrong:
+  - option: One on every `@Configuration` class that needs auto-configuration
+    anchor: spring-boot-using-auto-configuration#page-title
+    sentence: You should only ever add one @SpringBootApplication or @EnableAutoConfiguration annotation.
+  - option: Two, one `@SpringBootApplication` and one `@EnableAutoConfiguration` on the same class
+    anchor: spring-boot-using-auto-configuration#page-title
+    sentence: We generally recommend that you add one or the other to your primary @Configuration class only.
+  - option: None, because auto-configuration is enabled for every Spring application
+    anchor: spring-boot-using-auto-configuration#page-title
+    sentence: You need to opt-in to auto-configuration by adding the @EnableAutoConfiguration or @SpringBootApplication annotations to one of your @Configuration classes.
+m05-l02-q07:
+  key:
+    anchor: spring-boot-features-developing-auto-configuration#features.developing-auto-configuration.locating-auto-configuration-candidates
+    sentence: If you want to order certain auto-configurations that should not have any direct knowledge of each other, you can also use @AutoConfigureOrder.
+  wrong:
+  - option: '`@AutoConfigureAfter`, because it names the other class that must run first'
+    anchor: spring-boot-features-developing-auto-configuration#features.developing-auto-configuration.locating-auto-configuration-candidates
+    sentence: For example, if you provide web-specific configuration, your class may need to be applied after WebMvcAutoConfiguration.
+  - option: '`@DependsOn`, because it orders the beans of the classes'
+    anchor: spring-boot-features-developing-auto-configuration#features.developing-auto-configuration.locating-auto-configuration-candidates
+    sentence: The order in which those beans are subsequently created is unaffected and is determined by each bean’s dependencies and any @DependsOn relationships.
+  - option: '`@ComponentScan`, because it finds the classes in order'
+    anchor: spring-boot-features-developing-auto-configuration#features.developing-auto-configuration.locating-auto-configuration-candidates
+    sentence: Make sure that they are defined in a specific package space and that they are never the target of component scanning.
+m05-l02-q08:
+  key:
+    anchor: spring-boot-features-developing-auto-configuration#features.developing-auto-configuration.custom-starter
+    sentence: then it is better to separate the auto-configuration as you can clearly express the fact some features are optional.
+  wrong:
+  - option: It is better to merge everything into the starter, so that users see a single module
+    anchor: spring-boot-features-developing-auto-configuration#features.developing-auto-configuration.custom-starter
+    sentence: If the auto-configuration is relatively straightforward and does not have optional features, merging the two modules in the starter is definitely an option.
+  - option: Spring Boot requires the separation into two modules for every library
+    anchor: spring-boot-features-developing-auto-configuration#features.developing-auto-configuration.custom-starter
+    sentence: This separation in two modules is in no way necessary.
+  - option: The optional features belong in a separate test-scoped starter
+    anchor: spring-boot-features-developing-auto-configuration#features.developing-auto-configuration.custom-starter
+    sentence: A separate test-scoped starter can be created for this purpose, following the same principles.
+m05-l02-q09:
+  key:
+    anchor: spring-boot-features-external-config#page-title
+    sentence: Application properties outside of your packaged jar (application.properties and YAML variants). Profile-specific application properties outside of your packaged jar (application-{profile}.properties and YAML variants).
+  wrong:
+  - option: Application properties packaged inside the jar, as the base values
+    anchor: spring-boot-features-external-config#page-title
+    sentence: Application properties packaged inside your jar (application.properties and YAML variants). Profile-specific application properties packaged inside your jar (application-{profile}.properties and YAML variants).
+  - option: Profile-specific application properties packaged inside the jar
+    anchor: spring-boot-features-external-config#page-title
+    sentence: Profile-specific application properties packaged inside your jar (application-{profile}.properties and YAML variants). Application properties outside of your packaged jar (application.properties and YAML variants).
+  - option: Application properties outside of the packaged jar, next to the jar
+    anchor: spring-boot-features-external-config#page-title
+    sentence: Application properties outside of your packaged jar (application.properties and YAML variants). Profile-specific application properties outside of your packaged jar (application-{profile}.properties and YAML variants).
+m05-l02-q10:
+  key:
+    anchor: spring-boot-features-external-config#features.external-config.files
+    sentence: They must be defined as an environment property (typically an OS environment variable, a system property, or a command-line argument).
+  wrong:
+  - option: Inside `application.yaml`, because that file is loaded first
+    anchor: spring-boot-features-external-config#features.external-config.files
+    sentence: spring.config.name, spring.config.location, and spring.config.additional-location are used very early to determine which files have to be loaded.
+  - option: Inside a profile-specific file such as `application-dev.properties`
+    anchor: spring-boot-features-external-config#features.external-config.files
+    sentence: They must be defined as an environment property (typically an OS environment variable, a system property, or a command-line argument).
+    exclusive: true
+  - option: In a `@PropertySource` annotation on a `@Configuration` class
+    anchor: spring-boot-features-external-config#features.external-config.files
+    sentence: They must be defined as an environment property (typically an OS environment variable, a system property, or a command-line argument).
+    exclusive: true
+m05-l02-q11:
+  key:
+    anchor: spring-boot-howto-application#howto.application.troubleshoot-auto-configuration
+    sentence: If you use the spring-boot-actuator (see the Actuator section), there is also a conditions endpoint that renders the report in JSON.
+  wrong:
+  - option: The `configprops` endpoint
+    anchor: spring-boot-howto-application#howto.application.troubleshoot-auto-configuration
+    sentence: In a running application with actuator enabled, look at the configprops endpoint.
+  - option: The `env` endpoint
+    anchor: spring-boot-features-external-config#page-title
+    sentence: The env and configprops endpoints can be useful in determining why a property has a particular value.
+  - option: 'No endpoint: the report exists only in tests that use `ApplicationContextRunner`'
+    anchor: spring-boot-howto-application#howto.application.troubleshoot-auto-configuration
+    sentence: There is a really useful ConditionEvaluationReport available in any Spring Boot ApplicationContext.

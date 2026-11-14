@@ -1,7 +1,7 @@
 [
  {
   "id": "m01-l03-q01",
-  "stem": "In Spring Modulith 2.1.2, which part of an application module in a Spring Boot application is usually referred to as its provided interface, as opposed to its internals?",
+  "stem": "In Spring Modulith 2.1, which part of an application module in a Spring Boot application is usually referred to as its provided interface, as opposed to its internals?",
   "key": "The Spring bean instances and application events that the module publishes to other modules",
   "distractors": [
    "The internal implementation components that other modules are not supposed to access",
@@ -15,7 +15,7 @@
  },
  {
   "id": "m01-l03-q02",
-  "stem": "In Spring Modulith 2.1.2, which description matches what the reference documentation calls the required interface of an application module in a Spring Boot application?",
+  "stem": "In Spring Modulith 2.1, which description matches what the reference documentation calls the required interface of an application module in a Spring Boot application?",
   "key": "References to other modules' API as Spring bean dependencies, application events listened to and configuration properties exposed",
   "distractors": [
    "The Spring bean instances and application events that the module itself publishes to other modules as its API",
@@ -29,7 +29,7 @@
  },
  {
   "id": "m01-l03-q03",
-  "stem": "In Spring Modulith 2.1.2, how do you expose an additional package, besides the base package, to the other application modules of a Spring Boot application?",
+  "stem": "In Spring Modulith 2.1, how do you expose an additional package, besides the base package, to the other application modules of a Spring Boot application?",
   "key": "Annotate the `package-info.java` of that package with `@NamedInterface`",
   "distractors": [
    "Annotate the `package-info.java` of that package with `@ApplicationModule(allowedDependencies = …)`",
@@ -43,7 +43,7 @@
  },
  {
   "id": "m01-l03-q04",
-  "stem": "In Spring Modulith 2.1.2, the `inventory` module declares `@ApplicationModule(allowedDependencies = \"order :: spi\")`. Which dependency on the `order` module may its code have?",
+  "stem": "In Spring Modulith 2.1, the `inventory` module declares `@ApplicationModule(allowedDependencies = \"order :: spi\")`. Which dependency on the `order` module may its code have?",
   "key": "A dependency on `SomeSpiInterface` and other code in the `order.spi` named interface",
   "distractors": [
    "A dependency on `OrderManagement` in the `order` base package",
@@ -57,7 +57,7 @@
  },
  {
   "id": "m01-l03-q05",
-  "stem": "In Spring Modulith 2.1.2, a module `order` declares the `spi` named interface and the `inventory` module configures no `allowedDependencies`. Which parts of `order` can `inventory` depend on?",
+  "stem": "In Spring Modulith 2.1, a module `order` declares the `spi` named interface and the `inventory` module configures no `allowedDependencies`. Which parts of `order` can `inventory` depend on?",
   "key": "Both the application module root package and the SPI package",
   "distractors": [
    "Only the application module root package",
@@ -71,7 +71,7 @@
  },
  {
   "id": "m01-l03-q06",
-  "stem": "In Spring Modulith 2.1.2, which problem does `ApplicationModules.of(Application.class).verify()` report at the level of application modules, before any dependency is checked against allowed targets?",
+  "stem": "In Spring Modulith 2.1, which problem does `ApplicationModules.of(Application.class).verify()` report at the level of application modules, before any dependency is checked against allowed targets?",
   "key": "Cycles, because the dependencies between modules have to form a directed acyclic graph",
   "distractors": [
    "Dependencies into the internals of open application modules",
@@ -85,7 +85,7 @@
  },
  {
   "id": "m01-l03-q07",
-  "stem": "In Spring Modulith 2.1.2, which reference does the efferent-access rule of `ApplicationModules.verify()` reject in a project with no explicit `allowedDependencies`?",
+  "stem": "In Spring Modulith 2.1, which reference does the efferent-access rule of `ApplicationModules.verify()` reject in a project with no explicit `allowedDependencies`?",
   "key": "A reference to a type that resides in an internal package of another module",
   "distractors": [
    "A reference to a type in the base package of another module",
@@ -99,7 +99,7 @@
  },
  {
   "id": "m01-l03-q08",
-  "stem": "In Spring Modulith 2.1.2, when does the verification rule on explicitly allowed application module dependencies reject a dependency to another application module?",
+  "stem": "In Spring Modulith 2.1, when does the verification rule on explicitly allowed application module dependencies reject a dependency to another application module?",
   "key": "When the module defines allowed dependencies via `@ApplicationModule(allowedDependencies = …)` and the target is not among them",
   "distractors": [
    "Always, for every module in the application, because each module has an empty list of allowed dependencies by default",
@@ -113,7 +113,7 @@
  },
  {
   "id": "m01-l03-q09",
-  "stem": "In Spring Modulith 2.1.2, how do you verify that the code arrangement of an application adheres to the intended module constraints?",
+  "stem": "In Spring Modulith 2.1, how do you verify that the code arrangement of an application adheres to the intended module constraints?",
   "key": "Call `verify()` on an `ApplicationModules` instance, for example `ApplicationModules.of(Application.class).verify()`",
   "distractors": [
    "Set the attribute `@ApplicationModule(verify = true)` on the class that holds the application entry point",
@@ -127,7 +127,7 @@
  },
  {
   "id": "m01-l03-q10",
-  "stem": "In Spring Modulith 2.1.2, what does the reference documentation say should be the primary means of interaction between application modules, and why?",
+  "stem": "In Spring Modulith 2.1, what does the reference documentation say should be the primary means of interaction between application modules, and why?",
   "key": "Event publication and consumption, so the originating module need not know all interested parties",
   "distractors": [
    "Direct calls to Spring beans of the other module, which keep components easy to test",
@@ -141,7 +141,7 @@
  },
  {
   "id": "m01-l03-q11",
-  "stem": "In the Spring Modulith 2.1.2 `OrderManagement` example that uses `ApplicationEventPublisher`, when does `complete(…)` publish the `OrderCompleted` event?",
+  "stem": "In the Spring Modulith 2.1 `OrderManagement` example that uses `ApplicationEventPublisher`, when does `complete(…)` publish the `OrderCompleted` event?",
   "key": "Once it has completed the state transitions on the primary aggregate",
   "distractors": [
    "Before the state transitions, so listeners can veto them",
@@ -155,7 +155,7 @@
  },
  {
   "id": "m01-l03-q12",
-  "stem": "In Spring Modulith 2.1.2, when does the event publication registry write entries into the event publication log for the transactional event listeners that will receive an event?",
+  "stem": "In Spring Modulith 2.1, when does the event publication registry write entries into the event publication log for the transactional event listeners that will receive an event?",
   "key": "On event publication, as part of the original business transaction",
   "distractors": [
    "After the listener has succeeded, in a separate transaction of its own",
@@ -169,7 +169,7 @@
  },
  {
   "id": "m01-l03-q13",
-  "stem": "In Spring Modulith 2.1.2, what happens to the event publication log entry when its transactional event listener fails?",
+  "stem": "In Spring Modulith 2.1, what happens to the event publication log entry when its transactional event listener fails?",
   "key": "The entry stays untouched so that retry mechanisms can be deployed",
   "distractors": [
    "The entry is marked completed anyway",
@@ -183,7 +183,7 @@
  },
  {
   "id": "m01-l03-q14",
-  "stem": "In Spring Modulith 2.1.2, which event listeners does the event publication registry consider by default when it writes entries into the publication log?",
+  "stem": "In Spring Modulith 2.1, which event listeners does the event publication registry consider by default when it writes entries into the publication log?",
   "key": "All listeners annotated or meta-annotated with `@TransactionalEventListener`",
   "distractors": [
    "All listeners annotated with `@EventListener`, transactional or not",
@@ -197,7 +197,7 @@
  },
  {
   "id": "m01-l03-q15",
-  "stem": "In ArchUnit 1.5.1, which class is the entry point for specifying an architectural rule with the fluent API, such as services only being accessed by controllers?",
+  "stem": "In ArchUnit 1.5, which class is the entry point for specifying an architectural rule with the fluent API, such as services only being accessed by controllers?",
   "key": "`ArchRuleDefinition`",
   "distractors": [
    "`Architectures`",
@@ -211,7 +211,7 @@
  },
  {
   "id": "m01-l03-q16",
-  "stem": "In ArchUnit 1.5.1, an `ArchRule` has been specified with the fluent API. How is it evaluated against a set of imported classes?",
+  "stem": "In ArchUnit 1.5, an `ArchRule` has been specified with the fluent API. How is it evaluated against a set of imported classes?",
   "key": "By calling `check(importedClasses)` on the rule",
   "distractors": [
    "By calling `CycleDetector.detectCycles(nodes, edges)` with the rule",
@@ -225,7 +225,7 @@
  },
  {
   "id": "m01-l03-q17",
-  "stem": "In the `layeredArchitecture()` example of the ArchUnit 1.5.1 user guide, which access to the `Service` layer is allowed?",
+  "stem": "In the `layeredArchitecture()` example of the ArchUnit 1.5 user guide, which access to the `Service` layer is allowed?",
   "key": "Only access from the `Controller` layer",
   "distractors": [
    "Access from the `Controller` and the `Persistence` layers",
@@ -239,7 +239,7 @@
  },
  {
   "id": "m01-l03-q18",
-  "stem": "In ArchUnit 1.5.1, which architectural styles does the `com.tngtech.archunit.library.Architectures` entrance point provide a convenient check for at the moment?",
+  "stem": "In ArchUnit 1.5, which architectural styles does the `com.tngtech.archunit.library.Architectures` entrance point provide a convenient check for at the moment?",
   "key": "A layered architecture and an onion architecture",
   "distractors": [
    "A layered architecture and a pipes-and-filters architecture",
@@ -253,7 +253,7 @@
  },
  {
   "id": "m01-l03-q19",
-  "stem": "In ArchUnit 1.5.1, what does the rule `SlicesRuleDefinition.slices().matching(\"..myapp.(*)..\").should().beFreeOfCycles()` check about the classes of an application?",
+  "stem": "In ArchUnit 1.5, what does the rule `SlicesRuleDefinition.slices().matching(\"..myapp.(*)..\").should().beFreeOfCycles()` check about the classes of an application?",
   "key": "That slices made of the classes sorted by the first package after `myapp` are free of cyclic dependencies",
   "distractors": [
    "That the slices sorted by the first package after `myapp` have no dependencies on each other",
@@ -267,7 +267,7 @@
  },
  {
   "id": "m01-l03-q20",
-  "stem": "In ArchUnit 1.5.1, what does the rule `slices().matching(\"..myapp.(**).service..\").should().notDependOnEachOther()` assert about the slices of an application?",
+  "stem": "In ArchUnit 1.5, what does the rule `slices().matching(\"..myapp.(**).service..\").should().notDependOnEachOther()` assert about the slices of an application?",
   "key": "That the slices, sorted by the packages between `myapp` and `service`, have no dependencies on each other",
   "distractors": [
    "That the slices are free of cycles",
@@ -281,7 +281,7 @@
  },
  {
   "id": "m01-l03-q21",
-  "stem": "In ArchUnit 1.5.1, which class holds the cycle detection that the `slices()` rule uses, so that custom checks can run it without any rule syntax?",
+  "stem": "In ArchUnit 1.5, which class holds the cycle detection that the `slices()` rule uses, so that custom checks can run it without any rule syntax?",
   "key": "`CycleDetector`, in the `cycle_detection` package of the library",
   "distractors": [
    "`SlicesRuleDefinition`, the entrance point for slice rules in the library",
@@ -295,7 +295,7 @@
  },
  {
   "id": "m01-l03-q22",
-  "stem": "In Spring Data Commons 4.1.2, which statement about a method of an aggregate root annotated with `@DomainEvents` is correct?",
+  "stem": "In Spring Data Commons 4.1, which statement about a method of an aggregate root annotated with `@DomainEvents` is correct?",
   "key": "It can return a single event instance or a collection of events, and it must not take any arguments",
   "distractors": [
    "It must return a `Collection<Object>` of events and it takes the aggregate root as its only argument",
@@ -309,7 +309,7 @@
  },
  {
   "id": "m01-l03-q23",
-  "stem": "In Spring Data Commons 4.1.2, when is the method annotated with `@AfterDomainEventPublication` on an aggregate root called, and what can it be used for?",
+  "stem": "In Spring Data Commons 4.1, when is the method annotated with `@AfterDomainEventPublication` on an aggregate root called, and what can it be used for?",
   "key": "After all events have been published, to clean the list of events",
   "distractors": [
    "Before the events are published, to validate the whole list of events",
@@ -323,7 +323,7 @@
  },
  {
   "id": "m01-l03-q24",
-  "stem": "In Spring Data Commons 4.1.2, which repository method does NOT cause the aggregate root's `@DomainEvents` method to be called?",
+  "stem": "In Spring Data Commons 4.1, which repository method does NOT cause the aggregate root's `@DomainEvents` method to be called?",
   "key": "`deleteById(…)`",
   "distractors": [
    "`saveAll(…)`",
@@ -337,7 +337,7 @@
  },
  {
   "id": "m01-l03-q25",
-  "stem": "In Spring Modulith 2.1.1, an `@Async` listener annotated with `@TransactionalEventListener` handles `OrderCompleted`. Which risk does the documentation name when that listener fails for whatever reason?",
+  "stem": "In Spring Modulith 2.1, an `@Async` listener annotated with `@TransactionalEventListener` handles `OrderCompleted`. Which risk does the documentation name when that listener fails for whatever reason?",
   "key": "The event publication is lost, unless each listener implements its own safety net",
   "distractors": [
    "The original business transaction expands to include the failed listener and rolls back with it",
@@ -351,7 +351,7 @@
  },
  {
   "id": "m01-l03-q26",
-  "stem": "In Spring Modulith 2.1.1, `OrderManagement.complete(…)` publishes `OrderCompleted` with `ApplicationEventPublisher` and a plain listener updates the inventory. Which benefit does the documentation name for this default arrangement?",
+  "stem": "In Spring Modulith 2.1, `OrderManagement.complete(…)` publishes `OrderCompleted` with `ApplicationEventPublisher` and a plain listener updates the inventory. Which benefit does the documentation name for this default arrangement?",
   "key": "A very simple consistency model: the order status change and the inventory update both succeed or none does",
   "distractors": [
    "The failure of the inventory listener never affects the transaction that publishes the event",
@@ -365,7 +365,7 @@
  },
  {
   "id": "m01-l03-q27",
-  "stem": "In Spring Modulith 2.1.1, which part marks an entry of the event publication log as completed after the event reached a transactional event listener?",
+  "stem": "In Spring Modulith 2.1, which part marks an entry of the event publication log as completed after the event reached a transactional event listener?",
   "key": "An aspect wrapped around the listener, when its execution succeeds",
   "distractors": [
    "The registry itself, at the moment the event is published",
@@ -379,7 +379,7 @@
  },
  {
   "id": "m01-l03-q28",
-  "stem": "In Spring Modulith 2.1.1, which setting enables the automatic re-publication of outstanding events from the event publication log when the application restarts?",
+  "stem": "In Spring Modulith 2.1, which setting enables the automatic re-publication of outstanding events from the event publication log when the application restarts?",
   "key": "`spring.modulith.events.republish-outstanding-events-on-restart`",
   "distractors": [
    "`spring.modulith.events.registry-trigger-annotation`",
@@ -393,7 +393,7 @@
  },
  {
   "id": "m01-l03-q29",
-  "stem": "In the ArchUnit 1.5.1 user guide, the rule `classes().that().resideInAPackage(\"..service..\").should().onlyBeAccessed().byAnyPackage(\"..controller..\", \"..service..\")` is specified. Which classes may access the classes in `..service..`?",
+  "stem": "In the ArchUnit 1.5 user guide, the rule `classes().that().resideInAPackage(\"..service..\").should().onlyBeAccessed().byAnyPackage(\"..controller..\", \"..service..\")` is specified. Which classes may access the classes in `..service..`?",
   "key": "Classes in the `..controller..` or the `..service..` packages",
   "distractors": [
    "Only classes in the `..controller..` package",
@@ -407,7 +407,7 @@
  },
  {
   "id": "m01-l03-q30",
-  "stem": "In ArchUnit 1.5.1, which class imports the classes that an `ArchRule` is checked against in the complete example of the user guide, where `importPackages(\"com.mycompany.myapp\")` is called?",
+  "stem": "In ArchUnit 1.5, which class imports the classes that an `ArchRule` is checked against in the complete example of the user guide, where `importPackages(\"com.mycompany.myapp\")` is called?",
   "key": "`ClassFileImporter`",
   "distractors": [
    "`ArchRuleDefinition`, the entry point for specifying a rule",
@@ -421,7 +421,7 @@
  },
  {
   "id": "m01-l03-q31",
-  "stem": "In ArchUnit 1.5.1, a custom `SliceAssignment` returns `SliceIdentifier.ignore()` for a class that matches none of its mappings. What happens to that class when the slice rule is evaluated?",
+  "stem": "In ArchUnit 1.5, a custom `SliceAssignment` returns `SliceIdentifier.ignore()` for a class that matches none of its mappings. What happens to that class when the slice rule is evaluated?",
   "key": "It is left out of every slice, so the rule does not check it",
   "distractors": [
    "It is put into the `Legacy` slice together with the `com.oldapp` classes",
@@ -435,7 +435,7 @@
  },
  {
   "id": "m01-l03-q32",
-  "stem": "In Spring Modulith 2.1.1, which dependency is NOT rejected by the efferent-module-access rule when `ApplicationModules.verify()` runs?",
+  "stem": "In Spring Modulith 2.1, which dependency is NOT rejected by the efferent-module-access rule when `ApplicationModules.verify()` runs?",
   "key": "A dependency into an internal package of an open application module",
   "distractors": [
    "A reference to a type in an internal package of an ordinary module",
@@ -449,7 +449,7 @@
  },
  {
   "id": "m01-l03-q33",
-  "stem": "In Spring Modulith 2.1.1, the reference documentation calls it a key aspect for one benefit that the originating module does not need to know all potentially interested parties of an event. Which benefit?",
+  "stem": "In Spring Modulith 2.1, the reference documentation calls it a key aspect for one benefit that the originating module does not need to know all potentially interested parties of an event. Which benefit?",
   "key": "Application module integration testing",
   "distractors": [
    "Asynchronous execution of every event listener by default",
@@ -463,7 +463,7 @@
  },
  {
   "id": "m01-l03-q34",
-  "stem": "The ArchUnit 1.5.1 user guide says the Library API currently offers two slice rules. Which pair of assertions do its slice examples use?",
+  "stem": "The ArchUnit 1.5 user guide says the Library API currently offers two slice rules. Which pair of assertions do its slice examples use?",
   "key": "`beFreeOfCycles()` and `notDependOnEachOther()`",
   "distractors": [
    "`beFreeOfCycles()` and `mayNotBeAccessedByAnyLayer()`",

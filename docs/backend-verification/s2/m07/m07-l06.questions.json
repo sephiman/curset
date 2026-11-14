@@ -1,0 +1,227 @@
+[
+ {
+  "id": "m07-l06-q01",
+  "fact": "m07-l06-f14",
+  "stem": "In gRPC, which call type has the client send a stream of messages while the server responds with a single message and its status details?",
+  "key": "Client-streaming RPC",
+  "distractors": [
+   "Unary RPC",
+   "Server-streaming RPC",
+   "Bidirectional streaming RPC"
+  ],
+  "explanation": "In a client-streaming RPC the client sends a stream of messages and the server responds with a single message. A unary RPC is wrong, because there the client sends a single request and gets back a single response. A server-streaming RPC is wrong, because there the server returns a stream of messages in response to a client's request. A bidirectional streaming RPC is wrong, because there the two streams are independent and the client and server can read and write messages in any order.",
+  "citation": "grpc-core-concepts#client-streaming-rpc",
+  "extract": "A client-streaming RPC is similar to a unary RPC, except that the client sends a stream of messages to the server instead of a single message.",
+  "snippet": null
+ },
+ {
+  "id": "m07-l06-q02",
+  "fact": "m07-l06-f10",
+  "stem": "In a gRPC bidirectional streaming RPC, how do the client stream and the server stream relate to each other when messages are read and written?",
+  "key": "The two streams are independent, so messages can be read and written in any order",
+  "distractors": [
+   "The server may write only after it has received all of the client's messages",
+   "The client must send its first message before the server may send its initial metadata",
+   "Each request must be followed by exactly one response, in a fixed order"
+  ],
+  "explanation": "The two streams are independent, so the client and server can read and write messages in any order. The claim that the server may only write at the end is wrong, because a server can wait for all client messages but the two sides can also play ping-pong. The claim that the client must go first is wrong, because the server can choose to send back its initial metadata or wait for the client to start streaming messages. The claim that the streams are locked in a fixed order is wrong, because client-side and server-side stream processing is application specific.",
+  "citation": "grpc-core-concepts#bidirectional-streaming-rpc",
+  "extract": "Since the two streams are independent, the client and server can read and write messages in any order.",
+  "snippet": null
+ },
+ {
+  "id": "m07-l06-q03",
+  "fact": "m07-l06-f16",
+  "stem": "A gRPC client sets a deadline for an RPC and the server does not answer in time. With which error is the RPC terminated?",
+  "key": "`DEADLINE_EXCEEDED`",
+  "distractors": [
+   "`INVALID_ARGUMENT`",
+   "`UNAVAILABLE`",
+   "`RESOURCE_EXHAUSTED`"
+  ],
+  "explanation": "The RPC is terminated with a `DEADLINE_EXCEEDED` error. `INVALID_ARGUMENT` is wrong, because it means the client specified an invalid argument. `UNAVAILABLE` is wrong, because it means the service is currently unavailable. `RESOURCE_EXHAUSTED` is wrong, because it means some resource has been exhausted, perhaps a per-user quota.",
+  "citation": "grpc-core-concepts#deadlines",
+  "extract": "gRPC allows clients to specify how long they are willing to wait for an RPC to complete before the RPC is terminated with a DEADLINE_EXCEEDED error.",
+  "snippet": null
+ },
+ {
+  "id": "m07-l06-q04",
+  "fact": "m07-l06-f21",
+  "stem": "Which statement about automatic deadline propagation from an incoming gRPC call to the outgoing calls of the same server is correct?",
+  "key": "In some languages it must be explicitly enabled, for example C++, and in others it is on by default, for example Java and Go",
+  "distractors": [
+   "Every implementation propagates the deadline automatically, so no configuration is ever needed",
+   "The server must always copy the deadline into each outgoing call by hand, because no implementation does it",
+   "The server should give each outgoing call its own fresh deadline, whatever the original client set"
+  ],
+  "explanation": "In some languages propagation must be explicitly enabled, for example C++, and in others it is enabled by default, for example Java and Go. The claim that every implementation propagates automatically is wrong, because automatic propagation is supported by some gRPC implementations. The claim that no implementation propagates is wrong, because propagation avoids the error-prone approach of manually including the deadline for each outgoing RPC. The claim that each outgoing call gets a fresh deadline is wrong, because a server that also acts as a client would want to honor the deadline set by the original client.",
+  "citation": "grpc-deadlines#deadline-propagation",
+  "extract": "In some languages this behavior needs to be explicitly enabled (e.g. C++) and in others it is enabled by default (e.g. Java and Go).",
+  "snippet": null
+ },
+ {
+  "id": "m07-l06-q05",
+  "fact": "m07-l06-f22",
+  "stem": "When gRPC propagates a deadline to an outgoing call, it converts the deadline into a timeout with the elapsed time deducted. Why does it do that?",
+  "key": "A deadline is a point in time, and the clocks of the two servers might not be synchronized",
+  "distractors": [
+   "So that the downstream server can restart the full original timeout from zero",
+   "Because no gRPC language API can express a deadline as a fixed point in time",
+   "Because the server is never able to include the deadline in its outgoing calls itself"
+  ],
+  "explanation": "A deadline is a set point in time, and propagating it as-is is problematic because the clocks on the two servers might not be synchronized. The claim that the timeout restarts from zero is wrong, because the server that also acts as a client would want to honor the deadline set by the original client. The claim that no language API uses a fixed point in time is wrong, because some language APIs work in terms of a deadline, which is a fixed point in time. The claim that a server cannot include the deadline itself is wrong, because manually including the deadline for each outgoing RPC is possible, though error-prone.",
+  "citation": "grpc-deadlines#deadline-propagation",
+  "extract": "Since a deadline is set point in time, propagating it as-is to a server can be problematic as the clocks on the two servers might not be synchronized.",
+  "snippet": null
+ },
+ {
+  "id": "m07-l06-q06",
+  "fact": "m07-l06-f26",
+  "stem": "A gRPC client cancels an RPC that the server is still processing. What should the server do when the RPC is cancelled?",
+  "key": "Stop any ongoing computation and end its side of the stream",
+  "distractors": [
+   "Finish the work in progress and then discard the result",
+   "Keep the calls it made to upstream servers running, since only the client side is cancelled",
+   "Ignore the cancellation, because only the server is allowed to cancel an RPC"
+  ],
+  "explanation": "The server should stop any ongoing computation and end its side of the stream. The claim that the server finishes its work is wrong, because a cancellation terminates the RPC immediately so that no further work is done. The claim that upstream calls keep running is wrong, because cancellation should ideally propagate to all ongoing computation in the system initiated by the original client RPC call. The claim that only the server can cancel is wrong, because either the client or the server can cancel an RPC at any time.",
+  "citation": "grpc-cancellation#overview",
+  "extract": "When an RPC is cancelled, the server should stop any ongoing computation and end its side of the stream.",
+  "snippet": null
+ },
+ {
+  "id": "m07-l06-q07",
+  "fact": "m07-l06-f33",
+  "stem": "A gRPC service rejects a write because a client-specified test-and-set failed, and the client should restart its whole read-modify-write sequence. Which status code does the guideline suggest?",
+  "key": "`ABORTED`",
+  "distractors": [
+   "`UNAVAILABLE`",
+   "`FAILED_PRECONDITION`",
+   "`INVALID_ARGUMENT`"
+  ],
+  "explanation": "`ABORTED` is the code when the client should retry at a higher level, for example restarting a read-modify-write sequence. `UNAVAILABLE` is wrong, because it fits when the client can retry just the failing call. `FAILED_PRECONDITION` is wrong, because it fits when the client should not retry until the system state has been explicitly fixed. `INVALID_ARGUMENT` is wrong, because it indicates arguments that are problematic regardless of the state of the system.",
+  "citation": "grpc-status-codes#the-full-list-of-status-codes",
+  "extract": "(b) Use ABORTED if the client should retry at a higher level (e.g., when a client-specified test-and-set fails, indicating the client should restart a read-modify-write sequence).",
+  "snippet": null
+ },
+ {
+  "id": "m07-l06-q08",
+  "fact": "m07-l06-f37",
+  "stem": "A gRPC server rejects a request because the caller used up a per-user quota. Which status code must it use instead of `PERMISSION_DENIED`?",
+  "key": "`RESOURCE_EXHAUSTED`",
+  "distractors": [
+   "`UNAUTHENTICATED`",
+   "`FAILED_PRECONDITION`",
+   "`OUT_OF_RANGE`"
+  ],
+  "explanation": "`PERMISSION_DENIED` must not be used for rejections caused by exhausting some resource, so `RESOURCE_EXHAUSTED` is used for those errors. `UNAUTHENTICATED` is wrong, because it means the request does not have valid authentication credentials for the operation. `FAILED_PRECONDITION` is wrong, because it means the system is not in a state required for the operation's execution. `OUT_OF_RANGE` is wrong, because it means the operation was attempted past the valid range, such as reading past end-of-file.",
+  "citation": "grpc-status-codes#the-full-list-of-status-codes",
+  "extract": "PERMISSION_DENIED must not be used for rejections caused by exhausting some resource (use RESOURCE_EXHAUSTED instead for those errors).",
+  "snippet": null
+ },
+ {
+  "id": "m07-l06-q09",
+  "fact": "m07-l06-f29",
+  "stem": "A gRPC client's deadline expires while a state-changing operation is running on the server. What can `DEADLINE_EXCEEDED` mean for that operation?",
+  "key": "The operation may still have completed successfully",
+  "distractors": [
+   "The operation was certainly not applied, so retrying it is always safe",
+   "The operation was cancelled by the caller before the server started it",
+   "The server was down, so the operation never reached it"
+  ],
+  "explanation": "For operations that change the state of the system, `DEADLINE_EXCEEDED` may be returned even if the operation has completed successfully. The claim that retrying is always safe is wrong, because it is not always safe to retry non-idempotent operations. The claim that the caller cancelled it describes `CANCELLED`, which means the operation was cancelled, typically by the caller. The claim that the server was down is wrong, because `DEADLINE_EXCEEDED` means the deadline expired before the operation could complete.",
+  "citation": "grpc-status-codes#the-full-list-of-status-codes",
+  "extract": "For operations that change the state of the system, this error may be returned even if the operation has completed successfully.",
+  "snippet": null
+ },
+ {
+  "id": "m07-l06-q10",
+  "fact": "m07-l06-f35",
+  "stem": "Which gRPC status code is most likely a transient condition that can be corrected by retrying with a backoff?",
+  "key": "`UNAVAILABLE`",
+  "distractors": [
+   "`INTERNAL`",
+   "`DATA_LOSS`",
+   "`UNIMPLEMENTED`"
+  ],
+  "explanation": "`UNAVAILABLE` is most likely a transient condition, which can be corrected by retrying with a backoff. `INTERNAL` is wrong, because it means some invariants expected by the underlying system have been broken, a serious error. `DATA_LOSS` is wrong, because it means unrecoverable data loss or corruption. `UNIMPLEMENTED` is wrong, because it means the operation is not implemented or not supported or enabled in this service.",
+  "citation": "grpc-status-codes#the-full-list-of-status-codes",
+  "extract": "This is most likely a transient condition, which can be corrected by retrying with a backoff.",
+  "snippet": null
+ },
+ {
+  "id": "m07-l06-q11",
+  "fact": "m07-l06-f64",
+  "stem": "Which schema change to a Protocol Buffers message is wire-unsafe, so that old and new parsers can break on each other's data?",
+  "key": "Changing the field number of an existing field",
+  "distractors": [
+   "Adding a new field to the message",
+   "Adding an additional value to an enum used in the message",
+   "Removing a field and never using its number again"
+  ],
+  "explanation": "Changing the field number of an existing field is not safe, because it is equivalent to deleting the field and adding a new one. Adding a new field is wrong, because adding new fields is safe. Adding an enum value is wrong, because adding additional values to an enum is safe. Removing a field is wrong, because removing fields is safe as long as the same field number is not used again.",
+  "citation": "protobuf-proto3#wire-unsafe-changes",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m07-l06-q12",
+  "fact": "m07-l06-f58",
+  "stem": "An old binary parses Protocol Buffers data that a new binary wrote with additional fields. What happens to those additional fields in the old binary?",
+  "key": "They become unknown fields in the old binary",
+  "distractors": [
+   "They are dropped, and the old binary does not write them out again",
+   "The parse of the whole message fails with an error in the old binary",
+   "They are merged into the nearest known field whose type matches"
+  ],
+  "explanation": "Those new fields become unknown fields in the old binary. The claim that they are dropped is wrong, because proto3 messages preserve unknown fields and include them during parsing and in the serialized output. The claim that the parse fails is wrong, because wire-safe changes carry no risk of data loss or new parse failures. The claim that they are merged into a known field is wrong, because unknown fields are well-formed serialized data representing fields that the parser does not recognize.",
+  "citation": "protobuf-proto3#unknowns",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m07-l06-q13",
+  "fact": "m07-l06-f53",
+  "stem": "In a proto3 message, which field numbers should be used for the most frequently set fields because they take the least space in the wire format?",
+  "key": "1 through 15",
+  "distractors": [
+   "16 through 2047",
+   "19,000 through 19,999",
+   "Any number above 536,870,911"
+  ],
+  "explanation": "Field numbers 1 through 15 should be used for the most frequently set fields. 16 through 2047 is wrong, because those numbers take two bytes to encode. 19,000 through 19,999 is wrong, because those numbers are reserved for the Protobuf implementation. Any number above 536,870,911 is wrong, because each field needs a number between 1 and 536,870,911.",
+  "citation": "protobuf-proto3#assigning",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m07-l06-q14",
+  "fact": "m07-l06-f85",
+  "stem": "In Spring for GraphQL, when must you use a `BatchLoaderRegistry` registration instead of a `@BatchMapping` method to load related entities?",
+  "key": "When the loading needs more information about the parent `@SchemaMapping` call, such as `@Argument` or context data",
+  "distractors": [
+   "When the field name must differ from the name of the method",
+   "When the batch loading function must return a `Mono` of a map",
+   "When the loaded entities must be registered in the `BatchLoaderRegistry` at all"
+  ],
+  "explanation": "`BatchLoaderRegistry` is required when the use case needs more information about the parent `@SchemaMapping` call, such as `@Argument` or context data. The claim that a different field name needs the registry is wrong, because the field name and the type name can both be customized through annotation attributes. The claim that a `Mono` return needs the registry is wrong, because the `@BatchMapping` example itself returns `Mono<Map<Book, Author>>`. The claim that only the registry registers batch loading is wrong, because a `@BatchMapping` method itself becomes a batch loading function in the `BatchLoaderRegistry`, with the parent instances as keys.",
+  "citation": "spring-graphql-controllers#controllers.batch-mapping",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m07-l06-q15",
+  "fact": "m07-l06-f92",
+  "stem": "According to the AsyncAPI Specification, may you derive a receiver AsyncAPI document from a sender one by replacing `receive` with `send` in the operation?",
+  "key": "No, it is NOT RECOMMENDED to derive one document from the other",
+  "distractors": [
+   "Yes, because both applications always use the same channel",
+   "Yes, because the summary and description stay valid for the opposite direction",
+   "Yes, because a system always reads and writes through one single channel"
+  ],
+  "explanation": "It is NOT RECOMMENDED to derive a receiver AsyncAPI document from a sender one, or the reverse. The claim that both applications use the same channel is wrong, because there are no guarantees that the channel used to receive messages is the channel where another application is sending them. The claim that the summary and description stay valid is wrong, because fields like summary, description and the id of the operation might stop making sense. The claim that a system uses one single channel is wrong, because a system may use a read-only channel for receiving messages and a different one for sending them.",
+  "citation": "asyncapi-spec#introduction",
+  "extract": "It's NOT RECOMMENDED to derive a receiver AsyncAPI document from a sender one or vice versa.",
+  "snippet": null
+ }
+]

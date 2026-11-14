@@ -1,0 +1,266 @@
+m09-case-f-q01:
+  key:
+    anchor: es-search-as-you-type#elastic-docs-v3
+    sentence: Both prefix completion (i.e matching terms starting at the beginning of the input) and infix completion (i.e. matching terms at any position within the input) are supported.
+  wrong:
+  - option: Prefix completion only, matching from the start of the text
+    anchor: es-search-as-you-type#elastic-docs-v3
+    sentence: Both prefix completion (i.e matching terms starting at the beginning of the input) and infix completion (i.e. matching terms at any position within the input) are supported.
+    exclusive: true
+  - option: Infix completion only, matching inside the text
+    anchor: es-search-as-you-type#elastic-docs-v3
+    sentence: Both prefix completion (i.e matching terms starting at the beginning of the input) and infix completion (i.e. matching terms at any position within the input) are supported.
+    exclusive: true
+  - option: Neither kind, because completion needs a `completion` field
+    anchor: es-search-as-you-type#elastic-docs-v3
+    sentence: Both prefix completion (i.e matching terms starting at the beginning of the input) and infix completion (i.e. matching terms at any position within the input) are supported.
+    exclusive: true
+m09-case-f-q02:
+  key:
+    anchor: es-search-as-you-type#elastic-docs-v3
+    sentence: my_field._index_prefix Wraps the analyzer of my_field._3gram with an edge ngram token filter
+  wrong:
+  - option: A shingle token filter of the subfield
+    anchor: es-search-as-you-type#elastic-docs-v3
+    sentence: my_field._index_prefix Wraps the analyzer of my_field._3gram with an edge ngram token filter
+    exclusive: true
+  - option: A stop-word token filter on the subfield
+    anchor: es-search-as-you-type#elastic-docs-v3
+    sentence: my_field._index_prefix Wraps the analyzer of my_field._3gram with an edge ngram token filter
+    exclusive: true
+  - option: A synonym token filter on the subfield
+    anchor: es-search-as-you-type#elastic-docs-v3
+    sentence: my_field._index_prefix Wraps the analyzer of my_field._3gram with an edge ngram token filter
+    exclusive: true
+m09-case-f-q03:
+  key:
+    anchor: es-search-as-you-type#elastic-docs-v3
+    sentence: The size of shingles in subfields can be configured with the max_shingle_size mapping parameter. The default is 3, and valid values for this parameter are integer values 2 - 4 inclusive.
+  wrong:
+  - option: '2'
+    anchor: es-search-as-you-type#elastic-docs-v3
+    sentence: The size of shingles in subfields can be configured with the max_shingle_size mapping parameter. The default is 3, and valid values for this parameter are integer values 2 - 4 inclusive.
+    exclusive: true
+  - option: '4'
+    anchor: es-search-as-you-type#elastic-docs-v3
+    sentence: The size of shingles in subfields can be configured with the max_shingle_size mapping parameter. The default is 3, and valid values for this parameter are integer values 2 - 4 inclusive.
+    exclusive: true
+  - option: '5'
+    anchor: es-search-as-you-type#elastic-docs-v3
+    sentence: The size of shingles in subfields can be configured with the max_shingle_size mapping parameter. The default is 3, and valid values for this parameter are integer values 2 - 4 inclusive.
+    exclusive: true
+m09-case-f-q04:
+  key:
+    anchor: es-search-as-you-type#elastic-docs-v3
+    sentence: Increasing the max_shingle_size will improve matches for queries with more consecutive terms, at the cost of larger index size.
+  wrong:
+  - option: Fewer matches for queries with more consecutive terms, with a smaller index
+    anchor: es-search-as-you-type#elastic-docs-v3
+    sentence: Increasing the max_shingle_size will improve matches for queries with more consecutive terms, at the cost of larger index size.
+    exclusive: true
+  - option: Better matches for queries with more consecutive terms, with a smaller index
+    anchor: es-search-as-you-type#elastic-docs-v3
+    sentence: Increasing the max_shingle_size will improve matches for queries with more consecutive terms, at the cost of larger index size.
+    exclusive: true
+  - option: Unchanged matches for queries with more consecutive terms, with a larger index
+    anchor: es-search-as-you-type#elastic-docs-v3
+    sentence: Increasing the max_shingle_size will improve matches for queries with more consecutive terms, at the cost of larger index size.
+    exclusive: true
+m09-case-f-q05:
+  key:
+    anchor: es-search-as-you-type#elastic-docs-v3
+    sentence: The most efficient way of querying to serve a search-as-you-type use case is usually a multi_match query of type bool_prefix that targets the root search_as_you_type field and its shingle subfields.
+  wrong:
+  - option: A `match_phrase_prefix` query on the root field, which requires the terms in order
+    anchor: es-search-as-you-type#elastic-docs-v3
+    sentence: Using phrase queries may be less efficient than using the match_bool_prefix query.
+  - option: A completion suggester query over the `search_as_you_type` field and its subfields
+    anchor: es-completion-mapping#elastic-docs-v3
+    sentence: To use the completion suggester, map the field from which you want to generate suggestions as type completion.
+  - option: A term suggester query that corrects the typed text by edit distance
+    anchor: es-search-suggesters#elastic-docs-v3
+    sentence: The term suggester's score is based on the edit distance.
+m09-case-f-q06:
+  key:
+    anchor: es-search-as-you-type#elastic-docs-v3
+    sentence: This can match the query terms in any order, but will score documents higher if they contain the terms in order in a shingle subfield.
+  wrong:
+  - option: It matches only documents in which the terms appear in the typed order, and scores them equally
+    anchor: es-search-as-you-type#elastic-docs-v3
+    sentence: To search for documents that strictly match the query terms in order, or to search using other properties of phrase queries, use a match_phrase_prefix query on the root field.
+  - option: It matches terms in any order and scores every matching document the same
+    anchor: es-search-as-you-type#elastic-docs-v3
+    sentence: This can match the query terms in any order, but will score documents higher if they contain the terms in order in a shingle subfield.
+    exclusive: true
+  - option: It matches only the last term and ignores earlier terms
+    anchor: es-search-as-you-type#elastic-docs-v3
+    sentence: This can match the query terms in any order, but will score documents higher if they contain the terms in order in a shingle subfield.
+    exclusive: true
+m09-case-f-q07:
+  key:
+    anchor: es-completion-mapping#elastic-docs-v3
+    sentence: To use the completion suggester, map the field from which you want to generate suggestions as type completion.
+  wrong:
+  - option: '`search_as_you_type`'
+    anchor: es-completion-mapping#elastic-docs-v3
+    sentence: To use the completion suggester, map the field from which you want to generate suggestions as type completion.
+    exclusive: true
+  - option: '`keyword`'
+    anchor: es-completion-mapping#elastic-docs-v3
+    sentence: To use the completion suggester, map the field from which you want to generate suggestions as type completion.
+    exclusive: true
+  - option: '`text` with an edge ngram analyzer'
+    anchor: es-completion-mapping#elastic-docs-v3
+    sentence: To use the completion suggester, map the field from which you want to generate suggestions as type completion.
+    exclusive: true
+m09-case-f-q08:
+  key:
+    anchor: es-search-suggesters#elastic-docs-v3
+    sentence: The term suggester's score is based on the edit distance.
+  wrong:
+  - option: The BM25 relevance of the suggested term
+    anchor: es-search-suggesters#elastic-docs-v3
+    sentence: The term suggester's score is based on the edit distance.
+    exclusive: true
+  - option: The length of the posting list of the term
+    anchor: es-search-suggesters#elastic-docs-v3
+    sentence: The term suggester's score is based on the edit distance.
+    exclusive: true
+  - option: The number of shingles in the subfield
+    anchor: es-search-suggesters#elastic-docs-v3
+    sentence: The term suggester's score is based on the edit distance.
+    exclusive: true
+m09-case-f-q09:
+  key:
+    anchor: es-how-full-text-works#elastic-docs-v3
+    sentence: The default similarity algorithm Elasticsearch uses for calculating relevance scores is Okapi BM25, a variation of the TF-IDF algorithm.
+  wrong:
+  - option: Plain TF-IDF without length normalisation
+    anchor: es-how-full-text-works#elastic-docs-v3
+    sentence: The default similarity algorithm Elasticsearch uses for calculating relevance scores is Okapi BM25, a variation of the TF-IDF algorithm.
+    exclusive: true
+  - option: A link-based score over the links between documents
+    anchor: es-how-full-text-works#elastic-docs-v3
+    sentence: The default similarity algorithm Elasticsearch uses for calculating relevance scores is Okapi BM25, a variation of the TF-IDF algorithm.
+    exclusive: true
+  - option: Cosine similarity between document embeddings
+    anchor: es-how-full-text-works#elastic-docs-v3
+    sentence: The default similarity algorithm Elasticsearch uses for calculating relevance scores is Okapi BM25, a variation of the TF-IDF algorithm.
+    exclusive: true
+m09-case-f-q10:
+  key:
+    anchor: es-similarity#bm25
+    sentence: b Controls to what degree document length normalizes tf values. The default value is 0.75.
+  wrong:
+  - option: '1.2'
+    anchor: es-similarity#bm25
+    sentence: k1 Controls non-linear term frequency normalization (saturation). The default value is 1.2.
+  - option: '1.0'
+    anchor: es-similarity#bm25
+    sentence: b Controls to what degree document length normalizes tf values. The default value is 0.75.
+    exclusive: true
+  - option: '0.5'
+    anchor: es-similarity#bm25
+    sentence: b Controls to what degree document length normalizes tf values. The default value is 0.75.
+    exclusive: true
+m09-case-f-q11:
+  key:
+    anchor: es-paginate-search-results#search-after
+    sentence: If you don’t include a tiebreaker field, your paged results could miss or duplicate hits.
+  wrong:
+  - option: They stay consistent because each page is a stable snapshot
+    anchor: es-paginate-search-results#search-after
+    sentence: If a refresh occurs between these requests, the order of your results may change, causing inconsistent results across pages.
+  - option: They are tied together by an implicit `_shard_doc` tiebreaker
+    anchor: es-paginate-search-results#search-after
+    sentence: All PIT search requests add an implicit sort tiebreaker field called _shard_doc, which can also be provided explicitly.
+  - option: They are tied together by an automatic tiebreaker in every search
+    anchor: es-paginate-search-results#search-after
+    sentence: If you cannot use a PIT, we recommend that you include a tiebreaker field in your sort.
+m09-case-f-q12:
+  key:
+    anchor: es-paginate-search-results#scroll-search-results
+    sentence: We no longer recommend using the scroll API for deep pagination.
+  wrong:
+  - option: '`search_after` with the sort values of the previous page'
+    anchor: es-paginate-search-results#search-after
+    sentence: You can use the search_after parameter to retrieve the next page of hits using a set of sort values from the previous page.
+  - option: '`search_after` combined with a point in time'
+    anchor: es-paginate-search-results#search-after
+    sentence: To prevent this, you can create a point in time (PIT) to preserve the current index state over your searches.
+  - option: '`search_after` with a tiebreaker field in the sort'
+    anchor: es-paginate-search-results#search-after
+    sentence: If you cannot use a PIT, we recommend that you include a tiebreaker field in your sort.
+m09-case-f-q13:
+  key:
+    anchor: es-how-full-text-works#elastic-docs-v3
+    sentence: 'Posting list: For each term, a list of document IDs where the term appears, along with optional metadata like term frequency and position.'
+  wrong:
+  - option: A sorted list of all unique terms in the index
+    anchor: es-how-full-text-works#elastic-docs-v3
+    sentence: 'Dictionary: A sorted list of all unique terms in the collection of documents in your index.'
+  - option: The relevance score of the term for each document
+    anchor: es-how-full-text-works#elastic-docs-v3
+    sentence: BM25 calculates relevance scores based on term frequency, document frequency, and document length.
+  - option: The analyzed form of the user's query text
+    anchor: es-how-full-text-works#elastic-docs-v3
+    sentence: Query text is analyzed the same way as the indexed text, and the resulting tokens are used to search the inverted index.
+m09-case-f-q14:
+  key:
+    anchor: es-how-full-text-works#elastic-docs-v3
+    sentence: BM25 calculates relevance scores based on term frequency, document frequency, and document length.
+  wrong:
+  - option: Term frequency alone
+    anchor: es-how-full-text-works#elastic-docs-v3
+    sentence: BM25 calculates relevance scores based on term frequency, document frequency, and document length.
+    exclusive: true
+  - option: Term frequency and the age of the document
+    anchor: es-how-full-text-works#elastic-docs-v3
+    sentence: BM25 calculates relevance scores based on term frequency, document frequency, and document length.
+    exclusive: true
+  - option: Term frequency, field boost and shard count
+    anchor: es-how-full-text-works#elastic-docs-v3
+    sentence: BM25 calculates relevance scores based on term frequency, document frequency, and document length.
+    exclusive: true
+m09-case-f-q15:
+  key:
+    anchor: es-paginate-search-results#search-after
+    sentence: If a refresh occurs between these requests, the order of your results may change, causing inconsistent results across pages.
+  wrong:
+  - option: The pages stay consistent because the index is frozen during paging
+    anchor: es-paginate-search-results#search-after
+    sentence: To prevent this, you can create a point in time (PIT) to preserve the current index state over your searches.
+  - option: The `_shard_doc` tiebreaker keeps the order stable in every search
+    anchor: es-paginate-search-results#search-after
+    sentence: All PIT search requests add an implicit sort tiebreaker field called _shard_doc, which can also be provided explicitly.
+  - option: A tiebreaker field in the sort is never needed
+    anchor: es-paginate-search-results#search-after
+    sentence: If you cannot use a PIT, we recommend that you include a tiebreaker field in your sort.
+m09-case-f-q16:
+  key:
+    anchor: es-search-suggesters#elastic-docs-v3
+    sentence: Using suggest across multiple indices with different analysis chains is not supported.
+  wrong:
+  - option: On one index with a field mapped as `completion`
+    anchor: es-completion-mapping#elastic-docs-v3
+    sentence: This indexes the field values for fast completions.
+  - option: With the term suggester on a text field
+    anchor: es-search-suggesters#elastic-docs-v3
+    sentence: The term suggester's score is based on the edit distance.
+  - option: To suggest similar looking terms from a given text
+    anchor: es-search-suggesters#elastic-docs-v3
+    sentence: The suggest parameter of the search API suggests similar looking terms based on a provided text by using a suggester.
+m09-case-f-q17:
+  key:
+    anchor: es-search-as-you-type#elastic-docs-v3
+    sentence: To search for documents that strictly match the query terms in order, or to search using other properties of phrase queries, use a match_phrase_prefix query on the root field.
+  wrong:
+  - option: A `bool_prefix` query, which matches the terms in any order
+    anchor: es-search-as-you-type#elastic-docs-v3
+    sentence: This can match the query terms in any order, but will score documents higher if they contain the terms in order in a shingle subfield.
+  - option: A completion suggester over the field
+    anchor: es-completion-mapping#elastic-docs-v3
+    sentence: To use the completion suggester, map the field from which you want to generate suggestions as type completion.
+  - option: A term suggester over the field
+    anchor: es-search-suggesters#elastic-docs-v3
+    sentence: The term suggester's score is based on the edit distance.

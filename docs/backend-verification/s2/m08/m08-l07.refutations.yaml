@@ -1,0 +1,227 @@
+m08-l07-q01:
+  key:
+    anchor: kafka-streams-dsl-api#hopping-time-windows
+    sentence: Since hopping windows can overlap - and in general they do - a data record may belong to more than one such windows.
+  wrong:
+  - option: A hopping window is defined by its size alone, without an advance interval
+    anchor: kafka-streams-dsl-api#hopping-time-windows
+    sentence: 'A hopping window is defined by two properties: the window’s size and its advance interval (aka “hop”).'
+  - option: Kafka Streams uses the name hopping window for what it calls a sliding window
+    anchor: kafka-streams-dsl-api#hopping-time-windows
+    sentence: Kafka Streams follows the terminology in academic literature, where the semantics of sliding windows are different to those of hopping windows.
+  - option: Hopping windows are aligned to the timestamp of the first record, not to the epoch
+    anchor: kafka-streams-dsl-api#hopping-time-windows
+    sentence: Hopping time windows are aligned to the epoch
+m08-l07-q02:
+  key:
+    anchor: kafka-streams-dsl-api#session-windows
+    sentence: If an event falls outside of the session gap, then a new session will be created.
+  wrong:
+  - option: The event is merged into the nearest existing session
+    anchor: kafka-streams-dsl-api#session-windows
+    sentence: Any events processed that fall within the inactivity gap of any existing sessions are merged into the existing sessions.
+  - option: The event is dropped, because every session has a fixed size
+    anchor: kafka-streams-dsl-api#session-windows
+    sentence: sizes vary - even windows for the same key typically have different sizes
+  - option: The event extends the session with the latest end time, whatever the gap
+    anchor: kafka-streams-dsl-api#session-windows
+    sentence: Sessions represent a period of activity separated by a defined gap of inactivity (or “idleness”).
+m08-l07-q03:
+  key:
+    anchor: kafka-streams-dsl-api#window-final-results
+    sentence: the 09:00 to 10:00 window will accept out-of-order records until 10:10, at which point, the window is closed.
+  wrong:
+  - option: '10:00'
+    anchor: kafka-streams-dsl-api#window-final-results
+    sentence: the 09:00 to 10:00 window will accept out-of-order records until 10:10, at which point, the window is closed.
+    exclusive: true
+  - option: '10:30'
+    anchor: kafka-streams-dsl-api#window-final-results
+    sentence: the 09:00 to 10:00 window will accept out-of-order records until 10:10, at which point, the window is closed.
+    exclusive: true
+  - option: '11:00'
+    anchor: kafka-streams-dsl-api#window-final-results
+    sentence: the 09:00 to 10:00 window will accept out-of-order records until 10:10, at which point, the window is closed.
+    exclusive: true
+m08-l07-q04:
+  key:
+    anchor: flink-time#event-time-and-watermarks
+    sentence: A Watermark(t) declares that event time has reached time t in that stream, meaning that there should be no more elements from the stream with a timestamp t’ <= t
+  wrong:
+  - option: The wall clock of the machine has reached t, so processing of earlier elements has finished
+    anchor: flink-time#event-time-and-watermarks
+    sentence: Event time can progress independently of processing time (measured by wall clocks).
+  - option: No element with a timestamp at or below t can ever arrive again, and Flink guarantees it
+    anchor: flink-time#lateness
+    sentence: It is possible that certain elements will violate the watermark condition
+  - option: The operator has received exactly t elements since the previous watermark
+    anchor: flink-time#event-time-and-watermarks
+    sentence: In general a watermark is a declaration that by that point in the stream, all events up to a certain timestamp should have arrived.
+m08-l07-q05:
+  key:
+    anchor: flink-time#watermarks-in-parallel-streams
+    sentence: Such an operator’s current event time is the minimum of its input streams’ event times.
+  wrong:
+  - option: The maximum of its input streams' event times
+    anchor: flink-time#watermarks-in-parallel-streams
+    sentence: Such an operator’s current event time is the minimum of its input streams’ event times.
+    exclusive: true
+  - option: The average of its input streams' event times
+    anchor: flink-time#watermarks-in-parallel-streams
+    sentence: Such an operator’s current event time is the minimum of its input streams’ event times.
+    exclusive: true
+  - option: The event time of the input stream that delivered a watermark last
+    anchor: flink-time#watermarks-in-parallel-streams
+    sentence: Such an operator’s current event time is the minimum of its input streams’ event times.
+    exclusive: true
+m08-l07-q06:
+  key:
+    anchor: kafka-streams-dsl-api#kstream
+    sentence: If your stream processing application were to sum the values per user, it would return 4 for alice.
+  wrong:
+  - option: '3'
+    anchor: kafka-streams-dsl-api#kstream
+    sentence: Why? Because the second data record would not be considered an update of the previous record.
+  - option: '1'
+    anchor: kafka-streams-dsl-api#kstream
+    sentence: If your stream processing application were to sum the values per user, it would return 4 for alice.
+    exclusive: true
+  - option: '7'
+    anchor: kafka-streams-dsl-api#kstream
+    sentence: If your stream processing application were to sum the values per user, it would return 4 for alice.
+    exclusive: true
+m08-l07-q07:
+  key:
+    anchor: kafka-streams-dsl-api#join-co-partitioning-requirements
+    sentence: The input topics of the join (left side and right side) must have the same number of partitions.
+  wrong:
+  - option: Kafka Streams verifies at runtime that the partitioning strategy of both sides matches
+    anchor: kafka-streams-dsl-api#join-co-partitioning-requirements
+    sentence: Note that Kafka Streams cannot verify whether the partitioning strategy matches between the input streams/tables of a join
+  - option: A `KTable`-`KTable` foreign-key join needs co-partitioned inputs like any other join
+    anchor: kafka-streams-dsl-api#join-co-partitioning-requirements
+    sentence: KTable-KTable Foreign-Key joins also do not require co-partitioning.
+  - option: A `KStream`-`GlobalKTable` join needs co-partitioning, because each instance holds only some partitions
+    anchor: kafka-streams-dsl-api#join-co-partitioning-requirements
+    sentence: That is, each instance has a full copy of the changelog stream.
+m08-l07-q08:
+  key:
+    anchor: kafka-streams-architecture#stream-partitions-and-tasks
+    sentence: the “excess” app instances will launch but remain idle
+  wrong:
+  - option: They share the partitions with the others by reading parts of each partition
+    anchor: kafka-streams-architecture#stream-partitions-and-tasks
+    sentence: The assignment of partitions to tasks never changes so that each task is a fixed unit of parallelism of the application.
+  - option: Kafka Streams refuses to start them and throws an exception
+    anchor: kafka-streams-architecture#stream-partitions-and-tasks
+    sentence: the “excess” app instances will launch but remain idle
+  - option: Kafka Streams adds partitions to the input topic so that they have work
+    anchor: kafka-streams-architecture#stream-partitions-and-tasks
+    sentence: Kafka Streams creates a fixed number of tasks based on the input stream partitions for the application
+m08-l07-q09:
+  key:
+    anchor: kafka-streams-config#processingguarantee
+    sentence: Possible values are "at_least_once" (default) and "exactly_once_v2" (for EOS version 2).
+  wrong:
+  - option: '`exactly_once_v2`'
+    anchor: kafka-streams-config#processingguarantee
+    sentence: Possible values are "at_least_once" (default) and "exactly_once_v2" (for EOS version 2).
+    exclusive: true
+  - option: '`exactly_once`'
+    anchor: kafka-streams-config#processingguarantee
+    sentence: Possible values are "at_least_once" (default) and "exactly_once_v2" (for EOS version 2).
+    exclusive: true
+  - option: '`exactly_once_beta`'
+    anchor: kafka-streams-config#processingguarantee
+    sentence: Possible values are "at_least_once" (default) and "exactly_once_v2" (for EOS version 2).
+    exclusive: true
+m08-l07-q10:
+  key:
+    anchor: kafka-streams-config#processingguarantee
+    sentence: When exactly-once processing is enabled, Kafka Streams sets transaction.timeout.ms to 10000 (10 seconds) by default.
+  wrong:
+  - option: 1000 milliseconds
+    anchor: kafka-streams-config#processingguarantee
+    sentence: When exactly-once processing is enabled, Kafka Streams sets transaction.timeout.ms to 10000 (10 seconds) by default.
+    exclusive: true
+  - option: 60000 milliseconds
+    anchor: kafka-streams-config#processingguarantee
+    sentence: When exactly-once processing is enabled, Kafka Streams sets transaction.timeout.ms to 10000 (10 seconds) by default.
+    exclusive: true
+  - option: 100 milliseconds
+    anchor: kafka-streams-config#processingguarantee
+    sentence: When exactly-once processing is enabled, Kafka Streams sets transaction.timeout.ms to 10000 (10 seconds) by default.
+    exclusive: true
+m08-l07-q11:
+  key:
+    anchor: kafka-producer-configs#transactional.id
+    sentence: If no TransactionalId is provided, then the producer is limited to idempotent delivery.
+  wrong:
+  - option: It has no delivery guarantee beyond a plain retry, so duplicates are always possible
+    anchor: kafka-producer-configs#enable.idempotence
+    sentence: Idempotence is enabled by default if no conflicting configurations are set.
+  - option: It uses transactions with an id that the broker generates for it
+    anchor: kafka-producer-configs#transactional.id
+    sentence: By default the TransactionId is not configured, which means transactions cannot be used.
+  - option: It cannot enable idempotence, because only transactional producers can
+    anchor: kafka-producer-configs#transactional.id
+    sentence: If a TransactionalId is configured, enable.idempotence is implied.
+m08-l07-q12:
+  key:
+    anchor: flink-stateful-stream-processing#barriers
+    sentence: Barriers never overtake records, they flow strictly in line.
+  wrong:
+  - option: They overtake records so that the sinks learn about a snapshot first
+    anchor: flink-stateful-stream-processing#barriers
+    sentence: Barriers never overtake records, they flow strictly in line.
+  - option: They pause the flow of the stream while the snapshot is taken
+    anchor: flink-stateful-stream-processing#barriers
+    sentence: Barriers do not interrupt the flow of the stream and are hence very lightweight.
+  - option: They carry the timestamp of the latest record that they follow
+    anchor: flink-stateful-stream-processing#barriers
+    sentence: Each barrier carries the ID of the snapshot whose records it pushed in front of it.
+m08-l07-q13:
+  key:
+    anchor: flink-stateful-stream-processing#exactly-once-vs-at-least-once
+    sentence: On a restore, these records will occur as duplicates, because they are both included in the state snapshot of checkpoint n, and will be replayed as part of the data after checkpoint n.
+  wrong:
+  - option: Those records are lost, because the snapshot of checkpoint n does not contain them
+    anchor: flink-stateful-stream-processing#exactly-once-vs-at-least-once
+    sentence: That way, the operator also processes elements that belong to checkpoint n+1 before the state snapshot for checkpoint n was taken.
+  - option: A dataflow of only `map`, `flatMap` and `filter` operators loses its exactly once guarantee
+    anchor: flink-stateful-stream-processing#exactly-once-vs-at-least-once
+    sentence: Because of that, dataflows with only embarrassingly parallel streaming operations (map(), flatMap(), filter(), …) actually give exactly once guarantees even in at least once mode.
+  - option: The checkpoint is discarded and the job restarts from scratch
+    anchor: flink-stateful-stream-processing#exactly-once-vs-at-least-once
+    sentence: Checkpoint snapshots are still drawn as soon as an operator has seen the checkpoint barrier from each input.
+m08-l07-q14:
+  key:
+    anchor: kafka-streams-architecture#fault-tolerance
+    sentence: If tasks run on a machine that fails and are restarted on another machine, Kafka Streams guarantees to restore their associated state stores to the content before the failure by replaying the corresponding changelog topics prior to resuming the processing on the newly started tasks.
+  wrong:
+  - option: By copying the local store files from the failed machine
+    anchor: kafka-streams-architecture#fault-tolerance
+    sentence: For each state store, it maintains a replicated changelog Kafka topic in which it tracks any state updates.
+  - option: By re-reading the whole input topic from its first offset
+    anchor: kafka-streams-architecture#fault-tolerance
+    sentence: Note that the cost of task (re)initialization typically depends primarily on the time for restoring the state by replaying the state stores’ associated changelog topics.
+  - option: By reading a per-task `.checkpoint` file, in Kafka 4.3 and later
+    anchor: kafka-streams-memory-mgmt#rocksdb-offset-durability
+    sentence: Since 4.3 (KIP-1035), Kafka Streams stores each persistent store’s changelog offset inside RocksDB rather than in a per-task .checkpoint file.
+m08-l07-q15:
+  key:
+    anchor: flink-back-pressure#back-pressure-status
+    sentence: 'HIGH: 50% < back pressured <= 100%'
+  wrong:
+  - option: Up to 10%
+    anchor: flink-back-pressure#back-pressure-status
+    sentence: 'HIGH: 50% < back pressured <= 100%'
+    exclusive: true
+  - option: More than 10% and up to 50%
+    anchor: flink-back-pressure#back-pressure-status
+    sentence: 'HIGH: 50% < back pressured <= 100%'
+    exclusive: true
+  - option: Exactly 100%, and never less
+    anchor: flink-back-pressure#back-pressure-status
+    sentence: 'HIGH: 50% < back pressured <= 100%'
+    exclusive: true

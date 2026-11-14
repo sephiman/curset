@@ -1,0 +1,278 @@
+m10-l01-q01:
+  key:
+    anchor: spring-boot-features-logging#features.logging.log-format
+    sentence: Logback does not have a FATAL level. It is mapped to ERROR.
+  wrong:
+  - option: '`WARN`'
+    anchor: spring-boot-features-logging#features.logging.log-format
+    sentence: Logback does not have a FATAL level. It is mapped to ERROR.
+    exclusive: true
+  - option: '`INFO`'
+    anchor: spring-boot-features-logging#features.logging.log-format
+    sentence: Logback does not have a FATAL level. It is mapped to ERROR.
+    exclusive: true
+  - option: '`TRACE`'
+    anchor: spring-boot-features-logging#features.logging.log-format
+    sentence: Logback does not have a FATAL level. It is mapped to ERROR.
+    exclusive: true
+m10-l01-q02:
+  key:
+    anchor: otel-spec-logs-data-model#field-spanid
+    sentence: If SpanId is present TraceId SHOULD be also present.
+  wrong:
+  - option: '`TraceId` is a required field of every log record'
+    anchor: otel-spec-logs-data-model#field-traceid
+    sentence: Can be set for logs that are part of request processing and have an assigned trace ID.
+  - option: '`SpanId` is a required field of every log record'
+    anchor: otel-spec-logs-data-model#field-spanid
+    sentence: This field is optional.
+  - option: '`TraceId` is a vendor-specific identifier that W3C Trace Context does not define'
+    anchor: otel-spec-logs-data-model#field-traceid
+    sentence: Request trace ID as defined in W3C Trace Context.
+m10-l01-q03:
+  key:
+    anchor: otel-traces#spans
+    sentence: Parent span ID (empty for root spans)
+  wrong:
+  - option: The trace ID of the trace
+    anchor: otel-traces#spans
+    sentence: Parent span ID (empty for root spans)
+    exclusive: true
+  - option: The span ID of the root span itself
+    anchor: otel-traces#spans
+    sentence: Parent span ID (empty for root spans)
+    exclusive: true
+  - option: The span ID of the first child span
+    anchor: otel-traces#spans
+    sentence: Parent span ID (empty for root spans)
+    exclusive: true
+m10-l01-q04:
+  key:
+    anchor: otel-context-propagation#propagation
+    sentence: The default propagator uses the headers specified by the W3C TraceContext specification.
+  wrong:
+  - option: The `b3` headers of the Zipkin B3 specification
+    anchor: otel-context-propagation#propagation
+    sentence: The default propagator uses the headers specified by the W3C TraceContext specification.
+    exclusive: true
+  - option: The `uber-trace-id` header of the Jaeger format
+    anchor: otel-context-propagation#propagation
+    sentence: The default propagator uses the headers specified by the W3C TraceContext specification.
+    exclusive: true
+  - option: The `X-Amzn-Trace-Id` header of AWS X-Ray
+    anchor: otel-context-propagation#propagation
+    sentence: The default propagator uses the headers specified by the W3C TraceContext specification.
+    exclusive: true
+m10-l01-q05:
+  key:
+    anchor: w3c-trace-context#x3-2-traceparent-header
+    sentence: 'It has four fields: version trace-id parent-id trace-flags'
+  wrong:
+  - option: 'Two fields: trace-id and parent-id'
+    anchor: w3c-trace-context#x3-2-traceparent-header
+    sentence: 'It has four fields: version trace-id parent-id trace-flags'
+    exclusive: true
+  - option: 'Three fields: version, trace-id and trace-flags'
+    anchor: w3c-trace-context#x3-2-traceparent-header
+    sentence: 'It has four fields: version trace-id parent-id trace-flags'
+    exclusive: true
+  - option: 'Five fields: version, trace-id, parent-id, trace-flags and trace-state'
+    anchor: w3c-trace-context#x3-2-traceparent-header
+    sentence: 'It has four fields: version trace-id parent-id trace-flags'
+    exclusive: true
+m10-l01-q06:
+  key:
+    anchor: spring-boot-actuator-observability#actuator.observability.context-propagation
+    sentence: This behavior is controlled with the spring.reactor.context-propagation property, which can be set to auto to enable automatic propagation.
+  wrong:
+  - option: '`spring.task.execution.propagate-context`'
+    anchor: spring-boot-actuator-observability#actuator.observability.context-propagation
+    sentence: If you’re working with @Async methods and the AsyncTaskExecutor is auto-configured, you have to opt-in for context propagation using the spring.task.execution.propagate-context property.
+  - option: '`management.tracing.exemplars.include`'
+    anchor: spring-boot-actuator-metrics#actuator.metrics.export.prometheus
+    sentence: You can control this behavior using the management.tracing.exemplars.include property.
+  - option: '`logging.structured.format.console`'
+    anchor: spring-boot-features-logging#features.logging.structured
+    sentence: To enable structured logging, set the property logging.structured.format.console (for console output) or logging.structured.format.file (for file output) to the id of the format you want to use.
+m10-l01-q07:
+  key:
+    anchor: spring-boot-actuator-observability#page-title
+    sentence: Low cardinality tags will be added to metrics and traces, while high cardinality tags will only be added to traces.
+  wrong:
+  - option: Low cardinality tags
+    anchor: spring-boot-actuator-observability#page-title
+    sentence: Low cardinality tags will be added to metrics and traces, while high cardinality tags will only be added to traces.
+    exclusive: true
+  - option: Tags of both kinds
+    anchor: spring-boot-actuator-observability#page-title
+    sentence: Low cardinality tags will be added to metrics and traces, while high cardinality tags will only be added to traces.
+    exclusive: true
+  - option: Tags of neither kind
+    anchor: spring-boot-actuator-observability#page-title
+    sentence: Low cardinality tags will be added to metrics and traces, while high cardinality tags will only be added to traces.
+    exclusive: true
+m10-l01-q08:
+  key:
+    anchor: spring-boot-actuator-observability#page-title
+    sentence: 'It consists of the three pillars: logging, metrics and traces.'
+  wrong:
+  - option: Metrics, traces and profiles
+    anchor: spring-boot-actuator-observability#page-title
+    sentence: 'It consists of the three pillars: logging, metrics and traces.'
+    exclusive: true
+  - option: Logging, metrics and alerts
+    anchor: spring-boot-actuator-observability#page-title
+    sentence: 'It consists of the three pillars: logging, metrics and traces.'
+    exclusive: true
+  - option: Logging, tracing and health checks
+    anchor: spring-boot-actuator-observability#page-title
+    sentence: 'It consists of the three pillars: logging, metrics and traces.'
+    exclusive: true
+m10-l01-q09:
+  key:
+    anchor: prom-metric-types#histogram
+    sentence: the total sum of all observed values, exposed as <basename>_sum
+  wrong:
+  - option: '`<basename>_count`'
+    anchor: prom-metric-types#histogram
+    sentence: the count of events that have been observed, exposed as <basename>_count (identical to <basename>_bucket{le="+Inf"} above)
+  - option: '`<basename>_bucket{le="+Inf"}`'
+    anchor: prom-metric-types#histogram
+    sentence: cumulative counters for the observation buckets, exposed as <basename>_bucket{le="<upper inclusive bound>"}
+  - option: '`<basename>{quantile="0.5"}`'
+    anchor: prom-metric-types#summary
+    sentence: streaming φ-quantiles (0 ≤ φ ≤ 1) of observed events, exposed as <basename>{quantile="<φ>"}
+m10-l01-q10:
+  key:
+    anchor: prom-metric-types#histogram
+    sentence: these buckets are cumulative , i.e. every bucket counts all observations less than or equal to the upper boundary provided as a label
+  wrong:
+  - option: Only observations greater than 0.2 and at most 0.3
+    anchor: prom-metric-types#histogram
+    sentence: these buckets are cumulative , i.e. every bucket counts all observations less than or equal to the upper boundary provided as a label
+    exclusive: true
+  - option: Only observations equal to 0.3
+    anchor: prom-metric-types#histogram
+    sentence: these buckets are cumulative , i.e. every bucket counts all observations less than or equal to the upper boundary provided as a label
+    exclusive: true
+  - option: All observations greater than 0.3
+    anchor: prom-metric-types#histogram
+    sentence: these buckets are cumulative , i.e. every bucket counts all observations less than or equal to the upper boundary provided as a label
+    exclusive: true
+m10-l01-q11:
+  key:
+    anchor: prom-naming#metric-names
+    sentence: SHOULD use base units (e.g. seconds, bytes, meters - not milliseconds, megabytes, kilometers)
+  wrong:
+  - option: '`http_request_duration_milliseconds`'
+    anchor: prom-naming#metric-names
+    sentence: SHOULD use base units (e.g. seconds, bytes, meters - not milliseconds, megabytes, kilometers)
+  - option: '`http_request_duration`'
+    anchor: prom-naming#metric-names
+    sentence: SHOULD have a suffix describing the unit, in plural form.
+  - option: '`http_request_size_and_duration_seconds`'
+    anchor: prom-naming#metric-names
+    sentence: MUST refer to a single unit (e.g. do not mix seconds with milliseconds) and to a single quantity (e.g. do not mix request size with request duration).
+m10-l01-q12:
+  key:
+    anchor: spring-boot-actuator-metrics#actuator.metrics.export.prometheus
+    sentence: By default, the endpoint is not available and must be exposed.
+  wrong:
+  - option: It is exposed over HTTP automatically
+    anchor: spring-boot-actuator-metrics#actuator.metrics.export.prometheus
+    sentence: By default, the endpoint is not available and must be exposed.
+    exclusive: true
+  - option: It is exposed over JMX only
+    anchor: spring-boot-actuator-metrics#actuator.metrics.export.prometheus
+    sentence: By default, the endpoint is not available and must be exposed.
+    exclusive: true
+  - option: It is available once a Pushgateway dependency is present
+    anchor: spring-boot-actuator-metrics#actuator.metrics.export.prometheus
+    sentence: By default, the endpoint is not available and must be exposed.
+    exclusive: true
+m10-l01-q13:
+  key:
+    anchor: spring-boot-actuator-metrics#actuator.metrics.export.prometheus
+    sentence: By default, only sampled traces are included as exemplars.
+  wrong:
+  - option: All traces, sampled or not
+    anchor: spring-boot-actuator-metrics#actuator.metrics.export.prometheus
+    sentence: The value all is not supported with Prometheus.
+  - option: Only traces that ended with an error
+    anchor: spring-boot-actuator-metrics#actuator.metrics.export.prometheus
+    sentence: By default, only sampled traces are included as exemplars.
+    exclusive: true
+  - option: Only traces started by a scrape request
+    anchor: spring-boot-actuator-metrics#actuator.metrics.export.prometheus
+    sentence: By default, only sampled traces are included as exemplars.
+    exclusive: true
+m10-l01-q14:
+  key:
+    anchor: prom-histograms#quantiles
+    sentence: histogram_quantile(0.95, sum by (le) (rate(http_request_duration_seconds_bucket[5m]))) // GOOD.
+  wrong:
+  - option: Average the `quantile="0.95"` series of the summaries of all replicas
+    anchor: prom-histograms#quantiles
+    sentence: In this particular case, averaging the quantiles yields statistically nonsensical values.
+  - option: Configure a summary with a 0.95-quantile on every replica and add the results
+    anchor: prom-histograms#quantiles
+    sentence: However, aggregating the precomputed quantiles from a summary rarely makes sense.
+  - option: Publish client-side percentiles from every replica with `publishPercentiles` and combine them across tags
+    anchor: micrometer-concepts-histogram#page-title
+    sentence: This is not as flexible as a percentile histogram because it is not possible to aggregate percentile approximations across tags.
+m10-l01-q15:
+  key:
+    anchor: micrometer-concepts-histogram#page-title
+    sentence: 'publishPercentiles: Used to publish percentile values computed in your application. These values are non-aggregable across dimensions.'
+  wrong:
+  - option: '`publishPercentileHistogram`'
+    anchor: micrometer-concepts-histogram#page-title
+    sentence: 'publishPercentileHistogram: Used to publish a histogram suitable for computing aggregable (across dimensions) percentile approximations in Prometheus (by using histogram_quantile), Atlas (by using :percentile), and Wavefront (by using hs()).'
+  - option: '`serviceLevelObjectives`'
+    anchor: micrometer-concepts-histogram#page-title
+    sentence: 'serviceLevelObjectives: Used to publish a cumulative histogram with buckets defined by your SLOs.'
+  - option: '`minimumExpectedValue`'
+    anchor: micrometer-concepts-histogram#page-title
+    sentence: 'minimumExpectedValue/maximumExpectedValue: Controls the number of buckets shipped by publishPercentileHistogram and controls the accuracy and memory footprint of the underlying HdrHistogram structure.'
+m10-l01-q16:
+  key:
+    anchor: micrometer-concepts#concepts-purpose
+    sentence: Starting from Micrometer 1.10, Micrometer provides the Observation API and a plugin mechanism that lets you add capabilities, including the tracing features.
+  wrong:
+  - option: '1.5'
+    anchor: micrometer-concepts#concepts-purpose
+    sentence: Starting from Micrometer 1.10, Micrometer provides the Observation API and a plugin mechanism that lets you add capabilities, including the tracing features.
+    exclusive: true
+  - option: '1.8'
+    anchor: micrometer-concepts#concepts-purpose
+    sentence: Starting from Micrometer 1.10, Micrometer provides the Observation API and a plugin mechanism that lets you add capabilities, including the tracing features.
+    exclusive: true
+  - option: '1.14'
+    anchor: micrometer-concepts#concepts-purpose
+    sentence: Starting from Micrometer 1.10, Micrometer provides the Observation API and a plugin mechanism that lets you add capabilities, including the tracing features.
+    exclusive: true
+m10-l01-q17:
+  key:
+    execution: m10-l01/BurnRate.java
+  wrong:
+  - option: 'burn rate for 5% in 1 hour: 1
+
+      budget consumed at 14.4 over 1 hour: 48%
+
+      hours to exhaust at burn rate 10: 3'
+    execution: m10-l01/BurnRate.java
+    mistake: 'wrong unit: uses the 30 days instead of 720 hours'
+  - option: 'burn rate for 5% in 1 hour: 3600
+
+      budget consumed at 14.4 over 1 hour: 2%
+
+      hours to exhaust at burn rate 10: 72'
+    execution: m10-l01/BurnRate.java
+    mistake: 'off-by-factor: treats 5% as 5 instead of 0.05'
+  - option: 'burn rate for 5% in 1 hour: 36
+
+      budget consumed at 14.4 over 1 hour: 2%
+
+      hours to exhaust at burn rate 10: 7200'
+    execution: m10-l01/BurnRate.java
+    mistake: 'wrong operation: multiplies by the burn rate instead of dividing'

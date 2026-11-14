@@ -1,0 +1,287 @@
+[
+ {
+  "id": "m10-l06-q01",
+  "fact": "m10-l06-f01",
+  "stem": "Which statement about the OWASP Top 10:2025 list and the OWASP API Security Top 10 2023 list is correct?",
+  "key": "Broken Access Control is A01:2025 in the Top 10:2025",
+  "distractors": [
+   "Injection is A01:2025 in the Top 10:2025",
+   "Software Supply Chain Failures is A10:2025 in the Top 10:2025",
+   "Server Side Request Forgery is API3:2023 in the API Security Top 10"
+  ],
+  "explanation": "Broken Access Control is A01:2025 in the Top 10:2025. Injection as A01 is ruled out because the list names it A05:2025. Software Supply Chain Failures as A10 is ruled out because the list names it A03:2025. Server Side Request Forgery as API3 is ruled out because the API list names it API7:2023.",
+  "citation": "owasp-top10-2025#top-102025-list",
+  "extract": "A01:2025 - Broken Access Control",
+  "snippet": null
+ },
+ {
+  "id": "m10-l06-q02",
+  "fact": "m10-l06-f26",
+  "stem": "Which statement about Broken Object Level Authorization (BOLA) in the OWASP API Security Top 10 2023 is correct?",
+  "key": "Every endpoint that takes an object ID needs an object-level authorization check",
+  "distractors": [
+   "Comparing the session user ID from the JWT token with the ID parameter fully solves it",
+   "Reaching an endpoint the attacker should not access at all counts as BOLA",
+   "Only sequential integer IDs can be manipulated, so UUIDs remove the problem"
+  ],
+  "explanation": "Every API endpoint that receives an ID of an object and performs an action on it should implement object-level authorization checks. A full fix by comparing the session user ID with the ID parameter is ruled out because that comparison isn't a sufficient solution to BOLA. Counting access to a forbidden endpoint as BOLA is ruled out because that case is Broken Function Level Authorization (BFLA) rather than BOLA. Safety through UUIDs is ruled out because object IDs can be sequential integers, UUIDs, or generic strings.",
+  "citation": "owasp-api1-bola#is-the-api-vulnerable; owasp-api1-bola#api12023-broken-object-level-authorization",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m10-l06-q03",
+  "fact": "m10-l06-f32",
+  "stem": "An API endpoint returns an object that has internal properties, and clients can also update it. Which practice does the OWASP API Security Top 10 give to prevent Broken Object Property Level Authorization?",
+  "key": "Cherry-picking the specific object properties that the endpoint should return",
+  "distractors": [
+   "Returning the whole object with `to_json()` and letting clients ignore extra fields",
+   "Binding client input automatically into internal objects to save code",
+   "Letting clients change every property that they can see in the response"
+  ],
+  "explanation": "Cherry-picking the specific object properties you want to return is the practice given. Returning the whole object with `to_json()` is ruled out because generic methods such as `to_json()` and `to_string()` should be avoided. Automatic binding of client input is ruled out because functions that automatically bind a client's input into internal objects should be avoided where possible. Letting clients change every visible property is ruled out because changes are allowed only to the properties that should be updated by the client.",
+  "citation": "owasp-api3-bopla#how-to-prevent",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m10-l06-q04",
+  "fact": "m10-l06-f42",
+  "stem": "A team adds permission checks to an API. Which statement about how those checks should be applied is correct according to the OWASP Authorization Cheat Sheet?",
+  "key": "The technology should allow global, application-wide configuration instead of per-method setup",
+  "distractors": [
+   "Requests initiated by an AJAX script are exempt because the page already checked",
+   "One missed check is tolerable because an attacker needs several unprotected paths",
+   "Checking most requests correctly is enough as long as the sensitive ones are covered"
+  ],
+  "explanation": "The technology used for permission checks should allow global, application-wide configuration rather than being applied individually to every method or class. An exemption for AJAX requests is ruled out because permission should be validated on every request regardless of its origin. Tolerating one missed check is ruled out because an attacker only needs to find one way in. Covering only most requests is ruled out because validating permissions correctly on just the majority of requests is insufficient.",
+  "citation": "owasp-cs-authorization#validate-the-permissions-on-every-request",
+  "extract": "The technology used to perform such checks should allow for global, application-wide configuration rather than needing to be applied individually to every method or class.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l06-q05",
+  "fact": "m10-l06-f50",
+  "stem": "An application builds a SQL request that includes dynamic data from the user. Which defence does the OWASP SQL Injection Prevention Cheat Sheet prefer?",
+  "key": "Parameterized queries",
+  "distractors": [
+   "Manually escaping the dynamic inputs before concatenating them",
+   "Escaping the table and column names that users choose",
+   "Positive server-side input validation as the only defence"
+  ],
+  "explanation": "Parameterized queries are the preferred pattern when including dynamic data in SQL requests. Manual escaping is ruled out because relying on manually escaping dynamic inputs is error-prone and strongly discouraged. Escaping user-chosen table and column names is ruled out because SQL structures such as table names and column names cannot be escaped. Validation as the only defence is ruled out because positive server-side input validation is not a complete defense.",
+  "citation": "owasp-cs-sql-injection#primary-defenses; owasp-top10-2025-a05#how-to-prevent",
+  "extract": "parameterized queries when including dynamic data in SQL requests;",
+  "snippet": null
+ },
+ {
+  "id": "m10-l06-q06",
+  "fact": "m10-l06-f58",
+  "stem": "An API fetches a resource from a URL that the client supplies. Which measure does the OWASP API Security Top 10 give to prevent Server Side Request Forgery (SSRF)?",
+  "key": "Using allow lists of the remote origins, URL schemes and ports that are expected",
+  "distractors": [
+   "Following HTTP redirections so that moved resources still resolve",
+   "Returning the raw response of the fetched resource to the client for debugging",
+   "Writing a custom URL parser that handles parsing inconsistencies"
+  ],
+  "explanation": "Allow lists of the expected remote origins, URL schemes and ports are the measure given. Following redirections is ruled out because HTTP redirections should be disabled. Returning the raw response is ruled out because raw responses must not be sent to clients. A custom URL parser is ruled out because a well-tested and maintained URL parser should be used.",
+  "citation": "owasp-api7-ssrf#how-to-prevent",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m10-l06-q07",
+  "fact": "m10-l06-f64",
+  "stem": "A Java service reads objects from an untrusted source through Java's `Serializable` format. Which statement about hardening that deserialization, according to the OWASP Deserialization Cheat Sheet, is correct?",
+  "key": "Configure serialization filters with an application-specific class allowlist and resource limits",
+  "distractors": [
+   "A `resolveClass()` override that allows one class is a complete defense",
+   "Filtering makes arbitrary untrusted deserialization safe",
+   "Serialization filters also bound concretely encoded strings, so no separate size limit is needed"
+  ],
+  "explanation": "Serialization filters with an application-specific class allowlist and resource limits should be configured before reading objects. A complete defense from a `resolveClass()` override is ruled out because the example is an illustrative class check, not a complete deserialization defense. Safety from filtering is ruled out because filtering does not make arbitrary untrusted deserialization safe. Skipping a size limit is ruled out because the serialized input size must be bounded separately, as filters are not called for concretely encoded strings or primitives.",
+  "citation": "owasp-cs-deserialization#java; owasp-cs-deserialization#harden-your-own-javaioobjectinputstream",
+  "extract": "Configure serialization filters with an application-specific class allowlist and resource limits before reading objects.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l06-q08",
+  "fact": "m10-l06-f70",
+  "stem": "An application accepts file uploads and stores them on disk. Which practice does the OWASP File Upload Cheat Sheet give for the filenames of the stored files?",
+  "key": "Generating a random name such as a UUID instead of keeping the user's filename",
+  "distractors": [
+   "Keeping the user's filename and block-listing dangerous characters as the preferred defence",
+   "Allowing sequential periods because they only separate file extensions",
+   "Checking only the long filename on Windows because it is the file's only name"
+  ],
+  "explanation": "Creating a random string as a filename, such as a UUID, is essential. Block-listing as the preferred defence is ruled out because block-listing dangerous characters is only the fallback when restricting characters to an allowed subset is not possible. Allowing sequential periods is ruled out because sequential periods (directory traversal) should be restricted. Checking only the long name is ruled out because a long filename on Windows/NTFS may have an 8.3 short name alias that bypasses a check on the long name.",
+  "citation": "owasp-cs-file-upload#filename-safety",
+  "extract": "In order to avoid the above mentioned threat, creating a random string as a filename, such as generating a UUID/GUID, is essential.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l06-q09",
+  "fact": "m10-l06-f78",
+  "stem": "Which statement about defending against cross-site request forgery (CSRF) in Spring Security and the OWASP CSRF Cheat Sheet is correct?",
+  "key": "A missing token ends in an `AccessDeniedException` handled by the `AccessDeniedHandler`",
+  "distractors": [
+   "Fetch Metadata headers replace origin verification, so legacy browsers need no fallback",
+   "`Sec-Fetch-Mode` is the primary signal for CSRF protection, ahead of `Sec-Fetch-Site`",
+   "The synchronizer token pattern is discouraged because it keeps state on the server"
+  ],
+  "explanation": "If the actual CSRF token is invalid or missing, an `AccessDeniedException` is passed to the `AccessDeniedHandler`. Dropping the fallback is ruled out because a fallback to standard origin verification headers is mandatory for any Fetch Metadata implementation. `Sec-Fetch-Mode` as the primary signal is ruled out because `Sec-Fetch-Site` is the primary signal for CSRF protection. Discouraging the synchronizer token pattern is ruled out because it is one of the most popular and recommended methods to mitigate CSRF.",
+  "citation": "spring-security-servlet-exploits-csrf#csrf-components; owasp-cs-csrf#fetch-metadata-headers; owasp-cs-csrf#token-based-mitigation",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m10-l06-q10",
+  "fact": "m10-l06-f88",
+  "stem": "A Spring Security application customizes its CORS handling and its default response security headers. Which statement about that configuration is correct?",
+  "key": "CORS is configured automatically only if a `UrlBasedCorsConfigurationSource` instance is present",
+  "distractors": [
+   "`defaultsDisabled()` followed by `cacheControl(withDefaults())` keeps all of the default headers",
+   "`headers.disable()` removes only the cache control header",
+   "To change one default header, all the defaults must be disabled first"
+  ],
+  "explanation": "Spring Security configures CORS automatically only if a `UrlBasedCorsConfigurationSource` instance is present. Keeping all defaults is ruled out because that configuration adds only Cache Control. A `headers.disable()` limited to cache control is ruled out because it disables all of the HTTP security response headers. Disabling the defaults first is ruled out because you can keep the defaults and specify `SAMEORIGIN` for `X-Frame-Options`.",
+  "citation": "spring-security-servlet-integrations-cors#cors-configuration-source; spring-security-servlet-exploits-headers#servlet-headers-default",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m10-l06-q11",
+  "fact": "m10-l06-f90",
+  "stem": "A team defines validation rules for the input of a web application. Which statement about input validation in the OWASP Input Validation Cheat Sheet is correct?",
+  "key": "Validation covers both syntax and semantics, such as an end date after its start date",
+  "distractors": [
+   "Blocking apostrophes makes a database query safe against injection",
+   "The application should recognize every malicious string and reject it",
+   "Free-form comments must be restricted to letters and digits"
+  ],
+  "explanation": "Validation covers both syntax, the expected type and format, and semantics, whether the value makes sense for the operation. Blocking apostrophes is ruled out because it rejects legitimate names without making a database query safe. Recognizing every malicious string is ruled out because the guidance says not to try to recognize every malicious string. A letters-and-digits rule is ruled out because an allowlist for free-form comments can permit broad Unicode text while limiting its length.",
+  "citation": "owasp-cs-input-validation#input-validation-strategies; owasp-cs-input-validation#allowlist-vs-denylist",
+  "extract": "Validate both syntax (the expected type and format) and semantics (whether the value makes sense for the operation).",
+  "snippet": null
+ },
+ {
+  "id": "m10-l06-q12",
+  "fact": "m10-l06-f115",
+  "stem": "Which statement about how Spring Boot Actuator sanitizes the values returned by the `/env`, `/configprops` and `/quartz` endpoints is correct?",
+  "key": "By default the values are fully sanitized and replaced by `******`",
+  "distractors": [
+   "With `show-values` set to `never`, the values are shown to all authenticated users",
+   "With `when-authorized`, JMX endpoints show values only to users with the configured roles",
+   "With `when-authorized`, HTTP endpoints show values to unauthenticated users too"
+  ],
+  "explanation": "By default values are always fully sanitized and replaced by `******`. Showing values with `never` is ruled out because `never` means values are always fully sanitized. Role checks on JMX endpoints are ruled out because for JMX endpoints all users are always authorized. Showing values to unauthenticated users on HTTP is ruled out because an HTTP user is authorized only if they have authenticated and have the configured roles.",
+  "citation": "spring-boot-actuator-endpoints#actuator.endpoints.sanitization",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m10-l06-q13",
+  "fact": "m10-l06-f108",
+  "stem": "Which statement about Kubernetes Secrets and access to them, according to the Kubernetes documentation, is correct?",
+  "key": "Granting `list` or `watch` on Secrets lets a subject read all Secret data in that namespace",
+  "distractors": [
+   "The kubelet writes a mounted Secret to durable node storage so that it survives restarts",
+   "Every Secret of a namespace is sent to every node, in case a Pod needs it",
+   "A Pod can read the Secrets of other Pods that run on the same node"
+  ],
+  "explanation": "Granting `list` or `watch` permissions on Secrets allows a subject to read all Secret data in that namespace, not only the Secrets referenced by its Pods. Writing a mounted Secret to durable storage is ruled out because the kubelet stores a copy in a `tmpfs` so the data is not written to durable storage. Sending every Secret to every node is ruled out because a Secret is only sent to a node if a Pod on that node requires it. Reading the Secrets of other Pods is ruled out because one Pod does not have access to the Secrets of another Pod.",
+  "citation": "k8s-secrets#information-security-for-secrets",
+  "extract": "For example, granting list or watch permissions on Secrets allows a subject to read all Secret data in that namespace, not only the Secrets explicitly referenced by its Pods.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l06-q14",
+  "fact": "m10-l06-f104",
+  "stem": "According to the OWASP Secrets Management Cheat Sheet, which practice applies to a secret that a Java application holds in memory?",
+  "key": "Using a char array or byte array, whose memory can be directly overwritten",
+  "distractors": [
+   "Storing it in a `String`, because immutable objects are collected promptly",
+   "Keeping it in memory for the whole life of the process so it is always available",
+   "Skipping any protection of secrets in memory, because it is always overkill"
+  ],
+  "explanation": "A char array or byte array is used instead, because its memory can be directly overwritten. Storing the secret in a `String` is ruled out because it is impossible to force immutable structures such as Strings to be garbage collected. Keeping it for the whole process life is ruled out because the goal is to minimize the time window where the secret is in plaintext in memory. Always skipping protection is ruled out because in highly sensitive environments, protecting secrets in memory can be a valuable additional layer of security.",
+  "citation": "owasp-cs-secrets#25-handling-secrets-in-memory",
+  "extract": "Instead, use primitive types such as byte arrays or char arrays, where the memory can be directly overwritten.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l06-q15",
+  "fact": "m10-l06-f137",
+  "stem": "A team adopts SLSA to secure its software supply chain. Which statement about the levels of the SLSA build and source tracks is correct?",
+  "key": "At Build L2, builds run on a hosted platform that generates and signs the provenance",
+  "distractors": [
+   "At Build L1, the build platform signs the provenance so tampering is prevented",
+   "At Build L3, the signing material may be reachable by user-defined build steps",
+   "Source L1 requires code review of every change"
+  ],
+  "explanation": "At Build L2, builds run on a hosted platform that generates and signs the provenance. A signed and tamper-proof Build L1 is ruled out because provenance may be incomplete or unsigned at L1. Reachable signing material at Build L3 is ruled out because the platform must prevent secret material used to sign the provenance from being accessible to user-defined build steps. Code review at Source L1 is ruled out because Source L1 requires only a version control system.",
+  "citation": "slsa-build-track-basics#build-l2-hosted-build-platform; slsa-build-track-basics#build-l1-provenance-exists; slsa-build-track-basics#build-l3-hardened-builds; slsa-source-requirements#basics",
+  "extract": "In practice, this means that builds run on a hosted platform that generates and signs",
+  "snippet": null
+ },
+ {
+  "id": "m10-l06-q16",
+  "fact": "m10-l06-f149",
+  "stem": "In the STRIDE table of the OWASP Threat Modeling Cheat Sheet, which security attribute does an attacker's unintended update to a database violate, as in the Tampering category?",
+  "key": "Integrity",
+  "distractors": [
+   "Authentication",
+   "Confidentiality",
+   "Availability"
+  ],
+  "explanation": "Tampering violates integrity. Authentication, confidentiality and availability are ruled out as one group, because the cheat sheet lists integrity as the attribute that Tampering violates, with the example of an attacker abusing the application to perform unintended updates to a database.",
+  "citation": "owasp-cs-threat-modeling#threat-identification",
+  "extract": "Tampering Integrity An attacker abuses the application to perform unintended updates to a database.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l06-q17",
+  "fact": "m10-l06-f124",
+  "stem": "A team generates software bills of materials with CycloneDX. Which statement about the CycloneDX specification is correct?",
+  "key": "Its dependency graph can represent both direct and transitive relationships",
+  "distractors": [
+   "It inventories only third-party components, not first-party ones",
+   "It describes software only, not hardware devices or machine learning models",
+   "Components that depend on services cannot be represented in it"
+  ],
+  "explanation": "The CycloneDX dependency graph is capable of representing both direct and transitive relationships. A third-party-only inventory is ruled out because components describe the complete inventory of first-party and third-party components. A software-only scope is ruled out because the specification can represent software, hardware devices, machine learning models, source code and configurations. Missing service dependencies are ruled out because components that depend on services can be represented in the dependency graph.",
+  "citation": "cyclonedx-spec#dependencies; cyclonedx-spec#components",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m10-l06-q18",
+  "fact": "m10-l06-f127",
+  "stem": "A team signs release artifacts with Sigstore without managing long-lived keys. Which statement about keyless signing and verification in Sigstore is correct?",
+  "key": "Keyless signing associates identities, rather than keys, with an artifact signature",
+  "distractors": [
+   "Fulcio issues long-lived certificates bound to a developer's permanent private key",
+   "Signing events are recorded only on the signer's own machine",
+   "Verification relies on the signature alone, without comparing a log entry"
+  ],
+  "explanation": "Keyless signing associates identities, rather than keys, with an artifact signature. Long-lived certificates are ruled out because Fulcio issues short-lived certificates binding an ephemeral key to an OpenID Connect identity. Local-only records are ruled out because signing events are logged in Rekor, a signature transparency log. Verification on the signature alone is ruled out because Sigstore compares a tuple of signature, key or certificate, and artifact against the timestamped Rekor entry.",
+  "citation": "sigstore-cosign-signing#overview; sigstore-cosign-signing#verifying-the-signed-artifact",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m10-l06-q19",
+  "fact": "m10-l06-f75",
+  "stem": "The lesson snippet resolves the client-supplied relative path `../etc/passwd` against the upload directory `/var/uploads`, normalizes the result, and tests it with `startsWith`. What does it print?",
+  "key": "/var/etc/passwd false",
+  "distractors": [
+   "/var/uploads/../etc/passwd true",
+   "/var/etc/passwd true",
+   "/etc/passwd false"
+  ],
+  "explanation": "The snippet prints `/var/etc/passwd false`, because `normalize()` removes the `..` segment together with `uploads` and the remaining path does not start with `/var/uploads`. The output `/var/uploads/../etc/passwd true` is what skipping `normalize()` produces, since the unnormalized path still starts with `/var/uploads`. The output `/var/etc/passwd true` assumes the normalized path stays inside the upload directory, but `startsWith(uploads)` is false for it. The output `/etc/passwd false` removes one segment too many, since `..` removes only `uploads`.",
+  "citation": "owasp-cs-file-upload#filename-safety",
+  "extract": "Restrict use of leading periods (hidden files) and sequential periods (directory traversal).",
+  "snippet": "m10-l06/PathTraversal.java"
+ }
+]

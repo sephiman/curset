@@ -1,0 +1,236 @@
+m09-case-g-q01:
+  key:
+    anchor: mcp-authorization#token-requirements
+    sentence: 'MCP client MUST use the Authorization request header field defined in OAuth 2.1 Section 5.1.1:'
+  wrong:
+  - option: In the query string of the request URI
+    anchor: mcp-authorization#token-requirements
+    sentence: Access tokens MUST NOT be included in the URI query string
+  - option: In the first request only, since the session then stays authorized
+    anchor: mcp-authorization#token-requirements
+    sentence: Note that authorization MUST be included in every HTTP request from client to server.
+  - option: In a `Cookie` header that the server sets after the first call
+    anchor: mcp-authorization#token-requirements
+    sentence: 'MCP client MUST use the Authorization request header field defined in OAuth 2.1 Section 5.1.1:'
+    exclusive: true
+m09-case-g-q02:
+  key:
+    anchor: mcp-authorization#scope-selection-strategy
+    sentence: When re-authorizing, clients SHOULD include these scopes alongside any previously granted scopes to avoid losing permissions needed for other operations
+  wrong:
+  - option: Only the challenged scopes, replacing the earlier grant
+    anchor: mcp-authorization#scope-selection-strategy
+    sentence: When re-authorizing, clients SHOULD include these scopes alongside any previously granted scopes to avoid losing permissions needed for other operations
+    exclusive: true
+  - option: The whole `scopes_supported` list instead of the challenge
+    anchor: mcp-authorization#scope-selection-strategy
+    sentence: Clients MUST treat the scopes provided in the challenge as authoritative for the current operation.
+  - option: No scope, reusing the token it already has
+    anchor: mcp-authorization#scope-challenge-handling
+    sentence: This section covers handling insufficient scope errors during runtime operations when a client already has a token but needs additional permissions.
+m09-case-g-q03:
+  key:
+    anchor: mcp-authorization#scope-selection-strategy
+    sentence: If scope is not available, use all scopes defined in scopes_supported from the Protected Resource Metadata document, omitting the scope parameter if scopes_supported is undefined.
+  wrong:
+  - option: Send an empty `scope` value in its authorization request
+    anchor: mcp-authorization#scope-selection-strategy
+    sentence: If scope is not available, use all scopes defined in scopes_supported from the Protected Resource Metadata document, omitting the scope parameter if scopes_supported is undefined.
+    exclusive: true
+  - option: Request every scope that it knows from earlier sessions
+    anchor: mcp-authorization#scope-selection-strategy
+    sentence: If scope is not available, use all scopes defined in scopes_supported from the Protected Resource Metadata document, omitting the scope parameter if scopes_supported is undefined.
+    exclusive: true
+  - option: Stop the authorization flow and report an error
+    anchor: mcp-authorization#scope-selection-strategy
+    sentence: If scope is not available, use all scopes defined in scopes_supported from the Protected Resource Metadata document, omitting the scope parameter if scopes_supported is undefined.
+    exclusive: true
+m09-case-g-q04:
+  key:
+    anchor: mcp-authorization#scope-selection-strategy
+    sentence: The scopes_supported field is intended to represent the minimal set of scopes necessary for basic functionality
+  wrong:
+  - option: The complete list of every scope the server ever issues
+    anchor: mcp-authorization#scope-selection-strategy
+    sentence: they are not required to surface every dynamically issued scope through scopes_supported
+  - option: Only scopes that clients request through step-up authorization
+    anchor: mcp-authorization#scope-selection-strategy
+    sentence: with additional scopes requested incrementally through the step-up authorization flow steps described in the Scope Challenge Handling section
+  - option: A set that clients must treat as a superset of challenged scopes
+    anchor: mcp-authorization#scope-selection-strategy
+    sentence: Clients MUST NOT assume any particular set relationship between the challenged scope set and scopes_supported.
+m09-case-g-q05:
+  key:
+    anchor: mcp-security-best-practices#token-passthrough
+    sentence: “Token passthrough” is an anti-pattern where an MCP server accepts tokens from an MCP client without validating that the tokens were properly issued to the MCP server and passes them through to the downstream API.
+  wrong:
+  - option: Step-up authorization, which requests extra scopes
+    anchor: mcp-authorization#scope-selection-strategy
+    sentence: with additional scopes requested incrementally through the step-up authorization flow steps described in the Scope Challenge Handling section
+  - option: Scope challenge handling after insufficient scope
+    anchor: mcp-authorization#scope-challenge-handling
+    sentence: This section covers handling insufficient scope errors during runtime operations when a client already has a token but needs additional permissions.
+  - option: A static client ID shared by all clients
+    anchor: mcp-security-best-practices#terminology
+    sentence: 'Static Client ID : A fixed OAuth 2.0 client identifier used by the MCP proxy server when communicating with the third-party authorization server.'
+m09-case-g-q06:
+  key:
+    anchor: mcp-security-best-practices#required-protections
+    sentence: Use exact string matching (not pattern matching or wildcards)
+  wrong:
+  - option: By prefix matching against the registered URI
+    anchor: mcp-security-best-practices#required-protections
+    sentence: Use exact string matching (not pattern matching or wildcards)
+    exclusive: true
+  - option: By wildcard matching on the host name
+    anchor: mcp-security-best-practices#required-protections
+    sentence: Use exact string matching (not pattern matching or wildcards)
+    exclusive: true
+  - option: By regular expression supplied by the client
+    anchor: mcp-security-best-practices#required-protections
+    sentence: Use exact string matching (not pattern matching or wildcards)
+    exclusive: true
+m09-case-g-q07:
+  key:
+    anchor: mcp-security-best-practices#required-protections
+    sentence: Set Secure, HttpOnly, and SameSite=Lax attributes
+  wrong:
+  - option: '`Secure` and `SameSite=None`'
+    anchor: mcp-security-best-practices#required-protections
+    sentence: Set Secure, HttpOnly, and SameSite=Lax attributes
+    exclusive: true
+  - option: '`HttpOnly` only, without `Secure`'
+    anchor: mcp-security-best-practices#required-protections
+    sentence: Set Secure, HttpOnly, and SameSite=Lax attributes
+    exclusive: true
+  - option: '`Secure` with `SameSite=Lax`, readable from scripts'
+    anchor: mcp-security-best-practices#required-protections
+    sentence: Set Secure, HttpOnly, and SameSite=Lax attributes
+    exclusive: true
+m09-case-g-q08:
+  key:
+    anchor: mcp-security-best-practices#required-protections
+    sentence: Ensure state values are single-use (delete after validation) and have a short expiration time (e.g., 10 minutes)
+  wrong:
+  - option: Reusable for 24 hours, then deleted by a nightly job
+    anchor: mcp-security-best-practices#required-protections
+    sentence: Ensure state values are single-use (delete after validation) and have a short expiration time (e.g., 10 minutes)
+    exclusive: true
+  - option: Reusable until the user logs out of the proxy
+    anchor: mcp-security-best-practices#required-protections
+    sentence: Ensure state values are single-use (delete after validation) and have a short expiration time (e.g., 10 minutes)
+    exclusive: true
+  - option: Single-use, but valid for a full day
+    anchor: mcp-security-best-practices#required-protections
+    sentence: Ensure state values are single-use (delete after validation) and have a short expiration time (e.g., 10 minutes)
+    exclusive: true
+m09-case-g-q09:
+  key:
+    anchor: owasp-llm-top10-prompt-injection#indirect-prompt-injections
+    sentence: Indirect prompt injections occur when an LLM accepts input from external sources, such as websites or files.
+  wrong:
+  - option: Direct prompt injection by the user
+    anchor: owasp-llm-top10-prompt-injection#main
+    sentence: A Prompt Injection Vulnerability occurs when user prompts alter the LLM’s behavior or output in unintended ways.
+  - option: Jailbreaking of the safety protocols
+    anchor: owasp-llm-top10-prompt-injection#main
+    sentence: Jailbreaking is a form of prompt injection where the attacker provides inputs that cause the model to disregard its safety protocols entirely.
+  - option: Token passthrough in an MCP server
+    anchor: mcp-security-best-practices#token-passthrough
+    sentence: “Token passthrough” is an anti-pattern where an MCP server accepts tokens from an MCP client without validating that the tokens were properly issued to the MCP server and passes them through to the downstream API.
+m09-case-g-q10:
+  key:
+    anchor: owasp-llm-top10-prompt-injection#main
+    sentence: While techniques like Retrieval Augmented Generation (RAG) and fine-tuning aim to make LLM outputs more relevant and accurate, research shows that they do not fully mitigate prompt injection vulnerabilities.
+  wrong:
+  - option: RAG fully mitigates it, but fine-tuning does not
+    anchor: owasp-llm-top10-prompt-injection#main
+    sentence: While techniques like Retrieval Augmented Generation (RAG) and fine-tuning aim to make LLM outputs more relevant and accurate, research shows that they do not fully mitigate prompt injection vulnerabilities.
+    exclusive: true
+  - option: Fine-tuning fully mitigates it, but RAG does not
+    anchor: owasp-llm-top10-prompt-injection#main
+    sentence: While techniques like Retrieval Augmented Generation (RAG) and fine-tuning aim to make LLM outputs more relevant and accurate, research shows that they do not fully mitigate prompt injection vulnerabilities.
+    exclusive: true
+  - option: Together they fully mitigate it
+    anchor: owasp-llm-top10-prompt-injection#main
+    sentence: While techniques like Retrieval Augmented Generation (RAG) and fine-tuning aim to make LLM outputs more relevant and accurate, research shows that they do not fully mitigate prompt injection vulnerabilities.
+    exclusive: true
+m09-case-g-q11:
+  key:
+    anchor: owasp-llm-sensitive-disclosure#1-enforce-strict-access-controls
+    sentence: Limit access to sensitive data based on the principle of least privilege.
+  wrong:
+  - option: Rely on system prompt restrictions as the only control
+    anchor: owasp-llm-sensitive-disclosure#main
+    sentence: However, such restrictions may not always be honored and could be bypassed via prompt injection or other methods.
+  - option: Skip data sanitization because user data never reaches training
+    anchor: owasp-llm-sensitive-disclosure#main
+    sentence: To reduce this risk, LLM applications should perform adequate data sanitization to prevent user data from entering the training model.
+  - option: Offer no way for users to opt out of training
+    anchor: owasp-llm-sensitive-disclosure#main
+    sentence: Application owners should also provide clear Terms of Use policies, allowing users to opt out of having their data included in the training model.
+m09-case-g-q12:
+  key:
+    anchor: mcp-authorization#protocol-requirements
+    sentence: Implementations using an HTTP-based transport SHOULD conform to this specification.
+  wrong:
+  - option: It should retrieve credentials from the environment
+    anchor: mcp-authorization#protocol-requirements
+    sentence: Implementations using an STDIO transport SHOULD NOT follow this specification, and instead retrieve credentials from the environment.
+  - option: It must implement authorization, which is mandatory
+    anchor: mcp-authorization#protocol-requirements
+    sentence: Authorization is OPTIONAL for MCP implementations.
+  - option: It should follow only the security practices of its own protocol
+    anchor: mcp-authorization#protocol-requirements
+    sentence: Implementations using alternative transports MUST follow established security best practices for their protocol.
+m09-case-g-q13:
+  key:
+    anchor: owasp-llm-top10-prompt-injection#7-conduct-adversarial-testing-and-attack-simulations
+    sentence: Perform regular penetration testing and breach simulations, treating the model as an untrusted user to test the effectiveness of trust boundaries and access controls.
+  wrong:
+  - option: As a trusted administrator, to confirm that its access is sufficient
+    anchor: owasp-llm-top10-prompt-injection#7-conduct-adversarial-testing-and-attack-simulations
+    sentence: Perform regular penetration testing and breach simulations, treating the model as an untrusted user to test the effectiveness of trust boundaries and access controls.
+    exclusive: true
+  - option: As a read-only auditor, to confirm that logs are complete
+    anchor: owasp-llm-top10-prompt-injection#7-conduct-adversarial-testing-and-attack-simulations
+    sentence: Perform regular penetration testing and breach simulations, treating the model as an untrusted user to test the effectiveness of trust boundaries and access controls.
+    exclusive: true
+  - option: As a trusted component, to confirm that its output needs no checks
+    anchor: owasp-llm-top10-prompt-injection#7-conduct-adversarial-testing-and-attack-simulations
+    sentence: Perform regular penetration testing and breach simulations, treating the model as an untrusted user to test the effectiveness of trust boundaries and access controls.
+    exclusive: true
+m09-case-g-q14:
+  key:
+    anchor: mcp-tools#calling-tools
+    sentence: To invoke a tool, clients send a tools/call request
+  wrong:
+  - option: '`tools/invoke`'
+    anchor: mcp-tools#calling-tools
+    sentence: To invoke a tool, clients send a tools/call request
+    exclusive: true
+  - option: '`tools/run`'
+    anchor: mcp-tools#calling-tools
+    sentence: To invoke a tool, clients send a tools/call request
+    exclusive: true
+  - option: '`tools/execute`'
+    anchor: mcp-tools#calling-tools
+    sentence: To invoke a tool, clients send a tools/call request
+    exclusive: true
+m09-case-g-q15:
+  key:
+    anchor: mcp-security-best-practices#terminology
+    sentence: This Client ID refers to the MCP server acting as a client to the Third-Party API. It is the same value for all MCP server to Third-Party API interactions regardless of which MCP client initiated the request.
+  wrong:
+  - option: A different value for each MCP client
+    anchor: mcp-security-best-practices#terminology
+    sentence: This Client ID refers to the MCP server acting as a client to the Third-Party API. It is the same value for all MCP server to Third-Party API interactions regardless of which MCP client initiated the request.
+    exclusive: true
+  - option: A different value for each user
+    anchor: mcp-security-best-practices#terminology
+    sentence: This Client ID refers to the MCP server acting as a client to the Third-Party API. It is the same value for all MCP server to Third-Party API interactions regardless of which MCP client initiated the request.
+    exclusive: true
+  - option: A new value for each session
+    anchor: mcp-security-best-practices#terminology
+    sentence: This Client ID refers to the MCP server acting as a client to the Third-Party API. It is the same value for all MCP server to Third-Party API interactions regardless of which MCP client initiated the request.
+    exclusive: true

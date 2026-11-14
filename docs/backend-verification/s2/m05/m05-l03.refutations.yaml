@@ -1,0 +1,144 @@
+m05-l03-q01:
+  key:
+    anchor: spring-fw-aop-proxying#proxying-mechanisms
+    sentence: If the target object to be proxied implements at least one interface, a JDK dynamic proxy is used, and all of the interfaces implemented by the target type are proxied.
+  wrong:
+  - option: A CGLIB proxy, which is a runtime-generated subclass of the target class
+    anchor: spring-fw-aop-pfb#page-title
+    sentence: By default, CGLIB is used if a business object does not implement an interface.
+  - option: A JDK dynamic proxy, but only for the first interface that the target implements
+    anchor: spring-fw-aop-proxying#proxying-mechanisms
+    sentence: all of the interfaces implemented by the target type are proxied.
+  - option: No proxy, because a class that implements an interface is woven at compile time
+    anchor: spring-fw-aop-pfb#page-title
+    sentence: It is important to grasp the fact that Spring AOP is proxy-based.
+m05-l03-q02:
+  key:
+    anchor: spring-fw-aop-proxying#proxying-mechanisms
+    sentence: final classes cannot be proxied, because they cannot be extended.
+  wrong:
+  - option: Because a `final` class cannot be overridden
+    anchor: spring-fw-aop-proxying#proxying-mechanisms
+    sentence: final methods cannot be advised, because they cannot be overridden.
+  - option: Because a `final` class implements no interface
+    anchor: spring-fw-aop-proxying#proxying-mechanisms
+    sentence: If the target object does not implement any interfaces, a CGLIB proxy is created which is a runtime-generated subclass of the target type.
+  - option: Because the constructor of a `final` class would be called twice
+    anchor: spring-fw-aop-proxying#proxying-mechanisms
+    sentence: The constructor of your proxied object will not be called twice, since the CGLIB proxy instance is created through Objenesis.
+m05-l03-q03:
+  key:
+    anchor: spring-fw-aop-proxying#aop-understanding-aop-proxies
+    sentence: In other words, self invocation via an explicit or implicit this reference will bypass the advice.
+  wrong:
+  - option: It runs, because the proxy intercepts every call made inside the target object
+    anchor: spring-fw-aop-proxying#aop-understanding-aop-proxies
+    sentence: any method calls that it may make on itself, such as this.bar() or this.foo(), are going to be invoked against the this reference, and not the proxy.
+  - option: It runs, because `AopContext.currentProxy()` is applied automatically to self invocations
+    anchor: spring-fw-aop-proxying#aop-understanding-aop-proxies
+    sentence: It also requires that the ProxyFactory is configured to expose the proxy
+  - option: It runs only if `bar()` is declared `public`
+    anchor: spring-fw-aop-proxying#aop-understanding-aop-proxies
+    sentence: This has important implications. It means that self invocation is not going to result in the advice associated with a method invocation getting a chance to run.
+m05-l03-q04:
+  key:
+    anchor: spring-fw-aop-proxying#aop-understanding-aop-proxies
+    sentence: is to refactor your code such that the self invocation does not happen.
+  wrong:
+  - option: Use self injection and invoke the methods on the proxy through the self reference
+    anchor: spring-fw-aop-proxying#aop-understanding-aop-proxies
+    sentence: it is the best, least-invasive approach.
+  - option: Call `AopContext.currentProxy()` inside the class
+    anchor: spring-fw-aop-proxying#aop-understanding-aop-proxies
+    sentence: This last approach is highly discouraged, and we hesitate to point it out, in favor of the previous options.
+  - option: Declare the called method `final` so that the call is not lost
+    anchor: spring-fw-aop-proxying#proxying-mechanisms
+    sentence: final methods cannot be advised, because they cannot be overridden.
+m05-l03-q05:
+  key:
+    anchor: spring-fw-async#scheduling-annotation-support-async
+    sentence: You can not use @Async in conjunction with lifecycle callbacks such as @PostConstruct.
+  wrong:
+  - option: Yes, because the proxy is fully initialized when the callback runs
+    anchor: spring-fw-tx-declarative-annotations#using-transactional
+    sentence: the proxy must be fully initialized to provide the expected behavior, so you should not rely on this feature in your initialization code
+  - option: Yes, but only when the method returns `void`
+    anchor: spring-fw-async#scheduling-annotation-support-async
+    sentence: You can not use @Async in conjunction with lifecycle callbacks such as @PostConstruct.
+    exclusive: true
+  - option: Yes, as long as a `TaskExecutor` bean is defined
+    anchor: spring-fw-async#scheduling-annotation-support-async
+    sentence: You can not use @Async in conjunction with lifecycle callbacks such as @PostConstruct.
+    exclusive: true
+m05-l03-q06:
+  key:
+    anchor: spring-fw-resilience#resilience-annotations-retryable
+    sentence: For example, if maxRetries is set to 4, the @Retryable method will be invoked at least once and at most 5 times.
+  wrong:
+  - option: 4 times, because `maxRetries` counts the total attempts
+    anchor: spring-fw-resilience#resilience-annotations-retryable
+    sentence: Specifically, total attempts = 1 initial attempt + maxRetries attempts.
+  - option: 3 times, which is the default number of attempts
+    anchor: spring-fw-resilience#resilience-annotations-retryable
+    sentence: 'By default, the method invocation will be retried for any exception thrown: with at most 3 retry attempts (maxRetries = 3) after an initial failure, and a delay of 1 second between attempts.'
+  - option: Without limit, until an invocation succeeds
+    anchor: spring-fw-resilience#resilience-annotations-retryable
+    sentence: A @Retryable method will be invoked at least once and retried at most maxRetries times, where maxRetries is the maximum number of retry attempts.
+m05-l03-q07:
+  key:
+    anchor: spring-fw-tx-declarative-annotations#using-transactional
+    sentence: When @Transactional is combined with @Retryable, the retry advice is applied outermost, so each retry attempt runs in its own transaction.
+  wrong:
+  - option: The transaction advice is outermost, so all attempts run inside one transaction
+    anchor: spring-fw-resilience#resilience-annotations-retryable-combining-order
+    sentence: As a result, retry advice is always applied outside @Transactional and @Cacheable, regardless of the order configured on @EnableResilientMethods.
+  - option: The retry advice is outermost only if the `order` of `@EnableResilientMethods` is set to the lowest precedence
+    anchor: spring-fw-resilience#resilience-annotations-retryable-combining-order
+    sentence: This technique does not apply to @Transactional or @Cacheable.
+  - option: The two orders are undefined, so attempts may or may not share a transaction
+    anchor: spring-fw-tx-declarative-annotations#using-transactional
+    sentence: the retry advice is applied outermost
+m05-l03-q08:
+  key:
+    anchor: spring-fw-resilience#resilience-annotations-retryable-combining-order
+    sentence: 'With the reversed order shown above, exceptions thrown during asynchronous execution are not retried: the retry interceptor only sees the Future handle, which is returned immediately, rather than the outcome of the asynchronous invocation.'
+  wrong:
+  - option: They are retried, because retry now wraps the asynchronous task
+    anchor: spring-fw-resilience#resilience-annotations-retryable-combining-order
+    sentence: Such an arrangement only retries synchronous submission failures (for example, a rejected task submission) and is rarely desirable in practice.
+  - option: They are retried on the async executor thread, as in the default order
+    anchor: spring-fw-async#scheduling-annotation-support-async
+    sentence: When @Async is combined with @Retryable, the async advice is applied outermost, so all retry attempts run on the async executor thread.
+  - option: The application context fails to start, because the two order values conflict
+    anchor: spring-fw-resilience#resilience-annotations-retryable-combining-order
+    sentence: so you can change their relative ordering by setting the order attribute on @EnableResilientMethods and/or @EnableAsync.
+m05-l03-q09:
+  key:
+    anchor: spring-fw-aop-ataspectj-advice-ordering#aop-ataspectj-advice-ordering
+    sentence: 'are assigned precedence based on their advice type in the following order, from highest to lowest precedence: @Around, @Before, @After, @AfterReturning, @AfterThrowing.'
+  wrong:
+  - option: '`@AfterThrowing`, `@AfterReturning`, `@After`, `@Before`, `@Around`'
+    anchor: spring-fw-aop-ataspectj-advice-ordering#aop-ataspectj-advice-ordering
+    sentence: 'are assigned precedence based on their advice type in the following order, from highest to lowest precedence: @Around, @Before, @After, @AfterReturning, @AfterThrowing.'
+    exclusive: true
+  - option: '`@Before`, `@After`, `@AfterReturning`, `@AfterThrowing`, `@Around`'
+    anchor: spring-fw-aop-ataspectj-advice-ordering#aop-ataspectj-advice-ordering
+    sentence: 'are assigned precedence based on their advice type in the following order, from highest to lowest precedence: @Around, @Before, @After, @AfterReturning, @AfterThrowing.'
+    exclusive: true
+  - option: The order in which the advice methods are declared in the class
+    anchor: spring-fw-aop-ataspectj-advice-ordering#aop-ataspectj-advice-ordering
+    sentence: the ordering is undefined (since there is no way to retrieve the source code declaration order through reflection for javac-compiled classes).
+m05-l03-q10:
+  key:
+    anchor: spring-fw-aop-ataspectj-advice-ordering#aop-ataspectj-advice-ordering
+    sentence: Given two aspects, the aspect returning the lower value from Ordered.getOrder() (or the annotation value) has the higher precedence.
+  wrong:
+  - option: The aspect with `@Order(2)`, because the higher value gives the higher precedence
+    anchor: spring-fw-aop-ataspectj-advice-ordering#aop-ataspectj-advice-ordering
+    sentence: Given two aspects, the aspect returning the lower value from Ordered.getOrder() (or the annotation value) has the higher precedence.
+  - option: Neither, because `@Order` has no effect on the order of aspects
+    anchor: spring-fw-aop-ataspectj-advice-ordering#aop-ataspectj-advice-ordering
+    sentence: This is done in the normal Spring way by either implementing the org.springframework.core.Ordered interface in the aspect class or annotating it with the @Order annotation.
+  - option: The aspect that is declared first in the source
+    anchor: spring-fw-aop-ataspectj-advice-ordering#aop-ataspectj-advice-ordering
+    sentence: When two pieces of advice defined in different aspects both need to run at the same join point, unless you specify otherwise, the order of execution is undefined.

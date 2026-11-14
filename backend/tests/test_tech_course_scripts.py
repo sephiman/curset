@@ -164,10 +164,8 @@ def test_the_quota_row_of_a_pending_lesson_says_pending() -> None:
     assert row == ["m06-l03", "pending", "-", "-", "-", "0"]
 
 
-def test_programme_ids_map_to_their_lesson_and_drops_are_read_from_the_coverage_tsv(tmp_path: Path) -> None:
+def test_programme_ids_map_to_their_lesson() -> None:
     assert programme.lesson_of("6.2.a") == "m06-l02"
-    (tmp_path / "m06.final.tsv").write_text("bullet\tclass\n6.2.a\tF\n6.2.b\tdrop\n", encoding="utf-8")
-    assert programme.dropped_bullets(tmp_path) == {"6.2.b"}
 
 
 # --- citations audit -----------------------------------------------------------------------------------

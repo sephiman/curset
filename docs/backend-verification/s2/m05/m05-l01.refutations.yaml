@@ -1,0 +1,160 @@
+m05-l01-q01:
+  key:
+    anchor: spring-fw-beans-factory-scopes#beans-factory-scopes-prototype
+    sentence: although initialization lifecycle callback methods are called on all objects regardless of scope, in the case of prototypes, configured destruction lifecycle callbacks are not called.
+  wrong:
+  - option: Both initialization and destruction callbacks are called, as for singleton beans
+    anchor: spring-fw-beans-factory-scopes#beans-factory-scopes-prototype
+    sentence: The client code must clean up prototype-scoped objects and release expensive resources that the prototype beans hold.
+  - option: Neither kind of callback is called, because the container keeps no record of the instance
+    anchor: spring-fw-beans-factory-scopes#beans-factory-scopes-prototype
+    sentence: initialization lifecycle callback methods are called on all objects regardless of scope
+  - option: Only destruction callbacks are called, when the container is closed
+    anchor: spring-fw-beans-factory-scopes#beans-factory-scopes-prototype
+    sentence: configured destruction lifecycle callbacks are not called
+m05-l01-q02:
+  key:
+    anchor: spring-fw-beans-dependencies-factory-collaborators#beans-dependency-resolution
+    sentence: the Spring IoC container detects this circular reference at runtime, and throws a BeanCurrentlyInCreationException.
+  wrong:
+  - option: It switches one of the two beans to setter injection automatically and starts both
+    anchor: spring-fw-beans-dependencies-factory-collaborators#beans-dependency-resolution
+    sentence: One possible solution is to edit the source code of some classes to be configured by setters rather than constructors.
+  - option: It creates both beans, because constructor injection resolves circular dependencies
+    anchor: spring-fw-beans-dependencies-factory-collaborators#beans-dependency-resolution
+    sentence: If you use predominantly constructor injection, it is possible to create an unresolvable circular dependency scenario.
+  - option: It starts without the second bean and skips the reference
+    anchor: spring-fw-beans-dependencies-factory-collaborators#beans-dependency-resolution
+    sentence: It detects configuration problems, such as references to non-existent beans and circular dependencies, at container load-time.
+m05-l01-q03:
+  key:
+    anchor: spring-fw-beans-factory-nature#beans-factory-lifecycle-combined-effects
+    sentence: Methods annotated with @PostConstruct afterPropertiesSet() as defined by the InitializingBean callback interface A custom configured init() method
+  wrong:
+  - option: The `afterPropertiesSet()` method, then the `@PostConstruct` method, then the custom `init()` method
+    anchor: spring-fw-beans-factory-nature#beans-factory-lifecycle-combined-effects
+    sentence: Methods annotated with @PostConstruct afterPropertiesSet() as defined by the InitializingBean callback interface A custom configured init() method
+    exclusive: true
+  - option: The custom `init()` method, then the `@PostConstruct` method, then `afterPropertiesSet()`
+    anchor: spring-fw-beans-factory-nature#beans-factory-lifecycle-combined-effects
+    sentence: Methods annotated with @PostConstruct afterPropertiesSet() as defined by the InitializingBean callback interface A custom configured init() method
+    exclusive: true
+  - option: All three in the order in which they are declared in the class
+    anchor: spring-fw-beans-factory-nature#beans-factory-lifecycle-combined-effects
+    sentence: then each configured method is run in the order listed after this note
+m05-l01-q04:
+  key:
+    anchor: spring-fw-beans-factory-extension#beans-factory-extension-bpp
+    sentence: BeanPostProcessor instances registered programmatically are always processed before those registered through auto-detection, regardless of any explicit ordering.
+  wrong:
+  - option: Both run by the value of their `order` property, whichever way they were registered
+    anchor: spring-fw-beans-factory-extension#beans-factory-extension-bpp
+    sentence: Note, however, that BeanPostProcessor instances added programmatically do not respect the Ordered interface.
+  - option: The auto-detected one is processed first, because it has an explicit order
+    anchor: spring-fw-beans-factory-extension#beans-factory-extension-bpp
+    sentence: always processed before those registered through auto-detection
+  - option: They run in the alphabetical order of their class names
+    anchor: spring-fw-beans-factory-extension#beans-factory-extension-bpp
+    sentence: Here, it is the order of registration that dictates the order of execution.
+m05-l01-q05:
+  key:
+    anchor: spring-fw-beans-beanfactory#context-introduction-ctx-vs-beanfactory
+    sentence: such post-processors do not get detected and activated by default.
+  wrong:
+  - option: They are detected by bean name or type, as in any `ApplicationContext`
+    anchor: spring-fw-beans-beanfactory#context-introduction-ctx-vs-beanfactory
+    sentence: while a plain DefaultListableBeanFactory is agnostic about any special beans.
+  - option: They are registered automatically, because every `BeanFactory` supports automatic registration
+    anchor: spring-fw-beans-beanfactory#context-introduction-ctx-vs-beanfactory
+    sentence: Automatic BeanPostProcessor registration No Yes
+  - option: The factory fails to start with an exception, because the post-processors cannot be resolved
+    anchor: spring-fw-beans-beanfactory#context-introduction-ctx-vs-beanfactory
+    sentence: This situation could be confusing, because nothing is actually wrong with your bean configuration.
+m05-l01-q06:
+  key:
+    anchor: spring-fw-beans-annotation-config-autowired-primary#page-title
+    sentence: If exactly one primary bean exists among the candidates, it becomes the autowired value.
+  wrong:
+  - option: The bean whose name matches the injection point name, ignoring `@Primary`
+    anchor: spring-fw-beans-annotation-config-autowired-qualifiers#page-title
+    sentence: If there is no other resolution indicator (such as a qualifier, a primary marker, or a fallback marker), for a non-unique dependency situation
+  - option: None of them, because Spring throws an exception whenever several candidates exist
+    anchor: spring-fw-beans-annotation-config-autowired-primary#page-title
+    sentence: '@Primary indicates that a particular bean should be given preference when multiple beans are candidates to be autowired to a single-valued dependency.'
+  - option: The candidate that was registered first, because registration order decides
+    anchor: spring-fw-beans-annotation-config-autowired-qualifiers#page-title
+    sentence: '@Primary and @Fallback are effective ways to use autowiring by type with several instances when one primary (or non-fallback) candidate can be determined.'
+m05-l01-q07:
+  key:
+    anchor: spring-fw-beans-annotation-config-autowired-qualifiers#page-title
+    sentence: In this case, all matching beans, according to the declared qualifiers, are injected as a collection.
+  wrong:
+  - option: Only the first bean registered, because qualifier values must be unique
+    anchor: spring-fw-beans-annotation-config-autowired-qualifiers#page-title
+    sentence: This implies that qualifiers do not have to be unique.
+  - option: None, because a qualifier value must select exactly one bean
+    anchor: spring-fw-beans-annotation-config-autowired-qualifiers#page-title
+    sentence: Rather, they constitute filtering criteria.
+  - option: Only the bean whose name is `action`, because the qualifier is a bean id
+    anchor: spring-fw-beans-annotation-config-autowired-qualifiers#page-title
+    sentence: They do not semantically express a reference to a unique bean id.
+m05-l01-q08:
+  key:
+    anchor: spring-fw-beans-annotation-config-autowired-qualifiers#page-title
+    sentence: Since version 6.1, this requires the -parameters Java compiler flag to be present.
+  wrong:
+  - option: A `@Qualifier` annotation at the injection point
+    anchor: spring-fw-beans-annotation-config-autowired-qualifiers#page-title
+    sentence: Letting qualifier values select against target bean names, within the type-matching candidates, does not require a @Qualifier annotation at the injection point.
+  - option: A `@Primary` annotation on the target bean
+    anchor: spring-fw-beans-annotation-config-autowired-qualifiers#page-title
+    sentence: If there is no other resolution indicator (such as a qualifier, a primary marker, or a fallback marker)
+    exclusive: true
+  - option: A `@Fallback` annotation on the target bean
+    anchor: spring-fw-beans-annotation-config-autowired-qualifiers#page-title
+    sentence: If there is no other resolution indicator (such as a qualifier, a primary marker, or a fallback marker)
+    exclusive: true
+m05-l01-q09:
+  key:
+    anchor: spring-fw-beans-java-basic-concepts#page-title
+    sentence: A custom Java call to such a method will not get intercepted by the container and therefore behaves just like a regular method call, creating a new instance every time rather than reusing an existing singleton (or scoped) instance for the given bean.
+  wrong:
+  - option: The container intercepts it and returns the existing singleton instance
+    anchor: spring-fw-beans-java-basic-concepts#page-title
+    sentence: In such scenarios, @Bean methods are effectively a general-purpose factory method mechanism without special runtime processing
+  - option: The call fails with an exception, because lite mode forbids calls between `@Bean` methods
+    anchor: spring-fw-beans-java-basic-concepts#page-title
+    sentence: behaves just like a regular method call
+  - option: The call returns a CGLIB proxy of the bean, created on demand
+    anchor: spring-fw-beans-java-basic-concepts#page-title
+    sentence: The positive side-effect here is that no CGLIB subclassing has to be applied at runtime, reducing the overhead and the footprint.
+m05-l01-q10:
+  key:
+    anchor: spring-fw-beans-java-composing#beans-java-conditional
+    sentence: it is processed using only its own @Conditional annotations.
+  wrong:
+  - option: The conditions of the enclosing class, because nested classes always inherit them
+    anchor: spring-fw-beans-java-composing#beans-java-conditional
+    sentence: A @Conditional annotation declared on an enclosing @Configuration class is only applied to the registration of a nested @Configuration class if the nested class is reached through the parser’s recursion from its enclosing class, or via @Import.
+  - option: The conditions of the enclosing class combined with its own conditions
+    anchor: spring-fw-beans-java-composing#beans-java-conditional
+    sentence: it is processed using only its own @Conditional annotations.
+    exclusive: true
+  - option: No conditions at all, because `@ComponentScan` ignores `@Conditional`
+    anchor: spring-fw-beans-java-composing#beans-java-conditional
+    sentence: it is processed using only its own @Conditional annotations.
+    exclusive: true
+m05-l01-q11:
+  key:
+    anchor: spring-fw-beans-factory-extension#beans-factory-extension-bpp
+    sentence: the post-processor gets a callback from the container both before container initialization methods (such as InitializingBean.afterPropertiesSet() or any declared init method) are called, and after any bean initialization callbacks.
+  wrong:
+  - option: Only after the bean has been fully initialized
+    anchor: spring-fw-beans-factory-extension#beans-factory-extension-bpp
+    sentence: both before container initialization methods (such as InitializingBean.afterPropertiesSet() or any declared init method) are called
+  - option: Only before the container instantiates the bean
+    anchor: spring-fw-beans-factory-extension#beans-factory-extension-bpp
+    sentence: That is, the Spring IoC container instantiates a bean instance and then BeanPostProcessor instances do their work.
+  - option: Only once, when the bean definition is registered
+    anchor: spring-fw-beans-factory-extension#beans-factory-extension-bpp
+    sentence: for each bean instance that is created by the container

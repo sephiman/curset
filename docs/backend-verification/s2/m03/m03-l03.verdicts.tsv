@@ -1,0 +1,208 @@
+S1.1	"Virtual threads are lightweight threads that"	pass
+S1.2	"Platform threads are typically mapped 1:1"	pass
+S1.3	"Platform threads will usually have a"	pass
+S1.4	"Virtual threads are typically user-mode threads"	pass
+S1.5	"A single Java virtual machine may"	pass
+S1.6	"Virtual threads are suitable for executing"	pass
+S1.7	"Virtual threads are not intended for"	pass
+S1.8	"Virtual threads do not have a"	pass
+S1.9	"Virtual threads are daemon threads and"	pass
+S1.10	"Virtual threads have a fixed thread"	pass
+S1.11	"Platform threads get an automatically generated"	pass
+S1.12	"The snippet prints `virtual-thread name=[]`: an"	pass
+S1.13	"The snippet prints `virtual-thread daemon=true` for"	pass
+S1.14	"Inside the virtual thread, `Thread.currentThread().isVirtual()` makes"	pass
+R1.1	"Scheduled by"	pass
+R1.2	"Default name"	pass
+R1.3	"Daemon status"	pass
+S1.15	"Platform threads are scheduled by the"	pass
+S1.16	"Platform threads get a generated name"	pass
+S1.17	"Platform threads are designated daemon or"	pass
+S2.1	"For virtual threads, the JDK has"	pass
+S2.2	"The JDK's virtual thread scheduler is"	pass
+S2.3	"By default the parallelism of the"	pass
+S2.4	"The scheduler's ForkJoinPool is distinct from"	pass
+S2.5	"The platform thread to which the"	pass
+S2.6	"A virtual thread can be scheduled"	pass
+S2.7	"The value returned by `Thread.currentThread()` is"	pass
+S2.8	"Thread-local variables of the carrier are"	pass
+S2.9	"The scheduler does not currently implement"	pass
+S2.10	"Virtual threads do not require or"	pass
+S2.11	"Typically, a virtual thread will unmount"	pass
+S2.12	"Some blocking operations in the JDK"	pass
+S2.13	"The implementations of these blocking operations"	pass
+S2.14	"The maximum number of platform threads"	pass
+S3.1	"The asynchronous style employs a separate"	pass
+S3.2	"Without a dedicated thread, developers must"	pass
+S3.3	"Developers who write asynchronous pipelines forsake"	pass
+S3.4	"In the asynchronous style, stack traces"	pass
+S3.5	"In the asynchronous style, debuggers cannot"	pass
+S3.6	"In the asynchronous style, profilers cannot"	pass
+S3.7	"Java debuggers can step through virtual"	pass
+S3.8	"JDK Flight Recorder can associate events"	pass
+S3.9	"Virtual threads are instances of `java.lang.Thread`"	pass
+S3.10	"A thread pool, like any resource"	pass
+S3.11	"To limit concurrent access to a"	pass
+S3.12	"Do not be tempted to pool"	pass
+S3.13	"Creating an expensive resource for every"	pass
+S3.14	"The JDK's traditional thread dump, obtained"	pass
+S3.15	"The JDK will not extend traditional"	pass
+S3.16	"`jcmd` can emit the new thread"	pass
+S3.17	"The new thread dump format does"	pass
+S3.18	"Generating a new thread dump does"	pass
+S3.19	"Virtual threads are invisible to the"	pass
+S4.1	"A virtual thread cannot be unmounted"	pass
+S4.2	"A virtual thread is also pinned"	pass
+S4.3	"Pinning does not make an application"	pass
+S4.4	"If a virtual thread performs a"	pass
+S4.5	"The scheduler does not compensate for"	pass
+S4.6	"JEP 444 advises revising `synchronized` blocks"	pass
+S4.7	"There is no need to replace"	pass
+S4.8	"JEP 491, Synchronize Virtual Threads without"	pass
+S4.9	"JEP 491 arranges for virtual threads"	pass
+S4.10	"JEP 491 eliminates nearly all cases"	pass
+S4.11	"Without JEP 491, a virtual thread"	pass
+S4.12	"When a virtual thread invokes a"	fail	states pre-JEP 491 behaviour without version; false since Java 24
+S4.13	"The pinning described for synchronized instance"	pass
+S4.14	"A virtual thread that calls native"	pass
+S4.15	"JEP 491 retains the `jdk.VirtualThreadPinned` JFR"	pass
+R2.1	"Virtual thread blocks inside `synchronized`"	pass
+R2.2	"Virtual thread runs a native method or foreign function"	pass
+R2.3	"Frequent, long-lived pinning"	pass
+S4.16	"In Java 21 a virtual thread"	pass
+S4.17	"In Java 21 a native method"	pass
+S4.18	"In Java 21 frequent, long-lived pinning"	pass
+S4.19	"Once the synchronized keyword no longer"	pass
+S4.20	"Once the synchronized keyword no longer"	pass
+S4.21	"Code that has been migrated to"	pass
+S4.22	"The `ReentrantLock` API behaves the same"	pass
+S4.23	"The `java.util.concurrent.locks` APIs should generally be"	pass
+S4.24	"For new code, JEP 491 agrees"	pass
+S4.25	"JEP 491 advises reducing the potential"	pass
+S5.1	"Conceptually, a semaphore maintains a set"	pass
+S5.2	"Each `acquire()` blocks if necessary until"	pass
+S5.3	"Each `release()` adds a permit, potentially"	pass
+S5.4	"Semaphores are often used to restrict"	pass
+S5.5	"With two permits, the first two"	pass
+S5.6	"After one `release()`, `availablePermits()` prints `1`."	pass
+S5.7	"HikariCP's pool sizing page recommends a"	pass
+S5.8	"A properly tuned pool is set"	pass
+S5.9	"For optimal throughput the number of"	pass
+S5.10	"Core count should not include HT"	pass
+S5.11	"Effective spindle count is zero if"	pass
+S5.12	"There has been no analysis so"	pass
+S5.13	"For a 4-core i7 server with"	pass
+S6.1	"Structured concurrency treats groups of related"	pass
+S6.2	"Programs can only use `StructuredTaskScope` when"	pass
+S6.3	"Compiling with `javac --release 25 --enable-preview"	pass
+S6.4	"Structured concurrency incubated in JDK 19"	pass
+S6.5	"The zero-parameter `open` factory method creates"	pass
+S6.6	"Other policies and outcomes can be"	pass
+S6.7	"In JDK 26, `Joiner::allSuccessfulOrThrow()` returns a"	pass
+S6.8	"In JDK 26, a new method"	pass
+S6.9	"In JDK 27, the `StructuredTaskScope` and"	pass
+R3.1	"21"	pass
+R3.2	"25"	pass
+R3.3	"26"	pass
+R3.4	"27"	pass
+S6.10	"`StructuredTaskScope` defines the static method `open`"	pass
+S6.11	"Forking a subtask starts a new"	pass
+S6.12	"The thread executing the task does"	pass
+S6.13	"The `fork`, `join` and `close` methods"	pass
+S6.14	"The `fork` method may not be"	pass
+S6.15	"The `join` method may only be"	pass
+S6.16	"The `close` method throws an exception"	pass
+S6.17	"If one subtask fails in the"	pass
+S6.18	"If one subtask fails in the"	pass
+S6.19	"If all subtasks succeed in the"	pass
+S6.20	"A `Joiner` handles subtask completion and"	pass
+S6.21	"Depending on the `Joiner`, `join` may"	pass
+S6.22	"Cancelling the scope prevents new threads"	pass
+S6.23	"Cancelling the scope interrupts the threads"	pass
+S6.24	"Cancelling the scope causes the `join`"	pass
+R4.1	"`allSuccessfulOrThrow()`"	pass
+R4.2	"`anySuccessfulResultOrThrow()`"	pass
+R4.3	"`awaitAllSuccessfulOrThrow()`"	pass
+R4.4	"`awaitAll()`"	pass
+R4.5	"`allUntil(Predicate)`"	pass
+S6.25	"The `onFork(Subtask)` method of a custom"	pass
+S6.26	"The `onComplete(Subtask)` method of a custom"	pass
+S6.27	"Implementations of `Joiner` must be thread"	pass
+S6.28	"Each `StructuredTaskScope` needs a new `Joiner`,"	pass
+S6.29	"If a scope's owner thread is"	pass
+S6.30	"The try-with-resources statement then cancels the"	pass
+S6.31	"Subtasks must be coded so that"	pass
+S6.32	"Subtasks that do not respond to"	pass
+S6.33	"The `close` method always waits for"	pass
+S6.34	"Attempts to call a `fork` method"	pass
+S6.35	"Using a scope outside of a"	pass
+S6.36	"`StructuredTaskScope` does not implement the `ExecutorService`"	pass
+S7.1	"Scoped values were delivered as a"	pass
+S7.2	"Scoped values enable a method to"	pass
+S7.3	"Scoped values are easier to reason"	pass
+S7.4	"Scoped values have lower space and"	pass
+S7.5	"Each thread that accesses a thread-local"	pass
+S7.6	"Every thread-local variable is mutable: any"	pass
+S7.7	"Once a thread's copy of a"	pass
+S7.8	"If a thread pool is used,"	pass
+S7.9	"When a child thread inherits thread-local"	pass
+S7.10	"A `ScopedValue` is a value that"	pass
+S7.11	"In effect, a `ScopedValue` is an"	pass
+S7.12	"A `ScopedValue` object reverts to being"	pass
+S7.13	"A `ScopedValue` binding to a value"	pass
+S7.14	"Outside any `run`, the snippet prints"	pass
+S7.15	"Inside `ScopedValue.where(NAME, "duke").run(...)`, the snippet prints"	pass
+S7.16	"A nested binding prints `rebound bound=true"	pass
+S7.17	"After the nested `run` completes, the"	pass
+S7.18	"After the outer `run` completes, the"	pass
+S7.19	"A second thread that binds `NAME`"	pass
+S7.20	"Scoped values in the parent thread"	pass
+S7.21	"Code in a child thread can"	pass
+S7.22	"Unlike with thread-local variables, there is"	pass
+S7.23	"Legacy thread management classes such as"	pass
+S7.24	"JEP 506 advises migration to scoped"	pass
+S7.25	"If a codebase uses thread-local variables"	pass
+S7.26	"Caching objects that are expensive to"	pass
+S8.1	"Virtual threads are user-mode threads scheduled"	pass
+S8.2	"Virtual threads are daemon threads, have"	pass
+S8.3	"Virtual threads do not need pooling;"	pass
+S8.4	"Java 21 pins a virtual thread"	pass
+S8.5	"HikariCP's page sizes a pool near"	pass
+S8.6	"`StructuredTaskScope` is a preview API in"	pass
+S8.7	"`anySuccessfulResultOrThrow()` and `awaitAll()` are two of"	pass
+S8.8	"Subtasks must finish when interrupted, because"	pass
+S8.9	"A `ScopedValue` binding is per-thread, lasts"	pass
+S8.10	"JEP 506 advises scoped values for"	pass
+g-virtual-thread	pass
+g-platform-thread	pass
+g-carrier-thread	pass
+g-pinning	fail	defines Java 21 synchronized pinning; false under pinned Java 25 (JEP 491)
+g-structured-concurrency	pass
+g-scoped-value	pass
+g-thread-local-variable	pass
+g-semaphore	fail	circular definition: defines semaphore as a semaphore
+m03-l03-q01	pass
+m03-l03-q02	pass
+m03-l03-q03	fail	explanation rules out Java 23 and Java 25 in one sentence
+m03-l03-q04	fail	explanation rules out 8 and 5 connections in one sentence
+m03-l03-q05	pass
+m03-l03-q06	pass
+m03-l03-q07	pass
+m03-l03-q08	pass
+m03-l03-q09	pass
+m03-l03-q10	fail	garbage-collection distractor arguably true per ThreadLocal Javadoc implicit-reference rule
+m03-l03-q11	pass
+m03-l03-q12	pass
+m03-l03-q13	fail	explanation rules out three distractors in one sentence
+m03-l03-q14	fail	explanation rules out three distractors in one sentence
+m03-l03-q15	pass
+m03-l03-q16	pass
+m03-l03-q17	pass
+m03-l03-q18	pass
+m03-l03-q19	pass
+# checked 202, passed 194, failed 8
+m03-l03-q03	recheck	pass
+m03-l03-q04	recheck	pass
+m03-l03-q13	recheck	pass
+m03-l03-q14	recheck	pass
+S4.12	recheck	pass

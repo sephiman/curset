@@ -1,0 +1,72 @@
+m04-l05-q01:
+  key:
+    anchor: kotlin-docs-java-to-kotlin-interop#static-methods
+    sentence: You can also generate static methods for functions defined in named objects or companion objects if you annotate such functions with the @JvmStatic annotation.
+  wrong:
+  - option: '`@JvmOverloads`'
+    anchor: kotlin-docs-java-to-kotlin-interop#overloads-generation
+    sentence: You can use the @IntroducedAt annotation or the @JvmOverloads annotation to generate overloads for optional parameters.
+  - option: '`@Throws`'
+    anchor: kotlin-docs-exceptions#exception-interoperability-with-java-swift-and-objective-c
+    sentence: This annotation alerts callers about possible exceptions.
+  - option: '`@IntroducedAt`'
+    anchor: kotlin-docs-java-to-kotlin-interop#overloads-generation
+    sentence: Use @IntroducedAt when you add new optional parameters to published APIs and want the generated overloads to reflect the version in which each parameter was introduced.
+m04-l05-q02:
+  key:
+    anchor: kotlin-docs-java-to-kotlin-interop#checked-exceptions
+    sentence: You get an error message from the Java compiler, because writeToFile() does not declare IOException.
+  wrong:
+  - option: It compiles, because Kotlin declares every exception it throws in the Java signature
+    anchor: kotlin-docs-java-to-kotlin-interop#checked-exceptions
+    sentence: So, normally the Java signatures of Kotlin functions do not declare exceptions thrown.
+  - option: It compiles, because Kotlin treats all exceptions as checked exceptions
+    anchor: kotlin-docs-java-interop#checked-exceptions
+    sentence: In Kotlin, all exceptions are unchecked, meaning that the compiler does not force you to catch any of them.
+  - option: It reports an error until the Java caller is annotated with `@Throws`
+    anchor: kotlin-docs-java-to-kotlin-interop#checked-exceptions
+    sentence: To work around this problem, use the @Throws annotation in Kotlin
+m04-l05-q03:
+  key:
+    anchor: kotlin-docs-java-to-kotlin-interop#overloads-generation
+    sentence: It can't be used on abstract methods, including methods defined in interfaces.
+  wrong:
+  - option: A constructor
+    anchor: kotlin-docs-java-to-kotlin-interop#overloads-generation
+    sentence: The annotation also works for constructors, static methods, and so on.
+    exclusive: true
+  - option: A static method
+    anchor: kotlin-docs-java-to-kotlin-interop#overloads-generation
+    sentence: The annotation also works for constructors, static methods, and so on.
+    exclusive: true
+  - option: A member function of a class that has default parameter values
+    anchor: kotlin-docs-java-to-kotlin-interop#overloads-generation
+    sentence: You can use the @IntroducedAt annotation or the @JvmOverloads annotation to generate overloads for optional parameters.
+m04-l05-q04:
+  key:
+    anchor: kotlin-docs-java-to-kotlin-interop#static-methods
+    sentence: 'If you use @JvmStatic on a function in a companion object, the compiler generates both a static method in the enclosing class and an instance method in the companion object:'
+  wrong:
+  - option: A static method in the enclosing class only, with no method in the companion object
+    anchor: kotlin-docs-java-to-kotlin-interop#static-methods
+    sentence: 'If you use @JvmStatic on a function in a companion object, the compiler generates both a static method in the enclosing class and an instance method in the companion object:'
+  - option: An instance method in the companion object only, which Java must call through `Companion`
+    anchor: kotlin-docs-java-to-kotlin-interop#static-methods
+    sentence: 'In Java, you can call callStatic() on both the enclosing class and the companion object, while callNonStatic() is only available through the companion object:'
+  - option: A static method that replaces the instance method, so the call through `Companion` stops working
+    anchor: kotlin-docs-java-to-kotlin-interop#static-methods
+    sentence: Instance method remains
+m04-l05-q05:
+  key:
+    anchor: kotlin-docs-java-interop#checked-exceptions
+    sentence: 'So, when you call a Java method that declares a checked exception, Kotlin does not force you to do anything:'
+  wrong:
+  - option: Catch the exception with `try` and `catch`
+    anchor: kotlin-docs-java-interop#checked-exceptions
+    sentence: In Kotlin, all exceptions are unchecked, meaning that the compiler does not force you to catch any of them.
+  - option: Annotate the calling function with `@Throws(IOException::class)`
+    anchor: kotlin-docs-java-to-kotlin-interop#checked-exceptions
+    sentence: Kotlin does not have checked exceptions.
+  - option: Declare `IOException` in a `throws` clause of the Kotlin function
+    anchor: kotlin-docs-java-to-kotlin-interop#checked-exceptions
+    sentence: So, normally the Java signatures of Kotlin functions do not declare exceptions thrown.

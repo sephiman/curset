@@ -1,0 +1,282 @@
+m05-l08-q01:
+  key:
+    anchor: spring-boot-actuator-endpoints#actuator.endpoints.exposing
+    sentence: By default, only the health endpoint is exposed over HTTP and JMX.
+  wrong:
+  - option: '`info`'
+    anchor: spring-boot-actuator-endpoints#actuator.endpoints.exposing
+    sentence: By default, only the health endpoint is exposed over HTTP and JMX.
+    exclusive: true
+  - option: '`metrics`'
+    anchor: spring-boot-actuator-endpoints#actuator.endpoints.exposing
+    sentence: By default, only the health endpoint is exposed over HTTP and JMX.
+    exclusive: true
+  - option: '`env`'
+    anchor: spring-boot-actuator-endpoints#actuator.endpoints.exposing
+    sentence: By default, only the health endpoint is exposed over HTTP and JMX.
+    exclusive: true
+m05-l08-q02:
+  key:
+    anchor: spring-boot-actuator-endpoints#actuator.endpoints.health
+    sentence: If no HealthIndicator returns a status that is known to the StatusAggregator, an UNKNOWN status is used.
+  wrong:
+  - option: '`DOWN`'
+    anchor: spring-boot-actuator-endpoints#actuator.endpoints.health
+    sentence: If no HealthIndicator returns a status that is known to the StatusAggregator, an UNKNOWN status is used.
+    exclusive: true
+  - option: '`UP`'
+    anchor: spring-boot-actuator-endpoints#actuator.endpoints.health
+    sentence: If no HealthIndicator returns a status that is known to the StatusAggregator, an UNKNOWN status is used.
+    exclusive: true
+  - option: '`OUT_OF_SERVICE`'
+    anchor: spring-boot-actuator-endpoints#actuator.endpoints.health
+    sentence: If no HealthIndicator returns a status that is known to the StatusAggregator, an UNKNOWN status is used.
+    exclusive: true
+m05-l08-q03:
+  key:
+    anchor: spring-boot-features-spring-application#features.spring-application.application-events-and-listeners
+    sentence: An ApplicationStartedEvent is sent after the context has been refreshed but before any application and command-line runners have been called.
+  wrong:
+  - option: After all application and command-line runners have been called
+    anchor: spring-boot-features-spring-application#features.spring-application.application-events-and-listeners
+    sentence: An ApplicationReadyEvent is sent after any application and command-line runners have been called.
+  - option: Before the `ApplicationContext` is created, once the `Environment` is known
+    anchor: spring-boot-features-spring-application#features.spring-application.application-events-and-listeners
+    sentence: An ApplicationEnvironmentPreparedEvent is sent when the Environment to be used in the context is known but before the context is created.
+  - option: Only when there is an exception on startup
+    anchor: spring-boot-features-spring-application#features.spring-application.application-events-and-listeners
+    sentence: An ApplicationFailedEvent is sent if there is an exception on startup.
+m05-l08-q04:
+  key:
+    anchor: spring-fw-testing-ctx-caching#page-title
+    sentence: The size of the context cache is bounded with a default maximum size of 32.
+  wrong:
+  - option: 256 contexts
+    anchor: spring-fw-testing-ctx-caching#page-title
+    sentence: The size of the context cache is bounded with a default maximum size of 32.
+    exclusive: true
+  - option: 64 contexts
+    anchor: spring-fw-testing-ctx-caching#page-title
+    sentence: The size of the context cache is bounded with a default maximum size of 32.
+    exclusive: true
+  - option: No limit, so contexts are never evicted
+    anchor: spring-fw-testing-ctx-caching#page-title
+    sentence: The size of the context cache is bounded with a default maximum size of 32.
+    exclusive: true
+m05-l08-q05:
+  key:
+    anchor: spring-boot-testing-testcontainers#testing.testcontainers.lifecycle
+    sentence: Container beans are stopped after the destruction of all other beans.
+  wrong:
+  - option: Before the destruction of the other beans, so that clients can lose their connection
+    anchor: spring-boot-testing-testcontainers#testing.testcontainers.lifecycle
+    sentence: Container beans are stopped after the destruction of all other beans.
+  - option: In no guaranteed order relative to the other beans
+    anchor: spring-boot-testing-testcontainers#testing.testcontainers.lifecycle
+    sentence: It also ensures that they are cleaned up whilst the container is still available.
+  - option: At the end of each test method that uses them
+    anchor: spring-boot-testing-testcontainers#testing.testcontainers.lifecycle
+    sentence: Container beans are stopped as part of the TestContext Framework’s standard application context shutdown process.
+m05-l08-q06:
+  key:
+    anchor: spring-boot-testing-spring-boot-applications#testing.spring-boot-applications.autoconfigured-spring-data-jpa
+    sentence: Regular @Component and @ConfigurationProperties beans are not scanned when the @DataJpaTest annotation is used.
+  wrong:
+  - option: '`@Entity` classes'
+    anchor: spring-boot-testing-spring-boot-applications#testing.spring-boot-applications.autoconfigured-spring-data-jpa
+    sentence: By default, it scans for @Entity classes and configures Spring Data JPA repositories.
+    exclusive: true
+  - option: Spring Data JPA repositories
+    anchor: spring-boot-testing-spring-boot-applications#testing.spring-boot-applications.autoconfigured-spring-data-jpa
+    sentence: By default, it scans for @Entity classes and configures Spring Data JPA repositories.
+    exclusive: true
+  - option: An embedded database on the classpath
+    anchor: spring-boot-testing-spring-boot-applications#testing.spring-boot-applications.autoconfigured-spring-data-jpa
+    sentence: If an embedded database is available on the classpath, it configures one as well.
+m05-l08-q07:
+  key:
+    anchor: spring-boot-actuator-endpoints#actuator.endpoints.health
+    sentence: The default value is never.
+  wrong:
+  - option: '`always`'
+    anchor: spring-boot-actuator-endpoints#actuator.endpoints.health
+    sentence: The default value is never.
+    exclusive: true
+  - option: '`when-authorized`'
+    anchor: spring-boot-actuator-endpoints#actuator.endpoints.health
+    sentence: The default value is never.
+    exclusive: true
+  - option: '`on-demand`'
+    anchor: spring-boot-actuator-endpoints#actuator.endpoints.health
+    sentence: The default value is never.
+    exclusive: true
+m05-l08-q08:
+  key:
+    anchor: spring-boot-actuator-endpoints#actuator.endpoints.health.groups
+    sentence: By default, startup will fail if a health group includes or excludes a health indicator that does not exist.
+  wrong:
+  - option: Startup succeeds and a warning is logged
+    anchor: spring-boot-actuator-endpoints#actuator.endpoints.health.groups
+    sentence: By default, startup will fail if a health group includes or excludes a health indicator that does not exist.
+    exclusive: true
+  - option: Startup succeeds and the unknown ID is ignored
+    anchor: spring-boot-actuator-endpoints#actuator.endpoints.health.groups
+    sentence: By default, startup will fail if a health group includes or excludes a health indicator that does not exist.
+    exclusive: true
+  - option: Startup succeeds and the missing indicator is created
+    anchor: spring-boot-actuator-endpoints#actuator.endpoints.health.groups
+    sentence: By default, startup will fail if a health group includes or excludes a health indicator that does not exist.
+    exclusive: true
+m05-l08-q09:
+  key:
+    anchor: spring-boot-actuator-endpoints#actuator.endpoints.security
+    sentence: If Spring Security is on the classpath and no other SecurityFilterChain bean is present, all actuators other than /health are secured by Spring Boot auto-configuration.
+  wrong:
+  - option: '`/info`'
+    anchor: spring-boot-actuator-endpoints#actuator.endpoints.security
+    sentence: If Spring Security is on the classpath and no other SecurityFilterChain bean is present, all actuators other than /health are secured by Spring Boot auto-configuration.
+    exclusive: true
+  - option: '`/metrics`'
+    anchor: spring-boot-actuator-endpoints#actuator.endpoints.security
+    sentence: If Spring Security is on the classpath and no other SecurityFilterChain bean is present, all actuators other than /health are secured by Spring Boot auto-configuration.
+    exclusive: true
+  - option: '`/env`'
+    anchor: spring-boot-actuator-endpoints#actuator.endpoints.security
+    sentence: If Spring Security is on the classpath and no other SecurityFilterChain bean is present, all actuators other than /health are secured by Spring Boot auto-configuration.
+    exclusive: true
+m05-l08-q10:
+  key:
+    anchor: spring-boot-features-spring-application#features.spring-application.application-exit
+    sentence: If there is more than one ExitCodeGenerator, the first non-zero exit code that is generated is used.
+  wrong:
+  - option: The highest exit code that is generated
+    anchor: spring-boot-features-spring-application#features.spring-application.application-exit
+    sentence: If there is more than one ExitCodeGenerator, the first non-zero exit code that is generated is used.
+    exclusive: true
+  - option: The last non-zero exit code that is generated
+    anchor: spring-boot-features-spring-application#features.spring-application.application-exit
+    sentence: If there is more than one ExitCodeGenerator, the first non-zero exit code that is generated is used.
+    exclusive: true
+  - option: The sum of all generated exit codes
+    anchor: spring-boot-features-spring-application#features.spring-application.application-exit
+    sentence: If there is more than one ExitCodeGenerator, the first non-zero exit code that is generated is used.
+    exclusive: true
+m05-l08-q11:
+  key:
+    anchor: spring-boot-web-graceful-shutdown#page-title
+    sentence: Graceful shutdown is enabled by default with all three embedded web servers (Jetty, Reactor Netty, and Tomcat) and with both reactive and servlet-based web applications.
+  wrong:
+  - option: Only Tomcat
+    anchor: spring-boot-web-graceful-shutdown#page-title
+    sentence: Graceful shutdown is enabled by default with all three embedded web servers (Jetty, Reactor Netty, and Tomcat) and with both reactive and servlet-based web applications.
+    exclusive: true
+  - option: Only Reactor Netty, for reactive applications
+    anchor: spring-boot-web-graceful-shutdown#page-title
+    sentence: Graceful shutdown is enabled by default with all three embedded web servers (Jetty, Reactor Netty, and Tomcat) and with both reactive and servlet-based web applications.
+    exclusive: true
+  - option: None, it must be enabled with a property
+    anchor: spring-boot-web-graceful-shutdown#page-title
+    sentence: Graceful shutdown is enabled by default with all three embedded web servers (Jetty, Reactor Netty, and Tomcat) and with both reactive and servlet-based web applications.
+    exclusive: true
+m05-l08-q12:
+  key:
+    anchor: spring-boot-web-graceful-shutdown#web.graceful-shutdown.rejecting-requests-during-the-grace-period
+    sentence: Jetty, Reactor Netty, and Tomcat will stop accepting new requests at the network layer.
+  wrong:
+  - option: They answer every new request with `503`
+    anchor: spring-boot-web-graceful-shutdown#web.graceful-shutdown.rejecting-requests-during-the-grace-period
+    sentence: Jetty, Reactor Netty, and Tomcat will stop accepting new requests at the network layer.
+    exclusive: true
+  - option: They answer every new request with a specific HTTP header
+    anchor: spring-boot-web-graceful-shutdown#web.graceful-shutdown.rejecting-requests-during-the-grace-period
+    sentence: Jetty, Reactor Netty, and Tomcat will stop accepting new requests at the network layer.
+    exclusive: true
+  - option: They keep accepting new requests until the timeout expires
+    anchor: spring-boot-web-graceful-shutdown#web.graceful-shutdown.rejecting-requests-during-the-grace-period
+    sentence: Jetty, Reactor Netty, and Tomcat will stop accepting new requests at the network layer.
+    exclusive: true
+m05-l08-q13:
+  key:
+    anchor: spring-boot-testing-spring-boot-applications#testing.spring-boot-applications.autoconfigured-spring-data-jpa
+    sentence: By default, data JPA tests are transactional and roll back at the end of each test.
+  wrong:
+  - option: They are committed
+    anchor: spring-boot-testing-spring-boot-applications#testing.spring-boot-applications.autoconfigured-spring-data-jpa
+    sentence: By default, data JPA tests are transactional and roll back at the end of each test.
+    exclusive: true
+  - option: They are kept until the last test of the class ends
+    anchor: spring-boot-testing-spring-boot-applications#testing.spring-boot-applications.autoconfigured-spring-data-jpa
+    sentence: By default, data JPA tests are transactional and roll back at the end of each test.
+    exclusive: true
+  - option: They are committed only when the test fails
+    anchor: spring-boot-testing-spring-boot-applications#testing.spring-boot-applications.autoconfigured-spring-data-jpa
+    sentence: By default, data JPA tests are transactional and roll back at the end of each test.
+    exclusive: true
+m05-l08-q14:
+  key:
+    anchor: spring-boot-testing-spring-boot-applications#testing.spring-boot-applications.with-mock-environment
+    sentence: By default, @SpringBootTest does not start the server but instead sets up a mock environment for testing web endpoints.
+  wrong:
+  - option: It starts the embedded server on a random port
+    anchor: spring-boot-testing-spring-boot-applications#testing.spring-boot-applications.with-mock-environment
+    sentence: By default, @SpringBootTest does not start the server but instead sets up a mock environment for testing web endpoints.
+    exclusive: true
+  - option: It starts the embedded server on port `8080`
+    anchor: spring-boot-testing-spring-boot-applications#testing.spring-boot-applications.with-mock-environment
+    sentence: By default, @SpringBootTest does not start the server but instead sets up a mock environment for testing web endpoints.
+    exclusive: true
+  - option: It starts the embedded server only when `MockMvc` is injected
+    anchor: spring-boot-testing-spring-boot-applications#testing.spring-boot-applications.with-mock-environment
+    sentence: By default, @SpringBootTest does not start the server but instead sets up a mock environment for testing web endpoints.
+    exclusive: true
+m05-l08-q15:
+  key:
+    anchor: spring-fw-testing-ctx-caching#page-title
+    sentence: In other words, if tests run in separate processes, the static cache is cleared between each test execution, which effectively disables the caching mechanism.
+  wrong:
+  - option: The processes share the cached contexts
+    anchor: spring-fw-testing-ctx-caching#page-title
+    sentence: In other words, if tests run in separate processes, the static cache is cleared between each test execution, which effectively disables the caching mechanism.
+    exclusive: true
+  - option: The cache is saved to disk and reloaded by the next process
+    anchor: spring-fw-testing-ctx-caching#page-title
+    sentence: In other words, if tests run in separate processes, the static cache is cleared between each test execution, which effectively disables the caching mechanism.
+    exclusive: true
+  - option: Each process caches its contexts and keeps them for later runs
+    anchor: spring-fw-testing-ctx-caching#page-title
+    sentence: In other words, if tests run in separate processes, the static cache is cleared between each test execution, which effectively disables the caching mechanism.
+    exclusive: true
+m05-l08-q16:
+  key:
+    anchor: spring-fw-testing-ctx-caching#page-title
+    sentence: This instructs Spring to remove the context from the cache and rebuild the application context before running the next test that requires the same application context.
+  wrong:
+  - option: Keep it in the cache and only reset its beans
+    anchor: spring-fw-testing-ctx-caching#page-title
+    sentence: This instructs Spring to remove the context from the cache and rebuild the application context before running the next test that requires the same application context.
+    exclusive: true
+  - option: Keep it in the cache and close it only at JVM exit
+    anchor: spring-fw-testing-ctx-caching#page-title
+    sentence: This instructs Spring to remove the context from the cache and rebuild the application context before running the next test that requires the same application context.
+    exclusive: true
+  - option: Disable context caching for the rest of the suite
+    anchor: spring-fw-testing-ctx-caching#page-title
+    sentence: This instructs Spring to remove the context from the cache and rebuild the application context before running the next test that requires the same application context.
+    exclusive: true
+m05-l08-q17:
+  key:
+    anchor: spring-boot-testing-testcontainers#testing.testcontainers.service-connections
+    sentence: When doing so, the connection details take precedence over any connection-related configuration properties.
+  wrong:
+  - option: The connection-related configuration properties
+    anchor: spring-boot-testing-testcontainers#testing.testcontainers.service-connections
+    sentence: When doing so, the connection details take precedence over any connection-related configuration properties.
+    exclusive: true
+  - option: The environment variables of the test process
+    anchor: spring-boot-testing-testcontainers#testing.testcontainers.service-connections
+    sentence: When doing so, the connection details take precedence over any connection-related configuration properties.
+    exclusive: true
+  - option: The values in `application.properties`
+    anchor: spring-boot-testing-testcontainers#testing.testcontainers.service-connections
+    sentence: When doing so, the connection details take precedence over any connection-related configuration properties.
+    exclusive: true

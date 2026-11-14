@@ -1,0 +1,92 @@
+[
+ {
+  "id": "m05-l07-q01",
+  "fact": "m05-l07-f24",
+  "stem": "In a Hibernate persistence context, you remove an entity and then persist a new one, and the changes are flushed. In what order does Hibernate execute the resulting statements?",
+  "key": "The `INSERT` first, then the `DELETE`",
+  "distractors": [
+   "The `DELETE` first, then the `INSERT`, following the order of the operations",
+   "Whichever statement sorts first by primary key, `INSERT` or `DELETE`",
+   "The `DELETE` first, because `EntityDeleteAction` precedes `EntityInsertAction` in the `ActionQueue`"
+  ],
+  "explanation": "Hibernate executes the `DELETE` statement after the `INSERT`, even if the first entity was removed before the new one was persisted. The order of the operations is not followed, because Hibernate does not execute the SQL statements in the order of their associated entity state operations. Primary keys do not decide, because the order in which SQL statements are executed is given by the `ActionQueue`. The `DELETE` does not run first, because Hibernate executes the `DELETE` statement after the `INSERT` even if the entity was removed first.",
+  "citation": "hibernate-user-guide#flushing-order",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m05-l07-q02",
+  "fact": "m05-l07-f18",
+  "stem": "In the Jakarta Persistence specification, which lifecycle state describes an entity instance that has a persistent identity but is no longer associated with a persistence context?",
+  "key": "Detached",
+  "distractors": [
+   "Managed",
+   "Removed",
+   "New"
+  ],
+  "explanation": "A detached entity instance has a persistent identity and is not, or no longer, associated with a persistence context. Managed is not the state, because a managed instance is currently associated with a persistence context. Removed is not the state, because a removed instance is still associated with a persistence context until it is removed on commit. New is not the state, because a new instance has no persistent identity.",
+  "citation": "jakarta-persistence-spec#a1929",
+  "extract": "A detached entity instance is an instance with a persistent identity that is not (or no longer) associated with a persistence context.",
+  "snippet": null
+ },
+ {
+  "id": "m05-l07-q03",
+  "fact": "m05-l07-f28",
+  "stem": "By default, how does Spring Data JPA decide that an entity is new when the entity has a `@Version` property of a non-primitive type?",
+  "key": "The entity is new if the value of the version property is `null`",
+  "distractors": [
+   "The entity is new if its identifier property is `null`, ignoring the version property",
+   "The entity is new if its version property is `0`",
+   "The entity is always treated as new, so `save` always calls `persist()`"
+  ],
+  "explanation": "The entity is considered new if the value of its non-primitive version property is `null`. The identifier is not inspected first, because Spring Data JPA first inspects whether there is a version property of non-primitive type. A version of `0` does not mark a new entity, because JPA considers zero the first inserted version of an entity. Not every entity is new, because Spring Data repositories know whether to call `EntityManager.persist()` or `merge()` from the new-state detection.",
+  "citation": "spring-data-jpa-entity-persistence#jpa.entity-persistence.saving-entities.strategies",
+  "extract": "If there is, the entity is considered new if the value of that property is null.",
+  "snippet": null
+ },
+ {
+  "id": "m05-l07-q04",
+  "fact": "m05-l07-f48",
+  "stem": "In Hibernate, what is the effect of setting `hibernate.jdbc.batch_size` to zero or to a negative number?",
+  "key": "JDBC batching is disabled",
+  "distractors": [
+   "Hibernate batches every statement of the transaction with no maximum",
+   "Hibernate orders SQL updates by entity type and primary key",
+   "Hibernate orders inserts so that more batching can be used"
+  ],
+  "explanation": "A `hibernate.jdbc.batch_size` of zero or a negative number disables the batching feature. There is no unlimited batch, because the setting controls the maximum number of statements batched before the driver executes the batch. Ordering updates belongs to `hibernate.order_updates`, which forces Hibernate to order SQL updates by entity type and primary key value. Ordering inserts belongs to `hibernate.order_inserts`, which forces Hibernate to order inserts to allow for more batching.",
+  "citation": "hibernate-user-guide#batch-jdbcbatch",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m05-l07-q05",
+  "fact": "m05-l07-f41",
+  "stem": "How does the `@Version` mechanism of Hibernate protect an entity from lost updates, and what may the application do with the version number it maps?",
+  "key": "The entity manager compares the version to detect conflicting updates, and the application may not alter the version",
+  "distractors": [
+   "The application increments the version on every update, and the entity manager only reads it",
+   "The version is compared only during `merge()` and always synchronously in every provider",
+   "An entity without a version makes any update or merge involving versioned entities fail"
+  ],
+  "explanation": "The entity manager uses the version property to detect conflicting updates, and the application is forbidden from altering the version number set by Hibernate. The application does not increment the version, because it is forbidden from altering the version number set by Hibernate. The check is not always synchronous, because the timing of the version check on merge is provider-dependent. An unversioned entity does not make the operation fail, because its absence of a version does not impede completion of the operation.",
+  "citation": "hibernate-user-guide#locking-optimistic-version-number",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m05-l07-q06",
+  "fact": "m05-l07-f11",
+  "stem": "In Spring Data, how do class-based (DTO) projections differ from interface-based projections when a query method returns them?",
+  "key": "No proxying happens and no nested projections can be applied",
+  "distractors": [
+   "Spring Data creates a runtime proxy of the DTO class for every element returned",
+   "DTOs can be nested by returning another DTO from an accessor method",
+   "The fields to load are determined from the getter names of the DTO"
+  ],
+  "explanation": "For class-based projections no proxying happens and no nested projections can be applied. Proxies are not created for DTOs and nested projections are not possible, because no proxying happens and no nested projections can be applied. Getter names do not decide the fields, because the fields to be loaded are determined from the parameter names of the exposed constructor.",
+  "citation": "spring-data-jpa-projections#projections.dtos",
+  "extract": "These DTO types can be used in exactly the same way projection interfaces are used, except that no proxying happens and no nested projections can be applied.",
+  "snippet": null
+ }
+]

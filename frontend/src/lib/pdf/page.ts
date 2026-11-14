@@ -52,6 +52,10 @@ export const CROSS_REF = {
 
 /** The embedded print face. See `assets/fonts/liberation-sans/README.md` for why it is embedded. */
 export const PRINT_FONT = "LiberationSans";
+/** The code face: fenced blocks and the code spans of printed questions. See `assets/fonts/liberation-mono/README.md`. */
+export const CODE_FONT = "LiberationMono";
+/** Code characters outside the BMP, which the code face cannot draw. See `assets/fonts/dejavu-sans/README.md`. */
+export const SYMBOL_FONT = "DejaVuSans";
 
 export const DEFAULT_STYLE: Style = {
   font: PRINT_FONT,
@@ -81,7 +85,8 @@ export const PRINT_STYLES: StyleDictionary = {
   list: { margin: [10, 0, 0, 8] },
   note: { fontSize: 10 },
   quote: { italics: true, color: PRINT.muted },
-  codeBlock: { fontSize: 9.5, color: PRINT.codeText, background: PRINT.codeFill, margin: [0, 4, 0, 8] },
+  // Indentation is the code's structure, so leading spaces survive; 8 pt fits ~98 columns on the A4 line.
+  codeBlock: { font: CODE_FONT, fontSize: 8, lineHeight: 1.25, color: PRINT.codeText, preserveLeadingSpaces: true },
   caption: { fontSize: 9, color: PRINT.muted, margin: [0, 5, 0, 0], lineHeight: 1.3 },
   footer: { fontSize: 8, color: PRINT.muted },
   // Exercises and the answer key. Deliberately quieter than the prose around them: the lesson is what

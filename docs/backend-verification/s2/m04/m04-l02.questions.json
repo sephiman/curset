@@ -1,0 +1,197 @@
+[
+ {
+  "id": "m04-l02-q01",
+  "fact": "m04-l02-f15",
+  "stem": "In Kotlin, what does marking an object declaration with the `data` modifier change when you call `toString()` on that object?",
+  "key": "It returns the actual name of the object, without a hash",
+  "distractors": [
+   "It returns the properties of the object in the form `Name(a=1)`",
+   "It still returns the name of the object followed by its hash",
+   "It makes `equals()` compare references, so two instances are different"
+  ],
+  "explanation": "Marking the object with `data` makes `toString()` return the actual name of the object. The property form is wrong because `toString()` of a data object returns the name of the data object. The name with a hash is wrong because that is the representation of a plain object declaration, and the `data` modifier returns the actual name of the object. Reference comparison is wrong because the `equals()` function of a data object ensures that all objects that have the type of the data object are considered equal.",
+  "citation": "kotlin-docs-object-declarations#data-objects",
+  "extract": "by marking an object declaration with the data modifier, you can instruct the compiler to return the actual name of the object when calling toString()",
+  "snippet": null
+ },
+ {
+  "id": "m04-l02-q02",
+  "fact": "m04-l02-f17",
+  "stem": "In Kotlin, more than one instance of a data object can exist at runtime, for example when a library creates one by reflection. How should you compare data objects?",
+  "key": "Structurally with `==`, and never by reference with `===`",
+  "distractors": [
+   "By reference with `===`, because a data object is a singleton",
+   "With a custom `equals` implementation that compares an identifier",
+   "By comparing `hashCode()` values, which differ for each instance"
+  ],
+  "explanation": "Data objects are compared only structurally with `==`, and never by reference with `===`. Reference comparison is wrong because the documentation says to compare data objects never by reference. A custom `equals` is wrong because you cannot provide a custom `equals` or `hashCode` implementation for a data object. Different hash codes are wrong because the generated `hashCode()` is consistent with `equals()`, so all runtime instances have the same hash code.",
+  "citation": "kotlin-docs-object-declarations#data-objects",
+  "extract": "Make sure that you only compare data objects structurally (using the == operator) and never by reference (using the === operator).",
+  "snippet": null
+ },
+ {
+  "id": "m04-l02-q03",
+  "fact": "m04-l02-f22",
+  "stem": "Which statement about an inline class, declared with the `value` modifier in Kotlin, is correct?",
+  "key": "It has no identity and can only hold values",
+  "distractors": [
+   "It has an identity, so two wrappers of the same value are different objects",
+   "It is represented at runtime by an instance with a field for each property",
+   "It can hold any number of properties initialized in the primary constructor"
+  ],
+  "explanation": "Inline classes do not have an identity and can only hold values. Having an identity is wrong because inline classes do not have an identity. A full instance is wrong because at runtime the instances are represented using the single property. Any number of properties is wrong because an inline class must have a single property initialized in the primary constructor.",
+  "citation": "kotlin-docs-inline-classes#inline-classes.md",
+  "extract": "They don't have an identity and can only hold values.",
+  "snippet": null
+ },
+ {
+  "id": "m04-l02-q04",
+  "fact": "m04-l02-f45",
+  "stem": "In Kotlin, a `when` that uses guard conditions has no `else` branch. What does the compiler require when this `when` is an expression and not a statement?",
+  "key": "It requires that every possible case is handled",
+  "distractors": [
+   "It requires nothing, because when no condition matches, no code is run",
+   "It requires the conditions of each branch to be separated by commas",
+   "It requires the `when` to have no subject"
+  ],
+  "explanation": "Unlike statements, `when` expressions must cover all cases. Running no code is wrong because it describes `when` statements, which do not need to cover all cases. Comma-separated conditions are wrong because you cannot use guard conditions when you have multiple conditions separated by a comma. Having no subject is wrong because you can use guard conditions with `when` as long as it has a subject.",
+  "citation": "kotlin-docs-control-flow#guard-conditions-in-when-expressions",
+  "extract": "Unlike statements, when expressions must cover all cases.",
+  "snippet": null
+ },
+ {
+  "id": "m04-l02-q05",
+  "fact": "m04-l02-f43",
+  "stem": "In a Kotlin `when` branch that has both a primary condition and a guard condition, when does the compiled code evaluate the guard condition?",
+  "key": "Only if the primary condition matches",
+  "distractors": [
+   "Always, even when the primary condition does not match",
+   "Before the primary condition, so the type check can use its result",
+   "Only when the `when` has no subject"
+  ],
+  "explanation": "The guard condition is not evaluated when the primary condition does not match. Always evaluating it is wrong because the guard condition is not evaluated when the primary condition does not match. Evaluating it first is wrong because the guard condition is placed after the primary condition in the same branch. Needing no subject is wrong because guard conditions can be used with `when` only as long as it has a subject.",
+  "citation": "kotlin-docs-control-flow#guard-conditions-in-when-expressions",
+  "extract": "If the primary condition doesn't match, the guard condition isn't evaluated.",
+  "snippet": null
+ },
+ {
+  "id": "m04-l02-q06",
+  "fact": "m04-l02-f62",
+  "stem": "Which Kotlin scope function makes the context object available as an argument (`it`) and returns the context object itself, not the lambda result?",
+  "key": "`also`",
+  "distractors": [
+   "`let`",
+   "`run`",
+   "`apply`"
+  ],
+  "explanation": "`also` has the context object as `it` and returns the object itself. `let` is wrong because its return value is the lambda result. `run` is wrong because its context object is available as a receiver (`this`) and its return value is the lambda result. `apply` is wrong because its context object is available as a receiver (`this`), not as an argument.",
+  "citation": "kotlin-docs-scope-functions#also",
+  "extract": "The return value is the object itself.",
+  "snippet": null
+ },
+ {
+  "id": "m04-l02-q07",
+  "fact": "m04-l02-f95",
+  "stem": "In Kotlin, a class is declared as `class Derived(b: Base) : Base by b`. What does the `by` clause make the compiler do?",
+  "key": "Generate every method of `Base` as a forward to `b`, which is stored inside `Derived`",
+  "distractors": [
+   "Make `Derived` inherit the implementation of the class of `b`, without storing `b`",
+   "Require `Derived` to override each method of `Base` by hand",
+   "Replace the delegation pattern with implementation inheritance from the class of `b`"
+  ],
+  "explanation": "The compiler stores `b` inside `Derived` and generates all the methods of `Base` that forward to `b`. Inheriting without storing is wrong because `b` is stored internally in objects of `Derived`. Overriding each method by hand is wrong because Kotlin supports delegation natively requiring zero boilerplate code. Implementation inheritance is wrong because the delegation pattern is a good alternative to implementation inheritance.",
+  "citation": "kotlin-docs-delegation#delegation.md",
+  "extract": "The by-clause in the supertype list for Derived indicates that b will be stored internally in objects of Derived and the compiler will generate all the methods of Base that forward to b.",
+  "snippet": null
+ },
+ {
+  "id": "m04-l02-q08",
+  "fact": "m04-l02-f99",
+  "stem": "By default, how does a Kotlin `lazy` property compute its value when several threads read it for the first time at the same time?",
+  "key": "It is computed in only one thread, and all threads see the same value",
+  "distractors": [
+   "It is computed once in each thread, so each thread keeps its own value",
+   "It is computed without thread-safety guarantees, as with `LazyThreadSafetyMode.NONE`",
+   "It may be computed by several threads at once, as with `LazyThreadSafetyMode.PUBLICATION`"
+  ],
+  "explanation": "By default, the evaluation of lazy properties is synchronized, so the value is computed in only one thread. Computing it per thread is wrong because the evaluation is synchronized and all threads will see the same value. No guarantees is wrong because `LazyThreadSafetyMode.NONE` is a mode you choose when initialization always happens in the same thread, not the default. Simultaneous execution is wrong because `LazyThreadSafetyMode.PUBLICATION` has to be passed to `lazy()` to allow multiple threads to execute the initializer.",
+  "citation": "kotlin-docs-delegated-properties#lazy-properties",
+  "extract": "By default, the evaluation of lazy properties is synchronized: the value is computed only in one thread, but all threads will see the same value.",
+  "snippet": null
+ },
+ {
+  "id": "m04-l02-q09",
+  "fact": "m04-l02-f108",
+  "stem": "Which Java feature, added by a JEP, restricts which other classes or interfaces may extend or implement a class or interface?",
+  "key": "Sealed classes and interfaces",
+  "distractors": [
+   "Records",
+   "Record patterns",
+   "Pattern matching for `switch`"
+  ],
+  "explanation": "Sealed classes and interfaces restrict which other classes or interfaces may extend or implement them. Records are wrong because they are classes that act as transparent carriers for immutable data. Record patterns are wrong because they deconstruct record values. Pattern matching for `switch` is wrong because it allows an expression to be tested against a number of patterns, each with a specific action.",
+  "citation": "jep-409#Summary",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m04-l02-q10",
+  "fact": "m04-l02-f28",
+  "stem": "The snippet prints a data class instance, compares it with an equal instance, calls `copy(age = 43)`, prints a data object and applies a guarded `when`. What does it print, one line per step?",
+  "key": "User(name=John, age=42)\ntrue\nUser(name=John, age=43)\nEmpty\nlarge circle\ncircle",
+  "distractors": [
+   "User(name=John, age=42)\nfalse\nUser(name=John, age=43)\nEmpty\nlarge circle\ncircle",
+   "User(name=John, age=42)\ntrue\nUser(name=John, age=42)\nEmpty\nlarge circle\ncircle",
+   "User(name=John, age=42)\ntrue\nUser(name=John, age=43)\nEmpty\nlarge circle\nlarge circle"
+  ],
+  "explanation": "The data class prints its properties, equals an instance with the same values, and `copy` changes only `age`; the data object prints its name and the guard picks `large circle` for a radius of 11. The output with `false` is wrong because a data class derives `equals()` from its primary constructor properties. The output where `copy` keeps age 42 is wrong because `copy(age = 43)` replaces only that property. The output with two `large circle` lines is wrong because the guard `shape.radius > 10` fails for a radius of 1.",
+  "citation": "kotlin-docs-data-classes#data-classes.md; kotlin-docs-object-declarations#data-objects; kotlin-docs-control-flow#guard-conditions-in-when-expressions",
+  "extract": null,
+  "snippet": "m04-l02/DataClassAndSealed.kt"
+ },
+ {
+  "id": "m04-l02-q11",
+  "fact": "m04-l02-f68",
+  "stem": "The snippet calls `let`, `run`, `apply`, `also` and `with` on small objects and then `?.let` on a null `String?`. What does it print, one line per call?",
+  "key": "6\n7\nlocalhost:8080\n[a, b]\n8081\nnull",
+  "distractors": [
+   "kotlin\n7\nlocalhost:8080\n[a, b]\n8081\nnull",
+   "6\n7\nlocalhost:8080\n[a, b]\n8080\nnull",
+   "6\n7\nlocalhost:8080\ntrue\n8081\nnull"
+  ],
+  "explanation": "`let` and `run` return the lambda result, `apply` and `also` return the object, `with` returns the lambda result, and `?.let` on null returns null. The output starting with `kotlin` is wrong because `let` returns the lambda result, not the context object. The output with `8080` is wrong because `with` returns the lambda result `port + 1`. The output with `true` is wrong because `also` returns the object itself, not the result of `add`.",
+  "citation": "kotlin-docs-scope-functions#function-selection; kotlin-docs-scope-functions#let; kotlin-docs-scope-functions#also",
+  "extract": null,
+  "snippet": "m04-l02/ScopeFunctions.kt"
+ },
+ {
+  "id": "m04-l02-q12",
+  "fact": "m04-l02-f91",
+  "stem": "The snippet changes a mutable list through its read-only view, then logs each `filter` and `map` call for a list and for a sequence using `take(2)`. What does it print, one line per `println`?",
+  "key": "[1, 2, 3]\nf:The f:quick f:brown f:fox f:jumps m:quick m:brown m:jumps\ntrue\nf:The f:quick m:quick f:brown m:brown\ntrue",
+  "distractors": [
+   "[1, 2]\nf:The f:quick f:brown f:fox f:jumps m:quick m:brown m:jumps\ntrue\nf:The f:quick m:quick f:brown m:brown\ntrue",
+   "[1, 2, 3]\nf:The f:quick f:brown f:fox f:jumps m:quick m:brown m:jumps\ntrue\nf:The f:quick f:brown f:fox f:jumps m:quick m:brown m:jumps\ntrue",
+   "[1, 2, 3]\nf:The f:quick f:brown f:fox f:jumps m:quick m:brown m:jumps\ntrue\nf:The f:quick m:quick f:brown m:brown\nfalse"
+  ],
+  "explanation": "The read-only view shows the added element, the list runs each stage over all elements, and the sequence runs lazily element by element and stops after two results. The output with `[1, 2]` is wrong because a read-only interface is a view, not an immutable copy. The output where the sequence log matches the list log is wrong because the sequence processes each element through all operations before the next. The output ending with `false` is wrong because the lazy pipeline gives the same result as the list.",
+  "citation": "kotlin-docs-collections-overview#read-only-and-mutable-collections; kotlin-docs-sequences#sequence; kotlin-docs-sequences#iterable",
+  "extract": null,
+  "snippet": "m04-l02/CollectionsAndSequences.kt"
+ },
+ {
+  "id": "m04-l02-q13",
+  "fact": "m04-l02-f104",
+  "stem": "The snippet delegates `Base` to a `BaseImpl` with `by b` and reads a top-level `lazy` property twice, whose lambda prints `computed!`. What does it print?",
+  "key": "10\ncomputed!\nHello\nHello",
+  "distractors": [
+   "10\ncomputed!\nHello\ncomputed!\nHello",
+   "computed!\n10\nHello\nHello",
+   "10\nHello\nHello"
+  ],
+  "explanation": "The delegated call prints `10`, and the lambda of the `lazy` property runs only on the first read. The output with a second `computed!` is wrong because subsequent calls simply return the remembered result. The output starting with `computed!` is wrong because the lambda runs on the first read, not when the property is declared. The output without `computed!` is wrong because the first read executes the lambda, which prints that line.",
+  "citation": "kotlin-docs-delegated-properties#lazy-properties; kotlin-docs-delegation#delegation.md",
+  "extract": null,
+  "snippet": "m04-l02/DelegationAndLazy.kt"
+ }
+]

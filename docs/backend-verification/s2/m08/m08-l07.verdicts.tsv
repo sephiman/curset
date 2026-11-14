@@ -1,0 +1,170 @@
+S1.1	"It is impossible to count all"	pass
+S1.2	"Aggregates on streams are scoped by"	pass
+S1.3	"Flink executes batch programs as a"	pass
+S1.4	"Fault tolerance for batch programs does"	pass
+S1.5	"Replaying the streams is possible because"	pass
+S1.6	"Processing time refers to the system"	pass
+S1.7	"Processing time is the simplest notion"	pass
+S1.8	"In distributed and asynchronous environments processing"	pass
+S1.9	"Event time is the time that"	pass
+S1.10	"In event time, the progress of"	pass
+S1.11	"Unless events are known to arrive"	pass
+S1.12	"Kafka Streams defines ingestion time as"	pass
+S1.13	"Kafka Streams assigns a timestamp to"	pass
+S1.14	"The time of a Kafka Streams"	pass
+S2.1	"Tumbling windows model fixed-size, non-overlapping, gap-less"	pass
+S2.2	"A tumbling window is a hopping"	pass
+S2.3	"Since tumbling windows never overlap, a"	pass
+S2.4	"Tumbling windows are aligned to the"	pass
+S2.5	"A hopping window is defined by"	pass
+S2.6	"Since hopping windows can overlap, a"	pass
+S2.7	"Kafka Streams follows the academic terminology,"	pass
+S2.8	"Hopping windows are aligned to the"	pass
+S2.9	"Sliding windows are aligned to the"	pass
+S2.10	"Sessions represent a period of activity"	pass
+S2.11	"Events that fall within the inactivity"	pass
+S2.12	"An event that falls outside of"	pass
+R1.1	"Tumbling"	pass
+R1.2	"Hopping"	pass
+R1.3	"Sliding"	pass
+R1.4	"Session"	pass
+S2.13	"In Kafka Streams, windowed computations update"	pass
+S2.14	"With a 10-minute grace period, the"	pass
+S2.15	"The grace period bounds the lateness"	pass
+S2.16	"`Suppressed.untilWindowCloses` emits nothing for a window"	pass
+S2.17	"In Flink the mechanism to measure"	pass
+S2.18	"A `Watermark(t)` declares that event time"	pass
+S2.19	"Event time can progress independently of"	pass
+S2.20	"An operator with several input streams"	pass
+S2.21	"Late elements are elements that arrive"	pass
+S2.22	"Delaying the watermarks by too much"	pass
+S2.23	"In Kafka Streams, out-of-order data could"	pass
+S2.24	"For Stream-Stream joins, all three types"	pass
+S2.25	"Flink comes with pre-defined tumbling, sliding,"	pass
+S2.26	"Flink time-based windows have an inclusive"	pass
+S3.1	"Operations that remember information across multiple"	pass
+S3.2	"When aggregating events per minute, hour"	pass
+S3.3	"Every task in Kafka Streams embeds"	pass
+S3.4	"State stores can be a persistent"	pass
+S3.5	"The Kafka Streams DSL automatically creates"	pass
+S3.6	"For each state store, Kafka Streams"	pass
+S3.7	"Log compaction is enabled on the"	pass
+S3.8	"After a failure, Kafka Streams restores"	pass
+S3.9	"Standby replicas are fully replicated copies"	pass
+S3.10	"Starting in 2.6, Kafka Streams assigns"	pass
+S3.11	"`acceptable.recovery.lag` is the maximum lag, in"	pass
+S3.12	"Since Kafka 4.3, Kafka Streams stores"	pass
+S3.13	"Flink implements fault tolerance using a"	pass
+S3.14	"A checkpoint marks a specific point"	pass
+S3.15	"Upon a failure, Flink selects the"	pass
+S3.16	"After recovery the sources start reading"	pass
+S4.1	"A `KStream` is an abstraction of"	pass
+S4.2	"Summing the values per user over"	pass
+S4.3	"In a `KStream` the second record"	pass
+S4.4	"A `KTable` is an abstraction of"	pass
+S4.5	"In a `KTable` a record with"	pass
+S4.6	"Log compaction is safe for a"	pass
+S4.7	"A stream can be viewed as"	pass
+R2.1	"KStream-to-KStream"	pass
+R2.2	"KTable-to-KTable"	pass
+R2.3	"KTable-to-KTable foreign-key"	pass
+R2.4	"KStream-to-KTable"	pass
+S4.8	"For equi-joins, input data must be"	pass
+S4.9	"The input topics of the join,"	pass
+S4.10	"Co-partitioning is not required for KTable-KTable"	pass
+S4.11	"At runtime Kafka Streams verifies that"	pass
+S4.12	"Kafka Streams cannot verify whether the"	pass
+S4.13	"Each stream partition maps to a"	pass
+S4.14	"Kafka Streams creates a fixed number"	pass
+S4.15	"With an input topic of 5"	pass
+S4.16	"Excess application instances launch but remain"	pass
+S4.17	"The topology optimizations include moving or"	pass
+S4.18	"Enabling optimizations also requires passing the"	pass
+S5.1	"At most once means messages may"	pass
+S5.2	"At least once means messages are"	pass
+S5.3	"Exactly once means each message is"	pass
+S5.4	"Since 0.11.0.0 the Kafka producer supports"	pass
+S5.5	"The broker assigns each producer an"	pass
+S5.6	"The producer can send messages atomically"	pass
+S5.7	"With `enable.idempotence` set to true, the"	pass
+S5.8	"Idempotence requires `acks` to be `all`"	pass
+S5.9	"Idempotence is enabled by default if"	pass
+S5.10	"If idempotence is explicitly enabled and"	pass
+S5.11	"Without a `transactional.id` the producer is"	pass
+S5.12	"If a `transactional.id` is configured, `enable.idempotence`"	pass
+S5.13	"By default the transactional id is"	pass
+S5.14	"In Kafka the consumer and producer"	pass
+S5.15	"The producer makes transactional updates to"	pass
+S5.16	"The consumer configuration must include `isolation.level=read_committed`"	pass
+S5.17	"A consumer that does not use"	pass
+S5.18	"To handle transactions properly with rebalancing,"	pass
+S5.19	"Kafka Streams guarantees that the processing"	pass
+S5.20	"Kafka Streams completes commits on the"	pass
+S5.21	"Exactly-once v2 needs broker version 2.5.0"	pass
+S5.22	"The possible values of `processing.guarantee` are"	pass
+S5.23	"With exactly-once processing enabled, the default"	pass
+S5.24	"With exactly-once processing enabled, consumers are"	pass
+S5.25	"By default exactly-once processing requires a"	pass
+S5.26	"With exactly-once processing enabled, Kafka Streams"	pass
+S5.27	"Since Kafka 4.0 the producer epoch"	pass
+S6.1	"In order to make state fault"	pass
+S6.2	"Checkpoints allow Flink to recover state"	pass
+S6.3	"By default, checkpointing is disabled in"	pass
+S6.4	"The checkpoint interval trades off the"	pass
+S6.5	"The data stream source must be"	pass
+S6.6	"Barriers never overtake records, they flow"	pass
+S6.7	"A barrier separates the records into"	pass
+S6.8	"Each barrier carries the ID of"	pass
+S6.9	"Barriers do not interrupt the flow"	pass
+S6.10	"After all sinks have acknowledged a"	pass
+S6.11	"The alignment step may add latency"	pass
+S6.12	"Flink has a switch to skip"	pass
+S6.13	"When the alignment is skipped, records"	pass
+S6.14	"Dataflows with only embarrassingly parallel operations"	pass
+S6.15	"A savepoint is a consistent image"	pass
+S6.16	"Savepoints can be used to stop-and-resume,"	pass
+S6.17	"Savepoints differ from checkpoints the way"	pass
+R3.1	"Purpose"	pass
+R3.2	"Owner"	pass
+R3.3	"After the job ends"	pass
+S6.18	"A back pressure warning for a"	pass
+S6.19	"Back pressure is propagated in the"	pass
+S6.20	"The back pressure status HIGH means"	pass
+S7.1	"A stream is unbounded, so aggregates"	pass
+S7.2	"Processing time is the system time"	pass
+S7.3	"A tumbling window puts a record"	pass
+S7.4	"A session window ends after a"	pass
+S7.5	"A watermark declares that event time"	pass
+S7.6	"A grace period bounds how late"	pass
+S7.7	"Kafka Streams keeps state in state"	pass
+S7.8	"A `KStream` treats each record as"	pass
+S7.9	"An equi-join needs co-partitioned inputs with"	pass
+S7.10	"Kafka Streams creates a fixed number"	pass
+S7.11	"Setting `processing.guarantee` to `exactly_once_v2` makes Kafka"	pass
+S7.12	"An idempotent producer deduplicates with a"	pass
+S7.13	"A Flink checkpoint is owned by"	pass
+S7.14	"Skipping the stream alignment in a"	pass
+g-event-time	pass
+g-processing-time	pass
+g-watermark	pass
+g-tumbling-window	pass
+g-hopping-window	pass
+g-session-window	pass
+g-changelog-topic	pass
+g-savepoint	pass
+m08-l07-q01	pass
+m08-l07-q02	pass
+m08-l07-q03	pass
+m08-l07-q04	pass
+m08-l07-q05	pass
+m08-l07-q06	pass
+m08-l07-q07	pass
+m08-l07-q08	pass
+m08-l07-q09	pass
+m08-l07-q10	pass
+m08-l07-q11	fail	refutation sentence (transactional id implies idempotence) does not contradict "cannot enable idempotence"
+m08-l07-q12	pass
+m08-l07-q13	pass
+m08-l07-q14	pass
+m08-l07-q15	pass
+# checked 169, passed 168, failed 1

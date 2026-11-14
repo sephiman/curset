@@ -1,0 +1,62 @@
+m11-l05-q01:
+  key:
+    execution: m11-l05/EdgeCases.java
+  wrong:
+  - option: 'empty: -1
+
+      no unique: -1
+
+      swiss: 0
+
+      surrogate pair: 1'
+    execution: m11-l05/EdgeCases.java
+    mistake: first character assumed unique
+  - option: 'empty: -1
+
+      no unique: -1
+
+      swiss: 1
+
+      surrogate pair: 0'
+    execution: m11-l05/EdgeCases.java
+    mistake: code point index instead of char index
+  - option: 'empty: -1
+
+      no unique: 0
+
+      swiss: 1
+
+      surrogate pair: 1'
+    execution: m11-l05/EdgeCases.java
+    mistake: no-result sentinel confused with index 0
+m11-l05-q02:
+  key:
+    execution: m11-l05/StepCounts.java
+  wrong:
+  - option: 'quadratic n=100: 10000
+
+      quadratic n=200: 20000
+
+      linear n=100: 200
+
+      linear n=200: 400'
+    execution: m11-l05/StepCounts.java
+    mistake: quadratic growth assumed linear
+  - option: 'quadratic n=100: 4950
+
+      quadratic n=200: 19900
+
+      linear n=100: 200
+
+      linear n=200: 400'
+    execution: m11-l05/StepCounts.java
+    mistake: counted unordered pairs
+  - option: 'quadratic n=100: 10000
+
+      quadratic n=200: 40000
+
+      linear n=100: 100
+
+      linear n=200: 200'
+    execution: m11-l05/StepCounts.java
+    mistake: forgot the second pass

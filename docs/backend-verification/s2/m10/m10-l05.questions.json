@@ -1,0 +1,212 @@
+[
+ {
+  "id": "m10-l05-q01",
+  "fact": "m10-l05-f06",
+  "stem": "A Pod runs one container with liveness, readiness and startup probes configured. Which statement about how Kubernetes uses these probes is correct?",
+  "key": "A liveness probe does not wait for the readiness probe to succeed",
+  "distractors": [
+   "A failed readiness probe makes the kubelet restart the container",
+   "A startup probe keeps running periodically for the whole life of the container",
+   "A failed startup probe only removes the Pod from the Service endpoints"
+  ],
+  "explanation": "A liveness probe does not wait for readiness probes to succeed. Restarting on a failed readiness probe is ruled out because a failed readiness probe makes the `EndpointSlice` controller remove the Pod's IP address from the `EndpointSlices` of matching Services. A periodic startup probe is ruled out because it is only executed at startup, unlike liveness and readiness probes. Only removing the Pod from endpoints after a failed startup probe is ruled out because the kubelet kills the container, which is subjected to its restart policy.",
+  "citation": "k8s-pod-lifecycle#liveness-probe; k8s-pod-lifecycle#readiness-probe; k8s-pod-lifecycle#startup-probe",
+  "extract": "Liveness probes do not wait for readiness probes to succeed.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l05-q02",
+  "fact": "m10-l05-f28",
+  "stem": "A Spring Boot application on Kubernetes exposes liveness and readiness health groups through Actuator. Which statement about these probes in the Spring Boot documentation is correct?",
+  "key": "The liveness probe should not depend on health checks for external systems",
+  "distractors": [
+   "The readiness group includes custom health indicators by default",
+   "A Service whose instances are all unready answers with HTTP `503` for a `ClusterIP` type",
+   "A `startupProbe` is always required because readiness passes before the startup tasks finish"
+  ],
+  "explanation": "The liveness probe should not depend on health checks for external systems, because a failing external system could make Kubernetes restart all application instances. Custom indicators in the readiness group by default are ruled out because Spring Boot does not add other health indicators to these groups. An HTTP `503` from a `ClusterIP` Service is ruled out because there is no HTTP error response when all instances are unready, since there is no connection. A mandatory `startupProbe` is ruled out because the `readinessProbe` fails until all startup tasks are done.",
+  "citation": "spring-boot-actuator-endpoints#actuator.endpoints.kubernetes-probes.external-state; spring-boot-actuator-endpoints#actuator.endpoints.kubernetes-probes",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m10-l05-q03",
+  "fact": "m10-l05-f37",
+  "stem": "A Pod is deleted with the default grace period while one container keeps running after receiving `SIGTERM`. Which statement about what Kubernetes does during Pod termination is correct?",
+  "key": "Once the grace period has expired, the kubelet sends the KILL signal to the remaining processes",
+  "distractors": [
+   "A `preStop` hook still running at expiry gets an extension of 30 seconds",
+   "Container runtimes always send TERM, whatever `STOPSIGNAL` the image defines",
+   "Hooks are delivered exactly once, so a hook handler never needs to expect repeats"
+  ],
+  "explanation": "Once the grace period has expired, the KILL signal is sent to any remaining processes and the Pod is deleted from the API Server. A 30-second extension for a `preStop` hook is ruled out because the kubelet requests only a one-off extension of 2 seconds. Always sending TERM is ruled out because many container runtimes respect the `STOPSIGNAL` value defined in the container image. Exactly-once hook delivery is ruled out because hook delivery is intended to be at least once, so a hook may be called multiple times.",
+  "citation": "k8s-pod-lifecycle#pod-termination; k8s-pod-lifecycle#pod-termination-flow; k8s-container-lifecycle-hooks#hook-delivery-guarantees",
+  "extract": "Once the grace period has expired, the KILL signal is sent to any remaining processes, and the Pod is then deleted from the API Server.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l05-q04",
+  "fact": "m10-l05-f46",
+  "stem": "Which statement about Pods that are shutting down in Kubernetes, and about the endpoints and nodes involved, is correct?",
+  "key": "The terminating condition of an endpoint is set when its Pod is first deleted",
+  "distractors": [
+   "Service proxies never route to terminating endpoints, even when all endpoints are terminating",
+   "During node shutdown the kubelet still accepts new Pods that are already bound to the node",
+   "During node shutdown the kubelet skips the normal Pod termination process to save time"
+  ],
+  "explanation": "The terminating condition of an endpoint backed by a Pod is set when the Pod is first deleted, most likely before its containers exit. Never routing to terminating endpoints is ruled out because proxies may route traffic to endpoints that are both serving and terminating if all available endpoints are terminating. Accepting bound Pods during node shutdown is ruled out because the kubelet does not accept new Pods, even those already bound to the node. Skipping Pod termination is ruled out because the kubelet ensures that Pods follow the normal Pod termination process during node shutdown.",
+  "citation": "k8s-endpoint-slices#terminating; k8s-kubelet-graceful-shutdown#graceful-node-shutdown",
+  "extract": "For endpoints backed by a Pod, this condition is set when the Pod is first deleted (that is, when it receives a deletion timestamp, but most likely before the Pod's containers exit).",
+  "snippet": null
+ },
+ {
+  "id": "m10-l05-q05",
+  "fact": "m10-l05-f50",
+  "stem": "A Spring Boot web application runs on an embedded web server and receives `SIGTERM`. Which statement about graceful shutdown in Spring Boot is correct?",
+  "key": "It is enabled by default with all three embedded web servers",
+  "distractors": [
+   "New requests keep being accepted during the grace period so that no client sees an error",
+   "Only Tomcat stops accepting new requests at the network layer, while Jetty and Reactor Netty keep serving them",
+   "A shutdown started from an IDE is always graceful because the IDE sends `SIGTERM`"
+  ],
+  "explanation": "Graceful shutdown is enabled by default with Jetty, Reactor Netty and Tomcat. Accepting new requests during the grace period is ruled out because existing requests are allowed to complete but no new requests are permitted. Only Tomcat refusing new requests is ruled out because Jetty, Reactor Netty and Tomcat all stop accepting new requests at the network layer. An always-graceful IDE shutdown is ruled out because shutdown in an IDE may be immediate if it does not send a proper `SIGTERM` signal.",
+  "citation": "spring-boot-web-graceful-shutdown#page-title; spring-boot-web-graceful-shutdown#web.graceful-shutdown.rejecting-requests-during-the-grace-period",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m10-l05-q06",
+  "fact": "m10-l05-f58",
+  "stem": "A Kafka consumer with auto-commit enabled is closed with `close()` during application shutdown. Which statement about what `close()` does, according to the Kafka Javadoc, is correct?",
+  "key": "It commits the current offsets if possible within the default timeout",
+  "distractors": [
+   "A call to `wakeup()` from another thread interrupts it",
+   "It stops at the first failing shutdown step and skips the remaining ones",
+   "It waits up to 5 seconds by default for any needed cleanup"
+  ],
+  "explanation": "With auto-commit enabled, `close()` commits the current offsets if possible within the default timeout. Interrupting it with `wakeup()` is ruled out because `wakeup()` cannot be used to interrupt `close()`. Stopping at the first failing step is ruled out because the operation attempts all shutdown steps even if one of them fails. A 5-second wait is ruled out because it waits for up to the default timeout of 30 seconds for any needed cleanup.",
+  "citation": "kafka-javadoc-kafkaconsumer#close()",
+  "extract": "If auto-commit is enabled, this will commit the current offsets if possible within the default timeout.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l05-q07",
+  "fact": "m10-l05-f67",
+  "stem": "A Deployment with 10 desired Pods uses the `RollingUpdate` strategy with the default `maxUnavailable` and `maxSurge` values. During the update, what are the minimum number of available Pods and the maximum total number of Pods?",
+  "key": "At least 8 available and at most 13 in total",
+  "distractors": [
+   "At least 7 available and at most 13 in total",
+   "At least 8 available and at most 12 in total",
+   "At least 8 available and at most 10 in total"
+  ],
+  "explanation": "Both defaults are 25%, so `maxUnavailable` rounds down from 2.5 to 2 and `maxSurge` rounds up from 2.5 to 3, which gives at least 8 available and at most 13 in total. Seven available Pods is ruled out because the absolute number for `maxUnavailable` is calculated from the percentage by rounding down. A total of 12 is ruled out because the absolute number for `maxSurge` is calculated from the percentage by rounding up. A total of 10 is ruled out because the default value of `maxSurge` is 25%, not 0.",
+  "citation": "k8s-deployment#max-unavailable; k8s-deployment#max-surge",
+  "extract": "The absolute number is calculated from percentage by rounding down.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l05-q08",
+  "fact": "m10-l05-f77",
+  "stem": "A team protects a replicated application with a `PodDisruptionBudget` (PDB). Which statement about what a PDB does and does not cover, according to the Kubernetes documentation, is correct?",
+  "key": "Involuntary disruptions cannot be prevented by it, but they count against the budget",
+  "distractors": [
+   "It stops a Deployment's rolling update from replacing more Pods than the budget allows",
+   "It prevents involuntary disruptions such as a node crash from taking Pods down",
+   "`kubectl drain` deletes the Pods directly and so bypasses the budget"
+  ],
+  "explanation": "Involuntary disruptions cannot be prevented by PDBs, but they do count against the budget. Limiting a rolling update is ruled out because during rolling upgrades PDBs place no limit on workload resources such as Deployment and `StatefulSet`. Blocking a node crash is ruled out because a PDB limits Pods that are down from voluntary disruptions. A direct deletion by `kubectl drain` is ruled out because the tool tries to evict all the Pods on the Node, which goes through the Eviction API.",
+  "citation": "k8s-disruptions#pod-disruption-budgets",
+  "extract": "Involuntary disruptions cannot be prevented by PDBs; however they do count against the budget.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l05-q09",
+  "fact": "m10-l05-f86",
+  "stem": "A platform team compares release techniques on Kubernetes. Which statement about blue-green deployment, canary deployment, progressive delivery and Deployment rollbacks is correct?",
+  "key": "In a blue-green deployment only the old version receives production traffic while both versions run",
+  "distractors": [
+   "In a canary deployment the new version receives all traffic as soon as it is deployed",
+   "Progressive delivery releases to all users at once and analyzes metrics afterwards",
+   "A Deployment cannot be rolled back once its update completes because the history is discarded"
+  ],
+  "explanation": "In a blue-green deployment both versions are deployed at the same time and only the old version receives production traffic. Full traffic to a canary is ruled out because a canary exposes a subset of users to the new version while the rest of the traffic goes to the old one. A release to all users at once is ruled out because progressive delivery limits the exposure of the new version to a subset of users and increases it progressively. A discarded history is ruled out because by default all of the Deployment's rollout history is kept so you can roll back at any time.",
+  "citation": "argo-rollouts-concepts#blue-green; argo-rollouts-concepts#canary; argo-rollouts-concepts#progressive-delivery; k8s-deployment#rolling-back-a-deployment",
+  "extract": "has both the new and old version of the application deployed at the same time. During this time, only the old version of the application will receive production traffic.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l05-q10",
+  "fact": "m10-l05-f100",
+  "stem": "According to the OpenGitOps principles, which statement about how a GitOps-managed system reaches and keeps its desired state is correct?",
+  "key": "Software agents continuously observe the actual state and attempt to apply the desired state",
+  "distractors": [
+   "The desired state is kept in a mutable store so that operators can edit it in place",
+   "A CI pipeline pushes the desired state into the system whenever a commit is merged",
+   "The desired state is expressed as imperative scripts that the agents run in order"
+  ],
+  "explanation": "Software agents continuously observe actual system state and attempt to apply the desired state. A mutable store is ruled out because desired state is stored in a way that enforces immutability, versioning and a complete version history. A pipeline that pushes the state is ruled out because software agents automatically pull the desired state declarations from the source. Imperative scripts are ruled out because the desired state must be expressed declaratively.",
+  "citation": "opengitops-principles#continuously-reconciled",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m10-l05-q11",
+  "fact": "m10-l05-f103",
+  "stem": "In Argo CD terminology, what does the sync status of an application tell you about it?",
+  "key": "Whether the live state matches the target state",
+  "distractors": [
+   "Whether the last sync operation succeeded",
+   "Whether the application is running correctly and can serve requests",
+   "What is different between the latest code in Git and the live state"
+  ],
+  "explanation": "The sync status tells whether or not the live state matches the target state. Success of the last sync is ruled out because the sync operation status is whether or not a sync succeeded. Running correctly and serving requests is ruled out because that is the health of the application. The difference between Git and the live state is ruled out because a refresh compares the latest code in Git with the live state and figures out what is different.",
+  "citation": "argocd-core-concepts#core-concepts",
+  "extract": "Sync status Whether or not the live state matches the target state.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l05-q12",
+  "fact": "m10-l05-f108",
+  "stem": "According to DORA's capabilities guidance, which statement about trunk-based development and continuous integration is correct?",
+  "key": "Developers merge their work in small batches into trunk at least once a day",
+  "distractors": [
+   "Branches in trunk-based development typically take days or even weeks of work",
+   "Teams perform better when they schedule code freezes to stabilize the release",
+   "Continuous integration means feature branches plus a nightly build of each branch"
+  ],
+  "explanation": "In trunk-based development each developer divides their work into small batches and merges it into trunk at least once a day. Branches that take days or weeks are ruled out because branches in trunk-based development typically last no more than a few hours. Scheduled code freezes are ruled out because DORA data points to having no code freezes and no integration phases. Feature branches with a nightly build are ruled out because continuous integration is trunk-based development plus a suite of fast automated tests after each commit to trunk.",
+  "citation": "dora-capabilities-trunk#searchLinkMobile; dora-capabilities-trunk#how-to-implement-trunk-based-development",
+  "extract": "The second pattern is known as trunk-based development, where each developer divides their own work into small batches and merges that work into trunk at least once (and potentially several times) a day.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l05-q13",
+  "fact": "m10-l05-f131",
+  "stem": "A team runs database migrations with Flyway or Liquibase as part of every deployment. Which statement about how these tools apply changes, according to their documentation, is correct?",
+  "key": "Flyway wraps each migration script in a single transaction by default",
+  "distractors": [
+   "Flyway reruns every migration on each start so the schema always matches the scripts",
+   "Flyway keeps its record of applied migrations only in the scripts folder, not in the database",
+   "Liquibase reruns a changeset on every update unless told otherwise"
+  ],
+  "explanation": "By default Flyway wraps the execution of each migration script in a single transaction and applies them in order. Rerunning every migration is ruled out because Migrate compares the available migrations with those applied to the database and migrates only to close the gap. A record kept only in the scripts folder is ruled out because Flyway adds a schema history table to your schema. Rerunning a changeset on every update is ruled out because Liquibase does not re-run a changeset unless `runAlways` or `runOnChange` is specified.",
+  "citation": "flyway-migrations#Migrations-Transactionhandling",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m10-l05-q14",
+  "fact": "m10-l05-f139",
+  "stem": "According to DORA's software delivery performance metrics, which statement about throughput and instability is correct?",
+  "key": "Throughput is measured with change lead time, deployment frequency and failed deployment recovery time",
+  "distractors": [
+   "DORA currently defines four metrics, the original four keys",
+   "Instability is measured with change lead time and deployment frequency",
+   "Change fail rate is the ratio of deployments that are unplanned because of a production incident"
+  ],
+  "explanation": "DORA uses three factors to measure throughput: change lead time, deployment frequency and failed deployment recovery time. Four current metrics is ruled out because the metrics shifted from the original four keys to the current five-metric model. Lead time and deployment frequency as instability factors is ruled out because DORA measures instability with change fail rate and deployment rework rate. The unplanned-incident ratio is ruled out as the change fail rate because that definition belongs to the deployment rework rate, while change fail rate is the ratio of deployments that require immediate intervention.",
+  "citation": "dora-metrics#throughput; dora-metrics#instability; dora-metrics#by-nathen-harvey",
+  "extract": "DORA uses three factors to measure software delivery throughput:",
+  "snippet": null
+ }
+]

@@ -1,0 +1,252 @@
+m09-case-c-q01:
+  key:
+    anchor: kafka-design#message-delivery-semantics
+    sentence: It can read the messages, then save its position in the log, and finally process the messages. In this case there is a possibility that the consumer process crashes after saving its position but before saving the output of its message processing. In this case the process that took over processing would start at the saved position even though a few messages prior to that position had not been processed. This corresponds to “at-most-once” semantics as in the case of a consumer failure messages may not be processed.
+  wrong:
+  - option: At-least-once, because every message is processed before it is lost
+    anchor: kafka-design#message-delivery-semantics
+    sentence: It can read the messages, process the messages, and finally save its position. In this case there is a possibility that the consumer process crashes after processing messages but before saving its position. In this case when the new process takes over the first few messages it receives will already have been processed. This corresponds to the “at-least-once” semantics in the case of consumer failure.
+  - option: Exactly-once, because the sends are covered by Kafka transactions
+    anchor: kafka-design#message-delivery-semantics
+    sentence: Exactly-once delivery for other destination systems generally requires cooperation with such systems
+  - option: At-least-once, because Kafka guarantees it by default
+    anchor: kafka-design#message-delivery-semantics
+    sentence: Kafka guarantees at-least-once delivery by default, and allows the user to implement at-most-once delivery by disabling retries on the producer and committing offsets in the consumer prior to processing a batch of messages.
+m09-case-c-q02:
+  key:
+    anchor: kafka-design#message-delivery-semantics
+    sentence: It can read the messages, process the messages, and finally save its position. In this case there is a possibility that the consumer process crashes after processing messages but before saving its position. In this case when the new process takes over the first few messages it receives will already have been processed. This corresponds to the “at-least-once” semantics in the case of consumer failure.
+  wrong:
+  - option: At-most-once, because the position is saved after the work
+    anchor: kafka-design#message-delivery-semantics
+    sentence: It can read the messages, then save its position in the log, and finally process the messages. In this case there is a possibility that the consumer process crashes after saving its position but before saving the output of its message processing. In this case the process that took over processing would start at the saved position even though a few messages prior to that position had not been processed. This corresponds to “at-most-once” semantics as in the case of a consumer failure messages may not be processed.
+  - option: Exactly-once, because Kafka makes every consumer idempotent
+    anchor: kafka-design#message-delivery-semantics
+    sentence: Exactly-once delivery for other destination systems generally requires cooperation with such systems
+  - option: At-most-once, because producer retries are off by default
+    anchor: kafka-design#message-delivery-semantics
+    sentence: Kafka guarantees at-least-once delivery by default, and allows the user to implement at-most-once delivery by disabling retries on the producer and committing offsets in the consumer prior to processing a batch of messages.
+m09-case-c-q03:
+  key:
+    anchor: rabbitmq-dlx#overview
+    sentence: If an entire queue expires, the messages in the queue are not dead-lettered.
+  wrong:
+  - option: A consumer rejects a message with `basic.nack` and `requeue` set to false
+    anchor: rabbitmq-dlx#overview
+    sentence: The message is negatively acknowledged by an AMQP 1.0 receiver using the rejected outcome or by an AMQP 0.9.1 consumer using basic.reject or basic.nack with requeue parameter set to false, or
+  - option: A message outlives its per-message TTL
+    anchor: rabbitmq-dlx#overview
+    sentence: The message expires due to per-message TTL, or
+  - option: The queue drops a message because it exceeded its length limit
+    anchor: rabbitmq-dlx#overview
+    sentence: The message is dropped because its queue exceeded a length limit, or
+m09-case-c-q04:
+  key:
+    anchor: rabbitmq-dlx#overview
+    sentence: The message is returned more times to a quorum queue than the delivery-limit.
+  wrong:
+  - option: It is dropped silently without any dead-lettering
+    anchor: rabbitmq-dlx#overview
+    sentence: The message is returned more times to a quorum queue than the delivery-limit.
+    exclusive: true
+  - option: It is requeued again without limit
+    anchor: rabbitmq-dlx#overview
+    sentence: The message is returned more times to a quorum queue than the delivery-limit.
+    exclusive: true
+  - option: It stays in the queue until the whole queue expires
+    anchor: rabbitmq-dlx#overview
+    sentence: The message is returned more times to a quorum queue than the delivery-limit.
+    exclusive: true
+m09-case-c-q05:
+  key:
+    anchor: spring-kafka-retrytopic#page-title
+    sentence: Since 2.7 Spring for Apache Kafka offers support for that via the @RetryableTopic annotation and RetryTopicConfiguration class to simplify that bootstrapping.
+  wrong:
+  - option: '3.2'
+    anchor: spring-kafka-retrytopic#page-title
+    sentence: Since 2.7 Spring for Apache Kafka offers support for that via the @RetryableTopic annotation and RetryTopicConfiguration class to simplify that bootstrapping.
+    exclusive: true
+  - option: '2.2'
+    anchor: spring-kafka-retrytopic#page-title
+    sentence: Since 2.7 Spring for Apache Kafka offers support for that via the @RetryableTopic annotation and RetryTopicConfiguration class to simplify that bootstrapping.
+    exclusive: true
+  - option: '1.3'
+    anchor: spring-kafka-retrytopic#page-title
+    sentence: Since 2.7 Spring for Apache Kafka offers support for that via the @RetryableTopic annotation and RetryTopicConfiguration class to simplify that bootstrapping.
+    exclusive: true
+m09-case-c-q06:
+  key:
+    anchor: spring-kafka-retrytopic#page-title
+    sentence: Since 3.2, Spring for Apache Kafka supports non-blocking retries with @KafkaListener on a Class.
+  wrong:
+  - option: They work with batch listeners
+    anchor: spring-kafka-retrytopic#page-title
+    sentence: Non-blocking retries are not supported with Batch Listeners.
+  - option: They combine with container transactions
+    anchor: spring-kafka-retrytopic#page-title
+    sentence: Non-Blocking Retries cannot combine with Container Transactions.
+  - option: They need no extra topics or listeners
+    anchor: spring-kafka-retrytopic#page-title
+    sentence: Achieving non-blocking retry / dlt functionality with Kafka usually requires setting up extra topics and creating and configuring the corresponding listeners.
+m09-case-c-q07:
+  key:
+    anchor: kafka-producer-configs#retry.backoff.max.ms
+    sentence: 'Default: 1000 (1 second)'
+  wrong:
+  - option: 100 milliseconds
+    anchor: kafka-producer-configs#retry.backoff.max.ms
+    sentence: 'Default: 1000 (1 second)'
+    exclusive: true
+  - option: 500 milliseconds
+    anchor: kafka-producer-configs#retry.backoff.max.ms
+    sentence: 'Default: 1000 (1 second)'
+    exclusive: true
+  - option: 30000 milliseconds
+    anchor: kafka-producer-configs#retry.backoff.max.ms
+    sentence: 'Default: 1000 (1 second)'
+    exclusive: true
+m09-case-c-q08:
+  key:
+    anchor: kafka-producer-configs#retry.backoff.max.ms
+    sentence: To prevent all clients from being synchronized upon retry, a randomized jitter with a factor of 0.2 will be applied to the backoff, resulting in the backoff falling within a range between 20% below and 20% above the computed value.
+  wrong:
+  - option: Between 10,000 ms and 12,000 ms
+    anchor: kafka-producer-configs#retry.backoff.max.ms
+    sentence: To prevent all clients from being synchronized upon retry, a randomized jitter with a factor of 0.2 will be applied to the backoff, resulting in the backoff falling within a range between 20% below and 20% above the computed value.
+    exclusive: true
+  - option: Between 9,800 ms and 10,200 ms
+    anchor: kafka-producer-configs#retry.backoff.max.ms
+    sentence: To prevent all clients from being synchronized upon retry, a randomized jitter with a factor of 0.2 will be applied to the backoff, resulting in the backoff falling within a range between 20% below and 20% above the computed value.
+    exclusive: true
+  - option: Between 5,000 ms and 15,000 ms
+    anchor: kafka-producer-configs#retry.backoff.max.ms
+    sentence: To prevent all clients from being synchronized upon retry, a randomized jitter with a factor of 0.2 will be applied to the backoff, resulting in the backoff falling within a range between 20% below and 20% above the computed value.
+    exclusive: true
+m09-case-c-q09:
+  key:
+    anchor: resilience4j-retry#create-and-configure-retry
+    sentence: maxAttempts 3 The maximum number of attempts (including the initial call as the first attempt)
+  wrong:
+  - option: 4, because 3 retries follow the initial call
+    anchor: resilience4j-retry#create-and-configure-retry
+    sentence: maxAttempts 3 The maximum number of attempts (including the initial call as the first attempt)
+    exclusive: true
+  - option: 2, because the initial call is not retried
+    anchor: resilience4j-retry#create-and-configure-retry
+    sentence: maxAttempts 3 The maximum number of attempts (including the initial call as the first attempt)
+    exclusive: true
+  - option: 1, because retries must be enabled explicitly
+    anchor: resilience4j-retry#create-and-configure-retry
+    sentence: maxAttempts 3 The maximum number of attempts (including the initial call as the first attempt)
+    exclusive: true
+m09-case-c-q10:
+  key:
+    anchor: resilience4j-retry#create-and-configure-retry
+    sentence: By default the wait duration remains constant.
+  wrong:
+  - option: It doubles after each failed attempt
+    anchor: resilience4j-retry#create-and-configure-retry
+    sentence: By default the wait duration remains constant.
+    exclusive: true
+  - option: It grows with randomized jitter on every attempt
+    anchor: resilience4j-retry#create-and-configure-retry
+    sentence: By default the wait duration remains constant.
+    exclusive: true
+  - option: It shrinks after each failed attempt
+    anchor: resilience4j-retry#create-and-configure-retry
+    sentence: By default the wait duration remains constant.
+    exclusive: true
+m09-case-c-q11:
+  key:
+    anchor: ietf-httpapi-idempotency-key#content
+    sentence: If the Idempotency-Key request header is missing for a documented idempotent operation requiring this header, the resource SHOULD reply with an HTTP 400 status code
+  wrong:
+  - option: '`409`'
+    anchor: ietf-httpapi-idempotency-key#content
+    sentence: If the request is retried, while the original request is still being processed, the resource SHOULD reply with an HTTP 409 status code
+  - option: '`422`'
+    anchor: ietf-httpapi-idempotency-key#content
+    sentence: If there is an attempt to reuse an idempotency key with a different request payload, the resource SHOULD reply with an HTTP 422 status code
+  - option: '`404`'
+    anchor: ietf-httpapi-idempotency-key#content
+    sentence: If the Idempotency-Key request header is missing for a documented idempotent operation requiring this header, the resource SHOULD reply with an HTTP 400 status code
+    exclusive: true
+m09-case-c-q12:
+  key:
+    anchor: kafka-design#message-delivery-semantics
+    sentence: In the default “read_uncommitted” isolation level, all messages are visible to consumers even if they were part of an aborted transaction, but in “read_committed” isolation level, the consumer will only return messages from transactions which were committed (and any messages which were not part of a transaction).
+  wrong:
+  - option: Only messages from committed transactions
+    anchor: kafka-design#message-delivery-semantics
+    sentence: In the default “read_uncommitted” isolation level, all messages are visible to consumers even if they were part of an aborted transaction, but in “read_committed” isolation level, the consumer will only return messages from transactions which were committed (and any messages which were not part of a transaction).
+    exclusive: true
+  - option: Only messages of the most recent transaction
+    anchor: kafka-design#message-delivery-semantics
+    sentence: In the default “read_uncommitted” isolation level, all messages are visible to consumers even if they were part of an aborted transaction, but in “read_committed” isolation level, the consumer will only return messages from transactions which were committed (and any messages which were not part of a transaction).
+    exclusive: true
+  - option: No messages until the transaction coordinator releases them
+    anchor: kafka-design#message-delivery-semantics
+    sentence: In the default “read_uncommitted” isolation level, all messages are visible to consumers even if they were part of an aborted transaction, but in “read_committed” isolation level, the consumer will only return messages from transactions which were committed (and any messages which were not part of a transaction).
+    exclusive: true
+m09-case-c-q13:
+  key:
+    anchor: kafka-design#message-delivery-semantics
+    sentence: To achieve this, the broker assigns each producer an ID and deduplicates messages using a sequence number that is sent by the producer along with every message.
+  wrong:
+  - option: It writes the messages atomically to several partitions in one transaction
+    anchor: kafka-design#message-delivery-semantics
+    sentence: Also beginning with 0.11.0.0, the producer supports the ability to send messages atomically to multiple topic partitions using transactions, so that either all messages are successfully written or none of them are.
+  - option: It waits until every in-sync replica has applied the message
+    anchor: kafka-design#message-delivery-semantics
+    sentence: A message is considered committed only when all replicas in the in-sync replicas (ISR) for that partition have applied it to their log.
+  - option: It reads an `Idempotency-Key` HTTP header sent with each record
+    anchor: ietf-httpapi-idempotency-key#content
+    sentence: The HTTP Idempotency-Key request header field can be used to make non-idempotent HTTP methods such as POST or PATCH fault-tolerant.
+m09-case-c-q14:
+  key:
+    anchor: kafka-design#message-delivery-semantics
+    sentence: A message is considered committed only when all replicas in the in-sync replicas (ISR) for that partition have applied it to their log.
+  wrong:
+  - option: As soon as the leader appends it to its own log
+    anchor: kafka-design#message-delivery-semantics
+    sentence: A message is considered committed only when all replicas in the in-sync replicas (ISR) for that partition have applied it to their log.
+    exclusive: true
+  - option: When a majority of all replicas have acknowledged it
+    anchor: kafka-design#message-delivery-semantics
+    sentence: A message is considered committed only when all replicas in the in-sync replicas (ISR) for that partition have applied it to their log.
+    exclusive: true
+  - option: When a consumer has read it for the first time
+    anchor: kafka-design#message-delivery-semantics
+    sentence: A message is considered committed only when all replicas in the in-sync replicas (ISR) for that partition have applied it to their log.
+    exclusive: true
+m09-case-c-q15:
+  key:
+    anchor: spring-kafka-error-handling#exp-backoff
+    sentence: Since version 2.7.3, Spring for Apache Kafka provides the ExponentialBackOffWithMaxRetries which is a subclass that receives the maxRetries property and automatically calculates the maxElapsedTime, which is a little more convenient.
+  wrong:
+  - option: 2.2.0
+    anchor: spring-kafka-error-handling#exp-backoff
+    sentence: Since version 2.7.3, Spring for Apache Kafka provides the ExponentialBackOffWithMaxRetries which is a subclass that receives the maxRetries property and automatically calculates the maxElapsedTime, which is a little more convenient.
+    exclusive: true
+  - option: 3.0.0
+    anchor: spring-kafka-error-handling#exp-backoff
+    sentence: Since version 2.7.3, Spring for Apache Kafka provides the ExponentialBackOffWithMaxRetries which is a subclass that receives the maxRetries property and automatically calculates the maxElapsedTime, which is a little more convenient.
+    exclusive: true
+  - option: 2.8.0
+    anchor: spring-kafka-error-handling#exp-backoff
+    sentence: Since version 2.7.3, Spring for Apache Kafka provides the ExponentialBackOffWithMaxRetries which is a subclass that receives the maxRetries property and automatically calculates the maxElapsedTime, which is a little more convenient.
+    exclusive: true
+m09-case-c-q16:
+  key:
+    anchor: kafka-design#message-delivery-semantics
+    sentence: Kafka supports exactly-once delivery in Kafka Streams
+  wrong:
+  - option: In any consumer that calls an external provider
+    anchor: kafka-design#message-delivery-semantics
+    sentence: Exactly-once delivery for other destination systems generally requires cooperation with such systems
+  - option: In a plain consumer that saves its position before processing
+    anchor: kafka-design#message-delivery-semantics
+    sentence: It can read the messages, then save its position in the log, and finally process the messages. In this case there is a possibility that the consumer process crashes after saving its position but before saving the output of its message processing. In this case the process that took over processing would start at the saved position even though a few messages prior to that position had not been processed. This corresponds to “at-most-once” semantics as in the case of a consumer failure messages may not be processed.
+  - option: In a plain consumer that saves its position after processing
+    anchor: kafka-design#message-delivery-semantics
+    sentence: It can read the messages, process the messages, and finally save its position. In this case there is a possibility that the consumer process crashes after processing messages but before saving its position. In this case when the new process takes over the first few messages it receives will already have been processed. This corresponds to the “at-least-once” semantics in the case of consumer failure.

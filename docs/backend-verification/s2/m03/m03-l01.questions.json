@@ -1,0 +1,332 @@
+[
+ {
+  "id": "m03-l01-q01",
+  "fact": "m03-l01-f01",
+  "stem": "In the Java Virtual Machine Specification, which run-time data area is private to each thread, created at the same time as the thread, and stores frames?",
+  "key": "The Java Virtual Machine stack",
+  "distractors": [
+   "The heap",
+   "The method area",
+   "The run-time constant pool"
+  ],
+  "explanation": "The Java Virtual Machine stack is private to each thread and stores frames. The heap is not private, because it is shared among all Java Virtual Machine threads. The method area is not private either, because the specification makes it shared among all threads. The run-time constant pool belongs to a class or interface rather than to a thread, because it represents the `constant_pool` table of a class file.",
+  "citation": "jvms-2#jvms-2.5.2",
+  "extract": "Each Java Virtual Machine thread has a private Java Virtual Machine stack, created at the same time as the thread.",
+  "snippet": null
+ },
+ {
+  "id": "m03-l01-q02",
+  "fact": "m03-l01-f14",
+  "stem": "In Java 25, a JVM runs without the `-XX:MaxMetaspaceSize` option. What limit applies by default to the native memory that can be allocated for class metadata?",
+  "key": "No limit",
+  "distractors": [
+   "256 MB",
+   "25 percent of the available memory",
+   "The maximum size of the Java heap"
+  ],
+  "explanation": "By default the size of Metaspace isn't limited, so no limit applies. A limit of 256 MB is only the example value shown for the option, and the default size isn't limited. A limit of 25 percent of the available memory is wrong, because the default size isn't limited. A limit equal to the maximum size of the Java heap is wrong for the same reason, because the default size isn't limited.",
+  "citation": "jdk-tool-java#advanced-garbage-collection-options-for-java",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m03-l01-q03",
+  "fact": "m03-l01-f34",
+  "stem": "In Java 25, no heap size option is set and a container limits the memory. By default, what percentage of the maximum available memory does `-XX:MaxRAMPercentage` allow for the Java heap?",
+  "key": "25 percent",
+  "distractors": [
+   "50 percent",
+   "75 percent",
+   "10 percent"
+  ],
+  "explanation": "The default value of `-XX:MaxRAMPercentage` is 25 percent. A default of 50 percent is the value of `-XX:MinRAMPercentage`, not of `-XX:MaxRAMPercentage`, which defaults to 25 percent. A default of 75 percent is only the example value in the documentation, because the default is 25 percent. A default of 10 percent is wrong, because the documented default is 25 percent.",
+  "citation": "jdk-tool-java#advanced-garbage-collection-options-for-java",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m03-l01-q04",
+  "fact": "m03-l01-f59",
+  "stem": "For the G1 collector in Java 25, what is the default value of the soft pause-time goal that `-XX:MaxGCPauseMillis` sets, when the option is not given?",
+  "key": "200 milliseconds",
+  "distractors": [
+   "50 milliseconds",
+   "500 milliseconds",
+   "1 second"
+  ],
+  "explanation": "For G1 the default maximum pause time target is 200 milliseconds. A default of 50 milliseconds is wrong, because the documented G1 default is 200 milliseconds. The 500 milliseconds value is only the example in the documentation, because the G1 default is 200 milliseconds. A default of 1 second is wrong, because the G1 default target is 200 milliseconds.",
+  "citation": "jdk-tool-java#advanced-garbage-collection-options-for-java",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m03-l01-q05",
+  "fact": "m03-l01-f144",
+  "stem": "Classes archived for application class-data sharing are stored in an optimized format. How does their size compare with the same classes stored in JAR files or in the JDK runtime image?",
+  "key": "About 2 to 5 times larger",
+  "distractors": [
+   "About 2 to 5 times smaller",
+   "About the same size",
+   "About 10 to 20 times larger"
+  ],
+  "explanation": "Classes in the CDS archive are about 2 to 5 times larger than in JAR files or the JDK runtime image. Being 2 to 5 times smaller is wrong, because the documentation gives the archived format as larger. Being about the same size is wrong, because the archived format is larger by a factor of 2 to 5. Being 10 to 20 times larger overstates the documented factor of 2 to 5.",
+  "citation": "jdk-tool-java#application-class-data-sharing",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m03-l01-q06",
+  "fact": "m03-l01-f53",
+  "stem": "In the G1 garbage collection cycle, which phase consists of multiple young collections that also evacuate live objects of sets of old generation regions, called Mixed collections?",
+  "key": "The Space-Reclamation phase",
+  "distractors": [
+   "The Young-Only phase",
+   "The Concurrent Start collection",
+   "The Remark pause"
+  ],
+  "explanation": "The Space-Reclamation phase evacuates sets of old generation regions in its Mixed collections. The Young-Only phase is wrong, because its collections fill the available memory with objects in the old generation gradually. The Concurrent Start collection is wrong, because it starts the marking process in addition to a Normal young collection. The Remark pause is wrong, because it finalizes the marking and performs reference processing and class unloading.",
+  "citation": "jdk-gctuning-g1#JSGCT-GUID-F1BE86FA-3EDC-4D4F-BDB4-4B044AD83180",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m03-l01-q07",
+  "fact": "m03-l01-f39",
+  "stem": "According to the JDK garbage collection tuning guide for Java 25, how does the G1 collector organize the Java heap?",
+  "key": "As a set of equally sized heap regions",
+  "distractors": [
+   "As one contiguous young space followed by one contiguous old space",
+   "As regions whose size is chosen per object by each allocation request",
+   "As fixed young and old areas, with no region as the unit of reclamation"
+  ],
+  "explanation": "G1 partitions the heap into a set of equally sized heap regions. A contiguous young space followed by a contiguous old space is wrong, because G1 typically lays its regions out in a noncontiguous pattern in memory. Regions sized per allocation request are wrong, because the regions are equally sized. Fixed areas with no region as the unit of reclamation are wrong, because a region is the unit of memory allocation and memory reclamation.",
+  "citation": "jdk-gctuning-g1#JSGCT-GUID-15921907-B297-43A4-8C48-DC88035BC7CF",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m03-l01-q08",
+  "fact": "m03-l01-f83",
+  "stem": "In Java 25, which statement about generations in ZGC is correct, given JEP 439, JEP 474 and the removal of the `ZGenerational` option from the JDK?",
+  "key": "ZGC is a generational garbage collector",
+  "distractors": [
+   "ZGC is non-generational, and generational mode must be enabled with `-XX:+ZGenerational`",
+   "ZGC is generational by default, and `-XX:-ZGenerational` still selects the non-generational mode",
+   "ZGC is generational, but young and old objects share a single generation"
+  ],
+  "explanation": "As of JDK 24 ZGC is a generational garbage collector. The claim that ZGC is non-generational unless `-XX:+ZGenerational` is set is wrong, because ZGC is generational as of JDK 24. The claim that `-XX:-ZGenerational` still selects the non-generational mode is wrong, because the `ZGenerational` option has been removed. The claim of a single shared generation is wrong, because JEP 439 maintains separate generations for young and old objects.",
+  "citation": "jdk-gctuning-zgc#JSGCT-GUID-8637B158-4F35-4E2D-8E7B-9DAEF15BB3CD",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m03-l01-q09",
+  "fact": "m03-l01-f79",
+  "stem": "Which statement about the Z Garbage Collector in the JDK garbage collection tuning guide for Java 25 is correct?",
+  "key": "Its pause times are independent of the heap size that is being used",
+  "distractors": [
+   "Its pause times grow in proportion to the heap size, so it suits only small heaps",
+   "It supports heap sizes of up to 1TB",
+   "It does its expensive work in long stop-the-world pauses"
+  ],
+  "explanation": "ZGC pause times are independent of the heap size that is being used. Pause times growing in proportion to the heap size is wrong, because they are independent of it. A limit of 1TB is wrong, because ZGC works well with heap sizes up to 16TB. Long stop-the-world pauses are wrong, because ZGC performs all expensive work concurrently, without stopping application threads for more than a millisecond.",
+  "citation": "jdk-gctuning-zgc#JSGCT-GUID-8637B158-4F35-4E2D-8E7B-9DAEF15BB3CD",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m03-l01-q10",
+  "fact": "m03-l01-f60",
+  "stem": "According to the G1 comparison in the JDK tuning guide for Java 25, how does G1 differ from Parallel GC when it reclaims space in the old generation?",
+  "key": "G1 distributes the work incrementally across multiple much shorter collections",
+  "distractors": [
+   "G1 compacts the old generation only as a whole, while Parallel GC does it incrementally",
+   "G1 reclaims nothing in the old generation before a Full GC",
+   "G1 has lower overhead than the other collectors, so its throughput is always higher"
+  ],
+  "explanation": "G1 incrementally distributes the old generation work across multiple much shorter collections. The reversed claim is wrong, because it is Parallel GC that can compact and reclaim old generation space only as a whole. Reclaiming nothing before a Full GC is wrong, because G1 performs part of the old generation Space-Reclamation concurrently. Always higher throughput is wrong, because G1 may exhibit higher overhead than the other collectors, affecting throughput.",
+  "citation": "jdk-gctuning-g1#JSGCT-GUID-98E80C82-24D8-41D4-BC39-B2583F04F1FF",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m03-l01-q11",
+  "fact": "m03-l01-f101",
+  "stem": "A service throws `java.lang.OutOfMemoryError` with the detail message `Java heap space`. According to the JDK troubleshooting guide for Java 25, what does this detail message indicate?",
+  "key": "An object could not be allocated in the Java heap",
+  "distractors": [
+   "The application certainly has a memory leak, whatever the heap size",
+   "The Metaspace for class metadata has been exhausted",
+   "An array larger than the VM implementation limit was requested"
+  ],
+  "explanation": "The detail message `Java heap space` indicates that an object could not be allocated in the Java heap. A certain memory leak is wrong, because this error does not necessarily imply a leak. An exhausted Metaspace is wrong, because that case throws the detail message `Metaspace`. An oversized array request is wrong, because the detail message for it is `Requested array size exceeds VM limit`, which applies irrespective of how much heap is available.",
+  "citation": "jdk-troubleshoot-memleaks#JSTGD-GUID-19F6D28E-75A1-4480-9879-D0932B2F305B",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m03-l01-q12",
+  "fact": "m03-l01-f115",
+  "stem": "In Java 25, `jcmd <pid> GC.heap_dump` runs without the `-all` option. What does the command do before it writes the dump, according to the `jcmd` reference?",
+  "key": "It requests a full GC",
+  "distractors": [
+   "It dumps all objects, including unreachable objects",
+   "It writes the dump in JSON format",
+   "It writes the dump in gzipped format at the strongest compression"
+  ],
+  "explanation": "Without the `-all` option, `GC.heap_dump` requests a full GC. Dumping all objects, including unreachable ones, is wrong, because `-all` is false by default. A JSON dump is wrong, because the command generates a HPROF format dump of the Java heap. A gzipped dump at the strongest compression is wrong, because the dump is gzipped only if `-gz` is specified.",
+  "citation": "jdk-tool-jcmd#commands-for-jcmd",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m03-l01-q13",
+  "fact": "m03-l01-f119",
+  "stem": "In Java 25, which `jcmd` command provides statistics about the Java heap usage, with the total size and the instance count of each class type?",
+  "key": "`GC.class_histogram`",
+  "distractors": [
+   "`GC.heap_dump`",
+   "`Thread.print`",
+   "`GC.finalizer_info`"
+  ],
+  "explanation": "`GC.class_histogram` provides statistics about the Java heap usage. `GC.heap_dump` is wrong, because it generates a HPROF format dump of the heap. `Thread.print` is wrong, because it prints all threads with stack traces. `GC.finalizer_info` is wrong, because it provides information about the Java finalization queue.",
+  "citation": "jdk-tool-jcmd#commands-for-jcmd",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m03-l01-q14",
+  "fact": "m03-l01-f132",
+  "stem": "In a thread dump, which thread state describes a thread that is waiting indefinitely for another thread to perform a particular action?",
+  "key": "`WAITING`",
+  "distractors": [
+   "`BLOCKED`",
+   "`TIMED_WAITING`",
+   "`RUNNABLE`"
+  ],
+  "explanation": "`WAITING` is the state of a thread waiting indefinitely for another thread to perform a particular action. `BLOCKED` is wrong, because it describes a thread blocked and waiting for a monitor lock. `TIMED_WAITING` is wrong, because it describes a wait for up to a specified waiting time. `RUNNABLE` is wrong, because it describes a thread that is executing in the JVM.",
+  "citation": "jdk-troubleshoot-tools#JSTGD-GUID-0110914C-4E91-4983-9CDB-412BC6C36AEA",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m03-l01-q15",
+  "fact": "m03-l01-f138",
+  "stem": "A thread dump is used to find a deadlock between threads that hold `java.util.concurrent` locks. Which locks does the default deadlock detection of the JDK cover?",
+  "key": "Locks obtained with `synchronized` and locks from `java.util.concurrent`",
+  "distractors": [
+   "Only locks obtained with the `synchronized` keyword",
+   "Only `java.util.concurrent` locks, and only once `-XX:+PrintConcurrentLocks` is set",
+   "No locks, because a deadlock is never printed in a thread dump"
+  ],
+  "explanation": "The default detection works with `synchronized` locks and with `java.util.concurrent` locks. Covering only `synchronized` locks is wrong, because the detection also works with locks from `java.util.concurrent`. Needing `-XX:+PrintConcurrentLocks` is wrong, because that flag only makes the stack trace show a list of lock owners. Printing no deadlock is wrong, because a detected deadlock is printed along with the stack trace of the threads involved.",
+  "citation": "jdk-troubleshoot-hangs#JSTGD-GUID-5A88BA3D-D0FC-466F-B5B9-566ED0D62DF1",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m03-l01-q16",
+  "fact": "m03-l01-f153",
+  "stem": "In Java 25, which `-XX:AOTMode` value performs the Assembly phase that writes the AOT cache, and does not run the application itself?",
+  "key": "`create`",
+  "distractors": [
+   "`record`",
+   "`on`",
+   "`off`"
+  ],
+  "explanation": "`create` performs the Assembly phase and does not execute the application. `record` is wrong, because it executes the application in the training phase. `on` is wrong, because it executes the application in the Production phase. `off` is wrong, because no AOT cache is used and the other AOT command line options are ignored.",
+  "citation": "jdk-tool-java#ahead-of-time-cache",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m03-l01-q17",
+  "fact": "m03-l01-f159",
+  "stem": "A JVM in Java 25 cannot load the AOT cache because the JDK release differs. Which `-XX:AOTMode` value makes it print an error message and exit immediately?",
+  "key": "`on`",
+  "distractors": [
+   "`auto`",
+   "`off`",
+   "`record`"
+  ],
+  "explanation": "With `on` the JVM prints an error message and exits immediately when the cache fails to load. `auto` is wrong, because the JVM then continues execution without using the AOT cache. `off` is wrong, because no AOT cache is used at all and the other AOT options are ignored. `record` is wrong, because it executes the application in the training phase.",
+  "citation": "jdk-tool-java#ahead-of-time-cache",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m03-l01-q18",
+  "fact": "m03-l01-f149",
+  "stem": "A team moves a container image to arm64 hosts and keeps the same JDK release and the same application. What must it do with an existing AOT cache, according to the JDK documentation?",
+  "key": "Recreate it, because an AOT cache is specific to an OS and CPU architecture",
+  "distractors": [
+   "Keep it, because only the JDK release makes an AOT cache specific",
+   "Keep it, because the JVM rebuilds a stale cache automatically on the next run",
+   "Keep it, because only the application class path matters"
+  ],
+  "explanation": "An AOT cache is specific to the OS and CPU architecture, so a change to arm64 means the cache must be recreated. Keeping it because only the JDK release matters is wrong, because the cache is also specific to a particular OS and CPU architecture. Relying on an automatic rebuild is wrong, because if any of the combination changes you must recreate the AOT cache. Keeping it because only the class path matters is wrong, because the cache is specific to a particular JDK release as well.",
+  "citation": "jdk-tool-java#ahead-of-time-cache",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m03-l01-q19",
+  "fact": "m03-l01-f165",
+  "stem": "In Java 25, which single launcher option makes the JVM run a training run and then create the AOT cache, without separate record and create commands?",
+  "key": "`-XX:AOTCacheOutput=app.aot`",
+  "distractors": [
+   "`-XX:AOTCache=app.aot`",
+   "`-XX:AOTMode=create`",
+   "`-XX:AOTMode=on`"
+  ],
+  "explanation": "`-XX:AOTCacheOutput`, used alone, splits the launch into a training run and a cache creation. `-XX:AOTCache` is wrong, because it is how a production run that uses the AOT cache is started. `-XX:AOTMode=create` is wrong, because the application itself is not executed in the Assembly phase. `-XX:AOTMode=on` is wrong, because it executes the application in the Production phase.",
+  "citation": "jep-514#Description",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m03-l01-q20",
+  "fact": "m03-l01-f170",
+  "stem": "In Java 25, what is the net effect of the method profiles that training runs store in the AOT cache on JIT compilation during production runs?",
+  "key": "The JIT runs earlier and with more accuracy",
+  "distractors": [
+   "The JIT is no longer needed, because the cached profiles replace online profiling",
+   "Online profiling is switched off during production runs",
+   "Production runs start slower, because the profiles must be loaded first"
+  ],
+  "explanation": "The cached profiles make the JIT run earlier and with more accuracy. Dropping the JIT is wrong, because the JVM continues to profile and optimize the application as it runs. Switching off online profiling is wrong, because cached profiles do not prevent additional profiling during production runs. Slower start-up is wrong, because production runs are both faster to start and faster to achieve peak performance.",
+  "citation": "jep-515#Description",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m03-l01-q21",
+  "fact": "m03-l01-f173",
+  "stem": "Which restriction does Spring's ahead-of-time processing impose on an application, according to the Spring Framework 7 reference documentation?",
+  "key": "The beans defined in the application cannot change at runtime",
+  "distractors": [
+   "`@Profile` configuration can still be chosen freely when the application starts",
+   "Environment properties still decide at runtime whether a `@Conditional` bean exists",
+   "The classpath can still change at runtime, as long as the beans stay fixed"
+  ],
+  "explanation": "Spring AOT requires that the beans defined in the application cannot change at runtime. Choosing `@Profile` at startup is wrong, because profile-specific configuration needs to be chosen at build time. Deciding a `@Conditional` bean from environment properties at runtime is wrong, because such properties are only considered at build time. A classpath that changes at runtime is wrong, because the classpath is fixed and fully defined at build time.",
+  "citation": "spring-fw-aot#aot.introduction",
+  "extract": "The beans defined in your application cannot change at runtime, meaning:",
+  "snippet": null
+ },
+ {
+  "id": "m03-l01-q22",
+  "fact": "m03-l01-f182",
+  "stem": "In a GraalVM native image built from a Spring Boot application, what happens to code that static analysis cannot reach from the main entry point of the application?",
+  "key": "It is removed and is not part of the executable",
+  "distractors": [
+   "It is kept and loaded lazily the first time it is used",
+   "It is kept, and can still be added later through class loading",
+   "It is kept in the image but never initialized"
+  ],
+  "explanation": "Code that cannot be reached when the native image is created is removed and is not part of the executable. Lazy loading is wrong, because there is no lazy class loading in a native image. Adding it later through class loading is wrong, because no new elements can be added at run time. Keeping it uninitialized in the image is wrong, because only reachable elements are included in the final image.",
+  "citation": "spring-boot-native-intro#packaging.native-image.introducing-graalvm-native-images.key-differences-with-jvm-deployments",
+  "extract": null,
+  "snippet": null
+ }
+]

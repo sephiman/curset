@@ -74,7 +74,7 @@ def _verdict_mistakes(s: Quorum) -> list[str]:
 
 class QuorumGenerator(BackendGenerator[Quorum]):
     id: ClassVar[str] = "quorum-reads"
-    citation: ClassVar[Citation] = Citation("m09-l02", "paper-dynamo#p7")
+    citation: ClassVar[Citation] = Citation("m09-l02", "paper-dynamo#p7", confirmed="paper-dynamo#p7")
 
     def scenario(self, rng: random.Random, level: int) -> Quorum:
         n = rng.choice((3, 4, 5, 6, 7))

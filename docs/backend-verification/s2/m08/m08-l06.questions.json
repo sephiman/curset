@@ -1,0 +1,197 @@
+[
+ {
+  "id": "m08-l06-q01",
+  "fact": "m08-l06-f10",
+  "stem": "According to the Axon Framework documentation on snapshotting, how does Axon restore an event-sourced entity when a snapshot is available and can be used?",
+  "key": "It initializes the entity from the snapshot and applies the later events",
+  "distractors": [
+   "It replays every event from the first one and uses the snapshot only to verify the result",
+   "It deletes the events that precede the snapshot from the event store",
+   "It applies only the events that occurred before the snapshot's position"
+  ],
+  "explanation": "Axon initializes the entity from the snapshot and applies the later events, those that occurred after the snapshot's position. Replaying every event is wrong, because the entity is initialized from the usable snapshot. Deleting the earlier events is wrong, because the event log is the single source of truth and an immutable audit trail. Applying only earlier events is wrong, because the system restores the entity from the snapshot and applies only the events that occurred afterwards.",
+  "citation": "axon-snapshotting#_snapshot_lifecycle",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m08-l06-q02",
+  "fact": "m08-l06-f26",
+  "stem": "In Axon Framework, a Subscribing Processor reads from the `EventBus` and one of its event handlers throws an exception. What happens to the event publication?",
+  "key": "The failure propagates back to the publisher and fails the event publication",
+  "distractors": [
+   "The processor resumes from its last token after a restart and retries the event",
+   "The publication completes at once, because the handler runs on a separate thread",
+   "The publication is rolled back only for that handler, and the other handlers still receive the event"
+  ],
+  "explanation": "A failing handler propagates its failure back to the publisher, failing the event publication. Resuming from a last token is wrong, because with the `EventBus` as source the processor only receives current events. Completing at once on a separate thread is wrong, because the publishing thread is the same one that handles the event. A rollback for only that handler is wrong, because publication completes only after every subscribed handler has finished.",
+  "citation": "axon-event-processors-subscribing#cmdk-launch",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m08-l06-q03",
+  "fact": "m08-l06-f68",
+  "stem": "How does a streaming event processor in Axon perform a replay of events that its handlers already handled once?",
+  "key": "By adjusting the token position of that processor",
+  "distractors": [
+   "By rewriting the stored events in the event store with corrected payloads",
+   "By clearing the token store, so that the processor handles the stream from the start as a replay",
+   "By starting a Subscribing Processor on the `EventBus`, which re-delivers old events"
+  ],
+  "explanation": "A streaming processor replays events by adjusting its token position. Rewriting stored events is wrong, because the event log is an immutable audit trail. Clearing the token store is wrong, because the initial token makes the processor handle the stream as regular events, not as a replay. A Subscribing Processor on the `EventBus` is wrong, because replaying is not an option for any Subscribing Processor.",
+  "citation": "axon-event-processors-streaming#tracking_tokens",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m08-l06-q04",
+  "fact": "m08-l06-f57",
+  "stem": "How many segments does a `PooledStreamingEventProcessor` use by default, before `initialSegmentCount` is changed on its first start?",
+  "key": "Sixteen",
+  "distractors": [
+   "One",
+   "Four",
+   "Sixty-four"
+  ],
+  "explanation": "The default is sixteen segments. One, four and sixty-four are all excluded, because the documentation gives sixteen as the default number of segments.",
+  "citation": "axon-event-processors-streaming#parallel_processing",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m08-l06-q05",
+  "fact": "m08-l06-f49",
+  "stem": "In the token claim settings of an Axon streaming processor, what is the default value of `tokenClaimInterval`, the wait between attempts to claim a segment?",
+  "key": "5000 milliseconds",
+  "distractors": [
+   "500 milliseconds",
+   "30000 milliseconds",
+   "60000 milliseconds"
+  ],
+  "explanation": "`tokenClaimInterval` defaults to 5000 milliseconds. 500 milliseconds, 30000 milliseconds and 60000 milliseconds are all excluded, because the documentation states 5000 milliseconds as the default.",
+  "citation": "axon-event-processors-streaming#token_claim_config",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m08-l06-q06",
+  "fact": "m08-l06-f60",
+  "stem": "In Axon Framework, what does configuring the `FullConcurrencyPolicy` as the sequencing policy tell the event processor about the order of events?",
+  "key": "It may handle all events concurrently, because no event depends on another",
+  "distractors": [
+   "It must handle all events one after another, starting each when the previous one finishes",
+   "It must handle events of the same entity one after another, while different entities run concurrently",
+   "It must handle events that share a metadata value one after another"
+  ],
+  "explanation": "`FullConcurrencyPolicy` tells Axon the processor may handle all events concurrently. Handling events one after another describes `SequentialPolicy`, which processes all events sequentially. Same-entity ordering describes `SequentialPerAggregatePolicy`, which forces events of the same aggregate or entity to be handled sequentially. Ordering by metadata describes `MetadataSequencingPolicy`, which needs a `metaDataKey` to be provided.",
+  "citation": "axon-event-processors-streaming#sequencing_policies",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m08-l06-q07",
+  "fact": "m08-l06-f63",
+  "stem": "In an Axon streaming processor, an event handler keeps failing on one event. What does the default `PropagatingErrorHandler` do with that failure?",
+  "key": "It rethrows, so the segment retries the same event indefinitely",
+  "distractors": [
+   "It skips the event and advances the token so that the segment keeps moving",
+   "It stops the whole processor and halts every segment",
+   "It rolls back only the event and still commits the token update"
+  ],
+  "explanation": "The default `PropagatingErrorHandler` rethrows, so the segment retries the same event indefinitely. Skipping the event is wrong, because silently skipping could corrupt a read model, which is why the segment stalls instead. Halting every segment is wrong, because only that segment stops advancing while others continue. Committing the token anyway is wrong, because handler work and the token update share one transaction.",
+  "citation": "axon-event-processors-streaming#stalled_segments",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m08-l06-q08",
+  "fact": "m08-l06-f84",
+  "stem": "Where do Axon Framework 5 workflows source their state from, in contrast to the persistent `SagaStore` blob that Axon Framework 4 sagas used?",
+  "key": "From dedicated workflow events in the regular event store",
+  "distractors": [
+   "From a serialized instance kept in a `SagaStore`",
+   "From association values stored on each event handler",
+   "From persisted saga fields updated by handlers"
+  ],
+  "explanation": "Workflows source their state from dedicated workflow events in the regular event store. A serialized instance in a `SagaStore` is wrong, because such a running saga cannot be handed to a workflow. Association values on handlers are wrong, because the association value becomes the workflow's identifier. Persisted saga fields are wrong, because workflow state is the step history and workflow payload, with local control flow reconstructed during replay.",
+  "citation": "axon-migration-sagas#workflows",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m08-l06-q09",
+  "fact": "m08-l06-f73",
+  "stem": "Which statement about the `SimpleCommandBus`, the command bus that Axon Framework configures with the Spring Boot starter unless Axon Server is configured, is correct?",
+  "key": "It runs in a single JVM and cannot distribute commands across multiple instances",
+  "distractors": [
+   "It routes commands to other nodes through a `CommandBusConnector`",
+   "Spring Boot configures it only after Axon Server has been configured in the application",
+   "It is the bus that wraps a local segment and adds distribution"
+  ],
+  "explanation": "The `SimpleCommandBus` runs in a single JVM and cannot distribute commands across multiple instances. Routing through a `CommandBusConnector` is wrong, because the connector belongs to the `DistributedCommandBus`. Configuration only with Axon Server is wrong, because Spring Boot configures it unless Axon Server is configured. Wrapping a local segment is wrong, because the `DistributedCommandBus` is the one that takes in a local `CommandBus` called the `localSegment`.",
+  "citation": "axon-command-infrastructure#_simplecommandbus",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m08-l06-q10",
+  "fact": "m08-l06-f91",
+  "stem": "To honour an erasure request for personal data held in an event-sourced log, what does Axon Data Protection delete, and where is it stored?",
+  "key": "The key that encrypted the personal fields, stored outside the event stream",
+  "distractors": [
+   "The events that hold the personal data, removed from the event store",
+   "The encrypted field values, rewritten in place inside each stored event",
+   "The key that encrypted the personal fields, stored inside the event stream"
+  ],
+  "explanation": "Axon Data Protection deletes the key that encrypted the personal fields, which is stored outside the event stream. Removing the events is wrong, because all data is stored as immutable, undeletable events. Rewriting field values in place is wrong, because changing the immutable events suffers from significant drawbacks and potential operations costs. A key inside the event stream is wrong, because the key is stored outside the event stream so that it can be deleted.",
+  "citation": "axon-data-protection#_about",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m08-l06-q11",
+  "fact": "m08-l06-f36",
+  "stem": "In Axon Framework, when does a handler receive a stored event in the Java type it expects, when that type differs from the stored form?",
+  "key": "At handling time, when Axon converts the stored payload to the expected type",
+  "distractors": [
+   "At storing time, when the event is written once in every format a handler needs",
+   "Only after an upcaster has rewritten the stored events",
+   "Never, because every handler of an event must use the same Java class"
+  ],
+  "explanation": "Axon converts the stored payload to the handler's expected type at handling time. Writing every format at storing time is wrong, because stored events retain their serialized form along with metadata about their `MessageType`. Requiring an upcaster is wrong, because event handling can evolve without modifying stored events. A single shared class is wrong, because different handlers can process the same event using different Java representations.",
+  "citation": "axon-event-versioning#event_versioning_at_handling_time",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m08-l06-q12",
+  "fact": "m08-l06-f41",
+  "stem": "According to the Axon Framework documentation, which change to an event typically needs a transformation instead of being absorbed by the converter?",
+  "key": "Combining `firstName` and `lastName` into a single `fullName` field",
+  "distractors": [
+   "Adding a new field that has a default value",
+   "Renaming a field of the payload",
+   "A change that one handler can absorb by declaring the type it wants"
+  ],
+  "explanation": "Restructuring the payload, such as combining `firstName` and `lastName` into a single `fullName`, needs a transformation. Adding a field with a default and renaming a field are both excluded, because the documentation lists adding fields with defaults and renaming fields among the changes the converter typically handles. A change one handler can absorb is wrong, because each handler declares the type it wants and the converter produces it from the stored payload.",
+  "citation": "axon-message-transformation#_when_to_reach_for_a_transformation",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m08-l06-q13",
+  "fact": "m08-l06-f47",
+  "stem": "In an Axon streaming processor, under what condition can another processor thread steal a token claim?",
+  "key": "When the claim is not extended for a configurable amount of time",
+  "distractors": [
+   "As soon as the owning thread finishes handling a batch of events",
+   "Never, because a claim is held until the processor shuts down",
+   "Whenever the event stream has no new events to deliver"
+  ],
+  "explanation": "Another thread can steal a claim when it is not extended for a configurable amount of time. Stealing after each batch is wrong, because the processor updates its claim every time it finishes a batch. A claim held until shutdown is wrong, because a processor may keep a claim too long in several scenarios and another processor can then steal it. Stealing when no events arrive is wrong, because the claim is extended in the absence of events by the `claimExtensionThreshold`.",
+  "citation": "axon-event-processors-streaming#tracking_tokens",
+  "extract": null,
+  "snippet": null
+ }
+]

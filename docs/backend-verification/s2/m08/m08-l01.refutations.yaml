@@ -1,0 +1,117 @@
+m08-l01-q01:
+  key:
+    anchor: paper-gilbert-lynch-cap#p3
+    sentence: it is impossible for any web service to implement an atomic read/write shared memory that guarantees a response to every request.
+  wrong:
+  - option: Returning any response at all, because a partitioned server has to stay silent
+    anchor: paper-gilbert-lynch-cap#p3
+    sentence: It has the choice to either eventually return a response (and risk returning the wrong response) or to never return a response.
+  - option: Implementing a trivial service, such as one that returns the value of a constant
+    anchor: paper-gilbert-lynch-cap#p2
+    sentence: trivial services do not fall within the scope of the CAP Theorem.
+  - option: Implementing a weakly consistent service, such as a distributed web cache
+    anchor: paper-gilbert-lynch-cap#p2
+    sentence: there has been much work attempting to develop weaker consistency requirements that still provide useful services and yet avoid sacrificing availability.
+m08-l01-q02:
+  key:
+    anchor: paper-gilbert-lynch-cap#p3
+    sentence: Consistency requirements are almost always safety properties.
+  wrong:
+  - option: Both are safety properties, because each states that nothing bad ever happens
+    anchor: paper-gilbert-lynch-cap#p3
+    sentence: 'Availability is a classic liveness property: it states that eventually, every request receives a response.'
+  - option: Both are liveness properties, because each states that eventually something good happens
+    anchor: paper-gilbert-lynch-cap#p3
+    sentence: Consistency requirements are almost always safety properties.
+    exclusive: true
+  - option: Consistency requirements are liveness properties, and availability is a safety property
+    anchor: paper-gilbert-lynch-cap#p3
+    sentence: Consistency requirements are almost always safety properties.
+    exclusive: true
+m08-l01-q03:
+  key:
+    anchor: etcd-api-guarantees#linearizability
+    sentence: which may access stale data with respect to quorum
+  wrong:
+  - option: Nothing, because etcd already serves every read in serializable mode by default
+    anchor: etcd-api-guarantees#linearizability
+    sentence: etcd ensures linearizability for all other operations by default.
+  - option: The read still goes through the Raft consensus process on the leader, but it may return stale data afterwards
+    anchor: etcd-api-guarantees#linearizability
+    sentence: removes the performance penalty of linearized accesses
+  - option: Linearizable ordering of writes, because serializable mode also applies to write requests
+    anchor: etcd-api-guarantees#linearizability
+    sentence: To obtain lower latencies and higher throughput for read requests, clients can configure a request
+m08-l01-q04:
+  key:
+    anchor: zk-internals#sc_consistency
+    sentence: a read in ZooKeeper is not a quorum operation and a server will respond immediately to a client that is performing a read.
+  wrong:
+  - option: Updates from one client are applied in an arbitrary order, so an older write can overwrite a newer one
+    anchor: zk-over#Guarantees
+    sentence: Updates from a client will be applied in the order that they were sent.
+  - option: A client that moves to a second server sees an older view of the service than the first server showed
+    anchor: zk-over#Guarantees
+    sentence: a client will never see an older view of the system even if the client fails over to a different server with the same session.
+  - option: Write operations are not linearizable, so a read after a write can return the value from before it
+    anchor: zk-internals#sc_consistency
+    sentence: Write operations in ZooKeeper are linearizable.
+m08-l01-q05:
+  key:
+    anchor: rfc5905#top
+    sentence: '| 1 | primary server (e.g., equipped with a GPS receiver) |'
+  wrong:
+  - option: '0'
+    anchor: rfc5905#top
+    sentence: '| 0 | unspecified or invalid |'
+  - option: '2'
+    anchor: rfc5905#top
+    sentence: '| 2-15 | secondary server (via NTP) |'
+  - option: '16'
+    anchor: rfc5905#top
+    sentence: '| 16 | unsynchronized |'
+m08-l01-q06:
+  key:
+    anchor: etcd-api-guarantees#linearizability
+    sentence: linearized requests must go through the Raft consensus process
+  wrong:
+  - option: They return data that may be stale with respect to quorum
+    anchor: etcd-api-guarantees#linearizability
+    sentence: Linearizability guarantees the read returns the most current value.
+  - option: They keep the performance penalty of live consensus only for writes, never for reads
+    anchor: etcd-api-guarantees#linearizability
+    sentence: removes the performance penalty of linearized accesses
+  - option: They are available only for write operations, because a read cannot be linearized
+    anchor: etcd-api-guarantees#linearizability
+    sentence: A client issuing a read at t2 (for t2 > t1) should receive a value at least as recent as the previous write, completed at t1.
+m08-l01-q07:
+  key:
+    anchor: rfc5905#top
+    sentence: extend the potential accuracy to the tens of microseconds with modern workstations and fast LANs.
+  wrong:
+  - option: Tens of milliseconds
+    anchor: rfc5905#top
+    sentence: extend the potential accuracy to the tens of microseconds with modern workstations and fast LANs.
+    exclusive: true
+  - option: Tens of nanoseconds
+    anchor: rfc5905#top
+    sentence: extend the potential accuracy to the tens of microseconds with modern workstations and fast LANs.
+    exclusive: true
+  - option: Single seconds
+    anchor: rfc5905#top
+    sentence: extend the potential accuracy to the tens of microseconds with modern workstations and fast LANs.
+    exclusive: true
+m08-l01-q08:
+  key:
+    anchor: paper-gilbert-lynch-cap#p3
+    sentence: then it may return an incorrect response, despite the lack of partitions.
+  wrong:
+  - option: Return the correct response, because only real partitions can cause an inconsistent answer
+    anchor: paper-gilbert-lynch-cap#p3
+    sentence: Thus it is even impossible to guarantee consistency when there are no partitions
+  - option: Never return a response, because it has to wait until the missing message arrives
+    anchor: paper-gilbert-lynch-cap#p3
+    sentence: server p2 eventually must return a response, even
+  - option: Wait until the partition heals, which keeps both consistency and availability
+    anchor: paper-gilbert-lynch-cap#p3
+    sentence: It has the choice to either eventually return a response (and risk returning the wrong response) or to never return a response.

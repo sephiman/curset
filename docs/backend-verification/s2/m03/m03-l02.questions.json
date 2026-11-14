@@ -1,0 +1,242 @@
+[
+ {
+  "id": "m03-l02-q01",
+  "fact": "m03-l02-f12",
+  "stem": "Which statement about `volatile` fields is correct, according to the Java 25 Javadoc of the `java.util.concurrent` package on memory consistency properties?",
+  "key": "Their reads and writes have memory consistency effects similar to monitors, without mutual exclusion locking",
+  "distractors": [
+   "A volatile write excludes other threads from running any code between the write and the next read by holding a lock",
+   "A volatile write is visible to a read in another thread only if both threads also use `synchronized` blocks on the same lock",
+   "A volatile field makes compound updates such as an increment atomic without any other synchronization"
+  ],
+  "explanation": "Reads and writes of `volatile` fields have similar memory consistency effects as entering and exiting monitors, but they do not entail mutual exclusion locking. Excluding other threads between a write and a read is wrong, because no mutual exclusion locking is involved. Requiring `synchronized` in both threads is wrong, because a write to a volatile field happens-before every subsequent read of that field. Atomic compound updates are wrong, because groups of operations that need to be perceived atomically are still a source of errors.",
+  "citation": "javadoc-concurrent-package#MemoryVisibility",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m03-l02-q02",
+  "fact": "m03-l02-f21",
+  "stem": "Two threads share a non-volatile `long` field. According to chapter 17 of the Java Language Specification, what can a reading thread see after another thread writes it?",
+  "key": "The first 32 bits from one write and the second 32 bits from another write",
+  "distractors": [
+   "Only the complete old value or the complete new value, because every write is atomic",
+   "Always a split value, because every JVM must write 64-bit values in two parts",
+   "A split value that can also occur when the field is declared `volatile`"
+  ],
+  "explanation": "A single write to a non-volatile `long` is treated as two separate writes, so a thread can see the first 32 bits from one write and the second 32 bits from another. Seeing only a complete value is wrong, because the write is treated as two separate 32-bit writes. A mandatory split is wrong, because an implementation is free to perform the writes atomically or in two parts. A split value on a `volatile` field is wrong, because writes and reads of volatile `long` and `double` values are always atomic.",
+  "citation": "jls-17#jls-17.7",
+  "extract": "For the purposes of the Java programming language memory model, a single write to a non-volatile long or double value is treated as two separate writes: one to each 32-bit half.",
+  "snippet": null
+ },
+ {
+  "id": "m03-l02-q03",
+  "fact": "m03-l02-f35",
+  "stem": "Which class of the `java.util.concurrent.atomic` package associates an integer value with a reference, so that it can represent version numbers for a series of updates?",
+  "key": "`AtomicStampedReference`",
+  "distractors": [
+   "`AtomicMarkableReference`",
+   "`AtomicReferenceFieldUpdater`",
+   "`LongAdder`"
+  ],
+  "explanation": "`AtomicStampedReference` associates an integer value with a reference. `AtomicMarkableReference` is wrong, because it associates a single boolean with a reference. `AtomicReferenceFieldUpdater` is wrong, because it is a reflection-based utility for atomic updates to designated volatile reference fields. `LongAdder` is wrong, because it maintains an initially zero long sum across one or more variables.",
+  "citation": "javadoc-atomic-package#package-java-util-concurrent-atomic",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m03-l02-q04",
+  "fact": "m03-l02-f65",
+  "stem": "A `ThreadPoolExecutor` has one core thread, a maximum of one thread and an `ArrayBlockingQueue` of capacity one, with one task running and one queued. What happens to a third task under the default policy?",
+  "key": "`execute` throws a `RejectedExecutionException`",
+  "distractors": [
+   "The task runs in the thread that called `execute`",
+   "The task is dropped without any exception",
+   "A second worker thread is created because the queue is full"
+  ],
+  "explanation": "The default `AbortPolicy` handler throws a runtime `RejectedExecutionException` upon rejection. Running the task in the calling thread is wrong, because that is the behaviour of `CallerRunsPolicy`, and the default handler throws. Dropping the task silently is wrong, because that is `DiscardPolicy`, and the default handler throws. A second worker thread is wrong, because a request that cannot be queued is rejected when a new thread would exceed `maximumPoolSize`.",
+  "citation": "javadoc-threadpoolexecutor#class-threadpoolexecutor",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m03-l02-q05",
+  "fact": "m03-l02-f59",
+  "stem": "A `ThreadPoolExecutor` uses an unbounded `LinkedBlockingQueue` as its work queue. How many threads will the pool ever create, according to the Java 25 Javadoc?",
+  "key": "No more than `corePoolSize`",
+  "distractors": [
+   "Up to `maximumPoolSize`, once the pool has queued enough tasks",
+   "One new thread for every submitted task",
+   "Exactly `maximumPoolSize` threads, all created at construction"
+  ],
+  "explanation": "With an unbounded queue no more than `corePoolSize` threads will ever be created. Growing to `maximumPoolSize` is wrong, because the value of `maximumPoolSize` has no effect. One thread per submitted task is wrong, because no more than `corePoolSize` threads are ever created. Creating `maximumPoolSize` threads at construction is wrong for the same limit, since the pool never exceeds `corePoolSize` threads.",
+  "citation": "javadoc-threadpoolexecutor#class-threadpoolexecutor",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m03-l02-q06",
+  "fact": "m03-l02-f80",
+  "stem": "In Java 25, code calls `CompletableFuture.supplyAsync(supplier)` without passing an executor. Which executor performs the asynchronous task?",
+  "key": "`ForkJoinPool.commonPool()`",
+  "distractors": [
+   "A new thread created for each call",
+   "The pool of `Executors.newCachedThreadPool()`",
+   "The thread that called `supplyAsync`"
+  ],
+  "explanation": "Async methods without an explicit `Executor` argument are performed using `ForkJoinPool.commonPool()`. A new thread per call is wrong, because the common pool performs the task. The pool of `Executors.newCachedThreadPool()` is wrong, because the common pool is the documented default. The calling thread is wrong, because the common pool performs the asynchronous task.",
+  "citation": "javadoc-completablefuture#class-completablefuture-t",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m03-l02-q07",
+  "fact": "m03-l02-f86",
+  "stem": "A `CompletableFuture` completed exceptionally with a `CompletionException` whose cause is an `IllegalStateException`. What does `get()` throw, according to the Java 25 Javadoc?",
+  "key": "An `ExecutionException` with the same cause as the `CompletionException`",
+  "distractors": [
+   "The `CompletionException` itself",
+   "The `IllegalStateException` directly, with no wrapper added by the future",
+   "A `CancellationException` that wraps the `CompletionException` as its cause"
+  ],
+  "explanation": "`get()` throws an `ExecutionException` with the same cause as the corresponding `CompletionException`. Throwing the `CompletionException` itself is wrong, because that is what `join()` and `getNow(T)` do. Throwing the `IllegalStateException` directly is wrong, because `get()` wraps it in an `ExecutionException`. A `CancellationException` is wrong, because the exception thrown is an `ExecutionException` with the same cause.",
+  "citation": "javadoc-completablefuture#class-completablefuture-t",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m03-l02-q08",
+  "fact": "m03-l02-f112",
+  "stem": "Which statement about `StampedLock` is correct, according to the Java 25 Javadoc of the class?",
+  "key": "It has no notion of ownership, so a lock acquired in one thread can be released in another",
+  "distractors": [
+   "It is reentrant, so a thread may safely re-acquire a lock it already holds",
+   "It implements the `Lock` interface, so it can replace a `ReentrantLock` in existing code without any change",
+   "A zero from a `try` method means that the lock is currently held in write mode"
+  ],
+  "explanation": "A `StampedLock` has no notion of ownership, so locks acquired in one thread can be released or converted in another. Reentrancy is wrong, because `StampedLock` instances are not reentrant. Implementing `Lock` is wrong, because the class does not directly implement the `Lock` or `ReadWriteLock` interfaces. A zero meaning write mode is wrong, because a zero from a `try` method carries no information about the state of the lock.",
+  "citation": "javadoc-stampedlock#class-stampedlock",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m03-l02-q09",
+  "fact": "m03-l02-f97",
+  "stem": "A `ReentrantLock` is constructed with the fairness parameter set to `true`. Which statement about it is correct, according to the Java 25 Javadoc?",
+  "key": "Under contention it favors granting access to the longest-waiting thread",
+  "distractors": [
+   "Its overall throughput is always higher than with the default setting when many threads use it",
+   "The untimed `tryLock()` method also honors the fairness setting when the lock is contended",
+   "It guarantees that the threads that use the lock are also scheduled fairly by the system"
+  ],
+  "explanation": "With fairness set to true, locks favor granting access to the longest-waiting thread under contention. Higher throughput is wrong, because fair locks may display lower overall throughput than the default setting. Honoring fairness in `tryLock()` is wrong, because the untimed `tryLock()` method does not honor the fairness setting. Fair thread scheduling is wrong, because fairness of locks does not guarantee fairness of thread scheduling.",
+  "citation": "javadoc-reentrantlock#class-reentrantlock",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m03-l02-q10",
+  "fact": "m03-l02-f123",
+  "stem": "A `Semaphore` is created with its fairness parameter set to `false`. Which statement about how threads acquire its permits is correct, according to the Java 25 Javadoc?",
+  "key": "The class makes no guarantees about the order in which threads acquire permits",
+  "distractors": [
+   "Threads obtain permits strictly in first-in-first-out order of their `acquire` calls",
+   "Barging is not permitted, so a thread that has been waiting is always served first",
+   "The untimed `tryAcquire` methods wait until permits can be granted in order"
+  ],
+  "explanation": "With fairness set to false, the class makes no guarantees about the order in which threads acquire permits. First-in-first-out order is wrong, because that is the guarantee given only when fairness is set true. Forbidden barging is wrong, because barging is permitted and a thread invoking `acquire()` can get a permit ahead of a waiting thread. Waiting `tryAcquire` methods are wrong, because the untimed `tryAcquire` methods take any permits that are available.",
+  "citation": "javadoc-semaphore#class-semaphore",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m03-l02-q11",
+  "fact": "m03-l02-f155",
+  "stem": "Which of these concurrent collections accepts `null` as an element, according to the Java 25 Javadoc of each class?",
+  "key": "`CopyOnWriteArrayList`",
+  "distractors": [
+   "`ArrayBlockingQueue`",
+   "`LinkedBlockingQueue`",
+   "`ConcurrentHashMap`, as a key"
+  ],
+  "explanation": "All elements are permitted in a `CopyOnWriteArrayList`, including `null`. `ArrayBlockingQueue` is wrong, because a `BlockingQueue` does not accept `null` elements. `LinkedBlockingQueue` is wrong, because it is a `BlockingQueue` too and rejects `null`. `ConcurrentHashMap` is wrong, because unlike `HashMap` it does not allow `null` as a key or value.",
+  "citation": "javadoc-copyonwritearraylist#class-copyonwritearraylist-e",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m03-l02-q12",
+  "fact": "m03-l02-f152",
+  "stem": "A thread creates an iterator over a `CopyOnWriteArrayList`, and another thread then adds an element to the list. What does the existing iterator do, according to the Java 25 Javadoc?",
+  "key": "It does not reflect the addition, because it traverses a snapshot of the array",
+  "distractors": [
+   "It reflects the addition and traverses the new element in the same pass",
+   "It reflects the addition only for positions after its current one in the array",
+   "It throws `ConcurrentModificationException` on its next call, as an `ArrayList` iterator does"
+  ],
+  "explanation": "The iterator of a `CopyOnWriteArrayList` will not reflect additions, removals or changes made after it was created. Reflecting the addition is wrong, because the iterator does not reflect changes made since it was created. Reflecting it only after the current position is wrong, because no change made since creation is reflected. Throwing `ConcurrentModificationException` is wrong, because the iterator is guaranteed not to throw it.",
+  "citation": "javadoc-copyonwritearraylist#class-copyonwritearraylist-e",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m03-l02-q13",
+  "fact": "m03-l02-f138",
+  "stem": "A monitoring thread calls `size()` on a `ConcurrentHashMap` while other threads update it. How should it use the result, according to the Java 25 Javadoc?",
+  "key": "As a transient state adequate for monitoring or estimation, but not for program control",
+  "distractors": [
+   "As an exact count, because `size()` locks the whole table while it counts the entries",
+   "As a value that drives program control, such as deciding that the map is empty",
+   "As an atomic snapshot of the map as a whole"
+  ],
+  "explanation": "Under concurrent updates the results of `size()` reflect transient states that may be adequate for monitoring or estimation, but not for program control. An exact count from locking the table is wrong, because there is no support for locking the entire table in a way that prevents all access. Driving program control is wrong, because the results are not adequate for program control. An atomic snapshot is wrong, because results are not necessarily atomic with respect to the map as a whole unless it is quiescent.",
+  "citation": "javadoc-concurrenthashmap#class-concurrenthashmap-k-v",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m03-l02-q14",
+  "fact": "m03-l02-f160",
+  "stem": "A `BlockingQueue` implementation has no intrinsic capacity constraints. What does its `remainingCapacity` method always report, according to the Java 25 Javadoc?",
+  "key": "`Integer.MAX_VALUE`",
+  "distractors": [
+   "`0`",
+   "`-1`",
+   "`Integer.MAX_VALUE - 1`"
+  ],
+  "explanation": "A `BlockingQueue` without intrinsic capacity constraints always reports a remaining capacity of `Integer.MAX_VALUE`. Reporting `0` is wrong, because `0` would mean the queue is full, and the documented value is `Integer.MAX_VALUE`. Reporting `-1` is wrong, because the documented value is `Integer.MAX_VALUE`. Reporting `Integer.MAX_VALUE - 1` is wrong, because the documented value is exactly `Integer.MAX_VALUE`.",
+  "citation": "javadoc-blockingqueue#interface-blockingqueue-e",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m03-l02-q15",
+  "fact": "m03-l02-f174",
+  "stem": "Under chapter 17 of the Java Language Specification, when is a program said to contain a data race?",
+  "key": "When two conflicting accesses are not ordered by a happens-before relationship",
+  "distractors": [
+   "When two threads only read the same variable without any synchronization between them",
+   "When a volatile field is written in one thread and read in another thread later",
+   "When a local variable is used by two threads"
+  ],
+  "explanation": "A program contains a data race when two conflicting accesses are not ordered by a happens-before relationship. Two plain reads are wrong, because accesses conflict only if at least one of them is a write. A volatile write and read are wrong, because the write happens-before every subsequent read of that field. A local variable is wrong, because local variables are never shared between threads.",
+  "citation": "jls-17#jls-17.4.5",
+  "extract": "When a program contains two conflicting accesses (§17.4.1) that are not ordered by a happens-before relationship, it is said to contain a data race.",
+  "snippet": null
+ },
+ {
+  "id": "m03-l02-q16",
+  "fact": "m03-l02-f72",
+  "stem": "According to the Java 25 Javadoc, which statement about the `ForkJoinPool` class, as compared with other kinds of `ExecutorService`, is correct?",
+  "key": "Its main difference from other kinds of `ExecutorService` is employing work-stealing",
+  "distractors": [
+   "It has no shared instance, so each application must construct and manage its own pool",
+   "Its worker threads are non-daemon, so they keep the JVM alive",
+   "Its default parallelism level is fixed at one thread, whatever the number of processors"
+  ],
+  "explanation": "A `ForkJoinPool` differs mainly by employing work-stealing. The claim that there is no shared instance is wrong, because a static `commonPool()` is available and appropriate for most applications. The claim of non-daemon workers is wrong, because all worker threads are initialized with `Thread.isDaemon()` set true. The claim of a single thread is wrong, because the default parallelism is the number of available processors.",
+  "citation": "javadoc-forkjoinpool#class-forkjoinpool",
+  "extract": null,
+  "snippet": null
+ }
+]

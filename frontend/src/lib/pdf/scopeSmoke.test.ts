@@ -3,9 +3,9 @@
 // fixture course (no figures). Skipped unless PDF_SMOKE is set, so neither CI nor close_round.sh runs it:
 //   PDF_SMOKE=1 npx vitest run src/lib/pdf/scopeSmoke.test.ts
 import { describe, expect, it } from "vitest";
-import { PRINT_FONTS, type DocumentPart } from "@/lib/pdf/document";
+import type { DocumentPart } from "@/lib/pdf/document";
 import { generateCoursePdf } from "@/lib/pdf/generate";
-import { courseContent, exportPart, FIXTURE_CONTENT_ROOT, glyphFromContent, printFontPaths } from "@/test/courseContent";
+import { courseContent, exportPart, FIXTURE_CONTENT_ROOT, glyphFromContent, printFontFamiliesOnDisk } from "@/test/courseContent";
 import { testPdfLabels } from "@/test/printLabels";
 
 const course = courseContent(`${FIXTURE_CONTENT_ROOT}/fixture-oposiciones`);
@@ -19,13 +19,7 @@ const SCOPES: [string, DocumentPart | undefined][] = [
 describe.runIf(process.env.PDF_SMOKE)("a real render per scope (fixture-oposiciones)", () => {
   it.each(SCOPES)("typesets the %s", async (name, part) => {
     const pdfmake = (await import("pdfmake")).default;
-    const paths = printFontPaths();
-    const family = PRINT_FONTS[Object.keys(PRINT_FONTS)[0] as keyof typeof PRINT_FONTS];
-    pdfmake.addFonts({
-      [Object.keys(PRINT_FONTS)[0]]: Object.fromEntries(
-        Object.entries(family).map(([variant, file]) => [variant, paths[file]]),
-      ),
-    });
+    pdfmake.addFonts(printFontFamiliesOnDisk());
     const meta = course.manifest().course;
     const started = performance.now();
     const generated = await generateCoursePdf({

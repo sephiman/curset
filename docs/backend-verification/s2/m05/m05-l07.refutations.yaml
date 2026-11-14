@@ -1,0 +1,86 @@
+m05-l07-q01:
+  key:
+    anchor: hibernate-user-guide#flushing-order
+    sentence: Even if we removed the first entity and then persist a new one, Hibernate is going to execute the DELETE statement after the INSERT.
+  wrong:
+  - option: The `DELETE` first, then the `INSERT`, following the order of the operations
+    anchor: hibernate-user-guide#flushing-order
+    sentence: Hibernate does not execute the SQL statements in the order of their associated entity state operations.
+  - option: Whichever statement sorts first by primary key, `INSERT` or `DELETE`
+    anchor: hibernate-user-guide#flushing-order
+    sentence: The order in which SQL statements are executed is given by the ActionQueue and not by the order in which entity state operations have been previously defined.
+  - option: The `DELETE` first, because `EntityDeleteAction` precedes `EntityInsertAction` in the `ActionQueue`
+    anchor: hibernate-user-guide#flushing-order
+    sentence: Even if we removed the first entity and then persist a new one, Hibernate is going to execute the DELETE statement after the INSERT.
+m05-l07-q02:
+  key:
+    anchor: jakarta-persistence-spec#a1929
+    sentence: A detached entity instance is an instance with a persistent identity that is not (or no longer) associated with a persistence context.
+  wrong:
+  - option: Managed
+    anchor: jakarta-persistence-spec#a1929
+    sentence: A managed entity instance is an instance with a persistent identity that is currently associated with a persistence context.
+  - option: Removed
+    anchor: jakarta-persistence-spec#a1929
+    sentence: A removed entity instance is an instance with a persistent identity, associated with a persistence context, that will be removed from the database upon transaction commit.
+  - option: New
+    anchor: jakarta-persistence-spec#a1929
+    sentence: A new entity instance has no persistent identity, and is not yet associated with a persistence context.
+m05-l07-q03:
+  key:
+    anchor: spring-data-jpa-entity-persistence#jpa.entity-persistence.saving-entities.strategies
+    sentence: If there is, the entity is considered new if the value of that property is null.
+  wrong:
+  - option: The entity is new if its identifier property is `null`, ignoring the version property
+    anchor: spring-data-jpa-entity-persistence#jpa.entity-persistence.saving-entities.strategies
+    sentence: By default Spring Data JPA inspects first if there is a Version-property of non-primitive type.
+  - option: The entity is new if its version property is `0`
+    anchor: spring-data-jpa-entity-persistence#jpa.entity-persistence.saving-entities.strategies
+    sentence: In contrast to other Spring Data modules, JPA considers 0 (zero) as the first inserted version of an entity and therefore, a primitive version property cannot be used to determine whether an entity is new or not.
+  - option: The entity is always treated as new, so `save` always calls `persist()`
+    anchor: spring-data-jpa-entity-persistence#jpa.entity-persistence.saving-entities.strategies
+    sentence: Return the flag in the implementation of Persistable.isNew() so that Spring Data repositories know whether to call EntityManager.persist() or ….merge().
+m05-l07-q04:
+  key:
+    anchor: hibernate-user-guide#batch-jdbcbatch
+    sentence: Zero or a negative number disables this feature.
+  wrong:
+  - option: Hibernate batches every statement of the transaction with no maximum
+    anchor: hibernate-user-guide#batch-jdbcbatch
+    sentence: Controls the maximum number of statements Hibernate will batch together before asking the driver to execute the batch.
+  - option: Hibernate orders SQL updates by entity type and primary key
+    anchor: hibernate-user-guide#batch-jdbcbatch
+    sentence: Forces Hibernate to order SQL updates by the entity type and the primary key value of the items being updated.
+  - option: Hibernate orders inserts so that more batching can be used
+    anchor: hibernate-user-guide#batch-jdbcbatch
+    sentence: Forces Hibernate to order inserts to allow for more batching to be used.
+m05-l07-q05:
+  key:
+    anchor: hibernate-user-guide#locking-optimistic-version-number
+    sentence: Here, the version property is mapped to the version column, and the entity manager uses it to detect conflicting updates, and prevent the loss of updates that would otherwise be overwritten by a last-commit-wins strategy.
+  wrong:
+  - option: The application increments the version on every update, and the entity manager only reads it
+    anchor: hibernate-user-guide#locking-optimistic-version-number
+    sentence: Your application is forbidden from altering the version number set by Hibernate.
+  - option: The version is compared only during `merge()` and always synchronously in every provider
+    anchor: jakarta-persistence-spec#a2059
+    sentence: 'The timing of this version check is provider-dependent:'
+  - option: An entity without a version makes any update or merge involving versioned entities fail
+    anchor: jakarta-persistence-spec#a2059
+    sentence: The absence a version for some entity involved in the update or merge operation does not impede completion of the operation.
+m05-l07-q06:
+  key:
+    anchor: spring-data-jpa-projections#projections.dtos
+    sentence: These DTO types can be used in exactly the same way projection interfaces are used, except that no proxying happens and no nested projections can be applied.
+  wrong:
+  - option: Spring Data creates a runtime proxy of the DTO class for every element returned
+    anchor: spring-data-jpa-projections#projections.dtos
+    sentence: These DTO types can be used in exactly the same way projection interfaces are used, except that no proxying happens and no nested projections can be applied.
+    exclusive: true
+  - option: DTOs can be nested by returning another DTO from an accessor method
+    anchor: spring-data-jpa-projections#projections.dtos
+    sentence: These DTO types can be used in exactly the same way projection interfaces are used, except that no proxying happens and no nested projections can be applied.
+    exclusive: true
+  - option: The fields to load are determined from the getter names of the DTO
+    anchor: spring-data-jpa-projections#projections.dtos
+    sentence: If the store optimizes the query execution by limiting the fields to be loaded, the fields to be loaded are determined from the parameter names of the constructor that is exposed.

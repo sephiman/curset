@@ -63,7 +63,9 @@ class HeapContentsGenerator(BackendGenerator[HeapRun]):
     id: ClassVar[str] = "binary-heap-contents"
     forms: ClassVar[tuple[str, ...]] = ("{}", "the array {}", "the whole array {}")
     citation: ClassVar[Citation] = Citation(
-        "m02-l03", "javadoc-priorityqueue#class-priorityqueue-e; javadoc-priorityqueue#poll()"
+        "m02-l03",
+        "javadoc-priorityqueue#class-priorityqueue-e; javadoc-priorityqueue#poll()",
+        confirmed="ods-10-1-binaryheap-implicit-bi#SECTION001310000000000000000",
     )
 
     def scenario(self, rng: random.Random, level: int) -> HeapRun | None:

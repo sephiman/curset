@@ -18,7 +18,8 @@ export function PracticeQuestion({
   /** Distinguishes two rounds that happen to serve the same question at the same position. */
   round: number;
   question: Question;
-  lessonId: string;
+  /** The lesson the round practises; absent in a round that crosses lessons. */
+  lessonId?: string;
   onAnswered: () => void;
 }) {
   const { scope } = useCourse();

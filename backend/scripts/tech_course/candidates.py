@@ -86,3 +86,16 @@ def select_files(
     folder = root / module if module else root
     pattern = f"{lesson}{_SUFFIX}" if lesson else f"*{_SUFFIX}"
     return sorted(folder.glob(pattern) if module else folder.glob(f"m*/{pattern}"))
+
+
+def failed_ids(verdicts: Path) -> frozenset[str]:
+    if not verdicts.is_file():
+        return frozenset()
+    final: dict[str, str] = {}
+    for line in verdicts.read_text(encoding="utf-8").splitlines():
+        row = [cell.strip() for cell in line.split("\t")]
+        # a `recheck` line, written after a re-verification, replaces the first verdict
+        verdict = row[2] if len(row) > 2 and row[1] == "recheck" else row[1] if len(row) > 1 else ""
+        if verdict in ("pass", "fail"):
+            final[row[0]] = verdict
+    return frozenset(qid for qid, verdict in final.items() if verdict == "fail")

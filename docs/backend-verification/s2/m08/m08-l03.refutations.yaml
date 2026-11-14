@@ -1,0 +1,98 @@
+m08-l03-q01:
+  key:
+    anchor: pg-sql-select#SQL-FOR-UPDATE-SHARE
+    sentence: With SKIP LOCKED, any selected rows that cannot be immediately locked are skipped.
+  wrong:
+  - option: It waits for the other transaction to end, then locks and returns them
+    anchor: pg-sql-select#SQL-FOR-UPDATE-SHARE
+    sentence: To prevent the operation from waiting for other transactions to commit, use either the NOWAIT or SKIP LOCKED option.
+  - option: It reports an error and rolls the statement back
+    anchor: pg-sql-select#SQL-FOR-UPDATE-SHARE
+    sentence: With NOWAIT, the statement reports an error, rather than waiting, if a selected row cannot be locked immediately.
+  - option: It returns them in a consistent snapshot, because skipping applies only to writers
+    anchor: pg-sql-select#SQL-FOR-UPDATE-SHARE
+    sentence: Skipping locked rows provides an inconsistent view of the data
+m08-l03-q02:
+  key:
+    anchor: debezium-outbox-event-router#basic-outbox-table
+    sentence: The SMT uses this value as the key in the emitted outbox message.
+  wrong:
+  - option: '`id`'
+    anchor: debezium-outbox-event-router#basic-outbox-table
+    sentence: In an outbox message, this value is a header.
+  - option: '`aggregatetype`'
+    anchor: debezium-outbox-event-router#basic-outbox-table
+    sentence: Contains a value that the SMT appends to the name of the topic to which the connector emits an outbox message.
+  - option: '`payload`'
+    anchor: debezium-outbox-event-router#basic-outbox-table
+    sentence: By default, the Kafka message value is solely comprised of the payload value.
+m08-l03-q03:
+  key:
+    anchor: debezium-postgresql#postgresql-overview
+    sentence: upon restart the connector continues reading the WAL where it last left off.
+  wrong:
+  - option: From the start of the WAL, because PostgreSQL keeps the complete history of changes
+    anchor: debezium-postgresql#postgresql-overview
+    sentence: PostgreSQL normally purges write-ahead log (WAL) segments after some period of time.
+  - option: From a new snapshot of every schema, whatever it was doing when it stopped
+    anchor: debezium-postgresql#postgresql-overview
+    sentence: If the connector stops during a snapshot, the connector begins a new snapshot when it restarts.
+  - option: From the latest WAL position, skipping the changes made while it was stopped
+    anchor: debezium-postgresql#postgresql-streaming-changes
+    sentence: When the connector restarts, it sends a request to the PostgreSQL server to send the events starting just after that position.
+m08-l03-q04:
+  key:
+    anchor: axon-migration-sagas-to-workflows#sagas-and-workflows
+    sentence: A retry can repeat an external call; use a stable idempotency key when that call must tolerate repetition.
+  wrong:
+  - option: Rely on the workflow to make the call exactly once, whatever the retry policy
+    anchor: axon-migration-sagas-to-workflows#sagas-and-workflows
+    sentence: They do not infer business intent or make external effects exactly once.
+  - option: Make the call from the workflow body instead of a step, because the body stays deterministic during replay
+    anchor: axon-migration-sagas-to-workflows#sagas-and-workflows
+    sentence: Put commands, queries, and external side effects inside steps.
+  - option: Expect repetition only in sagas that schedule deadlines, because workflows never retry a step
+    anchor: axon-migration-sagas-to-workflows#sagas-and-workflows
+    sentence: Configure a step retry policy and backoff, or model a business retry loop explicitly.
+m08-l03-q05:
+  key:
+    anchor: debezium-postgresql#postgresql-overview
+    sentence: Logical decoding does not support DDL changes.
+  wrong:
+  - option: Row-level delete operations are not captured, so consumers never see a removed row
+    anchor: debezium-postgresql#postgresql-overview
+    sentence: The connector produces a change event for every row-level insert, update, and delete operation that was captured
+  - option: Change events are written to the Kafka topic in an arbitrary order
+    anchor: debezium-postgresql#postgresql-streaming-changes
+    sentence: in the same order in which they were generated to the appropriate Kafka topic
+  - option: Only the `pgoutput` plug-in can be used, so Protobuf-based decoding is unsupported
+    anchor: debezium-postgresql#postgresql-overview
+    sentence: decoderbufs Decoding plug-in that is based on Protobuf and maintained by the Debezium community.
+m08-l03-q06:
+  key:
+    anchor: axon-event-processors-streaming#_what_are_the_consequences_of_token_stealing
+    sentence: If a rollback is out of the question for an event handling task, we strongly recommend making the task idempotent.
+  wrong:
+  - option: Store the tokens and the projections in separate databases
+    anchor: axon-event-processors-streaming#_what_are_the_consequences_of_token_stealing
+    sentence: This scenario is why we recommend storing tokens and projections in the same database.
+  - option: Do nothing, because a stolen token never makes an event be handled twice
+    anchor: axon-event-processors-streaming#_what_are_the_consequences_of_token_stealing
+    sentence: The consequence of token stealing is that an event may be handled twice (or more).
+  - option: Rely on the rollback, because it also undoes side effects such as sent emails
+    anchor: axon-event-processors-streaming#_what_are_the_consequences_of_token_stealing
+    sentence: An event handler sending an email will send that email again.
+m08-l03-q07:
+  key:
+    anchor: debezium-postgresql#postgresql-overview
+    sentence: it starts by performing a consistent snapshot of each of the database schemas.
+  wrong:
+  - option: It reads only the changes committed after it started, and skips the rows that already exist
+    anchor: debezium-postgresql#postgresql-overview
+    sentence: This way, the connector starts with a consistent view of all of the data, and does not omit any changes that were made while the snapshot was being taken.
+  - option: It waits for a DDL change event to learn the table schemas
+    anchor: debezium-postgresql#postgresql-overview
+    sentence: Logical decoding does not support DDL changes.
+  - option: It replays the whole WAL from its first segment
+    anchor: debezium-postgresql#postgresql-overview
+    sentence: This means that the connector does not have the complete history of all changes that have been made to the database.

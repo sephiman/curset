@@ -1,0 +1,167 @@
+[
+ {
+  "id": "m11-l02-q01",
+  "fact": "m11-l02-f08",
+  "stem": "The program runs a query that throws, first with a manual `close()` after it and then inside try-with-resources whose `close()` also throws. What does it print, line by line?",
+  "key": "open manual\nmanual: query failed on manual\nopen resource\nclose resource\nresource: query failed on resource\nsuppressed: close failed on resource",
+  "distractors": [
+   "open manual\nclose manual\nmanual: query failed on manual\nopen resource\nclose resource\nresource: query failed on resource\nsuppressed: close failed on resource",
+   "open manual\nmanual: query failed on manual\nopen resource\nclose resource\nresource: close failed on resource",
+   "open manual\nmanual: query failed on manual\nopen resource\nresource: query failed on resource\nclose resource\nsuppressed: close failed on resource"
+  ],
+  "explanation": "The program prints `open manual`, `manual: query failed on manual`, `open resource`, `close resource`, `resource: query failed on resource` and `suppressed: close failed on resource`: the manual `close()` is skipped by the exception, while try-with-resources closes the resource before the `catch` clause runs and records the second exception as suppressed. The output with `close manual` before the manual message is wrong because the exception leaves the `try` block before the manual `close()` is reached. The output that ends with `resource: close failed on resource` is wrong because a throwable can suppress other throwables from being propagated, so the first exception stays the primary one. The output with `close resource` after the `catch` message is wrong because the `close()` method is called automatically when exiting the try-with-resources block, before the `catch` clause runs.",
+  "citation": "javadoc-autocloseable#interface-autocloseable; javadoc-throwable#class-throwable",
+  "extract": null,
+  "snippet": "m11-l02/ResourceLeak.java"
+ },
+ {
+  "id": "m11-l02-q02",
+  "fact": "m11-l02-f18",
+  "stem": "A method catches an `IOException` with the message `disk full` and throws an `IllegalStateException`, once without passing the caught exception and once passing it as the second constructor argument. What does the program print for each cause?",
+  "key": "swallowed: no cause\nkept: disk full",
+  "distractors": [
+   "swallowed: disk full\nkept: disk full",
+   "swallowed: no cause\nkept: no cause",
+   "swallowed: disk full\nkept: no cause"
+  ],
+  "explanation": "The program prints `swallowed: no cause` and `kept: disk full`: the first exception was built without a cause, and the second received it through its constructor. The output that reports `disk full` for both exceptions is wrong because a cause is associated with a throwable only through a constructor that takes it or through `initCause(Throwable)`. The output that reports no cause for the second exception either is wrong because a constructor that takes the cause as an argument records it. The output that gives the cause to the first exception only is wrong because the first exception was built without a cause argument, so it has none.",
+  "citation": "javadoc-throwable#class-throwable",
+  "extract": null,
+  "snippet": "m11-l02/ExceptionCause.java"
+ },
+ {
+  "id": "m11-l02-q03",
+  "fact": "m11-l02-f29",
+  "stem": "Two threads insert one key into a `ConcurrentHashMap`, first with `containsKey` then `put`, a barrier between the two steps, then with `putIfAbsent`. Finally a joined thread writes 42 into an array. What does it print?",
+  "key": "check then act: 2\natomic insert: 1\nafter join: 42",
+  "distractors": [
+   "check then act: 1\natomic insert: 1\nafter join: 42",
+   "check then act: 2\natomic insert: 2\nafter join: 42",
+   "check then act: 2\natomic insert: 1\nafter join: 0"
+  ],
+  "explanation": "The program prints `check then act: 2`, `atomic insert: 1` and `after join: 42`: both threads see the key absent before either inserts, `putIfAbsent` lets only one insert, and `join` makes the write visible. The line `check then act: 1` is wrong because the check and the insert are two separate steps, so both threads can pass the check. The line `atomic insert: 2` is wrong because `putIfAbsent` checks and inserts in one call, so only one thread sees the key absent. The line `after join: 0` is wrong because all actions in a thread happen-before any other thread successfully returns from a `join` on that thread.",
+  "citation": "javadoc-concurrent-package#MemoryVisibility",
+  "extract": null,
+  "snippet": "m11-l02/ConcurrencyChecks.java"
+ },
+ {
+  "id": "m11-l02-q04",
+  "fact": "m11-l02-f40",
+  "stem": "The program adds `0.1` and `0.2` as `double` and as `BigDecimal`, multiplies `1.10` by `2.0`, divides 1 by 3 exactly, and splits `100.00` by 3 at scale 2 with `HALF_UP`. What does it print?",
+  "key": "0.30000000000000004\n0.3\n2.200\nNon-terminating decimal expansion; no exact representable decimal result.\n33.33\n99.99",
+  "distractors": [
+   "0.3\n0.3\n2.200\nNon-terminating decimal expansion; no exact representable decimal result.\n33.33\n99.99",
+   "0.30000000000000004\n0.3\n2.20\nNon-terminating decimal expansion; no exact representable decimal result.\n33.33\n99.99",
+   "0.30000000000000004\n0.3\n2.200\nNon-terminating decimal expansion; no exact representable decimal result.\n33.33\n100.00"
+  ],
+  "explanation": "The program prints `0.30000000000000004`, `0.3`, `2.200`, the non-terminating message, `33.33` and `99.99`: the `double` sum is inexact, the `BigDecimal` product keeps the scales added together, and three rounded shares lose one cent. The first line `0.3` is wrong because `double` cannot represent `0.1` and `0.2` exactly, so their sum prints with extra digits. The line `2.20` is wrong because the preferred scale of a multiplication is `multiplier.scale() + multiplicand.scale()`, here 2 + 1. The line `100.00` is wrong because each share was rounded to `33.33`, and three of them add up to `99.99`.",
+  "citation": "javadoc-bigdecimal#class-bigdecimal",
+  "extract": null,
+  "snippet": "m11-l02/MoneyMath.java"
+ },
+ {
+  "id": "m11-l02-q05",
+  "fact": "m11-l02-f45",
+  "stem": "The program adds 1 to `Integer.MAX_VALUE` with `+` and with `Math.addExact` (printing the exception message), then multiplies 1,000,000 by 5,000 as `int` and as `long`, storing both in a `long`. What does it print?",
+  "key": "-2147483648\ninteger overflow\n705032704\n5000000000",
+  "distractors": [
+   "2147483648\ninteger overflow\n705032704\n5000000000",
+   "-2147483648\ninteger overflow\n5000000000\n5000000000",
+   "-2147483648\n705032704\n5000000000"
+  ],
+  "explanation": "The program prints `-2147483648`, `integer overflow`, `705032704` and `5000000000`: the `int` sum wraps around, `Math.addExact` throws, and the `int` product wraps before it is stored in the `long`. The line `2147483648` is wrong because the sum of two `int` values is an `int` and overflows. The second `5000000000` instead of `705032704` is wrong because the `int` multiplication is computed before the assignment widens it to `long`. The output without `integer overflow` is wrong because `Math.addExact` throws `ArithmeticException` if the result overflows an `int`.",
+  "citation": "javadoc-math#addExact(int,int)",
+  "extract": null,
+  "snippet": "m11-l02/OverflowCheck.java"
+ },
+ {
+  "id": "m11-l02-q06",
+  "fact": "m11-l02-f55",
+  "stem": "In `Europe/Paris`, the program creates 02:30 on 29 March 2026 (gap) and 02:30 on 25 October 2026 (overlap, then `withLaterOffsetAtOverlap()`), and adds a day and 24 hours to noon on 28 March 2026. What does it print?",
+  "key": "2026-03-29T03:30+02:00[Europe/Paris]\n2026-10-25T02:30+02:00[Europe/Paris]\n2026-10-25T02:30+01:00[Europe/Paris]\n2026-03-29T12:00+02:00[Europe/Paris]\n2026-03-29T13:00+02:00[Europe/Paris]",
+  "distractors": [
+   "2026-03-29T02:30+01:00[Europe/Paris]\n2026-10-25T02:30+02:00[Europe/Paris]\n2026-10-25T02:30+01:00[Europe/Paris]\n2026-03-29T12:00+02:00[Europe/Paris]\n2026-03-29T13:00+02:00[Europe/Paris]",
+   "2026-03-29T03:30+02:00[Europe/Paris]\n2026-10-25T02:30+01:00[Europe/Paris]\n2026-10-25T02:30+02:00[Europe/Paris]\n2026-03-29T12:00+02:00[Europe/Paris]\n2026-03-29T13:00+02:00[Europe/Paris]",
+   "2026-03-29T03:30+02:00[Europe/Paris]\n2026-10-25T02:30+02:00[Europe/Paris]\n2026-10-25T02:30+01:00[Europe/Paris]\n2026-03-29T13:00+02:00[Europe/Paris]\n2026-03-29T13:00+02:00[Europe/Paris]"
+  ],
+  "explanation": "The program prints `2026-03-29T03:30+02:00` for the gap, `+02:00` and then `+01:00` for the overlap, and `12:00` and `13:00` for the day and the 24 hours. The line `2026-03-29T02:30+01:00` is wrong because a local date-time in the middle of a gap is shifted forwards by the length of the gap, into the later offset. The lines with `+01:00` before `+02:00` for the overlap are wrong because for an overlap the previous offset is retained, and `withLaterOffsetAtOverlap()` is what selects the later one. The output with `13:00` for both of the last two lines is wrong because adding a day keeps the local time, while adding 24 hours adds an exact duration that crosses the gap.",
+  "citation": "javadoc-zoneddatetime#class-zoneddatetime",
+  "extract": null,
+  "snippet": "m11-l02/ZoneTransitions.java"
+ },
+ {
+  "id": "m11-l02-q07",
+  "fact": "m11-l02-f63",
+  "stem": "A token issued at `00:00:00Z` expires once issue time plus 15 minutes is before the clock instant. The program tests clocks at `00:15:00Z` and one second later, then prints the date of `23:30:00Z` in UTC and `Asia/Tokyo`.",
+  "key": "false\ntrue\n2026-01-01\n2026-01-02",
+  "distractors": [
+   "true\ntrue\n2026-01-01\n2026-01-02",
+   "false\ntrue\n2026-01-01\n2026-01-01",
+   "false\nfalse\n2026-01-01\n2026-01-02"
+  ],
+  "explanation": "The program prints `false`, `true`, `2026-01-01` and `2026-01-02`: at exactly 15 minutes the issue time plus 15 minutes is not before the instant, one second later it is, and the same instant is on a different date in Tokyo. The output starting with `true` is wrong because the boundary instant is equal, not after, the expiry. The output ending with `2026-01-01` twice is wrong because the date of `LocalDate.now(clock)` is read in the time zone of the clock. The output with `false` twice is wrong because `Clock.offset` moves the instant of the clock by the given duration.",
+  "citation": "javadoc-clock#class-clock",
+  "extract": null,
+  "snippet": "m11-l02/FixedClock.java"
+ },
+ {
+  "id": "m11-l02-q08",
+  "fact": "m11-l02-f22",
+  "stem": "According to the `java.util.concurrent` package documentation and the Java Language Specification, which statement about happens-before relationships between two threads is correct?",
+  "key": "A write to a `volatile` field happens-before every subsequent read of that same field",
+  "distractors": [
+   "A write to a plain field happens-before any read of it by another thread, with no further synchronization",
+   "A call to `join()` on a thread happens-before every action performed by the joined thread",
+   "Exiting a `synchronized` block happens-before the next lock of any monitor"
+  ],
+  "explanation": "A write to a `volatile` field happens-before every subsequent read of that same field. The claim about a plain field is wrong because writes that are in a data race with reads in another thread may appear to occur out of order to those reads. The claim about `join()` is wrong because it is the actions in the joined thread that happen-before the successful return from `join()` in the other thread. The claim about any monitor is wrong because an unlock happens-before only a subsequent lock of that same monitor.",
+  "citation": "javadoc-concurrent-package#MemoryVisibility; jls-17#jls-17.4.5",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m11-l02-q09",
+  "fact": "m11-l02-f64",
+  "stem": "Which statement about `@Transactional` is correct according to the Spring Framework reference documentation for annotation-driven transaction management?",
+  "key": "The annotation is merely metadata, which runtime infrastructure consumes to configure beans with transactional behavior",
+  "distractors": [
+   "Putting the annotation on a bean is enough to start a transaction for each call",
+   "A `@PostConstruct` method of the bean runs inside a transaction when it carries the annotation",
+   "In proxy mode, a method that calls another `@Transactional` method of the same bean starts a transaction for that call"
+  ],
+  "explanation": "The `@Transactional` annotation is merely metadata that runtime infrastructure consumes to configure beans with transactional behavior. The claim that putting the annotation on a bean is enough is wrong because the mere presence of the annotation is not enough to activate the transactional behavior. The claim about a `@PostConstruct` method is wrong because the proxy must be fully initialized, so the feature should not be relied on in initialization code. The claim about a call to another method of the same bean is wrong because self-invocation does not lead to an actual transaction in proxy mode.",
+  "citation": "spring-fw-tx-declarative-annotations#using-transactional",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m11-l02-q10",
+  "fact": "m11-l02-f56",
+  "stem": "In `Europe/Paris`, the program creates 02:30 on 29 March 2026 (gap) and 02:30 on 25 October 2026 (overlap, then `withLaterOffsetAtOverlap()`), and adds a day and 24 hours to noon on 28 March 2026. What does it print?",
+  "key": "2026-03-29T03:30+02:00[Europe/Paris]\n2026-10-25T02:30+02:00[Europe/Paris]\n2026-10-25T02:30+01:00[Europe/Paris]\n2026-03-29T12:00+02:00[Europe/Paris]\n2026-03-29T13:00+02:00[Europe/Paris]",
+  "distractors": [
+   "2026-03-29T02:30+01:00[Europe/Paris]\n2026-10-25T02:30+02:00[Europe/Paris]\n2026-10-25T02:30+01:00[Europe/Paris]\n2026-03-29T12:00+02:00[Europe/Paris]\n2026-03-29T13:00+02:00[Europe/Paris]",
+   "2026-03-29T03:30+02:00[Europe/Paris]\n2026-10-25T02:30+01:00[Europe/Paris]\n2026-10-25T02:30+01:00[Europe/Paris]\n2026-03-29T12:00+02:00[Europe/Paris]\n2026-03-29T13:00+02:00[Europe/Paris]",
+   "2026-03-29T03:30+02:00[Europe/Paris]\n2026-10-25T02:30+02:00[Europe/Paris]\n2026-10-25T02:30+01:00[Europe/Paris]\n2026-03-29T13:00+02:00[Europe/Paris]\n2026-03-29T13:00+02:00[Europe/Paris]"
+  ],
+  "explanation": "The program prints `2026-03-29T03:30+02:00` for the gap, `+02:00` and then `+01:00` for the overlap, and `12:00` and `13:00` for the day and the 24 hours. The line `2026-03-29T02:30+01:00` is wrong because a local date-time in the middle of a gap is shifted forwards by the length of the gap, into the later offset. The pair of `+01:00` lines for the overlap is wrong because for an overlap the previous offset is retained, and `withLaterOffsetAtOverlap()` is what selects the later one. The two `13:00` lines at the end are wrong because adding a day keeps the local time, while adding 24 hours adds an exact duration that crosses the gap.",
+  "citation": "javadoc-zoneddatetime#class-zoneddatetime",
+  "extract": null,
+  "snippet": "m11-l02/ZoneTransitions.java"
+ },
+ {
+  "id": "m11-l02-q11",
+  "fact": "m11-l02-f62",
+  "stem": "A token issued at `00:00:00Z` expires once issue time plus 15 minutes is before the clock instant. It tests clocks at `00:15:00Z` and one second later, then prints the date of `23:30:00Z` in UTC and Tokyo. What does it print?",
+  "key": "false\ntrue\n2026-01-01\n2026-01-02",
+  "distractors": [
+   "true\ntrue\n2026-01-01\n2026-01-02",
+   "false\ntrue\n2026-01-01\n2026-01-01",
+   "false\nfalse\n2026-01-01\n2026-01-02"
+  ],
+  "explanation": "The program prints `false`, `true`, `2026-01-01` and `2026-01-02`: at exactly 15 minutes the issue time plus 15 minutes is not before the instant, one second later it is, and the same instant is on a different date in Tokyo. The output starting with `true` is wrong because the boundary instant is equal, not after, the expiry. The output ending with `2026-01-01` twice is wrong because the date of `LocalDate.now(clock)` is read in the time zone of the clock. The output with `false` twice is wrong because `Clock.offset` moves the instant of the clock by the given duration.",
+  "citation": "javadoc-clock#class-clock",
+  "extract": null,
+  "snippet": "m11-l02/FixedClock.java"
+ }
+]

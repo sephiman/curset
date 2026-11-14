@@ -1,0 +1,908 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>11.2 Counting Sort and Radix Sort</TITLE>
+<META NAME="description" CONTENT="11.2 Counting Sort and Radix Sort">
+<META NAME="keywords" CONTENT="ods-java-html">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="../ods-book.css">
+
+<LINK REL="next" HREF="11_3_Discussion_Exercises.html">
+<LINK REL="previous" HREF="11_1_Comparison_Based_Sorti.html">
+<LINK REL="up" HREF="11_Sorting_Algorithms.html">
+<LINK REL="next" HREF="11_3_Discussion_Exercises.html">
+</HEAD>
+
+<BODY text="#000000" bgcolor="#FFFFFF">
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html1096"
+  HREF="11_3_Discussion_Exercises.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1090"
+  HREF="11_Sorting_Algorithms.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1084"
+  HREF="11_1_Comparison_Based_Sorti.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1092"
+  HREF="Contents.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html1094"
+  HREF="Index.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html1097"
+  HREF="11_3_Discussion_Exercises.html">11.3 Discussion and Exercises</A>
+<B> Up:</B> <A NAME="tex2html1091"
+  HREF="11_Sorting_Algorithms.html">11. Sorting Algorithms</A>
+<B> Previous:</B> <A NAME="tex2html1085"
+  HREF="11_1_Comparison_Based_Sorti.html">11.1 Comparison-Based Sorting</A>
+ &nbsp; <B>  <A NAME="tex2html1093"
+  HREF="Contents.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html1095"
+  HREF="Index.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html1098"
+  HREF="11_2_Counting_Sort_Radix_So.html#SECTION001421000000000000000"><SPAN CLASS="arabic">11</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">1</SPAN> Counting Sort</A>
+<LI><A NAME="tex2html1099"
+  HREF="11_2_Counting_Sort_Radix_So.html#SECTION001422000000000000000"><SPAN CLASS="arabic">11</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">2</SPAN> Radix-Sort</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION001420000000000000000">
+<SPAN CLASS="arabic">11</SPAN>.<SPAN CLASS="arabic">2</SPAN> Counting Sort and Radix Sort</A>
+</H1>
+
+<P>
+In this section we study two sorting algorithms that are not
+comparison-based. Specialized for sorting small integers, these algorithms
+elude the lower-bounds of Theorem&nbsp;<A HREF="11_1_Comparison_Based_Sorti.html#thm:deterministic-sorting-lower-bound">11.5</A>
+by using (parts of) the elements in <!-- MATH
+ $\mathtt{a}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4338.png"
+ ALT="$ \mathtt{a}$"></SPAN> as indices into an array.
+Consider a statement of the form
+<P><!-- MATH
+ \begin{displaymath}
+\ensuremath{\mathtt{c[a[i]]}} = 1 \enspace .
+\end{displaymath}
+ -->
+</P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<IMG
+ WIDTH="88" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4339.png"
+ ALT="$\displaystyle \ensuremath{\mathtt{c[a[i]]}} = 1 \enspace .
+$">
+</DIV><P></P>
+This statement executes in constant time, but has <!-- MATH
+ $\mathtt{c.length}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="67" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4340.png"
+ ALT="$ \mathtt{c.length}$"></SPAN> possible
+different outcomes, depending on the value of <!-- MATH
+ $\mathtt{a[i]}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="31" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4341.png"
+ ALT="$ \mathtt{a[i]}$"></SPAN>.  This means that the
+execution of an algorithm that makes such a statement cannot be modelled
+as a binary tree.  Ultimately, this is the reason that the algorithms
+in this section are able to sort faster than comparison-based algorithms.
+
+<P>
+
+<H2><A NAME="SECTION001421000000000000000">
+<SPAN CLASS="arabic">11</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">1</SPAN> Counting Sort</A>
+</H2>
+
+<P>
+Suppose we have an input array <!-- MATH
+ $\mathtt{a}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4342.png"
+ ALT="$ \mathtt{a}$"></SPAN> consisting of <!-- MATH
+ $\mathtt{n}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img4343.png"
+ ALT="$ \mathtt{n}$"></SPAN> integers, each in
+the range <!-- MATH
+ $0,\ldots,\ensuremath{\mathtt{k}}-1$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="73" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4344.png"
+ ALT="$ 0,\ldots,\ensuremath{\mathtt{k}}-1$"></SPAN>.  The <SPAN  CLASS="textit">counting-sort</SPAN>
+<A NAME="29018"></A>algorithm sorts <!-- MATH
+ $\mathtt{a}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4345.png"
+ ALT="$ \mathtt{a}$"></SPAN>
+using an auxiliary array <!-- MATH
+ $\mathtt{c}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4346.png"
+ ALT="$ \mathtt{c}$"></SPAN> of counters.  It outputs a sorted version
+of <!-- MATH
+ $\mathtt{a}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4347.png"
+ ALT="$ \mathtt{a}$"></SPAN> as an auxiliary array <!-- MATH
+ $\mathtt{b}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4348.png"
+ ALT="$ \mathtt{b}$"></SPAN>.
+
+<P>
+The idea behind counting-sort is simple:  For each
+<!-- MATH
+ $\ensuremath{\mathtt{i}}\in\{0,\ldots,\ensuremath{\mathtt{k}}-1\}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="108" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4349.png"
+ ALT="$ \ensuremath{\mathtt{i}}\in\{0,\ldots,\ensuremath{\mathtt{k}}-1\}$"></SPAN>, count the number of occurrences of <!-- MATH
+ $\mathtt{i}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img4350.png"
+ ALT="$ \mathtt{i}$"></SPAN> in <!-- MATH
+ $\mathtt{a}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4351.png"
+ ALT="$ \mathtt{a}$"></SPAN>
+and store this in <!-- MATH
+ $\mathtt{c[i]}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="31" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4352.png"
+ ALT="$ \mathtt{c[i]}$"></SPAN>.  Now, after sorting, the output will look like
+<!-- MATH
+ $\mathtt{c[0]}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="31" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4353.png"
+ ALT="$ \mathtt{c[0]}$"></SPAN> occurrences of 0, followed by <!-- MATH
+ $\mathtt{c[1]}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="31" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4354.png"
+ ALT="$ \mathtt{c[1]}$"></SPAN> occurrences of 1, followed by
+<!-- MATH
+ $\mathtt{c[2]}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="31" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4355.png"
+ ALT="$ \mathtt{c[2]}$"></SPAN> occurrences of 2,..., followed by <!-- MATH
+ $\mathtt{c[k-1]}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="55" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4356.png"
+ ALT="$ \mathtt{c[k-1]}$"></SPAN> occurrences of <!-- MATH
+ $\mathtt{k-1}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="36" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img4357.png"
+ ALT="$ \mathtt{k-1}$"></SPAN>.
+The code that does this is very slick, and its execution is illustrated in
+Figure&nbsp;<A HREF="#fig:countingsort">11.7</A>:
+<PRE>
+    int[] countingSort(int[] a, int k) {
+        int c[] = new int[k];
+        for (int i = 0; i &lt; a.length; i++)
+            c[a[i]]++;
+        for (int i = 1; i &lt; k; i++)
+            c[i] += c[i-1];
+        int b[] = new int[a.length];
+        for (int i = a.length-1; i &gt;= 0; i--)
+            b[--c[a[i]]] = a[i];
+        return b;
+    }
+</PRE>
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:countingsort"></A><A NAME="29834"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 11.7:</STRONG>
+The operation of counting sort on an array of length <!-- MATH
+ $\ensuremath{\mathtt{n}}=20$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="47" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4359.png"
+ ALT="$ \ensuremath{\mathtt{n}}=20$"></SPAN> that stores integers <!-- MATH
+ $0,\ldots,\ensuremath{\mathtt{k}}-1=9$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="100" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4360.png"
+ ALT="$ 0,\ldots,\ensuremath{\mathtt{k}}-1=9$"></SPAN>.</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="552" HEIGHT="375" ALIGN="BOTTOM" BORDER="0"
+ SRC="img4358.png"
+ ALT="\includegraphics[width=\textwidth ]{figs/countingsort}">
+  
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+The first <!-- MATH
+ $\mathtt{for}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="29" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4363.png"
+ ALT="$ \mathtt{for}$"></SPAN> loop in this code sets each counter <!-- MATH
+ $\mathtt{c[i]}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="31" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4364.png"
+ ALT="$ \mathtt{c[i]}$"></SPAN> so that it
+counts the number of occurrences of <!-- MATH
+ $\mathtt{i}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img4365.png"
+ ALT="$ \mathtt{i}$"></SPAN> in <!-- MATH
+ $\mathtt{a}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4366.png"
+ ALT="$ \mathtt{a}$"></SPAN>.  By using the values
+of <!-- MATH
+ $\mathtt{a}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4367.png"
+ ALT="$ \mathtt{a}$"></SPAN> as indices, these counters can all be computed in <!-- MATH
+ $O(\ensuremath{\mathtt{n}})$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="36" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4368.png"
+ ALT="$ O(\ensuremath{\mathtt{n}})$"></SPAN> time
+with a single for loop.  At this point, we could use <!-- MATH
+ $\mathtt{c}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4369.png"
+ ALT="$ \mathtt{c}$"></SPAN> to
+fill in the output array <!-- MATH
+ $\mathtt{b}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4370.png"
+ ALT="$ \mathtt{b}$"></SPAN> directly. However, this would not work if
+the elements of <!-- MATH
+ $\mathtt{a}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4371.png"
+ ALT="$ \mathtt{a}$"></SPAN> have associated data.  Therefore we spend a little
+extra effort to copy the elements of <!-- MATH
+ $\mathtt{a}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4372.png"
+ ALT="$ \mathtt{a}$"></SPAN> into <!-- MATH
+ $\mathtt{b}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4373.png"
+ ALT="$ \mathtt{b}$"></SPAN>.
+
+<P>
+The next <!-- MATH
+ $\mathtt{for}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="29" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4374.png"
+ ALT="$ \mathtt{for}$"></SPAN> loop, which takes <!-- MATH
+ $O(\ensuremath{\mathtt{k}})$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="36" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4375.png"
+ ALT="$ O(\ensuremath{\mathtt{k}})$"></SPAN> time, computes a running-sum
+of the counters so that <!-- MATH
+ $\mathtt{c[i]}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="31" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4376.png"
+ ALT="$ \mathtt{c[i]}$"></SPAN> becomes the number of elements in
+<!-- MATH
+ $\mathtt{a}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4377.png"
+ ALT="$ \mathtt{a}$"></SPAN> that are less than or equal to <!-- MATH
+ $\mathtt{i}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img4378.png"
+ ALT="$ \mathtt{i}$"></SPAN>.  In particular, for every
+<!-- MATH
+ $\ensuremath{\mathtt{i}}\in\{0,\ldots,\ensuremath{\mathtt{k}}-1\}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="108" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4379.png"
+ ALT="$ \ensuremath{\mathtt{i}}\in\{0,\ldots,\ensuremath{\mathtt{k}}-1\}$"></SPAN>, the output array, <!-- MATH
+ $\mathtt{b}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4380.png"
+ ALT="$ \mathtt{b}$"></SPAN>, will have
+<P><!-- MATH
+ \begin{displaymath}
+\ensuremath{\mathtt{b[c[i-1]]}}=\ensuremath{\mathtt{b[c[i-1]+1]=}}\cdots=\ensuremath{\mathtt{b[c[i]-1]}}=\ensuremath{\mathtt{i}} \enspace .
+\end{displaymath}
+ -->
+</P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<IMG
+ WIDTH="340" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4381.png"
+ ALT="$\displaystyle \ensuremath{\mathtt{b[c[i-1]]}}=\ensuremath{\mathtt{b[c[i-1]+1]=}}\cdots=\ensuremath{\mathtt{b[c[i]-1]}}=\ensuremath{\mathtt{i}} \enspace .
+$">
+</DIV><P></P>
+Finally, the algorithm scans <!-- MATH
+ $\mathtt{a}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4382.png"
+ ALT="$ \mathtt{a}$"></SPAN> backwards to place its elements, in order,
+into an output array <!-- MATH
+ $\mathtt{b}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4383.png"
+ ALT="$ \mathtt{b}$"></SPAN>.  When scanning, the element <!-- MATH
+ $\mathtt{a[i]=j}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="57" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4384.png"
+ ALT="$ \mathtt{a[i]=j}$"></SPAN> is placed
+at location <!-- MATH
+ $\mathtt{b[c[j]-1]}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="74" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4385.png"
+ ALT="$ \mathtt{b[c[j]-1]}$"></SPAN> and the value <!-- MATH
+ $\mathtt{c[j]}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="31" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4386.png"
+ ALT="$ \mathtt{c[j]}$"></SPAN> is decremented.
+
+<P>
+<P>
+<DIV><B>Theorem  <SPAN CLASS="arabic">11</SPAN>..<SPAN CLASS="arabic">7</SPAN></B> &nbsp; 
+<I>The <!-- MATH
+ $\mathtt{countingSort(a,k)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="138" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4387.png"
+ ALT="$ \mathtt{countingSort(a,k)}$"></SPAN> method can sort an array <!-- MATH
+ $\mathtt{a}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4388.png"
+ ALT="$ \mathtt{a}$"></SPAN> containing <!-- MATH
+ $\mathtt{n}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img4389.png"
+ ALT="$ \mathtt{n}$"></SPAN>
+  integers in the set <!-- MATH
+ $\{0,\ldots,\ensuremath{\mathtt{k}}-1\}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="84" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4390.png"
+ ALT="$ \{0,\ldots,\ensuremath{\mathtt{k}}-1\}$"></SPAN> in <!-- MATH
+ $O(\ensuremath{\mathtt{n}}+\ensuremath{\mathtt{k}})$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="60" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4391.png"
+ ALT="$ O(\ensuremath{\mathtt{n}}+\ensuremath{\mathtt{k}})$"></SPAN> time.</I></DIV><P></P>
+
+<P>
+The counting-sort algorithm has the nice property of being <SPAN  CLASS="textit">stable</SPAN>;
+<A NAME="29081"></A>it preserves the relative order of equal elements.  If two elements
+<!-- MATH
+ $\mathtt{a[i]}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="31" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4392.png"
+ ALT="$ \mathtt{a[i]}$"></SPAN> and <!-- MATH
+ $\mathtt{a[j]}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="31" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4393.png"
+ ALT="$ \mathtt{a[j]}$"></SPAN> have the same value, and <!-- MATH
+ $\ensuremath{\mathtt{i}}<\ensuremath{\mathtt{j}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="38" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4394.png"
+ ALT="$ \ensuremath{\mathtt{i}}&lt;\ensuremath{\mathtt{j}}$"></SPAN> then <!-- MATH
+ $\mathtt{a[i]}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="31" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4395.png"
+ ALT="$ \mathtt{a[i]}$"></SPAN> will
+appear before <!-- MATH
+ $\mathtt{a[j]}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="31" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4396.png"
+ ALT="$ \mathtt{a[j]}$"></SPAN> in <!-- MATH
+ $\mathtt{b}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4397.png"
+ ALT="$ \mathtt{b}$"></SPAN>.  This will be useful in the next section.
+
+<P>
+
+<H2><A NAME="SECTION001422000000000000000">
+<SPAN CLASS="arabic">11</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">2</SPAN> Radix-Sort</A>
+</H2>
+
+<P>
+Counting-sort is very efficient for sorting an array of integers when the
+length, <!-- MATH
+ $\mathtt{n}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img4398.png"
+ ALT="$ \mathtt{n}$"></SPAN>, of the array is not much smaller than the maximum value,
+<!-- MATH
+ $\ensuremath{\mathtt{k}}-1$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="36" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4399.png"
+ ALT="$ \ensuremath{\mathtt{k}}-1$"></SPAN>, that appears in the array.  The <SPAN  CLASS="textit">radix-sort</SPAN>
+<A NAME="29093"></A>algorithm,
+which we now describe, uses several passes of counting-sort to allow
+for a much greater range of maximum values.
+
+<P>
+Radix-sort sorts <!-- MATH
+ $\mathtt{w}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img4400.png"
+ ALT="$ \mathtt{w}$"></SPAN>-bit integers by using <!-- MATH
+ $\ensuremath{\mathtt{w}}/\ensuremath{\mathtt{d}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="27" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4401.png"
+ ALT="$ \ensuremath{\mathtt{w}}/\ensuremath{\mathtt{d}}$"></SPAN> passes of counting-sort
+to sort these integers <!-- MATH
+ $\mathtt{d}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4402.png"
+ ALT="$ \mathtt{d}$"></SPAN> bits at a time.<A NAME="tex2html95"
+  HREF="#foot29835"><SUP><SPAN CLASS="arabic">11</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A>  More precisely, radix sort first sorts the integers by
+their least significant <!-- MATH
+ $\mathtt{d}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4407.png"
+ ALT="$ \mathtt{d}$"></SPAN> bits, then their next significant <!-- MATH
+ $\mathtt{d}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4408.png"
+ ALT="$ \mathtt{d}$"></SPAN> bits,
+and so on until, in the last pass, the integers are sorted by their most
+significant <!-- MATH
+ $\mathtt{d}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4409.png"
+ ALT="$ \mathtt{d}$"></SPAN> bits.
+<PRE>
+    int[] radixSort(int[] a) {
+        int[] b = null;
+        for (int p = 0; p &lt; w/d; p++) {
+            int c[] = new int[1&lt;&lt;d];
+            // the next three for loops implement counting-sort
+            b = new int[a.length];
+            for (int i = 0; i &lt; a.length; i++)
+                c[(a[i] &gt;&gt; d*p)&amp;((1&lt;&lt;d)-1)]++;
+            for (int i = 1; i &lt; 1&lt;&lt;d; i++)
+                c[i] += c[i-1];
+            for (int i = a.length-1; i &gt;= 0; i--)
+                b[--c[(a[i] &gt;&gt; d*p)&amp;((1&lt;&lt;d)-1)]] = a[i];
+            a = b;
+        }
+        return b;
+    }
+</PRE>
+(In this code, the expression <!-- MATH
+ $\mathtt{(a[i]\text{\ttfamily >>}d*p)\text{\ttfamily\&}((1\text{\ttfamily <<}d)-1)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="174" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4410.png"
+ ALT="$ \mathtt{(a[i]\text{\ttfamily &gt;&gt;}d*p)\text{\ttfamily\&amp;}((1\text{\ttfamily &lt;&lt;}d)-1)}$"></SPAN> extracts the integer
+whose binary representation is given by bits
+<!-- MATH
+ $(\ensuremath{\mathtt{p}}+1)\ensuremath{\mathtt{d}}-1,\ldots,\ensuremath{\mathtt{p}}\ensuremath{\mathtt{d}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="124" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4411.png"
+ ALT="$ (\ensuremath{\mathtt{p}}+1)\ensuremath{\mathtt{d}}-1,\ldots,\ensuremath{\mathtt{p}}\ensuremath{\mathtt{d}}$"></SPAN> of <!-- MATH
+ $\mathtt{a[i]}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="31" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4412.png"
+ ALT="$ \mathtt{a[i]}$"></SPAN>.)
+An example of the steps of this algorithm is shown in Figure&nbsp;<A HREF="#fig:radixsort">11.8</A>.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:radixsort"></A><A NAME="29837"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 11.8:</STRONG>
+Using radixsort to sort <!-- MATH
+ $\ensuremath{\mathtt{w}}=8$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="39" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4414.png"
+ ALT="$ \ensuremath{\mathtt{w}}=8$"></SPAN>-bit integers by using 4 passes
+   of counting sort on <!-- MATH
+ $\ensuremath{\mathtt{d}}=2$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="39" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4415.png"
+ ALT="$ \ensuremath{\mathtt{d}}=2$"></SPAN>-bit integers.</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="554" HEIGHT="191" ALIGN="BOTTOM" BORDER="0"
+ SRC="img4413.png"
+ ALT="\includegraphics[width=\textwidth ]{figs/radixsort}">
+  
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+This remarkable algorithm sorts correctly because counting-sort is
+a stable sorting algorithm.  If <!-- MATH
+ $\ensuremath{\mathtt{x}} < \ensuremath{\mathtt{y}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="38" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4418.png"
+ ALT="$ \ensuremath{\mathtt{x}} &lt; \ensuremath{\mathtt{y}}$"></SPAN> are two elements of <!-- MATH
+ $\mathtt{a}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4419.png"
+ ALT="$ \mathtt{a}$"></SPAN>,
+and the most significant bit at which <!-- MATH
+ $\mathtt{x}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img4420.png"
+ ALT="$ \mathtt{x}$"></SPAN> differs from <!-- MATH
+ $\mathtt{y}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4421.png"
+ ALT="$ \mathtt{y}$"></SPAN> has index <SPAN CLASS="MATH"><IMG
+ WIDTH="11" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4422.png"
+ ALT="$ r$"></SPAN>,
+then <!-- MATH
+ $\mathtt{x}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img4423.png"
+ ALT="$ \mathtt{x}$"></SPAN> will be placed before <!-- MATH
+ $\mathtt{y}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4424.png"
+ ALT="$ \mathtt{y}$"></SPAN> during pass <!-- MATH
+ $\lfloor r/\ensuremath{\mathtt{d}}\rfloor$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="38" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4425.png"
+ ALT="$ \lfloor r/\ensuremath{\mathtt{d}}\rfloor$"></SPAN>
+and subsequent passes will not change the relative order of <!-- MATH
+ $\mathtt{x}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img4426.png"
+ ALT="$ \mathtt{x}$"></SPAN> and <!-- MATH
+ $\mathtt{y}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4427.png"
+ ALT="$ \mathtt{y}$"></SPAN>.
+
+<P>
+Radix-sort performs <!-- MATH
+ $\mathtt{w/d}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="27" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4428.png"
+ ALT="$ \mathtt{w/d}$"></SPAN> passes of counting-sort.  Each pass requires
+<!-- MATH
+ $O(\ensuremath{\mathtt{n}}+2^{\ensuremath{\mathtt{d}}})$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="67" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4429.png"
+ ALT="$ O(\ensuremath{\mathtt{n}}+2^{\ensuremath{\mathtt{d}}})$"></SPAN> time. Therefore, the performance of radix-sort is given
+by the following theorem.
+<P>
+<DIV><A NAME="thm:radix-sort"><B>Theorem  <SPAN CLASS="arabic">11</SPAN>..<SPAN CLASS="arabic">8</SPAN></B></A> &nbsp; 
+<I>For any integer <!-- MATH
+ $\ensuremath{\mathtt{d}}>0$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="38" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4430.png"
+ ALT="$ \ensuremath{\mathtt{d}}&gt;0$"></SPAN>, the <!-- MATH
+ $\mathtt{radixSort(a,k)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="113" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4431.png"
+ ALT="$ \mathtt{radixSort(a,k)}$"></SPAN> method can sort an array
+  <!-- MATH
+ $\mathtt{a}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4432.png"
+ ALT="$ \mathtt{a}$"></SPAN> containing <!-- MATH
+ $\mathtt{n}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img4433.png"
+ ALT="$ \mathtt{n}$"></SPAN> <!-- MATH
+ $\mathtt{w}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img4434.png"
+ ALT="$ \mathtt{w}$"></SPAN>-bit integers in <!-- MATH
+ $O((\ensuremath{\mathtt{w}}/\ensuremath{\mathtt{d}})(\ensuremath{\mathtt{n}}+2^{\ensuremath{\mathtt{d}}}))$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="111" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4435.png"
+ ALT="$ O((\ensuremath{\mathtt{w}}/\ensuremath{\mathtt{d}})(\ensuremath{\mathtt{n}}+2^{\ensuremath{\mathtt{d}}}))$"></SPAN> time.</I></DIV><P></P>
+
+<P>
+If we think, instead, of the elements of the array being in the range
+<!-- MATH
+ $\{0,\ldots,\ensuremath{\mathtt{n}}^c-1\}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="90" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4436.png"
+ ALT="$ \{0,\ldots,\ensuremath{\mathtt{n}}^c-1\}$"></SPAN>, and take <!-- MATH
+ $\ensuremath{\mathtt{d}}=\lceil\log\ensuremath{\mathtt{n}}\rceil$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="74" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4437.png"
+ ALT="$ \ensuremath{\mathtt{d}}=\lceil\log\ensuremath{\mathtt{n}}\rceil$"></SPAN> we obtain
+the following version of Theorem&nbsp;<A HREF="#thm:radix-sort">11.8</A>.
+<P>
+<DIV><A NAME="cor:radix-sort-poly"><B>Corollary  <SPAN CLASS="arabic">11</SPAN>..<SPAN CLASS="arabic">1</SPAN></B></A> &nbsp; 
+<I>The <!-- MATH
+ $\mathtt{radixSort(a,k)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="113" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4438.png"
+ ALT="$ \mathtt{radixSort(a,k)}$"></SPAN> method can sort an array <!-- MATH
+ $\mathtt{a}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4439.png"
+ ALT="$ \mathtt{a}$"></SPAN> containing <!-- MATH
+ $\mathtt{n}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img4440.png"
+ ALT="$ \mathtt{n}$"></SPAN>
+  integer values in the range <!-- MATH
+ $\{0,\ldots,\ensuremath{\mathtt{n}}^c-1\}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="90" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4441.png"
+ ALT="$ \{0,\ldots,\ensuremath{\mathtt{n}}^c-1\}$"></SPAN> in <!-- MATH
+ $O(c\ensuremath{\mathtt{n}})$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="43" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4442.png"
+ ALT="$ O(c\ensuremath{\mathtt{n}})$"></SPAN> time.</I></DIV><P></P>
+
+<P>
+<BR><HR><H4>Footnotes</H4>
+<DL>
+<DT><A NAME="foot29835">... time.</A><A
+ HREF="11_2_Counting_Sort_Radix_So.html#tex2html95"><SUP><SPAN CLASS="arabic">11</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A></DT>
+<DD>We assume that
+<!-- MATH
+ $\mathtt{d}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4403.png"
+ ALT="$ \mathtt{d}$"></SPAN> divides <!-- MATH
+ $\mathtt{w}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img4404.png"
+ ALT="$ \mathtt{w}$"></SPAN>, otherwise we can always increase <!-- MATH
+ $\mathtt{w}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img4405.png"
+ ALT="$ \mathtt{w}$"></SPAN> to <!-- MATH
+ $\ensuremath{\mathtt{d}}\lceil
+\ensuremath{\mathtt{w}}/\ensuremath{\mathtt{d}}\rceil$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="48" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4406.png"
+ ALT="$ \ensuremath{\mathtt{d}}\lceil
+\ensuremath{\mathtt{w}}/\ensuremath{\mathtt{d}}\rceil$"></SPAN>.
+
+</DD>
+</DL>
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html1096"
+  HREF="11_3_Discussion_Exercises.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1090"
+  HREF="11_Sorting_Algorithms.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1084"
+  HREF="11_1_Comparison_Based_Sorti.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1092"
+  HREF="Contents.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html1094"
+  HREF="Index.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html1097"
+  HREF="11_3_Discussion_Exercises.html">11.3 Discussion and Exercises</A>
+<B> Up:</B> <A NAME="tex2html1091"
+  HREF="11_Sorting_Algorithms.html">11. Sorting Algorithms</A>
+<B> Previous:</B> <A NAME="tex2html1085"
+  HREF="11_1_Comparison_Based_Sorti.html">11.1 Comparison-Based Sorting</A>
+ &nbsp; <B>  <A NAME="tex2html1093"
+  HREF="Contents.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html1095"
+  HREF="Index.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<a href="http://opendatastructures.org/">opendatastructures.org</a>
+    
+
+</ADDRESS>
+</BODY>
+</HTML>

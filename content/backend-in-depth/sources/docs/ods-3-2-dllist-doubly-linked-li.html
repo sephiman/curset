@@ -1,0 +1,681 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>3.2 DLList: A Doubly-Linked List</TITLE>
+<META NAME="description" CONTENT="3.2 DLList: A Doubly-Linked List">
+<META NAME="keywords" CONTENT="ods-java-html">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="../ods-book.css">
+
+<LINK REL="next" HREF="3_3_SEList_Space_Efficient_.html">
+<LINK REL="previous" HREF="3_1_SLList_Singly_Linked_Li.html">
+<LINK REL="up" HREF="3_Linked_Lists.html">
+<LINK REL="next" HREF="3_3_SEList_Space_Efficient_.html">
+</HEAD>
+
+<BODY text="#000000" bgcolor="#FFFFFF">
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html539"
+  HREF="3_3_SEList_Space_Efficient_.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html533"
+  HREF="3_Linked_Lists.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html527"
+  HREF="3_1_SLList_Singly_Linked_Li.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html535"
+  HREF="Contents.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html537"
+  HREF="Index.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html540"
+  HREF="3_3_SEList_Space_Efficient_.html">3.3 SEList: A Space-Efficient</A>
+<B> Up:</B> <A NAME="tex2html534"
+  HREF="3_Linked_Lists.html">3. Linked Lists</A>
+<B> Previous:</B> <A NAME="tex2html528"
+  HREF="3_1_SLList_Singly_Linked_Li.html">3.1 SLList: A Singly-Linked</A>
+ &nbsp; <B>  <A NAME="tex2html536"
+  HREF="Contents.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html538"
+  HREF="Index.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html541"
+  HREF="3_2_DLList_Doubly_Linked_Li.html#SECTION00621000000000000000"><SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">1</SPAN> Adding and Removing</A>
+<LI><A NAME="tex2html542"
+  HREF="3_2_DLList_Doubly_Linked_Li.html#SECTION00622000000000000000"><SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">2</SPAN> Summary</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00620000000000000000"></A>
+<A NAME="sec:dllist"></A>
+<BR>
+<SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">2</SPAN> <TT>DLList</TT>: A Doubly-Linked List
+</H1>
+
+<P>
+<A NAME="9771"></A><A NAME="8994"></A><A NAME="8995"></A>A <TT>DLList</TT> (doubly-linked list) is very similar to an <TT>SLList</TT> except
+that each node <!-- MATH
+ $\mathtt{u}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1242.png"
+ ALT="$ \mathtt{u}$"></SPAN> in a <TT>DLList</TT> has references to both the node <!-- MATH
+ $\mathtt{u.next}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="50" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1243.png"
+ ALT="$ \mathtt{u.next}$"></SPAN>
+that follows it and the node <!-- MATH
+ $\mathtt{u.prev}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="50" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1244.png"
+ ALT="$ \mathtt{u.prev}$"></SPAN> that precedes it.
+
+<P>
+<PRE>
+    class Node {
+        T x;
+        Node prev, next;
+    }
+</PRE>
+
+<P>
+When implementing an <TT>SLList</TT>, we saw that there were always several
+special cases to worry about. For example, removing the last element
+from an <TT>SLList</TT> or adding an element to an empty <TT>SLList</TT> requires care
+to ensure that <!-- MATH
+ $\mathtt{head}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="38" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1245.png"
+ ALT="$ \mathtt{head}$"></SPAN> and <!-- MATH
+ $\mathtt{tail}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="38" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1246.png"
+ ALT="$ \mathtt{tail}$"></SPAN> are correctly updated.  In a <TT>DLList</TT>,
+the number of these special cases increases considerably.  Perhaps the
+cleanest way to take care of all these special cases in a <TT>DLList</TT> is to
+introduce a <!-- MATH
+ $\mathtt{dummy}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="46" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1247.png"
+ ALT="$ \mathtt{dummy}$"></SPAN> node.
+<A NAME="9012"></A>This is a node that does not contain any data,
+but acts as a placeholder so that there are no special nodes; every node
+has both a <!-- MATH
+ $\mathtt{next}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="38" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1248.png"
+ ALT="$ \mathtt{next}$"></SPAN> and a <!-- MATH
+ $\mathtt{prev}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="38" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1249.png"
+ ALT="$ \mathtt{prev}$"></SPAN>, with <!-- MATH
+ $\mathtt{dummy}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="46" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1250.png"
+ ALT="$ \mathtt{dummy}$"></SPAN> acting as the node that
+follows the last node in the list and that precedes the first node in
+the list.  In this way, the nodes of the list are (doubly-)linked into
+a cycle, as illustrated in Figure&nbsp;<A HREF="#fig:dllist">3.2</A>.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:dllist"></A><A NAME="9781"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 3.2:</STRONG>
+A <TT>DLList</TT> containing a,b,c,d,e.</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="553" HEIGHT="110" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1251.png"
+ ALT="\includegraphics[width=\textwidth ]{figs/dllist2}">
+  
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+<PRE>
+    int n;
+    Node dummy;
+    DLList() {
+        dummy = new Node();
+        dummy.next = dummy;
+        dummy.prev = dummy;
+        n = 0;
+    }
+</PRE>
+
+<P>
+Finding the node with a particular index in a <TT>DLList</TT> is easy;  we can
+either start at the head of the list (<!-- MATH
+ $\mathtt{dummy.next}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="84" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1252.png"
+ ALT="$ \mathtt{dummy.next}$"></SPAN>) and work forward,
+or start at the tail of the list (<!-- MATH
+ $\mathtt{dummy.prev}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="84" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1253.png"
+ ALT="$ \mathtt{dummy.prev}$"></SPAN>) and work backward.
+This allows us to reach the <!-- MATH
+ $\mathtt{i}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1254.png"
+ ALT="$ \mathtt{i}$"></SPAN>th node in <!-- MATH
+ $O(1+\min\{\ensuremath{\mathtt{i}},\ensuremath{\mathtt{n}}-\ensuremath{\mathtt{i}}\})$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="136" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1255.png"
+ ALT="$ O(1+\min\{\ensuremath{\mathtt{i}},\ensuremath{\mathtt{n}}-\ensuremath{\mathtt{i}}\})$"></SPAN> time:
+
+<P>
+<PRE>
+    Node getNode(int i) {
+        Node p = null;
+        if (i &lt; n / 2) {
+            p = dummy.next;
+            for (int j = 0; j &lt; i; j++)
+                p = p.next;
+        } else {
+            p = dummy;
+            for (int j = n; j &gt; i; j--)
+                p = p.prev;
+        }
+        return p;
+    }
+</PRE>
+
+<P>
+The <!-- MATH
+ $\mathtt{get(i)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="49" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1256.png"
+ ALT="$ \mathtt{get(i)}$"></SPAN> and <!-- MATH
+ $\mathtt{set(i,x)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="63" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1257.png"
+ ALT="$ \mathtt{set(i,x)}$"></SPAN> operations are now also easy.  We first find the <!-- MATH
+ $\mathtt{i}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1258.png"
+ ALT="$ \mathtt{i}$"></SPAN>th node and then get or set its <!-- MATH
+ $\mathtt{x}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1259.png"
+ ALT="$ \mathtt{x}$"></SPAN> value:
+
+<P>
+<PRE>
+    T get(int i) {
+        if (i &lt; 0 || i &gt; n - 1) throw new IndexOutOfBoundsException();
+        return getNode(i).x;
+    }
+    T set(int i, T x) {
+        if (i &lt; 0 || i &gt; n - 1) throw new IndexOutOfBoundsException();
+        Node u = getNode(i);
+        T y = u.x;
+        u.x = x;
+        return y;
+    }
+</PRE>
+
+<P>
+The running time of these operations is dominated by the time it takes
+to find the <!-- MATH
+ $\mathtt{i}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1260.png"
+ ALT="$ \mathtt{i}$"></SPAN>th node, and is therefore <!-- MATH
+ $O(1+\min\{\ensuremath{\mathtt{i}},\ensuremath{\mathtt{n}}-\ensuremath{\mathtt{i}}\})$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="136" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1261.png"
+ ALT="$ O(1+\min\{\ensuremath{\mathtt{i}},\ensuremath{\mathtt{n}}-\ensuremath{\mathtt{i}}\})$"></SPAN>.
+
+<P>
+
+<H2><A NAME="SECTION00621000000000000000">
+<SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">1</SPAN> Adding and Removing</A>
+</H2>
+
+<P>
+If we have a reference to a node <!-- MATH
+ $\mathtt{w}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1262.png"
+ ALT="$ \mathtt{w}$"></SPAN> in a <TT>DLList</TT> and we want to insert a
+node <!-- MATH
+ $\mathtt{u}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1263.png"
+ ALT="$ \mathtt{u}$"></SPAN> before <!-- MATH
+ $\mathtt{w}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1264.png"
+ ALT="$ \mathtt{w}$"></SPAN>, then this is just a matter of setting <!-- MATH
+ $\ensuremath{\mathtt{u.next}}=\ensuremath{\mathtt{w}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="76" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1265.png"
+ ALT="$ \ensuremath{\mathtt{u.next}}=\ensuremath{\mathtt{w}}$"></SPAN>,
+<!-- MATH
+ $\ensuremath{\mathtt{u.prev}}=\ensuremath{\mathtt{w.prev}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="114" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1266.png"
+ ALT="$ \ensuremath{\mathtt{u.prev}}=\ensuremath{\mathtt{w.prev}}$"></SPAN>, and then adjusting <!-- MATH
+ $\mathtt{u.prev.next}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="88" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1267.png"
+ ALT="$ \mathtt{u.prev.next}$"></SPAN> and <!-- MATH
+ $\mathtt{u.next.prev}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="88" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1268.png"
+ ALT="$ \mathtt{u.next.prev}$"></SPAN>.  (See Figure&nbsp;<A HREF="#fig:dllist-addbefore">3.3</A>.)
+Thanks to the dummy node, there is no need to worry about <!-- MATH
+ $\mathtt{w.prev}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="50" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1269.png"
+ ALT="$ \mathtt{w.prev}$"></SPAN>
+or <!-- MATH
+ $\mathtt{w.next}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="50" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1270.png"
+ ALT="$ \mathtt{w.next}$"></SPAN> not existing.
+
+<P>
+<PRE>
+    Node addBefore(Node w, T x) {
+        Node u = new Node();
+        u.x = x;
+        u.prev = w.prev;
+        u.next = w;
+        u.next.prev = u;
+        u.prev.next = u;
+        n++;
+        return u;
+    }
+</PRE>
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:dllist-addbefore"></A><A NAME="10203"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 3.3:</STRONG>
+Adding the node <!-- MATH
+ $\mathtt{u}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1272.png"
+ ALT="$ \mathtt{u}$"></SPAN> before the node <!-- MATH
+ $\mathtt{w}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1273.png"
+ ALT="$ \mathtt{w}$"></SPAN>
+      in a <TT>DLList</TT>.</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="281" HEIGHT="116" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1271.png"
+ ALT="\includegraphics[scale=0.90909]{figs/dllist-addbefore}">
+   
+</DIV></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+Now, the list operation <!-- MATH
+ $\mathtt{add(i,x)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="63" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1274.png"
+ ALT="$ \mathtt{add(i,x)}$"></SPAN> is trivial to implement.  We find the
+<!-- MATH
+ $\mathtt{i}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1275.png"
+ ALT="$ \mathtt{i}$"></SPAN>th node in the <TT>DLList</TT> and insert a new node <!-- MATH
+ $\mathtt{u}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1276.png"
+ ALT="$ \mathtt{u}$"></SPAN> that contains <!-- MATH
+ $\mathtt{x}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1277.png"
+ ALT="$ \mathtt{x}$"></SPAN>
+just before it.
+
+<P>
+<PRE>
+    void add(int i, T x) {
+        if (i &lt; 0 || i &gt; n) throw new IndexOutOfBoundsException();
+        addBefore(getNode(i), x);
+    }
+</PRE>
+
+<P>
+The only non-constant part of the running time of <!-- MATH
+ $\mathtt{add(i,x)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="63" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1278.png"
+ ALT="$ \mathtt{add(i,x)}$"></SPAN> is the time
+it takes to find the <!-- MATH
+ $\mathtt{i}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1279.png"
+ ALT="$ \mathtt{i}$"></SPAN>th node (using <!-- MATH
+ $\mathtt{getNode(i)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="82" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1280.png"
+ ALT="$ \mathtt{getNode(i)}$"></SPAN>).  Thus, <!-- MATH
+ $\mathtt{add(i,x)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="63" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1281.png"
+ ALT="$ \mathtt{add(i,x)}$"></SPAN>
+runs in <!-- MATH
+ $O(1+\min\{\ensuremath{\mathtt{i}}, \ensuremath{\mathtt{n}}-\ensuremath{\mathtt{i}}\})$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="136" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1282.png"
+ ALT="$ O(1+\min\{\ensuremath{\mathtt{i}}, \ensuremath{\mathtt{n}}-\ensuremath{\mathtt{i}}\})$"></SPAN> time.
+
+<P>
+Removing a node <!-- MATH
+ $\mathtt{w}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1283.png"
+ ALT="$ \mathtt{w}$"></SPAN> from a <TT>DLList</TT> is easy.  We only need to adjust
+pointers at <!-- MATH
+ $\mathtt{w.next}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="50" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1284.png"
+ ALT="$ \mathtt{w.next}$"></SPAN> and <!-- MATH
+ $\mathtt{w.prev}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="50" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1285.png"
+ ALT="$ \mathtt{w.prev}$"></SPAN> so that they skip over <!-- MATH
+ $\mathtt{w}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1286.png"
+ ALT="$ \mathtt{w}$"></SPAN>.  Again, the
+use of the dummy node eliminates the need to consider any special cases:
+
+<P>
+<PRE>
+    void remove(Node w) {
+        w.prev.next = w.next;
+        w.next.prev = w.prev;
+        n--;
+    }
+</PRE>
+
+<P>
+Now the <!-- MATH
+ $\mathtt{remove(i)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="74" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1287.png"
+ ALT="$ \mathtt{remove(i)}$"></SPAN> operation is trivial. We find the node with index <!-- MATH
+ $\mathtt{i}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1288.png"
+ ALT="$ \mathtt{i}$"></SPAN> and remove it:
+
+<P>
+<PRE>
+    T remove(int i) {
+        if (i &lt; 0 || i &gt; n - 1) throw new IndexOutOfBoundsException();
+        Node w = getNode(i);
+        remove(w);
+        return w.x;
+    }
+</PRE>
+
+<P>
+Again, the only expensive part of this operation is finding the <!-- MATH
+ $\mathtt{i}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1289.png"
+ ALT="$ \mathtt{i}$"></SPAN>th node
+using <!-- MATH
+ $\mathtt{getNode(i)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="82" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1290.png"
+ ALT="$ \mathtt{getNode(i)}$"></SPAN>, so <!-- MATH
+ $\mathtt{remove(i)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="74" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1291.png"
+ ALT="$ \mathtt{remove(i)}$"></SPAN> runs in <!-- MATH
+ $O(1+\min\{\ensuremath{\mathtt{i}}, \ensuremath{\mathtt{n}}-\ensuremath{\mathtt{i}}\})$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="136" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1292.png"
+ ALT="$ O(1+\min\{\ensuremath{\mathtt{i}}, \ensuremath{\mathtt{n}}-\ensuremath{\mathtt{i}}\})$"></SPAN>
+time.
+
+<P>
+
+<H2><A NAME="SECTION00622000000000000000">
+<SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">2</SPAN> Summary</A>
+</H2>
+
+<P>
+The following theorem summarizes the performance of a <TT>DLList</TT>:
+
+<P>
+<P>
+<DIV><A NAME="thm:dllist"><B>Theorem  <SPAN CLASS="arabic">3</SPAN>..<SPAN CLASS="arabic">2</SPAN></B></A> &nbsp; 
+<I>A <TT>DLList</TT> implements the <TT>List</TT> interface.  In this implementation,
+  the <!-- MATH
+ $\mathtt{get(i)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="49" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1293.png"
+ ALT="$ \mathtt{get(i)}$"></SPAN>, <!-- MATH
+ $\mathtt{set(i,x)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="63" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1294.png"
+ ALT="$ \mathtt{set(i,x)}$"></SPAN>, <!-- MATH
+ $\mathtt{add(i,x)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="63" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1295.png"
+ ALT="$ \mathtt{add(i,x)}$"></SPAN> and <!-- MATH
+ $\mathtt{remove(i)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="74" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1296.png"
+ ALT="$ \mathtt{remove(i)}$"></SPAN> operations run
+  in <!-- MATH
+ $O(1+\min\{\ensuremath{\mathtt{i}},\ensuremath{\mathtt{n}}-\ensuremath{\mathtt{i}}\})$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="136" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1297.png"
+ ALT="$ O(1+\min\{\ensuremath{\mathtt{i}},\ensuremath{\mathtt{n}}-\ensuremath{\mathtt{i}}\})$"></SPAN> time per operation.</I></DIV><P></P>
+
+<P>
+It is worth noting that, if we ignore the cost of the <!-- MATH
+ $\mathtt{getNode(i)}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="82" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1298.png"
+ ALT="$ \mathtt{getNode(i)}$"></SPAN>
+operation, then all operations on a <TT>DLList</TT> take constant time.
+Thus, the only expensive part of operations on a <TT>DLList</TT> is finding
+the relevant node.  Once we have the relevant node, adding, removing,
+or accessing the data at that node takes only constant time.
+
+<P>
+This is in sharp contrast to the array-based <TT>List</TT> implementations of
+Chapter&nbsp;<A HREF="2_Array_Based_Lists.html#chap:arrays">2</A>; in those implementations, the relevant array
+item can be found in constant time. However, addition or removal requires
+shifting elements in the array and, in general, takes non-constant time.
+
+<P>
+For this reason, linked list structures are well-suited to applications
+where references to list nodes can be obtained through external means.
+An example of this is the <TT>LinkedHashSet</TT> data structure found in the
+Java Collections Framework, in which a set of items is stored in a
+doubly-linked list and the nodes of the doubly-linked list are stored
+in a hash table (discussed in Chapter&nbsp;<A HREF="5_Hash_Tables.html#chap:hashing">5</A>).  When elements
+are removed from a <TT>LinkedHashSet</TT>, the hash table is used to find the
+relevant list node in constant time and then the list node is deleted
+(also in constant time).
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html539"
+  HREF="3_3_SEList_Space_Efficient_.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html533"
+  HREF="3_Linked_Lists.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html527"
+  HREF="3_1_SLList_Singly_Linked_Li.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html535"
+  HREF="Contents.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html537"
+  HREF="Index.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html540"
+  HREF="3_3_SEList_Space_Efficient_.html">3.3 SEList: A Space-Efficient</A>
+<B> Up:</B> <A NAME="tex2html534"
+  HREF="3_Linked_Lists.html">3. Linked Lists</A>
+<B> Previous:</B> <A NAME="tex2html528"
+  HREF="3_1_SLList_Singly_Linked_Li.html">3.1 SLList: A Singly-Linked</A>
+ &nbsp; <B>  <A NAME="tex2html536"
+  HREF="Contents.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html538"
+  HREF="Index.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<a href="http://opendatastructures.org/">opendatastructures.org</a>
+    
+
+</ADDRESS>
+</BODY>
+</HTML>

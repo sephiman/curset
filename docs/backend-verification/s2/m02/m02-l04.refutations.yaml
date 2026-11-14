@@ -1,0 +1,155 @@
+m02-l04-q01:
+  key:
+    execution: m02-l04/GraphTraversal.java
+  wrong:
+  - option: 'bfs [0, 1, 3, 2, 4]
+
+      dfs [0, 1, 2, 3, 4]
+
+      components 2'
+    execution: m02-l04/GraphTraversal.java
+    mistake: wrong evaluation order
+  - option: 'bfs [0, 1, 2, 3, 4]
+
+      dfs [0, 1, 3, 2, 4]
+
+      components 3'
+    execution: m02-l04/GraphTraversal.java
+    mistake: off-by-one
+  - option: 'bfs [0, 1, 2, 3, 4]
+
+      dfs [0, 2, 3, 4, 1]
+
+      components 2'
+    execution: m02-l04/GraphTraversal.java
+    mistake: wrong evaluation order
+m02-l04-q02:
+  key:
+    execution: m02-l04/CycleAndTopologicalSort.java
+  wrong:
+  - option: 'topological [4, 3, 1, 2, 0]
+
+      dag has cycle false
+
+      with edge 4->1 has cycle true'
+    execution: m02-l04/CycleAndTopologicalSort.java
+    mistake: wrong evaluation order
+  - option: 'topological [0, 2, 1, 3, 4]
+
+      dag has cycle true
+
+      with edge 4->1 has cycle true'
+    execution: m02-l04/CycleAndTopologicalSort.java
+    mistake: revisited vertex taken for a cycle
+  - option: 'topological [0, 2, 1, 3, 4]
+
+      dag has cycle false
+
+      with edge 4->1 has cycle false'
+    execution: m02-l04/CycleAndTopologicalSort.java
+    mistake: ignored the active status
+m02-l04-q03:
+  key:
+    execution: m02-l04/UnionFind.java
+  wrong:
+  - option: 'before [1, 2, 3, 3]
+
+      after find(0) [1, 2, 3, 3]
+
+      components 1'
+    execution: m02-l04/UnionFind.java
+    mistake: no path compression
+  - option: 'before [1, 2, 3, 3]
+
+      after find(0) [3, 2, 3, 3]
+
+      components 1'
+    execution: m02-l04/UnionFind.java
+    mistake: compressed only the first pointer
+  - option: 'before [1, 2, 3, 3]
+
+      after find(0) [3, 3, 3, 3]
+
+      components 4'
+    execution: m02-l04/UnionFind.java
+    mistake: counted elements instead of leaders
+m02-l04-q04:
+  key:
+    execution: m02-l04/Dijkstra.java
+  wrong:
+  - option: 'distances [0, 3, 1, 4]
+
+      with a negative edge [0, 1, 3]'
+    execution: m02-l04/Dijkstra.java
+    mistake: assumed the negative edge is handled
+  - option: 'distances [0, 4, 1, 4]
+
+      with a negative edge [0, 2, 3]'
+    execution: m02-l04/Dijkstra.java
+    mistake: took the direct edge without relaxing
+  - option: 'distances [0, 3, 1, 6]
+
+      with a negative edge [0, 2, 3]'
+    execution: m02-l04/Dijkstra.java
+    mistake: ignored the cheaper path
+m02-l04-q05:
+  key:
+    execution: m02-l04/GridSearch.java
+  wrong:
+  - option: 'steps to E 6
+
+      reachable cells 9'
+    execution: m02-l04/GridSearch.java
+    mistake: counted cells instead of moves
+  - option: 'steps to E 5
+
+      reachable cells 8'
+    execution: m02-l04/GridSearch.java
+    mistake: off-by-one
+  - option: 'steps to E 3
+
+      reachable cells 9'
+    execution: m02-l04/GridSearch.java
+    mistake: ignored the walls
+m02-l04-q06:
+  key:
+    anchor: ods-12-2-adjacencylists-graph-a#SECTION001520000000000000000
+    sentence: It scans the adjacency list of every vertex
+  wrong:
+  - option: '`outEdges(i)`'
+    anchor: ods-12-2-adjacencylists-graph-a#SECTION001520000000000000000
+    sentence: The operation is very simple; it returns the list
+  - option: '`addEdge(i, j)`'
+    anchor: ods-12-2-adjacencylists-graph-a#SECTION001520000000000000000
+    sentence: The operation just appends the value to the list
+  - option: '`removeEdge(i, j)`'
+    anchor: ods-12-2-adjacencylists-graph-a#SECTION001520000000000000000
+    sentence: 'The operation searches through the list until it finds and then removes it:'
+m02-l04-q07:
+  key:
+    anchor: erickson-union-find#p4
+    sentence: The key observation is that in any Find operation, once we determine the leader of an object x, we can speed up future Finds by redirecting x’s parent pointer directly to that leader.
+  wrong:
+  - option: It merges the set of x with another set, replacing the two sets with their union
+    anchor: erickson-union-find#p4
+    sentence: This modification to Find is called path compression.
+  - option: It changes only the parent pointer of x and leaves the pointers of all its ancestors as they were
+    anchor: erickson-union-find#p4
+    sentence: In fact, we can change the parent pointers of all the ancestors of x all the way up to the root
+  - option: It updates a `depth` field in every node on the path so that the trees stay shallow
+    anchor: erickson-union-find#p4
+    sentence: If we use path compression, the ‘depth’ field we used earlier to keep the trees shallow is no longer correct
+m02-l04-q08:
+  key:
+    anchor: erickson-union-find#p1
+    sentence: 'Find(x): Find (the leader of) the set containing x.'
+  wrong:
+  - option: The union of the set of x with another set
+    anchor: erickson-union-find#p1
+    sentence: 'Union(A, B): Replace two sets A and B in our collection with their union A ∪ B.'
+  - option: A new set that contains only x
+    anchor: erickson-union-find#p1
+    sentence: 'MakeSet(x): Create a new set {x} containing the single element x.'
+  - option: Any element of the set of x, chosen freely on each call
+    anchor: erickson-union-find#p1
+    sentence: Each set has a unique ‘leader’ element, which identifies the set.

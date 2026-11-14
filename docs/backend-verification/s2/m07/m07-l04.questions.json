@@ -1,0 +1,212 @@
+[
+ {
+  "id": "m07-l04-q01",
+  "fact": "m07-l04-f07",
+  "stem": "According to RFC 9110, which of these request methods is idempotent although it is not one of the safe methods?",
+  "key": "`DELETE`",
+  "distractors": [
+   "`GET`",
+   "`OPTIONS`",
+   "`POST`"
+  ],
+  "explanation": "`DELETE` is idempotent and is not on the list of safe methods. `GET` and `OPTIONS` are both excluded, because both are safe methods themselves. `POST` is wrong because the idempotent methods are `PUT`, `DELETE` and the safe methods, which does not include `POST`.",
+  "citation": "rfc9110#section-9.2.2",
+  "extract": "Of the request methods defined by this specification, PUT, DELETE, and safe request methods are idempotent.",
+  "snippet": null
+ },
+ {
+  "id": "m07-l04-q02",
+  "fact": "m07-l04-f06",
+  "stem": "Which statement defines an idempotent request method in RFC 9110, regarding multiple identical requests sent to the origin server?",
+  "key": "The intended effect on the server of multiple identical requests is the same as the effect of a single request",
+  "distractors": [
+   "Every identical request gets a byte-identical response from the server",
+   "The server does not log or record the repeated requests",
+   "The client does not request or expect any state change on the origin server"
+  ],
+  "explanation": "Idempotence means that repeating an identical request has the same intended effect as sending it once. Byte-identical responses are wrong because the response might differ. Not logging repeats is wrong because a server is free to log each request separately. No expected state change is wrong because that is the definition of a safe method.",
+  "citation": "rfc9110#section-9.2.2",
+  "extract": "A request method is considered \"idempotent\" if the intended effect on the server of multiple identical requests with that method is the same as the effect for a single such request.",
+  "snippet": null
+ },
+ {
+  "id": "m07-l04-q03",
+  "fact": "m07-l04-f14",
+  "stem": "Which statement about automatic retries of requests after a communication failure is correct according to RFC 9110?",
+  "key": "A proxy must not automatically retry non-idempotent requests",
+  "distractors": [
+   "A client can always retry a `POST` request after the connection closed, because the server never applied it",
+   "A client should keep retrying a failed automatic retry until it succeeds",
+   "Idempotent requests cannot be repeated automatically, because the first request may have succeeded"
+  ],
+  "explanation": "A proxy must not automatically retry non-idempotent requests. Retrying a `POST` always is wrong because a client should not automatically retry a non-idempotent request without a means to know it is safe. Retrying a failed retry until success is wrong because a client should not retry a failed automatic retry. Never repeating idempotent requests is wrong because idempotent methods exist so that the request can be repeated automatically.",
+  "citation": "rfc9110#section-9.2.2",
+  "extract": "A proxy MUST NOT automatically retry non-idempotent requests.",
+  "snippet": null
+ },
+ {
+  "id": "m07-l04-q04",
+  "fact": "m07-l04-f29",
+  "stem": "According to RFC 9110, which pair of redirect status codes was added to unambiguously indicate method-preserving redirects?",
+  "key": "`307` and `308`",
+  "distractors": [
+   "`301` and `302`",
+   "`303` alone",
+   "`300` and `304`"
+  ],
+  "explanation": "`307` and `308` were added to indicate method-preserving redirects. `301` and `302` are wrong because early user agents split on whether to redirect a `POST` as `POST` or as `GET`, so they are not unambiguous. `303` is wrong because it was defined for a redirection that changes the method to `GET`. `300` and `304` are wrong because `304` redirects to a previously stored result and is not a method-preserving redirect.",
+  "citation": "rfc9110#section-15.4",
+  "extract": "307 (Temporary Redirect) and 308 (Permanent Redirect) [RFC7538] were later added to unambiguously indicate method-preserving redirects, and status codes 301 and 302 have been adjusted to allow a POST request to be redirected as GET.",
+  "snippet": null
+ },
+ {
+  "id": "m07-l04-q05",
+  "fact": "m07-l04-f17",
+  "stem": "Which of these status codes is defined by RFC 9110 as heuristically cacheable, so that a cache can reuse the response with heuristic expiration?",
+  "key": "`404`",
+  "distractors": [
+   "`201`",
+   "`302`",
+   "`500`"
+  ],
+  "explanation": "`404` is on the list of heuristically cacheable status codes. `201`, `302` and `500` are all excluded, because they are not on the list and all other status codes are not heuristically cacheable.",
+  "citation": "rfc9110#section-15.1",
+  "extract": "Responses with status codes that are defined as heuristically cacheable (e.g., 200, 203, 204, 206, 300, 301, 308, 404, 405, 410, 414, and 501 in this specification) can be reused by a cache with heuristic expiration unless otherwise indicated by the method definition or explicit cache controls [CACHING]; all other status codes are not heuristically cacheable.",
+  "snippet": null
+ },
+ {
+  "id": "m07-l04-q06",
+  "fact": "m07-l04-f33",
+  "stem": "RFC 9111 says that cache directives are unidirectional. Which statement about `Cache-Control` directives follows from the RFC?",
+  "key": "A directive in a request does not imply that the same directive is present or copied in the response",
+  "distractors": [
+   "A proxy that implements no cache may drop the directives it forwards, because nothing in it can use them",
+   "A directive can be addressed to one specific cache along the chain",
+   "Directive names are case-sensitive tokens"
+  ],
+  "explanation": "A directive in a request does not imply the same directive in the response. Dropping the forwarded directives is wrong because a proxy must pass them through whether or not it implements a cache. Addressing one cache is wrong because it is not possible to target a directive to a specific cache. Case-sensitive names are wrong because directive tokens are compared case-insensitively.",
+  "citation": "rfc9111#section-5.2",
+  "extract": "Cache directives are unidirectional, in that the presence of a directive in a request does not imply that the same directive is present or copied in the response.",
+  "snippet": null
+ },
+ {
+  "id": "m07-l04-q07",
+  "fact": "m07-l04-f40",
+  "stem": "In Java 25, the snippet applies the RFC 9111 freshness formula, fresh when lifetime is greater than age, to a lifetime of 60 and ages 59, 60 and 61. What does it print?",
+  "key": "lifetime 60, age 59: fresh\nlifetime 60, age 60: stale\nlifetime 60, age 61: stale",
+  "distractors": [
+   "lifetime 60, age 59: fresh\\nlifetime 60, age 60: fresh\\nlifetime 60, age 61: stale",
+   "lifetime 60, age 59: stale\\nlifetime 60, age 60: stale\\nlifetime 60, age 61: fresh",
+   "lifetime 60, age 59: fresh\\nlifetime 60, age 60: fresh\\nlifetime 60, age 61: fresh"
+  ],
+  "explanation": "Only age 59 is below the lifetime of 60, so only the first line is `fresh`, and the equal age of 60 is `stale`. The output where age 60 is `fresh` is wrong because the comparison is strict. The output with the reversed results is wrong because a response is fresh while its age is below the lifetime. The output where every line is `fresh` is wrong because ages 60 and 61 do not exceed the lifetime of 60 in the fresh direction.",
+  "citation": "rfc9111#section-4.2",
+  "extract": null,
+  "snippet": "m07-l04/Freshness.java"
+ },
+ {
+  "id": "m07-l04-q08",
+  "fact": "m07-l04-f49",
+  "stem": "An origin server generates an entity tag that does not satisfy all the characteristics of a strong validator. What must it do, according to RFC 9110?",
+  "key": "Mark the entity tag as weak by prefixing its opaque value with `W/`",
+  "distractors": [
+   "Omit the `ETag` field, because only strong validators may be sent",
+   "Send the entity tag only in a trailer section",
+   "Prefix the opaque value with a lowercase `w/`"
+  ],
+  "explanation": "The server must mark the tag as weak with the `W/` prefix. Omitting `ETag` is wrong because an entity tag can be either a weak or a strong validator. A trailer-only `ETag` is wrong because it is preferable to send it as a header field. The lowercase `w/` is wrong because the `W/` prefix is case-sensitive.",
+  "citation": "rfc9110#section-8.8.3",
+  "extract": "then the origin server MUST mark the entity tag as weak by prefixing its opaque value with \"W/\" (case-sensitive).",
+  "snippet": null
+ },
+ {
+  "id": "m07-l04-q09",
+  "fact": "m07-l04-f64",
+  "stem": "A client sends a `GET` request with an `If-None-Match` header field, and the condition evaluates to false at the origin server. Which status code does the server respond with?",
+  "key": "`304`",
+  "distractors": [
+   "`200`",
+   "`412`",
+   "`204`"
+  ],
+  "explanation": "For `GET` or `HEAD` the server responds with `304`. `200`, `412` and `204` are all excluded, because the server must not perform the method and must answer `304` for `GET` or `HEAD`, with `412` reserved for all other request methods.",
+  "citation": "rfc9110#section-13.1.2",
+  "extract": "An origin server that evaluates an If-None-Match condition MUST NOT perform the requested method if the condition evaluates to false; instead, the origin server MUST respond with either a) the 304 (Not Modified) status code if the request method is GET or HEAD or b) the 412 (Precondition Failed) status code for all other request methods.",
+  "snippet": null
+ },
+ {
+  "id": "m07-l04-q10",
+  "fact": "m07-l04-f65",
+  "stem": "A client sends `PUT` with the header `If-None-Match: *`. What does RFC 9110 say this header can achieve?",
+  "key": "It prevents the `PUT` from inadvertently modifying an existing representation when the client believes none exists",
+  "distractors": [
+   "It makes the `PUT` succeed only when a current representation already exists",
+   "It makes the server answer the `PUT` with `304 Not Modified`",
+   "It can be combined with entity tags in one list, such as `*, \"xyzzy\"`"
+  ],
+  "explanation": "`If-None-Match: *` stops a `PUT` from overwriting an existing representation when the client believes none exists. Succeeding only when a representation exists is wrong because the condition is false when the server has a current representation. A `304` answer is wrong because for a method other than `GET` or `HEAD` the server answers `412`. Combining `*` with entity tags is wrong because such a list is syntactically invalid.",
+  "citation": "rfc9110#section-13.1.2",
+  "extract": "If-None-Match can also be used with a value of \"*\" to prevent an unsafe request method (e.g., PUT) from inadvertently modifying an existing representation of the target resource when the client believes that the resource does not have a current representation (Section 9.2.1).",
+  "snippet": null
+ },
+ {
+  "id": "m07-l04-q11",
+  "fact": "m07-l04-f69",
+  "stem": "A `Vary` header field that lists request header field names has two purposes according to RFC 9110. Which one is one of them?",
+  "key": "It expands the cache key needed to match a new request to the stored cache entry",
+  "distractors": [
+   "It tells caches how long the response stays fresh",
+   "It carries the entity tag that validates the stored response",
+   "It forbids caches from storing the response at all"
+  ],
+  "explanation": "`Vary` expands the cache key used to match a new request to a stored entry. Setting freshness is wrong because freshness comes from `Expires` or `max-age`. Carrying the validator is wrong because the `ETag` field provides the entity tag. Forbidding storage is wrong because a `Vary` header is generated on a cacheable response so that it can be selectively reused.",
+  "citation": "rfc9110#section-12.5.5",
+  "extract": "In other words, Vary expands the cache key required to match a new request to the stored cache entry.",
+  "snippet": null
+ },
+ {
+  "id": "m07-l04-q12",
+  "fact": "m07-l04-f84",
+  "stem": "Which of these is a disadvantage of proactive content negotiation, in which the server chooses the representation, as RFC 9110 lists the disadvantages?",
+  "key": "It limits the reusability of responses for shared caching",
+  "distractors": [
+   "The server must send the user agent a list of representations to choose from",
+   "A user agent can rely on its preferences always being honored by the origin server",
+   "It avoids exposing the user agent's capabilities, since few request header fields are sent"
+  ],
+  "explanation": "Proactive negotiation limits the reusability of responses for shared caching. Sending a list of representations is wrong because that describes reactive negotiation. Reliable honoring of preferences is wrong because a user agent cannot rely on the preferences being consistently honored. Not exposing capabilities is wrong because describing them in every request is inefficient and a risk to the user's privacy.",
+  "citation": "rfc9110#section-12.1",
+  "extract": "It limits the reusability of responses for shared caching.",
+  "snippet": null
+ },
+ {
+  "id": "m07-l04-q13",
+  "fact": "m07-l04-f101",
+  "stem": "In an `Accept-Encoding` header field, what does a qvalue of 0 attached to a content coding mean?",
+  "key": "The content coding is not acceptable",
+  "distractors": [
+   "The content coding is preferred over every other listed coding",
+   "The content coding is acceptable but has the lowest priority",
+   "The content coding has no weight, which is treated like an omitted weight"
+  ],
+  "explanation": "A qvalue of 0 means the coding is not acceptable. Being preferred over other codings is wrong because the highest non-zero qvalue is preferred. Being acceptable at the lowest priority is wrong because a listed coding is acceptable unless it carries a qvalue of 0. Being treated like an omitted weight is wrong because an omitted value is the same as `q=1`.",
+  "citation": "rfc9110#section-12.5.3",
+  "extract": "(As defined in Section 12.4.2, a qvalue of 0 means \"not acceptable\".)",
+  "snippet": null
+ },
+ {
+  "id": "m07-l04-q14",
+  "fact": "m07-l04-f92",
+  "stem": "What is the `Content-Encoding` header field primarily used for in HTTP responses, according to RFC 9110?",
+  "key": "To let a representation's data be compressed without losing the identity of its underlying media type",
+  "distractors": [
+   "To list the content codings that the user agent accepts in the response",
+   "To list the content codings in the order that the server prefers them",
+   "To apply a coding to one connection hop only, between two intermediaries"
+  ],
+  "explanation": "`Content-Encoding` allows the data to be compressed while keeping the identity of the media type. Listing accepted codings is wrong because `Accept-Encoding` does that. Listing codings by server preference is wrong because the codings are listed in the order in which they were applied. A single-hop coding is wrong because, unlike `Transfer-Encoding`, the codings are a characteristic of the representation.",
+  "citation": "rfc9110#section-8.4",
+  "extract": "Content-Encoding is primarily used to allow a representation's data to be compressed without losing the identity of its underlying media type.",
+  "snippet": null
+ }
+]

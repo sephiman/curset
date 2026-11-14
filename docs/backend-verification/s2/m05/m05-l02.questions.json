@@ -1,0 +1,167 @@
+[
+ {
+  "id": "m05-l02-q01",
+  "fact": "m05-l02-f09",
+  "stem": "According to the Spring Boot reference on developing auto-configuration, how must the auto-configuration classes of a library be loaded so that Spring Boot applies them?",
+  "key": "Only by being named in the imports file",
+  "distractors": [
+   "By component scanning of the application's packages",
+   "By an auto-configuration class that enables component scanning to find the other ones",
+   "By a `@Bean` method of the application class that returns each auto-configuration"
+  ],
+  "explanation": "Auto-configurations must be loaded only by being named in the imports file. The claim that component scanning loads them is wrong, because auto-configurations must never be the target of component scanning. The claim that one auto-configuration should scan for the others is wrong, because auto-configuration classes should not enable component scanning to find additional components. The claim that the application class returns them from `@Bean` methods is wrong, because specific `@Import` annotations should be used when an auto-configuration needs other classes.",
+  "citation": "spring-boot-features-developing-auto-configuration#features.developing-auto-configuration.locating-auto-configuration-candidates",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m05-l02-q02",
+  "fact": "m05-l02-f23",
+  "stem": "A team publishes its own Spring Boot starter for a project called `thirdpartyproject`. Which artifact name follows the Spring Boot naming guidance for third-party starters?",
+  "key": "`thirdpartyproject-spring-boot-starter`",
+  "distractors": [
+   "`spring-boot-starter-thirdpartyproject`",
+   "`spring-boot-thirdpartyproject-starter`",
+   "`starter-thirdpartyproject`"
+  ],
+  "explanation": "A third-party starter project called `thirdpartyproject` would typically be named `thirdpartyproject-spring-boot-starter`. The names `spring-boot-starter-thirdpartyproject` and `spring-boot-thirdpartyproject-starter` are wrong, because third-party starters should not start with `spring-boot`, which is reserved for official Spring Boot artifacts. The name `starter-thirdpartyproject` is wrong, because a third-party starter typically starts with the name of the project.",
+  "citation": "spring-boot-using-build-systems#using.build-systems.starters",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m05-l02-q03",
+  "fact": "m05-l02-f29",
+  "stem": "An application binds properties to a `@ConfigurationProperties` class with prefix `my.main-project.person` and field `firstName`. Which property name format does Spring Boot recommend for `.properties` and YAML files?",
+  "key": "Kebab case, such as `my.main-project.person.first-name`",
+  "distractors": [
+   "Underscore notation, such as `my.main-project.person.first_name`",
+   "Upper case format, such as `MY_MAINPROJECT_PERSON_FIRSTNAME`",
+   "Camel case, such as `my.main-project.person.firstName`"
+  ],
+  "explanation": "Kebab case is recommended for use in `.properties` and YAML files. The claim that underscore notation is recommended is wrong, because it is only an alternative format for use in `.properties` and YAML files. The claim that upper case format is recommended for these files is wrong, because that format is recommended when using system environment variables. The claim that camel case is recommended is wrong, because the documentation recommends that properties are stored in lower-case kebab format when possible.",
+  "citation": "spring-boot-features-external-config#features.external-config.typesafe-configuration-properties.relaxed-binding",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m05-l02-q04",
+  "fact": "m05-l02-f45",
+  "stem": "Which Spring Boot property adds locations for `application.properties` files to the default locations, instead of replacing the default locations?",
+  "key": "`spring.config.additional-location`",
+  "distractors": [
+   "`spring.config.location`, which takes a comma-separated list of locations",
+   "`spring.config.name`, which takes the base name of the files",
+   "The `optional:` prefix, put in front of each location"
+  ],
+  "explanation": "To add locations rather than replace the defaults, you use `spring.config.additional-location`. The property `spring.config.location` is wrong, because locations configured with it replace the default locations. The property `spring.config.name` is wrong, because it switches the configuration file name and does not add locations. The `optional:` prefix is wrong, because it only marks locations that you do not mind if they do not exist.",
+  "citation": "spring-boot-features-external-config#features.external-config.files",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m05-l02-q05",
+  "fact": "m05-l02-f37",
+  "stem": "In the Spring Boot order of property sources, where later sources override earlier ones, which of these sources is considered last and so overrides the other three?",
+  "key": "Command line arguments",
+  "distractors": [
+   "Config data such as `application.properties` files",
+   "OS environment variables",
+   "Java System properties"
+  ],
+  "explanation": "Command line arguments come after `SPRING_APPLICATION_JSON` and the other sources in the list, so they override the other three. Config data is wrong, because `random.*` properties and OS environment variables come after it in the list. OS environment variables are wrong, because Java System properties come after them in the list. Java System properties are wrong, because JNDI attributes come after them in the list.",
+  "citation": "spring-boot-features-external-config#page-title",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m05-l02-q06",
+  "fact": "m05-l02-f03",
+  "stem": "How many `@SpringBootApplication` or `@EnableAutoConfiguration` annotations should a Spring Boot application add, and where does the documentation recommend adding them?",
+  "key": "Only one, generally on the primary `@Configuration` class",
+  "distractors": [
+   "One on every `@Configuration` class that needs auto-configuration",
+   "Two, one `@SpringBootApplication` and one `@EnableAutoConfiguration` on the same class",
+   "None, because auto-configuration is enabled for every Spring application"
+  ],
+  "explanation": "You should only ever add one of these annotations, and the documentation generally recommends the primary `@Configuration` class. The claim that every `@Configuration` class that needs it should add one is wrong, because the recommendation is to add one or the other to your primary `@Configuration` class only. The claim that both annotations belong together is wrong, because you add one or the other. The claim that no annotation is needed is wrong, because you need to opt in to auto-configuration with one of the annotations.",
+  "citation": "spring-boot-using-auto-configuration#page-title",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m05-l02-q07",
+  "fact": "m05-l02-f11",
+  "stem": "Several auto-configurations have no direct knowledge of each other, but they must be applied in a defined order. Which annotation does the Spring Boot reference name for ordering them?",
+  "key": "`@AutoConfigureOrder`, a dedicated order for auto-configuration classes",
+  "distractors": [
+   "`@AutoConfigureAfter`, because it names the other class that must run first",
+   "`@DependsOn`, because it orders the beans of the classes",
+   "`@ComponentScan`, because it finds the classes in order"
+  ],
+  "explanation": "`@AutoConfigureOrder` has the same semantic as the regular `@Order` annotation but provides a dedicated order for auto-configuration classes. The claim that `@AutoConfigureAfter` fits is wrong, because it is the dedicated annotation for a class that needs to be applied after a specific other class. The claim that `@DependsOn` orders the classes is wrong, because it only takes part in the order in which beans are created, not in the order in which auto-configuration classes are applied. The claim that `@ComponentScan` orders them is wrong, because auto-configurations are never the target of component scanning.",
+  "citation": "spring-boot-features-developing-auto-configuration#features.developing-auto-configuration.locating-auto-configuration-candidates",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m05-l02-q08",
+  "fact": "m05-l02-f61",
+  "stem": "A library has several flavors, options or optional features, and offers Spring Boot auto-configuration. What does the Spring Boot reference say about how to package its auto-configuration and starter?",
+  "key": "It is better to separate the auto-configuration, to express that some features are optional",
+  "distractors": [
+   "It is better to merge everything into the starter, so that users see a single module",
+   "Spring Boot requires the separation into two modules for every library",
+   "The optional features belong in a separate test-scoped starter"
+  ],
+  "explanation": "It is better to separate the auto-configuration, because you can clearly express the fact that some features are optional. The claim that merging is better is wrong, because merging the two modules in the starter is an option when the auto-configuration is straightforward and has no optional features. The claim that the separation is required is wrong, because this separation in two modules is in no way necessary. The claim that optional features go in a test-scoped starter is wrong, because a separate test-scoped starter is the place for test-specific auto-configurations such as in-memory replacements.",
+  "citation": "spring-boot-features-developing-auto-configuration#features.developing-auto-configuration.custom-starter",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m05-l02-q09",
+  "fact": "m05-l02-f38",
+  "stem": "Spring Boot considers config data files in a fixed order, with later files overriding earlier ones. Which of these files is considered last and so wins?",
+  "key": "Profile-specific application properties outside of the packaged jar",
+  "distractors": [
+   "Application properties packaged inside the jar, as the base values",
+   "Profile-specific application properties packaged inside the jar",
+   "Application properties outside of the packaged jar, next to the jar"
+  ],
+  "explanation": "Profile-specific application properties outside of the packaged jar are the last in the order of config data files. The inside-the-jar application properties are wrong, because the profile-specific properties inside the jar come after them. The profile-specific properties inside the jar are wrong, because the application properties outside of the jar come after them. The application properties outside of the jar are wrong, because the profile-specific properties outside of the jar come after them.",
+  "citation": "spring-boot-features-external-config#page-title",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m05-l02-q10",
+  "fact": "m05-l02-f47",
+  "stem": "Where must the `spring.config.name`, `spring.config.location` and `spring.config.additional-location` properties be defined so that Spring Boot can use them to choose which files to load?",
+  "key": "As an environment property, such as an OS environment variable, a system property or a command-line argument",
+  "distractors": [
+   "Inside `application.yaml`, because that file is loaded first",
+   "Inside a profile-specific file such as `application-dev.properties`",
+   "In a `@PropertySource` annotation on a `@Configuration` class"
+  ],
+  "explanation": "They must be defined as an environment property, typically an OS environment variable, a system property or a command-line argument. The claim that `application.yaml` can hold them is wrong, because they are used very early to determine which files have to be loaded. The claims that a profile-specific file or a `@PropertySource` annotation can define them are wrong, because they must be defined as an environment property.",
+  "citation": "spring-boot-features-external-config#features.external-config.files",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m05-l02-q11",
+  "fact": "m05-l02-f16",
+  "stem": "If the actuator is on the classpath of a Spring Boot application, which endpoint renders the `ConditionEvaluationReport` in JSON?",
+  "key": "The `conditions` endpoint",
+  "distractors": [
+   "The `configprops` endpoint",
+   "The `env` endpoint",
+   "No endpoint: the report exists only in tests that use `ApplicationContextRunner`"
+  ],
+  "explanation": "With the actuator, a `conditions` endpoint renders the report in JSON. The `configprops` endpoint is wrong, because it is the one to look at for classes annotated with `@ConfigurationProperties`. The `env` endpoint is wrong, because it and `configprops` help determine why a property has a particular value. The claim that the report exists only in `ApplicationContextRunner` tests is wrong, because a `ConditionEvaluationReport` is available in any Spring Boot `ApplicationContext`.",
+  "citation": "spring-boot-howto-application#howto.application.troubleshoot-auto-configuration; spring-boot-features-external-config#page-title",
+  "extract": null,
+  "snippet": null
+ }
+]

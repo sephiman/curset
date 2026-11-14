@@ -1,0 +1,331 @@
+m02-l03-q01:
+  key:
+    anchor: javadoc-deque#interface-deque-e
+    sentence: push(e) addFirst(e) pop() removeFirst()
+  wrong:
+  - option: '`push(e)` is `addLast(e)` and `pop()` is `removeLast()`, so the stack grows at the end'
+    anchor: javadoc-deque#interface-deque-e
+    sentence: When a deque is used as a stack, elements are pushed and popped from the beginning of the deque.
+  - option: '`push(e)` is `offerLast(e)` and `pop()` is `removeFirst()`, which mixes the two ends'
+    anchor: javadoc-deque#interface-deque-e
+    sentence: push(e) addFirst(e)
+  - option: '`push(e)` is `addFirst(e)` and `pop()` is `pollLast()`, which draws from the tail'
+    anchor: javadoc-deque#interface-deque-e
+    sentence: pop() removeFirst()
+m02-l03-q02:
+  key:
+    anchor: javadoc-deque#interface-deque-e
+    sentence: While Deque implementations are not strictly required to prohibit the insertion of null elements, they are strongly encouraged to do so.
+  wrong:
+  - option: Implementations are required to reject null with a `NullPointerException`, because the interface forbids it
+    anchor: javadoc-deque#interface-deque-e
+    sentence: While Deque implementations are not strictly required to prohibit the insertion of null elements, they are strongly encouraged to do so.
+  - option: Implementations are encouraged to accept null, because `peekFirst` uses it to mark the end of the deque
+    anchor: javadoc-deque#interface-deque-e
+    sentence: Users of any Deque implementations that do allow null elements are strongly encouraged not to take advantage of the ability to insert nulls.
+  - option: Implementations may accept null freely, because every empty-deque case is reported by an exception
+    anchor: javadoc-deque#interface-deque-e
+    sentence: 'Each of these methods exists in two forms: one throws an exception if the operation fails, the other returns a special value (either null or false, depending on the operation).'
+m02-l03-q03:
+  key:
+    anchor: javadoc-deque#interface-deque-e
+    sentence: Unlike the List interface, this interface does not provide support for indexed access to elements.
+  wrong:
+  - option: Its implementations generally define element-based `equals` and `hashCode` methods
+    anchor: javadoc-deque#interface-deque-e
+    sentence: Deque implementations generally do not define element-based versions of the equals and hashCode methods, but instead inherit the identity-based versions from class Object.
+  - option: It should be avoided in favor of the legacy `Stack` class when a LIFO structure is needed
+    anchor: javadoc-deque#interface-deque-e
+    sentence: This interface should be used in preference to the legacy Stack class.
+  - option: Every implementation places a fixed limit on the number of elements it may contain
+    anchor: javadoc-deque#interface-deque-e
+    sentence: Most Deque implementations place no fixed limits on the number of elements they may contain, but this interface supports capacity-restricted deques as well as those with no fixed size limit.
+m02-l03-q04:
+  key:
+    anchor: ods-3-2-dllist-doubly-linked-li#SECTION00622000000000000000
+    sentence: linked list structures are well-suited to applications where references to list nodes can be obtained through external means.
+  wrong:
+  - option: When elements are read by index, because finding the relevant node takes constant time
+    anchor: ods-3-2-dllist-doubly-linked-li#SECTION00622000000000000000
+    sentence: Thus, the only expensive part of operations on a DLList is finding the relevant node.
+  - option: When elements are rarely added or removed, because shifting array items is cheap in array-based lists
+    anchor: ods-3-2-dllist-doubly-linked-li#SECTION00622000000000000000
+    sentence: However, addition or removal requires shifting elements in the array and, in general, takes non-constant time.
+  - option: When a `LinkedHashSet` removes an element, because it has to traverse the list to find the node
+    anchor: ods-3-2-dllist-doubly-linked-li#SECTION00622000000000000000
+    sentence: When elements are removed from a LinkedHashSet, the hash table is used to find the relevant list node in constant time and then the list node is deleted (also in constant time).
+m02-l03-q05:
+  key:
+    anchor: ods-6-1-binarytree-basic-binary#SECTION00912000000000000000
+    sentence: Breadth-first traversal is implemented using a queue
+  wrong:
+  - option: It is implemented using a stack, so the most recently added child is visited next
+    anchor: ods-6-1-binarytree-basic-binary#SECTION00912000000000000000
+    sentence: Breadth-first traversal is implemented using a queue
+  - option: It follows the same pattern as the recursive size and height functions
+    anchor: ods-6-1-binarytree-basic-binary#SECTION00912000000000000000
+    sentence: A special kind of traversal that does not fit the pattern of the above functions is the breadth-first traversal.
+  - option: It visits the nodes from the deepest level up to the root, left to right
+    anchor: ods-6-1-binarytree-basic-binary#SECTION00912000000000000000
+    sentence: In a breadth-first traversal, the nodes are visited level-by-level starting at the root and moving down, visiting the nodes at each level from left to right
+m02-l03-q06:
+  key:
+    anchor: ods-6-1-binarytree-basic-binary#SECTION00912000000000000000
+    sentence: When this is the case, a non-recursive implementation is still possible, but the implementation has to use a List (or Stack) to keep track of the path from the current node to the root.
+  wrong:
+  - option: Without recursion a binary tree can be traversed only breadth-first, never by following its links
+    anchor: ods-6-1-binarytree-basic-binary#SECTION00912000000000000000
+    sentence: To traverse a binary tree without recursion, you can use an algorithm that relies on where it came from to determine where it will go next.
+  - option: A non-recursive traversal needs a parent field and is impossible without one
+    anchor: ods-6-1-binarytree-basic-binary#SECTION00912000000000000000
+    sentence: When this is the case, a non-recursive implementation is still possible, but the implementation has to use a List (or Stack) to keep track of the path from the current node to the root.
+  - option: A recursive traversal never crashes, because the recursion depth is bounded by the number of nodes in the call
+    anchor: ods-6-1-binarytree-basic-binary#SECTION00912000000000000000
+    sentence: If the height of the tree is very large, then this recursion could very well use more stack space than is available, causing a crash.
+m02-l03-q07:
+  key:
+    anchor: javadoc-priorityqueue#offer(java.lang.Object)
+    sentence: NullPointerException - if the specified element is null
+  wrong:
+  - option: '`ClassCastException` for `null` and `NullPointerException` for the element that cannot be compared'
+    anchor: javadoc-priorityqueue#offer(java.lang.Object)
+    sentence: NullPointerException - if the specified element is null
+  - option: '`null` is accepted and sorts first, and `ClassCastException` is thrown for the element that cannot be compared'
+    anchor: javadoc-priorityqueue#class-priorityqueue-e
+    sentence: A priority queue does not permit null elements.
+  - option: '`NullPointerException` for `null`, while the element that cannot be compared is accepted and sorts last'
+    anchor: javadoc-priorityqueue#offer(java.lang.Object)
+    sentence: ClassCastException - if the specified element cannot be compared with elements currently in this priority queue according to the priority queue's ordering
+m02-l03-q08:
+  key:
+    anchor: ods-10-1-binaryheap-implicit-bi#SECTION001310000000000000000
+    sentence: It follows that the smallest value in the priority Queue is therefore stored at position 0 (the root).
+  wrong:
+  - option: The smallest value is at the last position, and the children of index `i` are at `2*i + 1` and `2*i + 2`
+    anchor: ods-10-1-binaryheap-implicit-bi#SECTION001310000000000000000
+    sentence: It follows that the smallest value in the priority Queue is therefore stored at position 0 (the root).
+  - option: The smallest value is at position 0, and the left child of index `i` is at `i + 1`
+    anchor: ods-10-1-binaryheap-implicit-bi#SECTION001310000000000000000
+    sentence: int left(int i) { return 2*i + 1; }
+  - option: The smallest value is at position 0, and the parent of index `i` is at `i/2`
+    anchor: ods-10-1-binaryheap-implicit-bi#SECTION001310000000000000000
+    sentence: int parent(int i) { return (i-1)/2; }
+m02-l03-q09:
+  key:
+    execution: m02-l03/LinkedStructures.java
+  wrong:
+  - option: 'reversed 12345
+
+      middle of five 3
+
+      middle of four 3
+
+      cycle found true
+
+      cycle found in a plain list false
+
+      stack contents [3, 2, 1]
+
+      stack pop 3
+
+      queue poll 1
+
+      next greater [4, 2, 4, -1, -1]'
+    execution: m02-l03/LinkedStructures.java
+    mistake: ignored the reversal
+  - option: 'reversed 54321
+
+      middle of five 3
+
+      middle of four 2
+
+      cycle found true
+
+      cycle found in a plain list false
+
+      stack contents [3, 2, 1]
+
+      stack pop 3
+
+      queue poll 1
+
+      next greater [4, 2, 4, -1, -1]'
+    execution: m02-l03/LinkedStructures.java
+    mistake: off-by-one on an even length
+  - option: 'reversed 54321
+
+      middle of five 3
+
+      middle of four 3
+
+      cycle found true
+
+      cycle found in a plain list false
+
+      stack contents [1, 2, 3]
+
+      stack pop 1
+
+      queue poll 1
+
+      next greater [4, 2, 4, -1, -1]'
+    execution: m02-l03/LinkedStructures.java
+    mistake: wrong end for push
+m02-l03-q10:
+  key:
+    execution: m02-l03/TreeAlgorithms.java
+  wrong:
+  - option: 'inorder [8, 3, 1, 6, 4, 7, 10, 14, 13]
+
+      iterative inorder [1, 3, 4, 6, 7, 8, 10, 13, 14]
+
+      levels [[8], [3, 10], [1, 6, 14], [4, 7, 13]]
+
+      lca of 4 and 7 6
+
+      lca of 4 and 14 8
+
+      local check true
+
+      bounds check false
+
+      recursive height overflows the stack
+
+      iterative levels 1000000'
+    execution: m02-l03/TreeAlgorithms.java
+    mistake: visited the node before its left subtree
+  - option: 'inorder [1, 3, 4, 6, 7, 8, 10, 13, 14]
+
+      iterative inorder [1, 3, 4, 6, 7, 8, 10, 13, 14]
+
+      levels [[8], [3, 10], [1, 6, 14], [4, 7, 13]]
+
+      lca of 4 and 7 6
+
+      lca of 4 and 14 8
+
+      local check false
+
+      bounds check false
+
+      recursive height overflows the stack
+
+      iterative levels 1000000'
+    execution: m02-l03/TreeAlgorithms.java
+    mistake: checked each node against its own children only
+  - option: 'inorder [1, 3, 4, 6, 7, 8, 10, 13, 14]
+
+      iterative inorder [1, 3, 4, 6, 7, 8, 10, 13, 14]
+
+      levels [[8], [3, 10], [1, 6, 14], [4, 7, 13]]
+
+      lca of 4 and 7 3
+
+      lca of 4 and 14 8
+
+      local check true
+
+      bounds check false
+
+      recursive height overflows the stack
+
+      iterative levels 1000000'
+    execution: m02-l03/TreeAlgorithms.java
+    mistake: stopped at the first ancestor
+m02-l03-q11:
+  key:
+    execution: m02-l03/HeapAndTrie.java
+  wrong:
+  - option: 'kth largest 7
+
+      top 3 [7, 8, 9]
+
+      max-heap head 1
+
+      children of 4: 9 and 10, parent of 4: 1
+
+      null is rejected
+
+      words with prefix car: 3
+
+      words with prefix ca: 4
+
+      words with prefix x: 0'
+    execution: m02-l03/HeapAndTrie.java
+    mistake: ignored the reversed comparator
+  - option: 'kth largest 7
+
+      top 3 [7, 8, 9]
+
+      max-heap head 9
+
+      children of 4: 8 and 9, parent of 4: 2
+
+      null is rejected
+
+      words with prefix car: 3
+
+      words with prefix ca: 4
+
+      words with prefix x: 0'
+    execution: m02-l03/HeapAndTrie.java
+    mistake: one-based heap indexes
+  - option: 'kth largest 7
+
+      top 3 [7, 8, 9]
+
+      max-heap head 9
+
+      children of 4: 9 and 10, parent of 4: 1
+
+      null is rejected
+
+      words with prefix car: 2
+
+      words with prefix ca: 4
+
+      words with prefix x: 0'
+    execution: m02-l03/HeapAndTrie.java
+    mistake: counted only the words that end at the prefix
+m02-l03-q12:
+  key:
+    anchor: javadoc-deque#interface-deque-e
+    sentence: 'Each of these methods exists in two forms: one throws an exception if the operation fails, the other returns a special value (either null or false, depending on the operation).'
+  wrong:
+  - option: One form blocks until the operation can succeed, and the other gives up after a timeout
+    anchor: javadoc-deque#interface-deque-e
+    sentence: 'Each of these methods exists in two forms: one throws an exception if the operation fails, the other returns a special value (either null or false, depending on the operation).'
+  - option: The exception form is the one that matters in practice, because insert operations fail often in most implementations
+    anchor: javadoc-deque#interface-deque-e
+    sentence: in most implementations, insert operations cannot fail.
+  - option: The special-value form of insert is meant for deques with no fixed size limit
+    anchor: javadoc-deque#interface-deque-e
+    sentence: The latter form of the insert operation is designed specifically for use with capacity-restricted Deque implementations
+m02-l03-q13:
+  key:
+    anchor: ods-3-2-dllist-doubly-linked-li#SECTION00622000000000000000
+    sentence: Thus, the only expensive part of operations on a DLList is finding the relevant node.
+  wrong:
+  - option: Adding, removing or accessing the data once the node has been found
+    anchor: ods-3-2-dllist-doubly-linked-li#SECTION00622000000000000000
+    sentence: Once we have the relevant node, adding, removing, or accessing the data at that node takes only constant time.
+  - option: Shifting the following elements to make room, as in an array-based list
+    anchor: ods-3-2-dllist-doubly-linked-li#SECTION00622000000000000000
+    sentence: However, addition or removal requires shifting elements in the array and, in general, takes non-constant time.
+  - option: Allocating the new list node, which grows with the length of the list
+    anchor: ods-3-2-dllist-doubly-linked-li#SECTION00622000000000000000
+    sentence: then all operations on a DLList take constant time
+m02-l03-q14:
+  key:
+    anchor: ods-6-2-binarysearchtree-unbala#SECTION00922000000000000000
+    sentence: If we find it, then there is no need to insert it.
+  wrong:
+  - option: A second node holding `x` is stored as a leaf below the last node of the search
+    anchor: ods-6-2-binarysearchtree-unbala#SECTION00922000000000000000
+    sentence: If we find it, then there is no need to insert it.
+  - option: The new value is stored at the root, and the old root becomes its child
+    anchor: ods-6-2-binarysearchtree-unbala#SECTION00922000000000000000
+    sentence: at a leaf child of the last node
+  - option: The most time-consuming part is rebuilding the tree after the value is stored
+    anchor: ods-6-2-binarysearchtree-unbala#SECTION00922000000000000000
+    sentence: The most time-consuming part of this process is the initial search for

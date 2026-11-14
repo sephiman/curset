@@ -1,0 +1,460 @@
+m10-l02-q01:
+  key:
+    anchor: k8s-network-policies#default-policies
+    sentence: By default, if no policies exist in a namespace, then all ingress and egress traffic is allowed to and from pods in that namespace.
+  wrong:
+  - option: Only egress traffic
+    anchor: k8s-network-policies#default-policies
+    sentence: By default, if no policies exist in a namespace, then all ingress and egress traffic is allowed to and from pods in that namespace.
+    exclusive: true
+  - option: Only ingress traffic
+    anchor: k8s-network-policies#default-policies
+    sentence: By default, if no policies exist in a namespace, then all ingress and egress traffic is allowed to and from pods in that namespace.
+    exclusive: true
+  - option: No traffic until a policy allows it
+    anchor: k8s-network-policies#default-policies
+    sentence: By default, if no policies exist in a namespace, then all ingress and egress traffic is allowed to and from pods in that namespace.
+    exclusive: true
+m10-l02-q02:
+  key:
+    anchor: nist-sp-800-207#p15
+    sentence: Access to individual enterprise resources is granted on a per-session basis.
+  wrong:
+  - option: On a per-device basis, for as long as the device stays enrolled
+    anchor: nist-sp-800-207#p15
+    sentence: Access to individual enterprise resources is granted on a per-session basis.
+    exclusive: true
+  - option: On a per-network-segment basis, once the device is inside the perimeter
+    anchor: nist-sp-800-207#p15
+    sentence: Access to individual enterprise resources is granted on a per-session basis.
+    exclusive: true
+  - option: On a per-account basis, until the account is disabled
+    anchor: nist-sp-800-207#p15
+    sentence: Access to individual enterprise resources is granted on a per-session basis.
+    exclusive: true
+m10-l02-q03:
+  key:
+    anchor: spiffe-overview#_top
+    sentence: The heart of these specifications is the one that defines short lived cryptographic identity documents – called SVIDs via a simple API.
+  wrong:
+  - option: Long-lived certificates that are valid for several years
+    anchor: spiffe-overview#_top
+    sentence: The heart of these specifications is the one that defines short lived cryptographic identity documents – called SVIDs via a simple API.
+    exclusive: true
+  - option: Identity documents that never expire
+    anchor: spiffe-overview#_top
+    sentence: The heart of these specifications is the one that defines short lived cryptographic identity documents – called SVIDs via a simple API.
+    exclusive: true
+  - option: Network policies that only allow traffic between particular IP addresses
+    anchor: spiffe-overview#_top
+    sentence: Conventional security practices (such as network policies that only allow traffic between particular IP addresses) struggle to scale under this complexity.
+m10-l02-q04:
+  key:
+    anchor: rfc8446#section-1
+    sentence: 'Authentication: The server side of the channel is always authenticated; the client side is optionally authenticated.'
+  wrong:
+  - option: The client side
+    anchor: rfc8446#section-1
+    sentence: 'Authentication: The server side of the channel is always authenticated; the client side is optionally authenticated.'
+    exclusive: true
+  - option: Both sides
+    anchor: rfc8446#section-1
+    sentence: 'Authentication: The server side of the channel is always authenticated; the client side is optionally authenticated.'
+    exclusive: true
+  - option: Neither side, until a post-handshake exchange
+    anchor: rfc8446#section-1
+    sentence: 'Authentication: The server side of the channel is always authenticated; the client side is optionally authenticated.'
+    exclusive: true
+m10-l02-q05:
+  key:
+    anchor: k8s-secrets#information-security-for-secrets
+    sentence: A Secret is only sent to a node if a Pod on that node requires it.
+  wrong:
+  - option: To every node of the cluster as soon as the Secret is created
+    anchor: k8s-secrets#information-security-for-secrets
+    sentence: A Secret is only sent to a node if a Pod on that node requires it.
+    exclusive: true
+  - option: To every node that hosts a Pod of the same namespace
+    anchor: k8s-secrets#information-security-for-secrets
+    sentence: A Secret is only sent to a node if a Pod on that node requires it.
+    exclusive: true
+  - option: Only to the control plane node, which serves it on request
+    anchor: k8s-secrets#information-security-for-secrets
+    sentence: A Secret is only sent to a node if a Pod on that node requires it.
+    exclusive: true
+m10-l02-q06:
+  key:
+    anchor: k8s-secrets#information-security-for-secrets
+    sentence: For mounting Secrets into Pods, the kubelet stores a copy of the data into a tmpfs so that the confidential data is not written to durable storage.
+  wrong:
+  - option: In an encrypted file on the node's local disk
+    anchor: k8s-secrets#information-security-for-secrets
+    sentence: For mounting Secrets into Pods, the kubelet stores a copy of the data into a tmpfs so that the confidential data is not written to durable storage.
+    exclusive: true
+  - option: In the writable layer of the container image
+    anchor: k8s-secrets#information-security-for-secrets
+    sentence: For mounting Secrets into Pods, the kubelet stores a copy of the data into a tmpfs so that the confidential data is not written to durable storage.
+    exclusive: true
+  - option: In a persistent volume claim of the Pod
+    anchor: k8s-secrets#information-security-for-secrets
+    sentence: For mounting Secrets into Pods, the kubelet stores a copy of the data into a tmpfs so that the confidential data is not written to durable storage.
+    exclusive: true
+m10-l02-q07:
+  key:
+    anchor: rfc6749#section-1.3
+    sentence: This specification defines four grant types -- authorization code, implicit, resource owner password credentials, and client credentials -- as well as an extensibility mechanism for defining additional types.
+  wrong:
+  - option: Authorization code, implicit and client credentials
+    anchor: rfc6749#section-1.3
+    sentence: This specification defines four grant types -- authorization code, implicit, resource owner password credentials, and client credentials -- as well as an extensibility mechanism for defining additional types.
+    exclusive: true
+  - option: Authorization code, device code, refresh token and client credentials
+    anchor: rfc6749#section-1.3
+    sentence: This specification defines four grant types -- authorization code, implicit, resource owner password credentials, and client credentials -- as well as an extensibility mechanism for defining additional types.
+    exclusive: true
+  - option: Authorization code, implicit, resource owner password credentials, client credentials and token exchange
+    anchor: rfc6749#section-1.3
+    sentence: This specification defines four grant types -- authorization code, implicit, resource owner password credentials, and client credentials -- as well as an extensibility mechanism for defining additional types.
+    exclusive: true
+m10-l02-q08:
+  key:
+    anchor: rfc6749#section-4.4
+    sentence: The client credentials grant type MUST only be used by confidential clients.
+  wrong:
+  - option: Only public clients
+    anchor: rfc6749#section-4.4
+    sentence: The client credentials grant type MUST only be used by confidential clients.
+    exclusive: true
+  - option: Public and confidential clients alike
+    anchor: rfc6749#section-4.4
+    sentence: The client credentials grant type MUST only be used by confidential clients.
+    exclusive: true
+  - option: Only native apps
+    anchor: rfc6749#section-4.4
+    sentence: The client credentials grant type MUST only be used by confidential clients.
+    exclusive: true
+m10-l02-q09:
+  key:
+    anchor: rfc9700#section-2.1.1
+    sentence: Currently, S256 is the only such method.
+  wrong:
+  - option: '`plain`'
+    anchor: rfc9700#section-2.1.1
+    sentence: Currently, S256 is the only such method.
+    exclusive: true
+  - option: '`S512`'
+    anchor: rfc9700#section-2.1.1
+    sentence: Currently, S256 is the only such method.
+    exclusive: true
+  - option: '`SHA-1`'
+    anchor: rfc9700#section-2.1.1
+    sentence: Currently, S256 is the only such method.
+    exclusive: true
+m10-l02-q10:
+  key:
+    anchor: rfc9700#section-2.1
+    sentence: When comparing client redirection URIs against pre-registered URIs, authorization servers MUST utilize exact string matching except for port numbers in localhost redirection URIs of native apps (see Section 4.1.3).
+  wrong:
+  - option: By prefix matching on the registered path
+    anchor: rfc9700#section-2.1
+    sentence: When comparing client redirection URIs against pre-registered URIs, authorization servers MUST utilize exact string matching except for port numbers in localhost redirection URIs of native apps (see Section 4.1.3).
+    exclusive: true
+  - option: By matching only the host name of the registered URI
+    anchor: rfc9700#section-2.1
+    sentence: When comparing client redirection URIs against pre-registered URIs, authorization servers MUST utilize exact string matching except for port numbers in localhost redirection URIs of native apps (see Section 4.1.3).
+    exclusive: true
+  - option: By pattern matching with wildcards in the registered path
+    anchor: rfc9700#section-2.1
+    sentence: When comparing client redirection URIs against pre-registered URIs, authorization servers MUST utilize exact string matching except for port numbers in localhost redirection URIs of native apps (see Section 4.1.3).
+    exclusive: true
+m10-l02-q11:
+  key:
+    anchor: oidc-core#rfc.section.2
+    sentence: The ID Token is represented as a JSON Web Token (JWT)
+  wrong:
+  - option: As a SAML 2.0 assertion
+    anchor: oidc-core#rfc.section.2
+    sentence: The ID Token is represented as a JSON Web Token (JWT)
+    exclusive: true
+  - option: As an opaque random string
+    anchor: oidc-core#rfc.section.2
+    sentence: The ID Token is represented as a JSON Web Token (JWT)
+    exclusive: true
+  - option: As a Kerberos ticket
+    anchor: oidc-core#rfc.section.2
+    sentence: The ID Token is represented as a JSON Web Token (JWT)
+    exclusive: true
+m10-l02-q12:
+  key:
+    anchor: oidc-core#rfc.section.2
+    sentence: It MUST contain the OAuth 2.0 client_id of the Relying Party as an audience value.
+  wrong:
+  - option: The issuer URL of the Authorization Server
+    anchor: oidc-core#rfc.section.2
+    sentence: REQUIRED. Issuer Identifier for the Issuer of the response.
+  - option: The `sub` identifier of the End-User
+    anchor: oidc-core#rfc.section.2
+    sentence: REQUIRED. Subject Identifier. A locally unique and never reassigned identifier within the Issuer for the End-User, which is intended to be consumed by the Client
+  - option: The `nonce` sent in the Authentication Request
+    anchor: oidc-core#rfc.section.2
+    sentence: String value used to associate a Client session with an ID Token, and to mitigate replay attacks.
+m10-l02-q13:
+  key:
+    anchor: oidc-core#rfc.section.3.1
+    sentence: When using the Authorization Code Flow, all tokens are returned from the Token Endpoint.
+  wrong:
+  - option: The Authorization Endpoint
+    anchor: oidc-core#rfc.section.3.1
+    sentence: When using the Authorization Code Flow, all tokens are returned from the Token Endpoint.
+    exclusive: true
+  - option: The Introspection Endpoint
+    anchor: oidc-core#rfc.section.3.1
+    sentence: When using the Authorization Code Flow, all tokens are returned from the Token Endpoint.
+    exclusive: true
+  - option: The Discovery Endpoint
+    anchor: oidc-core#rfc.section.3.1
+    sentence: When using the Authorization Code Flow, all tokens are returned from the Token Endpoint.
+    exclusive: true
+m10-l02-q14:
+  key:
+    anchor: rfc7519#section-7.2
+    sentence: If any of the listed steps fail, then the JWT MUST be rejected -- that is, treated by the application as an invalid input.
+  wrong:
+  - option: The JWT is accepted but marked as untrusted
+    anchor: rfc7519#section-7.2
+    sentence: If any of the listed steps fail, then the JWT MUST be rejected -- that is, treated by the application as an invalid input.
+    exclusive: true
+  - option: The JWT is accepted if the application recognises its issuer
+    anchor: rfc7519#section-7.2
+    sentence: If any of the listed steps fail, then the JWT MUST be rejected -- that is, treated by the application as an invalid input.
+    exclusive: true
+  - option: Only the claim that failed validation is ignored
+    anchor: rfc7519#section-7.2
+    sentence: If any of the listed steps fail, then the JWT MUST be rejected -- that is, treated by the application as an invalid input.
+    exclusive: true
+m10-l02-q15:
+  key:
+    anchor: rfc7519#section-7.2
+    sentence: Even if a JWT can be successfully validated, unless the algorithms used in the JWT are acceptable to the application, it SHOULD reject the JWT.
+  wrong:
+  - option: Accept it, because validation succeeded
+    anchor: rfc7519#section-7.2
+    sentence: Even if a JWT can be successfully validated, unless the algorithms used in the JWT are acceptable to the application, it SHOULD reject the JWT.
+    exclusive: true
+  - option: Accept it and log a warning
+    anchor: rfc7519#section-7.2
+    sentence: Even if a JWT can be successfully validated, unless the algorithms used in the JWT are acceptable to the application, it SHOULD reject the JWT.
+    exclusive: true
+  - option: Accept it with a shorter lifetime
+    anchor: rfc7519#section-7.2
+    sentence: Even if a JWT can be successfully validated, unless the algorithms used in the JWT are acceptable to the application, it SHOULD reject the JWT.
+    exclusive: true
+m10-l02-q16:
+  key:
+    anchor: rfc7515#section-4.1.4
+    sentence: The "kid" (key ID) Header Parameter is a hint indicating which key was used to secure the JWS.
+  wrong:
+  - option: The time at which the signing key expires
+    anchor: rfc7515#section-4.1.4
+    sentence: The "kid" (key ID) Header Parameter is a hint indicating which key was used to secure the JWS.
+    exclusive: true
+  - option: The algorithm that was used to sign the JWS
+    anchor: rfc7515#section-4.1.4
+    sentence: The "kid" (key ID) Header Parameter is a hint indicating which key was used to secure the JWS.
+    exclusive: true
+  - option: The authorization server that issued the token
+    anchor: rfc7515#section-4.1.4
+    sentence: The "kid" (key ID) Header Parameter is a hint indicating which key was used to secure the JWS.
+    exclusive: true
+m10-l02-q17:
+  key:
+    anchor: spring-security-servlet-oauth2-resource-server-jwt#oauth2resourceserver-jwt-validation-clockskew
+    sentence: By default, Resource Server configures a clock skew of 60 seconds.
+  wrong:
+  - option: 30 seconds
+    anchor: spring-security-servlet-oauth2-resource-server-jwt#oauth2resourceserver-jwt-validation-clockskew
+    sentence: By default, Resource Server configures a clock skew of 60 seconds.
+    exclusive: true
+  - option: 5 minutes
+    anchor: spring-security-servlet-oauth2-resource-server-jwt#oauth2resourceserver-jwt-validation-clockskew
+    sentence: By default, Resource Server configures a clock skew of 60 seconds.
+    exclusive: true
+  - option: 0 seconds
+    anchor: spring-security-servlet-oauth2-resource-server-jwt#oauth2resourceserver-jwt-validation-clockskew
+    sentence: By default, Resource Server configures a clock skew of 60 seconds.
+    exclusive: true
+m10-l02-q18:
+  key:
+    anchor: spring-security-servlet-oauth2-resource-server-jwt#oauth2resourceserver-jwt-jwkseturi
+    sentence: We still specify the issuer-uri so that Resource Server still validates the iss claim on incoming JWTs.
+  wrong:
+  - option: The Resource Server pings the authorization server at startup to discover its configuration
+    anchor: spring-security-servlet-oauth2-resource-server-jwt#oauth2resourceserver-jwt-jwkseturi
+    sentence: Consequently, Resource Server will not ping the authorization server at startup.
+  - option: The authorization server must expose configuration endpoints
+    anchor: spring-security-servlet-oauth2-resource-server-jwt#oauth2resourceserver-jwt-jwkseturi
+    sentence: If the authorization server doesn’t support any configuration endpoints, or if Resource Server must be able to initialize independently from the authorization server, then the jwk-set-uri can be supplied as well
+  - option: The property can only be supplied through a properties file, never through the DSL
+    anchor: spring-security-servlet-oauth2-resource-server-jwt#oauth2resourceserver-jwt-jwkseturi
+    sentence: This property can also be supplied directly on the DSL.
+m10-l02-q19:
+  key:
+    anchor: spring-security-servlet-oauth2-resource-server-jwt#oauth2resourceserver-jwt-architecture
+    sentence: JwtAuthenticationProvider decodes, verifies, and validates the Jwt using a JwtDecoder.
+  wrong:
+  - option: '`JwtAuthenticationConverter`'
+    anchor: spring-security-servlet-oauth2-resource-server-jwt#oauth2resourceserver-jwt-architecture
+    sentence: JwtAuthenticationProvider then uses the JwtAuthenticationConverter to convert the Jwt into a Collection of granted authorities.
+  - option: '`ProviderManager`'
+    anchor: spring-security-servlet-oauth2-resource-server-jwt#oauth2resourceserver-jwt-architecture
+    sentence: The ProviderManager is configured to use an AuthenticationProvider of type JwtAuthenticationProvider.
+  - option: '`BearerTokenAuthenticationToken`'
+    anchor: spring-security-servlet-oauth2-resource-server-jwt#oauth2resourceserver-jwt-architecture
+    sentence: The authentication Filter from Reading the Bearer Token passes a BearerTokenAuthenticationToken to the AuthenticationManager which is implemented by ProviderManager.
+m10-l02-q20:
+  key:
+    anchor: k8s-rbac#role-and-clusterrole
+    sentence: Permissions are purely additive (there are no "deny" rules).
+  wrong:
+  - option: Deny rules take precedence over allow rules
+    anchor: k8s-rbac#role-and-clusterrole
+    sentence: Permissions are purely additive (there are no "deny" rules).
+    exclusive: true
+  - option: Deny rules are supported only in a `ClusterRole`
+    anchor: k8s-rbac#role-and-clusterrole
+    sentence: Permissions are purely additive (there are no "deny" rules).
+    exclusive: true
+  - option: Deny rules can be added to a `Role` for a single namespace
+    anchor: k8s-rbac#role-and-clusterrole
+    sentence: Permissions are purely additive (there are no "deny" rules).
+    exclusive: true
+m10-l02-q21:
+  key:
+    anchor: gdpr-eurlex#art_5
+    sentence: adequate, relevant and limited to what is necessary in relation to the purposes for which they are processed
+  wrong:
+  - option: Purpose limitation
+    anchor: gdpr-eurlex#art_5
+    sentence: collected for specified, explicit and legitimate purposes and not further processed in a manner that is incompatible with those purposes
+  - option: Storage limitation
+    anchor: gdpr-eurlex#art_5
+    sentence: kept in a form which permits identification of data subjects for no longer than is necessary for the purposes for which the personal data are processed
+  - option: Accuracy
+    anchor: gdpr-eurlex#art_5
+    sentence: accurate and, where necessary, kept up to date
+m10-l02-q22:
+  key:
+    anchor: gdpr-eurlex#art_25
+    sentence: In particular, such measures shall ensure that by default personal data are not made accessible without the individual's intervention to an indefinite number of natural persons.
+  wrong:
+  - option: They are made accessible to an indefinite number of natural persons unless the individual objects
+    anchor: gdpr-eurlex#art_25
+    sentence: In particular, such measures shall ensure that by default personal data are not made accessible without the individual's intervention to an indefinite number of natural persons.
+    exclusive: true
+  - option: They are made accessible to all processors of the controller without any intervention
+    anchor: gdpr-eurlex#art_25
+    sentence: In particular, such measures shall ensure that by default personal data are not made accessible without the individual's intervention to an indefinite number of natural persons.
+    exclusive: true
+  - option: They are made accessible to the public once an approved certification mechanism is in place
+    anchor: gdpr-eurlex#art_25
+    sentence: In particular, such measures shall ensure that by default personal data are not made accessible without the individual's intervention to an indefinite number of natural persons.
+    exclusive: true
+m10-l02-q23:
+  key:
+    anchor: gdpr-eurlex#art_30
+    sentence: The obligations referred to in paragraphs 1 and 2 shall not apply to an enterprise or an organisation employing fewer than 250 persons unless the processing it carries out is likely to result in a risk to the rights and freedoms of data subjects, the processing is not occasional, or the processing includes special categories of data as referred to in Article 9(1)
+  wrong:
+  - option: '50'
+    anchor: gdpr-eurlex#art_30
+    sentence: The obligations referred to in paragraphs 1 and 2 shall not apply to an enterprise or an organisation employing fewer than 250 persons unless the processing it carries out is likely to result in a risk to the rights and freedoms of data subjects, the processing is not occasional, or the processing includes special categories of data as referred to in Article 9(1)
+    exclusive: true
+  - option: '100'
+    anchor: gdpr-eurlex#art_30
+    sentence: The obligations referred to in paragraphs 1 and 2 shall not apply to an enterprise or an organisation employing fewer than 250 persons unless the processing it carries out is likely to result in a risk to the rights and freedoms of data subjects, the processing is not occasional, or the processing includes special categories of data as referred to in Article 9(1)
+    exclusive: true
+  - option: '500'
+    anchor: gdpr-eurlex#art_30
+    sentence: The obligations referred to in paragraphs 1 and 2 shall not apply to an enterprise or an organisation employing fewer than 250 persons unless the processing it carries out is likely to result in a risk to the rights and freedoms of data subjects, the processing is not occasional, or the processing includes special categories of data as referred to in Article 9(1)
+    exclusive: true
+m10-l02-q24:
+  key:
+    anchor: k8s-encrypt-data#understanding-the-encryption-at-rest-configuration
+    sentence: The first provider in the list is used to encrypt resources written into the storage.
+  wrong:
+  - option: The last provider in the list
+    anchor: k8s-encrypt-data#understanding-the-encryption-at-rest-configuration
+    sentence: The first provider in the list is used to encrypt resources written into the storage.
+    exclusive: true
+  - option: Every provider in turn
+    anchor: k8s-encrypt-data#understanding-the-encryption-at-rest-configuration
+    sentence: The first provider in the list is used to encrypt resources written into the storage.
+    exclusive: true
+  - option: The provider that holds the most keys
+    anchor: k8s-encrypt-data#understanding-the-encryption-at-rest-configuration
+    sentence: The first provider in the list is used to encrypt resources written into the storage.
+    exclusive: true
+m10-l02-q25:
+  key:
+    anchor: k8s-encrypt-data#understanding-the-encryption-at-rest-configuration
+    sentence: If no provider can read the stored data due to a mismatch in format or secret key, an error is returned which prevents clients from accessing that resource.
+  wrong:
+  - option: The resource is returned as plain text
+    anchor: k8s-encrypt-data#understanding-the-encryption-at-rest-configuration
+    sentence: If no provider can read the stored data due to a mismatch in format or secret key, an error is returned which prevents clients from accessing that resource.
+    exclusive: true
+  - option: The resource is skipped and treated as missing
+    anchor: k8s-encrypt-data#understanding-the-encryption-at-rest-configuration
+    sentence: If no provider can read the stored data due to a mismatch in format or secret key, an error is returned which prevents clients from accessing that resource.
+    exclusive: true
+  - option: The API server falls back to the `identity` provider
+    anchor: k8s-encrypt-data#understanding-the-encryption-at-rest-configuration
+    sentence: If no provider can read the stored data due to a mismatch in format or secret key, an error is returned which prevents clients from accessing that resource.
+    exclusive: true
+m10-l02-q26:
+  key:
+    anchor: k8s-encrypt-data#understanding-the-encryption-at-rest-configuration
+    sentence: Any custom resources that existed in etcd prior to that version and configuration will be unencrypted until they are next written to storage.
+  wrong:
+  - option: Immediately, when the API server reloads the configuration
+    anchor: k8s-encrypt-data#understanding-the-encryption-at-rest-configuration
+    sentence: Any custom resources that existed in etcd prior to that version and configuration will be unencrypted until they are next written to storage.
+    exclusive: true
+  - option: When the key of the first provider is next rotated
+    anchor: k8s-encrypt-data#understanding-the-encryption-at-rest-configuration
+    sentence: Any custom resources that existed in etcd prior to that version and configuration will be unencrypted until they are next written to storage.
+    exclusive: true
+  - option: Never, because only newly created custom resources can be encrypted
+    anchor: k8s-encrypt-data#understanding-the-encryption-at-rest-configuration
+    sentence: Any custom resources that existed in etcd prior to that version and configuration will be unencrypted until they are next written to storage.
+    exclusive: true
+m10-l02-q27:
+  key:
+    anchor: rfc8446#section-1
+    sentence: 'Confidentiality: Data sent over the channel after establishment is only visible to the endpoints.'
+  wrong:
+  - option: Integrity
+    anchor: rfc8446#section-1
+    sentence: 'Integrity: Data sent over the channel after establishment cannot be modified by attackers without detection.'
+  - option: Authentication
+    anchor: rfc8446#section-1
+    sentence: 'Authentication: The server side of the channel is always authenticated; the client side is optionally authenticated.'
+  - option: Length hiding
+    anchor: rfc8446#section-1
+    sentence: TLS does not hide the length of the data it transmits, though endpoints are able to pad TLS records in order to obscure lengths and improve protection against traffic analysis techniques.
+m10-l02-q28:
+  key:
+    anchor: owasp-cs-logging#protection
+    sentence: Store or copy log data to read-only media as soon as possible
+  wrong:
+  - option: A writable network share restricted to administrators
+    anchor: owasp-cs-logging#protection
+    sentence: Store or copy log data to read-only media as soon as possible
+    exclusive: true
+  - option: The database that holds the application's own data
+    anchor: owasp-cs-logging#protection
+    sentence: Store or copy log data to read-only media as soon as possible
+    exclusive: true
+  - option: The same disk as the application, in a hidden folder
+    anchor: owasp-cs-logging#protection
+    sentence: Store or copy log data to read-only media as soon as possible
+    exclusive: true

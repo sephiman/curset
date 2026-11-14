@@ -1,0 +1,241 @@
+m09-case-e-q01:
+  key:
+    anchor: rfc9562#section-2.1
+    sentence: The fact that UUIDs can be used to create unique, reasonably short values in distributed systems without requiring coordination makes them a good alternative
+  wrong:
+  - option: Coordinating sequential identifiers across the network is cheap
+    anchor: rfc9562#section-2.1
+    sentence: 'do not work well: the effort required to coordinate sequential numeric identifiers across a network can easily become a burden.'
+  - option: UUIDv4 values have good database-index locality
+    anchor: rfc9562#section-2.1
+    sentence: UUID versions that are not time ordered, such as UUIDv4 (described in Section 5.4), have poor database-index locality.
+  - option: UUIDv1 timestamps use the familiar Unix Epoch
+    anchor: rfc9562#section-2.1
+    sentence: is uncommon and difficult to represent accurately using a standard number format
+m09-case-e-q02:
+  key:
+    anchor: rfc9562#section-2.1
+    sentence: new values created in succession are not close to each other in the index; thus, they require inserts to be performed at random locations.
+  wrong:
+  - option: Their node field exposes MAC addresses that locate network interfaces
+    anchor: rfc9562#section-2.1
+    sentence: Privacy and network security issues arise from using a Media Access Control (MAC) address in the node field of UUIDv1. Exposed MAC addresses can be used as an attack surface to locate network interfaces
+  - option: Their time-ordered value field makes every insert hit the newest page
+    anchor: rfc9562#section-5.7
+    sentence: UUIDv7 features a time-ordered value field derived from the widely implemented and well-known Unix Epoch timestamp source, the number of milliseconds since midnight 1 Jan 1970 UTC, leap seconds excluded.
+  - option: Their Gregorian Epoch timestamp is hard to represent accurately
+    anchor: rfc9562#section-2.1
+    sentence: is uncommon and difficult to represent accurately using a standard number format
+m09-case-e-q03:
+  key:
+    anchor: rfc9562#section-5.7
+    sentence: UUIDv7 values are created by allocating a Unix timestamp in milliseconds in the most significant 48 bits and filling the remaining 74 bits, excluding the required version and variant bits, with random bits for each new UUIDv7 generated to provide uniqueness
+  wrong:
+  - option: A Unix timestamp in whole seconds
+    anchor: rfc9562#section-6.1
+    sentence: while UUIDv7 features a millisecond level of precision by default within the Unix Epoch
+  - option: A Gregorian Epoch timestamp in 100-nanosecond units
+    anchor: rfc9562#section-6.1
+    sentence: UUIDv1 and UUIDv6 both utilize a Gregorian Epoch timestamp, while UUIDv7 utilizes a Unix Epoch timestamp.
+  - option: A custom epoch chosen by each service
+    anchor: rfc9562#section-6.1
+    sentence: If other timestamp sources or a custom timestamp Epoch are required, UUIDv8 MUST be used.
+m09-case-e-q04:
+  key:
+    anchor: rfc9562#section-5.7
+    sentence: Implementations SHOULD utilize UUIDv7 instead of UUIDv1 and UUIDv6 if possible.
+  wrong:
+  - option: UUIDv1
+    anchor: rfc9562#section-5.7
+    sentence: Implementations SHOULD utilize UUIDv7 instead of UUIDv1 and UUIDv6 if possible.
+    exclusive: true
+  - option: UUIDv6
+    anchor: rfc9562#section-5.7
+    sentence: Implementations SHOULD utilize UUIDv7 instead of UUIDv1 and UUIDv6 if possible.
+    exclusive: true
+  - option: UUIDv8
+    anchor: rfc9562#section-6.1
+    sentence: If other timestamp sources or a custom timestamp Epoch are required, UUIDv8 MUST be used.
+m09-case-e-q05:
+  key:
+    anchor: rfc9562#section-6.1
+    sentence: If other timestamp sources or a custom timestamp Epoch are required, UUIDv8 MUST be used.
+  wrong:
+  - option: UUIDv7
+    anchor: rfc9562#section-6.1
+    sentence: If other timestamp sources or a custom timestamp Epoch are required, UUIDv8 MUST be used.
+    exclusive: true
+  - option: UUIDv4
+    anchor: rfc9562#section-6.1
+    sentence: If other timestamp sources or a custom timestamp Epoch are required, UUIDv8 MUST be used.
+    exclusive: true
+  - option: UUIDv1
+    anchor: rfc9562#section-6.1
+    sentence: If other timestamp sources or a custom timestamp Epoch are required, UUIDv8 MUST be used.
+    exclusive: true
+m09-case-e-q06:
+  key:
+    anchor: rfc9562#section-6.1
+    sentence: UUIDv7 features a 48-bit timestamp valid until the year 10889 AD.
+  wrong:
+  - option: The year 2038 AD
+    anchor: rfc9562#section-6.1
+    sentence: UUIDv7 features a 48-bit timestamp valid until the year 10889 AD.
+    exclusive: true
+  - option: The year 2106 AD
+    anchor: rfc9562#section-6.1
+    sentence: UUIDv7 features a 48-bit timestamp valid until the year 10889 AD.
+    exclusive: true
+  - option: The year 5138 AD
+    anchor: rfc9562#section-6.1
+    sentence: UUIDv7 features a 48-bit timestamp valid until the year 10889 AD.
+    exclusive: true
+m09-case-e-q07:
+  key:
+    anchor: redis-cluster-spec#key-distribution-model
+    sentence: key space is split into 16384 slots
+  wrong:
+  - option: '1024'
+    anchor: redis-cluster-spec#key-distribution-model
+    sentence: key space is split into 16384 slots
+    exclusive: true
+  - option: '4096'
+    anchor: redis-cluster-spec#key-distribution-model
+    sentence: key space is split into 16384 slots
+    exclusive: true
+  - option: '65536'
+    anchor: redis-cluster-spec#key-distribution-model
+    sentence: key space is split into 16384 slots
+    exclusive: true
+m09-case-e-q08:
+  key:
+    anchor: redis-cluster-spec#key-distribution-model
+    sentence: 'The base algorithm used to map keys to hash slots is the following (read the next paragraph for the hash tag exception to this rule): HASH_SLOT = CRC16(key) mod 16384'
+  wrong:
+  - option: '`HASH_SLOT = CRC32(key) mod 1024`'
+    anchor: redis-cluster-spec#key-distribution-model
+    sentence: 'The base algorithm used to map keys to hash slots is the following (read the next paragraph for the hash tag exception to this rule): HASH_SLOT = CRC16(key) mod 16384'
+    exclusive: true
+  - option: '`HASH_SLOT = SHA1(key) mod 16384`'
+    anchor: redis-cluster-spec#key-distribution-model
+    sentence: 'The base algorithm used to map keys to hash slots is the following (read the next paragraph for the hash tag exception to this rule): HASH_SLOT = CRC16(key) mod 16384'
+    exclusive: true
+  - option: '`HASH_SLOT = CRC16(key) mod 65536`'
+    anchor: redis-cluster-spec#key-distribution-model
+    sentence: 14 out of 16 CRC16 output bits are used (this is why there is a modulo 16384 operation in the formula above).
+m09-case-e-q09:
+  key:
+    anchor: redis-scaling#redis-cluster-data-sharding
+    sentence: Redis Cluster does not use consistent hashing, but a different form of sharding where every key is conceptually part of what we call a hash slot
+  wrong:
+  - option: It places keys on a consistent hashing ring with virtual nodes
+    anchor: redis-scaling#redis-cluster-data-sharding
+    sentence: Redis Cluster does not use consistent hashing, but a different form of sharding where every key is conceptually part of what we call a hash slot
+    exclusive: true
+  - option: It assigns keys to range partitions with explicit bounds
+    anchor: redis-scaling#redis-cluster-data-sharding
+    sentence: Redis Cluster does not use consistent hashing, but a different form of sharding where every key is conceptually part of what we call a hash slot
+    exclusive: true
+  - option: It assigns keys to list partitions naming the key values
+    anchor: redis-scaling#redis-cluster-data-sharding
+    sentence: Redis Cluster does not use consistent hashing, but a different form of sharding where every key is conceptually part of what we call a hash slot
+    exclusive: true
+m09-case-e-q10:
+  key:
+    anchor: redis-cluster-spec#hash-tags
+    sentence: If the key contains a "{...}" pattern only the substring between { and } is hashed in order to obtain the hash slot
+  wrong:
+  - option: The whole string `{user1000}.following`
+    anchor: redis-cluster-spec#hash-tags
+    sentence: If the key contains a "{...}" pattern only the substring between { and } is hashed in order to obtain the hash slot
+    exclusive: true
+  - option: Only `.following`, the part after the braces
+    anchor: redis-cluster-spec#hash-tags
+    sentence: If the key contains a "{...}" pattern only the substring between { and } is hashed in order to obtain the hash slot
+    exclusive: true
+  - option: Only `following`, without the dot
+    anchor: redis-cluster-spec#hash-tags
+    sentence: If the key contains a "{...}" pattern only the substring between { and } is hashed in order to obtain the hash slot
+    exclusive: true
+m09-case-e-q11:
+  key:
+    anchor: paper-dynamo#p6
+    sentence: assigned to multiple points in the ring. To this end, Dynamo uses
+  wrong:
+  - option: It maps each node to exactly one point on the ring
+    anchor: paper-dynamo#p6
+    sentence: mapping a node to a single point in the circle, each node gets
+  - option: It replaces the ring with a fixed set of 16384 hash slots
+    anchor: redis-scaling#redis-cluster-data-sharding
+    sentence: Redis Cluster does not use consistent hashing, but a different form of sharding where every key is conceptually part of what we call a hash slot
+  - option: It gives every node the same number of virtual nodes whatever its capacity
+    anchor: paper-dynamo#p6
+    sentence: decided based on its capacity, accounting for heterogeneity
+m09-case-e-q12:
+  key:
+    anchor: paper-dynamo#p6
+    sentence: node only affects its immediate neighbors and other nodes remain
+  wrong:
+  - option: Every node on the ring, which all remap their keys
+    anchor: paper-dynamo#p6
+    sentence: node only affects its immediate neighbors and other nodes remain
+    exclusive: true
+  - option: Only the nodes on the opposite side of the ring
+    anchor: paper-dynamo#p6
+    sentence: node only affects its immediate neighbors and other nodes remain
+    exclusive: true
+  - option: No node at all, because the keys are lost
+    anchor: paper-dynamo#p6
+    sentence: node only affects its immediate neighbors and other nodes remain
+    exclusive: true
+m09-case-e-q13:
+  key:
+    anchor: rfc9562#section-6.1
+    sentence: If a system overruns the generator by requesting too many UUIDs within a single system-time interval, the UUID service can return an error or stall the UUID generator until the system clock catches up and MUST NOT knowingly return duplicate values due to a counter rollover.
+  wrong:
+  - option: Return the previous UUID again for the extra requests
+    anchor: rfc9562#section-6.1
+    sentence: If a system overruns the generator by requesting too many UUIDs within a single system-time interval, the UUID service can return an error or stall the UUID generator until the system clock catches up and MUST NOT knowingly return duplicate values due to a counter rollover.
+    exclusive: true
+  - option: Return a duplicate and log a warning for the operator
+    anchor: rfc9562#section-6.1
+    sentence: If a system overruns the generator by requesting too many UUIDs within a single system-time interval, the UUID service can return an error or stall the UUID generator until the system clock catches up and MUST NOT knowingly return duplicate values due to a counter rollover.
+    exclusive: true
+  - option: Return the same UUID to every caller in that interval
+    anchor: rfc9562#section-6.1
+    sentence: If a system overruns the generator by requesting too many UUIDs within a single system-time interval, the UUID service can return an error or stall the UUID generator until the system clock catches up and MUST NOT knowingly return duplicate values due to a counter rollover.
+    exclusive: true
+m09-case-e-q14:
+  key:
+    anchor: redis-cluster-spec#key-distribution-model
+    sentence: When the cluster is stable, a single hash slot will be served by a single node
+  wrong:
+  - option: Every node of the cluster
+    anchor: redis-cluster-spec#key-distribution-model
+    sentence: When the cluster is stable, a single hash slot will be served by a single node
+    exclusive: true
+  - option: Exactly two nodes sharing the load
+    anchor: redis-cluster-spec#key-distribution-model
+    sentence: When the cluster is stable, a single hash slot will be served by a single node
+    exclusive: true
+  - option: Three nodes chosen by majority
+    anchor: redis-cluster-spec#key-distribution-model
+    sentence: When the cluster is stable, a single hash slot will be served by a single node
+    exclusive: true
+m09-case-e-q15:
+  key:
+    anchor: redis-cluster-spec#key-distribution-model
+    sentence: 14 out of 16 CRC16 output bits are used (this is why there is a modulo 16384 operation in the formula above).
+  wrong:
+  - option: '16'
+    anchor: redis-cluster-spec#key-distribution-model
+    sentence: 14 out of 16 CRC16 output bits are used (this is why there is a modulo 16384 operation in the formula above).
+    exclusive: true
+  - option: '12'
+    anchor: redis-cluster-spec#key-distribution-model
+    sentence: 14 out of 16 CRC16 output bits are used (this is why there is a modulo 16384 operation in the formula above).
+    exclusive: true
+  - option: '10'
+    anchor: redis-cluster-spec#key-distribution-model
+    sentence: 14 out of 16 CRC16 output bits are used (this is why there is a modulo 16384 operation in the formula above).
+    exclusive: true

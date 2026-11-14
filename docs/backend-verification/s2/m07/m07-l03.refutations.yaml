@@ -1,0 +1,200 @@
+m07-l03-q01:
+  key:
+    anchor: k8s-service#loadbalancer
+    sentence: Traffic from the external load balancer is directed at the backend Pods. The cloud provider decides how it is load balanced.
+  wrong:
+  - option: The load balancer is created synchronously before the Service is accepted
+    anchor: k8s-service#loadbalancer
+    sentence: The actual creation of the load balancer happens asynchronously, and information about the provisioned balancer is published in the Service's .status.loadBalancer field.
+  - option: The `kubelet` of each node configures the external load balancer
+    anchor: k8s-service#loadbalancer
+    sentence: The cloud-controller-manager component then configures the external load balancer to forward traffic to that assigned node port.
+  - option: The load balancer is provisioned on any cluster, whether or not the provider supports external load balancers
+    anchor: k8s-service#loadbalancer
+    sentence: On cloud providers which support external load balancers, setting the type field to LoadBalancer provisions a load balancer for your Service.
+m07-l03-q02:
+  key:
+    anchor: k8s-service#session-stickiness
+    sentence: If you want to make sure that connections from a particular client are passed to the same Pod each time, you can configure session affinity based on the client's IP address.
+  wrong:
+  - option: Set `.spec.trafficDistribution` to `PreferSameNode`
+    anchor: k8s-service#traffic-distribution
+    sentence: While traffic policies focus on strict semantic guarantees, traffic distribution allows you to express preferences (such as routing to topologically closer endpoints).
+  - option: Mark the Pod as not ready so that the Service keeps the client on it
+    anchor: k8s-probes#define-readiness-probes
+    sentence: A pod with containers reporting that they are not ready does not receive traffic through Kubernetes Services.
+  - option: Mark the endpoint as terminating so that proxies keep routing to it
+    anchor: k8s-endpoint-slices#terminating
+    sentence: Service proxies will normally ignore endpoints that are terminating, but they may route traffic to endpoints that are both serving and terminating if all available endpoints are terminating.
+m07-l03-q03:
+  key:
+    anchor: k8s-probes#define-readiness-probes
+    sentence: A pod with containers reporting that they are not ready does not receive traffic through Kubernetes Services.
+  wrong:
+  - option: The kubelet kills its containers so that they restart
+    anchor: k8s-probes#define-readiness-probes
+    sentence: In such cases, you don't want to kill the application, but you don't want to send it requests either.
+  - option: Its endpoint stays serving, because the serving condition ignores readiness
+    anchor: k8s-endpoint-slices#serving
+    sentence: For endpoints backed by a Pod, this maps to the Pod's Ready condition.
+  - option: It keeps receiving traffic until the Pod is deleted and becomes terminating
+    anchor: k8s-probes#define-readiness-probes
+    sentence: A pod with containers reporting that they are not ready does not receive traffic through Kubernetes Services.
+m07-l03-q04:
+  key:
+    anchor: k8s-pod-lifecycle#pod-termination-flow
+    sentence: The default terminationGracePeriodSeconds setting is 30 seconds.
+  wrong:
+  - option: 60 seconds
+    anchor: k8s-pod-lifecycle#pod-termination-flow
+    sentence: The default terminationGracePeriodSeconds setting is 30 seconds.
+    exclusive: true
+  - option: 5 minutes
+    anchor: k8s-pod-lifecycle#pod-termination-flow
+    sentence: The default terminationGracePeriodSeconds setting is 30 seconds.
+    exclusive: true
+  - option: 2 seconds
+    anchor: k8s-pod-lifecycle#pod-termination-flow
+    sentence: If the preStop hook is still running after the grace period expires, the kubelet requests a small, one-off grace period extension of 2 seconds.
+m07-l03-q05:
+  key:
+    anchor: k8s-pod-lifecycle#pod-termination-flow
+    sentence: If the preStop hook is still running after the grace period expires, the kubelet requests a small, one-off grace period extension of 2 seconds.
+  wrong:
+  - option: It waits for the hook to finish, extending the grace period again as needed
+    anchor: k8s-pod-lifecycle#pod-termination-flow
+    sentence: If the preStop hook is still running after the grace period expires, the kubelet requests a small, one-off grace period extension of 2 seconds.
+    exclusive: true
+  - option: It kills the container at once without any extension
+    anchor: k8s-pod-lifecycle#pod-termination-flow
+    sentence: If the preStop hook is still running after the grace period expires, the kubelet requests a small, one-off grace period extension of 2 seconds.
+    exclusive: true
+  - option: It starts the hook only after the container has already exited
+    anchor: k8s-pod-lifecycle#pod-termination-flow
+    sentence: If one of the Pod's containers has defined a preStop hook and the terminationGracePeriodSeconds in the Pod spec is not set to 0, the kubelet runs that hook inside of the container.
+m07-l03-q06:
+  key:
+    anchor: rfc9110#section-3.7
+    sentence: A "proxy" is a message-forwarding agent that is chosen by the client, usually via local configuration rules, to receive requests for some type(s) of absolute URI and attempt to satisfy those requests via translation through the HTTP interface.
+  wrong:
+  - option: A gateway
+    anchor: rfc9110#section-3.7
+    sentence: A "gateway" (a.k.a. "reverse proxy") is an intermediary that acts as an origin server for the outbound connection but translates received requests and forwards them inbound to another server or servers.
+  - option: A tunnel
+    anchor: rfc9110#section-3.7
+    sentence: A "tunnel" acts as a blind relay between two connections without changing the messages.
+  - option: An interception proxy
+    anchor: rfc9110#section-3.7
+    sentence: For example, an "interception proxy" [RFC3040] (also commonly known as a "transparent proxy" [RFC1919]) differs from an HTTP proxy because it is not chosen by the client.
+m07-l03-q07:
+  key:
+    anchor: rfc9110#section-3.7
+    sentence: Gateways are often used to encapsulate legacy or untrusted information services, to improve server performance through "accelerator" caching, and to enable partitioning or load balancing of HTTP services across multiple machines.
+  wrong:
+  - option: Extending a virtual connection through a shared firewall proxy while TLS protects it
+    anchor: rfc9110#section-3.7
+    sentence: Tunnels are used to extend a virtual connection through an intermediary, such as when Transport Layer Security (TLS, [TLS13]) is used to establish confidential communication through a shared firewall proxy.
+  - option: Enforcing account subscription on public network access points
+    anchor: rfc9110#section-3.7
+    sentence: Interception proxies are commonly found on public network access points, as a means of enforcing account subscription prior to allowing use of non-local Internet services, and within corporate firewalls to enforce network usage policies.
+  - option: Letting each client choose through local configuration which URIs to send through them
+    anchor: rfc9110#section-3.7
+    sentence: A "proxy" is a message-forwarding agent that is chosen by the client, usually via local configuration rules, to receive requests for some type(s) of absolute URI and attempt to satisfy those requests via translation through the HTTP interface.
+m07-l03-q08:
+  key:
+    anchor: k8s-ingress#note
+    sentence: The Kubernetes project recommends using Gateway instead of Ingress. The Ingress API has been frozen.
+  wrong:
+  - option: It is deprecated and scheduled for removal from Kubernetes
+    anchor: k8s-ingress#note
+    sentence: The Kubernetes project has no plans to remove Ingress from Kubernetes.
+  - option: It is still evolving, with new features added in each release
+    anchor: k8s-ingress#note
+    sentence: The Ingress API is no longer being developed, and will have no further changes or updates made to it.
+  - option: It can also expose arbitrary ports and protocols besides HTTP and HTTPS
+    anchor: k8s-ingress#what-is-ingress
+    sentence: An Ingress does not expose arbitrary ports or protocols.
+m07-l03-q09:
+  key:
+    anchor: k8s-ingress#path-types
+    sentence: 'Exact: Matches the URL path exactly and with case sensitivity.'
+  wrong:
+  - option: '`Prefix`'
+    anchor: k8s-ingress#path-types
+    sentence: 'Prefix: Matches based on a URL path prefix split by /.'
+  - option: '`ImplementationSpecific`'
+    anchor: k8s-ingress#path-types
+    sentence: 'ImplementationSpecific: With this path type, matching is up to the IngressClass.'
+  - option: '`Regex`'
+    anchor: k8s-ingress#path-types
+    sentence: 'There are three supported path types:'
+m07-l03-q10:
+  key:
+    anchor: k8s-gateway-api-concept#resource-model
+    sentence: 'Gateway: Defines an instance of traffic handling infrastructure, such as cloud load balancer.'
+  wrong:
+  - option: '`GatewayClass`'
+    anchor: k8s-gateway-api-concept#resource-model
+    sentence: 'GatewayClass: Defines a set of gateways with common configuration and managed by a controller that implements the class.'
+  - option: '`HTTPRoute`'
+    anchor: k8s-gateway-api-concept#resource-model
+    sentence: 'HTTPRoute: Defines HTTP-specific rules for mapping traffic from a Gateway listener to a representation of backend network endpoints.'
+  - option: '`GRPCRoute`'
+    anchor: k8s-gateway-api-concept#resource-model
+    sentence: 'GRPCRoute: Defines gRPC-specific rules for mapping traffic from a Gateway listener to a representation of backend network endpoints.'
+m07-l03-q11:
+  key:
+    anchor: gateway-api-concepts-api-overview#gatewayclass
+    sentence: Each GatewayClass will be handled by a single controller, although controllers may handle more than one GatewayClass.
+  wrong:
+  - option: A `Gateway` can reference several `GatewayClass` objects and combine their behaviour
+    anchor: k8s-gateway-api-concept#resource-model
+    sentence: A Gateway object is associated with exactly one GatewayClass; the GatewayClass describes the gateway controller responsible for managing Gateways of this class.
+  - option: '`GatewayClass` is a namespaced resource, so each team defines its own'
+    anchor: gateway-api-concepts-api-overview#gatewayclass
+    sentence: GatewayClass is a cluster-scoped resource.
+  - option: A cluster can run functional Gateways without defining any `GatewayClass`
+    anchor: gateway-api-concepts-api-overview#gatewayclass
+    sentence: There must be at least one GatewayClass defined in order to be able to have functional Gateways.
+m07-l03-q12:
+  key:
+    anchor: gateway-api-migrating-from-ingress#reasons-to-switch-to-gateway-api
+    sentence: The annotations approach to extensibility leads to limited portability as every implementation has its own supported extensions that may not translate to any other implementation.
+  wrong:
+  - option: Ingress cannot terminate TLS at all
+    anchor: gateway-api-migrating-from-ingress#reasons-to-switch-to-gateway-api
+    sentence: Limited features. The Ingress API only supports TLS termination and simple content-based request routing of HTTP traffic.
+  - option: Few vendors support Ingress, so only a handful of controllers exist
+    anchor: gateway-api-migrating-from-ingress#reasons-to-switch-to-gateway-api
+    sentence: It is widely adopted by Kubernetes users and well-supported by vendors with many implementations (Ingress controllers) available.
+  - option: Ingress will be removed from Kubernetes in an upcoming release
+    anchor: k8s-ingress#note
+    sentence: The Kubernetes project has no plans to remove Ingress from Kubernetes.
+m07-l03-q13:
+  key:
+    anchor: rfc5861#section-3
+    sentence: When present in an HTTP response, the stale-while-revalidate Cache- Control extension indicates that caches MAY serve the response in which it appears after it becomes stale, up to the indicated number of seconds.
+  wrong:
+  - option: Caches may serve the stale response indefinitely until the origin sends a newer one
+    anchor: rfc5861#section-3
+    sentence: If delta-seconds passes without the cached entity being revalidated, it SHOULD NOT continue to be served stale, absent other information.
+  - option: Caches must block the client until revalidation has finished
+    anchor: rfc5861#section-3
+    sentence: If a cached response is served stale due to the presence of this extension, the cache SHOULD attempt to revalidate it while still serving stale responses (i.e., without blocking).
+  - option: Caches must never serve the response again once it is stale
+    anchor: rfc5861#section-3
+    sentence: When present in an HTTP response, the stale-while-revalidate Cache- Control extension indicates that caches MAY serve the response in which it appears after it becomes stale, up to the indicated number of seconds.
+m07-l03-q14:
+  key:
+    anchor: rfc9111#section-5.2.2.10
+    sentence: A shared cache MUST NOT reuse a stale response with s-maxage to satisfy another request until it has been successfully validated by the origin, as defined by Section 4.3.
+  wrong:
+  - option: A shared cache must never reuse a response to a request that carries an `Authorization` header field
+    anchor: rfc9111#section-5.2.2.10
+    sentence: This directive also permits a shared cache to reuse a response to a request containing an Authorization header field
+  - option: Its value is written as a quoted string, such as `s-maxage="10"`
+    anchor: rfc9111#section-5.2.2.10
+    sentence: A sender MUST NOT generate the quoted-string form.
+  - option: A shared cache uses the larger of `s-maxage` and `max-age` as the maximum age
+    anchor: rfc9111#section-5.2.2.10
+    sentence: The s-maxage response directive indicates that, for a shared cache, the maximum age specified by this directive overrides the maximum age specified by either the max-age directive or the Expires header field.

@@ -1,0 +1,30 @@
+- id: g-partitioned-table
+  term: {en: partitioned table}
+  definition: {en: "PostgreSQL allows you to declare that a table is divided into partitions. The table that is divided is referred to as a partitioned table."}
+  origin: m09-l02
+  citation: "pg-ddl-partitioning#DDL-PARTITIONING-DECLARATIVE"
+- id: g-hash-slot
+  term: {en: hash slot}
+  definition: {en: "Redis Cluster uses a form of sharding where every key is conceptually part of what is called a hash slot. There are 16384 hash slots, and the hash slot of a key is the CRC16 of the key modulo 16384."}
+  origin: m09-l02
+  citation: "redis-scaling#redis-cluster-data-sharding"
+- id: g-hash-tag
+  term: {en: hash tag}
+  definition: {en: "Hash tags are a way to ensure that multiple keys are allocated in the same hash slot. If the key contains a \"{...}\" pattern, only the substring between { and } is hashed in order to obtain the hash slot."}
+  origin: m09-l02
+  citation: "redis-cluster-spec#hash-tags"
+- id: g-consistent-hashing
+  term: {en: consistent hashing}
+  definition: {en: "In consistent hashing, the output range of a hash function is treated as a fixed circular space or \"ring\", where the largest hash value wraps around to the smallest hash value."}
+  origin: m09-l02
+  citation: "paper-dynamo#p5"
+- id: g-virtual-node
+  term: {en: virtual node}
+  definition: {en: "A virtual node looks like a single node in the system, but each node can be responsible for more than one virtual node."}
+  origin: m09-l02
+  citation: "paper-dynamo#p6"
+- id: g-sloppy-quorum
+  term: {en: sloppy quorum}
+  definition: {en: "In a sloppy quorum, all read and write operations are performed on the first N healthy nodes from the preference list, which may not always be the first N nodes encountered while walking the consistent hashing ring."}
+  origin: m09-l02
+  citation: "paper-dynamo#p8"

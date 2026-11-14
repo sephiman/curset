@@ -1,0 +1,240 @@
+m03-l02-q01:
+  key:
+    anchor: javadoc-concurrent-package#MemoryVisibility
+    sentence: Writes and reads of volatile fields have similar memory consistency effects as entering and exiting monitors, but do not entail mutual exclusion locking.
+  wrong:
+  - option: A volatile write excludes other threads from running any code between the write and the next read by holding a lock
+    anchor: javadoc-concurrent-package#MemoryVisibility
+    sentence: Writes and reads of volatile fields have similar memory consistency effects as entering and exiting monitors, but do not entail mutual exclusion locking.
+  - option: A volatile write is visible to a read in another thread only if both threads also use `synchronized` blocks on the same lock
+    anchor: jls-17#jls-17.4.5
+    sentence: A write to a volatile field (§8.3.1.4) happens-before every subsequent read of that field.
+  - option: A volatile field makes compound updates such as an increment atomic without any other synchronization
+    anchor: jls-17#jls-17.4.3
+    sentence: Sequential consistency and/or freedom from data races still allows errors arising from groups of operations that need to be perceived atomically and are not.
+m03-l02-q02:
+  key:
+    anchor: jls-17#jls-17.7
+    sentence: 'For the purposes of the Java programming language memory model, a single write to a non-volatile long or double value is treated as two separate writes: one to each 32-bit half.'
+  wrong:
+  - option: Only the complete old value or the complete new value, because every write is atomic
+    anchor: jls-17#jls-17.7
+    sentence: 'For the purposes of the Java programming language memory model, a single write to a non-volatile long or double value is treated as two separate writes: one to each 32-bit half.'
+  - option: Always a split value, because every JVM must write 64-bit values in two parts
+    anchor: jls-17#jls-17.7
+    sentence: an implementation of the Java Virtual Machine is free to perform writes to long and double values atomically or in two parts.
+  - option: A split value that can also occur when the field is declared `volatile`
+    anchor: jls-17#jls-17.7
+    sentence: Writes and reads of volatile long and double values are always atomic.
+m03-l02-q03:
+  key:
+    anchor: javadoc-atomic-package#package-java-util-concurrent-atomic
+    sentence: The AtomicStampedReference class associates an integer value with a reference.
+  wrong:
+  - option: '`AtomicMarkableReference`'
+    anchor: javadoc-atomic-package#package-java-util-concurrent-atomic
+    sentence: The AtomicMarkableReference class associates a single boolean with a reference.
+  - option: '`AtomicReferenceFieldUpdater`'
+    anchor: javadoc-atomic-package#package-java-util-concurrent-atomic
+    sentence: A reflection-based utility that enables atomic updates to designated volatile reference fields of designated classes.
+  - option: '`LongAdder`'
+    anchor: javadoc-atomic-package#package-java-util-concurrent-atomic
+    sentence: One or more variables that together maintain an initially zero long sum.
+m03-l02-q04:
+  key:
+    anchor: javadoc-threadpoolexecutor#class-threadpoolexecutor
+    sentence: In the default ThreadPoolExecutor.AbortPolicy, the handler throws a runtime RejectedExecutionException upon rejection.
+  wrong:
+  - option: The task runs in the thread that called `execute`
+    anchor: javadoc-threadpoolexecutor#class-threadpoolexecutor
+    sentence: In the default ThreadPoolExecutor.AbortPolicy, the handler throws a runtime RejectedExecutionException upon rejection.
+    exclusive: true
+  - option: The task is dropped without any exception
+    anchor: javadoc-threadpoolexecutor#class-threadpoolexecutor
+    sentence: In the default ThreadPoolExecutor.AbortPolicy, the handler throws a runtime RejectedExecutionException upon rejection.
+    exclusive: true
+  - option: A second worker thread is created because the queue is full
+    anchor: javadoc-threadpoolexecutor#class-threadpoolexecutor
+    sentence: If a request cannot be queued, a new thread is created unless this would exceed maximumPoolSize, in which case, the task will be rejected.
+m03-l02-q05:
+  key:
+    anchor: javadoc-threadpoolexecutor#class-threadpoolexecutor
+    sentence: Thus, no more than corePoolSize threads will ever be created.
+  wrong:
+  - option: Up to `maximumPoolSize`, once the pool has queued enough tasks
+    anchor: javadoc-threadpoolexecutor#class-threadpoolexecutor
+    sentence: (And the value of the maximumPoolSize therefore doesn't have any effect.)
+  - option: One new thread for every submitted task
+    anchor: javadoc-threadpoolexecutor#class-threadpoolexecutor
+    sentence: Thus, no more than corePoolSize threads will ever be created.
+    exclusive: true
+  - option: Exactly `maximumPoolSize` threads, all created at construction
+    anchor: javadoc-threadpoolexecutor#class-threadpoolexecutor
+    sentence: Thus, no more than corePoolSize threads will ever be created.
+    exclusive: true
+m03-l02-q06:
+  key:
+    anchor: javadoc-completablefuture#class-completablefuture-t
+    sentence: All async methods without an explicit Executor argument, as well as those involving delays are performed using the ForkJoinPool.commonPool().
+  wrong:
+  - option: A new thread created for each call
+    anchor: javadoc-completablefuture#class-completablefuture-t
+    sentence: All async methods without an explicit Executor argument, as well as those involving delays are performed using the ForkJoinPool.commonPool().
+    exclusive: true
+  - option: The pool of `Executors.newCachedThreadPool()`
+    anchor: javadoc-completablefuture#class-completablefuture-t
+    sentence: All async methods without an explicit Executor argument, as well as those involving delays are performed using the ForkJoinPool.commonPool().
+    exclusive: true
+  - option: The thread that called `supplyAsync`
+    anchor: javadoc-completablefuture#class-completablefuture-t
+    sentence: All async methods without an explicit Executor argument, as well as those involving delays are performed using the ForkJoinPool.commonPool().
+    exclusive: true
+m03-l02-q07:
+  key:
+    anchor: javadoc-completablefuture#class-completablefuture-t
+    sentence: In case of exceptional completion with a CompletionException, methods get() and get(long, TimeUnit) throw an ExecutionException with the same cause as held in the corresponding CompletionException.
+  wrong:
+  - option: The `CompletionException` itself
+    anchor: javadoc-completablefuture#class-completablefuture-t
+    sentence: this class also defines methods join() and getNow(T) that instead throw the CompletionException directly in these cases.
+  - option: The `IllegalStateException` directly, with no wrapper added by the future
+    anchor: javadoc-completablefuture#class-completablefuture-t
+    sentence: In case of exceptional completion with a CompletionException, methods get() and get(long, TimeUnit) throw an ExecutionException with the same cause as held in the corresponding CompletionException.
+    exclusive: true
+  - option: A `CancellationException` that wraps the `CompletionException` as its cause
+    anchor: javadoc-completablefuture#class-completablefuture-t
+    sentence: In case of exceptional completion with a CompletionException, methods get() and get(long, TimeUnit) throw an ExecutionException with the same cause as held in the corresponding CompletionException.
+    exclusive: true
+m03-l02-q08:
+  key:
+    anchor: javadoc-stampedlock#class-stampedlock
+    sentence: Like Semaphore, but unlike most Lock implementations, StampedLocks have no notion of ownership.
+  wrong:
+  - option: It is reentrant, so a thread may safely re-acquire a lock it already holds
+    anchor: javadoc-stampedlock#class-stampedlock
+    sentence: They are not reentrant, so locked bodies should not call other unknown methods that may try to re-acquire locks
+  - option: It implements the `Lock` interface, so it can replace a `ReentrantLock` in existing code without any change
+    anchor: javadoc-stampedlock#class-stampedlock
+    sentence: Because it supports coordinated usage across multiple lock modes, this class does not directly implement the Lock or ReadWriteLock interfaces.
+  - option: A zero from a `try` method means that the lock is currently held in write mode
+    anchor: javadoc-stampedlock#class-stampedlock
+    sentence: A zero return from any "try" method for acquiring or converting locks does not carry any information about the state of the lock; a subsequent invocation may succeed.
+m03-l02-q09:
+  key:
+    anchor: javadoc-reentrantlock#class-reentrantlock
+    sentence: When set true, under contention, locks favor granting access to the longest-waiting thread.
+  wrong:
+  - option: Its overall throughput is always higher than with the default setting when many threads use it
+    anchor: javadoc-reentrantlock#class-reentrantlock
+    sentence: Programs using fair locks accessed by many threads may display lower overall throughput (i.e., are slower; often much slower) than those using the default setting, but have smaller variances in times to obtain locks and guarantee lack of starvation.
+  - option: The untimed `tryLock()` method also honors the fairness setting when the lock is contended
+    anchor: javadoc-reentrantlock#class-reentrantlock
+    sentence: Also note that the untimed tryLock() method does not honor the fairness setting.
+  - option: It guarantees that the threads that use the lock are also scheduled fairly by the system
+    anchor: javadoc-reentrantlock#class-reentrantlock
+    sentence: Note however, that fairness of locks does not guarantee fairness of thread scheduling.
+m03-l02-q10:
+  key:
+    anchor: javadoc-semaphore#class-semaphore
+    sentence: When set false, this class makes no guarantees about the order in which threads acquire permits.
+  wrong:
+  - option: Threads obtain permits strictly in first-in-first-out order of their `acquire` calls
+    anchor: javadoc-semaphore#class-semaphore
+    sentence: When set false, this class makes no guarantees about the order in which threads acquire permits.
+  - option: Barging is not permitted, so a thread that has been waiting is always served first
+    anchor: javadoc-semaphore#class-semaphore
+    sentence: In particular, barging is permitted, that is, a thread invoking acquire() can be allocated a permit ahead of a thread that has been waiting
+  - option: The untimed `tryAcquire` methods wait until permits can be granted in order
+    anchor: javadoc-semaphore#class-semaphore
+    sentence: Also note that the untimed tryAcquire methods do not honor the fairness setting, but will take any permits that are available.
+m03-l02-q11:
+  key:
+    anchor: javadoc-copyonwritearraylist#class-copyonwritearraylist-e
+    sentence: All elements are permitted, including null.
+  wrong:
+  - option: '`ArrayBlockingQueue`'
+    anchor: javadoc-blockingqueue#interface-blockingqueue-e
+    sentence: A BlockingQueue does not accept null elements.
+    exclusive: true
+  - option: '`LinkedBlockingQueue`'
+    anchor: javadoc-blockingqueue#interface-blockingqueue-e
+    sentence: A BlockingQueue does not accept null elements.
+    exclusive: true
+  - option: '`ConcurrentHashMap`, as a key'
+    anchor: javadoc-concurrenthashmap#class-concurrenthashmap-k-v
+    sentence: Like Hashtable but unlike HashMap, this class does not allow null to be used as a key or value.
+m03-l02-q12:
+  key:
+    anchor: javadoc-copyonwritearraylist#class-copyonwritearraylist-e
+    sentence: The iterator will not reflect additions, removals, or changes to the list since the iterator was created.
+  wrong:
+  - option: It reflects the addition and traverses the new element in the same pass
+    anchor: javadoc-copyonwritearraylist#class-copyonwritearraylist-e
+    sentence: The iterator will not reflect additions, removals, or changes to the list since the iterator was created.
+    exclusive: true
+  - option: It reflects the addition only for positions after its current one in the array
+    anchor: javadoc-copyonwritearraylist#class-copyonwritearraylist-e
+    sentence: The iterator will not reflect additions, removals, or changes to the list since the iterator was created.
+    exclusive: true
+  - option: It throws `ConcurrentModificationException` on its next call, as an `ArrayList` iterator does
+    anchor: javadoc-copyonwritearraylist#class-copyonwritearraylist-e
+    sentence: the iterator is guaranteed not to throw ConcurrentModificationException.
+m03-l02-q13:
+  key:
+    anchor: javadoc-concurrenthashmap#class-concurrenthashmap-k-v
+    sentence: Otherwise the results of these methods reflect transient states that may be adequate for monitoring or estimation purposes, but not for program control.
+  wrong:
+  - option: As an exact count, because `size()` locks the whole table while it counts the entries
+    anchor: javadoc-concurrenthashmap#class-concurrenthashmap-k-v
+    sentence: However, even though all operations are thread-safe, retrieval operations do not entail locking, and there is not any support for locking the entire table in a way that prevents all access.
+  - option: As a value that drives program control, such as deciding that the map is empty
+    anchor: javadoc-concurrenthashmap#class-concurrenthashmap-k-v
+    sentence: Otherwise the results of these methods reflect transient states that may be adequate for monitoring or estimation purposes, but not for program control.
+  - option: As an atomic snapshot of the map as a whole
+    anchor: javadoc-concurrenthashmap#class-concurrenthashmap-k-v
+    sentence: The result of any bulk operation reflects the composition of these per-element relations (but is not necessarily atomic with respect to the map as a whole unless it is somehow known to be quiescent).
+m03-l02-q14:
+  key:
+    anchor: javadoc-blockingqueue#interface-blockingqueue-e
+    sentence: A BlockingQueue without any intrinsic capacity constraints always reports a remaining capacity of Integer.MAX_VALUE.
+  wrong:
+  - option: '`0`'
+    anchor: javadoc-blockingqueue#interface-blockingqueue-e
+    sentence: A BlockingQueue without any intrinsic capacity constraints always reports a remaining capacity of Integer.MAX_VALUE.
+    exclusive: true
+  - option: '`-1`'
+    anchor: javadoc-blockingqueue#interface-blockingqueue-e
+    sentence: A BlockingQueue without any intrinsic capacity constraints always reports a remaining capacity of Integer.MAX_VALUE.
+    exclusive: true
+  - option: '`Integer.MAX_VALUE - 1`'
+    anchor: javadoc-blockingqueue#interface-blockingqueue-e
+    sentence: A BlockingQueue without any intrinsic capacity constraints always reports a remaining capacity of Integer.MAX_VALUE.
+    exclusive: true
+m03-l02-q15:
+  key:
+    anchor: jls-17#jls-17.4.5
+    sentence: When a program contains two conflicting accesses (§17.4.1) that are not ordered by a happens-before relationship, it is said to contain a data race.
+  wrong:
+  - option: When two threads only read the same variable without any synchronization between them
+    anchor: jls-17#jls-17.4.1
+    sentence: Two accesses to (reads of or writes to) the same variable are said to be conflicting if at least one of the accesses is a write.
+  - option: When a volatile field is written in one thread and read in another thread later
+    anchor: jls-17#jls-17.4.5
+    sentence: A write to a volatile field (§8.3.1.4) happens-before every subsequent read of that field.
+  - option: When a local variable is used by two threads
+    anchor: jls-17#jls-17.4.1
+    sentence: Local variables (§14.4), formal method parameters (§8.4.1), and exception handler parameters (§14.20) are never shared between threads and are unaffected by the memory model.
+m03-l02-q16:
+  key:
+    anchor: javadoc-forkjoinpool#class-forkjoinpool
+    sentence: A ForkJoinPool differs from other kinds of ExecutorService mainly by virtue of employing work-stealing
+  wrong:
+  - option: It has no shared instance, so each application must construct and manage its own pool
+    anchor: javadoc-forkjoinpool#class-forkjoinpool
+    sentence: A static commonPool() is available and appropriate for most applications.
+  - option: Its worker threads are non-daemon, so they keep the JVM alive
+    anchor: javadoc-forkjoinpool#class-forkjoinpool
+    sentence: All worker threads are initialized with Thread.isDaemon() set true.
+  - option: Its default parallelism level is fixed at one thread, whatever the number of processors
+    anchor: javadoc-forkjoinpool#class-forkjoinpool
+    sentence: a ForkJoinPool may be constructed with a given target parallelism level; by default, equal to the number of available processors.

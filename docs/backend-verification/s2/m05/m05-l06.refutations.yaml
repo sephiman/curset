@@ -1,0 +1,134 @@
+m05-l06-q01:
+  key:
+    anchor: spring-security-servlet-architecture#servlet-securityfilterchain
+    sentence: Only the first SecurityFilterChain that matches is invoked.
+  wrong:
+  - option: Every matching one, in the order they were declared
+    anchor: spring-security-servlet-architecture#servlet-securityfilterchain
+    sentence: If a URL of /api/messages/ is requested, it first matches on the SecurityFilterChain0 pattern of /api/**, so only SecurityFilterChain0 is invoked, even though it also matches on SecurityFilterChainn.
+  - option: None of them, because the Servlet container selects the chain by URL alone
+    anchor: spring-security-servlet-architecture#servlet-securityfilterchain
+    sentence: However, FilterChainProxy can determine invocation based upon anything in the HttpServletRequest by using the RequestMatcher interface.
+  - option: All of them, merged into one list of security filters
+    anchor: spring-security-servlet-architecture#servlet-securityfilterchain
+    sentence: In fact, a SecurityFilterChain might have zero security Filter instances if the application wants Spring Security to ignore certain requests.
+m05-l06-q02:
+  key:
+    anchor: spring-security-servlet-architecture#servlet-securityfilterchain
+    sentence: The Security Filters in SecurityFilterChain are typically Beans, but they are registered with FilterChainProxy instead of DelegatingFilterProxy.
+  wrong:
+  - option: Directly with the Servlet container, one registration per security filter
+    anchor: spring-security-servlet-architecture#servlet-securityfilterchain
+    sentence: FilterChainProxy provides a number of advantages to registering directly with the Servlet container or DelegatingFilterProxy.
+    exclusive: true
+  - option: With `DelegatingFilterProxy`, which holds one proxy per security filter
+    anchor: spring-security-servlet-architecture#servlet-securityfilterchain
+    sentence: FilterChainProxy provides a number of advantages to registering directly with the Servlet container or DelegatingFilterProxy.
+    exclusive: true
+  - option: With no registration, because `HttpSecurity` invokes the filters directly
+    anchor: spring-security-servlet-architecture#servlet-security-filters
+    sentence: The Security Filters are inserted into the FilterChainProxy with the SecurityFilterChain API.
+m05-l06-q03:
+  key:
+    anchor: spring-security-servlet-authentication-architecture#servlet-authentication-providermanager
+    sentence: By default, ProviderManager tries to clear any sensitive credentials information from the Authentication object that is returned by a successful authentication request.
+  wrong:
+  - option: '`ProviderManager` keeps the password so that it can be stored in the `HttpSession`'
+    anchor: spring-security-servlet-authentication-architecture#servlet-authentication-providermanager
+    sentence: This prevents information, such as passwords, being retained longer than necessary in the HttpSession.
+  - option: '`ProviderManager` leaves any `UserDetails` object held in a user cache untouched'
+    anchor: spring-security-servlet-authentication-architecture#servlet-authentication-providermanager
+    sentence: If the Authentication contains a reference to an object in the cache (such as a UserDetails instance) and this has its credentials removed, it is no longer possible to authenticate against the cached value.
+  - option: '`ProviderManager` sets the returned `Authentication` on the `SecurityContextHolder` itself'
+    anchor: spring-security-servlet-authentication-architecture#servlet-authentication-authenticationmanager
+    sentence: The Authentication that is returned is then set on the SecurityContextHolder by the controller (that is, by Spring Security’s Filters instances) that invoked the AuthenticationManager.
+m05-l06-q04:
+  key:
+    anchor: spring-security-servlet-oauth2-resource-server-jwt#oauth2resourceserver-jwt-architecture
+    sentence: JwtAuthenticationProvider then uses the JwtAuthenticationConverter to convert the Jwt into a Collection of granted authorities.
+  wrong:
+  - option: '`JwtDecoder`'
+    anchor: spring-security-servlet-oauth2-resource-server-jwt#oauth2resourceserver-jwt-architecture
+    sentence: JwtAuthenticationProvider decodes, verifies, and validates the Jwt using a JwtDecoder.
+  - option: '`ProviderManager`'
+    anchor: spring-security-servlet-oauth2-resource-server-jwt#oauth2resourceserver-jwt-architecture
+    sentence: The ProviderManager is configured to use an AuthenticationProvider of type JwtAuthenticationProvider.
+  - option: '`BearerTokenAuthenticationToken`'
+    anchor: spring-security-servlet-oauth2-resource-server-jwt#oauth2resourceserver-jwt-architecture
+    sentence: The authentication Filter from Reading the Bearer Token passes a BearerTokenAuthenticationToken to the AuthenticationManager which is implemented by ProviderManager.
+m05-l06-q05:
+  key:
+    anchor: spring-security-servlet-oauth2-resource-server-multitenancy#_resolving_the_tenant_by_claim
+    sentence: In fact, the corresponding JwtAuthenticationProvider is instantiated only when the first request with the corresponding issuer is sent.
+  wrong:
+  - option: The resolver accepts tokens from an unavailable issuer without validating their signature
+    anchor: spring-security-servlet-oauth2-resource-server-jwt#_runtime_expectations
+    sentence: Validate its signature against a public key obtained from the jwks_url endpoint during startup or on first request, depending on configuration, and matched against the JWT
+  - option: The resolver loads the keys of every issuer at startup and ignores any failure
+    anchor: spring-security-servlet-oauth2-resource-server-multitenancy#_resolving_the_tenant_by_claim
+    sentence: This is nice because the issuer endpoints are loaded lazily.
+  - option: The resolver builds an `AuthenticationManager` at runtime for any issuer found in the token
+    anchor: spring-security-servlet-oauth2-resource-server-multitenancy#_dynamic_tenants
+    sentence: It would be unsafe to simply take any issuer and construct an AuthenticationManager from it.
+m05-l06-q06:
+  key:
+    anchor: spring-security-servlet-authorization-authorize-http-requests#authorize-requests
+    sentence: hasRole - A shortcut for hasAuthority that prefixes ROLE_ or whatever is configured as the default prefix
+  wrong:
+  - option: '`hasAuthority("ADMIN")`'
+    anchor: spring-security-servlet-authorization-authorize-http-requests#authorize-requests
+    sentence: hasRole - A shortcut for hasAuthority that prefixes ROLE_ or whatever is configured as the default prefix
+  - option: '`denyAll()`'
+    anchor: spring-security-servlet-authorization-authorize-http-requests#authorize-requests
+    sentence: denyAll - The request is not allowed under any circumstances; note that in this case, the Authentication is never retrieved from the session
+  - option: '`permitAll()`'
+    anchor: spring-security-servlet-authorization-authorize-http-requests#authorize-requests
+    sentence: permitAll - The request requires no authorization and is a public endpoint; note that in this case, the Authentication is never retrieved from the session
+m05-l06-q07:
+  key:
+    anchor: spring-security-servlet-oauth2-resource-server-jwt#_runtime_expectations
+    sentence: Map each scope to an authority with the prefix SCOPE_.
+  wrong:
+  - option: '`ROLE_messages`'
+    anchor: spring-security-servlet-oauth2-resource-server-jwt#_runtime_expectations
+    sentence: Map each scope to an authority with the prefix SCOPE_.
+    exclusive: true
+  - option: '`messages`'
+    anchor: spring-security-servlet-oauth2-resource-server-jwt#_runtime_expectations
+    sentence: Map each scope to an authority with the prefix SCOPE_.
+    exclusive: true
+  - option: '`AUTHORITY_messages`'
+    anchor: spring-security-servlet-oauth2-resource-server-jwt#_runtime_expectations
+    sentence: Map each scope to an authority with the prefix SCOPE_.
+    exclusive: true
+m05-l06-q08:
+  key:
+    anchor: spring-security-servlet-oauth2-resource-server-jwt#_runtime_expectations
+    sentence: The resulting Authentication#getPrincipal, by default, is a Spring Security Jwt object, and Authentication#getName maps to the JWT’s sub property, if one is present.
+  wrong:
+  - option: '`iss`'
+    anchor: spring-security-servlet-oauth2-resource-server-jwt#_runtime_expectations
+    sentence: The resulting Authentication#getPrincipal, by default, is a Spring Security Jwt object, and Authentication#getName maps to the JWT’s sub property, if one is present.
+    exclusive: true
+  - option: '`aud`'
+    anchor: spring-security-servlet-oauth2-resource-server-jwt#_runtime_expectations
+    sentence: The resulting Authentication#getPrincipal, by default, is a Spring Security Jwt object, and Authentication#getName maps to the JWT’s sub property, if one is present.
+    exclusive: true
+  - option: '`jti`'
+    anchor: spring-security-servlet-oauth2-resource-server-jwt#_runtime_expectations
+    sentence: The resulting Authentication#getPrincipal, by default, is a Spring Security Jwt object, and Authentication#getName maps to the JWT’s sub property, if one is present.
+    exclusive: true
+m05-l06-q09:
+  key:
+    anchor: spring-security-servlet-authentication-architecture#servlet-authentication-authenticationprovider
+    sentence: For example, DaoAuthenticationProvider supports username/password-based authentication, while JwtAuthenticationProvider supports authenticating a JWT token.
+  wrong:
+  - option: '`DaoAuthenticationProvider`'
+    anchor: spring-security-servlet-authentication-architecture#servlet-authentication-authenticationprovider
+    sentence: For example, DaoAuthenticationProvider supports username/password-based authentication, while JwtAuthenticationProvider supports authenticating a JWT token.
+  - option: '`ProviderManager`'
+    anchor: spring-security-servlet-authentication-architecture#servlet-authentication-authenticationmanager
+    sentence: While the implementation of AuthenticationManager could be anything, the most common implementation is ProviderManager.
+  - option: '`JwtDecoder`'
+    anchor: spring-security-servlet-oauth2-resource-server-jwt#oauth2resourceserver-jwt-architecture
+    sentence: JwtAuthenticationProvider decodes, verifies, and validates the Jwt using a JwtDecoder.

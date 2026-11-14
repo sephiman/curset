@@ -1,0 +1,182 @@
+[
+ {
+  "id": "m07-l07-q01",
+  "fact": "m07-l07-f04",
+  "stem": "A team changes a proto3 field from `int32` to `int64` and later writes a value larger than `INT32_MAX`. What does a client that still reads the field as `int32` get?",
+  "key": "A value whose high order bits were discarded",
+  "distractors": [
+   "A parse failure for the whole message",
+   "A value saturated at `INT32_MAX`",
+   "A value converted to `sint32` through zigzag decoding"
+  ],
+  "explanation": "A client that reads the value as an `int32` discards the high order bits of the number. The claim that the parse fails is wrong, because wire-compatible means the same data can be parsed both before and after the change. The claim that the value saturates is wrong, because a 64-bit number read as an `int32` is truncated to 32 bits, as if cast in C++. The claim that zigzag decoding applies is wrong, because `sint32` and `sint64` are not compatible with the other integer types such as `int32`.",
+  "citation": "protobuf-proto3#conditionally-safe-changes",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m07-l07-q02",
+  "fact": "m07-l07-f07",
+  "stem": "When should a team generally avoid wire-compatible changes in Protocol Buffers, because it cannot manage when the different range of values becomes safe to use?",
+  "key": "When the schema is published outside of the organization",
+  "distractors": [
+   "Whenever a client still runs the old schema",
+   "Always, because compatible changes can never be made safely",
+   "When the change widens `int32` to `int64`, because wider integers are never compatible"
+  ],
+  "explanation": "If the schema is published outside of the organization, wire-compatible changes should generally not be made, as the deployment cannot be managed. The claim that any old client rules the change out is wrong, because a team may change `int32` to `int64` and keep writing only legal `int32` values until the new schema is deployed to all endpoints. The claim that compatible changes are never safe is wrong, because they can be made if the roll out to the system is managed carefully. The claim that widening is never compatible is wrong, because `int32`, `uint32`, `int64`, `uint64` and `bool` are all compatible.",
+  "citation": "protobuf-proto3#conditionally-safe-changes",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m07-l07-q03",
+  "fact": "m07-l07-f14",
+  "stem": "What does the Protocol Buffers best-practices guide say about changing the type of an existing field in a message that is already in use?",
+  "key": "Almost never change it, because it messes up deserialization",
+  "distractors": [
+   "Change it freely whenever the new schema can parse the old data",
+   "Change it if the field also takes a new tag number that was used before",
+   "Change it between `sint32` and `int32`, which are compatible"
+  ],
+  "explanation": "The guide says to almost never change the type of a field, because it messes up deserialization, the same as re-using a tag number. The claim that parsing old data makes a change free is wrong, because changing a field's type can be difficult to roll out safely even when the new schema parses old data. The claim that a used tag number can be taken is wrong, because a tag number is never re-used, as it messes up deserialization. The claim that `sint32` and `int32` are compatible is wrong, because `sint32` and `sint64` are compatible only with each other and not with the other integer types.",
+  "citation": "protobuf-proto-best-practices#change-type",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m07-l07-q04",
+  "fact": "m07-l07-f23",
+  "stem": "In Spring Framework 7, a controller method is mapped with `@GetMapping(version = \"1.2+\")`. Which request versions does that mapping match?",
+  "key": "Version 1.2 and the supported versions above it",
+  "distractors": [
+   "Only version 1.2",
+   "Any version, but a more specific mapping supersedes it",
+   "Version 1.2 and every version below it"
+  ],
+  "explanation": "A baseline version such as `\"1.2+\"` matches the given version and the supported versions above. The claim that only version 1.2 matches describes a fixed version, which matches the given version only. The claim that any version matches describes a mapping with no value, which matches any version but is superseded by a more specific version match. The claim that lower versions match is wrong, because in the example the `1.2+` method matches request version 1.3 as it matches 1.2 and above.",
+  "citation": "spring-fw-webmvc-controller-ann-requestmapping#mvc-ann-requestmapping-version",
+  "extract": "Baseline version (\"1.2+\") — matches the given and supported versions above",
+  "snippet": null
+ },
+ {
+  "id": "m07-l07-q05",
+  "fact": "m07-l07-f27",
+  "stem": "In Spring Framework 7, a controller has methods mapped to no version, to `1.1`, to `1.2+` and to `1.5`. What happens to a request with version `1.6`?",
+  "key": "No mapping matches the request version",
+  "distractors": [
+   "The `1.2+` method handles it, as the highest baseline mapping",
+   "The unversioned method handles it, as the fallback for every version",
+   "A `404` response results, because no handler exists for the path"
+  ],
+  "explanation": "A request with version 1.6 does not have a match among those mappings. The claim that the `1.2+` method handles it is wrong, because the unversioned and `1.2+` methods match but are superseded by the `1.5` method, which allows only a strict match. The claim that the unversioned method handles it is wrong, because an unversioned method gets the lowest priority and any alternative method with a version supersedes it. The claim that a `404` results is wrong, because a `NotAcceptableApiVersionException` results in a `400` response.",
+  "citation": "spring-fw-webmvc-controller-ann-requestmapping#mvc-ann-requestmapping-version",
+  "extract": "A request with version \"1.6\" does not have a match.",
+  "snippet": null
+ },
+ {
+  "id": "m07-l07-q06",
+  "fact": "m07-l07-f32",
+  "stem": "In Spring Boot 4, how does a `RestClient` get an API versioning strategy so that it sends the version with each remote call?",
+  "key": "It is configured with methods on `RestClient.Builder`",
+  "distractors": [
+   "It is auto-configured from the server-side versioning of the same application",
+   "It can send the version only as an HTTP header, never as a query parameter",
+   "Only `WebClient` supports versioned calls, and `RestClient` does not"
+  ],
+  "explanation": "API versioning is configured with methods on `WebClient.Builder` or `RestClient.Builder`. The claim that the client is auto-configured from the server side is wrong, because the server-side API versioning configuration is not taken into account to auto-configure the client. The claim that only a header works is wrong, because versioned calls commonly send an HTTP header, a query parameter or a URL path segment. The claim that `RestClient` has no support is wrong, because both `WebClient` and `RestClient` support making versioned remote HTTP calls.",
+  "citation": "spring-boot-io-rest-client#io.rest-client.apiversioning",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m07-l07-q07",
+  "fact": "m07-l07-f37",
+  "stem": "According to RFC 9413, which interpretation of the robustness principle is no longer considered best practice in all scenarios?",
+  "key": "Tolerating unexpected input and silently discarding it",
+  "distractors": [
+   "Following specifications precisely when sending to the network",
+   "Recovering gracefully from software defects without aborting unrelated processing",
+   "Being resilient to input that is intentionally crafted to cause unexpected consequences"
+  ],
+  "explanation": "An interpretation that advocates tolerating unexpected inputs is no longer considered best practice in all scenarios. Following specifications precisely when sending is wrong, because implementations must follow specifications precisely when sending to the network. Graceful recovery from defects is wrong, because it is critical for software to gracefully recover from these issues without aborting unrelated processing. Resilience to crafted input is wrong, because networking software needs to be resilient to input that is intentionally crafted to cause unexpected consequences.",
+  "citation": "rfc9413#section-2",
+  "extract": "However, an interpretation that advocates for tolerating unexpected inputs is no longer considered best practice in all scenarios.",
+  "snippet": null
+ },
+ {
+  "id": "m07-l07-q08",
+  "fact": "m07-l07-f38",
+  "stem": "According to RFC 9413, what happens over time when implementations of a protocol silently accept faulty input from their peers?",
+  "key": "Negative consequences to interoperability accumulate",
+  "distractors": [
+   "Flaws stay isolated in the implementation that tolerates them",
+   "Implementations drop the logic that permitted the variations",
+   "The cost of interoperability problems falls, because the effort is deferred"
+  ],
+  "explanation": "Negative consequences to interoperability accumulate over time if implementations silently accept faulty input. The claim that flaws stay isolated is wrong, because a flaw can become entrenched as a de facto standard that other implementations must replicate. The claim that implementations drop that logic is wrong, because implementations progressively add logic to constrain how data is transmitted or to permit variations in what is received. The claim that the cost falls is wrong, because the deferral can amplify the ultimate cost of handling interoperability problems.",
+  "citation": "rfc9413#section-2",
+  "extract": "Time and experience show that negative consequences to interoperability accumulate over time if implementations silently accept faulty input.",
+  "snippet": null
+ },
+ {
+  "id": "m07-l07-q09",
+  "fact": "m07-l07-f52",
+  "stem": "A provider wants to tell clients the point in time when an HTTP resource is expected to become unresponsive. Which response header field is defined for that?",
+  "key": "`Sunset`",
+  "distractors": [
+   "`Deprecation`",
+   "`Retry-After`",
+   "`Link`"
+  ],
+  "explanation": "The `Sunset` header field communicates that a resource is expected to become unresponsive at a specific point in time. `Deprecation` is wrong, because it communicates that the resource will be or has been deprecated. `Retry-After` is wrong, because it indicates how long the user agent ought to wait before making a follow-up request. `Link` is wrong, because it serialises one or more links into HTTP headers.",
+  "citation": "rfc8594#section-3",
+  "extract": "The Sunset HTTP response header field allows a server to communicate the fact that a resource is expected to become unresponsive at a specific point in time.",
+  "snippet": null
+ },
+ {
+  "id": "m07-l07-q10",
+  "fact": "m07-l07-f50",
+  "stem": "RFC 8594 describes deprecation of a Web API in two stages. For which stage is the `Sunset` header field appropriate?",
+  "key": "The second stage, when the API or a version is decommissioned",
+  "distractors": [
+   "The first stage, when the API is no longer preferred but still operational",
+   "Neither stage, because the header names the preferred replacement version",
+   "Only a single resource, never a whole API or a set of resources"
+  ],
+  "explanation": "The `Sunset` header field is appropriate for the second stage, when the API or a specific version gets decommissioned and becomes unresponsive. The claim that the first stage fits is wrong, because the `Sunset` header field is not appropriate at that stage, where the API remains operational. The claim that the header names a replacement is wrong, because the `Sunset` header field contains a single timestamp for the point in time when the resource is expected to become unresponsive. The claim that it covers a single resource only is wrong, because the announced sunset date typically affects all of the deprecated API or parts of it.",
+  "citation": "rfc8594#section-1.4",
+  "extract": "For the second stage (the API or a specific version of the API gets decommissioned), the Sunset header field is appropriate: that is when the API or a version does become unresponsive.",
+  "snippet": null
+ },
+ {
+  "id": "m07-l07-q11",
+  "fact": "m07-l07-f53",
+  "stem": "According to RFC 8594, which kind of value does the `Sunset` header field carry when a server announces that a resource will become unresponsive?",
+  "key": "An HTTP-date timestamp that SHOULD be in the future",
+  "distractors": [
+   "A number of seconds until the resource becomes unresponsive",
+   "A list of dates, one for each affected resource",
+   "A past date that tells clients the resource was already removed"
+  ],
+  "explanation": "The `Sunset` value is an HTTP-date timestamp that SHOULD be a timestamp in the future. The claim that the value is a number of seconds is wrong, because the grammar is `Sunset = HTTP-date`. The claim that the value is a list of dates is wrong, because the `Sunset` header field contains a single timestamp. The claim that a past date means removal is wrong, because a timestamp in the past is safest read as the present time, meaning the resource is expected to become unavailable at any time.",
+  "citation": "rfc8594#section-3",
+  "extract": "The Sunset value is an HTTP-date timestamp, as defined in Section 7.1.1.1 of [RFC7231], and SHOULD be a timestamp in the future.",
+  "snippet": null
+ },
+ {
+  "id": "m07-l07-q12",
+  "fact": "m07-l07-f45",
+  "stem": "In RFC 9745, what does a server communicate by using links with the `deprecation` link relation type?",
+  "key": "Where the client application developer can find more information about the deprecation",
+  "distractors": [
+   "The date on which the resource becomes unresponsive",
+   "A deprecation policy that must be machine-readable",
+   "A notice that can only be sent after the resource is already deprecated"
+  ],
+  "explanation": "Links with the `deprecation` relation tell the client application developer where to find more information about the deprecation. The claim that the link carries the date is wrong, because the `Sunset` header field carries a single timestamp for the point in time when the resource is expected to become unresponsive. The claim that the policy must be machine-readable is wrong, because the policy may be human-readable documentation or a machine-readable description. The claim that the link only follows deprecation is wrong, because it can be sent before the actual deprecation to make a deprecation policy discoverable.",
+  "citation": "rfc9745#section-3",
+  "extract": "the server can use links with the deprecation link relation type to communicate to the client application developer where to find more information about deprecation of the context.",
+  "snippet": null
+ }
+]

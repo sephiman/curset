@@ -1,0 +1,2 @@
+S3.12	In the default `read_uncommitted` isolation level, all messages are visible to consumers even if they were part of an aborted transaction, but in `read_committed` isolation level, the consumer will only return messages from transactions which were committed (and any messages which were not part of a transaction) (`kafka-design#message-delivery-semantics`).
+S8.15	The Kafka protocol is built around a message set abstraction that groups messages together, which lets Kafka turn a bursty stream of random message writes into linear writes.

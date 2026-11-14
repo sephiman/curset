@@ -1,0 +1,182 @@
+[
+ {
+  "id": "m02-l01-q01",
+  "fact": "m02-l01-f37",
+  "stem": "A developer sizes a `HashMap` with a very large initial capacity \"to be safe\" and then iterates over its `keySet()` often. In Java 25, which statement about the cost of that iteration is correct?",
+  "key": "Iteration requires time proportional to the capacity plus the size, so a large capacity slows it down",
+  "distractors": [
+   "Iteration requires time proportional to the size only, so the capacity has no effect on it",
+   "Iteration requires constant time, because the basic operations of `HashMap` are constant-time",
+   "Iteration visits entries in a stable order, so its cost stays the same as the map is resized"
+  ],
+  "explanation": "Iteration over `HashMap` collection views requires time proportional to the capacity plus the size. The claim that only the size matters is wrong, because that cost is documented for `LinkedHashMap`, whose iteration time is unaffected by capacity. The claim of constant time is wrong, because the Javadoc warns against a high initial capacity when iteration performance is important. The claim of a stable order is wrong, because `HashMap` does not guarantee that the order will remain constant over time.",
+  "citation": "javadoc-hashmap#class-hashmap-k-v; javadoc-linkedhashmap#class-linkedhashmap-k-v",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m02-l01-q02",
+  "fact": "m02-l01-f32",
+  "stem": "In Java 25, which statement about `ArrayDeque` is correct when it is used as a stack or a queue by several threads and by one thread?",
+  "key": "Null elements are prohibited, so `addLast(null)` is rejected",
+  "distractors": [
+   "It is thread-safe, so several threads can share one instance without external synchronization",
+   "Its capacity is fixed at construction, so `addLast` fails once the array is full",
+   "Used as a queue it is likely to be slower than `LinkedList`, because it is backed by an array"
+  ],
+  "explanation": "`ArrayDeque` prohibits null elements. The claim that it is thread-safe is wrong, because without external synchronization it does not support concurrent access by multiple threads. The claim of a fixed capacity is wrong, because array deques have no capacity restrictions and grow as necessary. The claim that it is slower than `LinkedList` is wrong, because it is likely to be faster than `LinkedList` when used as a queue.",
+  "citation": "javadoc-arraydeque#class-arraydeque-e",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m02-l01-q03",
+  "fact": "m02-l01-f60",
+  "stem": "A service keeps prices in a `TreeMap<String, Integer>` and calls `get`, `put` and `remove` on it constantly. In Java 25, which statement about this `TreeMap` is correct?",
+  "key": "`containsKey`, `get`, `put` and `remove` have guaranteed log(n) time cost",
+  "distractors": [
+   "It is a hash table whose keys are sorted only when the map is iterated",
+   "`putFirst` places an entry at the head of the encounter order, ahead of the sorted keys",
+   "Keys can be ordered only by their natural ordering, never by a separate `Comparator`"
+  ],
+  "explanation": "`TreeMap` guarantees log(n) time cost for `containsKey`, `get`, `put` and `remove`. The claim of a hash table is wrong, because `TreeMap` is a Red-Black tree based `NavigableMap` implementation. The claim that `putFirst` positions an entry is wrong, because `putFirst` and `putLast` throw `UnsupportedOperationException`. The claim of natural ordering only is wrong, because a `Comparator` can be provided at map creation time.",
+  "citation": "javadoc-treemap#class-treemap-k-v",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m02-l01-q04",
+  "fact": "m02-l01-f65",
+  "stem": "A scheduler uses a `PriorityQueue<Integer>` and sometimes loops over it with a `for` loop or calls `contains`. In Java 25, which statement about this queue is correct?",
+  "key": "`offer` and `poll` take O(log(n)) time",
+  "distractors": [
+   "The iterator returns the elements in ascending order, from the head to the greatest element",
+   "`contains(Object)` takes constant time, because the head is always the least element",
+   "A `null` element is accepted and sorts as the least element, so it becomes the head"
+  ],
+  "explanation": "`PriorityQueue` takes O(log(n)) time for `offer` and `poll`. The claim of ascending iteration is wrong, because the iterator is not guaranteed to traverse the elements in any particular order. The claim of constant time for `contains` is wrong, because `contains(Object)` takes linear time. The claim that null is accepted is wrong, because a priority queue does not permit null elements.",
+  "citation": "javadoc-priorityqueue#class-priorityqueue-e",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m02-l01-q05",
+  "fact": "m02-l01-f55",
+  "stem": "In Java 25, how does iterating over the collection views of a `LinkedHashMap` compare with iterating over the views of a `HashMap` created with the same large initial capacity?",
+  "key": "It requires time proportional to the size of the map, regardless of its capacity",
+  "distractors": [
+   "It requires time proportional to the capacity plus the size, exactly like a `HashMap`",
+   "It is slower by more than a constant factor, because every `get` walks the linked list",
+   "It returns the entries sorted by key, so it needs time proportional to size times log(n)"
+  ],
+  "explanation": "Iteration over a `LinkedHashMap` requires time proportional to the size of the map, regardless of its capacity. The claim that it behaves like a `HashMap` is wrong, because iteration over a `HashMap` is likely to be more expensive, requiring time proportional to its capacity. The claim that every `get` walks the list is wrong, because like `HashMap` it provides constant-time performance for the basic operations. The claim of sorted entries is wrong, because the linked list defines an encounter order that is normally the insertion order.",
+  "citation": "javadoc-linkedhashmap#class-linkedhashmap-k-v",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m02-l01-q06",
+  "fact": "m02-l01-f12",
+  "stem": "A binary counter starts at zero and `Increment` is called n times. In Erickson's analysis, which statement about the cost of `Increment` is correct?",
+  "key": "The worst-case cost is O(log n), but the amortized cost is only O(1)",
+  "distractors": [
+   "The amortized cost equals the worst-case cost of one call, which is O(log n)",
+   "The amortized cost is an average over the possible running times of one call, weighted by probability",
+   "The amortized time bounds are unique, so one analysis gives the only correct cost"
+  ],
+  "explanation": "The worst-case cost of `Increment` is O(log n) and the amortized cost is only O(1). The claim that the two are equal is wrong, because in the summation method the amortized time for each operation is T(n)/n, the total divided by n. The claim of a probability average is wrong, because no probability is involved and the average is over a sequence of operations. The claim of unique bounds is wrong, because amortized time bounds are not unique.",
+  "citation": "erickson-amortized-analysis#p2; erickson-amortized-analysis#p7",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m02-l01-q07",
+  "fact": "m02-l01-f78",
+  "stem": "A class overrides `equals` and `hashCode` consistently. In Java 25, which statement does the `Object.hashCode` contract support for two instances that are unequal according to `equals`?",
+  "key": "Their hash codes are not required to be distinct",
+  "distractors": [
+   "Their hash codes must be distinct, otherwise the contract is broken",
+   "Their hash codes must stay the same in every execution of the application",
+   "Their hash codes must be the same, because every `equals` call is backed by the hash code"
+  ],
+  "explanation": "The contract lets unequal objects share a hash code. The claim that they must be distinct is wrong, because distinct results only may improve the performance of hash tables. The claim of stability across executions is wrong, because the integer need not remain consistent from one execution of an application to another. The claim of equal hash codes is wrong, because equal hash codes are required only for objects that are equal according to `equals`.",
+  "citation": "javadoc-object#hashCode()",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m02-l01-q08",
+  "fact": "m02-l01-f85",
+  "stem": "A class implements `Comparable<T>`. In Java 25, which requirement does the Javadoc of `compareTo` impose on the implementor, as opposed to merely recommending it?",
+  "key": "The relation must be transitive: `x.compareTo(y) > 0` and `y.compareTo(z) > 0` imply `x.compareTo(z) > 0`",
+  "distractors": [
+   "`x.compareTo(y) == 0` must imply `x.equals(y)` for every `x` and `y`",
+   "`e.compareTo(null)` must return a negative integer, because `null` sorts first",
+   "`x.compareTo(y)` and `y.compareTo(x)` must return the same sign, so the order is symmetric"
+  ],
+  "explanation": "The implementor must ensure that the `compareTo` relation is transitive. The claim that equality is required is wrong, because consistency with `equals` is strongly recommended but not strictly required. The claim of a negative result for `null` is wrong, because `e.compareTo(null)` should throw a `NullPointerException`. The claim of the same sign is wrong, because `signum(x.compareTo(y))` must equal `-signum(y.compareTo(x))`.",
+  "citation": "javadoc-comparable#compareTo(java.lang.Object); javadoc-comparable#interface-comparable-t",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m02-l01-q09",
+  "fact": "m02-l01-f88",
+  "stem": "A `TreeSet<BigDecimal>` without a comparator already holds `new BigDecimal(\"4.0\")`. In Java 25, which statement about adding `new BigDecimal(\"4.00\")` is correct?",
+  "key": "The `add` returns `false` because the natural ordering equates the two values although `equals` does not",
+  "distractors": [
+   "The `add` returns `true`, because `equals` decides membership in a sorted set and `equals` returns `false`",
+   "The `add` throws a `ClassCastException`, because the two representations are not comparable to each other",
+   "The `add` returns `true`, because the natural ordering of `BigDecimal` is consistent with equals"
+  ],
+  "explanation": "The second `add` returns `false`, because the natural ordering equates 4.0 and 4.00 while `equals` does not. The claim that `equals` decides membership is wrong, because a sorted map performs all key comparisons using `compareTo` or `compare`. The claim of a `ClassCastException` is wrong, because that exception is thrown only when the object's type prevents the comparison, and both are `BigDecimal`. The claim of a consistent ordering is wrong, because `BigDecimal` is the documented exception whose natural ordering equates 4.0 and 4.00.",
+  "citation": "javadoc-comparable#interface-comparable-t; javadoc-treemap#class-treemap-k-v; javadoc-comparable#compareTo(java.lang.Object)",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m02-l01-q10",
+  "fact": "m02-l01-f59",
+  "stem": "The program builds an insertion-ordered `LinkedHashMap`, an access-ordered one, and a two-entry LRU subclass overriding `removeEldestEntry`, then prints each `keySet()`. What does it print, one line per map?",
+  "key": "[a, b, c]\n[b, c, a]\n[a, c]",
+  "distractors": [
+   "[a, b, c]\n[a, b, c]\n[b, c]",
+   "[b, a, c]\n[a, b, c]\n[a, c]",
+   "[a, b, c]\n[b, c, a]\n[b, c]"
+  ],
+  "explanation": "The insertion-ordered map prints `[a, b, c]` and the access-ordered map prints `[b, c, a]`, because `get(\"a\")` moves `a` to the end. The cache prints `[a, c]`, because `get(\"a\")` made `b` the eldest entry. The lines [a, b, c] [a, b, c] [b, c] are wrong because access order moves `a` to the end. The lines [b, a, c] [a, b, c] [a, c] are wrong because re-inserting `a` with `put` does not change the encounter order. The lines [a, b, c] [b, c, a] [b, c] are wrong because the `get` made `a` the youngest entry, so `b` is the eldest one removed.",
+  "citation": "javadoc-linkedhashmap#class-linkedhashmap-k-v; javadoc-linkedhashmap#removeEldestEntry(java.util.Map.Entry)",
+  "extract": null,
+  "snippet": "m02-l01/MapOrder.java"
+ },
+ {
+  "id": "m02-l01-q11",
+  "fact": "m02-l01-f08",
+  "stem": "The program increments a 64-bit counter 1,000 times from zero, counting every bit flip, and prints the total, the most flips in one increment and the value of 2n minus the 1-bits of n. What does it print?",
+  "key": "total flips 1994\nmost flips in one increment 10\n2n minus ones 1994",
+  "distractors": [
+   "total flips 2000\nmost flips in one increment 10\n2n minus ones 2000",
+   "total flips 1994\nmost flips in one increment 1000\n2n minus ones 1994",
+   "total flips 1000\nmost flips in one increment 2\n2n minus ones 1994"
+  ],
+  "explanation": "The total is 1994 because the number of flips is exactly 2n minus the number of 1 bits of n, and 1000 has six. The most flips in one increment is 10, reached when 511 becomes 512. The lines total flips 2000 and 2n minus ones 2000 are wrong because the exact count subtracts the 1 bits of n. The line most flips in one increment 1000 is wrong because that is the number of increments, not the bits one increment changes. The line total flips 1000 is wrong because it counts one flip per increment and forgets the carry resets.",
+  "citation": "erickson-amortized-analysis#p2",
+  "extract": null,
+  "snippet": "m02-l01/BinaryCounter.java"
+ },
+ {
+  "id": "m02-l01-q12",
+  "fact": "m02-l01-f93",
+  "stem": "The program compares two `EqualsOnly` instances, then checks `contains` on a `HashSet` before and after `hashCode` is added, then compares `BigDecimal` 4.0 and 4.00 with `equals`, `compareTo` and two sets. What does it print?",
+  "key": "equals: true\ncontains, equals only: false\ncontains, equals and hash code: true\ndecimal equals: false\ndecimal compare: 0\nhashed size: 2\nsorted size: 1",
+  "distractors": [
+   "equals: true\ncontains, equals only: true\ncontains, equals and hash code: true\ndecimal equals: false\ndecimal compare: 0\nhashed size: 2\nsorted size: 1",
+   "equals: true\ncontains, equals only: false\ncontains, equals and hash code: true\ndecimal equals: true\ndecimal compare: 0\nhashed size: 1\nsorted size: 1",
+   "equals: true\ncontains, equals only: false\ncontains, equals and hash code: true\ndecimal equals: false\ndecimal compare: 1\nhashed size: 2\nsorted size: 2"
+  ],
+  "explanation": "Two instances with the same id are equal, and the `HashSet` finds the copy only once `hashCode` agrees, so the lines read true, false, true. `BigDecimal` 4.0 and 4.00 are not `equals` but `compareTo` returns 0, so the `HashSet` keeps both and the `TreeSet` keeps one. The line contains, equals only: true is wrong because the lookup goes through the hash code first. The line decimal equals: true is wrong because the scale differs. The line decimal compare: 1 is wrong because the natural ordering equates the two values.",
+  "citation": "javadoc-object#equals(java.lang.Object); javadoc-comparable#interface-comparable-t",
+  "extract": null,
+  "snippet": "m02-l01/EqualityContracts.java"
+ }
+]

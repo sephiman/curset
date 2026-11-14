@@ -1,0 +1,32 @@
+[
+ {
+  "id": "m11-l05-q01",
+  "fact": "m11-l05-f04",
+  "stem": "The snippet counts each `char` of a string with a `HashMap` and returns the index of the first `char` that occurs once, or `-1`. It runs four inputs, the last two emoji. What does it print?",
+  "key": "empty: -1\nno unique: -1\nswiss: 1\nsurrogate pair: 1",
+  "distractors": [
+   "empty: -1\nno unique: -1\nswiss: 0\nsurrogate pair: 1",
+   "empty: -1\nno unique: -1\nswiss: 1\nsurrogate pair: 0",
+   "empty: -1\nno unique: 0\nswiss: 1\nsurrogate pair: 1"
+  ],
+  "explanation": "The empty string and `aabb` have no `char` that occurs once, `swiss` has `w` at index `1`, and the two emoji share a high surrogate, so the first unique `char` is the low surrogate at index `1`. The output with `swiss: 0` is wrong because `s` occurs three times. The output with `surrogate pair: 0` is wrong because the search compares `char` values, and the first `char` of both emoji is the same high surrogate. The output with `no unique: 0` is wrong because the search returns `-1` when no `char` occurs once.",
+  "citation": "javadoc-hashmap#merge(java.lang.Object,java.lang.Object,java.util.function.BiFunction)",
+  "extract": null,
+  "snippet": "m11-l05/EdgeCases.java"
+ },
+ {
+  "id": "m11-l05-q02",
+  "fact": "m11-l05-f05",
+  "stem": "The snippet counts steps for a nested-loop search and a `HashMap` search on a string where every character repeats, with n = 100 and n = 200. What does it print?",
+  "key": "quadratic n=100: 10000\nquadratic n=200: 40000\nlinear n=100: 200\nlinear n=200: 400",
+  "distractors": [
+   "quadratic n=100: 10000\nquadratic n=200: 20000\nlinear n=100: 200\nlinear n=200: 400",
+   "quadratic n=100: 4950\nquadratic n=200: 19900\nlinear n=100: 200\nlinear n=200: 400",
+   "quadratic n=100: 10000\nquadratic n=200: 40000\nlinear n=100: 100\nlinear n=200: 200"
+  ],
+  "explanation": "The nested loops run n times n steps on a string with no unique character, and the `HashMap` version makes one counting pass and one search pass, so 2n steps. The output with `20000` is wrong because doubling n quadruples the nested-loop steps. The output with `4950` is wrong because the inner loop starts at index `0` and visits all n positions, not only later ones. The output with `linear n=100: 100` is wrong because the search pass also visits all n positions when no `char` occurs once.",
+  "citation": "javadoc-hashmap#merge(java.lang.Object,java.lang.Object,java.util.function.BiFunction)",
+  "extract": null,
+  "snippet": "m11-l05/StepCounts.java"
+ }
+]

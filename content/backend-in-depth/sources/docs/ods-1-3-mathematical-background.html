@@ -1,0 +1,1404 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>1.3 Mathematical Background</TITLE>
+<META NAME="description" CONTENT="1.3 Mathematical Background">
+<META NAME="keywords" CONTENT="ods-java-html">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="../ods-book.css">
+
+<LINK REL="next" HREF="1_4_Model_Computation.html">
+<LINK REL="previous" HREF="1_2_Interfaces.html">
+<LINK REL="up" HREF="1_Introduction.html">
+<LINK REL="next" HREF="1_4_Model_Computation.html">
+</HEAD>
+
+<BODY text="#000000" bgcolor="#FFFFFF">
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html291"
+  HREF="1_4_Model_Computation.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html285"
+  HREF="1_Introduction.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html279"
+  HREF="1_2_Interfaces.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html287"
+  HREF="Contents.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html289"
+  HREF="Index.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html292"
+  HREF="1_4_Model_Computation.html">1.4 The Model of</A>
+<B> Up:</B> <A NAME="tex2html286"
+  HREF="1_Introduction.html">1. Introduction</A>
+<B> Previous:</B> <A NAME="tex2html280"
+  HREF="1_2_Interfaces.html">1.2 Interfaces</A>
+ &nbsp; <B>  <A NAME="tex2html288"
+  HREF="Contents.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html290"
+  HREF="Index.html">Index</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html293"
+  HREF="1_3_Mathematical_Background.html#SECTION00431000000000000000"><SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">1</SPAN> Exponentials and Logarithms</A>
+<LI><A NAME="tex2html294"
+  HREF="1_3_Mathematical_Background.html#SECTION00432000000000000000"><SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">2</SPAN> Factorials</A>
+<LI><A NAME="tex2html295"
+  HREF="1_3_Mathematical_Background.html#SECTION00433000000000000000"><SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">3</SPAN> Asymptotic Notation</A>
+<LI><A NAME="tex2html296"
+  HREF="1_3_Mathematical_Background.html#SECTION00434000000000000000"><SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">4</SPAN> Randomization and Probability</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00430000000000000000">
+<SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">3</SPAN> Mathematical Background</A>
+</H1>
+
+<P>
+In this section, we review some mathematical notations and tools
+used throughout this book, including logarithms, big-Oh notation, and
+probability theory.  This review will be brief and is not intended as
+an introduction. Readers who feel they are missing this background are
+encouraged to read, and do exercises from, the appropriate sections of
+the very good (and free) textbook on mathematics for computer science
+[<A
+ HREF="Bibliography.html#llm11">50</A>].
+
+<P>
+
+<H2><A NAME="SECTION00431000000000000000">
+<SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">1</SPAN> Exponentials and Logarithms</A>
+</H2>
+
+<P>
+<A NAME="905"></A>The expression <SPAN CLASS="MATH"><IMG
+ WIDTH="20" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img181.png"
+ ALT="$ b^x$"></SPAN> denotes the number <SPAN CLASS="MATH"><IMG
+ WIDTH="12" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img182.png"
+ ALT="$ b$"></SPAN> raised to the power of <SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img183.png"
+ ALT="$ x$"></SPAN>.
+If <SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img184.png"
+ ALT="$ x$"></SPAN> is a positive integer, then this is just the value of <SPAN CLASS="MATH"><IMG
+ WIDTH="12" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img185.png"
+ ALT="$ b$"></SPAN>
+multiplied by itself <SPAN CLASS="MATH"><IMG
+ WIDTH="36" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img186.png"
+ ALT="$ x-1$"></SPAN> times:
+<P><!-- MATH
+ \begin{displaymath}
+b^x = \underbrace{b\times b\times \cdots \times b}_{x} \enspace .
+\end{displaymath}
+ -->
+</P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<IMG
+ WIDTH="136" HEIGHT="66" ALIGN="MIDDLE" BORDER="0"
+ SRC="img187.png"
+ ALT="$\displaystyle b^x = \underbrace{b\times b\times \cdots \times b}_{x} \enspace .
+$">
+</DIV><P></P>
+When <SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img188.png"
+ ALT="$ x$"></SPAN> is a negative integer, <!-- MATH
+ $b^x=1/b^{-x}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="75" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img189.png"
+ ALT="$ b^x=1/b^{-x}$"></SPAN>.  When <SPAN CLASS="MATH"><IMG
+ WIDTH="39" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img190.png"
+ ALT="$ x=0$"></SPAN>, <SPAN CLASS="MATH"><IMG
+ WIDTH="46" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img191.png"
+ ALT="$ b^x=1$"></SPAN>.
+When <SPAN CLASS="MATH"><IMG
+ WIDTH="12" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img192.png"
+ ALT="$ b$"></SPAN> is not an integer, we can still define exponentiation in terms
+of the exponential function <SPAN CLASS="MATH"><IMG
+ WIDTH="18" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img193.png"
+ ALT="$ e^x$"></SPAN> (see below), which is itself defined in
+terms of the exponential series, but this is best left to a calculus text.
+
+<P>
+<A NAME="909"></A>In this book, the expression <SPAN CLASS="MATH"><IMG
+ WIDTH="43" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img194.png"
+ ALT="$ \log_b k$"></SPAN> denotes the <SPAN  CLASS="textit">base-<SPAN CLASS="MATH"><IMG
+ WIDTH="12" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img195.png"
+ ALT="$ b$"></SPAN> logarithm</SPAN>
+of <SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img196.png"
+ ALT="$ k$"></SPAN>.  That is, the unique value <SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img197.png"
+ ALT="$ x$"></SPAN> that satisfies
+<P><!-- MATH
+ \begin{displaymath}
+b^{x} = k  \enspace .
+\end{displaymath}
+ -->
+</P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<IMG
+ WIDTH="57" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img198.png"
+ ALT="$\displaystyle b^{x} = k \enspace .
+$">
+</DIV><P></P>
+Most of the logarithms in this book are base 2 (<SPAN  CLASS="textit">binary logarithms</SPAN>).
+<A NAME="913"></A><A NAME="914"></A>For these, we omit the base, so that <SPAN CLASS="MATH"><IMG
+ WIDTH="36" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img199.png"
+ ALT="$ \log k$"></SPAN> is shorthand for
+<SPAN CLASS="MATH"><IMG
+ WIDTH="43" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img200.png"
+ ALT="$ \log_2 k$"></SPAN>.
+
+<P>
+An informal, but useful, way to think about logarithms is to think
+of <SPAN CLASS="MATH"><IMG
+ WIDTH="43" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img201.png"
+ ALT="$ \log_b k$"></SPAN> as the number of times we have to divide <SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img202.png"
+ ALT="$ k$"></SPAN> by <SPAN CLASS="MATH"><IMG
+ WIDTH="12" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img203.png"
+ ALT="$ b$"></SPAN>
+before the result is less than or equal to 1.  For example, when one
+does binary search, each comparison reduces the number of possible
+answers by a factor of 2.  This is repeated until there is at most one
+possible answer.  Therefore, the number of comparison done by binary
+search when there are initially at most <SPAN CLASS="MATH"><IMG
+ WIDTH="37" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img204.png"
+ ALT="$ n+1$"></SPAN> possible answers is at
+most <!-- MATH
+ $\lceil\log_2(n+1)\rceil$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="89" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img205.png"
+ ALT="$ \lceil\log_2(n+1)\rceil$"></SPAN>.
+
+<P>
+<A NAME="915"></A><A NAME="916"></A>Another logarithm that comes up several times in this book is the
+<SPAN  CLASS="textit">natural logarithm</SPAN>.  Here we use the notation <SPAN CLASS="MATH"><IMG
+ WIDTH="29" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img206.png"
+ ALT="$ \ln k$"></SPAN> to denote
+<SPAN CLASS="MATH"><IMG
+ WIDTH="42" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img207.png"
+ ALT="$ \log_e k$"></SPAN>, where <SPAN CLASS="MATH"><IMG
+ WIDTH="11" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img208.png"
+ ALT="$ e$"></SPAN> -- <SPAN  CLASS="textit">Euler's constant</SPAN> -- is given by
+<A NAME="919"></A><A NAME="920"></A><P><!-- MATH
+ \begin{displaymath}
+e = \lim_{n\rightarrow\infty} \left(1+\frac{1}{n}\right)^n
+   \approx  2.71828 \enspace .
+\end{displaymath}
+ -->
+</P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<IMG
+ WIDTH="204" HEIGHT="52" ALIGN="MIDDLE" BORDER="0"
+ SRC="img210.png"
+ ALT="$\displaystyle e = \lim_{n\rightarrow\infty} \left(1+\frac{1}{n}\right)^n
+\approx 2.71828 \enspace .
+$">
+</DIV><P></P>
+The natural logarithm comes up frequently because it is the value
+of a particularly common integral:
+<P><!-- MATH
+ \begin{displaymath}
+\int_{1}^{k} 1/x\,\mathrm{d}x  = \ln k \enspace .
+\end{displaymath}
+ -->
+</P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<IMG
+ WIDTH="126" HEIGHT="60" ALIGN="MIDDLE" BORDER="0"
+ SRC="img211.png"
+ ALT="$\displaystyle \int_{1}^{k} 1/x\,\mathrm{d}x = \ln k \enspace .
+$">
+</DIV><P></P>
+Two of the most common manipulations we do with logarithms are removing
+them from an exponent:
+<P><!-- MATH
+ \begin{displaymath}
+b^{\log_b k} = k
+\end{displaymath}
+ -->
+</P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<IMG
+ WIDTH="69" HEIGHT="38" ALIGN="MIDDLE" BORDER="0"
+ SRC="img212.png"
+ ALT="$\displaystyle b^{\log_b k} = k
+$">
+</DIV><P></P>
+and changing the base of a logarithm:
+<P><!-- MATH
+ \begin{displaymath}
+\log_b k = \frac{\log_a k}{\log_a b} \enspace .
+\end{displaymath}
+ -->
+</P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<IMG
+ WIDTH="114" HEIGHT="54" ALIGN="MIDDLE" BORDER="0"
+ SRC="img213.png"
+ ALT="$\displaystyle \log_b k = \frac{\log_a k}{\log_a b} \enspace .
+$">
+</DIV><P></P>
+For example, we can use these two manipulations to compare the natural and binary logarithms
+<P><!-- MATH
+ \begin{displaymath}
+\ln k = \frac{\log k}{\log e} = \frac{\log k}{(\ln e)/(\ln 2)} =
+    (\ln 2)(\log k) \approx 0.693147\log k \enspace .
+\end{displaymath}
+ -->
+</P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<IMG
+ WIDTH="401" HEIGHT="52" ALIGN="MIDDLE" BORDER="0"
+ SRC="img214.png"
+ ALT="$\displaystyle \ln k = \frac{\log k}{\log e} = \frac{\log k}{(\ln e)/(\ln 2)} =
+(\ln 2)(\log k) \approx 0.693147\log k \enspace .
+$">
+</DIV><P></P>
+
+<P>
+
+<H2><A NAME="SECTION00432000000000000000"></A>
+<A NAME="sec:factorials"></A>
+<BR>
+<SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">2</SPAN> Factorials
+</H2>
+
+<P>
+<A NAME="936"></A>In one or two places in this book, the <SPAN  CLASS="textit">factorial</SPAN> function is used.
+For a non-negative integer <SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img215.png"
+ ALT="$ n$"></SPAN>, the notation <SPAN CLASS="MATH"><IMG
+ WIDTH="18" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img216.png"
+ ALT="$ n!$"></SPAN> (pronounced ``<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img217.png"
+ ALT="$ n$"></SPAN> factorial'') is defined to mean 
+<P><!-- MATH
+ \begin{displaymath}
+n! = 1\cdot2\cdot3\cdot\cdots\cdot n \enspace .
+\end{displaymath}
+ -->
+</P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<IMG
+ WIDTH="135" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img218.png"
+ ALT="$\displaystyle n! = 1\cdot2\cdot3\cdot\cdots\cdot n \enspace .
+$">
+</DIV><P></P>
+Factorials appear because <SPAN CLASS="MATH"><IMG
+ WIDTH="18" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img219.png"
+ ALT="$ n!$"></SPAN> counts the number of distinct
+permutations, i.e., orderings, of <SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img220.png"
+ ALT="$ n$"></SPAN> distinct elements.
+<A NAME="938"></A>For the special case <SPAN CLASS="MATH"><IMG
+ WIDTH="39" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img221.png"
+ ALT="$ n=0$"></SPAN>, <SPAN CLASS="MATH"><IMG
+ WIDTH="18" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img222.png"
+ ALT="$ 0!$"></SPAN> is defined as 1. 
+
+<P>
+<A NAME="939"></A>The quantity <SPAN CLASS="MATH"><IMG
+ WIDTH="18" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img223.png"
+ ALT="$ n!$"></SPAN> can be approximated using <SPAN  CLASS="textit">Stirling's Approximation</SPAN>:
+<P><!-- MATH
+ \begin{displaymath}
+n!
+   = \sqrt{2\pi n}\left(\frac{n}{e}\right)^{n}e^{\alpha(n)} \enspace ,
+\end{displaymath}
+ -->
+</P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<IMG
+ WIDTH="155" HEIGHT="50" ALIGN="MIDDLE" BORDER="0"
+ SRC="img224.png"
+ ALT="$\displaystyle n!
+= \sqrt{2\pi n}\left(\frac{n}{e}\right)^{n}e^{\alpha(n)} \enspace ,
+$">
+</DIV><P></P>
+where
+<P><!-- MATH
+ \begin{displaymath}
+\frac{1}{12n+1} <  \alpha(n) < \frac{1}{12n}  \enspace .
+\end{displaymath}
+ -->
+</P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<IMG
+ WIDTH="164" HEIGHT="50" ALIGN="MIDDLE" BORDER="0"
+ SRC="img225.png"
+ ALT="$\displaystyle \frac{1}{12n+1} &lt; \alpha(n) &lt; \frac{1}{12n} \enspace .
+$">
+</DIV><P></P>
+Stirling's Approximation also approximates <SPAN CLASS="MATH"><IMG
+ WIDTH="43" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img226.png"
+ ALT="$ \ln(n!)$"></SPAN>:
+<P><!-- MATH
+ \begin{displaymath}
+\ln(n!) = n\ln n - n + \frac{1}{2}\ln(2\pi n) + \alpha(n)
+\end{displaymath}
+ -->
+</P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<IMG
+ WIDTH="249" HEIGHT="50" ALIGN="MIDDLE" BORDER="0"
+ SRC="img227.png"
+ ALT="$\displaystyle \ln(n!) = n\ln n - n + \frac{1}{2}\ln(2\pi n) + \alpha(n)
+$">
+</DIV><P></P>
+(In fact, Stirling's Approximation is most easily proven by approximating
+<!-- MATH
+ $\ln(n!)=\ln 1 + \ln 2  + \cdots + \ln n$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="197" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img228.png"
+ ALT="$ \ln(n!)=\ln 1 + \ln 2 + \cdots + \ln n$"></SPAN> by the integral
+<!-- MATH
+ $\int_1^n \ln n\,\mathrm{d}n = n\ln n - n +1$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="170" HEIGHT="38" ALIGN="MIDDLE" BORDER="0"
+ SRC="img229.png"
+ ALT="$ \int_1^n \ln n\,\mathrm{d}n = n\ln n - n +1$"></SPAN>.)
+
+<P>
+<A NAME="953"></A>Related to the factorial function are the <SPAN  CLASS="textit">binomial coefficients</SPAN>.
+For a non-negative integer <SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img230.png"
+ ALT="$ n$"></SPAN> and an integer <!-- MATH
+ $k\in\{0,\ldots,n\}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="85" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img231.png"
+ ALT="$ k\in\{0,\ldots,n\}$"></SPAN>,
+the notation <!-- MATH
+ $\binom{n}{k}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="23" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="img232.png"
+ ALT="$ \binom{n}{k}$"></SPAN> denotes:
+<P><!-- MATH
+ \begin{displaymath}
+\binom{n}{k} = \frac{n!}{k!(n-k)!} \enspace .
+\end{displaymath}
+ -->
+</P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<IMG
+ WIDTH="120" HEIGHT="56" ALIGN="MIDDLE" BORDER="0"
+ SRC="img233.png"
+ ALT="$\displaystyle \binom{n}{k} = \frac{n!}{k!(n-k)!} \enspace .
+$">
+</DIV><P></P>
+The binomial coefficient <!-- MATH
+ $\binom{n}{k}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="23" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="img234.png"
+ ALT="$ \binom{n}{k}$"></SPAN> (pronounced ``<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img235.png"
+ ALT="$ n$"></SPAN> choose <SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img236.png"
+ ALT="$ k$"></SPAN>'')
+counts the number of subsets of an <SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img237.png"
+ ALT="$ n$"></SPAN> element set that have size <SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img238.png"
+ ALT="$ k$"></SPAN>,
+i.e., the number of ways of choosing <SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img239.png"
+ ALT="$ k$"></SPAN> distinct integers from the
+set <!-- MATH
+ $\{1,\ldots,n\}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="61" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img240.png"
+ ALT="$ \{1,\ldots,n\}$"></SPAN>.
+
+<P>
+
+<H2><A NAME="SECTION00433000000000000000">
+<SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">3</SPAN> Asymptotic Notation</A>
+</H2>
+
+<P>
+<A NAME="964"></A><A NAME="965"></A><A NAME="966"></A>When analyzing data structures in this book, we want to talk about
+the running times of various operations.  The exact running times will,
+of course, vary from computer to computer and even from run to run on an
+individual computer.  When we talk about the running time of an operation
+we are referring to the number of computer instructions performed during
+the operation.  Even for simple code, this quantity can be difficult to
+compute exactly.  Therefore, instead of analyzing running times exactly,
+we will use the so-called <SPAN  CLASS="textit">big-Oh notation</SPAN>: For a function <SPAN CLASS="MATH"><IMG
+ WIDTH="34" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img242.png"
+ ALT="$ f(n)$"></SPAN>,
+<SPAN CLASS="MATH"><IMG
+ WIDTH="57" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img243.png"
+ ALT="$ O(f(n))$"></SPAN> denotes a set of functions,
+<P><!-- MATH
+ \begin{displaymath}
+O(f(n)) = \left\{
+     \begin{array}{l}
+       g(n):\mbox{there exists $c>0$, and $n_0$\  such that} \\
+             \quad\mbox{$g(n) \le c\cdot f(n)$\  for all $n\ge n_0$}
+     \end{array} \right\} \enspace .
+\end{displaymath}
+ -->
+</P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<IMG
+ WIDTH="404" HEIGHT="56" ALIGN="MIDDLE" BORDER="0"
+ SRC="img244.png"
+ ALT="$\displaystyle O(f(n)) = \left\{
+\begin{array}{l}
+g(n):\mbox{there exists $c&gt;0...
+...{$g(n) \le c\cdot f(n)$\ for all $n\ge n_0$}
+\end{array} \right\} \enspace .
+$">
+</DIV><P></P>
+Thinking graphically, this set consists of the functions <SPAN CLASS="MATH"><IMG
+ WIDTH="33" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img245.png"
+ ALT="$ g(n)$"></SPAN> where
+<!-- MATH
+ $c\cdot f(n)$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="50" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img246.png"
+ ALT="$ c\cdot f(n)$"></SPAN> starts to dominate <SPAN CLASS="MATH"><IMG
+ WIDTH="33" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img247.png"
+ ALT="$ g(n)$"></SPAN> when <SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img248.png"
+ ALT="$ n$"></SPAN> is sufficiently large.
+
+<P>
+We generally use asymptotic notation to simplify functions.  For example,
+in place of <!-- MATH
+ $5n\log n + 8n - 200$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="130" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img249.png"
+ ALT="$ 5n\log n + 8n - 200$"></SPAN> we can write <!-- MATH
+ $O(n\log n)$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="71" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img250.png"
+ ALT="$ O(n\log n)$"></SPAN>.
+This is proven as follows:
+<P></P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay"><TABLE CELLPADDING="0" WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE">
+<TD NOWRAP ALIGN="RIGHT"><SPAN CLASS="MATH"><IMG
+ WIDTH="130" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img251.png"
+ ALT="$\displaystyle 5n\log n + 8n - 200$"></SPAN></TD>
+<TD NOWRAP ALIGN="LEFT"><SPAN CLASS="MATH"><IMG
+ WIDTH="103" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img252.png"
+ ALT="$\displaystyle \le 5n\log n + 8n$"></SPAN></TD>
+<TD NOWRAP CLASS="eqno" WIDTH="10" ALIGN="RIGHT">
+&nbsp;&nbsp;&nbsp;</TD></TR>
+<TR VALIGN="MIDDLE">
+<TD>&nbsp;</TD>
+<TD NOWRAP ALIGN="LEFT"><SPAN CLASS="MATH"><IMG
+ WIDTH="138" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img253.png"
+ ALT="$\displaystyle \le 5n\log n + 8n\log n$"></SPAN></TD>
+<TD NOWRAP ALIGN="RIGHT"><SPAN CLASS="MATH"><IMG
+ WIDTH="193" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img254.png"
+ ALT="$\displaystyle \mbox{ for $n\ge 2$\ (so that $\log n \ge 1$)}$"></SPAN></TD>
+<TD NOWRAP CLASS="eqno" WIDTH="10" ALIGN="RIGHT">
+&nbsp;&nbsp;&nbsp;</TD></TR>
+<TR VALIGN="MIDDLE">
+<TD>&nbsp;</TD>
+<TD NOWRAP ALIGN="LEFT"><SPAN CLASS="MATH"><IMG
+ WIDTH="91" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img255.png"
+ ALT="$\displaystyle \le 13n\log n \enspace .$"></SPAN></TD>
+<TD NOWRAP CLASS="eqno" WIDTH="10" ALIGN="RIGHT">
+&nbsp;&nbsp;&nbsp;</TD></TR>
+</TABLE></DIV>
+<BR CLEAR="ALL"><P></P>
+This demonstrates that the function <!-- MATH
+ $f(n)=5n\log n + 8n - 200$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="177" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img256.png"
+ ALT="$ f(n)=5n\log n + 8n - 200$"></SPAN> is in
+the set <!-- MATH
+ $O(n\log n)$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="71" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img257.png"
+ ALT="$ O(n\log n)$"></SPAN> using the constants <SPAN CLASS="MATH"><IMG
+ WIDTH="46" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img258.png"
+ ALT="$ c=13$"></SPAN> and <SPAN CLASS="MATH"><IMG
+ WIDTH="47" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img259.png"
+ ALT="$ n_0 = 2$"></SPAN>.
+
+<P>
+A number of useful shortcuts can be applied when using asymptotic
+notation.  First:
+<P><!-- MATH
+ \begin{displaymath}
+O(n^{c_1}) \subset O(n^{c_2}) \enspace ,
+\end{displaymath}
+ -->
+</P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<IMG
+ WIDTH="122" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img260.png"
+ ALT="$\displaystyle O(n^{c_1}) \subset O(n^{c_2}) \enspace ,$">
+</DIV><P></P>
+for any <SPAN CLASS="MATH"><IMG
+ WIDTH="49" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img261.png"
+ ALT="$ c_1 &lt; c_2$"></SPAN>.  Second: For any constants <SPAN CLASS="MATH"><IMG
+ WIDTH="64" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img262.png"
+ ALT="$ a,b,c &gt; 0$"></SPAN>,
+<P><!-- MATH
+ \begin{displaymath}
+O(a) \subset O(\log n) \subset O(n^{b}) \subset O({c}^n) \enspace .
+\end{displaymath}
+ -->
+</P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<IMG
+ WIDTH="234" HEIGHT="38" ALIGN="MIDDLE" BORDER="0"
+ SRC="img263.png"
+ ALT="$\displaystyle O(a) \subset O(\log n) \subset O(n^{b}) \subset O({c}^n) \enspace . $">
+</DIV><P></P>
+These inclusion relations can be multiplied by any positive value,
+and they still hold. For example, multiplying by <SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img264.png"
+ ALT="$ n$"></SPAN> yields:
+<P><!-- MATH
+ \begin{displaymath}
+O(n) \subset O(n\log n) \subset O(n^{1+b}) \subset O(n{c}^n) \enspace .
+\end{displaymath}
+ -->
+</P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<IMG
+ WIDTH="269" HEIGHT="38" ALIGN="MIDDLE" BORDER="0"
+ SRC="img265.png"
+ ALT="$\displaystyle O(n) \subset O(n\log n) \subset O(n^{1+b}) \subset O(n{c}^n) \enspace . $">
+</DIV><P></P>
+
+<P>
+Continuing in a long and distinguished tradition, we will abuse this
+notation by writing things like <!-- MATH
+ $f_1(n) = O(f(n))$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="108" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img266.png"
+ ALT="$ f_1(n) = O(f(n))$"></SPAN> when what we really
+mean is <!-- MATH
+ $f_1(n) \in O(f(n))$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="106" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img267.png"
+ ALT="$ f_1(n) \in O(f(n))$"></SPAN>.  We will also make statements like ``the
+running time of this operation is <SPAN CLASS="MATH"><IMG
+ WIDTH="57" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img268.png"
+ ALT="$ O(f(n))$"></SPAN>'' when this statement should
+be ``the running time of this operation is <SPAN  CLASS="textit">a member of</SPAN> <SPAN CLASS="MATH"><IMG
+ WIDTH="57" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img269.png"
+ ALT="$ O(f(n))$"></SPAN>.''
+These shortcuts are mainly to avoid awkward language and to make it
+easier to use asymptotic notation within strings of equations.
+
+<P>
+A particularly strange example of this occurs when we write statements like
+<P><!-- MATH
+ \begin{displaymath}
+T(n) = 2\log n + O(1)  \enspace .
+\end{displaymath}
+ -->
+</P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<IMG
+ WIDTH="155" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img270.png"
+ ALT="$\displaystyle T(n) = 2\log n + O(1) \enspace .
+$">
+</DIV><P></P>
+Again, this would be more correctly written as
+<P><!-- MATH
+ \begin{displaymath}
+T(n) \le 2\log n + [\mbox{some member of $O(1)$]}  \enspace .
+\end{displaymath}
+ -->
+</P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<IMG
+ WIDTH="117" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img271.png"
+ ALT="$\displaystyle T(n) \le 2\log n + [$"><IMG
+ WIDTH="163" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img272.png"
+ ALT="$\displaystyle \mbox{some member of $O(1)$]}$"><IMG
+ WIDTH="16" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img273.png"
+ ALT="$\displaystyle \enspace .
+$">
+</DIV><P></P>
+
+<P>
+The expression <SPAN CLASS="MATH"><IMG
+ WIDTH="36" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img274.png"
+ ALT="$ O(1)$"></SPAN> also brings up another issue. Since there is
+no variable in this expression, it may not be clear which variable is
+getting arbitrarily large.  Without context, there is no way to tell.
+In the example above, since the only variable in the rest of the equation
+is <SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img275.png"
+ ALT="$ n$"></SPAN>, we can assume that this should be read as <!-- MATH
+ $T(n) = 2\log n +
+O(f(n))$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="164" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img276.png"
+ ALT="$ T(n) = 2\log n +
+O(f(n))$"></SPAN>, where <SPAN CLASS="MATH"><IMG
+ WIDTH="60" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img277.png"
+ ALT="$ f(n) = 1$"></SPAN>.
+
+<P>
+Big-Oh notation is not new or unique to computer science.  It was
+used by the number theorist Paul Bachmann as early as 1894, and is
+immensely useful for describing the running times of computer algorithms.
+Consider the following piece of code:
+<PRE>
+    void snippet() {
+        for (int i = 0; i &lt; n; i++) 
+            a[i] = i;
+    }
+</PRE>
+One execution of this method involves
+
+<UL>
+<LI><SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img278.png"
+ ALT="$ 1$"></SPAN> assignment (<!-- MATH
+ $\mathtt{int\, i\, =\, 0}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="69" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img279.png"
+ ALT="$ \mathtt{int\, i\, =\, 0}$"></SPAN>),
+</LI>
+<LI><!-- MATH
+ $\ensuremath{\mathtt{n}}+1$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="36" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img280.png"
+ ALT="$ \ensuremath{\mathtt{n}}+1$"></SPAN> comparisons (<!-- MATH
+ $\mathtt{i < n}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="38" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img281.png"
+ ALT="$ \mathtt{i &lt; n}$"></SPAN>),
+</LI>
+<LI><!-- MATH
+ $\mathtt{n}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img282.png"
+ ALT="$ \mathtt{n}$"></SPAN> increments (<!-- MATH
+ $\mathtt{i++}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="38" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img283.png"
+ ALT="$ \mathtt{i++}$"></SPAN>),
+</LI>
+<LI><!-- MATH
+ $\mathtt{n}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img284.png"
+ ALT="$ \mathtt{n}$"></SPAN> array offset calculations (<!-- MATH
+ $\mathtt{a[i]}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="31" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img285.png"
+ ALT="$ \mathtt{a[i]}$"></SPAN>), and
+</LI>
+<LI><!-- MATH
+ $\mathtt{n}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img286.png"
+ ALT="$ \mathtt{n}$"></SPAN> indirect assignments (<!-- MATH
+ $\mathtt{a[i] = i}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="57" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img287.png"
+ ALT="$ \mathtt{a[i] = i}$"></SPAN>).
+</LI>
+</UL>
+So we could write this running time as
+<P><!-- MATH
+ \begin{displaymath}
+T(\ensuremath{\mathtt{n}})=a + b(\ensuremath{\mathtt{n}}+1) + c\ensuremath{\mathtt{n}} + d\ensuremath{\mathtt{n}} + e\ensuremath{\mathtt{n}} \enspace ,
+\end{displaymath}
+ -->
+</P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<IMG
+ WIDTH="233" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img288.png"
+ ALT="$\displaystyle T(\ensuremath{\mathtt{n}})=a + b(\ensuremath{\mathtt{n}}+1) + c\e...
+...{\mathtt{n}} + d\ensuremath{\mathtt{n}} + e\ensuremath{\mathtt{n}} \enspace ,
+$">
+</DIV><P></P>
+where <SPAN CLASS="MATH"><IMG
+ WIDTH="12" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img289.png"
+ ALT="$ a$"></SPAN>, <SPAN CLASS="MATH"><IMG
+ WIDTH="12" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img290.png"
+ ALT="$ b$"></SPAN>, <SPAN CLASS="MATH"><IMG
+ WIDTH="11" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img291.png"
+ ALT="$ c$"></SPAN>, <SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img292.png"
+ ALT="$ d$"></SPAN>, and <SPAN CLASS="MATH"><IMG
+ WIDTH="11" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img293.png"
+ ALT="$ e$"></SPAN> are constants that depend on the
+machine running the code and represent the time to perform assignments,
+comparisons, increment operations, array offset calculations, and indirect
+assignments, respectively.  However, if this expression represents the
+running time of two lines of code, then clearly this kind of analysis
+will not be tractable to complicated code or algorithms.  Using big-Oh
+notation, the running time can be simplified to
+<P><!-- MATH
+ \begin{displaymath}
+T(\ensuremath{\mathtt{n}})= O(\ensuremath{\mathtt{n}}) \enspace .
+\end{displaymath}
+ -->
+</P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<IMG
+ WIDTH="96" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img294.png"
+ ALT="$\displaystyle T(\ensuremath{\mathtt{n}})= O(\ensuremath{\mathtt{n}}) \enspace .
+$">
+</DIV><P></P>
+Not only is this more compact, but it also gives nearly as much
+information.  The fact that the running time depends on the constants <SPAN CLASS="MATH"><IMG
+ WIDTH="12" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img295.png"
+ ALT="$ a$"></SPAN>,
+<SPAN CLASS="MATH"><IMG
+ WIDTH="12" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img296.png"
+ ALT="$ b$"></SPAN>, <SPAN CLASS="MATH"><IMG
+ WIDTH="11" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img297.png"
+ ALT="$ c$"></SPAN>, <SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img298.png"
+ ALT="$ d$"></SPAN>, and <SPAN CLASS="MATH"><IMG
+ WIDTH="11" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img299.png"
+ ALT="$ e$"></SPAN> in the above example means that, in general, it
+will not be possible to compare two running times to know which is faster
+without knowing the values of these constants.  Even if we make the
+effort to determine these constants (say, through timing tests), then
+our conclusion will only be valid for the machine we run our tests on.
+
+<P>
+Big-Oh notation allows us to reason at a much higher level, making
+it possible to analyze more complicated functions.  If two algorithms
+have the same big-Oh running time, then we won't know which is faster,
+and there may not be a clear winner.  One may be faster on one machine,
+and the other may be faster on a different machine.  However, if the
+two algorithms have demonstrably different big-Oh running times, then
+we can be certain that the one with the smaller running time will be
+faster <SPAN  CLASS="textit">for large enough values of <!-- MATH
+ $\mathtt{n}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img300.png"
+ ALT="$ \mathtt{n}$"></SPAN></SPAN>.
+
+<P>
+An example of how big-Oh notation allows us to compare two different
+functions is shown in Figure&nbsp;<A HREF="#fig:intro-asymptotics">1.5</A>, which compares the rate
+of growth of <!-- MATH
+ $f_1(\ensuremath{\mathtt{n}})=15\ensuremath{\mathtt{n}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="80" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img301.png"
+ ALT="$ f_1(\ensuremath{\mathtt{n}})=15\ensuremath{\mathtt{n}}$"></SPAN> versus <!-- MATH
+ $f_2(n)=2\ensuremath{\mathtt{n}}\log\ensuremath{\mathtt{n}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="106" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img302.png"
+ ALT="$ f_2(n)=2\ensuremath{\mathtt{n}}\log\ensuremath{\mathtt{n}}$"></SPAN>.  It might be
+that <SPAN CLASS="MATH"><IMG
+ WIDTH="37" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img303.png"
+ ALT="$ f_1(n)$"></SPAN> is the running time of a complicated linear time algorithm
+while <SPAN CLASS="MATH"><IMG
+ WIDTH="37" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img304.png"
+ ALT="$ f_2(n)$"></SPAN> is the running time of a considerably simpler algorithm
+based on the divide-and-conquer paradigm.  This illustrates that,
+although <!-- MATH
+ $f_1(\ensuremath{\mathtt{n}})$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="37" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img305.png"
+ ALT="$ f_1(\ensuremath{\mathtt{n}})$"></SPAN> is greater than <SPAN CLASS="MATH"><IMG
+ WIDTH="37" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img306.png"
+ ALT="$ f_2(n)$"></SPAN> for small values of <!-- MATH
+ $\mathtt{n}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img307.png"
+ ALT="$ \mathtt{n}$"></SPAN>,
+the opposite is true for large values of <!-- MATH
+ $\mathtt{n}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img308.png"
+ ALT="$ \mathtt{n}$"></SPAN>.  Eventually <!-- MATH
+ $f_1(\ensuremath{\mathtt{n}})$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="37" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img309.png"
+ ALT="$ f_1(\ensuremath{\mathtt{n}})$"></SPAN>
+wins out, by an increasingly wide margin.  Analysis using big-Oh notation
+told us that this would happen, since <!-- MATH
+ $O(\ensuremath{\mathtt{n}})\subset O(\ensuremath{\mathtt{n}}\log \ensuremath{\mathtt{n}})$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="119" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img310.png"
+ ALT="$ O(\ensuremath{\mathtt{n}})\subset O(\ensuremath{\mathtt{n}}\log \ensuremath{\mathtt{n}})$"></SPAN>.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:intro-asymptotics"></A><A NAME="2818"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 1.5:</STRONG>
+Plots of <!-- MATH
+ $15\ensuremath{\mathtt{n}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="30" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img311.png"
+ ALT="$ 15\ensuremath{\mathtt{n}}$"></SPAN> versus <!-- MATH
+ $2\ensuremath{\mathtt{n}}\log\ensuremath{\mathtt{n}}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="55" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img312.png"
+ ALT="$ 2\ensuremath{\mathtt{n}}\log\ensuremath{\mathtt{n}}$"></SPAN>.</CAPTION>
+<TR><TD><IMG
+ WIDTH="512" HEIGHT="1326" BORDER="0"
+ SRC="img315.png"
+ ALT="\begin{figure}\begin{center}
+\newlength{\tmpa}
+\setlength{\tmpa}{.98\linewidt...
+...cm}}{\pgfpoint{12.147cm}{7.251cm}}
+\end{tikzpicture}{ \end{center}
+\end{figure}"></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+In a few cases, we will use asymptotic notation on functions with more
+than one variable. There seems to be no standard for this, but for our
+purposes, the following definition is sufficient:
+<P><!-- MATH
+ \begin{displaymath}
+O(f(n_1,\ldots,n_k)) =
+   \left\{\begin{array}{@{}l@{}}
+             g(n_1,\ldots,n_k):\mbox{there exists $c>0$, and $z$\  such that} \\
+             \quad \mbox{$g(n_1,\ldots,n_k) \le c\cdot f(n_1,\ldots,n_k)$} \\
+             \qquad \mbox{for all $n_1,\ldots,n_k$\  such that $g(n_1,\ldots,n_k)\ge z$}   
+   \end{array}\right\} \enspace .
+\end{displaymath}
+ -->
+</P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<IMG
+ WIDTH="482" HEIGHT="74" ALIGN="MIDDLE" BORDER="0"
+ SRC="img316.png"
+ ALT="$\displaystyle O(f(n_1,\ldots,n_k)) =
+\left\{\begin{array}{@{}l@{}}
+g(n_1,\ld...
+...ots,n_k$\ such that $g(n_1,\ldots,n_k)\ge z$}
+\end{array}\right\} \enspace .
+$">
+</DIV><P></P>
+This definition captures the situation we really care about:  when the
+arguments <!-- MATH
+ $n_1,\ldots,n_k$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="65" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img317.png"
+ ALT="$ n_1,\ldots,n_k$"></SPAN> make <SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img318.png"
+ ALT="$ g$"></SPAN> take on large values.  This definition
+also agrees with the univariate definition of <SPAN CLASS="MATH"><IMG
+ WIDTH="57" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img319.png"
+ ALT="$ O(f(n))$"></SPAN> when <SPAN CLASS="MATH"><IMG
+ WIDTH="34" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img320.png"
+ ALT="$ f(n)$"></SPAN>
+is an increasing function of <SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img321.png"
+ ALT="$ n$"></SPAN>.  The reader should be warned that,
+although this works for our purposes, other texts may treat multivariate
+functions and asymptotic notation differently.
+
+<P>
+
+<H2><A NAME="SECTION00434000000000000000"></A>
+<A NAME="sec:randomization"></A>
+<BR>
+<SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">4</SPAN> Randomization and Probability
+</H2>
+
+<P>
+<A NAME="2196"></A><A NAME="2197"></A><A NAME="2198"></A><A NAME="2199"></A>Some of the data structures presented in this book are <SPAN  CLASS="textit">randomized</SPAN>;
+they make random choices that are independent of the data being stored
+in them or the operations being performed on them.  For this reason,
+performing the same set of operations more than once using these
+structures could result in different running times.  When analyzing these
+data structures we are interested in their average or <SPAN  CLASS="textit">expected</SPAN>
+running times.
+<A NAME="2202"></A><A NAME="2203"></A>
+<P>
+Formally, the running time of an operation on a randomized data structure
+is a random variable, and we want to study its <SPAN  CLASS="textit">expected value</SPAN>.
+<A NAME="2205"></A>For
+a discrete random variable <SPAN CLASS="MATH"><IMG
+ WIDTH="16" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img322.png"
+ ALT="$ X$"></SPAN> taking on values in some countable
+universe <SPAN CLASS="MATH"><IMG
+ WIDTH="18" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img323.png"
+ ALT="$ U$"></SPAN>, the expected value of <SPAN CLASS="MATH"><IMG
+ WIDTH="16" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img324.png"
+ ALT="$ X$"></SPAN>, denoted by <!-- MATH
+ $\mathrm{E}[X]$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="36" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img325.png"
+ ALT="$ \mathrm{E}[X]$"></SPAN>, is given
+by the formula
+<P><!-- MATH
+ \begin{displaymath}
+\mathrm{E}[X] = \sum_{x\in U} x\cdot\Pr\{X=x\} \enspace .
+\end{displaymath}
+ -->
+</P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<IMG
+ WIDTH="174" HEIGHT="50" ALIGN="MIDDLE" BORDER="0"
+ SRC="img326.png"
+ ALT="$\displaystyle \mathrm{E}[X] = \sum_{x\in U} x\cdot\Pr\{X=x\} \enspace .
+$">
+</DIV><P></P>
+Here <!-- MATH
+ $\Pr\{\mathcal{E}\}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="41" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img327.png"
+ ALT="$ \Pr\{\mathcal{E}\}$"></SPAN> denotes the probability that the event
+<!-- MATH
+ $\mathcal{E}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="14" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img328.png"
+ ALT="$ \mathcal{E}$"></SPAN> occurs.  In all of the examples in this book, these
+probabilities are only with respect to the random choices made by the
+randomized data structure;  there is no assumption that the data stored
+in the structure, nor the sequence of operations performed on the
+data structure, is random.
+
+<P>
+One of the most important properties of expected values is <SPAN  CLASS="textit">linearity
+of expectation</SPAN>.
+<A NAME="2210"></A>For any two random variables <SPAN CLASS="MATH"><IMG
+ WIDTH="16" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img329.png"
+ ALT="$ X$"></SPAN> and <SPAN CLASS="MATH"><IMG
+ WIDTH="16" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img330.png"
+ ALT="$ Y$"></SPAN>,
+<P><!-- MATH
+ \begin{displaymath}
+\mathrm{E}[X+Y] = \mathrm{E}[X] + \mathrm{E}[Y] \enspace .
+\end{displaymath}
+ -->
+</P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<IMG
+ WIDTH="172" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img331.png"
+ ALT="$\displaystyle \mathrm{E}[X+Y] = \mathrm{E}[X] + \mathrm{E}[Y] \enspace .
+$">
+</DIV><P></P>
+More generally, for any random variables <!-- MATH
+ $X_1,\ldots,X_k$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="69" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img332.png"
+ ALT="$ X_1,\ldots,X_k$"></SPAN>,
+<P><!-- MATH
+ \begin{displaymath}
+\mathrm{E}\left[\sum_{i=1}^k X_k\right] = \sum_{i=1}^k \mathrm{E}[X_i] \enspace .
+\end{displaymath}
+ -->
+</P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<IMG
+ WIDTH="162" HEIGHT="68" ALIGN="MIDDLE" BORDER="0"
+ SRC="img333.png"
+ ALT="$\displaystyle \mathrm{E}\left[\sum_{i=1}^k X_k\right] = \sum_{i=1}^k \mathrm{E}[X_i] \enspace .
+$">
+</DIV><P></P>
+Linearity of expectation allows us to break down complicated random variables (like the left hand sides of the above equations) into sums of simpler random variables (the right hand sides).
+
+<P>
+A useful trick, that we will use repeatedly, is defining <SPAN  CLASS="textit">indicator
+random variables</SPAN>.
+<A NAME="2214"></A>These binary variables are useful when we want to
+count something and are best illustrated by an example.  Suppose we toss
+a fair coin <SPAN CLASS="MATH"><IMG
+ WIDTH="13" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img334.png"
+ ALT="$ k$"></SPAN> times and we want to know the expected number of times
+the coin turns up as heads.
+<A NAME="2215"></A>Intuitively, we know the answer is <SPAN CLASS="MATH"><IMG
+ WIDTH="27" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img335.png"
+ ALT="$ k/2$"></SPAN>,
+but if we try to prove it using the definition of expected value, we get
+<P></P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay"><TABLE CELLPADDING="0" WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE">
+<TD NOWRAP ALIGN="RIGHT"><SPAN CLASS="MATH"><IMG
+ WIDTH="36" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img336.png"
+ ALT="$\displaystyle \mathrm{E}[X]$"></SPAN></TD>
+<TD NOWRAP ALIGN="LEFT"><SPAN CLASS="MATH"><IMG
+ WIDTH="120" HEIGHT="68" ALIGN="MIDDLE" BORDER="0"
+ SRC="img337.png"
+ ALT="$\displaystyle = \sum_{i=0}^k i\cdot\Pr\{X=i\}$"></SPAN></TD>
+<TD NOWRAP CLASS="eqno" WIDTH="10" ALIGN="RIGHT">
+&nbsp;&nbsp;&nbsp;</TD></TR>
+<TR VALIGN="MIDDLE">
+<TD>&nbsp;</TD>
+<TD NOWRAP ALIGN="LEFT"><SPAN CLASS="MATH"><IMG
+ WIDTH="101" HEIGHT="68" ALIGN="MIDDLE" BORDER="0"
+ SRC="img338.png"
+ ALT="$\displaystyle = \sum_{i=0}^k i\cdot\binom{k}{i}/2^k$"></SPAN></TD>
+<TD NOWRAP CLASS="eqno" WIDTH="10" ALIGN="RIGHT">
+&nbsp;&nbsp;&nbsp;</TD></TR>
+<TR VALIGN="MIDDLE">
+<TD>&nbsp;</TD>
+<TD NOWRAP ALIGN="LEFT"><SPAN CLASS="MATH"><IMG
+ WIDTH="128" HEIGHT="68" ALIGN="MIDDLE" BORDER="0"
+ SRC="img339.png"
+ ALT="$\displaystyle = k\cdot \sum_{i=0}^{k-1}\binom{k-1}{i}/2^k$"></SPAN></TD>
+<TD NOWRAP CLASS="eqno" WIDTH="10" ALIGN="RIGHT">
+&nbsp;&nbsp;&nbsp;</TD></TR>
+<TR VALIGN="MIDDLE">
+<TD>&nbsp;</TD>
+<TD NOWRAP ALIGN="LEFT"><SPAN CLASS="MATH"><IMG
+ WIDTH="53" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img340.png"
+ ALT="$\displaystyle = k/2 \enspace .$"></SPAN></TD>
+<TD NOWRAP CLASS="eqno" WIDTH="10" ALIGN="RIGHT">
+&nbsp;&nbsp;&nbsp;</TD></TR>
+</TABLE></DIV>
+<BR CLEAR="ALL"><P></P>
+This requires that we know enough to calculate that <!-- MATH
+ $\Pr\{X=i\}
+= \binom{k}{i}/2^k$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="124" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
+ SRC="img341.png"
+ ALT="$ \Pr\{X=i\}
+= \binom{k}{i}/2^k$"></SPAN>, and that we know the binomial identities
+<!-- MATH
+ $i\binom{k}{i}=k\binom{k-1}{i}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="87" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
+ SRC="img342.png"
+ ALT="$ i\binom{k}{i}=k\binom{k-1}{i}$"></SPAN> and <!-- MATH
+ $\sum_{i=0}^{k} \binom{k}{i} = 2^{k}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="91" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
+ SRC="img343.png"
+ ALT="$ \sum_{i=0}^{k} \binom{k}{i} = 2^{k}$"></SPAN>.
+
+<P>
+Using indicator variables and linearity of expectation makes things
+much easier.  For each <!-- MATH
+ $i\in\{1,\ldots,k\}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="82" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img344.png"
+ ALT="$ i\in\{1,\ldots,k\}$"></SPAN>, define the indicator
+random variable
+<P><!-- MATH
+ \begin{displaymath}
+I_i = \begin{cases}
+           1 & \text{if the $i$th coin toss is heads} \\
+           0 & \text{otherwise.}
+          \end{cases}
+\end{displaymath}
+ -->
+</P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<IMG
+ WIDTH="256" HEIGHT="65" ALIGN="MIDDLE" BORDER="0"
+ SRC="img345.png"
+ ALT="$\displaystyle I_i = \begin{cases}
+1 &amp; \text{if the $i$th coin toss is heads} \\
+0 &amp; \text{otherwise.}
+\end{cases}$">
+</DIV><P></P>
+Then 
+<P><!-- MATH
+ \begin{displaymath}
+\mathrm{E}[I_i] = (1/2)1 + (1/2)0 = 1/2 \enspace .
+\end{displaymath}
+ -->
+</P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<IMG
+ WIDTH="206" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img346.png"
+ ALT="$\displaystyle \mathrm{E}[I_i] = (1/2)1 + (1/2)0 = 1/2 \enspace . $">
+</DIV><P></P>
+Now, <!-- MATH
+ $X=\sum_{i=1}^k I_i$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="80" HEIGHT="38" ALIGN="MIDDLE" BORDER="0"
+ SRC="img347.png"
+ ALT="$ X=\sum_{i=1}^k I_i$"></SPAN>, so
+<P></P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay"><TABLE CELLPADDING="0" WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE">
+<TD NOWRAP ALIGN="RIGHT"><SPAN CLASS="MATH"><IMG
+ WIDTH="36" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img348.png"
+ ALT="$\displaystyle \mathrm{E}[X]$"></SPAN></TD>
+<TD NOWRAP ALIGN="LEFT"><SPAN CLASS="MATH"><IMG
+ WIDTH="78" HEIGHT="68" ALIGN="MIDDLE" BORDER="0"
+ SRC="img349.png"
+ ALT="$\displaystyle = \mathrm{E}\left[\sum_{i=1}^k I_i\right]$"></SPAN></TD>
+<TD NOWRAP CLASS="eqno" WIDTH="10" ALIGN="RIGHT">
+&nbsp;&nbsp;&nbsp;</TD></TR>
+<TR VALIGN="MIDDLE">
+<TD>&nbsp;</TD>
+<TD NOWRAP ALIGN="LEFT"><SPAN CLASS="MATH"><IMG
+ WIDTH="74" HEIGHT="68" ALIGN="MIDDLE" BORDER="0"
+ SRC="img350.png"
+ ALT="$\displaystyle = \sum_{i=1}^k \mathrm{E}[I_i]$"></SPAN></TD>
+<TD NOWRAP CLASS="eqno" WIDTH="10" ALIGN="RIGHT">
+&nbsp;&nbsp;&nbsp;</TD></TR>
+<TR VALIGN="MIDDLE">
+<TD>&nbsp;</TD>
+<TD NOWRAP ALIGN="LEFT"><SPAN CLASS="MATH"><IMG
+ WIDTH="66" HEIGHT="68" ALIGN="MIDDLE" BORDER="0"
+ SRC="img351.png"
+ ALT="$\displaystyle = \sum_{i=1}^k 1/2$"></SPAN></TD>
+<TD NOWRAP CLASS="eqno" WIDTH="10" ALIGN="RIGHT">
+&nbsp;&nbsp;&nbsp;</TD></TR>
+<TR VALIGN="MIDDLE">
+<TD>&nbsp;</TD>
+<TD NOWRAP ALIGN="LEFT"><SPAN CLASS="MATH"><IMG
+ WIDTH="53" HEIGHT="30" ALIGN="MIDDLE" BORDER="0"
+ SRC="img352.png"
+ ALT="$\displaystyle = k/2 \enspace .$"></SPAN></TD>
+<TD NOWRAP CLASS="eqno" WIDTH="10" ALIGN="RIGHT">
+&nbsp;&nbsp;&nbsp;</TD></TR>
+</TABLE></DIV>
+<BR CLEAR="ALL"><P></P>
+This is a bit more long-winded, but doesn't require that we know any
+magical identities or compute any non-trivial probabilities. Even better,
+it agrees with the intuition that we expect half the coins to turn up as
+heads precisely because each individual coin turns up as heads with
+a probability of <SPAN CLASS="MATH"><IMG
+ WIDTH="28" HEIGHT="29" ALIGN="MIDDLE" BORDER="0"
+ SRC="img353.png"
+ ALT="$ 1/2$"></SPAN>.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html291"
+  HREF="1_4_Model_Computation.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html285"
+  HREF="1_Introduction.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html279"
+  HREF="1_2_Interfaces.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html287"
+  HREF="Contents.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html289"
+  HREF="Index.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html292"
+  HREF="1_4_Model_Computation.html">1.4 The Model of</A>
+<B> Up:</B> <A NAME="tex2html286"
+  HREF="1_Introduction.html">1. Introduction</A>
+<B> Previous:</B> <A NAME="tex2html280"
+  HREF="1_2_Interfaces.html">1.2 Interfaces</A>
+ &nbsp; <B>  <A NAME="tex2html288"
+  HREF="Contents.html">Contents</A></B> 
+ &nbsp; <B>  <A NAME="tex2html290"
+  HREF="Index.html">Index</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<a href="http://opendatastructures.org/">opendatastructures.org</a>
+    
+
+</ADDRESS>
+</BODY>
+</HTML>

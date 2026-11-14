@@ -12,7 +12,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from tradeschool.auth.backend import current_active_user
 from tradeschool.auth.models import User
-from tradeschool.content.registry import CourseRegistry
+from tradeschool.content.registry import CourseRegistry, QuestionRef
 from tradeschool.db import get_async_session
 from tradeschool.deps import get_registry
 from tradeschool.practice import service
@@ -41,6 +41,10 @@ class RoundResponse(BaseModel):
     questions: list[RoundQuestion]
 
 
+def _round_questions(drawn: list[QuestionRef]) -> list[RoundQuestion]:
+    return [RoundQuestion(exerciseId=q.exercise_id, questionId=q.variant_id or "") for q in drawn]
+
+
 @router.post("/lessons/{lesson_id}/practice", response_model=RoundResponse)
 async def draw_round(
     lesson_id: str,
@@ -53,10 +57,27 @@ async def draw_round(
     drawn = await service.draw_round(
         session, registry, user.id, lesson_id, bool(payload and payload.all), rand
     )
-    return RoundResponse(
-        lessonId=lesson_id,
-        questions=[RoundQuestion(exerciseId=q.exercise_id, questionId=q.variant_id or "") for q in drawn],
+    return RoundResponse(lessonId=lesson_id, questions=_round_questions(drawn))
+
+
+class ModuleRoundResponse(BaseModel):
+    moduleId: str
+    questions: list[RoundQuestion]
+
+
+@router.post("/modules/{module_id}/practice", response_model=ModuleRoundResponse)
+async def draw_module_round(
+    module_id: str,
+    user: Annotated[User, Depends(current_active_user)],
+    session: Annotated[AsyncSession, Depends(get_async_session)],
+    registry: Annotated[CourseRegistry, Depends(get_registry)],
+    rand: Annotated[Rand, Depends(practice_rand)],
+    payload: RoundRequest | None = None,
+) -> ModuleRoundResponse:
+    drawn = await service.draw_module_round(
+        session, registry, user.id, module_id, bool(payload and payload.all), rand
     )
+    return ModuleRoundResponse(moduleId=module_id, questions=_round_questions(drawn))
 
 
 class ReviewRequest(BaseModel):
@@ -78,9 +99,21 @@ async def draw_review_round(
     drawn = await service.draw_review_round(
         session, registry, user.id, (payload or ReviewRequest()).count, rand
     )
-    return ReviewResponse(
-        questions=[RoundQuestion(exerciseId=q.exercise_id, questionId=q.variant_id or "") for q in drawn]
+    return ReviewResponse(questions=_round_questions(drawn))
+
+
+@router.post("/practice/code-reading", response_model=ReviewResponse)
+async def draw_code_reading_round(
+    user: Annotated[User, Depends(current_active_user)],
+    session: Annotated[AsyncSession, Depends(get_async_session)],
+    registry: Annotated[CourseRegistry, Depends(get_registry)],
+    rand: Annotated[Rand, Depends(practice_rand)],
+    payload: ReviewRequest | None = None,
+) -> ReviewResponse:
+    drawn = await service.draw_code_reading_round(
+        session, registry, user.id, (payload or ReviewRequest()).count, rand
     )
+    return ReviewResponse(questions=_round_questions(drawn))
 
 
 class GeneratedRoundRequest(BaseModel):

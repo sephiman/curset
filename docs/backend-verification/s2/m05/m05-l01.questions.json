@@ -1,0 +1,167 @@
+[
+ {
+  "id": "m05-l01-q01",
+  "fact": "m05-l01-f34",
+  "stem": "A bean is defined in `prototype` scope and the container creates an instance of it. Which lifecycle callbacks does the Spring container call on that instance?",
+  "key": "Initialization callbacks are called, but configured destruction callbacks are not",
+  "distractors": [
+   "Both initialization and destruction callbacks are called, as for singleton beans",
+   "Neither kind of callback is called, because the container keeps no record of the instance",
+   "Only destruction callbacks are called, when the container is closed"
+  ],
+  "explanation": "Initialization callbacks are called on all objects regardless of scope, and for prototypes configured destruction callbacks are not called. The claim that destruction callbacks are called as for singletons is wrong, because the client code must clean up prototype-scoped objects and release the resources that they hold. The claim that neither kind of callback is called is wrong, because initialization callbacks are called on all objects regardless of scope. The claim that only destruction callbacks are called when the container closes is wrong, because configured destruction callbacks are not called for prototypes.",
+  "citation": "spring-fw-beans-factory-scopes#beans-factory-scopes-prototype",
+  "extract": "although initialization lifecycle callback methods are called on all objects regardless of scope, in the case of prototypes, configured destruction lifecycle callbacks are not called.",
+  "snippet": null
+ },
+ {
+  "id": "m05-l01-q02",
+  "fact": "m05-l01-f54",
+  "stem": "Class A requires an instance of class B through constructor injection, and class B requires an instance of class A the same way. What does the Spring container do?",
+  "key": "It detects the circular reference at runtime and throws a `BeanCurrentlyInCreationException`",
+  "distractors": [
+   "It switches one of the two beans to setter injection automatically and starts both",
+   "It creates both beans, because constructor injection resolves circular dependencies",
+   "It starts without the second bean and skips the reference"
+  ],
+  "explanation": "The container detects the circular reference at runtime and throws a `BeanCurrentlyInCreationException`. The claim that Spring switches one bean to setter injection automatically is wrong, because the fix is to edit the source code of some classes to be configured by setters rather than constructors. The claim that constructor injection resolves circular dependencies is wrong, because predominantly constructor injection can create an unresolvable circular dependency scenario. The claim that Spring starts without the second bean is wrong, because Spring detects circular dependencies at container load-time.",
+  "citation": "spring-fw-beans-dependencies-factory-collaborators#beans-dependency-resolution",
+  "extract": "the Spring IoC container detects this circular reference at runtime, and throws a BeanCurrentlyInCreationException.",
+  "snippet": null
+ },
+ {
+  "id": "m05-l01-q03",
+  "fact": "m05-l01-f32",
+  "stem": "A bean has a `@PostConstruct` method, implements `InitializingBean`, and has a custom `init()` method, each configured with a different method name. In which order does Spring call them?",
+  "key": "The `@PostConstruct` method, then `afterPropertiesSet()`, then the custom `init()` method",
+  "distractors": [
+   "The `afterPropertiesSet()` method, then the `@PostConstruct` method, then the custom `init()` method",
+   "The custom `init()` method, then the `@PostConstruct` method, then `afterPropertiesSet()`",
+   "All three in the order in which they are declared in the class"
+  ],
+  "explanation": "The `@PostConstruct` method runs first, then `afterPropertiesSet()` as defined by `InitializingBean`, then the custom configured `init()` method. The orders that put `afterPropertiesSet()` or the custom `init()` method before the `@PostConstruct` method are wrong, because the documented order starts with the methods annotated with `@PostConstruct`. The claim that declaration order decides is wrong, because each configured method is run in the order listed in the documentation.",
+  "citation": "spring-fw-beans-factory-nature#beans-factory-lifecycle-combined-effects",
+  "extract": "Methods annotated with @PostConstruct afterPropertiesSet() as defined by the InitializingBean callback interface A custom configured init() method",
+  "snippet": null
+ },
+ {
+  "id": "m05-l01-q04",
+  "fact": "m05-l01-f42",
+  "stem": "One `BeanPostProcessor` is added programmatically with `addBeanPostProcessor` and another is registered through auto-detection. How does Spring order them when the auto-detected one has an explicit order?",
+  "key": "The programmatic one is processed first, regardless of any explicit ordering",
+  "distractors": [
+   "Both run by the value of their `order` property, whichever way they were registered",
+   "The auto-detected one is processed first, because it has an explicit order",
+   "They run in the alphabetical order of their class names"
+  ],
+  "explanation": "Programmatically registered instances are always processed before auto-detected ones, regardless of any explicit ordering. The claim that both run by their `order` value is wrong, because programmatically added instances do not respect the `Ordered` interface. The claim that the auto-detected one runs first is wrong, because programmatically registered instances are always processed before the auto-detected ones. The claim that class names decide is wrong, because the order of registration dictates the order of execution for programmatic registration.",
+  "citation": "spring-fw-beans-factory-extension#beans-factory-extension-bpp",
+  "extract": "BeanPostProcessor instances registered programmatically are always processed before those registered through auto-detection, regardless of any explicit ordering.",
+  "snippet": null
+ },
+ {
+  "id": "m05-l01-q05",
+  "fact": "m05-l01-f07",
+  "stem": "An application creates only a plain `DefaultListableBeanFactory`, populates it with bean definitions, and some of those beans implement `BeanPostProcessor`. What happens to those post-processors?",
+  "key": "They do not get detected and activated by default",
+  "distractors": [
+   "They are detected by bean name or type, as in any `ApplicationContext`",
+   "They are registered automatically, because every `BeanFactory` supports automatic registration",
+   "The factory fails to start with an exception, because the post-processors cannot be resolved"
+  ],
+  "explanation": "Such post-processors do not get detected and activated by default. The claim that they are detected by name or type is wrong, because a plain `DefaultListableBeanFactory` is agnostic about any special beans. The claim that automatic registration applies is wrong, because the feature matrix lists automatic `BeanPostProcessor` registration as No for `BeanFactory`. The claim that the factory fails to start is wrong, because nothing is actually wrong with the bean configuration and the container only needs additional setup.",
+  "citation": "spring-fw-beans-beanfactory#context-introduction-ctx-vs-beanfactory",
+  "extract": "such post-processors do not get detected and activated by default.",
+  "snippet": null
+ },
+ {
+  "id": "m05-l01-q06",
+  "fact": "m05-l01-f57",
+  "stem": "Several beans of the same type are candidates for a single-valued `@Autowired` dependency, and exactly one of them is annotated `@Primary`. Which bean does Spring inject?",
+  "key": "The `@Primary` bean becomes the autowired value",
+  "distractors": [
+   "The bean whose name matches the injection point name, ignoring `@Primary`",
+   "None of them, because Spring throws an exception whenever several candidates exist",
+   "The candidate that was registered first, because registration order decides"
+  ],
+  "explanation": "If exactly one primary bean exists among the candidates, it becomes the autowired value. The claim that the injection point name overrides `@Primary` is wrong, because name matching applies only when there is no other resolution indicator such as a primary marker. The claim that Spring throws an exception is wrong, because `@Primary` gives a bean preference when multiple beans are candidates for a single-valued dependency. The claim that registration order decides is wrong, because `@Primary` is the way to use autowiring by type with several instances when one primary candidate can be determined.",
+  "citation": "spring-fw-beans-annotation-config-autowired-primary#page-title; spring-fw-beans-annotation-config-autowired-qualifiers#page-title",
+  "extract": "If exactly one primary bean exists among the candidates, it becomes the autowired value.",
+  "snippet": null
+ },
+ {
+  "id": "m05-l01-q07",
+  "fact": "m05-l01-f61",
+  "stem": "Several `MovieCatalog` beans share the qualifier value `action`, and a `Set<MovieCatalog>` injection point is annotated `@Qualifier(\"action\")`. Which beans does Spring inject?",
+  "key": "All matching beans, because qualifiers are filtering criteria and need not be unique",
+  "distractors": [
+   "Only the first bean registered, because qualifier values must be unique",
+   "None, because a qualifier value must select exactly one bean",
+   "Only the bean whose name is `action`, because the qualifier is a bean id"
+  ],
+  "explanation": "All matching beans, according to the declared qualifiers, are injected as a collection. The claim that qualifier values must be unique is wrong, because qualifiers do not have to be unique. The claim that a qualifier must select exactly one bean is wrong, because qualifiers constitute filtering criteria. The claim that the qualifier is a bean id is wrong, because qualifier values do not semantically express a reference to a unique bean id.",
+  "citation": "spring-fw-beans-annotation-config-autowired-qualifiers#page-title",
+  "extract": "In this case, all matching beans, according to the declared qualifiers, are injected as a collection.",
+  "snippet": null
+ },
+ {
+  "id": "m05-l01-q08",
+  "fact": "m05-l01-f63",
+  "stem": "In Spring Framework 6.1 and later, an injection point has no qualifier, primary marker or fallback marker, and its parameter name should match a bean name. What does that matching require?",
+  "key": "The `-parameters` Java compiler flag",
+  "distractors": [
+   "A `@Qualifier` annotation at the injection point",
+   "A `@Primary` annotation on the target bean",
+   "A `@Fallback` annotation on the target bean"
+  ],
+  "explanation": "Since version 6.1, matching by parameter name requires the `-parameters` Java compiler flag to be present. The claim that `@Qualifier` is needed is wrong, because qualifier values can select against target bean names without a `@Qualifier` annotation at the injection point. The claims that a `@Primary` or `@Fallback` marker is needed are wrong, because name matching applies only when there is no other resolution indicator, such as a primary marker or a fallback marker.",
+  "citation": "spring-fw-beans-annotation-config-autowired-qualifiers#page-title",
+  "extract": "Since version 6.1, this requires the -parameters Java compiler flag to be present.",
+  "snippet": null
+ },
+ {
+  "id": "m05-l01-q09",
+  "fact": "m05-l01-f71",
+  "stem": "A `@Bean` method in a class without `@Configuration` calls another `@Bean` method of the same class directly in Java. What does the Spring reference say about that call?",
+  "key": "The container does not intercept it, and it creates a new instance every time",
+  "distractors": [
+   "The container intercepts it and returns the existing singleton instance",
+   "The call fails with an exception, because lite mode forbids calls between `@Bean` methods",
+   "The call returns a CGLIB proxy of the bean, created on demand"
+  ],
+  "explanation": "A custom Java call to such a method is not intercepted by the container, so it creates a new instance every time. The claim that the container intercepts the call is wrong, because in lite mode `@Bean` methods are a general-purpose factory method mechanism without special runtime processing. The claim that the call fails with an exception is wrong, because the call behaves just like a regular method call. The claim that a CGLIB proxy is returned is wrong, because lite mode needs no CGLIB subclassing at runtime.",
+  "citation": "spring-fw-beans-java-basic-concepts#page-title",
+  "extract": "A custom Java call to such a method will not get intercepted by the container and therefore behaves just like a regular method call, creating a new instance every time rather than reusing an existing singleton (or scoped) instance for the given bean.",
+  "snippet": null
+ },
+ {
+  "id": "m05-l01-q10",
+  "fact": "m05-l01-f77",
+  "stem": "A `@Conditional` annotation is declared on an enclosing `@Configuration` class. A nested `@Configuration` class is discovered independently through `@ComponentScan`. Which conditions apply to the nested class?",
+  "key": "Only the nested class's own `@Conditional` annotations",
+  "distractors": [
+   "The conditions of the enclosing class, because nested classes always inherit them",
+   "The conditions of the enclosing class combined with its own conditions",
+   "No conditions at all, because `@ComponentScan` ignores `@Conditional`"
+  ],
+  "explanation": "A nested class discovered independently of its enclosing class is processed using only its own `@Conditional` annotations. The claim that nesting always inherits conditions is wrong, because the enclosing condition applies only if the nested class is reached through the parser's recursion or via `@Import`. The claim that the enclosing conditions are combined with its own is wrong, because such a class is processed using only its own annotations.",
+  "citation": "spring-fw-beans-java-composing#beans-java-conditional",
+  "extract": "it is processed using only its own @Conditional annotations.",
+  "snippet": null
+ },
+ {
+  "id": "m05-l01-q11",
+  "fact": "m05-l01-f37",
+  "stem": "A `BeanPostProcessor` is registered with the container. For each bean instance that the container creates, at which points does the post-processor get a callback?",
+  "key": "Both before the initialization methods are called and after any bean initialization callbacks",
+  "distractors": [
+   "Only after the bean has been fully initialized",
+   "Only before the container instantiates the bean",
+   "Only once, when the bean definition is registered"
+  ],
+  "explanation": "The post-processor gets a callback both before the initialization methods are called and after any bean initialization callbacks. The claim that it is called only after initialization is wrong, because the callback also comes before the container initialization methods are called. The claim that it is called before instantiation is wrong, because the container instantiates a bean instance and then the post-processors do their work. The claim that it is called once at registration is wrong, because the callback happens for each bean instance that is created by the container.",
+  "citation": "spring-fw-beans-factory-extension#beans-factory-extension-bpp",
+  "extract": "the post-processor gets a callback from the container both before container initialization methods (such as InitializingBean.afterPropertiesSet() or any declared init method) are called, and after any bean initialization callbacks.",
+  "snippet": null
+ }
+]

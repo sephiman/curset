@@ -12,6 +12,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from tradeschool.attempts.models import Attempt, AttemptState
 from tradeschool.content.registry import CourseRegistry, QuestionRef
+from tradeschool.content.schema import PracticePreset
 from tradeschool.errors import AppError
 from tradeschool.practice.order import MASTERED_AFTER, Rand, practice_order
 from tradeschool.practice.spaced import Answer, spaced_order
@@ -118,6 +119,38 @@ async def draw_review_round(
     )
     if not by_key:
         raise AppError("PRACTICE_EMPTY", "This course has no questions to review.", status_code=409)
+    return await _ordered(session, registry, user_id, by_key, count, rand)
+
+
+def _require_preset(registry: CourseRegistry, preset: PracticePreset) -> None:
+    if preset not in registry.manifest.course.practice_presets:
+        raise AppError("PRACTICE_NOT_AVAILABLE", f"This course has no {preset} practice.", status_code=409)
+
+
+async def draw_module_round(
+    session: AsyncSession,
+    registry: CourseRegistry,
+    user_id: uuid.UUID,
+    module_id: str,
+    every: bool,
+    rand: Rand,
+) -> list[QuestionRef]:
+    _require_preset(registry, "module")
+    if registry.module_block(module_id) is None:
+        raise AppError("MODULE_NOT_FOUND", f"No module {module_id!r}.", status_code=404)
+    by_key = _by_key(registry.module_questions(module_id))
+    if not by_key:
+        raise AppError("PRACTICE_EMPTY", "This module has no questions to practise.", status_code=409)
+    return await _ordered(session, registry, user_id, by_key, None if every else ROUND_SIZE, rand)
+
+
+async def draw_code_reading_round(
+    session: AsyncSession, registry: CourseRegistry, user_id: uuid.UUID, count: int, rand: Rand
+) -> list[QuestionRef]:
+    _require_preset(registry, "code-reading")
+    by_key = _by_key(registry.code_reading_questions())
+    if not by_key:
+        raise AppError("PRACTICE_EMPTY", "This course has no code-reading questions.", status_code=409)
     return await _ordered(session, registry, user_id, by_key, count, rand)
 
 

@@ -1,0 +1,257 @@
+[
+ {
+  "id": "m05-l08-q01",
+  "fact": "m05-l08-f01",
+  "stem": "In Spring Boot, with no `management.endpoints` exposure properties set, which Actuator endpoint is exposed over HTTP and JMX by default?",
+  "key": "`health`",
+  "distractors": [
+   "`info`",
+   "`metrics`",
+   "`env`"
+  ],
+  "explanation": "By default, only the `health` endpoint is exposed over HTTP and JMX. Neither `info`, `metrics` nor `env` is exposed by default, because by default only the `health` endpoint is exposed over HTTP and JMX.",
+  "citation": "spring-boot-actuator-endpoints#actuator.endpoints.exposing",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m05-l08-q02",
+  "fact": "m05-l08-f09",
+  "stem": "By default, when no `HealthIndicator` returns a status that the `StatusAggregator` knows, which overall health status does Spring Boot Actuator report for the system?",
+  "key": "`UNKNOWN`",
+  "distractors": [
+   "`DOWN`",
+   "`UP`",
+   "`OUT_OF_SERVICE`"
+  ],
+  "explanation": "An `UNKNOWN` status is used when no `HealthIndicator` returns a status that is known to the `StatusAggregator`. Neither `DOWN`, `UP` nor `OUT_OF_SERVICE` is reported, because an `UNKNOWN` status is used when no `HealthIndicator` returns a known status.",
+  "citation": "spring-boot-actuator-endpoints#actuator.endpoints.health",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m05-l08-q03",
+  "fact": "m05-l08-f25",
+  "stem": "A `SpringApplication` sends several application events during start-up. Relative to the application and command-line runners, when is `ApplicationStartedEvent` sent?",
+  "key": "After the context has been refreshed but before any runners have been called",
+  "distractors": [
+   "After all application and command-line runners have been called",
+   "Before the `ApplicationContext` is created, once the `Environment` is known",
+   "Only when there is an exception on startup"
+  ],
+  "explanation": "An `ApplicationStartedEvent` is sent after the context has been refreshed but before any application and command-line runners have been called. Sending it after the runners describes `ApplicationReadyEvent`, which is the event sent after any runners have been called. Sending it before the context exists describes `ApplicationEnvironmentPreparedEvent`, which is sent when the `Environment` is known but before the context is created. A startup exception is not the trigger, because `ApplicationFailedEvent` is the event sent if there is an exception on startup.",
+  "citation": "spring-boot-features-spring-application#features.spring-application.application-events-and-listeners",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m05-l08-q04",
+  "fact": "m05-l08-f51",
+  "stem": "In the Spring `TestContext` framework, the context cache is bounded. What is its default maximum size, expressed as a number of cached application contexts?",
+  "key": "32 contexts",
+  "distractors": [
+   "256 contexts",
+   "64 contexts",
+   "No limit, so contexts are never evicted"
+  ],
+  "explanation": "The size of the context cache is bounded with a default maximum size of 32. Neither 256 contexts, 64 contexts nor an unbounded cache is the default, because the context cache is bounded with a default maximum size of 32.",
+  "citation": "spring-fw-testing-ctx-caching#page-title",
+  "extract": "The size of the context cache is bounded with a default maximum size of 32.",
+  "snippet": null
+ },
+ {
+  "id": "m05-l08-q05",
+  "fact": "m05-l08-f58",
+  "stem": "When Testcontainers containers are declared as Spring beans in a test, when does Spring stop them relative to the other beans of the application context?",
+  "key": "After the destruction of all other beans",
+  "distractors": [
+   "Before the destruction of the other beans, so that clients can lose their connection",
+   "In no guaranteed order relative to the other beans",
+   "At the end of each test method that uses them"
+  ],
+  "explanation": "Container beans are stopped after the destruction of all other beans. Containers are not stopped first, because container beans are stopped after the destruction of all other beans. The order is guaranteed, because it ensures that beans relying on the containers are cleaned up whilst the container is still available. They do not stop after each test method, because container beans are stopped as part of the application context shutdown process of the `TestContext` framework.",
+  "citation": "spring-boot-testing-testcontainers#testing.testcontainers.lifecycle",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m05-l08-q06",
+  "fact": "m05-l08-f42",
+  "stem": "In a Spring Boot test annotated with `@DataJpaTest`, which of the following is NOT scanned or configured by default?",
+  "key": "Regular `@Component` beans",
+  "distractors": [
+   "`@Entity` classes",
+   "Spring Data JPA repositories",
+   "An embedded database on the classpath"
+  ],
+  "explanation": "Regular `@Component` and `@ConfigurationProperties` beans are not scanned when the `@DataJpaTest` annotation is used. Neither `@Entity` classes nor Spring Data JPA repositories are left out, because by default `@DataJpaTest` scans for `@Entity` classes and configures Spring Data JPA repositories. An embedded database is not left out, because `@DataJpaTest` configures one if it is available on the classpath.",
+  "citation": "spring-boot-testing-spring-boot-applications#testing.spring-boot-applications.autoconfigured-spring-data-jpa",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m05-l08-q07",
+  "fact": "m05-l08-f05",
+  "stem": "In Spring Boot 4, what is the default value of `management.endpoint.health.show-details`, which controls whether the health endpoint shows details?",
+  "key": "`never`",
+  "distractors": [
+   "`always`",
+   "`when-authorized`",
+   "`on-demand`"
+  ],
+  "explanation": "The default value of `management.endpoint.health.show-details` is `never`. `always`, `when-authorized` and `on-demand` are not the default, because the default value is `never`.",
+  "citation": "spring-boot-actuator-endpoints#actuator.endpoints.health",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m05-l08-q08",
+  "fact": "m05-l08-f11",
+  "stem": "In Spring Boot 4, what happens at startup by default when a health group includes or excludes a health indicator that does not exist?",
+  "key": "Startup fails",
+  "distractors": [
+   "Startup succeeds and a warning is logged",
+   "Startup succeeds and the unknown ID is ignored",
+   "Startup succeeds and the missing indicator is created"
+  ],
+  "explanation": "By default, startup fails if a health group includes or excludes a health indicator that does not exist. Startup does not succeed with a warning, with an ignored ID or with the indicator created, because by default startup fails.",
+  "citation": "spring-boot-actuator-endpoints#actuator.endpoints.health.groups",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m05-l08-q09",
+  "fact": "m05-l08-f13",
+  "stem": "In Spring Boot 4, Spring Security is on the classpath and no `SecurityFilterChain` bean exists. Which actuator endpoint is not secured by the auto-configuration?",
+  "key": "`/health`",
+  "distractors": [
+   "`/info`",
+   "`/metrics`",
+   "`/env`"
+  ],
+  "explanation": "All actuators other than `/health` are secured by Spring Boot auto-configuration. `/info`, `/metrics` and `/env` are secured, because all actuators other than `/health` are secured by Spring Boot auto-configuration.",
+  "citation": "spring-boot-actuator-endpoints#actuator.endpoints.security",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m05-l08-q10",
+  "fact": "m05-l08-f33",
+  "stem": "Several beans implement `ExitCodeGenerator` and `SpringApplication.exit()` is called. Which of the generated exit codes does Spring Boot use?",
+  "key": "The first non-zero exit code that is generated",
+  "distractors": [
+   "The highest exit code that is generated",
+   "The last non-zero exit code that is generated",
+   "The sum of all generated exit codes"
+  ],
+  "explanation": "If there is more than one `ExitCodeGenerator`, the first non-zero exit code that is generated is used. The highest, the last non-zero and the sum of the codes are not used, because the first non-zero exit code that is generated is used.",
+  "citation": "spring-boot-features-spring-application#features.spring-application.application-exit",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m05-l08-q11",
+  "fact": "m05-l08-f34",
+  "stem": "In Spring Boot 4, for which embedded web servers is graceful shutdown enabled by default, in reactive and servlet-based web applications?",
+  "key": "All three: Jetty, Reactor Netty and Tomcat",
+  "distractors": [
+   "Only Tomcat",
+   "Only Reactor Netty, for reactive applications",
+   "None, it must be enabled with a property"
+  ],
+  "explanation": "Graceful shutdown is enabled by default with all three embedded web servers, Jetty, Reactor Netty and Tomcat. Only one server, only the reactive stack or none is not the default, because graceful shutdown is enabled by default with all three embedded web servers and both kinds of application.",
+  "citation": "spring-boot-web-graceful-shutdown#page-title",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m05-l08-q12",
+  "fact": "m05-l08-f37",
+  "stem": "During the grace period of a graceful shutdown in Spring Boot 4, how do Jetty, Reactor Netty and Tomcat stop new requests from being served?",
+  "key": "They stop accepting new requests at the network layer",
+  "distractors": [
+   "They answer every new request with `503`",
+   "They answer every new request with a specific HTTP header",
+   "They keep accepting new requests until the timeout expires"
+  ],
+  "explanation": "Jetty, Reactor Netty and Tomcat stop accepting new requests at the network layer. Answering with an error status, answering with a header or accepting until the timeout is not what these servers do, because they stop accepting new requests at the network layer.",
+  "citation": "spring-boot-web-graceful-shutdown#web.graceful-shutdown.rejecting-requests-during-the-grace-period",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m05-l08-q13",
+  "fact": "m05-l08-f43",
+  "stem": "In Spring Boot 4, what happens by default to the changes made to the database by a test annotated with `@DataJpaTest` once that test ends?",
+  "key": "They are rolled back",
+  "distractors": [
+   "They are committed",
+   "They are kept until the last test of the class ends",
+   "They are committed only when the test fails"
+  ],
+  "explanation": "By default, data JPA tests are transactional and roll back at the end of each test. Committing, keeping or committing after the class is not the default, because data JPA tests roll back at the end of each test.",
+  "citation": "spring-boot-testing-spring-boot-applications#testing.spring-boot-applications.autoconfigured-spring-data-jpa",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m05-l08-q14",
+  "fact": "m05-l08-f45",
+  "stem": "In Spring Boot 4, what does a test annotated with `@SpringBootTest` do by default about the web server when you test web endpoints?",
+  "key": "It does not start the server and sets up a mock environment",
+  "distractors": [
+   "It starts the embedded server on a random port",
+   "It starts the embedded server on port `8080`",
+   "It starts the embedded server only when `MockMvc` is injected"
+  ],
+  "explanation": "By default, `@SpringBootTest` does not start the server but sets up a mock environment for testing web endpoints. Starting a server on a random port, on `8080` or only on request is not the default, because the server is not started and a mock environment is set up.",
+  "citation": "spring-boot-testing-spring-boot-applications#testing.spring-boot-applications.with-mock-environment",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m05-l08-q15",
+  "fact": "m05-l08-f50",
+  "stem": "A build tool forks a separate process for each test class running Spring tests. What happens to the Spring `TestContext` context cache as a result?",
+  "key": "The static cache is cleared between each test execution, which effectively disables caching",
+  "distractors": [
+   "The processes share the cached contexts",
+   "The cache is saved to disk and reloaded by the next process",
+   "Each process caches its contexts and keeps them for later runs"
+  ],
+  "explanation": "If tests run in separate processes, the static cache is cleared between each test execution, which effectively disables the caching mechanism. Sharing contexts across processes, keeping them on disk or caching per process is not what happens, because the static cache is cleared between each test execution.",
+  "citation": "spring-fw-testing-ctx-caching#page-title",
+  "extract": "In other words, if tests run in separate processes, the static cache is cleared between each test execution, which effectively disables the caching mechanism.",
+  "snippet": null
+ },
+ {
+  "id": "m05-l08-q16",
+  "fact": "m05-l08-f53",
+  "stem": "What does annotating a test class or method with `@DirtiesContext` instruct Spring's `TestContext` framework to do with the cached application context?",
+  "key": "Remove it from the cache and rebuild it before the next test that needs it",
+  "distractors": [
+   "Keep it in the cache and only reset its beans",
+   "Keep it in the cache and close it only at JVM exit",
+   "Disable context caching for the rest of the suite"
+  ],
+  "explanation": "`@DirtiesContext` instructs Spring to remove the context from the cache and rebuild the application context before the next test that requires it. Keeping it cached, closing it only at JVM exit or disabling the cache is not what it does, because it removes the context from the cache and rebuilds it.",
+  "citation": "spring-fw-testing-ctx-caching#page-title",
+  "extract": "This instructs Spring to remove the context from the cache and rebuild the application context before running the next test that requires the same application context.",
+  "snippet": null
+ },
+ {
+  "id": "m05-l08-q17",
+  "fact": "m05-l08-f55",
+  "stem": "In Spring Boot 4, a Testcontainers container field is annotated with `@ServiceConnection`. What takes precedence over the connection-related configuration properties?",
+  "key": "The connection details created from the container",
+  "distractors": [
+   "The connection-related configuration properties",
+   "The environment variables of the test process",
+   "The values in `application.properties`"
+  ],
+  "explanation": "The connection details take precedence over any connection-related configuration properties. The properties, the environment variables and the values in `application.properties` do not win, because the connection details take precedence over connection-related configuration properties.",
+  "citation": "spring-boot-testing-testcontainers#testing.testcontainers.service-connections",
+  "extract": null,
+  "snippet": null
+ }
+]

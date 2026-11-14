@@ -1,0 +1,276 @@
+m03-l03-q01:
+  key:
+    anchor: jep-444#Scheduling-virtual-threads
+    sentence: The JDK's virtual thread scheduler is a work-stealing ForkJoinPool that operates in FIFO mode.
+  wrong:
+  - option: The operating system scheduler, which maps each virtual thread 1:1 to a kernel thread
+    anchor: javadoc-thread#virtual-threads
+    sentence: Virtual threads are typically user-mode threads scheduled by the Java runtime rather than the operating system.
+  - option: The common `ForkJoinPool` used by parallel streams, which operates in LIFO mode
+    anchor: jep-444#Scheduling-virtual-threads
+    sentence: This ForkJoinPool is distinct from the common pool which is used, for example, in the implementation of parallel streams, and which operates in LIFO mode.
+  - option: A time-sharing scheduler that preempts a virtual thread when it has used its allotted CPU time
+    anchor: jep-444#Scheduling-virtual-threads
+    sentence: The scheduler does not currently implement time sharing for virtual threads.
+m03-l03-q02:
+  key:
+    anchor: jep-444#Executing-virtual-threads
+    sentence: If a virtual thread performs a blocking operation such as I/O or BlockingQueue.take() while it is pinned, then its carrier and the underlying OS thread are blocked for the duration of the operation.
+  wrong:
+  - option: The virtual thread unmounts, and the carrier is free to run another virtual thread
+    anchor: jep-491#Virtual-threads-are-pinned-in-synchronized-methods
+    sentence: Pinning prevents the virtual thread from unmounting.
+  - option: The scheduler adds a carrier thread to compensate for the blocked one
+    anchor: jep-444#Executing-virtual-threads
+    sentence: The scheduler does not compensate for pinning by expanding its parallelism.
+  - option: The JVM throws an exception, because blocking inside `synchronized` makes the application incorrect
+    anchor: jep-444#Executing-virtual-threads
+    sentence: Pinning does not make an application incorrect, but it might hinder its scalability.
+m03-l03-q03:
+  key:
+    anchor: jep-491#main
+    sentence: Release 24
+  wrong:
+  - option: Java 21
+    anchor: jep-444#Executing-virtual-threads
+    sentence: In a future release we may be able to remove the first limitation above, namely pinning inside synchronized.
+  - option: Java 23
+    anchor: jep-491#main
+    sentence: Release
+    exclusive: true
+  - option: Java 25
+    anchor: jep-491#main
+    sentence: Release
+    exclusive: true
+m03-l03-q04:
+  key:
+    anchor: hikaricp-pool-sizing#connections--core_count--2--effective_spindle_count
+    sentence: 'Guess what that means? Your little 4-Core i7 server with one hard disk should be running a connection pool of: 9 = ((4 * 2) + 1).'
+  wrong:
+  - option: 8 connections
+    anchor: hikaricp-pool-sizing#connections--core_count--2--effective_spindle_count
+    sentence: 'Guess what that means? Your little 4-Core i7 server with one hard disk should be running a connection pool of: 9 = ((4 * 2) + 1).'
+    exclusive: true
+  - option: 5 connections
+    anchor: hikaricp-pool-sizing#connections--core_count--2--effective_spindle_count
+    sentence: 'Guess what that means? Your little 4-Core i7 server with one hard disk should be running a connection pool of: 9 = ((4 * 2) + 1).'
+    exclusive: true
+  - option: 100 connections
+    anchor: hikaricp-pool-sizing#axiom-you-want-a-small-pool-saturated-with-threads-waiting-for-connections
+    sentence: Even 100 connections, overkill.
+m03-l03-q05:
+  key:
+    anchor: hikaricp-pool-sizing#connections--core_count--2--effective_spindle_count
+    sentence: Effective spindle count is zero if
+  wrong:
+  - option: One, the single disk that backs the cache
+    anchor: hikaricp-pool-sizing#connections--core_count--2--effective_spindle_count
+    sentence: Effective spindle count is zero if
+    exclusive: true
+  - option: The number of CPU cores of the server
+    anchor: hikaricp-pool-sizing#connections--core_count--2--effective_spindle_count
+    sentence: Effective spindle count is zero if
+    exclusive: true
+  - option: The number of connections in the pool
+    anchor: hikaricp-pool-sizing#connections--core_count--2--effective_spindle_count
+    sentence: Effective spindle count is zero if
+    exclusive: true
+m03-l03-q06:
+  key:
+    execution: m03-l03/SemaphoreLimit.java
+  wrong:
+  - option: available=3 first=true second=true third=true after release available=1
+    execution: m03-l03/SemaphoreLimit.java
+    mistake: 'off-by-one: counts three permits'
+  - option: available=2 first=true second=true third=true after release available=3
+    execution: m03-l03/SemaphoreLimit.java
+    mistake: believes tryAcquire does not take a permit
+  - option: available=2 first=true second=true third=false after release available=2
+    execution: m03-l03/SemaphoreLimit.java
+    mistake: believes release restores the initial count
+m03-l03-q07:
+  key:
+    execution: m03-l03/ScopedValueBinding.java
+  wrong:
+  - option: before bound=false inside bound=true value=duke rebound bound=true value=nested after-rebound bound=true value=nested after bound=false other thread bound=true value=duke2 main thread bound=true value=duke1
+    execution: m03-l03/ScopedValueBinding.java
+    mistake: believes the nested binding replaces the outer one
+  - option: before bound=false inside bound=true value=duke rebound bound=true value=nested after-rebound bound=true value=duke after bound=true value=duke other thread bound=true value=duke2 main thread bound=true value=duke1
+    execution: m03-l03/ScopedValueBinding.java
+    mistake: believes the binding outlives the run
+  - option: before bound=false inside bound=true value=duke rebound bound=true value=nested after-rebound bound=true value=duke after bound=false other thread bound=true value=duke2 main thread bound=true value=duke2
+    execution: m03-l03/ScopedValueBinding.java
+    mistake: believes the binding is shared across threads
+m03-l03-q08:
+  key:
+    execution: m03-l03/VirtualThreadFacts.java
+  wrong:
+  - option: virtual-thread virtual=true virtual-thread name=[virtual-0] virtual-thread daemon=true platform-thread virtual=false platform-thread daemon=false current-thread inside virtual=true
+    execution: m03-l03/VirtualThreadFacts.java
+    mistake: expects a generated name
+  - option: virtual-thread virtual=true virtual-thread name=[] virtual-thread daemon=false platform-thread virtual=false platform-thread daemon=false current-thread inside virtual=true
+    execution: m03-l03/VirtualThreadFacts.java
+    mistake: expects a non-daemon virtual thread
+  - option: virtual-thread virtual=true virtual-thread name=[] virtual-thread daemon=true platform-thread virtual=false platform-thread daemon=false current-thread inside virtual=false
+    execution: m03-l03/VirtualThreadFacts.java
+    mistake: expects the carrier as current thread
+m03-l03-q09:
+  key:
+    anchor: jep-506#Inheriting-scoped-values
+    sentence: Code in a child thread can use bindings established for a scoped value in the parent thread with minimal overhead.
+  wrong:
+  - option: The binding is copied into the child thread when the child is created
+    anchor: jep-506#Inheriting-scoped-values
+    sentence: Unlike with thread-local variables, there is no copying of a parent thread's scoped value bindings to the child thread.
+  - option: It cannot read the binding, because scoped values are not visible outside the thread that bound them
+    anchor: jep-506#Inheriting-scoped-values
+    sentence: Scoped values in the parent thread are automatically inherited by child threads created with StructuredTaskScope.
+  - option: Only if the child runs in a `ForkJoinPool`, which supports scoped value inheritance
+    anchor: jep-506#Inheriting-scoped-values
+    sentence: Legacy thread management classes such as ForkJoinPool do not support inheritance of scoped values because they cannot guarantee that a child thread forked from some parent thread scope will exit before the parent leaves that scope.
+m03-l03-q10:
+  key:
+    anchor: jep-506#Problems-with-thread-local-variables
+    sentence: In particular, if a thread pool is used, the value of a thread-local variable set in one task could, if not properly cleared, accidentally leak into an unrelated task, potentially leading to dangerous security vulnerabilities.
+  wrong:
+  - option: The value is cleared automatically as soon as task A finishes
+    anchor: jep-506#Problems-with-thread-local-variables
+    sentence: Unbounded lifetime — Once a thread's copy of a thread-local variable is set via the set method, the value to which it was set is retained for the lifetime of the thread, or until code in the thread calls the remove method.
+  - option: The value is garbage-collected once no code references the `ThreadLocal` object
+    anchor: jep-506#Problems-with-thread-local-variables
+    sentence: In addition, for programs that rely on the unconstrained mutability of thread-local variables, there may be no clear point at which it is safe for a thread to call remove; this can cause a long-term memory leak, since per-thread data will not be garbage-collected until the thread exits.
+  - option: The value stays visible only to task A, because each task has its own copy
+    anchor: javadoc-threadlocal#class-threadlocal-t
+    sentence: These variables differ from their normal counterparts in that each thread that accesses one (via its get or set method) has its own, independently initialized copy of the variable.
+m03-l03-q11:
+  key:
+    anchor: javadoc-structuredtaskscope#interface-structuredtaskscope-t-r
+    sentence: Programs can only use StructuredTaskScope when preview features are enabled.
+  wrong:
+  - option: Nothing, because the API became a final feature of the platform in Java 21
+    anchor: jep-505#Summary
+    sentence: This is a preview API.
+  - option: The `jdk.incubator.concurrent` module must be added, because the API is still incubating
+    anchor: jep-505#History
+    sentence: It previewed in JDK 21 via JEP 453, with the fork method changed to return a Subtask rather than a Future.
+  - option: The program must be launched only through the source code launcher, never compiled with `javac`
+    anchor: jep-505#StructuredTaskScope-is-a-preview-API-disabled-by-default
+    sentence: Compile the program with javac --release 25 --enable-preview Main.java and run it with java --enable-preview Main; or,
+m03-l03-q12:
+  key:
+    anchor: javadoc-structuredtaskscope-joiner#interface-structuredtaskscope-joiner-t-r
+    sentence: anySuccessfulResultOrThrow() creates a Joiner that yields the result of the first subtask to succeed for join to return.
+  wrong:
+  - option: '`Joiner.allSuccessfulOrThrow()`'
+    anchor: javadoc-structuredtaskscope-joiner#interface-structuredtaskscope-joiner-t-r
+    sentence: allSuccessfulOrThrow() creates a Joiner that yields a stream of the completed subtasks for join to return when all subtasks complete successfully.
+  - option: '`Joiner.awaitAll()`'
+    anchor: javadoc-structuredtaskscope-joiner#interface-structuredtaskscope-joiner-t-r
+    sentence: awaitAll() creates a Joiner that waits for all subtasks.
+  - option: '`Joiner.awaitAllSuccessfulOrThrow()`'
+    anchor: javadoc-structuredtaskscope-joiner#interface-structuredtaskscope-joiner-t-r
+    sentence: awaitAllSuccessfulOrThrow() creates a Joiner that waits for all successful subtasks.
+m03-l03-q13:
+  key:
+    anchor: jep-525#History
+    sentence: Joiner::anySuccessfulResultOrThrow() is now named anySuccessfulOrThrow().
+  wrong:
+  - option: '`firstSuccessfulOrThrow()`'
+    anchor: jep-525#History
+    sentence: Joiner::anySuccessfulResultOrThrow() is now named anySuccessfulOrThrow().
+    exclusive: true
+  - option: '`anyResultOrThrow()`'
+    anchor: jep-525#History
+    sentence: Joiner::anySuccessfulResultOrThrow() is now named anySuccessfulOrThrow().
+    exclusive: true
+  - option: '`awaitAnySuccessful()`'
+    anchor: jep-525#History
+    sentence: Joiner::anySuccessfulResultOrThrow() is now named anySuccessfulOrThrow().
+    exclusive: true
+m03-l03-q14:
+  key:
+    anchor: jep-533#History
+    sentence: The Joiner factory method awaitAll() has been removed.
+  wrong:
+  - option: '`allSuccessfulOrThrow()`'
+    anchor: jep-533#History
+    sentence: The Joiner factory methods allSuccessfulOrThrow(), anySuccessfulOrThrow(), and awaitAllSuccessfulOrThrow() now create joiners that cause join() to throw an ExecutionException when the outcome is an exception.
+    exclusive: true
+  - option: '`anySuccessfulOrThrow()`'
+    anchor: jep-533#History
+    sentence: The Joiner factory methods allSuccessfulOrThrow(), anySuccessfulOrThrow(), and awaitAllSuccessfulOrThrow() now create joiners that cause join() to throw an ExecutionException when the outcome is an exception.
+    exclusive: true
+  - option: '`awaitAllSuccessfulOrThrow()`'
+    anchor: jep-533#History
+    sentence: The Joiner factory methods allSuccessfulOrThrow(), anySuccessfulOrThrow(), and awaitAllSuccessfulOrThrow() now create joiners that cause join() to throw an ExecutionException when the outcome is an exception.
+    exclusive: true
+m03-l03-q15:
+  key:
+    anchor: jep-505#Cancellation
+    sentence: The try-with-resources statement will then cancel the scope, which will cancel all the subtasks and wait for them to terminate.
+  wrong:
+  - option: It returns at once and leaves the unfinished subtasks running in the background
+    anchor: jep-505#Cancellation
+    sentence: The close method always waits for threads executing subtasks to finish, even if the scope is cancelled.
+  - option: It ignores the interrupt, so `join()` completes normally
+    anchor: jep-505#Cancellation
+    sentence: If this occurs then join() will throw an exception because there is no point in continuing.
+  - option: It terminates the subtask threads forcibly, even those blocked in non-interruptible methods
+    anchor: jep-505#Cancellation
+    sentence: Subtasks that do not respond to interrupts because, e.g., they block on methods that are not interruptible, may delay the closing of a scope indefinitely.
+m03-l03-q16:
+  key:
+    anchor: jep-505#History
+    sentence: It previewed in JDK 21 via JEP 453, with the fork method changed to return a Subtask rather than a Future.
+  wrong:
+  - option: A scope is opened with static factory methods instead of public constructors
+    anchor: jep-505#History
+    sentence: In particular, a StructuredTaskScope is now opened via static factory methods rather than public constructors.
+  - option: '`Joiner::anySuccessfulResultOrThrow()` is renamed `anySuccessfulOrThrow()`'
+    anchor: jep-525#History
+    sentence: Joiner::anySuccessfulResultOrThrow() is now named anySuccessfulOrThrow().
+  - option: The `Joiner` factory method `awaitAll()` is removed
+    anchor: jep-533#History
+    sentence: The Joiner factory method awaitAll() has been removed.
+m03-l03-q17:
+  key:
+    anchor: javadoc-thread#virtual-threads
+    sentence: Virtual threads are suitable for executing tasks that spend most of the time blocked, often waiting for I/O operations to complete.
+  wrong:
+  - option: Long running CPU intensive operations that keep a core busy for minutes
+    anchor: javadoc-thread#virtual-threads
+    sentence: Virtual threads are not intended for long running CPU intensive operations.
+  - option: Tasks that must change their own thread priority at run time
+    anchor: javadoc-thread#virtual-threads
+    sentence: Virtual threads have a fixed thread priority that cannot be changed.
+  - option: Background work that must keep the JVM running after `main` returns
+    anchor: javadoc-thread#virtual-threads
+    sentence: Virtual threads are daemon threads and so do not prevent the shutdown sequence from beginning.
+m03-l03-q18:
+  key:
+    anchor: jep-444#Observing-virtual-threads
+    sentence: 'Because visualizing and analyzing a great many threads can benefit from tooling, jcmd can emit the new thread dump in JSON format in addition to plain text:'
+  wrong:
+  - option: It is produced by extending the traditional `jstack` thread dump
+    anchor: jep-444#Observing-virtual-threads
+    sentence: Accordingly, we will not extend traditional thread dumps to include virtual threads; we will, rather, introduce a new kind of thread dump in jcmd to present virtual threads alongside platform threads, all grouped in a meaningful way.
+  - option: It pauses the application while it lists the threads
+    anchor: jep-444#Observing-virtual-threads
+    sentence: Moreover, because it might need to list a great many threads, generating a new thread dump does not pause the application.
+  - option: It lists the object addresses and locks held by each thread
+    anchor: jep-444#Observing-virtual-threads
+    sentence: The new thread dump format does not include object addresses, locks, JNI statistics, heap statistics, and other information that appears in traditional thread dumps.
+m03-l03-q19:
+  key:
+    anchor: jep-491#Choosing-between-synchronized-and-java-util-concurrent-locks
+    sentence: 'If you are writing new code, we agree with the recommendation in Java Concurrency in Practice §13.4: Use synchronized where practical, since it is more convenient and less error prone, and use ReentrantLock and the other APIs in java.util.concurrent.locks when more flexibility is required.'
+  wrong:
+  - option: Migrate `synchronized` code to `ReentrantLock` before running it on virtual threads
+    anchor: jep-491#Choosing-between-synchronized-and-java-util-concurrent-locks
+    sentence: Once the synchronized keyword no longer pins virtual threads, such migration will no longer be necessary.
+  - option: Convert every `ReentrantLock` back to `synchronized` in code that was already migrated
+    anchor: jep-491#Choosing-between-synchronized-and-java-util-concurrent-locks
+    sentence: You need not revert code that has been migrated to use ReentrantLock back to using synchronized.
+  - option: 'Choose by thread type alone: `ReentrantLock` for virtual threads and `synchronized` for platform threads'
+    anchor: jep-491#Choosing-between-synchronized-and-java-util-concurrent-locks
+    sentence: Once the synchronized keyword no longer pins virtual threads, you can choose between synchronized and the APIs in the java.util.concurrent.locks package based solely upon which best solves the problem at hand.

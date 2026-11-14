@@ -1,0 +1,296 @@
+m11-l01-q01:
+  key:
+    execution: m11-l01/PrefixSteps.java
+  wrong:
+  - option: '[1, 2, 3]
+
+      [1, 2, 1]
+
+      [1, 2, 1]
+
+      [5, 6]
+
+      20'
+    execution: m11-l01/PrefixSteps.java
+    mistake: takeWhile and dropWhile read as filter
+  - option: '[[1, 2], [], [3]]
+
+      [1, 2, 1]
+
+      [1, 2]
+
+      [5, 1, 6]
+
+      20'
+    execution: m11-l01/PrefixSteps.java
+    mistake: flatMap not flattening
+  - option: '[1, 2, 3]
+
+      [1, 2, 1]
+
+      [1, 2]
+
+      [5, 1, 6]
+
+      10'
+    execution: m11-l01/PrefixSteps.java
+    mistake: identity dropped from the reduction
+m11-l01-q02:
+  key:
+    execution: m11-l01/ComposedComparators.java
+  wrong:
+  - option: '[amy, Zed, Dee, Cid]
+
+      [Zed, amy, Dee, Cid]'
+    execution: m11-l01/ComposedComparators.java
+    mistake: null city placed last by the first comparator
+  - option: '[Cid, Zed, amy, Dee]
+
+      [Zed, amy, Dee, Cid]'
+    execution: m11-l01/ComposedComparators.java
+    mistake: case-insensitive tie-break ignored
+  - option: '[Cid, amy, Zed, Dee]
+
+      [Cid, Zed, amy, Dee]'
+    execution: m11-l01/ComposedComparators.java
+    mistake: nullsLast read as nullsFirst
+m11-l01-q03:
+  key:
+    execution: m11-l01/CollectorGrouping.java
+  wrong:
+  - option: '{a={5=[apple, apple], 7=[avocado]}, b={6=[banana], 9=[blueberry]}, c={6=[cherry]}}
+
+      {false=4, true=2}
+
+      {false=0, true=0}'
+    execution: m11-l01/CollectorGrouping.java
+    mistake: downstream counting ignored
+  - option: '{a={5=2, 7=1}, b={6=1, 9=1}, c={6=1}}
+
+      {false=4, true=2}
+
+      {}'
+    execution: m11-l01/CollectorGrouping.java
+    mistake: empty partitions omitted
+  - option: '{a={5=2, 7=1}, b={6=1, 9=1}, c={6=1}}
+
+      {false=2, true=4}
+
+      {false=0, true=0}'
+    execution: m11-l01/CollectorGrouping.java
+    mistake: off-by-one on the length threshold
+m11-l01-q04:
+  key:
+    execution: m11-l01/CollectorMerging.java
+  wrong:
+  - option: '{a=5, b=9, c=6}
+
+      38 letters in 6 words
+
+      Duplicate key apple (attempted merging values 5 and 5)
+
+      [5, 6, 7, 9]'
+    execution: m11-l01/CollectorMerging.java
+    mistake: last value wins instead of the merge function
+  - option: '{a=17, b=15, c=6}
+
+      33 letters in 5 words
+
+      Duplicate key apple (attempted merging values 5 and 5)
+
+      [5, 6, 7, 9]'
+    execution: m11-l01/CollectorMerging.java
+    mistake: duplicate words removed before teeing
+  - option: '{a=17, b=15, c=6}
+
+      38 letters in 6 words
+
+      Duplicate key apple (attempted merging values 5 and 5)
+
+      [5, 7, 6, 9, 6, 5]'
+    execution: m11-l01/CollectorMerging.java
+    mistake: collected into a list instead of a sorted set
+m11-l01-q05:
+  key:
+    execution: m11-l01/GathererSteps.java
+  wrong:
+  - option: '[[1, 2, 3], [4, 5, 6]]
+
+      [[1, 2, 3], [2, 3, 4], [3, 4, 5]]
+
+      [[1, 2, 3, 4]]
+
+      []
+
+      [15]
+
+      [1, 3, 6, 10, 15]
+
+      windows are unmodifiable'
+    execution: m11-l01/GathererSteps.java
+    mistake: short last window dropped
+  - option: '[[1, 2, 3], [4, 5, 6], [7, 8]]
+
+      [[1, 2, 3], [2, 3, 4], [3, 4, 5]]
+
+      [[1, 2, 3, 4]]
+
+      []
+
+      [15]
+
+      [0, 1, 3, 6, 10, 15]
+
+      windows are unmodifiable'
+    execution: m11-l01/GathererSteps.java
+    mistake: scan emits the initial value
+  - option: '[[1, 2, 3], [4, 5, 6], [7, 8]]
+
+      [[1, 2, 3], [2, 3, 4], [3, 4, 5]]
+
+      []
+
+      []
+
+      [15]
+
+      [1, 3, 6, 10, 15]
+
+      windows are unmodifiable'
+    execution: m11-l01/GathererSteps.java
+    mistake: no window when the stream is shorter than the window
+m11-l01-q06:
+  key:
+    execution: m11-l01/PipelineTrace.java
+  wrong:
+  - option: 'peek a
+
+      peek b
+
+      peek c
+
+      peek d
+
+      Optional[B]
+
+      3
+
+      [1, 2, 4, 8, 16, 32, 64]
+
+      stream has already been operated upon or closed'
+    execution: m11-l01/PipelineTrace.java
+    mistake: short-circuit ignored
+  - option: 'peek a
+
+      peek b
+
+      Optional[B]
+
+      counting 1
+
+      counting 2
+
+      counting 3
+
+      3
+
+      [1, 2, 4, 8, 16, 32, 64]
+
+      stream has already been operated upon or closed'
+    execution: m11-l01/PipelineTrace.java
+    mistake: count assumed to run the pipeline
+  - option: 'peek a
+
+      peek b
+
+      Optional[B]
+
+      3
+
+      [1, 2, 4, 8, 16, 32, 64]'
+    execution: m11-l01/PipelineTrace.java
+    mistake: consumed stream assumed reusable
+m11-l01-q07:
+  key:
+    anchor: javadoc-collectors#partitioningBy(java.util.function.Predicate,java.util.stream.Collector)
+    sentence: The returned Map always contains mappings for both false and true keys.
+  wrong:
+  - option: Its `true` entry is `null`, because no element reached the downstream collector
+    anchor: javadoc-collectors#partitioningBy(java.util.function.Predicate,java.util.stream.Collector)
+    sentence: If a partition has no elements, its value in the result Map will be obtained by calling the downstream collector's supplier function and then applying the finisher function.
+  - option: It is an unmodifiable map, as the documentation guarantees for this collector
+    anchor: javadoc-collectors#partitioningBy(java.util.function.Predicate,java.util.stream.Collector)
+    sentence: There are no guarantees on the type, mutability, serializability, or thread-safety of the Map returned.
+  - option: Its `true` entry is an empty `List`, whatever the downstream collector is
+    anchor: javadoc-collectors#partitioningBy(java.util.function.Predicate,java.util.stream.Collector)
+    sentence: Returns a Collector which partitions the input elements according to a Predicate, reduces the values in each partition according to another Collector, and organizes them into a Map<Boolean, D> whose values are the result of the downstream reduction.
+m11-l01-q08:
+  key:
+    anchor: javadoc-collectors#toMap(java.util.function.Function,java.util.function.Function,java.util.function.BinaryOperator)
+    sentence: If the mapped keys contain duplicates (according to Object.equals(Object)), the value mapping function is applied to each equal element, and the results are merged using the provided merging function.
+  wrong:
+  - option: It throws an exception unconditionally, as every form of `toMap` does
+    anchor: javadoc-collectors#toMap(java.util.function.Function,java.util.function.Function,java.util.function.BinaryOperator)
+    sentence: The other forms of toMap simply use a merge function that throws unconditionally, but you can easily write more flexible merge policies.
+  - option: The merge function runs only when the two mapped values are themselves equal
+    anchor: javadoc-collectors#toMap(java.util.function.Function,java.util.function.Function,java.util.function.BinaryOperator)
+    sentence: mergeFunction - a merge function, used to resolve collisions between values associated with the same key, as supplied to Map.merge(Object, Object, BiFunction)
+  - option: The returned map is always a `HashMap`
+    anchor: javadoc-collectors#toMap(java.util.function.Function,java.util.function.Function,java.util.function.BinaryOperator)
+    sentence: There are no guarantees on the type, mutability, serializability, or thread-safety of the Map returned.
+m11-l01-q09:
+  key:
+    anchor: jep-485#Built-in-gatherers
+    sentence: fold is a stateful many-to-one gatherer which constructs an aggregate incrementally and emits that aggregate when no more input elements exist.
+  wrong:
+  - option: '`scan`'
+    anchor: jep-485#Built-in-gatherers
+    sentence: scan is a stateful one-to-one gatherer which applies a supplied function to the current state and the current element to produce the next element, which it passes downstream.
+  - option: '`windowSliding`'
+    anchor: jep-485#Built-in-gatherers
+    sentence: windowSliding is a stateful many-to-many gatherer which groups input elements into lists of a supplied size. After the first window, each subsequent window is created from a copy of its predecessor by dropping the first element and appending the next element from the input stream..
+  - option: '`mapConcurrent`'
+    anchor: jep-485#Built-in-gatherers
+    sentence: mapConcurrent is a stateful one-to-one gatherer which invokes a supplied function for each input element concurrently, up to a supplied limit.
+m11-l01-q10:
+  key:
+    anchor: javadoc-stream-package#SideEffects
+    sentence: that behavioral parameters are always invoked, since a stream implementation is free to elide operations (or entire stages) from a stream pipeline if it can prove that it would not affect the result of the computation.
+  wrong:
+  - option: It always runs on the same thread as the other operations on the same element
+    anchor: javadoc-stream-package#SideEffects
+    sentence: that different operations on the "same" element within the same stream pipeline are executed in the same thread; and
+  - option: Its side-effects are visible to other threads once the terminal operation returns
+    anchor: javadoc-stream-package#SideEffects
+    sentence: the visibility of those side-effects to other threads;
+  - option: In a pipeline constrained to encounter order, it is applied to the elements in that order
+    anchor: javadoc-stream-package#SideEffects
+    sentence: no guarantees are made as to the order in which the mapper function is applied to individual elements, or in what thread any behavioral parameter is executed for a given element.
+m11-l01-q11:
+  key:
+    anchor: javadoc-stream-package#Reduction
+    sentence: (The combiner is necessary in parallel reductions, where the input is partitioned, a partial accumulation computed for each partition, and then the partial results are combined to produce a final result.)
+  wrong:
+  - option: It is applied once per element to update the running total
+    anchor: javadoc-stream-package#Reduction
+    sentence: The combiner function combines two partial results to produce a new partial result.
+  - option: It supplies the seed value and the default result for empty input
+    anchor: javadoc-stream-package#Reduction
+    sentence: Here, the identity element is both an initial seed value for the reduction and a default result if there are no input elements.
+  - option: It maps each element to the result type before the accumulator runs
+    anchor: javadoc-stream-package#Reduction
+    sentence: The three-argument form is a generalization of the two-argument form, incorporating a mapping step into the accumulation step.
+m11-l01-q12:
+  key:
+    anchor: javadoc-stream-package#StreamOps
+    sentence: For example, one cannot produce any results from sorting a stream until one has seen all elements of the stream.
+  wrong:
+  - option: '`sorted()` is a stateless operation, so it waits for the terminal operation to run'
+    anchor: javadoc-stream-package#StreamOps
+    sentence: Stateful operations, such as distinct and sorted, may incorporate state from previously seen elements when processing new elements.
+  - option: Intermediate operations are eager, so `sorted()` runs to completion before the terminal operation starts
+    anchor: javadoc-stream-package#StreamOps
+    sentence: Traversal of the pipeline source does not begin until the terminal operation of the pipeline is executed.
+  - option: A pipeline with a stateful operation cannot run in parallel and falls back to a sequential pass
+    anchor: javadoc-stream-package#StreamOps
+    sentence: As a result, under parallel computation, some pipelines containing stateful intermediate operations may require multiple passes on the data or may need to buffer significant data.

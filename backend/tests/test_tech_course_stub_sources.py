@@ -7,7 +7,7 @@ import json
 from pathlib import Path
 
 import pytest
-from scripts.tech_course import lessons, refresh_stub_sources, source_guard
+from scripts.tech_course import bullet_sources, lessons, refresh_stub_sources, source_guard
 
 STUB = "# Title\n\n:::note{type=info}\nLesson not written yet.\n:::\n\n## Sources\n\n- `1.1.a` (J): old\n"
 HEADER = "bullet\tclass\ttier_a\ttier_bc\trule\tpinned\tnote\n"
@@ -90,8 +90,8 @@ def guard(world: tuple[Path, Path], capsys: pytest.CaptureFixture[str]) -> list[
     return capsys.readouterr().out.splitlines()
 
 
-@pytest.mark.parametrize(("bullets", "expected"), [(5, "write"), (4, "skip")])
-def test_lesson_is_skipped_only_when_unsourced_exceed_a_fifth(
+@pytest.mark.parametrize(("bullets", "expected"), [(5, "write"), (4, "fetch")])
+def test_lesson_needs_a_fetch_when_unsourced_exceed_a_fifth(
     world: tuple[Path, Path], capsys: pytest.CaptureFixture[str], bullets: int, expected: str
 ) -> None:
     folder, s0 = world
@@ -105,3 +105,20 @@ def test_lesson_is_skipped_only_when_unsourced_exceed_a_fifth(
     line = guard(world, capsys)[0].split("\t")
     assert line[:5] == ["m01-l01", str(bullets), "1", f"{100 // bullets}", expected]
     assert line[5] == ids[-1]
+
+
+def test_guard_ignores_dropped_bullets_and_skips_only_when_nothing_is_sourced(
+    world: tuple[Path, Path], capsys: pytest.CaptureFixture[str]
+) -> None:
+    folder, s0 = world
+    (folder / "m01-l01.md").write_text(STUB)
+    write_programme(folder.parent.parent, ["1.1.a", "1.1.b", "1.1.c"])
+    (s0 / "coverage" / "m01.final.tsv").write_text(
+        HEADER + row("1.1.a", "J") + row("1.1.b", "J") + row("1.1.c", "drop")
+    )
+    (s0 / "coverage" / "gaps.tsv").write_text("bullet\ttier_bc\tnote\n")
+    assert guard(world, capsys)[0].split("\t") == ["m01-l01", "2", "2", "100", "skip", "1.1.a 1.1.b"]
+
+
+def test_dropped_bullets_include_r2_bullets_without_a_stored_source(world: tuple[Path, Path]) -> None:
+    assert bullet_sources.dropped_bullets("backend-in-depth", world[1]) == {"1.1.c"}

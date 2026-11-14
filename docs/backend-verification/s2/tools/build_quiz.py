@@ -91,7 +91,9 @@ def main() -> int:
     parser.add_argument("--verdicts", type=Path)
     args = parser.parse_args()
     candidates = json.loads(args.candidates.read_text(encoding="utf-8"))
-    failed = failed_ids(args.verdicts)
+    # default: the verdict file beside the candidates, so a missing flag never ships failed questions
+    verdicts = args.verdicts or args.candidates.with_name(args.candidates.name.replace(".questions.json", ".verdicts.tsv"))
+    failed = failed_ids(verdicts)
     kept = [c for c in candidates if c["id"] not in failed]
     slots = slot_order(len(kept), args.candidates.stem)
     variants = [as_variant(c, slot) for c, slot in zip(kept, slots, strict=True)]

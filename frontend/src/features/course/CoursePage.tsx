@@ -18,6 +18,7 @@ import { cn } from "@/lib/cn";
 import { OneLineSummary } from "@/features/course/OneLineSummary";
 import { useCourse } from "@/features/courses/CourseContext";
 import { useCourseTree } from "@/features/course/queries";
+import { PracticePresets } from "@/features/practice/PracticePresets";
 
 function isComplete(m: CourseModule): boolean {
   return m.hasContent && m.lessonsTotal > 0 && m.lessonsCompleted >= m.lessonsTotal;
@@ -285,7 +286,9 @@ export function CoursePage() {
           </Card>
         </Link>
       )}
-      {course.course.psicotecnicos && course.course.psicotecnicos.length > 0 && (
+      <PracticePresets course={course} />
+      {/* A course with presets reaches its generators from them; the others keep the card they had. */}
+      {!course.course.practicePresets && course.course.psicotecnicos && course.course.psicotecnicos.length > 0 && (
         <Link to={path("/practice/psicotecnicos")} className="block">
           <Card className="flex items-center justify-between gap-3 p-4 transition-colors hover:border-primary">
             <div>

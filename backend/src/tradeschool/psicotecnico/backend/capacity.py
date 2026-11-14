@@ -52,7 +52,9 @@ class CapacityGenerator(BackendGenerator[Capacity]):
     forms: ClassVar[tuple[str, ...]] = ("{}", "about {}", "approximately {}")
     min_separation: ClassVar[Fraction | None] = Fraction(1, 5)
     citation: ClassVar[Citation] = Citation(
-        "m09-l01", "no stored anchor states the arithmetic: script from assumptions (amendment 1)"
+        "m09-l01",
+        "no stored anchor states the arithmetic: script from assumptions (amendment 1)",
+        confirmed="paper-oneil-lsm-tree#p3",
     )
 
     def scenario(self, rng: random.Random, level: int) -> Capacity:

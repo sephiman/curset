@@ -1,0 +1,188 @@
+S1.1	"These benefits will normally be worthwhile"	fail	opens the lesson with "These benefits", which have no antecedent
+S1.2	"The exact point at which a"	pass
+S1.3	"Partitioning effectively substitutes for the upper"	pass
+S1.4	"Seldom-used data can be migrated to"	pass
+S1.5	"According to Microsoft's Azure Architecture Center,"	pass
+S1.6	"It adds that operations that affect"	pass
+S1.7	"According to the same guidance, there"	pass
+S1.8	"In horizontal partitioning, often called sharding,"	pass
+S1.9	"In vertical partitioning, each partition holds"	pass
+S1.10	"In functional partitioning, data is aggregated"	pass
+S1.11	"Data partitioning splits tables into data"	pass
+S1.12	"Many solutions let multiple servers handle"	fail	drops "of the above"; anchor then describes a solution doing exactly this
+R1.1	"Range"	pass
+R1.2	"List"	pass
+R1.3	"Hash"	pass
+S2.1	"Partitioning refers to splitting what is"	pass
+S2.2	"Each range's bounds are understood as"	pass
+S2.3	"For example, if one partition's range"	pass
+S2.4	"The table is partitioned by specifying"	fail	modulus and remainder describe hash partitioning; reads as the range table
+S2.5	"Dropping an individual partition using DROP"	pass
+S2.6	"These commands also entirely avoid the"	pass
+S2.7	"The partitioned table itself is a"	pass
+S2.8	"Instead, the storage belongs to partitions,"	pass
+S2.9	"All rows inserted into a partitioned"	pass
+S2.10	"Updating the partition key of a"	pass
+S2.11	"It is not possible to turn"	pass
+S2.12	"However, it is possible to add"	pass
+S3.1	"Write-ahead log shipping can be synchronous"	pass
+S3.2	"Logical replication allows replication of data"	pass
+S3.3	"A server that is publishing its"	pass
+S3.4	"Logical replication uses a publish and"	pass
+S3.5	"The subscriber applies the data in"	pass
+S3.6	"The standby connects to the primary,"	pass
+S3.7	"PostgreSQL streaming replication is asynchronous by"	pass
+S3.8	"The delay between committing a transaction"	pass
+S3.9	"If the primary server crashes then"	pass
+S3.10	"The amount of data loss is"	pass
+S3.11	"When requesting synchronous replication, each commit"	pass
+S3.12	"The only possibility that data can"	pass
+S3.13	"The minimum wait time is the"	pass
+S3.14	"Read-only transactions and transaction rollbacks need"	pass
+S3.15	"Subtransaction commits do not wait for"	pass
+S3.16	"Long running actions such as data"	pass
+S4.1	"Using asynchronous multimaster replication, each server"	pass
+S4.2	"The conflicts can be resolved by"	pass
+S4.3	"In synchronous multimaster replication, each server"	pass
+S4.4	"Heavy write activity can cause excessive"	pass
+S4.5	"PostgreSQL does not offer this type"	pass
+S4.6	"On a hot standby, the WAL-logged"	pass
+S4.7	"Application of a vacuum cleanup record"	pass
+S4.8	"Allowing WAL application to wait indefinitely"	pass
+S4.9	"The standby server must either delay"	pass
+S5.1	"Every Redis master has a replication"	pass
+S5.2	"Each master also takes an offset"	pass
+S5.3	"When replicas connect to masters, they"	pass
+S5.4	"If there is not enough backlog"	pass
+S5.5	"The master starts a background saving"	pass
+S5.6	"If the master receives multiple concurrent"	pass
+S5.7	"Every indexing operation in Elasticsearch is"	pass
+S5.8	"The primary shard is responsible for"	pass
+S5.9	"Since replicas can be offline, the"	pass
+S5.10	"The primary is responsible for maintaining"	fail	"this invariant" and "this set" undefined; in-sync copies never introduced
+S5.11	"Once all in-sync replicas have successfully"	pass
+S5.12	"Each primary stage will not complete"	pass
+S5.13	"The coordinating stage is not complete"	pass
+S6.1	"Dynamo provides eventual consistency, which allows"	pass
+S6.2	"Each data item in Dynamo is"	pass
+S6.3	"A typical value of N used"	pass
+S6.4	"R is the minimum number of"	pass
+S6.5	"W is the minimum number of"	pass
+S6.6	"Setting R and W such that"	pass
+S6.7	"With N=3, R=2 and W=2 the"	pass
+S6.8	"With N=3, R=1 and W=1 the"	pass
+S6.9	"With N=3, R=1 and W=3 the"	pass
+S6.10	"With N=3, R=2 and W=1 the"	pass
+S6.11	"With N=5, R=3 and W=3 the"	pass
+S6.12	"With N=5, R=2 and W=2 the"	pass
+S6.13	"Dynamo uses a “sloppy quorum”: all"	pass
+S6.14	"Applications that need the highest level"	pass
+S7.1	"Redis Cluster does not use consistent"	pass
+S7.2	"There are 16384 hash slots in"	pass
+S7.3	"14 out of 16 CRC16 output"	pass
+S7.4	"Every node in a Redis Cluster"	pass
+S7.5	"Moving hash slots from a node"	pass
+S7.6	"Resharding basically means to move hash"	pass
+S7.7	"Currently there is no way for"	pass
+S7.8	"Redis Cluster supports multiple key operations"	pass
+S7.9	"Hash tags are a way to"	pass
+S7.10	"If the key contains a "{...}""	pass
+S7.11	"The CRC16 of the string `123456789`"	pass
+S7.12	"The CRC16 value 31C3 is 12739,"	pass
+S7.13	"Only `user1000` is hashed in both"	pass
+S7.14	"The first `{` of `foo{}{bar}` is"	pass
+S7.15	"The substring between the first `{`"	pass
+S7.16	"The algorithm stops at the first"	pass
+S8.1	"Dynamo’s partitioning scheme relies on consistent"	pass
+S8.2	"In consistent hashing, the output range"	pass
+S8.3	"The principle advantage of consistent hashing"	pass
+S8.4	"The basic consistent hashing algorithm presents"	pass
+S8.5	"The random position assignment of each"	pass
+S8.6	"Instead of mapping a node to"	pass
+S8.7	"If a node becomes unavailable, the"	pass
+S8.8	"The number of virtual nodes that"	pass
+S9.1	"Each index in Elasticsearch is a"	pass
+S9.2	"Each document in an index belongs"	pass
+S9.3	"A replica shard is a copy"	pass
+S9.4	"The number of primary shards in"	pass
+S9.5	"Kafka exposes the interface for semantic"	pass
+S9.6	"If the key chosen was a"	pass
+S9.7	"According to Microsoft's Azure Architecture Center,"	pass
+S9.8	"It gives range sharding by the"	pass
+S9.9	"According to the same guidance, as"	pass
+S9.10	"Some data stores, such as Azure"	pass
+R2.1	"`noeviction`"	pass
+R2.2	"`allkeys-lru`"	pass
+R2.3	"`allkeys-lfu`"	pass
+R2.4	"`allkeys-random`"	pass
+R2.5	"`volatile-ttl`"	pass
+S10.1	"According to the Amazon ElastiCache User"	pass
+S10.2	"The guide lists as disadvantages the"	fail	disadvantages (three trips, stale data) not in cited ref Strategies.LazyLoading
+S10.3	"According to the same guide, the"	pass
+S10.4	"Data in the cache is never"	pass
+S10.5	"Adding a time to live to"	fail	anchor: TTL minimizes wasted space; nothing on staleness
+S10.6	"When client-side caching is enabled, the"	pass
+S10.7	"When any client writes new data"	pass
+S10.8	"This message warns the clients that"	pass
+S10.9	"Next time a client reads from"	pass
+S10.10	"If any connection from a client"	pass
+S10.11	"Caching gives the most benefit for"	pass
+S10.12	"For data such as counters and"	pass
+S10.13	"If you had 10MB (or 10485760"	pass
+S10.14	"Use the maxmemory-policy configuration directive to"	pass
+S10.15	"The volatile-xxx policies behave like noeviction"	pass
+S10.16	"allkeys-lru is a good default option"	pass
+S10.17	"The Redis LRU algorithm uses an"	pass
+S10.18	"The Redis LRU algorithm samples a"	pass
+S10.19	"The reason Redis does not use"	pass
+S10.20	"Starting with Redis 4.0, the Least"	pass
+S10.21	"By default Redis is configured to"	pass
+S10.22	"The counter logarithm factor changes how"	pass
+S11.1	"Partitioning pays off normally only when"	pass
+S11.2	"PostgreSQL offers range, list and hash"	pass
+S11.3	"Range bounds are inclusive at the"	pass
+S11.4	"PostgreSQL streaming replication is asynchronous by"	pass
+S11.5	"With synchronous replication, each commit of"	pass
+S11.6	"A hot standby must either delay"	pass
+S11.7	"Redis replicas send a replication ID"	pass
+S11.8	"An Elasticsearch primary acknowledges a write"	pass
+S11.9	"Setting R and W such that"	fail	R+W=N does not guarantee overlap; sets may still overlap
+S11.10	"Redis Cluster has 16384 hash slots,"	pass
+S11.11	"Moving hash slots between Redis Cluster"	pass
+S11.12	"In Elasticsearch the number of primary"	pass
+S11.13	"Redis tracking sends an invalidation message"	pass
+S11.14	"Redis offers `noeviction` and several `allkeys-`"	pass
+g-partitioned-table	pass
+g-hash-slot	pass
+g-hash-tag	pass
+g-consistent-hashing	pass
+g-virtual-node	pass
+g-sloppy-quorum	pass
+m09-l02-q01	pass
+m09-l02-q02	pass
+m09-l02-q03	fail	exclusive group on an outcome, not a single-valued attribute; one sentence for three
+m09-l02-q04	pass
+m09-l02-q05	pass
+m09-l02-q06	pass
+m09-l02-q07	pass
+m09-l02-q08	pass
+m09-l02-q09	pass
+m09-l02-q10	fail	standbys distractor refuted only by restating the key sentence
+m09-l02-q11	pass
+m09-l02-q12	pass
+m09-l02-q13	fail	indefinite wait is allowed (infinite delay value); distractor arguably true
+m09-l02-q14	pass
+m09-l02-q15	pass
+m09-l02-q16	pass
+m09-l02-q17	pass
+m09-l02-q18	pass
+m09-l02-q19	pass
+m09-l02-q20	pass
+S1.1	recheck	pass
+S1.12	recheck	pass
+S2.4	recheck	pass
+S5.10	recheck	pass
+S10.2	recheck	pass
+S10.5	recheck	pass
+S11.9	recheck	pass
+# checked 180, passed 177, failed 3 (after recheck)

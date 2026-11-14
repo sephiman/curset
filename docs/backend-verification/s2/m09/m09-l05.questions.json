@@ -1,0 +1,227 @@
+[
+ {
+  "id": "m09-l05-q01",
+  "fact": "m09-l05-f05",
+  "stem": "In a two-component LSM-tree as described by O'Neil and colleagues, where is a new index entry inserted, and what does that insert cost in I/O?",
+  "key": "Into the memory-resident C0 tree, at no I/O cost",
+  "distractors": [
+   "Into the disk-resident C1 tree, at the cost of one page write",
+   "Into the memory-resident C0 tree, at the cost of one random disk read",
+   "Into the C0 and C1 trees at once, at the cost of one page write each"
+  ],
+  "explanation": "Inserting an index entry into the memory resident C0 tree has no I/O cost. Insertion into the disk-resident C1 tree is wrong because the index entry is inserted into the memory resident C0 tree. A random disk read is wrong because the insert into C0 has no I/O cost. Insertion into C0 and C1 at once is wrong because the entry migrates out to the C1 tree on disk only in time.",
+  "citation": "paper-oneil-lsm-tree#p4",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m09-l05-q02",
+  "fact": "m09-l05-f14",
+  "stem": "In a PostgreSQL database that uses the C locale, which condition on an indexed column can the optimizer serve with a B-tree index when the pattern is a constant?",
+  "key": "`col LIKE 'foo%'`, because the pattern is anchored to the beginning of the string",
+  "distractors": [
+   "`col LIKE '%bar'`, because the pattern ends with a constant",
+   "`col ILIKE 'foo%'`, because case-insensitive patterns are always supported",
+   "`col ~ 'bar$'`, because a regular expression anchored at its end is supported"
+  ],
+  "explanation": "The optimizer can use a B-tree index for `LIKE` and `~` if the pattern is a constant and is anchored to the beginning of the string. The pattern `col LIKE '%bar'` is wrong because it is the documented example that cannot use a B-tree index. The `ILIKE` condition is wrong because it works only if the pattern starts with non-alphabetic characters. The pattern `col ~ 'bar$'` is wrong because it is not anchored to the beginning of the string.",
+  "citation": "pg-indexes-types#INDEXES-TYPES-BTREE",
+  "extract": "The optimizer can also use a B-tree index for queries involving the pattern matching operators LIKE and ~ if the pattern is a constant and is anchored to the beginning of the string",
+  "snippet": null
+ },
+ {
+  "id": "m09-l05-q03",
+  "fact": "m09-l05-f52",
+  "stem": "Which `appendfsync` policy does Redis use by default for the append-only file, and how much data can it lose in a disaster?",
+  "key": "`appendfsync everysec`, which may lose 1 second of data",
+  "distractors": [
+   "`appendfsync always`, which may lose 1 second of data",
+   "`appendfsync no`, which may lose 1 second of data",
+   "`appendfsync everysec`, which may lose 30 seconds of data"
+  ],
+  "explanation": "The suggested and default policy is to fsync every second, and you may lose 1 second of data if there is a disaster. The default rules out `appendfsync always` and `appendfsync no`. Losing 30 seconds with `appendfsync everysec` is wrong because you may lose 1 second of data.",
+  "citation": "redis-persistence#how-durable-is-the-append-only-file",
+  "extract": "The suggested (and default) policy is to fsync every second.",
+  "snippet": null
+ },
+ {
+  "id": "m09-l05-q04",
+  "fact": "m09-l05-f38",
+  "stem": "A Redis server is configured with `save 60 1000`. Under which condition does it automatically write a snapshot of the dataset to disk?",
+  "key": "Every 60 seconds, if at least 1000 keys changed",
+  "distractors": [
+   "Every 1000 seconds, if at least 60 keys changed",
+   "Every 60 seconds, whether or not any key changed",
+   "After 60 changes, once at least 1000 seconds have passed"
+  ],
+  "explanation": "This configuration makes Redis automatically dump the dataset to disk every 60 seconds if at least 1000 keys changed. That single rule excludes every 1000 seconds with 60 keys, every 60 seconds with no key change, and 60 changes after 1000 seconds.",
+  "citation": "redis-persistence#snapshotting",
+  "extract": "this configuration will make Redis automatically dump the dataset to disk every 60 seconds if at least 1000 keys changed",
+  "snippet": null
+ },
+ {
+  "id": "m09-l05-q05",
+  "fact": "m09-l05-f55",
+  "stem": "A Redis instance has reached `maxmemory` and uses the `noeviction` policy. What happens when a client runs a command that would cache new data?",
+  "key": "The server returns an error, while commands that only read existing data keep working",
+  "distractors": [
+   "The server evicts the least recently used keys to make room",
+   "The server evicts keys at random to make room",
+   "The server returns the same error for read commands as well"
+  ],
+  "explanation": "With `noeviction`, keys are not evicted but the server returns an error when you try to execute commands that cache new data. Evicting the least recently used keys is wrong because that is what `allkeys-lru` does. Evicting keys at random is wrong because that is what `allkeys-random` does. An error for read commands is wrong because commands that only read existing data still work as normal.",
+  "citation": "redis-eviction#eviction-policies",
+  "extract": "noeviction: Keys are not evicted but the server will return an error when you try to execute commands that cache new data.",
+  "snippet": null
+ },
+ {
+  "id": "m09-l05-q06",
+  "fact": "m09-l05-f61",
+  "stem": "Redis runs with `volatile-lru` and `maxmemory` is reached, but no key has an associated expiration. How does the server behave?",
+  "key": "Like `noeviction`: no key is evicted and commands that cache new data return an error",
+  "distractors": [
+   "Like `allkeys-lru`: it evicts the least recently used keys whether or not they expire",
+   "Like `volatile-ttl`: it evicts the keys with the shortest remaining TTL",
+   "Like `allkeys-random`: it evicts keys at random until memory is free"
+  ],
+  "explanation": "The `volatile-xxx` policies behave like `noeviction` if no keys have an associated expiration. Evicting least recently used keys regardless of expiration is wrong because `volatile-lru` evicts only keys that have an associated expiration. Evicting by shortest remaining TTL is wrong because `volatile-ttl` also needs keys with an associated expiration. Evicting random keys is wrong because that is the behavior of `allkeys-random`, not of a `volatile-xxx` policy.",
+  "citation": "redis-eviction#eviction-policies",
+  "extract": "The volatile-xxx policies behave like noeviction if no keys have an associated expiration.",
+  "snippet": null
+ },
+ {
+  "id": "m09-l05-q07",
+  "fact": "m09-l05-f69",
+  "stem": "In Redis Cluster with default settings, a client writes to a master and receives OK, then the master crashes before sending the write to its replicas. What can follow?",
+  "key": "A replica that did not receive the write can be promoted, and the acknowledged write is lost",
+  "distractors": [
+   "The replicas refuse promotion until they hold the write, so no acknowledged write is lost",
+   "The `WAIT` command makes losing the write impossible even in this case",
+   "The master had waited for its replicas to acknowledge the write before replying OK"
+  ],
+  "explanation": "If the master acknowledges a write but crashes before sending it to its replicas, a replica that did not receive the write can be promoted to master, losing the write forever. Refusing promotion is wrong because a replica that did not receive the write can still be promoted. The `WAIT` claim is wrong because Redis Cluster does not implement strong consistency even when synchronous replication is used. Waiting for the replicas is wrong because the master does not wait for an acknowledgement from its replicas before replying to the client.",
+  "citation": "redis-scaling#redis-cluster-consistency-guarantees",
+  "extract": "if your client writes something, B acknowledges the write, but crashes before being able to send the write to its replicas, one of the replicas (that did not receive the write) can be promoted to master, losing the write forever.",
+  "snippet": null
+ },
+ {
+  "id": "m09-l05-q08",
+  "fact": "m09-l05-f64",
+  "stem": "What advantage does Redis Sentinel get from running several Sentinel processes that cooperate with each other?",
+  "key": "Failure detection needs several Sentinels to agree that a master is unavailable, which lowers false positives",
+  "distractors": [
+   "Failover only works while every Sentinel process is running",
+   "Failure detection is faster because one Sentinel can declare a master unavailable alone",
+   "One Sentinel is enough, because a failover system cannot be a single point of failure"
+  ],
+  "explanation": "Failure detection is performed when multiple Sentinels agree that a given master is no longer available, which lowers the probability of false positives. Requiring every Sentinel is wrong because Sentinel works even if not all the Sentinel processes are working. Declaring a master unavailable alone is wrong because detection needs multiple Sentinels to agree. A single Sentinel is wrong because a failover system that is itself a single point of failure defeats its purpose.",
+  "citation": "redis-sentinel#sentinel-as-a-distributed-system",
+  "extract": "Failure detection is performed when multiple Sentinels agree about the fact a given master is no longer available. This lowers the probability of false positives.",
+  "snippet": null
+ },
+ {
+  "id": "m09-l05-q09",
+  "fact": "m09-l05-f97",
+  "stem": "In the Elastic Stack, what is the default value of the dynamic index setting `index.refresh_interval`?",
+  "key": "`1s`",
+  "distractors": [
+   "`5s`",
+   "`30s`",
+   "`-1`"
+  ],
+  "explanation": "The value of `index.refresh_interval` defaults to `1s` in the Elastic Stack. The value `5s` is wrong because it is the default in Serverless. The value `30s` is wrong because it is the default of `index.search.idle.after`, the time before a shard is considered search idle. The value `-1` is wrong because it is the setting value that disables periodic refresh operations.",
+  "citation": "es-index-modules#dynamic-index-settings",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m09-l05-q10",
+  "fact": "m09-l05-f110",
+  "stem": "An Elasticsearch node crashes after acknowledging an indexing operation but before the next Lucene commit. From where is the operation recovered when the shard recovers?",
+  "key": "From the translog",
+  "distractors": [
+   "From the segments in the filesystem cache, which are always flushed before the acknowledgement",
+   "It cannot be recovered, because changes after a commit are kept only in memory",
+   "From the last refresh, which persisted the operation to disk"
+  ],
+  "explanation": "In the event of a crash, acknowledged operations that are not yet included in the last Lucene commit are recovered from the translog when the shard recovers. Segments in the filesystem cache are wrong because a new segment is written to the cache first and only later flushed to disk. Losing the operation is wrong because operations acknowledged but not yet committed are recovered from the translog. A refresh is wrong because it makes documents visible to search without performing a full commit.",
+  "citation": "es-translog#elastic-docs-v3",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m09-l05-q11",
+  "fact": "m09-l05-f111",
+  "stem": "In Elasticsearch, a shard copy receives index and delete operations. What does a flush do to those operations, as opposed to what a refresh does?",
+  "key": "It performs a Lucene commit and starts a new translog generation",
+  "distractors": [
+   "It writes and opens a new segment so that documents become visible to search",
+   "It merges small segments into larger ones in the background",
+   "It creates a replica shard as a copy of a primary shard"
+  ],
+  "explanation": "An Elasticsearch flush is the process of performing a Lucene commit and starting a new translog generation. Writing and opening a new segment is wrong because that process is called a refresh. Merging small segments is wrong because the merge scheduler controls merge operations. Creating a replica is wrong because a replica shard is a copy of a primary shard that the cluster maintains, not the result of a flush.",
+  "citation": "es-translog#elastic-docs-v3",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m09-l05-q12",
+  "fact": "m09-l05-f82",
+  "stem": "An Elasticsearch index is divided into primary shards and replica shards. Which statement about the number of shards of each kind is correct?",
+  "key": "The number of replica shards can be changed at any time, while the number of primary shards is fixed at index creation",
+  "distractors": [
+   "The number of primary shards can be changed at any time with `index.number_of_shards`",
+   "A replica shard holds a different subset of the documents than its primary shard",
+   "Every document belongs to several primary shards, which share its storage"
+  ],
+  "explanation": "The number of primary shards is fixed at index creation, while the number of replicas can be adjusted at any time. Changing the primary shards later is wrong because their number is fixed at index creation. A replica holding different documents is wrong because a replica shard is a copy of a primary shard. A document in several primary shards is wrong because every document belongs to exactly one primary shard.",
+  "citation": "es-index-basics#how-an-index-stores-data",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m09-l05-q13",
+  "fact": "m09-l05-f91",
+  "stem": "In the Elasticsearch basic write model, when does the primary shard acknowledge an indexing request to the client?",
+  "key": "Once all in-sync replicas have performed the operation and responded to the primary",
+  "distractors": [
+   "As soon as the primary has executed the operation locally, before the replicas",
+   "Once every replica shard, including offline ones, has indexed the document",
+   "After the next Lucene commit has persisted the operation to disk"
+  ],
+  "explanation": "Once all in-sync replicas have successfully performed the operation and responded to the primary, the primary acknowledges the request. Acknowledging right after local execution is wrong because the in-sync copies are guaranteed to have processed all operations acknowledged to the user. Waiting for every replica is wrong because replicas can be offline, so the primary is not required to replicate to all replicas. Waiting for a Lucene commit is wrong because acknowledged operations may not yet be included in the last Lucene commit.",
+  "citation": "es-reading-and-writing-documents#basic-write-model",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m09-l05-q14",
+  "fact": "m09-l05-f100",
+  "stem": "How does the Elasticsearch merge scheduler order the merges that run on the dedicated merge thread pool of a node?",
+  "key": "Smaller merges are prioritized over larger ones, across all shards on the node",
+  "distractors": [
+   "Larger merges are prioritized over smaller ones, so that segments shrink faster",
+   "Merges run without any disk IO throttling, so bursts proceed at full disk speed",
+   "At most a fixed number of merges can be enqueued for the thread pool"
+  ],
+  "explanation": "Smaller merges are prioritized over larger ones, across all shards on the node. Prioritizing larger merges is wrong because it is the smaller merges that are prioritized. Running without throttling is wrong because merges are disk IO throttled so that bursts are smoothed out. A fixed enqueue limit is wrong because there is no limit on the number of merges that can be enqueued for execution on the thread pool.",
+  "citation": "es-merge-settings#merge-scheduling",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m09-l05-q15",
+  "fact": "m09-l05-f104",
+  "stem": "A node's JVM sees 16 processors. With no explicit setting and ignoring clamping, what is the default of `index.merge.scheduler.max_thread_count` for a shard?",
+  "key": "8, half the number of processors",
+  "distractors": [
+   "16, one thread per processor",
+   "4, a quarter of the processors",
+   "32, twice the number of processors"
+  ],
+  "explanation": "The setting defaults to half the number of processors the JVM sees on the node, with a minimum of 1, so 16 processors give 8. That single default rules out 16, 4 and 32.",
+  "citation": "es-merge-settings#merge-scheduling",
+  "extract": null,
+  "snippet": null
+ }
+]

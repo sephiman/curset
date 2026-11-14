@@ -1,0 +1,422 @@
+[
+ {
+  "id": "m10-l02-q01",
+  "fact": "m10-l02-f16",
+  "stem": "In a Kubernetes namespace that has no `NetworkPolicy` at all, which traffic is allowed to and from the pods of that namespace by default?",
+  "key": "All ingress and egress traffic",
+  "distractors": [
+   "Only egress traffic",
+   "Only ingress traffic",
+   "No traffic until a policy allows it"
+  ],
+  "explanation": "All ingress and egress traffic is allowed by default. Egress only, ingress only and no traffic at all are all excluded, because with no policies in a namespace all ingress and egress traffic is allowed to and from its pods.",
+  "citation": "k8s-network-policies#default-policies",
+  "extract": "By default, if no policies exist in a namespace, then all ingress and egress traffic is allowed to and from pods in that namespace.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l02-q02",
+  "fact": "m10-l02-f03",
+  "stem": "In NIST SP 800-207, on what basis does a zero trust architecture grant access to individual enterprise resources?",
+  "key": "On a per-session basis",
+  "distractors": [
+   "On a per-device basis, for as long as the device stays enrolled",
+   "On a per-network-segment basis, once the device is inside the perimeter",
+   "On a per-account basis, until the account is disabled"
+  ],
+  "explanation": "Access is granted on a per-session basis. A per-device grant, a per-network-segment grant and a per-account grant are all excluded, because access to individual enterprise resources is granted per session.",
+  "citation": "nist-sp-800-207#p15",
+  "extract": "Access to individual enterprise resources is granted on a per-session basis.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l02-q03",
+  "fact": "m10-l02-f11",
+  "stem": "In the SPIFFE specifications for workload identity in dynamic and heterogeneous environments, what are SVIDs, the documents at the heart of the specifications?",
+  "key": "Short lived cryptographic identity documents that workloads use to authenticate to other workloads",
+  "distractors": [
+   "Long-lived certificates that are valid for several years",
+   "Identity documents that never expire",
+   "Network policies that only allow traffic between particular IP addresses"
+  ],
+  "explanation": "SVIDs are short lived cryptographic identity documents that workloads use when authenticating to other workloads. Certificates valid for several years and documents that never expire are both excluded, because the identity documents are short lived. Network policies keyed on IP addresses are wrong because conventional practices of that kind struggle to scale under the complexity of dynamic environments.",
+  "citation": "spiffe-overview#_top",
+  "extract": "The heart of these specifications is the one that defines short lived cryptographic identity documents – called SVIDs via a simple API.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l02-q04",
+  "fact": "m10-l02-f13",
+  "stem": "In TLS 1.3, as described by RFC 8446, which side of the secure channel between two communicating peers is always authenticated, whatever the mode?",
+  "key": "The server side",
+  "distractors": [
+   "The client side",
+   "Both sides",
+   "Neither side, until a post-handshake exchange"
+  ],
+  "explanation": "The server side is always authenticated. The client side, both sides and neither side are all excluded, because the server side is always authenticated and the client side is only optionally authenticated.",
+  "citation": "rfc8446#section-1",
+  "extract": "Authentication: The server side of the channel is always authenticated; the client side is optionally authenticated.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l02-q05",
+  "fact": "m10-l02-f23",
+  "stem": "In Kubernetes, a Pod on one node needs a Secret and a Pod on another node does not. When does Kubernetes send a Secret to a node?",
+  "key": "Only if a Pod on that node requires it",
+  "distractors": [
+   "To every node of the cluster as soon as the Secret is created",
+   "To every node that hosts a Pod of the same namespace",
+   "Only to the control plane node, which serves it on request"
+  ],
+  "explanation": "A Secret is sent to a node only if a Pod on that node requires it. Sending it to every node, to every node with a Pod of the namespace, and keeping it on the control plane node are all excluded, because the Secret goes to a node only when a Pod there requires it.",
+  "citation": "k8s-secrets#information-security-for-secrets",
+  "extract": "A Secret is only sent to a node if a Pod on that node requires it.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l02-q06",
+  "fact": "m10-l02-f24",
+  "stem": "When Kubernetes mounts a Secret into a Pod, where does the kubelet store a copy of the data so that it is not written to durable storage?",
+  "key": "In a `tmpfs`",
+  "distractors": [
+   "In an encrypted file on the node's local disk",
+   "In the writable layer of the container image",
+   "In a persistent volume claim of the Pod"
+  ],
+  "explanation": "The kubelet stores the copy in a `tmpfs`. An encrypted file on the local disk, the writable layer of the container image and a persistent volume claim are all excluded, because the `tmpfs` is what keeps the confidential data out of durable storage.",
+  "citation": "k8s-secrets#information-security-for-secrets",
+  "extract": "For mounting Secrets into Pods, the kubelet stores a copy of the data into a tmpfs so that the confidential data is not written to durable storage.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l02-q07",
+  "fact": "m10-l02-f28",
+  "stem": "Which grant types does RFC 6749 define in its own text, besides the extensibility mechanism that allows defining additional grant types?",
+  "key": "Authorization code, implicit, resource owner password credentials, and client credentials",
+  "distractors": [
+   "Authorization code, implicit and client credentials",
+   "Authorization code, device code, refresh token and client credentials",
+   "Authorization code, implicit, resource owner password credentials, client credentials and token exchange"
+  ],
+  "explanation": "RFC 6749 defines authorization code, implicit, resource owner password credentials and client credentials. The three-type list, the list with device code and refresh token, and the list that adds token exchange are all excluded, because the specification defines exactly those four grant types.",
+  "citation": "rfc6749#section-1.3",
+  "extract": "This specification defines four grant types -- authorization code, implicit, resource owner password credentials, and client credentials -- as well as an extensibility mechanism for defining additional types.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l02-q08",
+  "fact": "m10-l02-f34",
+  "stem": "According to RFC 6749, which kind of client may use the client credentials grant type?",
+  "key": "Only confidential clients",
+  "distractors": [
+   "Only public clients",
+   "Public and confidential clients alike",
+   "Only native apps"
+  ],
+  "explanation": "Only confidential clients may use it. Only public clients, public and confidential clients alike, and only native apps are all excluded, because the client credentials grant type must only be used by confidential clients.",
+  "citation": "rfc6749#section-4.4",
+  "extract": "The client credentials grant type MUST only be used by confidential clients.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l02-q09",
+  "fact": "m10-l02-f45",
+  "stem": "RFC 9700 tells clients to use a PKCE code challenge method that does not expose the PKCE verifier in the authorization request. Which method is currently the only one that qualifies?",
+  "key": "`S256`",
+  "distractors": [
+   "`plain`",
+   "`S512`",
+   "`SHA-1`"
+  ],
+  "explanation": "`S256` is currently the only such method. The methods `plain`, `S512` and `SHA-1` are all excluded, because RFC 9700 names `S256` as the only method that does not expose the PKCE verifier.",
+  "citation": "rfc9700#section-2.1.1",
+  "extract": "Currently, S256 is the only such method.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l02-q10",
+  "fact": "m10-l02-f39",
+  "stem": "How must an authorization server compare a client redirection URI against the pre-registered URIs, according to RFC 9700?",
+  "key": "By exact string matching, except for port numbers in localhost redirection URIs of native apps",
+  "distractors": [
+   "By prefix matching on the registered path",
+   "By matching only the host name of the registered URI",
+   "By pattern matching with wildcards in the registered path"
+  ],
+  "explanation": "Authorization servers must use exact string matching, except for port numbers in localhost redirection URIs of native apps. Prefix matching, host-name matching and wildcard matching are all excluded, because the comparison must be an exact string match.",
+  "citation": "rfc9700#section-2.1",
+  "extract": "When comparing client redirection URIs against pre-registered URIs, authorization servers MUST utilize exact string matching except for port numbers in localhost redirection URIs of native apps (see Section 4.1.3).",
+  "snippet": null
+ },
+ {
+  "id": "m10-l02-q11",
+  "fact": "m10-l02-f51",
+  "stem": "In which format does OpenID Connect Core represent the ID Token that carries Claims about the authentication of an End-User by an Authorization Server?",
+  "key": "As a JSON Web Token (JWT)",
+  "distractors": [
+   "As a SAML 2.0 assertion",
+   "As an opaque random string",
+   "As a Kerberos ticket"
+  ],
+  "explanation": "The ID Token is represented as a JSON Web Token. A SAML 2.0 assertion, an opaque random string and a Kerberos ticket are all excluded, because OpenID Connect Core defines the ID Token as a JWT.",
+  "citation": "oidc-core#rfc.section.2",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m10-l02-q12",
+  "fact": "m10-l02-f52",
+  "stem": "Which value must the `aud` claim of an OpenID Connect ID Token contain as an audience value, since the claim names who the token is intended for?",
+  "key": "The OAuth 2.0 `client_id` of the Relying Party",
+  "distractors": [
+   "The issuer URL of the Authorization Server",
+   "The `sub` identifier of the End-User",
+   "The `nonce` sent in the Authentication Request"
+  ],
+  "explanation": "The `aud` claim must contain the OAuth 2.0 `client_id` of the Relying Party. The issuer URL is wrong because the Issuer Identifier of the response is the `iss` claim. The `sub` identifier is wrong because the Subject Identifier of the End-User is the `sub` claim. The `nonce` is wrong because it is the string that associates a Client session with an ID Token and mitigates replay attacks.",
+  "citation": "oidc-core#rfc.section.2",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m10-l02-q13",
+  "fact": "m10-l02-f58",
+  "stem": "In the OpenID Connect Authorization Code Flow, which returns an Authorization Code to the Client, from which endpoint are all tokens returned?",
+  "key": "The Token Endpoint",
+  "distractors": [
+   "The Authorization Endpoint",
+   "The Introspection Endpoint",
+   "The Discovery Endpoint"
+  ],
+  "explanation": "All tokens are returned from the Token Endpoint. The Authorization Endpoint, the Introspection Endpoint and the Discovery Endpoint are all excluded, because with the Authorization Code Flow all tokens come from the Token Endpoint.",
+  "citation": "oidc-core#rfc.section.3.1",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m10-l02-q14",
+  "fact": "m10-l02-f68",
+  "stem": "When validating a JWT according to RFC 7519, what must happen if any of the listed validation steps fails?",
+  "key": "The JWT must be rejected, as an invalid input",
+  "distractors": [
+   "The JWT is accepted but marked as untrusted",
+   "The JWT is accepted if the application recognises its issuer",
+   "Only the claim that failed validation is ignored"
+  ],
+  "explanation": "The JWT must be rejected and treated as an invalid input. Acceptance as untrusted, acceptance because the issuer is recognised, and ignoring only the failed claim are all excluded, because a failed step means the JWT must be rejected.",
+  "citation": "rfc7519#section-7.2",
+  "extract": "If any of the listed steps fail, then the JWT MUST be rejected -- that is, treated by the application as an invalid input.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l02-q15",
+  "fact": "m10-l02-f73",
+  "stem": "A JWT passes every validation step of RFC 7519, but the algorithms it uses are not acceptable to the application. What should the application do?",
+  "key": "Reject the JWT",
+  "distractors": [
+   "Accept it, because validation succeeded",
+   "Accept it and log a warning",
+   "Accept it with a shorter lifetime"
+  ],
+  "explanation": "The application should reject the JWT. Accepting it because validation succeeded, accepting it with a warning and accepting it with a shorter lifetime are all excluded, because a JWT whose algorithms are not acceptable to the application should be rejected even after successful validation.",
+  "citation": "rfc7519#section-7.2",
+  "extract": "Even if a JWT can be successfully validated, unless the algorithms used in the JWT are acceptable to the application, it SHOULD reject the JWT.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l02-q16",
+  "fact": "m10-l02-f74",
+  "stem": "In a JWS header, as defined by RFC 7515, what does the optional `kid` (key ID) header parameter indicate to the recipient of the token?",
+  "key": "A hint indicating which key was used to secure the JWS",
+  "distractors": [
+   "The time at which the signing key expires",
+   "The algorithm that was used to sign the JWS",
+   "The authorization server that issued the token"
+  ],
+  "explanation": "The `kid` parameter is a hint indicating which key was used to secure the JWS. The expiry time of the key, the signing algorithm and the issuing authorization server are all excluded, because `kid` is a hint for which key was used.",
+  "citation": "rfc7515#section-4.1.4",
+  "extract": "The \"kid\" (key ID) Header Parameter is a hint indicating which key was used to secure the JWS.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l02-q17",
+  "fact": "m10-l02-f90",
+  "stem": "In Spring Security 7, what clock skew does the Resource Server configure by default when it verifies the validity window of a JWT?",
+  "key": "60 seconds",
+  "distractors": [
+   "30 seconds",
+   "5 minutes",
+   "0 seconds"
+  ],
+  "explanation": "The default clock skew is 60 seconds. A skew of 30 seconds, of 5 minutes and of 0 seconds are all excluded, because Resource Server configures 60 seconds by default.",
+  "citation": "spring-security-servlet-oauth2-resource-server-jwt#oauth2resourceserver-jwt-validation-clockskew",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m10-l02-q18",
+  "fact": "m10-l02-f86",
+  "stem": "Which statement about supplying `jwk-set-uri` to a Spring Security Resource Server together with `issuer-uri` is correct?",
+  "key": "The Resource Server still validates the `iss` claim on incoming JWTs",
+  "distractors": [
+   "The Resource Server pings the authorization server at startup to discover its configuration",
+   "The authorization server must expose configuration endpoints",
+   "The property can only be supplied through a properties file, never through the DSL"
+  ],
+  "explanation": "The Resource Server still validates the `iss` claim because `issuer-uri` is still specified. Pinging the authorization server at startup is wrong because with `jwk-set-uri` the Resource Server will not ping it at startup. Requiring configuration endpoints is wrong because `jwk-set-uri` can be supplied when the authorization server supports none. Properties-file-only is wrong because the property can also be supplied directly on the DSL.",
+  "citation": "spring-security-servlet-oauth2-resource-server-jwt#oauth2resourceserver-jwt-jwkseturi",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m10-l02-q19",
+  "fact": "m10-l02-f80",
+  "stem": "In Spring Security's resource server support, which component decodes, verifies and validates the `Jwt` by using a `JwtDecoder`?",
+  "key": "`JwtAuthenticationProvider`",
+  "distractors": [
+   "`JwtAuthenticationConverter`",
+   "`ProviderManager`",
+   "`BearerTokenAuthenticationToken`"
+  ],
+  "explanation": "`JwtAuthenticationProvider` decodes, verifies and validates the `Jwt`. The `JwtAuthenticationConverter` is wrong because it converts the `Jwt` into a collection of granted authorities. The `ProviderManager` is wrong because it is only configured to use a `JwtAuthenticationProvider`. The `BearerTokenAuthenticationToken` is wrong because the authentication filter passes it to the `AuthenticationManager`.",
+  "citation": "spring-security-servlet-oauth2-resource-server-jwt#oauth2resourceserver-jwt-architecture",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m10-l02-q20",
+  "fact": "m10-l02-f92",
+  "stem": "In Kubernetes RBAC, where a `Role` or `ClusterRole` contains rules that represent a set of permissions, which statement about deny rules is correct?",
+  "key": "There are no deny rules, because permissions are purely additive",
+  "distractors": [
+   "Deny rules take precedence over allow rules",
+   "Deny rules are supported only in a `ClusterRole`",
+   "Deny rules can be added to a `Role` for a single namespace"
+  ],
+  "explanation": "There are no deny rules, because permissions are purely additive. Precedence of deny rules, deny rules in a `ClusterRole` only and deny rules in a `Role` are all excluded, because Kubernetes RBAC has no deny rules.",
+  "citation": "k8s-rbac#role-and-clusterrole",
+  "extract": "Permissions are purely additive (there are no \"deny\" rules).",
+  "snippet": null
+ },
+ {
+  "id": "m10-l02-q21",
+  "fact": "m10-l02-f110",
+  "stem": "Which principle of GDPR Article 5(1) requires personal data to be adequate, relevant and limited to what is necessary in relation to the purposes for which they are processed?",
+  "key": "Data minimisation",
+  "distractors": [
+   "Purpose limitation",
+   "Storage limitation",
+   "Accuracy"
+  ],
+  "explanation": "Data minimisation requires personal data to be adequate, relevant and limited to what is necessary. Purpose limitation is wrong because it requires collection for specified, explicit and legitimate purposes. Storage limitation is wrong because it limits how long data subjects can be identified. Accuracy is wrong because it requires data to be accurate and kept up to date.",
+  "citation": "gdpr-eurlex#art_5",
+  "extract": "adequate, relevant and limited to what is necessary in relation to the purposes for which they are processed",
+  "snippet": null
+ },
+ {
+  "id": "m10-l02-q22",
+  "fact": "m10-l02-f118",
+  "stem": "Under GDPR Article 25(2), what must the measures of the controller ensure about the accessibility of personal data by default?",
+  "key": "They are not made accessible without the individual's intervention to an indefinite number of natural persons",
+  "distractors": [
+   "They are made accessible to an indefinite number of natural persons unless the individual objects",
+   "They are made accessible to all processors of the controller without any intervention",
+   "They are made accessible to the public once an approved certification mechanism is in place"
+  ],
+  "explanation": "By default personal data are not made accessible without the individual's intervention to an indefinite number of natural persons. Access unless the individual objects, access for all processors and access to the public after certification are all excluded, because the default requires the individual's intervention.",
+  "citation": "gdpr-eurlex#art_25",
+  "extract": "In particular, such measures shall ensure that by default personal data are not made accessible without the individual's intervention to an indefinite number of natural persons.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l02-q23",
+  "fact": "m10-l02-f123",
+  "stem": "Under GDPR Article 30(5), the record-keeping obligations do not apply to an organisation employing fewer than how many persons, when the processing is occasional, low-risk and free of special categories of data?",
+  "key": "250",
+  "distractors": [
+   "50",
+   "100",
+   "500"
+  ],
+  "explanation": "The threshold is 250 persons. The thresholds 50, 100 and 500 are all excluded, because Article 30(5) names fewer than 250 persons.",
+  "citation": "gdpr-eurlex#art_30",
+  "extract": "The obligations referred to in paragraphs 1 and 2 shall not apply to an enterprise or an organisation employing fewer than 250 persons unless the processing it carries out is likely to result in a risk to the rights and freedoms of data subjects, the processing is not occasional, or the processing includes special categories of data as referred to in Article 9(1)",
+  "snippet": null
+ },
+ {
+  "id": "m10-l02-q24",
+  "fact": "m10-l02-f134",
+  "stem": "In a Kubernetes `EncryptionConfiguration`, which provider of the `providers` array is used to encrypt resources written into storage?",
+  "key": "The first provider in the list",
+  "distractors": [
+   "The last provider in the list",
+   "Every provider in turn",
+   "The provider that holds the most keys"
+  ],
+  "explanation": "The first provider in the list encrypts. The last provider, every provider in turn and the provider with the most keys are all excluded, because the first provider in the list is the one used to encrypt.",
+  "citation": "k8s-encrypt-data#understanding-the-encryption-at-rest-configuration",
+  "extract": "The first provider in the list is used to encrypt resources written into the storage.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l02-q25",
+  "fact": "m10-l02-f136",
+  "stem": "In a Kubernetes `EncryptionConfiguration`, what happens when no provider can read the stored data because of a mismatch in format or secret key?",
+  "key": "An error is returned, which prevents clients from accessing that resource",
+  "distractors": [
+   "The resource is returned as plain text",
+   "The resource is skipped and treated as missing",
+   "The API server falls back to the `identity` provider"
+  ],
+  "explanation": "An error is returned that prevents clients from accessing the resource. Plain text, treating the resource as missing and falling back to `identity` are all excluded, because the documented outcome is an error that blocks access.",
+  "citation": "k8s-encrypt-data#understanding-the-encryption-at-rest-configuration",
+  "extract": "If no provider can read the stored data due to a mismatch in format or secret key, an error is returned which prevents clients from accessing that resource.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l02-q26",
+  "fact": "m10-l02-f141",
+  "stem": "In Kubernetes 1.26 or newer, you add custom resources to an `EncryptionConfiguration`. When are custom resources that already existed in etcd encrypted?",
+  "key": "They stay unencrypted until they are next written to storage",
+  "distractors": [
+   "Immediately, when the API server reloads the configuration",
+   "When the key of the first provider is next rotated",
+   "Never, because only newly created custom resources can be encrypted"
+  ],
+  "explanation": "They stay unencrypted until they are next written to storage. Immediate encryption, encryption on key rotation and never being encrypted are all excluded, because existing custom resources are encrypted only once they are written to storage again.",
+  "citation": "k8s-encrypt-data#understanding-the-encryption-at-rest-configuration",
+  "extract": "Any custom resources that existed in etcd prior to that version and configuration will be unencrypted until they are next written to storage.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l02-q27",
+  "fact": "m10-l02-f129",
+  "stem": "Which property of the TLS secure channel means that data sent over the channel after establishment is only visible to the endpoints?",
+  "key": "Confidentiality",
+  "distractors": [
+   "Integrity",
+   "Authentication",
+   "Length hiding"
+  ],
+  "explanation": "Confidentiality means data is only visible to the endpoints. Integrity is wrong because it means data cannot be modified without detection. Authentication is wrong because it concerns the server side always and the client side optionally being authenticated. Length hiding is wrong because TLS does not hide the length of the data it transmits.",
+  "citation": "rfc8446#section-1",
+  "extract": "Confidentiality: Data sent over the channel after establishment is only visible to the endpoints.",
+  "snippet": null
+ },
+ {
+  "id": "m10-l02-q28",
+  "fact": "m10-l02-f146",
+  "stem": "For log data at rest, OWASP advises to store or copy it, as soon as possible, to which kind of medium?",
+  "key": "Read-only media",
+  "distractors": [
+   "A writable network share restricted to administrators",
+   "The database that holds the application's own data",
+   "The same disk as the application, in a hidden folder"
+  ],
+  "explanation": "Log data should be copied to read-only media as soon as possible. A writable share, the application's own database and the application's disk are all excluded, because the advice names read-only media.",
+  "citation": "owasp-cs-logging#protection",
+  "extract": "Store or copy log data to read-only media as soon as possible",
+  "snippet": null
+ }
+]

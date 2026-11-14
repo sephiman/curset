@@ -9,6 +9,7 @@ import type { CourseExportNorm } from "@/api/course";
 import { remarkBlockDirectives } from "@/lib/directives";
 import { ROW_FIELDS, transformEsquemas, type EsquemaKind, type EsquemaRowNode } from "@/lib/esquema";
 import { GLOSSARY_TERM, LESSON_REF } from "@/lib/glossary/annotate";
+import { codeRuns } from "@/lib/pdf/codeText";
 import { CALLOUT_ID, DEST, FIGURE_ID, printedId, withId } from "@/lib/pdf/pagination";
 import { CROSS_REF, PRINT, contentWidth } from "@/lib/pdf/page";
 
@@ -28,7 +29,7 @@ export interface MarkdownRenderers {
   figure: (figureId: string) => Content;
   /** The header row a list esquema prints as a table under; absent, it prints with none. */
   esquemaColumns?: Record<ListEsquemaKind, string[]>;
-  /** The bold line that opens a judgement callout; absent, the callout prints without one. */
+  /** The bold line that opens a judgement box; absent, the box prints without one. */
   judgement?: (source: string) => string;
 }
 
@@ -121,6 +122,65 @@ function runs(nodes: PhrasingContent[], marks: Marks = {}): ContentText[] {
 }
 
 const HEADING_STYLE = ["lessonTitle", "h2", "h3", "h4", "h4", "h4"] as const;
+
+/** A fenced block in the code face on a tinted panel; a one-cell table, so the fill spans the column. */
+function codeBlock(value: string): Content {
+  return {
+    table: {
+      widths: ["*"],
+      body: [[{ text: codeRuns(value), style: "codeBlock", fillColor: PRINT.codeFill, margin: [6, 5, 6, 5] }]],
+    },
+    layout: "noBorders",
+    margin: [0, 4, 0, 8],
+  };
+}
+
+const DASHED = { dash: { length: 3, space: 2 } };
+
+/**
+ * Class J, set apart from a note the way the app does it: a dashed border on every side instead of a
+ * left rule, under a line naming the source and, when given, its `ref` in the code face.
+ */
+function judgementBox(
+  node: Extract<RootContent, { type: "containerDirective" }>,
+  r: MarkdownRenderers,
+  ids: Ids,
+): Content {
+  const tones = PRINT.notes.judgement ?? PRINT.notes.info;
+  const ref = node.attributes?.ref;
+  const attribution: Content[] = r.judgement
+    ? [
+        {
+          text: [
+            { text: r.judgement(node.attributes?.source ?? ""), bold: true },
+            ...(ref ? [{ text: "  " }, ...codeRuns(ref, { color: PRINT.muted, fontSize: 8.5 })] : []),
+          ],
+          style: "p",
+        },
+      ]
+    : [];
+  const box: Content = {
+    table: {
+      widths: ["*"],
+      body: [[{ stack: [...attribution, ...blocks(node.children, r, ids)], fillColor: tones.fill, margin: [8, 7, 8, 7] }]],
+    },
+    layout: {
+      hLineWidth: () => 1,
+      vLineWidth: () => 1,
+      hLineColor: () => tones.border,
+      vLineColor: () => tones.border,
+      hLineStyle: () => DASHED,
+      vLineStyle: () => DASHED,
+      paddingLeft: () => 0,
+      paddingRight: () => 0,
+      paddingTop: () => 0,
+      paddingBottom: () => 0,
+    },
+    style: "note",
+    margin: [0, 6, 0, 8],
+  };
+  return withId(box, ids.for(CALLOUT_ID));
+}
 
 /** The app's callout: a one-cell table is how pdfmake draws a filled box with a coloured left rule.
  *
@@ -227,7 +287,7 @@ function blocks(nodes: RootContent[], r: MarkdownRenderers, ids: Ids): Content[]
         break;
       }
       case "code":
-        out.push({ text: node.value, style: "codeBlock" });
+        out.push(codeBlock(node.value));
         break;
       case "blockquote":
         out.push({ stack: blocks(node.children, r, ids), style: "quote", margin: [14, 4, 0, 8] });
@@ -258,9 +318,7 @@ function blocks(nodes: RootContent[], r: MarkdownRenderers, ids: Ids): Content[]
             callout(node.attributes?.type ?? "info", blocks(node.children, r, ids), ids.for(CALLOUT_ID)),
           );
         } else if (node.name === "judgement") {
-          const source = node.attributes?.source ?? "";
-          const label: Content[] = r.judgement ? [{ text: r.judgement(source), bold: true, style: "p" }] : [];
-          out.push(callout("judgement", [...label, ...blocks(node.children, r, ids)], ids.for(CALLOUT_ID)));
+          out.push(judgementBox(node, r, ids));
         } else if (node.name === "esquema") {
           out.push(esquema(node, r, ids));
         }

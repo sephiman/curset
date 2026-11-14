@@ -1,0 +1,137 @@
+[
+ {
+  "id": "m05-l06-q01",
+  "fact": "m05-l06-f10",
+  "stem": "Several `SecurityFilterChain` instances are configured, and a request matches the patterns of more than one of them. How many of them does `FilterChainProxy` invoke for that request?",
+  "key": "Only the first one that matches",
+  "distractors": [
+   "Every matching one, in the order they were declared",
+   "None of them, because the Servlet container selects the chain by URL alone",
+   "All of them, merged into one list of security filters"
+  ],
+  "explanation": "Only the first `SecurityFilterChain` that matches is invoked. Not every matching chain runs, because a request that matches both `/api/**` and a later pattern invokes only the first chain. The container does not choose by URL alone, because `FilterChainProxy` can determine invocation based upon anything in the `HttpServletRequest` by using the `RequestMatcher` interface. The chains are not merged, because each `SecurityFilterChain` is configured in isolation and can even hold zero security `Filter` instances.",
+  "citation": "spring-security-servlet-architecture#servlet-securityfilterchain",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m05-l06-q02",
+  "fact": "m05-l06-f04",
+  "stem": "Where does Spring Security register the security `Filter` beans that belong to a `SecurityFilterChain`, given that `DelegatingFilterProxy` is the filter known to the Servlet container?",
+  "key": "With `FilterChainProxy` instead of `DelegatingFilterProxy`",
+  "distractors": [
+   "Directly with the Servlet container, one registration per security filter",
+   "With `DelegatingFilterProxy`, which holds one proxy per security filter",
+   "With no registration, because `HttpSecurity` invokes the filters directly"
+  ],
+  "explanation": "The security filters are registered with `FilterChainProxy` instead of `DelegatingFilterProxy`. Registering each filter with the container or with `DelegatingFilterProxy` is the alternative that `FilterChainProxy` improves on, because it offers a number of advantages over both. Direct invocation does not happen, because the security filters are inserted into the `FilterChainProxy` with the `SecurityFilterChain` API.",
+  "citation": "spring-security-servlet-architecture#servlet-securityfilterchain",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m05-l06-q03",
+  "fact": "m05-l06-f28",
+  "stem": "A successful authentication request returns an `Authentication` object to `ProviderManager`. Which default behaviour does Spring Security document for that object?",
+  "key": "`ProviderManager` tries to clear sensitive credentials information from it",
+  "distractors": [
+   "`ProviderManager` keeps the password so that it can be stored in the `HttpSession`",
+   "`ProviderManager` leaves any `UserDetails` object held in a user cache untouched",
+   "`ProviderManager` sets the returned `Authentication` on the `SecurityContextHolder` itself"
+  ],
+  "explanation": "By default, `ProviderManager` tries to clear any sensitive credentials information from the `Authentication` object returned by a successful authentication request. The password is not kept for the `HttpSession`, because clearing credentials prevents passwords being retained longer than necessary there. A cached `UserDetails` is not left untouched, because it has its credentials removed when the `Authentication` references it. `ProviderManager` does not populate the holder, because Spring Security’s filters that invoked the `AuthenticationManager` set the returned `Authentication` on the `SecurityContextHolder`.",
+  "citation": "spring-security-servlet-authentication-architecture#servlet-authentication-providermanager",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m05-l06-q04",
+  "fact": "m05-l06-f54",
+  "stem": "In Spring Security's JWT resource server support, which component converts the `Jwt` into a collection of granted authorities once `JwtAuthenticationProvider` has the decoded token?",
+  "key": "`JwtAuthenticationConverter`",
+  "distractors": [
+   "`JwtDecoder`",
+   "`ProviderManager`",
+   "`BearerTokenAuthenticationToken`"
+  ],
+  "explanation": "`JwtAuthenticationProvider` then uses the `JwtAuthenticationConverter` to convert the `Jwt` into a collection of granted authorities. `JwtDecoder` does not map authorities, because `JwtAuthenticationProvider` uses it to decode, verify and validate the `Jwt`. `ProviderManager` does not convert tokens, because it is only configured to use an `AuthenticationProvider` of type `JwtAuthenticationProvider`. `BearerTokenAuthenticationToken` is not a converter, because the authentication filter passes it to the `AuthenticationManager` as the input of authentication.",
+  "citation": "spring-security-servlet-oauth2-resource-server-jwt#oauth2resourceserver-jwt-architecture",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m05-l06-q05",
+  "fact": "m05-l06-f63",
+  "stem": "A resource server uses `JwtIssuerAuthenticationManagerResolver.fromTrustedIssuers(...)` with two issuers. Why can the application start while those authorization servers are not available?",
+  "key": "The `JwtAuthenticationProvider` for an issuer is created only when the first request with that issuer arrives",
+  "distractors": [
+   "The resolver accepts tokens from an unavailable issuer without validating their signature",
+   "The resolver loads the keys of every issuer at startup and ignores any failure",
+   "The resolver builds an `AuthenticationManager` at runtime for any issuer found in the token"
+  ],
+  "explanation": "The corresponding `JwtAuthenticationProvider` is instantiated only when the first request with the corresponding issuer is sent. Signatures are still validated, because Resource Server validates the signature against a public key obtained from the `jwks_url` endpoint during startup or on first request. Nothing is loaded at startup, because the issuer endpoints are loaded lazily. Arbitrary issuers are not trusted, because it would be unsafe to construct an `AuthenticationManager` from any issuer.",
+  "citation": "spring-security-servlet-oauth2-resource-server-multitenancy#_resolving_the_tenant_by_claim",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m05-l06-q06",
+  "fact": "m05-l06-f40",
+  "stem": "In the `authorizeHttpRequests` DSL of Spring Security, with the default role prefix unchanged, which rule is `hasRole(\"ADMIN\")` a shortcut for?",
+  "key": "`hasAuthority(\"ROLE_ADMIN\")`",
+  "distractors": [
+   "`hasAuthority(\"ADMIN\")`",
+   "`denyAll()`",
+   "`permitAll()`"
+  ],
+  "explanation": "`hasRole` is a shortcut for `hasAuthority` that prefixes `ROLE_`. `hasAuthority(\"ADMIN\")` has no prefix, because `hasRole` prefixes `ROLE_` or whatever is configured as the default prefix. `denyAll()` is a different rule, because it does not allow the request under any circumstances. `permitAll()` is a different rule, because it requires no authorization and makes a public endpoint.",
+  "citation": "spring-security-servlet-authorization-authorize-http-requests#authorize-requests",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m05-l06-q07",
+  "fact": "m05-l06-f55",
+  "stem": "With the default JWT resource server configuration in Spring Security, to which authority is the scope `messages` of a well-formed JWT mapped?",
+  "key": "`SCOPE_messages`",
+  "distractors": [
+   "`ROLE_messages`",
+   "`messages`",
+   "`AUTHORITY_messages`"
+  ],
+  "explanation": "Resource Server maps each scope to an authority with the prefix `SCOPE_`. `ROLE_messages`, `messages` and `AUTHORITY_messages` are not the mapped authority, because each scope is mapped to an authority with the prefix `SCOPE_`.",
+  "citation": "spring-security-servlet-oauth2-resource-server-jwt#_runtime_expectations",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m05-l06-q08",
+  "fact": "m05-l06-f57",
+  "stem": "In a Spring Security JWT resource server, to which property of the JWT does `Authentication#getName` map by default, if the property is present?",
+  "key": "`sub`",
+  "distractors": [
+   "`iss`",
+   "`aud`",
+   "`jti`"
+  ],
+  "explanation": "`Authentication#getName` maps to the JWT’s `sub` property, if one is present. `iss`, `aud` and `jti` are not the property, because `Authentication#getName` maps to the `sub` property.",
+  "citation": "spring-security-servlet-oauth2-resource-server-jwt#_runtime_expectations",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m05-l06-q09",
+  "fact": "m05-l06-f31",
+  "stem": "Spring Security lets you inject several `AuthenticationProvider` instances into `ProviderManager`. Which provider supports authenticating a JWT token?",
+  "key": "`JwtAuthenticationProvider`",
+  "distractors": [
+   "`DaoAuthenticationProvider`",
+   "`ProviderManager`",
+   "`JwtDecoder`"
+  ],
+  "explanation": "`JwtAuthenticationProvider` supports authenticating a JWT token. `DaoAuthenticationProvider` handles another kind of authentication, because it supports username/password-based authentication. `ProviderManager` is not a provider, because it is the most common implementation of `AuthenticationManager`. `JwtDecoder` is not the provider, because `JwtAuthenticationProvider` uses it to decode, verify and validate the `Jwt`.",
+  "citation": "spring-security-servlet-authentication-architecture#servlet-authentication-authenticationprovider",
+  "extract": null,
+  "snippet": null
+ }
+]

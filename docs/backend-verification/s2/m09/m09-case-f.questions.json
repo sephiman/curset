@@ -1,0 +1,274 @@
+[
+ {
+  "id": "m09-case-f-q01",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f137",
+  "stem": "A product catalogue maps its `name` field as `search_as_you_type` in Elasticsearch to serve completions while the user types. Which kinds of completion does a `search_as_you_type` field support?",
+  "key": "Both prefix completion and infix completion",
+  "distractors": [
+   "Prefix completion only, matching from the start of the text",
+   "Infix completion only, matching inside the text",
+   "Neither kind, because completion needs a `completion` field"
+  ],
+  "explanation": "A `search_as_you_type` field supports both prefix completion and infix completion. Prefix only is wrong, because a `search_as_you_type` field supports both prefix and infix completion. Infix only is wrong, because a `search_as_you_type` field supports both prefix and infix completion. Needing a `completion` field is wrong, because a `search_as_you_type` field supports prefix and infix completion itself.",
+  "citation": "es-search-as-you-type#elastic-docs-v3",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m09-case-f-q02",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f138",
+  "stem": "In Elasticsearch, a `search_as_you_type` field `my_field` has the subfield `my_field._index_prefix`. Which token filter does that subfield add on top of the analyzer of `my_field._3gram`?",
+  "key": "An edge ngram token filter",
+  "distractors": [
+   "A shingle token filter of the subfield",
+   "A stop-word token filter on the subfield",
+   "A synonym token filter on the subfield"
+  ],
+  "explanation": "`my_field._index_prefix` wraps the analyzer of `my_field._3gram` with an edge ngram token filter. A shingle token filter is wrong, because `my_field._index_prefix` wraps the analyzer of `my_field._3gram` with an edge ngram token filter. A stop-word filter is wrong, because the wrapping filter is an edge ngram token filter. A synonym filter is wrong, because the wrapping filter is an edge ngram token filter.",
+  "citation": "es-search-as-you-type#elastic-docs-v3",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m09-case-f-q03",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f139",
+  "stem": "A `search_as_you_type` mapping in Elasticsearch does not set `max_shingle_size`. What is the default value of `max_shingle_size` for the shingle subfields?",
+  "key": "3",
+  "distractors": [
+   "2",
+   "4",
+   "5"
+  ],
+  "explanation": "The default of `max_shingle_size` is 3, and valid values are integers 2 to 4 inclusive. The value 2 is wrong, because the default of `max_shingle_size` is 3, although 2 is a valid value. The value 4 is wrong, because the default of `max_shingle_size` is 3, although 4 is a valid value. The value 5 is wrong, because the default of `max_shingle_size` is 3 and valid values are integers 2 to 4.",
+  "citation": "es-search-as-you-type#elastic-docs-v3",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m09-case-f-q04",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f140",
+  "stem": "A search team raises `max_shingle_size` on a `search_as_you_type` field in Elasticsearch to improve matching of long queries. What is the documented trade-off of increasing it?",
+  "key": "Better matches for longer queries, at the cost of a larger index",
+  "distractors": [
+   "Fewer matches for queries with more consecutive terms, with a smaller index",
+   "Better matches for queries with more consecutive terms, with a smaller index",
+   "Unchanged matches for queries with more consecutive terms, with a larger index"
+  ],
+  "explanation": "Increasing `max_shingle_size` improves matches for queries with more consecutive terms, at the cost of larger index size. Fewer matches with a smaller index is wrong, because increasing it improves matches at the cost of larger index size. A smaller index is wrong, because increasing `max_shingle_size` costs a larger index size. Unchanged matches is wrong, because increasing `max_shingle_size` improves matches for queries with more consecutive terms.",
+  "citation": "es-search-as-you-type#elastic-docs-v3",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m09-case-f-q05",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f141",
+  "stem": "An Elasticsearch catalogue serves a search-as-you-type box over a `search_as_you_type` field. Which query is usually the most efficient way to serve that use case, according to the Elasticsearch documentation?",
+  "key": "A `multi_match` query of type `bool_prefix` over the root and shingle fields",
+  "distractors": [
+   "A `match_phrase_prefix` query on the root field, which requires the terms in order",
+   "A completion suggester query over the `search_as_you_type` field and its subfields",
+   "A term suggester query that corrects the typed text by edit distance"
+  ],
+  "explanation": "The most efficient way to serve search-as-you-type is usually a `multi_match` query of type `bool_prefix` over the root field and its shingle subfields. `match_phrase_prefix` is wrong, because using phrase queries may be less efficient than the `bool_prefix` approach. The completion suggester is wrong here, because it requires the field to be mapped as type `completion`. The term suggester is wrong, because its score is based on edit distance, so it suggests similar looking terms rather than completions.",
+  "citation": "es-search-as-you-type#elastic-docs-v3",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m09-case-f-q06",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f142",
+  "stem": "A search box sends the typed words `quick brown` as a `bool_prefix` query on a `search_as_you_type` field in Elasticsearch. How does the query treat the order of the terms?",
+  "key": "It matches in any order, scoring higher when terms appear in order",
+  "distractors": [
+   "It matches only documents in which the terms appear in the typed order, and scores them equally",
+   "It matches terms in any order and scores every matching document the same",
+   "It matches only the last term and ignores earlier terms"
+  ],
+  "explanation": "A `bool_prefix` query can match the query terms in any order, but scores documents higher if they contain the terms in order in a shingle subfield. Matching only in order is wrong, because strict in-order matching needs a `match_phrase_prefix` query on the root field. Equal scores are wrong, because it scores documents higher when they contain the terms in order in a shingle subfield. Matching only the last term is wrong, because the query can match the query terms in any order and scores in-order documents higher.",
+  "citation": "es-search-as-you-type#elastic-docs-v3",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m09-case-f-q07",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f145",
+  "stem": "A team wants the Elasticsearch completion suggester for the `title` field of its catalogue. As which field type must `title` be mapped to use the completion suggester?",
+  "key": "`completion`",
+  "distractors": [
+   "`search_as_you_type`",
+   "`keyword`",
+   "`text` with an edge ngram analyzer"
+  ],
+  "explanation": "To use the completion suggester, the field must be mapped as type `completion`. `search_as_you_type` is wrong, because the field must be mapped as type `completion` for the completion suggester. `keyword` is wrong, because the field must be mapped as type `completion` for the completion suggester. A `text` field with an edge ngram analyzer is wrong, because the field must be mapped as type `completion` for the completion suggester.",
+  "citation": "es-completion-mapping#elastic-docs-v3",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m09-case-f-q08",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f148",
+  "stem": "A search page uses the Elasticsearch term suggester through the `suggest` parameter to correct misspelled words. On what is the score of the term suggester based?",
+  "key": "The edit distance",
+  "distractors": [
+   "The BM25 relevance of the suggested term",
+   "The length of the posting list of the term",
+   "The number of shingles in the subfield"
+  ],
+  "explanation": "The score of the term suggester is based on the edit distance. BM25 relevance is wrong, because the term suggester's score is based on the edit distance. Posting list length is wrong, because the term suggester's score is based on the edit distance. The number of shingles is wrong, because the term suggester's score is based on the edit distance.",
+  "citation": "es-search-suggesters#elastic-docs-v3",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m09-case-f-q09",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f154",
+  "stem": "An Elasticsearch index ranks product search results and the team has not changed the similarity setting. Which similarity algorithm does Elasticsearch use by default to calculate relevance scores?",
+  "key": "Okapi BM25",
+  "distractors": [
+   "Plain TF-IDF without length normalisation",
+   "A link-based score over the links between documents",
+   "Cosine similarity between document embeddings"
+  ],
+  "explanation": "The default similarity algorithm is Okapi BM25, a variation of the TF-IDF algorithm. Plain TF-IDF is wrong, because the default is Okapi BM25, a variation of the TF-IDF algorithm. A link-based score is wrong, because the default is Okapi BM25. Embedding cosine similarity is wrong, because the default is Okapi BM25.",
+  "citation": "es-how-full-text-works#elastic-docs-v3",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m09-case-f-q10",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f157",
+  "stem": "In the Elasticsearch BM25 similarity, the parameter `b` controls to what degree document length normalizes term frequency values. What is the default value of `b`?",
+  "key": "0.75",
+  "distractors": [
+   "1.2",
+   "1.0",
+   "0.5"
+  ],
+  "explanation": "The default value of `b` is 0.75. The value 1.2 is wrong, because that is the default of `k1`, not of `b`. The value 1.0 is wrong, because the default of `b` is 0.75. The value 0.5 is wrong, because the default of `b` is 0.75.",
+  "citation": "es-similarity#bm25",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m09-case-f-q11",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f164",
+  "stem": "A catalogue pages through sorted Elasticsearch results with `search_after` and its sort has no tiebreaker field. According to the documentation, what can happen to the paged results?",
+  "key": "They could miss or duplicate hits",
+  "distractors": [
+   "They stay consistent because each page is a stable snapshot",
+   "They are tied together by an implicit `_shard_doc` tiebreaker",
+   "They are tied together by an automatic tiebreaker in every search"
+  ],
+  "explanation": "Without a tiebreaker field, paged results could miss or duplicate hits. A stable snapshot is wrong, because if a refresh occurs between the requests the order of results may change. An implicit `_shard_doc` tiebreaker is wrong, because only point in time search requests add it implicitly. An automatic tiebreaker in every search is wrong, because without a PIT you are recommended to include a tiebreaker field in your sort.",
+  "citation": "es-paginate-search-results#search-after",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m09-case-f-q12",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f165",
+  "stem": "A search UI lets users page through 100,000 Elasticsearch hits. Which API does Elasticsearch no longer recommend for deep pagination?",
+  "key": "The scroll API",
+  "distractors": [
+   "`search_after` with the sort values of the previous page",
+   "`search_after` combined with a point in time",
+   "`search_after` with a tiebreaker field in the sort"
+  ],
+  "explanation": "Elasticsearch no longer recommends the scroll API for deep pagination. `search_after` is wrong, because it is the parameter used to retrieve the next page of hits from the previous page's sort values. `search_after` with a PIT is wrong, because a PIT is the way to preserve the index state across the paged searches. `search_after` with a tiebreaker is wrong, because including a tiebreaker field is recommended when a PIT cannot be used.",
+  "citation": "es-paginate-search-results#scroll-search-results",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m09-case-f-q13",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f152",
+  "stem": "In an Elasticsearch inverted index, each term has a posting list. What does the posting list hold for a term?",
+  "key": "The IDs of documents where the term appears, with optional frequency and position",
+  "distractors": [
+   "A sorted list of all unique terms in the index",
+   "The relevance score of the term for each document",
+   "The analyzed form of the user's query text"
+  ],
+  "explanation": "The posting list holds, for each term, a list of document IDs where the term appears, along with optional metadata like term frequency and position. A list of unique terms is wrong, because that is the dictionary of an inverted index. A relevance score is wrong, because BM25 calculates scores from term frequency, document frequency and document length. The analyzed query text is wrong, because query text is analyzed at search time the same way as the indexed text.",
+  "citation": "es-how-full-text-works#elastic-docs-v3",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m09-case-f-q14",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f155",
+  "stem": "Elasticsearch ranks product search hits with Okapi BM25. Which factors does BM25 use to calculate relevance scores, according to the Elasticsearch documentation?",
+  "key": "Term frequency, document frequency and document length",
+  "distractors": [
+   "Term frequency alone",
+   "Term frequency and the age of the document",
+   "Term frequency, field boost and shard count"
+  ],
+  "explanation": "BM25 calculates relevance scores based on term frequency, document frequency, and document length. Term frequency alone is wrong, because BM25 also uses document frequency and document length. Document age is wrong, because BM25 uses term frequency, document frequency and document length. Field boost and shard count are wrong, because BM25 uses term frequency, document frequency and document length.",
+  "citation": "es-how-full-text-works#elastic-docs-v3",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m09-case-f-q15",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f160",
+  "stem": "A product listing pages through results with `search_after`, and a refresh occurs between the request for page 1 and the request for page 2. According to the Elasticsearch documentation, what can happen?",
+  "key": "The order of the results may change, giving inconsistent pages",
+  "distractors": [
+   "The pages stay consistent because the index is frozen during paging",
+   "The `_shard_doc` tiebreaker keeps the order stable in every search",
+   "A tiebreaker field in the sort is never needed"
+  ],
+  "explanation": "If a refresh occurs between the requests, the order of the results may change, causing inconsistent results across pages. A frozen index is wrong, because creating a point in time is what preserves the index state over the searches. A stable order from `_shard_doc` is wrong, because only point in time search requests add that tiebreaker implicitly. A tiebreaker never being needed is wrong, because without a point in time it is recommended to include a tiebreaker field in the sort.",
+  "citation": "es-paginate-search-results#search-after",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m09-case-f-q16",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f149",
+  "stem": "A search team runs the Elasticsearch `suggest` parameter over several indices. Which use of `suggest` does the documentation say is not supported?",
+  "key": "Across multiple indices with different analysis chains",
+  "distractors": [
+   "On one index with a field mapped as `completion`",
+   "With the term suggester on a text field",
+   "To suggest similar looking terms from a given text"
+  ],
+  "explanation": "Using `suggest` across multiple indices with different analysis chains is not supported. A `completion` field is wrong, because mapping a field as `completion` indexes its values for fast completions. The term suggester is wrong, because it scores suggestions by edit distance and is a supported suggester. Suggesting similar looking terms is wrong, because that is what the `suggest` parameter does by using a suggester.",
+  "citation": "es-search-suggesters#elastic-docs-v3",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m09-case-f-q17",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f143",
+  "stem": "A search box must match the typed terms strictly in order on a `search_as_you_type` field in Elasticsearch. Which query does the documentation name for that?",
+  "key": "A `match_phrase_prefix` query on the root field",
+  "distractors": [
+   "A `bool_prefix` query, which matches the terms in any order",
+   "A completion suggester over the field",
+   "A term suggester over the field"
+  ],
+  "explanation": "To search for documents that strictly match the query terms in order, use a `match_phrase_prefix` query on the root field. A `bool_prefix` query is wrong, because it can match the query terms in any order. The completion suggester is wrong, because it needs the field mapped as type `completion`. The term suggester is wrong, because its score is based on edit distance, not on term order.",
+  "citation": "es-search-as-you-type#elastic-docs-v3",
+  "extract": null,
+  "snippet": null
+ }
+]

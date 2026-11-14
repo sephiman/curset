@@ -1,0 +1,380 @@
+m09-l04-q01:
+  key:
+    anchor: resilience4j-ratelimiter#internals
+    sentence: activePermissions - count of available permissions after the last call. Can be negative if some permissions were reserved
+  wrong:
+  - option: It holds the cycle number that the last call used
+    anchor: resilience4j-ratelimiter#internals
+    sentence: activeCycle - cycle number that was used by the last call
+  - option: It holds the number of nanoseconds the last call had to wait for permission
+    anchor: resilience4j-ratelimiter#internals
+    sentence: nanosToWait - count of nanoseconds to wait for permission for the last call
+  - option: It never goes below zero, because permissions cannot be reserved ahead of a cycle
+    anchor: resilience4j-ratelimiter#internals
+    sentence: Can be negative if some permissions were reserved
+m09-l04-q02:
+  key:
+    anchor: resilience4j-ratelimiter#internals
+    sentence: The default implementation of RateLimiter is AtomicRateLimiter which manages its state via AtomicReference.
+  wrong:
+  - option: '`SemaphoreBasedRateLimiter`, whose state is held in an `AtomicReference`'
+    anchor: resilience4j-ratelimiter#internals
+    sentence: The default implementation of RateLimiter is AtomicRateLimiter which manages its state via AtomicReference.
+  - option: '`AtomicRateLimiter`, whose state is a mutable object updated in place'
+    anchor: resilience4j-ratelimiter#internals
+    sentence: The AtomicRateLimiter.State is completely immutable
+  - option: '`AtomicRateLimiter`, whose permissions a scheduler refreshes after each `limitRefreshPeriod`'
+    anchor: resilience4j-ratelimiter#internals
+    sentence: There is also a SemaphoreBasedRateLimiter which uses Semaphores and a scheduler that will refresh permissions after each RateLimiterConfig#limitRefreshPeriod.
+m09-l04-q03:
+  key:
+    anchor: ietf-httpapi-ratelimit-headers#content
+    sentence: The REQUIRED "q" parameter indicates the quota allocated by this policy measured in quota units.
+  wrong:
+  - option: '`w`, the time window'
+    anchor: ietf-httpapi-ratelimit-headers#content
+    sentence: The OPTIONAL "w" parameter value conveys a time window.
+  - option: '`qu`, the quota unit'
+    anchor: ietf-httpapi-ratelimit-headers#content
+    sentence: The OPTIONAL "qu" parameter value conveys the quota units
+  - option: '`pk`, the partition key'
+    anchor: ietf-httpapi-ratelimit-headers#content
+    sentence: The OPTIONAL "pk" parameter value conveys the partition key
+m09-l04-q04:
+  key:
+    anchor: ietf-httpapi-ratelimit-headers#content
+    sentence: The default quota unit is "requests".
+  wrong:
+  - option: '`content-bytes`'
+    anchor: ietf-httpapi-ratelimit-headers#content
+    sentence: The default quota unit is "requests".
+    exclusive: true
+  - option: '`concurrent-requests`'
+    anchor: ietf-httpapi-ratelimit-headers#content
+    sentence: The default quota unit is "requests".
+    exclusive: true
+  - option: '`tokens`'
+    anchor: ietf-httpapi-ratelimit-headers#content
+    sentence: The default quota unit is "requests".
+    exclusive: true
+m09-l04-q05:
+  key:
+    anchor: ietf-httpapi-ratelimit-headers#content
+    sentence: The time window MUST be a non-negative, non-zero, Integer value expressing an interval in seconds
+  wrong:
+  - option: An integer number of milliseconds, so sub-second windows are possible
+    anchor: ietf-httpapi-ratelimit-headers#content
+    sentence: Sub-second precision is not supported.
+  - option: An integer number of minutes
+    anchor: ietf-httpapi-ratelimit-headers#content
+    sentence: The time window MUST be a non-negative, non-zero, Integer value expressing an interval in seconds
+  - option: A UNIX timestamp marking when the window ends
+    anchor: ietf-httpapi-ratelimit-headers#content
+    sentence: Using delay-seconds aligns with Retry-After, which is returned in similar contexts, e.g. on 429 responses.
+m09-l04-q06:
+  key:
+    anchor: pg-sql-select#SQL-FOR-UPDATE-SHARE
+    sentence: With NOWAIT, the statement reports an error, rather than waiting, if a selected row cannot be locked immediately.
+  wrong:
+  - option: The row is skipped and the statement returns the remaining rows
+    anchor: pg-sql-select#SQL-FOR-UPDATE-SHARE
+    sentence: With SKIP LOCKED, any selected rows that cannot be immediately locked are skipped.
+  - option: The statement waits until the other transaction commits and then locks the row
+    anchor: pg-sql-select#SQL-FOR-UPDATE-SHARE
+    sentence: To prevent the operation from waiting for other transactions to commit, use either the NOWAIT or SKIP LOCKED option.
+  - option: The statement takes a table-level lock to get past the row lock
+    anchor: pg-sql-select#SQL-FOR-UPDATE-SHARE
+    sentence: Note that NOWAIT and SKIP LOCKED apply only to the row-level lock(s)
+m09-l04-q07:
+  key:
+    anchor: pg-sql-select#SQL-FOR-UPDATE-SHARE
+    sentence: Skipping locked rows provides an inconsistent view of the data, so this is not suitable for general purpose work, but can be used to avoid lock contention with multiple consumers accessing a queue-like table.
+  wrong:
+  - option: It also skips the table-level lock, so concurrent schema changes can run
+    anchor: pg-sql-select#SQL-FOR-UPDATE-SHARE
+    sentence: the required ROW SHARE table-level lock is still taken in the ordinary way
+  - option: It cannot be combined with a `LIMIT` clause
+    anchor: pg-sql-select#SQL-FOR-UPDATE-SHARE
+    sentence: If a LIMIT is used, locking stops once enough rows have been returned to satisfy the limit
+  - option: It locks every row the query scans before it skips any
+    anchor: pg-sql-select#SQL-FOR-UPDATE-SHARE
+    sentence: the rows that are locked are exactly those that are returned by the query
+m09-l04-q08:
+  key:
+    anchor: pg-transaction-iso#XACT-SERIALIZABLE
+    sentence: applications using this level must be prepared to retry transactions due to serialization failures
+  wrong:
+  - option: It must lock the entire table before each read, as `READ COMMITTED` transactions do
+    anchor: pg-transaction-iso#XACT-SERIALIZABLE
+    sentence: a Read Committed or Repeatable Read transaction which wants to ensure data consistency may need to take out a lock on an entire table
+  - option: It may rely on data read in a transaction that later aborted
+    anchor: pg-transaction-iso#XACT-SERIALIZABLE
+    sentence: applications must not depend on results read during a transaction that later aborted
+  - option: It must expect predicate locks to block other transactions and cause deadlocks
+    anchor: pg-transaction-iso#XACT-SERIALIZABLE
+    sentence: In PostgreSQL these locks do not cause any blocking and therefore can not play any part in causing a deadlock.
+m09-l04-q09:
+  key:
+    anchor: ietf-httpapi-idempotency-key#content
+    sentence: If there is an attempt to reuse an idempotency key with a different request payload, the resource SHOULD reply with an HTTP 422 status code
+  wrong:
+  - option: '`409`'
+    anchor: ietf-httpapi-idempotency-key#content
+    sentence: If the request is retried, while the original request is still being processed, the resource SHOULD reply with an HTTP 409 status code
+  - option: '`400`'
+    anchor: ietf-httpapi-idempotency-key#content
+    sentence: If the Idempotency-Key request header is missing for a documented idempotent operation requiring this header, the resource SHOULD reply with an HTTP 400 status code
+  - option: '`200`'
+    anchor: ietf-httpapi-idempotency-key#content
+    sentence: If there is an attempt to reuse an idempotency key with a different request payload, the resource SHOULD reply with an HTTP 422 status code
+m09-l04-q10:
+  key:
+    anchor: kafka-design#message-delivery-semantics
+    sentence: Kafka guarantees at-least-once delivery by default, and allows the user to implement at-most-once delivery by disabling retries on the producer and committing offsets in the consumer prior to processing a batch of messages.
+  wrong:
+  - option: At-most-once delivery, because the producer disables retries by default
+    anchor: kafka-design#message-delivery-semantics
+    sentence: Kafka guarantees at-least-once delivery by default, and allows the user to implement at-most-once delivery by disabling retries on the producer and committing offsets in the consumer prior to processing a batch of messages.
+  - option: Exactly-once delivery to the external database without its cooperation
+    anchor: kafka-design#message-delivery-semantics
+    sentence: Exactly-once delivery for other destination systems generally requires cooperation with such systems
+  - option: No guarantee, because a committed message can be lost even while a broker replicating its partition is alive
+    anchor: kafka-design#message-delivery-semantics
+    sentence: Once a published message is committed, it will not be lost as long as one broker that replicates the partition to which this message was written remains “alive”.
+m09-l04-q11:
+  key:
+    anchor: kafka-design#message-delivery-semantics
+    sentence: It can read the messages, then save its position in the log, and finally process the messages. In this case there is a possibility that the consumer process crashes after saving its position but before saving the output of its message processing. In this case the process that took over processing would start at the saved position even though a few messages prior to that position had not been processed. This corresponds to “at-most-once” semantics as in the case of a consumer failure messages may not be processed.
+  wrong:
+  - option: At-least-once, because the new process re-reads messages that were already processed
+    anchor: kafka-design#message-delivery-semantics
+    sentence: It can read the messages, process the messages, and finally save its position.
+  - option: Exactly-once, because the position and the processing result are saved together
+    anchor: kafka-design#message-delivery-semantics
+    sentence: This corresponds to “at-most-once” semantics as in the case of a consumer failure messages may not be processed.
+  - option: No guarantee, because the new process restarts from the beginning of the partition
+    anchor: kafka-design#message-delivery-semantics
+    sentence: In this case the process that took over processing would start at the saved position even though a few messages prior to that position had not been processed.
+m09-l04-q12:
+  key:
+    anchor: rabbitmq-dlx#overview
+    sentence: If an entire queue expires, the messages in the queue are not dead-lettered.
+  wrong:
+  - option: A consumer rejects a message with `basic.nack` and `requeue` set to false
+    anchor: rabbitmq-dlx#overview
+    sentence: using basic.reject or basic.nack with requeue parameter set to false
+  - option: A message expires due to per-message TTL
+    anchor: rabbitmq-dlx#overview
+    sentence: The message expires due to per-message TTL
+  - option: A message is dropped because its queue exceeded a length limit
+    anchor: rabbitmq-dlx#overview
+    sentence: The message is dropped because its queue exceeded a length limit
+m09-l04-q13:
+  key:
+    anchor: spring-kafka-retrytopic#page-title
+    sentence: Since 3.2, Spring for Apache Kafka supports non-blocking retries with @KafkaListener on a Class.
+  wrong:
+  - option: It is supported with batch listeners
+    anchor: spring-kafka-retrytopic#page-title
+    sentence: Non-blocking retries are not supported with Batch Listeners.
+  - option: It can be combined with container transactions
+    anchor: spring-kafka-retrytopic#page-title
+    sentence: Non-Blocking Retries cannot combine with Container Transactions.
+  - option: The `@RetryableTopic` annotation was introduced in version 3.2
+    anchor: spring-kafka-retrytopic#page-title
+    sentence: Since 2.7 Spring for Apache Kafka offers support for that via the @RetryableTopic annotation
+m09-l04-q14:
+  key:
+    anchor: kafka-design#dont-fear-the-filesystem
+    sentence: the performance of linear writes on a JBOD configuration with six 7200rpm SATA RAID-5 array is about 600MB/sec but the performance of random writes is only about 100kB/sec–a difference of over 6000X
+  wrong:
+  - option: About 600 times faster
+    anchor: kafka-design#dont-fear-the-filesystem
+    sentence: a difference of over 6000X
+    exclusive: true
+  - option: About 60 times faster
+    anchor: kafka-design#dont-fear-the-filesystem
+    sentence: a difference of over 6000X
+    exclusive: true
+  - option: About 100 times faster
+    anchor: kafka-design#dont-fear-the-filesystem
+    sentence: a difference of over 6000X
+    exclusive: true
+m09-l04-q15:
+  key:
+    anchor: kafka-design#end-to-end-batch-compression
+    sentence: The batch will remain compressed in the log and it will also be transmitted to the consumer in compressed form.
+  wrong:
+  - option: The broker stores the messages uncompressed after validating them
+    anchor: kafka-design#end-to-end-batch-compression
+    sentence: This batch of messages is then written to disk in compressed form.
+  - option: The broker never decompresses the batch, so it cannot validate the record count
+    anchor: kafka-design#end-to-end-batch-compression
+    sentence: The broker decompresses the batch in order to validate it.
+  - option: The broker compresses each message separately when it appends the batch to the log
+    anchor: kafka-design#end-to-end-batch-compression
+    sentence: A batch of messages can be grouped together, compressed, and sent to the server in this form.
+m09-l04-q16:
+  key:
+    anchor: rfc9562#section-5.7
+    sentence: UUIDv7 values are created by allocating a Unix timestamp in milliseconds in the most significant 48 bits and filling the remaining 74 bits, excluding the required version and variant bits, with random bits for each new UUIDv7 generated to provide uniqueness
+  wrong:
+  - option: A 100-nanosecond Gregorian Epoch timestamp
+    anchor: rfc9562#section-2.1
+    sentence: The 100-nanosecond Gregorian Epoch used in UUIDv1 timestamps
+  - option: The Media Access Control (MAC) address of the generating node
+    anchor: rfc9562#section-2.1
+    sentence: using a Media Access Control (MAC) address in the node field of UUIDv1
+  - option: Random bits, with the timestamp in the least significant bits
+    anchor: rfc9562#section-5.7
+    sentence: 'unix_ts_ms: 48-bit big-endian unsigned number of the Unix Epoch timestamp in milliseconds as per Section 6.1. Occupies bits 0 through 47 (octets 0-5).'
+m09-l04-q17:
+  key:
+    anchor: rfc9562#section-6.1
+    sentence: If other timestamp sources or a custom timestamp Epoch are required, UUIDv8 MUST be used.
+  wrong:
+  - option: UUIDv7
+    anchor: rfc9562#section-6.1
+    sentence: while UUIDv7 features a millisecond level of precision by default within the Unix Epoch
+  - option: UUIDv6
+    anchor: rfc9562#section-6.1
+    sentence: UUIDv1 and UUIDv6 both utilize a Gregorian Epoch timestamp, while UUIDv7 utilizes a Unix Epoch timestamp.
+  - option: UUIDv1
+    anchor: rfc9562#section-2.1
+    sentence: The 100-nanosecond Gregorian Epoch used in UUIDv1 timestamps
+m09-l04-q18:
+  key:
+    anchor: redis-cluster-spec#key-distribution-model
+    sentence: 'The base algorithm used to map keys to hash slots is the following (read the next paragraph for the hash tag exception to this rule): HASH_SLOT = CRC16(key) mod 16384'
+  wrong:
+  - option: '`CRC16(key) mod 65536`'
+    anchor: redis-cluster-spec#key-distribution-model
+    sentence: 14 out of 16 CRC16 output bits are used (this is why there is a modulo 16384 operation in the formula above).
+  - option: '`CRC32(key) mod 16384`'
+    anchor: redis-cluster-spec#key-distribution-model
+    sentence: HASH_SLOT = CRC16(key) mod 16384
+    exclusive: true
+  - option: '`SHA1(key) mod 16384`'
+    anchor: redis-cluster-spec#key-distribution-model
+    sentence: HASH_SLOT = CRC16(key) mod 16384
+    exclusive: true
+m09-l04-q19:
+  key:
+    anchor: es-search-as-you-type#elastic-docs-v3
+    sentence: The size of shingles in subfields can be configured with the max_shingle_size mapping parameter. The default is 3, and valid values for this parameter are integer values 2 - 4 inclusive.
+  wrong:
+  - option: The default is 2, and valid values are the integers 2 to 4 inclusive
+    anchor: es-search-as-you-type#elastic-docs-v3
+    sentence: The default is 3, and valid values for this parameter are integer values 2 - 4 inclusive.
+    exclusive: true
+  - option: The default is 3, and valid values are the integers 1 to 3 inclusive
+    anchor: es-search-as-you-type#elastic-docs-v3
+    sentence: The default is 3, and valid values for this parameter are integer values 2 - 4 inclusive.
+    exclusive: true
+  - option: The default is 4, and valid values are the integers 3 to 8 inclusive
+    anchor: es-search-as-you-type#elastic-docs-v3
+    sentence: The default is 3, and valid values for this parameter are integer values 2 - 4 inclusive.
+    exclusive: true
+m09-l04-q20:
+  key:
+    anchor: es-similarity#bm25
+    sentence: k1 Controls non-linear term frequency normalization (saturation). The default value is 1.2.
+  wrong:
+  - option: '`k1` is 0.75 and `b` is 1.2'
+    anchor: es-similarity#bm25
+    sentence: The default value is 1.2.
+    exclusive: true
+  - option: '`k1` is 2.0 and `b` is 0.75'
+    anchor: es-similarity#bm25
+    sentence: The default value is 1.2.
+    exclusive: true
+  - option: '`k1` is 1.2 and `b` is 1.0'
+    anchor: es-similarity#bm25
+    sentence: The default value is 0.75.
+m09-l04-q21:
+  key:
+    anchor: es-paginate-search-results#search-after
+    sentence: If you don’t include a tiebreaker field, your paged results could miss or duplicate hits.
+  wrong:
+  - option: Elasticsearch adds an implicit `_shard_doc` tiebreaker, so the pages stay complete
+    anchor: es-paginate-search-results#search-after
+    sentence: All PIT search requests add an implicit sort tiebreaker field called _shard_doc, which can also be provided explicitly.
+  - option: The request is rejected, because `search_after` always requires a point in time
+    anchor: es-paginate-search-results#search-after
+    sentence: If you cannot use a PIT, we recommend that you include a tiebreaker field in your sort.
+  - option: Only the first page is returned, because `search_after` runs a single request
+    anchor: es-paginate-search-results#search-after
+    sentence: Using search_after requires multiple search requests with the same query and sort values.
+m09-l04-q22:
+  key:
+    anchor: es-how-full-text-works#elastic-docs-v3
+    sentence: 'Dictionary: A sorted list of all unique terms in the collection of documents in your index.'
+  wrong:
+  - option: For each term, a list of document IDs where the term appears
+    anchor: es-how-full-text-works#elastic-docs-v3
+    sentence: 'Posting list: For each term, a list of document IDs where the term appears, along with optional metadata like term frequency and position.'
+  - option: The relevance score of each document for the query
+    anchor: es-how-full-text-works#elastic-docs-v3
+    sentence: The relevance score of each document is represented by a positive floating-point number called the _score.
+  - option: The analyzers that transform the text before it is indexed
+    anchor: es-how-full-text-works#elastic-docs-v3
+    sentence: 'Dictionary: A sorted list of all unique terms in the collection of documents in your index.'
+m09-l04-q23:
+  key:
+    anchor: mcp-tools#calling-tools
+    sentence: To invoke a tool, clients send a tools/call request
+  wrong:
+  - option: '`tools/invoke`'
+    anchor: mcp-tools#calling-tools
+    sentence: 'To invoke a tool, clients send a tools/call request:'
+    exclusive: true
+  - option: '`tools/run`'
+    anchor: mcp-tools#calling-tools
+    sentence: 'To invoke a tool, clients send a tools/call request:'
+    exclusive: true
+  - option: '`tools/execute`'
+    anchor: mcp-tools#calling-tools
+    sentence: 'To invoke a tool, clients send a tools/call request:'
+    exclusive: true
+m09-l04-q24:
+  key:
+    anchor: mcp-security-best-practices#terminology
+    sentence: This Client ID refers to the MCP server acting as a client to the Third-Party API. It is the same value for all MCP server to Third-Party API interactions regardless of which MCP client initiated the request.
+  wrong:
+  - option: It is issued to each MCP client separately through dynamic client registration
+    anchor: mcp-security-best-practices#terminology
+    sentence: 'Third-Party Authorization Server : Authorization server that protects the third-party API. It may lack dynamic client registration support, requiring the MCP proxy to use a static client ID for all requests.'
+  - option: It identifies the end user rather than the MCP server
+    anchor: mcp-security-best-practices#terminology
+    sentence: This Client ID refers to the MCP server acting as a client to the Third-Party API.
+  - option: It is optional because the third-party authorization server always supports dynamic client registration
+    anchor: mcp-security-best-practices#terminology
+    sentence: It may lack dynamic client registration support, requiring the MCP proxy to use a static client ID for all requests.
+m09-l04-q25:
+  key:
+    anchor: owasp-llm-top10-prompt-injection#main
+    sentence: prompt injections do not need to be human-visible/readable, as long as the content is parsed by the model.
+  wrong:
+  - option: Injected input works only when a human reader can see it
+    anchor: owasp-llm-top10-prompt-injection#main
+    sentence: prompt injections do not need to be human-visible/readable, as long as the content is parsed by the model.
+  - option: Injected input comes only from prompts that the user types directly
+    anchor: owasp-llm-top10-prompt-injection#indirect-prompt-injections
+    sentence: Indirect prompt injections occur when an LLM accepts input from external sources, such as websites or files.
+  - option: Retrieval Augmented Generation (RAG) and fine-tuning fully mitigate the vulnerability
+    anchor: owasp-llm-top10-prompt-injection#main
+    sentence: research shows that they do not fully mitigate prompt injection vulnerabilities.
+m09-l04-q26:
+  key:
+    anchor: owasp-llm-top10-prompt-injection#main
+    sentence: Jailbreaking is a form of prompt injection where the attacker provides inputs that cause the model to disregard its safety protocols entirely.
+  wrong:
+  - option: Jailbreaking is an unrelated vulnerability that prompt injection cannot cause
+    anchor: owasp-llm-top10-prompt-injection#main
+    sentence: While prompt injection and jailbreaking are related concepts in LLM security
+  - option: Preventing jailbreaking only needs safeguards in system prompts and input handling
+    anchor: owasp-llm-top10-prompt-injection#main
+    sentence: effective prevention of jailbreaking requires ongoing updates to the model’s training and safety mechanisms.
+  - option: Jailbreaking is the only form of prompt injection, so indirect injections do not count
+    anchor: owasp-llm-top10-prompt-injection#indirect-prompt-injections
+    sentence: Indirect prompt injections occur when an LLM accepts input from external sources, such as websites or files.

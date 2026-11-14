@@ -1,0 +1,260 @@
+S1.1	"Local per-process counters break behind load"	pass
+S1.2	"The rate limiter needs a centralized"	pass
+S1.3	"Counters live behind keys scoped to"	pass
+S1.4	"`INCR` and `EXPIRE` give you atomic"	pass
+S1.5	"Hashes, sorted sets, and strings cover"	pass
+S1.6	"Hash field expiration in Redis 8"	pass
+S1.7	"Lua scripting with `EVAL` keeps the"	pass
+R1.1	"`INCR` and `EXPIRE`"	pass
+R1.2	"Hashes, sorted sets and strings"	pass
+R1.3	"`HEXPIRE` (Redis 8)"	pass
+R1.4	"Lua scripting with `EVAL`"	pass
+S1.8	"Resilience4j provides a `RateLimiter` which splits"	pass
+S1.9	"Each cycle has a duration configured"	pass
+S1.10	"At the start of each cycle,"	pass
+S1.11	"The default implementation of `RateLimiter` is"	pass
+S1.12	"The `AtomicRateLimiter.State` is completely immutable (`resilience4j-ratelimiter#internals`)."	pass
+S1.13	"The state field `activeCycle` is the"	pass
+S1.14	"The state field `activePermissions` is the"	pass
+S1.15	"The state field `nanosToWait` is the"	pass
+S1.16	"There is also a `SemaphoreBasedRateLimiter` which"	pass
+S1.17	"The `RateLimit-Policy` and `RateLimit` HTTP header"	pass
+S1.18	"The `RateLimit` header fields are specified"	pass
+S1.19	"The value of the `RateLimit-Policy` field"	pass
+S1.20	"The REQUIRED `q` parameter of a"	pass
+S1.21	"The OPTIONAL `w` parameter of a"	pass
+S1.22	"The default quota unit is `requests`"	pass
+S1.23	"The draft defines three quota units:"	pass
+S1.24	"The time window MUST be a"	pass
+S1.25	"Sub-second precision is not supported (`ietf-httpapi-ratelimit-headers#content`)."	pass
+S1.26	"Using delay-seconds aligns with `Retry-After`, which"	pass
+S1.27	"If a response contains both the"	pass
+S1.28	"The draft does not mandate a"	pass
+S1.29	"Network bandwidth quotas define byte-rate thresholds"	pass
+S1.30	"Request rate quotas define CPU utilization"	pass
+S1.31	"According to Google's Site Reliability Engineering"	pass
+S1.32	"If the amount of rejected requests"	pass
+S1.33	"The book describes client-side throttling as"	pass
+S1.34	"When a client detects that a"	pass
+S1.35	"Requests above the cap fail locally"	pass
+S1.36	"In the book's adaptive throttling, each"	pass
+S1.37	"Clients can continue to issue requests"	pass
+S2.1	"`FOR UPDATE` causes the rows retrieved"	pass
+S2.2	"A `FOR UPDATE` lock prevents the"	pass
+S2.3	"Row-level locks do not affect data"	pass
+S2.4	"Row-level locks are released at transaction"	pass
+S2.5	"Within a `REPEATABLE READ` or `SERIALIZABLE`"	pass
+S2.6	"`FOR SHARE` behaves similarly to `FOR"	pass
+S2.7	"`FOR KEY SHARE` behaves similarly to"	pass
+S2.8	"A shared lock blocks other transactions"	pass
+S2.9	"Locking a row might cause a"	pass
+S2.10	"With `NOWAIT`, the statement reports an"	pass
+S2.11	"With `SKIP LOCKED`, any selected rows"	pass
+S2.12	"Skipping locked rows provides an inconsistent"	pass
+S2.13	"`NOWAIT` and `SKIP LOCKED` apply only"	pass
+S2.14	"If a `LIMIT` is used, locking"	pass
+S2.15	"Rows skipped over by `OFFSET` will"	pass
+S2.16	"The locking clauses cannot be used"	pass
+S2.17	"Applications using `SERIALIZABLE` must be prepared"	pass
+S2.18	"The monitoring done by `SERIALIZABLE` does"	pass
+S2.19	"Applications must not depend on results"	pass
+S2.20	"To guarantee true serializability PostgreSQL uses"	pass
+S2.21	"In PostgreSQL, predicate locks do not"	pass
+S2.22	"A `READ COMMITTED` or `REPEATABLE READ`"	pass
+S2.23	"The safety property of the Redis"	pass
+S2.24	"Liveness property A of the design"	pass
+S2.25	"Liveness property B of the design"	pass
+S2.26	"Per RFC 9110, the methods `OPTIONS`,"	pass
+S2.27	"The HTTP `Idempotency-Key` request header field"	pass
+S2.28	"The idempotency key MUST be unique"	pass
+S2.29	"It is RECOMMENDED that a UUID"	pass
+S2.30	"An idempotency fingerprint MAY be used"	pass
+S2.31	"If the `Idempotency-Key` request header is"	pass
+S2.32	"If there is an attempt to"	pass
+S2.33	"If the request is retried, while"	pass
+S3.1	"At most once means messages may"	pass
+S3.2	"At least once means messages are"	pass
+S3.3	"Exactly once means each message is"	pass
+S3.4	"A message is considered committed only"	pass
+S3.5	"If a producer attempts to publish"	pass
+S3.6	"Since 0.11.0.0, the Kafka producer also"	pass
+S3.7	"To achieve this, the broker assigns"	pass
+S3.8	"Also beginning with 0.11.0.0, the producer"	pass
+S3.9	"A consumer that reads the messages,"	pass
+S3.10	"After a crash between saving the"	pass
+S3.11	"A consumer that reads the messages,"	pass
+S3.12	"In the default `read_uncommitted` isolation level,"	fail	drops 'and messages not part of a transaction'; 'only' misstates read_committed
+S3.13	"Kafka supports exactly-once delivery in Kafka"	pass
+S3.14	"Exactly-once delivery for other destination systems"	pass
+S3.15	"Kafka guarantees at-least-once delivery by default,"	pass
+S3.16	"Messages from a queue can be"	pass
+S3.17	"A message is dead-lettered when it"	pass
+S3.18	"A message is dead-lettered when it"	pass
+S3.19	"A message is dead-lettered when it"	pass
+S3.20	"A message is dead-lettered when it"	pass
+S3.21	"If an entire queue expires, the"	pass
+S3.22	"Dead letter exchanges (DLXs) are normal"	pass
+S3.23	"When RabbitMQ delivers a message to"	pass
+S3.24	"The kind of acknowledgement logic that"	pass
+S3.25	"Achieving non-blocking retry / dlt functionality"	pass
+S3.26	"Since 2.7 Spring for Apache Kafka"	pass
+S3.27	"Since 3.2, Spring for Apache Kafka"	pass
+S3.28	"Non-blocking retries are not supported with"	pass
+S3.29	"Non-Blocking Retries cannot combine with Container"	pass
+S4.1	"A properly designed disk structure can"	pass
+S4.2	"Linear writes on a JBOD configuration"	pass
+S4.3	"All data is immediately written to"	pass
+S4.4	"Java garbage collection becomes increasingly fiddly"	pass
+S4.5	"The pagecache stays warm even if"	pass
+S4.6	"Once poor disk access patterns have"	pass
+S4.7	"The Kafka protocol is built around"	pass
+S4.8	"Batching leads to larger network packets,"	pass
+S4.9	"The common data path for transfer"	pass
+S4.10	"Using `sendfile`, the OS sends the"	pass
+S4.11	"On a Kafka cluster where the"	pass
+S4.12	"`sendfile` is not used when SSL"	pass
+S4.13	"In some cases the bottleneck is"	pass
+S4.14	"Efficient compression requires compressing multiple messages"	pass
+S4.15	"The broker decompresses the batch in"	pass
+S4.16	"The batch of messages is written"	pass
+S4.17	"The batch will remain compressed in"	pass
+S4.18	"Kafka supports GZIP, Snappy, LZ4 and"	pass
+S4.19	"Alignment happens only for operators with"	pass
+S4.20	"Dataflows with only embarrassingly parallel streaming"	pass
+S4.21	"For applications that require consistently super"	pass
+S4.22	"Metrics consist of data point–timestamp pairs,"	pass
+S4.23	"Choose a time series data stream"	pass
+S4.24	"For other timestamped data, such as"	pass
+S5.1	"UUIDs can be used to create"	pass
+S5.2	"Schemes such as 'auto-increment' do not"	pass
+S5.3	"UUID versions that are not time"	pass
+S5.4	"New values created in succession are"	pass
+S5.5	"The 100-nanosecond Gregorian Epoch used in"	pass
+S5.6	"Exposed MAC addresses in the node"	pass
+S5.7	"UUIDv7 features a time-ordered value field"	pass
+S5.8	"UUIDv7 values are created by allocating"	pass
+S5.9	"Implementations MAY fill the 74 bits,"	pass
+S5.10	"Implementations SHOULD utilize UUIDv7 instead of"	pass
+S5.11	"UUIDv1 and UUIDv6 both utilize a"	pass
+S5.12	"If other timestamp sources or a"	pass
+S5.13	"UUIDv7 features a millisecond level of"	pass
+S5.14	"UUIDv7 features a 48-bit timestamp valid"	pass
+S5.15	"If a system overruns the generator"	pass
+S5.16	"The key space of a Redis"	pass
+S5.17	"The base algorithm used to map"	pass
+S5.18	"14 out of 16 CRC16 output"	pass
+S5.19	"When the cluster is stable, a"	pass
+S6.1	"The `search_as_you_type` field type is a"	pass
+S6.2	"A `search_as_you_type` field supports both prefix"	pass
+S6.3	"`my_field._index_prefix` wraps the analyzer of `my_field._3gram`"	pass
+S6.4	"The size of shingles in subfields"	pass
+S6.5	"Increasing `max_shingle_size` will improve matches for"	pass
+S6.6	"The most efficient way of querying"	pass
+S6.7	"A `bool_prefix` query can match the"	pass
+S6.8	"To search for documents that strictly"	pass
+S6.9	"Using phrase queries may be less"	pass
+S6.10	"To use the completion suggester, map"	pass
+S6.11	"Mapping a field as `completion` indexes"	pass
+S6.12	"The `suggest` parameter of the search"	pass
+S6.13	"The term suggester's score is based"	pass
+S6.14	"Using `suggest` across multiple indices with"	pass
+S6.15	"An inverted index is a data"	pass
+S6.16	"The dictionary of an inverted index"	pass
+S6.17	"The posting list of an inverted"	pass
+S6.18	"Query text is analyzed the same"	pass
+S6.19	"The default similarity algorithm Elasticsearch uses"	pass
+S6.20	"BM25 calculates relevance scores based on"	pass
+S6.21	"In the BM25 similarity, `k1` controls"	pass
+S6.22	"In the BM25 similarity, `b` controls"	pass
+S6.23	"You can use the `search_after` parameter"	pass
+S6.24	"Using `search_after` requires multiple search requests"	pass
+S6.25	"If a refresh occurs between these"	pass
+S6.26	"To prevent inconsistent results across pages,"	pass
+S6.27	"All PIT search requests add an"	pass
+S6.28	"If you cannot use a PIT,"	pass
+S6.29	"If you don’t include a tiebreaker"	pass
+S6.30	"Elasticsearch no longer recommends the scroll"	pass
+S7.1	"The Model Context Protocol (MCP) allows"	pass
+S7.2	"Each MCP tool is uniquely identified"	pass
+S7.3	"Every MCP request MUST include the"	pass
+S7.4	"To invoke a tool, clients send"	pass
+S7.5	"An MCP proxy server is an"	pass
+S7.6	"A static client ID is a"	pass
+S7.7	"The static client ID refers to"	pass
+S7.8	"A third-party authorization server may lack"	pass
+S7.9	"Attackers can exploit MCP proxy servers"	pass
+S7.10	"The confused deputy attack allows malicious"	pass
+S7.11	"A Prompt Injection Vulnerability occurs when"	pass
+S7.12	"Prompt injections do not need to"	pass
+S7.13	"Research shows that Retrieval Augmented Generation"	pass
+S7.14	"Jailbreaking is a form of prompt"	pass
+S7.15	"Effective prevention of jailbreaking requires ongoing"	pass
+S7.16	"Prompt injection and jailbreaking are related"	pass
+S7.17	"Indirect prompt injections occur when an"	pass
+S7.18	"A successful prompt injection can lead"	pass
+S8.1	"A per-process counter lets the same"	pass
+S8.2	"Redis provides `INCR` and `EXPIRE` for"	pass
+S8.3	"The default Resilience4j `RateLimiter` is `AtomicRateLimiter`,"	pass
+S8.4	"A `RateLimit` header advertises the quota"	pass
+S8.5	"`SELECT … FOR UPDATE` locks the"	pass
+S8.6	"`SKIP LOCKED` skips rows that cannot"	pass
+S8.7	"Applications that use `SERIALIZABLE` must be"	pass
+S8.8	"An idempotency key is unique and"	pass
+S8.9	"Kafka guarantees at-least-once delivery by default;"	pass
+S8.10	"A consumer that saves its position"	pass
+S8.11	"Kafka supports exactly-once delivery in Kafka"	pass
+S8.12	"RabbitMQ dead-letters a message on a"	pass
+S8.13	"Spring for Apache Kafka non-blocking retries"	pass
+S8.14	"Kafka writes to a persistent log"	pass
+S8.15	"Kafka groups messages into batches, which"	fail	lesson never states batching amortizes network round trips
+S8.16	"`sendfile` removes copies on the path"	pass
+S8.17	"Kafka compresses a batch of messages"	pass
+S8.18	"Elasticsearch recommends a time series data"	pass
+S8.19	"UUIDs create unique, reasonably short values"	pass
+S8.20	"UUIDv4 is not time ordered and"	pass
+S8.21	"UUIDv7 puts a Unix timestamp in"	pass
+S8.22	"UUIDv8 MUST be used for other"	pass
+S8.23	"Redis Cluster maps a key to"	pass
+S8.24	"Elasticsearch builds an inverted index from"	pass
+S8.25	"The `search_as_you_type` field type creates shingle"	pass
+S8.26	"The completion suggester needs a field"	pass
+S8.27	"`search_after` pages through results with the"	pass
+S8.28	"MCP servers expose tools that language"	pass
+S8.29	"A client invokes a tool by"	pass
+S8.30	"An MCP proxy server can be"	pass
+S8.31	"Prompt injections do not need to"	pass
+g-quota-policy	pass
+g-dead-letter-exchange	fail	definition never says what a DLX receives; only that it is normal
+g-uuidv7	pass
+g-confused-deputy	fail	defines an MCP vulnerability, not the general confused deputy term
+g-prompt-injection	pass
+m09-l04-q01	pass
+m09-l04-q02	fail	scheduler distractor not contradicted; anchor only says SemaphoreBasedRateLimiter uses one
+m09-l04-q03	pass
+m09-l04-q04	pass
+m09-l04-q05	pass
+m09-l04-q06	pass
+m09-l04-q07	pass
+m09-l04-q08	pass
+m09-l04-q09	pass
+m09-l04-q10	pass
+m09-l04-q11	pass
+m09-l04-q12	pass
+m09-l04-q13	pass
+m09-l04-q14	pass
+m09-l04-q15	pass
+m09-l04-q16	pass
+m09-l04-q17	pass
+m09-l04-q18	pass
+m09-l04-q19	pass
+m09-l04-q20	pass
+m09-l04-q21	pass
+m09-l04-q22	pass
+m09-l04-q23	pass
+m09-l04-q24	fail	one source sentence (lacks DCR support) refutes two distractors
+m09-l04-q25	pass
+m09-l04-q26	pass
+# checked 256, passed 250, failed 6
+S3.12	recheck	pass
+S8.15	recheck	pass
+m09-l04-q09	recheck	fail	near-duplicate of m09-l01-q05 (coordinator, module scan)

@@ -1,0 +1,243 @@
+m09-case-d-q01:
+  key:
+    anchor: kafka-design#dont-fear-the-filesystem
+    sentence: the performance of linear writes on a JBOD configuration with six 7200rpm SATA RAID-5 array is about 600MB/sec but the performance of random writes is only about 100kB/sec–a difference of over 6000X
+  wrong:
+  - option: About 6 times faster, at 600MB/sec for linear writes against 100MB/sec for random writes
+    anchor: kafka-design#dont-fear-the-filesystem
+    sentence: the performance of linear writes on a JBOD configuration with six 7200rpm SATA RAID-5 array is about 600MB/sec but the performance of random writes is only about 100kB/sec–a difference of over 6000X
+    exclusive: true
+  - option: About 60 times faster, at 600MB/sec for linear writes against 10MB/sec for random writes
+    anchor: kafka-design#dont-fear-the-filesystem
+    sentence: the performance of linear writes on a JBOD configuration with six 7200rpm SATA RAID-5 array is about 600MB/sec but the performance of random writes is only about 100kB/sec–a difference of over 6000X
+    exclusive: true
+  - option: About 600 times faster, at 600MB/sec for linear writes against 1MB/sec for random writes
+    anchor: kafka-design#dont-fear-the-filesystem
+    sentence: the performance of linear writes on a JBOD configuration with six 7200rpm SATA RAID-5 array is about 600MB/sec but the performance of random writes is only about 100kB/sec–a difference of over 6000X
+    exclusive: true
+m09-case-d-q02:
+  key:
+    anchor: kafka-design#dont-fear-the-filesystem
+    sentence: All data is immediately written to a persistent log on the filesystem without necessarily flushing to disk.
+  wrong:
+  - option: It stays in an in-process cache in the broker that remains warm across restarts
+    anchor: kafka-design#dont-fear-the-filesystem
+    sentence: this cache will stay warm even if the service is restarted, whereas the in-process cache will need to be rebuilt in memory
+  - option: It stays on the JVM heap of the broker, where garbage collection cost stays flat as data grows
+    anchor: kafka-design#dont-fear-the-filesystem
+    sentence: Java garbage collection becomes increasingly fiddly and slow as the in-heap data increases.
+  - option: It is buffered in memory first, because disks are always far slower than the network
+    anchor: kafka-design#dont-fear-the-filesystem
+    sentence: a properly designed disk structure can often be as fast as the network.
+m09-case-d-q03:
+  key:
+    anchor: kafka-design#efficiency
+    sentence: Using sendfile, this re-copying is avoided by allowing the OS to send the data from pagecache to the network directly. So in this optimized path, only the final copy to the NIC buffer is needed.
+  wrong:
+  - option: Data still takes four copies and two system calls on every fetch
+    anchor: kafka-design#efficiency
+    sentence: there are four copies and two system calls
+  - option: '`sendfile` still applies when SSL is enabled on the listener of the broker'
+    anchor: kafka-design#efficiency
+    sentence: sendfile is not used when SSL is enabled.
+  - option: Consumers that are caught up still cause constant reads on the disks
+    anchor: kafka-design#efficiency
+    sentence: on a Kafka cluster where the consumers are mostly caught up you will see no read activity on the disks whatsoever as they will be serving data entirely from cache.
+m09-case-d-q04:
+  key:
+    anchor: kafka-design#end-to-end-batch-compression
+    sentence: Kafka supports GZIP, Snappy, LZ4 and ZStandard compression protocols.
+  wrong:
+  - option: '`GZIP` only'
+    anchor: kafka-design#end-to-end-batch-compression
+    sentence: Kafka supports GZIP, Snappy, LZ4 and ZStandard compression protocols.
+    exclusive: true
+  - option: '`GZIP` and `Snappy` only'
+    anchor: kafka-design#end-to-end-batch-compression
+    sentence: Kafka supports GZIP, Snappy, LZ4 and ZStandard compression protocols.
+    exclusive: true
+  - option: '`LZ4` and `ZStandard` only'
+    anchor: kafka-design#end-to-end-batch-compression
+    sentence: Kafka supports GZIP, Snappy, LZ4 and ZStandard compression protocols.
+    exclusive: true
+m09-case-d-q05:
+  key:
+    anchor: kafka-design#efficiency
+    sentence: on a Kafka cluster where the consumers are mostly caught up you will see no read activity on the disks whatsoever as they will be serving data entirely from cache.
+  wrong:
+  - option: To partitions chosen in round robin for each record
+    anchor: kafka-design#efficiency
+    sentence: on a Kafka cluster where the consumers are mostly caught up you will see no read activity on the disks whatsoever as they will be serving data entirely from cache.
+    exclusive: true
+  - option: To every partition of the topic
+    anchor: kafka-design#efficiency
+    sentence: on a Kafka cluster where the consumers are mostly caught up you will see no read activity on the disks whatsoever as they will be serving data entirely from cache.
+    exclusive: true
+  - option: To a random partition chosen for each record
+    anchor: kafka-design#efficiency
+    sentence: on a Kafka cluster where the consumers are mostly caught up you will see no read activity on the disks whatsoever as they will be serving data entirely from cache.
+    exclusive: true
+m09-case-d-q06:
+  key:
+    anchor: flink-stateful-stream-processing#exactly-once-vs-at-least-once
+    sentence: Alignment happens only for operators with multiple predecessors (joins) as well as operators with multiple senders (after a stream repartitioning/shuffle).
+  wrong:
+  - option: Only operators with multiple predecessors, which are the join operators
+    anchor: flink-stateful-stream-processing#exactly-once-vs-at-least-once
+    sentence: Alignment happens only for operators with multiple predecessors (joins) as well as operators with multiple senders (after a stream repartitioning/shuffle).
+    exclusive: true
+  - option: Only the sink operators of the job
+    anchor: flink-stateful-stream-processing#exactly-once-vs-at-least-once
+    sentence: Alignment happens only for operators with multiple predecessors (joins) as well as operators with multiple senders (after a stream repartitioning/shuffle).
+    exclusive: true
+  - option: Every operator of the job, including `map()` and `filter()` operators
+    anchor: flink-stateful-stream-processing#exactly-once-vs-at-least-once
+    sentence: Alignment happens only for operators with multiple predecessors (joins) as well as operators with multiple senders (after a stream repartitioning/shuffle).
+    exclusive: true
+m09-case-d-q07:
+  key:
+    anchor: kafka-design#enforcement
+    sentence: By default, each unique client group receives a fixed quota as configured by the cluster. This quota is defined on a per-broker basis.
+  wrong:
+  - option: Per topic, summed over all brokers
+    anchor: kafka-design#enforcement
+    sentence: By default, each unique client group receives a fixed quota as configured by the cluster. This quota is defined on a per-broker basis.
+    exclusive: true
+  - option: Per partition of each topic
+    anchor: kafka-design#enforcement
+    sentence: By default, each unique client group receives a fixed quota as configured by the cluster. This quota is defined on a per-broker basis.
+    exclusive: true
+  - option: Once for the whole cluster, shared by all brokers
+    anchor: kafka-design#enforcement
+    sentence: By default, each unique client group receives a fixed quota as configured by the cluster. This quota is defined on a per-broker basis.
+    exclusive: true
+m09-case-d-q08:
+  key:
+    anchor: kafka-design#efficiency
+    sentence: 'Once poor disk access patterns have been eliminated, there are two common causes of inefficiency in this type of system: too many small I/O operations, and excessive byte copying.'
+  wrong:
+  - option: Too many large sequential writes and slow compression of batches
+    anchor: kafka-design#efficiency
+    sentence: 'Once poor disk access patterns have been eliminated, there are two common causes of inefficiency in this type of system: too many small I/O operations, and excessive byte copying.'
+    exclusive: true
+  - option: Garbage collection pauses and too few partitions per topic
+    anchor: kafka-design#efficiency
+    sentence: 'Once poor disk access patterns have been eliminated, there are two common causes of inefficiency in this type of system: too many small I/O operations, and excessive byte copying.'
+    exclusive: true
+  - option: Too many consumers and excessive replication between brokers
+    anchor: kafka-design#efficiency
+    sentence: 'Once poor disk access patterns have been eliminated, there are two common causes of inefficiency in this type of system: too many small I/O operations, and excessive byte copying.'
+    exclusive: true
+m09-case-d-q09:
+  key:
+    anchor: paper-dynamo#p7
+    sentence: that R + W > N yields a quorum-like system.
+  wrong:
+  - option: '2'
+    anchor: paper-dynamo#p7
+    sentence: that R + W > N yields a quorum-like system.
+    exclusive: true
+  - option: '1'
+    anchor: paper-dynamo#p7
+    sentence: that R + W > N yields a quorum-like system.
+    exclusive: true
+  - option: '4'
+    anchor: paper-dynamo#p7
+    sentence: that R + W > N yields a quorum-like system.
+    exclusive: true
+m09-case-d-q10:
+  key:
+    anchor: kafka-design#efficiency
+    sentence: our protocol is built around a “message set” abstraction that naturally groups messages together.
+  wrong:
+  - option: A single-message request that the broker never combines
+    anchor: kafka-design#efficiency
+    sentence: our protocol is built around a “message set” abstraction that naturally groups messages together.
+    exclusive: true
+  - option: A byte stream with no message boundaries
+    anchor: kafka-design#efficiency
+    sentence: our protocol is built around a “message set” abstraction that naturally groups messages together.
+    exclusive: true
+  - option: A key-value record that is always compressed alone
+    anchor: kafka-design#end-to-end-batch-compression
+    sentence: Efficient compression requires compressing multiple messages together rather than compressing each message individually.
+m09-case-d-q11:
+  key:
+    anchor: kafka-design#efficiency
+    sentence: there are four copies and two system calls
+  wrong:
+  - option: Two copies and one system call
+    anchor: kafka-design#efficiency
+    sentence: there are four copies and two system calls
+    exclusive: true
+  - option: Three copies and three system calls
+    anchor: kafka-design#efficiency
+    sentence: there are four copies and two system calls
+    exclusive: true
+  - option: Six copies and four system calls
+    anchor: kafka-design#efficiency
+    sentence: there are four copies and two system calls
+    exclusive: true
+m09-case-d-q12:
+  key:
+    anchor: kafka-design#end-to-end-batch-compression
+    sentence: Efficient compression requires compressing multiple messages together rather than compressing each message individually.
+  wrong:
+  - option: Compressing each message individually
+    anchor: kafka-design#end-to-end-batch-compression
+    sentence: Efficient compression requires compressing multiple messages together rather than compressing each message individually.
+    exclusive: true
+  - option: Compressing only the message keys
+    anchor: kafka-design#end-to-end-batch-compression
+    sentence: Efficient compression requires compressing multiple messages together rather than compressing each message individually.
+    exclusive: true
+  - option: Compressing only at the broker after the write
+    anchor: kafka-design#end-to-end-batch-compression
+    sentence: Efficient compression requires compressing multiple messages together rather than compressing each message individually.
+    exclusive: true
+m09-case-d-q13:
+  key:
+    anchor: es-time-series-data-stream#when-to-use-tsds
+    sentence: Metrics consist of data point–timestamp pairs, identified by dimension fields, that can be used in aggregation queries.
+  wrong:
+  - option: Log lines and traces kept in a logs data stream
+    anchor: es-time-series-data-stream#when-to-use-tsds
+    sentence: For other timestamped data, such as logs or traces, use a logs data stream or a regular data stream.
+  - option: Posting lists of document IDs for each term
+    anchor: es-how-full-text-works#elastic-docs-v3
+    sentence: 'Posting list: For each term, a list of document IDs where the term appears, along with optional metadata like term frequency and position.'
+  - option: Relevance scores from term frequency and document length
+    anchor: es-how-full-text-works#elastic-docs-v3
+    sentence: BM25 calculates relevance scores based on term frequency, document frequency, and document length.
+m09-case-d-q14:
+  key:
+    anchor: es-clusters-nodes-shards#elastic-docs-v3
+    sentence: Each document in an index belongs to one primary shard
+  wrong:
+  - option: Every primary shard of the index
+    anchor: es-clusters-nodes-shards#elastic-docs-v3
+    sentence: Each index in Elasticsearch is a grouping of one or more physical shards, where each shard is a self-contained Lucene index containing a subset of the documents in the index
+  - option: All shards, including the replica shards
+    anchor: es-clusters-nodes-shards#elastic-docs-v3
+    sentence: A replica shard is a copy of a primary shard
+  - option: Two primary shards, for redundancy
+    anchor: es-clusters-nodes-shards#elastic-docs-v3
+    sentence: Each document in an index belongs to one primary shard
+    exclusive: true
+m09-case-d-q15:
+  key:
+    anchor: flink-stateful-stream-processing#exactly-once-vs-at-least-once
+    sentence: dataflows with only embarrassingly parallel streaming operations (map(), flatMap(), filter(), …) actually give exactly once guarantees even in at least once mode.
+  wrong:
+  - option: Dataflows that contain joins of several input streams
+    anchor: flink-stateful-stream-processing#exactly-once-vs-at-least-once
+    sentence: dataflows with only embarrassingly parallel streaming operations (map(), flatMap(), filter(), …) actually give exactly once guarantees even in at least once mode.
+    exclusive: true
+  - option: Dataflows that repartition streams with a shuffle
+    anchor: flink-stateful-stream-processing#exactly-once-vs-at-least-once
+    sentence: dataflows with only embarrassingly parallel streaming operations (map(), flatMap(), filter(), …) actually give exactly once guarantees even in at least once mode.
+    exclusive: true
+  - option: Every dataflow, whatever its operators
+    anchor: flink-stateful-stream-processing#exactly-once-vs-at-least-once
+    sentence: dataflows with only embarrassingly parallel streaming operations (map(), flatMap(), filter(), …) actually give exactly once guarantees even in at least once mode.
+    exclusive: true

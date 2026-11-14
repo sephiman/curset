@@ -1,0 +1,247 @@
+m04-l01-q01:
+  key:
+    anchor: kotlin-docs-null-safety#safe-call-operator
+    sentence: Instead of throwing an NPE, if the object is null, the ?. operator simply returns null
+  wrong:
+  - option: It returns `0`, the default value of `Int`
+    anchor: kotlin-docs-null-safety#safe-call-operator
+    sentence: The b?.length expression checks for nullability and returns b.length if b is non-null, or null otherwise.
+  - option: It throws a `NullPointerException` at runtime
+    anchor: kotlin-docs-null-safety#safe-call-operator
+    sentence: Instead of throwing an NPE, if the object is null, the ?. operator simply returns null
+  - option: It fails to compile, because `length` is not available on `String?`
+    anchor: kotlin-docs-null-safety#nullable-types-and-non-nullable-types
+    sentence: Only safe (?.) or non-null asserted (!!.) calls are allowed on a nullable receiver of type String?
+m04-l01-q02:
+  key:
+    anchor: kotlin-docs-null-safety#elvis-operator
+    sentence: The expression on the right-hand side is evaluated only if the left-hand side is null.
+  wrong:
+  - option: It is returned whenever the left-hand side has a nullable type, even if its value is not null
+    anchor: kotlin-docs-null-safety#elvis-operator
+    sentence: 'If the expression to the left of ?: is not null, the Elvis operator returns it.'
+  - option: It is always evaluated first, and its result is dropped when the left-hand side is not null
+    anchor: kotlin-docs-null-safety#elvis-operator
+    sentence: The expression on the right-hand side is evaluated only if the left-hand side is null.
+  - option: It must be a `throw` or `return` expression and never a plain value
+    anchor: kotlin-docs-null-safety#elvis-operator
+    sentence: Since throw and return are expressions in Kotlin, you can also use them on the right-hand side of the Elvis operator.
+m04-l01-q03:
+  key:
+    anchor: kotlin-docs-properties#late-initialized-properties-and-variables
+    sentence: Properties inside the body of a class.
+  wrong:
+  - option: A `val` of type `String` declared in the class body
+    anchor: kotlin-docs-properties#late-initialized-properties-and-variables
+    sentence: You can use the lateinit modifier on var properties declared as
+  - option: A `var` of type `Int` declared in the class body
+    anchor: kotlin-docs-properties#late-initialized-properties-and-variables
+    sentence: In all cases, the property or variable must be non-nullable and must not be a primitive type.
+  - option: A `var` of type `String` declared in the primary constructor
+    anchor: kotlin-docs-properties#late-initialized-properties-and-variables
+    sentence: You can't declare them in the primary constructor.
+m04-l01-q04:
+  key:
+    anchor: kotlin-docs-generics#declaration-site-variance
+    sentence: It makes a type parameter contravariant, meaning it can only be consumed and never produced.
+  wrong:
+  - option: '`out`, as in `Source<out T>`'
+    anchor: kotlin-docs-generics#declaration-site-variance
+    sentence: when a type parameter T of a class C is declared out, it may occur only in the out-position in the members of C
+  - option: '`reified`, as in `inline fun <reified T>`'
+    anchor: kotlin-docs-inline-functions#reified-type-parameters
+    sentence: The code above qualifies the type parameter with the reified modifier to make it accessible inside the function, almost as if it were a normal class.
+  - option: A star-projection, as in `Foo<*>`
+    anchor: kotlin-docs-generics#star-projections
+    sentence: For Foo<in T>, where T is a contravariant type parameter, Foo<*> is equivalent to Foo<in Nothing>.
+m04-l01-q05:
+  key:
+    anchor: kotlin-docs-java-interop#null-safety-and-platform-types
+    sentence: Types of Java declarations are treated in Kotlin as non-denotable and called platform types.
+  wrong:
+  - option: As a non-nullable type, with every null check enforced at compile time
+    anchor: kotlin-docs-java-interop#null-safety-and-platform-types
+    sentence: Null checks are relaxed for platform types
+  - option: As a nullable type, so every call on it needs `?.` or `!!`
+    anchor: kotlin-docs-java-interop#null-safety-and-platform-types
+    sentence: Kotlin does not issue nullability errors at compile time, but the call may fail at runtime
+  - option: As a denotable type that the variable must name explicitly
+    anchor: kotlin-docs-java-interop#null-safety-and-platform-types
+    sentence: You can't write the non-denotable types in the code explicitly.
+m04-l01-q06:
+  key:
+    anchor: kotlin-docs-java-interop#nullability-annotations
+    sentence: JSpecify is the only supported flavor that uses strict report level by default.
+  wrong:
+  - option: '`JetBrains`, from `org.jetbrains.annotations`'
+    anchor: kotlin-docs-java-interop#nullability-annotations
+    sentence: JSpecify is the only supported flavor that uses strict report level by default.
+    exclusive: true
+  - option: '`JSR-305`, from `javax.annotation`'
+    anchor: kotlin-docs-java-interop#nullability-annotations
+    sentence: JSpecify is the only supported flavor that uses strict report level by default.
+    exclusive: true
+  - option: '`Eclipse`, from `org.eclipse.jdt.annotation`'
+    anchor: kotlin-docs-java-interop#nullability-annotations
+    sentence: JSpecify is the only supported flavor that uses strict report level by default.
+    exclusive: true
+m04-l01-q07:
+  key:
+    anchor: kotlin-docs-java-interop#jsr-305-support
+    sentence: When.UNKNOWN forces the type to be platform one.
+  wrong:
+  - option: '`When.ALWAYS`'
+    anchor: kotlin-docs-java-interop#jsr-305-support
+    sentence: If the @Nonnull(when = ...) value is When.ALWAYS, the annotated type is treated as non-nullable
+  - option: '`When.MAYBE`'
+    anchor: kotlin-docs-java-interop#jsr-305-support
+    sentence: When.MAYBE and When.NEVER denote a nullable type
+    exclusive: true
+  - option: '`When.NEVER`'
+    anchor: kotlin-docs-java-interop#jsr-305-support
+    sentence: When.MAYBE and When.NEVER denote a nullable type
+    exclusive: true
+m04-l01-q08:
+  key:
+    anchor: kotlin-docs-java-interop#jspecify-support
+    sentence: '@NullUnmarked reverses the effect of @NullMarked, making all types within the scope as platform types.'
+  wrong:
+  - option: '`@Nullable`'
+    anchor: kotlin-docs-java-interop#jspecify-support
+    sentence: '@Nullable marks a type as nullable.'
+  - option: '`@NonNull`'
+    anchor: kotlin-docs-java-interop#jspecify-support
+    sentence: '@NonNull marks a type as non-nullable.'
+  - option: '`@NullMarked`'
+    anchor: kotlin-docs-java-interop#jspecify-support
+    sentence: '@NullMarked marks all types within a scope, for example a class or package, as non-nullable by default unless annotated otherwise.'
+m04-l01-q09:
+  key:
+    anchor: kotlin-docs-generics#star-projections
+    sentence: Function<Int, *> means Function<Int, out Any?>.
+  wrong:
+  - option: '`Function<in Nothing, out Any?>`'
+    anchor: kotlin-docs-generics#star-projections
+    sentence: Function<*, *> means Function<in Nothing, out Any?>.
+  - option: '`Function<in Nothing, String>`'
+    anchor: kotlin-docs-generics#star-projections
+    sentence: Function<*, String> means Function<in Nothing, String>.
+  - option: '`Function<Int, in Nothing>`'
+    anchor: kotlin-docs-generics#star-projections
+    sentence: 'For Foo<out T : TUpper>, where T is a covariant type parameter with the upper bound TUpper, Foo<*> is equivalent to Foo<out TUpper>.'
+m04-l01-q10:
+  key:
+    execution: m04-l01/SafeCallAndElvis.kt
+  wrong:
+  - option: 'null
+
+      6
+
+      0
+
+      default evaluated
+
+      3
+
+      default evaluated
+
+      -1'
+    execution: m04-l01/SafeCallAndElvis.kt
+    mistake: right side evaluated eagerly
+  - option: 'null
+
+      6
+
+      0
+
+      3
+
+      -1'
+    execution: m04-l01/SafeCallAndElvis.kt
+    mistake: ignored side effect of the default
+  - option: '0
+
+      6
+
+      0
+
+      3
+
+      default evaluated
+
+      -1'
+    execution: m04-l01/SafeCallAndElvis.kt
+    mistake: safe call read as an Elvis
+m04-l01-q11:
+  key:
+    execution: m04-l01/SmartCastAndLateinit.kt
+  wrong:
+  - option: 'text of 6 characters
+
+      not text
+
+      null'
+    execution: m04-l01/SmartCastAndLateinit.kt
+    mistake: lateinit read as nullable
+  - option: 'not text
+
+      text of 3 characters
+
+      lateinit property body has not been initialized'
+    execution: m04-l01/SmartCastAndLateinit.kt
+    mistake: wrong evaluation order
+  - option: 'text of 6 characters
+
+      text of 3 characters
+
+      lateinit property body has not been initialized'
+    execution: m04-l01/SmartCastAndLateinit.kt
+    mistake: Int treated as text
+m04-l01-q12:
+  key:
+    execution: m04-l01/PlatformTypes.kt
+  wrong:
+  - option: 'null
+
+      null'
+    execution: m04-l01/PlatformTypes.kt
+    mistake: ignored the assertion
+  - option: null pointer on assignment
+    execution: m04-l01/PlatformTypes.kt
+    mistake: nullable assignment read as failing
+  - option: 'null pointer on assignment
+
+      null pointer on assignment'
+    execution: m04-l01/PlatformTypes.kt
+    mistake: nullable assignment read as failing twice
+m04-l01-q13:
+  key:
+    execution: m04-l01/VarianceAndReified.kt
+  wrong:
+  - option: 'kotlin
+
+      true
+
+      true
+
+      true'
+    execution: m04-l01/VarianceAndReified.kt
+    mistake: reified check ignored
+  - option: 'kotlin
+
+      true
+
+      false
+
+      false'
+    execution: m04-l01/VarianceAndReified.kt
+    mistake: type arguments kept at runtime
+  - option: 'kotlin
+
+      false
+
+      false
+
+      true'
+    execution: m04-l01/VarianceAndReified.kt
+    mistake: reified check inverted

@@ -1,0 +1,241 @@
+S1.1	"Memory that can be shared between"	pass
+S1.2	"All instance fields, static fields, and"	pass
+S1.3	"Local variables, formal method parameters, and"	pass
+S1.4	"The results of a write by"	pass
+S1.5	"If one action happens-before another, then"	pass
+S1.6	"If two actions are of the"	pass
+S1.7	"If an action synchronizes-with a following"	pass
+S1.8	"The happens-before relation is transitive (`jls-17#jls-17.4.5`)."	pass
+S1.9	"An unlock action on a monitor"	pass
+S1.10	"A write to a volatile variable"	pass
+S1.11	"A write to a volatile field"	pass
+S1.12	"Writes and reads of volatile fields"	pass
+S1.13	"A call to `start()` on a"	pass
+S1.14	"All actions in a thread happen-before"	pass
+S1.15	"Actions in a thread prior to"	pass
+S1.16	"Actions in a thread prior to"	pass
+S1.17	"Actions taken by the asynchronous computation"	pass
+S1.18	"Actions prior to releasing synchronizer methods"	pass
+S1.19	"The snippet writes a plain `int`"	pass
+S1.20	"The snippet prints `payload after the"	pass
+S1.21	"It then prints `writer alive after"	pass
+S1.22	"For the purposes of the Java"	pass
+S1.23	"A thread can see the first"	pass
+S1.24	"Writes and reads of volatile `long`"	pass
+S1.25	"Writes to and reads of references"	pass
+S1.26	"An implementation of the Java Virtual"	pass
+S1.27	"Programmers are encouraged to declare shared"	pass
+R1.1	"Monitor unlock and later lock"	pass
+R1.2	"Volatile write and later read"	pass
+R1.3	"`Thread.start()`"	pass
+R1.4	"`Thread.join()`"	pass
+R1.5	"Submission to an `Executor`"	pass
+R1.6	"Placing an object into a concurrent collection"	pass
+S2.1	"The `java.util.concurrent.atomic` package is a small"	pass
+S2.2	"Instances of the `Atomic` classes maintain"	pass
+S2.3	"`AtomicBoolean`, `AtomicInteger`, `AtomicLong` and `AtomicReference` each"	pass
+S2.4	"`AtomicLong` and `AtomicInteger` provide atomic increment"	pass
+S2.5	"Arbitrary transformations of the contained value"	pass
+S2.6	"The atomic classes are not general"	pass
+S2.7	"Because atomic variables are expected to"	pass
+S2.8	"`AtomicIntegerArray`, `AtomicLongArray` and `AtomicReferenceArray` provide volatile"	pass
+S2.9	"The `AtomicStampedReference` class associates an integer"	pass
+S2.10	"The `AtomicMarkableReference` class associates a single"	pass
+S2.11	"`LongAdder` holds one or more variables"	pass
+S2.12	"The snippet increments an `AtomicInteger` and"	pass
+S2.13	"The snippet prints `40000 40000`, because"	pass
+S2.14	"It prints `true false 1`, because"	pass
+S2.15	"It prints `1 11`, because `getAndUpdate`"	pass
+S2.16	"It prints `true false alice`, because"	pass
+S3.1	"An `ExecutorService` is an `Executor` that"	pass
+S3.2	"An `ExecutorService` can be shut down,"	pass
+S3.3	"The `shutdown()` method will allow previously"	pass
+S3.4	"An unused `ExecutorService` should be shut"	pass
+S3.5	"The `submit` method extends `Executor.execute(Runnable)` by"	pass
+S3.6	"The `invokeAny` and `invokeAll` methods execute"	pass
+S3.7	"The `Executors` class provides factory methods"	pass
+S3.8	"Thread pools provide a means of"	pass
+S3.9	"`Executors.newFixedThreadPool(int)` creates a fixed size thread"	pass
+S3.10	"`Executors.newCachedThreadPool()` creates an unbounded thread pool,"	pass
+S3.11	"`Executors.newSingleThreadExecutor()` creates a single background thread"	pass
+S3.12	"If fewer than `corePoolSize` threads are"	pass
+S3.13	"If fewer than `maximumPoolSize` threads are"	pass
+S3.14	"By setting `corePoolSize` and `maximumPoolSize` the"	pass
+S3.15	"If `corePoolSize` or more threads are"	pass
+S3.16	"If a request cannot be queued,"	pass
+S3.17	"An unbounded queue, for example a"	pass
+S3.18	"With an unbounded queue, no more"	pass
+S3.19	"With an unbounded queue, the value"	pass
+S3.20	"A good default choice for a"	pass
+S3.21	"Direct handoffs generally require unbounded `maximumPoolSize`"	pass
+S3.22	"A bounded queue, for example an"	pass
+S3.23	"New tasks are rejected when the"	pass
+S3.24	"In the default `ThreadPoolExecutor.AbortPolicy`, the handler"	pass
+S3.25	"In `ThreadPoolExecutor.CallerRunsPolicy`, the thread that invokes"	pass
+S3.26	"In `ThreadPoolExecutor.DiscardPolicy`, a task that cannot"	pass
+S3.27	"By default, even core threads are"	pass
+S3.28	"The snippet builds a pool with"	pass
+S3.29	"The snippet prints `pool size 1,"	pass
+S3.30	"It prints `third task: RejectedExecutionException`, because"	pass
+S3.31	"It then prints `terminated: true` and"	pass
+S3.32	"A `ForkJoinPool` differs from other kinds"	pass
+S3.33	"In a `ForkJoinPool`, all threads in"	pass
+S3.34	"All worker threads of a `ForkJoinPool`"	pass
+S3.35	"A static `commonPool()` is available and"	pass
+S3.36	"The common pool is used by"	pass
+S3.37	"A `ForkJoinPool` may be constructed with"	pass
+S4.1	"A `CompletableFuture` is a `Future` that"	pass
+S4.2	"When two or more threads attempt"	pass
+S4.3	"All async methods without an explicit"	pass
+S4.4	"`supplyAsync(Supplier, Executor)` returns a new `CompletableFuture`"	pass
+S4.5	"Actions supplied for dependent completions of"	pass
+S4.6	"Cancellation of a `CompletableFuture` is treated"	pass
+S4.7	"The `cancel` method has the same"	pass
+S4.8	"The `isCompletedExceptionally()` method can be used"	pass
+S4.9	"In case of exceptional completion with"	pass
+S4.10	"The methods `join()` and `getNow(T)` instead"	pass
+S4.11	"Passing a null value for a"	pass
+S4.12	"The snippet runs `supplyAsync` on a"	pass
+S4.13	"The snippet prints `runs on a"	pass
+S4.14	"It prints `join throws CompletionException caused"	pass
+S4.15	"It prints `get throws ExecutionException caused"	pass
+S4.16	"It prints `-1` for `exceptionally`, `failed`"	pass
+S5.1	"A `ReentrantLock` is a reentrant mutual"	pass
+S5.2	"A `ReentrantLock` is owned by the"	pass
+S5.3	"The `lock` method returns immediately if"	pass
+S5.4	"The constructor of `ReentrantLock` accepts an"	pass
+S5.5	"When the fairness parameter is set"	pass
+S5.6	"Without fairness, a `ReentrantLock` does not"	pass
+S5.7	"Fair locks accessed by many threads"	pass
+S5.8	"Fairness of locks does not guarantee"	pass
+S5.9	"The untimed `tryLock()` method does not"	pass
+S5.10	"It is recommended practice to always"	pass
+S5.11	"A `ReentrantLock` supports a maximum of"	pass
+S5.12	"A `StampedLock` is a capability-based lock"	pass
+S5.13	"`StampedLock` acquisition methods return a stamp"	pass
+S5.14	"When a `StampedLock` is held in"	pass
+S5.15	"The `tryOptimisticRead()` method returns a non-zero"	pass
+S5.16	"The `validate(long)` method returns true if"	pass
+S5.17	"The use of optimistic read mode"	pass
+S5.18	"Fields read while in optimistic read"	pass
+S5.19	"`StampedLock` instances are not reentrant (`javadoc-stampedlock#class-stampedlock`)."	pass
+S5.20	"Like `Semaphore`, but unlike most `Lock`"	pass
+S5.21	"Locks acquired in one thread of"	pass
+S5.22	"`StampedLock` does not directly implement the"	pass
+S5.23	"A zero return from any `try`"	pass
+S5.24	"A `Semaphore` is a counting semaphore"	pass
+S5.25	"Each `acquire()` blocks if necessary until"	pass
+S5.26	"Each `release()` adds a permit, potentially"	pass
+S5.27	"No actual permit objects are used,"	pass
+S5.28	"Semaphores are often used to restrict"	pass
+S5.29	"A semaphore initialized to one and"	pass
+S5.30	"A binary semaphore can be released"	pass
+S5.31	"When the fairness parameter of a"	pass
+S5.32	"Without fairness, barging is permitted, so"	pass
+S5.33	"When fairness is set true, the"	pass
+S5.34	"The untimed `tryAcquire` methods do not"	pass
+S5.35	"Semaphores used to control resource access"	pass
+S5.36	"The snippet takes a `ReentrantLock` twice,"	pass
+S5.37	"The snippet prints `hold count 2,"	pass
+S5.38	"It prints `nonzero stamp true, valid"	pass
+S5.39	"It prints `optimistic stamp while writing"	pass
+S5.40	"It prints `true true false` for"	pass
+S6.1	"A `ConcurrentHashMap` is a hash table"	pass
+S6.2	"In a `ConcurrentHashMap` all operations are"	pass
+S6.3	"Retrieval operations of a `ConcurrentHashMap`, including"	pass
+S6.4	"An update operation for a given"	pass
+S6.5	"The iterators of a `ConcurrentHashMap` do"	pass
+S6.6	"The iterators of a `ConcurrentHashMap` are"	pass
+S6.7	"The results of aggregate status methods"	fail	drops anchor's condition: transient only under concurrent updates
+S6.8	"Like `Hashtable` but unlike `HashMap`, a"	pass
+S6.9	"Resizing a hash table may be"	pass
+S6.10	"A `ConcurrentHashMap` can be used as"	pass
+S6.11	"The bulk operations of a `ConcurrentHashMap`"	pass
+S6.12	"Using a `parallelismThreshold` of `Long.MAX_VALUE` suppresses"	pass
+S6.13	"When many threads are expected to"	pass
+S6.14	"A concurrent collection is thread-safe, but"	pass
+S6.15	"The iterators and spliterators of most"	pass
+S6.16	"A weakly consistent traversal is guaranteed"	pass
+S6.17	"A `CopyOnWriteArrayList` is a thread-safe variant"	pass
+S6.18	"A `CopyOnWriteArrayList` may be more efficient"	pass
+S6.19	"A `CopyOnWriteArrayList` is preferable to a"	pass
+S6.20	"The snapshot style iterator of a"	pass
+S6.21	"The iterator of a `CopyOnWriteArrayList` will"	pass
+S6.22	"The iterator of a `CopyOnWriteArrayList` is"	pass
+S6.23	"The element-changing operations on iterators of"	pass
+S6.24	"All elements are permitted in a"	pass
+S6.25	"A `BlockingQueue` is a `Queue` that"	pass
+S6.26	"A `BlockingQueue` does not accept null"	pass
+S6.27	"Implementations of `BlockingQueue` throw `NullPointerException` on"	pass
+S6.28	"A null is used as a"	pass
+S6.29	"A `BlockingQueue` without any intrinsic capacity"	pass
+S6.30	"`BlockingQueue` implementations are designed to be"	pass
+S6.31	"All queuing methods of a `BlockingQueue`"	pass
+S6.32	"The bulk operations `addAll`, `containsAll`, `retainAll`"	pass
+S6.33	"A `BlockingQueue` does not intrinsically support"	pass
+S6.34	"A common tactic is for producers"	pass
+S6.35	"The `ConcurrentLinkedQueue` class supplies an efficient"	pass
+S6.36	"Five implementations in `java.util.concurrent` support the"	pass
+S6.37	"The snippet changes an `ArrayList` during"	pass
+S6.38	"The snippet prints `ArrayList: ConcurrentModificationException`, because"	pass
+S6.39	"It prints `CopyOnWriteArrayList: iterator saw 3"	pass
+S6.40	"It prints `iterator remove: UnsupportedOperationException`, `merge"	pass
+S6.41	"It prints `true false 0` for"	pass
+S6.42	"It prints `first null` for two"	pass
+R2.1	"`ConcurrentHashMap`"	pass
+R2.2	"`ConcurrentSkipListMap`"	pass
+R2.3	"`CopyOnWriteArrayList`"	pass
+S7.1	"Two accesses to the same variable"	pass
+S7.2	"When a program contains two conflicting"	pass
+S7.3	"The happens-before relation defines when data"	pass
+S7.4	"A data race cannot cause incorrect"	pass
+S7.5	"A program is correctly synchronized if"	pass
+S7.6	"If a program is correctly synchronized,"	pass
+S7.7	"The use of correct synchronization does"	pass
+S7.8	"Sequential consistency and freedom from data"	pass
+S7.9	"Within a sequentially consistent execution, there"	pass
+S7.10	"Without correct synchronization, very strange, confusing"	pass
+S7.11	"In addition to the thread stacks,"	pass
+S7.12	"If any deadlocks are detected, the"	pass
+S7.13	"If the JVM flag `-XX:+PrintConcurrentLocks` is"	pass
+S7.14	"The default deadlock detection works with"	pass
+S7.15	"The snippet starts two daemon threads"	pass
+S7.16	"The snippet prints `2 deadlocked threads:"	pass
+S8.1	"Only a write that happens-before a"	pass
+S8.2	"A write to a volatile field"	pass
+S8.3	"Writes and reads of volatile `long`"	pass
+S8.4	"The `Atomic*` classes support lock-free thread-safe"	pass
+S8.5	"A `ThreadPoolExecutor` prefers a new thread"	pass
+S8.6	"A pool with finite bounds and"	pass
+S8.7	"`CompletableFuture` runs async methods without an"	pass
+S8.8	"A `StampedLock` is not reentrant and"	pass
+S8.9	"A fair `ReentrantLock` favors the longest-waiting"	pass
+S8.10	"A `Semaphore` keeps a count of"	pass
+S8.11	"`ConcurrentHashMap` retrievals do not lock, its"	pass
+S8.12	"A `CopyOnWriteArrayList` iterator traverses a snapshot"	pass
+S8.13	"A `BlockingQueue` rejects `null` and reports"	pass
+S8.14	"Two conflicting accesses not ordered by"	pass
+S8.15	"The default deadlock detection covers `synchronized`"	pass
+g-happens-before	pass
+g-data-race	pass
+g-binary-semaphore	pass
+g-correctly-synchronized	pass
+g-sequential-consistency	pass
+m03-l02-q01	pass
+m03-l02-q02	pass
+m03-l02-q03	pass
+m03-l02-q04	pass
+m03-l02-q05	pass
+m03-l02-q06	pass
+m03-l02-q07	pass
+m03-l02-q08	pass
+m03-l02-q09	pass
+m03-l02-q10	pass
+m03-l02-q11	fail	one BlockingQueue sentence rules out two distractors
+m03-l02-q12	pass
+m03-l02-q13	fail	atomic-snapshot refutation cites bulk operations, not size()
+m03-l02-q14	pass
+m03-l02-q15	pass
+m03-l02-q16	pass
+# checked 239, passed 236, failed 3
+S6.7	recheck	pass

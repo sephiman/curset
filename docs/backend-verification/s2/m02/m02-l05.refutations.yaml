@@ -1,0 +1,229 @@
+m02-l05-q01:
+  key:
+    execution: m02-l05/SubsetsAndPermutations.java
+  wrong:
+  - option: 'subsets [[], [1], [2], [3], [1, 2], [1, 3], [2, 3], [1, 2, 3]]
+
+      permutations 6 first [1, 2, 3] last [3, 2, 1]'
+    execution: m02-l05/SubsetsAndPermutations.java
+    mistake: wrong evaluation order
+  - option: 'subsets [[1], [1, 2], [1, 2, 3], [1, 3], [2], [2, 3], [3]]
+
+      permutations 6 first [1, 2, 3] last [3, 2, 1]'
+    execution: m02-l05/SubsetsAndPermutations.java
+    mistake: off-by-one
+  - option: 'subsets [[], [1], [1, 2], [1, 2, 3], [1, 3], [2], [2, 3], [3]]
+
+      permutations 8 first [1, 2, 3] last [3, 2, 1]'
+    execution: m02-l05/SubsetsAndPermutations.java
+    mistake: counted subsets instead of permutations
+m02-l05-q02:
+  key:
+    execution: m02-l05/SubsetSumPruning.java
+  wrong:
+  - option: 'subsets that sum to 5 [[1, 4], [2, 3], [5]]
+
+      calls with pruning 55
+
+      calls without pruning 41'
+    execution: m02-l05/SubsetSumPruning.java
+    mistake: wrong evaluation order
+  - option: 'subsets that sum to 5 [[1, 4], [2, 3]]
+
+      calls with pruning 41
+
+      calls without pruning 55'
+    execution: m02-l05/SubsetSumPruning.java
+    mistake: dropped a solution
+  - option: 'subsets that sum to 5 [[1, 4], [2, 3], [5]]
+
+      calls with pruning 41
+
+      calls without pruning 41'
+    execution: m02-l05/SubsetSumPruning.java
+    mistake: assumed pruning changes nothing
+m02-l05-q03:
+  key:
+    execution: m02-l05/FibonacciMemoisation.java
+  wrong:
+  - option: 'fib(20) 6765
+
+      naive calls 10946
+
+      memoised calls 39'
+    execution: m02-l05/FibonacciMemoisation.java
+    mistake: counted leaves only
+  - option: 'fib(20) 6765
+
+      naive calls 21891
+
+      memoised calls 21'
+    execution: m02-l05/FibonacciMemoisation.java
+    mistake: counted distinct arguments
+  - option: 'fib(20) 6765
+
+      naive calls 6765
+
+      memoised calls 39'
+    execution: m02-l05/FibonacciMemoisation.java
+    mistake: one call per unit of the result
+m02-l05-q04:
+  key:
+    execution: m02-l05/TabulatedPatterns.java
+  wrong:
+  - option: 'knapsack 8
+
+      longest increasing subsequence 4
+
+      edit distance 4
+
+      grid paths 6'
+    execution: m02-l05/TabulatedPatterns.java
+    mistake: greedy choice instead of the table
+  - option: 'knapsack 9
+
+      longest increasing subsequence 5
+
+      edit distance 4
+
+      grid paths 6'
+    execution: m02-l05/TabulatedPatterns.java
+    mistake: counted the sentinel
+  - option: 'knapsack 9
+
+      longest increasing subsequence 4
+
+      edit distance 5
+
+      grid paths 6'
+    execution: m02-l05/TabulatedPatterns.java
+    mistake: off-by-one
+m02-l05-q05:
+  key:
+    execution: m02-l05/GreedyChoices.java
+  wrong:
+  - option: 'earliest start 3
+
+      earliest finish 1
+
+      greedy knapsack 8'
+    execution: m02-l05/GreedyChoices.java
+    mistake: wrong evaluation order
+  - option: 'earliest start 1
+
+      earliest finish 3
+
+      greedy knapsack 9'
+    execution: m02-l05/GreedyChoices.java
+    mistake: assumed greedy is optimal
+  - option: 'earliest start 1
+
+      earliest finish 4
+
+      greedy knapsack 8'
+    execution: m02-l05/GreedyChoices.java
+    mistake: ignored the overlap
+m02-l05-q06:
+  key:
+    execution: m02-l05/BitOperations.java
+  wrong:
+  - option: 'ones in 11: 4
+
+      highest one-bit of 100: 64
+
+      trailing zeros of 40: 3
+
+      64 is a power of two: true
+
+      48 is a power of two: false'
+    execution: m02-l05/BitOperations.java
+    mistake: counted the bit length
+  - option: 'ones in 11: 3
+
+      highest one-bit of 100: 6
+
+      trailing zeros of 40: 3
+
+      64 is a power of two: true
+
+      48 is a power of two: false'
+    execution: m02-l05/BitOperations.java
+    mistake: bit position instead of value
+  - option: 'ones in 11: 3
+
+      highest one-bit of 100: 64
+
+      trailing zeros of 40: 3
+
+      64 is a power of two: true
+
+      48 is a power of two: true'
+    execution: m02-l05/BitOperations.java
+    mistake: treated a non-zero result as true
+m02-l05-q07:
+  key:
+    execution: m02-l05/FloorModAndBitSet.java
+  wrong:
+  - option: 'floor modulus of -4 and 3: -1
+
+      remainder of -4 and 3: -1
+
+      bit set length 6, set bits 3'
+    execution: m02-l05/FloorModAndBitSet.java
+    mistake: same result as the remainder
+  - option: 'floor modulus of -4 and 3: 2
+
+      remainder of -4 and 3: 2
+
+      bit set length 6, set bits 3'
+    execution: m02-l05/FloorModAndBitSet.java
+    mistake: same result as floorMod
+  - option: 'floor modulus of -4 and 3: 2
+
+      remainder of -4 and 3: -1
+
+      bit set length 3, set bits 3'
+    execution: m02-l05/FloorModAndBitSet.java
+    mistake: length taken as cardinality
+m02-l05-q08:
+  key:
+    anchor: javadoc-integer#numberOfTrailingZeros(int)
+    sentence: Returns the number of zero bits following the lowest-order ("rightmost") one-bit in the two's complement binary representation of the specified int value.
+  wrong:
+  - option: '`Integer.bitCount(int)`'
+    anchor: javadoc-integer#bitCount(int)
+    sentence: Returns the number of one-bits in the two's complement binary representation of the specified int value.
+  - option: '`Integer.highestOneBit(int)`'
+    anchor: javadoc-integer#highestOneBit(int)
+    sentence: Returns an int value with at most a single one-bit, in the position of the highest-order ("leftmost") one-bit in the specified int value.
+  - option: '`Math.floorMod(int, int)`'
+    anchor: javadoc-math#floorMod(int,int)
+    sentence: Returns the floor modulus of the int arguments.
+m02-l05-q09:
+  key:
+    anchor: javadoc-math#floorMod(int,int)
+    sentence: The floor modulus is r = x - (floorDiv(x, y) * y), has the same sign as the divisor y or is zero, and is in the range of -abs(y) < r < +abs(y).
+  wrong:
+  - option: The sign of the dividend `x`
+    anchor: javadoc-math#floorMod(int,int)
+    sentence: floorMod(+4, -3) == -2; and (+4 % -3) == +1
+  - option: Always positive
+    anchor: javadoc-math#floorMod(int,int)
+    sentence: floorMod(-4, -3) == -1; and (-4 % -3) == -1
+  - option: The sign of the product `x * y`
+    anchor: javadoc-math#floorMod(int,int)
+    sentence: floorMod(-4, +3) == +2; and (-4 % +3) == -1
+m02-l05-q10:
+  key:
+    anchor: erickson-dynamic-programming#p3
+    sentence: The obvious reason for the recursive algorithm’s lack of speed is that it com- putes the same Fibonacci numbers over and over and over.
+  wrong:
+  - option: Each call does an amount of work besides its recursive calls that grows with n
+    anchor: erickson-dynamic-programming#p3
+    sentence: Except for the recursive calls, the entire algorithm requires only a constant number of steps
+  - option: The number of recursive calls grows only linearly with n, and the cost lies in the additions
+    anchor: erickson-dynamic-programming#p3
+    sentence: In short, the running time of this recursive algorithm is exponential in n.
+  - option: It stores the result of every recursive call in a table that grows with n
+    anchor: erickson-dynamic-programming#p3
+    sentence: We can speed up our recursive algorithm considerably by writing down the results of our recursive calls

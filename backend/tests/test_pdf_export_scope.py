@@ -6,6 +6,7 @@ from __future__ import annotations
 import asyncio
 import json
 import os
+import re
 import uuid
 from typing import Any
 
@@ -220,3 +221,24 @@ def test_c2_generated_psicotecnicos_are_never_drawn_into_a_tema(c2: CourseRegist
     generated = {use.exercise_id for use in c2.generator_uses()}
     assert not {i for i in drawn if i.split("/")[0] in generated}
     assert all("/" in i for i in drawn), "every printed question is a stored variant"
+
+
+# backend-in-depth prints its bank the same way; m09-l04 is the tema its six design cases also point at.
+TECH_TEMA = "m09-l04"
+TECH_CITATION = re.compile(r"^[a-z0-9-]+#[A-Za-z0-9_.-]+(; [a-z0-9-]+#[A-Za-z0-9_.-]+)*$")
+
+
+def test_the_technical_course_prints_its_bank_with_source_anchor_citations_and_no_case() -> None:
+    registry = real_course("backend-in-depth")
+    paper = build_questionnaire(registry, registry.export_scope(TECH_TEMA), "en", seed=PINNED_SEED)
+    tema = paper["temas"][0]
+    assert len(tema["questions"]) == QUESTIONS_PER_TEMA
+    assert all(TECH_CITATION.match(key["citation"]) for key in tema["keys"]), tema["keys"]
+    assert all(q["id"].startswith(f"{TECH_TEMA}-ex-1/") for q in tema["questions"]), "a case is never drawn"
+    pinned = PINNED_DIR / f"backend-in-depth-{TECH_TEMA}.json"
+    rendered = json.dumps(paper, ensure_ascii=False, indent=2) + "\n"
+    if os.environ.get("REGEN_QUESTIONNAIRES"):
+        pinned.write_text(rendered, encoding="utf-8")
+    assert pinned.read_text(encoding="utf-8") == rendered, (
+        f"{pinned.name} is stale: rerun with REGEN_QUESTIONNAIRES=1 and review the diff"
+    )

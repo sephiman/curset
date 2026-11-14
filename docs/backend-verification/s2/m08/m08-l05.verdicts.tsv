@@ -1,0 +1,126 @@
+S1.1	"The Paxos paper uses the customary"	pass
+S1.2	"In that model agents operate at"	pass
+S1.3	"Messages can take arbitrarily long to"	pass
+S1.4	"The SWIM paper states that a"	pass
+S1.5	"A network partition divides an etcd"	pass
+S1.6	"In etcd the failure detection model"	pass
+S1.7	"Heartbeating to all members makes the"	pass
+S1.8	"SWIM reduces false failure detections by"	pass
+S1.9	"SWIM guarantees a deterministic time bound"	pass
+S1.10	"The Raft dissertation describes a leader"	pass
+S1.11	"Maintaining that bound might be hard"	pass
+S1.12	"If the clock assumptions are violated,"	pass
+S2.1	"Raft first elects a server as"	pass
+S2.2	"Raft elects a leader using voting"	pass
+S2.3	"Data only flows outwards from the"	pass
+S2.4	"At any given time each Raft"	pass
+S2.5	"Followers are passive: they issue no"	pass
+S2.6	"A Raft cluster of five servers"	pass
+S2.7	"Raft divides time into terms of"	pass
+S2.8	"Terms act as a logical clock"	pass
+S2.9	"If a server receives a request"	pass
+S2.10	"Leaders send periodic heartbeats, which are"	pass
+S2.11	"A follower that receives no communication"	pass
+S2.12	"A candidate wins an election if"	pass
+S2.13	"Each server votes for at most"	pass
+S2.14	"Election timeouts are chosen randomly from"	pass
+S2.15	"The leader appends a client command"	pass
+S2.16	"An entry is considered committed if"	pass
+S2.17	"A log entry is committed once"	pass
+S2.18	"The broadcast time should be an"	pass
+R1.1	"Election Safety"	pass
+R1.2	"Leader Append-Only"	pass
+R1.3	"Log Matching"	pass
+S2.19	"Switching directly from one configuration to"	pass
+S2.20	"In every single-server membership change, an"	pass
+S2.21	"To ensure safety across arbitrary changes,"	pass
+S2.22	"Joint consensus requires separate majorities from"	pass
+S2.23	"A new server first joins as"	pass
+S2.24	"The dissertation changes membership by adding"	pass
+S2.25	"Each Raft server takes snapshots independently,"	pass
+S2.26	"Raft stores the index and term"	pass
+S2.27	"The leader sends a slow follower"	pass
+S2.28	"In Paxos, any two majorities have"	pass
+S2.29	"In Paxos a proposer asks acceptors"	pass
+S3.1	"By default ZooKeeper uses majority quorums,"	pass
+S3.2	"The ZooKeeper leader can only commit"	pass
+S3.3	"ZooKeeper can be configured to use"	pass
+S3.4	"With 9 servers split into 3"	pass
+S3.5	"ZooKeeper leader activation requires that the"	pass
+S3.6	"A new ZooKeeper leader will not"	pass
+S3.7	"In the ZooKeeper recipe the process"	pass
+S3.8	"To avoid the herd effect it"	pass
+S3.9	"There is no split-brain in etcd"	pass
+S3.10	"The majority side of an etcd"	pass
+S3.11	"A leader on the minority side"	pass
+S3.12	"During an etcd leader election the"	pass
+S3.13	"No committed write is ever lost"	pass
+S3.14	"When the majority of etcd members"	pass
+S3.15	"Replacing an etcd node starts by"	pass
+S3.16	"Adding a member to a 3-member"	pass
+S3.17	"A leader that loses connectivity from"	pass
+S3.18	"A Redis deployment with just two"	pass
+S3.19	"Redis recommends deploying at least three"	pass
+S3.20	"A majority of the KRaft controllers"	pass
+S3.21	"For the KRaft controller cluster to"	pass
+S3.22	"Combined broker and controller mode can"	pass
+S3.23	"With a dynamic KRaft quorum controller.quorum.voters"	pass
+R2.1	"Raft, 5 servers"	pass
+R2.2	"KRaft, 3 controllers"	pass
+R2.3	"KRaft, 5 controllers"	pass
+S4.1	"etcd provides a lease mechanism whose"	pass
+S4.2	"An etcd lease is created with"	pass
+S4.3	"An etcd operation that modifies the"	pass
+S4.4	"The etcd revision can be used"	pass
+S4.5	"A new etcd leader extends timeouts"	pass
+S4.6	"The Redis lock design has mutual"	pass
+S4.7	"Its first liveness property is deadlock"	pass
+S4.8	"The ZooKeeper shared lock recipe calls"	pass
+S4.9	"According to Martin Kleppmann, the fix"	pass
+S4.10	"He defines a fencing token as"	pass
+S4.11	"The storage server remembers the highest"	pass
+S4.12	"He adds that a ZooKeeper user"	pass
+S4.13	"According to Martin Kleppmann, a lock"	pass
+S4.14	"If the lock fails under the"	pass
+S4.15	"If it fails under the correctness"	pass
+S5.1	"A two-phase commit protocol is an"	pass
+S5.2	"In the ZooKeeper recipe a coordinator"	pass
+S5.3	"Each site votes commit or abort"	pass
+S5.4	"The message complexity of that ZooKeeper"	pass
+S5.5	"Failures of sites cannot be detected"	pass
+S5.6	"PostgreSQL does not offer synchronous multimaster"	pass
+S5.7	"According to Martin Kleppmann's Cambridge lecture"	pass
+S5.8	"The replicas do not commit yet,"	pass
+S5.9	"If all nodes reply ok the"	pass
+S5.10	"The notes name the coordinator as"	pass
+S6.1	"SWIM separates the failure detection and"	pass
+S6.2	"SWIM propagates information about membership changes"	pass
+S6.3	"This results in an infection style,"	pass
+S6.4	"The expected time to first detection"	pass
+S6.5	"In Dynamo, decentralized failure detection protocols"	pass
+S7.1	"Asynchronous networks can delay, duplicate and"	pass
+S7.2	"A leader lease for read-only queries"	fail	adds "for read-only queries", which the lesson does not state
+S7.3	"Raft elects a leader with voting"	pass
+S7.4	"Raft changes membership through joint consensus,"	pass
+S7.5	"A Raft snapshot records the last"	pass
+S7.6	"A partition leaves the majority side"	pass
+S7.7	"A KRaft controller cluster needs 2N"	pass
+S7.8	"An etcd lease expires by its"	pass
+S7.9	"A two-phase commit lets all participants"	pass
+S7.10	"SWIM separates failure detection from membership"	pass
+g-election-timeout	pass
+g-joint-consensus	pass
+g-herd-effect	pass
+g-fencing-token	pass
+m08-l05-q01	pass
+m08-l05-q02	pass
+m08-l05-q03	pass
+m08-l05-q04	pass
+m08-l05-q05	pass
+m08-l05-q06	fail	5 and 9 servers also form quorums; size not single-valued, exclusive invalid
+m08-l05-q07	pass
+m08-l05-q08	pass
+m08-l05-q09	pass
+m08-l05-q10	pass
+# checked 124, passed 122, failed 2
+S7.2	recheck	pass

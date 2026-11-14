@@ -1,0 +1,242 @@
+[
+ {
+  "id": "m09-case-b-q01",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f40",
+  "stem": "A seat-hold query runs `SELECT … FOR UPDATE` in PostgreSQL, and a selected seat row is already locked by another transaction. Which clause makes the statement report an error rather than wait for that row?",
+  "key": "`NOWAIT`",
+  "distractors": [
+   "`SKIP LOCKED`",
+   "`FOR SHARE`",
+   "`FOR KEY SHARE`"
+  ],
+  "explanation": "With `NOWAIT`, the statement reports an error rather than waiting if a selected row cannot be locked immediately. `SKIP LOCKED` is wrong, because it skips the rows that cannot be locked immediately instead of reporting an error. `FOR SHARE` is wrong, because a shared lock blocks other transactions from `UPDATE`, `DELETE` and `SELECT FOR UPDATE` on those rows. `FOR KEY SHARE` is wrong, because it is only a weaker lock under which `SELECT FOR UPDATE` is blocked.",
+  "citation": "pg-sql-select#SQL-FOR-UPDATE-SHARE",
+  "extract": "With NOWAIT, the statement reports an error, rather than waiting, if a selected row cannot be locked immediately.",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-b-q02",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f33",
+  "stem": "In PostgreSQL, a booking transaction holds a `SELECT … FOR UPDATE` lock on seat row 17. Another session now runs a plain `SELECT` on the same row. What does the plain `SELECT` do?",
+  "key": "It reads the row without waiting, because row-level locks block only writers and lockers",
+  "distractors": [
+   "It waits until the booking transaction ends",
+   "It fails at once with a lock error",
+   "It returns no row, because locked rows are hidden from queries"
+  ],
+  "explanation": "Row-level locks do not affect data querying; they block only writers and lockers to the same row. Waiting is wrong, because row-level locks do not affect data querying. A lock error is wrong, because row-level locks block only writers and lockers to the same row. Hidden rows are wrong, because row-level locks do not affect data querying.",
+  "citation": "pg-explicit-locking#LOCKING-ROWS",
+  "extract": "Row-level locks do not affect data querying; they block only writers and lockers to the same row.",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-b-q03",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f34",
+  "stem": "A PostgreSQL booking transaction takes row-level locks with `SELECT … FOR UPDATE` and later rolls back to a savepoint it created before taking them. According to the documentation, when are row-level locks released?",
+  "key": "At transaction end or during savepoint rollback",
+  "distractors": [
+   "When the `SELECT` statement that took them finishes",
+   "Only when the database connection is closed",
+   "After a lock timeout that the application configures"
+  ],
+  "explanation": "Row-level locks are released at transaction end or during savepoint rollback, just like table-level locks. Release at statement end is wrong, because row-level locks are released at transaction end or during savepoint rollback. Release on connection close is wrong, because row-level locks are released at transaction end or during savepoint rollback. Release after a timeout is wrong, because row-level locks are released at transaction end or during savepoint rollback.",
+  "citation": "pg-explicit-locking#LOCKING-ROWS",
+  "extract": "Row-level locks are released at transaction end or during savepoint rollback, just like table-level locks.",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-b-q04",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f35",
+  "stem": "In PostgreSQL at `REPEATABLE READ`, a booking transaction runs `SELECT … FOR UPDATE` on a room row that another transaction changed and committed after the booking transaction started. What happens?",
+  "key": "An error is thrown",
+  "distractors": [
+   "The statement locks the old row version and succeeds",
+   "The statement waits and then returns the old row version",
+   "The statement silently locks the newest row version"
+  ],
+  "explanation": "Within a `REPEATABLE READ` or `SERIALIZABLE` transaction, an error is thrown if a row to be locked has changed since the transaction started. Locking the old version is wrong, because an error is thrown when a row to be locked has changed since the transaction started. Waiting for the old version is wrong, because an error is thrown when a row to be locked has changed since the transaction started. Silently locking the newest version is wrong, because an error is thrown when the row changed since the transaction started.",
+  "citation": "pg-explicit-locking#LOCKING-ROWS",
+  "extract": "Within a REPEATABLE READ or SERIALIZABLE transaction, however, an error will be thrown if a row to be locked has changed since the transaction started.",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-b-q05",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f48",
+  "stem": "A reservation service runs its transactions at `SERIALIZABLE` in PostgreSQL to prevent double booking. Which statement about the blocking behaviour of `SERIALIZABLE` in the documentation is correct?",
+  "key": "Its monitoring adds no blocking beyond what repeatable read already has",
+  "distractors": [
+   "Its predicate locks block other transactions and can cause deadlocks",
+   "It needs no retries, because conflicts are resolved by waiting",
+   "It enforces serializability by locking every row the transaction reads"
+  ],
+  "explanation": "The monitoring done by `SERIALIZABLE` does not introduce any blocking beyond that present in repeatable read. Blocking predicate locks are wrong, because in PostgreSQL predicate locks do not cause any blocking and cannot cause a deadlock. Resolving conflicts by waiting is wrong, because applications using `SERIALIZABLE` must be prepared to retry transactions after serialization failures. Locking every row read is wrong, because PostgreSQL guarantees true serializability with predicate locking.",
+  "citation": "pg-transaction-iso#XACT-SERIALIZABLE",
+  "extract": "This monitoring does not introduce any blocking beyond that present in repeatable read",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-b-q06",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f56",
+  "stem": "A booking API exposes `POST /bookings`, `PATCH /bookings/{id}`, `PUT /bookings/{id}` and `DELETE /bookings/{id}`. Per RFC 9110, as cited by the IETF idempotency-key draft, which methods are NOT idempotent?",
+  "key": "`POST` and `PATCH`",
+  "distractors": [
+   "`PUT` and `DELETE`",
+   "`GET` and `HEAD`",
+   "`OPTIONS` and `DELETE`"
+  ],
+  "explanation": "RFC 9110 makes `POST` and `PATCH` the non-idempotent methods. `PUT` and `DELETE` are wrong, because RFC 9110 lists `PUT` and `DELETE` among the idempotent methods. `GET` and `HEAD` are wrong, because RFC 9110 lists them among the idempotent methods. `OPTIONS` and `DELETE` are wrong, because RFC 9110 lists both among the idempotent methods.",
+  "citation": "ietf-httpapi-idempotency-key#content",
+  "extract": "Per [RFC9110], the methods OPTIONS, HEAD, GET, PUT and DELETE are idempotent while methods POST and PATCH are not.",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-b-q07",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f63",
+  "stem": "A client retries `POST /bookings` with the same `Idempotency-Key` while the first request with that key is still being processed. Which HTTP status code SHOULD the resource reply with, according to the IETF draft?",
+  "key": "`409`",
+  "distractors": [
+   "`400`",
+   "`422`",
+   "`503`"
+  ],
+  "explanation": "The resource SHOULD reply with `409` when a request is retried while the original is still being processed. `400` is wrong, because that code is for an `Idempotency-Key` header missing on an operation that requires it. `422` is wrong, because that code is for reusing an idempotency key with a different request payload. `503` is wrong, because the draft says the resource SHOULD reply with `409` to such a retry.",
+  "citation": "ietf-httpapi-idempotency-key#content",
+  "extract": "If the request is retried, while the original request is still being processed, the resource SHOULD reply with an HTTP 409 status code",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-b-q08",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f62",
+  "stem": "A client sends `POST /bookings` with an `Idempotency-Key` it already used for a request with a different JSON payload. Which HTTP status code SHOULD the resource reply with, according to the IETF draft?",
+  "key": "`422`",
+  "distractors": [
+   "`400`",
+   "`409`",
+   "`500`"
+  ],
+  "explanation": "The resource SHOULD reply with `422` when an idempotency key is reused with a different request payload. `400` is wrong, because that code is for a missing `Idempotency-Key` header on an operation that requires it. `409` is wrong, because that code is for a retry while the original request is still being processed. `500` is wrong, because the draft says the resource SHOULD reply with `422` when a key is reused with a different payload.",
+  "citation": "ietf-httpapi-idempotency-key#content",
+  "extract": "If there is an attempt to reuse an idempotency key with a different request payload, the resource SHOULD reply with an HTTP 422 status code",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-b-q09",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f39",
+  "stem": "A seat-selection endpoint runs `SELECT … FOR UPDATE` on 1,000 seat rows per request in PostgreSQL. Which side effect does the documentation attribute to locking rows this way?",
+  "key": "It modifies the selected rows to mark them locked, so it causes disk writes",
+  "distractors": [
+   "None, because lock state lives only in shared memory",
+   "It writes only to the write-ahead log, never to table rows",
+   "It writes to disk only when `NOWAIT` is also given"
+  ],
+  "explanation": "Locking a row might cause a disk write, because `SELECT FOR UPDATE` modifies the selected rows to mark them locked. Memory-only lock state is wrong, because `SELECT FOR UPDATE` modifies the selected rows to mark them locked. A log-only write is wrong, because the selected rows themselves are modified to mark them locked. A write only with `NOWAIT` is wrong, because locking a row might cause a disk write on its own.",
+  "citation": "pg-explicit-locking#LOCKING-ROWS",
+  "extract": "locking a row might cause a disk write, e.g., SELECT FOR UPDATE modifies selected rows to mark them locked, and so will result in disk writes.",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-b-q10",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f43",
+  "stem": "A booking query uses `SELECT … FOR UPDATE NOWAIT` in PostgreSQL. Besides the row-level locks, which lock is still taken in the ordinary way, waiting when necessary?",
+  "key": "The `ROW SHARE` table-level lock",
+  "distractors": [
+   "The row-level lock on each selected row",
+   "An `ACCESS EXCLUSIVE` table-level lock",
+   "A `SHARE` table-level lock"
+  ],
+  "explanation": "`NOWAIT` and `SKIP LOCKED` apply only to the row-level locks, so the required `ROW SHARE` table-level lock is still taken in the ordinary way. The row-level lock is wrong, because with `NOWAIT` the statement reports an error instead of waiting for a row it cannot lock. `ACCESS EXCLUSIVE` is wrong, because the required table-level lock is `ROW SHARE`. `SHARE` is wrong, because the required table-level lock is `ROW SHARE`.",
+  "citation": "pg-sql-select#SQL-FOR-UPDATE-SHARE",
+  "extract": "NOWAIT and SKIP LOCKED apply only to the row-level lock(s) — the required ROW SHARE table-level lock is still taken in the ordinary way",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-b-q11",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f52",
+  "stem": "A booking transaction running at `READ COMMITTED` in PostgreSQL must keep a whole table consistent against concurrent changes. According to the documentation, what may such a transaction need to take out?",
+  "key": "A lock on the entire table",
+  "distractors": [
+   "A predicate lock that blocks the conflicting writers",
+   "A row-level lock released at the end of each statement",
+   "A shared lock that lets other transactions update the rows"
+  ],
+  "explanation": "A `READ COMMITTED` or `REPEATABLE READ` transaction that wants to ensure data consistency may need to take out a lock on an entire table. A blocking predicate lock is wrong, because in PostgreSQL predicate locks do not cause any blocking. Statement-scoped row locks are wrong, because row-level locks are released at transaction end or during savepoint rollback. A shared lock allowing updates is wrong, because a shared lock blocks other transactions from `UPDATE` and `DELETE` on those rows.",
+  "citation": "pg-transaction-iso#XACT-SERIALIZABLE",
+  "extract": "a Read Committed or Repeatable Read transaction which wants to ensure data consistency may need to take out a lock on an entire table",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-b-q12",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f59",
+  "stem": "A booking client creates the value of an `Idempotency-Key` header for each `POST /bookings` call. Which kind of identifier does the IETF idempotency-key draft recommend for that key?",
+  "key": "A UUID or a similar random identifier",
+  "distractors": [
+   "A sequential number taken from a counter shared by all clients",
+   "The same key for every booking made by one user",
+   "An idempotency fingerprint alone, with no key at all"
+  ],
+  "explanation": "It is recommended that a UUID or a similar random identifier be used as an idempotency key. A shared sequential counter is wrong, because the effort to coordinate sequential numeric identifiers across a network can easily become a burden. Reusing the same key for every booking by one user is wrong, because the key MUST NOT be reused with another request with a different request payload. An idempotency fingerprint alone with no key is wrong, because a fingerprint MAY be used in conjunction with an idempotency key.",
+  "citation": "ietf-httpapi-idempotency-key#content",
+  "extract": "It is RECOMMENDED that a UUID [RFC9562] or a similar random identifier be used as an idempotency key.",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-b-q13",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f44",
+  "stem": "A seat-hold query runs `SELECT … FOR UPDATE LIMIT 2` with no `OFFSET` in PostgreSQL, and 10 rows match the condition. According to the documentation, how many rows does the query lock?",
+  "key": "2",
+  "distractors": [
+   "10",
+   "5",
+   "1"
+  ],
+  "explanation": "If a `LIMIT` is used, locking stops once enough rows have been returned to satisfy the limit, so 2 rows are locked. Locking 10 rows is wrong, because locking stops once enough rows have been returned. Locking 5 rows is wrong for the same reason, since the limit of 2 rows has been satisfied by then. Locking only 1 row is wrong, because locking continues until enough rows have been returned to satisfy the limit.",
+  "citation": "pg-sql-select#SQL-FOR-UPDATE-SHARE",
+  "extract": "If a LIMIT is used, locking stops once enough rows have been returned to satisfy the limit",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-b-q14",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f46",
+  "stem": "In PostgreSQL, a team tries several seat queries with a locking clause. Which of these queries cannot use `FOR UPDATE`, because the returned rows cannot be identified with individual table rows?",
+  "key": "`SELECT count(*) FROM seats FOR UPDATE`",
+  "distractors": [
+   "`SELECT * FROM seats WHERE id = 7 FOR UPDATE`",
+   "`SELECT * FROM seats FOR UPDATE SKIP LOCKED LIMIT 1`",
+   "`SELECT * FROM seats FOR UPDATE NOWAIT`"
+  ],
+  "explanation": "The locking clauses cannot be used where returned rows cannot be clearly identified with individual table rows, for example with aggregation. The query on one seat is wrong, because `FOR UPDATE` locks the rows retrieved by the `SELECT` statement. The `SKIP LOCKED` query is wrong, because with `SKIP LOCKED` rows that cannot be locked immediately are skipped and the rest are locked. The `NOWAIT` query is wrong, because with `NOWAIT` the statement reports an error if a selected row cannot be locked immediately.",
+  "citation": "pg-sql-select#SQL-FOR-UPDATE-SHARE",
+  "extract": "The locking clauses cannot be used in contexts where returned rows cannot be clearly identified with individual table rows; for example they cannot be used with aggregation.",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-b-q15",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f36",
+  "stem": "A PostgreSQL booking transaction replaces `FOR NO KEY UPDATE` with `FOR SHARE` on the rows it retrieves. What does `FOR SHARE` change about the lock on each retrieved row?",
+  "key": "It acquires a shared lock rather than an exclusive lock",
+  "distractors": [
+   "It lets another transaction run `SELECT FOR UPDATE` on those rows",
+   "It releases the lock at the end of the statement",
+   "It blocks plain `SELECT` queries on those rows"
+  ],
+  "explanation": "`FOR SHARE` behaves like `FOR NO KEY UPDATE`, except that it acquires a shared lock rather than an exclusive lock on each retrieved row. Letting `SELECT FOR UPDATE` run is wrong, because a shared lock blocks other transactions from `SELECT FOR UPDATE` on these rows. Release at statement end is wrong, because row-level locks are released at transaction end or during savepoint rollback. Blocking plain queries is wrong, because row-level locks block only writers and lockers to the same row.",
+  "citation": "pg-explicit-locking#LOCKING-ROWS",
+  "extract": "Behaves similarly to FOR NO KEY UPDATE, except that it acquires a shared lock rather than exclusive lock on each retrieved row.",
+  "snippet": null
+ }
+]

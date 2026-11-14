@@ -1,0 +1,156 @@
+m04-l04-q01:
+  key:
+    anchor: kotlin-docs-no-arg-plugin#no-arg-plugin.md
+    sentence: The no-arg compiler plugin generates a zero-argument constructor for classes with a specific annotation.
+  wrong:
+  - option: '`all-open`'
+    anchor: kotlin-docs-all-open-plugin#all-open-plugin.md
+    sentence: The all-open compiler plugin makes classes and their members open at compile time without requiring the open keyword.
+  - option: '`kotlin-spring`'
+    anchor: kotlin-docs-all-open-plugin#all-open-plugin.md
+    sentence: It makes a class and its members open when they have a Spring annotation.
+  - option: '`power-assert`'
+    anchor: kotlin-docs-mixing-java-kotlin#explore-compiler-plugins
+    sentence: The power-assert plugin improves the debugging experience by providing detailed failure messages with contextual information for assertions.
+m04-l04-q02:
+  key:
+    anchor: spring-boot-features-kotlin#features.kotlin.requirements
+    sentence: Since Kotlin classes are final by default, you are likely to want to configure kotlin-spring plugin in order to automatically open Spring-annotated classes so that they can be proxied.
+  wrong:
+  - option: Kotlin classes are open by default, so Spring cannot tell which of them are beans
+    anchor: kotlin-docs-all-open-plugin#all-open-plugin.md
+    sentence: In Kotlin, classes and their members are final by default.
+  - option: Spring beans need a zero-argument constructor, which the plugin generates for them
+    anchor: kotlin-docs-mixing-java-kotlin#explore-compiler-plugins
+    sentence: For Spring, you can use a dedicated kotlin-spring plugin, which is a wrapper on top of all-open.
+  - option: Spring beans declared as data classes must be open, and the plugin makes them so
+    anchor: kotlin-docs-data-classes#data-classes.md
+    sentence: Data classes can't be abstract, open, sealed, or inner.
+m04-l04-q03:
+  key:
+    anchor: kotlin-docs-data-classes#data-classes.md
+    sentence: Data classes can't be abstract, open, sealed, or inner.
+  wrong:
+  - option: Extending another class
+    anchor: kotlin-docs-data-classes#data-classes.md
+    sentence: Data classes may extend other classes (see Sealed classes for examples).
+  - option: Declaring a primary constructor parameter with `var`
+    anchor: kotlin-docs-data-classes#data-classes.md
+    sentence: All primary constructor parameters must be marked as val or var.
+  - option: Writing an explicit `toString()` in the class body
+    anchor: kotlin-docs-data-classes#data-classes.md
+    sentence: If there are explicit implementations of equals(), hashCode(), or toString() in the data class body or final implementations in a superclass, then these functions are not generated, and the existing implementations are used.
+m04-l04-q04:
+  key:
+    anchor: kotlin-docs-equality#structural-equality
+    sentence: Instead, non-data classes implement referential equality behavior inherited from the Any class.
+  wrong:
+  - option: Structural equality over the properties of the primary constructor
+    anchor: kotlin-docs-equality#structural-equality
+    sentence: Distinctly, non-data classes (those not declared with the data modifier) do not override the equals() function by default.
+  - option: The order defined by the `Comparable` interface
+    anchor: kotlin-docs-equality#structural-equality
+    sentence: Structural equality has nothing to do with comparison defined by the Comparable<...> interface, so only a custom equals(Any?) implementation may affect the behavior of the operator.
+  - option: 'The result of an `equals(other: Foo)` overload declared in the class'
+    anchor: kotlin-docs-equality#structural-equality
+    sentence: 'Functions with the same name and other signatures (like equals(other: Foo)) don''t affect equality checks with the operators == and !=.'
+m04-l04-q05:
+  key:
+    anchor: hibernate-user-guide#mapping-model-pojo-equalshashcode
+    sentence: But that is exactly what happened here because the equals/hasCode are based on the (generated) id, which was not set until the Jakarta Persistence transaction is committed.
+  wrong:
+  - option: '`equals` and `hashCode` use the natural id, which changes when the entity is flushed'
+    anchor: hibernate-user-guide#mapping-model-pojo-equalshashcode
+    sentence: 'This time, when adding a Book to the Library Set, you can retrieve the Book even after it’s being persisted:'
+  - option: Assigned identifiers are always null until the commit, so every id-based `hashCode` fails
+    anchor: hibernate-user-guide#mapping-model-pojo-equalshashcode
+    sentence: If you are using assigned identifiers this will not be a problem, assuming the identifier value is assigned prior to adding to the Set.
+  - option: Within one session, each `find` call returns a different instance for the same row
+    anchor: hibernate-user-guide#mapping-model-pojo-equalshashcode
+    sentence: In fact, Hibernate guarantees equivalence of persistent identity (database row) and Java identity inside a particular session scope.
+m04-l04-q06:
+  key:
+    anchor: hibernate-user-guide#fetching-basics
+    sentence: This is the strategy generally termed N+1.
+  wrong:
+  - option: '`JOIN`'
+    anchor: hibernate-user-guide#fetching-basics
+    sentence: Inherently an EAGER style of fetching.
+  - option: '`BATCH`'
+    anchor: hibernate-user-guide#fetching-basics
+    sentence: Performs a separate SQL select to load a number of related data items using an IN-restriction as part of the SQL WHERE-clause based on a batch size.
+  - option: '`SUBSELECT`'
+    anchor: hibernate-user-guide#fetching-basics
+    sentence: Performs a separate SQL select to load associated data based on the SQL restriction used to load the owner.
+m04-l04-q07:
+  key:
+    anchor: spring-data-commons-kotlin-coroutines#kotlin.coroutines.repositories
+    sentence: 'fun getUser(): User: Retrieve data once blocking the thread and without context propagation.'
+  wrong:
+  - option: It retrieves a stream of data that is fetched when `Flow.collect` is called
+    anchor: spring-data-commons-kotlin-coroutines#kotlin.coroutines.repositories
+    sentence: 'fun findByFirstname(firstname: String): Flow<User>: Retrieve a stream of data.'
+  - option: It retrieves the data once and synchronously by suspending the caller
+    anchor: spring-data-commons-kotlin-coroutines#kotlin.coroutines.repositories
+    sentence: 'suspend fun findOne(id: String): User: Retrieve the data once and synchronously by suspending.'
+  - option: It keeps the coroutine context available, because it returns a plain value
+    anchor: spring-data-commons-kotlin-coroutines#kotlin.coroutines.repositories
+    sentence: To retain access to the context, either declare your method using suspend or return a type that enables context propagation such as Flow.
+m04-l04-q08:
+  key:
+    anchor: spring-fw-kotlin-coroutines#transactions
+    sentence: For suspending functions, a TransactionalOperator.executeAndAwait extension is provided.
+  wrong:
+  - option: '`Flow<T>.transactional`'
+    anchor: spring-fw-kotlin-coroutines#transactions
+    sentence: For Kotlin Flow, a Flow<T>.transactional extension is provided.
+  - option: '`@Transactional` on a `suspend` function'
+    anchor: spring-fw-kotlin-coroutines#transactions
+    sentence: Transactions on Coroutines are supported via the programmatic variant of the Reactive transaction management.
+  - option: '`coRouter { }`'
+    anchor: spring-fw-kotlin-coroutines#webflux-fn
+    sentence: Here is an example of Coroutines router defined via the coRouter { } DSL and related handlers.
+m04-l04-q09:
+  key:
+    anchor: spring-fw-kotlin-coroutines#how-reactive-translates-to-coroutines
+    sentence: Flow is push-based while Flux is push-pull hybrid
+  wrong:
+  - option: '`Flow` has several collect methods, while `Flux` has a single one'
+    anchor: spring-fw-kotlin-coroutines#how-reactive-translates-to-coroutines
+    sentence: Flow has only a single suspending collect method and operators are implemented as extensions
+  - option: '`Flow` suits only finite streams, while `Flux` also handles infinite ones'
+    anchor: spring-fw-kotlin-coroutines#how-reactive-translates-to-coroutines
+    sentence: 'Flow is Flux equivalent in Coroutines world, suitable for hot or cold stream, finite or infinite streams, with the following main differences:'
+  - option: '`Flow` implements backpressure through subscription requests, while `Flux` suspends'
+    anchor: spring-fw-kotlin-coroutines#how-reactive-translates-to-coroutines
+    sentence: Backpressure is implemented via suspending functions
+m04-l04-q10:
+  key:
+    anchor: coroutines-api-test-scheduler#content
+    sentence: The scheduler can be queried to advance the time (via advanceTimeBy), run all the scheduled tasks advancing the virtual time as needed (via advanceUntilIdle), or run the tasks that are scheduled to run as soon as possible but haven't yet been dispatched (via runCurrent).
+  wrong:
+  - option: '`advanceTimeBy`'
+    anchor: coroutines-api-test-scheduler#content
+    sentence: The scheduler can be queried to advance the time (via advanceTimeBy), run all the scheduled tasks advancing the virtual time as needed (via advanceUntilIdle), or run the tasks that are scheduled to run as soon as possible but haven't yet been dispatched (via runCurrent).
+    exclusive: true
+  - option: '`advanceUntilIdle`'
+    anchor: coroutines-api-test-scheduler#content
+    sentence: The scheduler can be queried to advance the time (via advanceTimeBy), run all the scheduled tasks advancing the virtual time as needed (via advanceUntilIdle), or run the tasks that are scheduled to run as soon as possible but haven't yet been dispatched (via runCurrent).
+    exclusive: true
+  - option: '`TestScope.testScheduler`'
+    anchor: coroutines-api-test-run-test#task-scheduling
+    sentence: The scheduler can be accessed via TestScope.testScheduler.
+m04-l04-q11:
+  key:
+    anchor: kotlin-docs-data-classes#data-classes.md
+    sentence: On the JVM, if the generated class needs to have a parameterless constructor, default values for the properties have to be specified
+  wrong:
+  - option: The `open` modifier on the class
+    anchor: kotlin-docs-data-classes#data-classes.md
+    sentence: Data classes can't be abstract, open, sealed, or inner.
+  - option: An explicit implementation of `copy()`
+    anchor: kotlin-docs-data-classes#data-classes.md
+    sentence: Providing explicit implementations for the componentN() and copy() functions is not allowed.
+  - option: The `kotlin-spring` plugin applied to the project
+    anchor: kotlin-docs-all-open-plugin#all-open-plugin.md
+    sentence: It makes a class and its members open when they have a Spring annotation.

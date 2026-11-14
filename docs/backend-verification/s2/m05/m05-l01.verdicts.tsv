@@ -1,0 +1,108 @@
+S1.1	"A Spring IoC container manages one"	pass
+S1.2	"Within the container, bean definitions are"	pass
+S1.3	"A `BeanDefinition` includes bean behavioral configuration"	pass
+S1.4	"A `BeanDefinition` also holds references to"	pass
+S1.5	"You should use an `ApplicationContext` unless"	pass
+S1.6	"An `ApplicationContext` includes all the functionality"	pass
+S1.7	"With only a plain `DefaultListableBeanFactory`, bean"	pass
+R1.1	"Bean instantiation/wiring"	pass
+R1.2	"Integrated lifecycle management"	pass
+R1.3	"Automatic `BeanPostProcessor` registration"	pass
+R1.4	"Built-in `ApplicationEvent` publication mechanism"	pass
+S1.8	"The Spring Framework supports six scopes,"	pass
+S1.9	"The `singleton` scope is the default"	pass
+S1.10	"The `prototype` scope gives any number"	pass
+S1.11	"The scope of the Spring singleton"	pass
+S1.12	"The Gang of Four singleton hard-codes"	pass
+S1.13	"The prototype scope creates a new"	pass
+S1.14	"By default, `ApplicationContext` implementations eagerly create"	pass
+S1.15	"Singleton-scoped beans that are set to"	pass
+S1.16	"The container validates the configuration of"	pass
+S1.17	"Without circular dependencies, each collaborating bean"	pass
+S2.1	"The container calls `afterPropertiesSet()` for `InitializingBean`"	pass
+S2.2	"The JSR-250 `@PostConstruct` and `@PreDestroy` annotations"	pass
+S2.3	"Internally, the Spring Framework uses `BeanPostProcessor`"	pass
+S2.4	"`InitializingBean` lets a bean perform initialization"	pass
+S2.5	"The documentation recommends against `InitializingBean`, because"	pass
+S2.6	"`@PostConstruct` and initialization methods in general"	pass
+S2.7	"Implementing `DisposableBean` lets a bean get"	pass
+S2.8	"Spring supports inference of destroy methods,"	pass
+S2.9	"As of Spring 2.5, a bean"	pass
+S2.10	"If the same method name is"	pass
+S2.11	"With different initialization methods, the order"	pass
+S2.12	"Destroy methods are called in the"	pass
+S2.13	"For a prototype bean, initialization callbacks"	pass
+S2.14	"The client code must clean up"	pass
+S2.15	"`BeanPostProcessor` instances operate on bean instances:"	pass
+S2.16	"For each bean instance, the post-processor"	pass
+S2.17	"A bean post-processor typically checks for"	pass
+S2.18	"An `ApplicationContext` automatically detects any beans"	pass
+S2.19	"You can set the `order` property"	pass
+S2.20	"`BeanPostProcessor` instances added programmatically do not"	pass
+S2.21	"`BeanPostProcessor` instances registered programmatically are always"	pass
+S2.22	"Because AOP auto-proxying is implemented as"	pass
+S2.23	"To change the bean definition itself,"	pass
+S3.1	"Constructor-based DI is accomplished by the"	pass
+S3.2	"Setter-based DI is accomplished by the"	pass
+S3.3	"The `ApplicationContext` also supports setter-based DI"	pass
+S3.4	"The Spring team generally advocates constructor"	pass
+S3.5	"Setter injection should primarily be used"	pass
+S3.6	"An `@Autowired` annotation on a constructor"	pass
+S3.7	"The default behavior is to treat"	pass
+S3.8	"A non-required field is not populated"	pass
+S3.9	"If you use predominantly constructor injection,"	pass
+S3.10	"If classes A and B are"	pass
+S3.11	"Although it is not recommended, you"	pass
+S3.12	"`@Primary` indicates that a particular bean"	pass
+S3.13	"If exactly one primary bean exists"	pass
+S3.14	"As of 6.2, the `@Fallback` annotation"	pass
+S3.15	"`@Qualifier` associates qualifier values with specific"	pass
+S3.16	"Qualifier values do not semantically express"	pass
+S3.17	"Qualifiers do not have to be"	pass
+S3.18	"With no qualifier, primary marker or"	pass
+S3.19	"Since version 6.1, matching by parameter"	pass
+S3.20	"A lazy-initialized bean tells the IoC"	pass
+S3.21	"When a lazy-initialized bean is a"	pass
+S3.22	"You can control lazy initialization for"	pass
+S4.1	"Annotating a class with `@Configuration` indicates"	pass
+S4.2	"`@Configuration` classes let inter-bean dependencies be"	pass
+S4.3	"In full mode, cross-method references get"	pass
+S4.4	"`@Bean` methods in a class without"	pass
+S4.5	"In lite mode, a Java call"	pass
+S4.6	"In lite mode, no CGLIB subclassing"	pass
+S4.7	"`@Bean` methods on classes without runtime"	pass
+S4.8	"The `@Profile` annotation is implemented by"	pass
+S4.9	"`@Conditional` indicates specific `Condition` implementations that"	pass
+S4.10	"A `@Conditional` annotation on an enclosing"	pass
+S4.11	"A nested class discovered independently, for"	pass
+S4.12	"The `@Profile` annotation lets you indicate"	pass
+S4.13	"You can activate profiles declaratively through"	pass
+S4.14	"You can activate multiple profiles at"	pass
+S4.15	"In integration tests, active profiles can"	pass
+S5.1	"A `BeanDefinition` is the container's representation"	fail	key point adds "its class", a fact not stated in the lesson
+S5.2	"An `ApplicationContext` includes all the functionality"	pass
+S5.3	"`singleton` is the default scope, per"	pass
+S5.4	"`prototype` creates a new instance for"	pass
+S5.5	"`@PostConstruct` runs first, then `afterPropertiesSet()`, then"	pass
+S5.6	"Programmatically registered `BeanPostProcessor` instances ignore `Ordered`"	pass
+S5.7	"Constructor injection can produce an unresolvable"	pass
+S5.8	"`@Primary` gives preference to one candidate;"	pass
+S5.9	"Since 6.1, matching an injection point"	pass
+S5.10	"In lite mode, calls between `@Bean`"	pass
+S5.11	"A nested class discovered by `@ComponentScan`"	pass
+g-bean-post-processor	pass
+g-prototype-scope	pass
+g-circular-dependency	pass
+m05-l01-q01	pass
+m05-l01-q02	pass
+m05-l01-q03	pass
+m05-l01-q04	pass
+m05-l01-q05	pass
+m05-l01-q06	pass
+m05-l01-q07	pass
+m05-l01-q08	fail	@Primary/@Fallback exclusive group not mutually exclusive values; stem already excludes them
+m05-l01-q09	pass
+m05-l01-q10	fail	explanation omits the "no conditions at all" distractor
+m05-l01-q11	pass
+S5.1	recheck	pass
+# checked 106, passed 104, failed 2
