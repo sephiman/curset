@@ -65,19 +65,19 @@ variants:
       is printed?
   options:
   - id: a
+    correct: true
     text:
-      en: '[foo, bar]
+      en: '[foo]
 
         [bar]'
   - id: b
     text:
-      en: '[bar]
+      en: '[foo, bar]
 
         [bar]'
   - id: c
-    correct: true
     text:
-      en: '[foo]
+      en: '[bar]
 
         [bar]'
   - id: d
@@ -160,12 +160,12 @@ variants:
     text:
       en: The `<tx:annotation-driven/>` element placed in the same programmatic configuration
   - id: c
+    text:
+      en: A `DataSourceTransactionManager` bean declared in the configuration class and nothing else
+  - id: d
     correct: true
     text:
       en: The `@EnableTransactionManagement` annotation
-  - id: d
-    text:
-      en: A `DataSourceTransactionManager` bean declared in the configuration class and nothing else
   explanation:
     en: In programmatic configuration, the `@EnableTransactionManagement` annotation switches on actual transaction
       management at runtime. The claim that `@Transactional` alone does it is wrong, because the mere presence of
@@ -183,15 +183,15 @@ variants:
       code, such as a `@PostConstruct` method?
   options:
   - id: a
+    text:
+      en: Only methods with `public` visibility can be made transactional, for any kind of proxy
+  - id: b
+    text:
+      en: Only `jakarta.transaction.Transactional` is honored there, and Spring's own annotation is ignored
+  - id: c
     correct: true
     text:
       en: The proxy must be fully initialized to provide the expected behavior
-  - id: b
-    text:
-      en: Only methods with `public` visibility can be made transactional, for any kind of proxy
-  - id: c
-    text:
-      en: Only `jakarta.transaction.Transactional` is honored there, and Spring's own annotation is ignored
   - id: d
     text:
       en: The annotation applies only to interface definitions and never to methods of a class
@@ -229,3 +229,55 @@ variants:
       a thread as an argument is wrong, because it tests whether the current thread has been interrupted. The claim
       that it restores the status is wrong, because the status is cleared by the method.
   citation: javadoc-thread#interrupted()
+- id: m01-l04-q12
+  prompt:
+    en: According to the `ForkJoinPool` Javadoc in Java 25, what mainly distinguishes a `ForkJoinPool` from other
+      kinds of `ExecutorService`?
+  options:
+  - id: a
+    correct: true
+    text:
+      en: 'It employs work-stealing: all threads in the pool attempt to find and execute tasks submitted to the
+        pool or created by other active tasks'
+  - id: b
+    text:
+      en: Its worker threads are non-daemon, so an idle pool keeps the program alive
+  - id: c
+    text:
+      en: It accepts only `ForkJoinTask` instances and rejects plain `Runnable` or `Callable` tasks
+  - id: d
+    text:
+      en: It takes submissions only from tasks already running inside the pool, never from outside clients
+  explanation:
+    en: A `ForkJoinPool` differs from other kinds of `ExecutorService` mainly by employing work-stealing. The claim
+      that its worker threads are non-daemon is wrong, because all worker threads are initialized with `Thread.isDaemon()`
+      set to true. The claim that it rejects plain `Runnable` or `Callable` tasks is wrong, because overloaded forms
+      of its execution methods allow mixed execution of such activities. The claim that it takes submissions only
+      from tasks inside the pool is wrong, because the pool provides the entry point for submissions from non-`ForkJoinTask`
+      clients.
+  citation: javadoc-forkjoinpool#class-forkjoinpool
+- id: m01-l04-q13
+  prompt:
+    en: In Java 25, a thread is blocked in a call and another thread calls `interrupt()` on it. Which blocked call
+      makes the thread receive an `InterruptedException` with its interrupt status cleared?
+  options:
+  - id: a
+    text:
+      en: A read on an `InterruptibleChannel`
+  - id: b
+    text:
+      en: A `Selector.select()` call
+  - id: c
+    correct: true
+    text:
+      en: '`Object.wait()`'
+  - id: d
+    text:
+      en: Waiting to enter a `synchronized` block
+  explanation:
+    en: A thread blocked in `Object.wait()` has its interrupt status cleared and receives an `InterruptedException`.
+      A thread blocked in a read on an `InterruptibleChannel` instead gets its channel closed, its interrupt status
+      set and a `ClosedByInterruptException`. A thread blocked in a `Selector` has its interrupt status set and
+      returns immediately from the selection operation. A thread waiting to enter a `synchronized` block is none
+      of the listed cases, so its interrupt status is simply set.
+  citation: javadoc-thread#interrupt()

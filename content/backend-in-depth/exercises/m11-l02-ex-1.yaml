@@ -14,16 +14,16 @@ variants:
 
         kept: disk full'
   - id: b
+    text:
+      en: 'swallowed: no cause
+
+        kept: no cause'
+  - id: c
     correct: true
     text:
       en: 'swallowed: no cause
 
         kept: disk full'
-  - id: c
-    text:
-      en: 'swallowed: no cause
-
-        kept: no cause'
   - id: d
     text:
       en: 'swallowed: disk full
@@ -87,8 +87,9 @@ variants:
       by 3 exactly, and splits `100.00` by 3 at scale 2 with `HALF_UP`. What does it print?
   options:
   - id: a
+    correct: true
     text:
-      en: '0.3
+      en: '0.30000000000000004
 
         0.3
 
@@ -101,11 +102,11 @@ variants:
         99.99'
   - id: b
     text:
-      en: '0.30000000000000004
+      en: '0.3
 
         0.3
 
-        2.20
+        2.200
 
         Non-terminating decimal expansion; no exact representable decimal result.
 
@@ -113,13 +114,12 @@ variants:
 
         99.99'
   - id: c
-    correct: true
     text:
       en: '0.30000000000000004
 
         0.3
 
-        2.200
+        2.20
 
         Non-terminating decimal expansion; no exact representable decimal result.
 
@@ -154,16 +154,6 @@ variants:
       then multiplies 1,000,000 by 5,000 as `int` and as `long`, storing both in a `long`. What does it print?
   options:
   - id: a
-    correct: true
-    text:
-      en: '-2147483648
-
-        integer overflow
-
-        705032704
-
-        5000000000'
-  - id: b
     text:
       en: '2147483648
 
@@ -172,7 +162,7 @@ variants:
         705032704
 
         5000000000'
-  - id: c
+  - id: b
     text:
       en: '-2147483648
 
@@ -181,9 +171,19 @@ variants:
         5000000000
 
         5000000000'
-  - id: d
+  - id: c
     text:
       en: '-2147483648
+
+        705032704
+
+        5000000000'
+  - id: d
+    correct: true
+    text:
+      en: '-2147483648
+
+        integer overflow
 
         705032704
 
@@ -203,12 +203,12 @@ variants:
       statement about happens-before relationships between two threads is correct?
   options:
   - id: a
+    text:
+      en: A write to a plain field happens-before any read of it by another thread, with no further synchronization
+  - id: b
     correct: true
     text:
       en: A write to a `volatile` field happens-before every subsequent read of that same field
-  - id: b
-    text:
-      en: A write to a plain field happens-before any read of it by another thread, with no further synchronization
   - id: c
     text:
       en: A call to `join()` on a thread happens-before every action performed by the joined thread
@@ -250,3 +250,53 @@ variants:
       code. The claim about a call to another method of the same bean is wrong because self-invocation does not
       lead to an actual transaction in proxy mode.
   citation: spring-fw-tx-declarative-annotations#using-transactional
+- id: m11-l02-q13
+  prompt:
+    en: A `BigDecimal` holds `2.0` and another holds `2.00`. According to the `BigDecimal` Javadoc, what does `equals`
+      report for these two numerically equal values, and why?
+  options:
+  - id: a
+    correct: true
+    text:
+      en: '`false`, because `equals` requires both the numerical value and the representation to be the same'
+  - id: b
+    text:
+      en: '`true`, because `equals` compares only the numerical value of the two numbers'
+  - id: c
+    text:
+      en: '`true`, because the natural ordering of `BigDecimal` is consistent with `equals`'
+  - id: d
+    text:
+      en: '`true`, because `scale()` and `unscaledValue()` return the same results for numerically equal values'
+  explanation:
+    en: The result is `false`, because the `equals` method requires both the numerical value and the representation
+      to be the same for equality to hold. Comparing only the numerical value is ruled out by that same requirement.
+      A natural ordering consistent with `equals` is ruled out because the natural ordering of `BigDecimal` is inconsistent
+      with `equals`. Equal `scale()` and `unscaledValue()` results are ruled out because those results differ for
+      numerically equal values with different representations.
+  citation: javadoc-bigdecimal#class-bigdecimal
+- id: m11-l02-q14
+  prompt:
+    en: In `ZonedDateTime`, a local date-time falls in the middle of an overlap, when clocks are set back. Which
+      offset does the Javadoc's general strategy give the resulting zoned date-time?
+  options:
+  - id: a
+    text:
+      en: None, because an overlap has zero valid offsets for that local date-time
+  - id: b
+    text:
+      en: The earlier offset is always used, even when a previous offset exists
+  - id: c
+    correct: true
+    text:
+      en: The previous offset is retained
+  - id: d
+    text:
+      en: The later offset, with the local date-time shifted forwards by the length of the overlap
+  explanation:
+    en: The previous offset is retained, as the general strategy for overlaps says. Zero valid offsets is ruled
+      out because an overlap has two valid offsets. Always using the earlier offset is ruled out because the earlier
+      offset is used only when there is no previous offset or the previous one is invalid. Shifting forwards into
+      the later offset is ruled out because that is the strategy for gaps, while for overlaps the previous offset
+      will be retained.
+  citation: javadoc-zoneddatetime#class-zoneddatetime

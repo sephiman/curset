@@ -1,0 +1,23 @@
+A1	Pagination and links	According to Google's AIP-158, RPCs that return collections must provide pagination at the outset, because adding pagination to an existing method is a backwards-incompatible change.
+A2	Pagination and links	Request messages for collections should define an `int32` `page_size` field that is not required.
+A3	Pagination and links	If the user does not specify `page_size` or specifies 0, the API chooses a default, which it should document, and must not return an error.
+A4	Pagination and links	If the user specifies a `page_size` above the maximum, the API should coerce it down to the maximum, and for a negative value the API must send an `INVALID_ARGUMENT` error.
+A5	Pagination and links	According to the same AIP, request messages for collections should also define a string `page_token` field that is not required.
+A6	Pagination and links	The user is expected to keep all other arguments the same when advancing, and if any argument differs the API should send an `INVALID_ARGUMENT` error.
+A7	Pagination and links	Response messages should define a string `next_page_token` field, which must be empty when the end of the collection has been reached.
+A8	Pagination and links	The AIP calls that the only way to communicate end-of-collection to users.
+A9	Pagination and links	According to the same AIP, a paginated request may define an `int32` `skip` field, and its value refers to the number of individual resources to skip, not the number of pages.
+A10	Pagination and links	A request with no page token and a `skip` of 30 returns a single page starting with the 31st result.
+A11	Pagination and links	If a `skip` cannot be fulfilled, for example because of the latency of querying a massive data set, the response must be `200 OK` with an empty result set.
+A12	Long-running operations and webhooks	According to the Standard Webhooks specification, the most common way to verify the authenticity of webhooks is an HMAC signature with a pre-shared secret key, and a common alternative is an asymmetric signature.
+A13	Long-running operations and webhooks	The specification signs the message ID, the timestamp and the body, concatenated and delimited by full-stops as `msg_id.timestamp.payload`.
+A14	Long-running operations and webhooks	It sends them in the `webhook-id`, `webhook-timestamp` and `webhook-signature` headers.
+A15	Long-running operations and webhooks	The signature header is a space-delimited list so that secrets can be rotated with zero downtime.
+A16	Long-running operations and webhooks	According to the same specification, a consumer verifying a symmetric signature should compare it in constant time, should check that `webhook-timestamp` is within some tolerance of the current time to prevent replay attacks, and should use `webhook-id` as an idempotency key so that the same webhook is not processed twice.
+A17	Long-running operations and webhooks	According to the same specification, the producer retries a failed delivery until a successful attempt or until delivery appears impossible.
+A18	Long-running operations and webhooks	It recommends a retry schedule spanning multiple days with an exponential backoff and some random jitter.
+A19	Long-running operations and webhooks	A delivery is successful when the response has a `2xx` status code, and a `410 Gone` response tells the sender to disable the endpoint.
+A20	Long-running operations and webhooks	The specification recommends a request timeout between 15 and 30 seconds.
+A21	OpenAPI descriptions	According to the OpenAPI Initiative, in the code-first approach the API is implemented first and its description is created from the code, while in the design-first approach the API description is written first and the code follows.
+A22	OpenAPI descriptions	The OpenAPI Initiative says that, in its opinion, the importance of design-first cannot be stressed strongly enough.
+A23	OpenAPI descriptions	Its reason is that more APIs can be created in code than OpenAPI can describe, so an API built first in code may have to be changed, or its description twisted, to fit what OpenAPI can express.

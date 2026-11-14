@@ -96,3 +96,127 @@ m08-l03-q07:
   - option: It replays the whole WAL from its first segment
     anchor: debezium-postgresql#postgresql-overview
     sentence: This means that the connector does not have the complete history of all changes that have been made to the database.
+m08-l03-q08:
+  key:
+    anchor: debezium-outbox-event-router#basic-outbox-table
+    sentence: Contains a value that the SMT appends to the name of the topic to which the connector emits an outbox message.
+  wrong:
+  - option: '`id`'
+    anchor: debezium-outbox-event-router#basic-outbox-table
+    sentence: In an outbox message, this value is a header.
+  - option: '`aggregateid`'
+    anchor: debezium-outbox-event-router#basic-outbox-table
+    sentence: The SMT uses this value as the key in the emitted outbox message.
+  - option: '`payload`'
+    anchor: debezium-outbox-event-router#basic-outbox-table
+    sentence: By default, the Kafka message value is solely comprised of the payload value.
+m08-l03-q09:
+  key:
+    anchor: debezium-outbox-event-router#basic-outbox-table
+    sentence: By default, the Kafka message value is solely comprised of the payload value.
+  wrong:
+  - option: The `payload` and `aggregatetype` values in an envelope
+    anchor: debezium-outbox-event-router#basic-outbox-table
+    sentence: By default, the Kafka message value is solely comprised of the payload value.
+    exclusive: true
+  - option: The `id` and `payload` values as two separate fields
+    anchor: debezium-outbox-event-router#basic-outbox-table
+    sentence: By default, the Kafka message value is solely comprised of the payload value.
+    exclusive: true
+  - option: The complete outbox row with all five columns
+    anchor: debezium-outbox-event-router#basic-outbox-table
+    sentence: By default, the Kafka message value is solely comprised of the payload value.
+    exclusive: true
+m08-l03-q10:
+  key:
+    anchor: debezium-outbox-event-router#basic-outbox-table
+    sentence: The connector emits the second record to the outbox.event.orders topic.
+  wrong:
+  - option: '`outbox.orders`'
+    anchor: debezium-outbox-event-router#basic-outbox-table
+    sentence: The connector emits the second record to the outbox.event.orders topic.
+    exclusive: true
+  - option: '`orders`'
+    anchor: debezium-outbox-event-router#basic-outbox-table
+    sentence: The connector emits the second record to the outbox.event.orders topic.
+    exclusive: true
+  - option: '`outbox.event.aggregatetype`'
+    anchor: debezium-outbox-event-router#basic-outbox-table
+    sentence: The connector emits the second record to the outbox.event.orders topic.
+    exclusive: true
+m08-l03-q11:
+  key:
+    anchor: pg-explicit-locking#LOCKING-ROWS
+    sentence: Row-level locks are released at transaction end or during savepoint rollback, just like table-level locks.
+  wrong:
+  - option: As soon as the `SELECT` statement has returned its rows
+    anchor: pg-explicit-locking#LOCKING-ROWS
+    sentence: Row-level locks are released at transaction end or during savepoint rollback, just like table-level locks.
+    exclusive: true
+  - option: When the client connection that took them is closed, never earlier
+    anchor: pg-explicit-locking#LOCKING-ROWS
+    sentence: Row-level locks are released at transaction end or during savepoint rollback, just like table-level locks.
+    exclusive: true
+  - option: At the next checkpoint or autovacuum run
+    anchor: pg-explicit-locking#LOCKING-ROWS
+    sentence: Row-level locks are released at transaction end or during savepoint rollback, just like table-level locks.
+    exclusive: true
+m08-l03-q12:
+  key:
+    anchor: pg-explicit-locking#LOCKING-ROWS
+    sentence: SELECT FOR UPDATE modifies selected rows to mark them locked, and so will result in disk writes.
+  wrong:
+  - option: PostgreSQL keeps locked rows in a shared memory table that it flushes to disk when the table is full
+    anchor: pg-explicit-locking#LOCKING-ROWS
+    sentence: PostgreSQL doesn't remember any information about modified rows in memory, so there is no limit on the number of rows locked at one time.
+  - option: Row-level locks block concurrent readers, so queries wait while the lock record is written
+    anchor: pg-explicit-locking#LOCKING-ROWS
+    sentence: Row-level locks do not affect data querying; they block only writers and lockers to the same row.
+  - option: Each lock is released as soon as the row is returned, which rewrites the row
+    anchor: pg-explicit-locking#LOCKING-ROWS
+    sentence: Row-level locks are released at transaction end or during savepoint rollback, just like table-level locks.
+m08-l03-q13:
+  key:
+    anchor: debezium-postgresql#postgresql-overview
+    sentence: The connector produces a change event for every row-level insert, update, and delete operation that was captured and sends change event records for each table in a separate Kafka topic.
+  wrong:
+  - option: To one shared Kafka topic for the whole database
+    anchor: debezium-postgresql#postgresql-overview
+    sentence: The connector produces a change event for every row-level insert, update, and delete operation that was captured and sends change event records for each table in a separate Kafka topic.
+    exclusive: true
+  - option: To a new Kafka topic for each transaction
+    anchor: debezium-postgresql#postgresql-overview
+    sentence: The connector produces a change event for every row-level insert, update, and delete operation that was captured and sends change event records for each table in a separate Kafka topic.
+    exclusive: true
+  - option: To one Kafka topic for each Kafka Connect worker
+    anchor: debezium-postgresql#postgresql-overview
+    sentence: The connector produces a change event for every row-level insert, update, and delete operation that was captured and sends change event records for each table in a separate Kafka topic.
+    exclusive: true
+m08-l03-q14:
+  key:
+    anchor: axon-migration-sagas-to-workflows#sagas-and-workflows
+    sentence: Association values route events to the right instance.
+  wrong:
+  - option: Deadline identifiers
+    anchor: axon-migration-sagas-to-workflows#sagas-and-workflows
+    sentence: Flags, counters, and deadline identifiers describe where the process is and what it should do next.
+  - option: Persisted saga fields updated by handlers
+    anchor: axon-migration-sagas-to-workflows#sagas-and-workflows
+    sentence: Persisted saga fields updated by handlers.
+  - option: The step history of the process
+    anchor: axon-migration-sagas-to-workflows#sagas-and-workflows
+    sentence: Step history and workflow payload; local control flow reconstructed during replay.
+m08-l03-q15:
+  key:
+    anchor: axon-migration-sagas-to-workflows#sagas-and-workflows
+    sentence: They do not infer business intent or make external effects exactly once.
+  wrong:
+  - option: Make concurrency explicit in the process definition
+    anchor: axon-migration-sagas-to-workflows#sagas-and-workflows
+    sentence: Workflow primitives make concurrency, timeout policy, retries, and compensation explicit in the process definition.
+  - option: Provide step-level execution evidence
+    anchor: axon-migration-sagas-to-workflows#sagas-and-workflows
+    sentence: They reduce the bookkeeping spread across handlers and provide step-level execution evidence.
+  - option: Express compensation around the relevant steps
+    anchor: axon-migration-sagas-to-workflows#sagas-and-workflows
+    sentence: Express compensation around the relevant steps, preserving the same guards and failure handling.

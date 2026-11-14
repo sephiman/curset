@@ -163,5 +163,35 @@
   "citation": "javadoc-forkjoinpool#commonPool()",
   "extract": null,
   "snippet": null
+ },
+ {
+  "id": "m01-l04-q12",
+  "fact": "m01-l04-f14",
+  "stem": "According to the `ForkJoinPool` Javadoc in Java 25, what mainly distinguishes a `ForkJoinPool` from other kinds of `ExecutorService`?",
+  "key": "It employs work-stealing: all threads in the pool attempt to find and execute tasks submitted to the pool or created by other active tasks",
+  "distractors": [
+   "Its worker threads are non-daemon, so an idle pool keeps the program alive",
+   "It accepts only `ForkJoinTask` instances and rejects plain `Runnable` or `Callable` tasks",
+   "It takes submissions only from tasks already running inside the pool, never from outside clients"
+  ],
+  "explanation": "A `ForkJoinPool` differs from other kinds of `ExecutorService` mainly by employing work-stealing. The claim that its worker threads are non-daemon is wrong, because all worker threads are initialized with `Thread.isDaemon()` set to true. The claim that it rejects plain `Runnable` or `Callable` tasks is wrong, because overloaded forms of its execution methods allow mixed execution of such activities. The claim that it takes submissions only from tasks inside the pool is wrong, because the pool provides the entry point for submissions from non-`ForkJoinTask` clients.",
+  "citation": "javadoc-forkjoinpool#class-forkjoinpool",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m01-l04-q13",
+  "fact": "m01-l04-f26",
+  "stem": "In Java 25, a thread is blocked in a call and another thread calls `interrupt()` on it. Which blocked call makes the thread receive an `InterruptedException` with its interrupt status cleared?",
+  "key": "`Object.wait()`",
+  "distractors": [
+   "A read on an `InterruptibleChannel`",
+   "A `Selector.select()` call",
+   "Waiting to enter a `synchronized` block"
+  ],
+  "explanation": "A thread blocked in `Object.wait()` has its interrupt status cleared and receives an `InterruptedException`. A thread blocked in a read on an `InterruptibleChannel` instead gets its channel closed, its interrupt status set and a `ClosedByInterruptException`. A thread blocked in a `Selector` has its interrupt status set and returns immediately from the selection operation. A thread waiting to enter a `synchronized` block is none of the listed cases, so its interrupt status is simply set.",
+  "citation": "javadoc-thread#interrupt()",
+  "extract": null,
+  "snippet": null
  }
 ]

@@ -1,2 +1,6 @@
 S3.2	etcd ensures strict serializability for all KV API calls, and linearizability for all other operations by default.
 S5.4	etcd ensures strict serializability for all KV API calls and linearizability for all other operations by default, and a serializable read may return stale data with respect to quorum.
+A1	In Lamport’s logical clocks, each process increments its clock between any two successive events (`paper-lamport-time-clocks-columns#p6`).
+A2	In Lamport’s logical clocks, each message contains a timestamp which equals the time at which the message was sent (`paper-lamport-time-clocks-columns#p6`).
+A3	deleted: merged into A4, which states the same receive rule with the present-value clause
+A4	In Lamport’s logical clocks, a process that receives a message sets its clock greater than or equal to its present value and greater than the timestamp of the message (`paper-lamport-time-clocks-columns#p6`).

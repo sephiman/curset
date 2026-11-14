@@ -132,3 +132,21 @@ m08-l04-q09:
   - option: Per client, with no grouping of clients that share a quota
     anchor: kafka-design#quotas
     sentence: Two types of client quotas can be enforced by Kafka brokers for each group of clients sharing a quota
+
+m08-l04-q10:
+  key:
+    anchor: rfc2697#section-3
+    sentence: The token buckets C and E are initially (at time 0) full, i.e., the token count Tc(0) = CBS and the token count Te(0) = EBS.
+  wrong:
+  - option: Zero, so the bucket must fill before a packet can be marked green
+    anchor: rfc2697#section-3
+    sentence: The token buckets C and E are initially (at time 0) full, i.e., the token count Tc(0) = CBS and the token count Te(0) = EBS.
+    exclusive: true
+  - option: Half of its maximum size, so the bucket is half full
+    anchor: rfc2697#section-3
+    sentence: The token buckets C and E are initially (at time 0) full, i.e., the token count Tc(0) = CBS and the token count Te(0) = EBS.
+    exclusive: true
+  - option: One token, enough for the first packet only
+    anchor: rfc2697#section-3
+    sentence: The token buckets C and E are initially (at time 0) full, i.e., the token count Tc(0) = CBS and the token count Te(0) = EBS.
+    exclusive: true

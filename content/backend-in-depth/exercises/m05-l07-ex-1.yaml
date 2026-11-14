@@ -11,15 +11,15 @@ variants:
     text:
       en: Managed
   - id: b
+    text:
+      en: Removed
+  - id: c
+    text:
+      en: New
+  - id: d
     correct: true
     text:
       en: Detached
-  - id: c
-    text:
-      en: Removed
-  - id: d
-    text:
-      en: New
   explanation:
     en: A detached entity instance has a persistent identity and is not, or no longer, associated with a persistence
       context. Managed is not the state, because a managed instance is currently associated with a persistence context.
@@ -35,15 +35,15 @@ variants:
       of a non-primitive type?
   options:
   - id: a
+    text:
+      en: The entity is new if its identifier property is `null`, ignoring the version property
+  - id: b
+    text:
+      en: The entity is new if its version property is `0`
+  - id: c
     correct: true
     text:
       en: The entity is new if the value of the version property is `null`
-  - id: b
-    text:
-      en: The entity is new if its identifier property is `null`, ignoring the version property
-  - id: c
-    text:
-      en: The entity is new if its version property is `0`
   - id: d
     text:
       en: The entity is always treated as new, so `save` always calls `persist()`
@@ -64,12 +64,12 @@ variants:
     text:
       en: Hibernate batches every statement of the transaction with no maximum
   - id: b
-    text:
-      en: Hibernate orders SQL updates by entity type and primary key
-  - id: c
     correct: true
     text:
       en: JDBC batching is disabled
+  - id: c
+    text:
+      en: Hibernate orders SQL updates by entity type and primary key
   - id: d
     text:
       en: Hibernate orders inserts so that more batching can be used
@@ -80,3 +80,74 @@ variants:
       by entity type and primary key value. Ordering inserts belongs to `hibernate.order_inserts`, which forces
       Hibernate to order inserts to allow for more batching.
   citation: hibernate-user-guide#batch-jdbcbatch
+- id: m05-l07-q08
+  prompt:
+    en: In Hibernate, which configuration property forces Hibernate to order inserts so that more batching can be
+      used, at the cost of a performance hit?
+  options:
+  - id: a
+    correct: true
+    text:
+      en: '`hibernate.order_inserts`'
+  - id: b
+    text:
+      en: '`hibernate.order_updates`'
+  - id: c
+    text:
+      en: '`hibernate.jdbc.batch_size`'
+  - id: d
+    text:
+      en: '`hibernate.jdbc.batch.builder`'
+  explanation:
+    en: '`hibernate.order_inserts` forces Hibernate to order inserts to allow for more batching to be used. `hibernate.order_updates`
+      is ruled out because it forces Hibernate to order SQL updates by entity type and primary key value. `hibernate.jdbc.batch_size`
+      is ruled out because it controls the maximum number of statements batched together. `hibernate.jdbc.batch.builder`
+      is ruled out because it names the implementation class used to manage batching.'
+  citation: hibernate-user-guide#batch-jdbcbatch
+- id: m05-l07-q09
+  prompt:
+    en: You want Spring Data JPA auditing to determine the current user to set on domain types. Which type of bean
+      do you expose to the `ApplicationContext` for that purpose?
+  options:
+  - id: a
+    text:
+      en: '`DateTimeProvider`'
+  - id: b
+    correct: true
+    text:
+      en: '`AuditorAware`'
+  - id: c
+    text:
+      en: '`AuditingEntityListener`'
+  - id: d
+    text:
+      en: '`CurrentDateTimeProvider`'
+  explanation:
+    en: If you expose a bean of type `AuditorAware`, the auditing infrastructure picks it up and uses it to determine
+      the current user. `DateTimeProvider` is ruled out because it provides the time giving instance. `AuditingEntityListener`
+      is ruled out because it is the entity listener that triggers the capturing of auditing information. `CurrentDateTimeProvider`
+      is ruled out because it is only the default implementation of the time provider.
+  citation: spring-data-jpa-auditing#jpa.auditing.configuration
+- id: m05-l07-q10
+  prompt:
+    en: In Spring Data, `ListCrudRepository` offers the same methods as `CrudRepository` but returns `List` in those
+      places. Which type do the `CrudRepository` methods return there?
+  options:
+  - id: a
+    correct: true
+    text:
+      en: '`Iterable`'
+  - id: b
+    text:
+      en: '`Collection`'
+  - id: c
+    text:
+      en: '`Stream`'
+  - id: d
+    text:
+      en: '`Set`'
+  explanation:
+    en: The `CrudRepository` methods return an `Iterable` where `ListCrudRepository` returns a `List`. `Collection`,
+      `Stream` and `Set` are ruled out together, because the source names `Iterable` as the single return type those
+      methods have.
+  citation: spring-data-jpa-repositories-core-concepts#page-title

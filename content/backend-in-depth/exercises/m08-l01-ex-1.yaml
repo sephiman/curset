@@ -8,12 +8,12 @@ variants:
       network subject to communication failures?
   options:
   - id: a
-    text:
-      en: Returning any response at all, because a partitioned server has to stay silent
-  - id: b
     correct: true
     text:
       en: Implementing an atomic read/write shared memory that guarantees a response to every request
+  - id: b
+    text:
+      en: Returning any response at all, because a partitioned server has to stay silent
   - id: c
     text:
       en: Implementing a trivial service, such as one that returns the value of a constant
@@ -40,12 +40,12 @@ variants:
     text:
       en: The read still goes through the Raft consensus process on the leader, but it may return stale data afterwards
   - id: c
-    text:
-      en: Linearizable ordering of writes, because serializable mode also applies to write requests
-  - id: d
     correct: true
     text:
       en: The read may access stale data with respect to quorum, because it avoids relying on live consensus
+  - id: d
+    text:
+      en: Linearizable ordering of writes, because serializable mode also applies to write requests
   explanation:
     en: A serializable read may access stale data with respect to quorum, because it removes the reliance on live
       consensus. Serving every read in serializable mode by default is wrong, because etcd ensures linearizability
@@ -64,12 +64,12 @@ variants:
     text:
       en: Updates from one client are applied in an arbitrary order, so an older write can overwrite a newer one
   - id: b
-    text:
-      en: A client that moves to a second server sees an older view of the service than the first server showed
-  - id: c
     correct: true
     text:
       en: A read is not a quorum operation, so the server responds immediately to the client
+  - id: c
+    text:
+      en: A client that moves to a second server sees an older view of the service than the first server showed
   - id: d
     text:
       en: Write operations are not linearizable, so a read after a write can return the value from before it
@@ -86,18 +86,18 @@ variants:
       as one equipped with a GPS receiver?
   options:
   - id: a
+    text:
+      en: '0'
+  - id: b
+    text:
+      en: '2'
+  - id: c
+    text:
+      en: '16'
+  - id: d
     correct: true
     text:
       en: '1'
-  - id: b
-    text:
-      en: '0'
-  - id: c
-    text:
-      en: '2'
-  - id: d
-    text:
-      en: '16'
   explanation:
     en: Stratum value 1 identifies a primary server, for example one equipped with a GPS receiver. Stratum value
       0 is unspecified or invalid, so it does not identify a primary server. Stratum value 2 falls in the range
@@ -114,12 +114,12 @@ variants:
     text:
       en: They return data that may be stale with respect to quorum
   - id: b
+    text:
+      en: They keep the performance penalty of live consensus only for writes, never for reads
+  - id: c
     correct: true
     text:
       en: Linearizable requests must go through the Raft consensus process
-  - id: c
-    text:
-      en: They keep the performance penalty of live consensus only for writes, never for reads
   - id: d
     text:
       en: They are available only for write operations, because a read cannot be linearized
@@ -138,18 +138,18 @@ variants:
       workstations and fast LANs?
   options:
   - id: a
+    text:
+      en: Tens of milliseconds
+  - id: b
+    text:
+      en: Tens of nanoseconds
+  - id: c
+    text:
+      en: Single seconds
+  - id: d
     correct: true
     text:
       en: Tens of microseconds
-  - id: b
-    text:
-      en: Tens of milliseconds
-  - id: c
-    text:
-      en: Tens of nanoseconds
-  - id: d
-    text:
-      en: Single seconds
   explanation:
     en: NTPv4 extends the potential accuracy to the tens of microseconds with modern workstations and fast LANs.
       Tens of milliseconds is wrong, because the stated accuracy is in microseconds. Tens of nanoseconds is wrong,
@@ -158,3 +158,51 @@ variants:
   citation: rfc5905#top
   extract:
     en: extend the potential accuracy to the tens of microseconds with modern workstations and fast LANs
+- id: m08-l01-q09
+  prompt:
+    en: In the stratum field of an NTPv4 packet, which of the listed meanings belongs to the stratum value 16?
+  options:
+  - id: a
+    correct: true
+    text:
+      en: Unsynchronized
+  - id: b
+    text:
+      en: Unspecified or invalid
+  - id: c
+    text:
+      en: Primary server
+  - id: d
+    text:
+      en: Secondary server
+  explanation:
+    en: Stratum value 16 means unsynchronized. Unspecified or invalid is wrong, because that is the meaning of stratum
+      value 0. Primary server is wrong, because that is the meaning of stratum value 1. Secondary server is wrong,
+      because that is the meaning of stratum values 2 to 15.
+  citation: rfc5905#top
+  extract:
+    en: 16 | unsynchronized
+- id: m08-l01-q10
+  prompt:
+    en: Which range of stratum values marks a secondary server reached via NTP in an NTPv4 packet?
+  options:
+  - id: a
+    text:
+      en: 1 to 15
+  - id: b
+    correct: true
+    text:
+      en: 2 to 15
+  - id: c
+    text:
+      en: 2 to 16
+  - id: d
+    text:
+      en: 17 to 255
+  explanation:
+    en: Stratum values 2 to 15 mark a secondary server. 1 to 15 is wrong, because stratum value 1 is a primary server.
+      2 to 16 is wrong, because stratum value 16 is unsynchronized. 17 to 255 is wrong, because those values are
+      reserved.
+  citation: rfc5905#top
+  extract:
+    en: 2-15 | secondary server (via NTP)

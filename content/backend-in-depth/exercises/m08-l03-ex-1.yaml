@@ -14,12 +14,12 @@ variants:
     text:
       en: It reports an error and rolls the statement back
   - id: c
-    text:
-      en: It returns them in a consistent snapshot, because skipping applies only to writers
-  - id: d
     correct: true
     text:
       en: It skips them and returns only the rows it can lock immediately
+  - id: d
+    text:
+      en: It returns them in a consistent snapshot, because skipping applies only to writers
   explanation:
     en: With `SKIP LOCKED`, any selected rows that cannot be immediately locked are skipped, so the statement returns
       only the rows it can lock. Waiting for the other transaction is wrong, because `NOWAIT` or `SKIP LOCKED` is
@@ -60,18 +60,18 @@ variants:
       does it continue reading, assuming it was not in the middle of a snapshot?
   options:
   - id: a
+    text:
+      en: From the start of the WAL, because PostgreSQL keeps the complete history of changes
+  - id: b
+    text:
+      en: From a new snapshot of every schema, whatever it was doing when it stopped
+  - id: c
+    text:
+      en: From the latest WAL position, skipping the changes made while it was stopped
+  - id: d
     correct: true
     text:
       en: From the WAL position it recorded, where it last left off
-  - id: b
-    text:
-      en: From the start of the WAL, because PostgreSQL keeps the complete history of changes
-  - id: c
-    text:
-      en: From a new snapshot of every schema, whatever it was doing when it stopped
-  - id: d
-    text:
-      en: From the latest WAL position, skipping the changes made while it was stopped
   explanation:
     en: After a restart the connector continues reading the WAL where it last left off. Reading from the start of
       the WAL is wrong, because PostgreSQL normally purges WAL segments after some period of time, so the full history
@@ -88,15 +88,15 @@ variants:
     text:
       en: Rely on the workflow to make the call exactly once, whatever the retry policy
   - id: b
+    text:
+      en: Make the call from the workflow body instead of a step, because the body stays deterministic during replay
+  - id: c
+    text:
+      en: Expect repetition only in sagas that schedule deadlines, because workflows never retry a step
+  - id: d
     correct: true
     text:
       en: Use a stable idempotency key when the call must tolerate repetition, because a retry can repeat it
-  - id: c
-    text:
-      en: Make the call from the workflow body instead of a step, because the body stays deterministic during replay
-  - id: d
-    text:
-      en: Expect repetition only in sagas that schedule deadlines, because workflows never retry a step
   explanation:
     en: A retry can repeat an external call, so Axon advises a stable idempotency key when that call must tolerate
       repetition. Relying on exactly-once effects is wrong, because workflow primitives do not make external effects
@@ -136,12 +136,12 @@ variants:
       steals a token. What does the Axon documentation recommend for that task?
   options:
   - id: a
+    text:
+      en: Store the tokens and the projections in separate databases
+  - id: b
     correct: true
     text:
       en: Make the task idempotent
-  - id: b
-    text:
-      en: Store the tokens and the projections in separate databases
   - id: c
     text:
       en: Do nothing, because a stolen token never makes an event be handled twice
@@ -155,3 +155,150 @@ variants:
       more. Relying on the rollback is wrong, because without idempotency an event handler sending an email will
       send that email again.
   citation: axon-event-processors-streaming#_what_are_the_consequences_of_token_stealing
+- id: m08-l03-q09
+  prompt:
+    en: In the default Debezium outbox event router configuration, with no additional fields configured, what does
+      the Kafka message value hold for an emitted outbox record?
+  options:
+  - id: a
+    correct: true
+    text:
+      en: Only the value of the `payload` column
+  - id: b
+    text:
+      en: The `payload` and `aggregatetype` values in an envelope
+  - id: c
+    text:
+      en: The `id` and `payload` values as two separate fields
+  - id: d
+    text:
+      en: The complete outbox row with all five columns
+  explanation:
+    en: By default, the Kafka message value is solely comprised of the payload value. The `payload` and `aggregatetype`
+      envelope is wrong, because the default message value has no envelope and holds the payload value alone. The
+      `id` and `payload` fields are wrong, because the `id` value is a header and not part of the message value.
+      The complete outbox row is wrong, because the other columns are not part of the default message value.
+  citation: debezium-outbox-event-router#basic-outbox-table
+- id: m08-l03-q10
+  prompt:
+    en: In a default Debezium outbox event router configuration, an application adds an outbox record whose `aggregatetype`
+      column holds `orders`. To which topic does the connector emit that record?
+  options:
+  - id: a
+    correct: true
+    text:
+      en: '`outbox.event.orders`'
+  - id: b
+    text:
+      en: '`outbox.orders`'
+  - id: c
+    text:
+      en: '`orders`'
+  - id: d
+    text:
+      en: '`outbox.event.aggregatetype`'
+  explanation:
+    en: In the default configuration `route.topic.replacement` is `outbox.event.${routedByValue}`, so the connector
+      emits the record to the `outbox.event.orders` topic. `outbox.orders`, `orders` and `outbox.event.aggregatetype`
+      are wrong, because the documentation states that the connector emits a record with `aggregatetype` `orders`
+      to the `outbox.event.orders` topic.
+  citation: debezium-outbox-event-router#basic-outbox-table
+- id: m08-l03-q12
+  prompt:
+    en: A relay polls an outbox table with `SELECT ... FOR UPDATE` on many rows. According to the PostgreSQL documentation
+      on row-level locks, why can locking a row cause a disk write?
+  options:
+  - id: a
+    text:
+      en: PostgreSQL keeps locked rows in a shared memory table that it flushes to disk when the table is full
+  - id: b
+    text:
+      en: Row-level locks block concurrent readers, so queries wait while the lock record is written
+  - id: c
+    correct: true
+    text:
+      en: '`SELECT FOR UPDATE` modifies the selected rows to mark them locked'
+  - id: d
+    text:
+      en: Each lock is released as soon as the row is returned, which rewrites the row
+  explanation:
+    en: Locking a row might cause a disk write, because `SELECT FOR UPDATE` modifies the selected rows to mark them
+      locked. A shared memory lock table is wrong, because PostgreSQL does not remember any information about modified
+      rows in memory. Blocking readers is wrong, because row-level locks do not affect data querying and block only
+      writers and lockers to the same row. Releasing at once is wrong, because row-level locks are released at transaction
+      end or during savepoint rollback.
+  citation: pg-explicit-locking#LOCKING-ROWS
+  extract:
+    en: SELECT FOR UPDATE modifies selected rows to mark them locked, and so will result in disk writes
+- id: m08-l03-q13
+  prompt:
+    en: A Debezium PostgreSQL connector captures row-level inserts, updates and deletes from several tables. According
+      to the connector documentation, where does it send the change event records?
+  options:
+  - id: a
+    text:
+      en: To one shared Kafka topic for the whole database
+  - id: b
+    text:
+      en: To a new Kafka topic for each transaction
+  - id: c
+    text:
+      en: To one Kafka topic for each Kafka Connect worker
+  - id: d
+    correct: true
+    text:
+      en: To a separate Kafka topic for each table
+  explanation:
+    en: The connector sends change event records for each table in a separate Kafka topic. One shared topic for
+      the whole database is wrong, because each table has its own topic. A new topic for each transaction is wrong,
+      because the topic is chosen by table and not by transaction. One topic for each Kafka Connect worker is wrong,
+      because the topic is chosen by table and not by worker.
+  citation: debezium-postgresql#postgresql-overview
+- id: m08-l03-q14
+  prompt:
+    en: In Axon Framework, a saga runs as many instances at once, and an incoming event must reach the right instance.
+      According to the Axon guide on migrating sagas to workflows, what routes events to the right saga instance?
+  options:
+  - id: a
+    correct: true
+    text:
+      en: Association values
+  - id: b
+    text:
+      en: Deadline identifiers
+  - id: c
+    text:
+      en: Persisted saga fields updated by handlers
+  - id: d
+    text:
+      en: The step history of the process
+  explanation:
+    en: Association values route events to the right saga instance. Deadline identifiers are wrong, because flags,
+      counters and deadline identifiers describe where the process is and what it should do next. Persisted saga
+      fields are wrong, because they hold the process state that handlers update. The step history is wrong, because
+      step history and workflow payload hold the process state of a workflow.
+  citation: axon-migration-sagas-to-workflows#sagas-and-workflows
+- id: m08-l03-q15
+  prompt:
+    en: In Axon Framework, a team replaces a saga with a workflow and expects the workflow primitives to simplify
+      the process. According to the Axon migration guide, which of these do the workflow primitives NOT do?
+  options:
+  - id: a
+    text:
+      en: Make concurrency explicit in the process definition
+  - id: b
+    correct: true
+    text:
+      en: Make external effects exactly once
+  - id: c
+    text:
+      en: Provide step-level execution evidence
+  - id: d
+    text:
+      en: Express compensation around the relevant steps
+  explanation:
+    en: Workflow primitives do not infer business intent or make external effects exactly once. Making concurrency
+      explicit is wrong, because workflow primitives make concurrency explicit in the process definition. Step-level
+      execution evidence is wrong, because workflow primitives provide it. Expressing compensation around the relevant
+      steps is wrong, because that is how a workflow expresses compensation.
+  citation: axon-migration-sagas-to-workflows#sagas-and-workflows

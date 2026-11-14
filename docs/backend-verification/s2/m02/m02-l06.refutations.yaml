@@ -129,3 +129,68 @@ m02-l06-q08:
   - option: '`Scanner`'
     anchor: javadoc-iterator#interface-iterator-e
     sentence: 'All Known Implementing Classes: BeanContextSupport.BCSIterator, EventReaderDelegate, Scanner'
+m02-l06-q09:
+  key:
+    anchor: javadoc-linkedhashmap#class-linkedhashmap-k-v
+    sentence: Explicit-positioning methods such as putFirst or lastEntry, whether on the map or on its reverse-ordered view, perform the positioning operation and do not generate entry accesses.
+  wrong:
+  - option: '`get(key)` for a key that is present'
+    anchor: javadoc-linkedhashmap#class-linkedhashmap-k-v
+    sentence: In access-ordered linked hash maps, merely querying the map with get is a structural modification.
+  - option: '`putAll(otherMap)`, for each mapping it copies'
+    anchor: javadoc-linkedhashmap#class-linkedhashmap-k-v
+    sentence: The putAll method generates one entry access for each mapping in the specified map
+  - option: '`replace(key, newValue)` when the key is present and its value is replaced'
+    anchor: javadoc-linkedhashmap#class-linkedhashmap-k-v
+    sentence: The replace methods only result in an access of the entry if the value is replaced.
+m02-l06-q10:
+  key:
+    anchor: javadoc-linkedhashmap#removeEldestEntry(java.util.Map.Entry)
+    sentence: 'Sample use: this override will allow the map to grow up to 100 entries and then delete the eldest entry each time a new entry is added, maintaining a steady state of 100 entries.'
+  wrong:
+  - option: 99 entries
+    anchor: javadoc-linkedhashmap#removeEldestEntry(java.util.Map.Entry)
+    sentence: 'Sample use: this override will allow the map to grow up to 100 entries and then delete the eldest entry each time a new entry is added, maintaining a steady state of 100 entries.'
+    exclusive: true
+  - option: 101 entries
+    anchor: javadoc-linkedhashmap#removeEldestEntry(java.util.Map.Entry)
+    sentence: 'Sample use: this override will allow the map to grow up to 100 entries and then delete the eldest entry each time a new entry is added, maintaining a steady state of 100 entries.'
+    exclusive: true
+  - option: 200 entries
+    anchor: javadoc-linkedhashmap#removeEldestEntry(java.util.Map.Entry)
+    sentence: 'Sample use: this override will allow the map to grow up to 100 entries and then delete the eldest entry each time a new entry is added, maintaining a steady state of 100 entries.'
+    exclusive: true
+m02-l06-q11:
+  key:
+    anchor: redis-eviction#lfu-eviction
+    sentence: 'Decay the counter every one minute.'
+  wrong:
+  - option: every ten seconds
+    anchor: redis-eviction#lfu-eviction
+    sentence: 'Decay the counter every one minute.'
+    exclusive: true
+  - option: every ten minutes
+    anchor: redis-eviction#lfu-eviction
+    sentence: 'Decay the counter every one minute.'
+    exclusive: true
+  - option: every one hour
+    anchor: redis-eviction#lfu-eviction
+    sentence: 'Decay the counter every one minute.'
+    exclusive: true
+m02-l06-q12:
+  key:
+    anchor: redis-eviction#lfu-eviction
+    sentence: 'The counter logarithm factor changes how many hits are needed to saturate the frequency counter, which is just in the range 0-255.'
+  wrong:
+  - option: 0-15
+    anchor: redis-eviction#lfu-eviction
+    sentence: 'The counter logarithm factor changes how many hits are needed to saturate the frequency counter, which is just in the range 0-255.'
+    exclusive: true
+  - option: 0-1023
+    anchor: redis-eviction#lfu-eviction
+    sentence: 'The counter logarithm factor changes how many hits are needed to saturate the frequency counter, which is just in the range 0-255.'
+    exclusive: true
+  - option: 0-65535
+    anchor: redis-eviction#lfu-eviction
+    sentence: 'The counter logarithm factor changes how many hits are needed to saturate the frequency counter, which is just in the range 0-255.'
+    exclusive: true

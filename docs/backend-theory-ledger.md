@@ -451,3 +451,45 @@ Cost: writers 629k + cases 223k + fixes 40k tokens; verifiers 469k + cases 210k;
   `POST /practice/code-reading` (66 snippet questions), spaced scheduler; Practice card with one button per preset,
   module-page entry; cases stay in m09-l04 only. Tests: test_practice_presets 14, PracticePresets.test.tsx at 390 and
   1280 px; backend 3695 passed; vitest, tsc, ruff, mypy clean; bundle byte-identical; README and content/README updated.
+
+## Gap round (2026-11-14)
+
+Prompt: G1–G6 (wiring in close_round, generator rules, case d, left-out topics, thin banks, audits). Brief addendum
+`docs/backend-verification/gap/brief-gap.md`; G4 items `gap/g4-items.tsv`, attempts `gap/fetch-attempts.tsv`.
+Added sentences are listed per lesson in `s2/<module>/<lesson>.additions.tsv` (ids `A<n>`) and verified there.
+
+- G1 done: `wire_exercises.py` wires every `m09-case-*.yaml` under m09-l04 (requirements 6.4) and dedupes requests;
+  close_round.sh runs it before pytest; `backend/tests/test_backend_exercise_wiring.py` fails when an exercise file
+  is not declared in course.yaml (checked with a planted undeclared file). Wiring run: 68 exercises, no change.
+- G2 rate limiter: `rfc2697`, `rfc2698`, `redis-ratelimiting-algorithms` stored; m08-l04 A1–A6 F + A7 J (full jitter,
+  `aws-arch-backoff-simulator`, Tier C) all passed, q10 passed. `rate-limiter-state` confirmed
+  (rfc2697#section-3; redis-ratelimiting-algorithms#how-it-works-3, #how-it-works-1); the `(t - w, t]` window edge is
+  the stem's own assumption, no source states it. `retry-backoff-bounds` confirmed as J (`aws-arch-backoff-simulator#top`),
+  explanation now opens with the attribution; the generator test accepts a judgement `ref` as a J citation.
+- G2 hashing: `paper-dynamo-columns` (column-split re-extraction) stored; m09-l02 A1–A5 passed;
+  `consistent-hashing-owner` confirmed (paper-dynamo-columns#p10; #p11). Karger 1997: fetch refused (403).
+- G2 clocks: `paper-lamport-time-clocks-columns` (OCR re-extraction). m08-l01 A1 (IR1) passed on recheck; A2, A4
+  (IR2) passed on fact but failed twice on repeated paragraph openers, so deleted with key point A8; q12 (key on
+  A4) discarded. A5–A7 (Dynamo vector clocks) passed. `logical-clocks` stays unfilled: the receive rule has no
+  verified sentence. m08-l01 G5: q09, q10 passed, q11 failed (none-option).
+- G3 done: case d q16–q21 written, 4 passed (q18, q20 failed: refutation not in the cited sentence), so 11 verified;
+  built by `build_case.py` (key longest 3/11) and wired under m09-l04 (69 exercises). `test_practice_presets` now
+  expects 7 cases.
+- G5 verified so far: m08-l03 7/8 (q08 near-duplicate of q02), m09-l01 4/4, m01-l04 2/2, m02-l04 1/2, m02-l06 1/2
+  (+ q11, q12 from the LFU facts, 2/2), m02-l07 0/2 (O-bounds are not exclusive, C001), m04-l05 2/2, m08-l01 2/3.
+- G4 m02-l06: LFU (Redis approximated LFU, F) and token-bucket rate limiter (F) + Bucket4j J; 15/15 passed.
+  G4 m02-l02, m07-l03, m07-l05, m09-l01..l03: J blocks only (Tier C sources), no questions; in verification.
+  `sre-book-monitoring` is Tier C in sources.yaml, so p99 is J (GAP8). GAP ids renumbered GAP1–GAP20 after parallel writers collided.
+- G5 final (kept per thin lesson): m01-l04 9, m02-l04 6, m02-l06 8, m02-l07 0, m04-l05 7, m05-l05 9, m05-l06 10,
+  m05-l07 6, m08-l01 8, m08-l03 12, m09-l01 10, m11-l02 8, m11-l03 7, m11-l04 8, m11-l05 2 (no unused fact fits).
+- G4 final: 18 of 22 items stored; written as J except LFU, token bucket (m02-l06), permission-aware vector stores
+  (m10-l04) and consumer lag (m11-l03), which are F. Still without a source: L4 vs L7, cache patterns (read-through,
+  write-behind, stampede, hot keys), cross-shard joins, fair queuing. Attributions fixed to byline authors (Chris
+  Richardson, Gary Niemen, Jacqueline Xu).
+- G6: whole-course near-duplicate scan dropped m08-l03-q11, m09-l01-q12, m09-l02-q01; close_round 1: backend 3701
+  passed, audits 0 problems, other courses and bundle byte-identical, frontend 1 failure (glossary link golden:
+  replay in m07-l05 and migrations in m12-l05 given link_except, golden regenerated). Playwright 131 passed.
+  close_round 2 was stopped by the user before it finished; it has not been rerun since the module summaries.
+- G0 (asked mid-round): module summaries m01–m05, m07–m12 written in course.yaml; test
+  `backend/tests/test_course_module_summaries.py` fails on a published course with a missing or placeholder
+  module summary (checked against the committed manifest). m00-l01's lesson summary is still "Summary pending."

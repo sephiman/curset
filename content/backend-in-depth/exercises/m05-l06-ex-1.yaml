@@ -14,12 +14,12 @@ variants:
     text:
       en: With `DelegatingFilterProxy`, which holds one proxy per security filter
   - id: c
+    text:
+      en: With no registration, because `HttpSecurity` invokes the filters directly
+  - id: d
     correct: true
     text:
       en: With `FilterChainProxy` instead of `DelegatingFilterProxy`
-  - id: d
-    text:
-      en: With no registration, because `HttpSecurity` invokes the filters directly
   explanation:
     en: The security filters are registered with `FilterChainProxy` instead of `DelegatingFilterProxy`. Registering
       each filter with the container or with `DelegatingFilterProxy` is the alternative that `FilterChainProxy`
@@ -32,12 +32,12 @@ variants:
       granted authorities once `JwtAuthenticationProvider` has the decoded token?
   options:
   - id: a
-    text:
-      en: '`JwtDecoder`'
-  - id: b
     correct: true
     text:
       en: '`JwtAuthenticationConverter`'
+  - id: b
+    text:
+      en: '`JwtDecoder`'
   - id: c
     text:
       en: '`ProviderManager`'
@@ -58,13 +58,13 @@ variants:
       Why can the application start while those authorization servers are not available?
   options:
   - id: a
+    text:
+      en: The resolver accepts tokens from an unavailable issuer without validating their signature
+  - id: b
     correct: true
     text:
       en: The `JwtAuthenticationProvider` for an issuer is created only when the first request with that issuer
         arrives
-  - id: b
-    text:
-      en: The resolver accepts tokens from an unavailable issuer without validating their signature
   - id: c
     text:
       en: The resolver loads the keys of every issuer at startup and ignores any failure
@@ -87,15 +87,15 @@ variants:
     text:
       en: '`hasAuthority("ADMIN")`'
   - id: b
+    text:
+      en: '`denyAll()`'
+  - id: c
+    text:
+      en: '`permitAll()`'
+  - id: d
     correct: true
     text:
       en: '`hasAuthority("ROLE_ADMIN")`'
-  - id: c
-    text:
-      en: '`denyAll()`'
-  - id: d
-    text:
-      en: '`permitAll()`'
   explanation:
     en: '`hasRole` is a shortcut for `hasAuthority` that prefixes `ROLE_`. `hasAuthority("ADMIN")` has no prefix,
       because `hasRole` prefixes `ROLE_` or whatever is configured as the default prefix. `denyAll()` is a different
@@ -156,18 +156,90 @@ variants:
     text:
       en: '`DaoAuthenticationProvider`'
   - id: b
-    text:
-      en: '`ProviderManager`'
-  - id: c
-    text:
-      en: '`JwtDecoder`'
-  - id: d
     correct: true
     text:
       en: '`JwtAuthenticationProvider`'
+  - id: c
+    text:
+      en: '`ProviderManager`'
+  - id: d
+    text:
+      en: '`JwtDecoder`'
   explanation:
     en: '`JwtAuthenticationProvider` supports authenticating a JWT token. `DaoAuthenticationProvider` handles another
       kind of authentication, because it supports username/password-based authentication. `ProviderManager` is not
       a provider, because it is the most common implementation of `AuthenticationManager`. `JwtDecoder` is not the
       provider, because `JwtAuthenticationProvider` uses it to decode, verify and validate the `Jwt`.'
   citation: spring-security-servlet-authentication-architecture#servlet-authentication-authenticationprovider
+- id: m05-l06-q11
+  prompt:
+    en: In a Spring Security servlet application, `AuthorizationFilter` denies a request and an `AccessDeniedException`
+      is thrown. Which component then handles that exception?
+  options:
+  - id: a
+    text:
+      en: '`DelegatingFilterProxy`'
+  - id: b
+    correct: true
+    text:
+      en: '`ExceptionTranslationFilter`'
+  - id: c
+    text:
+      en: '`ProviderManager`'
+  - id: d
+    text:
+      en: '`SecurityContextHolder`'
+  explanation:
+    en: If authorization is denied, the `ExceptionTranslationFilter` handles the `AccessDeniedException`. `DelegatingFilterProxy`
+      is ruled out because it bridges between the Servlet container's lifecycle and Spring's `ApplicationContext`.
+      `ProviderManager` is ruled out because it is the most commonly used implementation of `AuthenticationManager`.
+      `SecurityContextHolder` is ruled out because it is where Spring Security stores the details of who is authenticated.
+  citation: spring-security-servlet-authorization-authorize-http-requests#request-authorization-architecture
+- id: m05-l06-q13
+  prompt:
+    en: '`FilterChainProxy` can choose a `SecurityFilterChain` based on anything in the `HttpServletRequest`, not
+      only the URL. Which interface does it use to make that choice?'
+  options:
+  - id: a
+    correct: true
+    text:
+      en: '`RequestMatcher`'
+  - id: b
+    text:
+      en: '`HttpFirewall`'
+  - id: c
+    text:
+      en: '`AuthorizationManager`'
+  - id: d
+    text:
+      en: '`AuthenticationProvider`'
+  explanation:
+    en: '`FilterChainProxy` can determine invocation based upon anything in the `HttpServletRequest` by using the
+      `RequestMatcher` interface. `HttpFirewall` is ruled out because `FilterChainProxy` applies it to protect applications
+      against certain types of attacks. `AuthorizationManager` is ruled out because it matches the request to the
+      patterns in `authorizeHttpRequests` and runs the corresponding rule. `AuthenticationProvider` is ruled out
+      because each one knows how to perform a specific type of authentication.'
+  citation: spring-security-servlet-architecture#servlet-securityfilterchain
+- id: m05-l06-q14
+  prompt:
+    en: By default, how does Spring Security's `SecurityContextHolder` store the details of who is authenticated
+      so that the `SecurityContext` reaches methods running in the same thread?
+  options:
+  - id: a
+    text:
+      en: In the `HttpSession` of the request
+  - id: b
+    text:
+      en: In one context shared by all threads of the JVM
+  - id: c
+    correct: true
+    text:
+      en: In a `ThreadLocal`
+  - id: d
+    text:
+      en: In an inheritable thread-local that threads spawned by the current thread also see
+  explanation:
+    en: By default, `SecurityContextHolder` uses a `ThreadLocal` to store these details. The `HttpSession`, one
+      context shared by all threads and an inheritable thread-local are ruled out together, because the default
+      storage has one value, a plain `ThreadLocal`.
+  citation: spring-security-servlet-authentication-architecture#servlet-authentication-securitycontextholder

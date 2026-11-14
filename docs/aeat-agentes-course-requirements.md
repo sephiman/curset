@@ -1,6 +1,6 @@
 # Requirements — Course "Agentes de la Hacienda Pública (C1, AEAT), turno libre"
 
-Version 1.1 · 11 November 2026 · requirements, not design. Third oposiciones course for Curset, Spanish only. A delta to docs/age-administrativo-course-requirements.md (C1) and docs/age-auxiliar-course-requirements.md (C2: provenance rule R2.3): everything not stated here is as there.
+Version 1.2 · 14 November 2026 · requirements, not design. Third oposiciones course for Curset, Spanish only. A delta to docs/age-administrativo-course-requirements.md (C1) and docs/age-auxiliar-course-requirements.md (C2: provenance rule R2.3): everything not stated here is as there.
 
 ## 1. Goal and staging
 
@@ -31,6 +31,14 @@ A preparation course for the Cuerpo General Administrativo de la Administración
 - R4.3 Depth: the measure is the official first exercise (R0a's ledger and style guide). The common temas are derived from C1/C2 lessons at the depth this exam asks, with provenance. The tax temas are written new.
 - R4.4 Tax-specific rules: every amount, percentage, plazo and threshold verbatim with its article; computations (interest, surcharges of art. 27 LGT, sanctions and reductions, prescription dates, plazos de pago of art. 62 LGT) shown as worked examples only where the norm's own rule is applied step by step and each step cites its paragraph; examples use fictional taxpayers and state every date; no tax advice, no planning.
 - R4.5 Esquemas as C1 4a, especially: plazos de pago in voluntary and executive period; recargos; types of sanctions and reductions; procedures of gestión, inspección and recaudación with their plazos and effects; órganos of the AEAT; the structure of each tax (hecho imponible, sujeto pasivo, base, tipo, devengo).
+- R4.7 Coverage by programme (added after the external review of November 2026; supersedes the «unmapped and unasked → cut» reading of R4.6 inside an epígrafe). The measure of what a lesson must contain is the programme sentence and the norms that govern it, not only what past exams asked:
+  - For each programme sentence the round fixes its governing article range. Every article in the range is either treated in the lesson or listed in the article map with the reason for leaving it out (transitional, organisational detail, repealed, outside the epígrafe).
+  - Enumerations the norm gives are given whole: no «entre otros», «entre otras» or «etc.» standing in for items of a legal list (exemptions, infractions with their sanctions, motives, requisites, organs, documents). A long list may be an esquema, but it is complete.
+  - Exam history decides depth and order, never presence: what four convocatorias asked is developed most and flagged in «Lo que más cae»; what they did not ask is still there, more briefly.
+  - Content outside every epígrafe's range stays out, unless an official exam asked it (then the note «Fuera del enunciado literal…»).
+  - A lesson never refers the reader to another lesson for content that lesson does not have (checked by the cross-reference audit).
+- R4.8 Contrast notes. Where two neighbouring rules are routinely confused (two plazos, two organs, two procedures, two recargos), the lesson may add a short block «No confundir» stating both rules side by side, each verbatim with its citation. No interpretation, no mnemonics; verified like any sentence.
+- R4.9 Glossary sense. An inherited glossary entry is kept only if its definition is the sense the term has in this course's lessons; otherwise it is rewritten from the norm that governs its use here, or removed. Origin lessons point to a lesson of this course that uses the term in that sense.
 - R4.6 Audit before publication, as C1 4b: scope (every section maps to a programme sentence or carries exam evidence), coverage (every vigente first-exercise question of the last four convocatorias has its fact in its lesson), currency (norms and annual figures).
 
 ## 5. Publishing with theory only (platform)

@@ -115,3 +115,59 @@ m08-l01-q08:
   - option: Wait until the partition heals, which keeps both consistency and availability
     anchor: paper-gilbert-lynch-cap#p3
     sentence: It has the choice to either eventually return a response (and risk returning the wrong response) or to never return a response.
+m08-l01-q09:
+  key:
+    anchor: rfc5905#top
+    sentence: 16 | unsynchronized
+  wrong:
+  - option: Unspecified or invalid
+    anchor: rfc5905#top
+    sentence: 0 | unspecified or invalid
+  - option: Primary server
+    anchor: rfc5905#top
+    sentence: 1 | primary server (e.g., equipped with a GPS receiver)
+  - option: Secondary server
+    anchor: rfc5905#top
+    sentence: 2-15 | secondary server (via NTP)
+m08-l01-q10:
+  key:
+    anchor: rfc5905#top
+    sentence: 2-15 | secondary server (via NTP)
+  wrong:
+  - option: 1 to 15
+    anchor: rfc5905#top
+    sentence: 1 | primary server (e.g., equipped with a GPS receiver)
+  - option: 2 to 16
+    anchor: rfc5905#top
+    sentence: 16 | unsynchronized
+  - option: 17 to 255
+    anchor: rfc5905#top
+    sentence: 17-255 | reserved
+m08-l01-q11:
+  key:
+    anchor: zk-internals#sc_consistency
+    sentence: Write operations in ZooKeeper are linearizable.
+  wrong:
+  - option: A read operation
+    anchor: zk-internals#sc_consistency
+    sentence: Read operations in ZooKeeper are not linearizable since they can return potentially stale data.
+  - option: A sync issued before a read
+    anchor: zk-internals#sc_consistency
+    sentence: This too does not strictly guarantee up-to-date data because sync is not currently a quorum operation.
+  - option: Nothing, since ZooKeeper only offers eventual consistency
+    anchor: zk-internals#sc_consistency
+    sentence: The consistency guarantees of ZooKeeper lie between sequential consistency and linearizability.
+m08-l01-q12:
+  key:
+    anchor: paper-lamport-time-clocks-columns#p6
+    sentence: Pi sets Ci greater than or equal to its present value and greater than Tin.
+  wrong:
+  - option: Leave it unchanged
+    anchor: paper-lamport-time-clocks-columns#p6
+    sentence: a process must advance its clock to be later than Tin.
+  - option: Reset it to zero
+    anchor: paper-lamport-time-clocks-columns#p6
+    sentence: Pi sets Ci greater than or equal to its present value
+  - option: Copy the message timestamp, even when its own clock is larger
+    anchor: paper-lamport-time-clocks-columns#p5
+    sentence: C2. If a is the sending of a message by process Pi and b is the receipt of that message by process Pi, then Ci(a) < Ci(b).

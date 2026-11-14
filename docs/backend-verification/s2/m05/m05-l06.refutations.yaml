@@ -132,3 +132,76 @@ m05-l06-q09:
   - option: '`JwtDecoder`'
     anchor: spring-security-servlet-oauth2-resource-server-jwt#oauth2resourceserver-jwt-architecture
     sentence: JwtAuthenticationProvider decodes, verifies, and validates the Jwt using a JwtDecoder.
+m05-l06-q10:
+  key:
+    anchor: spring-security-servlet-architecture#servlet-delegatingfilterproxy
+    sentence: Another benefit of DelegatingFilterProxy is that it allows delaying looking up Filter bean instances.
+  wrong:
+  - option: Because the Servlet container is aware of Spring-defined beans and would otherwise create them twice
+    anchor: spring-security-servlet-architecture#servlet-delegatingfilterproxy
+    sentence: The Servlet container allows registering Filter instances by using its own standards, but it is not aware of Spring-defined Beans.
+  - option: Because `ContextLoaderListener` loads the Spring beans before the container registers its filters
+    anchor: spring-security-servlet-architecture#servlet-delegatingfilterproxy
+    sentence: However, Spring typically uses a ContextLoaderListener to load the Spring Beans, which is not done until after the Filter instances need to be registered.
+  - option: Because `DelegatingFilterProxy` implements the security logic itself instead of calling a bean
+    anchor: spring-security-servlet-architecture#servlet-delegatingfilterproxy
+    sentence: You can register DelegatingFilterProxy through the standard Servlet container mechanisms but delegate all the work to a Spring Bean that implements Filter.
+m05-l06-q11:
+  key:
+    anchor: spring-security-servlet-authorization-authorize-http-requests#request-authorization-architecture
+    sentence: In this case the ExceptionTranslationFilter handles the AccessDeniedException.
+  wrong:
+  - option: '`DelegatingFilterProxy`'
+    anchor: spring-security-servlet-architecture#servlet-delegatingfilterproxy
+    sentence: Spring provides a Filter implementation named DelegatingFilterProxy that allows bridging between the Servlet container’s lifecycle and Spring’s ApplicationContext.
+  - option: '`ProviderManager`'
+    anchor: spring-security-servlet-authentication-architecture#servlet-authentication-providermanager
+    sentence: ProviderManager is the most commonly used implementation of AuthenticationManager.
+  - option: '`SecurityContextHolder`'
+    anchor: spring-security-servlet-authentication-architecture#servlet-authentication-securitycontextholder
+    sentence: The SecurityContextHolder is where Spring Security stores the details of who is authenticated.
+m05-l06-q12:
+  key:
+    anchor: spring-security-servlet-authorization-authorize-http-requests#authorize-requests
+    sentence: Any URL that has not already been matched on is denied access.
+  wrong:
+  - option: It is allowed for any authenticated user
+    anchor: spring-security-servlet-authorization-authorize-http-requests#authorize-requests
+    sentence: denyAll - The request is not allowed under any circumstances; note that in this case, the Authentication is never retrieved from the session
+  - option: It is checked again against the rules declared before the last one
+    anchor: spring-security-servlet-authorization-authorize-http-requests#authorize-requests
+    sentence: Each rule is considered in the order they were declared.
+  - option: It is permitted, because unmatched URLs fall back to `permitAll`
+    anchor: spring-security-servlet-authorization-authorize-http-requests#authorize-requests
+    sentence: Any URL that has not already been matched on is denied access.
+m05-l06-q13:
+  key:
+    anchor: spring-security-servlet-architecture#servlet-securityfilterchain
+    sentence: However, FilterChainProxy can determine invocation based upon anything in the HttpServletRequest by using the RequestMatcher interface.
+  wrong:
+  - option: '`HttpFirewall`'
+    anchor: spring-security-servlet-architecture#servlet-securityfilterchain
+    sentence: It also applies Spring Security’s HttpFirewall to protect applications against certain types of attacks.
+  - option: '`AuthorizationManager`'
+    anchor: spring-security-servlet-authorization-authorize-http-requests#request-authorization-architecture
+    sentence: The AuthorizationManager matches the request to the patterns in authorizeHttpRequests, and runs the corresponding rule.
+  - option: '`AuthenticationProvider`'
+    anchor: spring-security-servlet-authentication-architecture#servlet-authentication-providermanager
+    sentence: In practice each AuthenticationProvider knows how to perform a specific type of authentication.
+m05-l06-q14:
+  key:
+    anchor: spring-security-servlet-authentication-architecture#servlet-authentication-securitycontextholder
+    sentence: By default, SecurityContextHolder uses a ThreadLocal to store these details, which means that the SecurityContext is always available to methods in the same thread, even if the SecurityContext is not explicitly passed around as an argument to those methods.
+  wrong:
+  - option: In the `HttpSession` of the request
+    anchor: spring-security-servlet-authentication-architecture#servlet-authentication-securitycontextholder
+    sentence: By default, SecurityContextHolder uses a ThreadLocal to store these details, which means that the SecurityContext is always available to methods in the same thread, even if the SecurityContext is not explicitly passed around as an argument to those methods.
+    exclusive: true
+  - option: In one context shared by all threads of the JVM
+    anchor: spring-security-servlet-authentication-architecture#servlet-authentication-securitycontextholder
+    sentence: By default, SecurityContextHolder uses a ThreadLocal to store these details, which means that the SecurityContext is always available to methods in the same thread, even if the SecurityContext is not explicitly passed around as an argument to those methods.
+    exclusive: true
+  - option: In an inheritable thread-local that threads spawned by the current thread also see
+    anchor: spring-security-servlet-authentication-architecture#servlet-authentication-securitycontextholder
+    sentence: By default, SecurityContextHolder uses a ThreadLocal to store these details, which means that the SecurityContext is always available to methods in the same thread, even if the SecurityContext is not explicitly passed around as an argument to those methods.
+    exclusive: true

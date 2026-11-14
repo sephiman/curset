@@ -179,3 +179,62 @@ m11-l04-q09:
   - option: Required, because `verify` works only on calls that were stubbed first
     anchor: mockito-javadoc-source#2
     sentence: If your code doesn't care what get(0) returns, then it should not be stubbed.
+m11-l04-q10:
+  key:
+    anchor: junit-writing-parameterized#parameterized-classes-and-tests
+    sentence: you must declare at least one source that will provide the arguments for each invocation
+  wrong:
+  - option: A `@Test` annotation next to `@ParameterizedTest`, which marks the method as a test
+    anchor: junit-writing-parameterized#parameterized-classes-and-tests
+    sentence: They are declared just like regular @Test methods but use the @ParameterizedTest annotation instead.
+  - option: A single argument source, because the method runs exactly once with all the arguments
+    anchor: junit-writing-parameterized#parameterized-classes-and-tests
+    sentence: Parameterized tests make it possible to run a test method multiple times with different arguments.
+  - option: A reporting rule that merges all invocations into one test result
+    anchor: junit-writing-parameterized#parameterized-classes-and-tests
+    sentence: When executing the above parameterized test method, each invocation will be reported separately.
+m11-l04-q11:
+  key:
+    anchor: junit-writing-lifecycle#test-instance-lifecycle
+    sentence: If you would prefer that JUnit Jupiter execute all test methods on the same test instance, annotate your test class with @TestInstance(Lifecycle.PER_CLASS).
+  wrong:
+  - option: JUnit creates a new instance of the class before each test method, as in the default mode
+    anchor: junit-writing-lifecycle#test-instance-lifecycle
+    sentence: If you would prefer that JUnit Jupiter execute all test methods on the same test instance, annotate your test class with @TestInstance(Lifecycle.PER_CLASS).
+  - option: State in instance variables never needs resetting, because each method gets a fresh instance
+    anchor: junit-writing-lifecycle#test-instance-lifecycle
+    sentence: Thus, if your test methods rely on state stored in instance variables, you may need to reset that state in @BeforeEach or @AfterEach methods.
+  - option: '`@BeforeAll` and `@AfterAll` must still be declared on static methods'
+    anchor: junit-writing-lifecycle#test-instance-lifecycle
+    sentence: Specifically, with the "per-class" mode it becomes possible to declare @BeforeAll and @AfterAll on non-static methods as well as on interface default methods.
+m11-l04-q12:
+  key:
+    anchor: javadoc-clock#fixed(java.time.Instant,java.time.ZoneId)
+    sentence: The returned implementation is immutable, thread-safe and Serializable.
+  wrong:
+  - option: The clock starts at the given instant and then advances with the system clock
+    anchor: javadoc-clock#fixed(java.time.Instant,java.time.ZoneId)
+    sentence: Obtains a clock that always returns the same instant.
+  - option: The clock is mutable, so a test can move it to another instant after creation
+    anchor: javadoc-clock#fixed(java.time.Instant,java.time.ZoneId)
+    sentence: The returned implementation is immutable, thread-safe and Serializable.
+  - option: The zone shifts the instant that the clock returns by the offset of the zone
+    anchor: javadoc-clock#fixed(java.time.Instant,java.time.ZoneId)
+    sentence: zone - the time-zone to use to convert the instant to date-time, not null
+m11-l04-q13:
+  key:
+    anchor: mockito-javadoc-source#2
+    sentence: For example 0 for an int/Integer and false for a boolean/Boolean.
+  wrong:
+  - option: '`1`'
+    anchor: mockito-javadoc-source#2
+    sentence: For example 0 for an int/Integer and false for a boolean/Boolean.
+    exclusive: true
+  - option: '`-1`'
+    anchor: mockito-javadoc-source#2
+    sentence: For example 0 for an int/Integer and false for a boolean/Boolean.
+    exclusive: true
+  - option: '`Integer.MIN_VALUE`'
+    anchor: mockito-javadoc-source#2
+    sentence: For example 0 for an int/Integer and false for a boolean/Boolean.
+    exclusive: true

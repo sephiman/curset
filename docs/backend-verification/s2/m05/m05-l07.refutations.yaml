@@ -84,3 +84,62 @@ m05-l07-q06:
   - option: The fields to load are determined from the getter names of the DTO
     anchor: spring-data-jpa-projections#projections.dtos
     sentence: If the store optimizes the query execution by limiting the fields to be loaded, the fields to be loaded are determined from the parameter names of the constructor that is exposed.
+m05-l07-q07:
+  key:
+    anchor: jakarta-persistence-spec#a1929
+    sentence: A new entity instance has no persistent identity, and is not yet associated with a persistence context.
+  wrong:
+  - option: Managed
+    anchor: jakarta-persistence-spec#a1929
+    sentence: A managed entity instance is an instance with a persistent identity that is currently associated with a persistence context.
+  - option: Detached
+    anchor: jakarta-persistence-spec#a1929
+    sentence: A detached entity instance is an instance with a persistent identity that is not (or no longer) associated with a persistence context.
+  - option: Removed
+    anchor: jakarta-persistence-spec#a1929
+    sentence: A removed entity instance is an instance with a persistent identity, associated with a persistence context, that will be removed from the database upon transaction commit.
+m05-l07-q08:
+  key:
+    anchor: hibernate-user-guide#batch-jdbcbatch
+    sentence: Forces Hibernate to order inserts to allow for more batching to be used.
+  wrong:
+  - option: '`hibernate.order_updates`'
+    anchor: hibernate-user-guide#batch-jdbcbatch
+    sentence: Forces Hibernate to order SQL updates by the entity type and the primary key value of the items being updated.
+  - option: '`hibernate.jdbc.batch_size`'
+    anchor: hibernate-user-guide#batch-jdbcbatch
+    sentence: Controls the maximum number of statements Hibernate will batch together before asking the driver to execute the batch.
+  - option: '`hibernate.jdbc.batch.builder`'
+    anchor: hibernate-user-guide#batch-jdbcbatch
+    sentence: Names the implementation class used to manage batching capabilities.
+m05-l07-q09:
+  key:
+    anchor: spring-data-jpa-auditing#jpa.auditing.configuration
+    sentence: If you expose a bean of type AuditorAware to the ApplicationContext, the auditing infrastructure automatically picks it up and uses it to determine the current user to be set on domain types.
+  wrong:
+  - option: '`DateTimeProvider`'
+    anchor: spring-data-jpa-auditing#auditing.annotations
+    sentence: The time giving instance is provided by a org.springframework.data.auditing.DateTimeProvider.
+  - option: '`AuditingEntityListener`'
+    anchor: spring-data-jpa-auditing#jpa.auditing.configuration
+    sentence: Spring Data JPA ships with an entity listener that can be used to trigger the capturing of auditing information.
+  - option: '`CurrentDateTimeProvider`'
+    anchor: spring-data-jpa-auditing#auditing.annotations
+    sentence: By default this is a CurrentDateTimeProvider.
+m05-l07-q10:
+  key:
+    anchor: spring-data-jpa-repositories-core-concepts#page-title
+    sentence: ListCrudRepository offers equivalent methods, but they return List where the CrudRepository methods return an Iterable.
+  wrong:
+  - option: '`Collection`'
+    anchor: spring-data-jpa-repositories-core-concepts#page-title
+    sentence: ListCrudRepository offers equivalent methods, but they return List where the CrudRepository methods return an Iterable.
+    exclusive: true
+  - option: '`Stream`'
+    anchor: spring-data-jpa-repositories-core-concepts#page-title
+    sentence: ListCrudRepository offers equivalent methods, but they return List where the CrudRepository methods return an Iterable.
+    exclusive: true
+  - option: '`Set`'
+    anchor: spring-data-jpa-repositories-core-concepts#page-title
+    sentence: ListCrudRepository offers equivalent methods, but they return List where the CrudRepository methods return an Iterable.
+    exclusive: true

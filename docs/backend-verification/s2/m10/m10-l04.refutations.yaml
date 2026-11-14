@@ -180,3 +180,17 @@ m10-l04-q13:
   - option: Asking for user confirmation only on non-sensitive operations
     anchor: mcp-tools#security-considerations
     sentence: Prompt for user confirmation on sensitive operations
+m10-l04-q14:
+  key:
+    anchor: owasp-llm08-vector-embedding#scenario-2-access-control--data-leakage-risk-by-combining-data-with-different-access-restrictions
+    sentence: A permission-aware vector database should be implemented to restrict access and ensure that only authorized groups can access their specific information.
+  wrong:
+  - option: Keep the embeddings of every group in one shared dataset without partitioning, so retrieval covers all groups
+    anchor: owasp-llm08-vector-embedding#1-permission-and-access-control
+    sentence: Ensure strict logical and access partitioning of datasets in the vector database to prevent unauthorized access between different classes of users or different groups.
+  - option: Apply only coarse access controls to the application and leave the vector store itself open to every group
+    anchor: owasp-llm08-vector-embedding#1-permission-and-access-control
+    sentence: Implement fine-grained access controls and permission-aware vector and embedding stores.
+  - option: Let queries from any group retrieve other groups' embeddings, since the LLM only uses the retrieved text as context
+    anchor: owasp-llm08-vector-embedding#scenario-2-access-control--data-leakage-risk-by-combining-data-with-different-access-restrictions
+    sentence: potentially leaking sensitive business information

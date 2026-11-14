@@ -193,3 +193,31 @@ m01-l04-q11:
     anchor: javadoc-forkjoinpool#commonPool()
     sentence: This pool is statically constructed; its run state is unaffected by attempts to shutdown() or shutdownNow().
     exclusive: true
+m01-l04-q12:
+  key:
+    anchor: javadoc-forkjoinpool#class-forkjoinpool
+    sentence: A ForkJoinPool differs from other kinds of ExecutorService mainly by virtue of employing work-stealing
+  wrong:
+  - option: Its worker threads are non-daemon, so an idle pool keeps the program alive
+    anchor: javadoc-forkjoinpool#class-forkjoinpool
+    sentence: All worker threads are initialized with Thread.isDaemon() set true.
+  - option: It accepts only `ForkJoinTask` instances and rejects plain `Runnable` or `Callable` tasks
+    anchor: javadoc-forkjoinpool#class-forkjoinpool
+    sentence: overloaded forms also allow mixed execution of plain Runnable- or Callable- based activities as well
+  - option: It takes submissions only from tasks already running inside the pool, never from outside clients
+    anchor: javadoc-forkjoinpool#class-forkjoinpool
+    sentence: A ForkJoinPool provides the entry point for submissions from non-ForkJoinTask clients
+m01-l04-q13:
+  key:
+    anchor: javadoc-thread#interrupt()
+    sentence: its interrupt status will be cleared and it will receive an InterruptedException
+  wrong:
+  - option: A read on an `InterruptibleChannel`
+    anchor: javadoc-thread#interrupt()
+    sentence: then the channel will be closed, the thread's interrupt status will be set, and the thread will receive a ClosedByInterruptException
+  - option: A `Selector.select()` call
+    anchor: javadoc-thread#interrupt()
+    sentence: then the thread's interrupt status will be set and it will return immediately from the selection operation
+  - option: Waiting to enter a `synchronized` block
+    anchor: javadoc-thread#interrupt()
+    sentence: If none of the previous conditions hold then this thread's interrupt status will be set.

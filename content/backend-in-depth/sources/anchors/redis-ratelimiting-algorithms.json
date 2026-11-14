@@ -1,0 +1,299 @@
+{
+ "source": "redis-ratelimiting-algorithms",
+ "anchors": [
+  {
+   "anchor": "top",
+   "title": "",
+   "level": 0,
+   "sha256": "329020d1463fc8dfd086b621ef1f6c6153d9b9dc6517a6616fb549fb853a3abe"
+  },
+  {
+   "anchor": "content",
+   "title": "Build 5 Rate Limiters with Redis: Fixed Window, Sliding Window, Token Bucket, and Leaky Bucket",
+   "level": 1,
+   "sha256": "c71bd004aca47f3c6fe44ae72334096619f634d73d0c3723aa03af96b903562b"
+  },
+  {
+   "anchor": "algorithm-comparison",
+   "title": "# Algorithm comparison",
+   "level": 2,
+   "sha256": "48e4dc2fbd47f62181730750b5369750f20bb80071417306d76def5350d5cad3"
+  },
+  {
+   "anchor": "prerequisites",
+   "title": "# Prerequisites",
+   "level": 2,
+   "sha256": "f66d96665eba13307baf2d1e16e660fa2200f51db1a02560585548297851d44b"
+  },
+  {
+   "anchor": "setup",
+   "title": "# Setup",
+   "level": 3,
+   "sha256": "3635678105118b3f50534dc17e9d92cfe29ce9b72b9cdf65eacf745bf2c1210f"
+  },
+  {
+   "anchor": "how-the-demo-works",
+   "title": "# How the demo works",
+   "level": 2,
+   "sha256": "299cbf2dea2466b4a18d37d365fb8f2f1edbb5868f86c153c83e509223d2eb96"
+  },
+  {
+   "anchor": "why-lua-scripts",
+   "title": "# Why Lua scripts?",
+   "level": 2,
+   "sha256": "e0be387ef1cf5781d58ff28620116f0ab3f69af3b2854f81ebe41448a1173d3f"
+  },
+  {
+   "anchor": "multiexec",
+   "title": "# MULTI / EXEC",
+   "level": 3,
+   "sha256": "b425c34ca4358db8a26af4550ba898a38408a70ea79018061dbbc1be52ba5f46"
+  },
+  {
+   "anchor": "watch-multiexec",
+   "title": "# WATCH + MULTI / EXEC",
+   "level": 3,
+   "sha256": "8ab13df3f0805eb1b51001eb3e2588af9a285a71d48509d577d8d3821f379d9c"
+  },
+  {
+   "anchor": "lua-scripts-via-eval",
+   "title": "# Lua scripts via EVAL",
+   "level": 3,
+   "sha256": "011a4e5843153f7e27ac4ffb235af37052e05985ad465c157992fc1a5df115f2"
+  },
+  {
+   "anchor": "1-fixed-window-counter",
+   "title": "# 1. Fixed window counter",
+   "level": 2,
+   "sha256": "f3ff8274b7611e006ae0dc1a5e4da953dd2e81c801b0e3bba16f47552c4bc877"
+  },
+  {
+   "anchor": "how-it-works",
+   "title": "# How it works",
+   "level": 3,
+   "sha256": "486cff4d76875c3b9cc0d1ae39531abf9d324f1e434c291bd2bfd4d6895f6b82"
+  },
+  {
+   "anchor": "redis-data-structure",
+   "title": "# Redis data structure",
+   "level": 3,
+   "sha256": "df3b1521d45e0f2eccf504bac1bf7c9978108fdf666eeb1a80ac8637ca8a9134"
+  },
+  {
+   "anchor": "use-cases",
+   "title": "# Use cases",
+   "level": 3,
+   "sha256": "71dfeb1073b4caecd26274ef53279d7ba827f03a29abdc6ed1b626d4e4e2e85b"
+  },
+  {
+   "anchor": "code-walkthrough",
+   "title": "# Code walkthrough",
+   "level": 3,
+   "sha256": "ae74ba691a927bd02b108b66be2bdbdfa94d4c1fb85ad0e8b9d66e5ef0440426"
+  },
+  {
+   "anchor": "trade-offs",
+   "title": "# Trade-offs",
+   "level": 3,
+   "sha256": "9cacecc21338bb76b6ff1ceafc56949c78a464200b51e0f876d4f8a22a916dca"
+  },
+  {
+   "anchor": "2-sliding-window-log",
+   "title": "# 2. Sliding window log",
+   "level": 2,
+   "sha256": "5851ee24305fe2ec439f50f9611e12f945175e477be73f28acfaf5cd5e932fd6"
+  },
+  {
+   "anchor": "how-it-works-1",
+   "title": "# How it works",
+   "level": 3,
+   "sha256": "d0b2dc8a7f22d6560017e119d20d5de048bf9d0045690e2a8a6a83ec5f52407d"
+  },
+  {
+   "anchor": "redis-data-structure-1",
+   "title": "# Redis data structure",
+   "level": 3,
+   "sha256": "63982a7199a353b2847ef935e77c02c9f0ba33b52d5620f82c1a1c41c2246b55"
+  },
+  {
+   "anchor": "use-cases-1",
+   "title": "# Use cases",
+   "level": 3,
+   "sha256": "1b655af09d82981d30b388ba4fc2d50ca22d991e72f2e65022e35f17e97cad77"
+  },
+  {
+   "anchor": "code-walkthrough-1",
+   "title": "# Code walkthrough",
+   "level": 3,
+   "sha256": "71f468d1916c9860c683b6a2d65085a0486e889d0df02a861630aae7d0e9ad33"
+  },
+  {
+   "anchor": "trade-offs-1",
+   "title": "# Trade-offs",
+   "level": 3,
+   "sha256": "277e86a3333254f6fd5d14a018a5d37de5d76acfe2592ee4aad165ad76a14238"
+  },
+  {
+   "anchor": "3-sliding-window-counter",
+   "title": "# 3. Sliding window counter",
+   "level": 2,
+   "sha256": "c69abfc812ace6fcc2f3cd8cb9e4cb06aa6da8eba62943892339793ab0b9a530"
+  },
+  {
+   "anchor": "how-it-works-2",
+   "title": "# How it works",
+   "level": 3,
+   "sha256": "2055e53cbd6f12265e81bb075e3562b0bda9c3368e21704410871d1a32633ee2"
+  },
+  {
+   "anchor": "redis-data-structure-2",
+   "title": "# Redis data structure",
+   "level": 3,
+   "sha256": "f0a071f776f1b3722d36de28716d18a6f1d81329e3f1586a05908e97d6b40887"
+  },
+  {
+   "anchor": "use-cases-2",
+   "title": "# Use cases",
+   "level": 3,
+   "sha256": "6217d66c6ee651470b103bbad2f654946b64ac5ed33387a3fe2d0b47bae391c9"
+  },
+  {
+   "anchor": "code-walkthrough-2",
+   "title": "# Code walkthrough",
+   "level": 3,
+   "sha256": "e35ea19bf9c970a8c0ad112f086ba6f5cd2218d6feda4e8a5bf833fad62c0bde"
+  },
+  {
+   "anchor": "trade-offs-2",
+   "title": "# Trade-offs",
+   "level": 3,
+   "sha256": "bfeff2b6f7cb2c95544833e17e9347ad315a93d167127df27a5b94dae1da37c5"
+  },
+  {
+   "anchor": "4-token-bucket",
+   "title": "# 4. Token bucket",
+   "level": 2,
+   "sha256": "58289556a07a1eedd924a24cdf123e2631e3096aaca9564f2e7378b16678699c"
+  },
+  {
+   "anchor": "how-it-works-3",
+   "title": "# How it works",
+   "level": 3,
+   "sha256": "a1d6dc8706a61884c22e2f22090f167d9c1804b46fb8a0dcbe5b2841f4b5fb4f"
+  },
+  {
+   "anchor": "redis-data-structure-3",
+   "title": "# Redis data structure",
+   "level": 3,
+   "sha256": "4d6b659073ca5bec329e0793715ee4df185303693f423ce9ca1441fcc24093f8"
+  },
+  {
+   "anchor": "use-cases-3",
+   "title": "# Use cases",
+   "level": 3,
+   "sha256": "bb620767ecdc6dbfd58437a5ff8808b0ccc8d9e811a13415d96f293b811ededa"
+  },
+  {
+   "anchor": "code-walkthrough-3",
+   "title": "# Code walkthrough",
+   "level": 3,
+   "sha256": "8aa8952fe8821cd9dfe9ae974752f78fb5e4fe6c2f0f47057f6b6fff347d8ab7"
+  },
+  {
+   "anchor": "trade-offs-3",
+   "title": "# Trade-offs",
+   "level": 3,
+   "sha256": "b3cadfe9cc5532f1ead9d87bd7254f3d30d3f4297ebaee755e6581059f55108b"
+  },
+  {
+   "anchor": "5-leaky-bucket",
+   "title": "# 5. Leaky bucket",
+   "level": 2,
+   "sha256": "97d5d78b6ee358f17517a4b669d2526db8e7fa6258b4c2a3d13103a42941a6b4"
+  },
+  {
+   "anchor": "how-it-works-4",
+   "title": "# How it works",
+   "level": 3,
+   "sha256": "c0990c0b5d39a332d95461ae3ce780a3895b90c5fdd6363449f02528c65609e4"
+  },
+  {
+   "anchor": "redis-data-structure-4",
+   "title": "# Redis data structure",
+   "level": 3,
+   "sha256": "42b197a9952549d19eba981304d1304ae239043d563775021a589972ce1c42ac"
+  },
+  {
+   "anchor": "use-cases-4",
+   "title": "# Use cases",
+   "level": 3,
+   "sha256": "914f2dfefb5f24126b0bb119b4922af2425d708fb6dcf1110b77fa53111fcea5"
+  },
+  {
+   "anchor": "code-walkthrough-4",
+   "title": "# Code walkthrough",
+   "level": 3,
+   "sha256": "227ba92cd1539b6996cd198fc7c755138a93f5d272db7c520016f795b70c9156"
+  },
+  {
+   "anchor": "policing-mode-details",
+   "title": "# Policing mode details",
+   "level": 4,
+   "sha256": "f8db13c3ae9d666923601b016264fd757e17319064439928b731ffb84c6f8098"
+  },
+  {
+   "anchor": "shaping-mode-details",
+   "title": "# Shaping mode details",
+   "level": 4,
+   "sha256": "7361fb31e8403353f7bb65f7042bfcb33ff46ed24e80db2226c4e7ec5f9f637c"
+  },
+  {
+   "anchor": "shared-details",
+   "title": "# Shared details",
+   "level": 4,
+   "sha256": "ebe537dd335d1f418245d8bd1b23f654e0408d00ff92079461ec758f6889f121"
+  },
+  {
+   "anchor": "trade-offs-4",
+   "title": "# Trade-offs",
+   "level": 3,
+   "sha256": "3864a55edc54547fd3f41c70fa06f3f33d67915decba726b10622617825924b3"
+  },
+  {
+   "anchor": "when-to-use-which-algorithm",
+   "title": "# When to use which algorithm",
+   "level": 2,
+   "sha256": "0969a611eaf08f23783068cbfeeb03fe346422e099af8a8be2433eb559ca1a5d"
+  },
+  {
+   "anchor": "token-bucket-vs-leaky-bucket",
+   "title": "# Token bucket vs leaky bucket",
+   "level": 3,
+   "sha256": "c7f4d5767ae9f6a65e697fbeef4501b60a9bf4ea65b90740852bf00e01ec445b"
+  },
+  {
+   "anchor": "running-the-demo",
+   "title": "# Running the demo",
+   "level": 2,
+   "sha256": "6454552ad3de9199dff3192cb815b8028994bbf0179ae6ff798b93d4ea289db0"
+  },
+  {
+   "anchor": "http-response-codes-and-headers",
+   "title": "# HTTP response codes and headers",
+   "level": 2,
+   "sha256": "76b7e81aa2896b85f0b81f474a850b11cb4b73fb3f75bb6e6a81759a7c81a3b5"
+  },
+  {
+   "anchor": "next-steps",
+   "title": "# Next steps",
+   "level": 2,
+   "sha256": "1dea2b404e7bcdea9e7f899ad2a01f352f562e7fda6a8834067cacdc3f6ec09b"
+  },
+  {
+   "anchor": "references",
+   "title": "# References",
+   "level": 2,
+   "sha256": "9cf12c58c701ac4aaff672e0bb5b432e5a55d16009a8a5a16e88de3466e9e6ff"
+  }
+ ]
+}

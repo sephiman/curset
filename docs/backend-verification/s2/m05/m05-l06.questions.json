@@ -133,5 +133,80 @@
   "citation": "spring-security-servlet-authentication-architecture#servlet-authentication-authenticationprovider",
   "extract": null,
   "snippet": null
+ },
+ {
+  "id": "m05-l06-q10",
+  "fact": "m05-l06-f02",
+  "stem": "According to the Spring Security reference, why is it important that `DelegatingFilterProxy` delays looking up the `Filter` bean instances in a Servlet application?",
+  "key": "Because the container must register the `Filter` instances before it can start up",
+  "distractors": [
+   "Because the Servlet container is aware of Spring-defined beans and would otherwise create them twice",
+   "Because `ContextLoaderListener` loads the Spring beans before the container registers its filters",
+   "Because `DelegatingFilterProxy` implements the security logic itself instead of calling a bean"
+  ],
+  "explanation": "Delaying the lookup is important because the container needs to register the `Filter` instances before the container can start up. The idea that the container is aware of Spring beans is ruled out because the Servlet container is not aware of Spring-defined beans. Loading the beans first is ruled out because `ContextLoaderListener` does not load them until after the `Filter` instances need to be registered. Implementing the logic itself is ruled out because `DelegatingFilterProxy` delegates all the work to a Spring bean that implements `Filter`.",
+  "citation": "spring-security-servlet-architecture#servlet-delegatingfilterproxy",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m05-l06-q11",
+  "fact": "m05-l06-f38",
+  "stem": "In a Spring Security servlet application, `AuthorizationFilter` denies a request and an `AccessDeniedException` is thrown. Which component then handles that exception?",
+  "key": "`ExceptionTranslationFilter`",
+  "distractors": [
+   "`DelegatingFilterProxy`",
+   "`ProviderManager`",
+   "`SecurityContextHolder`"
+  ],
+  "explanation": "If authorization is denied, the `ExceptionTranslationFilter` handles the `AccessDeniedException`. `DelegatingFilterProxy` is ruled out because it bridges between the Servlet container's lifecycle and Spring's `ApplicationContext`. `ProviderManager` is ruled out because it is the most commonly used implementation of `AuthenticationManager`. `SecurityContextHolder` is ruled out because it is where Spring Security stores the details of who is authenticated.",
+  "citation": "spring-security-servlet-authorization-authorize-http-requests#request-authorization-architecture",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m05-l06-q12",
+  "fact": "m05-l06-f42",
+  "stem": "A `SecurityFilterChain` declares several `authorizeHttpRequests` rules and ends with `anyRequest().denyAll()`. What happens to a request whose URL no earlier rule matched?",
+  "key": "It is denied access",
+  "distractors": [
+   "It is allowed for any authenticated user",
+   "It is checked again against the rules declared before the last one",
+   "It is permitted, because unmatched URLs fall back to `permitAll`"
+  ],
+  "explanation": "Any URL that has not already been matched on is denied access. Allowing it for authenticated users is ruled out because `denyAll` means the request is not allowed under any circumstances. A second check against earlier rules is ruled out because each rule is considered in the order it was declared. A fallback to `permitAll` is ruled out because an unmatched URL is denied access.",
+  "citation": "spring-security-servlet-authorization-authorize-http-requests#authorize-requests",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m05-l06-q13",
+  "fact": "m05-l06-f09",
+  "stem": "`FilterChainProxy` can choose a `SecurityFilterChain` based on anything in the `HttpServletRequest`, not only the URL. Which interface does it use to make that choice?",
+  "key": "`RequestMatcher`",
+  "distractors": [
+   "`HttpFirewall`",
+   "`AuthorizationManager`",
+   "`AuthenticationProvider`"
+  ],
+  "explanation": "`FilterChainProxy` can determine invocation based upon anything in the `HttpServletRequest` by using the `RequestMatcher` interface. `HttpFirewall` is ruled out because `FilterChainProxy` applies it to protect applications against certain types of attacks. `AuthorizationManager` is ruled out because it matches the request to the patterns in `authorizeHttpRequests` and runs the corresponding rule. `AuthenticationProvider` is ruled out because each one knows how to perform a specific type of authentication.",
+  "citation": "spring-security-servlet-architecture#servlet-securityfilterchain",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m05-l06-q14",
+  "fact": "m05-l06-f21",
+  "stem": "By default, how does Spring Security's `SecurityContextHolder` store the details of who is authenticated so that the `SecurityContext` reaches methods running in the same thread?",
+  "key": "In a `ThreadLocal`",
+  "distractors": [
+   "In the `HttpSession` of the request",
+   "In one context shared by all threads of the JVM",
+   "In an inheritable thread-local that threads spawned by the current thread also see"
+  ],
+  "explanation": "By default, `SecurityContextHolder` uses a `ThreadLocal` to store these details. The `HttpSession`, one context shared by all threads and an inheritable thread-local are ruled out together, because the default storage has one value, a plain `ThreadLocal`.",
+  "citation": "spring-security-servlet-authentication-architecture#servlet-authentication-securitycontextholder",
+  "extract": null,
+  "snippet": null
  }
 ]

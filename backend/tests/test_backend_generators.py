@@ -95,7 +95,8 @@ def test_a_confirmed_citation_is_cited_by_its_own_lesson(generator: str) -> None
         pytest.skip("owed by its module session")
     lesson = (COURSE / "en" / "lessons" / f"{citation.lesson}.md").read_text(encoding="utf-8")
     refs = [ref.strip() for ref in citation.confirmed.split(";")]
-    assert [ref for ref in refs if f"`{ref}`" not in lesson] == []
+    # an F citation is inline code; a class J rule is cited as the ref of its judgement block
+    assert [ref for ref in refs if f"`{ref}`" not in lesson and f'ref="{ref}"' not in lesson] == []
 
 
 def _declared() -> list[PsicotecnicoConfig]:

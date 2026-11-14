@@ -193,5 +193,20 @@
   "citation": "mcp-tools#security-considerations",
   "extract": "Validate tool results before passing to LLM",
   "snippet": null
+ },
+ {
+  "id": "m10-l04-q14",
+  "fact": "m10-l04-f68",
+  "stem": "In a multi-tenant environment, several groups of users share one vector database behind an LLM application. Which measure does OWASP LLM08 give against one group's embeddings being retrieved for another group's queries?",
+  "key": "Implement a permission-aware vector database that restricts access so that only authorized groups reach their own information",
+  "distractors": [
+   "Keep the embeddings of every group in one shared dataset without partitioning, so retrieval covers all groups",
+   "Apply only coarse access controls to the application and leave the vector store itself open to every group",
+   "Let queries from any group retrieve other groups' embeddings, since the LLM only uses the retrieved text as context"
+  ],
+  "explanation": "OWASP gives a permission-aware vector database that restricts access so that only authorized groups can access their specific information. Keeping every group in one unpartitioned dataset is ruled out because the datasets need strict logical and access partitioning between different groups of users. Coarse controls with an open vector store are ruled out because OWASP asks for fine-grained access controls and permission-aware vector and embedding stores. Open retrieval across groups is ruled out because embeddings retrieved for another group's queries are potentially leaking sensitive business information.",
+  "citation": "owasp-llm08-vector-embedding#scenario-2-access-control--data-leakage-risk-by-combining-data-with-different-access-restrictions; owasp-llm08-vector-embedding#1-permission-and-access-control",
+  "extract": null,
+  "snippet": null
  }
 ]

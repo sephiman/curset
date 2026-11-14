@@ -73,5 +73,35 @@
   "citation": "kotlin-docs-java-interop#checked-exceptions",
   "extract": "So, when you call a Java method that declares a checked exception, Kotlin does not force you to do anything:",
   "snippet": null
+ },
+ {
+  "id": "m04-l05-q06",
+  "fact": "m04-l05-f11",
+  "stem": "A Kotlin member `@JvmOverloads fun draw(label: String, lineWidth: Int = 1, color: String = \"red\")` is called from Java. Which `draw` overloads does Java see, according to the Kotlin documentation?",
+  "key": "Three overloads: `draw(String, int, String)`, `draw(String, int)` and `draw(String)`",
+  "distractors": [
+   "Two overloads: `draw(String, int, String)` and `draw(String)`",
+   "Four overloads: `draw(String, int, String)`, `draw(String, int)`, `draw(String)` and `draw()`",
+   "Three overloads: `draw(String, int, String)`, `draw(String, String)` and `draw(String)`"
+  ],
+  "explanation": "Each parameter with a default value adds one overload that drops that parameter and all parameters to its right, so Java sees three overloads. The options with two overloads, with four overloads including `draw()`, and with `draw(String, String)` are wrong, because the overload for a default parameter removes that parameter and every parameter to its right, and `label` has no default.",
+  "citation": "kotlin-docs-java-to-kotlin-interop#overloads-generation",
+  "extract": "For every parameter with a default value, this generates one additional overload, which has this parameter and all parameters to the right of it in the parameter list removed.",
+  "snippet": null
+ },
+ {
+  "id": "m04-l05-q07",
+  "fact": "m04-l05-f22",
+  "stem": "According to Kotlin's documentation, what does the `@Throws` annotation do for a Kotlin function whose exceptions are called from Java, Swift or Objective-C?",
+  "key": "It alerts callers about possible exceptions",
+  "distractors": [
+   "It makes the Kotlin compiler force Kotlin callers to catch the exceptions",
+   "It is needed only for Swift and Objective-C, because Java signatures already declare thrown exceptions",
+   "It makes Kotlin treat the exceptions of the function as unchecked"
+  ],
+  "explanation": "The `@Throws` annotation alerts callers about possible exceptions. The claim that it makes the Kotlin compiler force callers to catch is wrong, because in Kotlin all exceptions are unchecked and the compiler does not force you to catch any of them. The claim that it is needed only for Swift and Objective-C is wrong, because normally the Java signatures of Kotlin functions do not declare exceptions thrown either. The claim that it makes Kotlin treat exceptions as unchecked is wrong, because Kotlin already treats all exceptions as unchecked.",
+  "citation": "kotlin-docs-exceptions#exception-interoperability-with-java-swift-and-objective-c; kotlin-docs-java-interop#checked-exceptions; kotlin-docs-java-to-kotlin-interop#checked-exceptions",
+  "extract": "This annotation alerts callers about possible exceptions.",
+  "snippet": null
  }
 ]

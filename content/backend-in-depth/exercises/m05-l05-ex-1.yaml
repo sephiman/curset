@@ -14,12 +14,12 @@ variants:
     text:
       en: It shows its strengths even when no call has any latency
   - id: c
+    text:
+      en: It removes the extra work of writing code the non-blocking way
+  - id: d
     correct: true
     text:
       en: It scales with a small, fixed number of threads and less memory
-  - id: d
-    text:
-      en: It removes the extra work of writing code the non-blocking way
   explanation:
     en: The key expected benefit is the ability to scale with a small, fixed number of threads and less memory.
       Faster execution is not the benefit, because reactive and non-blocking generally do not make applications
@@ -36,12 +36,12 @@ variants:
       and the `java.net.http` module is loaded. Which library does it use?
   options:
   - id: a
-    text:
-      en: The `SimpleClientHttpRequestFactory` default
-  - id: b
     correct: true
     text:
       en: Java’s `HttpClient`
+  - id: b
+    text:
+      en: The `SimpleClientHttpRequestFactory` default
   - id: c
     text:
       en: The Apache HTTP Components `HttpClient`
@@ -62,18 +62,18 @@ variants:
       according to the Spring Framework documentation?
   options:
   - id: a
+    text:
+      en: Thread-safe access to the session attributes
+  - id: b
+    text:
+      en: A `null` argument when the request has no session yet
+  - id: c
+    text:
+      en: A reactive session type resolved lazily
+  - id: d
     correct: true
     text:
       en: The presence of a session
-  - id: b
-    text:
-      en: Thread-safe access to the session attributes
-  - id: c
-    text:
-      en: A `null` argument when the request has no session yet
-  - id: d
-    text:
-      en: A reactive session type resolved lazily
   explanation:
     en: A `HttpSession` argument enforces the presence of a session. Session access is not made thread-safe, because
       the documentation notes that session access is not thread-safe. The argument is not `null`, because such an
@@ -88,18 +88,18 @@ variants:
       HTTP requests and responses with `HttpMessageConverter`?
   options:
   - id: a
-    text:
-      en: ISO-8859-1
-  - id: b
-    text:
-      en: UTF-16
-  - id: c
-    text:
-      en: US-ASCII
-  - id: d
     correct: true
     text:
       en: UTF-8
+  - id: b
+    text:
+      en: ISO-8859-1
+  - id: c
+    text:
+      en: UTF-16
+  - id: d
+    text:
+      en: US-ASCII
   explanation:
     en: By default, strings are encoded in UTF-8. ISO-8859-1, UTF-16 and US-ASCII are not the default, because by
       default strings are encoded in UTF-8.
@@ -110,12 +110,12 @@ variants:
       a sensible way and registered as a global error page?
   options:
   - id: a
+    text:
+      en: '`/errors`'
+  - id: b
     correct: true
     text:
       en: '`/error`'
-  - id: b
-    text:
-      en: '`/errors`'
   - id: c
     text:
       en: '`/exception`'
@@ -126,3 +126,101 @@ variants:
     en: Spring Boot provides an `/error` mapping that handles all errors in a sensible way. `/errors`, `/exception`
       and `/problems` are not the mapping, because Spring Boot provides an `/error` mapping.
   citation: spring-boot-web-servlet#web.servlet.spring-mvc.error-handling
+- id: m05-l05-q11
+  prompt:
+    en: According to the Spring Framework documentation, why are Spring MVC interceptors not ideally suited as a
+      security layer for a web application?
+  options:
+  - id: a
+    text:
+      en: They run only after the handler has already been invoked
+  - id: b
+    text:
+      en: They cannot stop a request before a view is rendered
+  - id: c
+    correct: true
+    text:
+      en: They can mismatch with annotated controller path matching
+  - id: d
+    text:
+      en: They can only be registered through XML configuration
+  explanation:
+    en: Interceptors are not ideally suited as a security layer because of the potential for a mismatch with annotated
+      controller path matching. Running only after the handler is ruled out because a `HandlerMapping` returns a
+      list of interceptors for pre- and post-processing. Being unable to stop a request is ruled out because a preprocessor
+      or postprocessor can intercept the request, perhaps for security reasons, so that no view is rendered. XML-only
+      registration is ruled out because the Java config also passes interceptors to the `HandlerMapping` beans it
+      manages.
+  citation: spring-fw-webmvc-handlermapping-interceptor#page-title
+- id: m05-l05-q12
+  prompt:
+    en: Which special bean type does the `DispatcherServlet` of Spring MVC use to resolve exceptions thrown during
+      request processing, possibly mapping them to handlers or HTML error views?
+  options:
+  - id: a
+    correct: true
+    text:
+      en: '`HandlerExceptionResolver`'
+  - id: b
+    text:
+      en: '`ViewResolver`'
+  - id: c
+    text:
+      en: '`HandlerAdapter`'
+  - id: d
+    text:
+      en: '`MultipartResolver`'
+  explanation:
+    en: The `HandlerExceptionResolver` beans declared in the `WebApplicationContext` are used to resolve exceptions
+      thrown during request processing. A `ViewResolver` is ruled out because it resolves logical String-based view
+      names to an actual `View`. A `HandlerAdapter` is ruled out because it helps the `DispatcherServlet` invoke
+      a handler mapped to a request. A `MultipartResolver` is ruled out because it is an abstraction for parsing
+      a multi-part request.
+  citation: spring-fw-webmvc-dispatcher-sequence#page-title
+- id: m05-l05-q13
+  prompt:
+    en: Which special bean type of Spring MVC helps the `DispatcherServlet` invoke a handler mapped to a request,
+      regardless of how that handler is actually invoked, such as an annotated controller?
+  options:
+  - id: a
+    text:
+      en: '`HandlerMapping`'
+  - id: b
+    text:
+      en: '`LocaleResolver`'
+  - id: c
+    correct: true
+    text:
+      en: '`HandlerAdapter`'
+  - id: d
+    text:
+      en: '`FlashMapManager`'
+  explanation:
+    en: A `HandlerAdapter` helps the `DispatcherServlet` invoke a handler mapped to a request, regardless of how
+      the handler is actually invoked. A `HandlerMapping` is ruled out because it maps a request to a handler along
+      with a list of interceptors. A `LocaleResolver` is ruled out because it resolves the `Locale` a client is
+      using. A `FlashMapManager` is ruled out because it stores and retrieves the input and output `FlashMap` used
+      to pass attributes across a redirect.
+  citation: spring-fw-webmvc-dispatcher-special-beans#page-title
+- id: m05-l05-q14
+  prompt:
+    en: In Spring Boot, which scope does the pre-configured `RestClient.Builder` bean have, the one you are advised
+      to inject into your components to create `RestClient` instances?
+  options:
+  - id: a
+    text:
+      en: '`singleton`'
+  - id: b
+    correct: true
+    text:
+      en: '`prototype`'
+  - id: c
+    text:
+      en: '`request`'
+  - id: d
+    text:
+      en: '`session`'
+  explanation:
+    en: Spring Boot creates and pre-configures a `prototype` `RestClient.Builder` bean. `singleton`, `request` and
+      `session` are ruled out together, because the bean is a `prototype` and the scope has one value.
+  citation: spring-boot-io-rest-client#io.rest-client.restclient

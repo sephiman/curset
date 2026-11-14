@@ -39,15 +39,15 @@ variants:
     text:
       en: It compares `redirect_uri` with the registered URI using wildcard patterns that allow subdomains
   - id: b
+    text:
+      en: It sets the consent cookie before showing the consent screen so the callback can be validated
+  - id: c
+    text:
+      en: It keeps one `state` value and reuses it across authorization requests for a day
+  - id: d
     correct: true
     text:
       en: It checks its registry of approved `client_id` values before starting the third-party authorization flow
-  - id: c
-    text:
-      en: It sets the consent cookie before showing the consent screen so the callback can be validated
-  - id: d
-    text:
-      en: It keeps one `state` value and reuses it across authorization requests for a day
   explanation:
     en: The proxy checks its registry of approved `client_id` values before initiating the third-party authorization
       flow. Wildcard matching of `redirect_uri` is ruled out because the comparison uses exact string matching,
@@ -64,18 +64,18 @@ variants:
       consent page is correct under the MCP security best practices?
   options:
   - id: a
-    text:
-      en: The cookie binds to the user only, without naming the specific `client_id`
-  - id: b
-    text:
-      en: The cookie is marked `SameSite=None` so that other sites can read it
-  - id: c
-    text:
-      en: The consent page may be framed by any origin to support embedded flows
-  - id: d
     correct: true
     text:
       en: The cookie name uses the `__Host-` prefix
+  - id: b
+    text:
+      en: The cookie binds to the user only, without naming the specific `client_id`
+  - id: c
+    text:
+      en: The cookie is marked `SameSite=None` so that other sites can read it
+  - id: d
+    text:
+      en: The consent page may be framed by any origin to support embedded flows
   explanation:
     en: 'The cookie name uses the `__Host-` prefix. Binding to the user only is ruled out because the cookie must
       bind to the specific `client_id`, not just to “user has consented”. A `SameSite=None` cookie is ruled out
@@ -91,12 +91,12 @@ variants:
       those duties is correct for an MCP server that exposes tools?
   options:
   - id: a
+    text:
+      en: The server may leave the validation of tool inputs to the client
+  - id: b
     correct: true
     text:
       en: The server must rate limit tool invocations
-  - id: b
-    text:
-      en: The server may leave the validation of tool inputs to the client
   - id: c
     text:
       en: The server returns tool outputs to the client without sanitizing them
@@ -203,12 +203,12 @@ variants:
     text:
       en: Servers must list every dynamically issued scope in it
   - id: b
-    text:
-      en: Clients may assume that the challenged scopes are always a subset of it
-  - id: c
     correct: true
     text:
       en: It represents the minimal set of scopes necessary for basic functionality
+  - id: c
+    text:
+      en: Clients may assume that the challenged scopes are always a subset of it
   - id: d
     text:
       en: Clients prefer it over the `scope` parameter of the `401` challenge
@@ -227,15 +227,15 @@ variants:
     en: Which duty does the MCP tools specification give to clients that call the tools of an MCP server?
   options:
   - id: a
+    text:
+      en: Hiding tool inputs from the user to avoid confirmation fatigue
+  - id: b
+    text:
+      en: Calling tools without timeouts so that long operations finish
+  - id: c
     correct: true
     text:
       en: Validating tool results before passing them to the LLM
-  - id: b
-    text:
-      en: Hiding tool inputs from the user to avoid confirmation fatigue
-  - id: c
-    text:
-      en: Calling tools without timeouts so that long operations finish
   - id: d
     text:
       en: Asking for user confirmation only on non-sensitive operations
@@ -247,3 +247,33 @@ variants:
   citation: mcp-tools#security-considerations
   extract:
     en: Validate tool results before passing to LLM
+- id: m10-l04-q14
+  prompt:
+    en: In a multi-tenant environment, several groups of users share one vector database behind an LLM application.
+      Which measure does OWASP LLM08 give against one group's embeddings being retrieved for another group's queries?
+  options:
+  - id: a
+    correct: true
+    text:
+      en: Implement a permission-aware vector database that restricts access so that only authorized groups reach
+        their own information
+  - id: b
+    text:
+      en: Keep the embeddings of every group in one shared dataset without partitioning, so retrieval covers all
+        groups
+  - id: c
+    text:
+      en: Apply only coarse access controls to the application and leave the vector store itself open to every group
+  - id: d
+    text:
+      en: Let queries from any group retrieve other groups' embeddings, since the LLM only uses the retrieved text
+        as context
+  explanation:
+    en: OWASP gives a permission-aware vector database that restricts access so that only authorized groups can
+      access their specific information. Keeping every group in one unpartitioned dataset is ruled out because the
+      datasets need strict logical and access partitioning between different groups of users. Coarse controls with
+      an open vector store are ruled out because OWASP asks for fine-grained access controls and permission-aware
+      vector and embedding stores. Open retrieval across groups is ruled out because embeddings retrieved for another
+      group's queries are potentially leaking sensitive business information.
+  citation: owasp-llm08-vector-embedding#scenario-2-access-control--data-leakage-risk-by-combining-data-with-different-access-restrictions;
+    owasp-llm08-vector-embedding#1-permission-and-access-control

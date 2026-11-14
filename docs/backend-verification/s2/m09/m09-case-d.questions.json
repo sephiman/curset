@@ -238,5 +238,101 @@
   "citation": "flink-stateful-stream-processing#exactly-once-vs-at-least-once",
   "extract": null,
   "snippet": null
+ },
+ {
+  "id": "m09-case-d-q16",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f107",
+  "stem": "A producer sends Kafka a compressed batch of 500 telemetry records, and the batch header states 500 records. According to the Kafka design documentation, why does the broker decompress that batch?",
+  "key": "To validate it, for example the record count against the batch header",
+  "distractors": [
+   "To store the records uncompressed so that consumers read them without decompressing",
+   "To decompress it on behalf of the consumer, which cannot decompress data itself",
+   "To split it into single records that the broker appends to its log one at a time"
+  ],
+  "explanation": "The broker decompresses the batch in order to validate it, for example that the number of records matches what the batch header states. Storing the records uncompressed is wrong, because the batch is written to disk in compressed form. Decompressing for the consumer is wrong, because the consumer decompresses any compressed data that it receives. Appending single records one at a time is wrong, because the server appends chunks of messages to its log in one go.",
+  "citation": "kafka-design#end-to-end-batch-compression",
+  "extract": "The broker decompresses the batch in order to validate it.",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-d-q17",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f113",
+  "stem": "A Flink job aggregates vehicle telemetry with checkpointing enabled and needs consistently super low latencies of a few milliseconds for all records. According to the Flink documentation, what does Flink offer for that requirement?",
+  "key": "A switch to skip the stream alignment during a checkpoint",
+  "distractors": [
+   "A switch to postpone the checkpoint snapshots until the job is idle",
+   "A switch to align every operator, including operators with a single predecessor",
+   "A switch to lose records on restore instead of replaying them"
+  ],
+  "explanation": "For applications that require consistently super low latencies, Flink has a switch to skip the stream alignment during a checkpoint. Postponing the snapshots is wrong, because checkpoint snapshots are still drawn as soon as an operator has seen the checkpoint barrier from each input. Aligning every operator is wrong, because alignment happens only for operators with multiple predecessors or multiple senders. Losing records on restore is wrong, because with alignment skipped the records occur as duplicates and are replayed after the restore.",
+  "citation": "flink-stateful-stream-processing#exactly-once-vs-at-least-once",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m09-case-d-q18",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f115",
+  "stem": "Analysts query per-minute metrics of 400,000 vehicles, and the pipeline adds those metrics to Elasticsearch. According to the Elasticsearch documentation, when should a team choose a time series data stream (TSDS) for its metrics?",
+  "key": "When it typically adds metrics data in near real-time and in `@timestamp` order",
+  "distractors": [
+   "When it mostly stores timestamped logs or traces rather than metrics",
+   "When it runs the data in a Vector Database project rather than an Elasticsearch project",
+   "When its metrics carry only a timestamp and no dimension fields at all"
+  ],
+  "explanation": "The documentation says to choose a TSDS if you typically add metrics data to Elasticsearch in near real-time and in `@timestamp` order. Logs or traces is wrong, because for other timestamped data such as logs or traces it recommends a logs data stream or a regular data stream. A Vector Database project is wrong, because time series data streams are not available in Vector Database projects. Metrics with no dimension fields is wrong, because metrics are data point–timestamp pairs identified by dimension fields.",
+  "citation": "es-time-series-data-stream#when-to-use-tsds",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m09-case-d-q19",
+  "lesson": "m09-l02",
+  "fact": "m09-l02-f73",
+  "stem": "A telemetry store replicates each item on N=3 nodes and must accept a write as long as a single node has durably stored it. According to the Dynamo paper, which setting gives applications that highest level of write availability?",
+  "key": "`W` set to 1",
+  "distractors": [
+   "`R` set to 1",
+   "`W` set to 2",
+   "`W` set to 3"
+  ],
+  "explanation": "Applications that need the highest level of availability can set `W` to 1, which ensures that a write is accepted as long as a single node has durably written the key. `R` set to 1 is wrong, because `W` is the minimum number of nodes that must participate in a successful write operation, not `R`. `W` set to 2 and `W` set to 3 are wrong, because only `W` set to 1 ensures that a write is accepted as long as a single node has durably written the key.",
+  "citation": "paper-dynamo-columns#p15",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m09-case-d-q20",
+  "lesson": "m09-l04",
+  "fact": "m09-l04-f104",
+  "stem": "A Kafka broker serves consumers from the pagecache, and `sendfile` avoids copies through user space. With SSL enabled on the listener, the broker does not use `sendfile`. According to the Kafka design documentation, what is the reason?",
+  "key": "TLS/SSL libraries operate in user space, and in-kernel `SSL_sendfile` is not supported by Kafka",
+  "distractors": [
+   "`sendfile` can transfer data only between files, never from pagecache to a socket",
+   "Encrypted data cannot be held in the pagecache, so SSL listeners read it from disk",
+   "Batches sent over SSL stay compressed in the log, which `sendfile` cannot transfer"
+  ],
+  "explanation": "TLS/SSL libraries operate at the user space and in-kernel `SSL_sendfile` is currently not supported by Kafka, so `sendfile` is not used when SSL is enabled. Files-only transfer is wrong, because modern Unix systems offer an optimized code path for transferring data out of pagecache to a socket, which Linux does with `sendfile`. Disk reads for SSL are wrong, because all disk reads and writes go through the unified OS cache. Compressed batches are wrong, because a batch remains compressed in the log and is transmitted to the consumer in compressed form.",
+  "citation": "kafka-design#efficiency",
+  "extract": "TLS/SSL libraries operate at the user space (in-kernel SSL_sendfile is currently not supported by Kafka).",
+  "snippet": null
+ },
+ {
+  "id": "m09-case-d-q21",
+  "lesson": "m09-l02",
+  "fact": "m09-l02-f94",
+  "stem": "A telemetry store assigns each node one random position on a consistent-hashing ring. According to the Dynamo paper, what first challenge does the random position assignment of each node create for the basic algorithm?",
+  "key": "Non-uniform data and load distribution",
+  "distractors": [
+   "Every node must store a copy of every key on the ring",
+   "Every arrival or departure of a node forces all other nodes to move data",
+   "The output range of the hash function cannot be treated as a ring"
+  ],
+  "explanation": "The random position assignment of each node on the ring leads to non-uniform data and load distribution. Storing every key on every node is wrong, because each node is responsible only for the region of the ring between it and its predecessor. Forcing all other nodes to move data is wrong, because departure or arrival of a node only affects its immediate neighbors. An unusable ring is wrong, because the output range of a hash function is treated as a fixed circular space or ring.",
+  "citation": "paper-dynamo-columns#p11",
+  "extract": null,
+  "snippet": null
  }
 ]

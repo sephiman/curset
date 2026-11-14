@@ -118,5 +118,65 @@
   "citation": "paper-gilbert-lynch-cap#p3",
   "extract": null,
   "snippet": null
+ },
+ {
+  "id": "m08-l01-q09",
+  "fact": "m08-l01-f40",
+  "stem": "In the stratum field of an NTPv4 packet, which of the listed meanings belongs to the stratum value 16?",
+  "key": "Unsynchronized",
+  "distractors": [
+   "Unspecified or invalid",
+   "Primary server",
+   "Secondary server"
+  ],
+  "explanation": "Stratum value 16 means unsynchronized. Unspecified or invalid is wrong, because that is the meaning of stratum value 0. Primary server is wrong, because that is the meaning of stratum value 1. Secondary server is wrong, because that is the meaning of stratum values 2 to 15.",
+  "citation": "rfc5905#top",
+  "extract": "16 | unsynchronized",
+  "snippet": null
+ },
+ {
+  "id": "m08-l01-q10",
+  "fact": "m08-l01-f39",
+  "stem": "Which range of stratum values marks a secondary server reached via NTP in an NTPv4 packet?",
+  "key": "2 to 15",
+  "distractors": [
+   "1 to 15",
+   "2 to 16",
+   "17 to 255"
+  ],
+  "explanation": "Stratum values 2 to 15 mark a secondary server. 1 to 15 is wrong, because stratum value 1 is a primary server. 2 to 16 is wrong, because stratum value 16 is unsynchronized. 17 to 255 is wrong, because those values are reserved.",
+  "citation": "rfc5905#top",
+  "extract": "2-15 | secondary server (via NTP)",
+  "snippet": null
+ },
+ {
+  "id": "m08-l01-q11",
+  "fact": "m08-l01-f19",
+  "stem": "Among the operations that a ZooKeeper client can issue against the service, which one is linearizable?",
+  "key": "A write operation",
+  "distractors": [
+   "A read operation",
+   "A sync issued before a read",
+   "Nothing, since ZooKeeper only offers eventual consistency"
+  ],
+  "explanation": "Write operations in ZooKeeper are linearizable. A read operation is wrong, because reads are not linearizable and can return potentially stale data. A sync issued before a read is wrong, because it does not strictly guarantee up-to-date data, as sync is not a quorum operation. Nothing is linearizable is wrong, because ZooKeeper's guarantees lie between sequential consistency and linearizability, not at eventual consistency.",
+  "citation": "zk-internals#sc_consistency",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m08-l01-q12",
+  "fact": "m08-l01-f50",
+  "stem": "In a Lamport logical clock, what must a process do with its own clock when it receives a message?",
+  "key": "Set it later than the message timestamp and not below its present value",
+  "distractors": [
+   "Leave it unchanged",
+   "Reset it to zero",
+   "Copy the message timestamp, even when its own clock is larger"
+  ],
+  "explanation": "A receiving process sets its clock greater than or equal to its present value and greater than the message timestamp. Leaving it unchanged is wrong, because the process must advance its clock to be later than the timestamp. Resetting it to zero is wrong, because the new value must be at least the present one. Copying the message timestamp is wrong, because the receipt must carry a strictly greater clock value than the send.",
+  "citation": "paper-lamport-time-clocks-columns#p6",
+  "extract": null,
+  "snippet": null
  }
 ]

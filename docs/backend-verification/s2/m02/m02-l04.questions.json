@@ -118,5 +118,35 @@
   "citation": "erickson-union-find#p1",
   "extract": null,
   "snippet": null
+ },
+ {
+  "id": "m02-l04-q09",
+  "fact": "m02-l04-f11",
+  "stem": "In Open Data Structures, a breadth-first search starts at a vertex `r` of a directed graph. In what order does it visit the vertices it reaches?",
+  "key": "In increasing order of distance from `r`",
+  "distractors": [
+   "In decreasing order of distance from `r`, so the farthest vertices come first",
+   "In increasing order of vertex number, whatever the adjacency lists hold",
+   "The vertices that cannot be reached from `r` come last, after all the reachable ones"
+  ],
+  "explanation": "Breadth-first search visits vertices in increasing order of distance from the start vertex. The claim that the farthest vertices come first is wrong, because the vertices at distance 0 enter before those at distance 1, which enter before those at distance 2. The claim that the order follows vertex number is wrong, because different executions are possible, depending on the ordering of the adjacency lists. The claim that unreachable vertices come last is wrong, because vertices that cannot be reached from the start vertex are never visited at all.",
+  "citation": "ods-12-3-graph-traversal#SECTION001531000000000000000",
+  "extract": "Thus, the method visits vertices in increasing order of distance from",
+  "snippet": null
+ },
+ {
+  "id": "m02-l04-q10",
+  "fact": "m02-l04-f38",
+  "stem": "In Erickson's analysis of Dijkstra's algorithm on a graph with no negative-weight edges, what holds for each distance label `dist(v)`, in contrast with breadth-first search?",
+  "key": "It can change multiple times",
+  "distractors": [
+   "It can change again after its vertex has been extracted from the priority queue",
+   "It can increase when a longer path to the vertex is found",
+   "It changes exactly once, as in breadth-first search"
+  ],
+  "explanation": "Unlike in breadth-first search, each distance label `dist(v)` can change multiple times. The claim that it changes after its vertex leaves the priority queue is wrong, because after the vertex is extracted its distance label never changes. The claim that it can increase is wrong, because the distance label never increases. The claim that it changes exactly once is wrong, because after the first change each further change to `dist(v)` is followed by a decrease-key call.",
+  "citation": "erickson-shortest-paths#p15",
+  "extract": "However, unlike in breadth-first search, each distance label dist(v) can change multiple times.",
+  "snippet": null
  }
 ]

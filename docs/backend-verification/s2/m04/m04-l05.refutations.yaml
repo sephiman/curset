@@ -70,3 +70,34 @@ m04-l05-q05:
   - option: Declare `IOException` in a `throws` clause of the Kotlin function
     anchor: kotlin-docs-java-to-kotlin-interop#checked-exceptions
     sentence: So, normally the Java signatures of Kotlin functions do not declare exceptions thrown.
+m04-l05-q06:
+  key:
+    anchor: kotlin-docs-java-to-kotlin-interop#overloads-generation
+    sentence: For every parameter with a default value, this generates one additional overload, which has this parameter and all parameters to the right of it in the parameter list removed.
+  wrong:
+  - option: 'Two overloads: `draw(String, int, String)` and `draw(String)`'
+    anchor: kotlin-docs-java-to-kotlin-interop#overloads-generation
+    sentence: For every parameter with a default value, this generates one additional overload, which has this parameter and all parameters to the right of it in the parameter list removed.
+    exclusive: true
+  - option: 'Four overloads: `draw(String, int, String)`, `draw(String, int)`, `draw(String)` and `draw()`'
+    anchor: kotlin-docs-java-to-kotlin-interop#overloads-generation
+    sentence: For every parameter with a default value, this generates one additional overload, which has this parameter and all parameters to the right of it in the parameter list removed.
+    exclusive: true
+  - option: 'Three overloads: `draw(String, int, String)`, `draw(String, String)` and `draw(String)`'
+    anchor: kotlin-docs-java-to-kotlin-interop#overloads-generation
+    sentence: For every parameter with a default value, this generates one additional overload, which has this parameter and all parameters to the right of it in the parameter list removed.
+    exclusive: true
+m04-l05-q07:
+  key:
+    anchor: kotlin-docs-exceptions#exception-interoperability-with-java-swift-and-objective-c
+    sentence: This annotation alerts callers about possible exceptions.
+  wrong:
+  - option: It makes the Kotlin compiler force Kotlin callers to catch the exceptions
+    anchor: kotlin-docs-java-interop#checked-exceptions
+    sentence: In Kotlin, all exceptions are unchecked, meaning that the compiler does not force you to catch any of them.
+  - option: It is needed only for Swift and Objective-C, because Java signatures already declare thrown exceptions
+    anchor: kotlin-docs-java-to-kotlin-interop#checked-exceptions
+    sentence: Kotlin does not have checked exceptions. So, normally the Java signatures of Kotlin functions do not declare exceptions thrown.
+  - option: It makes Kotlin treat the exceptions of the function as unchecked
+    anchor: kotlin-docs-exceptions#exception-interoperability-with-java-swift-and-objective-c
+    sentence: Since Kotlin treats all exceptions as unchecked

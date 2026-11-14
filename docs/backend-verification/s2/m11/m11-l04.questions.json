@@ -133,5 +133,65 @@
   "citation": "mockito-javadoc-source#2",
   "extract": "Although it is possible to verify a stubbed invocation, usually it's just redundant",
   "snippet": null
+ },
+ {
+  "id": "m11-l04-q10",
+  "fact": "m11-l04-f03",
+  "stem": "A JUnit Jupiter test method is annotated with `@ParameterizedTest` to run once per argument. What does the user guide require the test to declare for that to work?",
+  "key": "At least one source that provides the arguments for each invocation",
+  "distractors": [
+   "A `@Test` annotation next to `@ParameterizedTest`, which marks the method as a test",
+   "A single argument source, because the method runs exactly once with all the arguments",
+   "A reporting rule that merges all invocations into one test result"
+  ],
+  "explanation": "The test must declare at least one source that provides the arguments for each invocation. Keeping `@Test` next to `@ParameterizedTest` is ruled out because a parameterized test uses the `@ParameterizedTest` annotation instead of `@Test`. A single run with all the arguments is ruled out because a parameterized test runs a test method multiple times with different arguments. Merging the invocations into one result is ruled out because each invocation is reported separately.",
+  "citation": "junit-writing-parameterized#parameterized-classes-and-tests",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m11-l04-q11",
+  "fact": "m11-l04-f19",
+  "stem": "A JUnit Jupiter test class is annotated with `@TestInstance(Lifecycle.PER_CLASS)`. Which statement about its test instances is correct according to the user guide?",
+  "key": "All test methods execute on the same test instance",
+  "distractors": [
+   "JUnit creates a new instance of the class before each test method, as in the default mode",
+   "State in instance variables never needs resetting, because each method gets a fresh instance",
+   "`@BeforeAll` and `@AfterAll` must still be declared on static methods"
+  ],
+  "explanation": "All test methods execute on the same test instance, and a new instance is created once per test class. A new instance before each method is ruled out because that per-method lifecycle is the default, and `PER_CLASS` is the annotation chosen to run all methods on the same instance. Never resetting instance state is ruled out because tests that rely on state stored in instance variables may need to reset it in `@BeforeEach` or `@AfterEach`. Static-only lifecycle methods are ruled out because the per-class mode makes it possible to declare `@BeforeAll` and `@AfterAll` on non-static methods.",
+  "citation": "junit-writing-lifecycle#test-instance-lifecycle",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m11-l04-q12",
+  "fact": "m11-l04-f37",
+  "stem": "A test builds a clock with `Clock.fixed(instant, zone)` from `java.time`. Which statement about that clock is correct according to its Javadoc?",
+  "key": "The clock is immutable, thread-safe and `Serializable`",
+  "distractors": [
+   "The clock starts at the given instant and then advances with the system clock",
+   "The clock is mutable, so a test can move it to another instant after creation",
+   "The zone shifts the instant that the clock returns by the offset of the zone"
+  ],
+  "explanation": "The returned implementation is immutable, thread-safe and `Serializable`. A clock that advances from the given instant is ruled out because the fixed clock always returns the same instant. A mutable clock is ruled out because the returned implementation is immutable. A zone that shifts the returned instant is ruled out because the zone is only used to convert the instant to date-time.",
+  "citation": "javadoc-clock#fixed(java.time.Instant,java.time.ZoneId)",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m11-l04-q13",
+  "fact": "m11-l04-f28",
+  "stem": "A Mockito mock of a class is created and none of its methods is stubbed. According to the Javadoc, what does a call to an unstubbed method that returns an `int` give?",
+  "key": "`0`",
+  "distractors": [
+   "`1`",
+   "`-1`",
+   "`Integer.MIN_VALUE`"
+  ],
+  "explanation": "An unstubbed method that returns an `int` gives `0`, the default the Javadoc names for an `int` or `Integer`. The numbers `1`, `-1` and `Integer.MIN_VALUE` fail because the Javadoc names `0` as that default.",
+  "citation": "mockito-javadoc-source#2",
+  "extract": null,
+  "snippet": null
  }
 ]

@@ -1,0 +1,7 @@
+A1	Rate limiting and quotas	The token buckets of the RFC 2697 meter are initially, at time 0, full (`rfc2697#section-3`).
+A2	Rate limiting and quotas	The maximum size of the RFC 2697 token bucket C is CBS (`rfc2697#section-3`).
+A3	Rate limiting and quotas	In the RFC 2697 meter, the token count Tc is incremented by one CIR times per second while Tc is less than CBS (`rfc2697#section-3`).
+A4	Rate limiting and quotas	In a Redis token bucket rate limiter, tokens accumulate over time up to a maximum capacity, and each request consumes one token (`redis-ratelimiting-algorithms#how-it-works-3`).
+A5	Rate limiting and quotas	In a Redis token bucket rate limiter, requests are denied when the bucket is empty, until more tokens refill (`redis-ratelimiting-algorithms#how-it-works-3`).
+A6	Rate limiting and quotas	On each new attempt, a Redis sliding window log removes the entries older than the window, counts what is left, and adds the new entry if the count is below the limit (`redis-ratelimiting-algorithms#how-it-works-1`).
+A7	Retries with exponential backoff and jitter	According to the simulator code that AWS published for the post, the capped exponential value is the smaller of the cap and `2^n * base`, and the "Full Jitter" backoff is a uniform random value between 0 and that capped value. In that code the client increments its attempt counter before it computes the backoff, so the first retry uses `n = 1`.

@@ -133,5 +133,50 @@
   "citation": "hikaricp-pool-sizing#pool-locking",
   "extract": null,
   "snippet": "m11-l03/PoolLocking.java"
+ },
+ {
+  "id": "m11-l03-q10",
+  "fact": "m11-l03-f55",
+  "stem": "In the example output of the Kafka `kafka-consumer-groups.sh --describe` command, partition 0 of `my-topic` has `CURRENT-OFFSET` 2 and `LOG-END-OFFSET` 4. What does its `LAG` column show?",
+  "key": "2",
+  "distractors": [
+   "1",
+   "3",
+   "4"
+  ],
+  "explanation": "The `LAG` column of partition 0 shows 2, because the example row for partition 0 reads 2, 4 and 2. The values 1, 3 and 4 are ruled out by that same row, which gives 2 as the `LAG` of partition 0, and 4 is its `LOG-END-OFFSET`.",
+  "citation": "kafka-ops-basic-operations#checking-consumer-position",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m11-l03-q11",
+  "fact": "m11-l03-f43",
+  "stem": "According to the JDK Flight Recorder troubleshooting guide, which statement about how often garbage collections run in a Java application is correct?",
+  "key": "The bigger the Java heap, the longer the time between GCs",
+  "distractors": [
+   "A memory leak lowers the frequency of GCs until an `OutOfMemoryError` is thrown",
+   "Raising the allocation rate reduces the need for GCs",
+   "A smaller Java heap lengthens the time between GCs"
+  ],
+  "explanation": "The bigger the Java heap, the longer the time between GCs. A memory leak lowering the frequency is ruled out because memory leaks may cause more and more frequent GCs until an `OutOfMemoryError` is thrown. A higher allocation rate is ruled out because the guide reduces the need of GCs by decreasing the allocation rate. A smaller heap lengthening the time is ruled out because it is the bigger heap that gives the longer time between GCs.",
+  "citation": "jdk-troubleshoot-jfr#JSTGD-GUID-3839D694-F0F7-4E43-93BE-3BF13F4D2102",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m11-l03-q12",
+  "fact": "m11-l03-f15",
+  "stem": "In a `wrk` Lua script, the `done()` function receives a `summary` table of result data. What does `summary.errors.status` hold?",
+  "key": "The total number of HTTP status codes greater than 399",
+  "distractors": [
+   "The total number of request timeouts",
+   "The total number of socket read errors",
+   "The 99th percentile of the sampled per-request latency"
+  ],
+  "explanation": "The field holds the total of HTTP status codes greater than 399. The number of request timeouts is ruled out because `summary.errors.timeout` is the field that holds the total request timeouts. The number of socket read errors is ruled out because `summary.errors.read` holds the total socket read errors. The 99th percentile is ruled out because `latency:percentile(99.0)` gives the 99th percentile value.",
+  "citation": "wrk2-readme#scripting",
+  "extract": null,
+  "snippet": null
  }
 ]

@@ -8,14 +8,14 @@ variants:
       a `get` of a, then a put of d. An insertion-ordered map receives a, b, c, then a again. What is printed?
   options:
   - id: a
-    correct: true
     text:
-      en: 'access-ordered [c, a, d]
+      en: 'access-ordered [b, c, d]
 
         insertion-ordered [a, b, c]'
   - id: b
+    correct: true
     text:
-      en: 'access-ordered [b, c, d]
+      en: 'access-ordered [c, a, d]
 
         insertion-ordered [a, b, c]'
   - id: c
@@ -116,12 +116,12 @@ variants:
     text:
       en: '`putFirst(key, value)`'
   - id: c
+    text:
+      en: '`keySet().contains(key)`'
+  - id: d
     correct: true
     text:
       en: '`getOrDefault(key, fallback)`'
-  - id: d
-    text:
-      en: '`keySet().contains(key)`'
   explanation:
     en: '`getOrDefault` is one of the methods whose invocation results in an access to the entry. `containsKey`
       is not one of them, because no other methods generate entry accesses. `putFirst` positions the entry explicitly
@@ -134,15 +134,15 @@ variants:
       implementation note?
   options:
   - id: a
+    text:
+      en: '`poll()`'
+  - id: b
+    text:
+      en: '`offer(E)`'
+  - id: c
     correct: true
     text:
       en: '`contains(Object)`'
-  - id: b
-    text:
-      en: '`poll()`'
-  - id: c
-    text:
-      en: '`offer(E)`'
   - id: d
     text:
       en: '`peek()`'
@@ -151,3 +151,76 @@ variants:
       time. `offer(E)` is an enqueuing method with O(log(n)) time. `peek()` is a retrieval method with constant
       time.'
   citation: javadoc-priorityqueue#class-priorityqueue-e
+- id: m02-l06-q09
+  prompt:
+    en: In Java 25, an access-ordered `LinkedHashMap` is used as an LRU cache. Which call on it does NOT generate
+      an entry access, so the encounter order stays the same?
+  options:
+  - id: a
+    correct: true
+    text:
+      en: '`lastEntry()`'
+  - id: b
+    text:
+      en: '`get(key)` for a key that is present'
+  - id: c
+    text:
+      en: '`putAll(otherMap)`, for each mapping it copies'
+  - id: d
+    text:
+      en: '`replace(key, newValue)` when the key is present and its value is replaced'
+  explanation:
+    en: Explicit-positioning methods such as `lastEntry()` do not generate entry accesses. A `get(key)` on a present
+      key is wrong, because in an access-ordered map merely querying with `get` is a structural modification. A
+      `putAll` call is wrong, because it generates one entry access for each mapping in the specified map. A `replace`
+      call that replaces the value is wrong, because the replace methods result in an access of the entry when the
+      value is replaced.
+  citation: javadoc-linkedhashmap#class-linkedhashmap-k-v
+- id: m02-l06-q11
+  prompt:
+    en: In Redis with LFU eviction, the policy decays the access counter of a key by default. After how much time
+      does it decay the counter, unless the user changes the configuration?
+  options:
+  - id: a
+    text:
+      en: every ten seconds
+  - id: b
+    text:
+      en: every ten minutes
+  - id: c
+    correct: true
+    text:
+      en: every one minute
+  - id: d
+    text:
+      en: every one hour
+  explanation:
+    en: Redis decays the LFU counter every one minute by default, so the options every ten seconds, every ten minutes
+      and every one hour are wrong, because the documentation gives one minute as the default decay period.
+  citation: redis-eviction#lfu-eviction
+  extract:
+    en: Decay the counter every one minute.
+- id: m02-l06-q12
+  prompt:
+    en: In Redis LFU eviction, the counter estimates the access frequency of each key using just a few bits per
+      object. Within which range of values does this frequency counter fall?
+  options:
+  - id: a
+    correct: true
+    text:
+      en: 0-255
+  - id: b
+    text:
+      en: 0-15
+  - id: c
+    text:
+      en: 0-1023
+  - id: d
+    text:
+      en: 0-65535
+  explanation:
+    en: The frequency counter is in the range 0-255, so the options 0-15, 0-1023 and 0-65535 are wrong, because
+      the documentation gives 0-255 as the whole range of the counter.
+  citation: redis-eviction#lfu-eviction
+  extract:
+    en: which is just in the range 0-255

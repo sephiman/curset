@@ -88,5 +88,65 @@
   "citation": "spring-data-jpa-projections#projections.dtos",
   "extract": "These DTO types can be used in exactly the same way projection interfaces are used, except that no proxying happens and no nested projections can be applied.",
   "snippet": null
+ },
+ {
+  "id": "m05-l07-q07",
+  "fact": "m05-l07-f16",
+  "stem": "In the Jakarta Persistence specification, which lifecycle state describes an entity instance that has no persistent identity and is not yet associated with a persistence context?",
+  "key": "New",
+  "distractors": [
+   "Managed",
+   "Detached",
+   "Removed"
+  ],
+  "explanation": "A new entity instance has no persistent identity and is not yet associated with a persistence context. Managed is ruled out because a managed instance has a persistent identity and is currently associated with a persistence context. Detached is ruled out because a detached instance has a persistent identity but is no longer associated with a persistence context. Removed is ruled out because a removed instance has a persistent identity and will be removed from the database upon transaction commit.",
+  "citation": "jakarta-persistence-spec#a1929",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m05-l07-q08",
+  "fact": "m05-l07-f50",
+  "stem": "In Hibernate, which configuration property forces Hibernate to order inserts so that more batching can be used, at the cost of a performance hit?",
+  "key": "`hibernate.order_inserts`",
+  "distractors": [
+   "`hibernate.order_updates`",
+   "`hibernate.jdbc.batch_size`",
+   "`hibernate.jdbc.batch.builder`"
+  ],
+  "explanation": "`hibernate.order_inserts` forces Hibernate to order inserts to allow for more batching to be used. `hibernate.order_updates` is ruled out because it forces Hibernate to order SQL updates by entity type and primary key value. `hibernate.jdbc.batch_size` is ruled out because it controls the maximum number of statements batched together. `hibernate.jdbc.batch.builder` is ruled out because it names the implementation class used to manage batching.",
+  "citation": "hibernate-user-guide#batch-jdbcbatch",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m05-l07-q09",
+  "fact": "m05-l07-f37",
+  "stem": "You want Spring Data JPA auditing to determine the current user to set on domain types. Which type of bean do you expose to the `ApplicationContext` for that purpose?",
+  "key": "`AuditorAware`",
+  "distractors": [
+   "`DateTimeProvider`",
+   "`AuditingEntityListener`",
+   "`CurrentDateTimeProvider`"
+  ],
+  "explanation": "If you expose a bean of type `AuditorAware`, the auditing infrastructure picks it up and uses it to determine the current user. `DateTimeProvider` is ruled out because it provides the time giving instance. `AuditingEntityListener` is ruled out because it is the entity listener that triggers the capturing of auditing information. `CurrentDateTimeProvider` is ruled out because it is only the default implementation of the time provider.",
+  "citation": "spring-data-jpa-auditing#jpa.auditing.configuration",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m05-l07-q10",
+  "fact": "m05-l07-f03",
+  "stem": "In Spring Data, `ListCrudRepository` offers the same methods as `CrudRepository` but returns `List` in those places. Which type do the `CrudRepository` methods return there?",
+  "key": "`Iterable`",
+  "distractors": [
+   "`Collection`",
+   "`Stream`",
+   "`Set`"
+  ],
+  "explanation": "The `CrudRepository` methods return an `Iterable` where `ListCrudRepository` returns a `List`. `Collection`, `Stream` and `Set` are ruled out together, because the source names `Iterable` as the single return type those methods have.",
+  "citation": "spring-data-jpa-repositories-core-concepts#page-title",
+  "extract": null,
+  "snippet": null
  }
 ]

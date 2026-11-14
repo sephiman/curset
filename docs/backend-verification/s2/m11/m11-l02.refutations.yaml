@@ -321,3 +321,45 @@ m11-l02-q11:
       2026-01-02'
     execution: m11-l02/FixedClock.java
     mistake: offset clock assumed unchanged
+m11-l02-q12:
+  key:
+    anchor: spring-fw-tx-declarative-annotations#using-transactional
+    sentence: This means that self-invocation (in effect, a method within the target object calling another method of the target object) does not lead to an actual transaction at runtime even if the invoked method is marked with @Transactional.
+  wrong:
+  - option: A transaction is started for the called method, because that method is itself marked `@Transactional`
+    anchor: spring-fw-tx-declarative-annotations#using-transactional
+    sentence: This means that self-invocation (in effect, a method within the target object calling another method of the target object) does not lead to an actual transaction at runtime even if the invoked method is marked with @Transactional.
+  - option: A transaction is started for the called method, because local calls within the same class are intercepted by the default advice mode
+    anchor: spring-fw-tx-declarative-annotations#using-transactional
+    sentence: Local calls within the same class cannot get intercepted that way.
+  - option: A transaction is started for the called method, because `@EnableTransactionManagement` wraps every method call of the bean
+    anchor: spring-fw-tx-declarative-annotations#using-transactional
+    sentence: In proxy mode (which is the default), only external method calls coming in through the proxy are intercepted.
+m11-l02-q13:
+  key:
+    anchor: javadoc-bigdecimal#class-bigdecimal
+    sentence: In contrast, the equals method requires both the numerical value and representation to be the same for equality to hold.
+  wrong:
+  - option: '`true`, because `equals` compares only the numerical value of the two numbers'
+    anchor: javadoc-bigdecimal#class-bigdecimal
+    sentence: In contrast, the equals method requires both the numerical value and representation to be the same for equality to hold.
+  - option: '`true`, because the natural ordering of `BigDecimal` is consistent with `equals`'
+    anchor: javadoc-bigdecimal#class-bigdecimal
+    sentence: Care should be exercised if BigDecimal objects are used as keys in a SortedMap or elements in a SortedSet since BigDecimal's natural ordering is inconsistent with equals.
+  - option: '`true`, because `scale()` and `unscaledValue()` return the same results for numerically equal values'
+    anchor: javadoc-bigdecimal#class-bigdecimal
+    sentence: The results of methods like scale() and unscaledValue() will differ for numerically equal values with different representations.
+m11-l02-q14:
+  key:
+    anchor: javadoc-zoneddatetime#class-zoneddatetime
+    sentence: For Overlaps, the general strategy is that if the local date-time falls in the middle of an Overlap, then the previous offset will be retained.
+  wrong:
+  - option: None, because an overlap has zero valid offsets for that local date-time
+    anchor: javadoc-zoneddatetime#class-zoneddatetime
+    sentence: Overlap, with two valid offsets.
+  - option: The earlier offset is always used, even when a previous offset exists
+    anchor: javadoc-zoneddatetime#class-zoneddatetime
+    sentence: If there is no previous offset, or the previous offset is invalid, then the earlier offset is used, typically "summer" time.
+  - option: The later offset, with the local date-time shifted forwards by the length of the overlap
+    anchor: javadoc-zoneddatetime#class-zoneddatetime
+    sentence: For Overlaps, the general strategy is that if the local date-time falls in the middle of an Overlap, then the previous offset will be retained.

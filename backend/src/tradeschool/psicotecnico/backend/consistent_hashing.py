@@ -48,7 +48,9 @@ def _ring_text(nodes: tuple[tuple[str, int], ...]) -> str:
 
 class ConsistentHashingGenerator(BackendGenerator[Ring]):
     id: ClassVar[str] = "consistent-hashing-owner"
-    citation: ClassVar[Citation] = Citation("m09-l02", "paper-dynamo#p5")
+    citation: ClassVar[Citation] = Citation(
+        "m09-l02", "paper-dynamo#p5", confirmed="paper-dynamo-columns#p10; paper-dynamo-columns#p11"
+    )
 
     def scenario(self, rng: random.Random, level: int) -> Ring | None:
         joins = rng.random() < 0.5

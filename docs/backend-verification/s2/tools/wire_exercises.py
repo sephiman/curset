@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Declare each built exercise file (`exercises/<lesson>-ex-1.yaml`, `exercises/<case>.yaml`) under its lesson in
+"""Declare each built exercise file (`exercises/<lesson>-ex-1.yaml`, `exercises/m09-case-*.yaml`) under its lesson in
 course.yaml; the registry only loads exercises a lesson declares. Idempotent.
 
     python wire_exercises.py [--course-dir content/backend-in-depth] [--case m09-l04=case-rate-limiter ...]
@@ -12,6 +12,8 @@ import re
 from pathlib import Path
 
 _LESSON = re.compile(r"^    - id: (m\d{2}-l\d{2})$")
+# requirements 6.4: one case per blueprint of programme section 9.4, so every built case belongs to lesson 9.4
+CASE_LESSON = "m09-l04"
 
 
 def declared_block(exercises: list[tuple[str, str]]) -> list[str]:
@@ -37,7 +39,8 @@ def wire(text: str, wanted: dict[str, list[tuple[str, str]]]) -> str:
             end -= 1
         block = lines[index:end]
         lesson = match.group(1)
-        missing = [(eid, et) for eid, et in wanted.get(lesson, []) if f"      - id: {eid}" not in block]
+        requested = dict.fromkeys(wanted.get(lesson, []))
+        missing = [(eid, et) for eid, et in requested if f"      - id: {eid}" not in block]
         if missing and "      exercises:" in block:
             block += [line for eid, et in missing for line in (f"      - id: {eid}", f"        type: {et}")]
         elif missing:
@@ -56,6 +59,8 @@ def main() -> None:
     for path in sorted((args.course_dir / "exercises").glob("m*-l*-ex-1.yaml")):
         lesson = path.name.removesuffix("-ex-1.yaml")
         wanted.setdefault(lesson, []).append((path.stem, "quiz"))
+    for path in sorted((args.course_dir / "exercises").glob("m09-case-*.yaml")):
+        wanted.setdefault(CASE_LESSON, []).append((path.stem, "case"))
     for pair in args.case:
         lesson, case = pair.split("=", 1)
         wanted.setdefault(lesson, []).append((case, "case"))

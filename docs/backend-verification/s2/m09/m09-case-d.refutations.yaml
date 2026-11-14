@@ -241,3 +241,89 @@ m09-case-d-q15:
     anchor: flink-stateful-stream-processing#exactly-once-vs-at-least-once
     sentence: dataflows with only embarrassingly parallel streaming operations (map(), flatMap(), filter(), …) actually give exactly once guarantees even in at least once mode.
     exclusive: true
+m09-case-d-q16:
+  key:
+    anchor: kafka-design#end-to-end-batch-compression
+    sentence: The broker decompresses the batch in order to validate it. For example, it validates that the number of records in the batch is same as what batch header states.
+  wrong:
+  - option: To store the records uncompressed so that consumers read them without decompressing
+    anchor: kafka-design#end-to-end-batch-compression
+    sentence: This batch of messages is then written to disk in compressed form.
+  - option: To decompress it on behalf of the consumer, which cannot decompress data itself
+    anchor: kafka-design#end-to-end-batch-compression
+    sentence: The consumer decompresses any compressed data that it receives.
+  - option: To split it into single records that the broker appends to its log one at a time
+    anchor: kafka-design#efficiency
+    sentence: The server in turn appends chunks of messages to its log in one go, and the consumer fetches large linear chunks at a time.
+m09-case-d-q17:
+  key:
+    anchor: flink-stateful-stream-processing#exactly-once-vs-at-least-once
+    sentence: For applications that require consistently super low latencies (few milliseconds) for all records, Flink has a switch to skip the stream alignment during a checkpoint.
+  wrong:
+  - option: A switch to postpone the checkpoint snapshots until the job is idle
+    anchor: flink-stateful-stream-processing#exactly-once-vs-at-least-once
+    sentence: Checkpoint snapshots are still drawn as soon as an operator has seen the checkpoint barrier from each input.
+  - option: A switch to align every operator, including operators with a single predecessor
+    anchor: flink-stateful-stream-processing#exactly-once-vs-at-least-once
+    sentence: Alignment happens only for operators with multiple predecessors (joins) as well as operators with multiple senders (after a stream repartitioning/shuffle).
+  - option: A switch to lose records on restore instead of replaying them
+    anchor: flink-stateful-stream-processing#exactly-once-vs-at-least-once
+    sentence: On a restore, these records will occur as duplicates, because they are both included in the state snapshot of checkpoint n, and will be replayed as part of the data after checkpoint n.
+m09-case-d-q18:
+  key:
+    anchor: es-time-series-data-stream#when-to-use-tsds
+    sentence: Choose a time series data stream if you typically add metrics data to Elasticsearch in near real-time and in @timestamp order.
+  wrong:
+  - option: When it mostly stores timestamped logs or traces rather than metrics
+    anchor: es-time-series-data-stream#when-to-use-tsds
+    sentence: For other timestamped data, such as logs or traces, use a logs data stream or a regular data stream.
+  - option: When it runs the data in a Vector Database project rather than an Elasticsearch project
+    anchor: es-time-series-data-stream#when-to-use-tsds
+    sentence: 'Time series data streams (index.mode: time_series) are not available in Vector Database projects.'
+  - option: When its metrics carry only a timestamp and no dimension fields at all
+    anchor: es-time-series-data-stream#when-to-use-tsds
+    sentence: Metrics consist of data point–timestamp pairs, identified by dimension fields, that can be used in aggregation queries.
+m09-case-d-q19:
+  key:
+    anchor: paper-dynamo-columns#p15
+    sentence: Applications that need the highest level of availability can set W to 1, which ensures that a write is accepted as long as a single node in the system has durably written the key it to its local store.
+  wrong:
+  - option: '`R` set to 1'
+    anchor: paper-dynamo-columns#p14
+    sentence: W is the minimum number of nodes that must participate in a successful write operation.
+  - option: '`W` set to 2'
+    anchor: paper-dynamo-columns#p15
+    sentence: Applications that need the highest level of availability can set W to 1, which ensures that a write is accepted as long as a single node in the system has durably written the key it to its local store.
+    exclusive: true
+  - option: '`W` set to 3'
+    anchor: paper-dynamo-columns#p15
+    sentence: Applications that need the highest level of availability can set W to 1, which ensures that a write is accepted as long as a single node in the system has durably written the key it to its local store.
+    exclusive: true
+m09-case-d-q20:
+  key:
+    anchor: kafka-design#efficiency
+    sentence: TLS/SSL libraries operate at the user space (in-kernel SSL_sendfile is currently not supported by Kafka).
+  wrong:
+  - option: '`sendfile` can transfer data only between files, never from pagecache to a socket'
+    anchor: kafka-design#efficiency
+    sentence: Modern Unix operating systems offer a highly optimized code path for transferring data out of pagecache to a socket; in Linux this is done with the sendfile system call.
+  - option: Encrypted data cannot be held in the pagecache, so SSL listeners read it from disk
+    anchor: kafka-design#dont-fear-the-filesystem
+    sentence: All disk reads and writes will go through this unified cache.
+  - option: Batches sent over SSL stay compressed in the log, which `sendfile` cannot transfer
+    anchor: kafka-design#end-to-end-batch-compression
+    sentence: The batch will remain compressed in the log and it will also be transmitted to the consumer in compressed form.
+m09-case-d-q21:
+  key:
+    anchor: paper-dynamo-columns#p11
+    sentence: First, the random position assignment of each node on the ring leads to non-uniform data and load distribution.
+  wrong:
+  - option: Every node must store a copy of every key on the ring
+    anchor: paper-dynamo-columns#p11
+    sentence: Thus, each node becomes responsible for the region in the ring between it and its predecessor node on the ring.
+  - option: Every arrival or departure of a node forces all other nodes to move data
+    anchor: paper-dynamo-columns#p11
+    sentence: The principle advantage of consistent hashing is that departure or arrival of a node only affects its immediate neighbors and other nodes remain unaffected.
+  - option: The output range of the hash function cannot be treated as a ring
+    anchor: paper-dynamo-columns#p10
+    sentence: In consistent hashing [10], the output range of a hash function is treated as a fixed circular space or “ring”

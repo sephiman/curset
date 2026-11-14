@@ -1,0 +1,11 @@
+A1	LFU eviction and an in-memory rate limiter	Starting with Redis 4.0, the Least Frequently Used eviction mode is available (`redis-eviction#lfu-eviction`).
+A2	LFU eviction and an in-memory rate limiter	In Redis LFU mode, Redis tries to track the frequency of access of items, so the ones used rarely are evicted (`redis-eviction#lfu-eviction`).
+A3	LFU eviction and an in-memory rate limiter	The `allkeys-lfu` policy evicts any key using approximated LFU (`redis-eviction#lfu-eviction`).
+A4	LFU eviction and an in-memory rate limiter	The `volatile-lfu` policy evicts using approximated LFU among the keys with an expire set (`redis-eviction#lfu-eviction`).
+A5	LFU eviction and an in-memory rate limiter	Redis approximates LFU with a probabilistic counter, called a Morris counter, which estimates the access frequency using just a few bits per object (`redis-eviction#lfu-eviction`).
+A6	LFU eviction and an in-memory rate limiter	By default Redis decays the LFU counter every one minute (`redis-eviction#lfu-eviction`).
+A7	LFU eviction and an in-memory rate limiter	The LFU frequency counter is in the range 0-255 (`redis-eviction#lfu-eviction`).
+A8	LFU eviction and an in-memory rate limiter	A token bucket rate limiter allows controlled bursts of traffic while enforcing a steady average rate (`redis-ratelimiting-algorithms#how-it-works-3`).
+A9	LFU eviction and an in-memory rate limiter	In a token bucket rate limiter, each request consumes one token, and when the bucket is empty, requests are denied until more tokens refill (`redis-ratelimiting-algorithms#how-it-works-3`).
+A10	Key points	Redis offers an approximated LFU eviction mode that evicts rarely used keys, with a decay period of one minute by default.
+A11	Key points	A token bucket rate limiter denies requests when the bucket is empty, until more tokens refill.

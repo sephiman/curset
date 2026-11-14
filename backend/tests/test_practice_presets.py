@@ -201,7 +201,7 @@ async def test_the_design_cases_stay_out_of_every_preset_round(backend_client: A
     await _sign_up(backend_client, "casos")
     registry = _registry()
     cases = {e for e in registry.scope_exercise_ids("module", "m09") if registry.case_config(e) is not None}
-    assert len(cases) == 6
+    assert len(cases) == 7  # one per blueprint of programme 9.4
     rounds = [
         await backend_client.post(f"{BACKEND}/lessons/m09-l04/practice", json={"all": True}),
         await backend_client.post(f"{BACKEND}/modules/m09/practice", json={"all": True}),

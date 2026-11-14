@@ -30,6 +30,13 @@ def _ms(value: int | Fraction) -> str:
     return f"{grouped(value, 0 if Fraction(value).denominator == 1 else 1)} ms"
 
 
+_ATTRIBUTION = (
+    "According to the simulator code AWS published for Marc Brooker's post "
+    '"Exponential Backoff And Jitter", full jitter draws each wait uniformly between 0 and the capped '
+    "exponential value; the stem fixes the exponent."
+)
+
+
 def _total(s: Backoff, **flags: bool) -> int:
     return sum(bound(s, n, **flags) for n in range(1, s.retry + 1))
 
@@ -38,8 +45,9 @@ class RetryBackoffGenerator(BackendGenerator[Backoff]):
     id: ClassVar[str] = "retry-backoff-bounds"
     forms: ClassVar[tuple[str, ...]] = ("{}", "about {}", "approximately {}")
     min_separation: ClassVar[Fraction | None] = Fraction(1, 5)
+    # full jitter has no Tier A source, so the rule is class J and the explanation attributes it
     citation: ClassVar[Citation] = Citation(
-        "m08-l04", "resilience4j-retry#use-a-custom-intervalfunction; formula: textbook, no stored anchor"
+        "m08-l04", "J only: AWS simulator code for Brooker's post", confirmed="aws-arch-backoff-simulator#top"
     )
 
     def scenario(self, rng: random.Random, level: int) -> Backoff | None:
@@ -93,6 +101,9 @@ class RetryBackoffGenerator(BackendGenerator[Backoff]):
         ]
 
     def explanation(self, s: Backoff) -> str:
+        return f"{_ATTRIBUTION} {self._computation(s)}"
+
+    def _computation(self, s: Backoff) -> str:
         bounds = [bound(s, n) for n in range(1, s.retry + 1)]
         uncapped = [s.base_ms * 2 ** (n - 1) for n in range(1, s.retry + 1)]
         listing = ", ".join(

@@ -71,7 +71,9 @@ class RateLimiterGenerator(BackendGenerator[Limiter]):
     id: ClassVar[str] = "rate-limiter-state"
     citation: ClassVar[Citation] = Citation(
         "m08-l04",
-        "redis-rate-limiter#how-redis-supports-the-solution names the algorithms only; rules: textbook",
+        "rfc2697#section-3",
+        confirmed="rfc2697#section-3; redis-ratelimiting-algorithms#how-it-works-3; "
+        "redis-ratelimiting-algorithms#how-it-works-1",
     )
 
     def scenario(self, rng: random.Random, level: int) -> Limiter | None:

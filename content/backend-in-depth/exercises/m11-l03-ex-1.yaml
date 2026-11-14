@@ -17,6 +17,16 @@ variants:
 
         p99 10'
   - id: b
+    correct: true
+    text:
+      en: 'mean 29.8
+
+        p50 10
+
+        p98 10
+
+        p99 1000'
+  - id: c
     text:
       en: 'mean 29.8
 
@@ -25,19 +35,9 @@ variants:
         p98 1000
 
         p99 1000'
-  - id: c
+  - id: d
     text:
       en: 'mean 505.0
-
-        p50 10
-
-        p98 10
-
-        p99 1000'
-  - id: d
-    correct: true
-    text:
-      en: 'mean 29.8
 
         p50 10
 
@@ -58,6 +58,24 @@ variants:
       GC, the total, the largest sum and the average. What does it print?
   options:
   - id: a
+    text:
+      en: 'sum of pauses per GC {1=4, 2=2, 3=11}
+
+        total 17 ms
+
+        largest sum 10 ms
+
+        average sum 5.67 ms'
+  - id: b
+    text:
+      en: 'sum of pauses per GC {1=4, 2=2, 3=11}
+
+        total 17 ms
+
+        largest sum 11 ms
+
+        average sum 3.40 ms'
+  - id: c
     correct: true
     text:
       en: 'sum of pauses per GC {1=4, 2=2, 3=11}
@@ -67,24 +85,6 @@ variants:
         largest sum 11 ms
 
         average sum 5.67 ms'
-  - id: b
-    text:
-      en: 'sum of pauses per GC {1=4, 2=2, 3=11}
-
-        total 17 ms
-
-        largest sum 10 ms
-
-        average sum 5.67 ms'
-  - id: c
-    text:
-      en: 'sum of pauses per GC {1=4, 2=2, 3=11}
-
-        total 17 ms
-
-        largest sum 11 ms
-
-        average sum 3.40 ms'
   - id: d
     text:
       en: 'sum of pauses per GC {1=3, 2=2, 3=10}
@@ -109,18 +109,18 @@ variants:
       to the number of queries the database can process simultaneously?
   options:
   - id: a
+    text:
+      en: It matches the number of front-end users, so that no request waits for a connection
+  - id: b
+    text:
+      en: It is large, 100 connections or more, so that application threads never block on the pool
+  - id: c
+    text:
+      en: It equals `Tn x (Cm - 1) + 1`, which is the optimal pool size
+  - id: d
     correct: true
     text:
       en: It is set right at that limit, which is rarely much more than CPU cores times 2
-  - id: b
-    text:
-      en: It matches the number of front-end users, so that no request waits for a connection
-  - id: c
-    text:
-      en: It is large, 100 connections or more, so that application threads never block on the pool
-  - id: d
-    text:
-      en: It equals `Tn x (Cm - 1) + 1`, which is the optimal pool size
   explanation:
     en: A properly tuned pool is set right at the limit of the queries the database can process simultaneously,
       rarely much more than CPU cores times 2. The claim of one connection per front-end user is wrong because a
@@ -135,12 +135,12 @@ variants:
       in GC. Which action does it list to reduce the number of GCs?
   options:
   - id: a
-    text:
-      en: Reduce the Java heap size, so that each collection has less to scan
-  - id: b
     correct: true
     text:
       en: Allocate fewer temporary objects
+  - id: b
+    text:
+      en: Reduce the Java heap size, so that each collection has less to scan
   - id: c
     text:
       en: Include the heap statistics in the recording, to avoid extra old collections
@@ -160,15 +160,15 @@ variants:
       the latency values that this function receives expressed?
   options:
   - id: a
-    text:
-      en: Milliseconds
-  - id: b
-    text:
-      en: Nanoseconds
-  - id: c
     correct: true
     text:
       en: Microseconds
+  - id: b
+    text:
+      en: Milliseconds
+  - id: c
+    text:
+      en: Nanoseconds
   - id: d
     text:
       en: Seconds
@@ -176,4 +176,50 @@ variants:
     en: The `done()` function receives latency in microseconds. Milliseconds, nanoseconds and seconds are excluded
       by the single documented unit, because latency is given as microsecond values and only the rate is measured
       per second.
+  citation: wrk2-readme#scripting
+- id: m11-l03-q10
+  prompt:
+    en: In the example output of the Kafka `kafka-consumer-groups.sh --describe` command, partition 0 of `my-topic`
+      has `CURRENT-OFFSET` 2 and `LOG-END-OFFSET` 4. What does its `LAG` column show?
+  options:
+  - id: a
+    text:
+      en: '1'
+  - id: b
+    correct: true
+    text:
+      en: '2'
+  - id: c
+    text:
+      en: '3'
+  - id: d
+    text:
+      en: '4'
+  explanation:
+    en: The `LAG` column of partition 0 shows 2, because the example row for partition 0 reads 2, 4 and 2. The values
+      1, 3 and 4 are ruled out by that same row, which gives 2 as the `LAG` of partition 0, and 4 is its `LOG-END-OFFSET`.
+  citation: kafka-ops-basic-operations#checking-consumer-position
+- id: m11-l03-q12
+  prompt:
+    en: In a `wrk` Lua script, the `done()` function receives a `summary` table of result data. What does `summary.errors.status`
+      hold?
+  options:
+  - id: a
+    text:
+      en: The total number of request timeouts
+  - id: b
+    text:
+      en: The total number of socket read errors
+  - id: c
+    correct: true
+    text:
+      en: The total number of HTTP status codes greater than 399
+  - id: d
+    text:
+      en: The 99th percentile of the sampled per-request latency
+  explanation:
+    en: The field holds the total of HTTP status codes greater than 399. The number of request timeouts is ruled
+      out because `summary.errors.timeout` is the field that holds the total request timeouts. The number of socket
+      read errors is ruled out because `summary.errors.read` holds the total socket read errors. The 99th percentile
+      is ruled out because `latency:percentile(99.0)` gives the 99th percentile value.
   citation: wrk2-readme#scripting

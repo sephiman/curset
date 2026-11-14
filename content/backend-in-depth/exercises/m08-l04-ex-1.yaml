@@ -11,15 +11,15 @@ variants:
     text:
       en: It changes to `CLOSED` at once, because the elapsed wait duration shows that the backend has recovered
   - id: b
+    text:
+      en: It changes to `HALF_OPEN` and permits every call, because `HALF_OPEN` allows access as `CLOSED` does
+  - id: c
+    text:
+      en: It stays `OPEN` and rejects every call until someone resets it manually
+  - id: d
     correct: true
     text:
       en: It changes to `HALF_OPEN` and permits a configurable number of calls to see whether the backend has recovered
-  - id: c
-    text:
-      en: It changes to `HALF_OPEN` and permits every call, because `HALF_OPEN` allows access as `CLOSED` does
-  - id: d
-    text:
-      en: It stays `OPEN` and rejects every call until someone resets it manually
   explanation:
     en: After the wait time duration, the `CircuitBreaker` changes from `OPEN` to `HALF_OPEN` and permits a configurable
       number of calls to see whether the backend has recovered. Changing straight to `CLOSED` is wrong, because
@@ -68,12 +68,12 @@ variants:
     text:
       en: At the cluster level, with a quota shared among all the brokers
   - id: c
-    text:
-      en: By the client alone, which counts its own requests and throttles itself
-  - id: d
     correct: true
     text:
       en: Over multiple small windows, for example 30 windows of 1 second each
+  - id: d
+    text:
+      en: By the client alone, which counts its own requests and throttles itself
   explanation:
     en: Byte-rate and thread utilization are measured over multiple small windows, for example 30 windows of 1 second
       each. A few large windows are wrong, because large measurement windows lead to large bursts of traffic followed
@@ -91,15 +91,15 @@ variants:
       ask permission to execute a function. How many of them are allowed to invoke it?
   options:
   - id: a
-    text:
-      en: Fifteen, because the sliding window size caps the number of concurrent calls
-  - id: b
-    text:
-      en: One at a time, because the `CircuitBreaker` synchronizes the function call
-  - id: c
     correct: true
     text:
       en: All twenty, because the sliding window does not limit concurrency
+  - id: b
+    text:
+      en: Fifteen, because the sliding window size caps the number of concurrent calls
+  - id: c
+    text:
+      en: One at a time, because the `CircuitBreaker` synchronizes the function call
   - id: d
     text:
       en: None, because the `CircuitBreaker` rejects calls until the window is full
@@ -199,12 +199,12 @@ variants:
     en: In Kafka 4, over which scope is a client quota defined on a broker by default?
   options:
   - id: a
+    text:
+      en: Cluster-wide, with the usage shared among all the brokers
+  - id: b
     correct: true
     text:
       en: Per broker, for each unique client group
-  - id: b
-    text:
-      en: Cluster-wide, with the usage shared among all the brokers
   - id: c
     text:
       en: Per topic partition that the client writes to
@@ -220,3 +220,29 @@ variants:
   citation: kafka-design#enforcement; kafka-design#quotas
   extract:
     en: This quota is defined on a per-broker basis.
+- id: m08-l04-q10
+  prompt:
+    en: In the single rate three color marker of RFC 2697, what is the token count of the committed token bucket
+      at time 0?
+  options:
+  - id: a
+    correct: true
+    text:
+      en: Equal to its maximum size, so the bucket is full
+  - id: b
+    text:
+      en: Zero, so the bucket must fill before a packet can be marked green
+  - id: c
+    text:
+      en: Half of its maximum size, so the bucket is half full
+  - id: d
+    text:
+      en: One token, enough for the first packet only
+  explanation:
+    en: The committed token bucket is initially full, with a token count equal to CBS. An empty bucket is wrong,
+      because the buckets are initially full. A half-full bucket is wrong for the same reason, since the initial
+      count equals the maximum size. A single token is wrong too, because the initial count is the whole CBS, and
+      the sentence gives one value that excludes all three options.
+  citation: rfc2697#section-3
+  extract:
+    en: The token buckets C and E are initially (at time 0) full

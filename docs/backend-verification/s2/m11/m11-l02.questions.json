@@ -163,5 +163,50 @@
   "citation": "javadoc-clock#class-clock",
   "extract": null,
   "snippet": "m11-l02/FixedClock.java"
+ },
+ {
+  "id": "m11-l02-q12",
+  "fact": "m11-l02-f67",
+  "stem": "In Spring Framework's default proxy mode, one method of a bean calls another method of the same bean, and the called method is marked `@Transactional`. What does the reference documentation say happens?",
+  "key": "No actual transaction is started for the called method, because self-invocation does not go through the proxy",
+  "distractors": [
+   "A transaction is started for the called method, because that method is itself marked `@Transactional`",
+   "A transaction is started for the called method, because local calls within the same class are intercepted by the default advice mode",
+   "A transaction is started for the called method, because `@EnableTransactionManagement` wraps every method call of the bean"
+  ],
+  "explanation": "No actual transaction is started, because self-invocation does not lead to a transaction at runtime in proxy mode. A transaction started by the `@Transactional` mark on the called method is ruled out because the documentation says self-invocation does not lead to a transaction even if the invoked method carries that mark. Interception of local calls by the default advice mode is ruled out because local calls within the same class cannot get intercepted that way. Wrapping of every call by `@EnableTransactionManagement` is ruled out because in proxy mode only external method calls coming in through the proxy are intercepted.",
+  "citation": "spring-fw-tx-declarative-annotations#using-transactional",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m11-l02-q13",
+  "fact": "m11-l02-f35",
+  "stem": "A `BigDecimal` holds `2.0` and another holds `2.00`. According to the `BigDecimal` Javadoc, what does `equals` report for these two numerically equal values, and why?",
+  "key": "`false`, because `equals` requires both the numerical value and the representation to be the same",
+  "distractors": [
+   "`true`, because `equals` compares only the numerical value of the two numbers",
+   "`true`, because the natural ordering of `BigDecimal` is consistent with `equals`",
+   "`true`, because `scale()` and `unscaledValue()` return the same results for numerically equal values"
+  ],
+  "explanation": "The result is `false`, because the `equals` method requires both the numerical value and the representation to be the same for equality to hold. Comparing only the numerical value is ruled out by that same requirement. A natural ordering consistent with `equals` is ruled out because the natural ordering of `BigDecimal` is inconsistent with `equals`. Equal `scale()` and `unscaledValue()` results are ruled out because those results differ for numerically equal values with different representations.",
+  "citation": "javadoc-bigdecimal#class-bigdecimal",
+  "extract": null,
+  "snippet": null
+ },
+ {
+  "id": "m11-l02-q14",
+  "fact": "m11-l02-f52",
+  "stem": "In `ZonedDateTime`, a local date-time falls in the middle of an overlap, when clocks are set back. Which offset does the Javadoc's general strategy give the resulting zoned date-time?",
+  "key": "The previous offset is retained",
+  "distractors": [
+   "None, because an overlap has zero valid offsets for that local date-time",
+   "The earlier offset is always used, even when a previous offset exists",
+   "The later offset, with the local date-time shifted forwards by the length of the overlap"
+  ],
+  "explanation": "The previous offset is retained, as the general strategy for overlaps says. Zero valid offsets is ruled out because an overlap has two valid offsets. Always using the earlier offset is ruled out because the earlier offset is used only when there is no previous offset or the previous one is invalid. Shifting forwards into the later offset is ruled out because that is the strategy for gaps, while for overlaps the previous offset will be retained.",
+  "citation": "javadoc-zoneddatetime#class-zoneddatetime",
+  "extract": null,
+  "snippet": null
  }
 ]

@@ -11,12 +11,12 @@ variants:
     text:
       en: It is evaluated before the assertion runs, on every call
   - id: b
+    text:
+      en: It is evaluated once, when the test class is instantiated
+  - id: c
     correct: true
     text:
       en: It is evaluated only when the assertion fails
-  - id: c
-    text:
-      en: It is evaluated once, when the test class is instantiated
   - id: d
     text:
       en: It is rejected, because the message parameter must be a `String`
@@ -33,12 +33,12 @@ variants:
       is active. What happens to the bean's database changes after the test finishes?
   options:
   - id: a
+    text:
+      en: They are rolled back together with the test-managed transaction
+  - id: b
     correct: true
     text:
       en: They are committed, even though the test-managed transaction is rolled back
-  - id: b
-    text:
-      en: They are rolled back together with the test-managed transaction
   - id: c
     text:
       en: They are rolled back, because the executable runs in the thread of the calling code
@@ -64,12 +64,12 @@ variants:
     text:
       en: '`"a"`, because the first stubbing is kept'
   - id: b
-    text:
-      en: '`null`, because the second stubbing resets the mock'
-  - id: c
     correct: true
     text:
       en: '`"b"`, because the last stubbing wins'
+  - id: c
+    text:
+      en: '`null`, because the second stubbing resets the mock'
   - id: d
     text:
       en: An exception, because the same call was stubbed twice
@@ -87,18 +87,6 @@ variants:
       checks an invoice due on `2026-03-31` against each clock. What does it print?
   options:
   - id: a
-    correct: true
-    text:
-      en: '2026-03-31
-
-        2026-04-01
-
-        false
-
-        true
-
-        true'
-  - id: b
     text:
       en: '2026-03-31
 
@@ -109,7 +97,7 @@ variants:
         false
 
         true'
-  - id: c
+  - id: b
     text:
       en: '2026-03-31
 
@@ -120,13 +108,25 @@ variants:
         true
 
         false'
-  - id: d
+  - id: c
     text:
       en: '2026-03-31
 
         2026-04-01
 
         true
+
+        true
+
+        true'
+  - id: d
+    correct: true
+    text:
+      en: '2026-03-31
+
+        2026-04-01
+
+        false
 
         true
 
@@ -163,15 +163,6 @@ variants:
 
         same instant twice: false'
   - id: c
-    text:
-      en: 'offset -1: true
-
-        offset 0: false
-
-        offset 1: false
-
-        same instant twice: true'
-  - id: d
     correct: true
     text:
       en: 'offset -1: false
@@ -179,6 +170,15 @@ variants:
         offset 0: false
 
         offset 1: true
+
+        same instant twice: true'
+  - id: d
+    text:
+      en: 'offset -1: true
+
+        offset 0: false
+
+        offset 1: false
 
         same instant twice: true'
   explanation:
@@ -194,13 +194,6 @@ variants:
       and prints the expected value computed with `long`. What does it print?
   options:
   - id: a
-    text:
-      en: '0,10 -> 5 expected 5
-
-        4,4 -> 4 expected 4
-
-        2147483646,2147483647 -> 2147483646 expected 2147483646'
-  - id: b
     correct: true
     text:
       en: '0,10 -> 5 expected 5
@@ -208,6 +201,13 @@ variants:
         4,4 -> 4 expected 4
 
         2147483646,2147483647 -> -1 expected 2147483646'
+  - id: b
+    text:
+      en: '0,10 -> 5 expected 5
+
+        4,4 -> 4 expected 4
+
+        2147483646,2147483647 -> 2147483646 expected 2147483646'
   - id: c
     text:
       en: '0,10 -> 5 expected 5
@@ -229,3 +229,51 @@ variants:
       wrong because the expected value is computed with `long`.
   citation: javadoc-integer#MAX_VALUE
   snippet: m11-l04/MidpointCases.java
+- id: m11-l04-q11
+  prompt:
+    en: A JUnit Jupiter test class is annotated with `@TestInstance(Lifecycle.PER_CLASS)`. Which statement about
+      its test instances is correct according to the user guide?
+  options:
+  - id: a
+    correct: true
+    text:
+      en: All test methods execute on the same test instance
+  - id: b
+    text:
+      en: JUnit creates a new instance of the class before each test method, as in the default mode
+  - id: c
+    text:
+      en: State in instance variables never needs resetting, because each method gets a fresh instance
+  - id: d
+    text:
+      en: '`@BeforeAll` and `@AfterAll` must still be declared on static methods'
+  explanation:
+    en: All test methods execute on the same test instance, and a new instance is created once per test class. A
+      new instance before each method is ruled out because that per-method lifecycle is the default, and `PER_CLASS`
+      is the annotation chosen to run all methods on the same instance. Never resetting instance state is ruled
+      out because tests that rely on state stored in instance variables may need to reset it in `@BeforeEach` or
+      `@AfterEach`. Static-only lifecycle methods are ruled out because the per-class mode makes it possible to
+      declare `@BeforeAll` and `@AfterAll` on non-static methods.
+  citation: junit-writing-lifecycle#test-instance-lifecycle
+- id: m11-l04-q13
+  prompt:
+    en: A Mockito mock of a class is created and none of its methods is stubbed. According to the Javadoc, what
+      does a call to an unstubbed method that returns an `int` give?
+  options:
+  - id: a
+    text:
+      en: '`1`'
+  - id: b
+    text:
+      en: '`-1`'
+  - id: c
+    text:
+      en: '`Integer.MIN_VALUE`'
+  - id: d
+    correct: true
+    text:
+      en: '`0`'
+  explanation:
+    en: An unstubbed method that returns an `int` gives `0`, the default the Javadoc names for an `int` or `Integer`.
+      The numbers `1`, `-1` and `Integer.MIN_VALUE` fail because the Javadoc names `0` as that default.
+  citation: mockito-javadoc-source#2

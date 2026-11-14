@@ -123,7 +123,11 @@ def _trace(rng: random.Random, kind: Kind, processes: int, length: int) -> Trace
 
 class LogicalClocksGenerator(BackendGenerator[Trace]):
     id: ClassVar[str] = "logical-clocks"
-    citation: ClassVar[Citation] = Citation("m08-l01", "paper-lamport-time-clocks#p4; paper-dynamo#p6")
+    citation: ClassVar[Citation] = Citation(
+        "m08-l01",
+        "paper-lamport-time-clocks-columns#p6 (IR1 verified; IR2 deleted on a second voice failure); "
+        "paper-dynamo-columns#p12",
+    )
 
     def scenario(self, rng: random.Random, level: int) -> Trace | None:
         kind: Kind = "lamport" if level == 1 else rng.choice(("vector", "concurrent"))

@@ -24,6 +24,9 @@ else
   fail "Android bundle"
 fi
 
+step "backend-in-depth exercise wiring (declares every built exercise file in course.yaml)"
+(cd "$repo" && python3 docs/backend-verification/s2/tools/wire_exercises.py) || fail "wire_exercises.py"
+
 step "backend: uv run pytest"
 (cd "$repo/backend" && uv run pytest -q -p no:warnings 2>&1 | tail -3) | tee "$scratch/backend.log"
 grep -qE ' (failed|error)' "$scratch/backend.log" && fail "backend suite"
