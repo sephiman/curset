@@ -1,0 +1,132 @@
+# Gap fill — m03-l04 (2026-11-18)
+
+All written from the saved sources (pool had nothing for these). Lines of the lesson after the edit.
+
+- l. 151: Los datos que se incluyen en el Censo de Obligados Tributarios son, para las per — written
+- l. 153: :::esquema{kind=tabla title="Datos del Censo de Obligados Tributarios: personas  — written
+- l. 156: | a) | Nombre y apellidos, sexo, fecha de nacimiento, lugar de nacimiento, estad — written
+- l. 157: | b) | Número de identificación fiscal español. | art. 4.1 RGAT | — written
+- l. 158: | c) | Número de identificación fiscal de otros países, en su caso, para los res — written
+- l. 159: | d) | Código de identificación fiscal del Estado de residencia, en su caso, par — written
+- l. 160: | e) | Número de pasaporte, en su caso. | art. 4.1 RGAT | — written
+- l. 161: | f) | Condición de residente o no residente en territorio español. | art. 4.1 R — written
+- l. 162: | g) | Domicilio fiscal en España y la referencia catastral del inmueble, salvo  — written
+- l. 163: | h) | En su caso, domicilio en el extranjero. | art. 4.1 RGAT | — written
+- l. 164: | i) | Nombre y apellidos o razón social o denominación completa y número de ide — written
+- l. 167: Para las personas jurídicas y demás entidades, los datos que se incluyen en el C — written
+- l. 169: :::esquema{kind=tabla title="Datos del Censo de Obligados Tributarios: personas  — written
+- l. 172: | a) | Razón social o denominación completa, así como el anagrama, si lo tuviera — written
+- l. 173: | b) | Número de identificación fiscal español. | art. 4.2 RGAT | — written
+- l. 174: | c) | Número de identificación fiscal de otros países, en su caso, para los res — written
+- l. 175: | d) | Código de identificación fiscal del Estado de residencia, en su caso, par — written
+- l. 176: | e) | Condición de persona jurídica o entidad residentes o no residentes en ter — written
+- l. 177: | f) | Constitución en España o en el extranjero; en este último caso incluirá e — written
+- l. 178: | g) | Fecha de constitución y, en su caso, fecha del acuerdo de voluntades a qu — written
+- l. 179: | h) | Capital social de constitución. | art. 4.2 RGAT | — written
+- l. 180: | i) | Domicilio fiscal en España y la referencia catastral del inmueble, salvo  — written
+- l. 181: | j) | En su caso, domicilio en el extranjero. | art. 4.2 RGAT | — written
+- l. 182: | k) | Nombre y apellidos o razón social o denominación completa y número de ide — written
+- l. 183: | l) | La declaración de que la entidad se constituye con la finalidad específic — written
+- l. 184: | m) | El nombre, apellidos y número de identificación fiscal y, en su caso, el  — written
+- l. 187: Hasta que se produzca esa transmisión, las entidades a que se refiere la letra l — written
+- l. 189: En el Censo de Empresarios, Profesionales y Retenedores, además de los datos del — written
+- l. 191: - a) Las declaraciones o autoliquidaciones que deba presentar periódicamente por — written
+- l. 192: - b) Su situación tributaria en relación con los extremos del esquema siguiente  — written
+- l. 193: - c) El número de teléfono y, en su caso, la dirección de correo electrónico y e — written
+- l. 195: :::esquema{kind=tabla title="Situación tributaria que consta en el Censo de Empr — written
+- l. 198: | 1.º | La condición de entidad total o parcialmente exenta a efectos del Impues — written
+- l. 199: | 2.º | La opción o la renuncia al régimen fiscal especial previsto en el título — written
+- l. 200: | 3.º | El método de determinación del rendimiento neto de las actividades econó — written
+- l. 201: | 4.º | La inclusión, renuncia, revocación de la renuncia o exclusión del método — written
+- l. 202: | 5.º | La sujeción del obligado tributario al régimen general o a algún régimen — written
+- l. 203: | 6.º | La inclusión, renuncia, revocación de la renuncia o exclusión del régime — written
+- l. 204: | 7.º | La inclusión o baja en el Registro de operadores intracomunitarios. | ar — written
+- l. 205: | 8.º | La inclusión o baja en el Registro de devolución mensual a que se refier — written
+- l. 206: | 9.º | La inclusión o baja en el Registro de grandes empresas. | art. 5.b) RGAT — written
+- l. 207: | 10.º | La inclusión o baja en el Registro de extractores de depósitos fiscales — written
+- l. 208: | 11.º | La clasificación de las actividades económicas desarrolladas de acuerdo — written
+- l. 209: | 12.º | La relación, en su caso, de los establecimientos o locales en los que d — written
+- l. 212: Respecto de las personas físicas residentes en España, constan en el Censo de Em — written
+- l. 214: Respecto de las entidades residentes o constituidas en España, constan en el Cen — written
+- l. 216: :::esquema{kind=tabla title="Datos adicionales de las entidades residentes o con — written
+- l. 219: | a) | El domicilio social, cuando exista y sea distinto al domicilio fiscal, y  — written
+- l. 220: | b) | La fecha de cierre del ejercicio económico. | art. 7 RGAT | — written
+- l. 221: | c) | La forma jurídica o clase de entidad de que se trate. | art. 7 RGAT | — written
+- l. 222: | d) | El nombre y apellidos o razón social o denominación completa, número de i — written
+- l. 223: | d) | También se harán constar esos mismos datos, excepto para las entidades qu — written
+- l. 224: | d) | En el caso de que los socios, miembros o partícipes no sean residentes en — written
+- l. 225: | e) | El nombre y apellidos o razón social o denominación completa y número de  — written
+- l. 228: Cuando se trate de personas o entidades no residentes o no establecidas, así com — written
+- l. 230: - a) El Estado o territorio de residencia. — written
+- l. 231: - b) La nacionalidad y la forma jurídica o clase de entidad sin personalidad jur — written
+- l. 232: - c) En su caso, nombre y apellidos o razón social o denominación completa, con  — written
+- l. 234: Cuando una persona o entidad no residente opere en territorio español por medio  — written
+- l. 236: Cada establecimiento permanente se identifica con una denominación específica qu — written
+- l. 238: Cuando una persona o entidad no residente opere en territorio español por sí mis — written
+- l. 240: En el caso de entidades en régimen de atribución de rentas con presencia en terr — written
+- l. 465: El cese del empresario en el ejercicio de sus actividades no le exime del deber  — written
+- l. 499: Los sujetos pasivos a los que sea de aplicación el régimen especial del recargo  — written
+- l. 501: - 1.º Cuando realicen adquisiciones intracomunitarias de bienes, o sean los dest — written
+- l. 502: - 2.º Cuando realicen entregas de bienes a viajeros con derecho a la devolución  — written
+- l. 503: - 3.º Cuando realicen entregas de bienes inmuebles sujetas y no exentas al impue — written
+- l. 520: Cuando un empresario o profesional, actuando como tal, utilizando una interfaz d — written
+- l. 522: El registro es lo suficientemente detallado como para permitir a la Administraci — written
+- l. 524: - a) El nombre, la dirección postal y electrónica o el sitio web del proveedor c — written
+- l. 525: - b) Una descripción de los bienes, su valor, el lugar de llegada de la expedici — written
+- l. 526: - c) Una descripción de los servicios, su valor, información para determinar el  — written
+- l. 528: El registro debe estar por vía electrónica, previa solicitud, a disposición de l — written
+- l. 548: Los libros registro deben permitir determinar con precisión en cada período de l — written
+- l. 550: 1. El importe total del IVA que el sujeto pasivo haya repercutido a sus clientes — written
+- l. 551: 2. El importe total del impuesto soportado por el sujeto pasivo por sus adquisic — written
+- l. 552: 3. Respecto a las operaciones reflejadas en el libro registro de determinadas op — written
+- l. 554: Todos los libros registro mencionados en el RIVA deben ser llevados, cualquiera  — written
+- l. 556: Esos requisitos se entienden sin perjuicio de los posibles espacios en blanco en — written
+- l. 558: La opción a que se refiere el artículo 62.6 del RIVA puede ejercitarse a lo larg — written
+- l. 560: Quienes opten por este sistema de llevanza de los libros registro deben cumplir  — written
+- l. 562: Los sujetos pasivos inscritos en el registro de devolución mensual que queden ex — written
+- l. 855: De cada uno de los artículos 37 a 54 ter del RGAT se recoge a continuación su ap — written
+- l. 863: Conforme a los artículos 1.2 y 29 bis de la LGT y 30.2 del RGAT, las institucion — written
+- l. 1081: Los empresarios o profesionales están obligados a expedir y entregar, en su caso — written
+- l. 1085: También debe expedirse factura y copia de esta por los pagos recibidos con anter — written
+- l. 1087: Debe expedirse factura y copia de esta en todo caso en las operaciones siguiente — written
+- l. 1089: - a) Aquellas en las que el destinatario sea un empresario o profesional que act — written
+- l. 1090: - b) Las entregas de bienes destinados a otro Estado miembro a que se refiere el — written
+- l. 1091: - c) Las entregas de bienes a que se refiere el artículo 68.Tres.a) y cinco de l — written
+- l. 1092: - d) Las entregas de bienes expedidos o transportados fuera de la Comunidad Euro — written
+- l. 1093: - e) Las entregas de bienes que han de ser objeto de instalación o montaje antes — written
+- l. 1094: - f) Aquellas de las que sean destinatarias personas jurídicas que no actúen com — written
+- l. 1096: La obligación de expedir factura se ajusta a las normas del reglamento en los si — written
+- l. 1098: - a) Para las operaciones a las que resulten aplicables los regímenes especiales — written
+- l. 1099: - b) a') Para las operaciones distintas de las de la letra a), cuando la entrega — written
+- l. 1100: - b) b') Para las operaciones distintas de las de la letra a), cuando el proveed — written
+- l. 1101: - b) b') a'') Cuando la operación esté sujeta en otro Estado miembro, el sujeto  — written
+- l. 1102: - b) b') b'') Cuando la operación se entienda realizada fuera de la Comunidad. — written
+- l. 1104: Tiene la consideración de justificante contable a que se refiere el número 4.º d — written
+- l. 1113: No existe obligación de expedir factura cuando se trate de las prestaciones de s — written
+- l. 1115: - a) Conforme a las reglas de localización aplicables a ellas, se entiendan real — written
+- l. 1116: - b) Conforme a las reglas de localización aplicables a ellas, se entiendan real — written
+- l. 1118: El Departamento de Gestión Tributaria de la Agencia Estatal de Administración Tr — written
+- l. 1369: Los empresarios o profesionales que, de acuerdo con el artículo 131.2.º de la LI — written
+- l. 1371: - a) Serie y número. La numeración de los recibos dentro de cada serie es correl — written
+- l. 1372: - b) Nombre y apellidos, razón o denominación social completa, número de identif — written
+- l. 1373: - c) Descripción de los bienes entregados o de los servicios prestados, así como — written
+- l. 1374: - d) Precio de los bienes o servicios, determinado con arreglo a lo dispuesto en — written
+- l. 1375: - e) Porcentaje de compensación aplicado. — written
+- l. 1376: - f) Importe de la compensación. — written
+- l. 1377: - g) La firma del titular de la explotación agrícola, ganadera, forestal o pesqu — written
+- l. 1379: Estos empresarios o profesionales deben entregar una copia del recibo al proveed — written
+- l. 1381: Los sujetos pasivos que apliquen el régimen especial de los bienes usados, objet — written
+- l. 1383: - a) Expedir un documento que justifique cada una de las adquisiciones efectuada — written
+- l. 1384: - b) En todo caso, en las facturas que expidan los sujetos pasivos revendedores  — written
+- l. 1385: - c) En las facturas que expidan los sujetos pasivos revendedores por las entreg — written
+- l. 1387: En las operaciones a las que resulte aplicable el régimen especial de las agenci — written
+- l. 1389: Los empresarios o profesionales que efectúen entregas de bienes en las que deba  — written
+
+## Fix: art. 3.1 RD 1619/2012 items a) and d) (2026-11-18)
+
+- Item a), changed (checked against art. 3.1.a):
+  «…con las excepciones que el propio artículo señala.» →
+  «…con excepción de las operaciones a que se refiere el apartado 2 siguiente; no obstante, la expedición de factura será obligatoria en las operaciones exentas de acuerdo con el artículo 20.Uno.2.º, 3.º, 4.º, 5.º, 15.º, 20.º, 22.º, 24.º, 25.º y 28.º de la LIVA.»
+- Item d), changed (checked against art. 3.1.d):
+  «Aquellas otras que autorice el Departamento de Gestión Tributaria … o empresas determinadas.» →
+  «Aquéllas otras en las que así se autorice por el Departamento de Gestión Tributaria … o empresas determinadas, con el fin de evitar perturbaciones en el desarrollo de las actividades empresariales o profesionales.»

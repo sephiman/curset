@@ -609,3 +609,209 @@ Nothing committed. Close: `close_round.sh`.
    and the retenciones classification for stage 2.
 8. The browser checks ran on the throwaway e2e stack (Playwright), not on a deploy host.
 9. Next: stage 2 on Juanjo's go-ahead. Nothing is committed.
+
+---
+
+# R2d — coverage by programme, after the external review (started 2026-11-14)
+
+Requirements v1.2 (R4.7–R4.9); review `docs/aeat-external-review-2026-11.md` present. Working folder
+`docs/age-verification/aeat/r2d/` (`spec-map.md`, `words-before.tsv`, `base-commit.txt`). Nothing committed.
+
+## R2d — where to resume
+
+- 2026-11-14, usage window cut during step 1. Eight Opus map auditors were launched per `r2d/spec-map.md`, writing
+  `r2d/<lesson>-map.md`: III.18–III.20; III.15–III.17; III.9, III.11, III.10, III.6; III.13, III.12; III.14, III.5;
+  III.8, III.7; III.1–III.4; II.5–II.1, I.6. Not yet launched: I.1–I.3, I.4–I.5, I.7.
+- On resume: list `r2d/*-map.md`; a map without its «## Counts» section is incomplete — relaunch that tema with the
+  same spec. Then launch the three remaining common groups, then write `docs/aeat-coverage-plan.md`.
+- Decided so far (for «Decisions taken without asking»): map and report folders are named by lesson id
+  (`r2d/m03-l18-map.md`, `r2d/m03-l18/`), as the tax part's decision 1; map auditors run on Opus, up to eight at once
+  (no writers run in step 1); verdicts of this round must be read by a round driver (to write: `r2d/tools/r2dprov.py`,
+  merging `r2/verify/*.md`, `r2-tax/<lesson>/verify*.md` and `r2d/<lesson>/verify*.md`, records into `r2/<lesson>.md`),
+  because `provenance.py` reads only `r2/verify/` and is not patched in this round.
+- 2026-11-14, after the reset: the eight map auditors produced no file before the cut and were resumed. Written:
+  `r2d/spec-write.md`, `r2d/spec-verify.md`, `r2d/tools/r2dprov.py` (plan/record/apply; reads `r2/verify/*.md` for
+  common lessons, `r2-tax/<lesson>/verify*.md`, then `r2d/<lesson>/verify*.md`, which win; pending files in
+  `r2d/<lesson>/pending.md`). `taxprov.py` gained two keyword parameters (verdict source, pending folder; defaults keep
+  its behaviour), the `_C1_SENTENCE_REPORTS` table and a retry over other C1 lessons when the first origin has no
+  report. On the unchanged tree every lesson plans 0 pending except one sentence each in m01-l03 (l. 324) and m01-l07
+  (l. 887), which occur twice with different citations (taxprov refuses inheritance then; provenance.py did not): they
+  go to this round's blind check of I.3 and I.7.
+- 2026-11-14, step 1 nearly done: maps written for every tema except I.2–I.5 (two auditors running). Cross-tema
+  decisions in `r2d/coordinator-notes.md`; per-map «Coordinator notes» override the work list (III.5 arts. 106–108 and
+  III.20 arts. 162–163 CAU restored against the maps, because the brief names them; I.6 depth rule; I.7 TREBEP range).
+  32 sources downloaded (boe.es, sha256, `r2d/sources.md`) and merged into normativa.yaml; source index rebuilt.
+  Step 2 running: writers (Sonnet) W1 III.9→III.11→III.12, W2 III.18→III.19→III.20, W3 III.13→III.14→III.5,
+  W4 III.17→III.16→III.15. Not started: III.20 done by W2; III.6–III.8, III.10, III.1–III.4, common part. On resume:
+  check each `r2d/<lesson>/writer.md` for the last item done; relaunch with the same brief for the rest.
+- 2026-11-14: step 1 closed (32 maps; `docs/aeat-coverage-plan.md` «Before»). W1 done: III.9 (5,839 → 15,379 words),
+  III.11 (5,202 → 9,861), III.12 (10,048 → ~21,000); pending 289 / 139 / 320 sentences, three blind Opus verifiers
+  running (`r2d/<lesson>/verify.md`). W5 started: III.6 → III.7 → III.8 → III.10. Sources batch 3 merged (LOREG,
+  EOMF, LO 3/1984, LO 2/1980); batch 4 (norms named inside quoted articles) running. Owed to step 4 (glossary):
+  `g-recargo-ejecutivo` (III.9), `g-diligencia` (III.11), `g-oposicion`, `g-acta-de-inspeccion` (III.12).
+- 2026-11-14: first blind pass III.9 286/3, III.11 136/3, III.12 316/4 (PASS/FAIL); replacements applied with
+  `r2dprov.py apply`; five more III.9 sentences the verifier flagged outside its pending set (arts. 52.2, 52.4.a,
+  53.2, 54.2.b RGR; 63.4 LGT: narrowing clauses dropped by R2) fixed by the coordinator in the articles' words; III.12
+  Normativa LGT gains 43.1.f. Re-check 1 (different Opus) running on 12 + 3 + 5 rows. W2 done: III.18 6,276 → 29,835,
+  III.19 9,706 → 31,232, III.20 5,369 → 16,041 words (whole articles copied by script from the snapshots); pending
+  524 / 582 / 290, three blind verifiers running. W6 started: III.1 → III.4. Sources batch 4 merged (10 norms named
+  inside quoted articles); the order fixing the card-payment limit of art. 36.2 RGR not identified (art. 36.2 names
+  none). Open: art. 20.Uno.23.º e´) LIVA wording in force until 30-11-2026 (only the RDL 29/2026 wording is in the
+  snapshot; fetch the LIVA art. 20 block versions from the BOE API).
+- 2026-11-14: re-check 1 of III.9/11/12: 20/20 PASS — those three temas are verified. III.20 first pass 275/15
+  (formatting debris from the scripted copy: consolidation marks, headings; one list lead-in without items; one
+  «No confundir» cut); applied, two «—————» lines dropped by hand (two matches), re-check pending (8 rows). III.18:
+  the wording of art. 20.Uno.23.º e´) in force until 30-11-2026 added from the BOE API block versions
+  (`BOE-A-1992-28740_liva-art20-versiones_2026-11-14.xml`, new normativa entry); the BOE note attributes the change to
+  art. 7.1 RDL 26/2026, the RDL 29/2026 text (art. 7.Uno) states it from 01-12-2026: the lesson keeps the RDL 29/2026
+  mark (decision). W4 done: III.17 9,476 → 21,123, III.16 7,142 → 14,778, III.15 8,514 → 13,340 (part: 11 items open);
+  W7 finishes III.15 then II.5 → II.1. Verifiers running: III.18, III.19, III.16, III.17 + III.20 re-check.
+- 2026-11-14: W3 done: III.13 9,732 → 23,575, III.14 8,571 → 27,020, III.5 9,583 → ~24,190 words (W3 handed III.5 to a
+  Sonnet sub-writer of its own when its context ran low; the cap of eight agents held because W3 waited for it).
+  III.5 states both art. 104.h) RGAT and DA 3.ª.2 RD 1363/2010 (which names 104.i)): two official sources disagree.
+- 2026-11-14: III.18 first pass 511/13: six text replacements applied; structural fixes by the coordinator (duplicate
+  art. 22.Uno/Cuatro block removed, art. 9.1.º d) moved after the c) exceptions, two missing blank lines, the 23.º
+  «La exención no comprenderá» list un-nested from letter b), the pre-01-12-2026 e´) wording moved out of the list of
+  circumstances, Normativa: art. 12 whole + TFUE, Código Civil, LAU lines); re-check pending. III.19 first pass
+  541/41 (structure, paragraph-level citations, PDF line-break artefacts, «nombrado en» lines): queued for a fixer
+  writer. Decision: «nombrado en» lines are kept for every norm the copied law text names, and each such norm gets a
+  snapshot (sources batch 5), as R2b did.
+- 2026-11-14: first passes III.16 133/33, III.17 327/38, III.13 311/29, III.14 455/28; re-check of III.20 8/0 with
+  3 extra rows (footnote marks, j bis) for the III.19/III.20 fixer. Replacements applied; two verifier instructions
+  had been applied as text in III.16 (esquema header overwritten; «[Normativa: …]» notes): repaired by hand, and
+  `taxprov.apply` now refuses instruction-like replacements and table-row replacements by prose. III.13: eight
+  duplicated trailing citations removed. Running: III.5 first pass; re-check 1 of III.13/14/16/17/18.
+- 2026-11-14 (after the second usage reset): all first-wave writers done. Words: III.1 3,794 → 14,803; III.2 4,145 →
+  29,146; III.3 5,714 → 6,430; III.4 12,741 → 57,559; III.6 5,484 → 22,607; III.7 7,624 → 16,409; III.8 9,018 →
+  21,769; III.10 3,956 → 6,811; III.15 → 25,995; I.1 5,843 → 13,393; I.2 8,509 → 13,610; I.3 7,325 → 14,762; II.1
+  2,988 → 4,355; II.2 3,843 → 5,358; II.3 3,884 → 6,522; II.4 2,852 → 6,046; II.5 2,439 → 6,210. Three writers ran
+  sub-writers of their own despite the brief (cap of eight agents exceeded for short spells; later briefs forbid it).
+  III.5 first pass 433/9 and re-check 1 of III.13/14/16/17/18 (147/17) applied; `<br>`-joined Normativa lines and a
+  leftover instruction repaired. Pending first passes: III.4 1,227; III.2 540; III.8 405; III.6 365; III.15 360;
+  III.1 338; I.3 301; I.1 288; III.7 253; I.2 211; III.10 101; II.x 348; III.3 47. Running: verifiers III.4, III.2+3,
+  III.8+10, III.6+7; writers I.4→I.5, I.6→I.7, fixer III.19/III.20, leftovers (II.1–II.5, I.2, I.3, III.7, III.1).
+  Decisions: art. 116 RGR stays in both III.10 and III.12 (keep verified content); «Lo que más cae» lines unchanged
+  unless their anchor moved (2022X-54 not added to III.7's ten; art. 10 RIRPF 500 € not added to III.15's).
+- 2026-11-14: first passes III.8 392/13, III.10 93/8, III.6 354/11, III.7 249/4, III.2 509/31, III.3 46/1, III.4
+  1,170/57 applied. Fixers: III.19 (41 rows + Normativa), III.20 (3), III.16/III.17 citation forms, fix queue for
+  III.6/7/8/10. Coordinator: III.2 `arbol` rebuilt (apply had flattened the nested list into one line; new root
+  «Organización central de la Agencia» per the verifier's note); III.2 «apartado undécimo bis/ter/quater» citations
+  kept in the prose form «según el apartado …» (the parser cannot read «bis/ter/quater» apartados: platform item);
+  RD 238/2026 entered in normativa.yaml as its own entry (file existed). Decision: norms named only inside copied
+  article text with no snapshot are listed in one «… no figuran en `normativa.yaml`» line per lesson (the m03-l17 form)
+  instead of being downloaded one by one; the list goes to the handoff for a later currency round.
+  Running: verifiers III.15+III.1, I.1+I.2, re-check of 13 tax lessons; writers I.4→I.5, I.6→I.7, leftovers, fixer
+  III.2/III.4/III.8.
+- 2026-11-14: first passes I.1 270/18, I.2 204/7, III.15 334/26 (estimación objetiva paragraph checked against the
+  three RDLs and three derogation resolutions), III.1 323/15 applied. III.2/III.4/III.8 fix queue done; RGAT note in
+  normativa.yaml corrected (the boe.es notice closes art. 49 ter, not art. 49). Leftovers writer done for II.1–II.5,
+  I.2 (Congress stage RC 108–123 added so m02-l01's pointer holds), I.3, III.7, III.1 (counts in each writer.md
+  «Leftovers»). I.4 9,684 → 27,513 words (first writer); I.5 9,880 → 21,464 and a second writer finishing it.
+  Running: verifiers I.4, II.1–II.5 + I.3, re-check of 13 tax lessons, re-check III.2/III.4; writers I.6→I.7, I.5
+  finish, fixers III.15/I.1 and III.1/I.2/I.3.
+- 2026-11-14: I.4 first pass 662/54 applied. Course-wide: bullets «- N. …» (16 in I.4, 4 in III.1, 6 in III.2)
+  rendered as a nested ordered list (the review's «all "1."» defect) — dot escaped («- N\. …»), the verifier's fix.
+  Re-check of 13 tax lessons 136/20 applied; hand fixes: III.19 bare «(Derogado)», III.20 incisos nested, III.18
+  duplicated «Cambio pendiente» note. Ruling recorded in `spec-verify.md`: «Normativa» lists the articles the lesson
+  cites in citations and every norm it names; articles of the same law named only inside copied text need no listing.
+- 2026-11-14: first passes II.5 127/5, II.4 187/9, II.3 151/6, II.2 52/4, II.1 124/7, I.3 366/9; re-check III.2 35/7,
+  III.4 30/7; all applied. A «(hoy: Ministerio para la Transformación Digital…)» note a fixer added to m01-l03 l. 699
+  (art. 69.3 LRJSP) was unsupported (RD 1009/2023 places the Delegaciones' DG elsewhere): removed. I.6 4,601 → 32,121
+  and I.7 17,952 → 35,136 words; I.5 → 30,882 (second writer done). Running: verifiers I.6, I.5, re-check round 3;
+  writers: glossary (step 4), fixer III.1/I.2/I.3, I.7 leftovers + fix queue.
+
+## R2d — where to resume (2026-11-14, evening)
+
+- Step 1 done (maps, `docs/aeat-coverage-plan.md` «Before»). Step 2 done for all 32 temas (writers' notes in
+  `r2d/<lesson>/writer.md`; I.7 has a «Second writer» running for its leftovers). Step 3: every lesson has a first
+  blind pass; re-checks run in rounds (`verify-recheck-N.md`); fixes the apply tool cannot make go through
+  `r2d/fix-queue.md` to a fixer writer. Step 4: glossary writer running (`r2d/glossary-owed.md` → `r2d/glossary/`).
+- To resume: `cd backend && uv run python ../docs/age-verification/aeat/r2d/tools/r2dprov.py plan <all lessons>`;
+  every lesson with pending rows gets a re-check by a verifier who has not checked that lesson's last pass; apply
+  with `r2dprov.py apply` (refuses instruction-like replacements); structural notes → fix-queue → fixer; repeat until
+  0 pending. Then `r2dprov.py record` for every lesson, glossary record, step 5 (scope audit Run 2, coverage, currency,
+  RDL 29/2026 on the BOE, C1/C2 list, platform list, facts for the bank), `close_round.sh`, handoff.
+- Lists for the handoff kept as found: C2 m01-l12 l. 155 has the uncorrected RGPD art. 18.1.a) («durante un plazo»;
+  corrigendum 2021: «en un plazo») — fixed in this course's m01-l05; C1/C2 arts. 80.2/95.1 LPAC (from R2b).
+- 2026-11-14: **RDL 29/2026 convalidated** (Resolución de 12-11-2026 del Congreso, BOE-A-2026-23755, BOE 13-11-2026;
+  `r2d/currency-rdl.md`; resolution saved with sha256). RDL 31, 33, 35, 36/2026 still pending; RDL 28/2026 derogated
+  (BOE-A-2026-23754; no course content rests on it). normativa.yaml: header line, notes, entries for RDL 29/2026 and the
+  resolution; revert list annotated «no longer applicable»; course.yaml III.15 summary mark removed. Lesson marks
+  («convalidación pendiente» / «sin convalidar» for RDL 29/2026 only) to be removed after the running fixer finishes,
+  then blind check of every changed sentence.
+- 2026-11-14 (late): RDL 29/2026 marks removed from III.4, III.6, III.15, III.16, III.18 by
+  `r2d/tools/rdl29_convalidated.py` (in-text «convalidación pendiente» dropped; «Normativa» «Cambio pendiente … sin
+  convalidar» → «Redacción … convalidado el 12-11-2026 (BOE-A-2026-23755), en vigor desde …» when effects started, else
+  «Cambio pendiente … convalidado …, con efectos desde …»); changed sentences go through the round-5 re-check. I.6
+  first pass 898/31, I.5 640/13, I.7 903/26, round-4 re-check (11 lessons) all applied. Glossary: writer (199 → 204
+  after restoring g-recusacion, g-oposicion and the three complementos under the keep rule; g-convenio removed: no
+  lesson uses the LRJSP sense), blind check 186/18, fixer running (3 definitions, link_except for 10 entries, three
+  lesson sentences to ground restored entries). Summaries: 20 rewritten, blind check running. Step 5: scope audit Run 2
+  started (`r2d/spec-audit.md`, two Opus auditors, reports `r2d/audit/<lesson>.md`).
+- 2026-11-17 (after the usage pause): coverage re-checked — 374 of 452 coverage questions confirmed by script (their
+  R2/R2-tax COVERED quote still verbatim in the lesson), the other 78 by a blind Opus check
+  (`r2d/coverage-recheck.md`): 78 COVERED, 0 MISS. Coverage 137/137 and 315/315 hold. BOE re-read 16–17-11: no
+  further convalidation or derogation. `r2d/bank-facts.md` (facts with no pack question, per tema) and
+  `r2d/c1-c2-list.md` (151 inherited sentences changed here: 134 from C1, 17 from C2) written. Round-5 re-check
+  (17 lessons) 134/20 applied; final fixer running; glossary/summaries re-check running; scope audit Run 2 resumed.
+- 2026-11-17: **depth correction (Juanjo)**. Words before → after in `r2d/words.md` (228,756 → 694,151; 28 lessons more
+  than doubled or exceed 15,000 words). Reduction pass `r2d/spec-reduce.md`: only R2d-added text is reduced; articles
+  an official question asks or «Lo que más cae» covers keep full treatment; other added articles → rule, conditions,
+  exceptions in 2–4 verbatim fragments with citation; legal enumerations complete but moved into `tabla` esquemas; maps
+  unchanged (reduced = still treated). Reworded/moved sentences show as pending in `r2dprov.py plan` and get a blind
+  check; nothing else is re-verified. Reducers running: III.4+III.18, III.2+III.19. Before it, long multi-rule
+  paragraphs (step 2f) were split by `r2d/tools/split_paragraphs.py` in the tax lessons (sentence ids kept: 0 new
+  pending except in III.15/III.20 from fixes). Glossary re-check 1: 16/2 (applied); summaries re-check 1: 3/5 (applied).
+- 2026-11-17: **reduction pass stopped and discarded (Juanjo)**; replaced by the build pass (`r2d/spec-build.md`): base
+  = HEAD lesson; add only whole sentences byte-identical to verified pool sentences (`r2d/expansion/`, frozen copy of the
+  700,896-word expansion incl. audit additions); enumerations as esquemas from verified items; completeness over size
+  (1.6 × HEAD words excl. esquema rows is a target, not a limit; no article «not treated» inside a range).
+  `r2d/tools/build_check.py` proves byte-identity per sentence and writes `r2d/<lesson>/verify-build.md` (PASS rows
+  pointing to the report where the twin passed). The seven lessons the reducers had touched (III.2, III.4, III.5,
+  III.18, III.19, I.6, I.7) were restored from the reducers' own pre-reduction copies (each byte-equal to the pool);
+  the stopped verifier wrote no report; «Reduction pass» notes marked DISCARDED. Builders running: III.18, III.9, III.13.
+
+- 2026-11-17 (build pass): III.5, III.16, III.17 built (2.33×, 2.11×, 1.78× HEAD excl. rows; nothing left out for size). Reader-fixer spec `r2d/spec-fix.md` added (move / add pool sentence before rewording). Launched: Opus re-check of III.13/9/11/12 pending rows; fixers III.14+III.18, III.17+III.16 (read+fix), III.5 (read+fix); builders III.19, III.20. III.15 builder still running. Decision: HEAD esquema «Plazo máximo de resolución y cómputo» (III.5) kept — the build does not cut. III.16 gaps: arts. 49–52 and 61.2, 61.4–6 RIRPF not in the pool → listed. Glossary links g-convenio/g-servicios-comunes (III.5, III.17) left to step 4.
+
+### R2d build pass — where to resume (2026-11-17, usage limit reached)
+
+- Fully through (built, flags fixed, Opus PASS): III.13, III.9, III.11, III.12, III.5, III.18.
+- Built, Opus owed/running when stopped: III.15 (74 rows, recheck-4), III.16 (3, recheck-6), III.17 (2, recheck-6),
+  III.14 (1, DA undécima.8: second re-check — a FAIL drops it). Check whether those report files exist; rerun what is missing.
+- III.20: recheck-5 PASS 50 · FAIL 6, replacements applied; still to do by hand: move the art. 221.2 RE paragraph rows
+  (2.º–4.º párrafos, under row c)) out of the table into prose after it; then re-check the 6 by a different verifier.
+- Built, reader-fixer was running (may be partial: rerun `spec-fix.md` from step 1 if standalone.md lacks «## Fixes»):
+  III.6, III.10, III.7. III.8 built (validation exit 0), reader-fixer not started.
+- III.1 built: 3.62× HEAD; 25 «not in pool» are new esquema header rows `| Apartado | Contenido | Cita |` → extend
+  build_check to accept header rows (they are not sentences of the law), then reader-fixer. Pool gaps in build.md → add to pool-gaps.md.
+- III.19 builder was running: check build.md exists, else rerun.
+- Not started: III.2–III.4, II.1–II.5, I.1–I.7, m00-l01. Then pool-gaps writer batch, close-out steps (see summary list).
+
+- 2026-11-17 (resumed): III.14, III.16, III.17 fully through (recheck-6 PASS, written before the stop). III.7 and III.10
+  reader-fixers had finished. III.20: art. 221.2 RE paragraphs 2–4 moved out of row c) into prose by the coordinator.
+  III.1: 25 new esquema headers set to the verified `| Elemento | Contenido | Cita |` (decision: no new header text).
+  III.19 reset to HEAD and rebuilt from scratch. Running: Opus III.15 (74) and III.10/III.7/III.20; reader-fixers
+  III.6, III.8, III.1; builders III.19, III.2, III.3.
+
+### R2d — where to resume (2026-11-18, usage limit reached)
+
+- Fully through (build + flags + Opus + gap fill): every lesson except I.2, I.3, I.7 (m00-l01 unchanged by design).
+- I.3: recheck-5 applied for 2 rows; 4 extra rows in `r2d/m01-l03/verify-recheck-5.md` (e55bac9867, 513ed2b33a,
+  21e2f228a0, 3abfcea0d7 — art. 100.1/106.1 LRJSP Ley 7/2007 cuts) were not in pending.md: apply their replacements by
+  hand. Also owed: move the art. 10.1–10.2 paragraph after 9.7; add «Código Civil: nombrado en el art. 119.2 LRJSP»;
+  add art. 110.1 LRJSP places to the LGP, Ley 33/2003 and LPAC lines. Then one Opus re-check.
+- III.19: DA 3.ª Ley 10/2014 sentence replaced (recheck-7 FAIL 1 = failed re-check 1); re-check owed.
+- I.2: structural fixer done (moves, Normativa, art. 93.6 LOPJ, RS 92.3/160.2 closings, 17.3 LO 3/1981 rewrite). Owed:
+  drop the Mandato copy of art. 582.1 LOPJ (id 6387614a14, wrapped over lines ~1747–1749; the Estatuto copy stays);
+  then one Opus re-check of every pending row (`r2dprov.py plan m01-l02`).
+- I.7: reader-fixer was stopped mid-run → rerun spec-fix on m01-l07 (check standalone.md progress), then Opus (~440 rows).
+- Glossary g-silencio-administrativo and the 8 summaries replaced in course.yaml: re-check owed (different verifier).
+- Then close-out: glossary_record.py, r2dprov record all lessons + test_provenance, scripted Normativa pass (norms named
+  without a line), coverage 452/452, word counts, coverage plan «After», scope audit «Run 2», close_round.sh, handoff.
+- Decisions to report «for Juanjo»: r2d/coordinator-notes.md (all sections), dropped.md, c1-c2-list.md, pool-gaps.md.
+- I.7 caution: the stopped reader-fixer's last note was «My sed mangled it; fix ed.py directly» (its scratch script). Before rerunning, diff m01-l07.md against the gap-fill result (cites.py, index_sources.py, build_check) and repair or restore.
+
+- 2026-11-18 (resumed again): I.7 reader-fixer had finished (70 flags; lesson validates) → Opus I.7 in 2 parts running.
+  I.2: art. 582.1 Mandato duplicate removed → Opus re-check (166 rows) running. I.3: 4 extra replacements applied by
+  hand, art. 10 LRJSP paragraph moved after 9.7, Normativa entries added → re-check running together with III.19,
+  g-silencio-administrativo and the 8 summaries.

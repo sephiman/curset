@@ -1,0 +1,14 @@
+# Verify recheck 3 — `m03-l15` (R2d, blind, Opus)
+
+2026-11-17. Sources: `BOE-A-2026-20823_rdl-29-2026_2026-10-07.pdf` (art. 6, apartados segundo y tercero; DF 11.ª), `BOE-A-2026-23755_res-congreso-…convalidacion-rdl-29-2026` (convalidación 12-11-2026), `BOE-A-2006-20764_lirpf_2026-11-11.pdf` (art. 25.1). Only the six pending rows checked.
+
+| id | verdict | precept checked | note | replacement |
+|---|---|---|---|---|
+| `32682729c9` | PASS | art. 7.ñ) LIRPF, redacción RDL 29/2026 (art. 6.Segundo.Uno) | Both triggers (disposición del capital before five years from apertura; incumplimiento of any other DA 26.ª requisite during the Plan) and the integration in the period of the incumplimiento kept | — |
+| `ab46dfa1f8` | PASS | art. 23.2 LIRPF, redacción RDL 29/2026 (art. 6.Segundo.Dos) | Timing of requisites, 80 % during tacit prórroga with renta inicial within the index limit at the prórroga, arrendador not gran tenedor: all kept; the index limit is written short («o valor aplicable…» omitted) as in the lesson's already-passed 23.2 rows | — |
+| `14f819d916` | FAIL | art. 24 LIRPF, desde 01-01-2027 (RDL 29/2026 art. 6.Tercero.Uno) | Loses the case the floor applies to (adquirente, cesionario, arrendatario o subarrendatario cónyuge o pariente hasta el tercer grado); standing alone it reads as a general floor for every rendimiento neto | Desde el 01-01-2027, cuando el adquirente, cesionario, arrendatario o subarrendatario del bien inmueble o del derecho real que recaiga sobre el mismo sea el cónyuge o un pariente, incluidos los afines, hasta el tercer grado inclusive, del contribuyente, el rendimiento neto total no puede ser inferior al que resulte de aplicar el porcentaje medio efectivo al valor catastral del inmueble, y si a la fecha de devengo del impuesto el inmueble carece de valor catastral o este no ha sido notificado al titular, se aplica sobre el 50 por ciento del mayor de los siguientes valores: el comprobado por la Administración a efectos de otros tributos o el precio, contraprestación o valor de la adquisición (art. 24 LIRPF, desde 01-01-2027, Real Decreto-ley 29/2026). |
+| `52d2a346aa` | PASS | art. 25.1 LIRPF | Lead-in and a)–e) complete (five letters, article order); e) keeps the three rules of the letter (minoración/exceso, unlisted-securities limit with the fondos-propios adjustments, later dividends minorando with its limit) | — |
+| `122014c38f` | PASS | art. 85.1 LIRPF, desde 01-01-2027 (RDL 29/2026 art. 6.Tercero.Dos) | Days-proportional rule and 50 % fallback faithful; sits right after the 2027 scale and carries the «desde» citation | — |
+| `18eb2101ce` | PASS | RDL 29/2026 DF 11.ª.1 and art. 6.Segundo; Resolución 12-11-2026 (BOE-A-2026-23755) | Published 07-10-2026, in force 08-10-2026; arts. 7.ñ), 23.2, DA 65.ª (Once) and DT 38.ª (Catorce) are in apartado segundo («con efectos desde la entrada en vigor»); convalidated 12-11-2026; all four are cited in the lesson body | — |
+
+PASS 5 · FAIL 1

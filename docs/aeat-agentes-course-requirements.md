@@ -1,6 +1,6 @@
 # Requirements — Course "Agentes de la Hacienda Pública (C1, AEAT), turno libre"
 
-Version 1.2 · 14 November 2026 · requirements, not design. Third oposiciones course for Curset, Spanish only. A delta to docs/age-administrativo-course-requirements.md (C1) and docs/age-auxiliar-course-requirements.md (C2: provenance rule R2.3): everything not stated here is as there.
+Version 1.5 · 18 November 2026 · requirements, not design. Third oposiciones course for Curset, Spanish only. A delta to docs/age-administrativo-course-requirements.md (C1) and docs/age-auxiliar-course-requirements.md (C2: provenance rule R2.3): everything not stated here is as there.
 
 ## 1. Goal and staging
 
@@ -39,6 +39,17 @@ A preparation course for the Cuerpo General Administrativo de la Administración
   - A lesson never refers the reader to another lesson for content that lesson does not have (checked by the cross-reference audit).
 - R4.8 Contrast notes. Where two neighbouring rules are routinely confused (two plazos, two organs, two procedures, two recargos), the lesson may add a short block «No confundir» stating both rules side by side, each verbatim with its citation. No interpretation, no mnemonics; verified like any sentence.
 - R4.9 Glossary sense. An inherited glossary entry is kept only if its definition is the sense the term has in this course's lessons; otherwise it is rewritten from the norm that governs its use here, or removed. Origin lessons point to a lesson of this course that uses the term in that sense.
+- R4.10 Quality target (18 November 2026; corrects R4.7, which was read as «the whole law of the range»). The course must be better study material than a good academy syllabus of similar size, not a transcription of the norms. Its scope and size are set from the course's own sources, never from another syllabus:
+  - Scope: for each programme sentence, every concept the sentence names is treated (what it is, the rule, its conditions and exceptions, plazos, the organ), plus every fact an official first-exercise question asked. Not every article of the governing range. R4.7's «enumerations whole» (for concepts in scope) and «no reference to content that is not there» stay; its «every article treated» does not.
+  - Size: a temario, not the law. Each tema's budget is 1.0 to 1.4 times the word count of its pre-R2d lesson, explanation layer included (esquema rows and glossary excluded); the course ends near 280,000–320,000 words. A tema whose programme sentence names more concepts than its budget holds may exceed it, with the reason recorded.
+  - Priority when the scope does not fit the budget: facts official questions asked; concepts the programme names; gaps already confirmed against the programme (the R2b restores and the confirmed items of the external review); complete enumerations as esquemas. Everything else goes to the reserve.
+  - Accuracy and currency: zero errors against the consolidated norms; every figure with its year and norm.
+  - Exam coverage: every vigente official question answerable from the lesson alone.
+  - Understanding: R4.11.
+  - Comparison: only when the course is final, it is compared tema by tema with the benchmark syllabus kept outside the repository (R4.13). The comparison measures the result; it does not define the scope.
+- R4.11 Two layers. Each section states its rule in two layers: an explanation in plain Spanish (what the rule does, when it applies, how it differs from its neighbour), then the rule itself in the norm's words with its citation. The explanation may paraphrase; it may not add, drop or soften a condition, a number, a plazo or an exception, and it carries the citation of the rule it explains. Explanations are verified blind for fidelity (the verifier reads the explanation and the article and answers: does it say anything the article does not, or leave the reader with a false idea?). The earlier «never paraphrase» rule now applies to the literal layer only: numbers, plazos, percentages, organs, conditions and exceptions are always given in the norm's words. Each lesson opens with a short overview of what the tema covers and how its parts relate, and uses «No confundir» blocks (R4.8), worked examples (R4.4) and esquemas that synthesise across articles (never a table that repeats one paragraph).
+- R4.12 The reserve. Verified sentences written in R2d that fall outside the scope of R4.10 are not deleted: they stay in the repository as a verified pool (per lesson, tagged by origin), unpublished, available for a later «ampliación» view or for the question bank.
+- R4.13 The benchmark is copyrighted material used only for the final comparison (R4.10). Its text is never copied, quoted beyond a few identifying words, or paraphrased into the course or into any committed file; committed reports name topics and article numbers only.
 - R4.6 Audit before publication, as C1 4b: scope (every section maps to a programme sentence or carries exam evidence), coverage (every vigente first-exercise question of the last four convocatorias has its fact in its lesson), currency (norms and annual figures).
 
 ## 5. Publishing with theory only (platform)

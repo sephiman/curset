@@ -53,3 +53,9 @@ Course items that depend on it:
   «pendiente de convalidación» mark, so the flip stays mechanical.
 - Files to download on a derogation: the boe.es consolidations of LIRPF, LIVA, TRLRHL and RIRPF dated after the
   derogation (boe.es republishes the earlier wording); the stubs' Normativa lines and these entries then point at them.
+
+## R2d, 2026-11-14 — no longer applicable
+
+The RDL 29/2026 was convalidated by the Congreso on 12-11-2026 (Resolución de 12-11-2026, BOE-A-2026-23755, BOE
+13-11-2026; `docs/age-verification/aeat/r2d/currency-rdl.md`). This list is kept for the record; nothing is reverted.
+The «convalidación pendiente» marks were removed from the lessons in round R2d, with blind checks.

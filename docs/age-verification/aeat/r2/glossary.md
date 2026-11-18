@@ -2,7 +2,7 @@
 
 R2.3: cada entrada copiada de C2 o de C1 con el mismo término, la misma definición, las mismas citas y los ficheros citados con el mismo sha256 lleva «verificado en C2» o «verificado en C1». Generado por `docs/age-verification/aeat/r2/tools/glossary_candidates.py --write`; lo comprueba `backend/tests/test_provenance.py`.
 
-Entradas: 193 · heredadas: 147 · verificadas: 46.
+Entradas: 203 · heredadas: 136 · verificadas: 67.
 
 - `g-consejo-general-del-poder-judicial` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l04 · C1 docs/age-theory-ledger.md
 - `g-cuestion-de-inconstitucionalidad` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l02 · C1 docs/age-theory-ledger.md
@@ -39,16 +39,16 @@ Entradas: 193 · heredadas: 147 · verificadas: 46.
 - `g-municipio` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l09 · C1 docs/age-theory-ledger.md
 - `g-partido-judicial` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l04 · C1 docs/age-theory-ledger.md
 - `g-potestad-jurisdiccional` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l04 · C1 docs/age-theory-ledger.md
-- `g-presupuestos-generales-del-estado` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l15 · C1 docs/age-theory-ledger.md
+- `g-presupuestos-generales-del-estado` · verificado: PASS · docs/age-verification/aeat/r2d/glossary/verify.md
 - `g-provincia` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l09 · C1 docs/age-theory-ledger.md
 - `g-servicio-activo` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l13 · C1 docs/age-theory-ledger.md
 - `g-sesion-conjunta` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l03 · C1 docs/age-theory-ledger.md
-- `g-suplicatorio` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l03 · C1 docs/age-theory-ledger.md
+- `g-suplicatorio` · verificado: PASS · docs/age-verification/aeat/r2d/glossary/verify.md
 - `g-tribunal-de-instancia` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l04 · C1 docs/age-theory-ledger.md
 - `g-tribunal-superior-de-justicia` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l09 · C1 docs/age-theory-ledger.md
 - `g-veto` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l03 · C1 docs/age-theory-ledger.md
 - `g-autoridad-administrativa-independiente` · verificado en C1: docs/age-theory-ledger.md · C1 origin m01-l07
-- `g-consejo-de-estado` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l05 · C1 docs/age-theory-ledger.md
+- `g-consejo-de-estado` · verificado: PASS · docs/age-verification/aeat/r2d/glossary/verify.md
 - `g-decreto-legislativo` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l13 · C1 docs/age-theory-ledger.md
 - `g-delegado-del-gobierno` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l08 · C1 docs/age-theory-ledger.md
 - `g-entidad-local` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l09 · C1 docs/age-theory-ledger.md
@@ -63,10 +63,12 @@ Entradas: 193 · heredadas: 147 · verificadas: 46.
 - `g-organos-superiores` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l08 · C1 docs/age-theory-ledger.md
 - `g-personal-eventual` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l13 · C1 docs/age-theory-ledger.md
 - `g-potestad-reglamentaria` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l05 · C1 docs/age-theory-ledger.md
-- `g-recusacion` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l11 · C1 docs/age-theory-ledger.md
 - `g-separacion-del-servicio` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l14 · C1 docs/age-theory-ledger.md
 - `g-servicios-comunes` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l08 · C1 docs/age-theory-ledger.md
 - `g-subdelegado-del-gobierno` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l08 · C1 docs/age-theory-ledger.md
+- `g-agencia-estatal` · verificado: PASS · docs/age-verification/aeat/r2d/glossary/verify.md
+- `g-contrato-de-gestion` · verificado: PASS · docs/age-verification/aeat/r2d/glossary/verify-recheck-1.md
+- `g-comision-general-de-secretarios-de-estado-y-subsecretarios` · verificado: PASS · docs/age-verification/aeat/r2d/glossary/verify.md
 - `g-accesibilidad-universal` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l06 · C1 docs/age-verification/audit-2026-11/theory.md
 - `g-area-metropolitana` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l09 · C1 docs/age-theory-ledger.md
 - `g-concejo-abierto` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l09 · C1 docs/age-theory-ledger.md
@@ -83,6 +85,8 @@ Entradas: 193 · heredadas: 147 · verificadas: 46.
 - `g-termino-municipal` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l09 · C1 docs/age-theory-ledger.md
 - `g-tribunal-de-cuentas` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l15 · C1 docs/age-theory-ledger.md
 - `g-vecino` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l09 · C1 docs/age-theory-ledger.md
+- `g-comarca` · verificado: PASS · docs/age-verification/aeat/r2d/glossary/verify.md
+- `g-cuestion-prejudicial` · verificado: PASS · docs/age-verification/aeat/r2d/glossary/verify-recheck-1.md
 - `g-agencia-espanola-de-proteccion-de-datos` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l12 · C1 docs/age-theory-ledger.md
 - `g-archivo-electronico-unico` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m02-l03 · C1 docs/age-theory-ledger.md
 - `g-carpeta-ciudadana` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m02-l04 · C1 docs/age-theory-ledger.md
@@ -90,29 +94,31 @@ Entradas: 193 · heredadas: 147 · verificadas: 46.
 - `g-certificado-electronico` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m02-l04 · C1 docs/age-theory-ledger.md
 - `g-consentimiento-del-interesado` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l12 · C1 docs/age-theory-ledger.md
 - `g-consulta-publica` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l06 · C1 docs/age-theory-ledger.md
-- `g-convenio` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l11 · C1 docs/age-theory-ledger.md
 - `g-datos-personales` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l12 · C1 docs/age-theory-ledger.md
 - `g-derecho-de-acceso-a-la-informacion-publica` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l07 · C1 docs/age-theory-ledger.md
 - `g-empleado-publico` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l13 · C1 docs/age-theory-ledger.md
 - `g-encargado-del-tratamiento` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l12 · C1 docs/age-theory-ledger.md
 - `g-informacion-publica` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l07 · C1 docs/age-theory-ledger.md
 - `g-limitacion-del-tratamiento` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l12 · C1 docs/age-theory-ledger.md
-- `g-oposicion` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l13 · C1 docs/age-theory-ledger.md
+- `g-oposicion` · verificado: PASS · docs/age-verification/aeat/r2d/glossary/verify-recheck-6.md
 - `g-portal-de-internet` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m02-l04 · C1 docs/age-theory-ledger.md
 - `g-publicidad-activa` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l07 · C1 docs/age-theory-ledger.md
-- `g-punto-de-acceso-general` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l11 · C1 docs/age-theory-ledger.md
+- `g-punto-de-acceso-general` · verificado: PASS · docs/age-verification/aeat/r2d/glossary/verify.md
 - `g-registro-electronico-general` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m02-l03 · C1 docs/age-theory-ledger.md
 - `g-responsabilidad-proactiva` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l12 · C1 docs/age-theory-ledger.md
 - `g-responsable-del-tratamiento` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l12 · C1 docs/age-theory-ledger.md
 - `g-sede-electronica` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l11 · C1 docs/age-theory-ledger.md
 - `g-sello-electronico` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m02-l04 · C1 docs/age-theory-ledger.md
-- `g-silencio-administrativo` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l07 · C1 docs/age-theory-ledger.md
+- `g-silencio-administrativo` · verificado: PASS · docs/age-verification/aeat/r2d/glossary/verify-recheck-5.md
 - `g-acoso-por-razon-de-sexo` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l16 · C1 docs/age-theory-ledger.md
 - `g-acoso-sexual` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l16 · C1 docs/age-theory-ledger.md
 - `g-composicion-equilibrada` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l16 · C1 docs/age-theory-ledger.md
 - `g-discriminacion-directa-por-razon-de-sexo` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l16 · C1 docs/age-theory-ledger.md
 - `g-discriminacion-indirecta-por-razon-de-sexo` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l16 · C1 docs/age-theory-ledger.md
 - `g-persona-trans` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l16 · C1 docs/age-theory-ledger.md
+- `g-discriminacion-por-asociacion` · verificado: PASS · docs/age-verification/aeat/r2d/glossary/verify.md
+- `g-discriminacion-interseccional` · verificado: PASS · docs/age-verification/aeat/r2d/glossary/verify.md
+- `g-programa-individual-de-atencion` · verificado: PASS · docs/age-verification/aeat/r2d/glossary/verify.md
 - `g-adscripcion-provisional` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l13 · C1 docs/age-theory-ledger.md
 - `g-autorizacion-de-compatibilidad` · verificado en C1: docs/age-theory-ledger.md · C1 origin m04-l06
 - `g-carrera-horizontal` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l14 · C1 docs/age-theory-ledger.md
@@ -122,7 +128,7 @@ Entradas: 193 · heredadas: 147 · verificadas: 46.
 - `g-complemento-especifico` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l14 · C1 docs/age-theory-ledger.md
 - `g-decreto-ley` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l13 · C1 docs/age-theory-ledger.md
 - `g-demerito` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l14 · C1 docs/age-theory-ledger.md
-- `g-desconexion-digital` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l14 · C1 docs/age-theory-ledger.md
+- `g-desconexion-digital` · verificado: PASS · docs/age-verification/aeat/r2d/glossary/verify.md
 - `g-despido-disciplinario` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l14 · C1 docs/age-theory-ledger.md
 - `g-expectativa-de-destino` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l13 · C1 docs/age-theory-ledger.md
 - `g-grado-personal` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l13 · C1 docs/age-theory-ledger.md
@@ -135,17 +141,19 @@ Entradas: 193 · heredadas: 147 · verificadas: 46.
 - `g-reasignacion-de-efectivos` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l13 · C1 docs/age-theory-ledger.md
 - `g-reconocimiento-de-compatibilidad` · verificado en C1: docs/age-theory-ledger.md · C1 origin m04-l06
 - `g-redistribucion-de-efectivos` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l13 · C1 docs/age-theory-ledger.md
-- `g-regimen-de-clases-pasivas` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l14 · C1 docs/age-theory-ledger.md
+- `g-regimen-de-clases-pasivas` · verificado: PASS · docs/age-verification/aeat/r2d/glossary/verify.md
 - `g-servicio-en-otras-administraciones-publicas` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l13 · C1 docs/age-theory-ledger.md
 - `g-suspension-firme` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l13 · C1 docs/age-theory-ledger.md
 - `g-suspension-provisional` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l14 · C1 docs/age-theory-ledger.md
 - `g-trienio` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l14 · C1 docs/age-theory-ledger.md
+- `g-evaluacion-del-desempeno` · verificado: PASS · docs/age-verification/aeat/r2d/glossary/verify.md
+- `g-pactos-y-acuerdos` · verificado: PASS · docs/age-verification/aeat/r2d/glossary/verify.md
 - `g-costumbre` · verificado en C1: docs/age-theory-ledger.md · C1 origin m03-l01
 - `g-jurisprudencia` · verificado en C1: docs/age-theory-ledger.md · C1 origin m03-l01
 - `g-anulabilidad` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l11 · C1 docs/age-theory-ledger.md
 - `g-comparecencia-en-la-sede-electronica` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l11 · C1 docs/age-theory-ledger.md
 - `g-desviacion-de-poder` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l11 · C1 docs/age-theory-ledger.md
-- `g-direccion-electronica-habilitada-unica` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l11 · C1 docs/age-theory-ledger.md
+- `g-direccion-electronica-habilitada-unica` · verificado: PASS · docs/age-verification/aeat/r2d/glossary/verify.md
 - `g-inderogabilidad-singular` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l11 · C1 docs/age-theory-ledger.md
 - `g-recurso-extraordinario-de-revision` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l11 · C1 docs/age-theory-ledger.md
 - `g-declaracion-responsable` · verificado en C2: docs/age-verification/c2/bloque-i/glossary.md · C2 origin m01-l11 · C1 docs/age-theory-ledger.md
@@ -167,6 +175,7 @@ Entradas: 193 · heredadas: 147 · verificadas: 46.
 - `g-liquidacion-tributaria` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-2.md
 - `g-certificado-tributario` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-2.md
 - `g-diligencia` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-2.md
+- `g-consulta-tributaria-escrita` · verificado: PASS · docs/age-verification/aeat/r2d/glossary/verify.md
 - `g-declaracion-tributaria` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-2.md
 - `g-autoliquidacion` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-2.md
 - `g-comunicacion-de-datos` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-2.md
@@ -186,6 +195,7 @@ Entradas: 193 · heredadas: 147 · verificadas: 46.
 - `g-infraccion-tributaria` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-4.md
 - `g-comision-repetida-de-infracciones-tributarias` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-4.md
 - `g-medios-fraudulentos` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-5.md
+- `g-ocultacion-de-datos` · verificado: PASS · docs/age-verification/aeat/r2d/glossary/verify.md
 - `g-minimo-personal-y-familiar` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-6.md
 - `g-sede-de-la-actividad-economica` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-6.md
 - `g-deuda-aduanera` · verificado: PASS · docs/age-verification/aeat/r2-tax/extras-verify-6.md

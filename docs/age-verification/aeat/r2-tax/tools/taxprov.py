@@ -9,16 +9,19 @@ from __future__ import annotations
 
 import re
 import sys
+from collections.abc import Callable
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[5]
 sys.path.insert(0, str(ROOT / "backend"))
 
 from scripts.provenance import (  # noqa: E402
+    _C1_SENTENCE_REPORTS,
     INHERITED,
     INHERITED_C2,
     VERIFIED,
     LessonText,
+    Origin,
     Sentence,
     _c2_record,
     c1_report,
@@ -26,6 +29,8 @@ from scripts.provenance import (  # noqa: E402
     report_verdicts,
 )
 from tests.pipeline_courses import course_dir, pipeline_courses  # noqa: E402
+
+from tradeschool.content.registry import CourseRegistry  # noqa: E402
 
 TAX = ROOT / "docs/age-verification/aeat/r2-tax"
 RECORDS = ROOT / "docs/age-verification/aeat/r2"
@@ -45,17 +50,23 @@ def verdicts(lesson_id: str) -> dict[str, tuple[str, str]]:
     return out
 
 
-def lessons_of(course: object) -> list[LessonText]:
+def lessons_of(course: CourseRegistry) -> list[LessonText]:
     root = course_dir(course)
     found = []
     for path in sorted((root / "es" / "lessons").glob("m*.md")):
-        citations = course.citations.lesson(path.stem, "es")  # type: ignore[attr-defined]
+        citations = course.citations.lesson(path.stem, "es")
         if citations is not None:
             found.append(LessonText(path.stem, path.read_text(), citations, root))
     return found
 
 
-def main(command: str, lesson_ids: list[str]) -> int:
+def main(
+    command: str,
+    lesson_ids: list[str],
+    verdicts_of: Callable[[str], dict[str, tuple[str, str]]] | None = None,
+    pending_root: Path = TAX,
+) -> int:
+    verdicts_of = verdicts_of or verdicts
     courses = {c.slug: c for c in pipeline_courses()}
     target, c1, c2 = (
         courses["aeat-agentes-hacienda"],
@@ -68,7 +79,7 @@ def main(command: str, lesson_ids: list[str]) -> int:
     status = 0
     for lesson_id in lesson_ids:
         lesson = targets[lesson_id]
-        found = verdicts(lesson_id)
+        found = verdicts_of(lesson_id)
         entries: list[str] = []
         pending: list[str] = []
         seen: set[str] = set()
@@ -100,8 +111,8 @@ def main(command: str, lesson_ids: list[str]) -> int:
                     f"| `{sentence.id}` | {sentence.first_line} | {sentence.text.replace('|', '\\|')} | {cited} |"
                 )
         if command == "plan":
-            (TAX / lesson_id).mkdir(parents=True, exist_ok=True)
-            (TAX / lesson_id / "pending.md").write_text(
+            (pending_root / lesson_id).mkdir(parents=True, exist_ok=True)
+            (pending_root / lesson_id / "pending.md").write_text(
                 f"# Pending sentences — `{lesson_id}`\n\n{len(pending)} to verify; {inherited} inherited; {verified} "
                 f"already PASS.\n\n| id | line | sentence | governing citations |\n|---|---|---|---|\n"
                 + "\n".join(pending)
@@ -133,7 +144,17 @@ def _inherited_entry(
 ) -> str | None:
     origin = find_origin(sentence, keys, c1_lessons)
     if origin is not None:
-        return _c1_entry(sentence, origin)
+        entry = _c1_entry(sentence, origin)
+        if entry is not None:
+            return entry
+        # The same sentence can sit in several C1 lessons; only one of them may carry its report.
+        for other in c1_lessons:
+            if other.lesson_id == origin.lesson_id:
+                continue
+            again = find_origin(sentence, keys, [other])
+            entry = _c1_entry(sentence, again) if again is not None else None
+            if entry is not None:
+                return entry
     origin = find_origin(sentence, keys, c2_lessons)
     if origin is None:
         return None
@@ -151,25 +172,32 @@ def _inherited_entry(
     )
 
 
-def _c1_entry(sentence: Sentence, origin: object) -> str | None:
-    c1_file = ROOT / "content/age-administrativo-c1/es/lessons" / f"{origin.lesson_id}.md"  # type: ignore[attr-defined]
+def _c1_entry(sentence: Sentence, origin: Origin) -> str | None:
+    c1_file = ROOT / "content/age-administrativo-c1/es/lessons" / f"{origin.lesson_id}.md"
+    if sentence.id in _C1_SENTENCE_REPORTS:
+        report, sha = _C1_SENTENCE_REPORTS[sentence.id], "override"
+        return (
+            f"- `{sentence.id}` · {INHERITED}: {report} · C1 {origin.lesson_id} l.{origin.first_line} · {sha}"
+        )
     try:
         report, sha = c1_report(
-            ROOT, c1_file, Sentence(sentence.text, origin.first_line, origin.last_line, 0, "")
-        )  # type: ignore[attr-defined]
+            ROOT,
+            c1_file,
+            Sentence(sentence.text, origin.first_line, origin.last_line, 0, ""),
+        )
     except LookupError:
         return None
-    return f"- `{sentence.id}` · {INHERITED}: {report} · C1 {origin.lesson_id} l.{origin.first_line} · {sha}"  # type: ignore[attr-defined]
+    return f"- `{sentence.id}` · {INHERITED}: {report} · C1 {origin.lesson_id} l.{origin.first_line} · {sha}"
 
 
-def apply(lesson_id: str, report: Path) -> None:
+def apply(lesson_id: str, report: Path, pending_root: Path = TAX) -> None:
     """Replace each FAIL sentence by the report's replacement; «drop»/«delete» removes it (a list item whole)."""
     lesson = ROOT / "content/aeat-agentes-hacienda/es/lessons" / f"{lesson_id}.md"
 
     def cells(row: str) -> list[str]:
         return [c.strip().replace("\\|", "|") for c in re.split(r"(?<!\\)\|", row.strip().strip("|"))]
 
-    pending = TAX / lesson_id / "pending.md"
+    pending = pending_root / lesson_id / "pending.md"
     texts = {
         cells(r)[0].strip("`"): cells(r)[2] for r in pending.read_text().splitlines() if r.startswith("| `")
     }
@@ -185,7 +213,14 @@ def apply(lesson_id: str, report: Path) -> None:
             print(f"{sid}: not in pending.md, not applied")
             continue
         old, new = texts[sid], c[-1].removeprefix("- ")
-        if re.search(r"\badd (after|before)\b|\breplace (the|with)\b", new, re.I):
+        instruction = re.search(
+            r"\badd (after|before)\b|\breplace (the|with)\b", new, re.IGNORECASE
+        ) or re.match(r"\s*(same sentence|mantener|añadir|moved?)\b", new, re.IGNORECASE)
+        if (
+            instruction
+            or "[Normativa" in new
+            or (old.lstrip().startswith("|") and not new.lstrip().startswith("|"))
+        ):
             print(f"{sid}: the replacement holds an instruction, not applied")
             continue
         found = list(re.finditer(r"\s+".join(re.escape(t) for t in old.split()), text))

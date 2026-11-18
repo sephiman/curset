@@ -203,3 +203,29 @@ All on the final tree (2026-11-11), with `docs/age-verification/aeat/tools/close
   platform nondeterminism (tax part, decision 26); the only failure; rerun once: `test_citations.py`,
   `test_provenance.py`, `test_esquema.py`, `test_saved_pages.py` 1,159 passed. Frontend 738 passed, 114 skipped; `tsc -b`
   clean. `ruff`, `ruff format`, `mypy` clean on the two new round tools.
+
+# Run 2 — R2d, 2026-11-14 → 2026-11-18
+
+Per-lesson reports: `docs/age-verification/aeat/r2d/audit/<lesson>.md` (method in each header: citation index of the
+lesson, grep per map row, reading where the script could not decide; one problem per row still part / not treated without
+an admissible reason, per incomplete enumeration, per «entre otros» standing for a list, per broken reference, per «No
+confundir» defect, per unmapped section, per readability category).
+
+## Findings (first pass, on the expanded lessons)
+
+About 230 problems over the 33 lessons. The heaviest: I.7 (114: 77 part rows and 31 not-treated rows with no admissible
+reason, 6 incomplete enumerations), III.4 (19), I.3 (16), III.1 (11), I.1 (10), I.2 (7), III.2 (6), III.19 (5); the
+others 0–4. Problems in parts I and II were first closed by completion writers; Juanjo then replaced the expansion with
+the build method (build from HEAD, add verified sentences only, completeness wins over size).
+
+## Resolution (build pass)
+
+- Every lesson rebuilt from git HEAD with byte-identical verified sentences (`r2d/tools/build_check.py`), a standalone
+  reader pass, minimal fixes checked blind by Opus, and a pool-gap pass for the articles the verified pool lacked.
+- Article maps: no article inside a range ends «not treated»; sizes are reported, not cut (`r2d/words-final.md`).
+- Enumerations whole, as esquemas; «entre otros» kept only where it is the law's own wording.
+- Sentences dropped after two failed re-checks: 7 (`r2d/dropped.md`); glossary entries rewritten or removed by
+  Juanjo's sense rule (silencio administrativo from art. 24 LPAC; recusación removed).
+- Kept as selections, by ruling: art. 5 CAU (III.20); arts. 9.1, 10.1, 11.1 LJCA (II.5); Ley 4/2023 chapter-level
+  blocks (I.6 depth rule). Gaps that also exist in C1/C2: `r2d/c1-c2-list.md` (listed, not fixed).
+- Coverage 2022–2025: 452/452 (`r2d/coverage-final.md`).
