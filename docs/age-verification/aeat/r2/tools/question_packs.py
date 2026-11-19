@@ -8,7 +8,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[5]
 R0A = ROOT / "docs/age-verification/aeat/r0a"
-OUT = ROOT / "docs/age-verification/aeat/r2/questions"
+OUT = ROOT / "docs/_work/age-verification/aeat/r2/questions"
 LAST_FOUR = {"2025", "2024", "2023", "2022", "2022X"}
 FILES = {"2025": "conv2025_A", "2024": "conv2024_A", "2023": "conv2023_A", "2022": "conv2022_A",
          "2022X": "conv2022_X", "2021": "conv2021_A", "2020": "conv2020_A"}

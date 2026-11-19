@@ -12,7 +12,7 @@ import sys
 from explanation import LESSONS
 from lesson_model import ROOT
 
-PRE = ROOT / "docs/age-verification/aeat/edition/pre"
+PRE = ROOT / "docs/_work/age-verification/aeat/edition/pre"
 LAYER_LEADS = ("**Caso.**", "**Preguntas que responde:**", "**Para qué sirve.**", "**Término")
 
 

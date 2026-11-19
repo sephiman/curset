@@ -15,13 +15,14 @@ sys.path.insert(0, str(HERE))
 from lesson_model import ROOT, parse  # noqa: E402
 
 EDITION = ROOT / "docs/age-verification/aeat/edition"
+WORK = ROOT / "docs/_work/age-verification/aeat/edition"
 POOL = ROOT / "docs/age-verification/aeat/pool"
 
 
 def main() -> int:
     unsolved: list[str] = ["# Reader flags with no restore sentence", ""]
     total = solved = 0
-    for path in sorted((EDITION / "reader").glob("m0*.json")):
+    for path in sorted((WORK / "reader").glob("m0*.json")):
         lesson = path.stem
         data = json.loads(path.read_text())
         model = parse((POOL / f"{lesson}.md").read_text())
@@ -44,7 +45,7 @@ def main() -> int:
                 solved += 1
             else:
                 unsolved.append(f"- {lesson}:{flag.get('line')} «{flag.get('starts')}» — {flag.get('problem')}")
-        (EDITION / "restore" / f"{lesson}.reader.json").write_text(
+        (WORK / "restore" / f"{lesson}.reader.json").write_text(
             json.dumps({"sentences": sorted(sentences), "esquemas": sorted(esquemas)}, indent=1) + "\n"
         )
     (EDITION / "reader-unsolved.md").write_text("\n".join(unsolved) + "\n")

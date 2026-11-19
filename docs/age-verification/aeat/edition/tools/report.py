@@ -12,6 +12,7 @@ from lesson_model import ROOT, parse, words  # noqa: E402
 
 AEAT = ROOT / "docs/age-verification/aeat"
 EDITION = AEAT / "edition"
+WORK = ROOT / "docs/_work/age-verification/aeat/edition"
 CONTENT = ROOT / "content/aeat-agentes-hacienda/es/lessons"
 ORDER = ["HEAD", "R2b restore", "review item", "No confundir", "gap fill", "range coverage", "reworded"]
 
@@ -40,7 +41,7 @@ def main() -> int:
             tot["pool"] += pool
             tot["now"] += now
             continue
-        sel = json.loads((EDITION / "selection" / f"{lesson}.json").read_text())
+        sel = json.loads((WORK / "selection" / f"{lesson}.json").read_text())
         b = int(info["budget"])
         over = max(now - b, 0)
         model = parse(text)

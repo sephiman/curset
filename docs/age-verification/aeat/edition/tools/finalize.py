@@ -20,6 +20,7 @@ from lesson_model import ROOT, key, section_path, words  # noqa: E402
 
 AEAT = ROOT / "docs/age-verification/aeat"
 EDITION = AEAT / "edition"
+WORK = ROOT / "docs/_work/age-verification/aeat/edition"
 CONTENT = ROOT / "content/aeat-agentes-hacienda/es/lessons"
 
 
@@ -80,7 +81,7 @@ def finalize(lesson: str, budget: int, write: bool) -> dict[str, object]:
         text = body.rstrip("\n") + "\n\n## Normativa\n\n" + "\n".join(lines) + "\n"
     text, marker_fixes = fix_markers(text)
     text, patched = apply_patches(lesson, text)
-    (EDITION / "selection" / f"{lesson}.text").write_text(text)
+    (WORK / "selection" / f"{lesson}.text").write_text(text)
     keep = set(sel.cls) | derived
     tags = sel.tags
     by_origin: dict[str, int] = {}
@@ -130,7 +131,7 @@ def finalize(lesson: str, budget: int, write: bool) -> dict[str, object]:
         "marker_fixes": marker_fixes,
         "patches": patched,
     }
-    (EDITION / "selection" / f"{lesson}.json").write_text(json.dumps(info, ensure_ascii=False, indent=1) + "\n")
+    (WORK / "selection" / f"{lesson}.json").write_text(json.dumps(info, ensure_ascii=False, indent=1) + "\n")
     return info
 
 

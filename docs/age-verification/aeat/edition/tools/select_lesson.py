@@ -20,6 +20,7 @@ from lesson_model import ROOT, Block, Lesson, key, parse, rebuild, references, w
 
 AEAT = ROOT / "docs/age-verification/aeat"
 EDITION = AEAT / "edition"
+WORK = ROOT / "docs/_work/age-verification/aeat/edition"
 CONTENT = ROOT / "content/aeat-agentes-hacienda/es/lessons"
 DERIVED = ("Lo que más cae", "Normativa")
 ESTIMACION = "Los contribuyentes que reúnan las circunstancias previstas en las normas reguladoras de la estimación objetiva"
@@ -59,7 +60,7 @@ class Selection:
         self.restore_ids: set[str] = set()
         self.restore_esq: set[int] = set()
         for name in ("bank", "reader", "anchors"):
-            rpath = EDITION / "restore" / f"{lesson}.{name}.json"
+            rpath = WORK / "restore" / f"{lesson}.{name}.json"
             if rpath.exists():
                 rdata = json.loads(rpath.read_text())
                 self.restore_ids |= set(rdata.get("sentences", []))
@@ -67,7 +68,7 @@ class Selection:
         swap_path = EDITION / "swap.json"
         self.swap: dict[str, str] = json.loads(swap_path.read_text()).get(lesson, {}) if swap_path.exists() else {}
         self.drop_esq: set[int] = set()
-        apath = EDITION / "restore" / f"{lesson}.anchors.json"
+        apath = WORK / "restore" / f"{lesson}.anchors.json"
         if apath.exists():
             self.drop_esq = {int(x) for x in json.loads(apath.read_text()).get("drop_esquemas", [])}
         self.asked_keys: set[str] = set()
@@ -300,7 +301,7 @@ def assemble(lesson: str, budget: int) -> tuple[Selection, str, set[tuple[int, s
 def main(argv: list[str]) -> int:
     table = json.loads((EDITION / "budget.json").read_text())
     lessons = argv or [x for x in table if x != "m00-l01"]
-    (EDITION / "selection").mkdir(exist_ok=True)
+    (WORK / "selection").mkdir(exist_ok=True)
     for lesson in lessons:
         sel, text, derived = assemble(lesson, int(table[lesson]["budget"]))
         counts: dict[str, int] = {}
@@ -322,8 +323,8 @@ def main(argv: list[str]) -> int:
             "esquemas_total": len(sel.model.esquemas),
             "sentences_total": len(sel.all),
         }
-        (EDITION / "selection" / f"{lesson}.json").write_text(json.dumps(info, ensure_ascii=False, indent=1) + "\n")
-        (EDITION / "selection" / f"{lesson}.text").write_text(text)
+        (WORK / "selection" / f"{lesson}.json").write_text(json.dumps(info, ensure_ascii=False, indent=1) + "\n")
+        (WORK / "selection" / f"{lesson}.text").write_text(text)
         print(lesson, json.dumps({k: info[k] for k in ("budget", "words_body", "words_derived", "by_class_words")}))
     return 0
 

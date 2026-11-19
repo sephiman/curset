@@ -19,6 +19,7 @@ from lesson_model import ROOT, parse, words  # noqa: E402
 
 AEAT = ROOT / "docs/age-verification/aeat"
 EDITION = AEAT / "edition"
+WORK = ROOT / "docs/_work/age-verification/aeat/edition"
 FACTOR = 1.1
 CITE = re.compile(r"\((arts?\.[^()]*?)\)")
 
@@ -47,7 +48,7 @@ def main() -> int:
     for path in sorted((AEAT / "pool").glob("m0*.md")):
         lesson = path.stem
         pool_text = path.read_text()
-        pre_text = (EDITION / "pre" / path.name).read_text()
+        pre_text = (WORK / "pre" / path.name).read_text()
         title = pool_text.splitlines()[0].lstrip("# ").strip()
         sentences = programme_sentences(title)
         asked = {}

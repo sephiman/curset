@@ -33,7 +33,7 @@ def identity() -> tuple[int, int, list[str]]:
         now = parse(text[:cut] if cut >= 0 else text)
         pool_text = (AEAT / "pool" / f"{lesson}.md").read_text()
         pool = parse(pool_text)
-        pre = parse((AEAT / "edition/pre" / f"{lesson}.md").read_text())
+        pre = parse((ROOT / "docs/_work/age-verification/aeat/edition/pre" / f"{lesson}.md").read_text())
         known = {s.text for s in pre.prose_sentences} | {s.text for s in pool.prose_sentences} | {s.text for e in pool.esquemas for s in e.sentences}
         known |= {finalize.fix_markers(t)[0] for t in known if t.startswith('|')}  # list-marker fixes of table rows
         for sentence in now.prose_sentences + [s for e in now.esquemas for s in e.sentences]:

@@ -22,7 +22,7 @@ from scripts.provenance import sentences  # noqa: E402
 
 LESSONS = ROOT / "content/aeat-agentes-hacienda/es/lessons"
 R2D = ROOT / "docs/age-verification/aeat/r2d"
-EXPANSION = R2D / "expansion"
+EXPANSION = ROOT / "docs/_work/age-verification/aeat/r2d/expansion"
 MARKER = re.compile(r"^(\d+\.?º?\)?|[a-zñ](?:\u00b4|')*\)|[A-Z]\)|\d+\\?\.)\s+")
 
 

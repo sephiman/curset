@@ -22,6 +22,7 @@ from lesson_model import ROOT, parse  # noqa: E402
 COURSE = ROOT / "content/aeat-agentes-hacienda"
 AEAT = ROOT / "docs/age-verification/aeat"
 EDITION = AEAT / "edition"
+WORK = ROOT / "docs/_work/age-verification/aeat/edition"
 QUESTION = re.compile(r"question (\S+)/(\S+) cites «(.+?)», which its lesson (\S+) never cites")
 ESQUEMA = re.compile(r"lesson (m\d\d-l\d\d) line (\d+), esquema «(.*?)», row «(.*?)»: cites «(.+?)», which the lesson's prose never cites")
 
@@ -79,14 +80,14 @@ def cover(model, cite: str, tags: dict[str, str], before: int | None = None) -> 
 
 
 def load(lesson: str) -> dict:
-    path = EDITION / "restore" / f"{lesson}.anchors.json"
+    path = WORK / "restore" / f"{lesson}.anchors.json"
     return json.loads(path.read_text()) if path.exists() else {"sentences": [], "drop_esquemas": []}
 
 
 def save(lesson: str, data: dict) -> None:
     data["sentences"] = sorted(set(data["sentences"]))
     data["drop_esquemas"] = sorted(set(data["drop_esquemas"]))
-    (EDITION / "restore" / f"{lesson}.anchors.json").write_text(json.dumps(data, indent=1) + "\n")
+    (WORK / "restore" / f"{lesson}.anchors.json").write_text(json.dumps(data, indent=1) + "\n")
 
 
 def repair(message: str) -> set[str]:

@@ -20,6 +20,7 @@ from lesson_model import ROOT  # noqa: E402
 
 COURSE = ROOT / "content/aeat-agentes-hacienda"
 EDITION = ROOT / "docs/age-verification/aeat/edition"
+WORK = ROOT / "docs/_work/age-verification/aeat/edition"
 
 
 def norm_key(key: str) -> str:
@@ -65,7 +66,7 @@ def restore_plan() -> None:
     from lesson_model import key, parse  # noqa: E402
 
     lost = json.loads((EDITION / "bank-anchors.json").read_text())
-    (EDITION / "restore").mkdir(exist_ok=True)
+    (WORK / "restore").mkdir(exist_ok=True)
     for lesson, ids in lost.items():
         if not ids:
             continue
@@ -94,7 +95,7 @@ def restore_plan() -> None:
                     sentences.add(ident)
                 else:
                     esquemas.add(int(ident))
-        target = EDITION / "restore" / f"{lesson}.bank.json"
+        target = WORK / "restore" / f"{lesson}.bank.json"
         if target.exists():
             before = json.loads(target.read_text())
             sentences |= set(before.get("sentences", []))

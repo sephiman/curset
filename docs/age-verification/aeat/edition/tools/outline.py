@@ -18,6 +18,7 @@ from lesson_model import ROOT, parse, words  # noqa: E402
 
 AEAT = ROOT / "docs/age-verification/aeat"
 EDITION = AEAT / "edition"
+WORK = ROOT / "docs/_work/age-verification/aeat/edition"
 LETTER = {
     "HEAD": "H",
     "R2b restore": "C",
@@ -79,7 +80,7 @@ def build(lesson: str) -> str:
 
 
 def main(argv: list[str]) -> int:
-    out = EDITION / "outline"
+    out = WORK / "outline"
     out.mkdir(exist_ok=True)
     lessons = argv or sorted(p.stem for p in (AEAT / "pool").glob("m0*.md") if p.stem != "m00-l01")
     for lesson in lessons:

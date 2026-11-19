@@ -10,10 +10,11 @@ import sys
 from pathlib import Path
 
 BANK = Path(__file__).resolve().parents[1]
+ROOT = BANK.parents[3]
 SIZE = 60
 
 if __name__ == "__main__":
-    out = BANK / "style" / "input"
+    out = ROOT / "docs/_work/age-verification/aeat/bank/style/input"
     out.mkdir(parents=True, exist_ok=True)
     for pool in sorted(BANK.glob("m0?-l??.pool.json")):
         lesson = pool.name.split(".")[0]

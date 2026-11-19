@@ -77,15 +77,16 @@ def main() -> None:
                 continue
         todo.append(qid)
     out = BANK / "excerpts"
-    (out / "batches").mkdir(parents=True, exist_ok=True)
+    batches = ROOT / "docs/_work/age-verification/aeat/bank/excerpts/batches"
+    batches.mkdir(parents=True, exist_ok=True)
     (out / "inherit.tsv").write_text("\n".join(inherit_rows) + "\n", encoding="utf-8")
     questions = questions_by_id()
     items = [item(n, qid, questions[qid], mine[qid]) for n, qid in enumerate(todo, start=1)]
-    for old in (out / "batches").glob("batch-*.jsonl"):
+    for old in batches.glob("batch-*.jsonl"):
         old.unlink()
     for i in range(0, len(items), BATCH):
         lines = [json.dumps(it, ensure_ascii=False) for it in items[i:i + BATCH]]
-        (out / "batches" / f"batch-{1 + i // BATCH:02d}.jsonl").write_text("\n".join(lines) + "\n", encoding="utf-8")
+        (batches / f"batch-{1 + i // BATCH:02d}.jsonl").write_text("\n".join(lines) + "\n", encoding="utf-8")
     derived_ok = sum(1 for r in inherit_rows[1:] if r.endswith("identical"))
     print(f"{len(mine)} excerpt entries; inherit {derived_ok}; to blind-check {len(todo)} in {-(-len(todo) // BATCH)} batches")
 

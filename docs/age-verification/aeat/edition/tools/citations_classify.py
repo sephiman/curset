@@ -37,7 +37,7 @@ def squash(text: str) -> str:
 
 
 def pre_lines(lesson: str) -> set[str]:
-    path = ROOT / "docs/age-verification/aeat/edition/pre" / f"{lesson}.md"
+    path = ROOT / "docs/_work/age-verification/aeat/edition/pre" / f"{lesson}.md"
     return {line.strip() for line in path.read_text(encoding="utf-8").split("\n") if line.strip()} if path.exists() else set()
 
 
