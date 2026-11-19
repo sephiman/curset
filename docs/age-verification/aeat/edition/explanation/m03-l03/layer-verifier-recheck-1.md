@@ -1,5 +1,0 @@
-| KEY | Verdict | Reason |
-|---|---|---|
-| caso:## Los tributos: concepto y clasificación#1 | PASS | The service is provided under public law, the private sector also provides it and the request is voluntary, which is exactly the art. 24 Ley 8/1989 case of a precio público. Art. 2.2.a) LGT makes it a tasa only if the service is not voluntary or the private sector does not provide it, and neither holds here. The date has no effect on the result. |
-| caso:### Hecho imponible#1 | PASS | Art. 20.2 LGT lets the law complete the hecho imponible by naming supuestos de no sujeción, so Eva falls outside it. Art. 22 LGT exempts Pablo from the obligación principal even though he realises the hecho imponible. Both steps are cited correctly. |
-| caso:### Interés de demora#1 | PASS | With no other rate set by the LPGE, 4 % × 1.25 = 5 % under the first paragraph of art. 26.6. A deferral fully guaranteed by an aval solidario from a credit institution takes the interés legal of 4 % under the second paragraph. The condition «sin otro interés fijado por la LPGE» is stated. |

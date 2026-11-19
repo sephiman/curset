@@ -1,3 +1,0 @@
-| key | verdict | reason |
-|---|---|---|
-| overview | PASS | 196 words. Each cited statement checks against its article: definition (119.1 LGT), autoliquidaciones and comunicaciones de datos as declaraciones (120.1, 121), complementarias/sustitutivas while not prescribed (122.1), autonomous character of pagos a cuenta (23.1), three IRPF pagos a cuenta (99.1 LIRPF), IS pago fraccionado (40.1 LIS) and retenciones (128.1 LIS), IVA declaraciones-liquidaciones (164.Uno.6.º), modelo 111 (Orden EHA/586/2011 art. 1.1), not obliged to retain = misiones diplomáticas/oficinas consulares (99.2 last para.), IS plazo (40.1), 19 % arrendamiento urbano (101.8), rectificación de opciones (119.3). No missing condition changes the meaning. |

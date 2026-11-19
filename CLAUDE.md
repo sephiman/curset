@@ -27,13 +27,7 @@ prompt says, unless the prompt explicitly overrides it.
   running ones finish their current part, the ledger is written, and
   work waits for the reset.
 
-## C1 edits and C2 provenance
-
-- A round that edits a C1 lesson sentence inherited by C2 (`age-auxiliar-c2`) must rerun
-  `backend/scripts/provenance.py` for the affected C2 lessons and update their records in
-  `docs/age-verification/c2/` in the same round; `backend/tests/test_provenance.py` fails until it does.
-
 ## Round working material
 
-- Round tools write working material (verifier batch inputs, drafts, intermediate pass/recheck reports, regenerable outputs) under `docs/_work/` (git-ignored), mirroring the path.
-- Only records, final reports and verified pools (pool, reserve, tags, ledgers, handoffs) go under `docs/age-verification/`.
+- Round working material (verifier inputs, drafts, reports, records, pools) lives under `docs/_work/` and `docs/age-verification/`; both are git-ignored and not part of the repo.
+- Nothing in tests or build steps may read them, except the AEAT official-exam inputs `docs/age-verification/aeat/r0a` and `aeat/official`, which stay tracked.

@@ -1,1 +1,0 @@
-| overview | PASS | Only structure statements plus topic pointers, each supported: definitions of direct and indirect discrimination (art. 6.1 and 6.2 LO 3/2007), the functions of the Delegación (29.1) and the Observatorio (30.1 LO 1/2004), and the residence requirement (5.1.c Ley 39/2006); no rule is stated in a way the articles contradict. |

@@ -1,1 +1,0 @@
-| overview | PASS | Las afirmaciones jurídicas concuerdan con los artículos: Estatutos (art. 147), control de las Comunidades (arts. 153 y 155: TC, Gobierno, contencioso, Tribunal de Cuentas y la vía coercitiva); los demás rangos (137–139, 143–151, 148–150, 156–158, 140–142 CE, 13–19 TUE) son de estructura y cubren lo que anuncian. |

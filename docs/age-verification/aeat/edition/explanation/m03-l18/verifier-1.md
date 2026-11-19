@@ -1,1 +1,0 @@
-| overview | PASS | Solo afirmaciones de estructura: las adquisiciones intracomunitarias se sitúan en el art. 13, cuyo texto lo confirma; los demás rangos de artículos son referencias temáticas sin afirmación normativa. |

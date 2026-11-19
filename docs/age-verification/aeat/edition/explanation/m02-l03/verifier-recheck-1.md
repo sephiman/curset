@@ -1,4 +1,0 @@
-| KEY | Verdict | Reason |
-|---|---|---|
-| after:## Interesados, capacidad y representación#1 | PASS | Capacidad (art. 3.a), menores with the incapacitación exception (art. 3.b) and the list of acts needing acreditación plus the presumption for «actos y gestiones de mero trámite» (art. 5.3) all match the text; leaving out art. 3.c is an incomplete explanation, not a false statement, since nothing says the list is exhaustive. |
-| after:## Términos y plazos#1 | FAIL | «En plazos de días hábiles, lo presentado en el registro electrónico en día inhábil se entiende presentado en la primera hora del primer día hábil siguiente» drops the limit in art. 31.2.b, «y en lo que se refiere al cumplimiento de plazos por los interesados». Art. 31.2.c treats the start of the Administración's plazos separately (by the «fecha y hora de presentación»), so the reader is led to apply the rule to both cases. The 30.2 and 30.4 sentences are correct. |

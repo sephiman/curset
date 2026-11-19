@@ -1,3 +1,0 @@
-| KEY | Verdict | Reason |
-|---|---|---|
-| overview | PASS | Plazos: one month for alzada and reposición «si el acto es expreso» (arts. 122.1, 124.1); two months against a disposición or the expreso act that pone fin a la vía administrativa, and six months «si no lo fuera» (art. 46.1 LJCA). All are correctly conditioned and limited to the recursos named, so leaving out 46.2–46.6 (inactividad, vía de hecho, lesividad, litigios entre Administraciones) is incompleteness, not a false rule. Art. 6 lists the organs and art. 25 the actividad impugnable. The references to arts. 112–126 LPAC, 1–3 and 12 LJCA and the «Lo que más cae» sentence describe structure and make no legal claim. |

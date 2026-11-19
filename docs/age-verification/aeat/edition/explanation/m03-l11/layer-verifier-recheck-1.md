@@ -1,4 +1,0 @@
-| KEY | Verdict | Reason |
-|---|---|---|
-| caso:### Medidas cautelares#1 | PASS | The rational-indication requirement (art. 81.1) and the ban on disposal (81.4.c) are correct. Adopted Tue 2 Feb 2027; six months «desde su adopción» (81.7), counted under LPAC 30.4, end on the same date six months later: Mon 2 Aug 2027, a working day, weekdays correct. «salvo, entre otros supuestos» correctly flags exceptions a–e, and an extension by reasoned decision of at most six months matches 81.7.d. |
-| caso:### Iniciación del período ejecutivo#1 | PASS | Fri 20 Nov 2026 is the payment deadline. Under art. 161.1.a the enforcement period starts the next day, Sat 21 Nov (a calendar-day rule, so Saturday is fine). A deferral request filed in the voluntary period on Tue 10 Nov blocks that start while it is processed (161.2, first paragraph). The exception for a prior refusal of a request on the same debt (161.2, second paragraph) is correctly excluded. |

@@ -1,1 +1,0 @@
-| overview | PASS | Territorio aduanero (art. 4), registro de operadores (art. 9), representación directa o indirecta (art. 18.1), valor de transacción como base del valor en aduana (art. 70.1), 90 días del depósito temporal (art. 149) y declaración en aduana para incluir mercancías en un régimen (art. 158.1); todo concuerda con el texto. El resto es estructura. |

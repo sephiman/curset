@@ -1,2 +1,0 @@
-| caso:### Iniciativa legislativa#1 | PASS | Art. 126.1 RC: diputado + catorce firmas (15 en total); Grupo con la sola firma del portavoz. |
-| caso:### Elección#1 | PASS | Input lacked art. 2 text; checked in the source PDF (BOE-A-1981-10325): Uno (Cortes, cinco años), Tres (Comisión Mixta propone), Cuatro (3/5 Congreso, ratificación 3/5 Senado en máx. 20 días). Mar 10 2026 is Tuesday, Mar 25 2026 Wednesday; 15 days < 20. |

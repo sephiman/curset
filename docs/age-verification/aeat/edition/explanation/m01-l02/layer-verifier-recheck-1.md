@@ -1,1 +1,0 @@
-| caso:### Iniciativa legislativa#1 | PASS | Art. 126.1 RC (comprobado también en el PDF de 2026): un diputado con la firma de catorce miembros más (quince en total) o un Grupo con la sola firma de su portavoz. |
