@@ -15,8 +15,8 @@ echo "--> [3/5] Backend types (mypy)..."
 echo "--> [4/5] Backend lint and format (ruff)..."
 (cd backend && uv run ruff check . && uv run ruff format --check .)
 
-# Frozen goldens and provenance records are what a content round most often leaves stale.
-echo "--> [5/5] Content goldens: citations, provenance, esquemas..."
+# Frozen goldens are what a content round most often leaves stale.
+echo "--> [5/5] Content goldens: citations, esquemas..."
 (cd backend && uv run pytest tests/test_citations.py tests/test_esquema.py -q -p no:warnings)
 
 echo "=== All pre-push checks passed ==="

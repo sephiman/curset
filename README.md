@@ -1105,14 +1105,7 @@ generator level, `official: true` so no draw picks them; `backend/scripts/build_
 tests. Tests: `test_age_c2_simulation_presets.py`, `test_age_c2_official_exams.py`, `test_age_c2_calibration_items.py`;
 real-browser checks in `frontend/e2e/age-c2.spec.ts`. Deployment: `docs/deploy-age-c2.md`.
 
-**Provenance (R2.3).** A C2 sentence identical to a C1 one, with the same governing citations and the cited
-files at the same sha256 in both snapshots, inherits C1's verification; every other sentence needs its own
-PASS from a blind verifier. `backend/scripts/provenance.py` splits a lesson into sentences, finds what C1
-sentence (if any) each inherits from, and writes the per-lesson record in `docs/age-verification/c2/bloque-i/` or `bloque-ii/`
-(`plan` lists what still needs a verifier, `record` writes the record once nothing is pending);
-`backend/tests/test_provenance.py` audits every written C2 lesson and the glossary against those records in
-the pipeline, so an edit to a lesson, to C1, or to a cited file breaks the test until the record is redone (a round
-that edits an inherited C1 sentence reruns it in the same round; CLAUDE.md).
+**Provenance (R2.3).** A C2 sentence identical to a C1 one, with the same governing citations, inherits C1's verification; every other sentence needs its own blind PASS. The records and reports live outside the repo (`docs/age-verification/` is git-ignored); nothing in the test suite audits them.
 
 **Question identity.** A quiz question is named by its own id (`m06-l02-q351`), never by the exercise the
 bank build grouped it into: every attempt stores it (`attempts.variant_id`), and grading, review, reports,
