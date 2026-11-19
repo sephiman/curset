@@ -58,7 +58,7 @@ class LessonCitation:
     source_file: str | None = None
     #: The groups after the first when the text names a second norm, in the order written.
     also: tuple[LessonCitation, ...] = ()
-    #: Inside the explanation layer (overview, «Preguntas», «Caso», «Para qué sirve», «Término»): never an anchor target.
+    #: In the explanation layer (overview, «Preguntas», «Caso», «Para qué sirve», «Término»): never an anchor.
     layer: bool = False
 
     @property
@@ -179,7 +179,7 @@ def _prose_chunks(lines: list[str], skip: set[int]) -> list[tuple[int, str]]:
 
 
 def _layer_lines(lines: list[str]) -> set[int]:
-    """Lines of every layer paragraph: the overview (the paragraph under the title that points at «Lo que más cae»)."""
+    """Lines of every layer paragraph; the overview is the one under the title that cites «Lo que más cae»."""
     layer: set[int] = set()
     paragraph: list[int] = []
 
@@ -276,7 +276,15 @@ def scan_lesson(lesson_id: str, markdown: str, index: NormIndex) -> LessonCitati
                 chains[in_layer] = (later[-1].norm, later[-1].norm_slug) if later else (norm, norm_slug)
                 text = collapse(segment.text)
                 citation = LessonCitation(
-                    "prose", text, line, norm, norm_slug, implicit, segment.units, segment.ranges, also=later,
+                    "prose",
+                    text,
+                    line,
+                    norm,
+                    norm_slug,
+                    implicit,
+                    segment.units,
+                    segment.ranges,
+                    also=later,
                     layer=line in layer,
                 )
                 found.append((line, position, citation))
@@ -287,7 +295,15 @@ def scan_lesson(lesson_id: str, markdown: str, index: NormIndex) -> LessonCitati
                 line = first_line + _line_of(offsets, position)
                 units, ranges = segment.units, segment.ranges
                 citation = LessonCitation(
-                    "prose", collapse(segment.text), line, norm, norm_slug, False, units, ranges, layer=line in layer
+                    "prose",
+                    collapse(segment.text),
+                    line,
+                    norm,
+                    norm_slug,
+                    False,
+                    units,
+                    ranges,
+                    layer=line in layer,
                 )
                 found.append((line, position, citation))
 

@@ -237,8 +237,15 @@ def test_the_explanation_layer_cites_but_is_never_an_anchor_target(tmp_path: Pat
     normativa = tmp_path / "normativa.yaml"
     normativa.write_text(
         yaml.safe_dump(
-            [{"short": "LGT", "aliases": ["LGT"], "title": "Ley 58/2003", "boe_id": "BOE-A-2003-23186",
-              "file": "sources/normativa/lgt.pdf"}],
+            [
+                {
+                    "short": "LGT",
+                    "aliases": ["LGT"],
+                    "title": "Ley 58/2003",
+                    "boe_id": "BOE-A-2003-23186",
+                    "file": "sources/normativa/lgt.pdf",
+                }
+            ],
             allow_unicode=True,
         ),
         encoding="utf-8",
