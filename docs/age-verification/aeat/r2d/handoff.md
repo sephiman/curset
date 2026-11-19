@@ -13,7 +13,9 @@ fill); records written (`r2/<lesson>.md`); words 228,756 → 860k (`r2d/words-fi
   and changes no word of any lesson»), `refs/listShape.test.ts` (aeat: «carry no list marker in the middle of a
   sentence»), `pdf/lessonRefLabels.test.ts` (aeat m02-l02 → m02-l01 / m01-l05 labels). `tsc -b` clean.
 - `test_provenance`: every aeat lesson passes (checked before the close run).
-- Origin tags per sentence and esquema row: `r2d/tags/<lesson>.json` (`r2d/tools/tag_origins.py`).
+- Origin tags per sentence and esquema row: `r2d/tags/<lesson>.json` (`r2d/tools/tag_origins.py`): 23,517 units —
+  HEAD 6,336, range coverage 11,757, reworded 3,139, review item 1,124, gap fill 789, «No confundir» 271, R2b restore
+  101; every unit has its report except the 67 of m00-l01 (no record entries; unchanged introduction).
 
 **What the external review got right.** 196 of its 339 items confirmed against the norm: missing enumerations and
 articles (consultas, prueba, arts. 195–197 LGT, 162–163 CAU…), «entre otros» standing for legal lists, the glossary

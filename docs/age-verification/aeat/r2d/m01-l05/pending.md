@@ -1,6 +1,6 @@
 # Pending sentences — `m01-l05`
 
-0 to verify; 243 inherited; 704 already PASS.
+0 to verify; 242 inherited; 349 already PASS.
 
 | id | line | sentence | governing citations |
 |---|---|---|---|

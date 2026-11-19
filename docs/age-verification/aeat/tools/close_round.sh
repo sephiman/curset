@@ -28,13 +28,20 @@ else
   echo "differs: $(wc -l <"$scratch/bundle.diff") files (list in $scratch/bundle.diff)"
 fi
 
-step "backend: uv run pytest"
-(cd "$repo/backend" && uv run pytest -q -p no:warnings 2>&1 | tail -3) | tee "$scratch/backend.log"
+# Backend (4 xdist workers, one Postgres container each) and frontend run side by side; results print in order.
+(cd "$repo/backend" && uv run pytest -q -p no:warnings -n 4 >"$scratch/backend.full" 2>&1) &
+backend_pid=$!
+(cd "$repo/frontend" && npx vitest run >"$scratch/frontend.full" 2>&1; npx tsc -b >"$scratch/tsc.full" 2>&1; echo "tsc=$?" >>"$scratch/tsc.full") &
+frontend_pid=$!
+wait "$backend_pid" "$frontend_pid"
+
+step "backend: uv run pytest -n 4"
+tail -3 "$scratch/backend.full" | tee "$scratch/backend.log"
 grep -q ' failed' "$scratch/backend.log" && fail "backend suite"
 
 step "frontend: npx vitest run; tsc -b"
-(cd "$repo/frontend" && npx vitest run 2>&1 | grep -E '^ +Tests ' ) | tee "$scratch/frontend.log"
+grep -E '^ +Tests ' "$scratch/frontend.full" | tee "$scratch/frontend.log"
 grep -q 'failed' "$scratch/frontend.log" && fail "frontend suite"
-(cd "$repo/frontend" && npx tsc -b) && echo "tsc -b clean" || fail "tsc -b"
+grep -q '^tsc=0$' "$scratch/tsc.full" && echo "tsc -b clean" || fail "tsc -b"
 
 exit $status

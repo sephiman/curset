@@ -24,6 +24,9 @@ from scripts.provenance import parse_record, sentences  # noqa: E402
 LESSONS = ROOT / "content/aeat-agentes-hacienda/es/lessons"
 R2D = ROOT / "docs/age-verification/aeat/r2d"
 RECORDS = ROOT / "docs/age-verification/aeat/r2"
+BASE = (
+    (R2D_DIR := Path(__file__).resolve().parents[1]).joinpath("base-commit.txt").read_text().strip()
+)  # pre-R2d commit: «HEAD» tags mean its text
 CITE = re.compile(r"\(arts?\.\s*([^()]*?)\)")
 ART = re.compile(r"(\d+(?:\s(?:bis|ter|quater))?)")
 
@@ -90,11 +93,25 @@ def _confundir_lines(text: str) -> set[int]:
     return lines
 
 
+_STRIPPED: dict[int, set[str]] = {}
+
+
+def _row_in_pool(row: str, pool: dict[str, tuple[str, str]]) -> bool:
+    """Fast path for an esquema row: a cell, marker-stripped, equals a pool text; else the full check."""
+    if id(pool) not in _STRIPPED:
+        _STRIPPED[id(pool)] = {build_check.MARKER.sub("", text, count=1) for text in pool} | set(pool)
+    stripped = _STRIPPED[id(pool)]
+    cells = [c.strip() for c in row.strip().strip("|").split("|")]
+    if any(c in stripped or build_check.MARKER.sub("", c, count=1) in stripped for c in cells):
+        return True
+    return build_check._row_twin(row, pool) is not None
+
+
 def tag(lesson: str, pool: dict[str, tuple[str, str]]) -> list[dict[str, object]]:
     path = LESSONS / f"{lesson}.md"
     text = path.read_text()
     head_text = subprocess.run(
-        ["git", "show", f"HEAD:content/aeat-agentes-hacienda/es/lessons/{lesson}.md"],
+        ["git", "show", f"{BASE}:content/aeat-agentes-hacienda/es/lessons/{lesson}.md"],
         cwd=ROOT,
         capture_output=True,
         text=True,
@@ -123,7 +140,7 @@ def tag(lesson: str, pool: dict[str, tuple[str, str]]) -> list[dict[str, object]
             origin = "No confundir"
         elif any(flat.startswith(g) or g in flat for g in gaps):
             origin = "gap fill"
-        elif s.text not in pool and (s.kind != "row" or build_check._row_twin(s.text, pool) is None):
+        elif s.text not in pool and (s.kind != "row" or not _row_in_pool(s.text, pool)):
             origin = "reworded"
         else:
             keys = _keys(s.text)

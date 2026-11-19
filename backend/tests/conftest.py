@@ -27,6 +27,25 @@ from tradeschool.main import create_app
 from tradeschool.migrations import run_migrations
 from tradeschool.ratelimit import limiter
 
+_load_registry_uncached = registry.load_registry
+
+
+@cache
+def _load_registry_at(content_dir: Path, newest: int, check_excerpts: bool) -> registry.CourseRegistry:
+    return _load_registry_uncached(content_dir, check_excerpts=check_excerpts)
+
+
+def _load_registry_cached(content_dir: Path, *, check_excerpts: bool = True) -> registry.CourseRegistry:
+    # Keyed on the newest file time under the course: a test that rewrites a course on disk parses it again.
+    root = Path(content_dir).resolve()
+    newest = max((p.stat().st_mtime_ns for p in root.rglob("*") if p.is_file()), default=0)
+    return _load_registry_at(root, newest, check_excerpts)
+
+
+# Bound before any test module imports it: about 30 test files load courses directly and the AEAT course
+# alone is ~860k words, so parsing each course once per session saves most of the suite's content time.
+registry.load_registry = _load_registry_cached
+
 _DB = "tradeschool_test"
 _USER = "tradeschool"
 _PASSWORD = "tradeschool"

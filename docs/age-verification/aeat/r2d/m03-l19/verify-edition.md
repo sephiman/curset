@@ -1,0 +1,11 @@
+# Verify (edition) — `m03-l19`
+
+Blind check of the rebuilt «Normativa» lines against the citations in the lesson as it stands (prose, lists, esquema «Cita» cells).
+Outside the pending rows: norms named only inside copied LIVA/RIVA text have no «nombrado en …» line — Texto Refundido de la Ley de Contratos del Sector Público (RDLeg 3/2011, art. 235, line 19), Ley 49/2002 (art. 2, line 110), Ley 22/2003 (art. 21, line 136), Ley 58/2003 General Tributaria (arts. 26, 26.6, 27, 41.5, 120.3, lines 272–669), Directiva 2006/112/CE (art. 226, line 455), RGAT (RD 1065/2007, arts. 74, 144.4 y 146.1, lines 723–724).
+
+| id | verdict | precept checked | note | replacement |
+|---|---|---|---|---|
+| `4aed55d609` | FAIL | LIVA (Ley 37/1992) | misparse of «(art. 79.Tres.1.ª y 2.ª LIVA)» (line 94): «2.ª» is listed as an article; the unit is 79.Tres.2.ª, missing; the other 113 units are each cited (9.1.º.c) at lines 483–493), none missing; «artículo 80» and the «esta Ley» references are inside copied text | LIVA (Ley 37/1992): arts. 9.1.º.c), 20.Uno.26.º, 75.Dos, 75.Uno, 75.Uno.1.º, 75.Uno.4.º, 76, 77.Uno, 78.Cuatro, 78.Dos, 78.Dos.1.º, 78.Dos.3.º, 78.Dos.6.º, 78.Tres, 78.Uno, 79.Cinco, 79.Cuatro, 79.Dos, 79.Once, 79.Tres.1.ª, 79.Tres.2.ª, 79.Tres.3.ª, 79.Uno, 80.Cinco, 80.Cinco.1.ª, 80.Cuatro, 80.Cuatro.A, 80.Dos, 80.Tres, 80.Uno, 80.Uno.2.º, 81.Uno, 82.Uno, 83.Uno, 84.Tres, 84.Uno, 84.Uno.2.º.e), 85, 86.Uno, 87.Cinco, 87.Cinco.1, 87.Cinco.4, 87.Tres, 87.Uno, 88.Cinco, 88.Cuatro, 88.Dos, 88.Tres, 88.Uno, 89.Cinco, 89.Tres, 89.Uno, 92.Dos, 92.Uno, 93.Cuatro, 93.Dos, 93.Uno, 94.Dos, 94.Uno, 94.Uno.1.º, 95.Dos, 95.Tres, 95.Tres.2.ª, 95.Uno, 96.Dos, 96.Uno, 96.Uno.5.º, 97.Uno, 98.Uno, 99.Cinco, 99.Cuatro, 99.Tres, 99.Uno, 100, 101.Dos, 101.Uno, 102.Dos, 102.Uno, 103.Dos, 103.Dos.2.º, 103.Uno, 104.Dos, 104.Dos.1.º, 104.Dos.2.º, 104.Tres, 104.Tres.3.º, 104.Uno, 105.Cuatro, 105.Dos, 105.Seis, 105.Tres, 105.Uno, 106.Dos, 106.Uno, 107.Siete, 107.Tres, 107.Uno, 108.Dos, 108.Dos.5.º, 108.Uno, 109, 109.1.º, 109.2.º, 109.3.º, 110.Uno, 115.Dos, 115.Tres, 115.Uno, 116.Uno, 117.Uno, 118, 119 bis.Uno, 119.Dos y 119.Uno. |
+| `9da585804f` | PASS | RIVA (RD 1624/1992) | 30.3 and 30.4 cited, none missing | — |
+
+PASS 1 · FAIL 1
