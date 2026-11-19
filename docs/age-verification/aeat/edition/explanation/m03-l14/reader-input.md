@@ -1,0 +1,505 @@
+# Reader input — `m03-l14`
+
+## KEY: caso:### Medios de revisión#1
+
+### The section as the lesson gives it
+
+Los actos y actuaciones de aplicación de los tributos y los actos de imposición de sanciones tributarias pueden revisarse mediante los procedimientos especiales de revisión, el recurso de reposición y las reclamaciones económico-administrativas (art. 213.1 LGT).
+
+Las resoluciones firmes de los órganos económico-administrativos, así como los actos de aplicación de los tributos y de imposición de sanciones sobre los que hubiera recaído resolución económico-administrativa, no pueden ser revisados en vía administrativa, cualquiera que sea la causa alegada, salvo en los supuestos de nulidad de pleno derecho del artículo 217 LGT, de rectificación de errores del artículo 220 LGT y del recurso extraordinario de revisión del artículo 244 LGT (art. 213.2 LGT). Las resoluciones de los órganos económico-administrativos pueden ser declaradas lesivas conforme al artículo 218 LGT (art. 213.2 LGT).
+
+Cuando los actos de aplicación de los tributos y de imposición de sanciones, o las resoluciones de las reclamaciones económico-administrativas, hayan sido confirmados por sentencia judicial firme, no son revisables en ningún caso (art. 213.3 LGT).
+
+### The case
+
+Sobre una liquidación de Marta recayó resolución firme del Tribunal Económico-Administrativo Regional. No puede revisarse en vía administrativa, cualquiera que sea la causa alegada, salvo nulidad de pleno derecho, rectificación de errores o recurso extraordinario de revisión (art. 213.2 LGT). La liquidación de Pedro fue confirmada por sentencia judicial firme el lunes 9 de marzo de 2026 y no es revisable en ningún caso (art. 213.3 LGT).
+
+## KEY: caso:### Procedimientos especiales de revisión#1
+
+### The section as the lesson gives it
+
+Los procedimientos especiales de revisión son los de (art. 216 LGT):
+
+- a) Revisión de actos nulos de pleno derecho.
+- b) Declaración de lesividad de actos anulables.
+- c) Revocación.
+- d) Rectificación de errores.
+- e) Devolución de ingresos indebidos.
+
+#### Nulidad de pleno derecho
+
+Puede declararse la nulidad de pleno derecho de los actos dictados en materia tributaria, así como de las resoluciones de los órganos económico-administrativos, que hayan puesto fin a la vía administrativa o que no hayan sido recurridos en plazo, en los siguientes supuestos (art. 217.1 LGT):
+
+- a) Que lesionen los derechos y libertades susceptibles de amparo constitucional.
+- b) Que hayan sido dictados por órgano manifiestamente incompetente por razón de la materia o del territorio.
+- c) Que tengan un contenido imposible.
+- d) Que sean constitutivos de infracción penal o se dicten como consecuencia de ésta.
+- e) Que hayan sido dictados prescindiendo total y absolutamente del procedimiento legalmente establecido para ello o de las normas que contienen las reglas esenciales para la formación de la voluntad en los órganos colegiados.
+- f) Los actos expresos o presuntos contrarios al ordenamiento jurídico por los que se adquieren facultades o derechos cuando se carezca de los requisitos esenciales para su adquisición.
+- g) Cualquier otro que se establezca expresamente en una disposición de rango legal.
+
+El procedimiento puede iniciarse por acuerdo del órgano que dictó el acto o de su superior jerárquico, o a instancia del interesado (art. 217.2 LGT). Puede acordarse motivadamente la inadmisión a trámite de las solicitudes de los interesados, sin necesidad de recabar dictamen del órgano consultivo, cuando el acto no sea firme en vía administrativa o la solicitud no se base en alguna de las causas de nulidad del apartado 1 o carezca manifiestamente de fundamento, así como cuando se hubieran desestimado en cuanto al fondo otras solicitudes sustancialmente iguales (art. 217.3 LGT).
+
+En el procedimiento se da audiencia al interesado y se oye a aquellos a quienes el acto reconoció derechos o cuyos intereses resultaron afectados por el mismo (art. 217.4 LGT). La declaración de nulidad requiere dictamen favorable previo del Consejo de Estado u órgano equivalente de la respectiva comunidad autónoma, si lo hubiere (art. 217.4 LGT). En el ámbito de competencias del Estado, la resolución corresponde al Ministro de Hacienda (art. 217.5 LGT).
+
+El plazo máximo para notificar resolución expresa es de un año desde que se presente la solicitud por el interesado o desde que se le notifique el acuerdo de iniciación de oficio del procedimiento (art. 217.6 LGT). Transcurrido ese plazo sin resolución expresa, el procedimiento iniciado de oficio caduca, sin que ello impida iniciar de nuevo otro procedimiento con posterioridad, y la solicitud del interesado se desestima por silencio administrativo (art. 217.6 LGT). La resolución expresa o presunta, o el acuerdo de inadmisión a trámite, ponen fin a la vía administrativa (art. 217.7 LGT).
+
+#### Declaración de lesividad
+
+Fuera de los casos de los artículos 217 y 220 LGT, la Administración tributaria no puede anular en perjuicio de los interesados sus propios actos y resoluciones (art. 218.1 LGT). Puede declarar lesivos para el interés público sus actos y resoluciones favorables a los interesados que incurran en cualquier infracción del ordenamiento jurídico, a fin de proceder a su posterior impugnación en vía contencioso-administrativa (art. 218.1 LGT).
+
+La declaración de lesividad no puede adoptarse una vez transcurridos cuatro años desde que se notificó el acto administrativo y exige la previa audiencia de cuantos aparezcan como interesados en el procedimiento (art. 218.2 LGT). Transcurrido el plazo de tres meses desde la iniciación del procedimiento sin que se hubiera declarado la lesividad se produce la caducidad (art. 218.3 LGT). En el ámbito de la Administración General del Estado, la declaración de lesividad corresponde al Ministro de Hacienda (art. 218.4 LGT).
+
+#### Revocación
+
+La Administración tributaria puede revocar sus actos en beneficio de los interesados cuando se estime que infringen manifiestamente la ley, cuando circunstancias sobrevenidas que afecten a una situación jurídica particular pongan de manifiesto la improcedencia del acto dictado, o cuando en la tramitación del procedimiento se haya producido indefensión a los interesados (art. 219.1 LGT). La revocación no puede constituir, en ningún caso, dispensa o exención no permitida por las normas tributarias, ni ser contraria al principio de igualdad, al interés público o al ordenamiento jurídico (art. 219.1 LGT). La revocación solo es posible mientras no haya transcurrido el plazo de prescripción (art. 219.2 LGT).
+
+El procedimiento se inicia siempre de oficio, y es competente para declarar la revocación el órgano que se determine reglamentariamente, que debe ser distinto del órgano que dictó el acto (art. 219.3 LGT). En el expediente se da audiencia a los interesados y debe incluirse un informe del órgano con funciones de asesoramiento jurídico sobre la procedencia de la revocación del acto (art. 219.3 LGT).
+
+El plazo máximo para notificar resolución expresa es de seis meses desde la notificación del acuerdo de iniciación del procedimiento, y transcurrido sin resolución expresa se produce la caducidad del procedimiento (art. 219.4 LGT). Las resoluciones que se dicten en este procedimiento ponen fin a la vía administrativa (art. 219.5 LGT).
+
+#### Rectificación de errores
+
+El órgano u organismo que hubiera dictado el acto o la resolución de la reclamación rectifica en cualquier momento, de oficio o a instancia del interesado, los errores materiales, de hecho o aritméticos, siempre que no hubiera transcurrido el plazo de prescripción (art. 220.1 LGT). En particular, se rectifican por este procedimiento los actos y las resoluciones de las reclamaciones económico-administrativas en los que se hubiera incurrido en error de hecho que resulte de los propios documentos incorporados al expediente (art. 220.1 LGT).
+
+El plazo máximo para notificar resolución expresa es de seis meses desde que se presente la solicitud por el interesado o desde que se le notifique el acuerdo de iniciación de oficio (art. 220.2 LGT). Transcurrido ese plazo sin resolución expresa, el procedimiento iniciado de oficio caduca, sin que ello impida iniciar de nuevo otro procedimiento con posterioridad, y la solicitud del interesado se desestima por silencio administrativo (art. 220.2 LGT). Las resoluciones que se dicten son susceptibles de recurso de reposición y de reclamación económico-administrativa (art. 220.3 LGT).
+
+#### Devolución de ingresos indebidos
+
+El procedimiento para el reconocimiento del derecho a la devolución de ingresos indebidos se inicia de oficio o a instancia del interesado en los siguientes supuestos (art. 221.1 LGT):
+
+- a) Cuando se haya producido una duplicidad en el pago de deudas tributarias o sanciones.
+- b) Cuando la cantidad pagada haya sido superior al importe a ingresar resultante de un acto administrativo o de una autoliquidación.
+- c) Cuando se hayan ingresado cantidades correspondientes a deudas o sanciones tributarias después de haber transcurrido los plazos de prescripción. En ningún caso se devuelven las cantidades satisfechas en la regularización voluntaria establecida en el artículo 252 LGT.
+- d) Cuando así lo establezca la normativa tributaria.
+
+Cuando el acto de aplicación de los tributos o de imposición de sanciones en virtud del cual se realizó el ingreso indebido hubiera adquirido firmeza, solo se puede solicitar la devolución instando o promoviendo la revisión del acto mediante alguno de los procedimientos especiales de revisión de los párrafos a), c) y d) del artículo 216 LGT y mediante el recurso extraordinario de revisión del artículo 244 LGT (art. 221.3 LGT).
+
+Cuando un obligado tributario considera que la presentación de una autoliquidación ha dado lugar a un ingreso indebido, puede instar su rectificación de acuerdo con el artículo 120.3 LGT (art. 221.4 LGT). En la devolución de ingresos indebidos se liquidan intereses de demora de acuerdo con el artículo 32.2 LGT (art. 221.5 LGT). Las resoluciones que se dicten en este procedimiento son susceptibles de recurso de reposición y de reclamación económico-administrativa (art. 221.6 LGT).
+
+Tienen derecho a solicitar la devolución de ingresos indebidos (art. 14.1 RGRVA):
+
+:::esquema{kind=tabla title="Legitimados para solicitar la devolución de ingresos indebidos"}
+| Elemento | Contenido | Cita |
+|---|---|---|
+| a) | Los obligados tributarios y los sujetos infractores que hubieran realizado ingresos indebidos en el Tesoro público con ocasión del cumplimiento de sus obligaciones tributarias o del pago de sanciones, así como los sucesores de unos y otros. | art. 14.1 RGRVA |
+| b) | Además de las personas o entidades del párrafo a), la persona o entidad que haya soportado la retención o el ingreso a cuenta repercutido cuando considere que la retención soportada o el ingreso repercutido lo han sido indebidamente; si el ingreso a cuenta que se considere indebido no hubiese sido repercutido, tienen derecho a solicitar la devolución las personas o entidades del párrafo a). | art. 14.1 RGRVA |
+| c) | Cuando el ingreso indebido se refiera a tributos para los cuales exista una obligación legal de repercusión, además de las personas o entidades del párrafo a), la persona o entidad que haya soportado la repercusión. | art. 14.1 RGRVA |
+:::
+
+Tienen derecho a obtener la devolución de los ingresos declarados indebidos (art. 14.2 RGRVA):
+
+:::esquema{kind=tabla title="Beneficiarios de la devolución de ingresos indebidos"}
+| Elemento | Contenido | Cita |
+|---|---|---|
+| a) | Los obligados tributarios y los sujetos infractores que hubieran realizado el ingreso indebido, salvo en los casos de los párrafos b) y c), así como los sucesores de unos y otros. | art. 14.2 RGRVA |
+| b) | La persona o entidad que haya soportado la retención o el ingreso a cuenta, cuando el ingreso indebido se refiera a retenciones soportadas o ingresos a cuenta repercutidos; no procede restitución alguna cuando el importe de la retención o ingreso a cuenta declarado indebido hubiese sido deducido en una autoliquidación o hubiese sido tenido en cuenta por la Administración en una liquidación o en una devolución realizada como consecuencia de la presentación de una comunicación de datos. | art. 14.2 RGRVA |
+| b) | Cuando el ingreso a cuenta declarado indebido no hubiese sido repercutido, tienen derecho a obtenerla las personas o entidades del párrafo a), y no procede restitución alguna cuando su importe hubiese sido deducido en una autoliquidación o tenido en cuenta por la Administración en una liquidación o en una devolución realizada como consecuencia de la presentación de una comunicación de datos, sin perjuicio de las actuaciones que deba desarrollar el perceptor de la renta para resarcir a la persona o entidad que realizó el ingreso a cuenta indebido. | art. 14.2 RGRVA |
+| c) | La persona o entidad que haya soportado la repercusión, cuando el ingreso indebido se refiera a tributos que deban ser legalmente repercutidos a otras personas o entidades; únicamente procede la devolución cuando concurran los requisitos 1.º a 4.º siguientes. | art. 14.2 RGRVA |
+:::
+
+Los requisitos son los siguientes (art. 14.2.c RGRVA):
+
+:::esquema{kind=tabla title="Requisitos de la devolución a quien soportó la repercusión"}
+| Elemento | Contenido | Cita |
+|---|---|---|
+| 1.º | Que la repercusión del importe del tributo se haya efectuado mediante factura cuando así lo establezca la normativa reguladora del tributo. | art. 14.2.c RGRVA |
+| 2.º | Que las cuotas indebidamente repercutidas hayan sido ingresadas; cuando la persona o entidad que repercute indebidamente el tributo tenga derecho a la deducción total o parcial de las cuotas soportadas o satisfechas por la misma, se entiende que las cuotas indebidamente repercutidas han sido ingresadas cuando dicha persona o entidad las hubiese consignado en su autoliquidación del tributo, con independencia del resultado de dicha autoliquidación. | art. 14.2.c RGRVA |
+| 2.º | En los casos de autoliquidaciones a ingresar sin ingreso efectivo del resultado de la autoliquidación, solo procede devolver la cuota indebidamente repercutida que exceda del resultado de la autoliquidación que esté pendiente de ingreso, el cual no resulta exigible a quien repercutió en el importe concurrente con la cuota indebidamente repercutida que no ha sido objeto de devolución, y la Administración tributaria condiciona la devolución al resultado de la comprobación que, en su caso, realice de la situación tributaria de la persona o entidad que repercuta indebidamente el tributo. | art. 14.2.c RGRVA |
+| 3.º | Que las cuotas indebidamente repercutidas y cuya devolución se solicita no hayan sido devueltas por la Administración tributaria a quien se repercutieron, a quien las repercutió o a un tercero. | art. 14.2.c RGRVA |
+| 4.º | Que el obligado tributario que haya soportado la repercusión no tuviese derecho a la deducción de las cuotas soportadas; en el caso de que el derecho a la deducción fuera parcial, la devolución se limita al importe que no hubiese resultado deducible. | art. 14.2.c RGRVA |
+:::
+
+La cantidad a devolver como consecuencia de un ingreso indebido está constituida por la suma de las siguientes cantidades (art. 16 RGRVA):
+
+:::esquema{kind=tabla title="Cantidades que integran la devolución de ingresos indebidos"}
+| Elemento | Contenido | Cita |
+|---|---|---|
+| a) | El importe del ingreso indebidamente efectuado; en los tributos que deban ser legalmente repercutidos a otras personas o entidades, cuando quien efectúe la indebida repercusión tenga derecho a la deducción total o parcial de las cuotas soportadas o satisfechas por el mismo, se tiene en cuenta lo dispuesto en el artículo 14.2.c.2.º RGRVA. | art. 16 RGRVA |
+| b) | Las costas satisfechas cuando el ingreso indebido se hubiera realizado durante el procedimiento de apremio. | art. 16 RGRVA |
+| c) | El interés de demora vigente a lo largo del período en que resulte exigible, sobre las cantidades indebidamente ingresadas, sin necesidad de que el obligado tributario lo solicite, de acuerdo con el artículo 32.2 LGT. | art. 16 RGRVA |
+:::
+
+:::esquema{kind=tabla title="Plazo de resolución de cuatro procedimientos especiales de revisión"}
+| Procedimiento | Plazo y efecto del vencimiento | Cita |
+|---|---|---|
+| Nulidad de pleno derecho | El plazo máximo para notificar resolución expresa es de un año desde que se presente la solicitud por el interesado o desde que se le notifique el acuerdo de iniciación de oficio del procedimiento. Transcurrido ese plazo sin resolución expresa, el procedimiento iniciado de oficio caduca, sin que ello impida iniciar de nuevo otro procedimiento con posterioridad, y la solicitud del interesado se desestima por silencio administrativo | art. 217.6 LGT |
+| Declaración de lesividad | Transcurrido el plazo de tres meses desde la iniciación del procedimiento sin que se hubiera declarado la lesividad se produce la caducidad | art. 218.3 LGT |
+| Revocación | El plazo máximo para notificar resolución expresa es de seis meses desde la notificación del acuerdo de iniciación del procedimiento, y transcurrido sin resolución expresa se produce la caducidad del procedimiento | art. 219.4 LGT |
+| Rectificación de errores | El plazo máximo para notificar resolución expresa es de seis meses desde que se presente la solicitud por el interesado o desde que se le notifique el acuerdo de iniciación de oficio. Transcurrido ese plazo sin resolución expresa, el procedimiento iniciado de oficio caduca, sin que ello impida iniciar de nuevo otro procedimiento con posterioridad, y la solicitud del interesado se desestima por silencio administrativo | art. 220.2 LGT |
+:::
+
+### The case
+
+Laura presenta el lunes 11 de enero de 2027 una solicitud de nulidad de pleno derecho. El plazo máximo para notificar resolución expresa es de un año desde la presentación y termina el martes 11 de enero de 2028 (art. 217.6 LGT; art. 30.4 LPAC). Sin resolución expresa en ese plazo, la solicitud se desestima por silencio administrativo (art. 217.6 LGT). El procedimiento iniciado de oficio caduca, sin impedir iniciar otro después (art. 217.6 LGT).
+
+## KEY: caso:## El recurso de reposición#1
+
+### The section as the lesson gives it
+
+Los actos dictados por la Administración tributaria susceptibles de reclamación económico-administrativa pueden ser objeto de recurso potestativo de reposición (art. 222.1 LGT). El recurso de reposición debe interponerse, en su caso, con carácter previo a la reclamación económico-administrativa (art. 222.2 LGT). Si el interesado interpone el recurso de reposición, no puede promover la reclamación económico-administrativa hasta que el recurso se haya resuelto de forma expresa o hasta que pueda considerarlo desestimado por silencio administrativo (art. 222.2 LGT).
+
+Cuando en el plazo establecido para recurrir se hubieran interpuesto recurso de reposición y reclamación económico-administrativa que tuvieran como objeto el mismo acto, se tramita el presentado en primer lugar y se declara inadmisible el segundo (art. 222.2 LGT).
+
+- Al interponer el recurso de reposición, el interesado hace constar que no ha impugnado el mismo acto en la vía económico-administrativa (art. 21.1 RGRVA).
+
+La interposición del recurso de reposición interrumpe los plazos para el ejercicio de otros recursos, que vuelven a contarse desde su inicio a partir del día siguiente a aquel en que el recurso pueda entenderse presuntamente desestimado o, en cualquier caso, a partir del día siguiente a la fecha en que se hubiera practicado la notificación expresa de la resolución del recurso (art. 22 RGRVA).
+
+### The case
+
+Teresa interpone el martes 10 de febrero de 2026 recurso de reposición contra una liquidación y presenta el jueves 12 de febrero de 2026 reclamación económico-administrativa contra el mismo acto, dentro del plazo para recurrir. Se tramita el presentado en primer lugar, la reposición, y se declara inadmisible el segundo (art. 222.2 LGT). Teresa no puede promover la reclamación hasta que la reposición se resuelva expresamente o pueda considerarla desestimada por silencio (art. 222.2 LGT).
+
+## KEY: caso:### Suspensión#1
+
+### The section as the lesson gives it
+
+- La ejecución del acto impugnado queda suspendida automáticamente a instancia del interesado si se garantiza el importe de dicho acto, los intereses de demora que genere la suspensión y los recargos que procederían en caso de ejecución de la garantía, en los términos que se establezcan reglamentariamente (art. 224.1 LGT).
+- Si la impugnación afecta a una sanción tributaria, su ejecución queda suspendida automáticamente sin necesidad de aportar garantías de acuerdo con el artículo 212.3 LGT (art. 224.1 LGT).
+
+La mera interposición del recurso de reposición no suspende la ejecución del acto impugnado (art. 25.1 RGRVA). A solicitud del interesado se suspende la ejecución del acto impugnado en estos supuestos (art. 25.1 RGRVA):
+
+:::esquema{kind=tabla title="Supuestos de suspensión de la ejecución en el recurso de reposición"}
+| Elemento | Contenido | Cita |
+|---|---|---|
+| a) | Cuando se aporte alguna de las garantías previstas en el artículo 224.2 LGT. | art. 25.1 RGRVA |
+| b) | Sin necesidad de aportar garantía, cuando se aprecie que al dictarlo se ha podido incurrir en error aritmético, material o de hecho. | art. 25.1 RGRVA |
+:::
+
+Las garantías necesarias para obtener la suspensión automática son exclusivamente las siguientes (art. 224.2 LGT):
+
+- a) Depósito de dinero o valores públicos.
+- b) Aval o fianza de carácter solidario de entidad de crédito o sociedad de garantía recíproca o certificado de seguro de caución.
+- c) Fianza personal y solidaria de otros contribuyentes de reconocida solvencia para los supuestos que se establezcan en la normativa tributaria.
+
+Puede suspenderse la ejecución del acto recurrido sin necesidad de aportar garantía cuando se aprecie que al dictarlo se ha podido incurrir en error aritmético, material o de hecho (art. 224.3 LGT). Si el recurso no afecta a la totalidad de la deuda tributaria, la suspensión se refiere a la parte recurrida, y el recurrente queda obligado a ingresar la cantidad restante (art. 224.4 LGT).
+
+### The case
+
+Pedro interpone recurso de reposición contra una liquidación de 6.000 euros y garantiza ese importe, los intereses de demora y los recargos con un aval solidario de entidad de crédito. La ejecución queda suspendida automáticamente a su instancia (art. 224.1 LGT), y el aval es una de las garantías admitidas (art. 224.2 LGT). Contra una sanción de 3.000 euros, la suspensión es automática sin aportar garantías (art. 224.1 LGT).
+
+## KEY: caso:### Resolución#1
+
+### The section as the lesson gives it
+
+El órgano que dictó el acto recurrido es competente para conocer y resolver el recurso de reposición (art. 225.1 LGT). Tratándose de actos dictados por delegación y salvo que en esta se diga otra cosa, el recurso se resuelve por el órgano delegado (art. 225.1 LGT). El órgano competente no puede abstenerse de resolver, sin que pueda alegarse duda racional o deficiencia de los preceptos legales (art. 225.2 LGT).
+
+- El plazo máximo para notificar la resolución es de un mes contado desde el día siguiente al de presentación del recurso (art. 225.4 LGT).
+- En el cómputo de ese plazo no se incluye el período concedido para efectuar alegaciones a los titulares de derechos afectados a los que se refiere el párrafo segundo del artículo 232.3 LGT, ni el empleado por otros órganos de la Administración para remitir los datos o informes que se soliciten, y esos períodos no pueden exceder de dos meses (art. 225.4 LGT).
+
+Transcurrido el plazo de un mes desde la interposición, el interesado puede considerar desestimado el recurso al objeto de interponer la reclamación procedente (art. 225.5 LGT).
+
+Contra la resolución de un recurso de reposición no puede interponerse de nuevo este recurso (art. 225.6 LGT).
+
+### The case
+
+Óscar interpone recurso de reposición el lunes 9 de noviembre de 2026. Lo resuelve el órgano que dictó el acto recurrido (art. 225.1 LGT). El plazo máximo para notificar la resolución es de un mes desde el día siguiente al de presentación y termina el miércoles 9 de diciembre de 2026 (art. 225.4 LGT; art. 30.4 LPAC). Transcurrido ese mes sin resolución, Óscar puede considerar desestimado el recurso para interponer la reclamación (art. 225.5 LGT).
+
+## KEY: caso:### Ámbito y actos reclamables#1
+
+### The section as the lesson gives it
+
+Puede reclamarse en vía económico-administrativa en relación con la aplicación de los tributos del Estado o de los recargos establecidos sobre ellos y la imposición de sanciones tributarias que realicen la Administración General del Estado, las entidades de derecho público vinculadas o dependientes de la misma y las Administraciones tributarias de las Comunidades Autónomas y de las Ciudades con Estatuto de Autonomía, y en cualquier otra materia que se establezca por precepto legal del Estado expreso (art. 226 LGT).
+
+La reclamación es admisible, en relación con esas materias, contra los actos siguientes (art. 227.1 LGT):
+
+- a) Los que provisional o definitivamente reconozcan o denieguen un derecho o declaren una obligación o un deber.
+- b) Los de trámite que decidan, directa o indirectamente, el fondo del asunto o pongan término al procedimiento.
+
+En materia de aplicación de los tributos son reclamables (art. 227.2 LGT):
+
+- a) Las liquidaciones provisionales o definitivas.
+- b) Las resoluciones expresas o presuntas derivadas de una solicitud de rectificación de una autoliquidación o de una comunicación de datos.
+- c) Las comprobaciones de valor de rentas, productos, bienes, derechos y gastos, así como los actos de fijación de valores, rendimientos y bases, cuando la normativa tributaria lo establezca.
+- d) Los actos que denieguen o reconozcan exenciones, beneficios o incentivos fiscales.
+- e) Los actos que aprueben o denieguen planes especiales de amortización.
+- f) Los actos que determinen el régimen tributario aplicable a un obligado tributario, en cuanto sean determinantes de futuras obligaciones, incluso formales, a su cargo.
+- g) Los actos dictados en el procedimiento de recaudación.
+- h) Los actos respecto a los que la normativa tributaria así lo establezca.
+
+Asimismo, los actos que impongan sanciones son reclamables (art. 227.3 LGT). Las siguientes actuaciones u omisiones de los particulares en materia tributaria también son reclamables, previo cumplimiento de los requisitos y en la forma que se determine reglamentariamente (art. 227.4 LGT):
+
+- a) Las relativas a las obligaciones de repercutir y soportar la repercusión prevista legalmente.
+- b) Las relativas a las obligaciones de practicar y soportar retenciones o ingresos a cuenta.
+- c) Las relativas a la obligación de expedir, entregar y rectificar facturas que incumbe a los empresarios y profesionales.
+- d) Las derivadas de las relaciones entre el sustituto y el contribuyente.
+
+No se admiten reclamaciones respecto de los siguientes actos (art. 227.5 LGT):
+
+- a) Los que den lugar a reclamación en vía administrativa previa a la judicial, civil o laboral o pongan fin a dicha vía.
+- b) Los dictados en procedimientos en los que esté reservada al Ministro de Economía y Hacienda o al Secretario de Estado de Hacienda y Presupuestos la resolución que ultime la vía administrativa.
+- c) Los dictados en virtud de una ley del Estado que los excluya de reclamación económico-administrativa.
+
+### The case
+
+Rosa reclama contra una liquidación provisional de un tributo del Estado, y las liquidaciones provisionales o definitivas son reclamables en materia de aplicación de los tributos (art. 227.2 LGT). Contra un acto dictado en un procedimiento cuya resolución final está reservada al Ministro de Economía y Hacienda o al Secretario de Estado de Hacienda y Presupuestos, Rosa no puede reclamar: no se admiten reclamaciones respecto de esos actos (art. 227.5 LGT).
+
+## KEY: caso:### Los Tribunales Económico-Administrativos#1
+
+### The section as the lesson gives it
+
+El conocimiento de las reclamaciones económico-administrativas corresponde con exclusividad a los órganos económico-administrativos, que actúan con independencia funcional en el ejercicio de sus competencias (art. 228.1 LGT). En el ámbito de competencias del Estado son órganos económico-administrativos el Tribunal Económico-Administrativo Central y los tribunales económico-administrativos regionales y locales (art. 228.2 LGT). La Sala Especial para la Unificación de Doctrina tiene igualmente la consideración de órgano económico-administrativo (art. 228.3 LGT). La competencia de los órganos económico-administrativos es irrenunciable e improrrogable y no puede ser alterada por la voluntad de los interesados (art. 228.5 LGT).
+
+En cada Comunidad Autónoma existe un tribunal económico-administrativo regional, y en cada Ciudad con Estatuto de Autonomía, un tribunal económico-administrativo local (art. 229.7 LGT). Su ámbito coincide con el de la respectiva Comunidad Autónoma o Ciudad con Estatuto de Autonomía, y su competencia territorial se determina conforme a la sede del órgano que hubiera dictado el acto objeto de la reclamación (art. 229.7 LGT).
+
+En los tribunales regionales pueden crearse salas desconcentradas con el ámbito territorial y las competencias que se fijen en la normativa tributaria (art. 229.7 LGT). El Tribunal Económico-Administrativo Central tiene su sede en Madrid y extiende su competencia a todo el territorio nacional (art. 28.1 RGRVA).
+
+El Tribunal Económico-Administrativo Central conoce (art. 229.1 LGT):
+
+- a) En única instancia, de las reclamaciones contra los actos dictados por los órganos centrales del Ministerio de Economía y Hacienda u otros departamentos ministeriales, de la Agencia Estatal de Administración Tributaria y de las entidades de derecho público vinculadas o dependientes de la Administración General del Estado, así como, en su caso, contra los actos dictados por los órganos superiores de la Administración de las Comunidades Autónomas y de las Ciudades con Estatuto de Autonomía.
+- b) En única instancia, de las reclamaciones contra los actos dictados por los órganos periféricos de la Administración General del Estado, de la Agencia Estatal de Administración Tributaria y de las entidades de derecho público vinculadas o dependientes de la Administración General del Estado o, en su caso, por los órganos de las Comunidades Autónomas y de las Ciudades con Estatuto de Autonomía no comprendidos en la letra anterior, así como contra las actuaciones de los particulares susceptibles de reclamación, cuando, aun pudiendo presentarse la reclamación en primera instancia ante el tribunal económico-administrativo regional o local correspondiente o, en su caso, ante el órgano económico-administrativo de las Comunidades Autónomas y de las Ciudades con Estatuto de Autonomía, la reclamación se interponga directamente ante el Tribunal Económico-Administrativo Central, de acuerdo con el apartado 6 del artículo 229 LGT.
+- c) En segunda instancia, de los recursos de alzada ordinarios contra las resoluciones dictadas en primera instancia por los tribunales económico-administrativos regionales y locales y, en su caso, como consecuencia de la labor unificadora de criterio que corresponde al Estado, contra las resoluciones dictadas por los órganos económico-administrativos de las Comunidades Autónomas y de las Ciudades con Estatuto de Autonomía.
+- d) Como consecuencia de su labor unificadora de criterio, de los recursos extraordinarios de alzada para unificación de criterio del artículo 242 LGT.
+- e) De los recursos extraordinarios de revisión, salvo los supuestos a los que se refiere el artículo 59.1.c) último párrafo de la Ley 22/2009.
+- f) De la rectificación de errores en los que incurran sus propias resoluciones.
+
+Los tribunales económico-administrativos regionales y locales conocen de las reclamaciones contra los actos dictados por los órganos periféricos de la Administración General del Estado, de la Agencia Estatal de Administración Tributaria y de las entidades de derecho público vinculadas o dependientes de la Administración General del Estado y, en su caso, por los órganos de la Administración de las Comunidades Autónomas y de las Ciudades con Estatuto de Autonomía no comprendidos en el párrafo a) del apartado 1 (art. 229.2 LGT).
+
+Resuelven en única instancia cuando la cuantía de la reclamación es igual o inferior al importe que se determine reglamentariamente, y en primera instancia cuando es superior (art. 229.2 LGT). Conocen también de la rectificación de errores de sus propias resoluciones (art. 229.2.c LGT).
+
+Cuando la resolución de la reclamación es susceptible de recurso de alzada ordinario ante el Tribunal Económico-Administrativo Central, la reclamación puede interponerse directamente ante este órgano (art. 229.6 LGT).
+
+Si el domicilio fiscal de quien interpone una reclamación contra actuaciones de los particulares se halla fuera de España, la competencia corresponde al Tribunal Económico-Administrativo Central, cualquiera que sea su cuantía (art. 229.5 LGT).
+
+El reglamento fija las cuantías. Puede interponerse recurso de alzada ordinario cuando la cuantía de la reclamación supere 150.000 euros, o 1.800.000 euros si se trata de reclamaciones contra bases o valoraciones, y si el acto o actuación es de cuantía indeterminada puede interponerse en todo caso (art. 36 RGRVA).
+
+Cuando el acto incluye varias deudas, bases, valoraciones o actos de otra naturaleza, la cuantía es la de la deuda, base, valoración o acto de mayor importe que se impugne, sin sumar los consignados en el documento (art. 35.2 RGRVA).
+
+Los Tribunales Económico-Administrativos funcionan en Pleno, en Salas y de forma unipersonal (art. 231.1 LGT). El Pleno está formado por el Presidente, los Vocales y el Secretario, y las Salas por el Presidente, un Vocal al menos y el Secretario (arts. 231.2 y 231.3 LGT). El Presidente y los vocales de los tribunales económico-administrativos son nombrados entre funcionarios del Estado y sus organismos autónomos, de las comunidades autónomas y entre funcionarios de Administración local con Habilitación de Carácter Nacional, que reúnan los requisitos y condiciones que reglamentariamente se determinen, y actúa como Secretario un Abogado del Estado (disposición adicional duodécima LGT).
+
+El presidente del Tribunal Económico-Administrativo Central es nombrado y separado por real decreto del Consejo de Ministros, a propuesta del Ministro de Economía y Hacienda, entre funcionarios de reconocido prestigio en el ámbito tributario, y tiene la categoría de director general del Ministerio de Economía y Hacienda (art. 29.2 RGRVA).
+
+Los vocales son nombrados y separados por real decreto del Consejo de Ministros, a propuesta del Ministro de Economía y Hacienda, entre funcionarios de los cuerpos que se indiquen en la relación de puestos de trabajo, y tienen la condición de subdirectores generales del Ministerio de Economía y Hacienda (art. 29.2 RGRVA).
+
+El presidente, los presidentes de sala desconcentrada, los presidentes de sala y los vocales de los tribunales regionales y locales son nombrados y separados por orden del Ministro de Economía y Hacienda entre funcionarios de los cuerpos que se indiquen en la relación de puestos de trabajo (art. 30.2 RGRVA). El secretario procede del Cuerpo de Abogados del Estado (arts. 29.7 y 30.9 RGRVA).
+
+### The case
+
+Hugo, con domicilio fiscal fuera de España, reclama contra una actuación de un particular en materia tributaria. La competencia corresponde al Tribunal Económico-Administrativo Central, cualquiera que sea la cuantía (art. 229.5 LGT). La reclamación de Mariana tiene una resolución susceptible de recurso de alzada ordinario ante ese Tribunal, y puede interponerla directamente ante él (art. 229.6 LGT).
+
+## KEY: caso:### Acumulación e interesados#1
+
+### The section as the lesson gives it
+
+Los recursos y las reclamaciones económico-administrativas se acumulan a efectos de su tramitación y resolución en los siguientes casos (art. 230.1 LGT):
+
+:::esquema{kind=tabla title="Casos de acumulación obligatoria de recursos y reclamaciones"}
+| Elemento | Contenido | Cita |
+|---|---|---|
+| a) | Las interpuestas por un mismo interesado relativas al mismo tributo, que deriven de un mismo procedimiento. | art. 230.1 LGT |
+| b) | Las interpuestas por varios interesados relativas al mismo tributo siempre que deriven de un mismo expediente, planteen idénticas cuestiones y deban ser resueltas por el mismo órgano económico-administrativo. | art. 230.1 LGT |
+| c) | Las que se hayan interpuesto por varios interesados contra un mismo acto administrativo o contra una misma actuación tributaria de los particulares. | art. 230.1 LGT |
+| d) | La interpuesta contra una sanción si se hubiera presentado reclamación contra la deuda tributaria de la que derive. | art. 230.1 LGT |
+:::
+
+Fuera de esos casos, el Tribunal, de oficio o a instancia de parte, puede acumular motivadamente las reclamaciones que considere que deben ser objeto de resolución unitaria que afecten al mismo o a distintos tributos, siempre que exista conexión entre ellas; si se trata de distintos reclamantes y no lo han solicitado ellos mismos, debe concederles previamente un plazo de 5 días para manifestar lo que estimen conveniente (art. 230.2 LGT). Esas acumulaciones pueden quedar sin efecto cuando el tribunal considere conveniente la resolución separada de las reclamaciones (art. 230.2 LGT).
+
+Están legitimados para promover las reclamaciones los obligados tributarios y los sujetos infractores, y cualquier otra persona cuyos intereses legítimos resulten afectados por el acto o la actuación tributaria (art. 232.1 LGT). No están legitimados (art. 232.2 LGT):
+
+- a) Los funcionarios y empleados públicos, salvo en los casos en que inmediata y directamente se vulnere un derecho que en particular les esté reconocido o resulten afectados sus intereses legítimos.
+- b) Los particulares, cuando obren por delegación de la Administración o como agentes o mandatarios de ella.
+- c) Los denunciantes.
+- d) Los que asuman obligaciones tributarias en virtud de pacto o contrato.
+- e) Los organismos u órganos que hayan dictado el acto impugnado, así como cualquier otra entidad por el mero hecho de ser destinataria de los fondos gestionados mediante dicho acto.
+
+- En el procedimiento económico-administrativo ya iniciado pueden comparecer todos los que sean titulares de derechos o intereses legítimos que puedan resultar afectados por la resolución que hubiera de dictarse, sin que la tramitación haya de retrotraerse en ningún caso (art. 232.3 LGT).
+- Si durante la tramitación se advierte la existencia de otros titulares que no hayan comparecido, se les notifica la existencia de la reclamación para que formulen alegaciones, y se aplica lo dispuesto en el apartado 5 del artículo 239 LGT (art. 232.3 LGT).
+
+### The case
+
+Raúl reclama el martes 3 de marzo de 2026 una liquidación y el martes 10 de marzo de 2026 la sanción que deriva de ella. La reclamación contra la sanción se acumula porque se había presentado reclamación contra la deuda tributaria de la que deriva (art. 230.1 LGT). Ana denunció a Raúl: como denunciante, no está legitimada para promover reclamaciones (art. 232.2 LGT).
+
+## KEY: caso:### Suspensión de la ejecución del acto impugnado#1
+
+### The section as the lesson gives it
+
+La ejecución del acto impugnado queda suspendida automáticamente a instancia del interesado si se garantiza el importe de dicho acto, los intereses de demora que genere la suspensión y los recargos que procederían en caso de ejecución de la garantía (art. 233.1 LGT). Si la impugnación afecta a una sanción tributaria, la ejecución queda suspendida automáticamente sin necesidad de aportar garantías de acuerdo con el artículo 212.3 LGT (art. 233.1 LGT).
+
+Las garantías necesarias para obtener esa suspensión automática son exclusivamente las mismas tres del artículo 224.2 LGT: depósito de dinero o valores públicos; aval o fianza de carácter solidario de entidad de crédito o sociedad de garantía recíproca o certificado de seguro de caución; y fianza personal y solidaria de otros contribuyentes de reconocida solvencia para los supuestos que se establezcan en la normativa tributaria (art. 233.2 LGT).
+
+- El tribunal puede suspender la ejecución del acto con dispensa total o parcial de garantías cuando dicha ejecución pudiera causar perjuicios de difícil o imposible reparación (art. 233.4 LGT).
+- Se puede suspender la ejecución del acto recurrido sin necesidad de aportar garantía cuando se aprecie que al dictarlo se ha podido incurrir en error aritmético, material o de hecho (art. 233.5 LGT).
+
+El tribunal decide sobre la admisión a trámite de las solicitudes de suspensión de los apartados 4 y 5, y las inadmite cuando no pueda deducirse de la documentación aportada en la solicitud o existente en el expediente administrativo la existencia de indicios de los perjuicios de difícil o imposible reparación o del error aritmético, material o de hecho (art. 233.6 LGT).
+
+Si la reclamación no afecta a la totalidad de la deuda tributaria, la suspensión se refiere a la parte reclamada, y el reclamante queda obligado a ingresar la cantidad restante (art. 233.7 LGT). La suspensión del acto se mantiene durante la tramitación del procedimiento económico-administrativo en todas sus instancias (art. 233.10 LGT). La suspensión producida en el recurso de reposición se puede mantener en la vía económico-administrativa en las condiciones que se determinen reglamentariamente (art. 233.10 LGT). La ejecución del acto o resolución impugnado mediante un recurso extraordinario de revisión no puede suspenderse en ningún caso (art. 233.14 LGT).
+
+A solicitud del interesado se suspende la ejecución del acto impugnado en los siguientes supuestos (art. 39.2 RGRVA):
+
+:::esquema{kind=tabla title="Supuestos de suspensión de la ejecución en la reclamación económico-administrativa"}
+| Elemento | Contenido | Cita |
+|---|---|---|
+| a) | Cuando se aporte alguna de las garantías previstas en el artículo 233.2 y 3 LGT, en los términos de los artículos 43, 44 y 45 RGRVA. | art. 39.2 RGRVA |
+| b) | Con dispensa total o parcial de garantías, cuando el tribunal que conozca de la reclamación considere que la ejecución pudiera causar perjuicios de imposible o difícil reparación, en los términos de los artículos 46 y 47 RGRVA. | art. 39.2 RGRVA |
+| c) | Sin necesidad de aportar garantía, cuando el tribunal que haya de resolver la reclamación aprecie que al dictarlo se ha podido incurrir en un error aritmético, material o de hecho. | art. 39.2 RGRVA |
+| d) | Cuando se trate de actos que no tengan por objeto una deuda tributaria o una cantidad líquida, si el tribunal considera que la ejecución pudiera causar perjuicios de imposible o difícil reparación. | art. 39.2 RGRVA |
+:::
+
+### The case
+
+Elisa reclama el lunes 2 de marzo de 2026 una liquidación de 20.000 euros y acredita indicios de perjuicios de difícil o imposible reparación. El tribunal puede suspender la ejecución con dispensa total o parcial de garantías (art. 233.4 LGT), y la suspensión se mantiene durante todas las instancias (art. 233.10 LGT). Bruno pide lo mismo y de su documentación y del expediente no se deducen indicios de esos perjuicios: el tribunal inadmite su solicitud (art. 233.6 LGT).
+
+## KEY: caso:### Procedimiento general#1
+
+### The section as the lesson gives it
+
+Las reclamaciones económico-administrativas se tramitan en única o primera instancia con los recursos que establece la LGT (art. 234.1 LGT). El procedimiento se impulsa de oficio con sujeción a los plazos establecidos, que no son susceptibles de prórroga ni precisan que se declare su finalización (art. 234.3 LGT).
+
+Todos los actos y resoluciones que afecten a los interesados o pongan término en cualquier instancia a una reclamación se notifican a aquellos, bien por medios electrónicos, bien en el domicilio señalado o, en su defecto, de acuerdo con el artículo 112 LGT (art. 234.4 LGT).
+
+La notificación se hace de forma electrónica obligatoriamente para los interesados, en los términos que reglamentariamente se establezcan, en los supuestos en que, de acuerdo con el artículo 235.5 LGT, sea obligatoria la interposición de la reclamación por esta vía (art. 234.4 LGT).
+
+La notificación debe expresar si el acto o resolución es o no definitivo en vía económico-administrativa y, en su caso, los recursos que procedan, órgano ante el que hubieran de presentarse y plazo para interponerlos, sin que ello impida que los interesados puedan ejercitar cualquier otro recurso que estimen pertinente (art. 234.4 LGT).
+
+- El procedimiento económico-administrativo es gratuito (art. 234.5 LGT).
+- No obstante, si la reclamación o el recurso resulta desestimado o inadmitido y el órgano económico-administrativo aprecia temeridad o mala fe, puede exigirse a la persona a la que resulte imputable que sufrague las costas del procedimiento, según los criterios que se fijen reglamentariamente (art. 234.5 LGT).
+
+#### Iniciación
+
+La reclamación en única o primera instancia se interpone en el plazo de un mes a contar desde el día siguiente al de la notificación del acto impugnado, o desde el día siguiente a aquel en que quede constancia de la realización u omisión de la retención o ingreso a cuenta, de la repercusión motivo de la reclamación o de la sustitución derivada de las relaciones entre el sustituto y el contribuyente (art. 235.1 LGT).
+
+En los supuestos de silencio administrativo, puede interponerse desde el día siguiente a aquel en que produzcan sus efectos (art. 235.1 LGT). En el supuesto de deudas de vencimiento periódico y notificación colectiva, el plazo se computa a partir del día siguiente al de finalización del período voluntario de pago (art. 235.1 LGT). Tratándose de reclamaciones relativas a la obligación de expedir y entregar factura que incumbe a empresarios y profesionales, el plazo de un mes empieza a contarse transcurrido un mes desde que se haya requerido formalmente el cumplimiento de dicha obligación (art. 235.1 LGT).
+
+El procedimiento se inicia mediante escrito que puede limitarse a solicitar que se tenga por interpuesta, identificando al reclamante, el acto o actuación contra el que se reclama, el domicilio para notificaciones y el tribunal ante el que se interpone (art. 235.2 LGT).
+
+- El escrito se dirige al órgano administrativo que haya dictado el acto reclamable, que lo remite al tribunal competente en el plazo de un mes junto con el expediente, en su caso electrónico, correspondiente al acto, al que se puede incorporar un informe si se considera conveniente (art. 235.3 LGT).
+
+- En los casos de reclamaciones relativas a retenciones, ingresos a cuenta, repercusiones, a la obligación de expedir y entregar factura y relaciones entre el sustituto y el contribuyente, el escrito de interposición se dirige al tribunal competente para resolver la reclamación (art. 235.4 LGT).
+- La interposición se realiza obligatoriamente a través de la sede electrónica del órgano que haya dictado el acto reclamable cuando los reclamantes estén obligados a recibir por medios electrónicos las comunicaciones y notificaciones (art. 235.5 LGT).
+
+#### Tramitación
+
+- El tribunal, una vez recibido y, en su caso, completado el expediente, lo pone de manifiesto a los interesados que hubieran comparecido en la reclamación y no hubieran presentado alegaciones en la interposición o las hubiesen formulado pero con la solicitud expresa de este trámite, por plazo común de un mes en el que deben presentar escrito de alegaciones con aportación de las pruebas oportunas (art. 236.1 LGT).
+
+- El tribunal puede solicitar informe al órgano que dictó el acto impugnado, y debe dar traslado del informe al reclamante para que pueda presentar alegaciones (art. 236.3 LGT).
+
+- Pueden plantearse como cuestiones incidentales las que se refieran a extremos que, sin constituir el fondo del asunto, estén relacionadas con el mismo o con la validez del procedimiento y cuya resolución sea requisito previo y necesario para la tramitación de la reclamación (art. 236.6 LGT).
+- La resolución que ponga término al incidente no es susceptible de recurso, y al recibir la resolución de la reclamación el interesado puede discutir nuevamente el objeto de la cuestión incidental mediante el recurso que proceda contra ella (art. 236.6 LGT).
+
+#### Extensión, terminación y resolución
+
+Las reclamaciones y recursos económico-administrativos someten a conocimiento del órgano competente para su resolución todas las cuestiones de hecho y de derecho que ofrezca el expediente, hayan sido o no planteadas por los interesados, sin que en ningún caso pueda empeorar la situación inicial del reclamante (art. 237.1 LGT).
+
+- El procedimiento finaliza por renuncia al derecho en que la reclamación se fundamente, por desistimiento de la petición o instancia, por caducidad de esta, por satisfacción extraprocesal y mediante resolución (art. 238.1 LGT).
+
+La resolución puede ser estimatoria, desestimatoria o declarar la inadmisibilidad (art. 239.3 LGT).
+
+Se declara la inadmisibilidad en los siguientes supuestos (art. 239.4 LGT):
+
+:::esquema{kind=tabla title="Supuestos de inadmisibilidad de la reclamación"}
+| Elemento | Contenido | Cita |
+|---|---|---|
+| a) | Cuando se impugnen actos o resoluciones no susceptibles de reclamación o recurso en vía económico-administrativa. | art. 239.4 LGT |
+| b) | Cuando la reclamación se haya presentado fuera de plazo. | art. 239.4 LGT |
+| c) | Cuando falte la identificación del acto o actuación contra el que se reclama. | art. 239.4 LGT |
+| d) | Cuando la petición contenida en el escrito de interposición no guarde relación con el acto o actuación recurrido. | art. 239.4 LGT |
+| e) | Cuando concurran defectos de legitimación o de representación. | art. 239.4 LGT |
+| f) | Cuando exista un acto firme y consentido que sea el fundamento exclusivo del acto objeto de la reclamación, cuando se recurra contra actos que reproduzcan otros anteriores definitivos y firmes o contra actos que sean confirmatorios de otros consentidos, así como cuando exista cosa juzgada. | art. 239.4 LGT |
+:::
+
+Cuando no se cumple, en el plazo legalmente establecido, la resolución del Tribunal que imponga la obligación de expedir factura, el reclamante puede, en nombre y por cuenta del reclamado, expedir la factura en la que se documente la operación, conforme a las siguientes reglas (art. 239.6 LGT):
+
+:::esquema{kind=tabla title="Reglas para expedir la factura por el reclamante"}
+| Elemento | Contenido | Cita |
+|---|---|---|
+| 1.ª | El ejercicio de esta facultad debe ser comunicado por escrito al Tribunal Económico-Administrativo que haya conocido del respectivo procedimiento, indicándose que el fallo no se ha cumplido y que se va a emitir la factura correspondiente; igualmente debe comunicar al reclamado por cualquier medio que deje constancia de su recepción que va a ejercitar esta facultad. | art. 239.6 LGT |
+| 2.ª | La factura en la que se documente la operación es confeccionada por el reclamante, que consta como destinatario de la operación, figurando como expedidor el que ha incumplido dicha obligación. | art. 239.6 LGT |
+| 3.ª | El reclamante remite copia de la factura al reclamado, debiendo quedar en su poder el original de la misma, y envía igualmente a la Agencia Estatal de Administración Tributaria copia de dicha factura y del escrito presentado ante el Tribunal Económico-Administrativo en el que comunicaba el incumplimiento de la resolución dictada. | art. 239.6 LGT |
+:::
+
+- La doctrina que de modo reiterado establezca el Tribunal Económico-Administrativo Central vincula a los tribunales económico-administrativos regionales y locales, a los órganos económico-administrativos de las Comunidades Autónomas y de las Ciudades con Estatuto de Autonomía y al resto de la Administración tributaria del Estado y de las Comunidades Autónomas y de las Ciudades con Estatuto de Autonomía (art. 239.8 LGT).
+
+- La duración del procedimiento en cualquiera de sus instancias es de un año contado desde la interposición de la reclamación, y transcurrido ese plazo el interesado puede entender desestimada la reclamación al objeto de interponer el recurso procedente (art. 240.1 LGT).
+- El tribunal debe resolver expresamente en todo caso, y los plazos para interponer los correspondientes recursos comienzan a contarse desde el día siguiente al de la notificación de la resolución expresa (art. 240.1 LGT).
+
+### The case
+
+Fernando reclama contra una retención de la que queda constancia el miércoles 14 de enero de 2026. El plazo es de un mes desde el día siguiente a aquel en que quede constancia de la retención (art. 235.1 LGT) y concluye el sábado 14 de febrero de 2026 (art. 30.4 LPAC). Al ser inhábil, se prorroga al lunes 16 de febrero de 2026 (art. 30.5 LPAC). El escrito se dirige al tribunal competente para resolver (art. 235.4 LGT).
+
+## KEY: caso:### Recursos en vía económico-administrativa#1
+
+### The section as the lesson gives it
+
+**Recurso de alzada ordinario.** Contra las resoluciones dictadas en primera instancia por los tribunales económico-administrativos regionales y locales y por los órganos económico-administrativos de las Comunidades Autónomas y de las Ciudades con Estatuto de Autonomía puede interponerse recurso de alzada ordinario ante el Tribunal Económico-Administrativo Central en el plazo de un mes contado desde el día siguiente al de la notificación de las resoluciones (art. 241.1 LGT).
+
+Están legitimados los interesados, los Directores Generales del Ministerio de Economía y Hacienda y los Directores de Departamento de la Agencia Estatal de Administración Tributaria en las materias de su competencia, y los órganos equivalentes o asimilados de las Comunidades Autónomas y de las Ciudades con Estatuto de Autonomía en materia de su competencia (art. 241.3 LGT).
+
+- Cuando el recurrente hubiera estado personado en el procedimiento en primera instancia, el escrito de interposición contiene las alegaciones y adjunta las pruebas oportunas, y son admisibles únicamente las pruebas que no hayan podido aportarse en primera instancia (art. 241.2 LGT).
+- Al escrito de interposición puede acompañarse la solicitud de suspensión de la ejecución de la resolución impugnada por los órganos de la Administración, que suspende cautelarmente la ejecución mientras el Tribunal Económico-Administrativo Central decide sobre la procedencia de la petición, y la decisión del Tribunal pone fin a la vía administrativa (art. 241.3 LGT).
+- Esa suspensión se fundamenta en que existen indicios racionales de que el cobro de la deuda que finalmente pudiese resultar exigible se podría ver frustrado o gravemente dificultado, sin que sea necesaria la aportación de garantía, y debe motivarse de forma suficiente (art. 241.3 LGT).
+- La suspensión, cautelar o definitiva, impide que se devuelvan las cantidades ingresadas y que se liberen las garantías constituidas en primera instancia, y subsisten y mantienen su eficacia los actos del procedimiento recaudatorio dictados para garantizar el pago; cuando la ejecución de la resolución impugnada pudiese determinar el reconocimiento del derecho a una devolución tributaria, procede la ejecución previa prestación de alguna de las garantías del artículo 224.2 LGT (art. 241.3 LGT).
+- En la resolución del recurso se aplica el artículo 240 LGT (art. 241.4 LGT).
+
+**Recurso de anulación.**
+
+- Contra las resoluciones de las reclamaciones, las personas del artículo 241.3 LGT pueden interponer recurso de anulación en el plazo de 15 días ante el tribunal que hubiera dictado la resolución, exclusivamente cuando se haya declarado incorrectamente la inadmisibilidad de la reclamación, cuando se hayan declarado inexistentes las alegaciones o pruebas oportunamente presentadas en la vía económico-administrativa y cuando se alegue la existencia de incongruencia completa y manifiesta de la resolución (art. 241 bis.1 LGT).
+- El tribunal resuelve sin más trámite en el plazo de un mes, y se entiende desestimado en caso contrario (art. 241 bis.4 LGT).
+- La interposición del recurso de anulación suspende el plazo para interponer el recurso ordinario de alzada que proceda contra la resolución impugnada (art. 241 bis.5 LGT).
+- No puede deducirse de nuevo este recurso frente a su resolución, y no procede frente a la resolución del recurso extraordinario de revisión (art. 241 bis.3 LGT).
+
+**Recurso contra la ejecución.**
+
+- Los actos de ejecución de las resoluciones económico-administrativas se ajustan exactamente a los pronunciamientos de aquellas (art. 241 ter.1 LGT).
+- Si el interesado está disconforme con los actos dictados como consecuencia de la ejecución de una resolución económico-administrativa, puede presentar este recurso (art. 241 ter.2 LGT).
+- El plazo de interposición es de un mes a contar desde el día siguiente al de la notificación del acto impugnado (art. 241 ter.4 LGT).
+
+**Recurso extraordinario de alzada para la unificación de criterio.** Pueden interponerlo los Directores Generales del Ministerio de Economía y Hacienda, los Directores de Departamento de la Agencia Estatal de Administración Tributaria y los órganos equivalentes o asimilados de las Comunidades Autónomas y de las Ciudades con Estatuto de Autonomía respecto a las materias de su competencia, cuando estimen gravemente dañosas y erróneas las resoluciones de los tribunales regionales y locales que no sean susceptibles de recurso de alzada ordinario y, en su caso, las dictadas en única instancia por los órganos económico-administrativos de las Comunidades Autónomas y de las Ciudades con Estatuto de Autonomía, o cuando apliquen criterios distintos a los contenidos en resoluciones de otros Tribunales Económico-Administrativos del Estado o de los órganos económico-administrativos de las Comunidades Autónomas y de las Ciudades con Estatuto de Autonomía (art. 242.1 LGT).
+
+El plazo es de tres meses contados desde el día siguiente al de la notificación de la resolución (art. 242.2 LGT). Si la resolución no ha sido notificada al órgano legitimado para recurrir, el plazo de tres meses para interponer el recurso se cuenta desde el momento en que dicho órgano tenga conocimiento del contenido esencial de la misma por cualquier medio (art. 242.2 LGT).
+
+**Recurso extraordinario para la unificación de doctrina.** Contra las resoluciones en materia tributaria dictadas por el Tribunal Económico-Administrativo Central puede interponerlo el Director General de Tributos del Ministerio de Economía y Hacienda cuando esté en desacuerdo con el contenido de las resoluciones, y también los Directores Generales de Tributos de las Comunidades Autónomas y Ciudades con Estatuto de Autonomía, u órganos equivalentes, cuando el recurso tenga su origen en una resolución de un órgano dependiente de la respectiva Comunidad Autónoma o Ciudad con Estatuto de Autonomía (art. 243.1 LGT). La Sala Especial para la Unificación de Doctrina es competente para resolverlo (art. 243.2 LGT) y dicta la resolución en el plazo de seis meses (art. 243.4 LGT).
+
+El RGRVA fija el plazo de interposición en tres meses contados a partir del día siguiente al de la notificación de la resolución (art. 61.4 RGRVA).
+
+**Recurso extraordinario de revisión.** Puede interponerse por los interesados contra los actos firmes de la Administración tributaria y contra las resoluciones firmes de los órganos económico-administrativos cuando concurra alguna de las siguientes circunstancias (art. 244.1 LGT):
+
+- a) Que aparezcan documentos de valor esencial para la decisión del asunto que fueran posteriores al acto o resolución recurridos o de imposible aportación al tiempo de dictarse los mismos y que evidencien el error cometido.
+- b) Que al dictar el acto o la resolución hayan influido esencialmente documentos o testimonios declarados falsos por sentencia judicial firme anterior o posterior a aquella resolución.
+- c) Que el acto o la resolución se hubiese dictado como consecuencia de prevaricación, cohecho, violencia, maquinación fraudulenta u otra conducta punible y se haya declarado así en virtud de sentencia judicial firme.
+
+La legitimación para interponer este recurso es la prevista en el apartado 3 del artículo 241 LGT (art. 244.2 LGT).
+
+Se declara la inadmisibilidad del recurso cuando se aleguen circunstancias distintas a las previstas en el apartado 1 (art. 244.3 LGT). El Tribunal Económico-Administrativo Central es competente para resolverlo, y para declarar la inadmisibilidad puede actuar de forma unipersonal (art. 244.4 LGT). El recurso se interpone en el plazo de tres meses a contar desde el conocimiento de los documentos o desde que quedó firme la sentencia judicial (art. 244.5 LGT). La resolución se dicta en el plazo de seis meses, y transcurrido ese plazo sin haberse notificado resolución expresa el interesado puede entender desestimado el recurso (art. 244.6 LGT).
+
+:::esquema{kind=tabla title="Plazos de interposición de la reposición y de las reclamaciones y recursos económico-administrativos"}
+| Recurso o reclamación | Plazo de interposición | Cita |
+|---|---|---|
+| Recurso de reposición | Un mes contado a partir del día siguiente al de la notificación del acto recurrible o del siguiente a aquel en que se produzcan los efectos del silencio administrativo; tratándose de deudas de vencimiento periódico y notificación colectiva, el plazo se computa a partir del día siguiente al de finalización del período voluntario de pago | art. 223.1 LGT |
+| Reclamación económico-administrativa en única o primera instancia | Un mes a contar desde el día siguiente al de la notificación del acto impugnado, o desde el día siguiente a aquel en que quede constancia de la realización u omisión de la retención o ingreso a cuenta, de la repercusión motivo de la reclamación o de la sustitución derivada de las relaciones entre el sustituto y el contribuyente; en los supuestos de silencio administrativo, puede interponerse desde el día siguiente a aquel en que produzcan sus efectos; en deudas de vencimiento periódico y notificación colectiva, desde el día siguiente al de finalización del período voluntario de pago; en reclamaciones relativas a la obligación de expedir y entregar factura, el plazo empieza a contarse transcurrido un mes desde que se haya requerido formalmente su cumplimiento | art. 235.1 LGT |
+| Recurso de alzada ordinario, ante el Tribunal Económico-Administrativo Central | Un mes contado desde el día siguiente al de la notificación de las resoluciones | art. 241.1 LGT |
+| Recurso de anulación, ante el tribunal que hubiera dictado la resolución | 15 días | art. 241 bis.1 LGT |
+| Recurso contra la ejecución, ante el órgano del Tribunal que hubiera dictado la resolución que se ejecuta | Un mes a contar desde el día siguiente al de la notificación del acto impugnado | arts. 241 ter.3 y 241 ter.4 LGT |
+| Recurso extraordinario de alzada para la unificación de criterio | Tres meses contados desde el día siguiente al de la notificación de la resolución; si no ha sido notificada al órgano legitimado para recurrir, desde el momento en que dicho órgano tenga conocimiento del contenido esencial de la misma por cualquier medio | art. 242.2 LGT |
+| Recurso extraordinario para la unificación de doctrina | Tres meses contados a partir del día siguiente al de la notificación de la resolución | art. 61.4 RGRVA |
+| Recurso extraordinario de revisión | Tres meses a contar desde el conocimiento de los documentos o desde que quedó firme la sentencia judicial | art. 244.5 LGT |
+:::
+
+### The case
+
+El martes 2 de febrero de 2027 se notifica a Iris la resolución que declara inadmisible su reclamación, y ella alega que la inadmisibilidad es incorrecta. Puede interponer recurso de anulación en 15 días ante el tribunal que la dictó (art. 241 bis.1 LGT). Son días hábiles y el plazo termina el martes 23 de febrero de 2027 (art. 30.2 LPAC). El tribunal resuelve sin más trámite en un mes; si no, se entiende desestimado (art. 241 bis.4 LGT).
+
+## KEY: caso:### Procedimiento abreviado#1
+
+### The section as the lesson gives it
+
+Las reclamaciones económico-administrativas se tramitan por el procedimiento abreviado cuando son de cuantía inferior a la que se determine reglamentariamente (art. 245.1 LGT). Se resuelven en única instancia por los tribunales económico-administrativos, que para resolver pueden actuar de forma unipersonal (art. 245.2 LGT). Las reclamaciones se tramitan por el procedimiento abreviado cuando son de cuantía inferior a 6.000 euros o 72.000 euros si se trata de reclamaciones contra bases o valoraciones (art. 64 RGRVA).
+
+- El plazo máximo para notificar la resolución es de seis meses contados desde la interposición de la reclamación, y transcurrido ese plazo sin resolución expresa el interesado puede considerar desestimada la reclamación al objeto de interponer el recurso procedente (art. 247.2 LGT).
+
+Contra las resoluciones del procedimiento abreviado no puede interponerse recurso de alzada ordinario, pero pueden proceder, en su caso, los demás recursos de la sección anterior (art. 248 LGT).
+
+:::esquema{kind=tabla title="Plazos máximos para resolver la reposición y las reclamaciones y recursos económico-administrativos, y efecto del vencimiento"}
+| Recurso o procedimiento | Plazo y efecto | Cita |
+|---|---|---|
+| Recurso de reposición | El plazo máximo para notificar la resolución es de un mes contado desde el día siguiente al de presentación del recurso; en su cómputo no se incluye el período concedido para efectuar alegaciones a los titulares de derechos afectados a los que se refiere el párrafo segundo del artículo 232.3 LGT, ni el empleado por otros órganos de la Administración para remitir los datos o informes que se soliciten, y esos períodos no pueden exceder de dos meses. Transcurrido el plazo de un mes desde la interposición, el interesado puede considerar desestimado el recurso al objeto de interponer la reclamación procedente | arts. 225.4 y 225.5 LGT |
+| Reclamación económico-administrativa, en cualquiera de sus instancias | La duración del procedimiento es de un año contado desde la interposición de la reclamación, y transcurrido ese plazo el interesado puede entender desestimada la reclamación al objeto de interponer el recurso procedente | art. 240.1 LGT |
+| Procedimiento abreviado | El plazo máximo para notificar la resolución es de seis meses contados desde la interposición de la reclamación, y transcurrido ese plazo sin resolución expresa el interesado puede considerar desestimada la reclamación al objeto de interponer el recurso procedente | art. 247.2 LGT |
+| Recurso de anulación | El tribunal resuelve sin más trámite en el plazo de un mes, y se entiende desestimado en caso contrario | art. 241 bis.4 LGT |
+| Recurso extraordinario de alzada para la unificación de criterio | La resolución se dicta en el plazo de tres meses | art. 242.3 LGT |
+| Recurso extraordinario para la unificación de doctrina | La Sala Especial para la Unificación de Doctrina dicta la resolución en el plazo de seis meses | art. 243.4 LGT |
+| Recurso extraordinario de revisión | La resolución se dicta en el plazo de seis meses, y transcurrido ese plazo sin haberse notificado resolución expresa el interesado puede entender desestimado el recurso | art. 244.6 LGT |
+:::
+
+### The case
+
+Sergio interpone el lunes 9 de marzo de 2026 una reclamación de 4.500 euros, no contra bases ni valoraciones. La cuantía es inferior a 6.000 euros y se tramita por el procedimiento abreviado (art. 64 RGRVA). El plazo máximo para notificar la resolución es de seis meses desde la interposición y termina el miércoles 9 de septiembre de 2026 (art. 247.2 LGT; art. 30.4 LPAC). Sin resolución expresa, puede considerarla desestimada para interponer el recurso procedente (art. 247.2 LGT).
+

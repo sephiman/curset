@@ -171,10 +171,15 @@ def governing(lesson: list[Sentence], citations: LessonCitations) -> dict[int, l
     return result
 
 
+#: Explanation-layer lead words: the layer is not the lead-in of the list or table below it.
+_LAYER_LEADS = ("**Preguntas que responde:**", "**Caso.**", "**Para qué sirve.**", "**Término")
+
+
 def _lead_in(lesson: list[Sentence], own: Mapping[int, list[LessonCitation]], i: int) -> list[LessonCitation]:
     kind = lesson[i].kind
+    layer = {s.block for s in lesson if s.text.startswith(_LAYER_LEADS)}
     j = i - 1
-    while j >= 0 and lesson[j].kind == kind:
+    while j >= 0 and (lesson[j].kind == kind or lesson[j].block in layer):
         j -= 1
     if j < 0 or lesson[j].kind != "paragraph":
         return []

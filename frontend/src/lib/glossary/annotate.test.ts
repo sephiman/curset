@@ -187,6 +187,15 @@ describe("what counts as an occurrence", () => {
   });
 });
 
+describe("the explanation layer", () => {
+  it("never takes a term's first mark: the lesson's own sentence keeps it", () => {
+    const funding = entry("g-funding", "funding", { origin: "m04-l1" });
+    const markdown = "**Caso.** Funding is paid hourly.\n\n**Término: funding.** The hourly payment.\n\nThe funding rate flips.\n";
+    const { tree } = annotate(markdown, "m05-l1", [funding]);
+    expect(marked(tree)).toEqual([{ termId: "g-funding", text: "funding" }]);
+  });
+});
+
 describe("overlapping terms", () => {
   const block = entry("g-order-block", "order block", { origin: "m34-l1" });
   const order = entry("g-order", "order", { origin: "m02-l1" });

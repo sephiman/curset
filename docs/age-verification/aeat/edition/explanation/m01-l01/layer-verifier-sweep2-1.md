@@ -1,0 +1,6 @@
+| caso:### Inviolabilidad y refrendo#1 | PASS | Art. 64.1 CE: nombramiento del Presidente del Gobierno refrendado por el Presidente del Congreso; art. 56.3 sin refrendo carece de validez salvo art. 65.2 (miembros civiles de su Casa, nombramiento libre). |
+| caso:### Composición#1 | PASS | Art. 159.1 dos a propuesta del Gobierno; 159.2 «más de quince años»: 16 cumple, 15 no; 159.3 nueve años. |
+| caso:### Presidente y Vicepresidente#1 | PASS | Art. 9 LOTC (texto no incluido; comprobado en el PDF BOE-A-1979-23709): 9.1 Pleno, votación secreta; 9.2 mayoría absoluta en primera, mayor número de votos en segunda, empate: última votación, luego antigüedad en el cargo y edad; art. 160 CE tres años. |
+| caso:### Competencias#1 | PASS | 2-11-2026 es lunes, 2-3-2027 es martes; 4 meses < 5 meses del art. 161.2 CE; la impugnación suspende. |
+| caso:### Recurso de inconstitucionalidad#1 | PASS | 3-11-2026 martes, 20-1-2027 miércoles; plazo de tres meses (art. 33.1 LOTC, comprobado en el PDF) vence el 3-2-2027; 50 Diputados legitimados (162.1.a); art. 30 LOTC: la admisión no suspende (ley estatal, fuera de la excepción del 161.2). |
+| caso:### Procedimiento agravado#1 | PASS | Art. 168.1 CE incluye el Título II; dos tercios y disolución inmediata; 168.2 ratificación y dos tercios; 168.3 referéndum preceptivo. |

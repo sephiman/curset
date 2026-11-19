@@ -1,0 +1,1 @@
+| overview | PASS | Arts. 7.1, 8, 2.2, 56, 21.1 and 54 LGT support the statements: the list of sources matches 7.1 a)–e), and «en todo caso por ley» matches art. 8. The text of art. 27.2 LGT is not in the input, but the overview only names it as an exam point and asserts nothing from it. |

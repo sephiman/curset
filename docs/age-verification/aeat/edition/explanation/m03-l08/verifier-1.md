@@ -1,0 +1,3 @@
+| KEY | Verdict | Reason |
+|---|---|---|
+| overview | FAIL | «su extensión por periodos de 60 días naturales (art. 150.4 LGT)»: 150.4 allows one or several periods that together cannot exceed 60 días naturales for the whole procedure, not periods of 60 days each. «que la inspección debe ratificar en 15 días (art. 146.3 LGT)»: 146.3 gives the ratification to the «órgano competente para liquidar», not to the inspección in general (the funcionarios who adopt the measure, RGAT 181.1). Minor: «las funciones y las facultades de la inspección (art. 141 LGT)»: 141 lists only the funciones; the facultades and the entrada en fincas are in art. 142. |

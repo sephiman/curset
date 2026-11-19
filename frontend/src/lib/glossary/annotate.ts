@@ -176,6 +176,14 @@ function annotateText(
   return { nodes, marks };
 }
 
+const LAYER_LEAD = /^(Preguntas que responde:|Caso\.|Para qué sirve\.|Término)/;
+
+/** An explanation-layer paragraph (Preguntas, Caso, Para qué sirve, Término) opens with a bold lead and is never a term's first mark. */
+function isLayerParagraph(node: { type: string; children?: { type: string; children?: { type: string; value?: string }[] }[] }): boolean {
+  const lead = node.type === "paragraph" ? node.children?.[0] : undefined;
+  return lead?.type === "strong" && LAYER_LEAD.test(lead.children?.[0]?.value ?? "");
+}
+
 /** Every text node the annotator may touch, in reading order, with where it sits.
  *
  *  `block` is the prose unit the node belongs to — the paragraph or table cell — so a report can
@@ -186,7 +194,7 @@ export function eligibleText(
   const found: { parent: Parent; index: number; node: Text; block: Parent }[] = [];
   const walk = (parent: Parent, block: Parent): void => {
     parent.children.forEach((child, index) => {
-      if (SKIP.has(child.type)) return;
+      if (SKIP.has(child.type) || isLayerParagraph(child as Parameters<typeof isLayerParagraph>[0])) return;
       const inner = child.type === "paragraph" || child.type === "tableCell" ? (child as Parent) : block;
       if (child.type === "text") found.push({ parent, index, node: child, block });
       else if ("children" in child) walk(child as Parent, inner);

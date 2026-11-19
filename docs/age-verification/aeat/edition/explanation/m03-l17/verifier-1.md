@@ -1,0 +1,1 @@
+| overview | PASS | El hecho imponible (art. 4), el período impositivo y el devengo (arts. 27 y 28) y el pago fraccionado (art. 40) se nombran correctamente; el resto son afirmaciones de estructura (títulos de artículos y bloques de temas) sin afirmación normativa que contrastar. |

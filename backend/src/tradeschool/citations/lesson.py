@@ -34,6 +34,7 @@ Section = Literal["prose", "esquema", "normativa"]
 _HEADING = re.compile(r"^#{1,6}\s")
 _FENCE = re.compile(r"^(```|~~~)")
 _DIRECTIVE_FENCE = re.compile(r"^:{2,}")
+_LAYER_LEAD = re.compile(r"^\*\*(Caso|Para qué sirve|Término[^*]*|Preguntas que responde)[.:]")
 _NORMATIVA = re.compile(r"^##\s+Normativa\s*$")
 _NORMATIVA_ITEM = re.compile(r"^-\s+(?P<norm>[^:\n]+?):\s")
 _TABLE_SEPARATOR = re.compile(r"^\|?\s*:?-{3,}")
@@ -57,6 +58,8 @@ class LessonCitation:
     source_file: str | None = None
     #: The groups after the first when the text names a second norm, in the order written.
     also: tuple[LessonCitation, ...] = ()
+    #: Inside the explanation layer (overview, «Preguntas», «Caso», «Para qué sirve», «Término»): never an anchor target.
+    layer: bool = False
 
     @property
     def anchors(self) -> tuple[str, ...]:
@@ -102,7 +105,7 @@ class LessonCitations:
         seen: set[str] = set()
         out: list[tuple[str, ...]] = []
         for item in self.items:
-            if item.section != "prose":
+            if item.section != "prose" or item.layer:
                 out.append(())
                 continue
             fresh = tuple(anchor for anchor in item.anchors if anchor not in seen)
@@ -113,7 +116,7 @@ class LessonCitations:
     def anchor_for(self, norm_slug: str, unit: Unit) -> str | None:
         """The anchor a cited unit opens at: its own, or the first prose citation whose range holds it."""
         own = f"{norm_slug}-{unit.slug}"
-        prose = self.prose
+        prose = [c for c in self.prose if not c.layer]
         if any(own in c.anchors for c in prose):
             return own
         for citation in prose:
@@ -175,6 +178,28 @@ def _prose_chunks(lines: list[str], skip: set[int]) -> list[tuple[int, str]]:
     return chunks
 
 
+def _layer_lines(lines: list[str]) -> set[int]:
+    """Lines of every layer paragraph: the overview (the paragraph under the title that points at «Lo que más cae»)."""
+    layer: set[int] = set()
+    paragraph: list[int] = []
+
+    def close() -> None:
+        if not paragraph:
+            return
+        text = " ".join(lines[n - 1] for n in paragraph)
+        if _LAYER_LEAD.match(lines[paragraph[0] - 1]) or (paragraph[0] <= 4 and "Lo que más cae" in text):
+            layer.update(paragraph)
+        paragraph.clear()
+
+    for number, line in enumerate(lines, start=1):
+        if not line.strip() or _HEADING.match(line):
+            close()
+            continue
+        paragraph.append(number)
+    close()
+    return layer
+
+
 def _bare_table_cells(chunk: str) -> list[tuple[int, str]]:
     """Body cells of the chunk's markdown tables that hold no parenthesis, as (offset in chunk, text)."""
     rows = chunk.split("\n")
@@ -225,9 +250,10 @@ def scan_lesson(lesson_id: str, markdown: str, index: NormIndex) -> LessonCitati
     lines = markdown.splitlines()
     esquemas = parse_esquemas(markdown)
     normativa = _normativa_lines(lines)
+    layer = _layer_lines(lines)
     found: list[tuple[int, int, LessonCitation]] = []
 
-    previous: tuple[Norm | None, str] = (None, "")
+    chains: dict[bool, tuple[Norm | None, str]] = {False: (None, ""), True: (None, "")}
     for first_line, chunk in _prose_chunks(lines, esquema_lines(esquemas) | normativa):
         offsets = [0] + [m.end() for m in re.finditer("\n", chunk)]
         for paren in parentheticals(chunk):
@@ -244,12 +270,14 @@ def scan_lesson(lesson_id: str, markdown: str, index: NormIndex) -> LessonCitati
                     continue
                 named = resolve_segment(segment, index)
                 implicit = named is None
-                norm, norm_slug = previous if named is None else named
+                in_layer = line in layer
+                norm, norm_slug = chains[in_layer] if named is None else named
                 later = tuple(_later_group(group, index) for group in segment.also)
-                previous = (later[-1].norm, later[-1].norm_slug) if later else (norm, norm_slug)
+                chains[in_layer] = (later[-1].norm, later[-1].norm_slug) if later else (norm, norm_slug)
                 text = collapse(segment.text)
                 citation = LessonCitation(
-                    "prose", text, line, norm, norm_slug, implicit, segment.units, segment.ranges, also=later
+                    "prose", text, line, norm, norm_slug, implicit, segment.units, segment.ranges, also=later,
+                    layer=line in layer,
                 )
                 found.append((line, position, citation))
         # A table's citation column cites without parentheses; a bare cell counts when it is only citations.
@@ -259,7 +287,7 @@ def scan_lesson(lesson_id: str, markdown: str, index: NormIndex) -> LessonCitati
                 line = first_line + _line_of(offsets, position)
                 units, ranges = segment.units, segment.ranges
                 citation = LessonCitation(
-                    "prose", collapse(segment.text), line, norm, norm_slug, False, units, ranges
+                    "prose", collapse(segment.text), line, norm, norm_slug, False, units, ranges, layer=line in layer
                 )
                 found.append((line, position, citation))
 

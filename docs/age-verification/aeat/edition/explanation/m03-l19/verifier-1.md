@@ -1,0 +1,1 @@
+| overview | PASS | Repercusión y rectificación de cuotas en los arts. 88 y 89, que el texto de entrada confirma; el resto son referencias de estructura (rangos de artículos por tema) sin afirmación normativa. |

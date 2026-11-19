@@ -233,6 +233,30 @@ def test_a_table_cell_that_is_only_a_citation_is_read_as_one(tmp_path: Path) -> 
     ]
 
 
+def test_the_explanation_layer_cites_but_is_never_an_anchor_target(tmp_path: Path) -> None:
+    normativa = tmp_path / "normativa.yaml"
+    normativa.write_text(
+        yaml.safe_dump(
+            [{"short": "LGT", "aliases": ["LGT"], "title": "Ley 58/2003", "boe_id": "BOE-A-2003-23186",
+              "file": "sources/normativa/lgt.pdf"}],
+            allow_unicode=True,
+        ),
+        encoding="utf-8",
+    )
+    lesson = (
+        "# Tema\n\nResumen del tema (art. 59 LGT). En «Lo que más cae» pesa el plazo.\n\n## Pago\n\n"
+        "**Preguntas que responde:** ¿Cuándo se paga? (art. 62 LGT)\n\n"
+        "**Caso.** Ana paga el 5 de mayo (art. 62.2 LGT).\nSigue el caso (art. 62.2 LGT).\n\n"
+        "El pago se hace en plazo (art. 62.2 LGT).\n"
+    )
+    scanned = scan_lesson("l", lesson, NormIndex.load(normativa, [lesson]))
+    layers = [(c.line, c.layer) for c in scanned.items]
+    assert layers == [(3, True), (7, True), (9, True), (10, True), (12, False)]
+    assert [ids for item, ids in zip(scanned.items, scanned.first_ids(), strict=True) if not item.layer] == [
+        ("boe-a-2003-23186-art-62",)
+    ]
+
+
 def test_a_rule_of_a_non_article_source_opens_its_page_or_else_the_file(tmp_path: Path) -> None:
     normativa = tmp_path / "normativa.yaml"
     normativa.write_text(

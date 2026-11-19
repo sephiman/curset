@@ -1,0 +1,3 @@
+| KEY | Verdict | Reason |
+|---|---|---|
+| overview | FAIL | «y de dos meses para el recurso contencioso-administrativo (art. 46.1 LJCA)» states the plazo without its condition: art. 46.1 gives two months only for disposiciones and for the acto «que ponga fin a la vía administrativa, si fuera expreso»; «Si no lo fuera, el plazo será de seis meses» (and art. 46.3 sets ten/twenty days for vía de hecho). The «si el acto es expreso» of the previous clause is attached to alzada and reposición, so the reader learns two months as the general rule. The other legal statements (arts. 6, 12, 25 LJCA; one month for alzada/reposición if expreso, arts. 122.1 and 124.1 LPAC) are correct. |

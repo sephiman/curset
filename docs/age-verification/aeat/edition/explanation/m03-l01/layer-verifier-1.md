@@ -1,0 +1,1 @@
+| caso:### La potestad tributaria#1 | PASS | Art. 133.1 CE quoted with «exclusivamente» and «mediante ley»; art. 133.2 CE keeps the modal «podrán» and the condition «de acuerdo con la Constitución y las leyes». 9 March 2027 is a Tuesday (no weekday stated, and the date plays no role). |

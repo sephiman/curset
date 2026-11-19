@@ -322,3 +322,10 @@ Pool = the R2d lessons (copied to `docs/age-verification/aeat/pool/`). Pre-R2d =
 ## Result (2026-11-19)
 
 See `docs/age-verification/aeat/edition/report.md` (per tema words, sentences by tag, overruns with reasons) and `decisions.md` (decisions taken without asking, open items, where to resume). Course total: 194,355 prose words pre-R2d → 220,833 now (×1.14); budget at ×1.1 was 212,728.
+
+## Step 2 — m01-l06 stays over budget (decided 2026-11-19)
+
+m01-l06 ends at ×1.82 of its pre-R2d prose (step 1 left it at ×1.77; the layer added only an overview). It stays: the external
+review named this lesson as too short, and what step 1 and the defect sweep restored there are confirmed gaps (e.g. the
+calificación of art. 44 Ley 39/2006). No cases are written for it for now; the 1.4× cap (1.5× where step 1 left under 10 % headroom)
+does not apply to this lesson.

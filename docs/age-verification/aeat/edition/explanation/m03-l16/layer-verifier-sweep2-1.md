@@ -1,0 +1,8 @@
+| key | verdict | reason |
+|---|---|---|
+| caso:### Base imponible general#1 | PASS | 25 % × 20.000 = 5.000 offset, so base 15.000; 8.000 − 5.000 = 3.000 carried to the next four years, 2027–2030 (art. 48 LIRPF). |
+| caso:### Reducciones por aportaciones y contribuciones a sistemas de previsión social#1 | PASS | min(30 % × 4.000 = 1.200; 1.500) = 1.200; the 200 lost to the percentage limit carry forward five years, 2027–2031 (art. 52.1–2); 1.400 is within the art. 51.6 cap. |
+| caso:### Mínimo del contribuyente#1 | PASS | 5.550 + 1.150 = 6.700 and 6.700 + 1.400 = 8.100 (art. 57.1–2 LIRPF). |
+| caso:### Mínimo por discapacidad#1 | FAIL | "Bruno acredita un 40 por ciento: su mínimo es de 3.000 euros anuales" leaves out a condition that changes the result. Art. 60.1 also adds 3.000 for gastos de asistencia when the person "acredite necesitar ayuda de terceras personas o movilidad reducida", not only at ≥65 %. The case never says Bruno does not need such help, and Irene's increase is given without its trigger, so the reader learns that the increase depends only on the 65 % degree. |
+| caso:### Deducción por maternidad#1 | PASS | Up to 1.200 for a child under three with 30 days contributed (art. 81.1); increase up to 1.000, not 1.800, total up to 2.200 (art. 81.2); 1.800 of spending is above the 1.000 cap in art. 81.3. The art. 81.3 monthly proration and the complemento de ayuda para la infancia bar are not stated, but "hasta" keeps the figures as ceilings. |
+| caso:### Devolución derivada de la normativa del tributo#1 | PASS | 30-VI-2027 is Wednesday; six months counted under art. 30.4 LPAC end on 30-XII-2027, a Thursday; 3.200 − 2.500 = 700 refunded ex officio if no liquidación (art. 103.1 and 103.3 LIRPF). |

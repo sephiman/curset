@@ -1,0 +1,609 @@
+# Reader input — `m03-l04`
+
+## KEY: caso:### Declaraciones censales#1
+
+### The section as the lesson gives it
+
+Cualquier censo tributario incluye necesariamente estos datos (art. 2.2 RGAT):
+
+- a) Nombre y apellidos o razón social o denominación completa, así como el anagrama, si lo tuviera.
+- b) Número de identificación fiscal.
+- c) Domicilio fiscal.
+- d) En su caso, domicilio en el extranjero.
+
+El Censo de Obligados Tributarios está formado por la totalidad de las personas o entidades que deban tener un número de identificación fiscal para sus relaciones de naturaleza o con trascendencia tributaria (art. 3.1 RGAT). El Censo de Empresarios, Profesionales y Retenedores está formado por las personas o entidades que desarrollen o vayan a desarrollar en territorio español actividades empresariales o profesionales, abonen rentas sujetas a retención o ingreso a cuenta, o efectúen adquisiciones intracomunitarias de bienes sujetas al IVA sin actuar como empresarios o profesionales (art. 3.2 RGAT). Forma parte del Censo de Obligados Tributarios (art. 3.2 RGAT).
+
+- No se incluyen en el Censo de Empresarios, Profesionales y Retenedores quienes efectúen exclusivamente arrendamientos de inmuebles exentos del IVA conforme al artículo 20.uno.23.º de la LIVA, siempre que su realización no constituya una actividad empresarial según la normativa del IRPF (art. 3.2.a) RGAT).
+- Tampoco se incluyen quienes efectúen entregas a título ocasional de medios de transporte nuevos exentas del IVA en virtud del artículo 25.uno y dos de la LIVA, y adquisiciones intracomunitarias de bienes exentas en virtud del artículo 26.tres de la LIVA (art. 3.2.a) RGAT).
+- Sí forman parte del censo las personas o entidades que no cumplan ninguno de esos requisitos pero sean socios, herederos, comuneros o partícipes de entidades en régimen de atribución de rentas que desarrollen actividades empresariales o profesionales y tengan obligaciones tributarias derivadas de su condición de miembros de tales entidades (art. 3.2 RGAT).
+
+El Registro de grandes empresas está formado por aquellos obligados tributarios cuyo volumen de operaciones supere la cifra de 6.010.121,04 euros durante el año natural inmediato anterior, calculado conforme al artículo 121 de la LIVA, incluso cuando desarrollen su actividad fuera del territorio de aplicación de este impuesto (art. 3.5 RGAT). Forma parte del Censo de Empresarios, Profesionales y Retenedores (art. 3.5 RGAT).
+
+- Quienes cesen en todo tipo de actividades empresariales o profesionales o, sin ser empresarios o profesionales, dejen de satisfacer rendimientos sujetos a retención o ingreso a cuenta, presentan la declaración de baja en el Censo de Empresarios, Profesionales y Retenedores (art. 11.1 RGAT).
+- La declaración de baja en el Censo de Empresarios, Profesionales y Retenedores deberá presentarse en el plazo de un mes desde que se cumplan las condiciones previstas en el apartado 1 del artículo 11 del RGAT, sin perjuicio de que la persona o entidad afectada deba presentar las declaraciones y cumplir las obligaciones tributarias que le incumban y sin que a estos efectos deba darse de alta en el censo (art. 11.2 RGAT).
+- Cuando una sociedad o entidad se disuelva, la declaración de baja se presenta en el plazo de un mes desde que se haya realizado, en su caso, la cancelación efectiva de los correspondientes asientos en el Registro Mercantil (art. 11.3 RGAT).
+- En caso de fallecimiento del obligado tributario, los herederos presentan la declaración de baja «en el plazo de seis meses desde el fallecimiento» (art. 11.4 RGAT).
+- En ese mismo plazo comunican la modificación de la titularidad de los derechos y obligaciones con trascendencia tributaria que permanecieran vigentes con terceros y presentan, en su caso, las declaraciones de alta que procedan (art. 11.4 RGAT).
+
+### The case
+
+Ramón, empresario, fallece el martes 3 de noviembre de 2026. Sus herederos presentan la declaración de baja en el Censo de Empresarios, Profesionales y Retenedores en el plazo de seis meses desde el fallecimiento, hasta el lunes 3 de mayo de 2027 (art. 11.4 RGAT; art. 30.4 LPAC). En ese mismo plazo comunican la modificación de la titularidad de los derechos y obligaciones vigentes con terceros (art. 11.4 RGAT).
+
+## KEY: caso:### Número de identificación fiscal#1
+
+### The section as the lesson gives it
+
+Toda persona física o jurídica, así como las entidades sin personalidad a que se refiere el artículo 35.4 de la LGT, tienen un número de identificación fiscal para sus relaciones de naturaleza o con trascendencia tributaria (disposición adicional sexta.1 LGT). La Administración General del Estado lo facilita, de oficio o a instancia del interesado (disposición adicional sexta.1 LGT). Reglamentariamente se regula el procedimiento de asignación y revocación, su composición y la forma en que debe utilizarse (disposición adicional sexta.1 LGT).
+
+- Quienes entreguen o confíen a entidades de crédito fondos, bienes o valores en forma de depósitos u otras análogas, recaben de ellas créditos o préstamos de cualquier naturaleza o realicen cualquier otra operación financiera con una entidad de crédito deben comunicarle previamente su número de identificación fiscal (disposición adicional sexta.2 LGT).
+- Las entidades de crédito no pueden librar cheques contra la entrega de efectivo, bienes, valores u otros cheques sin la comunicación del número de identificación fiscal del tomador, salvo los cheques librados contra una cuenta bancaria (disposición adicional sexta.3 LGT).
+
+- La publicación de la revocación del número de identificación fiscal en el «Boletín Oficial del Estado» determina la pérdida de validez a efectos identificativos de ese número en el ámbito fiscal (disposición adicional sexta.4 LGT).
+- Cuando la revocación se refiere al número de una entidad, el notario se abstiene de autorizar instrumentos públicos y se prohíbe el acceso a cualquier registro público, salvo que se rehabilite el número (disposición adicional sexta.4 LGT).
+- El registro público en el que esté inscrita la entidad extiende una nota marginal en la que consta que, en lo sucesivo, «no podrá realizarse inscripción alguna que afecte a aquella», salvo que se rehabilite el número (disposición adicional sexta.4 LGT).
+- La revocación no impide a la Administración tributaria exigir el cumplimiento de las obligaciones tributarias pendientes (disposición adicional sexta.4 LGT).
+- La admisión de las autoliquidaciones, declaraciones, comunicaciones o escritos en los que conste un número revocado queda condicionada, en los términos reglamentarios, a su rehabilitación (disposición adicional sexta.4 LGT).
+
+Las personas físicas y jurídicas, así como los obligados tributarios del artículo 35.4 de la LGT, tienen un número de identificación fiscal para sus relaciones de naturaleza o con trascendencia tributaria (art. 18.1 RGAT). El titular puede acreditarlo mediante la exhibición del documento expedido para su constancia por la Administración tributaria, del documento nacional de identidad o del documento oficial en que se asigne el número de identidad de extranjero (art. 18.2 RGAT).
+
+- Para las personas físicas de nacionalidad española, el número es el de su documento nacional de identidad seguido del código de verificación, una letra mayúscula (art. 19.1 RGAT).
+- Los españoles que realicen o participen en operaciones de naturaleza o con trascendencia tributaria y no estén obligados a obtener el documento nacional de identidad por residir en el extranjero o por ser menores de 14 años deben obtener un número de identificación fiscal propio (art. 19.2 RGAT).
+- Para obtener un número de identificación fiscal propio, los españoles que no estén obligados a obtener el documento nacional de identidad por residir en el extranjero o por ser menores de 14 años podrán solicitar el documento nacional de identidad con carácter voluntario o solicitar de la Administración tributaria la asignación de un número de identificación fiscal, integrado por nueve caracteres con la siguiente composición: una letra inicial destinada a indicar la naturaleza de este número, que será la L para los españoles residentes en el extranjero y la K para los españoles que, residiendo en España, sean menores de 14 años; siete caracteres alfanuméricos y un carácter de verificación alfabético (art. 19.2 RGAT).
+
+Para las personas físicas sin nacionalidad española, el número es el de identidad de extranjero (art. 20.1 RGAT). Si no lo tienen, deben solicitar a la Administración tributaria, cuando vayan a realizar operaciones de naturaleza o con trascendencia tributaria, un número de nueve caracteres: una letra inicial, «que será la M», siete caracteres alfanuméricos y un carácter de verificación alfabético (art. 20.2 RGAT).
+
+### The case
+
+Elena, española residente en Lisboa y sin documento nacional de identidad, y Mateo, español de 13 años residente en Madrid, deben obtener un número de identificación fiscal propio (art. 19.2 RGAT). Lo solicitan a la Administración tributaria: nueve caracteres, con la letra inicial L para Elena y la K para Mateo (art. 19.2 RGAT).
+
+## KEY: caso:### Libros registro#1
+
+### The section as the lesson gives it
+
+Cuando la normativa tributaria lo prevea, los obligados tributarios deben llevar y conservar de forma correcta los libros registro que se establezcan (art. 29.1 RGAT). Los libros registro se conservan en el domicilio fiscal del obligado tributario, salvo lo dispuesto en la normativa tributaria (art. 29.1 RGAT). Las operaciones que han de anotarse se asientan en los registros «en el plazo de tres meses a partir del momento de realización de la operación o de la recepción del documento justificativo» o, en todo caso, antes de que finalice el plazo establecido para presentar la correspondiente declaración, autoliquidación o comunicación, salvo lo dispuesto en la normativa propia de cada tributo (art. 29.2 RGAT).
+
+Los empresarios conservan los libros, correspondencia, documentación y justificantes concernientes a su negocio, debidamente ordenados, durante seis años, a partir del último asiento realizado en los libros, salvo lo que se establezca por disposiciones generales o especiales (art. 30.1 Código de Comercio).
+
+- En el IVA, los empresarios o profesionales y otros sujetos pasivos llevan, con carácter general, el libro registro de facturas expedidas, el de facturas recibidas, el de bienes de inversión y el de determinadas operaciones intracomunitarias (art. 62.1 RIVA).
+- Esa regla general no se aplica a las actividades acogidas a los regímenes especiales simplificado, de la agricultura, ganadería y pesca y del recargo de equivalencia, con las salvedades de las normas de esos regímenes (art. 62.2 RIVA).
+- Los sujetos pasivos del régimen simplificado llevan un libro registro de facturas recibidas, con la debida separación de las facturas de cada sector diferenciado de actividad cuando realicen otras actividades a las que no sea aplicable el régimen (art. 40.1 RIVA).
+- Los acogidos al régimen simplificado por actividades cuyos índices o módulos operan sobre el volumen de ingresos llevan además un libro registro de las operaciones efectuadas en esas actividades (art. 40.1 RIVA).
+- Los sujetos pasivos del recargo de equivalencia no están obligados a llevar registros contables en relación con el IVA, con las excepciones del propio artículo (art. 61.2 RIVA).
+
+- Los libros registro del IVA deben llevarse a través de la Sede electrónica de la Agencia Estatal de Administración Tributaria, mediante el suministro electrónico de los registros de facturación, por los empresarios o profesionales y otros sujetos pasivos que tengan un período de liquidación que coincida con el mes natural (art. 62.6 RIVA).
+- La información de las facturas expedidas se suministra en el plazo de cuatro días naturales desde la expedición de la factura, o de ocho si las expide el destinatario o un tercero, y antes del día 16 del mes siguiente a aquel en que se hubiera producido el devengo (art. 69 bis.1.a) RIVA).
+- Para contar esos cuatro u ocho días naturales se excluyen los sábados, los domingos y los declarados festivos nacionales (art. 69 bis.1 RIVA).
+
+En el IRPF, los contribuyentes conservan, durante el plazo máximo de prescripción, los justificantes y documentos acreditativos de las operaciones, rentas, gastos, ingresos, reducciones y deducciones de cualquier tipo que deban constar en sus declaraciones (art. 68.1 RIRPF). Los que desarrollen actividades empresariales cuyo rendimiento se determine en la modalidad normal del método de estimación directa están obligados a llevar contabilidad ajustada a lo dispuesto en el Código de Comercio (art. 68.2 RIRPF). Cuando la actividad empresarial no tenga carácter mercantil, de acuerdo con el Código de Comercio, las obligaciones contables se limitan a estos libros registro (art. 68.3 RIRPF):
+
+- a) Libro registro de ventas e ingresos.
+- b) Libro registro de compras y gastos.
+- c) Libro registro de bienes de inversión.
+
+Los que desarrollen actividades empresariales cuyo rendimiento se determine en la modalidad simplificada del método de estimación directa llevan los libros señalados en el apartado 3 (art. 68.4 RIRPF). Los que ejerzan actividades profesionales cuyo rendimiento se determine en estimación directa, en cualquiera de sus modalidades, llevan estos libros registro (art. 68.5 RIRPF):
+
+- a) Libro registro de ingresos.
+- b) Libro registro de gastos.
+- c) Libro registro de bienes de inversión.
+- d) Libro registro de provisiones de fondos y suplidos.
+
+Los contribuyentes distintos de los del apartado 2 llevan los libros registro de los apartados anteriores aun cuando lleven contabilidad ajustada al Código de Comercio (art. 68.10 RIRPF).
+
+### The case
+
+Daniel, fisioterapeuta, determina su rendimiento en estimación directa simplificada. Lleva los libros registro de ingresos, de gastos, de bienes de inversión y de provisiones de fondos y suplidos (art. 68.5 RIRPF). Alba, empresaria cuya actividad no tiene carácter mercantil, limita sus obligaciones contables a los libros de ventas e ingresos, de compras y gastos y de bienes de inversión (art. 68.3 RIRPF).
+
+## KEY: caso:### Facturación#1
+
+### The section as the lesson gives it
+
+Los empresarios o profesionales están obligados a expedir factura y copia de esta por las entregas de bienes y prestaciones de servicios que realicen en el desarrollo de su actividad, incluidas las no sujetas y las sujetas pero exentas del IVA, sin más excepciones que las previstas en el reglamento (art. 2.1 RD 1619/2012). Esta obligación incumbe también a los empresarios o profesionales acogidos a los regímenes especiales del IVA (art. 2.1 RD 1619/2012).
+
+No existe obligación de expedir factura, salvo en los supuestos del artículo 2.2, por las operaciones siguientes (art. 3.1 RD 1619/2012):
+
+- a) Las operaciones exentas del IVA en virtud del artículo 20 de la LIVA, con excepción de las operaciones a que se refiere el apartado 2 siguiente; no obstante, la expedición de factura será obligatoria en las operaciones exentas de acuerdo con el artículo 20.Uno.2.º, 3.º, 4.º, 5.º, 15.º, 20.º, 22.º, 24.º, 25.º y 28.º de la LIVA.
+- b) Las realizadas por empresarios o profesionales en el desarrollo de actividades a las que sea de aplicación el régimen especial del recargo de equivalencia; deberá expedirse factura en todo caso por las entregas de inmuebles sujetas y no exentas.
+- c) Las realizadas por empresarios o profesionales en actividades acogidas al régimen simplificado, salvo que la determinación de las cuotas devengadas se efectúe en atención al volumen de ingresos; deberá expedirse factura en todo caso por las transmisiones de activos fijos del artículo 123.Uno.B).3.º de la LIVA.
+
+Tampoco están obligados a expedir factura los empresarios o profesionales por las operaciones de las actividades acogidas al régimen especial de la agricultura, ganadería y pesca, sin perjuicio del artículo 16.1 del reglamento (art. 3.3 RD 1619/2012). Deben expedirla en todo caso por las entregas de inmuebles del segundo párrafo del apartado uno del artículo 129 de la LIVA (art. 3.3 RD 1619/2012).
+
+La obligación de expedir factura puede cumplirse mediante factura simplificada y copia de esta (art. 4.1 RD 1619/2012):
+
+- a) Cuando su importe no exceda de 400 euros, IVA incluido.
+- b) Cuando deba expedirse una factura rectificativa.
+
+Los empresarios o profesionales pueden igualmente expedir factura simplificada y copia cuando su importe no exceda de 3.000 euros, IVA incluido, en estas operaciones (art. 4.2 RD 1619/2012):
+
+- a) Ventas al por menor, incluso las realizadas por fabricantes o elaboradores de los productos entregados. Son ventas al por menor las entregas de bienes muebles corporales o semovientes en las que el destinatario no actúe como empresario o profesional, sino como consumidor final. No son ventas al por menor las que tienen por objeto bienes que, por sus características objetivas, envasado, presentación o estado de conservación, sean principalmente de utilización empresarial o profesional.
+- b) Ventas o servicios en ambulancia.
+- c) Ventas o servicios a domicilio del consumidor.
+- d) Transportes de personas y sus equipajes.
+- e) Servicios de hostelería y restauración prestados por restaurantes, bares, cafeterías, horchaterías, chocolaterías y establecimientos similares, así como el suministro de bebidas o comidas para consumir en el acto.
+- f) Servicios prestados por salas de baile y discotecas.
+- g) Servicios telefónicos prestados mediante cabinas telefónicas de uso público, así como mediante tarjetas que no permitan la identificación del portador.
+- h) Servicios de peluquería y los prestados por institutos de belleza.
+- i) Utilización de instalaciones deportivas.
+- j) Revelado de fotografías y servicios prestados por estudios fotográficos.
+- k) Aparcamiento y estacionamiento de vehículos.
+- l) Alquiler de películas.
+- m) Servicios de tintorería y lavandería.
+- n) Utilización de autopistas de peaje.
+
+El Departamento de Gestión Tributaria de la Agencia Estatal de Administración Tributaria puede autorizar la factura simplificada en supuestos distintos cuando las prácticas comerciales o administrativas del sector, o las condiciones técnicas de expedición, dificulten particularmente la inclusión de la totalidad de los datos del artículo 6 (art. 4.3 RD 1619/2012). No puede expedirse factura simplificada por estas operaciones (art. 4.4 RD 1619/2012):
+
+- a) Las entregas de bienes destinados a otro Estado miembro a que se refiere el artículo 25 de la LIVA.
+- b) Las entregas de bienes a que se refiere el artículo 68.Tres.a) de la LIVA, salvo cuando les resulte aplicable el régimen especial de la sección 3.ª del capítulo XI del título IX de esa ley.
+- c) Las entregas de bienes o prestaciones de servicios que se entiendan realizadas en el territorio de aplicación del impuesto, cuando el proveedor o prestador no esté establecido en él, el sujeto pasivo sea el destinatario y la factura sea expedida por este con arreglo al artículo 5 del reglamento.
+- d) Las entregas de bienes o prestaciones de servicios a que se refiere el artículo 2.3.b) b') del reglamento.
+
+Debe expedirse factura rectificativa cuando la factura original no cumpla alguno de los requisitos de los artículos 6 o 7, cuando las cuotas repercutidas se hubiesen determinado incorrectamente o cuando se den las circunstancias del artículo 80 de la LIVA que modifican la base imponible (art. 15.1–2 RD 1619/2012). Su expedición debe efectuarse «tan pronto como el obligado a expedirla tenga constancia» de esas circunstancias, siempre que no hubiesen transcurrido cuatro años a partir del momento en que se devengó el impuesto o, en su caso, se produjeron las circunstancias del artículo 80 de la LIVA (art. 15.3 RD 1619/2012).
+
+El Reglamento aprobado por el RD 1007/2023 tiene por objeto la regulación de los requisitos y especificaciones técnicas que debe cumplir cualquier sistema y programa informático o electrónico, en adelante denominado genéricamente sistema informático, utilizado por quienes desarrollen actividades económicas, de acuerdo con la definición dada en la Ley 35/2006, de 28 de noviembre, del Impuesto sobre la Renta de las Personas Físicas y de modificación parcial de las leyes de los Impuestos sobre Sociedades, sobre la Renta de no Residentes y sobre el Patrimonio, cuando soporte los procesos de facturación de las operaciones correspondientes a su actividad, para garantizar la integridad, conservación, accesibilidad, legibilidad, trazabilidad e inalterabilidad de los registros de facturación sin interpolaciones, omisiones o alteraciones de las que no quede la debida anotación en los sistemas mismos, con la información sobre todas las entregas de bienes y prestaciones de servicios, de acuerdo con lo dispuesto en la letra j) del artículo 29.2 de la Ley 58/2003, de 17 de diciembre, General Tributaria (art. 1.1 RD 1007/2023).
+
+El presente reglamento no se aplicará a las siguientes operaciones (art. 4 RD 1007/2023):
+
+:::esquema{kind=tabla title="Operaciones a las que no se aplica el reglamento de sistemas informáticos de facturación"}
+| Elemento | Contenido | Cita |
+|---|---|---|
+|  | A las que se refieren las disposiciones adicionales tercera y sexta del reglamento por el que se regulan las obligaciones de facturación, aprobado por el Real Decreto 1619/2012, de 30 de noviembre (art. 4.1 RD 1007/2023). | art. 4 RD 1007/2023 |
+|  | A las documentadas en facturas por operaciones realizadas a través de establecimientos permanentes que se encuentren en el extranjero (art. 4.2 RD 1007/2023). | art. 4 RD 1007/2023 |
+|  | A las que, de acuerdo con el artículo 5 del reglamento por el que se regulan las obligaciones de facturación, aprobado por el Real Decreto 1619/2012, de 30 de noviembre, sean documentadas mediante facturas expedidas materialmente por el destinatario de la operación, o por tercero como consecuencia de la aplicación de disposiciones normativas de obligado cumplimiento, siempre y cuando lleven sus libros registros en los términos establecidos en el artículo 62.6 del Reglamento del Impuesto sobre el Valor Añadido, aprobado por el Real Decreto 1624/1992, de 29 de diciembre (art. 4.3 RD 1007/2023). | art. 4 RD 1007/2023 |
+:::
+
+### The case
+
+Una peluquería presta a Irene un servicio de 1.200 euros, IVA incluido. Supera los 400 euros del artículo 4.1 (art. 4.1 RD 1619/2012). Los servicios de peluquería están entre las operaciones en que puede expedir factura simplificada y copia hasta 3.000 euros, IVA incluido (art. 4.2 RD 1619/2012). Puede hacerlo.
+
+## KEY: caso:## Obligaciones y deberes de la Administración tributaria#1
+
+### The section as the lesson gives it
+
+:::note{type=info}
+Fuera del enunciado literal del programa; preguntado en el primer ejercicio de la OEP 2025 (pregunta 43).
+:::
+
+La Administración tributaria está sujeta al cumplimiento de las obligaciones de contenido económico establecidas en la LGT: realizar las devoluciones derivadas de la normativa de cada tributo, devolver los ingresos indebidos, reembolsar los costes de las garantías y satisfacer intereses de demora (art. 30.1 LGT). Está sujeta, además, a los deberes establecidos en la LGT en relación con el desarrollo de los procedimientos tributarios y en el resto del ordenamiento jurídico (art. 30.2 LGT).
+
+- Las devoluciones derivadas de la normativa de cada tributo son las correspondientes a cantidades ingresadas o soportadas debidamente como consecuencia de la aplicación del tributo (art. 31.1 LGT).
+- Transcurrido el plazo fijado en las normas de cada tributo y, en todo caso, el plazo de seis meses, sin que se hubiera ordenado el pago por causa imputable a la Administración, esta abona el interés de demora del artículo 26 de la LGT sin necesidad de que el obligado lo solicite (art. 31.2 LGT).
+
+A estos efectos, el interés de demora se devengará desde la finalización de dicho plazo hasta la fecha en que se ordene el pago de la devolución (art. 31.2 LGT).
+
+- Con la devolución de ingresos indebidos, la Administración abona el interés de demora del artículo 26 sin necesidad de solicitud, desde la fecha en que se hubiese realizado el ingreso indebido hasta la fecha en que se ordene el pago (art. 32.2 LGT).
+- Con el reembolso de los costes de las garantías, abona el interés legal vigente a lo largo del período en el que se devengue, sin necesidad de solicitud (art. 33.2 LGT).
+
+Cuando se proceda a la devolución de un ingreso indebido derivado de una autoliquidación ingresada en varios plazos, se entenderá que la cantidad devuelta se ingresó en el último plazo y, de no resultar cantidad suficiente, la diferencia se considerará satisfecha en los plazos inmediatamente anteriores (art. 32.3 LGT).
+
+Cuando el acto o la deuda se declare parcialmente improcedente, el reembolso alcanzará a la parte correspondiente del coste de las garantías (art. 33.1 LGT).
+
+Reglamentariamente se regulará el procedimiento de reembolso y la forma de determinar el coste de las garantías (art. 33.1 LGT).
+
+### The case
+
+Iker realiza un ingreso indebido el martes 10 de febrero de 2026. La Administración ordena el pago de su devolución el lunes 20 de julio de 2026. Con la devolución abona el interés de demora del artículo 26 sin necesidad de que Iker lo solicite (art. 32.2 LGT). Lo devenga desde el 10 de febrero hasta el 20 de julio (art. 32.2 LGT).
+
+## KEY: caso:## Derechos y garantías de los obligados tributarios#1
+
+### The section as the lesson gives it
+
+Constituyen derechos de los obligados tributarios, entre otros, los siguientes (art. 34.1 LGT):
+
+- a) Derecho a ser informado y asistido por la Administración tributaria sobre el ejercicio de sus derechos y el cumplimiento de sus obligaciones tributarias.
+- b) Derecho a obtener las devoluciones derivadas de la normativa de cada tributo y las devoluciones de ingresos indebidos que procedan, con abono del interés de demora previsto en el artículo 26 de la LGT, «sin necesidad de efectuar requerimiento al efecto».
+- c) Derecho a ser reembolsado del coste de los avales y otras garantías aportados para suspender la ejecución de un acto o para aplazar o fraccionar el pago de una deuda, si dicho acto o deuda es declarado total o parcialmente improcedente por sentencia o resolución administrativa firme, con abono del interés legal sin necesidad de efectuar requerimiento al efecto, así como a la reducción proporcional de la garantía aportada en los supuestos de estimación parcial del recurso o de la reclamación.
+- d) Derecho a utilizar las lenguas oficiales en el territorio de su comunidad autónoma, de acuerdo con el ordenamiento jurídico.
+- e) Derecho a conocer el estado de tramitación de los procedimientos en los que sea parte.
+- f) Derecho a conocer la identidad de las autoridades y personal al servicio de la Administración tributaria bajo cuya responsabilidad se tramitan las actuaciones y procedimientos en los que tenga la condición de interesado.
+- g) Derecho a solicitar certificación y copia de las declaraciones por él presentadas, así como derecho a obtener copia sellada de los documentos presentados ante la Administración, siempre que la aporten junto a los originales para su cotejo, y derecho a la devolución de los originales, en el caso de que no deban obrar en el expediente.
+- h) Derecho a no aportar aquellos documentos ya presentados por ellos mismos y que se encuentren en poder de la Administración actuante, siempre que el obligado tributario indique el día y procedimiento en el que los presentó.
+- i) Derecho, en los términos legalmente previstos, al carácter reservado de los datos, informes o antecedentes obtenidos por la Administración tributaria, que solo pueden utilizarse para la aplicación de los tributos o recursos cuya gestión tenga encomendada y para la imposición de sanciones, sin que puedan ser cedidos o comunicados a terceros, salvo en los supuestos previstos en las leyes.
+- j) Derecho a ser tratado con el debido respeto y consideración por el personal al servicio de la Administración tributaria.
+- k) Derecho a que las actuaciones de la Administración tributaria que requieran su intervención se lleven a cabo en la forma que le resulte menos gravosa, siempre que ello no perjudique el cumplimiento de sus obligaciones tributarias.
+- l) Derecho a formular alegaciones y a aportar documentos que serán tenidos en cuenta por los órganos competentes al redactar la correspondiente propuesta de resolución.
+- m) Derecho a ser oído en el trámite de audiencia, en los términos previstos en la LGT.
+- n) Derecho a ser informado de los valores de los bienes inmuebles que vayan a ser objeto de adquisición o transmisión.
+- ñ) Derecho a ser informado, al inicio de las actuaciones de comprobación o inspección, sobre la naturaleza y alcance de las mismas, así como de sus derechos y obligaciones en el curso de tales actuaciones y a que se desarrollen en los plazos previstos en la LGT.
+- o) Derecho al reconocimiento de los beneficios o regímenes fiscales que resulten aplicables.
+- p) Derecho a formular quejas y sugerencias en relación con el funcionamiento de la Administración tributaria.
+- q) Derecho a que las manifestaciones con relevancia tributaria de los obligados se recojan en las diligencias extendidas en los procedimientos tributarios.
+- r) Derecho de los obligados a presentar ante la Administración tributaria la documentación que estimen conveniente y que pueda ser relevante para la resolución del procedimiento tributario que se esté desarrollando.
+- s) Derecho a obtener copia a su costa de los documentos que integren el expediente administrativo en el trámite de puesta de manifiesto del mismo, en los términos previstos en la LGT; este derecho puede ejercitarse en cualquier momento en el procedimiento de apremio.
+
+Integrado en el Ministerio de Hacienda, el Consejo para la Defensa del Contribuyente vela por la efectividad de los derechos de los obligados tributarios, atiende las quejas que se produzcan por la aplicación del sistema tributario que realizan los órganos del Estado y efectúa las sugerencias y propuestas pertinentes, en la forma y con los efectos que reglamentariamente se determinen (art. 34.2 LGT). El Consejo está formado por dieciséis vocales (art. 4.1 RD 1676/2009). Ocho son representantes de los sectores profesionales y académicos relacionados con el ámbito tributario y de la sociedad en general, y cuatro son representantes de la Agencia Estatal de Administración Tributaria (art. 4.1.a) y b) RD 1676/2009).
+
+### The case
+
+Bea presentó un documento el 12 de mayo de 2026 en un procedimiento de comprobación. Ese documento sigue en poder de la Administración actuante. Bea tiene derecho a no aportarlo de nuevo si indica el día y el procedimiento en que lo presentó (art. 34.1.h) LGT). Tiene derecho además a solicitar certificación y copia de las declaraciones que presentó (art. 34.1.g) LGT).
+
+## KEY: caso:## Los obligados tributarios#1
+
+### The section as the lesson gives it
+
+Son obligados tributarios las personas físicas o jurídicas y las entidades a las que la normativa tributaria impone el cumplimiento de obligaciones tributarias (art. 35.1 LGT). Entre otros, son obligados tributarios (art. 35.2 LGT):
+
+- a) Los contribuyentes.
+- b) Los sustitutos del contribuyente.
+- c) Los obligados a realizar pagos fraccionados.
+- d) Los retenedores.
+- e) Los obligados a practicar ingresos a cuenta.
+- f) Los obligados a repercutir.
+- g) Los obligados a soportar la repercusión.
+- h) Los obligados a soportar la retención.
+- i) Los obligados a soportar los ingresos a cuenta.
+- j) Los sucesores.
+- k) Los beneficiarios de supuestos de exención, devolución o bonificaciones tributarias, cuando no tengan la condición de sujetos pasivos.
+
+También tienen el carácter de obligados tributarios aquellos a quienes la normativa tributaria impone el cumplimiento de obligaciones tributarias formales (art. 35.3 LGT). Tienen la consideración de obligados tributarios, en las leyes en que así se establezca, las herencias yacentes, comunidades de bienes y demás entidades que, carentes de personalidad jurídica, constituyan una unidad económica o un patrimonio separado susceptibles de imposición (art. 35.4 LGT). Tienen asimismo el carácter de obligados tributarios los responsables del artículo 41 de la LGT (art. 35.5 LGT). Aquellos a los que se pueda imponer obligaciones tributarias conforme a la normativa sobre asistencia mutua tienen igualmente la consideración de obligados tributarios (art. 35.6 LGT).
+
+La concurrencia de varios obligados tributarios en un mismo presupuesto de una obligación determina que queden solidariamente obligados frente a la Administración tributaria al cumplimiento de todas las prestaciones, salvo que por ley se disponga expresamente otra cosa (art. 35.7 LGT). Cuando la Administración solo conoce la identidad de un titular, practica y notifica las liquidaciones a su nombre, y este queda obligado a satisfacerlas si no solicita su división (art. 35.7 LGT). Para que proceda la división es indispensable que el solicitante facilite los datos personales y el domicilio de los restantes obligados al pago, así como la proporción en que cada uno de ellos participe en el dominio o derecho transmitido (art. 35.7 LGT).
+
+### The case
+
+Juan y Rosa son cotitulares de un inmueble que transmiten en 2026. Quedan solidariamente obligados frente a la Administración tributaria al cumplimiento de todas las prestaciones, salvo que una ley disponga expresamente otra cosa (art. 35.7 LGT). La Administración solo conoce a Juan, le notifica la liquidación y queda obligado a satisfacerla si no solicita su división. Para dividirla debe facilitar los datos personales y el domicilio de Rosa y la proporción de cada uno (art. 35.7 LGT).
+
+## KEY: caso:### Sujetos pasivos: contribuyente y sustituto#1
+
+### The section as the lesson gives it
+
+- Es sujeto pasivo el obligado tributario que, según la ley, debe cumplir la obligación tributaria principal, así como las obligaciones formales inherentes a la misma, sea como contribuyente o como sustituto del mismo (art. 36.1 LGT).
+- No pierde la condición de sujeto pasivo quien deba repercutir la cuota tributaria a otros obligados, salvo que la ley de cada tributo disponga otra cosa (art. 36.1 LGT).
+- Es contribuyente el sujeto pasivo que realiza el hecho imponible (art. 36.2 LGT).
+- Es sustituto el sujeto pasivo que, por imposición de la ley y en lugar del contribuyente, está obligado a cumplir la obligación tributaria principal, así como las obligaciones formales inherentes a la misma (art. 36.3 LGT).
+- El sustituto puede exigir del contribuyente el importe de las obligaciones tributarias satisfechas, salvo que la ley señale otra cosa (art. 36.3 LGT).
+
+### The case
+
+Por imposición de la ley, una entidad es sustituta de Pablo, que realiza el hecho imponible. Pablo es el contribuyente (art. 36.2 LGT). La entidad, como sustituta, cumple en su lugar la obligación tributaria principal de 1.000 euros (art. 36.3 LGT). Puede exigir a Pablo los 1.000 euros satisfechos, salvo que la ley señale otra cosa (art. 36.3 LGT).
+
+## KEY: caso:### Obligados a realizar pagos a cuenta#1
+
+### The section as the lesson gives it
+
+- Es obligado a realizar pagos fraccionados el contribuyente a quien la ley de cada tributo impone la obligación de ingresar cantidades a cuenta de la obligación tributaria principal con anterioridad a que esta resulte exigible (art. 37.1 LGT).
+- Es retenedor la persona o entidad a quien la ley de cada tributo impone la obligación de detraer e ingresar en la Administración tributaria, con ocasión de los pagos que deba realizar a otros obligados tributarios, una parte de su importe a cuenta del tributo que corresponda a estos (art. 37.2 LGT).
+- Es obligado a practicar ingresos a cuenta la persona o entidad que satisface rentas en especie o dinerarias y a quien la ley impone la obligación de realizar ingresos a cuenta de cualquier tributo (art. 37.3 LGT).
+
+### The case
+
+Una empresa paga 2.000 euros a Clara, trabajadora. La ley del tributo le impone detraer e ingresar en la Administración tributaria una parte de ese importe a cuenta del tributo de Clara: 300 euros. La empresa es retenedora (art. 37.2 LGT) y detrae e ingresa los 300 euros con ocasión del pago (art. 37.2 LGT).
+
+## KEY: caso:### Obligados en las obligaciones entre particulares#1
+
+### The section as the lesson gives it
+
+- Es obligado a repercutir la persona o entidad que, conforme a la ley, debe repercutir la cuota tributaria a otras personas o entidades y que, salvo que la ley disponga otra cosa, coincide con aquel que realiza las operaciones gravadas (art. 38.1 LGT).
+- Es obligado a soportar la repercusión la persona o entidad a quien, según la ley, se deba repercutir la cuota tributaria, y que, salvo que la ley disponga otra cosa, coincide con el destinatario de las operaciones gravadas (art. 38.2 LGT).
+- El repercutido no está obligado al pago frente a la Administración tributaria, pero debe satisfacer al sujeto pasivo el importe de la cuota repercutida (art. 38.2 LGT).
+- Es obligado a soportar la retención la persona o entidad perceptora de las cantidades sobre las que, según la ley, el retenedor deba practicar retenciones tributarias (art. 38.3 LGT).
+- La ley puede imponer la obligación de soportar los ingresos a cuenta de cualquier tributo practicados con ocasión de las rentas en especie o dinerarias que se perciban y, en su caso, la repercusión de su importe por el pagador de esas rentas (art. 38.4 LGT).
+
+### The case
+
+Un comerciante, sujeto pasivo, vende a Luis, destinatario de la operación gravada, y repercute una cuota de 210 euros. Luis es el obligado a soportar la repercusión (art. 38.2 LGT). No está obligado al pago frente a la Administración tributaria, pero debe satisfacer al sujeto pasivo los 210 euros de cuota repercutida (art. 38.2 LGT).
+
+## KEY: caso:### Sucesores#1
+
+### The section as the lesson gives it
+
+A la muerte de los obligados tributarios, las obligaciones tributarias pendientes se transmiten a los herederos, sin perjuicio de lo que establece la legislación civil en cuanto a la adquisición de la herencia (art. 39.1 LGT). Se transmiten a los legatarios en las mismas condiciones cuando la herencia se distribuya a través de legados y en los supuestos en que se instituyan legados de parte alícuota (art. 39.1 LGT). «En ningún caso se transmitirán las sanciones» (art. 39.1 LGT). Tampoco se transmite la obligación del responsable, salvo que se hubiera notificado el acuerdo de derivación de responsabilidad antes del fallecimiento (art. 39.1 LGT).
+
+No impide la transmisión a los sucesores de las obligaciones devengadas que, a la fecha de la muerte del causante, la deuda no estuviera liquidada; las actuaciones se entienden con cualquiera de ellos y la liquidación se notifica a todos los interesados que consten en el expediente (art. 39.2 LGT). Mientras la herencia se encuentra yacente, el cumplimiento de las obligaciones del causante corresponde al representante de la herencia yacente (art. 39.3 LGT). Si al término del procedimiento no se conocieran los herederos, las liquidaciones se realizan a nombre de la herencia yacente (art. 39.3 LGT).
+
+- Las obligaciones pendientes de las sociedades y entidades con personalidad jurídica disueltas y liquidadas en las que la ley limita la responsabilidad patrimonial de los socios, partícipes o cotitulares se transmiten a estos, que quedan obligados solidariamente hasta el límite del valor de la cuota de liquidación que les corresponda y demás percepciones patrimoniales recibidas en los dos años anteriores a la fecha de disolución que minoren el patrimonio social que debiera responder de tales obligaciones (art. 40.1 LGT).
+- Si la ley no limita la responsabilidad patrimonial de los socios, partícipes o cotitulares, las obligaciones se transmiten íntegramente a estos, que quedan obligados solidariamente (art. 40.1 LGT).
+- En los supuestos de extinción o disolución sin liquidación, las obligaciones pendientes se transmiten a las personas o entidades que sucedan o que sean beneficiarias de la operación, y esta norma se aplica también a cualquier supuesto de cesión global del activo y pasivo (art. 40.3 LGT).
+- En caso de disolución de fundaciones o de las entidades del artículo 35.4, las obligaciones pendientes se transmiten a los destinatarios de los bienes y derechos de las fundaciones o a los partícipes o cotitulares de esas entidades (art. 40.4 LGT).
+
+### The case
+
+Marcos fallece el martes 3 de noviembre de 2026 con una deuda tributaria pendiente de 5.000 euros y una sanción de 600 euros. Las obligaciones tributarias pendientes se transmiten a sus herederos (art. 39.1 LGT). En ningún caso se transmiten las sanciones (art. 39.1 LGT). Los 5.000 euros pasan a sus herederos.
+
+## KEY: caso:### Responsables#1
+
+### The section as the lesson gives it
+
+- La ley puede configurar como responsables solidarios o subsidiarios de la deuda tributaria, junto a los deudores principales, a otras personas o entidades; se consideran deudores principales los obligados tributarios del artículo 35.2 de la LGT (art. 41.1 LGT).
+- Salvo precepto legal expreso en contrario, la responsabilidad es siempre subsidiaria (art. 41.2 LGT).
+- Salvo lo dispuesto en el artículo 42.2, la responsabilidad alcanza a la totalidad de la deuda tributaria exigida en período voluntario (art. 41.3 LGT).
+- Cuando haya transcurrido el plazo voluntario de pago que se conceda al responsable sin realizar el ingreso, se inicia el período ejecutivo y se exigen los recargos e intereses que procedan (art. 41.3 LGT).
+- La responsabilidad no alcanza a las sanciones, salvo las excepciones que en la LGT u otra ley se establezcan (art. 41.4 LGT).
+
+Salvo que una norma con rango de ley disponga otra cosa, la derivación de la acción administrativa para exigir el pago a los responsables requiere un acto administrativo en el que, previa audiencia al interesado, se declare la responsabilidad y se determine su alcance y extensión (art. 41.5 LGT). La derivación a los responsables subsidiarios requiere la previa declaración de fallido del deudor principal y de los responsables solidarios (art. 41.5 LGT). Los responsables tienen derecho de reembolso frente al deudor principal en los términos previstos en la legislación civil (art. 41.6 LGT).
+
+Son responsables solidarios de la deuda tributaria (art. 42.1 LGT):
+
+- a) Las personas o entidades que sean causantes o colaboren activamente en la realización de una infracción tributaria. Su responsabilidad también se extiende a la sanción.
+- b) Sin perjuicio de lo dispuesto en el párrafo a), los partícipes o cotitulares de las entidades a que se refiere el apartado 4 del artículo 35, en proporción a sus respectivas participaciones respecto a las obligaciones tributarias materiales de dichas entidades.
+- c) Las que sucedan por cualquier concepto en la titularidad o ejercicio de explotaciones o actividades económicas, por las obligaciones tributarias contraídas del anterior titular y derivadas de su ejercicio. La responsabilidad se extiende también a las obligaciones derivadas de la falta de ingreso de las retenciones e ingresos a cuenta practicadas o que se hubieran debido practicar. Cuando no se haya solicitado el certificado del artículo 175.2, la responsabilidad alcanza también a las sanciones impuestas o que puedan imponerse. No es aplicable a los adquirentes de elementos aislados, salvo que sus adquisiciones permitan la continuación de la explotación o actividad, ni a los supuestos de sucesión por causa de muerte, ni a los adquirentes de explotaciones de un deudor concursado cuando la adquisición tenga lugar en un procedimiento concursal.
+
+También son responsables solidarios del pago de la deuda tributaria pendiente y, en su caso, de las sanciones tributarias, incluidos el recargo y el interés de demora del período ejecutivo, cuando procedan, hasta el importe del valor de los bienes o derechos que se hubieran podido embargar o enajenar por la Administración tributaria (art. 42.2 LGT):
+
+- a) Las personas o entidades que sean causantes o colaboren en la ocultación o transmisión de bienes o derechos del obligado al pago con la finalidad de impedir la actuación de la Administración tributaria.
+- b) Las que, por culpa o negligencia, incumplan las órdenes de embargo.
+- c) Las que, con conocimiento del embargo, la medida cautelar o la constitución de la garantía, colaboren o consientan en el levantamiento de los bienes o derechos embargados, o de aquellos sobre los que se hubiera constituido la medida cautelar o la garantía.
+- d) Las personas o entidades depositarias de los bienes del deudor que, una vez recibida la notificación del embargo, colaboren o consientan en el levantamiento de aquellos.
+
+Las leyes pueden establecer otros supuestos de responsabilidad solidaria (art. 42.3 LGT). El procedimiento para declarar y exigir la responsabilidad solidaria es el del artículo 175 de la LGT (art. 42.4 LGT).
+
+Son responsables subsidiarios de la deuda tributaria (art. 43.1 LGT):
+
+- a) Sin perjuicio del artículo 42.1.a), los administradores de hecho o de derecho de las personas jurídicas que, habiendo estas cometido infracciones tributarias, no hubiesen realizado los actos necesarios que sean de su incumbencia para el cumplimiento de las obligaciones y deberes tributarios, hubiesen consentido el incumplimiento por quienes de ellos dependan o hubiesen adoptado acuerdos que posibilitasen las infracciones. Su responsabilidad también se extiende a las sanciones.
+- b) Los administradores de hecho o de derecho de aquellas personas jurídicas que hayan cesado en sus actividades, por las obligaciones tributarias devengadas de estas que se encuentren pendientes en el momento del cese, siempre que no hubieran hecho lo necesario para su pago o hubieren adoptado acuerdos o tomado medidas causantes del impago.
+- c) Los integrantes de la administración concursal y los liquidadores de sociedades y entidades en general que no hubiesen realizado las gestiones necesarias para el íntegro cumplimiento de las obligaciones tributarias devengadas con anterioridad a dichas situaciones e imputables a los respectivos obligados tributarios. De las obligaciones tributarias y sanciones posteriores responden como administradores cuando tengan atribuidas funciones de administración.
+- d) Los adquirentes de bienes afectos por ley al pago de la deuda tributaria, en los términos del artículo 79 de la LGT.
+- e) Los representantes aduaneros cuando actúen en nombre y por cuenta de sus comitentes. Esta responsabilidad subsidiaria no alcanza a la deuda aduanera.
+- f) Las personas o entidades que contraten o subcontraten la ejecución de obras o la prestación de servicios correspondientes a su actividad económica principal, por las obligaciones tributarias relativas a tributos que deban repercutirse o cantidades que deban retenerse a trabajadores, profesionales u otros empresarios, en la parte que corresponda a las obras o servicios objeto de la contratación o subcontratación. No es exigible cuando el contratista o subcontratista haya aportado al pagador un certificado específico de encontrarse al corriente de sus obligaciones tributarias emitido por la Administración tributaria durante los 12 meses anteriores al pago de cada factura. La Administración emite o deniega el certificado en el plazo de tres días desde su solicitud.
+- g) Las personas o entidades que tengan el control efectivo, total o parcial, directo o indirecto, de las personas jurídicas o en las que concurra una voluntad rectora común con estas, cuando resulte acreditado que las personas jurídicas han sido creadas o utilizadas de forma abusiva o fraudulenta para eludir la responsabilidad patrimonial universal frente a la Hacienda Pública y exista unicidad de personas o esferas económicas, o confusión o desviación patrimonial. La responsabilidad se extiende a las obligaciones tributarias y a las sanciones de dichas personas jurídicas.
+- h) Las personas o entidades de las que los obligados tributarios tengan el control efectivo, total o parcial, o en las que concurra una voluntad rectora común con dichos obligados tributarios, por las obligaciones tributarias de estos, cuando resulte acreditado que tales personas o entidades han sido creadas o utilizadas de forma abusiva o fraudulenta como medio de elusión de la responsabilidad patrimonial universal frente a la Hacienda Pública, siempre que concurran, ya sea una unicidad de personas o esferas económicas, ya una confusión o desviación patrimonial. En estos casos la responsabilidad se extiende también a las sanciones.
+
+- Son además responsables subsidiarios de las deudas derivadas de tributos que deban repercutirse o de cantidades que deban retenerse a trabajadores, profesionales u otros empresarios, los administradores de hecho o de derecho de las personas jurídicas obligadas a efectuar la declaración e ingreso de tales deudas cuando, existiendo continuidad en el ejercicio de la actividad, la presentación de autoliquidaciones sin ingreso por tales conceptos sea reiterativa y pueda acreditarse que no obedece a una intención real de cumplir la obligación tributaria (art. 43.2 LGT).
+- Existe reiteración cuando en un mismo año natural, de forma sucesiva o discontinua, se hayan presentado sin ingreso la mitad o más de las autoliquidaciones que corresponderían (art. 43.2 LGT).
+- Se presume que no existe intención real de cumplimiento cuando se hubiesen satisfecho créditos de titularidad de terceros de vencimiento posterior a la fecha en que las obligaciones tributarias se devengaron o resultaron exigibles y no preferentes a los créditos tributarios derivados de estas últimas (art. 43.2 LGT).
+
+Las leyes pueden establecer otros supuestos de responsabilidad subsidiaria (art. 43.3 LGT). El procedimiento para declarar y exigir la responsabilidad subsidiaria es el del artículo 176 de la LGT (art. 43.4 LGT).
+
+:::note{type=warning}
+**No confundir.**
+
+- Son responsables solidarios de la deuda tributaria las personas o entidades que sean causantes o colaboren activamente en la realización de una infracción tributaria, y su responsabilidad también se extiende a la sanción (art. 42.1.a) LGT).
+- También son responsables solidarios del pago de la deuda tributaria pendiente y, en su caso, del de las sanciones tributarias, incluidos el recargo y el interés de demora del período ejecutivo, cuando procedan, hasta el importe del valor de los bienes o derechos que se hubieran podido embargar o enajenar por la Administración tributaria, las personas o entidades que sean causantes o colaboren en la ocultación o transmisión de bienes o derechos del obligado al pago con la finalidad de impedir la actuación de la Administración tributaria; las que, por culpa o negligencia, incumplan las órdenes de embargo; las que, con conocimiento del embargo, la medida cautelar o la constitución de la garantía, colaboren o consientan en el levantamiento de los bienes o derechos embargados, o de aquellos bienes o derechos sobre los que se hubiera constituido la medida cautelar o la garantía; y las personas o entidades depositarias de los bienes del deudor que, una vez recibida la notificación del embargo, colaboren o consientan en el levantamiento de aquéllos (art. 42.2 LGT).
+- Sin perjuicio de lo dispuesto en el párrafo a) del apartado 1 del artículo 42 de la LGT, son responsables subsidiarios de la deuda tributaria los administradores de hecho o de derecho de las personas jurídicas que, habiendo éstas cometido infracciones tributarias, no hubiesen realizado los actos necesarios que sean de su incumbencia para el cumplimiento de las obligaciones y deberes tributarios, hubiesen consentido el incumplimiento por quienes de ellos dependan o hubiesen adoptado acuerdos que posibilitasen las infracciones; su responsabilidad también se extenderá a las sanciones (art. 43.1.a) LGT).
+- Salvo precepto legal expreso en contrario, la responsabilidad es siempre subsidiaria (art. 41.2 LGT).
+- La derivación a los responsables subsidiarios requiere la previa declaración de fallido del deudor principal y de los responsables solidarios (art. 41.5 LGT).
+:::
+
+### The case
+
+Una ley configura a Nora como responsable de la deuda de una sociedad y no dice si lo es solidaria o subsidiariamente. Salvo precepto legal expreso en contrario, la responsabilidad es siempre subsidiaria (art. 41.2 LGT). Derivarle la deuda requiere la previa declaración de fallido del deudor principal y de los responsables solidarios (art. 41.5 LGT).
+
+## KEY: caso:## La capacidad de obrar en el orden tributario#1
+
+### The section as the lesson gives it
+
+Tienen capacidad de obrar en el orden tributario, además de las personas que la tengan conforme a derecho, los menores de edad y los incapacitados en las relaciones tributarias derivadas de las actividades cuyo ejercicio les esté permitido por el ordenamiento jurídico sin asistencia de la persona que ejerza la patria potestad, tutela, curatela o defensa judicial (art. 44 LGT). Se exceptúa el supuesto de los menores incapacitados cuando la extensión de la incapacitación afecte al ejercicio y defensa de los derechos e intereses de que se trate (art. 44 LGT).
+
+### The case
+
+Noa, menor de edad, ejerce una actividad que el ordenamiento jurídico le permite sin asistencia de la persona que ejerza la patria potestad, tutela, curatela o defensa judicial. Tiene capacidad de obrar en las relaciones tributarias derivadas de esa actividad (art. 44 LGT). Si además estuviera incapacitada y la incapacitación afectara al ejercicio y defensa de esos derechos e intereses, se exceptuaría (art. 44 LGT).
+
+## KEY: caso:### Representación legal#1
+
+### The section as the lesson gives it
+
+Por las personas que carezcan de capacidad de obrar actúan sus representantes legales (art. 45.1 LGT). Por las personas jurídicas actúan las personas que ostenten, en el momento en que se produzcan las actuaciones tributarias, la titularidad de los órganos a quienes corresponda su representación, por disposición de la ley o por acuerdo válidamente adoptado (art. 45.2 LGT). Por los entes del artículo 35.4 de la LGT actúa en su representación el que la ostente, siempre que resulte acreditada en forma fehaciente (art. 45.3 LGT). De no haberse designado representante, se considera como tal el que aparentemente ejerza la gestión o dirección y, en su defecto, cualquiera de sus miembros o partícipes (art. 45.3 LGT).
+
+Las personas físicas que carezcan de capacidad de obrar actúan ante la Administración tributaria mediante sus representantes legales; una vez adquirida o recuperada la capacidad, actúan por sí mismas, incluso para la comprobación de la situación tributaria en que carecían de ella (art. 110.1 RGAT). El representante legal debe acreditar su condición, aunque se pueden considerar representantes los que figuren inscritos como tales en los registros públicos (art. 110.3 RGAT). Cuando en el curso de un procedimiento se modifique o extinga la representación legal, las actuaciones realizadas se reputan válidas y eficaces mientras no se comunique tal circunstancia al órgano que lleve a cabo las actuaciones (art. 110.4 RGAT).
+
+### The case
+
+El administrador único de una sociedad cesó el 28 de febrero de 2027 y Elena ocupa el cargo desde el 1 de marzo. El miércoles 10 de marzo de 2027 se produce una actuación tributaria. Por la sociedad actúa Elena, que ostenta la titularidad del órgano en el momento en que se produce la actuación (art. 45.2 LGT). Por una comunidad de bienes actúa quien la represente, si su representación resulta acreditada en forma fehaciente (art. 45.3 LGT).
+
+## KEY: caso:### Representación voluntaria#1
+
+### The section as the lesson gives it
+
+- Los obligados tributarios con capacidad de obrar pueden actuar por medio de representante, que puede ser un asesor fiscal, con el que se entienden las sucesivas actuaciones administrativas, salvo que se haga manifestación expresa en contrario (art. 46.1 LGT).
+- Para interponer recursos o reclamaciones, desistir de ellos, renunciar a derechos, asumir o reconocer obligaciones en nombre del obligado tributario, solicitar devoluciones de ingresos indebidos o reembolsos y en los restantes supuestos en que sea necesaria la firma del obligado tributario en los procedimientos de los títulos III, IV, V, VI y VII de la LGT, la representación debe acreditarse por cualquier medio válido en derecho que deje constancia fidedigna o mediante declaración en comparecencia personal del interesado ante el órgano administrativo competente (art. 46.2 LGT).
+- Son válidos los documentos normalizados de representación que apruebe la Administración tributaria para determinados procedimientos (art. 46.2 LGT).
+- Para los actos de mero trámite se presume concedida la representación (art. 46.3 LGT).
+
+Cuando concurran varios titulares en una misma obligación tributaria, se presume otorgada la representación a cualquiera de ellos, salvo manifestación expresa en contrario, y la liquidación se notifica a todos los titulares (art. 46.6 LGT). «La falta o insuficiencia del poder no impedirá que se tenga por realizado el acto de que se trate, siempre que se acompañe aquél o se subsane el defecto dentro del plazo de 10 días, que deberá conceder al efecto el órgano administrativo competente» (art. 46.7 LGT).
+
+El RGAT desarrolla la representación voluntaria. La representación es conferida, en el caso de personas físicas con capacidad de obrar, por ellas mismas (art. 111.1 RGAT). Puede ser otorgada en favor de personas jurídicas o de personas físicas con capacidad de obrar (art. 111.1 RGAT). A efectos del artículo 46.2 de la LGT se entiende otorgada la representación, entre otros, en estos casos (art. 111.2 RGAT):
+
+- a) Cuando su existencia conste inscrita y vigente en un registro público.
+- b) Cuando conste en documento público o documento privado con firma legitimada notarialmente.
+- c) Cuando se otorgue mediante comparecencia personal ante el órgano administrativo competente, lo que se documenta en diligencia.
+- d) Cuando conste en el documento normalizado de representación aprobado por la Administración tributaria que se hubiera puesto a disposición de quien deba otorgarla; el representante responde con su firma de la autenticidad de la de su representado.
+- e) Cuando la representación conste en documento emitido por medios electrónicos, informáticos o telemáticos con las garantías y requisitos que establezca la Administración tributaria.
+
+«La revocación de la representación no supondrá la nulidad de las actuaciones practicadas con el representante antes de que se haya acreditado esta circunstancia al órgano actuante» (art. 111.5 RGAT). A partir de ese momento se considera que el obligado tributario no comparece ni atiende los requerimientos hasta que nombre un nuevo representante o los atienda personalmente (art. 111.5 RGAT). La renuncia a la representación no tiene efectos ante el órgano actuante hasta que se acredite que se ha comunicado de forma fehaciente al representado (art. 111.6 RGAT).
+
+- La representación debe acreditarse en la primera actuación que se realice por medio de representante, pero su falta o insuficiencia no impide que se tenga por realizado el acto o trámite, siempre que se aporte aquella o se subsane el defecto «dentro del plazo de 10 días, contados a partir del día siguiente al de la notificación del requerimiento» que debe conceder el órgano administrativo (art. 112.1 RGAT).
+- Si el representante no acredita la representación, el acto se tiene por no realizado o al obligado tributario por no personado, salvo que las actuaciones realizadas en su nombre sean ratificadas por el obligado (art. 112.1 RGAT).
+- Las actuaciones realizadas con el representante se entienden efectuadas directamente con el obligado tributario (art. 112.4 RGAT).
+- Acreditada o presumida la representación, corresponde al representado probar su inexistencia (art. 112.5 RGAT).
+
+:::note{type=warning}
+**No confundir.**
+
+- «La falta o insuficiencia del poder no impedirá que se tenga por realizado el acto de que se trate, siempre que se acompañe aquél o se subsane el defecto dentro del plazo de 10 días, que deberá conceder al efecto el órgano administrativo competente» (art. 46.7 LGT).
+- «La representación deberá acreditarse en la primera actuación que se realice por medio de representante, si bien su falta o insuficiencia no impedirá que se tenga por realizado el acto o trámite de que se trate, siempre que se aporte aquélla o se subsane el defecto dentro del plazo de 10 días, contados a partir del día siguiente al de la notificación del requerimiento, que deberá conceder al efecto el órgano administrativo» (art. 112.1 RGAT).
+:::
+
+Para la realización de actuaciones distintas de las mencionadas en los apartados 2, 3 y 4 del artículo 46 de la LGT, la representación podrá acreditarse debidamente en la forma que reglamentariamente se establezca (art. 46.5 LGT).
+
+En todos los supuestos de representación deberán constar, al menos, las siguientes menciones (art. 111.3 RGAT):
+
+:::esquema{kind=tabla title="Contenido mínimo de la representación"}
+| Elemento | Contenido | Cita |
+|---|---|---|
+| a) | Nombre y apellidos o razón social o denominación completa, número de identificación fiscal y domicilio fiscal del representado y del representante, así como la firma de ambos. | art. 111.3 RGAT |
+| a) | Cuando la representación se otorgue en documento público no será necesaria la firma del representante. | art. 111.3 RGAT |
+| b) | Contenido de la representación, así como la amplitud y suficiencia de la misma. | art. 111.3 RGAT |
+| c) | Lugar y fecha de su otorgamiento. | art. 111.3 RGAT |
+| d) | En el caso de representación voluntaria otorgada por el representante legal del obligado tributario, deberá acreditarse la representación legal. | art. 111.3 RGAT |
+:::
+
+Para las actuaciones previstas en el artículo 46.5 de la Ley 58/2003, de 17 de diciembre, General Tributaria, se entenderá acreditada la representación en los siguientes casos (art. 111.4 RGAT):
+
+:::esquema{kind=tabla title="Casos en que se entiende acreditada la representación (art. 46.5 LGT)"}
+| Elemento | Contenido | Cita |
+|---|---|---|
+| a) | Cuando la representación se haya hecho figurar expresamente en la declaración, autoliquidación, comunicación de datos o solicitud que sea objeto del procedimiento. | art. 111.4 RGAT |
+| b) | Cuando la representación conferida resulte de los propios actos o de la conducta observada por el obligado tributario en relación con las actuaciones desarrolladas. | art. 111.4 RGAT |
+:::
+
+Se entenderán ratificadas las actuaciones del representante en caso de falta o insuficiencia del poder de representación en los siguientes supuestos (art. 112.2 RGAT):
+
+:::esquema{kind=tabla title="Supuestos de ratificación de las actuaciones del representante"}
+| Elemento | Contenido | Cita |
+|---|---|---|
+| a) | Cuando el obligado tributario impugne los actos dictados en el procedimiento en que aquel hubiera intervenido sin alegar esta circunstancia. | art. 112.2 RGAT |
+| b) | Cuando el obligado tributario efectúe el ingreso o solicite el aplazamiento, fraccionamiento o compensación de la deuda tributaria o de la sanción que se derive del procedimiento. | art. 112.2 RGAT |
+:::
+
+### The case
+
+El asesor de Pau presenta un escrito sin acreditar su representación. El órgano le notifica el lunes 7 de junio de 2027 el requerimiento de subsanación. El plazo es de 10 días contados desde el día siguiente al de la notificación (art. 112.1 RGAT). Se excluyen sábados, domingos y festivos y termina el lunes 21 de junio de 2027 (art. 30.2 LPAC). Si se aporta, el acto se tiene por realizado (art. 112.1 RGAT).
+
+## KEY: caso:### Representación de no residentes#1
+
+### The section as the lesson gives it
+
+Los obligados tributarios que no residan en España deben designar un representante cuando lo establezca expresamente la normativa tributaria, y comunicar la designación a la Administración tributaria en los términos que la normativa señale (art. 47 LGT).
+
+### The case
+
+Hans no reside en España y en 2027 realiza una operación para la que la normativa tributaria establece expresamente que debe designar un representante (art. 47 LGT). Hans designa a un representante el 8 de marzo de 2027 y comunica la designación a la Administración tributaria en los términos que la normativa señale (art. 47 LGT).
+
+## KEY: caso:## Domicilio fiscal#1
+
+### The section as the lesson gives it
+
+El domicilio fiscal es el lugar de localización del obligado tributario en sus relaciones con la Administración tributaria (art. 48.1 LGT). El domicilio fiscal es (art. 48.2 LGT):
+
+- a) Para las personas físicas, el lugar donde tengan su residencia habitual. No obstante, para las personas físicas que desarrollen principalmente actividades económicas, en los términos que reglamentariamente se determinen, la Administración tributaria puede considerar como domicilio fiscal el lugar donde esté efectivamente centralizada la gestión administrativa y la dirección de las actividades desarrolladas. Si no pudiera establecerse dicho lugar, prevalece aquel donde radique el mayor valor del inmovilizado en el que se realicen las actividades económicas.
+- b) Para las personas jurídicas, su domicilio social, siempre que en él esté efectivamente centralizada su gestión administrativa y la dirección de sus negocios. En otro caso, se atiende al lugar en el que se lleve a cabo dicha gestión o dirección. Cuando no pueda determinarse el lugar del domicilio fiscal de acuerdo con los criterios anteriores, prevalece aquel donde radique el mayor valor del inmovilizado.
+- c) Para las entidades a las que se refiere el apartado 4 del artículo 35, el que resulte de aplicar las reglas establecidas en el párrafo b).
+- d) Para las personas o entidades no residentes en España, el que se determine según la normativa reguladora de cada tributo. En defecto de regulación, el domicilio es el del representante al que se refiere el artículo 47. Cuando la persona o entidad no residente opere mediante establecimiento permanente, el domicilio es el que resulte de aplicar a dicho establecimiento las reglas de los párrafos a) y b).
+
+Se puede considerar que las personas físicas desarrollan principalmente actividades económicas cuando más de la mitad de la base imponible general del IRPF del año anterior proceda de rendimientos netos de actividades económicas o cuando, no habiéndose alcanzado ese porcentaje en dicho año, se haya alcanzado durante cada uno de los tres años anteriores (art. 113 RGAT). Se entiende por actividades económicas las realizadas por los empresarios y profesionales en los términos de la LIVA (art. 113 RGAT).
+
+Los obligados tributarios deben comunicar su domicilio fiscal y el cambio del mismo a la Administración tributaria que corresponda, en la forma y en los términos que se establezcan reglamentariamente (art. 48.3 LGT). El cambio de domicilio fiscal no produce efectos frente a la Administración tributaria hasta que se cumpla con ese deber de comunicación (art. 48.3 LGT). Cada Administración puede comprobar y rectificar el domicilio fiscal declarado en relación con los tributos cuya gestión le competa (art. 48.4 LGT).
+
+- Las personas físicas que deban estar en el Censo de Empresarios, Profesionales y Retenedores, así como las personas jurídicas y demás entidades, comunican el cambio de domicilio fiscal en el plazo de un mes a partir del momento en que se produzca (art. 17.1 RGAT).
+- Las personas físicas que no deban figurar en ese censo lo comunican en el plazo de tres meses desde que se produzca (art. 17.2 RGAT), salvo que, si con anterioridad al vencimiento de dicho plazo finalizase el de presentación de la autoliquidación o comunicación de datos correspondiente a la imposición personal que el obligado tributario tuviera que presentar después del cambio de domicilio, la comunicación deba efectuarse en el correspondiente modelo de autoliquidación o comunicación de datos, salvo que se hubiese efectuado con anterioridad (art. 17.2 RGAT).
+- Esta excepción rige en el ámbito de competencias del Estado (art. 17.2 RGAT).
+- La comunicación del nuevo domicilio fiscal surte plenos efectos desde su presentación respecto a la Administración tributaria a la que se le hubiese comunicado, sin perjuicio del artículo 59 del RGAT sobre la atribución de competencias entre órganos (art. 17.3 RGAT).
+
+La comunicación del cambio del domicilio fiscal a la Administración tributaria del Estado producirá efectos respecto de las Administraciones tributarias de las comunidades autónomas y ciudades con estatuto de autonomía sólo desde el momento en que estas últimas tengan conocimiento del mismo, a cuyo efecto aquella deberá efectuar la correspondiente comunicación según lo dispuesto en el artículo 2.3 de este reglamento (art. 17.4 RGAT).
+
+En el ámbito de una misma Administración tributaria la comunicación de un cambio de domicilio fiscal, siempre que dicho criterio sea el que determine la competencia del órgano, o el cambio de adscripción a otro órgano, producirán los siguientes efectos en relación con la competencia de los órganos administrativos (art. 59.2 RGAT):
+
+:::esquema{kind=tabla title="Efectos del cambio de domicilio dentro de una misma Administración"}
+| Elemento | Contenido | Cita |
+|---|---|---|
+| a) | Las funciones de aplicación de los tributos, incluidas las relativas a obligaciones anteriores, se ejercerán a partir de ese momento por el órgano correspondiente al nuevo domicilio fiscal o por aquel que resulte destinatario del cambio de adscripción, respectivamente. | art. 59.2 RGAT |
+| b) | Los procedimientos que se encuentren en curso de tramitación en el momento en que se produzca de manera efectiva el cambio de domicilio o de adscripción, serán continuados y finalizados por el nuevo órgano competente. | art. 59.2 RGAT |
+:::
+
+No obstante, cuando se hubiera iniciado de oficio un procedimiento de aplicación de los tributos con anterioridad a la comunicación del nuevo domicilio, dicha comunicación surtirá efectos en relación con la competencia del órgano administrativo al mes siguiente de su presentación, salvo que durante dicho plazo la Administración tributaria inicie un procedimiento de comprobación de la procedencia del cambio de domicilio, en cuyo caso todos los procedimientos iniciados de oficio antes de la referida comunicación se continuarán y finalizarán por el órgano que los viniese tramitando en tanto no se resuelva el expediente de comprobación del cambio de domicilio. Lo anterior no impedirá que la Administración tributaria pueda iniciar en cualquier otro momento un procedimiento de comprobación del domicilio fiscal del obligado tributario (art. 59.2 RGAT).
+
+### The case
+
+La base imponible general del IRPF de Sergio en 2026 es de 50.000 euros y 30.000 proceden de rendimientos netos de actividades económicas. Es más de la mitad: desarrolla principalmente actividades económicas (art. 113 RGAT). La Administración puede considerar su domicilio fiscal el lugar donde esté centralizada la gestión administrativa y la dirección de esas actividades, no su residencia habitual (art. 48.2.a) LGT).
+
+## KEY: caso:## Plazos de prescripción#1
+
+### The section as the lesson gives it
+
+Prescriben a los cuatro años estos derechos (art. 66 LGT):
+
+- a) El derecho de la Administración para determinar la deuda tributaria mediante la oportuna liquidación.
+- b) El derecho de la Administración para exigir el pago de las deudas tributarias liquidadas y autoliquidadas.
+- c) El derecho a solicitar las devoluciones derivadas de la normativa de cada tributo, las devoluciones de ingresos indebidos y el reembolso del coste de las garantías.
+- d) El derecho a obtener las devoluciones derivadas de la normativa de cada tributo, las devoluciones de ingresos indebidos y el reembolso del coste de las garantías.
+
+- La prescripción del artículo 66 no afecta al derecho de la Administración para realizar comprobaciones e investigaciones conforme al artículo 115 de la LGT, salvo lo dispuesto en el apartado 2 del artículo 66 bis (art. 66 bis.1 LGT).
+- El derecho de la Administración para iniciar el procedimiento de comprobación de las bases o cuotas compensadas o pendientes de compensación, o de deducciones aplicadas o pendientes de aplicación, prescribe a los diez años «a contar desde el día siguiente a aquel en que finalice el plazo reglamentario establecido para presentar la declaración o autoliquidación» correspondiente al ejercicio o período impositivo en que se generó el derecho a compensar o a aplicar (art. 66 bis.2 LGT).
+
+:::esquema{kind=tabla title="Derechos que prescriben y plazo"}
+| Derecho | Plazo | Cita |
+|---|---|---|
+| El derecho de la Administración para determinar la deuda tributaria mediante la oportuna liquidación | cuatro años | art. 66 LGT |
+| El derecho de la Administración para exigir el pago de las deudas tributarias liquidadas y autoliquidadas | cuatro años | art. 66 LGT |
+| El derecho a solicitar las devoluciones derivadas de la normativa de cada tributo, las devoluciones de ingresos indebidos y el reembolso del coste de las garantías | cuatro años | art. 66 LGT |
+| El derecho a obtener las devoluciones derivadas de la normativa de cada tributo, las devoluciones de ingresos indebidos y el reembolso del coste de las garantías | cuatro años | art. 66 LGT |
+| El derecho de la Administración para iniciar el procedimiento de comprobación de las bases o cuotas compensadas o pendientes de compensación, o de deducciones aplicadas o pendientes de aplicación | diez años «a contar desde el día siguiente a aquel en que finalice el plazo reglamentario establecido para presentar la declaración o autoliquidación» correspondiente al ejercicio o período impositivo en que se generó el derecho a compensar o a aplicar | art. 66 bis.2 LGT |
+:::
+
+La comprobación a que se refiere el apartado 2 del artículo 66 bis de la LGT y, en su caso, la corrección o regularización de bases o cuotas compensadas o pendientes de compensación o deducciones aplicadas o pendientes de aplicación respecto de las que no se hubiese producido la prescripción establecida en el párrafo primero del apartado 2 del artículo 66 bis de la LGT, sólo podrá realizarse en el curso de procedimientos de comprobación relativos a obligaciones tributarias y periodos cuyo derecho a liquidar no se encuentre prescrito (art. 66 bis.2 LGT).
+
+### The case
+
+Ana generó bases negativas en 2021. El plazo para presentar su declaración terminó el jueves 30 de junio de 2022. El derecho de la Administración a iniciar su comprobación prescribe a los diez años a contar desde el día siguiente, el 1 de julio de 2022 (art. 66 bis.2 LGT). El martes 15 de septiembre de 2026 no ha prescrito. El derecho a liquidar la deuda, en cambio, prescribe a los cuatro años (art. 66 LGT).
+
+## KEY: caso:### Cómputo#1
+
+### The section as the lesson gives it
+
+El plazo de prescripción comienza a contarse conforme a estas reglas (art. 67.1 LGT):
+
+- En los tributos de cobro periódico por recibo, cuando para determinar la deuda mediante la oportuna liquidación no sea necesaria la presentación de declaración o autoliquidación, el plazo comienza el día de devengo del tributo.
+- Para el derecho de la letra c) del artículo 66 de la LGT, desde el día siguiente a aquel en que finalice el plazo para solicitar la devolución derivada de la normativa de cada tributo o, en defecto de plazo, desde el día siguiente a aquel en que dicha devolución pudo solicitarse; desde el día siguiente a aquel en que se realizó el ingreso indebido o desde el día siguiente a la finalización del plazo para presentar la autoliquidación si el ingreso indebido se realizó dentro de dicho plazo; o desde el día siguiente a aquel en que «adquiera firmeza la sentencia o resolución administrativa que declare total o parcialmente improcedente el acto impugnado».
+
+En el supuesto de tributos que graven una misma operación y que sean incompatibles entre sí, el plazo para solicitar la devolución del ingreso indebido del tributo improcedente comienza a contarse desde la resolución del órgano específicamente previsto para dirimir cuál es el tributo procedente (art. 67.1 LGT).
+
+El plazo para exigir la obligación de pago a los responsables solidarios comienza a contarse desde el día siguiente a la finalización del plazo de pago en período voluntario del deudor principal (art. 67.2 LGT). Si los hechos que constituyan el presupuesto de la responsabilidad se producen con posterioridad a ese plazo, el plazo de prescripción se inicia a partir del momento en que tales hechos hubieran tenido lugar (art. 67.2 LGT). Tratándose de responsables subsidiarios, el plazo comienza a computarse «desde la notificación de la última actuación recaudatoria practicada al deudor principal o a cualquiera de los responsables solidarios» (art. 67.2 LGT).
+
+:::note{type=warning}
+**No confundir.**
+
+- El plazo para exigir la obligación de pago a los responsables solidarios comienza a contarse desde el día siguiente a la finalización del plazo de pago en período voluntario del deudor principal (art. 67.2 LGT).
+- Tratándose de responsables subsidiarios, el plazo comienza a computarse «desde la notificación de la última actuación recaudatoria practicada al deudor principal o a cualquiera de los responsables solidarios» (art. 67.2 LGT).
+:::
+
+:::esquema{kind=tabla title="Desde cuándo se cuenta el plazo de prescripción"}
+| Derecho del art. 66 | Comienzo del plazo | Cita |
+|---|---|---|
+| a) Determinar la deuda tributaria mediante liquidación | desde el día siguiente a aquel en que finalice el plazo reglamentario para presentar la correspondiente declaración o autoliquidación; en los tributos de cobro periódico por recibo, cuando para determinar la deuda mediante la oportuna liquidación no sea necesaria la presentación de declaración o autoliquidación, el plazo comienza el día de devengo del tributo | art. 67.1 LGT |
+| b) Exigir el pago de las deudas tributarias liquidadas y autoliquidadas | desde el día siguiente a aquel en que finalice el plazo de pago en período voluntario, sin perjuicio del apartado 2 del artículo 67 de la LGT | art. 67.1 LGT |
+| c) Solicitar las devoluciones y el reembolso del coste de las garantías | desde el día siguiente a aquel en que finalice el plazo para solicitar la devolución derivada de la normativa de cada tributo o, en defecto de plazo, desde el día siguiente a aquel en que dicha devolución pudo solicitarse; desde el día siguiente a aquel en que se realizó el ingreso indebido o desde el día siguiente a la finalización del plazo para presentar la autoliquidación si el ingreso indebido se realizó dentro de dicho plazo; o desde el día siguiente a aquel en que «adquiera firmeza la sentencia o resolución administrativa que declare total o parcialmente improcedente el acto impugnado»; en el supuesto de tributos que graven una misma operación y que sean incompatibles entre sí, el plazo para solicitar la devolución del ingreso indebido del tributo improcedente comienza a contarse desde la resolución del órgano específicamente previsto para dirimir cuál es el tributo procedente | art. 67.1 LGT |
+| d) Obtener las devoluciones y el reembolso del coste de las garantías | desde el día siguiente a aquel en que finalicen los plazos establecidos para efectuar las devoluciones derivadas de la normativa de cada tributo o desde el día siguiente a la fecha de notificación del acuerdo donde se reconozca el derecho a percibir la devolución o el reembolso del coste de las garantías | art. 67.1 LGT |
+| Exigir la obligación de pago a los responsables solidarios | desde el día siguiente a la finalización del plazo de pago en período voluntario del deudor principal; si los hechos que constituyan el presupuesto de la responsabilidad se producen con posterioridad a ese plazo, a partir del momento en que tales hechos hubieran tenido lugar | art. 67.2 LGT |
+| Exigir la obligación de pago a los responsables subsidiarios | «desde la notificación de la última actuación recaudatoria practicada al deudor principal o a cualquiera de los responsables solidarios» | art. 67.2 LGT |
+:::
+
+### The case
+
+El plazo de pago en período voluntario del deudor principal terminó el lunes 20 de abril de 2026. El plazo para exigir el pago a un responsable solidario empieza el martes 21 de abril de 2026 (art. 67.2 LGT). La última actuación recaudatoria al deudor principal se le notificó el lunes 4 de mayo de 2026: ese día empieza el plazo para un responsable subsidiario (art. 67.2 LGT).
+
+## KEY: caso:### Interrupción#1
+
+### The section as the lesson gives it
+
+El plazo de prescripción del derecho del artículo 66.a) se interrumpe (art. 68.1 LGT):
+
+- a) Por cualquier acción de la Administración tributaria, realizada con conocimiento formal del obligado tributario, conducente al reconocimiento, regularización, comprobación, inspección, aseguramiento y liquidación de todos o parte de los elementos de la obligación tributaria que proceda, aunque la acción se dirija inicialmente a una obligación tributaria distinta como consecuencia de la incorrecta declaración del obligado tributario.
+- b) Por la interposición de reclamaciones o recursos de cualquier clase, por las actuaciones realizadas con conocimiento formal del obligado tributario en el curso de dichas reclamaciones o recursos, por la remisión del tanto de culpa a la jurisdicción penal o por la presentación de denuncia ante el Ministerio Fiscal, así como por la recepción de la comunicación de un órgano jurisdiccional en la que se ordene la paralización del procedimiento administrativo en curso.
+- c) Por cualquier actuación fehaciente del obligado tributario conducente a la liquidación o autoliquidación de la deuda tributaria.
+
+El plazo de prescripción del derecho del artículo 66.b) se interrumpe (art. 68.2 LGT):
+
+- a) Por cualquier acción de la Administración tributaria, realizada con conocimiento formal del obligado tributario, dirigida de forma efectiva a la recaudación de la deuda tributaria.
+- b) Por la interposición de reclamaciones o recursos de cualquier clase, por las actuaciones realizadas con conocimiento formal del obligado en el curso de dichas reclamaciones o recursos, por la declaración del concurso del deudor o por el ejercicio de acciones civiles o penales dirigidas al cobro de la deuda tributaria, así como por la recepción de la comunicación de un órgano jurisdiccional en la que se ordene la paralización del procedimiento administrativo en curso.
+- c) Por cualquier actuación fehaciente del obligado tributario conducente al pago o extinción de la deuda tributaria.
+
+- El plazo del derecho del artículo 66.c) se interrumpe por cualquier actuación fehaciente del obligado tributario que pretenda la devolución, el reembolso o la rectificación de su autoliquidación, y por la interposición, tramitación o resolución de reclamaciones o recursos de cualquier clase (art. 68.3 LGT).
+- El plazo del derecho del artículo 66.d) se interrumpe por cualquier acción de la Administración tributaria dirigida a efectuar la devolución o el reembolso, por cualquier actuación fehaciente del obligado tributario por la que exija el pago de la devolución o el reembolso, y por la interposición, tramitación o resolución de reclamaciones o recursos de cualquier clase (art. 68.4 LGT).
+- Las actuaciones anteriores y las de naturaleza análoga producen efectos interruptivos cuando se realicen en otro Estado en el marco de la asistencia mutua (art. 68.5 LGT).
+
+- Producida la interrupción, se inicia de nuevo el cómputo del plazo de prescripción, salvo lo establecido en el apartado 7 del artículo 68 de la LGT (art. 68.6 LGT).
+- Cuando el plazo se hubiera interrumpido por la interposición del recurso ante la jurisdicción contencioso-administrativa, por el ejercicio de acciones civiles o penales, por la remisión del tanto de culpa a la jurisdicción competente o la presentación de denuncia ante el Ministerio Fiscal, o por la recepción de una comunicación judicial de paralización del procedimiento, el cómputo se inicia de nuevo cuando la Administración tributaria reciba la notificación de la resolución firme que ponga fin al proceso judicial o que levante la paralización, o cuando se reciba la notificación del Ministerio Fiscal devolviendo el expediente (art. 68.7 LGT).
+- Cuando se hubiera interrumpido por la declaración de concurso del deudor, el cómputo se inicia de nuevo «cuando adquiera firmeza la resolución judicial de conclusión del concurso» (art. 68.7 LGT).
+- Si se hubiere aprobado un convenio, el plazo se inicia de nuevo en el momento de su aprobación para las deudas tributarias no sometidas al mismo, y para las sometidas al convenio concursal cuando resulten exigibles al deudor (art. 68.7 LGT).
+
+- Interrumpido el plazo de prescripción para un obligado tributario, ese efecto se extiende a todos los demás obligados, incluidos los responsables (art. 68.8 LGT).
+- Si la obligación es mancomunada y solo se reclama a uno de los obligados tributarios la parte que le corresponde, el plazo no se interrumpe para los demás (art. 68.8 LGT).
+- «Si existieran varias deudas liquidadas a cargo de un mismo obligado al pago, la interrupción de la prescripción solo afectará a la deuda a la que se refiera» (art. 68.8 LGT).
+- La suspensión del plazo del artículo 66.b) por litigio, concurso u otras causas legales, respecto del deudor principal o de alguno de los responsables, causa el mismo efecto en relación con el resto de los sujetos solidariamente obligados al pago, sin perjuicio de que puedan continuar frente a ellos las acciones de cobro que procedan (art. 68.8 LGT).
+
+La interrupción del plazo del derecho del artículo 66.a) relativa a una obligación tributaria determina también la interrupción del plazo de los derechos de las letras a) y c) relativos a las obligaciones tributarias conexas del propio obligado, cuando en estas se produzca o haya de producirse una tributación distinta como consecuencia de la aplicación de los criterios o elementos en los que se fundamente la regularización de la obligación con la que estén relacionadas (art. 68.9 LGT). Se entiende por obligaciones tributarias conexas «aquellas en las que alguno de sus elementos resulten afectados o se determinen en función de los correspondientes a otra obligación o período distinto» (art. 68.9 LGT).
+
+### The case
+
+Pedro y Marta están obligados al pago de la deuda A. El lunes 4 de mayo de 2026 la Administración realiza, con conocimiento formal de Pedro, una acción dirigida de forma efectiva a su recaudación (art. 68.2 LGT). La interrupción se extiende a Marta (art. 68.8 LGT). Pedro tiene además una deuda B liquidada: la interrupción solo afecta a la deuda a la que se refiera (art. 68.8 LGT).
+
+## KEY: caso:### Extensión y efectos#1
+
+### The section as the lesson gives it
+
+La prescripción ganada aprovecha por igual a todos los obligados al pago de la deuda tributaria, salvo lo dispuesto en el apartado 8 del artículo 68 (art. 69.1 LGT). La prescripción se aplica de oficio, incluso en los casos en que se haya pagado la deuda tributaria, sin necesidad de que la invoque o excepcione el obligado tributario (art. 69.2 LGT). La prescripción ganada extingue la deuda tributaria (art. 69.3 LGT).
+
+La obligación de justificar la procedencia de los datos que tengan su origen en operaciones realizadas en períodos impositivos prescritos se mantiene durante el plazo de prescripción del derecho para determinar las deudas tributarias afectadas por la operación y, en todo caso, en los supuestos del artículo 66 bis, apartados 2 y 3 (art. 70.3 LGT).
+
+### The case
+
+La prescripción de una deuda de Lucas y Rosa se gana el miércoles 1 de julio de 2026 y Lucas no la invoca. Aprovecha por igual a todos los obligados, salvo lo dispuesto en el artículo 68.8 (art. 69.1 LGT). Se aplica de oficio, incluso si Lucas hubiera pagado la deuda (art. 69.2 LGT). La prescripción ganada extingue la deuda (art. 69.3 LGT).
+

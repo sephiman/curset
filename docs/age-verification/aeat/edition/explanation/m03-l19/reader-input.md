@@ -1,0 +1,644 @@
+# Reader input — `m03-l19`
+
+## KEY: caso:### Entregas de bienes y prestaciones de servicios#1
+
+### The section as the lesson gives it
+
+Se devengará el Impuesto (art. 75.Uno LIVA):
+
+:::esquema{kind=tabla title="Supuestos de devengo de las entregas de bienes y prestaciones de servicios"}
+| Elemento | Contenido | Cita |
+|---|---|---|
+| 1.º | En las entregas de bienes, cuando tenga lugar su puesta a disposición del adquirente o, en su caso, cuando se efectúen conforme a la legislación que les sea aplicable. | art. 75.Uno LIVA |
+| 1.º | No obstante lo dispuesto en el párrafo anterior, en las entregas de bienes efectuadas en virtud de contratos de venta con pacto de reserva de dominio o cualquier otra condición suspensiva, de arrendamiento-venta de bienes o de arrendamiento de bienes con cláusula de transferencia de la propiedad vinculante para ambas partes, se devengará el Impuesto cuando los bienes que constituyan su objeto se pongan en posesión del adquirente | art. 75.Uno LIVA |
+| 2.º | En las prestaciones de servicios, cuando se presten, ejecuten o efectúen las operaciones gravadas. | art. 75.Uno LIVA |
+| 2.º | No obstante, en las prestaciones de servicios en las que el destinatario sea el sujeto pasivo del Impuesto conforme a lo previsto en los números 2.º y 3.º del apartado Uno del artículo 84 de esta Ley, que se lleven a cabo de forma continuada durante un plazo superior a un año y que no den lugar a pagos anticipados durante dicho período, el devengo del Impuesto se producirá a 31 de diciembre de cada año por la parte proporcional correspondiente al período transcurrido desde el inicio de la operación o desde el anterior devengo hasta la citada fecha, en tanto no se ponga fin a dichas prestaciones de servicios. | art. 75.Uno LIVA |
+| 2.º | Por excepción de lo dispuesto en los párrafos anteriores, cuando se trate de ejecuciones de obra con aportación de materiales, en el momento en que los bienes a que se refieran se pongan a disposición del dueño de la obra | art. 75.Uno LIVA |
+| 2.º bis | Cuando se trate de ejecuciones de obra, con o sin aportación de materiales, cuyas destinatarias sean las Administraciones públicas, en el momento de su recepción, conforme a lo dispuesto en el artículo 235 del Texto Refundido de la Ley de Contratos del Sector Público, aprobado por el Real Decreto Legislativo 3/2011, de 14 de noviembre | art. 75.Uno LIVA |
+| 3.º | En las transmisiones de bienes entre el comitente y comisionista efectuadas en virtud de contratos de comisión de venta, cuando el último actúe en nombre propio, en el momento en que el comisionista efectúe la entrega de los respectivos bienes. | art. 75.Uno LIVA |
+| 3.º | Cuando se trate de entregas de bienes efectuadas en virtud de contratos por los que una de las partes entrega a la otra bienes muebles, cuyo valor se estima en una cantidad cierta, obligándose quien los recibe a procurar su venta dentro de un plazo y a devolver el valor estimado de los bienes vendidos y el resto de los no vendidos, el devengo de las entregas relativas a los bienes vendidos se producirá cuando quien los recibe los ponga a disposición del adquirente | art. 75.Uno LIVA |
+| 4.º | En las transmisiones de bienes entre comisionista y comitente efectuadas en virtud de contratos de comisión de compra, cuando el primero actúe en nombre propio, en el momento en que al comisionista le sean entregados los bienes a que se refieran | art. 75.Uno LIVA |
+| 5.º | En los supuestos de autoconsumo, cuando se efectúen las operaciones gravadas. | art. 75.Uno LIVA |
+| 5.º | No obstante, en los casos a que se refiere el artículo 9, número 1.º, letra d), párrafo tercero de esta Ley, el Impuesto se devengará | art. 75.Uno LIVA |
+| 5.º a) | Cuando se produzcan las circunstancias que determinan la limitación o exclusión del derecho a la deducción. | art. 75.Uno LIVA |
+| 5.º b) | El último día del año en que los bienes que constituyan su objeto se destinen a operaciones que no originen el derecho a la deducción. | art. 75.Uno LIVA |
+| 5.º c) | El último día del año en que sea de aplicación la regla de prorrata general. | art. 75.Uno LIVA |
+| 5.º e) | Cuando se produzca el devengo de la entrega exenta. | art. 75.Uno LIVA |
+| 6.º | 6.º (Suprimido) | art. 75.Uno LIVA |
+| 7.º | En los arrendamientos, en los suministros y, en general, en las operaciones de tracto sucesivo o continuado, en el momento en que resulte exigible la parte del precio que comprenda cada percepción. | art. 75.Uno LIVA |
+| 7.º | No obstante, cuando no se haya pactado precio o cuando, habiéndose pactado, no se haya determinado el momento de su exigibilidad, o la misma se haya establecido con una periodicidad superior a un año natural, el devengo del Impuesto se producirá a 31 de diciembre de cada año por la parte proporcional correspondiente al periodo transcurrido desde el inicio de la operación, o desde el anterior devengo, hasta la citada fecha. | art. 75.Uno LIVA |
+| 7.º | Cuando los referidos suministros constituyan entregas de bienes comprendidas en los apartados Uno y Tres del artículo 25 de esta Ley, y no se haya pactado precio o cuando, habiéndose pactado, no se haya determinado el momento de su exigibilidad, o la misma se haya establecido con una periodicidad superior al mes natural, el devengo del Impuesto se producirá el último día de cada mes por la parte proporcional correspondiente al periodo transcurrido desde el inicio de la operación, o desde el anterior devengo, hasta la citada fecha. | art. 75.Uno LIVA |
+| 7.º | Se exceptúan de lo dispuesto en los párrafos anteriores las operaciones a que se refiere el párrafo segundo del número 1.º precedente | art. 75.Uno LIVA |
+| 8.º | En las entregas de bienes comprendidas en el artículo 25 de esta Ley, distintas de las señaladas en el número anterior, el devengo del Impuesto se producirá el día 15 del mes siguiente a aquel | art. 75.Uno LIVA |
+| 8.º a) | En el que se inicie la expedición o el transporte de los bienes con destino al adquirente. | art. 75.Uno LIVA |
+| 8.º b) | En el que los bienes se pongan a disposición del adquirente, en las entregas de bienes efectuadas en las condiciones señaladas en el artículo 9 bis, apartado dos, de esta Ley. | art. 75.Uno LIVA |
+| 8.º b) | A efectos de las letras a) y b) anteriores, si con anterioridad a la citada fecha se hubiera expedido factura por dichas operaciones, el devengo del Impuesto tendrá lugar en la fecha de expedición de la misma. | art. 75.Uno LIVA |
+| 8.º c) | En el momento en que se produzca el incumplimiento de las condiciones a que se refiere el apartado tres del artículo 9 bis de esta Ley. | art. 75.Uno LIVA |
+| 8.º d) | Al día siguiente de la expiración del plazo de 12 meses a que se refiere el apartado cuatro del artículo 9 bis de esta Ley. | art. 75.Uno LIVA |
+:::
+
+No obstante lo dispuesto en el apartado Uno del artículo 75, en las operaciones sujetas a gravamen que originen pagos anticipados anteriores a la realización del hecho imponible el impuesto se devengará en el momento del cobro total o parcial del precio por los importes efectivamente percibidos (art. 75.Dos LIVA).
+
+En consecuencia, el pago anticipado de una parte del precio devenga el impuesto por esa parte en el momento del cobro (art. 75.Dos LIVA), y el resto se devenga en la puesta a disposición del adquirente (art. 75.Uno.1.º LIVA).
+
+### The case
+
+Maquinaria Sur vende a Pablo una máquina por 10.000 euros con pacto de reserva de dominio. Pablo paga 3.000 euros el lunes 15 de febrero de 2027 y la máquina se pone en su posesión el lunes 1 de marzo de 2027. El impuesto se devenga el 15 de febrero por los 3.000 euros efectivamente percibidos (art. 75.Dos LIVA) y el resto el 1 de marzo, cuando los bienes se ponen en posesión del adquirente (art. 75.Uno.1.º LIVA).
+
+## KEY: caso:### Adquisiciones intracomunitarias e importaciones#1
+
+### The section as the lesson gives it
+
+En las adquisiciones intracomunitarias de bienes, el impuesto se devenga en el momento en que se consideren efectuadas las entregas de bienes similares de conformidad con el artículo 75, y no se aplica el apartado Dos de ese artículo, relativo a los pagos anticipados (art. 76 LIVA). En las importaciones de bienes, el devengo se produce en el momento en que hubiera tenido lugar el devengo de los derechos de importación, de acuerdo con la legislación aduanera, independientemente de que estén o no sujetas a los mencionados derechos (art. 77.Uno LIVA).
+
+### The case
+
+Electro Sur, S.L. adquiere mercancías en Francia y paga un anticipo el lunes 1 de marzo de 2027. Las entregas de bienes similares se considerarían efectuadas el lunes 15 de marzo de 2027, y entonces se devenga el impuesto (art. 76 LIVA). El anticipo no adelanta el devengo, porque no se aplica el apartado Dos del artículo 75, relativo a los pagos anticipados (art. 76 LIVA).
+
+## KEY: caso:### Regla general#1
+
+### The section as the lesson gives it
+
+La base imponible está constituida por el importe total de la contraprestación de las operaciones sujetas procedente del destinatario o de terceras personas (art. 78.Uno LIVA). En particular, se incluyen en el concepto de contraprestación (art. 78.Dos LIVA):
+
+:::esquema{kind=tabla title="Conceptos incluidos en la contraprestación"}
+| Elemento | Contenido | Cita |
+|---|---|---|
+| 1.º | Los gastos de comisiones, portes y transporte, seguros, primas por prestaciones anticipadas y cualquier otro crédito efectivo a favor de quien realice la entrega o preste el servicio, derivado de la prestación principal o de las accesorias a la misma. | art. 78.Dos LIVA |
+| 1.º | No obstante lo dispuesto en el párrafo anterior, no se incluirán en la contraprestación los intereses por el aplazamiento en el pago del precio en la parte en que dicho aplazamiento corresponda a un período posterior a la entrega de los bienes o la prestación de los servicios. | art. 78.Dos LIVA |
+| 1.º | A efectos de lo previsto en el párrafo anterior sólo tendrán la consideración de intereses las retribuciones de las operaciones financieras de aplazamiento o demora en el pago del precio, exentas del impuesto en virtud de lo dispuesto en el artículo 20, apartado uno, número 18., letra c), de esta Ley que se haga constar separadamente en la factura emitida por el sujeto pasivo. | art. 78.Dos LIVA |
+| 1.º | En ningún caso se considerará interés la parte de la contraprestación que exceda del usualmente aplicado en el mercado para similares operaciones | art. 78.Dos LIVA |
+| 2.º | 2.º (Derogado) | art. 78.Dos LIVA |
+| 3.º | Las subvenciones vinculadas directamente al precio de las operaciones sujetas al Impuesto. | art. 78.Dos LIVA |
+| 3.º | Se considerarán vinculadas directamente al precio de las operaciones sujetas al Impuesto las subvenciones establecidas en función del número de unidades entregadas o del volumen de los servicios prestados cuando se determinen con anterioridad a la realización de la operación. | art. 78.Dos LIVA |
+| 3.º | No obstante, no se considerarán subvenciones vinculadas al precio ni integran en ningún caso el importe de la contraprestación a que se refiere el apartado Uno del presente artículo, las aportaciones dinerarias, sea cual sea su denominación, que las Administraciones Públicas realicen para financiar | art. 78.Dos LIVA |
+| 3.º a) | La gestión de servicios públicos o de fomento de la cultura en los que no exista una distorsión significativa de la competencia, sea cual sea su forma de gestión. | art. 78.Dos LIVA |
+| 3.º b) | Actividades de interés general cuando sus destinatarios no sean identificables y no satisfagan contraprestación alguna. | art. 78.Dos LIVA |
+| 4.º | Los tributos y gravámenes de cualquier clase que recaigan sobre las mismas operaciones gravadas, excepto el propio Impuesto sobre el Valor Añadido. | art. 78.Dos LIVA |
+| 4.º | Lo dispuesto en este número comprenderá los impuestos especiales que se exijan en relación con los bienes que sean objeto de las operaciones gravadas, con excepción del impuesto especial sobre determinados medios de transporte | art. 78.Dos LIVA |
+| 5.º | Las percepciones retenidas con arreglo a derecho por el obligado a efectuar la prestación en los casos de resolución de las operaciones sujetas al impuesto | art. 78.Dos LIVA |
+| 6.º | El importe de los envases y embalajes, incluso los susceptibles de devolución, cargado a los destinatarios de la operación, cualquiera que sea el concepto por el que dicho importe se perciba | art. 78.Dos LIVA |
+| 7.º | El importe de las deudas asumidas por el destinatario de las operaciones sujetas como contraprestación total o parcial de las mismas | art. 78.Dos LIVA |
+:::
+
+No se incluirán en la base imponible (art. 78.Tres LIVA):
+
+:::esquema{kind=tabla title="Conceptos que no se incluyen en la base imponible"}
+| Elemento | Contenido | Cita |
+|---|---|---|
+| 1.º | Las cantidades percibidas por razón de indemnizaciones, distintas de las contempladas en el apartado anterior que, por su naturaleza y función, no constituyan contraprestación o compensación de las entregas de bienes o prestaciones de servicios sujetas al impuesto | art. 78.Tres LIVA |
+| 2.º | Los descuentos y bonificaciones que se justifiquen por cualquier medio de prueba admitido en derecho y que se concedan previa o simultáneamente al momento en que la operación se realice y en función de ella. | art. 78.Tres LIVA |
+| 2.º | Lo dispuesto en el párrafo anterior no será de aplicación cuando las minoraciones de precio constituyan remuneraciones de otras operaciones | art. 78.Tres LIVA |
+| 3.º | Las sumas pagadas en nombre y por cuenta del cliente en virtud de mandato expreso del mismo. | art. 78.Tres LIVA |
+| 3.º | El sujeto pasivo vendrá obligado a justificar la cuantía efectiva de tales gastos y no podrá proceder a la deducción del impuesto que eventualmente los hubiera gravado | art. 78.Tres LIVA |
+:::
+
+Cuando las cuotas del IVA que graven las operaciones sujetas no se hubiesen repercutido expresamente en factura, se entiende que la contraprestación no incluyó dichas cuotas, salvo en los casos en que la repercusión expresa del impuesto no fuese obligatoria y en los supuestos del apartado Dos, número 5.º (art. 78.Cuatro LIVA).
+
+### The case
+
+Cerámicas Soto vende a Lidia por 10.000 euros, antes del descuento, y factura 400 euros de portes y transporte. Los portes y el transporte se incluyen en la contraprestación (art. 78.Dos.1.º LIVA). Concede un descuento de 500 euros previo a la operación y en función de ella, justificado en derecho: no se incluye (art. 78.Tres.2.º LIVA). La base imponible es la contraprestación total, 9.900 euros (art. 78.Uno LIVA).
+
+## KEY: caso:### Reglas especiales#1
+
+### The section as the lesson gives it
+
+En las operaciones cuya contraprestación no consista en dinero, la base imponible es el importe, expresado en dinero, que se hubiera acordado entre las partes (art. 79.Uno LIVA). Cuando en una misma operación y por precio único se entreguen bienes o se presten servicios de diversa naturaleza, la base imponible de cada uno se determina en proporción al valor de mercado de los bienes entregados o de los servicios prestados, salvo que constituyan el objeto de prestaciones accesorias de otra principal sujeta al impuesto (art. 79.Dos LIVA).
+
+- En los supuestos de autoconsumo y de transferencia de bienes del artículo 9, números 1.º y 3.º, la base imponible es la fijada en la operación de adquisición, si los bienes se entregan en el mismo estado en que fueron adquiridos, o el coste de los bienes o servicios utilizados para su obtención, incluidos los gastos de personal, si han sido sometidos a procesos de elaboración o transformación (art. 79.Tres.1.ª y 2.ª LIVA).
+- Si el valor de los bienes hubiese experimentado alteraciones como consecuencia de su utilización, deterioro, obsolescencia, envilecimiento, revalorización o cualquier otra causa, la base imponible es el valor de los bienes en el momento en que se efectúe la entrega (art. 79.Tres.3.ª LIVA).
+- En los autoconsumos de servicios, la base imponible es el coste de prestación de los servicios, incluida, en su caso, la amortización de los bienes cedidos (art. 79.Cuatro LIVA).
+
+En las operaciones cuya contraprestación se hubiese fijado en moneda o divisa distintas de las españolas, se aplica el tipo de cambio vendedor, fijado por el Banco de España, que esté vigente en el momento del devengo (art. 79.Once LIVA).
+
+Cuando exista vinculación entre las partes que intervengan en una operación, su base imponible será su valor normal de mercado (art. 79.Cinco LIVA).
+
+Se considerará que existe vinculación en los siguientes supuestos (art. 79.Cinco LIVA):
+
+:::esquema{kind=tabla title="Supuestos de vinculación entre las partes"}
+| Elemento | Contenido | Cita |
+|---|---|---|
+| a) | En el caso de que una de las partes intervinientes sea un sujeto pasivo del Impuesto sobre Sociedades o un contribuyente del Impuesto sobre la Renta de las Personas Físicas o del Impuesto sobre la Renta de No Residentes, cuando así se deduzca de las normas reguladoras de dichos Impuestos que sean de aplicación. | art. 79.Cinco LIVA |
+| b) | En las operaciones realizadas entre los sujetos pasivos y las personas ligadas a ellos por relaciones de carácter laboral o administrativo. | art. 79.Cinco LIVA |
+| c) | En las operaciones realizadas entre el sujeto pasivo y su cónyuge o sus parientes consanguíneos hasta el tercer grado inclusive. | art. 79.Cinco LIVA |
+| d) | En las operaciones realizadas entre una entidad sin fines lucrativos a las que se refiere el artículo 2 de la Ley 49/2002, de 23 de diciembre, sobre Régimen fiscal de las entidades sin fines lucrativos y de los incentivos fiscales al mecenazgo y sus fundadores, asociados, patronos, representantes estatutarios, miembros de los órganos de gobierno, los cónyuges o parientes hasta el tercer grado inclusive de cualquiera de ellos. | art. 79.Cinco LIVA |
+| e) | En las operaciones realizadas entre una entidad que sea empresario o profesional y cualquiera de sus socios, asociados, miembros o partícipes. | art. 79.Cinco LIVA |
+:::
+
+La regla de valoración por el valor normal de mercado únicamente será aplicable cuando se cumplan los siguientes requisitos (art. 79.Cinco LIVA):
+
+:::esquema{kind=tabla title="Requisitos de la regla del valor normal de mercado"}
+| Elemento | Contenido | Cita |
+|---|---|---|
+| a) | Que el destinatario de la operación no tenga derecho a deducir totalmente el impuesto correspondiente a la misma y la contraprestación pactada sea inferior a la que correspondería en condiciones de libre competencia. | art. 79.Cinco LIVA |
+| b) | Cuando el empresario profesional que realice la entrega de bienes o prestación de servicios determine sus deducciones aplicando la regla de prorrata y, tratándose de una operación que no genere el derecho a la deducción, la contraprestación pactada sea inferior al valor normal de mercado. | art. 79.Cinco LIVA |
+| c) | Cuando el empresario o profesional que realice la entrega de bienes o prestación de servicios determine sus deducciones aplicando la regla de prorrata y, tratándose de una operación que genere el derecho a la deducción, la contraprestación pactada sea superior al valor normal de mercado. | art. 79.Cinco LIVA |
+:::
+
+### The case
+
+Talleres Mora entrega un coche a Ana y recibe a cambio una máquina. Las partes acordaron expresar el valor en 6.000 euros: esa es la base imponible (art. 79.Uno LIVA). Otra operación se fija en 5.000 dólares y se devenga el lunes 5 de abril de 2027: se aplica el tipo de cambio vendedor fijado por el Banco de España vigente en el momento del devengo (art. 79.Once LIVA).
+
+## KEY: caso:### Modificación de la base imponible#1
+
+### The section as the lesson gives it
+
+La base imponible determinada con arreglo a lo dispuesto en los artículos 78 y 79 anteriores se reducirá en las cuantías siguientes (art. 80.Uno LIVA):
+
+:::esquema{kind=tabla title="Reducciones de la base imponible"}
+| Elemento | Contenido | Cita |
+|---|---|---|
+| 1.º | El importe de los envases y embalajes susceptibles de reutilización que hayan sido objeto de devolución | art. 80.Uno LIVA |
+| 2.º | Los descuentos y bonificaciones otorgados con posterioridad al momento en que la operación se haya realizado siempre que sean debidamente justificados | art. 80.Uno LIVA |
+:::
+
+Cuando por resolución firme, judicial o administrativa o con arreglo a Derecho o a los usos de comercio queden sin efecto total o parcialmente las operaciones gravadas o se altere el precio después del momento en que la operación se haya efectuado, la base imponible se modificará en la cuantía correspondiente (art. 80.Dos LIVA).
+
+La base imponible podrá reducirse cuando el destinatario de las operaciones sujetas al Impuesto no haya hecho efectivo el pago de las cuotas repercutidas y siempre que, con posterioridad al devengo de la operación, se dicte auto de declaración de concurso. La modificación, en su caso, no podrá efectuarse después de transcurrido el plazo de dos meses contados a partir del fin del plazo máximo fijado en el número 5.º del apartado 1 del artículo 21 de la Ley 22/2003, de 9 de julio, Concursal (art. 80.Tres LIVA).
+
+A estos efectos (art. 80.Cuatro LIVA):
+
+:::esquema{kind=tabla title="Créditos incobrables: condiciones, plazo y nueva modificación"}
+| Elemento | Contenido | Cita |
+|---|---|---|
+| A) | Un crédito se considerará total o parcialmente incobrable cuando reúna las siguientes condiciones: | art. 80.Cuatro LIVA |
+| A) 1.ª | Que haya transcurrido un año desde el devengo del Impuesto repercutido sin que se haya obtenido el cobro de todo o parte del crédito derivado del mismo. | art. 80.Cuatro LIVA |
+| A) 1.ª | No obstante, cuando se trate de operaciones a plazos o con precio aplazado, deberá haber transcurrido un año desde el vencimiento del plazo o plazos impagados a fin de proceder a la reducción proporcional de la base imponible. | art. 80.Cuatro LIVA |
+| A) 1.ª | A estos efectos, se considerarán operaciones a plazos o con precio aplazado aquéllas en las que se haya pactado que su contraprestación deba hacerse efectiva en pagos sucesivos o en uno sólo, respectivamente, siempre que el período transcurrido entre el devengo del Impuesto repercutido y el vencimiento del último o único pago sea superior a un año. | art. 80.Cuatro LIVA |
+| A) 1.ª | Cuando el titular del derecho de crédito cuya base imponible se pretende reducir sea un empresario o profesional cuyo volumen de operaciones, calculado conforme a lo dispuesto en el artículo 121 de esta Ley, no hubiese excedido durante el año natural inmediato anterior de 6.010.121,04 euros, el plazo a que se refiere esta condición 1.ª podrá ser, de seis meses o un año. | art. 80.Cuatro LIVA |
+| A) 1.ª | En el caso de operaciones a las que sea de aplicación el régimen especial del criterio de caja esta condición se entenderá cumplida en la fecha de devengo del impuesto que se produzca por aplicación de la fecha límite del 31 de diciembre a que se refiere el artículo 163 terdecies de esta Ley. | art. 80.Cuatro LIVA |
+| A) 1.ª | No obstante lo previsto en el párrafo anterior, cuando se trate de operaciones a plazos o con precio aplazado será necesario que haya transcurrido el plazo de seis meses o un año a que se refiere esta regla 1.ª, desde el vencimiento del plazo o plazos correspondientes hasta la fecha de devengo de la operación | art. 80.Cuatro LIVA |
+| A) 2.ª | Que esta circunstancia haya quedado reflejada en los Libros Registros exigidos para este Impuesto | art. 80.Cuatro LIVA |
+| A) 3.ª | Que el destinatario de la operación actúe en la condición de empresario o profesional, o, en otro caso, que la base imponible de aquella, Impuesto sobre el Valor Añadido excluido, sea superior a 50 euros | art. 80.Cuatro LIVA |
+| A) 4.ª | Que el sujeto pasivo haya instado su cobro mediante reclamación judicial al deudor o por medio de requerimiento notarial al mismo, o por cualquier otro medio que acredite fehacientemente la reclamación del cobro a aquel, incluso cuando se trate de créditos afianzados por Entes públicos. | art. 80.Cuatro LIVA |
+| A) 4.ª | Cuando se trate de las operaciones a plazos a que se refiere la condición 1.ª anterior, resultará suficiente instar el cobro de uno de ellos mediante cualquiera de los medios a los que se refiere la condición 4.ª anterior para proceder a la modificación de la base imponible en la proporción que corresponda por el plazo o plazos impagados. | art. 80.Cuatro LIVA |
+| A) 4.ª | Cuando se trate de créditos adeudados por Entes públicos, los medios a los que se refiere la condición 4.ª anterior se sustituirán por una certificación expedida por el órgano competente del Ente público deudor de acuerdo con el informe del Interventor o Tesorero de aquel en el que conste el reconocimiento de la obligación a cargo del mismo y su cuantía | art. 80.Cuatro LIVA |
+| B) | La modificación deberá realizarse en el plazo de los seis meses siguientes a la finalización del periodo de seis meses o un año a que se refiere la condición 1.ª anterior y comunicarse a la Agencia Estatal de Administración Tributaria en el plazo que se fije reglamentariamente. | art. 80.Cuatro LIVA |
+| B) | En el caso de operaciones a las que sea de aplicación el régimen especial del criterio de caja, el plazo de seis meses para realizar la modificación se computará a partir de la fecha límite del 31 de diciembre a que se refiere el artículo 163 terdecies de esta ley | art. 80.Cuatro LIVA |
+| C) | Una vez practicada la reducción de la base imponible, ésta no se volverá a modificar al alza aunque el sujeto pasivo obtuviese el cobro total o parcial de la contraprestación, salvo cuando el destinatario no actúe en la condición de empresario o profesional. | art. 80.Cuatro LIVA |
+| C) | En este caso, se entenderá que el Impuesto sobre el Valor Añadido está incluido en las cantidades percibidas y en la misma proporción que la parte de contraprestación percibida. | art. 80.Cuatro LIVA |
+| C) | No obstante lo dispuesto en el párrafo anterior, cuando el sujeto pasivo desista de la reclamación judicial al deudor o llegue a un acuerdo de cobro con el mismo con posterioridad al requerimiento notarial efectuado, como consecuencia de éste o por cualquier otra causa, deberá modificar nuevamente la base imponible al alza mediante la expedición, en el plazo de un mes a contar desde el desistimiento o desde el acuerdo de cobro, respectivamente, de una factura rectificativa en la que se repercuta la cuota procedente | art. 80.Cuatro LIVA |
+:::
+
+En relación con los supuestos de modificación de la base imponible comprendidos en los apartados tres y cuatro anteriores, se aplicarán las siguientes reglas (art. 80.Cinco LIVA):
+
+:::esquema{kind=tabla title="Reglas de la modificación de la base imponible por concurso o incobrabilidad"}
+| Elemento | Contenido | Cita |
+|---|---|---|
+| 1.ª | No procederá la modificación de la base imponible en los casos siguientes | art. 80.Cinco LIVA |
+| 1.ª a) | Créditos que disfruten de garantía real, en la parte garantizada. | art. 80.Cinco LIVA |
+| 1.ª b) | Créditos afianzados por entidades de crédito o sociedades de garantía recíproca o cubiertos por un contrato de seguro de crédito o de caución, en la parte afianzada o asegurada. | art. 80.Cinco LIVA |
+| 1.ª c) | Créditos entre personas o entidades vinculadas definidas en el artículo 79, apartado cinco, de esta Ley. | art. 80.Cinco LIVA |
+| 1.ª d) | Créditos adeudados o afianzados por Entes públicos. | art. 80.Cinco LIVA |
+| 1.ª d) | Lo dispuesto en esta letra d) no se aplicará a la reducción de la base imponible realizada de acuerdo con el apartado cuatro del artículo 80 de esta Ley para los créditos que se consideren total o parcialmente incobrables, sin perjuicio de la necesidad de cumplir con el requisito de acreditación documental del impago a que se refiere la condición 4.ª de dicho precepto. | art. 80.Cinco LIVA |
+| 2.ª | Tampoco procederá la modificación de la base imponible cuando el destinatario de las operaciones no esté establecido en el territorio de aplicación del Impuesto, ni en Canarias, Ceuta o Melilla. | art. 80.Cinco LIVA |
+| 2.ª | Quedan excluidos de lo dispuesto en el párrafo anterior los supuestos de créditos incobrables como consecuencia de un proceso de insolvencia declarado por un órgano jurisdiccional de otro Estado miembro cuando se trate de procedimientos de insolvencia a los que resulte de aplicación el Reglamento (UE) 2015/848 del Parlamento Europeo y del Consejo, de 20 de mayo de 2015, sobre procedimientos de insolvencia, que podrán dar lugar, en su caso, a la modificación de la base imponible del sujeto pasivo en los términos previstos en el artículo 80.tres de esta ley | art. 80.Cinco LIVA |
+| 3.ª | Tampoco procederá la modificación de la base imponible de acuerdo con el apartado cuatro del artículo 80 de esta Ley con posterioridad al auto de declaración de concurso para los créditos correspondientes a cuotas repercutidas por operaciones cuyo devengo se produzca con anterioridad a dicho auto | art. 80.Cinco LIVA |
+| 4.ª | En los supuestos de pago parcial anteriores a la citada modificación, se entenderá que el Impuesto sobre el Valor Añadido está incluido en las cantidades percibidas y en la misma proporción que la parte de contraprestación satisfecha | art. 80.Cinco LIVA |
+| 5.ª | La rectificación de las deducciones del destinatario de las operaciones, que deberá practicarse según lo dispuesto en el artículo 114, apartado dos, número 2.º, cuarto párrafo, de esta Ley, determinará el nacimiento del correspondiente crédito en favor de la Hacienda Pública. | art. 80.Cinco LIVA |
+| 5.ª | Si el destinatario de las operaciones sujetas no hubiese tenido derecho a la deducción total del Impuesto, resultará también deudor frente a la Hacienda Pública por el importe de la cuota del impuesto no deducible. | art. 80.Cinco LIVA |
+| 5.ª | En el supuesto de que el destinatario no actúe en la condición de empresario o profesional y en la medida en que no haya satisfecho dicha deuda, resultará de aplicación lo establecido en el apartado Cuatro C) anterior | art. 80.Cinco LIVA |
+:::
+
+### The case
+
+Papelería Luz repercute el martes 10 de febrero de 2026 una cuota sobre una base de 4.000 euros a Comercial Ruiz, empresario, y no cobra. Con un volumen de operaciones superior a 6.010.121,04 euros el año anterior, el crédito es incobrable al transcurrir un año desde el devengo, el jueves 11 de febrero de 2027 (art. 80.Cuatro LIVA). Además deben constar los Libros Registros y haberse instado el cobro por requerimiento notarial (art. 80.Cuatro LIVA).
+
+## KEY: caso:## Sujetos pasivos#1
+
+### The section as the lesson gives it
+
+Serán sujetos pasivos del Impuesto (art. 84.Uno LIVA):
+
+:::esquema{kind=tabla title="Sujetos pasivos del IVA"}
+| Elemento | Contenido | Cita |
+|---|---|---|
+| 1.º | Las personas físicas o jurídicas que tengan la condición de empresarios o profesionales y realicen las entregas de bienes o presten los servicios sujetos al Impuesto, salvo lo dispuesto en los números siguientes | art. 84.Uno LIVA |
+| 2.º | Los empresarios o profesionales para quienes se realicen las operaciones sujetas al Impuesto en los supuestos que se indican a continuación | art. 84.Uno LIVA |
+| 2.º a) | Cuando las mismas se efectúen por personas o entidades no establecidas en el territorio de aplicación del Impuesto. | art. 84.Uno LIVA |
+| 2.º a) | No obstante, lo dispuesto en esta letra no se aplicará en los siguientes casos: | art. 84.Uno LIVA |
+| 2.º a) a´) | Cuando se trate de prestaciones de servicios en las que el destinatario tampoco esté establecido en el territorio de aplicación del Impuesto, salvo cuando se trate de prestaciones de servicios comprendidas en el número 1.º del apartado uno del artículo 69 de esta Ley. | art. 84.Uno LIVA |
+| 2.º a) b´) | Cuando se trate de las entregas de bienes a que se refiere el artículo 68, apartados tres y cinco de esta Ley. | art. 84.Uno LIVA |
+| 2.º a) c´) | Cuando se trate de entregas de bienes que estén exentas del Impuesto por aplicación de lo previsto en los artículos 20 bis, 21, números 1.º, 2.º y 7.º, o 25 de esta Ley, así como de entregas de bienes referidas en este último artículo que estén sujetas y no exentas del Impuesto. | art. 84.Uno LIVA |
+| 2.º a) d´) | Cuando se trate de prestaciones de servicios de arrendamientos de bienes inmuebles que estén sujetas y no exentas del Impuesto. | art. 84.Uno LIVA |
+| 2.º a) e´) | Cuando se trate de prestaciones de servicios de intermediación en el arrendamiento de bienes inmuebles. | art. 84.Uno LIVA |
+| 2.º b) | Cuando se trate de entregas de oro sin elaborar o de productos semielaborados de oro, de ley igual o superior a 325 milésimas. | art. 84.Uno LIVA |
+| 2.º c) | Cuando se trate de: | art. 84.Uno LIVA |
+| 2.º c) guion 1 | Entregas de desechos nuevos de la industria, desperdicios y desechos de fundición, residuos y demás materiales de recuperación constituidos por metales férricos y no férricos, sus aleaciones, escorias, cenizas y residuos de la industria que contengan metales o sus aleaciones. | art. 84.Uno LIVA |
+| 2.º c) guion 2 | Las operaciones de selección, corte, fragmentación y prensado que se efectúen sobre los productos citados en el guion anterior. | art. 84.Uno LIVA |
+| 2.º c) guion 3 | Entregas de desechos, desperdicios o recortes de plástico. | art. 84.Uno LIVA |
+| 2.º c) guion 4 | Entregas de desperdicios o desechos de papel, cartón o vidrio. | art. 84.Uno LIVA |
+| 2.º c) guion 5 | Entregas de desperdicios o artículos inservibles de trapos, cordeles, cuerdas o cordajes. | art. 84.Uno LIVA |
+| 2.º c) guion 6 | Entregas de productos semielaborados resultantes de la transformación, elaboración o fundición de los metales no férricos referidos en el primer guion, con excepción de los compuestos por níquel. | art. 84.Uno LIVA |
+| 2.º c) guion 6 | En particular, se considerarán productos semielaborados los lingotes, bloques, placas, barras, grano, granalla y alambrón. | art. 84.Uno LIVA |
+| 2.º c) | En todo caso, se considerarán comprendidas en los párrafos anteriores las entregas de los materiales definidos en el anexo de esta ley | art. 84.Uno LIVA |
+| 2.º d) | Cuando se trate de prestaciones de servicios que tengan por objeto derechos de emisión, reducciones certificadas de emisiones y unidades de reducción de emisiones de gases de efecto invernadero a que se refieren la Ley 1/2005, de 9 de marzo, por la que se regula el régimen del comercio de derechos de emisión de gases de efecto invernadero y el Real Decreto 1031/2007, de 20 de julio, por el que se desarrolla el marco de participación en los mecanismos de flexibilidad del Protocolo de Kioto. | art. 84.Uno LIVA |
+| 2.º e) | Cuando se trate de las siguientes entregas de bienes inmuebles: | art. 84.Uno LIVA |
+| 2.º e) guion 1 | Las entregas efectuadas como consecuencia de un proceso concursal. | art. 84.Uno LIVA |
+| 2.º e) guion 2 | Las entregas exentas a que se refieren los apartados 20.º y 22.º del artículo 20.Uno en las que el sujeto pasivo hubiera renunciado a la exención. | art. 84.Uno LIVA |
+| 2.º e) guion 3 | Las entregas efectuadas en ejecución de la garantía constituida sobre los bienes inmuebles, entendiéndose, asimismo, que se ejecuta la garantía cuando se transmite el inmueble a cambio de la extinción total o parcial de la deuda garantizada o de la obligación de extinguir la referida deuda por el adquirente. | art. 84.Uno LIVA |
+| 2.º f) | Cuando se trate de ejecuciones de obra, con o sin aportación de materiales, así como las cesiones de personal para su realización, consecuencia de contratos directamente formalizados entre el promotor y el contratista que tengan por objeto la urbanización de terrenos o la construcción o rehabilitación de edificaciones. | art. 84.Uno LIVA |
+| 2.º f) | Lo establecido en el párrafo anterior será también de aplicación cuando los destinatarios de las operaciones sean a su vez el contratista principal u otros subcontratistas en las condiciones señaladas. | art. 84.Uno LIVA |
+| 2.º g) | Cuando se trate de entregas de los siguientes productos definidos en el apartado décimo del anexo de esta Ley: | art. 84.Uno LIVA |
+| 2.º g) guion 1 | Plata, platino y paladio, en bruto, en polvo o semilabrado; se asimilarán a los mismos las entregas que tengan por objeto dichos metales resultantes de la realización de actividades de transformación por el empresario o profesional adquirente. | art. 84.Uno LIVA |
+| 2.º g) guion 1 | En todo caso ha de tratarse de productos que no estén incluidos en el ámbito de aplicación del régimen especial aplicable a los bienes usados, objetos de arte, antigüedades y objetos de colección. | art. 84.Uno LIVA |
+| 2.º g) guion 2 | Teléfonos móviles. | art. 84.Uno LIVA |
+| 2.º g) guion 3 | Consolas de videojuegos, ordenadores portátiles y tabletas digitales. | art. 84.Uno LIVA |
+| 2.º g) | Lo previsto en estos dos últimos guiones solo se aplicará cuando el destinatario sea | art. 84.Uno LIVA |
+| 2.º g) guion 3 a´) | Un empresario o profesional revendedor de estos bienes, cualquiera que sea el importe de la entrega. | art. 84.Uno LIVA |
+| 2.º g) guion 3 b´) | Un empresario o profesional distinto de los referidos en la letra anterior, cuando el importe total de las entregas de dichos bienes efectuadas al mismo, documentadas en la misma factura, exceda de 10.000 euros, excluido el Impuesto sobre el Valor Añadido. | art. 84.Uno LIVA |
+| 2.º g) guion 3 b´) | A efectos del cálculo del límite mencionado, se atenderá al importe total de las entregas realizadas cuando, documentadas en más de una factura, resulte acreditado que se trate de una única operación y que se ha producido el desglose artificial de la misma a los únicos efectos de evitar la aplicación de esta norma. | art. 84.Uno LIVA |
+| 2.º g) | La acreditación de la condición del empresario o profesional a que se refieren las dos letras anteriores deberá realizarse con carácter previo o simultáneo a la adquisición, en las condiciones que se determinen reglamentariamente | art. 84.Uno LIVA |
+| 2.º g) | Las entregas de dichos bienes, en los casos en que sean sujetos pasivos del Impuesto sus destinatarios conforme a lo establecido en este número 2.°, deberán documentarse en una factura mediante serie especial | art. 84.Uno LIVA |
+| 3.º | Las personas jurídicas que no actúen como empresarios o profesionales pero sean destinatarias de las operaciones sujetas al Impuesto que se indican a continuación realizadas por empresarios o profesionales no establecidos en el territorio de aplicación del mismo | art. 84.Uno LIVA |
+| 3.º a) | Las entregas subsiguientes a las adquisiciones intracomunitarias a que se refiere el artículo 26, apartado Tres, de esta Ley, cuando hayan comunicado al empresario o profesional que las realiza el número de identificación que, a efectos del Impuesto sobre el Valor Añadido, tengan asignado por la Administración española. | art. 84.Uno LIVA |
+| 3.º b) | Las prestaciones de servicios a que se refieren los artículos 69 y 70 de esta Ley. | art. 84.Uno LIVA |
+| 4.º | Sin perjuicio de lo dispuesto en los números anteriores, los empresarios o profesionales, así como las personas jurídicas que no actúen como empresarios o profesionales, que sean destinatarios de entregas de gas y electricidad o las entregas de calor o de frío a través de las redes de calefacción o de refrigeración que se entiendan realizadas en el territorio de aplicación del impuesto conforme a lo dispuesto en el artículo 68.Seis de esta Ley, siempre que la entrega la efectúe un empresario o profesional no establecido en el citado territorio y le hayan comunicado el número de identificación que a efectos del impuesto sobre el valor añadido tengan asignado por la Administración española | art. 84.Uno LIVA |
+:::
+
+Tienen la consideración de sujetos pasivos las herencias yacentes, comunidades de bienes y demás entidades que, careciendo de personalidad jurídica, constituyan una unidad económica o un patrimonio separado susceptible de imposición, cuando realicen operaciones sujetas al Impuesto (art. 84.Tres LIVA).
+
+En las adquisiciones intracomunitarias de bienes los sujetos pasivos del impuesto serán quienes las realicen, de conformidad con lo previsto en el artículo 71 de esta Ley (art. 85 LIVA).
+
+Serán sujetos pasivos del Impuesto quienes realicen las importaciones (art. 86.Uno LIVA).
+
+Serán responsables solidarios de la deuda tributaria que corresponda satisfacer al sujeto pasivo, los destinatarios de las operaciones que, mediante acción u omisión culposa o dolosa, eludan la correcta repercusión del impuesto (art. 87.Uno LIVA).
+
+A estos efectos, la responsabilidad alcanzará a la sanción que pueda proceder (art. 87.Uno LIVA).
+
+Serán responsables subsidiarios del pago del impuesto las personas o entidades que actúen en nombre y por cuenta del importador (art. 87.Tres LIVA).
+
+1. Serán responsables subsidiarios de las cuotas tributarias correspondientes a las operaciones gravadas que hayan de satisfacer los sujetos pasivos aquellos destinatarios de las mismas que sean empresarios o profesionales, que debieran razonablemente presumir que el Impuesto repercutido o que hubiera debido repercutirse por el empresario o profesional que las realiza, o por cualquiera de los que hubieran efectuado la adquisición y entrega de los bienes de que se trate, no haya sido ni va a ser objeto de declaración e ingreso (art. 87.Cinco LIVA).
+
+2. A estos efectos, se considerará que los destinatarios de las operaciones mencionadas en el número anterior debían razonablemente presumir que el Impuesto repercutido o que hubiera debido repercutirse no ha sido ni será objeto de declaración e ingreso, cuando, como consecuencia de ello, hayan satisfecho por ellos un precio notoriamente anómalo (art. 87.Cinco LIVA).
+
+Se entenderá por precio notoriamente anómalo (art. 87.Cinco LIVA):
+
+:::esquema{kind=tabla title="Precio notoriamente anómalo"}
+| Elemento | Contenido | Cita |
+|---|---|---|
+| a) | El que sea sensiblemente inferior al correspondiente a dichos bienes en las condiciones en que se ha realizado la operación o al satisfecho en adquisiciones anteriores de bienes idénticos. | art. 87.Cinco LIVA |
+| b) | El que sea sensiblemente inferior al precio de adquisición de dichos bienes por parte de quien ha efectuado su entrega. | art. 87.Cinco LIVA |
+:::
+
+Una vez que la Administración tributaria haya constatado la concurrencia de los requisitos establecidos en los apartados anteriores declarará la responsabilidad conforme a lo dispuesto en el artículo 41.5 de la Ley 58/2003, General Tributaria (art. 87.Cinco.4 LIVA).
+
+:::note{type=warning}
+**No confundir.**
+
+- «Serán responsables solidarios de la deuda tributaria que corresponda satisfacer al sujeto pasivo, los destinatarios de las operaciones que, mediante acción u omisión culposa o dolosa, eludan la correcta repercusión del impuesto» (art. 87.Uno LIVA).
+- «Serán responsables subsidiarios de las cuotas tributarias correspondientes a las operaciones gravadas que hayan de satisfacer los sujetos pasivos aquellos destinatarios de las mismas que sean empresarios o profesionales, que debieran razonablemente presumir que el Impuesto repercutido o que hubiera debido repercutirse por el empresario o profesional que las realiza, o por cualquiera de los que hubieran efectuado la adquisición y entrega de los bienes de que se trate, no haya sido ni va a ser objeto de declaración e ingreso» (art. 87.Cinco.1 LIVA).
+:::
+
+### The case
+
+Inmuebles Zeta, S.L., en proceso concursal, entrega en 2027 un local a Comercial Tajo, S.A., empresario. Sujeto pasivo es el empresario para quien se realiza la operación, Comercial Tajo (art. 84.Uno.2.º.e LIVA). Una comunidad de bienes sin personalidad jurídica que realiza operaciones sujetas, por constituir una unidad económica, también es sujeto pasivo (art. 84.Tres LIVA).
+
+## KEY: caso:## Repercusión del impuesto#1
+
+### The section as the lesson gives it
+
+Los sujetos pasivos deberán repercutir íntegramente el importe del impuesto sobre aquel para quien se realice la operación gravada, quedando éste obligado a soportarlo siempre que la repercusión se ajuste a lo dispuesto en esta Ley, cualesquiera que fueran las estipulaciones existentes entre ellos (art. 88.Uno LIVA).
+
+La repercusión del Impuesto deberá efectuarse mediante factura en las condiciones y con los requisitos que se determinen reglamentariamente (art. 88.Dos LIVA).
+
+A estos efectos, la cuota repercutida se consignará separadamente de la base imponible, incluso en el caso de precios fijados administrativamente, indicando el tipo impositivo aplicado (art. 88.Dos LIVA).
+
+La repercusión del Impuesto deberá efectuarse al tiempo de expedir y entregar la factura correspondiente (art. 88.Tres LIVA).
+
+Se perderá el derecho a la repercusión cuando haya transcurrido un año desde la fecha del devengo (art. 88.Cuatro LIVA).
+
+El destinatario de la operación gravada por el Impuesto sobre el Valor Añadido no estará obligado a soportar la repercusión del mismo con anterioridad al momento del devengo de dicho impuesto (art. 88.Cinco LIVA).
+
+### The case
+
+Pinturas Luna, S.L. devenga una cuota el miércoles 10 de febrero de 2027. Debe repercutirla al tiempo de expedir y entregar la factura (art. 88.Tres LIVA). Si no la ha repercutido y el martes 15 de febrero de 2028 ya ha transcurrido un año desde la fecha del devengo, pierde el derecho a la repercusión (art. 88.Cuatro LIVA).
+
+## KEY: caso:### Rectificación de las cuotas repercutidas#1
+
+### The section as the lesson gives it
+
+Los sujetos pasivos deberán efectuar la rectificación de las cuotas impositivas repercutidas cuando el importe de las mismas se hubiese determinado incorrectamente o se produzcan las circunstancias que, según lo dispuesto en el artículo 80 de esta Ley, dan lugar a la modificación de la base imponible (art. 89.Uno LIVA).
+
+La rectificación deberá efectuarse en el momento en que se adviertan las causas de la incorrecta determinación de las cuotas o se produzcan las demás circunstancias a que se refiere el párrafo anterior, siempre que no hubiesen transcurrido cuatro años a partir del momento en que se devengó el impuesto correspondiente a la operación o, en su caso, se produjeron las circunstancias a que se refiere el citado artículo 80 (art. 89.Uno LIVA).
+
+No obstante lo dispuesto en los apartados anteriores, no procederá la rectificación de las cuotas impositivas repercutidas en los siguientes casos (art. 89.Tres LIVA):
+
+:::esquema{kind=tabla title="Casos en que no procede la rectificación de las cuotas repercutidas"}
+| Elemento | Contenido | Cita |
+|---|---|---|
+| 1.º | Cuando la rectificación no esté motivada por las causas previstas en el artículo 80 de esta Ley, implique un aumento de las cuotas repercutidas y los destinatarios de las operaciones no actúen como empresarios o profesionales, salvo en supuestos de elevación legal de los tipos impositivos, en que la rectificación podrá efectuarse en el mes en que tenga lugar la entrada en vigor de los nuevos tipos impositivos y en el siguiente | art. 89.Tres LIVA |
+| 2.º | Cuando sea la Administración Tributaria la que ponga de manifiesto, a través de las correspondientes liquidaciones, cuotas impositivas devengadas y no repercutidas mayores que las declaradas por el sujeto pasivo y resulte acreditado, mediante datos objetivos, que dicho sujeto pasivo participaba en un fraude, o que sabía o debía haber sabido, utilizando al efecto una diligencia razonable, que realizaba una operación que formaba parte de un fraude | art. 89.Tres LIVA |
+:::
+
+Cuando la rectificación de las cuotas implique un aumento de las inicialmente repercutidas y no haya mediado requerimiento previo, el sujeto pasivo deberá presentar una declaración-liquidación rectificativa aplicándose a la misma el recargo y los intereses de demora que procedan de conformidad con lo establecido en los artículos 26 y 27 de la Ley General Tributaria (art. 89.Cinco LIVA).
+
+Cuando la rectificación determine una minoración de las cuotas inicialmente repercutidas, el sujeto pasivo podrá optar por cualquiera de las dos alternativas siguientes (art. 89.Cinco LIVA):
+
+:::esquema{kind=tabla title="Alternativas en la minoración de las cuotas repercutidas"}
+| Elemento | Contenido | Cita |
+|---|---|---|
+| a) | Iniciar ante la Administración Tributaria el procedimiento de rectificación de autoliquidaciones previsto en el artículo 120.3 de la Ley 58/2003, de 17 de diciembre, General Tributaria, y en su normativa de desarrollo. | art. 89.Cinco LIVA |
+| b) | Regularizar la situación tributaria en la declaración-liquidación correspondiente al periodo en que deba efectuarse la rectificación o en las posteriores hasta el plazo de un año a contar desde el momento en que debió efectuarse la mencionada rectificación. | art. 89.Cinco LIVA |
+| b) | En este caso, el sujeto pasivo estará obligado a reintegrar al destinatario de la operación el importe de las cuotas repercutidas en exceso. | art. 89.Cinco LIVA |
+| b) | En los supuestos en que la operación gravada quede sin efecto como consecuencia del ejercicio de una acción de reintegración concursal u otras de impugnación ejercitadas en el seno del concurso, el sujeto pasivo deberá proceder a la rectificación de las cuotas inicialmente repercutidas en la declaración-liquidación correspondiente al periodo en que fueron declaradas las cuotas devengadas. | art. 89.Cinco LIVA |
+:::
+
+:::note{type=warning}
+**No confundir.**
+
+- «Se perderá el derecho a la repercusión cuando haya transcurrido un año desde la fecha del devengo» (art. 88.Cuatro LIVA).
+- La rectificación de las cuotas repercutidas «deberá efectuarse en el momento en que se adviertan las causas de la incorrecta determinación de las cuotas o se produzcan las demás circunstancias a que se refiere el párrafo anterior, siempre que no hubiesen transcurrido cuatro años a partir del momento en que se devengó el impuesto correspondiente a la operación o, en su caso, se produjeron las circunstancias a que se refiere el citado artículo 80» (art. 89.Uno LIVA).
+:::
+
+La expedición de la factura rectificativa deberá efectuarse tan pronto como el obligado a expedirla tenga constancia de las circunstancias que, conforme a los apartados anteriores, obligan a su expedición, siempre que no hubiesen transcurrido cuatro años a partir del momento en que se devengó el Impuesto o, en su caso, se produjeron las circunstancias a que se refiere el artículo 80 de la Ley del Impuesto (art. 15.3 RD 1619/2012).
+
+### The case
+
+Mueblería Pino calculó mal una cuota devengada el miércoles 20 de mayo de 2026 y lo advierte el viernes 12 de noviembre de 2027. No han transcurrido cuatro años desde el devengo, así que debe rectificarla al advertirlo (art. 89.Uno LIVA). Si la rectificación aumenta la cuota y no hubo requerimiento previo, presenta una declaración-liquidación rectificativa con el recargo y los intereses de demora que procedan (art. 89.Cinco LIVA).
+
+## KEY: caso:### Requisitos subjetivos de la deducción#1
+
+### The section as the lesson gives it
+
+Podrán hacer uso del derecho a deducir los sujetos pasivos del Impuesto que tengan la condición de empresarios o profesionales de conformidad con lo dispuesto en el artículo 5 de esta Ley y hayan iniciado la realización habitual de entregas de bienes o prestaciones de servicios correspondientes a sus actividades empresariales o profesionales (art. 93.Uno LIVA).
+
+No obstante lo dispuesto en el párrafo anterior, las cuotas soportadas o satisfechas con anterioridad al inicio de la realización habitual de entregas de bienes o prestaciones de servicios correspondientes a sus actividades empresariales o profesionales podrán deducirse con arreglo a lo dispuesto en los artículos 111, 112 y 113 de esta Ley (art. 93.Uno LIVA).
+
+También podrán hacer uso del derecho a deducir los sujetos pasivos del Impuesto que realicen con carácter ocasional las entregas de los medios de transporte nuevos a que se refiere el artículo 25, apartados uno y dos de esta Ley (art. 93.Dos LIVA).
+
+No podrán ser objeto de deducción, en ninguna medida ni cuantía, las cuotas soportadas o satisfechas por las adquisiciones o importaciones de bienes o servicios efectuadas sin la intención de utilizarlos en la realización de actividades empresariales o profesionales, aunque ulteriormente dichos bienes o servicios se afecten total o parcialmente a las citadas actividades (art. 93.Cuatro LIVA).
+
+### The case
+
+Carlos es empresario y ya realiza habitualmente entregas de bienes de su actividad: puede hacer uso del derecho a deducir (art. 93.Uno LIVA). Compra un portátil sin intención de usarlo en su actividad y lo afecta a ella después. Sus cuotas no pueden deducirse en ninguna medida ni cuantía (art. 93.Cuatro LIVA).
+
+## KEY: caso:### Limitaciones del derecho a deducir#1
+
+### The section as the lesson gives it
+
+Los empresarios o profesionales no podrán deducir las cuotas soportadas o satisfechas por las adquisiciones o importaciones de bienes o servicios que no se afecten, directa y exclusivamente, a su actividad empresarial o profesional (art. 95.Uno LIVA).
+
+No se entenderán afectos directa y exclusivamente a la actividad empresarial o profesional, entre otros (art. 95.Dos LIVA):
+
+:::esquema{kind=tabla title="Bienes que no se entienden afectos directa y exclusivamente a la actividad"}
+| Elemento | Contenido | Cita |
+|---|---|---|
+| 1.º | Los bienes que se destinen habitualmente a dicha actividad y a otras de naturaleza no empresarial ni profesional por períodos de tiempo alternativos | art. 95.Dos LIVA |
+| 2.º | Los bienes o servicios que se utilicen simultáneamente para actividades empresariales o profesionales y para necesidades privadas | art. 95.Dos LIVA |
+| 3.º | Los bienes o derechos que no figuren en la contabilidad o registros oficiales de la actividad empresarial o profesional del sujeto pasivo | art. 95.Dos LIVA |
+| 4.º | Los bienes y derechos adquiridos por el sujeto pasivo que no se integren en su patrimonio empresarial o profesional | art. 95.Dos LIVA |
+| 5.º | Los bienes destinados a ser utilizados en la satisfacción de necesidades personales o particulares de los empresarios o profesionales, de sus familiares o del personal dependiente de los mismos, con excepción de los destinados al alojamiento gratuito en los locales o instalaciones de la empresa del personal encargado de la vigilancia y seguridad de los mismos, y a los servicios económicos y socio-culturales del personal al servicio de la actividad | art. 95.Dos LIVA |
+:::
+
+No obstante lo dispuesto en los apartados anteriores, las cuotas soportadas por la adquisición, importación, arrendamiento o cesión de uso por otro título de los bienes de inversión que se empleen en todo o en parte en el desarrollo de la actividad empresarial o profesional podrán deducirse de acuerdo con las siguientes reglas (art. 95.Tres LIVA):
+
+:::esquema{kind=tabla title="Reglas de deducción de los bienes de inversión"}
+| Elemento | Contenido | Cita |
+|---|---|---|
+| 1.ª | Cuando se trate de bienes de inversión distintos de los comprendidos en la regla siguiente, en la medida en que dichos bienes vayan a utilizarse previsiblemente, de acuerdo con criterios fundados, en el desarrollo de la actividad empresarial o profesional | art. 95.Tres LIVA |
+| 2.ª | Cuando se trate de vehículos automóviles de turismo y sus remolques, ciclomotores y motocicletas, se presumirán afectados al desarrollo de la actividad empresarial o profesional en la proporción del 50 por 100. | art. 95.Tres LIVA |
+| 2.ª | A estos efectos, se considerarán automóviles de turismo, remolques, ciclomotores y motocicletas los definidos como tales en el anexo del Real Decreto Legislativo 339/1990, de 2 de marzo, por el que se aprueba el texto articulado de la Ley sobre Tráfico, Circulación de Vehículos a Motor y Seguridad Vial, así como los definidos como vehículos mixtos en dicho anexo y, en todo caso, los denominados vehículos todo terreno o tipo "jeep''. | art. 95.Tres LIVA |
+| 2.ª | No obstante lo dispuesto en esta regla 2.ª, los vehículos que se relacionan a continuación se presumirán afectados al desarrollo de la actividad empresarial o profesional en la proporción del 100 por 100 | art. 95.Tres LIVA |
+| 2.ª a) | Los vehículos mixtos utilizados en el transporte de mercancías. | art. 95.Tres LIVA |
+| 2.ª b) | Los utilizados en la prestación de servicios de transporte de viajeros mediante contraprestación. | art. 95.Tres LIVA |
+| 2.ª c) | Los utilizados en la prestación de servicios de enseñanza de conductores o pilotos mediante contraprestación. | art. 95.Tres LIVA |
+| 2.ª d) | Los utilizados por sus fabricantes en la realización de pruebas, ensayos, demostraciones o en la promoción de ventas. | art. 95.Tres LIVA |
+| 2.ª e) | Los utilizados en los desplazamientos profesionales de los representantes o agentes comerciales. | art. 95.Tres LIVA |
+| 2.ª f) | Los utilizados en servicios de vigilancia. | art. 95.Tres LIVA |
+| 3.ª | Las deducciones a que se refieren las reglas anteriores deberán regularizarse cuando se acredite que el grado efectivo de utilización de los bienes en el desarrollo de la actividad empresarial o profesional es diferente del que se haya aplicado inicialmente. | art. 95.Tres LIVA |
+| 3.ª | La mencionada regularización se ajustará al procedimiento establecido en el capítulo I del título VIII de esta Ley para la deducción y regularización de las cuotas soportadas por la adquisición de los bienes de inversión, sustituyendo el porcentaje de operaciones que originan derecho a la deducción respecto del total por el porcentaje que represente el grado de utilización en el desarrollo de la actividad empresarial o profesional | art. 95.Tres LIVA |
+| 4.ª | El grado de utilización en el desarrollo de la actividad empresarial o profesional deberá acreditarse por el sujeto pasivo por cualquier medio de prueba admitido en derecho. | art. 95.Tres LIVA |
+| 4.ª | No será medio de prueba suficiente la declaración-liquidación presentada por el sujeto pasivo ni la contabilización o inclusión de los correspondientes bienes de inversión en los registros oficiales de la actividad empresarial o profesional | art. 95.Tres LIVA |
+| 5.ª | A efectos de lo dispuesto en este apartado, no se entenderán afectos en ninguna proporción a una actividad empresarial o profesional los bienes que se encuentren en los supuestos previstos en los números 3.º y 4.º del apartado dos de este artículo | art. 95.Tres LIVA |
+:::
+
+### The case
+
+Rosa, empresaria, contrata el 3 de mayo de 2027 un servicio de limpieza que usa en parte para su casa. No lo afecta directa y exclusivamente a su actividad, así que no puede deducir las cuotas soportadas (art. 95.Uno LIVA). Si fuera un bien de inversión empleado en todo o en parte en la actividad, podría deducirlas con las reglas del apartado Tres (art. 95.Tres LIVA).
+
+## KEY: caso:### Requisitos formales de la deducción#1
+
+### The section as the lesson gives it
+
+Sólo podrán ejercitar el derecho a la deducción los empresarios o profesionales que estén en posesión del documento justificativo de su derecho (art. 97.Uno LIVA).
+
+A estos efectos, únicamente se considerarán documentos justificativos del derecho a la deducción (art. 97.Uno LIVA):
+
+:::esquema{kind=tabla title="Documentos justificativos del derecho a la deducción"}
+| Elemento | Contenido | Cita |
+|---|---|---|
+| 1.º | La factura original expedida por quien realice la entrega o preste el servicio o, en su nombre y por su cuenta, por su cliente o por un tercero, siempre que, para cualquiera de estos casos, se cumplan los requisitos que se establezcan reglamentariamente | art. 97.Uno LIVA |
+| 2.º | La factura original expedida por quien realice una entrega que dé lugar a una adquisición intracomunitaria de bienes sujeta al impuesto, siempre que dicha adquisición esté debidamente consignada en la declaración-liquidación a que se refiere el número 6.º del apartado uno del artículo 164 de esta ley | art. 97.Uno LIVA |
+| 3.º | En el caso de las importaciones, el documento en el que conste la liquidación practicada por la Administración o, si se trata de operaciones asimiladas a las importaciones, la autoliquidación en la que se consigne el Impuesto devengado con ocasión de su realización | art. 97.Uno LIVA |
+| 4.º | La factura original o el justificante contable de la operación expedido por quien realice una entrega de bienes o una prestación de servicios al destinatario, sujeto pasivo del Impuesto, en los supuestos a que se refieren los números 2.º, 3.º y 4.º del apartado uno del artículo 84 y el artículo 140 quinque de esta Ley, siempre que dicha entrega o prestación esté debidamente consignada en la declaración-liquidación a que se refiere el número 6.º del apartado uno del artículo 164 de esta Ley. | art. 97.Uno LIVA |
+| 4.º | Cuando quien realice la entrega de bienes o la prestación de servicios esté establecido en la Comunidad, la factura original a que se refiere el párrafo anterior deberá contener los requisitos recogidos en el artículo 226 de la Directiva 2006/112/CE, del Consejo, de 28 de noviembre de 2006, relativa al sistema común del impuesto sobre el valor añadido | art. 97.Uno LIVA |
+| 5.º | El recibo original firmado por el titular de la explotación agrícola, forestal, ganadera o pesquera a que se refiere el artículo 134, apartado tres, de esta ley | art. 97.Uno LIVA |
+:::
+
+Los documentos anteriores que no cumplan todos y cada uno de los requisitos establecidos legal y reglamentariamente no justificarán el derecho a la deducción, salvo que se produzca la correspondiente rectificación de los mismos.
+
+### The case
+
+Gráficas Vega recibe una factura de 1.210 euros, con 210 euros de cuota, que incumple un requisito legal. Solo puede deducir si posee el documento justificativo de su derecho (art. 97.Uno LIVA). Un documento que no cumpla todos los requisitos legales y reglamentarios no justifica el derecho, salvo que se rectifique (art. 97 LIVA).
+
+## KEY: caso:### Ejercicio del derecho a deducir#1
+
+### The section as the lesson gives it
+
+En las declaraciones-liquidaciones correspondientes a cada uno de los períodos de liquidación, los sujetos pasivos podrán deducir globalmente el montante total de las cuotas deducibles soportadas en dicho período del importe total de las cuotas del Impuesto sobre el Valor Añadido devengadas durante el mismo período de liquidación en el territorio de aplicación del Impuesto como consecuencia de las entregas de bienes, adquisiciones intracomunitarias de bienes o prestaciones de servicios por ellos realizadas (art. 99.Uno LIVA).
+
+El derecho a la deducción solo podrá ejercitarse en la declaración-liquidación relativa al periodo de liquidación en que su titular haya soportado las cuotas deducibles o en las de los sucesivos, siempre que no hubiera transcurrido el plazo de cuatro años, contados a partir del nacimiento del mencionado derecho (art. 99.Tres LIVA).
+
+Se entenderán soportadas las cuotas deducibles en el momento en que el empresario o profesional que las soportó reciba la correspondiente factura o demás documentos justificativos del derecho a la deducción (art. 99.Cuatro LIVA).
+
+Cuando la cuantía de las deducciones procedentes supere el importe de las cuotas devengadas en el mismo periodo de liquidación, el exceso podrá ser compensado en las declaraciones-liquidaciones posteriores, siempre que no hubiesen transcurrido cuatro años contados a partir de la presentación de la declaración-liquidación en que se origine dicho exceso (art. 99.Cinco LIVA).
+
+No obstante, el sujeto pasivo podrá optar por la devolución del saldo existente a su favor cuando resulte procedente en virtud de lo dispuesto en el Capítulo II de este Título, sin que en tal caso pueda efectuar su compensación en declaraciones-liquidaciones posteriores, cualquiera que sea el periodo de tiempo transcurrido hasta que dicha devolución se haga efectiva (art. 99.Cinco LIVA).
+
+### The case
+
+Mueblería Pino recibe la factura el lunes 3 de mayo de 2027, y entonces se entienden soportadas las cuotas (art. 99.Cuatro LIVA). Puede deducirlas en la declaración-liquidación de ese período o en las siguientes, antes de que pasen cuatro años desde el nacimiento del derecho (art. 99.Tres LIVA). Si sus deducciones superan las cuotas devengadas, puede compensar el exceso en declaraciones posteriores u optar por la devolución cuando proceda (art. 99.Cinco LIVA).
+
+## KEY: caso:### Caducidad del derecho a la deducción#1
+
+### The section as the lesson gives it
+
+El derecho a la deducción caduca cuando el titular no lo hubiera ejercitado en los plazos y cuantías señalados en el artículo 99 de esta Ley (art. 100 LIVA).
+
+### The case
+
+El derecho a deducir de Gráficas Vega nació el miércoles 10 de febrero de 2027 y no lo ejerce. El artículo 99 lo permite dentro de cuatro años desde su nacimiento (art. 99.Tres LIVA). El martes 11 de febrero de 2031 ya han transcurrido, y el derecho caduca por no haberse ejercitado en el plazo señalado (art. 100 LIVA).
+
+## KEY: caso:## Régimen de deducciones en sectores diferenciados#1
+
+### The section as the lesson gives it
+
+A efectos de la LIVA, se consideran sectores diferenciados de la actividad empresarial o profesional los siguientes (art. 9.1.º.c) LIVA):
+
+- a') Aquellos en los que las actividades económicas realizadas y los regímenes de deducción aplicables sean distintos.
+- b') Las actividades acogidas a los regímenes especiales simplificado, de la agricultura, ganadería y pesca, de las operaciones con oro de inversión o del recargo de equivalencia.
+- c') Las operaciones de arrendamiento financiero a que se refiere la disposición adicional tercera de la Ley 10/2014, de 26 de junio, de ordenación, supervisión y solvencia de entidades de crédito.
+- d') Las operaciones de cesión de créditos o préstamos, con excepción de las realizadas en el marco de un contrato de «factoring».
+
+- Se consideran actividades económicas distintas las que tengan asignados grupos diferentes en la Clasificación Nacional de Actividades Económicas (art. 9.1.º.c) LIVA).
+- No se reputa distinta la actividad accesoria a otra cuando, en el año precedente, su volumen de operaciones no excediera del 15 por 100 del de esta última y, además, contribuya a su realización (art. 9.1.º.c) LIVA).
+- Los regímenes de deducción se consideran distintos si los porcentajes de deducción, determinados con arreglo al artículo 104, que resultarían aplicables en la actividad o actividades distintas de la principal difirieran en más de 50 puntos porcentuales del correspondiente a la actividad principal (art. 9.1.º.c) LIVA).
+- Se considera principal la actividad en la que se hubiese realizado mayor volumen de operaciones durante el año inmediato anterior (art. 9.1.º.c) LIVA).
+
+Los sujetos pasivos que realicen actividades económicas en sectores diferenciados de la actividad empresarial o profesional deberán aplicar separadamente el régimen de deducciones respecto de cada uno de ellos (art. 101.Uno LIVA).
+
+La aplicación de la regla de prorrata especial podrá efectuarse independientemente respecto de cada uno de los sectores diferenciados de la actividad empresarial o profesional determinados por aplicación de lo dispuesto en el artículo 9, número 1.º, letra c), letras a´), c´) y d´) de esta Ley (art. 101.Uno LIVA).
+
+Los regímenes de deducción correspondientes a los sectores diferenciados de actividad determinados por aplicación de lo dispuesto en el artículo 9, número 1.º, letra c), letra b´) de esta Ley se regirán, en todo caso, por lo previsto en la misma para los regímenes especiales simplificado, de la agricultura, ganadería y pesca, de las operaciones con oro de inversión y del recargo de equivalencia, según corresponda (art. 101.Uno LIVA).
+
+Cuando se efectúen adquisiciones o importaciones de bienes o servicios para su utilización en común en varios sectores diferenciados de actividad, será de aplicación lo establecido en el artículo 104, apartados dos y siguientes de esta Ley, para determinar el porcentaje de deducción aplicable respecto de las cuotas soportadas en dichas adquisiciones o importaciones, computándose a tal fin las operaciones realizadas en los sectores diferenciados correspondientes y considerándose que, a tales efectos, no originan el derecho a deducir las operaciones incluidas en el régimen especial de la agricultura, ganadería y pesca o en el régimen especial del recargo de equivalencia (art. 101.Uno LIVA).
+
+La Administración podrá autorizar la aplicación de un régimen de deducción común a los sectores diferenciados de la actividad empresarial o profesional del sujeto pasivo determinados únicamente por aplicación de lo dispuesto en el artículo 9, número 1.o, letra c), letra a´) de esta Ley (art. 101.Dos LIVA).
+
+La autorización no surtirá efectos en el año en que el montante total de las cuotas deducibles por la aplicación del régimen de deducción común exceda en un 20 por 100 al que resultaría de aplicar con independencia el régimen de deducciones respecto de cada sector diferenciado (art. 101.Dos LIVA).
+
+### The case
+
+Comercial Lago tiene una actividad principal, con mayor volumen de operaciones el año anterior, y otra con un grupo distinto en la CNAE. El porcentaje de deducción de la segunda sería 40 y el de la principal 100: difieren en más de 50 puntos, así que los regímenes son distintos (art. 9.1.º.c LIVA). Son sectores diferenciados y aplica separadamente las deducciones a cada uno (art. 101.Uno LIVA).
+
+## KEY: caso:## Regla de prorrata#1
+
+### The section as the lesson gives it
+
+La regla de prorrata será de aplicación cuando el sujeto pasivo, en el ejercicio de su actividad empresarial o profesional, efectúe conjuntamente entregas de bienes o prestaciones de servicios que originen el derecho a la deducción y otras operaciones de análoga naturaleza que no habiliten para el ejercicio del citado derecho (art. 102.Uno LIVA).
+
+No obstante lo dispuesto en el apartado anterior, los sujetos pasivos podrán deducir íntegramente las cuotas soportadas en las adquisiciones o importaciones de bienes o en las prestaciones de servicios en la medida en que se destinen a la realización de los autoconsumos a que se refiere el artículo 9, número 1.º, letra c), que tengan por objeto bienes constitutivos de las existencias y de los autoconsumos comprendidos en la letra d) del mismo artículo y número de esta Ley (art. 102.Dos LIVA).
+
+La regla de prorrata tendrá dos modalidades de aplicación: general y especial (art. 103.Uno LIVA).
+
+La regla de prorrata general se aplicará cuando no se den las circunstancias indicadas en el apartado siguiente (art. 103.Uno LIVA).
+
+La regla de prorrata especial será aplicable en los siguientes supuestos (art. 103.Dos LIVA):
+
+:::esquema{kind=tabla title="Supuestos de prorrata especial"}
+| Elemento | Contenido | Cita |
+|---|---|---|
+| 1.º | Cuando los sujetos pasivos opten por la aplicación de dicha regla en los plazos y forma que se determinen reglamentariamente | art. 103.Dos LIVA |
+| 2.º | Cuando el montante total de las cuotas deducibles en un año natural por aplicación de la regla de prorrata general exceda en un 10 por ciento o más del que resultaría por aplicación de la regla de prorrata especial | art. 103.Dos LIVA |
+:::
+
+### The case
+
+Clínica Sol realiza entregas que originan el derecho a la deducción y otras operaciones que no lo originan: aplica la regla de prorrata (art. 102.Uno LIVA). En 2027 las cuotas deducibles por la prorrata general son 50.000 euros y por la especial serían 44.000. Exceden en un 10 por ciento o más, así que se aplica la prorrata especial (art. 103.Dos LIVA).
+
+## KEY: caso:### Prorrata especial#1
+
+### The section as the lesson gives it
+
+En la prorrata especial el ejercicio del derecho a deducir se ajusta a estas reglas (art. 106.Uno LIVA):
+
+- 1.ª Las cuotas soportadas en la adquisición o importación de bienes o servicios utilizados exclusivamente en la realización de operaciones que originen el derecho a la deducción pueden deducirse íntegramente.
+- 2.ª Las cuotas soportadas en bienes o servicios utilizados exclusivamente en la realización de operaciones que no originen el derecho a deducir no pueden ser objeto de deducción.
+- 3.ª Las cuotas soportadas en bienes o servicios utilizados sólo en parte en la realización de operaciones que originen el derecho a la deducción pueden deducirse en la proporción resultante de aplicar al importe global de las mismas el porcentaje a que se refiere el artículo 104, apartados Dos y siguientes.
+
+En ningún caso pueden ser objeto de deducción las cuotas no deducibles en virtud de los artículos 95 y 96 (art. 106.Dos LIVA).
+
+### The case
+
+Ferretería Alba soporta 10.000 euros de cuotas en bienes usados exclusivamente en operaciones con derecho a deducir: las deduce íntegramente (art. 106.Uno.1.ª LIVA). Otros 4.000 euros, usados solo en operaciones sin derecho, no se deducen (art. 106.Uno.2.ª LIVA). En 6.000 euros de uso parcial, con porcentaje del 60, deduce 3.600 euros (art. 106.Uno.3.ª LIVA).
+
+## KEY: caso:## Regularización de deducciones por bienes de inversión#1
+
+### The section as the lesson gives it
+
+Las cuotas deducibles por la adquisición o importación de bienes de inversión deberán regularizarse durante los cuatro años naturales siguientes a aquel en que los sujetos pasivos realicen las citadas operaciones (art. 107.Uno LIVA).
+
+Las regularizaciones indicadas en este apartado sólo se practicarán cuando, entre el porcentaje de deducción definitivo correspondiente a cada uno de dichos años y el que prevaleció en el año en que se soportó la repercusión, exista una diferencia superior a diez puntos (art. 107.Uno LIVA).
+
+Tratándose de terrenos o edificaciones, las cuotas deducibles por su adquisición deberán regularizarse durante los nueve años naturales siguientes a la correspondiente adquisición (art. 107.Tres LIVA).
+
+A los efectos de este impuesto, se considerarán de inversión los bienes corporales, muebles, semovientes o inmuebles que, por su naturaleza y función, estén normalmente destinados a ser utilizados por un período de tiempo superior a un año como instrumentos de trabajo o medios de explotación (art. 108.Uno LIVA).
+
+No tendrán la consideración de bienes de inversión (art. 108.Dos LIVA):
+
+:::esquema{kind=tabla title="Bienes que no son de inversión"}
+| Elemento | Contenido | Cita |
+|---|---|---|
+| 1.º | Los accesorios y piezas de recambio adquiridos para la reparación de los bienes de inversión utilizados por el sujeto pasivo | art. 108.Dos LIVA |
+| 2.º | Las ejecuciones de obra para la reparación de otros bienes de inversión | art. 108.Dos LIVA |
+| 3.º | Los envases y embalajes, aunque sean susceptibles de reutilización | art. 108.Dos LIVA |
+| 4.º | Las ropas utilizadas para el trabajo por los sujetos pasivos o el personal dependiente | art. 108.Dos LIVA |
+| 5.º | Cualquier otro bien cuyo valor de adquisición sea inferior a quinientas mil pesetas | art. 108.Dos LIVA |
+:::
+
+La regularización de las deducciones a que se refiere el artículo 107 de esta Ley se realizará del siguiente modo (art. 109 LIVA):
+
+1.º Conocido el porcentaje de deducción definitivamente aplicable en cada uno de los años en que deba tener lugar la regularización, se determinará el importe de la deducción que procedería si la repercusión de las cuotas se hubiese soportado en el año que se considere (art. 109 LIVA).
+
+2.º Dicho importe se restará del de la deducción efectuada en el año en que tuvo lugar la repercusión (art. 109 LIVA).
+
+3.º La diferencia positiva o negativa se dividirá por cinco o, tratándose de terrenos o edificaciones, por diez, y el cociente resultante será la cuantía del ingreso o de la deducción complementarios a efectuar (art. 109 LIVA).
+
+En los casos de entregas de bienes de inversión durante el período de regularización se efectuará una regularización única por el tiempo de dicho período que quede por transcurrir (art. 110.Uno LIVA).
+
+A tal efecto, se aplicarán las siguientes reglas (art. 110.Uno LIVA):
+
+:::esquema{kind=tabla title="Reglas de la entrega de bienes de inversión durante el período de regularización"}
+| Elemento | Contenido | Cita |
+|---|---|---|
+| 1.º | Si la entrega estuviere sujeta al impuesto y no exenta, se considerará que el bien de inversión se empleó exclusivamente en la realización de operaciones que originan el derecho a deducir durante todo el año en que se realizó dicha entrega y en los restantes hasta la expiración del período de regularización. | art. 110.Uno LIVA |
+| 1.º | No obstante, no será deducible la diferencia entre la cantidad que resulte de la aplicación de lo dispuesto en el párrafo anterior y el importe de la cuota devengada por la entrega del bien | art. 110.Uno LIVA |
+| 2.º | Si la entrega resultare exenta o no sujeta, se considerará que el bien de inversión se empleó exclusivamente en la realización de operaciones que no originan el derecho a deducir durante todo el año en que se realizó dicha entrega y en los restantes hasta la expiración del período de regularización. | art. 110.Uno LIVA |
+| 2.º | La regla establecida en el párrafo anterior también será de aplicación en los supuestos en que el sujeto pasivo destinase bienes de inversión a fines que, con arreglo a lo establecido en los artículos 95 y 96 de esta Ley, determinen la aplicación de limitaciones, exclusiones o restricciones del derecho a deducir, durante todo el año en que se produjesen dichas circunstancias y los restantes hasta la terminación del período de regularización. | art. 110.Uno LIVA |
+| 2.º | Se exceptúan de lo previsto en el primer párrafo de esta regla las entregas de bienes de inversión exentas o no sujetas que originen el derecho a la deducción, a las que se aplicará la regla primera. | art. 110.Uno LIVA |
+| 2.º | Las deducciones que procedan en este caso no podrán exceder de la cuota que resultaría de aplicar el tipo impositivo vigente en relación con las entregas de bienes de la misma naturaleza al valor interior de los bienes exportados o enviados a otro Estado miembro de la Comunidad | art. 110.Uno LIVA |
+:::
+
+:::note{type=warning}
+**No confundir.**
+
+- La regla de prorrata especial será aplicable «cuando el montante total de las cuotas deducibles en un año natural por aplicación de la regla de prorrata general exceda en un 10 por ciento o más del que resultaría por aplicación de la regla de prorrata especial» (art. 103.Dos.2.º LIVA).
+- Las regularizaciones de las cuotas de bienes de inversión «sólo se practicarán cuando, entre el porcentaje de deducción definitivo correspondiente a cada uno de dichos años y el que prevaleció en el año en que se soportó la repercusión, exista una diferencia superior a diez puntos» (art. 107.Uno LIVA).
+:::
+
+### The case
+
+Talleres Ribera adquiere en 2026 una máquina y un local. Las cuotas de la máquina se regularizan durante los cuatro años naturales siguientes y las del local, por ser edificación, durante nueve (arts. 107.Uno y 107.Tres LIVA). Solo se regulariza un año si su porcentaje definitivo difiere en más de diez puntos del que prevaleció en 2026: con 8 puntos no, con 15 sí (art. 107.Uno LIVA).
+
+## KEY: caso:## Devoluciones#1
+
+### The section as the lesson gives it
+
+Los sujetos pasivos que no hayan podido hacer efectivas las deducciones originadas en un período de liquidación por el procedimiento del artículo 99, por exceder la cuantía de las mismas de la de las cuotas devengadas, tienen derecho a solicitar la devolución del saldo a su favor existente a 31 de diciembre de cada año en la autoliquidación correspondiente al último período de liquidación de dicho año (art. 115.Uno LIVA). Los sujetos pasivos del artículo 116 tienen derecho a solicitar la devolución del saldo a su favor existente al término de cada período de liquidación (art. 115.Dos LIVA).
+
+- La Administración practica, en su caso, liquidación provisional dentro de los seis meses siguientes al término del plazo previsto para la presentación de la autoliquidación en que se solicite la devolución; si esa autoliquidación se hubiera presentado fuera de plazo, los seis meses se computan desde la fecha de su presentación (art. 115.Tres LIVA).
+- Cuando de la autoliquidación o de la liquidación provisional resulte cantidad a devolver, la Administración tributaria procede a su devolución de oficio (art. 115.Tres LIVA).
+- El procedimiento de devolución es el previsto en los artículos 124 a 127 de la LGT y en su normativa de desarrollo (art. 115.Tres LIVA).
+- Si la liquidación provisional no se hubiera practicado en el plazo, la Administración devuelve de oficio el importe total de la cantidad solicitada, sin perjuicio de las liquidaciones provisionales o definitivas ulteriores que pudieran resultar procedentes (art. 115.Tres LIVA).
+- Transcurrido el plazo establecido en el primer párrafo de este apartado sin que se haya ordenado el pago de la devolución por causa imputable a la Administración tributaria, se aplicará a la cantidad pendiente de devolución el interés de demora a que se refiere el artículo 26.6 de la Ley General Tributaria, desde el día siguiente al de la finalización de dicho plazo y hasta la fecha del ordenamiento de su pago, sin necesidad de que el sujeto pasivo así lo reclame (art. 115.Tres LIVA).
+
+Los sujetos pasivos pueden optar por solicitar la devolución del saldo a su favor existente al término de cada período de liquidación conforme a las condiciones, términos, requisitos y procedimiento que se establezcan reglamentariamente; el período de liquidación de los que opten por este procedimiento coincide con el mes natural, con independencia de su volumen de operaciones (art. 116.Uno LIVA).
+
+Para poder ejercitar el derecho a la devolución establecido en los artículos 116 y 163 nonies de la Ley del Impuesto, los sujetos pasivos deberán estar inscritos en el registro de devolución mensual regulado en este artículo. En otro caso, sólo podrán solicitar la devolución del saldo que tengan a su favor al término del último período de liquidación de cada año natural de acuerdo con lo dispuesto en el artículo 115.uno de la Ley del Impuesto (art. 30.1 RIVA).
+
+Serán inscritos en el registro, previa solicitud, los sujetos pasivos en los que concurran los siguientes requisitos (art. 30.3 RIVA):
+
+:::esquema{kind=tabla title="Requisitos de inscripción en el registro de devolución mensual"}
+| Elemento | Contenido | Cita |
+|---|---|---|
+| a) | Que soliciten la inscripción mediante la presentación de una declaración censal, en el lugar y forma que establezca el Ministro de Economía y Hacienda. | art. 30.3 RIVA |
+| b) | Que se encuentren al corriente de sus obligaciones tributarias, en los términos a que se refiere el artículo 74 del Reglamento General de las actuaciones y los procedimientos de gestión e inspección tributaria y de desarrollo de las normas comunes de los procedimientos de aplicación de los tributos, aprobado por el Real Decreto 1065/2007, de 27 de julio. | art. 30.3 RIVA |
+| c) | Que no se encuentren en alguno de los supuestos que podrían dan lugar a la baja cautelar en el registro de devolución mensual o a la revocación del número de identificación fiscal, previstos en los artículos 144.4 y 146.1 b), c) y d) del Reglamento General de las actuaciones y los procedimientos de gestión e inspección tributaria y de desarrollo de las normas comunes de los procedimientos de aplicación de los tributos, aprobado por el Real Decreto 1065/2007, de 27 de julio. | art. 30.3 RIVA |
+| d) | Que no realicen actividades que tributen en el régimen simplificado. | art. 30.3 RIVA |
+| e) | En el caso de entidades acogidas al régimen especial del grupo de entidades regulado en el capítulo IX del título IX de la Ley del Impuesto, la inscripción en el registro sólo procederá cuando todas las entidades del grupo que apliquen dicho régimen especial así lo hayan acordado y reúnan los requisitos establecidos en este apartado. | art. 30.3 RIVA |
+| e) | El incumplimiento de los requisitos por parte de cualquiera de estas entidades conllevará la no admisión o, en su caso, la exclusión del registro de devolución mensual de la totalidad de las entidades del grupo que apliquen el régimen especial. | art. 30.3 RIVA |
+| e) | La solicitud de inscripción en el registro y, en su caso, la solicitud de baja, deberán ser presentadas a la Administración tributaria por la entidad dominante y habrán de referirse a la totalidad de las entidades del grupo que apliquen el régimen especial. | art. 30.3 RIVA |
+| e) | Las actuaciones dirigidas a tramitar las solicitudes de inscripción o baja en el registro, así como a la comprobación del mantenimiento de los requisitos de acceso al mismo en relación con entidades ya inscritas, se entenderán con la entidad dominante en su condición de representante del grupo de acuerdo con lo dispuesto por el artículo 163 nonies.dos de la Ley del Impuesto. | art. 30.3 RIVA |
+:::
+
+Las solicitudes de inscripción en el registro se presentarán en el mes de noviembre del año anterior a aquél en que deban surtir efectos. La inscripción en el registro se realizará desde el día 1 de enero del año en el que deba surtir efectos (art. 30.4 RIVA).
+
+En el régimen de viajeros del artículo 21, número 2.º, la devolución de las cuotas soportadas en las adquisiciones de bienes se ajusta a los requisitos y procedimiento que se establezcan reglamentariamente (art. 117.Uno LIVA).
+
+- La Administración tributaria puede exigir de los sujetos pasivos la prestación de garantías suficientes en los supuestos de devolución regulados en el capítulo II del título VIII (art. 118 LIVA).
+
+### The case
+
+Impresiones Vega no pudo deducir en 2026 cuotas que excedían las devengadas y solicita la devolución del saldo a 31 de diciembre en la última autoliquidación del año (art. 115.Uno LIVA). La presenta fuera de plazo el martes 16 de febrero de 2027: la Administración practica la liquidación provisional dentro de los seis meses desde esa fecha, hasta el lunes 16 de agosto de 2027 (art. 115.Tres LIVA).
+

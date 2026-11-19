@@ -1,0 +1,2 @@
+| caso:### Iniciativa legislativa#1 | PASS | Diputada con la firma de catorce miembros más y Grupo con la sola firma de su portavoz son las dos vías del art. 126.1 RC; la frase final reproduce el art. 87.1 CE. |
+| caso:### Elección#1 | PASS | Propuesta por la Comisión Mixta (art. 2.3, leído del PDF); 10-3-2026 es martes y 25-3-2026 miércoles: la ratificación por tres quintos del Senado llega 15 días después, dentro del máximo de veinte (art. 2.4); cinco años (art. 2.1). |

@@ -1,9 +1,7 @@
-"""normativa.py: rebuild a lesson's «Normativa» lines from what the assembled lesson cites, exactly.
+"""normativa.py: a lesson's «Normativa» block from the citations the lesson contains, through the registry's norm index.
 
-One line per norm of the pool's «Normativa» (its label kept) that the assembled text still cites in parentheses or
-prose: «arts.» then the article units as cited (paragraph level, ranges as written), sorted. A pool line's non-article
-tokens (disposiciones, preámbulo) stay when the assembled text names them. Derived text, not a verified sentence: it
-goes to the blind check like any new line.
+One line per norm (by id, never by name similarity): «arts.» then the cited articles, runs of three or more merged into a
+range, then the cited disposiciones. Lines that name a norm without citing it («nombrado en…») are kept as they stand.
 """
 
 from __future__ import annotations
@@ -12,98 +10,136 @@ import re
 import sys
 from pathlib import Path
 
-HERE = Path(__file__).resolve().parent
-sys.path.insert(0, str(HERE))
-from lesson_model import references_full  # noqa: E402
+ROOT = Path(__file__).resolve().parents[5]
+sys.path.insert(0, str(ROOT / "backend" / "src"))
 
-AMBIGUOUS = {"RD", "LO", "RDL", "RDLeg", "Ley", "Orden", "Real", "Decreto", "Reglamento", "Resolución"}
-SUFFIX = ("bis", "ter", "quater")
+from tradeschool.citations.grammar import _DISPOSICION  # noqa: E402
+from tradeschool.citations.lesson import LessonCitation, scan_lesson  # noqa: E402
+from tradeschool.citations.norms import Norm, NormIndex  # noqa: E402
 
-
-def article_tokens(body: str) -> list[str]:
-    """«29.1», «201 bis.3», «34–52», «8.Dos.4.º» as written, one per unit; «152.1 y 2» is 152.1 and 152.2."""
-    raw = body.split()
-    tokens = [t.rstrip(",;") for t in raw]
-    out: list[str] = []
-    glue = False  # after «,» or «y» following a dotted unit: a bare number or ordinal is a sibling of that unit
-    i = 0
-    while i < len(tokens):
-        bare = tokens[i]
-        nxt = tokens[i + 1] if i + 1 < len(tokens) else ""
-        if re.match(r"^\d", bare):
-            same_article = len({o.split(".")[0].split(" ")[0] for o in out}) == 1
-            sibling = glue and out and "." in out[-1] and nxt.split(".")[0] not in SUFFIX
-            if sibling and same_article and re.fullmatch(r"\d+", bare) and not raw[i - 1].endswith(","):
-                out.append(out[-1].rsplit(".", 1)[0] + "." + bare)
-            elif sibling and re.fullmatch(r"\d+\.[ºª]", bare) and re.search(r"\.\d+\.[ºª]$", out[-1]):
-                out.append(out[-1].rsplit(".", 2)[0] + "." + bare)
-            else:
-                out.append(bare)
-            glue = raw[i].endswith(",") and "." in bare
-        elif out and bare.split(".")[0] in SUFFIX:
-            out[-1] = f"{out[-1]} {bare}"
-        elif bare in ("y", "and") and out and "." in out[-1]:
-            glue = True
-        elif bare != "y":
-            glue = False
-        i += 1
-    return out
+COURSE = ROOT / "content" / "aeat-agentes-hacienda"
+LESSONS = COURSE / "es" / "lessons"
+NORM_KINDS = {"da": "adicional", "dt": "transitoria", "df": "final", "dd": "derogatoria"}
+EN_DASH = "\N{EN DASH}"
 
 
-def cited(text: str) -> list[tuple[str, str, list[str]]]:
-    """(norm token, 24 characters after it, article tokens) for each reference in the text."""
-    return [(norm, tail, article_tokens(body)) for body, norm, tail in references_full(text)]
+def load_index() -> tuple[NormIndex, dict[str, str]]:
+    markdown = {p.stem: p.read_text(encoding="utf-8") for p in LESSONS.glob("*.md")}
+    return NormIndex.load(COURSE / "sources" / "normativa.yaml", markdown.values()), markdown
 
 
-def _matches(label: str, norm: str, tail: str) -> bool:
-    if norm in AMBIGUOUS:
-        number = re.search(r"\d+/\d+|\d+", tail)
-        return bool(number) and f"{norm} {number.group(0)}" in label
-    return bool(re.search(rf"(?<![\w]){re.escape(norm)}(?![\w])", label))
+def _groups(citation: LessonCitation) -> list[LessonCitation]:
+    return [citation, *citation.also]
 
 
-def _sort_key(token: str) -> tuple[int, str]:
-    m = re.match(r"\d+", token)
-    return (int(m.group(0)) if m else 0, token)
+def _disposiciones(citation: LessonCitation) -> list[str]:
+    """«disposición adicional cuarta» per disposición unit, in the order the citation names them."""
+    named = [
+        f"disposición {m['kind']}" + (f" {m['ord']}" if m["ord"] else "")
+        for m in (_DISPOSICION.match(part) for part in re.split(r"(?=disposici[oó]n)", citation.text) if part)
+        if m
+    ]
+    units = [u for u in citation.units if u.kind in NORM_KINDS]
+    if len(named) == len(units):
+        return named
+    return [f"disposición {NORM_KINDS[u.kind]} {u.number}" for u in units]
 
 
-def _other_tokens(old_rest: str, body: str) -> list[str]:
-    """Pool tokens that are not article numbers (disposiciones, preámbulo) and that the text still names."""
-    kept = []
-    for clause in old_rest.split(";"):
-        if "nombrad" in clause:
+def _article_sort(number: str) -> tuple[int, str]:
+    head = re.match(r"\d+", number)
+    return (int(head.group(0)) if head else 0, number)
+
+
+def _article_pieces(plain: set[int], suffixed: set[str]) -> list[str]:
+    runs: list[list[int]] = []
+    for value in sorted(plain):
+        if runs and runs[-1][-1] == value - 1:
+            runs[-1].append(value)
+        else:
+            runs.append([value])
+    pieces = [(run[0], f"{run[0]}{EN_DASH}{run[-1]}") if len(run) >= 3 else None for run in runs]
+    out: list[tuple[tuple[int, str], str]] = []
+    for run, piece in zip(runs, pieces, strict=True):
+        if piece:
+            out.append(((run[0], ""), piece[1]))
+        else:
+            out.extend(((value, ""), str(value)) for value in run)
+    out.extend((_article_sort(s), s) for s in suffixed)
+    return [text for _, text in sorted(out)]
+
+
+def _line(norm: Norm, arts: set[int], suffixed: set[str], others: list[str]) -> str:
+    pieces = _article_pieces(arts, suffixed)
+    parts: list[str] = []
+    if pieces:
+        label = "art." if len(pieces) == 1 and EN_DASH not in pieces[0] else "arts."
+        parts.append(f"{label} {', '.join(pieces[:-1])} y {pieces[-1]}" if len(pieces) > 1 else f"{label} {pieces[0]}")
+    parts.extend(others)
+    body = parts[0] if len(parts) == 1 else ", ".join(parts[:-1]) + f" y {parts[-1]}"
+    # a line that ends in a bare article number would read as a list marker
+    return f"- {norm.short}: {body}" if re.search(r"\bart\. \d+$", body) else f"- {norm.short}: {body}."
+
+
+def derive(lesson_id: str, text: str, index: NormIndex, existing: list[str]) -> list[str]:
+    found = scan_lesson(lesson_id, text, index)
+    arts: dict[str, set[int]] = {}
+    suffixed: dict[str, set[str]] = {}
+    others: dict[str, list[str]] = {}
+    norms: dict[str, Norm] = {}
+    for item in found.items:
+        if item.section == "normativa":
             continue
-        for token in re.split(r",\s+|\s+y\s+(?=disposici|preámbulo)", clause.split(":")[-1].strip().rstrip(".")):
-            token = re.sub(r"^arts?\.\s+", "", token).strip()
-            if token and not re.match(r"^\d", token) and re.match(r"(disposici|preámbulo)", token):
-                if token[:28] in body:
-                    kept.append(token)
-    return kept
+        for group in _groups(item):
+            if group.norm is None:
+                continue
+            slug = group.norm.slug
+            norms[slug] = group.norm
+            plain = arts.setdefault(slug, set())
+            for lo, hi in group.ranges:
+                plain.update(range(lo, hi + 1))
+            for unit in group.units:
+                if unit.kind == "art":
+                    head = unit.number
+                    (plain.add(int(head)) if head.isdigit() else suffixed.setdefault(slug, set()).add(head))
+                elif unit.kind in NORM_KINDS:
+                    continue
+                else:
+                    label = unit.kind if unit.kind != "preambulo" else "preámbulo"
+                    piece = label if not unit.number else f"{label} {unit.number}"
+                    others.setdefault(slug, [])
+                    if piece not in others[slug]:
+                        others[slug].append(piece)
+            for piece in _disposiciones(group):
+                bucket = others.setdefault(slug, [])
+                if piece not in bucket:
+                    bucket.append(piece)
+    kept = [line for line in existing if " nombrad" in line or "Otras fuentes" in line or "no figura" in line]
+    order = {Norm_label: i for i, Norm_label in enumerate(re.match(r"- ([^:]+):", line)[1] for line in existing if re.match(r"- ([^:]+):", line))}
+    lines = [_line(norms[s], {a for a in arts.get(s, set()) if a}, suffixed.get(s, set()), others.get(s, [])) for s in norms]
+    lines = [x for x in lines if not x.endswith(": .")]
+    lines.sort(key=lambda x: order.get(re.match(r"- ([^:]+):", x)[1], len(order)))
+    return lines + [k for k in kept if re.match(r"- ([^:]+?)[:,]", k)[1] not in {re.match(r"- ([^:]+):", x)[1] for x in lines}]
 
 
-def rebuild_line(line: str, body: str, body_cites: list[tuple[str, str, list[str]]]) -> str | None:
-    label, _, rest = line[2:].partition(":")
-    tokens: set[str] = set()
-    for norm, tail, found in body_cites:
-        if _matches(label, norm, tail):
-            tokens.update(found)
-    pieces = sorted(tokens, key=_sort_key) + _other_tokens(rest, body)
-    if not pieces:
-        return None
-    word = "art." if len(pieces) == 1 and re.match(r"^\d", pieces[0]) and not re.search(r"[\N{EN DASH}-]", pieces[0]) else "arts."
-    listing = pieces[0] if len(pieces) == 1 else ", ".join(pieces[:-1]) + f" y {pieces[-1]}"
-    text = f"- {label}: {word} {listing}" if re.match(r"^\d", pieces[0]) else f"- {label}: {listing}"
-    # «art. 89.» would read as a list marker: a line that ends in a bare article number takes no final period
-    return text if re.search(r"\sart\. \d+$", text) else text + "."
+def block_lines(text: str) -> list[str]:
+    start = text.find("\n## Normativa")
+    return [x for x in text[start:].splitlines() if x.startswith("- ")] if start >= 0 else []
 
 
-def derive(body_text: str, pool_lines: list[str]) -> list[str]:
-    body_cites = cited(body_text)
-    out = []
-    for line in pool_lines:
-        if not line.startswith("- "):
-            continue
-        new = rebuild_line(line, body_text, body_cites)
-        if new:
-            out.append(new)
-    return out
+def rewrite(lesson_id: str, index: NormIndex, markdown: dict[str, str], write: bool) -> list[str]:
+    text = markdown[lesson_id]
+    cut = text.find("\n## Normativa")
+    body = text[:cut] if cut >= 0 else text
+    lines = derive(lesson_id, text, index, block_lines(text))
+    if write and lines:
+        (LESSONS / f"{lesson_id}.md").write_text(body.rstrip("\n") + "\n\n## Normativa\n\n" + "\n".join(lines) + "\n", encoding="utf-8")
+    return lines
+
+
+if __name__ == "__main__":
+    idx, md = load_index()
+    write = "--write" in sys.argv
+    ids = [a for a in sys.argv[1:] if not a.startswith("--")] or sorted(k for k in md if k != "m00-l01")
+    for lesson in ids:
+        for line in rewrite(lesson, idx, md, write):
+            print(f"{lesson}\t{line[:230]}")

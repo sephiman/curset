@@ -1,0 +1,9 @@
+| KEY | Verdict | Reason |
+|---|---|---|
+| caso:## Recargos del período ejecutivo#1 | PASS | 6.000 × 5 % = 300, with no intereses (28.2, 28.5). 6.000 × 20 % = 1.200, compatible with intereses (28.4, 28.5). |
+| caso:## Plazos de pago de las deudas apremiadas#1 | PASS | Notification on Wednesday 19-05-2027 (16th to last day) → day 5 of the next month, Saturday 05-06-2027, not hábil → Monday 07-06-2027 (62.5.b). |
+| caso:### Medidas cautelares#1 | FAIL | «Sus efectos cesan en el plazo de seis meses desde su adopción ... salvo que se amplíe mediante acuerdo motivado» gives ampliación as the only exception. 81.7 lists five (a–e): conversion into embargos, the circumstances disappearing, substitution by another garantía, ampliación, and adoption in the art. 253 procedure (24 months). The case also counts the 6 months from the notification date («se le notifica» on 02-02-2027), but 81.7 counts from adoption, which the case never dates. The arithmetic is right: 02-02-2027 + 6 months = Monday 02-08-2027. |
+| caso:### Iniciación del período ejecutivo#1 | PASS | Vencimiento on Friday 20-11-2026 → período ejecutivo would start on Saturday 21-11 (161.1.a). The aplazamiento filed in voluntary period on Tuesday 10-11 prevents that during tramitación (161.2). Minor: the case does not state that no earlier request was denied (161.2 párr. 2). |
+| caso:### Carácter del procedimiento#1 | PASS | 163.2 is followed, with both exceptions named (conflictos jurisdiccionales legislation and art. 164). |
+| caso:### Concurrencia de procedimientos#1 | PASS | Apremio embargo on 03-03-2026 is older than the one on 10-09-2026, so apremio is preferente. The date is that of the diligencia de embargo (164.1.1º, 77.1 RGR). Minor: the opening «sin perjuicio del orden de prelación» of 164.1 is not mentioned. |
+| caso:## Ejecución de garantías#1 | PASS | The guarantee is executed first. The Administración «puede optar» for other assets in the two cases of 168. |

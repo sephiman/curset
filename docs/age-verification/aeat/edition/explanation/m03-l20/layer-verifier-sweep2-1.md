@@ -1,0 +1,6 @@
+| caso:## Representación aduanera#1 | PASS | Art. 18.1 CAU: directa = en nombre y por cuenta de otro; indirecta = en nombre propio por cuenta de otro; art. 19.1: quien omite declarar que actúa como representante actúa en nombre propio y por cuenta propia. 12-1-2027 es martes. |
+| caso:## Valor en aduana#1 | PASS | Art. 70.1 CAU: valor de transacción = precio realmente pagado o por pagar, ajustado; art. 72.a: no se incluye el transporte posterior a la entrada en el territorio aduanero de la Unión. |
+| caso:### Despacho a libre práctica e importación temporal#1 | PASS | Art. 77.1.a y 77.2 CAU: nace con la admisión de la declaración (martes 12-1-2027); 77.3: el declarante es deudor y, en representación indirecta (en nombre propio por cuenta de Carla), también la persona por cuya cuenta se declara. |
+| caso:### Deuda nacida por incumplimiento#1 | PASS | Art. 79.1.a CAU (retirada de la vigilancia aduanera), 79.2.a (momento del incumplimiento), 79.3.a (persona a la que se exigía la obligación). 3-3-2027 es miércoles. |
+| caso:## Depósito temporal#1 | PASS | Art. 144 CAU: depósito temporal desde la presentación (lunes 4-1-2027); del 4-1 al martes 2-3-2027 hay 57 días, antes de los 90 del art. 149. |
+| caso:### Declaración en aduana#1 | PASS | Art. 158.1 CAU: declaración apropiada para todo régimen salvo zona franca; 15-2-2027 es lunes. |

@@ -1,0 +1,7 @@
+| key | verdict | reason |
+|---|---|---|
+| caso:## Interesados, capacidad y representación#1 | PASS | Recurso en nombre de otro exige acreditar la representación (5.3); diez días para subsanar (5.6); apud acta por comparecencia electrónica en sede acredita (5.4); ocho días cae dentro de los diez; el «no se tendría por realizado» es la lectura a contrario de 5.6. |
+| caso:### Lengua de los procedimientos#1 | PASS | Órgano de la AGE con sede en CA: puede usar la cooficial y se tramita en la elegida; con discrepancia entre interesados, castellano y documentos en la lengua elegida por cada uno (15.1). |
+| caso:### Documentos aportados por los interesados#1 | PASS | Derecho a no aportar documentos en poder de la Administración actuante, consulta salvo oposición, sin oposición posible en potestades sancionadoras o de inspección (28.2). |
+| caso:## Obligación de resolver#1 | PASS | Sin plazo en la norma: tres meses desde la entrada en el registro electrónico (21.3.b); 2/3/2026 (lunes) + 3 meses = 2/6/2026, que es martes, mismo ordinal (30.4). |
+| caso:## Términos y plazos#1 | PASS | Notificación viernes 13/11/2026; cinco días hábiles desde el lunes 16: 16, 17, 18, 19, 20 → viernes 20 (30.2, 30.3). Sábado 21 en registro electrónico se entiende presentado la primera hora del primer hábil siguiente, lunes 23 (31.2.b); los días de semana son correctos (el resultado implícito es que queda fuera de plazo). |

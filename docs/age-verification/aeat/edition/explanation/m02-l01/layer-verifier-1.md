@@ -1,0 +1,6 @@
+| KEY | Verdict | Reason |
+|---|---|---|
+| caso:## La ley#1 | FAIL | «una ley que desarrolla el régimen electoral general, materia de ley orgánica (art. 81.1 CE)»: art. 81.1 reserves to ley orgánica the laws «que aprueben ... el régimen electoral general»; «desarrollo» is the verb it uses for derechos fundamentales y libertades públicas. The reader may learn that any law developing electoral matters is orgánica. Fix: «una ley que aprueba/regula el régimen electoral general». Date (Wednesday 14 Oct 2026) and the art. 81.2 mayoría absoluta step are correct. |
+| caso:### El decreto legislativo#1 | PASS | Refundición → ley ordinaria, textos articulados → ley de bases (art. 82.2); expresa, materia concreta, plazo fijado (art. 82.3). Thursday 5 March 2026 is correct. |
+| caso:### El decreto-ley#1 | PASS | Art. 86.1: extraordinaria y urgente necesidad; Decretos-leyes «no podrán afectar ... al Derecho electoral general», so the content is barred. Monday 2 Nov 2026 is correct. |
+| caso:### Las normas de la Unión dentro del ordenamiento español#1 | PASS | Art. 288 TFUE: directiva obliga al Estado destinatario en cuanto al resultado, forma y medios a las autoridades nacionales; decisión obligatoria en todos sus elementos y, si designa destinatarios, solo para estos. |
