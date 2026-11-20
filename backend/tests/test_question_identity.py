@@ -171,6 +171,7 @@ async def test_an_attempt_follows_its_question_into_the_exercise_a_rebuild_moved
 
     answer = {"optionId": _correct_option(_fixture(), "m02-ex-1", attempt.variant_id)}
     graded = await multi_client.post(f"{OPOS}/attempts/{opened['attemptId']}/answer", json={"answer": answer})
+    assert graded.status_code == 200, graded.text
     assert graded.json()["correct"] is True
 
     review = (await multi_client.get(f"{OPOS}/attempts/{opened['attemptId']}")).json()

@@ -27,6 +27,12 @@ prompt says, unless the prompt explicitly overrides it.
   running ones finish their current part, the ledger is written, and
   work waits for the reset.
 
+## Blind check of new text
+
+Every sentence written or changed in a round passes a blind check by a verifier that did not write it, in the
+same round. The handoff lists every new or changed sentence that did not get one; zero is expected. Moves and
+byte-identical restores need no check.
+
 ## Round working material
 
 - Round working material (verifier inputs, drafts, reports, records, pools) lives under `docs/_work/` and `docs/age-verification/`; both are git-ignored and not part of the repo.

@@ -113,3 +113,14 @@ describe("LessonMarkdown lesson references", () => {
     expect(html).toContain("Ver m22.");
   });
 });
+
+describe("LessonMarkdown links", () => {
+  const render = (markdown: string): string =>
+    renderToStaticMarkup(<LessonMarkdown markdown={markdown} renderExercise={() => null} renderFigure={() => null} />);
+
+  it("keeps a same-page link in the tab and sends an external one to a new tab", () => {
+    const html = render("Ver [la lista](#sec-la-lista) y [el BOE](https://www.boe.es).");
+    expect(html).toMatch(/<a href="#sec-la-lista"(?![^>]*target)/);
+    expect(html).toMatch(/<a href="https:\/\/www\.boe\.es"[^>]*target="_blank"/);
+  });
+});

@@ -172,11 +172,18 @@ function buildComponents(
       const info = /language-(\S+)/.exec(fence.props.className ?? "")?.[1];
       return <CodeBlock code={String(fence.props.children ?? "")} info={info} />;
     },
-    a: ({ href, children }) => (
-      <a href={href} className="font-medium text-primary hover:underline" target="_blank" rel="noreferrer">
-        {children}
-      </a>
-    ),
+    a: ({ href, children }) => {
+      const samePage = href?.startsWith("#") === true;
+      return (
+        <a
+          href={href}
+          className="font-medium text-primary hover:underline"
+          {...(samePage ? {} : { target: "_blank", rel: "noreferrer" })}
+        >
+          {children}
+        </a>
+      );
+    },
     table: ({ children }) => <MarkdownTable>{children}</MarkdownTable>,
     thead: ({ children }) => <MarkdownTableHead>{children}</MarkdownTableHead>,
     tbody: ({ children }) => <MarkdownTableBody>{children}</MarkdownTableBody>,

@@ -77,6 +77,10 @@ function runs(nodes: PhrasingContent[], marks: Marks = {}): ContentText[] {
         });
         break;
       case "link":
+        if (node.url.startsWith("#")) {
+          out.push(...runs(node.children, marks)); // a same-page jump has no print target: keep its text
+          break;
+        }
         out.push(
           ...runs(node.children, {
             ...marks,

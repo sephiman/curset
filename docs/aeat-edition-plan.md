@@ -329,3 +329,16 @@ m01-l06 ends at ×1.82 of its pre-R2d prose (step 1 left it at ×1.77; the layer
 review named this lesson as too short, and what step 1 and the defect sweep restored there are confirmed gaps (e.g. the
 calificación of art. 44 Ley 39/2006). No cases are written for it for now; the 1.4× cap (1.5× where step 1 left under 10 % headroom)
 does not apply to this lesson.
+
+## Fixes round 2 — temas over budget (2026-11-20)
+
+Prose words against 1.5 × pre-R2d prose, without the «(Preguntado …)» marks (they add ≈100 words per lesson in the 12 temas):
+
+- **II.4 (m02-l04): ×1.71.** It entered the round at ×1.64 (round 1 restored the art. 114 and quincena material that the reader flagged); step 3 added ≤150 words. The remaining gaps the reader named (arts. 70.4, 78, 80.3–4, 66.5, 67) are not written: budget.
+- **III.9 (m03-l09): ×1.54.** It entered at ×1.51 (round 1: the art. 28.1 RGR quincena sentence and the art. 63.4 rule); step 3 restored the three reader gaps (inadmisión, imputación, garantías) with ≤150 words; `bbe3b34ff1` and `c86842d9e9` are left out.
+- **I.6 (m01-l06): ×1.86**, unchanged by this round; the earlier decision (above) stands.
+- All other temas of the 12 end between ×1.14 and ×1.49 (I.4 1.49, III.1 1.48, III.5 1.49, III.6 1.46).
+
+Esquemas: 81 of the 82 long legal lists are in «## Anexo: listas completas» (the last section of each lesson, after «Normativa»); the table «Sanciones durante un procedimiento de inspección» (m03-l13, 5 rows) went back in place after the reader pass because the next sentence points back to its amounts. Words, all lessons: prose 259,245 → 269,725 (with marks 270,690), esquema in place 135,820 → 81,091, annex 57,801.
+
+Still open: III.8 OEP 2022 Q56 (entrega de ficheros → diligencia): the provision (AEAT-internal norm of tema 11 «conservación informática» of the 2022 programme) is in no snapshot and could not be found on the web; nothing added. III.1 OEP 2023 Q92 stays as it was.

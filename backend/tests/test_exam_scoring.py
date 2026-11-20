@@ -64,10 +64,12 @@ def test_fewer_than_three_ranked_lessons_fall_back_to_modules_or_to_no_lists(
 def test_the_module_fallback_says_so(registry: CourseRegistry) -> None:
     # A three-module course is needed to rank modules: the fixture's two are not enough, so the rule is
     # shown on a lesson set whose lessons cannot rank but whose modules (copied in) can.
-    from dataclasses import replace
+    from copy import copy, deepcopy
+    from dataclasses import fields
 
     from tradeschool.content.schema import ManifestBlock, ManifestModule
 
+    homes_before = deepcopy(registry._variant_homes)
     block = registry.manifest.blocks[0]
     third = ManifestModule.model_validate(
         {
@@ -80,9 +82,13 @@ def test_the_module_fallback_says_so(registry: CourseRegistry) -> None:
     manifest = registry.manifest.model_copy(
         update={"blocks": [ManifestBlock(id=block.id, title=block.title, modules=[*block.modules, third])]}
     )
-    widened = replace(
-        registry, manifest=manifest, markdown={"es": {**registry.markdown["es"], "m03-l1": "# Uno"}}
-    )
+    # A shallow copy shares the original's index dicts and `__post_init__` appends to them: rebind them empty.
+    widened = copy(registry)
+    widened.manifest = manifest
+    widened.markdown = {"es": {**registry.markdown["es"], "m03-l1": "# Uno"}}
+    for field in fields(widened):
+        if field.name.startswith("_") or field.name == "reading_seconds":
+            setattr(widened, field.name, {})
     widened.__post_init__()
     outcomes = [("m01-l1", "correct"), ("m01-l2", "correct"), ("m01-l2", "wrong")]
     outcomes += [("m02-l1", "wrong"), ("m02-l2", "wrong"), ("m02-l2", "correct")]
@@ -91,6 +97,7 @@ def test_the_module_fallback_says_so(registry: CourseRegistry) -> None:
     lists = table["lists"]
     assert lists is not None and lists["level"] == "module"  # type: ignore[index]
     assert lists["best"][0]["moduleId"] == "m03" and lists["worst"][0]["moduleId"] == "m02"  # type: ignore[index]
+    assert registry._variant_homes == homes_before, "widening a copy must not touch the original's indexes"
 
 
 _COMPOSITE_M01 = {"source": {"module": "m01"}, "questions": 4}

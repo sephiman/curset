@@ -13,7 +13,7 @@ export interface OutlineEntry {
 }
 
 /** The closing sections the lesson index lists last, after the body (K2). */
-const CLOSING_SECTIONS = new Set(["Lo que más cae", "Normativa"]);
+const CLOSING_SECTIONS = new Set(["Lo que más cae", "Normativa", "Anexo: listas completas"]);
 
 export function isClosingSection(entry: OutlineEntry): boolean {
   return entry.kind === "section" && CLOSING_SECTIONS.has(entry.text);
