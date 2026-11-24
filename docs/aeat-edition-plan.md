@@ -342,3 +342,15 @@ Prose words against 1.5 × pre-R2d prose, without the «(Preguntado …)» marks
 Esquemas: 81 of the 82 long legal lists are in «## Anexo: listas completas» (the last section of each lesson, after «Normativa»); the table «Sanciones durante un procedimiento de inspección» (m03-l13, 5 rows) went back in place after the reader pass because the next sentence points back to its amounts. Words, all lessons: prose 259,245 → 269,725 (with marks 270,690), esquema in place 135,820 → 81,091, annex 57,801.
 
 Still open: III.8 OEP 2022 Q56 (entrega de ficheros → diligencia): the provision (AEAT-internal norm of tema 11 «conservación informática» of the 2022 programme) is in no snapshot and could not be found on the web; nothing added. III.1 OEP 2023 Q92 stays as it was.
+
+## Accepted exceptions to «452 answerable» (2026-11-24)
+
+Five official questions stay unanswered by the lessons, accepted by decision (the first two on 2026-11-24, the last three the same day after the last touches):
+
+- **III.1 OEP 2023 Q92** (key A, IBI «objetivo»). The lesson states that the IBI is a «directo de carácter real» (art. 60 TRLRHL) and the other options are stated as personal or subjective, so the key follows by elimination; no norm sentence equates «real» with «objetivo», and the course adds no sentence the norm does not contain (R4.13: no vocabulary of the other text).
+- **III.8 OEP 2022 Q56** (AEAT internal provision on computer preservation). The provision is in no local snapshot and a search found no source; nothing may be written without a norm text. The nearest local text (art. 95.2 and 95.4 RGAT) is not claimed as the question's source.
+- **I.7 OEP 2024 Q68** (key C, permiso por intervención de un familiar). The lesson gives four días hábiles for a relative of the second degree of consanguinity or affinity; that the spouse of one's sibling is such a relative is a classification of kinship that the TREBEP does not state, and the course writes no sentence the norm does not contain.
+- **III.4 OEP 2024 Q39** (key D, libros del régimen simplificado). The lesson states the three true items of art. 40.1 RIVA; the question cites art. 123 (an erratum noted in the ledger: it is art. 40 RIVA) and its coverage is already marked debatable (the «libros registros» topic left the 2025 programme). Answered by elimination only.
+- **III.19 OEP 2025 Q60** (base imponible with a «rappel»). The lessons state that discounts and bonificaciones do not form part of the base (art. 78.Tres.2.º LIVA) or reduce it (art. 80.Uno.2.º LIVA); the norm never names the rappel, and a sentence equating it with a discount has no norm wording to rest on (a first attempt failed the blind check).
+
+Five exceptions in all: III.1 Q92, III.8 Q56, I.7 Q68, III.4 Q39, III.19 Q60.
