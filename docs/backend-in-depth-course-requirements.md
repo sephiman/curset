@@ -607,3 +607,12 @@ Built only from public material (Tier C). Everything is class J and attributed.
     refutation maps and diagram maps are working files: they live in the git-ignored work directory
     `docs/_work/backend-in-depth/`, are used during the round and are not kept. The repo keeps only, per round, the
     ledger block, decisions and cost tables. No store of verified sentences and no provenance records.
+14. 2026-11-25, round D2. Two layers. Each section of a rewritten lesson opens with a plain-language explanation (what it
+    is, why it matters, what goes wrong without it) and then gives the precise statements with their citations. The plain
+    layer introduces no fact that the precise layer does not state; the blind check verifies that.
+15. 2026-11-25, round D2. Size. A lesson of modules 01, 02 and 05 targets 2,400 to 3,000 words and never exceeds 3,600; a
+    lesson of module 12 targets 1,500 to 2,200. Quality over coverage: when the material does not support the target, the
+    lesson stays shorter. Padding, repetition and restating the same fact in different words are failures in the blind check.
+16. 2026-11-25, round D2. Executable examples with libraries. Class X may use the pinned Spring and Kotlin libraries through a
+    local build project with dependencies resolved beforehand, run with no network and no external service. `run_snippets`
+    is extended accordingly, with tests.

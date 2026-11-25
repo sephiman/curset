@@ -228,3 +228,55 @@ def test_a_kotlin_snippet_is_compiled_and_run_on_the_pinned_compiler() -> None:
     )
     assert (record.exit_code, record.stdout, record.kotlin) == (0, "3\n", "2.4.21")
     assert record.commands[1] == ["java", "-jar", "Main.jar"]
+
+
+def _libs_ready() -> bool:
+    try:
+        toolchain.checked_libs()
+    except toolchain.ToolchainError:
+        return False
+    return _runnable()
+
+
+needs_libs = pytest.mark.skipif(not _libs_ready(), reason="needs the provisioned snippet libraries")
+
+PROXY_SNIPPET = """import org.springframework.aop.framework.ProxyFactory;
+
+public class Probe {
+    public interface Greeter { String greet(); }
+    public static void main(String[] args) {
+        var factory = new ProxyFactory(new Greeter() { public String greet() { return "hi"; } });
+        factory.addAdvice((org.aopalliance.intercept.MethodInterceptor) call -> "wrapped " + call.proceed());
+        System.out.println(((Greeter) factory.getProxy()).greet());
+    }
+}
+"""
+
+
+@pytest.mark.parametrize(
+    ("source", "uses"),
+    [
+        ("import org.springframework.aop.framework.ProxyFactory;\n", True),
+        ("import static org.springframework.util.Assert.notNull;\n", True),
+        ("import kotlinx.coroutines.runBlocking\n", True),
+        ("import java.util.List;\n", False),
+        ("// import org.springframework.x is only text\nclass A {}\n", False),
+    ],
+)
+def test_a_snippet_needs_the_libraries_only_when_it_imports_them(source: str, uses: bool) -> None:
+    assert run_snippets.needs_libs(source) is uses
+
+
+def test_the_steps_with_libraries_compile_to_a_folder_and_name_the_resolved_jars_by_glob() -> None:
+    steps = run_snippets.commands_for("Probe.java", with_libs=True)
+    assert steps[0][:4] == ["javac", "-parameters", "-cp", "libs/*"] and steps[1][-1] == "Probe"
+    assert run_snippets.commands_for("Probe.java") == [["java", "Probe.java"]]
+
+
+@needs_libs
+@needs_jdk
+def test_a_snippet_runs_against_the_pinned_spring_jars_offline_and_the_record_names_them() -> None:
+    tools = run_snippets.build_toolchain(PINS, needs_kotlin=False, needs_libraries=True)
+    record = run_snippets.run_source("Probe.java", PROXY_SNIPPET, tools, timeout=60)
+    assert (record.exit_code, record.stdout) == (0, "wrapped hi\n")
+    assert record.libs is not None and "spring-aop-7.0.10.jar" in record.libs

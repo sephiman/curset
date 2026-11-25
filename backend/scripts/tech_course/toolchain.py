@@ -13,6 +13,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import re
+import shutil
 import subprocess
 import sys
 import urllib.request
@@ -25,6 +26,11 @@ import yaml
 from scripts.tech_course.lessons import DEFAULT_COURSE, add_course_argument, course_dir
 
 CACHE = Path.home() / ".cache" / "curset" / "toolchains"
+MAVEN_VERSION = "3.9.16"
+MAVEN_ARCHIVE = (
+    "https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/{v}/apache-maven-{v}-bin.zip"
+)
+LIBS_POM = Path(__file__).parent / "snippet_libs" / "pom.xml"
 RELEASE = "https://github.com/JetBrains/kotlin/releases/download/v{v}/kotlin-compiler-{v}.zip"
 _JAVA_VERSION = re.compile(r'version "(?P<v>[^"]+)"')
 _KOTLIN_VERSION = re.compile(r"kotlinc-jvm (?P<v>\S+)")
@@ -118,12 +124,62 @@ def _extract(archive: Path, destination: Path) -> None:
         binary.chmod(0o755)
 
 
+def libs_dir() -> Path:
+    return CACHE / "snippet-libs"
+
+
+def checked_libs() -> list[Path]:
+    jars = sorted(libs_dir().glob("*.jar"))
+    if not jars:
+        raise ToolchainError("the snippet libraries are not provisioned: run the toolchain libs command")
+    return jars
+
+
+def provision_libs(pins: Pins) -> list[Path]:
+    """Resolve the pinned Spring and Kotlin jars once, with network; snippets later run with none."""
+    maven = _provision_maven()
+    target = libs_dir()
+    shutil.rmtree(target, ignore_errors=True)
+    command = [
+        str(maven), "-q", "-f", str(LIBS_POM), "dependency:copy-dependencies",
+        f"-DoutputDirectory={target}", f"-Dkotlin.version={pins.kotlin}", "-DincludeScope=runtime",
+    ]  # fmt: skip
+    done = subprocess.run(command, capture_output=True, text=True, check=False)
+    if done.returncode != 0:
+        raise ToolchainError(f"maven failed: {done.stderr[-400:] or done.stdout[-400:]}")
+    return checked_libs()
+
+
+def _provision_maven() -> Path:
+    home = CACHE / f"apache-maven-{MAVEN_VERSION}"
+    binary = home / "bin" / "mvn"
+    if binary.exists():
+        return binary
+    url = MAVEN_ARCHIVE.format(v=MAVEN_VERSION)
+    archive = CACHE / f"apache-maven-{MAVEN_VERSION}-bin.zip"
+    CACHE.mkdir(parents=True, exist_ok=True)
+    urllib.request.urlretrieve(url, archive)
+    with urllib.request.urlopen(f"{url}.sha512") as response:
+        published = response.read().decode().split()[0]
+    if hashlib.sha512(archive.read_bytes()).hexdigest() != published:
+        archive.unlink()
+        raise ToolchainError(f"sha512 of {archive.name} differs from the published one")
+    with zipfile.ZipFile(archive) as bundle:
+        bundle.extractall(CACHE)
+    binary.chmod(0o755)
+    return binary
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=["provision", "show"])
+    parser.add_argument("command", choices=["provision", "libs", "show"])
     add_course_argument(parser)
     args = parser.parse_args(argv)
     pins = pinned(args.course)
+    if args.command == "libs":
+        jars = provision_libs(pins)
+        print(f"{len(jars)} jars in {libs_dir()}")
+        return 0
     if args.command == "provision":
         provision_kotlin(pins)
     home, kotlin = checked_kotlin(pins)

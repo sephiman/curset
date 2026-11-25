@@ -92,13 +92,6 @@ public class TreeAlgorithms {
         return withinBounds(node.left(), low, node.value()) && withinBounds(node.right(), node.value(), high);
     }
 
-    static int recursiveHeight(Node node) {
-        if (node == null) {
-            return -1;
-        }
-        return 1 + Math.max(recursiveHeight(node.left()), recursiveHeight(node.right()));
-    }
-
     public static void main(String[] args) {
         Node tree = new Node(8,
                 new Node(3, leaf(1), new Node(6, leaf(4), leaf(7))),
@@ -119,11 +112,6 @@ public class TreeAlgorithms {
         Node chain = null;
         for (int i = 1_000_000; i >= 1; i--) {
             chain = new Node(i, null, chain);
-        }
-        try {
-            recursiveHeight(chain);
-        } catch (StackOverflowError e) {
-            System.out.println("recursive height overflows the stack");
         }
         System.out.println("iterative levels " + levels(chain).size());
     }

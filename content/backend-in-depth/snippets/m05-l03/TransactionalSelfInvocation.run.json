@@ -1,0 +1,47 @@
+{
+ "snippet": "m05-l03/TransactionalSelfInvocation.java",
+ "snippet_sha256": "1a682431a6ec8be21354a937339664b418dddea86106f47eebc55f2d80557393",
+ "commands": [
+  [
+   "javac",
+   "-parameters",
+   "-cp",
+   "libs/*",
+   "-d",
+   "out",
+   "TransactionalSelfInvocation.java"
+  ],
+  [
+   "java",
+   "-cp",
+   "out:libs/*",
+   "TransactionalSelfInvocation"
+  ]
+ ],
+ "exit_code": 0,
+ "timed_out": false,
+ "stdout": "-- self-invocation\nplace order\naudit\n-- through the proxy\nbegin\naudit\ncommit\n",
+ "stderr": "",
+ "stdout_sha256": "6719fb7265d89b2ece78b7f1ae307195930e396fab30b3a989feb7c90f824fd1",
+ "java": "25.0.5.1",
+ "kotlin": null,
+ "isolation": "unshare -rn",
+ "libs": [
+  "annotations-13.0.jar",
+  "aspectjweaver-1.9.25.1.jar",
+  "commons-logging-1.3.6.jar",
+  "jspecify-1.0.1.jar",
+  "kotlin-stdlib-2.4.21.jar",
+  "kotlinx-coroutines-core-jvm-1.11.0.jar",
+  "micrometer-commons-1.17.2.jar",
+  "micrometer-observation-1.17.2.jar",
+  "spring-aop-7.0.10.jar",
+  "spring-beans-7.0.10.jar",
+  "spring-boot-4.1.2.jar",
+  "spring-boot-autoconfigure-4.1.2.jar",
+  "spring-context-7.0.10.jar",
+  "spring-core-7.0.10.jar",
+  "spring-expression-7.0.10.jar",
+  "spring-tx-7.0.10.jar"
+ ]
+}

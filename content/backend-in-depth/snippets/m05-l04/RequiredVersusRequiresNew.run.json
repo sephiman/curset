@@ -1,0 +1,47 @@
+{
+ "snippet": "m05-l04/RequiredVersusRequiresNew.java",
+ "snippet_sha256": "27a4a4d2a9d9a12877ebd7d7d35dd583b1712f5e072f05aa448197d3842e059e",
+ "commands": [
+  [
+   "javac",
+   "-parameters",
+   "-cp",
+   "libs/*",
+   "-d",
+   "out",
+   "RequiredVersusRequiresNew.java"
+  ],
+  [
+   "java",
+   "-cp",
+   "out:libs/*",
+   "RequiredVersusRequiresNew"
+  ]
+ ],
+ "exit_code": 0,
+ "timed_out": false,
+ "stdout": "-- inner required\nbegin 1\n  inner runs, new transaction: false\ncommit 1\n-- inner requires new\nbegin 2\nbegin 3\n  inner runs, new transaction: true\ncommit 3\ncommit 2\n",
+ "stderr": "",
+ "stdout_sha256": "e3e6459eac42bf807b9c6f7c3dc6e928cc0d772cc052bd416a08406ff24d20a0",
+ "java": "25.0.5.1",
+ "kotlin": null,
+ "isolation": "unshare -rn",
+ "libs": [
+  "annotations-13.0.jar",
+  "aspectjweaver-1.9.25.1.jar",
+  "commons-logging-1.3.6.jar",
+  "jspecify-1.0.1.jar",
+  "kotlin-stdlib-2.4.21.jar",
+  "kotlinx-coroutines-core-jvm-1.11.0.jar",
+  "micrometer-commons-1.17.2.jar",
+  "micrometer-observation-1.17.2.jar",
+  "spring-aop-7.0.10.jar",
+  "spring-beans-7.0.10.jar",
+  "spring-boot-4.1.2.jar",
+  "spring-boot-autoconfigure-4.1.2.jar",
+  "spring-context-7.0.10.jar",
+  "spring-core-7.0.10.jar",
+  "spring-expression-7.0.10.jar",
+  "spring-tx-7.0.10.jar"
+ ]
+}

@@ -14,6 +14,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 import subprocess
 import sys
 import tempfile
@@ -27,6 +28,7 @@ from scripts.tech_course.toolchain import (
     ToolchainError,
     checked_java,
     checked_kotlin,
+    checked_libs,
     java_matches,
     pinned,
 )
@@ -34,6 +36,8 @@ from scripts.tech_course.toolchain import (
 DEFAULT_TIMEOUT = 30
 ISOLATION = ["unshare", "-rn", "--"]
 SUFFIXES = {".java", ".kt"}
+LIBS_GLOB = "libs/*"
+_LIBRARY_IMPORT = re.compile(r"^import\s+(?:static\s+)?(?:org\.springframework|org\.aspectj|kotlinx)\.", re.M)
 
 
 class IsolationError(RuntimeError):
@@ -45,6 +49,7 @@ class Toolchain:
     java: str
     kotlin: str | None
     kotlin_home: Path | None
+    libs: tuple[Path, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -60,6 +65,11 @@ class RunRecord:
     java: str
     kotlin: str | None
     isolation: str
+    libs: list[str] | None = None
+
+
+def needs_libs(source: str) -> bool:
+    return _LIBRARY_IMPORT.search(source) is not None
 
 
 def sha256_text(text: str) -> str:
@@ -72,43 +82,58 @@ def require_isolation() -> None:
         raise IsolationError("no network isolation here (unshare -rn failed); refusing to run snippets")
 
 
-def build_toolchain(pins: Pins, needs_kotlin: bool, kotlin_home: Path | None = None) -> Toolchain:
+def build_toolchain(
+    pins: Pins, needs_kotlin: bool, kotlin_home: Path | None = None, needs_libraries: bool = False
+) -> Toolchain:
     java = checked_java(pins)
+    libs = tuple(checked_libs()) if needs_libraries else ()
     if not needs_kotlin:
-        return Toolchain(java, None, None)
+        return Toolchain(java, None, None, libs)
     home, version = checked_kotlin(pins, kotlin_home)
-    return Toolchain(java, version, home)
+    return Toolchain(java, version, home, libs)
 
 
-def commands_for(file_name: str) -> list[list[str]]:
-    """The steps, as written in the record (relative names; the working folder is a temporary one)."""
-    if file_name.endswith(".java"):
+def commands_for(file_name: str, with_libs: bool = False) -> list[list[str]]:
+    """The steps, as written in the record (relative names; `libs/*` stands for the resolved jars)."""
+    stem = file_name.removesuffix(".java").removesuffix(".kt")
+    if file_name.endswith(".java") and not with_libs:
         return [["java", file_name]]
-    stem = file_name.removesuffix(".kt")
+    if file_name.endswith(".java"):
+        return [
+            ["javac", "-parameters", "-cp", LIBS_GLOB, "-d", "out", file_name],
+            ["java", "-cp", f"out:{LIBS_GLOB}", stem],
+        ]
+    if with_libs:
+        return [
+            ["kotlinc", "-cp", LIBS_GLOB, file_name, "-d", f"{stem}.jar"],
+            ["java", "-cp", f"{stem}.jar:{LIBS_GLOB}", f"{stem}Kt"],
+        ]
     return [
         ["kotlinc", file_name, "-include-runtime", "-d", f"{stem}.jar"],
         ["java", "-jar", f"{stem}.jar"],
     ]
 
 
-def _real(command: list[str], toolchain: Toolchain) -> list[str]:
+def _real(command: list[str], toolchain: Toolchain, folder: str) -> list[str]:
+    classpath = ":".join(str(jar) for jar in toolchain.libs)
+    args = [part.replace(LIBS_GLOB, classpath) for part in command[1:]]
     if command[0] != "kotlinc":
-        return [*ISOLATION, *command]
+        return [*ISOLATION, command[0], *args]
     assert toolchain.kotlin_home is not None
-    return [*ISOLATION, str(toolchain.kotlin_home / "bin" / "kotlinc"), *command[1:]]
+    return [*ISOLATION, str(toolchain.kotlin_home / "bin" / "kotlinc"), *args]
 
 
 def run_source(
     file_name: str, source: str, toolchain: Toolchain, timeout: int = DEFAULT_TIMEOUT
 ) -> RunRecord:
     """Compile and run one snippet in a fresh folder; the last step's output is the record's."""
-    commands = commands_for(file_name)
+    commands = commands_for(file_name, needs_libs(source))
     with tempfile.TemporaryDirectory(prefix="snippet-") as folder:
         (Path(folder) / file_name).write_text(source, encoding="utf-8")
         for command in commands:
             try:
                 done = subprocess.run(
-                    _real(command, toolchain),
+                    _real(command, toolchain, folder),
                     cwd=folder,
                     capture_output=True,
                     text=True,
@@ -152,6 +177,7 @@ def _record(
         java=toolchain.java,
         kotlin=toolchain.kotlin if name.endswith(".kt") else None,
         isolation=" ".join(ISOLATION[:-1]),
+        libs=sorted(jar.name for jar in toolchain.libs) if needs_libs(source) else None,
     )
 
 
@@ -198,6 +224,9 @@ def _record_problems(snippet: Path, pins: Pins) -> list[str]:
     recorded = json.loads(path.read_text(encoding="utf-8"))
     if recorded.get("snippet_sha256") != sha256_text(snippet.read_text(encoding="utf-8")):
         return [f"{name}: the run record is of another version of the snippet"]
+    source = snippet.read_text(encoding="utf-8")
+    if needs_libs(source) and not recorded.get("libs"):
+        return [f"{name}: uses the pinned libraries but the record names none"]
     return _toolchain_problems(name, snippet.suffix, recorded, pins)
 
 
@@ -230,7 +259,13 @@ def run_all(course: str, lesson: str | None, timeout: int, kotlin_home: Path | N
         return 0
     try:
         require_isolation()
-        toolchain = build_toolchain(pinned(course), any(f.suffix == ".kt" for f in files), kotlin_home)
+        sources = {f: f.read_text(encoding="utf-8") for f in files}
+        toolchain = build_toolchain(
+            pinned(course),
+            any(f.suffix == ".kt" for f in files),
+            kotlin_home,
+            any(needs_libs(text) for text in sources.values()),
+        )
     except (IsolationError, ToolchainError) as exc:
         print(f"run_snippets: {exc}", file=sys.stderr)
         return 2

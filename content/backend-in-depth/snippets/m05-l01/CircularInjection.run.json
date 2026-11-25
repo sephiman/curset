@@ -1,0 +1,47 @@
+{
+ "snippet": "m05-l01/CircularInjection.java",
+ "snippet_sha256": "9f97479b47da3b3bd57b3af2e45293a5279c10ecd77b8e533a24a8dae914e970",
+ "commands": [
+  [
+   "javac",
+   "-parameters",
+   "-cp",
+   "libs/*",
+   "-d",
+   "out",
+   "CircularInjection.java"
+  ],
+  [
+   "java",
+   "-cp",
+   "out:libs/*",
+   "CircularInjection"
+  ]
+ ],
+ "exit_code": 0,
+ "timed_out": false,
+ "stdout": "constructor injection failed with BeanCurrentlyInCreationException\nsetter injection closes the cycle: true\n",
+ "stderr": "nov 25, 2026 8:22:17 P. M. org.springframework.context.annotation.AnnotationConfigApplicationContext refresh\nADVERTENCIA: Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'a' defined in CircularInjection$ByConstructor: Unsatisfied dependency expressed through method 'a' parameter 0: Error creating bean with name 'b' defined in CircularInjection$ByConstructor: Unsatisfied dependency expressed through method 'b' parameter 0: Error creating bean with name 'a': Requested bean is currently in creation: Is there an unresolvable circular reference or an asynchronous initialization dependency?\n",
+ "stdout_sha256": "5cf70e7150b7f64a63fd0041a4dec5f28ea2592cec62d4bd7bc5769c2bd7ecd0",
+ "java": "25.0.5.1",
+ "kotlin": null,
+ "isolation": "unshare -rn",
+ "libs": [
+  "annotations-13.0.jar",
+  "aspectjweaver-1.9.25.1.jar",
+  "commons-logging-1.3.6.jar",
+  "jspecify-1.0.1.jar",
+  "kotlin-stdlib-2.4.21.jar",
+  "kotlinx-coroutines-core-jvm-1.11.0.jar",
+  "micrometer-commons-1.17.2.jar",
+  "micrometer-observation-1.17.2.jar",
+  "spring-aop-7.0.10.jar",
+  "spring-beans-7.0.10.jar",
+  "spring-boot-4.1.2.jar",
+  "spring-boot-autoconfigure-4.1.2.jar",
+  "spring-context-7.0.10.jar",
+  "spring-core-7.0.10.jar",
+  "spring-expression-7.0.10.jar",
+  "spring-tx-7.0.10.jar"
+ ]
+}
