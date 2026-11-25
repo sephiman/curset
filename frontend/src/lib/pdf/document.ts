@@ -1,6 +1,6 @@
 import type { Content, ContentStack, TDocumentDefinitions } from "pdfmake/interfaces";
 import type { Parent, PhrasingContent, Root } from "mdast";
-import type { CourseExport, PrintExercise, PrintExercises } from "@/api/course";
+import type { CourseExport, LessonDiagram, PrintExercise, PrintExercises } from "@/api/course";
 import type { PrintQuestionnaire } from "@/api/printQuestionnaire";
 import {
   annotateLesson,
@@ -220,8 +220,31 @@ function figureContent(figure: CapturedFigure): FigureBlock {
   };
 }
 
-function renderers(figures: Map<string, CapturedFigure>, labels: PdfLabels): MarkdownRenderers {
+/** The diagram as vector graphics, kept with its caption; a drawing the export lacks prints its description. */
+export function diagramContent(diagram: LessonDiagram): Content {
+  const drawn = /^<svg[^>]* width="(\d+)"/.exec(diagram.svgPrint);
+  const body: Content = drawn
+    ? { svg: diagram.svgPrint, width: Math.min(Number(drawn[1]), panelWidth(1)) }
+    : { text: diagram.description, style: "caption" };
   return {
+    stack: [body, { text: diagram.caption, style: "caption" }],
+    margin: [0, 8, 0, 12],
+    unbreakable: true,
+    diagramId: diagram.id,
+  } as Content;
+}
+
+function renderers(
+  figures: Map<string, CapturedFigure>,
+  labels: PdfLabels,
+  diagrams: Map<string, LessonDiagram>,
+): MarkdownRenderers {
+  return {
+    diagram: (id) => {
+      const diagram = diagrams.get(id);
+      if (!diagram) throw new Error(`diagram ${id} is not in this export`);
+      return diagramContent(diagram);
+    },
     figure: (id) => {
       const figure = figures.get(id);
       if (!figure) throw new Error(`figure ${id} was not rendered for this export`);
@@ -366,7 +389,10 @@ function scopedGlossary(doc: CourseExport, marked: Set<string>): CourseExport["g
 export function buildCourseDocument(o: BuildCourseDocumentOptions): TDocumentDefinitions {
   const sections = o.sections ?? createSectionTracker();
   const keepPagesTogether = keepTogether({ onOversizedBlock: o.onOversizedBlock });
-  const render = renderers(o.figures, o.labels);
+  const diagrams = new Map(
+    o.export.blocks.flatMap((b) => b.modules.flatMap((m) => m.lessons.flatMap((l) => l.diagrams ?? []))).map((d) => [d.id, d]),
+  );
+  const render = renderers(o.figures, o.labels, diagrams);
   const marked = new Set<string>();
   const annotator = proseAnnotator(o, marked);
   const questionnaire = new Map((o.questionnaire?.temas ?? []).map((tema) => [tema.lessonId, tema]));

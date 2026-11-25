@@ -308,6 +308,12 @@ Open <http://localhost:5173>, register an account, and review the full course:
   taken (m19) and as a liquidation wick (m06), a stop-limit that gaps past its own limit and never fills
   (m24), and one complete trade with its level, entry, stop and target drawn (m27). Every reference is
   checked to resolve in both languages, and no spec may sit unembedded.
+- **Lesson diagrams:** a lesson may hold `:::diagram{kind="…" caption="…"}` blocks (sequence, state, flow,
+  structure, timeline), written as text in the lesson file (contract in
+  `docs/backend-verification/s1/contracts.md`). The backend validates and draws each one as SVG when the course
+  loads (no client library); the lesson page shows it in its own horizontally scrolling box, themed from CSS
+  variables, and the PDF embeds it as vector graphics. An invalid block stops the load naming lesson and block;
+  `tech_course.check_diagrams` runs in `close_round.sh`.
 - **Exams** (`/exams`): each course declares its own exams as **presets** in `course.yaml` (see
   `content/README.md`): parts, question count, source (or several sources with a count each, shuffled
   into one part or, with `order: by-source`, kept in declared order and shuffled within each, or single official exercises), draw mode, time limit, penalty, blank rule, score range and pass minimum, reserve

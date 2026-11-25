@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Question candidate files, `docs/backend-verification/s2/<module>/<lesson>.questions.json`."""
+"""Question candidates: this round's working files (docs/_work/backend-in-depth/) or the published quizzes."""
 
 from __future__ import annotations
 
@@ -9,8 +9,11 @@ import re
 from dataclasses import dataclass
 from pathlib import Path
 
-from scripts.tech_course.lessons import REPO
+import yaml
 
+from scripts.tech_course.lessons import REPO, course_dir
+
+WORK_DIR = REPO / "docs" / "_work" / "backend-in-depth"
 S2_DIR = REPO / "docs" / "backend-verification" / "s2"
 _SUFFIX = ".questions.json"
 _MODULE = re.compile(r"^m\d{2}$")
@@ -77,15 +80,52 @@ def add_selection_arguments(parser: argparse.ArgumentParser) -> None:
 
 
 def select_files(
-    lesson: str | None, module: str | None, paths: list[Path], root: Path = S2_DIR
+    lesson: str | None, module: str | None, paths: list[Path], root: Path = WORK_DIR
 ) -> list[Path]:
     if paths:
         return sorted(paths)
     if module is not None and not _MODULE.match(module):
         raise SystemExit(f"not a module id: {module}")
-    folder = root / module if module else root
     pattern = f"{lesson}{_SUFFIX}" if lesson else f"*{_SUFFIX}"
-    return sorted(folder.glob(pattern) if module else folder.glob(f"m*/{pattern}"))
+    found = [*root.glob(pattern), *root.glob(f"m*/{pattern}")]
+    return sorted(f for f in found if module is None or lesson_of(f).startswith(f"{module}-"))
+
+
+def published_lessons(course: str, lesson: str | None, module: str | None) -> dict[str, list[Candidate]]:
+    """The quiz variants of the course's published exercise files, by lesson id."""
+    found: dict[str, list[Candidate]] = {}
+    for path in sorted((course_dir(course) / "exercises").glob("m*-ex-*.yaml")):
+        loaded = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+        if loaded.get("type") != "quiz":
+            continue
+        lesson_id = path.name.split("-ex-")[0]
+        if lesson not in (None, lesson_id) or (module and not lesson_id.startswith(f"{module}-")):
+            continue
+        found.setdefault(lesson_id, []).extend(_published_candidate(v) for v in loaded.get("variants", []))
+    return found
+
+
+def _published_candidate(variant: dict[str, object]) -> Candidate:
+    options = variant.get("options")
+    options = options if isinstance(options, list) else []
+    texts = [(o.get("correct") is True, _localised(o.get("text"))) for o in options if isinstance(o, dict)]
+    extract = variant.get("extract")
+    snippet = variant.get("snippet")
+    return Candidate(
+        id=_text(variant.get("id")),
+        stem=_localised(variant.get("prompt")),
+        key=next((t for correct, t in texts if correct), ""),
+        distractors=tuple(t for correct, t in texts if not correct),
+        explanation=_localised(variant.get("explanation")),
+        citation=_text(variant.get("citation")),
+        has_extract=True,  # a null extract is omitted from the published file
+        extract=_localised(extract) if extract else None,
+        snippet=snippet if isinstance(snippet, str) and snippet.strip() else None,
+    )
+
+
+def _localised(raw: object) -> str:
+    return _text(raw.get("en")) if isinstance(raw, dict) else ""
 
 
 def failed_ids(verdicts: Path) -> frozenset[str]:

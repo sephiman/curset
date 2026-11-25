@@ -112,6 +112,17 @@ export interface LessonCitation {
   title: string | null;
 }
 
+/** A diagram of the lesson, drawn by the backend: `svg` themed by CSS variables, `svgPrint` in fixed light colours. */
+export interface LessonDiagram {
+  id: string;
+  kind: "sequence" | "state" | "flow" | "structure" | "timeline";
+  caption: string;
+  /** Plain text listing the steps or elements in order; the drawing's alt text. */
+  description: string;
+  svg: string;
+  svgPrint: string;
+}
+
 export interface LessonDetail {
   id: string;
   title: string;
@@ -119,6 +130,8 @@ export interface LessonDetail {
   moduleTitle: string;
   blockId: string;
   markdown: string;
+  /** Only a lesson with `:::diagram` blocks; the markdown holds a `::diagram{id}` leaf for each. */
+  diagrams?: LessonDiagram[];
   /** Empty in a course without sources/normativa.yaml: it links no citations. */
   citations: LessonCitation[];
   completed: boolean;
@@ -187,6 +200,7 @@ export interface CourseExportLesson {
   markdown: string;
   /** Present only in a course that keeps its norms. */
   normativa?: CourseExportNorm[];
+  diagrams?: LessonDiagram[];
 }
 
 export interface CourseExportModule {

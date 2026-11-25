@@ -1,0 +1,17 @@
+step	agent	model	seconds	tokens	note
+A1 verify	opus	opus	12	48689	Lamport IR2 sentences: 3 pass
+A2 fetch L4/L7 + fair queuing	sonnet	sonnet	70	61974	6 sources
+A2 fetch caching + cross-shard joins	sonnet	sonnet	389	82903	11 sources logged, 2 bad registrations removed by coordinator
+A2 write m07-l03	sonnet	sonnet	145	77215	13 F, 2 key points, 2 questions
+A2 write m09-l02	sonnet	sonnet	309	112031	42 F, 6 J blocks, 3 key points, 2 questions (+2 rewrite rounds 124k cumulative)
+A2 write m09-l03	sonnet	sonnet	63	66034	11 F, 2 key points
+A2 verify m09-l03	opus	opus	36	61982	13 pass
+A2 verify m07-l03	opus	opus	63	70988	18 pass (incl. 2 questions)
+A2 verify m09-l02 joins	opus	opus	80	66524	31 items: 19 pass, 4 fail-fact, 8 fail-voice
+A2 verify m09-l02 caching	opus	opus	82	69939	30 items: 28 pass; q101 fail (discarded), 1 fail-voice
+A2 recheck 1 m09-l02 joins	opus	opus	116	86152	33 items: 29 pass, 4 fail-voice
+A2 recheck 2 m09-l02 four sentences	opus	opus	24	52400	4 pass
+C write diagrams m06	sonnet	sonnet	91	88828	10 diagrams (9 kept)
+C verify diagrams m06-l01/l02	opus	opus	38	67503	4 pass, 1 fail-fact (discarded)
+C verify diagrams m06-l03/l04	opus	opus	38	56971	5 pass
+B review code diff	opus	opus	224	91531	8 findings, all fixed

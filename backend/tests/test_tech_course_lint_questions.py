@@ -8,7 +8,7 @@ from pathlib import Path
 
 import pytest
 from scripts.tech_course import fill_keys, lint_questions
-from scripts.tech_course.candidates import Candidate, candidate_of, select_files
+from scripts.tech_course.candidates import Candidate, candidate_of, published_lessons, select_files
 from scripts.tech_course.lint_questions import (
     citation_failures,
     code_format_failures,
@@ -274,6 +274,7 @@ def test_select_files_by_lesson_and_module(tmp_path: Path) -> None:
         "m01-l02.questions.json",
     ]
     assert [p.name for p in select_files("m02-l01", "m02", [], tmp_path)] == ["m02-l01.questions.json"]
+    assert select_files(None, "m09", [], tmp_path) == []
     assert len(select_files(None, None, [], tmp_path)) == 3
 
 
@@ -652,3 +653,16 @@ def test_an_accepted_key_longest_share_is_not_a_failure() -> None:
     assert [f.rule for f in result.failures if f.rule == "key-longest-share"] == []
     assert result.accepted == 1
     assert not result.over
+
+
+def test_published_lessons_lints_the_kept_questions_of_the_course() -> None:
+    lessons = published_lessons("backend-in-depth", "m06-l02", None)
+    assert list(lessons) == ["m06-l02"]
+    first = lessons["m06-l02"][0]
+    assert first.key.startswith("The last committed version") and len(first.distractors) == 3
+    assert first.citation and first.has_extract
+
+
+def test_lint_without_work_files_passes_on_the_published_course(capsys: pytest.CaptureFixture[str]) -> None:
+    assert lint_questions.main(["--lesson", "m06-l02"]) == 0
+    assert "failures 0" in capsys.readouterr().out

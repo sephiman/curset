@@ -27,6 +27,8 @@ export type ListEsquemaKind = Exclude<EsquemaKind, "tabla">;
 export interface MarkdownRenderers {
   /** MUST throw for an unknown figure: one that cannot be rendered has to fail the export. */
   figure: (figureId: string) => Content;
+  /** A lesson's `::diagram{id}`; absent, a diagram prints nothing. MUST throw for an id the export lacks. */
+  diagram?: (diagramId: string) => Content;
   /** The header row a list esquema prints as a table under; absent, it prints with none. */
   esquemaColumns?: Record<ListEsquemaKind, string[]>;
   /** The bold line that opens a judgement box; absent, the box prints without one. */
@@ -334,6 +336,10 @@ function blocks(nodes: RootContent[], r: MarkdownRenderers, ids: Ids): Content[]
           // The block is `unbreakable`, which already holds a figure to its caption; the id makes
           // that checkable, and would catch its removal.
           out.push(withId(r.figure(id) as ContentStack, ids.for(FIGURE_ID)));
+        } else if (node.name === "diagram" && r.diagram) {
+          const id = node.attributes?.id;
+          if (!id) throw new Error("a ::diagram directive has no id");
+          out.push(r.diagram(id));
         }
         break;
       default:

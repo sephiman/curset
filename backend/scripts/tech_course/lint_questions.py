@@ -5,7 +5,9 @@ uv run python -m scripts.tech_course.lint_questions [--exclude-failed] [--lesson
 
 One tab-separated failure per line, a `key-longest` line per lesson; then `check_refutations` on the same
 selection; exit 1 on a failure of either.
-With `--exclude-failed`, questions that failed verification (`<lesson>.verdicts.tsv`) are not linted.
+Default: the published quiz exercises. `--work` (or explicit files) lints this round's candidates in
+docs/_work/backend-in-depth/ instead and also runs `check_refutations`; `--exclude-failed` skips the questions
+that failed this round's verification (`<lesson>.verdicts.tsv`).
 """
 
 from __future__ import annotations
@@ -23,6 +25,7 @@ from scripts.tech_course.candidates import (
     add_selection_arguments,
     failed_ids,
     lesson_of,
+    published_lessons,
     read_candidates,
     select_files,
 )
@@ -520,14 +523,15 @@ def main(argv: list[str] | None = None) -> int:
     add_course_argument(parser)
     add_selection_arguments(parser)
     parser.add_argument("--exclude-failed", action="store_true", help="skip questions with a fail verdict")
+    parser.add_argument(
+        "--work", action="store_true", help="lint the current round's candidates, not the published quizzes"
+    )
     args = parser.parse_args(argv)
     policy = _extract_policy(args.course)
     accepted = accepted_hits()
     questions_seen = failures_seen = lessons_over = accepted_seen = 0
-    for path in select_files(args.lesson, args.module, args.paths):
-        lesson = lesson_of(path)
-        skipped = failed_ids(path.with_name(f"{lesson}.verdicts.tsv")) if args.exclude_failed else frozenset()
-        questions = [q for q in read_candidates(path) if q.id not in skipped]
+    work_mode = args.work or bool(args.paths)
+    for lesson, questions in _selected_lessons(args, work_mode):
         result = lint_lesson(lesson, questions, policy, accepted)
         for line in [*(f.line() for f in result.failures), *(f"warn {w.line()}" for w in result.warnings)]:
             print(line)
@@ -540,8 +544,19 @@ def main(argv: list[str] | None = None) -> int:
         f"# questions {questions_seen}, failures {failures_seen}, lessons over 40 %: {lessons_over}, "
         f"accepted {accepted_seen}"
     )
-    refuted = check_refutations.main(argv)
+    refuted = check_refutations.main([a for a in (argv or sys.argv[1:]) if a != "--work"]) if work_mode else 0
     return 1 if failures_seen or refuted else 0
+
+
+def _selected_lessons(args: argparse.Namespace, work_mode: bool) -> list[tuple[str, list[Candidate]]]:
+    if not work_mode:
+        return list(published_lessons(args.course, args.lesson, args.module).items())
+    selected = []
+    for path in select_files(args.lesson, args.module, args.paths):
+        lesson = lesson_of(path)
+        skipped = failed_ids(path.with_name(f"{lesson}.verdicts.tsv")) if args.exclude_failed else frozenset()
+        selected.append((lesson, [q for q in read_candidates(path) if q.id not in skipped]))
+    return selected
 
 
 if __name__ == "__main__":

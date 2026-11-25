@@ -345,3 +345,51 @@ variants:
   extract:
     en: A shared cache MUST NOT reuse a stale response with s-maxage to satisfy another request until it has been
       successfully validated by the origin, as defined by Section 4.3.
+- id: m07-l03-q101
+  prompt:
+    en: A team puts an AWS Network Load Balancer in front of a TCP service and wants to know which OSI layer the
+      balancer itself works at when it forwards connections to targets. Which layer is it?
+  options:
+  - id: a
+    text:
+      en: The seventh layer, the application layer
+  - id: b
+    correct: true
+    text:
+      en: The fourth layer, the transport layer
+  - id: c
+    text:
+      en: The third layer, the network layer
+  - id: d
+    text:
+      en: The second layer, the data link layer
+  explanation:
+    en: A Network Load Balancer functions at the fourth layer of the OSI model. The seventh layer is wrong, because
+      the documentation gives the fourth layer for this balancer, not the application layer. The third layer is
+      wrong, because the documentation gives the fourth layer, not the network layer. The second layer is wrong,
+      because the documentation gives the fourth layer, not the data link layer.
+  citation: aws-elb-nlb-what-is#network-load-balancer-overview
+- id: m07-l03-q102
+  prompt:
+    en: An AWS Application Load Balancer has a target group on which nobody has changed the routing algorithm setting.
+      Which routing algorithm does the load balancer use for that target group by default?
+  options:
+  - id: a
+    text:
+      en: Least outstanding requests
+  - id: b
+    text:
+      en: Flow hash on the protocol, addresses and ports
+  - id: c
+    correct: true
+    text:
+      en: Round robin
+  - id: d
+    text:
+      en: Least connections
+  explanation:
+    en: The default routing algorithm of an Application Load Balancer is round robin. Least outstanding requests
+      is wrong, because it is only the alternative you can specify and not the default. Flow hash is wrong, because
+      the default is round robin and the flow hash belongs to the Network Load Balancer. Least connections is wrong,
+      because the default is round robin and no other default is documented.
+  citation: aws-elb-alb-what-is#application-load-balancer-overview

@@ -15,7 +15,8 @@ The sidecar sits beside `<lesson>.questions.json` and is never read by the platf
 Rules: the key and each distractor have exactly one entry; a sentence is a literal substring of its anchor
 (whitespace collapsed); an execution entry names a snippet with a run record, whose output equals the key
 and differs from every wrong option; two wrong options share a sentence only when both are `exclusive: true`.
-Lessons listed in `refutations-exempt.tsv` (verified before the sidecar existed) are skipped.
+Sidecars are working files of the current round (docs/_work/backend-in-depth/, git-ignored, amendment 13); the
+script reads only those, and close_round.sh does not run it.
 """
 
 from __future__ import annotations
@@ -29,7 +30,6 @@ import yaml
 
 from scripts.tech_course.anchor_text import AnchorStore, collapse
 from scripts.tech_course.candidates import (
-    S2_DIR,
     Candidate,
     add_selection_arguments,
     failed_ids,
@@ -41,7 +41,6 @@ from scripts.tech_course.fill_keys import MissingRecordError, recorded_key
 from scripts.tech_course.lessons import add_course_argument, course_dir
 from tradeschool.citations.tech import TechSourceIndex, parse_ref
 
-EXEMPT_FILE = S2_DIR / "refutations-exempt.tsv"
 SUFFIX = ".refutations.yaml"
 
 
@@ -173,13 +172,6 @@ def _shared_sentence_problems(qid: str, entries: list[Evidence]) -> list[str]:
     ]
 
 
-def exempt_lessons(path: Path = EXEMPT_FILE) -> frozenset[str]:
-    if not path.is_file():
-        return frozenset()
-    lines = (line.split("\t")[0].strip() for line in path.read_text(encoding="utf-8").splitlines())
-    return frozenset(line for line in lines if line and not line.startswith("#"))
-
-
 def lesson_problems(path: Path, checker: Checker, skipped: frozenset[str]) -> tuple[int, list[str]]:
     lesson = lesson_of(path)
     questions = [q for q in read_candidates(path) if q.id not in skipped]
@@ -203,12 +195,9 @@ def main(argv: list[str] | None = None) -> int:
     if index is None:
         raise SystemExit(f"{args.course} has no sources/sources.yaml")
     checker = Checker(index, AnchorStore(index, args.course), course_dir(args.course) / "snippets")
-    exempt = exempt_lessons()
     seen = 0
     problems: list[str] = []
     for path in select_files(args.lesson, args.module, args.paths):
-        if lesson_of(path) in exempt:
-            continue
         skipped = (
             failed_ids(path.with_name(f"{lesson_of(path)}.verdicts.tsv"))
             if args.exclude_failed

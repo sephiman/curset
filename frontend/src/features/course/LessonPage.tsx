@@ -25,6 +25,7 @@ import { cn } from "@/lib/cn";
 import { useLessonWidth, type LessonWidth } from "@/lib/lessonWidth";
 import { lessonOutline } from "@/lib/outline";
 import { useCompactLayout, usePhoneLayout } from "@/lib/viewport";
+import { DiagramFigure } from "@/lib/DiagramFigure";
 import { LessonIndex } from "@/features/course/LessonIndex";
 
 /** Puts the page's «← parent» (and, from 1024 px, the reading time) in the header bar instead of the page (J2, K2). */
@@ -182,6 +183,7 @@ export function LessonPage() {
               ) : null;
             }}
             renderFigure={(id) => <LessonFigure id={id} />}
+            renderDiagram={(id) => <DiagramFigure diagram={lesson.diagrams?.find((d) => d.id === id)} />}
             citations={lesson.citations}
             glossary={{ lessonId, terms }}
             renderTerm={(termId, children) => <GlossaryTerm termId={termId}>{children}</GlossaryTerm>}

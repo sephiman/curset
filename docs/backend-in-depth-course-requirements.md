@@ -569,7 +569,7 @@ Built only from public material (Tier C). Everything is class J and attributed.
 - No streaks, points or other engagement mechanics anywhere in the course.
 - The agent never commits.
 
-## Amendments (v1.2)
+## Amendments (v1.2, extended to 13 in v1.3)
 
 2026-11-13, session S1. Each amendment overrides the section it names.
 
@@ -589,3 +589,21 @@ Built only from public material (Tier C). Everything is class J and attributed.
    target no longer apply; `lesson_quota` becomes an upper bound only.
 9. 2026-11-13, session S2+S3. A question stem names a product version only when the fact differs between
    versions, and then by major version (or major.minor), never by patch.
+10. 2026-11-25, round D1. A verdict is either fail-fact or fail-voice. Only fail-fact counts toward the two-strike
+    deletion. A sentence that is factually correct but fails a voice rule is rewritten for voice and re-checked, up
+    to three times; if it still fails it is kept and logged as a voice exception.
+11. 2026-11-25, round D1. The official documentation of a named product is Tier A for that product's own behaviour
+    and terminology. A general pattern stated beyond one product is class J, attributed to its source.
+12. 2026-11-25, round D1. A `:::diagram` block is defined as text inside the lesson file (contract in
+    `docs/backend-verification/s1/contracts.md`). Kinds: sequence, state, flow, structure, timeline. Each diagram has a
+    one-line caption and a plain-text description that lists its steps or elements in order (alt text and fallback).
+    At most 12 nodes; vertical orientation by default. A diagram never introduces a fact: every node, edge and label
+    restates something the lesson's verified prose already says, and the blind check of amendment 13 verifies exactly
+    that, using a diagram map as a working file.
+13. 2026-11-25, round D1. Replaces every earlier rule that keeps per-sentence or per-question records (the
+    per-lesson verdict files, fact lists and refutation sidecars of sections 6 and 8, amendments 6–9 and the
+    `check_refutations` sidecar rule). Everything written or changed in a round (sentence, schema row, question,
+    diagram) passes a blind check in the same round by an agent that did not write it. Fact lists, verdict files,
+    refutation maps and diagram maps are working files: they live in the git-ignored work directory
+    `docs/_work/backend-in-depth/`, are used during the round and are not kept. The repo keeps only, per round, the
+    ledger block, decisions and cost tables. No store of verified sentences and no provenance records.

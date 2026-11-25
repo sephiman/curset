@@ -25,6 +25,7 @@ from tradeschool.citations.excerpt_store import (
 from tradeschool.citations.sources import SourceIndex
 from tradeschool.citations.tech import TechSourceIndex
 from tradeschool.citations.tech_solution import question_problems, tech_solution
+from tradeschool.content import diagram
 from tradeschool.content.glossary import Glossary, GlossaryTerm, load_glossary
 from tradeschool.content.judgement import judgement_problems
 from tradeschool.content.reading import estimate_seconds
@@ -132,6 +133,8 @@ class CourseRegistry:
     reading_seconds: dict[str, dict[str, int]] = field(default_factory=dict)
     # The course glyph's SVG source, or None when the course declares no glyph.
     glyph_svg: str | None = None
+    # diagrams[locale][lesson_id] -> the lesson's drawn diagrams; only lessons that have any appear.
+    diagrams: dict[str, dict[str, list[dict[str, str]]]] = field(default_factory=dict)
     _modules: dict[str, tuple[ManifestBlock, ManifestModule]] = field(default_factory=dict)
     _lessons: dict[str, LessonLocation] = field(default_factory=dict)
     _exercises: dict[str, tuple[ManifestBlock, ManifestModule]] = field(default_factory=dict)
@@ -337,8 +340,15 @@ class CourseRegistry:
         # it is a pure function of the markdown, and the markdown only changes on restart.
         for locale, lessons in self.markdown.items():
             self.reading_seconds[locale] = {
-                lesson_id: estimate_seconds(body) for lesson_id, body in lessons.items()
+                lesson_id: estimate_seconds(diagram.without_blocks(body))
+                for lesson_id, body in lessons.items()
             }
+        for locale, lessons in self.markdown.items():
+            drawn = {
+                lid: [diagram.rendered(d) for d in diagram.diagrams_in(lid, body)]
+                for lid, body in lessons.items()
+            }
+            self.diagrams[locale] = {lid: found for lid, found in drawn.items() if found}
         for use in self.manifest.course.practice_generators:
             # A generated exercise is its own key and id: no manifest lesson holds it.
             self._exercise_keys[use.exercise_id] = use.exercise_id
@@ -363,6 +373,11 @@ class CourseRegistry:
                     if config is not None and isinstance(config[1], QuizConfig):
                         for variant in config[1].variants:
                             self._variant_homes.setdefault(variant.id, []).append(exercise.id)
+
+    def served_markdown(self, locale: str, lesson_id: str) -> str:
+        """The lesson text as served: each diagram block becomes a `::diagram{id}` leaf."""
+        body = self.markdown[locale][lesson_id]
+        return diagram.with_placeholders(lesson_id, body) if lesson_id in self.diagrams[locale] else body
 
     # --- id <-> key boundary ---
     def module_key(self, module_id: str) -> str:
@@ -567,6 +582,14 @@ class CourseRegistry:
                 blocks.append({"id": block.id, "title": localized(block.title), "modules": modules})
         return blocks
 
+    def _diagram_payload(self, locale: str, lesson_id: str) -> dict[str, object]:
+        found = self.diagrams[locale].get(lesson_id)
+        return {"diagrams": found} if found else {}
+
+    def _all_locales_diagram_payload(self, languages: list[str], lesson_id: str) -> dict[str, object]:
+        found = {loc: self.diagrams[loc][lesson_id] for loc in languages if lesson_id in self.diagrams[loc]}
+        return {"diagrams": found} if found else {}
+
     def export_scope(self, scope_id: str) -> ExportScope | None:
         """The module or lesson a scoped export names, or None when the course has neither."""
         if scope_id in self._modules:
@@ -580,13 +603,16 @@ class CourseRegistry:
             "locale": locale,
             "blocks": self._export_blocks(
                 lambda text: text.get(locale),
-                lambda lesson_id: _theory_only(self.markdown[locale][lesson_id]),
+                lambda lesson_id: _theory_only(self.served_markdown(locale, lesson_id)),
                 # A course that keeps its norms prints each «Normativa» norm with its title and date.
-                lambda lesson_id: (
-                    {"normativa": self.citations.normativa_payload(lesson_id, locale)}
-                    if self.citations.links
-                    else {}
-                ),
+                lambda lesson_id: {
+                    **(
+                        {"normativa": self.citations.normativa_payload(lesson_id, locale)}
+                        if self.citations.links
+                        else {}
+                    ),
+                    **self._diagram_payload(locale, lesson_id),
+                },
                 scope,
             ),
             "glossary": self.glossary_entries(locale),
@@ -602,8 +628,11 @@ class CourseRegistry:
             "locales": languages,
             "blocks": self._export_blocks(
                 lambda text: {loc: text.get(loc) for loc in languages},
-                lambda lesson_id: {loc: _theory_only(self.markdown[loc][lesson_id]) for loc in languages},
-                scope=scope,
+                lambda lesson_id: {
+                    loc: _theory_only(self.served_markdown(loc, lesson_id)) for loc in languages
+                },
+                lambda lesson_id: self._all_locales_diagram_payload(languages, lesson_id),
+                scope,
             ),
             "glossary": {loc: self.glossary_entries(loc) for loc in languages},
         }
@@ -662,7 +691,8 @@ class CourseRegistry:
             "moduleId": loc.module.id,
             "moduleTitle": loc.module.title.get(locale),
             "blockId": loc.block.id,
-            "markdown": self.markdown[locale][lesson_id],
+            "markdown": self.served_markdown(locale, lesson_id),
+            **self._diagram_payload(locale, lesson_id),
             # The citations the web links, by their exact text; empty in a course without normativa.yaml.
             "citations": self.citations.lesson_payload(lesson_id, locale),
             "completed": lesson_id in completed_lesson_ids,
@@ -854,8 +884,9 @@ def _check_tech_content(
         problem
         for lessons in markdown.values()
         for lesson_id, body in lessons.items()
-        for problem in judgement_problems(lesson_id, body, tech)
+        for problem in [*judgement_problems(lesson_id, body, tech), *diagram.problems_in(lesson_id, body)]
     ]
+    problems += diagram.locale_problems(markdown)
     if tech is not None:
         problems += question_problems(tech, exercise_configs)
     if problems:

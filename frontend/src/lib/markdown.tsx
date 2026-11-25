@@ -54,6 +54,9 @@ function transform(node: DirectiveNode): void {
     } else if (node.name === "figure") {
       data.hName = "div";
       data.hProperties = { "data-figure-id": attrs.id ?? "" };
+    } else if (node.name === "diagram") {
+      data.hName = "div";
+      data.hProperties = { "data-diagram-id": attrs.id ?? "" };
     } else {
       data.hName = "div";
       data.hProperties = {};
@@ -135,6 +138,7 @@ function buildComponents(
   renderFigure: (figureId: string) => ReactNode,
   renderTerm: (termId: string, children: ReactNode) => ReactNode,
   renderLessonRef: (kind: RefKind, refId: string, children: ReactNode) => ReactNode,
+  renderDiagram: (diagramId: string) => ReactNode,
 ): Components {
   return {
     span: (props) => {
@@ -203,6 +207,8 @@ function buildComponents(
       if (typeof exerciseId === "string") return <>{renderExercise(exerciseId)}</>;
       const figureId = attrs["data-figure-id"];
       if (typeof figureId === "string") return <>{renderFigure(figureId)}</>;
+      const diagramId = attrs["data-diagram-id"];
+      if (typeof diagramId === "string") return <>{renderDiagram(diagramId)}</>;
       const judgementSource = attrs["data-judgement-source"];
       if (typeof judgementSource === "string") {
         return (
@@ -246,6 +252,7 @@ export function LessonMarkdown({
   renderFigure,
   renderTerm = (_id, children) => children,
   renderLessonRef = (_kind, _refId, children) => children,
+  renderDiagram = () => null,
   glossary,
   refs,
   citations = [],
@@ -255,6 +262,8 @@ export function LessonMarkdown({
   renderFigure: (figureId: string) => ReactNode;
   renderTerm?: (termId: string, children: ReactNode) => ReactNode;
   renderLessonRef?: (kind: RefKind, refId: string, children: ReactNode) => ReactNode;
+  /** A lesson's `::diagram{id}` leaf; absent, a diagram prints nothing (the Android bundle's static render). */
+  renderDiagram?: (diagramId: string) => ReactNode;
   glossary?: { lessonId: string; terms: TermMatcher[] };
   refs?: { lessonId: string; registry: RefRegistry };
   /** The lesson's citations as the backend found them; marked last, in place, never detected here. */
@@ -268,7 +277,7 @@ export function LessonMarkdown({
   return (
     <Markdown
       remarkPlugins={[remarkGfm, remarkHideComments, remarkBlockDirectives, remarkEsquema, remarkOutline, annotate, remarkDirectiveToHast]}
-      components={buildComponents(renderExercise, renderFigure, renderTerm, renderLessonRef)}
+      components={buildComponents(renderExercise, renderFigure, renderTerm, renderLessonRef, renderDiagram)}
     >
       {markdown}
     </Markdown>
@@ -309,7 +318,7 @@ export function Prose({ markdown }: { markdown: string }) {
   return (
     <Markdown
       remarkPlugins={references ? [remarkGfm, remarkHideComments, annotate] : [remarkGfm, remarkHideComments]}
-      components={buildComponents(() => null, () => null, (_id, children) => children, renderRef)}
+      components={buildComponents(() => null, () => null, (_id, children) => children, renderRef, () => null)}
     >
       {markdown}
     </Markdown>

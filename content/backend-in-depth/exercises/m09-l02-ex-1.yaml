@@ -499,3 +499,26 @@ variants:
   citation: redis-client-side-caching#usage-recommendations
   extract:
     en: you could fit approximately 10485760 / 80 = 131072 items in the cache.
+- id: m09-l02-q102
+  prompt:
+    en: In Hazelcast, an application adds new entries to a map that uses a `MapStore`, and nothing else is configured.
+      When do those entries reach the external system?
+  options:
+  - id: a
+    correct: true
+    text:
+      en: Synchronously, as part of adding the entry to the map
+  - id: b
+    text:
+      en: Asynchronously, after a configured delay
+  - id: c
+    text:
+      en: Only when the application asks Hazelcast to flush the map
+  - id: d
+    text:
+      en: Only when the entry is next loaded back into memory
+  explanation:
+    en: Write-through is the Hazelcast default, so new entries are added to the external system synchronously. Asynchronous
+      writing after a configured delay, writing only on a flush request and writing only when the entry is next
+      loaded all fail, because the default adds entries synchronously.
+  citation: hazelcast-mapstore#supported-caching-patterns

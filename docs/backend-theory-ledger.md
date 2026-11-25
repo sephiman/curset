@@ -1,8 +1,42 @@
 # backend-in-depth — theory ledger
 
-Requirements: `docs/backend-in-depth-course-requirements.md` v1.2 (v1.1 + amendments). A new session reads only «Where to resume».
+Requirements: `docs/backend-in-depth-course-requirements.md` v1.3 (v1.1 + amendments 1–13). A new session reads only «Where to resume».
 
 ## Where to resume
+
+**Round D1 (2026-11-25), nothing committed.** Requirements now v1.3 (amendments 10–13). Part 0 repo check, A leftovers,
+B diagram block (platform), C pilot on m06. Decisions `docs/backend-verification/d1/decisions.tsv`, costs `d1/cost.tsv`.
+- Part 0: `close_round.sh` baseline: all audits and frontend green, backend 3383 passed + 247 errors at baseline = Testcontainers
+  with the Docker daemon down on this machine (not the other course's rounds); nothing needed fixing. Amendment 13 applied:
+  509 per-lesson files removed from `docs/backend-verification/` (599 → 90: handoffs, decisions, cost tables, coverage,
+  contracts, briefs, tools stay); work folder is `docs/_work/backend-in-depth/` (already git-ignored via `docs/_work/`).
+  `lint_questions` now lints the published quizzes (`--work`/files: the round's candidates, with refutations);
+  `check_refutations` reads the work folder only and is no longer in `close_round.sh`, which gained `check_diagrams`.
+- A1 (amendment 10): the Lamport receive rule is back in 8.1 (IR2 send/receive + one key point, all pass); generator
+  `logical-clocks` citation filled. A2 (amendment 11): 17 sources registered (AWS ELB, NGINX, Hazelcast, Citus, MongoDB
+  Tier A with licence pending, local copies, extract false; Kubernetes flow control, redis-cli, OBJECT FREQ allow extracts; Azure
+  and AWS Builders' Library as J). New sections: m07-l03 L4/L7 (13 F), m09-l02 cross-shard joins (F + 1 J), read-through/
+  write-through/write-behind and thundering herds/hot keys (14 F + 5 J), m09-l03 fair queuing (11 F). 3 questions added
+  (742 published); q101 of m09-l02 discarded (key not unique). Checks: 13 fail-voice and 4 fail-fact sentences (+ the failed q101),
+  all fixed within two rewrites; no sentence deleted, no voice exception. Left out for lack of source: scatter-gather and
+  broadcast joins, hot-key mitigation, probabilistic early refresh, TLS termination; the phrase "cache stampede" appears in
+  no source (heading says "thundering herds"). A3: m00-l01 summary written; the summary test covers lessons of every published course.
+- B: figures today are `::figure{id}` leaves drawn client-side by the app's chart components and captured as PNG for the PDF
+  (reusable: only the directive plumbing). Diagram block: contract in `s1/contracts.md`; backend `content/diagram.py` parses,
+  validates and draws SVG at load (no library); web `DiagramFigure` in a region that scrolls inside itself, themed by
+  `--diagram-*` variables; PDF embeds `svgPrint` as vector (description if absent); asserts on the document definition only.
+  Opus review found 8 defects (fences, indentation, span replace, wrapped labels, locales, `--work`), all fixed with tests.
+- C: 10 diagrams written in m06, 9 passed, 1 discarded (m06-l01 Read Committed sequence: fail-fact). About 21k tokens and
+  ~17 agent-seconds per diagram (writer 8.9k, two verifiers 12k); coordinator time not included.
+- Later passes must know: a diagram restates only prose already in the lesson; write it last, from the lesson only, with a map in the
+  work folder; blocks start at column 0 and are numbered per lesson (`<lesson>-dN`); a diagram is not a citation target; every
+  language of a lesson needs the same number of diagrams; `bundle` export ignores diagrams (only crypto-futures is bundled).
+- Final run (Docker up): `close_round.sh` green, exit 0: other courses and Android bundle byte-identical; backend 3673 passed,
+  34 skipped, 0 errors; frontend 876 passed, `tsc -b` clean; audits 0 problems (1420 citations, 742 questions, 9 diagrams in
+  69 lessons). `ci-local.sh` (Playwright, CI image): 135 passed, including the 4 `e2e/diagram.spec.ts` cases at 390 and 1280 px.
+  Fixes needed after the run: none. Not committed. Round D1 is closed: every new sentence had a blind check, zero without one.
+
+## Previous state (S2+S3 run)
 
 S2+S3 unattended run (2026-11-13/14) FINISHED: Part 0, Part 1 (all 12 modules) and Part 2 done. Nothing committed.
 Course status: **published** (no lesson quarantined; close_round 3: backend 3697 passed, frontend 868, tsc clean,

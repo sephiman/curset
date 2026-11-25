@@ -46,3 +46,37 @@ Decided in S1 (2026-11-13) under "nothing waits"; each is logged in `decisions.t
 `storage: local` copies resolve under `$CURSET_SOURCES_LOCAL`
 (default `~/PycharmProjects/curset-saved-originals/backend-in-depth/local`). Absent folder: warn and skip
 the content check; never fail.
+
+## Diagrams (amendment 12, round D1)
+
+    :::diagram{kind="sequence" caption="One line, under 100 characters"}
+    description: Plain text listing the steps or elements in order, as one line.
+    t1: Transaction T1
+    t2: Transaction T2
+    t1 -> t2: reads the row
+    t2 --> t1: returns the new value
+    :::
+
+- `kind` is `sequence`, `state`, `flow`, `structure` or `timeline`; `caption` is one line; the `description:` line
+  is required and is the alt text (`<desc>` of the SVG) and the fallback where no drawing is possible.
+- Body lines: `id: label` declares a node (`id` is lower-case `[a-z][a-z0-9_]*`, ids unique); `a -> b: label`
+  an edge or message (label optional), `a --> b: label` the dashed form (a return, in a sequence diagram).
+  A timeline has only nodes, written `id: when | label`, in order. Every other kind needs at least one edge.
+- At most 12 nodes. Orientation is vertical: time or flow runs downwards; a sequence diagram draws participants
+  across the top in declaration order and messages in line order; a state or flow cycle closes on the right.
+- Meaning: `state` nodes are states and edges transitions; `flow` nodes are steps; `structure` edges read
+  "contains" or "points to" (drawn without arrowheads); `timeline` events are drawn along a vertical axis.
+- A diagram introduces no fact. Every node, edge, label and `when` restates something the lesson's verified prose
+  already says. The writer works from the lesson only and keeps a diagram map (element → the lesson sentence it
+  restates) in the work folder; the blind check verifies the map against the sentences. A diagram with any
+  fail-fact element is discarded, not repaired. A diagram is not a citation target and carries no citation.
+- Place a block on its own, after the paragraph it illustrates, inside the section whose bullets it restates.
+  The block is not prose: it is not counted for reading time of facts, glossary or the never-coin check, and
+  `check_diagrams` (called by `close_round.sh`) reads only the lesson file: syntax, node limit, caption,
+  description. Content-level checks never ask for the diagram map of an earlier round.
+- Served form: the loader replaces each block by `::diagram{id="<lesson>-d<n>"}` (n counts blocks in the lesson,
+  from 1) and sends `diagrams: [{id, kind, caption, description, svg, svgPrint}]` with the lesson and in the export.
+  An invalid block stops the load: `lesson <id>, diagram <n>: <problem>`.
+- Drawing: SVG produced by the backend at load time (`tradeschool/content/diagram.py`), no client library. The web
+  `svg` paints with CSS variables `--diagram-ink|fill|line|accent` (defined per theme in `index.css`); `svgPrint`
+  uses fixed light colours for the PDF, where pdfmake embeds it as vector graphics.
