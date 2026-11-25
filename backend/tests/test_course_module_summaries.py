@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Every module card and every lesson of a published course carries a real summary in each of its languages."""
+"""Every module card and every lesson of a published course carries a real summary in each language."""
 
 from __future__ import annotations
 
