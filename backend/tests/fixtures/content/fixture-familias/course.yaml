@@ -1,0 +1,49 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# A published English course built on technical sources: code blocks, judgement callouts and licensed extracts.
+course:
+  id: fixture-familias
+  title:
+    en: Families fixture
+  subtitle:
+    en: Families
+  description:
+    en: A published course whose quiz variants and generated items declare families, to exercise the practice cap.
+  languages: [en]
+  status: published
+  exercise_types: [quiz, psicotecnico]
+  lesson_practice: true
+  practice_scheduler: spaced
+  practice_presets: [lesson, module, review, code-reading, generators]
+  practice_generators:
+  - generator: capacity-estimation
+    title:
+      en: Capacity estimation
+    weight: 1
+    lesson: m01-l1
+    difficulty: {1: 1, 2: 1}
+  - generator: loop-complexity
+    title:
+      en: Loop complexity
+    weight: 1
+    lesson: m01-l1
+    difficulty: {1: 1, 2: 1}
+    code_reading: true
+blocks:
+- id: block-a
+  title:
+    en: Persistence
+  modules:
+  - id: m01
+    title:
+      en: Transactions
+    summary:
+      en: How concurrent writers are kept apart.
+    lessons:
+    - id: m01-l1
+      title:
+        en: Lost updates
+      summary:
+        en: Two writers can overwrite each other unless the isolation level or a lock prevents it.
+      exercises:
+      - id: m01-ex-1
+        type: quiz

@@ -95,6 +95,10 @@ class QuizVariant(BaseModel):
     extract: LocalizedText | None = Field(default=None, exclude=True)
     #: Technical courses: the lesson snippet the question rests on, `<lesson-id>/<File>.java|.kt`.
     snippet: str | None = Field(default=None, exclude=True, pattern=r"^[\w-]+/[\w-]+\.(java|kt)$")
+    #: Practice serves at most two questions of one family per set; a family is seen variant by variant.
+    family: str | None = Field(default=None, exclude=True, pattern=r"^[a-z0-9][a-z0-9-]*$")
+    #: The question (and its family) belongs to «code reading» practice without resting on a snippet.
+    code_reading: bool = Field(default=False, exclude=True)
 
     @model_validator(mode="after")
     def _check(self) -> Self:

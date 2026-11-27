@@ -1,0 +1,42 @@
+exercise: m11-l01-ex-gatherers-windowfixed
+lesson: m11-l01
+citation: "javadoc-gatherers#windowFixed(int)"
+file: Main.java
+prompt: "Since Java 24, where gatherers are final, what does this program print? The stream is ordered, and the windows are printed as lists."
+difficulty: 3
+tags: [streams, gatherers]
+parameters:
+  data:
+    - "1, 2, 3, 4, 5, 6"
+    - "2, 4, 6, 8, 10"
+    - "7, 1, 5, 3, 9, 2"
+    - "3, 8, 1, 6"
+    - "5, 5, 2, 9, 1, 4, 7"
+    - "1, 9, 4, 2, 8, 3"
+    - "6, 2, 7, 3, 5"
+    - "4, 1, 8, 2, 9, 6, 3"
+    - "2, 7, 3, 1"
+    - "9, 4, 6, 1, 5, 2, 8"
+  size: [2, 3, 4, 5]
+template: |
+  import java.util.stream.Gatherers;
+  import java.util.stream.Stream;
+
+  public class Main {
+      public static void main(String[] args) {
+          System.out.println(Stream.of(@@data@@).gather(Gatherers.windowFixed(@@size@@)).toList());
+      }
+  }
+explanation: >-
+  `windowFixed(@@size@@)` puts the elements in order into lists of @@size@@ elements, starting a new list after each full one. The last list holds the elements that are left, so it may be shorter. The program prints @@key@@.
+mistakes:
+  - name: using `windowSliding` where `windowFixed` was written
+    replace: ["Gatherers.windowFixed(", "Gatherers.windowSliding("]
+  - name: a window one element larger than written
+    replace: ["windowFixed(@@size@@)", "windowFixed(@@size@@ + 1)"]
+  - name: a window one element smaller than written
+    replace: ["windowFixed(@@size@@)", "windowFixed(@@size@@ - 1)"]
+  - name: dropping the last window when it is shorter
+    replace: [".toList()", ".filter(w -> w.size() == @@size@@).toList()"]
+  - name: a window twice the size written
+    replace: ["windowFixed(@@size@@)", "windowFixed(@@size@@ * 2)"]

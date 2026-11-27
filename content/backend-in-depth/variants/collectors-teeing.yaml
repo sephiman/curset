@@ -1,0 +1,52 @@
+exercise: m11-l01-ex-collectors-teeing
+lesson: m11-l01
+citation: "javadoc-collectors#teeing(java.util.stream.Collector,java.util.stream.Collector,java.util.function.BiFunction)"
+file: Main.java
+prompt: "What does this program print? The stream is sequential and ordered, and an `Optional` prints as `Optional[value]`."
+difficulty: 3
+tags: [streams, collectors]
+parameters:
+  words:
+    - '"fig", "apple", "kiwi", "plum", "fig"'
+    - '"ant", "camel", "kiwi", "ant", "plum"'
+    - '"oak", "olive", "pine", "oak", "pear", "plum"'
+    - '"tea", "toasts", "rice", "tea", "pine"'
+  left:
+    - "Collectors.counting()"
+    - "Collectors.summingInt(String::length)"
+    - 'Collectors.joining("-")'
+  right:
+    - "Collectors.averagingInt(String::length)"
+    - "Collectors.maxBy(Comparator.comparingInt(String::length))"
+    - "Collectors.minBy(Comparator.comparingInt(String::length))"
+template: |
+  import java.util.Comparator;
+  import java.util.List;
+  import java.util.stream.Collectors;
+
+  public class Main {
+      public static void main(String[] args) {
+          List<String> words = List.of(@@words@@);
+          String result = words.stream().collect(
+                  Collectors.teeing(@@left@@, @@right@@, (x, y) -> x + " | " + y));
+          System.out.println(result);
+      }
+  }
+explanation: >-
+  `teeing` sends every word to both collectors, `@@left@@` and `@@right@@`. The merge function then writes the first result,
+  a bar between spaces, and the second result. The program prints @@key@@.
+mistakes:
+  - name: merging the two results in the wrong order
+    replace: ['(x, y) -> x + " | " + y', '(x, y) -> y + " | " + x']
+  - name: using only the first collector's result
+    replace: ['(x, y) -> x + " | " + y', "(x, y) -> x + \"\""]
+  - name: using only the second collector's result
+    replace: ['(x, y) -> x + " | " + y', "(x, y) -> y + \"\""]
+  - name: skipping the first word for both collectors
+    replace: ["words.stream().collect(", "words.stream().skip(1).collect("]
+  - name: assuming both collectors see the words sorted
+    replace: ["words.stream().collect(", "words.stream().sorted().collect("]
+  - name: removing duplicate words before both collectors
+    replace: ["words.stream().collect(", "words.stream().distinct().collect("]
+  - name: feeding only the last word to both collectors
+    replace: ["words.stream().collect(", "words.stream().skip(words.size() - 1).collect("]

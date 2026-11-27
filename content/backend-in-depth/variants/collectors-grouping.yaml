@@ -1,0 +1,51 @@
+exercise: m11-l01-ex-collectors-grouping
+lesson: m11-l01
+citation: "javadoc-collectors#partitioningBy(java.util.function.Predicate,java.util.stream.Collector)"
+file: Main.java
+prompt: "What does this program print? The outer map is a `TreeMap`, so its entries come in key order, and each partition is read with `get(false)` and `get(true)`."
+difficulty: 3
+tags: [streams, collectors]
+parameters:
+  words:
+    - '"apple", "avocado", "fig", "banana", "kiwi"'
+    - '"ant", "bee", "bear", "cat", "camel", "antelope"'
+    - '"dog", "deer", "eel", "elephant", "emu"'
+    - '"oak", "olive", "pine", "plum", "pear", "poplar"'
+    - '"tea", "toast", "tomato", "rice", "ramen"'
+  limit: [3, 4]
+  down: ["Collectors.counting()", 'Collectors.joining("+")']
+  outer: ["w.charAt(0)", "w.length() % 2"]
+template: |
+  import java.util.List;
+  import java.util.TreeMap;
+  import java.util.stream.Collectors;
+
+  public class Main {
+      public static void main(String[] args) {
+          List<String> words = List.of(@@words@@);
+          var result = words.stream().collect(
+                  Collectors.groupingBy(w -> @@outer@@, TreeMap::new,
+                          Collectors.partitioningBy(w -> w.length() > @@limit@@, @@down@@)));
+          result.forEach((group, split) -> System.out.println(group + ": [" + split.get(false) + "] [" + split.get(true) + "]"));
+      }
+  }
+explanation: >-
+  The outer `groupingBy` classifies each word by `@@outer@@` into a `TreeMap`, so the groups come in key order. Inside each
+  group, `partitioningBy` splits the words on `length() > @@limit@@` and reduces each side with `@@down@@`. Its map always
+  holds both `false` and `true`, so a side with no words still has the empty result of the downstream collector. The
+  program prints @@key@@.
+mistakes:
+  - name: using `groupingBy` where `partitioningBy` was needed, so an empty side is `null`
+    replace: ["Collectors.partitioningBy(w -> w.length() > @@limit@@,", "Collectors.groupingBy(w -> w.length() > @@limit@@, TreeMap::new,"]
+  - name: testing length at least the limit instead of above it
+    replace: ["w.length() > @@limit@@", "w.length() >= @@limit@@"]
+  - name: testing length below the limit instead of above it
+    replace: ["w.length() > @@limit@@", "w.length() < @@limit@@"]
+  - name: classifying by the last letter instead of the first
+    replace: ["w -> w.charAt(0),", "w -> w.charAt(w.length() - 1),"]
+  - name: classifying by the first letter instead of the length parity
+    replace: ["w -> w.length() % 2,", "w -> w.charAt(0),"]
+  - name: collecting the words into a list instead of reducing them with the downstream collector
+    replace: ["@@down@@)));", "Collectors.toList())));"]
+  - name: using a limit one higher than written
+    replace: ["w.length() > @@limit@@", "w.length() > @@limit@@ + 1"]

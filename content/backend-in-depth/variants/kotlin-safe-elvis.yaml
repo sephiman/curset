@@ -1,0 +1,56 @@
+exercise: m04-l01-ex-safe-elvis
+lesson: m04-l01
+citation: "kotlin-docs-null-safety#elvis-operator"
+file: Main.kt
+prompt: "What does this program print? The type of `users` is `Map<String, String?>`, so a lookup can give null."
+difficulty: 2
+tags: [kotlin, null-safety]
+parameters:
+  op: ["uppercase()", "reversed()", "take(2)", "substringBefore(\" \")"]
+  dflt: [guest, unknown]
+cases:
+  - id: ann
+    why: "The map holds `Ann Lee` under `ann`, so `name` is not null: the safe call produces a value and the right-hand side of `?:` is not evaluated, so `fallback()` prints nothing."
+  - id: bo
+    why: "The map holds null under `bo`, so `name` is null: the safe call yields null and the Elvis operator evaluates `fallback()`, which prints its line and returns the default."
+  - id: cy
+    why: "The map holds `Cy Wu` under `cy`, so `name` is not null: the safe call produces a value and the right-hand side of `?:` is not evaluated, so `fallback()` prints nothing."
+  - id: zed
+    why: "The map has no entry for `zed`, so the lookup gives null: the safe call yields null and the Elvis operator evaluates `fallback()`, which prints its line and returns the default."
+template: |
+  fun fallback(): String {
+      println("fallback")
+      return "@@dflt@@"
+  }
+
+  fun main() {
+      val users: Map<String, String?> = mapOf("ann" to "Ann Lee", "bo" to null, "cy" to "Cy Wu")
+      val name: String? = users["@@id@@"]
+      println(name?.@@op@@ ?: fallback())
+  }
+explanation: "`name` is `users[\"@@id@@\"]`. @@why@@ The program prints @@key@@."
+mistakes:
+  - name: dropping the Elvis operator and printing the nullable result
+    replace: ["name?.@@op@@ ?: fallback()", "name?.@@op@@"]
+    why: "Without `?:` nothing replaces the null that the safe call returns, so the null is printed."
+  - name: applying the operation to the default as well
+    replace: ["name?.@@op@@ ?: fallback()", "(name ?: fallback()).@@op@@"]
+    why: "`?:` takes the whole safe-call expression as its left side, so `@@op@@` runs only on the value and the default comes back unchanged."
+  - name: printing the default text without calling the function
+    replace: ["name?.@@op@@ ?: fallback()", "name?.@@op@@ ?: \"@@dflt@@\""]
+    why: "The right-hand side of `?:` is the call `fallback()`, and evaluating it prints its own line."
+  - name: printing the key when the value is missing
+    replace: ["?: fallback()", "?: \"@@id@@\""]
+    why: "The right-hand side of `?:` is `fallback()`, which returns the default, not the key."
+  - name: skipping the operation on the present value
+    replace: ["name?.@@op@@ ?: fallback()", "name ?: fallback()"]
+    why: "When `name` is not null the safe call applies `@@op@@` to it before the Elvis operator returns it."
+  - name: calling the fallback before using the value
+    replace: ["    println(name?.@@op@@ ?: fallback())", "    val spare = fallback()\n    println(name?.@@op@@ ?: spare)"]
+    why: "The right-hand side of `?:` is evaluated only if the left-hand side is null, so `fallback()` does not run for a present value."
+  - name: always taking the right-hand side
+    replace: ["name?.@@op@@ ?: fallback()", "fallback()"]
+    why: "The Elvis operator returns its left-hand side whenever that is not null."
+  - name: applying the operation to the key instead of the value
+    replace: ["name?.@@op@@", "\"@@id@@\".@@op@@"]
+    why: "The safe call is made on `name`, the value found under the key, not on the key text."

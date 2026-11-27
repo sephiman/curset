@@ -1,0 +1,1118 @@
+[
+ {
+  "id": "m02-l01-v-lru-access-order-001",
+  "params": {
+   "op1": "m.get(\"a\")",
+   "op2": "m.get(\"b\")",
+   "op3": "m.get(\"d\")"
+  },
+  "source_sha256": "e975d8166e5e30b3b35013f0c56e0a6e68b682ee31893a52f40d3dfb4040f802",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "11b814ddc2cd711303d25b300172aa775f1f5107ab7ed716450e11151093bef0",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "assuming the map is insertion-ordered",
+    "stdout_sha256": "fc8985e26a87a5b81216785c1074e4eb9ece9525887c4fed89b583cef68b4f36"
+   },
+   {
+    "mistake": "assuming the eviction threshold is inclusive",
+    "stdout_sha256": "a4db919fb0a01d2380beca62b233789742ccaeff4dff4d44aec3f0ee5a82f6c6"
+   },
+   {
+    "mistake": "assuming the first call leaves its entry where it was",
+    "stdout_sha256": "3c9b703a865435d5b0769c1c2d398033d7928e8a39f0a4634e7b6331206fcc4d"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-lru-access-order-002",
+  "params": {
+   "op1": "m.get(\"a\")",
+   "op2": "m.get(\"b\")",
+   "op3": "m.get(\"a\")"
+  },
+  "source_sha256": "665cba97734393aa26426c84ad1bd308403042999fa209bafd3a8f12aed730a1",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "6c0c009aa8eca6a8ac100f0f11e3a12ea7b40bdbba69c4b0a0022b5507019cc8",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "assuming the map is insertion-ordered",
+    "stdout_sha256": "fc8985e26a87a5b81216785c1074e4eb9ece9525887c4fed89b583cef68b4f36"
+   },
+   {
+    "mistake": "assuming the eviction threshold is inclusive",
+    "stdout_sha256": "42412dc5275ef1eebcdd2885c366b67958336e84060ce641a2b04733030d12ef"
+   },
+   {
+    "mistake": "assuming the second call leaves its entry where it was",
+    "stdout_sha256": "f33a92a60a17369355db8f0197cda06b5a0e727edab83391a4a761202f47e851"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-lru-access-order-003",
+  "params": {
+   "op1": "m.get(\"a\")",
+   "op2": "m.get(\"b\")",
+   "op3": "m.put(\"c\", 8)"
+  },
+  "source_sha256": "cdda49d375ce46496c0159a9cd8ae80f89d4edb04bcc70ac33ababa844d9afbb",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "e556b425847401deacd09bed845c8cfb874e98ce5081eeec7f55192093461d16",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "assuming the map is insertion-ordered",
+    "stdout_sha256": "fc8985e26a87a5b81216785c1074e4eb9ece9525887c4fed89b583cef68b4f36"
+   },
+   {
+    "mistake": "assuming the eviction threshold is inclusive",
+    "stdout_sha256": "c28ce758d9aa2427d5611f56c249bbaf9d800e177a1697292c44af55ced00e80"
+   },
+   {
+    "mistake": "assuming the first call leaves its entry where it was",
+    "stdout_sha256": "0fb9c6303f6951428c4bc53f84d07c0003aa995f2cc23a10726bcc99aca72850"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-lru-access-order-004",
+  "params": {
+   "op1": "m.get(\"a\")",
+   "op2": "m.putIfAbsent(\"a\", 7)",
+   "op3": "m.get(\"d\")"
+  },
+  "source_sha256": "ba40c5f56f19e6594d6cf95d9a60dcbf7cf8aaa72fb7f253fef6ae04250191c8",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "cf082031310f7d83f5b16b639ce866bf70cda9a024b3674f64f4d4200db170e6",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "assuming the map is insertion-ordered",
+    "stdout_sha256": "fc8985e26a87a5b81216785c1074e4eb9ece9525887c4fed89b583cef68b4f36"
+   },
+   {
+    "mistake": "assuming the eviction threshold is inclusive",
+    "stdout_sha256": "88c53db98c344f73cb812f8124c07677ff6b517958f4ad6f443e557cbafe50a6"
+   },
+   {
+    "mistake": "assuming the third call leaves its entry where it was",
+    "stdout_sha256": "f33a92a60a17369355db8f0197cda06b5a0e727edab83391a4a761202f47e851"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-lru-access-order-005",
+  "params": {
+   "op1": "m.get(\"a\")",
+   "op2": "m.putIfAbsent(\"a\", 7)",
+   "op3": "m.put(\"c\", 8)"
+  },
+  "source_sha256": "8b5d141845e2d151bc85abdc14efdd7b8b0b44a5a70a004062038c4d89caa9f3",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "7761cdc710cdbb686a2a60604adc1a0db4cd4cd43a04316255ee26fa47f22add",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "assuming the map is insertion-ordered",
+    "stdout_sha256": "fc8985e26a87a5b81216785c1074e4eb9ece9525887c4fed89b583cef68b4f36"
+   },
+   {
+    "mistake": "assuming the eviction threshold is inclusive",
+    "stdout_sha256": "010bb23401d800d21c63eca2325b86afe79d63e38f13d67f24d0a7dc06e1e1c5"
+   },
+   {
+    "mistake": "assuming the third call leaves its entry where it was",
+    "stdout_sha256": "f33a92a60a17369355db8f0197cda06b5a0e727edab83391a4a761202f47e851"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-lru-access-order-006",
+  "params": {
+   "op1": "m.get(\"a\")",
+   "op2": "m.getOrDefault(\"d\", 0)",
+   "op3": "m.put(\"c\", 8)"
+  },
+  "source_sha256": "7db2a35c65860cfcd1baee9359b236265241ef196faf701643b4dcc209c83925",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "eecb6d52e45c6b0e39de242050f92b311585318b54ba56dd696698bcb47265eb",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "assuming the map is insertion-ordered",
+    "stdout_sha256": "fc8985e26a87a5b81216785c1074e4eb9ece9525887c4fed89b583cef68b4f36"
+   },
+   {
+    "mistake": "assuming the eviction threshold is inclusive",
+    "stdout_sha256": "d38256f00614b8f4fd05b444a3b0c0ee025b9415b6290f425642bdbf55d1dc65"
+   },
+   {
+    "mistake": "assuming the first call leaves its entry where it was",
+    "stdout_sha256": "266ecf853bca65b6f6961ba5564df885d615851894e030e3a6681695dc3d523e"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-lru-access-order-007",
+  "params": {
+   "op1": "m.put(\"b\", 9)",
+   "op2": "m.get(\"b\")",
+   "op3": "m.get(\"d\")"
+  },
+  "source_sha256": "7dcbb138665352e445816ecbecd094079a4f74d1725f966e7052eaacaeafc650",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "3c9b703a865435d5b0769c1c2d398033d7928e8a39f0a4634e7b6331206fcc4d",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "assuming the map is insertion-ordered",
+    "stdout_sha256": "fc8985e26a87a5b81216785c1074e4eb9ece9525887c4fed89b583cef68b4f36"
+   },
+   {
+    "mistake": "assuming the eviction threshold is inclusive",
+    "stdout_sha256": "a4db919fb0a01d2380beca62b233789742ccaeff4dff4d44aec3f0ee5a82f6c6"
+   },
+   {
+    "mistake": "assuming the third call leaves its entry where it was",
+    "stdout_sha256": "dc2555a133e23e64891e5783e7648c96165bb00c3e8fddc8321846f9b140fcde"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-lru-access-order-008",
+  "params": {
+   "op1": "m.put(\"b\", 9)",
+   "op2": "m.get(\"b\")",
+   "op3": "m.get(\"a\")"
+  },
+  "source_sha256": "417780b87288b07c190e7cb995b25675f52c4b4582982ccf549be7706007ad92",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "6c0c009aa8eca6a8ac100f0f11e3a12ea7b40bdbba69c4b0a0022b5507019cc8",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "assuming the map is insertion-ordered",
+    "stdout_sha256": "fc8985e26a87a5b81216785c1074e4eb9ece9525887c4fed89b583cef68b4f36"
+   },
+   {
+    "mistake": "assuming the eviction threshold is inclusive",
+    "stdout_sha256": "42412dc5275ef1eebcdd2885c366b67958336e84060ce641a2b04733030d12ef"
+   },
+   {
+    "mistake": "assuming the third call leaves its entry where it was",
+    "stdout_sha256": "dc2555a133e23e64891e5783e7648c96165bb00c3e8fddc8321846f9b140fcde"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-lru-access-order-009",
+  "params": {
+   "op1": "m.put(\"b\", 9)",
+   "op2": "m.get(\"b\")",
+   "op3": "m.put(\"c\", 8)"
+  },
+  "source_sha256": "e0027c6f03aa47b3bb301cf292a97a54cd2d3e67d5aa84e41957740f2e0f83af",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "0fb9c6303f6951428c4bc53f84d07c0003aa995f2cc23a10726bcc99aca72850",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "assuming the map is insertion-ordered",
+    "stdout_sha256": "fc8985e26a87a5b81216785c1074e4eb9ece9525887c4fed89b583cef68b4f36"
+   },
+   {
+    "mistake": "assuming the eviction threshold is inclusive",
+    "stdout_sha256": "c28ce758d9aa2427d5611f56c249bbaf9d800e177a1697292c44af55ced00e80"
+   },
+   {
+    "mistake": "assuming the third call leaves its entry where it was",
+    "stdout_sha256": "dc2555a133e23e64891e5783e7648c96165bb00c3e8fddc8321846f9b140fcde"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-lru-access-order-010",
+  "params": {
+   "op1": "m.put(\"b\", 9)",
+   "op2": "m.putIfAbsent(\"a\", 7)",
+   "op3": "m.get(\"d\")"
+  },
+  "source_sha256": "95aa0e52f9d198a536a39bcd20a61083d57eae4f628828e1050b32722c1c8dc0",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "11c428a1e1345f152a8afec574ff4d21f78ba0c2bee1c55584bc2df78e1c974b",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "assuming the map is insertion-ordered",
+    "stdout_sha256": "fc8985e26a87a5b81216785c1074e4eb9ece9525887c4fed89b583cef68b4f36"
+   },
+   {
+    "mistake": "assuming the eviction threshold is inclusive",
+    "stdout_sha256": "88c53db98c344f73cb812f8124c07677ff6b517958f4ad6f443e557cbafe50a6"
+   },
+   {
+    "mistake": "assuming the first call leaves its entry where it was",
+    "stdout_sha256": "cf082031310f7d83f5b16b639ce866bf70cda9a024b3674f64f4d4200db170e6"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-lru-access-order-011",
+  "params": {
+   "op1": "m.put(\"b\", 9)",
+   "op2": "m.putIfAbsent(\"a\", 7)",
+   "op3": "m.get(\"a\")"
+  },
+  "source_sha256": "aabf90d72a673db4e681c48df90dbb6c7cdd725bf515c11ca5397ea01593582e",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "6c0c009aa8eca6a8ac100f0f11e3a12ea7b40bdbba69c4b0a0022b5507019cc8",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "assuming the map is insertion-ordered",
+    "stdout_sha256": "fc8985e26a87a5b81216785c1074e4eb9ece9525887c4fed89b583cef68b4f36"
+   },
+   {
+    "mistake": "assuming the eviction threshold is inclusive",
+    "stdout_sha256": "40eec3260d20417c213107fe8ba66d0cada4ab6cd8ee2db80a20d06850194c13"
+   },
+   {
+    "mistake": "assuming the first call leaves its entry where it was",
+    "stdout_sha256": "f33a92a60a17369355db8f0197cda06b5a0e727edab83391a4a761202f47e851"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-lru-access-order-012",
+  "params": {
+   "op1": "m.put(\"b\", 9)",
+   "op2": "m.putIfAbsent(\"a\", 7)",
+   "op3": "m.put(\"c\", 8)"
+  },
+  "source_sha256": "f711e88eab3af0d991a97b57ab1cf768e13b9cfdf2efe64eca8d220413ff2d10",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "9063f3fb9d110e59664dac7a2549ab29e29937a5ed893ceb00b27b82da59a832",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "assuming the map is insertion-ordered",
+    "stdout_sha256": "fc8985e26a87a5b81216785c1074e4eb9ece9525887c4fed89b583cef68b4f36"
+   },
+   {
+    "mistake": "assuming the eviction threshold is inclusive",
+    "stdout_sha256": "010bb23401d800d21c63eca2325b86afe79d63e38f13d67f24d0a7dc06e1e1c5"
+   },
+   {
+    "mistake": "assuming the first call leaves its entry where it was",
+    "stdout_sha256": "7761cdc710cdbb686a2a60604adc1a0db4cd4cd43a04316255ee26fa47f22add"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-lru-access-order-013",
+  "params": {
+   "op1": "m.put(\"b\", 9)",
+   "op2": "m.getOrDefault(\"d\", 0)",
+   "op3": "m.get(\"a\")"
+  },
+  "source_sha256": "b05a74eeb09af9f488a4ac883188661c40fcf2f6894b76d40232525029290ef6",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "69a341974ede6564a96066d993033498d288de5d5d6c1b2236d0c92f1e4a898f",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "assuming the map is insertion-ordered",
+    "stdout_sha256": "fc8985e26a87a5b81216785c1074e4eb9ece9525887c4fed89b583cef68b4f36"
+   },
+   {
+    "mistake": "assuming the eviction threshold is inclusive",
+    "stdout_sha256": "a4db919fb0a01d2380beca62b233789742ccaeff4dff4d44aec3f0ee5a82f6c6"
+   },
+   {
+    "mistake": "assuming the first call leaves its entry where it was",
+    "stdout_sha256": "f33a92a60a17369355db8f0197cda06b5a0e727edab83391a4a761202f47e851"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-lru-access-order-014",
+  "params": {
+   "op1": "m.put(\"b\", 9)",
+   "op2": "m.getOrDefault(\"d\", 0)",
+   "op3": "m.put(\"c\", 8)"
+  },
+  "source_sha256": "68f06fa37fdf5f9085e866187d8173063200e5d8ca55e42df04c3545726eba41",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "266ecf853bca65b6f6961ba5564df885d615851894e030e3a6681695dc3d523e",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "assuming the map is insertion-ordered",
+    "stdout_sha256": "fc8985e26a87a5b81216785c1074e4eb9ece9525887c4fed89b583cef68b4f36"
+   },
+   {
+    "mistake": "assuming the eviction threshold is inclusive",
+    "stdout_sha256": "d38256f00614b8f4fd05b444a3b0c0ee025b9415b6290f425642bdbf55d1dc65"
+   },
+   {
+    "mistake": "assuming the second call leaves its entry where it was",
+    "stdout_sha256": "0fb9c6303f6951428c4bc53f84d07c0003aa995f2cc23a10726bcc99aca72850"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-lru-access-order-015",
+  "params": {
+   "op1": "m.getOrDefault(\"c\", 0)",
+   "op2": "m.get(\"b\")",
+   "op3": "m.get(\"d\")"
+  },
+  "source_sha256": "bc3571a172f556515a7c56a36ecb791341ce946fe50057900f7697f73929ba8b",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "3c9b703a865435d5b0769c1c2d398033d7928e8a39f0a4634e7b6331206fcc4d",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "assuming the map is insertion-ordered",
+    "stdout_sha256": "fc8985e26a87a5b81216785c1074e4eb9ece9525887c4fed89b583cef68b4f36"
+   },
+   {
+    "mistake": "assuming the eviction threshold is inclusive",
+    "stdout_sha256": "a4db919fb0a01d2380beca62b233789742ccaeff4dff4d44aec3f0ee5a82f6c6"
+   },
+   {
+    "mistake": "assuming the third call leaves its entry where it was",
+    "stdout_sha256": "d2b77e3a172544eb85694944bcd1904ce47b499a1e305e31e91a53c8fbadc399"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-lru-access-order-016",
+  "params": {
+   "op1": "m.getOrDefault(\"c\", 0)",
+   "op2": "m.get(\"b\")",
+   "op3": "m.get(\"a\")"
+  },
+  "source_sha256": "15f58867f34fb037bfaf46b7c4bf6400ec1c014d6fe0a798ab94b2ef5f6c62eb",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "ad4ed29b02f265f49dfcb9d46347f47e4bdeae34de904887c5ca31c67b324709",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "assuming the map is insertion-ordered",
+    "stdout_sha256": "fc8985e26a87a5b81216785c1074e4eb9ece9525887c4fed89b583cef68b4f36"
+   },
+   {
+    "mistake": "assuming the eviction threshold is inclusive",
+    "stdout_sha256": "dfc35df3ee84c84ef818ebe2ace60bbbe20b4423d81fc379c2396bf575ca4c8e"
+   },
+   {
+    "mistake": "assuming the first call leaves its entry where it was",
+    "stdout_sha256": "6c0c009aa8eca6a8ac100f0f11e3a12ea7b40bdbba69c4b0a0022b5507019cc8"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-lru-access-order-017",
+  "params": {
+   "op1": "m.getOrDefault(\"c\", 0)",
+   "op2": "m.get(\"b\")",
+   "op3": "m.put(\"c\", 8)"
+  },
+  "source_sha256": "3e3d27d42439905406d879f8339d4ce86cd306020915782d976620ef912b1530",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "0fb9c6303f6951428c4bc53f84d07c0003aa995f2cc23a10726bcc99aca72850",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "assuming the map is insertion-ordered",
+    "stdout_sha256": "fc8985e26a87a5b81216785c1074e4eb9ece9525887c4fed89b583cef68b4f36"
+   },
+   {
+    "mistake": "assuming the eviction threshold is inclusive",
+    "stdout_sha256": "c28ce758d9aa2427d5611f56c249bbaf9d800e177a1697292c44af55ced00e80"
+   },
+   {
+    "mistake": "assuming the second call leaves its entry where it was",
+    "stdout_sha256": "266ecf853bca65b6f6961ba5564df885d615851894e030e3a6681695dc3d523e"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-lru-access-order-018",
+  "params": {
+   "op1": "m.getOrDefault(\"c\", 0)",
+   "op2": "m.putIfAbsent(\"a\", 7)",
+   "op3": "m.get(\"d\")"
+  },
+  "source_sha256": "ac28912c8b68d4138f47183af29c41c3c130faf7276b0806b057fbb1a829648c",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "cf082031310f7d83f5b16b639ce866bf70cda9a024b3674f64f4d4200db170e6",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "assuming the map is insertion-ordered",
+    "stdout_sha256": "fc8985e26a87a5b81216785c1074e4eb9ece9525887c4fed89b583cef68b4f36"
+   },
+   {
+    "mistake": "assuming the eviction threshold is inclusive",
+    "stdout_sha256": "88c53db98c344f73cb812f8124c07677ff6b517958f4ad6f443e557cbafe50a6"
+   },
+   {
+    "mistake": "assuming the third call leaves its entry where it was",
+    "stdout_sha256": "773f9ac82622cfd67e0ca918bf9ab55b3c2f32ba574629c6f183763b6b44822b"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-lru-access-order-019",
+  "params": {
+   "op1": "m.getOrDefault(\"c\", 0)",
+   "op2": "m.putIfAbsent(\"a\", 7)",
+   "op3": "m.get(\"a\")"
+  },
+  "source_sha256": "4fb7c799055466faedb794af62aead1fa72b1002281ed1a3947eaa5806e5127b",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "773f9ac82622cfd67e0ca918bf9ab55b3c2f32ba574629c6f183763b6b44822b",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "assuming the map is insertion-ordered",
+    "stdout_sha256": "fc8985e26a87a5b81216785c1074e4eb9ece9525887c4fed89b583cef68b4f36"
+   },
+   {
+    "mistake": "assuming the eviction threshold is inclusive",
+    "stdout_sha256": "ea5d43bbfd8031d1541ebd51c7c966c8dd65ea07a8a2665dc682f6db7167a9c5"
+   },
+   {
+    "mistake": "assuming the first call leaves its entry where it was",
+    "stdout_sha256": "f33a92a60a17369355db8f0197cda06b5a0e727edab83391a4a761202f47e851"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-lru-access-order-020",
+  "params": {
+   "op1": "m.getOrDefault(\"c\", 0)",
+   "op2": "m.putIfAbsent(\"a\", 7)",
+   "op3": "m.put(\"c\", 8)"
+  },
+  "source_sha256": "70ea46cee02f2fa46b5dc9ccda0a8c0528d388f0154744afa8e383ee5bd170bd",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "7761cdc710cdbb686a2a60604adc1a0db4cd4cd43a04316255ee26fa47f22add",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "assuming the map is insertion-ordered",
+    "stdout_sha256": "fc8985e26a87a5b81216785c1074e4eb9ece9525887c4fed89b583cef68b4f36"
+   },
+   {
+    "mistake": "assuming the eviction threshold is inclusive",
+    "stdout_sha256": "010bb23401d800d21c63eca2325b86afe79d63e38f13d67f24d0a7dc06e1e1c5"
+   },
+   {
+    "mistake": "assuming the second call leaves its entry where it was",
+    "stdout_sha256": "266ecf853bca65b6f6961ba5564df885d615851894e030e3a6681695dc3d523e"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-lru-access-order-021",
+  "params": {
+   "op1": "m.getOrDefault(\"c\", 0)",
+   "op2": "m.getOrDefault(\"d\", 0)",
+   "op3": "m.get(\"a\")"
+  },
+  "source_sha256": "2268e9d31066c9c26839bce7249395ab00b6d4744a9343e0b3c3ee67a21c5306",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "f33a92a60a17369355db8f0197cda06b5a0e727edab83391a4a761202f47e851",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "assuming the map is insertion-ordered",
+    "stdout_sha256": "fc8985e26a87a5b81216785c1074e4eb9ece9525887c4fed89b583cef68b4f36"
+   },
+   {
+    "mistake": "assuming the eviction threshold is inclusive",
+    "stdout_sha256": "0609fab906600fdb1f237126319eb6d5a3dc89b08fb492593facc8c4d2d28a63"
+   },
+   {
+    "mistake": "assuming the second call leaves its entry where it was",
+    "stdout_sha256": "773f9ac82622cfd67e0ca918bf9ab55b3c2f32ba574629c6f183763b6b44822b"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-lru-access-order-022",
+  "params": {
+   "op1": "m.putIfAbsent(\"b\", 7)",
+   "op2": "m.get(\"b\")",
+   "op3": "m.get(\"d\")"
+  },
+  "source_sha256": "9fcf144f18fa74d58d299a19edd8ff051a974bbc2918de6da353329a37d2adc8",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "3c9b703a865435d5b0769c1c2d398033d7928e8a39f0a4634e7b6331206fcc4d",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "assuming the map is insertion-ordered",
+    "stdout_sha256": "fc8985e26a87a5b81216785c1074e4eb9ece9525887c4fed89b583cef68b4f36"
+   },
+   {
+    "mistake": "assuming the eviction threshold is inclusive",
+    "stdout_sha256": "a4db919fb0a01d2380beca62b233789742ccaeff4dff4d44aec3f0ee5a82f6c6"
+   },
+   {
+    "mistake": "assuming the third call leaves its entry where it was",
+    "stdout_sha256": "dc2555a133e23e64891e5783e7648c96165bb00c3e8fddc8321846f9b140fcde"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-lru-access-order-023",
+  "params": {
+   "op1": "m.putIfAbsent(\"b\", 7)",
+   "op2": "m.get(\"b\")",
+   "op3": "m.get(\"a\")"
+  },
+  "source_sha256": "d51f723dbae704c9327918b7b5de05f36cdcff332deafa99f17ecc26cf520367",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "6c0c009aa8eca6a8ac100f0f11e3a12ea7b40bdbba69c4b0a0022b5507019cc8",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "assuming the map is insertion-ordered",
+    "stdout_sha256": "fc8985e26a87a5b81216785c1074e4eb9ece9525887c4fed89b583cef68b4f36"
+   },
+   {
+    "mistake": "assuming the eviction threshold is inclusive",
+    "stdout_sha256": "42412dc5275ef1eebcdd2885c366b67958336e84060ce641a2b04733030d12ef"
+   },
+   {
+    "mistake": "assuming the third call leaves its entry where it was",
+    "stdout_sha256": "dc2555a133e23e64891e5783e7648c96165bb00c3e8fddc8321846f9b140fcde"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-lru-access-order-024",
+  "params": {
+   "op1": "m.putIfAbsent(\"b\", 7)",
+   "op2": "m.get(\"b\")",
+   "op3": "m.put(\"c\", 8)"
+  },
+  "source_sha256": "b8b92a9b032baf9696342a4ccdb5fbce354484136d9d8786c3788f58f7f30285",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "0fb9c6303f6951428c4bc53f84d07c0003aa995f2cc23a10726bcc99aca72850",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "assuming the map is insertion-ordered",
+    "stdout_sha256": "fc8985e26a87a5b81216785c1074e4eb9ece9525887c4fed89b583cef68b4f36"
+   },
+   {
+    "mistake": "assuming the eviction threshold is inclusive",
+    "stdout_sha256": "c28ce758d9aa2427d5611f56c249bbaf9d800e177a1697292c44af55ced00e80"
+   },
+   {
+    "mistake": "assuming the third call leaves its entry where it was",
+    "stdout_sha256": "dc2555a133e23e64891e5783e7648c96165bb00c3e8fddc8321846f9b140fcde"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-lru-access-order-025",
+  "params": {
+   "op1": "m.putIfAbsent(\"b\", 7)",
+   "op2": "m.putIfAbsent(\"a\", 7)",
+   "op3": "m.get(\"d\")"
+  },
+  "source_sha256": "c92955bb007ca6a9e44e4f392b350d13e522522b8066706f28a1c4d18383eac8",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "11c428a1e1345f152a8afec574ff4d21f78ba0c2bee1c55584bc2df78e1c974b",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "assuming the map is insertion-ordered",
+    "stdout_sha256": "fc8985e26a87a5b81216785c1074e4eb9ece9525887c4fed89b583cef68b4f36"
+   },
+   {
+    "mistake": "assuming the eviction threshold is inclusive",
+    "stdout_sha256": "88c53db98c344f73cb812f8124c07677ff6b517958f4ad6f443e557cbafe50a6"
+   },
+   {
+    "mistake": "assuming the first call leaves its entry where it was",
+    "stdout_sha256": "cf082031310f7d83f5b16b639ce866bf70cda9a024b3674f64f4d4200db170e6"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-lru-access-order-026",
+  "params": {
+   "op1": "m.putIfAbsent(\"b\", 7)",
+   "op2": "m.putIfAbsent(\"a\", 7)",
+   "op3": "m.get(\"a\")"
+  },
+  "source_sha256": "0aed366e5ecc73522d5353a2b188955200bafa25f4492a95e909dcee7cec2297",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "6c0c009aa8eca6a8ac100f0f11e3a12ea7b40bdbba69c4b0a0022b5507019cc8",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "assuming the map is insertion-ordered",
+    "stdout_sha256": "fc8985e26a87a5b81216785c1074e4eb9ece9525887c4fed89b583cef68b4f36"
+   },
+   {
+    "mistake": "assuming the eviction threshold is inclusive",
+    "stdout_sha256": "40eec3260d20417c213107fe8ba66d0cada4ab6cd8ee2db80a20d06850194c13"
+   },
+   {
+    "mistake": "assuming the first call leaves its entry where it was",
+    "stdout_sha256": "f33a92a60a17369355db8f0197cda06b5a0e727edab83391a4a761202f47e851"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-lru-access-order-027",
+  "params": {
+   "op1": "m.putIfAbsent(\"b\", 7)",
+   "op2": "m.putIfAbsent(\"a\", 7)",
+   "op3": "m.put(\"c\", 8)"
+  },
+  "source_sha256": "b1b1feb187750cfd6e0b7d6e17466d97aefbc262843f3ce9a735be67f58865d8",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "9063f3fb9d110e59664dac7a2549ab29e29937a5ed893ceb00b27b82da59a832",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "assuming the map is insertion-ordered",
+    "stdout_sha256": "fc8985e26a87a5b81216785c1074e4eb9ece9525887c4fed89b583cef68b4f36"
+   },
+   {
+    "mistake": "assuming the eviction threshold is inclusive",
+    "stdout_sha256": "010bb23401d800d21c63eca2325b86afe79d63e38f13d67f24d0a7dc06e1e1c5"
+   },
+   {
+    "mistake": "assuming the first call leaves its entry where it was",
+    "stdout_sha256": "7761cdc710cdbb686a2a60604adc1a0db4cd4cd43a04316255ee26fa47f22add"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-lru-access-order-028",
+  "params": {
+   "op1": "m.putIfAbsent(\"b\", 7)",
+   "op2": "m.getOrDefault(\"d\", 0)",
+   "op3": "m.get(\"a\")"
+  },
+  "source_sha256": "f8190f63127825ced7e76ca74370a040fbe126e9995b409456f3891c949dc572",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "69a341974ede6564a96066d993033498d288de5d5d6c1b2236d0c92f1e4a898f",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "assuming the map is insertion-ordered",
+    "stdout_sha256": "fc8985e26a87a5b81216785c1074e4eb9ece9525887c4fed89b583cef68b4f36"
+   },
+   {
+    "mistake": "assuming the eviction threshold is inclusive",
+    "stdout_sha256": "a4db919fb0a01d2380beca62b233789742ccaeff4dff4d44aec3f0ee5a82f6c6"
+   },
+   {
+    "mistake": "assuming the first call leaves its entry where it was",
+    "stdout_sha256": "f33a92a60a17369355db8f0197cda06b5a0e727edab83391a4a761202f47e851"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-lru-access-order-029",
+  "params": {
+   "op1": "m.putIfAbsent(\"b\", 7)",
+   "op2": "m.getOrDefault(\"d\", 0)",
+   "op3": "m.put(\"c\", 8)"
+  },
+  "source_sha256": "346b8dc4e4c7b6913b5af10e425adb62812c7ef950cf7e0127e69626df80139f",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "266ecf853bca65b6f6961ba5564df885d615851894e030e3a6681695dc3d523e",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "assuming the map is insertion-ordered",
+    "stdout_sha256": "fc8985e26a87a5b81216785c1074e4eb9ece9525887c4fed89b583cef68b4f36"
+   },
+   {
+    "mistake": "assuming the eviction threshold is inclusive",
+    "stdout_sha256": "d38256f00614b8f4fd05b444a3b0c0ee025b9415b6290f425642bdbf55d1dc65"
+   },
+   {
+    "mistake": "assuming the second call leaves its entry where it was",
+    "stdout_sha256": "0fb9c6303f6951428c4bc53f84d07c0003aa995f2cc23a10726bcc99aca72850"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-lru-access-order-030",
+  "params": {
+   "op1": "m.getOrDefault(\"a\", 0)",
+   "op2": "m.get(\"b\")",
+   "op3": "m.get(\"d\")"
+  },
+  "source_sha256": "89fbd2baf8777d07d47446e8db55f338385a7e4ca817bc130b64aa2eddf3b731",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "11b814ddc2cd711303d25b300172aa775f1f5107ab7ed716450e11151093bef0",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "assuming the map is insertion-ordered",
+    "stdout_sha256": "fc8985e26a87a5b81216785c1074e4eb9ece9525887c4fed89b583cef68b4f36"
+   },
+   {
+    "mistake": "assuming the eviction threshold is inclusive",
+    "stdout_sha256": "a4db919fb0a01d2380beca62b233789742ccaeff4dff4d44aec3f0ee5a82f6c6"
+   },
+   {
+    "mistake": "assuming the first call leaves its entry where it was",
+    "stdout_sha256": "3c9b703a865435d5b0769c1c2d398033d7928e8a39f0a4634e7b6331206fcc4d"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-lru-access-order-031",
+  "params": {
+   "op1": "m.getOrDefault(\"a\", 0)",
+   "op2": "m.get(\"b\")",
+   "op3": "m.get(\"a\")"
+  },
+  "source_sha256": "4288e2b6b740b09dfac7772c22d6af2331e3e474364cee9e3b23cfbd9ea8238c",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "6c0c009aa8eca6a8ac100f0f11e3a12ea7b40bdbba69c4b0a0022b5507019cc8",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "assuming the map is insertion-ordered",
+    "stdout_sha256": "fc8985e26a87a5b81216785c1074e4eb9ece9525887c4fed89b583cef68b4f36"
+   },
+   {
+    "mistake": "assuming the eviction threshold is inclusive",
+    "stdout_sha256": "42412dc5275ef1eebcdd2885c366b67958336e84060ce641a2b04733030d12ef"
+   },
+   {
+    "mistake": "assuming the second call leaves its entry where it was",
+    "stdout_sha256": "f33a92a60a17369355db8f0197cda06b5a0e727edab83391a4a761202f47e851"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-lru-access-order-032",
+  "params": {
+   "op1": "m.getOrDefault(\"a\", 0)",
+   "op2": "m.get(\"b\")",
+   "op3": "m.put(\"c\", 8)"
+  },
+  "source_sha256": "73f76e3b368b62103b100c22f4ea35014c9edd02263c88f7c1d54cfa8df2b089",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "e556b425847401deacd09bed845c8cfb874e98ce5081eeec7f55192093461d16",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "assuming the map is insertion-ordered",
+    "stdout_sha256": "fc8985e26a87a5b81216785c1074e4eb9ece9525887c4fed89b583cef68b4f36"
+   },
+   {
+    "mistake": "assuming the eviction threshold is inclusive",
+    "stdout_sha256": "c28ce758d9aa2427d5611f56c249bbaf9d800e177a1697292c44af55ced00e80"
+   },
+   {
+    "mistake": "assuming the first call leaves its entry where it was",
+    "stdout_sha256": "0fb9c6303f6951428c4bc53f84d07c0003aa995f2cc23a10726bcc99aca72850"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-lru-access-order-033",
+  "params": {
+   "op1": "m.getOrDefault(\"a\", 0)",
+   "op2": "m.putIfAbsent(\"a\", 7)",
+   "op3": "m.get(\"d\")"
+  },
+  "source_sha256": "cb3e16075fcae8b5da69f7fcc2601a8f87fa8907981c8cd8281901a8b151bc86",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "cf082031310f7d83f5b16b639ce866bf70cda9a024b3674f64f4d4200db170e6",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "assuming the map is insertion-ordered",
+    "stdout_sha256": "fc8985e26a87a5b81216785c1074e4eb9ece9525887c4fed89b583cef68b4f36"
+   },
+   {
+    "mistake": "assuming the eviction threshold is inclusive",
+    "stdout_sha256": "88c53db98c344f73cb812f8124c07677ff6b517958f4ad6f443e557cbafe50a6"
+   },
+   {
+    "mistake": "assuming the third call leaves its entry where it was",
+    "stdout_sha256": "f33a92a60a17369355db8f0197cda06b5a0e727edab83391a4a761202f47e851"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-lru-access-order-034",
+  "params": {
+   "op1": "m.getOrDefault(\"a\", 0)",
+   "op2": "m.putIfAbsent(\"a\", 7)",
+   "op3": "m.put(\"c\", 8)"
+  },
+  "source_sha256": "4f342344554fee729c5c8c08a532885936733fd72502381f6644c2d9a20a868f",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "7761cdc710cdbb686a2a60604adc1a0db4cd4cd43a04316255ee26fa47f22add",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "assuming the map is insertion-ordered",
+    "stdout_sha256": "fc8985e26a87a5b81216785c1074e4eb9ece9525887c4fed89b583cef68b4f36"
+   },
+   {
+    "mistake": "assuming the eviction threshold is inclusive",
+    "stdout_sha256": "010bb23401d800d21c63eca2325b86afe79d63e38f13d67f24d0a7dc06e1e1c5"
+   },
+   {
+    "mistake": "assuming the third call leaves its entry where it was",
+    "stdout_sha256": "f33a92a60a17369355db8f0197cda06b5a0e727edab83391a4a761202f47e851"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-lru-access-order-035",
+  "params": {
+   "op1": "m.getOrDefault(\"a\", 0)",
+   "op2": "m.getOrDefault(\"d\", 0)",
+   "op3": "m.get(\"a\")"
+  },
+  "source_sha256": "ad9280a1fc13144dc32626e11a669546deecafd1ceebad6d6b3b8af55ba07aad",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "f33a92a60a17369355db8f0197cda06b5a0e727edab83391a4a761202f47e851",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "assuming the map is insertion-ordered",
+    "stdout_sha256": "fc8985e26a87a5b81216785c1074e4eb9ece9525887c4fed89b583cef68b4f36"
+   },
+   {
+    "mistake": "assuming the eviction threshold is inclusive",
+    "stdout_sha256": "0609fab906600fdb1f237126319eb6d5a3dc89b08fb492593facc8c4d2d28a63"
+   },
+   {
+    "mistake": "assuming the third call leaves its entry where it was",
+    "stdout_sha256": "cf082031310f7d83f5b16b639ce866bf70cda9a024b3674f64f4d4200db170e6"
+   }
+  ]
+ },
+ {
+  "id": "m02-l01-v-lru-access-order-036",
+  "params": {
+   "op1": "m.getOrDefault(\"a\", 0)",
+   "op2": "m.getOrDefault(\"d\", 0)",
+   "op3": "m.put(\"c\", 8)"
+  },
+  "source_sha256": "e56d996eea341ea15dfc344c702009ec7213717fd37cd36dc0e3847cc005df30",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "eecb6d52e45c6b0e39de242050f92b311585318b54ba56dd696698bcb47265eb",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "assuming the map is insertion-ordered",
+    "stdout_sha256": "fc8985e26a87a5b81216785c1074e4eb9ece9525887c4fed89b583cef68b4f36"
+   },
+   {
+    "mistake": "assuming the eviction threshold is inclusive",
+    "stdout_sha256": "d38256f00614b8f4fd05b444a3b0c0ee025b9415b6290f425642bdbf55d1dc65"
+   },
+   {
+    "mistake": "assuming the first call leaves its entry where it was",
+    "stdout_sha256": "266ecf853bca65b6f6961ba5564df885d615851894e030e3a6681695dc3d523e"
+   }
+  ]
+ }
+]

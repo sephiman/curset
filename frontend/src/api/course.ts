@@ -139,6 +139,13 @@ export interface LessonDetail {
   exercises: ExerciseRef[];
   /** How many questions its practice draws from; only in a course with lesson practice. */
   practiceQuestions?: number;
+  /** The generated question families that practise this lesson; only in a course with the generators preset. */
+  generatedFamilies?: GeneratedFamily[];
+}
+
+export interface GeneratedFamily {
+  id: string;
+  title: string;
 }
 
 export interface PrereqRef {

@@ -18,6 +18,7 @@ import json
 import re
 import sys
 from collections.abc import Mapping
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -37,6 +38,8 @@ from scripts.tech_course.toolchain import pinned
 
 OPTION_IDS = "abcd"
 DISTRACTORS_NEEDED = len(OPTION_IDS) - 1
+KEY_RUNS = 3
+DEFAULT_JOBS = 4
 _PLACEHOLDER = re.compile(r"@@(\w+)@@")
 
 
@@ -45,6 +48,7 @@ class Mistake:
     name: str
     old: str
     new: str
+    why: str = ""
 
 
 @dataclass(frozen=True)
@@ -58,6 +62,8 @@ class Family:
     template: str
     explanation: str
     grid: dict[str, list[object]]
+    #: Explicit parameter sets crossed with the grid: each carries its own wording (`why`) or `citation`.
+    cases: list[dict[str, object]]
     mistakes: list[Mistake]
     difficulty: int
     tags: list[str]
@@ -84,7 +90,10 @@ def load_family(path: Path) -> Family:
         template=raw["template"],
         explanation=raw["explanation"],
         grid={name: list(values) for name, values in raw["parameters"].items()},
-        mistakes=[Mistake(m["name"], m["replace"][0], m["replace"][1]) for m in raw["mistakes"]],
+        cases=[dict(case) for case in raw.get("cases", [{}])],
+        mistakes=[
+            Mistake(m["name"], m["replace"][0], m["replace"][1], m.get("why", "")) for m in raw["mistakes"]
+        ],
         difficulty=int(raw.get("difficulty", 2)),
         tags=list(raw.get("tags", [])),
     )
@@ -94,9 +103,15 @@ def fill(text: str, values: Mapping[str, object]) -> str:
     return _PLACEHOLDER.sub(lambda match: str(values[match[1]]), text)
 
 
-def grid_points(grid: Mapping[str, list[object]]) -> list[dict[str, object]]:
+def grid_points(
+    grid: Mapping[str, list[object]], cases: list[dict[str, object]] | None = None
+) -> list[dict[str, object]]:
     names = list(grid)
-    return [dict(zip(names, combo, strict=True)) for combo in itertools.product(*grid.values())]
+    return [
+        {**dict(zip(names, combo, strict=True)), **case}
+        for case in cases or [{}]
+        for combo in itertools.product(*grid.values())
+    ]
 
 
 def mutant(source: str, mistake: Mistake, params: Mapping[str, object]) -> str | None:
@@ -130,27 +145,41 @@ def pick_distractors(
     return picked
 
 
+def stable_key(family: Family, source: str, toolchain: Toolchain, timeout: int) -> RunRecord | None:
+    """The record of KEY_RUNS runs with identical output, or None when any run fails or the outputs differ."""
+    records = [run_source(family.file, source, toolchain, timeout) for _ in range(KEY_RUNS)]
+    first = records[0]
+    if any(r.exit_code != 0 or r.stdout != first.stdout for r in records) or not first.stdout.strip():
+        return None
+    return first
+
+
+def _build_point(
+    family: Family, params: dict[str, object], toolchain: Toolchain, timeout: int
+) -> tuple[Variant | None, str | None]:
+    source = fill(family.template, params)
+    label = ", ".join(f"{k}={v}" for k, v in params.items())
+    key = stable_key(family, source, toolchain, timeout)
+    if key is None:
+        return None, f"{family.name} ({label}): the program fails, prints nothing or is not stable"
+    distractors = pick_distractors(family, params, source, key, toolchain, timeout)
+    if len(distractors) < DISTRACTORS_NEEDED:
+        return None, f"{family.name} ({label}): {len(distractors)} distinct distractors"
+    return Variant("", params, source, key, distractors), None
+
+
 def build_family(
-    family: Family, toolchain: Toolchain, timeout: int = DEFAULT_TIMEOUT
+    family: Family, toolchain: Toolchain, timeout: int = DEFAULT_TIMEOUT, jobs: int = DEFAULT_JOBS
 ) -> tuple[list[Variant], list[str]]:
-    variants: list[Variant] = []
-    skipped: list[str] = []
-    for params in grid_points(family.grid):
-        source = fill(family.template, params)
-        label = ", ".join(f"{k}={v}" for k, v in params.items())
-        key = run_source(family.file, source, toolchain, timeout)
-        if key.exit_code != 0 or not key.stdout.strip():
-            skipped.append(f"{family.name} ({label}): the program does not print")
-            continue
-        distractors = pick_distractors(family, params, source, key, toolchain, timeout)
-        if len(distractors) < DISTRACTORS_NEEDED:
-            skipped.append(f"{family.name} ({label}): {len(distractors)} distinct distractors")
-            continue
-        variants.append(
-            Variant(
-                f"{family.lesson}-v-{family.name}-{len(variants) + 1:03d}", params, source, key, distractors
-            )
-        )
+    points = grid_points(family.grid, family.cases)
+    with ThreadPoolExecutor(max_workers=jobs) as pool:
+        built = list(pool.map(lambda p: _build_point(family, p, toolchain, timeout), points))
+    skipped = [reason for _, reason in built if reason is not None]
+    kept = [variant for variant, _ in built if variant is not None]
+    variants = [
+        Variant(f"{family.lesson}-v-{family.name}-{n:03d}", v.params, v.source, v.key, v.distractors)
+        for n, v in enumerate(kept, start=1)
+    ]
     return variants, skipped
 
 
@@ -159,6 +188,17 @@ def build_family(
 
 def as_code(stdout: str) -> str:
     return ", ".join(f"`{line.strip()}`" for line in stdout.strip().splitlines())
+
+
+def explanation(family: Family, variant: Variant) -> str:
+    """The family's walk-through, then one sentence per distractor naming the mistake behind it."""
+    walk = fill(family.explanation, {**variant.params, "key": as_code(variant.key.stdout)})
+    wrong = " ".join(
+        f"{as_code(record.stdout)} comes from this mistake: {fill(mistake.name, variant.params)}."
+        + (f" {fill(mistake.why, variant.params)}" if mistake.why else "")
+        for mistake, record in variant.distractors
+    )
+    return f"{walk} {wrong}"
 
 
 def quiz_variant(family: Family, variant: Variant, position: int) -> dict[str, object]:
@@ -176,10 +216,10 @@ def quiz_variant(family: Family, variant: Variant, position: int) -> dict[str, o
             }
             for i, text in enumerate(answers)
         ],
-        "explanation": {
-            "en": fill(family.explanation, {**variant.params, "key": as_code(variant.key.stdout)})
-        },
-        "citation": family.citation,
+        "explanation": {"en": explanation(family, variant)},
+        "family": family.name,
+        "code_reading": True,
+        "citation": str(variant.params.get("citation", family.citation)),
         "difficulty": family.difficulty,
         "tags": family.tags,
     }
@@ -235,6 +275,7 @@ def main(argv: list[str] | None = None) -> int:
     add_course_argument(parser)
     parser.add_argument("--family")
     parser.add_argument("--timeout", type=int, default=DEFAULT_TIMEOUT)
+    parser.add_argument("--jobs", type=int, default=DEFAULT_JOBS)
     args = parser.parse_args(argv)
     paths = sorted((course_dir(args.course) / "variants").glob(f"{args.family or '*'}.yaml"))
     if not paths:
@@ -245,7 +286,7 @@ def main(argv: list[str] | None = None) -> int:
     toolchain = build_toolchain(pinned(args.course), any(f.file.endswith(".kt") for f in families))
     status = 0
     for family in families:
-        variants, skipped = build_family(family, toolchain, args.timeout)
+        variants, skipped = build_family(family, toolchain, args.timeout, args.jobs)
         for line in skipped:
             print(f"skipped {line}")
         exercise, _ = write_outputs(args.course, family, variants)

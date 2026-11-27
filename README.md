@@ -414,7 +414,7 @@ Everything whose data belongs to a course hangs off the course:
 /api/courses/{course}/practice/psicotecnicos A «Psicotécnicos» round: generated exercise ids, one type or all in the course's weights
 /api/courses/{course}/modules/{id}/practice A module's practice round (courses whose `practice_presets` list `module`)
 /api/courses/{course}/practice/review      The mixed review: the `spaced` scheduler's pick across the course
-/api/courses/{course}/practice/code-reading Code-reading questions only (those with a `snippet`; preset `code-reading`)
+/api/courses/{course}/practice/code-reading Code-reading questions only (a `snippet`, `code_reading: true`, or a family where one is; preset `code-reading`)
 /api/courses/{course}/stats/me             …/stats/global (anonymous aggregate, within the course)
 ```
 
@@ -1028,7 +1028,11 @@ anchor's sha256 (the version audit; `storage: local` sources are skipped with on
 each `##`) and `check_coverage` (pending lessons are counted, not failed); `lesson_quota` prints F, X and the quota
 per lesson; `run_snippets` runs `snippets/<lesson>/<File>.java|.kt` offline (`unshare -rn`) on the pinned JDK and
 the Kotlin compiler provisioned by `toolchain provision`, and records `<File>.run.json` (`--check` in CI);
-`build_variants` turns a family `variants/<family>.yaml` into a generated quiz with keys from running the code.
+`build_variants` turns a family `variants/<family>.yaml` (parameters, optional `cases:` with a per-case `why` and
+`citation`, mistakes with a `why`) into a generated quiz: the key is the output of three identical runs, wrong options are
+the outputs of scripted mistakes, and every variant carries its `family` and `code_reading: true`. Round D3 added 17 such
+families (622 variants, lessons m02, m04, m11) and 18 runtime generators (31 in all); practice serves at most two questions
+of one family per set.
 `tech_sources.py register-file` registers a file already in the repo (tier `course`; Markdown anchors from `#`
 headings), as `course-requirements` is. `docs/backend-verification/tools/close_round.sh` runs the closing checks.
 
@@ -1064,10 +1068,18 @@ extract on a source that forbids it. Fixture: `backend/tests/fixtures/content/fi
 
 **Practice presets (requirements 6.6 of backend-in-depth).** `practice_presets` in `course.yaml` lists what the course page's
 «Practice» card offers, in order: `lesson` and `module` (a picker, then a round of that scope's questions), `review` (the mixed review,
-needs `practice_scheduler: spaced`), `code-reading` (only questions with a `snippet`) and `generators` (the existing generated-items
+needs `practice_scheduler: spaced`), `code-reading` (only questions with a `snippet` or `code_reading: true`, and the rest of their family) and `generators` (the existing generated-items
 page). A module page also offers its own round. Only the generators page keeps a clock, and it stays optional; there is no mock
 exam, no penalty and no streak or points.
-Tests: `backend/tests/test_practice_presets.py`, `frontend/src/features/practice/PracticePresets.test.tsx`.
+**Question families.** A quiz variant may carry `family: <slug>` (and `code_reading: true`); a generated item's family is its
+generator id. Every practice set (lesson, module, review, code reading, and the generators page when it draws all types) serves at most
+two questions of one family, so «All (N)» can draw fewer than N. A family is seen per variant: unseen variants of a family still come
+before seen ones, up to the cap. A course that lists the `generators` preset mixes generated items into its lesson, module, review and
+code-reading sets (two never-seen slots per family; a generator joins a lesson's or module's set through `lesson:` on its
+`practice_generators` entry, else the lesson its catalogue citation names; `code_reading: true` on the entry puts it in code reading), and the
+lesson page names the generated families that practise it (`generatedFamilies`). Choosing one type on the generators page is not capped.
+Tests: `backend/tests/test_practice_presets.py`, `backend/tests/test_practice_families.py` (over `fixture-familias`),
+`frontend/src/features/practice/PracticePresets.test.tsx`, `PracticeFamilies.test.tsx`, `frontend/e2e/families.spec.ts`.
 
 **Generated psicotécnicos (platform delta L, 2026-11-07).** A course lists `practice_generators` in
 `course.yaml` (a generator id, its Spanish `title`, its `weight` in the exam mix and its `difficulty` level

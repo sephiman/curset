@@ -45,6 +45,12 @@ def _all_generators() -> dict[str, ItemGenerator]:
     return {**GENERATORS, **BACKEND_GENERATORS}
 
 
+def cited_lesson(generator_id: str) -> str | None:
+    """The lesson a backend-in-depth generator's citation names; None for any other generator."""
+    cited = BACKEND_GENERATORS.get(generator_id)
+    return None if cited is None else cited.citation.lesson
+
+
 def is_known(generator_id: str) -> bool:
     return generator_id in _all_generators()
 

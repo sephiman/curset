@@ -197,7 +197,7 @@ export function LessonPage() {
           </ReferenceProvider>
         </TermPopoverHost>
       </div>
-      <PracticeEntry to={`/lessons/${lessonId}/practice`} questions={lesson.practiceQuestions} />
+      <PracticeEntry to={`/lessons/${lessonId}/practice`} questions={lesson.practiceQuestions} families={lesson.generatedFamilies} />
       {/* End-of-lesson panel. The button is the *only* thing that marks a lesson read — nothing is
           inferred from scrolling or dwell time — so it says so rather than sitting unexplained. */}
       <div className="mt-8 rounded-lg border border-border p-4 dark:border-gray-800 oled:border-oled-line">

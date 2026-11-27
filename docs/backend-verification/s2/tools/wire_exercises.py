@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: AGPL-3.0-only
-"""Declare each built exercise file (`exercises/<lesson>-ex-1.yaml`, `exercises/m09-case-*.yaml`) under its lesson in
+"""Declare each built exercise file (`exercises/<lesson>-ex-<name>.yaml`, `exercises/m09-case-*.yaml`) under its lesson in
 course.yaml; the registry only loads exercises a lesson declares. Idempotent.
 
     python wire_exercises.py [--course-dir content/backend-in-depth] [--case m09-l04=case-rate-limiter ...]
@@ -56,8 +56,8 @@ def main() -> None:
     parser.add_argument("--case", action="append", default=[], help="LESSON=CASE_ID")
     args = parser.parse_args()
     wanted: dict[str, list[tuple[str, str]]] = {}
-    for path in sorted((args.course_dir / "exercises").glob("m*-l*-ex-1.yaml")):
-        lesson = path.name.removesuffix("-ex-1.yaml")
+    for path in sorted((args.course_dir / "exercises").glob("m*-l*-ex-*.yaml")):
+        lesson = path.name.split("-ex-", 1)[0]
         wanted.setdefault(lesson, []).append((path.stem, "quiz"))
     for path in sorted((args.course_dir / "exercises").glob("m09-case-*.yaml")):
         wanted.setdefault(CASE_LESSON, []).append((path.stem, "case"))

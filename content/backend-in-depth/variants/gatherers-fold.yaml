@@ -1,0 +1,40 @@
+exercise: m11-l01-ex-gatherers-fold
+lesson: m11-l01
+citation: "javadoc-gatherers#fold(java.util.function.Supplier,java.util.function.BiFunction)"
+file: Main.java
+prompt: "Since Java 24, where gatherers are final, what does this program print? The stream is ordered, and the result is printed as a list."
+difficulty: 3
+tags: [streams, gatherers]
+parameters:
+  data:
+    - "1, 2, 3, 4, 5, 6"
+    - "2, 4, 6, 8, 10"
+    - "7, 1, 5, 3, 9, 2"
+    - "2, 7, 3, 1"
+    - "9, 4, 6, 1, 5, 2, 8"
+  seed: [0, 3]
+  op: ["Integer::sum", "Integer::max", "(acc, n) -> acc * 2 + n", "(acc, n) -> acc - n"]
+template: |
+  import java.util.stream.Gatherers;
+  import java.util.stream.Stream;
+
+  public class Main {
+      public static void main(String[] args) {
+          System.out.println(Stream.of(@@data@@).gather(Gatherers.fold(() -> @@seed@@, @@op@@)).toList());
+      }
+  }
+explanation: >-
+  `fold` starts from the seed @@seed@@ and applies `@@op@@` to the running value and each element in order. It emits a single element, the final value. The program prints @@key@@.
+mistakes:
+  - name: using `scan` where `fold` was written
+    replace: ["Gatherers.fold(", "Gatherers.scan("]
+  - name: starting from one instead of the seed written
+    replace: ["() -> @@seed@@", "() -> 1"]
+  - name: using the sum instead of the function written
+    replace: ["@@seed@@, @@op@@)", "@@seed@@, Integer::sum)"]
+  - name: using the maximum instead of the function written
+    replace: ["@@seed@@, @@op@@)", "@@seed@@, Integer::max)"]
+  - name: using the minimum instead of the function written
+    replace: ["@@seed@@, @@op@@)", "@@seed@@, Integer::min)"]
+  - name: keeping only the last element instead of applying the function
+    replace: ["@@seed@@, @@op@@)", "@@seed@@, (acc, n) -> n)"]

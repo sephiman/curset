@@ -265,6 +265,20 @@ def spaced_course_settings(settings: Settings, tmp_path_factory: pytest.TempPath
 
 
 @pytest.fixture(scope="session")
+def families_course_settings(settings: Settings, tmp_path_factory: pytest.TempPathFactory) -> Settings:
+    """The fixture-familias course alone: quiz variants and generated items that declare families."""
+    root = tmp_path_factory.mktemp("families-content")
+    shutil.copytree(FIXTURE_CONTENT / "fixture-familias", root / "fixture-familias")
+    return settings.model_copy(update={"content_dir": root})
+
+
+@pytest_asyncio.fixture
+async def families_client(families_course_settings: Settings, _migrated: bool) -> AsyncGenerator[AsyncClient]:
+    async with _build_client(families_course_settings, reconcile_content=True) as http:
+        yield http
+
+
+@pytest.fixture(scope="session")
 def shared_variant_settings(settings: Settings, tmp_path_factory: pytest.TempPathFactory) -> Settings:
     """The spaced technical fixture course with a second exercise that reuses the first one's variant ids."""
     root = tmp_path_factory.mktemp("shared-variant-content")

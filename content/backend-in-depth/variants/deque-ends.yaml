@@ -1,0 +1,88 @@
+exercise: m02-l03-ex-deque-ends
+lesson: m02-l03
+citation: "javadoc-deque#interface-deque-e"
+file: Main.java
+prompt: What does this program print? The `ArrayDeque` is printed from its first element to its last.
+difficulty: 2
+tags: [collections, deque]
+parameters:
+  take: ["pop", "pollLast", "peek"]
+cases:
+  - {op1: push, op2: push, op3: offer, e1: "beginning", e2: "beginning", e3: "end"}
+  - {op1: push, op2: push, op3: addFirst, e1: "beginning", e2: "beginning", e3: "beginning"}
+  - {op1: push, op2: addLast, op3: offer, e1: "beginning", e2: "end", e3: "end"}
+  - {op1: push, op2: addLast, op3: addFirst, e1: "beginning", e2: "end", e3: "beginning"}
+  - {op1: push, op2: offerFirst, op3: offer, e1: "beginning", e2: "beginning", e3: "end"}
+  - {op1: push, op2: offerFirst, op3: addFirst, e1: "beginning", e2: "beginning", e3: "beginning"}
+  - {op1: offer, op2: push, op3: offer, e1: "end", e2: "beginning", e3: "end"}
+  - {op1: offer, op2: push, op3: addFirst, e1: "end", e2: "beginning", e3: "beginning"}
+  - {op1: offer, op2: addLast, op3: offer, e1: "end", e2: "end", e3: "end"}
+  - {op1: offer, op2: addLast, op3: addFirst, e1: "end", e2: "end", e3: "beginning"}
+  - {op1: offer, op2: offerFirst, op3: offer, e1: "end", e2: "beginning", e3: "end"}
+  - {op1: offer, op2: offerFirst, op3: addFirst, e1: "end", e2: "beginning", e3: "beginning"}
+template: |
+  import java.util.ArrayDeque;
+  import java.util.Deque;
+
+  public class Main {
+      public static void main(String[] args) {
+          Deque<Integer> d = new ArrayDeque<>();
+          d.@@op1@@(4);
+          d.@@op2@@(7);
+          d.@@op3@@(9);
+          System.out.println(d.@@take@@() + " " + d);
+      }
+  }
+explanation: >-
+  In this program `@@op1@@` inserts 4 at the @@e1@@ of the deque, `@@op2@@` inserts 7 at the @@e2@@ and `@@op3@@` inserts 9 at the @@e3@@, which leaves the deque in the order that `@@take@@` then reads.
+  Removing and reading differ: `pop` and `pollLast` remove the first and the last element, and `peek` returns the first element and leaves it in place.
+  The program prints @@key@@.
+mistakes:
+  - name: assuming `push` adds at the end of the deque
+    replace: ["d.push(", "d.addLast("]
+    why: "`push` inserts at the beginning of the deque."
+  - name: assuming `offer` adds at the beginning of the deque
+    replace: ["d.offer(", "d.addFirst("]
+    why: "`offer` inserts at the end of the deque."
+  - name: assuming `addFirst` appends at the end
+    replace: ["d.addFirst(", "d.addLast("]
+    why: "`addFirst` inserts at the beginning of the deque."
+  - name: assuming `offerFirst` appends at the end
+    replace: ["d.offerFirst(", "d.offerLast("]
+    why: "`offerFirst` inserts at the beginning of the deque."
+  - name: assuming `addLast` inserts at the beginning
+    replace: ["d.addLast(", "d.addFirst("]
+    why: "`addLast` inserts at the end of the deque."
+  - name: assuming `pop` removes the last element
+    replace: ["d.pop()", "d.pollLast()"]
+    why: "`pop` removes the first element of the deque."
+  - name: assuming `pollLast` removes the first element
+    replace: ["d.pollLast()", "d.pollFirst()"]
+    why: "`pollLast` removes the last element of the deque."
+  - name: forgetting that `pop` removes the element it returns
+    replace: ["d.pop()", "d.peek()"]
+    why: "`pop` removes the first element from the deque."
+  - name: assuming `pollLast` reads the first element without removing it
+    replace: ["d.pollLast()", "d.peekFirst()"]
+    why: "`pollLast` removes the last element."
+  - name: assuming `peek` removes the element it returns
+    replace: ["d.peek()", "d.poll()"]
+    why: "`peek` returns the first element and leaves it in the deque."
+  - name: treating the first call as an insertion at the front
+    replace: ["d.@@op1@@(4)", "d.addFirst(4)"]
+    why: "`@@op1@@` inserts at the @@e1@@ of the deque."
+  - name: treating the first call as an insertion at the end
+    replace: ["d.@@op1@@(4)", "d.addLast(4)"]
+    why: "`@@op1@@` inserts at the @@e1@@ of the deque."
+  - name: treating the second call as an insertion at the front
+    replace: ["d.@@op2@@(7)", "d.addFirst(7)"]
+    why: "`@@op2@@` inserts at the @@e2@@ of the deque."
+  - name: treating the second call as an insertion at the end
+    replace: ["d.@@op2@@(7)", "d.addLast(7)"]
+    why: "`@@op2@@` inserts at the @@e2@@ of the deque."
+  - name: treating the third call as an insertion at the end
+    replace: ["d.@@op3@@(9)", "d.addLast(9)"]
+    why: "`@@op3@@` inserts at the @@e3@@ of the deque."
+  - name: treating the third call as an insertion at the front
+    replace: ["d.@@op3@@(9)", "d.addFirst(9)"]
+    why: "`@@op3@@` inserts at the @@e3@@ of the deque."

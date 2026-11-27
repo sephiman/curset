@@ -34,7 +34,7 @@ ITEMS_PER_GENERATOR = 1_000
 
 
 def test_the_thirteen_families_of_requirements_6_3_are_registered() -> None:
-    assert len(IDS) == 13
+    assert len(IDS) == 31
     assert all(is_known(generator_id) for generator_id in IDS)
 
 
@@ -201,8 +201,8 @@ def _single_numbers(options: tuple[str, ...]) -> list[Fraction] | None:
 HEDGED_IDS = [i for i in IDS if any("about" in form for form in BACKEND_GENERATORS[i].forms)]
 
 
-def test_the_hedged_families_are_the_capacity_and_retry_ones() -> None:
-    assert HEDGED_IDS == ["capacity-estimation", "retry-backoff-bounds"]
+def test_the_hedged_families_are_the_capacity_retry_and_error_budget_ones() -> None:
+    assert HEDGED_IDS == ["capacity-estimation", "error-budget-minutes", "retry-backoff-bounds"]
 
 
 @pytest.mark.parametrize("generator_id", HEDGED_IDS)

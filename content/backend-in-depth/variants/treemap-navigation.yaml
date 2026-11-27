@@ -1,0 +1,49 @@
+exercise: m02-l01-ex-treemap-navigation
+lesson: m02-l01
+citation: "javadoc-treemap#class-treemap-k-v"
+file: Main.java
+prompt: What does this program print? The `TreeMap` has `String` keys and is ordered by the comparator it was created with, or by natural `String` ordering when it has none.
+difficulty: 3
+tags: [collections, treemap]
+cases:
+  - {order: "", ord: "natural `String` ordering, where uppercase letters come before lowercase ones"}
+  - {order: "Comparator.reverseOrder()", ord: "the reverse of natural `String` ordering"}
+  - {order: "String.CASE_INSENSITIVE_ORDER", ord: "case-insensitive `String` ordering"}
+parameters:
+  keys:
+    - '"b", 1); m.put("D", 2); m.put("a", 3); m.put("E", 4); m.put("c", 5'
+    - '"x", 1); m.put("C", 2); m.put("y", 3); m.put("A", 4); m.put("z", 5'
+    - '"m", 1); m.put("Q", 2); m.put("k", 3); m.put("B", 4); m.put("t", 5'
+    - '"Fig", 1); m.put("apple", 2); m.put("Cherry", 3); m.put("banana", 4); m.put("Date", 5'
+    - '"pear", 1); m.put("Kiwi", 2); m.put("lime", 3); m.put("Plum", 4); m.put("grape", 5'
+  query: ["m.keySet()", "m.values()", "m.entrySet()"]
+template: |
+  import java.util.Comparator;
+  import java.util.TreeMap;
+
+  public class Main {
+      public static void main(String[] args) {
+          TreeMap<String, Integer> m = new TreeMap<>(@@order@@);
+          m.put(@@keys@@);
+          System.out.println(@@query@@);
+      }
+  }
+explanation: >-
+  A `TreeMap` keeps its keys sorted by the comparator given at creation, or by natural ordering when it has none, and here that order is @@ord@@.
+  The views `keySet()`, `values()` and `entrySet()` list the keys, the values and the entries in that order, whatever the order in which the keys were inserted.
+  The program prints @@key@@.
+mistakes:
+  - name: ignoring the comparator and using natural ordering
+    replace: ["new TreeMap<>(@@order@@)", "new TreeMap<>()"]
+    why: "The map is ordered by the comparator given at creation, so its order is @@ord@@ and not natural `String` ordering."
+  - name: assuming the map is case-insensitive
+    replace: ["new TreeMap<>(@@order@@)", "new TreeMap<>(String.CASE_INSENSITIVE_ORDER)"]
+    why: "The order of this map is @@ord@@, which is not case-insensitive `String` ordering."
+  - name: assuming the map is in descending order
+    replace: ["new TreeMap<>(@@order@@)", "new TreeMap<>(Comparator.reverseOrder())"]
+    why: "The order of this map is @@ord@@, which is not the reverse of natural `String` ordering."
+  - name: assuming the keys stay in insertion order
+    replace:
+      - "TreeMap<String, Integer> m = new TreeMap<>(@@order@@);"
+      - "java.util.Map<String, Integer> m = new java.util.LinkedHashMap<>();"
+    why: "A `TreeMap` orders its keys by comparison, not by insertion."

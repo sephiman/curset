@@ -1,0 +1,49 @@
+exercise: m11-l01-ex-collectors-tomap
+lesson: m11-l01
+citation: "javadoc-collectors#toMap(java.util.function.Function,java.util.function.Function,java.util.function.BinaryOperator)"
+file: Main.java
+prompt: "What does this program print? The result map is a `TreeMap`, so the order of the entries is fixed."
+difficulty: 3
+tags: [streams, collectors]
+parameters:
+  words:
+    - '"apple", "avocado", "fig", "banana", "kiwi", "fig"'
+    - '"ant", "bee", "bear", "cat", "camel", "bat"'
+    - '"dog", "deer", "eel", "elephant", "emu", "dove"'
+    - '"oak", "olive", "pine", "plum", "pear", "ash"'
+  merge: ["Integer::sum", "Integer::max", "Integer::min", "(a, b) -> a", "(a, b) -> b"]
+  by: ["w.charAt(0)", "w.charAt(w.length() - 1)"]
+template: |
+  import java.util.List;
+  import java.util.TreeMap;
+  import java.util.stream.Collectors;
+
+  public class Main {
+      public static void main(String[] args) {
+          List<String> words = List.of(@@words@@);
+          var lengths = words.stream().collect(
+                  Collectors.toMap(w -> @@by@@, String::length, @@merge@@, TreeMap::new));
+          System.out.println(lengths);
+      }
+  }
+explanation: >-
+  Each word is keyed by `@@by@@` and mapped to its length. When two words give the same key, `toMap` applies the merge
+  function `@@merge@@` to the value already stored and the new one, so equal keys never throw. The `TreeMap` factory orders
+  the entries by key. The program prints @@key@@.
+mistakes:
+  - name: merging with `sum` instead of the merge function written
+    replace: ["@@merge@@, TreeMap::new", "Integer::sum, TreeMap::new"]
+  - name: merging with `max` instead of the merge function written
+    replace: ["@@merge@@, TreeMap::new", "Integer::max, TreeMap::new"]
+  - name: merging with `min` instead of the merge function written
+    replace: ["@@merge@@, TreeMap::new", "Integer::min, TreeMap::new"]
+  - name: keeping the first value of equal keys instead of the merge result
+    replace: ["@@merge@@, TreeMap::new", "(a, b) -> a, TreeMap::new"]
+  - name: keeping the last value of equal keys instead of the merge result
+    replace: ["@@merge@@, TreeMap::new", "(a, b) -> b, TreeMap::new"]
+  - name: keying by the last letter instead of the first
+    replace: ["w -> w.charAt(0),", "w -> w.charAt(w.length() - 1),"]
+  - name: keying by the first letter instead of the last
+    replace: ["w -> w.charAt(w.length() - 1),", "w -> w.charAt(0),"]
+  - name: counting the words per key with `groupingBy` instead of merging the lengths
+    replace: ["Collectors.toMap(w -> @@by@@, String::length, @@merge@@, TreeMap::new)", "Collectors.groupingBy(w -> @@by@@, TreeMap::new, Collectors.counting())"]

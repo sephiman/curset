@@ -113,6 +113,7 @@ export function PracticeRound({
           <PracticeQuestion
             key={`${round.number}-${index}`}
             round={round.number}
+            position={index}
             question={round.questions[index]}
             lessonId={lessonId}
             onAnswered={() => setAnswered(true)}

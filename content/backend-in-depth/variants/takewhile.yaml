@@ -1,0 +1,43 @@
+exercise: m11-l01-ex-takewhile
+lesson: m11-l01
+citation: "javadoc-stream#takeWhile(java.util.function.Predicate)"
+file: Main.java
+prompt: "What does this program print? The stream is ordered, because `Stream.of` keeps the order of its arguments."
+difficulty: 2
+tags: [streams]
+parameters:
+  data:
+    - "1, 2, 5, 1, 6, 2"
+    - "3, 4, 2, 7, 3, 1"
+    - "2, 2, 8, 1, 2, 9, 3"
+    - "5, 1, 4, 6, 3, 2"
+    - "4, 3, 3, 9, 2, 4, 1"
+    - "1, 3, 5, 2, 7, 4"
+    - "2, 3, 1, 8, 2, 2"
+    - "6, 2, 1, 4, 7, 5"
+    - "3, 1, 3, 6, 1, 3, 2"
+    - "4, 4, 2, 5, 1, 8"
+  pred: ["n < 4", "n <= 3", "n % 2 == 1", "n != 5"]
+template: |
+  import java.util.stream.Stream;
+
+  public class Main {
+      public static void main(String[] args) {
+          System.out.println(Stream.of(@@data@@)
+                  .takeWhile(n -> @@pred@@)
+                  .toList());
+      }
+  }
+explanation: >-
+  `takeWhile` returns the longest prefix of elements that match `@@pred@@`. It stops at the first element that fails and does not test the elements after it. The program prints @@key@@.
+mistakes:
+  - name: using `filter`, which tests every element instead of stopping at the first failure
+    replace: [".takeWhile(", ".filter("]
+  - name: using `dropWhile` where `takeWhile` was written
+    replace: [".takeWhile(", ".dropWhile("]
+  - name: keeping only the first two elements of the prefix
+    replace: [".toList()", ".limit(2).toList()"]
+  - name: applying the negated predicate
+    replace: ["n -> @@pred@@", "n -> !(@@pred@@)"]
+  - name: assuming the elements are tested in sorted order
+    replace: ["Stream.of(@@data@@)", "Stream.of(@@data@@).sorted()"]

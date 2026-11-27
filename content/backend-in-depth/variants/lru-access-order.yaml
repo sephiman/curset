@@ -1,0 +1,55 @@
+exercise: m02-l01-ex-lru-access-order
+lesson: m02-l01
+citation: "javadoc-linkedhashmap#class-linkedhashmap-k-v"
+file: Main.java
+prompt: What does this program print? The map drops its eldest entry after any insertion that leaves more than four entries.
+difficulty: 3
+tags: [collections, linkedhashmap, lru]
+parameters:
+  op1: ['m.get("a")', 'm.put("b", 9)', 'm.getOrDefault("c", 0)', 'm.putIfAbsent("b", 7)', 'm.getOrDefault("a", 0)']
+  op2: ['m.get("b")', 'm.putIfAbsent("a", 7)', 'm.getOrDefault("d", 0)']
+  op3: ['m.get("d")', 'm.get("a")', 'm.put("c", 8)']
+template: |
+  import java.util.LinkedHashMap;
+  import java.util.Map;
+
+  public class Main {
+      public static void main(String[] args) {
+          Map<String, Integer> m = new LinkedHashMap<>(16, 0.75f, true) {
+              @Override
+              protected boolean removeEldestEntry(Map.Entry<String, Integer> eldest) {
+                  return size() > 4;
+              }
+          };
+          m.put("a", 1);
+          m.put("b", 2);
+          m.put("c", 3);
+          m.put("d", 4);
+          @@op1@@;
+          @@op2@@;
+          @@op3@@;
+          m.put("e", 5);
+          System.out.println(m.keySet());
+      }
+  }
+explanation: >-
+  The map was created in access order, so each of `get`, `getOrDefault`, `putIfAbsent` and `put` on a present key moves that entry to the most recently used end, and the first key is the least recently used.
+  After the four inserts the order is `a`, `b`, `c`, `d`, and `@@op1@@`, `@@op2@@` and `@@op3@@` each move one key to the end in turn.
+  Then `put("e", 5)` adds `e` at the end and `removeEldestEntry` drops the first key, because the size is then 5 and exceeds 4.
+  The program prints @@key@@.
+mistakes:
+  - name: assuming the map is insertion-ordered
+    replace: ["0.75f, true", "0.75f, false"]
+    why: "The map is access-ordered, so reading or updating an entry moves it to the most recently used end."
+  - name: assuming the eviction threshold is inclusive
+    replace: ["size() > 4", "size() >= 4"]
+    why: "`removeEldestEntry` returns `true` only when the size exceeds 4, so the entry is dropped after the fifth insertion and not earlier."
+  - name: assuming the first call leaves its entry where it was
+    replace: ["@@op1@@;", "m.size();"]
+    why: "`@@op1@@` is an access to its entry, which moves that entry to the most recently used end."
+  - name: assuming the second call leaves its entry where it was
+    replace: ["@@op2@@;", "m.size();"]
+    why: "`@@op2@@` is an access to its entry, which moves that entry to the most recently used end."
+  - name: assuming the third call leaves its entry where it was
+    replace: ["@@op3@@;", "m.size();"]
+    why: "`@@op3@@` is an access to its entry, which moves that entry to the most recently used end."

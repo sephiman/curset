@@ -1,0 +1,47 @@
+exercise: m11-l01-ex-comparators
+lesson: m11-l01
+citation: "javadoc-comparator#thenComparing(java.util.Comparator)"
+file: Main.java
+prompt: What does this program print? The sort is stable, and each item is shown by its name.
+difficulty: 3
+tags: [streams, comparators]
+parameters:
+  items:
+    - '"bob", 2, "x"), new Item("Amy", 1, "y"), new Item("cat", 2, "y"), new Item("Dan", 1, "x"), new Item("amy", 2, "x"'
+    - '"Eve", 3, "z"), new Item("dot", 1, "z"), new Item("eve", 3, "y"), new Item("Dot", 1, "y"), new Item("Fay", 3, "z"'
+    - '"kim", 1, "b"), new Item("Lee", 2, "a"), new Item("Kim", 1, "a"), new Item("lee", 2, "b"), new Item("Max", 1, "b"'
+  primary: ["comparingInt(Item::rank)", "comparing(Item::group)", "comparing(Item::group, Comparator.reverseOrder())"]
+  direction: ["", ".reversed()"]
+  tie: ["thenComparing(Item::name)", "thenComparing(Item::name, String.CASE_INSENSITIVE_ORDER)", "thenComparing(Item::name, Comparator.reverseOrder())"]
+template: |
+  import java.util.Comparator;
+  import java.util.List;
+
+  public class Main {
+      record Item(String name, int rank, String group) {}
+
+      public static void main(String[] args) {
+          List<Item> items = List.of(new Item(@@items@@));
+          Comparator<Item> order = Comparator.@@primary@@@@direction@@.@@tie@@;
+          System.out.println(items.stream().sorted(order).map(Item::name).toList());
+      }
+  }
+explanation: >-
+  The comparator is `@@primary@@@@direction@@.@@tie@@`. Items are compared by its first key, and `thenComparing` decides only
+  between items that key sees as equal. The sort is stable, so items that stay equal keep their input order. The program
+  prints @@key@@.
+mistakes:
+  - name: leaving out the tie-breaker, so equal items keep their input order
+    replace: [".@@tie@@;", ";"]
+  - name: leaving out the reversal of the first key
+    replace: [".reversed()", ""]
+  - name: reversing the whole comparator instead of only the first key
+    replace: [").reversed().@@tie@@", ").@@tie@@.reversed()"]
+  - name: leaving out the key comparator that ignores case
+    replace: [", String.CASE_INSENSITIVE_ORDER)", ")"]
+  - name: leaving out the reverse order of a key
+    replace: [", Comparator.reverseOrder())", ")"]
+  - name: breaking ties on the group instead of the name
+    replace: ["thenComparing(Item::name", "thenComparing(Item::group"]
+  - name: sorting by the group first instead of the rank
+    replace: ["Comparator.comparingInt(Item::rank)", "Comparator.comparing(Item::group)"]

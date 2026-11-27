@@ -1,0 +1,49 @@
+exercise: m04-l02-ex-data-copy-equality
+lesson: m04-l02
+citation: "kotlin-docs-data-classes#data-classes.md"
+file: Main.kt
+prompt: "What does this program print? The `note` property of `Order` is declared in the class body, not in the primary constructor."
+difficulty: 3
+tags: [kotlin, data-class]
+parameters:
+  id: [1, 2]
+  item: [pen, ink]
+  qty: [2, 4]
+  change: ["qty = 4", "item = \"pen\"", "id = 9", "qty = 2, item = \"ink\""]
+  note: [gift]
+template: |
+  data class Order(val id: Int, val item: String, val qty: Int) {
+      var note: String = ""
+  }
+
+  fun main() {
+      val first = Order(@@id@@, "@@item@@", @@qty@@)
+      first.note = "@@note@@"
+      val second = first.copy(@@change@@)
+      println(first == second)
+      println(second)
+      println("[" + second.note + "]")
+  }
+explanation: "`first` is `Order(@@id@@, \"@@item@@\", @@qty@@)` with `note` set to `@@note@@` afterwards. `copy(@@change@@)` builds a new `Order` from the primary-constructor properties with that change. The generated `equals()` and `toString()` use only `id`, `item` and `qty`, so `==` is true exactly when the copy changed none of them, `second` prints those three, and `note`, declared in the body, is not copied: `second.note` is still empty. The output is @@key@@."
+mistakes:
+  - name: counting the body property as a constructor property
+    replace: ["val qty: Int) {\n    var note: String = \"\"\n}", "val qty: Int, var note: String = \"\")"]
+    why: "The generated `equals()`, `toString()` and `copy()` use only the properties declared in the primary constructor, and `note` is declared in the body."
+  - name: comparing references instead of values
+    replace: ["first == second", "first === second"]
+    why: "`==` calls the generated `equals()`, which compares the primary-constructor properties, not the identity of the objects."
+  - name: ignoring the arguments of `copy`
+    replace: ["first.copy(@@change@@)", "first.copy()"]
+    why: "`copy(@@change@@)` replaces the named properties in the new instance."
+  - name: treating `copy` as another name for the same instance
+    replace: ["first.copy(@@change@@)", "first"]
+    why: "`copy()` creates a new instance, and `note` is not copied into it."
+  - name: comparing only the ids
+    replace: ["first == second", "first.id == second.id"]
+    why: "The generated `equals()` compares every primary-constructor property, not just `id`."
+  - name: expecting the `copy` to inherit the note
+    replace: ["second.note + \"]\"", "first.note + \"]\""]
+    why: "`note` is declared in the body, so `copy()` does not carry it over and `second.note` stays empty."
+  - name: comparing only the notes
+    replace: ["first == second", "first.note == second.note"]
+    why: "The generated `equals()` ignores `note` and compares `id`, `item` and `qty`."

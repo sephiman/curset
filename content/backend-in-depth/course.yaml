@@ -28,7 +28,7 @@ course:
   practice_presets: [lesson, module, review, code-reading, generators]
   option_labels: letters
   pdf_exercises: true
-  # Requirements 6.3 runtime generators: equal weights, levels 1 and 2 drawn equally (no index fixes a mix).
+  # Requirements 6.3 runtime generators (13 initial families, 18 added in round D3): equal weights, levels 1 and 2 drawn equally (no index fixes a mix).
   practice_generators:
   - generator: capacity-estimation
     title:
@@ -93,6 +93,96 @@ course:
   - generator: loop-complexity
     title:
       en: Loop complexity
+    weight: 1
+    difficulty: {1: 1, 2: 1}
+  - generator: graph-traversal-order
+    title:
+      en: Visit order of breadth-first and depth-first search
+    weight: 1
+    difficulty: {1: 1, 2: 1}
+  - generator: topological-order-valid
+    title:
+      en: Which ordering is topological
+    weight: 1
+    difficulty: {1: 1, 2: 1}
+  - generator: union-find-sets
+    title:
+      en: Sets after a sequence of unions
+    weight: 1
+    difficulty: {1: 1, 2: 1}
+  - generator: hashmap-resize-point
+    title:
+      en: When a hash table doubles
+    weight: 1
+    difficulty: {1: 1, 2: 1}
+  - generator: thread-pool-state
+    title:
+      en: Threads, queue and rejections of a thread pool
+    weight: 1
+    difficulty: {1: 1, 2: 1}
+  - generator: partition-owner
+    title:
+      en: Which partition receives a row
+    weight: 1
+    difficulty: {1: 1, 2: 1}
+  - generator: property-source-winner
+    title:
+      en: Which property value wins
+    weight: 1
+    difficulty: {1: 1, 2: 1}
+  - generator: proxy-annotation-applies
+    title:
+      en: Does the advice run
+    weight: 1
+    difficulty: {1: 1, 2: 1}
+  - generator: row-lock-conflicts
+    title:
+      en: Who waits on a row lock
+    weight: 1
+    difficulty: {1: 1, 2: 1}
+  - generator: http-response-freshness
+    title:
+      en: When a cached response turns stale
+    weight: 1
+    difficulty: {1: 1, 2: 1}
+  - generator: http-method-properties
+    title:
+      en: Safe and idempotent methods
+    weight: 1
+    difficulty: {1: 1, 2: 1}
+  - generator: kafka-write-acceptance
+    title:
+      en: Kafka write acceptance
+    weight: 1
+    difficulty: {1: 1, 2: 1}
+  - generator: raft-election-votes
+    title:
+      en: Raft election votes
+    weight: 1
+    difficulty: {1: 1}
+  - generator: raft-commit-index
+    title:
+      en: Raft commit index
+    weight: 1
+    difficulty: {1: 1, 2: 1}
+  - generator: stream-window-grace
+    title:
+      en: Tumbling windows and grace periods
+    weight: 1
+    difficulty: {1: 1, 2: 1}
+  - generator: hpa-desired-replicas
+    title:
+      en: Autoscaler desired replicas
+    weight: 1
+    difficulty: {1: 1}
+  - generator: rolling-update-bounds
+    title:
+      en: Rolling update bounds
+    weight: 1
+    difficulty: {1: 1, 2: 1}
+  - generator: error-budget-minutes
+    title:
+      en: Error budget in minutes
     weight: 1
     difficulty: {1: 1, 2: 1}
   # The identity round (docs/identity.md): a server rack, distinct from the other four glyphs; green accent on paper
@@ -173,6 +263,12 @@ blocks:
       exercises:
       - id: m02-l01-ex-1
         type: quiz
+      - id: m02-l01-ex-lru-access-order
+        type: quiz
+      - id: m02-l01-ex-priority-queue-poll
+        type: quiz
+      - id: m02-l01-ex-treemap-navigation
+        type: quiz
     - id: m02-l02
       title:
         en: 'Arrays, strings and hashing'
@@ -188,6 +284,8 @@ blocks:
         en: 'A `Deque` serves as stack and queue, a binary tree is walked recursively, iteratively or level by level, and a `BinaryHeap` stored in an array keeps the smallest element at position 0.'
       exercises:
       - id: m02-l03-ex-1
+        type: quiz
+      - id: m02-l03-ex-deque-ends
         type: quiz
     - id: m02-l04
       title:
@@ -270,6 +368,8 @@ blocks:
       exercises:
       - id: m04-l01-ex-1
         type: quiz
+      - id: m04-l01-ex-safe-elvis
+        type: quiz
     - id: m04-l02
       title:
         en: 'Idiomatic Kotlin'
@@ -277,6 +377,10 @@ blocks:
         en: 'The members the compiler generates for data classes and data objects, sealed hierarchies with exhaustive when and guard conditions, object declarations and value classes, extension and scope functions, read-only collections, sequences and delegation, and how these compare with Java records, sealed classes and pattern matching.'
       exercises:
       - id: m04-l02-ex-1
+        type: quiz
+      - id: m04-l02-ex-data-copy-equality
+        type: quiz
+      - id: m04-l02-ex-scope-returns
         type: quiz
     - id: m04-l03
       title:
@@ -661,6 +765,26 @@ blocks:
         en: 'Reading Java stream pipelines: flatMap, takeWhile, dropWhile, reduce, composed comparators, collectors, JEP 485 gatherers, laziness and side-effects.'
       exercises:
       - id: m11-l01-ex-1
+        type: quiz
+      - id: m11-l01-ex-collectors-grouping
+        type: quiz
+      - id: m11-l01-ex-collectors-teeing
+        type: quiz
+      - id: m11-l01-ex-collectors-tomap
+        type: quiz
+      - id: m11-l01-ex-comparators
+        type: quiz
+      - id: m11-l01-ex-dropwhile
+        type: quiz
+      - id: m11-l01-ex-gatherers-fold
+        type: quiz
+      - id: m11-l01-ex-gatherers-scan
+        type: quiz
+      - id: m11-l01-ex-gatherers-windowfixed
+        type: quiz
+      - id: m11-l01-ex-gatherers-windowsliding
+        type: quiz
+      - id: m11-l01-ex-takewhile
         type: quiz
     - id: m11-l02
       title:

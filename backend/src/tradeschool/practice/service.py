@@ -4,7 +4,8 @@
 from __future__ import annotations
 
 import uuid
-from collections.abc import Iterable
+from collections import Counter
+from collections.abc import Iterable, Sequence
 from datetime import UTC, datetime
 
 from sqlalchemy import func, select, tuple_
@@ -21,6 +22,9 @@ from tradeschool.psicotecnico.weights import apportion
 #: «20 al azar», the default round.
 ROUND_SIZE = 20
 
+#: A practice set serves at most this many questions of one family.
+FAMILY_CAP = 2
+
 #: (exercise id, variant id): a variant id alone is unique only within its exercise.
 type QuestionKey = tuple[str, str]
 
@@ -31,6 +35,30 @@ def _key(question: QuestionRef) -> QuestionKey | None:
 
 def _by_key(questions: Iterable[QuestionRef]) -> dict[QuestionKey, QuestionRef]:
     return {key: q for q in questions if (key := _key(q)) is not None}
+
+
+def _pool(stored: Iterable[QuestionRef], generated: Iterable[QuestionRef]) -> dict[QuestionKey, QuestionRef]:
+    """Stored questions by key, plus FAMILY_CAP never-seen slots per generated family."""
+    slots = {(q.exercise_id, f"#{slot}"): q for q in generated for slot in range(FAMILY_CAP)}
+    return {**_by_key(stored), **slots}
+
+
+def _capped(
+    order: Sequence[QuestionKey], questions: dict[QuestionKey, QuestionRef], count: int | None
+) -> list[QuestionRef]:
+    """The first `count` of `order` (all when None), at most FAMILY_CAP per family."""
+    taken: list[QuestionRef] = []
+    per_family: Counter[str] = Counter()
+    for key in order:
+        question = questions[key]
+        if question.family is not None:
+            if per_family[question.family] >= FAMILY_CAP:
+                continue
+            per_family[question.family] += 1
+        taken.append(question)
+        if count is not None and len(taken) == count:
+            break
+    return taken
 
 
 async def _mastered(
@@ -80,14 +108,15 @@ async def _ordered(
     count: int | None,
     rand: Rand,
 ) -> list[QuestionRef]:
-    keys = list(questions)
+    keys = [key for key, q in questions.items() if q.variant_id is not None]
+    generated = [key for key, q in questions.items() if q.variant_id is None]
     if registry.manifest.course.practice_scheduler == "spaced":
         history = await _history(session, registry, user_id, keys)
-        order = spaced_order(keys, history, datetime.now(UTC), count, rand)
+        order = spaced_order([*keys, *generated], history, datetime.now(UTC), None, rand)
     else:
         mastered = await _mastered(session, registry, user_id, keys)
-        order = practice_order(keys, mastered, count, rand)
-    return [questions[key] for key in order]
+        order = practice_order([*keys, *generated], mastered, None, rand)
+    return _capped(order, questions, count)
 
 
 async def draw_round(
@@ -103,9 +132,10 @@ async def draw_round(
     if registry.lesson_location(lesson_id) is None:
         raise AppError("LESSON_NOT_FOUND", f"No lesson {lesson_id!r}.", status_code=404)
     questions = registry.lesson_questions(lesson_id)
-    if not questions:
+    if not questions and not registry.generated_questions({lesson_id}):
         raise AppError("PRACTICE_EMPTY", "This lesson has no questions to practise.", status_code=409)
-    return await _ordered(session, registry, user_id, _by_key(questions), None if every else ROUND_SIZE, rand)
+    pool = _pool(questions, registry.generated_questions({lesson_id}))
+    return await _ordered(session, registry, user_id, pool, None if every else ROUND_SIZE, rand)
 
 
 async def draw_review_round(
@@ -114,12 +144,13 @@ async def draw_review_round(
     """The mixed review: the scheduler's pick across every lesson of a course that opted in."""
     if registry.manifest.course.practice_scheduler != "spaced":
         raise AppError("PRACTICE_NOT_AVAILABLE", "This course has no mixed review.", status_code=409)
-    by_key = _by_key(
-        q for _, lesson in registry.manifest.iter_lessons() for q in registry.lesson_questions(lesson.id)
+    pool = _pool(
+        (q for _, lesson in registry.manifest.iter_lessons() for q in registry.lesson_questions(lesson.id)),
+        registry.generated_questions(),
     )
-    if not by_key:
+    if not pool:
         raise AppError("PRACTICE_EMPTY", "This course has no questions to review.", status_code=409)
-    return await _ordered(session, registry, user_id, by_key, count, rand)
+    return await _ordered(session, registry, user_id, pool, count, rand)
 
 
 def _require_preset(registry: CourseRegistry, preset: PracticePreset) -> None:
@@ -138,20 +169,21 @@ async def draw_module_round(
     _require_preset(registry, "module")
     if registry.module_block(module_id) is None:
         raise AppError("MODULE_NOT_FOUND", f"No module {module_id!r}.", status_code=404)
-    by_key = _by_key(registry.module_questions(module_id))
-    if not by_key:
+    lesson_ids = set(registry.module_lesson_ids(module_id))
+    pool = _pool(registry.module_questions(module_id), registry.generated_questions(lesson_ids))
+    if not pool:
         raise AppError("PRACTICE_EMPTY", "This module has no questions to practise.", status_code=409)
-    return await _ordered(session, registry, user_id, by_key, None if every else ROUND_SIZE, rand)
+    return await _ordered(session, registry, user_id, pool, None if every else ROUND_SIZE, rand)
 
 
 async def draw_code_reading_round(
     session: AsyncSession, registry: CourseRegistry, user_id: uuid.UUID, count: int, rand: Rand
 ) -> list[QuestionRef]:
     _require_preset(registry, "code-reading")
-    by_key = _by_key(registry.code_reading_questions())
-    if not by_key:
+    pool = _pool(registry.code_reading_questions(), registry.generated_questions(code_reading_only=True))
+    if not pool:
         raise AppError("PRACTICE_EMPTY", "This course has no code-reading questions.", status_code=409)
-    return await _ordered(session, registry, user_id, by_key, count, rand)
+    return await _ordered(session, registry, user_id, pool, count, rand)
 
 
 def draw_generated_round(
@@ -167,5 +199,10 @@ def draw_generated_round(
             raise AppError("GENERATOR_NOT_FOUND", f"No psicotécnico type {generator!r}.", status_code=404)
         return [chosen.exercise_id] * count
     shares = apportion([use.weight for use in uses], count)
-    items = [use.exercise_id for use, share in zip(uses, shares, strict=True) for _ in range(share)]
+    capped = "generators" in registry.manifest.course.practice_presets
+    items = [
+        use.exercise_id
+        for use, share in zip(uses, shares, strict=True)
+        for _ in range(min(share, FAMILY_CAP) if capped else share)
+    ]
     return sorted(items, key=lambda _: rand.random())

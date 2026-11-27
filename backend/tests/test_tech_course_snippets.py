@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import dataclasses
 import json
 import shutil
 from pathlib import Path
@@ -179,6 +180,18 @@ def test_a_fenced_block_with_snippet_meta_is_still_code_to_the_reading_time_coun
 # --- variants --------------------------------------------------------------------------------------------
 
 
+def test_cases_cross_the_grid_and_carry_their_own_wording_and_citation() -> None:
+    points = build_variants.grid_points(
+        {"a": [1, 2]}, [{"why": "first", "citation": "src#one"}, {"why": "second", "citation": "src#two"}]
+    )
+    assert [(p["a"], p["why"], p["citation"]) for p in points] == [
+        (1, "first", "src#one"),
+        (2, "first", "src#one"),
+        (1, "second", "src#two"),
+        (2, "second", "src#two"),
+    ]
+
+
 def test_grid_points_and_mutants_are_pure_substitutions() -> None:
     assert build_variants.grid_points({"a": [1, 2], "b": ["x"]}) == [{"a": 1, "b": "x"}, {"a": 2, "b": "x"}]
     mistake = build_variants.Mistake("m", "i < @@n@@", "i <= @@n@@")
@@ -210,6 +223,28 @@ def test_a_family_is_instantiated_run_and_written_as_a_quiz_with_script_computed
     assert "```java" in first["prompt"]["en"] and "@@" not in first["explanation"]["en"]
     evidence = json.loads(runs.read_text(encoding="utf-8"))
     assert evidence[0]["stdout_sha256"] == run_snippets.sha256_text("3\n")
+    assert {v["family"] for v in loaded["variants"]} == {family.name}
+    assert all(v["code_reading"] is True for v in loaded["variants"])
+    assert "comes from this mistake: off-by-one, bound included" in first["explanation"]["en"]
+
+
+_NANO_TIME_PROGRAM = """\
+public class Main {
+    public static void main(String[] args) { System.out.println(System.nanoTime()); }
+}
+"""
+
+
+@needs_jdk
+def test_a_variant_whose_output_changes_between_runs_is_left_out(jdk: Toolchain) -> None:
+    family = build_variants.load_family(FIXTURE_FAMILY)
+    unstable = dataclasses.replace(
+        family,
+        template=_NANO_TIME_PROGRAM,
+        grid={"unused": [1]},
+    )
+    variants, skipped = build_variants.build_family(unstable, jdk)
+    assert variants == [] and "not stable" in skipped[0]
 
 
 def _kotlin_ready() -> bool:

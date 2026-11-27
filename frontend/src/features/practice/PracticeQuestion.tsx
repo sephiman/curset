@@ -11,25 +11,30 @@ import { Prose } from "@/lib/markdown";
 /** One question of a round: opened as a practice attempt on that question, graded on answer. */
 export function PracticeQuestion({
   round,
+  position,
   question,
   lessonId,
   onAnswered,
 }: {
   /** Distinguishes two rounds that happen to serve the same question at the same position. */
   round: number;
+  /** Where the question sits in the round: two generated questions share an empty question id. */
+  position: number;
   question: Question;
   /** The lesson the round practises; absent in a round that crosses lessons. */
   lessonId?: string;
   onAnswered: () => void;
 }) {
   const { scope } = useCourse();
+  // A generated question has no stored id: the seed is the question, so there is nothing to report or link.
+  const generated = question.questionId === "";
   const queryClient = useQueryClient();
   const [result, setResult] = useState<GradeResponse | null>(null);
   // A query, not an effect: opening is a write, and the query runs it once per question however often
   // the component mounts.
   const { data: attempt } = useQuery({
-    queryKey: ["practice-attempt", ...scopeKey(scope), round, question.questionId],
-    queryFn: () => createAttempt(scope, question.exerciseId, question.questionId),
+    queryKey: ["practice-attempt", ...scopeKey(scope), round, position, question.questionId],
+    queryFn: () => createAttempt(scope, question.exerciseId, question.questionId || undefined),
     staleTime: Infinity,
     gcTime: 0,
     retry: false,
@@ -70,7 +75,8 @@ export function PracticeQuestion({
           excerpt={result.excerpt}
           noExcerpt={result.noExcerpt}
           lessonLink={result.lessonLink && (result.lessonLink.anchor || result.lessonLink.lessonId !== lessonId) ? result.lessonLink : null}
-          reportable
+          reference={generated ? attempt.questionId : undefined}
+          reportable={!generated}
         />
       )}
     </div>

@@ -77,6 +77,11 @@ class GeneratorUse(BaseModel):
     weight: int = Field(ge=1)
     #: Difficulty level -> weight, how often each level is drawn.
     difficulty: dict[int, int] = Field(default_factory=lambda: {1: 1, 2: 1, 3: 1})
+    #: The lesson that practises this family; absent: the generator catalogue's citation names it.
+    #: Excluded from dumps so other courses' served manifests stay byte-identical.
+    lesson: str | None = Field(default=None, exclude=True)
+    #: The family counts as code reading in the «code reading» preset.
+    code_reading: bool = Field(default=False, exclude=True)
 
     @property
     def exercise_id(self) -> str:

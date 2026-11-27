@@ -51,6 +51,7 @@ from tradeschool.exercises.quiz import QuizConfig, QuizGenerator, QuizVariant
 from tradeschool.exercises.registry import get_generator, has_generator
 from tradeschool.exercises.types import ExerciseType
 from tradeschool.psicotecnico.contract import GeneratorLoadError
+from tradeschool.psicotecnico.registry import cited_lesson
 
 logger = logging.getLogger("tradeschool.content")
 
@@ -107,6 +108,8 @@ class QuestionRef:
     question_id: str | None = None
     #: A quiz question; None only for a generated exercise, where the seed is the question.
     variant_id: str | None = None
+    #: The question's family (a generated exercise's is its generator); practice caps a set per family.
+    family: str | None = field(default=None, compare=False)
 
 
 @dataclass
@@ -273,7 +276,7 @@ class CourseRegistry:
         if location is None:
             return []
         return [
-            QuestionRef(exercise.id, variant_id=variant.id)
+            QuestionRef(exercise.id, variant_id=variant.id, family=variant.family)
             for exercise in location.lesson.exercises
             if isinstance(config := self.exercise_configs.get(exercise.id, (None, None))[1], QuizConfig)
             for variant in config.variants
@@ -286,14 +289,54 @@ class CourseRegistry:
             return []
         return [question for lesson in found[1].lessons for question in self.lesson_questions(lesson.id)]
 
-    def code_reading_questions(self) -> list[QuestionRef]:
-        """Every quiz question that rests on a lesson snippet, in course order: «code reading» practice."""
+    def _quiz_variants(self) -> list[tuple[str, QuizVariant]]:
         return [
-            QuestionRef(exercise.id, variant_id=variant.id)
+            (exercise.id, variant)
             for _, _, exercise in self.manifest.iter_exercises()
             if isinstance(config := self.exercise_configs.get(exercise.id, (None, None))[1], QuizConfig)
             for variant in config.variants
-            if variant.snippet
+        ]
+
+    def code_reading_questions(self) -> list[QuestionRef]:
+        """Every quiz question that rests on a lesson snippet or is flagged `code_reading`, plus every
+        question of a family where one is: «code reading» practice."""
+        variants = self._quiz_variants()
+        flagged = {v.family for _, v in variants if v.family and (v.snippet or v.code_reading)}
+        return [
+            QuestionRef(exercise_id, variant_id=variant.id, family=variant.family)
+            for exercise_id, variant in variants
+            if variant.snippet or variant.code_reading or variant.family in flagged
+        ]
+
+    def generated_family_lesson(self, use: GeneratorUse) -> str | None:
+        """The lesson a generated family practises: its declaration, else its generator's citation."""
+        named = use.lesson or cited_lesson(use.generator)
+        if named is None:
+            return None
+        return named if named in self._lessons else self._lesson_ids.get(named)
+
+    def generated_questions(
+        self, lesson_ids: set[str] | None = None, code_reading_only: bool = False
+    ) -> list[QuestionRef]:
+        """One ref per generated family that practises one of `lesson_ids` (all when None); empty unless
+        the course offers the `generators` preset."""
+        course = self.manifest.course
+        if "generators" not in course.practice_presets:
+            return []
+        return [
+            QuestionRef(use.exercise_id, family=use.generator)
+            for use in course.practice_generators
+            if (not code_reading_only or use.code_reading)
+            and (lesson_ids is None or self.generated_family_lesson(use) in lesson_ids)
+        ]
+
+    def generated_families(self, lesson_id: str, locale: str) -> list[dict[str, str]]:
+        """The generated families that practise a lesson, for its page."""
+        return [
+            {"id": use.generator, "title": use.title.get(locale)}
+            for use in self.manifest.course.practice_generators
+            if "generators" in self.manifest.course.practice_presets
+            and self.generated_family_lesson(use) == lesson_id
         ]
 
     def _practice_count(self, lesson_id: str) -> dict[str, int]:
@@ -699,6 +742,11 @@ class CourseRegistry:
             "readingSeconds": self.lesson_reading_seconds(lesson_id, locale),
             "exercises": [self._exercise_dict(ex) for ex in loc.lesson.exercises],
             **self._practice_count(lesson_id),
+            **(
+                {"generatedFamilies": families}
+                if (families := self.generated_families(lesson_id, locale))
+                else {}
+            ),
         }
 
     def module_detail(

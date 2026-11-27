@@ -1,0 +1,62 @@
+exercise: m02-l01-ex-priority-queue-poll
+lesson: m02-l01
+citation: "javadoc-priorityqueue#class-priorityqueue-e"
+file: Main.java
+prompt: What does this program print? All six values are offered first, and no two of them tie under the ordering.
+difficulty: 3
+tags: [collections, priority-queue]
+cases:
+  - {order: "", ord: "natural ascending order"}
+  - {order: "Comparator.reverseOrder()", ord: "descending natural order"}
+  - {order: "(x, y) -> x % 10 - y % 10", ord: "the last digit, ascending"}
+  - {order: "(x, y) -> y % 10 - x % 10", ord: "the last digit, descending"}
+  - {order: "(x, y) -> Math.abs(x - 50) - Math.abs(y - 50)", ord: "the distance to 50, nearest first"}
+parameters:
+  values: ["41, 52, 33, 64, 25, 76", "17, 48, 29, 50, 31, 62", "93, 14, 85, 26, 77, 38"]
+  tail:
+    - 'q.poll() + " " + q.poll() + " " + q.poll()'
+    - 'q.poll() + " " + q.peek() + " " + q.size()'
+    - 'q.poll() + " " + q.poll() + " " + q.size()'
+template: |
+  import java.util.*;
+
+  public class Main {
+      public static void main(String[] args) {
+          Queue<Integer> q = new PriorityQueue<>(@@order@@);
+          for (int v : new int[] {@@values@@}) q.offer(v);
+          System.out.println(@@tail@@);
+      }
+  }
+explanation: >-
+  The head of a `PriorityQueue` is the least element under its ordering, which here is @@ord@@.
+  Each `poll()` removes the current head, so the values come out in that order whatever order they were offered in, and `size()` counts only the values still queued.
+  The program prints @@key@@.
+mistakes:
+  - name: assuming the queue serves values in insertion order
+    replace:
+      - |-
+        Queue<Integer> q = new PriorityQueue<>(@@order@@);
+      - |-
+        Queue<Integer> q = new ArrayDeque<>();
+    why: "The head of a `PriorityQueue` is its least element under the ordering, not the value offered first."
+  - name: assuming the queue serves the last offered value first
+    replace:
+      - |-
+        Queue<Integer> q = new PriorityQueue<>(@@order@@);
+        for (int v : new int[] {@@values@@}) q.offer(v);
+      - |-
+        Deque<Integer> q = new ArrayDeque<>();
+        for (int v : new int[] {@@values@@}) q.push(v);
+    why: "The head of a `PriorityQueue` is its least element under the ordering, not the value offered last."
+  - name: ignoring the comparator and using natural ordering
+    replace: ["new PriorityQueue<>(@@order@@)", "new PriorityQueue<>()"]
+    why: "The ordering of the queue is @@ord@@, and not natural ascending order."
+  - name: assuming the greatest value is served first
+    replace: ["new PriorityQueue<>(@@order@@)", "new PriorityQueue<>(Collections.reverseOrder())"]
+    why: "The head is the least element under the ordering, which here is @@ord@@ and not descending natural order."
+  - name: assuming `peek` removes the head
+    replace: ["q.peek()", "q.poll()"]
+    why: "`peek()` returns the head without removing it."
+  - name: forgetting that `poll` removes the head from the size
+    replace: ["q.size()", "6"]
+    why: "Each `poll()` removed one value, so `size()` counts only the values still queued."

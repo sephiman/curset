@@ -1,0 +1,1250 @@
+[
+ {
+  "id": "m11-l01-v-comparators-001",
+  "params": {
+   "items": "\"bob\", 2, \"x\"), new Item(\"Amy\", 1, \"y\"), new Item(\"cat\", 2, \"y\"), new Item(\"Dan\", 1, \"x\"), new Item(\"amy\", 2, \"x\"",
+   "primary": "comparingInt(Item::rank)",
+   "direction": "",
+   "tie": "thenComparing(Item::name)"
+  },
+  "source_sha256": "1b3e8563e1d654547116b7a8e5e7afb393e40cdb89f8b899d0dd53e48dd1377c",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "0a4c601b9e9207978b5ce700a4afae38add23b1973b55ed97abdb437b9dd3fe3",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "leaving out the tie-breaker, so equal items keep their input order",
+    "stdout_sha256": "a6305b427aee512b5644fc925faefba82f7ea0a4fa26cf941af451e0b51c13a1"
+   },
+   {
+    "mistake": "breaking ties on the group instead of the name",
+    "stdout_sha256": "5132bb2e710e77f1c98fd9d92b91ee3ed1b5f666fafcf584b637df1d9383e48d"
+   },
+   {
+    "mistake": "sorting by the group first instead of the rank",
+    "stdout_sha256": "c8f53ffa8ddbd586c8be6a6f315194f58c7ec423355054fdf1d9809f1ea241ff"
+   }
+  ]
+ },
+ {
+  "id": "m11-l01-v-comparators-002",
+  "params": {
+   "items": "\"bob\", 2, \"x\"), new Item(\"Amy\", 1, \"y\"), new Item(\"cat\", 2, \"y\"), new Item(\"Dan\", 1, \"x\"), new Item(\"amy\", 2, \"x\"",
+   "primary": "comparingInt(Item::rank)",
+   "direction": "",
+   "tie": "thenComparing(Item::name, String.CASE_INSENSITIVE_ORDER)"
+  },
+  "source_sha256": "a12a24f5e7f93452e9896a075f978c2e0e26c8c13e6168bda9c23aff3bd1be90",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "0a4c601b9e9207978b5ce700a4afae38add23b1973b55ed97abdb437b9dd3fe3",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "leaving out the tie-breaker, so equal items keep their input order",
+    "stdout_sha256": "a6305b427aee512b5644fc925faefba82f7ea0a4fa26cf941af451e0b51c13a1"
+   },
+   {
+    "mistake": "breaking ties on the group instead of the name",
+    "stdout_sha256": "5132bb2e710e77f1c98fd9d92b91ee3ed1b5f666fafcf584b637df1d9383e48d"
+   },
+   {
+    "mistake": "sorting by the group first instead of the rank",
+    "stdout_sha256": "6df219c97930a344c688386bef4f98332be8d3c33a0618311849d4255891f174"
+   }
+  ]
+ },
+ {
+  "id": "m11-l01-v-comparators-003",
+  "params": {
+   "items": "\"bob\", 2, \"x\"), new Item(\"Amy\", 1, \"y\"), new Item(\"cat\", 2, \"y\"), new Item(\"Dan\", 1, \"x\"), new Item(\"amy\", 2, \"x\"",
+   "primary": "comparingInt(Item::rank)",
+   "direction": "",
+   "tie": "thenComparing(Item::name, Comparator.reverseOrder())"
+  },
+  "source_sha256": "c30ea6ba209361a9338d8a54fa83f9ae9319589507bc294732c60154f980fb05",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "704430a6ce8a1665a260a2136ee3f0514f0bb472a6c1f680fe3a0541e3ce1531",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "leaving out the tie-breaker, so equal items keep their input order",
+    "stdout_sha256": "a6305b427aee512b5644fc925faefba82f7ea0a4fa26cf941af451e0b51c13a1"
+   },
+   {
+    "mistake": "leaving out the reverse order of a key",
+    "stdout_sha256": "0a4c601b9e9207978b5ce700a4afae38add23b1973b55ed97abdb437b9dd3fe3"
+   },
+   {
+    "mistake": "breaking ties on the group instead of the name",
+    "stdout_sha256": "003ee842ef3f08b12e876f0b9bfd6d2b28ea033ca260f1e2023e889a9b623ceb"
+   }
+  ]
+ },
+ {
+  "id": "m11-l01-v-comparators-004",
+  "params": {
+   "items": "\"bob\", 2, \"x\"), new Item(\"Amy\", 1, \"y\"), new Item(\"cat\", 2, \"y\"), new Item(\"Dan\", 1, \"x\"), new Item(\"amy\", 2, \"x\"",
+   "primary": "comparingInt(Item::rank)",
+   "direction": ".reversed()",
+   "tie": "thenComparing(Item::name)"
+  },
+  "source_sha256": "c002404e205f699d4a6283f59b77d5b16503a896bd314eb55f38c909155d8e3e",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "28236b945bd5b0bfa170a93019d9a1b63a45e65c4292e78878b10db769bba6da",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "leaving out the tie-breaker, so equal items keep their input order",
+    "stdout_sha256": "a8132e9f3c889756ef7d3dd4773660c7275f14685531c5a6797fdb564e8452b5"
+   },
+   {
+    "mistake": "leaving out the reversal of the first key",
+    "stdout_sha256": "0a4c601b9e9207978b5ce700a4afae38add23b1973b55ed97abdb437b9dd3fe3"
+   },
+   {
+    "mistake": "reversing the whole comparator instead of only the first key",
+    "stdout_sha256": "b102897afbf420d8220c2bd35a5512bb418358c77b166399c64747ee1d737a25"
+   }
+  ]
+ },
+ {
+  "id": "m11-l01-v-comparators-005",
+  "params": {
+   "items": "\"bob\", 2, \"x\"), new Item(\"Amy\", 1, \"y\"), new Item(\"cat\", 2, \"y\"), new Item(\"Dan\", 1, \"x\"), new Item(\"amy\", 2, \"x\"",
+   "primary": "comparingInt(Item::rank)",
+   "direction": ".reversed()",
+   "tie": "thenComparing(Item::name, String.CASE_INSENSITIVE_ORDER)"
+  },
+  "source_sha256": "c56eeb5f5951c425188ae282af6357fc13f97a0d86cbfec6af7ca7d96d0e59f2",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "28236b945bd5b0bfa170a93019d9a1b63a45e65c4292e78878b10db769bba6da",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "leaving out the tie-breaker, so equal items keep their input order",
+    "stdout_sha256": "a8132e9f3c889756ef7d3dd4773660c7275f14685531c5a6797fdb564e8452b5"
+   },
+   {
+    "mistake": "leaving out the reversal of the first key",
+    "stdout_sha256": "0a4c601b9e9207978b5ce700a4afae38add23b1973b55ed97abdb437b9dd3fe3"
+   },
+   {
+    "mistake": "reversing the whole comparator instead of only the first key",
+    "stdout_sha256": "b102897afbf420d8220c2bd35a5512bb418358c77b166399c64747ee1d737a25"
+   }
+  ]
+ },
+ {
+  "id": "m11-l01-v-comparators-006",
+  "params": {
+   "items": "\"bob\", 2, \"x\"), new Item(\"Amy\", 1, \"y\"), new Item(\"cat\", 2, \"y\"), new Item(\"Dan\", 1, \"x\"), new Item(\"amy\", 2, \"x\"",
+   "primary": "comparingInt(Item::rank)",
+   "direction": ".reversed()",
+   "tie": "thenComparing(Item::name, Comparator.reverseOrder())"
+  },
+  "source_sha256": "ad0cc2de7a412dc7e44ce25d22ad64c35986247af0c2ab2cc90ca827046d289a",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "b102897afbf420d8220c2bd35a5512bb418358c77b166399c64747ee1d737a25",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "leaving out the tie-breaker, so equal items keep their input order",
+    "stdout_sha256": "a8132e9f3c889756ef7d3dd4773660c7275f14685531c5a6797fdb564e8452b5"
+   },
+   {
+    "mistake": "leaving out the reversal of the first key",
+    "stdout_sha256": "704430a6ce8a1665a260a2136ee3f0514f0bb472a6c1f680fe3a0541e3ce1531"
+   },
+   {
+    "mistake": "reversing the whole comparator instead of only the first key",
+    "stdout_sha256": "28236b945bd5b0bfa170a93019d9a1b63a45e65c4292e78878b10db769bba6da"
+   }
+  ]
+ },
+ {
+  "id": "m11-l01-v-comparators-007",
+  "params": {
+   "items": "\"bob\", 2, \"x\"), new Item(\"Amy\", 1, \"y\"), new Item(\"cat\", 2, \"y\"), new Item(\"Dan\", 1, \"x\"), new Item(\"amy\", 2, \"x\"",
+   "primary": "comparing(Item::group)",
+   "direction": ".reversed()",
+   "tie": "thenComparing(Item::name)"
+  },
+  "source_sha256": "c436ca47a8530601411e99efde2d399689ee92baf1ed5e3cc59922494a0ca02c",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "8b604d4efad268944161361d827892e7f66964e2b5152b76574190576bbd21aa",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "leaving out the tie-breaker, so equal items keep their input order",
+    "stdout_sha256": "8a6e3b3029a0219fa61115ed69878026cdd9f03df9f59aa560694b0daf42a37d"
+   },
+   {
+    "mistake": "leaving out the reversal of the first key",
+    "stdout_sha256": "c8f53ffa8ddbd586c8be6a6f315194f58c7ec423355054fdf1d9809f1ea241ff"
+   },
+   {
+    "mistake": "reversing the whole comparator instead of only the first key",
+    "stdout_sha256": "4074b7e7c638f44aac4b3af8e3c64d3c74e72c00ba3c42d8b767d0cc75d736d2"
+   }
+  ]
+ },
+ {
+  "id": "m11-l01-v-comparators-008",
+  "params": {
+   "items": "\"bob\", 2, \"x\"), new Item(\"Amy\", 1, \"y\"), new Item(\"cat\", 2, \"y\"), new Item(\"Dan\", 1, \"x\"), new Item(\"amy\", 2, \"x\"",
+   "primary": "comparing(Item::group)",
+   "direction": ".reversed()",
+   "tie": "thenComparing(Item::name, String.CASE_INSENSITIVE_ORDER)"
+  },
+  "source_sha256": "295da4ffed20043d2da13a164a1ca224f345f0fc7f988cdda001fc468ba597ad",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "191a811165822bef87754f7bf0cb2c3d8ea0e52e1d48d2c83be2b698030aa3dd",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "leaving out the tie-breaker, so equal items keep their input order",
+    "stdout_sha256": "8a6e3b3029a0219fa61115ed69878026cdd9f03df9f59aa560694b0daf42a37d"
+   },
+   {
+    "mistake": "leaving out the reversal of the first key",
+    "stdout_sha256": "6df219c97930a344c688386bef4f98332be8d3c33a0618311849d4255891f174"
+   },
+   {
+    "mistake": "reversing the whole comparator instead of only the first key",
+    "stdout_sha256": "c86d17d64700f6fa1241262baac0c153783f545852f7efb1069f5ef9591827e5"
+   }
+  ]
+ },
+ {
+  "id": "m11-l01-v-comparators-009",
+  "params": {
+   "items": "\"bob\", 2, \"x\"), new Item(\"Amy\", 1, \"y\"), new Item(\"cat\", 2, \"y\"), new Item(\"Dan\", 1, \"x\"), new Item(\"amy\", 2, \"x\"",
+   "primary": "comparing(Item::group)",
+   "direction": ".reversed()",
+   "tie": "thenComparing(Item::name, Comparator.reverseOrder())"
+  },
+  "source_sha256": "8f16726282a41dd77dfa2c6c6742f38000e9909504b7fdea81a6a71c937f1655",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "4074b7e7c638f44aac4b3af8e3c64d3c74e72c00ba3c42d8b767d0cc75d736d2",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "leaving out the tie-breaker, so equal items keep their input order",
+    "stdout_sha256": "8a6e3b3029a0219fa61115ed69878026cdd9f03df9f59aa560694b0daf42a37d"
+   },
+   {
+    "mistake": "leaving out the reversal of the first key",
+    "stdout_sha256": "405bdce30b9947a5813de1f8c98e2440a3812bbb5dca4f9eb139f1d999cf92f6"
+   },
+   {
+    "mistake": "reversing the whole comparator instead of only the first key",
+    "stdout_sha256": "8b604d4efad268944161361d827892e7f66964e2b5152b76574190576bbd21aa"
+   }
+  ]
+ },
+ {
+  "id": "m11-l01-v-comparators-010",
+  "params": {
+   "items": "\"bob\", 2, \"x\"), new Item(\"Amy\", 1, \"y\"), new Item(\"cat\", 2, \"y\"), new Item(\"Dan\", 1, \"x\"), new Item(\"amy\", 2, \"x\"",
+   "primary": "comparing(Item::group, Comparator.reverseOrder())",
+   "direction": "",
+   "tie": "thenComparing(Item::name, String.CASE_INSENSITIVE_ORDER)"
+  },
+  "source_sha256": "7996b23721de48f762a9ed3b053f6080f422bc316b76a6cb9e4f0bda43f97630",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "191a811165822bef87754f7bf0cb2c3d8ea0e52e1d48d2c83be2b698030aa3dd",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "leaving out the tie-breaker, so equal items keep their input order",
+    "stdout_sha256": "8a6e3b3029a0219fa61115ed69878026cdd9f03df9f59aa560694b0daf42a37d"
+   },
+   {
+    "mistake": "leaving out the key comparator that ignores case",
+    "stdout_sha256": "8b604d4efad268944161361d827892e7f66964e2b5152b76574190576bbd21aa"
+   },
+   {
+    "mistake": "leaving out the reverse order of a key",
+    "stdout_sha256": "6df219c97930a344c688386bef4f98332be8d3c33a0618311849d4255891f174"
+   }
+  ]
+ },
+ {
+  "id": "m11-l01-v-comparators-011",
+  "params": {
+   "items": "\"bob\", 2, \"x\"), new Item(\"Amy\", 1, \"y\"), new Item(\"cat\", 2, \"y\"), new Item(\"Dan\", 1, \"x\"), new Item(\"amy\", 2, \"x\"",
+   "primary": "comparing(Item::group, Comparator.reverseOrder())",
+   "direction": ".reversed()",
+   "tie": "thenComparing(Item::name)"
+  },
+  "source_sha256": "5a2ec6b5e3dec347f5c3412b15d08c82d935f0b3cced3e41030cb5a89288c443",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "c8f53ffa8ddbd586c8be6a6f315194f58c7ec423355054fdf1d9809f1ea241ff",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "leaving out the tie-breaker, so equal items keep their input order",
+    "stdout_sha256": "6ddab2e4a453ed83f66cebb957d2eecb442344094c33f9a6ceedf45b37ed465b"
+   },
+   {
+    "mistake": "leaving out the reversal of the first key",
+    "stdout_sha256": "8b604d4efad268944161361d827892e7f66964e2b5152b76574190576bbd21aa"
+   },
+   {
+    "mistake": "reversing the whole comparator instead of only the first key",
+    "stdout_sha256": "405bdce30b9947a5813de1f8c98e2440a3812bbb5dca4f9eb139f1d999cf92f6"
+   }
+  ]
+ },
+ {
+  "id": "m11-l01-v-comparators-012",
+  "params": {
+   "items": "\"bob\", 2, \"x\"), new Item(\"Amy\", 1, \"y\"), new Item(\"cat\", 2, \"y\"), new Item(\"Dan\", 1, \"x\"), new Item(\"amy\", 2, \"x\"",
+   "primary": "comparing(Item::group, Comparator.reverseOrder())",
+   "direction": ".reversed()",
+   "tie": "thenComparing(Item::name, String.CASE_INSENSITIVE_ORDER)"
+  },
+  "source_sha256": "f84bb5fa36b41b11ccf6bcc4d8deace9f2d2a05eb3cd9ab85818f0c28b604896",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "6df219c97930a344c688386bef4f98332be8d3c33a0618311849d4255891f174",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "leaving out the tie-breaker, so equal items keep their input order",
+    "stdout_sha256": "6ddab2e4a453ed83f66cebb957d2eecb442344094c33f9a6ceedf45b37ed465b"
+   },
+   {
+    "mistake": "leaving out the reversal of the first key",
+    "stdout_sha256": "191a811165822bef87754f7bf0cb2c3d8ea0e52e1d48d2c83be2b698030aa3dd"
+   },
+   {
+    "mistake": "reversing the whole comparator instead of only the first key",
+    "stdout_sha256": "17bb520ef6436664d96eba12f21ae42f1767ebba26d33e07f8ff0b8c04d47f3d"
+   }
+  ]
+ },
+ {
+  "id": "m11-l01-v-comparators-013",
+  "params": {
+   "items": "\"bob\", 2, \"x\"), new Item(\"Amy\", 1, \"y\"), new Item(\"cat\", 2, \"y\"), new Item(\"Dan\", 1, \"x\"), new Item(\"amy\", 2, \"x\"",
+   "primary": "comparing(Item::group, Comparator.reverseOrder())",
+   "direction": ".reversed()",
+   "tie": "thenComparing(Item::name, Comparator.reverseOrder())"
+  },
+  "source_sha256": "5f100113d3055c3fdccb66c35be4a12b537be22b8530f5e74aefc68cccae380e",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "405bdce30b9947a5813de1f8c98e2440a3812bbb5dca4f9eb139f1d999cf92f6",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "leaving out the tie-breaker, so equal items keep their input order",
+    "stdout_sha256": "6ddab2e4a453ed83f66cebb957d2eecb442344094c33f9a6ceedf45b37ed465b"
+   },
+   {
+    "mistake": "leaving out the reversal of the first key",
+    "stdout_sha256": "4074b7e7c638f44aac4b3af8e3c64d3c74e72c00ba3c42d8b767d0cc75d736d2"
+   },
+   {
+    "mistake": "reversing the whole comparator instead of only the first key",
+    "stdout_sha256": "c8f53ffa8ddbd586c8be6a6f315194f58c7ec423355054fdf1d9809f1ea241ff"
+   }
+  ]
+ },
+ {
+  "id": "m11-l01-v-comparators-014",
+  "params": {
+   "items": "\"Eve\", 3, \"z\"), new Item(\"dot\", 1, \"z\"), new Item(\"eve\", 3, \"y\"), new Item(\"Dot\", 1, \"y\"), new Item(\"Fay\", 3, \"z\"",
+   "primary": "comparingInt(Item::rank)",
+   "direction": "",
+   "tie": "thenComparing(Item::name)"
+  },
+  "source_sha256": "f8e4d8e1833626e455d0da61291ce448686866e3ab3697f4587b513fe1377763",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "cd5c3325deb533d57c31ac505bd168b8113389e439961a0caecefa3422e3f591",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "leaving out the tie-breaker, so equal items keep their input order",
+    "stdout_sha256": "f1c9bb36172ad5fa85cddb81edadccdcc41f4077df798699dc42d7594f096186"
+   },
+   {
+    "mistake": "breaking ties on the group instead of the name",
+    "stdout_sha256": "94d0f0fb1fe378020264d5fd0e2e1bc36454bdfc0446a0141a1e68e75b807ae0"
+   },
+   {
+    "mistake": "sorting by the group first instead of the rank",
+    "stdout_sha256": "2f84d56a96ee78cb9d34dbed97449589f029d9e11853f739999b12a016779ee3"
+   }
+  ]
+ },
+ {
+  "id": "m11-l01-v-comparators-015",
+  "params": {
+   "items": "\"Eve\", 3, \"z\"), new Item(\"dot\", 1, \"z\"), new Item(\"eve\", 3, \"y\"), new Item(\"Dot\", 1, \"y\"), new Item(\"Fay\", 3, \"z\"",
+   "primary": "comparingInt(Item::rank)",
+   "direction": "",
+   "tie": "thenComparing(Item::name, String.CASE_INSENSITIVE_ORDER)"
+  },
+  "source_sha256": "ab8e613085ee6147034f54efb9f2b8652077968263a26731c6782550d27d4996",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "f1c9bb36172ad5fa85cddb81edadccdcc41f4077df798699dc42d7594f096186",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "leaving out the key comparator that ignores case",
+    "stdout_sha256": "cd5c3325deb533d57c31ac505bd168b8113389e439961a0caecefa3422e3f591"
+   },
+   {
+    "mistake": "breaking ties on the group instead of the name",
+    "stdout_sha256": "94d0f0fb1fe378020264d5fd0e2e1bc36454bdfc0446a0141a1e68e75b807ae0"
+   },
+   {
+    "mistake": "sorting by the group first instead of the rank",
+    "stdout_sha256": "5f9e89dc36ded8a44b8d2032fc36f8cb65fd2c5eaca540fc7032057b65b15aad"
+   }
+  ]
+ },
+ {
+  "id": "m11-l01-v-comparators-016",
+  "params": {
+   "items": "\"Eve\", 3, \"z\"), new Item(\"dot\", 1, \"z\"), new Item(\"eve\", 3, \"y\"), new Item(\"Dot\", 1, \"y\"), new Item(\"Fay\", 3, \"z\"",
+   "primary": "comparingInt(Item::rank)",
+   "direction": "",
+   "tie": "thenComparing(Item::name, Comparator.reverseOrder())"
+  },
+  "source_sha256": "8ed1f43f1365a1c0a0391acdfe287c316b0835f50ef5e70b2f2609b441a510b2",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "62139faf5e4bbe7945e194c83942b781a34a6706a02b44213db68f09049da585",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "leaving out the tie-breaker, so equal items keep their input order",
+    "stdout_sha256": "f1c9bb36172ad5fa85cddb81edadccdcc41f4077df798699dc42d7594f096186"
+   },
+   {
+    "mistake": "leaving out the reverse order of a key",
+    "stdout_sha256": "cd5c3325deb533d57c31ac505bd168b8113389e439961a0caecefa3422e3f591"
+   },
+   {
+    "mistake": "breaking ties on the group instead of the name",
+    "stdout_sha256": "241e716d57490d3966919fb4979fbf0715d63012a6f8da210b02344b51883047"
+   }
+  ]
+ },
+ {
+  "id": "m11-l01-v-comparators-017",
+  "params": {
+   "items": "\"Eve\", 3, \"z\"), new Item(\"dot\", 1, \"z\"), new Item(\"eve\", 3, \"y\"), new Item(\"Dot\", 1, \"y\"), new Item(\"Fay\", 3, \"z\"",
+   "primary": "comparingInt(Item::rank)",
+   "direction": ".reversed()",
+   "tie": "thenComparing(Item::name)"
+  },
+  "source_sha256": "8ae487df8efce539de03a9beb6bcff4c2dabf60abca2dd71a5fd9502a89a2288",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "8ff358e79a6153424f7965e4191a596977c91753ed85483170e4d8444ba1333b",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "leaving out the tie-breaker, so equal items keep their input order",
+    "stdout_sha256": "36578b6ba3ba6bcb71fb361db55fb44e897be6f6cfc79a7a117fe5c53b5c04a3"
+   },
+   {
+    "mistake": "leaving out the reversal of the first key",
+    "stdout_sha256": "cd5c3325deb533d57c31ac505bd168b8113389e439961a0caecefa3422e3f591"
+   },
+   {
+    "mistake": "reversing the whole comparator instead of only the first key",
+    "stdout_sha256": "8009bdb72eda6086ee6e2f2388bbc7ed811bb8c2909386f238a45e1169015ec9"
+   }
+  ]
+ },
+ {
+  "id": "m11-l01-v-comparators-018",
+  "params": {
+   "items": "\"Eve\", 3, \"z\"), new Item(\"dot\", 1, \"z\"), new Item(\"eve\", 3, \"y\"), new Item(\"Dot\", 1, \"y\"), new Item(\"Fay\", 3, \"z\"",
+   "primary": "comparingInt(Item::rank)",
+   "direction": ".reversed()",
+   "tie": "thenComparing(Item::name, String.CASE_INSENSITIVE_ORDER)"
+  },
+  "source_sha256": "557ff427beb6ba42fa705cc283b51c68f1d2a583f5d843871229b31ddc9cc654",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "36578b6ba3ba6bcb71fb361db55fb44e897be6f6cfc79a7a117fe5c53b5c04a3",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "leaving out the reversal of the first key",
+    "stdout_sha256": "f1c9bb36172ad5fa85cddb81edadccdcc41f4077df798699dc42d7594f096186"
+   },
+   {
+    "mistake": "reversing the whole comparator instead of only the first key",
+    "stdout_sha256": "984a46926e133c85e627d796c994c71b256ff8d8ceb17ce95afbcf2e7d2edbf4"
+   },
+   {
+    "mistake": "leaving out the key comparator that ignores case",
+    "stdout_sha256": "8ff358e79a6153424f7965e4191a596977c91753ed85483170e4d8444ba1333b"
+   }
+  ]
+ },
+ {
+  "id": "m11-l01-v-comparators-019",
+  "params": {
+   "items": "\"Eve\", 3, \"z\"), new Item(\"dot\", 1, \"z\"), new Item(\"eve\", 3, \"y\"), new Item(\"Dot\", 1, \"y\"), new Item(\"Fay\", 3, \"z\"",
+   "primary": "comparingInt(Item::rank)",
+   "direction": ".reversed()",
+   "tie": "thenComparing(Item::name, Comparator.reverseOrder())"
+  },
+  "source_sha256": "f5cb79102d32e1ceb44a7fbf690af35c169aab1ca9ba915e22d7b31e6b860d77",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "8009bdb72eda6086ee6e2f2388bbc7ed811bb8c2909386f238a45e1169015ec9",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "leaving out the tie-breaker, so equal items keep their input order",
+    "stdout_sha256": "36578b6ba3ba6bcb71fb361db55fb44e897be6f6cfc79a7a117fe5c53b5c04a3"
+   },
+   {
+    "mistake": "leaving out the reversal of the first key",
+    "stdout_sha256": "62139faf5e4bbe7945e194c83942b781a34a6706a02b44213db68f09049da585"
+   },
+   {
+    "mistake": "reversing the whole comparator instead of only the first key",
+    "stdout_sha256": "8ff358e79a6153424f7965e4191a596977c91753ed85483170e4d8444ba1333b"
+   }
+  ]
+ },
+ {
+  "id": "m11-l01-v-comparators-020",
+  "params": {
+   "items": "\"Eve\", 3, \"z\"), new Item(\"dot\", 1, \"z\"), new Item(\"eve\", 3, \"y\"), new Item(\"Dot\", 1, \"y\"), new Item(\"Fay\", 3, \"z\"",
+   "primary": "comparing(Item::group)",
+   "direction": ".reversed()",
+   "tie": "thenComparing(Item::name)"
+  },
+  "source_sha256": "f9215840c2669802af0c9ec0d231a97433b8afdb158b871d6f56b5f2b2bb5c21",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "ef09e66ce84355627ff8cf69bfb6b6a3680e7bcda663e7496a6cb3ba3675bcba",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "leaving out the tie-breaker, so equal items keep their input order",
+    "stdout_sha256": "b4348e548e470414700d3176b0adfcf08b1c01ca4a14d8a1438fc83cae071b1a"
+   },
+   {
+    "mistake": "leaving out the reversal of the first key",
+    "stdout_sha256": "2f84d56a96ee78cb9d34dbed97449589f029d9e11853f739999b12a016779ee3"
+   },
+   {
+    "mistake": "reversing the whole comparator instead of only the first key",
+    "stdout_sha256": "144cf27838471bc4c1eabeaa68c74b6281a8440015051a7f77225aa3de9eb093"
+   }
+  ]
+ },
+ {
+  "id": "m11-l01-v-comparators-021",
+  "params": {
+   "items": "\"Eve\", 3, \"z\"), new Item(\"dot\", 1, \"z\"), new Item(\"eve\", 3, \"y\"), new Item(\"Dot\", 1, \"y\"), new Item(\"Fay\", 3, \"z\"",
+   "primary": "comparing(Item::group)",
+   "direction": ".reversed()",
+   "tie": "thenComparing(Item::name, String.CASE_INSENSITIVE_ORDER)"
+  },
+  "source_sha256": "769b97bb7e8db43b8d0021024f3ab90fc77541f74f405b67fb35a2fed79e0fc1",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "c22ec312c5b403151bef224b9a98539d3c37d130f317aca65b0f879c2302dc0d",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "leaving out the tie-breaker, so equal items keep their input order",
+    "stdout_sha256": "b4348e548e470414700d3176b0adfcf08b1c01ca4a14d8a1438fc83cae071b1a"
+   },
+   {
+    "mistake": "leaving out the reversal of the first key",
+    "stdout_sha256": "5f9e89dc36ded8a44b8d2032fc36f8cb65fd2c5eaca540fc7032057b65b15aad"
+   },
+   {
+    "mistake": "reversing the whole comparator instead of only the first key",
+    "stdout_sha256": "c46c84cb0d8ef4d79a25a78a5e8660799ce5bb984e7772913ae291b09fbf165c"
+   }
+  ]
+ },
+ {
+  "id": "m11-l01-v-comparators-022",
+  "params": {
+   "items": "\"Eve\", 3, \"z\"), new Item(\"dot\", 1, \"z\"), new Item(\"eve\", 3, \"y\"), new Item(\"Dot\", 1, \"y\"), new Item(\"Fay\", 3, \"z\"",
+   "primary": "comparing(Item::group)",
+   "direction": ".reversed()",
+   "tie": "thenComparing(Item::name, Comparator.reverseOrder())"
+  },
+  "source_sha256": "95538bcd0f6c1a0479fb1698080eb11618878f62833e8f71826c56227959384d",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "144cf27838471bc4c1eabeaa68c74b6281a8440015051a7f77225aa3de9eb093",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "leaving out the tie-breaker, so equal items keep their input order",
+    "stdout_sha256": "b4348e548e470414700d3176b0adfcf08b1c01ca4a14d8a1438fc83cae071b1a"
+   },
+   {
+    "mistake": "leaving out the reversal of the first key",
+    "stdout_sha256": "eb4024a2ad0b5072dcfbc1e630528ae8209baea2cffba3249cce2924ae6ada02"
+   },
+   {
+    "mistake": "reversing the whole comparator instead of only the first key",
+    "stdout_sha256": "ef09e66ce84355627ff8cf69bfb6b6a3680e7bcda663e7496a6cb3ba3675bcba"
+   }
+  ]
+ },
+ {
+  "id": "m11-l01-v-comparators-023",
+  "params": {
+   "items": "\"Eve\", 3, \"z\"), new Item(\"dot\", 1, \"z\"), new Item(\"eve\", 3, \"y\"), new Item(\"Dot\", 1, \"y\"), new Item(\"Fay\", 3, \"z\"",
+   "primary": "comparing(Item::group, Comparator.reverseOrder())",
+   "direction": "",
+   "tie": "thenComparing(Item::name, String.CASE_INSENSITIVE_ORDER)"
+  },
+  "source_sha256": "98056cdc2ed8e0014d0606af70d54d77d2cbfe5a000b074e1e15b20159047f0b",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "c22ec312c5b403151bef224b9a98539d3c37d130f317aca65b0f879c2302dc0d",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "leaving out the tie-breaker, so equal items keep their input order",
+    "stdout_sha256": "b4348e548e470414700d3176b0adfcf08b1c01ca4a14d8a1438fc83cae071b1a"
+   },
+   {
+    "mistake": "leaving out the key comparator that ignores case",
+    "stdout_sha256": "ef09e66ce84355627ff8cf69bfb6b6a3680e7bcda663e7496a6cb3ba3675bcba"
+   },
+   {
+    "mistake": "leaving out the reverse order of a key",
+    "stdout_sha256": "5f9e89dc36ded8a44b8d2032fc36f8cb65fd2c5eaca540fc7032057b65b15aad"
+   }
+  ]
+ },
+ {
+  "id": "m11-l01-v-comparators-024",
+  "params": {
+   "items": "\"Eve\", 3, \"z\"), new Item(\"dot\", 1, \"z\"), new Item(\"eve\", 3, \"y\"), new Item(\"Dot\", 1, \"y\"), new Item(\"Fay\", 3, \"z\"",
+   "primary": "comparing(Item::group, Comparator.reverseOrder())",
+   "direction": ".reversed()",
+   "tie": "thenComparing(Item::name)"
+  },
+  "source_sha256": "3992cbf33e51ac4207885e0f0cf63e11fec4a5694cc76baa5a5ed7d622bba0b7",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "2f84d56a96ee78cb9d34dbed97449589f029d9e11853f739999b12a016779ee3",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "leaving out the tie-breaker, so equal items keep their input order",
+    "stdout_sha256": "adda2d182329db1514a138c509b3a051350471e03985b105f8df512086382722"
+   },
+   {
+    "mistake": "leaving out the reversal of the first key",
+    "stdout_sha256": "ef09e66ce84355627ff8cf69bfb6b6a3680e7bcda663e7496a6cb3ba3675bcba"
+   },
+   {
+    "mistake": "reversing the whole comparator instead of only the first key",
+    "stdout_sha256": "eb4024a2ad0b5072dcfbc1e630528ae8209baea2cffba3249cce2924ae6ada02"
+   }
+  ]
+ },
+ {
+  "id": "m11-l01-v-comparators-025",
+  "params": {
+   "items": "\"Eve\", 3, \"z\"), new Item(\"dot\", 1, \"z\"), new Item(\"eve\", 3, \"y\"), new Item(\"Dot\", 1, \"y\"), new Item(\"Fay\", 3, \"z\"",
+   "primary": "comparing(Item::group, Comparator.reverseOrder())",
+   "direction": ".reversed()",
+   "tie": "thenComparing(Item::name, String.CASE_INSENSITIVE_ORDER)"
+  },
+  "source_sha256": "f4023eaeb7fa8f9fb050493f746488e748dff4e5472ff1132e3fdb000690269f",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "5f9e89dc36ded8a44b8d2032fc36f8cb65fd2c5eaca540fc7032057b65b15aad",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "leaving out the tie-breaker, so equal items keep their input order",
+    "stdout_sha256": "adda2d182329db1514a138c509b3a051350471e03985b105f8df512086382722"
+   },
+   {
+    "mistake": "leaving out the reversal of the first key",
+    "stdout_sha256": "c22ec312c5b403151bef224b9a98539d3c37d130f317aca65b0f879c2302dc0d"
+   },
+   {
+    "mistake": "reversing the whole comparator instead of only the first key",
+    "stdout_sha256": "76dd5e5310c0956256ce7a462deecb3370692b048ce56b8881162ac851dee79e"
+   }
+  ]
+ },
+ {
+  "id": "m11-l01-v-comparators-026",
+  "params": {
+   "items": "\"Eve\", 3, \"z\"), new Item(\"dot\", 1, \"z\"), new Item(\"eve\", 3, \"y\"), new Item(\"Dot\", 1, \"y\"), new Item(\"Fay\", 3, \"z\"",
+   "primary": "comparing(Item::group, Comparator.reverseOrder())",
+   "direction": ".reversed()",
+   "tie": "thenComparing(Item::name, Comparator.reverseOrder())"
+  },
+  "source_sha256": "b1f553fd7135a1d784287b653530b90a2abe39ddeb50b131e2e45022cee53d55",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "eb4024a2ad0b5072dcfbc1e630528ae8209baea2cffba3249cce2924ae6ada02",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "leaving out the tie-breaker, so equal items keep their input order",
+    "stdout_sha256": "adda2d182329db1514a138c509b3a051350471e03985b105f8df512086382722"
+   },
+   {
+    "mistake": "leaving out the reversal of the first key",
+    "stdout_sha256": "144cf27838471bc4c1eabeaa68c74b6281a8440015051a7f77225aa3de9eb093"
+   },
+   {
+    "mistake": "reversing the whole comparator instead of only the first key",
+    "stdout_sha256": "2f84d56a96ee78cb9d34dbed97449589f029d9e11853f739999b12a016779ee3"
+   }
+  ]
+ },
+ {
+  "id": "m11-l01-v-comparators-027",
+  "params": {
+   "items": "\"kim\", 1, \"b\"), new Item(\"Lee\", 2, \"a\"), new Item(\"Kim\", 1, \"a\"), new Item(\"lee\", 2, \"b\"), new Item(\"Max\", 1, \"b\"",
+   "primary": "comparingInt(Item::rank)",
+   "direction": "",
+   "tie": "thenComparing(Item::name)"
+  },
+  "source_sha256": "fd19b83edc9555839186859712d1864b005d35da6f1ce6f56bd0e663ff32a1c3",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "ee4a7fb543ee3db6595efe74334c33648756171f45f9157058f316b90ffa1ec0",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "leaving out the tie-breaker, so equal items keep their input order",
+    "stdout_sha256": "80efd7319f8a4c9f49b8d43d331ff343157e7ab5b9d6bbf201b68b16c8a51390"
+   },
+   {
+    "mistake": "breaking ties on the group instead of the name",
+    "stdout_sha256": "44732f73dd4dd734fb525c97d908a4f9f005f40f765448b123008a89c90b39e7"
+   },
+   {
+    "mistake": "sorting by the group first instead of the rank",
+    "stdout_sha256": "dbe24aa2b38c48e8b85126efc8cd100ddef8c91598b08305945c2508bd419293"
+   }
+  ]
+ },
+ {
+  "id": "m11-l01-v-comparators-028",
+  "params": {
+   "items": "\"kim\", 1, \"b\"), new Item(\"Lee\", 2, \"a\"), new Item(\"Kim\", 1, \"a\"), new Item(\"lee\", 2, \"b\"), new Item(\"Max\", 1, \"b\"",
+   "primary": "comparingInt(Item::rank)",
+   "direction": "",
+   "tie": "thenComparing(Item::name, String.CASE_INSENSITIVE_ORDER)"
+  },
+  "source_sha256": "8f7585d803e95e616d585e2a42bcf9f9ca004b02e058d594e599ab5172381e12",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "80efd7319f8a4c9f49b8d43d331ff343157e7ab5b9d6bbf201b68b16c8a51390",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "leaving out the key comparator that ignores case",
+    "stdout_sha256": "ee4a7fb543ee3db6595efe74334c33648756171f45f9157058f316b90ffa1ec0"
+   },
+   {
+    "mistake": "breaking ties on the group instead of the name",
+    "stdout_sha256": "44732f73dd4dd734fb525c97d908a4f9f005f40f765448b123008a89c90b39e7"
+   },
+   {
+    "mistake": "sorting by the group first instead of the rank",
+    "stdout_sha256": "0c585ef1633f4ea770de53af3df1e4e2db5191d1928a92063359d2ebe0b31cd2"
+   }
+  ]
+ },
+ {
+  "id": "m11-l01-v-comparators-029",
+  "params": {
+   "items": "\"kim\", 1, \"b\"), new Item(\"Lee\", 2, \"a\"), new Item(\"Kim\", 1, \"a\"), new Item(\"lee\", 2, \"b\"), new Item(\"Max\", 1, \"b\"",
+   "primary": "comparingInt(Item::rank)",
+   "direction": "",
+   "tie": "thenComparing(Item::name, Comparator.reverseOrder())"
+  },
+  "source_sha256": "6aa42e894e5c6d8dac55d2096b2207c8508d34d471bd8a3c6e9af5214bed89a1",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "1ef3fed4e57c6267636f669d1002b0c53824b9733435508a7a357fceaa9d6488",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "leaving out the tie-breaker, so equal items keep their input order",
+    "stdout_sha256": "80efd7319f8a4c9f49b8d43d331ff343157e7ab5b9d6bbf201b68b16c8a51390"
+   },
+   {
+    "mistake": "leaving out the reverse order of a key",
+    "stdout_sha256": "ee4a7fb543ee3db6595efe74334c33648756171f45f9157058f316b90ffa1ec0"
+   },
+   {
+    "mistake": "sorting by the group first instead of the rank",
+    "stdout_sha256": "129683f195b7cbadcbdfa017997933db00b2773aa7d76de0134b738d3361cc3c"
+   }
+  ]
+ },
+ {
+  "id": "m11-l01-v-comparators-030",
+  "params": {
+   "items": "\"kim\", 1, \"b\"), new Item(\"Lee\", 2, \"a\"), new Item(\"Kim\", 1, \"a\"), new Item(\"lee\", 2, \"b\"), new Item(\"Max\", 1, \"b\"",
+   "primary": "comparingInt(Item::rank)",
+   "direction": ".reversed()",
+   "tie": "thenComparing(Item::name)"
+  },
+  "source_sha256": "412ff8a4c7cfc7ed5cd377b29778cd8183f49ec203adff2db6fb1a17984ed400",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "74d0da6ba12b98a65f76270b728228ff334b286613ab0150aed81a7f2fd781f3",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "leaving out the tie-breaker, so equal items keep their input order",
+    "stdout_sha256": "df6e7024f732e858abeec66dd840be585560be9232d0c0922a2f52aacb2d5dab"
+   },
+   {
+    "mistake": "leaving out the reversal of the first key",
+    "stdout_sha256": "ee4a7fb543ee3db6595efe74334c33648756171f45f9157058f316b90ffa1ec0"
+   },
+   {
+    "mistake": "reversing the whole comparator instead of only the first key",
+    "stdout_sha256": "acc858a2c694f001fad3a527d3f6a5b0c4b822ca4e94c89fb3e4ea84486139ea"
+   }
+  ]
+ },
+ {
+  "id": "m11-l01-v-comparators-031",
+  "params": {
+   "items": "\"kim\", 1, \"b\"), new Item(\"Lee\", 2, \"a\"), new Item(\"Kim\", 1, \"a\"), new Item(\"lee\", 2, \"b\"), new Item(\"Max\", 1, \"b\"",
+   "primary": "comparingInt(Item::rank)",
+   "direction": ".reversed()",
+   "tie": "thenComparing(Item::name, String.CASE_INSENSITIVE_ORDER)"
+  },
+  "source_sha256": "2250c9fa8e8125e5d1734d070ae870efc62ef8733e9838d817457eaf33369c4b",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "df6e7024f732e858abeec66dd840be585560be9232d0c0922a2f52aacb2d5dab",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "leaving out the reversal of the first key",
+    "stdout_sha256": "80efd7319f8a4c9f49b8d43d331ff343157e7ab5b9d6bbf201b68b16c8a51390"
+   },
+   {
+    "mistake": "reversing the whole comparator instead of only the first key",
+    "stdout_sha256": "9c6a2a19b7a0def332a454e9b2f50dca5fa909c39ed7f8761cd23ab526c8562e"
+   },
+   {
+    "mistake": "leaving out the key comparator that ignores case",
+    "stdout_sha256": "74d0da6ba12b98a65f76270b728228ff334b286613ab0150aed81a7f2fd781f3"
+   }
+  ]
+ },
+ {
+  "id": "m11-l01-v-comparators-032",
+  "params": {
+   "items": "\"kim\", 1, \"b\"), new Item(\"Lee\", 2, \"a\"), new Item(\"Kim\", 1, \"a\"), new Item(\"lee\", 2, \"b\"), new Item(\"Max\", 1, \"b\"",
+   "primary": "comparingInt(Item::rank)",
+   "direction": ".reversed()",
+   "tie": "thenComparing(Item::name, Comparator.reverseOrder())"
+  },
+  "source_sha256": "6c6ade9c46ec9c9a43391fc418ac4061642da4b60fd4cdf7974b24af7848d752",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "acc858a2c694f001fad3a527d3f6a5b0c4b822ca4e94c89fb3e4ea84486139ea",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "leaving out the tie-breaker, so equal items keep their input order",
+    "stdout_sha256": "df6e7024f732e858abeec66dd840be585560be9232d0c0922a2f52aacb2d5dab"
+   },
+   {
+    "mistake": "leaving out the reversal of the first key",
+    "stdout_sha256": "1ef3fed4e57c6267636f669d1002b0c53824b9733435508a7a357fceaa9d6488"
+   },
+   {
+    "mistake": "reversing the whole comparator instead of only the first key",
+    "stdout_sha256": "74d0da6ba12b98a65f76270b728228ff334b286613ab0150aed81a7f2fd781f3"
+   }
+  ]
+ },
+ {
+  "id": "m11-l01-v-comparators-033",
+  "params": {
+   "items": "\"kim\", 1, \"b\"), new Item(\"Lee\", 2, \"a\"), new Item(\"Kim\", 1, \"a\"), new Item(\"lee\", 2, \"b\"), new Item(\"Max\", 1, \"b\"",
+   "primary": "comparing(Item::group)",
+   "direction": ".reversed()",
+   "tie": "thenComparing(Item::name)"
+  },
+  "source_sha256": "b79b4d3b6ecc48b109404f90b51d4d0a432c7bb06632ad82ad144b34c6b97d8f",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "60180cf7f0cecddb6c094808f6480c492cfca3d404f97f5f81e73b5a69d86917",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "leaving out the tie-breaker, so equal items keep their input order",
+    "stdout_sha256": "e753ca5367a1d116fd91963171945c59cce5ba062140a47a994421736f9b28e8"
+   },
+   {
+    "mistake": "leaving out the reversal of the first key",
+    "stdout_sha256": "dbe24aa2b38c48e8b85126efc8cd100ddef8c91598b08305945c2508bd419293"
+   },
+   {
+    "mistake": "reversing the whole comparator instead of only the first key",
+    "stdout_sha256": "6a6c32286f91be9c2141c0a8846adca4e73b7b44b6d7338d14cdbe81e59fee1e"
+   }
+  ]
+ },
+ {
+  "id": "m11-l01-v-comparators-034",
+  "params": {
+   "items": "\"kim\", 1, \"b\"), new Item(\"Lee\", 2, \"a\"), new Item(\"Kim\", 1, \"a\"), new Item(\"lee\", 2, \"b\"), new Item(\"Max\", 1, \"b\"",
+   "primary": "comparing(Item::group)",
+   "direction": ".reversed()",
+   "tie": "thenComparing(Item::name, String.CASE_INSENSITIVE_ORDER)"
+  },
+  "source_sha256": "6c6fd106bd9f1dd8b410a0b8bc747a6498eb1491a6f54c6bd66ad2d109917247",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "9f018ba3843929336f83ccb794a8fcbd0d7deab523b8125c81e6650d1ef7dc37",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "leaving out the tie-breaker, so equal items keep their input order",
+    "stdout_sha256": "e753ca5367a1d116fd91963171945c59cce5ba062140a47a994421736f9b28e8"
+   },
+   {
+    "mistake": "leaving out the reversal of the first key",
+    "stdout_sha256": "0c585ef1633f4ea770de53af3df1e4e2db5191d1928a92063359d2ebe0b31cd2"
+   },
+   {
+    "mistake": "reversing the whole comparator instead of only the first key",
+    "stdout_sha256": "450b26943b19167d97641e472021e3c78d907dfeb9975c8476f83c7401b57838"
+   }
+  ]
+ },
+ {
+  "id": "m11-l01-v-comparators-035",
+  "params": {
+   "items": "\"kim\", 1, \"b\"), new Item(\"Lee\", 2, \"a\"), new Item(\"Kim\", 1, \"a\"), new Item(\"lee\", 2, \"b\"), new Item(\"Max\", 1, \"b\"",
+   "primary": "comparing(Item::group)",
+   "direction": ".reversed()",
+   "tie": "thenComparing(Item::name, Comparator.reverseOrder())"
+  },
+  "source_sha256": "32e7f81c56f9df36b81f4dc76af24a87efbc670ae9393250195f8737c40305f1",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "6a6c32286f91be9c2141c0a8846adca4e73b7b44b6d7338d14cdbe81e59fee1e",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "leaving out the tie-breaker, so equal items keep their input order",
+    "stdout_sha256": "e753ca5367a1d116fd91963171945c59cce5ba062140a47a994421736f9b28e8"
+   },
+   {
+    "mistake": "leaving out the reversal of the first key",
+    "stdout_sha256": "129683f195b7cbadcbdfa017997933db00b2773aa7d76de0134b738d3361cc3c"
+   },
+   {
+    "mistake": "reversing the whole comparator instead of only the first key",
+    "stdout_sha256": "60180cf7f0cecddb6c094808f6480c492cfca3d404f97f5f81e73b5a69d86917"
+   }
+  ]
+ },
+ {
+  "id": "m11-l01-v-comparators-036",
+  "params": {
+   "items": "\"kim\", 1, \"b\"), new Item(\"Lee\", 2, \"a\"), new Item(\"Kim\", 1, \"a\"), new Item(\"lee\", 2, \"b\"), new Item(\"Max\", 1, \"b\"",
+   "primary": "comparing(Item::group, Comparator.reverseOrder())",
+   "direction": "",
+   "tie": "thenComparing(Item::name, String.CASE_INSENSITIVE_ORDER)"
+  },
+  "source_sha256": "b5a7b2f4c38f0be340431b4e46aef7971796a25aec67988e1ecf9e3434737679",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "9f018ba3843929336f83ccb794a8fcbd0d7deab523b8125c81e6650d1ef7dc37",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "leaving out the tie-breaker, so equal items keep their input order",
+    "stdout_sha256": "e753ca5367a1d116fd91963171945c59cce5ba062140a47a994421736f9b28e8"
+   },
+   {
+    "mistake": "leaving out the key comparator that ignores case",
+    "stdout_sha256": "60180cf7f0cecddb6c094808f6480c492cfca3d404f97f5f81e73b5a69d86917"
+   },
+   {
+    "mistake": "leaving out the reverse order of a key",
+    "stdout_sha256": "0c585ef1633f4ea770de53af3df1e4e2db5191d1928a92063359d2ebe0b31cd2"
+   }
+  ]
+ },
+ {
+  "id": "m11-l01-v-comparators-037",
+  "params": {
+   "items": "\"kim\", 1, \"b\"), new Item(\"Lee\", 2, \"a\"), new Item(\"Kim\", 1, \"a\"), new Item(\"lee\", 2, \"b\"), new Item(\"Max\", 1, \"b\"",
+   "primary": "comparing(Item::group, Comparator.reverseOrder())",
+   "direction": ".reversed()",
+   "tie": "thenComparing(Item::name)"
+  },
+  "source_sha256": "6b43867c91c867a4d70dd8cdf176c63f9c5062f12a49198c660a6a74cc2f8d44",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "dbe24aa2b38c48e8b85126efc8cd100ddef8c91598b08305945c2508bd419293",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "leaving out the tie-breaker, so equal items keep their input order",
+    "stdout_sha256": "6607551c008e69a5b9867a14c34ba73425d05d80d4cfd76b8494acb5a0e97592"
+   },
+   {
+    "mistake": "leaving out the reversal of the first key",
+    "stdout_sha256": "60180cf7f0cecddb6c094808f6480c492cfca3d404f97f5f81e73b5a69d86917"
+   },
+   {
+    "mistake": "reversing the whole comparator instead of only the first key",
+    "stdout_sha256": "129683f195b7cbadcbdfa017997933db00b2773aa7d76de0134b738d3361cc3c"
+   }
+  ]
+ },
+ {
+  "id": "m11-l01-v-comparators-038",
+  "params": {
+   "items": "\"kim\", 1, \"b\"), new Item(\"Lee\", 2, \"a\"), new Item(\"Kim\", 1, \"a\"), new Item(\"lee\", 2, \"b\"), new Item(\"Max\", 1, \"b\"",
+   "primary": "comparing(Item::group, Comparator.reverseOrder())",
+   "direction": ".reversed()",
+   "tie": "thenComparing(Item::name, String.CASE_INSENSITIVE_ORDER)"
+  },
+  "source_sha256": "b33d081bedeb6f09d2659e43ea3d47ac40ac0ab693b49d7c4ed48c395bdeff5c",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "0c585ef1633f4ea770de53af3df1e4e2db5191d1928a92063359d2ebe0b31cd2",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "leaving out the tie-breaker, so equal items keep their input order",
+    "stdout_sha256": "6607551c008e69a5b9867a14c34ba73425d05d80d4cfd76b8494acb5a0e97592"
+   },
+   {
+    "mistake": "leaving out the reversal of the first key",
+    "stdout_sha256": "9f018ba3843929336f83ccb794a8fcbd0d7deab523b8125c81e6650d1ef7dc37"
+   },
+   {
+    "mistake": "reversing the whole comparator instead of only the first key",
+    "stdout_sha256": "4d57b66dfb8ec35c8f58ddd4b3ac4e2146ef23f80963fa316c1f5de136c7fd04"
+   }
+  ]
+ },
+ {
+  "id": "m11-l01-v-comparators-039",
+  "params": {
+   "items": "\"kim\", 1, \"b\"), new Item(\"Lee\", 2, \"a\"), new Item(\"Kim\", 1, \"a\"), new Item(\"lee\", 2, \"b\"), new Item(\"Max\", 1, \"b\"",
+   "primary": "comparing(Item::group, Comparator.reverseOrder())",
+   "direction": ".reversed()",
+   "tie": "thenComparing(Item::name, Comparator.reverseOrder())"
+  },
+  "source_sha256": "bc2688a89f2996ab0226a8e2ab62acb0a103235afff8f1cbde0f194eefa7bffb",
+  "commands": [
+   [
+    "java",
+    "Main.java"
+   ]
+  ],
+  "stdout_sha256": "129683f195b7cbadcbdfa017997933db00b2773aa7d76de0134b738d3361cc3c",
+  "java": "25.0.5.1",
+  "distractors": [
+   {
+    "mistake": "leaving out the tie-breaker, so equal items keep their input order",
+    "stdout_sha256": "6607551c008e69a5b9867a14c34ba73425d05d80d4cfd76b8494acb5a0e97592"
+   },
+   {
+    "mistake": "leaving out the reversal of the first key",
+    "stdout_sha256": "6a6c32286f91be9c2141c0a8846adca4e73b7b44b6d7338d14cdbe81e59fee1e"
+   },
+   {
+    "mistake": "reversing the whole comparator instead of only the first key",
+    "stdout_sha256": "dbe24aa2b38c48e8b85126efc8cd100ddef8c91598b08305945c2508bd419293"
+   }
+  ]
+ }
+]

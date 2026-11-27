@@ -1,0 +1,56 @@
+exercise: m04-l02-ex-scope-returns
+lesson: m04-l02
+citation: "kotlin-docs-scope-functions#let"
+file: Main.kt
+prompt: "What does this program print? The first line is the value of the scope function call, the second the `Box` after the lambda ran."
+difficulty: 3
+tags: [kotlin, scope-functions]
+parameters:
+  bump: [2, 5]
+  op: ["length", "uppercase()"]
+  label: [kt, spring]
+cases:
+  - scope: "box.let"
+    citation: "kotlin-docs-scope-functions#let"
+    why: "`let` returns the lambda result, so `out` is the value of the last expression in the lambda."
+  - scope: "box.run"
+    citation: "kotlin-docs-scope-functions#run"
+    why: "`run` returns the lambda result, so `out` is the value of the last expression in the lambda."
+  - scope: "with(box)"
+    citation: "kotlin-docs-scope-functions#with"
+    why: "`with` returns the lambda result, so `out` is the value of the last expression in the lambda."
+  - scope: "box.apply"
+    citation: "kotlin-docs-scope-functions#apply"
+    why: "`apply` returns the object itself, so `out` is the `Box` and the value of the last expression in the lambda is discarded."
+  - scope: "box.also"
+    citation: "kotlin-docs-scope-functions#also"
+    why: "`also` returns the object itself, so `out` is the `Box` and the value of the last expression in the lambda is discarded."
+template: |
+  data class Box(var label: String, var size: Int)
+
+  fun main() {
+      val box = Box("@@label@@", 1)
+      val out = @@scope@@ { box.size += @@bump@@; box.label.@@op@@ }
+      println(out)
+      println(box)
+  }
+explanation: "The call is `@@scope@@`, and its lambda adds @@bump@@ to `size` before its last expression. @@why@@ The output is @@key@@."
+mistakes:
+  - name: thinking the call returns the context object
+    replace: ["@@scope@@ {", "box.also {"]
+    why: "`let`, `run` and `with` return the lambda result, not the object."
+  - name: thinking the call returns the lambda result
+    replace: ["@@scope@@ {", "box.let {"]
+    why: "`apply` and `also` return the object itself, not the lambda result."
+  - name: forgetting that the lambda bumps the size
+    replace: ["box.size += @@bump@@; ", ""]
+    why: "The lambda runs once and adds @@bump@@ to `size` of the same `Box`."
+  - name: printing the size as the lambda result
+    replace: ["; box.label.@@op@@ }", "; box.size }"]
+    why: "The last expression of the lambda is `box.label.@@op@@`, not `box.size`."
+  - name: applying the bump twice
+    replace: ["box.size += @@bump@@", "box.size += @@bump@@ * 2"]
+    why: "The lambda adds @@bump@@ once."
+  - name: assuming the lambda works on a copy of the box
+    replace: ["box.size += @@bump@@; ", "box.size + @@bump@@; "]
+    why: "The lambda changes the same `Box` that is printed afterwards, not a copy."

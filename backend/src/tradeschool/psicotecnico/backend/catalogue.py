@@ -17,6 +17,24 @@ from tradeschool.psicotecnico.backend.lru_cache import LruCacheGenerator
 from tradeschool.psicotecnico.backend.quorum import QuorumGenerator
 from tradeschool.psicotecnico.backend.rate_limiter import RateLimiterGenerator
 from tradeschool.psicotecnico.backend.retry_backoff import RetryBackoffGenerator
+from tradeschool.psicotecnico.backend.graph_traversal import GraphTraversalGenerator
+from tradeschool.psicotecnico.backend.topological_order import TopologicalOrderGenerator
+from tradeschool.psicotecnico.backend.union_find_sets import UnionFindGenerator
+from tradeschool.psicotecnico.backend.hashmap_resize import HashMapResizeGenerator
+from tradeschool.psicotecnico.backend.thread_pool_state import ThreadPoolStateGenerator
+from tradeschool.psicotecnico.backend.partition_owner import PartitionOwnerGenerator
+from tradeschool.psicotecnico.backend.property_source import PropertySourceGenerator
+from tradeschool.psicotecnico.backend.proxy_annotation import ProxyAnnotationGenerator
+from tradeschool.psicotecnico.backend.row_lock_conflict import RowLockConflictGenerator
+from tradeschool.psicotecnico.backend.http_freshness import HttpFreshnessGenerator
+from tradeschool.psicotecnico.backend.http_method_properties import HttpMethodPropertiesGenerator
+from tradeschool.psicotecnico.backend.kafka_write_acceptance import KafkaWriteAcceptanceGenerator
+from tradeschool.psicotecnico.backend.raft_election import RaftElectionVotesGenerator
+from tradeschool.psicotecnico.backend.raft_commit import RaftCommitIndexGenerator
+from tradeschool.psicotecnico.backend.window_grace import WindowGraceGenerator
+from tradeschool.psicotecnico.backend.hpa_replicas import HpaReplicasGenerator
+from tradeschool.psicotecnico.backend.rolling_update import RollingUpdateBoundsGenerator
+from tradeschool.psicotecnico.backend.error_budget import ErrorBudgetGenerator
 
 BACKEND_GENERATORS: dict[str, CitedGenerator] = {
     generator.id: generator
@@ -34,6 +52,24 @@ BACKEND_GENERATORS: dict[str, CitedGenerator] = {
         LruCacheGenerator(),
         HeapContentsGenerator(),
         LoopComplexityGenerator(),
+        GraphTraversalGenerator(),
+        TopologicalOrderGenerator(),
+        UnionFindGenerator(),
+        HashMapResizeGenerator(),
+        ThreadPoolStateGenerator(),
+        PartitionOwnerGenerator(),
+        PropertySourceGenerator(),
+        ProxyAnnotationGenerator(),
+        RowLockConflictGenerator(),
+        HttpFreshnessGenerator(),
+        HttpMethodPropertiesGenerator(),
+        KafkaWriteAcceptanceGenerator(),
+        RaftElectionVotesGenerator(),
+        RaftCommitIndexGenerator(),
+        WindowGraceGenerator(),
+        HpaReplicasGenerator(),
+        RollingUpdateBoundsGenerator(),
+        ErrorBudgetGenerator(),
     )
 }
 

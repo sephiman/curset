@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+from collections import Counter
 from functools import cache
 from pathlib import Path
 
@@ -104,52 +105,65 @@ async def test_the_mixed_review_draws_across_modules_from_the_whole_bank(backend
     review = _keys(
         (await backend_client.post(f"{BACKEND}/practice/review", json={"count": 100})).json()["questions"]
     )
-    assert len(review) == len(set(review)) == 100 and set(review) <= bank
+    stored = [key for key in review if not key[0].startswith("gen:")]
+    generated = Counter(exercise for exercise, _ in review if exercise.startswith("gen:"))
+    assert len(review) == 100 and len(stored) == len(set(stored)) and set(stored) <= bank
+    assert generated and max(generated.values()) <= 2
     assert len({registry.exercise_location(exercise) for exercise, _ in review}) > 1
 
 
-async def test_code_reading_draws_only_and_all_the_questions_that_rest_on_a_snippet(
+def _family_of(registry: CourseRegistry, exercise: str, question: str) -> str | None:
+    return next(v.family for e, v in registry._quiz_variants() if (e, v.id) == (exercise, question))
+
+
+async def test_code_reading_draws_every_snippet_question_and_two_of_each_variant_family(
     backend_client: AsyncClient,
 ) -> None:
     await _sign_up(backend_client, "codigo")
     registry = _registry()
     expected = {(q.exercise_id, q.variant_id) for q in registry.code_reading_questions()}
-    assert 20 < len(expected) <= 100
+    plain = {key for key in expected if _family_of(registry, *key) is None}
+    assert 20 < len(plain) <= 100
     drawn = _keys(
         (await backend_client.post(f"{BACKEND}/practice/code-reading", json={"count": 100})).json()[
             "questions"
         ]
     )
-    assert sorted(drawn) == sorted(expected)
-    assert all(_snippet(registry, exercise, question) for exercise, question in drawn)
+    assert len(drawn) == 100 and set(drawn) <= expected
+    per_family = Counter(family for key in drawn if (family := _family_of(registry, *key)))
+    assert per_family and max(per_family.values()) == 2
+    assert all(_snippet(registry, *key) for key in set(drawn) & plain)
     default = _keys((await backend_client.post(f"{BACKEND}/practice/code-reading")).json()["questions"])
     assert len(default) == 20 and set(default) <= expected
 
 
 async def test_code_reading_follows_the_scheduler_unseen_questions_first(backend_client: AsyncClient) -> None:
     await _sign_up(backend_client, "planificado")
-    first = (await backend_client.post(f"{BACKEND}/practice/code-reading", json={"count": 100})).json()[
-        "questions"
-    ][0]
+    registry = _registry()
+    round_ = (await backend_client.post(f"{BACKEND}/practice/code-reading", json={"count": 100})).json()
+    first = next(
+        q for q in round_["questions"] if _family_of(registry, q["exerciseId"], q["questionId"]) is None
+    )
     await _answer_right(backend_client, first["exerciseId"], first["questionId"])
     again = _keys(
         (await backend_client.post(f"{BACKEND}/practice/code-reading", json={"count": 100})).json()[
             "questions"
         ]
     )
-    assert again[-1] == (first["exerciseId"], first["questionId"])
+    # Past the unseen questions: last when they fit the round, cut off when more than a round's worth remain.
+    assert (first["exerciseId"], first["questionId"]) not in again[:-1]
 
 
 async def test_generators_only_draws_generated_items_of_the_course_generators(
     backend_client: AsyncClient,
 ) -> None:
     await _sign_up(backend_client, "generadores")
-    drawn = (await backend_client.post(f"{BACKEND}/practice/psicotecnicos", json={"count": 26})).json()[
+    drawn = (await backend_client.post(f"{BACKEND}/practice/psicotecnicos", json={"count": 62})).json()[
         "exerciseIds"
     ]
     generators = {use.exercise_id for use in _registry().generator_uses()}
-    assert len(generators) == 13
-    assert len(drawn) == 26 and set(drawn) == generators
+    assert len(generators) == 31
+    assert len(drawn) == 62 and set(drawn) == generators
 
 
 async def test_a_course_that_declares_no_presets_refuses_the_new_rounds(multi_client: AsyncClient) -> None:
@@ -211,3 +225,26 @@ async def test_the_design_cases_stay_out_of_every_preset_round(backend_client: A
     assert all(r.status_code == 200 for r in rounds)
     drawn = {q["exerciseId"] for r in rounds for q in r.json()["questions"]}
     assert drawn and not drawn & cases
+
+
+async def test_the_lesson_page_names_the_generated_families_that_cite_it(backend_client: AsyncClient) -> None:
+    await _sign_up(backend_client, "familias")
+    registry = _registry()
+    cited = {
+        (registry.generated_family_lesson(use), use.generator)
+        for use in registry.manifest.course.practice_generators
+        if registry.generated_family_lesson(use) is not None
+    }
+    assert cited
+    for lesson_id in {lesson for lesson, _ in cited}:
+        page = (await backend_client.get(f"{BACKEND}/lessons/{lesson_id}")).json()
+        assert {f["id"] for f in page["generatedFamilies"]} == {
+            g for lesson, g in cited if lesson == lesson_id
+        }
+
+
+def test_every_build_time_variant_family_is_in_code_reading_practice() -> None:
+    registry = _registry()
+    families = {q.family for q in registry.code_reading_questions() if q.family}
+    built = {variant.family for _, variant in registry._quiz_variants() if variant.family}
+    assert built and built <= families

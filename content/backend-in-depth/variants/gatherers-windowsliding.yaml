@@ -1,0 +1,42 @@
+exercise: m11-l01-ex-gatherers-windowsliding
+lesson: m11-l01
+citation: "javadoc-gatherers#windowSliding(int)"
+file: Main.java
+prompt: "Since Java 24, where gatherers are final, what does this program print? The stream is ordered, and the windows are printed as lists."
+difficulty: 3
+tags: [streams, gatherers]
+parameters:
+  data:
+    - "1, 2, 3, 4, 5, 6"
+    - "2, 4, 6, 8, 10"
+    - "7, 1, 5, 3, 9, 2"
+    - "3, 8, 1, 6"
+    - "5, 5, 2, 9, 1, 4, 7"
+    - "1, 9, 4, 2, 8, 3"
+    - "6, 2, 7, 3, 5"
+    - "4, 1, 8, 2, 9, 6, 3"
+    - "2, 7, 3, 1"
+    - "9, 4, 6, 1, 5, 2, 8"
+  size: [2, 3, 4, 5]
+template: |
+  import java.util.stream.Gatherers;
+  import java.util.stream.Stream;
+
+  public class Main {
+      public static void main(String[] args) {
+          System.out.println(Stream.of(@@data@@).gather(Gatherers.windowSliding(@@size@@)).toList());
+      }
+  }
+explanation: >-
+  `windowSliding(@@size@@)` starts with the first @@size@@ elements. Each next window drops the oldest element of the previous one and adds the next element of the stream. A stream shorter than the window gives a single window with all its elements. The program prints @@key@@.
+mistakes:
+  - name: using `windowFixed` where `windowSliding` was written
+    replace: ["Gatherers.windowSliding(", "Gatherers.windowFixed("]
+  - name: a window one element larger than written
+    replace: ["windowSliding(@@size@@)", "windowSliding(@@size@@ + 1)"]
+  - name: a window one element smaller than written
+    replace: ["windowSliding(@@size@@)", "windowSliding(@@size@@ - 1)"]
+  - name: expecting no window when the stream is shorter than the window
+    replace: [".toList()", ".filter(w -> w.size() == @@size@@).toList()"]
+  - name: leaving out the first window
+    replace: [".toList()", ".skip(1).toList()"]
